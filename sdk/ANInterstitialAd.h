@@ -27,6 +27,7 @@
 @interface ANInterstitialAd : NSObject <ANAdProtocol>
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
+@property (nonatomic, readwrite, assign) NSTimeInterval autoDismissTimeInterval;
 
 - (id)initWithPlacementId:(NSString *)placementId;
 - (void)loadAd;

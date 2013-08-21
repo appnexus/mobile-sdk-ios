@@ -26,6 +26,7 @@
 @property (nonatomic, readwrite, assign) CGSize adSize;
 @property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser;
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
+@property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
 
 - (NSString *)adType;
 

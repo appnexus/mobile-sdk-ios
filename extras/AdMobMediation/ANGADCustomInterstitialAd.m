@@ -31,6 +31,7 @@
 {
 	self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:serverParameter];
     self.interstitialAd.delegate = self;
+	self.interstitialAd.shouldServePublicServiceAnnouncements = NO;
     [self.interstitialAd loadAd];
 }
 

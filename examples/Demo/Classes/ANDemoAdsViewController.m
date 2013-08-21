@@ -201,7 +201,7 @@ NSString *ANDemoAdsViewControllerSavedTagKey = @"ANDemoAdsViewControllerSavedTag
 		
 		self.bannerAdView.placementId = placementId;
 		self.bannerAdView.delegate = self;
-		[self.bannerAdView startAutorefreshWithInterval:autorefreshInterval];
+		self.bannerAdView.autorefreshInterval = autorefreshInterval;
 	}
 	else if (adKind == 1)
 	{

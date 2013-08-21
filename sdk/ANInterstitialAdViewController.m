@@ -15,8 +15,12 @@
 
 #import "ANInterstitialAdViewController.h"
 #import "UIWebView+ANCategory.h"
+#import "ANGlobal.h"
 
 @interface ANInterstitialAdViewController ()
+@property (nonatomic, readwrite, strong) NSTimer *progressTimer;
+@property (nonatomic, readwrite, strong) NSDate *timerStartDate;
+@property (nonatomic, readwrite, assign) BOOL viewed;
 @end
 
 @implementation ANInterstitialAdViewController
@@ -31,11 +35,65 @@
 - (void)viewDidLoad
 {
 	self.view.backgroundColor = [UIColor whiteColor];
+	self.progressView.hidden = YES;
+//	self.closeButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	self.contentView.frame = CGRectMake((self.view.bounds.size.width - self.contentView.frame.size.width) / 2, (self.view.bounds.size.height - self.contentView.frame.size.height) / 2, self.contentView.frame.size.width, self.contentView.frame.size.height);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	if (!self.viewed)
+	{
+		// FIXME: Leaving out countdown timer for now
+//		[self startCountdownTimer];
+		
+		self.viewed = YES;
+	}
+}
+
+- (void)startCountdownTimer
+{
+	self.progressView.hidden = NO;
+	self.timerStartDate = [NSDate date];
+	self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[self.progressTimer invalidate];
+}
+
+- (void)stopCountdownTimer
+{
+	[self.progressTimer invalidate];
+	[self.progressView setHidden:YES];
+	[self.closeButton setHidden:NO];
+}
+
+- (void)progressTimerDidFire:(NSTimer *)timer
+{
+	NSDate *timeNow = [NSDate date];
+	NSTimeInterval timeShown = [timeNow timeIntervalSinceDate:self.timerStartDate];
+	
+	if (timeShown >= kAppNexusDefaultInterstitialCloseButtonInterval && self.closeButton.hidden == YES)
+	{
+		self.closeButton.hidden = NO;
+	}
+	
+	if (timeShown >= [self.delegate interstitialAdViewControllerTimeToDismiss])
+	{
+		[timer invalidate];
+		[self.delegate interstitialAdViewControllerShouldDismiss:self];
+	}
+
+	else
+	{
+		[self.progressView setProgress:timeShown / [self.delegate interstitialAdViewControllerTimeToDismiss] animated:NO];
+	}
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration

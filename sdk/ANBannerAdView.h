@@ -15,6 +15,8 @@
 
 #import "ANAdView.h"
 
+#define kANBannerAdViewDefaultAutorefreshInterval 30.0
+
 @protocol ANBannerAdViewDelegate;
 
 @interface ANBannerAdView : ANAdView
@@ -29,14 +31,8 @@
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
-// Loads a single ad into this ad view. If startAutorefreshWithInterval: is called, this is a no-op
+// Loads a single ad into this ad view.
 - (void)loadAd;
-
-// Starts loading ads into this ad view with the specified time interval
-- (void)startAutorefreshWithInterval:(NSTimeInterval)interval;
-
-// Stops loading ads into this ad view automatically
-- (void)stopAutorefresh;
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated;
 

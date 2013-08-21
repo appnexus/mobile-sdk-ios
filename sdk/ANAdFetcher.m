@@ -93,7 +93,6 @@ NSString *const kANAdResponseContentKey = @"content";
 
 - (void)autorefreshTimerDidFire:(NSTimer *)timer
 {
-    
 	[self.connection cancel];
 	self.loading = NO;
     
@@ -273,6 +272,7 @@ NSString *const kANAdResponseContentKey = @"content";
 	
     if ([carrierParameter length] > 0)
     {
+		carrierParameter = [carrierParameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         carrierParameter = [NSString stringWithFormat:@"&carrier=%@", carrierParameter];
     }
     
@@ -344,9 +344,7 @@ NSString *const kANAdResponseContentKey = @"content";
             urlString = [urlString stringByAppendingString:param];
         }
     }
-		
-	urlString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
+	
 	return [NSURL URLWithString:urlString];
 }
 

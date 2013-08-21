@@ -60,6 +60,9 @@
 	
 	self.backgroundColor = [UIColor clearColor];
 	self.autoresizingMask = UIViewAutoresizingNone;
+	
+	// Start autorefresh automatically
+	__autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
 }
 
 - (void)awakeFromNib
@@ -87,24 +90,6 @@
     }
     
     return self;
-}
-
-- (void)stopAutorefresh
-{
-    ANLogDebug(@"Stopping autorefresh");
-    self.autorefreshInterval = 0.0f;
-    [self.adFetcher stopAd];
-}
-
-- (void)startAutorefreshWithInterval:(NSTimeInterval)interval
-{
-    ANLogDebug(@"Starting autorefresh with interval %f", interval);
-    self.autorefreshInterval = interval;
-	
-	if (self.autorefreshInterval == 0.0f)
-	{
-		[self.adFetcher requestAd];
-	}
 }
 
 - (void)loadAd
@@ -143,6 +128,18 @@
     return placementSizeParameter;
 }
 
+- (NSString *)psaParameter
+{
+	NSString *psaParameter = @"";
+	
+	if (!self.shouldServePublicServiceAnnouncements)
+	{
+		psaParameter = @"&psa=false";
+	}
+	
+	return psaParameter;
+}
+
 - (NSString *)maximumSizeParameter
 {
     return [NSString stringWithFormat:@"&max-size=%dx%d", (NSInteger)self.frame.size.width, (NSInteger)self.frame.size.height];
@@ -160,17 +157,31 @@
 }
 
 - (void)setAutorefreshInterval:(NSTimeInterval)autorefreshInterval
-{
-    NSAssert(autorefreshInterval >= 0.0f, @"Ad view interval cannot be negative.");
-    
-    ANLogDebug(@"Ad view autorefresh interval set to %f seconds", autorefreshInterval);
-    __autorefreshInterval = autorefreshInterval;
-    
-    if (autorefreshInterval > 0.0f && ![self.adFetcher isLoading])
-    {
-        ANLogDebug(@"New autorefresh interval set. Making ad request.");
-        [self.adFetcher requestAd];
-    }
+{    
+	if (autorefreshInterval < 15.0f && autorefreshInterval > 0.0f)
+	{
+		ANLogError(@"Cannot set autorefresh interval less than 15 seconds.");
+	}
+	else if (autorefreshInterval < 0.0f)
+	{
+		ANLogError(@"Ad view interval cannot be negative.");
+	}
+	else
+	{
+		ANLogDebug(@"Ad view autorefresh interval set to %f seconds", autorefreshInterval);
+		__autorefreshInterval = autorefreshInterval;
+		
+		if (autorefreshInterval > 0.0f && ![self.adFetcher isLoading])
+		{
+			ANLogDebug(@"New autorefresh interval set. Making ad request.");
+			[self.adFetcher requestAd];
+		}
+		else if (autorefreshInterval == 0.0f)
+		{
+			ANLogDebug(@"Stopping autorefresh");
+			[self.adFetcher stopAd];
+		}
+	}
 }
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated
@@ -202,6 +213,13 @@
 			[self.delegate bannerAdViewDidResize:self];
 		}
     }
+}
+
+- (void)setPlacementId:(NSString *)placementId
+{
+	[super setPlacementId:placementId];
+	
+	self.autorefreshInterval = __autorefreshInterval;
 }
 
 #pragma mark ANAdFetcherDelegate
@@ -241,7 +259,8 @@
 {
     return [NSArray arrayWithObjects:
             [self placementSizeParameter],
-            [self maximumSizeParameter], nil];
+            [self maximumSizeParameter],
+			[self psaParameter], nil];
 }
 
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher

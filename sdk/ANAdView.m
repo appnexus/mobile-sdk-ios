@@ -26,6 +26,7 @@
 @synthesize clickShouldOpenInBrowser = __clickShouldOpenInBrowser;
 @synthesize placementId = __placementId;
 @synthesize adFetcher = __adFetcher;
+@synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
 
 - (id)init
 {
@@ -63,6 +64,7 @@
 	self.adFetcher = [[ANAdFetcher alloc] init];
 	self.adFetcher.delegate = self;
 	self.adSize = CGSizeZero;
+	self.shouldServePublicServiceAnnouncements = YES;
 }
 
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId

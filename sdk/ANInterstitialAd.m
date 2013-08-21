@@ -41,6 +41,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @synthesize clickShouldOpenInBrowser = __clickShouldOpenInBrowser;
 @synthesize adFetcher = __adFetcher;
 @synthesize delegate = __delegate;
+@synthesize shouldServePublicServiceAnnouncements = __shouldServicePublicServiceAnnouncements;
 
 - (id)init
 {
@@ -54,6 +55,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 		self.controller.delegate = self;
 		self.precachedAdViews = [NSMutableArray array];
 		self.adSize = CGSizeZero;
+		self.shouldServePublicServiceAnnouncements = YES;
 	}
 	
 	return self;
@@ -169,6 +171,18 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return promoSizesParameter;
 }
 
+- (NSString *)psaParameter
+{
+	NSString *psaParameter = @"";
+	
+	if (!self.shouldServePublicServiceAnnouncements)
+	{
+		psaParameter = @"&psa=false";
+	}
+	
+	return psaParameter;
+}
+
 - (NSString *)adType
 {
 	return @"interstitial";
@@ -180,7 +194,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 {
     return [NSArray arrayWithObjects:
             [self maximumSizeParameter],
-            [self promoSizesParameter], nil];
+            [self promoSizesParameter],
+			[self psaParameter], nil];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response
@@ -204,6 +219,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL
 {
+	// Stop the countdown and enable close button immediately
+	[self.controller stopCountdownTimer];
+	
 	if (self.clickShouldOpenInBrowser)
 	{
 		if ([[UIApplication sharedApplication] canOpenURL:URL])
@@ -280,6 +298,16 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 			[self.delegate adDidClose:self];
 		}
 	}];
+}
+
+- (NSTimeInterval)interstitialAdViewControllerTimeToDismiss
+{
+	if (self.autoDismissTimeInterval > 0.0)
+	{
+		return self.autoDismissTimeInterval;
+	}
+
+	return kAppNexusDefaultInterstitialTimeoutInterval;
 }
 
 @end
