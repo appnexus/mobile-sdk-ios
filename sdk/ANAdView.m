@@ -29,6 +29,10 @@
 @synthesize adFetcher = __adFetcher;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
 @synthesize location = __location;
+@synthesize reserve = __reserve;
+@synthesize age = __age;
+@synthesize gender = __gender;
+@synthesize customSegments = __customSegments;
 
 - (id)init
 {
@@ -68,6 +72,8 @@
 	self.adSize = CGSizeZero;
 	self.shouldServePublicServiceAnnouncements = YES;
     self.location = nil;
+    self.reserve = 0.0f;
+    self.customSegments = [[NSMutableDictionary alloc] init];
 }
 
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId
@@ -139,6 +145,13 @@
                                      horizontalAccuracy:horizontalAccuracy];
 }
 
+- (void)addCustomSegmentWithKey:(NSString *)key value:(NSString *)value {
+    if (([key length] < 1) || !value)
+        return;
+    
+    [self.customSegments setValue:value forKey:key];
+}
+
 - (void)setPlacementId:(NSString *)placementId
 {
     if (placementId != __placementId)
@@ -187,9 +200,34 @@
     return self.adType;
 }
 
-- (ANLocation *)locationForAdFetcher:(ANAdFetcher *)fetcher
-{
-    return self.location;
+- (ANLocation *)location {
+    ANLogDebug(@"location returned %@", __location);
+    return __location;
+}
+
+- (BOOL)shouldServePublicServiceAnnouncements {
+    ANLogDebug(@"shouldServePublicServeAnnouncements returned %d", __shouldServePublicServiceAnnouncements);
+    return __shouldServePublicServiceAnnouncements;
+}
+
+- (CGFloat)reserve {
+    ANLogDebug(@"reserve returned %f", __reserve);
+    return __reserve;
+}
+
+- (NSString *)age {
+    ANLogDebug(@"age returned %@", __age);
+    return __age;
+}
+
+- (ANGender)gender {
+    ANLogDebug(@"gender returned %d", __gender);
+    return __gender;
+}
+
+- (NSMutableDictionary *)customSegments {
+    ANLogDebug(@"customSegments returned %@", __customSegments);
+    return __customSegments;
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size

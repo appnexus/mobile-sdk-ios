@@ -43,8 +43,12 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @synthesize clickShouldOpenInBrowser = __clickShouldOpenInBrowser;
 @synthesize adFetcher = __adFetcher;
 @synthesize delegate = __delegate;
-@synthesize shouldServePublicServiceAnnouncements = __shouldServicePublicServiceAnnouncements;
+@synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
 @synthesize location = __location;
+@synthesize reserve = __reserve;
+@synthesize age = __age;
+@synthesize gender = __gender;
+@synthesize customSegments = __customSegments;
 
 - (id)init
 {
@@ -59,7 +63,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 		self.precachedAdObjects = [NSMutableArray array];
 		self.adSize = CGSizeZero;
 		self.shouldServePublicServiceAnnouncements = YES;
-        self.location = [[ANLocation alloc] init];
+        self.location = nil;
+        self.reserve = 0.0f;
+        self.customSegments = [[NSMutableDictionary alloc] init];
 	}
 	
 	return self;
@@ -206,18 +212,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return promoSizesParameter;
 }
 
-- (NSString *)psaParameter
-{
-	NSString *psaParameter = @"";
-	
-	if (!self.shouldServePublicServiceAnnouncements)
-	{
-		psaParameter = @"&psa=false";
-	}
-	
-	return psaParameter;
-}
-
 - (NSString *)adType
 {
 	return @"interstitial";
@@ -230,7 +224,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return [NSArray arrayWithObjects:
             [self maximumSizeParameter],
             [self promoSizesParameter],
-			[self psaParameter], nil];
+            nil];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response
@@ -278,7 +272,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return 0.0;
 }
 
-- (NSString *)placementIdForAdFetcher:(ANAdFetcher *)fetcher
+- (NSString *)placementIdForAdFetcher
 {
     return self.placementId;
 }
@@ -293,11 +287,35 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return self.adType;
 }
 
-- (ANLocation *)locationForAdFetcher:(ANAdFetcher *)fetcher
-{
-    return self.location;
+- (ANLocation *)location {
+    ANLogDebug(@"location returned %@", __location);
+    return __location;
 }
 
+- (BOOL)shouldServePublicServiceAnnouncements {
+    ANLogDebug(@"shouldServePublicServeAnnouncements returned %d", __shouldServePublicServiceAnnouncements);
+    return __shouldServePublicServiceAnnouncements;
+}
+
+- (CGFloat)reserve {
+    ANLogDebug(@"reserve returned %f", __reserve);
+    return __reserve;
+}
+
+- (NSString *)age {
+    ANLogDebug(@"age returned %@", __age);
+    return __age;
+}
+
+- (ANGender)gender {
+    ANLogDebug(@"gender returned %d", __gender);
+    return __gender;
+}
+
+- (NSMutableDictionary *)customSegments {
+    ANLogDebug(@"customSegments returned %@", __customSegments);
+    return __customSegments;
+}
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
@@ -306,6 +324,13 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy];
+}
+
+- (void)addCustomSegmentWithKey:(NSString *)key value:(NSString *)value {
+    if (([key length] < 1) || !value)
+        return;
+    
+    [self.customSegments setValue:value forKey:key];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size

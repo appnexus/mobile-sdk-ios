@@ -128,18 +128,6 @@
     return placementSizeParameter;
 }
 
-- (NSString *)psaParameter
-{
-	NSString *psaParameter = @"";
-	
-	if (!self.shouldServePublicServiceAnnouncements)
-	{
-		psaParameter = @"&psa=false";
-	}
-	
-	return psaParameter;
-}
-
 - (NSString *)maximumSizeParameter
 {
     return [NSString stringWithFormat:@"&max-size=%dx%d", (NSInteger)self.frame.size.width, (NSInteger)self.frame.size.height];
@@ -271,7 +259,7 @@
     return [NSArray arrayWithObjects:
             [self placementSizeParameter],
             [self maximumSizeParameter],
-			[self psaParameter], nil];
+            nil];
 }
 
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher

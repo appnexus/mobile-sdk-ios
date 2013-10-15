@@ -15,8 +15,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ANAdResponse.h"
+#import "ANAdProtocol.h"
 
-@class ANAdResponse;
 @class ANAdWebViewController;
 @class ANMRAIDAdWebViewController;
 @class ANLocation;
@@ -45,15 +45,21 @@ extern NSString *const kANAdFetcherAdResponseKey;
 
 @protocol ANAdFetcherDelegate <NSObject>
 
+@property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
+@property (nonatomic, readwrite, strong) ANLocation *location;
+@property (nonatomic, readwrite, assign) CGFloat reserve;
+@property (nonatomic, readwrite, strong) NSString *age;
+@property (nonatomic, readwrite, assign) ANGender gender;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *customSegments;
+
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
-
 
 @optional
 - (NSString *)placementIdForAdFetcher:(ANAdFetcher *)fetcher;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher;
-- (ANLocation *)locationForAdFetcher:(ANAdFetcher *)fetcher;
+
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action;
 - (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher;

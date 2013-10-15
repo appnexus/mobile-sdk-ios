@@ -20,6 +20,13 @@
 @class ANLocation;
 @protocol ANAdDelegate;
 
+typedef enum _ANGender
+{
+    UNKNOWN,
+    MALE,
+    FEMALE
+} ANGender;
+
 @protocol ANAdProtocol <NSObject>
 
 @required
@@ -29,10 +36,15 @@
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
 @property (nonatomic, readwrite, strong) ANLocation *location;
+@property (nonatomic, readwrite, assign) CGFloat reserve;
+@property (nonatomic, readwrite, strong) NSString *age;
+@property (nonatomic, readwrite, assign) ANGender gender;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *customSegments;
 
 - (NSString *)adType;
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
+- (void)addCustomSegmentWithKey:(NSString *)key value:(NSString *)value;
 
 @end
 

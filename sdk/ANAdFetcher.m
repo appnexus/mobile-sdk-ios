@@ -287,7 +287,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
 
 - (NSString *)locationParameter
 {
-    ANLocation *location = [self.delegate locationForAdFetcher:self];
+    ANLocation *location = [self.delegate location];
     NSString *locationParamater = @"";
     
     if (location != nil)
@@ -332,6 +332,65 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return @"&st=mobile_app";
 }
 
+- (NSString *)psasAndReserveParameter
+{
+    BOOL shouldServePsas = [self.delegate shouldServePublicServiceAnnouncements];
+    CGFloat reserve = [self.delegate reserve];
+    if (reserve > 0.0f) {
+        NSString *reserveParameter = [[NSString stringWithFormat:@"%f", reserve] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        return [NSString stringWithFormat:@"&psas=0&reserve=%@", reserveParameter];
+    } else {
+        return shouldServePsas ? @"&psas=1" : @"&psas=0";
+    }
+}
+
+- (NSString *)ageParameter
+{
+    NSString *ageValue = [self.delegate age];
+    if ([ageValue length] < 1) {
+        return @"";
+    }
+    
+    ageValue = [ageValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [NSString stringWithFormat:@"&age=%@", ageValue];
+}
+
+- (NSString *)genderParameter
+{
+    ANGender genderValue = [self.delegate gender];
+    if (genderValue == MALE) {
+        return @"&gender=m";
+    } else if (genderValue == FEMALE) {
+        return @"&gender=f";
+    } else {
+        return @"";
+    }
+}
+
+- (NSString *)customSegmentsParameter
+{
+    NSString *customSegmentsParameter = @"";
+    NSMutableDictionary *customSegments = [self.delegate customSegments];
+    
+    if ([customSegments count] < 1) {
+        return @"";
+    }
+    NSArray *customKeyArray = [customSegments allKeys];
+    
+    for (int i = 0; i < [customSegments count]; i++) {
+        NSString *value;
+        if ([customKeyArray[i] length] > 0)
+            value = [customSegments valueForKey:customKeyArray[i]];
+        if (value) {
+            customSegmentsParameter = [customSegmentsParameter stringByAppendingString:
+                                       [NSString stringWithFormat:@"&%@=%@",
+                                        customKeyArray[i],
+                                        [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+        }
+    }
+    return customSegmentsParameter;
+}
+
 - (NSURL *)adURLWithBaseURLString:(NSString *)urlString
 {
 	
@@ -349,7 +408,11 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     urlString = [urlString stringByAppendingString:[self jsonFormatParameter]];
     urlString = [urlString stringByAppendingString:[self userAgentParameter]];
     urlString = [urlString stringByAppendingString:[self supplyTypeParameter]];
-
+    urlString = [urlString stringByAppendingString:[self psasAndReserveParameter]];
+    urlString = [urlString stringByAppendingString:[self ageParameter]];
+    urlString = [urlString stringByAppendingString:[self genderParameter]];
+    urlString = [urlString stringByAppendingString:[self customSegmentsParameter]];
+    
     if ([self.delegate respondsToSelector:@selector(extraParametersForAdFetcher:)])
     {
         NSArray *extraParameters = [self.delegate extraParametersForAdFetcher:self];
@@ -496,7 +559,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
                                               requestAd:sizeOfCreative
                                               serverParameter:currentAd.param
                                               adUnitId:currentAd.adId
-                                              location:[self.delegate locationForAdFetcher:self]
+                                              location:[self.delegate location]
                                               adView:self.delegate];
 
                 if (!requestedSuccessfully) {
@@ -695,3 +758,4 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
 }
 
 @end
+
