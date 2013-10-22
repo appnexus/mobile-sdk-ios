@@ -48,7 +48,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @synthesize reserve = __reserve;
 @synthesize age = __age;
 @synthesize gender = __gender;
-@synthesize customSegments = __customSegments;
+@synthesize customKeywords = __customKeywords;
 
 - (id)init
 {
@@ -65,7 +65,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 		self.shouldServePublicServiceAnnouncements = YES;
         self.location = nil;
         self.reserve = 0.0f;
-        self.customSegments = [[NSMutableDictionary alloc] init];
+        self.customKeywords = [[NSMutableDictionary alloc] init];
 	}
 	
 	return self;
@@ -312,9 +312,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return __gender;
 }
 
-- (NSMutableDictionary *)customSegments {
-    ANLogDebug(@"customSegments returned %@", __customSegments);
-    return __customSegments;
+- (NSMutableDictionary *)customKeywords {
+    ANLogDebug(@"customKeywords returned %@", __customKeywords);
+    return __customKeywords;
 }
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
@@ -326,11 +326,18 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                                      horizontalAccuracy:horizontalAccuracy];
 }
 
-- (void)addCustomSegmentWithKey:(NSString *)key value:(NSString *)value {
+- (void)addCustomKeywordsWithKey:(NSString *)key value:(NSString *)value {
     if (([key length] < 1) || !value)
         return;
     
-    [self.customSegments setValue:value forKey:key];
+    [self.customKeywords setValue:value forKey:key];
+}
+
+- (void)removeCustomKeywordsWithKey:(NSString *)key {
+    if (([key length] < 1))
+        return;
+    
+    [self.customKeywords removeObjectForKey:key];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size

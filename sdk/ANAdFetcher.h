@@ -50,7 +50,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 @property (nonatomic, readwrite, assign) CGFloat reserve;
 @property (nonatomic, readwrite, strong) NSString *age;
 @property (nonatomic, readwrite, assign) ANGender gender;
-@property (nonatomic, readwrite, strong) NSMutableDictionary *customSegments;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;

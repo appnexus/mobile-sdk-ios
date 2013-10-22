@@ -367,28 +367,28 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     }
 }
 
-- (NSString *)customSegmentsParameter
+- (NSString *)customKeywordsParameter
 {
-    NSString *customSegmentsParameter = @"";
-    NSMutableDictionary *customSegments = [self.delegate customSegments];
+    NSString *customKeywordsParameter = @"";
+    NSMutableDictionary *customKeywords = [self.delegate customKeywords];
     
-    if ([customSegments count] < 1) {
+    if ([customKeywords count] < 1) {
         return @"";
     }
-    NSArray *customKeyArray = [customSegments allKeys];
+    NSArray *customKeywordsKeys = [customKeywords allKeys];
     
-    for (int i = 0; i < [customSegments count]; i++) {
+    for (int i = 0; i < [customKeywords count]; i++) {
         NSString *value;
-        if ([customKeyArray[i] length] > 0)
-            value = [customSegments valueForKey:customKeyArray[i]];
+        if ([customKeywordsKeys[i] length] > 0)
+            value = [customKeywords valueForKey:customKeywordsKeys[i]];
         if (value) {
-            customSegmentsParameter = [customSegmentsParameter stringByAppendingString:
+            customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
                                        [NSString stringWithFormat:@"&%@=%@",
-                                        customKeyArray[i],
+                                        customKeywordsKeys[i],
                                         [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
         }
     }
-    return customSegmentsParameter;
+    return customKeywordsParameter;
 }
 
 - (NSURL *)adURLWithBaseURLString:(NSString *)urlString
@@ -411,7 +411,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     urlString = [urlString stringByAppendingString:[self psasAndReserveParameter]];
     urlString = [urlString stringByAppendingString:[self ageParameter]];
     urlString = [urlString stringByAppendingString:[self genderParameter]];
-    urlString = [urlString stringByAppendingString:[self customSegmentsParameter]];
+    urlString = [urlString stringByAppendingString:[self customKeywordsParameter]];
     
     if ([self.delegate respondsToSelector:@selector(extraParametersForAdFetcher:)])
     {

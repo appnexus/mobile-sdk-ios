@@ -39,12 +39,13 @@ typedef enum _ANGender
 @property (nonatomic, readwrite, assign) CGFloat reserve;
 @property (nonatomic, readwrite, strong) NSString *age;
 @property (nonatomic, readwrite, assign) ANGender gender;
-@property (nonatomic, readwrite, strong) NSMutableDictionary *customSegments;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
 
 - (NSString *)adType;
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
-- (void)addCustomSegmentWithKey:(NSString *)key value:(NSString *)value;
+- (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
+- (void)removeCustomKeywordWithKey:(NSString *)key;
 
 @end
 
