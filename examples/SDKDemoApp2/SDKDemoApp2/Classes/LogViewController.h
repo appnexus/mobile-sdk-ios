@@ -13,18 +13,11 @@
  limitations under the License.
  */
 
-#import "CoreDataTableViewController.h"
+#import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-#define CGFLOAT_TOP_INSET 8.0
-#define CGFLOAT_BOT_INSET 8.0
-#define TEXT_FONT @"Helvetica Neue"
-#define CELL_TEXT_FACTOR 1.05
-#define FETCH_LIMIT 500
-
-@interface LogCoreDataTVC : CoreDataTableViewController
+@interface LogViewController : UIViewController
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) NSString *predicate; // Allow Override
-@property (nonatomic, strong) NSString *fullTextToEmail;
 
 @end

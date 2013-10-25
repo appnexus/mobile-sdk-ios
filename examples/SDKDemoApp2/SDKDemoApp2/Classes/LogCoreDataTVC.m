@@ -23,9 +23,6 @@
 
 @property NSDictionary *textAttributes;
 
-//@property (strong, nonatomic) UIFont *font;
-//@property (strong, nonatomic) NSMutableParagraphStyle *pstyle;
-
 @end
 
 @implementation LogCoreDataTVC
@@ -36,7 +33,6 @@
     [self setup];
 }
 
-//- (void)viewDidAppear:(BOOL)animated {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (!self.fetchedResultsController) {
@@ -68,35 +64,12 @@
     pstyle.lineBreakMode = NSLineBreakByCharWrapping;
     self.textAttributes = @{NSFontAttributeName:font,
                             NSParagraphStyleAttributeName:pstyle};
-    
-    /*self.font = [UIFont fontWithName:TEXT_FONT size:[UIFont systemFontSize]];
-    self.pstyle = [[NSMutableParagraphStyle alloc] init];
-    self.pstyle.lineBreakMode = NSLineBreakByCharWrapping;
-    self.debug = YES;*/
+    self.fullTextToEmail = [[NSString alloc] init];
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ANLogDebug(@"%@ tableView: estimatedHeightForRowAtIndexPath", CLASS_NAME);
-//    return UITableViewAutomaticDimension;
-    
-    /*CGRect textRect = [[self textAtIndexPath:indexPath] boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width, CGFLOAT_MAX)
-                                                                     options:NSStringDrawingUsesLineFragmentOrigin
-                                                                     context:nil];
-    return CELL_TEXT_FACTOR * (textRect.size.height + CGFLOAT_TOP_INSET + CGFLOAT_BOT_INSET);*/
-//}
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ANLogDebug(@"%@ tableView: heightForRowAtIndexPath: indexPath %d", CLASS_NAME, indexPath.item);
-//    CGRect textRect = [[self textAtIndexPath:indexPath] boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width, CGFLOAT_MAX)
-//                                                                     options:NSStringDrawingUsesLineFragmentOrigin
-//                                                                     context:nil];
     ANLog *log = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    CGRect textRect = [log.text boundingRectWithSize:CGSizeMake(self.tableView.frame.size.width, CGFLOAT_MAX)
-//                                             options:NSStringDrawingUsesLineFragmentOrigin
-//                                          attributes:@{NSFontAttributeName:self.font,
-//                                                       NSParagraphStyleAttributeName:self.pstyle}
-//                                             context:nil];
+    self.fullTextToEmail = [self.fullTextToEmail stringByAppendingString:log.text];
     
     NSAttributedString *logAttrText = [[NSAttributedString alloc] initWithString:log.text
                                                                       attributes:self.textAttributes];
@@ -107,19 +80,11 @@
     return CELL_TEXT_FACTOR * (textRect.size.height + CGFLOAT_TOP_INSET + CGFLOAT_BOT_INSET);
 }
 
-//- (NSAttributedString *)textAtIndexPath:(NSIndexPath *)indexPath {
-//    ANLog *log = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    return [[NSAttributedString alloc] initWithString:log.text
-//                                           attributes:@{NSFontAttributeName:self.font,
-//                                                        NSParagraphStyleAttributeName:self.pstyle}];
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ANLogDebug(@"%@ %@ | index path: %d", NSStringFromClass([self class]), NSStringFromSelector(_cmd), indexPath.item);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ANLogCell"];
     if ([[cell.contentView.subviews objectAtIndex:0] isKindOfClass:[UITextView class]]) {
         UITextView *tv = [cell.contentView.subviews objectAtIndex:0];
-//        tv.attributedText = [self textAtIndexPath:indexPath];
         ANLog *log = [self.fetchedResultsController objectAtIndexPath:indexPath];
         tv.attributedText = [[NSAttributedString alloc] initWithString:log.text
                                                             attributes:self.textAttributes];

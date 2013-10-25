@@ -530,6 +530,57 @@
             </objects>
             <point key="canvasLocation" x="5037" y="1313"/>
         </scene>
+        <!--Log View Controller-->
+        <scene sceneID="b8C-aU-qgn">
+            <objects>
+                <viewController storyboardIdentifier="LogViewController" id="yEM-Ny-6hO" userLabel="Log View Controller" customClass="LogViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nn7-AI-ZVA"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qcj-Ft-xSc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3hA-d1-9bL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="suT-Ko-ft9">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="434"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="tcd-m8-gSv" kind="embed" id="46T-nC-wzg"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mU6-5F-jeW">
+                                <rect key="frame" x="20" y="442" width="78" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Email Logs">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="emailResults:" destination="yEM-Ny-6hO" eventType="touchUpInside" id="lJd-P3-heg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="suT-Ko-ft9" secondAttribute="trailing" id="AXT-FK-vQE"/>
+                            <constraint firstItem="Qcj-Ft-xSc" firstAttribute="top" secondItem="mU6-5F-jeW" secondAttribute="bottom" constant="20" symbolic="YES" id="U0w-kb-2EG"/>
+                            <constraint firstItem="suT-Ko-ft9" firstAttribute="top" secondItem="nn7-AI-ZVA" secondAttribute="bottom" id="k61-Up-AI4"/>
+                            <constraint firstItem="mU6-5F-jeW" firstAttribute="top" secondItem="suT-Ko-ft9" secondAttribute="bottom" constant="8" symbolic="YES" id="lPL-7T-uOW"/>
+                            <constraint firstItem="suT-Ko-ft9" firstAttribute="leading" secondItem="3hA-d1-9bL" secondAttribute="leading" id="rmo-R0-GZW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="7dW-Fe-aPn"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="emailButton" destination="mU6-5F-jeW" id="XMx-Nc-fas"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tHw-Jh-dzT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4432" y="3433"/>
+        </scene>
         <!--Debug SettingsTVC-->
         <scene sceneID="xB5-Zs-Y7J">
             <objects>
@@ -697,7 +748,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6GX-Rx-KXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5553" y="3101"/>
+            <point key="canvasLocation" x="6079" y="3101"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rfR-LK-czC">
@@ -722,6 +773,7 @@
         <!--Debug Settings View Controller - Debug-->
         <scene sceneID="TzW-G3-VD2">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yPT-ct-y8C" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="UPI-sO-d7E" customClass="DebugSettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IQC-oP-sTq"/>
@@ -780,7 +832,6 @@
                         <outlet property="emailButton" destination="6MW-YU-eLt" id="apW-cQ-Bb9"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yPT-ct-y8C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4432" y="2746"/>
         </scene>
@@ -789,7 +840,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="LogCoreDataTVC" wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" id="tcd-m8-gSv" customClass="LogCoreDataTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gNw-Iu-X3u">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="434"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -830,12 +881,14 @@
                             <outlet property="delegate" destination="tcd-m8-gSv" id="Rg7-ph-WQD"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="WXD-ct-t9h"/>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMV-yQ-i2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4432" y="3441"/>
+            <point key="canvasLocation" x="5544" y="3439"/>
         </scene>
         <!--Ad PreviewTVC-->
         <scene sceneID="EWD-Cf-nks">

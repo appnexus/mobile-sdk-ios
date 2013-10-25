@@ -125,6 +125,7 @@
 		EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2661817407A00B813D1 /* QuartzCore.framework */; };
 		EC7DC26D18199CD500B813D1 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DC26C18199CD500B813D1 /* ANMediationAdViewController.m */; };
 		ECADD0091815CF97007A4945 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECADD0041815CF97007A4945 /* libMMSDK_5.1.1.a */; };
+		ECDF1221181AF35A0069D7B4 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDF1220181AF35A0069D7B4 /* LogViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -324,6 +325,8 @@
 		ECADD0061815CF97007A4945 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		ECADD0071815CF97007A4945 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
 		ECADD0081815CF97007A4945 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
+		ECDF121F181AF35A0069D7B4 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = SDKDemoApp2/Classes/LogViewController.h; sourceTree = "<group>"; };
+		ECDF1220181AF35A0069D7B4 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = SDKDemoApp2/Classes/LogViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,6 +406,8 @@
 				8ABE6E4917E9EB87002251C8 /* DebugSettingsViewController.m */,
 				8A3D9F5F17EE150900317ABB /* LogCoreDataTVC.h */,
 				8A3D9F6017EE150900317ABB /* LogCoreDataTVC.m */,
+				ECDF121F181AF35A0069D7B4 /* LogViewController.h */,
+				ECDF1220181AF35A0069D7B4 /* LogViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -900,6 +905,7 @@
 				8ABE6E4D17EA0A33002251C8 /* AdSettingsViewController.m in Sources */,
 				8AAA20C91800975700A7BE78 /* CoreDataExample.xcdatamodeld in Sources */,
 				8A9EFB2D17CFF65A00FCF79F /* DebugOutputViewController.m in Sources */,
+				ECDF1221181AF35A0069D7B4 /* LogViewController.m in Sources */,
 				8ABB429717FCB953000E3F2B /* ANInterstitialAdViewController.m in Sources */,
 				8AAA20CB18009B6200A7BE78 /* main.m in Sources */,
 				8A9EFB3017CFFEE400FCF79F /* DebugSettingsTVC.m in Sources */,

@@ -146,7 +146,7 @@
 
 - (void)loadLogVC {
     if (!self.log) {
-        self.log = [self.storyboard instantiateViewControllerWithIdentifier:@"LogCoreDataTVC"];
+        self.log = [self.storyboard instantiateViewControllerWithIdentifier:@"LogViewController"];
         self.log.managedObjectContext = self.managedObjectContext;
     }
     if (self.controllerInView != self.log) {
