@@ -15,6 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const kANLoggingNotification;
+extern NSString *const kANLogMessageKey;
+
 // Lower = finer-grained logs.
 typedef enum 
 {
@@ -36,6 +39,7 @@ void _ANLogInfo(NSString *format, ...);
 void _ANLogWarn(NSString *format, ...);
 void _ANLogError(NSString *format, ...);
 void _ANLogFatal(NSString *format, ...);
+void notifyListener(NSString *message);
 
 #if AN_DEBUG_MODE
 

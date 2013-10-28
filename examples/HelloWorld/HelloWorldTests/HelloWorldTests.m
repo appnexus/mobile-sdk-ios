@@ -22,7 +22,7 @@
 @interface HelloWorldTests ()
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *bannerAdView;
-@property (nonatomic, readwrite, strong) ANInterstitialAdView *interstitialAdView;
+@property (nonatomic, readwrite, strong) ANInterstitialAd *interstitialAdView;
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs;
 
@@ -49,7 +49,7 @@
 
 - (void)testLoadInterstitial
 {
-    self.interstitialAdView = [[ANInterstitialAdView alloc] initWithPlacementId:@"656561"];
+    self.interstitialAdView = [[ANInterstitialAd alloc] initWithPlacementId:@"656561"];
     self.interstitialAdView.delegate = self;
     
     [self.interstitialAdView loadAd];
@@ -102,7 +102,7 @@
 
 - (void)testBadURL
 {
-    self.interstitialAdView = [[ANInterstitialAdView alloc] initWithPlacementId:@"656561"];
+    self.interstitialAdView = [[ANInterstitialAd alloc] initWithPlacementId:@"656561"];
     self.interstitialAdView.delegate = self;
 
     [self.interstitialAdView performSelector:@selector(refreshAllowedAdSizes)];
@@ -114,6 +114,20 @@
     [self.interstitialAdView.adFetcher requestAdWithURL:[NSURL URLWithString:@"http://127.0.0.1"]];
     // Begin a run loop terminated when __testComplete is set to true
     STAssertTrue([self waitForCompletion:10.0], @"Ad view failed to respond successfully to a bad URL.");
+}
+
+- (void)testLoggingListener
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedANLogMessage:) name:kANLoggingNotification object:nil];
+
+    ANLogDebug(@"test");
+    
+    STAssertTrue([self waitForCompletion:2.0], @"listener success");
+}
+
+- (void)receivedANLogMessage:(NSNotification *)notification
+{
+    __testComplete = YES;
 }
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
@@ -133,21 +147,21 @@
     return __testComplete;
 }
 
-#pragma mark ANInterstitialAdViewDelegate
+#pragma mark ANInterstitialAdDelegate
 
-- (void)adViewLoaded:(ANInterstitialAdView *)adView
+- (void)adViewLoaded:(ANInterstitialAd *)adView
 {
     __testComplete = YES;
     STAssertTrue(YES, @"Ad view loaded as expected");
 }
 
-- (void)adView:(ANInterstitialAdView *)adView requestFailedWithError:(NSError *)error
+- (void)adView:(ANInterstitialAd *)adView requestFailedWithError:(NSError *)error
 {
     __testComplete = YES;
     STAssertTrue(YES, @"Ad view request failed as expected");
 }
 
-- (void)adViewNoAdToShow:(ANInterstitialAdView *)adView
+- (void)adNoAdToShow:(ANInterstitialAd *)adView
 {
     __testComplete = YES;
     STAssertTrue(YES, @"Ad view loaded with no ad as expected");

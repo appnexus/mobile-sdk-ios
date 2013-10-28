@@ -14,9 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
 
-#define AN_MOBILE_HOSTNAME @"mobile.adnxs.com"
+#define AN_MOBILE_HOSTNAME @"mediation.adnxs.com/mob"
+#define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
 #define AN_ERROR_TABLE @"errors"
 
@@ -34,12 +34,13 @@
 #define kAppNexusAnimationDuration 0.4f
 #define kAppNexusDefaultInterstitialTimeoutInterval 15.0
 #define kAppNexusDefaultInterstitialCloseButtonInterval 10.0
+#define kAppNexusMediationNetworkTimeoutInterval 15.0
 
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
 BOOL CGSizeLargerThanSize(CGSize firstSize, CGSize secondSize);
-CLLocation *lastKnownLocation(void);
 BOOL isFirstLaunch(void);
 NSString *ANUdidParameter(void);
 UIViewController *AppRootViewController(void);
+NSString *ANErrorString(NSString *key);

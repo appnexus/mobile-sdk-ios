@@ -71,7 +71,7 @@ typedef enum _ANMRAIDState
 		// If this is our first successful load, then send this to the delegate. Otherwise, ignore.
 		self.completedFirstLoad = YES;
 		
-		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithView:webView];
+		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
 		[self.adFetcher.delegate adFetcher:self.adFetcher didFinishRequestWithResponse:response];
 		[self.adFetcher startAutorefreshTimer];
 	}
@@ -104,7 +104,7 @@ typedef enum _ANMRAIDState
 		self.adFetcher.loading = NO;
         self.completedFirstLoad = YES;
 		
-		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithView:webView];
+		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
 		[self.adFetcher.delegate adFetcher:self.adFetcher didFinishRequestWithResponse:response];
 		[self.adFetcher startAutorefreshTimer];
     }

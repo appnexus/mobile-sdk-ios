@@ -17,6 +17,7 @@
 #import "UIWebView+ANCategory.h"
 #import "ANAdResponse.h"
 #import "ANBrowserViewController.h"
+#import "ANLocation.h"
 
 @interface ANAdView () <ANBrowserViewControllerDelegate>
 @end
@@ -27,6 +28,7 @@
 @synthesize placementId = __placementId;
 @synthesize adFetcher = __adFetcher;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
+@synthesize location = __location;
 
 - (id)init
 {
@@ -65,6 +67,7 @@
 	self.adFetcher.delegate = self;
 	self.adSize = CGSizeZero;
 	self.shouldServePublicServiceAnnouncements = YES;
+    self.location = nil;
 }
 
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId
@@ -127,6 +130,15 @@
 	return nil;
 }
 
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+{
+    self.location = [ANLocation getLocationWithLatitude:latitude
+                                              longitude:longitude
+                                              timestamp:timestamp
+                                     horizontalAccuracy:horizontalAccuracy];
+}
+
 - (void)setPlacementId:(NSString *)placementId
 {
     if (placementId != __placementId)
@@ -142,8 +154,16 @@
 {
     if ([response isSuccessful])
     {
-        UIView *contentView = response.adView;
-        self.contentView = contentView;
+        UIView *contentView = response.adObject;
+		
+		if ([contentView isKindOfClass:[UIView class]])
+		{
+			self.contentView = contentView;
+		}
+		else
+		{
+			ANLogFatal(@"Received non view object %@ for response %@", contentView, response);
+		}
     }
 }
 
@@ -165,6 +185,11 @@
 - (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher
 {
     return self.adType;
+}
+
+- (ANLocation *)locationForAdFetcher:(ANAdFetcher *)fetcher
+{
+    return self.location;
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size

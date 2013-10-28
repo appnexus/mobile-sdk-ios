@@ -207,6 +207,8 @@ NSString *ANDemoAdsViewControllerSavedTagKey = @"ANDemoAdsViewControllerSavedTag
 	{
 		self.interstitialAd.placementId = placementId;
 		self.interstitialAd.delegate = self;
+        // change background color here
+        self.interstitialAd.backgroundColor = [UIColor redColor];
 		[self.interstitialAd loadAd];
 	}
 }

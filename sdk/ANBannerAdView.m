@@ -178,8 +178,15 @@
 		}
 		else if (autorefreshInterval == 0.0f)
 		{
+			BOOL adFetcherWasLoading = [self.adFetcher isLoading];
+			
 			ANLogDebug(@"Stopping autorefresh");
 			[self.adFetcher stopAd];
+			
+			if (!adFetcherWasLoading)
+			{
+				[self.adFetcher requestAd];
+			}
 		}
 	}
 }
@@ -215,13 +222,6 @@
     }
 }
 
-- (void)setPlacementId:(NSString *)placementId
-{
-	[super setPlacementId:placementId];
-	
-	self.autorefreshInterval = __autorefreshInterval;
-}
-
 #pragma mark ANAdFetcherDelegate
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size
@@ -238,12 +238,23 @@
 {
     if ([response isSuccessful])
     {
-        UIView *contentView = response.adView;
-        self.contentView = contentView;
-        
-		if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)])
+        UIView *contentView = response.adObject;
+		
+		if ([contentView isKindOfClass:[UIView class]])
 		{
-			[self.delegate adDidReceiveAd:self];
+			self.contentView = contentView;
+			
+			if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)])
+			{
+				[self.delegate adDidReceiveAd:self];
+			}
+		}
+		else
+		{
+			NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")
+																  forKey:NSLocalizedDescriptionKey];
+			NSError *badResponseError = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseNonViewResponse userInfo:errorInfo];
+			[self.delegate ad:self requestFailedWithError:badResponseError];
 		}
     }
     else

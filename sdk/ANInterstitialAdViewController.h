@@ -23,6 +23,7 @@
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, weak) IBOutlet UIButton *closeButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIProgressView *progressView;
+@property (nonatomic, readwrite, strong) UIColor *backgroundColor;
 
 - (IBAction)closeAction:(id)sender;
 - (void)stopCountdownTimer;

@@ -40,4 +40,44 @@
     return parameters;
 }
 
+- (NSString*)encodeAsURIComponent
+{
+	const char* p = [self UTF8String];
+	NSMutableString* result = [NSMutableString string];
+	
+	for (;*p ;p++) {
+		unsigned char c = *p;
+		if (('0' <= c && c <= '9') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || (c == '-' || c == '_')||c=='.') {
+			[result appendFormat:@"%c", c];
+		} else {
+			[result appendFormat:@"%%%02X", c];
+		}
+	}
+	return result;
+}
+
+- (NSString *)stringByAppendingUrlParameter:(NSString *)name value:(NSString*)value
+{
+    NSMutableString *string =[self mutableCopy];
+    
+	if ([string rangeOfString:@"="].length!=0)
+	{
+        [string appendFormat:@"&%@=%@", name, [value encodeAsURIComponent]];
+    }
+	else
+	{
+		if ([string rangeOfString:@"?"].location != [string length] - 1)
+		{
+			[string appendFormat:@"?%@=%@", name, [value encodeAsURIComponent]];
+
+		}
+		else
+		{
+			[string appendFormat:@"%@=%@", name, [value encodeAsURIComponent]];
+		}
+    }
+	
+    return string;
+}
+
 @end

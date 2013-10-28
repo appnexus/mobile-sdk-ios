@@ -17,6 +17,7 @@
 #import <Foundation/Foundation.h>
 
 @class ANAdFetcher;
+@class ANLocation;
 @protocol ANAdDelegate;
 
 @protocol ANAdProtocol <NSObject>
@@ -27,8 +28,11 @@
 @property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser;
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
+@property (nonatomic, readwrite, strong) ANLocation *location;
 
 - (NSString *)adType;
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
 
 @end
 

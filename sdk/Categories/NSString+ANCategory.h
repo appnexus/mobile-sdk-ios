@@ -18,5 +18,6 @@
 @interface NSString (ANCategory)
 
 - (NSDictionary *)queryComponents;
+- (NSString *)stringByAppendingUrlParameter:(NSString *)name value:(NSString*)value;
 
 @end

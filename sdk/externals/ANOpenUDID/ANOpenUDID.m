@@ -36,6 +36,7 @@
  distribution.
 */
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_6_0
 #if __has_feature(objc_arc)
 #error This file uses the classic non-ARC retain/release model; hints below... 
     // to selectively compile this file as non-ARC, do as follows:
@@ -425,3 +426,4 @@ static int const kOpenUDIDRedundancySlots = 100;
 }
 
 @end
+#endif

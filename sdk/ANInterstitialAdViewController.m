@@ -25,6 +25,7 @@
 
 @implementation ANInterstitialAdViewController
 @synthesize contentView = __contentView;
+@synthesize backgroundColor = __backgroundColor;
 
 - (id)init
 {
@@ -34,7 +35,9 @@
 
 - (void)viewDidLoad
 {
-	self.view.backgroundColor = [UIColor whiteColor];
+    if (!self.backgroundColor) {
+        self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
+    }
 	self.progressView.hidden = YES;
 //	self.closeButton.hidden = YES;
 }
@@ -128,6 +131,12 @@
 		
 		__contentView = contentView;
 	}
+}
+
+-(void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    __backgroundColor = backgroundColor;
+    self.view.backgroundColor = __backgroundColor;
 }
 
 - (IBAction)closeAction:(id)sender

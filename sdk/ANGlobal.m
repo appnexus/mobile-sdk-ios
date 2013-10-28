@@ -70,27 +70,13 @@ BOOL CGSizeLargerThanSize(CGSize firstSize, CGSize secondSize)
     return NO;
 }
 
-CLLocation *lastKnownLocation()
-{
-    CLLocationManager *manager = [[CLLocationManager alloc] init];
-    
-    if (![CLLocationManager locationServicesEnabled])
-    {
-        ANLogWarn(NSLocalizedStringFromTable(@"permissions_missing_location", AN_ERROR_TABLE, @""));
-    }
-    
-    CLLocation *location = [manager.location copy];
-
-    return location;
-}
-
 BOOL isFirstLaunch()
 {
-    BOOL isFirstLaunch = ![[NSUserDefaults standardUserDefaults] boolForKey:kANFirstLaunchKey];
-    
-    if (isFirstLaunch)
+	BOOL isFirstLaunch = ![[NSUserDefaults standardUserDefaults] boolForKey:kANFirstLaunchKey];
+	
+	if (isFirstLaunch)
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kANFirstLaunchKey];
+		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kANFirstLaunchKey];
     }
     
     return isFirstLaunch;
@@ -119,21 +105,20 @@ NSString *ANUdidParameter()
                 ANLogError(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
             }
         }
-        else
 #endif
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_6_0
+        // iOS 5: Use OpenUDID
+        NSString *openUDIDComponent = [ANOpenUDID value];
+        
+        if (openUDIDComponent != nil)
         {
-            // iOS 5: Use OpenUDID
-            NSString *openUDIDComponent = [ANOpenUDID value];
-            
-            if (openUDIDComponent != nil)
-            {
-                udidComponent = [NSString stringWithFormat:@"&openudid=%@", openUDIDComponent];
-            }
-            else
-            {
-                ANLogError(@"No OpenUDID value retrieved. Cannot generate OpenUDID component.");
-            }
+            udidComponent = [NSString stringWithFormat:@"&openudid=%@", openUDIDComponent];
         }
+        else
+        {
+            ANLogError(@"No OpenUDID value retrieved. Cannot generate OpenUDID component.");
+        }
+#endif
 	}
 	
     return udidComponent;
@@ -142,4 +127,8 @@ NSString *ANUdidParameter()
 UIViewController *AppRootViewController()
 {
 	return [[[UIApplication sharedApplication] keyWindow] rootViewController];
+}
+
+NSString *ANErrorString(NSString *key) {
+    return NSLocalizedStringFromTable(key, AN_ERROR_TABLE, @"");
 }

@@ -1,0 +1,3 @@
+[submodule "sdk/externals/OpenUDID"]
+	path = sdk/externals/OpenUDID
+	url = https://github.com/ylechelle/OpenUDID.git

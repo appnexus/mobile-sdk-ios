@@ -14,28 +14,43 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ANMediatedAd.h"
 
 typedef enum _ANAdResponseCode
 {
+    ANDefaultCode = -1,
     ANAdResponseSuccessful = 0,
-    ANAdResponseNoAds = 100,
-    ANAdResponseBadFormat,
+    ANAdResponseInvalidRequest,
+    ANAdResponseUnableToFill,
+    ANAdResponseMediatedSDKUnavailable,
+    ANAdResponseNetworkError,
+    ANAdResponseInternalError,
+    ANAdResponseBadFormat = 100,
 	ANAdResponseBadURL,
-	ANAdResponseBadURLConnection
+	ANAdResponseBadURLConnection,
+	ANAdResponseNonViewResponse
 } ANAdResponseCode;
 
 @interface ANAdResponse : NSObject
-{
-    BOOL __successful;
-    NSError *__error;
-    UIView *__adView;
-}
 
 @property (nonatomic, readwrite, getter = isSuccessful) BOOL successful;
 @property (nonatomic, readwrite, strong) NSError *error;
-@property (nonatomic, readwrite, strong) UIView *adView;
+@property (nonatomic, readwrite, strong) id adObject; // could be a UIView, or interstitial
 
-+ (ANAdResponse *)adResponseSuccessfulWithView:(UIView *)view;
+@property (nonatomic, readwrite, strong) NSString *content;
+@property (nonatomic, readwrite, strong) NSString *height;
+@property (nonatomic, readwrite, strong) NSString *width;
+@property (nonatomic, readwrite, strong) NSString *type;
+
+@property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
+
+@property (nonatomic, readwrite, getter = containsAds) BOOL containsAds;
+
+@property (nonatomic, readwrite, getter = isMraid) BOOL isMraid;
+
++ (ANAdResponse *)adResponseSuccessfulWithAdObject:(id)adObject;
 + (ANAdResponse *)adResponseFailWithError:(NSError *)error;
+
+- (ANAdResponse *)processResponseData:(NSData *)data;
 
 @end

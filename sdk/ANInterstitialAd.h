@@ -17,6 +17,7 @@
 #import "ANAdProtocol.h"
 
 // List of allowed ad sizes. These must fit in the maximum size of the view, which in this case, will be the size of the window
+#define kANInterstitialAdSize320x50 CGSizeMake(320,50)
 #define kANInterstitialAdSize300x250 CGSizeMake(300,250)
 #define kANInterstitialAdSize320x480 CGSizeMake(320,480)
 #define kANInterstitialAdSize900x500 CGSizeMake(900,500)
@@ -28,6 +29,7 @@
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
 @property (nonatomic, readwrite, assign) NSTimeInterval autoDismissTimeInterval;
+@property (nonatomic, readwrite, strong) UIColor *backgroundColor;
 
 - (id)initWithPlacementId:(NSString *)placementId;
 - (void)loadAd;

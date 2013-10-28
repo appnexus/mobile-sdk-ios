@@ -14,10 +14,12 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ANAdResponse.h"
 
 @class ANAdResponse;
 @class ANAdWebViewController;
 @class ANMRAIDAdWebViewController;
+@class ANLocation;
 @protocol ANAdFetcherDelegate;
 
 extern NSString *const kANAdFetcherWillRequestAdNotification;
@@ -35,6 +37,9 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (void)requestAdWithURL:(NSURL *)URL;
 - (void)startAutorefreshTimer;
 - (void)setupAutorefreshTimerIfNecessary;
+- (void)fireResultCB:(NSString *)resultCBString
+              reason:(ANAdResponseCode)reason
+            adObject:(id)adObject;
 
 @end
 
@@ -42,15 +47,18 @@ extern NSString *const kANAdFetcherAdResponseKey;
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
+
+
+@optional
 - (NSString *)placementIdForAdFetcher:(ANAdFetcher *)fetcher;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher;
+- (ANLocation *)locationForAdFetcher:(ANAdFetcher *)fetcher;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action;
 - (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL;
 
-@optional
 // Delegate method for ANAdView subclasses to provide parameters that are specific to them. Should return an array of NSString
 - (NSArray *)extraParametersForAdFetcher:(ANAdFetcher *)fetcher;
 

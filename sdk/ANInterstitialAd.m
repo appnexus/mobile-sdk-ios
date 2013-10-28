@@ -20,6 +20,8 @@
 #import "ANAdFetcher.h"
 #import "ANLogging.h"
 #import "ANAdResponse.h"
+#import "ANCustomAdapter.h"
+#import "ANLocation.h"
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
@@ -29,7 +31,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @interface ANInterstitialAd () <ANAdFetcherDelegate, ANBrowserViewControllerDelegate, ANInterstitialAdViewControllerDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
-@property (nonatomic, readwrite, strong) NSMutableArray *precachedAdViews;
+@property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
 @property (nonatomic, readwrite, strong) NSMutableSet *allowedAdSizes;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 
@@ -42,6 +44,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @synthesize adFetcher = __adFetcher;
 @synthesize delegate = __delegate;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServicePublicServiceAnnouncements;
+@synthesize location = __location;
 
 - (id)init
 {
@@ -53,9 +56,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 		self.adFetcher.delegate = self;
 		self.controller = [[ANInterstitialAdViewController alloc] init];
 		self.controller.delegate = self;
-		self.precachedAdViews = [NSMutableArray array];
+		self.precachedAdObjects = [NSMutableArray array];
 		self.adSize = CGSizeZero;
 		self.shouldServePublicServiceAnnouncements = YES;
+        self.location = [[ANLocation alloc] init];
 	}
 	
 	return self;
@@ -88,34 +92,63 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)displayAdFromViewController:(UIViewController *)controller
 {
 	self.controller.contentView = nil;
+	
+	id adToShow = nil;
     
-    while ([self.precachedAdViews count] > 0 && self.controller.contentView == nil)
+    while ([self.precachedAdObjects count] > 0 && self.controller.contentView == nil)
     {
         // Pull the first ad off
-        NSDictionary *adDict = [self.precachedAdViews objectAtIndex:0];
+        NSDictionary *adDict = [self.precachedAdObjects objectAtIndex:0];
         
         // Check to see if the date this was loaded is no more than 60 seconds ago
         NSDate *dateLoaded = [adDict objectForKey:kANInterstitialAdViewDateLoadedKey];
         
         if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT)
         {
-            // If ad is still valid, set it as the content view
-            UIView *adView = [adDict objectForKey:kANInterstitialAdViewKey];
-            self.controller.contentView = adView;
+            // If ad is still valid, save a reference to it. We'll use it later
+			adToShow = [adDict objectForKey:kANInterstitialAdViewKey];
         }
         
         // This ad is now stale, so remove it from our cached ads.
-        [self.precachedAdViews removeObjectAtIndex:0];
+        [self.precachedAdObjects removeObjectAtIndex:0];
     }
     
-    if (self.controller.contentView != nil)
+    if (adToShow != nil)
     {
-		if ([self.delegate respondsToSelector:@selector(adWillPresent:)])
+		// Check to see what kind of ad it is.
+		if ([adToShow isKindOfClass:[UIView class]])
 		{
-			[self.delegate adWillPresent:self];
+			// If it's a view, then just set our content view to it.
+			self.controller.contentView = adToShow;
+            
+            // If there's a background color, pass that color to the controller which will modify the view
+            if (self.backgroundColor) {
+                self.controller.backgroundColor = self.backgroundColor;
+            }
+			
+			if ([self.delegate respondsToSelector:@selector(adWillPresent:)])
+			{
+				[self.delegate adWillPresent:self];
+			}
+			
+            [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext; // Proper support for background transparency
+			[controller presentViewController:self.controller animated:YES completion:NULL];
 		}
-		
-		[controller presentViewController:self.controller animated:YES completion:NULL];
+		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
+		{
+			// If not, it should be an object that conforms to our interstitial adapter protocol.
+			if ([self.delegate respondsToSelector:@selector(adWillPresent:)])
+			{
+				[self.delegate adWillPresent:self];
+			}
+			
+			[adToShow presentFromViewController:controller];
+		}
+		else
+		{
+			ANLogFatal(@"Got a non-presentable object %@. Cannot display interstitial.");
+			[self.delegate adNoAdToShow:self];
+		}
     }
     else
     {
@@ -132,7 +165,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 								   [NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
                                    [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
                                    [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
-                                   [NSValue valueWithCGSize:kANInterstitialAdSize300x250], nil];
+                                   [NSValue valueWithCGSize:kANInterstitialAdSize300x250],
+                                   [NSValue valueWithCGSize:kANInterstitialAdSize320x50],
+                                   nil];
     for (NSValue *sizeValue in possibleSizesArray)
     {
         if (CGSizeLargerThanSize(self.frame.size, [sizeValue CGSizeValue]))
@@ -203,10 +238,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     if ([response isSuccessful])
     {
         NSDictionary *adViewWithDateLoaded = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              response.adView, kANInterstitialAdViewKey,
+                                              response.adObject, kANInterstitialAdViewKey,
                                               [NSDate date], kANInterstitialAdViewDateLoadedKey,
                                               nil];
-        [self.precachedAdViews addObject:adViewWithDateLoaded];
+        [self.precachedAdObjects addObject:adViewWithDateLoaded];
         ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
         
         [self.delegate adDidReceiveAd:self];
@@ -234,7 +269,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 		// Interstitials require special handling of launching the in-app browser since they live on top of everything else
 		self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
 		self.browserViewController.delegate = self;
-		
 		[self.controller presentViewController:self.browserViewController animated:YES completion:NULL];
 	}
 }
@@ -257,6 +291,21 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher
 {
     return self.adType;
+}
+
+- (ANLocation *)locationForAdFetcher:(ANAdFetcher *)fetcher
+{
+    return self.location;
+}
+
+
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+{
+    self.location = [ANLocation getLocationWithLatitude:latitude
+                                              longitude:longitude
+                                              timestamp:timestamp
+                                     horizontalAccuracy:horizontalAccuracy];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size

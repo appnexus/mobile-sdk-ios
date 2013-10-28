@@ -17,10 +17,11 @@
 
 @implementation ANWebView
 
-- (void)webView:(UIWebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame
-{
-    // Suppress the JS alerts
-    ANLogDebug(@"WebView received JavaScript alert message: %@", message);
-}
+//TODO: fix this
+//- (void)webView:(UIWebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame
+//{
+//    // Suppress the JS alerts
+//    ANLogDebug(@"WebView received JavaScript alert message: %@", message);
+//}
 
 @end

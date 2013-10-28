@@ -14,9 +14,9 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "ANInterstitialAdView.h"
+#import "ANInterstitialAd.h"
 
-@interface HelloWorldTests : SenTestCase <ANAdViewDelegate, ANInterstitialAdViewDelegate>
+@interface HelloWorldTests : SenTestCase <ANInterstitialAdDelegate>
 {
     BOOL __testComplete;
 }

@@ -17,6 +17,7 @@
 #import "ANAdFetcher.h"
 #import "ANAdResponse.h"
 #import "ANGlobal.h"
+#import "ANLogging.h"
 
 @interface ANDemoConsoleViewController ()
 - (void)adFetcherWillRequestAd:(NSNotification *)notification;
@@ -45,6 +46,7 @@
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adFetcherWillRequestAd:) name:kANAdFetcherWillRequestAdNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adFetcherDidReceiveResponse:) name:kANAdFetcherDidReceiveResponseNotification object:nil];
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedANLogMessage:) name:kANLoggingNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,6 +65,12 @@
 {
 	id response = [[notification userInfo] objectForKey:kANAdFetcherAdResponseKey];
 	self.textView.text = [self.textView.text stringByAppendingFormat:@"\n%@ Received response: %@\n", [NSDate date], response];
+}
+
+- (void)receivedANLogMessage:(NSNotification *)notification
+{
+//	id message = [[notification userInfo] objectForKey:kANLogMessageKey];
+//	self.textView.text = [self.textView.text stringByAppendingFormat:@"\n%@ Received response: %@\n", [NSDate date], message];
 }
 
 - (IBAction)emailLogs:(id)sender
