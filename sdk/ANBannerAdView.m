@@ -60,9 +60,6 @@
 	
 	self.backgroundColor = [UIColor clearColor];
 	self.autoresizingMask = UIViewAutoresizingNone;
-	
-	// Start autorefresh automatically
-	__autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
 }
 
 - (void)awakeFromNib
@@ -88,6 +85,9 @@
 	{
         self.backgroundColor = [UIColor clearColor];
     }
+    
+	// Start autorefresh automatically
+	self.autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
     
     return self;
 }
