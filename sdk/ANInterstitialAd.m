@@ -132,8 +132,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                 self.controller.backgroundColor = self.backgroundColor;
             }
 			
-			if ([self.delegate respondsToSelector:@selector(adWillPresent:)])
-			{
+			if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
 				[self.delegate adWillPresent:self];
 			}
 			
@@ -143,8 +142,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
 		{
 			// If not, it should be an object that conforms to our interstitial adapter protocol.
-			if ([self.delegate respondsToSelector:@selector(adWillPresent:)])
-			{
+			if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
 				[self.delegate adWillPresent:self];
 			}
 			
@@ -153,13 +151,17 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 		else
 		{
 			ANLogFatal(@"Got a non-presentable object %@. Cannot display interstitial.");
-			[self.delegate adNoAdToShow:self];
+            if ([self.delegate respondsToSelector:@selector(adNoAdToShow:)]) {
+                [self.delegate adNoAdToShow:self];
+            }
 		}
     }
     else
     {
         ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
-        [self.delegate adNoAdToShow:self];
+        if ([self.delegate respondsToSelector:@selector(adNoAdToShow:)]) {
+            [self.delegate adNoAdToShow:self];
+        }
     }
 }
 
@@ -238,11 +240,15 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         [self.precachedAdObjects addObject:adViewWithDateLoaded];
         ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
         
-        [self.delegate adDidReceiveAd:self];
+        if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
+            [self.delegate adDidReceiveAd:self];
+        }
     }
     else
     {
-        [self.delegate ad:self requestFailedWithError:response.error];
+        if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
+            [self.delegate ad:self requestFailedWithError:response.error];
+        }
     }
 }
 
@@ -369,14 +375,12 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller
 {
-	if ([self.delegate respondsToSelector:@selector(adWillClose:)])
-	{
+	if ([self.delegate respondsToSelector:@selector(adWillClose:)]) {
 		[self.delegate adWillClose:self];
 	}
 	
 	[self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
-		if ([self.delegate respondsToSelector:@selector(adDidClose:)])
-		{
+		if ([self.delegate respondsToSelector:@selector(adDidClose:)]) {
 			[self.delegate adDidClose:self];
 		}
 	}];
