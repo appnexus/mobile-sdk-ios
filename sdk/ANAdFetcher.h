@@ -45,6 +45,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 
 @protocol ANAdFetcherDelegate <NSObject>
 
+@property (nonatomic, readwrite, strong) NSString *placementId;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
 @property (nonatomic, readwrite, strong) ANLocation *location;
 @property (nonatomic, readwrite, assign) CGFloat reserve;
@@ -56,7 +57,6 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 
 @optional
-- (NSString *)placementIdForAdFetcher:(ANAdFetcher *)fetcher;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher;
 

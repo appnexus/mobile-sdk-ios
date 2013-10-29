@@ -272,9 +272,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return 0.0;
 }
 
-- (NSString *)placementIdForAdFetcher
+- (NSString *)placementId
 {
-    return self.placementId;
+    ANLogDebug(@"placementId returned %@", __placementId);
+    return __placementId;
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher
@@ -326,14 +327,14 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                                      horizontalAccuracy:horizontalAccuracy];
 }
 
-- (void)addCustomKeywordsWithKey:(NSString *)key value:(NSString *)value {
+- (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
     if (([key length] < 1) || !value)
         return;
     
     [self.customKeywords setValue:value forKey:key];
 }
 
-- (void)removeCustomKeywordsWithKey:(NSString *)key {
+- (void)removeCustomKeywordWithKey:(NSString *)key {
     if (([key length] < 1))
         return;
     

@@ -189,7 +189,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
 
 - (NSString *)placementId
 {
-    return [self.delegate placementIdForAdFetcher:self];
+    return [self.delegate placementId];
 }
 
 - (NSString *)jsonFormatParameter
@@ -290,7 +290,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     ANLocation *location = [self.delegate location];
     NSString *locationParamater = @"";
     
-    if (location != nil)
+    if (location)
     {
         NSDate *locationTimestamp = location.timestamp;
         NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];

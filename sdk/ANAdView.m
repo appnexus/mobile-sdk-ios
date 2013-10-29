@@ -125,12 +125,6 @@
     [__closeButton removeFromSuperview];
 }
 
-- (NSString *)placementId
-{
-    ANLogDebug(@"placementId returned %@", __placementId);
-    return __placementId;
-}
-
 - (NSString *)adType
 {
 	return nil;
@@ -145,14 +139,14 @@
                                      horizontalAccuracy:horizontalAccuracy];
 }
 
-- (void)addCustomKeywordsWithKey:(NSString *)key value:(NSString *)value {
+- (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
     if (([key length] < 1) || !value)
         return;
     
     [self.customKeywords setValue:value forKey:key];
 }
 
-- (void)removeCustomKeywordsWithKey:(NSString *)key {
+- (void)removeCustomKeywordWithKey:(NSString *)key {
     if (([key length] < 1))
         return;
     
@@ -190,11 +184,6 @@
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
 {
     return 0.0;
-}
-
-- (NSString *)placementIdForAdFetcher:(ANAdFetcher *)fetcher
-{
-    return self.placementId;
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher
