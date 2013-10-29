@@ -79,7 +79,6 @@
 		8ABB429917FCB953000E3F2B /* ANLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABB41D917FCB953000E3F2B /* ANLogging.m */; };
 		8ABB429A17FCB953000E3F2B /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABB41DB17FCB953000E3F2B /* ANReachability.m */; };
 		8ABB429B17FCB953000E3F2B /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABB41DD17FCB953000E3F2B /* ANWebView.m */; };
-		8ABB42A017FCB953000E3F2B /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8ABB41E717FCB953000E3F2B /* errors.strings */; };
 		8ABB42A417FCB953000E3F2B /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8ABB41F017FCB953000E3F2B /* MRAID.bundle */; };
 		8ABB42C417FCBB0D000E3F2B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */; };
 		8ABB430017FCC19A000E3F2B /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 8ABB42FF17FCC19A000E3F2B /* CHANGELOG */; };
@@ -125,6 +124,7 @@
 		EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2661817407A00B813D1 /* QuartzCore.framework */; };
 		EC7DC26D18199CD500B813D1 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DC26C18199CD500B813D1 /* ANMediationAdViewController.m */; };
 		ECADD0091815CF97007A4945 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECADD0041815CF97007A4945 /* libMMSDK_5.1.1.a */; };
+		ECB11D081820412100CB4BE8 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECB11D071820412100CB4BE8 /* errors.strings */; };
 		ECDF1221181AF35A0069D7B4 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDF1220181AF35A0069D7B4 /* LogViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -252,7 +252,6 @@
 		8ABB41DB17FCB953000E3F2B /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
 		8ABB41DC17FCB953000E3F2B /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		8ABB41DD17FCB953000E3F2B /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
-		8ABB41E717FCB953000E3F2B /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
 		8ABB41F017FCB953000E3F2B /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8ABB42FF17FCC19A000E3F2B /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
@@ -325,6 +324,7 @@
 		ECADD0061815CF97007A4945 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		ECADD0071815CF97007A4945 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
 		ECADD0081815CF97007A4945 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
+		ECB11D071820412100CB4BE8 /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
 		ECDF121F181AF35A0069D7B4 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = SDKDemoApp2/Classes/LogViewController.h; sourceTree = "<group>"; };
 		ECDF1220181AF35A0069D7B4 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = SDKDemoApp2/Classes/LogViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -606,6 +606,7 @@
 		8ABB41B217FCB953000E3F2B /* sdk */ = {
 			isa = PBXGroup;
 			children = (
+				ECB11D071820412100CB4BE8 /* errors.strings */,
 				EC7DC26B18199CD500B813D1 /* ANMediationAdViewController.h */,
 				EC7DC26C18199CD500B813D1 /* ANMediationAdViewController.m */,
 				EC7DC2321817402E00B813D1 /* ANAdAdapterBannerMillennialMedia.h */,
@@ -657,7 +658,6 @@
 				8ABB41DB17FCB953000E3F2B /* ANReachability.m */,
 				8ABB41DC17FCB953000E3F2B /* ANWebView.h */,
 				8ABB41DD17FCB953000E3F2B /* ANWebView.m */,
-				8ABB41E717FCB953000E3F2B /* errors.strings */,
 				8ABB41F017FCB953000E3F2B /* MRAID.bundle */,
 			);
 			path = sdk;
@@ -857,13 +857,13 @@
 				8ABB42A417FCB953000E3F2B /* MRAID.bundle in Resources */,
 				8A4C8C9A17F8FB8F001DEC74 /* appnexus_launch_image_ipad_landscape@2x.png in Resources */,
 				8A9EFB2217CFD49300FCF79F /* MainStoryboard.storyboard in Resources */,
+				ECB11D081820412100CB4BE8 /* errors.strings in Resources */,
 				8A4C8C8217F8F36B001DEC74 /* appnexus_settings_iphone.png in Resources */,
 				EC7DC2611817402E00B813D1 /* UIButtonBarArrowRight@2x.png in Resources */,
 				8A4C8C8A17F8F3F3001DEC74 /* appnexus_spotlight_ipad@2x.png in Resources */,
 				8A4C8C8817F8F3CE001DEC74 /* appnexus_spotlight_iphone@2x.png in Resources */,
 				8ABB430017FCC19A000E3F2B /* CHANGELOG in Resources */,
 				8A3D9F6D17EE2FB000317ABB /* 705-photos@2x.png in Resources */,
-				8ABB42A017FCB953000E3F2B /* errors.strings in Resources */,
 				8A4C8C4417F7B3F1001DEC74 /* Media.xcassets in Resources */,
 				8AF019F917FA6E3E007DB40E /* 705-photos.png in Resources */,
 				8A3D9F6517EE187400317ABB /* 830-pencil@2x.png in Resources */,

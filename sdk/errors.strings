@@ -11,6 +11,7 @@
 "response_json_error"="E300: There was an error parsing the JSON response: %@";
 "adsize_too_big"="E103: You requested an Ad larger than the measured ad space. Ad space size: %dx%d, request size: %dx%d";
 "blank_ad"="E302: The server returned an ad with the response, but it was blank. There is probably an issue with the creative.";
+"opening_url_failed"="Failed to launch custom protocol: %@";
 "class_not_found_exception"="ClassNotFoundException caught while instantiating a Mediated Ad View";
 "instantiating_class"="Instantiating %@";
 "instance_exception"="MediatedAdView is null or not an instance of %@";

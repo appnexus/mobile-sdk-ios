@@ -242,22 +242,22 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL
-{	
-	if (self.clickShouldOpenInBrowser)
-	{
-		if ([[UIApplication sharedApplication] canOpenURL:URL])
-		{
-			[[UIApplication sharedApplication] openURL:URL];
-		}
-	}
-	else
-	{
+{
+    NSString *scheme = [URL scheme];
+    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
+    
+	if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
 		ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
 		browserViewController.delegate = self;
 		UIViewController *rootViewController = AppRootViewController();
 		
 		[rootViewController presentViewController:browserViewController animated:YES completion:nil];
 	}
+	else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [[UIApplication sharedApplication] openURL:URL];
+	} else {
+        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+    }
 }
 
 #pragma mark ANBrowserViewControllerDelegate
