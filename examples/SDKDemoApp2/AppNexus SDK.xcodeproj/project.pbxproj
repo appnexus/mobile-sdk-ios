@@ -58,7 +58,6 @@
 		8ABB422F17FCB953000E3F2B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8ABB410817FCB952000E3F2B /* README.txt */; };
 		8ABB428317FCB953000E3F2B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8ABB41AA17FCB953000E3F2B /* LICENSE */; };
 		8ABB428517FCB953000E3F2B /* README in Resources */ = {isa = PBXBuildFile; fileRef = 8ABB41B117FCB953000E3F2B /* README */; };
-		8ABB42A417FCB953000E3F2B /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8ABB41F017FCB953000E3F2B /* MRAID.bundle */; };
 		8ABB42C417FCBB0D000E3F2B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */; };
 		8ABB430017FCC19A000E3F2B /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 8ABB42FF17FCC19A000E3F2B /* CHANGELOG */; };
 		8ABE6E4717E91A8E002251C8 /* ANResponse+Make.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABE6E4617E91A8E002251C8 /* ANResponse+Make.m */; };
@@ -98,7 +97,6 @@
 		EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2641817406200B813D1 /* AVFoundation.framework */; };
 		EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2661817407A00B813D1 /* QuartzCore.framework */; };
 		ECADD0091815CF97007A4945 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECADD0041815CF97007A4945 /* libMMSDK_5.1.1.a */; };
-		ECB11D081820412100CB4BE8 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECB11D071820412100CB4BE8 /* errors.strings */; };
 		ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1204E18218A1E00CB4BE8 /* iAd.framework */; };
 		ECB1206218218EA100CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1205518218EA100CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
 		ECB1206318218EA100CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1205718218EA100CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
@@ -124,6 +122,8 @@
 		ECB1209A18218FDC00CB4BE8 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1208618218FDC00CB4BE8 /* ANMediationAdViewController.m */; };
 		ECB1209B18218FDC00CB4BE8 /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1208818218FDC00CB4BE8 /* ANReachability.m */; };
 		ECB1209C18218FDC00CB4BE8 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1208A18218FDC00CB4BE8 /* ANWebView.m */; };
+		ECB1209F1821911200CB4BE8 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECB1209D1821911200CB4BE8 /* errors.strings */; };
+		ECB120A01821911200CB4BE8 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECB1209E1821911200CB4BE8 /* MRAID.bundle */; };
 		ECDF1221181AF35A0069D7B4 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDF1220181AF35A0069D7B4 /* LogViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -212,7 +212,6 @@
 		8ABB41C217FCB953000E3F2B /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
 		8ABB41C917FCB953000E3F2B /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
 		8ABB41D317FCB953000E3F2B /* ANInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAd.h; sourceTree = "<group>"; };
-		8ABB41F017FCB953000E3F2B /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8ABB42FF17FCC19A000E3F2B /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
 		8ABB430217FCC1A0000E3F2B /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -274,7 +273,6 @@
 		ECADD0061815CF97007A4945 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		ECADD0071815CF97007A4945 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
 		ECADD0081815CF97007A4945 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
-		ECB11D071820412100CB4BE8 /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
 		ECB1204E18218A1E00CB4BE8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ECB1205418218EA100CB4BE8 /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
 		ECB1205518218EA100CB4BE8 /* ANAdAdapterBannerAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMob.m; sourceTree = "<group>"; };
@@ -322,6 +320,8 @@
 		ECB1208818218FDC00CB4BE8 /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
 		ECB1208918218FDC00CB4BE8 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		ECB1208A18218FDC00CB4BE8 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
+		ECB1209D1821911200CB4BE8 /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
+		ECB1209E1821911200CB4BE8 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		ECDF121F181AF35A0069D7B4 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = SDKDemoApp2/Classes/LogViewController.h; sourceTree = "<group>"; };
 		ECDF1220181AF35A0069D7B4 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = SDKDemoApp2/Classes/LogViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -587,14 +587,12 @@
 			isa = PBXGroup;
 			children = (
 				ECB1206818218FDC00CB4BE8 /* internal */,
-				ECB11D071820412100CB4BE8 /* errors.strings */,
 				EC7DC2361817402E00B813D1 /* Categories */,
 				EC7DC23F1817402E00B813D1 /* externals */,
 				EC7DC2471817402E00B813D1 /* Resources */,
 				8ABB41C217FCB953000E3F2B /* ANAdProtocol.h */,
 				8ABB41C917FCB953000E3F2B /* ANBannerAdView.h */,
 				8ABB41D317FCB953000E3F2B /* ANInterstitialAd.h */,
-				8ABB41F017FCB953000E3F2B /* MRAID.bundle */,
 			);
 			path = sdk;
 			sourceTree = "<group>";
@@ -661,6 +659,8 @@
 		EC7DC2471817402E00B813D1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ECB1209D1821911200CB4BE8 /* errors.strings */,
+				ECB1209E1821911200CB4BE8 /* MRAID.bundle */,
 				EC7DC2481817402E00B813D1 /* images */,
 			);
 			path = Resources;
@@ -857,12 +857,14 @@
 				8A4C8C7417F8EF09001DEC74 /* appnexus_launch_image_ipad_portrait.png in Resources */,
 				EC7DC25B1817402E00B813D1 /* interstitial_closebox-down@2x.png in Resources */,
 				8AF01A0617FA70CD007DB40E /* 760-refresh-3.png in Resources */,
+				ECB120A01821911200CB4BE8 /* MRAID.bundle in Resources */,
 				8AF01A0117FA6F3B007DB40E /* appnexus_logo_icon.png in Resources */,
 				8A9EFB1317CFD49200FCF79F /* InfoPlist.strings in Resources */,
 				EC7DC25D1817402E00B813D1 /* interstitial_closebox@2x.png in Resources */,
 				EC7DC25A1817402E00B813D1 /* interstitial_closebox-down.png in Resources */,
 				8ABB428517FCB953000E3F2B /* README in Resources */,
 				8A9EFB1B17CFD49200FCF79F /* Default.png in Resources */,
+				ECB1209F1821911200CB4BE8 /* errors.strings in Resources */,
 				8A4C8C8C17F8F416001DEC74 /* appnexus_spotlight_ipad.png in Resources */,
 				8AF01A0317FA6F8B007DB40E /* appnexus_logo_icon@2x.png in Resources */,
 				8A9EFB1D17CFD49300FCF79F /* Default@2x.png in Resources */,
@@ -876,10 +878,8 @@
 				8AF019FB17FA6E5F007DB40E /* 724-info.png in Resources */,
 				EC7DC25F1817402E00B813D1 /* UIButtonBarArrowLeft@2x.png in Resources */,
 				8A9EFB1F17CFD49300FCF79F /* Default-568h@2x.png in Resources */,
-				8ABB42A417FCB953000E3F2B /* MRAID.bundle in Resources */,
 				8A4C8C9A17F8FB8F001DEC74 /* appnexus_launch_image_ipad_landscape@2x.png in Resources */,
 				8A9EFB2217CFD49300FCF79F /* MainStoryboard.storyboard in Resources */,
-				ECB11D081820412100CB4BE8 /* errors.strings in Resources */,
 				8A4C8C8217F8F36B001DEC74 /* appnexus_settings_iphone.png in Resources */,
 				EC7DC2611817402E00B813D1 /* UIButtonBarArrowRight@2x.png in Resources */,
 				8A4C8C8A17F8F3F3001DEC74 /* appnexus_spotlight_ipad@2x.png in Resources */,
