@@ -140,17 +140,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
             [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext; // Proper support for background transparency
 			[controller presentViewController:self.controller animated:YES completion:NULL];
 		}
-		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
-		{
-			// If not, it should be an object that conforms to our interstitial adapter protocol.
-			if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
-				[self.delegate adWillPresent:self];
-			}
-			
+		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
 			[adToShow presentFromViewController:controller];
 		}
-		else
-		{
+		else {
 			ANLogFatal(@"Got a non-presentable object %@. Cannot display interstitial.");
             if ([self.delegate respondsToSelector:@selector(adNoAdToShow:)]) {
                 [self.delegate adNoAdToShow:self];
