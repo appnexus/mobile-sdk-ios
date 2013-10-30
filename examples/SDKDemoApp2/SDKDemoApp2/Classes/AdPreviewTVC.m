@@ -23,7 +23,7 @@
 #define SV_BACKGROUND_COLOR_GREEN 78.0
 #define SV_BACKGROUND_COLOR_ALPHA 1.0 // On a scale from 0 -> 1
 
-@interface AdPreviewTVC () <ANInterstitialAdDelegate, UIScrollViewDelegate>
+@interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
@@ -98,6 +98,7 @@
         [self clearBannerAdView]; // Clear old banner ad view (if necessary)
         // Make New BannerAdView
         self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, 0, settingsBannerWidth, settingsBannerHeight)];
+        self.bannerAdView.delegate = self;
         self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
         self.bannerAdView.placementId = settingsPlacementID;
         self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
@@ -135,12 +136,6 @@
     self.interstitialAd.backgroundColor = [self interstitialBackgroundColorFromString:backgroundColor];
     
     [self.interstitialAd loadAd];
-}
-
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
-    if (self.interstitialAd) {
-        [self.interstitialAd displayAdFromViewController:self]; // on load, immediately display interstitial
-    }
 }
 
 - (UIColor *)interstitialBackgroundColorFromString:(NSString *)backgroundColor {
@@ -209,14 +204,37 @@
 }
 
 /*
-    Unused Delegate Methods
+ Delegate Methods
  */
 
 - (void)adNoAdToShow:(ANInterstitialAd *)ad {}
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {}
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
+    ANLogDebug(@"adFailed");
+}
 
-- (void)adDidClose:(ANInterstitialAd *)ad {}
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adDidReceiveAd");
+    if (self.interstitialAd && self.interstitialAd == ad) {
+        [self.interstitialAd displayAdFromViewController:self]; // on load, immediately display interstitial
+    }
+}
+
+- (void)adDidClose:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adDidCLose");
+}
+
+- (void)adWillClose:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adWillCLose");
+}
+
+- (void)adWillPresent:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adWillPresent");
+}
+
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adWillLeaveApplication");
+}
 
 /*
     Explictly deallocating ad views on controller deallocation to avoid a memory leak.

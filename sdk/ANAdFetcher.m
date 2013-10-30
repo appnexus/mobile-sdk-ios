@@ -580,7 +580,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
 - (void)initMediationController:(id<ANCustomAdapter>)adInstance
           resultCB:(NSString *)resultCB {
     // create new mediation controller
-    self.mediationController = [ANMediationAdViewController initWithFetcher:self];
+    self.mediationController = [ANMediationAdViewController initWithFetcher:self adViewDelgate:self.delegate];
     adInstance.delegate = self.mediationController;
     adInstance.responseURLString = resultCB;
     [self.mediationController setAdapter:adInstance];

@@ -86,7 +86,21 @@
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
     ANLogDebug("iAd banner did load");
-	[self.delegate adapterBanner:self didReceiveBannerAdView:self.bannerView];
+	[self.delegate adapterBanner:self didReceiveBannerAdView:banner];
+}
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    if (willLeave) {
+        [self.delegate adapterBanner:self willLeaveApplication:banner];
+    } else {
+        [self.delegate adapterBanner:self willPresent:banner];
+    }
+    
+    return YES;
+}
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
+    [self.delegate adapterBanner:self didClose:banner];
 }
 
 @end

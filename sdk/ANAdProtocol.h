@@ -54,5 +54,9 @@ typedef enum _ANGender
 @optional
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad;
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error;
+- (void)adDidClose:(id<ANAdProtocol>)ad;
+- (void)adWillClose:(id<ANAdProtocol>)ad;
+- (void)adWillPresent:(id<ANAdProtocol>)ad;
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
 
 @end

@@ -109,4 +109,20 @@
     [self.delegate adapterInterstitial:self didFailToReceiveInterstitialAd:code];
 }
 
+- (void)interstitialWillPresentScreen:(GADInterstitial *)ad {
+    [self.delegate adapterInterstitial:self willPresent:ad];
+}
+
+- (void)interstitialWillDismissScreen:(GADInterstitial *)ad {
+    [self.delegate adapterInterstitial:self willClose:ad];
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)ad {
+    [self.delegate adapterInterstitial:self didClose:ad];
+}
+
+- (void)interstitialWillLeaveApplication:(GADInterstitial *)ad {
+    [self.delegate adapterInterstitial:self willLeaveApplication:ad];
+}
+
 @end

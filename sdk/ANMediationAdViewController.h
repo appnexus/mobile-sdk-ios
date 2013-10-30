@@ -16,6 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "ANCustomAdapter.h"
 #import "ANAdFetcher.h"
+#import "ANAdViewDelegate.h"
 
 @interface ANMediationAdViewController : NSObject
 
@@ -28,7 +29,8 @@
         location:(ANLocation *)location
            adView:(id<ANAdFetcherDelegate>)adView;
 
-+ (ANMediationAdViewController *)initWithFetcher:(ANAdFetcher *)fetcher;
++ (ANMediationAdViewController *)initWithFetcher:(ANAdFetcher *)fetcher
+                                   adViewDelgate:(id<ANAdViewDelegate>)adViewDelegate;
 
 @end
 

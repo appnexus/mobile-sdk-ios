@@ -39,11 +39,7 @@
 
 @protocol ANInterstitialAdDelegate <ANAdDelegate>
 
-- (void)adNoAdToShow:(ANInterstitialAd *)ad;
-
 @optional
-- (void)adWillPresent:(ANInterstitialAd *)ad;
-- (void)adWillClose:(ANInterstitialAd *)ad;
-- (void)adDidClose:(ANInterstitialAd *)ad;
+- (void)adNoAdToShow:(ANInterstitialAd *)ad;
 
 @end

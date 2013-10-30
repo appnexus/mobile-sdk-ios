@@ -53,7 +53,6 @@
 }
 
 #pragma mark ADInterstitialAdDelegate
-
 - (void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd
 {
     ANLogDebug(@"iAd interstitial did load");
@@ -63,7 +62,23 @@
 - (void)interstitialAdDidUnload:(ADInterstitialAd *)interstitialAd
 {
     ANLogDebug(@"iAd interstitial did unload");
+    [self.delegate adapterInterstitial:self didClose:interstitialAd];
 	
+}
+- (BOOL)interstitialAdActionShouldBegin:(ADInterstitialAd *)interstitialAd willLeaveApplication:(BOOL)willLeave {
+    if (willLeave) {
+        ANLogDebug(@"iAd interstitial will leave application");
+        [self.delegate adapterInterstitial:self willLeaveApplication:interstitialAd];
+    } else {
+        ANLogDebug(@"iAd interstitial will present");
+        [self.delegate adapterInterstitial:self willPresent:interstitialAd];
+    }
+    return YES;
+}
+
+- (void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd {
+    ANLogDebug(@"iAd interstitial action did finish");
+    [self.delegate adapterInterstitial:self didClose:interstitialAd];
 }
 
 - (void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error

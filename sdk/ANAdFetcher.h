@@ -16,6 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "ANAdResponse.h"
 #import "ANAdProtocol.h"
+#import "ANAdViewDelegate.h"
 
 @class ANAdWebViewController;
 @class ANMRAIDAdWebViewController;
@@ -43,7 +44,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 
 @end
 
-@protocol ANAdFetcherDelegate <NSObject>
+@protocol ANAdFetcherDelegate <NSObject, ANAdViewDelegate>
 
 @property (nonatomic, readwrite, strong) NSString *placementId;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;

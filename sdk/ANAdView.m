@@ -20,6 +20,7 @@
 #import "ANLocation.h"
 
 @interface ANAdView () <ANBrowserViewControllerDelegate>
+@property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
 @end
 
 @implementation ANAdView
@@ -268,7 +269,35 @@
 	[presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark ANAdViewDelegate
+
+- (void)adWillPresent {
+    if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
+        [self.delegate adWillPresent:self];
+    }
+}
+
+- (void)adWillClose {
+    if ([self.delegate respondsToSelector:@selector(adWillClose:)]) {
+        [self.delegate adWillClose:self];
+    }
+}
+
+- (void)adDidClose {
+    if ([self.delegate respondsToSelector:@selector(adDidClose::)]) {
+        [self.delegate adDidClose:self];
+    }
+}
+
+- (void)adWillLeaveApplication {
+    if ([self.delegate respondsToSelector:@selector(adWillLeaveApplication:)]) {
+        [self.delegate adWillLeaveApplication:self];
+    }
+}
+
 @end
+
+#pragma mark ANAdView (ANAdFetcher)
 
 @implementation ANAdView (ANAdFetcher)
 

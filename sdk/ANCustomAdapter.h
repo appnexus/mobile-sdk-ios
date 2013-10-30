@@ -52,11 +52,21 @@
 - (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didReceiveBannerAdView:(UIView *)view;
 - (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didFailToReceiveBannerAdView:(ANAdResponseCode)errorCode;
 
+- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willPresent:(UIView *)view;
+- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willClose:(UIView *)view;
+- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didClose:(UIView *)view;
+- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willLeaveApplication:(UIView *)view;
+
 @end
 
 @protocol ANCustomAdapterInterstitialDelegate <ANCustomAdapterDelegate>
 
 - (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didLoadInterstitialAd:(id)interstitialAd;
 - (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didFailToReceiveInterstitialAd:(ANAdResponseCode)errorCode;
+
+- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willPresent:(id)interstitialAd;
+- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willClose:(id)interstitialAd;
+- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didClose:(id)interstitialAd;
+- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willLeaveApplication:(id)interstitialAd;
 
 @end

@@ -125,6 +125,7 @@
 		EC7DC26D18199CD500B813D1 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7DC26C18199CD500B813D1 /* ANMediationAdViewController.m */; };
 		ECADD0091815CF97007A4945 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECADD0041815CF97007A4945 /* libMMSDK_5.1.1.a */; };
 		ECB11D081820412100CB4BE8 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECB11D071820412100CB4BE8 /* errors.strings */; };
+		ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1204E18218A1E00CB4BE8 /* iAd.framework */; };
 		ECDF1221181AF35A0069D7B4 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDF1220181AF35A0069D7B4 /* LogViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -325,6 +326,8 @@
 		ECADD0071815CF97007A4945 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
 		ECADD0081815CF97007A4945 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
 		ECB11D071820412100CB4BE8 /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
+		ECB1204D1821718200CB4BE8 /* ANAdViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdViewDelegate.h; sourceTree = "<group>"; };
+		ECB1204E18218A1E00CB4BE8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ECDF121F181AF35A0069D7B4 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = SDKDemoApp2/Classes/LogViewController.h; sourceTree = "<group>"; };
 		ECDF1220181AF35A0069D7B4 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = SDKDemoApp2/Classes/LogViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -334,6 +337,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */,
 				EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */,
 				EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */,
 				8A9EFB0917CFD49200FCF79F /* UIKit.framework in Frameworks */,
@@ -444,6 +448,7 @@
 		8A9EFB0717CFD49200FCF79F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECB1204E18218A1E00CB4BE8 /* iAd.framework */,
 				EC7DC2661817407A00B813D1 /* QuartzCore.framework */,
 				EC7DC2641817406200B813D1 /* AVFoundation.framework */,
 				EC7DC2621817404600B813D1 /* MediaPlayer.framework */,
@@ -607,6 +612,7 @@
 			isa = PBXGroup;
 			children = (
 				ECB11D071820412100CB4BE8 /* errors.strings */,
+				ECB1204D1821718200CB4BE8 /* ANAdViewDelegate.h */,
 				EC7DC26B18199CD500B813D1 /* ANMediationAdViewController.h */,
 				EC7DC26C18199CD500B813D1 /* ANMediationAdViewController.m */,
 				EC7DC2321817402E00B813D1 /* ANAdAdapterBannerMillennialMedia.h */,

@@ -22,13 +22,14 @@
 #import "ANAdResponse.h"
 #import "ANCustomAdapter.h"
 #import "ANLocation.h"
+#import "ANAdViewDelegate.h"
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
 NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 
-@interface ANInterstitialAd () <ANAdFetcherDelegate, ANBrowserViewControllerDelegate, ANInterstitialAdViewControllerDelegate>
+@interface ANInterstitialAd () <ANAdFetcherDelegate, ANBrowserViewControllerDelegate, ANInterstitialAdViewControllerDelegate, ANAdViewDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
@@ -394,6 +395,32 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	}
 
 	return kAppNexusDefaultInterstitialTimeoutInterval;
+}
+
+#pragma mark ANAdViewDelegate
+
+- (void)adWillPresent {
+    if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
+        [self.delegate adWillPresent:self];
+    }
+}
+
+- (void)adWillClose {
+    if ([self.delegate respondsToSelector:@selector(adWillClose:)]) {
+        [self.delegate adWillClose:self];
+    }
+}
+
+- (void)adDidClose {
+    if ([self.delegate respondsToSelector:@selector(adDidClose::)]) {
+        [self.delegate adDidClose:self];
+    }
+}
+
+- (void)adWillLeaveApplication {
+    if ([self.delegate respondsToSelector:@selector(adWillLeaveApplication:)]) {
+        [self.delegate adWillLeaveApplication:self];
+    }
 }
 
 @end

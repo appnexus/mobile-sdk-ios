@@ -108,6 +108,22 @@
  	[self.delegate adapterBanner:self didFailToReceiveBannerAdView:code];
 }
 
+- (void)adViewWillPresentScreen:(GADBannerView *)adView {
+    [self.delegate adapterBanner:self willPresent:adView];
+}
+
+- (void)adViewWillDismissScreen:(GADBannerView *)adView {
+    [self.delegate adapterBanner:self willClose:adView];
+}
+
+- (void)adViewDidDismissScreen:(GADBannerView *)adView {
+    [self.delegate adapterBanner:self didClose:adView];
+}
+
+- (void)adViewWillLeaveApplication:(GADBannerView *)adView {
+    [self.delegate adapterBanner:self willLeaveApplication:adView];
+}
+
 - (void)dealloc
 {
     ANLogDebug(@"AdMob banner being destroyed");
