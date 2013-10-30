@@ -1,0 +1,560 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237318219C9D00CB4BE8 /* Foundation.framework */; };
+		ECB1238218219C9D00CB4BE8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1238118219C9D00CB4BE8 /* XCTest.framework */; };
+		ECB1238318219C9D00CB4BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237318219C9D00CB4BE8 /* Foundation.framework */; };
+		ECB1238518219C9D00CB4BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1238418219C9D00CB4BE8 /* UIKit.framework */; };
+		ECB1238818219C9D00CB4BE8 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */; };
+		ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */; };
+		ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */; };
+		ECB1244518219E2000CB4BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1244418219E2000CB4BE8 /* UIKit.framework */; };
+		ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */; };
+		ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */; };
+		ECB1245B18219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245118219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m */; };
+		ECB1245C18219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245318219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m */; };
+		ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
+		ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
+		ECB1245F18219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1244B18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.h */; };
+		ECB1246018219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */; };
+		ECB1246118219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1244D18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h */; };
+		ECB1246218219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */; };
+		ECB1246318219ED600CB4BE8 /* ANAdAdapterBanneriAd.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245018219ECE00CB4BE8 /* ANAdAdapterBanneriAd.h */; };
+		ECB1246418219ED600CB4BE8 /* ANAdAdapterBanneriAd.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245118219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m */; };
+		ECB1246518219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245218219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.h */; };
+		ECB1246618219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245318219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m */; };
+		ECB1246718219ED600CB4BE8 /* ANAdAdapterBannerAdMob.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245518219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.h */; };
+		ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
+		ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */; };
+		ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ECB1238618219C9D00CB4BE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECB1236818219C9D00CB4BE8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECB1236F18219C9D00CB4BE8;
+			remoteInfo = ANMediatedViewsLibrary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECB1236E18219C9D00CB4BE8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				ECB1245F18219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.h in CopyFiles */,
+				ECB1246018219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in CopyFiles */,
+				ECB1246118219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h in CopyFiles */,
+				ECB1246218219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in CopyFiles */,
+				ECB1246318219ED600CB4BE8 /* ANAdAdapterBanneriAd.h in CopyFiles */,
+				ECB1246418219ED600CB4BE8 /* ANAdAdapterBanneriAd.m in CopyFiles */,
+				ECB1246518219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.h in CopyFiles */,
+				ECB1246618219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.m in CopyFiles */,
+				ECB1246718219ED600CB4BE8 /* ANAdAdapterBannerAdMob.h in CopyFiles */,
+				ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in CopyFiles */,
+				ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in CopyFiles */,
+				ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANMediatedViewsLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECB1237318219C9D00CB4BE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		ECB1238018219C9D00CB4BE8 /* ANMediatedViewsLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANMediatedViewsLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECB1238118219C9D00CB4BE8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		ECB1238418219C9D00CB4BE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		ECB123BA18219D4F00CB4BE8 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
+		ECB123BB18219D4F00CB4BE8 /* GADCustomEventBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBannerDelegate.h; sourceTree = "<group>"; };
+		ECB123BC18219D4F00CB4BE8 /* GADCustomEventExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventExtras.h; sourceTree = "<group>"; };
+		ECB123BD18219D4F00CB4BE8 /* GADCustomEventInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitial.h; sourceTree = "<group>"; };
+		ECB123BE18219D4F00CB4BE8 /* GADCustomEventInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitialDelegate.h; sourceTree = "<group>"; };
+		ECB123BF18219D4F00CB4BE8 /* GADCustomEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventRequest.h; sourceTree = "<group>"; };
+		ECB123C018219D4F00CB4BE8 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
+		ECB123C118219D4F00CB4BE8 /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
+		ECB123C218219D4F00CB4BE8 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		ECB123C318219D4F00CB4BE8 /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
+		ECB123C418219D4F00CB4BE8 /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
+		ECB123C518219D4F00CB4BE8 /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
+		ECB123C618219D4F00CB4BE8 /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
+		ECB123C718219D4F00CB4BE8 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		ECB123C818219D4F00CB4BE8 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
+		ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
+		ECB123CA18219D4F00CB4BE8 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.1.a; sourceTree = "<group>"; };
+		ECB123CD18219D4F00CB4BE8 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
+		ECB123CE18219D4F00CB4BE8 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
+		ECB123CF18219D4F00CB4BE8 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
+		ECB123D018219D4F00CB4BE8 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
+		ECB1244418219E2000CB4BE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		ECB1244B18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMillennialMedia.h; sourceTree = "<group>"; };
+		ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMillennialMedia.m; sourceTree = "<group>"; };
+		ECB1244D18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialMillennialMedia.h; sourceTree = "<group>"; };
+		ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialMillennialMedia.m; sourceTree = "<group>"; };
+		ECB1245018219ECE00CB4BE8 /* ANAdAdapterBanneriAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBanneriAd.h; sourceTree = "<group>"; };
+		ECB1245118219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBanneriAd.m; sourceTree = "<group>"; };
+		ECB1245218219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialiAd.h; sourceTree = "<group>"; };
+		ECB1245318219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialiAd.m; sourceTree = "<group>"; };
+		ECB1245518219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
+		ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMob.m; sourceTree = "<group>"; };
+		ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
+		ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMob.m; sourceTree = "<group>"; };
+		ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANGlobal.h; path = ../../../sdk/internal/ANGlobal.h; sourceTree = "<group>"; };
+		ECB1253B1821A35D00CB4BE8 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/internal/ANCustomAdapter.h; sourceTree = "<group>"; };
+		ECB1253C1821A35D00CB4BE8 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANLogging.h; path = ../../../sdk/internal/ANLogging.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECB1236D18219C9D00CB4BE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECB1244518219E2000CB4BE8 /* UIKit.framework in Frameworks */,
+				ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */,
+				ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */,
+				ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECB1237D18219C9D00CB4BE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECB1238818219C9D00CB4BE8 /* libANMediatedViewsLibrary.a in Frameworks */,
+				ECB1238218219C9D00CB4BE8 /* XCTest.framework in Frameworks */,
+				ECB1238518219C9D00CB4BE8 /* UIKit.framework in Frameworks */,
+				ECB1238318219C9D00CB4BE8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ECB1236718219C9D00CB4BE8 = {
+			isa = PBXGroup;
+			children = (
+				ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */,
+				ECB1253B1821A35D00CB4BE8 /* ANCustomAdapter.h */,
+				ECB1253C1821A35D00CB4BE8 /* ANLogging.h */,
+				ECB1237218219C9D00CB4BE8 /* Frameworks */,
+				ECB1237118219C9D00CB4BE8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECB1237118219C9D00CB4BE8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */,
+				ECB1238018219C9D00CB4BE8 /* ANMediatedViewsLibraryTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECB1237218219C9D00CB4BE8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ECB1244A18219ECD00CB4BE8 /* MillennialMedia */,
+				ECB1244F18219ECE00CB4BE8 /* iAd */,
+				ECB1245418219ECE00CB4BE8 /* AdMob */,
+				ECB1244418219E2000CB4BE8 /* UIKit.framework */,
+				ECB123B618219D4F00CB4BE8 /* libs */,
+				ECB1237318219C9D00CB4BE8 /* Foundation.framework */,
+				ECB1238118219C9D00CB4BE8 /* XCTest.framework */,
+				ECB1238418219C9D00CB4BE8 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ECB123B618219D4F00CB4BE8 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				ECB123B718219D4F00CB4BE8 /* AdMob */,
+				ECB123CB18219D4F00CB4BE8 /* MMSDK */,
+			);
+			name = libs;
+			path = ../libs;
+			sourceTree = "<group>";
+		};
+		ECB123B718219D4F00CB4BE8 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				ECB123B818219D4F00CB4BE8 /* Add-ons */,
+				ECB123C018219D4F00CB4BE8 /* GADAdMobExtras.h */,
+				ECB123C118219D4F00CB4BE8 /* GADAdNetworkExtras.h */,
+				ECB123C218219D4F00CB4BE8 /* GADAdSize.h */,
+				ECB123C318219D4F00CB4BE8 /* GADBannerView.h */,
+				ECB123C418219D4F00CB4BE8 /* GADBannerViewDelegate.h */,
+				ECB123C518219D4F00CB4BE8 /* GADInterstitial.h */,
+				ECB123C618219D4F00CB4BE8 /* GADInterstitialDelegate.h */,
+				ECB123C718219D4F00CB4BE8 /* GADRequest.h */,
+				ECB123C818219D4F00CB4BE8 /* GADRequestError.h */,
+				ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */,
+				ECB123CA18219D4F00CB4BE8 /* README.txt */,
+			);
+			path = AdMob;
+			sourceTree = "<group>";
+		};
+		ECB123B818219D4F00CB4BE8 /* Add-ons */ = {
+			isa = PBXGroup;
+			children = (
+				ECB123B918219D4F00CB4BE8 /* Mediation */,
+			);
+			path = "Add-ons";
+			sourceTree = "<group>";
+		};
+		ECB123B918219D4F00CB4BE8 /* Mediation */ = {
+			isa = PBXGroup;
+			children = (
+				ECB123BA18219D4F00CB4BE8 /* GADCustomEventBanner.h */,
+				ECB123BB18219D4F00CB4BE8 /* GADCustomEventBannerDelegate.h */,
+				ECB123BC18219D4F00CB4BE8 /* GADCustomEventExtras.h */,
+				ECB123BD18219D4F00CB4BE8 /* GADCustomEventInterstitial.h */,
+				ECB123BE18219D4F00CB4BE8 /* GADCustomEventInterstitialDelegate.h */,
+				ECB123BF18219D4F00CB4BE8 /* GADCustomEventRequest.h */,
+			);
+			path = Mediation;
+			sourceTree = "<group>";
+		};
+		ECB123CB18219D4F00CB4BE8 /* MMSDK */ = {
+			isa = PBXGroup;
+			children = (
+				ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */,
+				ECB123CD18219D4F00CB4BE8 /* MMAdView.h */,
+				ECB123CE18219D4F00CB4BE8 /* MMInterstitial.h */,
+				ECB123CF18219D4F00CB4BE8 /* MMRequest.h */,
+				ECB123D018219D4F00CB4BE8 /* MMSDK.h */,
+			);
+			path = MMSDK;
+			sourceTree = "<group>";
+		};
+		ECB1244A18219ECD00CB4BE8 /* MillennialMedia */ = {
+			isa = PBXGroup;
+			children = (
+				ECB1244B18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.h */,
+				ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */,
+				ECB1244D18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h */,
+				ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */,
+			);
+			name = MillennialMedia;
+			path = ../MillennialMedia;
+			sourceTree = "<group>";
+		};
+		ECB1244F18219ECE00CB4BE8 /* iAd */ = {
+			isa = PBXGroup;
+			children = (
+				ECB1245018219ECE00CB4BE8 /* ANAdAdapterBanneriAd.h */,
+				ECB1245118219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m */,
+				ECB1245218219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.h */,
+				ECB1245318219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m */,
+			);
+			name = iAd;
+			path = ../iAd;
+			sourceTree = "<group>";
+		};
+		ECB1245418219ECE00CB4BE8 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				ECB1245518219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.h */,
+				ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */,
+				ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */,
+				ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */,
+			);
+			name = AdMob;
+			path = ../AdMob;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECB1236F18219C9D00CB4BE8 /* ANMediatedViewsLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECB1239318219C9D00CB4BE8 /* Build configuration list for PBXNativeTarget "ANMediatedViewsLibrary" */;
+			buildPhases = (
+				ECB1236C18219C9D00CB4BE8 /* Sources */,
+				ECB1236D18219C9D00CB4BE8 /* Frameworks */,
+				ECB1236E18219C9D00CB4BE8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ANMediatedViewsLibrary;
+			productName = ANMediatedViewsLibrary;
+			productReference = ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		ECB1237F18219C9D00CB4BE8 /* ANMediatedViewsLibraryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECB1239618219C9D00CB4BE8 /* Build configuration list for PBXNativeTarget "ANMediatedViewsLibraryTests" */;
+			buildPhases = (
+				ECB1237C18219C9D00CB4BE8 /* Sources */,
+				ECB1237D18219C9D00CB4BE8 /* Frameworks */,
+				ECB1237E18219C9D00CB4BE8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECB1238718219C9D00CB4BE8 /* PBXTargetDependency */,
+			);
+			name = ANMediatedViewsLibraryTests;
+			productName = ANMediatedViewsLibraryTests;
+			productReference = ECB1238018219C9D00CB4BE8 /* ANMediatedViewsLibraryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECB1236818219C9D00CB4BE8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = AppNexus;
+			};
+			buildConfigurationList = ECB1236B18219C9D00CB4BE8 /* Build configuration list for PBXProject "ANMediatedViewsLibrary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ECB1236718219C9D00CB4BE8;
+			productRefGroup = ECB1237118219C9D00CB4BE8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECB1236F18219C9D00CB4BE8 /* ANMediatedViewsLibrary */,
+				ECB1237F18219C9D00CB4BE8 /* ANMediatedViewsLibraryTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ECB1237E18219C9D00CB4BE8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECB1236C18219C9D00CB4BE8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECB1245C18219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m in Sources */,
+				ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
+				ECB1245B18219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m in Sources */,
+				ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */,
+				ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */,
+				ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECB1237C18219C9D00CB4BE8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ECB1238718219C9D00CB4BE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECB1236F18219C9D00CB4BE8 /* ANMediatedViewsLibrary */;
+			targetProxy = ECB1238618219C9D00CB4BE8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		ECB1239118219C9D00CB4BE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ECB1239218219C9D00CB4BE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECB1239418219C9D00CB4BE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANMediatedViewsLibrary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/ANMediatedViewsLibrary/libs/AdMob",
+					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/ANMediatedViewsLibrary/libs/MMSDK",
+					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/libs/AdMob",
+					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/libs/MMSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ECB1239518219C9D00CB4BE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANMediatedViewsLibrary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/ANMediatedViewsLibrary/libs/AdMob",
+					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/ANMediatedViewsLibrary/libs/MMSDK",
+					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/libs/AdMob",
+					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/libs/MMSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		ECB1239718219C9D00CB4BE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ANMediatedViewsLibrary/ANMediatedViewsLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ANMediatedViewsLibraryTests/ANMediatedViewsLibraryTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		ECB1239818219C9D00CB4BE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ANMediatedViewsLibrary/ANMediatedViewsLibrary-Prefix.pch";
+				INFOPLIST_FILE = "ANMediatedViewsLibraryTests/ANMediatedViewsLibraryTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECB1236B18219C9D00CB4BE8 /* Build configuration list for PBXProject "ANMediatedViewsLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECB1239118219C9D00CB4BE8 /* Debug */,
+				ECB1239218219C9D00CB4BE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECB1239318219C9D00CB4BE8 /* Build configuration list for PBXNativeTarget "ANMediatedViewsLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECB1239418219C9D00CB4BE8 /* Debug */,
+				ECB1239518219C9D00CB4BE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ECB1239618219C9D00CB4BE8 /* Build configuration list for PBXNativeTarget "ANMediatedViewsLibraryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECB1239718219C9D00CB4BE8 /* Debug */,
+				ECB1239818219C9D00CB4BE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECB1236818219C9D00CB4BE8 /* Project object */;
+}

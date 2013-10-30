@@ -284,7 +284,7 @@
 }
 
 - (void)adDidClose {
-    if ([self.delegate respondsToSelector:@selector(adDidClose::)]) {
+    if ([self.delegate respondsToSelector:@selector(adDidClose:)]) {
         [self.delegate adDidClose:self];
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>224BB415-EBAA-42E2-9935-9B6ED089CBDB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ANMediatedViewsLibrary</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F8824800-E57E-4975-91A5-5CC7A144DC66</key>
+		<string>ssh://git.corp.appnexus.com/app/mobile-sdk-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>mediation/mediatedviews/ANMediatedViewsLibrary/ANMediatedViewsLibrary.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F8824800-E57E-4975-91A5-5CC7A144DC66</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://git.corp.appnexus.com/app/mobile-sdk-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F8824800-E57E-4975-91A5-5CC7A144DC66</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F8824800-E57E-4975-91A5-5CC7A144DC66</string>
+			<key>IDESourceControlWCCName</key>
+			<string>mobile-sdk-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -14,6 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define AN_MOBILE_HOSTNAME @"mediation.adnxs.com/mob"
 #define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"

@@ -15,6 +15,7 @@
 // This protocol defines all the things that are common between *all* types of ads, whether they be direct descendants of UIView as in ANBannerAdView, or modal view controller types like ANInterstitalAd.
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class ANAdFetcher;
 @class ANLocation;
