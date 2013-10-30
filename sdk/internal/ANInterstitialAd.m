@@ -168,7 +168,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                                    [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
                                    [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
                                    [NSValue valueWithCGSize:kANInterstitialAdSize300x250],
-                                   [NSValue valueWithCGSize:kANInterstitialAdSize320x50],
                                    nil];
     for (NSValue *sizeValue in possibleSizesArray)
     {
