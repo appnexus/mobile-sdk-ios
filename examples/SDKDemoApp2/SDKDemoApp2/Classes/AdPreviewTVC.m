@@ -27,7 +27,6 @@
 
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
@@ -207,7 +206,9 @@
  Delegate Methods
  */
 
-- (void)adNoAdToShow:(ANInterstitialAd *)ad {}
+- (void)adNoAdToShow:(ANInterstitialAd *)ad {
+    ANLogDebug(@"No interstitial ad to show");
+}
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
     ANLogDebug(@"adFailed");
@@ -221,11 +222,11 @@
 }
 
 - (void)adDidClose:(id<ANAdProtocol>)ad {
-    ANLogDebug(@"adDidCLose");
+    ANLogDebug(@"adDidClose");
 }
 
 - (void)adWillClose:(id<ANAdProtocol>)ad {
-    ANLogDebug(@"adWillCLose");
+    ANLogDebug(@"adWillClose");
 }
 
 - (void)adWillPresent:(id<ANAdProtocol>)ad {
