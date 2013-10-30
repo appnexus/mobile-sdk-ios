@@ -60,6 +60,9 @@
 	
 	self.backgroundColor = [UIColor clearColor];
 	self.autoresizingMask = UIViewAutoresizingNone;
+    
+    // Set default autorefreshInterval
+	__autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
 }
 
 - (void)awakeFromNib
@@ -86,22 +89,16 @@
         self.backgroundColor = [UIColor clearColor];
     }
     
-	// Start autorefresh automatically
-	self.autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
-    
     return self;
 }
 
 - (void)loadAd
 {
-    if (self.autorefreshInterval > 0)
-    {
-        ANLogWarn(@"Ad view already scheduled to refresh ads every %f seconds", self.autorefreshInterval);
+    if ([self.adFetcher isLoading]) {
+        [self.adFetcher stopAd];
     }
-    else
-    {
-        [self.adFetcher requestAd];
-    }
+
+    [self.adFetcher requestAd];
 }
 
 - (CGSize)adSize
@@ -145,38 +142,28 @@
 }
 
 - (void)setAutorefreshInterval:(NSTimeInterval)autorefreshInterval
-{    
-	if (autorefreshInterval < 15.0f && autorefreshInterval > 0.0f)
-	{
-		ANLogError(@"Cannot set autorefresh interval less than 15 seconds.");
-	}
-	else if (autorefreshInterval < 0.0f)
-	{
-		ANLogError(@"Ad view interval cannot be negative.");
-	}
-	else
-	{
-		ANLogDebug(@"Ad view autorefresh interval set to %f seconds", autorefreshInterval);
+{
+    // if auto refresh is above the threshold (0), turn auto refresh on
+    if (autorefreshInterval > kANBannerAdViewAutorefreshThreshold) {
+        // minimum allowed value for auto refresh is (15).
+        if (autorefreshInterval < kANBannerAdViewMinimumAutorefreshInterval) {
+            __autorefreshInterval = kANBannerAdViewMinimumAutorefreshInterval;
+            ANLogWarn(@"setAutorefreshInterval called with value %f, but cannot be less than %f", autorefreshInterval, kANBannerAdViewMinimumAutorefreshInterval);
+        }
+        
+		ANLogDebug(@"Autorefresh interval set to %f seconds", autorefreshInterval);
 		__autorefreshInterval = autorefreshInterval;
-		
-		if (autorefreshInterval > 0.0f && ![self.adFetcher isLoading])
-		{
-			ANLogDebug(@"New autorefresh interval set. Making ad request.");
-			[self.adFetcher requestAd];
-		}
-		else if (autorefreshInterval == 0.0f)
-		{
-			BOOL adFetcherWasLoading = [self.adFetcher isLoading];
-			
-			ANLogDebug(@"Stopping autorefresh");
-			[self.adFetcher stopAd];
-			
-			if (!adFetcherWasLoading)
-			{
-				[self.adFetcher requestAd];
-			}
-		}
-	}
+
+		if ([self.adFetcher isLoading]) {
+            [self.adFetcher stopAd];
+        }
+        
+        ANLogDebug(@"New autorefresh interval set. Making ad request.");
+        [self.adFetcher requestAd];
+    } else {
+		ANLogDebug(@"Turning auto refresh off");
+		__autorefreshInterval = autorefreshInterval;
+    }
 }
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated
