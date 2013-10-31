@@ -19,7 +19,6 @@
 #import "MMRequest.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANAdResponse.h"
 
 @interface ANAdAdapterBannerMillennialMedia ()
 @property (strong, nonatomic) CLLocationManager *locationManager;

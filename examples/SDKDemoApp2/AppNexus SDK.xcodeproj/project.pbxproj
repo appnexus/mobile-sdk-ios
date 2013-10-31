@@ -76,6 +76,7 @@
 		EC7DC2631817404600B813D1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2621817404600B813D1 /* MediaPlayer.framework */; };
 		EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2641817406200B813D1 /* AVFoundation.framework */; };
 		EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2661817407A00B813D1 /* QuartzCore.framework */; };
+		ECABE65C1821EA7A0037E6C5 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */; };
 		ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1204E18218A1E00CB4BE8 /* iAd.framework */; };
 		ECB124BB1821A25D00CB4BE8 /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247D1821A25D00CB4BE8 /* NSString+ANCategory.m */; };
 		ECB124BC1821A25D00CB4BE8 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247F1821A25D00CB4BE8 /* NSTimer+ANCategory.m */; };
@@ -112,9 +113,25 @@
 		ECB124DB1821A25D00CB4BE8 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B81821A25D00CB4BE8 /* UIButtonBarArrowRight.png */; };
 		ECB124DC1821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B91821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png */; };
 		ECB124DD1821A25D00CB4BE8 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECB124BA1821A25D00CB4BE8 /* MRAID.bundle */; };
-		ECB1253E1821A44D00CB4BE8 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1253D1821A44D00CB4BE8 /* libANMediatedViewsLibrary.a */; };
 		ECDF1221181AF35A0069D7B4 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDF1220181AF35A0069D7B4 /* LogViewController.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ECABE6571821E8B00037E6C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECB1237018219C9D00CB4BE8;
+			remoteInfo = ANMediatedViewsLibrary;
+		};
+		ECABE6591821E8B00037E6C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECB1238018219C9D00CB4BE8;
+			remoteInfo = ANMediatedViewsLibraryTests;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8A1CD1CD17E2C0CD00B4A497 /* NoCaretUITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoCaretUITextField.h; path = SDKDemoApp2/Classes/NoCaretUITextField.h; sourceTree = "<group>"; };
@@ -206,6 +223,7 @@
 		EC7DC2621817404600B813D1 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7DC2641817406200B813D1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EC7DC2661817407A00B813D1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANMediatedViewsLibrary.xcodeproj; path = ../../mediation/mediatedviews/ANMediatedViewsLibrary/ANMediatedViewsLibrary.xcodeproj; sourceTree = "<group>"; };
 		ECB1204E18218A1E00CB4BE8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ECB124781821A25D00CB4BE8 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
 		ECB124791821A25D00CB4BE8 /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
@@ -267,7 +285,6 @@
 		ECB124B81821A25D00CB4BE8 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECB124B91821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECB124BA1821A25D00CB4BE8 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
-		ECB1253D1821A44D00CB4BE8 /* libANMediatedViewsLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libANMediatedViewsLibrary.a; path = ../../mediation/mediatedviews/libANMediatedViewsLibrary.a; sourceTree = "<group>"; };
 		ECDF121F181AF35A0069D7B4 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogViewController.h; path = SDKDemoApp2/Classes/LogViewController.h; sourceTree = "<group>"; };
 		ECDF1220181AF35A0069D7B4 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogViewController.m; path = SDKDemoApp2/Classes/LogViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -277,7 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECB1253E1821A44D00CB4BE8 /* libANMediatedViewsLibrary.a in Frameworks */,
+				ECABE65C1821EA7A0037E6C5 /* libANMediatedViewsLibrary.a in Frameworks */,
 				ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */,
 				EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */,
 				EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */,
@@ -367,6 +384,7 @@
 		8A9EFAFC17CFD49200FCF79F = {
 			isa = PBXGroup;
 			children = (
+				ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */,
 				ECB124771821A25D00CB4BE8 /* sdk */,
 				8A60758717F67E210038A407 /* iPad */,
 				8A9EFB0717CFD49200FCF79F /* Frameworks */,
@@ -386,7 +404,6 @@
 		8A9EFB0717CFD49200FCF79F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ECB1253D1821A44D00CB4BE8 /* libANMediatedViewsLibrary.a */,
 				ECB1204E18218A1E00CB4BE8 /* iAd.framework */,
 				EC7DC2661817407A00B813D1 /* QuartzCore.framework */,
 				EC7DC2641817406200B813D1 /* AVFoundation.framework */,
@@ -469,6 +486,15 @@
 				8AA1621617D6B85E00A25A32 /* AdSettings.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		ECABE6531821E8B00037E6C5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */,
+				ECABE65A1821E8B00037E6C5 /* ANMediatedViewsLibraryTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		ECB124771821A25D00CB4BE8 /* sdk */ = {
@@ -645,12 +671,35 @@
 			mainGroup = 8A9EFAFC17CFD49200FCF79F;
 			productRefGroup = 8A9EFB0617CFD49200FCF79F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = ECABE6531821E8B00037E6C5 /* Products */;
+					ProjectRef = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8A9EFB0417CFD49200FCF79F /* AppNexus SDK */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANMediatedViewsLibrary.a;
+			remoteRef = ECABE6571821E8B00037E6C5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECABE65A1821E8B00037E6C5 /* ANMediatedViewsLibraryTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ANMediatedViewsLibraryTests.xctest;
+			remoteRef = ECABE6591821E8B00037E6C5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8A9EFB0317CFD49200FCF79F /* Resources */ = {

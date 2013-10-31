@@ -19,7 +19,6 @@
 #import "MMRequest.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANAdResponse.h"
 
 @interface ANAdAdapterInterstitialMillennialMedia ()
 @property (nonatomic, readwrite, strong) MMInterstitial *interstitialAd;

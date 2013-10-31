@@ -27,6 +27,7 @@
 #import "ANMediatedAd.h"
 #import "ANLocation.h"
 #import "ANMediationAdViewController.h"
+#import "ANCustomAdapter.h"
 
 #import <iAd/iAd.h>
 
@@ -332,15 +333,15 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return @"&st=mobile_app";
 }
 
-- (NSString *)psasAndReserveParameter
+- (NSString *)psaAndReserveParameter
 {
     BOOL shouldServePsas = [self.delegate shouldServePublicServiceAnnouncements];
     CGFloat reserve = [self.delegate reserve];
     if (reserve > 0.0f) {
         NSString *reserveParameter = [[NSString stringWithFormat:@"%f", reserve] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        return [NSString stringWithFormat:@"&psas=0&reserve=%@", reserveParameter];
+        return [NSString stringWithFormat:@"&psa=0&reserve=%@", reserveParameter];
     } else {
-        return shouldServePsas ? @"&psas=1" : @"&psas=0";
+        return shouldServePsas ? @"&psa=1" : @"&psa=0";
     }
 }
 
@@ -408,7 +409,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     urlString = [urlString stringByAppendingString:[self jsonFormatParameter]];
     urlString = [urlString stringByAppendingString:[self userAgentParameter]];
     urlString = [urlString stringByAppendingString:[self supplyTypeParameter]];
-    urlString = [urlString stringByAppendingString:[self psasAndReserveParameter]];
+    urlString = [urlString stringByAppendingString:[self psaAndReserveParameter]];
     urlString = [urlString stringByAppendingString:[self ageParameter]];
     urlString = [urlString stringByAppendingString:[self genderParameter]];
     urlString = [urlString stringByAppendingString:[self customKeywordsParameter]];

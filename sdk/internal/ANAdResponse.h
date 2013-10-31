@@ -16,21 +16,6 @@
 #import <Foundation/Foundation.h>
 #import "ANMediatedAd.h"
 
-typedef enum _ANAdResponseCode
-{
-    ANDefaultCode = -1,
-    ANAdResponseSuccessful = 0,
-    ANAdResponseInvalidRequest,
-    ANAdResponseUnableToFill,
-    ANAdResponseMediatedSDKUnavailable,
-    ANAdResponseNetworkError,
-    ANAdResponseInternalError,
-    ANAdResponseBadFormat = 100,
-	ANAdResponseBadURL,
-	ANAdResponseBadURLConnection,
-	ANAdResponseNonViewResponse
-} ANAdResponseCode;
-
 @interface ANAdResponse : NSObject
 
 @property (nonatomic, readwrite, getter = isSuccessful) BOOL successful;

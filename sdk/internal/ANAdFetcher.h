@@ -17,6 +17,7 @@
 #import "ANAdResponse.h"
 #import "ANAdProtocol.h"
 #import "ANAdViewDelegate.h"
+#import "ANCustomAdapter.h"
 
 @class ANAdWebViewController;
 @class ANMRAIDAdWebViewController;

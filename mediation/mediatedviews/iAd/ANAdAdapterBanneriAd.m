@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterBanneriAd.h"
 #import "ANLogging.h"
-#import "ANAdResponse.h"
 
 @interface ANAdAdapterBanneriAd ()
 @property (nonatomic, readwrite, strong) id bannerView;

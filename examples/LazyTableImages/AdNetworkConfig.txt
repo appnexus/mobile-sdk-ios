@@ -1,1 +1,0 @@
-{"rules":[{"priority":10,"network_id":123,"network_name":"mopub","call_template":{"http_action":"GET","url":{"base":"http://ads.mopub.com/m/ad?v=8","parameters":["{UDID}","{UID}","{VERSION}","{ORIENTATION}","{SCALEFACTOR}","{TIMEZONE}"],"optional_parameters":["{KEYWORDS}","{LOCATIONPAIR}","{MRAIDAVAILABLE}","{DONTTRACK}"]}},"duration":10}]}

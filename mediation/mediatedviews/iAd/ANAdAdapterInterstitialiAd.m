@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterInterstitialiAd.h"
 #import "ANLogging.h"
-#import "ANAdResponse.h"
 
 @interface ANAdAdapterInterstitialiAd ()
 @property (nonatomic, readwrite, strong) id interstitialAd;

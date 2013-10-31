@@ -14,8 +14,22 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdResponse.h"
 #import "ANLocation.h"
+
+typedef enum _ANAdResponseCode
+{
+    ANDefaultCode = -1,
+    ANAdResponseSuccessful = 0,
+    ANAdResponseInvalidRequest,
+    ANAdResponseUnableToFill,
+    ANAdResponseMediatedSDKUnavailable,
+    ANAdResponseNetworkError,
+    ANAdResponseInternalError,
+    ANAdResponseBadFormat = 100,
+	ANAdResponseBadURL,
+	ANAdResponseBadURLConnection,
+	ANAdResponseNonViewResponse
+} ANAdResponseCode;
 
 @protocol ANCustomAdapterDelegate <NSObject>
 @end

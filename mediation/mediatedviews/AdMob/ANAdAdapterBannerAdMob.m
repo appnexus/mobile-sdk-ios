@@ -16,7 +16,6 @@
 #import "ANAdAdapterBannerAdMob.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANAdResponse.h"
 
 @interface ANAdAdapterBannerAdMob ()
 @property (nonatomic, readwrite, strong) GADBannerView *bannerView;

@@ -15,7 +15,7 @@
 
 #import "ANBannerAdView.h"
 #import "ANAdFetcher.h"
-#import "ANAdResponse.h"
+#import "ANCustomAdapter.h"
 
 @interface ANAdView (ANBannerAdView)
 - (void)initialize;
