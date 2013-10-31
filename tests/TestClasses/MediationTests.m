@@ -81,7 +81,7 @@
     fetcher.delegate = self;
     [fetcher requestAdWithURL:[NSURL URLWithString:APPNEXUS_TEST_MOBCALL_WITH_ID([@(testNumber) stringValue])]];
 	
-    STAssertTrue([self waitForCompletion:10.0], @"Failed to receive response from server. Test failing.");
+    STAssertTrue([self waitForCompletion:30.0], @"Failed to receive response from server. Test failing.");
 }
 
 - (void)test1ResponseWhereClassExists
@@ -189,6 +189,12 @@
             result = NO;
         }
     }
+
+    /*****
+     * Sometimes iAd will not return a successful ad, which causes the test to fail.
+     * Re-running the test should result in a success.
+     * This is a dependency on the external network.
+     *****/
     
     STAssertTrue(result, [NSString stringWithFormat:@"Expected an adapter of class %@.", className]);
 }
