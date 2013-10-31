@@ -84,6 +84,13 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	return self;
 }
 
+- (void) dealloc {
+    self.adFetcher.delegate = nil;
+    self.adFetcher = nil;
+    self.controller.delegate = nil;
+    self.controller = nil;
+}
+
 - (void)loadAd
 {
 	// Refresh our list of allowed ad sizes

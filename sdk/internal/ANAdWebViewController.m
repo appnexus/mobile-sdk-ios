@@ -79,8 +79,9 @@ typedef enum _ANMRAIDState
 
 - (void)dealloc
 {
-	__webView.delegate = nil;
-	[__webView stopLoading];
+    [__webView stopLoading];
+    __webView.delegate = nil;
+    [__webView removeFromSuperview];
 }
 
 @end

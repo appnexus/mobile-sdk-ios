@@ -128,6 +128,8 @@
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
     BOOL settingsClickShouldOpenInBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
     NSString *backgroundColor = settings.backgroundColor;
+
+    [self clearInterstitialAd];
     
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
@@ -166,6 +168,7 @@
 }
 
 - (void)clearInterstitialAd {
+    self.interstitialAd.delegate = nil;
     self.interstitialAd = nil;
 }
 
