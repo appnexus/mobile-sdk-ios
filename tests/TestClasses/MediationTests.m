@@ -28,6 +28,7 @@
 #define iAdBannerClassName @"ANAdAdapterBanneriAd"
 #define AdMobBannerClassName @"ANAdAdapterBannerAdMob"
 #define MMBannerClassName @"ANAdAdapterBannerMillennialMedia"
+#define ErrorCodeClassName @"ANAdAdapterErrorCode"
 
 
 @interface ANAdFetcher ()
@@ -166,8 +167,7 @@
 
 - (void)checkErrorCode:(ANAdFetcher *)fetcher expectedError:(ANAdResponseCode)error{
     id adapter = [[fetcher mediationController] currentAdapter];
-    STAssertTrue([adapter isKindOfClass:[ANAdAdapterErrorCode class]],
-                 @"Expected an adapter of type ANAdAdapterErrorCode.");
+    [self checkClass:ErrorCodeClassName adapter:adapter];
     
     ANAdAdapterErrorCode *bannerAdapter = (ANAdAdapterErrorCode *)adapter;
     int codeNumber = [[bannerAdapter errorId] intValue];
@@ -183,7 +183,11 @@
         result = NO;
     }
     else {
-        result = [adapter isKindOfClass:adClass];
+        if ([adapter isMemberOfClass:adClass]) {
+            result = YES;
+        } else {
+            result = NO;
+        }
     }
     
     STAssertTrue(result, [NSString stringWithFormat:@"Expected an adapter of class %@.", className]);

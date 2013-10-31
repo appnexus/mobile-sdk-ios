@@ -27,7 +27,6 @@
 		5CA6D4BA17A9883900DD6891 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */; };
 		5CA6D4BC17A9884A00DD6891 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4BB17A9884A00DD6891 /* StoreKit.framework */; };
 		5CC9B9C217DF9A5F000DC924 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		5CD8155F17DA64C20046A256 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD8155E17DA64C20046A256 /* SenTestingKit.framework */; };
 		5CD8159517DA73AE0046A256 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D41917A8686C00DD6891 /* iAd.framework */; };
 		5CEF6F701732F8BC0054A86F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
 		5CEF6F721732F8C00054A86F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F711732F8C00054A86F /* AdSupport.framework */; };
@@ -70,20 +69,32 @@
 		ECABE5A71821E4C80037E6C5 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5841821E4C80037E6C5 /* UIButtonBarArrowRight.png */; };
 		ECABE5A81821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */; };
 		ECABE5A91821E4C80037E6C5 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5861821E4C80037E6C5 /* MRAID.bundle */; };
-		ECFF03041822BD7B0021F14C /* ANAdAdapterBannerDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02EA1822BD7B0021F14C /* ANAdAdapterBannerDummy.m */; };
-		ECFF03051822BD7B0021F14C /* ANAdAdapterBannerNoAds.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02EC1822BD7B0021F14C /* ANAdAdapterBannerNoAds.m */; };
-		ECFF03061822BD7B0021F14C /* ANAdAdapterBannerRequestFail.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02EE1822BD7B0021F14C /* ANAdAdapterBannerRequestFail.m */; };
-		ECFF03071822BD7B0021F14C /* ANAdAdapterErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02F01822BD7B0021F14C /* ANAdAdapterErrorCode.m */; };
-		ECFF03081822BD7B0021F14C /* ANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02F21822BD7B0021F14C /* ANFailedMultiple.m */; };
-		ECFF03091822BD7B0021F14C /* ANFailThenLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02F41822BD7B0021F14C /* ANFailThenLoad.m */; };
-		ECFF030A1822BD7B0021F14C /* ANLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02F61822BD7B0021F14C /* ANLoadAndHitOtherCallbacks.m */; };
-		ECFF030B1822BD7B0021F14C /* ANLoadedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02F81822BD7B0021F14C /* ANLoadedMultiple.m */; };
-		ECFF030C1822BD7B0021F14C /* ANLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02FA1822BD7B0021F14C /* ANLoadThenFail.m */; };
-		ECFF030D1822BD7B0021F14C /* ANTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02FC1822BD7B0021F14C /* ANTimeout.m */; };
-		ECFF030E1822BD7B0021F14C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECFF02FD1822BD7B0021F14C /* InfoPlist.strings */; };
-		ECFF03111822BD7B0021F14C /* TestsTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECFF03021822BD7B0021F14C /* TestsTests-Info.plist */; };
-		ECFF03131822BEE80021F14C /* MediationCallbacksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF02FF1822BD7B0021F14C /* MediationCallbacksTests.m */; };
-		ECFF03141822BEE80021F14C /* MediationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFF03011822BD7B0021F14C /* MediationTests.m */; };
+		ECB57A551822C43700FA7441 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
+		ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECD9298B1822CAD300420840 /* InfoPlist.strings */; };
+		ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECD929901822CAD300420840 /* TestsTests-Info.plist */; };
+		ECD929AB1822CAD300420840 /* ANAdAdapterBannerDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929941822CAD300420840 /* ANAdAdapterBannerDummy.m */; };
+		ECD929AC1822CAD300420840 /* ANAdAdapterBannerNoAds.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929961822CAD300420840 /* ANAdAdapterBannerNoAds.m */; };
+		ECD929AD1822CAD300420840 /* ANAdAdapterBannerRequestFail.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929981822CAD300420840 /* ANAdAdapterBannerRequestFail.m */; };
+		ECD929AE1822CAD300420840 /* ANAdAdapterErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299A1822CAD300420840 /* ANAdAdapterErrorCode.m */; };
+		ECD929AF1822CAD300420840 /* ANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299C1822CAD300420840 /* ANFailedMultiple.m */; };
+		ECD929B01822CAD300420840 /* ANFailThenLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299E1822CAD300420840 /* ANFailThenLoad.m */; };
+		ECD929B11822CAD300420840 /* ANLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A01822CAD300420840 /* ANLoadAndHitOtherCallbacks.m */; };
+		ECD929B21822CAD300420840 /* ANLoadedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A21822CAD300420840 /* ANLoadedMultiple.m */; };
+		ECD929B31822CAD300420840 /* ANLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A41822CAD300420840 /* ANLoadThenFail.m */; };
+		ECD929B41822CAD300420840 /* ANTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A61822CAD300420840 /* ANTimeout.m */; };
+		ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD8155E17DA64C20046A256 /* SenTestingKit.framework */; };
+		ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */; };
+		ECD929BA1822CD0E00420840 /* MediationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9298F1822CAD300420840 /* MediationTests.m */; };
+		ECFF03251822C2960021F14C /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFF03221822C2860021F14C /* libANMediatedViewsLibrary.a */; };
+		ECFF03261822C2B10021F14C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */; };
+		ECFF03271822C2C90021F14C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */; };
+		ECFF03281822C2E00021F14C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */; };
+		ECFF03291822C2E50021F14C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F711732F8C00054A86F /* AdSupport.framework */; };
+		ECFF032A1822C2EF0021F14C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4BB17A9884A00DD6891 /* StoreKit.framework */; };
+		ECFF032B1822C3030021F14C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F751732F8C90054A86F /* CoreTelephony.framework */; };
+		ECFF032C1822C3710021F14C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		ECFF032D1822C37E0021F14C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */; };
+		ECFF032E1822C38F0021F14C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C87293F1742E04000662716 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +104,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1D6058900D05DD3D006BFB54;
 			remoteInfo = Demo;
+		};
+		ECFF03211822C2860021F14C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECB1237018219C9D00CB4BE8;
+			remoteInfo = ANMediatedViewsLibrary;
+		};
+		ECFF03231822C2860021F14C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECB1238018219C9D00CB4BE8;
+			remoteInfo = ANMediatedViewsLibraryTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -191,32 +216,33 @@
 		ECABE5841821E4C80037E6C5 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECABE5861821E4C80037E6C5 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
-		ECFF02E91822BD7B0021F14C /* ANAdAdapterBannerDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDummy.h; sourceTree = "<group>"; };
-		ECFF02EA1822BD7B0021F14C /* ANAdAdapterBannerDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerDummy.m; sourceTree = "<group>"; };
-		ECFF02EB1822BD7B0021F14C /* ANAdAdapterBannerNoAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoAds.h; sourceTree = "<group>"; };
-		ECFF02EC1822BD7B0021F14C /* ANAdAdapterBannerNoAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoAds.m; sourceTree = "<group>"; };
-		ECFF02ED1822BD7B0021F14C /* ANAdAdapterBannerRequestFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerRequestFail.h; sourceTree = "<group>"; };
-		ECFF02EE1822BD7B0021F14C /* ANAdAdapterBannerRequestFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerRequestFail.m; sourceTree = "<group>"; };
-		ECFF02EF1822BD7B0021F14C /* ANAdAdapterErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterErrorCode.h; sourceTree = "<group>"; };
-		ECFF02F01822BD7B0021F14C /* ANAdAdapterErrorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterErrorCode.m; sourceTree = "<group>"; };
-		ECFF02F11822BD7B0021F14C /* ANFailedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailedMultiple.h; sourceTree = "<group>"; };
-		ECFF02F21822BD7B0021F14C /* ANFailedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailedMultiple.m; sourceTree = "<group>"; };
-		ECFF02F31822BD7B0021F14C /* ANFailThenLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailThenLoad.h; sourceTree = "<group>"; };
-		ECFF02F41822BD7B0021F14C /* ANFailThenLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailThenLoad.m; sourceTree = "<group>"; };
-		ECFF02F51822BD7B0021F14C /* ANLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
-		ECFF02F61822BD7B0021F14C /* ANLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
-		ECFF02F71822BD7B0021F14C /* ANLoadedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadedMultiple.h; sourceTree = "<group>"; };
-		ECFF02F81822BD7B0021F14C /* ANLoadedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadedMultiple.m; sourceTree = "<group>"; };
-		ECFF02F91822BD7B0021F14C /* ANLoadThenFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadThenFail.h; sourceTree = "<group>"; };
-		ECFF02FA1822BD7B0021F14C /* ANLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadThenFail.m; sourceTree = "<group>"; };
-		ECFF02FB1822BD7B0021F14C /* ANTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTimeout.h; sourceTree = "<group>"; };
-		ECFF02FC1822BD7B0021F14C /* ANTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTimeout.m; sourceTree = "<group>"; };
-		ECFF02FE1822BD7B0021F14C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ECFF02FF1822BD7B0021F14C /* MediationCallbacksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationCallbacksTests.m; sourceTree = "<group>"; };
-		ECFF03001822BD7B0021F14C /* MediationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediationTests.h; sourceTree = "<group>"; };
-		ECFF03011822BD7B0021F14C /* MediationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationTests.m; sourceTree = "<group>"; };
-		ECFF03021822BD7B0021F14C /* TestsTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TestsTests-Info.plist"; sourceTree = "<group>"; };
-		ECFF03031822BD7B0021F14C /* TestsTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestsTests-Prefix.pch"; sourceTree = "<group>"; };
+		ECD9298C1822CAD300420840 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationCallbacksTests.m; sourceTree = "<group>"; };
+		ECD9298E1822CAD300420840 /* MediationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediationTests.h; sourceTree = "<group>"; };
+		ECD9298F1822CAD300420840 /* MediationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationTests.m; sourceTree = "<group>"; };
+		ECD929901822CAD300420840 /* TestsTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TestsTests-Info.plist"; sourceTree = "<group>"; };
+		ECD929911822CAD300420840 /* TestsTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestsTests-Prefix.pch"; sourceTree = "<group>"; };
+		ECD929931822CAD300420840 /* ANAdAdapterBannerDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDummy.h; sourceTree = "<group>"; };
+		ECD929941822CAD300420840 /* ANAdAdapterBannerDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerDummy.m; sourceTree = "<group>"; };
+		ECD929951822CAD300420840 /* ANAdAdapterBannerNoAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoAds.h; sourceTree = "<group>"; };
+		ECD929961822CAD300420840 /* ANAdAdapterBannerNoAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoAds.m; sourceTree = "<group>"; };
+		ECD929971822CAD300420840 /* ANAdAdapterBannerRequestFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerRequestFail.h; sourceTree = "<group>"; };
+		ECD929981822CAD300420840 /* ANAdAdapterBannerRequestFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerRequestFail.m; sourceTree = "<group>"; };
+		ECD929991822CAD300420840 /* ANAdAdapterErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterErrorCode.h; sourceTree = "<group>"; };
+		ECD9299A1822CAD300420840 /* ANAdAdapterErrorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterErrorCode.m; sourceTree = "<group>"; };
+		ECD9299B1822CAD300420840 /* ANFailedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailedMultiple.h; sourceTree = "<group>"; };
+		ECD9299C1822CAD300420840 /* ANFailedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailedMultiple.m; sourceTree = "<group>"; };
+		ECD9299D1822CAD300420840 /* ANFailThenLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailThenLoad.h; sourceTree = "<group>"; };
+		ECD9299E1822CAD300420840 /* ANFailThenLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailThenLoad.m; sourceTree = "<group>"; };
+		ECD9299F1822CAD300420840 /* ANLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
+		ECD929A01822CAD300420840 /* ANLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
+		ECD929A11822CAD300420840 /* ANLoadedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadedMultiple.h; sourceTree = "<group>"; };
+		ECD929A21822CAD300420840 /* ANLoadedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadedMultiple.m; sourceTree = "<group>"; };
+		ECD929A31822CAD300420840 /* ANLoadThenFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadThenFail.h; sourceTree = "<group>"; };
+		ECD929A41822CAD300420840 /* ANLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadThenFail.m; sourceTree = "<group>"; };
+		ECD929A51822CAD300420840 /* ANTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTimeout.h; sourceTree = "<group>"; };
+		ECD929A61822CAD300420840 /* ANTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTimeout.m; sourceTree = "<group>"; };
+		ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANMediatedViewsLibrary.xcodeproj; path = ../mediation/mediatedviews/ANMediatedViewsLibrary/ANMediatedViewsLibrary.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,20 +250,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC7F4CD617C7FA9F00F5039E /* QuartzCore.framework in Frameworks */,
 				5CEF6F721732F8C00054A86F /* AdSupport.framework in Frameworks */,
 				5CA6D4BA17A9883900DD6891 /* AudioToolbox.framework in Frameworks */,
 				EC7F4CD217C7FA4700F5039E /* AVFoundation.framework in Frameworks */,
-				EC7F4CD417C7FA5300F5039E /* MediaPlayer.framework in Frameworks */,
-				5CA6D4BC17A9884A00DD6891 /* StoreKit.framework in Frameworks */,
-				5CA6D41A17A8686C00DD6891 /* iAd.framework in Frameworks */,
-				5C199BDE178F47DF0062A257 /* CoreLocation.framework in Frameworks */,
-				5C8729401742E04000662716 /* MessageUI.framework in Frameworks */,
-				5CEF6F761732F8C90054A86F /* CoreTelephony.framework in Frameworks */,
-				5CEF6F701732F8BC0054A86F /* SystemConfiguration.framework in Frameworks */,
-				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
-				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				5C199BDE178F47DF0062A257 /* CoreLocation.framework in Frameworks */,
+				5CEF6F761732F8C90054A86F /* CoreTelephony.framework in Frameworks */,
+				5CA6D41A17A8686C00DD6891 /* iAd.framework in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				EC7F4CD417C7FA5300F5039E /* MediaPlayer.framework in Frameworks */,
+				5C8729401742E04000662716 /* MessageUI.framework in Frameworks */,
+				EC7F4CD617C7FA9F00F5039E /* QuartzCore.framework in Frameworks */,
+				5CA6D4BC17A9884A00DD6891 /* StoreKit.framework in Frameworks */,
+				5CEF6F701732F8BC0054A86F /* SystemConfiguration.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,9 +271,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */,
+				ECFF03251822C2960021F14C /* libANMediatedViewsLibrary.a in Frameworks */,
+				ECFF03291822C2E50021F14C /* AdSupport.framework in Frameworks */,
+				ECFF03261822C2B10021F14C /* AVFoundation.framework in Frameworks */,
+				ECFF03271822C2C90021F14C /* AudioToolbox.framework in Frameworks */,
+				ECFF032C1822C3710021F14C /* CoreGraphics.framework in Frameworks */,
+				ECFF032B1822C3030021F14C /* CoreTelephony.framework in Frameworks */,
 				5CC9B9C217DF9A5F000DC924 /* Foundation.framework in Frameworks */,
 				5CD8159517DA73AE0046A256 /* iAd.framework in Frameworks */,
-				5CD8155F17DA64C20046A256 /* SenTestingKit.framework in Frameworks */,
+				ECFF032D1822C37E0021F14C /* MediaPlayer.framework in Frameworks */,
+				ECFF032E1822C38F0021F14C /* MessageUI.framework in Frameworks */,
+				ECFF03281822C2E00021F14C /* QuartzCore.framework in Frameworks */,
+				ECFF032A1822C2EF0021F14C /* StoreKit.framework in Frameworks */,
+				ECB57A551822C43700FA7441 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +321,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				ECFF02E81822BD7B0021F14C /* TestClasses */,
+				ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */,
+				ECD9298A1822CAD300420840 /* TestClasses */,
 				ECABE5431821E4C80037E6C5 /* sdk */,
 				EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -469,37 +507,54 @@
 			path = images;
 			sourceTree = "<group>";
 		};
-		ECFF02E81822BD7B0021F14C /* TestClasses */ = {
+		ECD9298A1822CAD300420840 /* TestClasses */ = {
 			isa = PBXGroup;
 			children = (
-				ECFF02E91822BD7B0021F14C /* ANAdAdapterBannerDummy.h */,
-				ECFF02EA1822BD7B0021F14C /* ANAdAdapterBannerDummy.m */,
-				ECFF02EB1822BD7B0021F14C /* ANAdAdapterBannerNoAds.h */,
-				ECFF02EC1822BD7B0021F14C /* ANAdAdapterBannerNoAds.m */,
-				ECFF02ED1822BD7B0021F14C /* ANAdAdapterBannerRequestFail.h */,
-				ECFF02EE1822BD7B0021F14C /* ANAdAdapterBannerRequestFail.m */,
-				ECFF02EF1822BD7B0021F14C /* ANAdAdapterErrorCode.h */,
-				ECFF02F01822BD7B0021F14C /* ANAdAdapterErrorCode.m */,
-				ECFF02F11822BD7B0021F14C /* ANFailedMultiple.h */,
-				ECFF02F21822BD7B0021F14C /* ANFailedMultiple.m */,
-				ECFF02F31822BD7B0021F14C /* ANFailThenLoad.h */,
-				ECFF02F41822BD7B0021F14C /* ANFailThenLoad.m */,
-				ECFF02F51822BD7B0021F14C /* ANLoadAndHitOtherCallbacks.h */,
-				ECFF02F61822BD7B0021F14C /* ANLoadAndHitOtherCallbacks.m */,
-				ECFF02F71822BD7B0021F14C /* ANLoadedMultiple.h */,
-				ECFF02F81822BD7B0021F14C /* ANLoadedMultiple.m */,
-				ECFF02F91822BD7B0021F14C /* ANLoadThenFail.h */,
-				ECFF02FA1822BD7B0021F14C /* ANLoadThenFail.m */,
-				ECFF02FB1822BD7B0021F14C /* ANTimeout.h */,
-				ECFF02FC1822BD7B0021F14C /* ANTimeout.m */,
-				ECFF02FD1822BD7B0021F14C /* InfoPlist.strings */,
-				ECFF02FF1822BD7B0021F14C /* MediationCallbacksTests.m */,
-				ECFF03001822BD7B0021F14C /* MediationTests.h */,
-				ECFF03011822BD7B0021F14C /* MediationTests.m */,
-				ECFF03021822BD7B0021F14C /* TestsTests-Info.plist */,
-				ECFF03031822BD7B0021F14C /* TestsTests-Prefix.pch */,
+				ECD9298B1822CAD300420840 /* InfoPlist.strings */,
+				ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */,
+				ECD9298E1822CAD300420840 /* MediationTests.h */,
+				ECD9298F1822CAD300420840 /* MediationTests.m */,
+				ECD929901822CAD300420840 /* TestsTests-Info.plist */,
+				ECD929911822CAD300420840 /* TestsTests-Prefix.pch */,
+				ECD929921822CAD300420840 /* TestViews */,
 			);
 			path = TestClasses;
+			sourceTree = "<group>";
+		};
+		ECD929921822CAD300420840 /* TestViews */ = {
+			isa = PBXGroup;
+			children = (
+				ECD929931822CAD300420840 /* ANAdAdapterBannerDummy.h */,
+				ECD929941822CAD300420840 /* ANAdAdapterBannerDummy.m */,
+				ECD929951822CAD300420840 /* ANAdAdapterBannerNoAds.h */,
+				ECD929961822CAD300420840 /* ANAdAdapterBannerNoAds.m */,
+				ECD929971822CAD300420840 /* ANAdAdapterBannerRequestFail.h */,
+				ECD929981822CAD300420840 /* ANAdAdapterBannerRequestFail.m */,
+				ECD929991822CAD300420840 /* ANAdAdapterErrorCode.h */,
+				ECD9299A1822CAD300420840 /* ANAdAdapterErrorCode.m */,
+				ECD9299B1822CAD300420840 /* ANFailedMultiple.h */,
+				ECD9299C1822CAD300420840 /* ANFailedMultiple.m */,
+				ECD9299D1822CAD300420840 /* ANFailThenLoad.h */,
+				ECD9299E1822CAD300420840 /* ANFailThenLoad.m */,
+				ECD9299F1822CAD300420840 /* ANLoadAndHitOtherCallbacks.h */,
+				ECD929A01822CAD300420840 /* ANLoadAndHitOtherCallbacks.m */,
+				ECD929A11822CAD300420840 /* ANLoadedMultiple.h */,
+				ECD929A21822CAD300420840 /* ANLoadedMultiple.m */,
+				ECD929A31822CAD300420840 /* ANLoadThenFail.h */,
+				ECD929A41822CAD300420840 /* ANLoadThenFail.m */,
+				ECD929A51822CAD300420840 /* ANTimeout.h */,
+				ECD929A61822CAD300420840 /* ANTimeout.m */,
+			);
+			path = TestViews;
+			sourceTree = "<group>";
+		};
+		ECFF031D1822C2850021F14C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECFF03221822C2860021F14C /* libANMediatedViewsLibrary.a */,
+				ECFF03241822C2860021F14C /* ANMediatedViewsLibraryTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -558,6 +613,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = ECFF031D1822C2850021F14C /* Products */;
+					ProjectRef = ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Tests */,
@@ -565,6 +626,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		ECFF03221822C2860021F14C /* libANMediatedViewsLibrary.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANMediatedViewsLibrary.a;
+			remoteRef = ECFF03211822C2860021F14C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		ECFF03241822C2860021F14C /* ANMediatedViewsLibraryTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ANMediatedViewsLibraryTests.xctest;
+			remoteRef = ECFF03231822C2860021F14C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -580,8 +658,8 @@
 				ECABE5A01821E4C80037E6C5 /* errors.strings in Resources */,
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				5C3208F5173053D700DAB5CF /* MainWindow-iPad.xib in Resources */,
-				ECFF030E1822BD7B0021F14C /* InfoPlist.strings in Resources */,
-				ECFF03111822BD7B0021F14C /* TestsTests-Info.plist in Resources */,
+				ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */,
+				ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */,
 				ECABE5A61821E4C80037E6C5 /* UIButtonBarArrowLeft@2x.png in Resources */,
 				5C3208F7173053FE00DAB5CF /* Default-568h@2x.png in Resources */,
 				5C3208FC173061C700DAB5CF /* ANDemoAdsViewController.xib in Resources */,
@@ -625,42 +703,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECFF030B1822BD7B0021F14C /* ANLoadedMultiple.m in Sources */,
 				ECABE5921821E4C80037E6C5 /* ANBannerAdView.m in Sources */,
+				ECD929AF1822CAD300420840 /* ANFailedMultiple.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				ECABE59C1821E4C80037E6C5 /* ANMediatedAd.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				ECABE58D1821E4C80037E6C5 /* ODIN.m in Sources */,
-				ECFF03051822BD7B0021F14C /* ANAdAdapterBannerNoAds.m in Sources */,
 				5C3208FB173061C700DAB5CF /* ANDemoAdsViewController.m in Sources */,
 				ECABE5971821E4C80037E6C5 /* ANInterstitialAd.m in Sources */,
 				5C3209001730664500DAB5CF /* RootViewController.m in Sources */,
 				ECABE5871821E4C80037E6C5 /* NSString+ANCategory.m in Sources */,
+				ECD929AD1822CAD300420840 /* ANAdAdapterBannerRequestFail.m in Sources */,
 				5C320905173090F300DAB5CF /* ANDemoConsoleViewController.m in Sources */,
-				ECFF03061822BD7B0021F14C /* ANAdAdapterBannerRequestFail.m in Sources */,
-				ECFF030C1822BD7B0021F14C /* ANLoadThenFail.m in Sources */,
 				ECABE5931821E4C80037E6C5 /* ANBrowserViewController.m in Sources */,
-				ECFF03081822BD7B0021F14C /* ANFailedMultiple.m in Sources */,
 				ECABE59D1821E4C80037E6C5 /* ANMediationAdViewController.m in Sources */,
+				ECD929AB1822CAD300420840 /* ANAdAdapterBannerDummy.m in Sources */,
+				ECD929AC1822CAD300420840 /* ANAdAdapterBannerNoAds.m in Sources */,
 				ECABE5881821E4C80037E6C5 /* NSTimer+ANCategory.m in Sources */,
 				ECABE5901821E4C80037E6C5 /* ANAdView.m in Sources */,
 				ECABE5891821E4C80037E6C5 /* UIView+ANCategory.m in Sources */,
+				ECD929B11822CAD300420840 /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
 				ECABE59B1821E4C80037E6C5 /* ANLogging.m in Sources */,
 				ECABE58B1821E4C80037E6C5 /* ANOpenUDID.m in Sources */,
 				ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */,
 				ECABE5911821E4C80037E6C5 /* ANAdWebViewController.m in Sources */,
+				ECD929B01822CAD300420840 /* ANFailThenLoad.m in Sources */,
 				ECABE5961821E4C80037E6C5 /* ANInstallTrackerPixel.m in Sources */,
-				ECFF030A1822BD7B0021F14C /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				ECABE59E1821E4C80037E6C5 /* ANReachability.m in Sources */,
-				ECFF030D1822BD7B0021F14C /* ANTimeout.m in Sources */,
-				ECFF03091822BD7B0021F14C /* ANFailThenLoad.m in Sources */,
 				ECABE5951821E4C80037E6C5 /* ANGlobal.m in Sources */,
+				ECD929AE1822CAD300420840 /* ANAdAdapterErrorCode.m in Sources */,
 				ECABE59F1821E4C80037E6C5 /* ANWebView.m in Sources */,
-				ECFF03071822BD7B0021F14C /* ANAdAdapterErrorCode.m in Sources */,
 				ECABE58F1821E4C80037E6C5 /* ANAdResponse.m in Sources */,
+				ECD929B41822CAD300420840 /* ANTimeout.m in Sources */,
+				ECD929B21822CAD300420840 /* ANLoadedMultiple.m in Sources */,
+				ECD929B31822CAD300420840 /* ANLoadThenFail.m in Sources */,
 				ECABE58A1821E4C80037E6C5 /* UIWebView+ANCategory.m in Sources */,
-				ECFF03041822BD7B0021F14C /* ANAdAdapterBannerDummy.m in Sources */,
 				ECABE5981821E4C80037E6C5 /* ANInterstitialAdViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -669,8 +747,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECFF03131822BEE80021F14C /* MediationCallbacksTests.m in Sources */,
-				ECFF03141822BEE80021F14C /* MediationTests.m in Sources */,
+				ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */,
+				ECD929BA1822CD0E00420840 /* MediationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,10 +763,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		ECFF02FD1822BD7B0021F14C /* InfoPlist.strings */ = {
+		ECD9298B1822CAD300420840 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				ECFF02FE1822BD7B0021F14C /* en */,
+				ECD9298C1822CAD300420840 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -788,8 +866,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -826,8 +905,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -858,8 +938,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
