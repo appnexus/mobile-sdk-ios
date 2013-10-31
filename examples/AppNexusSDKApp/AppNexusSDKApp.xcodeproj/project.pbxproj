@@ -919,10 +919,7 @@
 				GCC_PREFIX_HEADER = AppNexusSDKApp/AppNexusSDKApp.pch;
 				INFOPLIST_FILE = AppNexusSDKApp/AppNexusSDKApp.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ANMediatedViewsLibrary-bqytepaeafhobsebokagytnuoaes/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = AppNexusSDKApp;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -946,10 +943,7 @@
 				GCC_PREFIX_HEADER = AppNexusSDKApp/AppNexusSDKApp.pch;
 				INFOPLIST_FILE = AppNexusSDKApp/AppNexusSDKApp.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ANMediatedViewsLibrary-bqytepaeafhobsebokagytnuoaes/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = AppNexusSDKApp;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
