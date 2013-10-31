@@ -21,6 +21,7 @@
 #import "ANAdWebViewController.h"
 #import "ANMediationAdViewController.h"
 
+// These URLs will be deprecrated
 #define APPNEXUS_TEST_HOST @"http://rlissack.adnxs.net:8080/"
 #define APPNEXUS_TEST_MOBCALL_WITH_ID(x) [APPNEXUS_TEST_HOST stringByAppendingPathComponent:[NSString stringWithFormat:@"/mobile/utest?id=%@", x]]
 
@@ -48,6 +49,13 @@
 @end
 
 @implementation MediationTests
+@synthesize placementId = __placementId;
+@synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
+@synthesize location = __location;
+@synthesize reserve = __reserve;
+@synthesize age = __age;
+@synthesize gender = __gender;
+@synthesize customKeywords = __customKeywords;
 
 - (void)setUp
 {
@@ -311,9 +319,13 @@
     return CGSizeMake(320, 50);
 }
 
-- (ANLocation *)locationForAdFetcher:(ANAdFetcher *)fetcher
-{
+- (ANLocation *)location {
     return nil;
 }
+
+- (void) adWillPresent {};
+- (void) adWillClose {}
+- (void) adDidClose {};
+- (void) adWillLeaveApplication {}
 
 @end

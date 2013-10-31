@@ -128,4 +128,9 @@
 //    testDidComplete = YES;
 }
 
+- (void) adWillPresent {};
+- (void) adWillClose {}
+- (void) adDidClose {};
+- (void) adWillLeaveApplication {}
+
 @end
