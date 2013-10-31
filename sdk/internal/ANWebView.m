@@ -17,7 +17,8 @@
 
 @implementation ANWebView
 
-//TODO: fix this
+// Not supported in iOS 7
+
 //- (void)webView:(UIWebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame
 //{
 //    // Suppress the JS alerts

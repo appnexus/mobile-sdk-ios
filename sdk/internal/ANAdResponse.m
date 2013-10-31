@@ -117,8 +117,6 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 -(BOOL)checkStatusIsValid:(NSDictionary *)jsonResponse {
     NSString *status = [jsonResponse objectForKey:kResponseKeyStatus];
     if (status && ([status isEqual: kResponseValueError])) {
-        //TODO: fill error message
-//        NSString *error = [jsonResponse objectForKey:kResponseKeyErrorMessage];
         ANLogError(ANErrorString(@"response_error"));
         return NO;
     }
@@ -131,7 +129,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     NSArray *ads = [jsonResponse objectForKey:kResponseKeyAds];
     if (ads && ([ads count] > 0))
     {
-        // TODO: What happens if we have multiple ads? For now, just grab one...
+        // Grab the first ad only
         NSDictionary *firstAd = [ads objectAtIndex:0];
 
         // Grab the type of the ad

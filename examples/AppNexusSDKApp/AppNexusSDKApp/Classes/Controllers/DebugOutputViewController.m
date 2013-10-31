@@ -34,7 +34,7 @@
 
 /*
   
- TODO: Make fully searchable, kind of like Leff's debug auction tool
+ Future Feature: Make fully searchable, kind of like Leff's debug auction tool
  
  */
 

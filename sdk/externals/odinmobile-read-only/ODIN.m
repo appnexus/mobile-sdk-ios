@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_6_0
 #import "ODIN.h"
 #import <CommonCrypto/CommonDigest.h>
 
@@ -97,4 +98,4 @@ NSString * ODIN1(){
 
     return odinstring;
 }
-
+#endif
