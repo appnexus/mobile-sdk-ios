@@ -76,7 +76,6 @@
 		EC7DC2631817404600B813D1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2621817404600B813D1 /* MediaPlayer.framework */; };
 		EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2641817406200B813D1 /* AVFoundation.framework */; };
 		EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2661817407A00B813D1 /* QuartzCore.framework */; };
-		ECABE65C1821EA7A0037E6C5 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */; };
 		ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1204E18218A1E00CB4BE8 /* iAd.framework */; };
 		ECB124BB1821A25D00CB4BE8 /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247D1821A25D00CB4BE8 /* NSString+ANCategory.m */; };
 		ECB124BC1821A25D00CB4BE8 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247F1821A25D00CB4BE8 /* NSTimer+ANCategory.m */; };
@@ -115,23 +114,6 @@
 		ECB124DD1821A25D00CB4BE8 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECB124BA1821A25D00CB4BE8 /* MRAID.bundle */; };
 		ECDF1221181AF35A0069D7B4 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECDF1220181AF35A0069D7B4 /* LogViewController.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		ECABE6571821E8B00037E6C5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ECB1237018219C9D00CB4BE8;
-			remoteInfo = ANMediatedViewsLibrary;
-		};
-		ECABE6591821E8B00037E6C5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ECB1238018219C9D00CB4BE8;
-			remoteInfo = ANMediatedViewsLibraryTests;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8A1CD1CD17E2C0CD00B4A497 /* NoCaretUITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoCaretUITextField.h; path = SDKDemoApp2/Classes/NoCaretUITextField.h; sourceTree = "<group>"; };
@@ -219,6 +201,9 @@
 		8AF01A0217FA6F8B007DB40E /* appnexus_logo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appnexus_logo_icon@2x.png"; path = "SDKDemoApp2/Supporting Files/appnexus_logo_icon@2x.png"; sourceTree = "<group>"; };
 		8AF01A0417FA70CD007DB40E /* 760-refresh-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "760-refresh-3.png"; path = "SDKDemoApp2/Supporting Files/760-refresh-3.png"; sourceTree = "<group>"; };
 		8AF01A0517FA70CD007DB40E /* 760-refresh-3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "760-refresh-3@2x.png"; path = "SDKDemoApp2/Supporting Files/760-refresh-3@2x.png"; sourceTree = "<group>"; };
+		A86D48101821ECE8004B15AC /* libANMediatedViewsLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libANMediatedViewsLibrary.a; path = "../../mediation/mediatedviews/ANMediatedViewsLibrary/build/Debug-iphoneos/libANMediatedViewsLibrary.a"; sourceTree = "<group>"; };
+		A86D48121821F198004B15AC /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAdMobAds.a; path = ../../mediation/mediatedviews/libs/AdMob/libGoogleAdMobAds.a; sourceTree = "<group>"; };
+		A86D48141821F1A0004B15AC /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMMSDK_5.1.1.a; path = ../../mediation/mediatedviews/libs/MMSDK/libMMSDK_5.1.1.a; sourceTree = "<group>"; };
 		EC77B0A618170D8E002123CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EC7DC2621817404600B813D1 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7DC2641817406200B813D1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -294,7 +279,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECABE65C1821EA7A0037E6C5 /* libANMediatedViewsLibrary.a in Frameworks */,
 				ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */,
 				EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */,
 				EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */,
@@ -404,6 +388,9 @@
 		8A9EFB0717CFD49200FCF79F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A86D48141821F1A0004B15AC /* libMMSDK_5.1.1.a */,
+				A86D48121821F198004B15AC /* libGoogleAdMobAds.a */,
+				A86D48101821ECE8004B15AC /* libANMediatedViewsLibrary.a */,
 				ECB1204E18218A1E00CB4BE8 /* iAd.framework */,
 				EC7DC2661817407A00B813D1 /* QuartzCore.framework */,
 				EC7DC2641817406200B813D1 /* AVFoundation.framework */,
@@ -486,15 +473,6 @@
 				8AA1621617D6B85E00A25A32 /* AdSettings.m */,
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		ECABE6531821E8B00037E6C5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */,
-				ECABE65A1821E8B00037E6C5 /* ANMediatedViewsLibraryTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		ECB124771821A25D00CB4BE8 /* sdk */ = {
@@ -671,35 +649,12 @@
 			mainGroup = 8A9EFAFC17CFD49200FCF79F;
 			productRefGroup = 8A9EFB0617CFD49200FCF79F /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = ECABE6531821E8B00037E6C5 /* Products */;
-					ProjectRef = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8A9EFB0417CFD49200FCF79F /* AppNexus SDK */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANMediatedViewsLibrary.a;
-			remoteRef = ECABE6571821E8B00037E6C5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		ECABE65A1821E8B00037E6C5 /* ANMediatedViewsLibraryTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ANMediatedViewsLibraryTests.xctest;
-			remoteRef = ECABE6591821E8B00037E6C5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8A9EFB0317CFD49200FCF79F /* Resources */ = {
@@ -911,9 +866,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/ANMediatedViewsLibrary",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ANMediatedViewsLibrary-bqytepaeafhobsebokagytnuoaes/Build/Products/Debug-iphoneos",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews",
+					"/Users/rlissack/Documents/workspace/mobile-sdk-ios/mediation/mediatedviews/libs/AdMob",
+					"/Users/rlissack/Documents/workspace/mobile-sdk-ios/mediation/mediatedviews/libs/MMSDK",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/libs/AdMob",
+					"$(PROJECT_DIR)/../**",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "AppNexus SDK";
 				PROVISIONING_PROFILE = "";
@@ -943,6 +902,8 @@
 					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/ANMediatedViewsLibrary",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ANMediatedViewsLibrary-bqytepaeafhobsebokagytnuoaes/Build/Products/Debug-iphoneos",
 					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews",
+					"/Users/rlissack/Documents/workspace/mobile-sdk-ios/mediation/mediatedviews/libs/AdMob",
+					"/Users/rlissack/Documents/workspace/mobile-sdk-ios/mediation/mediatedviews/libs/MMSDK",
 				);
 				PRODUCT_NAME = "AppNexus SDK";
 				PROVISIONING_PROFILE = "";

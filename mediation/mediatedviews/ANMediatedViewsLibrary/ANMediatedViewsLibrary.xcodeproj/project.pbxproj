@@ -12,8 +12,6 @@
 		ECB1238318219C9D00CB4BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237318219C9D00CB4BE8 /* Foundation.framework */; };
 		ECB1238518219C9D00CB4BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1238418219C9D00CB4BE8 /* UIKit.framework */; };
 		ECB1238818219C9D00CB4BE8 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */; };
-		ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */; };
-		ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */; };
 		ECB1244518219E2000CB4BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1244418219E2000CB4BE8 /* UIKit.framework */; };
 		ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */; };
 		ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */; };
@@ -90,9 +88,7 @@
 		ECB123C618219D4F00CB4BE8 /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
 		ECB123C718219D4F00CB4BE8 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
 		ECB123C818219D4F00CB4BE8 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
-		ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		ECB123CA18219D4F00CB4BE8 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.1.a; sourceTree = "<group>"; };
 		ECB123CD18219D4F00CB4BE8 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
 		ECB123CE18219D4F00CB4BE8 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
 		ECB123CF18219D4F00CB4BE8 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
@@ -122,8 +118,6 @@
 			files = (
 				ECB1244518219E2000CB4BE8 /* UIKit.framework in Frameworks */,
 				ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */,
-				ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */,
-				ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,7 +193,6 @@
 				ECB123C618219D4F00CB4BE8 /* GADInterstitialDelegate.h */,
 				ECB123C718219D4F00CB4BE8 /* GADRequest.h */,
 				ECB123C818219D4F00CB4BE8 /* GADRequestError.h */,
-				ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */,
 				ECB123CA18219D4F00CB4BE8 /* README.txt */,
 			);
 			path = AdMob;
@@ -229,7 +222,6 @@
 		ECB123CB18219D4F00CB4BE8 /* MMSDK */ = {
 			isa = PBXGroup;
 			children = (
-				ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */,
 				ECB123CD18219D4F00CB4BE8 /* MMAdView.h */,
 				ECB123CE18219D4F00CB4BE8 /* MMInterstitial.h */,
 				ECB123CF18219D4F00CB4BE8 /* MMRequest.h */,
@@ -545,6 +537,7 @@
 				ECB1239518219C9D00CB4BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ECB1239618219C9D00CB4BE8 /* Build configuration list for PBXNativeTarget "ANMediatedViewsLibraryTests" */ = {
 			isa = XCConfigurationList;
@@ -553,6 +546,7 @@
 				ECB1239818219C9D00CB4BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
