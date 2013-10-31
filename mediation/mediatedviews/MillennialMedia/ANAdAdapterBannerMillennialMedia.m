@@ -64,7 +64,7 @@
             [self.delegate adapterBanner:self didReceiveBannerAdView:self.mmAdView];
         } else {
             ANLogDebug(@"MillennialMedia banner failed to load with error: %@", error);
-            NSInteger code = ANAdResponseInternalError;
+            ANAdResponseCode code = ANAdResponseInternalError;
             
             switch (error.code) {
                 case MMAdUnknownError:

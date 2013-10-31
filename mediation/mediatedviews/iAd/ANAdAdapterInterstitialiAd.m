@@ -82,7 +82,7 @@
 
 - (void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
 {
-    NSInteger code = ANAdResponseInternalError;
+    ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
         case ADErrorUnknown:
