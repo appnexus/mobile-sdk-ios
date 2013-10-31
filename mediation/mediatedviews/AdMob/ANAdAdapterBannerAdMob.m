@@ -63,7 +63,7 @@
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
 {
     ANLogDebug(@"AdMob banner failed to load with error: %@", error);
-    NSInteger code = ANAdResponseInternalError;
+    ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
         case kGADErrorInvalidRequest:

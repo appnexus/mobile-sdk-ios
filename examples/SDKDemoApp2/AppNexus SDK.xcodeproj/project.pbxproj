@@ -911,9 +911,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/ANMediatedViewsLibrary",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ANMediatedViewsLibrary-bqytepaeafhobsebokagytnuoaes/Build/Products/Debug-iphoneos",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews",
 				);
 				PRODUCT_NAME = "AppNexus SDK";
 				PROVISIONING_PROFILE = "";
@@ -940,9 +938,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/ANMediatedViewsLibrary",
 					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ANMediatedViewsLibrary-bqytepaeafhobsebokagytnuoaes/Build/Products/Debug-iphoneos",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews",
 				);
 				PRODUCT_NAME = "AppNexus SDK";
 				PROVISIONING_PROFILE = "";

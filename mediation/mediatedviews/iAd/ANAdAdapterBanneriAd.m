@@ -50,7 +50,7 @@
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
     ANLogDebug("iAd banner failed to load with error: %@", error);
-    NSInteger code = ANAdResponseInternalError;
+    ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
         case ADErrorUnknown:

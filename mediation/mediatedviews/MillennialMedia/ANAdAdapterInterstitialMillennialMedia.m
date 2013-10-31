@@ -66,7 +66,7 @@
                                                       }
                                                       else {
                                                           ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
-                                                          NSInteger code = ANAdResponseInternalError;
+                                                          ANAdResponseCode code = ANAdResponseInternalError;
                                                           
                                                           switch (error.code) {
                                                               case MMAdUnknownError:
