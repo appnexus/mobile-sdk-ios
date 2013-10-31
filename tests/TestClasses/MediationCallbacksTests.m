@@ -18,6 +18,8 @@
 #import "ANBannerAdView.h"
 #import "ANGlobal.h"
 
+// These unit tests require the AN_MOBILE_HOSTNAME in ANGlobal.h to point to the test server.
+
 @interface MediationCallbacksTests : SenTestCase
 @property (nonatomic, readwrite, strong) ANBannerAdView *bannerAdView;
 @end
