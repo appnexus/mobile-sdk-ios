@@ -23,12 +23,16 @@
 
 @interface ANBannerAdView ()
 
+@property (nonatomic, strong) UIView *defaultSuperView;
+@property (nonatomic, assign) BOOL isFullscreen;
+
 @end
 
 
 @implementation ANBannerAdView
 @synthesize delegate = __delegate;
 @synthesize autorefreshInterval = __autorefreshInterval;
+
 
 - (id)init
 {
@@ -60,6 +64,8 @@
 	
 	self.backgroundColor = [UIColor clearColor];
 	self.autoresizingMask = UIViewAutoresizingNone;
+    self.defaultSuperView = self.superview;
+    self.isFullscreen = NO;
     
     // Set default autorefreshInterval
 	__autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
@@ -201,12 +207,33 @@
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size
 {
-    CGRect frame = self.frame;
-	frame.origin.x = frame.origin.x - (size.width - frame.size.width) / 2;
-    frame.size.width = size.width;
-    frame.size.height = size.height;
+    CGRect newFrame = self.frame;
+    // expand to full screen
+    if ((size.width == -1) || (size.height == -1)) {
+        newFrame = [[UIScreen mainScreen] applicationFrame];
+        newFrame.origin.x = 0;
+        newFrame.origin.y = 20;
+        self.frame = newFrame;
+        self.defaultSuperView = self.superview;
+        [self removeFromSuperview];
+        UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
+        [applicationWindow addSubview:self];
+        self.isFullscreen = YES;
+        return;
+    } else {
+        newFrame.origin.x = newFrame.origin.x - (size.width - newFrame.size.width) / 2;
+        newFrame.origin.y = 0;
+        newFrame.size.width = size.width;
+        newFrame.size.height = size.height;
+
+        if (self.isFullscreen) {
+            [self removeFromSuperview];
+            [self.defaultSuperView addSubview:self];
+            self.isFullscreen = NO;
+        }
+    }
     
-    [self setFrame:frame animated:YES];
+    [self setFrame:newFrame animated:YES];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response

@@ -51,9 +51,6 @@
 {
 	if (!self.viewed)
 	{
-		// FIXME: Leaving out countdown timer for now
-//		[self startCountdownTimer];
-		
 		self.viewed = YES;
 	}
 }

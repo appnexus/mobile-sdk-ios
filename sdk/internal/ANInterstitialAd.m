@@ -35,6 +35,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
 @property (nonatomic, readwrite, strong) NSMutableSet *allowedAdSizes;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
+@property (nonatomic, readwrite, assign) CGRect frame;
+@property (nonatomic, strong) UIView *defaultSuperView;
+@property (nonatomic, assign) BOOL isFullscreen;
+@property (nonatomic, readwrite, strong) UIButton *closeButton;
 
 @end
 
@@ -50,6 +54,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @synthesize age = __age;
 @synthesize gender = __gender;
 @synthesize customKeywords = __customKeywords;
+@synthesize frame = __frame;
+@synthesize closeButton = __closeButton;
 
 - (id)init
 {
@@ -67,6 +73,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         self.location = nil;
         self.reserve = 0.0f;
         self.customKeywords = [[NSMutableDictionary alloc] init];
+        self.defaultSuperView = self.controller.view;
+        self.isFullscreen = NO;
 	}
 	
 	return self;
@@ -190,6 +198,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     // By definition, interstitials can only ever have the entire screen's bounds as its frame
     return [[UIScreen mainScreen] bounds];
 }
+
 
 - (NSString *)maximumSizeParameter
 {
@@ -349,17 +358,89 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size
 {
-	
+    CGRect newFrame = self.frame;
+    UIView *contentView = self.controller.contentView;
+    // expand to full screen
+    if ((size.width == -1) || (size.height == -1)) {
+        newFrame = [[UIScreen mainScreen] applicationFrame];
+        newFrame.origin.x = 0;
+        newFrame.origin.y = 20;
+        contentView.frame = newFrame;
+        self.defaultSuperView = contentView.superview;
+        [contentView removeFromSuperview];
+        UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
+        [applicationWindow addSubview:contentView];
+        self.isFullscreen = YES;
+    } else {
+        newFrame.origin.x = newFrame.origin.x - (size.width - newFrame.size.width) / 2;
+        newFrame.origin.y = 0;
+        newFrame.size.width = size.width;
+        newFrame.size.height = size.height;
+        
+        if (self.isFullscreen) {
+            [contentView removeFromSuperview];
+            [self.defaultSuperView addSubview:contentView];
+            self.isFullscreen = NO;
+        }
+        
+        [contentView setFrame:newFrame];
+        
+        UIView *parentView = self.controller.view;
+        contentView.frame = CGRectMake((parentView.bounds.size.width - contentView.frame.size.width) / 2,
+                                       (parentView.bounds.size.height - contentView.frame.size.height) / 2,
+                                       contentView.frame.size.width, contentView.frame.size.height);
+    }
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
 {
-
+    [self showCloseButtonWithTarget:target action:action];
 }
 
 - (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher
 {
+    [self removeCloseButton];
+}
 
+- (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
+{
+    if ([self.closeButton superview] == nil)
+    {
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closeButton addTarget:target
+                        action:selector
+              forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
+        [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
+        [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
+        closeButton.frame = CGRectMake(self.controller.contentView.bounds.size.width - closeButtonImage.size.width / 2 - 20.0, 4.0, closeButtonImage.size.width, closeButtonImage.size.height);
+        closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+        
+        self.closeButton = closeButton;
+        
+        [self.controller.contentView addSubview:closeButton];
+    }
+    else
+    {
+        ANLogError(@"Attempted to add a close button to ad view %@ with one already showing!", self);
+    }
+}
+
+- (void)removeCloseButton
+{
+    [self.closeButton removeFromSuperview];
+    self.closeButton = nil;
+}
+
+- (void)setCloseButton:(UIButton *)closeButton
+{
+    __closeButton = closeButton;
+}
+
+- (UIButton *)closeButton
+{
+    return __closeButton;
 }
 
 #pragma mark ANBrowserViewControllerDelegate
