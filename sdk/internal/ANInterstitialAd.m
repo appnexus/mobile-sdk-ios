@@ -36,7 +36,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @property (nonatomic, readwrite, strong) NSMutableSet *allowedAdSizes;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 @property (nonatomic, readwrite, assign) CGRect frame;
-@property (nonatomic, strong) UIView *defaultSuperView;
 @property (nonatomic, assign) BOOL isFullscreen;
 @property (nonatomic, readwrite, strong) UIButton *closeButton;
 
@@ -73,7 +72,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         self.location = nil;
         self.reserve = 0.0f;
         self.customKeywords = [[NSMutableDictionary alloc] init];
-        self.defaultSuperView = self.controller.view;
         self.isFullscreen = NO;
 	}
 	
@@ -97,6 +95,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     self.adFetcher = nil;
     self.controller.delegate = nil;
     self.controller = nil;
+    self.closeButton = nil;
 }
 
 - (void)loadAd
@@ -358,20 +357,19 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size
 {
-    CGRect newFrame = self.frame;
     UIView *contentView = self.controller.contentView;
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
-        newFrame = [[UIScreen mainScreen] applicationFrame];
+        CGRect newFrame = [[UIScreen mainScreen] applicationFrame];
         newFrame.origin.x = 0;
         newFrame.origin.y = 20;
-        contentView.frame = newFrame;
-        self.defaultSuperView = contentView.superview;
+        [contentView setFrame:newFrame];
         [contentView removeFromSuperview];
         UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
         [applicationWindow addSubview:contentView];
         self.isFullscreen = YES;
     } else {
+        CGRect newFrame = self.frame;
         newFrame.origin.x = newFrame.origin.x - (size.width - newFrame.size.width) / 2;
         newFrame.origin.y = 0;
         newFrame.size.width = size.width;
@@ -379,7 +377,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         
         if (self.isFullscreen) {
             [contentView removeFromSuperview];
-            [self.defaultSuperView addSubview:contentView];
+            [self.controller.view addSubview:contentView];
             self.isFullscreen = NO;
         }
         

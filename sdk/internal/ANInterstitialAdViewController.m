@@ -39,7 +39,6 @@
         self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }
 	self.progressView.hidden = YES;
-//	self.closeButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated

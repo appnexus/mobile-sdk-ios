@@ -38,7 +38,6 @@
 	
 	self.bannerView.adUnitID = idString;
 	
-	// FIXME: We should allow the dev to specify the root view controller
 	self.bannerView.rootViewController = AppRootViewController();
 	self.bannerView.delegate = self;
 	GADRequest *request = [GADRequest request];

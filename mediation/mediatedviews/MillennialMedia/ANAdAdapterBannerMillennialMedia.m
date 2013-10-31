@@ -54,7 +54,6 @@
         request = [MMRequest request];
     }
     
-    //FIXME: shouldn't we be letting the dev specify the origin of the ad?
     self.mmAdView = [[MMAdView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) apid:idString
                                  rootViewController:AppRootViewController()];
     

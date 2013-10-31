@@ -207,10 +207,9 @@
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size
 {
-    CGRect newFrame = self.frame;
     // expand to full screen
-    if ((size.width == -1) || (size.height == -1)) {
-        newFrame = [[UIScreen mainScreen] applicationFrame];
+    if ((size.width < 0) || (size.height < 0)) {
+        CGRect newFrame = [[UIScreen mainScreen] applicationFrame];
         newFrame.origin.x = 0;
         newFrame.origin.y = 20;
         self.frame = newFrame;
@@ -219,8 +218,8 @@
         UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
         [applicationWindow addSubview:self];
         self.isFullscreen = YES;
-        return;
     } else {
+        CGRect newFrame = self.frame;
         newFrame.origin.x = newFrame.origin.x - (size.width - newFrame.size.width) / 2;
         newFrame.origin.y = 0;
         newFrame.size.width = size.width;
@@ -231,9 +230,9 @@
             [self.defaultSuperView addSubview:self];
             self.isFullscreen = NO;
         }
-    }
-    
-    [self setFrame:newFrame animated:YES];
+
+        [self setFrame:newFrame animated:YES];
+    }    
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response

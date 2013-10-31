@@ -122,8 +122,8 @@
 		[__contentView performSelector:@selector(setDelegate:) withObject:nil];
     }
 	
-	[__contentView removeFromSuperview];
-    [__closeButton removeFromSuperview];
+    __contentView = nil;
+    __closeButton = nil;
 }
 
 - (NSString *)adType
