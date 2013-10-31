@@ -237,7 +237,7 @@
                                onDate:[NSDate date]
                inManagedObjectContext:self.managedObjectContext];
         
-        ANRequest *request = [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
+        [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
         ANLogDebug(@"%@ %@ | Stored request URL: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), request.text);
         // broadcast that request has been uploaded
         [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_NOTIFICATION object:self.managedObjectContext];
@@ -253,7 +253,7 @@
                                 onDate:[NSDate date]
                 inManagedObjectContext:self.managedObjectContext];
         
-        ANRequest *request = [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
+        [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
         ANLogDebug(@"%@ %@ | Stored response from server: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), request.response.text);
         // broadcast that the response has been uploaded
         [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_NOTIFICATION object:self.managedObjectContext];
