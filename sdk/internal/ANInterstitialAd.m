@@ -265,20 +265,20 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	// Stop the countdown and enable close button immediately
 	[self.controller stopCountdownTimer];
 	
-	if (self.clickShouldOpenInBrowser)
-	{
-		if ([[UIApplication sharedApplication] canOpenURL:URL])
-		{
-			[[UIApplication sharedApplication] openURL:URL];
-		}
-	}
-	else
-	{
+    NSString *scheme = [URL scheme];
+    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
+    
+	if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
 		// Interstitials require special handling of launching the in-app browser since they live on top of everything else
 		self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
 		self.browserViewController.delegate = self;
-		[self.controller presentViewController:self.browserViewController animated:YES completion:NULL];
+		[self.controller presentViewController:self.browserViewController animated:YES completion:nil];
 	}
+	else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [[UIApplication sharedApplication] openURL:URL];
+	} else {
+        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+    }
 }
 
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
