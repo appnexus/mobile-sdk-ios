@@ -88,10 +88,12 @@ typedef enum _ANMRAIDState
 
 @interface ANMRAIDAdWebViewController ()
 @property (nonatomic, readwrite, assign, getter = isExpanded) BOOL expanded;
+@property (nonatomic, readwrite, assign) CGSize defaultSize;
 @end
 
 @implementation ANMRAIDAdWebViewController
 @synthesize expanded = __expanded;
+@synthesize defaultSize = __defaultSize;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -163,6 +165,7 @@ typedef enum _ANMRAIDState
             [self.adFetcher.delegate adFetcher:self.adFetcher adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)];
         }
 		
+        self.defaultSize = webView.frame.size;
         [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:CGSizeMake(expandedWidth, expandedHeight)];
 		
         
@@ -187,8 +190,7 @@ typedef enum _ANMRAIDState
         self.expanded = NO;
         [self.adFetcher.delegate adShouldRemoveCloseButtonWithAdFetcher:self.adFetcher];
         
-        CGSize originalSize = [self.adFetcher.delegate requestedSizeForAdFetcher:self.adFetcher];
-        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:originalSize];
+        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:self.defaultSize];
         
         [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
     }

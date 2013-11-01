@@ -265,20 +265,20 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	// Stop the countdown and enable close button immediately
 	[self.controller stopCountdownTimer];
 	
-	if (self.clickShouldOpenInBrowser)
-	{
-		if ([[UIApplication sharedApplication] canOpenURL:URL])
-		{
-			[[UIApplication sharedApplication] openURL:URL];
-		}
-	}
-	else
-	{
+    NSString *scheme = [URL scheme];
+    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
+    
+	if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
 		// Interstitials require special handling of launching the in-app browser since they live on top of everything else
 		self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
 		self.browserViewController.delegate = self;
-		[self.controller presentViewController:self.browserViewController animated:YES completion:NULL];
+		[self.controller presentViewController:self.browserViewController animated:YES completion:nil];
 	}
+	else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [[UIApplication sharedApplication] openURL:URL];
+	} else {
+        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+    }
 }
 
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
@@ -375,18 +375,17 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         newFrame.size.width = size.width;
         newFrame.size.height = size.height;
         
+        [contentView setFrame:newFrame];
+        UIView *parentView = self.controller.view;
+        contentView.frame = CGRectMake((parentView.bounds.size.width - contentView.frame.size.width) / 2,
+                                       (parentView.bounds.size.height - contentView.frame.size.height) / 2,
+                                       contentView.frame.size.width, contentView.frame.size.height);
+        
         if (self.isFullscreen) {
             [contentView removeFromSuperview];
             [self.controller.view addSubview:contentView];
             self.isFullscreen = NO;
         }
-        
-        [contentView setFrame:newFrame];
-        
-        UIView *parentView = self.controller.view;
-        contentView.frame = CGRectMake((parentView.bounds.size.width - contentView.frame.size.width) / 2,
-                                       (parentView.bounds.size.height - contentView.frame.size.height) / 2,
-                                       contentView.frame.size.width, contentView.frame.size.height);
     }
 }
 
