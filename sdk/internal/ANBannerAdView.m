@@ -224,15 +224,14 @@
         newFrame.origin.y = 0;
         newFrame.size.width = size.width;
         newFrame.size.height = size.height;
+        [self setFrame:newFrame animated:NO];
 
         if (self.isFullscreen) {
             [self removeFromSuperview];
             [self.defaultSuperView addSubview:self];
             self.isFullscreen = NO;
         }
-
-        [self setFrame:newFrame animated:YES];
-    }    
+    }
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response

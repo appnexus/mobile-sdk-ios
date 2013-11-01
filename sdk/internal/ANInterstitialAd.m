@@ -375,18 +375,17 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         newFrame.size.width = size.width;
         newFrame.size.height = size.height;
         
+        [contentView setFrame:newFrame];
+        UIView *parentView = self.controller.view;
+        contentView.frame = CGRectMake((parentView.bounds.size.width - contentView.frame.size.width) / 2,
+                                       (parentView.bounds.size.height - contentView.frame.size.height) / 2,
+                                       contentView.frame.size.width, contentView.frame.size.height);
+        
         if (self.isFullscreen) {
             [contentView removeFromSuperview];
             [self.controller.view addSubview:contentView];
             self.isFullscreen = NO;
         }
-        
-        [contentView setFrame:newFrame];
-        
-        UIView *parentView = self.controller.view;
-        contentView.frame = CGRectMake((parentView.bounds.size.width - contentView.frame.size.width) / 2,
-                                       (parentView.bounds.size.height - contentView.frame.size.height) / 2,
-                                       contentView.frame.size.width, contentView.frame.size.height);
     }
 }
 
