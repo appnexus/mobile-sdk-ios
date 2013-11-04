@@ -40,7 +40,7 @@
 	
 	if (self != nil)
 	{
-
+        
 	}
 	
 	return self;
@@ -52,7 +52,7 @@
 	
 	if (self != nil)
 	{
-
+        
 	}
 	
 	return self;
@@ -103,7 +103,7 @@
     if ([self.adFetcher isLoading]) {
         [self.adFetcher stopAd];
     }
-
+    
     [self.adFetcher requestAd];
 }
 
@@ -159,7 +159,7 @@
         
 		ANLogDebug(@"Autorefresh interval set to %f seconds", autorefreshInterval);
 		__autorefreshInterval = autorefreshInterval;
-
+        
 		if ([self.adFetcher isLoading]) {
             [self.adFetcher stopAd];
         }
@@ -225,7 +225,6 @@
         newFrame.size.width = size.width;
         newFrame.size.height = size.height;
         [self setFrame:newFrame animated:NO];
-
         if (self.isFullscreen) {
             [self removeFromSuperview];
             [self.defaultSuperView addSubview:self];
@@ -244,8 +243,7 @@
 		{
 			self.contentView = contentView;
 			
-			if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)])
-			{
+			if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
 				[self.delegate adDidReceiveAd:self];
 			}
 		}
@@ -259,8 +257,7 @@
     }
     else
     {
-		if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)])
-		{
+		if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
 			[self.delegate ad:self requestFailedWithError:response.error];
 		}
     }

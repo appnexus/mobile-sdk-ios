@@ -27,7 +27,6 @@
 @interface ANInterstitialAd : NSObject <ANAdProtocol>
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
-@property (nonatomic, readwrite, assign) NSTimeInterval autoDismissTimeInterval;
 @property (nonatomic, readwrite, strong) UIColor *backgroundColor;
 
 - (id)initWithPlacementId:(NSString *)placementId;

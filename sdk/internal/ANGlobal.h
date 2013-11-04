@@ -33,7 +33,6 @@
 
 #define kAppNexusRequestTimeoutInterval 30.0
 #define kAppNexusAnimationDuration 0.4f
-#define kAppNexusDefaultInterstitialTimeoutInterval 15.0
 #define kAppNexusDefaultInterstitialCloseButtonInterval 10.0
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
 
