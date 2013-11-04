@@ -53,36 +53,36 @@
 #pragma mark Initialization
 
 - (id)init {
-	self = [super init];
-	
-	if (self != nil) {
-		[self initialize];
-	}
-	
-	return self;
+    self = [super init];
+
+    if (self != nil) {
+        [self initialize];
+    }
+
+    return self;
 }
 
 - (id)initWithFrame:(CGRect)frame {
-	self = [super initWithFrame:frame];
-	
-	if (self != nil) {
-		[self initialize];
-	}
-	
-	return self;
+    self = [super initWithFrame:frame];
+
+    if (self != nil) {
+        [self initialize];
+    }
+
+    return self;
 }
 
 - (void)awakeFromNib {
-	[super awakeFromNib];
-	[self initialize];
+    [super awakeFromNib];
+    [self initialize];
 }
 
 - (void)initialize {
-	self.clipsToBounds = YES;
-	__adFetcher = [[ANAdFetcher alloc] init];
-	__adFetcher.delegate = self;
-	__adSize = DEFAULT_ADSIZE;
-	__shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
+    self.clipsToBounds = YES;
+    __adFetcher = [[ANAdFetcher alloc] init];
+    __adFetcher.delegate = self;
+    __adSize = DEFAULT_ADSIZE;
+    __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
@@ -111,16 +111,16 @@
 }
 
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	__adFetcher.delegate = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    __adFetcher.delegate = nil;
     [__adFetcher stopAd]; // MUST be called. stopAd invalidates the autorefresh timer, which is retaining the adFetcher as well.
     
     if ([__contentView respondsToSelector:@selector(setDelegate:)]) {
         // If our content is a UIWebview, we want to make sure to clear out the delegate if we're destroying it
-		[__contentView performSelector:@selector(setDelegate:) withObject:nil];
+        [__contentView performSelector:@selector(setDelegate:) withObject:nil];
     }
-	
+
     __contentView = nil;
     __closeButton = nil;
 }
