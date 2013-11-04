@@ -13,8 +13,23 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import "ANAdRequest.h"
 
-@interface ANWebView : UIWebView
+@implementation ANAdRequest
+@synthesize placementId = __placementId;
+@synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
+@synthesize clickShouldOpenInBrowser = __clickShouldOpenInBrowser;
+@synthesize location = __location;
+@synthesize adSize = __adSize;
+@synthesize maxSize = __maxSize;
+@synthesize reserve = __reserve;
+@synthesize age = __age;
+@synthesize gender = __gender;
+@synthesize customKeywords = __customKeywords;
+
+- (NSString *)getRequestUrlString {
+    
+    return @"";
+}
 
 @end

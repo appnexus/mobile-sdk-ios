@@ -82,17 +82,6 @@
 	{
 		self.closeButton.hidden = NO;
 	}
-	
-	if (timeShown >= [self.delegate interstitialAdViewControllerTimeToDismiss])
-	{
-		[timer invalidate];
-		[self.delegate interstitialAdViewControllerShouldDismiss:self];
-	}
-
-	else
-	{
-		[self.progressView setProgress:timeShown / [self.delegate interstitialAdViewControllerTimeToDismiss] animated:NO];
-	}
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
