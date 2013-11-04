@@ -14,7 +14,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "ANAdProtocol.h"
+#import "ANAdView.h"
 
 // List of allowed ad sizes. These must fit in the maximum size of the view, which in this case, will be the size of the window
 #define kANInterstitialAdSize300x250 CGSizeMake(300,250)
@@ -24,7 +24,7 @@
 
 @protocol ANInterstitialAdDelegate;
 
-@interface ANInterstitialAd : NSObject <ANAdProtocol>
+@interface ANInterstitialAd : ANAdView
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
 @property (nonatomic, readwrite, strong) UIColor *backgroundColor;
