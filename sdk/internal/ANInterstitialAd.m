@@ -116,8 +116,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	
 	id adToShow = nil;
     
-    while ([self.precachedAdObjects count] > 0 && self.controller.contentView == nil)
-    {
+    while ([self.precachedAdObjects count] > 0
+           && self.controller.contentView == nil) {
         // Pull the first ad off
         NSDictionary *adDict = [self.precachedAdObjects objectAtIndex:0];
         
@@ -463,16 +463,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 			[self.delegate adDidClose:self];
 		}
 	}];
-}
-
-- (NSTimeInterval)interstitialAdViewControllerTimeToDismiss
-{
-	if (self.autoDismissTimeInterval > 0.0)
-	{
-		return self.autoDismissTimeInterval;
-	}
-
-	return kAppNexusDefaultInterstitialTimeoutInterval;
 }
 
 #pragma mark ANAdViewDelegate

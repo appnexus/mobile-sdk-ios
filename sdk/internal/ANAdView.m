@@ -35,38 +35,32 @@
 @synthesize gender = __gender;
 @synthesize customKeywords = __customKeywords;
 
-- (id)init
-{
+- (id)init {
 	self = [super init];
 	
-	if (self != nil)
-	{
+	if (self != nil) {
 		[self initialize];
 	}
 	
 	return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
 	self = [super initWithFrame:frame];
 	
-	if (self != nil)
-	{
+	if (self != nil) {
 		[self initialize];
 	}
 	
 	return self;
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
 	[super awakeFromNib];
 	[self initialize];
 }
 
-- (void)initialize
-{
+- (void)initialize {
 	self.clipsToBounds = YES;
 	self.adFetcher = [[ANAdFetcher alloc] init];
 	self.adFetcher.delegate = self;
@@ -77,12 +71,10 @@
     self.customKeywords = [[NSMutableDictionary alloc] init];
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId
-{
+- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
     self = [self initWithFrame:frame];
     
-    if (self != nil)
-    {
+    if (self != nil) {
         NSAssert([placementId intValue] > 0, @"Placement ID must be a number greater than 0.");
         self.placementId = placementId;
     }
@@ -90,34 +82,29 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size
-{
+- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
     self = [self initWithFrame:frame placementId:placementId];
     
-    if (self != nil)
-    {
+    if (self != nil) {
         self.adSize = size;
     }
     
     return self;
 }
 
-- (void)setAdSize:(CGSize)adSize
-{
+- (void)setAdSize:(CGSize)adSize {
 	// Remove our existing ad if we change the ad size, since it's no longer valid
 	self.contentView = nil;
 	__adSize = adSize;
 }
 
-- (void)dealloc
-{    
-	[[NSNotificationCenter defaultCenter] removeObserver:self];	
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	__adFetcher.delegate = nil;
     [__adFetcher stopAd]; // MUST be called. stopAd invalidates the autorefresh timer, which is retaining the adFetcher as well.
     
-    if ([__contentView respondsToSelector:@selector(setDelegate:)])
-    {
+    if ([__contentView respondsToSelector:@selector(setDelegate:)]) {
         // If our content is a UIWebview, we want to make sure to clear out the delegate if we're destroying it
 		[__contentView performSelector:@selector(setDelegate:) withObject:nil];
     }
@@ -126,14 +113,12 @@
     __closeButton = nil;
 }
 
-- (NSString *)adType
-{
+- (NSString *)adType {
 	return nil;
 }
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
-{
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
@@ -141,23 +126,23 @@
 }
 
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
-    if (([key length] < 1) || !value)
+    if (([key length] < 1) || !value) {
         return;
+    }
     
     [self.customKeywords setValue:value forKey:key];
 }
 
 - (void)removeCustomKeywordWithKey:(NSString *)key {
-    if (([key length] < 1))
+    if (([key length] < 1)) {
         return;
+    }
     
     [self.customKeywords removeObjectForKey:key];
 }
 
-- (void)setPlacementId:(NSString *)placementId
-{
-    if (placementId != __placementId)
-    {
+- (void)setPlacementId:(NSString *)placementId {
+    if (placementId != __placementId) {
         ANLogDebug(@"Setting placementId to %@", placementId);
         __placementId = placementId;
     }
@@ -165,35 +150,28 @@
 
 #pragma mark ANAdFetcherDelegate
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response
-{
-    if ([response isSuccessful])
-    {
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
+    if ([response isSuccessful]) {
         UIView *contentView = response.adObject;
 		
-		if ([contentView isKindOfClass:[UIView class]])
-		{
+		if ([contentView isKindOfClass:[UIView class]]) {
 			self.contentView = contentView;
 		}
-		else
-		{
+		else {
 			ANLogFatal(@"Received non view object %@ for response %@", contentView, response);
 		}
     }
 }
 
-- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
-{
+- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
     return 0.0;
 }
 
-- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher
-{
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return self.adSize;
 }
 
-- (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher
-{
+- (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher {
     return self.adType;
 }
 
@@ -227,23 +205,19 @@
     return __customKeywords;
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size
-{
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
 	
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
-{
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
 	[self showCloseButtonWithTarget:target action:action];
 }
 
-- (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher
-{
+- (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher {
     [self removeCloseButton];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL
-{
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
     NSString *scheme = [URL scheme];
     BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
     
@@ -307,8 +281,7 @@
     {
         if (contentView != nil)
         {
-            if ([contentView isKindOfClass:[UIWebView class]])
-            {
+            if ([contentView isKindOfClass:[UIWebView class]]) {
                 [(UIWebView *)contentView removeDocumentPadding];
             }
             
@@ -318,9 +291,8 @@
         [self removeCloseButton];
 		
 		[__contentView removeFromSuperview];
-
-        if ([__contentView isKindOfClass:[UIWebView class]])
-        {
+        
+        if ([__contentView isKindOfClass:[UIWebView class]]) {
             UIWebView *webView = (UIWebView *)__contentView;
             [webView setDelegate:nil];
             [webView stopLoading];

@@ -12,7 +12,12 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-// This protocol defines all the things that are common between *all* types of ads, whether they be direct descendants of UIView as in ANBannerAdView, or modal view controller types like ANInterstitalAd.
+
+/***
+ * This protocol defines all the things that are common between *all* types of
+ * ads, whether they be direct descendants of UIView as in ANBannerAdView, or
+ * modal view controller types like ANInterstitalAd.
+ ***/
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
