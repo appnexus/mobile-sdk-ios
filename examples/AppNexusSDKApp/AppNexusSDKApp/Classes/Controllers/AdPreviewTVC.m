@@ -41,6 +41,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.bannerAdView.rootViewController = self.parentViewController;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)setup {
@@ -226,7 +227,7 @@
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adDidReceiveAd");
     if (self.interstitialAd && self.interstitialAd == ad) {
-        [self.interstitialAd displayAdFromViewController:self]; // on load, immediately display interstitial
+        [self.interstitialAd displayAdFromViewController:self.parentViewController]; // on load, immediately display interstitial
     }
 }
 
