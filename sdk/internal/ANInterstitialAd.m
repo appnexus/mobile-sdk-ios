@@ -32,6 +32,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @interface ANAdView (ANInterstitialAd)
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
+- (void)expandToFullscreen:(UIView *)contentView;
 @end
 
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate>
@@ -237,21 +238,14 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     UIView *contentView = self.controller.contentView;
     // expand to full screen
     if ((size.width < 0) || (size.height < 0)) {
-        CGRect fullscreenFrame = [[UIScreen mainScreen] applicationFrame];
-        fullscreenFrame.origin.x = 0;
-        fullscreenFrame.origin.y = 20; // 20 for the status bar
-        [contentView setFrame:fullscreenFrame];
-        [contentView removeFromSuperview];
-        UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
-        [applicationWindow addSubview:contentView];
-        self.isFullscreen = YES;
+        [self expandToFullscreen:contentView];
     } else {
         // otherwise, resize in the original container
-        CGRect resizedFrame = self.frame;
-        resizedFrame.origin.x = resizedFrame.origin.x - (size.width - resizedFrame.size.width) / 2;
-        resizedFrame.origin.y = 0;
-        resizedFrame.size.width = size.width;
-        resizedFrame.size.height = size.height;
+        UIView *parentView = self.controller.view;
+        CGRect resizedFrame = CGRectMake((parentView.bounds.size.width - size.width) / 2,
+                                         (parentView.bounds.size.height - size.height) / 2,
+                                         size.width, size.height);
+        
         
         if (self.isFullscreen) {
             [contentView removeFromSuperview];
@@ -260,11 +254,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         }
         
         [contentView setFrame:resizedFrame];
-        
-        UIView *parentView = self.controller.view;
-        contentView.frame = CGRectMake((parentView.bounds.size.width - contentView.frame.size.width) / 2,
-                                       (parentView.bounds.size.height - contentView.frame.size.height) / 2,
-                                       contentView.frame.size.width, contentView.frame.size.height);
     }
 }
 

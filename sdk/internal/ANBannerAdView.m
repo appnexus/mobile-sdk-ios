@@ -21,6 +21,7 @@
 @interface ANAdView (ANBannerAdView)
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
+- (void)expandToFullscreen:(UIView *)contentView;
 @end
 
 @interface ANBannerAdView ()
@@ -208,28 +209,19 @@
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
     // expand to full screen
     if ((size.width < 0) || (size.height < 0)) {
-        CGRect fullscreenFrame = [[UIScreen mainScreen] applicationFrame];
-        fullscreenFrame.origin.x = 0;
-        fullscreenFrame.origin.y = 20;
-        self.frame = fullscreenFrame;
         self.defaultSuperView = self.superview;
-        [self removeFromSuperview];
-        UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
-        [applicationWindow addSubview:self];
-        self.isFullscreen = YES;
+        [self expandToFullscreen:self];
     } else {
         // otherwise, resize in the original container
-        CGRect resizedFrame = self.frame;
-        resizedFrame.origin.x = resizedFrame.origin.x - (size.width - resizedFrame.size.width) / 2;
-        resizedFrame.origin.y = 0;
-        resizedFrame.size.width = size.width;
-        resizedFrame.size.height = size.height;
+        CGRect resizedFrame = CGRectMake((self.frame.size.width - size.width) / 2,
+                                         0,
+                                         size.width, size.height);
         if (self.isFullscreen) {
             [self removeFromSuperview];
             [self.defaultSuperView addSubview:self];
             self.isFullscreen = NO;
         }
-        [self setFrame:resizedFrame animated:YES];
+        [self setFrame:resizedFrame animated:NO];
     }
 }
 

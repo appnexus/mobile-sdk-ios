@@ -125,6 +125,17 @@
     __closeButton = nil;
 }
 
+- (void)expandToFullscreen:(UIView *)contentView {
+    CGRect fullscreenFrame = [[UIScreen mainScreen] applicationFrame];
+    fullscreenFrame.origin.x = 0;
+    fullscreenFrame.origin.y = 20; // status bar offset
+    contentView.frame = fullscreenFrame;
+    [contentView removeFromSuperview];
+    UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
+    [applicationWindow addSubview:contentView];
+    self.isFullscreen = YES;
+}
+
 #pragma mark Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
