@@ -15,13 +15,14 @@
 
 #import "ANBannerAdView.h"
 #import "ANAdFetcher.h"
+#import "ANBrowserViewController.h"
 #import "ANCustomAdapter.h"
 
 @interface ANAdView (ANBannerAdView)
 - (void)initialize;
 @end
 
-@interface ANBannerAdView ()
+@interface ANBannerAdView () <ANBrowserViewControllerDelegate>
 
 @property (nonatomic, strong) UIView *defaultSuperView;
 @property (nonatomic, assign) BOOL isFullscreen;
@@ -215,8 +216,7 @@
         self.frame = newFrame;
         self.defaultSuperView = self.superview;
         [self removeFromSuperview];
-        UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
-        [applicationWindow addSubview:self];
+        [self.rootViewController.view addSubview:self];
         self.isFullscreen = YES;
     } else {
         CGRect newFrame = self.frame;
@@ -266,6 +266,25 @@
     }
 }
 
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL
+{
+    NSString *scheme = [URL scheme];
+    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
+    
+	if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
+		ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
+		browserViewController.delegate = self;
+		
+		[self.rootViewController presentViewController:browserViewController animated:YES completion:nil];
+	}
+	else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [[UIApplication sharedApplication] openURL:URL];
+	} else {
+        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+    }
+}
+
+
 - (NSArray *)extraParametersForAdFetcher:(ANAdFetcher *)fetcher
 {
     return [NSArray arrayWithObjects:
@@ -277,6 +296,14 @@
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
 {
     return self.autorefreshInterval;
+}
+
+#pragma mark ANBrowserViewControllerDelegate
+
+- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
+{
+	UIViewController *presentingViewController = controller.presentingViewController;
+	[presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

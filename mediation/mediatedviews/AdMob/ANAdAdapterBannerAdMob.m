@@ -31,6 +31,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
     ANLogDebug(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
 	GADAdSize gadAdSize = GADAdSizeFromCGSize(size);
@@ -38,7 +39,7 @@
 	
 	self.bannerView.adUnitID = idString;
 	
-	self.bannerView.rootViewController = AppRootViewController();
+	self.bannerView.rootViewController = rootViewController;
 	self.bannerView.delegate = self;
 	GADRequest *request = [GADRequest request];
     

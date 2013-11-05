@@ -24,6 +24,7 @@
 @interface ANBannerAdView : ANAdView
 
 @property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
+@property (nonatomic, assign) UIViewController *rootViewController;
 @property (nonatomic, readwrite, assign) NSTimeInterval autorefreshInterval;
 
 // Initializes an ad view with the specified frame, placementId, and requested ad size (which must be smaller than the view's size)

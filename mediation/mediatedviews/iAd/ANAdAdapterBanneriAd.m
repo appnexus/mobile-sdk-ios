@@ -31,6 +31,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
     ANLogDebug(@"Requesting iAd banner");
 	Class iAdClass = NSClassFromString(@"ADBannerView");

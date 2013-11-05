@@ -124,11 +124,6 @@ NSString *ANUdidParameter()
     return udidComponent;
 }
 
-UIViewController *AppRootViewController()
-{
-	return [[[UIApplication sharedApplication] keyWindow] rootViewController];
-}
-
 NSString *ANErrorString(NSString *key) {
     return NSLocalizedStringFromTable(key, AN_ERROR_TABLE, @"");
 }

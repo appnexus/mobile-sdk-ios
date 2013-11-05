@@ -38,6 +38,12 @@
     [self setup];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.bannerAdView.rootViewController = self.parentViewController;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+}
+
 - (void)setup {
     [self.refreshControl addTarget:self action:@selector(reloadAd) forControlEvents:UIControlEventValueChanged];
     self.scrollView.backgroundColor = [UIColor colorWithRed:SV_BACKGROUND_COLOR_RED/255.0
@@ -98,6 +104,7 @@
         // Make New BannerAdView
         self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, 0, settingsBannerWidth, settingsBannerHeight)];
         self.bannerAdView.delegate = self;
+        self.bannerAdView.rootViewController = self.parentViewController;
         self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
         self.bannerAdView.placementId = settingsPlacementID;
         self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
@@ -220,7 +227,7 @@
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adDidReceiveAd");
     if (self.interstitialAd && self.interstitialAd == ad) {
-        [self.interstitialAd displayAdFromViewController:self]; // on load, immediately display interstitial
+        [self.interstitialAd displayAdFromViewController:self.parentViewController]; // on load, immediately display interstitial
     }
 }
 
