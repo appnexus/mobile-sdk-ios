@@ -48,7 +48,7 @@
         // Set default autorefreshInterval
         __autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
     }
-
+    
 	return self;
 }
 
@@ -156,17 +156,17 @@
 - (NSString *)sizeParameter {
     // if the developer did not specify an adSize, use the frame size
     CGSize sizeToRequest = CGSizeEqualToSize(self.adSize, CGSizeZero) ? self.frame.size : self.adSize;
-
+    
     return [NSString stringWithFormat:@"&size=%dx%d",
-                       (NSInteger)sizeToRequest.width,
-                       (NSInteger)sizeToRequest.height];
+            (NSInteger)sizeToRequest.width,
+            (NSInteger)sizeToRequest.height];
 }
 
 - (NSString *)maximumSizeParameter {
     return @"";
-//    return [NSString stringWithFormat:@"&max_size=%dx%d",
-//            (NSInteger)self.frame.size.width,
-//            (NSInteger)self.frame.size.height];
+    //    return [NSString stringWithFormat:@"&max_size=%dx%d",
+    //            (NSInteger)self.frame.size.width,
+    //            (NSInteger)self.frame.size.height];
 }
 
 #pragma mark ANAdFetcherDelegate
@@ -183,7 +183,7 @@
     
     if ([response isSuccessful]) {
         UIView *contentView = response.adObject;
-
+        
         if ([contentView isKindOfClass:[UIView class]]) {
             self.contentView = contentView;
             [self adDidReceiveAd];
@@ -224,13 +224,12 @@
         resizedFrame.origin.y = 0;
         resizedFrame.size.width = size.width;
         resizedFrame.size.height = size.height;
-
-        [self setFrame:resizedFrame animated:NO];
         if (self.isFullscreen) {
             [self removeFromSuperview];
             [self.defaultSuperView addSubview:self];
             self.isFullscreen = NO;
         }
+        [self setFrame:resizedFrame animated:YES];
     }
 }
 
