@@ -232,14 +232,14 @@
     NSString *scheme = [URL scheme];
     BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
     
-	if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
-		ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
+    if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
+        ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
         browserViewController.delegate = self;
         [self openInBrowserWithController:browserViewController];
-	}
-	else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+    }
+    else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         [[UIApplication sharedApplication] openURL:URL];
-	} else {
+    } else {
         ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
     }
 }
@@ -248,8 +248,8 @@
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
 {
-	UIViewController *presentingViewController = controller.presentingViewController;
-	[presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    UIViewController *presentingViewController = controller.presentingViewController;
+    [presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark ANAdViewDelegate

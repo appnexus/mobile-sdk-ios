@@ -163,9 +163,10 @@
 }
 
 - (NSString *)maximumSizeParameter {
-    return [NSString stringWithFormat:@"&max_size=%dx%d",
-            (NSInteger)self.frame.size.width,
-            (NSInteger)self.frame.size.height];
+    return @"";
+//    return [NSString stringWithFormat:@"&max_size=%dx%d",
+//            (NSInteger)self.frame.size.width,
+//            (NSInteger)self.frame.size.height];
 }
 
 #pragma mark ANAdFetcherDelegate
@@ -182,16 +183,18 @@
     
     if ([response isSuccessful]) {
         UIView *contentView = response.adObject;
-		
-		if ([contentView isKindOfClass:[UIView class]]) {
-			self.contentView = contentView;
+
+        if ([contentView isKindOfClass:[UIView class]]) {
+            self.contentView = contentView;
             [self adDidReceiveAd];
-		}
-		else {
-			NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")
-																  forKey:NSLocalizedDescriptionKey];
-			error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseNonViewResponse userInfo:errorInfo];
-		}
+        }
+        else {
+            NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")
+                                                                  forKey:NSLocalizedDescriptionKey];
+            error = [NSError errorWithDomain:AN_ERROR_DOMAIN
+                                        code:ANAdResponseNonViewResponse
+                                    userInfo:errorInfo];
+        }
     }
     else {
         error = response.error;
