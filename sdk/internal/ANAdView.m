@@ -46,6 +46,14 @@
     return nil;
 }
 
+- (UIView *)adContentView {
+    return nil;
+}
+
+- (UIView *)mraidDefaultParentView {
+    return nil;
+}
+
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {}
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
 
@@ -54,16 +62,6 @@
 
 - (id)init {
     self = [super init];
-
-    if (self != nil) {
-        [self initialize];
-    }
-
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
 
     if (self != nil) {
         [self initialize];
@@ -87,27 +85,6 @@
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
     __isFullscreen = NO;
-}
-
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
-    self = [self initWithFrame:frame];
-    
-    if (self != nil) {
-        NSAssert([placementId intValue] > 0, @"Placement ID must be a number greater than 0.");
-        self.placementId = placementId;
-    }
-    
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
-    self = [self initWithFrame:frame placementId:placementId];
-    
-    if (self != nil) {
-        self.adSize = size;
-    }
-    
-    return self;
 }
 
 - (void)dealloc {

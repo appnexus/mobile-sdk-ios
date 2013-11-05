@@ -30,6 +30,7 @@ NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 
 @interface ANAdView (ANInterstitialAd)
+- (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
 - (void)expandToFullscreen:(UIView *)contentView;
@@ -54,22 +55,17 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 #pragma mark Initialization
 
-- (id)init {
-	self = [super init];
-
-	if (self != nil) {
-		__controller = [[ANInterstitialAdViewController alloc] init];
-		__controller.delegate = self;
-		__precachedAdObjects = [NSMutableArray array];
-        __adSize = self.frame.size;
-        __allowedAdSizes = [self getDefaultAllowedAdSizes];
-    }
-    
-	return self;
+- (void)initialize {
+    [super initialize];
+    __controller = [[ANInterstitialAdViewController alloc] init];
+    __controller.delegate = self;
+    __precachedAdObjects = [NSMutableArray array];
+    __adSize = self.frame.size;
+    __allowedAdSizes = [self getDefaultAllowedAdSizes];
 }
 
 - (id)initWithPlacementId:(NSString *)placementId {
-	self = [self init];
+	self = [super init];
 	
 	if (self != nil) {
 		self.placementId = placementId;
@@ -171,6 +167,14 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (NSString *)adType {
 	return @"interstitial";
+}
+
+- (UIView *)adContentView {
+    return self.contentView;
+}
+
+- (UIView *)mraidDefaultParentView {
+    return self.controller.view;
 }
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {

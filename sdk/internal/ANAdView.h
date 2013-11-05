@@ -32,9 +32,6 @@
     BOOL __isFullscreen;
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
-
 @end
 
 @interface ANAdView (ANAdFetcher)

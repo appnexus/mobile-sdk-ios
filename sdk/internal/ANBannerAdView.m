@@ -19,6 +19,7 @@
 #import "ANBrowserViewController.h"
 
 @interface ANAdView (ANBannerAdView)
+- (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
 - (void)expandToFullscreen:(UIView *)contentView;
@@ -38,19 +39,14 @@
 
 #pragma mark Initialization
 
-- (id)init {
-	self = [super init];
+- (void)initialize {
+    [super initialize];
 	
-    if (self) {
-        self.backgroundColor = [UIColor clearColor];
-        self.autoresizingMask = UIViewAutoresizingNone;
-        __defaultSuperView = self.superview;
-        
-        // Set default autorefreshInterval
-        __autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
-    }
+    self.backgroundColor = [UIColor clearColor];
+    self.autoresizingMask = UIViewAutoresizingNone;
     
-	return self;
+    // Set default autorefreshInterval
+    __autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
 }
 
 - (void)awakeFromNib {
@@ -66,9 +62,32 @@
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:size];
 }
 
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    if (self != nil) {
+        [self initialize];
+    }
+    
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
+    self = [self initWithFrame:frame];
+    
+    if (self != nil) {
+        NSAssert([placementId intValue] > 0, @"Placement ID must be a number greater than 0.");
+        self.placementId = placementId;
+    }
+    
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
-    if (self = [super initWithFrame:frame placementId:placementId adSize:size]) {
-        self.backgroundColor = [UIColor clearColor];
+    self = [self initWithFrame:frame placementId:placementId];
+    
+    if (self != nil) {
+        self.adSize = size;
     }
     
     return self;
@@ -145,6 +164,14 @@
 
 - (NSString *)adType {
     return @"inline";
+}
+
+- (UIView *)adContentView {
+    return self;
+}
+
+- (UIView *)mraidDefaultParentView {
+    return self.defaultSuperView;
 }
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {

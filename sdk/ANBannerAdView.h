@@ -27,6 +27,7 @@
 @property (nonatomic, readwrite, assign) NSTimeInterval autorefreshInterval;
 
 // Initializes an ad view with the specified frame, placementId, and requested ad size (which must be smaller than the view's size)
+- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
 // Autoreleased constructors of the above initializers
