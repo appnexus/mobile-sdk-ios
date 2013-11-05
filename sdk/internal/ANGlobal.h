@@ -43,5 +43,4 @@ BOOL ANAdvertisingTrackingEnabled(void);
 BOOL CGSizeLargerThanSize(CGSize firstSize, CGSize secondSize);
 BOOL isFirstLaunch(void);
 NSString *ANUdidParameter(void);
-UIViewController *AppRootViewController(void);
 NSString *ANErrorString(NSString *key);

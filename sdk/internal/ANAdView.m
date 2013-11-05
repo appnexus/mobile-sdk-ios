@@ -19,7 +19,7 @@
 #import "ANBrowserViewController.h"
 #import "ANLocation.h"
 
-@interface ANAdView () <ANBrowserViewControllerDelegate>
+@interface ANAdView ()
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
 @end
 
@@ -244,29 +244,6 @@
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL
 {
-    NSString *scheme = [URL scheme];
-    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
-    
-	if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
-		ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
-		browserViewController.delegate = self;
-		UIViewController *rootViewController = AppRootViewController();
-		
-		[rootViewController presentViewController:browserViewController animated:YES completion:nil];
-	}
-	else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
-        [[UIApplication sharedApplication] openURL:URL];
-	} else {
-        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
-    }
-}
-
-#pragma mark ANBrowserViewControllerDelegate
-
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
-{
-	UIViewController *presentingViewController = controller.presentingViewController;
-	[presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark ANAdViewDelegate
