@@ -35,6 +35,7 @@
  3. This notice may not be removed or altered from any source
  distribution.
 */
+#if __ONLY_ENABLE_FOR_IPHONE_5
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_6_0
 #if __has_feature(objc_arc)
@@ -426,4 +427,5 @@ static int const kOpenUDIDRedundancySlots = 100;
 }
 
 @end
+#endif
 #endif
