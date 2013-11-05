@@ -152,6 +152,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 			}
 			
             [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext; // Proper support for background transparency
+            
 			[controller presentViewController:self.controller animated:YES completion:NULL];
 		}
 		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
@@ -362,11 +363,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     if ((size.width == -1) || (size.height == -1)) {
         CGRect newFrame = [[UIScreen mainScreen] applicationFrame];
         newFrame.origin.x = 0;
-        newFrame.origin.y = 20;
+        newFrame.origin.y = 0;
         [contentView setFrame:newFrame];
         [contentView removeFromSuperview];
-        UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
-        [applicationWindow addSubview:contentView];
+        [self.controller.view addSubview:contentView];
         self.isFullscreen = YES;
     } else {
         CGRect newFrame = self.frame;

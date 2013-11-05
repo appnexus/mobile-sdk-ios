@@ -215,8 +215,7 @@
         self.frame = newFrame;
         self.defaultSuperView = self.superview;
         [self removeFromSuperview];
-        UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
-        [applicationWindow addSubview:self];
+        [self.rootViewController.view addSubview:self];
         self.isFullscreen = YES;
     } else {
         CGRect newFrame = self.frame;

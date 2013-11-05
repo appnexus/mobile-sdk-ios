@@ -38,6 +38,11 @@
     [self setup];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.bannerAdView.rootViewController = self.parentViewController;
+}
+
 - (void)setup {
     [self.refreshControl addTarget:self action:@selector(reloadAd) forControlEvents:UIControlEventValueChanged];
     self.scrollView.backgroundColor = [UIColor colorWithRed:SV_BACKGROUND_COLOR_RED/255.0
@@ -98,6 +103,7 @@
         // Make New BannerAdView
         self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, 0, settingsBannerWidth, settingsBannerHeight)];
         self.bannerAdView.delegate = self;
+        self.bannerAdView.rootViewController = self.parentViewController;
         self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
         self.bannerAdView.placementId = settingsPlacementID;
         self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;

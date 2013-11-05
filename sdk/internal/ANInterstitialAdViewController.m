@@ -43,6 +43,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self setStatusBarHidden:YES];
 	self.contentView.frame = CGRectMake((self.view.bounds.size.width - self.contentView.frame.size.width) / 2, (self.view.bounds.size.height - self.contentView.frame.size.height) / 2, self.contentView.frame.size.width, self.contentView.frame.size.height);
 }
 
@@ -63,6 +64,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [self setStatusBarHidden:NO];
 	[self.progressTimer invalidate];
 }
 
@@ -140,4 +142,15 @@
 	[self.delegate interstitialAdViewControllerShouldDismiss:self];
 }
 
+// hiding the status bar in iOS 7
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+// hiding the status bar pre-iOS 7
+- (void)setStatusBarHidden:(BOOL)hidden {
+    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
+}
+
 @end
+
