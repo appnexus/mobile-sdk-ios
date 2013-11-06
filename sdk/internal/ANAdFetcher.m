@@ -193,15 +193,12 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return [self.delegate placementId];
 }
 
-- (NSString *)jsonFormatParameter
-{
+- (NSString *)jsonFormatParameter {
     return @"&format=json";
 }
 
-- (NSString *)placementIdParameter
-{
-    if (![self.placementId length] > 0)
-    {
+- (NSString *)placementIdParameter {
+    if (![self.placementId length] > 0) {
         ANLogError(ANErrorString(@"no_placement_id"));
         return @"";
     }
@@ -209,36 +206,25 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return [NSString stringWithFormat:@"id=%@", [self.placementId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (NSString *)sdkVersionParameter
-{
+- (NSString *)sdkVersionParameter {
     return [NSString stringWithFormat:@"&sdkver=%@", AN_SDK_VERSION];
 }
 
-- (NSString *)dontTrackEnabledParameter
-{
-    NSString *donttrackEnabled = @"";
-    
-    if (!ANAdvertisingTrackingEnabled()) {
-        donttrackEnabled = @"&dnt=1";
-    }
-    
-    return donttrackEnabled;
+- (NSString *)dontTrackEnabledParameter {
+    return ANAdvertisingTrackingEnabled() ? @"" : @"&dnt=1";
 }
 
-- (NSString *)deviceMakeParameter
-{
+- (NSString *)deviceMakeParameter {
     return @"&devmake=Apple";
 }
 
-- (NSString *)deviceModelParameter
-{
+- (NSString *)deviceModelParameter {
     NSString *modelComponent = [NSString stringWithFormat:@"&devmodel=%@", [ANDeviceModel() stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     return modelComponent;
 }
 
-- (NSString *)applicationIdParameter
-{
+- (NSString *)applicationIdParameter {
     NSString *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
     return [NSString stringWithFormat:@"&appid=%@", appId];
 }
@@ -247,8 +233,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return isFirstLaunch() ? @"&firstlaunch=true" : @"";
 }
 
-- (NSString *)carrierMccMncParameters
-{
+- (NSString *)carrierMccMncParameters {
     NSString *param = @"";
     
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
@@ -258,9 +243,11 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     NSString *carrierParameter =
     ([[carrier carrierName] length] > 0) ? [[carrier carrierName]
        stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
+    
     NSString *mccParameter =
     ([[carrier mobileCountryCode] length] > 0) ? [[carrier mobileCountryCode]
        stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
+    
     NSString *mncParameter =
     ([carrier mobileNetworkCode] > 0) ? [[carrier mobileNetworkCode]
        stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
@@ -289,14 +276,15 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return status == ANNetworkStatusReachableViaWiFi ? @"wifi" : @"wan";
 }
 
+- (NSString *)supplyTypeParameter {
+    return @"&st=mobile_app";
+}
 
-- (NSString *)locationParameter
-{
+- (NSString *)locationParameter {
     ANLocation *location = [self.delegate location];
     NSString *locationParamater = @"";
     
-    if (location)
-    {
+    if (location) {
         NSDate *locationTimestamp = location.timestamp;
         NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
@@ -310,27 +298,29 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return locationParamater;
 }
 
-- (NSString *)orientationParameter
-{
+- (NSString *)orientationParameter {
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
     return [NSString stringWithFormat:@"&orientation=%@",
             UIInterfaceOrientationIsLandscape(orientation) ? @"h" : @"v"];
 }
 
-- (NSString *)userAgentParameter
-{
+- (NSString *)userAgentParameter {
     return [NSString stringWithFormat:@"&ua=%@",
             [ANUserAgent() stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (NSString *)supplyTypeParameter
-{
-    return @"&st=mobile_app";
+- (NSString *)languageParameter {
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    return ([language length] > 0) ? [NSString stringWithFormat:@"&language=%@", language] : @"";
 }
 
-- (NSString *)psaAndReserveParameter
-{
+- (NSString *)devTimeParameter {
+    int timeInMiliseconds = (int) [[NSDate date] timeIntervalSince1970];
+    return [NSString stringWithFormat:@"&devtime=%d", timeInMiliseconds];
+}
+
+- (NSString *)psaAndReserveParameter {
     BOOL shouldServePsas = [self.delegate shouldServePublicServiceAnnouncements];
     CGFloat reserve = [self.delegate reserve];
     if (reserve > 0.0f) {
@@ -341,8 +331,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     }
 }
 
-- (NSString *)ageParameter
-{
+- (NSString *)ageParameter {
     NSString *ageValue = [self.delegate age];
     if ([ageValue length] < 1) {
         return @"";
@@ -352,8 +341,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return [NSString stringWithFormat:@"&age=%@", ageValue];
 }
 
-- (NSString *)genderParameter
-{
+- (NSString *)genderParameter {
     ANGender genderValue = [self.delegate gender];
     if (genderValue == MALE) {
         return @"&gender=m";
@@ -364,8 +352,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     }
 }
 
-- (NSString *)customKeywordsParameter
-{
+- (NSString *)customKeywordsParameter {
     NSString *customKeywordsParameter = @"";
     NSMutableDictionary *customKeywords = [self.delegate customKeywords];
     
@@ -402,6 +389,8 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     urlString = [urlString stringByAppendingString:[self userAgentParameter]];
     urlString = [urlString stringByAppendingString:[self orientationParameter]];
     urlString = [urlString stringByAppendingString:[self connectionTypeParameter]];
+    urlString = [urlString stringByAppendingString:[self devTimeParameter]];
+    urlString = [urlString stringByAppendingString:[self languageParameter]];
 
     urlString = [urlString stringByAppendingString:[self psaAndReserveParameter]];
     urlString = [urlString stringByAppendingString:[self ageParameter]];
