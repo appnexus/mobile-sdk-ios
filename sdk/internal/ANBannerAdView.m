@@ -23,6 +23,9 @@
 - (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
+- (void)showCloseButtonWithTarget:(id)target
+                           action:(SEL)selector
+                    containerView:(UIView *)containerView;
 - (void)mraidResizeAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
@@ -171,14 +174,6 @@
     return @"inline";
 }
 
-- (UIView *)adContentView {
-    return self;
-}
-
-- (UIView *)mraidDefaultParentView {
-    return self.defaultSuperView;
-}
-
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
     [self.rootViewController presentViewController:browserViewController animated:YES completion:nil];
 }
@@ -195,10 +190,10 @@
 }
 
 - (NSString *)maximumSizeParameter {
-    return @"";
-    //    return [NSString stringWithFormat:@"&max_size=%dx%d",
-    //            (NSInteger)self.frame.size.width,
-    //            (NSInteger)self.frame.size.height];
+//    return @"";
+    return [NSString stringWithFormat:@"&max_size=%dx%d",
+            (NSInteger)self.frame.size.width,
+            (NSInteger)self.frame.size.height];
 }
 
 #pragma mark ANAdFetcherDelegate
@@ -258,7 +253,7 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
-	[super showCloseButtonWithTarget:target action:action contentView:self];
+	[super showCloseButtonWithTarget:target action:action containerView:self];
 }
 
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {

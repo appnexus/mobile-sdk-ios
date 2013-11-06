@@ -49,14 +49,6 @@
     return nil;
 }
 
-- (UIView *)adContentView {
-    return nil;
-}
-
-- (UIView *)mraidDefaultParentView {
-    return nil;
-}
-
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {}
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
 
@@ -136,6 +128,33 @@
         
         [defaultParentView addSubview:contentView];
         self.isFullscreen = NO;
+    }
+}
+
+- (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
+                      containerView:(UIView *)containerView; {
+    if ([self.closeButton superview] == nil) {
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closeButton addTarget:target
+                        action:selector
+              forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
+        [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
+        [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
+        closeButton.frame = CGRectMake(containerView.bounds.size.width
+                                       - closeButtonImage.size.width
+                                       / 2 - 20.0, 4.0,
+                                       closeButtonImage.size.width,
+                                       closeButtonImage.size.height);
+        closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+        
+        self.closeButton = closeButton;
+        
+        [containerView addSubview:closeButton];
+    }
+    else {
+        ANLogError(@"Attempted to add a close button to ad view %@ with one already showing!", self);
     }
 }
 
@@ -355,33 +374,6 @@
 - (UIButton *)closeButton
 {
     return __closeButton;
-}
-
-- (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
-                      contentView:(UIView *)contentView; {
-    if ([self.closeButton superview] == nil) {
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [closeButton addTarget:target
-                        action:selector
-              forControlEvents:UIControlEventTouchUpInside];
-        
-        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
-        [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
-        [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
-        closeButton.frame = CGRectMake(contentView.bounds.size.width
-                                       - closeButtonImage.size.width
-                                       / 2 - 20.0, 4.0,
-                                       closeButtonImage.size.width,
-                                       closeButtonImage.size.height);
-        closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-        
-        self.closeButton = closeButton;
-        
-        [contentView addSubview:closeButton];
-    }
-    else {
-        ANLogError(@"Attempted to add a close button to ad view %@ with one already showing!", self);
-    }
 }
 
 - (void)removeCloseButton

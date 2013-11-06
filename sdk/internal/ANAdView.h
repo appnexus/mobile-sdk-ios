@@ -39,7 +39,6 @@
 @property (nonatomic, readwrite, assign) BOOL isFullscreen;
 @property (nonatomic, readwrite, strong) UIButton *closeButton;
 
-- (void)showCloseButtonWithTarget:(id)target action:(SEL)selector contentView:(UIView *)contentView;
 - (void)removeCloseButton;
 
 @end

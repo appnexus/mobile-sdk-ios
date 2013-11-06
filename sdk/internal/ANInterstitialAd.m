@@ -33,6 +33,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
+- (void)showCloseButtonWithTarget:(id)target
+                           action:(SEL)selector
+                    containerView:(UIView *)containerView;
 - (void)mraidResizeAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
@@ -174,14 +177,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	return @"interstitial";
 }
 
-- (UIView *)adContentView {
-    return self.contentView;
-}
-
-- (UIView *)mraidDefaultParentView {
-    return self.controller.view;
-}
-
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
     // Interstitials require special handling of launching the in-app browser since they live on top of everything else
     self.browserViewController = browserViewController;
@@ -252,7 +247,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
-	[super showCloseButtonWithTarget:target action:action contentView:self.controller.contentView];
+	[super showCloseButtonWithTarget:target action:action containerView:self.controller.contentView];
 }
 
 #pragma mark ANBrowserViewControllerDelegate
