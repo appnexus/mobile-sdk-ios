@@ -308,7 +308,7 @@ NSString *ANDemoAdsViewControllerSavedTagKey = @"ANDemoAdsViewControllerSavedTag
 {
 	if (ad == self.interstitialAd)
 	{
-		[self.interstitialAd displayAdFromViewController:AppRootViewController()];
+		[self.interstitialAd displayAdFromViewController:self.parentViewController];
 	}
 }
 

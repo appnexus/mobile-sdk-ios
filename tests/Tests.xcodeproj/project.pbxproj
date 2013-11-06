@@ -218,7 +218,6 @@
 		ECABE5861821E4C80037E6C5 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		ECD9298C1822CAD300420840 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationCallbacksTests.m; sourceTree = "<group>"; };
-		ECD9298E1822CAD300420840 /* MediationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediationTests.h; sourceTree = "<group>"; };
 		ECD9298F1822CAD300420840 /* MediationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationTests.m; sourceTree = "<group>"; };
 		ECD929901822CAD300420840 /* TestsTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TestsTests-Info.plist"; sourceTree = "<group>"; };
 		ECD929911822CAD300420840 /* TestsTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestsTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -512,7 +511,6 @@
 			children = (
 				ECD9298B1822CAD300420840 /* InfoPlist.strings */,
 				ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */,
-				ECD9298E1822CAD300420840 /* MediationTests.h */,
 				ECD9298F1822CAD300420840 /* MediationTests.m */,
 				ECD929901822CAD300420840 /* TestsTests-Info.plist */,
 				ECD929911822CAD300420840 /* TestsTests-Prefix.pch */,

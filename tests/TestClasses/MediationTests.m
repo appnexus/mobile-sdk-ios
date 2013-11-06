@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "MediationTests.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import "ANAdFetcher.h"
 #import "ANAdResponse.h"
 #import "ANAdAdapterErrorCode.h"
@@ -30,6 +30,9 @@
 #define MMBannerClassName @"ANAdAdapterBannerMillennialMedia"
 #define ErrorCodeClassName @"ANAdAdapterErrorCode"
 
+@interface MediationTests : SenTestCase
+
+@end
 
 @interface ANAdFetcher ()
 - (void)processResponseData:(NSData *)data;
