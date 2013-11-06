@@ -217,7 +217,15 @@
         UIView *contentView = response.adObject;
         
         if ([contentView isKindOfClass:[UIView class]]) {
+            // center the contentview
+            CGFloat centerX = (self.frame.size.width - contentView.frame.size.width) / 2;
+            CGFloat centerY = (self.frame.size.height - contentView.frame.size.height) / 2;
+            [contentView setFrame:
+             CGRectMake(centerX, centerY,
+                        contentView.frame.size.width,
+                        contentView.frame.size.height)];
             self.contentView = contentView;
+            
             [self adDidReceiveAd];
         }
         else {
