@@ -243,48 +243,35 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return [NSString stringWithFormat:@"&appid=%@", appId];
 }
 
-- (NSString *)firstLaunchParameter
-{
-    if (isFirstLaunch())
-    {
-        return [NSString stringWithFormat:@"&firstlaunch=true"];
-    }
-    
-    return @"";
+- (NSString *)firstLaunchParameter {
+    return isFirstLaunch() ? @"&firstlaunch=true" : @"";
 }
-
-
 
 - (NSString *)carrierParameter
 {
     NSString *carrierParameter = @"";
     
-    ANReachability *reachability = [ANReachability reachabilityForInternetConnection];
-    ANNetworkStatus status = [reachability currentReachabilityStatus];
+    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+    CTCarrier *carrier = [netinfo subscriberCellularProvider];
     
-    if (status == ANNetworkStatusReachableViaWiFi)
-    {
-        carrierParameter = @"wifi";
-    }
-    else
-    {
-        CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-        CTCarrier *carrier = [netinfo subscriberCellularProvider];
-        
-        if ([[carrier carrierName] length] > 0)
-        {
-            carrierParameter = [carrier carrierName];
-        }
+    if ([[carrier carrierName] length] > 0) {
+        carrierParameter = [carrier carrierName];
     }
 	
-    if ([carrierParameter length] > 0)
-    {
+    if ([carrierParameter length] > 0) {
 		carrierParameter = [carrierParameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         carrierParameter = [NSString stringWithFormat:@"&carrier=%@", carrierParameter];
     }
     
     return carrierParameter;
 }
+
+- (NSString *)connectionTypeParameter {
+    ANReachability *reachability = [ANReachability reachabilityForInternetConnection];
+    ANNetworkStatus status = [reachability currentReachabilityStatus];
+    return status == ANNetworkStatusReachableViaWiFi ? @"wifi" : @"wan";
+}
+
 
 - (NSString *)locationParameter
 {
@@ -399,6 +386,8 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     urlString = [urlString stringByAppendingString:[self locationParameter]];
     urlString = [urlString stringByAppendingString:[self userAgentParameter]];
     urlString = [urlString stringByAppendingString:[self orientationParameter]];
+    urlString = [urlString stringByAppendingString:[self connectionTypeParameter]];
+
     urlString = [urlString stringByAppendingString:[self psaAndReserveParameter]];
     urlString = [urlString stringByAppendingString:[self ageParameter]];
     urlString = [urlString stringByAppendingString:[self genderParameter]];
@@ -408,12 +397,10 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     urlString = [urlString stringByAppendingString:[self supplyTypeParameter]];
     urlString = [urlString stringByAppendingString:[self sdkVersionParameter]];
     
-    if ([self.delegate respondsToSelector:@selector(extraParametersForAdFetcher:)])
-    {
+    if ([self.delegate respondsToSelector:@selector(extraParametersForAdFetcher:)]) {
         NSArray *extraParameters = [self.delegate extraParametersForAdFetcher:self];
         
-        for (NSString *param in extraParameters)
-        {
+        for (NSString *param in extraParameters) {
             urlString = [urlString stringByAppendingString:param];
         }
     }
