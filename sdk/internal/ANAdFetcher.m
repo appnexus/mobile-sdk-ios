@@ -510,7 +510,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
         
         if (CGSizeLargerThanSize(receivedSize, requestedSize))
         {
-            ANLogError([NSString stringWithFormat:ANErrorString(@"adsize_too_big"), (int)requestedSize.width, (int)requestedSize.height, (int)receivedSize.width, (int)receivedSize.height]);
+            ANLogInfo([NSString stringWithFormat:ANErrorString(@"adsize_too_big"), (int)requestedSize.width, (int)requestedSize.height, (int)receivedSize.width, (int)receivedSize.height]);
         }
         
         [webView loadHTMLString:response.content baseURL:baseURL];
