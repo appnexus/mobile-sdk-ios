@@ -41,7 +41,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.bannerAdView.rootViewController = self.parentViewController;
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)setup {
