@@ -190,7 +190,6 @@
 }
 
 - (NSString *)maximumSizeParameter {
-//    return @"";
     return [NSString stringWithFormat:@"&max_size=%dx%d",
             (NSInteger)self.frame.size.width,
             (NSInteger)self.frame.size.height];

@@ -49,6 +49,8 @@
     return nil;
 }
 
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {}
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {}
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {}
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
 
@@ -229,21 +231,6 @@
 }
 
 #pragma mark ANAdFetcherDelegate
-
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
-    if ([response isSuccessful]) {
-        UIView *contentView = response.adObject;
-		
-		if ([contentView isKindOfClass:[UIView class]]) {
-			self.contentView = contentView;
-		}
-		else {
-			ANLogFatal(@"Received non view object %@ for response %@", contentView, response);
-		}
-    }
-}
-
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {}
 
 - (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
     return 0.0;

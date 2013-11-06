@@ -243,7 +243,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
              contentView:self.controller.contentView
        defaultParentView:self.controller.view
       rootViewController:self.controller
-     isBanner:NO];
+                isBanner:NO];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
