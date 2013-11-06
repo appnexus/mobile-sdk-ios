@@ -206,10 +206,10 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
         return @"";
     }
     
-    return [NSString stringWithFormat:@"&id=%@", [self.placementId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [NSString stringWithFormat:@"id=%@", [self.placementId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (NSString *)versionComponent
+- (NSString *)sdkVersionParameter
 {
     return [NSString stringWithFormat:@"&sdkver=%@", AN_SDK_VERSION];
 }
@@ -306,26 +306,18 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return locationParamater;
 }
 
-- (NSString *)isTestParameter
-{
-    if (AN_DEBUG_MODE)
-    {
-        return @"&istest=true";
-    }
-    
-    return @"";
-}
-
 - (NSString *)orientationParameter
 {
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
-    return [NSString stringWithFormat:@"&orientation=%@", UIInterfaceOrientationIsLandscape(orientation) ? @"h" : @"v"];
+    return [NSString stringWithFormat:@"&orientation=%@",
+            UIInterfaceOrientationIsLandscape(orientation) ? @"h" : @"v"];
 }
 
 - (NSString *)userAgentParameter
 {
-    return [NSString stringWithFormat:@"&ua=%@", [ANUserAgent() stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [NSString stringWithFormat:@"&ua=%@",
+            [ANUserAgent() stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (NSString *)supplyTypeParameter
@@ -395,24 +387,26 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
 - (NSURL *)adURLWithBaseURLString:(NSString *)urlString
 {
 	
-	urlString = [urlString stringByAppendingString:ANUdidParameter()];
     urlString = [urlString stringByAppendingString:[self placementIdParameter]];
+	urlString = [urlString stringByAppendingString:ANUdidParameter()];
     urlString = [urlString stringByAppendingString:[self dontTrackEnabledParameter]];
     urlString = [urlString stringByAppendingString:[self deviceMakeParameter]];
-    urlString = [urlString stringByAppendingString:[self applicationIdParameter]];
-    urlString = [urlString stringByAppendingString:[self firstLaunchParameter]];
     urlString = [urlString stringByAppendingString:[self deviceModelParameter]];
     urlString = [urlString stringByAppendingString:[self carrierParameter]];
+    urlString = [urlString stringByAppendingString:[self applicationIdParameter]];
+    urlString = [urlString stringByAppendingString:[self firstLaunchParameter]];
+
     urlString = [urlString stringByAppendingString:[self locationParameter]];
-    urlString = [urlString stringByAppendingString:[self isTestParameter]];
-    urlString = [urlString stringByAppendingString:[self orientationParameter]];
-    urlString = [urlString stringByAppendingString:[self jsonFormatParameter]];
     urlString = [urlString stringByAppendingString:[self userAgentParameter]];
-    urlString = [urlString stringByAppendingString:[self supplyTypeParameter]];
+    urlString = [urlString stringByAppendingString:[self orientationParameter]];
     urlString = [urlString stringByAppendingString:[self psaAndReserveParameter]];
     urlString = [urlString stringByAppendingString:[self ageParameter]];
     urlString = [urlString stringByAppendingString:[self genderParameter]];
     urlString = [urlString stringByAppendingString:[self customKeywordsParameter]];
+
+    urlString = [urlString stringByAppendingString:[self jsonFormatParameter]];
+    urlString = [urlString stringByAppendingString:[self supplyTypeParameter]];
+    urlString = [urlString stringByAppendingString:[self sdkVersionParameter]];
     
     if ([self.delegate respondsToSelector:@selector(extraParametersForAdFetcher:)])
     {
