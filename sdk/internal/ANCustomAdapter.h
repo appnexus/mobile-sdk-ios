@@ -45,7 +45,8 @@ typedef enum _ANAdResponseCode
 - (void)requestBannerAdWithSize:(CGSize)size
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-                       location:(ANLocation *)location;
+                       location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController;
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterBannerDelegate, ANCustomAdapterDelegate> delegate;
 @end
 

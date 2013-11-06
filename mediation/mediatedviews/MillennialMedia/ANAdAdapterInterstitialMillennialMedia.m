@@ -22,6 +22,7 @@
 
 @interface ANAdAdapterInterstitialMillennialMedia ()
 @property (nonatomic, readwrite, strong) MMInterstitial *interstitialAd;
+@property (nonatomic, readwrite, strong) NSString *apid;
 @end
 
 @implementation ANAdAdapterInterstitialMillennialMedia
@@ -52,43 +53,38 @@
         request = [MMRequest request];
     }
     
+    self.apid = idString;
+    
     [MMInterstitial fetchWithRequest:request
                                 apid:idString
                         onCompletion:^(BOOL success, NSError *error) {
                             if (success) {
-                                [MMInterstitial displayForApid:idString
-                                            fromViewController:AppRootViewController()
-                                               withOrientation:0
-                                                  onCompletion:^(BOOL success, NSError *error) {
-                                                      if (success) {
-                                                          ANLogDebug(@"MillennialMedia interstitial did load");
-                                                          [self.delegate adapterInterstitial:self didLoadInterstitialAd:nil];
-                                                      }
-                                                      else {
-                                                          ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
-                                                          ANAdResponseCode code = ANAdResponseInternalError;
-                                                          
-                                                          switch (error.code) {
-                                                              case MMAdUnknownError:
-                                                                  code = ANAdResponseInternalError;
-                                                                  break;
-                                                              case MMAdServerError:
-                                                                  code = ANAdResponseNetworkError;
-                                                                  break;
-                                                              case MMAdUnavailable:
-                                                                  code = ANAdResponseUnableToFill;
-                                                                  break;
-                                                              case MMAdDisabled:
-                                                                  code = ANAdResponseInvalidRequest;
-                                                                  break;
-                                                              default:
-                                                                  code = ANAdResponseInternalError;
-                                                                  break;
-                                                          }
-                                                          
-                                                          [self.delegate adapterInterstitial:self didFailToReceiveInterstitialAd:code];
-                                                      }
-                                                  }];
+                                ANLogDebug(@"MillennialMedia interstitial did load");
+                                [self.delegate adapterInterstitial:self didLoadInterstitialAd:nil];
+                            } else {
+                                ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
+                                ANAdResponseCode code = ANAdResponseInternalError;
+                                
+                                switch (error.code) {
+                                    case MMAdUnknownError:
+                                        code = ANAdResponseInternalError;
+                                        break;
+                                    case MMAdServerError:
+                                        code = ANAdResponseNetworkError;
+                                        break;
+                                    case MMAdUnavailable:
+                                        code = ANAdResponseUnableToFill;
+                                        break;
+                                    case MMAdDisabled:
+                                        code = ANAdResponseInvalidRequest;
+                                        break;
+                                    default:
+                                        code = ANAdResponseInternalError;
+                                        break;
+                                }
+                                
+                                [self.delegate adapterInterstitial:self
+                                    didFailToReceiveInterstitialAd:code];
                             }
                         }];
     
@@ -98,7 +94,18 @@
 - (void)presentFromViewController:(UIViewController *)viewController
 {
     ANLogDebug(@"Showing MillennialMedia interstitial");
-    AppRootViewController();
+    [MMInterstitial displayForApid:self.apid
+                fromViewController:viewController
+                   withOrientation:0
+                      onCompletion:^(BOOL success, NSError *error) {
+                          if (success) {
+                              [self.delegate adapterInterstitial:self willPresent:nil];
+                          }
+                          else {
+                              [self.delegate adapterInterstitial:self
+                                  didFailToReceiveInterstitialAd:ANAdResponseInternalError];
+                          }
+                      }];
 }
 
 @end

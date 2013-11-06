@@ -15,6 +15,7 @@
 
 #import "ANBannerAdView.h"
 #import "ANAdFetcher.h"
+#import "ANBrowserViewController.h"
 #import "ANCustomAdapter.h"
 #import "ANBrowserViewController.h"
 
@@ -22,10 +23,14 @@
 - (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
-- (void)expandToFullscreen:(UIView *)contentView;
+- (void)mraidResizeAd:(CGSize)size
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController
+             isBanner:(BOOL)isBanner;
 @end
 
-@interface ANBannerAdView ()
+@interface ANBannerAdView () <ANBrowserViewControllerDelegate>
 
 @property (nonatomic, strong) UIView *defaultSuperView;
 
@@ -175,8 +180,7 @@
 }
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
-    UIViewController *rootViewController = AppRootViewController();
-    [rootViewController presentViewController:browserViewController animated:YES completion:nil];
+    [self.rootViewController presentViewController:browserViewController animated:YES completion:nil];
 }
 
 #pragma mark extraParameters methods
@@ -234,22 +238,12 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
-    // expand to full screen
-    if ((size.width < 0) || (size.height < 0)) {
-        self.defaultSuperView = self.superview;
-        [self expandToFullscreen:self];
-    } else {
-        // otherwise, resize in the original container
-        CGRect resizedFrame = CGRectMake((self.frame.size.width - size.width) / 2,
-                                         0,
-                                         size.width, size.height);
-        if (self.isFullscreen) {
-            [self removeFromSuperview];
-            [self.defaultSuperView addSubview:self];
-            self.isFullscreen = NO;
-        }
-        [self setFrame:resizedFrame animated:NO];
-    }
+    self.defaultSuperView = self.superview;
+    [super mraidResizeAd:size
+             contentView:self
+       defaultParentView:self.defaultSuperView
+      rootViewController:self.rootViewController
+                isBanner:YES];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
@@ -272,6 +266,14 @@
     if ([self.delegate respondsToSelector:@selector(bannerAdViewDidResize:)]) {
         [self.delegate bannerAdViewDidResize:self];
     }
+}
+
+#pragma mark ANBrowserViewControllerDelegate
+
+- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
+{
+	UIViewController *presentingViewController = controller.presentingViewController;
+	[presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

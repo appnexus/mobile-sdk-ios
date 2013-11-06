@@ -110,8 +110,13 @@ xcuserdata
 
 *.moved-aside
 
+####
+# Xcode 5 - project file
+
+*.xccheckout
 
 ####
 # UNKNOWN: recommended by others, but I can't discover what these files are
 #
 # ...none. Everything is now explained.
+

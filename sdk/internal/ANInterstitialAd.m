@@ -33,7 +33,11 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
-- (void)expandToFullscreen:(UIView *)contentView;
+- (void)mraidResizeAd:(CGSize)size
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController
+             isBanner:(BOOL)isBanner;
 @end
 
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate>
@@ -122,6 +126,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 			[self adWillPresent];
 			
             [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext; // Proper support for background transparency
+            
 			[controller presentViewController:self.controller animated:YES completion:NULL];
 		}
 		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
@@ -239,26 +244,11 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
-    UIView *contentView = self.controller.contentView;
-    // expand to full screen
-    if ((size.width < 0) || (size.height < 0)) {
-        [self expandToFullscreen:contentView];
-    } else {
-        // otherwise, resize in the original container
-        UIView *parentView = self.controller.view;
-        CGRect resizedFrame = CGRectMake((parentView.bounds.size.width - size.width) / 2,
-                                         (parentView.bounds.size.height - size.height) / 2,
-                                         size.width, size.height);
-        
-        
-        if (self.isFullscreen) {
-            [contentView removeFromSuperview];
-            [self.controller.view addSubview:contentView];
-            self.isFullscreen = NO;
-        }
-        
-        [contentView setFrame:resizedFrame];
-    }
+    [super mraidResizeAd:size
+             contentView:self.controller.contentView
+       defaultParentView:self.controller.view
+      rootViewController:self.controller
+     isBanner:NO];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {

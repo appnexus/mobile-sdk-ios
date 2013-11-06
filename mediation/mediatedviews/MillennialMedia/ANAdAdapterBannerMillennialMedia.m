@@ -35,6 +35,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
     ANLogDebug(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
     
@@ -55,7 +56,7 @@
     }
     
     self.mmAdView = [[MMAdView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) apid:idString
-                                 rootViewController:AppRootViewController()];
+                                 rootViewController:rootViewController];
     
     [self.mmAdView getAdWithRequest:request onCompletion:^(BOOL success, NSError *error) {
         if (success) {

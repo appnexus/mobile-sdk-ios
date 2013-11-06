@@ -102,15 +102,40 @@
     __closeButton = nil;
 }
 
-- (void)expandToFullscreen:(UIView *)contentView {
-    CGRect fullscreenFrame = [[UIScreen mainScreen] applicationFrame];
-    fullscreenFrame.origin.x = 0;
-    fullscreenFrame.origin.y = 20; // status bar offset
-    contentView.frame = fullscreenFrame;
-    [contentView removeFromSuperview];
-    UIWindow *applicationWindow = [UIApplication sharedApplication].keyWindow;
-    [applicationWindow addSubview:contentView];
-    self.isFullscreen = YES;
+- (void)mraidResizeAd:(CGSize)size
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController
+             isBanner:(BOOL)isBanner {
+    // expand to full screen
+    if ((size.width == -1) || (size.height == -1)) {
+
+        CGRect fullscreenFrame = [[UIScreen mainScreen] applicationFrame];
+        fullscreenFrame.origin.x = 0;
+        fullscreenFrame.origin.y = 20; // status bar offset
+        contentView.frame = fullscreenFrame;
+        [contentView removeFromSuperview];
+        [rootViewController.view addSubview:self];
+        self.isFullscreen = YES;
+    } else {
+        // otherwise, resize in the original container
+        CGRect resizedFrame;
+        if (isBanner) {
+            resizedFrame = CGRectMake((self.frame.size.width - size.width) / 2,
+                                         0,
+                                         size.width, size.height);
+        } else {
+            resizedFrame = CGRectMake((defaultParentView.bounds.size.width - size.width) / 2,
+                                             (defaultParentView.bounds.size.height - size.height) / 2,
+                                             size.width, size.height);
+        }
+        if (self.isFullscreen) {
+            [self removeFromSuperview];
+            [defaultParentView addSubview:contentView];
+            self.isFullscreen = NO;
+        }
+        [contentView setFrame:resizedFrame];
+    }
 }
 
 #pragma mark Setter methods

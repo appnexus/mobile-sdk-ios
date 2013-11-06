@@ -21,6 +21,7 @@
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;
 @property (nonatomic, readwrite, strong) NSDate *timerStartDate;
 @property (nonatomic, readwrite, assign) BOOL viewed;
+@property (nonatomic, readwrite, assign) BOOL originalHiddenState;
 @end
 
 @implementation ANInterstitialAdViewController
@@ -30,6 +31,7 @@
 - (id)init
 {
 	self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
+    self.originalHiddenState = NO;
 	return self;
 }
 
@@ -43,6 +45,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
+    [self setStatusBarHidden:YES];
 	self.contentView.frame = CGRectMake((self.view.bounds.size.width - self.contentView.frame.size.width) / 2, (self.view.bounds.size.height - self.contentView.frame.size.height) / 2, self.contentView.frame.size.width, self.contentView.frame.size.height);
 }
 
@@ -63,6 +67,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [self setStatusBarHidden:self.originalHiddenState];
 	[self.progressTimer invalidate];
 }
 
@@ -129,4 +134,15 @@
 	[self.delegate interstitialAdViewControllerShouldDismiss:self];
 }
 
+// hiding the status bar in iOS 7
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+// hiding the status bar pre-iOS 7
+- (void)setStatusBarHidden:(BOOL)hidden {
+    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
+}
+
 @end
+
