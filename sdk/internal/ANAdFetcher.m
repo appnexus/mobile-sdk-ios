@@ -247,23 +247,40 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return isFirstLaunch() ? @"&firstlaunch=true" : @"";
 }
 
-- (NSString *)carrierParameter
+- (NSString *)carrierMccMncParameters
 {
-    NSString *carrierParameter = @"";
+    NSString *param = @"";
     
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
+
+    // set the fields to empty string if not available
+    NSString *carrierParameter =
+    ([[carrier carrierName] length] > 0) ? [[carrier carrierName]
+       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
+    NSString *mccParameter =
+    ([[carrier mobileCountryCode] length] > 0) ? [[carrier mobileCountryCode]
+       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
+    NSString *mncParameter =
+    ([carrier mobileNetworkCode] > 0) ? [[carrier mobileNetworkCode]
+       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
     
-    if ([[carrier carrierName] length] > 0) {
-        carrierParameter = [carrier carrierName];
-    }
-	
     if ([carrierParameter length] > 0) {
-		carrierParameter = [carrierParameter stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        carrierParameter = [NSString stringWithFormat:@"&carrier=%@", carrierParameter];
+        param = [param stringByAppendingString:
+                 [NSString stringWithFormat:@"&carrier=%@", carrierParameter]];
     }
     
-    return carrierParameter;
+    if ([mccParameter length] > 0) {
+        param = [param stringByAppendingString:
+                 [NSString stringWithFormat:@"&mcc=%@", mccParameter]];
+    }
+    
+    if ([mncParameter length] > 0) {
+        param = [param stringByAppendingString:
+                 [NSString stringWithFormat:@"&mnc=%@", mncParameter]];
+    }
+    
+    return param;
 }
 
 - (NSString *)connectionTypeParameter {
@@ -371,15 +388,13 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return customKeywordsParameter;
 }
 
-- (NSURL *)adURLWithBaseURLString:(NSString *)urlString
-{
-	
+- (NSURL *)adURLWithBaseURLString:(NSString *)urlString {
     urlString = [urlString stringByAppendingString:[self placementIdParameter]];
 	urlString = [urlString stringByAppendingString:ANUdidParameter()];
     urlString = [urlString stringByAppendingString:[self dontTrackEnabledParameter]];
     urlString = [urlString stringByAppendingString:[self deviceMakeParameter]];
     urlString = [urlString stringByAppendingString:[self deviceModelParameter]];
-    urlString = [urlString stringByAppendingString:[self carrierParameter]];
+    urlString = [urlString stringByAppendingString:[self carrierMccMncParameters]];
     urlString = [urlString stringByAppendingString:[self applicationIdParameter]];
     urlString = [urlString stringByAppendingString:[self firstLaunchParameter]];
 
