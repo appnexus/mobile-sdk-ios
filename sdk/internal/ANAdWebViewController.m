@@ -115,8 +115,6 @@ typedef enum _ANMRAIDState
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    // prevent pop-ups from showing
-    [webView stringByEvaluatingJavaScriptFromString:@"window.alert=function(){};"];
 	if (self.completedFirstLoad)
 	{
 		NSURL *URL = [request URL];

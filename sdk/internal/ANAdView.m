@@ -112,10 +112,10 @@
 
         CGRect fullscreenFrame = [[UIScreen mainScreen] applicationFrame];
         fullscreenFrame.origin.x = 0;
-        fullscreenFrame.origin.y = 20; // status bar offset
+        fullscreenFrame.origin.y = isBanner ? 20 : 0; // status bar offset
         contentView.frame = fullscreenFrame;
         [contentView removeFromSuperview];
-        [rootViewController.view addSubview:self];
+        [rootViewController.view addSubview:contentView];
         self.isFullscreen = YES;
     } else {
         // otherwise, resize in the original container

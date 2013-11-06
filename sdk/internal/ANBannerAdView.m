@@ -238,7 +238,10 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
-    self.defaultSuperView = self.superview;
+    if (self.defaultSuperView == nil) {
+        self.defaultSuperView = self.superview;
+    }
+    
     [super mraidResizeAd:size
              contentView:self
        defaultParentView:self.defaultSuperView
