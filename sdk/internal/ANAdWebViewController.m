@@ -89,11 +89,18 @@ typedef enum _ANMRAIDState
 @interface ANMRAIDAdWebViewController ()
 @property (nonatomic, readwrite, assign, getter = isExpanded) BOOL expanded;
 @property (nonatomic, readwrite, assign) CGSize defaultSize;
+@property (nonatomic, readwrite, assign) BOOL defaultSizeHasBeenSet;
 @end
 
 @implementation ANMRAIDAdWebViewController
 @synthesize expanded = __expanded;
 @synthesize defaultSize = __defaultSize;
+
+- (id)init {
+    self = [super init];
+    self.defaultSizeHasBeenSet = NO;
+    return self;
+}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -156,17 +163,20 @@ typedef enum _ANMRAIDState
         NSInteger expandedHeight = [[queryComponents objectForKey:@"h"] integerValue];
         NSInteger expandedWidth = [[queryComponents objectForKey:@"w"] integerValue];
         
+        if (!self.defaultSizeHasBeenSet) {
+            self.defaultSize = webView.frame.size;
+            self.defaultSizeHasBeenSet = YES;
+        }
+        
+        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:CGSizeMake(expandedWidth, expandedHeight)];
+		
 		NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
         if ([useCustomClose isEqualToString:@"false"])
         {
             // No custom close included, show our default one.
             [self.adFetcher.delegate adFetcher:self.adFetcher adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)];
         }
-		
-        self.defaultSize = webView.frame.size;
-        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:CGSizeMake(expandedWidth, expandedHeight)];
-		
-        
+		        
         NSString *url = [queryComponents objectForKey:@"url"];
         if ([url length] > 0)
         {

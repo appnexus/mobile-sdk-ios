@@ -24,6 +24,9 @@
 
 @interface ANAdView () <ANBrowserViewControllerDelegate, ANAdViewDelegate>
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
+@property (nonatomic, readwrite, assign) CGRect defaultFrame;
+@property (nonatomic, readwrite, assign) BOOL defaultFramesSet;
+@property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @end
 
 @implementation ANAdView
@@ -85,6 +88,7 @@
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
     __isFullscreen = NO;
+    self.defaultFramesSet = NO;
 }
 
 - (void)dealloc {
@@ -107,34 +111,31 @@
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
              isBanner:(BOOL)isBanner {
+    if (!self.defaultFramesSet) {
+        self.defaultParentFrame = defaultParentView.frame;
+        self.defaultFrame = contentView.frame;
+        self.defaultFramesSet = YES;
+    }
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
-
-        CGRect fullscreenFrame = [[UIScreen mainScreen] applicationFrame];
-        fullscreenFrame.origin.x = 0;
-        fullscreenFrame.origin.y = isBanner ? 20 : 0; // status bar offset
-        contentView.frame = fullscreenFrame;
+        [contentView setFrame:[[UIScreen mainScreen] applicationFrame]];
         [contentView removeFromSuperview];
         [rootViewController.view addSubview:contentView];
         self.isFullscreen = YES;
     } else {
         // otherwise, resize in the original container
-        CGRect resizedFrame;
-        if (isBanner) {
-            resizedFrame = CGRectMake((self.frame.size.width - size.width) / 2,
-                                         0,
-                                         size.width, size.height);
-        } else {
-            resizedFrame = CGRectMake((defaultParentView.bounds.size.width - size.width) / 2,
-                                             (defaultParentView.bounds.size.height - size.height) / 2,
-                                             size.width, size.height);
-        }
-        if (self.isFullscreen) {
-            [self removeFromSuperview];
-            [defaultParentView addSubview:contentView];
-            self.isFullscreen = NO;
-        }
+        CGRect resizedFrame = self.defaultFrame;
+        resizedFrame.size = size;
         [contentView setFrame:resizedFrame];
+
+        [contentView removeFromSuperview];
+        
+        CGRect resizedParentFrame = self.defaultParentFrame;
+        resizedParentFrame.size = size;
+        [defaultParentView setFrame:resizedParentFrame];
+        
+        [defaultParentView addSubview:contentView];
+        self.isFullscreen = NO;
     }
 }
 

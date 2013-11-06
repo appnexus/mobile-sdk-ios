@@ -238,13 +238,13 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
-    if (self.defaultSuperView == nil) {
+    if (!self.defaultSuperView) {
         self.defaultSuperView = self.superview;
     }
     
     [super mraidResizeAd:size
-             contentView:self
-       defaultParentView:self.defaultSuperView
+             contentView:self.contentView
+       defaultParentView:self
       rootViewController:self.rootViewController
                 isBanner:YES];
 }
