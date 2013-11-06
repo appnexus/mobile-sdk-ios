@@ -25,6 +25,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
     self.errorId = idString;
     [self.delegate adapterBanner:self didReceiveBannerAdView:nil];
