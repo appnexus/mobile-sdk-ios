@@ -320,6 +320,10 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     return [NSString stringWithFormat:@"&devtime=%d", timeInMiliseconds];
 }
 
+- (NSString *)nativeBrowserParameter {
+    return [NSString stringWithFormat:@"&native_browser=%d", [self.delegate clickShouldOpenInBrowser]];
+}
+
 - (NSString *)psaAndReserveParameter {
     BOOL shouldServePsas = [self.delegate shouldServePublicServiceAnnouncements];
     CGFloat reserve = [self.delegate reserve];
@@ -392,6 +396,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
     urlString = [urlString stringByAppendingString:[self devTimeParameter]];
     urlString = [urlString stringByAppendingString:[self languageParameter]];
 
+    urlString = [urlString stringByAppendingString:[self nativeBrowserParameter]];
     urlString = [urlString stringByAppendingString:[self psaAndReserveParameter]];
     urlString = [urlString stringByAppendingString:[self ageParameter]];
     urlString = [urlString stringByAppendingString:[self genderParameter]];

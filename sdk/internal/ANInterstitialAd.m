@@ -313,6 +313,11 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return __shouldServePublicServiceAnnouncements;
 }
 
+- (BOOL)clickShouldOpenInBrowser {
+    ANLogDebug(@"clickShouldOpenInBrowser returned %d", __clickShouldOpenInBrowser);
+    return __clickShouldOpenInBrowser;
+}
+
 - (CGFloat)reserve {
     ANLogDebug(@"reserve returned %f", __reserve);
     return __reserve;
