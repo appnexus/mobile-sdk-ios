@@ -25,6 +25,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
     [self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseUnableToFill];
     [self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseUnableToFill];

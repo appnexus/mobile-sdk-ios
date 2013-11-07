@@ -26,6 +26,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (kAppNexusMediationNetworkTimeoutInterval + 1)

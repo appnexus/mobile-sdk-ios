@@ -25,6 +25,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
     // Fake a network fail response after 2 seconds
     [self performSelector:@selector(performFailResponse) withObject:nil afterDelay:2.0];
