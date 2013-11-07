@@ -20,6 +20,7 @@
 #import <iAd/iAd.h>
 #import "ANAdWebViewController.h"
 #import "ANMediationAdViewController.h"
+#import "ANBannerAdView.h"
 
 // These URLs will be deprecrated
 #define APPNEXUS_TEST_HOST @"http://rlissack.adnxs.net:8080/"
@@ -30,8 +31,21 @@
 #define MMBannerClassName @"ANAdAdapterBannerMillennialMedia"
 #define ErrorCodeClassName @"ANAdAdapterErrorCode"
 
-@interface MediationTests : SenTestCase
+@interface FetcherHelper : ANBannerAdView
+@property (nonatomic, assign) BOOL testComplete;
+@property (nonatomic, strong) ANAdFetcher *fetcher;
+@property (nonatomic, strong) id adapter;
+@property (nonatomic, strong) ANAdWebViewController *webViewController;
+@property (nonatomic, strong) NSError *ANError;
 
+- (id)runTestForAdapter:(int)testNumber
+                   time:(NSTimeInterval)time;
+@end
+
+@interface FetcherHelper () <ANAdFetcherDelegate>
+{
+    NSUInteger __testNumber;
+}
 @end
 
 @interface ANAdFetcher ()
@@ -44,28 +58,19 @@
 - (id)currentAdapter;
 @end
 
-@interface MediationTests () <ANAdFetcherDelegate>
-{
-    BOOL __testComplete;
-    NSUInteger __testNumber;
-}
+#pragma mark MediationTests
 
+@interface MediationTests : SenTestCase
+@property (nonatomic, strong) FetcherHelper *helper;
 @end
 
 @implementation MediationTests
-@synthesize placementId = __placementId;
-@synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
-@synthesize location = __location;
-@synthesize reserve = __reserve;
-@synthesize age = __age;
-@synthesize gender = __gender;
-@synthesize customKeywords = __customKeywords;
+@synthesize helper = __helper;
 
 - (void)setUp
 {
     [super setUp];
-    
-    // Set-up code here.
+    self.helper = [FetcherHelper new];
 }
 
 - (void)tearDown
@@ -75,17 +80,115 @@
     [super tearDown];
 }
 
-- (void)runBasicTest:(int)testNumber
-{
-    __testNumber = testNumber;
-    __testComplete = NO;
+- (void)runBasicTest:(int)testNumber {
+    [self.helper runTestForAdapter:testNumber time:15.0];
     
-    ANAdFetcher *fetcher = [ANAdFetcher new];
-    fetcher.delegate = self;
-    [fetcher requestAdWithURL:[NSURL URLWithString:APPNEXUS_TEST_MOBCALL_WITH_ID([@(testNumber) stringValue])]];
-	
-    STAssertTrue([self waitForCompletion:30.0], @"Failed to receive response from server. Test failing.");
+    STAssertTrue([self.helper testComplete], @"Test timed out");
+    [self runChecks:testNumber adapter:[self.helper adapter]];
 }
+
+- (void)checkErrorCode:(id)adapter expectedError:(ANAdResponseCode)error{
+    [self checkClass:ErrorCodeClassName adapter:adapter];
+    
+    ANAdAdapterErrorCode *bannerAdapter = (ANAdAdapterErrorCode *)adapter;
+    int codeNumber = [[bannerAdapter errorId] intValue];
+    
+    STAssertTrue(codeNumber == error,
+                 [NSString stringWithFormat:@"Expected error value %d.", error]);
+}
+
+- (void)checkClass:(NSString *)className adapter:(id)adapter{
+    BOOL result;
+    Class adClass = NSClassFromString(className);
+    if (!adClass) {
+        result = NO;
+    }
+    else {
+        result = [adapter isMemberOfClass:adClass];
+    }
+    
+    /*****
+     * Sometimes iAd will not return a successful ad, which causes the test to fail.
+     * Re-running the test should result in a success.
+     * This is a dependency on the external network.
+     *****/
+    
+    STAssertTrue(result, [NSString stringWithFormat:@"Expected an adapter of class %@.", className]);
+}
+
+- (void)runChecks:(int)testNumber adapter:(id)adapter {
+    switch (testNumber)
+    {
+        case 1:
+        {
+            [self checkClass:iAdBannerClassName adapter:adapter];
+        }
+            break;
+            
+        case 2:
+        {
+            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
+        }
+            break;
+        case 3:
+        {
+            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
+        }
+            break;
+        case 4:
+        {
+            [self checkErrorCode:adapter expectedError:ANAdResponseNetworkError];
+        }
+            break;
+        case 6:
+        {
+            [self checkErrorCode:adapter expectedError:ANAdResponseUnableToFill];
+        }
+            break;
+        case 7:
+        {
+            // Change the test number to 70 to denote the "part 2" of this 2-step unit test
+            [self checkClass:MMBannerClassName adapter:adapter];
+            STAssertNotNil([self.helper webViewController], @"Expected webViewController to be non-nil");
+        }
+            break;
+        case 11:
+        {
+            [self checkClass:MMBannerClassName adapter:adapter];
+        }
+            break;
+        case 12:
+        {
+            [self checkClass:MMBannerClassName adapter:adapter];
+        }
+            break;
+        case 13:
+        {
+            STAssertNil(adapter, @"Expected nil adapter");
+            STAssertNotNil([self.helper webViewController], @"Expected webViewController to be non-nil");
+        }
+            break;
+        case 14:
+        {
+            [self checkClass:MMBannerClassName adapter:adapter];
+        }
+            break;
+        case 15:
+        {
+            STAssertTrue([[self.helper ANError] code] == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
+        }
+            break;
+        case 16:
+        {
+            [self checkClass:iAdBannerClassName adapter:adapter];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark Basic Mediation Tests
 
 - (void)test1ResponseWhereClassExists
 {
@@ -149,57 +252,46 @@
     [self runBasicTest:16];
 }
 
+@end
+
+#pragma mark FetcherHelper
+
+@implementation FetcherHelper
+@synthesize testComplete = __testComplete;
+@synthesize fetcher = __fetcher;
+@synthesize adapter = __adapter;
+@synthesize webViewController = __webViewController;
+@synthesize ANError = __ANError;
+
+- (id)runTestForAdapter:(int)testNumber
+                   time:(NSTimeInterval)time {
+    [self runBasicTest:testNumber];
+    [self waitForCompletion:time];
+    return __adapter;
+}
+
+- (void)runBasicTest:(int)testNumber
+{
+    __testNumber = testNumber;
+    __testComplete = NO;
+    
+    __fetcher = [ANAdFetcher new];
+    __fetcher.delegate = self;
+    [__fetcher requestAdWithURL:[NSURL URLWithString:APPNEXUS_TEST_MOBCALL_WITH_ID([@(testNumber) stringValue])]];
+}
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
 {
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
     
-    do
-    {
+    do {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
-        if ([timeoutDate timeIntervalSinceNow] < 0.0)
-        {
+        if ([timeoutDate timeIntervalSinceNow] < 0.0) {
             break;
         }
     }
-	
     while (!__testComplete);
-    
     return __testComplete;
-}
-
-- (void)checkErrorCode:(ANAdFetcher *)fetcher expectedError:(ANAdResponseCode)error{
-    id adapter = [[fetcher mediationController] currentAdapter];
-    [self checkClass:ErrorCodeClassName adapter:adapter];
-    
-    ANAdAdapterErrorCode *bannerAdapter = (ANAdAdapterErrorCode *)adapter;
-    int codeNumber = [[bannerAdapter errorId] intValue];
-    
-    STAssertTrue(codeNumber == error,
-                 [NSString stringWithFormat:@"Expected error value %d.", error]);
-}
-
-- (void)checkClass:(NSString *)className adapter:(id)adapter{
-    BOOL result;
-    Class adClass = NSClassFromString(className);
-    if (!adClass) {
-        result = NO;
-    }
-    else {
-        if ([adapter isMemberOfClass:adClass]) {
-            result = YES;
-        } else {
-            result = NO;
-        }
-    }
-
-    /*****
-     * Sometimes iAd will not return a successful ad, which causes the test to fail.
-     * Re-running the test should result in a success.
-     * This is a dependency on the external network.
-     *****/
-    
-    STAssertTrue(result, [NSString stringWithFormat:@"Expected an adapter of class %@.", className]);
 }
 
 #pragma mark ANAdFetcherDelegate
@@ -207,117 +299,44 @@
 {
 	if (!__testComplete)
 	{
+        if (__testNumber != 7) {
+            __testComplete = YES;
+        }
+        
 		switch (__testNumber)
 		{
-			case 1:
-			{
-				__testComplete = YES;
-                
-				id adapter = [[fetcher mediationController] currentAdapter];
-                [self checkClass:iAdBannerClassName adapter:adapter];
-			}
-				break;
-                
-			case 2:
-			{
-				__testComplete = YES;
-                [self checkErrorCode:fetcher expectedError:ANAdResponseMediatedSDKUnavailable];
-			}
-				break;
-			case 3:
-			{
-				__testComplete = YES;
-                [self checkErrorCode:fetcher expectedError:ANAdResponseMediatedSDKUnavailable];
-			}
-				break;
-			case 4:
-			{
-				__testComplete = YES;
-                [self checkErrorCode:fetcher expectedError:ANAdResponseNetworkError];
-			}
-				break;
-			case 6:
-			{
-				__testComplete = YES;
-                [self checkErrorCode:fetcher expectedError:ANAdResponseUnableToFill];
-			}
-				break;
 			case 7:
 			{
 				// Change the test number to 70 to denote the "part 2" of this 2-step unit test
 				__testNumber = 70;
 				
-				id adapter = [[fetcher mediationController] currentAdapter];
-                
-                [self checkClass:MMBannerClassName adapter:adapter];
-				
-				[fetcher requestAdWithURL:[NSURL URLWithString:[adapter responseURLString]]];
+				self.adapter = [[fetcher mediationController] currentAdapter];
+				[fetcher requestAdWithURL:[NSURL URLWithString:[self.adapter responseURLString]]];
 			}
 				break;
                 //this second part test should be for a non-mediated ad..
 			case 70:
 			{
-				__testComplete = YES;
-				
-				id adapter = [[fetcher mediationController] currentAdapter];
-                STAssertNil(adapter, @"Expected nil adapter");
-                
-                id viewController = [fetcher webViewController];
-                STAssertNotNil(viewController, @"Expected webViewController to be non-nil");
-			}
-				break;
-			case 11:
-			{
-				__testComplete = YES;
-                
-				id adapter = [[fetcher mediationController] currentAdapter];
-                [self checkClass:MMBannerClassName adapter:adapter];
-			}
-				break;
-			case 12:
-			{
-				__testComplete = YES;
-                
-				id adapter = [[fetcher mediationController] currentAdapter];
-                [self checkClass:MMBannerClassName adapter:adapter];
+                // don't set adapter here, because we want to retain the adapter from case 7
+                self.webViewController = [fetcher webViewController];
 			}
 				break;
 			case 13:
 			{
-                __testComplete = YES;
-                
-				id adapter = [[fetcher mediationController] currentAdapter];
-                STAssertNil(adapter, @"Expected nil adapter");
-                
-                id viewController = [fetcher webViewController];
-                STAssertNotNil(viewController, @"Expected webViewController to be non-nil");
-			}
-				break;
-			case 14:
-			{
-				__testComplete = YES;
-                
-				id adapter = [[fetcher mediationController] currentAdapter];
-                [self checkClass:MMBannerClassName adapter:adapter];
+				self.adapter = [[fetcher mediationController] currentAdapter];
+                self.webViewController = [fetcher webViewController];
 			}
 				break;
 			case 15:
 			{
-				__testComplete = YES;
-                
-				NSError *error = [response error];
-				STAssertTrue([error code] == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
+                self.ANError = [response error];
 			}
 				break;
-			case 16:
-			{
-				__testComplete = YES;
-                
-				id adapter = [[fetcher mediationController] currentAdapter];
-                [self checkClass:iAdBannerClassName adapter:adapter];
-			}
-				break;
+
 			default:
+            {
+				self.adapter = [[fetcher mediationController] currentAdapter];
+            }
 				break;
 		}
 	}
@@ -331,14 +350,5 @@
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return CGSizeMake(320, 50);
 }
-
-- (ANLocation *)location {
-    return nil;
-}
-
-- (void) adWillPresent {};
-- (void) adWillClose {}
-- (void) adDidClose {};
-- (void) adWillLeaveApplication {}
 
 @end
