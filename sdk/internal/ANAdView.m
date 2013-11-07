@@ -19,15 +19,21 @@
 #import "ANBrowserViewController.h"
 #import "ANLocation.h"
 
-@interface ANAdView ()
+#define DEFAULT_ADSIZE CGSizeZero
+#define DEFAULT_PSAS YES
+
+@interface ANAdView () <ANBrowserViewControllerDelegate, ANAdViewDelegate>
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
+@property (nonatomic, readwrite, assign) CGRect defaultFrame;
+@property (nonatomic, readwrite, assign) BOOL defaultFramesSet;
+@property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @end
 
 @implementation ANAdView
+@synthesize adFetcher = __adFetcher;
+@synthesize placementId = __placementId;
 @synthesize adSize = __adSize;
 @synthesize clickShouldOpenInBrowser = __clickShouldOpenInBrowser;
-@synthesize placementId = __placementId;
-@synthesize adFetcher = __adFetcher;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
 @synthesize location = __location;
 @synthesize reserve = __reserve;
@@ -35,105 +41,136 @@
 @synthesize gender = __gender;
 @synthesize customKeywords = __customKeywords;
 
-- (id)init
-{
-	self = [super init];
-	
-	if (self != nil)
-	{
-		[self initialize];
-	}
-	
-	return self;
+#pragma mark Abstract methods
+/***
+ * Subclasses should implement these methods
+ ***/
+- (NSString *)adType {
+    return nil;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
-	self = [super initWithFrame:frame];
-	
-	if (self != nil)
-	{
-		[self initialize];
-	}
-	
-	return self;
-}
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {}
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {}
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {}
+- (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
 
-- (void)awakeFromNib
-{
-	[super awakeFromNib];
-	[self initialize];
-}
 
-- (void)initialize
-{
-	self.clipsToBounds = YES;
-	self.adFetcher = [[ANAdFetcher alloc] init];
-	self.adFetcher.delegate = self;
-	self.adSize = CGSizeZero;
-	self.shouldServePublicServiceAnnouncements = YES;
-    self.location = nil;
-    self.reserve = 0.0f;
-    self.customKeywords = [[NSMutableDictionary alloc] init];
-}
+#pragma mark Initialization
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId
-{
-    self = [self initWithFrame:frame];
-    
-    if (self != nil)
-    {
-        NSAssert([placementId intValue] > 0, @"Placement ID must be a number greater than 0.");
-        self.placementId = placementId;
+- (id)init {
+    self = [super init];
+
+    if (self != nil) {
+        [self initialize];
     }
-    
+
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size
-{
-    self = [self initWithFrame:frame placementId:placementId];
-    
-    if (self != nil)
-    {
-        self.adSize = size;
-    }
-    
-    return self;
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self initialize];
 }
 
-- (void)setAdSize:(CGSize)adSize
-{
-	// Remove our existing ad if we change the ad size, since it's no longer valid
-	self.contentView = nil;
-	__adSize = adSize;
+- (void)initialize {
+    self.clipsToBounds = YES;
+    __adFetcher = [[ANAdFetcher alloc] init];
+    __adFetcher.delegate = self;
+    __adSize = DEFAULT_ADSIZE;
+    __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
+    __location = nil;
+    __reserve = 0.0f;
+    __customKeywords = [[NSMutableDictionary alloc] init];
+    __isFullscreen = NO;
+    self.defaultFramesSet = NO;
 }
 
-- (void)dealloc
-{    
-	[[NSNotificationCenter defaultCenter] removeObserver:self];	
-	
-	__adFetcher.delegate = nil;
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    __adFetcher.delegate = nil;
     [__adFetcher stopAd]; // MUST be called. stopAd invalidates the autorefresh timer, which is retaining the adFetcher as well.
     
-    if ([__contentView respondsToSelector:@selector(setDelegate:)])
-    {
+    if ([__contentView respondsToSelector:@selector(setDelegate:)]) {
         // If our content is a UIWebview, we want to make sure to clear out the delegate if we're destroying it
-		[__contentView performSelector:@selector(setDelegate:) withObject:nil];
+        [__contentView performSelector:@selector(setDelegate:) withObject:nil];
     }
-	
+
     __contentView = nil;
     __closeButton = nil;
 }
 
-- (NSString *)adType
-{
-	return nil;
+- (void)mraidResizeAd:(CGSize)size
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController
+             isBanner:(BOOL)isBanner {
+    if (!self.defaultFramesSet) {
+        self.defaultParentFrame = defaultParentView.frame;
+        self.defaultFrame = contentView.frame;
+        self.defaultFramesSet = YES;
+    }
+    // expand to full screen
+    if ((size.width == -1) || (size.height == -1)) {
+        [contentView setFrame:[[UIScreen mainScreen] applicationFrame]];
+        [contentView removeFromSuperview];
+        [rootViewController.view addSubview:contentView];
+        self.isFullscreen = YES;
+    } else {
+        // otherwise, resize in the original container
+        CGRect resizedFrame = self.defaultFrame;
+        resizedFrame.size = size;
+        [contentView setFrame:resizedFrame];
+
+        [contentView removeFromSuperview];
+        
+        CGRect resizedParentFrame = self.defaultParentFrame;
+        resizedParentFrame.size = size;
+        [defaultParentView setFrame:resizedParentFrame];
+        
+        [defaultParentView addSubview:contentView];
+        self.isFullscreen = NO;
+    }
+}
+
+- (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
+                      containerView:(UIView *)containerView; {
+    if ([self.closeButton superview] == nil) {
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closeButton addTarget:target
+                        action:selector
+              forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
+        [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
+        [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
+        closeButton.frame = CGRectMake(containerView.bounds.size.width
+                                       - closeButtonImage.size.width
+                                       / 2 - 20.0, 4.0,
+                                       closeButtonImage.size.width,
+                                       closeButtonImage.size.height);
+        closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+        
+        self.closeButton = closeButton;
+        
+        [containerView addSubview:closeButton];
+    }
+    else {
+        ANLogError(@"Attempted to add a close button to ad view %@ with one already showing!", self);
+    }
+}
+
+#pragma mark Setter methods
+
+- (void)setPlacementId:(NSString *)placementId {
+    if (placementId != __placementId) {
+        ANLogDebug(@"Setting placementId to %@", placementId);
+        __placementId = placementId;
+    }
 }
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
-{
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
@@ -141,60 +178,26 @@
 }
 
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
-    if (([key length] < 1) || !value)
+    if (([key length] < 1) || !value) {
         return;
+    }
     
     [self.customKeywords setValue:value forKey:key];
 }
 
 - (void)removeCustomKeywordWithKey:(NSString *)key {
-    if (([key length] < 1))
+    if (([key length] < 1)) {
         return;
+    }
     
     [self.customKeywords removeObjectForKey:key];
 }
 
-- (void)setPlacementId:(NSString *)placementId
-{
-    if (placementId != __placementId)
-    {
-        ANLogDebug(@"Setting placementId to %@", placementId);
-        __placementId = placementId;
-    }
-}
+#pragma mark Getter methods
 
-#pragma mark ANAdFetcherDelegate
-
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response
-{
-    if ([response isSuccessful])
-    {
-        UIView *contentView = response.adObject;
-		
-		if ([contentView isKindOfClass:[UIView class]])
-		{
-			self.contentView = contentView;
-		}
-		else
-		{
-			ANLogFatal(@"Received non view object %@ for response %@", contentView, response);
-		}
-    }
-}
-
-- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
-{
-    return 0.0;
-}
-
-- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher
-{
-    return self.adSize;
-}
-
-- (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher
-{
-    return self.adType;
+- (NSString *)placementId {
+    ANLogDebug(@"placementId returned %@", __placementId);
+    return __placementId;
 }
 
 - (ANLocation *)location {
@@ -227,23 +230,46 @@
     return __customKeywords;
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size
-{
-	
+#pragma mark ANAdFetcherDelegate
+
+- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
+    return 0.0;
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
-{
-	[self showCloseButtonWithTarget:target action:action];
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
+    return self.adSize;
 }
 
-- (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher
-{
+- (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher {
+    return self.adType;
+}
+
+- (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher {
     [self removeCloseButton];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
+    NSString *scheme = [URL scheme];
+    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
+    
+    if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
+        ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
+        browserViewController.delegate = self;
+        [self openInBrowserWithController:browserViewController];
+    }
+    else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [[UIApplication sharedApplication] openURL:URL];
+    } else {
+        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+    }
+}
+
+#pragma mark ANBrowserViewControllerDelegate
+
+- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
 {
+    UIViewController *presentingViewController = controller.presentingViewController;
+    [presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark ANAdViewDelegate
@@ -272,20 +298,29 @@
     }
 }
 
+// also helper methods for calling other selectors
+- (void)adDidReceiveAd {
+    if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
+        [self.delegate adDidReceiveAd:self];
+    }
+}
+
+- (void)adRequestFailedWithError:(NSError *)error {
+    if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
+        [self.delegate ad:self requestFailedWithError:error];
+    }
+}
+
 @end
 
 #pragma mark ANAdView (ANAdFetcher)
 
 @implementation ANAdView (ANAdFetcher)
 
-- (void)setContentView:(UIView *)contentView
-{
-    if (contentView != __contentView)
-    {
-        if (contentView != nil)
-        {
-            if ([contentView isKindOfClass:[UIWebView class]])
-            {
+- (void)setContentView:(UIView *)contentView {
+    if (contentView != __contentView) {
+        if (contentView != nil) {
+            if ([contentView isKindOfClass:[UIWebView class]]) {
                 [(UIWebView *)contentView removeDocumentPadding];
             }
             
@@ -295,9 +330,8 @@
         [self removeCloseButton];
 		
 		[__contentView removeFromSuperview];
-
-        if ([__contentView isKindOfClass:[UIWebView class]])
-        {
+        
+        if ([__contentView isKindOfClass:[UIWebView class]]) {
             UIWebView *webView = (UIWebView *)__contentView;
             [webView setDelegate:nil];
             [webView stopLoading];
@@ -307,40 +341,16 @@
     }
 }
 
-- (UIView *)contentView
-{
+- (UIView *)contentView {
     return __contentView;
 }
 
-- (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
-{
-    if ([self.closeButton superview] == nil)
-    {
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [closeButton addTarget:target
-                        action:selector
-              forControlEvents:UIControlEventTouchUpInside];
-        
-        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
-        [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
-        [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
-        closeButton.frame = CGRectMake(self.bounds.size.width - closeButtonImage.size.width / 2 - 20.0, 4.0, closeButtonImage.size.width, closeButtonImage.size.height);
-        closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-        
-        self.closeButton = closeButton;
-        
-        [self addSubview:closeButton];
-    }
-    else
-    {
-        ANLogError(@"Attempted to add a close button to ad view %@ with one already showing!", self);
-    }
+- (void)setIsFullscreen:(BOOL)isFullscreen {
+    __isFullscreen = isFullscreen;
 }
 
-- (void)removeCloseButton
-{
-    [self.closeButton removeFromSuperview];
-    self.closeButton = nil;
+- (BOOL)isFullscreen {
+    return __isFullscreen;
 }
 
 - (void)setCloseButton:(UIButton *)closeButton
@@ -351,6 +361,12 @@
 - (UIButton *)closeButton
 {
     return __closeButton;
+}
+
+- (void)removeCloseButton
+{
+    [self.closeButton removeFromSuperview];
+    self.closeButton = nil;
 }
 
 @end

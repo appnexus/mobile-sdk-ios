@@ -24,7 +24,7 @@
 #define AN_DEBUG_MODE				1
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"1.0"
+#define AN_SDK_VERSION              @"1.1"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -33,7 +33,6 @@
 
 #define kAppNexusRequestTimeoutInterval 30.0
 #define kAppNexusAnimationDuration 0.4f
-#define kAppNexusDefaultInterstitialTimeoutInterval 15.0
 #define kAppNexusDefaultInterstitialCloseButtonInterval 10.0
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
 

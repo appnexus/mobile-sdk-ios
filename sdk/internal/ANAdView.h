@@ -12,6 +12,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
 #import <UIKit/UIKit.h>
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -28,18 +29,16 @@
     
     UIView *__contentView;
     UIButton *__closeButton;
+    BOOL __isFullscreen;
 }
-
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
 @end
 
 @interface ANAdView (ANAdFetcher)
 @property (nonatomic, readwrite, strong) UIView *contentView;
+@property (nonatomic, readwrite, assign) BOOL isFullscreen;
 @property (nonatomic, readwrite, strong) UIButton *closeButton;
 
-- (void)showCloseButtonWithTarget:(id)target action:(SEL)selector;
 - (void)removeCloseButton;
 
 @end

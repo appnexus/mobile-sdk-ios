@@ -33,6 +33,5 @@
 @protocol ANInterstitialAdViewControllerDelegate <NSObject>
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller;
-- (NSTimeInterval)interstitialAdViewControllerTimeToDismiss;
 
 @end
