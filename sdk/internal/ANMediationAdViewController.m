@@ -61,7 +61,7 @@
     // if the class implements both banner and interstitial protocols, default to banner first
     if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]) {
         // make sure the container is a banner view
-        if ([adView isMemberOfClass:[ANBannerAdView class]]) {
+        if ([adView isKindOfClass:[ANBannerAdView class]]) {
             ANBannerAdView *banner = (ANBannerAdView *)adView;
             
             id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
@@ -74,7 +74,7 @@
         }
     } else if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
         // make sure the container is an interstitial view
-        if ([adView isMemberOfClass:[ANInterstitialAd class]]) {
+        if ([adView isKindOfClass:[ANInterstitialAd class]]) {
             id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
                                                            adUnitId:idString
