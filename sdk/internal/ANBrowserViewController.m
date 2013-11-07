@@ -15,12 +15,14 @@
 
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
+#import "ANLogging.h"
+
+#define ITUNES_HOST @"itunes.apple.com"
 
 @interface ANBrowserViewController ()
 
 @property (nonatomic, readwrite, strong) NSMutableURLRequest *urlRequest;
 @property (nonatomic, readwrite, strong) UIActionSheet *openInSheet;
-
 @end
 
 @implementation ANBrowserViewController
@@ -113,6 +115,16 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSURL *url = [request URL];
+    NSString *host = [url host];
+
+    if ([host isEqualToString:ITUNES_HOST]) {
+        // if redirecting to itunes, close the view controller
+        [[UIApplication sharedApplication] openURL:url];
+        [self dismissViewControllerAnimated:NO completion:nil];
+        return NO;
+    }
+    
 	return YES;
 }
 
@@ -128,7 +140,7 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-	
+    ANLogError(@"In-app browser failed with error: %@", error);
 }
 
 #pragma mark UIActionSheetDelegate
