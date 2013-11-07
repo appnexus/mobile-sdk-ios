@@ -60,24 +60,27 @@
            adView:(id<ANAdFetcherDelegate>)adView {
     // if the class implements both banner and interstitial protocols, default to banner first
     if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]) {
-        id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
-        ANBannerAdView *banner = nil;
+        // make sure the container is a banner view
         if ([adView isMemberOfClass:[ANBannerAdView class]]) {
-            banner = (ANBannerAdView *) adView;
+            ANBannerAdView *banner = (ANBannerAdView *)adView;
+            
+            id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
+            [bannerAdapter requestBannerAdWithSize:size
+                                   serverParameter:parameterString
+                                          adUnitId:idString
+                                          location:location
+                                rootViewController:banner.rootViewController];
+            return YES;
         }
-        
-        [bannerAdapter requestBannerAdWithSize:size
-                               serverParameter:parameterString
-                                      adUnitId:idString
-                                      location:location
-                            rootViewController:banner.rootViewController];
-        return YES;
     } else if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
-        id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
-        [interstitialAdapter requestInterstitialAdWithParameter:parameterString
-                                                       adUnitId:idString
-                                                       location:location];
-        return YES;
+        // make sure the container is an interstitial view
+        if ([adView isMemberOfClass:[ANInterstitialAd class]]) {
+            id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
+            [interstitialAdapter requestInterstitialAdWithParameter:parameterString
+                                                           adUnitId:idString
+                                                           location:location];
+            return YES;
+        }
     }
     
     ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"ANCustomAdapterBanner or ANCustomAdapterInterstitial"]);
