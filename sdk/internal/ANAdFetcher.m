@@ -480,7 +480,7 @@ NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
         
         // Generate a new webview to contain the HTML
         ANWebView *webView = [[ANWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
-        webView.backgroundColor = [UIColor whiteColor];
+        webView.backgroundColor = [UIColor clearColor];
         webView.opaque = NO;
         webView.scrollEnabled = NO;
         

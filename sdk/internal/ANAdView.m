@@ -124,9 +124,10 @@
 
         [contentView removeFromSuperview];
         
-        CGRect resizedParentFrame = self.defaultParentFrame;
-        resizedParentFrame.size = size;
-        [defaultParentView setFrame:resizedParentFrame];
+        if (isBanner) {
+            CGRect resizedParentFrame = self.defaultParentFrame;
+            [defaultParentView setFrame:resizedParentFrame];
+        }
         
         [defaultParentView addSubview:contentView];
         self.isFullscreen = NO;
