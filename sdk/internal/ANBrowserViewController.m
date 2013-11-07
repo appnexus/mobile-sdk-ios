@@ -15,12 +15,12 @@
 
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
+#import "ANLogging.h"
 
 @interface ANBrowserViewController ()
 
 @property (nonatomic, readwrite, strong) NSMutableURLRequest *urlRequest;
 @property (nonatomic, readwrite, strong) UIActionSheet *openInSheet;
-
 @end
 
 @implementation ANBrowserViewController
@@ -113,6 +113,18 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSURL *URL = [request URL];
+    NSString *scheme = [URL scheme];
+    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
+
+    if (schemeIsHttp) {
+        return YES;
+    } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [[UIApplication sharedApplication] openURL:URL];
+        [self dismissViewControllerAnimated:NO completion:nil];
+        return NO;
+    }
+
 	return YES;
 }
 
@@ -128,7 +140,7 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-	
+    ANLogError(@"In-app browser failed with error: %@", error);
 }
 
 #pragma mark UIActionSheetDelegate
