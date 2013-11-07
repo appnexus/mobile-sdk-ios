@@ -23,17 +23,10 @@
 #import "ANLogging.h"
 #import "ANWebView.h"
 #import "NSString+ANCategory.h"
-#import "ANCustomAdapter.h"
 #import "ANMediatedAd.h"
 #import "ANLocation.h"
 #import "ANMediationAdViewController.h"
 #import "ANCustomAdapter.h"
-
-#import <iAd/iAd.h>
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-#import <AdSupport/AdSupport.h>
-#endif
 
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
