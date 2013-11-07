@@ -17,8 +17,6 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
-#define ITUNES_HOST @"itunes.apple.com"
-
 @interface ANBrowserViewController ()
 
 @property (nonatomic, readwrite, strong) NSMutableURLRequest *urlRequest;
@@ -115,16 +113,18 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSURL *url = [request URL];
-    NSString *host = [url host];
+    NSURL *URL = [request URL];
+    NSString *scheme = [URL scheme];
+    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
 
-    if ([host isEqualToString:ITUNES_HOST]) {
-        // if redirecting to itunes, close the view controller
-        [[UIApplication sharedApplication] openURL:url];
+    if (schemeIsHttp) {
+        return YES;
+    } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [[UIApplication sharedApplication] openURL:URL];
         [self dismissViewControllerAnimated:NO completion:nil];
         return NO;
     }
-    
+
 	return YES;
 }
 
