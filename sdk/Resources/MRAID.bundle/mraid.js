@@ -15,6 +15,21 @@
  */
 
 (function() {
+ var isIOS = (/iphone|ipad|ipod/i).test(window.navigator.userAgent.toLowerCase());
+ if (isIOS) {
+ console = {};
+ console.log = function(log) {
+ var iframe = document.createElement('iframe');
+ iframe.setAttribute('src', 'ANWebConsole: ' + log);
+ document.documentElement.appendChild(iframe);
+ iframe.parentNode.removeChild(iframe);
+ iframe = null;
+ };
+ console.debug = console.info = console.warn = console.error = console.log;
+ }
+ }());
+
+(function() {
  
  // Set up some variables
  var mraid = window.mraid = {};
@@ -133,7 +148,8 @@
  
  // Loads a given URL
  mraid.open=function(url){
- window.open(url);
+ console.log(url);
+ window.location.href = url;
  };
  
  // ----- MRAID UTILITY FUNCTIONS -----

@@ -127,15 +127,19 @@ typedef enum _ANMRAIDState
 		NSURL *URL = [request URL];
 		NSString *scheme = [URL scheme];
 		
-		if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])
-		{
+		if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
 			[self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
 		}
-		else if ([scheme isEqualToString:@"mraid"])
-		{
+		else if ([scheme isEqualToString:@"mraid"]) {
 			// Do MRAID actions
 			[self dispatchNativeMRAIDURL:URL forWebView:webView];
-		}
+		} else if ([scheme isEqualToString:@"ANWebConsole"]) {
+            [self printConsoleLog:URL];
+        } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+            [[UIApplication sharedApplication] openURL:URL];
+        } else {
+            ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+        }
 		
 		return NO;
 	}
@@ -225,6 +229,23 @@ typedef enum _ANMRAIDState
             [self.adFetcher startAutorefreshTimer];
         }
     }
+}
+
+- (void)printConsoleLog:(NSURL *)URL {
+    NSMutableString *urlString = [NSMutableString stringWithString:[URL absoluteString]];
+    [urlString replaceOccurrencesOfString:@"%20"
+                               withString:@" "
+                                  options:NSLiteralSearch
+                                    range:NSMakeRange(0, [urlString length])];
+    [urlString replaceOccurrencesOfString:@"%5B"
+                               withString:@"["
+                                  options:NSLiteralSearch
+                                    range:NSMakeRange(0, [urlString length])];
+    [urlString replaceOccurrencesOfString:@"%5D"
+                               withString:@"]"
+                                  options:NSLiteralSearch
+                                    range:NSMakeRange(0, [urlString length])];
+    ANLogDebug(urlString);
 }
 
 @end
