@@ -111,7 +111,15 @@
     }
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
-        [contentView setFrame:[[UIScreen mainScreen] applicationFrame]];
+        CGRect mainBounds = [[UIScreen mainScreen] bounds];
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+            CGFloat portraitHeight = mainBounds.size.height;
+            CGFloat portraitWidth = mainBounds.size.width;
+            mainBounds.size.height = portraitWidth;
+            mainBounds.size.width = portraitHeight;
+        }
+
+        [contentView setFrame:mainBounds];
         [contentView removeFromSuperview];
         [rootViewController.view addSubview:contentView];
     } else {
