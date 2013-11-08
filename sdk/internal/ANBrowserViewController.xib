@@ -34,24 +34,28 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
                         <barButtonItem image="UIButtonBarArrowLeft.png" style="plain" id="17">
+                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="backAction:" destination="-1" id="34"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="20"/>
                         <barButtonItem image="UIButtonBarArrowRight.png" style="plain" id="19">
+                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="forwardAction:" destination="-1" id="35"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="21"/>
                         <barButtonItem style="plain" systemItem="action" id="11">
+                            <color key="tintColor" red="0.1082073997" green="0.54139823710000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="openInAction:" destination="-1" id="36"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="22"/>
                         <barButtonItem title="Done" style="done" id="18">
+                            <color key="tintColor" red="0.10820739966907766" green="0.54139823709035495" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="closeAction:" destination="-1" id="33"/>
                             </connections>
