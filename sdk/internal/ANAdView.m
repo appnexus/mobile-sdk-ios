@@ -81,7 +81,6 @@
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
-    __isFullscreen = NO;
     self.defaultFramesSet = NO;
 }
 
@@ -115,22 +114,14 @@
         [contentView setFrame:[[UIScreen mainScreen] applicationFrame]];
         [contentView removeFromSuperview];
         [rootViewController.view addSubview:contentView];
-        self.isFullscreen = YES;
     } else {
         // otherwise, resize in the original container
         CGRect resizedFrame = self.defaultFrame;
         resizedFrame.size = size;
         [contentView setFrame:resizedFrame];
-
         [contentView removeFromSuperview];
         
-        if (isBanner) {
-            CGRect resizedParentFrame = self.defaultParentFrame;
-            [defaultParentView setFrame:resizedParentFrame];
-        }
-        
         [defaultParentView addSubview:contentView];
-        self.isFullscreen = NO;
     }
 }
 
@@ -349,14 +340,6 @@
 
 - (UIView *)contentView {
     return __contentView;
-}
-
-- (void)setIsFullscreen:(BOOL)isFullscreen {
-    __isFullscreen = isFullscreen;
-}
-
-- (BOOL)isFullscreen {
-    return __isFullscreen;
 }
 
 - (void)setCloseButton:(UIButton *)closeButton

@@ -92,10 +92,6 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     if ([responseString length] < 1)
         return self;
     
-    // check for mraid.js file
-    NSRange mraidJSRange = [responseString rangeOfString:kMraidJSFilename];
-    _isMraid = (mraidJSRange.location != NSNotFound);
-    
     NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
     
     if (jsonParsingError != nil) {
@@ -143,6 +139,10 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
             ANLogError(ANErrorString(@"blank_ad"));
         }
         else {
+            // check for mraid.js file
+            NSRange mraidJSRange = [_content rangeOfString:kMraidJSFilename];
+            _isMraid = (mraidJSRange.location != NSNotFound);
+            
             _containsAds = YES;
             return YES;
         }
