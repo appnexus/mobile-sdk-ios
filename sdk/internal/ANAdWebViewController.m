@@ -133,7 +133,7 @@ typedef enum _ANMRAIDState
 		else if ([scheme isEqualToString:@"mraid"]) {
 			// Do MRAID actions
 			[self dispatchNativeMRAIDURL:URL forWebView:webView];
-		} else if ([scheme isEqualToString:@"ANWebConsole"]) {
+		} else if ([scheme isEqualToString:@"anwebconsole"]) {
             [self printConsoleLog:URL];
         } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             [[UIApplication sharedApplication] openURL:URL];

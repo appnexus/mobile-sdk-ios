@@ -20,7 +20,7 @@
  console = {};
  console.log = function(log) {
  var iframe = document.createElement('iframe');
- iframe.setAttribute('src', 'ANWebConsole: ' + log);
+ iframe.setAttribute('src', 'anwebconsole: ' + log);
  document.documentElement.appendChild(iframe);
  iframe.parentNode.removeChild(iframe);
  iframe = null;
