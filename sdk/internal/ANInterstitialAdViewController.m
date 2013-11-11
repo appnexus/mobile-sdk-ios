@@ -91,10 +91,6 @@
 	}
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return self.orientation;
-}
-
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
 	[UIView animateWithDuration:duration animations:^{
@@ -157,6 +153,20 @@
 // hiding the status bar pre-iOS 7
 - (void)setStatusBarHidden:(BOOL)hidden {
     [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
+}
+
+// locking orientation in iOS 6+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return self.orientation;
+}
+
+// locking orientation in pre-iOS 6
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return NO;
 }
 
 @end

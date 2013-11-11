@@ -40,12 +40,18 @@
     [super didReceiveMemoryWarning];
 }
 
+// locking orientation in iOS 6+
 - (BOOL)shouldAutorotate {
     return NO;
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
     return self.orientation;
+}
+
+// locking orientation in pre-iOS 6
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return NO;
 }
 
 @end
