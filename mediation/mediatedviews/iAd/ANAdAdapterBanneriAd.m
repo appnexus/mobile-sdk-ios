@@ -22,8 +22,7 @@
 
 @implementation ANAdAdapterBanneriAd
 @synthesize delegate;
-@synthesize responseURLString;
-
+\
 #pragma mark ANCustomAdapterBanner
 
 // iAd doesn't have use placement id
@@ -43,7 +42,7 @@
 
 	}
 	else
-		[self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseMediatedSDKUnavailable];
+		[self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
 }
 
 #pragma mark ADBannerViewDelegate
@@ -80,27 +79,27 @@
             break;
     }
 
-	[self.delegate adapterBanner:self didFailToReceiveBannerAdView:code];
+	[self.delegate didFailToLoadAd:code];
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
     ANLogDebug("iAd banner did load");
-	[self.delegate adapterBanner:self didReceiveBannerAdView:banner];
+	[self.delegate didLoadBannerAd:banner];
 }
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
     if (willLeave) {
-        [self.delegate adapterBanner:self willLeaveApplication:banner];
+        [self.delegate willLeaveApplication];
     } else {
-        [self.delegate adapterBanner:self willPresent:banner];
+        [self.delegate willPresentAd];
     }
     
     return YES;
 }
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
-    [self.delegate adapterBanner:self didClose:banner];
+    [self.delegate didCloseAd];
 }
 
 @end

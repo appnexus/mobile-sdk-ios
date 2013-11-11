@@ -23,6 +23,7 @@
 - (void)startTimeout;
 - (void)setAdapter:(id<ANCustomAdapter>)adapter;
 - (void)clearAdapter;
+- (void)setResultCBString:(NSString *)resultCBString;
 - (BOOL)requestAd:(CGSize)size
  serverParameter:(NSString *)parameterString
         adUnitId:(NSString *)idString

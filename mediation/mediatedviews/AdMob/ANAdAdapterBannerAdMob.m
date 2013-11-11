@@ -23,8 +23,7 @@
 
 @implementation ANAdAdapterBannerAdMob
 @synthesize delegate;
-@synthesize responseURLString;
-
+\
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
@@ -57,7 +56,7 @@
 - (void)adViewDidReceiveAd:(GADBannerView *)view
 {
     ANLogDebug(@"AdMob banner did load");
-	[self.delegate adapterBanner:self didReceiveBannerAdView:view];
+	[self.delegate didLoadBannerAd:view];
 }
 
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
@@ -104,23 +103,23 @@
             break;
     }
     
- 	[self.delegate adapterBanner:self didFailToReceiveBannerAdView:code];
+ 	[self.delegate didFailToLoadAd:code];
 }
 
 - (void)adViewWillPresentScreen:(GADBannerView *)adView {
-    [self.delegate adapterBanner:self willPresent:adView];
+    [self.delegate willPresentAd];
 }
 
 - (void)adViewWillDismissScreen:(GADBannerView *)adView {
-    [self.delegate adapterBanner:self willClose:adView];
+    [self.delegate willCloseAd];
 }
 
 - (void)adViewDidDismissScreen:(GADBannerView *)adView {
-    [self.delegate adapterBanner:self didClose:adView];
+    [self.delegate didCloseAd];
 }
 
 - (void)adViewWillLeaveApplication:(GADBannerView *)adView {
-    [self.delegate adapterBanner:self willLeaveApplication:adView];
+    [self.delegate willLeaveApplication];
 }
 
 - (void)dealloc

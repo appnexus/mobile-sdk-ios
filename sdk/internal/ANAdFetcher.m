@@ -568,8 +568,8 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     // create new mediation controller
     self.mediationController = [ANMediationAdViewController initWithFetcher:self adViewDelgate:self.delegate];
     adInstance.delegate = self.mediationController;
-    adInstance.responseURLString = resultCB;
     [self.mediationController setAdapter:adInstance];
+    [self.mediationController setResultCBString:resultCB];
     
     //start timeout
     [self.mediationController startTimeout];

@@ -22,7 +22,6 @@
 
 @implementation ANAdAdapterInterstitialiAd
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterInterstitial
 
@@ -41,7 +40,7 @@
 	}
 	else
 	{
-		[self.delegate adapterInterstitial:self didFailToReceiveInterstitialAd:ANAdResponseMediatedSDKUnavailable];
+		[self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
 	}
 }
 
@@ -55,29 +54,29 @@
 - (void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd
 {
     ANLogDebug(@"iAd interstitial did load");
-	[self.delegate adapterInterstitial:self didLoadInterstitialAd:interstitialAd];
+	[self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitialAdDidUnload:(ADInterstitialAd *)interstitialAd
 {
     ANLogDebug(@"iAd interstitial did unload");
-    [self.delegate adapterInterstitial:self didClose:interstitialAd];
-	
+    [self.delegate didCloseAd];
 }
+
 - (BOOL)interstitialAdActionShouldBegin:(ADInterstitialAd *)interstitialAd willLeaveApplication:(BOOL)willLeave {
     if (willLeave) {
         ANLogDebug(@"iAd interstitial will leave application");
-        [self.delegate adapterInterstitial:self willLeaveApplication:interstitialAd];
+        [self.delegate willLeaveApplication];
     } else {
         ANLogDebug(@"iAd interstitial will present");
-        [self.delegate adapterInterstitial:self willPresent:interstitialAd];
+        [self.delegate willPresentAd];
     }
     return YES;
 }
 
 - (void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd {
     ANLogDebug(@"iAd interstitial action did finish");
-    [self.delegate adapterInterstitial:self didClose:interstitialAd];
+    [self.delegate didCloseAd];
 }
 
 - (void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
@@ -111,7 +110,7 @@
             break;
     }
     
-	[self.delegate adapterInterstitial:self didFailToReceiveInterstitialAd:code];
+	[self.delegate didFailToLoadAd:code];
 }
 
 @end

@@ -32,10 +32,14 @@ typedef enum _ANAdResponseCode
 } ANAdResponseCode;
 
 @protocol ANCustomAdapterDelegate <NSObject>
+- (void)didFailToLoadAd:(ANAdResponseCode)errorCode;
+- (void)willPresentAd;
+- (void)willCloseAd;
+- (void)didCloseAd;
+- (void)willLeaveApplication;
 @end
 
 @protocol ANCustomAdapter <NSObject>
-@property (nonatomic, readwrite, copy) NSString *responseURLString;
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterDelegate> delegate;
 @end
 
@@ -61,27 +65,10 @@ typedef enum _ANAdResponseCode
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
 @end
 
-
 @protocol ANCustomAdapterBannerDelegate <ANCustomAdapterDelegate>
-
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didReceiveBannerAdView:(UIView *)view;
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didFailToReceiveBannerAdView:(ANAdResponseCode)errorCode;
-
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willPresent:(UIView *)view;
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willClose:(UIView *)view;
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didClose:(UIView *)view;
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willLeaveApplication:(UIView *)view;
-
+- (void)didLoadBannerAd:(UIView *)view;
 @end
 
 @protocol ANCustomAdapterInterstitialDelegate <ANCustomAdapterDelegate>
-
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didLoadInterstitialAd:(id)interstitialAd;
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didFailToReceiveInterstitialAd:(ANAdResponseCode)errorCode;
-
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willPresent:(id)interstitialAd;
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willClose:(id)interstitialAd;
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didClose:(id)interstitialAd;
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willLeaveApplication:(id)interstitialAd;
-
+- (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter;
 @end

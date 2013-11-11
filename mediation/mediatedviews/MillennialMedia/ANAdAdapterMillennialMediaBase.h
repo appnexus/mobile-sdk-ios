@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
+#import "ANCustomAdapter.h"
 
-#import "ANAdAdapterMillennialMediaBase.h"
-
-@interface ANAdAdapterInterstitialMillennialMedia : ANAdAdapterMillennialMediaBase <ANCustomAdapterInterstitial>
-
+@interface ANAdAdapterMillennialMediaBase : NSObject <ANCustomAdapter>
+- (void) addMMNotificationObservers;
 @end

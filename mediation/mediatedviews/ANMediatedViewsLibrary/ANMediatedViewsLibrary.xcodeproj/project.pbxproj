@@ -33,6 +33,7 @@
 		ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
 		ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */; };
 		ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
+		ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,8 @@
 		ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANGlobal.h; path = ../../../sdk/internal/ANGlobal.h; sourceTree = "<group>"; };
 		ECB1253B1821A35D00CB4BE8 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/internal/ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECB1253C1821A35D00CB4BE8 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANLogging.h; path = ../../../sdk/internal/ANLogging.h; sourceTree = "<group>"; };
+		ECFCC0D91831890F00797F72 /* ANAdAdapterMillennialMediaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterMillennialMediaBase.h; sourceTree = "<group>"; };
+		ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterMillennialMediaBase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +248,8 @@
 				ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */,
 				ECB1244D18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h */,
 				ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */,
+				ECFCC0D91831890F00797F72 /* ANAdAdapterMillennialMediaBase.h */,
+				ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */,
 			);
 			name = MillennialMedia;
 			path = ../MillennialMedia;
@@ -360,6 +365,7 @@
 				ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */,
 				ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */,
 				ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */,
+				ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

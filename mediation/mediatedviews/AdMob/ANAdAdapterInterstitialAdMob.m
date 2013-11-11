@@ -24,7 +24,6 @@
 
 @implementation ANAdAdapterInterstitialAdMob
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterInterstitial
 
@@ -58,7 +57,7 @@
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
     ANLogDebug(@"AdMob interstitial did load");
-	[self.delegate adapterInterstitial:self didLoadInterstitialAd:ad];
+	[self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
@@ -105,23 +104,23 @@
             break;
     }
     
-    [self.delegate adapterInterstitial:self didFailToReceiveInterstitialAd:code];
+    [self.delegate didFailToLoadAd:code];
 }
 
 - (void)interstitialWillPresentScreen:(GADInterstitial *)ad {
-    [self.delegate adapterInterstitial:self willPresent:ad];
+    [self.delegate willPresentAd];
 }
 
 - (void)interstitialWillDismissScreen:(GADInterstitial *)ad {
-    [self.delegate adapterInterstitial:self willClose:ad];
+    [self.delegate willCloseAd];
 }
 
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad {
-    [self.delegate adapterInterstitial:self didClose:ad];
+    [self.delegate didCloseAd];
 }
 
 - (void)interstitialWillLeaveApplication:(GADInterstitial *)ad {
-    [self.delegate adapterInterstitial:self willLeaveApplication:ad];
+    [self.delegate willLeaveApplication];
 }
 
 @end

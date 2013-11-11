@@ -27,7 +27,6 @@
 
 @implementation ANAdAdapterInterstitialMillennialMedia
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterInterstitial
 
@@ -54,13 +53,21 @@
     }
     
     self.apid = idString;
+
+    [self addMMNotificationObservers];
+
+    if ([MMInterstitial isAdAvailableForApid:self.apid]) {
+        ANLogDebug(@"MillennialMedia interstitial was already available");
+        [self.delegate didLoadInterstitialAd:self];
+        return;
+    }
     
     [MMInterstitial fetchWithRequest:request
                                 apid:idString
                         onCompletion:^(BOOL success, NSError *error) {
                             if (success) {
                                 ANLogDebug(@"MillennialMedia interstitial did load");
-                                [self.delegate adapterInterstitial:self didLoadInterstitialAd:nil];
+                                [self.delegate didLoadInterstitialAd:self];
                             } else {
                                 ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
                                 ANAdResponseCode code = ANAdResponseInternalError;
@@ -83,8 +90,7 @@
                                         break;
                                 }
                                 
-                                [self.delegate adapterInterstitial:self
-                                    didFailToReceiveInterstitialAd:code];
+                                [self.delegate didFailToLoadAd:code];
                             }
                         }];
     
@@ -97,15 +103,7 @@
     [MMInterstitial displayForApid:self.apid
                 fromViewController:viewController
                    withOrientation:0
-                      onCompletion:^(BOOL success, NSError *error) {
-                          if (success) {
-                              [self.delegate adapterInterstitial:self willPresent:nil];
-                          }
-                          else {
-                              [self.delegate adapterInterstitial:self
-                                  didFailToReceiveInterstitialAd:ANAdResponseInternalError];
-                          }
-                      }];
+                      onCompletion:nil];
 }
 
 @end

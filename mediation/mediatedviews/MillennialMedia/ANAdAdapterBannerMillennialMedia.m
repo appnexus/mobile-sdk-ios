@@ -27,7 +27,6 @@
 
 @implementation ANAdAdapterBannerMillennialMedia
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -55,13 +54,15 @@
         request = [MMRequest request];
     }
     
+    [self addMMNotificationObservers];
+
     self.mmAdView = [[MMAdView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) apid:idString
                                  rootViewController:rootViewController];
     
     [self.mmAdView getAdWithRequest:request onCompletion:^(BOOL success, NSError *error) {
         if (success) {
             ANLogDebug(@"MillennialMedia banner did load");
-            [self.delegate adapterBanner:self didReceiveBannerAdView:self.mmAdView];
+            [self.delegate didLoadBannerAd:self.mmAdView];
         } else {
             ANLogDebug(@"MillennialMedia banner failed to load with error: %@", error);
             ANAdResponseCode code = ANAdResponseInternalError;
@@ -84,7 +85,7 @@
                     break;
             }
             
-            [self.delegate adapterBanner:self didFailToReceiveBannerAdView:code];
+            [self.delegate didFailToLoadAd:code];
         }
     }];
 }
