@@ -111,6 +111,7 @@
 
 - (void)loadInterstitialAdWithSettings:(AdSettings *)settings {
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
+    BOOL settingsAllowPSA = settings.allowPSA;
     BOOL settingsClickShouldOpenInBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
     NSString *backgroundColor = settings.backgroundColor;
 
@@ -118,6 +119,7 @@
     
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
+    self.interstitialAd.shouldServePublicServiceAnnouncements = settingsAllowPSA;
     self.interstitialAd.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
     self.interstitialAd.backgroundColor = [self interstitialBackgroundColorFromString:backgroundColor];
     
