@@ -73,6 +73,7 @@
 		EC3FD7601822213C00B25418 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7271822213C00B25418 /* Default-568h@2x.png */; };
 		EC3FD7611822213C00B25418 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7281822213C00B25418 /* Default.png */; };
 		EC3FD7621822213C00B25418 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7291822213C00B25418 /* Default@2x.png */; };
+		EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */; };
 		EC77B0A718170D8E002123CB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77B0A618170D8E002123CB /* StoreKit.framework */; };
 		EC7DC2631817404600B813D1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2621817404600B813D1 /* MediaPlayer.framework */; };
 		EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2641817406200B813D1 /* AVFoundation.framework */; };
@@ -224,6 +225,8 @@
 		EC3FD7271822213C00B25418 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EC3FD7281822213C00B25418 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		EC3FD7291822213C00B25418 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		EC70ED8B18316B2000BDF92F /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
+		EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC77B0A618170D8E002123CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EC7DC2621817404600B813D1 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7DC2641817406200B813D1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -609,6 +612,8 @@
 				ECB124AC1821A25D00CB4BE8 /* ANReachability.m */,
 				ECB124AD1821A25D00CB4BE8 /* ANWebView.h */,
 				ECB124AE1821A25D00CB4BE8 /* ANWebView.m */,
+				EC70ED8B18316B2000BDF92F /* ANMRAIDViewController.h */,
+				EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -819,6 +824,7 @@
 				ECB124BF1821A25D00CB4BE8 /* ANOpenUDID.m in Sources */,
 				EC3FD7341822213C00B25418 /* LogCoreDataTVC.m in Sources */,
 				EC3FD73D1822213C00B25418 /* CoreDataTableViewController.m in Sources */,
+				EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */,
 				ECB124CE1821A25D00CB4BE8 /* ANLocation.m in Sources */,
 				EC3FD7361822213C00B25418 /* ANLog+Make.m in Sources */,
 				EC3FD7371822213C00B25418 /* ANLog.m in Sources */,

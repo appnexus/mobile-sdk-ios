@@ -18,6 +18,7 @@
 #import "ANAdResponse.h"
 #import "ANBrowserViewController.h"
 #import "ANLocation.h"
+#import "ANMRAIDViewController.h"
 
 #define DEFAULT_ADSIZE CGSizeZero
 #define DEFAULT_PSAS YES
@@ -27,6 +28,7 @@
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) BOOL defaultFramesSet;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
+@property (nonatomic, strong) ANMRAIDViewController *mraidController;
 @end
 
 @implementation ANAdView
@@ -121,7 +123,9 @@
 
         [contentView setFrame:mainBounds];
         [contentView removeFromSuperview];
-        [rootViewController.view addSubview:contentView];
+        self.mraidController = [ANMRAIDViewController new];
+        [self.mraidController.view addSubview:contentView];
+        [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
     } else {
         // otherwise, resize in the original container
         CGRect resizedFrame = self.defaultFrame;
@@ -130,6 +134,9 @@
         [contentView removeFromSuperview];
         
         [defaultParentView addSubview:contentView];
+        if (self.mraidController) {
+            [self.mraidController dismissViewControllerAnimated:NO completion:nil];
+        }
     }
 }
 
