@@ -149,7 +149,13 @@
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    [self.contentView setFrame:self.bounds];
+    // center the contentview
+    CGFloat contentWidth = self.contentView.frame.size.width;
+    CGFloat contentHeight = self.contentView.frame.size.height;
+    CGFloat centerX = (self.frame.size.width - contentWidth) / 2;
+    CGFloat centerY = (self.frame.size.height - contentHeight) / 2;
+    [self.contentView setFrame:
+     CGRectMake(centerX, centerY, contentWidth, contentHeight)];
 }
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated {

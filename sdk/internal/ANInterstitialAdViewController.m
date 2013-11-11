@@ -22,6 +22,7 @@
 @property (nonatomic, readwrite, strong) NSDate *timerStartDate;
 @property (nonatomic, readwrite, assign) BOOL viewed;
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
+@property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @end
 
 @implementation ANInterstitialAdViewController
@@ -32,6 +33,7 @@
 {
 	self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
     self.originalHiddenState = NO;
+    self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
 	return self;
 }
 
@@ -47,7 +49,7 @@
 {
     self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
     [self setStatusBarHidden:YES];
-	self.contentView.frame = CGRectMake((self.view.bounds.size.width - self.contentView.frame.size.width) / 2, (self.view.bounds.size.height - self.contentView.frame.size.height) / 2, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    [self centerContentView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,8 +94,17 @@
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
 	[UIView animateWithDuration:duration animations:^{
-		self.contentView.frame = CGRectMake((self.view.bounds.size.width - self.contentView.frame.size.width) / 2, (self.view.bounds.size.height - self.contentView.frame.size.height) / 2, self.contentView.frame.size.width, self.contentView.frame.size.height);
+        [self centerContentView];
 	}];
+}
+
+- (void)centerContentView {
+    CGFloat contentWidth = self.contentView.frame.size.width;
+    CGFloat contentHeight = self.contentView.frame.size.height;
+    CGFloat centerX = (self.view.bounds.size.width - contentWidth) / 2;
+    CGFloat centerY = (self.view.bounds.size.height - contentHeight) / 2;
+    
+	self.contentView.frame = CGRectMake(centerX, centerY, contentWidth, contentHeight);
 }
 
 - (void)setContentView:(UIView *)contentView
@@ -142,6 +153,20 @@
 // hiding the status bar pre-iOS 7
 - (void)setStatusBarHidden:(BOOL)hidden {
     [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
+}
+
+// locking orientation in iOS 6+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return self.orientation;
+}
+
+// locking orientation in pre-iOS 6
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return NO;
 }
 
 @end

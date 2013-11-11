@@ -82,47 +82,26 @@
     CGFloat settingsAutorefreshInterval = (CGFloat)settings.refreshRate;
     
     CGFloat centerX = 0.0;
+    CGFloat centerY = 0.0;
     if (settingsBannerWidth < self.tableView.frame.size.width) {
         centerX = (self.tableView.frame.size.width / 2.0) - (settingsBannerWidth / 2.0);
     }
     
-    CGFloat currentBannerWidth;
-    CGFloat currentBannerHeight;
-    
-    if (self.bannerAdView) {
-        CGSize currentBannerSize = self.bannerAdView.adSize;
-        currentBannerWidth = currentBannerSize.width;
-        currentBannerHeight = currentBannerSize.height;
-    } else {
-        currentBannerWidth = 0.0;
-        currentBannerHeight = 0.0;
+    if (settingsBannerHeight < self.tableView.frame.size.height) {
+        centerY = (self.tableView.frame.size.height / 2.0) - (settingsBannerHeight / 2.0);
     }
     
-    if (!self.bannerAdView || !(currentBannerWidth == settingsBannerWidth && currentBannerHeight == settingsBannerHeight)) {
-        [self clearBannerAdView]; // Clear old banner ad view (if necessary)
-        // Make New BannerAdView
-        self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, 0, settingsBannerWidth, settingsBannerHeight)];
-        self.bannerAdView.delegate = self;
-        self.bannerAdView.rootViewController = self.parentViewController;
-        self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
-        self.bannerAdView.placementId = settingsPlacementID;
-        self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
-        self.bannerAdView.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
-        [self.bannerAdView setAutorefreshInterval:settingsAutorefreshInterval];
-        [self.scrollView addSubview:self.bannerAdView];
-    } else {
-        // Keep current BannerAdView, modify settings
-        if (![self.bannerAdView.placementId isEqualToString:settingsPlacementID]) {
-            self.bannerAdView.placementId = settingsPlacementID;
-        }
-        if (self.bannerAdView.shouldServePublicServiceAnnouncements != settingsAllowPSA) {
-            self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
-        }
-        if (self.bannerAdView.clickShouldOpenInBrowser != settingsClickShouldOpenInBrowser) {
-            self.bannerAdView.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
-        }
-        [self.bannerAdView setAutorefreshInterval:settingsAutorefreshInterval]; // Always reset autorefresh interval, so that new ad loads no matter what
-    }
+    [self clearBannerAdView]; // Clear old banner ad view
+                              // Make New BannerAdView
+    self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, centerY, settingsBannerWidth, settingsBannerHeight)];
+    self.bannerAdView.delegate = self;
+    self.bannerAdView.rootViewController = self.parentViewController;
+    self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
+    self.bannerAdView.placementId = settingsPlacementID;
+    self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
+    self.bannerAdView.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
+    [self.bannerAdView setAutorefreshInterval:settingsAutorefreshInterval];
+    [self.scrollView addSubview:self.bannerAdView];
     
     if(!settings.refreshRate) { // If there's no refresh rate, then manually load one ad
         ANLogDebug(@"%@ %@ | no refresh rate, manually loading ad", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -193,14 +172,14 @@
         self.scrollView.contentSize = CGSizeMake(svWidth, svHeight); // Set content size to cell dimensions
         
         ANLogDebug(@"%@ %@ | adjusting banner ad view frame", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        if (bannerSize.width < self.tableView.frame.size.width) {
-            // Center banner in window, with equal whitespace on either side
-            self.bannerAdView.frame = CGRectMake((self.tableView.frame.size.width / 2.0) - (bannerSize.width / 2.0), 0.0,
-                                                 bannerSize.width, bannerSize.height);
-        } else {
-            // Position banner at top left. Here, there will be no whitespace.
-            self.bannerAdView.frame = CGRectMake(0.0, 0.0, bannerSize.width, bannerSize.height);
-        }
+        
+        CGFloat centerX = (self.tableView.frame.size.width - bannerSize.width) / 2.0;
+        CGFloat centerY = (self.tableView.frame.size.height - bannerSize.height) / 2.0;
+        
+        // Center banner in window, with equal whitespace on either side
+        [self.bannerAdView setFrame:CGRectMake(centerX,
+                                               centerY,
+                                             bannerSize.width, bannerSize.height)];
         
         return svHeight;
     } else { // Not a banner, so scrollview size should be the visible table view size

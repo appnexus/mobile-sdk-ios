@@ -18,6 +18,7 @@
 #import "ANAdResponse.h"
 #import "ANBrowserViewController.h"
 #import "ANLocation.h"
+#import "ANMRAIDViewController.h"
 
 #define DEFAULT_ADSIZE CGSizeZero
 #define DEFAULT_PSAS YES
@@ -27,6 +28,7 @@
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) BOOL defaultFramesSet;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
+@property (nonatomic, strong) ANMRAIDViewController *mraidController;
 @end
 
 @implementation ANAdView
@@ -81,7 +83,6 @@
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
-    __isFullscreen = NO;
     self.defaultFramesSet = NO;
 }
 
@@ -112,25 +113,31 @@
     }
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
-        [contentView setFrame:[[UIScreen mainScreen] applicationFrame]];
+        CGRect mainBounds = [[UIScreen mainScreen] bounds];
+        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+            CGFloat portraitHeight = mainBounds.size.height;
+            CGFloat portraitWidth = mainBounds.size.width;
+            mainBounds.size.height = portraitWidth;
+            mainBounds.size.width = portraitHeight;
+        }
+
+        [contentView setFrame:mainBounds];
         [contentView removeFromSuperview];
-        [rootViewController.view addSubview:contentView];
-        self.isFullscreen = YES;
+        self.mraidController = [ANMRAIDViewController new];
+        [self.mraidController.view addSubview:contentView];
+        [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
     } else {
         // otherwise, resize in the original container
         CGRect resizedFrame = self.defaultFrame;
         resizedFrame.size = size;
         [contentView setFrame:resizedFrame];
-
         [contentView removeFromSuperview];
         
-        if (isBanner) {
-            CGRect resizedParentFrame = self.defaultParentFrame;
-            [defaultParentView setFrame:resizedParentFrame];
-        }
-        
         [defaultParentView addSubview:contentView];
-        self.isFullscreen = NO;
+        if (self.mraidController) {
+            [self.mraidController dismissViewControllerAnimated:NO completion:nil];
+            self.mraidController = nil;
+        }
     }
 }
 
@@ -261,7 +268,11 @@
     if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
         ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
         browserViewController.delegate = self;
-        [self openInBrowserWithController:browserViewController];
+        if (self.mraidController) {
+            [self.mraidController presentViewController:browserViewController animated:YES completion:nil];
+        } else {
+            [self openInBrowserWithController:browserViewController];
+        }
     }
     else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         [[UIApplication sharedApplication] openURL:URL];
@@ -349,14 +360,6 @@
 
 - (UIView *)contentView {
     return __contentView;
-}
-
-- (void)setIsFullscreen:(BOOL)isFullscreen {
-    __isFullscreen = isFullscreen;
-}
-
-- (BOOL)isFullscreen {
-    return __isFullscreen;
 }
 
 - (void)setCloseButton:(UIButton *)closeButton

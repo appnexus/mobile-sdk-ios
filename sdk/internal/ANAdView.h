@@ -29,14 +29,12 @@
     
     UIView *__contentView;
     UIButton *__closeButton;
-    BOOL __isFullscreen;
 }
 
 @end
 
 @interface ANAdView (ANAdFetcher)
 @property (nonatomic, readwrite, strong) UIView *contentView;
-@property (nonatomic, readwrite, assign) BOOL isFullscreen;
 @property (nonatomic, readwrite, strong) UIButton *closeButton;
 
 - (void)removeCloseButton;
