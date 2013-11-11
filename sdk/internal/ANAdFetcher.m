@@ -34,9 +34,6 @@
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
-NSString *const kANAdRequestComponentOrientationPortrait = @"portrait";
-NSString *const kANAdRequestComponentOrientationLandscape = @"landscape";
-
 @interface ANAdFetcher () <NSURLConnectionDataDelegate>
 
 @property (nonatomic, readwrite, strong) NSURLConnection *successResultConnection;
