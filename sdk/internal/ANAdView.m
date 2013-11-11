@@ -136,6 +136,7 @@
         [defaultParentView addSubview:contentView];
         if (self.mraidController) {
             [self.mraidController dismissViewControllerAnimated:NO completion:nil];
+            self.mraidController = nil;
         }
     }
 }
@@ -267,7 +268,11 @@
     if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
         ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
         browserViewController.delegate = self;
-        [self openInBrowserWithController:browserViewController];
+        if (self.mraidController) {
+            [self.mraidController presentViewController:browserViewController animated:YES completion:nil];
+        } else {
+            [self openInBrowserWithController:browserViewController];
+        }
     }
     else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         [[UIApplication sharedApplication] openURL:URL];
