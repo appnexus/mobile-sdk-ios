@@ -42,7 +42,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject;
-
+- (void)processFinalResponse:(ANAdResponse *)response;
 @end
 
 @protocol ANAdFetcherDelegate <NSObject, ANAdViewDelegate>

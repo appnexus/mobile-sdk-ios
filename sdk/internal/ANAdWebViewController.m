@@ -72,8 +72,7 @@ typedef enum _ANMRAIDState
 		self.completedFirstLoad = YES;
 		
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
-		[self.adFetcher.delegate adFetcher:self.adFetcher didFinishRequestWithResponse:response];
-		[self.adFetcher startAutorefreshTimer];
+        [self.adFetcher processFinalResponse:response];
 	}
 }
 
@@ -115,8 +114,7 @@ typedef enum _ANMRAIDState
         self.completedFirstLoad = YES;
 		
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
-		[self.adFetcher.delegate adFetcher:self.adFetcher didFinishRequestWithResponse:response];
-		[self.adFetcher startAutorefreshTimer];
+        [self.adFetcher processFinalResponse:response];
     }
 }
 

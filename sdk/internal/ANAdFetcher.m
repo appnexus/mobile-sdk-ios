@@ -135,7 +135,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 																	  forKey:NSLocalizedDescriptionKey];
 				NSError *badURLConnectionError = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseBadURLConnection userInfo:errorInfo];
 				ANAdResponse *response = [ANAdResponse adResponseFailWithError:badURLConnectionError];
-				[self.delegate adFetcher:self didFinishRequestWithResponse:response];
+                [self processFinalResponse:response];
 			}
 		}
 		else
@@ -144,7 +144,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
                                                                   forKey:NSLocalizedDescriptionKey];
             NSError *badURLError = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseBadURL userInfo:errorInfo];
             ANAdResponse *response = [ANAdResponse adResponseFailWithError:badURLError];
-            [self.delegate adFetcher:self didFinishRequestWithResponse:response];
+            [self processFinalResponse:response];
 		}
 	}
 	else
@@ -407,6 +407,11 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 	return [NSURL URLWithString:urlString];
 }
 
+- (void)processFinalResponse:(ANAdResponse *)response {
+    [self.delegate adFetcher:self didFinishRequestWithResponse:response];
+    [self startAutorefreshTimer];
+}
+
 - (void)setupAutorefreshTimerIfNecessary
 {
     NSTimeInterval interval = [self.delegate autorefreshIntervalForAdFetcher:self];
@@ -585,9 +590,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     
     NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:code userInfo:errorInfo];
     ANAdResponse *response = [ANAdResponse adResponseFailWithError:error];
-    [self.delegate adFetcher:self didFinishRequestWithResponse:response];
-    
-    [self startAutorefreshTimer];
+    [self processFinalResponse:response];
 }
 
 - (void)startAutorefreshTimer
@@ -695,11 +698,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 			
 			self.loading = NO;
 			
-			ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:error];
-			[self.delegate adFetcher:self didFinishRequestWithResponse:failureResponse];
-			
 			[self setupAutorefreshTimerIfNecessary];
-			[self startAutorefreshTimer];
+			ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:error];
+            [self processFinalResponse:failureResponse];
 		}
 	}
 }
@@ -718,7 +719,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             self.successResultConnection = [NSURLConnection connectionWithRequest:self.successResultRequest delegate:self];
             
         	ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:adObject];
-            [self.delegate adFetcher:self didFinishRequestWithResponse:response];
+            [self processFinalResponse:response];
         }
         // otherwise treat it as a normal request
         else {
