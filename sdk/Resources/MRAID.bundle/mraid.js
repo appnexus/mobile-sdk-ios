@@ -148,7 +148,6 @@
  
  // Loads a given URL
  mraid.open=function(url){
- console.log(url);
  window.location.href = url;
  };
  
