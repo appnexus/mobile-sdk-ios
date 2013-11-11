@@ -336,14 +336,6 @@
 
 - (void)setContentView:(UIView *)contentView {
     if (contentView != __contentView) {
-        if (contentView != nil) {
-            if ([contentView isKindOfClass:[UIWebView class]]) {
-                [(UIWebView *)contentView removeDocumentPadding];
-            }
-            
-            [self addSubview:contentView];
-        }
-        
         [self removeCloseButton];
 		
 		[__contentView removeFromSuperview];
@@ -354,6 +346,14 @@
             [webView stopLoading];
         }
 		
+        if (contentView != nil) {
+            if ([contentView isKindOfClass:[UIWebView class]]) {
+                [(UIWebView *)contentView removeDocumentPadding];
+            }
+            
+            [self addSubview:contentView];
+        }
+        
         __contentView = contentView;
     }
 }
