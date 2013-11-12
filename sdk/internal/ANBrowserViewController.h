@@ -38,5 +38,6 @@
 @protocol ANBrowserViewControllerDelegate <NSObject>
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller;
+- (void)browserViewControllerWillLaunchExternalApplication;
 
 @end

@@ -83,7 +83,7 @@
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
-    self.defaultFramesSet = NO;
+    _defaultFramesSet = NO;
 }
 
 - (void)dealloc {
@@ -262,6 +262,8 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
+    [self adWasClicked];
+    
     NSString *scheme = [URL scheme];
     BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
     
@@ -275,6 +277,7 @@
         }
     }
     else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [self adWillLeaveApplication];
         [[UIApplication sharedApplication] openURL:URL];
     } else {
         ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
@@ -283,10 +286,13 @@
 
 #pragma mark ANBrowserViewControllerDelegate
 
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
-{
+- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
     UIViewController *presentingViewController = controller.presentingViewController;
     [presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)browserViewControllerWillLaunchExternalApplication {
+    [self adWillLeaveApplication];
 }
 
 #pragma mark ANAdViewDelegate

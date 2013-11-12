@@ -62,7 +62,9 @@
 - (IBAction)closeAction:(id)sender
 {
 	[self.openInSheet dismissWithClickedButtonIndex:1 animated:NO];
-	[self.delegate browserViewControllerShouldDismiss:self];
+    if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
+        [self.delegate browserViewControllerShouldDismiss:self];
+    }
 }
 
 - (IBAction)forwardAction:(id)sender
@@ -120,8 +122,13 @@
     if (schemeIsHttp) {
         return YES;
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
+            [self.delegate browserViewControllerShouldDismiss:self];
+        }
+        if ([self.delegate respondsToSelector:@selector(browserViewControllerWillLaunchExternalApplication)]) {
+            [self.delegate browserViewControllerWillLaunchExternalApplication];
+        }
         [[UIApplication sharedApplication] openURL:URL];
-        [self dismissViewControllerAnimated:NO completion:nil];
         return NO;
     }
 
@@ -153,6 +160,12 @@
 		
 		if ([[UIApplication sharedApplication] canOpenURL:URL])
 		{
+            if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
+                [self.delegate browserViewControllerShouldDismiss:self];
+            }
+            if ([self.delegate respondsToSelector:@selector(browserViewControllerWillLaunchExternalApplication)]) {
+                [self.delegate browserViewControllerWillLaunchExternalApplication];
+            }
 			[[UIApplication sharedApplication] openURL:URL];
 		}
 	}

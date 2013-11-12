@@ -33,7 +33,7 @@
              isBanner:(BOOL)isBanner;
 @end
 
-@interface ANBannerAdView () <ANBrowserViewControllerDelegate>
+@interface ANBannerAdView ()
 
 @property (nonatomic, strong) UIView *defaultSuperView;
 
@@ -181,7 +181,10 @@
 }
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
-    [self.rootViewController presentViewController:browserViewController animated:YES completion:nil];
+    [self adWillPresent];
+    [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
+        [self adDidPresent];
+    }];
 }
 
 #pragma mark extraParameters methods
@@ -279,8 +282,11 @@
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
 {
+    [self adWillClose];
 	UIViewController *presentingViewController = controller.presentingViewController;
-	[presentingViewController dismissViewControllerAnimated:YES completion:nil];
+	[presentingViewController dismissViewControllerAnimated:YES completion:^{
+        [self adDidClose];
+    }];
 }
 
 @end
