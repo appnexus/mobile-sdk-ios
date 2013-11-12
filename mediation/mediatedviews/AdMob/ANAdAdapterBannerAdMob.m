@@ -23,7 +23,7 @@
 
 @implementation ANAdAdapterBannerAdMob
 @synthesize delegate;
-\
+
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size

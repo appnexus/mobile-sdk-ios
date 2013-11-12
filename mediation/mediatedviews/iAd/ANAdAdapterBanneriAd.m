@@ -22,7 +22,7 @@
 
 @implementation ANAdAdapterBanneriAd
 @synthesize delegate;
-\
+
 #pragma mark ANCustomAdapterBanner
 
 // iAd doesn't have use placement id
