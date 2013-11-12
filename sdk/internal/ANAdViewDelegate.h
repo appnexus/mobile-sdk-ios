@@ -17,7 +17,9 @@
 
 @protocol ANAdViewDelegate <NSObject>
 
+- (void)adWasClicked;
 - (void)adWillPresent;
+- (void)adDidPresent;
 - (void)adWillClose;
 - (void)adDidClose;
 - (void)adWillLeaveApplication;

@@ -211,6 +211,10 @@
     }
 }
 
+- (void)adWasClicked:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adWasClicked");
+}
+
 - (void)adDidClose:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adDidClose");
 }
@@ -221,6 +225,10 @@
 
 - (void)adWillPresent:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adWillPresent");
+}
+
+- (void)adDidPresent:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adDidPresent");
 }
 
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {

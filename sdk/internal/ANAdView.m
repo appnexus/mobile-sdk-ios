@@ -291,9 +291,21 @@
 
 #pragma mark ANAdViewDelegate
 
+- (void)adWasClicked {
+    if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {
+        [self.delegate adWasClicked:self];
+    }
+}
+
 - (void)adWillPresent {
     if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
         [self.delegate adWillPresent:self];
+    }
+}
+
+- (void)adDidPresent {
+    if ([self.delegate respondsToSelector:@selector(adDidPresent:)]) {
+        [self.delegate adDidPresent:self];
     }
 }
 

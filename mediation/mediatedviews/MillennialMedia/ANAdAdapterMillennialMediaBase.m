@@ -57,16 +57,18 @@
                                                object:nil];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Millennial Media Notification Methods
 
 - (void)adWasTapped:(NSNotification *)notification {
-    NSLog(@"AD WAS TAPPED");
+    [self.delegate adWasClicked];
 }
 
 - (void)applicationWillTerminateFromAd:(NSNotification *)notification {
-    NSLog(@"AD WILL OPEN SAFARI");
     [self.delegate willLeaveApplication];
-    // No User Info is passed for this notification
 }
 
 - (void)adModalWillDismiss:(NSNotification *)notification {
@@ -82,6 +84,7 @@
 }
 
 - (void)adModalDidAppear:(NSNotification *)notification {
+    [self.delegate didPresentAd];
 }
 
 @end

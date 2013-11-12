@@ -33,7 +33,9 @@ typedef enum _ANAdResponseCode
 
 @protocol ANCustomAdapterDelegate <NSObject>
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode;
+- (void)adWasClicked;
 - (void)willPresentAd;
+- (void)didPresentAd;
 - (void)willCloseAd;
 - (void)didCloseAd;
 - (void)willLeaveApplication;

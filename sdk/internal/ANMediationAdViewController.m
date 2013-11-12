@@ -110,9 +110,19 @@
     [self didFailToReceiveAd:errorCode];
 }
 
+- (void)adWasClicked {
+    if (self.hasFailed) return;
+    [self.adViewDelegate adWasClicked];
+}
+
 - (void)willPresentAd {
     if (self.hasFailed) return;
     [self.adViewDelegate adWillPresent];
+}
+
+- (void)didPresentAd {
+    if (self.hasFailed) return;
+    [self.adViewDelegate adDidPresent];
 }
 
 - (void)willCloseAd {
