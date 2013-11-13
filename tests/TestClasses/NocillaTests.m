@@ -54,12 +54,14 @@
     _testComplete = NO;
 }
 
-- (void)testSimple {
+- (void)stubWithBody:(NSString *)body {
     stubRequest(@"GET", @"http://*".regex)
     .andReturn(200)
-    .withBody(MMBANNER)
+    .withBody(body)
     ;
-    
+}
+
+- (void)loadBannerAd {
     _banner = [[ANBannerAdView alloc]
                initWithFrame:CGRectMake(0, 0, 320, 50)
                placementId:@"1"
@@ -67,16 +69,15 @@
     
     [_banner setDelegate:self];
     [_banner loadAd];
-    
-    [self waitForCompletion:TEST_TIMEOUT];
-    
-    STAssertTrue(_adDidLoad, @"MMBanner should have loaded successfully");
-    STAssertFalse(_adFailedToLoad, @"Failure callback should not have been called");
-    
-    [self clearTest];
 }
 
-- (void)runBannerTest {
+- (void)testMMBannerDidLoad {
+    [self stubWithBody:MMBANNER];
+    [self loadBannerAd];
+    
+    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
+    STAssertTrue(_adDidLoad, @"MMBanner should have loaded successfully");
+    STAssertFalse(_adFailedToLoad, @"Failure callback should not have been called");
     
     [self clearTest];
 }

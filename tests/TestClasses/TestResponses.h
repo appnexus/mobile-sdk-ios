@@ -13,4 +13,4 @@
  limitations under the License.
  */
 
-#define MMBANNER @"{\"status\":\"ok\",\"ads\": [],\"mediated\": [{ \"handler\": [{\"type\":\"ios\",\"class\":\"ANAdAdapterBannerMillennialMedia\",\"param\":\"param\",\"width\":\"320\",\"height\":\"50\",\"id\":\"28913\"}],\"result_cb\":\"http://rlissack.adnxs.net:8080/mobile/ok\"}]}"
+#define MMBANNER @"{\"status\":\"ok\",\"ads\": [],\"mediated\": [{ \"handler\": [{\"type\":\"ios\",\"class\":\"ANAdAdapterBannerMillennialMedia\",\"param\":\"param\",\"width\":\"320\",\"height\":\"50\",\"id\":\"28913\"}],\"result_cb\":\"OK\"}]}"
