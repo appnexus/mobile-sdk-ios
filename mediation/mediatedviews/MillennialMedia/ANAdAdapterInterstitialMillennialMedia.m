@@ -109,8 +109,8 @@
     [MMInterstitial displayForApid:self.apid
                 fromViewController:viewController
                    withOrientation:0
-                      onCompletion:^(BOOL successs, NSError *error) {
-                          if (!successs) {
+                      onCompletion:^(BOOL success, NSError *error) {
+                          if (!success) {
                               [self.delegate failedToDisplayAd];
                           }
                       }];
