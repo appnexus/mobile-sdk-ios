@@ -17,7 +17,7 @@
 #import "ANLogging.h"
 
 @interface ANAdAdapterBanneriAd ()
-@property (nonatomic, readwrite, strong) id bannerView;
+@property (nonatomic, readwrite, strong) ADBannerView *bannerView;
 @end
 
 @implementation ANAdAdapterBanneriAd
@@ -33,16 +33,8 @@
              rootViewController:(UIViewController *)rootViewController
 {
     ANLogDebug(@"Requesting iAd banner");
-	Class iAdClass = NSClassFromString(@"ADBannerView");
-	
-	if (iAdClass)
-	{
-		self.bannerView = [[iAdClass alloc] initWithAdType:ADAdTypeBanner];
-		[self.bannerView setDelegate:self];
-
-	}
-	else
-		[self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+    self.bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    self.bannerView.delegate = self;
 }
 
 #pragma mark ADBannerViewDelegate
@@ -82,6 +74,10 @@
 	[self.delegate didFailToLoadAd:code];
 }
 
+- (void)bannerViewWillLoadAd:(ADBannerView *)banner {
+    ANLogDebug("iAd banner will load");
+}
+
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
     ANLogDebug("iAd banner did load");
@@ -89,16 +85,20 @@
 }
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    [self.delegate adWasClicked];
     if (willLeave) {
+        ANLogDebug(@"iAd banner will leave application");
         [self.delegate willLeaveApplication];
     } else {
+        ANLogDebug(@"iAd banner will present");
         [self.delegate willPresentAd];
+        [self.delegate didPresentAd];
     }
-    
     return YES;
 }
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
+    [self.delegate willCloseAd];
     [self.delegate didCloseAd];
 }
 

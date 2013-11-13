@@ -196,8 +196,8 @@
  Delegate Methods
  */
 
-- (void)adNoAdToShow:(ANInterstitialAd *)ad {
-    ANLogDebug(@"No interstitial ad to show");
+- (void)adFailedToDisplay:(ANInterstitialAd *)ad {
+    ANLogDebug(@"adFailedToDisplay");
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {

@@ -140,6 +140,11 @@
     [self.adViewDelegate adWillLeaveApplication];
 }
 
+- (void)failedToDisplayAd {
+    if (self.hasFailed) return;
+    [self.adViewDelegate adFailedToDisplay];
+}
+
 #pragma mark helper methods
 
 - (BOOL)checkIfHasResponded {

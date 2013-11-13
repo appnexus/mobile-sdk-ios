@@ -35,6 +35,12 @@
 	self.interstitialAd = [[GADInterstitial alloc] init];
 	self.interstitialAd.adUnitID = idString;
 	self.interstitialAd.delegate = self;
+    
+    if (self.interstitialAd.isReady) {
+        [self.delegate didLoadInterstitialAd:self];
+        return;
+    }
+    
     GADRequest *request = [GADRequest request];
 
     if (location) {
@@ -46,13 +52,19 @@
 	[self.interstitialAd loadRequest:request];
 }
 
-#pragma mark GADInterstitialDelegate
-
 - (void)presentFromViewController:(UIViewController *)viewController
 {
+    if (!self.interstitialAd.isReady || self.interstitialAd.hasBeenUsed) {
+        ANLogDebug(@"AdMob interstitial was unavailable");
+        [self.delegate failedToDisplayAd];
+        return;
+    }
+
     ANLogDebug(@"Showing AdMob interstitial");
 	[self.interstitialAd presentFromRootViewController:viewController];
 }
+
+#pragma mark GADInterstitialDelegate
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {

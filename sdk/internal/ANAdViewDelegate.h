@@ -24,4 +24,6 @@
 - (void)adDidClose;
 - (void)adWillLeaveApplication;
 
+// for interstitials only
+- (void)adFailedToDisplay;
 @end

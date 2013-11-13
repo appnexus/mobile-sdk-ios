@@ -36,8 +36,5 @@
 @end
 
 @protocol ANInterstitialAdDelegate <ANAdDelegate>
-
-@optional
-- (void)adNoAdToShow:(ANInterstitialAd *)ad;
-
+- (void)adFailedToDisplay:(ANInterstitialAd *)ad;
 @end

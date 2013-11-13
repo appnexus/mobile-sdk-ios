@@ -37,6 +37,8 @@
              rootViewController:(UIViewController *)rootViewController
 {
     ANLogDebug(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
+    [MMSDK initialize];
+    [self addMMNotificationObservers];
     
     //MMRequest object
     MMRequest *request;
@@ -54,8 +56,6 @@
         request = [MMRequest request];
     }
     
-    [self addMMNotificationObservers];
-
     self.mmAdView = [[MMAdView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) apid:idString
                                  rootViewController:rootViewController];
     

@@ -147,7 +147,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     
     if (errorString) {
         ANLogFatal(errorString);
-        [self adNoAdToShow];
+        [self adFailedToDisplay];
     }
 }
 
@@ -268,14 +268,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	[self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
         [self adDidClose];
 	}];
-}
-
-#pragma mark delegate selector helper method
-
-- (void)adNoAdToShow {
-    if ([self.delegate respondsToSelector:@selector(adNoAdToShow:)]) {
-        [self.delegate adNoAdToShow:self];
-    }
 }
 
 @end

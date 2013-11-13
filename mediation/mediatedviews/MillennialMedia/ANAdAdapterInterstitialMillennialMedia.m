@@ -35,6 +35,14 @@
                                   location:(ANLocation *)location
 {
     ANLogDebug(@"Requesting MillennialMedia interstitial");
+    [MMSDK initialize];
+    [self addMMNotificationObservers];
+    
+    if ([MMInterstitial isAdAvailableForApid:self.apid]) {
+        ANLogDebug(@"MillennialMedia interstitial was already available");
+        [self.delegate didLoadInterstitialAd:self];
+        return;
+    }
     
     //MMRequest object
     MMRequest *request;
@@ -54,14 +62,6 @@
     
     self.apid = idString;
 
-    [self addMMNotificationObservers];
-
-    if ([MMInterstitial isAdAvailableForApid:self.apid]) {
-        ANLogDebug(@"MillennialMedia interstitial was already available");
-        [self.delegate didLoadInterstitialAd:self];
-        return;
-    }
-    
     [MMInterstitial fetchWithRequest:request
                                 apid:idString
                         onCompletion:^(BOOL success, NSError *error) {
@@ -99,11 +99,21 @@
 
 - (void)presentFromViewController:(UIViewController *)viewController
 {
+    if (![MMInterstitial isAdAvailableForApid:self.apid]) {
+        ANLogDebug(@"MillennialMedia interstitial unavailable");
+        [self.delegate failedToDisplayAd];
+        return;
+    }
+    
     ANLogDebug(@"Showing MillennialMedia interstitial");
     [MMInterstitial displayForApid:self.apid
                 fromViewController:viewController
                    withOrientation:0
-                      onCompletion:nil];
+                      onCompletion:^(BOOL successs, NSError *error) {
+                          if (!successs) {
+                              [self.delegate failedToDisplayAd];
+                          }
+                      }];
 }
 
 @end

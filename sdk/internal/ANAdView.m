@@ -19,6 +19,7 @@
 #import "ANBrowserViewController.h"
 #import "ANLocation.h"
 #import "ANMRAIDViewController.h"
+#import "ANInterstitialAd.h"
 
 #define DEFAULT_ADSIZE CGSizeZero
 #define DEFAULT_PSAS YES
@@ -330,6 +331,17 @@
 - (void)adWillLeaveApplication {
     if ([self.delegate respondsToSelector:@selector(adWillLeaveApplication:)]) {
         [self.delegate adWillLeaveApplication:self];
+    }
+}
+
+- (void)adFailedToDisplay {
+    if ([self isMemberOfClass:[ANInterstitialAd class]]
+        && [self.delegate conformsToProtocol:@protocol(ANInterstitialAdDelegate)]) {
+        ANInterstitialAd *interstitialAd = (ANInterstitialAd *)self;
+        id<ANInterstitialAdDelegate> interstitialDelegate = (id<ANInterstitialAdDelegate>) self.delegate;
+        if ([interstitialDelegate respondsToSelector:@selector(adFailedToDisplay:)]) {
+            [interstitialDelegate adFailedToDisplay:interstitialAd];
+        }
     }
 }
 

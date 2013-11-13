@@ -73,4 +73,5 @@ typedef enum _ANAdResponseCode
 
 @protocol ANCustomAdapterInterstitialDelegate <ANCustomAdapterDelegate>
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter;
+- (void)failedToDisplayAd;
 @end
