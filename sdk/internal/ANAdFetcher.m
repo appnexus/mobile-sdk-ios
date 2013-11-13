@@ -263,7 +263,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 - (NSString *)connectionTypeParameter {
     ANReachability *reachability = [ANReachability reachabilityForInternetConnection];
     ANNetworkStatus status = [reachability currentReachabilityStatus];
-    return status == ANNetworkStatusReachableViaWiFi ? @"wifi" : @"wan";
+    return status == ANNetworkStatusReachableViaWiFi ? @"&connection_type=wifi" : @"&connection_type=wan";
 }
 
 - (NSString *)supplyTypeParameter {
