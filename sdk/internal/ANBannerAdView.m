@@ -187,18 +187,15 @@
 #pragma mark extraParameters methods
 
 - (NSString *)sizeParameter {
-    // if the developer did not specify an adSize, use the frame size
-    CGSize sizeToRequest = CGSizeEqualToSize(self.adSize, CGSizeZero) ? self.frame.size : self.adSize;
+    NSString *sizeParameterString = [NSString stringWithFormat:@"&size=%dx%d",
+                                     (NSInteger)self.adSize.width,
+                                     (NSInteger)self.adSize.height];
+    NSString *maxSizeParameterString = [NSString stringWithFormat:@"&max_size=%dx%d",
+                                        (NSInteger)self.frame.size.width,
+                                        (NSInteger)self.frame.size.height];
     
-    return [NSString stringWithFormat:@"&size=%dx%d",
-            (NSInteger)sizeToRequest.width,
-            (NSInteger)sizeToRequest.height];
-}
-
-- (NSString *)maximumSizeParameter {
-    return [NSString stringWithFormat:@"&max_size=%dx%d",
-            (NSInteger)self.frame.size.width,
-            (NSInteger)self.frame.size.height];
+    return CGSizeEqualToSize(self.adSize, CGSizeZero) ? maxSizeParameterString : sizeParameterString;
+    ;
 }
 
 #pragma mark ANAdFetcherDelegate
@@ -206,7 +203,6 @@
 - (NSArray *)extraParametersForAdFetcher:(ANAdFetcher *)fetcher {
     return [NSArray arrayWithObjects:
             [self sizeParameter],
-            [self maximumSizeParameter],
             nil];
 }
 
