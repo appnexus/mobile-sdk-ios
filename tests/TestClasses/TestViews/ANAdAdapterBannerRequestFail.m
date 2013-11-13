@@ -17,7 +17,6 @@
 
 @implementation ANAdAdapterBannerRequestFail
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -33,7 +32,7 @@
 
 - (void)performFailResponse
 {
-    [self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseNetworkError];
+    [self.delegate didFailToLoadAd:ANAdResponseNetworkError];
 }
 
 @end

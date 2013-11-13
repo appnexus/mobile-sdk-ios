@@ -17,7 +17,6 @@
 
 @implementation ANFailedMultiple
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -27,10 +26,10 @@
                        location:(ANLocation *)location
              rootViewController:(UIViewController *)rootViewController
 {
-    [self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseUnableToFill];
-    [self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
 
-    [self.delegate adapterBanner:self didReceiveBannerAdView:[[UIView alloc] init]];
+    [self.delegate didLoadBannerAd:[UIView new]];
 }
 
 @end

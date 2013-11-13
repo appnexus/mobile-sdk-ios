@@ -18,7 +18,6 @@
 
 @implementation ANTimeout
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -32,8 +31,8 @@
                                  (kAppNexusMediationNetworkTimeoutInterval + 1)
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-        [self.delegate adapterBanner:self didReceiveBannerAdView:[[UIView alloc] init]];
-    });
+                       [self.delegate didLoadBannerAd:[UIView new]];
+                   });
 }
 
 @end

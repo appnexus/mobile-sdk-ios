@@ -17,7 +17,6 @@
 
 @implementation ANAdAdapterErrorCode
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -28,7 +27,7 @@
              rootViewController:(UIViewController *)rootViewController
 {
     self.errorId = idString;
-    [self.delegate adapterBanner:self didReceiveBannerAdView:nil];
+    [self.delegate didLoadBannerAd:[UIView new]];
 }
 
 @end

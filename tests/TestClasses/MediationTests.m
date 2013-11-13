@@ -56,6 +56,7 @@
 
 @interface ANMediationAdViewController ()
 - (id)currentAdapter;
+- (NSString *)resultCBString;
 @end
 
 #pragma mark MediationTests
@@ -311,7 +312,8 @@
 				__testNumber = 70;
 				
 				self.adapter = [[fetcher mediationController] currentAdapter];
-				[fetcher requestAdWithURL:[NSURL URLWithString:[self.adapter responseURLString]]];
+				[fetcher requestAdWithURL:
+                 [NSURL URLWithString:[[fetcher mediationController] resultCBString]]];
 			}
 				break;
                 //this second part test should be for a non-mediated ad..

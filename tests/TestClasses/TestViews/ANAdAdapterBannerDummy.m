@@ -17,7 +17,6 @@
 
 @implementation ANAdAdapterBannerDummy
 @synthesize delegate;
-@synthesize responseURLString;
 
 - (id)init
 {

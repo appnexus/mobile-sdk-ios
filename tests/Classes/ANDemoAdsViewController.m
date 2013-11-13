@@ -331,9 +331,8 @@ NSString *ANDemoAdsViewControllerSavedTagKey = @"ANDemoAdsViewControllerSavedTag
 }
 
 #pragma mark ANInterstitialAdDelegate
-- (void)adNoAdToShow:(ANInterstitialAd *)ad
-{
-	
+- (void)adFailedToDisplay:(ANInterstitialAd *)ad {
+    
 }
 
 - (void)adDidClose:(ANInterstitialAd *)ad

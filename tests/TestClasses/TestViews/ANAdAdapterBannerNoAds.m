@@ -17,7 +17,6 @@
 
 @implementation ANAdAdapterBannerNoAds
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -33,7 +32,7 @@
 
 - (void)performNoAdsResponse
 {
-    [self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseUnableToFill];
+    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
 }
 
 @end

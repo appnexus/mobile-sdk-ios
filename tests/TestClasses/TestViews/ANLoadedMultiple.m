@@ -17,7 +17,6 @@
 
 @implementation ANLoadedMultiple
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -27,9 +26,9 @@
                        location:(ANLocation *)location
              rootViewController:(UIViewController *)rootViewController
 {
-    [self.delegate adapterBanner:self didReceiveBannerAdView:[[UIView alloc] init]];
-    [self.delegate adapterBanner:self didReceiveBannerAdView:[[UIView alloc] init]];
-    [self.delegate adapterBanner:self didReceiveBannerAdView:[[UIView alloc] init]];
+    [self.delegate didLoadBannerAd:[UIView new]];
+    [self.delegate didLoadBannerAd:[UIView new]];
+    [self.delegate didLoadBannerAd:[UIView new]];
 }
 
 @end
