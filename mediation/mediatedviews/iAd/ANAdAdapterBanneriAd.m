@@ -17,7 +17,7 @@
 #import "ANLogging.h"
 
 @interface ANAdAdapterBanneriAd ()
-@property (nonatomic, readwrite, strong) ADBannerView *bannerView;
+@property (nonatomic, readwrite, strong) id bannerView;
 @end
 
 @implementation ANAdAdapterBanneriAd
@@ -33,8 +33,13 @@
              rootViewController:(UIViewController *)rootViewController
 {
     ANLogDebug(@"Requesting iAd banner");
-    self.bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-    self.bannerView.delegate = self;
+    Class iAdBannerClass = NSClassFromString(@"ADBannerView");
+    if (iAdBannerClass) {
+        self.bannerView = [[iAdBannerClass alloc] initWithAdType:ADAdTypeBanner];
+        [self.bannerView setDelegate:self];
+    } else {
+        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+    }
 }
 
 #pragma mark ADBannerViewDelegate

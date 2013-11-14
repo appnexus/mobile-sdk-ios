@@ -17,7 +17,7 @@
 #import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialiAd ()
-@property (nonatomic, readwrite, strong) ADInterstitialAd *interstitialAd;
+@property (nonatomic, readwrite, strong) id interstitialAd;
 @end
 
 @implementation ANAdAdapterInterstitialiAd
@@ -31,13 +31,19 @@
                                   location:(ANLocation *)location
 {
     ANLogDebug(@"Requesting iAd interstitial");
-    self.interstitialAd = [[ADInterstitialAd alloc] init];
-    self.interstitialAd.delegate = self;
+    Class iAdInterstitialClass = NSClassFromString(@"ADInterstitialAd");
+    if (iAdInterstitialClass) {
+        self.interstitialAd = [[iAdInterstitialClass alloc] init];
+        [self.interstitialAd setDelegate:self];
+    } else {
+        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+    }
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController
 {
-    if (!self.interstitialAd.loaded) {
+    ADInterstitialAd *iAd = (ADInterstitialAd *)self.interstitialAd;
+    if (!iAd.loaded) {
         ANLogDebug(@"iAd interstitial unavailable");
         [self.delegate failedToDisplayAd];
         return;
@@ -45,11 +51,7 @@
     
     ANLogDebug(@"Showing iAd interstitial");
     [self.delegate willPresentAd];
-    
-    #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 	[self.interstitialAd presentFromViewController:viewController];
-    #pragma GCC diagnostic warning "-Wdeprecated-declarations"
-    
     [self.delegate didPresentAd];
 }
 
