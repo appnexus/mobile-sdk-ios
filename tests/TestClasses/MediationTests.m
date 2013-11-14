@@ -344,7 +344,7 @@
 	}
 }
 
-- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
 {
 	return 0.0;
 }

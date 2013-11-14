@@ -187,8 +187,6 @@ NSString *ANDemoAdsViewControllerSavedTagKey = @"ANDemoAdsViewControllerSavedTag
 
 	if (adKind == 0)
 	{
-		NSInteger autorefreshInterval = [self.refreshTextField.text integerValue];
-		
 		NSInteger selectedRowOfPicker = [self.pickerView selectedRowInComponent:0];
 		CGSize requestedSize = [[self.sizesArray objectAtIndex:selectedRowOfPicker] CGSizeValue];
 		CGRect frame = self.bannerAdView.frame;
@@ -201,7 +199,6 @@ NSString *ANDemoAdsViewControllerSavedTagKey = @"ANDemoAdsViewControllerSavedTag
 		
 		self.bannerAdView.placementId = placementId;
 		self.bannerAdView.delegate = self;
-		self.bannerAdView.autorefreshInterval = autorefreshInterval;
 	}
 	else if (adKind == 1)
 	{

@@ -27,7 +27,6 @@
 		5CA6D4BA17A9883900DD6891 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */; };
 		5CA6D4BC17A9884A00DD6891 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4BB17A9884A00DD6891 /* StoreKit.framework */; };
 		5CC9B9C217DF9A5F000DC924 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		5CD8159517DA73AE0046A256 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D41917A8686C00DD6891 /* iAd.framework */; };
 		5CEF6F701732F8BC0054A86F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
 		5CEF6F721732F8C00054A86F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F711732F8C00054A86F /* AdSupport.framework */; };
 		5CEF6F761732F8C90054A86F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F751732F8C90054A86F /* CoreTelephony.framework */; };
@@ -70,6 +69,8 @@
 		ECABE5A81821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */; };
 		ECABE5A91821E4C80037E6C5 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5861821E4C80037E6C5 /* MRAID.bundle */; };
 		ECB57A551822C43700FA7441 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
+		ECCF18FF18358FA500B17EB4 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECCF18FC18358FA500B17EB4 /* ANMRAIDViewController.m */; };
+		ECCF190018358FA500B17EB4 /* ANAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ECCF18FE18358FA500B17EB4 /* ANAdRequest.m */; };
 		ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECD9298B1822CAD300420840 /* InfoPlist.strings */; };
 		ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECD929901822CAD300420840 /* TestsTests-Info.plist */; };
 		ECD929AB1822CAD300420840 /* ANAdAdapterBannerDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929941822CAD300420840 /* ANAdAdapterBannerDummy.m */; };
@@ -216,6 +217,10 @@
 		ECABE5841821E4C80037E6C5 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECABE5861821E4C80037E6C5 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		ECCF18FB18358FA500B17EB4 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
+		ECCF18FC18358FA500B17EB4 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
+		ECCF18FD18358FA500B17EB4 /* ANAdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequest.h; sourceTree = "<group>"; };
+		ECCF18FE18358FA500B17EB4 /* ANAdRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequest.m; sourceTree = "<group>"; };
 		ECD9298C1822CAD300420840 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationCallbacksTests.m; sourceTree = "<group>"; };
 		ECD9298F1822CAD300420840 /* MediationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationTests.m; sourceTree = "<group>"; };
@@ -278,7 +283,6 @@
 				ECFF032C1822C3710021F14C /* CoreGraphics.framework in Frameworks */,
 				ECFF032B1822C3030021F14C /* CoreTelephony.framework in Frameworks */,
 				5CC9B9C217DF9A5F000DC924 /* Foundation.framework in Frameworks */,
-				5CD8159517DA73AE0046A256 /* iAd.framework in Frameworks */,
 				ECFF032D1822C37E0021F14C /* MediaPlayer.framework in Frameworks */,
 				ECFF032E1822C38F0021F14C /* MessageUI.framework in Frameworks */,
 				ECFF03281822C2E00021F14C /* QuartzCore.framework in Frameworks */,
@@ -443,6 +447,10 @@
 		ECABE5581821E4C80037E6C5 /* internal */ = {
 			isa = PBXGroup;
 			children = (
+				ECCF18FB18358FA500B17EB4 /* ANMRAIDViewController.h */,
+				ECCF18FC18358FA500B17EB4 /* ANMRAIDViewController.m */,
+				ECCF18FD18358FA500B17EB4 /* ANAdRequest.h */,
+				ECCF18FE18358FA500B17EB4 /* ANAdRequest.m */,
 				ECABE5591821E4C80037E6C5 /* ANAdFetcher.h */,
 				ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */,
 				ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */,
@@ -703,6 +711,7 @@
 			files = (
 				ECABE5921821E4C80037E6C5 /* ANBannerAdView.m in Sources */,
 				ECD929AF1822CAD300420840 /* ANFailedMultiple.m in Sources */,
+				ECCF190018358FA500B17EB4 /* ANAdRequest.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				ECABE59C1821E4C80037E6C5 /* ANMediatedAd.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
@@ -724,6 +733,7 @@
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
 				ECABE59B1821E4C80037E6C5 /* ANLogging.m in Sources */,
 				ECABE58B1821E4C80037E6C5 /* ANOpenUDID.m in Sources */,
+				ECCF18FF18358FA500B17EB4 /* ANMRAIDViewController.m in Sources */,
 				ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */,
 				ECABE5911821E4C80037E6C5 /* ANAdWebViewController.m in Sources */,
 				ECD929B01822CAD300420840 /* ANFailThenLoad.m in Sources */,

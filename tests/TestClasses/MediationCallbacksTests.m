@@ -63,7 +63,7 @@
                                             placementId:[NSString stringWithFormat:@"%d", placementId]];
     self.bannerAdView.adSize = CGSizeMake(320, 50);
     self.bannerAdView.delegate = self;
-    self.bannerAdView.autorefreshInterval = 0;
+    self.bannerAdView.autoRefreshInterval = 0;
     
     [self.bannerAdView loadAd];
     [self waitForCompletion:waitTime];
