@@ -708,23 +708,27 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject {
     self.loading = NO;
-    // fire the resultCB if there is one
-    if ([resultCBString length] > 0) {
-        // if it was successful, don't act on the response
-        if (reason == ANAdResponseSuccessful) {
+    
+    if (reason == ANAdResponseSuccessful) {
+        // fire the resultCB if there is one
+        if ([resultCBString length] > 0) {
+            // if it was successful, don't act on the response
             self.successResultRequest.URL = [NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]];
             self.successResultConnection = [NSURLConnection connectionWithRequest:self.successResultRequest delegate:self];
-            
-        	ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:adObject];
-            [self processFinalResponse:response];
         }
-        // otherwise treat it as a normal request
-        else {
+
+        ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:adObject];
+        [self processFinalResponse:response];
+    } else {
+        // fire the resultCB if there is one
+        if ([resultCBString length] > 0) {
+            // treat failed responses as normal requests
             [self requestAdWithURL:[NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]]];
+        } else {
+            // if no resultCB and no successful ads yet,
+            // look for the next ad in the current array
+            [self processAdResponse:nil];
         }
-    } else if (reason != ANAdResponseSuccessful) {
-        // if no resultCB and no ads yet, look for the next ad in the current array
-        [self processAdResponse:nil];
     }
 }
 

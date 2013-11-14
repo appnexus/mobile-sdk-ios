@@ -94,7 +94,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
     
     if (jsonParsingError != nil) {
-        ANLogError(NSLocalizedString(@"response_json_error", jsonParsingError));
+        ANLogError(ANErrorString(@"response_json_error"), jsonParsingError);
         
         return [ANAdResponse adResponseFailWithError:jsonParsingError];
     }
