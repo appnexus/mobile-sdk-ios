@@ -33,6 +33,7 @@
 		ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
 		ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */; };
 		ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
+		ECCF18F51835792300B17EB4 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCF18F41835792300B17EB4 /* iAd.framework */; };
 		ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +115,7 @@
 		ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANGlobal.h; path = ../../../sdk/internal/ANGlobal.h; sourceTree = "<group>"; };
 		ECB1253B1821A35D00CB4BE8 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/internal/ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECB1253C1821A35D00CB4BE8 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANLogging.h; path = ../../../sdk/internal/ANLogging.h; sourceTree = "<group>"; };
+		ECCF18F41835792300B17EB4 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ECFCC0D91831890F00797F72 /* ANAdAdapterMillennialMediaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterMillennialMediaBase.h; sourceTree = "<group>"; };
 		ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterMillennialMediaBase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCF18F51835792300B17EB4 /* iAd.framework in Frameworks */,
 				ECB1244518219E2000CB4BE8 /* UIKit.framework in Frameworks */,
 				ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */,
 				ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */,
@@ -167,6 +170,7 @@
 		ECB1237218219C9D00CB4BE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECCF18F41835792300B17EB4 /* iAd.framework */,
 				ECB1244A18219ECD00CB4BE8 /* MillennialMedia */,
 				ECB1244F18219ECE00CB4BE8 /* iAd */,
 				ECB1245418219ECE00CB4BE8 /* AdMob */,
