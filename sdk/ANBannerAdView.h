@@ -15,9 +15,9 @@
 
 #import "ANAdView.h"
 
-#define kANBannerAdViewDefaultAutorefreshInterval 30.0
-#define kANBannerAdViewMinimumAutorefreshInterval 15.0
-#define kANBannerAdViewAutorefreshThreshold 0.0
+#define kANBannerAdViewDefaultAutoRefreshInterval 30.0
+#define kANBannerAdViewMinimumAutoRefreshInterval 15.0
+#define kANBannerAdViewAutoRefreshThreshold 0.0
 
 @protocol ANBannerAdViewDelegate;
 
@@ -25,7 +25,7 @@
 
 @property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
 @property (nonatomic, assign) UIViewController *rootViewController;
-@property (nonatomic, readwrite, assign) NSTimeInterval autorefreshInterval;
+@property (nonatomic, readwrite, assign) NSTimeInterval autoRefreshInterval;
 
 // Initializes an ad view with the specified frame, placementId, and requested ad size (which must be smaller than the view's size)
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;

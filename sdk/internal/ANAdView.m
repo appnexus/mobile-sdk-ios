@@ -91,7 +91,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     __adFetcher.delegate = nil;
-    [__adFetcher stopAd]; // MUST be called. stopAd invalidates the autorefresh timer, which is retaining the adFetcher as well.
+    [__adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
     
     if ([__contentView respondsToSelector:@selector(setDelegate:)]) {
         // If our content is a UIWebview, we want to make sure to clear out the delegate if we're destroying it
@@ -246,7 +246,7 @@
 
 #pragma mark ANAdFetcherDelegate
 
-- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
     return 0.0;
 }
 
@@ -368,14 +368,14 @@
     if (contentView != __contentView) {
         [self removeCloseButton];
 		
-		[__contentView removeFromSuperview];
-        
         if ([__contentView isKindOfClass:[UIWebView class]]) {
             UIWebView *webView = (UIWebView *)__contentView;
-            [webView setDelegate:nil];
             [webView stopLoading];
+            [webView setDelegate:nil];
         }
 		
+		[__contentView removeFromSuperview];
+        
         if (contentView != nil) {
             if ([contentView isKindOfClass:[UIWebView class]]) {
                 [(UIWebView *)contentView removeDocumentPadding];

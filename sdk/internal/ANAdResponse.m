@@ -84,6 +84,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     
 
     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    ANLogDebug(@"Processing response: %@", responseString);
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherDidReceiveResponseNotification object:self userInfo:[NSDictionary dictionaryWithObject:responseString ? responseString : @"" forKey:kANAdFetcherAdResponseKey]];
     

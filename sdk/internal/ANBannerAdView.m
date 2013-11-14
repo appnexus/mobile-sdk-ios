@@ -42,7 +42,7 @@
 
 @implementation ANBannerAdView
 @synthesize delegate = __delegate;
-@synthesize autorefreshInterval = __autorefreshInterval;
+@synthesize autoRefreshInterval = __autoRefreshInterval;
 @synthesize defaultSuperView = __defaultSuperView;
 
 #pragma mark Initialization
@@ -53,8 +53,8 @@
     self.backgroundColor = [UIColor clearColor];
     self.autoresizingMask = UIViewAutoresizingNone;
     
-    // Set default autorefreshInterval
-    __autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
+    // Set default autoRefreshInterval
+    __autoRefreshInterval = kANBannerAdViewDefaultAutoRefreshInterval;
 }
 
 - (void)awakeFromNib {
@@ -123,27 +123,27 @@
     }
 }
 
-- (void)setAutorefreshInterval:(NSTimeInterval)autorefreshInterval {
+- (void)setAutoRefreshInterval:(NSTimeInterval)autoRefreshInterval {
     // if auto refresh is above the threshold (0), turn auto refresh on
-    if (autorefreshInterval > kANBannerAdViewAutorefreshThreshold) {
+    if (autoRefreshInterval > kANBannerAdViewAutoRefreshThreshold) {
         // minimum allowed value for auto refresh is (15).
-        if (autorefreshInterval < kANBannerAdViewMinimumAutorefreshInterval) {
-            __autorefreshInterval = kANBannerAdViewMinimumAutorefreshInterval;
-            ANLogWarn(@"setAutorefreshInterval called with value %f, but cannot be less than %f", autorefreshInterval, kANBannerAdViewMinimumAutorefreshInterval);
+        if (autoRefreshInterval < kANBannerAdViewMinimumAutoRefreshInterval) {
+            __autoRefreshInterval = kANBannerAdViewMinimumAutoRefreshInterval;
+            ANLogWarn(@"setAutoRefreshInterval called with value %f, but cannot be less than %f", autoRefreshInterval, kANBannerAdViewMinimumAutoRefreshInterval);
         }
         
-		ANLogDebug(@"Autorefresh interval set to %f seconds", autorefreshInterval);
-		__autorefreshInterval = autorefreshInterval;
+		ANLogDebug(@"AutoRefresh interval set to %f seconds", autoRefreshInterval);
+		__autoRefreshInterval = autoRefreshInterval;
         
 		if ([self.adFetcher isLoading]) {
             [self.adFetcher stopAd];
         }
         
-        ANLogDebug(@"New autorefresh interval set. Making ad request.");
+        ANLogDebug(@"New autoRefresh interval set. Making ad request.");
         [self.adFetcher requestAd];
     } else {
 		ANLogDebug(@"Turning auto refresh off");
-		__autorefreshInterval = autorefreshInterval;
+		__autoRefreshInterval = autoRefreshInterval;
     }
 }
 
@@ -260,8 +260,8 @@
 	[super showCloseButtonWithTarget:target action:action containerView:self];
 }
 
-- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
-    return self.autorefreshInterval;
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
+    return self.autoRefreshInterval;
 }
 
 #pragma mark delegate selector helper method

@@ -38,8 +38,10 @@
     [MMSDK initialize];
     [self addMMNotificationObservers];
     
+    self.apid = idString;
+    
     if ([MMInterstitial isAdAvailableForApid:self.apid]) {
-        ANLogDebug(@"MillennialMedia interstitial was already available");
+        ANLogInfo(@"MillennialMedia interstitial was already available, attempting to load cached ad");
         [self.delegate didLoadInterstitialAd:self];
         return;
     }
@@ -60,8 +62,6 @@
         request = [MMRequest request];
     }
     
-    self.apid = idString;
-
     [MMInterstitial fetchWithRequest:request
                                 apid:idString
                         onCompletion:^(BOOL success, NSError *error) {
@@ -69,7 +69,7 @@
                                 ANLogDebug(@"MillennialMedia interstitial did load");
                                 [self.delegate didLoadInterstitialAd:self];
                             } else {
-                                ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
+                                ANLogWarn(@"MillennialMedia interstitial failed to load with error: %@", error);
                                 ANAdResponseCode code = ANAdResponseInternalError;
                                 
                                 switch (error.code) {
@@ -100,7 +100,7 @@
 - (void)presentFromViewController:(UIViewController *)viewController
 {
     if (![MMInterstitial isAdAvailableForApid:self.apid]) {
-        ANLogDebug(@"MillennialMedia interstitial unavailable");
+        ANLogWarn(@"MillennialMedia interstitial no longer available, failed to present ad");
         [self.delegate failedToDisplayAd];
         return;
     }
@@ -111,6 +111,7 @@
                    withOrientation:0
                       onCompletion:^(BOOL success, NSError *error) {
                           if (!success) {
+                              ANLogWarn(@"MillennialMedia interstitial call to display ad failed");
                               [self.delegate failedToDisplayAd];
                           }
                       }];

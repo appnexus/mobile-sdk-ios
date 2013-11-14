@@ -36,11 +36,6 @@
 	self.interstitialAd.adUnitID = idString;
 	self.interstitialAd.delegate = self;
     
-    if (self.interstitialAd.isReady) {
-        [self.delegate didLoadInterstitialAd:self];
-        return;
-    }
-    
     GADRequest *request = [GADRequest request];
 
     if (location) {

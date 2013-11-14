@@ -223,8 +223,8 @@ typedef enum _ANMRAIDState
         }
         else
         {
-            [self.adFetcher setupAutorefreshTimerIfNecessary];
-            [self.adFetcher startAutorefreshTimer];
+            [self.adFetcher setupAutoRefreshTimerIfNecessary];
+            [self.adFetcher startAutoRefreshTimer];
         }
     }
 }

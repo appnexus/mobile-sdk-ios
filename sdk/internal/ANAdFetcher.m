@@ -41,7 +41,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 @property (nonatomic, readwrite, strong) NSURLConnection *connection;
 @property (nonatomic, readwrite, strong) NSMutableURLRequest *request;
 @property (nonatomic, readwrite, strong) NSMutableData *data;
-@property (nonatomic, readwrite, strong) NSTimer *autorefreshTimer;
+@property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 @property (nonatomic, readwrite, strong) NSURL *URL;
 @property (nonatomic, readonly) NSString *placementId;
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
@@ -49,15 +49,12 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 
-- (void)startAutorefreshTimer;
-- (void)processAdResponse:(ANAdResponse *)response;
-
 @end
 
 @implementation ANAdFetcher
 
 @synthesize URL = __URL;
-@synthesize autorefreshTimer = __autorefreshTimer;
+@synthesize autoRefreshTimer = __autoRefreshTimer;
 @synthesize loading = __loading;
 @synthesize data = __data;
 @synthesize request = __request;
@@ -88,7 +85,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     return request;
 }
 
-- (void)autorefreshTimerDidFire:(NSTimer *)timer
+- (void)autoRefreshTimerDidFire:(NSTimer *)timer
 {
 	[self.connection cancel];
 	self.loading = NO;
@@ -98,13 +95,13 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (void)requestAdWithURL:(NSURL *)URL
 {
-    [self.autorefreshTimer invalidate];
+    [self.autoRefreshTimer invalidate];
     
     if (!self.isLoading)
 	{
         ANLogInfo(ANErrorString(@"fetcher_start"));
         
-        if ([self.delegate autorefreshIntervalForAdFetcher:self] > 0.0)
+        if ([self.delegate autoRefreshIntervalForAdFetcher:self] > 0.0)
         {
             ANLogDebug(ANErrorString(@"fetcher_start_auto"));
         }
@@ -160,8 +157,8 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (void)stopAd
 {
-    [self.autorefreshTimer invalidate];
-    self.autorefreshTimer = nil;
+    [self.autoRefreshTimer invalidate];
+    self.autoRefreshTimer = nil;
     
     [self.connection cancel];
     self.connection = nil;
@@ -175,7 +172,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 	
     [__connection cancel];
-	[__autorefreshTimer invalidate];
+	[__autoRefreshTimer invalidate];
 }
 
 - (NSString *)placementId
@@ -409,25 +406,25 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (void)processFinalResponse:(ANAdResponse *)response {
     [self.delegate adFetcher:self didFinishRequestWithResponse:response];
-    [self startAutorefreshTimer];
+    [self startAutoRefreshTimer];
 }
 
-- (void)setupAutorefreshTimerIfNecessary
+- (void)setupAutoRefreshTimerIfNecessary
 {
-    NSTimeInterval interval = [self.delegate autorefreshIntervalForAdFetcher:self];
+    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
     
     if (interval > 0.0f)
     {
-        self.autorefreshTimer = [NSTimer timerWithTimeInterval:interval
+        self.autoRefreshTimer = [NSTimer timerWithTimeInterval:interval
                                                         target:self
-                                                      selector:@selector(autorefreshTimerDidFire:)
+                                                      selector:@selector(autoRefreshTimerDidFire:)
                                                       userInfo:nil
                                                        repeats:NO];
     }
     else
     {
-        [self.autorefreshTimer invalidate];
-        self.autorefreshTimer = nil;
+        [self.autoRefreshTimer invalidate];
+        self.autoRefreshTimer = nil;
     }
 }
 
@@ -585,7 +582,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 {
     self.loading = NO;
     
-    NSTimeInterval interval = [self.delegate autorefreshIntervalForAdFetcher:self];
+    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
     ANLogInfo(@"No ad received. Will request ad in %f seconds.", interval);
     
     NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:code userInfo:errorInfo];
@@ -593,19 +590,19 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     [self processFinalResponse:response];
 }
 
-- (void)startAutorefreshTimer
+- (void)startAutoRefreshTimer
 {
-    if (self.autorefreshTimer == nil)
+    if (self.autoRefreshTimer == nil)
 	{
 		ANLogDebug(ANErrorString(@"fetcher_stopped"));
 	}
-    else if ([self.autorefreshTimer isScheduled])
+    else if ([self.autoRefreshTimer isScheduled])
 	{
-		ANLogDebug(@"Autorefresh timer already scheduled.");
+		ANLogDebug(@"AutoRefresh timer already scheduled.");
 	}
 	else
 	{
-		[self.autorefreshTimer scheduleNow];
+		[self.autoRefreshTimer scheduleNow];
 	}
 }
 
@@ -640,9 +637,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 			
 			self.data = [NSMutableData data];
 			
-			ANLogDebug(@"Response %@ received", response);
+			ANLogDebug(@"Received response: %@", response);
 			
-			[self setupAutorefreshTimerIfNecessary];
+			[self setupAutoRefreshTimerIfNecessary];
 		}
         // don't process the success resultCB response, just log it.
 		else if (connection == self.successResultConnection)
@@ -652,7 +649,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 				int status = [httpResponse statusCode];
 				
-				ANLogDebug(@"Received response %@ with code %d from response URL request.", httpResponse, status);
+				ANLogDebug(@"Received response with code %d from response URL request.", status);
 			}
 		} else {
             ANLogDebug(@"Received response from unknown");
@@ -698,7 +695,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 			
 			self.loading = NO;
 			
-			[self setupAutorefreshTimerIfNecessary];
+			[self setupAutoRefreshTimerIfNecessary];
 			ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:error];
             [self processFinalResponse:failureResponse];
 		}

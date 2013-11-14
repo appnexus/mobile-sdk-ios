@@ -37,8 +37,8 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (void)stopAd;
 - (void)requestAd;
 - (void)requestAdWithURL:(NSURL *)URL;
-- (void)startAutorefreshTimer;
-- (void)setupAutorefreshTimerIfNecessary;
+- (void)startAutoRefreshTimer;
+- (void)setupAutoRefreshTimerIfNecessary;
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject;
@@ -57,7 +57,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
-- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 
 @optional
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;

@@ -79,7 +79,7 @@
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
     BOOL settingsAllowPSA = settings.allowPSA;
     BOOL settingsClickShouldOpenInBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
-    CGFloat settingsAutorefreshInterval = (CGFloat)settings.refreshRate;
+    CGFloat settingsAutoRefreshInterval = (CGFloat)settings.refreshRate;
     
     CGFloat centerX = 0.0;
     CGFloat centerY = 0.0;
@@ -100,7 +100,7 @@
     self.bannerAdView.placementId = settingsPlacementID;
     self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
     self.bannerAdView.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
-    [self.bannerAdView setAutorefreshInterval:settingsAutorefreshInterval];
+    [self.bannerAdView setAutoRefreshInterval:settingsAutoRefreshInterval];
     [self.scrollView addSubview:self.bannerAdView];
     
     if(!settings.refreshRate) { // If there's no refresh rate, then manually load one ad
