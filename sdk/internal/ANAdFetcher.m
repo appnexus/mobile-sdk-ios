@@ -180,6 +180,16 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     return [self.delegate placementId];
 }
 
+#pragma mark Request Url Construction
+
+- (NSString *)URLEncodingFrom:(NSString *)originalString {
+    return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                               (CFStringRef)originalString,
+                                                               NULL,
+                                                               (CFStringRef)@"!*'();:@&=+$,/?%#[]<>",
+                                                               kCFStringEncodingUTF8);
+}
+
 - (NSString *)jsonFormatParameter {
     return @"&format=json";
 }
@@ -190,7 +200,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         return @"";
     }
     
-    return [NSString stringWithFormat:@"id=%@", [self.placementId stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [NSString stringWithFormat:@"id=%@", [self URLEncodingFrom:self.placementId]];
 }
 
 - (NSString *)sdkVersionParameter {
@@ -206,9 +216,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 }
 
 - (NSString *)deviceModelParameter {
-    NSString *modelComponent = [NSString stringWithFormat:@"&devmodel=%@", [ANDeviceModel() stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
-    return modelComponent;
+    return [NSString stringWithFormat:@"&devmodel=%@", [self URLEncodingFrom:ANDeviceModel()]];
 }
 
 - (NSString *)applicationIdParameter {
@@ -228,16 +236,16 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
     // set the fields to empty string if not available
     NSString *carrierParameter =
-    ([[carrier carrierName] length] > 0) ? [[carrier carrierName]
-       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
+    ([[carrier carrierName] length] > 0)
+    ? [self URLEncodingFrom:[carrier carrierName]] : @"";
     
     NSString *mccParameter =
-    ([[carrier mobileCountryCode] length] > 0) ? [[carrier mobileCountryCode]
-       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
+    ([[carrier mobileCountryCode] length] > 0)
+    ? [self URLEncodingFrom:[carrier mobileCountryCode]] : @"";
     
     NSString *mncParameter =
-    ([carrier mobileNetworkCode] > 0) ? [[carrier mobileNetworkCode]
-       stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"";
+    ([carrier mobileNetworkCode] > 0)
+    ? [self URLEncodingFrom:[carrier mobileNetworkCode]] : @"";
     
     if ([carrierParameter length] > 0) {
         param = [param stringByAppendingString:
@@ -294,7 +302,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (NSString *)userAgentParameter {
     return [NSString stringWithFormat:@"&ua=%@",
-            [ANUserAgent() stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            [self URLEncodingFrom:ANUserAgent()]];
 }
 
 - (NSString *)languageParameter {
@@ -315,7 +323,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     BOOL shouldServePsas = [self.delegate shouldServePublicServiceAnnouncements];
     CGFloat reserve = [self.delegate reserve];
     if (reserve > 0.0f) {
-        NSString *reserveParameter = [[NSString stringWithFormat:@"%f", reserve] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *reserveParameter = [self URLEncodingFrom:[NSString stringWithFormat:@"%f", reserve]];
         return [NSString stringWithFormat:@"&psa=0&reserve=%@", reserveParameter];
     } else {
         return shouldServePsas ? @"&psa=1" : @"&psa=0";
@@ -328,7 +336,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         return @"";
     }
     
-    ageValue = [ageValue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    ageValue = [self URLEncodingFrom:ageValue];
     return [NSString stringWithFormat:@"&age=%@", ageValue];
 }
 
@@ -360,7 +368,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
                                        [NSString stringWithFormat:@"&%@=%@",
                                         customKeywordsKeys[i],
-                                        [value stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+                                        [self URLEncodingFrom:value]]];
         }
     }
     return customKeywordsParameter;
