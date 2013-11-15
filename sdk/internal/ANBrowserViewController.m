@@ -130,9 +130,10 @@
         }
         [[UIApplication sharedApplication] openURL:URL];
         return NO;
+    } else {
+        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+        return NO;
     }
-
-	return YES;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
