@@ -15,37 +15,94 @@
 
 #import "ANAdView.h"
 
-#define kANBannerAdViewDefaultAutoRefreshInterval 30.0
-#define kANBannerAdViewMinimumAutoRefreshInterval 15.0
-#define kANBannerAdViewAutoRefreshThreshold 0.0
+#pragma mark Auto-refresh settings
+
+// These constants control the default behavior of the ad view autorefresh (i.e.,
+// how often the view will fetch a new ad).  Ads will only autorefresh
+// when they are visible.
+
+// DefaultAutorefreshInterval: By default, your ads will autorefresh
+// at this interval.
+#define kANBannerAdViewDefaultAutorefreshInterval 30.0
+
+// MinimumAutorefreshInterval: The minimum time between refreshes.
+#define kANBannerAdViewMinimumAutorefreshInterval 15.0
+
+//*RL** We will  delete this from HERE should not be exposed to developer
+#define kANBannerAdViewAutorefreshThreshold 0.0
 
 @protocol ANBannerAdViewDelegate;
 
+#pragma mark Example implementation
+
+// This view displays banner ads.  A simple implementation that shows
+// a 300x50 ad is:
+//
+//  CGSize size = CGSizeMake(300, 50);
+//  
+//  // Create the banner ad view and add it as a subview
+//  ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:@"1671096" adSize:size];
+//  banner.rootViewController = self
+//  [self.view addSubview:banner];
+//
+//  // Load an ad!
+//  [banner loadAd];
+//  [banner release];
+
 @interface ANBannerAdView : ANAdView
 
+// Delegate object that receives state change notifications from this
+// ANBannerAdView.
 @property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
-@property (nonatomic, assign) UIViewController *rootViewController;
-@property (nonatomic, readwrite, assign) NSTimeInterval autoRefreshInterval;
 
-// Initializes an ad view with the specified frame, placementId, and requested ad size (which must be smaller than the view's size)
+@property (nonatomic, assign) UIViewController *rootViewController;
+
+// Autorefresh interval.  You can change this with the
+// `setAutorefreshInterval' method.
+@property (nonatomic, readwrite, assign) NSTimeInterval autorefreshInterval;
+
+#pragma mark Creating an ad view
+
+// You can use either of the initialization methods
+// below. `adViewWithFrame' handles calling `initWithFrame' for you,
+// but it's there if you need to use it directly.
+
+// Initializes an ad view with the specified frame (this frame must be
+// smaller than the view's size).  Used internally by
+// `adViewWithFrame', so you may want to use that instead, unless you
+// prefer to manage this manually.
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
-// Autoreleased constructors of the above initializers
+// Initializes an ad view. Autoreleased constructors of the above
+// initializers. These will handle the frame initialization for
+// you. (For usage, see the example at the top of this file).
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
-// Loads a single ad into this ad view.
+#pragma mark Loading an ad
+
+// Loads a single ad into this ad view.  Governed by the autorefresh
+// settings described above.
 - (void)loadAd;
 
+// Reset the ad frame to a new rectange with or without animation.
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated;
 
 @end
 
+// See ANAdDelegate for common delegate methods.  The
+// ANBannerAdViewDelegate specific methods are defined here.
 @protocol ANBannerAdViewDelegate <ANAdDelegate>
 
 @optional
+// Sent just before the adView will resize to fill a larger part of
+// the screen.  This is in response to a user interacting with an ad
+// that resizes itself.
 - (void)bannerAdView:(ANBannerAdView *)adView willResizeToFrame:(CGRect)frame;
+
+// Sent after the adView has resized.  The close events are sent in
+// ANAdDelegate: adWillClose and adDidClose.
 - (void)bannerAdViewDidResize:(ANBannerAdView *)adView;
 
 @end
