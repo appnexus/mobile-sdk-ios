@@ -28,7 +28,6 @@
 // MinimumAutorefreshInterval: The minimum time between refreshes.
 #define kANBannerAdViewMinimumAutorefreshInterval 15.0
 
-//*RL** We will  delete this from HERE should not be exposed to developer
 #define kANBannerAdViewAutorefreshThreshold 0.0
 
 @protocol ANBannerAdViewDelegate;
