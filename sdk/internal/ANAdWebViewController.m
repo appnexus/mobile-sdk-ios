@@ -100,7 +100,7 @@ typedef enum _ANMRAIDState
     if (!self.completedFirstLoad)
     {
         [webView firePlacementType:[self.adFetcher.delegate placementTypeForAdFetcher:self.adFetcher]];
-        [webView setIsViewable:YES];
+        [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
         [webView fireReadyEvent];
 		
@@ -148,7 +148,7 @@ typedef enum _ANMRAIDState
     
         if ([hiddenState isEqualToString:@"hidden"])
         {
-            [webView setIsViewable:YES];
+            [webView setIsViewable:(BOOL)!webView.hidden];
             [webView fireStateChangeEvent:ANMRAIDStateDefault];
         }
         
