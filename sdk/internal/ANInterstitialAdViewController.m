@@ -52,9 +52,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-	if (!self.viewed) {
-        self.viewed = YES;
-    }
+    self.viewed = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
