@@ -19,6 +19,7 @@
 #import "ANAdView.h"
 #import "NSString+ANCategory.h"
 #import "ANBrowserViewController.h"
+#import "UIWebView+ANCategory.h"
 
 typedef enum _ANMRAIDState
 {
@@ -48,6 +49,11 @@ typedef enum _ANMRAIDState
 @synthesize adFetcher = __adFetcher;
 @synthesize webView = __webView;
 @synthesize completedFirstLoad = __completedFirstLoad;
+
+- (void)setWebView:(UIWebView *)webView {
+    [webView setMediaProperties];
+    __webView = webView;
+}
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {

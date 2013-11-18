@@ -115,7 +115,9 @@
 		{
 			if ([contentView isKindOfClass:[UIWebView class]])
 			{
-				[(UIWebView *)contentView removeDocumentPadding];
+                UIWebView *webView = (UIWebView *)contentView;
+				[webView removeDocumentPadding];
+				[webView setMediaProperties];
 			}
 			
 			[self.view insertSubview:contentView belowSubview:self.closeButton];
