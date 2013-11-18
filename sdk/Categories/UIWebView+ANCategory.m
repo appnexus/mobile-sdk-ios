@@ -13,6 +13,7 @@
  limitations under the License.
  */
 #import "UIWebView+ANCategory.h"
+#import "ANLogging.h"
 
 NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margin='0';document.body.style.padding = '0'";
 
@@ -21,6 +22,15 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
 - (void)removeDocumentPadding;
 {
     [self stringByEvaluatingJavaScriptFromString:kANAdRemovePaddingJavascriptString];
+}
+
+- (void)setMediaProperties {
+    if ([self respondsToSelector:@selector(setAllowsInlineMediaPlayback:)]) {
+        [self setAllowsInlineMediaPlayback:YES];
+    }
+    if ([self respondsToSelector:@selector(setMediaPlaybackRequiresUserAction:)]) {
+        [self setMediaPlaybackRequiresUserAction:NO];
+    }
 }
 
 - (void)setScrollEnabled:(BOOL)scrollable

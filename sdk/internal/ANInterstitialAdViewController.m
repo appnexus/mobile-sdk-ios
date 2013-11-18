@@ -29,35 +29,36 @@
 @synthesize contentView = __contentView;
 @synthesize backgroundColor = __backgroundColor;
 
-- (id)init
-{
-	self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
+- (id)init {
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
     self.originalHiddenState = NO;
     self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	return self;
+    return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     if (!self.backgroundColor) {
         self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }
-	self.progressView.hidden = YES;
+    self.progressView.hidden = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
     [self setStatusBarHidden:YES];
     [self centerContentView];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-	if (!self.viewed)
-	{
-		self.viewed = YES;
-	}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.viewed = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self setStatusBarHidden:self.originalHiddenState];
+    [self.progressTimer invalidate];
 }
 
 - (void)startCountdownTimer
@@ -65,12 +66,6 @@
 	self.progressView.hidden = NO;
 	self.timerStartDate = [NSDate date];
 	self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self setStatusBarHidden:self.originalHiddenState];
-	[self.progressTimer invalidate];
 }
 
 - (void)stopCountdownTimer
@@ -115,7 +110,9 @@
 		{
 			if ([contentView isKindOfClass:[UIWebView class]])
 			{
-				[(UIWebView *)contentView removeDocumentPadding];
+                UIWebView *webView = (UIWebView *)contentView;
+				[webView removeDocumentPadding];
+				[webView setMediaProperties];
 			}
 			
 			[self.view insertSubview:contentView belowSubview:self.closeButton];

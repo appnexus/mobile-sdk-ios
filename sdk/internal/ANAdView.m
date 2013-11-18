@@ -100,6 +100,7 @@
 
     __contentView = nil;
     __closeButton = nil;
+    __customKeywords = nil;
 }
 
 - (void)mraidResizeAd:(CGSize)size
@@ -378,7 +379,9 @@
         
         if (contentView != nil) {
             if ([contentView isKindOfClass:[UIWebView class]]) {
-                [(UIWebView *)contentView removeDocumentPadding];
+                UIWebView *webView = (UIWebView *)contentView;
+                [webView removeDocumentPadding];
+                [webView setMediaProperties];
             }
             
             [self addSubview:contentView];

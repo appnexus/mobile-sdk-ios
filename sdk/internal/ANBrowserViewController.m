@@ -16,6 +16,7 @@
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "UIWebView+ANCategory.h"
 
 @interface ANBrowserViewController ()
 
@@ -89,20 +90,27 @@
 	[self refreshButtons];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.webView loadRequest:self.urlRequest];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [__webView stopLoading];
+}
+
 - (void)refreshButtons
 {
 	self.backButton.enabled = [self.webView canGoBack];
 	self.forwardButton.enabled = [self.webView canGoForward];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-	[self.webView loadRequest:self.urlRequest];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[__webView stopLoading];
+- (void)setWebView:(UIWebView *)webView {
+    [webView setMediaProperties];
+    __webView = webView;
 }
 
 - (void)dealloc
