@@ -183,13 +183,11 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 #pragma mark Request Url Construction
 
 - (NSString *)URLEncodingFrom:(NSString *)originalString {
-    @autoreleasepool {
-        return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                            (CFStringRef)originalString,
-                                                                            NULL,
-                                                                            (CFStringRef)@"!*'();:@&=+$,/?%#[]<>",
-                                                                            kCFStringEncodingUTF8);
-    }
+    return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                                 (CFStringRef)originalString,
+                                                                                 NULL,
+                                                                                 (CFStringRef)@"!*'();:@&=+$,/?%#[]<>",
+                                                                                 kCFStringEncodingUTF8);
 }
 
 - (NSString *)jsonFormatParameter {
