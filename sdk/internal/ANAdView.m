@@ -100,6 +100,7 @@
 
     __contentView = nil;
     __closeButton = nil;
+    __customKeywords = nil;
 }
 
 - (void)mraidResizeAd:(CGSize)size

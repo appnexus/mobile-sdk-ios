@@ -90,27 +90,27 @@
 	[self refreshButtons];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.webView loadRequest:self.urlRequest];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [__webView stopLoading];
+}
+
 - (void)refreshButtons
 {
 	self.backButton.enabled = [self.webView canGoBack];
 	self.forwardButton.enabled = [self.webView canGoForward];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-	[self.webView loadRequest:self.urlRequest];
-}
-
 - (void)setWebView:(UIWebView *)webView {
     [webView setMediaProperties];
     __webView = webView;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[__webView stopLoading];
-    [super viewWillDisappear:animated];
 }
 
 - (void)dealloc
