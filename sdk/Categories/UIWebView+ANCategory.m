@@ -31,13 +31,6 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
     if ([self respondsToSelector:@selector(setMediaPlaybackRequiresUserAction:)]) {
         [self setMediaPlaybackRequiresUserAction:NO];
     }
-    
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    NSError *setCategoryError = nil;
-    if (![audioSession setCategory:AVAudioSessionCategoryPlayback
-                             error:&setCategoryError]) {
-        ANLogWarn(@"Failed to set audio session category: %@ ", setCategoryError);
-    }
 }
 
 - (void)setScrollEnabled:(BOOL)scrollable

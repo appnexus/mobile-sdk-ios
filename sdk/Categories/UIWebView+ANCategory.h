@@ -15,7 +15,6 @@ limitations under the License.
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
 
 @interface UIWebView (ANCategory)
 
