@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterBanneriAd.h"
+#import "ANGlobal.h"
 #import "ANLogging.h"
 
 @interface ANAdAdapterBanneriAd ()
@@ -46,7 +47,7 @@
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-    ANLogDebug("iAd banner failed to load with error: %@", error);
+    ANLogDebug(@"iAd banner failed to load with error:", [error localizedDescription]);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
@@ -80,12 +81,12 @@
 }
 
 - (void)bannerViewWillLoadAd:(ADBannerView *)banner {
-    ANLogDebug("iAd banner will load");
+    ANLogDebug(@"iAd banner will load");
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-    ANLogDebug("iAd banner did load");
+    ANLogDebug(@"iAd banner did load");
 	[self.delegate didLoadBannerAd:banner];
 }
 

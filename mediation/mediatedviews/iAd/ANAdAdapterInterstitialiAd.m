@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialiAd.h"
+#import "ANGlobal.h"
 #import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialiAd ()
@@ -92,7 +93,7 @@
 
 - (void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
 {
-    ANLogDebug("iAd banner interstitial to load with error: %@", error);
+    ANLogDebug(@"iAd banner interstitial to load with error: %@", [error localizedDescription]);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
