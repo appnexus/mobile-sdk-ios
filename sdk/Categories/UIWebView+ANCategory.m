@@ -16,7 +16,7 @@
 #import "ANLogging.h"
 #import <AVFoundation/AVFoundation.h>
 
-static BOOL audioCategoryHasBeenSet = false;
+static BOOL audioCategoryHasBeenSet = NO;
 
 NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margin='0';document.body.style.padding = '0'";
 
@@ -40,7 +40,7 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
         NSError *error = nil;
         if ([audioSession setCategory:AVAudioSessionCategoryPlayback
                                 error:&error]) {
-            audioCategoryHasBeenSet = true;
+            audioCategoryHasBeenSet = YES;
         } else {
             ANLogDebug(@"Failed to set audio session category: %@ ", [error localizedDescription]);
         }
