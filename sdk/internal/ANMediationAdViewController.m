@@ -32,7 +32,7 @@
 
 @implementation ANMediationAdViewController
 
-+ (ANMediationAdViewController *)initWithFetcher:fetcher adViewDelgate:(id<ANAdViewDelegate>)adViewDelegate {
++ (ANMediationAdViewController *)initWithFetcher:fetcher adViewDelegate:(id<ANAdViewDelegate>)adViewDelegate {
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
     controller.fetcher = fetcher;
     controller.adViewDelegate = adViewDelegate;

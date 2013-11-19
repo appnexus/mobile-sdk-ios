@@ -571,7 +571,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 - (void)initMediationController:(id<ANCustomAdapter>)adInstance
           resultCB:(NSString *)resultCB {
     // create new mediation controller
-    self.mediationController = [ANMediationAdViewController initWithFetcher:self adViewDelgate:self.delegate];
+    self.mediationController = [ANMediationAdViewController initWithFetcher:self adViewDelegate:self.delegate];
     adInstance.delegate = self.mediationController;
     [self.mediationController setAdapter:adInstance];
     [self.mediationController setResultCBString:resultCB];

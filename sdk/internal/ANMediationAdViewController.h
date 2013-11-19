@@ -31,7 +31,7 @@
            adView:(id<ANAdFetcherDelegate>)adView;
 
 + (ANMediationAdViewController *)initWithFetcher:(ANAdFetcher *)fetcher
-                                   adViewDelgate:(id<ANAdViewDelegate>)adViewDelegate;
+                                   adViewDelegate:(id<ANAdViewDelegate>)adViewDelegate;
 
 @end
 
