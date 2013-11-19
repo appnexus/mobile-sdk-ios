@@ -16,7 +16,9 @@
 #import <UIKit/UIKit.h>
 #import "ANAdView.h"
 
-// List of allowed ad sizes. These must fit in the maximum size of the view, which in this case, will be the size of the window
+// List of allowed ad sizes for interstitials.  These must fit in the
+// maximum size of the view, which in this case, will be the size of
+// the window.
 #define kANInterstitialAdSize300x250 CGSizeMake(300,250)
 #define kANInterstitialAdSize320x480 CGSizeMake(320,480)
 #define kANInterstitialAdSize900x500 CGSizeMake(900,500)
@@ -24,6 +26,22 @@
 
 @protocol ANInterstitialAdDelegate;
 
+// This is the interface through which interstitial ads are (1)
+// fetched and then (2) shown.  These are distinct steps.  Here's an
+// example:
+
+//       // Make an interstitial ad.
+//       self.inter = [[ANInterstitialAd alloc] initWithPlacementId:@"1281482"];
+//
+//       // We set ourselves as the delegate so we can respond to the
+//       // required `adDidReceiveAd' message of the
+//       // `ANInterstitialAdDelegate' protocol (see the bottom of this
+//       // file for an example)
+//       self.inter.delegate = self;
+//
+//       // Fetch an ad in the background.  In order to show the ad,
+//       // you'll need to implement `adDidReceiveAd' (see below).
+//       [self.inter loadAd];
 @interface ANInterstitialAd : ANAdView
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
@@ -35,6 +53,15 @@
 
 @end
 
+// Your view controller needs to conform to this protocol by
+// implementing the `adDidReceiveAd' method.  Here's a sample
+// implementation:
+//
+//     - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+//     {
+//         [self.inter displayAdFromViewController:self];
+//     }
+//
 @protocol ANInterstitialAdDelegate <ANAdDelegate>
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad;
 @end
