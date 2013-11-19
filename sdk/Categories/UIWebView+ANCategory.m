@@ -16,8 +16,6 @@
 #import "ANLogging.h"
 #import <AVFoundation/AVFoundation.h>
 
-static BOOL audioCategoryHasBeenSet = NO;
-
 NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margin='0';document.body.style.padding = '0'";
 
 @implementation UIWebView (ANCategory)
@@ -28,6 +26,8 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
 }
 
 - (void)setMediaProperties {
+    static BOOL audioCategoryHasBeenSet = NO;
+
     if ([self respondsToSelector:@selector(setAllowsInlineMediaPlayback:)]) {
         [self setAllowsInlineMediaPlayback:YES];
     }
