@@ -17,8 +17,8 @@
 #define TIME_DELAY_OFF @"Off"
 #define SIZE_SEPARATOR @"x"
 #define DEFAULT_REFRESH_RATES @[@"0",@"30",@"60",@"120"]
-#define DEFAULT_BANNER_SIZES @[@"300|50", @"320|50", @"300|250", @"320|480", @"728|90", @"160|600", @"1024|768"]
-//#define DEFAULT_BANNER_SIZES @[@"160|600", @"300|50", @"300|250",  @"320|50", @"320|480", @"728|90", @"1024|768"]
+#define DEFAULT_BANNER_SIZES @[@"320|50", @"300|250", @"480|320",\
+@"728|90", @"320|480", @"168|28", @"216|36", @"1024|768", @"300|50"]
 
 @interface DataDisplayHelper ()
 
