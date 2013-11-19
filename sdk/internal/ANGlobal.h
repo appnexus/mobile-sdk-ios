@@ -21,8 +21,6 @@
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
 #define AN_ERROR_TABLE @"errors"
 
-#define AN_DEBUG_MODE				1
-
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
 #define AN_SDK_VERSION              @"1.1"
 

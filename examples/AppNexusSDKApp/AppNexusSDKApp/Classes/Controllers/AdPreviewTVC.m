@@ -150,8 +150,9 @@
 - (void)clearBannerAdView {
     if (self.bannerAdView) {
         [self.bannerAdView removeFromSuperview];
-        self.bannerAdView = nil;
     }
+    self.bannerAdView.delegate = nil;
+    self.bannerAdView = nil;
 }
 
 - (void)clearInterstitialAd {

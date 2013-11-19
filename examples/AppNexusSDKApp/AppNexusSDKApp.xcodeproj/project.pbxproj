@@ -73,6 +73,7 @@
 		EC3FD7601822213C00B25418 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7271822213C00B25418 /* Default-568h@2x.png */; };
 		EC3FD7611822213C00B25418 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7281822213C00B25418 /* Default.png */; };
 		EC3FD7621822213C00B25418 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7291822213C00B25418 /* Default@2x.png */; };
+		EC4055EE183C07F9006A1D09 /* ANDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055ED183C07F9006A1D09 /* ANDocument.m */; };
 		EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */; };
 		EC77B0A718170D8E002123CB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77B0A618170D8E002123CB /* StoreKit.framework */; };
 		EC7DC2631817404600B813D1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2621817404600B813D1 /* MediaPlayer.framework */; };
@@ -124,13 +125,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = ECB1237018219C9D00CB4BE8;
 			remoteInfo = ANMediatedViewsLibrary;
-		};
-		ECABE6591821E8B00037E6C5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ECB1238018219C9D00CB4BE8;
-			remoteInfo = ANMediatedViewsLibraryTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -224,6 +218,8 @@
 		EC3FD7271822213C00B25418 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EC3FD7281822213C00B25418 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		EC3FD7291822213C00B25418 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		EC4055EC183C07F9006A1D09 /* ANDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDocument.h; sourceTree = "<group>"; };
+		EC4055ED183C07F9006A1D09 /* ANDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDocument.m; sourceTree = "<group>"; };
 		EC70ED8B18316B2000BDF92F /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
 		EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC77B0A618170D8E002123CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -444,6 +440,8 @@
 				EC3FD6FA1822213C00B25418 /* CoreDataExample.xcdatamodeld */,
 				EC3FD6FC1822213C00B25418 /* CoreDataTableViewController.h */,
 				EC3FD6FD1822213C00B25418 /* CoreDataTableViewController.m */,
+				EC4055EC183C07F9006A1D09 /* ANDocument.h */,
+				EC4055ED183C07F9006A1D09 /* ANDocument.m */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -508,7 +506,6 @@
 			isa = PBXGroup;
 			children = (
 				ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */,
-				ECABE65A1821E8B00037E6C5 /* ANMediatedViewsLibraryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -712,13 +709,6 @@
 			remoteRef = ECABE6571821E8B00037E6C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		ECABE65A1821E8B00037E6C5 /* ANMediatedViewsLibraryTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ANMediatedViewsLibraryTests.xctest;
-			remoteRef = ECABE6591821E8B00037E6C5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -804,6 +794,7 @@
 				ECB124D11821A25D00CB4BE8 /* ANMediationAdViewController.m in Sources */,
 				EC3FD7381822213C00B25418 /* ANRequest+Make.m in Sources */,
 				ECB124D21821A25D00CB4BE8 /* ANReachability.m in Sources */,
+				EC4055EE183C07F9006A1D09 /* ANDocument.m in Sources */,
 				EC3FD7391822213C00B25418 /* ANRequest.m in Sources */,
 				EC3FD73A1822213C00B25418 /* ANResponse+Make.m in Sources */,
 				EC3FD72E1822213C00B25418 /* AdSettingsViewController.m in Sources */,

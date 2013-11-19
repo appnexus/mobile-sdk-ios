@@ -27,6 +27,7 @@
 #import "ANResponse.h"
 #import "ANAdFetcher.h"
 #import "ANLogging.h"
+#import "ANDocument.h"
 
 #define DOCUMENT_NAME @"Log Document"
 #define REQUEST_NOTIFICATION @"AppNexusSDKAppViewControllerUpdatedRequest"
@@ -51,6 +52,7 @@
 @property (strong, nonatomic) LogCoreDataTVC *log;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) ANDocument *document;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @end
 
@@ -237,7 +239,7 @@
                                onDate:[NSDate date]
                inManagedObjectContext:self.managedObjectContext];
         
-        [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
+        ANRequest *request = [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
         ANLogDebug(@"%@ %@ | Stored request URL: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), request.text);
         // broadcast that request has been uploaded
         [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_NOTIFICATION object:self.managedObjectContext];
@@ -253,7 +255,7 @@
                                 onDate:[NSDate date]
                 inManagedObjectContext:self.managedObjectContext];
         
-        [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
+        ANRequest *request = [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
         ANLogDebug(@"%@ %@ | Stored response from server: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), request.response.text);
         // broadcast that the response has been uploaded
         [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_NOTIFICATION object:self.managedObjectContext];
@@ -265,37 +267,42 @@
     ANLogDebug(@"%@ %@ | Called", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:DOCUMENT_NAME];
-    UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
-    ANLogDebug(@"%@ %@ | Document initialized: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), document);
+    self.document = [[ANDocument alloc] initWithFileURL:url];
+    ANLogDebug(@"%@ %@ | Document initialized: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.document);
     
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                              [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
                              [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
-    document.persistentStoreOptions = options;
-    
+    self.document.persistentStoreOptions = options;
+
     if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
-        [document saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+        // file does not exist yet, create it
+        [self.document saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             if (success) {
-                self.managedObjectContext = document.managedObjectContext;
+                self.managedObjectContext = self.document.managedObjectContext;
                 ANLogDebug(@"%@ %@ | Created managed object context: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.managedObjectContext);
             } else {
                 ANLogDebug(@"%@ %@ | Error - could not create document", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             }
             [self loadInitialVC];
         }];
-    } else if (document.documentState == UIDocumentStateClosed) {
-        [document openWithCompletionHandler:^(BOOL success) {
+    } else if (self.document.documentState == UIDocumentStateClosed) {
+        // file is closed, open it
+        [self.document openWithCompletionHandler:^(BOOL success) {
             if (success) {
-                self.managedObjectContext = document.managedObjectContext;
+                self.managedObjectContext = self.document.managedObjectContext;
                 ANLogDebug(@"%@ %@ | Opened managed object context: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.managedObjectContext);
             } else {
                 ANLogDebug(@"%@ %@ | Error - could not open document", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             }
             [self loadInitialVC];
         }];
-    } else {
-        self.managedObjectContext = document.managedObjectContext;
+    } else if (self.document.documentState == UIDocumentStateNormal) {
+        self.managedObjectContext = self.document.managedObjectContext;
         ANLogDebug(@"%@ %@ | Loaded managed object context: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.managedObjectContext);
+        [self loadInitialVC];
+    } else {
+        ANLogDebug(@"%@ %@ | Error - unexpected document state: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.document.documentState);
         [self loadInitialVC];
     }
 }
