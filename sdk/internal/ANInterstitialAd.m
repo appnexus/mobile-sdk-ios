@@ -176,8 +176,15 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         // Check to see if the ad has expired
         NSDate *dateLoaded = [adDict objectForKey:kANInterstitialAdViewDateLoadedKey];
         if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT) {
-            // There is a valid ad in the cache, we are ready to display
-            return true;
+            // Found a valid ad
+            id readyAd = [adDict objectForKey:kANInterstitialAdViewKey];
+            if ([readyAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+                // if it's a mediated ad, check if it is ready
+                return [readyAd isReady];
+            } else {
+                // if it's a standard ad, we are ready to display
+                return true;
+            }
         } else {
             // Ad is stale, remove it
             [self.precachedAdObjects removeObjectAtIndex:0];
