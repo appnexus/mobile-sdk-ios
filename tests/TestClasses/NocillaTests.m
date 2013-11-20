@@ -19,7 +19,7 @@
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
 
-#define TEST_TIMEOUT 10.0
+float const TEST_TIMEOUT = 10.0;
 
 @interface NocillaTests : SenTestCase
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
@@ -54,7 +54,7 @@
     _testComplete = NO;
 }
 
-- (void)stubWithBody:(NSString *)body {
++ (void)stubWithBody:(NSString *)body {
     stubRequest(@"GET", @"http://*".regex)
     .andReturn(200)
     .withBody(body)
@@ -71,12 +71,12 @@
     [_banner loadAd];
 }
 
-- (void)testMMBannerDidLoad {
-    [self stubWithBody:MMBANNER];
+- (void)testSuccessfulBannerDidLoad {
+    [NocillaTests stubWithBody:[TestResponses createSuccessfulBanner]];
     [self loadBannerAd];
     
     STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
-    STAssertTrue(_adDidLoad, @"MMBanner should have loaded successfully");
+    STAssertTrue(_adDidLoad, @"Banner should have loaded successfully");
     STAssertFalse(_adFailedToLoad, @"Failure callback should not have been called");
     
     [self clearTest];

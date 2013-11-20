@@ -54,6 +54,8 @@
 		EC09B327183437CC00D76510 /* LSStubRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2971834340200D76510 /* LSStubRequest.m */; };
 		EC09B329183437CC00D76510 /* LSStubResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2991834340200D76510 /* LSStubResponse.m */; };
 		EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */; };
+		EC4055FD183D44D1006A1D09 /* TestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055FC183D44D1006A1D09 /* TestResponses.m */; };
+		EC405607183D566C006A1D09 /* ANSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = EC405606183D566C006A1D09 /* ANSuccessfulBanner.m */; };
 		EC7F4CD217C7FA4700F5039E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */; };
 		EC7F4CD417C7FA5300F5039E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */; };
 		EC7F4CD617C7FA9F00F5039E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */; };
@@ -224,6 +226,9 @@
 		EC09B32A18343B8500D76510 /* TestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestResponses.h; sourceTree = "<group>"; };
 		EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
 		EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
+		EC4055FC183D44D1006A1D09 /* TestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestResponses.m; sourceTree = "<group>"; };
+		EC405605183D566C006A1D09 /* ANSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSuccessfulBanner.h; sourceTree = "<group>"; };
+		EC405606183D566C006A1D09 /* ANSuccessfulBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSuccessfulBanner.m; sourceTree = "<group>"; };
 		EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -591,6 +596,15 @@
 			path = Stubs;
 			sourceTree = "<group>";
 		};
+		EC405603183D4C6A006A1D09 /* ResponseUtil */ = {
+			isa = PBXGroup;
+			children = (
+				EC09B32A18343B8500D76510 /* TestResponses.h */,
+				EC4055FC183D44D1006A1D09 /* TestResponses.m */,
+			);
+			name = ResponseUtil;
+			sourceTree = "<group>";
+		};
 		ECABE5431821E4C80037E6C5 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,11 +734,11 @@
 		ECD9298A1822CAD300420840 /* TestClasses */ = {
 			isa = PBXGroup;
 			children = (
+				EC405603183D4C6A006A1D09 /* ResponseUtil */,
 				ECD9298B1822CAD300420840 /* InfoPlist.strings */,
 				ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */,
 				ECD9298F1822CAD300420840 /* MediationTests.m */,
 				EC09B2B21834350E00D76510 /* NocillaTests.m */,
-				EC09B32A18343B8500D76510 /* TestResponses.h */,
 				ECD929901822CAD300420840 /* TestsTests-Info.plist */,
 				ECD929911822CAD300420840 /* TestsTests-Prefix.pch */,
 				ECD929921822CAD300420840 /* TestViews */,
@@ -755,6 +769,8 @@
 				ECD929A41822CAD300420840 /* ANLoadThenFail.m */,
 				ECD929A51822CAD300420840 /* ANTimeout.h */,
 				ECD929A61822CAD300420840 /* ANTimeout.m */,
+				EC405605183D566C006A1D09 /* ANSuccessfulBanner.h */,
+				EC405606183D566C006A1D09 /* ANSuccessfulBanner.m */,
 			);
 			path = TestViews;
 			sourceTree = "<group>";
@@ -926,6 +942,7 @@
 				ECABE5901821E4C80037E6C5 /* ANAdView.m in Sources */,
 				ECABE5891821E4C80037E6C5 /* UIView+ANCategory.m in Sources */,
 				ECD929B11822CAD300420840 /* ANLoadAndHitOtherCallbacks.m in Sources */,
+				EC405607183D566C006A1D09 /* ANSuccessfulBanner.m in Sources */,
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
 				ECABE59B1821E4C80037E6C5 /* ANLogging.m in Sources */,
 				ECABE58B1821E4C80037E6C5 /* ANOpenUDID.m in Sources */,
@@ -941,6 +958,7 @@
 				ECABE58F1821E4C80037E6C5 /* ANAdResponse.m in Sources */,
 				ECD929B41822CAD300420840 /* ANTimeout.m in Sources */,
 				ECD929B21822CAD300420840 /* ANLoadedMultiple.m in Sources */,
+				EC4055FD183D44D1006A1D09 /* TestResponses.m in Sources */,
 				ECD929B31822CAD300420840 /* ANLoadThenFail.m in Sources */,
 				ECABE58A1821E4C80037E6C5 /* UIWebView+ANCategory.m in Sources */,
 				ECABE5981821E4C80037E6C5 /* ANInterstitialAdViewController.m in Sources */,

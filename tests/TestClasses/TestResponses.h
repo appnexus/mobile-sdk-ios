@@ -13,4 +13,46 @@
  limitations under the License.
  */
 
-#define MMBANNER @"{\"status\":\"ok\",\"ads\": [],\"mediated\": [{ \"handler\": [{\"type\":\"ios\",\"class\":\"ANAdAdapterBannerMillennialMedia\",\"param\":\"param\",\"width\":\"320\",\"height\":\"50\",\"id\":\"28913\"}],\"result_cb\":\"OK\"}]}"
+@interface TestResponses : NSObject
+
+// use these functions
+
++ (NSString *)createSuccessfulBanner;
+
++ (NSString *)createMediatedBanner:(NSString *)className
+                            withID:(NSString *)idString
+                      withResultCB:(NSString *)resultCB;
+
++ (NSString *)createAdsResponse:(NSString *)type
+                      withWidth:(int)width
+                     withHeight:(int)height
+                    withContent:(NSString *)content;
+
++ (NSString *)createMediatedResponse:(NSString *)type
+                       withClassName:(NSString *)className
+                           withParam:(NSString *)param
+                           withWidth:(int)width
+                          withHeight:(int)height
+                              withID:(NSString *)idString
+                        withResultCB:(NSString *)resultCB;
+
+// should not ever need to use these directly
+
++ (NSString *)createResponseString:(NSString *)status
+                           withAds:(NSString *)ads
+                      withMediated:(NSString *)mediated;
+
++ (NSString *)createAdsString:(NSString *)type
+                    withWidth:(int)width
+                   withHeight:(int)height
+                  withContent:(NSString *)content;
+
++ (NSString *)createMediatedString:(NSString *)type
+                     withClassName:(NSString *)className
+                         withParam:(NSString *)param
+                         withWidth:(int)width
+                        withHeight:(int)height
+                            withID:(NSString *)idString
+                      withResultCB:(NSString *)resultCB;
+
+@end
