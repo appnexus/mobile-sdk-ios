@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-@interface TestResponses : NSObject
+@interface ANTestResponses : NSObject
 
 // use these functions
 

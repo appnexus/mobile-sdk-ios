@@ -13,45 +13,17 @@
  limitations under the License.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
-#import "Nocilla.h"
-#import "TestResponses.h"
-#import "ANBannerAdView.h"
-#import "ANInterstitialAd.h"
+#import "ANBaseTestCase.h"
 
 float const TEST_TIMEOUT = 10.0;
 
-@interface NocillaTests : SenTestCase
-@property (nonatomic, readwrite, strong) ANBannerAdView *banner;
-@property (nonatomic, readwrite, strong) ANInterstitialAd *interstitial;
-@property (nonatomic, assign) BOOL testComplete;
-@property (nonatomic, assign) BOOL adDidLoad;
-@property (nonatomic, assign) BOOL adFailedToLoad;
-@end
-
-@interface NocillaTests () <ANBannerAdViewDelegate>
-
+@interface NocillaTests : ANBaseTestCase
 @end
 
 @implementation NocillaTests
 
-- (void)setUp {
-    [super setUp];
-    [[LSNocilla sharedInstance] start];
-}
-
-- (void)tearDown {
-    [super tearDown];
-    [[LSNocilla sharedInstance] stop];
-}
-
 - (void)clearTest {
-    [[LSNocilla sharedInstance] clearStubs];
-    _banner = nil;
-    _interstitial = nil;
-    _adDidLoad = NO;
-    _adFailedToLoad = NO;
-    _testComplete = NO;
+    [super clearTest];
 }
 
 + (void)stubWithBody:(NSString *)body {
@@ -62,47 +34,24 @@ float const TEST_TIMEOUT = 10.0;
 }
 
 - (void)loadBannerAd {
-    _banner = [[ANBannerAdView alloc]
+    self.banner = [[ANBannerAdView alloc]
                initWithFrame:CGRectMake(0, 0, 320, 50)
                placementId:@"1"
                adSize:CGSizeMake(320, 50)];
     
-    [_banner setDelegate:self];
-    [_banner loadAd];
+    [self.banner setDelegate:self];
+    [self.banner loadAd];
 }
 
 - (void)testSuccessfulBannerDidLoad {
-    [NocillaTests stubWithBody:[TestResponses createSuccessfulBanner]];
+    [self stubWithBody:[ANTestResponses createSuccessfulBanner]];
     [self loadBannerAd];
     
     STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
-    STAssertTrue(_adDidLoad, @"Banner should have loaded successfully");
-    STAssertFalse(_adFailedToLoad, @"Failure callback should not have been called");
+    STAssertTrue(self.adDidLoad, @"Banner should have loaded successfully");
+    STAssertFalse(self.adFailedToLoad, @"Failure callback should not have been called");
     
     [self clearTest];
-}
-
-- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
-    
-    do {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
-        if ([timeoutDate timeIntervalSinceNow] < 0.0) {
-            break;
-        }
-    }
-    while (!_testComplete);
-    return _testComplete;
-}
-
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
-    _adDidLoad = YES;
-    _testComplete = YES;
-}
-
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
-    _adFailedToLoad = YES;
-    _testComplete = YES;
 }
 
 @end

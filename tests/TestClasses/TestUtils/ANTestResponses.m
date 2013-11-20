@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "TestResponses.h"
+#import "ANTestResponses.h"
 #import "ANMediatedAd.h"
 
 NSString *const RESPONSE_TEMPLATE = @"{\"status\":\"%@\",\"ads\": %@,\"mediated\": %@}";
@@ -27,12 +27,12 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
 - (NSString *)toJSON;
 @end
 
-@implementation TestResponses
+@implementation ANTestResponses
 
 #pragma mark View-specific Convenience functions
 
 + (NSString *)createSuccessfulBanner {
-    return [TestResponses createMediatedBanner:@"ANSuccessfulBanner" withID:@"1234" withResultCB:@"result"];
+    return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner" withID:@"" withResultCB:@"result"];
 }
 
 #pragma mark Response Construction Convenience functions
@@ -44,7 +44,7 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     NSString *statusField = @"ok";
     NSString *adsField = [NSString stringWithFormat:ADS_ARRAY_TEMPLATE, type, width, height, content];
     NSString *mediatedField = @"[]";
-    return [TestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
+    return [ANTestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
 }
 
 + (NSString *)createMediatedBanner:(NSString *)className
@@ -59,17 +59,11 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     mediatedAd.adId = idString;
     
     NSMutableArray *mediatedAdsArray = [[NSMutableArray alloc] initWithObjects:mediatedAd, nil];
-    NSString *handler = [TestResponses createHandlerObjectFromMediatedAds:mediatedAdsArray withResultCB:resultCB];
+    NSString *handler = [ANTestResponses createHandlerObjectFromMediatedAds:mediatedAdsArray withResultCB:resultCB];
 
-    NSString *mediatedField = [TestResponses createMediatedArrayFromHandlers:[[NSMutableArray alloc] initWithObjects:handler, nil]];
-    return [TestResponses createMediatedResponse:mediatedField];
+    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:[[NSMutableArray alloc] initWithObjects:handler, nil]];
+    return [ANTestResponses createMediatedResponse:mediatedField];
 }
-
-//+ (NSString *)createMediatedBanner:(NSString *)className
-//                            withID:(NSString *)idString
-//                      withResultCB:(NSString *)resultCB {
-//    return [TestResponses createMediatedResponse:@"ios" withClassName:className withParam:@"" withWidth:320 withHeight:50 withID:idString withResultCB:resultCB];
-//}
 
 + (NSString *)createMediatedResponse:(NSString *)type
                        withClassName:(NSString *)className
@@ -82,13 +76,13 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     NSString *adsField = @"[]";
     NSString *mediatedField = [NSString stringWithFormat:MEDIATED_ARRAY_TEMPLATE, type, className,
             param, width, height, idString, resultCB];
-    return [TestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
+    return [ANTestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
 }
 
 + (NSString *)createMediatedResponse:(NSString *)mediatedField {
     NSString *statusField = @"ok";
     NSString *adsField = @"[]";
-    return [TestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
+    return [ANTestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
 }
             
 #pragma mark Base functions
