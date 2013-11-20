@@ -31,8 +31,16 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
 
 #pragma mark View-specific Convenience functions
 
-+ (NSString *)createSuccessfulBanner {
++ (NSString *)successfulBanner {
+    return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"HelloWorld"];
+}
+
++ (NSString *)mediationSuccessfulBanner {
     return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner" withID:@"" withResultCB:@"result"];
+}
+
++ (NSString *)mediationNoAdsBanner {
+    return [ANTestResponses createMediatedBanner:@"ANAdAdapterBannerNoAds" withID:@"" withResultCB:@"result"];
 }
 
 #pragma mark Response Construction Convenience functions

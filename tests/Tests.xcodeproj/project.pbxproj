@@ -56,27 +56,16 @@
 		EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */; };
 		EC405619183D670D006A1D09 /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = EC40560E183D5D88006A1D09 /* ANBaseTestCase.m */; };
 		EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = EC405610183D5D88006A1D09 /* ANTestResponses.m */; };
-		EC40561C183D6818006A1D09 /* ANAdAdapterBannerDummy.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD929931822CAD300420840 /* ANAdAdapterBannerDummy.h */; };
 		EC40561D183D6818006A1D09 /* ANAdAdapterBannerDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929941822CAD300420840 /* ANAdAdapterBannerDummy.m */; };
-		EC40561E183D6818006A1D09 /* ANAdAdapterBannerNoAds.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD929951822CAD300420840 /* ANAdAdapterBannerNoAds.h */; };
 		EC40561F183D6818006A1D09 /* ANAdAdapterBannerNoAds.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929961822CAD300420840 /* ANAdAdapterBannerNoAds.m */; };
-		EC405620183D6818006A1D09 /* ANAdAdapterBannerRequestFail.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD929971822CAD300420840 /* ANAdAdapterBannerRequestFail.h */; };
 		EC405621183D6818006A1D09 /* ANAdAdapterBannerRequestFail.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929981822CAD300420840 /* ANAdAdapterBannerRequestFail.m */; };
-		EC405622183D6818006A1D09 /* ANAdAdapterErrorCode.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD929991822CAD300420840 /* ANAdAdapterErrorCode.h */; };
 		EC405623183D6818006A1D09 /* ANAdAdapterErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299A1822CAD300420840 /* ANAdAdapterErrorCode.m */; };
-		EC405624183D6818006A1D09 /* ANFailedMultiple.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299B1822CAD300420840 /* ANFailedMultiple.h */; };
 		EC405625183D6818006A1D09 /* ANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299C1822CAD300420840 /* ANFailedMultiple.m */; };
-		EC405626183D6818006A1D09 /* ANFailThenLoad.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299D1822CAD300420840 /* ANFailThenLoad.h */; };
 		EC405627183D6818006A1D09 /* ANFailThenLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299E1822CAD300420840 /* ANFailThenLoad.m */; };
-		EC405628183D6818006A1D09 /* ANLoadAndHitOtherCallbacks.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD9299F1822CAD300420840 /* ANLoadAndHitOtherCallbacks.h */; };
 		EC405629183D6818006A1D09 /* ANLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A01822CAD300420840 /* ANLoadAndHitOtherCallbacks.m */; };
-		EC40562A183D6818006A1D09 /* ANLoadedMultiple.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A11822CAD300420840 /* ANLoadedMultiple.h */; };
 		EC40562B183D6818006A1D09 /* ANLoadedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A21822CAD300420840 /* ANLoadedMultiple.m */; };
-		EC40562C183D6818006A1D09 /* ANLoadThenFail.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A31822CAD300420840 /* ANLoadThenFail.h */; };
 		EC40562D183D6818006A1D09 /* ANLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A41822CAD300420840 /* ANLoadThenFail.m */; };
-		EC40562E183D6818006A1D09 /* ANTimeout.h in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A51822CAD300420840 /* ANTimeout.h */; };
 		EC40562F183D6818006A1D09 /* ANTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A61822CAD300420840 /* ANTimeout.m */; };
-		EC405630183D6818006A1D09 /* ANSuccessfulBanner.h in Sources */ = {isa = PBXBuildFile; fileRef = EC405605183D566C006A1D09 /* ANSuccessfulBanner.h */; };
 		EC405631183D6818006A1D09 /* ANSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = EC405606183D566C006A1D09 /* ANSuccessfulBanner.m */; };
 		EC7F4CD217C7FA4700F5039E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */; };
 		EC7F4CD417C7FA5300F5039E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */; };
@@ -973,27 +962,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC40561C183D6818006A1D09 /* ANAdAdapterBannerDummy.h in Sources */,
 				EC40561D183D6818006A1D09 /* ANAdAdapterBannerDummy.m in Sources */,
-				EC40561E183D6818006A1D09 /* ANAdAdapterBannerNoAds.h in Sources */,
 				EC40561F183D6818006A1D09 /* ANAdAdapterBannerNoAds.m in Sources */,
-				EC405620183D6818006A1D09 /* ANAdAdapterBannerRequestFail.h in Sources */,
 				EC405621183D6818006A1D09 /* ANAdAdapterBannerRequestFail.m in Sources */,
-				EC405622183D6818006A1D09 /* ANAdAdapterErrorCode.h in Sources */,
 				EC405623183D6818006A1D09 /* ANAdAdapterErrorCode.m in Sources */,
-				EC405624183D6818006A1D09 /* ANFailedMultiple.h in Sources */,
 				EC405625183D6818006A1D09 /* ANFailedMultiple.m in Sources */,
-				EC405626183D6818006A1D09 /* ANFailThenLoad.h in Sources */,
 				EC405627183D6818006A1D09 /* ANFailThenLoad.m in Sources */,
-				EC405628183D6818006A1D09 /* ANLoadAndHitOtherCallbacks.h in Sources */,
 				EC405629183D6818006A1D09 /* ANLoadAndHitOtherCallbacks.m in Sources */,
-				EC40562A183D6818006A1D09 /* ANLoadedMultiple.h in Sources */,
 				EC40562B183D6818006A1D09 /* ANLoadedMultiple.m in Sources */,
-				EC40562C183D6818006A1D09 /* ANLoadThenFail.h in Sources */,
 				EC40562D183D6818006A1D09 /* ANLoadThenFail.m in Sources */,
-				EC40562E183D6818006A1D09 /* ANTimeout.h in Sources */,
 				EC40562F183D6818006A1D09 /* ANTimeout.m in Sources */,
-				EC405630183D6818006A1D09 /* ANSuccessfulBanner.h in Sources */,
 				EC405631183D6818006A1D09 /* ANSuccessfulBanner.m in Sources */,
 				EC405619183D670D006A1D09 /* ANBaseTestCase.m in Sources */,
 				EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */,

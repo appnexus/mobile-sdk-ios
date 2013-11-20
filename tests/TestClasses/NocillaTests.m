@@ -43,8 +43,34 @@ float const TEST_TIMEOUT = 10.0;
     [self.banner loadAd];
 }
 
+#pragma mark Standard Tests
+
 - (void)testSuccessfulBannerDidLoad {
-    [self stubWithBody:[ANTestResponses createSuccessfulBanner]];
+    [self stubWithBody:[ANTestResponses successfulBanner]];
+    [self loadBannerAd];
+    
+    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
+    STAssertTrue(self.adDidLoad, @"Banner should have loaded successfully");
+    STAssertFalse(self.adFailedToLoad, @"Failure callback should not have been called");
+    
+    [self clearTest];
+}
+
+- (void)testBannerBlankResponseDidFail {
+    [self stubWithBody:@""];
+    [self loadBannerAd];
+    
+    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
+    STAssertFalse(self.adDidLoad, @"Banner should not have loaded");
+    STAssertTrue(self.adFailedToLoad, @"Failure callback should have been called");
+    
+    [self clearTest];
+}
+
+#pragma mark Basic Mediation Tests
+
+- (void)testSuccessfulMediationBannerDidLoad {
+    [self stubWithBody:[ANTestResponses mediationSuccessfulBanner]];
     [self loadBannerAd];
     
     STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");

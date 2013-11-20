@@ -17,7 +17,9 @@
 
 // use these functions
 
-+ (NSString *)createSuccessfulBanner;
++ (NSString *)successfulBanner;
++ (NSString *)mediationSuccessfulBanner;
++ (NSString *)mediationNoAdsBanner;
 
 + (NSString *)createMediatedBanner:(NSString *)className
                             withID:(NSString *)idString
