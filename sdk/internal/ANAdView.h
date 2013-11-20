@@ -31,6 +31,8 @@
     UIButton *__closeButton;
 }
 
+@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
+
 @end
 
 @interface ANAdView (ANAdFetcher)

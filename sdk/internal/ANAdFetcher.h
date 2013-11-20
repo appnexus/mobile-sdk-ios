@@ -49,7 +49,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 
 @property (nonatomic, readwrite, strong) NSString *placementId;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
-@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser;
+@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
 @property (nonatomic, readwrite, strong) ANLocation *location;
 @property (nonatomic, readwrite, assign) CGFloat reserve;
 @property (nonatomic, readwrite, strong) NSString *age;

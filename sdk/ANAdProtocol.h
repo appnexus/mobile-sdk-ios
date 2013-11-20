@@ -38,7 +38,7 @@ typedef enum _ANGender
 @required
 @property (nonatomic, readwrite, strong) NSString *placementId;
 @property (nonatomic, readwrite, assign) CGSize adSize;
-@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser;
+@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
 @property (nonatomic, readwrite, strong) ANLocation *location;
@@ -52,6 +52,9 @@ typedef enum _ANGender
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeCustomKeywordWithKey:(NSString *)key;
+
+
+@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
 
 @end
 

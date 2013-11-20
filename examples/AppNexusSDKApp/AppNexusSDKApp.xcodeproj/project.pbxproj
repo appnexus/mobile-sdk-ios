@@ -115,7 +115,6 @@
 		ECB124DB1821A25D00CB4BE8 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B81821A25D00CB4BE8 /* UIButtonBarArrowRight.png */; };
 		ECB124DC1821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B91821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png */; };
 		ECB124DD1821A25D00CB4BE8 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECB124BA1821A25D00CB4BE8 /* MRAID.bundle */; };
-		ECF43C49182820E9000C17C6 /* ANAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF43C48182820E9000C17C6 /* ANAdRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -288,8 +287,6 @@
 		ECB124B81821A25D00CB4BE8 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECB124B91821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECB124BA1821A25D00CB4BE8 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
-		ECF43C47182820E9000C17C6 /* ANAdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequest.h; sourceTree = "<group>"; };
-		ECF43C48182820E9000C17C6 /* ANAdRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -575,8 +572,6 @@
 				ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */,
 				ECB1248F1821A25D00CB4BE8 /* ANAdResponse.h */,
 				ECB124901821A25D00CB4BE8 /* ANAdResponse.m */,
-				ECF43C47182820E9000C17C6 /* ANAdRequest.h */,
-				ECF43C48182820E9000C17C6 /* ANAdRequest.m */,
 				ECB124911821A25D00CB4BE8 /* ANAdView.h */,
 				ECB124921821A25D00CB4BE8 /* ANAdView.m */,
 				ECB124931821A25D00CB4BE8 /* ANAdViewDelegate.h */,
@@ -790,7 +785,6 @@
 				EC3FD7311822213C00B25418 /* DebugOutputViewController.m in Sources */,
 				EC3FD7301822213C00B25418 /* DataDisplayHelper.m in Sources */,
 				EC3FD72F1822213C00B25418 /* AppNexusSDKAppViewController.m in Sources */,
-				ECF43C49182820E9000C17C6 /* ANAdRequest.m in Sources */,
 				ECB124D11821A25D00CB4BE8 /* ANMediationAdViewController.m in Sources */,
 				EC3FD7381822213C00B25418 /* ANRequest+Make.m in Sources */,
 				ECB124D21821A25D00CB4BE8 /* ANReachability.m in Sources */,
