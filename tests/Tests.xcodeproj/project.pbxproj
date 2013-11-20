@@ -31,8 +31,6 @@
 		5CEF6F721732F8C00054A86F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F711732F8C00054A86F /* AdSupport.framework */; };
 		5CEF6F761732F8C90054A86F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F751732F8C90054A86F /* CoreTelephony.framework */; };
 		EC09B2B31834350E00D76510 /* NocillaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2B21834350E00D76510 /* NocillaTests.m */; };
-		EC09B2B81834375800D76510 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2B51834375800D76510 /* ANMRAIDViewController.m */; };
-		EC09B2B91834375800D76510 /* ANAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2B71834375800D76510 /* ANAdRequest.m */; };
 		EC09B2F8183437CC00D76510 /* NSData+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2601834340200D76510 /* NSData+Nocilla.m */; };
 		EC09B2FA183437CC00D76510 /* NSString+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2621834340200D76510 /* NSString+Nocilla.m */; };
 		EC09B2FC183437CC00D76510 /* LSHTTPRequestDiff.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2651834340200D76510 /* LSHTTPRequestDiff.m */; };
@@ -55,6 +53,7 @@
 		EC09B320183437CC00D76510 /* NSString+Matcheable.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B28E1834340200D76510 /* NSString+Matcheable.m */; };
 		EC09B327183437CC00D76510 /* LSStubRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2971834340200D76510 /* LSStubRequest.m */; };
 		EC09B329183437CC00D76510 /* LSStubResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2991834340200D76510 /* LSStubResponse.m */; };
+		EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */; };
 		EC7F4CD217C7FA4700F5039E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */; };
 		EC7F4CD417C7FA5300F5039E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */; };
 		EC7F4CD617C7FA9F00F5039E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */; };
@@ -94,8 +93,6 @@
 		ECABE5A81821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */; };
 		ECABE5A91821E4C80037E6C5 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5861821E4C80037E6C5 /* MRAID.bundle */; };
 		ECB57A551822C43700FA7441 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
-		ECCF18FF18358FA500B17EB4 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECCF18FC18358FA500B17EB4 /* ANMRAIDViewController.m */; };
-		ECCF190018358FA500B17EB4 /* ANAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ECCF18FE18358FA500B17EB4 /* ANAdRequest.m */; };
 		ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECD9298B1822CAD300420840 /* InfoPlist.strings */; };
 		ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECD929901822CAD300420840 /* TestsTests-Info.plist */; };
 		ECD929AB1822CAD300420840 /* ANAdAdapterBannerDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929941822CAD300420840 /* ANAdAdapterBannerDummy.m */; };
@@ -137,13 +134,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = ECB1237018219C9D00CB4BE8;
 			remoteInfo = ANMediatedViewsLibrary;
-		};
-		ECFF03231822C2860021F14C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ECB1238018219C9D00CB4BE8;
-			remoteInfo = ANMediatedViewsLibraryTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -231,11 +221,9 @@
 		EC09B2981834340200D76510 /* LSStubResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSStubResponse.h; sourceTree = "<group>"; };
 		EC09B2991834340200D76510 /* LSStubResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSStubResponse.m; sourceTree = "<group>"; };
 		EC09B2B21834350E00D76510 /* NocillaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NocillaTests.m; sourceTree = "<group>"; };
-		EC09B2B41834375800D76510 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANMRAIDViewController.h; path = internal/ANMRAIDViewController.h; sourceTree = "<group>"; };
-		EC09B2B51834375800D76510 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANMRAIDViewController.m; path = internal/ANMRAIDViewController.m; sourceTree = "<group>"; };
-		EC09B2B61834375800D76510 /* ANAdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdRequest.h; path = internal/ANAdRequest.h; sourceTree = "<group>"; };
-		EC09B2B71834375800D76510 /* ANAdRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdRequest.m; path = internal/ANAdRequest.m; sourceTree = "<group>"; };
 		EC09B32A18343B8500D76510 /* TestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestResponses.h; sourceTree = "<group>"; };
+		EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
+		EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -299,10 +287,6 @@
 		ECABE5841821E4C80037E6C5 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECABE5861821E4C80037E6C5 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
-		ECCF18FB18358FA500B17EB4 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
-		ECCF18FC18358FA500B17EB4 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
-		ECCF18FD18358FA500B17EB4 /* ANAdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequest.h; sourceTree = "<group>"; };
-		ECCF18FE18358FA500B17EB4 /* ANAdRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequest.m; sourceTree = "<group>"; };
 		ECD9298C1822CAD300420840 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationCallbacksTests.m; sourceTree = "<group>"; };
 		ECD9298F1822CAD300420840 /* MediationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationTests.m; sourceTree = "<group>"; };
@@ -610,10 +594,6 @@
 		ECABE5431821E4C80037E6C5 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				EC09B2B41834375800D76510 /* ANMRAIDViewController.h */,
-				EC09B2B51834375800D76510 /* ANMRAIDViewController.m */,
-				EC09B2B61834375800D76510 /* ANAdRequest.h */,
-				EC09B2B71834375800D76510 /* ANAdRequest.m */,
 				ECABE5441821E4C80037E6C5 /* ANAdProtocol.h */,
 				ECABE5451821E4C80037E6C5 /* ANBannerAdView.h */,
 				ECABE5461821E4C80037E6C5 /* ANInterstitialAd.h */,
@@ -672,10 +652,8 @@
 		ECABE5581821E4C80037E6C5 /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				ECCF18FB18358FA500B17EB4 /* ANMRAIDViewController.h */,
-				ECCF18FC18358FA500B17EB4 /* ANMRAIDViewController.m */,
-				ECCF18FD18358FA500B17EB4 /* ANAdRequest.h */,
-				ECCF18FE18358FA500B17EB4 /* ANAdRequest.m */,
+				EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */,
+				EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */,
 				ECABE5591821E4C80037E6C5 /* ANAdFetcher.h */,
 				ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */,
 				ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */,
@@ -785,7 +763,6 @@
 			isa = PBXGroup;
 			children = (
 				ECFF03221822C2860021F14C /* libANMediatedViewsLibrary.a */,
-				ECFF03241822C2860021F14C /* ANMediatedViewsLibraryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -866,13 +843,6 @@
 			fileType = archive.ar;
 			path = libANMediatedViewsLibrary.a;
 			remoteRef = ECFF03211822C2860021F14C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		ECFF03241822C2860021F14C /* ANMediatedViewsLibraryTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ANMediatedViewsLibraryTests.xctest;
-			remoteRef = ECFF03231822C2860021F14C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -959,6 +929,7 @@
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
 				ECABE59B1821E4C80037E6C5 /* ANLogging.m in Sources */,
 				ECABE58B1821E4C80037E6C5 /* ANOpenUDID.m in Sources */,
+				EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */,
 				ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */,
 				ECABE5911821E4C80037E6C5 /* ANAdWebViewController.m in Sources */,
 				ECD929B01822CAD300420840 /* ANFailThenLoad.m in Sources */,
