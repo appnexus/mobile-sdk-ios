@@ -168,6 +168,25 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return defaultAllowedSizes;
 }
 
+- (BOOL)isReady {
+    // check the cache for a valid ad
+    while ([self.precachedAdObjects count] > 0) {
+        NSDictionary *adDict = [self.precachedAdObjects objectAtIndex:0];
+        
+        // Check to see if the ad has expired
+        NSDate *dateLoaded = [adDict objectForKey:kANInterstitialAdViewDateLoadedKey];
+        if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT) {
+            // There is a valid ad in the cache, we are ready to display
+            return true;
+        } else {
+            // Ad is stale, remove it
+            [self.precachedAdObjects removeObjectAtIndex:0];
+        }
+    }
+    
+    return false;
+}
+
 - (CGRect)frame {
     // By definition, interstitials can only ever have the entire screen's bounds as its frame
     return [[UIScreen mainScreen] bounds];

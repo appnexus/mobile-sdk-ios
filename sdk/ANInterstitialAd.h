@@ -28,6 +28,7 @@
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
 @property (nonatomic, readwrite, strong) UIColor *backgroundColor;
+@property (nonatomic, readonly, assign) BOOL isReady;
 
 - (id)initWithPlacementId:(NSString *)placementId;
 - (void)loadAd;
