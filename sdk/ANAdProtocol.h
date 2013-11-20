@@ -24,7 +24,6 @@
 
 @class ANAdFetcher;
 @class ANLocation;
-@protocol ANAdDelegate;
 
 typedef enum _ANGender
 {
@@ -53,7 +52,9 @@ typedef enum _ANGender
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
+#pragma mark Depecrated Properties
 
+// This property is deprecated, use "opensInNativeBrowser" instead
 @property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
 
 @end

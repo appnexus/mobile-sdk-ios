@@ -221,6 +221,7 @@
     return __shouldServePublicServiceAnnouncements;
 }
 
+// This property is deprecated, use "opensInNativeBrowser" instead
 - (BOOL)clickShouldOpenInBrowser {
     return self.opensInNativeBrowser;
 }
