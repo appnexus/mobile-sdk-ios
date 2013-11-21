@@ -67,6 +67,29 @@
     return _testComplete;
 }
 
+- (void)loadBannerAd {
+    self.banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(320, 50)];
+    
+    [self.banner setDelegate:self];
+    [self.banner loadAd];
+}
+
+- (void)fetchInterstitialAd {
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    self.interstitial.delegate = self;
+    [self.interstitial loadAd];
+}
+
+- (void)showInterstitialAd {
+    UIViewController *controller = [[UIApplication sharedApplication] keyWindow].rootViewController;
+    [self.interstitial displayAdFromViewController:controller];
+}
+
+#pragma mark ANAdDelegate
+
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     NSLog(@"adDidReceiveAd callback called");
     _adDidLoadCalled = YES;

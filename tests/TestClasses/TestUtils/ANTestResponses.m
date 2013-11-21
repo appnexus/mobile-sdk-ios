@@ -35,6 +35,10 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"HelloWorld"];
 }
 
++ (NSString *)blankContentBanner {
+    return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@""];
+}
+
 + (NSString *)mediationSuccessfulBanner {
     return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner" withID:@"" withResultCB:@"http://result"];
 }

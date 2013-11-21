@@ -17,10 +17,10 @@
 
 float const TEST_TIMEOUT = 10.0;
 
-@interface NocillaTests : ANBaseTestCase
+@interface BasicTests : ANBaseTestCase
 @end
 
-@implementation NocillaTests
+@implementation BasicTests
 
 - (void)clearTest {
     [super clearTest];
@@ -33,25 +33,17 @@ float const TEST_TIMEOUT = 10.0;
     ;
 }
 
-- (void)loadBannerAd {
-    self.banner = [[ANBannerAdView alloc]
-                   initWithFrame:CGRectMake(0, 0, 320, 50)
-                   placementId:@"1"
-                   adSize:CGSizeMake(320, 50)];
+- (BOOL)waitForDidPresentCalled {
+    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:TEST_TIMEOUT];
     
-    [self.banner setDelegate:self];
-    [self.banner loadAd];
-}
-
-- (void)fetchInterstitialAd {
-    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
-    self.interstitial.delegate = self;
-    [self.interstitial loadAd];
-}
-
-- (void)showInterstitialAd {
-    UIViewController *controller = [[UIApplication sharedApplication] keyWindow].rootViewController;
-    [self.interstitial displayAdFromViewController:controller];
+    do {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
+        if ([timeoutDate timeIntervalSinceNow] < 0.0) {
+            break;
+        }
+    }
+    while (!self.adDidPresentCalled);
+    return self.adDidPresentCalled;
 }
 
 - (void)checkAdDidLoad {
@@ -64,25 +56,48 @@ float const TEST_TIMEOUT = 10.0;
     STAssertTrue(self.adFailedToLoadCalled, @"Failure callback should be called");
 }
 
+- (void)checkInterstitialDisplayed:(BOOL)displayed {
+    STAssertEquals((BOOL)!displayed, self.adFailedToDisplayCalled,
+                   @"Interstitial callback adFailedToDisplay should be %d", (BOOL)!displayed);
+    STAssertEquals(displayed, self.adWillPresentCalled,
+                   @"Interstitial callback adWillPresent should be %d", displayed);
+    if (displayed) {
+        [self waitForDidPresentCalled];
+    }
+    STAssertEquals(displayed, self.adDidPresentCalled,
+                   @"Interstitial callback adDidPresent should be %d", displayed);
+}
+
+- (void)waitForLoad {
+    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
+}
+
 #pragma mark Standard Tests
 
 - (void)testSuccessfulBannerDidLoad {
     [self stubWithBody:[ANTestResponses successfulBanner]];
     [self loadBannerAd];
+    [self waitForLoad];
     
-    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
     [self checkAdDidLoad];
+    [self clearTest];
+}
+
+- (void)testBannerBlankContentDidFail {
+    [self stubWithBody:[ANTestResponses blankContentBanner]];
+    [self loadBannerAd];
+    [self waitForLoad];
     
+    [self checkAdFailedToLoad];
     [self clearTest];
 }
 
 - (void)testBannerBlankResponseDidFail {
     [self stubWithBody:@""];
     [self loadBannerAd];
-    
-    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
+    [self waitForLoad];
+
     [self checkAdFailedToLoad];
-    
     [self clearTest];
 }
 
@@ -90,37 +105,47 @@ float const TEST_TIMEOUT = 10.0;
     // response format for interstitials and banners is the same
     [self stubWithBody:[ANTestResponses successfulBanner]];
     [self fetchInterstitialAd];
-    
-    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
+    [self waitForLoad];
+
     [self checkAdDidLoad];
     
     [self showInterstitialAd];
-    STAssertFalse(self.adFailedToDisplayCalled, @"Interstitial should have displayed successfully");
+    [self checkInterstitialDisplayed:YES];
+    [self clearTest];
+}
+
+- (void)testInterstitialBlankContentDidFail {
+    [self stubWithBody:[ANTestResponses blankContentBanner]];
+    [self fetchInterstitialAd];
+    [self waitForLoad];
+
+    [self checkAdFailedToLoad];
     
+    [self showInterstitialAd];
+    [self checkInterstitialDisplayed:NO];
     [self clearTest];
 }
 
 - (void)testInterstitialBlankResponseDidFail {
     [self stubWithBody:@""];
     [self fetchInterstitialAd];
+    [self waitForLoad];
     
-    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
     [self checkAdFailedToLoad];
     
     [self showInterstitialAd];
-    STAssertTrue(self.adFailedToDisplayCalled, @"Interstitial should have failed to display");
-    
+    [self checkInterstitialDisplayed:NO];
     [self clearTest];
 }
+
 #pragma mark Basic Mediation Tests
 
 - (void)testSuccessfulMediationBannerDidLoad {
     [self stubWithBody:[ANTestResponses mediationSuccessfulBanner]];
     [self loadBannerAd];
+    [self waitForLoad];
     
-    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
     [self checkAdDidLoad];
-    
     [self clearTest];
 }
 

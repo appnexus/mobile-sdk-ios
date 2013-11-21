@@ -18,6 +18,7 @@
 // use these functions
 
 + (NSString *)successfulBanner;
++ (NSString *)blankContentBanner;
 + (NSString *)mediationSuccessfulBanner;
 + (NSString *)mediationNoAdsBanner;
 

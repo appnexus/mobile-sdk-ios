@@ -39,4 +39,8 @@
 - (void)stubWithBody:(NSString *)body;
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs;
 
+- (void)loadBannerAd;
+- (void)fetchInterstitialAd;
+- (void)showInterstitialAd;
+
 @end
