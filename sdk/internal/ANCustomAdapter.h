@@ -64,6 +64,7 @@ typedef enum _ANAdResponseCode
                                   adUnitId:(NSString *)idString
                                   location:(ANLocation *)location;
 - (void)presentFromViewController:(UIViewController *)viewController;
+- (BOOL)isReady;
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
 @end
 

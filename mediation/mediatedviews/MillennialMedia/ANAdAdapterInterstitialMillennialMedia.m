@@ -117,4 +117,8 @@
                       }];
 }
 
+- (BOOL)isReady {
+    return [MMInterstitial isAdAvailableForApid:self.apid];
+}
+
 @end

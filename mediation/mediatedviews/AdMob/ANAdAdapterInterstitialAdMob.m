@@ -60,6 +60,10 @@
 	[self.interstitialAd presentFromRootViewController:viewController];
 }
 
+- (BOOL)isReady {
+    return self.interstitialAd.isReady;
+}
+
 #pragma mark GADInterstitialDelegate
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad

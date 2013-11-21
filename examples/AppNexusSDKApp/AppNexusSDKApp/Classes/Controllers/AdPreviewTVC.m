@@ -207,8 +207,11 @@
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adDidReceiveAd");
-    if (self.interstitialAd && self.interstitialAd == ad) {
-        [self.interstitialAd displayAdFromViewController:self.parentViewController]; // on load, immediately display interstitial
+    if (self.interstitialAd && self.interstitialAd == ad
+        && self.interstitialAd.isReady) {
+        // on load, immediately display interstitial
+        [self.interstitialAd
+         displayAdFromViewController:self.parentViewController];
     }
 }
 

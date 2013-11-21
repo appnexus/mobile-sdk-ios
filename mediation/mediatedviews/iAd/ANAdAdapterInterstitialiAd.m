@@ -56,6 +56,11 @@
     [self.delegate didPresentAd];
 }
 
+- (BOOL)isReady {
+    ADInterstitialAd *iAd = (ADInterstitialAd *)self.interstitialAd;
+    return iAd.loaded;
+}
+
 #pragma mark ADInterstitialAdDelegate
 
 - (void)interstitialAdWillLoad:(ADInterstitialAd *)interstitialAd
