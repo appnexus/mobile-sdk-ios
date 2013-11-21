@@ -180,7 +180,12 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
             id readyAd = [adDict objectForKey:kANInterstitialAdViewKey];
             if ([readyAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
                 // if it's a mediated ad, check if it is ready
-                return [readyAd isReady];
+                if ([readyAd respondsToSelector:@selector(isReady)]) {
+                    return [readyAd isReady];
+                } else {
+                    ANLogError(@"CustomInterstitialAdapter should implement isReady function");
+                    return true;
+                }
             } else {
                 // if it's a standard ad, we are ready to display
                 return true;
