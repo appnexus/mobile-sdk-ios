@@ -84,8 +84,6 @@
 		ECB124BC1821A25D00CB4BE8 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247F1821A25D00CB4BE8 /* NSTimer+ANCategory.m */; };
 		ECB124BD1821A25D00CB4BE8 /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124811821A25D00CB4BE8 /* UIView+ANCategory.m */; };
 		ECB124BE1821A25D00CB4BE8 /* UIWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124831821A25D00CB4BE8 /* UIWebView+ANCategory.m */; };
-		ECB124BF1821A25D00CB4BE8 /* ANOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124871821A25D00CB4BE8 /* ANOpenUDID.m */; };
-		ECB124C01821A25D00CB4BE8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ECB124881821A25D00CB4BE8 /* README.md */; };
 		ECB124C11821A25D00CB4BE8 /* ODIN.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1248B1821A25D00CB4BE8 /* ODIN.m */; };
 		ECB124C21821A25D00CB4BE8 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */; };
 		ECB124C31821A25D00CB4BE8 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124901821A25D00CB4BE8 /* ANAdResponse.m */; };
@@ -239,9 +237,6 @@
 		ECB124811821A25D00CB4BE8 /* UIView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ANCategory.m"; sourceTree = "<group>"; };
 		ECB124821821A25D00CB4BE8 /* UIWebView+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ANCategory.h"; sourceTree = "<group>"; };
 		ECB124831821A25D00CB4BE8 /* UIWebView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ANCategory.m"; sourceTree = "<group>"; };
-		ECB124861821A25D00CB4BE8 /* ANOpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANOpenUDID.h; sourceTree = "<group>"; };
-		ECB124871821A25D00CB4BE8 /* ANOpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANOpenUDID.m; sourceTree = "<group>"; };
-		ECB124881821A25D00CB4BE8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		ECB1248A1821A25D00CB4BE8 /* ODIN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODIN.h; sourceTree = "<group>"; };
 		ECB1248B1821A25D00CB4BE8 /* ODIN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODIN.m; sourceTree = "<group>"; };
 		ECB1248D1821A25D00CB4BE8 /* ANAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcher.h; sourceTree = "<group>"; };
@@ -543,20 +538,9 @@
 		ECB124841821A25D00CB4BE8 /* externals */ = {
 			isa = PBXGroup;
 			children = (
-				ECB124851821A25D00CB4BE8 /* ANOpenUDID */,
 				ECB124891821A25D00CB4BE8 /* odinmobile-read-only */,
 			);
 			path = externals;
-			sourceTree = "<group>";
-		};
-		ECB124851821A25D00CB4BE8 /* ANOpenUDID */ = {
-			isa = PBXGroup;
-			children = (
-				ECB124861821A25D00CB4BE8 /* ANOpenUDID.h */,
-				ECB124871821A25D00CB4BE8 /* ANOpenUDID.m */,
-				ECB124881821A25D00CB4BE8 /* README.md */,
-			);
-			path = ANOpenUDID;
 			sourceTree = "<group>";
 		};
 		ECB124891821A25D00CB4BE8 /* odinmobile-read-only */ = {
@@ -739,7 +723,6 @@
 				ECB124DD1821A25D00CB4BE8 /* MRAID.bundle in Resources */,
 				ECB124DB1821A25D00CB4BE8 /* UIButtonBarArrowRight.png in Resources */,
 				EC3FD74F1822213C00B25418 /* appnexus_app_icon_ipad@2x.png in Resources */,
-				ECB124C01821A25D00CB4BE8 /* README.md in Resources */,
 				EC3FD75E1822213C00B25418 /* appnexus_spotlight_ipad@2x.png in Resources */,
 				EC3FD7551822213C00B25418 /* appnexus_launch_image_iphone-568h@2x.png in Resources */,
 				EC3FD7481822213C00B25418 /* 740-gear.png in Resources */,
@@ -810,7 +793,6 @@
 				ECB124CC1821A25D00CB4BE8 /* ANInterstitialAdViewController.m in Sources */,
 				EC3FD72B1822213C00B25418 /* AppNexusSDKAppDelegate.m in Sources */,
 				ECB124D01821A25D00CB4BE8 /* ANMediatedAd.m in Sources */,
-				ECB124BF1821A25D00CB4BE8 /* ANOpenUDID.m in Sources */,
 				EC3FD7341822213C00B25418 /* LogCoreDataTVC.m in Sources */,
 				EC3FD73D1822213C00B25418 /* CoreDataTableViewController.m in Sources */,
 				EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */,

@@ -17,7 +17,6 @@
 #import "ANLogging.h"
 #import <sys/utsname.h>
 #import <AdSupport/AdSupport.h>
-#import "ANOpenUDID.h"
 
 NSString *const kANFirstLaunchKey = @"kANFirstLaunchKey";
 
@@ -84,39 +83,22 @@ BOOL isFirstLaunch()
 
 
 
-NSString *ANUdidParameter()
-{
+NSString *ANUdidParameter() {
     static NSString *udidComponent = nil;
     
-    if (udidComponent == nil)
-    {
+    if (udidComponent == nil) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-        if (NSClassFromString(@"ASIdentifierManager"))
-        {
+        if (NSClassFromString(@"ASIdentifierManager")) {
             // iOS 6: Use the ASIdentifierManager provided method of getting the identifier
-            NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+            NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager]
+                                               .advertisingIdentifier UUIDString];
             
-            if (advertisingIdentifier != nil)
-            {
+            if (advertisingIdentifier != nil) {
                 udidComponent = [NSString stringWithFormat:@"&idfa=%@", advertisingIdentifier];
             }
-            else
-            {
+            else {
                 ANLogError(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
             }
-        }
-#endif
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_6_0
-        // iOS 5: Use OpenUDID
-        NSString *openUDIDComponent = [ANOpenUDID value];
-        
-        if (openUDIDComponent != nil)
-        {
-            udidComponent = [NSString stringWithFormat:@"&openudid=%@", openUDIDComponent];
-        }
-        else
-        {
-            ANLogError(@"No OpenUDID value retrieved. Cannot generate OpenUDID component.");
         }
 #endif
 	}
