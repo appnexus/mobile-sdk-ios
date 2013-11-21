@@ -36,8 +36,15 @@
     _banner = nil;
     _interstitial = nil;
     _testComplete = NO;
-    _adDidLoad = NO;
-    _adFailedToLoad = NO;
+    _adDidLoadCalled = NO;
+    _adFailedToLoadCalled = NO;
+    _adWasClickedCalled = NO;
+    _adWillPresentCalled = NO;
+    _adDidPresentCalled = NO;
+    _adWillCloseCalled = NO;
+    _adDidCloseCalled = NO;
+    _adWillLeaveApplicationCalled = NO;
+    _adFailedToDisplayCalled = NO;
 }
 
 - (void)stubWithBody:(NSString *)body {
@@ -61,17 +68,50 @@
 }
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
-    _adDidLoad = YES;
+    NSLog(@"adDidReceiveAd callback called");
+    _adDidLoadCalled = YES;
     _testComplete = YES;
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
-    _adFailedToLoad = YES;
+    NSLog(@"ad:requestFailedWithError callback called");
+    _adFailedToLoadCalled = YES;
     _testComplete = YES;
 }
 
+- (void)adWasClicked:(id<ANAdProtocol>)ad {
+    NSLog(@"adWasClicked callback called");
+    _adWasClickedCalled = YES;
+}
+
+- (void)adWillPresent:(id<ANAdProtocol>)ad {
+    NSLog(@"adWillPresent callback called");
+    _adWillPresentCalled = YES;
+}
+
+- (void)adDidPresent:(id<ANAdProtocol>)ad {
+    NSLog(@"adDidPresent callback called");
+    _adDidPresentCalled = YES;
+}
+
+- (void)adWillClose:(id<ANAdProtocol>)ad {
+    NSLog(@"adWillClose callback called");
+    _adWillCloseCalled = YES;
+}
+
+- (void)adDidClose:(id<ANAdProtocol>)ad {
+    NSLog(@"adDidClose callback called");
+    _adDidCloseCalled = YES;
+}
+
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+    NSLog(@"adWillLeaveApplication callback called");
+    _adWillLeaveApplicationCalled = YES;
+}
+
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad {
-    
+    NSLog(@"adFailedToDisplay callback called");
+    _adFailedToDisplayCalled = YES;
 }
 
 @end

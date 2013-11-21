@@ -36,11 +36,11 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
 }
 
 + (NSString *)mediationSuccessfulBanner {
-    return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner" withID:@"" withResultCB:@"result"];
+    return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner" withID:@"" withResultCB:@"http://result"];
 }
 
 + (NSString *)mediationNoAdsBanner {
-    return [ANTestResponses createMediatedBanner:@"ANAdAdapterBannerNoAds" withID:@"" withResultCB:@"result"];
+    return [ANTestResponses createMediatedBanner:@"ANAdAdapterBannerNoAds" withID:@"" withResultCB:@"http://result"];
 }
 
 #pragma mark Response Construction Convenience functions

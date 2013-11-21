@@ -24,8 +24,16 @@
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 @property (nonatomic, readwrite, strong) ANInterstitialAd *interstitial;
 @property (nonatomic, assign) BOOL testComplete;
-@property (nonatomic, assign) BOOL adDidLoad;
-@property (nonatomic, assign) BOOL adFailedToLoad;
+
+@property (nonatomic, assign) BOOL adDidLoadCalled;
+@property (nonatomic, assign) BOOL adFailedToLoadCalled;
+@property (nonatomic, assign) BOOL adWasClickedCalled;
+@property (nonatomic, assign) BOOL adWillPresentCalled;
+@property (nonatomic, assign) BOOL adDidPresentCalled;
+@property (nonatomic, assign) BOOL adWillCloseCalled;
+@property (nonatomic, assign) BOOL adDidCloseCalled;
+@property (nonatomic, assign) BOOL adWillLeaveApplicationCalled;
+@property (nonatomic, assign) BOOL adFailedToDisplayCalled;
 
 - (void)clearTest;
 - (void)stubWithBody:(NSString *)body;
