@@ -22,6 +22,8 @@ NSString *const MEDIATED_ARRAY_TEMPLATE = @"[{ \"handler\": [{\"type\":\"%@\",\"
 
 NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"param\":\"%@\",\"width\":\"%@\",\"height\":\"%@\",\"id\":\"%@\"}";
 
+NSString *const OK_RESULT_CB_URL = @"http://result";
+
 @interface ANMediatedAd (TestResponses)
 @property (nonatomic, readwrite, strong) NSString *type;
 - (NSString *)toJSON;
@@ -40,11 +42,11 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
 }
 
 + (NSString *)mediationSuccessfulBanner {
-    return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner" withID:@"" withResultCB:@"http://result"];
+    return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner"];
 }
 
 + (NSString *)mediationNoAdsBanner {
-    return [ANTestResponses createMediatedBanner:@"ANAdAdapterBannerNoAds" withID:@"" withResultCB:@"http://result"];
+    return [ANTestResponses createMediatedBanner:@"ANAdAdapterBannerNoAds"];
 }
 
 #pragma mark Response Construction Convenience functions
@@ -57,6 +59,15 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     NSString *adsField = [NSString stringWithFormat:ADS_ARRAY_TEMPLATE, type, width, height, content];
     NSString *mediatedField = @"[]";
     return [ANTestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
+}
+
++ (NSString *)createMediatedBanner:(NSString *)className {
+    return [ANTestResponses createMediatedBanner:className withID:@"" withResultCB:OK_RESULT_CB_URL];
+}
+
++ (NSString *)createMediatedBanner:(NSString *)className
+                            withID:(NSString *)idString {
+    return [ANTestResponses createMediatedBanner:className withID:idString withResultCB:OK_RESULT_CB_URL];
 }
 
 + (NSString *)createMediatedBanner:(NSString *)className

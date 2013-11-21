@@ -24,6 +24,10 @@
 - (void)setUp {
     [super setUp];
     [[LSNocilla sharedInstance] start];
+    stubRequest(@"GET", @"http://result*".regex)
+    .andReturn(200)
+    .withBody(@"")
+    ;
 }
 
 - (void)tearDown {
@@ -72,8 +76,8 @@
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
                    adSize:CGSizeMake(320, 50)];
-    
-    [self.banner setDelegate:self];
+    self.banner.autoRefreshInterval = 0.0;
+    self.banner.delegate = self;
     [self.banner loadAd];
 }
 

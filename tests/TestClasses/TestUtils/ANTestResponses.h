@@ -22,6 +22,9 @@
 + (NSString *)mediationSuccessfulBanner;
 + (NSString *)mediationNoAdsBanner;
 
++ (NSString *)createMediatedBanner:(NSString *)className;
++ (NSString *)createMediatedBanner:(NSString *)className
+                            withID:(NSString *)idString;
 + (NSString *)createMediatedBanner:(NSString *)className
                             withID:(NSString *)idString
                       withResultCB:(NSString *)resultCB;

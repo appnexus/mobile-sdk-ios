@@ -15,12 +15,12 @@
 
 #import "ANBaseTestCase.h"
 
-float const TEST_TIMEOUT = 10.0;
-
 @interface BasicTests : ANBaseTestCase
 @end
 
 @implementation BasicTests
+
+float const BASIC_TIMEOUT = 10.0;
 
 - (void)clearTest {
     [super clearTest];
@@ -34,7 +34,7 @@ float const TEST_TIMEOUT = 10.0;
 }
 
 - (BOOL)waitForDidPresentCalled {
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:TEST_TIMEOUT];
+    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:BASIC_TIMEOUT];
     
     do {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
@@ -69,7 +69,7 @@ float const TEST_TIMEOUT = 10.0;
 }
 
 - (void)waitForLoad {
-    STAssertTrue([self waitForCompletion:TEST_TIMEOUT], @"Test timed out");
+    STAssertTrue([self waitForCompletion:BASIC_TIMEOUT], @"Test timed out");
 }
 
 #pragma mark Standard Tests
