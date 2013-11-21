@@ -29,10 +29,20 @@
 #define APPNEXUS_LEADERBOARD_SIZE		CGSizeMake(728, 90)
 #define APPNEXUS_WIDE_SKYSCRAPER_SIZE	CGSizeMake(160, 600)
 
+#pragma mark Constants
+
 #define kAppNexusRequestTimeoutInterval 30.0
 #define kAppNexusAnimationDuration 0.4f
-#define kAppNexusDefaultInterstitialCloseButtonInterval 10.0
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
+
+// Banner AutoRefresh
+#define kANBannerDefaultAutoRefreshInterval 30.0
+#define kANBannerMinimumAutoRefreshInterval 15.0
+#define kANBannerAutoRefreshThreshold 0.0
+
+// Interstitial Close Button Delay
+#define kANInterstitialDefaultCloseButtonDelay 10.0
+#define kANInterstitialMaximumCloseButtonDelay 10.0
 
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);

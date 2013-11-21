@@ -41,6 +41,7 @@
         self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }
     self.progressView.hidden = YES;
+    self.closeButton.hidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -53,6 +54,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.viewed = YES;
+    [self startCountdownTimer];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -63,9 +65,12 @@
 
 - (void)startCountdownTimer
 {
-	self.progressView.hidden = NO;
-	self.timerStartDate = [NSDate date];
-	self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
+    if ([self.delegate closeDelayForController] > 0.0) {
+        self.progressView.hidden = NO;
+        self.closeButton.hidden = YES;
+        self.timerStartDate = [NSDate date];
+        self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
+    }
 }
 
 - (void)stopCountdownTimer
@@ -79,9 +84,10 @@
 {
 	NSDate *timeNow = [NSDate date];
 	NSTimeInterval timeShown = [timeNow timeIntervalSinceDate:self.timerStartDate];
-	
-	if (timeShown >= kAppNexusDefaultInterstitialCloseButtonInterval && self.closeButton.hidden == YES)
-	{
+    NSTimeInterval closeDelay = [self.delegate closeDelayForController];
+	[self.progressView setProgress:(timeShown / closeDelay)];
+    
+	if (timeShown >= closeDelay && self.closeButton.hidden == YES) {
 		self.closeButton.hidden = NO;
 	}
 }

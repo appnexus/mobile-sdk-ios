@@ -15,10 +15,6 @@
 
 #import "ANAdView.h"
 
-#define kANBannerAdViewDefaultAutoRefreshInterval 30.0
-#define kANBannerAdViewMinimumAutoRefreshInterval 15.0
-#define kANBannerAdViewAutoRefreshThreshold 0.0
-
 @protocol ANBannerAdViewDelegate;
 
 @interface ANBannerAdView : ANAdView

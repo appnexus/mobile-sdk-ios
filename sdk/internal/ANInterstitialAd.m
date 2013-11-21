@@ -26,6 +26,13 @@
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
+// List of default allowed ad sizes. These must fit in the maximum size of the
+// view, which in this case, will be the size of the window
+#define kANInterstitialAdSize300x250 CGSizeMake(300,250)
+#define kANInterstitialAdSize320x480 CGSizeMake(320,480)
+#define kANInterstitialAdSize900x500 CGSizeMake(900,500)
+#define kANInterstitialAdSize1024x1024 CGSizeMake(1024,1024)
+
 NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 
@@ -69,6 +76,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     __precachedAdObjects = [NSMutableArray array];
     __adSize = self.frame.size;
     __allowedAdSizes = [self getDefaultAllowedAdSizes];
+    _closeDelay = kANInterstitialDefaultCloseButtonDelay;
 }
 
 - (id)initWithPlacementId:(NSString *)placementId {
@@ -204,6 +212,15 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return [[UIScreen mainScreen] bounds];
 }
 
+- (void)setCloseDelay:(NSTimeInterval)closeDelay {
+    if (closeDelay > kANInterstitialMaximumCloseButtonDelay) {
+        ANLogWarn(@"Maximum allowed value for closeDelay is %.1f", kANInterstitialMaximumCloseButtonDelay);
+        closeDelay = kANInterstitialMaximumCloseButtonDelay;
+    }
+    
+    _closeDelay = closeDelay;
+}
+
 #pragma mark Implementation of Abstract methods from ANAdView
 
 - (NSString *)adType {
@@ -299,6 +316,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	[self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
         [self adDidClose];
 	}];
+}
+
+- (NSTimeInterval)closeDelayForController {
+    return self.closeDelay;
 }
 
 @end

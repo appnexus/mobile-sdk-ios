@@ -54,7 +54,7 @@
     self.autoresizingMask = UIViewAutoresizingNone;
     
     // Set default autoRefreshInterval
-    __autoRefreshInterval = kANBannerAdViewDefaultAutoRefreshInterval;
+    __autoRefreshInterval = kANBannerDefaultAutoRefreshInterval;
 }
 
 - (void)awakeFromNib {
@@ -125,11 +125,11 @@
 
 - (void)setAutoRefreshInterval:(NSTimeInterval)autoRefreshInterval {
     // if auto refresh is above the threshold (0), turn auto refresh on
-    if (autoRefreshInterval > kANBannerAdViewAutoRefreshThreshold) {
+    if (autoRefreshInterval > kANBannerAutoRefreshThreshold) {
         // minimum allowed value for auto refresh is (15).
-        if (autoRefreshInterval < kANBannerAdViewMinimumAutoRefreshInterval) {
-            __autoRefreshInterval = kANBannerAdViewMinimumAutoRefreshInterval;
-            ANLogWarn(@"setAutoRefreshInterval called with value %f, but cannot be less than %f", autoRefreshInterval, kANBannerAdViewMinimumAutoRefreshInterval);
+        if (autoRefreshInterval < kANBannerMinimumAutoRefreshInterval) {
+            __autoRefreshInterval = kANBannerMinimumAutoRefreshInterval;
+            ANLogWarn(@"setAutoRefreshInterval called with value %f, but cannot be less than %f", autoRefreshInterval, kANBannerMinimumAutoRefreshInterval);
         }
         
 		ANLogDebug(@"AutoRefresh interval set to %f seconds", autoRefreshInterval);
