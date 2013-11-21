@@ -84,7 +84,6 @@
 		ECB124BC1821A25D00CB4BE8 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247F1821A25D00CB4BE8 /* NSTimer+ANCategory.m */; };
 		ECB124BD1821A25D00CB4BE8 /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124811821A25D00CB4BE8 /* UIView+ANCategory.m */; };
 		ECB124BE1821A25D00CB4BE8 /* UIWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124831821A25D00CB4BE8 /* UIWebView+ANCategory.m */; };
-		ECB124C11821A25D00CB4BE8 /* ODIN.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1248B1821A25D00CB4BE8 /* ODIN.m */; };
 		ECB124C21821A25D00CB4BE8 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */; };
 		ECB124C31821A25D00CB4BE8 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124901821A25D00CB4BE8 /* ANAdResponse.m */; };
 		ECB124C41821A25D00CB4BE8 /* ANAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124921821A25D00CB4BE8 /* ANAdView.m */; };
@@ -237,8 +236,6 @@
 		ECB124811821A25D00CB4BE8 /* UIView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ANCategory.m"; sourceTree = "<group>"; };
 		ECB124821821A25D00CB4BE8 /* UIWebView+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ANCategory.h"; sourceTree = "<group>"; };
 		ECB124831821A25D00CB4BE8 /* UIWebView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ANCategory.m"; sourceTree = "<group>"; };
-		ECB1248A1821A25D00CB4BE8 /* ODIN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODIN.h; sourceTree = "<group>"; };
-		ECB1248B1821A25D00CB4BE8 /* ODIN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODIN.m; sourceTree = "<group>"; };
 		ECB1248D1821A25D00CB4BE8 /* ANAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcher.h; sourceTree = "<group>"; };
 		ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcher.m; sourceTree = "<group>"; };
 		ECB1248F1821A25D00CB4BE8 /* ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdResponse.h; sourceTree = "<group>"; };
@@ -512,7 +509,6 @@
 				ECB124791821A25D00CB4BE8 /* ANBannerAdView.h */,
 				ECB1247A1821A25D00CB4BE8 /* ANInterstitialAd.h */,
 				ECB1247B1821A25D00CB4BE8 /* Categories */,
-				ECB124841821A25D00CB4BE8 /* externals */,
 				ECB1248C1821A25D00CB4BE8 /* internal */,
 				ECB124AF1821A25D00CB4BE8 /* Resources */,
 			);
@@ -533,23 +529,6 @@
 				ECB124831821A25D00CB4BE8 /* UIWebView+ANCategory.m */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		ECB124841821A25D00CB4BE8 /* externals */ = {
-			isa = PBXGroup;
-			children = (
-				ECB124891821A25D00CB4BE8 /* odinmobile-read-only */,
-			);
-			path = externals;
-			sourceTree = "<group>";
-		};
-		ECB124891821A25D00CB4BE8 /* odinmobile-read-only */ = {
-			isa = PBXGroup;
-			children = (
-				ECB1248A1821A25D00CB4BE8 /* ODIN.h */,
-				ECB1248B1821A25D00CB4BE8 /* ODIN.m */,
-			);
-			path = "odinmobile-read-only";
 			sourceTree = "<group>";
 		};
 		ECB1248C1821A25D00CB4BE8 /* internal */ = {
@@ -781,7 +760,6 @@
 				EC3FD7391822213C00B25418 /* ANRequest.m in Sources */,
 				EC3FD73A1822213C00B25418 /* ANResponse+Make.m in Sources */,
 				EC3FD72E1822213C00B25418 /* AdSettingsViewController.m in Sources */,
-				ECB124C11821A25D00CB4BE8 /* ODIN.m in Sources */,
 				EC3FD72D1822213C00B25418 /* AdSettingsTVC.m in Sources */,
 				EC3FD72C1822213C00B25418 /* AdPreviewTVC.m in Sources */,
 				ECB124CB1821A25D00CB4BE8 /* ANInterstitialAd.m in Sources */,

@@ -16,7 +16,6 @@
 #import "ANInstallTrackerPixel.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ODIN.h"
 
 #define AN_INSTALL_TRACKER_PIXEL_MAX_ATTEMPTS 5
 #define AN_INSTALL_TRACKER_PIXEL_ATTEMPT_DURATION 30.0
@@ -68,17 +67,6 @@
 	return trackingIDParameter;
 }
 
-- (NSString *)odinParameter
-{
-	NSString *parameter = @"";
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_6_0
-	parameter = [NSString stringWithFormat:@"&sha1mac=%@", [ODIN1() stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-#endif
-
-	return parameter;
-}
-
 - (NSString *)dontTrackEnabledParameter
 {
     NSString *donttrackEnabled = @"";
@@ -101,7 +89,6 @@
 	NSString *urlString = [NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME_INSTALL];
 
 	urlString = [urlString stringByAppendingString:[self trackingIDParameter]];
-	urlString = [urlString stringByAppendingString:[self odinParameter]];
 	urlString = [urlString stringByAppendingString:[self dontTrackEnabledParameter]];
 	urlString = [urlString stringByAppendingString:[self applicationIdParameter]];
 	urlString = [urlString stringByAppendingString:ANUdidParameter()];
