@@ -36,6 +36,7 @@
 @synthesize adFetcher = __adFetcher;
 @synthesize placementId = __placementId;
 @synthesize adSize = __adSize;
+@synthesize opensInNativeBrowser = __opensInNativeBrowser;
 @synthesize clickShouldOpenInBrowser = __clickShouldOpenInBrowser;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
 @synthesize location = __location;
@@ -220,9 +221,15 @@
     return __shouldServePublicServiceAnnouncements;
 }
 
+// This property is deprecated, use "opensInNativeBrowser" instead
 - (BOOL)clickShouldOpenInBrowser {
-    ANLogDebug(@"clickShouldOpenInBrowser returned %d", __clickShouldOpenInBrowser);
-    return __clickShouldOpenInBrowser;
+    return self.opensInNativeBrowser;
+}
+
+- (BOOL)opensInNativeBrowser {
+    BOOL opensInNativeBrowser = (__opensInNativeBrowser || __clickShouldOpenInBrowser);
+    ANLogDebug(@"opensInNativeBrowser returned %d", opensInNativeBrowser);
+    return opensInNativeBrowser;
 }
 
 - (CGFloat)reserve {
@@ -269,7 +276,7 @@
     NSString *scheme = [URL scheme];
     BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
     
-    if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
+    if (!self.opensInNativeBrowser && schemeIsHttp) {
         ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
         browserViewController.delegate = self;
         if (self.mraidController) {

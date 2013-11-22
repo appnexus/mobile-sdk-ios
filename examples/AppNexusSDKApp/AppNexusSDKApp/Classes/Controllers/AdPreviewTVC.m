@@ -85,7 +85,7 @@
     CGFloat settingsBannerHeight = (CGFloat)settings.bannerHeight;
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
     BOOL settingsAllowPSA = settings.allowPSA;
-    BOOL settingsClickShouldOpenInBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
+    BOOL settingsOpensInNativeBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
     CGFloat settingsAutoRefreshInterval = (CGFloat)settings.refreshRate;
     
     CGFloat centerX = 0.0;
@@ -106,7 +106,7 @@
     self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
     self.bannerAdView.placementId = settingsPlacementID;
     self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
-    self.bannerAdView.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
+    self.bannerAdView.opensInNativeBrowser = settingsOpensInNativeBrowser;
     if (self.lastLocation) {
         [self.bannerAdView setLocationWithLatitude:self.lastLocation.coordinate.latitude
                                          longitude:self.lastLocation.coordinate.longitude
@@ -126,7 +126,7 @@
 - (void)loadInterstitialAdWithSettings:(AdSettings *)settings {
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
     BOOL settingsAllowPSA = settings.allowPSA;
-    BOOL settingsClickShouldOpenInBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
+    BOOL settingsOpensInNativeBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
     NSString *backgroundColor = settings.backgroundColor;
 
     [self clearInterstitialAd];
@@ -134,7 +134,7 @@
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
     self.interstitialAd.shouldServePublicServiceAnnouncements = settingsAllowPSA;
-    self.interstitialAd.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
+    self.interstitialAd.opensInNativeBrowser = settingsOpensInNativeBrowser;
     self.interstitialAd.backgroundColor = [self interstitialBackgroundColorFromString:backgroundColor];
     if (self.lastLocation) {
         [self.interstitialAd setLocationWithLatitude:self.lastLocation.coordinate.latitude

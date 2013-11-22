@@ -31,6 +31,11 @@
     UIButton *__closeButton;
 }
 
+#pragma mark Deprecrated Properties
+
+// This property is deprecated, use "opensInNativeBrowser" instead
+@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
+
 @end
 
 @interface ANAdView (ANAdFetcher)

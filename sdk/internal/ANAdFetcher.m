@@ -316,7 +316,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 }
 
 - (NSString *)nativeBrowserParameter {
-    return [NSString stringWithFormat:@"&native_browser=%d", [self.delegate clickShouldOpenInBrowser]];
+    return [NSString stringWithFormat:@"&native_browser=%d", self.delegate.opensInNativeBrowser];
 }
 
 - (NSString *)psaAndReserveParameter {
