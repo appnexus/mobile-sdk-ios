@@ -24,10 +24,6 @@
 - (void)setUp {
     [super setUp];
     [[LSNocilla sharedInstance] start];
-    stubRequest(@"GET", @"http://result*".regex)
-    .andReturn(200)
-    .withBody(@"")
-    ;
 }
 
 - (void)tearDown {
@@ -52,10 +48,27 @@
 }
 
 - (void)stubWithBody:(NSString *)body {
-    stubRequest(@"GET", @"http://*".regex)
+    stubRequest(@"GET", AN_MOBILE_HOSTNAME)
     .andReturn(200)
     .withBody(body)
     ;
+}
+
+- (void)stubResultCBResponses:(NSString *)body {
+    stubRequest(@"GET", [OK_RESULT_CB_URL stringByAppendingString:@".*"].regex)
+    .andReturn(200)
+    .withBody(body ? body : @"")
+    ;
+}
+
+- (void)stubResultCBForErrorCode {
+    for (int i = 0; i < 6; i++) {
+        NSString *resultCBRegex = [NSString stringWithFormat:@"^%@\\?reason=%i.*", OK_RESULT_CB_URL, i];
+        stubRequest(@"GET", resultCBRegex.regex)
+        .andReturn(200)
+        .withBody([ANTestResponses mediationErrorCodeBanner:i])
+        ;
+    }
 }
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {

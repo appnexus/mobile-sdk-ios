@@ -26,12 +26,7 @@
                        location:(ANLocation *)location
              rootViewController:(UIViewController *)rootViewController
 {
-    // Fake a network fail response after 2 seconds
-    [self performSelector:@selector(performNoAdsResponse) withObject:nil afterDelay:2.0];
-}
-
-- (void)performNoAdsResponse
-{
+    // Fake a no fill response
     [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
 }
 

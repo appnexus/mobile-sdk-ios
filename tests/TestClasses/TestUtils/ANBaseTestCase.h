@@ -18,6 +18,7 @@
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
 #import "ANTestResponses.h"
+#import "ANGlobal.h"
 
 @interface ANBaseTestCase : SenTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
 
@@ -37,6 +38,9 @@
 
 - (void)clearTest;
 - (void)stubWithBody:(NSString *)body;
+- (void)stubResultCBResponses:(NSString *)body;
+- (void)stubResultCBForErrorCode;
+
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs;
 
 - (void)loadBannerAd;

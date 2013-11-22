@@ -13,6 +13,8 @@
  limitations under the License.
  */
 
+static NSString *const OK_RESULT_CB_URL = @"http://result";
+
 @interface ANTestResponses : NSObject
 
 // use these functions
@@ -21,6 +23,7 @@
 + (NSString *)blankContentBanner;
 + (NSString *)mediationSuccessfulBanner;
 + (NSString *)mediationNoAdsBanner;
++ (NSString *)mediationErrorCodeBanner:(int)code;
 
 + (NSString *)createMediatedBanner:(NSString *)className;
 + (NSString *)createMediatedBanner:(NSString *)className

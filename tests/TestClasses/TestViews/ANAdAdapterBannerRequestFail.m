@@ -26,12 +26,7 @@
                        location:(ANLocation *)location
              rootViewController:(UIViewController *)rootViewController
 {
-    // Fake a network fail response after 2 seconds
-    [self performSelector:@selector(performFailResponse) withObject:nil afterDelay:2.0];
-}
-
-- (void)performFailResponse
-{
+    // Fake a network fail response
     [self.delegate didFailToLoadAd:ANAdResponseNetworkError];
 }
 
