@@ -42,8 +42,21 @@ float const CALLBACKS_TIMEOUT = 5.0;
                    @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
     STAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
     STAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
-    
-    [self clearTest];
+}
+
+- (void)checkCallbacks:(BOOL)called {
+    STAssertEquals(self.adWasClickedCalled, called,
+                   @"callback adWasClickCalled should be %d", called);
+    STAssertEquals(self.adWillPresentCalled, called,
+                   @"callback adWillPresentCalled should be %d", called);
+    STAssertEquals(self.adDidPresentCalled, called,
+                   @"callback adDidPresentCalled should be %d", called);
+    STAssertEquals(self.adWillCloseCalled, called,
+                   @"callback adWillCloseCalled should be %d", called);
+    STAssertEquals(self.adDidCloseCalled, called,
+                   @"callback adDidCloseCalled should be %d", called);
+    STAssertEquals(self.adWillLeaveApplicationCalled, called,
+                   @"callback adWillLeaveApplicationCalled should be %d", called);
 }
 
 #pragma mark MediationCallback tests
@@ -53,6 +66,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadedMultiple"]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
 }
 
 - (void)test19Timeout
@@ -60,6 +74,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANTimeout"]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + CALLBACKS_TIMEOUT];
+    [self clearTest];
 }
 
 - (void)test20LoadThenFail
@@ -67,6 +82,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadThenFail"]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
 }
 
 - (void)test21FailThenLoad
@@ -74,6 +90,25 @@ float const CALLBACKS_TIMEOUT = 5.0;
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailThenLoad"]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
+}
+
+- (void)test22LoadAndHitOtherCallbacks
+{
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadAndHitOtherCallbacks"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self checkCallbacks:YES];
+    [self clearTest];
+}
+
+- (void)test23FailAndHitOtherCallbacks
+{
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailAndHitOtherCallbacks"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self checkCallbacks:NO];
+    [self clearTest];
 }
 
 - (void)test24FailedMultiple
@@ -81,6 +116,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailedMultiple"]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
 }
 
 #pragma mark ANBannerAdViewDelegate

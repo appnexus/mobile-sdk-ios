@@ -55,6 +55,7 @@
 		EC09B329183437CC00D76510 /* LSStubResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2991834340200D76510 /* LSStubResponse.m */; };
 		EC3640E6183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3640E5183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m */; };
 		EC3640E9183FFA9F00DB8000 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */; };
+		EC3640EC184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3640EB184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m */; };
 		EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */; };
 		EC405619183D670D006A1D09 /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = EC40560E183D5D88006A1D09 /* ANBaseTestCase.m */; };
 		EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = EC405610183D5D88006A1D09 /* ANTestResponses.m */; };
@@ -221,6 +222,8 @@
 		EC3640E4183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSuccessfulBannerNeverCalled.h; sourceTree = "<group>"; };
 		EC3640E5183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSuccessfulBannerNeverCalled.m; sourceTree = "<group>"; };
 		EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		EC3640EA184001EC00DB8000 /* ANFailAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailAndHitOtherCallbacks.h; sourceTree = "<group>"; };
+		EC3640EB184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailAndHitOtherCallbacks.m; sourceTree = "<group>"; };
 		EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
 		EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC405605183D566C006A1D09 /* ANSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSuccessfulBanner.h; sourceTree = "<group>"; };
@@ -762,6 +765,8 @@
 				ECD9299C1822CAD300420840 /* ANFailedMultiple.m */,
 				ECD9299D1822CAD300420840 /* ANFailThenLoad.h */,
 				ECD9299E1822CAD300420840 /* ANFailThenLoad.m */,
+				EC3640EA184001EC00DB8000 /* ANFailAndHitOtherCallbacks.h */,
+				EC3640EB184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m */,
 				ECD9299F1822CAD300420840 /* ANLoadAndHitOtherCallbacks.h */,
 				ECD929A01822CAD300420840 /* ANLoadAndHitOtherCallbacks.m */,
 				ECD929A11822CAD300420840 /* ANLoadedMultiple.h */,
@@ -901,6 +906,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC3640EC184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				5C3208FB173061C700DAB5CF /* ANDemoAdsViewController.m in Sources */,
 				5C320905173090F300DAB5CF /* ANDemoConsoleViewController.m in Sources */,
