@@ -17,17 +17,20 @@
 #import "AdSettings.h"
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define SV_BACKGROUND_COLOR_RED 77.0
 #define SV_BACKGROUND_COLOR_BLUE 83.0
 #define SV_BACKGROUND_COLOR_GREEN 78.0
 #define SV_BACKGROUND_COLOR_ALPHA 1.0 // On a scale from 0 -> 1
 
-@interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate>
+@interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) CLLocation *lastLocation;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -44,6 +47,10 @@
 }
 
 - (void)setup {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+    
     [self.refreshControl addTarget:self action:@selector(reloadAd) forControlEvents:UIControlEventValueChanged];
     self.scrollView.backgroundColor = [UIColor colorWithRed:SV_BACKGROUND_COLOR_RED/255.0
                                                       green:SV_BACKGROUND_COLOR_GREEN/255.0
@@ -100,6 +107,13 @@
     self.bannerAdView.placementId = settingsPlacementID;
     self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
     self.bannerAdView.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
+    if (self.lastLocation) {
+        [self.bannerAdView setLocationWithLatitude:self.lastLocation.coordinate.latitude
+                                         longitude:self.lastLocation.coordinate.longitude
+                                         timestamp:self.lastLocation.timestamp
+                                horizontalAccuracy:self.lastLocation.horizontalAccuracy];
+    }
+    
     [self.bannerAdView setAutoRefreshInterval:settingsAutoRefreshInterval];
     [self.scrollView addSubview:self.bannerAdView];
     
@@ -122,6 +136,12 @@
     self.interstitialAd.shouldServePublicServiceAnnouncements = settingsAllowPSA;
     self.interstitialAd.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
     self.interstitialAd.backgroundColor = [self interstitialBackgroundColorFromString:backgroundColor];
+    if (self.lastLocation) {
+        [self.interstitialAd setLocationWithLatitude:self.lastLocation.coordinate.latitude
+                                           longitude:self.lastLocation.coordinate.longitude
+                                           timestamp:self.lastLocation.timestamp
+                                  horizontalAccuracy:self.lastLocation.horizontalAccuracy];
+    }
     
     [self.interstitialAd loadAd];
 }
@@ -246,6 +266,18 @@
     ANLogDebug(@"%@ %@ | deallocating ad views", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self clearBannerAdView];
     [self clearInterstitialAd];
+}
+
+// Delegate method from the CLLocationManagerDelegate protocol.
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    // If it's a relatively recent event, turn off updates to save power.
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (abs(howRecent) < 30.0) {
+        self.lastLocation = location;
+    }
 }
 
 @end
