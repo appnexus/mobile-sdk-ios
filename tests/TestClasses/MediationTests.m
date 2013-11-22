@@ -339,11 +339,6 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 {
 	if (!__testComplete)
 	{
-        if (__testNumber != 7) {
-            NSLog(@"test complete");
-            __testComplete = YES;
-        }
-        
         __successResultRequest = [__fetcher successResultRequest];
         __request = [__fetcher request];
         
@@ -351,9 +346,6 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 		{
 			case 7:
 			{
-				// Change the test number to 70 to denote the "part 2" of this 2-step unit test
-				__testNumber = 70;
-				
 				self.adapter = [[fetcher mediationController] currentAdapter];
 				[fetcher requestAdWithURL:
                  [NSURL URLWithString:[[fetcher mediationController] resultCBString]]];
@@ -383,6 +375,15 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
             }
 				break;
 		}
+
+        // test case 7 is a special two-part test, so we handle it specially
+        if (__testNumber != 7) {
+            NSLog(@"test complete");
+            __testComplete = YES;
+        } else {
+            // Change the test number to 70 to denote the "part 2" of this 2-step unit test
+            __testNumber = 70;
+        }
 	}
 }
 

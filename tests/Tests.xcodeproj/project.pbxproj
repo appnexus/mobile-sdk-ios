@@ -132,13 +132,6 @@
 			remoteGlobalIDString = 1D6058900D05DD3D006BFB54;
 			remoteInfo = Demo;
 		};
-		ECFF03211822C2860021F14C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ECB1237018219C9D00CB4BE8;
-			remoteInfo = ANMediatedViewsLibrary;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -324,7 +317,6 @@
 		ECD929A41822CAD300420840 /* ANLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadThenFail.m; sourceTree = "<group>"; };
 		ECD929A51822CAD300420840 /* ANTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTimeout.h; sourceTree = "<group>"; };
 		ECD929A61822CAD300420840 /* ANTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTimeout.m; sourceTree = "<group>"; };
-		ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANMediatedViewsLibrary.xcodeproj; path = ../mediation/mediatedviews/ANMediatedViewsLibrary/ANMediatedViewsLibrary.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,7 +394,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */,
 				ECD9298A1822CAD300420840 /* TestClasses */,
 				ECABE5431821E4C80037E6C5 /* sdk */,
 				EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */,
@@ -787,14 +778,6 @@
 			path = TestViews;
 			sourceTree = "<group>";
 		};
-		ECFF031D1822C2850021F14C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				ECFF03221822C2860021F14C /* libANMediatedViewsLibrary.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -851,12 +834,6 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = ECFF031D1822C2850021F14C /* Products */;
-					ProjectRef = ECFF031C1822C2850021F14C /* ANMediatedViewsLibrary.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Tests */,
@@ -864,16 +841,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		ECFF03221822C2860021F14C /* libANMediatedViewsLibrary.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANMediatedViewsLibrary.a;
-			remoteRef = ECFF03211822C2860021F14C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
