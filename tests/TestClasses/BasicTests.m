@@ -142,6 +142,7 @@ float const BASIC_TIMEOUT = 10.0;
 
 - (void)testSuccessfulMediationBannerDidLoad {
     [self stubWithBody:[ANTestResponses mediationSuccessfulBanner]];
+    [self stubResultCBResponses:nil];
     [self loadBannerAd];
     [self waitForLoad];
     

@@ -14,7 +14,6 @@
  */
 
 #import "ANBaseTestCase.h"
-#import "ANGlobal.h"
 
 @interface MediationCallbacksTests : ANBaseTestCase
 @property (nonatomic, readwrite, assign) BOOL adLoadedMultiple;
@@ -43,6 +42,8 @@ float const CALLBACKS_TIMEOUT = 5.0;
                    @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
     STAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
     STAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
+    
+    [self clearTest];
 }
 
 #pragma mark MediationCallback tests
@@ -50,30 +51,35 @@ float const CALLBACKS_TIMEOUT = 5.0;
 - (void)test18LoadedMultiple
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadedMultiple"]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
 }
 
 - (void)test19Timeout
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANTimeout"]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + CALLBACKS_TIMEOUT];
 }
 
 - (void)test20LoadThenFail
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadThenFail"]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
 }
 
 - (void)test21FailThenLoad
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailThenLoad"]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
 }
 
 - (void)test24FailedMultiple
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailedMultiple"]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
 }
 

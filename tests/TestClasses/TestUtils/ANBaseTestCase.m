@@ -48,16 +48,17 @@
 }
 
 - (void)stubWithBody:(NSString *)body {
-    stubRequest(@"GET", TEST_URL)
+    stubRequest(@"GET", [TEST_URL stringByAppendingString:@".*"].regex)
     .andReturn(200)
     .withBody(body)
     ;
 }
 
 - (void)stubResultCBResponses:(NSString *)body {
-    stubRequest(@"GET", [OK_RESULT_CB_URL stringByAppendingString:@".*"].regex)
+    NSString *resultCBRegex = [NSString stringWithFormat:@"^%@.*", OK_RESULT_CB_URL];
+    stubRequest(@"GET", resultCBRegex.regex)
     .andReturn(200)
-    .withBody(body ? body : @"")
+    .withBody(body)
     ;
 }
 

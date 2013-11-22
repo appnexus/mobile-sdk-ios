@@ -359,7 +359,6 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
                  [NSURL URLWithString:[[fetcher mediationController] resultCBString]]];
 			}
 				break;
-                //this second part test should be for a non-mediated ad..
 			case 70:
 			{
                 // don't set adapter here, because we want to retain the adapter from case 7

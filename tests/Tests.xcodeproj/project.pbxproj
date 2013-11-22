@@ -54,6 +54,7 @@
 		EC09B327183437CC00D76510 /* LSStubRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2971834340200D76510 /* LSStubRequest.m */; };
 		EC09B329183437CC00D76510 /* LSStubResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2991834340200D76510 /* LSStubResponse.m */; };
 		EC3640E6183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3640E5183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m */; };
+		EC3640E9183FFA9F00DB8000 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */; };
 		EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */; };
 		EC405619183D670D006A1D09 /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = EC40560E183D5D88006A1D09 /* ANBaseTestCase.m */; };
 		EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = EC405610183D5D88006A1D09 /* ANTestResponses.m */; };
@@ -112,7 +113,6 @@
 		ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD8155E17DA64C20046A256 /* SenTestingKit.framework */; };
 		ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */; };
 		ECD929BA1822CD0E00420840 /* MediationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9298F1822CAD300420840 /* MediationTests.m */; };
-		ECFF03251822C2960021F14C /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFF03221822C2860021F14C /* libANMediatedViewsLibrary.a */; };
 		ECFF03261822C2B10021F14C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */; };
 		ECFF03271822C2C90021F14C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */; };
 		ECFF03281822C2E00021F14C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */; };
@@ -227,6 +227,7 @@
 		EC09B2B21834350E00D76510 /* BasicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicTests.m; sourceTree = "<group>"; };
 		EC3640E4183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSuccessfulBannerNeverCalled.h; sourceTree = "<group>"; };
 		EC3640E5183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSuccessfulBannerNeverCalled.m; sourceTree = "<group>"; };
+		EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
 		EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC405605183D566C006A1D09 /* ANSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSuccessfulBanner.h; sourceTree = "<group>"; };
@@ -352,8 +353,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC3640E9183FFA9F00DB8000 /* CoreFoundation.framework in Frameworks */,
 				ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */,
-				ECFF03251822C2960021F14C /* libANMediatedViewsLibrary.a in Frameworks */,
 				ECFF03291822C2E50021F14C /* AdSupport.framework in Frameworks */,
 				ECFF03261822C2B10021F14C /* AVFoundation.framework in Frameworks */,
 				ECFF03271822C2C90021F14C /* AudioToolbox.framework in Frameworks */,
@@ -440,6 +441,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */,
 				5CA6D4BB17A9884A00DD6891 /* StoreKit.framework */,
 				5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */,
 				5CA6D41917A8686C00DD6891 /* iAd.framework */,
@@ -1077,6 +1079,7 @@
 		5C3430AD175923A800A1594D /* Ad-Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1216,6 +1219,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1230,6 +1234,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
