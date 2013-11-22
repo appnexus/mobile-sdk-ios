@@ -17,16 +17,15 @@
 #import "ANAdFetcher.h"
 #import "ANAdWebViewController.h"
 #import "ANMediationAdViewController.h"
-
-#define iAdBannerClassName @"ANAdAdapterBanneriAd"
-#define AdMobBannerClassName @"ANAdAdapterBannerAdMob"
-#define MMBannerClassName @"ANAdAdapterBannerMillennialMedia"
+#import "ANSuccessfulBannerNeverCalled.h"
 
 static NSString *const kANSuccessfulBanner = @"ANSuccessfulBanner";
 static NSString *const kANAdAdapterBannerDummy = @"ANAdAdapterBannerDummy";
 static NSString *const kANAdAdapterBannerNoAds = @"ANAdAdapterBannerNoAds";
 static NSString *const kANAdAdapterBannerRequestFail = @"ANAdAdapterBannerRequestFail";
 static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
+static NSString *const kClassDoesNotExist = @"ClassDoesNotExist";
+static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeverCalled";
 
 @interface FetcherHelper : ANBannerAdView
 @property (nonatomic, assign) BOOL testComplete;
@@ -75,11 +74,9 @@ static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
     self.helper = [FetcherHelper new];
 }
 
-- (void)tearDown
-{
-    // Tear-down code here.
-    
-    [super tearDown];
+- (void)clearTest {
+    [super clearTest];
+    [ANSuccessfulBannerNeverCalled setCalled:NO];
 }
 
 - (void)runBasicTest:(int)testNumber {
@@ -121,6 +118,10 @@ static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
     STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
 }
 
+- (void)checkSuccessfulBannerNeverCalled {
+    STAssertFalse([ANSuccessfulBannerNeverCalled getCalled], @"Should never be called");
+}
+
 - (void)runChecks:(int)testNumber adapter:(id)adapter {
     switch (testNumber)
     {
@@ -159,12 +160,12 @@ static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
             break;
         case 11:
         {
-            [self checkClass:MMBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
         }
             break;
         case 12:
         {
-            [self checkClass:MMBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
         }
             break;
         case 13:
@@ -175,7 +176,7 @@ static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
             break;
         case 14:
         {
-            [self checkClass:MMBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
         }
             break;
         case 15:
@@ -185,12 +186,13 @@ static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
             break;
         case 16:
         {
-            [self checkClass:iAdBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
         }
             break;
         default:
             break;
     }
+    [self checkSuccessfulBannerNeverCalled];
 }
 
 #pragma mark Basic Mediation Tests
@@ -204,7 +206,7 @@ static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
 
 - (void)test2ResponseWhereClassDoesNotExist
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ClassThatDoesNotExist"]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kClassDoesNotExist]];
     [self stubResultCBForErrorCode];
     [self runBasicTest:2];
 }
@@ -241,31 +243,50 @@ static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
 
 - (void)test11FirstSuccessfulSkipSecond
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kANSuccessfulBanner
+                                                      secondClass:kANSuccessfulBannerNeverCalled]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:11];
 }
 
 - (void)test12SkipFirstSuccessfulSecond
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+                                                      secondClass:kANSuccessfulBanner]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:12];
 }
 
 - (void)test13FirstFailsIntoOverrideStd
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+                                                      secondClass:kANSuccessfulBannerNeverCalled]];
+    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
     [self runBasicTest:13];
 }
 
 - (void)test14FirstFailsIntoOverrideMediated
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+                                                      secondClass:kANSuccessfulBannerNeverCalled]];
+    [self stubResultCBResponses:[ANTestResponses mediationSuccessfulBanner]];
     [self runBasicTest:14];
 }
 
 - (void)test15TestNoFill
 {
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kClassDoesNotExist]];
+    [self stubResultCBResponses:[ANTestResponses createMediatedBanner:kClassDoesNotExist withID:@"" withResultCB:@""]];
     [self runBasicTest:15];
 }
 
 - (void)test16NoResultCB
 {
+    NSString *response = [ANTestResponses mediationWaterfallBanners:kClassDoesNotExist firstResult:@""
+                                   secondClass:kClassDoesNotExist secondResult:nil
+                                    thirdClass:kANSuccessfulBanner thirdResult:@""];
+    [self stubWithBody:response];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:16];
 }
 

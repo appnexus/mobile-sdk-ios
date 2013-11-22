@@ -20,6 +20,8 @@
 #import "ANTestResponses.h"
 #import "ANGlobal.h"
 
+#define TEST_URL [@"http://" stringByAppendingString:AN_MOBILE_HOSTNAME]
+
 @interface ANBaseTestCase : SenTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;

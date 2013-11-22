@@ -25,6 +25,13 @@ static NSString *const OK_RESULT_CB_URL = @"http://result";
 + (NSString *)mediationNoAdsBanner;
 + (NSString *)mediationErrorCodeBanner:(int)code;
 
++ (NSString *)mediationWaterfallBanners:(NSString *)firstClass
+                            secondClass:(NSString *)secondClass;
++ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
+                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult
+                             thirdClass:(NSString *)thirdClass thirdResult:(NSString *)thirdResult;
+
+
 + (NSString *)createMediatedBanner:(NSString *)className;
 + (NSString *)createMediatedBanner:(NSString *)className
                             withID:(NSString *)idString;

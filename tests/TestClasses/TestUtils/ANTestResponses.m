@@ -25,6 +25,7 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
 @interface ANMediatedAd (TestResponses)
 @property (nonatomic, readwrite, strong) NSString *type;
 - (NSString *)toJSON;
++ (ANMediatedAd *)dummy;
 @end
 
 @implementation ANTestResponses
@@ -51,6 +52,52 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     return [ANTestResponses createMediatedBanner:@"ANAdAdapterErrorCode" withID:[NSString stringWithFormat:@"%i", code]];
 }
 
++ (NSString *)mediationWaterfallBanners:(NSString *)firstClass secondClass:(NSString *)secondClass {
+    ANMediatedAd *firstAd = [ANMediatedAd dummy];
+    firstAd.className = firstClass;
+    NSString *firstHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
+                              [[NSMutableArray alloc] initWithObjects:firstAd, nil]
+                                                                    withResultCB:OK_RESULT_CB_URL];
+    
+    ANMediatedAd *secondAd = [ANMediatedAd dummy];
+    secondAd.className = secondClass;
+    NSString *secondHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
+                               [[NSMutableArray alloc] initWithObjects:secondAd, nil]
+                                                                     withResultCB:OK_RESULT_CB_URL];
+    
+    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:
+                               [[NSMutableArray alloc] initWithObjects:firstHandler,
+                                secondHandler, nil]];
+    return [ANTestResponses createMediatedResponse:mediatedField];
+}
+
++ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
+                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult
+                             thirdClass:(NSString *)thirdClass thirdResult:(NSString *)thirdResult {
+    ANMediatedAd *firstAd = [ANMediatedAd dummy];
+    firstAd.className = firstClass;
+    NSString *firstHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
+                              [[NSMutableArray alloc] initWithObjects:firstAd, nil]
+                                                                    withResultCB:firstResult];
+    
+    ANMediatedAd *secondAd = [ANMediatedAd dummy];
+    secondAd.className = secondClass;
+    NSString *secondHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
+                               [[NSMutableArray alloc] initWithObjects:secondAd, nil]
+                                                                     withResultCB:secondResult];
+    
+    ANMediatedAd *thirdAd = [ANMediatedAd dummy];
+    thirdAd.className = thirdClass;
+    NSString *thirdHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
+                               [[NSMutableArray alloc] initWithObjects:thirdAd, nil]
+                                                                     withResultCB:thirdResult];
+    
+    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:
+                               [[NSMutableArray alloc] initWithObjects:firstHandler,
+                                secondHandler, thirdHandler, nil]];
+    return [ANTestResponses createMediatedResponse:mediatedField];
+}
+
 #pragma mark Response Construction Convenience functions
 
 + (NSString *)createAdsResponse:(NSString *)type
@@ -75,18 +122,15 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
 + (NSString *)createMediatedBanner:(NSString *)className
                             withID:(NSString *)idString
                       withResultCB:(NSString *)resultCB {
-    ANMediatedAd *mediatedAd = [ANMediatedAd new];
-    mediatedAd.type = @"ios";
-    mediatedAd.param = @"";
+    ANMediatedAd *mediatedAd = [ANMediatedAd dummy];
     mediatedAd.className = className;
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
     mediatedAd.adId = idString;
     
     NSMutableArray *mediatedAdsArray = [[NSMutableArray alloc] initWithObjects:mediatedAd, nil];
     NSString *handler = [ANTestResponses createHandlerObjectFromMediatedAds:mediatedAdsArray withResultCB:resultCB];
 
-    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:[[NSMutableArray alloc] initWithObjects:handler, nil]];
+    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:
+                               [[NSMutableArray alloc] initWithObjects:handler, nil]];
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
 
@@ -172,7 +216,7 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     
     mediatedAdString = [mediatedAdString stringByAppendingString:@"]"];
     
-    if ([resultCB length] > 0) {
+    if (resultCB) {
         NSString *resultCBString = [NSString stringWithFormat:@", \"result_cb\":\"%@\"", resultCB];
         mediatedAdString = [mediatedAdString stringByAppendingString:resultCBString];
     }
@@ -198,6 +242,17 @@ NSString *_type;
 
 - (NSString *)type {
     return _type;
+}
+
++ (ANMediatedAd *)dummy {
+    ANMediatedAd *mediatedAd = [ANMediatedAd new];
+    mediatedAd.type = @"ios";
+    mediatedAd.param = @"";
+    mediatedAd.className = @"ClassName";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    mediatedAd.adId = @"124";
+    return mediatedAd;
 }
 
 @end

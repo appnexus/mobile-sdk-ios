@@ -48,7 +48,7 @@
 }
 
 - (void)stubWithBody:(NSString *)body {
-    stubRequest(@"GET", AN_MOBILE_HOSTNAME)
+    stubRequest(@"GET", TEST_URL)
     .andReturn(200)
     .withBody(body)
     ;
