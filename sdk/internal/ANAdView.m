@@ -20,11 +20,14 @@
 #import "ANLocation.h"
 #import "ANMRAIDViewController.h"
 #import "ANInterstitialAd.h"
+#import "ANGlobal.h"
+#import "ANLogging.h"
+#import "ANAdFetcher.h"
 
 #define DEFAULT_ADSIZE CGSizeZero
 #define DEFAULT_PSAS YES
 
-@interface ANAdView () <ANBrowserViewControllerDelegate, ANAdViewDelegate>
+@interface ANAdView () <ANAdFetcherDelegate, ANBrowserViewControllerDelegate, ANAdViewDelegate>
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) BOOL defaultFramesSet;

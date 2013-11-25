@@ -18,8 +18,11 @@
 #import "ANBrowserViewController.h"
 #import "ANCustomAdapter.h"
 #import "ANBrowserViewController.h"
+#import "ANGlobal.h"
+#import "ANLogging.h"
 
-@interface ANAdView (ANBannerAdView)
+
+@interface ANAdView (ANBannerAdView) <ANAdFetcherDelegate>
 - (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;

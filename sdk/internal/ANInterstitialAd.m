@@ -36,7 +36,7 @@
 NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 
-@interface ANAdView (ANInterstitialAd)
+@interface ANAdView (ANInterstitialAd) <ANAdFetcherDelegate>
 - (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
