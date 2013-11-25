@@ -285,9 +285,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
         
         locationParamater = [locationParamater
-                             stringByAppendingFormat:@"&loc=%f,%f&loc_age=%d&loc_prec=%f",
+                             stringByAppendingFormat:@"&loc=%f,%f&loc_age=%ld&loc_prec=%f",
                              location.latitude, location.longitude,
-                             ageInMilliseconds, location.horizontalAccuracy];
+                             (long)ageInMilliseconds, location.horizontalAccuracy];
     }
     
     return locationParamater;
@@ -626,7 +626,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 			if ([response isKindOfClass:[NSHTTPURLResponse class]])
 			{
 				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-				int status = [httpResponse statusCode];
+				NSInteger status = [httpResponse statusCode];
 				
 				if (status >= 400)
 				{
@@ -655,9 +655,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 			if ([response isKindOfClass:[NSHTTPURLResponse class]])
 			{
 				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-				int status = [httpResponse statusCode];
+				NSInteger status = [httpResponse statusCode];
 				
-				ANLogDebug(@"Received response with code %d from response URL request.", status);
+				ANLogDebug(@"Received response with code %ld from response URL request.", status);
 			}
 		} else {
             ANLogDebug(@"Received response from unknown");
