@@ -29,16 +29,27 @@
 		EC3E5D571843C7560070315E /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D341843C7560070315E /* ANMRAIDViewController.m */; };
 		EC3E5D581843C7560070315E /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D361843C7560070315E /* ANReachability.m */; };
 		EC3E5D591843C7560070315E /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D381843C7560070315E /* ANWebView.m */; };
+		EC3E5D991843D5A80070315E /* ANAdProtocol.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D081843C7560070315E /* ANAdProtocol.h */; };
+		EC3E5D9A1843D5A80070315E /* ANAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D191843C7560070315E /* ANAdView.h */; };
+		EC3E5D9B1843D5A80070315E /* ANBannerAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D091843C7560070315E /* ANBannerAdView.h */; };
+		EC3E5D9C1843D5A80070315E /* ANCustomAdapter.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D221843C7560070315E /* ANCustomAdapter.h */; };
+		EC3E5D9D1843D5A80070315E /* ANInterstitialAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D0A1843C7560070315E /* ANInterstitialAd.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		EC3E5CDA1843C6D50070315E /* CopyFiles */ = {
+		EC3E5CDA1843C6D50070315E /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC3E5D991843D5A80070315E /* ANAdProtocol.h in Copy Files */,
+				EC3E5D9A1843D5A80070315E /* ANAdView.h in Copy Files */,
+				EC3E5D9B1843D5A80070315E /* ANBannerAdView.h in Copy Files */,
+				EC3E5D9C1843D5A80070315E /* ANCustomAdapter.h in Copy Files */,
+				EC3E5D9D1843D5A80070315E /* ANInterstitialAd.h in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -62,7 +73,7 @@
 		EC3E5D161843C7560070315E /* ANAdFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcher.m; sourceTree = "<group>"; };
 		EC3E5D171843C7560070315E /* ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdResponse.h; sourceTree = "<group>"; };
 		EC3E5D181843C7560070315E /* ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponse.m; sourceTree = "<group>"; };
-		EC3E5D191843C7560070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
+		EC3E5D191843C7560070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdView.h; path = internal/ANAdView.h; sourceTree = "<group>"; };
 		EC3E5D1A1843C7560070315E /* ANAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdView.m; sourceTree = "<group>"; };
 		EC3E5D1B1843C7560070315E /* ANAdViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdViewDelegate.h; sourceTree = "<group>"; };
 		EC3E5D1C1843C7560070315E /* ANAdWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdWebViewController.h; sourceTree = "<group>"; };
@@ -71,7 +82,7 @@
 		EC3E5D1F1843C7560070315E /* ANBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBrowserViewController.h; sourceTree = "<group>"; };
 		EC3E5D201843C7560070315E /* ANBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBrowserViewController.m; sourceTree = "<group>"; };
 		EC3E5D211843C7560070315E /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
-		EC3E5D221843C7560070315E /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		EC3E5D221843C7560070315E /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = internal/ANCustomAdapter.h; sourceTree = "<group>"; };
 		EC3E5D231843C7560070315E /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGlobal.h; sourceTree = "<group>"; };
 		EC3E5D241843C7560070315E /* ANGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGlobal.m; sourceTree = "<group>"; };
 		EC3E5D251843C7560070315E /* ANInstallTrackerPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInstallTrackerPixel.h; sourceTree = "<group>"; };
@@ -148,7 +159,9 @@
 			isa = PBXGroup;
 			children = (
 				EC3E5D081843C7560070315E /* ANAdProtocol.h */,
+				EC3E5D191843C7560070315E /* ANAdView.h */,
 				EC3E5D091843C7560070315E /* ANBannerAdView.h */,
+				EC3E5D221843C7560070315E /* ANCustomAdapter.h */,
 				EC3E5D0A1843C7560070315E /* ANInterstitialAd.h */,
 				EC3E5D0B1843C7560070315E /* Categories */,
 				EC3E5D141843C7560070315E /* internal */,
@@ -179,7 +192,6 @@
 				EC3E5D161843C7560070315E /* ANAdFetcher.m */,
 				EC3E5D171843C7560070315E /* ANAdResponse.h */,
 				EC3E5D181843C7560070315E /* ANAdResponse.m */,
-				EC3E5D191843C7560070315E /* ANAdView.h */,
 				EC3E5D1A1843C7560070315E /* ANAdView.m */,
 				EC3E5D1B1843C7560070315E /* ANAdViewDelegate.h */,
 				EC3E5D1C1843C7560070315E /* ANAdWebViewController.h */,
@@ -188,7 +200,6 @@
 				EC3E5D1F1843C7560070315E /* ANBrowserViewController.h */,
 				EC3E5D201843C7560070315E /* ANBrowserViewController.m */,
 				EC3E5D211843C7560070315E /* ANBrowserViewController.xib */,
-				EC3E5D221843C7560070315E /* ANCustomAdapter.h */,
 				EC3E5D231843C7560070315E /* ANGlobal.h */,
 				EC3E5D241843C7560070315E /* ANGlobal.m */,
 				EC3E5D251843C7560070315E /* ANInstallTrackerPixel.h */,
@@ -249,7 +260,7 @@
 			buildPhases = (
 				EC3E5CD81843C6D50070315E /* Sources */,
 				EC3E5CD91843C6D50070315E /* Frameworks */,
-				EC3E5CDA1843C6D50070315E /* CopyFiles */,
+				EC3E5CDA1843C6D50070315E /* Copy Files */,
 			);
 			buildRules = (
 			);
