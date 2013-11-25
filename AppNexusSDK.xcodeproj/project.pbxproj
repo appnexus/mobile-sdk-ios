@@ -46,6 +46,9 @@
 		EC8477A61844102A00A8BC80 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D421843C7560070315E /* UIButtonBarArrowRight.png */; };
 		EC8477A71844102A00A8BC80 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D431843C7560070315E /* UIButtonBarArrowRight@2x.png */; };
 		EC8477A81844107600A8BC80 /* AppNexusSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */; };
+		EC8477A91844129700A8BC80 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D211843C7560070315E /* ANBrowserViewController.xib */; };
+		EC8477AA1844129700A8BC80 /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D2A1843C7560070315E /* ANInterstitialAdViewController.xib */; };
+		EC8477AB184412CF00A8BC80 /* AppNexusSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +58,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC8477AB184412CF00A8BC80 /* AppNexusSDKResources.bundle in Copy Files */,
 				EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */,
 				EC3E5E221843F0400070315E /* ANCustomAdapter.h in Copy Files */,
 				EC3E5E231843F0400070315E /* ANLocation.h in Copy Files */,
@@ -351,6 +355,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC8477A91844129700A8BC80 /* ANBrowserViewController.xib in Resources */,
+				EC8477AA1844129700A8BC80 /* ANInterstitialAdViewController.xib in Resources */,
 				EC84779F1844102A00A8BC80 /* errors.strings in Resources */,
 				EC8477A01844102A00A8BC80 /* interstitial_closebox-down.png in Resources */,
 				EC8477A11844102A00A8BC80 /* interstitial_closebox-down@2x.png in Resources */,
