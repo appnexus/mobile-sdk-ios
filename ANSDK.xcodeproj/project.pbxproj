@@ -25,6 +25,7 @@
 		EC3E5E2E1843FA390070315E /* ANCustomAdapter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E271843F1120070315E /* ANCustomAdapter.h */; };
 		EC3E5E2F1843FA390070315E /* ANInterstitialAd.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E281843F1120070315E /* ANInterstitialAd.h */; };
 		EC3E5E301843FA390070315E /* ANLocation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E291843F1120070315E /* ANLocation.h */; };
+		EC3E5E971843FE370070315E /* ANAdView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E961843FE270070315E /* ANAdView.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC3E5E971843FE370070315E /* ANAdView.h in CopyFiles */,
 				EC3E5E2C1843FA390070315E /* ANAdProtocol.h in CopyFiles */,
 				EC3E5E2D1843FA390070315E /* ANBannerAdView.h in CopyFiles */,
 				EC3E5E2E1843FA390070315E /* ANCustomAdapter.h in CopyFiles */,
@@ -92,6 +94,7 @@
 		EC3E5E281843F1120070315E /* ANInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAd.h; sourceTree = "<group>"; };
 		EC3E5E291843F1120070315E /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		EC3E5E2A1843F1120070315E /* libAppNexusSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppNexusSDK.a; sourceTree = "<group>"; };
+		EC3E5E961843FE270070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,7 @@
 		EC3E5E241843F1120070315E /* AppNexusSDK */ = {
 			isa = PBXGroup;
 			children = (
+				EC3E5E961843FE270070315E /* ANAdView.h */,
 				EC3E5E251843F1120070315E /* ANAdProtocol.h */,
 				EC3E5E261843F1120070315E /* ANBannerAdView.h */,
 				EC3E5E271843F1120070315E /* ANCustomAdapter.h */,
