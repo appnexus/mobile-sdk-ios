@@ -14,12 +14,9 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "ANGlobal.h"
-#import "ANLogging.h"
 #import "ANAdProtocol.h"
-#import "ANAdFetcher.h"
 
-@interface ANAdView : UIView <ANAdFetcherDelegate, ANAdProtocol>
+@interface ANAdView : UIView <ANAdProtocol>
 {
     // Size of the ad requested
     CGSize __adSize;
