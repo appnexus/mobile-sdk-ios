@@ -37,7 +37,7 @@
 
 - (id)init
 {
-    self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleWithPath:AN_RESOURCE_BUNDLE]];
     if (self)
 	{
 		self.urlRequest = [[NSMutableURLRequest alloc] initWithURL:nil

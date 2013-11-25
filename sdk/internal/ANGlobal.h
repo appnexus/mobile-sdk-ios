@@ -20,6 +20,7 @@
 #define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
 #define AN_ERROR_TABLE @"errors"
+#define AN_RESOURCE_BUNDLE @"AppNexusSDKResources"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
 #define AN_SDK_VERSION              @"1.4"

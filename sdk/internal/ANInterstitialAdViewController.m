@@ -30,7 +30,7 @@
 @synthesize backgroundColor = __backgroundColor;
 
 - (id)init {
-    self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleWithPath:AN_RESOURCE_BUNDLE]];
     self.originalHiddenState = NO;
     self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
     return self;
