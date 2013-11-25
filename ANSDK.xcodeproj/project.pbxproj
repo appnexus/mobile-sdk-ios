@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		EC3E5DB41843EB3E0070315E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E5DB31843EB3E0070315E /* Foundation.framework */; };
-		EC3E5DE01843EC110070315E /* libAppNexusSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E5DDF1843EC110070315E /* libAppNexusSDK.a */; };
 		EC3E5E0D1843ECF30070315E /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5DE31843ECF20070315E /* ANAdAdapterBannerAdMob.m */; };
 		EC3E5E0E1843ECF30070315E /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5DE51843ECF20070315E /* ANAdAdapterInterstitialAdMob.m */; };
 		EC3E5E0F1843ECF30070315E /* ANAdAdapterBanneriAd.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5DE81843ECF20070315E /* ANAdAdapterBanneriAd.m */; };
@@ -18,13 +17,14 @@
 		EC3E5E131843ECF30070315E /* ANAdAdapterBannerMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5E081843ECF30070315E /* ANAdAdapterBannerMillennialMedia.m */; };
 		EC3E5E141843ECF30070315E /* ANAdAdapterInterstitialMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5E0A1843ECF30070315E /* ANAdAdapterInterstitialMillennialMedia.m */; };
 		EC3E5E151843ECF30070315E /* ANAdAdapterMillennialMediaBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5E0C1843ECF30070315E /* ANAdAdapterMillennialMediaBase.m */; };
-		EC3E5E161843ED330070315E /* ANAdProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5DDA1843EC110070315E /* ANAdProtocol.h */; };
-		EC3E5E171843ED330070315E /* ANAdView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5DDB1843EC110070315E /* ANAdView.h */; };
-		EC3E5E181843ED330070315E /* ANBannerAdView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5DDC1843EC110070315E /* ANBannerAdView.h */; };
-		EC3E5E191843ED330070315E /* ANCustomAdapter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5DDD1843EC110070315E /* ANCustomAdapter.h */; };
-		EC3E5E1A1843ED330070315E /* ANInterstitialAd.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5DDE1843EC110070315E /* ANInterstitialAd.h */; };
 		EC3E5E1B1843ED4A0070315E /* libGoogleAdMobAds.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5DFE1843ECF20070315E /* libGoogleAdMobAds.a */; };
 		EC3E5E1C1843ED4A0070315E /* libMMSDK_5.1.1.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E011843ECF20070315E /* libMMSDK_5.1.1.a */; };
+		EC3E5E2B1843F1120070315E /* libAppNexusSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E5E2A1843F1120070315E /* libAppNexusSDK.a */; };
+		EC3E5E2C1843FA390070315E /* ANAdProtocol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E251843F1120070315E /* ANAdProtocol.h */; };
+		EC3E5E2D1843FA390070315E /* ANBannerAdView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E261843F1120070315E /* ANBannerAdView.h */; };
+		EC3E5E2E1843FA390070315E /* ANCustomAdapter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E271843F1120070315E /* ANCustomAdapter.h */; };
+		EC3E5E2F1843FA390070315E /* ANInterstitialAd.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E281843F1120070315E /* ANInterstitialAd.h */; };
+		EC3E5E301843FA390070315E /* ANLocation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E291843F1120070315E /* ANLocation.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,13 +34,13 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC3E5E2C1843FA390070315E /* ANAdProtocol.h in CopyFiles */,
+				EC3E5E2D1843FA390070315E /* ANBannerAdView.h in CopyFiles */,
+				EC3E5E2E1843FA390070315E /* ANCustomAdapter.h in CopyFiles */,
+				EC3E5E2F1843FA390070315E /* ANInterstitialAd.h in CopyFiles */,
+				EC3E5E301843FA390070315E /* ANLocation.h in CopyFiles */,
 				EC3E5E1B1843ED4A0070315E /* libGoogleAdMobAds.a in CopyFiles */,
 				EC3E5E1C1843ED4A0070315E /* libMMSDK_5.1.1.a in CopyFiles */,
-				EC3E5E161843ED330070315E /* ANAdProtocol.h in CopyFiles */,
-				EC3E5E171843ED330070315E /* ANAdView.h in CopyFiles */,
-				EC3E5E181843ED330070315E /* ANBannerAdView.h in CopyFiles */,
-				EC3E5E191843ED330070315E /* ANCustomAdapter.h in CopyFiles */,
-				EC3E5E1A1843ED330070315E /* ANInterstitialAd.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,12 +50,6 @@
 		EC3E5DB01843EB3E0070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3E5DB31843EB3E0070315E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC3E5DC11843EB3E0070315E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		EC3E5DDA1843EC110070315E /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
-		EC3E5DDB1843EC110070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
-		EC3E5DDC1843EC110070315E /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
-		EC3E5DDD1843EC110070315E /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
-		EC3E5DDE1843EC110070315E /* ANInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAd.h; sourceTree = "<group>"; };
-		EC3E5DDF1843EC110070315E /* libAppNexusSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppNexusSDK.a; sourceTree = "<group>"; };
 		EC3E5DE21843ECF20070315E /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
 		EC3E5DE31843ECF20070315E /* ANAdAdapterBannerAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMob.m; sourceTree = "<group>"; };
 		EC3E5DE41843ECF20070315E /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
@@ -92,6 +86,12 @@
 		EC3E5E0A1843ECF30070315E /* ANAdAdapterInterstitialMillennialMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialMillennialMedia.m; sourceTree = "<group>"; };
 		EC3E5E0B1843ECF30070315E /* ANAdAdapterMillennialMediaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterMillennialMediaBase.h; sourceTree = "<group>"; };
 		EC3E5E0C1843ECF30070315E /* ANAdAdapterMillennialMediaBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterMillennialMediaBase.m; sourceTree = "<group>"; };
+		EC3E5E251843F1120070315E /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
+		EC3E5E261843F1120070315E /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
+		EC3E5E271843F1120070315E /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		EC3E5E281843F1120070315E /* ANInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAd.h; sourceTree = "<group>"; };
+		EC3E5E291843F1120070315E /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
+		EC3E5E2A1843F1120070315E /* libAppNexusSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppNexusSDK.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +99,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC3E5E121843ECF30070315E /* libMMSDK_5.1.1.a in Frameworks */,
-				EC3E5DE01843EC110070315E /* libAppNexusSDK.a in Frameworks */,
 				EC3E5DB41843EB3E0070315E /* Foundation.framework in Frameworks */,
+				EC3E5E2B1843F1120070315E /* libAppNexusSDK.a in Frameworks */,
+				EC3E5E121843ECF30070315E /* libMMSDK_5.1.1.a in Frameworks */,
 				EC3E5E111843ECF30070315E /* libGoogleAdMobAds.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,10 +112,10 @@
 		EC3E5DA71843EB3E0070315E = {
 			isa = PBXGroup;
 			children = (
+				EC3E5E241843F1120070315E /* AppNexusSDK */,
 				EC3E5DE11843ECF20070315E /* AdMob */,
 				EC3E5DE61843ECF20070315E /* iAd */,
 				EC3E5E061843ECF30070315E /* MillennialMedia */,
-				EC3E5DD91843EC110070315E /* AppNexusSDK */,
 				EC3E5DB21843EB3E0070315E /* Frameworks */,
 				EC3E5DB11843EB3E0070315E /* Products */,
 			);
@@ -137,20 +137,6 @@
 				EC3E5DC11843EB3E0070315E /* XCTest.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EC3E5DD91843EC110070315E /* AppNexusSDK */ = {
-			isa = PBXGroup;
-			children = (
-				EC3E5DDA1843EC110070315E /* ANAdProtocol.h */,
-				EC3E5DDB1843EC110070315E /* ANAdView.h */,
-				EC3E5DDC1843EC110070315E /* ANBannerAdView.h */,
-				EC3E5DDD1843EC110070315E /* ANCustomAdapter.h */,
-				EC3E5DDE1843EC110070315E /* ANInterstitialAd.h */,
-				EC3E5DDF1843EC110070315E /* libAppNexusSDK.a */,
-			);
-			name = AppNexusSDK;
-			path = out/AppNexusSDK;
 			sourceTree = "<group>";
 		};
 		EC3E5DE11843ECF20070315E /* AdMob */ = {
@@ -251,6 +237,20 @@
 			);
 			name = MillennialMedia;
 			path = mediation/mediatedviews/MillennialMedia;
+			sourceTree = "<group>";
+		};
+		EC3E5E241843F1120070315E /* AppNexusSDK */ = {
+			isa = PBXGroup;
+			children = (
+				EC3E5E251843F1120070315E /* ANAdProtocol.h */,
+				EC3E5E261843F1120070315E /* ANBannerAdView.h */,
+				EC3E5E271843F1120070315E /* ANCustomAdapter.h */,
+				EC3E5E281843F1120070315E /* ANInterstitialAd.h */,
+				EC3E5E291843F1120070315E /* ANLocation.h */,
+				EC3E5E2A1843F1120070315E /* libAppNexusSDK.a */,
+			);
+			name = AppNexusSDK;
+			path = out/AppNexusSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
