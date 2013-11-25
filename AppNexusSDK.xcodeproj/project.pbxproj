@@ -35,7 +35,7 @@
 		EC3E5E221843F0400070315E /* ANCustomAdapter.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */; };
 		EC3E5E231843F0400070315E /* ANLocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E211843EFEF0070315E /* ANLocation.h */; };
 		EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E941843FDE20070315E /* ANAdView.h */; };
-		EC3E5EA3184401AA0070315E /* errors.strings in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D3A1843C7560070315E /* errors.strings */; };
+		EC84778618440CF200A8BC80 /* MRAID.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D441843C7560070315E /* MRAID.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,7 +45,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				EC3E5EA3184401AA0070315E /* errors.strings in Copy Files */,
+				EC84778618440CF200A8BC80 /* MRAID.bundle in Copy Files */,
 				EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */,
 				EC3E5E221843F0400070315E /* ANCustomAdapter.h in Copy Files */,
 				EC3E5E231843F0400070315E /* ANLocation.h in Copy Files */,
