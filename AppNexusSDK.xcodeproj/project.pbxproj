@@ -34,6 +34,7 @@
 		EC3E5D9B1843D5A80070315E /* ANBannerAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D091843C7560070315E /* ANBannerAdView.h */; };
 		EC3E5D9C1843D5A80070315E /* ANCustomAdapter.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D221843C7560070315E /* ANCustomAdapter.h */; };
 		EC3E5D9D1843D5A80070315E /* ANInterstitialAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D0A1843C7560070315E /* ANInterstitialAd.h */; };
+		EC3E5E1F1843EEF40070315E /* ANLocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D2B1843C7560070315E /* ANLocation.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC3E5E1F1843EEF40070315E /* ANLocation.h in Copy Files */,
 				EC3E5D991843D5A80070315E /* ANAdProtocol.h in Copy Files */,
 				EC3E5D9A1843D5A80070315E /* ANAdView.h in Copy Files */,
 				EC3E5D9B1843D5A80070315E /* ANBannerAdView.h in Copy Files */,
