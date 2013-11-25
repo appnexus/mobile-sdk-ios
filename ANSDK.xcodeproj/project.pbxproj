@@ -93,7 +93,6 @@
 		EC3E5E291843F1120070315E /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		EC3E5E2A1843F1120070315E /* libAppNexusSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppNexusSDK.a; sourceTree = "<group>"; };
 		EC3E5E961843FE270070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
-		EC3E5EA4184401F90070315E /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,7 +241,6 @@
 		EC3E5E241843F1120070315E /* AppNexusSDK */ = {
 			isa = PBXGroup;
 			children = (
-				EC3E5EA4184401F90070315E /* errors.strings */,
 				EC3E5E961843FE270070315E /* ANAdView.h */,
 				EC3E5E251843F1120070315E /* ANAdProtocol.h */,
 				EC3E5E261843F1120070315E /* ANBannerAdView.h */,

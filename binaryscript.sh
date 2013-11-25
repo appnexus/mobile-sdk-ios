@@ -10,5 +10,4 @@ mv out/libANSDK.a out/ANSDK/libANSDK.a
 
 rm -r out/Intermediates
 
-rm -r out/include
 

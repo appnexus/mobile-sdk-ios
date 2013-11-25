@@ -35,7 +35,17 @@
 		EC3E5E221843F0400070315E /* ANCustomAdapter.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */; };
 		EC3E5E231843F0400070315E /* ANLocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E211843EFEF0070315E /* ANLocation.h */; };
 		EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E941843FDE20070315E /* ANAdView.h */; };
-		EC84778618440CF200A8BC80 /* MRAID.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D441843C7560070315E /* MRAID.bundle */; };
+		EC84779E18440FFF00A8BC80 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D441843C7560070315E /* MRAID.bundle */; };
+		EC84779F1844102A00A8BC80 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3A1843C7560070315E /* errors.strings */; };
+		EC8477A01844102A00A8BC80 /* interstitial_closebox-down.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3C1843C7560070315E /* interstitial_closebox-down.png */; };
+		EC8477A11844102A00A8BC80 /* interstitial_closebox-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3D1843C7560070315E /* interstitial_closebox-down@2x.png */; };
+		EC8477A21844102A00A8BC80 /* interstitial_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3E1843C7560070315E /* interstitial_closebox.png */; };
+		EC8477A31844102A00A8BC80 /* interstitial_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3F1843C7560070315E /* interstitial_closebox@2x.png */; };
+		EC8477A41844102A00A8BC80 /* UIButtonBarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D401843C7560070315E /* UIButtonBarArrowLeft.png */; };
+		EC8477A51844102A00A8BC80 /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D411843C7560070315E /* UIButtonBarArrowLeft@2x.png */; };
+		EC8477A61844102A00A8BC80 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D421843C7560070315E /* UIButtonBarArrowRight.png */; };
+		EC8477A71844102A00A8BC80 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D431843C7560070315E /* UIButtonBarArrowRight@2x.png */; };
+		EC8477A81844107600A8BC80 /* AppNexusSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,7 +55,6 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				EC84778618440CF200A8BC80 /* MRAID.bundle in Copy Files */,
 				EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */,
 				EC3E5E221843F0400070315E /* ANCustomAdapter.h in Copy Files */,
 				EC3E5E231843F0400070315E /* ANLocation.h in Copy Files */,
@@ -119,6 +128,7 @@
 		EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
 		EC3E5E211843EFEF0070315E /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		EC3E5E941843FDE20070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
+		EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppNexusSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +137,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC3E5CE01843C6D50070315E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC84778E18440FE300A8BC80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				EC3E5CDC1843C6D50070315E /* libAppNexusSDK.a */,
+				EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,6 +283,7 @@
 				EC3E5CD81843C6D50070315E /* Sources */,
 				EC3E5CD91843C6D50070315E /* Frameworks */,
 				EC3E5CDA1843C6D50070315E /* Copy Files */,
+				EC84778B18440F2200A8BC80 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -274,6 +293,23 @@
 			productName = AppNexusSDK;
 			productReference = EC3E5CDC1843C6D50070315E /* libAppNexusSDK.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		EC84779018440FE300A8BC80 /* AppNexusSDKResources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC84779B18440FE400A8BC80 /* Build configuration list for PBXNativeTarget "AppNexusSDKResources" */;
+			buildPhases = (
+				EC84778D18440FE300A8BC80 /* Sources */,
+				EC84778E18440FE300A8BC80 /* Frameworks */,
+				EC84778F18440FE300A8BC80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppNexusSDKResources;
+			productName = AppNexusSDKResources;
+			productReference = EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -297,9 +333,38 @@
 			projectRoot = "";
 			targets = (
 				EC3E5CDB1843C6D50070315E /* AppNexusSDK */,
+				EC84779018440FE300A8BC80 /* AppNexusSDKResources */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC84778B18440F2200A8BC80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC8477A81844107600A8BC80 /* AppNexusSDKResources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC84778F18440FE300A8BC80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC84779F1844102A00A8BC80 /* errors.strings in Resources */,
+				EC8477A01844102A00A8BC80 /* interstitial_closebox-down.png in Resources */,
+				EC8477A11844102A00A8BC80 /* interstitial_closebox-down@2x.png in Resources */,
+				EC8477A21844102A00A8BC80 /* interstitial_closebox.png in Resources */,
+				EC8477A31844102A00A8BC80 /* interstitial_closebox@2x.png in Resources */,
+				EC8477A41844102A00A8BC80 /* UIButtonBarArrowLeft.png in Resources */,
+				EC8477A51844102A00A8BC80 /* UIButtonBarArrowLeft@2x.png in Resources */,
+				EC8477A61844102A00A8BC80 /* UIButtonBarArrowRight.png in Resources */,
+				EC8477A71844102A00A8BC80 /* UIButtonBarArrowRight@2x.png in Resources */,
+				EC84779E18440FFF00A8BC80 /* MRAID.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC3E5CD81843C6D50070315E /* Sources */ = {
@@ -330,6 +395,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EC84778D18440FE300A8BC80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -350,6 +422,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/out/AppNexusSDKResources/";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -425,6 +498,39 @@
 			};
 			name = Release;
 		};
+		EC84779C18440FE400A8BC80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		EC84779D18440FE400A8BC80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -445,6 +551,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		EC84779B18440FE400A8BC80 /* Build configuration list for PBXNativeTarget "AppNexusSDKResources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC84779C18440FE400A8BC80 /* Debug */,
+				EC84779D18440FE400A8BC80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
