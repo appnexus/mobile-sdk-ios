@@ -17,6 +17,7 @@
 		8AEBF36D17D0338D003C7214 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36C17D0338D003C7214 /* CoreLocation.framework */; };
 		8AEBF36F17D03394003C7214 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36E17D03394003C7214 /* AdSupport.framework */; };
 		8AEBF37117D0339B003C7214 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF37017D0339B003C7214 /* SystemConfiguration.framework */; };
+		EC2A477A184558EC00D29747 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2A4777184558DB00D29747 /* libANMediatedViewsLibrary.a */; };
 		EC3FD72B1822213C00B25418 /* AppNexusSDKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3FD6D61822213C00B25418 /* AppNexusSDKAppDelegate.m */; };
 		EC3FD72C1822213C00B25418 /* AdPreviewTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3FD6DA1822213C00B25418 /* AdPreviewTVC.m */; };
 		EC3FD72D1822213C00B25418 /* AdSettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3FD6DC1822213C00B25418 /* AdSettingsTVC.m */; };
@@ -113,6 +114,23 @@
 		ECCF548F18451FE40000E37C /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECCF548318451FE40000E37C /* MRAID.bundle */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EC2A4776184558DB00D29747 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ECB1237018219C9D00CB4BE8;
+			remoteInfo = ANMediatedViewsLibrary;
+		};
+		EC2A4778184558E800D29747 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = ECB1236F18219C9D00CB4BE8;
+			remoteInfo = ANMediatedViewsLibrary;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		8A9EFB0517CFD49200FCF79F /* AppNexusSDKApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppNexusSDKApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9EFB0817CFD49200FCF79F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -125,6 +143,7 @@
 		8AEBF36C17D0338D003C7214 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8AEBF36E17D03394003C7214 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8AEBF37017D0339B003C7214 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANMediatedViewsLibrary.xcodeproj; path = ../../mediation/mediatedviews/ANMediatedViewsLibrary/ANMediatedViewsLibrary.xcodeproj; sourceTree = "<group>"; };
 		EC3FD6D31822213C00B25418 /* AppNexusSDKApp.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDKApp.pch; sourceTree = "<group>"; };
 		EC3FD6D41822213C00B25418 /* AppNexusSDKApp.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppNexusSDKApp.plist; sourceTree = "<group>"; };
 		EC3FD6D51822213C00B25418 /* AppNexusSDKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDKAppDelegate.h; sourceTree = "<group>"; };
@@ -274,6 +293,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC2A477A184558EC00D29747 /* libANMediatedViewsLibrary.a in Frameworks */,
 				EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */,
 				EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */,
 				8A9EFB0917CFD49200FCF79F /* UIKit.framework in Frameworks */,
@@ -304,6 +324,7 @@
 		8A9EFAFC17CFD49200FCF79F = {
 			isa = PBXGroup;
 			children = (
+				EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */,
 				ECB124771821A25D00CB4BE8 /* sdk */,
 				8A60758717F67E210038A407 /* iPad */,
 				8A9EFB0717CFD49200FCF79F /* Frameworks */,
@@ -340,6 +361,14 @@
 				8A9EFB0817CFD49200FCF79F /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC2A4773184558DA00D29747 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC2A4777184558DB00D29747 /* libANMediatedViewsLibrary.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		EC3FD6D21822213C00B25418 /* AppNexusSDKApp */ = {
@@ -588,6 +617,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EC2A4779184558E800D29747 /* PBXTargetDependency */,
 			);
 			name = AppNexusSDKApp;
 			productName = SDKDemoApp;
@@ -624,12 +654,28 @@
 			mainGroup = 8A9EFAFC17CFD49200FCF79F;
 			productRefGroup = 8A9EFB0617CFD49200FCF79F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EC2A4773184558DA00D29747 /* Products */;
+					ProjectRef = EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8A9EFB0417CFD49200FCF79F /* AppNexusSDKApp */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		EC2A4777184558DB00D29747 /* libANMediatedViewsLibrary.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANMediatedViewsLibrary.a;
+			remoteRef = EC2A4776184558DB00D29747 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8A9EFB0317CFD49200FCF79F /* Resources */ = {
@@ -740,6 +786,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EC2A4779184558E800D29747 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANMediatedViewsLibrary;
+			targetProxy = EC2A4778184558E800D29747 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EC3FD7041822213C00B25418 /* InfoPlist.strings */ = {

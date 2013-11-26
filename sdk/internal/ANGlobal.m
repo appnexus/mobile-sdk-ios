@@ -112,5 +112,5 @@ NSString *ANErrorString(NSString *key) {
 
 NSBundle *ANResourcesBundle() {
     NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
-    return [NSBundle bundleWithPath:resBundlePath];
+    return resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle mainBundle];
 }
