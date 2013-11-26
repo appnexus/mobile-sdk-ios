@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC3E5DAF1843EB3E0070315E"
+               BlueprintIdentifier = "EC3E5CDB1843C6D50070315E"
                BuildableName = "libANSDK.a"
                BlueprintName = "ANSDK"
                ReferencedContainer = "container:ANSDK.xcodeproj">
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC3E5DBF1843EB3E0070315E"
-               BuildableName = "ANSDKTests.xctest"
-               BlueprintName = "ANSDKTests"
+               BlueprintIdentifier = "EC3E5CEB1843C6D60070315E"
+               BuildableName = "AppNexusSDKTests.xctest"
+               BlueprintName = "AppNexusSDKTests"
                ReferencedContainer = "container:ANSDK.xcodeproj">
             </BuildableReference>
          </TestableReference>
