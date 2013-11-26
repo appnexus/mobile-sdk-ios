@@ -410,10 +410,9 @@
 				GCC_PREFIX_HEADER = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/out/AppNexusSDK",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/libs/AdMob",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/libs/MMSDK",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/out/ANSDK",
+					"$(PROJECT_DIR)/out/ANSDK",
+					"$(PROJECT_DIR)/mediation/mediatedviews/libs/AdMob",
+					"$(PROJECT_DIR)/mediation/mediatedviews/libs/MMSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKFull;
@@ -429,10 +428,9 @@
 				GCC_PREFIX_HEADER = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/out/AppNexusSDK",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/libs/AdMob",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/mediation/mediatedviews/libs/MMSDK",
-					"/Users/mha/Documents/Development/ANGIT/mobile-sdk-ios/out/ANSDK",
+					"$(PROJECT_DIR)/out/ANSDK",
+					"$(PROJECT_DIR)/mediation/mediatedviews/libs/AdMob",
+					"$(PROJECT_DIR)/mediation/mediatedviews/libs/MMSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKFull;
