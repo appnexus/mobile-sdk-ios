@@ -480,7 +480,16 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         if (response.isMraid)
         {
             // MRAID adapter
-            NSString *mraidBundlePath = [[NSBundle mainBundle] pathForResource:@"MRAID" ofType:@"bundle"];
+            NSBundle *resBundle = ANResourcesBundle();
+            if (!resBundle) {
+                ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+                return;
+            }
+            NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
+            if (!mraidBundlePath) {
+                ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+                return;
+            }
             baseURL = [NSURL fileURLWithPath:mraidBundlePath];
             
             self.webViewController = [[ANMRAIDAdWebViewController alloc] init];

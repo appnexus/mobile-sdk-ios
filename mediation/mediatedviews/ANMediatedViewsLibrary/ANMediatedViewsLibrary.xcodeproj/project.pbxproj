@@ -57,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC8477B11844166900A8BC80 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANMediatedViewsLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB1237318219C9D00CB4BE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ECB123BA18219D4F00CB4BE8 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
@@ -95,7 +96,6 @@
 		ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
 		ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMob.m; sourceTree = "<group>"; };
 		ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANGlobal.h; path = ../../../sdk/internal/ANGlobal.h; sourceTree = "<group>"; };
-		ECB1253B1821A35D00CB4BE8 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/internal/ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECB1253C1821A35D00CB4BE8 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANLogging.h; path = ../../../sdk/internal/ANLogging.h; sourceTree = "<group>"; };
 		ECCF18F41835792300B17EB4 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ECFCC0D91831890F00797F72 /* ANAdAdapterMillennialMediaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterMillennialMediaBase.h; sourceTree = "<group>"; };
@@ -120,8 +120,8 @@
 		ECB1236718219C9D00CB4BE8 = {
 			isa = PBXGroup;
 			children = (
+				EC8477B11844166900A8BC80 /* ANCustomAdapter.h */,
 				ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */,
-				ECB1253B1821A35D00CB4BE8 /* ANCustomAdapter.h */,
 				ECB1253C1821A35D00CB4BE8 /* ANLogging.h */,
 				ECB1237218219C9D00CB4BE8 /* Frameworks */,
 				ECB1237118219C9D00CB4BE8 /* Products */,

@@ -16,6 +16,7 @@
 #import "ANInterstitialAdViewController.h"
 #import "UIWebView+ANCategory.h"
 #import "ANGlobal.h"
+#import "ANLogging.h"
 
 @interface ANInterstitialAdViewController ()
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;
@@ -30,8 +31,12 @@
 @synthesize backgroundColor = __backgroundColor;
 
 - (id)init {
-    NSString *nibBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
-    self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleWithPath:nibBundlePath]];
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return nil;
+    }
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:resBundle];
     self.originalHiddenState = NO;
     self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
     return self;

@@ -24,7 +24,7 @@
 		EC3E5E2F1843FA390070315E /* ANInterstitialAd.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E281843F1120070315E /* ANInterstitialAd.h */; };
 		EC3E5E301843FA390070315E /* ANLocation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E291843F1120070315E /* ANLocation.h */; };
 		EC3E5E971843FE370070315E /* ANAdView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3E5E961843FE270070315E /* ANAdView.h */; };
-		EC8477AD1844136D00A8BC80 /* AppNexusSDKResources.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC8477AC1844136800A8BC80 /* AppNexusSDKResources.bundle */; };
+		EC48174B184502800066BBFE /* ANSDKResources.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC4817491845027A0066BBFE /* ANSDKResources.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,7 +34,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				EC8477AD1844136D00A8BC80 /* AppNexusSDKResources.bundle in CopyFiles */,
+				EC48174B184502800066BBFE /* ANSDKResources.bundle in CopyFiles */,
 				EC3E5E971843FE370070315E /* ANAdView.h in CopyFiles */,
 				EC3E5E2C1843FA390070315E /* ANAdProtocol.h in CopyFiles */,
 				EC3E5E2D1843FA390070315E /* ANBannerAdView.h in CopyFiles */,
@@ -95,7 +95,7 @@
 		EC3E5E291843F1120070315E /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		EC3E5E2A1843F1120070315E /* libAppNexusSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppNexusSDK.a; sourceTree = "<group>"; };
 		EC3E5E961843FE270070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
-		EC8477AC1844136800A8BC80 /* AppNexusSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AppNexusSDKResources.bundle; sourceTree = "<group>"; };
+		EC4817491845027A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANSDKResources.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,7 +244,7 @@
 		EC3E5E241843F1120070315E /* AppNexusSDK */ = {
 			isa = PBXGroup;
 			children = (
-				EC8477AC1844136800A8BC80 /* AppNexusSDKResources.bundle */,
+				EC4817491845027A0066BBFE /* ANSDKResources.bundle */,
 				EC3E5E961843FE270070315E /* ANAdView.h */,
 				EC3E5E251843F1120070315E /* ANAdProtocol.h */,
 				EC3E5E261843F1120070315E /* ANBannerAdView.h */,
@@ -267,6 +267,7 @@
 				EC3E5DAC1843EB3E0070315E /* Sources */,
 				EC3E5DAD1843EB3E0070315E /* Frameworks */,
 				EC3E5DAE1843EB3E0070315E /* CopyFiles */,
+				EC8477B91844191500A8BC80 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -302,6 +303,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC8477B91844191500A8BC80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC3E5DAC1843EB3E0070315E /* Sources */ = {

@@ -37,8 +37,13 @@
 
 - (id)init
 {
-    NSString *nibBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
-    self = [super initWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleWithPath:nibBundlePath]];
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return nil;
+    }
+
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:ANResourcesBundle()];
     if (self)
 	{
 		self.urlRequest = [[NSMutableURLRequest alloc] initWithURL:nil

@@ -35,21 +35,30 @@
 		EC3E5E221843F0400070315E /* ANCustomAdapter.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */; };
 		EC3E5E231843F0400070315E /* ANLocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E211843EFEF0070315E /* ANLocation.h */; };
 		EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E941843FDE20070315E /* ANAdView.h */; };
-		EC84779E18440FFF00A8BC80 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D441843C7560070315E /* MRAID.bundle */; };
-		EC84779F1844102A00A8BC80 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3A1843C7560070315E /* errors.strings */; };
-		EC8477A01844102A00A8BC80 /* interstitial_closebox-down.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3C1843C7560070315E /* interstitial_closebox-down.png */; };
-		EC8477A11844102A00A8BC80 /* interstitial_closebox-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3D1843C7560070315E /* interstitial_closebox-down@2x.png */; };
-		EC8477A21844102A00A8BC80 /* interstitial_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3E1843C7560070315E /* interstitial_closebox.png */; };
-		EC8477A31844102A00A8BC80 /* interstitial_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D3F1843C7560070315E /* interstitial_closebox@2x.png */; };
-		EC8477A41844102A00A8BC80 /* UIButtonBarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D401843C7560070315E /* UIButtonBarArrowLeft.png */; };
-		EC8477A51844102A00A8BC80 /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D411843C7560070315E /* UIButtonBarArrowLeft@2x.png */; };
-		EC8477A61844102A00A8BC80 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D421843C7560070315E /* UIButtonBarArrowRight.png */; };
-		EC8477A71844102A00A8BC80 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D431843C7560070315E /* UIButtonBarArrowRight@2x.png */; };
-		EC8477A81844107600A8BC80 /* AppNexusSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */; };
-		EC8477A91844129700A8BC80 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D211843C7560070315E /* ANBrowserViewController.xib */; };
-		EC8477AA1844129700A8BC80 /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC3E5D2A1843C7560070315E /* ANInterstitialAdViewController.xib */; };
-		EC8477AB184412CF00A8BC80 /* AppNexusSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */; };
+		EC4817881845047A0066BBFE /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC48175E1845042A0066BBFE /* ANBrowserViewController.xib */; };
+		EC4817891845047A0066BBFE /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC48175F1845042A0066BBFE /* ANInterstitialAdViewController.xib */; };
+		EC48178A1845047A0066BBFE /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC4817601845042A0066BBFE /* errors.strings */; };
+		EC48178B1845047A0066BBFE /* interstitial_closebox-down.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817621845042A0066BBFE /* interstitial_closebox-down.png */; };
+		EC48178C1845047A0066BBFE /* interstitial_closebox-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817631845042A0066BBFE /* interstitial_closebox-down@2x.png */; };
+		EC48178D1845047A0066BBFE /* interstitial_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817641845042A0066BBFE /* interstitial_closebox.png */; };
+		EC48178E1845047A0066BBFE /* interstitial_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817651845042A0066BBFE /* interstitial_closebox@2x.png */; };
+		EC48178F1845047A0066BBFE /* UIButtonBarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817661845042A0066BBFE /* UIButtonBarArrowLeft.png */; };
+		EC4817901845047A0066BBFE /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817671845042A0066BBFE /* UIButtonBarArrowLeft@2x.png */; };
+		EC4817911845047A0066BBFE /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817681845042A0066BBFE /* UIButtonBarArrowRight.png */; };
+		EC4817921845047A0066BBFE /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817691845042A0066BBFE /* UIButtonBarArrowRight@2x.png */; };
+		EC4817931845047A0066BBFE /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48176A1845042A0066BBFE /* MRAID.bundle */; };
+		EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EC4817941845049D0066BBFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC48177A1845046A0066BBFE;
+			remoteInfo = ANSDKResources;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		EC3E5CDA1843C6D50070315E /* Copy Files */ = {
@@ -58,7 +67,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				EC8477AB184412CF00A8BC80 /* AppNexusSDKResources.bundle in Copy Files */,
+				EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */,
 				EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */,
 				EC3E5E221843F0400070315E /* ANCustomAdapter.h in Copy Files */,
 				EC3E5E231843F0400070315E /* ANLocation.h in Copy Files */,
@@ -97,7 +106,6 @@
 		EC3E5D1E1843C7560070315E /* ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdView.m; sourceTree = "<group>"; };
 		EC3E5D1F1843C7560070315E /* ANBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBrowserViewController.h; sourceTree = "<group>"; };
 		EC3E5D201843C7560070315E /* ANBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBrowserViewController.m; sourceTree = "<group>"; };
-		EC3E5D211843C7560070315E /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
 		EC3E5D231843C7560070315E /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGlobal.h; sourceTree = "<group>"; };
 		EC3E5D241843C7560070315E /* ANGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGlobal.m; sourceTree = "<group>"; };
 		EC3E5D251843C7560070315E /* ANInstallTrackerPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInstallTrackerPixel.h; sourceTree = "<group>"; };
@@ -105,7 +113,6 @@
 		EC3E5D271843C7560070315E /* ANInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAd.m; sourceTree = "<group>"; };
 		EC3E5D281843C7560070315E /* ANInterstitialAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAdViewController.h; sourceTree = "<group>"; };
 		EC3E5D291843C7560070315E /* ANInterstitialAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAdViewController.m; sourceTree = "<group>"; };
-		EC3E5D2A1843C7560070315E /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
 		EC3E5D2C1843C7560070315E /* ANLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLocation.m; sourceTree = "<group>"; };
 		EC3E5D2D1843C7560070315E /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogging.h; sourceTree = "<group>"; };
 		EC3E5D2E1843C7560070315E /* ANLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogging.m; sourceTree = "<group>"; };
@@ -119,20 +126,22 @@
 		EC3E5D361843C7560070315E /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
 		EC3E5D371843C7560070315E /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		EC3E5D381843C7560070315E /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
-		EC3E5D3A1843C7560070315E /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
-		EC3E5D3C1843C7560070315E /* interstitial_closebox-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox-down.png"; sourceTree = "<group>"; };
-		EC3E5D3D1843C7560070315E /* interstitial_closebox-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox-down@2x.png"; sourceTree = "<group>"; };
-		EC3E5D3E1843C7560070315E /* interstitial_closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interstitial_closebox.png; sourceTree = "<group>"; };
-		EC3E5D3F1843C7560070315E /* interstitial_closebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox@2x.png"; sourceTree = "<group>"; };
-		EC3E5D401843C7560070315E /* UIButtonBarArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowLeft.png; sourceTree = "<group>"; };
-		EC3E5D411843C7560070315E /* UIButtonBarArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowLeft@2x.png"; sourceTree = "<group>"; };
-		EC3E5D421843C7560070315E /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
-		EC3E5D431843C7560070315E /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
-		EC3E5D441843C7560070315E /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
 		EC3E5E211843EFEF0070315E /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		EC3E5E941843FDE20070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
-		EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppNexusSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC48175E1845042A0066BBFE /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
+		EC48175F1845042A0066BBFE /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
+		EC4817601845042A0066BBFE /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
+		EC4817621845042A0066BBFE /* interstitial_closebox-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox-down.png"; sourceTree = "<group>"; };
+		EC4817631845042A0066BBFE /* interstitial_closebox-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox-down@2x.png"; sourceTree = "<group>"; };
+		EC4817641845042A0066BBFE /* interstitial_closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interstitial_closebox.png; sourceTree = "<group>"; };
+		EC4817651845042A0066BBFE /* interstitial_closebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox@2x.png"; sourceTree = "<group>"; };
+		EC4817661845042A0066BBFE /* UIButtonBarArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowLeft.png; sourceTree = "<group>"; };
+		EC4817671845042A0066BBFE /* UIButtonBarArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowLeft@2x.png"; sourceTree = "<group>"; };
+		EC4817681845042A0066BBFE /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
+		EC4817691845042A0066BBFE /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
+		EC48176A1845042A0066BBFE /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +153,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC84778E18440FE300A8BC80 /* Frameworks */ = {
+		EC4817781845046A0066BBFE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -167,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				EC3E5CDC1843C6D50070315E /* libAppNexusSDK.a */,
-				EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */,
+				EC48177B1845046A0066BBFE /* ANSDKResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,9 +199,9 @@
 				EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */,
 				EC3E5D0A1843C7560070315E /* ANInterstitialAd.h */,
 				EC3E5E211843EFEF0070315E /* ANLocation.h */,
-				EC3E5D0B1843C7560070315E /* Categories */,
 				EC3E5D141843C7560070315E /* internal */,
-				EC3E5D391843C7560070315E /* Resources */,
+				EC3E5D0B1843C7560070315E /* Categories */,
+				EC48175D1845042A0066BBFE /* Resources */,
 			);
 			path = sdk;
 			sourceTree = "<group>";
@@ -226,7 +235,6 @@
 				EC3E5D1E1843C7560070315E /* ANBannerAdView.m */,
 				EC3E5D1F1843C7560070315E /* ANBrowserViewController.h */,
 				EC3E5D201843C7560070315E /* ANBrowserViewController.m */,
-				EC3E5D211843C7560070315E /* ANBrowserViewController.xib */,
 				EC3E5D231843C7560070315E /* ANGlobal.h */,
 				EC3E5D241843C7560070315E /* ANGlobal.m */,
 				EC3E5D251843C7560070315E /* ANInstallTrackerPixel.h */,
@@ -234,7 +242,6 @@
 				EC3E5D271843C7560070315E /* ANInterstitialAd.m */,
 				EC3E5D281843C7560070315E /* ANInterstitialAdViewController.h */,
 				EC3E5D291843C7560070315E /* ANInterstitialAdViewController.m */,
-				EC3E5D2A1843C7560070315E /* ANInterstitialAdViewController.xib */,
 				EC3E5D2C1843C7560070315E /* ANLocation.m */,
 				EC3E5D2D1843C7560070315E /* ANLogging.h */,
 				EC3E5D2E1843C7560070315E /* ANLogging.m */,
@@ -252,27 +259,29 @@
 			path = internal;
 			sourceTree = "<group>";
 		};
-		EC3E5D391843C7560070315E /* Resources */ = {
+		EC48175D1845042A0066BBFE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EC3E5D3A1843C7560070315E /* errors.strings */,
-				EC3E5D3B1843C7560070315E /* images */,
-				EC3E5D441843C7560070315E /* MRAID.bundle */,
+				EC48175E1845042A0066BBFE /* ANBrowserViewController.xib */,
+				EC48175F1845042A0066BBFE /* ANInterstitialAdViewController.xib */,
+				EC4817601845042A0066BBFE /* errors.strings */,
+				EC4817611845042A0066BBFE /* images */,
+				EC48176A1845042A0066BBFE /* MRAID.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		EC3E5D3B1843C7560070315E /* images */ = {
+		EC4817611845042A0066BBFE /* images */ = {
 			isa = PBXGroup;
 			children = (
-				EC3E5D3C1843C7560070315E /* interstitial_closebox-down.png */,
-				EC3E5D3D1843C7560070315E /* interstitial_closebox-down@2x.png */,
-				EC3E5D3E1843C7560070315E /* interstitial_closebox.png */,
-				EC3E5D3F1843C7560070315E /* interstitial_closebox@2x.png */,
-				EC3E5D401843C7560070315E /* UIButtonBarArrowLeft.png */,
-				EC3E5D411843C7560070315E /* UIButtonBarArrowLeft@2x.png */,
-				EC3E5D421843C7560070315E /* UIButtonBarArrowRight.png */,
-				EC3E5D431843C7560070315E /* UIButtonBarArrowRight@2x.png */,
+				EC4817621845042A0066BBFE /* interstitial_closebox-down.png */,
+				EC4817631845042A0066BBFE /* interstitial_closebox-down@2x.png */,
+				EC4817641845042A0066BBFE /* interstitial_closebox.png */,
+				EC4817651845042A0066BBFE /* interstitial_closebox@2x.png */,
+				EC4817661845042A0066BBFE /* UIButtonBarArrowLeft.png */,
+				EC4817671845042A0066BBFE /* UIButtonBarArrowLeft@2x.png */,
+				EC4817681845042A0066BBFE /* UIButtonBarArrowRight.png */,
+				EC4817691845042A0066BBFE /* UIButtonBarArrowRight@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -292,27 +301,28 @@
 			buildRules = (
 			);
 			dependencies = (
+				EC4817951845049D0066BBFE /* PBXTargetDependency */,
 			);
 			name = AppNexusSDK;
 			productName = AppNexusSDK;
 			productReference = EC3E5CDC1843C6D50070315E /* libAppNexusSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		EC84779018440FE300A8BC80 /* AppNexusSDKResources */ = {
+		EC48177A1845046A0066BBFE /* ANSDKResources */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EC84779B18440FE400A8BC80 /* Build configuration list for PBXNativeTarget "AppNexusSDKResources" */;
+			buildConfigurationList = EC4817851845046A0066BBFE /* Build configuration list for PBXNativeTarget "ANSDKResources" */;
 			buildPhases = (
-				EC84778D18440FE300A8BC80 /* Sources */,
-				EC84778E18440FE300A8BC80 /* Frameworks */,
-				EC84778F18440FE300A8BC80 /* Resources */,
+				EC4817771845046A0066BBFE /* Sources */,
+				EC4817781845046A0066BBFE /* Frameworks */,
+				EC4817791845046A0066BBFE /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = AppNexusSDKResources;
-			productName = AppNexusSDKResources;
-			productReference = EC84779118440FE400A8BC80 /* AppNexusSDKResources.bundle */;
+			name = ANSDKResources;
+			productName = ANSDKResources;
+			productReference = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -337,36 +347,35 @@
 			projectRoot = "";
 			targets = (
 				EC3E5CDB1843C6D50070315E /* AppNexusSDK */,
-				EC84779018440FE300A8BC80 /* AppNexusSDKResources */,
+				EC48177A1845046A0066BBFE /* ANSDKResources */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		EC4817791845046A0066BBFE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC4817881845047A0066BBFE /* ANBrowserViewController.xib in Resources */,
+				EC4817891845047A0066BBFE /* ANInterstitialAdViewController.xib in Resources */,
+				EC48178A1845047A0066BBFE /* errors.strings in Resources */,
+				EC48178B1845047A0066BBFE /* interstitial_closebox-down.png in Resources */,
+				EC48178C1845047A0066BBFE /* interstitial_closebox-down@2x.png in Resources */,
+				EC48178D1845047A0066BBFE /* interstitial_closebox.png in Resources */,
+				EC48178E1845047A0066BBFE /* interstitial_closebox@2x.png in Resources */,
+				EC48178F1845047A0066BBFE /* UIButtonBarArrowLeft.png in Resources */,
+				EC4817901845047A0066BBFE /* UIButtonBarArrowLeft@2x.png in Resources */,
+				EC4817911845047A0066BBFE /* UIButtonBarArrowRight.png in Resources */,
+				EC4817921845047A0066BBFE /* UIButtonBarArrowRight@2x.png in Resources */,
+				EC4817931845047A0066BBFE /* MRAID.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EC84778B18440F2200A8BC80 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC8477A81844107600A8BC80 /* AppNexusSDKResources.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EC84778F18440FE300A8BC80 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EC8477A91844129700A8BC80 /* ANBrowserViewController.xib in Resources */,
-				EC8477AA1844129700A8BC80 /* ANInterstitialAdViewController.xib in Resources */,
-				EC84779F1844102A00A8BC80 /* errors.strings in Resources */,
-				EC8477A01844102A00A8BC80 /* interstitial_closebox-down.png in Resources */,
-				EC8477A11844102A00A8BC80 /* interstitial_closebox-down@2x.png in Resources */,
-				EC8477A21844102A00A8BC80 /* interstitial_closebox.png in Resources */,
-				EC8477A31844102A00A8BC80 /* interstitial_closebox@2x.png in Resources */,
-				EC8477A41844102A00A8BC80 /* UIButtonBarArrowLeft.png in Resources */,
-				EC8477A51844102A00A8BC80 /* UIButtonBarArrowLeft@2x.png in Resources */,
-				EC8477A61844102A00A8BC80 /* UIButtonBarArrowRight.png in Resources */,
-				EC8477A71844102A00A8BC80 /* UIButtonBarArrowRight@2x.png in Resources */,
-				EC84779E18440FFF00A8BC80 /* MRAID.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,14 +391,12 @@
 				EC3E5D491843C7560070315E /* ANAdFetcher.m in Sources */,
 				EC3E5D4C1843C7560070315E /* ANAdWebViewController.m in Sources */,
 				EC3E5D571843C7560070315E /* ANMRAIDViewController.m in Sources */,
-				EC3E5D451843C7560070315E /* NSString+ANCategory.m in Sources */,
 				EC3E5D4F1843C7560070315E /* ANGlobal.m in Sources */,
 				EC3E5D521843C7560070315E /* ANInterstitialAdViewController.m in Sources */,
 				EC3E5D561843C7560070315E /* ANMediationAdViewController.m in Sources */,
 				EC3E5D471843C7560070315E /* UIView+ANCategory.m in Sources */,
 				EC3E5D4A1843C7560070315E /* ANAdResponse.m in Sources */,
 				EC3E5D531843C7560070315E /* ANLocation.m in Sources */,
-				EC3E5D461843C7560070315E /* NSTimer+ANCategory.m in Sources */,
 				EC3E5D4E1843C7560070315E /* ANBrowserViewController.m in Sources */,
 				EC3E5D551843C7560070315E /* ANMediatedAd.m in Sources */,
 				EC3E5D541843C7560070315E /* ANLogging.m in Sources */,
@@ -398,10 +405,12 @@
 				EC3E5D4D1843C7560070315E /* ANBannerAdView.m in Sources */,
 				EC3E5D581843C7560070315E /* ANReachability.m in Sources */,
 				EC3E5D591843C7560070315E /* ANWebView.m in Sources */,
+				EC3E5D461843C7560070315E /* NSTimer+ANCategory.m in Sources */,
+				EC3E5D451843C7560070315E /* NSString+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC84778D18440FE300A8BC80 /* Sources */ = {
+		EC4817771845046A0066BBFE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -409,6 +418,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EC4817951845049D0066BBFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC48177A1845046A0066BBFE /* ANSDKResources */;
+			targetProxy = EC4817941845049D0066BBFE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		EC3E5CFD1843C6D60070315E /* Debug */ = {
@@ -428,6 +445,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPRESS_PNG_FILES = NO;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/out/AppNexusSDKResources/";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -444,6 +462,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBC_FLATTEN_NIBS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -467,6 +486,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -476,6 +496,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IBC_FLATTEN_NIBS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -504,12 +525,13 @@
 			};
 			name = Release;
 		};
-		EC84779C18440FE400A8BC80 /* Debug */ = {
+		EC4817861845046A0066BBFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
+				COMBINE_HIDPI_IMAGES = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -522,13 +544,14 @@
 			};
 			name = Debug;
 		};
-		EC84779D18440FE400A8BC80 /* Release */ = {
+		EC4817871845046A0066BBFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
+				COMBINE_HIDPI_IMAGES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -558,13 +581,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EC84779B18440FE400A8BC80 /* Build configuration list for PBXNativeTarget "AppNexusSDKResources" */ = {
+		EC4817851845046A0066BBFE /* Build configuration list for PBXNativeTarget "ANSDKResources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EC84779C18440FE400A8BC80 /* Debug */,
-				EC84779D18440FE400A8BC80 /* Release */,
+				EC4817861845046A0066BBFE /* Debug */,
+				EC4817871845046A0066BBFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

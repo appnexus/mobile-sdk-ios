@@ -109,3 +109,8 @@ NSString *ANUdidParameter() {
 NSString *ANErrorString(NSString *key) {
     return NSLocalizedStringFromTable(key, AN_ERROR_TABLE, @"");
 }
+
+NSBundle *ANResourcesBundle() {
+    NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
+    return [NSBundle bundleWithPath:resBundlePath];
+}
