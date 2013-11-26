@@ -38,7 +38,9 @@
     CGRect frame = CGRectMake(0, 0, adSize.size.width, adSize.size.height);
     self.bannerAdView = [ANBannerAdView adViewWithFrame:frame placementId:serverParameter adSize:adSize.size];
     self.bannerAdView.delegate = self;
+    self.bannerAdView.opensInNativeBrowser = YES;
 	self.bannerAdView.shouldServePublicServiceAnnouncements = NO;
+    
     [self.bannerAdView loadAd];
 }
 
@@ -52,6 +54,26 @@
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
 {
     [self.delegate customEventBanner:self didFailAd:error];
+}
+
+- (void)adWasClicked:(id<ANAdProtocol>)ad {
+    [self.delegate customEventBanner:self clickDidOccurInAd:self.bannerAdView];
+}
+
+- (void)adWillPresent:(id<ANAdProtocol>)ad {
+    [self.delegate customEventBannerWillPresentModal:self];
+}
+
+- (void)adWillClose:(id<ANAdProtocol>)ad {
+    [self.delegate customEventBannerWillDismissModal:self];
+}
+
+- (void)adDidClose:(id<ANAdProtocol>)ad {
+    [self.delegate customEventBannerDidDismissModal:self];
+}
+
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+    [self.delegate customEventBannerWillLeaveApplication:self];
 }
 
 @end

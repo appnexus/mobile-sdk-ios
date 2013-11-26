@@ -13,4 +13,8 @@ xcodebuild -project 'ANSDKMoPub.xcodeproj/' -scheme 'ANSDKMoPub' -configuration 
 
 mv out/libANSDKMoPub.a out/ANSDKMoPub/libANSDKMoPub.a
 
+xcodebuild -project 'ANSDKAdMob.xcodeproj/' -scheme 'ANSDKAdMob' -configuration 'Release' -sdk iphoneos7.0 CONFIGURATION_BUILD_DIR='out'
+
+mv out/libANSDKAdMob.a out/ANSDKAdMob/libANSDKAdMob.a
+
 rm -r out/Intermediates
