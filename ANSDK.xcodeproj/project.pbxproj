@@ -507,7 +507,7 @@
 		EC3E5D001843C6D60070315E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/AppNexusSDK.dst;
+				DSTROOT = /tmp/ANSDk.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDK;
@@ -518,7 +518,7 @@
 		EC3E5D011843C6D60070315E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/AppNexusSDK.dst;
+				DSTROOT = /tmp/ANSDk.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDK;

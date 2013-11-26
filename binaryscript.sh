@@ -9,4 +9,8 @@ xcodebuild -project 'ANSDKFull.xcodeproj/' -scheme 'ANSDKFull' -configuration 'R
 
 mv out/libANSDKFull.a out/ANSDKFull/libANSDKFull.a
 
+xcodebuild -project 'ANSDKMoPub.xcodeproj/' -scheme 'ANSDKMoPub' -configuration 'Release' -sdk iphoneos7.0 CONFIGURATION_BUILD_DIR='out'
+
+mv out/libANSDKMoPub.a out/ANSDKMoPub/libANSDKMoPub.a
+
 rm -r out/Intermediates

@@ -14,9 +14,7 @@
  */
 
 #import "ANMoPubMediationBanner.h"
-#import "MPLogging.h"
 #import "ANBannerAdView.h"
-#import "MPError.h"
 
 @interface ANMoPubMediationBanner ()
 
@@ -43,7 +41,7 @@
 
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info
 {
-    MPLogInfo(@"Requesting AN Banner");
+    NSLog(@"Requesting AN Banner");
 
     id widthParam = [info objectForKey:@"width"];
     id heightParam = [info objectForKey:@"height"];
@@ -51,8 +49,8 @@
     
     // fail if any of the parameters is missing
     if (!widthParam || !heightParam || !placementId) {
-        MPLogInfo(@"Parameters from server were invalid");
-        [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:[MPError errorWithCode:MPErrorAdapterInvalid]];
+        NSLog(@"Parameters from server were invalid");
+        [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:nil];
         return;
     }
     
@@ -66,16 +64,28 @@
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
 {
-    MPLogInfo(@"Did load AN Banner");
+    NSLog(@"Did load AN Banner");
     if (self.delegate)
         [self.delegate bannerCustomEvent:self didLoadAd:self.adBannerView];
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
 {
-    MPLogInfo(@"Did fail to load AN Banner");
+    NSLog(@"Did fail to load AN Banner");
     if (self.delegate)
-        [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:[MPError errorWithCode:MPErrorAdapterHasNoInventory]];
+        [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
+}
+
+- (void)adWillPresent:(id<ANAdProtocol>)ad {
+    [self.delegate bannerCustomEventWillBeginAction:self];
+}
+
+- (void)adDidClose:(id<ANAdProtocol>)ad {
+    [self.delegate bannerCustomEventDidFinishAction:self];
+}
+
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+    [self.delegate bannerCustomEventWillLeaveApplication:self];
 }
 
 @end

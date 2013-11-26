@@ -405,7 +405,7 @@
 		EC3E5DD41843EB3E0070315E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
+				DSTROOT = /tmp/ANSDKFull.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				LIBRARY_SEARCH_PATHS = (
@@ -423,7 +423,7 @@
 		EC3E5DD51843EB3E0070315E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
+				DSTROOT = /tmp/ANSDKFull.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				LIBRARY_SEARCH_PATHS = (
