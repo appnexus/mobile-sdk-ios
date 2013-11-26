@@ -116,6 +116,6 @@ xcuserdata
 *.xccheckout
 
 ####
-# Intermediate product files
+# Binary build product files
 
-out/Intermediates/*
+out/*
