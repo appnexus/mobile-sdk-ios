@@ -13,12 +13,6 @@
  limitations under the License.
  */
 
-/***
- * This protocol defines all the things that are common between *all* types of
- * ads, whether they be direct descendants of UIView as in ANBannerAdView, or
- * modal view controller types like ANInterstitalAd.
- ***/
-
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -32,6 +26,15 @@ typedef enum _ANGender
     FEMALE
 } ANGender;
 
+// ANAdProtocol defines the properties and methods that are common to
+// *all* ad types, whether direct descendants of UIView (like
+// ANBannerAdView) or modal view controller types (like
+// ANInterstitialAdView).
+
+// This protocol can be understood as a toolkit for implementing ad
+// types (It's used in the implementation of both banners and
+// interstitials by the SDK).  If you wanted to, you could implement
+// your own ad type using this protocol.
 @protocol ANAdProtocol <NSObject>
 
 @required
@@ -52,9 +55,9 @@ typedef enum _ANGender
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
-#pragma mark Deprecrated Properties
+#pragma mark Deprecated Properties
 
-// This property is deprecated, use "opensInNativeBrowser" instead
+// This property is deprecated; use opensInNativeBrowser instead.
 @property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
 
 @end
