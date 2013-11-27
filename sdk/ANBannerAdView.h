@@ -35,6 +35,9 @@
 // Delegate object that receives state change notifications from this
 // ANBannerAdView.
 @property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
+
+// Use this method as shown in the example above to set the banner ad
+// view's controller to your own view controller implementation.
 @property (nonatomic, assign) UIViewController *rootViewController;
 
 // Autorefresh interval.  You can change this with the
@@ -48,15 +51,15 @@
 // there if you need to use it directly.
 
 // Initializes an ad view with the specified frame (this frame must be
-// smaller than the view's size).  Used internally by
-// adViewWithFrame, so you may want to use that instead, unless you
-// prefer to manage this manually.
+// smaller than the view's size).  Used internally by adViewWithFrame,
+// so you may want to use that instead, unless you prefer to manage
+// this manually.
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 - (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
-// Initializes an ad view. Autoreleased constructors of the above
-// initializers.  These will handle the frame initialization for you.
-// (For usage, see the example at the top of this file).
+// Initializes an ad view.  These are autoreleased constructors of the
+// above initializers that will handle the frame initialization for
+// you.  (For usage, see the example at the top of this file).
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
@@ -64,12 +67,15 @@
 // settings described above.
 - (void)loadAd;
 
+// Allows the frame containing the ad to animate (resize momentarily).
+// This allows for a class of ads known as "expandables."  In order to
+// show an expandable ad, set the animated flag to true.
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated;
 
 @end
 
-// See ANAdDelegate for common delegate methods.  The
-// ANBannerAdViewDelegate specific methods are defined here.
+// See ANAdDelegate (in ANAdProtocol.h) for common delegate methods.
+// The ANBannerAdViewDelegate-specific methods are defined here.
 @protocol ANBannerAdViewDelegate <ANAdDelegate>
 
 @optional
@@ -80,7 +86,7 @@
 - (void)bannerAdView:(ANBannerAdView *)adView willResizeToFrame:(CGRect)frame;
 
 // Sent after the adView has resized.  The close events are sent in
-// ANAdDelegate: adWillClose and adDidClose.
+// ANAdDelegate (in ANAdProtocol.h): adWillClose and adDidClose.
 - (void)bannerAdViewDidResize:(ANBannerAdView *)adView;
 
 @end
