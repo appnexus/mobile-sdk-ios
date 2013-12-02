@@ -30,31 +30,58 @@
 //       // file for an example)
 //       self.inter.delegate = self;
 //
-//       // Fetch an ad in the background.  In order to show the ad,
+//       // If the user clicks, open a native browser.  You can toggle
+//       // this.
+//       self.inter.opensInNativeBrowser = true;
+//
+//       // Fetch an ad in the background.  In order to show this ad,
 //       // you'll need to implement `adDidReceiveAd' (see below).
 //       [self.inter loadAd];
 @interface ANInterstitialAd : ANAdView
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
+
+// The ad view's background color.
 @property (nonatomic, readwrite, strong) UIColor *backgroundColor;
+
+// Whether the interstitial ad has been fetched and is ready to
+// display.
 @property (nonatomic, readonly, assign) BOOL isReady;
+
+// The delay between when an interstitial ad is displayed and when the
+// close button appears to the user. 10 seconds is the default; it is
+// also the maximum. Setting the value to 0 allows the close button to
+// appear immediately.
 @property (nonatomic, readwrite, assign) NSTimeInterval closeDelay;
 
+// Initialize the ad view, with required placement ID.  Note that
+// you'll need to get a placement ID from your AppNexus representative
+// or your ad network.
 - (id)initWithPlacementId:(NSString *)placementId;
+
+// Actually loads the ad into your ad view.  Note that you'll need to
+// check isReady first to make sure there's an ad to show.
 - (void)loadAd;
-- (void)displayAdFromViewController:(UIViewController *)controller;
 
-@end
+// Once you've loaded the ad into your view with loadAd, you'll show
+// it to the user.  For example:
 
-// Your view controller needs to conform to this protocol by
-// implementing the `adDidReceiveAd' method.  Here's a sample
-// implementation:
-//
 //     - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
 //     {
 //         [self.inter displayAdFromViewController:self];
 //     }
-//
+- (void)displayAdFromViewController:(UIViewController *)controller;
+
+@end
+
 @protocol ANInterstitialAdDelegate <ANAdDelegate>
+// This method tells your ad view what to do if the ad can't be shown.
+// A simple implementation used during development could just log,
+// like so:
+
+// - (void)adFailedToDisplay:(ANInterstitialAd *)ad
+// {
+//     NSLog(@"Oh no, the ad failed to display!");
+// }
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad;
 @end
