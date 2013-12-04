@@ -13,132 +13,125 @@
  limitations under the License.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
-#import <Foundation/Foundation.h>
-#import "ANBannerAdView.h"
-#import "ANGlobal.h"
+#import "ANBaseTestCase.h"
 
-/********
- * NOTE !!!!
- * These unit tests require the AN_MOBILE_HOSTNAME in ANGlobal.h to point to the test server.
- * #define AN_MOBILE_HOSTNAME @"rlissack.adnxs.net:8080/mobile/utest"
- ********/
-
-
-
-@interface MediationCallbacksTests : SenTestCase
-@property (nonatomic, readwrite, strong) ANBannerAdView *bannerAdView;
-@end
-
-@interface MediationCallbacksTests() <ANBannerAdViewDelegate>
-{
-    BOOL testDidComplete;
-    BOOL didLoad, didFail;
-    BOOL didLoadMultiple, didFailMultiple;
-}
+@interface MediationCallbacksTests : ANBaseTestCase
+@property (nonatomic, readwrite, assign) BOOL adLoadedMultiple;
+@property (nonatomic, readwrite, assign) BOOL adFailedMultiple;
 @end
 
 @implementation MediationCallbacksTests
 
-
-- (void)setUp
-{
-    [super setUp];
-    didLoad = NO;
-    didFail = NO;
-    didLoadMultiple = NO;
-    didFailMultiple = NO;
-}
+float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)tearDown
 {
     [super tearDown];
+    _adLoadedMultiple = NO;
+    _adFailedMultiple = NO;
 }
 
-- (void)runBasicTest:(int)placementId
-        didLoadValue:(BOOL)didLoadValue
+- (void)runBasicTest:(BOOL)didLoadValue
             waitTime:(int)waitTime {
-    CGRect frame = CGRectMake(0, 0, 320, 50);
-    self.bannerAdView = [ANBannerAdView adViewWithFrame:frame
-                                            placementId:[NSString stringWithFormat:@"%d", placementId]];
-    self.bannerAdView.adSize = CGSizeMake(320, 50);
-    self.bannerAdView.delegate = self;
-    self.bannerAdView.autoRefreshInterval = 0;
-    
-    [self.bannerAdView loadAd];
+    [self loadBannerAd];
     [self waitForCompletion:waitTime];
     
-    STAssertEquals(didLoadValue, didLoad, @"");
-    STAssertEquals((BOOL)!didLoadValue, didFail, @"");
-    STAssertFalse(didLoadMultiple, @"");
-    STAssertFalse(didFailMultiple, @"");
+    STAssertEquals(didLoadValue, self.adDidLoadCalled,
+                   @"callback adDidLoad should be %d", didLoadValue);
+    STAssertEquals((BOOL)!didLoadValue, self.adFailedToLoadCalled,
+                   @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
+    STAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
+    STAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
+}
+
+- (void)checkCallbacks:(BOOL)called {
+    STAssertEquals(self.adWasClickedCalled, called,
+                   @"callback adWasClickCalled should be %d", called);
+    STAssertEquals(self.adWillPresentCalled, called,
+                   @"callback adWillPresentCalled should be %d", called);
+    STAssertEquals(self.adDidPresentCalled, called,
+                   @"callback adDidPresentCalled should be %d", called);
+    STAssertEquals(self.adWillCloseCalled, called,
+                   @"callback adWillCloseCalled should be %d", called);
+    STAssertEquals(self.adDidCloseCalled, called,
+                   @"callback adDidCloseCalled should be %d", called);
+    STAssertEquals(self.adWillLeaveApplicationCalled, called,
+                   @"callback adWillLeaveApplicationCalled should be %d", called);
 }
 
 #pragma mark MediationCallback tests
 
 - (void)test18LoadedMultiple
 {
-    [self runBasicTest:18 didLoadValue:YES waitTime:5];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadedMultiple"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
 }
 
 - (void)test19Timeout
 {
-    [self runBasicTest:19 didLoadValue:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + 5];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANTimeout"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + CALLBACKS_TIMEOUT];
+    [self clearTest];
 }
 
 - (void)test20LoadThenFail
 {
-    [self runBasicTest:20 didLoadValue:YES waitTime:5];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadThenFail"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
 }
 
 - (void)test21FailThenLoad
 {
-    [self runBasicTest:21 didLoadValue:NO waitTime:5];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailThenLoad"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
+}
+
+- (void)test22LoadAndHitOtherCallbacks
+{
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadAndHitOtherCallbacks"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self checkCallbacks:YES];
+    [self clearTest];
+}
+
+- (void)test23FailAndHitOtherCallbacks
+{
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailAndHitOtherCallbacks"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self checkCallbacks:NO];
+    [self clearTest];
 }
 
 - (void)test24FailedMultiple
 {
-    [self runBasicTest:24 didLoadValue:NO waitTime:5];
-}
-
-- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
-{
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
-    
-    do
-    {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
-        if ([timeoutDate timeIntervalSinceNow] < 0.0)
-        {
-            break;
-        }
-    }
-	
-    while (!testDidComplete);
-    
-    return testDidComplete;
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailedMultiple"]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
 }
 
 #pragma mark ANBannerAdViewDelegate
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
-    NSLog(@"Ad Loaded");
-    if (didLoad)
-        didLoadMultiple = YES;
-    didLoad = YES;
-//    testDidComplete = YES;
+    if (self.adDidLoadCalled) {
+        self.adLoadedMultiple = YES;
+    }
+    [super adDidReceiveAd:ad];
 }
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
-    NSLog(@"Ad Failed");
-    if (didFailMultiple)
-        didFailMultiple = YES;
-    didFail = YES;
-//    testDidComplete = YES;
+    if (self.adFailedToLoadCalled) {
+        self.adFailedMultiple = YES;
+    }
+    [super ad:ad requestFailedWithError:error];
 }
-
-- (void) adWillPresent {};
-- (void) adWillClose {}
-- (void) adDidClose {};
-- (void) adWillLeaveApplication {}
 
 @end

@@ -13,21 +13,10 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterBannerRequestFail.h"
+#import <Foundation/Foundation.h>
+#import "ANCustomAdapter.h"
 
-@implementation ANAdAdapterBannerRequestFail
-@synthesize delegate;
-
-#pragma mark ANCustomAdapterBanner
-
-- (void)requestBannerAdWithSize:(CGSize)size
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-                       location:(ANLocation *)location
-             rootViewController:(UIViewController *)rootViewController
-{
-    // Fake a network fail response
-    [self.delegate didFailToLoadAd:ANAdResponseNetworkError];
-}
-
+@interface ANSuccessfulBannerNeverCalled : NSObject <ANCustomAdapterBanner>
++ (void)setCalled:(BOOL)called;
++ (BOOL)getCalled;
 @end

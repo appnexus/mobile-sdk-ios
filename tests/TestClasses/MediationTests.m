@@ -13,23 +13,19 @@
  limitations under the License.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
+#import "ANBaseTestCase.h"
 #import "ANAdFetcher.h"
-#import "ANAdResponse.h"
-#import "ANAdAdapterErrorCode.h"
-#import <iAd/iAd.h>
 #import "ANAdWebViewController.h"
 #import "ANMediationAdViewController.h"
-#import "ANBannerAdView.h"
+#import "ANSuccessfulBannerNeverCalled.h"
 
-// These URLs will be deprecrated
-#define APPNEXUS_TEST_HOST @"http://rlissack.adnxs.net:8080/"
-#define APPNEXUS_TEST_MOBCALL_WITH_ID(x) [APPNEXUS_TEST_HOST stringByAppendingPathComponent:[NSString stringWithFormat:@"/mobile/utest?id=%@", x]]
-
-#define iAdBannerClassName @"ANAdAdapterBanneriAd"
-#define AdMobBannerClassName @"ANAdAdapterBannerAdMob"
-#define MMBannerClassName @"ANAdAdapterBannerMillennialMedia"
-#define ErrorCodeClassName @"ANAdAdapterErrorCode"
+static NSString *const kANSuccessfulBanner = @"ANSuccessfulBanner";
+static NSString *const kANAdAdapterBannerDummy = @"ANAdAdapterBannerDummy";
+static NSString *const kANAdAdapterBannerNoAds = @"ANAdAdapterBannerNoAds";
+static NSString *const kANAdAdapterBannerRequestFail = @"ANAdAdapterBannerRequestFail";
+static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
+static NSString *const kClassDoesNotExist = @"ClassDoesNotExist";
+static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeverCalled";
 
 @interface FetcherHelper : ANBannerAdView
 @property (nonatomic, assign) BOOL testComplete;
@@ -37,6 +33,8 @@
 @property (nonatomic, strong) id adapter;
 @property (nonatomic, strong) ANAdWebViewController *webViewController;
 @property (nonatomic, strong) NSError *ANError;
+@property (nonatomic, strong) NSMutableURLRequest *successResultRequest;
+@property (nonatomic, strong) NSMutableURLRequest *request;
 
 - (id)runTestForAdapter:(int)testNumber
                    time:(NSTimeInterval)time;
@@ -52,6 +50,8 @@
 - (void)processResponseData:(NSData *)data;
 - (ANMediationAdViewController *)mediationController;
 - (ANAdWebViewController *)webViewController;
+- (NSMutableURLRequest *)successResultRequest;
+- (NSMutableURLRequest *)request;
 @end
 
 @interface ANMediationAdViewController ()
@@ -61,7 +61,7 @@
 
 #pragma mark MediationTests
 
-@interface MediationTests : SenTestCase
+@interface MediationTests : ANBaseTestCase
 @property (nonatomic, strong) FetcherHelper *helper;
 @end
 
@@ -74,28 +74,23 @@
     self.helper = [FetcherHelper new];
 }
 
-- (void)tearDown
-{
-    // Tear-down code here.
-    
-    [super tearDown];
+- (void)clearTest {
+    [super clearTest];
+    [ANSuccessfulBannerNeverCalled setCalled:NO];
 }
 
 - (void)runBasicTest:(int)testNumber {
-    [self.helper runTestForAdapter:testNumber time:15.0];
+    id adapter = [self.helper runTestForAdapter:testNumber time:15.0];
     
     STAssertTrue([self.helper testComplete], @"Test timed out");
-    [self runChecks:testNumber adapter:[self.helper adapter]];
+    [self runChecks:testNumber adapter:adapter];
+    
+    [self clearTest];
 }
 
 - (void)checkErrorCode:(id)adapter expectedError:(ANAdResponseCode)error{
-    [self checkClass:ErrorCodeClassName adapter:adapter];
-    
-    ANAdAdapterErrorCode *bannerAdapter = (ANAdAdapterErrorCode *)adapter;
-    int codeNumber = [[bannerAdapter errorId] intValue];
-    
-    STAssertTrue(codeNumber == error,
-                 [NSString stringWithFormat:@"Expected error value %d.", error]);
+    [self checkClass:kANAdAdapterErrorCode adapter:adapter];
+    [self checkLastRequest:error];
 }
 
 - (void)checkClass:(NSString *)className adapter:(id)adapter{
@@ -108,13 +103,23 @@
         result = [adapter isMemberOfClass:adClass];
     }
     
-    /*****
-     * Sometimes iAd will not return a successful ad, which causes the test to fail.
-     * Re-running the test should result in a success.
-     * This is a dependency on the external network.
-     *****/
-    
     STAssertTrue(result, [NSString stringWithFormat:@"Expected an adapter of class %@.", className]);
+}
+
+- (void)checkSuccessResultCB:(int)code {
+    NSString *resultCBString =[[self.helper successResultRequest].URL absoluteString];
+    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
+    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
+}
+
+- (void)checkLastRequest:(int)code {
+    NSString *resultCBString =[[self.helper request].URL absoluteString];
+    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
+    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
+}
+
+- (void)checkSuccessfulBannerNeverCalled {
+    STAssertFalse([ANSuccessfulBannerNeverCalled getCalled], @"Should never be called");
 }
 
 - (void)runChecks:(int)testNumber adapter:(id)adapter {
@@ -122,7 +127,8 @@
     {
         case 1:
         {
-            [self checkClass:iAdBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
+            [self checkSuccessResultCB:ANAdResponseSuccessful];
         }
             break;
             
@@ -148,19 +154,18 @@
             break;
         case 7:
         {
-            // Change the test number to 70 to denote the "part 2" of this 2-step unit test
-            [self checkClass:MMBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
             STAssertNotNil([self.helper webViewController], @"Expected webViewController to be non-nil");
         }
             break;
         case 11:
         {
-            [self checkClass:MMBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
         }
             break;
         case 12:
         {
-            [self checkClass:MMBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
         }
             break;
         case 13:
@@ -171,7 +176,7 @@
             break;
         case 14:
         {
-            [self checkClass:MMBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
         }
             break;
         case 15:
@@ -181,43 +186,56 @@
             break;
         case 16:
         {
-            [self checkClass:iAdBannerClassName adapter:adapter];
+            [self checkClass:kANSuccessfulBanner adapter:adapter];
         }
             break;
         default:
             break;
     }
+    [self checkSuccessfulBannerNeverCalled];
 }
 
 #pragma mark Basic Mediation Tests
 
 - (void)test1ResponseWhereClassExists
 {
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANSuccessfulBanner]];
+    [self stubResultCBForErrorCode];
     [self runBasicTest:1];
 }
 
 - (void)test2ResponseWhereClassDoesNotExist
 {
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kClassDoesNotExist]];
+    [self stubResultCBForErrorCode];
     [self runBasicTest:2];
 }
 
 - (void)test3ResponseWhereClassCannotInstantiate
 {
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANAdAdapterBannerDummy]];
+    [self stubResultCBForErrorCode];
     [self runBasicTest:3];
 }
 
 - (void)test4ResponseWhereClassInstantiatesAndDoesNotRequestAd
 {
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANAdAdapterBannerRequestFail]];
+    [self stubResultCBForErrorCode];
     [self runBasicTest:4];
 }
 
 - (void)test6AdWithNoFill
 {
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANAdAdapterBannerNoAds]];
+    [self stubResultCBForErrorCode];
     [self runBasicTest:6];
 }
 
 - (void)test7TwoSuccessfulResponses
 {
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANSuccessfulBanner]];
+    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
     [self runBasicTest:7];
 }
 
@@ -225,31 +243,50 @@
 
 - (void)test11FirstSuccessfulSkipSecond
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kANSuccessfulBanner
+                                                      secondClass:kANSuccessfulBannerNeverCalled]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:11];
 }
 
 - (void)test12SkipFirstSuccessfulSecond
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+                                                      secondClass:kANSuccessfulBanner]];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:12];
 }
 
 - (void)test13FirstFailsIntoOverrideStd
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+                                                      secondClass:kANSuccessfulBannerNeverCalled]];
+    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
     [self runBasicTest:13];
 }
 
 - (void)test14FirstFailsIntoOverrideMediated
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+                                                      secondClass:kANSuccessfulBannerNeverCalled]];
+    [self stubResultCBResponses:[ANTestResponses mediationSuccessfulBanner]];
     [self runBasicTest:14];
 }
 
 - (void)test15TestNoFill
 {
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kClassDoesNotExist]];
+    [self stubResultCBResponses:[ANTestResponses createMediatedBanner:kClassDoesNotExist withID:@"" withResultCB:@""]];
     [self runBasicTest:15];
 }
 
 - (void)test16NoResultCB
 {
+    NSString *response = [ANTestResponses mediationWaterfallBanners:kClassDoesNotExist firstResult:@""
+                                   secondClass:kClassDoesNotExist secondResult:nil
+                                    thirdClass:kANSuccessfulBanner thirdResult:@""];
+    [self stubWithBody:response];
+    [self stubResultCBResponses:@""];
     [self runBasicTest:16];
 }
 
@@ -263,6 +300,8 @@
 @synthesize adapter = __adapter;
 @synthesize webViewController = __webViewController;
 @synthesize ANError = __ANError;
+@synthesize successResultRequest = __successResultRequest;
+@synthesize request = __request;
 
 - (id)runTestForAdapter:(int)testNumber
                    time:(NSTimeInterval)time {
@@ -278,7 +317,7 @@
     
     __fetcher = [ANAdFetcher new];
     __fetcher.delegate = self;
-    [__fetcher requestAdWithURL:[NSURL URLWithString:APPNEXUS_TEST_MOBCALL_WITH_ID([@(testNumber) stringValue])]];
+    [__fetcher requestAdWithURL:[NSURL URLWithString:TEST_URL]];
 }
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
@@ -300,23 +339,18 @@
 {
 	if (!__testComplete)
 	{
-        if (__testNumber != 7) {
-            __testComplete = YES;
-        }
+        __successResultRequest = [__fetcher successResultRequest];
+        __request = [__fetcher request];
         
 		switch (__testNumber)
 		{
 			case 7:
 			{
-				// Change the test number to 70 to denote the "part 2" of this 2-step unit test
-				__testNumber = 70;
-				
 				self.adapter = [[fetcher mediationController] currentAdapter];
 				[fetcher requestAdWithURL:
                  [NSURL URLWithString:[[fetcher mediationController] resultCBString]]];
 			}
 				break;
-                //this second part test should be for a non-mediated ad..
 			case 70:
 			{
                 // don't set adapter here, because we want to retain the adapter from case 7
@@ -341,6 +375,15 @@
             }
 				break;
 		}
+
+        // test case 7 is a special two-part test, so we handle it specially
+        if (__testNumber != 7) {
+            NSLog(@"test complete");
+            __testComplete = YES;
+        } else {
+            // Change the test number to 70 to denote the "part 2" of this 2-step unit test
+            __testNumber = 70;
+        }
 	}
 }
 

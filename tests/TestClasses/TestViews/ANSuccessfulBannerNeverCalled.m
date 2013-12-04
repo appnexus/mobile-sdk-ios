@@ -13,10 +13,12 @@
  limitations under the License.
  */
 
-#import "ANLoadAndHitOtherCallbacks.h"
+#import "ANSuccessfulBannerNeverCalled.h"
 
-@implementation ANLoadAndHitOtherCallbacks
+@implementation ANSuccessfulBannerNeverCalled
 @synthesize delegate;
+
+static BOOL wasCalled = NO;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -26,13 +28,16 @@
                        location:(ANLocation *)location
              rootViewController:(UIViewController *)rootViewController
 {
+    wasCalled = YES;
     [self.delegate didLoadBannerAd:[UIView new]];
-    [self.delegate adWasClicked];
-    [self.delegate willPresentAd];
-    [self.delegate didPresentAd];
-    [self.delegate willCloseAd];
-    [self.delegate didCloseAd];
-    [self.delegate willLeaveApplication];
+}
+
++ (void)setCalled:(BOOL)called {
+    wasCalled = called;
+}
+
++ (BOOL)getCalled {
+    return wasCalled;
 }
 
 @end

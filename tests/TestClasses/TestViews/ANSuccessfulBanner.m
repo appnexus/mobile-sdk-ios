@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
-#import "ANLoadAndHitOtherCallbacks.h"
+#import "ANSuccessfulBanner.h"
 
-@implementation ANLoadAndHitOtherCallbacks
+@implementation ANSuccessfulBanner
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner
@@ -27,12 +27,6 @@
              rootViewController:(UIViewController *)rootViewController
 {
     [self.delegate didLoadBannerAd:[UIView new]];
-    [self.delegate adWasClicked];
-    [self.delegate willPresentAd];
-    [self.delegate didPresentAd];
-    [self.delegate willCloseAd];
-    [self.delegate didCloseAd];
-    [self.delegate willLeaveApplication];
 }
 
 @end
