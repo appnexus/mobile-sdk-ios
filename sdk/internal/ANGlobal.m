@@ -84,9 +84,9 @@ BOOL isFirstLaunch()
 
 
 NSString *ANUdidParameter() {
-    static NSString *udidComponent = nil;
+    static NSString *udidComponent = @"";
     
-    if (udidComponent == nil) {
+    if ([udidComponent isEqualToString:@""]) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
         if (NSClassFromString(@"ASIdentifierManager")) {
             // iOS 6: Use the ASIdentifierManager provided method of getting the identifier
