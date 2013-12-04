@@ -36,7 +36,7 @@
 NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 
-@interface ANAdView (ANInterstitialAd)
+@interface ANAdView (ANInterstitialAd) <ANAdFetcherDelegate>
 - (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
@@ -236,9 +236,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark extraParameters methods
 
 - (NSString *)sizeParameter {
-    return [NSString stringWithFormat:@"&size=%dx%d",
-            (NSInteger)self.frame.size.width,
-            (NSInteger)self.frame.size.height];
+    return [NSString stringWithFormat:@"&size=%ldx%ld",
+            (long)self.frame.size.width,
+            (long)self.frame.size.height];
 }
 
 - (NSString *)promoSizesParameter {
@@ -247,7 +247,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     
     for (NSValue *sizeValue in self.allowedAdSizes) {
         CGSize size = [sizeValue CGSizeValue];
-        NSString *param = [NSString stringWithFormat:@"%dx%d", (NSInteger)size.width, (NSInteger)size.height];
+        NSString *param = [NSString stringWithFormat:@"%ldx%ld", (long)size.width, (long)size.height];
         
         [sizesStringsArray addObject:param];
     }

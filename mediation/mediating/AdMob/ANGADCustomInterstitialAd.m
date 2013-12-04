@@ -51,24 +51,23 @@
 #pragma mark -
 #pragma mark ANInterstitialAdDelegate
 
-- (void)adWillPresent:(ANInterstitialAd *)ad
-{
-	[self.delegate customEventInterstitialWillPresent:self];
+- (void)adFailedToDisplay:(ANInterstitialAd *)ad {
 }
 
-- (void)adNoAdToShow:(ANInterstitialAd *)adView
-{
-    
+- (void)adWillPresent:(ANInterstitialAd *)ad {
+    [self.delegate customEventInterstitialWillPresent:self];
 }
 
-- (void)adWillClose:(ANInterstitialAd *)ad
-{
-	[self.delegate customEventInterstitialWillDismiss:self];
+- (void)adWillClose:(ANInterstitialAd *)ad {
+    [self.delegate customEventInterstitialWillDismiss:self];
 }
 
-- (void)adDidClose:(ANInterstitialAd *)adView
-{
+- (void)adDidClose:(ANInterstitialAd *)adView {
     [self.delegate customEventInterstitialDidDismiss:self];
+}
+
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+    [self.delegate customEventInterstitialWillLeaveApplication:self];
 }
 
 #pragma mark -

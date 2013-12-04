@@ -117,7 +117,7 @@
 	if ([response isKindOfClass:[NSHTTPURLResponse class]])
 	{
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-		int status = [httpResponse statusCode];
+		NSInteger status = [httpResponse statusCode];
         
 		if (status >= 400)
 		{

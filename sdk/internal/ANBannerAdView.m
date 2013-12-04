@@ -18,8 +18,11 @@
 #import "ANBrowserViewController.h"
 #import "ANCustomAdapter.h"
 #import "ANBrowserViewController.h"
+#import "ANGlobal.h"
+#import "ANLogging.h"
 
-@interface ANAdView (ANBannerAdView)
+
+@interface ANAdView (ANBannerAdView) <ANAdFetcherDelegate>
 - (void)initialize;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
@@ -190,12 +193,12 @@
 #pragma mark extraParameters methods
 
 - (NSString *)sizeParameter {
-    NSString *sizeParameterString = [NSString stringWithFormat:@"&size=%dx%d",
-                                     (NSInteger)self.adSize.width,
-                                     (NSInteger)self.adSize.height];
-    NSString *maxSizeParameterString = [NSString stringWithFormat:@"&max_size=%dx%d",
-                                        (NSInteger)self.frame.size.width,
-                                        (NSInteger)self.frame.size.height];
+    NSString *sizeParameterString = [NSString stringWithFormat:@"&size=%ldx%ld",
+                                     (long)self.adSize.width,
+                                     (long)self.adSize.height];
+    NSString *maxSizeParameterString = [NSString stringWithFormat:@"&max_size=%ldx%ld",
+                                        (long)self.frame.size.width,
+                                        (long)self.frame.size.height];
     
     return CGSizeEqualToSize(self.adSize, CGSizeZero) ? maxSizeParameterString : sizeParameterString;
     ;
