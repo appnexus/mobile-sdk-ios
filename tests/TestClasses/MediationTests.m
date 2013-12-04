@@ -396,4 +396,12 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
     return CGSizeMake(320, 50);
 }
 
+- (void)adWasClicked{};
+- (void)adWillPresent{};
+- (void)adDidPresent{};
+- (void)adWillClose{};
+- (void)adDidClose{};
+- (void)adWillLeaveApplication{};
+- (void)adFailedToDisplay{};
+
 @end

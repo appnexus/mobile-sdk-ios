@@ -77,21 +77,16 @@
 		ECABE5881821E4C80037E6C5 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE54B1821E4C80037E6C5 /* NSTimer+ANCategory.m */; };
 		ECABE5891821E4C80037E6C5 /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE54D1821E4C80037E6C5 /* UIView+ANCategory.m */; };
 		ECABE58A1821E4C80037E6C5 /* UIWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE54F1821E4C80037E6C5 /* UIWebView+ANCategory.m */; };
-		ECABE58B1821E4C80037E6C5 /* ANOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5531821E4C80037E6C5 /* ANOpenUDID.m */; };
-		ECABE58C1821E4C80037E6C5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5541821E4C80037E6C5 /* README.md */; };
-		ECABE58D1821E4C80037E6C5 /* ODIN.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5571821E4C80037E6C5 /* ODIN.m */; };
 		ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */; };
 		ECABE58F1821E4C80037E6C5 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE55C1821E4C80037E6C5 /* ANAdResponse.m */; };
 		ECABE5901821E4C80037E6C5 /* ANAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE55E1821E4C80037E6C5 /* ANAdView.m */; };
 		ECABE5911821E4C80037E6C5 /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5611821E4C80037E6C5 /* ANAdWebViewController.m */; };
 		ECABE5921821E4C80037E6C5 /* ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5621821E4C80037E6C5 /* ANBannerAdView.m */; };
 		ECABE5931821E4C80037E6C5 /* ANBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5641821E4C80037E6C5 /* ANBrowserViewController.m */; };
-		ECABE5941821E4C80037E6C5 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5651821E4C80037E6C5 /* ANBrowserViewController.xib */; };
 		ECABE5951821E4C80037E6C5 /* ANGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5681821E4C80037E6C5 /* ANGlobal.m */; };
 		ECABE5961821E4C80037E6C5 /* ANInstallTrackerPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE56A1821E4C80037E6C5 /* ANInstallTrackerPixel.m */; };
 		ECABE5971821E4C80037E6C5 /* ANInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE56B1821E4C80037E6C5 /* ANInterstitialAd.m */; };
 		ECABE5981821E4C80037E6C5 /* ANInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE56D1821E4C80037E6C5 /* ANInterstitialAdViewController.m */; };
-		ECABE5991821E4C80037E6C5 /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECABE56E1821E4C80037E6C5 /* ANInterstitialAdViewController.xib */; };
 		ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5701821E4C80037E6C5 /* ANLocation.m */; };
 		ECABE59B1821E4C80037E6C5 /* ANLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5721821E4C80037E6C5 /* ANLogging.m */; };
 		ECABE59C1821E4C80037E6C5 /* ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5741821E4C80037E6C5 /* ANMediatedAd.m */; };
@@ -114,6 +109,8 @@
 		ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD8155E17DA64C20046A256 /* SenTestingKit.framework */; };
 		ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */; };
 		ECD929BA1822CD0E00420840 /* MediationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9298F1822CAD300420840 /* MediationTests.m */; };
+		ECE5B25B184FA4C900D0C8FD /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECE5B259184FA4C900D0C8FD /* ANBrowserViewController.xib */; };
+		ECE5B25C184FA4C900D0C8FD /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECE5B25A184FA4C900D0C8FD /* ANInterstitialAdViewController.xib */; };
 		ECFF03261822C2B10021F14C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */; };
 		ECFF03271822C2C90021F14C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */; };
 		ECFF03281822C2E00021F14C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */; };
@@ -246,16 +243,10 @@
 		ECABE54D1821E4C80037E6C5 /* UIView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ANCategory.m"; sourceTree = "<group>"; };
 		ECABE54E1821E4C80037E6C5 /* UIWebView+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ANCategory.h"; sourceTree = "<group>"; };
 		ECABE54F1821E4C80037E6C5 /* UIWebView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ANCategory.m"; sourceTree = "<group>"; };
-		ECABE5521821E4C80037E6C5 /* ANOpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANOpenUDID.h; sourceTree = "<group>"; };
-		ECABE5531821E4C80037E6C5 /* ANOpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANOpenUDID.m; sourceTree = "<group>"; };
-		ECABE5541821E4C80037E6C5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		ECABE5561821E4C80037E6C5 /* ODIN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODIN.h; sourceTree = "<group>"; };
-		ECABE5571821E4C80037E6C5 /* ODIN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODIN.m; sourceTree = "<group>"; };
 		ECABE5591821E4C80037E6C5 /* ANAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcher.h; sourceTree = "<group>"; };
 		ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcher.m; sourceTree = "<group>"; };
 		ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdResponse.h; sourceTree = "<group>"; };
 		ECABE55C1821E4C80037E6C5 /* ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponse.m; sourceTree = "<group>"; };
-		ECABE55D1821E4C80037E6C5 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
 		ECABE55E1821E4C80037E6C5 /* ANAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdView.m; sourceTree = "<group>"; };
 		ECABE55F1821E4C80037E6C5 /* ANAdViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdViewDelegate.h; sourceTree = "<group>"; };
 		ECABE5601821E4C80037E6C5 /* ANAdWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdWebViewController.h; sourceTree = "<group>"; };
@@ -263,8 +254,6 @@
 		ECABE5621821E4C80037E6C5 /* ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdView.m; sourceTree = "<group>"; };
 		ECABE5631821E4C80037E6C5 /* ANBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBrowserViewController.h; sourceTree = "<group>"; };
 		ECABE5641821E4C80037E6C5 /* ANBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBrowserViewController.m; sourceTree = "<group>"; };
-		ECABE5651821E4C80037E6C5 /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
-		ECABE5661821E4C80037E6C5 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECABE5671821E4C80037E6C5 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGlobal.h; sourceTree = "<group>"; };
 		ECABE5681821E4C80037E6C5 /* ANGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGlobal.m; sourceTree = "<group>"; };
 		ECABE5691821E4C80037E6C5 /* ANInstallTrackerPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInstallTrackerPixel.h; sourceTree = "<group>"; };
@@ -272,8 +261,6 @@
 		ECABE56B1821E4C80037E6C5 /* ANInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAd.m; sourceTree = "<group>"; };
 		ECABE56C1821E4C80037E6C5 /* ANInterstitialAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAdViewController.h; sourceTree = "<group>"; };
 		ECABE56D1821E4C80037E6C5 /* ANInterstitialAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAdViewController.m; sourceTree = "<group>"; };
-		ECABE56E1821E4C80037E6C5 /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
-		ECABE56F1821E4C80037E6C5 /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		ECABE5701821E4C80037E6C5 /* ANLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLocation.m; sourceTree = "<group>"; };
 		ECABE5711821E4C80037E6C5 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogging.h; sourceTree = "<group>"; };
 		ECABE5721821E4C80037E6C5 /* ANLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogging.m; sourceTree = "<group>"; };
@@ -320,6 +307,11 @@
 		ECD929A41822CAD300420840 /* ANLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadThenFail.m; sourceTree = "<group>"; };
 		ECD929A51822CAD300420840 /* ANTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTimeout.h; sourceTree = "<group>"; };
 		ECD929A61822CAD300420840 /* ANTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTimeout.m; sourceTree = "<group>"; };
+		ECE5B256184FA4BE00D0C8FD /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
+		ECE5B257184FA4BE00D0C8FD /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		ECE5B258184FA4BE00D0C8FD /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
+		ECE5B259184FA4C900D0C8FD /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
+		ECE5B25A184FA4C900D0C8FD /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,11 +604,13 @@
 		ECABE5431821E4C80037E6C5 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
+				ECE5B256184FA4BE00D0C8FD /* ANAdView.h */,
+				ECE5B257184FA4BE00D0C8FD /* ANCustomAdapter.h */,
+				ECE5B258184FA4BE00D0C8FD /* ANLocation.h */,
 				ECABE5441821E4C80037E6C5 /* ANAdProtocol.h */,
 				ECABE5451821E4C80037E6C5 /* ANBannerAdView.h */,
 				ECABE5461821E4C80037E6C5 /* ANInterstitialAd.h */,
 				ECABE5471821E4C80037E6C5 /* Categories */,
-				ECABE5501821E4C80037E6C5 /* externals */,
 				ECABE5581821E4C80037E6C5 /* internal */,
 				ECABE57B1821E4C80037E6C5 /* Resources */,
 			);
@@ -639,34 +633,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		ECABE5501821E4C80037E6C5 /* externals */ = {
-			isa = PBXGroup;
-			children = (
-				ECABE5511821E4C80037E6C5 /* ANOpenUDID */,
-				ECABE5551821E4C80037E6C5 /* odinmobile-read-only */,
-			);
-			path = externals;
-			sourceTree = "<group>";
-		};
-		ECABE5511821E4C80037E6C5 /* ANOpenUDID */ = {
-			isa = PBXGroup;
-			children = (
-				ECABE5521821E4C80037E6C5 /* ANOpenUDID.h */,
-				ECABE5531821E4C80037E6C5 /* ANOpenUDID.m */,
-				ECABE5541821E4C80037E6C5 /* README.md */,
-			);
-			path = ANOpenUDID;
-			sourceTree = "<group>";
-		};
-		ECABE5551821E4C80037E6C5 /* odinmobile-read-only */ = {
-			isa = PBXGroup;
-			children = (
-				ECABE5561821E4C80037E6C5 /* ODIN.h */,
-				ECABE5571821E4C80037E6C5 /* ODIN.m */,
-			);
-			path = "odinmobile-read-only";
-			sourceTree = "<group>";
-		};
 		ECABE5581821E4C80037E6C5 /* internal */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,7 +642,6 @@
 				ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */,
 				ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */,
 				ECABE55C1821E4C80037E6C5 /* ANAdResponse.m */,
-				ECABE55D1821E4C80037E6C5 /* ANAdView.h */,
 				ECABE55E1821E4C80037E6C5 /* ANAdView.m */,
 				ECABE55F1821E4C80037E6C5 /* ANAdViewDelegate.h */,
 				ECABE5601821E4C80037E6C5 /* ANAdWebViewController.h */,
@@ -684,8 +649,6 @@
 				ECABE5621821E4C80037E6C5 /* ANBannerAdView.m */,
 				ECABE5631821E4C80037E6C5 /* ANBrowserViewController.h */,
 				ECABE5641821E4C80037E6C5 /* ANBrowserViewController.m */,
-				ECABE5651821E4C80037E6C5 /* ANBrowserViewController.xib */,
-				ECABE5661821E4C80037E6C5 /* ANCustomAdapter.h */,
 				ECABE5671821E4C80037E6C5 /* ANGlobal.h */,
 				ECABE5681821E4C80037E6C5 /* ANGlobal.m */,
 				ECABE5691821E4C80037E6C5 /* ANInstallTrackerPixel.h */,
@@ -693,8 +656,6 @@
 				ECABE56B1821E4C80037E6C5 /* ANInterstitialAd.m */,
 				ECABE56C1821E4C80037E6C5 /* ANInterstitialAdViewController.h */,
 				ECABE56D1821E4C80037E6C5 /* ANInterstitialAdViewController.m */,
-				ECABE56E1821E4C80037E6C5 /* ANInterstitialAdViewController.xib */,
-				ECABE56F1821E4C80037E6C5 /* ANLocation.h */,
 				ECABE5701821E4C80037E6C5 /* ANLocation.m */,
 				ECABE5711821E4C80037E6C5 /* ANLogging.h */,
 				ECABE5721821E4C80037E6C5 /* ANLogging.m */,
@@ -713,6 +674,8 @@
 		ECABE57B1821E4C80037E6C5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ECE5B259184FA4C900D0C8FD /* ANBrowserViewController.xib */,
+				ECE5B25A184FA4C900D0C8FD /* ANInterstitialAdViewController.xib */,
 				ECABE57C1821E4C80037E6C5 /* errors.strings */,
 				ECABE57D1821E4C80037E6C5 /* images */,
 				ECABE5861821E4C80037E6C5 /* MRAID.bundle */,
@@ -855,6 +818,7 @@
 				ECABE5A71821E4C80037E6C5 /* UIButtonBarArrowRight.png in Resources */,
 				ECABE5A91821E4C80037E6C5 /* MRAID.bundle in Resources */,
 				ECABE5A81821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png in Resources */,
+				ECE5B25C184FA4C900D0C8FD /* ANInterstitialAdViewController.xib in Resources */,
 				ECABE5A51821E4C80037E6C5 /* UIButtonBarArrowLeft.png in Resources */,
 				ECABE5A31821E4C80037E6C5 /* interstitial_closebox.png in Resources */,
 				ECABE5A11821E4C80037E6C5 /* interstitial_closebox-down.png in Resources */,
@@ -866,12 +830,10 @@
 				ECABE5A61821E4C80037E6C5 /* UIButtonBarArrowLeft@2x.png in Resources */,
 				5C3208F7173053FE00DAB5CF /* Default-568h@2x.png in Resources */,
 				5C3208FC173061C700DAB5CF /* ANDemoAdsViewController.xib in Resources */,
-				ECABE5991821E4C80037E6C5 /* ANInterstitialAdViewController.xib in Resources */,
-				ECABE5941821E4C80037E6C5 /* ANBrowserViewController.xib in Resources */,
+				ECE5B25B184FA4C900D0C8FD /* ANBrowserViewController.xib in Resources */,
 				ECABE5A41821E4C80037E6C5 /* interstitial_closebox@2x.png in Resources */,
 				5C3209011730664500DAB5CF /* RootViewController.xib in Resources */,
 				5C320906173090F300DAB5CF /* ANDemoConsoleViewController.xib in Resources */,
-				ECABE58C1821E4C80037E6C5 /* README.md in Resources */,
 				ECABE5A21821E4C80037E6C5 /* interstitial_closebox-down@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -930,8 +892,6 @@
 				EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */,
 				ECABE59E1821E4C80037E6C5 /* ANReachability.m in Sources */,
 				ECABE59F1821E4C80037E6C5 /* ANWebView.m in Sources */,
-				ECABE58B1821E4C80037E6C5 /* ANOpenUDID.m in Sources */,
-				ECABE58D1821E4C80037E6C5 /* ODIN.m in Sources */,
 				ECABE5871821E4C80037E6C5 /* NSString+ANCategory.m in Sources */,
 				ECABE5881821E4C80037E6C5 /* NSTimer+ANCategory.m in Sources */,
 				ECABE58A1821E4C80037E6C5 /* UIWebView+ANCategory.m in Sources */,

@@ -15,6 +15,8 @@
 
 #import "ANDemoAdsViewController.h"
 #import "ANInterstitialAd.h"
+#import "ANGlobal.h"
+#import "ANLogging.h"
 
 NSString *ANDemoAdsViewControllerSavedSizeKey = @"ANDemoAdsViewControllerSavedSizeKey";
 NSString *ANDemoAdsViewControllerSavedTagKey = @"ANDemoAdsViewControllerSavedTagKey";
