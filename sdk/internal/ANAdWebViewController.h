@@ -32,6 +32,8 @@
 @interface ANMRAIDAdWebViewController : ANAdWebViewController
 {
     BOOL __expanded;
+    BOOL __allowOrientationChagne;
+
 }
 
 @end

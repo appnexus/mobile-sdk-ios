@@ -25,8 +25,16 @@ typedef enum _ANMRAIDState
     ANMRAIDStateLoading,
     ANMRAIDStateDefault,
     ANMRAIDStateExpanded,
-    ANMRAIDStateHidden
+    ANMRAIDStateHidden,
+    ANMRAIDStateResized
 } ANMRAIDState;
+
+typedef enum _ANMRAIDOrientation
+{
+    ANMRAIDOrientationPortrait,
+    ANMRAIDOrientationLandscape,
+    ANMRAIDOrientationNone
+} ANMRAIDOrientation;
 
 @interface UIWebView (MRAIDExtensions)
 - (void)fireReadyEvent;
@@ -89,6 +97,7 @@ typedef enum _ANMRAIDState
 @interface ANMRAIDAdWebViewController ()
 @property (nonatomic, readwrite, assign, getter = isExpanded) BOOL expanded;
 @property (nonatomic, readwrite, assign) CGSize defaultSize;
+@property (nonatomic, readwrite, assign) BOOL allowOrientationChange;
 @end
 
 @implementation ANMRAIDAdWebViewController
@@ -180,6 +189,25 @@ typedef enum _ANMRAIDState
     else if ([mraidCommand isEqualToString:@"close"])
     {
         [self closeAction:self];
+    }else if([mraidCommand isEqualToString:@"createCalendarEvent"]){
+        //TODO: Create calendar event subroutine
+    }else if([mraidCommand isEqualToString:@"playVideo"]){
+        //TODO: Create a playVideo event subroutine
+    }else if([mraidCommand isEqualToString:@"resize"]){
+        //TODO: resize, add close button
+    }else if([mraidCommand isEqualToString:@"storePicture"]){
+        NSString *query = [mraidURL query];
+        NSDictionary *queryComponents = [query queryComponents];
+        NSString *uri = [queryComponents objectForKey:@"uri"];
+        [self storePicture:uri];
+    }else if([mraidCommand isEqualToString:@"setOrientationProperties"]){
+        NSString *query = [mraidURL query];
+        NSDictionary *queryComponents = [query queryComponents];
+        NSString *allow = [queryComponents objectForKey:@"allow_orientation_change"];
+        NSString *forcedOrientation = [queryComponents objectForKey:@"force_orientation"];
+        BOOL allowb = [allow boolValue];
+        ANMRAIDOrientation forced = [forcedOrientation isEqualToString:@"none"]?ANMRAIDOrientationNone : [forcedOrientation isEqualToString:@"landscape"]? ANMRAIDOrientationLandscape : ANMRAIDOrientationPortrait;
+        [self setOrientationProperties:allowb forcedOrientation:forced];
     }
 }
 
@@ -219,9 +247,63 @@ typedef enum _ANMRAIDState
     }
 }
 
+- (void)setOrientationProperties:(BOOL)allowChange forcedOrientation:(ANMRAIDOrientation) forcedOrientation
+{
+    if(!allowChange){
+        switch(forcedOrientation)
+        {
+            case ANMRAIDOrientationNone:
+                break;
+            case ANMRAIDOrientationLandscape:
+                break;
+            case ANMRAIDOrientationPortrait:
+                break;
+        }
+    }
+    //TODO SAVE ME MARK
+}
+
+- (void)storePicture:(NSString*)uri
+{
+    //TODO check for URI scheme
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *url = [NSURL URLWithString:uri];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        if(data){
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDownloadsDirectory, NSUserDomainMask, YES);
+            NSString *downloadDir = [paths objectAtIndex:0];
+            //Acquire Date-time to use as filename
+            NSDateFormatter *formatter;
+            NSString *dateTime;
+            formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyyMMddHHmm"];
+            
+            dateTime = [formatter stringFromDate:[NSDate date]];
+            
+            NSString *extension = [[uri componentsSeparatedByString:@"."] lastObject];
+            
+            
+            NSString *filePath = [NSString stringWithFormat:@"%@/%@.%@", downloadDir, dateTime, extension];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [data writeToFile:filePath atomically:YES];
+            });
+        }
+    });
+    
+}
 @end
 
 @implementation UIWebView (MRAIDExtensions)
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    NSString* setCurrentPosition = [NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i,%i,%i,%i);", (int)frame.origin.x, (int)frame.origin.y, (int)frame.size.width, (int)frame.size.height];
+    [self stringByEvaluatingJavaScriptFromString:setCurrentPosition];
+    NSString* setCurrentSize = [NSString stringWithFormat:@"window.mraid.util.sizeChangeEvent(%i,%i);", (int)frame.size.width, (int)frame.size.height];
+    [self stringByEvaluatingJavaScriptFromString:setCurrentSize];
+}
 
 - (void)firePlacementType:(NSString *)placementType
 {
@@ -258,6 +340,9 @@ typedef enum _ANMRAIDState
             break;
         case ANMRAIDStateHidden:
             stateString = @"hidden";
+            break;
+        case ANMRAIDStateResized:
+            stateString = @"resized";
             break;
         default:
             break;
