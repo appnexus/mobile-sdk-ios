@@ -192,7 +192,17 @@ typedef enum _ANMRAIDOrientation
     }else if([mraidCommand isEqualToString:@"createCalendarEvent"]){
         //TODO: Create calendar event subroutine
     }else if([mraidCommand isEqualToString:@"playVideo"]){
-        //TODO: Create a playVideo event subroutine
+        NSString *query = [mraidURL query];
+        NSDictionary *queryComponents = [query queryComponents];
+        NSString *uri = [queryComponents objectForKey:@"uri"];
+        
+        MPMoviePlayerController *moviePlayer = [MPMoviePlayerController alloc];
+        moviePlayer.controlStyle = MPMovieControlStyleDefault;
+        moviePlayer.shouldAutoplay = YES;
+        [moviePlayer setContentURL:[NSURL URLWithString:uri]];
+        
+        [webView addSubview: moviePlayer.view];
+        [moviePlayer setFullscreen:YES animated:YES];
     }else if([mraidCommand isEqualToString:@"resize"]){
         //TODO: resize, add close button
     }else if([mraidCommand isEqualToString:@"storePicture"]){
