@@ -117,6 +117,9 @@ typedef enum _ANMRAIDOrientation
         //Set screen size
         [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
         
+        //Set default position
+        [self setDefaultPositionForMRAIDGetDefaultPositionFunction:webView];
+        
         [webView firePlacementType:[self.adFetcher.delegate placementTypeForAdFetcher:self.adFetcher]];
         [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
@@ -161,7 +164,18 @@ typedef enum _ANMRAIDOrientation
     int w = floorf(screenRect.size.width +0.5f);
     int h = floorf(screenRect.size.height +0.5f); //Ah the glorious 0.5f rounding trick
     
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);",w,h];
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);",w,h]];
+}
+
+- (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView*)webView{
+    CGRect bounds = [webView bounds];
+    int x = floorf(bounds.origin.x +0.5f);
+    int y = floorf(bounds.origin.y +0.5f);
+    int w = floorf(bounds.size.width +0.5f);
+    int h = floorf(bounds.size.height +0.5f);
+    
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i, %i, %i, %i);",x,y,w,h]];
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setDefaultPosition(%i, %i, %i, %i);",x,y,w,h]];
 }
 
 - (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
