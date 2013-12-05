@@ -14,7 +14,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <MediaPlayer/MediaPlayer.h>
 @class ANAdFetcher;
 
 @interface ANAdWebViewController : NSObject <UIWebViewDelegate>

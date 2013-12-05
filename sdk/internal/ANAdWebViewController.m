@@ -19,6 +19,8 @@
 #import "ANAdView.h"
 #import "NSString+ANCategory.h"
 #import "ANBrowserViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <MessageUI/MFMessageComposeViewController.h>
 
 typedef enum _ANMRAIDState
 {
@@ -108,6 +110,10 @@ typedef enum _ANMRAIDOrientation
 {
     if (!self.completedFirstLoad)
     {
+        
+        //Set values for mraid.supports()
+        [self setValuesForMRAIDSupportsFunction:webView];
+        
         [webView firePlacementType:[self.adFetcher.delegate placementTypeForAdFetcher:self.adFetcher]];
         [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
@@ -145,6 +151,30 @@ typedef enum _ANMRAIDOrientation
 	}
     
     return YES;
+}
+
+- (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
+    NSString* sms = @"false";
+    NSString* tel = @"false";
+    NSString* cal = @"true"; // These three seem to always be true, TODO pls verify someone
+    NSString* inline_video = @"true";
+    NSString* store_picture = @"true";
+#ifdef __IPHONE_4_0
+    //SMS
+    sms = [MFMessageComposeViewController canSendText] ? @"true" : @"false";
+#else
+    sms = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sms://"]] ? @"true" : @"false";
+#endif
+    //TEL
+    tel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]] ? @"true" : @"false";
+    
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsTel(%@);", tel]];
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsSMS(%@);", sms]];
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsCalendar(%@);", cal]];
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsStorePicture(%@);", store_picture]];
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsInlineVideo(%@);", inline_video]];
+
+    
 }
 
 - (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView
