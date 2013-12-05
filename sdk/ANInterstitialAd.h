@@ -70,6 +70,9 @@
 //     {
 //         [self.inter displayAdFromViewController:self];
 //     }
+
+// Technically, you don't need to implement adDidReceiveAd in order to
+// display the ad; it's used here for convenience.
 - (void)displayAdFromViewController:(UIViewController *)controller;
 
 @end
