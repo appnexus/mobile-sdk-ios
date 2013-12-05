@@ -114,6 +114,9 @@ typedef enum _ANMRAIDOrientation
         //Set values for mraid.supports()
         [self setValuesForMRAIDSupportsFunction:webView];
         
+        //Set screen size
+        [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
+        
         [webView firePlacementType:[self.adFetcher.delegate placementTypeForAdFetcher:self.adFetcher]];
         [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
@@ -151,6 +154,14 @@ typedef enum _ANMRAIDOrientation
 	}
     
     return YES;
+}
+
+- (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    int w = floorf(screenRect.size.width +0.5f);
+    int h = floorf(screenRect.size.height +0.5f); //Ah the glorious 0.5f rounding trick
+    
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);",w,h];
 }
 
 - (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
