@@ -24,15 +24,15 @@
 //  
 //  // Create the banner ad view and add it as a subview
 //  ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:@"1671096" adSize:size];
-//  banner.rootViewController = self
+//  banner.rootViewController = self;
 //  [self.view addSubview:banner];
 //
 //  // Load an ad!
 //  [banner loadAd];
-//  [banner release];
+//  [banner release]; // For non-ARC projects
 @interface ANBannerAdView : ANAdView
 
-// Delegate object that receives state change notifications from this
+// Delegate object that receives notifications from this
 // ANBannerAdView.
 @property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
 
@@ -40,8 +40,8 @@
 // view's controller to your own view controller implementation.
 @property (nonatomic, assign) UIViewController *rootViewController;
 
-// Autorefresh interval.  You can change this with the
-// setAutorefreshInterval method.
+// Autorefresh interval.  Default interval is 30.0; the minimum
+// allowed is 15.0.  To disable autorefresh, set to 0.
 @property (nonatomic, readwrite, assign) NSTimeInterval autoRefreshInterval;
 
 #pragma mark Creating an ad view and loading an ad
@@ -63,8 +63,9 @@
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
-// Loads a single ad into this ad view.  Governed by the autorefresh
-// settings described above.
+// Loads a single ad into this ad view.  If autorefresh is not set to
+// 0, this will also start a timer to refresh the banner
+// automatically.
 - (void)loadAd;
 
 // Allows the frame containing the ad to animate (resize momentarily).
@@ -85,8 +86,7 @@
 // that resizes itself.
 - (void)bannerAdView:(ANBannerAdView *)adView willResizeToFrame:(CGRect)frame;
 
-// Sent after the adView has resized.  The close events are sent in
-// ANAdDelegate (in ANAdProtocol.h): adWillClose and adDidClose.
+// Sent after the adView has resized.
 - (void)bannerAdViewDidResize:(ANBannerAdView *)adView;
 
 @end
