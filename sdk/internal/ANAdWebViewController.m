@@ -120,6 +120,9 @@ typedef enum _ANMRAIDOrientation
         //Set default position
         [self setDefaultPositionForMRAIDGetDefaultPositionFunction:webView];
         
+        //Set max size
+        [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
+        
         [webView firePlacementType:[self.adFetcher.delegate placementTypeForAdFetcher:self.adFetcher]];
         [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
@@ -157,6 +160,14 @@ typedef enum _ANMRAIDOrientation
 	}
     
     return YES;
+}
+
+- (void)setMaxSizeForMRAIDGetMaxSizeFunction:(UIWebView*) webView{ //TODO: Setting to screen size because IDK what to doooo
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    int w = floorf(screenRect.size.width +0.5f);
+    int h = floorf(screenRect.size.height +0.5f);
+    
+    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setMaxSize(%i, %i);",w,h]];
 }
 
 - (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
