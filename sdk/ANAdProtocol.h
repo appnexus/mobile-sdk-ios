@@ -27,12 +27,8 @@ typedef enum _ANGender
 } ANGender;
 
 // ANAdProtocol defines the properties and methods that are common to
-// *all* ad types, whether direct descendants of UIView (like
-// ANBannerAdView) or modal view controller types (like
-// ANInterstitialAdView).
-
-// This protocol can be understood as a toolkit for implementing ad
-// types (It's used in the implementation of both banners and
+// *all* ad types.  It can be understood as a toolkit for implementing
+// ad types (It's used in the implementation of both banners and
 // interstitials by the SDK).  If you wanted to, you could implement
 // your own ad type using this protocol.
 
