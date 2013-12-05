@@ -81,7 +81,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ANLogDebug(@"%@ %@ | index path: %d", NSStringFromClass([self class]), NSStringFromSelector(_cmd), indexPath.item);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ANLogCell"];
     if ([[cell.contentView.subviews objectAtIndex:0] isKindOfClass:[UITextView class]]) {
         UITextView *tv = [cell.contentView.subviews objectAtIndex:0];
