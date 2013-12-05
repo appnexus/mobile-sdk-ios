@@ -1,6 +1,6 @@
 rm -r out
 
-xcodebuild -project 'ANSDK.xcodeproj/' -scheme 'ANSDK' -configuration 'Release' -sdk iphoneos7.0 CONFIGURATION_BUILD_DIR='out'
+xcodebuild -project 'ANSDK.xcodeproj/' -scheme 'ANSDK' -configuration 'Release' -sdk iphoneos7.0 CONFIGURATION_BUILD_DIR='out' SYMROOT=build OBJROOT=build
 
 mv out/libANSDK.a out/ANSDK/libANSDK.a
 
@@ -17,3 +17,5 @@ xcodebuild -project 'ANSDKAdMob.xcodeproj/' -scheme 'ANSDKAdMob' -configuration 
 mv out/libANSDKAdMob.a out/ANSDKAdMob/libANSDKAdMob.a
 
 rm -r out/Intermediates
+
+rm -r build
