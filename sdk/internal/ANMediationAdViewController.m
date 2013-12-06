@@ -50,6 +50,7 @@
     self.hasSucceeded = NO;
     self.hasFailed = YES;
     self.fetcher = nil;
+    self.adViewDelegate = nil;
     ANLogWarn(ANErrorString(@"mediation_finish"));
 }
 

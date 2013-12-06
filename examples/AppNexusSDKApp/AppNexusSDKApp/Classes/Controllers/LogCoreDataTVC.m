@@ -15,7 +15,6 @@
 
 #import "LogCoreDataTVC.h"
 #import "ANLog.h"
-#import "ANLogging.h"
 
 #define CLASS_NAME @"LogCoreDataTVC"
 
@@ -69,7 +68,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     ANLog *log = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    self.fullTextToEmail = [self.fullTextToEmail stringByAppendingString:log.text];
+    if ([self.fullTextToEmail length] < 10000) {
+        self.fullTextToEmail = [self.fullTextToEmail stringByAppendingString:log.text];
+    }
     
     NSAttributedString *logAttrText = [[NSAttributedString alloc] initWithString:log.text
                                                                       attributes:self.textAttributes];
