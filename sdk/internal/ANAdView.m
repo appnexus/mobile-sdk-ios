@@ -33,6 +33,7 @@
 @property (nonatomic, readwrite, assign) BOOL defaultFramesSet;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
+@property (nonatomic, readwrite, assign) BOOL isExpanded;
 @end
 
 @implementation ANAdView
@@ -89,6 +90,7 @@
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
     _defaultFramesSet = NO;
+    _isExpanded = NO;
 }
 
 - (void)dealloc {
@@ -139,15 +141,22 @@
         [contentView setFrame:resizedFrame];
         [contentView removeFromSuperview];
         
-        CGRect parentFrame = defaultParentView.frame;
-        parentFrame.size = size;
-        [defaultParentView setFrame:parentFrame];
+        if (!self.isExpanded) {
+            CGRect parentFrame = defaultParentView.frame;
+            parentFrame.size = size;
+            [defaultParentView setFrame:parentFrame];
+        } else {
+            [defaultParentView setFrame:self.defaultParentFrame];
+        }
+        
         [defaultParentView addSubview:contentView];
         if (self.mraidController) {
             [self.mraidController dismissViewControllerAnimated:NO completion:nil];
             self.mraidController = nil;
         }
     }
+
+    self.isExpanded = !self.isExpanded;
 }
 
 - (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
