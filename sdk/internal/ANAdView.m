@@ -139,6 +139,9 @@
         [contentView setFrame:resizedFrame];
         [contentView removeFromSuperview];
         
+        CGRect parentFrame = defaultParentView.frame;
+        parentFrame.size = size;
+        [defaultParentView setFrame:parentFrame];
         [defaultParentView addSubview:contentView];
         if (self.mraidController) {
             [self.mraidController dismissViewControllerAnimated:NO completion:nil];
