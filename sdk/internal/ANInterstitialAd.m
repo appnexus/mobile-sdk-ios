@@ -14,15 +14,12 @@
  */
 
 #import "ANInterstitialAd.h"
+
+#import "ANAdFetcher.h"
+#import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANInterstitialAdViewController.h"
-#import "ANBrowserViewController.h"
-#import "ANAdFetcher.h"
 #import "ANLogging.h"
-#import "ANAdResponse.h"
-#import "ANCustomAdapter.h"
-#import "ANLocation.h"
-#import "ANAdViewDelegate.h"
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 

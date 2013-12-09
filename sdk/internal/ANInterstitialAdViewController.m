@@ -14,9 +14,10 @@
  */
 
 #import "ANInterstitialAdViewController.h"
-#import "UIWebView+ANCategory.h"
+
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "UIWebView+ANCategory.h"
 
 @interface ANInterstitialAdViewController ()
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;

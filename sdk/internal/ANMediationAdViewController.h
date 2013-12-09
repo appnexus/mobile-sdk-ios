@@ -13,10 +13,9 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "ANCustomAdapter.h"
 #import "ANAdFetcher.h"
-#import "ANAdViewDelegate.h"
+
+#import <Foundation/Foundation.h>
 
 @interface ANMediationAdViewController : NSObject
 

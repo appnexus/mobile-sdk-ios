@@ -14,10 +14,11 @@
  */
 
 #import "ANAdResponse.h"
+
+#import "ANCustomAdapter.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
-#import "ANCustomAdapter.h"
 
 NSString *const kResponseKeyStatus = @"status";
 NSString *const kResponseKeyErrorMessage = @"errorMessage";
