@@ -14,10 +14,11 @@
  */
 
 #import "ANMediationAdViewController.h"
-#import "ANLogging.h"
-#import "ANGlobal.h"
+
 #import "ANBannerAdView.h"
+#import "ANGlobal.h"
 #import "ANInterstitialAd.h"
+#import "ANLogging.h"
 
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 

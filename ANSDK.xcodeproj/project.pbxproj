@@ -28,7 +28,6 @@
 		EC3E5D561843C7560070315E /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D321843C7560070315E /* ANMediationAdViewController.m */; };
 		EC3E5D571843C7560070315E /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D341843C7560070315E /* ANMRAIDViewController.m */; };
 		EC3E5D581843C7560070315E /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D361843C7560070315E /* ANReachability.m */; };
-		EC3E5D591843C7560070315E /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D381843C7560070315E /* ANWebView.m */; };
 		EC3E5D991843D5A80070315E /* ANAdProtocol.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D081843C7560070315E /* ANAdProtocol.h */; };
 		EC3E5D9B1843D5A80070315E /* ANBannerAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D091843C7560070315E /* ANBannerAdView.h */; };
 		EC3E5D9D1843D5A80070315E /* ANInterstitialAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5D0A1843C7560070315E /* ANInterstitialAd.h */; };
@@ -124,8 +123,6 @@
 		EC3E5D341843C7560070315E /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC3E5D351843C7560070315E /* ANReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANReachability.h; sourceTree = "<group>"; };
 		EC3E5D361843C7560070315E /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
-		EC3E5D371843C7560070315E /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
-		EC3E5D381843C7560070315E /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
 		EC3E5E211843EFEF0070315E /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		EC3E5E941843FDE20070315E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
@@ -253,8 +250,6 @@
 				EC3E5D341843C7560070315E /* ANMRAIDViewController.m */,
 				EC3E5D351843C7560070315E /* ANReachability.h */,
 				EC3E5D361843C7560070315E /* ANReachability.m */,
-				EC3E5D371843C7560070315E /* ANWebView.h */,
-				EC3E5D381843C7560070315E /* ANWebView.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -404,7 +399,6 @@
 				EC3E5D511843C7560070315E /* ANInterstitialAd.m in Sources */,
 				EC3E5D4D1843C7560070315E /* ANBannerAdView.m in Sources */,
 				EC3E5D581843C7560070315E /* ANReachability.m in Sources */,
-				EC3E5D591843C7560070315E /* ANWebView.m in Sources */,
 				EC3E5D461843C7560070315E /* NSTimer+ANCategory.m in Sources */,
 				EC3E5D451843C7560070315E /* NSString+ANCategory.m in Sources */,
 			);

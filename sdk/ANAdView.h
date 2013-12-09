@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
 #import "ANAdProtocol.h"
 
 @interface ANAdView : UIView <ANAdProtocol>

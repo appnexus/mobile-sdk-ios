@@ -14,7 +14,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANMediatedAd.h"
 
 @interface ANAdResponse : NSObject
 

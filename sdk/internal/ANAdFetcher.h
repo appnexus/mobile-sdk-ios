@@ -13,9 +13,8 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "ANAdResponse.h"
 #import "ANAdProtocol.h"
+#import "ANAdResponse.h"
 #import "ANAdViewDelegate.h"
 #import "ANCustomAdapter.h"
 

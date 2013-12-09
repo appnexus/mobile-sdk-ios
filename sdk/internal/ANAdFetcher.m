@@ -14,22 +14,19 @@
  */
 
 #import "ANAdFetcher.h"
-#import "NSTimer+ANCategory.h"
-#import "UIWebView+ANCategory.h"
-#import "ANReachability.h"
-#import "ANAdResponse.h"
+
 #import "ANAdWebViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANWebView.h"
-#import "NSString+ANCategory.h"
 #import "ANMediatedAd.h"
-#import "ANLocation.h"
 #import "ANMediationAdViewController.h"
-#import "ANCustomAdapter.h"
+#import "ANReachability.h"
+#import "NSString+ANCategory.h"
+#import "NSTimer+ANCategory.h"
+#import "UIWebView+ANCategory.h"
 
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
@@ -469,7 +466,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             sizeOfCreative = [self.delegate requestedSizeForAdFetcher:self];
         
         // Generate a new webview to contain the HTML
-        ANWebView *webView = [[ANWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
+        UIWebView *webView = [[UIWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
         webView.backgroundColor = [UIColor clearColor];
         webView.opaque = NO;
         webView.scrollEnabled = NO;

@@ -99,7 +99,6 @@
 		ECB124D01821A25D00CB4BE8 /* ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124A81821A25D00CB4BE8 /* ANMediatedAd.m */; };
 		ECB124D11821A25D00CB4BE8 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */; };
 		ECB124D21821A25D00CB4BE8 /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AC1821A25D00CB4BE8 /* ANReachability.m */; };
-		ECB124D31821A25D00CB4BE8 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AE1821A25D00CB4BE8 /* ANWebView.m */; };
 		ECCF548418451FE40000E37C /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547718451FE40000E37C /* ANBrowserViewController.xib */; };
 		ECCF548518451FE40000E37C /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */; };
 		ECCF548618451FE40000E37C /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547918451FE40000E37C /* errors.strings */; };
@@ -272,8 +271,6 @@
 		ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationAdViewController.m; sourceTree = "<group>"; };
 		ECB124AB1821A25D00CB4BE8 /* ANReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANReachability.h; sourceTree = "<group>"; };
 		ECB124AC1821A25D00CB4BE8 /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
-		ECB124AD1821A25D00CB4BE8 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
-		ECB124AE1821A25D00CB4BE8 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		ECCF547718451FE40000E37C /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
 		ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
 		ECCF547918451FE40000E37C /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
@@ -509,12 +506,12 @@
 		ECB124771821A25D00CB4BE8 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				EC8477B31844168700A8BC80 /* ANAdView.h */,
-				EC8477B41844168700A8BC80 /* ANCustomAdapter.h */,
-				EC8477B51844168700A8BC80 /* ANLocation.h */,
 				ECB124781821A25D00CB4BE8 /* ANAdProtocol.h */,
+				EC8477B31844168700A8BC80 /* ANAdView.h */,
 				ECB124791821A25D00CB4BE8 /* ANBannerAdView.h */,
+				EC8477B41844168700A8BC80 /* ANCustomAdapter.h */,
 				ECB1247A1821A25D00CB4BE8 /* ANInterstitialAd.h */,
+				EC8477B51844168700A8BC80 /* ANLocation.h */,
 				ECCF547618451FE40000E37C /* Resources */,
 				ECB1247B1821A25D00CB4BE8 /* Categories */,
 				ECB1248C1821A25D00CB4BE8 /* internal */,
@@ -568,8 +565,6 @@
 				ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */,
 				ECB124AB1821A25D00CB4BE8 /* ANReachability.h */,
 				ECB124AC1821A25D00CB4BE8 /* ANReachability.m */,
-				ECB124AD1821A25D00CB4BE8 /* ANWebView.h */,
-				ECB124AE1821A25D00CB4BE8 /* ANWebView.m */,
 				EC70ED8B18316B2000BDF92F /* ANMRAIDViewController.h */,
 				EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */,
 			);
@@ -742,7 +737,6 @@
 				ECB124BE1821A25D00CB4BE8 /* UIWebView+ANCategory.m in Sources */,
 				ECB124C41821A25D00CB4BE8 /* ANAdView.m in Sources */,
 				ECB124C51821A25D00CB4BE8 /* ANAdWebViewController.m in Sources */,
-				ECB124D31821A25D00CB4BE8 /* ANWebView.m in Sources */,
 				ECB124C91821A25D00CB4BE8 /* ANGlobal.m in Sources */,
 				EC3FD73B1822213C00B25418 /* ANResponse.m in Sources */,
 				ECB124C21821A25D00CB4BE8 /* ANAdFetcher.m in Sources */,

@@ -13,15 +13,13 @@
  limitations under the License.
  */
 
+#import "ANAdWebViewController.h"
+
 #import "ANAdFetcher.h"
 #import "ANGlobal.h"
-#import "ANAdWebViewController.h"
-#import "ANAdResponse.h"
-#import "ANAdView.h"
-#import "NSString+ANCategory.h"
-#import "ANBrowserViewController.h"
-#import "UIWebView+ANCategory.h"
 #import "ANLogging.h"
+#import "NSString+ANCategory.h"
+#import "UIWebView+ANCategory.h"
 
 typedef enum _ANMRAIDState
 {
