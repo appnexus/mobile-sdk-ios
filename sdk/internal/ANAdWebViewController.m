@@ -96,7 +96,7 @@ typedef enum _ANMRAIDOrientation
 
 @end
 
-@interface ANMRAIDAdWebViewController () <EKEventEditViewDelegate>
+@interface ANMRAIDAdWebViewController ()
 @property (nonatomic, readwrite, assign, getter = isExpanded) BOOL expanded;
 @property (nonatomic, readwrite, assign) CGSize defaultSize;
 @property (nonatomic, readwrite, assign) BOOL allowOrientationChange;
@@ -417,12 +417,7 @@ typedef enum _ANMRAIDOrientation
                 }else if([status isEqualToString:@"cancelled"]){
                     [event setAvailability:EKEventAvailabilityFree];
                 }
-                
-                EKEventEditViewController *vc = [[EKEventEditViewController alloc] init];
-                
-                vc.event = event;
-                vc.eventStore = store;
-                vc.editViewDelegate = self;
+        
                 
                 NSError* error = [[NSError alloc] init];
                 [store saveEvent:event span:EKSpanThisEvent error:&error];

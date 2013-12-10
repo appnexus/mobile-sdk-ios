@@ -29,7 +29,7 @@
 
 @end
 
-@interface ANMRAIDAdWebViewController : ANAdWebViewController <EKEventEditViewDelegate>
+@interface ANMRAIDAdWebViewController : ANAdWebViewController
 {
     BOOL __expanded;
     BOOL __allowOrientationChagne;
