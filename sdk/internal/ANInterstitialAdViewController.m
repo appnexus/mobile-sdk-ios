@@ -60,8 +60,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.viewed = YES;
-    [self startCountdownTimer];
+    if (!self.viewed) {
+        [self startCountdownTimer];
+        self.viewed = YES;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -95,7 +97,7 @@
 	[self.progressView setProgress:(timeShown / closeDelay)];
     
 	if (timeShown >= closeDelay && self.closeButton.hidden == YES) {
-		self.closeButton.hidden = NO;
+        [self stopCountdownTimer];
 	}
 }
 
