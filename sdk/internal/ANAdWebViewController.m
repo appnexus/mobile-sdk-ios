@@ -270,7 +270,28 @@ typedef enum _ANMRAIDOrientation
         [webView addSubview: moviePlayer.view];
         [moviePlayer setFullscreen:YES animated:YES];
     }else if([mraidCommand isEqualToString:@"resize"]){
-        //TODO: resize, add close button
+        NSString *query = [mraidURL query];
+        NSDictionary *queryComponents = [query queryComponents];
+        int w = [[queryComponents objectForKey:@"w"] intValue];
+        int h = [[queryComponents objectForKey:@"h"] intValue];
+        int offset_x = [[queryComponents objectForKey:@"offset_x"] intValue];
+        int offset_y = [[queryComponents objectForKey:@"offset_y"] intValue];
+        NSString* custom_close_position = [queryComponents objectForKey:@"custom_close_position"];
+        BOOL allow_offscreen = [[queryComponents objectForKey:@"allow_offscreen"] boolValue];
+        
+        NSString *currentState = [webView stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
+        if([currentState isEqualToString:@"default"] || [currentState isEqualToString:@"resized"]){
+            //TODO custom_close_position
+            [self.adFetcher.delegate adFetcher:self.adFetcher adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)];
+            if([currentState isEqualToString:@"default"]){
+                self.defaultSize = webView.frame.size;
+            }
+            
+            [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:CGSizeMake(w, h)];
+            
+            self.expanded = YES;
+            
+        }
     }else if([mraidCommand isEqualToString:@"storePicture"]){
         NSString *query = [mraidURL query];
         NSDictionary *queryComponents = [query queryComponents];
