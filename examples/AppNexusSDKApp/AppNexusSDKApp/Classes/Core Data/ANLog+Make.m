@@ -15,7 +15,12 @@
 
 #import "ANLog+Make.h"
 
+#define LOG_LIMIT 2000
+#define LOG_NUM_TO_DEL 200
+
 @implementation ANLog (Make)
+
+static int logCount = LOG_LIMIT;
 
 + (void)storeLogOutput:(NSString *)output
               withName:(NSString *)name
@@ -39,6 +44,9 @@ inManagedObjectContext:(NSManagedObjectContext *)context {
                                withOriginatingClass:originatingClass
                                        fromAppNexus:isAppNexus
                                       withProcessID:processID];
+        
+        logCount++;
+        [ANLog deleteExcessLogs:context];
     }
 }
 
@@ -56,5 +64,36 @@ inManagedObjectContext:(NSManagedObjectContext *)context {
     NSString *text = [NSString stringWithFormat:@"%@%@%@%@%@",d,n,cn,pid,o];
     return text;
 }
+
++ (void)deleteExcessLogs:(NSManagedObjectContext *)context {
+    // keep a counter in memory so that we don't do heavy stuff every time
+    if (logCount < LOG_LIMIT) {
+        return;
+    }
+    
+    // first time, or we're past the log limit
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"ANLog"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:YES]];
+    
+    NSError *error = nil;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    // delete so that we have (LOG_LIMIT - LOG_NUM_TO_DEL) logs in the store
+    if (matches) {
+        NSLog(@"%@ %@ | Logs Count before deleting: %d", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [matches count]);
+        int limitIndex = [matches count] - (LOG_LIMIT - LOG_NUM_TO_DEL);
+        for (int i = 0; i < limitIndex; i++) {
+            [context deleteObject:[matches objectAtIndex:i]];
+        }
+    }
+
+    // update log count
+    matches = [context executeFetchRequest:request error:&error];
+    if (matches) {
+        NSLog(@"%@ %@ | Logs Count after deleting: %d", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [matches count]);
+        logCount = [matches count];
+    }
+}
+
 
 @end
