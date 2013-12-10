@@ -96,7 +96,7 @@ typedef enum _ANMRAIDOrientation
 
 @end
 
-@interface ANMRAIDAdWebViewController ()
+@interface ANMRAIDAdWebViewController () <EKEventEditViewDelegate>
 @property (nonatomic, readwrite, assign, getter = isExpanded) BOOL expanded;
 @property (nonatomic, readwrite, assign) CGSize defaultSize;
 @property (nonatomic, readwrite, assign) BOOL allowOrientationChange;
@@ -192,7 +192,7 @@ typedef enum _ANMRAIDOrientation
 - (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
     NSString* sms = @"false";
     NSString* tel = @"false";
-    NSString* cal = @"true"; // These three seem to always be true, TODO pls verify someone
+    NSString* cal = @"false";
     NSString* inline_video = @"true";
     NSString* store_picture = @"true";
 #ifdef __IPHONE_4_0
@@ -203,6 +203,13 @@ typedef enum _ANMRAIDOrientation
 #endif
     //TEL
     tel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]] ? @"true" : @"false";
+    
+    //CAL
+    EKEventStore *store = [[EKEventStore alloc] init];
+    if([store respondsToSelector:@selector(requestAccessToEntityType:completion:)])
+    {
+        cal = @"true";
+    }
     
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsTel(%@);", tel]];
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsSMS(%@);", sms]];
@@ -256,7 +263,10 @@ typedef enum _ANMRAIDOrientation
     {
         [self closeAction:self];
     }else if([mraidCommand isEqualToString:@"createCalendarEvent"]){
-        //TODO: Create calendar event subroutine
+        NSString* query = [mraidURL query];
+        NSDictionary* queryComponents = [query queryComponents];
+        NSString* w3cEventJson = [queryComponents objectForKey:@"p"];
+        [self createCalendarEventFromW3CCompliantJSONObject:w3cEventJson];
     }else if([mraidCommand isEqualToString:@"playVideo"]){
         NSString *query = [mraidURL query];
         NSDictionary *queryComponents = [query queryComponents];
@@ -343,6 +353,86 @@ typedef enum _ANMRAIDOrientation
         }
     }
 }
+
+- (void)createCalendarEventFromW3CCompliantJSONObject:(NSString*)json{
+    NSError* error;
+    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+    
+    //NSString* event_id = [jsonDict objectForKey:@"id"]; //Don't need it
+    NSString* description = [jsonDict objectForKey:@"description"];
+    NSString* location = [jsonDict objectForKey:@"location"];
+    NSString* summary = [jsonDict objectForKey:@"summary"];
+    NSString* start = [jsonDict objectForKey:@"start"];
+    NSString* end = [jsonDict objectForKey:@"end"];
+    NSString* status = [jsonDict objectForKey:@"status"];
+    //NSString* transparency = [jsonDict objectForKey:@"transparency"]; //Not supported
+    NSString* reminder = [jsonDict objectForKey:@"reminder"];
+    //TODO repeat rule
+    
+    EKEventStore* store = [[EKEventStore alloc] init];
+    [store requestAccessToEntityType:EKEntityMaskEvent completion:^(BOOL granted, NSError *error){
+        if(granted){
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                EKEvent *event = [EKEvent eventWithEventStore:store];
+                NSDateFormatter *df1 = [[NSDateFormatter alloc] init];
+                NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
+                [df1 setDateFormat:@"yyyy-MM-dd'T'HH:mmZZZ"];
+                [df2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+                
+                event.title=description;
+                event.notes=summary;
+                event.location=location;
+                event.calendar = [store defaultCalendarForNewEvents];
+                
+                if([df1 dateFromString:start]!=nil){
+                    event.startDate = [df1 dateFromString:start];
+                }else if([df2 dateFromString:start]!=nil){
+                    event.startDate = [df2 dateFromString:start];
+                }else{
+                    event.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
+                }
+                
+                if([df1 dateFromString:end]!=nil){
+                    event.endDate = [df1 dateFromString:end];
+                }else if([df2 dateFromString:end]!=nil){
+                    event.endDate = [df2 dateFromString:end];
+                }else{
+                    event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
+                }
+                
+                if([df1 dateFromString:reminder]!=nil){
+                    [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df1 dateFromString:reminder]]];
+                }else if([df2 dateFromString:reminder]!=nil){
+                    [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df2 dateFromString:reminder]]];
+                }else{
+                    [event addAlarm:[EKAlarm alarmWithRelativeOffset:[reminder doubleValue]]];
+                }
+                
+                if([status isEqualToString:@"pending"]){
+                    [event setAvailability:EKEventAvailabilityNotSupported];
+                }else if([status isEqualToString:@"tentative"]){
+                    [event setAvailability:EKEventAvailabilityTentative];
+                }else if([status isEqualToString:@"confirmed"]){
+                    [event setAvailability:EKEventAvailabilityBusy];
+                }else if([status isEqualToString:@"cancelled"]){
+                    [event setAvailability:EKEventAvailabilityFree];
+                }
+                
+                EKEventEditViewController *vc = [[EKEventEditViewController alloc] init];
+                
+                vc.event = event;
+                vc.eventStore = store;
+                vc.editViewDelegate = self;
+                
+                NSError* error = [[NSError alloc] init];
+                [store saveEvent:event span:EKSpanThisEvent error:&error];
+
+            });
+        }
+    }];
+}
+
+
 
 - (void)setOrientationProperties:(BOOL)allowChange forcedOrientation:(ANMRAIDOrientation) forcedOrientation
 {

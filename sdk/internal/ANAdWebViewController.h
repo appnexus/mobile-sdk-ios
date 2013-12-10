@@ -14,6 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <EventKitUI/EventKitUI.h>
 @class ANAdFetcher;
 
 @interface ANAdWebViewController : NSObject <UIWebViewDelegate>
@@ -28,7 +29,7 @@
 
 @end
 
-@interface ANMRAIDAdWebViewController : ANAdWebViewController
+@interface ANMRAIDAdWebViewController : ANAdWebViewController <EKEventEditViewDelegate>
 {
     BOOL __expanded;
     BOOL __allowOrientationChagne;
