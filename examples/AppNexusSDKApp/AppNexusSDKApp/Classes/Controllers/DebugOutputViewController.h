@@ -18,5 +18,5 @@
 
 
 @interface DebugOutputViewController : UIViewController
-
+@property (nonatomic, strong) NSString *lastRequestString;
 @end
