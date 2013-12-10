@@ -120,6 +120,10 @@
  mraid.util.errorEvent("mraid.expand() called while state is 'loading'.", "mraid.expand()");
  break;
  case 'default':
+ if((expand_properties.height>0 && expand_properties.width>0) && (expand_properties.height < current_position.height || expand_properties.width < current_position.width)){
+ mraid.util.errorEvent("Can't expand to a size smaller than the default size.", "mraid.expand()");
+ return;
+ }
  window.open("mraid://expand/"+"?w="+mraid.getExpandProperties().width+"&h="+mraid.getExpandProperties().height+"&useCustomClose="+mraid.getExpandProperties().useCustomClose+(url!=null ? "&url="+url:""));
  mraid.util.stateChangeEvent('expanded');
  break;
