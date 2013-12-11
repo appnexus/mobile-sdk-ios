@@ -17,6 +17,7 @@
 
 @interface ANMRAIDViewController ()
 @property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
+@property (nonatomic, readwrite, assign) BOOL originalHiddenState;
 @end
 
 @implementation ANMRAIDViewController
@@ -35,9 +36,19 @@
     [super viewDidLoad];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
+    [self setStatusBarHidden:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self setStatusBarHidden:self.originalHiddenState];
 }
 
 // locking orientation in iOS 6+
@@ -52,6 +63,16 @@
 // locking orientation in pre-iOS 6
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return NO;
+}
+
+// hiding the status bar in iOS 7
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+// hiding the status bar pre-iOS 7
+- (void)setStatusBarHidden:(BOOL)hidden {
+    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
 }
 
 @end
