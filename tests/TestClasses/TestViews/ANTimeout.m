@@ -18,7 +18,6 @@
 
 @implementation ANTimeout
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -26,13 +25,14 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (kAppNexusMediationNetworkTimeoutInterval + 1)
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-        [self.delegate adapterBanner:self didReceiveBannerAdView:[[UIView alloc] init]];
-    });
+                       [self.delegate didLoadBannerAd:[UIView new]];
+                   });
 }
 
 @end

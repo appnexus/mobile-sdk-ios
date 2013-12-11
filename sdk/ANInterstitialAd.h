@@ -13,22 +13,16 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
-#import "ANAdProtocol.h"
-
-// List of allowed ad sizes. These must fit in the maximum size of the view, which in this case, will be the size of the window
-#define kANInterstitialAdSize300x250 CGSizeMake(300,250)
-#define kANInterstitialAdSize320x480 CGSizeMake(320,480)
-#define kANInterstitialAdSize900x500 CGSizeMake(900,500)
-#define kANInterstitialAdSize1024x1024 CGSizeMake(1024,1024)
+#import "ANAdView.h"
 
 @protocol ANInterstitialAdDelegate;
 
-@interface ANInterstitialAd : NSObject <ANAdProtocol>
+@interface ANInterstitialAd : ANAdView
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
-@property (nonatomic, readwrite, assign) NSTimeInterval autoDismissTimeInterval;
 @property (nonatomic, readwrite, strong) UIColor *backgroundColor;
+@property (nonatomic, readonly, assign) BOOL isReady;
+@property (nonatomic, readwrite, assign) NSTimeInterval closeDelay;
 
 - (id)initWithPlacementId:(NSString *)placementId;
 - (void)loadAd;
@@ -37,8 +31,5 @@
 @end
 
 @protocol ANInterstitialAdDelegate <ANAdDelegate>
-
-@optional
-- (void)adNoAdToShow:(ANInterstitialAd *)ad;
-
+- (void)adFailedToDisplay:(ANInterstitialAd *)ad;
 @end

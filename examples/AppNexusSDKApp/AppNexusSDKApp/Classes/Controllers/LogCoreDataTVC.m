@@ -15,9 +15,9 @@
 
 #import "LogCoreDataTVC.h"
 #import "ANLog.h"
-#import "ANLogging.h"
 
 #define CLASS_NAME @"LogCoreDataTVC"
+#define EMAIL_MAX_LOGS 1000
 
 @interface LogCoreDataTVC ()
 
@@ -64,12 +64,10 @@
     pstyle.lineBreakMode = NSLineBreakByCharWrapping;
     self.textAttributes = @{NSFontAttributeName:font,
                             NSParagraphStyleAttributeName:pstyle};
-    self.fullTextToEmail = [[NSString alloc] init];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     ANLog *log = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    self.fullTextToEmail = [self.fullTextToEmail stringByAppendingString:log.text];
     
     NSAttributedString *logAttrText = [[NSAttributedString alloc] initWithString:log.text
                                                                       attributes:self.textAttributes];
@@ -81,7 +79,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ANLogDebug(@"%@ %@ | index path: %d", NSStringFromClass([self class]), NSStringFromSelector(_cmd), indexPath.item);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ANLogCell"];
     if ([[cell.contentView.subviews objectAtIndex:0] isKindOfClass:[UITextView class]]) {
         UITextView *tv = [cell.contentView.subviews objectAtIndex:0];
@@ -91,6 +88,20 @@
         tv.scrollEnabled = NO;
     }
     return cell;
+}
+
+- (NSString *)fullTextToEmail {
+    _fullTextToEmail = @"";
+    
+    NSArray *fetchedResults = [self.fetchedResultsController fetchedObjects];
+    int limitIndex = MIN([fetchedResults count], EMAIL_MAX_LOGS);
+    for (int i = 0; i < limitIndex; i++) {
+        ANLog *log = [fetchedResults objectAtIndex:i];
+        _fullTextToEmail = [_fullTextToEmail stringByAppendingString:log.text];
+        _fullTextToEmail = [_fullTextToEmail stringByAppendingString:@"\n"];
+    }
+
+    return _fullTextToEmail;
 }
 
 @end

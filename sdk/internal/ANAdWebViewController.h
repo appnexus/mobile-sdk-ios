@@ -15,6 +15,8 @@
 
 #import <Foundation/Foundation.h>
 #import <EventKitUI/EventKitUI.h>
+#import <UIKit/UIKit.h>
+
 @class ANAdFetcher;
 
 @interface ANAdWebViewController : NSObject <UIWebViewDelegate>

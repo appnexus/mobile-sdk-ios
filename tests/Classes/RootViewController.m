@@ -16,6 +16,7 @@
 #import "RootViewController.h"
 #import "ANDemoAdsViewController.h"
 #import "ANDemoConsoleViewController.h"
+#import "ANLogging.h"
 
 static NSUInteger kNumberOfPages = 2;
 

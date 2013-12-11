@@ -13,16 +13,16 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "ANCustomAdapter.h"
 #import "ANAdFetcher.h"
-#import "ANAdViewDelegate.h"
+
+#import <Foundation/Foundation.h>
 
 @interface ANMediationAdViewController : NSObject
 
 - (void)startTimeout;
 - (void)setAdapter:(id<ANCustomAdapter>)adapter;
 - (void)clearAdapter;
+- (void)setResultCBString:(NSString *)resultCBString;
 - (BOOL)requestAd:(CGSize)size
  serverParameter:(NSString *)parameterString
         adUnitId:(NSString *)idString
@@ -30,7 +30,7 @@
            adView:(id<ANAdFetcherDelegate>)adView;
 
 + (ANMediationAdViewController *)initWithFetcher:(ANAdFetcher *)fetcher
-                                   adViewDelgate:(id<ANAdViewDelegate>)adViewDelegate;
+                                   adViewDelegate:(id<ANAdViewDelegate>)adViewDelegate;
 
 @end
 

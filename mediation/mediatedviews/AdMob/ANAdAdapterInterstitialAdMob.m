@@ -14,7 +14,6 @@
  */
 
 #import "ANAdAdapterInterstitialAdMob.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialAdMob ()
 
@@ -24,7 +23,6 @@
 
 @implementation ANAdAdapterInterstitialAdMob
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterInterstitial
 
@@ -32,10 +30,11 @@
                                   adUnitId:(NSString *)idString
                                   location:(ANLocation *)location
 {
-    ANLogDebug(@"Requesting AdMob interstitial");
+    NSLog(@"Requesting AdMob interstitial");
 	self.interstitialAd = [[GADInterstitial alloc] init];
 	self.interstitialAd.adUnitID = idString;
 	self.interstitialAd.delegate = self;
+    
     GADRequest *request = [GADRequest request];
 
     if (location) {
@@ -47,23 +46,33 @@
 	[self.interstitialAd loadRequest:request];
 }
 
-#pragma mark GADInterstitialDelegate
-
 - (void)presentFromViewController:(UIViewController *)viewController
 {
-    ANLogDebug(@"Showing AdMob interstitial");
+    if (!self.interstitialAd.isReady || self.interstitialAd.hasBeenUsed) {
+        NSLog(@"AdMob interstitial was unavailable");
+        [self.delegate failedToDisplayAd];
+        return;
+    }
+
+    NSLog(@"Showing AdMob interstitial");
 	[self.interstitialAd presentFromRootViewController:viewController];
 }
 
+- (BOOL)isReady {
+    return self.interstitialAd.isReady;
+}
+
+#pragma mark GADInterstitialDelegate
+
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    ANLogDebug(@"AdMob interstitial did load");
-	[self.delegate adapterInterstitial:self didLoadInterstitialAd:ad];
+    NSLog(@"AdMob interstitial did load");
+	[self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    ANLogDebug(@"AdMob interstitial failed to load with error: %@", error);
+    NSLog(@"AdMob interstitial failed to load with error: %@", error);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
@@ -105,23 +114,23 @@
             break;
     }
     
-    [self.delegate adapterInterstitial:self didFailToReceiveInterstitialAd:code];
+    [self.delegate didFailToLoadAd:code];
 }
 
 - (void)interstitialWillPresentScreen:(GADInterstitial *)ad {
-    [self.delegate adapterInterstitial:self willPresent:ad];
+    [self.delegate willPresentAd];
 }
 
 - (void)interstitialWillDismissScreen:(GADInterstitial *)ad {
-    [self.delegate adapterInterstitial:self willClose:ad];
+    [self.delegate willCloseAd];
 }
 
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad {
-    [self.delegate adapterInterstitial:self didClose:ad];
+    [self.delegate didCloseAd];
 }
 
 - (void)interstitialWillLeaveApplication:(GADInterstitial *)ad {
-    [self.delegate adapterInterstitial:self willLeaveApplication:ad];
+    [self.delegate willLeaveApplication];
 }
 
 @end

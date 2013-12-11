@@ -14,296 +14,280 @@
  */
 
 #import "ANBannerAdView.h"
+
 #import "ANAdFetcher.h"
 #import "ANBrowserViewController.h"
-#import "ANCustomAdapter.h"
+#import "ANGlobal.h"
+#import "ANLogging.h"
 
-@interface ANAdView (ANBannerAdView)
+@interface ANAdView (ANBannerAdView) <ANAdFetcherDelegate>
 - (void)initialize;
+- (void)adDidReceiveAd;
+- (void)adRequestFailedWithError:(NSError *)error;
+- (void)showCloseButtonWithTarget:(id)target
+                           action:(SEL)selector
+                    containerView:(UIView *)containerView;
+- (void)mraidResizeAd:(CGSize)size
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController
+             isBanner:(BOOL)isBanner;
 @end
 
-@interface ANBannerAdView () <ANBrowserViewControllerDelegate>
+@interface ANBannerAdView ()
 
 @property (nonatomic, strong) UIView *defaultSuperView;
-@property (nonatomic, assign) BOOL isFullscreen;
 
 @end
 
 
 @implementation ANBannerAdView
 @synthesize delegate = __delegate;
-@synthesize autorefreshInterval = __autorefreshInterval;
+@synthesize autoRefreshInterval = __autoRefreshInterval;
+@synthesize defaultSuperView = __defaultSuperView;
 
+#pragma mark Initialization
 
-- (id)init
-{
-	self = [super init];
+- (void)initialize {
+    [super initialize];
 	
-	if (self != nil)
-	{
-
-	}
-	
-	return self;
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-	self = [super initWithFrame:frame];
-	
-	if (self != nil)
-	{
-
-	}
-	
-	return self;
-}
-
-- (void)initialize
-{
-	[super initialize];
-	
-	self.backgroundColor = [UIColor clearColor];
-	self.autoresizingMask = UIViewAutoresizingNone;
-    self.defaultSuperView = self.superview;
-    self.isFullscreen = NO;
+    self.backgroundColor = [UIColor clearColor];
+    self.autoresizingMask = UIViewAutoresizingNone;
     
-    // Set default autorefreshInterval
-	__autorefreshInterval = kANBannerAdViewDefaultAutorefreshInterval;
+    // Set default autoRefreshInterval
+    __autoRefreshInterval = kANBannerDefaultAutoRefreshInterval;
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
 	[super awakeFromNib];
-	
-	self.adSize = self.frame.size;
+	__adSize = self.frame.size;
 }
 
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId
-{
++ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:frame.size];
 }
 
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size
-{
++ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:size];
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size
-{
-    if (self = [super initWithFrame:frame placementId:placementId adSize:size])
-	{
-        self.backgroundColor = [UIColor clearColor];
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    if (self != nil) {
+        [self initialize];
     }
     
     return self;
 }
 
-- (void)loadAd
-{
+- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
+    self = [self initWithFrame:frame];
+    
+    if (self != nil) {
+        NSAssert([placementId intValue] > 0, @"Placement ID must be a number greater than 0.");
+        self.placementId = placementId;
+    }
+    
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
+    self = [self initWithFrame:frame placementId:placementId];
+    
+    if (self != nil) {
+        self.adSize = size;
+    }
+    
+    return self;
+}
+
+- (void)loadAd {
     if ([self.adFetcher isLoading]) {
         [self.adFetcher stopAd];
     }
-
+    
     [self.adFetcher requestAd];
 }
 
-- (CGSize)adSize
-{
+#pragma mark Getter and Setter methods
+
+- (CGSize)adSize {
     ANLogDebug(@"adSize returned %@", NSStringFromCGSize(__adSize));
     return __adSize;
 }
 
-- (void)setAdSize:(CGSize)adSize
-{
-    if (!CGSizeEqualToSize(adSize, __adSize))
-    {
+- (void)setAdSize:(CGSize)adSize {
+    if (!CGSizeEqualToSize(adSize, __adSize)) {
         ANLogDebug(@"Setting adSize to %@", NSStringFromCGSize(adSize));
         __adSize = adSize;
     }
 }
 
-- (NSString *)placementSizeParameter
-{
-    NSString *placementSizeParameter = @"";
-    
-    CGSize sizeToRequest = CGSizeEqualToSize(self.adSize, CGSizeZero) ? self.frame.size : self.adSize;
-    placementSizeParameter = [NSString stringWithFormat:@"&size=%dx%d", (NSInteger)sizeToRequest.width, (NSInteger)sizeToRequest.height];
-    return placementSizeParameter;
-}
-
-- (NSString *)maximumSizeParameter
-{
-    return [NSString stringWithFormat:@"&max-size=%dx%d", (NSInteger)self.frame.size.width, (NSInteger)self.frame.size.height];
-}
-
-- (NSString *)adType
-{
-    return @"inline";
-}
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    [self.contentView setFrame:self.bounds];
-}
-
-- (void)setAutorefreshInterval:(NSTimeInterval)autorefreshInterval
-{
+- (void)setAutoRefreshInterval:(NSTimeInterval)autoRefreshInterval {
     // if auto refresh is above the threshold (0), turn auto refresh on
-    if (autorefreshInterval > kANBannerAdViewAutorefreshThreshold) {
+    if (autoRefreshInterval > kANBannerAutoRefreshThreshold) {
         // minimum allowed value for auto refresh is (15).
-        if (autorefreshInterval < kANBannerAdViewMinimumAutorefreshInterval) {
-            __autorefreshInterval = kANBannerAdViewMinimumAutorefreshInterval;
-            ANLogWarn(@"setAutorefreshInterval called with value %f, but cannot be less than %f", autorefreshInterval, kANBannerAdViewMinimumAutorefreshInterval);
+        if (autoRefreshInterval < kANBannerMinimumAutoRefreshInterval) {
+            __autoRefreshInterval = kANBannerMinimumAutoRefreshInterval;
+            ANLogWarn(@"setAutoRefreshInterval called with value %f, but cannot be less than %f", autoRefreshInterval, kANBannerMinimumAutoRefreshInterval);
         }
         
-		ANLogDebug(@"Autorefresh interval set to %f seconds", autorefreshInterval);
-		__autorefreshInterval = autorefreshInterval;
-
+		ANLogDebug(@"AutoRefresh interval set to %f seconds", autoRefreshInterval);
+		__autoRefreshInterval = autoRefreshInterval;
+        
 		if ([self.adFetcher isLoading]) {
             [self.adFetcher stopAd];
         }
         
-        ANLogDebug(@"New autorefresh interval set. Making ad request.");
+        ANLogDebug(@"New autoRefresh interval set. Making ad request.");
         [self.adFetcher requestAd];
     } else {
 		ANLogDebug(@"Turning auto refresh off");
-		__autorefreshInterval = autorefreshInterval;
+		__autoRefreshInterval = autoRefreshInterval;
     }
 }
 
-- (void)setFrame:(CGRect)frame animated:(BOOL)animated
-{
-    if (animated)
-    {
-		if ([self.delegate respondsToSelector:@selector(bannerAdView:willResizeToFrame:)])
-		{
-			[self.delegate bannerAdView:self willResizeToFrame:frame];
-		}
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    // center the contentview
+    CGFloat contentWidth = self.contentView.frame.size.width;
+    CGFloat contentHeight = self.contentView.frame.size.height;
+    CGFloat centerX = (self.frame.size.width - contentWidth) / 2;
+    CGFloat centerY = (self.frame.size.height - contentHeight) / 2;
+    [self.contentView setFrame:
+     CGRectMake(centerX, centerY, contentWidth, contentHeight)];
+}
+
+- (void)setFrame:(CGRect)frame animated:(BOOL)animated {
+    if (animated) {
+        [self willResizeToFrame:frame];
         [UIView animateWithDuration:kAppNexusAnimationDuration animations:^{
             [self setFrame:frame];
         } completion:^(BOOL finished) {
-			if ([self.delegate respondsToSelector:@selector(bannerAdViewDidResize:)])
-			{
-				[self.delegate bannerAdViewDidResize:self];
-			}
+            [self bannerAdViewDidResize];
 		}];
     }
-    else
-    {
-		if ([self.delegate respondsToSelector:@selector(bannerAdView:willResizeToFrame:)])
-		{
-			[self.delegate bannerAdView:self willResizeToFrame:frame];
-		}
+    else {
+        [self willResizeToFrame:frame];
         [self setFrame:frame];
-		if ([self.delegate respondsToSelector:@selector(bannerAdViewDidResize:)])
-		{
-			[self.delegate bannerAdViewDidResize:self];
-		}
+        [self bannerAdViewDidResize];
     }
+}
+
+#pragma mark Implementation of abstract methods from ANAdView
+
+- (NSString *)adType {
+    return @"inline";
+}
+
+- (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
+    [self adWillPresent];
+    [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
+        [self adDidPresent];
+    }];
+}
+
+#pragma mark extraParameters methods
+
+- (NSString *)sizeParameter {
+    NSString *sizeParameterString = [NSString stringWithFormat:@"&size=%ldx%ld",
+                                     (long)self.adSize.width,
+                                     (long)self.adSize.height];
+    NSString *maxSizeParameterString = [NSString stringWithFormat:@"&max_size=%ldx%ld",
+                                        (long)self.frame.size.width,
+                                        (long)self.frame.size.height];
+    
+    return CGSizeEqualToSize(self.adSize, CGSizeZero) ? maxSizeParameterString : sizeParameterString;
+    ;
 }
 
 #pragma mark ANAdFetcherDelegate
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size
-{
-    // expand to full screen
-    if ((size.width < 0) || (size.height < 0)) {
-        CGRect newFrame = [[UIScreen mainScreen] applicationFrame];
-        newFrame.origin.x = 0;
-        newFrame.origin.y = 20;
-        self.frame = newFrame;
-        self.defaultSuperView = self.superview;
-        [self removeFromSuperview];
-        [self.rootViewController.view addSubview:self];
-        self.isFullscreen = YES;
-    } else {
-        CGRect newFrame = self.frame;
-        newFrame.origin.x = newFrame.origin.x - (size.width - newFrame.size.width) / 2;
-        newFrame.origin.y = 0;
-        newFrame.size.width = size.width;
-        newFrame.size.height = size.height;
-        [self setFrame:newFrame animated:NO];
-
-        if (self.isFullscreen) {
-            [self removeFromSuperview];
-            [self.defaultSuperView addSubview:self];
-            self.isFullscreen = NO;
-        }
-    }
-}
-
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response
-{
-    if ([response isSuccessful])
-    {
-        UIView *contentView = response.adObject;
-		
-		if ([contentView isKindOfClass:[UIView class]])
-		{
-			self.contentView = contentView;
-			
-			if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)])
-			{
-				[self.delegate adDidReceiveAd:self];
-			}
-		}
-		else
-		{
-			NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")
-																  forKey:NSLocalizedDescriptionKey];
-			NSError *badResponseError = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseNonViewResponse userInfo:errorInfo];
-			[self.delegate ad:self requestFailedWithError:badResponseError];
-		}
-    }
-    else
-    {
-		if ([self.delegate respondsToSelector:@selector(ad:requestFailedWithError:)])
-		{
-			[self.delegate ad:self requestFailedWithError:response.error];
-		}
-    }
-}
-
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL
-{
-    NSString *scheme = [URL scheme];
-    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
-    
-	if (!self.clickShouldOpenInBrowser && schemeIsHttp) {
-		ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
-		browserViewController.delegate = self;
-		
-		[self.rootViewController presentViewController:browserViewController animated:YES completion:nil];
-	}
-	else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
-        [[UIApplication sharedApplication] openURL:URL];
-	} else {
-        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
-    }
-}
-
-
-- (NSArray *)extraParametersForAdFetcher:(ANAdFetcher *)fetcher
-{
+- (NSArray *)extraParametersForAdFetcher:(ANAdFetcher *)fetcher {
     return [NSArray arrayWithObjects:
-            [self placementSizeParameter],
-            [self maximumSizeParameter],
+            [self sizeParameter],
             nil];
 }
 
-- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
-{
-    return self.autorefreshInterval;
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
+    NSError *error;
+    
+    if ([response isSuccessful]) {
+        UIView *contentView = response.adObject;
+        
+        if ([contentView isKindOfClass:[UIView class]]) {
+            // center the contentview
+            CGFloat centerX = (self.frame.size.width - contentView.frame.size.width) / 2;
+            CGFloat centerY = (self.frame.size.height - contentView.frame.size.height) / 2;
+            [contentView setFrame:
+             CGRectMake(centerX, centerY,
+                        contentView.frame.size.width,
+                        contentView.frame.size.height)];
+            self.contentView = contentView;
+            
+            [self adDidReceiveAd];
+        }
+        else {
+            NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")
+                                                                  forKey:NSLocalizedDescriptionKey];
+            error = [NSError errorWithDomain:AN_ERROR_DOMAIN
+                                        code:ANAdResponseNonViewResponse
+                                    userInfo:errorInfo];
+        }
+    }
+    else {
+        error = response.error;
+    }
+    
+    if (error) {
+        [self adRequestFailedWithError:error];
+    }
+}
+
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
+    if (!self.defaultSuperView) {
+        self.defaultSuperView = self.superview;
+    }
+    
+    [super mraidResizeAd:size
+             contentView:self.contentView
+       defaultParentView:self
+      rootViewController:self.rootViewController
+                isBanner:YES];
+}
+
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
+	[super showCloseButtonWithTarget:target action:action containerView:self];
+}
+
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
+    return self.autoRefreshInterval;
+}
+
+#pragma mark delegate selector helper method
+
+- (void)willResizeToFrame:(CGRect)frame {
+    if ([self.delegate respondsToSelector:@selector(bannerAdView:willResizeToFrame:)]) {
+        [self.delegate bannerAdView:self willResizeToFrame:frame];
+    }
+}
+
+- (void)bannerAdViewDidResize {
+    if ([self.delegate respondsToSelector:@selector(bannerAdViewDidResize:)]) {
+        [self.delegate bannerAdViewDidResize:self];
+    }
 }
 
 #pragma mark ANBrowserViewControllerDelegate
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
 {
+    [self adWillClose];
 	UIViewController *presentingViewController = controller.presentingViewController;
-	[presentingViewController dismissViewControllerAnimated:YES completion:nil];
+	[presentingViewController dismissViewControllerAnimated:YES completion:^{
+        [self adDidClose];
+    }];
 }
 
 @end

@@ -15,8 +15,6 @@
 
 #import "ANMoPubMediationInterstitial.h"
 #import "ANInterstitialAd.h"
-#import "MPLogging.h"
-#import "MPError.h"
 
 @interface ANMoPubMediationInterstitial ()
 
@@ -34,14 +32,14 @@
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
-    MPLogInfo(@"Requesting AN Interstitial");
+    NSLog(@"Requesting AN Interstitial");
     
     id placementId = [info objectForKey:@"id"];
     
     // fail if any of the parameters is missing
     if (!placementId) {
-        MPLogInfo(@"Parameters from server were invalid");
-        [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:[MPError errorWithCode:MPErrorAdapterInvalid]];
+        NSLog(@"Parameters from server were invalid");
+        [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
         return;
     }
     
@@ -64,27 +62,44 @@
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
 {
-    MPLogInfo(@"Did load AN Interstitial");
+    NSLog(@"Did load AN Interstitial");
     if (self.delegate)
         [self.delegate interstitialCustomEvent:self didLoadAd:self.interstitial];
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
 {
-    MPLogInfo(@"Did fail to load AN Interstitial");
+    NSLog(@"Did fail to load AN Interstitial");
     if (self.delegate)
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];
 }
 
-- (void)adNoAdToShow:(ANInterstitialAd *)ad
+- (void)adFailedToDisplay:(ANInterstitialAd *)ad
 {
-    if (self.delegate)
-        [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:[MPError errorWithCode:MPErrorAdapterHasNoInventory]];
+    NSLog(@"Failed to display AN Interstitial");
+    if (self.delegate) {
+        [self.delegate interstitialCustomEventDidExpire:self];
+    }
 }
 
-- (void)adDidClose:(ANInterstitialAd *)ad
-{
-	self.interstitial = nil;
+- (void)adWillPresent:(id<ANAdProtocol>)ad {
+    [self.delegate interstitialCustomEventWillAppear:self];
+}
+
+- (void)adDidPresent:(id<ANAdProtocol>)ad {
+    [self.delegate interstitialCustomEventDidAppear:self];
+}
+
+- (void)adWillClose:(id<ANAdProtocol>)ad {
+    [self.delegate interstitialCustomEventWillDisappear:self];
+}
+
+- (void)adDidClose:(id<ANAdProtocol>)ad {
+    [self.delegate interstitialCustomEventDidDisappear:self];
+}
+
+- (void)adWasClicked:(id<ANAdProtocol>)ad {
+    [self.delegate interstitialCustomEventDidReceiveTapEvent:self];
 }
 
 @end

@@ -14,97 +14,110 @@
  */
 
 #import "ANInterstitialAdViewController.h"
-#import "UIWebView+ANCategory.h"
+
 #import "ANGlobal.h"
+#import "ANLogging.h"
+#import "UIWebView+ANCategory.h"
 
 @interface ANInterstitialAdViewController ()
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;
 @property (nonatomic, readwrite, strong) NSDate *timerStartDate;
 @property (nonatomic, readwrite, assign) BOOL viewed;
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
+@property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @end
 
 @implementation ANInterstitialAdViewController
 @synthesize contentView = __contentView;
 @synthesize backgroundColor = __backgroundColor;
 
-- (id)init
-{
-	self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
+- (id)init {
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return nil;
+    }
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:resBundle];
     self.originalHiddenState = NO;
-	return self;
+    self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     if (!self.backgroundColor) {
         self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }
-	self.progressView.hidden = YES;
+    self.progressView.hidden = YES;
+    self.closeButton.hidden = YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
     [self setStatusBarHidden:YES];
-	self.contentView.frame = CGRectMake((self.view.bounds.size.width - self.contentView.frame.size.width) / 2, (self.view.bounds.size.height - self.contentView.frame.size.height) / 2, self.contentView.frame.size.width, self.contentView.frame.size.height);
+    [self centerContentView];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-	if (!self.viewed)
-	{
-		self.viewed = YES;
-	}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (!self.viewed) {
+        [self startCountdownTimer];
+        self.viewed = YES;
+    } else {
+        [self stopCountdownTimer];
+        [self.closeButton setHidden:NO];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self setStatusBarHidden:self.originalHiddenState];
+    [self.progressTimer invalidate];
 }
 
 - (void)startCountdownTimer
 {
-	self.progressView.hidden = NO;
-	self.timerStartDate = [NSDate date];
-	self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self setStatusBarHidden:self.originalHiddenState];
-	[self.progressTimer invalidate];
+    if ([self.delegate closeDelayForController] > 0.0) {
+        self.progressView.hidden = NO;
+        self.closeButton.hidden = YES;
+        self.timerStartDate = [NSDate date];
+        self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
+    }
 }
 
 - (void)stopCountdownTimer
 {
 	[self.progressTimer invalidate];
 	[self.progressView setHidden:YES];
-	[self.closeButton setHidden:NO];
 }
 
 - (void)progressTimerDidFire:(NSTimer *)timer
 {
 	NSDate *timeNow = [NSDate date];
 	NSTimeInterval timeShown = [timeNow timeIntervalSinceDate:self.timerStartDate];
-	
-	if (timeShown >= kAppNexusDefaultInterstitialCloseButtonInterval && self.closeButton.hidden == YES)
-	{
-		self.closeButton.hidden = NO;
-	}
-	
-	if (timeShown >= [self.delegate interstitialAdViewControllerTimeToDismiss])
-	{
-		[timer invalidate];
-		[self.delegate interstitialAdViewControllerShouldDismiss:self];
-	}
-
-	else
-	{
-		[self.progressView setProgress:timeShown / [self.delegate interstitialAdViewControllerTimeToDismiss] animated:NO];
+    NSTimeInterval closeDelay = [self.delegate closeDelayForController];
+	[self.progressView setProgress:(timeShown / closeDelay)];
+    
+	if (timeShown >= closeDelay && self.closeButton.hidden == YES) {
+        [self stopCountdownTimer];
+        [self.closeButton setHidden:NO];
 	}
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
 	[UIView animateWithDuration:duration animations:^{
-		self.contentView.frame = CGRectMake((self.view.bounds.size.width - self.contentView.frame.size.width) / 2, (self.view.bounds.size.height - self.contentView.frame.size.height) / 2, self.contentView.frame.size.width, self.contentView.frame.size.height);
+        [self centerContentView];
 	}];
+}
+
+- (void)centerContentView {
+    CGFloat contentWidth = self.contentView.frame.size.width;
+    CGFloat contentHeight = self.contentView.frame.size.height;
+    CGFloat centerX = (self.view.bounds.size.width - contentWidth) / 2;
+    CGFloat centerY = (self.view.bounds.size.height - contentHeight) / 2;
+    
+	self.contentView.frame = CGRectMake(centerX, centerY, contentWidth, contentHeight);
 }
 
 - (void)setContentView:(UIView *)contentView
@@ -115,7 +128,9 @@
 		{
 			if ([contentView isKindOfClass:[UIWebView class]])
 			{
-				[(UIWebView *)contentView removeDocumentPadding];
+                UIWebView *webView = (UIWebView *)contentView;
+				[webView removeDocumentPadding];
+				[webView setMediaProperties];
 			}
 			
 			[self.view insertSubview:contentView belowSubview:self.closeButton];
@@ -153,6 +168,20 @@
 // hiding the status bar pre-iOS 7
 - (void)setStatusBarHidden:(BOOL)hidden {
     [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
+}
+
+// locking orientation in iOS 6+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return self.orientation;
+}
+
+// locking orientation in pre-iOS 6
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return NO;
 }
 
 @end

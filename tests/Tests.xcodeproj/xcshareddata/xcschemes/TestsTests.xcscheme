@@ -21,11 +21,6 @@
                BlueprintName = "TestsTests"
                ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "MediationCallbacksTests">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

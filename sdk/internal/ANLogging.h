@@ -15,6 +15,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define AN_DEBUG_MODE				1
+
 extern NSString *const kANLoggingNotification;
 extern NSString *const kANLogMessageKey;
 

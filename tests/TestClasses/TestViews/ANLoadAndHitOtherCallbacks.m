@@ -17,7 +17,6 @@
 
 @implementation ANLoadAndHitOtherCallbacks
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -25,10 +24,15 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
-    [self.delegate adapterBanner:self didReceiveBannerAdView:[[UIView alloc] init]];
-    
-    // ios doesnt have other callbacks... o_o
+    [self.delegate didLoadBannerAd:[UIView new]];
+    [self.delegate adWasClicked];
+    [self.delegate willPresentAd];
+    [self.delegate didPresentAd];
+    [self.delegate willCloseAd];
+    [self.delegate didCloseAd];
+    [self.delegate willLeaveApplication];
 }
 
 @end

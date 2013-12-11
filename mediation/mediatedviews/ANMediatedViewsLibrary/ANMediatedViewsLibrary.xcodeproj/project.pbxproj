@@ -8,13 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237318219C9D00CB4BE8 /* Foundation.framework */; };
-		ECB1238218219C9D00CB4BE8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1238118219C9D00CB4BE8 /* XCTest.framework */; };
-		ECB1238318219C9D00CB4BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237318219C9D00CB4BE8 /* Foundation.framework */; };
-		ECB1238518219C9D00CB4BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1238418219C9D00CB4BE8 /* UIKit.framework */; };
-		ECB1238818219C9D00CB4BE8 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */; };
 		ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */; };
 		ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */; };
-		ECB1244518219E2000CB4BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1244418219E2000CB4BE8 /* UIKit.framework */; };
 		ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */; };
 		ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */; };
 		ECB1245B18219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245118219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m */; };
@@ -33,17 +28,9 @@
 		ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
 		ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */; };
 		ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
+		ECCF18F51835792300B17EB4 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCF18F41835792300B17EB4 /* iAd.framework */; };
+		ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		ECB1238618219C9D00CB4BE8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ECB1236818219C9D00CB4BE8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = ECB1236F18219C9D00CB4BE8;
-			remoteInfo = ANMediatedViewsLibrary;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		ECB1236E18219C9D00CB4BE8 /* CopyFiles */ = {
@@ -70,11 +57,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC8477B11844166900A8BC80 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANMediatedViewsLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB1237318219C9D00CB4BE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		ECB1238018219C9D00CB4BE8 /* ANMediatedViewsLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANMediatedViewsLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		ECB1238118219C9D00CB4BE8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		ECB1238418219C9D00CB4BE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		ECB123BA18219D4F00CB4BE8 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
 		ECB123BB18219D4F00CB4BE8 /* GADCustomEventBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBannerDelegate.h; sourceTree = "<group>"; };
 		ECB123BC18219D4F00CB4BE8 /* GADCustomEventExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventExtras.h; sourceTree = "<group>"; };
@@ -111,8 +96,10 @@
 		ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
 		ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMob.m; sourceTree = "<group>"; };
 		ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANGlobal.h; path = ../../../sdk/internal/ANGlobal.h; sourceTree = "<group>"; };
-		ECB1253B1821A35D00CB4BE8 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/internal/ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECB1253C1821A35D00CB4BE8 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANLogging.h; path = ../../../sdk/internal/ANLogging.h; sourceTree = "<group>"; };
+		ECCF18F41835792300B17EB4 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		ECFCC0D91831890F00797F72 /* ANAdAdapterMillennialMediaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterMillennialMediaBase.h; sourceTree = "<group>"; };
+		ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterMillennialMediaBase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,21 +107,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECB1244518219E2000CB4BE8 /* UIKit.framework in Frameworks */,
+				ECCF18F51835792300B17EB4 /* iAd.framework in Frameworks */,
 				ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */,
 				ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */,
 				ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ECB1237D18219C9D00CB4BE8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ECB1238818219C9D00CB4BE8 /* libANMediatedViewsLibrary.a in Frameworks */,
-				ECB1238218219C9D00CB4BE8 /* XCTest.framework in Frameworks */,
-				ECB1238518219C9D00CB4BE8 /* UIKit.framework in Frameworks */,
-				ECB1238318219C9D00CB4BE8 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,8 +120,8 @@
 		ECB1236718219C9D00CB4BE8 = {
 			isa = PBXGroup;
 			children = (
+				EC8477B11844166900A8BC80 /* ANCustomAdapter.h */,
 				ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */,
-				ECB1253B1821A35D00CB4BE8 /* ANCustomAdapter.h */,
 				ECB1253C1821A35D00CB4BE8 /* ANLogging.h */,
 				ECB1237218219C9D00CB4BE8 /* Frameworks */,
 				ECB1237118219C9D00CB4BE8 /* Products */,
@@ -156,7 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */,
-				ECB1238018219C9D00CB4BE8 /* ANMediatedViewsLibraryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,14 +139,13 @@
 		ECB1237218219C9D00CB4BE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECCF18F41835792300B17EB4 /* iAd.framework */,
 				ECB1244A18219ECD00CB4BE8 /* MillennialMedia */,
 				ECB1244F18219ECE00CB4BE8 /* iAd */,
 				ECB1245418219ECE00CB4BE8 /* AdMob */,
 				ECB1244418219E2000CB4BE8 /* UIKit.framework */,
 				ECB123B618219D4F00CB4BE8 /* libs */,
 				ECB1237318219C9D00CB4BE8 /* Foundation.framework */,
-				ECB1238118219C9D00CB4BE8 /* XCTest.framework */,
-				ECB1238418219C9D00CB4BE8 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -245,6 +219,8 @@
 				ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */,
 				ECB1244D18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h */,
 				ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */,
+				ECFCC0D91831890F00797F72 /* ANAdAdapterMillennialMediaBase.h */,
+				ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */,
 			);
 			name = MillennialMedia;
 			path = ../MillennialMedia;
@@ -294,24 +270,6 @@
 			productReference = ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		ECB1237F18219C9D00CB4BE8 /* ANMediatedViewsLibraryTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ECB1239618219C9D00CB4BE8 /* Build configuration list for PBXNativeTarget "ANMediatedViewsLibraryTests" */;
-			buildPhases = (
-				ECB1237C18219C9D00CB4BE8 /* Sources */,
-				ECB1237D18219C9D00CB4BE8 /* Frameworks */,
-				ECB1237E18219C9D00CB4BE8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				ECB1238718219C9D00CB4BE8 /* PBXTargetDependency */,
-			);
-			name = ANMediatedViewsLibraryTests;
-			productName = ANMediatedViewsLibraryTests;
-			productReference = ECB1238018219C9D00CB4BE8 /* ANMediatedViewsLibraryTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -334,20 +292,9 @@
 			projectRoot = "";
 			targets = (
 				ECB1236F18219C9D00CB4BE8 /* ANMediatedViewsLibrary */,
-				ECB1237F18219C9D00CB4BE8 /* ANMediatedViewsLibraryTests */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		ECB1237E18219C9D00CB4BE8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ECB1236C18219C9D00CB4BE8 /* Sources */ = {
@@ -360,25 +307,11 @@
 				ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */,
 				ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */,
 				ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ECB1237C18219C9D00CB4BE8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		ECB1238718219C9D00CB4BE8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = ECB1236F18219C9D00CB4BE8 /* ANMediatedViewsLibrary */;
-			targetProxy = ECB1238618219C9D00CB4BE8 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		ECB1239118219C9D00CB4BE8 /* Debug */ = {
@@ -484,44 +417,6 @@
 			};
 			name = Release;
 		};
-		ECB1239718219C9D00CB4BE8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ANMediatedViewsLibrary/ANMediatedViewsLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		ECB1239818219C9D00CB4BE8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ANMediatedViewsLibrary/ANMediatedViewsLibrary-Prefix.pch";
-				INFOPLIST_FILE = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -539,15 +434,6 @@
 			buildConfigurations = (
 				ECB1239418219C9D00CB4BE8 /* Debug */,
 				ECB1239518219C9D00CB4BE8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		ECB1239618219C9D00CB4BE8 /* Build configuration list for PBXNativeTarget "ANMediatedViewsLibraryTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ECB1239718219C9D00CB4BE8 /* Debug */,
-				ECB1239818219C9D00CB4BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

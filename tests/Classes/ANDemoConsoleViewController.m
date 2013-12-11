@@ -81,7 +81,7 @@
 		controller.mailComposeDelegate = self;
 		[controller setSubject:[NSString stringWithFormat:@"ANSDK Logs: %@", [NSDate date]]];
 		[controller setMessageBody:self.textView.text isHTML:NO];
-		[AppRootViewController() presentViewController:controller animated:YES completion:nil];
+		[self.parentViewController presentViewController:controller animated:YES completion:nil];
 	}
 	else
 	{

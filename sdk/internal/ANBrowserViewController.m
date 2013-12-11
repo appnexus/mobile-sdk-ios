@@ -14,13 +14,15 @@
  */
 
 #import "ANBrowserViewController.h"
+
 #import "ANGlobal.h"
+#import "ANLogging.h"
+#import "UIWebView+ANCategory.h"
 
 @interface ANBrowserViewController ()
 
 @property (nonatomic, readwrite, strong) NSMutableURLRequest *urlRequest;
 @property (nonatomic, readwrite, strong) UIActionSheet *openInSheet;
-
 @end
 
 @implementation ANBrowserViewController
@@ -36,7 +38,13 @@
 
 - (id)init
 {
-    self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return nil;
+    }
+
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:ANResourcesBundle()];
     if (self)
 	{
 		self.urlRequest = [[NSMutableURLRequest alloc] initWithURL:nil
@@ -62,7 +70,9 @@
 - (IBAction)closeAction:(id)sender
 {
 	[self.openInSheet dismissWithClickedButtonIndex:1 animated:NO];
-	[self.delegate browserViewControllerShouldDismiss:self];
+    if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
+        [self.delegate browserViewControllerShouldDismiss:self];
+    }
 }
 
 - (IBAction)forwardAction:(id)sender
@@ -87,20 +97,27 @@
 	[self refreshButtons];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.webView loadRequest:self.urlRequest];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [__webView stopLoading];
+}
+
 - (void)refreshButtons
 {
 	self.backButton.enabled = [self.webView canGoBack];
 	self.forwardButton.enabled = [self.webView canGoForward];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-	[self.webView loadRequest:self.urlRequest];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[__webView stopLoading];
+- (void)setWebView:(UIWebView *)webView {
+    [webView setMediaProperties];
+    __webView = webView;
 }
 
 - (void)dealloc
@@ -113,7 +130,25 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-	return YES;
+    NSURL *URL = [request URL];
+    NSString *scheme = [URL scheme];
+    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
+
+    if (schemeIsHttp) {
+        return YES;
+    } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
+            [self.delegate browserViewControllerShouldDismiss:self];
+        }
+        if ([self.delegate respondsToSelector:@selector(browserViewControllerWillLaunchExternalApplication)]) {
+            [self.delegate browserViewControllerWillLaunchExternalApplication];
+        }
+        [[UIApplication sharedApplication] openURL:URL];
+        return NO;
+    } else {
+        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+        return NO;
+    }
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -128,7 +163,7 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-	
+    ANLogError(@"In-app browser failed with error: %@", error);
 }
 
 #pragma mark UIActionSheetDelegate
@@ -141,6 +176,12 @@
 		
 		if ([[UIApplication sharedApplication] canOpenURL:URL])
 		{
+            if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
+                [self.delegate browserViewControllerShouldDismiss:self];
+            }
+            if ([self.delegate respondsToSelector:@selector(browserViewControllerWillLaunchExternalApplication)]) {
+                [self.delegate browserViewControllerWillLaunchExternalApplication];
+            }
 			[[UIApplication sharedApplication] openURL:URL];
 		}
 	}

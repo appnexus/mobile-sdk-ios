@@ -61,7 +61,7 @@
         ANLogDebug(@"%@ %@ | Successfully Pulled From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         ANLogDebug(@"%@ %@ | Matches Count: %d", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [matches count]);
         if ([matches count] > REQUEST_STORE_LIMIT) {
-            for (int i=0; i < [matches count] - REQUEST_STORE_LIMIT; i++) {
+            for (int i = 0; i < [matches count] - REQUEST_STORE_LIMIT; i++) {
                 ANLogDebug(@"%@ %@ | Deleting Request", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
                 [context deleteObject:[matches objectAtIndex:i]];
             }
@@ -74,7 +74,7 @@
         ANRequest *request = [[self class] lastRequestMadeInManagedObjectContext:context];
         if (request) {
             ANResponse *response = [ANResponse responseWithOutput:output onDate:date inManagedObjectContext:context];
-            ANLogDebug(@"storeResponseOutput | ANResponse: %@", [response description]);
+            ANLogDebug(@"storeResponseOutput");
             request.response = response;
         }
     }

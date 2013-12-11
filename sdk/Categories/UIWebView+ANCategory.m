@@ -12,7 +12,12 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
 #import "UIWebView+ANCategory.h"
+
+#import "ANLogging.h"
+
+#import <AVFoundation/AVFoundation.h>
 
 NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margin='0';document.body.style.padding = '0'";
 
@@ -21,6 +26,28 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
 - (void)removeDocumentPadding;
 {
     [self stringByEvaluatingJavaScriptFromString:kANAdRemovePaddingJavascriptString];
+}
+
+- (void)setMediaProperties {
+    static BOOL audioCategoryHasBeenSet = NO;
+
+    if ([self respondsToSelector:@selector(setAllowsInlineMediaPlayback:)]) {
+        [self setAllowsInlineMediaPlayback:YES];
+    }
+    if ([self respondsToSelector:@selector(setMediaPlaybackRequiresUserAction:)]) {
+        [self setMediaPlaybackRequiresUserAction:NO];
+    }
+
+    if (!audioCategoryHasBeenSet) {
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        NSError *error = nil;
+        if ([audioSession setCategory:AVAudioSessionCategoryPlayback
+                                error:&error]) {
+            audioCategoryHasBeenSet = YES;
+        } else {
+            ANLogDebug(@"Failed to set audio session category: %@ ", [error localizedDescription]);
+        }
+    }
 }
 
 - (void)setScrollEnabled:(BOOL)scrollable

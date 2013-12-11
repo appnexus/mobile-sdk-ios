@@ -14,10 +14,11 @@
  */
 
 #import "ANGlobal.h"
+
 #import "ANLogging.h"
+
 #import <sys/utsname.h>
 #import <AdSupport/AdSupport.h>
-#import "ANOpenUDID.h"
 
 NSString *const kANFirstLaunchKey = @"kANFirstLaunchKey";
 
@@ -84,39 +85,22 @@ BOOL isFirstLaunch()
 
 
 
-NSString *ANUdidParameter()
-{
-    static NSString *udidComponent = nil;
+NSString *ANUdidParameter() {
+    static NSString *udidComponent = @"";
     
-    if (udidComponent == nil)
-    {
+    if ([udidComponent isEqualToString:@""]) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-        if (NSClassFromString(@"ASIdentifierManager"))
-        {
+        if (NSClassFromString(@"ASIdentifierManager")) {
             // iOS 6: Use the ASIdentifierManager provided method of getting the identifier
-            NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+            NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager]
+                                               .advertisingIdentifier UUIDString];
             
-            if (advertisingIdentifier != nil)
-            {
+            if (advertisingIdentifier != nil) {
                 udidComponent = [NSString stringWithFormat:@"&idfa=%@", advertisingIdentifier];
             }
-            else
-            {
+            else {
                 ANLogError(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
             }
-        }
-#endif
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_6_0
-        // iOS 5: Use OpenUDID
-        NSString *openUDIDComponent = [ANOpenUDID value];
-        
-        if (openUDIDComponent != nil)
-        {
-            udidComponent = [NSString stringWithFormat:@"&openudid=%@", openUDIDComponent];
-        }
-        else
-        {
-            ANLogError(@"No OpenUDID value retrieved. Cannot generate OpenUDID component.");
         }
 #endif
 	}
@@ -126,4 +110,9 @@ NSString *ANUdidParameter()
 
 NSString *ANErrorString(NSString *key) {
     return NSLocalizedStringFromTable(key, AN_ERROR_TABLE, @"");
+}
+
+NSBundle *ANResourcesBundle() {
+    NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
+    return resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle mainBundle];
 }

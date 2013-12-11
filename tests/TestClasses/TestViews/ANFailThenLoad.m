@@ -17,7 +17,6 @@
 
 @implementation ANFailThenLoad
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -25,9 +24,10 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
-    [self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseUnableToFill];
-    [self.delegate adapterBanner:self didReceiveBannerAdView:[[UIView alloc] init]];
+    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate didLoadBannerAd:[UIView new]];
 }
 
 @end

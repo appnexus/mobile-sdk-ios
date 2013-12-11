@@ -20,5 +20,5 @@ limitations under the License.
 
 @property(nonatomic, getter=isScrollEnabled) BOOL scrollEnabled;
 - (void)removeDocumentPadding;
-
+- (void)setMediaProperties;
 @end

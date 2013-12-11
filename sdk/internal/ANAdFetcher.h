@@ -13,9 +13,8 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "ANAdResponse.h"
 #import "ANAdProtocol.h"
+#import "ANAdResponse.h"
 #import "ANAdViewDelegate.h"
 #import "ANCustomAdapter.h"
 
@@ -37,18 +36,19 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (void)stopAd;
 - (void)requestAd;
 - (void)requestAdWithURL:(NSURL *)URL;
-- (void)startAutorefreshTimer;
-- (void)setupAutorefreshTimerIfNecessary;
+- (void)startAutoRefreshTimer;
+- (void)setupAutoRefreshTimerIfNecessary;
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject;
-
+- (void)processFinalResponse:(ANAdResponse *)response;
 @end
 
 @protocol ANAdFetcherDelegate <NSObject, ANAdViewDelegate>
 
 @property (nonatomic, readwrite, strong) NSString *placementId;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
+@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
 @property (nonatomic, readwrite, strong) ANLocation *location;
 @property (nonatomic, readwrite, assign) CGFloat reserve;
 @property (nonatomic, readwrite, strong) NSString *age;
@@ -56,7 +56,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 @property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
-- (NSTimeInterval)autorefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 
 @optional
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;

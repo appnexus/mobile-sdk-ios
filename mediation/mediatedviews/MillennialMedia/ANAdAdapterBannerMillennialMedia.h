@@ -14,8 +14,8 @@
  */
 
 
-#import "ANCustomAdapter.h"
+#import "ANAdAdapterMillennialMediaBase.h"
 
-@interface ANAdAdapterBannerMillennialMedia : NSObject <ANCustomAdapterBanner>
+@interface ANAdAdapterBannerMillennialMedia : ANAdAdapterMillennialMediaBase <ANCustomAdapterBanner>
 
 @end

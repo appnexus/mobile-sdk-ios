@@ -52,7 +52,7 @@
     location.longitude = longitude;
     location.timestamp = timestamp;
     location.horizontalAccuracy = horizontalAccuracy;
-    return nil;
+    return location;
 }
 
 @end

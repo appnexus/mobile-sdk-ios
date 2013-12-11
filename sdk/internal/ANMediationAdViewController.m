@@ -14,10 +14,11 @@
  */
 
 #import "ANMediationAdViewController.h"
-#import "ANLogging.h"
-#import "ANGlobal.h"
+
 #import "ANBannerAdView.h"
+#import "ANGlobal.h"
 #import "ANInterstitialAd.h"
+#import "ANLogging.h"
 
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 
@@ -27,12 +28,12 @@
 @property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
 @property (nonatomic, readwrite, strong) ANAdFetcher *fetcher;
 @property (nonatomic, readwrite, strong) id<ANAdViewDelegate> adViewDelegate;
-
+@property (nonatomic, readwrite, strong) NSString *resultCBString;
 @end
 
 @implementation ANMediationAdViewController
 
-+ (ANMediationAdViewController *)initWithFetcher:fetcher adViewDelgate:(id<ANAdViewDelegate>)adViewDelegate {
++ (ANMediationAdViewController *)initWithFetcher:fetcher adViewDelegate:(id<ANAdViewDelegate>)adViewDelegate {
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
     controller.fetcher = fetcher;
     controller.adViewDelegate = adViewDelegate;
@@ -50,7 +51,12 @@
     self.hasSucceeded = NO;
     self.hasFailed = YES;
     self.fetcher = nil;
+    self.adViewDelegate = nil;
     ANLogWarn(ANErrorString(@"mediation_finish"));
+}
+
+- (void)setResultCBString:(NSString *)resultCBString {
+    _resultCBString = resultCBString;
 }
 
 - (BOOL)requestAd:(CGSize)size
@@ -60,24 +66,27 @@
            adView:(id<ANAdFetcherDelegate>)adView {
     // if the class implements both banner and interstitial protocols, default to banner first
     if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]) {
-        id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
-        ANBannerAdView *banner = nil;
-        if ([adView isMemberOfClass:[ANBannerAdView class]]) {
-            banner = (ANBannerAdView *) adView;
+        // make sure the container is a banner view
+        if ([adView isKindOfClass:[ANBannerAdView class]]) {
+            ANBannerAdView *banner = (ANBannerAdView *)adView;
+            
+            id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
+            [bannerAdapter requestBannerAdWithSize:size
+                                   serverParameter:parameterString
+                                          adUnitId:idString
+                                          location:location
+                                rootViewController:banner.rootViewController];
+            return YES;
         }
-        
-        [bannerAdapter requestBannerAdWithSize:size
-                               serverParameter:parameterString
-                                      adUnitId:idString
-                                      location:location
-                            rootViewController:banner.rootViewController];
-        return YES;
     } else if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
-        id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
-        [interstitialAdapter requestInterstitialAdWithParameter:parameterString
-                                                       adUnitId:idString
-                                                       location:location];
-        return YES;
+        // make sure the container is an interstitial view
+        if ([adView isKindOfClass:[ANInterstitialAd class]]) {
+            id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
+            [interstitialAdapter requestInterstitialAdWithParameter:parameterString
+                                                           adUnitId:idString
+                                                           location:location];
+            return YES;
+        }
     }
     
     ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"ANCustomAdapterBanner or ANCustomAdapterInterstitial"]);
@@ -87,62 +96,55 @@
 
 #pragma mark ANCustomAdapterBannerDelegate
 
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didReceiveBannerAdView:(UIView *)view {
-	[self didReceiveAd:view responseURLString:[adapter responseURLString]];
-}
-
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didFailToReceiveBannerAdView:(ANAdResponseCode)errorCode {
-    [self didFailToReceiveAd:[adapter responseURLString] errorCode:errorCode];
-}
-
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willPresent:(UIView *)view {
-    if (self.hasFailed) return;
-    [self.adViewDelegate adWillPresent];
-}
-
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willClose:(UIView *)view {
-    if (self.hasFailed) return;
-    [self.adViewDelegate adWillClose];
-}
-
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter didClose:(UIView *)view {
-    if (self.hasFailed) return;
-    [self.adViewDelegate adDidClose];
-}
-
-- (void)adapterBanner:(id<ANCustomAdapterBanner>)adapter willLeaveApplication:(UIView *)view {
-    if (self.hasFailed) return;
-    [self.adViewDelegate adWillLeaveApplication];
+- (void)didLoadBannerAd:(UIView *)view {
+	[self didReceiveAd:view];
 }
 
 #pragma mark ANCustomAdapterInterstitialDelegate
 
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didLoadInterstitialAd:(id)interstitialAd {
-	[self didReceiveAd:adapter responseURLString:[adapter responseURLString]];
+- (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter {
+	[self didReceiveAd:adapter];
 }
 
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didFailToReceiveInterstitialAd:(ANAdResponseCode)errorCode {
-    [self didFailToReceiveAd:[adapter responseURLString] errorCode:errorCode];
+#pragma mark ANCustomAdapterDelegate
+
+- (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
+    [self didFailToReceiveAd:errorCode];
 }
 
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willPresent:(id)interstitialAd {
+- (void)adWasClicked {
+    if (self.hasFailed) return;
+    [self.adViewDelegate adWasClicked];
+}
+
+- (void)willPresentAd {
     if (self.hasFailed) return;
     [self.adViewDelegate adWillPresent];
 }
 
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willClose:(id)interstitialAd {
+- (void)didPresentAd {
+    if (self.hasFailed) return;
+    [self.adViewDelegate adDidPresent];
+}
+
+- (void)willCloseAd {
     if (self.hasFailed) return;
     [self.adViewDelegate adWillClose];
 }
 
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter didClose:(id)interstitialAd {
+- (void)didCloseAd {
     if (self.hasFailed) return;
     [self.adViewDelegate adDidClose];
 }
 
-- (void)adapterInterstitial:(id<ANCustomAdapterInterstitial>)adapter willLeaveApplication:(id)interstitialAd {
+- (void)willLeaveApplication {
     if (self.hasFailed) return;
     [self.adViewDelegate adWillLeaveApplication];
+}
+
+- (void)failedToDisplayAd {
+    if (self.hasFailed) return;
+    [self.adViewDelegate adFailedToDisplay];
 }
 
 #pragma mark helper methods
@@ -156,18 +158,18 @@
     return NO;
 }
 
-- (void)didReceiveAd:(id)adObject responseURLString:(NSString *)responseURLString {
+- (void)didReceiveAd:(id)adObject {
     if ([self checkIfHasResponded]) return;
     self.hasSucceeded = YES;
     
     ANLogDebug(@"received an ad from the adapter");
     
-    [self.fetcher fireResultCB:responseURLString reason:ANAdResponseSuccessful adObject:adObject];
+    [self.fetcher fireResultCB:self.resultCBString reason:ANAdResponseSuccessful adObject:adObject];
 }
 
-- (void)didFailToReceiveAd:(NSString *)responseURLString errorCode:(ANAdResponseCode)errorCode {
+- (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
     if ([self checkIfHasResponded]) return;
-    [self.fetcher fireResultCB:responseURLString reason:errorCode adObject:nil];
+    [self.fetcher fireResultCB:self.resultCBString reason:errorCode adObject:nil];
     [self clearAdapter];
 }
 
@@ -182,7 +184,7 @@
                    dispatch_get_main_queue(), ^{
                        if (self.timeoutCanceled) return;
                        ANLogWarn(ANErrorString(@"mediation_timeout"));
-                       [self didFailToReceiveAd:self.currentAdapter.responseURLString errorCode:ANAdResponseInternalError];
+                       [self didFailToReceiveAd:ANAdResponseInternalError];
                    });
     
 }

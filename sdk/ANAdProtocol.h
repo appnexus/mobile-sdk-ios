@@ -12,14 +12,18 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-// This protocol defines all the things that are common between *all* types of ads, whether they be direct descendants of UIView as in ANBannerAdView, or modal view controller types like ANInterstitalAd.
+
+/***
+ * This protocol defines all the things that are common between *all* types of
+ * ads, whether they be direct descendants of UIView as in ANBannerAdView, or
+ * modal view controller types like ANInterstitalAd.
+ ***/
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 @class ANAdFetcher;
 @class ANLocation;
-@protocol ANAdDelegate;
 
 typedef enum _ANGender
 {
@@ -33,7 +37,7 @@ typedef enum _ANGender
 @required
 @property (nonatomic, readwrite, strong) NSString *placementId;
 @property (nonatomic, readwrite, assign) CGSize adSize;
-@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser;
+@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
 @property (nonatomic, readwrite, strong) ANLocation *location;
@@ -48,6 +52,11 @@ typedef enum _ANGender
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
+#pragma mark Deprecrated Properties
+
+// This property is deprecated, use "opensInNativeBrowser" instead
+@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
+
 @end
 
 @protocol ANAdDelegate <NSObject>
@@ -55,9 +64,11 @@ typedef enum _ANGender
 @optional
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad;
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error;
-- (void)adDidClose:(id<ANAdProtocol>)ad;
+- (void)adWasClicked:(id<ANAdProtocol>)ad;
 - (void)adWillClose:(id<ANAdProtocol>)ad;
+- (void)adDidClose:(id<ANAdProtocol>)ad;
 - (void)adWillPresent:(id<ANAdProtocol>)ad;
+- (void)adDidPresent:(id<ANAdProtocol>)ad;
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
 
 @end

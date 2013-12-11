@@ -14,7 +14,6 @@
  */
 
 #import "ANAdAdapterBanneriAd.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterBanneriAd ()
 @property (nonatomic, readwrite, strong) id bannerView;
@@ -22,7 +21,6 @@
 
 @implementation ANAdAdapterBanneriAd
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -33,24 +31,21 @@
                        location:(ANLocation *)location
              rootViewController:(UIViewController *)rootViewController
 {
-    ANLogDebug(@"Requesting iAd banner");
-	Class iAdClass = NSClassFromString(@"ADBannerView");
-	
-	if (iAdClass)
-	{
-		self.bannerView = [[iAdClass alloc] initWithAdType:ADAdTypeBanner];
-		[self.bannerView setDelegate:self];
-
-	}
-	else
-		[self.delegate adapterBanner:self didFailToReceiveBannerAdView:ANAdResponseMediatedSDKUnavailable];
+    NSLog(@"Requesting iAd banner");
+    Class iAdBannerClass = NSClassFromString(@"ADBannerView");
+    if (iAdBannerClass) {
+        self.bannerView = [[iAdBannerClass alloc] initWithAdType:ADAdTypeBanner];
+        [self.bannerView setDelegate:self];
+    } else {
+        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+    }
 }
 
 #pragma mark ADBannerViewDelegate
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-    ANLogDebug("iAd banner failed to load with error: %@", error);
+    NSLog(@"iAd banner failed to load with error: %@", [error localizedDescription]);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
@@ -80,27 +75,35 @@
             break;
     }
 
-	[self.delegate adapterBanner:self didFailToReceiveBannerAdView:code];
+	[self.delegate didFailToLoadAd:code];
+}
+
+- (void)bannerViewWillLoadAd:(ADBannerView *)banner {
+    NSLog(@"iAd banner will load");
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-    ANLogDebug("iAd banner did load");
-	[self.delegate adapterBanner:self didReceiveBannerAdView:banner];
+    NSLog(@"iAd banner did load");
+	[self.delegate didLoadBannerAd:banner];
 }
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    [self.delegate adWasClicked];
     if (willLeave) {
-        [self.delegate adapterBanner:self willLeaveApplication:banner];
+        NSLog(@"iAd banner will leave application");
+        [self.delegate willLeaveApplication];
     } else {
-        [self.delegate adapterBanner:self willPresent:banner];
+        NSLog(@"iAd banner will present");
+        [self.delegate willPresentAd];
+        [self.delegate didPresentAd];
     }
-    
     return YES;
 }
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
-    [self.delegate adapterBanner:self didClose:banner];
+    [self.delegate willCloseAd];
+    [self.delegate didCloseAd];
 }
 
 @end

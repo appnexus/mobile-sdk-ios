@@ -14,10 +14,11 @@
  */
 
 #import "ANAdResponse.h"
+
+#import "ANCustomAdapter.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
-#import "ANCustomAdapter.h"
 
 NSString *const kResponseKeyStatus = @"status";
 NSString *const kResponseKeyErrorMessage = @"errorMessage";
@@ -84,22 +85,17 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     
 
     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-    ANLogDebug(@"Received response: %@", responseString);
+    ANLogDebug(@"Processing response: %@", responseString);
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherDidReceiveResponseNotification object:self userInfo:[NSDictionary dictionaryWithObject:responseString ? responseString : @"" forKey:kANAdFetcherAdResponseKey]];
     
     if ([responseString length] < 1)
         return self;
     
-    // check for mraid.js file
-    NSRange mraidJSRange = [responseString rangeOfString:kMraidJSFilename];
-    _isMraid = (mraidJSRange.location != NSNotFound);
-    
     NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
     
     if (jsonParsingError != nil) {
-        ANLogError(NSLocalizedString(@"response_json_error", jsonParsingError));
+        ANLogError(ANErrorString(@"response_json_error"), jsonParsingError);
         
         return [ANAdResponse adResponseFailWithError:jsonParsingError];
     }
@@ -143,6 +139,10 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
             ANLogError(ANErrorString(@"blank_ad"));
         }
         else {
+            // check for mraid.js file
+            NSRange mraidJSRange = [_content rangeOfString:kMraidJSFilename];
+            _isMraid = (mraidJSRange.location != NSNotFound);
+            
             _containsAds = YES;
             return YES;
         }

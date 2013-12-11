@@ -17,17 +17,20 @@
 #import "AdSettings.h"
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define SV_BACKGROUND_COLOR_RED 77.0
 #define SV_BACKGROUND_COLOR_BLUE 83.0
 #define SV_BACKGROUND_COLOR_GREEN 78.0
 #define SV_BACKGROUND_COLOR_ALPHA 1.0 // On a scale from 0 -> 1
 
-@interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate>
+@interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) CLLocation *lastLocation;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -41,10 +44,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.bannerAdView.rootViewController = self.parentViewController;
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)setup {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
+    
     [self.refreshControl addTarget:self action:@selector(reloadAd) forControlEvents:UIControlEventValueChanged];
     self.scrollView.backgroundColor = [UIColor colorWithRed:SV_BACKGROUND_COLOR_RED/255.0
                                                       green:SV_BACKGROUND_COLOR_GREEN/255.0
@@ -79,51 +85,37 @@
     CGFloat settingsBannerHeight = (CGFloat)settings.bannerHeight;
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
     BOOL settingsAllowPSA = settings.allowPSA;
-    BOOL settingsClickShouldOpenInBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
-    CGFloat settingsAutorefreshInterval = (CGFloat)settings.refreshRate;
+    BOOL settingsOpensInNativeBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
+    CGFloat settingsAutoRefreshInterval = (CGFloat)settings.refreshRate;
     
     CGFloat centerX = 0.0;
+    CGFloat centerY = 0.0;
     if (settingsBannerWidth < self.tableView.frame.size.width) {
         centerX = (self.tableView.frame.size.width / 2.0) - (settingsBannerWidth / 2.0);
     }
     
-    CGFloat currentBannerWidth;
-    CGFloat currentBannerHeight;
-    
-    if (self.bannerAdView) {
-        CGSize currentBannerSize = self.bannerAdView.adSize;
-        currentBannerWidth = currentBannerSize.width;
-        currentBannerHeight = currentBannerSize.height;
-    } else {
-        currentBannerWidth = 0.0;
-        currentBannerHeight = 0.0;
+    if (settingsBannerHeight < self.tableView.frame.size.height) {
+        centerY = (self.tableView.frame.size.height / 2.0) - (settingsBannerHeight / 2.0);
     }
     
-    if (!self.bannerAdView || !(currentBannerWidth == settingsBannerWidth && currentBannerHeight == settingsBannerHeight)) {
-        [self clearBannerAdView]; // Clear old banner ad view (if necessary)
-        // Make New BannerAdView
-        self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, 0, settingsBannerWidth, settingsBannerHeight)];
-        self.bannerAdView.delegate = self;
-        self.bannerAdView.rootViewController = self.parentViewController;
-        self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
-        self.bannerAdView.placementId = settingsPlacementID;
-        self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
-        self.bannerAdView.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
-        [self.bannerAdView setAutorefreshInterval:settingsAutorefreshInterval];
-        [self.scrollView addSubview:self.bannerAdView];
-    } else {
-        // Keep current BannerAdView, modify settings
-        if (![self.bannerAdView.placementId isEqualToString:settingsPlacementID]) {
-            self.bannerAdView.placementId = settingsPlacementID;
-        }
-        if (self.bannerAdView.shouldServePublicServiceAnnouncements != settingsAllowPSA) {
-            self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
-        }
-        if (self.bannerAdView.clickShouldOpenInBrowser != settingsClickShouldOpenInBrowser) {
-            self.bannerAdView.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
-        }
-        [self.bannerAdView setAutorefreshInterval:settingsAutorefreshInterval]; // Always reset autorefresh interval, so that new ad loads no matter what
+    [self clearBannerAdView]; // Clear old banner ad view
+                              // Make New BannerAdView
+    self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, centerY, settingsBannerWidth, settingsBannerHeight)];
+    self.bannerAdView.delegate = self;
+    self.bannerAdView.rootViewController = self.parentViewController;
+    self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
+    self.bannerAdView.placementId = settingsPlacementID;
+    self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
+    self.bannerAdView.opensInNativeBrowser = settingsOpensInNativeBrowser;
+    if (self.lastLocation) {
+        [self.bannerAdView setLocationWithLatitude:self.lastLocation.coordinate.latitude
+                                         longitude:self.lastLocation.coordinate.longitude
+                                         timestamp:self.lastLocation.timestamp
+                                horizontalAccuracy:self.lastLocation.horizontalAccuracy];
     }
+    
+    [self.bannerAdView setAutoRefreshInterval:settingsAutoRefreshInterval];
+    [self.scrollView addSubview:self.bannerAdView];
     
     if(!settings.refreshRate) { // If there's no refresh rate, then manually load one ad
         ANLogDebug(@"%@ %@ | no refresh rate, manually loading ad", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -133,15 +125,23 @@
 
 - (void)loadInterstitialAdWithSettings:(AdSettings *)settings {
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
-    BOOL settingsClickShouldOpenInBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
+    BOOL settingsAllowPSA = settings.allowPSA;
+    BOOL settingsOpensInNativeBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
     NSString *backgroundColor = settings.backgroundColor;
 
     [self clearInterstitialAd];
     
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
-    self.interstitialAd.clickShouldOpenInBrowser = settingsClickShouldOpenInBrowser;
+    self.interstitialAd.shouldServePublicServiceAnnouncements = settingsAllowPSA;
+    self.interstitialAd.opensInNativeBrowser = settingsOpensInNativeBrowser;
     self.interstitialAd.backgroundColor = [self interstitialBackgroundColorFromString:backgroundColor];
+    if (self.lastLocation) {
+        [self.interstitialAd setLocationWithLatitude:self.lastLocation.coordinate.latitude
+                                           longitude:self.lastLocation.coordinate.longitude
+                                           timestamp:self.lastLocation.timestamp
+                                  horizontalAccuracy:self.lastLocation.horizontalAccuracy];
+    }
     
     [self.interstitialAd loadAd];
 }
@@ -170,8 +170,9 @@
 - (void)clearBannerAdView {
     if (self.bannerAdView) {
         [self.bannerAdView removeFromSuperview];
-        self.bannerAdView = nil;
     }
+    self.bannerAdView.delegate = nil;
+    self.bannerAdView = nil;
 }
 
 - (void)clearInterstitialAd {
@@ -194,14 +195,14 @@
         self.scrollView.contentSize = CGSizeMake(svWidth, svHeight); // Set content size to cell dimensions
         
         ANLogDebug(@"%@ %@ | adjusting banner ad view frame", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        if (bannerSize.width < self.tableView.frame.size.width) {
-            // Center banner in window, with equal whitespace on either side
-            self.bannerAdView.frame = CGRectMake((self.tableView.frame.size.width / 2.0) - (bannerSize.width / 2.0), 0.0,
-                                                 bannerSize.width, bannerSize.height);
-        } else {
-            // Position banner at top left. Here, there will be no whitespace.
-            self.bannerAdView.frame = CGRectMake(0.0, 0.0, bannerSize.width, bannerSize.height);
-        }
+        
+        CGFloat centerX = (self.tableView.frame.size.width - bannerSize.width) / 2.0;
+        CGFloat centerY = (self.tableView.frame.size.height - bannerSize.height) / 2.0;
+        
+        // Center banner in window, with equal whitespace on either side
+        [self.bannerAdView setFrame:CGRectMake(centerX,
+                                               centerY,
+                                             bannerSize.width, bannerSize.height)];
         
         return svHeight;
     } else { // Not a banner, so scrollview size should be the visible table view size
@@ -216,8 +217,8 @@
  Delegate Methods
  */
 
-- (void)adNoAdToShow:(ANInterstitialAd *)ad {
-    ANLogDebug(@"No interstitial ad to show");
+- (void)adFailedToDisplay:(ANInterstitialAd *)ad {
+    ANLogDebug(@"adFailedToDisplay");
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
@@ -226,9 +227,16 @@
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adDidReceiveAd");
-    if (self.interstitialAd && self.interstitialAd == ad) {
-        [self.interstitialAd displayAdFromViewController:self.parentViewController]; // on load, immediately display interstitial
+    if (self.interstitialAd && self.interstitialAd == ad
+        && self.interstitialAd.isReady) {
+        // on load, immediately display interstitial
+        [self.interstitialAd
+         displayAdFromViewController:self.parentViewController];
     }
+}
+
+- (void)adWasClicked:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adWasClicked");
 }
 
 - (void)adDidClose:(id<ANAdProtocol>)ad {
@@ -243,6 +251,10 @@
     ANLogDebug(@"adWillPresent");
 }
 
+- (void)adDidPresent:(id<ANAdProtocol>)ad {
+    ANLogDebug(@"adDidPresent");
+}
+
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adWillLeaveApplication");
 }
@@ -254,6 +266,18 @@
     ANLogDebug(@"%@ %@ | deallocating ad views", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self clearBannerAdView];
     [self clearInterstitialAd];
+}
+
+// Delegate method from the CLLocationManagerDelegate protocol.
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    // If it's a relatively recent event, turn off updates to save power.
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (abs(howRecent) < 30.0) {
+        self.lastLocation = location;
+    }
 }
 
 @end

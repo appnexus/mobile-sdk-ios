@@ -17,6 +17,7 @@
 		8AEBF36D17D0338D003C7214 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36C17D0338D003C7214 /* CoreLocation.framework */; };
 		8AEBF36F17D03394003C7214 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36E17D03394003C7214 /* AdSupport.framework */; };
 		8AEBF37117D0339B003C7214 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF37017D0339B003C7214 /* SystemConfiguration.framework */; };
+		EC2A477A184558EC00D29747 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2A4777184558DB00D29747 /* libANMediatedViewsLibrary.a */; };
 		EC3FD72B1822213C00B25418 /* AppNexusSDKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3FD6D61822213C00B25418 /* AppNexusSDKAppDelegate.m */; };
 		EC3FD72C1822213C00B25418 /* AdPreviewTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3FD6DA1822213C00B25418 /* AdPreviewTVC.m */; };
 		EC3FD72D1822213C00B25418 /* AdSettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3FD6DC1822213C00B25418 /* AdSettingsTVC.m */; };
@@ -73,64 +74,60 @@
 		EC3FD7601822213C00B25418 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7271822213C00B25418 /* Default-568h@2x.png */; };
 		EC3FD7611822213C00B25418 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7281822213C00B25418 /* Default.png */; };
 		EC3FD7621822213C00B25418 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7291822213C00B25418 /* Default@2x.png */; };
+		EC4055EE183C07F9006A1D09 /* ANDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055ED183C07F9006A1D09 /* ANDocument.m */; };
+		EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */; };
 		EC77B0A718170D8E002123CB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77B0A618170D8E002123CB /* StoreKit.framework */; };
 		EC7DC2631817404600B813D1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2621817404600B813D1 /* MediaPlayer.framework */; };
 		EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2641817406200B813D1 /* AVFoundation.framework */; };
 		EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2661817407A00B813D1 /* QuartzCore.framework */; };
-		ECABE65C1821EA7A0037E6C5 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */; };
-		ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1204E18218A1E00CB4BE8 /* iAd.framework */; };
 		ECB124BB1821A25D00CB4BE8 /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247D1821A25D00CB4BE8 /* NSString+ANCategory.m */; };
 		ECB124BC1821A25D00CB4BE8 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247F1821A25D00CB4BE8 /* NSTimer+ANCategory.m */; };
 		ECB124BD1821A25D00CB4BE8 /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124811821A25D00CB4BE8 /* UIView+ANCategory.m */; };
 		ECB124BE1821A25D00CB4BE8 /* UIWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124831821A25D00CB4BE8 /* UIWebView+ANCategory.m */; };
-		ECB124BF1821A25D00CB4BE8 /* ANOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124871821A25D00CB4BE8 /* ANOpenUDID.m */; };
-		ECB124C01821A25D00CB4BE8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ECB124881821A25D00CB4BE8 /* README.md */; };
-		ECB124C11821A25D00CB4BE8 /* ODIN.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1248B1821A25D00CB4BE8 /* ODIN.m */; };
 		ECB124C21821A25D00CB4BE8 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */; };
 		ECB124C31821A25D00CB4BE8 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124901821A25D00CB4BE8 /* ANAdResponse.m */; };
 		ECB124C41821A25D00CB4BE8 /* ANAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124921821A25D00CB4BE8 /* ANAdView.m */; };
 		ECB124C51821A25D00CB4BE8 /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124951821A25D00CB4BE8 /* ANAdWebViewController.m */; };
 		ECB124C61821A25D00CB4BE8 /* ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124961821A25D00CB4BE8 /* ANBannerAdView.m */; };
 		ECB124C71821A25D00CB4BE8 /* ANBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124981821A25D00CB4BE8 /* ANBrowserViewController.m */; };
-		ECB124C81821A25D00CB4BE8 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECB124991821A25D00CB4BE8 /* ANBrowserViewController.xib */; };
 		ECB124C91821A25D00CB4BE8 /* ANGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1249C1821A25D00CB4BE8 /* ANGlobal.m */; };
 		ECB124CA1821A25D00CB4BE8 /* ANInstallTrackerPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1249E1821A25D00CB4BE8 /* ANInstallTrackerPixel.m */; };
 		ECB124CB1821A25D00CB4BE8 /* ANInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1249F1821A25D00CB4BE8 /* ANInterstitialAd.m */; };
 		ECB124CC1821A25D00CB4BE8 /* ANInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124A11821A25D00CB4BE8 /* ANInterstitialAdViewController.m */; };
-		ECB124CD1821A25D00CB4BE8 /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECB124A21821A25D00CB4BE8 /* ANInterstitialAdViewController.xib */; };
 		ECB124CE1821A25D00CB4BE8 /* ANLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124A41821A25D00CB4BE8 /* ANLocation.m */; };
 		ECB124CF1821A25D00CB4BE8 /* ANLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124A61821A25D00CB4BE8 /* ANLogging.m */; };
 		ECB124D01821A25D00CB4BE8 /* ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124A81821A25D00CB4BE8 /* ANMediatedAd.m */; };
 		ECB124D11821A25D00CB4BE8 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */; };
 		ECB124D21821A25D00CB4BE8 /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AC1821A25D00CB4BE8 /* ANReachability.m */; };
-		ECB124D31821A25D00CB4BE8 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AE1821A25D00CB4BE8 /* ANWebView.m */; };
-		ECB124D41821A25D00CB4BE8 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B01821A25D00CB4BE8 /* errors.strings */; };
-		ECB124D51821A25D00CB4BE8 /* interstitial_closebox-down.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B21821A25D00CB4BE8 /* interstitial_closebox-down.png */; };
-		ECB124D61821A25D00CB4BE8 /* interstitial_closebox-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B31821A25D00CB4BE8 /* interstitial_closebox-down@2x.png */; };
-		ECB124D71821A25D00CB4BE8 /* interstitial_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B41821A25D00CB4BE8 /* interstitial_closebox.png */; };
-		ECB124D81821A25D00CB4BE8 /* interstitial_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B51821A25D00CB4BE8 /* interstitial_closebox@2x.png */; };
-		ECB124D91821A25D00CB4BE8 /* UIButtonBarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B61821A25D00CB4BE8 /* UIButtonBarArrowLeft.png */; };
-		ECB124DA1821A25D00CB4BE8 /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B71821A25D00CB4BE8 /* UIButtonBarArrowLeft@2x.png */; };
-		ECB124DB1821A25D00CB4BE8 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B81821A25D00CB4BE8 /* UIButtonBarArrowRight.png */; };
-		ECB124DC1821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECB124B91821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png */; };
-		ECB124DD1821A25D00CB4BE8 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECB124BA1821A25D00CB4BE8 /* MRAID.bundle */; };
+		ECCF548418451FE40000E37C /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547718451FE40000E37C /* ANBrowserViewController.xib */; };
+		ECCF548518451FE40000E37C /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */; };
+		ECCF548618451FE40000E37C /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547918451FE40000E37C /* errors.strings */; };
+		ECCF548718451FE40000E37C /* interstitial_closebox-down.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547B18451FE40000E37C /* interstitial_closebox-down.png */; };
+		ECCF548818451FE40000E37C /* interstitial_closebox-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547C18451FE40000E37C /* interstitial_closebox-down@2x.png */; };
+		ECCF548918451FE40000E37C /* interstitial_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547D18451FE40000E37C /* interstitial_closebox.png */; };
+		ECCF548A18451FE40000E37C /* interstitial_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547E18451FE40000E37C /* interstitial_closebox@2x.png */; };
+		ECCF548B18451FE40000E37C /* UIButtonBarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547F18451FE40000E37C /* UIButtonBarArrowLeft.png */; };
+		ECCF548C18451FE40000E37C /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF548018451FE40000E37C /* UIButtonBarArrowLeft@2x.png */; };
+		ECCF548D18451FE40000E37C /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF548118451FE40000E37C /* UIButtonBarArrowRight.png */; };
+		ECCF548E18451FE40000E37C /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF548218451FE40000E37C /* UIButtonBarArrowRight@2x.png */; };
+		ECCF548F18451FE40000E37C /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECCF548318451FE40000E37C /* MRAID.bundle */; };
 		ECF9AA8F1858C8A10079BCD0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF9AA8E1858C8A10079BCD0 /* EventKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		ECABE6571821E8B00037E6C5 /* PBXContainerItemProxy */ = {
+		EC2A4776184558DB00D29747 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
+			containerPortal = EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = ECB1237018219C9D00CB4BE8;
 			remoteInfo = ANMediatedViewsLibrary;
 		};
-		ECABE6591821E8B00037E6C5 /* PBXContainerItemProxy */ = {
+		EC2A4778184558E800D29747 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ECB1238018219C9D00CB4BE8;
-			remoteInfo = ANMediatedViewsLibraryTests;
+			containerPortal = EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = ECB1236F18219C9D00CB4BE8;
+			remoteInfo = ANMediatedViewsLibrary;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -147,6 +144,7 @@
 		8AEBF36C17D0338D003C7214 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8AEBF36E17D03394003C7214 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8AEBF37017D0339B003C7214 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANMediatedViewsLibrary.xcodeproj; path = ../../mediation/mediatedviews/ANMediatedViewsLibrary/ANMediatedViewsLibrary.xcodeproj; sourceTree = "<group>"; };
 		EC3FD6D31822213C00B25418 /* AppNexusSDKApp.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDKApp.pch; sourceTree = "<group>"; };
 		EC3FD6D41822213C00B25418 /* AppNexusSDKApp.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppNexusSDKApp.plist; sourceTree = "<group>"; };
 		EC3FD6D51822213C00B25418 /* AppNexusSDKAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDKAppDelegate.h; sourceTree = "<group>"; };
@@ -225,11 +223,17 @@
 		EC3FD7271822213C00B25418 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EC3FD7281822213C00B25418 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		EC3FD7291822213C00B25418 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		EC4055EC183C07F9006A1D09 /* ANDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDocument.h; sourceTree = "<group>"; };
+		EC4055ED183C07F9006A1D09 /* ANDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDocument.m; sourceTree = "<group>"; };
+		EC70ED8B18316B2000BDF92F /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
+		EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC77B0A618170D8E002123CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EC7DC2621817404600B813D1 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7DC2641817406200B813D1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EC7DC2661817407A00B813D1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANMediatedViewsLibrary.xcodeproj; path = ../../mediation/mediatedviews/ANMediatedViewsLibrary/ANMediatedViewsLibrary.xcodeproj; sourceTree = "<group>"; };
+		EC8477B31844168700A8BC80 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
+		EC8477B41844168700A8BC80 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		EC8477B51844168700A8BC80 /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		ECB1204E18218A1E00CB4BE8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ECB124781821A25D00CB4BE8 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
 		ECB124791821A25D00CB4BE8 /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
@@ -242,16 +246,10 @@
 		ECB124811821A25D00CB4BE8 /* UIView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ANCategory.m"; sourceTree = "<group>"; };
 		ECB124821821A25D00CB4BE8 /* UIWebView+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ANCategory.h"; sourceTree = "<group>"; };
 		ECB124831821A25D00CB4BE8 /* UIWebView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ANCategory.m"; sourceTree = "<group>"; };
-		ECB124861821A25D00CB4BE8 /* ANOpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANOpenUDID.h; sourceTree = "<group>"; };
-		ECB124871821A25D00CB4BE8 /* ANOpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANOpenUDID.m; sourceTree = "<group>"; };
-		ECB124881821A25D00CB4BE8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		ECB1248A1821A25D00CB4BE8 /* ODIN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODIN.h; sourceTree = "<group>"; };
-		ECB1248B1821A25D00CB4BE8 /* ODIN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODIN.m; sourceTree = "<group>"; };
 		ECB1248D1821A25D00CB4BE8 /* ANAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcher.h; sourceTree = "<group>"; };
 		ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcher.m; sourceTree = "<group>"; };
 		ECB1248F1821A25D00CB4BE8 /* ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdResponse.h; sourceTree = "<group>"; };
 		ECB124901821A25D00CB4BE8 /* ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponse.m; sourceTree = "<group>"; };
-		ECB124911821A25D00CB4BE8 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
 		ECB124921821A25D00CB4BE8 /* ANAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdView.m; sourceTree = "<group>"; };
 		ECB124931821A25D00CB4BE8 /* ANAdViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdViewDelegate.h; sourceTree = "<group>"; };
 		ECB124941821A25D00CB4BE8 /* ANAdWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdWebViewController.h; sourceTree = "<group>"; };
@@ -259,8 +257,6 @@
 		ECB124961821A25D00CB4BE8 /* ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdView.m; sourceTree = "<group>"; };
 		ECB124971821A25D00CB4BE8 /* ANBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBrowserViewController.h; sourceTree = "<group>"; };
 		ECB124981821A25D00CB4BE8 /* ANBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBrowserViewController.m; sourceTree = "<group>"; };
-		ECB124991821A25D00CB4BE8 /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
-		ECB1249A1821A25D00CB4BE8 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECB1249B1821A25D00CB4BE8 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGlobal.h; sourceTree = "<group>"; };
 		ECB1249C1821A25D00CB4BE8 /* ANGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGlobal.m; sourceTree = "<group>"; };
 		ECB1249D1821A25D00CB4BE8 /* ANInstallTrackerPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInstallTrackerPixel.h; sourceTree = "<group>"; };
@@ -268,8 +264,6 @@
 		ECB1249F1821A25D00CB4BE8 /* ANInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAd.m; sourceTree = "<group>"; };
 		ECB124A01821A25D00CB4BE8 /* ANInterstitialAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAdViewController.h; sourceTree = "<group>"; };
 		ECB124A11821A25D00CB4BE8 /* ANInterstitialAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAdViewController.m; sourceTree = "<group>"; };
-		ECB124A21821A25D00CB4BE8 /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
-		ECB124A31821A25D00CB4BE8 /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
 		ECB124A41821A25D00CB4BE8 /* ANLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLocation.m; sourceTree = "<group>"; };
 		ECB124A51821A25D00CB4BE8 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogging.h; sourceTree = "<group>"; };
 		ECB124A61821A25D00CB4BE8 /* ANLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogging.m; sourceTree = "<group>"; };
@@ -279,19 +273,20 @@
 		ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationAdViewController.m; sourceTree = "<group>"; };
 		ECB124AB1821A25D00CB4BE8 /* ANReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANReachability.h; sourceTree = "<group>"; };
 		ECB124AC1821A25D00CB4BE8 /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
-		ECB124AD1821A25D00CB4BE8 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
-		ECB124AE1821A25D00CB4BE8 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
-		ECB124B01821A25D00CB4BE8 /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
-		ECB124B21821A25D00CB4BE8 /* interstitial_closebox-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox-down.png"; sourceTree = "<group>"; };
-		ECB124B31821A25D00CB4BE8 /* interstitial_closebox-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox-down@2x.png"; sourceTree = "<group>"; };
-		ECB124B41821A25D00CB4BE8 /* interstitial_closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interstitial_closebox.png; sourceTree = "<group>"; };
-		ECB124B51821A25D00CB4BE8 /* interstitial_closebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox@2x.png"; sourceTree = "<group>"; };
-		ECB124B61821A25D00CB4BE8 /* UIButtonBarArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowLeft.png; sourceTree = "<group>"; };
-		ECB124B71821A25D00CB4BE8 /* UIButtonBarArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowLeft@2x.png"; sourceTree = "<group>"; };
-		ECB124B81821A25D00CB4BE8 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
-		ECB124B91821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
-		ECB124BA1821A25D00CB4BE8 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		ECCF547718451FE40000E37C /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
+		ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
+		ECCF547918451FE40000E37C /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
+		ECCF547B18451FE40000E37C /* interstitial_closebox-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox-down.png"; sourceTree = "<group>"; };
+		ECCF547C18451FE40000E37C /* interstitial_closebox-down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox-down@2x.png"; sourceTree = "<group>"; };
+		ECCF547D18451FE40000E37C /* interstitial_closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interstitial_closebox.png; sourceTree = "<group>"; };
+		ECCF547E18451FE40000E37C /* interstitial_closebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_closebox@2x.png"; sourceTree = "<group>"; };
+		ECCF547F18451FE40000E37C /* UIButtonBarArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowLeft.png; sourceTree = "<group>"; };
+		ECCF548018451FE40000E37C /* UIButtonBarArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowLeft@2x.png"; sourceTree = "<group>"; };
+		ECCF548118451FE40000E37C /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
+		ECCF548218451FE40000E37C /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
+		ECCF548318451FE40000E37C /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		ECF9AA8E1858C8A10079BCD0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		ECF9AA931858E5540079BCD0 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,8 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECF9AA8F1858C8A10079BCD0 /* EventKit.framework in Frameworks */,
-				ECABE65C1821EA7A0037E6C5 /* libANMediatedViewsLibrary.a in Frameworks */,
-				ECB1204F18218A1F00CB4BE8 /* iAd.framework in Frameworks */,
+				EC2A477A184558EC00D29747 /* libANMediatedViewsLibrary.a in Frameworks */,
 				EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */,
 				EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */,
 				8A9EFB0917CFD49200FCF79F /* UIKit.framework in Frameworks */,
@@ -332,7 +326,7 @@
 		8A9EFAFC17CFD49200FCF79F = {
 			isa = PBXGroup;
 			children = (
-				ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */,
+				EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */,
 				ECB124771821A25D00CB4BE8 /* sdk */,
 				8A60758717F67E210038A407 /* iPad */,
 				8A9EFB0717CFD49200FCF79F /* Frameworks */,
@@ -371,6 +365,14 @@
 				8A9EFB0817CFD49200FCF79F /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC2A4773184558DA00D29747 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC2A4777184558DB00D29747 /* libANMediatedViewsLibrary.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		EC3FD6D21822213C00B25418 /* AppNexusSDKApp */ = {
@@ -446,6 +448,8 @@
 				EC3FD6FA1822213C00B25418 /* CoreDataExample.xcdatamodeld */,
 				EC3FD6FC1822213C00B25418 /* CoreDataTableViewController.h */,
 				EC3FD6FD1822213C00B25418 /* CoreDataTableViewController.m */,
+				EC4055EC183C07F9006A1D09 /* ANDocument.h */,
+				EC4055ED183C07F9006A1D09 /* ANDocument.m */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -506,25 +510,18 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		ECABE6531821E8B00037E6C5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */,
-				ECABE65A1821E8B00037E6C5 /* ANMediatedViewsLibraryTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		ECB124771821A25D00CB4BE8 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
 				ECB124781821A25D00CB4BE8 /* ANAdProtocol.h */,
+				EC8477B31844168700A8BC80 /* ANAdView.h */,
 				ECB124791821A25D00CB4BE8 /* ANBannerAdView.h */,
+				EC8477B41844168700A8BC80 /* ANCustomAdapter.h */,
 				ECB1247A1821A25D00CB4BE8 /* ANInterstitialAd.h */,
+				EC8477B51844168700A8BC80 /* ANLocation.h */,
+				ECCF547618451FE40000E37C /* Resources */,
 				ECB1247B1821A25D00CB4BE8 /* Categories */,
-				ECB124841821A25D00CB4BE8 /* externals */,
 				ECB1248C1821A25D00CB4BE8 /* internal */,
-				ECB124AF1821A25D00CB4BE8 /* Resources */,
 			);
 			name = sdk;
 			path = ../../sdk;
@@ -545,34 +542,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		ECB124841821A25D00CB4BE8 /* externals */ = {
-			isa = PBXGroup;
-			children = (
-				ECB124851821A25D00CB4BE8 /* ANOpenUDID */,
-				ECB124891821A25D00CB4BE8 /* odinmobile-read-only */,
-			);
-			path = externals;
-			sourceTree = "<group>";
-		};
-		ECB124851821A25D00CB4BE8 /* ANOpenUDID */ = {
-			isa = PBXGroup;
-			children = (
-				ECB124861821A25D00CB4BE8 /* ANOpenUDID.h */,
-				ECB124871821A25D00CB4BE8 /* ANOpenUDID.m */,
-				ECB124881821A25D00CB4BE8 /* README.md */,
-			);
-			path = ANOpenUDID;
-			sourceTree = "<group>";
-		};
-		ECB124891821A25D00CB4BE8 /* odinmobile-read-only */ = {
-			isa = PBXGroup;
-			children = (
-				ECB1248A1821A25D00CB4BE8 /* ODIN.h */,
-				ECB1248B1821A25D00CB4BE8 /* ODIN.m */,
-			);
-			path = "odinmobile-read-only";
-			sourceTree = "<group>";
-		};
 		ECB1248C1821A25D00CB4BE8 /* internal */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,7 +549,6 @@
 				ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */,
 				ECB1248F1821A25D00CB4BE8 /* ANAdResponse.h */,
 				ECB124901821A25D00CB4BE8 /* ANAdResponse.m */,
-				ECB124911821A25D00CB4BE8 /* ANAdView.h */,
 				ECB124921821A25D00CB4BE8 /* ANAdView.m */,
 				ECB124931821A25D00CB4BE8 /* ANAdViewDelegate.h */,
 				ECB124941821A25D00CB4BE8 /* ANAdWebViewController.h */,
@@ -588,8 +556,6 @@
 				ECB124961821A25D00CB4BE8 /* ANBannerAdView.m */,
 				ECB124971821A25D00CB4BE8 /* ANBrowserViewController.h */,
 				ECB124981821A25D00CB4BE8 /* ANBrowserViewController.m */,
-				ECB124991821A25D00CB4BE8 /* ANBrowserViewController.xib */,
-				ECB1249A1821A25D00CB4BE8 /* ANCustomAdapter.h */,
 				ECB1249B1821A25D00CB4BE8 /* ANGlobal.h */,
 				ECB1249C1821A25D00CB4BE8 /* ANGlobal.m */,
 				ECB1249D1821A25D00CB4BE8 /* ANInstallTrackerPixel.h */,
@@ -597,8 +563,6 @@
 				ECB1249F1821A25D00CB4BE8 /* ANInterstitialAd.m */,
 				ECB124A01821A25D00CB4BE8 /* ANInterstitialAdViewController.h */,
 				ECB124A11821A25D00CB4BE8 /* ANInterstitialAdViewController.m */,
-				ECB124A21821A25D00CB4BE8 /* ANInterstitialAdViewController.xib */,
-				ECB124A31821A25D00CB4BE8 /* ANLocation.h */,
 				ECB124A41821A25D00CB4BE8 /* ANLocation.m */,
 				ECB124A51821A25D00CB4BE8 /* ANLogging.h */,
 				ECB124A61821A25D00CB4BE8 /* ANLogging.m */,
@@ -608,33 +572,36 @@
 				ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */,
 				ECB124AB1821A25D00CB4BE8 /* ANReachability.h */,
 				ECB124AC1821A25D00CB4BE8 /* ANReachability.m */,
-				ECB124AD1821A25D00CB4BE8 /* ANWebView.h */,
-				ECB124AE1821A25D00CB4BE8 /* ANWebView.m */,
+				EC70ED8B18316B2000BDF92F /* ANWebView.h */,
+				ECF9AA931858E5540079BCD0 /* ANMRAIDViewController.h */,
+				EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
 		};
-		ECB124AF1821A25D00CB4BE8 /* Resources */ = {
+		ECCF547618451FE40000E37C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ECB124B01821A25D00CB4BE8 /* errors.strings */,
-				ECB124B11821A25D00CB4BE8 /* images */,
-				ECB124BA1821A25D00CB4BE8 /* MRAID.bundle */,
+				ECCF547718451FE40000E37C /* ANBrowserViewController.xib */,
+				ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */,
+				ECCF547918451FE40000E37C /* errors.strings */,
+				ECCF547A18451FE40000E37C /* images */,
+				ECCF548318451FE40000E37C /* MRAID.bundle */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		ECB124B11821A25D00CB4BE8 /* images */ = {
+		ECCF547A18451FE40000E37C /* images */ = {
 			isa = PBXGroup;
 			children = (
-				ECB124B21821A25D00CB4BE8 /* interstitial_closebox-down.png */,
-				ECB124B31821A25D00CB4BE8 /* interstitial_closebox-down@2x.png */,
-				ECB124B41821A25D00CB4BE8 /* interstitial_closebox.png */,
-				ECB124B51821A25D00CB4BE8 /* interstitial_closebox@2x.png */,
-				ECB124B61821A25D00CB4BE8 /* UIButtonBarArrowLeft.png */,
-				ECB124B71821A25D00CB4BE8 /* UIButtonBarArrowLeft@2x.png */,
-				ECB124B81821A25D00CB4BE8 /* UIButtonBarArrowRight.png */,
-				ECB124B91821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png */,
+				ECCF547B18451FE40000E37C /* interstitial_closebox-down.png */,
+				ECCF547C18451FE40000E37C /* interstitial_closebox-down@2x.png */,
+				ECCF547D18451FE40000E37C /* interstitial_closebox.png */,
+				ECCF547E18451FE40000E37C /* interstitial_closebox@2x.png */,
+				ECCF547F18451FE40000E37C /* UIButtonBarArrowLeft.png */,
+				ECCF548018451FE40000E37C /* UIButtonBarArrowLeft@2x.png */,
+				ECCF548118451FE40000E37C /* UIButtonBarArrowRight.png */,
+				ECCF548218451FE40000E37C /* UIButtonBarArrowRight@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -653,6 +620,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EC2A4779184558E800D29747 /* PBXTargetDependency */,
 			);
 			name = AppNexusSDKApp;
 			productName = SDKDemoApp;
@@ -691,8 +659,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = ECABE6531821E8B00037E6C5 /* Products */;
-					ProjectRef = ECABE6521821E8B00037E6C5 /* ANMediatedViewsLibrary.xcodeproj */;
+					ProductGroup = EC2A4773184558DA00D29747 /* Products */;
+					ProjectRef = EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -703,18 +671,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		ECABE6581821E8B00037E6C5 /* libANMediatedViewsLibrary.a */ = {
+		EC2A4777184558DB00D29747 /* libANMediatedViewsLibrary.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libANMediatedViewsLibrary.a;
-			remoteRef = ECABE6571821E8B00037E6C5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		ECABE65A1821E8B00037E6C5 /* ANMediatedViewsLibraryTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ANMediatedViewsLibraryTests.xctest;
-			remoteRef = ECABE6591821E8B00037E6C5 /* PBXContainerItemProxy */;
+			remoteRef = EC2A4776184558DB00D29747 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -724,53 +685,52 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECCF548D18451FE40000E37C /* UIButtonBarArrowRight.png in Resources */,
 				EC3FD7621822213C00B25418 /* Default@2x.png in Resources */,
-				ECB124D51821A25D00CB4BE8 /* interstitial_closebox-down.png in Resources */,
 				EC3FD7461822213C00B25418 /* 724-info.png in Resources */,
 				EC3FD7561822213C00B25418 /* appnexus_launch_image_iphone@2x.png in Resources */,
 				EC3FD75A1822213C00B25418 /* appnexus_settings_ipad@2x.png in Resources */,
 				EC3FD7471822213C00B25418 /* 724-info@2x.png in Resources */,
-				ECB124D91821A25D00CB4BE8 /* UIButtonBarArrowLeft.png in Resources */,
+				ECCF548618451FE40000E37C /* errors.strings in Resources */,
 				EC3FD7541822213C00B25418 /* appnexus_launch_image_ipad_portrait@2x.png in Resources */,
 				EC3FD75B1822213C00B25418 /* appnexus_settings_iphone.png in Resources */,
-				ECB124D61821A25D00CB4BE8 /* interstitial_closebox-down@2x.png in Resources */,
 				EC3FD74A1822213C00B25418 /* 760-refresh-3.png in Resources */,
 				EC3FD7431822213C00B25418 /* Media.xcassets in Resources */,
+				ECCF548418451FE40000E37C /* ANBrowserViewController.xib in Resources */,
 				EC3FD7451822213C00B25418 /* 705-photos@2x.png in Resources */,
+				ECCF548B18451FE40000E37C /* UIButtonBarArrowLeft.png in Resources */,
+				ECCF548818451FE40000E37C /* interstitial_closebox-down@2x.png in Resources */,
 				EC3FD7531822213C00B25418 /* appnexus_launch_image_ipad_portrait.png in Resources */,
 				EC3FD75F1822213C00B25418 /* appnexus_spotlight_iphone@2x.png in Resources */,
+				ECCF548718451FE40000E37C /* interstitial_closebox-down.png in Resources */,
 				EC3FD75C1822213C00B25418 /* appnexus_settings_iphone@2x.png in Resources */,
 				EC3FD7401822213C00B25418 /* InfoPlist.strings in Resources */,
 				EC3FD7601822213C00B25418 /* Default-568h@2x.png in Resources */,
 				EC3FD74E1822213C00B25418 /* appnexus_app_icon_ipad.png in Resources */,
 				EC3FD7611822213C00B25418 /* Default.png in Resources */,
-				ECB124DD1821A25D00CB4BE8 /* MRAID.bundle in Resources */,
-				ECB124DB1821A25D00CB4BE8 /* UIButtonBarArrowRight.png in Resources */,
 				EC3FD74F1822213C00B25418 /* appnexus_app_icon_ipad@2x.png in Resources */,
-				ECB124C01821A25D00CB4BE8 /* README.md in Resources */,
+				ECCF548918451FE40000E37C /* interstitial_closebox.png in Resources */,
 				EC3FD75E1822213C00B25418 /* appnexus_spotlight_ipad@2x.png in Resources */,
+				ECCF548E18451FE40000E37C /* UIButtonBarArrowRight@2x.png in Resources */,
 				EC3FD7551822213C00B25418 /* appnexus_launch_image_iphone-568h@2x.png in Resources */,
 				EC3FD7481822213C00B25418 /* 740-gear.png in Resources */,
-				ECB124D71821A25D00CB4BE8 /* interstitial_closebox.png in Resources */,
-				ECB124C81821A25D00CB4BE8 /* ANBrowserViewController.xib in Resources */,
+				ECCF548C18451FE40000E37C /* UIButtonBarArrowLeft@2x.png in Resources */,
 				EC3FD74C1822213C00B25418 /* 830-pencil.png in Resources */,
 				EC3FD7441822213C00B25418 /* 705-photos.png in Resources */,
-				ECB124D81821A25D00CB4BE8 /* interstitial_closebox@2x.png in Resources */,
-				ECB124DA1821A25D00CB4BE8 /* UIButtonBarArrowLeft@2x.png in Resources */,
 				EC3FD7581822213C00B25418 /* appnexus_logo_icon@2x.png in Resources */,
 				EC3FD74B1822213C00B25418 /* 760-refresh-3@2x.png in Resources */,
-				ECB124D41821A25D00CB4BE8 /* errors.strings in Resources */,
 				EC3FD7501822213C00B25418 /* appnexus_app_icon_iphone@2x.png in Resources */,
 				EC3FD7571822213C00B25418 /* appnexus_logo_icon.png in Resources */,
-				ECB124CD1821A25D00CB4BE8 /* ANInterstitialAdViewController.xib in Resources */,
 				EC3FD75D1822213C00B25418 /* appnexus_spotlight_ipad.png in Resources */,
 				EC3FD7411822213C00B25418 /* MainStoryboard.storyboard in Resources */,
+				ECCF548518451FE40000E37C /* ANInterstitialAdViewController.xib in Resources */,
 				EC3FD74D1822213C00B25418 /* 830-pencil@2x.png in Resources */,
-				ECB124DC1821A25D00CB4BE8 /* UIButtonBarArrowRight@2x.png in Resources */,
 				EC3FD7491822213C00B25418 /* 740-gear@2x.png in Resources */,
+				ECCF548A18451FE40000E37C /* interstitial_closebox@2x.png in Resources */,
 				EC3FD7511822213C00B25418 /* appnexus_launch_image_ipad_landscape.png in Resources */,
 				EC3FD7521822213C00B25418 /* appnexus_launch_image_ipad_landscape@2x.png in Resources */,
 				EC3FD7591822213C00B25418 /* appnexus_settings_ipad.png in Resources */,
+				ECCF548F18451FE40000E37C /* MRAID.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,7 +745,6 @@
 				ECB124BE1821A25D00CB4BE8 /* UIWebView+ANCategory.m in Sources */,
 				ECB124C41821A25D00CB4BE8 /* ANAdView.m in Sources */,
 				ECB124C51821A25D00CB4BE8 /* ANAdWebViewController.m in Sources */,
-				ECB124D31821A25D00CB4BE8 /* ANWebView.m in Sources */,
 				ECB124C91821A25D00CB4BE8 /* ANGlobal.m in Sources */,
 				EC3FD73B1822213C00B25418 /* ANResponse.m in Sources */,
 				ECB124C21821A25D00CB4BE8 /* ANAdFetcher.m in Sources */,
@@ -801,10 +760,10 @@
 				ECB124D11821A25D00CB4BE8 /* ANMediationAdViewController.m in Sources */,
 				EC3FD7381822213C00B25418 /* ANRequest+Make.m in Sources */,
 				ECB124D21821A25D00CB4BE8 /* ANReachability.m in Sources */,
+				EC4055EE183C07F9006A1D09 /* ANDocument.m in Sources */,
 				EC3FD7391822213C00B25418 /* ANRequest.m in Sources */,
 				EC3FD73A1822213C00B25418 /* ANResponse+Make.m in Sources */,
 				EC3FD72E1822213C00B25418 /* AdSettingsViewController.m in Sources */,
-				ECB124C11821A25D00CB4BE8 /* ODIN.m in Sources */,
 				EC3FD72D1822213C00B25418 /* AdSettingsTVC.m in Sources */,
 				EC3FD72C1822213C00B25418 /* AdPreviewTVC.m in Sources */,
 				ECB124CB1821A25D00CB4BE8 /* ANInterstitialAd.m in Sources */,
@@ -816,9 +775,9 @@
 				ECB124CC1821A25D00CB4BE8 /* ANInterstitialAdViewController.m in Sources */,
 				EC3FD72B1822213C00B25418 /* AppNexusSDKAppDelegate.m in Sources */,
 				ECB124D01821A25D00CB4BE8 /* ANMediatedAd.m in Sources */,
-				ECB124BF1821A25D00CB4BE8 /* ANOpenUDID.m in Sources */,
 				EC3FD7341822213C00B25418 /* LogCoreDataTVC.m in Sources */,
 				EC3FD73D1822213C00B25418 /* CoreDataTableViewController.m in Sources */,
+				EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */,
 				ECB124CE1821A25D00CB4BE8 /* ANLocation.m in Sources */,
 				EC3FD7361822213C00B25418 /* ANLog+Make.m in Sources */,
 				EC3FD7371822213C00B25418 /* ANLog.m in Sources */,
@@ -829,6 +788,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EC2A4779184558E800D29747 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANMediatedViewsLibrary;
+			targetProxy = EC2A4778184558E800D29747 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EC3FD7041822213C00B25418 /* InfoPlist.strings */ = {

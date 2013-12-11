@@ -17,7 +17,6 @@
 
 @implementation ANAdAdapterBannerDummy
 @synthesize delegate;
-@synthesize responseURLString;
 
 - (id)init
 {
@@ -30,6 +29,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
                        location:(ANLocation *)location
+             rootViewController:(UIViewController *)rootViewController
 {
 	
 }

@@ -17,8 +17,6 @@
 #import "ANAdAdapterBannerMillennialMedia.h"
 #import "MMAdView.h"
 #import "MMRequest.h"
-#import "ANGlobal.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterBannerMillennialMedia ()
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -27,7 +25,6 @@
 
 @implementation ANAdAdapterBannerMillennialMedia
 @synthesize delegate;
-@synthesize responseURLString;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -37,7 +34,9 @@
                        location:(ANLocation *)location
              rootViewController:(UIViewController *)rootViewController
 {
-    ANLogDebug(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
+    NSLog(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
+    [MMSDK initialize];
+    [self addMMNotificationObservers];
     
     //MMRequest object
     MMRequest *request;
@@ -60,10 +59,10 @@
     
     [self.mmAdView getAdWithRequest:request onCompletion:^(BOOL success, NSError *error) {
         if (success) {
-            ANLogDebug(@"MillennialMedia banner did load");
-            [self.delegate adapterBanner:self didReceiveBannerAdView:self.mmAdView];
+            NSLog(@"MillennialMedia banner did load");
+            [self.delegate didLoadBannerAd:self.mmAdView];
         } else {
-            ANLogDebug(@"MillennialMedia banner failed to load with error: %@", error);
+            NSLog(@"MillennialMedia banner failed to load with error: %@", error);
             ANAdResponseCode code = ANAdResponseInternalError;
             
             switch (error.code) {
@@ -84,7 +83,7 @@
                     break;
             }
             
-            [self.delegate adapterBanner:self didFailToReceiveBannerAdView:code];
+            [self.delegate didFailToLoadAd:code];
         }
     }];
 }
