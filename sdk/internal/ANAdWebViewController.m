@@ -367,7 +367,6 @@ typedef enum _ANMRAIDOrientation
     NSString* status = [jsonDict objectForKey:@"status"];
     //NSString* transparency = [jsonDict objectForKey:@"transparency"]; //Not supported
     NSString* reminder = [jsonDict objectForKey:@"reminder"];
-    //TODO repeat rule
     
     EKEventStore* store = [[EKEventStore alloc] init];
     [store requestAccessToEntityType:EKEntityMaskEvent completion:^(BOOL granted, NSError *error){
@@ -416,6 +415,42 @@ typedef enum _ANMRAIDOrientation
                     [event setAvailability:EKEventAvailabilityBusy];
                 }else if([status isEqualToString:@"cancelled"]){
                     [event setAvailability:EKEventAvailabilityFree];
+                }
+                
+                
+                NSDictionary* repeat = [jsonDict objectForKey:@"recurrence"];
+                if(repeat!=nil){
+                    NSString* frequency = [repeat objectForKey:@"frequency"];
+                    EKRecurrenceFrequency frequency_ios = [frequency isEqualToString:@"daily"] ? EKRecurrenceFrequencyDaily:
+                                                          ([frequency isEqualToString:@"weekly"]? EKRecurrenceFrequencyWeekly:
+                                                          ([frequency isEqualToString:@"monthly"]?EKRecurrenceFrequencyMonthly:
+                                                          ([frequency isEqualToString:@"yearly"]? EKRecurrenceFrequencyYearly:-1)));
+                    int interval = [[repeat objectForKey:@"interval"] intValue];
+                    NSString* expires = [repeat objectForKey:@"expires"];
+                    //expires
+                    EKRecurrenceEnd* end;
+                    if([df1 dateFromString:expires]!=nil){
+                        end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df1 dateFromString:expires]];
+                    }else if([df2 dateFromString:expires]!=nil){
+                        end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df2 dateFromString:expires]];
+                    }else if([NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]!=nil){
+                        end = [EKRecurrenceEnd recurrenceEndWithEndDate:[NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]];
+                    }
+                    //NSArray* exceptionDates = [repeat objectForKey:@"exceptionDates"]; //Not supported
+                    NSArray* daysInWeek = [repeat objectForKey:@"daysInWeek"];
+                    NSArray* daysInMonth = [repeat objectForKey:@"daysInMonth"];
+                    NSArray* daysInYear = [repeat objectForKey:@"daysInYear"];
+                    NSArray* weeksInMonth = [repeat objectForKey:@"weeksInMonth"];
+                    NSArray* monthsInYear = [repeat objectForKey:@"monthsInYear"];
+                    
+
+                    
+                    EKRecurrenceRule* rrule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:frequency_ios interval:interval daysOfTheWeek:daysInWeek daysOfTheMonth:daysInMonth monthsOfTheYear:monthsInYear weeksOfTheYear:weeksInMonth daysOfTheYear:daysInYear setPositions:nil end:end];
+                    
+                    
+
+                    
+                    [event setRecurrenceRules:[NSArray arrayWithObjects:rrule, nil]];
                 }
         
                 
