@@ -48,7 +48,7 @@
         self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }
     self.progressView.hidden = YES;
-    self.closeButton.hidden = NO;
+    self.closeButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,8 +60,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.viewed = YES;
-    [self startCountdownTimer];
+    if (!self.viewed) {
+        [self startCountdownTimer];
+        self.viewed = YES;
+    } else {
+        [self stopCountdownTimer];
+        [self.closeButton setHidden:NO];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -84,7 +89,6 @@
 {
 	[self.progressTimer invalidate];
 	[self.progressView setHidden:YES];
-	[self.closeButton setHidden:NO];
 }
 
 - (void)progressTimerDidFire:(NSTimer *)timer
@@ -95,7 +99,8 @@
 	[self.progressView setProgress:(timeShown / closeDelay)];
     
 	if (timeShown >= closeDelay && self.closeButton.hidden == YES) {
-		self.closeButton.hidden = NO;
+        [self stopCountdownTimer];
+        [self.closeButton setHidden:NO];
 	}
 }
 

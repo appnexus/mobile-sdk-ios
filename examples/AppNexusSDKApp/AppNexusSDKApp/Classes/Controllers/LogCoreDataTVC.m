@@ -17,6 +17,7 @@
 #import "ANLog.h"
 
 #define CLASS_NAME @"LogCoreDataTVC"
+#define EMAIL_MAX_LOGS 1000
 
 @interface LogCoreDataTVC ()
 
@@ -63,14 +64,10 @@
     pstyle.lineBreakMode = NSLineBreakByCharWrapping;
     self.textAttributes = @{NSFontAttributeName:font,
                             NSParagraphStyleAttributeName:pstyle};
-    self.fullTextToEmail = [[NSString alloc] init];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     ANLog *log = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    if ([self.fullTextToEmail length] < 10000) {
-        self.fullTextToEmail = [self.fullTextToEmail stringByAppendingString:log.text];
-    }
     
     NSAttributedString *logAttrText = [[NSAttributedString alloc] initWithString:log.text
                                                                       attributes:self.textAttributes];
@@ -91,6 +88,20 @@
         tv.scrollEnabled = NO;
     }
     return cell;
+}
+
+- (NSString *)fullTextToEmail {
+    _fullTextToEmail = @"";
+    
+    NSArray *fetchedResults = [self.fetchedResultsController fetchedObjects];
+    int limitIndex = MIN([fetchedResults count], EMAIL_MAX_LOGS);
+    for (int i = 0; i < limitIndex; i++) {
+        ANLog *log = [fetchedResults objectAtIndex:i];
+        _fullTextToEmail = [_fullTextToEmail stringByAppendingString:log.text];
+        _fullTextToEmail = [_fullTextToEmail stringByAppendingString:@"\n"];
+    }
+
+    return _fullTextToEmail;
 }
 
 @end

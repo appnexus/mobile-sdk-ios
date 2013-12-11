@@ -45,7 +45,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 @property (nonatomic, readwrite, strong) ANAdWebViewController *webViewController;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
-
+@property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
 @end
 
 @implementation ANAdFetcher
@@ -118,9 +118,14 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 			{
 				ANLogInfo(@"Beginning loading ad from URL: %@", self.URL);
 				
-				[[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherWillRequestAdNotification
-																	object:self
-																  userInfo:[NSDictionary dictionaryWithObject:self.URL forKey:kANAdFetcherAdRequestURLKey]];
+                if (self.requestShouldBePosted) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherWillRequestAdNotification
+                                                                        object:self
+                                                                      userInfo:[NSDictionary dictionaryWithObject:self.URL
+                                                                                                           forKey:kANAdFetcherAdRequestURLKey]];
+                    self.requestShouldBePosted = NO;
+                }
+                
 				self.loading = YES;
 			}
 			else
@@ -149,6 +154,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (void)requestAd
 {
+    self.requestShouldBePosted = YES;
     [self requestAdWithURL:nil];
 }
 
