@@ -21,6 +21,7 @@
 #import "ANBrowserViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MFMessageComposeViewController.h>
+#import "ANWebView.h"
 
 typedef enum _ANMRAIDState
 {
@@ -130,6 +131,7 @@ typedef enum _ANMRAIDOrientation
 		
 		self.adFetcher.loading = NO;
         self.completedFirstLoad = YES;
+        ((ANWebView *)webView).safety = YES;
 		
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
 		[self.adFetcher.delegate adFetcher:self.adFetcher didFinishRequestWithResponse:response];
@@ -511,15 +513,17 @@ typedef enum _ANMRAIDOrientation
 }
 @end
 
-@implementation UIWebView (MRAIDExtensions)
+@implementation ANWebView (MRAIDExtensions)
 
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    NSString* setCurrentPosition = [NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i,%i,%i,%i);", (int)frame.origin.x, (int)frame.origin.y, (int)frame.size.width, (int)frame.size.height];
-    [self stringByEvaluatingJavaScriptFromString:setCurrentPosition];
-    NSString* setCurrentSize = [NSString stringWithFormat:@"window.mraid.util.sizeChangeEvent(%i,%i);", (int)frame.size.width, (int)frame.size.height];
-    [self stringByEvaluatingJavaScriptFromString:setCurrentSize];
+    if (self.safety) {
+        NSString* setCurrentPosition = [NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i,%i,%i,%i);", (int)frame.origin.x, (int)frame.origin.y, (int)frame.size.width, (int)frame.size.height];
+        [self stringByEvaluatingJavaScriptFromString:setCurrentPosition];
+        NSString* setCurrentSize = [NSString stringWithFormat:@"window.mraid.util.sizeChangeEvent(%i,%i);", (int)frame.size.width, (int)frame.size.height];
+        [self stringByEvaluatingJavaScriptFromString:setCurrentSize];
+    }
 }
 
 - (void)firePlacementType:(NSString *)placementType

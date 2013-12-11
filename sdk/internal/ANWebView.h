@@ -15,5 +15,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ANWebView : UIWebView
-
+@property (nonatomic, assign) BOOL safety;
 @end
