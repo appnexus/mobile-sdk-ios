@@ -526,23 +526,9 @@ typedef enum _ANMRAIDOrientation
         NSURL *url = [NSURL URLWithString:uri];
         NSData *data = [NSData dataWithContentsOfURL:url];
         if(data){
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDownloadsDirectory, NSUserDomainMask, YES);
-            NSString *downloadDir = [paths objectAtIndex:0];
-            //Acquire Date-time to use as filename
-            NSDateFormatter *formatter;
-            NSString *dateTime;
-            formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"yyyyMMddHHmm"];
-            
-            dateTime = [formatter stringFromDate:[NSDate date]];
-            
-            NSString *extension = [[uri componentsSeparatedByString:@"."] lastObject];
-            
-            
-            NSString *filePath = [NSString stringWithFormat:@"%@/%@.%@", downloadDir, dateTime, extension];
-            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [data writeToFile:filePath atomically:YES];
+                UIImage *image = [[UIImage alloc] initWithData:data];
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
             });
         }
     });
