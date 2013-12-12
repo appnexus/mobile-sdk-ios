@@ -108,6 +108,7 @@ typedef enum _ANMRAIDOrientation
 @property (nonatomic, readwrite, assign) CGSize defaultSize;
 @property (nonatomic, readwrite, assign) BOOL allowOrientationChange;
 @property (nonatomic, readwrite, assign) BOOL defaultSizeHasBeenSet;
+@property (nonatomic, assign) BOOL resized;
 @end
 
 @implementation ANMRAIDAdWebViewController
@@ -332,6 +333,8 @@ typedef enum _ANMRAIDOrientation
              adShouldShowCloseButtonWithTarget:self
                                         action:@selector(closeAction:)];
         }
+        
+        self.resized = YES;
     }else if([mraidCommand isEqualToString:@"storePicture"]){
         NSString *query = [mraidURL query];
         NSDictionary *queryComponents = [query queryComponents];
@@ -356,7 +359,7 @@ typedef enum _ANMRAIDOrientation
 
 - (IBAction)closeAction:(id)sender
 {
-    if (self.expanded)
+    if (self.expanded || self.resized)
     {
         [self.adFetcher.delegate adShouldRemoveCloseButtonWithAdFetcher:self.adFetcher];
         
