@@ -1,3 +1,6 @@
 Appnexus iOS SDK
 =====================
-See our documentation on our wiki at https://wiki.appnexus.com/display/sdk/Home
+
+See the documentation on our wiki here: http://wiki.appnexus.com/x/dhAtAw
+
+Get the latest release notes here: http://wiki.appnexus.com/x/L4aTAw
