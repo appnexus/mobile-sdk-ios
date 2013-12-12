@@ -32,7 +32,6 @@
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
-@property (nonatomic, readwrite, assign) BOOL isExpanded;
 @end
 
 @implementation ANAdView
@@ -88,7 +87,6 @@
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
-    _isExpanded = NO;
 }
 
 - (void)dealloc {
@@ -112,7 +110,17 @@
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
              isBanner:(BOOL)isBanner {
-    if (!self.isExpanded) {
+    ANMRAIDAdWebViewController *mraidWebViewController;
+    
+    if ([contentView isKindOfClass:[UIWebView class]]) {
+        UIWebView *webView = (UIWebView *)contentView;
+        if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
+            mraidWebViewController = (ANMRAIDAdWebViewController *)webView.delegate;
+            mraidWebViewController.controller = self.mraidController;
+        }
+    }
+    
+    if (!mraidWebViewController.expanded) {
         self.defaultParentFrame = defaultParentView.frame;
         self.defaultFrame = contentView.frame;
     }
@@ -141,7 +149,7 @@
         [contentView setFrame:resizedFrame];
         [contentView removeFromSuperview];
         
-        if (!self.isExpanded) {
+        if (!mraidWebViewController.expanded) {
             CGRect parentFrame = defaultParentView.frame;
             parentFrame.size = size;
             [defaultParentView setFrame:parentFrame];
@@ -155,8 +163,6 @@
             self.mraidController = nil;
         }
     }
-
-    self.isExpanded = !self.isExpanded;
 }
 
 - (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
@@ -429,7 +435,9 @@
 
 - (void)removeCloseButton
 {
-    [self.closeButton removeFromSuperview];
+    if (self.closeButton.superview) {
+        [self.closeButton removeFromSuperview];
+    }
     self.closeButton = nil;
 }
 

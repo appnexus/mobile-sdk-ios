@@ -39,6 +39,7 @@
 
 }
 
+@property (nonatomic, readwrite, assign) BOOL expanded;
 @property (nonatomic, readwrite, strong) ANMRAIDViewController *controller;
 @end
 

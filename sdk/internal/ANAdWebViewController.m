@@ -105,7 +105,6 @@ typedef enum _ANMRAIDOrientation
 @end
 
 @interface ANMRAIDAdWebViewController ()
-@property (nonatomic, readwrite, assign, getter = isExpanded) BOOL expanded;
 @property (nonatomic, readwrite, assign) CGSize defaultSize;
 @property (nonatomic, readwrite, assign) BOOL allowOrientationChange;
 @property (nonatomic, readwrite, assign) BOOL defaultSizeHasBeenSet;
@@ -154,7 +153,6 @@ typedef enum _ANMRAIDOrientation
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    [webView stringByEvaluatingJavaScriptFromString:@"window.alert=function(){};"];
 	if (self.completedFirstLoad)
 	{
 		NSURL *URL = [request URL];
@@ -265,6 +263,8 @@ typedef enum _ANMRAIDOrientation
         
         [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:CGSizeMake(expandedWidth, expandedHeight)];
 		
+        self.expanded = YES;
+        
 		NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
         if ([useCustomClose isEqualToString:@"false"])
         {
@@ -277,8 +277,6 @@ typedef enum _ANMRAIDOrientation
         {
             [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
         }
-        
-        self.expanded = YES;
     }
     else if ([mraidCommand isEqualToString:@"close"])
     {
@@ -323,15 +321,16 @@ typedef enum _ANMRAIDOrientation
         NSString *currentState = [webView stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
         if([currentState isEqualToString:@"default"] || [currentState isEqualToString:@"resized"]){
             //TODO custom_close_position
-            [self.adFetcher.delegate adFetcher:self.adFetcher adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)];
             if([currentState isEqualToString:@"default"]){
                 self.defaultSize = webView.frame.size;
             }
             
             [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:CGSizeMake(w, h)];
             
-            self.expanded = YES;
-            
+            [self.adFetcher.delegate adShouldRemoveCloseButtonWithAdFetcher:self.adFetcher];
+            [self.adFetcher.delegate adFetcher:self.adFetcher
+             adShouldShowCloseButtonWithTarget:self
+                                        action:@selector(closeAction:)];
         }
     }else if([mraidCommand isEqualToString:@"storePicture"]){
         NSString *query = [mraidURL query];
@@ -357,14 +356,14 @@ typedef enum _ANMRAIDOrientation
 
 - (IBAction)closeAction:(id)sender
 {
-    if ([self isExpanded])
+    if (self.expanded)
     {
-        self.expanded = NO;
         [self.adFetcher.delegate adShouldRemoveCloseButtonWithAdFetcher:self.adFetcher];
         
         [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:self.defaultSize];
         
         [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
+        self.expanded = NO;
     }
     else
     {
