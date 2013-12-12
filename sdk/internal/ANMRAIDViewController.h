@@ -16,4 +16,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ANMRAIDViewController : UIViewController
+@property (nonatomic, readwrite, strong) UIView *contentView;
+@property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @end
