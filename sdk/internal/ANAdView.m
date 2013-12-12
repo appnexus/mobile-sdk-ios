@@ -29,7 +29,6 @@
 @interface ANAdView () <ANAdFetcherDelegate, ANBrowserViewControllerDelegate, ANAdViewDelegate>
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
-@property (nonatomic, readwrite, assign) BOOL defaultFramesSet;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
 @property (nonatomic, readwrite, assign) BOOL isExpanded;
@@ -88,7 +87,6 @@
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
-    _defaultFramesSet = NO;
     _isExpanded = NO;
 }
 
@@ -113,24 +111,16 @@
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
              isBanner:(BOOL)isBanner {
-    if (!self.defaultFramesSet) {
+    if (!self.isExpanded) {
         self.defaultParentFrame = defaultParentView.frame;
         self.defaultFrame = contentView.frame;
-        self.defaultFramesSet = YES;
     }
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
-        CGRect mainBounds = [[UIScreen mainScreen] bounds];
-        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
-            CGFloat portraitHeight = mainBounds.size.height;
-            CGFloat portraitWidth = mainBounds.size.width;
-            mainBounds.size.height = portraitWidth;
-            mainBounds.size.width = portraitHeight;
-        }
-
-        [contentView setFrame:mainBounds];
         [contentView removeFromSuperview];
         self.mraidController = [ANMRAIDViewController new];
+        self.mraidController.contentView = contentView;
+        self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
         [self.mraidController.view addSubview:contentView];
         [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
     } else {

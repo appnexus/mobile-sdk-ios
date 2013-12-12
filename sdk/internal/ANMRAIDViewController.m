@@ -16,33 +16,24 @@
 #import "ANMRAIDViewController.h"
 
 @interface ANMRAIDViewController ()
-@property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
+@property (nonatomic, readwrite, assign) CGSize originalSize;
 @end
 
 @implementation ANMRAIDViewController
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.originalSize = self.view.frame.size;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
     [self setStatusBarHidden:YES];
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    [self resetViewForRotations:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -50,18 +41,20 @@
     [self setStatusBarHidden:self.originalHiddenState];
 }
 
-// locking orientation in iOS 6+
-- (BOOL)shouldAutorotate {
-    return NO;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [self resetViewForRotations:toInterfaceOrientation];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return self.orientation;
-}
-
-// locking orientation in pre-iOS 6
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return NO;
+- (void)resetViewForRotations:(UIInterfaceOrientation)orientation {
+    CGRect mainBounds = [[UIScreen mainScreen] bounds];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        CGFloat portraitHeight = mainBounds.size.height;
+        CGFloat portraitWidth = mainBounds.size.width;
+        mainBounds.size.height = portraitWidth;
+        mainBounds.size.width = portraitHeight;
+    }
+    
+    [self.contentView setFrame:mainBounds];
 }
 
 // hiding the status bar in iOS 7

@@ -187,22 +187,24 @@
     if (self.bannerAdView) {
         // ScrollView width should be the banner width or the tableView width, whichever is greater
         CGSize bannerSize = self.bannerAdView.frame.size;
-        CGFloat svWidth = (bannerSize.width > self.tableView.frame.size.width) ? bannerSize.width : self.tableView.frame.size.width;
+        CGSize tableSize = self.tableView.frame.size;
+        CGFloat svWidth = (bannerSize.width > tableSize.width) ? bannerSize.width : tableSize.width;
         // ScrollView height should be the banner height or the tableView height, whichever is greater. This will also correspond to the cell height (which is returned).
-        CGFloat svHeight = (bannerSize.height > self.tableView.frame.size.height) ? bannerSize.height : self.tableView.frame.size.height;
+        CGFloat svHeight = (bannerSize.height > tableSize.height) ? bannerSize.height : tableSize.height;
         
         ANLogDebug(@"%@ %@ | adjusting scroll view", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         self.scrollView.contentSize = CGSizeMake(svWidth, svHeight); // Set content size to cell dimensions
         
         ANLogDebug(@"%@ %@ | adjusting banner ad view frame", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
-        CGFloat centerX = (self.tableView.frame.size.width - bannerSize.width) / 2.0;
-        CGFloat centerY = (self.tableView.frame.size.height - bannerSize.height) / 2.0;
+        CGFloat centerX = (tableSize.width - bannerSize.width) / 2.0;
+        CGFloat centerY = (tableSize.height - bannerSize.height) / 2.0;
         
         // Center banner in window, with equal whitespace on either side
         [self.bannerAdView setFrame:CGRectMake(centerX,
                                                centerY,
-                                             bannerSize.width, bannerSize.height)];
+                                               bannerSize.width,
+                                               bannerSize.height)];
         
         return svHeight;
     } else { // Not a banner, so scrollview size should be the visible table view size
