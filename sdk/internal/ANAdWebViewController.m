@@ -154,6 +154,7 @@ typedef enum _ANMRAIDOrientation
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    [webView stringByEvaluatingJavaScriptFromString:@"window.alert=function(){};"];
 	if (self.completedFirstLoad)
 	{
 		NSURL *URL = [request URL];
@@ -291,14 +292,24 @@ typedef enum _ANMRAIDOrientation
         NSString *query = [mraidURL query];
         NSDictionary *queryComponents = [query queryComponents];
         NSString *uri = [queryComponents objectForKey:@"uri"];
+        NSURL *url = [NSURL URLWithString:uri];
         
-        MPMoviePlayerController *moviePlayer = [MPMoviePlayerController alloc];
-        moviePlayer.controlStyle = MPMovieControlStyleDefault;
-        moviePlayer.shouldAutoplay = YES;
-        [moviePlayer setContentURL:[NSURL URLWithString:uri]];
+        MPMoviePlayerViewController *moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+        moviePlayerViewController.moviePlayer.fullscreen = YES;
+        moviePlayerViewController.moviePlayer.shouldAutoplay = YES;
+        moviePlayerViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+        moviePlayerViewController.moviePlayer.view.frame = [[UIScreen mainScreen] bounds];
+        moviePlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(moviePlayerDidFinish:)
+                                                     name:MPMoviePlayerPlaybackDidFinishNotification
+                                                   object:moviePlayerViewController.moviePlayer];
+
+        [moviePlayerViewController.moviePlayer prepareToPlay];
+        [self.controller presentMoviePlayerViewControllerAnimated:moviePlayerViewController];
+        [moviePlayerViewController.moviePlayer play];
         
-        [webView addSubview: moviePlayer.view];
-        [moviePlayer setFullscreen:YES animated:YES];
     }else if([mraidCommand isEqualToString:@"resize"]){
         NSString *query = [mraidURL query];
         NSDictionary *queryComponents = [query queryComponents];
@@ -337,6 +348,12 @@ typedef enum _ANMRAIDOrientation
         [self setOrientationProperties:allowb forcedOrientation:forced];
     }
 }
+
+- (void)moviePlayerDidFinish:(NSNotification *)notification
+{
+    ANLogInfo(@"Movie Player finished: %@", notification);
+}
+
 
 - (IBAction)closeAction:(id)sender
 {

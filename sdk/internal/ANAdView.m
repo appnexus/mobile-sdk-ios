@@ -16,6 +16,7 @@
 #import "ANAdView.h"
 
 #import "ANAdFetcher.h"
+#import "ANAdWebViewController.h"
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANInterstitialAd.h"
@@ -115,6 +116,7 @@
         self.defaultParentFrame = defaultParentView.frame;
         self.defaultFrame = contentView.frame;
     }
+    
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
         [contentView removeFromSuperview];
@@ -122,6 +124,15 @@
         self.mraidController.contentView = contentView;
         self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
         [self.mraidController.view addSubview:contentView];
+        // set presenting controller for MRAID WebViewController
+        if ([contentView isKindOfClass:[UIWebView class]]) {
+            UIWebView *webView = (UIWebView *)contentView;
+            if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
+                ANMRAIDAdWebViewController *webViewController = (ANMRAIDAdWebViewController *)webView.delegate;
+                webViewController.controller = self.mraidController;
+            }
+        }
+        
         [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
     } else {
         // otherwise, resize in the original container

@@ -16,6 +16,7 @@
 #import <Foundation/Foundation.h>
 #import <EventKitUI/EventKitUI.h>
 #import <UIKit/UIKit.h>
+#import "ANMRAIDViewController.h"
 
 @class ANAdFetcher;
 
@@ -38,5 +39,6 @@
 
 }
 
+@property (nonatomic, readwrite, strong) ANMRAIDViewController *controller;
 @end
 
