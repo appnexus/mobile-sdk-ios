@@ -241,7 +241,7 @@ typedef enum _ANMRAIDOrientation
 - (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView
 {
     NSString *mraidCommand = [mraidURL host];
-    
+
     if ([mraidCommand isEqualToString:@"expand"])
     {
         NSString *hiddenState = [webView stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
@@ -406,7 +406,7 @@ typedef enum _ANMRAIDOrientation
     NSString* reminder = [jsonDict objectForKey:@"reminder"];
     
     EKEventStore* store = [[EKEventStore alloc] init];
-    [store requestAccessToEntityType:EKEntityMaskEvent completion:^(BOOL granted, NSError *error){
+    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error){
         if(granted){
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 EKEvent *event = [EKEvent eventWithEventStore:store];
@@ -491,9 +491,11 @@ typedef enum _ANMRAIDOrientation
                 }
         
                 
-                NSError* error = [[NSError alloc] init];
+                NSError* error = nil;
                 [store saveEvent:event span:EKSpanThisEvent error:&error];
-
+                if (error) {
+                    ANLogError(error.localizedDescription);
+                }
             });
         }
     }];
