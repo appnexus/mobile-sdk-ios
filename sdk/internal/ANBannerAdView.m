@@ -27,7 +27,8 @@
 - (void)adRequestFailedWithError:(NSError *)error;
 - (void)showCloseButtonWithTarget:(id)target
                            action:(SEL)selector
-                    containerView:(UIView *)containerView;
+                    containerView:(UIView *)containerView
+                         position:(ANMRAIDCustomClosePosition)position;
 - (void)mraidResizeAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
@@ -261,9 +262,10 @@
                 isBanner:YES];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+         position:(ANMRAIDCustomClosePosition)position {
     UIView *containerView = self.mraidController ? self.mraidController.view : self;
-	[super showCloseButtonWithTarget:target action:action containerView:containerView];
+	[super showCloseButtonWithTarget:target action:action containerView:containerView position:position];
 }
 
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {

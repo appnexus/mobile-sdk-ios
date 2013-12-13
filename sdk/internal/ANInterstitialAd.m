@@ -40,7 +40,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)adRequestFailedWithError:(NSError *)error;
 - (void)showCloseButtonWithTarget:(id)target
                            action:(SEL)selector
-                    containerView:(UIView *)containerView;
+                    containerView:(UIView *)containerView
+                         position:(ANMRAIDCustomClosePosition)position;
 - (void)mraidResizeAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
@@ -297,9 +298,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                 isBanner:NO];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+         position:(ANMRAIDCustomClosePosition)position {
     UIView *containerView = self.mraidController ? self.mraidController.view : self.controller.contentView;
-	[super showCloseButtonWithTarget:target action:action containerView:containerView];
+	[super showCloseButtonWithTarget:target action:action containerView:containerView position:position];
 }
 
 #pragma mark ANBrowserViewControllerDelegate

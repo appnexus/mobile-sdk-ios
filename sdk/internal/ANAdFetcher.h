@@ -16,10 +16,10 @@
 #import "ANAdProtocol.h"
 #import "ANAdResponse.h"
 #import "ANAdViewDelegate.h"
+#import "ANAdWebViewController.h"
 #import "ANCustomAdapter.h"
 
 @class ANAdWebViewController;
-@class ANMRAIDAdWebViewController;
 @class ANLocation;
 @protocol ANAdFetcherDelegate;
 
@@ -63,7 +63,8 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher;
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size;
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action;
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+         position:(ANMRAIDCustomClosePosition)position;
 - (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL;
 

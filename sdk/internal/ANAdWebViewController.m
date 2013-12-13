@@ -42,17 +42,6 @@ typedef enum _ANMRAIDOrientation
     ANMRAIDOrientationNone
 } ANMRAIDOrientation;
 
-typedef enum _ANMRAIDCustomClosePosition
-{
-    ANMRAIDTopLeft,
-    ANMRAIDTopCenter,
-    ANMRAIDTopRight,
-    ANMRAIDCenter,
-    ANMRAIDBottomLeft,
-    ANMRAIDBottomCenter,
-    ANMRAIDBottomRight,
-} ANMRAIDCustomClosePosition;
-
 @interface UIWebView (MRAIDExtensions)
 - (void)fireReadyEvent;
 - (void)setIsViewable:(BOOL)viewable;
@@ -281,7 +270,7 @@ typedef enum _ANMRAIDCustomClosePosition
         if ([useCustomClose isEqualToString:@"false"])
         {
             // No custom close included, show our default one.
-            [self.adFetcher.delegate adFetcher:self.adFetcher adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)];
+            [self.adFetcher.delegate adFetcher:self.adFetcher adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:) position:ANMRAIDTopRight];
         }
 		        
         NSString *url = [queryComponents objectForKey:@"url"];
@@ -344,8 +333,8 @@ typedef enum _ANMRAIDCustomClosePosition
             [self.adFetcher.delegate adShouldRemoveCloseButtonWithAdFetcher:self.adFetcher];
             [self.adFetcher.delegate adFetcher:self.adFetcher
              adShouldShowCloseButtonWithTarget:self
-                                      position:close_positioning
-                                        action:@selector(closeAction:)];
+                                        action:@selector(closeAction:)
+                                      position:close_positioning];
         }
         
         self.resized = YES;

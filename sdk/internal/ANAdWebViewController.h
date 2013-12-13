@@ -43,3 +43,14 @@
 @property (nonatomic, readwrite, strong) ANMRAIDViewController *controller;
 @end
 
+typedef enum _ANMRAIDCustomClosePosition
+{
+    ANMRAIDTopLeft,
+    ANMRAIDTopCenter,
+    ANMRAIDTopRight,
+    ANMRAIDCenter,
+    ANMRAIDBottomLeft,
+    ANMRAIDBottomCenter,
+    ANMRAIDBottomRight,
+} ANMRAIDCustomClosePosition;
+

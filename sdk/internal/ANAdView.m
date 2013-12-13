@@ -26,6 +26,9 @@
 
 #define DEFAULT_ADSIZE CGSizeZero
 #define DEFAULT_PSAS YES
+#define CLOSE_BUTTON_OFFSET_X 4.0
+#define CLOSE_BUTTON_OFFSET_Y 4.0
+
 
 @interface ANAdView () <ANAdFetcherDelegate, ANBrowserViewControllerDelegate, ANAdViewDelegate>
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
@@ -57,7 +60,8 @@
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {}
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {}
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {}
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target
+           action:(SEL)action position:(ANMRAIDCustomClosePosition)position {}
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
 
 
@@ -166,7 +170,8 @@
 }
 
 - (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
-                      containerView:(UIView *)containerView; {
+                    containerView:(UIView *)containerView
+                         position:(ANMRAIDCustomClosePosition)position {
     if ([self.closeButton superview] == nil) {
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [closeButton addTarget:target
@@ -176,9 +181,53 @@
         UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
         [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
         [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
-        closeButton.frame = CGRectMake(containerView.bounds.size.width
-                                       - closeButtonImage.size.width
-                                       / 2 - 20.0, 4.0,
+        
+        CGFloat centerX = 0.0;
+        CGFloat centerY = 0.0;
+        CGFloat bottomY = containerView.bounds.size.height
+        - closeButtonImage.size.height - CLOSE_BUTTON_OFFSET_Y;
+        CGFloat rightX = containerView.bounds.size.width
+        - closeButtonImage.size.width - CLOSE_BUTTON_OFFSET_X;
+
+        switch (position) {
+            case ANMRAIDTopLeft:
+                centerX = CLOSE_BUTTON_OFFSET_X;
+                centerY = CLOSE_BUTTON_OFFSET_Y;
+                break;
+            case ANMRAIDTopCenter:
+                centerX = (containerView.bounds.size.width
+                           - closeButtonImage.size.width) / 2.0;
+                centerY = CLOSE_BUTTON_OFFSET_Y;
+                break;
+            case ANMRAIDTopRight:
+                centerX = rightX;
+                centerY = CLOSE_BUTTON_OFFSET_Y;
+                break;
+            case ANMRAIDCenter:
+                centerX = (containerView.bounds.size.width
+                           - closeButtonImage.size.width) / 2.0;
+                centerY = (containerView.bounds.size.height
+                           - closeButtonImage.size.height) / 2.0;
+                break;
+            case ANMRAIDBottomLeft:
+                centerX = CLOSE_BUTTON_OFFSET_X;
+                centerY = bottomY;
+                break;
+            case ANMRAIDBottomCenter:
+                centerX = (containerView.bounds.size.width
+                           - closeButtonImage.size.width) / 2.0;
+                centerY = bottomY;
+                break;
+            case ANMRAIDBottomRight:
+                centerX = rightX;
+                centerY = bottomY;
+                break;
+                
+            default:
+                break;
+        }
+        
+        closeButton.frame = CGRectMake(centerX, centerY,
                                        closeButtonImage.size.width,
                                        closeButtonImage.size.height);
         closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
