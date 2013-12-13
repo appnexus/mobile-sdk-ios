@@ -125,15 +125,6 @@ typedef enum _ANMRAIDOrientation
         //Set values for mraid.supports()
         [self setValuesForMRAIDSupportsFunction:webView];
         
-        //Set screen size
-        [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
-        
-        //Set default position
-        [self setDefaultPositionForMRAIDGetDefaultPositionFunction:webView];
-        
-        //Set max size
-        [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
-        
         [webView firePlacementType:[self.mraidDelegate adType]];
         [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
@@ -145,6 +136,15 @@ typedef enum _ANMRAIDOrientation
 		
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
         [self.adFetcher processFinalResponse:response];
+
+        //Set screen size
+        [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
+        
+        //Set default position
+        [self setDefaultPositionForMRAIDGetDefaultPositionFunction:webView];
+        
+        //Set max size
+        [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
     }
 }
 
@@ -174,7 +174,7 @@ typedef enum _ANMRAIDOrientation
 }
 
 - (void)setMaxSizeForMRAIDGetMaxSizeFunction:(UIWebView*) webView{ //TODO: Setting to screen size because IDK what to doooo
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGRect screenRect = webView.superview.bounds;
     int w = floorf(screenRect.size.width +0.5f);
     int h = floorf(screenRect.size.height +0.5f);
     
@@ -182,11 +182,13 @@ typedef enum _ANMRAIDOrientation
 }
 
 - (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
+    BOOL orientationIsLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     int w = floorf(screenRect.size.width +0.5f);
     int h = floorf(screenRect.size.height +0.5f); //Ah the glorious 0.5f rounding trick
     
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);",w,h]];
+    [webView stringByEvaluatingJavaScriptFromString:
+     [NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);", orientationIsLandscape ? h : w, orientationIsLandscape ? w : h]];
 }
 
 - (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView*)webView{
@@ -237,6 +239,7 @@ typedef enum _ANMRAIDOrientation
     NSDictionary *queryComponents = [query queryComponents];
 
     if ([mraidCommand isEqualToString:@"expand"]) {
+//        [webView stringByEvaluatingJavaScriptFromString:@""];
         // do nothing if in hidden state
         if ([webView getMRAIDState] == ANMRAIDStateHidden) {
             return;
@@ -262,11 +265,7 @@ typedef enum _ANMRAIDOrientation
         NSString *uri = [queryComponents objectForKey:@"uri"];
         [self storePicture:uri];
     } else if([mraidCommand isEqualToString:@"setOrientationProperties"]) {
-        NSString *allow = [queryComponents objectForKey:@"allow_orientation_change"];
-        NSString *forcedOrientation = [queryComponents objectForKey:@"force_orientation"];
-        BOOL allowb = [allow boolValue];
-        ANMRAIDOrientation forced = [forcedOrientation isEqualToString:@"none"]?ANMRAIDOrientationNone : [forcedOrientation isEqualToString:@"landscape"]? ANMRAIDOrientationLandscape : ANMRAIDOrientationPortrait;
-        [self setOrientationProperties:allowb forcedOrientation:forced];
+        [self setOrientationProperties:queryComponents];
     }
 }
 
@@ -511,10 +510,22 @@ typedef enum _ANMRAIDOrientation
 
 
 
-- (void)setOrientationProperties:(BOOL)allowChange forcedOrientation:(ANMRAIDOrientation) forcedOrientation
+- (void)setOrientationProperties:(NSDictionary *)queryComponents
 {
-    if(!allowChange){
-        switch(forcedOrientation)
+    NSString *allow = [queryComponents objectForKey:@"allow_orientation_change"];
+    NSString *forcedOrientation = [queryComponents objectForKey:@"force_orientation"];
+
+    ANMRAIDOrientation orientation = ANMRAIDOrientationNone;
+    if ([forcedOrientation isEqualToString:@"none"]) {
+        orientation = ANMRAIDOrientationNone;
+    } else if ([forcedOrientation isEqualToString:@"portrait"]) {
+        orientation = ANMRAIDOrientationPortrait;
+    } else if ([forcedOrientation isEqualToString:@"landscape"]) {
+        orientation = ANMRAIDOrientationLandscape;
+    }
+    
+    if(![allow boolValue]){
+        switch(orientation)
         {
             case ANMRAIDOrientationNone:
                 break;
@@ -523,8 +534,9 @@ typedef enum _ANMRAIDOrientation
             case ANMRAIDOrientationPortrait:
                 break;
         }
+    } else {
+        orientation = ANMRAIDOrientationNone;
     }
-    //TODO SAVE ME MARK
 }
 
 - (void)storePicture:(NSString*)uri
