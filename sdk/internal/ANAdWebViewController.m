@@ -42,6 +42,17 @@ typedef enum _ANMRAIDOrientation
     ANMRAIDOrientationNone
 } ANMRAIDOrientation;
 
+typedef enum _ANMRAIDCustomClosePosition
+{
+    ANMRAIDTopLeft,
+    ANMRAIDTopCenter,
+    ANMRAIDTopRight,
+    ANMRAIDCenter,
+    ANMRAIDBottomLeft,
+    ANMRAIDBottomCenter,
+    ANMRAIDBottomRight,
+} ANMRAIDCustomClosePosition;
+
 @interface UIWebView (MRAIDExtensions)
 - (void)fireReadyEvent;
 - (void)setIsViewable:(BOOL)viewable;
@@ -319,6 +330,8 @@ typedef enum _ANMRAIDOrientation
         NSString* custom_close_position = [queryComponents objectForKey:@"custom_close_position"];
         BOOL allow_offscreen = [[queryComponents objectForKey:@"allow_offscreen"] boolValue];
         
+        ANMRAIDCustomClosePosition close_positioning = [self getCustomClosePositionFromString:custom_close_position];
+        
         NSString *currentState = [webView stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
         if([currentState isEqualToString:@"default"] || [currentState isEqualToString:@"resized"]){
             //TODO custom_close_position
@@ -331,6 +344,7 @@ typedef enum _ANMRAIDOrientation
             [self.adFetcher.delegate adShouldRemoveCloseButtonWithAdFetcher:self.adFetcher];
             [self.adFetcher.delegate adFetcher:self.adFetcher
              adShouldShowCloseButtonWithTarget:self
+                                      position:close_positioning
                                         action:@selector(closeAction:)];
         }
         
@@ -349,6 +363,28 @@ typedef enum _ANMRAIDOrientation
         ANMRAIDOrientation forced = [forcedOrientation isEqualToString:@"none"]?ANMRAIDOrientationNone : [forcedOrientation isEqualToString:@"landscape"]? ANMRAIDOrientationLandscape : ANMRAIDOrientationPortrait;
         [self setOrientationProperties:allowb forcedOrientation:forced];
     }
+}
+
+- (ANMRAIDCustomClosePosition)getCustomClosePositionFromString:(NSString *)value {
+    // default value is top-right
+    ANMRAIDCustomClosePosition position = ANMRAIDTopRight;
+    if ([value isEqualToString:@"top-left"]) {
+        position = ANMRAIDTopLeft;
+    } else if ([value isEqualToString:@"top-center"]) {
+        position = ANMRAIDTopCenter;
+    } else if ([value isEqualToString:@"top-right"]) {
+        position = ANMRAIDTopRight;
+    } else if ([value isEqualToString:@"center"]) {
+        position = ANMRAIDCenter;
+    } else if ([value isEqualToString:@"bottom-left"]) {
+        position = ANMRAIDBottomLeft;
+    } else if ([value isEqualToString:@"bottom-center"]) {
+        position = ANMRAIDBottomCenter;
+    } else if ([value isEqualToString:@"bottom-right"]) {
+        position = ANMRAIDBottomRight;
+    }
+    
+    return position;
 }
 
 - (void)moviePlayerDidFinish:(NSNotification *)notification
