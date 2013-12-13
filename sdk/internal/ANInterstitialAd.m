@@ -20,6 +20,7 @@
 #import "ANGlobal.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANLogging.h"
+#import "ANMRAIDViewController.h"
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
@@ -45,6 +46,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
              isBanner:(BOOL)isBanner;
+
+@property (nonatomic, strong) ANMRAIDViewController *mraidController;
+
 @end
 
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate>
@@ -294,7 +298,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
-	[super showCloseButtonWithTarget:target action:action containerView:self.controller.contentView];
+    UIView *containerView = self.mraidController ? self.mraidController.view : self.controller.contentView;
+	[super showCloseButtonWithTarget:target action:action containerView:containerView];
 }
 
 #pragma mark ANBrowserViewControllerDelegate

@@ -19,6 +19,7 @@
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANMRAIDViewController.h"
 
 @interface ANAdView (ANBannerAdView) <ANAdFetcherDelegate>
 - (void)initialize;
@@ -32,6 +33,9 @@
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
              isBanner:(BOOL)isBanner;
+
+@property (nonatomic, strong) ANMRAIDViewController *mraidController;
+
 @end
 
 @interface ANBannerAdView ()
@@ -258,7 +262,8 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
-	[super showCloseButtonWithTarget:target action:action containerView:self];
+    UIView *containerView = self.mraidController ? self.mraidController.view : self;
+	[super showCloseButtonWithTarget:target action:action containerView:containerView];
 }
 
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
