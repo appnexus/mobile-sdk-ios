@@ -23,7 +23,7 @@
 //  CGSize size = CGSizeMake(300, 50);
 //  
 //  // Create the banner ad view and add it as a subview
-//  ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:@"1671096" adSize:size];
+//  ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:@"1326299" adSize:size];
 //  banner.rootViewController = self;
 //  [self.view addSubview:banner];
 //

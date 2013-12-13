@@ -22,7 +22,7 @@
 // example:
 
 //       // Make an interstitial ad.
-//       self.inter = [[ANInterstitialAd alloc] initWithPlacementId:@"1281482"];
+//       self.inter = [[ANInterstitialAd alloc] initWithPlacementId:@"1326299"];
 //
 //       // We set ourselves as the delegate so we can respond to the
 //       // required `adDidReceiveAd' message of the
