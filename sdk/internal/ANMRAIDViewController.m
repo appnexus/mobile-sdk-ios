@@ -16,42 +16,56 @@
 #import "ANMRAIDViewController.h"
 
 @interface ANMRAIDViewController ()
-@property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
+@property (nonatomic, readwrite, assign) BOOL originalHiddenState;
+@property (nonatomic, readwrite, assign) CGSize originalSize;
 @end
 
 @implementation ANMRAIDViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.originalSize = self.view.frame.size;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
+    [self setStatusBarHidden:YES];
+
+    [self resetViewForRotations:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
-// locking orientation in iOS 6+
-- (BOOL)shouldAutorotate {
-    return NO;
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self setStatusBarHidden:self.originalHiddenState];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return self.orientation;
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self resetViewForRotations:toInterfaceOrientation];
 }
 
-// locking orientation in pre-iOS 6
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return NO;
+- (void)resetViewForRotations:(UIInterfaceOrientation)orientation {
+    CGRect mainBounds = [[UIScreen mainScreen] bounds];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        CGFloat portraitHeight = mainBounds.size.height;
+        CGFloat portraitWidth = mainBounds.size.width;
+        mainBounds.size.height = portraitWidth;
+        mainBounds.size.width = portraitHeight;
+    }
+    
+    [self.contentView setFrame:mainBounds];
+}
+
+// hiding the status bar in iOS 7
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+// hiding the status bar pre-iOS 7
+- (void)setStatusBarHidden:(BOOL)hidden {
+    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
 }
 
 @end

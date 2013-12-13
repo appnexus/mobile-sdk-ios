@@ -17,20 +17,17 @@
 #import "AdSettings.h"
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
-#import <CoreLocation/CoreLocation.h>
 
 #define SV_BACKGROUND_COLOR_RED 77.0
 #define SV_BACKGROUND_COLOR_BLUE 83.0
 #define SV_BACKGROUND_COLOR_GREEN 78.0
 #define SV_BACKGROUND_COLOR_ALPHA 1.0 // On a scale from 0 -> 1
 
-@interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
+@interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) CLLocation *lastLocation;
-@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -47,10 +44,6 @@
 }
 
 - (void)setup {
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
-    
     [self.refreshControl addTarget:self action:@selector(reloadAd) forControlEvents:UIControlEventValueChanged];
     self.scrollView.backgroundColor = [UIColor colorWithRed:SV_BACKGROUND_COLOR_RED/255.0
                                                       green:SV_BACKGROUND_COLOR_GREEN/255.0
@@ -187,22 +180,24 @@
     if (self.bannerAdView) {
         // ScrollView width should be the banner width or the tableView width, whichever is greater
         CGSize bannerSize = self.bannerAdView.frame.size;
-        CGFloat svWidth = (bannerSize.width > self.tableView.frame.size.width) ? bannerSize.width : self.tableView.frame.size.width;
+        CGSize tableSize = self.tableView.frame.size;
+        CGFloat svWidth = (bannerSize.width > tableSize.width) ? bannerSize.width : tableSize.width;
         // ScrollView height should be the banner height or the tableView height, whichever is greater. This will also correspond to the cell height (which is returned).
-        CGFloat svHeight = (bannerSize.height > self.tableView.frame.size.height) ? bannerSize.height : self.tableView.frame.size.height;
+        CGFloat svHeight = (bannerSize.height > tableSize.height) ? bannerSize.height : tableSize.height;
         
         ANLogDebug(@"%@ %@ | adjusting scroll view", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         self.scrollView.contentSize = CGSizeMake(svWidth, svHeight); // Set content size to cell dimensions
         
         ANLogDebug(@"%@ %@ | adjusting banner ad view frame", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
-        CGFloat centerX = (self.tableView.frame.size.width - bannerSize.width) / 2.0;
-        CGFloat centerY = (self.tableView.frame.size.height - bannerSize.height) / 2.0;
+        CGFloat centerX = (tableSize.width - bannerSize.width) / 2.0;
+        CGFloat centerY = (tableSize.height - bannerSize.height) / 2.0;
         
         // Center banner in window, with equal whitespace on either side
         [self.bannerAdView setFrame:CGRectMake(centerX,
                                                centerY,
-                                             bannerSize.width, bannerSize.height)];
+                                               bannerSize.width,
+                                               bannerSize.height)];
         
         return svHeight;
     } else { // Not a banner, so scrollview size should be the visible table view size
@@ -266,18 +261,6 @@
     ANLogDebug(@"%@ %@ | deallocating ad views", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self clearBannerAdView];
     [self clearInterstitialAd];
-}
-
-// Delegate method from the CLLocationManagerDelegate protocol.
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations {
-    // If it's a relatively recent event, turn off updates to save power.
-    CLLocation* location = [locations lastObject];
-    NSDate* eventDate = location.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 30.0) {
-        self.lastLocation = location;
-    }
 }
 
 @end
