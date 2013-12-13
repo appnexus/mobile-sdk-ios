@@ -132,7 +132,6 @@
         self.defaultFrame = contentView.frame;
     }
     
-    
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
         [contentView removeFromSuperview];
@@ -185,7 +184,7 @@
         self.defaultFrame = contentView.frame;
     }
     
-    // otherwise, resize in the original container
+    // resize to new frame
     [contentView setFrame:frame];
     [contentView removeFromSuperview];
     
@@ -193,6 +192,7 @@
     parentFrame.size = CGSizeMake(frame.size.width + frame.origin.x,
                                   frame.size.height + frame.origin.y);
     [defaultParentView setFrame:parentFrame];
+    [contentView setFrame:frame];
     
     [defaultParentView addSubview:contentView];
 }
