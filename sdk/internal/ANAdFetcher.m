@@ -496,8 +496,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             }
             baseURL = [NSURL fileURLWithPath:mraidBundlePath];
             
-            self.webViewController = [[ANMRAIDAdWebViewController alloc] init];
-            self.webViewController.adFetcher = self;
+            ANMRAIDAdWebViewController *mraidWebViewController = [[ANMRAIDAdWebViewController alloc] init];
+            mraidWebViewController.mraidDelegate = self.delegate;
+            self.webViewController = mraidWebViewController;
         }
         else
         {
@@ -505,9 +506,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             baseURL = self.URL;
             
             self.webViewController = [[ANAdWebViewController alloc] init];
-            self.webViewController.adFetcher = self;
         }
         
+        self.webViewController.adFetcher = self;
         self.webViewController.webView = webView;
         webView.delegate = self.webViewController;
         

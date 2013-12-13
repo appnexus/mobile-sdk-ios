@@ -42,11 +42,16 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                            action:(SEL)selector
                     containerView:(UIView *)containerView
                          position:(ANMRAIDCustomClosePosition)position;
-- (void)mraidResizeAd:(CGSize)size
+- (void)mraidExpandAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController
-             isBanner:(BOOL)isBanner;
+   rootViewController:(UIViewController *)rootViewController;
+- (void)mraidResizeAd:(CGRect)frame
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController;
+- (void)adShouldResetToDefault:(UIView *)contentView
+                    parentView:(UIView *)parentView;
 
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
 
@@ -290,18 +295,30 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     [super adFetcher:fetcher adShouldOpenInBrowserWithURL:URL];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
-    [super mraidResizeAd:size
+#pragma mark ANMRAIDAdViewDelegate
+
+- (void)adShouldExpandToFrame:(CGRect)frame {
+    [super mraidExpandAd:frame.size
              contentView:self.controller.contentView
        defaultParentView:self.controller.view
-      rootViewController:self.controller
-                isBanner:NO];
+      rootViewController:self.controller];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
-         position:(ANMRAIDCustomClosePosition)position {
+- (void)adShouldResizeToFrame:(CGRect)frame {
+    [super mraidResizeAd:frame
+             contentView:self.controller.contentView
+       defaultParentView:self.controller.view
+      rootViewController:self.controller];
+}
+
+- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+                                 position:(ANMRAIDCustomClosePosition)position {
     UIView *containerView = self.mraidController ? self.mraidController.view : self.controller.contentView;
 	[super showCloseButtonWithTarget:target action:action containerView:containerView position:position];
+}
+
+- (void)adShouldResetToDefault {
+    [super adShouldResetToDefault:self.controller.contentView parentView:self.controller.view];
 }
 
 #pragma mark ANBrowserViewControllerDelegate

@@ -59,11 +59,12 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {}
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {}
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target
-           action:(SEL)action position:(ANMRAIDCustomClosePosition)position {}
+- (void)adShouldExpandToFrame:(CGRect)frame {}
+- (void)adShouldResizeToFrame:(CGRect)frame {}
+- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+                                 position:(ANMRAIDCustomClosePosition)position {}
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
-
+- (void)adShouldResetToDefault {}
 
 #pragma mark Initialization
 
@@ -91,6 +92,8 @@
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
+    _defaultParentFrame = CGRectNull;
+    _defaultFrame = CGRectNull;
 }
 
 - (void)dealloc {
@@ -109,25 +112,26 @@
     __customKeywords = nil;
 }
 
-- (void)mraidResizeAd:(CGSize)size
+- (void)mraidExpandAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController
-             isBanner:(BOOL)isBanner {
+   rootViewController:(UIViewController *)rootViewController {
+    // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
-    
     if ([contentView isKindOfClass:[UIWebView class]]) {
         UIWebView *webView = (UIWebView *)contentView;
         if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
             mraidWebViewController = (ANMRAIDAdWebViewController *)webView.delegate;
-            mraidWebViewController.controller = self.mraidController;
+            mraidWebViewController.controller = rootViewController;
         }
     }
     
-    if (!mraidWebViewController.expanded) {
+    // set default frames for resetting later
+    if (CGRectIsNull(self.defaultFrame)) {
         self.defaultParentFrame = defaultParentView.frame;
         self.defaultFrame = contentView.frame;
     }
+    
     
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
@@ -147,26 +151,50 @@
         
         [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
     } else {
-        // otherwise, resize in the original container
-        CGRect resizedFrame = self.defaultFrame;
-        resizedFrame.size = size;
-        [contentView setFrame:resizedFrame];
+        // non-fullscreen expand
+        CGRect expandedContentFrame = self.defaultFrame;
+        expandedContentFrame.size = size;
+        [contentView setFrame:expandedContentFrame];
         [contentView removeFromSuperview];
         
-        if (!mraidWebViewController.expanded) {
-            CGRect parentFrame = defaultParentView.frame;
-            parentFrame.size = size;
-            [defaultParentView setFrame:parentFrame];
-        } else {
-            [defaultParentView setFrame:self.defaultParentFrame];
-        }
+        CGRect expandedParentFrame = defaultParentView.frame;
+        expandedParentFrame.size = size;
+        [defaultParentView setFrame:expandedParentFrame];
         
         [defaultParentView addSubview:contentView];
-        if (self.mraidController) {
-            [self.mraidController dismissViewControllerAnimated:NO completion:nil];
-            self.mraidController = nil;
+    }
+}
+
+- (void)mraidResizeAd:(CGRect)frame
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController {
+    // set presenting controller for MRAID WebViewController
+    ANMRAIDAdWebViewController *mraidWebViewController;
+    if ([contentView isKindOfClass:[UIWebView class]]) {
+        UIWebView *webView = (UIWebView *)contentView;
+        if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
+            mraidWebViewController = (ANMRAIDAdWebViewController *)webView.delegate;
+            mraidWebViewController.controller = rootViewController;
         }
     }
+    
+    // set default frames for resetting later
+    if (CGRectIsNull(self.defaultFrame)) {
+        self.defaultParentFrame = defaultParentView.frame;
+        self.defaultFrame = contentView.frame;
+    }
+    
+    // otherwise, resize in the original container
+    [contentView setFrame:frame];
+    [contentView removeFromSuperview];
+    
+    CGRect parentFrame = defaultParentView.frame;
+    parentFrame.size = CGSizeMake(frame.size.width + frame.origin.x,
+                                  frame.size.height + frame.origin.y);
+    [defaultParentView setFrame:parentFrame];
+    
+    [defaultParentView addSubview:contentView];
 }
 
 - (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
@@ -332,14 +360,6 @@
     return self.adSize;
 }
 
-- (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher {
-    return self.adType;
-}
-
-- (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher {
-    [self removeCloseButton];
-}
-
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
     [self adWasClicked];
     
@@ -360,6 +380,27 @@
         [[UIApplication sharedApplication] openURL:URL];
     } else {
         ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+    }
+}
+#pragma mark ANMRAIDAdViewDelegate
+
+- (void)adShouldRemoveCloseButton {
+    [self removeCloseButton];
+}
+
+- (void)adShouldResetToDefault:(UIView *)contentView
+                    parentView:(UIView *)parentView {
+    [contentView setFrame:self.defaultFrame];
+    [contentView removeFromSuperview];
+    [parentView setFrame:self.defaultParentFrame];
+    [parentView addSubview:contentView];
+
+    self.defaultParentFrame = CGRectNull;
+    self.defaultFrame = CGRectNull;
+    
+    if (self.mraidController) {
+        [self.mraidController dismissViewControllerAnimated:NO completion:nil];
+        self.mraidController = nil;
     }
 }
 

@@ -45,6 +45,7 @@ typedef enum _ANMRAIDOrientation
 @interface UIWebView (MRAIDExtensions)
 - (void)fireReadyEvent;
 - (void)setIsViewable:(BOOL)viewable;
+- (ANMRAIDState)getMRAIDState;
 - (void)fireStateChangeEvent:(ANMRAIDState)state;
 - (void)firePlacementType:(NSString *)placementType;
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
@@ -105,27 +106,22 @@ typedef enum _ANMRAIDOrientation
 @end
 
 @interface ANMRAIDAdWebViewController ()
-@property (nonatomic, readwrite, assign) CGSize defaultSize;
+@property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) BOOL allowOrientationChange;
-@property (nonatomic, readwrite, assign) BOOL defaultSizeHasBeenSet;
+@property (nonatomic, readwrite, assign) BOOL defaultHasBeenSet;
 @property (nonatomic, assign) BOOL resized;
 @end
 
 @implementation ANMRAIDAdWebViewController
-@synthesize expanded = __expanded;
-@synthesize defaultSize = __defaultSize;
 
 - (id)init {
     self = [super init];
-    self.defaultSizeHasBeenSet = NO;
+    self.defaultHasBeenSet = NO;
     return self;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    if (!self.completedFirstLoad)
-    {
-        
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    if (!self.completedFirstLoad) {
         //Set values for mraid.supports()
         [self setValuesForMRAIDSupportsFunction:webView];
         
@@ -138,7 +134,7 @@ typedef enum _ANMRAIDOrientation
         //Set max size
         [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
         
-        [webView firePlacementType:[self.adFetcher.delegate placementTypeForAdFetcher:self.adFetcher]];
+        [webView firePlacementType:[self.mraidDelegate adType]];
         [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
         [webView fireReadyEvent];
@@ -152,10 +148,8 @@ typedef enum _ANMRAIDOrientation
     }
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-	if (self.completedFirstLoad)
-	{
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+	if (self.completedFirstLoad) {
 		NSURL *URL = [request URL];
 		NSString *scheme = [URL scheme];
 		
@@ -237,115 +231,37 @@ typedef enum _ANMRAIDOrientation
     
 }
 
-- (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView
-{
+- (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView {
     NSString *mraidCommand = [mraidURL host];
+    NSString *query = [mraidURL query];
+    NSDictionary *queryComponents = [query queryComponents];
 
-    if ([mraidCommand isEqualToString:@"expand"])
-    {
-        NSString *hiddenState = [webView stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
-    
-        if ([hiddenState isEqualToString:@"hidden"])
-        {
-            [webView setIsViewable:(BOOL)!webView.hidden];
-            [webView fireStateChangeEvent:ANMRAIDStateDefault];
+    if ([mraidCommand isEqualToString:@"expand"]) {
+        // do nothing if in hidden state
+        if ([webView getMRAIDState] == ANMRAIDStateHidden) {
+            return;
         }
         
-        NSString *query = [mraidURL query];
-        NSDictionary *queryComponents = [query queryComponents];
-        
-        NSInteger expandedHeight = [[queryComponents objectForKey:@"h"] integerValue];
-        NSInteger expandedWidth = [[queryComponents objectForKey:@"w"] integerValue];
-        
-        if (!self.defaultSizeHasBeenSet) {
-            self.defaultSize = webView.frame.size;
-            self.defaultSizeHasBeenSet = YES;
-        }
-        
-        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:CGSizeMake(expandedWidth, expandedHeight)];
-		
-        self.expanded = YES;
-        
-		NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
-        if ([useCustomClose isEqualToString:@"false"])
-        {
-            // No custom close included, show our default one.
-            [self.adFetcher.delegate adFetcher:self.adFetcher adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:) position:ANMRAIDTopRight];
-        }
-		        
-        NSString *url = [queryComponents objectForKey:@"url"];
-        if ([url length] > 0)
-        {
-            [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-        }
+        [self expandAction:webView queryComponents:queryComponents];
     }
-    else if ([mraidCommand isEqualToString:@"close"])
-    {
-        [self closeAction:self];
-    }else if([mraidCommand isEqualToString:@"createCalendarEvent"]){
-        NSString* query = [mraidURL query];
-        NSDictionary* queryComponents = [query queryComponents];
-        NSString* w3cEventJson = [queryComponents objectForKey:@"p"];
-        [self createCalendarEventFromW3CCompliantJSONObject:w3cEventJson];
-    }else if([mraidCommand isEqualToString:@"playVideo"]){
-        NSString *query = [mraidURL query];
-        NSDictionary *queryComponents = [query queryComponents];
-        NSString *uri = [queryComponents objectForKey:@"uri"];
-        NSURL *url = [NSURL URLWithString:uri];
-        
-        MPMoviePlayerViewController *moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-        moviePlayerViewController.moviePlayer.fullscreen = YES;
-        moviePlayerViewController.moviePlayer.shouldAutoplay = YES;
-        moviePlayerViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-        moviePlayerViewController.moviePlayer.view.frame = [[UIScreen mainScreen] bounds];
-        moviePlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(moviePlayerDidFinish:)
-                                                     name:MPMoviePlayerPlaybackDidFinishNotification
-                                                   object:moviePlayerViewController.moviePlayer];
-
-        [moviePlayerViewController.moviePlayer prepareToPlay];
-        [self.controller presentMoviePlayerViewControllerAnimated:moviePlayerViewController];
-        [moviePlayerViewController.moviePlayer play];
-        
-    }else if([mraidCommand isEqualToString:@"resize"]){
-        NSString *query = [mraidURL query];
-        NSDictionary *queryComponents = [query queryComponents];
-        int w = [[queryComponents objectForKey:@"w"] intValue];
-        int h = [[queryComponents objectForKey:@"h"] intValue];
-        int offset_x = [[queryComponents objectForKey:@"offset_x"] intValue];
-        int offset_y = [[queryComponents objectForKey:@"offset_y"] intValue];
-        NSString* custom_close_position = [queryComponents objectForKey:@"custom_close_position"];
-        BOOL allow_offscreen = [[queryComponents objectForKey:@"allow_offscreen"] boolValue];
-        
-        ANMRAIDCustomClosePosition close_positioning = [self getCustomClosePositionFromString:custom_close_position];
-        
-        NSString *currentState = [webView stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
-        if([currentState isEqualToString:@"default"] || [currentState isEqualToString:@"resized"]){
-            //TODO custom_close_position
-            if([currentState isEqualToString:@"default"]){
-                self.defaultSize = webView.frame.size;
-            }
-            
-            [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:CGSizeMake(w, h)];
-            
-            [self.adFetcher.delegate adShouldRemoveCloseButtonWithAdFetcher:self.adFetcher];
-            [self.adFetcher.delegate adFetcher:self.adFetcher
-             adShouldShowCloseButtonWithTarget:self
-                                        action:@selector(closeAction:)
-                                      position:close_positioning];
+    else if ([mraidCommand isEqualToString:@"close"]) {
+        // do nothing if in hidden state
+        if ([webView getMRAIDState] == ANMRAIDStateHidden) {
+            return;
         }
-        
-        self.resized = YES;
-    }else if([mraidCommand isEqualToString:@"storePicture"]){
-        NSString *query = [mraidURL query];
-        NSDictionary *queryComponents = [query queryComponents];
+
+        [self closeAction:self];
+    } else if([mraidCommand isEqualToString:@"resize"]) {
+        [self resizeAction:webView queryComponents:queryComponents];
+    } else if([mraidCommand isEqualToString:@"createCalendarEvent"]) {
+        NSString *w3cEventJson = [queryComponents objectForKey:@"p"];
+        [self createCalendarEventFromW3CCompliantJSONObject:w3cEventJson];
+    } else if([mraidCommand isEqualToString:@"playVideo"]) {
+        [self playVideo:queryComponents];
+    } else if([mraidCommand isEqualToString:@"storePicture"]) {
         NSString *uri = [queryComponents objectForKey:@"uri"];
         [self storePicture:uri];
-    }else if([mraidCommand isEqualToString:@"setOrientationProperties"]){
-        NSString *query = [mraidURL query];
-        NSDictionary *queryComponents = [query queryComponents];
+    } else if([mraidCommand isEqualToString:@"setOrientationProperties"]) {
         NSString *allow = [queryComponents objectForKey:@"allow_orientation_change"];
         NSString *forcedOrientation = [queryComponents objectForKey:@"force_orientation"];
         BOOL allowb = [allow boolValue];
@@ -376,49 +292,114 @@ typedef enum _ANMRAIDOrientation
     return position;
 }
 
-- (void)moviePlayerDidFinish:(NSNotification *)notification
-{
-    ANLogInfo(@"Movie Player finished: %@", notification);
-}
-
-
-- (IBAction)closeAction:(id)sender
-{
-    if (self.expanded || self.resized)
-    {
-        [self.adFetcher.delegate adShouldRemoveCloseButtonWithAdFetcher:self.adFetcher];
-        
-        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldResizeToSize:self.defaultSize];
+- (IBAction)closeAction:(id)sender {
+    if (self.expanded || self.resized) {
+        [self.mraidDelegate adShouldRemoveCloseButton];
+        [self.mraidDelegate adShouldResetToDefault];
         
         [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
         self.expanded = NO;
     }
-    else
-    {
+    else {
         // Clear the ad out
         [self.webView setHidden:YES animated:YES];
         self.webView = nil;
     }
 }
 
-- (void)setExpanded:(BOOL)expanded
-{
-    if (expanded != __expanded)
-    {
-        __expanded = expanded;
-        if (__expanded)
-        {
+- (void)setExpanded:(BOOL)expanded {
+    if (expanded != _expanded) {
+        _expanded = expanded;
+        if (_expanded) {
             [self.adFetcher stopAd];
         }
-        else
-        {
+        else {
             [self.adFetcher setupAutoRefreshTimerIfNecessary];
             [self.adFetcher startAutoRefreshTimer];
         }
     }
 }
 
-- (void)createCalendarEventFromW3CCompliantJSONObject:(NSString*)json{
+- (void)expandAction:(UIWebView *)webView queryComponents:(NSDictionary *)queryComponents {
+    NSInteger expandedHeight = [[queryComponents objectForKey:@"h"] integerValue];
+    NSInteger expandedWidth = [[queryComponents objectForKey:@"w"] integerValue];
+    NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
+    NSString *url = [queryComponents objectForKey:@"url"];
+    
+    if (!self.defaultHasBeenSet) {
+        self.defaultFrame = webView.frame;
+        self.defaultHasBeenSet = YES;
+    }
+    
+    [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)];
+    
+    self.expanded = YES;
+    
+    if ([useCustomClose isEqualToString:@"false"]) {
+        // No custom close included, show our default one.
+        [self.mraidDelegate adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)
+                                                     position:ANMRAIDTopRight];
+    }
+    
+    if ([url length] > 0) {
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    }
+}
+
+- (void)resizeAction:(UIWebView *)webView queryComponents:(NSDictionary *)queryComponents {
+    int w = [[queryComponents objectForKey:@"w"] intValue];
+    int h = [[queryComponents objectForKey:@"h"] intValue];
+    int offset_x = [[queryComponents objectForKey:@"offset_x"] intValue];
+    int offset_y = [[queryComponents objectForKey:@"offset_y"] intValue];
+    NSString* custom_close_position = [queryComponents objectForKey:@"custom_close_position"];
+    BOOL allow_offscreen = [[queryComponents objectForKey:@"allow_offscreen"] boolValue];
+    
+    ANMRAIDCustomClosePosition closePosition = [self getCustomClosePositionFromString:custom_close_position];
+    
+    NSString *currentState = [webView stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
+    if([currentState isEqualToString:@"default"] || [currentState isEqualToString:@"resized"]){
+        //TODO custom_close_position
+        if([currentState isEqualToString:@"default"]){
+            self.defaultFrame = webView.frame;
+        }
+
+        [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offset_x, offset_y, w, h)];
+
+        [self.mraidDelegate adShouldRemoveCloseButton];
+        [self.mraidDelegate adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)
+                                                     position:closePosition];
+    }
+    
+    self.resized = YES;
+}
+
+- (void)playVideo:(NSDictionary *)queryComponents {
+    NSString *uri = [queryComponents objectForKey:@"uri"];
+    NSURL *url = [NSURL URLWithString:uri];
+    
+    MPMoviePlayerViewController *moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+    moviePlayerViewController.moviePlayer.fullscreen = YES;
+    moviePlayerViewController.moviePlayer.shouldAutoplay = YES;
+    moviePlayerViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+    moviePlayerViewController.moviePlayer.view.frame = [[UIScreen mainScreen] bounds];
+    moviePlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayerDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:moviePlayerViewController.moviePlayer];
+    
+    [moviePlayerViewController.moviePlayer prepareToPlay];
+    [self.controller presentMoviePlayerViewControllerAnimated:moviePlayerViewController];
+    [moviePlayerViewController.moviePlayer play];
+}
+
+- (void)moviePlayerDidFinish:(NSNotification *)notification
+{
+    ANLogInfo(@"Movie Player finished: %@", notification);
+}
+
+- (void)createCalendarEventFromW3CCompliantJSONObject:(NSString *)json{
     NSError* error;
     NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
     
@@ -583,8 +564,7 @@ typedef enum _ANMRAIDOrientation
 
 @implementation ANWebView (MRAIDExtensions)
 
-- (void)setFrame:(CGRect)frame
-{
+- (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     if (self.safety) {
         NSString* setCurrentPosition = [NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i,%i,%i,%i);", (int)frame.origin.x, (int)frame.origin.y, (int)frame.size.width, (int)frame.size.height];
@@ -594,30 +574,43 @@ typedef enum _ANMRAIDOrientation
     }
 }
 
-- (void)firePlacementType:(NSString *)placementType
-{
+- (void)firePlacementType:(NSString *)placementType {
     NSString* script = [NSString stringWithFormat:@"window.mraid.util.setPlacementType('%@');", placementType];
     [self stringByEvaluatingJavaScriptFromString:script];
 }
 
-- (void)fireReadyEvent
-{
+- (void)fireReadyEvent {
     NSString* script = [NSString stringWithFormat:@"window.mraid.util.readyEvent();"];
     [self stringByEvaluatingJavaScriptFromString:script];
 }
 
-- (void)setIsViewable:(BOOL)viewable
-{
+- (void)setIsViewable:(BOOL)viewable {
     NSString* script = [NSString stringWithFormat:@"window.mraid.util.setIsViewable(%@)", viewable ? @"true" : @"false"];
     [self stringByEvaluatingJavaScriptFromString:script];
 }
 
-- (void)fireStateChangeEvent:(ANMRAIDState)state
-{
+- (ANMRAIDState)getMRAIDState {
+    NSString *state = [self stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
+    if ([state isEqualToString:@"loading"]) {
+        return ANMRAIDStateLoading;
+    } else if ([state isEqualToString:@"default"]) {
+        return ANMRAIDStateDefault;
+    } else if ([state isEqualToString:@"expanded"]) {
+        return ANMRAIDStateExpanded;
+    } else if ([state isEqualToString:@"hidden"]) {
+        return ANMRAIDStateHidden;
+    } else if ([state isEqualToString:@"resized"]) {
+        return ANMRAIDStateResized;
+    }
+    
+    ANLogError(@"Call to mraid.getState() returned invalid state.");
+    return ANMRAIDStateDefault;
+}
+
+- (void)fireStateChangeEvent:(ANMRAIDState)state {
     NSString *stateString = @"";
     
-    switch (state)
-    {
+    switch (state) {
         case ANMRAIDStateLoading:
             stateString = @"loading";
             break;
@@ -641,10 +634,8 @@ typedef enum _ANMRAIDOrientation
     [self stringByEvaluatingJavaScriptFromString:script];
 }
 
-- (void)setHidden:(BOOL)hidden animated:(BOOL)animated
-{
-    if (animated)
-    {
+- (void)setHidden:(BOOL)hidden animated:(BOOL)animated {
+    if (animated) {
         [UIView animateWithDuration:kAppNexusAnimationDuration animations:^{
             self.alpha = hidden ? 0.0f : 1.0f;
         } completion:^(BOOL finished) {
@@ -652,8 +643,7 @@ typedef enum _ANMRAIDOrientation
             self.alpha = 1.0f;
         }];
     }
-    else
-    {
+    else {
         self.hidden = hidden;
     }
 }
