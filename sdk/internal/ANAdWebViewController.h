@@ -39,6 +39,7 @@ typedef enum _ANMRAIDCustomClosePosition
 - (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
                                  position:(ANMRAIDCustomClosePosition)position;
 - (void)adShouldRemoveCloseButton;
+- (void)forceOrientation:(UIInterfaceOrientation)orientation;
 
 @end
 

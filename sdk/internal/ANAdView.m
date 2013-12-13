@@ -404,6 +404,14 @@
     }
 }
 
+- (void)forceOrientation:(UIInterfaceOrientation)orientation {
+    if (!self.mraidController)  {
+        return;
+    }
+    self.mraidController.allowOrientationChange = NO;
+    [self.mraidController forceOrientation:orientation];
+}
+
 #pragma mark ANBrowserViewControllerDelegate
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {

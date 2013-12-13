@@ -173,7 +173,7 @@ typedef enum _ANMRAIDOrientation
     return YES;
 }
 
-- (void)setMaxSizeForMRAIDGetMaxSizeFunction:(UIWebView*) webView{ //TODO: Setting to screen size because IDK what to doooo
+- (void)setMaxSizeForMRAIDGetMaxSizeFunction:(UIWebView*) webView{
     CGRect screenRect = webView.superview.bounds;
     int w = floorf(screenRect.size.width +0.5f);
     int h = floorf(screenRect.size.height +0.5f);
@@ -234,12 +234,12 @@ typedef enum _ANMRAIDOrientation
 }
 
 - (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView {
+    ANLogDebug(mraidURL.absoluteString);
     NSString *mraidCommand = [mraidURL host];
     NSString *query = [mraidURL query];
     NSDictionary *queryComponents = [query queryComponents];
 
     if ([mraidCommand isEqualToString:@"expand"]) {
-//        [webView stringByEvaluatingJavaScriptFromString:@""];
         // do nothing if in hidden state
         if ([webView getMRAIDState] == ANMRAIDStateHidden) {
             return;
@@ -528,10 +528,14 @@ typedef enum _ANMRAIDOrientation
         switch(orientation)
         {
             case ANMRAIDOrientationNone:
+                // do nothing
+                return;
                 break;
             case ANMRAIDOrientationLandscape:
+                [self.mraidDelegate forceOrientation:UIInterfaceOrientationLandscapeLeft];
                 break;
             case ANMRAIDOrientationPortrait:
+                [self.mraidDelegate forceOrientation:UIInterfaceOrientationPortrait];
                 break;
         }
     } else {
