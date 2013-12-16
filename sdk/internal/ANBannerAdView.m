@@ -36,7 +36,8 @@
 - (void)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController;
+   rootViewController:(UIViewController *)rootViewController
+       allowOffscreen:(BOOL)allowOffscreen;
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView;
 
@@ -260,11 +261,12 @@
       rootViewController:self.rootViewController];
 }
 
-- (void)adShouldResizeToFrame:(CGRect)frame {
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {
     [super mraidResizeAd:frame
              contentView:self.contentView
        defaultParentView:self
-      rootViewController:self.rootViewController];
+      rootViewController:self.rootViewController
+          allowOffscreen:allowOffscreen];
 }
 
 - (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action

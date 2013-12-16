@@ -49,7 +49,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController;
+   rootViewController:(UIViewController *)rootViewController
+       allowOffscreen:(BOOL)allowOffscreen;
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView;
 
@@ -304,11 +305,12 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
       rootViewController:self.controller];
 }
 
-- (void)adShouldResizeToFrame:(CGRect)frame {
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {
     [super mraidResizeAd:frame
              contentView:self.controller.contentView
        defaultParentView:self.controller.view
-      rootViewController:self.controller];
+      rootViewController:self.controller
+          allowOffscreen:allowOffscreen];
 }
 
 - (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action

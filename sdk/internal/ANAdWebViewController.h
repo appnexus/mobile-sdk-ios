@@ -35,7 +35,7 @@ typedef enum _ANMRAIDCustomClosePosition
 - (NSString *)adType;
 - (void)adShouldResetToDefault;
 - (void)adShouldExpandToFrame:(CGRect)frame;
-- (void)adShouldResizeToFrame:(CGRect)frame;
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen;
 - (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
                                  position:(ANMRAIDCustomClosePosition)position;
 - (void)adShouldRemoveCloseButton;

@@ -60,7 +60,7 @@
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {}
 - (void)adShouldExpandToFrame:(CGRect)frame {}
-- (void)adShouldResizeToFrame:(CGRect)frame {}
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {}
 - (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
                                  position:(ANMRAIDCustomClosePosition)position {}
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
@@ -169,7 +169,8 @@
 - (void)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController {
+   rootViewController:(UIViewController *)rootViewController
+       allowOffscreen:(BOOL)allowOffscreen {
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
     if ([contentView isKindOfClass:[UIWebView class]]) {

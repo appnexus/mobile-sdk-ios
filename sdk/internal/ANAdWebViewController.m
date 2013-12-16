@@ -155,8 +155,7 @@ typedef enum _ANMRAIDOrientation
 		
 		if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
 			[self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
-		}
-		else if ([scheme isEqualToString:@"mraid"]) {
+		} else if ([scheme isEqualToString:@"mraid"]) {
 			// Do MRAID actions
 			[self dispatchNativeMRAIDURL:URL forWebView:webView];
 		} else if ([scheme isEqualToString:@"anwebconsole"]) {
@@ -178,7 +177,8 @@ typedef enum _ANMRAIDOrientation
     int w = floorf(screenRect.size.width +0.5f);
     int h = floorf(screenRect.size.height +0.5f);
     
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setMaxSize(%i, %i);",w,h]];
+    [webView stringByEvaluatingJavaScriptFromString:
+     [NSString stringWithFormat:@"window.mraid.util.setMaxSize(%i, %i);", w, h]];
 }
 
 - (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
@@ -188,7 +188,8 @@ typedef enum _ANMRAIDOrientation
     int h = floorf(screenRect.size.height +0.5f); //Ah the glorious 0.5f rounding trick
     
     [webView stringByEvaluatingJavaScriptFromString:
-     [NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);", orientationIsLandscape ? h : w, orientationIsLandscape ? w : h]];
+     [NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);",
+      orientationIsLandscape ? h : w, orientationIsLandscape ? w : h]];
 }
 
 - (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView*)webView{
@@ -348,21 +349,21 @@ typedef enum _ANMRAIDOrientation
 - (void)resizeAction:(UIWebView *)webView queryComponents:(NSDictionary *)queryComponents {
     int w = [[queryComponents objectForKey:@"w"] intValue];
     int h = [[queryComponents objectForKey:@"h"] intValue];
-    int offset_x = [[queryComponents objectForKey:@"offset_x"] intValue];
-    int offset_y = [[queryComponents objectForKey:@"offset_y"] intValue];
-    NSString* custom_close_position = [queryComponents objectForKey:@"custom_close_position"];
-    BOOL allow_offscreen = [[queryComponents objectForKey:@"allow_offscreen"] boolValue];
+    int offsetX = [[queryComponents objectForKey:@"offset_x"] intValue];
+    int offsetY = [[queryComponents objectForKey:@"offset_y"] intValue];
+    NSString* customClosePosition = [queryComponents objectForKey:@"custom_close_position"];
+    BOOL allowOffscreen = [[queryComponents objectForKey:@"allow_offscreen"] boolValue];
     
-    ANMRAIDCustomClosePosition closePosition = [self getCustomClosePositionFromString:custom_close_position];
+    ANMRAIDCustomClosePosition closePosition = [self getCustomClosePositionFromString:customClosePosition];
     
-    NSString *currentState = [webView stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
-    if([currentState isEqualToString:@"default"] || [currentState isEqualToString:@"resized"]){
-        //TODO custom_close_position
-        if([currentState isEqualToString:@"default"]){
+    ANMRAIDState currentState = [webView getMRAIDState];
+    
+    if ((currentState == ANMRAIDStateDefault) || (currentState == ANMRAIDStateResized)) {
+        if (currentState == ANMRAIDStateDefault) {
             self.defaultFrame = webView.frame;
         }
 
-        [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offset_x, offset_y, w, h)];
+        [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h) allowOffscreen:allowOffscreen];
 
         [self.mraidDelegate adShouldRemoveCloseButton];
         [self.mraidDelegate adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)
