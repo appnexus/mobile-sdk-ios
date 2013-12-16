@@ -173,23 +173,32 @@ typedef enum _ANMRAIDOrientation
 }
 
 - (void)setMaxSizeForMRAIDGetMaxSizeFunction:(UIWebView*) webView{
-    CGRect screenRect = webView.superview.bounds;
-    int w = floorf(screenRect.size.width +0.5f);
-    int h = floorf(screenRect.size.height +0.5f);
+    UIApplication *application = [UIApplication sharedApplication];
+    BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    int screenWidth = floorf(screenSize.width + 0.5f);
+    int screenHeight = floorf(screenSize.height + 0.5f);
+    int orientedWidth = orientationIsPortrait ? screenWidth : screenHeight;
+    int orientedHeight = orientationIsPortrait ? screenHeight : screenWidth;
+    
+    if (!application.statusBarHidden) {
+        orientedHeight -= MIN(application.statusBarFrame.size.height, application.statusBarFrame.size.width);
+    }
     
     [webView stringByEvaluatingJavaScriptFromString:
-     [NSString stringWithFormat:@"window.mraid.util.setMaxSize(%i, %i);", w, h]];
+     [NSString stringWithFormat:@"window.mraid.util.setMaxSize(%i, %i);",
+      orientedWidth, orientedHeight]];
 }
 
 - (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
-    BOOL orientationIsLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    int w = floorf(screenRect.size.width +0.5f);
-    int h = floorf(screenRect.size.height +0.5f); //Ah the glorious 0.5f rounding trick
+    BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    int w = floorf(screenSize.width + 0.5f);
+    int h = floorf(screenSize.height + 0.5f);
     
     [webView stringByEvaluatingJavaScriptFromString:
      [NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);",
-      orientationIsLandscape ? h : w, orientationIsLandscape ? w : h]];
+      orientationIsPortrait ? w : h, orientationIsPortrait ? h : w]];
 }
 
 - (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView*)webView{
