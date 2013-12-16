@@ -135,9 +135,11 @@
     // expand to full screen
     if ((size.width == -1) || (size.height == -1)) {
         [contentView removeFromSuperview];
-        self.mraidController = [ANMRAIDViewController new];
+        if (!self.mraidController) {
+            self.mraidController = [ANMRAIDViewController new];
+            self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        }
         self.mraidController.contentView = contentView;
-        self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
         [self.mraidController.view addSubview:contentView];
         // set presenting controller for MRAID WebViewController
         if ([contentView isKindOfClass:[UIWebView class]]) {
@@ -406,8 +408,9 @@
 
 - (void)forceOrientation:(UIInterfaceOrientation)orientation {
     if (!self.mraidController)  {
-        return;
+        self.mraidController = [ANMRAIDViewController new];
     }
+    
     self.mraidController.allowOrientationChange = NO;
     [self.mraidController forceOrientation:orientation];
 }

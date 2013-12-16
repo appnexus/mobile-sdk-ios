@@ -17,7 +17,6 @@
 
 @interface ANMRAIDViewController ()
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
-@property (nonatomic, readwrite, assign) CGSize originalSize;
 @end
 
 @implementation ANMRAIDViewController
@@ -28,12 +27,6 @@
         _allowOrientationChange = YES;
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.originalSize = self.view.frame.size;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -71,33 +64,12 @@
 }
 
 - (void)forceOrientation:(UIInterfaceOrientation)orientation {
-    CGFloat angle = 0.0;
     self.orientation = orientation;
-    switch (orientation) {
-        case UIInterfaceOrientationPortraitUpsideDown:
-            angle = M_PI;
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-            angle = -M_PI_2;
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            angle = M_PI_2;
-            break;
-        default:
-            break;
-    }
-
-    self.view.transform = CGAffineTransformMakeRotation(angle);
     
-    CGRect mainBounds = [[UIScreen mainScreen] bounds];
-    if (UIInterfaceOrientationIsLandscape(orientation)) {
-        CGFloat portraitHeight = mainBounds.size.height;
-        CGFloat portraitWidth = mainBounds.size.width;
-        mainBounds.size.height = portraitWidth;
-        mainBounds.size.width = portraitHeight;
-    }
-    
-    [self.view setFrame:mainBounds];
+    UIViewController *dummyVC = [UIViewController new];
+    [self presentViewController:dummyVC animated:NO completion:^{
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }];
 }
 
 // locking orientation in iOS 6+

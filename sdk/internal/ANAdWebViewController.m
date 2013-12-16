@@ -515,23 +515,26 @@ typedef enum _ANMRAIDOrientation
     NSString *allow = [queryComponents objectForKey:@"allow_orientation_change"];
     NSString *forcedOrientation = [queryComponents objectForKey:@"force_orientation"];
 
-    ANMRAIDOrientation orientation = ANMRAIDOrientationNone;
+    ANMRAIDOrientation mraidOrientation = ANMRAIDOrientationNone;
     if ([forcedOrientation isEqualToString:@"none"]) {
-        orientation = ANMRAIDOrientationNone;
+        mraidOrientation = ANMRAIDOrientationNone;
     } else if ([forcedOrientation isEqualToString:@"portrait"]) {
-        orientation = ANMRAIDOrientationPortrait;
+        mraidOrientation = ANMRAIDOrientationPortrait;
     } else if ([forcedOrientation isEqualToString:@"landscape"]) {
-        orientation = ANMRAIDOrientationLandscape;
+        mraidOrientation = ANMRAIDOrientationLandscape;
     }
     
     if(![allow boolValue]){
-        switch(orientation)
+        switch(mraidOrientation)
         {
             case ANMRAIDOrientationNone:
                 // do nothing
                 return;
-                break;
             case ANMRAIDOrientationLandscape:
+                if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
+                    [self.mraidDelegate forceOrientation:UIInterfaceOrientationLandscapeRight];
+                    break;
+                }
                 [self.mraidDelegate forceOrientation:UIInterfaceOrientationLandscapeLeft];
                 break;
             case ANMRAIDOrientationPortrait:
@@ -539,7 +542,7 @@ typedef enum _ANMRAIDOrientation
                 break;
         }
     } else {
-        orientation = ANMRAIDOrientationNone;
+        mraidOrientation = ANMRAIDOrientationNone;
     }
 }
 
