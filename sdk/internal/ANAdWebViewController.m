@@ -449,16 +449,19 @@ typedef enum _ANMRAIDOrientation
                     event.endDate = [df1 dateFromString:end];
                 }else if([df2 dateFromString:end]!=nil){
                     event.endDate = [df2 dateFromString:end];
-                }else{
+                }else if (end) {
                     event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
+                } else {
+                    event.endDate = [event.startDate dateByAddingTimeInterval:3600]; // default to 60 mins
                 }
                 
                 if([df1 dateFromString:reminder]!=nil){
                     [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df1 dateFromString:reminder]]];
                 }else if([df2 dateFromString:reminder]!=nil){
                     [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df2 dateFromString:reminder]]];
-                }else{
-                    [event addAlarm:[EKAlarm alarmWithRelativeOffset:[reminder doubleValue]]];
+                } else if (reminder) {
+                    [event addAlarm:[EKAlarm alarmWithRelativeOffset:
+                                     ([reminder doubleValue] / 1000.0)]]; // milliseconds to seconds conversion
                 }
                 
                 if([status isEqualToString:@"pending"]){
@@ -480,6 +483,10 @@ typedef enum _ANMRAIDOrientation
                                                           ([frequency isEqualToString:@"monthly"]?EKRecurrenceFrequencyMonthly:
                                                           ([frequency isEqualToString:@"yearly"]? EKRecurrenceFrequencyYearly:-1)));
                     int interval = [[repeat objectForKey:@"interval"] intValue];
+                    if (interval < 1) {
+                        interval = 1;
+                    }
+                    
                     NSString* expires = [repeat objectForKey:@"expires"];
                     //expires
                     EKRecurrenceEnd* end;
@@ -487,9 +494,10 @@ typedef enum _ANMRAIDOrientation
                         end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df1 dateFromString:expires]];
                     }else if([df2 dateFromString:expires]!=nil){
                         end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df2 dateFromString:expires]];
-                    }else if([NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]!=nil){
+                    } else if(expires && [NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]){
                         end = [EKRecurrenceEnd recurrenceEndWithEndDate:[NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]];
-                    }
+                    } // default is to never expire
+                    
                     //NSArray* exceptionDates = [repeat objectForKey:@"exceptionDates"]; //Not supported
                     NSArray* daysInWeek = [repeat objectForKey:@"daysInWeek"];
                     NSArray* daysInMonth = [repeat objectForKey:@"daysInMonth"];
@@ -497,17 +505,11 @@ typedef enum _ANMRAIDOrientation
                     NSArray* weeksInMonth = [repeat objectForKey:@"weeksInMonth"];
                     NSArray* monthsInYear = [repeat objectForKey:@"monthsInYear"];
                     
-
-                    
                     EKRecurrenceRule* rrule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:frequency_ios interval:interval daysOfTheWeek:daysInWeek daysOfTheMonth:daysInMonth monthsOfTheYear:monthsInYear weeksOfTheYear:weeksInMonth daysOfTheYear:daysInYear setPositions:nil end:end];
-                    
-                    
-
                     
                     [event setRecurrenceRules:[NSArray arrayWithObjects:rrule, nil]];
                 }
         
-                
                 NSError* error = nil;
                 [store saveEvent:event span:EKSpanThisEvent error:&error];
                 if (error) {
