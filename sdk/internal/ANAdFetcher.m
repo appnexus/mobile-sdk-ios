@@ -281,20 +281,20 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (NSString *)locationParameter {
     ANLocation *location = [self.delegate location];
-    NSString *locationParamater = @"";
+    NSString *locationParameter = @"";
     
     if (location) {
         NSDate *locationTimestamp = location.timestamp;
         NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
         
-        locationParamater = [locationParamater
+        locationParameter = [locationParameter
                              stringByAppendingFormat:@"&loc=%f,%f&loc_age=%ld&loc_prec=%f",
                              location.latitude, location.longitude,
                              (long)ageInMilliseconds, location.horizontalAccuracy];
     }
     
-    return locationParamater;
+    return locationParameter;
 }
 
 - (NSString *)orientationParameter {
