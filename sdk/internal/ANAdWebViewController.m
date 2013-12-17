@@ -244,7 +244,7 @@ typedef enum _ANMRAIDOrientation
 }
 
 - (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView {
-    ANLogDebug(mraidURL.absoluteString);
+    ANLogDebug(@"MRAID URL: %@", [mraidURL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
     NSString *mraidCommand = [mraidURL host];
     NSString *query = [mraidURL query];
     NSDictionary *queryComponents = [query queryComponents];
@@ -473,7 +473,7 @@ typedef enum _ANMRAIDOrientation
                 
                 
                 NSDictionary* repeat = [jsonDict objectForKey:@"recurrence"];
-                if(repeat!=nil){
+                if ([repeat isKindOfClass:[NSDictionary class]]) {
                     NSString* frequency = [repeat objectForKey:@"frequency"];
                     EKRecurrenceFrequency frequency_ios = [frequency isEqualToString:@"daily"] ? EKRecurrenceFrequencyDaily:
                                                           ([frequency isEqualToString:@"weekly"]? EKRecurrenceFrequencyWeekly:
