@@ -45,6 +45,8 @@ typedef enum _ANMRAIDOrientation
 @interface UIWebView (MRAIDExtensions)
 - (void)fireReadyEvent;
 - (void)setIsViewable:(BOOL)viewable;
+- (void)setCurrentPosition:(CGRect)frame;
+- (void)setDefaultPosition:(CGRect)frame;
 - (ANMRAIDState)getMRAIDState;
 - (void)fireStateChangeEvent:(ANMRAIDState)state;
 - (void)firePlacementType:(NSString *)placementType;
@@ -201,15 +203,10 @@ typedef enum _ANMRAIDOrientation
       orientationIsPortrait ? w : h, orientationIsPortrait ? h : w]];
 }
 
-- (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView*)webView{
+- (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView *)webView{
     CGRect bounds = [webView bounds];
-    int x = floorf(bounds.origin.x +0.5f);
-    int y = floorf(bounds.origin.y +0.5f);
-    int w = floorf(bounds.size.width +0.5f);
-    int h = floorf(bounds.size.height +0.5f);
-    
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i, %i, %i, %i);",x,y,w,h]];
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setDefaultPosition(%i, %i, %i, %i);",x,y,w,h]];
+    [webView setDefaultPosition:bounds];
+    [webView setCurrentPosition:bounds];
 }
 
 - (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
@@ -598,10 +595,8 @@ typedef enum _ANMRAIDOrientation
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     if (self.safety) {
-        NSString* setCurrentPosition = [NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i,%i,%i,%i);", (int)frame.origin.x, (int)frame.origin.y, (int)frame.size.width, (int)frame.size.height];
-        [self stringByEvaluatingJavaScriptFromString:setCurrentPosition];
-        NSString* setCurrentSize = [NSString stringWithFormat:@"window.mraid.util.sizeChangeEvent(%i,%i);", (int)frame.size.width, (int)frame.size.height];
-        [self stringByEvaluatingJavaScriptFromString:setCurrentSize];
+        [self setCurrentPosition:frame];
+        [self setCurrentSize:frame.size];
     }
 }
 
@@ -616,7 +611,39 @@ typedef enum _ANMRAIDOrientation
 }
 
 - (void)setIsViewable:(BOOL)viewable {
-    NSString* script = [NSString stringWithFormat:@"window.mraid.util.setIsViewable(%@)", viewable ? @"true" : @"false"];
+    NSString* script = [NSString stringWithFormat:@"window.mraid.util.setIsViewable(%@)",
+                        viewable ? @"true" : @"false"];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)setCurrentSize:(CGSize)size {
+    int width = floorf(size.width + 0.5f);
+    int height = floorf(size.height + 0.5f);
+
+    NSString *script = [NSString stringWithFormat:@"window.mraid.util.sizeChangeEvent(%i,%i);",
+                        width, height];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)setCurrentPosition:(CGRect)frame {
+    int offsetX = (frame.origin.x > 0) ? floorf(frame.origin.x + 0.5f) : ceilf(frame.origin.x - 0.5f);
+    int offsetY = (frame.origin.y > 0) ? floorf(frame.origin.y + 0.5f) : ceilf(frame.origin.y - 0.5f);
+    int width = floorf(frame.size.width + 0.5f);
+    int height = floorf(frame.size.height + 0.5f);
+    
+    NSString *script = [NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i, %i, %i, %i);",
+                        offsetX, offsetY, width, height];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)setDefaultPosition:(CGRect)frame {
+    int offsetX = (frame.origin.x > 0) ? floorf(frame.origin.x + 0.5f) : ceilf(frame.origin.x - 0.5f);
+    int offsetY = (frame.origin.y > 0) ? floorf(frame.origin.y + 0.5f) : ceilf(frame.origin.y - 0.5f);
+    int width = floorf(frame.size.width + 0.5f);
+    int height = floorf(frame.size.height + 0.5f);
+
+    NSString *script = [NSString stringWithFormat:@"window.mraid.util.setDefaultPosition(%i, %i, %i, %i);",
+                        offsetX, offsetY, width, height];
     [self stringByEvaluatingJavaScriptFromString:script];
 }
 
