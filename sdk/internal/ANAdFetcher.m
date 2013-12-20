@@ -21,6 +21,7 @@
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANReachability.h"
+#import "ANWebView.h"
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
 #import "UIWebView+ANCategory.h"
@@ -472,7 +473,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             sizeOfCreative = [self.delegate requestedSizeForAdFetcher:self];
         
         // Generate a new webview to contain the HTML
-        UIWebView *webView = [[UIWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
+        ANWebView *webView = [[ANWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
         webView.backgroundColor = [UIColor clearColor];
         webView.opaque = NO;
         webView.scrollEnabled = NO;
@@ -495,8 +496,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             }
             baseURL = [NSURL fileURLWithPath:mraidBundlePath];
             
-            self.webViewController = [[ANMRAIDAdWebViewController alloc] init];
-            self.webViewController.adFetcher = self;
+            ANMRAIDAdWebViewController *mraidWebViewController = [[ANMRAIDAdWebViewController alloc] init];
+            mraidWebViewController.mraidDelegate = self.delegate;
+            self.webViewController = mraidWebViewController;
         }
         else
         {
@@ -504,9 +506,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             baseURL = self.URL;
             
             self.webViewController = [[ANAdWebViewController alloc] init];
-            self.webViewController.adFetcher = self;
         }
         
+        self.webViewController.adFetcher = self;
         self.webViewController.webView = webView;
         webView.delegate = self.webViewController;
         

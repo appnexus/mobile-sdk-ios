@@ -19,6 +19,7 @@
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANMRAIDViewController.h"
 
 @interface ANAdView (ANBannerAdView) <ANAdFetcherDelegate>
 - (void)initialize;
@@ -26,25 +27,27 @@
 - (void)adRequestFailedWithError:(NSError *)error;
 - (void)showCloseButtonWithTarget:(id)target
                            action:(SEL)selector
-                    containerView:(UIView *)containerView;
-- (void)mraidResizeAd:(CGSize)size
+                    containerView:(UIView *)containerView
+                         position:(ANMRAIDCustomClosePosition)position;
+- (void)mraidExpandAd:(CGSize)size
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController;
+- (void)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
-             isBanner:(BOOL)isBanner;
+       allowOffscreen:(BOOL)allowOffscreen;
+- (void)adShouldResetToDefault:(UIView *)contentView
+                    parentView:(UIView *)parentView;
+
+@property (nonatomic, strong) ANMRAIDViewController *mraidController;
+
 @end
-
-@interface ANBannerAdView ()
-
-@property (nonatomic, strong) UIView *defaultSuperView;
-
-@end
-
 
 @implementation ANBannerAdView
 @synthesize delegate = __delegate;
 @synthesize autoRefreshInterval = __autoRefreshInterval;
-@synthesize defaultSuperView = __defaultSuperView;
 
 #pragma mark Initialization
 
@@ -245,24 +248,35 @@
     }
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
-    if (!self.defaultSuperView) {
-        self.defaultSuperView = self.superview;
-    }
-    
-    [super mraidResizeAd:size
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
+    return self.autoRefreshInterval;
+}
+
+#pragma mark ANMRAIDAdViewDelegate
+
+- (void)adShouldExpandToFrame:(CGRect)frame {
+    [super mraidExpandAd:frame.size
+             contentView:self.contentView
+       defaultParentView:self
+      rootViewController:self.rootViewController];
+}
+
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {
+    [super mraidResizeAd:frame
              contentView:self.contentView
        defaultParentView:self
       rootViewController:self.rootViewController
-                isBanner:YES];
+          allowOffscreen:allowOffscreen];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
-	[super showCloseButtonWithTarget:target action:action containerView:self];
+- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+                                 position:(ANMRAIDCustomClosePosition)position {
+    UIView *containerView = self.mraidController ? self.mraidController.view : self;
+	[super showCloseButtonWithTarget:target action:action containerView:containerView position:position];
 }
 
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
-    return self.autoRefreshInterval;
+- (void)adShouldResetToDefault {
+    [super adShouldResetToDefault:self.contentView parentView:self];
 }
 
 #pragma mark delegate selector helper method
