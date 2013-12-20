@@ -25,10 +25,10 @@
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-                       location:(ANLocation *)location
-             rootViewController:(UIViewController *)rootViewController
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     NSLog(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
 	GADAdSize gadAdSize = GADAdSizeFromCGSize(size);
@@ -38,15 +38,36 @@
 	
 	self.bannerView.rootViewController = rootViewController;
 	self.bannerView.delegate = self;
+	[self.bannerView loadRequest:[self createRequestFromTargetingParameters:targetingParameters]];
+}
+
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
 	GADRequest *request = [GADRequest request];
     
+    ANGender gender = targetingParameters.gender;
+    switch (gender) {
+        case MALE:
+            request.gender = kGADGenderMale;
+            break;
+            case FEMALE:
+            request.gender = kGADGenderFemale;
+            break;
+        case UNKNOWN:
+            request.gender = kGADGenderUnknown;
+        default:
+            break;
+    }
+    
+    ANLocation *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
                                longitude:location.longitude
                                 accuracy:location.horizontalAccuracy];
     }
     
-	[self.bannerView loadRequest:request];
+    request.additionalParameters = targetingParameters.customKeywords;
+    
+    return request;
 }
 
 #pragma mark GADBannerViewDelegate

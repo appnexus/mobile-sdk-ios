@@ -342,15 +342,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECAFB0271864D157007F1973 /* ANAdAdapterInterstitialDFP.m in Sources */,
-				ECB1245C18219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m in Sources */,
-				ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
-				ECB1245B18219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m in Sources */,
-				ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */,
-				ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */,
-				ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */,
 				ECAFB01A1864BF66007F1973 /* ANAdAdapterBannerDFP.m in Sources */,
+				ECAFB0271864D157007F1973 /* ANAdAdapterInterstitialDFP.m in Sources */,
+				ECB1245B18219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m in Sources */,
+				ECB1245C18219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m in Sources */,
+				ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */,
+				ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
 				ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */,
+				ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */,
+				ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

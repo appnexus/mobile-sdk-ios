@@ -13,12 +13,13 @@
  limitations under the License.
  */
 
-#import "ANCustomAdapter.h"
-#import "MMRequest.h"
+#import "ANAdProtocol.h"
+#import "ANLocation.h"
 
-#import <Foundation/Foundation.h>
-
-@interface ANAdAdapterMillennialMediaBase : NSObject <ANCustomAdapter>
-- (void) addMMNotificationObservers;
-- (MMRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
+@interface ANTargetingParameters : NSObject
+@property (nonatomic, readwrite, strong) NSDictionary *customKeywords;
+@property (nonatomic, readwrite, strong) NSString *age;
+@property (nonatomic, readwrite, assign) ANGender gender;
+@property (nonatomic, readwrite, strong) ANLocation *location;
 @end
+

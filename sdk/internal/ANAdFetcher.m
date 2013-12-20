@@ -564,7 +564,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
                                               requestAd:sizeOfCreative
                                               serverParameter:currentAd.param
                                               adUnitId:currentAd.adId
-                                              location:[self.delegate location]
                                               adView:self.delegate];
 
                 if (!requestedSuccessfully) {

@@ -15,6 +15,8 @@
 
 #import "ANAdAdapterBannerDFP.h"
 
+#import "DFPExtras.h"
+
 @interface ANAdAdapterBannerDFP ()
 @property (nonatomic, readwrite, strong) DFPBannerView *dfpBanner;
 @end
@@ -25,10 +27,10 @@
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-                       location:(ANLocation *)location
-             rootViewController:(UIViewController *)rootViewController
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     NSLog(@"Requesting DFP banner with size: %0.1fx%0.1f", size.width, size.height);
 	GADAdSize gadAdSize = GADAdSizeFromCGSize(size);
@@ -37,15 +39,47 @@
 	self.dfpBanner.adUnitID = @"/6253334/dfp_example_ad";
     self.dfpBanner.rootViewController = rootViewController;
     self.dfpBanner.delegate = self;
+	[self.dfpBanner loadRequest:
+     [self createRequestFromTargetingParameters:targetingParameters]];
+}
+
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
 	GADRequest *request = [GADRequest request];
     
+    ANGender gender = targetingParameters.gender;
+    switch (gender) {
+        case MALE:
+            request.gender = kGADGenderMale;
+            break;
+        case FEMALE:
+            request.gender = kGADGenderFemale;
+            break;
+        case UNKNOWN:
+            request.gender = kGADGenderUnknown;
+        default:
+            break;
+    }
+    
+    ANLocation *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
                                longitude:location.longitude
                                 accuracy:location.horizontalAccuracy];
     }
     
-	[self.dfpBanner loadRequest:request];
+    DFPExtras *extras = [DFPExtras new];
+    NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
+
+    NSString *age = targetingParameters.age;
+    if (age) {
+        [extrasDictionary setValue:age forKey:@"Age"];
+    }
+    
+    extras.additionalParameters = extrasDictionary;
+    
+    [request registerAdNetworkExtras:extras];
+    
+    return request;
 }
 
 #pragma mark GADBannerViewDelegate

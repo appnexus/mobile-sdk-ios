@@ -15,8 +15,8 @@
 
 
 #import "ANAdAdapterInterstitialMillennialMedia.h"
+
 #import "MMInterstitial.h"
-#import "MMRequest.h"
 
 @interface ANAdAdapterInterstitialMillennialMedia ()
 @property (nonatomic, readwrite, strong) MMInterstitial *interstitialAd;
@@ -30,7 +30,7 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                                  location:(ANLocation *)location
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     NSLog(@"Requesting MillennialMedia interstitial");
     [MMSDK initialize];
@@ -45,20 +45,7 @@
     }
     
     //MMRequest object
-    MMRequest *request;
-    if (location) {
-        CLLocation *locToSend = [[CLLocation alloc]
-                     initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                     altitude:0
-                     horizontalAccuracy:location.horizontalAccuracy
-                     verticalAccuracy:0 course:0 speed:0
-                     timestamp:location.timestamp];
-        
-        request = [MMRequest requestWithLocation:locToSend];
-    }
-    else {
-        request = [MMRequest request];
-    }
+    MMRequest *request = [self createRequestFromTargetingParameters:targetingParameters];
     
     [MMInterstitial fetchWithRequest:request
                                 apid:idString

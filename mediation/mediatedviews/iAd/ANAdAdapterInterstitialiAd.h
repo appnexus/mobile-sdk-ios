@@ -13,8 +13,9 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
 #import "ANCustomAdapter.h"
+
+#import <Foundation/Foundation.h>
 #import <iAd/iAd.h>
 
 @interface ANAdAdapterInterstitialiAd : NSObject <ANCustomAdapterInterstitial, ADInterstitialAdDelegate>

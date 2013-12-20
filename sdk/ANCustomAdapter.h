@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "ANLocation.h"
+#import "ANTargetingParameters.h"
 
 typedef enum _ANAdResponseCode
 {
@@ -48,10 +48,10 @@ typedef enum _ANAdResponseCode
 
 @protocol ANCustomAdapterBanner <ANCustomAdapter>
 - (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-                       location:(ANLocation *)location
-             rootViewController:(UIViewController *)rootViewController;
+            targetingParameters:(ANTargetingParameters *)targetingParameters;
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterBannerDelegate, ANCustomAdapterDelegate> delegate;
 @end
 
@@ -61,7 +61,7 @@ typedef enum _ANAdResponseCode
 @protocol ANCustomAdapterInterstitial <ANCustomAdapter>
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                                  location:(ANLocation *)location;
+                       targetingParameters:(ANTargetingParameters *)targetingParameters;
 - (void)presentFromViewController:(UIViewController *)viewController;
 - (BOOL)isReady;
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
