@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define AN_MOBILE_HOSTNAME @"mediation.adnxs.com/mob"
+#define AN_MOBILE_HOSTNAME @"rlissack.adnxs.net:8080/mobile/wr"
 #define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
 #define AN_ERROR_TABLE @"errors"
