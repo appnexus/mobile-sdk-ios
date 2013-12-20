@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterMillennialMediaBase.h"
+
 #import "MMAdView.h"
 
 @implementation ANAdAdapterMillennialMediaBase
@@ -59,6 +60,48 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (MMRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+	MMRequest *request = [MMRequest request];
+    
+    ANGender gender = targetingParameters.gender;
+    switch (gender) {
+        case MALE:
+            request.gender = MMGenderMale;
+            break;
+        case FEMALE:
+            request.gender = MMGenderFemale;
+            break;
+        case UNKNOWN:
+            request.gender = MMGenderOther;
+        default:
+            break;
+    }
+    
+    ANLocation *location = targetingParameters.location;
+    if (location) {
+        request.location = [[CLLocation alloc]
+                            initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)
+                            altitude:0
+                            horizontalAccuracy:location.horizontalAccuracy
+                            verticalAccuracy:0 course:0 speed:0
+                            timestamp:location.timestamp];
+    }
+    
+    NSString *age = targetingParameters.age;
+    if (age) {
+        NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSNumber *ageNumber = [numberFormatter numberFromString:age];
+        if (ageNumber) {
+            request.age = ageNumber;
+        }
+    }
+    
+    request.keywords = [[targetingParameters.customKeywords allValues] copy];
+    
+    return request;
 }
 
 #pragma mark - Millennial Media Notification Methods

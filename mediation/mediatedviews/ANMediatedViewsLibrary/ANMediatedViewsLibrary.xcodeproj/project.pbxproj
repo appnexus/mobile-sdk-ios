@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ECAFB01A1864BF66007F1973 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB0191864BF66007F1973 /* ANAdAdapterBannerDFP.m */; };
+		ECAFB0271864D157007F1973 /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB0261864D157007F1973 /* ANAdAdapterInterstitialDFP.m */; };
 		ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237318219C9D00CB4BE8 /* Foundation.framework */; };
 		ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */; };
 		ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */; };
@@ -58,6 +60,17 @@
 
 /* Begin PBXFileReference section */
 		EC8477B11844166900A8BC80 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/ANCustomAdapter.h; sourceTree = "<group>"; };
+		ECAFB0181864BF66007F1973 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
+		ECAFB0191864BF66007F1973 /* ANAdAdapterBannerDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerDFP.m; sourceTree = "<group>"; };
+		ECAFB01E1864CAA6007F1973 /* DFPBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFPBannerView.h; sourceTree = "<group>"; };
+		ECAFB01F1864CAA6007F1973 /* DFPExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFPExtras.h; sourceTree = "<group>"; };
+		ECAFB0201864CAA6007F1973 /* DFPInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFPInterstitial.h; sourceTree = "<group>"; };
+		ECAFB0211864CAA6007F1973 /* DFPSwipeableBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFPSwipeableBannerView.h; sourceTree = "<group>"; };
+		ECAFB0221864CAA6007F1973 /* GADAdSizeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSizeDelegate.h; sourceTree = "<group>"; };
+		ECAFB0231864CAA6007F1973 /* GADAppEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAppEventDelegate.h; sourceTree = "<group>"; };
+		ECAFB0241864CAA6007F1973 /* GADSwipeableBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADSwipeableBannerViewDelegate.h; sourceTree = "<group>"; };
+		ECAFB0251864D157007F1973 /* ANAdAdapterInterstitialDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialDFP.h; sourceTree = "<group>"; };
+		ECAFB0261864D157007F1973 /* ANAdAdapterInterstitialDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialDFP.m; sourceTree = "<group>"; };
 		ECB1237018219C9D00CB4BE8 /* libANMediatedViewsLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANMediatedViewsLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB1237318219C9D00CB4BE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ECB123BA18219D4F00CB4BE8 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
@@ -117,6 +130,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ECAFB0171864BF47007F1973 /* DFP */ = {
+			isa = PBXGroup;
+			children = (
+				ECAFB0181864BF66007F1973 /* ANAdAdapterBannerDFP.h */,
+				ECAFB0191864BF66007F1973 /* ANAdAdapterBannerDFP.m */,
+				ECAFB0251864D157007F1973 /* ANAdAdapterInterstitialDFP.h */,
+				ECAFB0261864D157007F1973 /* ANAdAdapterInterstitialDFP.m */,
+			);
+			name = DFP;
+			path = ../DFP;
+			sourceTree = "<group>";
+		};
+		ECAFB01D1864CAA6007F1973 /* DoubleClick */ = {
+			isa = PBXGroup;
+			children = (
+				ECAFB01E1864CAA6007F1973 /* DFPBannerView.h */,
+				ECAFB01F1864CAA6007F1973 /* DFPExtras.h */,
+				ECAFB0201864CAA6007F1973 /* DFPInterstitial.h */,
+				ECAFB0211864CAA6007F1973 /* DFPSwipeableBannerView.h */,
+				ECAFB0221864CAA6007F1973 /* GADAdSizeDelegate.h */,
+				ECAFB0231864CAA6007F1973 /* GADAppEventDelegate.h */,
+				ECAFB0241864CAA6007F1973 /* GADSwipeableBannerViewDelegate.h */,
+			);
+			path = DoubleClick;
+			sourceTree = "<group>";
+		};
 		ECB1236718219C9D00CB4BE8 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +178,7 @@
 		ECB1237218219C9D00CB4BE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECAFB0171864BF47007F1973 /* DFP */,
 				ECCF18F41835792300B17EB4 /* iAd.framework */,
 				ECB1244A18219ECD00CB4BE8 /* MillennialMedia */,
 				ECB1244F18219ECE00CB4BE8 /* iAd */,
@@ -182,6 +222,7 @@
 		ECB123B818219D4F00CB4BE8 /* Add-ons */ = {
 			isa = PBXGroup;
 			children = (
+				ECAFB01D1864CAA6007F1973 /* DoubleClick */,
 				ECB123B918219D4F00CB4BE8 /* Mediation */,
 			);
 			path = "Add-ons";
@@ -301,13 +342,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECB1245C18219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m in Sources */,
-				ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
+				ECAFB01A1864BF66007F1973 /* ANAdAdapterBannerDFP.m in Sources */,
+				ECAFB0271864D157007F1973 /* ANAdAdapterInterstitialDFP.m in Sources */,
 				ECB1245B18219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m in Sources */,
-				ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */,
+				ECB1245C18219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m in Sources */,
 				ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */,
-				ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */,
+				ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
 				ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */,
+				ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */,
+				ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

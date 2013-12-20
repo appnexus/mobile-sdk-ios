@@ -28,22 +28,14 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                                  location:(ANLocation *)location
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     NSLog(@"Requesting AdMob interstitial");
 	self.interstitialAd = [[GADInterstitial alloc] init];
 	self.interstitialAd.adUnitID = idString;
 	self.interstitialAd.delegate = self;
-    
-    GADRequest *request = [GADRequest request];
-
-    if (location) {
-        [request setLocationWithLatitude:location.latitude
-                               longitude:location.longitude
-                                accuracy:location.horizontalAccuracy];
-    }
-    
-	[self.interstitialAd loadRequest:request];
+	[self.interstitialAd loadRequest:
+     [self createRequestFromTargetingParameters:targetingParameters]];
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController
@@ -60,6 +52,35 @@
 
 - (BOOL)isReady {
     return self.interstitialAd.isReady;
+}
+
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+	GADRequest *request = [GADRequest request];
+    
+    ANGender gender = targetingParameters.gender;
+    switch (gender) {
+        case MALE:
+            request.gender = kGADGenderMale;
+            break;
+        case FEMALE:
+            request.gender = kGADGenderFemale;
+            break;
+        case UNKNOWN:
+            request.gender = kGADGenderUnknown;
+        default:
+            break;
+    }
+    
+    ANLocation *location = targetingParameters.location;
+    if (location) {
+        [request setLocationWithLatitude:location.latitude
+                               longitude:location.longitude
+                                accuracy:location.horizontalAccuracy];
+    }
+    
+    request.additionalParameters = targetingParameters.customKeywords;
+    
+    return request;
 }
 
 #pragma mark GADInterstitialDelegate
