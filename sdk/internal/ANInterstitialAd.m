@@ -24,8 +24,9 @@
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
-// List of default allowed ad sizes. These must fit in the maximum size of the
-// view, which in this case, will be the size of the window
+// List of allowed ad sizes for interstitials.  These must fit in the
+// maximum size of the view, which in this case, will be the size of
+// the window.
 #define kANInterstitialAdSize300x250 CGSizeMake(300,250)
 #define kANInterstitialAdSize320x480 CGSizeMake(320,480)
 #define kANInterstitialAdSize900x500 CGSizeMake(900,500)

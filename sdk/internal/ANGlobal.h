@@ -37,8 +37,19 @@
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
 
 // Banner AutoRefresh
+
+// These constants control the default behavior of the ad view autorefresh (i.e.,
+// how often the view will fetch a new ad).  Ads will only autorefresh
+// when they are visible.
+
+// DefaultAutorefreshInterval: By default, your ads will autorefresh
+// at this interval.
 #define kANBannerDefaultAutoRefreshInterval 30.0
+
+// MinimumAutorefreshInterval: The minimum time between refreshes.
 #define kANBannerMinimumAutoRefreshInterval 15.0
+
+// AutorefreshThreshold: time value to disable autorefresh
 #define kANBannerAutoRefreshThreshold 0.0
 
 // Interstitial Close Button Delay
