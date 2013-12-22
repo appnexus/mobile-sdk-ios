@@ -67,6 +67,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 		self.data = [NSMutableData data];
         self.request = [ANAdFetcher initBasicRequest];
 		self.successResultRequest = [ANAdFetcher initBasicRequest];
+        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
     }
     
 	return self;
@@ -94,6 +95,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 - (void)requestAdWithURL:(NSURL *)URL
 {
     [self.autoRefreshTimer invalidate];
+    self.request = [ANAdFetcher initBasicRequest];
     
     if (!self.isLoading)
 	{
@@ -734,6 +736,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         // fire the resultCB if there is one
         if ([resultCBString length] > 0) {
             // if it was successful, don't act on the response
+            self.successResultRequest = [ANAdFetcher initBasicRequest];
             self.successResultRequest.URL = [NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]];
             self.successResultConnection = [NSURLConnection connectionWithRequest:self.successResultRequest delegate:self];
         }

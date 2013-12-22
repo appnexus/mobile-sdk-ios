@@ -549,7 +549,6 @@
 		ECB1248C1821A25D00CB4BE8 /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				ECAFB02C1864EE25007F1973 /* ANTargetingParameters.m */,
 				ECB1248D1821A25D00CB4BE8 /* ANAdFetcher.h */,
 				ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */,
 				ECB1248F1821A25D00CB4BE8 /* ANAdResponse.h */,
@@ -577,6 +576,7 @@
 				ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */,
 				ECB124AB1821A25D00CB4BE8 /* ANReachability.h */,
 				ECB124AC1821A25D00CB4BE8 /* ANReachability.m */,
+				ECAFB02C1864EE25007F1973 /* ANTargetingParameters.m */,
 				EC70ED8B18316B2000BDF92F /* ANWebView.h */,
 				ECF9AA941858E5F60079BCD0 /* ANWebView.m */,
 				ECF9AA931858E5540079BCD0 /* ANMRAIDViewController.h */,
