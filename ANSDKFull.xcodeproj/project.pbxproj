@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC3905FD1866948A0017959C /* ANTargetingParameters.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = EC3905FC1866947D0017959C /* ANTargetingParameters.h */; };
 		EC3E5DB41843EB3E0070315E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E5DB31843EB3E0070315E /* Foundation.framework */; };
 		EC3E5E0D1843ECF30070315E /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5DE31843ECF20070315E /* ANAdAdapterBannerAdMob.m */; };
 		EC3E5E0E1843ECF30070315E /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5DE51843ECF20070315E /* ANAdAdapterInterstitialAdMob.m */; };
@@ -34,6 +35,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC3905FD1866948A0017959C /* ANTargetingParameters.h in CopyFiles */,
 				ECF23E7718452AEF00A94DE8 /* ANAdProtocol.h in CopyFiles */,
 				ECF23E7818452AEF00A94DE8 /* ANAdView.h in CopyFiles */,
 				ECF23E7918452AEF00A94DE8 /* ANBannerAdView.h in CopyFiles */,
@@ -49,6 +51,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC3905FC1866947D0017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		EC3E5DB01843EB3E0070315E /* libANSDKFull.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKFull.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3E5DB31843EB3E0070315E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC3E5DC11843EB3E0070315E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -251,6 +254,7 @@
 				ECF23E7018452ACD00A94DE8 /* ANCustomAdapter.h */,
 				ECF23E7118452ACD00A94DE8 /* ANInterstitialAd.h */,
 				ECF23E7218452ACD00A94DE8 /* ANLocation.h */,
+				EC3905FC1866947D0017959C /* ANTargetingParameters.h */,
 				ECF23E7318452ACD00A94DE8 /* ANSDKResources.bundle */,
 			);
 			name = ANSDK;
