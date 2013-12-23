@@ -15,6 +15,7 @@
 
 #import "ANCustomAdapter.h"
 #import "DFPBannerView.h"
+#import "DFPSwipeableBannerView.h"
 #import "GADBannerViewDelegate.h"
 
 @interface ANAdAdapterBannerDFP : NSObject <ANCustomAdapterBanner, GADBannerViewDelegate>

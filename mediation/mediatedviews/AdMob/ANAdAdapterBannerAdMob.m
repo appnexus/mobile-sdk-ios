@@ -19,6 +19,21 @@
 @property (nonatomic, readwrite, strong) GADBannerView *bannerView;
 @end
 
+
+/**
+ * Server side overridable
+ */
+@interface AdMobBannerServerSideParameters : NSObject
+@property(nonatomic, readwrite) BOOL isSmartBanner;
+@end
+@implementation AdMobBannerServerSideParameters
+@synthesize isSmartBanner;
+@end
+
+
+
+
+
 @implementation ANAdAdapterBannerAdMob
 @synthesize delegate;
 
@@ -32,8 +47,23 @@
 {
     NSLog(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
 	GADAdSize gadAdSize = GADAdSizeFromCGSize(size);
-	self.bannerView = [[GADBannerView alloc] initWithAdSize:gadAdSize];
-	
+    
+    AdMobBannerServerSideParameters *ssparam = [self parseServerSide:parameterString];
+    
+    // Allow server side to enable Smart Banners for this placement
+    if (ssparam.isSmartBanner) {
+        UIApplication *application = [UIApplication sharedApplication];
+        BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
+        if(orientationIsPortrait) {
+            gadAdSize = kGADAdSizeSmartBannerPortrait;
+        } else {
+            gadAdSize = kGADAdSizeSmartBannerLandscape;
+        }
+    } else {
+        gadAdSize = GADAdSizeFromCGSize(size);
+    }
+    self.bannerView = [[GADBannerView alloc] initWithAdSize:gadAdSize];
+    
 	self.bannerView.adUnitID = idString;
 	
 	self.bannerView.rootViewController = rootViewController;
@@ -49,7 +79,7 @@
         case MALE:
             request.gender = kGADGenderMale;
             break;
-            case FEMALE:
+        case FEMALE:
             request.gender = kGADGenderFemale;
             break;
         case UNKNOWN:
@@ -69,6 +99,23 @@
     
     return request;
 }
+
+
+
+- (AdMobBannerServerSideParameters*) parseServerSide:(NSString*) serverSideParameters
+{
+    AdMobBannerServerSideParameters *p = [AdMobBannerServerSideParameters new];
+    NSError *jsonParsingError = nil;
+    
+    NSData* data = [serverSideParameters dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
+    
+    if (jsonParsingError == nil) {
+        p.isSmartBanner = [[jsonResponse valueForKey:@"smartbanner"] boolValue];
+    }
+    return p;
+}
+
 
 #pragma mark GADBannerViewDelegate
 

@@ -21,8 +21,24 @@
 @property (nonatomic, readwrite, strong) DFPBannerView *dfpBanner;
 @end
 
+
+/**
+ * Server side overridable
+ */
+@interface DFPBannerServerSideParameters : NSObject
+@property(nonatomic, readwrite) BOOL isSwipable;
+@property(nonatomic, readwrite) BOOL isSmartBanner;
+@end
+@implementation DFPBannerServerSideParameters
+@synthesize isSwipable;
+@synthesize isSmartBanner;
+@end
+
+
+
 @implementation ANAdAdapterBannerDFP
 @synthesize delegate;
+
 
 #pragma mark ANCustomAdapterBanner
 
@@ -33,17 +49,37 @@
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     NSLog(@"Requesting DFP banner with size: %0.1fx%0.1f", size.width, size.height);
-	GADAdSize gadAdSize = GADAdSizeFromCGSize(size);
-	self.dfpBanner = [[DFPBannerView alloc] initWithAdSize:gadAdSize];
-	
-	self.dfpBanner.adUnitID = @"/6253334/dfp_example_ad";
+	GADAdSize gadAdSize;
+    DFPBannerServerSideParameters *ssparam = [self parseServerSide:parameterString];
+    
+    // Allow server side to enable Smart Banners for this placement
+    if (ssparam.isSmartBanner) {
+        UIApplication *application = [UIApplication sharedApplication];
+        BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
+        if(orientationIsPortrait) {
+            gadAdSize = kGADAdSizeSmartBannerPortrait;
+        } else {
+            gadAdSize = kGADAdSizeSmartBannerLandscape;
+        }
+    } else {
+        gadAdSize = GADAdSizeFromCGSize(size);
+    }
+    
+    if (ssparam.isSwipable) {
+        self.dfpBanner = [[DFPSwipeableBannerView alloc] initWithAdSize:gadAdSize];
+    } else{
+        self.dfpBanner = [[DFPBannerView alloc] initWithAdSize:gadAdSize];
+    }
+    
+	GADRequest* request = [self createRequestFromTargetingParameters:targetingParameters];
+	self.dfpBanner.adUnitID = idString;
     self.dfpBanner.rootViewController = rootViewController;
     self.dfpBanner.delegate = self;
-	[self.dfpBanner loadRequest:
-     [self createRequestFromTargetingParameters:targetingParameters]];
+	[self.dfpBanner loadRequest:request];
 }
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters
+{
 	GADRequest *request = [GADRequest request];
     
     ANGender gender = targetingParameters.gender;
@@ -59,6 +95,11 @@
         default:
             break;
     }
+    /*
+     TODO: Remove before release
+    
+    request.testDevices = @[GAD_SIMULATOR_ID];
+    */
     
     ANLocation *location = targetingParameters.location;
     if (location) {
@@ -79,7 +120,24 @@
     
     [request registerAdNetworkExtras:extras];
     
+    
     return request;
+}
+
+
+- (DFPBannerServerSideParameters*) parseServerSide:(NSString*) serverSideParameters
+{
+    DFPBannerServerSideParameters *p = [DFPBannerServerSideParameters new];
+    NSError *jsonParsingError = nil;
+
+    NSData* data = [serverSideParameters dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
+    
+    if (jsonParsingError == nil) {
+        p.isSwipable = [[jsonResponse valueForKey:@"swipeable"] boolValue];
+        p.isSmartBanner = [[jsonResponse valueForKey:@"smartbanner"] boolValue];
+    }
+    return p;
 }
 
 #pragma mark GADBannerViewDelegate
