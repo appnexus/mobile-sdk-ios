@@ -16,10 +16,18 @@
 #import "ANAdProtocol.h"
 #import "ANLocation.h"
 
+//
+// Define the object tjat is passed into each mediation adapter to retrieve
+// additional targeting parameters from the app.
+//
 @interface ANTargetingParameters : NSObject
+// Custom targeting keywords from the app
 @property (nonatomic, readwrite, strong) NSDictionary *customKeywords;
 @property (nonatomic, readwrite, strong) NSString *age;
 @property (nonatomic, readwrite, assign) ANGender gender;
+// may be nil if not specified by app
 @property (nonatomic, readwrite, strong) ANLocation *location;
+// The IDA
+@property (nonatomic, readwrite, strong) NSString *idforadvertising;
 @end
 

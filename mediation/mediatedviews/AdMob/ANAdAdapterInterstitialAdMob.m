@@ -34,7 +34,7 @@
 	self.interstitialAd = [[GADInterstitial alloc] init];
 	self.interstitialAd.adUnitID = idString;
 	self.interstitialAd.delegate = self;
-	[self.interstitialAd loadRequest:
+    [self.interstitialAd loadRequest:
      [self createRequestFromTargetingParameters:targetingParameters]];
 }
 

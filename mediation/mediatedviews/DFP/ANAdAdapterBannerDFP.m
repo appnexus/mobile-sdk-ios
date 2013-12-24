@@ -129,11 +129,14 @@
 {
     DFPBannerServerSideParameters *p = [DFPBannerServerSideParameters new];
     NSError *jsonParsingError = nil;
+    if (serverSideParameters == nil || [ serverSideParameters length] == 0) {
+        return p;
+    }
 
     NSData* data = [serverSideParameters dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
     
-    if (jsonParsingError == nil) {
+    if (jsonParsingError == nil && jsonResponse != nil) {
         p.isSwipable = [[jsonResponse valueForKey:@"swipeable"] boolValue];
         p.isSmartBanner = [[jsonResponse valueForKey:@"smartbanner"] boolValue];
     }
