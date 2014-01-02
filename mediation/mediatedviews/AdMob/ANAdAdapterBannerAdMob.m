@@ -46,7 +46,7 @@
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     NSLog(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
-	GADAdSize gadAdSize = GADAdSizeFromCGSize(size);
+	GADAdSize gadAdSize;
     
     AdMobBannerServerSideParameters *ssparam = [self parseServerSide:parameterString];
     

@@ -409,111 +409,128 @@ typedef enum _ANMRAIDOrientation
     NSError* error;
     NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
     
-    //NSString* event_id = [jsonDict objectForKey:@"id"]; //Don't need it
     NSString* description = [jsonDict objectForKey:@"description"];
     NSString* location = [jsonDict objectForKey:@"location"];
     NSString* summary = [jsonDict objectForKey:@"summary"];
     NSString* start = [jsonDict objectForKey:@"start"];
     NSString* end = [jsonDict objectForKey:@"end"];
     NSString* status = [jsonDict objectForKey:@"status"];
-    //NSString* transparency = [jsonDict objectForKey:@"transparency"]; //Not supported
+    /* 
+     * iOS Not supported
+     * NSString* transparency = [jsonDict objectForKey:@"transparency"];
+     */
     NSString* reminder = [jsonDict objectForKey:@"reminder"];
     
     EKEventStore* store = [[EKEventStore alloc] init];
     [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error){
-        if(granted){
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                EKEvent *event = [EKEvent eventWithEventStore:store];
-                NSDateFormatter *df1 = [[NSDateFormatter alloc] init];
-                NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-                [df1 setDateFormat:@"yyyy-MM-dd'T'HH:mmZZZ"];
-                [df2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-                
-                event.title=description;
-                event.notes=summary;
-                event.location=location;
-                event.calendar = [store defaultCalendarForNewEvents];
-                
-                if([df1 dateFromString:start]!=nil){
-                    event.startDate = [df1 dateFromString:start];
-                }else if([df2 dateFromString:start]!=nil){
-                    event.startDate = [df2 dateFromString:start];
-                }else{
-                    event.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
-                }
-                
-                if([df1 dateFromString:end]!=nil){
-                    event.endDate = [df1 dateFromString:end];
-                }else if([df2 dateFromString:end]!=nil){
-                    event.endDate = [df2 dateFromString:end];
-                }else if (end) {
-                    event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
-                } else {
-                    event.endDate = [event.startDate dateByAddingTimeInterval:3600]; // default to 60 mins
-                }
-                
-                if([df1 dateFromString:reminder]!=nil){
-                    [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df1 dateFromString:reminder]]];
-                }else if([df2 dateFromString:reminder]!=nil){
-                    [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df2 dateFromString:reminder]]];
-                } else if (reminder) {
-                    [event addAlarm:[EKAlarm alarmWithRelativeOffset:
-                                     ([reminder doubleValue] / 1000.0)]]; // milliseconds to seconds conversion
-                }
-                
-                if([status isEqualToString:@"pending"]){
-                    [event setAvailability:EKEventAvailabilityNotSupported];
-                }else if([status isEqualToString:@"tentative"]){
-                    [event setAvailability:EKEventAvailabilityTentative];
-                }else if([status isEqualToString:@"confirmed"]){
-                    [event setAvailability:EKEventAvailabilityBusy];
-                }else if([status isEqualToString:@"cancelled"]){
-                    [event setAvailability:EKEventAvailabilityFree];
-                }
-                
-                
-                NSDictionary* repeat = [jsonDict objectForKey:@"recurrence"];
-                if ([repeat isKindOfClass:[NSDictionary class]]) {
-                    NSString* frequency = [repeat objectForKey:@"frequency"];
-                    EKRecurrenceFrequency frequency_ios = [frequency isEqualToString:@"daily"] ? EKRecurrenceFrequencyDaily:
-                                                          ([frequency isEqualToString:@"weekly"]? EKRecurrenceFrequencyWeekly:
-                                                          ([frequency isEqualToString:@"monthly"]?EKRecurrenceFrequencyMonthly:
-                                                          ([frequency isEqualToString:@"yearly"]? EKRecurrenceFrequencyYearly:-1)));
-                    int interval = [[repeat objectForKey:@"interval"] intValue];
-                    if (interval < 1) {
-                        interval = 1;
-                    }
-                    
-                    NSString* expires = [repeat objectForKey:@"expires"];
-                    //expires
-                    EKRecurrenceEnd* end;
-                    if([df1 dateFromString:expires]!=nil){
-                        end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df1 dateFromString:expires]];
-                    }else if([df2 dateFromString:expires]!=nil){
-                        end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df2 dateFromString:expires]];
-                    } else if(expires && [NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]){
-                        end = [EKRecurrenceEnd recurrenceEndWithEndDate:[NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]];
-                    } // default is to never expire
-                    
-                    //NSArray* exceptionDates = [repeat objectForKey:@"exceptionDates"]; //Not supported
-                    NSArray* daysInWeek = [repeat objectForKey:@"daysInWeek"];
-                    NSArray* daysInMonth = [repeat objectForKey:@"daysInMonth"];
-                    NSArray* daysInYear = [repeat objectForKey:@"daysInYear"];
-                    NSArray* weeksInMonth = [repeat objectForKey:@"weeksInMonth"];
-                    NSArray* monthsInYear = [repeat objectForKey:@"monthsInYear"];
-                    
-                    EKRecurrenceRule* rrule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:frequency_ios interval:interval daysOfTheWeek:daysInWeek daysOfTheMonth:daysInMonth monthsOfTheYear:monthsInYear weeksOfTheYear:weeksInMonth daysOfTheYear:daysInYear setPositions:nil end:end];
-                    
-                    [event setRecurrenceRules:[NSArray arrayWithObjects:rrule, nil]];
-                }
-        
-                NSError* error = nil;
-                [store saveEvent:event span:EKSpanThisEvent error:&error];
-                if (error) {
-                    ANLogError(error.localizedDescription);
-                }
-            });
+        if(! granted) {
+            if (error != nil) {
+                ANLogError(error.localizedDescription);
+            } else {
+                ANLogError(@"Unable to create calendar event");
+            }
+            return;
         }
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            EKEvent *event = [EKEvent eventWithEventStore:store];
+            NSDateFormatter *df1 = [[NSDateFormatter alloc] init];
+            NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
+            [df1 setDateFormat:@"yyyy-MM-dd'T'HH:mmZZZ"];
+            [df2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+                
+            event.title=description;
+            event.notes=summary;
+            event.location=location;
+            event.calendar = [store defaultCalendarForNewEvents];
+                
+            if([df1 dateFromString:start]!=nil){
+                event.startDate = [df1 dateFromString:start];
+            }else if([df2 dateFromString:start]!=nil){
+                event.startDate = [df2 dateFromString:start];
+            }else{
+                event.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
+            }
+                
+            if([df1 dateFromString:end]!=nil){
+                event.endDate = [df1 dateFromString:end];
+            }else if([df2 dateFromString:end]!=nil){
+                event.endDate = [df2 dateFromString:end];
+            }else if (end) {
+                event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
+            } else {
+                event.endDate = [event.startDate dateByAddingTimeInterval:3600]; // default to 60 mins
+            }
+                
+            if([df1 dateFromString:reminder]!=nil){
+                [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df1 dateFromString:reminder]]];
+            }else if([df2 dateFromString:reminder]!=nil){
+                [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df2 dateFromString:reminder]]];
+            } else if (reminder) {
+                [event addAlarm:[EKAlarm alarmWithRelativeOffset:
+                                    ([reminder doubleValue] / 1000.0)]]; // milliseconds to seconds conversion
+            }
+                
+            if([status isEqualToString:@"pending"]){
+                [event setAvailability:EKEventAvailabilityNotSupported];
+            }else if([status isEqualToString:@"tentative"]){
+                [event setAvailability:EKEventAvailabilityTentative];
+            }else if([status isEqualToString:@"confirmed"]){
+                [event setAvailability:EKEventAvailabilityBusy];
+            }else if([status isEqualToString:@"cancelled"]){
+                [event setAvailability:EKEventAvailabilityFree];
+            }
+                
+                
+            NSDictionary* repeat = [jsonDict objectForKey:@"recurrence"];
+            if ([repeat isKindOfClass:[NSDictionary class]]) {
+                NSString* frequency = [repeat objectForKey:@"frequency"];
+                EKRecurrenceFrequency frequency_ios = [frequency isEqualToString:@"daily"] ? EKRecurrenceFrequencyDaily:
+                                                        ([frequency isEqualToString:@"weekly"]? EKRecurrenceFrequencyWeekly:
+                                                        ([frequency isEqualToString:@"monthly"]?EKRecurrenceFrequencyMonthly:
+                                                        ([frequency isEqualToString:@"yearly"]? EKRecurrenceFrequencyYearly:-1)));
+                int interval = [[repeat objectForKey:@"interval"] intValue];
+                if (interval < 1) {
+                    interval = 1;
+                }
+                    
+                NSString* expires = [repeat objectForKey:@"expires"];
+                //expires
+                EKRecurrenceEnd* end;
+                if([df1 dateFromString:expires]!=nil){
+                    end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df1 dateFromString:expires]];
+                }else if([df2 dateFromString:expires]!=nil){
+                    end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df2 dateFromString:expires]];
+                } else if(expires && [NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]){
+                    end = [EKRecurrenceEnd recurrenceEndWithEndDate:[NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]];
+                } // default is to never expire
+                    
+                /*
+                 * iOS Not supported
+                 * NSArray* exceptionDates = [repeat objectForKey:@"exceptionDates"];
+                 */
+                NSArray* daysInWeek = [repeat objectForKey:@"daysInWeek"];
+                NSArray* daysInMonth = [repeat objectForKey:@"daysInMonth"];
+                NSArray* daysInYear = [repeat objectForKey:@"daysInYear"];
+                NSArray* weeksInMonth = [repeat objectForKey:@"weeksInMonth"];
+                NSArray* monthsInYear = [repeat objectForKey:@"monthsInYear"];
+                
+                EKRecurrenceRule* rrule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:frequency_ios
+                                                                    interval:interval daysOfTheWeek:daysInWeek
+                                                                    daysOfTheMonth:daysInMonth
+                                                                    monthsOfTheYear:monthsInYear
+                                                                    weeksOfTheYear:weeksInMonth
+                                                                    daysOfTheYear:daysInYear
+                                                                    setPositions:nil end:end];
+                    
+                [event setRecurrenceRules:[NSArray arrayWithObjects:rrule, nil]];
+            }
+        
+            NSError* error = nil;
+            [store saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
+            if (error) {
+                ANLogError(error.localizedDescription);
+            }
+        });
     }];
 }
 
@@ -550,21 +567,20 @@ typedef enum _ANMRAIDOrientation
                 [self.mraidDelegate forceOrientation:UIInterfaceOrientationPortrait];
                 break;
         }
-    } else {
-        mraidOrientation = ANMRAIDOrientationNone;
     }
 }
 
 - (void)storePicture:(NSString*)uri
 {
-    //TODO check for URI scheme
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *url = [NSURL URLWithString:uri];
         NSData *data = [NSData dataWithContentsOfURL:url];
         if(data){
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIImage *image = [[UIImage alloc] initWithData:data];
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+                if (image) {
+                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+                }
             });
         }
     });

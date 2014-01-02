@@ -95,12 +95,7 @@
         default:
             break;
     }
-    /*
-     TODO: Remove before release
-    
-    request.testDevices = @[GAD_SIMULATOR_ID];
-    */
-    
+
     ANLocation *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
