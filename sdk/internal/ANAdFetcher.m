@@ -168,7 +168,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     
     [self.connection cancel];
     self.connection = nil;
-    
+
     self.loading = NO;
     self.data = nil;
 }
@@ -425,19 +425,18 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (void)setupAutoRefreshTimerIfNecessary
 {
-    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
+    // stop old autoRefreshTimer
+    [self.autoRefreshTimer invalidate];
+    self.autoRefreshTimer = nil;
     
+    // setup new autoRefreshTimer if refresh interval positive
+    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
     if (interval > 0.0f) {
         self.autoRefreshTimer = [NSTimer timerWithTimeInterval:interval
                                                         target:self
                                                       selector:@selector(autoRefreshTimerDidFire:)
                                                       userInfo:nil
                                                        repeats:NO];
-    }
-    else
-    {
-        [self.autoRefreshTimer invalidate];
-        self.autoRefreshTimer = nil;
     }
 }
 

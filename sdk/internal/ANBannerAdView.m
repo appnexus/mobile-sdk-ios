@@ -106,10 +106,7 @@
 }
 
 - (void)loadAd {
-    if ([self.adFetcher isLoading]) {
-        [self.adFetcher stopAd];
-    }
-    
+    [self.adFetcher stopAd];
     [self.adFetcher requestAd];
 }
 
@@ -139,9 +136,7 @@
 		ANLogDebug(@"AutoRefresh interval set to %f seconds", autoRefreshInterval);
 		__autoRefreshInterval = autoRefreshInterval;
         
-		if ([self.adFetcher isLoading]) {
-            [self.adFetcher stopAd];
-        }
+        [self.adFetcher stopAd];
         
         ANLogDebug(@"New autoRefresh interval set. Making ad request.");
         [self.adFetcher requestAd];

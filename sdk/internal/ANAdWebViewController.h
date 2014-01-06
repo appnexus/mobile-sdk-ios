@@ -52,6 +52,6 @@ typedef enum _ANMRAIDCustomClosePosition
 
 @interface ANMRAIDAdWebViewController : ANAdWebViewController
 
-@property (nonatomic, readwrite, strong) id<ANMRAIDAdViewDelegate> mraidDelegate;
-@property (nonatomic, readwrite, strong) UIViewController *controller;
+@property (nonatomic, readwrite, weak) id<ANMRAIDAdViewDelegate> mraidDelegate;
+@property (nonatomic, readwrite, weak) UIViewController *controller;
 @end
