@@ -427,8 +427,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 {
     NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
     
-    if (interval > 0.0f)
-    {
+    if (interval > 0.0f) {
         self.autoRefreshTimer = [NSTimer timerWithTimeInterval:interval
                                                         target:self
                                                       selector:@selector(autoRefreshTimerDidFire:)
@@ -613,18 +612,12 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     [self processFinalResponse:response];
 }
 
-- (void)startAutoRefreshTimer
-{
-    if (self.autoRefreshTimer == nil)
-	{
-		ANLogDebug(ANErrorString(@"fetcher_stopped"));
-	}
-    else if ([self.autoRefreshTimer isScheduled])
-	{
-		ANLogDebug(@"AutoRefresh timer already scheduled.");
-	}
-	else
-	{
+- (void)startAutoRefreshTimer {
+    if (self.autoRefreshTimer == nil) {
+        ANLogDebug(ANErrorString(@"fetcher_stopped"));
+    } else if ([self.autoRefreshTimer isScheduled]) {
+        ANLogDebug(@"AutoRefresh timer already scheduled.");
+    } else {
 		[self.autoRefreshTimer scheduleNow];
 	}
 }

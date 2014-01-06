@@ -27,7 +27,8 @@
 
 - (void)scheduleNow
 {
-    ANLogDebug(@"Scheduled timer (%p) with interval %f.", self, self.timeInterval);
+    ANLogDebug(@"Scheduled timer (%p) with interval %.0f.", self,
+               [self.fireDate timeIntervalSinceNow]);
 	[[NSRunLoop currentRunLoop] addTimer:self forMode:NSDefaultRunLoopMode];
     
     BOOL isScheduled = [self isScheduled];

@@ -51,6 +51,8 @@ typedef enum _ANMRAIDOrientation
 - (void)fireStateChangeEvent:(ANMRAIDState)state;
 - (void)firePlacementType:(NSString *)placementType;
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
+
+@property (nonatomic, assign) BOOL safety;
 @end
 
 @interface ANAdFetcher (ANAdWebViewController)
@@ -109,44 +111,34 @@ typedef enum _ANMRAIDOrientation
 
 @interface ANMRAIDAdWebViewController ()
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
-@property (nonatomic, readwrite, assign) BOOL allowOrientationChange;
-@property (nonatomic, readwrite, assign) BOOL defaultHasBeenSet;
-@property (nonatomic, assign) BOOL resized;
+@property (nonatomic, readwrite, assign) BOOL expanded;
+@property (nonatomic, readwrite, assign) BOOL resized;
 @end
 
 @implementation ANMRAIDAdWebViewController
 
-- (id)init {
-    self = [super init];
-    self.defaultHasBeenSet = NO;
-    return self;
-}
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if (!self.completedFirstLoad) {
-        //Set values for mraid.supports()
-        [self setValuesForMRAIDSupportsFunction:webView];
-        
-        [webView firePlacementType:[self.mraidDelegate adType]];
-        [webView setIsViewable:(BOOL)!webView.hidden];
-        [webView fireStateChangeEvent:ANMRAIDStateDefault];
-        [webView fireReadyEvent];
-		
 		self.adFetcher.loading = NO;
         self.completedFirstLoad = YES;
-        ((ANWebView *)webView).safety = YES;
+        webView.safety = YES;
 		
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
         [self.adFetcher processFinalResponse:response];
 
-        //Set screen size
+        // set initial values for MRAID getters
+        [self setValuesForMRAIDSupportsFunction:webView];
         [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
-        
-        //Set default position
         [self setDefaultPositionForMRAIDGetDefaultPositionFunction:webView];
-        
-        //Set max size
         [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
+        
+        // remember frame for default state
+        [self setDefaultFrame:webView.frame];
+
+        [webView firePlacementType:[self.mraidDelegate adType]];
+        [webView setIsViewable:(BOOL)!webView.hidden];
+        [webView fireStateChangeEvent:ANMRAIDStateDefault];
+        [webView fireReadyEvent];
     }
 }
 
@@ -206,7 +198,6 @@ typedef enum _ANMRAIDOrientation
 - (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView *)webView{
     CGRect bounds = [webView bounds];
     [webView setDefaultPosition:bounds];
-    [webView setCurrentPosition:bounds];
 }
 
 - (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
@@ -226,8 +217,7 @@ typedef enum _ANMRAIDOrientation
     
     //CAL
     EKEventStore *store = [[EKEventStore alloc] init];
-    if([store respondsToSelector:@selector(requestAccessToEntityType:completion:)])
-    {
+    if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
         cal = @"true";
     }
     
@@ -236,8 +226,6 @@ typedef enum _ANMRAIDOrientation
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsCalendar(%@);", cal]];
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsStorePicture(%@);", store_picture]];
     [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsInlineVideo(%@);", inline_video]];
-
-    
 }
 
 - (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView {
@@ -247,19 +235,11 @@ typedef enum _ANMRAIDOrientation
     NSDictionary *queryComponents = [query queryComponents];
 
     if ([mraidCommand isEqualToString:@"expand"]) {
-        // do nothing if in hidden state
-        if ([webView getMRAIDState] == ANMRAIDStateHidden) {
-            return;
-        }
-        
+        // hidden state handled by mraid.js
         [self expandAction:webView queryComponents:queryComponents];
     }
     else if ([mraidCommand isEqualToString:@"close"]) {
-        // do nothing if in hidden state
-        if ([webView getMRAIDState] == ANMRAIDStateHidden) {
-            return;
-        }
-
+        // hidden state handled by mraid.js
         [self closeAction:self];
     } else if([mraidCommand isEqualToString:@"resize"]) {
         [self resizeAction:webView queryComponents:queryComponents];
@@ -305,6 +285,7 @@ typedef enum _ANMRAIDOrientation
         
         [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
         self.expanded = NO;
+        self.resized = NO;
     }
     else {
         // Clear the ad out
@@ -331,11 +312,6 @@ typedef enum _ANMRAIDOrientation
     NSInteger expandedWidth = [[queryComponents objectForKey:@"w"] integerValue];
     NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
     NSString *url = [queryComponents objectForKey:@"url"];
-    
-    if (!self.defaultHasBeenSet) {
-        self.defaultFrame = webView.frame;
-        self.defaultHasBeenSet = YES;
-    }
     
     [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)];
     
@@ -365,10 +341,6 @@ typedef enum _ANMRAIDOrientation
     ANMRAIDState currentState = [webView getMRAIDState];
     
     if ((currentState == ANMRAIDStateDefault) || (currentState == ANMRAIDStateResized)) {
-        if (currentState == ANMRAIDStateDefault) {
-            self.defaultFrame = webView.frame;
-        }
-
         [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h) allowOffscreen:allowOffscreen];
 
         [self.mraidDelegate adShouldRemoveCloseButton];
@@ -611,8 +583,8 @@ typedef enum _ANMRAIDOrientation
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     if (self.safety) {
-        [self setCurrentPosition:frame];
         [self setCurrentSize:frame.size];
+        [self setCurrentPosition:frame];
     }
 }
 
