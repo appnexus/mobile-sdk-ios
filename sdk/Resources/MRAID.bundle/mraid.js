@@ -381,11 +381,15 @@
  
  mraid.util.sizeChangeEvent=function(width, height){
  if(state==='loading') return;
- if(width != mraid.getCurrentPosition().width || height != mraid.getCurrentPosition().height){
- for(var i=0;i<listeners['sizeChange'].length;i++){
- listeners['sizeChange'][i](width, height);
- }
- }
+ if(width != mraid.getCurrentPosition().size_event_width ||
+    height != mraid.getCurrentPosition().size_event_height){
+    mraid.getCurrentPosition().size_event_width = width
+    mraid.getCurrentPosition().size_event_height = height
+    for(var i=0;i<listeners['sizeChange'].length;i++){
+        listeners['sizeChange'][i](width, height);
+    }
+ 
+   }
  }
  
  var supports_sms = false;
@@ -427,7 +431,10 @@
  default_position={"x": x,
  "y": y,
  "width":width,
- "height": height};
+ "height": height,
+ "size_event_width" : 0,
+ "size_event_height": 0
+ };
  current_position = default_position;
  }
  
@@ -435,7 +442,10 @@
  current_position={"x": x,
  "y": y,
  "width":width,
- "height": height};
+ "height": height,
+ "size_event_width" : 0,
+ "size_event_height": 0
+ };
  }
  
  }());
