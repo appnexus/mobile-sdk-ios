@@ -198,7 +198,6 @@ typedef enum _ANMRAIDOrientation
 - (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView *)webView{
     CGRect bounds = [webView bounds];
     [webView setDefaultPosition:bounds];
-    [webView setCurrentPosition:bounds];
 }
 
 - (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
