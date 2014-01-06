@@ -356,6 +356,7 @@
  };
  
  mraid.util.viewableChangeEvent=function(is_viewable_now){
+ if(state==='loading') return;
  is_viewable = is_viewable_now;
  for(var i=0;i<listeners['viewableChange'].length;i++){
  listeners['viewableChange'][i](is_viewable_now);
