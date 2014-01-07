@@ -581,6 +581,7 @@ typedef enum _ANMRAIDOrientation
                         NSInteger monthInYearValue = [monthInYear integerValue];
                         if (monthInYearValue < 0 && monthInYearValue > 12) {
                             ANLogWarn(@"%@ %@ | Invalid W3 month passed in: %d. Value should be between 1 and 12 inclusive.", NSStringFromClass([self class]), NSStringFromSelector(_cmd), monthInYearValue);
+                            return;
                         }
                     }
                     
