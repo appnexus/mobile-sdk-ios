@@ -21,6 +21,7 @@
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANReachability.h"
+#import "ANWebView.h"
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
 #import "UIWebView+ANCategory.h"
@@ -45,7 +46,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 @property (nonatomic, readwrite, strong) ANAdWebViewController *webViewController;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
-
+@property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
 @end
 
 @implementation ANAdFetcher
@@ -66,6 +67,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 		self.data = [NSMutableData data];
         self.request = [ANAdFetcher initBasicRequest];
 		self.successResultRequest = [ANAdFetcher initBasicRequest];
+        [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
     }
     
 	return self;
@@ -93,6 +95,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 - (void)requestAdWithURL:(NSURL *)URL
 {
     [self.autoRefreshTimer invalidate];
+    self.request = [ANAdFetcher initBasicRequest];
     
     if (!self.isLoading)
 	{
@@ -118,9 +121,14 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 			{
 				ANLogInfo(@"Beginning loading ad from URL: %@", self.URL);
 				
-				[[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherWillRequestAdNotification
-																	object:self
-																  userInfo:[NSDictionary dictionaryWithObject:self.URL forKey:kANAdFetcherAdRequestURLKey]];
+                if (self.requestShouldBePosted) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherWillRequestAdNotification
+                                                                        object:self
+                                                                      userInfo:[NSDictionary dictionaryWithObject:self.URL
+                                                                                                           forKey:kANAdFetcherAdRequestURLKey]];
+                    self.requestShouldBePosted = NO;
+                }
+                
 				self.loading = YES;
 			}
 			else
@@ -149,6 +157,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (void)requestAd
 {
+    self.requestShouldBePosted = YES;
     [self requestAdWithURL:nil];
 }
 
@@ -159,7 +168,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     
     [self.connection cancel];
     self.connection = nil;
-    
+
     self.loading = NO;
     self.data = nil;
 }
@@ -274,20 +283,20 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (NSString *)locationParameter {
     ANLocation *location = [self.delegate location];
-    NSString *locationParamater = @"";
+    NSString *locationParameter = @"";
     
     if (location) {
         NSDate *locationTimestamp = location.timestamp;
         NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
         
-        locationParamater = [locationParamater
+        locationParameter = [locationParameter
                              stringByAppendingFormat:@"&loc=%f,%f&loc_age=%ld&loc_prec=%f",
                              location.latitude, location.longitude,
                              (long)ageInMilliseconds, location.horizontalAccuracy];
     }
     
-    return locationParamater;
+    return locationParameter;
 }
 
 - (NSString *)orientationParameter {
@@ -416,20 +425,18 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
 - (void)setupAutoRefreshTimerIfNecessary
 {
-    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
+    // stop old autoRefreshTimer
+    [self.autoRefreshTimer invalidate];
+    self.autoRefreshTimer = nil;
     
-    if (interval > 0.0f)
-    {
+    // setup new autoRefreshTimer if refresh interval positive
+    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
+    if (interval > 0.0f) {
         self.autoRefreshTimer = [NSTimer timerWithTimeInterval:interval
                                                         target:self
                                                       selector:@selector(autoRefreshTimerDidFire:)
                                                       userInfo:nil
                                                        repeats:NO];
-    }
-    else
-    {
-        [self.autoRefreshTimer invalidate];
-        self.autoRefreshTimer = nil;
     }
 }
 
@@ -466,7 +473,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             sizeOfCreative = [self.delegate requestedSizeForAdFetcher:self];
         
         // Generate a new webview to contain the HTML
-        UIWebView *webView = [[UIWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
+        ANWebView *webView = [[ANWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
         webView.backgroundColor = [UIColor clearColor];
         webView.opaque = NO;
         webView.scrollEnabled = NO;
@@ -489,8 +496,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             }
             baseURL = [NSURL fileURLWithPath:mraidBundlePath];
             
-            self.webViewController = [[ANMRAIDAdWebViewController alloc] init];
-            self.webViewController.adFetcher = self;
+            ANMRAIDAdWebViewController *mraidWebViewController = [[ANMRAIDAdWebViewController alloc] init];
+            mraidWebViewController.mraidDelegate = self.delegate;
+            self.webViewController = mraidWebViewController;
         }
         else
         {
@@ -498,9 +506,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             baseURL = self.URL;
             
             self.webViewController = [[ANAdWebViewController alloc] init];
-            self.webViewController.adFetcher = self;
         }
         
+        self.webViewController.adFetcher = self;
         self.webViewController.webView = webView;
         webView.delegate = self.webViewController;
         
@@ -556,7 +564,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
                                               requestAd:sizeOfCreative
                                               serverParameter:currentAd.param
                                               adUnitId:currentAd.adId
-                                              location:[self.delegate location]
                                               adView:self.delegate];
 
                 if (!requestedSuccessfully) {
@@ -604,18 +611,12 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     [self processFinalResponse:response];
 }
 
-- (void)startAutoRefreshTimer
-{
-    if (self.autoRefreshTimer == nil)
-	{
-		ANLogDebug(ANErrorString(@"fetcher_stopped"));
-	}
-    else if ([self.autoRefreshTimer isScheduled])
-	{
-		ANLogDebug(@"AutoRefresh timer already scheduled.");
-	}
-	else
-	{
+- (void)startAutoRefreshTimer {
+    if (self.autoRefreshTimer == nil) {
+        ANLogDebug(ANErrorString(@"fetcher_stopped"));
+    } else if ([self.autoRefreshTimer isScheduled]) {
+        ANLogDebug(@"AutoRefresh timer already scheduled.");
+    } else {
 		[self.autoRefreshTimer scheduleNow];
 	}
 }
@@ -727,6 +728,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         // fire the resultCB if there is one
         if ([resultCBString length] > 0) {
             // if it was successful, don't act on the response
+            self.successResultRequest = [ANAdFetcher initBasicRequest];
             self.successResultRequest.URL = [NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]];
             self.successResultConnection = [NSURLConnection connectionWithRequest:self.successResultRequest delegate:self];
         }

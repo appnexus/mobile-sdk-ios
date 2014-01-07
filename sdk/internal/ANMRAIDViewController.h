@@ -16,4 +16,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ANMRAIDViewController : UIViewController
+@property (nonatomic, readwrite, strong) UIView *contentView;
+@property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
+@property (nonatomic, assign) BOOL allowOrientationChange;
+
+- (void)forceOrientation:(UIInterfaceOrientation)orientation;
 @end

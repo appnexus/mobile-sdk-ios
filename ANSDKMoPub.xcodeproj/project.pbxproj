@@ -32,6 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC3905FF186694CA0017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		ECF23E961845340900A94DE8 /* libANSDKMoPub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKMoPub.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF23E991845340900A94DE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ECF23EC0184534D000A94DE8 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
@@ -97,6 +98,7 @@
 		ECF23EBF184534D000A94DE8 /* ANSDK */ = {
 			isa = PBXGroup;
 			children = (
+				EC3905FF186694CA0017959C /* ANTargetingParameters.h */,
 				ECF23EC0184534D000A94DE8 /* ANAdProtocol.h */,
 				ECF23EC1184534D000A94DE8 /* ANAdView.h */,
 				ECF23EC2184534D000A94DE8 /* ANBannerAdView.h */,

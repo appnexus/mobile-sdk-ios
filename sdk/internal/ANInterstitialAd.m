@@ -20,11 +20,13 @@
 #import "ANGlobal.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANLogging.h"
+#import "ANMRAIDViewController.h"
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
-// List of default allowed ad sizes. These must fit in the maximum size of the
-// view, which in this case, will be the size of the window
+// List of allowed ad sizes for interstitials.  These must fit in the
+// maximum size of the view, which in this case, will be the size of
+// the window.
 #define kANInterstitialAdSize300x250 CGSizeMake(300,250)
 #define kANInterstitialAdSize320x480 CGSizeMake(320,480)
 #define kANInterstitialAdSize900x500 CGSizeMake(900,500)
@@ -39,12 +41,22 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)adRequestFailedWithError:(NSError *)error;
 - (void)showCloseButtonWithTarget:(id)target
                            action:(SEL)selector
-                    containerView:(UIView *)containerView;
-- (void)mraidResizeAd:(CGSize)size
+                    containerView:(UIView *)containerView
+                         position:(ANMRAIDCustomClosePosition)position;
+- (void)mraidExpandAd:(CGSize)size
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController;
+- (void)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
-             isBanner:(BOOL)isBanner;
+       allowOffscreen:(BOOL)allowOffscreen;
+- (void)adShouldResetToDefault:(UIView *)contentView
+                    parentView:(UIView *)parentView;
+
+@property (nonatomic, strong) ANMRAIDViewController *mraidController;
+
 @end
 
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate>
@@ -285,16 +297,31 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     [super adFetcher:fetcher adShouldOpenInBrowserWithURL:URL];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {
-    [super mraidResizeAd:size
+#pragma mark ANMRAIDAdViewDelegate
+
+- (void)adShouldExpandToFrame:(CGRect)frame {
+    [super mraidExpandAd:frame.size
+             contentView:self.controller.contentView
+       defaultParentView:self.controller.view
+      rootViewController:self.controller];
+}
+
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {
+    [super mraidResizeAd:frame
              contentView:self.controller.contentView
        defaultParentView:self.controller.view
       rootViewController:self.controller
-                isBanner:NO];
+          allowOffscreen:allowOffscreen];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {
-	[super showCloseButtonWithTarget:target action:action containerView:self.controller.contentView];
+- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+                                 position:(ANMRAIDCustomClosePosition)position {
+    UIView *containerView = self.mraidController ? self.mraidController.view : self.controller.contentView;
+	[super showCloseButtonWithTarget:target action:action containerView:containerView position:position];
+}
+
+- (void)adShouldResetToDefault {
+    [super adShouldResetToDefault:self.controller.contentView parentView:self.controller.view];
 }
 
 #pragma mark ANBrowserViewControllerDelegate

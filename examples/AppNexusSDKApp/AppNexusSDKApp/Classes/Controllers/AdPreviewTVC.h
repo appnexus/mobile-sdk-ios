@@ -14,7 +14,8 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface AdPreviewTVC : UITableViewController
-
+@property (strong, nonatomic) CLLocation *lastLocation;
 @end

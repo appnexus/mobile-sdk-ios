@@ -13,9 +13,12 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
 #import "ANCustomAdapter.h"
+#import "MMRequest.h"
+
+#import <Foundation/Foundation.h>
 
 @interface ANAdAdapterMillennialMediaBase : NSObject <ANCustomAdapter>
 - (void) addMMNotificationObservers;
+- (MMRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
 @end

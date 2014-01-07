@@ -15,6 +15,7 @@
 
 #import "DebugSettingsViewController.h"
 #import "DebugSettingsTVC.h"
+#import "DebugOutputViewController.h"
 
 #define NOEMAIL_ALERT_MESSAGE @"Please enable Mail on your device in order to use this feature"
 #define NOEMAIL_ALERT_TITLE @""
@@ -41,6 +42,10 @@
         DebugSettingsTVC *dstvc = (DebugSettingsTVC *)[segue destinationViewController];
         dstvc.update = self;
         dstvc.managedObjectContext = self.managedObjectContext;
+    }
+    if ([[segue destinationViewController] isKindOfClass:[DebugOutputViewController class]]) {
+        DebugOutputViewController *dovc = (DebugOutputViewController *)[segue destinationViewController];
+        dovc.lastRequestString = self.requestURL;
     }
 }
 

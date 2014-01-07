@@ -29,10 +29,13 @@
 #import "ANLogging.h"
 #import "ANDocument.h"
 
+#import <CoreLocation/CoreLocation.h>
+
 #define DOCUMENT_NAME @"Log Document"
 #define REQUEST_NOTIFICATION @"AppNexusSDKAppViewControllerUpdatedRequest"
 
-@interface AppNexusSDKAppViewController () <UITabBarDelegate, LoadPreviewVCDelegate>
+@interface AppNexusSDKAppViewController () <UITabBarDelegate,
+LoadPreviewVCDelegate, CLLocationManagerDelegate>
 
 // Parent View Controller Items
 @property (weak, nonatomic) IBOutlet UITabBar *mainTabBar;
@@ -54,6 +57,10 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) ANDocument *document;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+
+// location
+@property (strong, nonatomic) CLLocation *lastLocation;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 @end
 
 @implementation AppNexusSDKAppViewController
@@ -81,6 +88,7 @@
     self.mainTabBar.delegate = self; // Set Parent VC as delegate of the Tab Bar
     [self anLogoSetup]; // Fix AN Logo constraints
     [self useLogDocument]; // Create/Open Logging Document
+    [self locationSetup];
 }
 
 /*
@@ -97,6 +105,12 @@
                                                                  multiplier:1.0
                                                                    constant:0.0];
     [self.view addConstraint:constraint];
+}
+
+- (void)locationSetup {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
 }
 
 /*
@@ -127,6 +141,7 @@
 - (void)loadPreviewVC {
     if (!self.preview) {
         self.preview = [self.storyboard instantiateViewControllerWithIdentifier:@"AdPreviewTVC"];
+        self.preview.lastLocation = self.lastLocation;
     }
     if (self.controllerInView != self.preview) {
         [self bringChildViewControllerIntoView:self.preview];
@@ -307,6 +322,17 @@
     }
 }
 
-
+// Delegate method from the CLLocationManagerDelegate protocol.
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    // If it's a relatively recent event, turn off updates to save power.
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (abs(howRecent) < 30.0) {
+        self.preview.lastLocation = location;
+        self.lastLocation = location;
+    }
+}
 
 @end

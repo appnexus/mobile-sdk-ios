@@ -23,7 +23,7 @@
 #define AN_RESOURCE_BUNDLE @"ANSDKResources"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"1.4"
+#define AN_SDK_VERSION              @"1.7"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -37,8 +37,19 @@
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
 
 // Banner AutoRefresh
+
+// These constants control the default behavior of the ad view autorefresh (i.e.,
+// how often the view will fetch a new ad).  Ads will only autorefresh
+// when they are visible.
+
+// DefaultAutorefreshInterval: By default, your ads will autorefresh
+// at this interval.
 #define kANBannerDefaultAutoRefreshInterval 30.0
+
+// MinimumAutorefreshInterval: The minimum time between refreshes.
 #define kANBannerMinimumAutoRefreshInterval 15.0
+
+// AutorefreshThreshold: time value to disable autorefresh
 #define kANBannerAutoRefreshThreshold 0.0
 
 // Interstitial Close Button Delay

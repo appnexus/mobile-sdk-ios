@@ -45,6 +45,7 @@
 		EC2A47661845462900D29747 /* GADCustomEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventRequest.h; sourceTree = "<group>"; };
 		EC2A47671845467700D29747 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
 		EC2A4768184546BD00D29747 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		EC3905FE186694B40017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		ECF23E961845340900A94DE8 /* libANSDKAdMob.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMob.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF23E991845340900A94DE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ECF23EC0184534D000A94DE8 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 		ECF23EBF184534D000A94DE8 /* ANSDK */ = {
 			isa = PBXGroup;
 			children = (
+				EC3905FE186694B40017959C /* ANTargetingParameters.h */,
 				ECF23EC0184534D000A94DE8 /* ANAdProtocol.h */,
 				ECF23EC1184534D000A94DE8 /* ANAdView.h */,
 				ECF23EC2184534D000A94DE8 /* ANBannerAdView.h */,

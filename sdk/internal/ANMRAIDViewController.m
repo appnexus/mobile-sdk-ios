@@ -16,42 +16,104 @@
 #import "ANMRAIDViewController.h"
 
 @interface ANMRAIDViewController ()
-@property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
+@property (nonatomic, readwrite, assign) BOOL originalHiddenState;
 @end
 
 @implementation ANMRAIDViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+    self = [super init];
     if (self) {
-        self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        _allowOrientationChange = YES;
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
+    [self setStatusBarHidden:YES];
+
+    [self resetViewForRotations:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self setStatusBarHidden:self.originalHiddenState];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    [self resetViewForRotations:toInterfaceOrientation];
+}
+
+- (void)resetViewForRotations:(UIInterfaceOrientation)orientation {
+    if (!self.allowOrientationChange) {
+        return;
+    }
+    
+    CGRect mainBounds = [[UIScreen mainScreen] bounds];
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        CGFloat portraitHeight = mainBounds.size.height;
+        CGFloat portraitWidth = mainBounds.size.width;
+        mainBounds.size.height = portraitWidth;
+        mainBounds.size.width = portraitHeight;
+    }
+    
+    [self.contentView setFrame:mainBounds];
+}
+
+- (void)forceOrientation:(UIInterfaceOrientation)orientation {
+    self.orientation = orientation;
+    
+    UIViewController *dummyVC = [UIViewController new];
+    [self presentViewController:dummyVC animated:NO completion:^{
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }];
 }
 
 // locking orientation in iOS 6+
 - (BOOL)shouldAutorotate {
-    return NO;
+    return self.allowOrientationChange;
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return self.orientation;
+    if (self.allowOrientationChange) {
+        return [super supportedInterfaceOrientations];
+    } else {
+        switch (self.orientation) {
+            case UIInterfaceOrientationPortrait:
+                return UIInterfaceOrientationMaskPortrait;
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                return UIInterfaceOrientationMaskPortraitUpsideDown;
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                return UIInterfaceOrientationMaskLandscapeLeft;
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                return UIInterfaceOrientationMaskLandscapeRight;
+                break;
+            default:
+                return UIInterfaceOrientationMaskPortrait;
+                break;
+        }
+    }
 }
 
 // locking orientation in pre-iOS 6
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return NO;
+    return self.allowOrientationChange;
+}
+
+// hiding the status bar in iOS 7
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+// hiding the status bar pre-iOS 7
+- (void)setStatusBarHidden:(BOOL)hidden {
+    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
 }
 
 @end

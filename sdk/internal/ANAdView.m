@@ -16,6 +16,7 @@
 #import "ANAdView.h"
 
 #import "ANAdFetcher.h"
+#import "ANAdWebViewController.h"
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANInterstitialAd.h"
@@ -25,14 +26,15 @@
 
 #define DEFAULT_ADSIZE CGSizeZero
 #define DEFAULT_PSAS YES
+#define CLOSE_BUTTON_OFFSET_X 4.0
+#define CLOSE_BUTTON_OFFSET_Y 4.0
+
 
 @interface ANAdView () <ANAdFetcherDelegate, ANBrowserViewControllerDelegate, ANAdViewDelegate>
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
-@property (nonatomic, readwrite, assign) BOOL defaultFramesSet;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
-@property (nonatomic, readwrite, assign) BOOL isExpanded;
 @end
 
 @implementation ANAdView
@@ -57,10 +59,12 @@
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {}
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size {}
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action {}
+- (void)adShouldExpandToFrame:(CGRect)frame {}
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {}
+- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+                                 position:(ANMRAIDCustomClosePosition)position {}
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
-
+- (void)adShouldResetToDefault {}
 
 #pragma mark Initialization
 
@@ -88,8 +92,8 @@
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
-    _defaultFramesSet = NO;
-    _isExpanded = NO;
+    _defaultParentFrame = CGRectNull;
+    _defaultFrame = CGRectNull;
 }
 
 - (void)dealloc {
@@ -108,58 +112,97 @@
     __customKeywords = nil;
 }
 
-- (void)mraidResizeAd:(CGSize)size
+- (void)mraidExpandAd:(CGSize)size
+          contentView:(UIView *)contentView
+    defaultParentView:(UIView *)defaultParentView
+   rootViewController:(UIViewController *)rootViewController {
+    // set presenting controller for MRAID WebViewController
+    ANMRAIDAdWebViewController *mraidWebViewController;
+    if ([contentView isKindOfClass:[UIWebView class]]) {
+        UIWebView *webView = (UIWebView *)contentView;
+        if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
+            mraidWebViewController = (ANMRAIDAdWebViewController *)webView.delegate;
+            mraidWebViewController.controller = rootViewController;
+        }
+    }
+    
+    // set default frames for resetting later
+    if (CGRectIsNull(self.defaultFrame)) {
+        self.defaultParentFrame = defaultParentView.frame;
+        self.defaultFrame = contentView.frame;
+    }
+    
+    // expand to full screen
+    if ((size.width == -1) || (size.height == -1)) {
+        [contentView removeFromSuperview];
+        if (!self.mraidController) {
+            self.mraidController = [ANMRAIDViewController new];
+            self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        }
+        self.mraidController.contentView = contentView;
+        [self.mraidController.view addSubview:contentView];
+        // set presenting controller for MRAID WebViewController
+        if ([contentView isKindOfClass:[UIWebView class]]) {
+            UIWebView *webView = (UIWebView *)contentView;
+            if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
+                ANMRAIDAdWebViewController *webViewController = (ANMRAIDAdWebViewController *)webView.delegate;
+                webViewController.controller = self.mraidController;
+            }
+        }
+        
+        [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
+    } else {
+        // non-fullscreen expand
+        CGRect expandedContentFrame = self.defaultFrame;
+        expandedContentFrame.size = size;
+        [contentView setFrame:expandedContentFrame];
+        [contentView removeFromSuperview];
+        
+        CGRect expandedParentFrame = defaultParentView.frame;
+        expandedParentFrame.size = size;
+        [defaultParentView setFrame:expandedParentFrame];
+        
+        [defaultParentView addSubview:contentView];
+    }
+}
+
+- (void)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
-             isBanner:(BOOL)isBanner {
-    if (!self.defaultFramesSet) {
+       allowOffscreen:(BOOL)allowOffscreen {
+    // set presenting controller for MRAID WebViewController
+    ANMRAIDAdWebViewController *mraidWebViewController;
+    if ([contentView isKindOfClass:[UIWebView class]]) {
+        UIWebView *webView = (UIWebView *)contentView;
+        if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
+            mraidWebViewController = (ANMRAIDAdWebViewController *)webView.delegate;
+            mraidWebViewController.controller = rootViewController;
+        }
+    }
+    
+    // set default frames for resetting later
+    if (CGRectIsNull(self.defaultFrame)) {
         self.defaultParentFrame = defaultParentView.frame;
         self.defaultFrame = contentView.frame;
-        self.defaultFramesSet = YES;
     }
-    // expand to full screen
-    if ((size.width == -1) || (size.height == -1)) {
-        CGRect mainBounds = [[UIScreen mainScreen] bounds];
-        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
-            CGFloat portraitHeight = mainBounds.size.height;
-            CGFloat portraitWidth = mainBounds.size.width;
-            mainBounds.size.height = portraitWidth;
-            mainBounds.size.width = portraitHeight;
-        }
-
-        [contentView setFrame:mainBounds];
-        [contentView removeFromSuperview];
-        self.mraidController = [ANMRAIDViewController new];
-        [self.mraidController.view addSubview:contentView];
-        [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
-    } else {
-        // otherwise, resize in the original container
-        CGRect resizedFrame = self.defaultFrame;
-        resizedFrame.size = size;
-        [contentView setFrame:resizedFrame];
-        [contentView removeFromSuperview];
-        
-        if (!self.isExpanded) {
-            CGRect parentFrame = defaultParentView.frame;
-            parentFrame.size = size;
-            [defaultParentView setFrame:parentFrame];
-        } else {
-            [defaultParentView setFrame:self.defaultParentFrame];
-        }
-        
-        [defaultParentView addSubview:contentView];
-        if (self.mraidController) {
-            [self.mraidController dismissViewControllerAnimated:NO completion:nil];
-            self.mraidController = nil;
-        }
-    }
-
-    self.isExpanded = !self.isExpanded;
+    
+    // resize to new frame
+    [contentView setFrame:frame];
+    [contentView removeFromSuperview];
+    
+    CGRect parentFrame = defaultParentView.frame;
+    parentFrame.size = CGSizeMake(frame.size.width + frame.origin.x,
+                                  frame.size.height + frame.origin.y);
+    [defaultParentView setFrame:parentFrame];
+    [contentView setFrame:frame];
+    
+    [defaultParentView addSubview:contentView];
 }
 
 - (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
-                      containerView:(UIView *)containerView; {
+                    containerView:(UIView *)containerView
+                         position:(ANMRAIDCustomClosePosition)position {
     if ([self.closeButton superview] == nil) {
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [closeButton addTarget:target
@@ -169,9 +212,53 @@
         UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
         [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
         [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
-        closeButton.frame = CGRectMake(containerView.bounds.size.width
-                                       - closeButtonImage.size.width
-                                       / 2 - 20.0, 4.0,
+        
+        CGFloat centerX = 0.0;
+        CGFloat centerY = 0.0;
+        CGFloat bottomY = containerView.bounds.size.height
+        - closeButtonImage.size.height - CLOSE_BUTTON_OFFSET_Y;
+        CGFloat rightX = containerView.bounds.size.width
+        - closeButtonImage.size.width - CLOSE_BUTTON_OFFSET_X;
+
+        switch (position) {
+            case ANMRAIDTopLeft:
+                centerX = CLOSE_BUTTON_OFFSET_X;
+                centerY = CLOSE_BUTTON_OFFSET_Y;
+                break;
+            case ANMRAIDTopCenter:
+                centerX = (containerView.bounds.size.width
+                           - closeButtonImage.size.width) / 2.0;
+                centerY = CLOSE_BUTTON_OFFSET_Y;
+                break;
+            case ANMRAIDTopRight:
+                centerX = rightX;
+                centerY = CLOSE_BUTTON_OFFSET_Y;
+                break;
+            case ANMRAIDCenter:
+                centerX = (containerView.bounds.size.width
+                           - closeButtonImage.size.width) / 2.0;
+                centerY = (containerView.bounds.size.height
+                           - closeButtonImage.size.height) / 2.0;
+                break;
+            case ANMRAIDBottomLeft:
+                centerX = CLOSE_BUTTON_OFFSET_X;
+                centerY = bottomY;
+                break;
+            case ANMRAIDBottomCenter:
+                centerX = (containerView.bounds.size.width
+                           - closeButtonImage.size.width) / 2.0;
+                centerY = bottomY;
+                break;
+            case ANMRAIDBottomRight:
+                centerX = rightX;
+                centerY = bottomY;
+                break;
+                
+            default:
+                break;
+        }
+        
+        closeButton.frame = CGRectMake(centerX, centerY,
                                        closeButtonImage.size.width,
                                        closeButtonImage.size.height);
         closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
@@ -276,14 +363,6 @@
     return self.adSize;
 }
 
-- (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher {
-    return self.adType;
-}
-
-- (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher {
-    [self removeCloseButton];
-}
-
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
     [self adWasClicked];
     
@@ -305,6 +384,36 @@
     } else {
         ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
     }
+}
+#pragma mark ANMRAIDAdViewDelegate
+
+- (void)adShouldRemoveCloseButton {
+    [self removeCloseButton];
+}
+
+- (void)adShouldResetToDefault:(UIView *)contentView
+                    parentView:(UIView *)parentView {
+    [contentView setFrame:self.defaultFrame];
+    [contentView removeFromSuperview];
+    [parentView setFrame:self.defaultParentFrame];
+    [parentView addSubview:contentView];
+
+    self.defaultParentFrame = CGRectNull;
+    self.defaultFrame = CGRectNull;
+    
+    if (self.mraidController) {
+        [self.mraidController dismissViewControllerAnimated:NO completion:nil];
+        self.mraidController = nil;
+    }
+}
+
+- (void)forceOrientation:(UIInterfaceOrientation)orientation {
+    if (!self.mraidController)  {
+        self.mraidController = [ANMRAIDViewController new];
+    }
+    
+    self.mraidController.allowOrientationChange = NO;
+    [self.mraidController forceOrientation:orientation];
 }
 
 #pragma mark ANBrowserViewControllerDelegate
@@ -428,7 +537,9 @@
 
 - (void)removeCloseButton
 {
-    [self.closeButton removeFromSuperview];
+    if (self.closeButton.superview) {
+        [self.closeButton removeFromSuperview];
+    }
     self.closeButton = nil;
 }
 

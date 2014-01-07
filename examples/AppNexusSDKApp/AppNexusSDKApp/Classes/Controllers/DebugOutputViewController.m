@@ -14,11 +14,11 @@
  */
 
 #import "DebugOutputViewController.h"
+#import "ANRequest+Make.h"
 #import "AdSettings.h"
 #import "ANLogging.h"
 
-#define BASE_DEBUG @"http://mobile.adnxs.com/mob?id=%d&debug_member=%d&dongle=%@&size=%dx%d&psa=%d"
-#define CLASS_NAME @"DebugOutputViewController"
+#define DEBUG_PARAMS @"&debug_member=%d&dongle=%@"
 
 #define NOEMAIL_ALERT_MESSAGE @"Please enable Mail on your device in order to use this feature"
 #define NOEMAIL_ALERT_TITLE @""
@@ -78,14 +78,12 @@
 }
 
 - (void)loadDebug {
+    NSString *urlString = [self.lastRequestString mutableCopy];
     AdSettings *settings = [[AdSettings alloc] init];
-    NSString *urlString = [[NSString alloc] initWithFormat:BASE_DEBUG,
-                           settings.placementID,
-                           settings.memberID,
-                           settings.dongle,
-                           settings.bannerWidth,
-                           settings.bannerHeight,
-                           settings.allowPSA];
+    urlString = [urlString stringByAppendingString:
+                 [NSString stringWithFormat:DEBUG_PARAMS,
+                   settings.memberID,
+                   settings.dongle]];
     
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     ANLogDebug(@"Running Debug: %@", urlString);

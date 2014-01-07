@@ -19,35 +19,105 @@
 @property (nonatomic, readwrite, strong) GADBannerView *bannerView;
 @end
 
+
+/**
+ * Server side overridable
+ */
+@interface AdMobBannerServerSideParameters : NSObject
+@property(nonatomic, readwrite) BOOL isSmartBanner;
+@end
+@implementation AdMobBannerServerSideParameters
+@synthesize isSmartBanner;
+@end
+
+
+
+
+
 @implementation ANAdAdapterBannerAdMob
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-                       location:(ANLocation *)location
-             rootViewController:(UIViewController *)rootViewController
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     NSLog(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
-	GADAdSize gadAdSize = GADAdSizeFromCGSize(size);
-	self.bannerView = [[GADBannerView alloc] initWithAdSize:gadAdSize];
-	
+	GADAdSize gadAdSize;
+    
+    AdMobBannerServerSideParameters *ssparam = [self parseServerSide:parameterString];
+    
+    // Allow server side to enable Smart Banners for this placement
+    if (ssparam.isSmartBanner) {
+        UIApplication *application = [UIApplication sharedApplication];
+        BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
+        if(orientationIsPortrait) {
+            gadAdSize = kGADAdSizeSmartBannerPortrait;
+        } else {
+            gadAdSize = kGADAdSizeSmartBannerLandscape;
+        }
+    } else {
+        gadAdSize = GADAdSizeFromCGSize(size);
+    }
+    self.bannerView = [[GADBannerView alloc] initWithAdSize:gadAdSize];
+    
 	self.bannerView.adUnitID = idString;
 	
 	self.bannerView.rootViewController = rootViewController;
 	self.bannerView.delegate = self;
+	[self.bannerView loadRequest:[self createRequestFromTargetingParameters:targetingParameters]];
+}
+
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
 	GADRequest *request = [GADRequest request];
     
+    ANGender gender = targetingParameters.gender;
+    switch (gender) {
+        case MALE:
+            request.gender = kGADGenderMale;
+            break;
+        case FEMALE:
+            request.gender = kGADGenderFemale;
+            break;
+        case UNKNOWN:
+            request.gender = kGADGenderUnknown;
+        default:
+            break;
+    }
+    
+    ANLocation *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
                                longitude:location.longitude
                                 accuracy:location.horizontalAccuracy];
     }
     
-	[self.bannerView loadRequest:request];
+    request.additionalParameters = targetingParameters.customKeywords;
+    
+    return request;
 }
+
+
+
+- (AdMobBannerServerSideParameters*) parseServerSide:(NSString*) serverSideParameters
+{
+    AdMobBannerServerSideParameters *p = [AdMobBannerServerSideParameters new];
+    NSError *jsonParsingError = nil;
+    if (serverSideParameters == nil || [ serverSideParameters length] == 0) {
+        return p;
+    }
+    NSData* data = [serverSideParameters dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
+    
+    if (jsonParsingError == nil && jsonResponse != nil) {
+        p.isSmartBanner = [[jsonResponse valueForKey:@"smartbanner"] boolValue];
+    }
+    return p;
+}
+
 
 #pragma mark GADBannerViewDelegate
 
