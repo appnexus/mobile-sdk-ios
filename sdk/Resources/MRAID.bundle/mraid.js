@@ -111,18 +111,18 @@
  mraid.util.errorEvent("mraid.close() called while state is 'loading'.", "mraid.close()");
  break;
  case 'default':
- window.open("mraid://close/");
+ mraid.util.nativeCall("mraid://close");
  mraid.util.stateChangeEvent('hidden');
  break;
  case 'expanded':
- window.open("mraid://close/");
+ mraid.util.nativeCall("mraid://close")
  mraid.util.stateChangeEvent('default');
  break;
  case 'hidden':
  mraid.util.errorEvent("mraid.close() called while ad was already hidden", "mraid.close()");
  break;
  case 'resized':
- window.open("mraid://close/");
+ mraid.util.nativeCall("mraid://close/");
  mraid.util.stateChangeEvent('default');
  }
  };
@@ -139,7 +139,8 @@
  mraid.util.errorEvent("Can't expand to a size smaller than the default size.", "mraid.expand()");
  return;
  }
- window.open("mraid://expand/"+"?w="+mraid.getExpandProperties().width+"&h="+mraid.getExpandProperties().height+"&useCustomClose="+mraid.getExpandProperties().useCustomClose+(url!=null ? "&url="+url:""));
+ mraid.util.nativeCall("mraid://expand/"+"?w="+mraid.getExpandProperties().width+"&h="+mraid.getExpandProperties().height+"&useCustomClose="+mraid.getExpandProperties().useCustomClose+(url!=null ? "&url="+url:""));
+
  break;
  case 'expanded':
  mraid.util.errorEvent("mraid.expand() called while state is 'expanded'.", "mraid.expand()");
@@ -169,9 +170,9 @@
  mraid.setExpandProperties(ep);
  };
  
- // Loads a given URL
+ // Loads a given URL (TODO make this native ) 
  mraid.open=function(url){
- window.location.href = url;
+ window.location = url;
  };
  
  // MRAID 2.0 Stuff.
@@ -190,7 +191,7 @@
  case 'resized':
  case 'default':
  if (resize_properties) {
-    window.open("mraid://resize/?w="+resize_properties.width
+    mraid.util.nativeCall("mraid://resize/?w="+resize_properties.width
              +"&h="+resize_properties.height
              +"&offset_x="+resize_properties.offsetX
              +"&offset_y="+resize_properties.offsetY
@@ -240,23 +241,23 @@
  properties.allowOrientationChange=true;
  }
  
- window.open("mraid://setOrientationProperties/?allow_orientation_change="+properties.allowOrientationChange
+ mraid.util.nativeCall("mraid://setOrientationProperties/?allow_orientation_change="+properties.allowOrientationChange
              +"&force_orientation="+properties.forceOrientation);
  }
  
  // Creates a calendar event when passed a W3C-formatted json object
  mraid.createCalendarEvent=function(event){
- window.open("mraid://createCalendarEvent/?p="+encodeURIComponent(JSON.stringify(event)));
+ mraid.util.nativeCall("mraid://createCalendarEvent/?p="+encodeURIComponent(JSON.stringify(event)));
  }
  
  // Plays a video in the native player
  mraid.playVideo=function(uri){
- window.open("mraid://playVideo/?uri="+encodeURIComponent(uri));
+ mraid.util.nativeCall("mraid://playVideo/?uri="+encodeURIComponent(uri));
  }
  
  // Stores a picture on the device
  mraid.storePicture=function(uri){
- window.open("mraid://storePicture/?uri="+encodeURIComponent(uri));
+ mraid.util.nativeCall("mraid://storePicture/?uri="+encodeURIComponent(uri));
  }
  
  // Convenience function to modify useCustomClose attribute of expandProperties
@@ -383,6 +384,9 @@
    }
  }
  
+ mraid.util.nativeCall = function(uri) {
+ window.location = uri;
+ }
  var supports_sms = false;
  var supports_tel = false;
  var supports_calendar = false;
