@@ -38,8 +38,9 @@
 // ANBannerAdView.
 @property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
 
-// Use this method as shown in the example above to set the banner ad
-// view's controller to your own view controller implementation.
+// Required reference to the root view controller.  Used as shown in
+// the example above to set the banner ad view's controller to your
+// own view controller implementation.
 @property (nonatomic, assign) UIViewController *rootViewController;
 
 // Autorefresh interval.  Default interval is 30.0; the minimum

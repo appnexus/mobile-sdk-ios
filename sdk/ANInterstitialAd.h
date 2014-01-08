@@ -77,15 +77,6 @@
 
 @end
 
-// Your view controller needs to conform to this protocol by
-// implementing the `adDidReceiveAd' method.  Here's a sample
-// implementation:
-//
-//     - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
-//     {
-//         [self.inter displayAdFromViewController:self];
-//     }
-//
 @protocol ANInterstitialAdDelegate <ANAdDelegate>
 // This method tells your ad view what to do if the ad can't be shown.
 // A simple implementation used during development could just log,

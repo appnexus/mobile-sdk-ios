@@ -41,8 +41,11 @@ typedef enum _ANGender
 // each ad view with a placement ID.
 @property (nonatomic, readwrite, strong) NSString *placementId;
 
-// Represents the width and height of the ad view.  This should match
-// the dimensions associated with the placement ID you're using.
+// Represents the width and height of the ad view.  In order for ads
+// to display correctly, you must verify that your AppNexus placement
+// is a ``sizeless'' placement.  If you are seeing ads of a fixed size
+// being squeezed into differently-sized views, you probably do not
+// have a sizeless placement.
 @property (nonatomic, readwrite, assign) CGSize adSize;
 
 // Determines whether the ad, when clicked, will open the device's
