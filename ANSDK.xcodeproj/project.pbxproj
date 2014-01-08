@@ -50,6 +50,7 @@
 		EC4817931845047A0066BBFE /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48176A1845042A0066BBFE /* MRAID.bundle */; };
 		EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		EC9B33CC187DA9F300013F79 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B33CB187DA9F300013F79 /* ANWebView.m */; };
+		EC9B344A187DEB6900013F79 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,8 @@
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC9B33CA187DA9F300013F79 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		EC9B33CB187DA9F300013F79 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
+		EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
+		EC9B3449187DEB6900013F79 /* ANAdRequestUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequestUrl.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +237,8 @@
 				EC3E5D161843C7560070315E /* ANAdFetcher.m */,
 				EC3E5D171843C7560070315E /* ANAdResponse.h */,
 				EC3E5D181843C7560070315E /* ANAdResponse.m */,
+				EC9B3449187DEB6900013F79 /* ANAdRequestUrl.h */,
+				EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */,
 				EC3E5D1A1843C7560070315E /* ANAdView.m */,
 				EC3E5D1B1843C7560070315E /* ANAdViewDelegate.h */,
 				EC3E5D1C1843C7560070315E /* ANAdWebViewController.h */,
@@ -404,6 +409,7 @@
 				EC3E5D561843C7560070315E /* ANMediationAdViewController.m in Sources */,
 				EC3E5D471843C7560070315E /* UIView+ANCategory.m in Sources */,
 				EC3E5D4A1843C7560070315E /* ANAdResponse.m in Sources */,
+				EC9B344A187DEB6900013F79 /* ANAdRequestUrl.m in Sources */,
 				EC3905FA186693B50017959C /* ANTargetingParameters.m in Sources */,
 				EC3E5D531843C7560070315E /* ANLocation.m in Sources */,
 				EC3E5D4E1843C7560070315E /* ANBrowserViewController.m in Sources */,
