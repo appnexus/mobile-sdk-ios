@@ -15,19 +15,16 @@
 
 #import "ANAdFetcher.h"
 
+#import "ANAdRequestUrl.h"
 #import "ANAdWebViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
-#import "ANReachability.h"
 #import "ANWebView.h"
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
 #import "UIWebView+ANCategory.h"
-
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
@@ -110,7 +107,9 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
             ANLogDebug(ANErrorString(@"fetcher_start_single"));
         }
 		
-        self.URL = URL ? URL : [self adURLWithBaseURLString:[NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME]];
+        NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME];
+        self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
+                                                                      baseUrlString:baseUrlString];
 		
 		if (self.URL != nil)
 		{
@@ -187,236 +186,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 }
 
 #pragma mark Request Url Construction
-
-- (NSString *)URLEncodingFrom:(NSString *)originalString {
-    return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                                 (CFStringRef)originalString,
-                                                                                 NULL,
-                                                                                 (CFStringRef)@"!*'();:@&=+$,/?%#[]<>",
-                                                                                 kCFStringEncodingUTF8);
-}
-
-- (NSString *)jsonFormatParameter {
-    return @"&format=json";
-}
-
-- (NSString *)placementIdParameter {
-    if (![self.placementId length] > 0) {
-        ANLogError(ANErrorString(@"no_placement_id"));
-        return @"";
-    }
-    
-    return [NSString stringWithFormat:@"id=%@", [self URLEncodingFrom:self.placementId]];
-}
-
-- (NSString *)sdkVersionParameter {
-    return [NSString stringWithFormat:@"&sdkver=%@", AN_SDK_VERSION];
-}
-
-- (NSString *)dontTrackEnabledParameter {
-    return ANAdvertisingTrackingEnabled() ? @"" : @"&dnt=1";
-}
-
-- (NSString *)deviceMakeParameter {
-    return @"&devmake=Apple";
-}
-
-- (NSString *)deviceModelParameter {
-    return [NSString stringWithFormat:@"&devmodel=%@", [self URLEncodingFrom:ANDeviceModel()]];
-}
-
-- (NSString *)applicationIdParameter {
-    NSString *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    return [NSString stringWithFormat:@"&appid=%@", appId];
-}
-
-- (NSString *)firstLaunchParameter {
-    return isFirstLaunch() ? @"&firstlaunch=true" : @"";
-}
-
-- (NSString *)carrierMccMncParameters {
-    NSString *param = @"";
-    
-    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier *carrier = [netinfo subscriberCellularProvider];
-
-    // set the fields to empty string if not available
-    NSString *carrierParameter =
-    ([[carrier carrierName] length] > 0)
-    ? [self URLEncodingFrom:[carrier carrierName]] : @"";
-    
-    NSString *mccParameter =
-    ([[carrier mobileCountryCode] length] > 0)
-    ? [self URLEncodingFrom:[carrier mobileCountryCode]] : @"";
-    
-    NSString *mncParameter =
-    ([carrier mobileNetworkCode] > 0)
-    ? [self URLEncodingFrom:[carrier mobileNetworkCode]] : @"";
-    
-    if ([carrierParameter length] > 0) {
-        param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&carrier=%@", carrierParameter]];
-    }
-    
-    if ([mccParameter length] > 0) {
-        param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&mcc=%@", mccParameter]];
-    }
-    
-    if ([mncParameter length] > 0) {
-        param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&mnc=%@", mncParameter]];
-    }
-    
-    return param;
-}
-
-- (NSString *)connectionTypeParameter {
-    ANReachability *reachability = [ANReachability reachabilityForInternetConnection];
-    ANNetworkStatus status = [reachability currentReachabilityStatus];
-    return status == ANNetworkStatusReachableViaWiFi ? @"&connection_type=wifi" : @"&connection_type=wan";
-}
-
-- (NSString *)supplyTypeParameter {
-    return @"&st=mobile_app";
-}
-
-- (NSString *)locationParameter {
-    ANLocation *location = [self.delegate location];
-    NSString *locationParameter = @"";
-    
-    if (location) {
-        NSDate *locationTimestamp = location.timestamp;
-        NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
-        NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
-        
-        locationParameter = [locationParameter
-                             stringByAppendingFormat:@"&loc=%f,%f&loc_age=%ld&loc_prec=%f",
-                             location.latitude, location.longitude,
-                             (long)ageInMilliseconds, location.horizontalAccuracy];
-    }
-    
-    return locationParameter;
-}
-
-- (NSString *)orientationParameter {
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    return [NSString stringWithFormat:@"&orientation=%@",
-            UIInterfaceOrientationIsLandscape(orientation) ? @"h" : @"v"];
-}
-
-- (NSString *)userAgentParameter {
-    return [NSString stringWithFormat:@"&ua=%@",
-            [self URLEncodingFrom:ANUserAgent()]];
-}
-
-- (NSString *)languageParameter {
-    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
-    return ([language length] > 0) ? [NSString stringWithFormat:@"&language=%@", language] : @"";
-}
-
-- (NSString *)devTimeParameter {
-    int timeInMiliseconds = (int) [[NSDate date] timeIntervalSince1970];
-    return [NSString stringWithFormat:@"&devtime=%d", timeInMiliseconds];
-}
-
-- (NSString *)nativeBrowserParameter {
-    return [NSString stringWithFormat:@"&native_browser=%d", self.delegate.opensInNativeBrowser];
-}
-
-- (NSString *)psaAndReserveParameter {
-    BOOL shouldServePsas = [self.delegate shouldServePublicServiceAnnouncements];
-    CGFloat reserve = [self.delegate reserve];
-    if (reserve > 0.0f) {
-        NSString *reserveParameter = [self URLEncodingFrom:[NSString stringWithFormat:@"%f", reserve]];
-        return [NSString stringWithFormat:@"&psa=0&reserve=%@", reserveParameter];
-    } else {
-        return shouldServePsas ? @"&psa=1" : @"&psa=0";
-    }
-}
-
-- (NSString *)ageParameter {
-    NSString *ageValue = [self.delegate age];
-    if ([ageValue length] < 1) {
-        return @"";
-    }
-    
-    ageValue = [self URLEncodingFrom:ageValue];
-    return [NSString stringWithFormat:@"&age=%@", ageValue];
-}
-
-- (NSString *)genderParameter {
-    ANGender genderValue = [self.delegate gender];
-    if (genderValue == MALE) {
-        return @"&gender=m";
-    } else if (genderValue == FEMALE) {
-        return @"&gender=f";
-    } else {
-        return @"";
-    }
-}
-
-- (NSString *)customKeywordsParameter {
-    NSString *customKeywordsParameter = @"";
-    NSMutableDictionary *customKeywords = [self.delegate customKeywords];
-    
-    if ([customKeywords count] < 1) {
-        return @"";
-    }
-    NSArray *customKeywordsKeys = [customKeywords allKeys];
-    
-    for (int i = 0; i < [customKeywords count]; i++) {
-        NSString *value;
-        if ([customKeywordsKeys[i] length] > 0)
-            value = [customKeywords valueForKey:customKeywordsKeys[i]];
-        if (value) {
-            customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
-                                       [NSString stringWithFormat:@"&%@=%@",
-                                        customKeywordsKeys[i],
-                                        [self URLEncodingFrom:value]]];
-        }
-    }
-    return customKeywordsParameter;
-}
-
-- (NSURL *)adURLWithBaseURLString:(NSString *)urlString {
-    urlString = [urlString stringByAppendingString:[self placementIdParameter]];
-	urlString = [urlString stringByAppendingString:ANUdidParameter()];
-    urlString = [urlString stringByAppendingString:[self dontTrackEnabledParameter]];
-    urlString = [urlString stringByAppendingString:[self deviceMakeParameter]];
-    urlString = [urlString stringByAppendingString:[self deviceModelParameter]];
-    urlString = [urlString stringByAppendingString:[self carrierMccMncParameters]];
-    urlString = [urlString stringByAppendingString:[self applicationIdParameter]];
-    urlString = [urlString stringByAppendingString:[self firstLaunchParameter]];
-
-    urlString = [urlString stringByAppendingString:[self locationParameter]];
-    urlString = [urlString stringByAppendingString:[self userAgentParameter]];
-    urlString = [urlString stringByAppendingString:[self orientationParameter]];
-    urlString = [urlString stringByAppendingString:[self connectionTypeParameter]];
-    urlString = [urlString stringByAppendingString:[self devTimeParameter]];
-    urlString = [urlString stringByAppendingString:[self languageParameter]];
-
-    urlString = [urlString stringByAppendingString:[self nativeBrowserParameter]];
-    urlString = [urlString stringByAppendingString:[self psaAndReserveParameter]];
-    urlString = [urlString stringByAppendingString:[self ageParameter]];
-    urlString = [urlString stringByAppendingString:[self genderParameter]];
-    urlString = [urlString stringByAppendingString:[self customKeywordsParameter]];
-
-    urlString = [urlString stringByAppendingString:[self jsonFormatParameter]];
-    urlString = [urlString stringByAppendingString:[self supplyTypeParameter]];
-    urlString = [urlString stringByAppendingString:[self sdkVersionParameter]];
-    
-    if ([self.delegate respondsToSelector:@selector(extraParametersForAdFetcher:)]) {
-        NSArray *extraParameters = [self.delegate extraParametersForAdFetcher:self];
-        
-        for (NSString *param in extraParameters) {
-            urlString = [urlString stringByAppendingString:param];
-        }
-    }
-	
-	return [NSURL URLWithString:urlString];
-}
 
 - (void)processFinalResponse:(ANAdResponse *)response {
     [self.delegate adFetcher:self didFinishRequestWithResponse:response];
