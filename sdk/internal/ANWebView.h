@@ -13,6 +13,9 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 @interface ANWebView : UIWebView
 @property (nonatomic, assign) BOOL safety;
 @end
