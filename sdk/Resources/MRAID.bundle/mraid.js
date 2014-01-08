@@ -201,7 +201,7 @@
              +"&custom_close_position="+resize_properties.customClosePosition
              +"&allow_offscreen="+resize_properties.allowOffscreen);
  } else {
-     mraid.util.errorEvent("mraid.resize() called with no resize_properties set ");
+     mraid.util.errorEvent("mraid.resize() called with no resize_properties set", "mraid.resize()");
  }
  break;
  case 'hidden':
@@ -378,8 +378,8 @@
  mraid.util.sizeChangeEvent=function(width, height){
  if(state==='loading') return;
  if(width != size_event_width || height != size_event_height) {
-    size_event_width = width
-    size_event_height = height
+    size_event_width = width;
+    size_event_height = height;
     for(var i=0;i<listeners['sizeChange'].length;i++){
         listeners['sizeChange'][i](width, height);
     }
