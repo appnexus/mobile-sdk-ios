@@ -79,7 +79,6 @@
     NSString *placementId = [self.adFetcherDelegate placementId];
 
     if ([placementId length] < 1) {
-        ANLogError(ANErrorString(@"no_placement_id"));
         return @"";
     }
     
@@ -113,32 +112,22 @@
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     
-    // set the fields to empty string if not available
-    NSString *carrierParameter =
-    ([[carrier carrierName] length] > 0)
-    ? [self URLEncodingFrom:[carrier carrierName]] : @"";
-    
-    NSString *mccParameter =
-    ([[carrier mobileCountryCode] length] > 0)
-    ? [self URLEncodingFrom:[carrier mobileCountryCode]] : @"";
-    
-    NSString *mncParameter =
-    ([carrier mobileNetworkCode] > 0)
-    ? [self URLEncodingFrom:[carrier mobileNetworkCode]] : @"";
-    
-    if ([carrierParameter length] > 0) {
+    if ([[carrier carrierName] length] > 0) {
         param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&carrier=%@", carrierParameter]];
+                 [NSString stringWithFormat:@"&carrier=%@",
+                  [self URLEncodingFrom:[carrier carrierName]]]];
     }
     
-    if ([mccParameter length] > 0) {
+    if ([[carrier mobileCountryCode] length] > 0) {
         param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&mcc=%@", mccParameter]];
+                 [NSString stringWithFormat:@"&mcc=%@",
+                  [self URLEncodingFrom:[carrier mobileCountryCode]]]];
     }
     
-    if ([mncParameter length] > 0) {
+    if ([[carrier mobileNetworkCode] length] > 0) {
         param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&mnc=%@", mncParameter]];
+                 [NSString stringWithFormat:@"&mnc=%@",
+                  [self URLEncodingFrom:[carrier mobileNetworkCode]]]];
     }
     
     return param;
@@ -211,8 +200,7 @@
         return @"";
     }
     
-    ageValue = [self URLEncodingFrom:ageValue];
-    return [NSString stringWithFormat:@"&age=%@", ageValue];
+    return [NSString stringWithFormat:@"&age=%@", [self URLEncodingFrom:ageValue]];
 }
 
 - (NSString *)genderParameter {
