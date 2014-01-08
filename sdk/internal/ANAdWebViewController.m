@@ -415,27 +415,32 @@ typedef enum _ANMRAIDOrientation
             event.notes=summary;
             event.location=location;
             event.calendar = [store defaultCalendarForNewEvents];
-                
-            if([df1 dateFromString:start]!=nil){
-                event.startDate = [df1 dateFromString:start];
-            }else if([df2 dateFromString:start]!=nil){
-                event.startDate = [df2 dateFromString:start];
-            }else{
-                event.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
-            }
-                
-            if([df1 dateFromString:end]!=nil){
-                event.endDate = [df1 dateFromString:end];
-            }else if([df2 dateFromString:end]!=nil){
-                event.endDate = [df2 dateFromString:end];
-            }else if (end) {
-                event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
-            } else {
-                event.endDate = [event.startDate dateByAddingTimeInterval:3600]; // default to 60 mins
-            }
             
-            ANLogDebug(@"%@ %@ | JSON Object Start Date: %@, End Date: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), start, end);
-            ANLogDebug(@"%@ %@ | Event Start Date: %@, End Date: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), event.startDate, event.endDate);
+            if (start) {
+                if([df1 dateFromString:start]!=nil){
+                    event.startDate = [df1 dateFromString:start];
+                }else if([df2 dateFromString:start]!=nil){
+                    event.startDate = [df2 dateFromString:start];
+                }else{
+                    event.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
+                }
+                
+                if([df1 dateFromString:end]!=nil){
+                    event.endDate = [df1 dateFromString:end];
+                }else if([df2 dateFromString:end]!=nil){
+                    event.endDate = [df2 dateFromString:end];
+                }else if (end) {
+                    event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
+                } else {
+                    ANLogDebug(@"%@ %@ | No end date provided, defaulting to 60 minutes", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                    event.endDate = [event.startDate dateByAddingTimeInterval:3600]; // default to 60 mins
+                }
+
+                ANLogDebug(@"%@ %@ | Event Start Date: %@, End Date: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), event.startDate, event.endDate);
+            } else {
+                ANLogWarn(@"%@ %@ | Cannot create calendar event, no start date provided", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                return;
+            }
             
             if([df1 dateFromString:reminder]!=nil){
                 [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df1 dateFromString:reminder]]];
