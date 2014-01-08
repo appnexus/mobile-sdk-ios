@@ -65,6 +65,8 @@
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
+#pragma mark Loading an ad
+
 // Loads a single ad into this ad view.  If autorefresh is not set to
 // 0, this will also start a timer to refresh the banner
 // automatically.
@@ -73,47 +75,6 @@
 // Allows the frame containing the ad to animate (resize momentarily).
 // This allows for a class of ads known as "expandables."  In order to
 // show an expandable ad, set the animated flag to true.
-=======
-//  [banner release];
-
-@interface ANBannerAdView : ANAdView
-
-// Delegate object that receives state change notifications from this
-// ANBannerAdView.
-@property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
-
-@property (nonatomic, assign) UIViewController *rootViewController;
-
-// Autorefresh interval.  You can change this with the
-// `setAutorefreshInterval' method.
-@property (nonatomic, readwrite, assign) NSTimeInterval autoRefreshInterval;
-
-#pragma mark Creating an ad view
-
-// You can use either of the initialization methods
-// below. `adViewWithFrame' handles calling `initWithFrame' for you,
-// but it's there if you need to use it directly.
-
-// Initializes an ad view with the specified frame (this frame must be
-// smaller than the view's size).  Used internally by
-// `adViewWithFrame', so you may want to use that instead, unless you
-// prefer to manage this manually.
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
-
-// Initializes an ad view. Autoreleased constructors of the above
-// initializers. These will handle the frame initialization for
-// you. (For usage, see the example at the top of this file).
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
-
-#pragma mark Loading an ad
-
-// Loads a single ad into this ad view.  Governed by the autorefresh
-// settings described above.
-- (void)loadAd;
-
-// Reset the ad frame to a new rectange with or without animation.
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated;
 
 @end
