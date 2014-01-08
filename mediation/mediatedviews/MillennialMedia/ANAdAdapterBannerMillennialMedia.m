@@ -15,8 +15,8 @@
 
 
 #import "ANAdAdapterBannerMillennialMedia.h"
+
 #import "MMAdView.h"
-#import "MMRequest.h"
 
 @interface ANAdAdapterBannerMillennialMedia ()
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -29,30 +29,17 @@
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-                       location:(ANLocation *)location
-             rootViewController:(UIViewController *)rootViewController
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     NSLog(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
     [MMSDK initialize];
     [self addMMNotificationObservers];
     
     //MMRequest object
-    MMRequest *request;
-    if (location) {
-        CLLocation *locToSend = [[CLLocation alloc]
-                     initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                     altitude:0
-                     horizontalAccuracy:location.horizontalAccuracy
-                     verticalAccuracy:0 course:0 speed:0
-                     timestamp:location.timestamp];
-        
-        request = [MMRequest requestWithLocation:locToSend];
-    }
-    else {
-        request = [MMRequest request];
-    }
+    MMRequest *request = [self createRequestFromTargetingParameters:targetingParameters];
     
     self.mmAdView = [[MMAdView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) apid:idString
                                  rootViewController:rootViewController];

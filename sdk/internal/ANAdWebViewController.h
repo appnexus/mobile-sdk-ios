@@ -14,16 +14,36 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <EventKitUI/EventKitUI.h>
 #import <UIKit/UIKit.h>
 
 @class ANAdFetcher;
 
-@interface ANAdWebViewController : NSObject <UIWebViewDelegate>
+typedef enum _ANMRAIDCustomClosePosition
 {
-    __weak ANAdFetcher *__adFetcher;
-    UIWebView *__webView;
-	BOOL __completedFirstLoad;
-}
+    ANMRAIDTopLeft,
+    ANMRAIDTopCenter,
+    ANMRAIDTopRight,
+    ANMRAIDCenter,
+    ANMRAIDBottomLeft,
+    ANMRAIDBottomCenter,
+    ANMRAIDBottomRight,
+} ANMRAIDCustomClosePosition;
+
+@protocol ANMRAIDAdViewDelegate <NSObject>
+
+- (NSString *)adType;
+- (void)adShouldResetToDefault;
+- (void)adShouldExpandToFrame:(CGRect)frame;
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen;
+- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
+                                 position:(ANMRAIDCustomClosePosition)position;
+- (void)adShouldRemoveCloseButton;
+- (void)forceOrientation:(UIInterfaceOrientation)orientation;
+
+@end
+
+@interface ANAdWebViewController : NSObject <UIWebViewDelegate>
 
 @property (nonatomic, readwrite, weak) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, strong) UIWebView *webView;
@@ -31,9 +51,7 @@
 @end
 
 @interface ANMRAIDAdWebViewController : ANAdWebViewController
-{
-    BOOL __expanded;
-}
 
+@property (nonatomic, readwrite, weak) id<ANMRAIDAdViewDelegate> mraidDelegate;
+@property (nonatomic, readwrite, weak) UIViewController *controller;
 @end
-

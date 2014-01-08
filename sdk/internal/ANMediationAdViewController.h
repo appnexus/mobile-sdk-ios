@@ -26,7 +26,6 @@
 - (BOOL)requestAd:(CGSize)size
  serverParameter:(NSString *)parameterString
         adUnitId:(NSString *)idString
-        location:(ANLocation *)location
            adView:(id<ANAdFetcherDelegate>)adView;
 
 + (ANMediationAdViewController *)initWithFetcher:(ANAdFetcher *)fetcher

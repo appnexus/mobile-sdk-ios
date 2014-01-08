@@ -332,7 +332,6 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
     if (abs(howRecent) < 30.0) {
         self.preview.lastLocation = location;
         self.lastLocation = location;
-        ANLogInfo(@"Location updated: %@", self.lastLocation);
     }
 }
 

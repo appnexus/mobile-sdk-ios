@@ -97,6 +97,11 @@ typedef enum _ANGender
 
 @end
 
+// The definition of the `ANAdDelegate' protocol includes methods
+// which can be implemented by either type of ad.  Though these
+// methods are listed here as optional, specific ad types may require
+// them.  For example, interstitial ads require that `adDidReceiveAd'
+// be implemented.
 @protocol ANAdDelegate <NSObject>
 
 @optional

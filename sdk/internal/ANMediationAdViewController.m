@@ -62,20 +62,27 @@
 - (BOOL)requestAd:(CGSize)size
   serverParameter:(NSString *)parameterString
          adUnitId:(NSString *)idString
-         location:(ANLocation *)location
            adView:(id<ANAdFetcherDelegate>)adView {
+    // create targeting parameters object from adView properties
+    ANTargetingParameters *targetingParameters = [ANTargetingParameters new];
+    targetingParameters.customKeywords = adView.customKeywords;
+    targetingParameters.age = adView.age;
+    targetingParameters.gender = adView.gender;
+    targetingParameters.location = adView.location;
+    targetingParameters.idforadvertising = ANUdidParameter();
+
     // if the class implements both banner and interstitial protocols, default to banner first
     if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]) {
         // make sure the container is a banner view
         if ([adView isKindOfClass:[ANBannerAdView class]]) {
             ANBannerAdView *banner = (ANBannerAdView *)adView;
-            
+
             id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
             [bannerAdapter requestBannerAdWithSize:size
+                                rootViewController:banner.rootViewController
                                    serverParameter:parameterString
                                           adUnitId:idString
-                                          location:location
-                                rootViewController:banner.rootViewController];
+                               targetingParameters:targetingParameters];
             return YES;
         }
     } else if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
@@ -84,7 +91,7 @@
             id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
                                                            adUnitId:idString
-                                                           location:location];
+                                                           targetingParameters:targetingParameters];
             return YES;
         }
     }

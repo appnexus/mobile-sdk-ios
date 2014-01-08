@@ -17,15 +17,16 @@
 
 @interface ANMRAIDViewController ()
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
-@property (nonatomic, readwrite, assign) CGSize originalSize;
 @end
 
 @implementation ANMRAIDViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.originalSize = self.view.frame.size;
+- (id)init {
+    self = [super init];
+    if (self) {
+        _allowOrientationChange = YES;
+    }
+    return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,6 +48,10 @@
 }
 
 - (void)resetViewForRotations:(UIInterfaceOrientation)orientation {
+    if (!self.allowOrientationChange) {
+        return;
+    }
+    
     CGRect mainBounds = [[UIScreen mainScreen] bounds];
     if (UIInterfaceOrientationIsLandscape(orientation)) {
         CGFloat portraitHeight = mainBounds.size.height;
@@ -56,6 +61,49 @@
     }
     
     [self.contentView setFrame:mainBounds];
+}
+
+- (void)forceOrientation:(UIInterfaceOrientation)orientation {
+    self.orientation = orientation;
+    
+    UIViewController *dummyVC = [UIViewController new];
+    [self presentViewController:dummyVC animated:NO completion:^{
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }];
+}
+
+// locking orientation in iOS 6+
+- (BOOL)shouldAutorotate {
+    return self.allowOrientationChange;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    if (self.allowOrientationChange) {
+        return [super supportedInterfaceOrientations];
+    } else {
+        switch (self.orientation) {
+            case UIInterfaceOrientationPortrait:
+                return UIInterfaceOrientationMaskPortrait;
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                return UIInterfaceOrientationMaskPortraitUpsideDown;
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                return UIInterfaceOrientationMaskLandscapeLeft;
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                return UIInterfaceOrientationMaskLandscapeRight;
+                break;
+            default:
+                return UIInterfaceOrientationMaskPortrait;
+                break;
+        }
+    }
+}
+
+// locking orientation in pre-iOS 6
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return self.allowOrientationChange;
 }
 
 // hiding the status bar in iOS 7

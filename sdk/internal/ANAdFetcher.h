@@ -16,10 +16,10 @@
 #import "ANAdProtocol.h"
 #import "ANAdResponse.h"
 #import "ANAdViewDelegate.h"
+#import "ANAdWebViewController.h"
 #import "ANCustomAdapter.h"
 
 @class ANAdWebViewController;
-@class ANMRAIDAdWebViewController;
 @class ANLocation;
 @protocol ANAdFetcherDelegate;
 
@@ -44,7 +44,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (void)processFinalResponse:(ANAdResponse *)response;
 @end
 
-@protocol ANAdFetcherDelegate <NSObject, ANAdViewDelegate>
+@protocol ANAdFetcherDelegate <NSObject, ANAdViewDelegate, ANMRAIDAdViewDelegate>
 
 @property (nonatomic, readwrite, strong) NSString *placementId;
 @property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
@@ -60,11 +60,6 @@ extern NSString *const kANAdFetcherAdResponseKey;
 
 @optional
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
-- (NSString *)placementTypeForAdFetcher:(ANAdFetcher *)fetcher;
-
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldResizeToSize:(CGSize)size;
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action;
-- (void)adShouldRemoveCloseButtonWithAdFetcher:(ANAdFetcher *)fetcher;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL;
 
 // Delegate method for ANAdView subclasses to provide parameters that are specific to them. Should return an array of NSString

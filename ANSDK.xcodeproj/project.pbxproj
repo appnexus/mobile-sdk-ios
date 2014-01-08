@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC3905FA186693B50017959C /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3905F9186693B50017959C /* ANTargetingParameters.m */; };
+		EC3905FB186693D30017959C /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3905F8186693AA0017959C /* ANTargetingParameters.h */; };
 		EC3E5CE01843C6D50070315E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E5CDF1843C6D50070315E /* Foundation.framework */; };
 		EC3E5D451843C7560070315E /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D0D1843C7560070315E /* NSString+ANCategory.m */; };
 		EC3E5D461843C7560070315E /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5D0F1843C7560070315E /* NSTimer+ANCategory.m */; };
@@ -47,6 +49,7 @@
 		EC4817921845047A0066BBFE /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817691845042A0066BBFE /* UIButtonBarArrowRight@2x.png */; };
 		EC4817931845047A0066BBFE /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48176A1845042A0066BBFE /* MRAID.bundle */; };
 		EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
+		EC9B33CC187DA9F300013F79 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B33CB187DA9F300013F79 /* ANWebView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC3905FB186693D30017959C /* ANTargetingParameters.h in Copy Files */,
 				EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */,
 				EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */,
 				EC3E5E221843F0400070315E /* ANCustomAdapter.h in Copy Files */,
@@ -80,6 +84,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC3905F8186693AA0017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
+		EC3905F9186693B50017959C /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3E5CDF1843C6D50070315E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC3E5CED1843C6D60070315E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -139,6 +145,8 @@
 		EC4817691845042A0066BBFE /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		EC48176A1845042A0066BBFE /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC9B33CA187DA9F300013F79 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
+		EC9B33CB187DA9F300013F79 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +204,7 @@
 				EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */,
 				EC3E5D0A1843C7560070315E /* ANInterstitialAd.h */,
 				EC3E5E211843EFEF0070315E /* ANLocation.h */,
+				EC3905F8186693AA0017959C /* ANTargetingParameters.h */,
 				EC3E5D141843C7560070315E /* internal */,
 				EC3E5D0B1843C7560070315E /* Categories */,
 				EC48175D1845042A0066BBFE /* Resources */,
@@ -250,6 +259,9 @@
 				EC3E5D341843C7560070315E /* ANMRAIDViewController.m */,
 				EC3E5D351843C7560070315E /* ANReachability.h */,
 				EC3E5D361843C7560070315E /* ANReachability.m */,
+				EC3905F9186693B50017959C /* ANTargetingParameters.m */,
+				EC9B33CA187DA9F300013F79 /* ANWebView.h */,
+				EC9B33CB187DA9F300013F79 /* ANWebView.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -387,10 +399,12 @@
 				EC3E5D4C1843C7560070315E /* ANAdWebViewController.m in Sources */,
 				EC3E5D571843C7560070315E /* ANMRAIDViewController.m in Sources */,
 				EC3E5D4F1843C7560070315E /* ANGlobal.m in Sources */,
+				EC9B33CC187DA9F300013F79 /* ANWebView.m in Sources */,
 				EC3E5D521843C7560070315E /* ANInterstitialAdViewController.m in Sources */,
 				EC3E5D561843C7560070315E /* ANMediationAdViewController.m in Sources */,
 				EC3E5D471843C7560070315E /* UIView+ANCategory.m in Sources */,
 				EC3E5D4A1843C7560070315E /* ANAdResponse.m in Sources */,
+				EC3905FA186693B50017959C /* ANTargetingParameters.m in Sources */,
 				EC3E5D531843C7560070315E /* ANLocation.m in Sources */,
 				EC3E5D4E1843C7560070315E /* ANBrowserViewController.m in Sources */,
 				EC3E5D551843C7560070315E /* ANMediatedAd.m in Sources */,
