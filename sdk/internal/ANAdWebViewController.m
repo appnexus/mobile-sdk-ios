@@ -313,6 +313,8 @@ typedef enum _ANMRAIDOrientation
     NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
     NSString *url = [queryComponents objectForKey:@"url"];
     
+    [webView fireStateChangeEvent:ANMRAIDStateExpanded];
+
     [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)];
     
     self.expanded = YES;
@@ -341,6 +343,7 @@ typedef enum _ANMRAIDOrientation
     ANMRAIDState currentState = [webView getMRAIDState];
     
     if ((currentState == ANMRAIDStateDefault) || (currentState == ANMRAIDStateResized)) {
+        [webView fireStateChangeEvent:ANMRAIDStateResized];
         [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h) allowOffscreen:allowOffscreen];
 
         [self.mraidDelegate adShouldRemoveCloseButton];
