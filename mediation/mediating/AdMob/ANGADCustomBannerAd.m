@@ -37,6 +37,8 @@
     // request.
     CGRect frame = CGRectMake(0, 0, adSize.size.width, adSize.size.height);
     self.bannerAdView = [ANBannerAdView adViewWithFrame:frame placementId:serverParameter adSize:adSize.size];
+    
+    self.bannerAdView.rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     self.bannerAdView.delegate = self;
     self.bannerAdView.opensInNativeBrowser = YES;
 	self.bannerAdView.shouldServePublicServiceAnnouncements = NO;
