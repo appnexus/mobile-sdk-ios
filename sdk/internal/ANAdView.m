@@ -24,13 +24,17 @@
 #import "ANMRAIDViewController.h"
 #import "UIWebView+ANCategory.h"
 
-#define DEFAULT_ADSIZE CGSizeZero
 #define DEFAULT_PSAS YES
 #define CLOSE_BUTTON_OFFSET_X 4.0
 #define CLOSE_BUTTON_OFFSET_Y 4.0
 
+@interface ANAdView () <ANAdFetcherDelegate, ANAdViewDelegate,
+ANBrowserViewControllerDelegate>
 
-@interface ANAdView () <ANAdFetcherDelegate, ANBrowserViewControllerDelegate, ANAdViewDelegate>
+@property (nonatomic, readwrite, strong) UIView *contentView;
+@property (nonatomic, readwrite, strong) UIButton *closeButton;
+@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
+
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
@@ -38,9 +42,8 @@
 @end
 
 @implementation ANAdView
-@synthesize adFetcher = __adFetcher;
+// ANAdProtocol properties
 @synthesize placementId = __placementId;
-@synthesize adSize = __adSize;
 @synthesize opensInNativeBrowser = __opensInNativeBrowser;
 @synthesize clickShouldOpenInBrowser = __clickShouldOpenInBrowser;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
@@ -58,7 +61,6 @@
     return nil;
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {}
 - (void)adShouldExpandToFrame:(CGRect)frame {}
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {}
 - (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
@@ -85,31 +87,27 @@
 
 - (void)initialize {
     self.clipsToBounds = YES;
-    __adFetcher = [[ANAdFetcher alloc] init];
-    __adFetcher.delegate = self;
-    __adSize = DEFAULT_ADSIZE;
+    self.adFetcher = [[ANAdFetcher alloc] init];
+    self.adFetcher.delegate = self;
+    self.defaultParentFrame = CGRectNull;
+    self.defaultFrame = CGRectNull;
+
     __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
-    _defaultParentFrame = CGRectNull;
-    _defaultFrame = CGRectNull;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    __adFetcher.delegate = nil;
-    [__adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
+    self.adFetcher.delegate = nil;
+    [self.adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
     
-    if ([__contentView respondsToSelector:@selector(setDelegate:)]) {
+    if ([self.contentView respondsToSelector:@selector(setDelegate:)]) {
         // If our content is a UIWebview, we want to make sure to clear out the delegate if we're destroying it
-        [__contentView performSelector:@selector(setDelegate:) withObject:nil];
+        [self.contentView performSelector:@selector(setDelegate:) withObject:nil];
     }
-
-    __contentView = nil;
-    __closeButton = nil;
-    __customKeywords = nil;
 }
 
 - (void)mraidExpandAd:(CGSize)size
@@ -272,6 +270,14 @@
     }
 }
 
+- (void)removeCloseButton
+{
+    if (self.closeButton.superview) {
+        [self.closeButton removeFromSuperview];
+    }
+    self.closeButton = nil;
+}
+
 #pragma mark Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
@@ -303,6 +309,32 @@
     }
     
     [self.customKeywords removeObjectForKey:key];
+}
+
+- (void)setContentView:(UIView *)contentView {
+    if (contentView != _contentView) {
+        [self removeCloseButton];
+		
+        if ([_contentView isKindOfClass:[UIWebView class]]) {
+            UIWebView *webView = (UIWebView *)_contentView;
+            [webView stopLoading];
+            [webView setDelegate:nil];
+        }
+		
+		[_contentView removeFromSuperview];
+        
+        if (contentView != nil) {
+            if ([contentView isKindOfClass:[UIWebView class]]) {
+                UIWebView *webView = (UIWebView *)contentView;
+                [webView removeDocumentPadding];
+                [webView setMediaProperties];
+            }
+            
+            [self addSubview:contentView];
+        }
+        
+        _contentView = contentView;
+    }
 }
 
 #pragma mark Getter methods
@@ -354,14 +386,6 @@
 }
 
 #pragma mark ANAdFetcherDelegate
-
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
-    return 0.0;
-}
-
-- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
-    return self.adSize;
-}
 
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
     [self adWasClicked];
@@ -487,60 +511,6 @@
     if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
     }
-}
-
-@end
-
-#pragma mark ANAdView (ANAdFetcher)
-
-@implementation ANAdView (ANAdFetcher)
-
-- (void)setContentView:(UIView *)contentView {
-    if (contentView != __contentView) {
-        [self removeCloseButton];
-		
-        if ([__contentView isKindOfClass:[UIWebView class]]) {
-            UIWebView *webView = (UIWebView *)__contentView;
-            [webView stopLoading];
-            [webView setDelegate:nil];
-        }
-		
-		[__contentView removeFromSuperview];
-        
-        if (contentView != nil) {
-            if ([contentView isKindOfClass:[UIWebView class]]) {
-                UIWebView *webView = (UIWebView *)contentView;
-                [webView removeDocumentPadding];
-                [webView setMediaProperties];
-            }
-            
-            [self addSubview:contentView];
-        }
-        
-        __contentView = contentView;
-    }
-}
-
-- (UIView *)contentView {
-    return __contentView;
-}
-
-- (void)setCloseButton:(UIButton *)closeButton
-{
-    __closeButton = closeButton;
-}
-
-- (UIButton *)closeButton
-{
-    return __closeButton;
-}
-
-- (void)removeCloseButton
-{
-    if (self.closeButton.superview) {
-        [self.closeButton removeFromSuperview];
-    }
-    self.closeButton = nil;
 }
 
 @end

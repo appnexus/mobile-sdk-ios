@@ -41,20 +41,9 @@ typedef enum _ANGender
 // each ad view with a placement ID.
 @property (nonatomic, readwrite, strong) NSString *placementId;
 
-// Represents the width and height of the ad view.  In order for ads
-// to display correctly, you must verify that your AppNexus placement
-// is a ``sizeless'' placement.  If you are seeing ads of a fixed size
-// being squeezed into differently-sized views, you probably do not
-// have a sizeless placement.
-@property (nonatomic, readwrite, assign) CGSize adSize;
-
 // Determines whether the ad, when clicked, will open the device's
 // native browser.
 @property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
-
-// Each ad view is associated with an ad fetcher that does the work of
-// actually requesting ads from the server.
-@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 
 // Whether the ad view should display PSAs if there are no ads
 // available from the server.
@@ -79,9 +68,6 @@ typedef enum _ANGender
 // Used to pass custom keywords across different mobile ad server and
 // SDK integrations.
 @property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
-
-// An ad view should be able to respond with its type.
-- (NSString *)adType;
 
 // Set the ad view's location.  This allows ad buyers to do location
 // targeting, which can increase spend.

@@ -14,6 +14,18 @@
  */
 
 #import "ANWebView.h"
+#import "UIWebView+ANCategory.h"
 
 @implementation ANWebView
+
+-(id)init {
+    self = [super init];
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        self.opaque = NO;
+        self.scrollEnabled = NO;
+    }
+    return self;
+}
+
 @end

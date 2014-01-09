@@ -24,7 +24,6 @@
 #import "ANWebView.h"
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
-#import "UIWebView+ANCategory.h"
 
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
@@ -50,15 +49,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 @end
 
 @implementation ANAdFetcher
-
-@synthesize URL = __URL;
-@synthesize autoRefreshTimer = __autoRefreshTimer;
-@synthesize loading = __loading;
-@synthesize data = __data;
-@synthesize request = __request;
-@synthesize connection = __connection;
-@synthesize webViewController = __webViewController;
-@synthesize delegate = __delegate;
 
 - (id)init
 {
@@ -101,14 +91,8 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 	{
         ANLogInfo(ANErrorString(@"fetcher_start"));
         
-        if ([self.delegate autoRefreshIntervalForAdFetcher:self] > 0.0)
-        {
-            ANLogDebug(ANErrorString(@"fetcher_start_auto"));
-        }
-        else
-        {
-            ANLogDebug(ANErrorString(@"fetcher_start_single"));
-        }
+        ANLogDebug(ANErrorString(([self getAutoRefreshFromDelegate] > 0.0)
+                                 ? @"fetcher_start_auto" : @"fetcher_start_single"));
 		
         self.URL = URL ? URL : [self adURLWithBaseURLString:[NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME]];
 		
@@ -173,12 +157,31 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     self.data = nil;
 }
 
-- (void)dealloc
-{
+- (NSTimeInterval)getAutoRefreshFromDelegate {
+    if ([self.delegate respondsToSelector:@selector(autoRefreshIntervalForAdFetcher:)]) {
+        return [self.delegate autoRefreshIntervalForAdFetcher:self];
+    }
+    return 0.0f;
+}
+
+- (CGSize)getAdSizeFromDelegate {
+    if ([self.delegate respondsToSelector:@selector(requestedSizeForAdFetcher:)]) {
+        return [self.delegate requestedSizeForAdFetcher:self];
+    }
+    return CGSizeZero;
+}
+
+- (void)sendDelegateFinishedResponse:(ANAdResponse *)response {
+    if ([self.delegate respondsToSelector:@selector(adFetcher:didFinishRequestWithResponse:)]) {
+        [self.delegate adFetcher:self didFinishRequestWithResponse:response];
+    }
+}
+
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-    [__connection cancel];
-	[__autoRefreshTimer invalidate];
+
+    [self.connection cancel];
+    [self.autoRefreshTimer invalidate];
 }
 
 - (NSString *)placementId
@@ -419,7 +422,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 }
 
 - (void)processFinalResponse:(ANAdResponse *)response {
-    [self.delegate adFetcher:self didFinishRequestWithResponse:response];
+    [self sendDelegateFinishedResponse:response];
     [self startAutoRefreshTimer];
 }
 
@@ -430,7 +433,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     self.autoRefreshTimer = nil;
     
     // setup new autoRefreshTimer if refresh interval positive
-    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
+    NSTimeInterval interval = [self getAutoRefreshFromDelegate];
     if (interval > 0.0f) {
         self.autoRefreshTimer = [NSTimer timerWithTimeInterval:interval
                                                         target:self
@@ -466,64 +469,63 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         [self handleMediatedAds:self.mediatedAds];
     }
     else {
-        CGSize sizeOfCreative;
-        if ([response.width floatValue] > 0 && [response.height floatValue] > 0)
-            sizeOfCreative = CGSizeMake([response.width floatValue], [response.height floatValue]);
-        else
-            sizeOfCreative = [self.delegate requestedSizeForAdFetcher:self];
-        
-        // Generate a new webview to contain the HTML
-        ANWebView *webView = [[ANWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
-        webView.backgroundColor = [UIColor clearColor];
-        webView.opaque = NO;
-        webView.scrollEnabled = NO;
-        
-        NSURL *baseURL = nil;
-        
-        
-        if (response.isMraid)
-        {
-            // MRAID adapter
-            NSBundle *resBundle = ANResourcesBundle();
-            if (!resBundle) {
-                ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
-                return;
-            }
-            NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
-            if (!mraidBundlePath) {
-                ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
-                return;
-            }
-            baseURL = [NSURL fileURLWithPath:mraidBundlePath];
-            
-            ANMRAIDAdWebViewController *mraidWebViewController = [[ANMRAIDAdWebViewController alloc] init];
-            mraidWebViewController.mraidDelegate = self.delegate;
-            self.webViewController = mraidWebViewController;
-        }
-        else
-        {
-            // standard banner ad
-            baseURL = self.URL;
-            
-            self.webViewController = [[ANAdWebViewController alloc] init];
-        }
-        
-        self.webViewController.adFetcher = self;
-        self.webViewController.webView = webView;
-        webView.delegate = self.webViewController;
-        
-        // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
-        CGSize receivedSize = webView.frame.size;
-        CGSize requestedSize = [self.delegate requestedSizeForAdFetcher:self];
-        
-        if (CGSizeLargerThanSize(receivedSize, requestedSize))
-        {
-            ANLogInfo([NSString stringWithFormat:ANErrorString(@"adsize_too_big"), (int)requestedSize.width, (int)requestedSize.height, (int)receivedSize.width, (int)receivedSize.height]);
-        }
-        
-        [webView loadHTMLString:response.content baseURL:baseURL];
+        // no mediatedAds, parse for non-mediated ad response
+        [self handleStandardAd:response];
     }
     
+}
+
+- (void)handleStandardAd:(ANAdResponse *)response {
+    // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
+    CGSize receivedSize = CGSizeMake([response.width floatValue], [response.height floatValue]);
+    CGSize requestedSize = [self getAdSizeFromDelegate];
+    
+    if (CGSizeLargerThanSize(receivedSize, requestedSize)) {
+        ANLogInfo([NSString stringWithFormat:ANErrorString(@"adsize_too_big"),
+                   (int)receivedSize.width, (int)receivedSize.height,
+                   (int)requestedSize.width, (int)requestedSize.height]);
+    }
+
+    CGSize sizeOfCreative = ((receivedSize.width > 0)
+                             && (receivedSize.height > 0)) ? receivedSize : requestedSize;
+
+    // Generate a new webview to contain the HTML
+    ANWebView *webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
+    
+    NSURL *baseURL = nil;
+    
+    if (response.isMraid)
+    {
+        // MRAID adapter
+        NSBundle *resBundle = ANResourcesBundle();
+        if (!resBundle) {
+            ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+            return;
+        }
+        NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
+        if (!mraidBundlePath) {
+            ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+            return;
+        }
+        baseURL = [NSURL fileURLWithPath:mraidBundlePath];
+        
+        ANMRAIDAdWebViewController *mraidWebViewController = [[ANMRAIDAdWebViewController alloc] init];
+        mraidWebViewController.mraidDelegate = self.delegate;
+        self.webViewController = mraidWebViewController;
+    }
+    else
+    {
+        // standard banner ad
+        baseURL = self.URL;
+        
+        self.webViewController = [[ANAdWebViewController alloc] init];
+    }
+    
+    self.webViewController.adFetcher = self;
+    self.webViewController.webView = webView;
+    webView.delegate = self.webViewController;
+    
+    [webView loadHTMLString:response.content baseURL:baseURL];
 }
 
 - (void)handleMediatedAds:(NSMutableArray *)mediatedAds
@@ -603,16 +605,20 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 {
     self.loading = NO;
     
-    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
-    ANLogInfo(@"No ad received. Will request ad in %f seconds.", interval);
-    
     NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:code userInfo:errorInfo];
     ANAdResponse *response = [ANAdResponse adResponseFailWithError:error];
     [self processFinalResponse:response];
+
+    NSTimeInterval interval = [self getAutoRefreshFromDelegate];
+    if (interval > 0.0) {
+        ANLogInfo(@"No ad received. Will request ad in %f seconds. Error: %@", interval, error.localizedDescription);
+    } else {
+        ANLogInfo(@"No ad received. Error: %@", error.localizedDescription);
+    }
 }
 
 - (void)startAutoRefreshTimer {
-    if (self.autoRefreshTimer == nil) {
+    if (!self.autoRefreshTimer) {
         ANLogDebug(ANErrorString(@"fetcher_stopped"));
     } else if ([self.autoRefreshTimer isScheduled]) {
         ANLogDebug(@"AutoRefresh timer already scheduled.");

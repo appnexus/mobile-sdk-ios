@@ -59,8 +59,7 @@
 // or your ad network.
 - (id)initWithPlacementId:(NSString *)placementId;
 
-// Actually loads the ad into your ad view.  Note that you'll need to
-// check isReady first to make sure there's an ad to show.
+// Actually loads the ad into your ad view.
 - (void)loadAd;
 
 // Once you've loaded the ad into your view with loadAd, you'll show
@@ -68,16 +67,23 @@
 
 //     - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
 //     {
-//         [self.inter displayAdFromViewController:self];
+//          if (self.inter.isReady) {
+//              [self.inter displayAdFromViewController:self];
+//          }
 //     }
 
 // Technically, you don't need to implement adDidReceiveAd in order to
-// display the ad; it's used here for convenience.
+// display the ad; it's used here for convenience. Note that you should
+// check isReady first to make sure there's an ad to show.
 - (void)displayAdFromViewController:(UIViewController *)controller;
 
 @end
 
+#pragma mark ANInterstitialAdDelegate
+
 @protocol ANInterstitialAdDelegate <ANAdDelegate>
+
+@optional
 // This method tells your ad view what to do if the ad can't be shown.
 // A simple implementation used during development could just log,
 // like so:
