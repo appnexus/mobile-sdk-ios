@@ -145,10 +145,24 @@ typedef enum _ANMRAIDOrientation
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	if (self.completedFirstLoad) {
 		NSURL *URL = [request URL];
+        NSURL *mainDocumentURL = [request mainDocumentURL];
 		NSString *scheme = [URL scheme];
 		
 		if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
-			[self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+            
+            /*
+                The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab, 
+                or move away from the existing page. This does not apply for links coming from inside an iFrame unless
+                window.open was explicitly written (even if these links are present inside an <a> tag). The assumption
+                here is that MRAID creatives should be using mraid.open to break out of the ad.
+             */
+            
+            if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]) {
+                [self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+            } else {
+                return YES; /* Let the link load in the webView */
+            }
+            
 		} else if ([scheme isEqualToString:@"mraid"]) {
 			// Do MRAID actions
 			[self dispatchNativeMRAIDURL:URL forWebView:webView];
