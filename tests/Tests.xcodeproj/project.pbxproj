@@ -104,6 +104,7 @@
 		ECABE5A81821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */; };
 		ECABE5A91821E4C80037E6C5 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5861821E4C80037E6C5 /* MRAID.bundle */; };
 		ECB57A551822C43700FA7441 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
+		ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */; };
 		ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECD9298B1822CAD300420840 /* InfoPlist.strings */; };
 		ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECD929901822CAD300420840 /* TestsTests-Info.plist */; };
 		ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD8155E17DA64C20046A256 /* SenTestingKit.framework */; };
@@ -282,6 +283,8 @@
 		ECABE5841821E4C80037E6C5 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECABE5861821E4C80037E6C5 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
+		ECBA78B7187F6D4800F1D73F /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		ECD9298C1822CAD300420840 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationCallbacksTests.m; sourceTree = "<group>"; };
 		ECD9298F1822CAD300420840 /* MediationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationTests.m; sourceTree = "<group>"; };
@@ -604,12 +607,13 @@
 		ECABE5431821E4C80037E6C5 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				ECE5B256184FA4BE00D0C8FD /* ANAdView.h */,
-				ECE5B257184FA4BE00D0C8FD /* ANCustomAdapter.h */,
-				ECE5B258184FA4BE00D0C8FD /* ANLocation.h */,
 				ECABE5441821E4C80037E6C5 /* ANAdProtocol.h */,
+				ECE5B256184FA4BE00D0C8FD /* ANAdView.h */,
 				ECABE5451821E4C80037E6C5 /* ANBannerAdView.h */,
+				ECE5B257184FA4BE00D0C8FD /* ANCustomAdapter.h */,
 				ECABE5461821E4C80037E6C5 /* ANInterstitialAd.h */,
+				ECE5B258184FA4BE00D0C8FD /* ANLocation.h */,
+				ECBA78B7187F6D4800F1D73F /* ANTargetingParameters.h */,
 				ECABE5471821E4C80037E6C5 /* Categories */,
 				ECABE5581821E4C80037E6C5 /* internal */,
 				ECABE57B1821E4C80037E6C5 /* Resources */,
@@ -665,6 +669,7 @@
 				ECABE5761821E4C80037E6C5 /* ANMediationAdViewController.m */,
 				ECABE5771821E4C80037E6C5 /* ANReachability.h */,
 				ECABE5781821E4C80037E6C5 /* ANReachability.m */,
+				ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */,
 				ECABE5791821E4C80037E6C5 /* ANWebView.h */,
 				ECABE57A1821E4C80037E6C5 /* ANWebView.m */,
 			);
@@ -872,6 +877,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				5C3208FB173061C700DAB5CF /* ANDemoAdsViewController.m in Sources */,
 				5C320905173090F300DAB5CF /* ANDemoConsoleViewController.m in Sources */,
+				ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				5C3209001730664500DAB5CF /* RootViewController.m in Sources */,
 				EC3640E6183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m in Sources */,

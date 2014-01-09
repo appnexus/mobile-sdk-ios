@@ -21,10 +21,10 @@
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-                       location:(ANLocation *)location
-             rootViewController:(UIViewController *)rootViewController
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     // Fake a network fail response
     [self.delegate didFailToLoadAd:ANAdResponseNetworkError];
