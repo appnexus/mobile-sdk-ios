@@ -215,25 +215,24 @@
 }
 
 - (NSString *)customKeywordsParameter {
-    NSString *customKeywordsParameter = @"";
+    __block NSString *customKeywordsParameter = @"";
     NSMutableDictionary *customKeywords = [self.adFetcherDelegate customKeywords];
     
     if ([customKeywords count] < 1) {
         return @"";
     }
-    NSArray *customKeywordsKeys = [customKeywords allKeys];
-    
-    for (int i = 0; i < [customKeywords count]; i++) {
-        NSString *value;
-        if ([customKeywordsKeys[i] length] > 0)
-        value = [customKeywords valueForKey:customKeywordsKeys[i]];
+
+    [customKeywords enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+        if ([value length] > 0)
+            value = [customKeywords valueForKey:key];
         if (value) {
             customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
                                        [NSString stringWithFormat:@"&%@=%@",
-                                        customKeywordsKeys[i],
+                                        key,
                                         [self URLEncodingFrom:value]]];
         }
-    }
+    }];
+    
     return customKeywordsParameter;
 }
 
