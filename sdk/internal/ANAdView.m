@@ -340,6 +340,11 @@ ANBrowserViewControllerDelegate>
 #pragma mark Getter methods
 
 - (NSString *)placementId {
+    if ([__placementId length] < 1) {
+        ANLogError(ANErrorString(@"no_placement_id"));
+        return @"";
+    }
+    
     ANLogDebug(@"placementId returned %@", __placementId);
     return __placementId;
 }

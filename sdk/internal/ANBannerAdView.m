@@ -208,7 +208,7 @@
 
 #pragma mark ANAdFetcherDelegate
 
-- (NSArray *)extraParametersForAdFetcher:(ANAdFetcher *)fetcher {
+- (NSArray *)extraParameters {
     return [NSArray arrayWithObjects:
             [self sizeParameter],
             nil];

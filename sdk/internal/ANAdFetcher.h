@@ -53,6 +53,6 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL;
 
 // Delegate method for ANAdView subclasses to provide parameters that are specific to them. Should return an array of NSString
-- (NSArray *)extraParametersForAdFetcher:(ANAdFetcher *)fetcher;
+- (NSArray *)extraParameters;
 
 @end

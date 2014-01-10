@@ -80,6 +80,7 @@
 		EC7DC2631817404600B813D1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2621817404600B813D1 /* MediaPlayer.framework */; };
 		EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2641817406200B813D1 /* AVFoundation.framework */; };
 		EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2661817407A00B813D1 /* QuartzCore.framework */; };
+		EC9B3447187DE12C00013F79 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B3446187DE12C00013F79 /* ANAdRequestUrl.m */; };
 		ECAFB02D1864EE25007F1973 /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB02C1864EE25007F1973 /* ANTargetingParameters.m */; };
 		ECB124BB1821A25D00CB4BE8 /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247D1821A25D00CB4BE8 /* NSString+ANCategory.m */; };
 		ECB124BC1821A25D00CB4BE8 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1247F1821A25D00CB4BE8 /* NSTimer+ANCategory.m */; };
@@ -235,6 +236,8 @@
 		EC8477B31844168700A8BC80 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
 		EC8477B41844168700A8BC80 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
 		EC8477B51844168700A8BC80 /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
+		EC9B3445187DE12C00013F79 /* ANAdRequestUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequestUrl.h; sourceTree = "<group>"; };
+		EC9B3446187DE12C00013F79 /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
 		ECAFB0291864EDF9007F1973 /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		ECAFB02C1864EE25007F1973 /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
 		ECB1204E18218A1E00CB4BE8 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -553,6 +556,8 @@
 				ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */,
 				ECB1248F1821A25D00CB4BE8 /* ANAdResponse.h */,
 				ECB124901821A25D00CB4BE8 /* ANAdResponse.m */,
+				EC9B3445187DE12C00013F79 /* ANAdRequestUrl.h */,
+				EC9B3446187DE12C00013F79 /* ANAdRequestUrl.m */,
 				ECB124921821A25D00CB4BE8 /* ANAdView.m */,
 				ECB124931821A25D00CB4BE8 /* ANAdViewDelegate.h */,
 				ECB124941821A25D00CB4BE8 /* ANAdWebViewController.h */,
@@ -758,6 +763,7 @@
 				EC3FD7321822213C00B25418 /* DebugSettingsTVC.m in Sources */,
 				EC3FD73E1822213C00B25418 /* AdSettings.m in Sources */,
 				ECB124C71821A25D00CB4BE8 /* ANBrowserViewController.m in Sources */,
+				EC9B3447187DE12C00013F79 /* ANAdRequestUrl.m in Sources */,
 				ECB124CA1821A25D00CB4BE8 /* ANInstallTrackerPixel.m in Sources */,
 				ECB124C61821A25D00CB4BE8 /* ANBannerAdView.m in Sources */,
 				ECB124CF1821A25D00CB4BE8 /* ANLogging.m in Sources */,
