@@ -13,21 +13,13 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterErrorCode.h"
+#import <Foundation/Foundation.h>
 
-@implementation ANAdAdapterErrorCode
-@synthesize delegate;
+#import "ANAdFetcher.h"
 
-#pragma mark ANCustomAdapterBanner
+@interface ANAdRequestUrl : NSObject
 
-- (void)requestBannerAdWithSize:(CGSize)size
-             rootViewController:(UIViewController *)rootViewController
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
-{
-    self.errorId = idString;
-    [self.delegate didLoadBannerAd:[UIView new]];
-}
++ (NSURL *)buildRequestUrlWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
+                                  baseUrlString:(NSString *)baseUrlString;
 
 @end

@@ -41,7 +41,14 @@
 // Required reference to the root view controller.  Used as shown in
 // the example above to set the banner ad view's controller to your
 // own view controller implementation.
-@property (nonatomic, assign) UIViewController *rootViewController;
+@property (nonatomic, readwrite, assign) UIViewController *rootViewController;
+
+// Represents the width and height of the ad view.  In order for ads
+// to display correctly, you must verify that your AppNexus placement
+// is a ``sizeless'' placement.  If you are seeing ads of a fixed size
+// being squeezed into differently-sized views, you probably do not
+// have a sizeless placement.
+@property (nonatomic, readwrite, assign) CGSize adSize;
 
 // Autorefresh interval.  Default interval is 30.0; the minimum
 // allowed is 15.0.  To disable autorefresh, set to 0.
@@ -79,6 +86,8 @@
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated;
 
 @end
+
+#pragma mark ANBannerAdViewDelegate
 
 // See ANAdDelegate for common delegate methods.  The
 // ANBannerAdViewDelegate-specific methods are defined here.

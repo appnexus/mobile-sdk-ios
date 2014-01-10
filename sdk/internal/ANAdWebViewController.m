@@ -60,7 +60,11 @@ typedef enum _ANMRAIDOrientation
 @end
 
 @interface ANAdWebViewController ()
+
+- (void)delegateShouldOpenInBrowser:(NSURL *)URL;
+
 @property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
+
 @end
 
 @implementation ANAdWebViewController
@@ -90,7 +94,7 @@ typedef enum _ANMRAIDOrientation
          */
         
         if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] || navigationType == UIWebViewNavigationTypeLinkClicked) {
-            [self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+            [self delegateShouldOpenInBrowser:URL];
         } else {
             return YES; /* Let the link load in the webView */
         }
@@ -113,6 +117,12 @@ typedef enum _ANMRAIDOrientation
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
         [self.adFetcher processFinalResponse:response];
 	}
+}
+
+- (void)delegateShouldOpenInBrowser:(NSURL *)URL {
+    if ([self.adFetcher.delegate respondsToSelector:@selector(adFetcher:adShouldOpenInBrowserWithURL:)]) {
+        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+    }
 }
 
 - (void)dealloc
@@ -163,8 +173,7 @@ typedef enum _ANMRAIDOrientation
         NSURL *mainDocumentURL = [request mainDocumentURL];
 		NSString *scheme = [URL scheme];
 		
-		if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
-            
+		if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {            
             /*
                 The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab, 
                 or move away from the existing page. This does not apply for links coming from inside an iFrame unless
@@ -173,11 +182,11 @@ typedef enum _ANMRAIDOrientation
              */
             
             if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]) {
-                [self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+                [self delegateShouldOpenInBrowser:URL];
             } else {
                 return YES; /* Let the link load in the webView */
             }
-            
+
 		} else if ([scheme isEqualToString:@"mraid"]) {
 			// Do MRAID actions
 			[self dispatchNativeMRAIDURL:URL forWebView:webView];
