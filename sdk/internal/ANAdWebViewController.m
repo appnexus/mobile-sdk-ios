@@ -44,6 +44,7 @@ typedef enum _ANMRAIDOrientation
 
 @interface UIWebView (MRAIDExtensions)
 - (void)fireReadyEvent;
+- (BOOL)getWebViewVisible;
 - (void)setIsViewable:(BOOL)viewable;
 - (void)setCurrentPosition:(CGRect)frame;
 - (void)setDefaultPosition:(CGRect)frame;
@@ -161,7 +162,7 @@ typedef enum _ANMRAIDOrientation
         [self setDefaultFrame:webView.frame];
 
         [webView firePlacementType:[self.mraidDelegate adType]];
-        [webView setIsViewable:(BOOL)!webView.hidden];
+        [webView setIsViewable:[webView getWebViewVisible]];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
         [webView fireReadyEvent];
     }
@@ -730,6 +731,8 @@ typedef enum _ANMRAIDOrientation
 
 @end
 
+#pragma mark ANWebView (MRAIDExtensions)
+
 @implementation ANWebView (MRAIDExtensions)
 
 - (void)setFrame:(CGRect)frame {
@@ -740,6 +743,9 @@ typedef enum _ANMRAIDOrientation
     }
 }
 
+- (BOOL)getWebViewVisible {
+    return (!self.hidden && self.window && self.superview);
+}
 - (void)firePlacementType:(NSString *)placementType {
     NSString* script = [NSString stringWithFormat:@"window.mraid.util.setPlacementType('%@');", placementType];
     [self stringByEvaluatingJavaScriptFromString:script];
