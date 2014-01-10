@@ -25,6 +25,7 @@
 
 @interface ANAdView (ANBannerAdView) <ANAdFetcherDelegate>
 - (void)initialize;
+- (void)loadAd;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
 - (void)showCloseButtonWithTarget:(id)target
@@ -111,8 +112,11 @@
 }
 
 - (void)loadAd {
-    [self.adFetcher stopAd];
-    [self.adFetcher requestAd];
+    if (!self.rootViewController) {
+        ANLogWarn(@"BannerAdView's rootViewController was not set. This may cause the ad to behave incorrectly");
+    }
+    
+    [super loadAd];
 }
 
 #pragma mark Getter and Setter methods

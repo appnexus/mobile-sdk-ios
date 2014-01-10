@@ -39,6 +39,7 @@ ANBrowserViewControllerDelegate>
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
+@property (nonatomic, readwrite, assign) BOOL isExpanded;
 @end
 
 @implementation ANAdView
@@ -110,6 +111,29 @@ ANBrowserViewControllerDelegate>
     }
 }
 
+- (void)loadAd {
+    NSString *errorString;
+    if ([self.placementId length] < 1) {
+        errorString = ANErrorString(@"no_placement_id");
+    }
+    
+    if (self.isExpanded) {
+        errorString = ANErrorString(@"already_expanded");
+    }
+    
+    if (errorString) {
+        ANLogError(errorString);
+        NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorString
+                                                              forKey:NSLocalizedDescriptionKey];
+        NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+        [self adRequestFailedWithError:error];
+        return;
+    }
+    
+    [self.adFetcher stopAd];
+    [self.adFetcher requestAd];
+}
+
 - (void)mraidExpandAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
@@ -162,6 +186,8 @@ ANBrowserViewControllerDelegate>
         
         [defaultParentView addSubview:contentView];
     }
+    
+    self.isExpanded = YES;
 }
 
 - (void)mraidResizeAd:(CGRect)frame
@@ -434,6 +460,7 @@ ANBrowserViewControllerDelegate>
         [self.mraidController dismissViewControllerAnimated:NO completion:nil];
         self.mraidController = nil;
     }
+    self.isExpanded = NO;
 }
 
 - (void)forceOrientation:(UIInterfaceOrientation)orientation {

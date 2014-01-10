@@ -37,6 +37,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 @interface ANAdView (ANInterstitialAd) <ANAdFetcherDelegate>
 - (void)initialize;
+- (void)loadAd;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
 - (void)showCloseButtonWithTarget:(id)target
@@ -103,7 +104,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 }
 
 - (void)loadAd {
-    [self.adFetcher requestAd];
+    [super loadAd];
 }
 
 - (void)displayAdFromViewController:(UIViewController *)controller {
