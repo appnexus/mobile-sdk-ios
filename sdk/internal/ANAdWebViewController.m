@@ -60,7 +60,11 @@ typedef enum _ANMRAIDOrientation
 @end
 
 @interface ANAdWebViewController ()
+
+- (void)delegateShouldOpenInBrowser:(NSURL *)URL;
+
 @property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
+
 @end
 
 @implementation ANAdWebViewController
@@ -78,7 +82,7 @@ typedef enum _ANMRAIDOrientation
 	if (self.completedFirstLoad)
 	{
 		NSURL *URL = [request URL];
-		[self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+        [self delegateShouldOpenInBrowser:URL];
 		
 		return NO;
 	}
@@ -98,6 +102,12 @@ typedef enum _ANMRAIDOrientation
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
         [self.adFetcher processFinalResponse:response];
 	}
+}
+
+- (void)delegateShouldOpenInBrowser:(NSURL *)URL {
+    if ([self.adFetcher.delegate respondsToSelector:@selector(adFetcher:adShouldOpenInBrowserWithURL:)]) {
+        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+    }
 }
 
 - (void)dealloc
@@ -148,7 +158,7 @@ typedef enum _ANMRAIDOrientation
 		NSString *scheme = [URL scheme];
 		
 		if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
-			[self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+            [self delegateShouldOpenInBrowser:URL];
 		} else if ([scheme isEqualToString:@"mraid"]) {
 			// Do MRAID actions
 			[self dispatchNativeMRAIDURL:URL forWebView:webView];

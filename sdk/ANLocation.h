@@ -27,7 +27,7 @@
 
 // The time when the user was in this location.  If nil, defaults to
 // the current time.
-@property (nonatomic, readwrite, strong) NSDate * timestamp;
+@property (nonatomic, readwrite, strong) NSDate *timestamp;
 
 // Determines the size of one side of the ``rectangle'' inside which
 // the user is located.  If 0, defaults to 100 meters.  If negative,

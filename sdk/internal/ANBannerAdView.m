@@ -21,6 +21,8 @@
 #import "ANLogging.h"
 #import "ANMRAIDViewController.h"
 
+#define DEFAULT_ADSIZE CGSizeZero
+
 @interface ANAdView (ANBannerAdView) <ANAdFetcherDelegate>
 - (void)initialize;
 - (void)adDidReceiveAd;
@@ -41,13 +43,15 @@
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView;
 
-@property (nonatomic, strong) ANMRAIDViewController *mraidController;
+@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
+@property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
+@property (nonatomic, readwrite, strong) UIView *contentView;
 
 @end
 
 @implementation ANBannerAdView
-@synthesize delegate = __delegate;
 @synthesize autoRefreshInterval = __autoRefreshInterval;
+@synthesize adSize = __adSize;
 
 #pragma mark Initialization
 
@@ -59,6 +63,7 @@
     
     // Set default autoRefreshInterval
     __autoRefreshInterval = kANBannerDefaultAutoRefreshInterval;
+    __adSize = CGSizeZero;
 }
 
 - (void)awakeFromNib {
@@ -99,7 +104,7 @@
     self = [self initWithFrame:frame placementId:placementId];
     
     if (self != nil) {
-        self.adSize = size;
+        __adSize = size;
     }
     
     return self;
@@ -146,6 +151,11 @@
     }
 }
 
+- (NSTimeInterval)autoRefreshInterval {
+    ANLogDebug(@"autoRefreshInterval returned %f seconds", __autoRefreshInterval);
+    return __autoRefreshInterval;
+}
+
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
     // center the contentview
@@ -175,10 +185,6 @@
 
 #pragma mark Implementation of abstract methods from ANAdView
 
-- (NSString *)adType {
-    return @"inline";
-}
-
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
     [self adWillPresent];
     [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
@@ -190,13 +196,13 @@
 
 - (NSString *)sizeParameter {
     NSString *sizeParameterString = [NSString stringWithFormat:@"&size=%ldx%ld",
-                                     (long)self.adSize.width,
-                                     (long)self.adSize.height];
+                                     (long)__adSize.width,
+                                     (long)__adSize.height];
     NSString *maxSizeParameterString = [NSString stringWithFormat:@"&max_size=%ldx%ld",
                                         (long)self.frame.size.width,
                                         (long)self.frame.size.height];
     
-    return CGSizeEqualToSize(self.adSize, CGSizeZero) ? maxSizeParameterString : sizeParameterString;
+    return CGSizeEqualToSize(__adSize, DEFAULT_ADSIZE) ? maxSizeParameterString : sizeParameterString;
     ;
 }
 
@@ -247,7 +253,15 @@
     return self.autoRefreshInterval;
 }
 
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
+    return self.adSize;
+}
+
 #pragma mark ANMRAIDAdViewDelegate
+
+- (NSString *)adType {
+    return @"inline";
+}
 
 - (void)adShouldExpandToFrame:(CGRect)frame {
     [super mraidExpandAd:frame.size

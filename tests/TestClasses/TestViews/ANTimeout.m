@@ -22,10 +22,10 @@
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-                       location:(ANLocation *)location
-             rootViewController:(UIViewController *)rootViewController
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (kAppNexusMediationNetworkTimeoutInterval + 1)

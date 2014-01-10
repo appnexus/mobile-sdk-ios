@@ -55,7 +55,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView;
 
-@property (nonatomic, strong) ANMRAIDViewController *mraidController;
+@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
+@property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
 
 @end
 
@@ -83,7 +84,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     __controller = [[ANInterstitialAdViewController alloc] init];
     __controller.delegate = self;
     __precachedAdObjects = [NSMutableArray array];
-    __adSize = self.frame.size;
     __allowedAdSizes = [self getDefaultAllowedAdSizes];
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
 }
@@ -99,11 +99,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 }
 
 - (void)dealloc {
-    self.adFetcher.delegate = nil;
-    self.adFetcher = nil;
     self.controller.delegate = nil;
-    self.controller = nil;
-    self.closeButton = nil;
 }
 
 - (void)loadAd {
@@ -232,10 +228,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 #pragma mark Implementation of Abstract methods from ANAdView
 
-- (NSString *)adType {
-	return @"interstitial";
-}
-
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
     // Interstitials require special handling of launching the in-app browser since they live on top of everything else
     self.browserViewController = browserViewController;
@@ -297,7 +289,15 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     [super adFetcher:fetcher adShouldOpenInBrowserWithURL:URL];
 }
 
+- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
+    return self.frame.size;
+}
+
 #pragma mark ANMRAIDAdViewDelegate
+
+- (NSString *)adType {
+	return @"interstitial";
+}
 
 - (void)adShouldExpandToFrame:(CGRect)frame {
     [super mraidExpandAd:frame.size
