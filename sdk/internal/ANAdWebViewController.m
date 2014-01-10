@@ -82,8 +82,23 @@ typedef enum _ANMRAIDOrientation
 	if (self.completedFirstLoad)
 	{
 		NSURL *URL = [request URL];
-        [self delegateShouldOpenInBrowser:URL];
-		
+        NSURL *mainDocumentURL = [request mainDocumentURL];
+        
+        /*
+         The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab,
+         or move away from the existing page. This does not apply for links coming from inside an iFrame unless
+         window.open was explicitly written (even if these links are present inside an <a> tag). However, the
+         assumption here is that any user clicks should break out of the ad. This fix will catch both <a> tags
+         embedded in iFrames as well as asynchronous loads which occur after the first instance of webViewDidFinishLoad:.
+         Any creatives loading iFrames which desire clicks to continue displaying in the iFrame should be flagged as MRAID.
+         */
+        
+        if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] || navigationType == UIWebViewNavigationTypeLinkClicked) {
+            [self delegateShouldOpenInBrowser:URL];
+        } else {
+            return YES; /* Let the link load in the webView */
+        }
+        
 		return NO;
 	}
     
@@ -428,27 +443,32 @@ typedef enum _ANMRAIDOrientation
             event.notes=summary;
             event.location=location;
             event.calendar = [store defaultCalendarForNewEvents];
-                
-            if([df1 dateFromString:start]!=nil){
-                event.startDate = [df1 dateFromString:start];
-            }else if([df2 dateFromString:start]!=nil){
-                event.startDate = [df2 dateFromString:start];
-            }else{
-                event.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
-            }
-                
-            if([df1 dateFromString:end]!=nil){
-                event.endDate = [df1 dateFromString:end];
-            }else if([df2 dateFromString:end]!=nil){
-                event.endDate = [df2 dateFromString:end];
-            }else if (end) {
-                event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
-            } else {
-                event.endDate = [event.startDate dateByAddingTimeInterval:3600]; // default to 60 mins
-            }
             
-            ANLogDebug(@"%@ %@ | JSON Object Start Date: %@, End Date: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), start, end);
-            ANLogDebug(@"%@ %@ | Event Start Date: %@, End Date: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), event.startDate, event.endDate);
+            if (start) {
+                if([df1 dateFromString:start]!=nil){
+                    event.startDate = [df1 dateFromString:start];
+                }else if([df2 dateFromString:start]!=nil){
+                    event.startDate = [df2 dateFromString:start];
+                }else{
+                    event.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
+                }
+                
+                if([df1 dateFromString:end]!=nil){
+                    event.endDate = [df1 dateFromString:end];
+                }else if([df2 dateFromString:end]!=nil){
+                    event.endDate = [df2 dateFromString:end];
+                }else if (end) {
+                    event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
+                } else {
+                    ANLogDebug(@"%@ %@ | No end date provided, defaulting to 60 minutes", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                    event.endDate = [event.startDate dateByAddingTimeInterval:3600]; // default to 60 mins
+                }
+
+                ANLogDebug(@"%@ %@ | Event Start Date: %@, End Date: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), event.startDate, event.endDate);
+            } else {
+                ANLogWarn(@"%@ %@ | Cannot create calendar event, no start date provided", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                return;
+            }
             
             if([df1 dateFromString:reminder]!=nil){
                 [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df1 dateFromString:reminder]]];
