@@ -15,6 +15,7 @@
 
 
 #import "ANGADCustomInterstitialAd.h"
+#import "ANLocation.h"
 
 @interface ANGADCustomInterstitialAd ()
 @property (nonatomic, readwrite, strong) ANInterstitialAd *interstitialAd;
@@ -27,11 +28,39 @@
 #pragma mark -
 #pragma mark GADCustomEventInterstitial
 
-- (void)requestInterstitialAdWithParameter:(NSString *)serverParameter label:(NSString *)serverLabel request:(GADCustomEventRequest *)request
+- (void)requestInterstitialAdWithParameter:(NSString *)serverParameter label:(NSString *)serverLabel request:(GADCustomEventRequest *)customEventRequest
 {
 	self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:serverParameter];
     self.interstitialAd.delegate = self;
 	self.interstitialAd.shouldServePublicServiceAnnouncements = NO;
+    
+    if ([customEventRequest userHasLocation]) {
+        ANLocation *loc = [ANLocation getLocationWithLatitude:[customEventRequest userLatitude]
+                                                    longitude:[customEventRequest userLongitude]
+                                                    timestamp:nil
+                                           horizontalAccuracy:[customEventRequest userLocationAccuracyInMeters]];
+        [self.interstitialAd setLocation:loc];
+    }
+    
+    GADGender gadGender = [customEventRequest userGender];
+    ANGender anGender = UNKNOWN;
+    if (gadGender != kGADGenderUnknown) {
+        if (gadGender == kGADGenderMale) anGender = MALE;
+        else if (gadGender == kGADGenderFemale) anGender = FEMALE;
+    }
+    [self.interstitialAd setGender:anGender];
+    
+    NSDate *userBirthday = [customEventRequest userBirthday];
+    if (userBirthday) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy"];
+        NSString *birthYear = [dateFormatter stringFromDate:userBirthday];
+        [self.interstitialAd setAge:birthYear];
+    }
+    
+    NSMutableDictionary *customKeywords = [[customEventRequest additionalParameters] mutableCopy];
+    [self.interstitialAd setCustomKeywords:customKeywords];
+    
     [self.interstitialAd loadAd];
 }
 

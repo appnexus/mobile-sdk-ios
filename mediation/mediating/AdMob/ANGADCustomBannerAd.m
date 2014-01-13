@@ -16,6 +16,7 @@
 
 #import "ANGADCustomBannerAd.h"
 #import "ANBannerAdView.h"
+#import "ANLocation.h"
 
 @interface ANGADCustomBannerAd ()
 @property (nonatomic, readwrite, strong) ANBannerAdView *bannerAdView;
@@ -42,6 +43,33 @@
     self.bannerAdView.delegate = self;
     self.bannerAdView.opensInNativeBrowser = YES;
 	self.bannerAdView.shouldServePublicServiceAnnouncements = NO;
+    
+    if ([customEventRequest userHasLocation]) {
+        ANLocation *loc = [ANLocation getLocationWithLatitude:[customEventRequest userLatitude]
+                                                    longitude:[customEventRequest userLongitude]
+                                                    timestamp:nil
+                                           horizontalAccuracy:[customEventRequest userLocationAccuracyInMeters]];
+        [self.bannerAdView setLocation:loc];
+    }
+    
+    GADGender gadGender = [customEventRequest userGender];
+    ANGender anGender = UNKNOWN;
+    if (gadGender != kGADGenderUnknown) {
+        if (gadGender == kGADGenderMale) anGender = MALE;
+        else if (gadGender == kGADGenderFemale) anGender = FEMALE;
+    }
+    [self.bannerAdView setGender:anGender];
+    
+    NSDate *userBirthday = [customEventRequest userBirthday];
+    if (userBirthday) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy"];
+        NSString *birthYear = [dateFormatter stringFromDate:userBirthday];
+        [self.bannerAdView setAge:birthYear];
+    }
+    
+    NSMutableDictionary *customKeywords = [[customEventRequest additionalParameters] mutableCopy];
+    [self.bannerAdView setCustomKeywords:customKeywords];
     
     [self.bannerAdView loadAd];
 }
