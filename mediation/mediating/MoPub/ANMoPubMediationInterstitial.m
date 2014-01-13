@@ -57,9 +57,26 @@
     }
     
     NSMutableDictionary *customKeywords = [info mutableCopy];
-    [customKeywords removeObjectForKey:@"width"];
-    [customKeywords removeObjectForKey:@"height"];
-    [customKeywords removeObjectForKey:@"id"];
+    
+    id ageParam = [customKeywords objectForKey:@"age"];
+    if (ageParam) {
+        if ([ageParam isKindOfClass:[NSString class]]) [self.interstitial setAge:ageParam];
+        [customKeywords removeObjectForKey:@"age"];
+    }
+    
+    id genderParam = [customKeywords objectForKey:@"gender"];
+    if (genderParam) {
+        if ([genderParam isKindOfClass:[NSString class]]) {
+            NSInteger mpGender = [genderParam integerValue];
+            ANGender anGender = UNKNOWN;
+            if (mpGender == UNKNOWN) anGender = UNKNOWN;
+            else if (mpGender == MALE) anGender = MALE;
+            else if (mpGender == FEMALE) anGender = FEMALE;
+            [self.interstitial setGender:anGender];
+        }
+        [customKeywords removeObjectForKey:@"gender"];
+    }
+    
     [self.interstitial setCustomKeywords:customKeywords];
     
     [self.interstitial loadAd];
