@@ -15,6 +15,7 @@
 
 #import "ANMoPubMediationBanner.h"
 #import "ANBannerAdView.h"
+#import "ANLocation.h"
 
 @interface ANMoPubMediationBanner ()
 
@@ -58,6 +59,22 @@
     
     self.adBannerView = [ANBannerAdView adViewWithFrame:frame
                                             placementId:placementId];
+    
+    if ([self.delegate location]) {
+        CLLocation *mpLoc = [self.delegate location];
+        ANLocation *anLoc = [ANLocation getLocationWithLatitude:(CGFloat)mpLoc.coordinate.latitude
+                                                      longitude:(CGFloat)mpLoc.coordinate.longitude
+                                                      timestamp:mpLoc.timestamp
+                                             horizontalAccuracy:(CGFloat)mpLoc.horizontalAccuracy];
+        [self.adBannerView setLocation:anLoc];
+    }
+    
+    NSMutableDictionary *customKeywords = [info mutableCopy];
+    [customKeywords removeObjectForKey:@"width"];
+    [customKeywords removeObjectForKey:@"height"];
+    [customKeywords removeObjectForKey:@"id"];
+    [self.adBannerView setCustomKeywords:customKeywords];
+    
     self.adBannerView.delegate = self;
     [self.adBannerView loadAd];
 }
