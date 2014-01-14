@@ -141,12 +141,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
             }
             
             [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext; // Proper support for background transparency
-            
-			[self adWillPresent];
-			
-			[controller presentViewController:self.controller animated:YES completion:^{
-                [self adDidPresent];
-            }];
+			[controller presentViewController:self.controller animated:YES completion:nil];
 		}
 		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
 			[adToShow presentFromViewController:controller];
@@ -232,7 +227,11 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
     // Interstitials require special handling of launching the in-app browser since they live on top of everything else
     self.browserViewController = browserViewController;
-    [self.controller presentViewController:self.browserViewController animated:YES completion:nil];
+    
+    [self adWillPresent];
+    [self.controller presentViewController:self.browserViewController animated:YES completion:^{
+        [self adDidPresent];
+    }];
 }
 
 #pragma mark extraParameters methods
@@ -328,19 +327,18 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark ANBrowserViewControllerDelegate
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
+    [self adWillClose];
+
 	[self.controller dismissViewControllerAnimated:YES completion:^{
 		self.browserViewController = nil;
+        [self adDidClose];
 	}];
 }
 
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
-    [self adWillClose];
-
-	[self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        [self adDidClose];
-	}];
+	[self.controller.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSTimeInterval)closeDelayForController {
