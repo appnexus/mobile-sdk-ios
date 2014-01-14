@@ -291,6 +291,15 @@ typedef enum _ANMRAIDOrientation
         [self storePicture:uri];
     } else if([mraidCommand isEqualToString:@"setOrientationProperties"]) {
         [self setOrientationProperties:queryComponents];
+    } else if([mraidCommand isEqualToString:@"open"]){
+        NSString *uri = [queryComponents objectForKey:@"uri"];
+        [self open:uri];
+    }
+}
+
+- (void)open:(NSString*) url{
+    if([url length>0]){
+        [self delegateShouldOpenInBrowser:[NSURL URLWithString:url]];
     }
 }
 
