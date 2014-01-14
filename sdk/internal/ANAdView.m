@@ -138,6 +138,10 @@ ANBrowserViewControllerDelegate>
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController {
+    
+    [self adWasClicked];
+    [self adWillPresent];
+    
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
     if ([contentView isKindOfClass:[UIWebView class]]) {
@@ -172,7 +176,9 @@ ANBrowserViewControllerDelegate>
             }
         }
         
-        [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
+        [rootViewController presentViewController:self.mraidController animated:NO completion:^{
+            [self adDidPresent];
+        }];
     } else {
         // non-fullscreen expand
         CGRect expandedContentFrame = self.defaultFrame;
@@ -185,6 +191,7 @@ ANBrowserViewControllerDelegate>
         [defaultParentView setFrame:expandedParentFrame];
         
         [defaultParentView addSubview:contentView];
+        [self adDidPresent];
     }
     
     self.isExpanded = YES;
@@ -195,6 +202,9 @@ ANBrowserViewControllerDelegate>
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
        allowOffscreen:(BOOL)allowOffscreen {
+    
+    [self adWasClicked];
+    
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
     if ([contentView isKindOfClass:[UIWebView class]]) {
