@@ -40,19 +40,20 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)loadAd;
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
-- (void)showCloseButtonWithTarget:(id)target
-                           action:(SEL)selector
-                    containerView:(UIView *)containerView
-                         position:(ANMRAIDCustomClosePosition)position;
 - (void)mraidExpandAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController;
+- (void)mraidExpandAddCloseButton:(UIButton *)closeButton
+                    containerView:(UIView *)containerView;
 - (void)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
        allowOffscreen:(BOOL)allowOffscreen;
+- (BOOL)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
+                         containerView:(UIView *)containerView
+                              position:(ANMRAIDCustomClosePosition)position;
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView;
 
@@ -300,25 +301,44 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	return @"interstitial";
 }
 
-- (void)adShouldExpandToFrame:(CGRect)frame {
+- (void)adShouldExpandToFrame:(CGRect)frame
+                  closeButton:(UIButton *)closeButton {
     [super mraidExpandAd:frame.size
              contentView:self.controller.contentView
        defaultParentView:self.controller.view
       rootViewController:self.controller];
+    
+    UIView *containerView = self.mraidController ? self.mraidController.view : self.controller.contentView;
+    [super mraidExpandAddCloseButton:closeButton containerView:containerView];
+    
+    [self.mraidEventReceiverDelegate adDidFinishExpand];
+    [self.mraidEventReceiverDelegate adDidChangePosition:containerView.frame];
 }
 
-- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
+                  closeButton:(UIButton *)closeButton
+                closePosition:(ANMRAIDCustomClosePosition)closePosition {
+    // resized ads are never modal
+    UIView *contentView = self.controller.contentView;
     [super mraidResizeAd:frame
-             contentView:self.controller.contentView
+             contentView:contentView
        defaultParentView:self.controller.view
       rootViewController:self.controller
           allowOffscreen:allowOffscreen];
-}
-
-- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
-                                 position:(ANMRAIDCustomClosePosition)position {
-    UIView *containerView = self.mraidController ? self.mraidController.view : self.controller.contentView;
-	[super showCloseButtonWithTarget:target action:action containerView:containerView position:position];
+    
+	BOOL closeButtonValid = [super mraidResizeAddCloseEventRegion:closeButton
+                                                    containerView:contentView
+                                                         position:closePosition];
+    
+    if (closeButtonValid) {
+        // otherwise, send stateChange and sizeChange events
+        [self.mraidEventReceiverDelegate adDidFinishResize:closeButtonValid];
+        [self.mraidEventReceiverDelegate adDidChangePosition:contentView.frame];
+    } else {
+        // return to default if close button invalid (error)
+        [self adShouldResetToDefault];
+        [self.mraidEventReceiverDelegate adDidFinishResize:closeButtonValid];
+    }
 }
 
 - (void)adShouldResetToDefault {

@@ -280,6 +280,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         
         ANMRAIDAdWebViewController *mraidWebViewController = [[ANMRAIDAdWebViewController alloc] init];
         mraidWebViewController.mraidDelegate = self.delegate;
+        mraidWebViewController.mraidDelegate.mraidEventReceiverDelegate = mraidWebViewController;
         self.webViewController = mraidWebViewController;
     }
     else

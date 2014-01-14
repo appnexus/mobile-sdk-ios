@@ -23,37 +23,9 @@
 #import "NSString+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
+#import <EventKitUI/EventKitUI.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MFMessageComposeViewController.h>
-
-typedef enum _ANMRAIDState
-{
-    ANMRAIDStateLoading,
-    ANMRAIDStateDefault,
-    ANMRAIDStateExpanded,
-    ANMRAIDStateHidden,
-    ANMRAIDStateResized
-} ANMRAIDState;
-
-typedef enum _ANMRAIDOrientation
-{
-    ANMRAIDOrientationPortrait,
-    ANMRAIDOrientationLandscape,
-    ANMRAIDOrientationNone
-} ANMRAIDOrientation;
-
-@interface UIWebView (MRAIDExtensions)
-- (void)fireReadyEvent;
-- (void)setIsViewable:(BOOL)viewable;
-- (void)setCurrentPosition:(CGRect)frame;
-- (void)setDefaultPosition:(CGRect)frame;
-- (ANMRAIDState)getMRAIDState;
-- (void)fireStateChangeEvent:(ANMRAIDState)state;
-- (void)firePlacementType:(NSString *)placementType;
-- (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
-
-@property (nonatomic, assign) BOOL safety;
-@end
 
 @interface ANAdFetcher (ANAdWebViewController)
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
@@ -68,20 +40,10 @@ typedef enum _ANMRAIDOrientation
 @end
 
 @implementation ANAdWebViewController
-@synthesize adFetcher = __adFetcher;
-@synthesize webView = __webView;
-@synthesize completedFirstLoad = __completedFirstLoad;
 
-- (void)setWebView:(UIWebView *)webView {
-    [webView setMediaProperties];
-    __webView = webView;
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-	if (self.completedFirstLoad)
-	{
-		NSURL *URL = [request URL];
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (self.completedFirstLoad) {
+        NSURL *URL = [request URL];
         NSURL *mainDocumentURL = [request mainDocumentURL];
         
         /*
@@ -99,24 +61,22 @@ typedef enum _ANMRAIDOrientation
             return YES; /* Let the link load in the webView */
         }
         
-		return NO;
-	}
+        return NO;
+    }
     
     return YES;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-	if (!self.completedFirstLoad)
-	{
-		self.adFetcher.loading = NO;
-		
-		// If this is our first successful load, then send this to the delegate. Otherwise, ignore.
-		self.completedFirstLoad = YES;
-		
-		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    if (!self.completedFirstLoad) {
+        self.adFetcher.loading = NO;
+        
+        // If this is our first successful load, then send this to the delegate. Otherwise, ignore.
+        self.completedFirstLoad = YES;
+        
+        ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
         [self.adFetcher processFinalResponse:response];
-	}
+    }
 }
 
 - (void)delegateShouldOpenInBrowser:(NSURL *)URL {
@@ -125,11 +85,10 @@ typedef enum _ANMRAIDOrientation
     }
 }
 
-- (void)dealloc
-{
-    [__webView stopLoading];
-    __webView.delegate = nil;
-    [__webView removeFromSuperview];
+- (void)dealloc {
+    [self.webView stopLoading];
+    self.webView.delegate = nil;
+    [self.webView removeFromSuperview];
 }
 
 @end
@@ -146,7 +105,6 @@ typedef enum _ANMRAIDOrientation
     if (!self.completedFirstLoad) {
 		self.adFetcher.loading = NO;
         self.completedFirstLoad = YES;
-        webView.safety = YES;
 		
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
         [self.adFetcher processFinalResponse:response];
@@ -160,10 +118,11 @@ typedef enum _ANMRAIDOrientation
         // remember frame for default state
         [self setDefaultFrame:webView.frame];
 
-        [webView firePlacementType:[self.mraidDelegate adType]];
+        [webView setPlacementType:[self.mraidDelegate adType]];
         [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
         [webView fireReadyEvent];
+        [webView fireNewCurrentPositionEvent:webView.frame];
     }
 }
 
@@ -305,7 +264,6 @@ typedef enum _ANMRAIDOrientation
 
 - (IBAction)closeAction:(id)sender {
     if (self.expanded || self.resized) {
-        [self.mraidDelegate adShouldRemoveCloseButton];
         [self.mraidDelegate adShouldResetToDefault];
         
         [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
@@ -337,18 +295,14 @@ typedef enum _ANMRAIDOrientation
     NSInteger expandedWidth = [[queryComponents objectForKey:@"w"] integerValue];
     NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
     NSString *url = [queryComponents objectForKey:@"url"];
-    
-    [webView fireStateChangeEvent:ANMRAIDStateExpanded];
 
-    [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)];
+    // If no custom close included, show our default one.
+    UIButton *closeButton = [useCustomClose isEqualToString:@"false"] ? [self expandCloseButton] : nil;
+    
+    [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)
+                                  closeButton:closeButton];
     
     self.expanded = YES;
-    
-    if ([useCustomClose isEqualToString:@"false"]) {
-        // No custom close included, show our default one.
-        [self.mraidDelegate adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)
-                                                     position:ANMRAIDTopRight];
-    }
     
     if ([url length] > 0) {
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
@@ -368,12 +322,7 @@ typedef enum _ANMRAIDOrientation
     ANMRAIDState currentState = [webView getMRAIDState];
     
     if ((currentState == ANMRAIDStateDefault) || (currentState == ANMRAIDStateResized)) {
-        [webView fireStateChangeEvent:ANMRAIDStateResized];
-        [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h) allowOffscreen:allowOffscreen];
-
-        [self.mraidDelegate adShouldRemoveCloseButton];
-        [self.mraidDelegate adShouldShowCloseButtonWithTarget:self action:@selector(closeAction:)
-                                                     position:closePosition];
+        [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h) allowOffscreen:allowOffscreen closeButton:[self resizeCloseButton] closePosition:closePosition];
     }
     
     self.resized = YES;
@@ -701,122 +650,53 @@ typedef enum _ANMRAIDOrientation
     ANLogDebug(urlString);
 }
 
-@end
-
-@implementation ANWebView (MRAIDExtensions)
-
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    if (self.safety) {
-        [self setCurrentSize:frame.size];
-        [self setCurrentPosition:frame];
-    }
-}
-
-- (void)firePlacementType:(NSString *)placementType {
-    NSString* script = [NSString stringWithFormat:@"window.mraid.util.setPlacementType('%@');", placementType];
-    [self stringByEvaluatingJavaScriptFromString:script];
-}
-
-- (void)fireReadyEvent {
-    NSString* script = [NSString stringWithFormat:@"window.mraid.util.readyEvent();"];
-    [self stringByEvaluatingJavaScriptFromString:script];
-}
-
-- (void)setIsViewable:(BOOL)viewable {
-    NSString* script = [NSString stringWithFormat:@"window.mraid.util.setIsViewable(%@)",
-                        viewable ? @"true" : @"false"];
-    [self stringByEvaluatingJavaScriptFromString:script];
-}
-
-- (void)setCurrentSize:(CGSize)size {
-    int width = floorf(size.width + 0.5f);
-    int height = floorf(size.height + 0.5f);
-
-    NSString *script = [NSString stringWithFormat:@"window.mraid.util.sizeChangeEvent(%i,%i);",
-                        width, height];
-    [self stringByEvaluatingJavaScriptFromString:script];
-}
-
-- (void)setCurrentPosition:(CGRect)frame {
-    int offsetX = (frame.origin.x > 0) ? floorf(frame.origin.x + 0.5f) : ceilf(frame.origin.x - 0.5f);
-    int offsetY = (frame.origin.y > 0) ? floorf(frame.origin.y + 0.5f) : ceilf(frame.origin.y - 0.5f);
-    int width = floorf(frame.size.width + 0.5f);
-    int height = floorf(frame.size.height + 0.5f);
+// expand close button for non-custom close is provided by SDK
+- (UIButton *)expandCloseButton {
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton addTarget:self
+                    action:@selector(closeAction:)
+          forControlEvents:UIControlEventTouchUpInside];
     
-    NSString *script = [NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i, %i, %i, %i);",
-                        offsetX, offsetY, width, height];
-    [self stringByEvaluatingJavaScriptFromString:script];
-}
-
-- (void)setDefaultPosition:(CGRect)frame {
-    int offsetX = (frame.origin.x > 0) ? floorf(frame.origin.x + 0.5f) : ceilf(frame.origin.x - 0.5f);
-    int offsetY = (frame.origin.y > 0) ? floorf(frame.origin.y + 0.5f) : ceilf(frame.origin.y - 0.5f);
-    int width = floorf(frame.size.width + 0.5f);
-    int height = floorf(frame.size.height + 0.5f);
-
-    NSString *script = [NSString stringWithFormat:@"window.mraid.util.setDefaultPosition(%i, %i, %i, %i);",
-                        offsetX, offsetY, width, height];
-    [self stringByEvaluatingJavaScriptFromString:script];
-}
-
-- (ANMRAIDState)getMRAIDState {
-    NSString *state = [self stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
-    if ([state isEqualToString:@"loading"]) {
-        return ANMRAIDStateLoading;
-    } else if ([state isEqualToString:@"default"]) {
-        return ANMRAIDStateDefault;
-    } else if ([state isEqualToString:@"expanded"]) {
-        return ANMRAIDStateExpanded;
-    } else if ([state isEqualToString:@"hidden"]) {
-        return ANMRAIDStateHidden;
-    } else if ([state isEqualToString:@"resized"]) {
-        return ANMRAIDStateResized;
-    }
+    UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
+    [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
+    [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
     
-    ANLogError(@"Call to mraid.getState() returned invalid state.");
-    return ANMRAIDStateDefault;
+    // setFrame here in order to pass the size dimensions along
+    [closeButton setFrame:CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height)];
+    return closeButton;
 }
 
-- (void)fireStateChangeEvent:(ANMRAIDState)state {
-    NSString *stateString = @"";
-    
-    switch (state) {
-        case ANMRAIDStateLoading:
-            stateString = @"loading";
-            break;
-        case ANMRAIDStateDefault:
-            stateString = @"default";
-            break;
-        case ANMRAIDStateExpanded:
-            stateString = @"expanded";
-            break;
-        case ANMRAIDStateHidden:
-            stateString = @"hidden";
-            break;
-        case ANMRAIDStateResized:
-            stateString = @"resized";
-            break;
-        default:
-            break;
-    }
-    
-    NSString *script = [NSString stringWithFormat:@"window.mraid.util.stateChangeEvent('%@')", stateString];
-    [self stringByEvaluatingJavaScriptFromString:script];
+// resize close button is a transparent region
+- (UIButton *)resizeCloseButton {
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton addTarget:self
+                    action:@selector(closeAction:)
+          forControlEvents:UIControlEventTouchUpInside];
+    return closeButton;
 }
 
-- (void)setHidden:(BOOL)hidden animated:(BOOL)animated {
-    if (animated) {
-        [UIView animateWithDuration:kAppNexusAnimationDuration animations:^{
-            self.alpha = hidden ? 0.0f : 1.0f;
-        } completion:^(BOOL finished) {
-            self.hidden = hidden;
-            self.alpha = 1.0f;
-        }];
+#pragma mark ANMRAIDEventReceiver
+
+- (void)adDidFinishExpand {
+    [self.webView fireStateChangeEvent:ANMRAIDStateExpanded];
+}
+
+- (void)adDidFinishResize:(BOOL)success {
+    if (success) {
+        [self.webView fireStateChangeEvent:ANMRAIDStateResized];
+    } else {
+        [self.webView fireErrorEvent:@"closeEventRegion cannot be offscreen"
+                            function:@"mraid.resize()"];
     }
-    else {
-        self.hidden = hidden;
-    }
+}
+
+- (void)adDidChangePosition:(CGRect)frame {
+    [self.webView fireNewCurrentPositionEvent:frame];
+}
+
+- (void)adDidResetToDefault {
+    [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
 }
 
 @end
+

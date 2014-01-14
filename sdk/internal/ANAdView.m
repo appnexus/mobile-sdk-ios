@@ -54,20 +54,24 @@ ANBrowserViewControllerDelegate>
 @synthesize gender = __gender;
 @synthesize customKeywords = __customKeywords;
 
+// ANMRAIDEventReceiver
+@synthesize mraidEventReceiverDelegate = __mraidEventReceiverDelegate;
+
 #pragma mark Abstract methods
 /***
- * Subclasses should implement these methods
+ * Subclasses should implement these abstract methods
  ***/
-- (NSString *)adType {
-    return nil;
-}
 
-- (void)adShouldExpandToFrame:(CGRect)frame {}
-- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen {}
-- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
-                                 position:(ANMRAIDCustomClosePosition)position {}
-- (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
+// MRAIDAdViewDelegate methods
+- (NSString *)adType { return nil; }
 - (void)adShouldResetToDefault {}
+- (void)adShouldExpandToFrame:(CGRect)frame closeButton:(UIButton *)closeButton {}
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
+                  closeButton:(UIButton *)closeButton
+                closePosition:(ANMRAIDCustomClosePosition)closePosition {}
+
+// AdFetcherDelegate methods
+- (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
 
 #pragma mark Initialization
 
@@ -134,6 +138,8 @@ ANBrowserViewControllerDelegate>
     [self.adFetcher requestAd];
 }
 
+#pragma mark MRAID expand methods
+
 - (void)mraidExpandAd:(CGSize)size
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
@@ -190,6 +196,28 @@ ANBrowserViewControllerDelegate>
     self.isExpanded = YES;
 }
 
+- (void)mraidExpandAddCloseButton:(UIButton *)closeButton
+                    containerView:(UIView *)containerView {
+    // remove any existing close button
+    [self removeCloseButton];
+    
+    // place the close button in the top right
+    CGFloat closeButtonOriginX = containerView.bounds.size.width
+    - closeButton.frame.size.width - CLOSE_BUTTON_OFFSET_X;
+    CGFloat closeButtonOriginY = CLOSE_BUTTON_OFFSET_Y;
+    
+    closeButton.frame = CGRectMake(closeButtonOriginX, closeButtonOriginY,
+                                   closeButton.frame.size.width,
+                                   closeButton.frame.size.height);
+    closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+    
+    self.closeButton = closeButton;
+    
+    [containerView addSubview:closeButton];
+}
+
+#pragma mark MRAID resize methods
+
 - (void)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
@@ -224,76 +252,101 @@ ANBrowserViewControllerDelegate>
     [defaultParentView addSubview:contentView];
 }
 
-- (void)showCloseButtonWithTarget:(id)target action:(SEL)selector
-                    containerView:(UIView *)containerView
-                         position:(ANMRAIDCustomClosePosition)position {
-    if ([self.closeButton superview] == nil) {
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [closeButton addTarget:target
-                        action:selector
-              forControlEvents:UIControlEventTouchUpInside];
-        
-        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
-        [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
-        [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
-        
-        CGFloat centerX = 0.0;
-        CGFloat centerY = 0.0;
-        CGFloat bottomY = containerView.bounds.size.height
-        - closeButtonImage.size.height - CLOSE_BUTTON_OFFSET_Y;
-        CGFloat rightX = containerView.bounds.size.width
-        - closeButtonImage.size.width - CLOSE_BUTTON_OFFSET_X;
+// returns true if position of closeEventRegion was valid, false if error
+- (BOOL)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
+                         containerView:(UIView *)containerView
+                              position:(ANMRAIDCustomClosePosition)position {
+    // remove any existing close button
+    [self removeCloseButton];
+    
+    CGFloat closeEventRegionSize = 50.0f;
+    
+    CGFloat containerWidth = containerView.bounds.size.width;
+    CGFloat containerHeight = containerView.bounds.size.height;
+    
+    CGFloat topY = 0.0f;
+    CGFloat bottomY = containerHeight;
+    CGFloat leftX = 0.0f;
+    CGFloat rightX = containerWidth;
+    CGFloat centerX = (containerWidth - closeEventRegionSize) / 2.0;
+    CGFloat centerY = (containerHeight - closeEventRegionSize) / 2.0;
+    
+    CGFloat closeButtonOriginX = 0.0f;
+    CGFloat closeButtonOriginY = 0.0f;
+    
+    switch (position) {
+        case ANMRAIDTopLeft:
+            closeButtonOriginX = leftX;
+            closeButtonOriginY = topY;
+            break;
+        case ANMRAIDTopCenter:
+            closeButtonOriginX = centerX;
+            closeButtonOriginY = topY;
+            break;
+        case ANMRAIDTopRight:
+            closeButtonOriginX = rightX;
+            closeButtonOriginY = topY;
+            break;
+        case ANMRAIDCenter:
+            closeButtonOriginX = centerX;
+            closeButtonOriginY = centerY;
+            break;
+        case ANMRAIDBottomLeft:
+            closeButtonOriginX = leftX;
+            closeButtonOriginY = bottomY;
+            break;
+        case ANMRAIDBottomCenter:
+            closeButtonOriginX = centerX;
+            closeButtonOriginY = bottomY;
+            break;
+        case ANMRAIDBottomRight:
+            closeButtonOriginX = rightX;
+            closeButtonOriginY = bottomY;
+            break;
+            
+        default:
+            break;
+    }
+    
+    closeEventRegion.frame = CGRectMake(closeButtonOriginX, closeButtonOriginY,
+                                        closeEventRegionSize, closeEventRegionSize);
+    CGRect closeFrame = closeEventRegion.frame;
+    closeEventRegion.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin
+    | UIViewAutoresizingFlexibleLeftMargin;
+    
+    self.closeButton = closeEventRegion;
+    
+    [containerView addSubview:closeEventRegion];
 
-        switch (position) {
-            case ANMRAIDTopLeft:
-                centerX = CLOSE_BUTTON_OFFSET_X;
-                centerY = CLOSE_BUTTON_OFFSET_Y;
-                break;
-            case ANMRAIDTopCenter:
-                centerX = (containerView.bounds.size.width
-                           - closeButtonImage.size.width) / 2.0;
-                centerY = CLOSE_BUTTON_OFFSET_Y;
-                break;
-            case ANMRAIDTopRight:
-                centerX = rightX;
-                centerY = CLOSE_BUTTON_OFFSET_Y;
-                break;
-            case ANMRAIDCenter:
-                centerX = (containerView.bounds.size.width
-                           - closeButtonImage.size.width) / 2.0;
-                centerY = (containerView.bounds.size.height
-                           - closeButtonImage.size.height) / 2.0;
-                break;
-            case ANMRAIDBottomLeft:
-                centerX = CLOSE_BUTTON_OFFSET_X;
-                centerY = bottomY;
-                break;
-            case ANMRAIDBottomCenter:
-                centerX = (containerView.bounds.size.width
-                           - closeButtonImage.size.width) / 2.0;
-                centerY = bottomY;
-                break;
-            case ANMRAIDBottomRight:
-                centerX = rightX;
-                centerY = bottomY;
-                break;
-                
-            default:
-                break;
-        }
-        
-        closeButton.frame = CGRectMake(centerX, centerY,
-                                       closeButtonImage.size.width,
-                                       closeButtonImage.size.height);
-        closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-        
-        self.closeButton = closeButton;
-        
-        [containerView addSubview:closeButton];
+    // check if closeButton is offscreen
+    
+    // absolute position of closeButton in screen
+    CGRect closeButtonAbsoluteFrame = [self.closeButton convertRect:self.closeButton.bounds toView:nil];
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    
+    // check top boundary
+    if (closeButtonAbsoluteFrame.origin.y < screenBounds.origin.y) {
+        return NO;
     }
-    else {
-        ANLogError(@"Attempted to add a close button to ad view %@ with one already showing!", self);
+    
+    // check bottom boundary
+    if ((closeButtonAbsoluteFrame.origin.y + closeButtonAbsoluteFrame.size.height)
+        > screenBounds.size.height) {
+        return NO;
     }
+    
+    // check left boundary
+    if (closeButtonAbsoluteFrame.origin.x < screenBounds.origin.x) {
+        return NO;
+    }
+    
+    // check right boundary
+    if ((closeButtonAbsoluteFrame.origin.x + closeButtonAbsoluteFrame.size.width)
+        > screenBounds.size.width) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)removeCloseButton
@@ -442,12 +495,10 @@ ANBrowserViewControllerDelegate>
 }
 #pragma mark ANMRAIDAdViewDelegate
 
-- (void)adShouldRemoveCloseButton {
-    [self removeCloseButton];
-}
-
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView {
+    [self removeCloseButton];
+    
     [contentView setFrame:self.defaultFrame];
     [contentView removeFromSuperview];
     [parentView setFrame:self.defaultParentFrame];
@@ -461,6 +512,9 @@ ANBrowserViewControllerDelegate>
         self.mraidController = nil;
     }
     self.isExpanded = NO;
+    
+    [self.mraidEventReceiverDelegate adDidResetToDefault];
+    [self.mraidEventReceiverDelegate adDidChangePosition:contentView.frame];
 }
 
 - (void)forceOrientation:(UIInterfaceOrientation)orientation {

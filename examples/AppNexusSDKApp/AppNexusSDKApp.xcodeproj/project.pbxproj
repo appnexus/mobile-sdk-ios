@@ -227,6 +227,7 @@
 		EC3FD7291822213C00B25418 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		EC4055EC183C07F9006A1D09 /* ANDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDocument.h; sourceTree = "<group>"; };
 		EC4055ED183C07F9006A1D09 /* ANDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDocument.m; sourceTree = "<group>"; };
+		EC6AAEC5188479C700CD2FDC /* ANMRAIDProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANMRAIDProperties.h; sourceTree = "<group>"; };
 		EC70ED8B18316B2000BDF92F /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC77B0A618170D8E002123CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -579,13 +580,14 @@
 				ECB124A81821A25D00CB4BE8 /* ANMediatedAd.m */,
 				ECB124A91821A25D00CB4BE8 /* ANMediationAdViewController.h */,
 				ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */,
+				EC6AAEC5188479C700CD2FDC /* ANMRAIDProperties.h */,
+				ECF9AA931858E5540079BCD0 /* ANMRAIDViewController.h */,
+				EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */,
 				ECB124AB1821A25D00CB4BE8 /* ANReachability.h */,
 				ECB124AC1821A25D00CB4BE8 /* ANReachability.m */,
 				ECAFB02C1864EE25007F1973 /* ANTargetingParameters.m */,
 				EC70ED8B18316B2000BDF92F /* ANWebView.h */,
 				ECF9AA941858E5F60079BCD0 /* ANWebView.m */,
-				ECF9AA931858E5540079BCD0 /* ANMRAIDViewController.h */,
-				EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";

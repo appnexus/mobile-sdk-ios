@@ -13,35 +13,12 @@
  limitations under the License.
  */
 
+#import "ANMRAIDProperties.h"
+
 #import <Foundation/Foundation.h>
-#import <EventKitUI/EventKitUI.h>
 #import <UIKit/UIKit.h>
 
 @class ANAdFetcher;
-
-typedef enum _ANMRAIDCustomClosePosition
-{
-    ANMRAIDTopLeft,
-    ANMRAIDTopCenter,
-    ANMRAIDTopRight,
-    ANMRAIDCenter,
-    ANMRAIDBottomLeft,
-    ANMRAIDBottomCenter,
-    ANMRAIDBottomRight,
-} ANMRAIDCustomClosePosition;
-
-@protocol ANMRAIDAdViewDelegate <NSObject>
-
-- (NSString *)adType;
-- (void)adShouldResetToDefault;
-- (void)adShouldExpandToFrame:(CGRect)frame;
-- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen;
-- (void)adShouldShowCloseButtonWithTarget:(id)target action:(SEL)action
-                                 position:(ANMRAIDCustomClosePosition)position;
-- (void)adShouldRemoveCloseButton;
-- (void)forceOrientation:(UIInterfaceOrientation)orientation;
-
-@end
 
 @interface ANAdWebViewController : NSObject <UIWebViewDelegate>
 
@@ -50,7 +27,7 @@ typedef enum _ANMRAIDCustomClosePosition
 
 @end
 
-@interface ANMRAIDAdWebViewController : ANAdWebViewController
+@interface ANMRAIDAdWebViewController : ANAdWebViewController <ANMRAIDEventReceiver>
 
 @property (nonatomic, readwrite, weak) id<ANMRAIDAdViewDelegate> mraidDelegate;
 @property (nonatomic, readwrite, weak) UIViewController *controller;
