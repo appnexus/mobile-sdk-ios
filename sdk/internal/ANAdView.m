@@ -310,7 +310,6 @@ ANBrowserViewControllerDelegate>
     
     closeEventRegion.frame = CGRectMake(closeButtonOriginX, closeButtonOriginY,
                                         closeEventRegionSize, closeEventRegionSize);
-    CGRect closeFrame = closeEventRegion.frame;
     closeEventRegion.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin
     | UIViewAutoresizingFlexibleLeftMargin;
     
@@ -324,29 +323,7 @@ ANBrowserViewControllerDelegate>
     CGRect closeButtonAbsoluteFrame = [self.closeButton convertRect:self.closeButton.bounds toView:nil];
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     
-    // check top boundary
-    if (closeButtonAbsoluteFrame.origin.y < screenBounds.origin.y) {
-        return NO;
-    }
-    
-    // check bottom boundary
-    if ((closeButtonAbsoluteFrame.origin.y + closeButtonAbsoluteFrame.size.height)
-        > screenBounds.size.height) {
-        return NO;
-    }
-    
-    // check left boundary
-    if (closeButtonAbsoluteFrame.origin.x < screenBounds.origin.x) {
-        return NO;
-    }
-    
-    // check right boundary
-    if ((closeButtonAbsoluteFrame.origin.x + closeButtonAbsoluteFrame.size.width)
-        > screenBounds.size.width) {
-        return NO;
-    }
-    
-    return YES;
+    return CGRectContainsRect(screenBounds, closeButtonAbsoluteFrame);
 }
 
 - (void)removeCloseButton

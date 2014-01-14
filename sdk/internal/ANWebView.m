@@ -21,8 +21,8 @@
 
 @implementation ANWebView
 
--(id)init {
-    self = [super init];
+-(id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.opaque = NO;

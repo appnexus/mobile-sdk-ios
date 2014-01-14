@@ -122,7 +122,6 @@
         [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
         [webView fireReadyEvent];
-        [webView fireNewCurrentPositionEvent:webView.frame];
     }
 }
 
@@ -319,11 +318,7 @@
     
     ANMRAIDCustomClosePosition closePosition = [self getCustomClosePositionFromString:customClosePosition];
     
-    ANMRAIDState currentState = [webView getMRAIDState];
-    
-    if ((currentState == ANMRAIDStateDefault) || (currentState == ANMRAIDStateResized)) {
-        [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h) allowOffscreen:allowOffscreen closeButton:[self resizeCloseButton] closePosition:closePosition];
-    }
+    [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h) allowOffscreen:allowOffscreen closeButton:[self resizeCloseButton] closePosition:closePosition];
     
     self.resized = YES;
 }
