@@ -34,13 +34,14 @@
    rootViewController:(UIViewController *)rootViewController;
 - (void)mraidExpandAddCloseButton:(UIButton *)closeButton
                     containerView:(UIView *)containerView;
-- (void)mraidResizeAd:(CGRect)frame
+- (BOOL)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
        allowOffscreen:(BOOL)allowOffscreen;
-- (BOOL)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
+- (void)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
                          containerView:(UIView *)containerView
+                           contentView:(UIView *)contentView
                               position:(ANMRAIDCustomClosePosition)position;
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView;
@@ -48,6 +49,7 @@
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
 @property (nonatomic, readwrite, strong) UIView *contentView;
+@property (nonatomic, readwrite, strong) UIButton *closeButton;
 
 @end
 
@@ -287,25 +289,26 @@
                 closePosition:(ANMRAIDCustomClosePosition)closePosition {
     // resized ads are never modal
     UIView *contentView = self.contentView;
-    [super mraidResizeAd:frame
-             contentView:contentView
-       defaultParentView:self
-      rootViewController:self.rootViewController
-          allowOffscreen:allowOffscreen];
     
-	BOOL closeButtonValid = [super mraidResizeAddCloseEventRegion:closeButton
-                                                    containerView:contentView
-                                                         position:closePosition];
+    BOOL resizeFrameWasValid = [super mraidResizeAd:frame
+                                        contentView:contentView
+                                  defaultParentView:self
+                                 rootViewController:self.rootViewController
+                                     allowOffscreen:allowOffscreen];
     
-    if (closeButtonValid) {
-        // otherwise, send stateChange and sizeChange events
-        [self.mraidEventReceiverDelegate adDidFinishResize:closeButtonValid];
-        [self.mraidEventReceiverDelegate adDidChangePosition:contentView.frame];
-    } else {
-        // return to default if close button invalid (error)
-        [self adShouldResetToDefault];
-        [self.mraidEventReceiverDelegate adDidFinishResize:closeButtonValid];
+    if (!resizeFrameWasValid) {
+        [self.mraidEventReceiverDelegate adDidFinishResize:NO];
+        return;
     }
+    
+	[super mraidResizeAddCloseEventRegion:closeButton
+                            containerView:self
+                              contentView:contentView
+                                 position:closePosition];
+    
+    // send mraid events
+    [self.mraidEventReceiverDelegate adDidFinishResize:YES];
+    [self.mraidEventReceiverDelegate adDidChangePosition:contentView.frame];
 }
 
 - (void)adShouldResetToDefault {

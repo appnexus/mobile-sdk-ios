@@ -680,7 +680,7 @@
     if (success) {
         [self.webView fireStateChangeEvent:ANMRAIDStateResized];
     } else {
-        [self.webView fireErrorEvent:@"closeEventRegion cannot be offscreen"
+        [self.webView fireErrorEvent:@"resize should keep at least 50x50 of the creative on screen"
                             function:@"mraid.resize()"];
     }
 }

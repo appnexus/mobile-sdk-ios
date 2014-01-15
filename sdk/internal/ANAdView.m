@@ -77,11 +77,11 @@ ANBrowserViewControllerDelegate>
 
 - (id)init {
     self = [super init];
-
+    
     if (self != nil) {
         [self initialize];
     }
-
+    
     return self;
 }
 
@@ -96,7 +96,7 @@ ANBrowserViewControllerDelegate>
     self.adFetcher.delegate = self;
     self.defaultParentFrame = CGRectNull;
     self.defaultFrame = CGRectNull;
-
+    
     __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
     __location = nil;
     __reserve = 0.0f;
@@ -105,7 +105,7 @@ ANBrowserViewControllerDelegate>
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
     self.adFetcher.delegate = nil;
     [self.adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
     
@@ -218,11 +218,15 @@ ANBrowserViewControllerDelegate>
 
 #pragma mark MRAID resize methods
 
-- (void)mraidResizeAd:(CGRect)frame
+- (BOOL)mraidResizeAd:(CGRect)frame
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
        allowOffscreen:(BOOL)allowOffscreen {
+    if (![self isResizeValid:contentView frameToResizeTo:frame]) {
+        return NO;
+    }
+    
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
     if ([contentView isKindOfClass:[UIWebView class]]) {
@@ -239,76 +243,133 @@ ANBrowserViewControllerDelegate>
         self.defaultFrame = contentView.frame;
     }
     
-    // resize to new frame
-    [contentView setFrame:frame];
-    [contentView removeFromSuperview];
+    // adjust the parent view to fit contentView
+    [defaultParentView setFrame:CGRectMake(defaultParentView.frame.origin.x  + frame.origin.x,
+                                           defaultParentView.frame.origin.x  + frame.origin.x,
+                                           frame.size.width + frame.origin.x,
+                                           frame.size.height + frame.origin.y)];
     
-    CGRect parentFrame = defaultParentView.frame;
-    parentFrame.size = CGSizeMake(frame.size.width + frame.origin.x,
-                                  frame.size.height + frame.origin.y);
-    [defaultParentView setFrame:parentFrame];
+    // resize contentView to new frame
     [contentView setFrame:frame];
+    return YES;
+}
+
+- (BOOL)isResizeValid:(UIView *)contentView frameToResizeTo:(CGRect)frame {
+    // for comparing to
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect absoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
+    if (!CGRectIntersectsRect(screenBounds, absoluteFrame)) return NO;
     
-    [defaultParentView addSubview:contentView];
+    // verify that at least 50x50 pixels of the creative are onscreen
+    // by checking the four corners of the creative
+    CGFloat allowedSize = 50.0f;
+    CGRect contentFrame = contentView.bounds;
+    
+    // the absolute x and y offset will only be changed
+    // by the difference of the new frame and the old frame
+    // the size will simply be the size given by resizeProperties
+    CGRect resizedFrame = CGRectMake(absoluteFrame.origin.x + (frame.origin.x - contentFrame.origin.x),
+                                     absoluteFrame.origin.y + (frame.origin.y - contentFrame.origin.y),
+                                     frame.size.width,
+                                     frame.size.height);
+    
+    // find the area of the resized creative that is on screen
+    // if at least 50x50 is on the screen, then the resize is valid
+    CGRect resizedIntersection = CGRectIntersection(screenBounds, resizedFrame);
+    CGSize allowedSizeMinusOne = CGSizeMake(allowedSize - 1.0f, allowedSize - 1.0f);
+    
+    return CGSizeLargerThanSize(resizedIntersection.size, allowedSizeMinusOne);
 }
 
 // returns true if position of closeEventRegion was valid, false if error
-- (BOOL)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
+- (void)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
                          containerView:(UIView *)containerView
+                           contentView:(UIView *)contentView
                               position:(ANMRAIDCustomClosePosition)position {
     // remove any existing close button
     [self removeCloseButton];
     
     CGFloat closeEventRegionSize = 50.0f;
     
-    CGFloat containerWidth = containerView.bounds.size.width;
-    CGFloat containerHeight = containerView.bounds.size.height;
+    CGFloat contentWidth = contentView.frame.size.width;
+    CGFloat contentHeight = contentView.frame.size.height;
     
+    // different offset values for various possible closeEventRegion positions,
+    // relative to the origin of the contentView
     CGFloat topY = 0.0f;
-    CGFloat bottomY = containerHeight;
+    CGFloat bottomY = contentHeight - closeEventRegionSize;
+    CGFloat centerY = (contentHeight - closeEventRegionSize) / 2.0;
     CGFloat leftX = 0.0f;
-    CGFloat rightX = containerWidth;
-    CGFloat centerX = (containerWidth - closeEventRegionSize) / 2.0;
-    CGFloat centerY = (containerHeight - closeEventRegionSize) / 2.0;
+    CGFloat rightX = contentWidth - closeEventRegionSize;
+    CGFloat centerX = (contentWidth - closeEventRegionSize) / 2.0;
     
-    CGFloat closeButtonOriginX = 0.0f;
-    CGFloat closeButtonOriginY = 0.0f;
+    // closeEventRegion will be a child of the container, so it needs to be
+    // positioned based on contentView's origin
+    CGFloat closeOriginX = contentView.frame.origin.x;;
+    CGFloat closeOriginY = contentView.frame.origin.y;
     
     switch (position) {
         case ANMRAIDTopLeft:
-            closeButtonOriginX = leftX;
-            closeButtonOriginY = topY;
+            closeOriginX += leftX;
+            closeOriginY += topY;
             break;
         case ANMRAIDTopCenter:
-            closeButtonOriginX = centerX;
-            closeButtonOriginY = topY;
+            closeOriginX += centerX;
+            closeOriginY += topY;
             break;
         case ANMRAIDTopRight:
-            closeButtonOriginX = rightX;
-            closeButtonOriginY = topY;
+            closeOriginX += rightX;
+            closeOriginY += topY;
             break;
         case ANMRAIDCenter:
-            closeButtonOriginX = centerX;
-            closeButtonOriginY = centerY;
+            closeOriginX += centerX;
+            closeOriginY += centerY;
             break;
         case ANMRAIDBottomLeft:
-            closeButtonOriginX = leftX;
-            closeButtonOriginY = bottomY;
+            closeOriginX += leftX;
+            closeOriginY += bottomY;
             break;
         case ANMRAIDBottomCenter:
-            closeButtonOriginX = centerX;
-            closeButtonOriginY = bottomY;
+            closeOriginX += centerX;
+            closeOriginY += bottomY;
             break;
         case ANMRAIDBottomRight:
-            closeButtonOriginX = rightX;
-            closeButtonOriginY = bottomY;
+            closeOriginX += rightX;
+            closeOriginY += bottomY;
             break;
             
         default:
             break;
     }
     
-    closeEventRegion.frame = CGRectMake(closeButtonOriginX, closeButtonOriginY,
+    // compute the absolute frame of the close event region
+    CGRect containerAbsoluteFrame = [containerView convertRect:containerView.bounds toView:nil];
+    
+    CGFloat closeAbsoluteOriginX = containerAbsoluteFrame.origin.x + closeOriginX;
+    CGFloat closeAbsoluteOriginY = containerAbsoluteFrame.origin.y + closeOriginY;
+    CGRect closeAbsoluteFrame = CGRectMake(closeAbsoluteOriginX, closeAbsoluteOriginY,
+                                           closeEventRegionSize, closeEventRegionSize);
+    
+    // verify that the requested close event region will be on the screen
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    BOOL isCloseEventRegionOnScreen = CGRectContainsRect(screenBounds, closeAbsoluteFrame);
+    
+    // if the requested close positioning is invalid,
+    // put it in the top-left of the available space
+    if (!isCloseEventRegionOnScreen) {
+        CGRect absoluteFrame = [containerView convertRect:contentView.bounds toView:nil];
+        CGRect contentIntersection = CGRectIntersection(screenBounds, absoluteFrame);
+        closeOriginX = contentIntersection.origin.x - containerAbsoluteFrame.origin.x;
+        closeOriginY = contentIntersection.origin.y - containerAbsoluteFrame.origin.y;
+        
+        // add image to the region since it will be in a different
+        // place with no visual cue
+        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
+        [closeEventRegion setImage:closeButtonImage forState:UIControlStateNormal];
+        [closeEventRegion setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
+    }
+    
+    closeEventRegion.frame = CGRectMake(closeOriginX, closeOriginY,
                                         closeEventRegionSize, closeEventRegionSize);
     closeEventRegion.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin
     | UIViewAutoresizingFlexibleLeftMargin;
@@ -316,14 +377,6 @@ ANBrowserViewControllerDelegate>
     self.closeButton = closeEventRegion;
     
     [containerView addSubview:closeEventRegion];
-
-    // check if closeButton is offscreen
-    
-    // absolute position of closeButton in screen
-    CGRect closeButtonAbsoluteFrame = [self.closeButton convertRect:self.closeButton.bounds toView:nil];
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    
-    return CGRectContainsRect(screenBounds, closeButtonAbsoluteFrame);
 }
 
 - (void)removeCloseButton
@@ -480,7 +533,7 @@ ANBrowserViewControllerDelegate>
     [contentView removeFromSuperview];
     [parentView setFrame:self.defaultParentFrame];
     [parentView addSubview:contentView];
-
+    
     self.defaultParentFrame = CGRectNull;
     self.defaultFrame = CGRectNull;
     
