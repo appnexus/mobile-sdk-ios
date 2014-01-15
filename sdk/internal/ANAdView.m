@@ -451,7 +451,7 @@ ANBrowserViewControllerDelegate>
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView {
 
-    [self adWillClose];
+    if (self.isExpanded) [self adWillClose];
     
     [contentView setFrame:self.defaultFrame];
     [contentView removeFromSuperview];
@@ -463,10 +463,10 @@ ANBrowserViewControllerDelegate>
     
     if (self.mraidController) {
         [self.mraidController dismissViewControllerAnimated:NO completion:^{
-            [self adDidClose];
+            if (self.isExpanded) [self adDidClose];
         }];
         self.mraidController = nil;
-    } else [self adDidClose];
+    } else if (self.isExpanded) [self adDidClose];
     self.isExpanded = NO;
 }
 
