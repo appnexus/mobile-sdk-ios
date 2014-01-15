@@ -172,7 +172,7 @@
  
  // Loads a given URL (TODO make this native ) 
  mraid.open=function(url){
- window.location = url;
+ mraid.util.nativeCall("mraid://open/?uri="+encodeURIComponent(url));
  };
  
  // MRAID 2.0 Stuff.
