@@ -297,8 +297,8 @@ typedef enum _ANMRAIDOrientation
     }
 }
 
-- (void)open:(NSString*) url{
-    if([url length>0]){
+- (void)open:(NSString *)url {
+    if ([url length] > 0) {
         [self delegateShouldOpenInBrowser:[NSURL URLWithString:url]];
     }
 }
