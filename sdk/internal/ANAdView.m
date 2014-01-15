@@ -139,7 +139,6 @@ ANBrowserViewControllerDelegate>
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController {
     
-    [self adWasClicked];
     [self adWillPresent];
     
     // set presenting controller for MRAID WebViewController
@@ -202,9 +201,7 @@ ANBrowserViewControllerDelegate>
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
        allowOffscreen:(BOOL)allowOffscreen {
-    
-    [self adWasClicked];
-    
+        
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
     if ([contentView isKindOfClass:[UIWebView class]]) {
