@@ -41,7 +41,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.bannerAdView.rootViewController = self.parentViewController;
+    self.bannerAdView.rootViewController = self;
 }
 
 - (void)setup {
@@ -96,7 +96,7 @@
                               // Make New BannerAdView
     self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, centerY, settingsBannerWidth, settingsBannerHeight)];
     self.bannerAdView.delegate = self;
-    self.bannerAdView.rootViewController = self.parentViewController;
+    self.bannerAdView.rootViewController = self;
     self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
     self.bannerAdView.placementId = settingsPlacementID;
     self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
@@ -227,7 +227,7 @@
         && self.interstitialAd.isReady) {
         // on load, immediately display interstitial
         [self.interstitialAd
-         displayAdFromViewController:self.parentViewController];
+         displayAdFromViewController:self];
     }
 }
 

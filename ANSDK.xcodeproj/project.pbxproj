@@ -49,6 +49,7 @@
 		EC4817921845047A0066BBFE /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC4817691845042A0066BBFE /* UIButtonBarArrowRight@2x.png */; };
 		EC4817931845047A0066BBFE /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48176A1845042A0066BBFE /* MRAID.bundle */; };
 		EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
+		EC7AB08318887E5300C27B1E /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AB08218887E5300C27B1E /* ANLogManager.m */; };
 		EC9B33CC187DA9F300013F79 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B33CB187DA9F300013F79 /* ANWebView.m */; };
 		EC9B344A187DEB6900013F79 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */; };
 /* End PBXBuildFile section */
@@ -146,6 +147,8 @@
 		EC4817691845042A0066BBFE /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		EC48176A1845042A0066BBFE /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC7AB08118887E4600C27B1E /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
+		EC7AB08218887E5300C27B1E /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
 		EC9B33CA187DA9F300013F79 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		EC9B33CB187DA9F300013F79 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
@@ -207,6 +210,7 @@
 				EC3E5E201843EFEF0070315E /* ANCustomAdapter.h */,
 				EC3E5D0A1843C7560070315E /* ANInterstitialAd.h */,
 				EC3E5E211843EFEF0070315E /* ANLocation.h */,
+				EC7AB08118887E4600C27B1E /* ANLogManager.h */,
 				EC3905F8186693AA0017959C /* ANTargetingParameters.h */,
 				EC3E5D141843C7560070315E /* internal */,
 				EC3E5D0B1843C7560070315E /* Categories */,
@@ -233,6 +237,7 @@
 		EC3E5D141843C7560070315E /* internal */ = {
 			isa = PBXGroup;
 			children = (
+				EC7AB08218887E5300C27B1E /* ANLogManager.m */,
 				EC3E5D151843C7560070315E /* ANAdFetcher.h */,
 				EC3E5D161843C7560070315E /* ANAdFetcher.m */,
 				EC3E5D171843C7560070315E /* ANAdResponse.h */,
@@ -419,6 +424,7 @@
 				EC3E5D511843C7560070315E /* ANInterstitialAd.m in Sources */,
 				EC3E5D4D1843C7560070315E /* ANBannerAdView.m in Sources */,
 				EC3E5D581843C7560070315E /* ANReachability.m in Sources */,
+				EC7AB08318887E5300C27B1E /* ANLogManager.m in Sources */,
 				EC3E5D461843C7560070315E /* NSTimer+ANCategory.m in Sources */,
 				EC3E5D451843C7560070315E /* NSString+ANCategory.m in Sources */,
 			);

@@ -99,7 +99,7 @@ NSString *ANUdidParameter() {
                 udidComponent = [NSString stringWithFormat:@"&idfa=%@", advertisingIdentifier];
             }
             else {
-                ANLogError(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
+                ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
             }
         }
 #endif

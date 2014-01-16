@@ -299,7 +299,7 @@ ANBrowserViewControllerDelegate>
         [containerView addSubview:closeButton];
     }
     else {
-        ANLogError(@"Attempted to add a close button to ad view %@ with one already showing!", self);
+        ANLogWarn(@"Attempted to add a close button to ad view %@ with one already showing!", self);
     }
 }
 

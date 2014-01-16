@@ -52,7 +52,7 @@
     self.hasFailed = YES;
     self.fetcher = nil;
     self.adViewDelegate = nil;
-    ANLogWarn(ANErrorString(@"mediation_finish"));
+    ANLogInfo(ANErrorString(@"mediation_finish"));
 }
 
 - (void)setResultCBString:(NSString *)resultCBString {

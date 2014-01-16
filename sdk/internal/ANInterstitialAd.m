@@ -155,7 +155,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     }
     
     if (errorString) {
-        ANLogFatal(errorString);
+        ANLogError(errorString);
         [self adFailedToDisplay];
     }
 }
@@ -192,7 +192,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                 if ([readyAd respondsToSelector:@selector(isReady)]) {
                     return [readyAd isReady];
                 } else {
-                    ANLogError(@"CustomInterstitialAdapter should implement isReady function");
+                    ANLogWarn(@"CustomInterstitialAdapter should implement isReady function");
                     return true;
                 }
             } else {

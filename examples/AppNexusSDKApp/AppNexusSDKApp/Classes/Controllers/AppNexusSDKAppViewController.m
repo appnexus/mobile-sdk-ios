@@ -71,6 +71,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
 }
 
 - (void)setup {
+    [ANLogManager setANLogLevel:ANLogLevelAll];
     [self setInitialVCTabBarItem]; // Set Initially Selected Tab Bar Item
     // Register for the log notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
