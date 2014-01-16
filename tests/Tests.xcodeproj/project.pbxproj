@@ -70,6 +70,8 @@
 		EC40562D183D6818006A1D09 /* ANLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A41822CAD300420840 /* ANLoadThenFail.m */; };
 		EC40562F183D6818006A1D09 /* ANTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A61822CAD300420840 /* ANTimeout.m */; };
 		EC405631183D6818006A1D09 /* ANSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = EC405606183D566C006A1D09 /* ANSuccessfulBanner.m */; };
+		EC7AB08B188883C300C27B1E /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AB08A188883C300C27B1E /* ANLogManager.m */; };
+		EC7AB08E188883DB00C27B1E /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AB08D188883DB00C27B1E /* ANAdRequestUrl.m */; };
 		EC7F4CD217C7FA4700F5039E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */; };
 		EC7F4CD417C7FA5300F5039E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */; };
 		EC7F4CD617C7FA9F00F5039E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */; };
@@ -230,6 +232,10 @@
 		EC40560E183D5D88006A1D09 /* ANBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseTestCase.m; sourceTree = "<group>"; };
 		EC40560F183D5D88006A1D09 /* ANTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestResponses.h; sourceTree = "<group>"; };
 		EC405610183D5D88006A1D09 /* ANTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestResponses.m; sourceTree = "<group>"; };
+		EC7AB089188883BB00C27B1E /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
+		EC7AB08A188883C300C27B1E /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
+		EC7AB08C188883DB00C27B1E /* ANAdRequestUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequestUrl.h; sourceTree = "<group>"; };
+		EC7AB08D188883DB00C27B1E /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
 		EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -607,6 +613,7 @@
 		ECABE5431821E4C80037E6C5 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
+				EC7AB089188883BB00C27B1E /* ANLogManager.h */,
 				ECABE5441821E4C80037E6C5 /* ANAdProtocol.h */,
 				ECE5B256184FA4BE00D0C8FD /* ANAdView.h */,
 				ECABE5451821E4C80037E6C5 /* ANBannerAdView.h */,
@@ -646,6 +653,8 @@
 				ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */,
 				ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */,
 				ECABE55C1821E4C80037E6C5 /* ANAdResponse.m */,
+				EC7AB08C188883DB00C27B1E /* ANAdRequestUrl.h */,
+				EC7AB08D188883DB00C27B1E /* ANAdRequestUrl.m */,
 				ECABE55E1821E4C80037E6C5 /* ANAdView.m */,
 				ECABE55F1821E4C80037E6C5 /* ANAdViewDelegate.h */,
 				ECABE5601821E4C80037E6C5 /* ANAdWebViewController.h */,
@@ -663,6 +672,7 @@
 				ECABE5701821E4C80037E6C5 /* ANLocation.m */,
 				ECABE5711821E4C80037E6C5 /* ANLogging.h */,
 				ECABE5721821E4C80037E6C5 /* ANLogging.m */,
+				EC7AB08A188883C300C27B1E /* ANLogManager.m */,
 				ECABE5731821E4C80037E6C5 /* ANMediatedAd.h */,
 				ECABE5741821E4C80037E6C5 /* ANMediatedAd.m */,
 				ECABE5751821E4C80037E6C5 /* ANMediationAdViewController.h */,
@@ -882,6 +892,7 @@
 				5C3209001730664500DAB5CF /* RootViewController.m in Sources */,
 				EC3640E6183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m in Sources */,
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
+				EC7AB08B188883C300C27B1E /* ANLogManager.m in Sources */,
 				ECABE58F1821E4C80037E6C5 /* ANAdResponse.m in Sources */,
 				ECABE5911821E4C80037E6C5 /* ANAdWebViewController.m in Sources */,
 				ECABE5901821E4C80037E6C5 /* ANAdView.m in Sources */,
@@ -889,6 +900,7 @@
 				ECABE5931821E4C80037E6C5 /* ANBrowserViewController.m in Sources */,
 				ECABE5951821E4C80037E6C5 /* ANGlobal.m in Sources */,
 				ECABE5961821E4C80037E6C5 /* ANInstallTrackerPixel.m in Sources */,
+				EC7AB08E188883DB00C27B1E /* ANAdRequestUrl.m in Sources */,
 				ECABE5971821E4C80037E6C5 /* ANInterstitialAd.m in Sources */,
 				ECABE5981821E4C80037E6C5 /* ANInterstitialAdViewController.m in Sources */,
 				ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */,
