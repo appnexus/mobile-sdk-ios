@@ -50,6 +50,7 @@
 		EC4817931845047A0066BBFE /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48176A1845042A0066BBFE /* MRAID.bundle */; };
 		EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		EC7AB08318887E5300C27B1E /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AB08218887E5300C27B1E /* ANLogManager.m */; };
+		EC7AB086188880C300C27B1E /* ANLogManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC7AB08118887E4600C27B1E /* ANLogManager.h */; };
 		EC9B33CC187DA9F300013F79 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B33CB187DA9F300013F79 /* ANWebView.m */; };
 		EC9B344A187DEB6900013F79 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC7AB086188880C300C27B1E /* ANLogManager.h in Copy Files */,
 				EC3905FB186693D30017959C /* ANTargetingParameters.h in Copy Files */,
 				EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */,
 				EC3E5E951843FDEC0070315E /* ANAdView.h in Copy Files */,
