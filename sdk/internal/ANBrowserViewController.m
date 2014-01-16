@@ -163,7 +163,7 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    ANLogError(@"In-app browser failed with error: %@", error);
+    ANLogWarn(@"In-app browser failed with error: %@", error);
 }
 
 #pragma mark UIActionSheetDelegate

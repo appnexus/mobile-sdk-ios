@@ -454,9 +454,9 @@ typedef enum _ANMRAIDOrientation
     [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error){
         if(! granted) {
             if (error != nil) {
-                ANLogError(error.localizedDescription);
+                ANLogWarn(error.localizedDescription);
             } else {
-                ANLogError(@"Unable to create calendar event");
+                ANLogWarn(@"Unable to create calendar event");
             }
             return;
         }
@@ -644,7 +644,7 @@ typedef enum _ANMRAIDOrientation
                 
                 if (rrule) { // EKRecurrenceRule will return nil if invalid values are passed in
                     [event setRecurrenceRules:[NSArray arrayWithObjects:rrule, nil]];
-                    ANLogWarn(@"%@ %@ | Created Recurrence Rule: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), rrule);
+                    ANLogDebug(@"%@ %@ | Created Recurrence Rule: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), rrule);
                 } else {
                     ANLogWarn(@"%@ %@ | Invalid EKRecurrenceRule Values Passed In.", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
                 }
@@ -653,7 +653,7 @@ typedef enum _ANMRAIDOrientation
             NSError* error = nil;
             [store saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
             if (error) {
-                ANLogError(error.localizedDescription);
+                ANLogWarn(error.localizedDescription);
             }
         });
     }];
@@ -807,7 +807,7 @@ typedef enum _ANMRAIDOrientation
         return ANMRAIDStateResized;
     }
     
-    ANLogError(@"Call to mraid.getState() returned invalid state.");
+    ANLogWarn(@"Call to mraid.getState() returned invalid state.");
     return ANMRAIDStateDefault;
 }
 

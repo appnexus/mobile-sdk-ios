@@ -77,6 +77,7 @@
 		EC4055EE183C07F9006A1D09 /* ANDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055ED183C07F9006A1D09 /* ANDocument.m */; };
 		EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */; };
 		EC77B0A718170D8E002123CB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77B0A618170D8E002123CB /* StoreKit.framework */; };
+		EC7AB07F18887C2D00C27B1E /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AB07E18887C2D00C27B1E /* ANLogManager.m */; };
 		EC7DC2631817404600B813D1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2621817404600B813D1 /* MediaPlayer.framework */; };
 		EC7DC2651817406200B813D1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2641817406200B813D1 /* AVFoundation.framework */; };
 		EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2661817407A00B813D1 /* QuartzCore.framework */; };
@@ -230,6 +231,8 @@
 		EC70ED8B18316B2000BDF92F /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
 		EC77B0A618170D8E002123CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		EC7AB07E18887C2D00C27B1E /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
+		EC7AB08018887E2B00C27B1E /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
 		EC7DC2621817404600B813D1 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7DC2641817406200B813D1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EC7DC2661817407A00B813D1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -525,6 +528,7 @@
 				EC8477B41844168700A8BC80 /* ANCustomAdapter.h */,
 				ECB1247A1821A25D00CB4BE8 /* ANInterstitialAd.h */,
 				EC8477B51844168700A8BC80 /* ANLocation.h */,
+				EC7AB08018887E2B00C27B1E /* ANLogManager.h */,
 				ECAFB0291864EDF9007F1973 /* ANTargetingParameters.h */,
 				ECCF547618451FE40000E37C /* Resources */,
 				ECB1247B1821A25D00CB4BE8 /* Categories */,
@@ -575,6 +579,7 @@
 				ECB124A41821A25D00CB4BE8 /* ANLocation.m */,
 				ECB124A51821A25D00CB4BE8 /* ANLogging.h */,
 				ECB124A61821A25D00CB4BE8 /* ANLogging.m */,
+				EC7AB07E18887C2D00C27B1E /* ANLogManager.m */,
 				ECB124A71821A25D00CB4BE8 /* ANMediatedAd.h */,
 				ECB124A81821A25D00CB4BE8 /* ANMediatedAd.m */,
 				ECB124A91821A25D00CB4BE8 /* ANMediationAdViewController.h */,
@@ -773,6 +778,7 @@
 				ECB124D11821A25D00CB4BE8 /* ANMediationAdViewController.m in Sources */,
 				EC3FD7381822213C00B25418 /* ANRequest+Make.m in Sources */,
 				ECB124D21821A25D00CB4BE8 /* ANReachability.m in Sources */,
+				EC7AB07F18887C2D00C27B1E /* ANLogManager.m in Sources */,
 				EC4055EE183C07F9006A1D09 /* ANDocument.m in Sources */,
 				EC3FD7391822213C00B25418 /* ANRequest.m in Sources */,
 				EC3FD73A1822213C00B25418 /* ANResponse+Make.m in Sources */,

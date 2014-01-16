@@ -18,21 +18,9 @@
 NSString *const kANLoggingNotification = @"kANLoggingNotification";
 NSString *const kANLogMessageKey = @"kANLogMessageKey";
 
-static ANLogLevel ANLOG_LEVEL = ANLogLevelDebug;
-
-ANLogLevel ANLogGetLevel()
-{
-	return ANLOG_LEVEL;
-}
-
-void ANLogSetLevel(ANLogLevel level)
-{
-	ANLOG_LEVEL = level;
-}
-
 void _ANLogTrace(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelTrace)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelTrace)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
@@ -45,7 +33,7 @@ void _ANLogTrace(NSString *format, ...)
 
 void _ANLogDebug(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelDebug)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelDebug)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
@@ -58,7 +46,7 @@ void _ANLogDebug(NSString *format, ...)
 
 void _ANLogWarn(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelWarn)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelWarn)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
@@ -71,7 +59,7 @@ void _ANLogWarn(NSString *format, ...)
 
 void _ANLogInfo(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelInfo)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelInfo)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
@@ -84,20 +72,7 @@ void _ANLogInfo(NSString *format, ...)
 
 void _ANLogError(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelError)
-    {
-		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
-        va_list args;
-        va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init]);
-        NSLogv(format, args);
-        va_end(args);
-    }
-}
-
-void _ANLogFatal(NSString *format, ...)
-{
-	if (ANLOG_LEVEL <= ANLogLevelFatal)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelError)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;

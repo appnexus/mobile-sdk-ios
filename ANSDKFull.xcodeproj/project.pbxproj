@@ -20,6 +20,7 @@
 		EC3E5E1C1843ED4A0070315E /* libMMSDK_5.1.1.a in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3E5E011843ECF20070315E /* libMMSDK_5.1.1.a */; };
 		EC6AAED31885F52800CD2FDC /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6AAECE1885F34900CD2FDC /* ANAdAdapterBannerDFP.m */; };
 		EC6AAED41885F52800CD2FDC /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = EC6AAED01885F34900CD2FDC /* ANAdAdapterInterstitialDFP.m */; };
+		EC7AB0881888814300C27B1E /* ANLogManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC7AB0871888813300C27B1E /* ANLogManager.h */; };
 		ECF23E7618452AE100A94DE8 /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF23E7518452AE100A94DE8 /* libANSDK.a */; };
 		ECF23E7718452AEF00A94DE8 /* ANAdProtocol.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECF23E6D18452ACD00A94DE8 /* ANAdProtocol.h */; };
 		ECF23E7818452AEF00A94DE8 /* ANAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECF23E6E18452ACD00A94DE8 /* ANAdView.h */; };
@@ -37,6 +38,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				EC7AB0881888814300C27B1E /* ANLogManager.h in Copy Files */,
 				EC3905FD1866948A0017959C /* ANTargetingParameters.h in Copy Files */,
 				ECF23E7718452AEF00A94DE8 /* ANAdProtocol.h in Copy Files */,
 				ECF23E7818452AEF00A94DE8 /* ANAdView.h in Copy Files */,
@@ -105,6 +107,7 @@
 		EC6AAEDA1885F5F700CD2FDC /* GADAdSizeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSizeDelegate.h; sourceTree = "<group>"; };
 		EC6AAEDB1885F5F700CD2FDC /* GADAppEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAppEventDelegate.h; sourceTree = "<group>"; };
 		EC6AAEDC1885F5F700CD2FDC /* GADSwipeableBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADSwipeableBannerViewDelegate.h; sourceTree = "<group>"; };
+		EC7AB0871888813300C27B1E /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
 		ECF23E6D18452ACD00A94DE8 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
 		ECF23E6E18452ACD00A94DE8 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
 		ECF23E6F18452ACD00A94DE8 /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
@@ -296,6 +299,7 @@
 				ECF23E7018452ACD00A94DE8 /* ANCustomAdapter.h */,
 				ECF23E7118452ACD00A94DE8 /* ANInterstitialAd.h */,
 				ECF23E7218452ACD00A94DE8 /* ANLocation.h */,
+				EC7AB0871888813300C27B1E /* ANLogManager.h */,
 				EC3905FC1866947D0017959C /* ANTargetingParameters.h */,
 				ECF23E7318452ACD00A94DE8 /* ANSDKResources.bundle */,
 			);
