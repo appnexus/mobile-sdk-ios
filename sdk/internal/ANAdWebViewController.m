@@ -274,19 +274,24 @@ typedef enum _ANMRAIDOrientation
 
     if ([mraidCommand isEqualToString:@"expand"]) {
         // hidden state handled by mraid.js
+        [self.adFetcher.delegate adWasClicked];
         [self expandAction:webView queryComponents:queryComponents];
     }
     else if ([mraidCommand isEqualToString:@"close"]) {
         // hidden state handled by mraid.js
         [self closeAction:self];
     } else if([mraidCommand isEqualToString:@"resize"]) {
+        [self.adFetcher.delegate adWasClicked];
         [self resizeAction:webView queryComponents:queryComponents];
     } else if([mraidCommand isEqualToString:@"createCalendarEvent"]) {
+        [self.adFetcher.delegate adWasClicked];
         NSString *w3cEventJson = [queryComponents objectForKey:@"p"];
         [self createCalendarEventFromW3CCompliantJSONObject:w3cEventJson];
     } else if([mraidCommand isEqualToString:@"playVideo"]) {
+        [self.adFetcher.delegate adWasClicked];
         [self playVideo:queryComponents];
     } else if([mraidCommand isEqualToString:@"storePicture"]) {
+        [self.adFetcher.delegate adWasClicked];
         NSString *uri = [queryComponents objectForKey:@"uri"];
         [self storePicture:uri];
     } else if([mraidCommand isEqualToString:@"setOrientationProperties"]) {

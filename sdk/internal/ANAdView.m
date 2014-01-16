@@ -138,6 +138,9 @@ ANBrowserViewControllerDelegate>
           contentView:(UIView *)contentView
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController {
+    
+    [self adWillPresent];
+    
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
     if ([contentView isKindOfClass:[UIWebView class]]) {
@@ -172,7 +175,9 @@ ANBrowserViewControllerDelegate>
             }
         }
         
-        [rootViewController presentViewController:self.mraidController animated:NO completion:nil];
+        [rootViewController presentViewController:self.mraidController animated:NO completion:^{
+            [self adDidPresent];
+        }];
     } else {
         // non-fullscreen expand
         CGRect expandedContentFrame = self.defaultFrame;
@@ -185,6 +190,7 @@ ANBrowserViewControllerDelegate>
         [defaultParentView setFrame:expandedParentFrame];
         
         [defaultParentView addSubview:contentView];
+        [self adDidPresent];
     }
     
     self.isExpanded = YES;
@@ -195,6 +201,7 @@ ANBrowserViewControllerDelegate>
     defaultParentView:(UIView *)defaultParentView
    rootViewController:(UIViewController *)rootViewController
        allowOffscreen:(BOOL)allowOffscreen {
+        
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
     if ([contentView isKindOfClass:[UIWebView class]]) {
@@ -443,6 +450,9 @@ ANBrowserViewControllerDelegate>
 
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView {
+
+    if (self.isExpanded) [self adWillClose];
+    
     [contentView setFrame:self.defaultFrame];
     [contentView removeFromSuperview];
     [parentView setFrame:self.defaultParentFrame];
@@ -452,9 +462,11 @@ ANBrowserViewControllerDelegate>
     self.defaultFrame = CGRectNull;
     
     if (self.mraidController) {
-        [self.mraidController dismissViewControllerAnimated:NO completion:nil];
+        [self.mraidController dismissViewControllerAnimated:NO completion:^{
+            if (self.isExpanded) [self adDidClose];
+        }];
         self.mraidController = nil;
-    }
+    } else if (self.isExpanded) [self adDidClose];
     self.isExpanded = NO;
 }
 
