@@ -218,14 +218,13 @@ ANBrowserViewControllerDelegate>
 
 #pragma mark MRAID resize methods
 
-- (BOOL)mraidResizeAd:(CGRect)frame
-          contentView:(UIView *)contentView
-    defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController
-       allowOffscreen:(BOOL)allowOffscreen {
-    if (![self isResizeValid:contentView frameToResizeTo:frame]) {
-        return NO;
-    }
+- (NSString *)mraidResizeAd:(CGRect)frame
+                contentView:(UIView *)contentView
+          defaultParentView:(UIView *)defaultParentView
+         rootViewController:(UIViewController *)rootViewController
+             allowOffscreen:(BOOL)allowOffscreen {
+    NSString *mraidResizeErrorString = [self isResizeValid:contentView frameToResizeTo:frame];
+    if ([mraidResizeErrorString length] > 0) return NO;
     
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
@@ -251,19 +250,33 @@ ANBrowserViewControllerDelegate>
     
     // resize contentView to new frame
     [contentView setFrame:frame];
-    return YES;
+    return nil;
 }
 
-- (BOOL)isResizeValid:(UIView *)contentView frameToResizeTo:(CGRect)frame {
+- (NSString *)isResizeValid:(UIView *)contentView frameToResizeTo:(CGRect)frame {
     // for comparing to
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    CGRect orientedScreenBounds = screenBounds;
+    // swap values if in landscape mode
+    if (UIInterfaceOrientationIsLandscape(orientation)) {
+        orientedScreenBounds = CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
+    }
+    
+    // don't allow resizing to be larger than the screen
+    if ((frame.size.width > orientedScreenBounds.size.width)
+        || (frame.size.height > orientedScreenBounds.size.height)) {
+        return @"Resize called with resizeProperties larger than the screen.";
+    }
+    
     CGRect absoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
-    if (!CGRectIntersectsRect(screenBounds, absoluteFrame)) return NO;
+    absoluteFrame = [self adjustRectForOrientation:absoluteFrame orientation:orientation parentSize:screenBounds.size];
     
     // verify that at least 50x50 pixels of the creative are onscreen
-    // by checking the four corners of the creative
+    // by checking the intersection of the creative and the screen
     CGFloat allowedSize = 50.0f;
-    CGRect contentFrame = contentView.bounds;
+    CGRect contentFrame = contentView.frame;
     
     // the absolute x and y offset will only be changed
     // by the difference of the new frame and the old frame
@@ -275,10 +288,15 @@ ANBrowserViewControllerDelegate>
     
     // find the area of the resized creative that is on screen
     // if at least 50x50 is on the screen, then the resize is valid
-    CGRect resizedIntersection = CGRectIntersection(screenBounds, resizedFrame);
+    CGRect resizedIntersection = CGRectIntersection(orientedScreenBounds, resizedFrame);
     CGSize allowedSizeMinusOne = CGSizeMake(allowedSize - 1.0f, allowedSize - 1.0f);
     
-    return CGSizeLargerThanSize(resizedIntersection.size, allowedSizeMinusOne);
+    if (!CGSizeLargerThanSize(resizedIntersection.size, allowedSizeMinusOne)) {
+        return @"Resize call should keep at least 50x50 of the creative on screen";
+    }
+    
+    // no errors
+    return nil;
 }
 
 // returns true if position of closeEventRegion was valid, false if error
@@ -343,7 +361,20 @@ ANBrowserViewControllerDelegate>
     }
     
     // compute the absolute frame of the close event region
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    
+    BOOL orientationIsLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
+    CGRect orientedScreenBounds = screenBounds;
+    
+    if (!orientationIsLandscape) {
+        orientedScreenBounds = CGRectMake(screenBounds.origin.y, screenBounds.origin.x,
+                                          screenBounds.size.height, screenBounds.size.width);
+    }
+    
     CGRect containerAbsoluteFrame = [containerView convertRect:containerView.bounds toView:nil];
+    containerAbsoluteFrame = [self adjustRectForOrientation:containerAbsoluteFrame
+                                                orientation:[UIApplication sharedApplication].statusBarOrientation
+                                                 parentSize:screenBounds.size];
     
     CGFloat closeAbsoluteOriginX = containerAbsoluteFrame.origin.x + closeOriginX;
     CGFloat closeAbsoluteOriginY = containerAbsoluteFrame.origin.y + closeOriginY;
@@ -351,14 +382,22 @@ ANBrowserViewControllerDelegate>
                                            closeEventRegionSize, closeEventRegionSize);
     
     // verify that the requested close event region will be on the screen
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
     BOOL isCloseEventRegionOnScreen = CGRectContainsRect(screenBounds, closeAbsoluteFrame);
     
     // if the requested close positioning is invalid,
     // put it in the top-left of the available space
     if (!isCloseEventRegionOnScreen) {
-        CGRect absoluteFrame = [containerView convertRect:contentView.bounds toView:nil];
-        CGRect contentIntersection = CGRectIntersection(screenBounds, absoluteFrame);
+        CGRect absoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
+        if (orientationIsLandscape) {
+            absoluteFrame = CGRectMake(absoluteFrame.origin.y, absoluteFrame.origin.x, absoluteFrame.size.height, absoluteFrame.size.width);
+        }
+        
+        CGRect adjustedContentAbsoluteFrame = [self adjustRectForOrientation:absoluteFrame
+                                                                 orientation:[UIApplication sharedApplication].statusBarOrientation
+                                                                  parentSize:screenBounds.size];
+        
+        
+        CGRect contentIntersection = CGRectIntersection(orientedScreenBounds, adjustedContentAbsoluteFrame);
         closeOriginX = contentIntersection.origin.x - containerAbsoluteFrame.origin.x;
         closeOriginY = contentIntersection.origin.y - containerAbsoluteFrame.origin.y;
         
@@ -377,6 +416,31 @@ ANBrowserViewControllerDelegate>
     self.closeButton = closeEventRegion;
     
     [containerView addSubview:closeEventRegion];
+}
+
+- (CGRect)adjustRectForOrientation:(CGRect)rect
+                       orientation:(UIInterfaceOrientation)orientation
+                        parentSize:(CGSize)parentSize {
+    CGRect adjustedRect;
+    CGFloat flippedOriginX = parentSize.height - (rect.origin.y + rect.size.height);
+    CGFloat flippedOriginY = parentSize.width - (rect.origin.x + rect.size.width);
+    switch (orientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+            adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationPortrait:
+            adjustedRect = rect;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            adjustedRect = CGRectMake(flippedOriginX, flippedOriginY, rect.size.width, rect.size.height);
+            break;
+        default:
+            break;
+    }
+    return adjustedRect;
 }
 
 - (void)removeCloseButton

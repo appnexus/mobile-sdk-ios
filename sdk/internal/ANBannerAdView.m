@@ -34,11 +34,11 @@
    rootViewController:(UIViewController *)rootViewController;
 - (void)mraidExpandAddCloseButton:(UIButton *)closeButton
                     containerView:(UIView *)containerView;
-- (BOOL)mraidResizeAd:(CGRect)frame
-          contentView:(UIView *)contentView
-    defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController
-       allowOffscreen:(BOOL)allowOffscreen;
+- (NSString *)mraidResizeAd:(CGRect)frame
+                contentView:(UIView *)contentView
+          defaultParentView:(UIView *)defaultParentView
+         rootViewController:(UIViewController *)rootViewController
+             allowOffscreen:(BOOL)allowOffscreen;
 - (void)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
                          containerView:(UIView *)containerView
                            contentView:(UIView *)contentView
@@ -290,14 +290,14 @@
     // resized ads are never modal
     UIView *contentView = self.contentView;
     
-    BOOL resizeFrameWasValid = [super mraidResizeAd:frame
-                                        contentView:contentView
-                                  defaultParentView:self
-                                 rootViewController:self.rootViewController
-                                     allowOffscreen:allowOffscreen];
+    NSString *mraidResizeErrorString = [super mraidResizeAd:frame
+                                                contentView:contentView
+                                          defaultParentView:self
+                                         rootViewController:self.rootViewController
+                                             allowOffscreen:allowOffscreen];
     
-    if (!resizeFrameWasValid) {
-        [self.mraidEventReceiverDelegate adDidFinishResize:NO];
+    if ([mraidResizeErrorString length] > 0) {
+        [self.mraidEventReceiverDelegate adDidFinishResize:NO errorString:mraidResizeErrorString];
         return;
     }
     
@@ -307,7 +307,7 @@
                                  position:closePosition];
     
     // send mraid events
-    [self.mraidEventReceiverDelegate adDidFinishResize:YES];
+    [self.mraidEventReceiverDelegate adDidFinishResize:YES errorString:nil];
     [self.mraidEventReceiverDelegate adDidChangePosition:contentView.frame];
 }
 

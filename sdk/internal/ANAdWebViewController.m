@@ -676,11 +676,12 @@
     [self.webView fireStateChangeEvent:ANMRAIDStateExpanded];
 }
 
-- (void)adDidFinishResize:(BOOL)success {
+- (void)adDidFinishResize:(BOOL)success errorString:(NSString *)errorString {
     if (success) {
         [self.webView fireStateChangeEvent:ANMRAIDStateResized];
     } else {
-        [self.webView fireErrorEvent:@"resize should keep at least 50x50 of the creative on screen"
+        self.resized = NO;
+        [self.webView fireErrorEvent:errorString
                             function:@"mraid.resize()"];
     }
 }

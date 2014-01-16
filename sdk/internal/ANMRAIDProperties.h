@@ -52,7 +52,7 @@ typedef enum _ANMRAIDState
 @protocol ANMRAIDEventReceiver <NSObject>
 
 - (void)adDidFinishExpand;
-- (void)adDidFinishResize:(BOOL)success;
+- (void)adDidFinishResize:(BOOL)success errorString:(NSString *)errorString;
 - (void)adDidChangePosition:(CGRect)frame;
 - (void)adDidResetToDefault;
 
