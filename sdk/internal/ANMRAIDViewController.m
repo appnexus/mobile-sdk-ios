@@ -63,15 +63,6 @@
     [self.contentView setFrame:mainBounds];
 }
 
-- (void)forceOrientation:(UIInterfaceOrientation)orientation {
-    self.orientation = orientation;
-    
-    UIViewController *dummyVC = [UIViewController new];
-    [self presentViewController:dummyVC animated:NO completion:^{
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }];
-}
-
 // locking orientation in iOS 6+
 - (BOOL)shouldAutorotate {
     return self.allowOrientationChange;

@@ -139,8 +139,13 @@
  mraid.util.errorEvent("Can't expand to a size smaller than the default size.", "mraid.expand()");
  return;
  }
- mraid.util.nativeCall("mraid://expand/"+"?w="+mraid.getExpandProperties().width+"&h="+mraid.getExpandProperties().height+"&useCustomClose="+mraid.getExpandProperties().useCustomClose+(url!=null ? "&url="+url:""));
-
+ mraid.util.nativeCall("mraid://expand/"
+                       +"?w="+mraid.getExpandProperties().width
+                       +"&h="+mraid.getExpandProperties().height
+                       +"&useCustomClose="+mraid.getExpandProperties().useCustomClose
+                       +(url!=null ? "&url="+url:"")
+                       +"&allow_orientation_change="+orientation_properties.allowOrientationChange
+                       +"&force_orientation="+orientation_properties.forceOrientation);
  break;
  case 'expanded':
  mraid.util.errorEvent("mraid.expand() called while state is 'expanded'.", "mraid.expand()");
@@ -214,6 +219,7 @@
  mraid.setResizeProperties=function(props) {
  if(props.width<50 || props.height<50){
  mraid.util.errorEvent("Resize properties contains a dimension below the minimum 50 pixels", "mraid.setResizeProperties()");
+ return;
  }
  resize_properties = props;
  }
@@ -230,13 +236,10 @@
  
  // Takes an object... {allowOrientationChange:true, forceOrientation:"none"};
  mraid.setOrientationProperties=function(properties){
- orientation_properties=properties;
- 
  if (typeof properties === "undefined") {
- return;
- }
- 
- 
+ mraid.util.errorEvent("Invalid orientationProperties. Setting to default properties", "mraid.setOrientationProperties()");
+ properties={allowOrientationChange:true, forceOrientation:"none"};
+ } else {
  if(properties.forceOrientation!=='portrait' && properties.forceOrientation!=='landscape' && properties.forceOrientation!=='none' ){
  mraid.util.errorEvent("Invalid orientationProperties forceOrientation property", "mraid.setOrientationProperties()");
  properties.forceOrientation='none';
@@ -246,9 +249,12 @@
  mraid.util.errorEvent("Invalid orientationProperties allowOrientationChange property", "mraid.setOrientationProperties()");
  properties.allowOrientationChange=true;
  }
+ }
  
- mraid.util.nativeCall("mraid://setOrientationProperties/?allow_orientation_change="+properties.allowOrientationChange
-             +"&force_orientation="+properties.forceOrientation);
+ orientation_properties=properties;
+ 
+ mraid.util.nativeCall("mraid://setOrientationProperties/?allow_orientation_change="+orientation_properties.allowOrientationChange
+                       +"&force_orientation="+orientation_properties.forceOrientation);
  }
  
  // Creates a calendar event when passed a W3C-formatted json object

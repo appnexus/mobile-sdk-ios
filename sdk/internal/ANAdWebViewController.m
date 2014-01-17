@@ -322,6 +322,8 @@
     NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
     NSString *url = [queryComponents objectForKey:@"url"];
 
+    [self setOrientationProperties:queryComponents];
+    
     // If no custom close included, show our default one.
     UIButton *closeButton = [useCustomClose isEqualToString:@"false"] ? [self expandCloseButton] : nil;
     
@@ -608,7 +610,7 @@
 {
     NSString *allow = [queryComponents objectForKey:@"allow_orientation_change"];
     NSString *forcedOrientation = [queryComponents objectForKey:@"force_orientation"];
-
+    
     ANMRAIDOrientation mraidOrientation = ANMRAIDOrientationNone;
     if ([forcedOrientation isEqualToString:@"none"]) {
         mraidOrientation = ANMRAIDOrientationNone;
@@ -618,24 +620,8 @@
         mraidOrientation = ANMRAIDOrientationLandscape;
     }
     
-    if(![allow boolValue]){
-        switch(mraidOrientation)
-        {
-            case ANMRAIDOrientationNone:
-                // do nothing
-                return;
-            case ANMRAIDOrientationLandscape:
-                if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
-                    [self.mraidDelegate forceOrientation:UIInterfaceOrientationLandscapeRight];
-                    break;
-                }
-                [self.mraidDelegate forceOrientation:UIInterfaceOrientationLandscapeLeft];
-                break;
-            case ANMRAIDOrientationPortrait:
-                [self.mraidDelegate forceOrientation:UIInterfaceOrientationPortrait];
-                break;
-        }
-    }
+    [self.mraidDelegate allowOrientationChange:[allow boolValue]
+                         withForcedOrientation:mraidOrientation];
 }
 
 - (void)storePicture:(NSString*)uri

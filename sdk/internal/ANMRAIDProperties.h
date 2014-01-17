@@ -68,7 +68,8 @@ typedef enum _ANMRAIDState
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
                   closeButton:(UIButton *)closeButton
                 closePosition:(ANMRAIDCustomClosePosition)closePosition;
-- (void)forceOrientation:(UIInterfaceOrientation)orientation;
+- (void)allowOrientationChange:(BOOL)allowOrientationChange
+         withForcedOrientation:(ANMRAIDOrientation)orientation;
 
 @end
 
