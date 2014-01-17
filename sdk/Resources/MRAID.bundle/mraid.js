@@ -396,9 +396,18 @@
    }
  }
  
- mraid.util.nativeCall = function(uri) {
- window.location = uri;
+ var nativeCallQueue=[];
+ 
+ function dequeue() {
+ window.location = nativeCallQueue.shift();
+ if (nativeCallQueue.length>0) setTimeout(dequeue, 0);
  }
+ 
+ mraid.util.nativeCall = function(uri) {
+ nativeCallQueue.push(uri);
+ if(nativeCallQueue.length == 1) setTimeout(dequeue, 0);
+ }
+ 
  var supports_sms = false;
  var supports_tel = false;
  var supports_calendar = false;
