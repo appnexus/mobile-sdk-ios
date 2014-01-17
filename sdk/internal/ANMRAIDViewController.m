@@ -48,12 +48,13 @@
 }
 
 - (void)resetViewForRotations:(UIInterfaceOrientation)orientation {
+    UIInterfaceOrientation orientationAfterRotation = orientation;
     if (!self.allowOrientationChange) {
-        return;
+        orientationAfterRotation = self.orientation;
     }
     
     CGRect mainBounds = [[UIScreen mainScreen] bounds];
-    if (UIInterfaceOrientationIsLandscape(orientation)) {
+    if (UIInterfaceOrientationIsLandscape(orientationAfterRotation)) {
         CGFloat portraitHeight = mainBounds.size.height;
         CGFloat portraitWidth = mainBounds.size.width;
         mainBounds.size.height = portraitWidth;
