@@ -151,6 +151,7 @@
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC7AB08118887E4600C27B1E /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
 		EC7AB08218887E5300C27B1E /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
+		EC6AAEC61884B62300CD2FDC /* ANMRAIDProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDProperties.h; sourceTree = "<group>"; };
 		EC9B33CA187DA9F300013F79 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		EC9B33CB187DA9F300013F79 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
@@ -267,6 +268,7 @@
 				EC3E5D301843C7560070315E /* ANMediatedAd.m */,
 				EC3E5D311843C7560070315E /* ANMediationAdViewController.h */,
 				EC3E5D321843C7560070315E /* ANMediationAdViewController.m */,
+				EC6AAEC61884B62300CD2FDC /* ANMRAIDProperties.h */,
 				EC3E5D331843C7560070315E /* ANMRAIDViewController.h */,
 				EC3E5D341843C7560070315E /* ANMRAIDViewController.m */,
 				EC3E5D351843C7560070315E /* ANReachability.h */,

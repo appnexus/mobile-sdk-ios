@@ -14,18 +14,146 @@
  */
 
 #import "ANWebView.h"
+
+#import "ANGlobal.h"
+#import "ANLogging.h"
 #import "UIWebView+ANCategory.h"
 
 @implementation ANWebView
 
--(id)init {
-    self = [super init];
+-(id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.opaque = NO;
         self.scrollEnabled = NO;
+        [self setMediaProperties];
     }
     return self;
+}
+
+@end
+
+@implementation ANWebView (MRAIDExtensions)
+
+- (void)fireReadyEvent {
+    NSString* script = [NSString stringWithFormat:@"window.mraid.util.readyEvent();"];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)fireStateChangeEvent:(ANMRAIDState)state {
+    NSString *stateString = @"";
+    
+    switch (state) {
+        case ANMRAIDStateLoading:
+            stateString = @"loading";
+            break;
+        case ANMRAIDStateDefault:
+            stateString = @"default";
+            break;
+        case ANMRAIDStateExpanded:
+            stateString = @"expanded";
+            break;
+        case ANMRAIDStateHidden:
+            stateString = @"hidden";
+            break;
+        case ANMRAIDStateResized:
+            stateString = @"resized";
+            break;
+        default:
+            break;
+    }
+    
+    NSString *script = [NSString stringWithFormat:@"window.mraid.util.stateChangeEvent('%@')", stateString];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)fireErrorEvent:(NSString *)errorString function:(NSString *)function {
+    NSString* script = [NSString stringWithFormat:@"mraid.util.errorEvent('%@', '%@');", errorString, function];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)fireNewCurrentPositionEvent:(CGRect)frame {
+    [self setCurrentSize:frame.size];
+    [self setCurrentPosition:frame];
+}
+
+- (void)setPlacementType:(NSString *)placementType {
+    NSString* script = [NSString stringWithFormat:@"window.mraid.util.setPlacementType('%@');", placementType];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (BOOL)getWebViewVisible {
+    return (!self.hidden && self.window && self.superview);
+}
+
+- (void)setIsViewable:(BOOL)viewable {
+    NSString* script = [NSString stringWithFormat:@"window.mraid.util.setIsViewable(%@)",
+                        viewable ? @"true" : @"false"];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)setCurrentSize:(CGSize)size {
+    int width = floorf(size.width + 0.5f);
+    int height = floorf(size.height + 0.5f);
+    
+    NSString *script = [NSString stringWithFormat:@"window.mraid.util.sizeChangeEvent(%i,%i);",
+                        width, height];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)setCurrentPosition:(CGRect)frame {
+    int offsetX = (frame.origin.x > 0) ? floorf(frame.origin.x + 0.5f) : ceilf(frame.origin.x - 0.5f);
+    int offsetY = (frame.origin.y > 0) ? floorf(frame.origin.y + 0.5f) : ceilf(frame.origin.y - 0.5f);
+    int width = floorf(frame.size.width + 0.5f);
+    int height = floorf(frame.size.height + 0.5f);
+    
+    NSString *script = [NSString stringWithFormat:@"window.mraid.util.setCurrentPosition(%i, %i, %i, %i);",
+                        offsetX, offsetY, width, height];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)setDefaultPosition:(CGRect)frame {
+    int offsetX = (frame.origin.x > 0) ? floorf(frame.origin.x + 0.5f) : ceilf(frame.origin.x - 0.5f);
+    int offsetY = (frame.origin.y > 0) ? floorf(frame.origin.y + 0.5f) : ceilf(frame.origin.y - 0.5f);
+    int width = floorf(frame.size.width + 0.5f);
+    int height = floorf(frame.size.height + 0.5f);
+    
+    NSString *script = [NSString stringWithFormat:@"window.mraid.util.setDefaultPosition(%i, %i, %i, %i);",
+                        offsetX, offsetY, width, height];
+    [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (ANMRAIDState)getMRAIDState {
+    NSString *state = [self stringByEvaluatingJavaScriptFromString:@"window.mraid.getState()"];
+    if ([state isEqualToString:@"loading"]) {
+        return ANMRAIDStateLoading;
+    } else if ([state isEqualToString:@"default"]) {
+        return ANMRAIDStateDefault;
+    } else if ([state isEqualToString:@"expanded"]) {
+        return ANMRAIDStateExpanded;
+    } else if ([state isEqualToString:@"hidden"]) {
+        return ANMRAIDStateHidden;
+    } else if ([state isEqualToString:@"resized"]) {
+        return ANMRAIDStateResized;
+    }
+    
+    ANLogError(@"Call to mraid.getState() returned invalid state.");
+    return ANMRAIDStateDefault;
+}
+
+- (void)setHidden:(BOOL)hidden animated:(BOOL)animated {
+    if (animated) {
+        [UIView animateWithDuration:kAppNexusAnimationDuration animations:^{
+            self.alpha = hidden ? 0.0f : 1.0f;
+        } completion:^(BOOL finished) {
+            self.hidden = hidden;
+            self.alpha = 1.0f;
+        }];
+    }
+    else {
+        self.hidden = hidden;
+    }
 }
 
 @end

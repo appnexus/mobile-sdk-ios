@@ -180,6 +180,9 @@
  if(resize_properties.height<0 || resize_properties.width<0){
  mraid.util.errorEvent("mraid.resize() called before mraid.setResizeProperties()", "mraid.resize()");
  return;
+ }else if(resize_properties.height<50 || resize_properties.width<50){
+ mraid.util.errorEvent("mraid.resize() called with a width or height below the minimum 50px", "mraid.resize()");
+ return;
  }
  switch(mraid.getState()){
  case 'loading':
@@ -209,7 +212,10 @@
  }
  
  mraid.setResizeProperties=function(props) {
-    resize_properties = props;
+ if(props.width<50 || props.height<50){
+ mraid.util.errorEvent("Resize properties contains a dimension below the minimum 50 pixels", "mraid.setResizeProperties()");
+ }
+ resize_properties = props;
  }
  
  mraid.getResizeProperties=function(){
@@ -431,6 +437,8 @@
  "height": height
  };
  current_position = default_position;
+ size_event_width = width;
+ size_event_height = height;
  }
  
  mraid.util.setCurrentPosition=function(x, y, width, height){
