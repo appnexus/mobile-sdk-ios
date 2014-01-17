@@ -150,22 +150,24 @@ ANBrowserViewControllerDelegate>
 }
 
 - (void)updateOrientationPropertiesOnMRAIDViewController {
-    if (self.mraidController) { // MRAID Controller will only be non-nil in an expanded state
+    if (self.mraidController) {
         self.mraidController.allowOrientationChange = self.allowOrientationChange;
         
-        switch(self.forcedOrientation) {
-            case ANMRAIDOrientationLandscape:
-                if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
-                    self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
+        if (!self.isExpanded) {
+            switch(self.forcedOrientation) {
+                case ANMRAIDOrientationLandscape:
+                    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
+                        self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
+                        break;
+                    }
+                    self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
                     break;
-                }
-                self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
-                break;
-            case ANMRAIDOrientationPortrait:
-                self.mraidController.orientation = UIInterfaceOrientationPortrait;
-                break;
-            default:
-                self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+                case ANMRAIDOrientationPortrait:
+                    self.mraidController.orientation = UIInterfaceOrientationPortrait;
+                    break;
+                default:
+                    self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+            }
         }
         
         ANLogDebug(@"%@ | Allow Orientation Change: %d, UIInterfaceOrientation %d", NSStringFromSelector(_cmd), self.mraidController.allowOrientationChange, self.mraidController.orientation);
