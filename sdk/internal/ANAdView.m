@@ -265,8 +265,7 @@ ANBrowserViewControllerDelegate>
     }
     
     // don't allow resizing to be larger than the screen
-    if ((frame.size.width > orientedScreenBounds.size.width)
-        || (frame.size.height > orientedScreenBounds.size.height)) {
+    if (CGSizeLargerThanSize(frame.size, orientedScreenBounds.size)) {
         return @"Resize called with resizeProperties larger than the screen.";
     }
     
