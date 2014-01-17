@@ -146,6 +146,30 @@ ANBrowserViewControllerDelegate>
          withForcedOrientation:(ANMRAIDOrientation)orientation {
     self.allowOrientationChange = allowOrientationChange;
     self.forcedOrientation = orientation;
+    [self updateOrientationPropertiesOnMRAIDViewController];
+}
+
+- (void)updateOrientationPropertiesOnMRAIDViewController {
+    if (self.mraidController) { // MRAID Controller will only be non-nil in an expanded state
+        self.mraidController.allowOrientationChange = self.allowOrientationChange;
+        
+        switch(self.forcedOrientation) {
+            case ANMRAIDOrientationLandscape:
+                if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
+                    self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
+                    break;
+                }
+                self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
+                break;
+            case ANMRAIDOrientationPortrait:
+                self.mraidController.orientation = UIInterfaceOrientationPortrait;
+                break;
+            default:
+                self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        }
+        
+        ANLogDebug(@"%@ | Allow Orientation Change: %d, UIInterfaceOrientation %d", NSStringFromSelector(_cmd), self.mraidController.allowOrientationChange, self.mraidController.orientation);
+    }
 }
 
 #pragma mark MRAID expand methods
@@ -181,24 +205,7 @@ ANBrowserViewControllerDelegate>
             self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
         }
         
-        self.mraidController.allowOrientationChange = self.allowOrientationChange;
-        
-        switch(self.forcedOrientation) {
-            case ANMRAIDOrientationLandscape:
-                if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
-                    self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
-                    break;
-                }
-                self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
-                break;
-            case ANMRAIDOrientationPortrait:
-                self.mraidController.orientation = UIInterfaceOrientationPortrait;
-                break;
-            default:
-                self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-        }
-
-        ANLogDebug(@"%@ | forced orientation: %d, allow orientation change: %d", NSStringFromSelector(_cmd), self.mraidController.orientation, self.mraidController.allowOrientationChange);
+        [self updateOrientationPropertiesOnMRAIDViewController];
         
         self.mraidController.contentView = contentView;
         [self.mraidController.view addSubview:contentView];
