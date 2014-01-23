@@ -410,7 +410,7 @@ ANBrowserViewControllerDelegate>
     BOOL orientationIsLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
     CGRect orientedScreenBounds = screenBounds;
     
-    if (!orientationIsLandscape) {
+    if (orientationIsLandscape) {
         orientedScreenBounds = CGRectMake(screenBounds.origin.y, screenBounds.origin.x,
                                           screenBounds.size.height, screenBounds.size.width);
     }
