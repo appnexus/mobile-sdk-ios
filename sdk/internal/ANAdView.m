@@ -289,7 +289,7 @@ ANBrowserViewControllerDelegate>
     
     // adjust the parent view to fit contentView
     [defaultParentView setFrame:CGRectMake(defaultParentView.frame.origin.x  + frame.origin.x,
-                                           defaultParentView.frame.origin.x  + frame.origin.x,
+                                           defaultParentView.frame.origin.y  + frame.origin.y,
                                            frame.size.width + frame.origin.x,
                                            frame.size.height + frame.origin.y)];
     
@@ -367,7 +367,7 @@ ANBrowserViewControllerDelegate>
     
     // closeEventRegion will be a child of the container, so it needs to be
     // positioned based on contentView's origin
-    CGFloat closeOriginX = contentView.frame.origin.x;;
+    CGFloat closeOriginX = contentView.frame.origin.x;
     CGFloat closeOriginY = contentView.frame.origin.y;
     
     switch (position) {
@@ -406,14 +406,9 @@ ANBrowserViewControllerDelegate>
     
     // compute the absolute frame of the close event region
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    
-    BOOL orientationIsLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
-    CGRect orientedScreenBounds = screenBounds;
-    
-    if (!orientationIsLandscape) {
-        orientedScreenBounds = CGRectMake(screenBounds.origin.y, screenBounds.origin.x,
-                                          screenBounds.size.height, screenBounds.size.width);
-    }
+    CGRect orientedScreenBounds = [self adjustRectForOrientation:screenBounds
+                                                     orientation:[UIApplication sharedApplication].statusBarOrientation
+                                                      parentSize:screenBounds.size];
     
     CGRect containerAbsoluteFrame = [containerView convertRect:containerView.bounds toView:nil];
     containerAbsoluteFrame = [self adjustRectForOrientation:containerAbsoluteFrame
@@ -426,20 +421,16 @@ ANBrowserViewControllerDelegate>
                                            closeEventRegionSize, closeEventRegionSize);
     
     // verify that the requested close event region will be on the screen
-    BOOL isCloseEventRegionOnScreen = CGRectContainsRect(screenBounds, closeAbsoluteFrame);
+    // container frame was adjusted for orientation, so we should compare the closeAbsoluteFrame with orientedScreenBounds
+    BOOL isCloseEventRegionOnScreen = CGRectContainsRect(orientedScreenBounds, closeAbsoluteFrame);
     
     // if the requested close positioning is invalid,
     // put it in the top-left of the available space
     if (!isCloseEventRegionOnScreen) {
         CGRect absoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
-        if (orientationIsLandscape) {
-            absoluteFrame = CGRectMake(absoluteFrame.origin.y, absoluteFrame.origin.x, absoluteFrame.size.height, absoluteFrame.size.width);
-        }
-        
         CGRect adjustedContentAbsoluteFrame = [self adjustRectForOrientation:absoluteFrame
                                                                  orientation:[UIApplication sharedApplication].statusBarOrientation
                                                                   parentSize:screenBounds.size];
-        
         
         CGRect contentIntersection = CGRectIntersection(orientedScreenBounds, adjustedContentAbsoluteFrame);
         closeOriginX = contentIntersection.origin.x - containerAbsoluteFrame.origin.x;
