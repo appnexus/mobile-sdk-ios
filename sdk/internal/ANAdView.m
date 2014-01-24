@@ -269,7 +269,7 @@ ANBrowserViewControllerDelegate>
          rootViewController:(UIViewController *)rootViewController
              allowOffscreen:(BOOL)allowOffscreen {
     NSString *mraidResizeErrorString = [self isResizeValid:contentView frameToResizeTo:frame];
-    if ([mraidResizeErrorString length] > 0) return NO;
+    if ([mraidResizeErrorString length] > 0) return mraidResizeErrorString;
     
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
