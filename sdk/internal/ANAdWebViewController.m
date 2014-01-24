@@ -170,9 +170,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationDidEnterBackgroundNotification
                                                   object:[UIApplication sharedApplication]];
-    [self.webView stopLoading];
-    self.webView.delegate = nil;
-    [self.webView removeFromSuperview];
 }
 
 - (BOOL)getWebViewVisible {    
