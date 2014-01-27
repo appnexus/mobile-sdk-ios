@@ -26,7 +26,26 @@
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adFetcherDelegate;
 @end
 
+
+
 @implementation ANAdRequestUrl
+
+- (NSArray*)getParameterNames{
+    NSArray* pNames = [NSArray arrayWithObjects:@"id", @"dnt", @"devmake", @"devmodel", @"appid", @"firstlaunch", @"carrier", @"mcc", @"mnc", @"connection_type", @"loc", @"loc_age", @"loc_prec", @"orientation", @"ua", @"language", @"devtime", @"native_browser", @"psa", @"age", @"gender", @"format", @"st", @"sdkver", nil];
+    
+    return pNames;
+}
+
+- (BOOL) stringInParameterList:(NSString*)s{
+    NSArray* pNames = [self getParameterNames];
+    for(NSString* s2 in pNames){
+        if([s2 isEqualToString:s]){
+            return YES;
+        }
+    }
+    
+    return NO;
+}
 
 + (NSURL *)buildRequestUrlWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
                                   baseUrlString:(NSString *)baseUrlString {
@@ -56,13 +75,13 @@
     baseUrlString = [baseUrlString stringByAppendingString:[self psaAndReserveParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self ageParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self genderParameter]];
-    baseUrlString = [baseUrlString stringByAppendingString:[self customKeywordsParameter]];
     
     baseUrlString = [baseUrlString stringByAppendingString:[self jsonFormatParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self supplyTypeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self sdkVersionParameter]];
     
     baseUrlString = [baseUrlString stringByAppendingString:[self extraParameters]];
+    baseUrlString = [baseUrlString stringByAppendingString:[self customKeywordsParameter]];
     
 	return [NSURL URLWithString:baseUrlString];
 }
@@ -223,13 +242,17 @@
     }
 
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
-        if ([value length] > 0)
-            value = [customKeywords valueForKey:key];
-        if (value) {
-            customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
-                                       [NSString stringWithFormat:@"&%@=%@",
-                                        key,
-                                        [self URLEncodingFrom:value]]];
+        if(![self stringInParameterList:key]){
+            if ([value length] > 0)
+                value = [customKeywords valueForKey:key];
+            if (value) {
+                customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
+                                           [NSString stringWithFormat:@"&%@=%@",
+                                            key,
+                                            [self URLEncodingFrom:value]]];
+            }
+        }else{
+            ANLogWarn(ANErrorString(@"request_parameter_override_attempt"), key);
         }
     }];
     

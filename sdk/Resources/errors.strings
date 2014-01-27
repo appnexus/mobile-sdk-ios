@@ -16,4 +16,5 @@
 "instantiating_class"="Instantiating %@";
 "instance_exception"="MediatedAdView is null or not an instance of %@";
 "mediation_finish"="Mediation Controller has finished.";
+"request_parameter_override_attempt"="Parameter %s cannot be overridden by custom keywords";
 "mediation_timeout"="Mediation network timed out.";
