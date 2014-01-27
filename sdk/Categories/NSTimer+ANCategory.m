@@ -39,4 +39,21 @@
     }
 }
 
++ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)interval
+                                      block:(void (^)())block
+                                    repeats:(BOOL)repeats {
+    return [self scheduledTimerWithTimeInterval:interval
+                                         target:self
+                                       selector:@selector(runBlockWithTimer:)
+                                       userInfo:[block copy]
+                                        repeats:repeats];
+}
+
++ (void)runBlockWithTimer:(NSTimer *)timer {
+    void (^block)() = timer.userInfo;
+    if (block) {
+        block();
+    }
+}
+
 @end

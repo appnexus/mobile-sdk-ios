@@ -22,6 +22,7 @@
 #import "ANWebView.h"
 #import "NSString+ANCategory.h"
 #import "UIWebView+ANCategory.h"
+#import "NSTimer+ANCategory.h"
 
 #import <EventKitUI/EventKitUI.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -97,6 +98,8 @@
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) BOOL expanded;
 @property (nonatomic, readwrite, assign) BOOL resized;
+@property (nonatomic, readwrite, assign) NSTimer *viewabilityTimer;
+@property (nonatomic, readwrite) BOOL isViewable;
 @end
 
 @implementation ANMRAIDAdWebViewController
@@ -117,12 +120,82 @@
         
         // remember frame for default state
         [self setDefaultFrame:webView.frame];
-
+        
+        // setup viewability support
+        [self viewabilitySetup];
+        
         [webView setPlacementType:[self.mraidDelegate adType]];
-        [webView setIsViewable:(BOOL)!webView.hidden];
         [webView fireStateChangeEvent:ANMRAIDStateDefault];
         [webView fireReadyEvent];
     }
+}
+
+- (void)viewabilitySetup {
+    self.isViewable = [self getWebViewVisible];
+    [self.webView setIsViewable:self.isViewable];
+    ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
+    
+    __weak ANMRAIDAdWebViewController *weakANMRAIDAdWebViewController = self;
+    self.viewabilityTimer = [NSTimer scheduledTimerWithTimeInterval:kAppNexusMRAIDCheckViewableFrequency
+                                                              block:^ {
+                                                                  ANMRAIDAdWebViewController *strongANMRAIDAdWebViewController = weakANMRAIDAdWebViewController;
+                                                                  [strongANMRAIDAdWebViewController checkViewability];
+                                                              }
+                                                            repeats:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterBackground:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:[UIApplication sharedApplication]];
+}
+
+- (void)checkViewability {
+    BOOL isCurrentlyViewable = [self getWebViewVisible];
+    if (self.isViewable != isCurrentlyViewable) {
+        self.isViewable = isCurrentlyViewable;
+        [self.webView setIsViewable:self.isViewable];
+        ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
+    }
+}
+
+- (void)applicationDidEnterBackground:(NSNotification *)notification {
+    self.isViewable = NO;
+    [self.webView setIsViewable:self.isViewable];
+    ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
+}
+
+- (void)dealloc {
+    if (self.viewabilityTimer) {
+        [self.viewabilityTimer invalidate];
+    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidEnterBackgroundNotification
+                                                  object:[UIApplication sharedApplication]];
+}
+
+- (BOOL)getWebViewVisible {    
+    BOOL isHidden = self.webView.hidden;
+    if (isHidden) return NO;
+    
+    BOOL isAttachedToWindow = self.webView.window ? YES : NO;
+    if (!isAttachedToWindow) return NO;
+    
+    BOOL isInHiddenSuperview = NO;
+    UIView *ancestorView = self.webView.superview;
+    while (ancestorView) {
+        if (ancestorView.hidden) {
+            isInHiddenSuperview = YES;
+            break;
+        }
+        ancestorView = ancestorView.superview;
+    }
+    if (isInHiddenSuperview) return NO;
+    
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGRect newBounds = [self.webView convertRect:self.webView.bounds toView:nil];
+    BOOL isOnScreen = CGRectIntersectsRect(newBounds, screenBounds);
+    if (!isOnScreen) return NO;
+
+    return YES;
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {

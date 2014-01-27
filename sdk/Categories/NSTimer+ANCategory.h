@@ -20,4 +20,8 @@
 - (BOOL)isScheduled;
 - (void)scheduleNow;
 
++ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)interval
+                                      block:(void (^)())block
+                                    repeats:(BOOL)repeats;
+
 @end
