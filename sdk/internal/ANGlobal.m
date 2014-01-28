@@ -63,7 +63,7 @@ BOOL ANAdvertisingTrackingEnabled()
 
 BOOL CGSizeLargerThanSize(CGSize firstSize, CGSize secondSize)
 {
-    if ((firstSize.height > secondSize.height) && (firstSize.width > secondSize.width))
+    if ((firstSize.height > secondSize.height) || (firstSize.width > secondSize.width))
     {
         return YES;
     }
