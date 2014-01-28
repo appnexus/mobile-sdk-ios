@@ -194,6 +194,16 @@
         CGFloat centerX = (tableSize.width - bannerSize.width) / 2.0;
         CGFloat centerY = (tableSize.height - bannerSize.height) / 2.0;
         
+        // Do not allow negative/offscreen values for x and y
+        
+        if (centerY < 0) {
+            centerY = 0.0;
+        }
+        
+        if (centerX < 0) {
+            centerX = 0.0;
+        }
+        
         // Center banner in window, with equal whitespace on either side
         [self.bannerAdView setFrame:CGRectMake(centerX,
                                                centerY,
