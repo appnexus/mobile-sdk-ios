@@ -30,18 +30,16 @@
 
 @implementation ANAdRequestUrl
 
-- (NSArray*)getParameterNames{
-    NSArray* pNames = [NSArray arrayWithObjects:@"id", @"dnt", @"devmake", @"devmodel", @"appid", @"firstlaunch", @"carrier", @"mcc", @"mnc", @"connection_type", @"loc", @"loc_age", @"loc_prec", @"orientation", @"ua", @"language", @"devtime", @"native_browser", @"psa", @"age", @"gender", @"format", @"st", @"sdkver", nil];
+- (NSSet*)getParameterNames{
+    NSSet* pNames = [NSSet setWithObjects:@"id", @"dnt", @"devmake", @"devmodel", @"appid", @"firstlaunch", @"carrier", @"mcc", @"mnc", @"connection_type", @"loc", @"loc_age", @"loc_prec", @"orientation", @"ua", @"language", @"devtime", @"native_browser", @"psa", @"age", @"gender", @"format", @"st", @"sdkver", nil];
     
     return pNames;
 }
 
 - (BOOL) stringInParameterList:(NSString*)s{
-    NSArray* pNames = [self getParameterNames];
-    for(NSString* s2 in pNames){
-        if([s2 isEqualToString:s]){
-            return YES;
-        }
+    NSSet* pNames = [self getParameterNames];
+    if([pNames containsObject:s]){
+        return YES;
     }
     
     return NO;
