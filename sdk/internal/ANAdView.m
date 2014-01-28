@@ -41,7 +41,7 @@ ANBrowserViewControllerDelegate>
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
 @property (nonatomic, readwrite, assign) BOOL isExpanded;
 @property (nonatomic, readwrite) BOOL allowOrientationChange;
-@property (nonatomic, readwrite) ANMRAIDOrientation forcedOrientation;
+@property (nonatomic, readwrite) ANMRAIDOrientation forceOrientation;
 @end
 
 @implementation ANAdView
@@ -99,7 +99,7 @@ ANBrowserViewControllerDelegate>
     self.defaultParentFrame = CGRectNull;
     self.defaultFrame = CGRectNull;
     self.allowOrientationChange = YES;
-    self.forcedOrientation = ANMRAIDOrientationNone;
+    self.forceOrientation = ANMRAIDOrientationNone;
     
     __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
     __location = nil;
@@ -145,7 +145,7 @@ ANBrowserViewControllerDelegate>
 - (void)allowOrientationChange:(BOOL)allowOrientationChange
          withForcedOrientation:(ANMRAIDOrientation)orientation {
     self.allowOrientationChange = allowOrientationChange;
-    self.forcedOrientation = orientation;
+    self.forceOrientation = orientation;
     [self updateOrientationPropertiesOnMRAIDViewController];
 }
 
@@ -154,23 +154,29 @@ ANBrowserViewControllerDelegate>
         self.mraidController.allowOrientationChange = self.allowOrientationChange;
         
         if (!self.isExpanded) {
-            switch(self.forcedOrientation) {
-                case ANMRAIDOrientationLandscape:
-                    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
-                        self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
+            if (!self.allowOrientationChange) {
+                switch(self.forceOrientation) {
+                    case ANMRAIDOrientationLandscape:
+                        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
+                            self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
+                            break;
+                        }
+                        self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
                         break;
-                    }
-                    self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
-                    break;
-                case ANMRAIDOrientationPortrait:
-                    self.mraidController.orientation = UIInterfaceOrientationPortrait;
-                    break;
-                default:
-                    self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+                    case ANMRAIDOrientationPortrait:
+                        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown) {
+                            self.mraidController.orientation = UIInterfaceOrientationPortraitUpsideDown;
+                            break;
+                        }
+                        self.mraidController.orientation = UIInterfaceOrientationPortrait;
+                        break;
+                    default:
+                        self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+                }
+            } else {
+                self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
             }
         }
-        
-        ANLogDebug(@"%@ | Allow Orientation Change: %d, UIInterfaceOrientation %d", NSStringFromSelector(_cmd), self.mraidController.allowOrientationChange, self.mraidController.orientation);
     }
 }
 
@@ -269,7 +275,7 @@ ANBrowserViewControllerDelegate>
          rootViewController:(UIViewController *)rootViewController
              allowOffscreen:(BOOL)allowOffscreen {
     NSString *mraidResizeErrorString = [self isResizeValid:contentView frameToResizeTo:frame];
-    if ([mraidResizeErrorString length] > 0) return NO;
+    if ([mraidResizeErrorString length] > 0) return mraidResizeErrorString;
     
     // set presenting controller for MRAID WebViewController
     ANMRAIDAdWebViewController *mraidWebViewController;
@@ -289,7 +295,7 @@ ANBrowserViewControllerDelegate>
     
     // adjust the parent view to fit contentView
     [defaultParentView setFrame:CGRectMake(defaultParentView.frame.origin.x  + frame.origin.x,
-                                           defaultParentView.frame.origin.x  + frame.origin.x,
+                                           defaultParentView.frame.origin.y  + frame.origin.y,
                                            frame.size.width + frame.origin.x,
                                            frame.size.height + frame.origin.y)];
     
@@ -301,21 +307,15 @@ ANBrowserViewControllerDelegate>
 - (NSString *)isResizeValid:(UIView *)contentView frameToResizeTo:(CGRect)frame {
     // for comparing to
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    CGRect orientedScreenBounds = screenBounds;
-    // swap values if in landscape mode
-    if (UIInterfaceOrientationIsLandscape(orientation)) {
-        orientedScreenBounds = CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
-    }
+    CGRect orientedScreenBounds = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:screenBounds];
     
     // don't allow resizing to be larger than the screen
     if (CGSizeLargerThanSize(frame.size, orientedScreenBounds.size)) {
         return @"Resize called with resizeProperties larger than the screen.";
     }
     
-    CGRect absoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
-    absoluteFrame = [self adjustRectForOrientation:absoluteFrame orientation:orientation parentSize:screenBounds.size];
+    CGRect contentAbsoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
+    CGRect adjustedContentAbsoluteFrame = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:contentAbsoluteFrame];
     
     // verify that at least 50x50 pixels of the creative are onscreen
     // by checking the intersection of the creative and the screen
@@ -325,8 +325,8 @@ ANBrowserViewControllerDelegate>
     // the absolute x and y offset will only be changed
     // by the difference of the new frame and the old frame
     // the size will simply be the size given by resizeProperties
-    CGRect resizedFrame = CGRectMake(absoluteFrame.origin.x + (frame.origin.x - contentFrame.origin.x),
-                                     absoluteFrame.origin.y + (frame.origin.y - contentFrame.origin.y),
+    CGRect resizedFrame = CGRectMake(adjustedContentAbsoluteFrame.origin.x + (frame.origin.x - contentFrame.origin.x),
+                                     adjustedContentAbsoluteFrame.origin.y + (frame.origin.y - contentFrame.origin.y),
                                      frame.size.width,
                                      frame.size.height);
     
@@ -367,7 +367,7 @@ ANBrowserViewControllerDelegate>
     
     // closeEventRegion will be a child of the container, so it needs to be
     // positioned based on contentView's origin
-    CGFloat closeOriginX = contentView.frame.origin.x;;
+    CGFloat closeOriginX = contentView.frame.origin.x;
     CGFloat closeOriginY = contentView.frame.origin.y;
     
     switch (position) {
@@ -406,44 +406,29 @@ ANBrowserViewControllerDelegate>
     
     // compute the absolute frame of the close event region
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    
-    BOOL orientationIsLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
-    CGRect orientedScreenBounds = screenBounds;
-    
-    if (orientationIsLandscape) {
-        orientedScreenBounds = CGRectMake(screenBounds.origin.y, screenBounds.origin.x,
-                                          screenBounds.size.height, screenBounds.size.width);
-    }
+    CGRect orientedScreenBounds = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:screenBounds];
     
     CGRect containerAbsoluteFrame = [containerView convertRect:containerView.bounds toView:nil];
-    containerAbsoluteFrame = [self adjustRectForOrientation:containerAbsoluteFrame
-                                                orientation:[UIApplication sharedApplication].statusBarOrientation
-                                                 parentSize:screenBounds.size];
+    CGRect adjustedContainerAbsoluteFrame = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:containerAbsoluteFrame];
     
-    CGFloat closeAbsoluteOriginX = containerAbsoluteFrame.origin.x + closeOriginX;
-    CGFloat closeAbsoluteOriginY = containerAbsoluteFrame.origin.y + closeOriginY;
+    CGFloat closeAbsoluteOriginX = adjustedContainerAbsoluteFrame.origin.x + closeOriginX;
+    CGFloat closeAbsoluteOriginY = adjustedContainerAbsoluteFrame.origin.y + closeOriginY;
     CGRect closeAbsoluteFrame = CGRectMake(closeAbsoluteOriginX, closeAbsoluteOriginY,
                                            closeEventRegionSize, closeEventRegionSize);
     
     // verify that the requested close event region will be on the screen
-    BOOL isCloseEventRegionOnScreen = CGRectContainsRect(screenBounds, closeAbsoluteFrame);
+    // container frame was adjusted for orientation, so we should compare the closeAbsoluteFrame with orientedScreenBounds
+    BOOL isCloseEventRegionOnScreen = CGRectContainsRect(orientedScreenBounds, closeAbsoluteFrame);
     
     // if the requested close positioning is invalid,
     // put it in the top-left of the available space
     if (!isCloseEventRegionOnScreen) {
-        CGRect absoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
-        if (orientationIsLandscape) {
-            absoluteFrame = CGRectMake(absoluteFrame.origin.y, absoluteFrame.origin.x, absoluteFrame.size.height, absoluteFrame.size.width);
-        }
-        
-        CGRect adjustedContentAbsoluteFrame = [self adjustRectForOrientation:absoluteFrame
-                                                                 orientation:[UIApplication sharedApplication].statusBarOrientation
-                                                                  parentSize:screenBounds.size];
-        
+        CGRect contentAbsoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
+        CGRect adjustedContentAbsoluteFrame = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:contentAbsoluteFrame];
         
         CGRect contentIntersection = CGRectIntersection(orientedScreenBounds, adjustedContentAbsoluteFrame);
-        closeOriginX = contentIntersection.origin.x - containerAbsoluteFrame.origin.x;
-        closeOriginY = contentIntersection.origin.y - containerAbsoluteFrame.origin.y;
+        closeOriginX = contentIntersection.origin.x - adjustedContainerAbsoluteFrame.origin.x;
+        closeOriginY = contentIntersection.origin.y - adjustedContainerAbsoluteFrame.origin.y;
         
         // add image to the region since it will be in a different
         // place with no visual cue
@@ -461,28 +446,27 @@ ANBrowserViewControllerDelegate>
     [containerView addSubview:closeEventRegion];
 }
 
-- (CGRect)adjustRectForOrientation:(CGRect)rect
-                       orientation:(UIInterfaceOrientation)orientation
-                        parentSize:(CGSize)parentSize {
+- (CGRect)adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:(CGRect)rect {
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
+    CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
+    
     CGRect adjustedRect;
-    CGFloat flippedOriginX = parentSize.height - (rect.origin.y + rect.size.height);
-    CGFloat flippedOriginY = parentSize.width - (rect.origin.x + rect.size.width);
-    switch (orientation) {
+    switch ([UIApplication sharedApplication].statusBarOrientation) {
         case UIInterfaceOrientationLandscapeLeft:
             adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
             break;
         case UIInterfaceOrientationLandscapeRight:
             adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
             break;
-        case UIInterfaceOrientationPortrait:
-            adjustedRect = rect;
-            break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            adjustedRect = CGRectMake(flippedOriginX, flippedOriginY, rect.size.width, rect.size.height);
+            adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
             break;
         default:
+            adjustedRect = rect;
             break;
     }
+    
     return adjustedRect;
 }
 

@@ -71,7 +71,7 @@
 
 - (NSUInteger)supportedInterfaceOrientations {
     if (self.allowOrientationChange) {
-        return [super supportedInterfaceOrientations];
+        return [[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:[self.view window]];
     } else {
         switch (self.orientation) {
             case UIInterfaceOrientationPortrait:
