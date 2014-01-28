@@ -12,12 +12,16 @@
 #import "ANLogging.h"
 
 #define MRAID_TESTS_TIMEOUT 10.0
-#define MRAID_TESTS_DEFAULT_DELAY 3.0
+#define MRAID_TESTS_DEFAULT_DELAY 2.0
+
+
+@interface UIDevice (HackyWayToRotateTheDeviceForTestingPurposesBecauseAppleDeclaredSuchAMethodInTheirPrivateImplementationOfTheUIDeviceClass)
+-(void)setOrientation:(UIInterfaceOrientation)orientation animated:(BOOL)animated;
+-(void)setOrientation:(UIInterfaceOrientation)orientation;
+@end
 
 @interface MRAIDTests : ANBaseTestCase
-
 @property (strong, nonatomic) ANWebView *webView;
-
 @end
 
 @implementation MRAIDTests
@@ -25,12 +29,15 @@
 #pragma mark MRAID Tests
 
 - (void)testSuccessfulBannerDidLoad {
-    [self loadBasicMRAIDBanner];
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self bannerAddSubview];
+    
     [self clearTest];
 }
 
-- (void)testBannerExpand {
-    [self loadBasicMRAIDBanner];
+- (void)testBasicExpandability {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self bannerAddSubview];
     
     [self expand];
     [self assertState:@"expanded"];
@@ -41,40 +48,88 @@
     [self clearTest];
 }
 
-- (void)testBasicViewability {
-    [self loadBasicMRAIDBanner];
+- (void)testBasicViewability { // MS-453
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     STAssertFalse([[self isViewable] boolValue], @"Expected ANWebView not to be visible");
     
-    [self.banner.rootViewController.view addSubview:self.banner];
-    [self delay:MRAID_TESTS_DEFAULT_DELAY];
+    [self bannerAddSubview];
     STAssertTrue([[self isViewable] boolValue], @"Expected ANWebView to be visible");
     
-    [self.banner removeFromSuperview];
-    [self delay:MRAID_TESTS_DEFAULT_DELAY];
+    [self bannerRemoveFromSuperview];
     STAssertFalse([[self isViewable] boolValue], @"Expected ANWebView not to be visible");
     
     [self clearTest];
 }
 
-- (void)testForceOrientation {
-    [self loadBasicMRAIDBanner];
+- (void)testForceOrientationLandscapeFromPortrait { // MS-481
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self bannerAddSubview];
+    
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"landscape"];
     [self expand];
-    STAssertTrue(UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]), @"Expected landscape mode");
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft, @"Expected landscape left orientation");
+    
     [self close];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIDeviceOrientationPortrait, @"Expected portrait right-side up mode");
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
+    
+    [self clearTest];
+}
+
+- (void)testForceOrientationPortraitFromLandscape { // MS-481
+    [self rotateDeviceToOrientation:UIInterfaceOrientationLandscapeRight];
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self bannerAddSubview];
+    [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"portrait"];
+    [self expand];
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
+    
+    [self close];
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+    
+    [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
+    [self clearTest];
+}
+
+- (void)testForceOrientationLandscapeFromLandscapeRight { // MS-481
+    [self rotateDeviceToOrientation:UIInterfaceOrientationLandscapeRight];
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self bannerAddSubview];
+    [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"landscape"];
+    [self expand];
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+
+    [self close];
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+
+    [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
+    [self clearTest];
+}
+
+- (void)testExpandFromPortraitUpsideDown { // MS-510
+    [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self bannerAddSubview];
+    [self expand];
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation"); // Will pass after release for flipped orientation support
+    
+    [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     [self clearTest];
 }
 
 #pragma mark MRAID Helper Functions
 
 - (void)clearTest {
-    [super clearTest];
     self.webView = nil;
+    [self bannerRemoveFromSuperview];
+    [super clearTest];
 }
 
 - (void)loadBasicMRAIDBanner {
-    [self stubWithBody:[ANMRAIDTestResponses basicMRAIDBanner]];
+    [self loadBasicMRAIDBannerWithSelectorName:@"Test Ad"];
+}
+
+- (void)loadBasicMRAIDBannerWithSelectorName:(NSString *)selector {
+    [self stubWithBody:[ANMRAIDTestResponses basicMRAIDBannerWithSelectorName:selector]];
     [self loadBannerAd];
     STAssertTrue([self waitForCompletion:MRAID_TESTS_TIMEOUT], @"Ad load timed out");
     STAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
@@ -84,8 +139,26 @@
     self.webView = (ANWebView *)wv;
 }
 
+- (void)bannerAddSubview {
+    if (self.banner) {
+        [self.banner.rootViewController.view addSubview:self.banner];
+        [self delay:MRAID_TESTS_DEFAULT_DELAY];
+    }
+}
+
+- (void)bannerRemoveFromSuperview {
+    if (self.banner) {
+        [self.banner removeFromSuperview];
+        [self delay:MRAID_TESTS_DEFAULT_DELAY];
+    }
+}
+
 - (void)assertState:(NSString *)expectedState {
     STAssertTrue([[self getState] isEqualToString:expectedState], [NSString stringWithFormat:@"Expected state '%@', instead in state '%@'", expectedState, [self getState]]);
+}
+
+- (void)rotateDeviceToOrientation:(UIInterfaceOrientation)orientation {
+    [[UIDevice currentDevice] setOrientation:orientation animated:YES];
 }
 
 # pragma mark MRAID Accessor Functions

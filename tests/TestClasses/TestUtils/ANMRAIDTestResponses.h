@@ -11,6 +11,6 @@
 
 @interface ANMRAIDTestResponses : ANTestResponses
 
-+ (NSString *)basicMRAIDBanner;
++ (NSString *)basicMRAIDBannerWithSelectorName:(NSString *)selector;
 
 @end
