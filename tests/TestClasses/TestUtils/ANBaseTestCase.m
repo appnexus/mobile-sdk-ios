@@ -87,6 +87,18 @@
     return _testComplete;
 }
 
+- (void)delay:(NSTimeInterval)seconds {
+    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:seconds];
+    
+    do {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
+        if ([timeoutDate timeIntervalSinceNow] < 0.0) {
+            break;
+        }
+    }
+    while (true);
+}
+
 - (void)loadBannerAd {
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)

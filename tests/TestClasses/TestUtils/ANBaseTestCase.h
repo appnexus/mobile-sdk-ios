@@ -44,6 +44,7 @@
 - (void)stubResultCBForErrorCode;
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs;
+- (void)delay:(NSTimeInterval)seconds;
 
 - (void)loadBannerAd;
 - (void)fetchInterstitialAd;
