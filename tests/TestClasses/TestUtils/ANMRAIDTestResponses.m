@@ -10,8 +10,10 @@
 
 @implementation ANMRAIDTestResponses
 
-+ (NSString *)basicMRAIDBanner {
-    return [self createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"<script type=\\\"text/javascript\\\" src=\\\"mraid.js\\\"></script><script type=\\\"text/javascript\\\">document.write('<div style=\\\"background-color:#EF8200;height:50px;width:320px;vertical-align:middle;\\\"><p style=\\\"text-align:center;\\\">TEST AD 320x50</p></div>');</script>"];
++ (NSString *)basicMRAIDBannerWithSelectorName:(NSString *)selector {
+    return [self createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:[NSString stringWithFormat:@"<script type=\\\"text/javascript\\\" src=\\\"mraid.js\\\"></script><script type=\\\"text/javascript\\\">document.write('<div style=\\\"background-color:#EF8200;height:1000px;width:1000px;\\\"><p>%@</p></div>');</script>", selector]];
 }
+
+
 
 @end

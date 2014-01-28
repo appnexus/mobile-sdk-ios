@@ -277,4 +277,8 @@ static NSUInteger kNumberOfPages = 2;
 }
 #endif
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 @end
