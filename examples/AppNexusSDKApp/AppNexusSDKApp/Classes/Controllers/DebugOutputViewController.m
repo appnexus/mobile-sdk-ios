@@ -32,12 +32,6 @@
 
 @implementation DebugOutputViewController
 
-/*
-  
- Future Feature: Make fully searchable, kind of like Leff's debug auction tool
- 
- */
-
 - (IBAction)popDebugAuction:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -77,6 +71,12 @@
     [self loadDebug];
 }
 
+- (IBAction)jumpToBottom:(UIButton *)sender {
+    UIScrollView *webViewScrollView = [self.debugOutputDisplay scrollView];
+    [webViewScrollView setContentOffset:CGPointMake(0.0, webViewScrollView.contentSize.height - webViewScrollView.bounds.size.height)
+                               animated:NO];
+}
+
 - (void)loadDebug {
     NSString *urlString = [self.lastRequestString mutableCopy];
     AdSettings *settings = [[AdSettings alloc] init];
@@ -86,8 +86,7 @@
                    settings.dongle]];
     
     NSURL *url = [[NSURL alloc] initWithString:urlString];
-    ANLogDebug(@"Running Debug: %@", urlString);
-    
+
     dispatch_queue_t debugQueue = dispatch_queue_create("debug downloader", NULL);
     dispatch_async(debugQueue, ^{
         UIApplication *myApplication = [UIApplication sharedApplication]; // get shared application context
