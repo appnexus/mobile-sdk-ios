@@ -24,7 +24,7 @@
 #import "UIWebView+ANCategory.h"
 #import "NSTimer+ANCategory.h"
 
-#import <EventKitUI/EventKitUI.h>
+#import <EventKit/EventKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MFMessageComposeViewController.h>
 
