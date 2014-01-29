@@ -139,7 +139,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
             
             // If there's a background color, pass that color to the controller which will modify the view
             if (self.backgroundColor) {
-                self.controller.backgroundColor = [UIColor clearColor];
+                self.controller.backgroundColor = self.backgroundColor;
             }
             
             UIModalPresentationStyle rootViewControllerDesiredPresentationStyle = [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle;
