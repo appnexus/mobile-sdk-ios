@@ -481,6 +481,11 @@ ANBrowserViewControllerDelegate>
 #pragma mark Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
+    placementId = convertToNSString(placementId);
+    if ([placementId length] < 1) {
+        ANLogError(@"Could not set placementId to non-string value");
+        return;
+    }
     if (placementId != __placementId) {
         ANLogDebug(@"Setting placementId to %@", placementId);
         __placementId = placementId;

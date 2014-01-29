@@ -37,7 +37,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 @property (nonatomic, readwrite, strong) NSMutableData *data;
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 @property (nonatomic, readwrite, strong) NSURL *URL;
-@property (nonatomic, readonly) NSString *placementId;
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
 @property (nonatomic, readwrite, strong) ANAdWebViewController *webViewController;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
@@ -181,11 +180,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
     [self.connection cancel];
     [self.autoRefreshTimer invalidate];
-}
-
-- (NSString *)placementId
-{
-    return [self.delegate placementId];
 }
 
 #pragma mark Request Url Construction

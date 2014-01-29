@@ -239,11 +239,11 @@
         return @"";
     }
 
-    [customKeywords enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        key = convertToNSString(key);
+        value = convertToNSString(value);
         if(![self stringInParameterList:key]){
-            if ([value length] > 0)
-                value = [customKeywords valueForKey:key];
-            if (value) {
+            if ([value length] > 0) {
                 customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
                                            [NSString stringWithFormat:@"&%@=%@",
                                             key,

@@ -97,7 +97,6 @@
     self = [self initWithFrame:frame];
     
     if (self != nil) {
-        NSAssert([placementId intValue] > 0, @"Placement ID must be a number greater than 0.");
         self.placementId = placementId;
     }
     
@@ -108,7 +107,7 @@
     self = [self initWithFrame:frame placementId:placementId];
     
     if (self != nil) {
-        __adSize = size;
+        self.adSize = size;
     }
     
     return self;
