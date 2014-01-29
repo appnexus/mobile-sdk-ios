@@ -65,3 +65,4 @@ BOOL isFirstLaunch(void);
 NSString *ANUdidParameter(void);
 NSString *ANErrorString(NSString *key);
 NSBundle *ANResourcesBundle();
+NSString *convertToNSString(id value);

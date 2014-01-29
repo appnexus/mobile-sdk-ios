@@ -116,3 +116,12 @@ NSBundle *ANResourcesBundle() {
     NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
     return resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle mainBundle];
 }
+
+NSString *convertToNSString(id value) {
+    if ([value isKindOfClass:[NSString class]]) return value;
+    if ([value respondsToSelector:@selector(stringValue)]) {
+        return [value stringValue];
+    }
+    ANLogWarn(@"Failed to convert to NSString");
+    return nil;
+}
