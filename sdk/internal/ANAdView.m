@@ -206,7 +206,7 @@ ANBrowserViewControllerDelegate>
     }
     
     // expand to full screen
-    if ((size.width == -1) || (size.height == -1)) {
+    if ((size.width == -1) && (size.height == -1)) {
         [contentView removeFromSuperview];
         if (!self.mraidController) {
             self.mraidController = [ANMRAIDViewController new];
@@ -230,6 +230,10 @@ ANBrowserViewControllerDelegate>
             [self adDidPresent];
         }];
     } else {
+        CGRect orientedScreenBounds = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:[UIScreen mainScreen].bounds];
+        if (size.width == -1) size.width = orientedScreenBounds.size.width;
+        if (size.height == -1) size.height = orientedScreenBounds.size.height;
+        
         // non-fullscreen expand
         CGRect expandedContentFrame = self.defaultFrame;
         expandedContentFrame.size = size;
