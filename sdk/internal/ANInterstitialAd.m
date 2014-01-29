@@ -70,6 +70,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @property (nonatomic, readwrite, strong) NSMutableSet *allowedAdSizes;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 @property (nonatomic, readwrite, assign) CGRect frame;
+@property (nonatomic, readwrite, assign) UIModalPresentationStyle rootViewControllerDesiredPresentationStyle;
 
 @end
 
@@ -88,6 +89,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     __controller.delegate = self;
     __precachedAdObjects = [NSMutableArray array];
     __allowedAdSizes = [self getDefaultAllowedAdSizes];
+    _rootViewControllerDesiredPresentationStyle = [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle;
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
 }
 
@@ -103,6 +105,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (void)dealloc {
     self.controller.delegate = nil;
+    [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = self.rootViewControllerDesiredPresentationStyle;
 }
 
 - (void)loadAd {
