@@ -165,7 +165,6 @@
 }
 
 - (void)saveAdWidth:(NSInteger)width andAdHeight:(NSInteger)height {
-    ANLogDebug(@"%@ setAdWidth:andAdHeight | Ad Width And Height Changed To: %ld x %ld", CLASS_NAME, (long)width, (long)height);
     self.persistentSettings.bannerWidth = width;
     self.persistentSettings.bannerHeight = height;
     self.sizeTextField.text = [[self.sizeDelegate class] bannerSizeWithWidth:self.persistentSettings.bannerWidth
@@ -173,44 +172,35 @@
 }
 
 - (void)saveRefreshRate:(NSInteger)refreshRate {
-    ANLogDebug(@"%@ setRefreshRate | Refresh Rate Changed To: %ld seconds", CLASS_NAME, (long)refreshRate);
     self.persistentSettings.refreshRate = refreshRate;
     self.refreshRateTextField.text = [[self.refreshRateDelegate class] refreshRateStringFromInteger:self.persistentSettings.refreshRate];
 }
 
 - (void)saveMemberID:(NSInteger)memberID {
-    ANLogDebug(@"%@ setMemberID | Member ID Changed To: %ld", CLASS_NAME, (long)memberID);
     self.persistentSettings.memberID = memberID;
 }
 
 - (void)savePlacementID:(NSInteger)placementID {
-    ANLogDebug(@"%@ setPlacementID | Placement ID Changed To: %ld", CLASS_NAME, (long)placementID);
     self.persistentSettings.placementID = placementID;
 }
 
 - (void)saveDongle:(NSString *)dongle {
-    ANLogDebug(@"%@ setDongle | Dongle Changed To: %@", CLASS_NAME, dongle);
     self.persistentSettings.dongle = dongle;
 }
 
 - (void)saveAdType:(NSInteger)adType {
-    ANLogDebug(@"%@ saveAdType | Dongle Changed To: %ld", CLASS_NAME, (long)adType);
     self.persistentSettings.adType = adType;
 }
 
 - (void)saveBrowser:(NSInteger)browserType {
-    ANLogDebug(@"%@ saveBrowser | Dongle Changed To: %ld", CLASS_NAME, (long)browserType);
     self.persistentSettings.browserType = browserType;
 }
 
 - (void)saveAllowPSA:(BOOL)allowPSA {
-    ANLogDebug(@"%@ saveAllowPSA | Allow PSA Changed To: %ld", CLASS_NAME, (long)allowPSA);
     self.persistentSettings.allowPSA = allowPSA;
 }
 
 - (BOOL)saveBackgroundColor:(NSString *)backgroundColor {
-    ANLogDebug(@"%@ saveBackgroundColor | Attempt Background Color Change To: %@", CLASS_NAME, backgroundColor);
-
     if ([AdSettings backgroundColorIsValid:backgroundColor]) {
         self.persistentSettings.backgroundColor = backgroundColor; // Save as is, regardless of case
         // change color of UIView
@@ -232,43 +222,35 @@
 
 - (IBAction)memberIDTap:(UITapGestureRecognizer *)sender {
     if ([self.memberIDTextField isEditing]) {
-        ANLogDebug(@"%@ memberIDTap | resign responder", CLASS_NAME);
         [self.memberIDTextField resignFirstResponder];
     } else {
         [self saveTextFieldSettings];
-        ANLogDebug(@"%@ memberIDTap | become responder", CLASS_NAME);
         [self.memberIDTextField becomeFirstResponder];
     }
 }
 
 - (IBAction)placementIDTap:(UITapGestureRecognizer *)sender {
     if ([self.placementIDTextField isEditing]) {
-        ANLogDebug(@"%@ placementIDTap | resign responder", CLASS_NAME);
         [self.placementIDTextField resignFirstResponder];
     } else {
         [self saveTextFieldSettings];
-        ANLogDebug(@"%@ placementIDTap | become responder", CLASS_NAME);
         [self.placementIDTextField becomeFirstResponder];
     }
 }
 
 - (IBAction)dongleTap:(UITapGestureRecognizer *)sender {
     if ([self.dongleTextField isEditing]) {
-        ANLogDebug(@"%@ dongleTap | resign responder", CLASS_NAME);
         [self.dongleTextField resignFirstResponder];
     } else {
         [self saveTextFieldSettings];
-        ANLogDebug(@"%@ dongleTap | become responder", CLASS_NAME);
         [self.dongleTextField becomeFirstResponder];
     }
 }
 - (IBAction)backgroundColorTap:(UITapGestureRecognizer *)sender {
     if ([self.backgroundColorTextField isEditing]) {
-        ANLogDebug(@"%@ backgroundColorTap | resign responder", CLASS_NAME);
         [self.backgroundColorTextField resignFirstResponder];
     } else {
         [self saveTextFieldSettings];
-        ANLogDebug(@"%@ backgroundColorTap | become responder", CLASS_NAME);
         [self.backgroundColorTextField becomeFirstResponder];
     }
 }
@@ -288,27 +270,22 @@
 }
 
 - (IBAction)placementEditDidEnd:(UITextField *)sender {
-    ANLogDebug(@"%@ placementEditDidEnd | setting placement ID", CLASS_NAME);
     [self savePlacementID:[self.placementIDTextField.text intValue]];
 }
 
 - (IBAction)backgroundColorEditDidEnd:(UITextField *)sender {
-    ANLogDebug(@"%@ backgroundColorDidEnd | setting background color", CLASS_NAME);
     [self handleBackgroundColorChange];
 }
 
 - (IBAction)memberIDEditDidEnd:(UITextField *)sender {
-    ANLogDebug(@"%@ memberIDEditDidEnd | setting member ID", CLASS_NAME);
     [self saveMemberID:[self.memberIDTextField.text intValue]];
 }
 
 - (IBAction)dongleEditDidEnd:(UITextField *)sender {
-    ANLogDebug(@"%@ dongleEditDidEnd | setting dongle", CLASS_NAME);
     [self saveDongle:self.dongleTextField.text];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView { // on scroll, save text field settings and resign any first responder
-    ANLogDebug(@"%@ scrollViewWillBeginDragging | will drag", CLASS_NAME);
     [scrollView endEditing:YES];
 }
 
@@ -348,7 +325,6 @@
 // Segmented Controls
 
 - (IBAction)setAdTypeSegmentedControl:(UISegmentedControl *)sender {
-    ANLogDebug(@"%@ setAdType | Ad Type Changed to Setting: %ld", CLASS_NAME, (long)sender.selectedSegmentIndex);
     if (sender.selectedSegmentIndex) {
         [self saveAdType:AD_TYPE_INTERSTITIAL];
         [self toggleAdType:NO];
@@ -359,12 +335,10 @@
 }
 
 - (IBAction)setAllowPSASegmentedControl:(UISegmentedControl *)sender {
-    ANLogDebug(@"%@ setAllowPSA | Allow PSA Changed to Setting: %ld", CLASS_NAME, (long)sender.selectedSegmentIndex);
     sender.selectedSegmentIndex ? [self saveAllowPSA:NO] : [self saveAllowPSA:YES];
 }
 
 - (IBAction)setBrowserSegmentedControl:(UISegmentedControl *)sender {
-    ANLogDebug(@"%@ setBrowser | Browser Changed to Setting: %ld", CLASS_NAME, (long)sender.selectedSegmentIndex);
     if (sender.selectedSegmentIndex) {
         [self saveBrowser:BROWSER_TYPE_DEVICE];
     } else {

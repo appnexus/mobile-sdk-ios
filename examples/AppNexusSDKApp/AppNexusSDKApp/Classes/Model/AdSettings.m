@@ -128,31 +128,26 @@
 }
 
 - (void)setAdType:(AdType)adType {
-    ANLogDebug(@"Setting Ad Type To Value: %d", adType);
     _adType = adType;
     [self synchronize];
 }
 
 - (void)setBannerWidth:(int)adWidth {
-    ANLogDebug(@"Setting Ad Width To Value: %d", adWidth);
     _bannerWidth = adWidth;
     [self synchronize];
 }
 
 - (void)setBannerHeight:(int)adHeight {
-    ANLogDebug(@"Setting Ad Height To Value: %d", adHeight);
     _bannerHeight = adHeight;
     [self synchronize];
 }
 
 - (void)setAllowPSA:(BOOL)allowPSA {
-    ANLogDebug(@"Setting Allow PSA To Value: %d", allowPSA);
     _allowPSA = allowPSA;
     [self synchronize];
 }
 
 - (void)setBrowserType:(BrowserType)browserType {
-    ANLogDebug(@"Setting Browser Type To Value: %d", browserType);
     _browserType = browserType;
     [self synchronize];
 }
@@ -190,10 +185,6 @@
     NSScanner *scanner = [NSScanner scannerWithString:backgroundColor];
     unsigned int scannedValue;
     BOOL isValid = [scanner scanHexInt:&scannedValue];
-    
-    ANLogDebug(@"%@ backgroundColorIsValid | Is valid hex value: %d", CLASS_NAME, isValid);
-    ANLogDebug(@"%@ backgroundColorIsValid | Hex value: %d", CLASS_NAME, scannedValue);
-    
     return isValid;
 }
 

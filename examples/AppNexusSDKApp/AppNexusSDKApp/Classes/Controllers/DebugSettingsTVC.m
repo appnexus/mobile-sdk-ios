@@ -38,7 +38,6 @@
 }
 
 - (void)reloadRequest {
-    ANLogDebug(@"%@ %@",  NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANRequest *request = [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
     if (request) {
         self.requestURL.attributedText = [[NSAttributedString alloc] initWithString:request.text
@@ -57,8 +56,6 @@
                                                                      error:&jsonError];
                 responseText = [[NSString alloc] initWithData:jsonData
                                                      encoding:NSUTF8StringEncoding];
-                
-                ANLogDebug(@"%@ %@ | JSON id object: \n%@",  NSStringFromClass([self class]), NSStringFromSelector(_cmd), responseText);
             }
         } else {
             responseText = @"";
@@ -103,7 +100,6 @@
 }
 
 - (void)addAsRequestNotificationObserver {
-    ANLogDebug(@"%@ %@",  NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestChangedNotification:)
                                                  name:REQUEST_NOTIFICATION
@@ -111,7 +107,6 @@
 }
 
 - (void)removeAsRequestNotificationObserver {
-    ANLogDebug(@"%@ %@",  NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:REQUEST_NOTIFICATION
                                                   object:nil];

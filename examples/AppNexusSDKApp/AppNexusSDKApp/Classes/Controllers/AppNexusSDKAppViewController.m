@@ -47,8 +47,6 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
 
 // Tab Bar Item Child View Controllers
 @property (strong, nonatomic) UIViewController *controllerInView;
-//@property (strong, nonatomic) UINavigationController *settings;
-//@property (strong, nonatomic) UINavigationController *preview;
 @property (strong, nonatomic) AdSettingsViewController *settings;
 @property (strong, nonatomic) AdPreviewTVC *preview;
 @property (strong, nonatomic) UINavigationController *debug;
@@ -209,9 +207,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    if (self.controllerInView == self.settings) {
-        self.settings.view.frame = CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height);
-    }
+    self.controllerInView.view.frame = CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height);
 }
 
 /*
@@ -255,8 +251,6 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
                                onDate:[NSDate date]
                inManagedObjectContext:self.managedObjectContext];
         
-        ANRequest *request = [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
-        ANLogDebug(@"%@ %@ | Stored request URL: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), request.text);
         // broadcast that request has been uploaded
         [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_NOTIFICATION object:self.managedObjectContext];
     }];
@@ -271,8 +265,6 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
                                 onDate:[NSDate date]
                 inManagedObjectContext:self.managedObjectContext];
         
-        ANRequest *request = [ANRequest lastRequestMadeInManagedObjectContext:self.managedObjectContext];
-        ANLogDebug(@"%@ %@ | Stored response from server: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), request.response.text);
         // broadcast that the response has been uploaded
         [[NSNotificationCenter defaultCenter] postNotificationName:REQUEST_NOTIFICATION object:self.managedObjectContext];
     }];
@@ -280,11 +272,9 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
 
 // Opens a managed document for logging
 - (void)useLogDocument {
-    ANLogDebug(@"%@ %@ | Called", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:DOCUMENT_NAME];
     self.document = [[ANDocument alloc] initWithFileURL:url];
-    ANLogDebug(@"%@ %@ | Document initialized: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.document);
     
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                              [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
@@ -296,9 +286,8 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
         [self.document saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             if (success) {
                 self.managedObjectContext = self.document.managedObjectContext;
-                ANLogDebug(@"%@ %@ | Created managed object context: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.managedObjectContext);
             } else {
-                ANLogDebug(@"%@ %@ | Error - could not create document", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                ANLogDebug(@"%@ %@ | Error - could not create document for logging", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             }
             [self loadInitialVC];
         }];
@@ -307,18 +296,16 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
         [self.document openWithCompletionHandler:^(BOOL success) {
             if (success) {
                 self.managedObjectContext = self.document.managedObjectContext;
-                ANLogDebug(@"%@ %@ | Opened managed object context: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.managedObjectContext);
             } else {
-                ANLogDebug(@"%@ %@ | Error - could not open document", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                ANLogDebug(@"%@ %@ | Error - could not open logs", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             }
             [self loadInitialVC];
         }];
     } else if (self.document.documentState == UIDocumentStateNormal) {
         self.managedObjectContext = self.document.managedObjectContext;
-        ANLogDebug(@"%@ %@ | Loaded managed object context: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.managedObjectContext);
         [self loadInitialVC];
     } else {
-        ANLogDebug(@"%@ %@ | Error - unexpected document state: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.document.documentState);
+        ANLogDebug(@"%@ %@ | Error - unexpected log document state: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.document.documentState);
         [self loadInitialVC];
     }
 }

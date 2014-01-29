@@ -155,9 +155,6 @@
                                       blue:blue/255.0
                                      alpha:alpha/255.0];
     
-    ANLogDebug(@"%@ %@ | interstitial background color: Red %d, Green %d, Blue %d, Alpha %d",
-          NSStringFromClass([self class]), NSStringFromSelector(_cmd), red, green, blue, alpha);
-    
     return color;
 }
 
@@ -186,10 +183,7 @@
         // ScrollView height should be the banner height or the tableView height, whichever is greater. This will also correspond to the cell height (which is returned).
         CGFloat svHeight = (bannerSize.height > tableSize.height) ? bannerSize.height : tableSize.height;
         
-        ANLogDebug(@"%@ %@ | adjusting scroll view", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         self.scrollView.contentSize = CGSizeMake(svWidth, svHeight); // Set content size to cell dimensions
-        
-        ANLogDebug(@"%@ %@ | adjusting banner ad view frame", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         
         CGFloat centerX = (tableSize.width - bannerSize.width) / 2.0;
         CGFloat centerY = (tableSize.height - bannerSize.height) / 2.0;
@@ -269,7 +263,6 @@
     Explictly deallocating ad views on controller deallocation to avoid a memory leak.
  */
 - (void)dealloc {
-    ANLogDebug(@"%@ %@ | deallocating ad views", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self clearBannerAdView];
     [self clearInterstitialAd];
 }

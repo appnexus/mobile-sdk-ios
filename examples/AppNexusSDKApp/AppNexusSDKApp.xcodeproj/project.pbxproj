@@ -357,20 +357,20 @@
 		8A9EFB0717CFD49200FCF79F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ECF9AA8E1858C8A10079BCD0 /* EventKit.framework */,
-				ECB1204E18218A1E00CB4BE8 /* iAd.framework */,
-				EC7DC2661817407A00B813D1 /* QuartzCore.framework */,
-				EC7DC2641817406200B813D1 /* AVFoundation.framework */,
-				EC7DC2621817404600B813D1 /* MediaPlayer.framework */,
-				EC77B0A618170D8E002123CB /* StoreKit.framework */,
-				8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */,
 				8AEBF36E17D03394003C7214 /* AdSupport.framework */,
+				8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */,
+				EC7DC2641817406200B813D1 /* AVFoundation.framework */,
 				8AA1623D17DC41CF00A25A32 /* CoreData.framework */,
 				8A9EFB0C17CFD49200FCF79F /* CoreGraphics.framework */,
 				8AEBF36C17D0338D003C7214 /* CoreLocation.framework */,
 				8AEBF36A17D03382003C7214 /* CoreTelephony.framework */,
+				ECF9AA8E1858C8A10079BCD0 /* EventKit.framework */,
 				8A9EFB0A17CFD49200FCF79F /* Foundation.framework */,
+				ECB1204E18218A1E00CB4BE8 /* iAd.framework */,
+				EC7DC2621817404600B813D1 /* MediaPlayer.framework */,
 				8AA1623517DBF99600A25A32 /* MessageUI.framework */,
+				EC7DC2661817407A00B813D1 /* QuartzCore.framework */,
+				EC77B0A618170D8E002123CB /* StoreKit.framework */,
 				8AEBF37017D0339B003C7214 /* SystemConfiguration.framework */,
 				8A9EFB0817CFD49200FCF79F /* UIKit.framework */,
 			);
