@@ -248,14 +248,13 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
         return kAppNexusSDKAppLogLevelTrace;
     } else if (level <= ANLogLevelDebug) {
         return kAppNexusSDKAppLogLevelDebug;
-    } else if (level <= ANLogLevelWarn) {
-        return kAppNexusSDKAppLogLevelWarn;
     } else if (level <= ANLogLevelInfo) {
         return kAppNexusSDKAppLogLevelInfo;
+    } else if (level <= ANLogLevelWarn) {
+        return kAppNexusSDKAppLogLevelWarn;
     } else if (level <= ANLogLevelError) {
         return kAppNexusSDKAppLogLevelError;
     }
-    
     return @"";
 }
 
