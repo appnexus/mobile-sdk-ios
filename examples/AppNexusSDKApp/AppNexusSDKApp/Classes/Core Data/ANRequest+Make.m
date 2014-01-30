@@ -39,7 +39,7 @@
     NSArray *matches = [context executeFetchRequest:request error:&error];
 
     if (!matches) {
-        ANLogDebug(@"%@ %@ | Error Pulling From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        ANLogError(@"%@ %@ | Error Pulling From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         return nil;
     } else {
         return [matches lastObject];
@@ -54,7 +54,7 @@
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
     if (!matches) {
-        ANLogDebug(@"%@ %@ | Error Pulling From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        ANLogError(@"%@ %@ | Error Pulling From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     } else {
         if ([matches count] > REQUEST_STORE_LIMIT) {
             for (int i = 0; i < [matches count] - REQUEST_STORE_LIMIT; i++) {

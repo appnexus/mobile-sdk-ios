@@ -18,12 +18,12 @@
 @implementation ANDocument
 
 - (void)handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted {
-    ANLogDebug(@"%@ %@ | Received Error: %@, %d", NSStringFromClass([self class]),
+    ANLogError(@"%@ %@ | Received Error: %@, %d", NSStringFromClass([self class]),
                NSStringFromSelector(_cmd), [error localizedDescription], userInteractionPermitted);
 }
 
 - (void)finishedHandlingError:(NSError *)error recovered:(BOOL)recovered {
-    ANLogDebug(@"%@ %@ | Received Error: %@, %d", NSStringFromClass([self class]),
+    ANLogError(@"%@ %@ | Received Error: %@, %d", NSStringFromClass([self class]),
                NSStringFromSelector(_cmd), [error localizedDescription], recovered);
 }
 
