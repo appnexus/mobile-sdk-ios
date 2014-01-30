@@ -88,27 +88,27 @@
 }
 
 - (UIColor *)kAppNexusSDKAppLogLevelErrorColor {
-    if (!_kAppNexusSDKAppLogLevelErrorColor) _kAppNexusSDKAppLogLevelErrorColor = [UIColor redColor];
+    if (!_kAppNexusSDKAppLogLevelErrorColor) _kAppNexusSDKAppLogLevelErrorColor = [UIColor redColor]; // RGB(255,0,0)
     return _kAppNexusSDKAppLogLevelErrorColor;
 }
 
 - (UIColor *)kAppNexusSDKAppLogLevelWarnColor {
-    if (!_kAppNexusSDKAppLogLevelWarnColor) _kAppNexusSDKAppLogLevelWarnColor = [UIColor colorWithRed:1.0 green:0.659 blue:0.141 alpha:1]; // #0x(FF)FFA824
+    if (!_kAppNexusSDKAppLogLevelWarnColor) _kAppNexusSDKAppLogLevelWarnColor = [UIColor colorWithRed:1.0f green:0.5f blue:0.0f alpha:1]; // RGB(255,127,0)
     return _kAppNexusSDKAppLogLevelWarnColor;
 }
 
 - (UIColor *)kAppNexusSDKAppLogLevelDebugColor {
-    if (!_kAppNexusSDKAppLogLevelDebugColor) _kAppNexusSDKAppLogLevelDebugColor = [UIColor blueColor];
+    if (!_kAppNexusSDKAppLogLevelDebugColor) _kAppNexusSDKAppLogLevelDebugColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.5f alpha:1]; // RGB(0,0,127)
     return _kAppNexusSDKAppLogLevelDebugColor;
 }
 
 - (UIColor *)kAppNexusSDKAppLogLevelInfoColor {
-    if (!_kAppNexusSDKAppLogLevelInfoColor) _kAppNexusSDKAppLogLevelInfoColor = [UIColor greenColor];
+    if (!_kAppNexusSDKAppLogLevelInfoColor) _kAppNexusSDKAppLogLevelInfoColor = [UIColor colorWithRed:0.0f green:0.5f blue:0.0f alpha:1]; // RGB(0,127,0)
     return _kAppNexusSDKAppLogLevelInfoColor;
 }
 
 - (UIColor *)kAppNexusSDKAppLogLevelTraceColor {
-    if (!_kAppNexusSDKAppLogLevelTraceColor) _kAppNexusSDKAppLogLevelTraceColor = [UIColor blackColor];
+    if (!_kAppNexusSDKAppLogLevelTraceColor) _kAppNexusSDKAppLogLevelTraceColor = [UIColor blackColor]; //RGB(0,0,0)
     return _kAppNexusSDKAppLogLevelTraceColor;
 }
 
