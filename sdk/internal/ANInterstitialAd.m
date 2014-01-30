@@ -142,8 +142,11 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                 self.controller.backgroundColor = self.backgroundColor;
             }
             
+            UIModalPresentationStyle rootViewControllerDesiredPresentationStyle = [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle;
             [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext; // Proper support for background transparency
-			[controller presentViewController:self.controller animated:YES completion:nil];
+			[controller presentViewController:self.controller animated:YES completion:^{
+                [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = rootViewControllerDesiredPresentationStyle;
+            }];
 		}
 		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
 			[adToShow presentFromViewController:controller];
