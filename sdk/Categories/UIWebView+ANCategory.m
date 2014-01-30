@@ -17,8 +17,6 @@
 
 #import "ANLogging.h"
 
-#import <AVFoundation/AVFoundation.h>
-
 NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margin='0';document.body.style.padding = '0'";
 
 @implementation UIWebView (ANCategory)
@@ -29,24 +27,11 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
 }
 
 - (void)setMediaProperties {
-    static BOOL audioCategoryHasBeenSet = NO;
-
     if ([self respondsToSelector:@selector(setAllowsInlineMediaPlayback:)]) {
         [self setAllowsInlineMediaPlayback:YES];
     }
     if ([self respondsToSelector:@selector(setMediaPlaybackRequiresUserAction:)]) {
         [self setMediaPlaybackRequiresUserAction:NO];
-    }
-
-    if (!audioCategoryHasBeenSet) {
-        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-        NSError *error = nil;
-        if ([audioSession setCategory:AVAudioSessionCategoryPlayback
-                                error:&error]) {
-            audioCategoryHasBeenSet = YES;
-        } else {
-            ANLogDebug(@"Failed to set audio session category: %@ ", [error localizedDescription]);
-        }
     }
 }
 
