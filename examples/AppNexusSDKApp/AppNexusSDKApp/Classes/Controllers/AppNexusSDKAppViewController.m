@@ -34,12 +34,6 @@
 #define DOCUMENT_NAME @"Log Document"
 #define REQUEST_NOTIFICATION @"AppNexusSDKAppViewControllerUpdatedRequest"
 
-NSString *const kAppNexusSDKAppLogLevelTrace = @"kAppNexusSDKAppLogLevelTrace";
-NSString *const kAppNexusSDKAppLogLevelDebug = @"kAppNexusSDKAppLogLevelDebug";
-NSString *const kAppNexusSDKAppLogLevelWarn = @"kAppNexusSDKAppLogLevelWarn";
-NSString *const kAppNexusSDKAppLogLevelInfo = @"kAppNexusSDKAppLogLevelInfo";
-NSString *const kAppNexusSDKAppLogLevelError = @"kAppNexusSDKAppLogLevelError";
-
 @interface AppNexusSDKAppViewController () <UITabBarDelegate,
 LoadPreviewVCDelegate, CLLocationManagerDelegate>
 
@@ -240,9 +234,9 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
     NSManagedObjectContext *moc = self.managedObjectContext;
     [moc performBlockAndWait:^() {
         [ANLog storeLogOutput:[message description]
-                     withName:nil
+                     withName:[AppNexusSDKAppViewController logClassFromLogLevel:level]
                        onDate:[NSDate date]
-         withOriginatingClass:[AppNexusSDKAppViewController logClassFromLogLevel:level]
+         withOriginatingClass:nil
                  fromAppNexus:YES
                 withProcessID:[[NSProcessInfo processInfo] processIdentifier]
        inManagedObjectContext:self.managedObjectContext];

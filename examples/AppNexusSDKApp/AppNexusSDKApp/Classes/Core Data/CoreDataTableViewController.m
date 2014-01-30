@@ -8,6 +8,8 @@
 #import "CoreDataTableViewController.h"
 #import "ANLogging.h"
 
+NSString *const kAppNexusSDKAppLogSectionPrefix = @"Process ID: ";
+
 @interface CoreDataTableViewController()
 @property (nonatomic) BOOL beganUpdates;
 @end
@@ -78,17 +80,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+	return [NSString stringWithFormat:@"%@%@", kAppNexusSDKAppLogSectionPrefix, [[[self.fetchedResultsController sections] objectAtIndex:section] name]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
 	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
-}
-
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
-    return [self.fetchedResultsController sectionIndexTitles];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

@@ -15,10 +15,16 @@
 
 #import "ANLog.h"
 
+extern NSString *const kAppNexusSDKAppLogLevelTrace;
+extern NSString *const kAppNexusSDKAppLogLevelDebug;
+extern NSString *const kAppNexusSDKAppLogLevelWarn;
+extern NSString *const kAppNexusSDKAppLogLevelInfo;
+extern NSString *const kAppNexusSDKAppLogLevelError;
+
 @interface ANLog (Make)
 
 + (void)storeLogOutput:(NSString *)output
-              withName:(NSString *)name
+              withName:(NSString *)logLevelName
                 onDate:(NSDate *)date
   withOriginatingClass:(NSString *)originatingClass
           fromAppNexus:(BOOL)isAppNexus

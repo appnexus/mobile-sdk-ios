@@ -18,12 +18,18 @@
 #define LOG_LIMIT 2000
 #define LOG_NUM_TO_DEL 200
 
+NSString *const kAppNexusSDKAppLogLevelTrace = @"kAppNexusSDKAppLogLevelTrace";
+NSString *const kAppNexusSDKAppLogLevelDebug = @"kAppNexusSDKAppLogLevelDebug";
+NSString *const kAppNexusSDKAppLogLevelWarn = @"kAppNexusSDKAppLogLevelWarn";
+NSString *const kAppNexusSDKAppLogLevelInfo = @"kAppNexusSDKAppLogLevelInfo";
+NSString *const kAppNexusSDKAppLogLevelError = @"kAppNexusSDKAppLogLevelError";
+
 @implementation ANLog (Make)
 
 static int logCount = LOG_LIMIT;
 
 + (void)storeLogOutput:(NSString *)output
-              withName:(NSString *)name
+              withName:(NSString *)logLevelName
                 onDate:(NSDate *)date
   withOriginatingClass:(NSString *)originatingClass
           fromAppNexus:(BOOL)isAppNexus
@@ -36,10 +42,10 @@ inManagedObjectContext:(NSManagedObjectContext *)context {
         log.originatingClass = originatingClass;
         log.isAppNexus = [NSNumber numberWithBool:isAppNexus];
         log.output = output;
-        log.name = name;
+        log.name = logLevelName;
         log.processID = [NSNumber numberWithInteger:processID];
         log.text = [ANLog generateTextWithLogOutput:output
-                                           withName:name
+                                           withName:logLevelName
                                              onDate:date
                                withOriginatingClass:originatingClass
                                        fromAppNexus:isAppNexus
@@ -51,17 +57,21 @@ inManagedObjectContext:(NSManagedObjectContext *)context {
 }
 
 + (NSString *)generateTextWithLogOutput:(NSString *)output
-                               withName:(NSString *)name
+                               withName:(NSString *)logLevelName
                                  onDate:(NSDate *)date
                 withOriginatingClass:(NSString *)originatingClass
                         fromAppNexus:(BOOL)isAppNexus
                         withProcessID:(NSInteger)processID {
-    NSString *d = date ? [NSString stringWithFormat:@"%@\n", date] : @"";
-    NSString *n = name || [name length] ? [NSString stringWithFormat:@"%@\n", name] : @"";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    NSString *d = date ? [NSString stringWithFormat:@"%@ UTC", [dateFormatter stringFromDate:date]] : @"";
+    NSString *pid = processID ? [NSString stringWithFormat:@"%@[%d]", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"], processID] : @"";
+    NSString *dpid = [NSString stringWithFormat:@"%@\n%@\n", d, pid];
     NSString *cn = originatingClass || [originatingClass length] ? [NSString stringWithFormat:@"%@\n", originatingClass] : @"";
-    NSString *pid = processID ? [NSString stringWithFormat:@"PID: %d\n", processID] : @"";
     NSString *o = output || [output length] ? output : @"";
-    NSString *text = [NSString stringWithFormat:@"%@%@%@%@%@",d,n,cn,pid,o];
+    NSString *text = [NSString stringWithFormat:@"%@%@%@",dpid,cn,o];
     return text;
 }
 
