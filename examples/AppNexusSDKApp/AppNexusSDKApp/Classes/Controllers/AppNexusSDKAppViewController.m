@@ -34,6 +34,12 @@
 #define DOCUMENT_NAME @"Log Document"
 #define REQUEST_NOTIFICATION @"AppNexusSDKAppViewControllerUpdatedRequest"
 
+NSString *const kAppNexusSDKAppLogLevelTrace = @"kAppNexusSDKAppLogLevelTrace";
+NSString *const kAppNexusSDKAppLogLevelDebug = @"kAppNexusSDKAppLogLevelDebug";
+NSString *const kAppNexusSDKAppLogLevelWarn = @"kAppNexusSDKAppLogLevelWarn";
+NSString *const kAppNexusSDKAppLogLevelInfo = @"kAppNexusSDKAppLogLevelInfo";
+NSString *const kAppNexusSDKAppLogLevelError = @"kAppNexusSDKAppLogLevelError";
+
 @interface AppNexusSDKAppViewController () <UITabBarDelegate,
 LoadPreviewVCDelegate, CLLocationManagerDelegate>
 
@@ -228,18 +234,35 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
 
 // Logs ANLog Notifications
 - (void)ANLoggingNotifications:(NSNotification *)notification {
-    id output = [[notification userInfo] objectForKey:kANLogMessageKey];
+    NSString *message = [[notification userInfo] objectForKey:kANLogMessageKey];
+    NSInteger level = [[[notification userInfo] objectForKey:kANLogMessageLevelKey] integerValue];
     
     NSManagedObjectContext *moc = self.managedObjectContext;
     [moc performBlockAndWait:^() {
-        [ANLog storeLogOutput:[output description]
+        [ANLog storeLogOutput:[message description]
                      withName:nil
                        onDate:[NSDate date]
-         withOriginatingClass:nil
+         withOriginatingClass:[AppNexusSDKAppViewController logClassFromLogLevel:level]
                  fromAppNexus:YES
                 withProcessID:[[NSProcessInfo processInfo] processIdentifier]
        inManagedObjectContext:self.managedObjectContext];
     }];
+}
+
++ (NSString *)logClassFromLogLevel:(NSInteger)level {
+    if (level <= ANLogLevelTrace) {
+        return kAppNexusSDKAppLogLevelTrace;
+    } else if (level <= ANLogLevelDebug) {
+        return kAppNexusSDKAppLogLevelDebug;
+    } else if (level <= ANLogLevelWarn) {
+        return kAppNexusSDKAppLogLevelWarn;
+    } else if (level <= ANLogLevelInfo) {
+        return kAppNexusSDKAppLogLevelInfo;
+    } else if (level <= ANLogLevelError) {
+        return kAppNexusSDKAppLogLevelError;
+    }
+    
+    return @"";
 }
 
 // Logs kANAdFetcherAdRequestURLKey Notifications
@@ -287,7 +310,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
             if (success) {
                 self.managedObjectContext = self.document.managedObjectContext;
             } else {
-                ANLogDebug(@"%@ %@ | Error - could not create document for logging", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                ANLogError(@"%@ %@ | Error - could not create document for logging", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             }
             [self loadInitialVC];
         }];
@@ -297,7 +320,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
             if (success) {
                 self.managedObjectContext = self.document.managedObjectContext;
             } else {
-                ANLogDebug(@"%@ %@ | Error - could not open logs", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                ANLogError(@"%@ %@ | Error - could not open logs", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             }
             [self loadInitialVC];
         }];
@@ -305,7 +328,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
         self.managedObjectContext = self.document.managedObjectContext;
         [self loadInitialVC];
     } else {
-        ANLogDebug(@"%@ %@ | Error - unexpected log document state: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.document.documentState);
+        ANLogError(@"%@ %@ | Error - unexpected log document state: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.document.documentState);
         [self loadInitialVC];
     }
 }

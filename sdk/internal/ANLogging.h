@@ -21,13 +21,15 @@
 
 extern NSString *const kANLoggingNotification;
 extern NSString *const kANLogMessageKey;
+extern NSString *const kANLogMessageLevelKey;
 
 void _ANLogTrace(NSString *format, ...);
 void _ANLogDebug(NSString *format, ...);
 void _ANLogInfo(NSString *format, ...);
 void _ANLogWarn(NSString *format, ...);
 void _ANLogError(NSString *format, ...);
-void notifyListener(NSString *message);
+
+void notifyListener(NSString *message, NSInteger messgageLevel);
 
 #if AN_DEBUG_MODE
 
