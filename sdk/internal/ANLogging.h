@@ -29,7 +29,7 @@ void _ANLogInfo(NSString *format, ...);
 void _ANLogWarn(NSString *format, ...);
 void _ANLogError(NSString *format, ...);
 
-void notifyListener(NSString *message, NSInteger messgageLevel);
+void notifyListener(NSString *message, NSInteger messageLevel);
 
 #if AN_DEBUG_MODE
 
