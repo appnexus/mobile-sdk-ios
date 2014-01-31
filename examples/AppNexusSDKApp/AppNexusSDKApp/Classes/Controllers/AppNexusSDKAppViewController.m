@@ -35,7 +35,7 @@
 #define REQUEST_NOTIFICATION @"AppNexusSDKAppViewControllerUpdatedRequest"
 
 @interface AppNexusSDKAppViewController () <UITabBarDelegate,
-LoadPreviewVCDelegate, CLLocationManagerDelegate>
+LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
 // Parent View Controller Items
 @property (weak, nonatomic) IBOutlet UITabBar *mainTabBar;
@@ -59,6 +59,9 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
 // location
 @property (strong, nonatomic) CLLocation *lastLocation;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+
+@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *leftSwipeGesture;
+@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *rightSwipeGesture;
 @end
 
 @implementation AppNexusSDKAppViewController
@@ -88,6 +91,8 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
     [self anLogoSetup]; // Fix AN Logo constraints
     [self useLogDocument]; // Create/Open Logging Document
     [self locationSetup];
+    self.leftSwipeGesture.delegate = self;
+    self.rightSwipeGesture.delegate = self;
 }
 
 /*
@@ -337,6 +342,51 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate>
         self.preview.lastLocation = location;
         self.lastLocation = location;
     }
+}
+
+#define APPNEXUSSDKAPP_SETTINGS_TAB_INDEX 0
+#define APPNEXUSSDKAPP_PREVIEW_TAB_INDEX 1
+#define APPNEXUSSDKAPP_DEBUG_TAB_INDEX 2
+#define APPNEXUSSDKAPP_LOG_TAB_INDEX 3
+
+- (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender {
+    NSInteger vcIndex = [self indexOfCurrentChildViewController];
+    if (vcIndex == NSNotFound || vcIndex >= APPNEXUSSDKAPP_LOG_TAB_INDEX) return;
+    [self loadChildViewControllerAtIndex:vcIndex+1];
+}
+    
+- (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender {
+    NSInteger vcIndex = [self indexOfCurrentChildViewController];
+    if (vcIndex == NSNotFound || vcIndex == APPNEXUSSDKAPP_SETTINGS_TAB_INDEX) return;
+    [self loadChildViewControllerAtIndex:vcIndex-1];
+}
+
+- (NSInteger)indexOfCurrentChildViewController {
+    if (self.controllerInView == self.settings) return APPNEXUSSDKAPP_SETTINGS_TAB_INDEX;
+    else if (self.controllerInView == self.preview) return APPNEXUSSDKAPP_PREVIEW_TAB_INDEX;
+    else if (self.controllerInView == self.debug) return APPNEXUSSDKAPP_DEBUG_TAB_INDEX;
+    else if (self.controllerInView == self.log) return APPNEXUSSDKAPP_LOG_TAB_INDEX;
+    return -1;
+}
+
+- (void)loadChildViewControllerAtIndex:(NSInteger)index {
+    if (index == APPNEXUSSDKAPP_SETTINGS_TAB_INDEX) {
+        [self.mainTabBar setSelectedItem:self.settingsTabBarItem];
+        [self tabBar:self.mainTabBar didSelectItem:self.settingsTabBarItem];
+    } else if (index == APPNEXUSSDKAPP_PREVIEW_TAB_INDEX) {
+        [self.mainTabBar setSelectedItem:self.previewTabBarItem];
+        [self tabBar:self.mainTabBar didSelectItem:self.previewTabBarItem];
+    } else if (index == APPNEXUSSDKAPP_DEBUG_TAB_INDEX) {
+        [self.mainTabBar setSelectedItem:self.debugTabBarItem];
+        [self tabBar:self.mainTabBar didSelectItem:self.debugTabBarItem];
+    } else if (index == APPNEXUSSDKAPP_LOG_TAB_INDEX) {
+        [self.mainTabBar setSelectedItem:self.logTabBarItem];
+        [self tabBar:self.mainTabBar didSelectItem:self.logTabBarItem];
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return YES;
 }
 
 @end

@@ -53,8 +53,8 @@
                             <constraint firstItem="8gY-d5-tes" firstAttribute="bottom" secondItem="EIZ-vb-3W7" secondAttribute="bottom" id="yKh-tl-4BD"/>
                         </constraints>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="pQ3-hE-IvQ" appends="YES" id="FW1-lQ-Try"/>
-                            <outletCollection property="gestureRecognizers" destination="h94-PA-CMQ" appends="YES" id="WH5-nN-7a0"/>
+                            <outletCollection property="gestureRecognizers" destination="pqd-49-DOR" appends="YES" id="rgn-i9-RNk"/>
+                            <outletCollection property="gestureRecognizers" destination="Fj5-w2-9qi" appends="YES" id="aiw-mo-O38"/>
                         </connections>
                     </view>
                     <connections>
@@ -68,8 +68,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZA-6N-85G" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="pQ3-hE-IvQ"/>
-                <swipeGestureRecognizer direction="left" id="h94-PA-CMQ"/>
+                <swipeGestureRecognizer direction="right" numberOfTouchesRequired="2" id="pqd-49-DOR">
+                    <connections>
+                        <action selector="swipeRight:" destination="DzP-hw-7JB" id="9he-5H-uKT"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" numberOfTouchesRequired="2" id="Fj5-w2-9qi">
+                    <connections>
+                        <action selector="swipeLeft:" destination="DzP-hw-7JB" id="Ajl-gJ-rlG"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3413" y="2014"/>
         </scene>
@@ -929,6 +937,7 @@
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQB-fd-z0o">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" red="0.30196078431372547" green="0.30588235294117649" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                                                 </scrollView>
                                             </subviews>
                                             <constraints>
