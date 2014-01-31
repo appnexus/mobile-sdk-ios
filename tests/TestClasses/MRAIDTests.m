@@ -14,7 +14,6 @@
 #define MRAID_TESTS_TIMEOUT 10.0
 #define MRAID_TESTS_DEFAULT_DELAY 2.5
 
-
 @interface UIDevice (HackyWayToRotateTheDeviceForTestingPurposesBecauseAppleDeclaredSuchAMethodInTheirPrivateImplementationOfTheUIDeviceClass)
 -(void)setOrientation:(UIInterfaceOrientation)orientation animated:(BOOL)animated;
 -(void)setOrientation:(UIInterfaceOrientation)orientation;
