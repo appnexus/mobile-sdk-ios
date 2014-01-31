@@ -12,7 +12,7 @@
 #import "ANLogging.h"
 
 #define MRAID_TESTS_TIMEOUT 10.0
-#define MRAID_TESTS_DEFAULT_DELAY 2.0
+#define MRAID_TESTS_DEFAULT_DELAY 2.5
 
 
 @interface UIDevice (HackyWayToRotateTheDeviceForTestingPurposesBecauseAppleDeclaredSuchAMethodInTheirPrivateImplementationOfTheUIDeviceClass)
@@ -86,7 +86,6 @@
     [self close];
     STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
     
-    [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     [self clearTest];
 }
 
@@ -101,7 +100,6 @@
     [self close];
     STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
 
-    [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     [self clearTest];
 }
 
@@ -110,9 +108,12 @@
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self bannerAddSubview];
     [self expand];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation"); // Will pass after release for flipped orientation support
+    STAssertFalse([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Did not expect portrait right side up orientation");
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
     
-    [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
+    [self close];
+    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
+
     [self clearTest];
 }
 
@@ -121,6 +122,9 @@
 - (void)clearTest {
     self.webView = nil;
     [self bannerRemoveFromSuperview];
+    if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
+        [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
+    }
     [super clearTest];
 }
 
@@ -141,6 +145,11 @@
 
 - (void)bannerAddSubview {
     if (self.banner) {
+        if (UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation])) {
+            [self.banner setFrame:CGRectMake(0.0f, 20.0f, self.banner.adSize.width, self.banner.adSize.height)];
+        } else {
+            [self.banner setFrame:CGRectMake(0.0f, 20.0f, self.banner.adSize.width, self.banner.adSize.height)];
+        }
         [self.banner.rootViewController.view addSubview:self.banner];
         [self delay:MRAID_TESTS_DEFAULT_DELAY];
     }
