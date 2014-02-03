@@ -193,7 +193,7 @@
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
                        typeof(self) strongSelf = weakSelf;
-                       if (strongSelf.timeoutCanceled) return;
+                       if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(ANErrorString(@"mediation_timeout"));
                        [strongSelf didFailToReceiveAd:ANAdResponseInternalError];
                    });
