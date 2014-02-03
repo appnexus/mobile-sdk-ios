@@ -26,8 +26,8 @@
 @property (nonatomic, readwrite, assign) BOOL hasSucceeded;
 @property (nonatomic, readwrite, assign) BOOL hasFailed;
 @property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
-@property (nonatomic, readwrite, strong) ANAdFetcher *fetcher;
-@property (nonatomic, readwrite, strong) id<ANAdViewDelegate> adViewDelegate;
+@property (nonatomic, readwrite, weak) ANAdFetcher *fetcher;
+@property (nonatomic, readwrite, weak) id<ANAdViewDelegate> adViewDelegate;
 @property (nonatomic, readwrite, strong) NSString *resultCBString;
 @end
 
@@ -185,13 +185,15 @@
 - (void)startTimeout {
     if ([self checkIfHasResponded]) return;
     self.timeoutCanceled = NO;
+    __weak typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  kAppNexusMediationNetworkTimeoutInterval
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-                       if (self.timeoutCanceled) return;
+                       typeof(self) strongSelf = weakSelf;
+                       if (strongSelf.timeoutCanceled) return;
                        ANLogWarn(ANErrorString(@"mediation_timeout"));
-                       [self didFailToReceiveAd:ANAdResponseInternalError];
+                       [strongSelf didFailToReceiveAd:ANAdResponseInternalError];
                    });
     
 }
