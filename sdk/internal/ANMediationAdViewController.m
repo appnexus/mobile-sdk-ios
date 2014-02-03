@@ -50,13 +50,11 @@
     self.currentAdapter = nil;
     self.hasSucceeded = NO;
     self.hasFailed = YES;
+    self.timeoutCanceled = YES;
     self.fetcher = nil;
     self.adViewDelegate = nil;
+    self.resultCBString = nil;
     ANLogInfo(ANErrorString(@"mediation_finish"));
-}
-
-- (void)setResultCBString:(NSString *)resultCBString {
-    _resultCBString = resultCBString;
 }
 
 - (BOOL)requestAd:(CGSize)size
@@ -176,8 +174,8 @@
 
 - (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
     if ([self checkIfHasResponded]) return;
-    [self.fetcher fireResultCB:self.resultCBString reason:errorCode adObject:nil];
     [self clearAdapter];
+    [self.fetcher fireResultCB:self.resultCBString reason:errorCode adObject:nil];
 }
 
 #pragma mark Timeout handler
