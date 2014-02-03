@@ -243,7 +243,10 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     CGSize receivedSize = CGSizeMake([response.width floatValue], [response.height floatValue]);
     CGSize requestedSize = [self getAdSizeFromDelegate];
     
-    if (CGSizeLargerThanSize(receivedSize, requestedSize)) {
+    CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
+    CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
+    
+    if (!CGRectContainsRect(requestedRect, receivedRect)) {
         ANLogInfo([NSString stringWithFormat:ANErrorString(@"adsize_too_big"),
                    (int)receivedSize.width, (int)receivedSize.height,
                    (int)requestedSize.width, (int)requestedSize.height]);
