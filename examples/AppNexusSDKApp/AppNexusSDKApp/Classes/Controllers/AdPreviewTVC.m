@@ -24,6 +24,9 @@
 #define SV_BACKGROUND_COLOR_GREEN 78.0
 #define SV_BACKGROUND_COLOR_ALPHA 1.0 // On a scale from 0 -> 1
 
+NSString *const kAppNexusSDKAppErrorTitle = @"Failed To Load Ad";
+NSString *const kAppNexusSDKAppErrorCancel = @"OK";
+
 @interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
@@ -222,7 +225,13 @@
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
-    ANLogDebug(@"adFailed");
+    ANLogDebug(@"adFailed: %@", [error localizedDescription]);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAppNexusSDKAppErrorTitle
+                                                    message:[error localizedDescription]
+                                                   delegate:nil
+                                          cancelButtonTitle:kAppNexusSDKAppErrorCancel
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
