@@ -50,10 +50,10 @@
     self.currentAdapter = nil;
     self.hasSucceeded = NO;
     self.hasFailed = YES;
-    self.timeoutCanceled = YES;
     self.fetcher = nil;
     self.adViewDelegate = nil;
     self.resultCBString = nil;
+    [self cancelTimeout];
     ANLogInfo(ANErrorString(@"mediation_finish"));
 }
 
@@ -75,6 +75,7 @@
             requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
         // make sure the container is a banner view
         if ([adView isKindOfClass:[ANBannerAdView class]]) {
+            [self startTimeout];
             ANBannerAdView *banner = (ANBannerAdView *)adView;
 
             id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
@@ -90,6 +91,7 @@
                    requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
         // make sure the container is an interstitial view
         if ([adView isKindOfClass:[ANInterstitialAd class]]) {
+            [self startTimeout];
             id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
                                                            adUnitId:idString
@@ -99,7 +101,7 @@
     }
     
     ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"ANCustomAdapterBanner or ANCustomAdapterInterstitial"]);
-    self.hasFailed = YES;
+    [self clearAdapter];
     return NO;
 }
 
@@ -159,12 +161,10 @@
 #pragma mark helper methods
 
 - (BOOL)checkIfHasResponded {
-    // don't succeed or fail more than once per mediated ad
-    if (self.hasSucceeded || self.hasFailed) {
-        return YES;
-    }
+    // we received a callback from mediation adaptor, cancel timeout
     [self cancelTimeout];
-    return NO;
+    // don't succeed or fail more than once per mediated ad
+    return (self.hasSucceeded || self.hasFailed);
 }
 
 - (void)didReceiveAd:(id)adObject {
@@ -178,21 +178,22 @@
 
 - (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
     if ([self checkIfHasResponded]) return;
+    ANAdFetcher *fetcher = self.fetcher;
+    NSString *resultCBString = self.resultCBString;
     [self clearAdapter];
-    [self.fetcher fireResultCB:self.resultCBString reason:errorCode adObject:nil];
+    [fetcher fireResultCB:resultCBString reason:errorCode adObject:nil];
 }
 
 #pragma mark Timeout handler
 
 - (void)startTimeout {
-    if ([self checkIfHasResponded]) return;
-    self.timeoutCanceled = NO;
-    __weak typeof(self) weakSelf = self;
+    if (self.timeoutCanceled) return;
+    __weak ANMediationAdViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  kAppNexusMediationNetworkTimeoutInterval
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-                       typeof(self) strongSelf = weakSelf;
+                       ANMediationAdViewController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(ANErrorString(@"mediation_timeout"));
                        [strongSelf didFailToReceiveAd:ANAdResponseInternalError];

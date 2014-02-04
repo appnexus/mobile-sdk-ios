@@ -29,6 +29,7 @@
 #import "ANLogging.h"
 #import "ANDocument.h"
 
+#import <AVFoundation/AVFoundation.h>
 #import <CoreLocation/CoreLocation.h>
 
 #define DOCUMENT_NAME @"Log Document"
@@ -93,6 +94,10 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
     [self locationSetup];
     self.leftSwipeGesture.delegate = self;
     self.rightSwipeGesture.delegate = self;
+}
+
+- (void)audioSetup {
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 }
 
 /*
