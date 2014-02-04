@@ -177,9 +177,9 @@
 
 - (NSUInteger)supportedInterfaceOrientations {
     switch (self.orientation) {
-        case (UIInterfaceOrientationLandscapeLeft):
+        case UIInterfaceOrientationLandscapeLeft:
             return UIInterfaceOrientationMaskLandscapeLeft;
-        case (UIInterfaceOrientationLandscapeRight):
+        case UIInterfaceOrientationLandscapeRight:
             return UIInterfaceOrientationMaskLandscapeRight;
         case UIInterfaceOrientationPortraitUpsideDown:
             return UIInterfaceOrientationMaskPortraitUpsideDown;
