@@ -15,6 +15,14 @@
 
 #import "ANBaseTestCase.h"
 
+static NSString *const kANLoadedMultiple = @"ANLoadedMultiple";
+static NSString *const kANTimeout = @"ANTimeout";
+static NSString *const kANLoadThenFail = @"ANLoadThenFail";
+static NSString *const kANFailThenLoad = @"ANFailThenLoad";
+static NSString *const kANLoadAndHitOtherCallbacks = @"ANLoadAndHitOtherCallbacks";
+static NSString *const kANFailAndHitOtherCallbacks = @"ANFailAndHitOtherCallbacks";
+static NSString *const kANFailedMultiple = @"ANFailedMultiple";
+
 @interface MediationCallbacksTests : ANBaseTestCase
 @property (nonatomic, readwrite, assign) BOOL adLoadedMultiple;
 @property (nonatomic, readwrite, assign) BOOL adFailedMultiple;
@@ -63,7 +71,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test18LoadedMultiple
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadedMultiple"]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadedMultiple]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
     [self clearTest];
@@ -71,7 +79,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test19Timeout
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANTimeout"]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANTimeout]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + CALLBACKS_TIMEOUT];
     [self clearTest];
@@ -79,7 +87,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test20LoadThenFail
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadThenFail"]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadThenFail]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
     [self clearTest];
@@ -87,7 +95,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test21FailThenLoad
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailThenLoad"]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailThenLoad]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
     [self clearTest];
@@ -95,7 +103,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test22LoadAndHitOtherCallbacks
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANLoadAndHitOtherCallbacks"]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadAndHitOtherCallbacks]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
     [self checkCallbacks:YES];
@@ -104,7 +112,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test23FailAndHitOtherCallbacks
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailAndHitOtherCallbacks"]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailAndHitOtherCallbacks]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
     [self checkCallbacks:NO];
@@ -113,7 +121,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test24FailedMultiple
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANFailedMultiple"]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailedMultiple]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
     [self clearTest];

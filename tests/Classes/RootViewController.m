@@ -277,4 +277,12 @@ static NSUInteger kNumberOfPages = 2;
 }
 #endif
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 @end

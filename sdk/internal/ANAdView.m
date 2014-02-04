@@ -313,8 +313,8 @@ ANBrowserViewControllerDelegate>
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     CGRect orientedScreenBounds = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:screenBounds];
     
-    // don't allow resizing to be larger than the screen
-    if (CGSizeLargerThanSize(frame.size, orientedScreenBounds.size)) {
+    // don't allow resizing to be larger than the screen in both directions
+    if (frame.size.width > orientedScreenBounds.size.width && frame.size.height > orientedScreenBounds.size.height) {
         return @"Resize called with resizeProperties larger than the screen.";
     }
     
@@ -337,9 +337,9 @@ ANBrowserViewControllerDelegate>
     // find the area of the resized creative that is on screen
     // if at least 50x50 is on the screen, then the resize is valid
     CGRect resizedIntersection = CGRectIntersection(orientedScreenBounds, resizedFrame);
-    CGSize allowedSizeMinusOne = CGSizeMake(allowedSize - 1.0f, allowedSize - 1.0f);
-    
-    if (!CGSizeLargerThanSize(resizedIntersection.size, allowedSizeMinusOne)) {
+
+    // if either the width or the height is smaller than the allowed size, then return an error.
+    if (resizedIntersection.size.width < allowedSize || resizedIntersection.size.height < allowedSize) {
         return @"Resize call should keep at least 50x50 of the creative on screen";
     }
     

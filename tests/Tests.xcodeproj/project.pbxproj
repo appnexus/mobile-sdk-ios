@@ -30,6 +30,8 @@
 		5CEF6F701732F8BC0054A86F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
 		5CEF6F721732F8C00054A86F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F711732F8C00054A86F /* AdSupport.framework */; };
 		5CEF6F761732F8C90054A86F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F751732F8C90054A86F /* CoreTelephony.framework */; };
+		8A3C4098189705500070F145 /* MRAIDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4095189705500070F145 /* MRAIDTests.m */; };
+		8A3C409C18970AFC0070F145 /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */; };
 		EC09B2B31834350E00D76510 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2B21834350E00D76510 /* BasicTests.m */; };
 		EC09B2F8183437CC00D76510 /* NSData+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2601834340200D76510 /* NSData+Nocilla.m */; };
 		EC09B2FA183437CC00D76510 /* NSString+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2621834340200D76510 /* NSString+Nocilla.m */; };
@@ -166,6 +168,9 @@
 		5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5CEF6F711732F8C00054A86F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		5CEF6F751732F8C90054A86F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		8A3C4095189705500070F145 /* MRAIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAIDTests.m; sourceTree = "<group>"; };
+		8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDTestResponses.m; sourceTree = "<group>"; };
+		8A3C409A18970AFC0070F145 /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EC09B25F1834340200D76510 /* NSData+Nocilla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Nocilla.h"; sourceTree = "<group>"; };
 		EC09B2601834340200D76510 /* NSData+Nocilla.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Nocilla.m"; sourceTree = "<group>"; };
@@ -398,19 +403,16 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				ECD9298A1822CAD300420840 /* TestClasses */,
-				ECABE5431821E4C80037E6C5 /* sdk */,
-				EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */,
-				080E96DDFE201D6D7F000001 /* Classes */,
 				5C3208F6173053FE00DAB5CF /* Default-568h@2x.png */,
-				EC09B25C1834340200D76510 /* libs */,
+				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				5C3208F3173053D700DAB5CF /* iPad */,
-				EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */,
+				EC09B25C1834340200D76510 /* libs */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				ECABE5431821E4C80037E6C5 /* sdk */,
+				ECD9298A1822CAD300420840 /* TestClasses */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -436,6 +438,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */,
+				EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */,
+				EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */,
 				EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */,
 				5CA6D4BB17A9884A00DD6891 /* StoreKit.framework */,
 				5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */,
@@ -604,6 +609,8 @@
 			children = (
 				EC40560D183D5D88006A1D09 /* ANBaseTestCase.h */,
 				EC40560E183D5D88006A1D09 /* ANBaseTestCase.m */,
+				8A3C409A18970AFC0070F145 /* ANMRAIDTestResponses.h */,
+				8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */,
 				EC40560F183D5D88006A1D09 /* ANTestResponses.h */,
 				EC405610183D5D88006A1D09 /* ANTestResponses.m */,
 			);
@@ -716,13 +723,14 @@
 		ECD9298A1822CAD300420840 /* TestClasses */ = {
 			isa = PBXGroup;
 			children = (
-				EC40560C183D5D88006A1D09 /* TestUtils */,
+				EC09B2B21834350E00D76510 /* BasicTests.m */,
 				ECD9298B1822CAD300420840 /* InfoPlist.strings */,
 				ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */,
 				ECD9298F1822CAD300420840 /* MediationTests.m */,
-				EC09B2B21834350E00D76510 /* BasicTests.m */,
+				8A3C4095189705500070F145 /* MRAIDTests.m */,
 				ECD929901822CAD300420840 /* TestsTests-Info.plist */,
 				ECD929911822CAD300420840 /* TestsTests-Prefix.pch */,
+				EC40560C183D5D88006A1D09 /* TestUtils */,
 				ECD929921822CAD300420840 /* TestViews */,
 			);
 			path = TestClasses;
@@ -936,6 +944,7 @@
 				EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */,
 				ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */,
 				ECD929BA1822CD0E00420840 /* MediationTests.m in Sources */,
+				8A3C409C18970AFC0070F145 /* ANMRAIDTestResponses.m in Sources */,
 				EC09B2B31834350E00D76510 /* BasicTests.m in Sources */,
 				EC09B2F8183437CC00D76510 /* NSData+Nocilla.m in Sources */,
 				EC09B2FA183437CC00D76510 /* NSString+Nocilla.m in Sources */,
@@ -944,6 +953,7 @@
 				EC09B301183437CC00D76510 /* LSStubRequestDSL.m in Sources */,
 				EC09B303183437CC00D76510 /* LSStubResponseDSL.m in Sources */,
 				EC09B305183437CC00D76510 /* ASIHTTPRequestStub.m in Sources */,
+				8A3C4098189705500070F145 /* MRAIDTests.m in Sources */,
 				EC09B307183437CC00D76510 /* LSASIHTTPRequestAdapter.m in Sources */,
 				EC09B309183437CC00D76510 /* LSASIHTTPRequestHook.m in Sources */,
 				EC09B30B183437CC00D76510 /* LSHTTPClientHook.m in Sources */,
@@ -1002,6 +1012,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1022,6 +1033,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1035,10 +1047,12 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = "Ad-Hoc";
 		};
@@ -1057,6 +1071,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1095,6 +1110,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = TestsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -1175,10 +1191,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1190,9 +1207,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

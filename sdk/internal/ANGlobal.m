@@ -61,16 +61,6 @@ BOOL ANAdvertisingTrackingEnabled()
     return YES;
 }
 
-BOOL CGSizeLargerThanSize(CGSize firstSize, CGSize secondSize)
-{
-    if ((firstSize.height > secondSize.height) && (firstSize.width > secondSize.width))
-    {
-        return YES;
-    }
-    
-    return NO;
-}
-
 BOOL isFirstLaunch()
 {
 	BOOL isFirstLaunch = ![[NSUserDefaults standardUserDefaults] boolForKey:kANFirstLaunchKey];

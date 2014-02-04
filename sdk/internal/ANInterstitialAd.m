@@ -175,7 +175,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                                    [NSValue valueWithCGSize:kANInterstitialAdSize300x250],
                                    nil];
     for (NSValue *sizeValue in possibleSizesArray) {
-        if (CGSizeLargerThanSize(self.frame.size, [sizeValue CGSizeValue])) {
+        CGSize possibleSize = [sizeValue CGSizeValue];
+        CGRect possibleSizeRect = CGRectMake(self.frame.origin.x, self.frame.origin.y, possibleSize.width, possibleSize.height);
+        if (CGRectContainsRect(self.frame, possibleSizeRect)) {
             [defaultAllowedSizes addObject:sizeValue];
         }
     }
