@@ -188,12 +188,12 @@
 
 - (void)startTimeout {
     if (self.timeoutCanceled) return;
-    __weak typeof(self) weakSelf = self;
+    __weak ANMediationAdViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  kAppNexusMediationNetworkTimeoutInterval
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-                       typeof(self) strongSelf = weakSelf;
+                       ANMediationAdViewController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(ANErrorString(@"mediation_timeout"));
                        [strongSelf didFailToReceiveAd:ANAdResponseInternalError];

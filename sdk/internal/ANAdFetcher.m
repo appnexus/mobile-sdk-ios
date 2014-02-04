@@ -304,7 +304,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     if (!currentAd) {
         ANLogDebug(@"ad was null");
         errorCode = ANAdResponseUnableToFill;
-        [self finishRequestWithErrorAndRefresh:nil code:errorCode];
     } else {
         ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), currentAd.className]);
 
