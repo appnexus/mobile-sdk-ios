@@ -19,7 +19,6 @@
 #import "MMInterstitial.h"
 
 @interface ANAdAdapterInterstitialMillennialMedia ()
-@property (nonatomic, readwrite, strong) MMInterstitial *interstitialAd;
 @property (nonatomic, readwrite, strong) NSString *apid;
 @end
 
