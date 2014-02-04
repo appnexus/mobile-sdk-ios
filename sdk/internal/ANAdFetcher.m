@@ -341,6 +341,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     }
     if (errorCode != ANDefaultCode) {
         [self fireResultCB:currentAd.resultCB reason:errorCode adObject:nil];
+        [self clearMediationController];
         return;
     }
     
@@ -355,9 +356,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     adInstance.delegate = self.mediationController;
     [self.mediationController setAdapter:adInstance];
     [self.mediationController setResultCBString:resultCB];
-    
-    //start timeout
-    [self.mediationController startTimeout];
 }
 
 - (void)clearMediationController {
