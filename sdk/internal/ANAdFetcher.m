@@ -180,6 +180,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 
     [self.connection cancel];
     [self.autoRefreshTimer invalidate];
+    [self clearMediationController];
 }
 
 #pragma mark Request Url Construction
@@ -316,7 +317,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         } else {
             id adInstance = [[adClass alloc] init];
             
-            if (!adInstance)
+            if (!adInstance || ![adInstance respondsToSelector:@selector(setDelegate:)])
             {
                 ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"ANCustomAdapterBanner or ANCustomAdapterInterstitial"]);
                 errorCode = ANAdResponseMediatedSDKUnavailable;
