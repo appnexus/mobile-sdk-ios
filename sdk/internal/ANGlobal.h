@@ -60,7 +60,6 @@
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
-BOOL CGSizeLargerThanSize(CGSize firstSize, CGSize secondSize);
 BOOL isFirstLaunch(void);
 NSString *ANUdidParameter(void);
 NSString *ANErrorString(NSString *key);
