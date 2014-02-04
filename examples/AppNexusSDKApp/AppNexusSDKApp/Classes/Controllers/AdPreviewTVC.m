@@ -228,7 +228,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     ANLogDebug(@"adFailed: %@", [error localizedDescription]);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAppNexusSDKAppErrorTitle
                                                     message:[error localizedDescription]
-                                                   delegate:self
+                                                   delegate:nil
                                           cancelButtonTitle:kAppNexusSDKAppErrorCancel
                                           otherButtonTitles:nil];
     [alert show];
