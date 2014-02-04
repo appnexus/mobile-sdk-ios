@@ -10,6 +10,7 @@
 #import "ANBaseTestCase.h"
 #import "ANMRAIDTestResponses.h"
 #import "ANLogging.h"
+#import "ANLogManager.h"
 
 #define MRAID_TESTS_TIMEOUT 10.0
 #define MRAID_TESTS_DEFAULT_DELAY 2.5
@@ -25,7 +26,7 @@
 
 @implementation MRAIDTests
 
-#pragma mark MRAID Tests
+#pragma mark Basic MRAID Banner Test
 
 - (void)testSuccessfulBannerDidLoad {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -34,18 +35,7 @@
     [self clearTest];
 }
 
-- (void)testBasicExpandability {
-    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
-    [self addBannerAsSubview];
-    
-    [self expand];
-    [self assertState:@"expanded"];
-    
-    [self close];
-    [self assertState:@"default"];
-    
-    [self clearTest];
-}
+#pragma mark mraid.isViewable()
 
 - (void)testBasicViewability { // MS-453
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -59,6 +49,8 @@
     
     [self clearTest];
 }
+
+#pragma mark mraid.setOrientationProperties()
 
 - (void)testForceOrientationLandscapeFromPortrait { // MS-481
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -102,6 +94,8 @@
     [self clearTest];
 }
 
+#pragma mark mraid.expand()
+
 - (void)testExpandFromPortraitUpsideDown { // MS-510
     [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -115,6 +109,8 @@
 
     [self clearTest];
 }
+
+#pragma mark mraid.getScreenSize()
 
 - (void)testScreenSizePortraitOnLoad {
     [self loadBasicMRAIDBanner];
@@ -154,6 +150,8 @@
     STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected landscape screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height]);
     [self clearTest];
 }*/
+
+#pragma mark mraid.getMaxSize()
 
 - (void)testMaxSizePortraitOnLoad {
     [self loadBasicMRAIDBanner];
@@ -212,6 +210,8 @@
     [self clearTest];
 }*/
 
+#pragma mark mraid.getCurrentPosition()
+
 - (void)testCurrentPositionPortraitSizeOnLoad {
     [self loadBasicMRAIDBanner];
     CGRect currentPosition = [self getCurrentPosition];
@@ -241,6 +241,37 @@
     STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self close];
+    [self clearTest];
+}
+
+// WILL FAIL: Current position origin (x,y) is equal to default position origin (x,y), set on initial load.
+/*- (void)testCurrentPositionPortraitOriginOnLoad {
+ CGFloat expectedOriginX = 0.0f;
+ CGFloat expectedOriginY = 50.0f;
+ [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd) atOrigin:CGPointMake(expectedOriginX, expectedOriginY) withSize:CGSizeMake(320.0f, 50.0f)];
+ CGRect currentPosition = [self getCurrentPosition];
+ CGFloat originX = currentPosition.origin.x;
+ CGFloat originY = currentPosition.origin.y;
+ 
+ STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+ 
+ [self clearTest];
+ }*/
+
+#pragma mark mraid.getDefaultPosition()
+
+- (void)testDefaultPositionPortraitSizeOnLoad {
+    [self loadBasicMRAIDBanner];
+    [self addBannerAsSubview];
+    
+    CGRect defaultPosition = [self getDefaultPosition];
+    CGFloat width = defaultPosition.size.width;
+    CGFloat height = defaultPosition.size.height;
+    CGFloat expectedWidth = self.banner.adSize.width;
+    CGFloat expectedHeight = self.banner.adSize.height;
+
+    STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
+    
     [self clearTest];
 }
 
@@ -275,22 +306,103 @@
     [self clearTest];
 }*/
 
+#pragma mark mraid.getState()
 
-// WILL FAIL: Current position origin (x,y) is equal to default position origin (x,y), set on initial load.
-/*- (void)testCurrentPositionPortraitOriginOnLoad {
-    CGFloat expectedOriginX = 0.0f;
-    CGFloat expectedOriginY = 50.0f;
-    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd) atOrigin:CGPointMake(expectedOriginX, expectedOriginY) withSize:CGSizeMake(320.0f, 50.0f)];
-    CGRect currentPosition = [self getCurrentPosition];
-    CGFloat originX = currentPosition.origin.x;
-    CGFloat originY = currentPosition.origin.y;
+- (void)testBasicStateChange {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
- 
+    [self expand];
+    [self assertState:@"expanded"];
+    
+    [self close];
+    [self assertState:@"default"];
+    
+    [self clearTest];
+}
+
+
+- (void)testResizeWhileExpandedStateChange {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    [self expand];
+    [self assertState:@"expanded"];
+    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, 200.0f)
+                               withOffset:CGPointZero
+                  withCustomClosePosition:@"bottom-center"
+                           allowOffscreen:YES];
+    [self resize];
+    [self assertState:@"expanded"];
+    [self close];
+    [self clearTest];
+}
+
+- (void)testResizeToExpandStateChange {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, 200.0f)
+                               withOffset:CGPointZero
+                  withCustomClosePosition:@"bottom-center"
+                           allowOffscreen:YES];
+    [self resize];
+    [self assertState:@"resized"];
+    [self expand];
+    [self assertState:@"expanded"];
+    [self close];
+    [self clearTest];
+}
+
+#pragma mark mraid.setResizeProperties()
+
+- (void)testSetResizeProperties {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    CGFloat resizeHeight = 200.0f;
+    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, resizeHeight)
+                               withOffset:CGPointZero
+                  withCustomClosePosition:@"bottom-center"
+                           allowOffscreen:YES];
+    [self resize];
+    STAssertTrue(self.banner.frame.size.height == resizeHeight , @"Expected new height of banner frame to be resized height");
+    [self clearTest];
+}
+
+- (void)testSetResizePropertiesOnlySize {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    CGFloat resizeHeight = 200.0f;
+    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, resizeHeight)];
+    [self resize];
+    STAssertTrue(self.banner.frame.size.height == resizeHeight , @"Expected new height of banner frame to be resized height");
+    [self clearTest];
+}
+
+#pragma mark mraid.setExpandProperties()
+
+- (void)testSetExpandPropertiesOnlySize {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    CGFloat expandHeight = 200.0f;
+    [self setExpandPropertiesExpandToSize:CGSizeMake(320.0f, expandHeight)];
+    [self expand];
+    STAssertTrue(self.banner.frame.size.height == expandHeight , @"Expected new height of banner frame to be expanded height");
+    [self close];
+    [self clearTest];
+}
+
+#pragma mark mraid.getExpandProperties()
+
+// WILL FAIL: Initial getExpandProperties returns -1 as width and height
+/*- (void)testGetExpandPropertiesInitialSize {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    CGSize initSize = [self getExpandPropertiesSize];
+    CGRect actualBounds = [[UIScreen mainScreen] bounds];
+    STAssertTrue(actualBounds.size.width == initSize.width && actualBounds.size.height == initSize.height, @"Expected default expand properties to reflect actual screen values");
     [self clearTest];
 }*/
 
-#pragma mark MRAID Helper Functions
+#pragma mark Helper Functions
 
 - (void)clearTest {
     self.webView = nil;
@@ -342,10 +454,9 @@
 }
 
 - (void)loadBannerAdAtOrigin:(CGPoint)origin withSize:(CGSize)size {
-    self.banner = [[ANBannerAdView alloc]
-                   initWithFrame:CGRectMake(origin.x, origin.y, size.width, size.height)
-                   placementId:@"1"
-                   adSize:CGSizeMake(320, 50)];
+    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(origin.x, origin.y, size.width, size.height)
+                                            placementId:@"1"
+                                                 adSize:CGSizeMake(320, 50)];
     self.banner.rootViewController = [[UIApplication sharedApplication].delegate window].rootViewController;
     self.banner.autoRefreshInterval = 0.0;
     self.banner.delegate = self;
@@ -378,6 +489,10 @@
     [self mraidNativeCall:@"close()" withDelay:MRAID_TESTS_DEFAULT_DELAY];
 }
 
+- (void)resize {
+    [self mraidNativeCall:@"resize()" withDelay:MRAID_TESTS_DEFAULT_DELAY];
+}
+
 - (NSString *)getState {
     return [self mraidNativeCall:@"getState()" withDelay:0];
 }
@@ -408,9 +523,39 @@
                       [[self mraidNativeCall:@"getDefaultPosition()[\"height\"]" withDelay:0] floatValue]);
 }
 
+- (CGSize)getExpandPropertiesSize {
+    return CGSizeMake([[self mraidNativeCall:@"getExpandProperties()[\"width\"]" withDelay:0] floatValue], [[self mraidNativeCall:@"getExpandProperties()[\"height\"]" withDelay:0] floatValue]);
+}
+
+- (BOOL)getExpandPropertiesUseCustomClose {
+    return [[self mraidNativeCall:@"getExpandProperties()[\"useCustomClose\"]" withDelay:0] boolValue];
+}
+
+- (BOOL)getExpandPropertiesIsModal {
+    return [[self mraidNativeCall:@"getExpandProperties()[\"isModal\"]" withDelay:0] boolValue];
+}
+
+- (void)setExpandPropertiesExpandToSize:(CGSize)size {
+    [self mraidNativeCall:[NSString stringWithFormat:@"setExpandProperties({width:%f, height: %f});", size.width, size.height] withDelay:0];
+}
+
 - (void)setOrientationPropertiesWithAllowOrientationChange:(BOOL)changeAllowed forceOrientation:(NSString *)orientation {
     NSString *allowOrientationChange = changeAllowed ? @"true":@"false";
     [self mraidNativeCall:[NSString stringWithFormat:@"setOrientationProperties({allowOrientationChange:%@, forceOrientation:\"%@\"});", allowOrientationChange, orientation] withDelay:MRAID_TESTS_DEFAULT_DELAY];
+}
+
+- (void)setResizePropertiesResizeToSize:(CGSize)size
+                             withOffset:(CGPoint)offset
+                withCustomClosePosition:(NSString *)position
+                         allowOffscreen:(BOOL)allowOffscreen {
+    NSString *offscreen = allowOffscreen ? @"true" : @"false";
+    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f, offsetX: %f, offsetY: %f, customClosePosition: '%@', allowOffscreen: %@});",
+                           size.width, size.height, offset.x, offset.y, position, offscreen] withDelay:0];
+    
+}
+
+- (void)setResizePropertiesResizeToSize:(CGSize)size {
+    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f});", size.width, size.height] withDelay:0];
 }
 
 - (NSString *)mraidNativeCall:(NSString *)script withDelay:(NSTimeInterval)delay {
