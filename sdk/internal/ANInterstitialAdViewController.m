@@ -176,7 +176,16 @@
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return self.orientation;
+    switch (self.orientation) {
+        case (UIInterfaceOrientationLandscapeLeft):
+            return UIInterfaceOrientationMaskLandscapeLeft;
+        case (UIInterfaceOrientationLandscapeRight):
+            return UIInterfaceOrientationMaskLandscapeRight;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            return UIInterfaceOrientationMaskPortraitUpsideDown;
+        default:
+            return UIInterfaceOrientationMaskPortrait;
+    }
 }
 
 // locking orientation in pre-iOS 6
