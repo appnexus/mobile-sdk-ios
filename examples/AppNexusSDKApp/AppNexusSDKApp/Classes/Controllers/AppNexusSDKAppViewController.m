@@ -351,13 +351,15 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
 - (IBAction)swipeLeft:(UISwipeGestureRecognizer *)sender {
     NSInteger vcIndex = [self indexOfCurrentChildViewController];
-    if (vcIndex == NSNotFound || vcIndex >= APPNEXUSSDKAPP_LOG_TAB_INDEX) return;
+    if (vcIndex == NSNotFound || vcIndex > APPNEXUSSDKAPP_LOG_TAB_INDEX) return;
+    if (vcIndex == APPNEXUSSDKAPP_LOG_TAB_INDEX) vcIndex = -1; // wrap around
     [self loadChildViewControllerAtIndex:vcIndex+1];
 }
     
 - (IBAction)swipeRight:(UISwipeGestureRecognizer *)sender {
     NSInteger vcIndex = [self indexOfCurrentChildViewController];
-    if (vcIndex == NSNotFound || vcIndex == APPNEXUSSDKAPP_SETTINGS_TAB_INDEX) return;
+    if (vcIndex == NSNotFound || vcIndex < APPNEXUSSDKAPP_SETTINGS_TAB_INDEX) return;
+    if (vcIndex == APPNEXUSSDKAPP_SETTINGS_TAB_INDEX) vcIndex = APPNEXUSSDKAPP_LOG_TAB_INDEX + 1; // wrap around
     [self loadChildViewControllerAtIndex:vcIndex-1];
 }
 
@@ -370,18 +372,25 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 }
 
 - (void)loadChildViewControllerAtIndex:(NSInteger)index {
-    if (index == APPNEXUSSDKAPP_SETTINGS_TAB_INDEX) {
-        [self.mainTabBar setSelectedItem:self.settingsTabBarItem];
-        [self tabBar:self.mainTabBar didSelectItem:self.settingsTabBarItem];
-    } else if (index == APPNEXUSSDKAPP_PREVIEW_TAB_INDEX) {
-        [self.mainTabBar setSelectedItem:self.previewTabBarItem];
-        [self tabBar:self.mainTabBar didSelectItem:self.previewTabBarItem];
-    } else if (index == APPNEXUSSDKAPP_DEBUG_TAB_INDEX) {
-        [self.mainTabBar setSelectedItem:self.debugTabBarItem];
-        [self tabBar:self.mainTabBar didSelectItem:self.debugTabBarItem];
-    } else if (index == APPNEXUSSDKAPP_LOG_TAB_INDEX) {
-        [self.mainTabBar setSelectedItem:self.logTabBarItem];
-        [self tabBar:self.mainTabBar didSelectItem:self.logTabBarItem];
+    switch (index) {
+        case APPNEXUSSDKAPP_SETTINGS_TAB_INDEX:
+            [self.mainTabBar setSelectedItem:self.settingsTabBarItem];
+            [self tabBar:self.mainTabBar didSelectItem:self.settingsTabBarItem];
+            break;
+        case APPNEXUSSDKAPP_PREVIEW_TAB_INDEX:
+            [self.mainTabBar setSelectedItem:self.previewTabBarItem];
+            [self tabBar:self.mainTabBar didSelectItem:self.previewTabBarItem];
+            break;
+        case APPNEXUSSDKAPP_DEBUG_TAB_INDEX:
+            [self.mainTabBar setSelectedItem:self.debugTabBarItem];
+            [self tabBar:self.mainTabBar didSelectItem:self.debugTabBarItem];
+            break;
+        case APPNEXUSSDKAPP_LOG_TAB_INDEX:
+            [self.mainTabBar setSelectedItem:self.logTabBarItem];
+            [self tabBar:self.mainTabBar didSelectItem:self.logTabBarItem];
+            break;
+        default:
+            break;
     }
 }
 
