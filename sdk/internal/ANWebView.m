@@ -83,10 +83,6 @@
     [self stringByEvaluatingJavaScriptFromString:script];
 }
 
-- (BOOL)getWebViewVisible {
-    return (!self.hidden && self.window && self.superview);
-}
-
 - (void)setIsViewable:(BOOL)viewable {
     NSString* script = [NSString stringWithFormat:@"window.mraid.util.setIsViewable(%@)",
                         viewable ? @"true" : @"false"];
@@ -122,6 +118,43 @@
     NSString *script = [NSString stringWithFormat:@"window.mraid.util.setDefaultPosition(%i, %i, %i, %i);",
                         offsetX, offsetY, width, height];
     [self stringByEvaluatingJavaScriptFromString:script];
+}
+
+- (void)setScreenSize:(CGSize)size {
+    int width = floorf(size.width + 0.5f);
+    int height = floorf(size.height + 0.5f);
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);", width, height]];
+}
+
+- (void)setMaxSize:(CGSize)size {
+    int width = floorf(size.width + 0.5f);
+    int height = floorf(size.height + 0.5f);
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setMaxSize(%i, %i);",width, height]];
+}
+
+- (void)setSupportsTel:(BOOL)isSupported {
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsTel(%@);",
+                                                  isSupported ? @"true" : @"false"]];
+}
+
+- (void)setSupportsSMS:(BOOL)isSupported {
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsSMS(%@);",
+                                                  isSupported ? @"true" : @"false"]];
+}
+
+- (void)setSupportsCalendar:(BOOL)isSupported {
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsCalendar(%@);",
+                                                  isSupported ? @"true" : @"false"]];
+}
+
+- (void)setSupportsStorePicture:(BOOL)isSupported {
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsStorePicture(%@);",
+                                                  isSupported ? @"true" : @"false"]];
+}
+
+- (void)setSupportsInlineVideo:(BOOL)isSupported {
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsInlineVideo(%@);",
+                                                  isSupported ? @"true" : @"false"]];
 }
 
 - (ANMRAIDState)getMRAIDState {
