@@ -516,6 +516,51 @@
     [self clearTest];
 }*/
 
+#pragma mark mraid.supports()
+
+- (void)testSupportSMS {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    BOOL isSupported = [self supports:@"sms"];
+    #if TARGET_IPHONE_SIMULATOR
+    STAssertFalse(isSupported, @"Expected iphone simulator to not support SMS");
+    #else
+    STAssertTrue(isSupported, @"Expected iPhone device to support SMS");
+    #endif
+    [self clearTest];
+}
+
+- (void)testSupportTel {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    BOOL isSupported = [self supports:@"tel"];
+    #if TARGET_IPHONE_SIMULATOR
+    STAssertFalse(isSupported, @"Expected iphone simulator to not support Tel");
+    #else
+    STAssertTrue(isSupported, @"Expected iPhone device to support Tel");
+    #endif
+    [self clearTest];
+}
+
+- (void)testSupportCal {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    BOOL isSupported = [self supports:@"calendar"];
+    STAssertTrue(isSupported, @"Expected calendar support");
+    [self clearTest];
+}
+
+- (void)testSupportInlineVideo {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    BOOL isSupported = [self supports:@"inlineVideo"];
+    STAssertTrue(isSupported, @"Expected inline video support");
+    [self clearTest];
+}
+
+- (void)testSupportStorePicture {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    BOOL isSupported = [self supports:@"storePicture"];
+    STAssertTrue(isSupported, @"Expected store picture support");
+    [self clearTest];
+}
+
 #pragma mark Helper Functions
 
 - (void)clearTest {
@@ -710,6 +755,10 @@
 
 - (NSString *)getResizePropertiesAllowOffscreen {
     return [self mraidNativeCall:@"getResizeProperties()[\"allowOffscreen\"]" withDelay:0];
+}
+
+- (BOOL)supports:(NSString *)feature {
+    return [[self mraidNativeCall:[NSString stringWithFormat:@"supports('%@')", feature] withDelay:0] boolValue];
 }
 
 - (NSString *)mraidNativeCall:(NSString *)script withDelay:(NSTimeInterval)delay {
