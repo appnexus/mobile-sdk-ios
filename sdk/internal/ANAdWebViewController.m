@@ -121,6 +121,9 @@
         // remember frame for default state
         [self setDefaultFrame:webView.frame];
         
+        // setup rotation detection support
+        [self processDidChangeStatusBarOrientationNotifications];
+        
         // setup viewability support
         [self viewabilitySetup];
         
@@ -170,6 +173,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationDidEnterBackgroundNotification
                                                   object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidChangeStatusBarOrientationNotification
+                                                  object:[UIApplication sharedApplication]];
 }
 
 - (BOOL)getWebViewVisible {    
@@ -196,6 +202,18 @@
     if (!isOnScreen) return NO;
 
     return YES;
+}
+
+- (void)processDidChangeStatusBarOrientationNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleRotation:)
+                                                 name:UIApplicationDidChangeStatusBarOrientationNotification
+                                               object:[UIApplication sharedApplication]];
+}
+
+- (void)handleRotation:(NSNotification *)notification {
+    [self setMaxSizeForMRAIDGetMaxSizeFunction:self.webView];
+    [self setScreenSizeForMRAIDGetScreenSizeFunction:self.webView];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -239,29 +257,23 @@
     UIApplication *application = [UIApplication sharedApplication];
     BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    int screenWidth = floorf(screenSize.width + 0.5f);
-    int screenHeight = floorf(screenSize.height + 0.5f);
-    int orientedWidth = orientationIsPortrait ? screenWidth : screenHeight;
-    int orientedHeight = orientationIsPortrait ? screenHeight : screenWidth;
+    int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
+    int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
     
     if (!application.statusBarHidden) {
         orientedHeight -= MIN(application.statusBarFrame.size.height, application.statusBarFrame.size.width);
     }
-    
-    [webView stringByEvaluatingJavaScriptFromString:
-     [NSString stringWithFormat:@"window.mraid.util.setMaxSize(%i, %i);",
-      orientedWidth, orientedHeight]];
+
+    [webView setMaxSize:CGSizeMake(orientedWidth, orientedHeight)];
 }
 
 - (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
     BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    int w = floorf(screenSize.width + 0.5f);
-    int h = floorf(screenSize.height + 0.5f);
+    int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
+    int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
     
-    [webView stringByEvaluatingJavaScriptFromString:
-     [NSString stringWithFormat:@"window.mraid.util.setScreenSize(%i, %i);",
-      orientationIsPortrait ? w : h, orientationIsPortrait ? h : w]];
+    [webView setScreenSize:CGSizeMake(orientedWidth, orientedHeight)];
 }
 
 - (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView *)webView{
@@ -270,31 +282,32 @@
 }
 
 - (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
-    NSString* sms = @"false";
-    NSString* tel = @"false";
-    NSString* cal = @"false";
-    NSString* inline_video = @"true";
-    NSString* store_picture = @"true";
+    BOOL sms = NO;
+    BOOL tel = NO;
+    BOOL cal = NO;
+    BOOL inline_video = YES;
+    BOOL store_picture = YES;
+    
 #ifdef __IPHONE_4_0
     //SMS
-    sms = [MFMessageComposeViewController canSendText] ? @"true" : @"false";
+    sms = [MFMessageComposeViewController canSendText];
 #else
-    sms = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sms://"]] ? @"true" : @"false";
+    sms = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sms://"]];
 #endif
     //TEL
-    tel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]] ? @"true" : @"false";
+    tel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
     
     //CAL
     EKEventStore *store = [[EKEventStore alloc] init];
     if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
-        cal = @"true";
+        cal = YES;
     }
     
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsTel(%@);", tel]];
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsSMS(%@);", sms]];
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsCalendar(%@);", cal]];
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsStorePicture(%@);", store_picture]];
-    [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsInlineVideo(%@);", inline_video]];
+    [webView setSupportsSMS:sms];
+    [webView setSupportsTel:tel];
+    [webView setSupportsCalendar:cal];
+    [webView setSupportsInlineVideo:inline_video];
+    [webView setSupportsStorePicture:store_picture];
 }
 
 - (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView {
