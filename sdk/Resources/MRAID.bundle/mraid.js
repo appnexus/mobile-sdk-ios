@@ -168,7 +168,7 @@
  if (typeof properties.height === "undefined") {
  properties.height = -1;
  }
- if (typeof properties.useCustomClose !== "undefined" && typeof properties.useCustomClose === "boolean" && properties.useCustomClose === true) {
+ if (properties.useCustomClose === true) {
  properties.useCustomClose = true;
  } else {
  properties.useCustomClose = false;
@@ -288,7 +288,11 @@
  
  // Convenience function to modify useCustomClose attribute of expandProperties
  mraid.useCustomClose=function(value){
- expand_properties.useCustomClose = value;
+ if (properties.useCustomClose === true) {
+ expand_properties.useCustomClose = true;
+ } else {
+ expand_properties.useCustomClose = false;
+ }
  }
  
  // Checks if a feature is supported by this device
