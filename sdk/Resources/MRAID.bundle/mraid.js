@@ -227,10 +227,10 @@
  mraid.setResizeProperties=function(props) {
  if (mraid.util.validateResizeProperties(props)) {
     if (typeof props.customClosePosition === "undefined") {
-        props.customClosePosition = resize_properties.customClosePosition;
+        props.customClosePosition = 'top-right';
     }
     if (typeof props.allowOffscreen === "undefined") {
-        props.allowOffscreen = resize_properties.allowOffscreen;
+        props.allowOffscreen = true;
     }
     resize_properties = props;
  }
