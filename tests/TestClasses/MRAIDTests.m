@@ -470,7 +470,11 @@
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self addBannerAsSubview];
     CGSize size1 = CGSizeMake(320.0f, 250.0f);
-    [self setResizePropertiesResizeToSize:size1 withOffset:CGPointMake(-50.0f, 240.0f)];
+    [self setResizePropertiesResizeToSize:size1 withOffset:CGPointMake(-50.0f, 240.0f) withCustomClosePosition:@"top-left" allowOffscreen:NO];
+    NSString *customClosePosition = [self getResizePropertiesCustomClosePosition];
+    NSString *allowOffscreen = [self getResizePropertiesAllowOffscreen];
+    STAssertTrue([customClosePosition isEqualToString:@"top-left"], @"Expected close position to be top left");
+    STAssertTrue([allowOffscreen isEqualToString:@"false"], @"Expected allow offscreen to be false");
     CGSize size2 = CGSizeMake(500.0f, 300.0f);
     [self setResizePropertiesResizeToSize:size2 withOffset:CGPointMake(100.0f, 270.0f)];
     NSString *width = [self getResizePropertiesWidth];
@@ -483,6 +487,10 @@
     NSString *offsetY = [self getResizePropertiesOffsetY];
     STAssertTrue([offsetX isEqualToString:@"100"], @"Expected offsetX to be 100");
     STAssertTrue([offsetY isEqualToString:@"270"], @"Expected offsetY to be 270");
+    customClosePosition = [self getResizePropertiesCustomClosePosition];
+    allowOffscreen = [self getResizePropertiesAllowOffscreen];
+    STAssertTrue([customClosePosition isEqualToString:@"top-right"], @"Expected close position to be top right (default)");
+    STAssertTrue([allowOffscreen isEqualToString:@"true"], @"Expected allow offscreen to be true (default)");
     [self clearTest];
 }
     
