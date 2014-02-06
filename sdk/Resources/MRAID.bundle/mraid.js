@@ -288,7 +288,7 @@
  
  // Convenience function to modify useCustomClose attribute of expandProperties
  mraid.useCustomClose=function(value){
- if (properties.useCustomClose === true) {
+ if (value === true) {
  expand_properties.useCustomClose = true;
  } else {
  expand_properties.useCustomClose = false;
