@@ -168,7 +168,9 @@
  if (typeof properties.height === "undefined") {
  properties.height = -1;
  }
- if (typeof properties.useCustomClose === "undefined") {
+ if (typeof properties.useCustomClose !== "undefined" && typeof properties.useCustomClose === "boolean" && properties.useCustomClose === true) {
+ properties.useCustomClose = true;
+ } else {
  properties.useCustomClose = false;
  }
  properties.isModal = true;
