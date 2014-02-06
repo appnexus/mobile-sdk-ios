@@ -92,6 +92,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
     [self anLogoSetup]; // Fix AN Logo constraints
     [self useLogDocument]; // Create/Open Logging Document
     [self locationSetup];
+    [self audioSetup];
     self.leftSwipeGesture.delegate = self;
     self.rightSwipeGesture.delegate = self;
 }
