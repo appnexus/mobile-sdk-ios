@@ -398,23 +398,53 @@
     [self assertState:@"hidden"];
     [self clearTest];
 }
-
-#pragma mark mraid.resizeProperties
-
-- (void)testSetResizeProperties {
+    
+- (void)testHiddenDoesNotRevertToAnyOtheState {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self addBannerAsSubview];
-    CGFloat resizeHeight = 200.0f;
-    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, resizeHeight)
-                               withOffset:CGPointZero
-                  withCustomClosePosition:@"bottom-center"
-                           allowOffscreen:YES];
+    [self assertState:@"default"];
+    [self close];
+    [self assertState:@"hidden"];
+    [self expand];
+    [self assertState:@"hidden"];
+    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, 200.0f) withOffset:CGPointZero];
     [self resize];
-    STAssertTrue(self.banner.frame.size.height == resizeHeight , @"Expected new height of banner frame to be resized height");
+    [self assertState:@"hidden"];
     [self clearTest];
 }
 
-- (void)testSetResizePropertiesOnlySizeAndOffset {
+#pragma mark mraid.resizeProperties
+
+- (void)testBasicSetResizeProperties { // MS-525
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    CGFloat resizeWidth = 320.0f;
+    CGFloat resizeHeight = 200.0f;
+    [self setResizePropertiesResizeToSize:CGSizeMake(resizeWidth, resizeHeight)
+                               withOffset:CGPointZero
+                  withCustomClosePosition:@"bottom-center"
+                           allowOffscreen:YES];
+    NSString *width = [self getResizePropertiesWidth];
+    NSString *height = [self getResizePropertiesHeight];
+    NSString *offsetX = [self getResizePropertiesOffsetX];
+    NSString *offsetY = [self getResizePropertiesOffsetY];
+    STAssertTrue([width length] > 0, @"Expected width to be defined");
+    STAssertTrue([height length] > 0, @"Expected height to be defined");
+    STAssertTrue([offsetX length] > 0, @"Expected offsetX to be defined");
+    STAssertTrue([offsetY length] > 0, @"Expected offsetY to be defined");
+    STAssertTrue([width isEqualToString:([NSString stringWithFormat:@"%d", (int)resizeWidth])], @"Expected different width");
+    STAssertTrue([height isEqualToString:([NSString stringWithFormat:@"%d", (int)resizeHeight])], @"Expected different height");
+    STAssertTrue([offsetX isEqualToString:@"0"], @"Expected offsetX to be 0");
+    STAssertTrue([offsetY isEqualToString:@"0"], @"Expected offsetY to be 0");
+
+    [self resize];
+    [self assertState:@"resized"];
+    STAssertTrue(self.banner.frame.size.width == resizeWidth, @"Expected new width of banner frame to be resized width");
+    STAssertTrue(self.banner.frame.size.height == resizeHeight, @"Expected new height of banner frame to be resized height");
+    [self clearTest];
+}
+
+- (void)testSetResizePropertiesOnlySizeAndOffset { // MS-525
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self addBannerAsSubview];
     CGFloat resizeHeight = 200.0f;
@@ -424,22 +454,7 @@
     [self clearTest];
 }
 
-// WILL FAIL: width and height become undefined after not being included in properties object on set. SDK, however, does not allow this resize to occur.
-/*- (void)testSetResizePropertiesEmptyObject {
-    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
-    [self addBannerAsSubview];
-    [self setResizePropertiesEmpty];
-    NSString *width = [self getResizePropertiesWidth];
-    NSString *height = [self getResizePropertiesHeight];
-    STAssertTrue([width length] > 0, @"Expected width to be defined");
-    STAssertTrue([height length] > 0, @"Expected height to be defined");
-    [self resize];
-    [self assertState:@"default"]; // should not have resized
-    [self clearTest];
-}*/
-
-// WILL FAIL: optional customClosePosition and allowOffscreen parameters are erased if not set
-/*- (void)testGetResizePropertiesAfterSettingSizeAndOffset {
+- (void)testGetCustomCloseAndAllowOffscreenAfterSettingSizeAndOffset { // MS-525
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self addBannerAsSubview];
     CGFloat resizeHeight = 200.0f;
@@ -449,7 +464,39 @@
     STAssertTrue([customClosePosition length] > 0, @"Expected custom close position to be defined");
     STAssertTrue([allowOffscreen length] > 0, @"Expected allow offscreen to be defined");
     [self clearTest];
-}*/
+}
+    
+- (void)testSetResizePropertiesMultipleTimes { // MS-525
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    CGSize size1 = CGSizeMake(320.0f, 250.0f);
+    [self setResizePropertiesResizeToSize:size1];
+    CGSize size2 = CGSizeMake(500.0f, 300.0f);
+    [self setResizePropertiesResizeToSize:size2];
+    NSString *width = [self getResizePropertiesWidth];
+    NSString *height = [self getResizePropertiesHeight];
+    STAssertTrue([width length] > 0, @"Expected width to be defined");
+    STAssertTrue([height length] > 0, @"Expected height to be defined");
+    STAssertTrue([width isEqualToString:@"500"], @"Expected different width");
+    STAssertTrue([height isEqualToString:@"300"], @"Expected different height");
+    [self clearTest];
+}
+    
+- (void)testResizeAfterSettingIncompleteResizeProperties { // MS-525
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    CGSize size = CGSizeMake(320.0f, 250.0f);
+    [self setResizePropertiesResizeToSize:size];
+    NSString *offsetX = [self getResizePropertiesOffsetX];
+    NSString *offsetY = [self getResizePropertiesOffsetY];
+
+    STAssertFalse([offsetX length], @"Expected offsetX to be undefined");
+    STAssertFalse([offsetY length], @"Expected offsetY to be undefined");
+    
+    [self resize];
+    [self assertState:@"default"]; // Should not have resized
+    [self clearTest];
+}
 
 #pragma mark mraid.expandProperties
 
@@ -464,8 +511,7 @@
     [self clearTest];
 }
 
-// WILL FAIL: Any parameters not passed in to the object on setExpandProperties are erased (except isModal, which is consistently reset)
-/*- (void)testSetExpandPropertiesEmptyObject {
+- (void)testSetExpandPropertiesEmptyObject { // MS-525
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self addBannerAsSubview];
     [self setExpandPropertiesEmpty];
@@ -474,10 +520,9 @@
     STAssertTrue([width length] > 0, @"Expected width to be defined");
     STAssertTrue([height length] > 0, @"Expected height to be defined");
     [self clearTest];
-}*/
+}
 
-// WILL FAIL: width and height become undefined after not being included in properties object on set, parsed as 0,0 by SDK.
-/*- (void)testExpandAfterSetExpandPropertiesEmptyObject {
+- (void)testExpandAfterSetExpandPropertiesEmptyObject { // MS-525
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self addBannerAsSubview];
     [self setExpandPropertiesEmpty];
@@ -487,16 +532,15 @@
     STAssertTrue(CGSizeEqualToSize(screenSize, currentSize), @"Expected expanded size to be screen size");
     [self close];
     [self clearTest];
-}*/
+}
 
-// WILL FAIL: customClose is erased on call to setExpandProperties
-/*- (void)testGetExpandPropertiesAfterSettingSize {
+- (void)testGetExpandPropertiesAfterSettingSize { // MS-525
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self addBannerAsSubview];
     CGFloat expandHeight = 200.0f;
     [self setExpandPropertiesExpandToSize:CGSizeMake(320.0f, expandHeight)];
     NSString *customClose = [self getExpandPropertiesUseCustomClose];
-    STAssertTrue(![customClose isEqualToString:@""], @"expected custom close value to not be undefined");
+    STAssertTrue([customClose length], @"expected custom close value to not be undefined");
     STAssertTrue([customClose isEqualToString:@"false"], @"expected default value of custom close to be false");
     
     // isModal works because it is set on every call to setExpandProperties.
@@ -504,8 +548,27 @@
     STAssertTrue(![isModal isEqualToString:@""], @"expected isModal value to not be undefined");
     STAssertTrue([isModal isEqualToString:@"true"], @"expected default value of isModal to be true");
     [self clearTest];
-}*/
+}
 
+- (void)testSetExpandPropertiesToSizeZero {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    [self setExpandPropertiesExpandToSize:CGSizeZero];
+    [self expand];
+    [self assertState:@"default"];
+    [self clearTest];
+}
+    
+- (void)testSetExpandPropertiesToNegativeSize {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    [self setExpandPropertiesExpandToSize:CGSizeMake(-10.0f, 250.0f)];
+    [self expand];
+    [self assertState:@"default"];
+    [self clearTest];
+}
+
+    
 // WILL FAIL: Initial getExpandProperties returns -1 as width and height
 /*- (void)testGetExpandPropertiesInitialSize {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -731,6 +794,10 @@
 
 - (void)setResizePropertiesResizeToSize:(CGSize)size withOffset:(CGPoint)offset {
     [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f, offsetX: %f, offsetY: %f});", size.width, size.height, offset.x, offset.y] withDelay:0];
+}
+
+- (void)setResizePropertiesResizeToSize:(CGSize)size {
+    [self mraidNativeCall:[NSString stringWithFormat:@"setResizeProperties({width:%f, height: %f});", size.width, size.height] withDelay:0];
 }
 
 - (NSString *)getResizePropertiesWidth {
