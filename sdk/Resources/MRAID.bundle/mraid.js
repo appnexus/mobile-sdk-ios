@@ -45,7 +45,7 @@
  var is_viewable=false;
  var expand_properties={width:-1, height:-1, useCustomClose:false, isModal:true};
  var orientation_properties={allowOrientationChange:true, forceOrientation:"none"};
- var resize_properties={width:-1, height:-1, offsetX: 0, offsetY: 0, customClosePosition: 'top-right', allowOffscreen: true};
+ var resize_properties={customClosePosition: 'top-right', allowOffscreen: true};
  var screen_size={};
  var max_size={};
  var default_position={};
@@ -135,7 +135,7 @@
  break;
  case 'default':
  case 'resized':
- if((expand_properties.height>0 && expand_properties.width>0) && (expand_properties.height < current_position.height || expand_properties.width < current_position.width)){
+ if((expand_properties.height !== -1 && expand_properties.width !== -1) && (expand_properties.height < current_position.height || expand_properties.width < current_position.width)){
  mraid.util.errorEvent("Can't expand to a size smaller than the default size.", "mraid.expand()");
  return;
  }
@@ -158,10 +158,24 @@
  
  // Takes an object... {width:300, height:250, useCustomClose:false, isModal:false};
  mraid.setExpandProperties=function(properties){
- properties.isModal=true; // Read only property.
- expand_properties=properties;
+ if (typeof properties === "undefined") {
+ mraid.util.errorEvent("Invalid expandProperties. Retaining default values.", "mraid.setExpandProperties()");
+ return;
+ }
+ if (typeof properties.width === "undefined") {
+ properties.width = -1;
+ }
+ if (typeof properties.height === "undefined") {
+ properties.height = -1;
+ }
+ if (properties.useCustomClose === true) {
+ properties.useCustomClose = true;
+ } else {
+ properties.useCustomClose = false;
+ }
+ properties.isModal = true;
+ expand_properties = properties;
  };
- 
  
  //returns a json object... {width:300, height:250, useCustomClose:false, isModal:false};
  mraid.getExpandProperties=function(){
@@ -182,11 +196,8 @@
  
  // MRAID 2.0 Stuff.
  mraid.resize=function(){
- if(resize_properties.height<0 || resize_properties.width<0){
- mraid.util.errorEvent("mraid.resize() called before mraid.setResizeProperties()", "mraid.resize()");
- return;
- }else if(resize_properties.height<50 || resize_properties.width<50){
- mraid.util.errorEvent("mraid.resize() called with a width or height below the minimum 50px", "mraid.resize()");
+ if(!mraid.util.validateResizeProperties(resize_properties, "mraid.resize()")){
+ mraid.util.errorEvent("mraid.resize() called without properly setting setResizeProperties", "mraid.resize()");
  return;
  }
  switch(mraid.getState()){
@@ -213,15 +224,18 @@
  break;
  
  }
- 
  }
  
  mraid.setResizeProperties=function(props) {
- if(props.width<50 || props.height<50){
- mraid.util.errorEvent("Resize properties contains a dimension below the minimum 50 pixels", "mraid.setResizeProperties()");
- return;
+ if (mraid.util.validateResizeProperties(props, "mraid.setResizeProperties()")) {
+    if (typeof props.customClosePosition === "undefined") {
+        props.customClosePosition = 'top-right';
+    }
+    if (typeof props.allowOffscreen === "undefined") {
+        props.allowOffscreen = true;
+    }
+    resize_properties = props;
  }
- resize_properties = props;
  }
  
  mraid.getResizeProperties=function(){
@@ -274,7 +288,11 @@
  
  // Convenience function to modify useCustomClose attribute of expandProperties
  mraid.useCustomClose=function(value){
- expand_properties.useCustomClose = value;
+ if (value === true) {
+ expand_properties.useCustomClose = true;
+ } else {
+ expand_properties.useCustomClose = false;
+ }
  }
  
  // Checks if a feature is supported by this device
@@ -394,6 +412,26 @@
     }
  
    }
+ }
+ 
+ mraid.util.validateResizeProperties=function(properties, callingFunctionName) {
+ if (typeof properties === "undefined") {
+ mraid.util.errorEvent("Invalid resizeProperties", callingFunctionName);
+ return false;
+ }
+ if (typeof properties.width === "undefined" || typeof properties.height === "undefined" || typeof properties.offsetX === "undefined" || typeof properties.offsetY === "undefined") {
+ mraid.util.errorEvent("Incomplete resizeProperties. width, height, offsetX, offsetY required", callingFunctionName);
+ return false;
+ }
+ if (properties.width < 50) {
+ mraid.util.errorEvent("Resize properties width below the minimum 50 pixels", callingFunctionName);
+ return false;
+ }
+ if (properties.height < 50) {
+ mraid.util.errorEvent("Resize properties height below the minimum 50 pixels", callingFunctionName);
+ return false;
+ }
+ return true;
  }
  
  var nativeCallQueue=[];

@@ -411,7 +411,7 @@
     [self setOrientationProperties:queryComponents];
     
     // If no custom close included, show our default one.
-    UIButton *closeButton = [useCustomClose isEqualToString:@"false"] ? [self expandCloseButton] : nil;
+    UIButton *closeButton = [useCustomClose isEqualToString:@"true"] ? nil : [self expandCloseButton];
     
     [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)
                                   closeButton:closeButton];
