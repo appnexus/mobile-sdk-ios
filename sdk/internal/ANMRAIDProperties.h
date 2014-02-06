@@ -63,6 +63,7 @@ typedef enum _ANMRAIDState
 @property (nonatomic, readwrite, weak) id<ANMRAIDEventReceiver> mraidEventReceiverDelegate;
 
 - (NSString *)adType;
+- (UIViewController *)displayController;
 - (void)adShouldResetToDefault;
 - (void)adShouldExpandToFrame:(CGRect)frame closeButton:(UIButton *)closeButton;
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen

@@ -269,6 +269,10 @@
     return @"inline";
 }
 
+- (UIViewController *)displayController {
+    return self.mraidController ? self.mraidController : self.rootViewController;
+}
+
 - (void)adShouldExpandToFrame:(CGRect)frame
                   closeButton:(UIButton *)closeButton {
     [super mraidExpandAd:frame.size

@@ -303,6 +303,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 	return @"interstitial";
 }
 
+- (UIViewController *)displayController {
+    return self.mraidController ? self.mraidController : self.controller;
+}
+
 - (void)adShouldExpandToFrame:(CGRect)frame
                   closeButton:(UIButton *)closeButton {
     [super mraidExpandAd:frame.size

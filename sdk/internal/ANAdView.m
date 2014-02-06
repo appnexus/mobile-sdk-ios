@@ -66,6 +66,7 @@ ANBrowserViewControllerDelegate>
 
 // MRAIDAdViewDelegate methods
 - (NSString *)adType { return nil; }
+- (UIViewController *)displayController { return nil; }
 - (void)adShouldResetToDefault {}
 - (void)adShouldExpandToFrame:(CGRect)frame closeButton:(UIButton *)closeButton {}
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
@@ -189,16 +190,6 @@ ANBrowserViewControllerDelegate>
     
     [self adWillPresent];
     
-    // set presenting controller for MRAID WebViewController
-    ANMRAIDAdWebViewController *mraidWebViewController;
-    if ([contentView isKindOfClass:[UIWebView class]]) {
-        UIWebView *webView = (UIWebView *)contentView;
-        if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
-            mraidWebViewController = (ANMRAIDAdWebViewController *)webView.delegate;
-            mraidWebViewController.controller = rootViewController;
-        }
-    }
-    
     // set default frames for resetting later
     if (CGRectIsNull(self.defaultFrame)) {
         self.defaultParentFrame = defaultParentView.frame;
@@ -217,14 +208,6 @@ ANBrowserViewControllerDelegate>
         
         self.mraidController.contentView = contentView;
         [self.mraidController.view addSubview:contentView];
-        // set presenting controller for MRAID WebViewController
-        if ([contentView isKindOfClass:[UIWebView class]]) {
-            UIWebView *webView = (UIWebView *)contentView;
-            if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
-                ANMRAIDAdWebViewController *webViewController = (ANMRAIDAdWebViewController *)webView.delegate;
-                webViewController.controller = self.mraidController;
-            }
-        }
         
         [rootViewController presentViewController:self.mraidController animated:NO completion:^{
             [self adDidPresent];
@@ -280,16 +263,6 @@ ANBrowserViewControllerDelegate>
              allowOffscreen:(BOOL)allowOffscreen {
     NSString *mraidResizeErrorString = [self isResizeValid:contentView frameToResizeTo:frame];
     if ([mraidResizeErrorString length] > 0) return mraidResizeErrorString;
-    
-    // set presenting controller for MRAID WebViewController
-    ANMRAIDAdWebViewController *mraidWebViewController;
-    if ([contentView isKindOfClass:[UIWebView class]]) {
-        UIWebView *webView = (UIWebView *)contentView;
-        if ([webView.delegate isKindOfClass:[ANMRAIDAdWebViewController class]]) {
-            mraidWebViewController = (ANMRAIDAdWebViewController *)webView.delegate;
-            mraidWebViewController.controller = rootViewController;
-        }
-    }
     
     // set default frames for resetting later
     if (CGRectIsNull(self.defaultFrame)) {

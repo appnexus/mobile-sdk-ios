@@ -170,12 +170,7 @@
     if (self.viewabilityTimer) {
         [self.viewabilityTimer invalidate];
     }
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidEnterBackgroundNotification
-                                                  object:[UIApplication sharedApplication]];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidChangeStatusBarOrientationNotification
-                                                  object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)getWebViewVisible {    
@@ -455,7 +450,7 @@
                                                object:moviePlayerViewController.moviePlayer];
     
     [moviePlayerViewController.moviePlayer prepareToPlay];
-    [self.controller presentMoviePlayerViewControllerAnimated:moviePlayerViewController];
+    [[self.mraidDelegate displayController] presentMoviePlayerViewControllerAnimated:moviePlayerViewController];
     [moviePlayerViewController.moviePlayer play];
 }
 

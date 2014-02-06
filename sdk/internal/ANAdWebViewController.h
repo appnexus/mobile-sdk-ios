@@ -30,5 +30,5 @@
 @interface ANMRAIDAdWebViewController : ANAdWebViewController <ANMRAIDEventReceiver>
 
 @property (nonatomic, readwrite, weak) id<ANMRAIDAdViewDelegate> mraidDelegate;
-@property (nonatomic, readwrite, weak) UIViewController *controller;
+
 @end
