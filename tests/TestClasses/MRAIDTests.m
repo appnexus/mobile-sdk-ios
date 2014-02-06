@@ -470,15 +470,19 @@
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self addBannerAsSubview];
     CGSize size1 = CGSizeMake(320.0f, 250.0f);
-    [self setResizePropertiesResizeToSize:size1];
+    [self setResizePropertiesResizeToSize:size1 withOffset:CGPointMake(-50.0f, 240.0f)];
     CGSize size2 = CGSizeMake(500.0f, 300.0f);
-    [self setResizePropertiesResizeToSize:size2];
+    [self setResizePropertiesResizeToSize:size2 withOffset:CGPointMake(100.0f, 270.0f)];
     NSString *width = [self getResizePropertiesWidth];
     NSString *height = [self getResizePropertiesHeight];
     STAssertTrue([width length] > 0, @"Expected width to be defined");
     STAssertTrue([height length] > 0, @"Expected height to be defined");
     STAssertTrue([width isEqualToString:@"500"], @"Expected different width");
     STAssertTrue([height isEqualToString:@"300"], @"Expected different height");
+    NSString *offsetX = [self getResizePropertiesOffsetX];
+    NSString *offsetY = [self getResizePropertiesOffsetY];
+    STAssertTrue([offsetX isEqualToString:@"100"], @"Expected offsetX to be 100");
+    STAssertTrue([offsetY isEqualToString:@"270"], @"Expected offsetY to be 270");
     [self clearTest];
 }
     
@@ -487,12 +491,16 @@
     [self addBannerAsSubview];
     CGSize size = CGSizeMake(320.0f, 250.0f);
     [self setResizePropertiesResizeToSize:size];
+    NSString *width = [self getResizePropertiesWidth];
+    NSString *height = [self getResizePropertiesHeight];
     NSString *offsetX = [self getResizePropertiesOffsetX];
     NSString *offsetY = [self getResizePropertiesOffsetY];
 
     STAssertFalse([offsetX length], @"Expected offsetX to be undefined");
     STAssertFalse([offsetY length], @"Expected offsetY to be undefined");
-    
+    STAssertFalse([width length], @"Expected width to be undefined");
+    STAssertFalse([height length], @"Expected height to be undefined");
+
     [self resize];
     [self assertState:@"default"]; // Should not have resized
     [self clearTest];
@@ -505,6 +513,8 @@
     [self addBannerAsSubview];
     CGFloat expandHeight = 200.0f;
     [self setExpandPropertiesExpandToSize:CGSizeMake(320.0f, expandHeight)];
+    NSString *useCustomClose = [self getExpandPropertiesUseCustomClose];
+    STAssertTrue([useCustomClose isEqualToString:@"false"], @"Expected useCustomClose to be false");
     [self expand];
     STAssertTrue(self.banner.frame.size.height == expandHeight , @"Expected new height of banner frame to be expanded height");
     [self close];
@@ -565,6 +575,34 @@
     [self setExpandPropertiesExpandToSize:CGSizeMake(-10.0f, 250.0f)];
     [self expand];
     [self assertState:@"default"];
+    [self clearTest];
+}
+    
+- (void)testSetExpandPropertiesMultipleTimes {
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+    [self addBannerAsSubview];
+    CGSize size1 = CGSizeMake(320.0f, 250.0f);
+    BOOL useCustomClose1 = YES;
+    BOOL isModal1 = NO;
+    [self setExpandPropertiesExpandToSize:size1 useCustomClose:useCustomClose1 setModal:isModal1];
+    NSString *useCustomClose = [self getExpandPropertiesUseCustomClose];
+    NSString *width = [self getExpandPropertiesWidth];
+    NSString *height = [self getExpandPropertiesHeight];
+    NSString *isModal = [self getExpandPropertiesIsModal];
+    STAssertTrue([useCustomClose isEqualToString:@"true"], @"Expected useCustomClose to be true");
+    STAssertTrue([width isEqualToString:@"320"], @"Expected width to be 320");
+    STAssertTrue([height isEqualToString:@"250"], @"Expected height to be 250");
+    STAssertTrue([isModal isEqualToString:@"true"], @"Expected isModal to be true");
+    CGSize size2 = CGSizeMake(500.0f, 300.0f);
+    [self setExpandPropertiesExpandToSize:size2];
+    useCustomClose = [self getExpandPropertiesUseCustomClose];
+    width = [self getExpandPropertiesWidth];
+    height = [self getExpandPropertiesHeight];
+    isModal = [self getExpandPropertiesIsModal];
+    STAssertTrue([useCustomClose isEqualToString:@"false"], @"Expected useCustomClose to be false");
+    STAssertTrue([width isEqualToString:@"500"], @"Expected width to be 320");
+    STAssertTrue([height isEqualToString:@"300"], @"Expected height to be 250");
+    STAssertTrue([isModal isEqualToString:@"true"], @"Expected isModal to be true");
     [self clearTest];
 }
 
@@ -770,6 +808,11 @@
     return [self mraidNativeCall:@"getExpandProperties()[\"height\"]" withDelay:0];
 }
 
+- (void)setExpandPropertiesExpandToSize:(CGSize)size useCustomClose:(BOOL)useCustomClose setModal:(BOOL)isModal {
+    [self mraidNativeCall:[NSString stringWithFormat:@"setExpandProperties({width:%f, height: %f, useCustomClose: %@, isModal: %@});", size.width, size.height,
+                           useCustomClose ? @"true":@"false", isModal ? @"true":@"false"] withDelay:0];
+}
+    
 - (void)setExpandPropertiesExpandToSize:(CGSize)size {
     [self mraidNativeCall:[NSString stringWithFormat:@"setExpandProperties({width:%f, height: %f});", size.width, size.height] withDelay:0];
 }

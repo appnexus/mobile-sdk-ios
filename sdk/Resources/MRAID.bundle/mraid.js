@@ -162,17 +162,18 @@
  mraid.util.errorEvent("Invalid expandProperties. Retaining default values.", "mraid.setExpandProperties()");
  return;
  }
- if (typeof properties.width !== "undefined") {
- expand_properties.width = properties.width;
+ if (typeof properties.width === "undefined") {
+ properties.width = -1;
  }
- if (typeof properties.height !== "undefined"){
- expand_properties.height = properties.height;
+ if (typeof properties.height === "undefined") {
+ properties.height = -1;
  }
- if (typeof properties.useCustomClose !== "undefined") {
- expand_properties.useCustomClose = properties.useCustomClose;
+ if (typeof properties.useCustomClose === "undefined") {
+ properties.useCustomClose = false;
  }
+ properties.isModal = true;
+ expand_properties = properties;
  };
- 
  
  //returns a json object... {width:300, height:250, useCustomClose:false, isModal:false};
  mraid.getExpandProperties=function(){
@@ -193,11 +194,8 @@
  
  // MRAID 2.0 Stuff.
  mraid.resize=function(){
- if (typeof resize_properties.width === "undefined" || typeof resize_properties.height === "undefined" || typeof resize_properties.offsetX === "undefined" || typeof resize_properties.offsetY === "undefined") {
- mraid.util.errorEvent("Incomplete resizeProperties. width, height, offsetX, offsetY required", "mraid.resize()");
- return;
- }else if(resize_properties.height<50 || resize_properties.width<50){
- mraid.util.errorEvent("mraid.resize() called with a width or height below the minimum 50px", "mraid.resize()");
+ if(!mraid.util.validateResizeProperties(resize_properties)){
+ mraid.util.errorEvent("mraid.resize() called without properly setting setResizeProperties", "mraid.resize()");
  return;
  }
  switch(mraid.getState()){
@@ -224,39 +222,17 @@
  break;
  
  }
- 
  }
  
  mraid.setResizeProperties=function(props) {
- if (typeof props === "undefined") {
- mraid.util.errorEvent("Invalid resizeProperties", "mraid.setResizeProperties()");
- return;
- }
- if (typeof props.width !== "undefined") {
- if (props.width < 50) {
- mraid.util.errorEvent("Resize properties width below the minimum 50 pixels", "mraid.setResizeProperties()");
- return;
- }
- resize_properties.width = props.width;
- }
- if (typeof props.height !== "undefined") {
- if (props.height < 50) {
- mraid.util.errorEvent("Resize properties height below the minimum 50 pixels", "mraid.setResizeProperties()");
- return;
- }
- resize_properties.height = props.height;
- }
- if(typeof props.offsetX !== "undefined") {
- resize_properties.offsetX = props.offsetX;
- }
- if (typeof props.offsetY !== "undefined") {
- resize_properties.offsetY = props.offsetY;
- }
- if (typeof props.customClosePosition !== "undefined") {
- resize_properties.customClosePosition = props.customClosePosition;
- }
- if (typeof props.allowOffscreen !== "undefined") {
- resize_properties.allowOffscreen = props.allowOffscreen;
+ if (mraid.util.validateResizeProperties(props)) {
+    if (typeof props.customClosePosition === "undefined") {
+        props.customClosePosition = resize_properties.customClosePosition;
+    }
+    if (typeof props.allowOffscreen === "undefined") {
+        props.allowOffscreen = resize_properties.allowOffscreen;
+    }
+    resize_properties = props;
  }
  }
  
@@ -430,6 +406,26 @@
     }
  
    }
+ }
+ 
+ mraid.util.validateResizeProperties=function(properties) {
+ if (typeof properties === "undefined") {
+ mraid.util.errorEvent("Invalid resizeProperties", "mraid.validateResizeProperties()");
+ return false;
+ }
+ if (typeof properties.width === "undefined" || typeof properties.height === "undefined" || typeof properties.offsetX === "undefined" || typeof properties.offsetY === "undefined") {
+ mraid.util.errorEvent("Incomplete resizeProperties. width, height, offsetX, offsetY required", "validateResizeProperties()");
+ return false;
+ }
+ if (properties.width < 50) {
+ mraid.util.errorEvent("Resize properties width below the minimum 50 pixels", "validateResizeProperties()");
+ return false;
+ }
+ if (properties.height < 50) {
+ mraid.util.errorEvent("Resize properties height below the minimum 50 pixels", "validateResizeProperties()");
+ return false;
+ }
+ return true;
  }
  
  var nativeCallQueue=[];
