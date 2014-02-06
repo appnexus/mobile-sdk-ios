@@ -196,7 +196,7 @@
  
  // MRAID 2.0 Stuff.
  mraid.resize=function(){
- if(!mraid.util.validateResizeProperties(resize_properties)){
+ if(!mraid.util.validateResizeProperties(resize_properties, "mraid.resize()")){
  mraid.util.errorEvent("mraid.resize() called without properly setting setResizeProperties", "mraid.resize()");
  return;
  }
@@ -227,7 +227,7 @@
  }
  
  mraid.setResizeProperties=function(props) {
- if (mraid.util.validateResizeProperties(props)) {
+ if (mraid.util.validateResizeProperties(props, "mraid.setResizeProperties()")) {
     if (typeof props.customClosePosition === "undefined") {
         props.customClosePosition = 'top-right';
     }
@@ -410,21 +410,21 @@
    }
  }
  
- mraid.util.validateResizeProperties=function(properties) {
+ mraid.util.validateResizeProperties=function(properties, callingFunctionName) {
  if (typeof properties === "undefined") {
- mraid.util.errorEvent("Invalid resizeProperties", "mraid.validateResizeProperties()");
+ mraid.util.errorEvent("Invalid resizeProperties", callingFunctionName);
  return false;
  }
  if (typeof properties.width === "undefined" || typeof properties.height === "undefined" || typeof properties.offsetX === "undefined" || typeof properties.offsetY === "undefined") {
- mraid.util.errorEvent("Incomplete resizeProperties. width, height, offsetX, offsetY required", "validateResizeProperties()");
+ mraid.util.errorEvent("Incomplete resizeProperties. width, height, offsetX, offsetY required", callingFunctionName);
  return false;
  }
  if (properties.width < 50) {
- mraid.util.errorEvent("Resize properties width below the minimum 50 pixels", "validateResizeProperties()");
+ mraid.util.errorEvent("Resize properties width below the minimum 50 pixels", callingFunctionName);
  return false;
  }
  if (properties.height < 50) {
- mraid.util.errorEvent("Resize properties height below the minimum 50 pixels", "validateResizeProperties()");
+ mraid.util.errorEvent("Resize properties height below the minimum 50 pixels", callingFunctionName);
  return false;
  }
  return true;
