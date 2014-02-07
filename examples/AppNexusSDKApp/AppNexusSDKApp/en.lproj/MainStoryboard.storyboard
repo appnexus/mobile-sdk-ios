@@ -96,7 +96,7 @@
                             <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JjS-u4-qRL">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="422"/>
                                 <connections>
-                                    <segue destination="u3K-4y-lbV" kind="embed" id="Ec6-78-44o"/>
+                                    <segue destination="P58-fQ-ZaV" kind="embed" id="4KV-Jm-F1p"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FPk-fM-OK8">
@@ -129,9 +129,9 @@
         <!--Ad SettingsTVC - Hello World-->
         <scene sceneID="mh2-dn-YjO">
             <objects>
-                <tableViewController storyboardIdentifier="AdSettingsTVC" title="Hello World" wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" id="u3K-4y-lbV" customClass="AdSettingsTVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AdSettingsTVCOld" title="Hello World" wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" id="u3K-4y-lbV" customClass="AdSettingsTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TF8-rN-gFk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="422"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -974,7 +974,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AdSettingsTVC" title="Hello World" wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" id="P58-fQ-ZaV" customClass="AdSettingsTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wba-FH-1cY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="422"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -1156,6 +1156,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="qjf-ss-6bi" appends="YES" id="2Io-Jk-d68"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="qWq-L5-JrR">
                                         <rect key="frame" x="0.0" y="242" width="320" height="44"/>
@@ -1164,14 +1167,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRb-u3-UcP">
-                                                    <rect key="frame" x="20" y="12" width="59" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Gender" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRb-u3-UcP">
+                                                    <rect key="frame" x="20" y="10" width="59" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k6Z-7m-vCD">
-                                                    <rect key="frame" x="87" y="8" width="215" height="29"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k6Z-7m-vCD">
+                                                    <rect key="frame" x="85" y="8" width="215" height="29"/>
                                                     <segments>
                                                         <segment title="Unknown"/>
                                                         <segment title="Male"/>
@@ -1179,12 +1182,15 @@
                                                     </segments>
                                                     <color key="tintColor" red="0.93725490199999995" green="0.50980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
-                                                        <action selector="setBrowserSegmentedControl:" destination="P58-fQ-ZaV" eventType="valueChanged" id="zta-2U-Sqg"/>
+                                                        <action selector="setGenderSegmentedControl:" destination="P58-fQ-ZaV" eventType="valueChanged" id="iKs-7k-tTA"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="k6Z-7m-vCD" secondAttribute="centerY" id="BTs-cj-sND"/>
                                                 <constraint firstItem="VRb-u3-UcP" firstAttribute="leading" secondItem="0Mr-Q1-Nhh" secondAttribute="leading" constant="20" symbolic="YES" id="QUe-kn-v0t"/>
+                                                <constraint firstAttribute="trailing" secondItem="k6Z-7m-vCD" secondAttribute="trailing" constant="20" symbolic="YES" id="V3X-dl-O6a"/>
+                                                <constraint firstItem="k6Z-7m-vCD" firstAttribute="baseline" secondItem="VRb-u3-UcP" secondAttribute="baseline" id="erg-6N-4cG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
@@ -1224,28 +1230,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="EJg-eF-cER">
-                                        <rect key="frame" x="0.0" y="330" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EJg-eF-cER" id="pTm-mA-oID">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="Custom Keywords" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzl-ws-ASK">
-                                                    <rect key="frame" x="20" y="12" width="145" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Vzl-ws-ASK" firstAttribute="leading" secondItem="pTm-mA-oID" secondAttribute="leading" constant="20" symbolic="YES" id="gLe-0U-JQj"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <gestureRecognizers/>
                                         <connections>
-                                            <segue destination="rcN-5k-oiu" kind="push" id="Kzh-bZ-wjc"/>
+                                            <outletCollection property="gestureRecognizers" destination="IWO-hF-SYA" appends="YES" id="mwn-c3-G0a"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1253,7 +1239,7 @@
                             <tableViewSection headerTitle="Banner" id="DIZ-3D-ZTE">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AdSizeCell" id="rDx-0n-XHJ">
-                                        <rect key="frame" x="0.0" y="396" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="352" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rDx-0n-XHJ" id="fJ0-hg-hJY">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1289,7 +1275,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1RY-NS-87E">
-                                        <rect key="frame" x="0.0" y="440" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="396" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1RY-NS-87E" id="xUG-xb-si4">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1329,7 +1315,7 @@
                             <tableViewSection headerTitle="Interstitial" id="AQ9-Cc-Lsc">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1BV-5r-mHm">
-                                        <rect key="frame" x="0.0" y="506" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="462" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1BV-5r-mHm" id="H4H-Ik-NeM">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1370,7 +1356,7 @@
                             <tableViewSection headerTitle="Debug Auction" id="tKJ-qC-yXV">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="memberIDCell" id="cPo-8r-IJP">
-                                        <rect key="frame" x="0.0" y="572" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="528" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cPo-8r-IJP" id="g7D-1e-ijj">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1410,7 +1396,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="htp-uB-iuD">
-                                        <rect key="frame" x="0.0" y="616" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="572" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="htp-uB-iuD" id="Wjt-5N-zh8">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1456,19 +1442,22 @@
                             <outlet property="delegate" destination="P58-fQ-ZaV" id="YYK-eW-nP6"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="MME-nd-5S5"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="adTypeToggle" destination="kAy-z3-ikr" id="chh-hA-v9o"/>
+                        <outlet property="ageTextField" destination="r8a-dI-PYa" id="O8Q-Yw-LMF"/>
                         <outlet property="allowPSAToggle" destination="Ite-sh-Gnh" id="BVE-jD-CfY"/>
                         <outlet property="backgroundColorTextField" destination="Ih9-fF-5QA" id="EPU-xf-Y3u"/>
                         <outlet property="browserTypeToggle" destination="Un7-mM-GLP" id="QgC-ii-upL"/>
                         <outlet property="colorView" destination="H4H-Ik-NeM" id="kgX-6J-C11"/>
                         <outlet property="dongleTextField" destination="Lsr-2a-Zjl" id="5kI-kc-OlH"/>
+                        <outlet property="genderToggle" destination="k6Z-7m-vCD" id="1Rr-Pq-hdX"/>
                         <outlet property="memberIDTextField" destination="sdg-O6-K1N" id="nrV-kz-BeT"/>
                         <outlet property="placementIDTextField" destination="k8N-VC-gZb" id="zB1-uc-JN4"/>
                         <outlet property="refreshRateTextField" destination="oK0-Vq-fod" id="A98-ni-c83"/>
+                        <outlet property="reserveTextField" destination="NF8-oA-OII" id="4Db-vv-jcB"/>
                         <outlet property="sizeTextField" destination="gBV-Ix-h8Q" id="F5F-hF-ZmI"/>
                     </connections>
                 </tableViewController>
@@ -1508,27 +1497,18 @@
                         <action selector="backgroundColorTap:" destination="P58-fQ-ZaV" id="Ojx-uP-h26"/>
                     </connections>
                 </tapGestureRecognizer>
+                <tapGestureRecognizer id="qjf-ss-6bi">
+                    <connections>
+                        <action selector="ageTap:" destination="P58-fQ-ZaV" id="zch-zB-ivU"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="IWO-hF-SYA">
+                    <connections>
+                        <action selector="reserveTap:" destination="P58-fQ-ZaV" id="scy-DK-vTT"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4978" y="1521"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="ygH-rt-ubU">
-            <objects>
-                <viewController id="rcN-5k-oiu" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="NWg-IX-Con"/>
-                        <viewControllerLayoutGuide type="bottom" id="dZe-db-sQV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Zhu-Le-Gkd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="sdZ-RK-Gu0"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kiK-rZ-oFl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5438" y="1521"/>
+            <point key="canvasLocation" x="4978" y="1517"/>
         </scene>
     </scenes>
     <resources>

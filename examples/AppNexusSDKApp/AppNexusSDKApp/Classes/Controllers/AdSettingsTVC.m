@@ -18,6 +18,7 @@
 #import "DataDisplayHelper.h"
 #import "NoCaretUITextField.h"
 #import "ANLogging.h"
+#import "ANAdProtocol.h"
 
 #define CLASS_NAME @"AdSettingsTVC"
 
@@ -34,7 +35,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *allowPSAToggle;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *browserTypeToggle;
 @property (weak, nonatomic) IBOutlet UITextField *placementIDTextField;
-
+@property (weak, nonatomic) IBOutlet UITextField *ageTextField;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *genderToggle;
+@property (weak, nonatomic) IBOutlet UITextField *reserveTextField;
 
 // Banner Settings
 @property (weak, nonatomic) IBOutlet NoCaretUITextField *sizeTextField;
@@ -63,9 +66,7 @@
     [self currentSettingsSetup];
 }
 
-/*
-    PickerView Data Source / Delegate Methods
- */
+#pragma mark Picker View
 
 - (UIPickerView *)generatePickerView {
     return [[UIPickerView alloc] initWithFrame:CGRectMake(0.0,0.0,self.view.frame.size.width,162.0)];
@@ -128,9 +129,11 @@
                                  animated:NO];
 }
 
-/*
-    Persistent Settings
- */
+- (IBAction)makeKeyboardDisappear:(id)sender {
+    [sender resignFirstResponder];
+}
+
+#pragma mark Persistent Settings
 
 - (AdSettings *)persistentSettings {
     if (!_persistentSettings) _persistentSettings = [[AdSettings alloc] init];
@@ -162,6 +165,8 @@
     self.dongleTextField.text = self.persistentSettings.dongle;
     self.placementIDTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.placementID];
     self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
+    self.ageTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.age];
+    self.reserveTextField.text = [NSString stringWithFormat:@"%f", self.persistentSettings.reserve];
 }
 
 - (void)saveAdWidth:(NSInteger)width andAdHeight:(NSInteger)height {
@@ -200,6 +205,18 @@
     self.persistentSettings.allowPSA = allowPSA;
 }
 
+- (void)saveReserve:(double)reserve {
+    self.persistentSettings.reserve = reserve;
+}
+
+- (void)saveAge:(NSInteger)age {
+    self.persistentSettings.age = age;
+}
+
+- (void)saveGender:(NSInteger)gender {
+    self.persistentSettings.gender = gender;
+}
+
 - (BOOL)saveBackgroundColor:(NSString *)backgroundColor {
     if ([AdSettings backgroundColorIsValid:backgroundColor]) {
         self.persistentSettings.backgroundColor = backgroundColor; // Save as is, regardless of case
@@ -210,15 +227,7 @@
     return NO;
 }
 
-/*
-    View Actions
- */
-
-- (IBAction)makeKeyboardDisappear:(id)sender {
-    [sender resignFirstResponder];
-}
-
-// Text Fields
+#pragma mark Text Fields
 
 - (IBAction)memberIDTap:(UITapGestureRecognizer *)sender {
     if ([self.memberIDTextField isEditing]) {
@@ -252,6 +261,24 @@
     } else {
         [self saveTextFieldSettings];
         [self.backgroundColorTextField becomeFirstResponder];
+    }
+}
+
+- (IBAction)ageTap:(UITapGestureRecognizer *)sender {
+    if ([self.ageTextField isEditing]) {
+        [self.ageTextField resignFirstResponder];
+    } else {
+        [self saveTextFieldSettings];
+        [self.ageTextField becomeFirstResponder];
+    }
+}
+
+- (IBAction)reserveTap:(UITapGestureRecognizer *)sender {
+    if ([self.reserveTextField isEditing]) {
+        [self.reserveTextField resignFirstResponder];
+    } else {
+        [self saveTextFieldSettings];
+        [self.reserveTextField becomeFirstResponder];
     }
 }
 
@@ -302,9 +329,15 @@
     if ([self.backgroundColorTextField isEditing]) {
         [self handleBackgroundColorChange];
     }
+    if ([self.ageTextField isEditing]) {
+        [self saveAge:[self.ageTextField.text intValue]];
+    }
+    if ([self.reserveTextField isEditing]) {
+        [self saveReserve:[self.reserveTextField.text doubleValue]];
+    }
 }
 
-// Picker views
+#pragma mark Picker Views
 
 - (IBAction)refreshRateTap:(UITapGestureRecognizer *)sender {
     if ([self.refreshRateTextField isEditing]) {
@@ -322,7 +355,7 @@
     }
 }
 
-// Segmented Controls
+#pragma mark Segmented Controls
 
 - (IBAction)setAdTypeSegmentedControl:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex) {
@@ -344,6 +377,10 @@
     } else {
         [self saveBrowser:BROWSER_TYPE_IN_APP];
     }
+}
+
+- (IBAction)setGenderSegmentedControl:(UISegmentedControl *)sender {
+    [self saveGender:sender.selectedSegmentIndex];
 }
 
 - (void)toggleAdType:(BOOL)isBanner {

@@ -15,6 +15,7 @@
 
 #import "AdSettings.h"
 #import "ANLogging.h"
+#import "ANAdProtocol.h"
 
 @implementation AdSettings
 
@@ -31,6 +32,10 @@
 #define BACKGROUND_COLOR_KEY @"BackgroundColor"
 #define MEMBER_ID_KEY @"MemberID"
 #define DONGLE_KEY @"Dongle"
+#define AGE_KEY @"Age"
+#define GENDER_KEY @"Gender"
+#define RESERVE_KEY @"Reserve"
+
 
 - (id)init {
     NSDictionary *settingsFromUserDefaults = [[NSUserDefaults standardUserDefaults] dictionaryForKey:ALL_SETTINGS_KEY];
@@ -51,12 +56,16 @@
     return @{AD_TYPE_KEY:@(self.adType),
              AD_WIDTH_KEY:@(self.bannerWidth),
              AD_HEIGHT_KEY:@(self.bannerHeight),
-             ALLOW_PSA_KEY:@(self.allowPSA), BROWSER_TYPE_KEY:@(self.browserType),
+             ALLOW_PSA_KEY:@(self.allowPSA),
+             BROWSER_TYPE_KEY:@(self.browserType),
              PLACEMENT_ID_KEY:@(self.placementID),
              BACKGROUND_COLOR_KEY:self.backgroundColor,
              MEMBER_ID_KEY:@(self.memberID),
              DONGLE_KEY:self.dongle,
-             REFRESH_RATE_KEY:@(self.refreshRate)};
+             REFRESH_RATE_KEY:@(self.refreshRate),
+             AGE_KEY:@(self.age),
+             GENDER_KEY:@(self.gender),
+             RESERVE_KEY:@(self.reserve)};
 }
 
 - (id)initFromPropertyList:(id)plist {
@@ -71,6 +80,10 @@
             _allowPSA = [settingsDict[ALLOW_PSA_KEY] boolValue];
             _browserType = [settingsDict[BROWSER_TYPE_KEY] intValue];
             _placementID = [settingsDict[PLACEMENT_ID_KEY] intValue];
+            
+            _age = settingsDict[AGE_KEY] ? [settingsDict[AGE_KEY] intValue] : DEFAULT_AGE;
+            _gender = settingsDict[GENDER_KEY] ? [settingsDict[GENDER_KEY] intValue] : DEFAULT_GENDER;
+            _reserve = settingsDict[RESERVE_KEY] ? [settingsDict[RESERVE_KEY] doubleValue] : DEFAULT_RESERVE;
             
             /*
                 Banner Properties
@@ -104,6 +117,9 @@
         _allowPSA = DEFAULT_ALLOW_PSA;
         _browserType = DEFAULT_BROWSER_TYPE;
         _placementID = DEFAULT_PLACEMENT_ID;
+        _gender = DEFAULT_GENDER;
+        _age = DEFAULT_AGE;
+        _reserve = DEFAULT_RESERVE;
         
         /*
          Banner Properties
@@ -174,6 +190,21 @@
 
 - (void)setRefreshRate:(int)refreshRate {
     _refreshRate = refreshRate;
+    [self synchronize];
+}
+
+- (void)setReserve:(double)reserve {
+    _reserve = reserve;
+    [self synchronize];
+}
+
+- (void)setGender:(int)gender {
+    _gender = gender;
+    [self synchronize];
+}
+
+- (void)setAge:(int)age {
+    _age = age;
     [self synchronize];
 }
 
