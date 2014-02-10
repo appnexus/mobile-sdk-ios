@@ -114,6 +114,7 @@
 		ECCF548D18451FE40000E37C /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF548118451FE40000E37C /* UIButtonBarArrowRight.png */; };
 		ECCF548E18451FE40000E37C /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECCF548218451FE40000E37C /* UIButtonBarArrowRight@2x.png */; };
 		ECCF548F18451FE40000E37C /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECCF548318451FE40000E37C /* MRAID.bundle */; };
+		ECE9882818A9894E0036B5D9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1204E18218A1E00CB4BE8 /* iAd.framework */; };
 		ECF9AA8F1858C8A10079BCD0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF9AA8E1858C8A10079BCD0 /* EventKit.framework */; };
 		ECF9AA951858E5F60079BCD0 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF9AA941858E5F60079BCD0 /* ANWebView.m */; };
 /* End PBXBuildFile section */
@@ -305,6 +306,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECE9882818A9894E0036B5D9 /* iAd.framework in Frameworks */,
 				ECF9AA8F1858C8A10079BCD0 /* EventKit.framework in Frameworks */,
 				EC2A477A184558EC00D29747 /* libANMediatedViewsLibrary.a in Frameworks */,
 				EC7DC2671817407A00B813D1 /* QuartzCore.framework in Frameworks */,
