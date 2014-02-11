@@ -2156,15 +2156,15 @@
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="Banner or Interstitial. A banner is a basic display ad, while an interstitial loads before or after other content.">
+                                    <fragment>
+                                        <string key="content">Banner or Interstitial. A banner is a basic display ad, while an interstitial loads before or after other content.
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment>
-                                        <string key="content">
-                                            Placement ID: </string>
+                                    <fragment content="Placement ID: ">
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2172,7 +2172,7 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">An AppNexus placement ID. This is a numeric ID that is associated with a place where ads can be shown. In our implementations of banner and interstitial ad views, we associate each ad view with a placement ID.
-                                        </string>
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2186,7 +2186,7 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">Represents the width and height of the ad view. In order for ads to display correctly, you must verify that your AppNexus placement is a “sizeless” placement. If you are seeing ads of a fixed size being squeezed into differently-sized views, you probably do not have a sizeless placement.
-                                        </string>
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2200,7 +2200,7 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">The frequency with which the ad slot is refreshed.
-                                        </string>
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2214,8 +2214,8 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">The background color of the interstitial view.
-                                            
-                                        </string>
+
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2229,7 +2229,7 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">Whether the ad should display PSAs (Public Service Announcements) if there are no ads available from the server.
-                                        </string>
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2249,7 +2249,7 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">
-                                            Browser: </string>
+Browser: </string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2257,7 +2257,7 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">Determines whether the ad, when clicked, will open the device’s native browser.
-                                        </string>
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2271,7 +2271,7 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">Used to pass custom keywords to the AppNexus ad server, as well as across different mobile ad server and SDK integrations.
-                                        </string>
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2329,7 +2329,7 @@ Member ID (Debug Auction): </string>
                                     </fragment>
                                     <fragment>
                                         <string key="content">The member ID from the AppNexus Console account where the placement ID was created.
-                                        </string>
+</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2342,8 +2342,7 @@ Member ID (Debug Auction): </string>
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <string key="content">The reserve price is the minimum bid amount you will accept to show an ad (in CPM). Use this with caution, as it can drastically reduce fill rates.
-                                        </string>
+                                        <string key="content">The reserve price is the minimum bid amount you will accept to show an ad (in CPM). Use this with caution, as it can drastically reduce fill rates.</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
