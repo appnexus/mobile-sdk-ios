@@ -10,7 +10,7 @@
 
 @protocol AddCustomKeywordToPersistentStoreDelegate;
 
-@interface AddCustomKeywordViewController : UIViewController
+@interface AddCustomKeywordTVC : UITableViewController
 
 @property (strong, nonatomic) id<AddCustomKeywordToPersistentStoreDelegate> delegate;
 @property (strong, nonatomic) NSString *existingKey;

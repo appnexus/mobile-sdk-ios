@@ -8,7 +8,7 @@
 
 #import "CustomKeywordsTVC.h"
 #import "AdSettings.h"
-#import "AddCustomKeywordViewController.h"
+#import "AddCustomKeywordTVC.h"
 
 static NSString *const CellIdentifier = @"customKeywordCell";
 
@@ -58,7 +58,7 @@ static NSString *const CellIdentifier = @"customKeywordCell";
     self.navigationItem.leftBarButtonItem = newItem;
 }
 
-- (IBAction)editTableViewItems:(UIBarButtonItem *)sender {
+- (void)editTableViewItems:(UIBarButtonItem *)sender {
     if ([self.customKeywords count] > 0) {
         [self setEditing:YES animated:YES];
         [self setDoneBarButtonItemOnNavigationItem];
@@ -112,8 +112,8 @@ static NSString *const CellIdentifier = @"customKeywordCell";
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[AddCustomKeywordViewController class]]) {
-        AddCustomKeywordViewController *destinationVC = (AddCustomKeywordViewController *)segue.destinationViewController;
+    if ([segue.destinationViewController isKindOfClass:[AddCustomKeywordTVC class]]) {
+        AddCustomKeywordTVC *destinationVC = (AddCustomKeywordTVC *)segue.destinationViewController;
         destinationVC.delegate = self;
         if ([sender isKindOfClass:[UITableViewCell class]]) {
             UITableViewCell *cell = (UITableViewCell *)sender;

@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 AppNexus. All rights reserved.
 //
 
-#import "AddCustomKeywordViewController.h"
+#import "AddCustomKeywordTVC.h"
 
-@interface AddCustomKeywordViewController ()
+@interface AddCustomKeywordTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *keyTextField;
 @property (weak, nonatomic) IBOutlet UITextField *valueTextField;
 
 @end
 
-@implementation AddCustomKeywordViewController
+@implementation AddCustomKeywordTVC
 
 - (void)viewDidLoad {
     if (self.existingKey && self.existingValue) {

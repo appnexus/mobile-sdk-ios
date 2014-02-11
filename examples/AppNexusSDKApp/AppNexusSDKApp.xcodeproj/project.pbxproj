@@ -17,7 +17,7 @@
 		8AB8A0DD18A5885A00487206 /* AppNexusSDKAppSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8A0DC18A5885A00487206 /* AppNexusSDKAppSectionHeaderView.m */; };
 		8AB8A0E318A594F300487206 /* AppNexusSDKAppSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AB8A0E218A594F300487206 /* AppNexusSDKAppSectionHeaderView.xib */; };
 		8ABB42C417FCBB0D000E3F2B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */; };
-		8ADA000118A992E00016B1BC /* AddCustomKeywordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA000018A992E00016B1BC /* AddCustomKeywordViewController.m */; };
+		8ADA000118A992E00016B1BC /* AddCustomKeywordTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ADA000018A992E00016B1BC /* AddCustomKeywordTVC.m */; };
 		8AEBF36B17D03382003C7214 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36A17D03382003C7214 /* CoreTelephony.framework */; };
 		8AEBF36D17D0338D003C7214 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36C17D0338D003C7214 /* CoreLocation.framework */; };
 		8AEBF36F17D03394003C7214 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36E17D03394003C7214 /* AdSupport.framework */; };
@@ -155,8 +155,8 @@
 		8AB8A0DC18A5885A00487206 /* AppNexusSDKAppSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNexusSDKAppSectionHeaderView.m; sourceTree = "<group>"; };
 		8AB8A0E218A594F300487206 /* AppNexusSDKAppSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppNexusSDKAppSectionHeaderView.xib; sourceTree = "<group>"; };
 		8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		8ADA000018A992E00016B1BC /* AddCustomKeywordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCustomKeywordViewController.m; sourceTree = "<group>"; };
-		8ADAFFFF18A992E00016B1BC /* AddCustomKeywordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCustomKeywordViewController.h; sourceTree = "<group>"; };
+		8ADA000018A992E00016B1BC /* AddCustomKeywordTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCustomKeywordTVC.m; sourceTree = "<group>"; };
+		8ADAFFFF18A992E00016B1BC /* AddCustomKeywordTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCustomKeywordTVC.h; sourceTree = "<group>"; };
 		8AEBF36A17D03382003C7214 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8AEBF36C17D0338D003C7214 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8AEBF36E17D03394003C7214 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -455,8 +455,8 @@
 				EC3FD6EC1822213C00B25418 /* LogViewController.m */,
 				8A8CAD0118A98E2E00DF9436 /* CustomKeywordsTVC.h */,
 				8A8CAD0218A98E2E00DF9436 /* CustomKeywordsTVC.m */,
-				8ADAFFFF18A992E00016B1BC /* AddCustomKeywordViewController.h */,
-				8ADA000018A992E00016B1BC /* AddCustomKeywordViewController.m */,
+				8ADAFFFF18A992E00016B1BC /* AddCustomKeywordTVC.h */,
+				8ADA000018A992E00016B1BC /* AddCustomKeywordTVC.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -817,7 +817,7 @@
 				ECB124CB1821A25D00CB4BE8 /* ANInterstitialAd.m in Sources */,
 				ECB124BB1821A25D00CB4BE8 /* NSString+ANCategory.m in Sources */,
 				EC3FD73C1822213C00B25418 /* CoreDataExample.xcdatamodeld in Sources */,
-				8ADA000118A992E00016B1BC /* AddCustomKeywordViewController.m in Sources */,
+				8ADA000118A992E00016B1BC /* AddCustomKeywordTVC.m in Sources */,
 				EC3FD73F1822213C00B25418 /* NoCaretUITextField.m in Sources */,
 				ECB124BC1821A25D00CB4BE8 /* NSTimer+ANCategory.m in Sources */,
 				ECB124C31821A25D00CB4BE8 /* ANAdResponse.m in Sources */,
