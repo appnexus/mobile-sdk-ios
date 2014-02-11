@@ -35,7 +35,7 @@
 #define AGE_KEY @"Age"
 #define GENDER_KEY @"Gender"
 #define RESERVE_KEY @"Reserve"
-
+#define CUSTOM_KEYWORDS_KEY @"CustomKeywords"
 
 - (id)init {
     NSDictionary *settingsFromUserDefaults = [[NSUserDefaults standardUserDefaults] dictionaryForKey:ALL_SETTINGS_KEY];
@@ -63,9 +63,10 @@
              MEMBER_ID_KEY:@(self.memberID),
              DONGLE_KEY:self.dongle,
              REFRESH_RATE_KEY:@(self.refreshRate),
-             AGE_KEY:@(self.age),
+             AGE_KEY:self.age,
              GENDER_KEY:@(self.gender),
-             RESERVE_KEY:@(self.reserve)};
+             RESERVE_KEY:@(self.reserve),
+             CUSTOM_KEYWORDS_KEY:self.customKeywords};
 }
 
 - (id)initFromPropertyList:(id)plist {
@@ -81,9 +82,10 @@
             _browserType = [settingsDict[BROWSER_TYPE_KEY] intValue];
             _placementID = [settingsDict[PLACEMENT_ID_KEY] intValue];
             
-            _age = settingsDict[AGE_KEY] ? [settingsDict[AGE_KEY] intValue] : DEFAULT_AGE;
+            _age = settingsDict[AGE_KEY] ? settingsDict[AGE_KEY] : DEFAULT_AGE;
             _gender = settingsDict[GENDER_KEY] ? [settingsDict[GENDER_KEY] intValue] : DEFAULT_GENDER;
             _reserve = settingsDict[RESERVE_KEY] ? [settingsDict[RESERVE_KEY] doubleValue] : DEFAULT_RESERVE;
+            _customKeywords = settingsDict[CUSTOM_KEYWORDS_KEY] ? settingsDict[CUSTOM_KEYWORDS_KEY] : DEFAULT_CUSTOM_KEYWORDS;
             
             /*
                 Banner Properties
@@ -120,6 +122,7 @@
         _gender = DEFAULT_GENDER;
         _age = DEFAULT_AGE;
         _reserve = DEFAULT_RESERVE;
+        _customKeywords = DEFAULT_CUSTOM_KEYWORDS;
         
         /*
          Banner Properties
@@ -203,8 +206,13 @@
     [self synchronize];
 }
 
-- (void)setAge:(int)age {
+- (void)setAge:(NSString *)age {
     _age = age;
+    [self synchronize];
+}
+
+- (void)setCustomKeywords:(NSDictionary *)customKeywords {
+    _customKeywords = customKeywords;
     [self synchronize];
 }
 

@@ -19,6 +19,9 @@
 #import "NoCaretUITextField.h"
 #import "ANLogging.h"
 #import "ANAdProtocol.h"
+#import "AppNexusSDKAppSectionHeaderView.h"
+#import "AppNexusSDKAppModalViewController.h"
+#import "CustomKeywordsTVC.h"
 
 #define CLASS_NAME @"AdSettingsTVC"
 
@@ -26,11 +29,30 @@
 #define INVALID_HEX_ALERT_MESSAGE @"Invalid Hex Color. Please specify color in ARGB format."
 #define INVALID_HEX_ALERT_CANCEL @"OK"
 
-@interface AdSettingsTVC () <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+#pragma mark Section Header Constants
+
+static NSString *const AdSettingsSectionHeaderViewIdentifier = @"AdSettingsSectionHeaderViewIdentifier";
+
+static NSInteger const AdSettingsSectionHeaderGeneralIndex = 0;
+static NSInteger const AdSettingsSectionHeaderAdvancedIndex = 1;
+
+static NSInteger const AdSettingsSectionGeneralNumRows = 5;
+static NSInteger const AdSettingsSectionAdvancedNumRows = 8;
+
+static BOOL AdSettingsSectionGeneralIsOpen = YES;
+static BOOL AdSettingsSectionAdvancedIsOpen = NO;
+
+static NSString *const AdSettingsSectionHeaderTitleLabelGeneral = @"General";
+static NSString *const AdSettingsSectionHeaderTitleLabelAdvanced = @"Advanced";
+
+#pragma end
+
+@interface AdSettingsTVC () <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource,
+AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelegate>
 
 @property (strong, nonatomic) AdSettings *persistentSettings;
 
-// General Settings
+#pragma mark General
 @property (weak, nonatomic) IBOutlet UISegmentedControl *adTypeToggle;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *allowPSAToggle;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *browserTypeToggle;
@@ -39,22 +61,21 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderToggle;
 @property (weak, nonatomic) IBOutlet UITextField *reserveTextField;
 
-// Banner Settings
+# pragma mark Banner
 @property (weak, nonatomic) IBOutlet NoCaretUITextField *sizeTextField;
 @property (strong, nonatomic) UIPickerView *sizePickerView;
 
 @property (weak, nonatomic) IBOutlet NoCaretUITextField *refreshRateTextField;
 @property (strong, nonatomic) UIPickerView *refreshRatePickerView;
 
-
-// Interstitial Settings
+#pragma mark Interstitial
 @property (weak, nonatomic) IBOutlet UITextField *backgroundColorTextField;
+@property (weak, nonatomic) IBOutlet UIView *colorView;
 
-// Debug Settings
+#pragma mark Debug
 @property (weak, nonatomic) IBOutlet UITextField *memberIDTextField;
 @property (weak, nonatomic) IBOutlet UITextField *dongleTextField;
 
-@property (weak, nonatomic) IBOutlet UIView *colorView;
 @end
 
 @implementation AdSettingsTVC
@@ -62,11 +83,51 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self pickerViewSetup];
     [self currentSettingsSetup];
+    
+    UINib *sectionHeaderNib = [UINib nibWithNibName:@"AppNexusSDKAppSectionHeaderView" bundle:nil];
+    [self.tableView registerNib:sectionHeaderNib forHeaderFooterViewReuseIdentifier:AdSettingsSectionHeaderViewIdentifier];
 }
 
-#pragma mark Picker View
+- (IBAction)makeKeyboardDisappear:(id)sender {
+    [sender resignFirstResponder];
+}
+
+#pragma mark Current Settings Setup
+
+- (void)currentSettingsSetup {
+    DataDisplayHelper *helper = [[DataDisplayHelper alloc] init];
+    self.sizeDelegate = helper;
+    self.refreshRateDelegate = helper;
+    self.reservePriceDelegate = helper;
+    
+    [self pickerViewSetup];
+    [self segmentedControlsSetup];
+    [self textFieldsSetup];
+}
+
+#pragma mark Picker Views - Initial Setup
+
+- (void)pickerViewSetup {
+    
+    self.sizePickerView = [self generatePickerView];
+    self.sizeTextField.inputView = self.sizePickerView;
+    self.sizePickerView.delegate = self;
+    [self.sizePickerView selectRow:[[self.sizeDelegate class]
+                                    indexForBannerSizeWithWidth:self.persistentSettings.bannerWidth
+                                    height:self.persistentSettings.bannerHeight]
+                       inComponent:0
+                          animated:NO];
+    
+    self.refreshRatePickerView = [self generatePickerView];
+    self.refreshRateTextField.inputView = self.refreshRatePickerView;
+    self.refreshRatePickerView.delegate = self;
+    [self.refreshRatePickerView selectRow:[[self.refreshRateDelegate class] indexForRefreshRate:self.persistentSettings.refreshRate]
+                              inComponent:0
+                                 animated:NO];
+}
+
+#pragma mark Picker Views - Delegate Methods
 
 - (UIPickerView *)generatePickerView {
     return [[UIPickerView alloc] initWithFrame:CGRectMake(0.0,0.0,self.view.frame.size.width,162.0)];
@@ -107,30 +168,22 @@
     return @"";
 }
 
-- (void)pickerViewSetup {
-    DataDisplayHelper *helper = [[DataDisplayHelper alloc] init];
-    
-    self.sizePickerView = [self generatePickerView];
-    self.sizeTextField.inputView = self.sizePickerView;
-    self.sizePickerView.delegate = self;
-    self.sizeDelegate = helper;
-    [self.sizePickerView selectRow:[[self.sizeDelegate class]
-                                    indexForBannerSizeWithWidth:self.persistentSettings.bannerWidth
-                                    height:self.persistentSettings.bannerHeight]
-                       inComponent:0
-                          animated:NO];
-    
-    self.refreshRatePickerView = [self generatePickerView];
-    self.refreshRateTextField.inputView = self.refreshRatePickerView;
-    self.refreshRatePickerView.delegate = self;
-    self.refreshRateDelegate = helper;
-    [self.refreshRatePickerView selectRow:[[self.refreshRateDelegate class] indexForRefreshRate:self.persistentSettings.refreshRate]
-                              inComponent:0
-                                 animated:NO];
+#pragma mark Picker Views - On Tap
+
+- (IBAction)refreshRateTap:(UITapGestureRecognizer *)sender {
+    if ([self.refreshRateTextField isEditing]) {
+        [self.refreshRateTextField resignFirstResponder];
+    } else {
+        [self.refreshRateTextField becomeFirstResponder];
+    }
 }
 
-- (IBAction)makeKeyboardDisappear:(id)sender {
-    [sender resignFirstResponder];
+- (IBAction)sizeTap:(UITapGestureRecognizer *)sender {
+    if ([self.sizeTextField isEditing]) {
+        [self.sizeTextField resignFirstResponder];
+    } else {
+        [self.sizeTextField becomeFirstResponder];
+    }
 }
 
 #pragma mark Persistent Settings
@@ -138,35 +191,6 @@
 - (AdSettings *)persistentSettings {
     if (!_persistentSettings) _persistentSettings = [[AdSettings alloc] init];
     return _persistentSettings;
-}
-
-- (void)currentSettingsSetup {
-    if (self.persistentSettings.adType == AD_TYPE_BANNER) {
-        self.adTypeToggle.selectedSegmentIndex = 0;
-        [self toggleAdType:YES];
-    } else if (self.persistentSettings.adType == AD_TYPE_INTERSTITIAL) {
-        self.adTypeToggle.selectedSegmentIndex = 1;
-        [self toggleAdType:NO];
-    }
-    
-    self.allowPSAToggle.selectedSegmentIndex = (self.persistentSettings.allowPSA) ? 0 : 1;
-    
-    if (self.persistentSettings.browserType == BROWSER_TYPE_IN_APP) {
-        self.browserTypeToggle.selectedSegmentIndex = 0;
-    } else if (self.persistentSettings.browserType == BROWSER_TYPE_DEVICE) {
-        self.browserTypeToggle.selectedSegmentIndex = 1;
-    }
-    
-    self.refreshRateTextField.text = [[self.refreshRateDelegate class] refreshRateStringFromInteger:self.persistentSettings.refreshRate];
-    self.sizeTextField.text = [[self.sizeDelegate class] bannerSizeWithWidth:self.persistentSettings.bannerWidth
-                                                                      height:self.persistentSettings.bannerHeight];
-    
-    self.memberIDTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.memberID];
-    self.dongleTextField.text = self.persistentSettings.dongle;
-    self.placementIDTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.placementID];
-    self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
-    self.ageTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.age];
-    self.reserveTextField.text = [NSString stringWithFormat:@"%f", self.persistentSettings.reserve];
 }
 
 - (void)saveAdWidth:(NSInteger)width andAdHeight:(NSInteger)height {
@@ -209,7 +233,7 @@
     self.persistentSettings.reserve = reserve;
 }
 
-- (void)saveAge:(NSInteger)age {
+- (void)saveAge:(NSString *)age {
     self.persistentSettings.age = age;
 }
 
@@ -227,7 +251,22 @@
     return NO;
 }
 
-#pragma mark Text Fields
+#pragma mark Text Fields - Initial Setup
+
+- (void)textFieldsSetup {
+    self.refreshRateTextField.text = [[self.refreshRateDelegate class] refreshRateStringFromInteger:self.persistentSettings.refreshRate];
+    self.sizeTextField.text = [[self.sizeDelegate class] bannerSizeWithWidth:self.persistentSettings.bannerWidth
+                                                                      height:self.persistentSettings.bannerHeight];
+    
+    self.memberIDTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.memberID];
+    self.dongleTextField.text = self.persistentSettings.dongle;
+    self.placementIDTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.placementID];
+    self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
+    self.ageTextField.text = self.persistentSettings.age;
+    self.reserveTextField.text = [[self.reservePriceDelegate class] stringFromReservePrice:self.persistentSettings.reserve];
+}
+
+#pragma mark Text Fields - On Tap
 
 - (IBAction)memberIDTap:(UITapGestureRecognizer *)sender {
     if ([self.memberIDTextField isEditing]) {
@@ -282,19 +321,7 @@
     }
 }
 
-- (void)handleBackgroundColorChange {
-    BOOL isValid = [self saveBackgroundColor:self.backgroundColorTextField.text];
-    if (!isValid) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:INVALID_HEX_ALERT_TITLE
-                                                        message:INVALID_HEX_ALERT_MESSAGE
-                                                       delegate:self
-                                              cancelButtonTitle:INVALID_HEX_ALERT_CANCEL
-                                              otherButtonTitles:nil];
-        [alert show];
-    } else {
-        self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
-    }
-}
+#pragma mark Text Fields - Did End
 
 - (IBAction)placementEditDidEnd:(UITextField *)sender {
     [self savePlacementID:[self.placementIDTextField.text intValue]];
@@ -310,6 +337,14 @@
 
 - (IBAction)dongleEditDidEnd:(UITextField *)sender {
     [self saveDongle:self.dongleTextField.text];
+}
+
+- (IBAction)ageEditingDidEnd:(UITextField *)sender {
+    [self saveAge:self.ageTextField.text];
+}
+
+- (IBAction)reserveEditingDidEnd:(UITextField *)sender {
+    [self saveReserve:[self.reserveTextField.text doubleValue]];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView { // on scroll, save text field settings and resign any first responder
@@ -330,32 +365,50 @@
         [self handleBackgroundColorChange];
     }
     if ([self.ageTextField isEditing]) {
-        [self saveAge:[self.ageTextField.text intValue]];
+        [self saveAge:self.ageTextField.text];
     }
     if ([self.reserveTextField isEditing]) {
         [self saveReserve:[self.reserveTextField.text doubleValue]];
     }
 }
 
-#pragma mark Picker Views
-
-- (IBAction)refreshRateTap:(UITapGestureRecognizer *)sender {
-    if ([self.refreshRateTextField isEditing]) {
-        [self.refreshRateTextField resignFirstResponder];
+- (void)handleBackgroundColorChange {
+    BOOL isValid = [self saveBackgroundColor:self.backgroundColorTextField.text];
+    if (!isValid) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:INVALID_HEX_ALERT_TITLE
+                                                        message:INVALID_HEX_ALERT_MESSAGE
+                                                       delegate:self
+                                              cancelButtonTitle:INVALID_HEX_ALERT_CANCEL
+                                              otherButtonTitles:nil];
+        [alert show];
     } else {
-        [self.refreshRateTextField becomeFirstResponder];
+        self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
     }
 }
 
-- (IBAction)sizeTap:(UITapGestureRecognizer *)sender {
-    if ([self.sizeTextField isEditing]) {
-        [self.sizeTextField resignFirstResponder];
-    } else {
-        [self.sizeTextField becomeFirstResponder];
+#pragma mark Segmented Controls - Initial Setup 
+
+- (void)segmentedControlsSetup {
+    if (self.persistentSettings.adType == AD_TYPE_BANNER) {
+        self.adTypeToggle.selectedSegmentIndex = 0;
+        [self toggleAdType:YES];
+    } else if (self.persistentSettings.adType == AD_TYPE_INTERSTITIAL) {
+        self.adTypeToggle.selectedSegmentIndex = 1;
+        [self toggleAdType:NO];
     }
+    
+    self.allowPSAToggle.selectedSegmentIndex = (self.persistentSettings.allowPSA) ? 0 : 1;
+    
+    if (self.persistentSettings.browserType == BROWSER_TYPE_IN_APP) {
+        self.browserTypeToggle.selectedSegmentIndex = 0;
+    } else if (self.persistentSettings.browserType == BROWSER_TYPE_DEVICE) {
+        self.browserTypeToggle.selectedSegmentIndex = 1;
+    }
+    
+    self.genderToggle.selectedSegmentIndex = self.persistentSettings.gender;
 }
 
-#pragma mark Segmented Controls
+#pragma mark Segmented Controls - On Change
 
 - (IBAction)setAdTypeSegmentedControl:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex) {
@@ -395,6 +448,91 @@
 
     [self.backgroundColorTextField setUserInteractionEnabled:!isBanner];
     self.backgroundColorTextField.textColor = interstitialColors;
+}
+
+#pragma mark Section Headers
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    AppNexusSDKAppSectionHeaderView *sectionHeaderView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:AdSettingsSectionHeaderViewIdentifier];
+    if (section == AdSettingsSectionHeaderGeneralIndex) {
+        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelGeneral;
+        sectionHeaderView.disclosureButton.selected = AdSettingsSectionGeneralIsOpen;
+    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
+        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelAdvanced;
+        sectionHeaderView.disclosureButton.selected = AdSettingsSectionAdvancedIsOpen;
+    }
+    sectionHeaderView.section = section;
+    sectionHeaderView.delegate = self;
+    return sectionHeaderView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 48.0f;
+}
+
+- (void)sectionHeaderView:(AppNexusSDKAppSectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section {
+    NSInteger numRows = 0;
+    if (section == AdSettingsSectionHeaderGeneralIndex) {
+        if (AdSettingsSectionGeneralIsOpen) return;
+        AdSettingsSectionGeneralIsOpen = YES;
+        numRows = AdSettingsSectionGeneralNumRows;
+    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
+        if (AdSettingsSectionAdvancedIsOpen) return;
+        AdSettingsSectionAdvancedIsOpen = YES;
+        numRows = AdSettingsSectionAdvancedNumRows;
+    }
+    NSMutableArray *indexPathsToAdd = [[NSMutableArray alloc] init];
+    for (NSInteger i=0; i < numRows; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:section];
+        [indexPathsToAdd addObject:indexPath];
+    }
+    [self.tableView insertRowsAtIndexPaths:indexPathsToAdd withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)sectionHeaderView:(AppNexusSDKAppSectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section {
+    NSInteger numRows = 0;
+    if (section == AdSettingsSectionHeaderGeneralIndex) {
+        if (!AdSettingsSectionGeneralIsOpen) return;
+        AdSettingsSectionGeneralIsOpen = NO;
+        numRows = AdSettingsSectionGeneralNumRows;
+    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
+        if (!AdSettingsSectionAdvancedIsOpen) return;
+        AdSettingsSectionAdvancedIsOpen = NO;
+        numRows = AdSettingsSectionAdvancedNumRows;
+    }
+    NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
+    for (NSInteger i=0; i < numRows; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:section];
+        [indexPathsToDelete addObject:indexPath];
+    }
+    [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == AdSettingsSectionHeaderGeneralIndex) {
+        if (AdSettingsSectionGeneralIsOpen) return AdSettingsSectionGeneralNumRows;
+    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
+        if (AdSettingsSectionAdvancedIsOpen) return AdSettingsSectionAdvancedNumRows;
+    }
+    return 0;
+}
+
+#pragma mark Custom Keywords Modal View Controller
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[AppNexusSDKAppModalViewController class]]) {
+        AppNexusSDKAppModalViewController *help = (AppNexusSDKAppModalViewController *)[segue destinationViewController];
+        help.orientation = [UIApplication sharedApplication].statusBarOrientation;
+        [UIApplication sharedApplication].keyWindow.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        help.delegate = self;
+    }
+}
+
+- (void)sdkAppModalViewControllerShouldDismiss:(AppNexusSDKAppModalViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [UIApplication sharedApplication].keyWindow.rootViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+        self.persistentSettings = nil;
+    }];
 }
 
 @end

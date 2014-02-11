@@ -18,6 +18,7 @@
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
+#import "ANAdProtocol.h"
 
 #define SV_BACKGROUND_COLOR_RED 77.0
 #define SV_BACKGROUND_COLOR_BLUE 83.0
@@ -57,7 +58,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 }
 
 - (void)loadAd {
-    AdSettings *settings = [[AdSettings alloc] init]; // New settings on every load. This could be easily modified to support recycling the settings on every load.
+    AdSettings *settings = [[AdSettings alloc] init];
 
     if (settings.adType == AD_TYPE_BANNER) {
         ANLogDebug(@"%@ %@ | loading banner", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -77,12 +78,43 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     [self.refreshControl endRefreshing];
 }
 
+- (void)loadAdvancedSettingsOnAdView:(ANAdView *)adView withSettings:(AdSettings *)settings {
+    BOOL allowPSA = settings.allowPSA;
+    BOOL opensInNativeBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
+    NSString *age = settings.age;
+    NSInteger gender = settings.gender;
+    double reserve = settings.reserve;
+
+    adView.shouldServePublicServiceAnnouncements = allowPSA;
+    adView.opensInNativeBrowser = opensInNativeBrowser;
+    
+    if ([age length]) {
+        adView.age = age;
+    }
+    if (gender != UNKNOWN) {
+        adView.gender = gender;
+    }
+    if (reserve) {
+        adView.reserve = reserve;
+    }
+    
+    if (self.lastLocation) {
+        [self.bannerAdView setLocationWithLatitude:self.lastLocation.coordinate.latitude
+                                         longitude:self.lastLocation.coordinate.longitude
+                                         timestamp:self.lastLocation.timestamp
+                                horizontalAccuracy:self.lastLocation.horizontalAccuracy];
+    }
+    
+    NSDictionary *customKeywords = settings.customKeywords;
+    adView.customKeywords = [customKeywords mutableCopy];
+}
+
 - (void)loadBannerAdWithSettings:(AdSettings *)settings {
     CGFloat settingsBannerWidth = (CGFloat)settings.bannerWidth;
     CGFloat settingsBannerHeight = (CGFloat)settings.bannerHeight;
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
-    BOOL settingsAllowPSA = settings.allowPSA;
-    BOOL settingsOpensInNativeBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
+    
+    
     CGFloat settingsAutoRefreshInterval = (CGFloat)settings.refreshRate;
     
     CGFloat centerX = 0.0;
@@ -102,14 +134,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     self.bannerAdView.rootViewController = self;
     self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
     self.bannerAdView.placementId = settingsPlacementID;
-    self.bannerAdView.shouldServePublicServiceAnnouncements = settingsAllowPSA;
-    self.bannerAdView.opensInNativeBrowser = settingsOpensInNativeBrowser;
-    if (self.lastLocation) {
-        [self.bannerAdView setLocationWithLatitude:self.lastLocation.coordinate.latitude
-                                         longitude:self.lastLocation.coordinate.longitude
-                                         timestamp:self.lastLocation.timestamp
-                                horizontalAccuracy:self.lastLocation.horizontalAccuracy];
-    }
+    [self loadAdvancedSettingsOnAdView:self.bannerAdView withSettings:settings];
     
     [self.bannerAdView setAutoRefreshInterval:settingsAutoRefreshInterval];
     [self.scrollView addSubview:self.bannerAdView];
@@ -122,23 +147,14 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 
 - (void)loadInterstitialAdWithSettings:(AdSettings *)settings {
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
-    BOOL settingsAllowPSA = settings.allowPSA;
-    BOOL settingsOpensInNativeBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
     NSString *backgroundColor = settings.backgroundColor;
 
     [self clearInterstitialAd];
     
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
-    self.interstitialAd.shouldServePublicServiceAnnouncements = settingsAllowPSA;
-    self.interstitialAd.opensInNativeBrowser = settingsOpensInNativeBrowser;
     self.interstitialAd.backgroundColor = [self interstitialBackgroundColorFromString:backgroundColor];
-    if (self.lastLocation) {
-        [self.interstitialAd setLocationWithLatitude:self.lastLocation.coordinate.latitude
-                                           longitude:self.lastLocation.coordinate.longitude
-                                           timestamp:self.lastLocation.timestamp
-                                  horizontalAccuracy:self.lastLocation.horizontalAccuracy];
-    }
+    [self loadAdvancedSettingsOnAdView:self.interstitialAd withSettings:settings];
     
     [self.interstitialAd loadAd];
 }
@@ -216,9 +232,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     }
 }
 
-/*
- Delegate Methods
- */
+#pragma mark Delegate Methods
 
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad {
     ANLogDebug(@"adFailedToDisplay");
