@@ -113,8 +113,6 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     CGFloat settingsBannerWidth = (CGFloat)settings.bannerWidth;
     CGFloat settingsBannerHeight = (CGFloat)settings.bannerHeight;
     NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
-    
-    
     CGFloat settingsAutoRefreshInterval = (CGFloat)settings.refreshRate;
     
     CGFloat centerX = 0.0;
@@ -127,8 +125,8 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
         centerY = (self.tableView.frame.size.height / 2.0) - (settingsBannerHeight / 2.0);
     }
     
-    [self clearBannerAdView]; // Clear old banner ad view
-                              // Make New BannerAdView
+    [self clearBannerAdView];
+    
     self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, centerY, settingsBannerWidth, settingsBannerHeight)];
     self.bannerAdView.delegate = self;
     self.bannerAdView.rootViewController = self;
@@ -139,7 +137,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     [self.bannerAdView setAutoRefreshInterval:settingsAutoRefreshInterval];
     [self.scrollView addSubview:self.bannerAdView];
     
-    if(!settings.refreshRate) { // If there's no refresh rate, then manually load one ad
+    if(!settingsAutoRefreshInterval) { // If there's no refresh rate, then manually load one ad
         ANLogDebug(@"%@ %@ | no refresh rate, manually loading ad", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         [self.bannerAdView loadAd];
     }

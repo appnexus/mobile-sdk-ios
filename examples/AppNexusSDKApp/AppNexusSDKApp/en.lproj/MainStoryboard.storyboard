@@ -1743,8 +1743,42 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="n1N-bs-aXr">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="UQK-8P-Iqc">
                                         <rect key="frame" x="0.0" y="264" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UQK-8P-Iqc" id="gcc-Dj-Ow5">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Browser" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c04-AR-I6M">
+                                                    <rect key="frame" x="20" y="10" width="161" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="U9c-S7-p3B">
+                                                    <rect key="frame" x="189" y="8" width="111" height="29"/>
+                                                    <segments>
+                                                        <segment title="In-App"/>
+                                                        <segment title="Device"/>
+                                                    </segments>
+                                                    <color key="tintColor" red="0.93725490199999995" green="0.50980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="setBrowserSegmentedControl:" destination="NVH-lm-Tni" eventType="valueChanged" id="moj-8O-1v2"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="U9c-S7-p3B" secondAttribute="centerY" id="4VL-Ee-IvC"/>
+                                                <constraint firstItem="c04-AR-I6M" firstAttribute="baseline" secondItem="U9c-S7-p3B" secondAttribute="baseline" id="Pwd-be-SyR"/>
+                                                <constraint firstItem="U9c-S7-p3B" firstAttribute="leading" secondItem="c04-AR-I6M" secondAttribute="trailing" constant="8" symbolic="YES" id="u16-TK-g0C"/>
+                                                <constraint firstAttribute="trailing" secondItem="U9c-S7-p3B" secondAttribute="trailing" constant="20" symbolic="YES" id="wOM-Fr-FAd"/>
+                                                <constraint firstItem="c04-AR-I6M" firstAttribute="leading" secondItem="gcc-Dj-Ow5" secondAttribute="leading" constant="20" symbolic="YES" id="ycK-U2-Sk4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="n1N-bs-aXr">
+                                        <rect key="frame" x="0.0" y="308" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n1N-bs-aXr" id="rg8-qo-E7T">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1782,105 +1816,8 @@
                                             <outletCollection property="gestureRecognizers" destination="hF7-K8-01W" appends="YES" id="DWY-Ah-Zpn"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="UQK-8P-Iqc">
-                                        <rect key="frame" x="0.0" y="308" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UQK-8P-Iqc" id="gcc-Dj-Ow5">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Browser" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c04-AR-I6M">
-                                                    <rect key="frame" x="20" y="10" width="161" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="U9c-S7-p3B">
-                                                    <rect key="frame" x="189" y="8" width="111" height="29"/>
-                                                    <segments>
-                                                        <segment title="In-App"/>
-                                                        <segment title="Device"/>
-                                                    </segments>
-                                                    <color key="tintColor" red="0.93725490199999995" green="0.50980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <connections>
-                                                        <action selector="setBrowserSegmentedControl:" destination="NVH-lm-Tni" eventType="valueChanged" id="moj-8O-1v2"/>
-                                                    </connections>
-                                                </segmentedControl>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="U9c-S7-p3B" secondAttribute="centerY" id="4VL-Ee-IvC"/>
-                                                <constraint firstItem="c04-AR-I6M" firstAttribute="baseline" secondItem="U9c-S7-p3B" secondAttribute="baseline" id="Pwd-be-SyR"/>
-                                                <constraint firstItem="U9c-S7-p3B" firstAttribute="leading" secondItem="c04-AR-I6M" secondAttribute="trailing" constant="8" symbolic="YES" id="u16-TK-g0C"/>
-                                                <constraint firstAttribute="trailing" secondItem="U9c-S7-p3B" secondAttribute="trailing" constant="20" symbolic="YES" id="wOM-Fr-FAd"/>
-                                                <constraint firstItem="c04-AR-I6M" firstAttribute="leading" secondItem="gcc-Dj-Ow5" secondAttribute="leading" constant="20" symbolic="YES" id="ycK-U2-Sk4"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="s1e-fw-th9">
-                                        <rect key="frame" x="0.0" y="352" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s1e-fw-th9" id="QUH-QO-rVo">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Custom Keywords" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQ8-7b-BcY">
-                                                    <rect key="frame" x="20" y="12" width="145" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="QQ8-7b-BcY" firstAttribute="leading" secondItem="QUH-QO-rVo" secondAttribute="leading" constant="20" symbolic="YES" id="On7-qN-YA3"/>
-                                                <constraint firstAttribute="centerY" secondItem="QQ8-7b-BcY" secondAttribute="centerY" id="UHG-2o-ec9"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="vbH-SR-5Oj" appends="YES" id="KXH-xX-QT7"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="h1Q-Ae-DIA">
-                                        <rect key="frame" x="0.0" y="396" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h1Q-Ae-DIA" id="iIw-xx-3a0">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dongle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYz-ky-ujp">
-                                                    <rect key="frame" x="20" y="12" width="56" height="21"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Aaaaaaaaaaaaaaaaa123!" placeholder="test" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QAC-Gf-yxn">
-                                                    <rect key="frame" x="95" y="12" width="205" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="205" id="ZGO-Lv-Yk6"/>
-                                                    </constraints>
-                                                    <color key="textColor" red="0.93725490199999995" green="0.50980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
-                                                    <connections>
-                                                        <action selector="dongleEditDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="zjg-IZ-pH8"/>
-                                                        <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="K5e-03-1dR"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="iYz-ky-ujp" firstAttribute="baseline" secondItem="QAC-Gf-yxn" secondAttribute="baseline" id="XcV-kN-uc9"/>
-                                                <constraint firstItem="iYz-ky-ujp" firstAttribute="leading" secondItem="iIw-xx-3a0" secondAttribute="leading" constant="20" symbolic="YES" id="ZeD-dt-h2G"/>
-                                                <constraint firstAttribute="centerY" secondItem="QAC-Gf-yxn" secondAttribute="centerY" id="hRI-7w-aUe"/>
-                                                <constraint firstAttribute="trailing" secondItem="QAC-Gf-yxn" secondAttribute="trailing" constant="20" symbolic="YES" id="ygR-7s-vV6"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="mvb-Pb-EYf" appends="YES" id="3Wb-sA-hTY"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="2Db-3v-4Ef">
-                                        <rect key="frame" x="0.0" y="440" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="352" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Db-3v-4Ef" id="yig-fm-mrp">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1914,6 +1851,74 @@
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="s1e-fw-th9">
+                                        <rect key="frame" x="0.0" y="396" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s1e-fw-th9" id="QUH-QO-rVo">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Custom Keywords" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQ8-7b-BcY">
+                                                    <rect key="frame" x="20" y="12" width="145" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="QQ8-7b-BcY" firstAttribute="leading" secondItem="QUH-QO-rVo" secondAttribute="leading" constant="20" symbolic="YES" id="On7-qN-YA3"/>
+                                                <constraint firstAttribute="centerY" secondItem="QQ8-7b-BcY" secondAttribute="centerY" id="UHG-2o-ec9"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="vbH-SR-5Oj" appends="YES" id="KXH-xX-QT7"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3Fc-qh-rkj">
+                                        <rect key="frame" x="0.0" y="440" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Fc-qh-rkj" id="4cr-mn-xtp">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Reserve Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OJ-al-0Td">
+                                                    <rect key="frame" x="20" y="11" width="110" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="1000000" placeholder="958" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6rc-s3-np1">
+                                                    <rect key="frame" x="229" y="11" width="71" height="21"/>
+                                                    <gestureRecognizers/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="71" id="nTa-eB-7T7"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="0.93725490199999995" green="0.50980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad" returnKeyType="done"/>
+                                                    <connections>
+                                                        <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="Ces-KM-Y4u"/>
+                                                        <action selector="reserveEditingDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="Z0D-qI-iSU"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="5OJ-al-0Td" secondAttribute="centerY" id="2vC-vw-hxr"/>
+                                                <constraint firstItem="5OJ-al-0Td" firstAttribute="leading" secondItem="4cr-mn-xtp" secondAttribute="leading" constant="20" symbolic="YES" id="Em5-j9-17d"/>
+                                                <constraint firstAttribute="trailing" secondItem="6rc-s3-np1" secondAttribute="trailing" constant="20" symbolic="YES" id="emD-4O-7fa"/>
+                                                <constraint firstItem="6rc-s3-np1" firstAttribute="baseline" secondItem="5OJ-al-0Td" secondAttribute="baseline" id="fLK-Qv-Nla"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Kl0-gd-04d" appends="YES" id="BDu-OU-002"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="rOE-oI-0eP">
+                                <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="memberIDCell" id="szX-hq-0R6">
                                         <rect key="frame" x="0.0" y="484" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1954,44 +1959,43 @@
                                             <outletCollection property="gestureRecognizers" destination="hN4-t9-K7d" appends="YES" id="SDZ-OL-qmh"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3Fc-qh-rkj">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="h1Q-Ae-DIA">
                                         <rect key="frame" x="0.0" y="528" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Fc-qh-rkj" id="4cr-mn-xtp">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h1Q-Ae-DIA" id="iIw-xx-3a0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Reserve Price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OJ-al-0Td">
-                                                    <rect key="frame" x="20" y="11" width="110" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dongle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYz-ky-ujp">
+                                                    <rect key="frame" x="20" y="12" width="56" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="1000000" placeholder="958" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6rc-s3-np1">
-                                                    <rect key="frame" x="229" y="11" width="71" height="21"/>
-                                                    <gestureRecognizers/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Aaaaaaaaaaaaaaaaa123!" placeholder="test" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QAC-Gf-yxn">
+                                                    <rect key="frame" x="95" y="12" width="205" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="71" id="nTa-eB-7T7"/>
+                                                        <constraint firstAttribute="width" constant="205" id="ZGO-Lv-Yk6"/>
                                                     </constraints>
                                                     <color key="textColor" red="0.93725490199999995" green="0.50980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad" returnKeyType="done"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                                     <connections>
-                                                        <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="Ces-KM-Y4u"/>
-                                                        <action selector="reserveEditingDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="Z0D-qI-iSU"/>
+                                                        <action selector="dongleEditDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="zjg-IZ-pH8"/>
+                                                        <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="K5e-03-1dR"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="5OJ-al-0Td" secondAttribute="centerY" id="2vC-vw-hxr"/>
-                                                <constraint firstItem="5OJ-al-0Td" firstAttribute="leading" secondItem="4cr-mn-xtp" secondAttribute="leading" constant="20" symbolic="YES" id="Em5-j9-17d"/>
-                                                <constraint firstAttribute="trailing" secondItem="6rc-s3-np1" secondAttribute="trailing" constant="20" symbolic="YES" id="emD-4O-7fa"/>
-                                                <constraint firstItem="6rc-s3-np1" firstAttribute="baseline" secondItem="5OJ-al-0Td" secondAttribute="baseline" id="fLK-Qv-Nla"/>
+                                                <constraint firstItem="iYz-ky-ujp" firstAttribute="baseline" secondItem="QAC-Gf-yxn" secondAttribute="baseline" id="XcV-kN-uc9"/>
+                                                <constraint firstItem="iYz-ky-ujp" firstAttribute="leading" secondItem="iIw-xx-3a0" secondAttribute="leading" constant="20" symbolic="YES" id="ZeD-dt-h2G"/>
+                                                <constraint firstAttribute="centerY" secondItem="QAC-Gf-yxn" secondAttribute="centerY" id="hRI-7w-aUe"/>
+                                                <constraint firstAttribute="trailing" secondItem="QAC-Gf-yxn" secondAttribute="trailing" constant="20" symbolic="YES" id="ygR-7s-vV6"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="Kl0-gd-04d" appends="YES" id="BDu-OU-002"/>
+                                            <outletCollection property="gestureRecognizers" destination="mvb-Pb-EYf" appends="YES" id="3Wb-sA-hTY"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -2235,6 +2239,20 @@
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
+                                    <fragment content="Browser: ">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Determines whether the ad, when clicked, will open the device’s native browser.
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
                                     <fragment content="Age: ">
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
@@ -2249,14 +2267,14 @@
                                     </fragment>
                                     <fragment>
                                         <string key="content">
-Browser: </string>
+Gender: </string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <string key="content">Determines whether the ad, when clicked, will open the device’s native browser.
+                                        <string key="content">The user’s gender.
 </string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
@@ -2269,31 +2287,9 @@ Browser: </string>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
-                                    <fragment>
-                                        <string key="content">Used to pass custom keywords to the AppNexus ad server, as well as across different mobile ad server and SDK integrations.
-</string>
+                                    <fragment content="Used to pass custom keywords to the AppNexus ad server, as well as across different mobile ad server and SDK integrations.">
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="Dongle ">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="(Debug Auction)">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content=": The unique debug password which corresponds to the member ID.">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                            <font key="NSOriginalFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
@@ -2302,36 +2298,8 @@ Browser: </string>
 Cg
 </string>
                                         <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="Gender: ">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="The user’s gender.">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment>
-                                        <string key="content">
-Member ID (Debug Auction): </string>
-                                        <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
                                             <font key="NSOriginalFont" size="14" name="HelveticaNeue-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment>
-                                        <string key="content">The member ID from the AppNexus Console account where the placement ID was created.
-</string>
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
@@ -2342,7 +2310,35 @@ Member ID (Debug Auction): </string>
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <string key="content">The reserve price is the minimum bid amount you will accept to show an ad (in CPM). Use this with caution, as it can drastically reduce fill rates.</string>
+                                        <string key="content">The reserve price is the minimum bid amount you will accept to show an ad (in CPM). Use this with caution, as it can drastically reduce fill rates.
+
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="Member ID: ">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">The member ID which corresponds to the AppNexus Console account where the placement ID was created.
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="Dongle">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=": The unique debug password which corresponds to the member ID.">
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>

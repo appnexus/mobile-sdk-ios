@@ -1,16 +1,24 @@
-//
-//  CustomKeywordsTVC.m
-//  AppNexusSDKApp
-//
-//  Created by Jose Cabal-Ugaz on 2/10/14.
-//  Copyright (c) 2014 AppNexus. All rights reserved.
-//
+/*   Copyright 2014 APPNEXUS INC
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 #import "CustomKeywordsTVC.h"
 #import "AdSettings.h"
 #import "AddCustomKeywordTVC.h"
 
-static NSString *const CellIdentifier = @"customKeywordCell";
+static NSString *const kAppNexusSDKAppCustomKeywordCellIdentifier = @"customKeywordCell";
+static NSTimeInterval const kAppNexusSDKAppDeleteTimeIntervalInSeconds = 0.7;
 
 @interface CustomKeywordsTVC () <AddCustomKeywordToPersistentStoreDelegate>
 
@@ -18,12 +26,15 @@ static NSString *const CellIdentifier = @"customKeywordCell";
 @property (nonatomic, strong) NSDictionary *customKeywords;
 @property (nonatomic, strong) AdSettings *persistentSettings;
 
+@property (nonatomic, assign) BOOL isDeleting;
+
 @end
 
 @implementation CustomKeywordsTVC
 
 - (void)viewDidLoad {
-    [self setEditBarButtonItemOnNavigationItem];
+    [self setEditBarButtonItemOnNavigationItemAnimated:NO];
+    self.isDeleting = NO;
 }
 
 - (NSArray *)orderedKeys {
@@ -43,31 +54,31 @@ static NSString *const CellIdentifier = @"customKeywordCell";
 
 #pragma mark Bar Button Items
 
-- (void)setDoneBarButtonItemOnNavigationItem {
+- (void)setDoneBarButtonItemOnNavigationItemAnimated:(BOOL)animated {
     UIBarButtonItem *newItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                              target:self
                                                                              action:@selector(finishedEditTableViewItems:)];
-    self.navigationItem.leftBarButtonItem = newItem;
+    [self.navigationItem setLeftBarButtonItem:newItem animated:animated];
 }
 
-- (void)setEditBarButtonItemOnNavigationItem {
+- (void)setEditBarButtonItemOnNavigationItemAnimated:(BOOL)animated {
     UIBarButtonItem *newItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CircleMinus"]
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(editTableViewItems:)];
-    self.navigationItem.leftBarButtonItem = newItem;
+    [self.navigationItem setLeftBarButtonItem:newItem animated:animated];
 }
 
 - (void)editTableViewItems:(UIBarButtonItem *)sender {
     if ([self.customKeywords count] > 0) {
         [self setEditing:YES animated:YES];
-        [self setDoneBarButtonItemOnNavigationItem];
+        [self setDoneBarButtonItemOnNavigationItemAnimated:YES];
     }
 }
 
 - (void)finishedEditTableViewItems:(UIBarButtonItem *)item {
     [self setEditing:NO animated:YES];
-    [self setEditBarButtonItemOnNavigationItem];
+    [self setEditBarButtonItemOnNavigationItemAnimated:YES];
 }
 
 #pragma mark - Table view data source
@@ -81,7 +92,7 @@ static NSString *const CellIdentifier = @"customKeywordCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kAppNexusSDKAppCustomKeywordCellIdentifier forIndexPath:indexPath];
     NSString *key = [self.orderedKeys objectAtIndex:indexPath.item];
     NSString *value = [self.customKeywords objectForKey:key];
     [[cell textLabel] setText:key];
@@ -100,13 +111,32 @@ static NSString *const CellIdentifier = @"customKeywordCell";
 }
 
 - (void)deleteCustomKeywordAtIndexPath:(NSIndexPath *)indexPath {
-    NSMutableDictionary *mutableDict = [[self customKeywords] mutableCopy];
-    NSString *key = [self.orderedKeys objectAtIndex:indexPath.item];
-    [mutableDict removeObjectForKey:key];
-    self.persistentSettings.customKeywords = [mutableDict copy];
-    self.customKeywords = nil;
-    self.orderedKeys = nil;
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    if (!self.isDeleting) {
+        NSLog(@"%@ | will Delete", NSStringFromSelector(_cmd));
+        self.isDeleting = YES;
+        [NSTimer scheduledTimerWithTimeInterval:kAppNexusSDKAppDeleteTimeIntervalInSeconds
+                                         target:self
+                                       selector:@selector(postDeleteHandler:)
+                                       userInfo:nil
+                                        repeats:NO];
+        NSMutableDictionary *mutableDict = [[self customKeywords] mutableCopy];
+        NSString *key = [self.orderedKeys objectAtIndex:indexPath.item];
+        [mutableDict removeObjectForKey:key];
+        self.persistentSettings.customKeywords = [mutableDict copy];
+        self.customKeywords = nil;
+        self.orderedKeys = nil;
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
+}
+
+- (void)postDeleteHandler:(NSTimer *)timer {
+    self.isDeleting = NO;
+    if (![self.customKeywords count] && self.isEditing) {
+        [self finishedEditTableViewItems:nil];
+    }
 }
 
 #pragma mark - Navigation

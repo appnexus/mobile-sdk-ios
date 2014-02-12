@@ -35,15 +35,19 @@ static NSString *const AdSettingsSectionHeaderViewIdentifier = @"AdSettingsSecti
 
 static NSInteger const AdSettingsSectionHeaderGeneralIndex = 0;
 static NSInteger const AdSettingsSectionHeaderAdvancedIndex = 1;
+static NSInteger const AdSettingsSectionHeaderDebugAuctionIndex = 2;
 
 static NSInteger const AdSettingsSectionGeneralNumRows = 5;
-static NSInteger const AdSettingsSectionAdvancedNumRows = 8;
+static NSInteger const AdSettingsSectionAdvancedNumRows = 6;
+static NSInteger const AdSettingsSectionDebugAuctionNumRows = 2;
 
 static BOOL AdSettingsSectionGeneralIsOpen = YES;
 static BOOL AdSettingsSectionAdvancedIsOpen = NO;
+static BOOL AdSettingsSectionDebugAuctionIsOpen = NO;
 
 static NSString *const AdSettingsSectionHeaderTitleLabelGeneral = @"General";
 static NSString *const AdSettingsSectionHeaderTitleLabelAdvanced = @"Advanced";
+static NSString *const AdSettingsSectionHeaderTitleLabelDebugAuction = @"Debug Auction";
 
 #pragma end
 
@@ -460,6 +464,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
         sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelAdvanced;
         sectionHeaderView.disclosureButton.selected = AdSettingsSectionAdvancedIsOpen;
+    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
+        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelDebugAuction;
+        sectionHeaderView.disclosureButton.selected = AdSettingsSectionDebugAuctionIsOpen;
     }
     sectionHeaderView.section = section;
     sectionHeaderView.delegate = self;
@@ -480,6 +487,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         if (AdSettingsSectionAdvancedIsOpen) return;
         AdSettingsSectionAdvancedIsOpen = YES;
         numRows = AdSettingsSectionAdvancedNumRows;
+    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
+        if (AdSettingsSectionDebugAuctionIsOpen) return;
+        AdSettingsSectionDebugAuctionIsOpen = YES;
+        numRows = AdSettingsSectionDebugAuctionNumRows;
     }
     NSMutableArray *indexPathsToAdd = [[NSMutableArray alloc] init];
     for (NSInteger i=0; i < numRows; i++) {
@@ -499,6 +510,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         if (!AdSettingsSectionAdvancedIsOpen) return;
         AdSettingsSectionAdvancedIsOpen = NO;
         numRows = AdSettingsSectionAdvancedNumRows;
+    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
+        if (!AdSettingsSectionDebugAuctionIsOpen) return;
+        AdSettingsSectionDebugAuctionIsOpen = NO;
+        numRows = AdSettingsSectionDebugAuctionNumRows;
     }
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
     for (NSInteger i=0; i < numRows; i++) {
@@ -513,6 +528,8 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         if (AdSettingsSectionGeneralIsOpen) return AdSettingsSectionGeneralNumRows;
     } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
         if (AdSettingsSectionAdvancedIsOpen) return AdSettingsSectionAdvancedNumRows;
+    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
+        if (AdSettingsSectionDebugAuctionIsOpen) return AdSettingsSectionDebugAuctionNumRows;
     }
     return 0;
 }
