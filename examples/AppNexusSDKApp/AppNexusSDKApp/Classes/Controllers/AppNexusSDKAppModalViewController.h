@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,16 +14,18 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "AppNexusSDKAppModalViewController.h"
 
-@protocol LoadPreviewVCDelegate <NSObject>
+@protocol AppNexusSDKAppModalViewControllerDelegate;
 
-- (void)forceLoadPreviewVCWithReset;
+@interface AppNexusSDKAppModalViewController : UIViewController
+
+@property (nonatomic, assign) UIInterfaceOrientation orientation;
+@property (nonatomic, readwrite, weak) id<AppNexusSDKAppModalViewControllerDelegate> delegate;
 
 @end
 
-@interface AdSettingsViewController : UIViewController <AppNexusSDKAppModalViewControllerDelegate>
+@protocol AppNexusSDKAppModalViewControllerDelegate <NSObject>
 
-@property (strong, nonatomic) id <LoadPreviewVCDelegate> previewLoader;
+- (void)sdkAppModalViewControllerShouldDismiss:(AppNexusSDKAppModalViewController *)controller;
 
 @end

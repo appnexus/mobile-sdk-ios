@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,16 +14,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "AppNexusSDKAppModalViewController.h"
 
-@protocol LoadPreviewVCDelegate <NSObject>
-
-- (void)forceLoadPreviewVCWithReset;
-
-@end
-
-@interface AdSettingsViewController : UIViewController <AppNexusSDKAppModalViewControllerDelegate>
-
-@property (strong, nonatomic) id <LoadPreviewVCDelegate> previewLoader;
+@interface CustomKeywordsTVC : UITableViewController
 
 @end
