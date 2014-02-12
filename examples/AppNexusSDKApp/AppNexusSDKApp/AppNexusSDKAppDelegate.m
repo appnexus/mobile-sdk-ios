@@ -15,7 +15,22 @@
 
 #import "AppNexusSDKAppDelegate.h"
 
+#import "CreativePreviewViewController.h"
+
 @implementation AppNexusSDKAppDelegate
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    CreativePreviewViewController *cpvc = [[CreativePreviewViewController alloc]
+                                           initWithDataUrl:url];
+    if (cpvc) {
+        [self.window.rootViewController presentViewController:cpvc animated:YES completion:nil];
+        return YES;
+    }
+    
+    return NO;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

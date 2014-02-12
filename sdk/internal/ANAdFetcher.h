@@ -41,6 +41,7 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject;
+- (void)processAdResponse:(ANAdResponse *)response;
 - (void)processFinalResponse:(ANAdResponse *)response;
 @end
 

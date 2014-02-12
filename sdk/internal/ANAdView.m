@@ -143,6 +143,19 @@ ANBrowserViewControllerDelegate>
     [self.adFetcher requestAd];
 }
 
+
+- (void)loadAdFromHtml:(NSString *)html
+                 width:(int)width height:(int)height {
+    ANAdResponse *response = [ANAdResponse new];
+    response.content = html;
+    response.width = [NSString stringWithFormat:@"%i", width];
+    response.height = [NSString stringWithFormat:@"%i", height];
+    response.isMraid = YES;
+    response.containsAds = YES;
+    
+    [self.adFetcher processAdResponse:response];
+}
+
 - (void)allowOrientationChange:(BOOL)allowOrientationChange
          withForcedOrientation:(ANMRAIDOrientation)orientation {
     self.allowOrientationChange = allowOrientationChange;

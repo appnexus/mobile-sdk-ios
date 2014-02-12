@@ -107,6 +107,7 @@
 		ECB124D01821A25D00CB4BE8 /* ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124A81821A25D00CB4BE8 /* ANMediatedAd.m */; };
 		ECB124D11821A25D00CB4BE8 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */; };
 		ECB124D21821A25D00CB4BE8 /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AC1821A25D00CB4BE8 /* ANReachability.m */; };
+		ECB5846518ABF9180059FD2D /* CreativePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB5846418ABF9180059FD2D /* CreativePreviewViewController.m */; };
 		ECCF548418451FE40000E37C /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547718451FE40000E37C /* ANBrowserViewController.xib */; };
 		ECCF548518451FE40000E37C /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */; };
 		ECCF548618451FE40000E37C /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547918451FE40000E37C /* errors.strings */; };
@@ -298,6 +299,8 @@
 		ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationAdViewController.m; sourceTree = "<group>"; };
 		ECB124AB1821A25D00CB4BE8 /* ANReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANReachability.h; sourceTree = "<group>"; };
 		ECB124AC1821A25D00CB4BE8 /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
+		ECB5846318ABF9180059FD2D /* CreativePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreativePreviewViewController.h; sourceTree = "<group>"; };
+		ECB5846418ABF9180059FD2D /* CreativePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreativePreviewViewController.m; sourceTree = "<group>"; };
 		ECCF547718451FE40000E37C /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
 		ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
 		ECCF547918451FE40000E37C /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
@@ -443,6 +446,8 @@
 				EC3FD6DE1822213C00B25418 /* AdSettingsViewController.m */,
 				EC3FD6DF1822213C00B25418 /* AppNexusSDKAppViewController.h */,
 				EC3FD6E01822213C00B25418 /* AppNexusSDKAppViewController.m */,
+				ECB5846318ABF9180059FD2D /* CreativePreviewViewController.h */,
+				ECB5846418ABF9180059FD2D /* CreativePreviewViewController.m */,
 				EC3FD6E11822213C00B25418 /* DataDisplayHelper.h */,
 				EC3FD6E21822213C00B25418 /* DataDisplayHelper.m */,
 				EC3FD6E31822213C00B25418 /* DebugOutputViewController.h */,
@@ -818,6 +823,7 @@
 				EC3FD72C1822213C00B25418 /* AdPreviewTVC.m in Sources */,
 				ECB124CB1821A25D00CB4BE8 /* ANInterstitialAd.m in Sources */,
 				ECB124BB1821A25D00CB4BE8 /* NSString+ANCategory.m in Sources */,
+				ECB5846518ABF9180059FD2D /* CreativePreviewViewController.m in Sources */,
 				EC3FD73C1822213C00B25418 /* CoreDataExample.xcdatamodeld in Sources */,
 				8ADA000118A992E00016B1BC /* AddCustomKeywordTVC.m in Sources */,
 				EC3FD73F1822213C00B25418 /* NoCaretUITextField.m in Sources */,
