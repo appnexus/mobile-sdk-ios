@@ -42,6 +42,8 @@ ANBrowserViewControllerDelegate>
 @property (nonatomic, readwrite, assign) BOOL isExpanded;
 @property (nonatomic, readwrite) BOOL allowOrientationChange;
 @property (nonatomic, readwrite) ANMRAIDOrientation forceOrientation;
+@property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
+
 @end
 
 @implementation ANAdView
@@ -310,7 +312,7 @@ ANBrowserViewControllerDelegate>
     // find the area of the resized creative that is on screen
     // if at least 50x50 is on the screen, then the resize is valid
     CGRect resizedIntersection = CGRectIntersection(orientedScreenBounds, resizedFrame);
-
+    
     // if either the width or the height is smaller than the allowed size, then return an error.
     if (resizedIntersection.size.width < allowedSize || resizedIntersection.size.height < allowedSize) {
         return @"Resize call should keep at least 50x50 of the creative on screen";
@@ -576,12 +578,11 @@ ANBrowserViewControllerDelegate>
     BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
     
     if (!self.opensInNativeBrowser && schemeIsHttp) {
-        ANBrowserViewController *browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
-        browserViewController.delegate = self;
-        if (self.mraidController) {
-            [self.mraidController presentViewController:browserViewController animated:YES completion:nil];
+        if (!self.browserViewController) {
+            self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
+            self.browserViewController.delegate = self;
         } else {
-            [self openInBrowserWithController:browserViewController];
+            ANLogDebug(@"%@ %@ | Attempt to instantiate ANBrowserViewController when one is already being instantiated.", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         }
     }
     else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
@@ -623,11 +624,25 @@ ANBrowserViewControllerDelegate>
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
     UIViewController *presentingViewController = controller.presentingViewController;
-    [presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [presentingViewController dismissViewControllerAnimated:YES completion:^ {
+        self.browserViewController = nil;
+    }];
 }
 
 - (void)browserViewControllerWillLaunchExternalApplication {
     [self adWillLeaveApplication];
+}
+
+- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
+    if (self.mraidController) {
+        [self.mraidController presentViewController:controller animated:YES completion:nil];
+    } else {
+        [self openInBrowserWithController:controller];
+    }
+}
+
+- (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller {
+    self.browserViewController = nil;
 }
 
 #pragma mark ANAdViewDelegate

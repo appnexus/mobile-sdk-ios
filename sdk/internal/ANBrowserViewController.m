@@ -23,6 +23,7 @@
 
 @property (nonatomic, readwrite, strong) NSMutableURLRequest *urlRequest;
 @property (nonatomic, readwrite, strong) UIActionSheet *openInSheet;
+@property (nonatomic, readwrite, assign) BOOL isPresented;
 @end
 
 @implementation ANBrowserViewController
@@ -48,10 +49,14 @@
     if (self)
 	{
 		self.urlRequest = [[NSMutableURLRequest alloc] initWithURL:nil
-                                                     cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                 timeoutInterval:kAppNexusRequestTimeoutInterval];
+                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                   timeoutInterval:kAppNexusRequestTimeoutInterval];
         [self.urlRequest setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
     }
+    
+    self.isPresented = NO;
+    [self.view description]; // A call to self.view (however trivial) is needed for our view to be created
+    
     return self;
 }
 
@@ -95,17 +100,17 @@
 - (void)viewDidLoad
 {
 	[self refreshButtons];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     [self.webView loadRequest:self.urlRequest];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    if (!self.isPresented) {
+        if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
+            [self.delegate browserViewControllerWillNotPresent:self];
+        }
+    }
     [__webView stopLoading];
 }
 
@@ -131,6 +136,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSURL *URL = [request URL];
+    if (!self.isPresented) ANLogDebug(@"%@ | Loading URL: %@", NSStringFromClass([self class]), URL);
     NSString *scheme = [URL scheme];
     BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
 
@@ -142,6 +148,13 @@
         }
         if ([self.delegate respondsToSelector:@selector(browserViewControllerWillLaunchExternalApplication)]) {
             [self.delegate browserViewControllerWillLaunchExternalApplication];
+        }
+        [webView stopLoading];
+        if (!self.isPresented) {
+            ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromClass([self class]), URL);
+            if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
+                [self.delegate browserViewControllerWillNotPresent:self];
+            }
         }
         [[UIApplication sharedApplication] openURL:URL];
         return NO;
@@ -159,6 +172,12 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
 	[self refreshButtons];
+    if (!self.isPresented) {
+        if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldPresent:)]) {
+            [self.delegate browserViewControllerShouldPresent:self];
+        }
+        self.isPresented = YES;
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
