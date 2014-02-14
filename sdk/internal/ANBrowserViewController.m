@@ -149,13 +149,13 @@
         if ([self.delegate respondsToSelector:@selector(browserViewControllerWillLaunchExternalApplication)]) {
             [self.delegate browserViewControllerWillLaunchExternalApplication];
         }
-        [webView stopLoading];
         if (!self.isPresented) {
             ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromClass([self class]), URL);
             if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
                 [self.delegate browserViewControllerWillNotPresent:self];
             }
         }
+        [webView stopLoading];
         [[UIApplication sharedApplication] openURL:URL];
         return NO;
     } else {
@@ -183,6 +183,16 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     ANLogWarn(@"In-app browser failed with error: %@", error);
+    if (!self.isPresented) {
+        NSString *errorUrlString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
+        NSString *mainDocumentURL = [[webView.request mainDocumentURL] absoluteString];
+        if (([errorUrlString isEqualToString:mainDocumentURL] || !mainDocumentURL) && ([error.domain isEqualToString:@"NSURLErrorDomain"] || [error.domain isEqualToString:@"WebKitErrorDomain"])) {
+            if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
+                [self.delegate browserViewControllerWillNotPresent:self];
+                [webView stopLoading];
+            }
+        }
+    }
 }
 
 #pragma mark UIActionSheetDelegate

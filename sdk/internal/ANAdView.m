@@ -642,6 +642,7 @@ ANBrowserViewControllerDelegate>
 }
 
 - (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller {
+    ANLogWarn(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.browserViewController = nil;
 }
 
