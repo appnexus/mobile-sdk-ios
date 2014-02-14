@@ -106,11 +106,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (!self.isPresented) {
-        if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
-            [self.delegate browserViewControllerWillNotPresent:self];
-        }
-    }
     [__webView stopLoading];
 }
 
