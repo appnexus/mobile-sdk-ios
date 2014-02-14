@@ -507,14 +507,16 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:adObject];
         [self processFinalResponse:response];
     } else {
-        // fire the resultCB if there is one
-        if ([resultCBString length] > 0) {
-            // treat failed responses as normal requests
-            [self requestAdWithURL:[NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]]];
-        } else {
-            // if no resultCB and no successful ads yet,
-            // look for the next ad in the current array
-            [self processAdResponse:nil];
+        if (self.delegate) { // if there is still a delegate to send a successful ad response to
+            // fire the resultCB if there is one
+            if ([resultCBString length] > 0) {
+                // treat failed responses as normal requests
+                [self requestAdWithURL:[NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]]];
+            } else {
+                // if no resultCB and no successful ads yet,
+                // look for the next ad in the current array
+                [self processAdResponse:nil];
+            }
         }
     }
 }
