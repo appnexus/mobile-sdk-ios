@@ -111,9 +111,7 @@ static NSTimeInterval const kAppNexusSDKAppDeleteTimeIntervalInSeconds = 0.7;
 }
 
 - (void)deleteCustomKeywordAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
     if (!self.isDeleting) {
-        NSLog(@"%@ | will Delete", NSStringFromSelector(_cmd));
         self.isDeleting = YES;
         [NSTimer scheduledTimerWithTimeInterval:kAppNexusSDKAppDeleteTimeIntervalInSeconds
                                          target:self
