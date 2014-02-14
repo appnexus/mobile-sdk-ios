@@ -361,6 +361,12 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
+    if (self.browserViewController) {
+        [self.browserViewController.webView stopLoading];
+        if ([self.browserViewController.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
+            [self.browserViewController.delegate browserViewControllerWillNotPresent:self.browserViewController];
+        }
+    }
 	[self.controller.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
