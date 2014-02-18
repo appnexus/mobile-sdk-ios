@@ -107,6 +107,10 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     
     NSDictionary *customKeywords = settings.customKeywords;
     adView.customKeywords = [customKeywords mutableCopy];
+    
+    if ([settings.zipcode length]) {
+        [adView.customKeywords setValue:settings.zipcode forKey:@"pcode"];
+    }
 }
 
 - (void)loadBannerAdWithSettings:(AdSettings *)settings {
