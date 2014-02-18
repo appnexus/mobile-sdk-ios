@@ -65,7 +65,6 @@
         self.viewed = YES;
     } else {
         [self stopCountdownTimer];
-        [self.closeButton setHidden:NO];
     }
 }
 
