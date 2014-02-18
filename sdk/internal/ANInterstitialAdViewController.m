@@ -89,6 +89,7 @@
 {
 	[self.progressTimer invalidate];
 	[self.progressView setHidden:YES];
+    [self.closeButton setHidden:NO];
 }
 
 - (void)progressTimerDidFire:(NSTimer *)timer
@@ -100,7 +101,6 @@
     
 	if (timeShown >= closeDelay && self.closeButton.hidden == YES) {
         [self stopCountdownTimer];
-        [self.closeButton setHidden:NO];
 	}
 }
 
