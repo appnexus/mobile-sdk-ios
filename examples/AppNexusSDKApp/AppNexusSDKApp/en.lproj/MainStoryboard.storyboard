@@ -1926,8 +1926,47 @@
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="s1e-fw-th9">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="uIa-WH-KOd">
                                         <rect key="frame" x="0.0" y="396" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uIa-WH-KOd" id="cCX-bs-k0B">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="9999999" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xKh-9i-xqS">
+                                                    <rect key="frame" x="229" y="12" width="71" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="71" id="Fe8-Tj-Cig"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="0.93725490199999995" green="0.50980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
+                                                    <connections>
+                                                        <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="XWl-6H-fk3"/>
+                                                        <action selector="zipcodeEditingDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="CIE-Xa-eqP"/>
+                                                    </connections>
+                                                </textField>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ZIP Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcn-z6-00T">
+                                                    <rect key="frame" x="20" y="12" width="74" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="pcn-z6-00T" firstAttribute="baseline" secondItem="xKh-9i-xqS" secondAttribute="baseline" id="0il-6u-Yqu"/>
+                                                <constraint firstItem="pcn-z6-00T" firstAttribute="leading" secondItem="cCX-bs-k0B" secondAttribute="leading" constant="20" symbolic="YES" id="5it-xn-01e"/>
+                                                <constraint firstAttribute="centerY" secondItem="xKh-9i-xqS" secondAttribute="centerY" id="Wcb-Vq-DCd"/>
+                                                <constraint firstAttribute="trailing" secondItem="xKh-9i-xqS" secondAttribute="trailing" constant="20" symbolic="YES" id="et6-ik-hub"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="l4h-5i-76n" appends="YES" id="o2E-4S-Lf3"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="s1e-fw-th9">
+                                        <rect key="frame" x="0.0" y="440" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s1e-fw-th9" id="QUH-QO-rVo">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="44"/>
@@ -1951,7 +1990,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3Fc-qh-rkj">
-                                        <rect key="frame" x="0.0" y="440" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="484" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Fc-qh-rkj" id="4cr-mn-xtp">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1995,7 +2034,7 @@
                             <tableViewSection id="rOE-oI-0eP">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="memberIDCell" id="szX-hq-0R6">
-                                        <rect key="frame" x="0.0" y="484" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="528" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="szX-hq-0R6" id="nB3-sY-75E">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2035,7 +2074,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="h1Q-Ae-DIA">
-                                        <rect key="frame" x="0.0" y="528" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="572" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h1Q-Ae-DIA" id="iIw-xx-3a0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2098,6 +2137,7 @@
                         <outlet property="refreshRateTextField" destination="mVY-el-NYj" id="HXi-DD-qfC"/>
                         <outlet property="reserveTextField" destination="6rc-s3-np1" id="pZJ-1d-O0j"/>
                         <outlet property="sizeTextField" destination="xip-Kf-FyO" id="cKj-BW-BWv"/>
+                        <outlet property="zipcodeTextField" destination="xKh-9i-xqS" id="nHG-6E-Q3f"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zwx-8K-8Sr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2149,6 +2189,11 @@
                 <tapGestureRecognizer id="vbH-SR-5Oj">
                     <connections>
                         <segue destination="1WO-Hd-IF1" kind="modal" id="B6t-Dc-Nhy"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="l4h-5i-76n">
+                    <connections>
+                        <action selector="zipcodeTap:" destination="NVH-lm-Tni" id="noL-IG-wYY"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

@@ -36,6 +36,7 @@
 #define GENDER_KEY @"Gender"
 #define RESERVE_KEY @"Reserve"
 #define CUSTOM_KEYWORDS_KEY @"CustomKeywords"
+#define ZIPCODE_KEY @"Zipcode"
 
 - (id)init {
     NSDictionary *settingsFromUserDefaults = [[NSUserDefaults standardUserDefaults] dictionaryForKey:ALL_SETTINGS_KEY];
@@ -66,7 +67,8 @@
              AGE_KEY:self.age,
              GENDER_KEY:@(self.gender),
              RESERVE_KEY:@(self.reserve),
-             CUSTOM_KEYWORDS_KEY:self.customKeywords};
+             CUSTOM_KEYWORDS_KEY:self.customKeywords,
+             ZIPCODE_KEY:self.zipcode};
 }
 
 - (id)initFromPropertyList:(id)plist {
@@ -86,7 +88,8 @@
             _gender = settingsDict[GENDER_KEY] ? [settingsDict[GENDER_KEY] intValue] : DEFAULT_GENDER;
             _reserve = settingsDict[RESERVE_KEY] ? [settingsDict[RESERVE_KEY] doubleValue] : DEFAULT_RESERVE;
             _customKeywords = settingsDict[CUSTOM_KEYWORDS_KEY] ? settingsDict[CUSTOM_KEYWORDS_KEY] : DEFAULT_CUSTOM_KEYWORDS;
-            
+            _zipcode = settingsDict[ZIPCODE_KEY] ? settingsDict[ZIPCODE_KEY] : DEFAULT_ZIPCODE;
+
             /*
                 Banner Properties
              */
@@ -123,6 +126,7 @@
         _age = DEFAULT_AGE;
         _reserve = DEFAULT_RESERVE;
         _customKeywords = DEFAULT_CUSTOM_KEYWORDS;
+        _zipcode = DEFAULT_ZIPCODE;
         
         /*
          Banner Properties
@@ -208,6 +212,11 @@
 
 - (void)setAge:(NSString *)age {
     _age = age;
+    [self synchronize];
+}
+
+- (void)setZipcode:(NSString *)zipcode {
+    _zipcode = zipcode;
     [self synchronize];
 }
 

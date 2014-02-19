@@ -38,7 +38,7 @@ static NSInteger const AdSettingsSectionHeaderAdvancedIndex = 1;
 static NSInteger const AdSettingsSectionHeaderDebugAuctionIndex = 2;
 
 static NSInteger const AdSettingsSectionGeneralNumRows = 5;
-static NSInteger const AdSettingsSectionAdvancedNumRows = 6;
+static NSInteger const AdSettingsSectionAdvancedNumRows = 7;
 static NSInteger const AdSettingsSectionDebugAuctionNumRows = 2;
 
 static BOOL AdSettingsSectionGeneralIsOpen = YES;
@@ -64,6 +64,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 @property (weak, nonatomic) IBOutlet UITextField *ageTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderToggle;
 @property (weak, nonatomic) IBOutlet UITextField *reserveTextField;
+@property (weak, nonatomic) IBOutlet UITextField *zipcodeTextField;
 
 # pragma mark Banner
 @property (weak, nonatomic) IBOutlet NoCaretUITextField *sizeTextField;
@@ -245,6 +246,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     self.persistentSettings.gender = gender;
 }
 
+- (void)saveZipcode:(NSString *)zipcode {
+    self.persistentSettings.zipcode = zipcode;
+}
+
 - (BOOL)saveBackgroundColor:(NSString *)backgroundColor {
     if ([AdSettings backgroundColorIsValid:backgroundColor]) {
         self.persistentSettings.backgroundColor = backgroundColor; // Save as is, regardless of case
@@ -268,6 +273,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
     self.ageTextField.text = self.persistentSettings.age;
     self.reserveTextField.text = [[self.reservePriceDelegate class] stringFromReservePrice:self.persistentSettings.reserve];
+    self.zipcodeTextField.text = self.persistentSettings.zipcode;
 }
 
 #pragma mark Text Fields - On Tap
@@ -325,6 +331,15 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     }
 }
 
+- (IBAction)zipcodeTap:(UITapGestureRecognizer *)sender {
+    if ([self.zipcodeTextField isEditing]) {
+        [self.zipcodeTextField resignFirstResponder];
+    } else {
+        [self saveTextFieldSettings];
+        [self.zipcodeTextField becomeFirstResponder];
+    }
+}
+
 #pragma mark Text Fields - Did End
 
 - (IBAction)placementEditDidEnd:(UITextField *)sender {
@@ -351,6 +366,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     [self saveReserve:[self.reserveTextField.text doubleValue]];
 }
 
+- (IBAction)zipcodeEditingDidEnd:(UITextField *)sender {
+    [self saveZipcode:self.zipcodeTextField.text];
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView { // on scroll, save text field settings and resign any first responder
     [scrollView endEditing:YES];
 }
@@ -373,6 +392,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     }
     if ([self.reserveTextField isEditing]) {
         [self saveReserve:[self.reserveTextField.text doubleValue]];
+    }
+    if ([self.zipcodeTextField isEditing]) {
+        [self saveZipcode:self.zipcodeTextField.text];
     }
 }
 
