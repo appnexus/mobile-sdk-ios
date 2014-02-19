@@ -60,6 +60,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
+@property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 
 @end
 
@@ -68,7 +69,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
 @property (nonatomic, readwrite, strong) NSMutableSet *allowedAdSizes;
-@property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 @property (nonatomic, readwrite, assign) CGRect frame;
 
 @end
@@ -232,9 +232,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark Implementation of Abstract methods from ANAdView
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
-    // Interstitials require special handling of launching the in-app browser since they live on top of everything else
-    self.browserViewController = browserViewController;
-    
     [self.controller presentViewController:self.browserViewController animated:YES completion:nil];
 }
 
@@ -364,7 +361,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
-	[self.controller.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (!self.browserViewController) {
+        [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (NSTimeInterval)closeDelayForController {

@@ -50,6 +50,7 @@
 @property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) UIButton *closeButton;
+@property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 
 @end
 
@@ -193,7 +194,7 @@
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
     [self adWillPresent];
-    [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:browserViewController animated:YES completion:^{
         [self adDidPresent];
     }];
 }
@@ -339,6 +340,7 @@
     [self adWillClose];
 	UIViewController *presentingViewController = controller.presentingViewController;
 	[presentingViewController dismissViewControllerAnimated:YES completion:^{
+        self.browserViewController = nil;
         [self adDidClose];
     }];
 }
