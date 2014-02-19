@@ -238,6 +238,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
     ANLogDebug(@"adFailed: %@", [error localizedDescription]);
+    [self.delegate ad:ad requestFailedWithError:error];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAppNexusSDKAppErrorTitle
                                                     message:[error localizedDescription]
                                                    delegate:nil
@@ -248,6 +249,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adDidReceiveAd");
+    [self.delegate adDidReceiveAd:ad];
     if (self.interstitialAd && self.interstitialAd == ad
         && self.interstitialAd.isReady) {
         // on load, immediately display interstitial

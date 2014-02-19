@@ -27,6 +27,8 @@
 
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
+NSString *const kANAdFetcherWillInstantiateMediatedClassNotification = @"kANAdFetcherWillInstantiateMediatedClassKey";
+NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 @interface ANAdFetcher () <NSURLConnectionDataDelegate>
 
@@ -309,6 +311,10 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         errorCode = ANAdResponseUnableToFill;
     } else {
         ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), currentAd.className]);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherWillInstantiateMediatedClassNotification
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObject:currentAd.className
+                                                                                               forKey:kANAdFetcherMediatedClassKey]];
 
         Class adClass = NSClassFromString(currentAd.className);
         
