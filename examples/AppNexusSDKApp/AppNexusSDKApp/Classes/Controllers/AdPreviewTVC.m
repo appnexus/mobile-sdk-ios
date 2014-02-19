@@ -34,6 +34,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *loadInterstitialButton;
 
 @end
 
@@ -59,7 +60,9 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 }
 
 - (void)loadAd {
+    [self.refreshControl beginRefreshing];
     AdSettings *settings = [[AdSettings alloc] init];
+    [self.loadInterstitialButton setHidden:YES];
 
     if (settings.adType == AD_TYPE_BANNER) {
         ANLogDebug(@"%@ %@ | loading banner", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -73,10 +76,8 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 }
 
 - (void)reloadAd {
-    [self.refreshControl beginRefreshing];
     [self loadAd];
     [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
 }
 
 - (void)loadAdvancedSettingsOnAdView:(ANAdView *)adView withSettings:(AdSettings *)settings {
@@ -217,6 +218,13 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     }
 }
 
+- (IBAction)loadInterstitial:(UIButton *)sender {
+    if (self.interstitialAd && self.interstitialAd.isReady) {
+        [self.interstitialAd displayAdFromViewController:self];
+        [self.loadInterstitialButton setHidden:YES];
+    }
+}
+
 #pragma mark Delegate Methods
 
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad {
@@ -227,19 +235,21 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     ANLogDebug(@"adFailed: %@", [error localizedDescription]);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAppNexusSDKAppErrorTitle
                                                     message:[error localizedDescription]
-                                                   delegate:nil
+                                                   delegate:self
                                           cancelButtonTitle:kAppNexusSDKAppErrorCancel
                                           otherButtonTitles:nil];
     [alert show];
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [self.refreshControl endRefreshing];
+}
+
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adDidReceiveAd");
-    if (self.interstitialAd && self.interstitialAd == ad
-        && self.interstitialAd.isReady) {
-        // on load, immediately display interstitial
-        [self.interstitialAd
-         displayAdFromViewController:self];
+    [self.refreshControl endRefreshing];
+    if (self.interstitialAd) {
+        [self.loadInterstitialButton setHidden:NO];
     }
 }
 
