@@ -22,6 +22,8 @@
 #import "AppNexusSDKAppSectionHeaderView.h"
 #import "AppNexusSDKAppModalViewController.h"
 #import "CustomKeywordsTVC.h"
+#import "BackgroundColorView.h"
+#import "AppNexusSDKAppGlobal.h"
 
 #define CLASS_NAME @"AdSettingsTVC"
 
@@ -75,7 +77,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 
 #pragma mark Interstitial
 @property (weak, nonatomic) IBOutlet UITextField *backgroundColorTextField;
-@property (weak, nonatomic) IBOutlet UIView *colorView;
+@property (weak, nonatomic) IBOutlet BackgroundColorView *colorView;
 
 #pragma mark Debug
 @property (weak, nonatomic) IBOutlet UITextField *memberIDTextField;
@@ -252,8 +254,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 
 - (BOOL)saveBackgroundColor:(NSString *)backgroundColor {
     if ([AdSettings backgroundColorIsValid:backgroundColor]) {
-        self.persistentSettings.backgroundColor = backgroundColor; // Save as is, regardless of case
-        // change color of UIView
+        self.persistentSettings.backgroundColor = backgroundColor;
         return YES;
     }
     
@@ -271,6 +272,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     self.dongleTextField.text = self.persistentSettings.dongle;
     self.placementIDTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.placementID];
     self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
+    [self.colorView setColor:[AppNexusSDKAppGlobal colorFromString:self.persistentSettings.backgroundColor]];
     self.ageTextField.text = self.persistentSettings.age;
     self.reserveTextField.text = [[self.reservePriceDelegate class] stringFromReservePrice:self.persistentSettings.reserve];
     self.zipcodeTextField.text = self.persistentSettings.zipcode;
@@ -400,6 +402,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 
 - (void)handleBackgroundColorChange {
     BOOL isValid = [self saveBackgroundColor:self.backgroundColorTextField.text];
+    self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
+    [self.colorView setColor:[AppNexusSDKAppGlobal colorFromString:self.persistentSettings.backgroundColor]];
+
     if (!isValid) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:INVALID_HEX_ALERT_TITLE
                                                         message:INVALID_HEX_ALERT_MESSAGE
@@ -407,8 +412,6 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
                                               cancelButtonTitle:INVALID_HEX_ALERT_CANCEL
                                               otherButtonTitles:nil];
         [alert show];
-    } else {
-        self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
     }
 }
 
@@ -462,6 +465,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     [self saveGender:sender.selectedSegmentIndex];
 }
 
+#define APPNEXUSSDKAPP_AD_TYPE_ALPHA_LOW 0.3
+#define APPNEXUSSDKAPP_AD_TYPE_ALPHA_FULL 1.0
+
 - (void)toggleAdType:(BOOL)isBanner {
     UIColor *bannerColors = isBanner ? [UIColor orangeColor] : [UIColor grayColor];
     UIColor *interstitialColors = !isBanner ? [UIColor orangeColor] : [UIColor grayColor];
@@ -474,6 +480,8 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 
     [self.backgroundColorTextField setUserInteractionEnabled:!isBanner];
     self.backgroundColorTextField.textColor = interstitialColors;
+    
+    self.colorView.alpha = isBanner ? APPNEXUSSDKAPP_AD_TYPE_ALPHA_LOW : APPNEXUSSDKAPP_AD_TYPE_ALPHA_FULL;
 }
 
 #pragma mark Section Headers

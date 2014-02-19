@@ -19,6 +19,7 @@
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
 #import "ANAdProtocol.h"
+#import "AppNexusSDKAppGlobal.h"
 
 #define SV_BACKGROUND_COLOR_RED 77.0
 #define SV_BACKGROUND_COLOR_BLUE 83.0
@@ -155,28 +156,10 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
-    self.interstitialAd.backgroundColor = [self interstitialBackgroundColorFromString:backgroundColor];
+    self.interstitialAd.backgroundColor = [AppNexusSDKAppGlobal colorFromString:backgroundColor];
     [self loadAdvancedSettingsOnAdView:self.interstitialAd withSettings:settings];
     
     [self.interstitialAd loadAd];
-}
-
-- (UIColor *)interstitialBackgroundColorFromString:(NSString *)backgroundColor {
-    NSScanner *scanner = [NSScanner scannerWithString:backgroundColor];
-    unsigned int scannedValue;
-    [scanner scanHexInt:&scannedValue];
-    
-    int alpha = (scannedValue & 0xFF000000) >> 24;
-    int red = (scannedValue & 0xFF0000) >> 16;
-    int green = (scannedValue & 0xFF00) >> 8;
-    int blue = (scannedValue & 0xFF);
-
-    UIColor *color = [UIColor colorWithRed:red/255.0
-                                     green:green/255.0
-                                      blue:blue/255.0
-                                     alpha:alpha/255.0];
-    
-    return color;
 }
 
 - (void)clearBannerAdView {
