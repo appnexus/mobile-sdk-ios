@@ -665,7 +665,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHw-Jh-dzT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4432" y="3433"/>
+            <point key="canvasLocation" x="4432" y="3463"/>
         </scene>
         <!--Debug SettingsTVC-->
         <scene sceneID="xB5-Zs-Y7J">
@@ -847,7 +847,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6GX-Rx-KXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6079" y="3101"/>
+            <point key="canvasLocation" x="6605" y="3101"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rfR-LK-czC">
@@ -987,7 +987,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMV-yQ-i2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5334" y="3456"/>
+            <point key="canvasLocation" x="5331" y="3486"/>
         </scene>
         <!--Ad PreviewTVC-->
         <scene sceneID="EWD-Cf-nks">
@@ -2776,6 +2776,26 @@ Cg
                 <placeholder placeholderIdentifier="IBFirstResponder" id="evM-S3-d9c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5992" y="977"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="71Z-TQ-kEJ">
+            <objects>
+                <navigationController storyboardIdentifier="LogViewNavigationController" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="6Vz-9F-AJL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y4M-Xp-zwk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="yEM-Ny-6hO" kind="relationship" relationship="rootViewController" id="BE3-0E-j1W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fPR-MK-X7G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3877" y="3463"/>
         </scene>
     </scenes>
     <resources>

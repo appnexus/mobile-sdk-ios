@@ -19,7 +19,7 @@
 #import "AdSettingsViewController.h"
 #import "AdPreviewTVC.h"
 #import "DebugSettingsViewController.h"
-#import "LogCoreDataTVC.h"
+#import "LogViewController.h"
 
 // Notification Logging
 #import "ANRequest+Make.h"
@@ -51,7 +51,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 @property (strong, nonatomic) AdSettingsViewController *settings;
 @property (strong, nonatomic) AdPreviewTVC *preview;
 @property (strong, nonatomic) UINavigationController *debug;
-@property (strong, nonatomic) LogCoreDataTVC *log;
+@property (strong, nonatomic) UINavigationController *log;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) ANDocument *document;
@@ -173,8 +173,11 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
 - (void)loadLogVC {
     if (!self.log) {
-        self.log = [self.storyboard instantiateViewControllerWithIdentifier:@"LogViewController"];
-        self.log.managedObjectContext = self.managedObjectContext;
+        self.log = [self.storyboard instantiateViewControllerWithIdentifier:@"LogViewNavigationController"];
+        if ([[self.log.viewControllers objectAtIndex:0] isKindOfClass:[LogViewController class]]) {
+            LogViewController *lvc = (LogViewController *)[self.log.viewControllers objectAtIndex:0];
+            lvc.managedObjectContext = self.managedObjectContext;
+        }
     }
     if (self.controllerInView != self.log) {
         [self bringChildViewControllerIntoView:self.log];
