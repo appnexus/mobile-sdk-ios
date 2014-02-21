@@ -39,10 +39,6 @@ static NSInteger const AdSettingsSectionHeaderGeneralIndex = 0;
 static NSInteger const AdSettingsSectionHeaderAdvancedIndex = 1;
 static NSInteger const AdSettingsSectionHeaderDebugAuctionIndex = 2;
 
-static NSInteger const AdSettingsSectionGeneralNumRows = 5;
-static NSInteger const AdSettingsSectionAdvancedNumRows = 7;
-static NSInteger const AdSettingsSectionDebugAuctionNumRows = 2;
-
 static BOOL AdSettingsSectionGeneralIsOpen = YES;
 static BOOL AdSettingsSectionAdvancedIsOpen = NO;
 static BOOL AdSettingsSectionDebugAuctionIsOpen = NO;
@@ -465,9 +461,6 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     [self saveGender:sender.selectedSegmentIndex];
 }
 
-#define APPNEXUSSDKAPP_AD_TYPE_ALPHA_LOW 0.3
-#define APPNEXUSSDKAPP_AD_TYPE_ALPHA_FULL 1.0
-
 - (void)toggleAdType:(BOOL)isBanner {
     UIColor *bannerColors = isBanner ? [UIColor orangeColor] : [UIColor grayColor];
     UIColor *interstitialColors = !isBanner ? [UIColor orangeColor] : [UIColor grayColor];
@@ -481,22 +474,30 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     [self.backgroundColorTextField setUserInteractionEnabled:!isBanner];
     self.backgroundColorTextField.textColor = interstitialColors;
     
-    self.colorView.alpha = isBanner ? APPNEXUSSDKAPP_AD_TYPE_ALPHA_LOW : APPNEXUSSDKAPP_AD_TYPE_ALPHA_FULL;
+    self.colorView.hidden = isBanner;
 }
 
 #pragma mark Section Headers
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     AppNexusSDKAppSectionHeaderView *sectionHeaderView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:AdSettingsSectionHeaderViewIdentifier];
-    if (section == AdSettingsSectionHeaderGeneralIndex) {
-        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelGeneral;
-        sectionHeaderView.disclosureButton.selected = AdSettingsSectionGeneralIsOpen;
-    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
-        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelAdvanced;
-        sectionHeaderView.disclosureButton.selected = AdSettingsSectionAdvancedIsOpen;
-    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
-        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelDebugAuction;
-        sectionHeaderView.disclosureButton.selected = AdSettingsSectionDebugAuctionIsOpen;
+    switch (section) {
+        case (AdSettingsSectionHeaderGeneralIndex):
+            sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelGeneral;
+            sectionHeaderView.disclosureButton.selected = AdSettingsSectionGeneralIsOpen;
+            break;
+        case (AdSettingsSectionHeaderAdvancedIndex):
+            sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelAdvanced;
+            sectionHeaderView.disclosureButton.selected = AdSettingsSectionAdvancedIsOpen;
+            break;
+        case (AdSettingsSectionHeaderDebugAuctionIndex):
+            sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelDebugAuction;
+            sectionHeaderView.disclosureButton.selected = AdSettingsSectionDebugAuctionIsOpen;
+            break;
+        default:
+            sectionHeaderView.titleLabel.text = @"";
+            sectionHeaderView.disclosureButton.selected = NO;
+            break;
     }
     sectionHeaderView.section = section;
     sectionHeaderView.delegate = self;
@@ -508,22 +509,24 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 }
 
 - (void)sectionHeaderView:(AppNexusSDKAppSectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section {
-    NSInteger numRows = 0;
-    if (section == AdSettingsSectionHeaderGeneralIndex) {
-        if (AdSettingsSectionGeneralIsOpen) return;
-        AdSettingsSectionGeneralIsOpen = YES;
-        numRows = AdSettingsSectionGeneralNumRows;
-    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
-        if (AdSettingsSectionAdvancedIsOpen) return;
-        AdSettingsSectionAdvancedIsOpen = YES;
-        numRows = AdSettingsSectionAdvancedNumRows;
-    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
-        if (AdSettingsSectionDebugAuctionIsOpen) return;
-        AdSettingsSectionDebugAuctionIsOpen = YES;
-        numRows = AdSettingsSectionDebugAuctionNumRows;
+    switch (section) {
+        case (AdSettingsSectionHeaderGeneralIndex):
+            if (AdSettingsSectionGeneralIsOpen) return;
+            AdSettingsSectionGeneralIsOpen = YES;
+            break;
+        case (AdSettingsSectionHeaderAdvancedIndex):
+            if (AdSettingsSectionAdvancedIsOpen) return;
+            AdSettingsSectionAdvancedIsOpen = YES;
+            break;
+        case (AdSettingsSectionHeaderDebugAuctionIndex):
+            if (AdSettingsSectionDebugAuctionIsOpen) return;
+            AdSettingsSectionDebugAuctionIsOpen = YES;
+            break;
+        default:
+            return;
     }
     NSMutableArray *indexPathsToAdd = [[NSMutableArray alloc] init];
-    for (NSInteger i=0; i < numRows; i++) {
+    for (NSInteger i=0; i < [super tableView:self.tableView numberOfRowsInSection:section]; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:section];
         [indexPathsToAdd addObject:indexPath];
     }
@@ -531,22 +534,24 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 }
 
 - (void)sectionHeaderView:(AppNexusSDKAppSectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section {
-    NSInteger numRows = 0;
-    if (section == AdSettingsSectionHeaderGeneralIndex) {
-        if (!AdSettingsSectionGeneralIsOpen) return;
-        AdSettingsSectionGeneralIsOpen = NO;
-        numRows = AdSettingsSectionGeneralNumRows;
-    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
-        if (!AdSettingsSectionAdvancedIsOpen) return;
-        AdSettingsSectionAdvancedIsOpen = NO;
-        numRows = AdSettingsSectionAdvancedNumRows;
-    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
-        if (!AdSettingsSectionDebugAuctionIsOpen) return;
-        AdSettingsSectionDebugAuctionIsOpen = NO;
-        numRows = AdSettingsSectionDebugAuctionNumRows;
+    switch (section) {
+        case (AdSettingsSectionHeaderGeneralIndex):
+            if (!AdSettingsSectionGeneralIsOpen) return;
+            AdSettingsSectionGeneralIsOpen = NO;
+            break;
+        case (AdSettingsSectionHeaderAdvancedIndex):
+            if (!AdSettingsSectionAdvancedIsOpen) return;
+            AdSettingsSectionAdvancedIsOpen = NO;
+            break;
+        case (AdSettingsSectionHeaderDebugAuctionIndex):
+            if (!AdSettingsSectionDebugAuctionIsOpen) return;
+            AdSettingsSectionDebugAuctionIsOpen = NO;
+            break;
+        default:
+            return;
     }
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
-    for (NSInteger i=0; i < numRows; i++) {
+    for (NSInteger i=0; i < [super tableView:self.tableView numberOfRowsInSection:section]; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:section];
         [indexPathsToDelete addObject:indexPath];
     }
@@ -554,14 +559,20 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == AdSettingsSectionHeaderGeneralIndex) {
-        if (AdSettingsSectionGeneralIsOpen) return AdSettingsSectionGeneralNumRows;
-    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
-        if (AdSettingsSectionAdvancedIsOpen) return AdSettingsSectionAdvancedNumRows;
-    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
-        if (AdSettingsSectionDebugAuctionIsOpen) return AdSettingsSectionDebugAuctionNumRows;
+    switch (section) {
+        case AdSettingsSectionHeaderGeneralIndex:
+            if (!AdSettingsSectionGeneralIsOpen) return 0;
+            break;
+        case AdSettingsSectionHeaderAdvancedIndex:
+            if (!AdSettingsSectionAdvancedIsOpen) return 0;
+            break;
+        case AdSettingsSectionHeaderDebugAuctionIndex:
+            if (!AdSettingsSectionDebugAuctionIsOpen) return 0;
+            break;
+        default:
+            break;
     }
-    return 0;
+    return [super tableView:tableView numberOfRowsInSection:section];
 }
 
 #pragma mark Custom Keywords Modal View Controller
