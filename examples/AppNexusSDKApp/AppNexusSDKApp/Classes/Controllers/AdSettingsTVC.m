@@ -47,6 +47,9 @@ static NSString *const AdSettingsSectionHeaderTitleLabelGeneral = @"General";
 static NSString *const AdSettingsSectionHeaderTitleLabelAdvanced = @"Advanced";
 static NSString *const AdSettingsSectionHeaderTitleLabelDebugAuction = @"Debug Auction";
 
+static NSInteger const AdSettingsSizePickerIndex = 3;
+static NSInteger const AdSettingsRefreshRatePickerIndex = 5;
+
 #pragma end
 
 @interface AdSettingsTVC () <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource,
@@ -66,10 +69,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 
 # pragma mark Banner
 @property (weak, nonatomic) IBOutlet NoCaretUITextField *sizeTextField;
-@property (strong, nonatomic) UIPickerView *sizePickerView;
+@property (weak, nonatomic) IBOutlet UIPickerView *sizePickerView;
 
 @property (weak, nonatomic) IBOutlet NoCaretUITextField *refreshRateTextField;
-@property (strong, nonatomic) UIPickerView *refreshRatePickerView;
+@property (weak, nonatomic) IBOutlet UIPickerView *refreshRatePickerView;
 
 #pragma mark Interstitial
 @property (weak, nonatomic) IBOutlet UITextField *backgroundColorTextField;
@@ -78,6 +81,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 #pragma mark Debug
 @property (weak, nonatomic) IBOutlet UITextField *memberIDTextField;
 @property (weak, nonatomic) IBOutlet UITextField *dongleTextField;
+
+@property (nonatomic, assign) BOOL sizePickerViewIsVisible;
+@property (nonatomic, assign) BOOL refreshRatePickerViewIsVisible;
 
 @end
 
@@ -96,6 +102,15 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     [sender resignFirstResponder];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    if (self.sizePickerViewIsVisible || self.refreshRatePickerViewIsVisible) {
+        self.sizePickerViewIsVisible = NO;
+        self.refreshRatePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+}
+
 #pragma mark Current Settings Setup
 
 - (void)currentSettingsSetup {
@@ -112,29 +127,19 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 #pragma mark Picker Views - Initial Setup
 
 - (void)pickerViewSetup {
-    
-    self.sizePickerView = [self generatePickerView];
-    self.sizeTextField.inputView = self.sizePickerView;
-    self.sizePickerView.delegate = self;
     [self.sizePickerView selectRow:[[self.sizeDelegate class]
                                     indexForBannerSizeWithWidth:self.persistentSettings.bannerWidth
                                     height:self.persistentSettings.bannerHeight]
                        inComponent:0
                           animated:NO];
-    
-    self.refreshRatePickerView = [self generatePickerView];
-    self.refreshRateTextField.inputView = self.refreshRatePickerView;
-    self.refreshRatePickerView.delegate = self;
     [self.refreshRatePickerView selectRow:[[self.refreshRateDelegate class] indexForRefreshRate:self.persistentSettings.refreshRate]
                               inComponent:0
                                  animated:NO];
+    self.sizePickerViewIsVisible = NO;
+    self.refreshRatePickerViewIsVisible = NO;
 }
 
 #pragma mark Picker Views - Delegate Methods
-
-- (UIPickerView *)generatePickerView {
-    return [[UIPickerView alloc] initWithFrame:CGRectMake(0.0,0.0,self.view.frame.size.width,162.0)];
-}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     // Update persistent ad settings on change
@@ -174,18 +179,22 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 #pragma mark Picker Views - On Tap
 
 - (IBAction)refreshRateTap:(UITapGestureRecognizer *)sender {
-    if ([self.refreshRateTextField isEditing]) {
-        [self.refreshRateTextField resignFirstResponder];
-    } else {
-        [self.refreshRateTextField becomeFirstResponder];
+    if (self.persistentSettings.adType == AD_TYPE_BANNER) {
+        self.refreshRatePickerViewIsVisible = !self.refreshRatePickerViewIsVisible;
+        if (self.refreshRatePickerViewIsVisible) [self.tableView endEditing:YES];
+        self.sizePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
     }
 }
 
 - (IBAction)sizeTap:(UITapGestureRecognizer *)sender {
-    if ([self.sizeTextField isEditing]) {
-        [self.sizeTextField resignFirstResponder];
-    } else {
-        [self.sizeTextField becomeFirstResponder];
+    if (self.persistentSettings.adType == AD_TYPE_BANNER) {
+        self.sizePickerViewIsVisible = !self.sizePickerViewIsVisible;
+        if (self.sizePickerViewIsVisible) [self.tableView endEditing:YES];
+        self.refreshRatePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
     }
 }
 
@@ -272,6 +281,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     self.ageTextField.text = self.persistentSettings.age;
     self.reserveTextField.text = [[self.reservePriceDelegate class] stringFromReservePrice:self.persistentSettings.reserve];
     self.zipcodeTextField.text = self.persistentSettings.zipcode;
+    
+    [self.sizeTextField setEnabled:NO];
+    [self.refreshRateTextField setEnabled:NO];
 }
 
 #pragma mark Text Fields - On Tap
@@ -464,13 +476,25 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 - (void)toggleAdType:(BOOL)isBanner {
     UIColor *bannerColors = isBanner ? [UIColor orangeColor] : [UIColor grayColor];
     UIColor *interstitialColors = !isBanner ? [UIColor orangeColor] : [UIColor grayColor];
-    [self.sizeTextField setUserInteractionEnabled:isBanner];
+    
     self.sizeTextField.textColor = bannerColors;
-    [self.sizePickerView setUserInteractionEnabled:isBanner];
-    [self.refreshRateTextField setUserInteractionEnabled:isBanner];
     self.refreshRateTextField.textColor = bannerColors;
+    
+    [self.sizePickerView setUserInteractionEnabled:isBanner];
     [self.refreshRatePickerView setUserInteractionEnabled:isBanner];
 
+    if (self.sizePickerViewIsVisible) {
+        self.sizePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+    
+    if (self.refreshRatePickerViewIsVisible) {
+        self.refreshRatePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+    
     [self.backgroundColorTextField setUserInteractionEnabled:!isBanner];
     self.backgroundColorTextField.textColor = interstitialColors;
     
@@ -505,7 +529,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 48.0f;
+    return 35.0f;
 }
 
 - (void)sectionHeaderView:(AppNexusSDKAppSectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section {
@@ -591,6 +615,18 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         [UIApplication sharedApplication].keyWindow.rootViewController.modalPresentationStyle = UIModalPresentationFullScreen;
         self.persistentSettings = nil;
     }];
+}
+
+#pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section==AdSettingsSectionHeaderGeneralIndex) {
+        if ((indexPath.item == AdSettingsSizePickerIndex && !self.sizePickerViewIsVisible) ||
+            (indexPath.item == AdSettingsRefreshRatePickerIndex && !self.refreshRatePickerViewIsVisible)) {
+            return 0.0f;
+        }
+    }
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
 @end

@@ -95,6 +95,10 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
     [self audioSetup];
     self.leftSwipeGesture.delegate = self;
     self.rightSwipeGesture.delegate = self;
+    [self.settingsTabBarItem setSelectedImage:[UIImage imageNamed:@"GearIconSelected"]];
+    [self.previewTabBarItem setSelectedImage:[UIImage imageNamed:@"PhotoIconSelected"]];
+    [self.debugTabBarItem setSelectedImage:[UIImage imageNamed:@"InfoIconSelected"]];
+    [self.logTabBarItem setSelectedImage:[UIImage imageNamed:@"PencilIconSelected"]];
 }
 
 - (void)audioSetup {
