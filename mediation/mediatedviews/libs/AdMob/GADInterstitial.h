@@ -27,12 +27,12 @@
 //   AdMob: a0123456789ABCD
 //     DFP: /0123/ca-pub-0123456789012345/my-ad-identifier
 // AdSense: ca-mb-app-pub-0123456789012345/my-ad-identifier
-@property (nonatomic, copy) NSString *adUnitID;
+@property(nonatomic, copy) NSString *adUnitID;
 
 // Optional delegate object that receives state change notifications from this
 // GADInterstitalAd. Remember to nil the delegate before deallocating this
 // object.
-@property (nonatomic, assign) NSObject<GADInterstitialDelegate> *delegate;
+@property(nonatomic, assign) NSObject<GADInterstitialDelegate> *delegate;
 
 #pragma mark Making an Ad Request
 
@@ -59,18 +59,18 @@
 
 // Returns YES if the interstitial is ready to be displayed. The delegate's
 // interstitialAdDidReceiveAd: will be called when this switches from NO to YES.
-@property (nonatomic, readonly, assign) BOOL isReady;
+@property(nonatomic, readonly, assign) BOOL isReady;
 
 // Returns YES if the interstitial object has already shown an interstitial.
 // Note that an interstitial object can only be used once even with different
 // requests.
-@property (nonatomic, readonly, assign) BOOL hasBeenUsed;
+@property(nonatomic, readonly, assign) BOOL hasBeenUsed;
 
 // Returns the ad network class name that fetched the current ad. Returns nil while the latest ad
 // request is in progress or if the latest ad request failed. For both standard and mediated Google
 // AdMob ads, this method returns @"GADMAdapterGoogleAdMobAds". For ads fetched via mediation custom
 // events, this method returns @"GADMAdapterCustomEvents".
-@property (nonatomic, readonly) NSString *adNetworkClassName;
+@property(nonatomic, readonly) NSString *adNetworkClassName;
 
 // Presents the interstitial ad which takes over the entire screen until the
 // user dismisses it. This has no effect unless isReady returns YES and/or the

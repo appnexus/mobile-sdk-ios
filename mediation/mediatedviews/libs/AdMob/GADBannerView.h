@@ -51,11 +51,11 @@
 //       DFP: /0123/ca-pub-0123456789012345/my-ad-identifier
 //   AdSense: ca-mb-app-pub-0123456789012345/my-ad-identifier
 // Mediation: AB123456789ABCDE
-@property (nonatomic, copy) NSString *adUnitID;
+@property(nonatomic, copy) NSString *adUnitID;
 
 // Required reference to the current root view controller. For example the root
 // view controller in tab-based application would be the UITabViewController.
-@property (nonatomic, assign) UIViewController *rootViewController;
+@property(nonatomic, assign) UIViewController *rootViewController;
 
 // Required to set this banner view to a proper size. Never create your own
 // GADAdSize directly. Use one of the predefined standard ad sizes
@@ -63,7 +63,7 @@
 // method. If not using mediation, then changing the adSize after an ad has
 // been shown will cause a new request (for an ad of the new size) to be sent.
 // If using mediation, then a new request may not be sent.
-@property (nonatomic, assign) GADAdSize adSize;
+@property(nonatomic, assign) GADAdSize adSize;
 
 // Optional delegate object that receives state change notifications from this
 // GADBannerView. Typically this is a UIViewController, however, if you are
@@ -89,7 +89,7 @@
 //
 //   @end
 //
-@property (nonatomic, assign) NSObject<GADBannerViewDelegate> *delegate;
+@property(nonatomic, assign) NSObject<GADBannerViewDelegate> *delegate;
 
 #pragma mark Making an Ad Request
 
@@ -102,19 +102,19 @@
 // YES, if the currently displayed ad (or most recent failure) was a result of
 // auto refreshing as specified on server. This will be set to NO after each
 // loadRequest: method.
-@property (nonatomic, readonly) BOOL hasAutoRefreshed;
+@property(nonatomic, readonly) BOOL hasAutoRefreshed;
 
 #pragma mark Mediation
 
 // Gets the underlying ad view of the mediated ad network.
 // You may use this to find out the actual size of the ad and adjust
 // GADBannerView to fit the underlying ad view.
-@property (nonatomic, readonly) UIView *mediatedAdView;
+@property(nonatomic, readonly) UIView *mediatedAdView;
 
 // Returns the ad network class name that fetched the current ad. Returns nil while the latest ad
 // request is in progress or if the latest ad request failed. For both standard and mediated Google
 // AdMob ads, this method returns @"GADMAdapterGoogleAdMobAds". For ads fetched via mediation custom
 // events, this method returns @"GADMAdapterCustomEvents".
-@property (nonatomic, readonly) NSString *adNetworkClassName;
+@property(nonatomic, readonly) NSString *adNetworkClassName;
 
 @end

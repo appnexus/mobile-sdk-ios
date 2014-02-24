@@ -12,7 +12,6 @@
 
 // Set a delegate to be notified when the user activates and deactivates an ad.
 // Remember to nil out the delegate before releasing this banner.
-@property (nonatomic, assign)
-    NSObject<GADSwipeableBannerViewDelegate> *swipeDelegate;
+@property(nonatomic, assign) NSObject<GADSwipeableBannerViewDelegate> *swipeDelegate;
 
 @end

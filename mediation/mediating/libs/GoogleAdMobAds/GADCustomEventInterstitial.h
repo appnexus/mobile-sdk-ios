@@ -13,7 +13,7 @@
 // Your Custom Event handler object for interstitial must implement this
 // protocol. The requestInterstitialAd method will be called when Mediation
 // schedules your Custom Event to be executed.
-@protocol GADCustomEventInterstitial <NSObject>
+@protocol GADCustomEventInterstitial<NSObject>
 
 // This method is called by Mediation when your Custom Event is scheduled to
 // be executed. Your implementation should begin retrieval of the interstitial
@@ -47,6 +47,6 @@
 // -setDelegate: yourself.
 //
 // In your object's -dealloc method, remember to nil out the delegate.
-@property (nonatomic, assign) id<GADCustomEventInterstitialDelegate> delegate;
+@property(nonatomic, assign) id<GADCustomEventInterstitialDelegate> delegate;
 
 @end

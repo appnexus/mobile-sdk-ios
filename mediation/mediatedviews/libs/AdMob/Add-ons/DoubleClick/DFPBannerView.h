@@ -15,13 +15,13 @@
 // Optional delegate object that will be notified if a creative sends
 // app events. Remember to nil out this property before releasing the object
 // that implements the GADAppEventDelegate protocol to avoid crashing the app.
-@property (nonatomic, assign) NSObject<GADAppEventDelegate> *appEventDelegate;
+@property(nonatomic, assign) NSObject<GADAppEventDelegate> *appEventDelegate;
 
 // Optional delegate object that will be notified if a creative causes the
 // banner to change size. Remember to nil out this property before releasing the
 // object that implements the GADAdSizeDelegate protocol to avoid crashing the
 // app.
-@property (nonatomic, assign) NSObject<GADAdSizeDelegate> *adSizeDelegate;
+@property(nonatomic, assign) NSObject<GADAdSizeDelegate> *adSizeDelegate;
 
 // Optional array of GADAdSize to specify all valid sizes that are appropriate
 // for this slot. Never create your own GADAdSize directly. Use one of the
@@ -38,10 +38,10 @@
 //       objCType:@encode(GADAdSize)]];
 //
 //   myView.validAdSizes = validSizes;
-@property (nonatomic, retain) NSArray *validAdSizes;
+@property(nonatomic, retain) NSArray *validAdSizes;
 
 // Flag allowing publisher to specify when the ad is visible to the user.
-@property (nonatomic, assign) BOOL enableManualImpressions;
+@property(nonatomic, assign) BOOL enableManualImpressions;
 
 // Call this when the ad is visible and if you have set enableManualImpressions
 // to YES.
