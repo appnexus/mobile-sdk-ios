@@ -1186,7 +1186,6 @@
                         <outlet property="refreshRateTextField" destination="mVY-el-NYj" id="HXi-DD-qfC"/>
                         <outlet property="reserveTextField" destination="6rc-s3-np1" id="pZJ-1d-O0j"/>
                         <outlet property="sizePickerView" destination="IZZ-eE-jRK" id="oPJ-2s-WFM"/>
-                        <outlet property="sizePickerViewCell" destination="L0c-EM-ZY4" id="uRv-KG-eQl"/>
                         <outlet property="sizeTextField" destination="xip-Kf-FyO" id="cKj-BW-BWv"/>
                         <outlet property="zipcodeTextField" destination="xKh-9i-xqS" id="nHG-6E-Q3f"/>
                     </connections>
