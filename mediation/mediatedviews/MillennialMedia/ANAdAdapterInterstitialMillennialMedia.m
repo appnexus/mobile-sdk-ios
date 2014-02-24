@@ -19,7 +19,6 @@
 #import "MMInterstitial.h"
 
 @interface ANAdAdapterInterstitialMillennialMedia ()
-@property (nonatomic, readwrite, strong) MMInterstitial *interstitialAd;
 @property (nonatomic, readwrite, strong) NSString *apid;
 @end
 
@@ -38,7 +37,7 @@
     
     self.apid = idString;
     
-    if ([MMInterstitial isAdAvailableForApid:self.apid]) {
+    if ([self isReady]) {
         NSLog(@"MillennialMedia interstitial was already available, attempting to load cached ad");
         [self.delegate didLoadInterstitialAd:self];
         return;
@@ -84,7 +83,7 @@
 
 - (void)presentFromViewController:(UIViewController *)viewController
 {
-    if (![MMInterstitial isAdAvailableForApid:self.apid]) {
+    if (![self isReady]) {
         NSLog(@"MillennialMedia interstitial no longer available, failed to present ad");
         [self.delegate failedToDisplayAd];
         return;
