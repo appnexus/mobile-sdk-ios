@@ -51,6 +51,8 @@
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) UIButton *closeButton;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
+@property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
+@property (nonatomic, readwrite, assign) CGRect defaultFrame;
 
 @end
 
@@ -172,6 +174,14 @@
     CGFloat centerY = (self.frame.size.height - contentHeight) / 2;
     [self.contentView setFrame:
      CGRectMake(centerX, centerY, contentWidth, contentHeight)];
+    if (!CGRectIsEmpty(self.defaultParentFrame)) {
+        self.defaultParentFrame = CGRectMake(frame.origin.x, frame.origin.y, self.defaultParentFrame.size.width, self.defaultParentFrame.size.height);
+        CGFloat defaultContentWidth = self.defaultFrame.size.width;
+        CGFloat defaultContentHeight = self.defaultFrame.size.height;
+        CGFloat defaultCenterX = (self.defaultParentFrame.size.width - defaultContentWidth) / 2;
+        CGFloat defaultCenterY = (self.defaultParentFrame.size.height - defaultContentHeight) / 2;
+        self.defaultFrame = CGRectMake(defaultCenterX, defaultCenterY, defaultContentWidth, defaultContentHeight);
+    }
 }
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated {
@@ -285,7 +295,6 @@
     [super mraidExpandAddCloseButton:closeButton containerView:containerView];
     
     [self.mraidEventReceiverDelegate adDidFinishExpand];
-    [self.mraidEventReceiverDelegate adDidChangePosition:containerView.frame];
 }
 
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
@@ -312,7 +321,6 @@
     
     // send mraid events
     [self.mraidEventReceiverDelegate adDidFinishResize:YES errorString:nil];
-    [self.mraidEventReceiverDelegate adDidChangePosition:contentView.frame];
 }
 
 - (void)adShouldResetToDefault {

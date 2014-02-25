@@ -95,11 +95,12 @@
 @end
 
 @interface ANMRAIDAdWebViewController ()
-@property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) BOOL expanded;
 @property (nonatomic, readwrite, assign) BOOL resized;
 @property (nonatomic, readwrite, assign) NSTimer *viewabilityTimer;
 @property (nonatomic, readwrite) BOOL isViewable;
+@property (nonatomic, readwrite) CGRect defaultPosition;
+@property (nonatomic, readwrite) CGRect currentPosition;
 @end
 
 @implementation ANMRAIDAdWebViewController
@@ -115,11 +116,7 @@
         // set initial values for MRAID getters
         [self setValuesForMRAIDSupportsFunction:webView];
         [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
-        [self setDefaultPositionForMRAIDGetDefaultPositionFunction:webView];
         [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
-        
-        // remember frame for default state
-        [self setDefaultFrame:webView.frame];
         
         // setup rotation detection support
         [self processDidChangeStatusBarOrientationNotifications];
@@ -137,6 +134,14 @@
     self.isViewable = [self getWebViewVisible];
     [self.webView setIsViewable:self.isViewable];
     ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
+    [self updatePosition];
+    if (CGRectEqualToRect(self.defaultPosition, CGRectZero)) {
+        self.defaultPosition = CGRectMake(CGPointZero.x, CGPointZero.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
+        [self.webView setDefaultPosition:self.defaultPosition];
+        ANLogDebug(@"%@ | default position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
+                   (int)self.defaultPosition.origin.x, (int)self.defaultPosition.origin.y,
+                   (int)self.defaultPosition.size.width, (int)self.defaultPosition.size.height);
+    }
     
     __weak ANMRAIDAdWebViewController *weakANMRAIDAdWebViewController = self;
     self.viewabilityTimer = [NSTimer scheduledTimerWithTimeInterval:kAppNexusMRAIDCheckViewableFrequency
@@ -157,6 +162,30 @@
         self.isViewable = isCurrentlyViewable;
         [self.webView setIsViewable:self.isViewable];
         ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
+    }
+    [self updatePosition];
+}
+
+- (void)updatePosition {
+    if (self.isViewable) {
+        CGRect newPosition = [self webViewPositionInWindowCoordinatesForWebView:self.webView];
+        if (!CGRectEqualToRect(newPosition, self.currentPosition)) {
+            self.currentPosition = newPosition;
+            [self.webView fireNewCurrentPositionEvent:self.currentPosition];
+            ANLogDebug(@"%@ | current position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
+                       (int)self.currentPosition.origin.x, (int)self.currentPosition.origin.y,
+                       (int)self.currentPosition.size.width, (int)self.currentPosition.size.height);
+            if (!self.expanded && !self.resized && (CGSizeEqualToSize(self.defaultPosition.size, self.currentPosition.size) ||
+                                                    CGRectEqualToRect(self.defaultPosition, CGRectZero))) {
+                self.defaultPosition = self.currentPosition;
+                [self.webView setDefaultPosition:self.defaultPosition];
+            } else if (self.resized) {
+                self.defaultPosition = CGRectMake(self.currentPosition.origin.x, self.currentPosition.origin.y, self.defaultPosition.size.width, self.defaultPosition.size.height);
+            }
+            ANLogDebug(@"%@ | default position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
+                       (int)self.defaultPosition.origin.x, (int)self.defaultPosition.origin.y,
+                       (int)self.defaultPosition.size.width, (int)self.defaultPosition.size.height);
+        }
     }
 }
 
@@ -271,9 +300,14 @@
     [webView setScreenSize:CGSizeMake(orientedWidth, orientedHeight)];
 }
 
-- (void)setDefaultPositionForMRAIDGetDefaultPositionFunction:(UIWebView *)webView{
-    CGRect bounds = [webView bounds];
-    [webView setDefaultPosition:bounds];
+- (CGRect)webViewPositionInWindowCoordinatesForWebView:(UIWebView *)webView {
+    CGRect webViewAbsoluteFrame = [webView convertRect:webView.bounds toView:nil];
+    CGRect bounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(webViewAbsoluteFrame);
+    UIApplication *application = [UIApplication sharedApplication];
+    if (!application.statusBarHidden) {
+        bounds.origin.y -= MIN(application.statusBarFrame.size.height, application.statusBarFrame.size.width);
+    }
+    return bounds;
 }
 
 - (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
@@ -778,10 +812,6 @@
         [self.webView fireErrorEvent:errorString
                             function:@"mraid.resize()"];
     }
-}
-
-- (void)adDidChangePosition:(CGRect)frame {
-    [self.webView fireNewCurrentPositionEvent:frame];
 }
 
 - (void)adDidResetToDefault {
