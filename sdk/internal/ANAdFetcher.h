@@ -27,6 +27,8 @@ extern NSString *const kANAdFetcherWillRequestAdNotification;
 extern NSString *const kANAdFetcherDidReceiveResponseNotification;
 extern NSString *const kANAdFetcherAdRequestURLKey;
 extern NSString *const kANAdFetcherAdResponseKey;
+extern NSString *const kANAdFetcherWillInstantiateMediatedClassNotification;
+extern NSString *const kANAdFetcherMediatedClassKey;
 
 @interface ANAdFetcher : NSObject
 

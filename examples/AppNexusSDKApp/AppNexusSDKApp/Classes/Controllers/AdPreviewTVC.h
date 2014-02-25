@@ -15,7 +15,18 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "ANAdProtocol.h"
+
+@protocol AppNexusSDKAppPreviewVCDelegate;
 
 @interface AdPreviewTVC : UITableViewController
 @property (strong, nonatomic) CLLocation *lastLocation;
+@property (strong, nonatomic) id<AppNexusSDKAppPreviewVCDelegate> delegate;
+@end
+
+@protocol AppNexusSDKAppPreviewVCDelegate <NSObject>
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error;
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad;
+
 @end
