@@ -636,6 +636,7 @@
                                                     <connections>
                                                         <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="eqo-TD-m7O"/>
                                                         <action selector="placementEditDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="Eqv-N9-Oy1"/>
+                                                        <outlet property="delegate" destination="NVH-lm-Tni" id="tBI-x0-tgv"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Placement ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEf-ai-9tX">
@@ -802,6 +803,7 @@
                                                     <connections>
                                                         <action selector="backgroundColorEditDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="FLX-Vq-f8H"/>
                                                         <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="NP7-e8-O2u"/>
+                                                        <outlet property="delegate" destination="NVH-lm-Tni" id="ldE-gB-sNU"/>
                                                     </connections>
                                                 </textField>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nit-6m-oUg" customClass="BackgroundColorView">
@@ -918,6 +920,7 @@
                                                     <connections>
                                                         <action selector="ageEditingDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="bDz-84-u4R"/>
                                                         <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="1cW-q3-qMG"/>
+                                                        <outlet property="delegate" destination="NVH-lm-Tni" id="Vki-5D-SE3"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Age" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ZC-Ne-MTe">
@@ -992,6 +995,7 @@
                                                     <connections>
                                                         <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="XWl-6H-fk3"/>
                                                         <action selector="zipcodeEditingDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="CIE-Xa-eqP"/>
+                                                        <outlet property="delegate" destination="NVH-lm-Tni" id="Cbz-Xv-hLx"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ZIP Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcn-z6-00T">
@@ -1062,6 +1066,7 @@
                                                     <connections>
                                                         <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="Ces-KM-Y4u"/>
                                                         <action selector="reserveEditingDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="Z0D-qI-iSU"/>
+                                                        <outlet property="delegate" destination="NVH-lm-Tni" id="Oeg-Z7-wwT"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1100,6 +1105,7 @@
                                                     <connections>
                                                         <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="owj-5M-5PZ"/>
                                                         <action selector="memberIDEditDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="48G-JW-yPq"/>
+                                                        <outlet property="delegate" destination="NVH-lm-Tni" id="lNf-eb-oOl"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="Member ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfm-Gi-xCE">
@@ -1145,6 +1151,7 @@
                                                     <connections>
                                                         <action selector="dongleEditDidEnd:" destination="NVH-lm-Tni" eventType="editingDidEnd" id="zjg-IZ-pH8"/>
                                                         <action selector="makeKeyboardDisappear:" destination="NVH-lm-Tni" eventType="editingDidEndOnExit" id="K5e-03-1dR"/>
+                                                        <outlet property="delegate" destination="NVH-lm-Tni" id="gvL-2q-xeF"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>

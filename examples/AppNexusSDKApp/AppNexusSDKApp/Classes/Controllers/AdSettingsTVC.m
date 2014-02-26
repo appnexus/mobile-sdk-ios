@@ -185,6 +185,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         self.sizePickerViewIsVisible = NO;
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
+        [self pickerView:self.refreshRatePickerView setHidden:!self.refreshRatePickerViewIsVisible];
     }
 }
 
@@ -195,6 +196,27 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         self.refreshRatePickerViewIsVisible = NO;
         [self.tableView beginUpdates];
         [self.tableView endUpdates];
+        [self pickerView:self.sizePickerView setHidden:!self.sizePickerViewIsVisible];
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView setHidden:(BOOL)hidden {
+    [pickerView setHidden:hidden];
+}
+
+- (void)hidePickerViews {
+    if (self.sizePickerViewIsVisible) {
+        self.sizePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+        [self pickerView:self.sizePickerView setHidden:!self.sizePickerViewIsVisible];
+    }
+    
+    if (self.refreshRatePickerViewIsVisible) {
+        self.refreshRatePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+        [self pickerView:self.refreshRatePickerView setHidden:!self.refreshRatePickerViewIsVisible];
     }
 }
 
@@ -482,19 +504,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     
     [self.sizePickerView setUserInteractionEnabled:isBanner];
     [self.refreshRatePickerView setUserInteractionEnabled:isBanner];
+    
+    [self hidePickerViews];
 
-    if (self.sizePickerViewIsVisible) {
-        self.sizePickerViewIsVisible = NO;
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
-    }
-    
-    if (self.refreshRatePickerViewIsVisible) {
-        self.refreshRatePickerViewIsVisible = NO;
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
-    }
-    
     [self.backgroundColorTextField setUserInteractionEnabled:!isBanner];
     self.backgroundColorTextField.textColor = interstitialColors;
     
@@ -627,6 +639,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         }
     }
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self hidePickerViews];
 }
 
 @end

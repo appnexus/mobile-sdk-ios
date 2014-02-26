@@ -28,12 +28,14 @@
 
 NSString *const kAppNexusSDKAppErrorTitle = @"Failed To Load Ad";
 NSString *const kAppNexusSDKAppErrorCancel = @"OK";
+NSString *const kAppNexusSDKAppNewInterstitialTitle = @"Load New Interstitial";
+NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
 
 @interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
-@property (strong, nonatomic) UIButton *loadInterstitialButton;
+@property (strong, nonatomic) UIButton *interstitialButton;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableViewCell *scrollViewCell;
@@ -50,6 +52,9 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.bannerAdView.rootViewController = self;
+    if (self.interstitialButton && [self.interstitialButton.titleLabel.text isEqualToString:kAppNexusSDKAppNewInterstitialTitle]) {
+        [self.interstitialButton setHidden:NO];
+    }
 }
 
 - (void)setup {
@@ -161,44 +166,44 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     self.interstitialAd.backgroundColor = [AppNexusSDKAppGlobal colorFromString:backgroundColor];
     [self loadAdvancedSettingsOnAdView:self.interstitialAd withSettings:settings];
     
-    [self setupLoadInterstitialButton];
+    [self addInterstitialButtonWithTitle:KAppNexusSDKAppShowInterstitialTitle action:@selector(loadInterstitial:)];
     
     [self.interstitialAd loadAd];
 }
 
-- (void)setupLoadInterstitialButton {
-    self.loadInterstitialButton = [UIButton buttonWithType:UIButtonTypeSystem];
+- (void)addInterstitialButtonWithTitle:(NSString *)title action:(SEL)action {
+    self.interstitialButton = [UIButton buttonWithType:UIButtonTypeSystem];
     CGFloat borderWidth = 1.0;
     CGFloat cornerRadius = 2.0;
-    [self.loadInterstitialButton.layer setCornerRadius:cornerRadius];
-    [self.loadInterstitialButton.layer setBorderWidth:borderWidth];
-    [self.loadInterstitialButton setHidden:YES];
-    [self.loadInterstitialButton addTarget:self action:@selector(loadInterstitial:) forControlEvents:UIControlEventTouchDown];
-    [self.loadInterstitialButton setTitle:@"Show Interstitial" forState:UIControlStateNormal];
+    [self.interstitialButton.layer setCornerRadius:cornerRadius];
+    [self.interstitialButton.layer setBorderWidth:borderWidth];
+    [self.interstitialButton setHidden:YES];
+    [self.interstitialButton addTarget:self action:action forControlEvents:UIControlEventTouchDown];
+    [self.interstitialButton setTitle:title forState:UIControlStateNormal];
     UIView *anchorView = self.scrollViewCell;
-    [anchorView addSubview:self.loadInterstitialButton];
-    NSLayoutConstraint *constraint1 = [NSLayoutConstraint constraintWithItem:self.loadInterstitialButton
+    [anchorView addSubview:self.interstitialButton];
+    NSLayoutConstraint *constraint1 = [NSLayoutConstraint constraintWithItem:self.interstitialButton
                                                                    attribute:NSLayoutAttributeWidth
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:nil
                                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                                   multiplier:1.0
-                                                                    constant:(int)(self.loadInterstitialButton.intrinsicContentSize.width) + 2 * borderWidth + 4];
-    NSLayoutConstraint *constraint2 = [NSLayoutConstraint constraintWithItem:self.loadInterstitialButton
+                                                                    constant:(int)(self.interstitialButton.intrinsicContentSize.width) + 2 * borderWidth + 4];
+    NSLayoutConstraint *constraint2 = [NSLayoutConstraint constraintWithItem:self.interstitialButton
                                                                    attribute:NSLayoutAttributeCenterX
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:anchorView
                                                                    attribute:NSLayoutAttributeCenterX
                                                                   multiplier:1.0
                                                                     constant:0.0];
-    NSLayoutConstraint *constraint3 = [NSLayoutConstraint constraintWithItem:self.loadInterstitialButton
+    NSLayoutConstraint *constraint3 = [NSLayoutConstraint constraintWithItem:self.interstitialButton
                                                                    attribute:NSLayoutAttributeCenterY
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:anchorView
                                                                    attribute:NSLayoutAttributeCenterY
                                                                   multiplier:1.0
                                                                     constant:0.0];
-    self.loadInterstitialButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.interstitialButton.translatesAutoresizingMaskIntoConstraints = NO;
     [anchorView addConstraint:constraint1];
     [anchorView addConstraint:constraint2];
     [anchorView addConstraint:constraint3];
@@ -215,9 +220,9 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 - (void)clearInterstitialAd {
     self.interstitialAd.delegate = nil;
     self.interstitialAd = nil;
-    if (self.loadInterstitialButton) {
-        self.loadInterstitialButton = nil;
-        [self.loadInterstitialButton removeFromSuperview];
+    if (self.interstitialButton) {
+        [self.interstitialButton removeFromSuperview];
+        self.interstitialButton = nil;
     }
 }
 
@@ -266,7 +271,12 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 - (IBAction)loadInterstitial:(UIButton *)sender {
     if (self.interstitialAd && self.interstitialAd.isReady) {
         [self.interstitialAd displayAdFromViewController:self];
-        [self.loadInterstitialButton setHidden:YES];
+        if (self.interstitialAd) {
+            [self.interstitialButton removeFromSuperview];
+            self.interstitialButton = nil;
+            [self addInterstitialButtonWithTitle:kAppNexusSDKAppNewInterstitialTitle action:@selector(loadAd)];
+            [self.interstitialButton setHidden:YES];
+        }
     }
 }
 
@@ -296,7 +306,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
     [self.delegate adDidReceiveAd:ad];
     [self.refreshControl endRefreshing];
     if (self.interstitialAd) {
-        [self.loadInterstitialButton setHidden:NO];
+        [self.interstitialButton setHidden:NO];
     }
 }
 
