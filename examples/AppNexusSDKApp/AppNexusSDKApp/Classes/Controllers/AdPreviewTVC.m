@@ -54,6 +54,10 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.bannerAdView.rootViewController = self;
+    [self validateInterstitialButton];
+}
+
+- (void)validateInterstitialButton {
     if (self.interstitialButton && [self.interstitialButton.titleLabel.text isEqualToString:kAppNexusSDKAppNewInterstitialTitle]) {
         AdSettings *newSettings = [[AdSettings alloc] init];
         if (newSettings.adType == AD_TYPE_INTERSTITIAL) {
