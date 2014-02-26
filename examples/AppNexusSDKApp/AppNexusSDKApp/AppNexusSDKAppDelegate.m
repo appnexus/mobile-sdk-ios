@@ -17,19 +17,29 @@
 
 #import "CreativePreviewViewController.h"
 
+@interface AppNexusSDKAppDelegate ()
+
+@property (nonatomic, readwrite, strong) CreativePreviewViewController *cpvc;
+
+@end
+
 @implementation AppNexusSDKAppDelegate
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    CreativePreviewViewController *cpvc = [[CreativePreviewViewController alloc]
-                                           initWithDataUrl:url];
-    if (cpvc) {
-        [self.window.rootViewController presentViewController:cpvc animated:YES completion:nil];
-        return YES;
+    if (![[url scheme] isEqualToString:@"appnexuscr"]) {
+        return NO;
     }
-    
-    return NO;
+
+    // if the creative preview controller is not currently
+    // presented, create a new controller and present it
+    if (!self.cpvc.presentingViewController) {
+        self.cpvc = [[CreativePreviewViewController alloc] init];
+        [self.window.rootViewController presentViewController:self.cpvc animated:YES completion:nil];
+    }
+    [self.cpvc loadDataUrl:url];
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

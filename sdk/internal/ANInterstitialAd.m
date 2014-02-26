@@ -142,10 +142,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                 self.controller.backgroundColor = self.backgroundColor;
             }
             
-            UIModalPresentationStyle rootViewControllerDesiredPresentationStyle = [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle;
-            [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext; // Proper support for background transparency
+            UIModalPresentationStyle rootViewControllerDesiredPresentationStyle = controller.modalPresentationStyle;
+            controller.modalPresentationStyle = UIModalPresentationCurrentContext;
 			[controller presentViewController:self.controller animated:YES completion:^{
-                [UIApplication sharedApplication].delegate.window.rootViewController.modalPresentationStyle = rootViewControllerDesiredPresentationStyle;
+                controller.modalPresentationStyle = rootViewControllerDesiredPresentationStyle;
             }];
 		}
 		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
@@ -232,7 +232,12 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark Implementation of Abstract methods from ANAdView
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
-    [self.controller presentViewController:self.browserViewController animated:YES completion:nil];
+	// Stop the countdown and enable close button immediately
+	[self.controller stopCountdownTimer];
+    if (self.controller.presentingViewController) {
+        // don't open the browser if the interstitial has been closed already
+        [self.controller presentViewController:self.browserViewController animated:YES completion:nil];
+    }
 }
 
 #pragma mark extraParameters methods
@@ -282,12 +287,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     else {
         [self adRequestFailedWithError:response.error];
     }
-}
-
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
-	// Stop the countdown and enable close button immediately
-	[self.controller stopCountdownTimer];
-    [super adFetcher:fetcher adShouldOpenInBrowserWithURL:URL];
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
@@ -351,7 +350,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark ANBrowserViewControllerDelegate
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
-	[self.controller dismissViewControllerAnimated:YES completion:^{
+	[controller dismissViewControllerAnimated:YES completion:^{
 		self.browserViewController = nil;
 	}];
 }
@@ -359,9 +358,17 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
-    if (!self.browserViewController) {
-        [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    }
+    __weak ANInterstitialAd *weakAd = self;
+    
+    [self.browserViewController dismissViewControllerAnimated:YES completion:^{
+        ANInterstitialAd *ad = weakAd;
+        ad.browserViewController = nil;
+    }];
+
+    [self.controller dismissViewControllerAnimated:YES completion:^{
+        ANInterstitialAd *ad = weakAd;
+        ad.controller = nil;
+    }];
 }
 
 - (NSTimeInterval)closeDelayForController {

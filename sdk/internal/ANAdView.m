@@ -637,7 +637,7 @@ ANBrowserViewControllerDelegate>
 }
 
 - (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
-    if (self.mraidController) {
+    if (self.mraidController.presentingViewController) {
         [self.mraidController presentViewController:controller animated:YES completion:nil];
     } else {
         [self openInBrowserWithController:controller];

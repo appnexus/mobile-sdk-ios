@@ -27,18 +27,24 @@ NSString *const kErrorAlertCancel = @"OK";
 
 @interface CreativePreviewViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
 
-@property NSURL *dataUrl;
-@property NSString *adType;
-@property int width;
-@property int height;
-@property NSString *url;
+// data url fields
+@property (nonatomic, readwrite, strong) NSString *adType;
+@property (nonatomic, readwrite, assign) int width;
+@property (nonatomic, readwrite, assign) int height;
+@property (nonatomic, readwrite, strong) NSString *url;
 
-@property ANBannerAdView *bannerAdView;
-@property ANInterstitialAd *interstitialAd;
+// view properties
+@property (nonatomic, readwrite, strong) ANBannerAdView *bannerAdView;
+@property (nonatomic, readwrite, strong) ANInterstitialAd *interstitialAd;
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
 
-@property NSURLConnection *connection;
-@property NSMutableData *data;
+// handling url load
+@property (nonatomic, readwrite, strong) NSURLConnection *connection;
+@property (nonatomic, readwrite, strong) NSMutableData *data;
+
+// handling interstitial display
+@property (nonatomic, readwrite, assign) BOOL viewDidAppear;
+@property (nonatomic, readwrite, assign) BOOL interstitialHasLoaded;
 
 @end
 
@@ -52,13 +58,10 @@ NSString *const kInterstitial = @"interstitial";
 
 @implementation CreativePreviewViewController
 
-- (id)initWithDataUrl:(NSURL *)dataUrl {
+- (id)init {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"MainStoryboard"
                                                              bundle:nil];
     self = [mainStoryboard instantiateViewControllerWithIdentifier:NSStringFromClass([self class])];
-    if (self) {
-        self.dataUrl = dataUrl;
-    }
     return self;
 }
 
@@ -109,32 +112,53 @@ NSString *const kInterstitial = @"interstitial";
     return failed;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    if ([self parseDataUrl:self.dataUrl]) return;
-    
-    if ([self.adType isEqualToString:kInterstitial]) {
-        self.interstitialAd = [ANInterstitialAd new];
-        self.interstitialAd.delegate = self;
-    } else {
-        self.bannerAdView = [[ANBannerAdView alloc]
-                             initWithFrame:CGRectMake(0, 100, self.width, self.height)];
-        self.bannerAdView.delegate = self;
-        self.bannerAdView.rootViewController = self;
-        [self.view addSubview:self.bannerAdView];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    // if the interstitial finished loading before
+    // view controller appeared, show now
+    self.viewDidAppear = YES;
+    if (self.interstitialHasLoaded) {
+        if (self.interstitialAd.isReady) {
+            [self.interstitialAd displayAdFromViewController:self];
+        }
     }
-    
-    [self runGetAdContent];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.viewDidAppear = NO;
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    // dismiss any remaining controllers
+    [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    [super dismissViewControllerAnimated:flag completion:completion];
+}
+
+// Done button: dismiss controller
 - (IBAction)doneAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
+// Reload button: re-load with same url
 - (IBAction)reloadAction:(id)sender {
+    [self resetController];
     [self runGetAdContent];
+}
+
+- (void)loadDataUrl:(NSURL *)dataUrl {
+    [self resetController];
+    if ([self parseDataUrl:dataUrl]) return;
+    [self runGetAdContent];
+}
+
+- (void)resetController {
+    // clear any old ads
+    [self.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+    [self.bannerAdView removeFromSuperview];
+    self.bannerAdView = nil;
+    self.interstitialAd = nil;
+    self.interstitialHasLoaded = NO;
 }
 
 - (void)runGetAdContent {
@@ -170,11 +194,20 @@ NSString *const kInterstitial = @"interstitial";
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     if (connection == self.connection) {
         NSString *responseString = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-        if (self.bannerAdView) {
-            [self.bannerAdView loadAdFromHtml:responseString width:self.width height:self.height];
-        } else if (self.interstitialAd) {
+
+        if ([self.adType isEqualToString:kInterstitial]) {
+            self.interstitialAd = [ANInterstitialAd new];
+            self.interstitialAd.delegate = self;
             [self.interstitialAd loadAdFromHtml:responseString width:self.width height:self.height];
+        } else {
+            self.bannerAdView = [[ANBannerAdView alloc]
+                                 initWithFrame:CGRectMake(0, 100, self.width, self.height)];
+            self.bannerAdView.delegate = self;
+            self.bannerAdView.rootViewController = self;
+            [self.view insertSubview:self.bannerAdView atIndex:0];
+            [self.bannerAdView loadAdFromHtml:responseString width:self.width height:self.height];
         }
+
         self.connection = nil;
     }
 }
@@ -190,7 +223,10 @@ NSString *const kInterstitial = @"interstitial";
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     if ([ad isKindOfClass:[ANInterstitialAd class]]) {
-        [((ANInterstitialAd *) ad) displayAdFromViewController:self];
+        self.interstitialHasLoaded = YES;
+        if (self.viewDidAppear) {
+            [((ANInterstitialAd *) ad) displayAdFromViewController:self];
+        }
     }
 }
 

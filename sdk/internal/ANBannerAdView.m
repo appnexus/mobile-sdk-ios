@@ -46,6 +46,9 @@
 - (void)adShouldResetToDefault:(UIView *)contentView
                     parentView:(UIView *)parentView;
 
+- (void)loadAdFromHtml:(NSString *)html
+                 width:(int)width height:(int)height;
+
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
 @property (nonatomic, readwrite, strong) UIView *contentView;
@@ -213,10 +216,19 @@
             [self adDidPresent];
         }];
     } else {
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:browserViewController animated:YES completion:^{
-            [self adDidPresent];
-        }];
+        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        if (presentingController.presentingViewController) {
+            [presentingController presentViewController:browserViewController animated:YES completion:^{
+                [self adDidPresent];
+            }];
+        }
     }
+}
+
+- (void)loadAdFromHtml:(NSString *)html
+                 width:(int)width height:(int)height {
+    self.adSize = CGSizeMake(width, height);
+    [super loadAdFromHtml:html width:width height:height];
 }
 
 #pragma mark extraParameters methods

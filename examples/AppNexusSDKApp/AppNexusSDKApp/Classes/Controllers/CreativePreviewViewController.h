@@ -17,6 +17,7 @@
 
 @interface CreativePreviewViewController : UIViewController
 
-- (id)initWithDataUrl:(NSURL *)dataUrl;
+- (void)loadDataUrl:(NSURL *)dataUrl;
 
 @end
+
