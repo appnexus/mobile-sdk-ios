@@ -179,7 +179,7 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     self.interstitialAd.backgroundColor = [AppNexusSDKAppGlobal colorFromString:backgroundColor];
     [self loadAdvancedSettingsOnAdView:self.interstitialAd];
     
-    [self addInterstitialButtonWithTitle:KAppNexusSDKAppShowInterstitialTitle action:@selector(loadInterstitial:)];
+    [self addInterstitialButtonWithTitle:KAppNexusSDKAppShowInterstitialTitle action:@selector(displayInterstitial:)];
     
     [self.interstitialAd loadAd];
 }
