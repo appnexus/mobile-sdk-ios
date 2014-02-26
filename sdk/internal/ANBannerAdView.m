@@ -194,9 +194,15 @@
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
     [self adWillPresent];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:browserViewController animated:YES completion:^{
-        [self adDidPresent];
-    }];
+    if (self.rootViewController.presentingViewController) { // RVC is modal view
+        [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
+            [self adDidPresent];
+        }];
+    } else {
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:browserViewController animated:YES completion:^{
+            [self adDidPresent];
+        }];
+    }
 }
 
 #pragma mark extraParameters methods
