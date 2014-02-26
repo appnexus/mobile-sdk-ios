@@ -281,15 +281,13 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     }
 }
 
-- (IBAction)loadInterstitial:(UIButton *)sender {
+- (IBAction)displayInterstitial:(UIButton *)sender {
     if (self.interstitialAd && self.interstitialAd.isReady) {
         [self.interstitialAd displayAdFromViewController:self];
-        if (self.interstitialAd) {
-            [self.interstitialButton removeFromSuperview];
-            self.interstitialButton = nil;
-            [self addInterstitialButtonWithTitle:kAppNexusSDKAppNewInterstitialTitle action:@selector(reloadAd)];
-            [self.interstitialButton setHidden:YES];
-        }
+        [self.interstitialButton removeFromSuperview];
+        self.interstitialButton = nil;
+        [self addInterstitialButtonWithTitle:kAppNexusSDKAppNewInterstitialTitle action:@selector(reloadAd)];
+        [self.interstitialButton setHidden:YES];
     }
 }
 
