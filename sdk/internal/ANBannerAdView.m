@@ -56,6 +56,10 @@
 
 @end
 
+@interface ANBannerAdView()
+@property (nonatomic, readwrite, assign) BOOL adjustDefaultFrames;
+@end
+
 @implementation ANBannerAdView
 @synthesize autoRefreshInterval = __autoRefreshInterval;
 @synthesize adSize = __adSize;
@@ -174,7 +178,7 @@
     CGFloat centerY = (self.frame.size.height - contentHeight) / 2;
     [self.contentView setFrame:
      CGRectMake(centerX, centerY, contentWidth, contentHeight)];
-    if (!CGRectIsEmpty(self.defaultParentFrame)) {
+    if (self.adjustDefaultFrames) {
         self.defaultParentFrame = CGRectMake(frame.origin.x, frame.origin.y, self.defaultParentFrame.size.width, self.defaultParentFrame.size.height);
         CGFloat defaultContentWidth = self.defaultFrame.size.width;
         CGFloat defaultContentHeight = self.defaultFrame.size.height;
@@ -319,11 +323,14 @@
                               contentView:contentView
                                  position:closePosition];
     
+    self.adjustDefaultFrames = YES;
+    
     // send mraid events
     [self.mraidEventReceiverDelegate adDidFinishResize:YES errorString:nil];
 }
 
 - (void)adShouldResetToDefault {
+    self.adjustDefaultFrames = NO;
     [super adShouldResetToDefault:self.contentView parentView:self];
 }
 

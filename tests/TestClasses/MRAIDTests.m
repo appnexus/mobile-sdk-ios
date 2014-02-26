@@ -335,6 +335,84 @@
     [self clearTest];
 }
 
+- (void)testCurrentPositionPortraitOriginOnResizeWithCustomOffset {
+    CGFloat expectedOriginX = 100.0f;
+    CGFloat expectedOriginY = 50.0f;
+    CGPoint resizeOffset = CGPointMake(-10.0f, -10.0f);
+    
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd) atOrigin:CGPointMake(expectedOriginX, expectedOriginY) withSize:CGSizeMake(320.0f, 50.0f)];
+    [self addBannerAsSubview];
+    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, 200.0f)
+                               withOffset:resizeOffset
+                  withCustomClosePosition:@"bottom-center"
+                           allowOffscreen:YES];
+    [self resize];
+    
+    CGRect currentPosition = [self getCurrentPosition];
+    CGFloat expectedX = 90.0f;
+    CGFloat expectedY = 40.0f;
+    CGFloat originX = currentPosition.origin.x;
+    CGFloat originY = currentPosition.origin.y;
+    
+    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    
+    [self close];
+    
+    currentPosition = [self getCurrentPosition];
+    originX = currentPosition.origin.x;
+    originY = currentPosition.origin.y;
+    expectedX = 100.0f;
+    expectedY = 50.0f;
+    
+    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    
+    [self clearTest];
+}
+
+- (void)testCurrentPositionPortraitOriginOnResizeWithCustomOffsetAndSetFrameCalled {
+    CGFloat expectedOriginX = 100.0f;
+    CGFloat expectedOriginY = 50.0f;
+    CGPoint resizeOffset = CGPointMake(-10.0f, -10.0f);
+    
+    [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd) atOrigin:CGPointMake(expectedOriginX, expectedOriginY) withSize:CGSizeMake(320.0f, 50.0f)];
+    [self addBannerAsSubview];
+    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, 200.0f)
+                               withOffset:resizeOffset
+                  withCustomClosePosition:@"bottom-center"
+                           allowOffscreen:YES];
+    [self resize];
+    
+    CGRect currentPosition = [self getCurrentPosition];
+    CGFloat expectedX = 90.0f;
+    CGFloat expectedY = 40.0f;
+    CGFloat originX = currentPosition.origin.x;
+    CGFloat originY = currentPosition.origin.y;
+    
+    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    
+    expectedX = 150.0f;
+    expectedY = 60.0f;
+
+    [self moveBannerSubviewToOrigin:CGPointMake(expectedX, expectedY)];
+    
+    currentPosition = [self getCurrentPosition];
+    originX = currentPosition.origin.x;
+    originY = currentPosition.origin.y;
+    
+    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    
+    [self close];
+    
+    currentPosition = [self getCurrentPosition];
+    originX = currentPosition.origin.x;
+    originY = currentPosition.origin.y;
+
+    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    
+    [self clearTest];
+}
+
+
 #pragma mark mraid.getDefaultPosition()
 
 - (void)testDefaultPositionPortraitSizeOnLoad {

@@ -285,14 +285,17 @@ ANBrowserViewControllerDelegate>
         self.defaultFrame = contentView.frame;
     }
     
-    // adjust the parent view to fit contentView
+    // resize contentView to new frame
+    [contentView setFrame:CGRectMake(contentView.frame.origin.x, contentView.frame.origin.y, frame.size.width, frame.size.height)];
+
+    /*
+        Adjust the parent view to fit contentView.
+        The parentView will realign the content view within its bounds.
+    */
     [defaultParentView setFrame:CGRectMake(defaultParentView.frame.origin.x  + frame.origin.x,
                                            defaultParentView.frame.origin.y  + frame.origin.y,
-                                           frame.size.width + frame.origin.x,
-                                           frame.size.height + frame.origin.y)];
-    
-    // resize contentView to new frame
-    [contentView setFrame:frame];
+                                           frame.size.width,
+                                           frame.size.height)];
     return nil;
 }
 
