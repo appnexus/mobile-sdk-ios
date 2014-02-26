@@ -37,6 +37,8 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
 @property (strong, nonatomic) UIButton *interstitialButton;
 
+@property (strong, nonatomic) AdSettings *settings;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableViewCell *scrollViewCell;
 
@@ -53,7 +55,13 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     [super viewWillAppear:animated];
     self.bannerAdView.rootViewController = self;
     if (self.interstitialButton && [self.interstitialButton.titleLabel.text isEqualToString:kAppNexusSDKAppNewInterstitialTitle]) {
-        [self.interstitialButton setHidden:NO];
+        AdSettings *newSettings = [[AdSettings alloc] init];
+        if (newSettings.adType == AD_TYPE_INTERSTITIAL) {
+            [self.interstitialButton setHidden:NO];
+        } else {
+            [self.interstitialButton removeFromSuperview];
+            self.interstitialButton = nil;
+        }
     }
 }
 
@@ -66,18 +74,23 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     [self loadAd];
 }
 
+- (AdSettings *)settings {
+    if (!_settings) _settings = [[AdSettings alloc] init];
+    return _settings;
+}
+
 - (void)loadAd {
     [self.refreshControl beginRefreshing];
-    AdSettings *settings = [[AdSettings alloc] init];
+    self.settings = nil;
     [self clearBannerAdView];
     [self clearInterstitialAd];
 
-    if (settings.adType == AD_TYPE_BANNER) {
+    if (self.settings.adType == AD_TYPE_BANNER) {
         ANLogDebug(@"%@ %@ | loading banner", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        [self loadBannerAdWithSettings:settings];
-    } else if (settings.adType == AD_TYPE_INTERSTITIAL) {
+        [self loadBannerAd];
+    } else if (self.settings.adType == AD_TYPE_INTERSTITIAL) {
         ANLogDebug(@"%@ %@ | loading interstitial", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        [self loadInterstitialAdWithSettings:settings];
+        [self loadInterstitialAd];
     }
 }
 
@@ -86,12 +99,12 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     [self.tableView reloadData];
 }
 
-- (void)loadAdvancedSettingsOnAdView:(ANAdView *)adView withSettings:(AdSettings *)settings {
-    BOOL allowPSA = settings.allowPSA;
-    BOOL opensInNativeBrowser = (settings.browserType == BROWSER_TYPE_DEVICE);
-    NSString *age = settings.age;
-    NSInteger gender = settings.gender;
-    double reserve = settings.reserve;
+- (void)loadAdvancedSettingsOnAdView:(ANAdView *)adView {
+    BOOL allowPSA = self.settings.allowPSA;
+    BOOL opensInNativeBrowser = (self.settings.browserType == BROWSER_TYPE_DEVICE);
+    NSString *age = self.settings.age;
+    NSInteger gender = self.settings.gender;
+    double reserve = self.settings.reserve;
 
     adView.shouldServePublicServiceAnnouncements = allowPSA;
     adView.opensInNativeBrowser = opensInNativeBrowser;
@@ -113,19 +126,19 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
                                 horizontalAccuracy:self.lastLocation.horizontalAccuracy];
     }
     
-    NSDictionary *customKeywords = settings.customKeywords;
+    NSDictionary *customKeywords = self.settings.customKeywords;
     adView.customKeywords = [customKeywords mutableCopy];
     
-    if ([settings.zipcode length]) {
-        [adView.customKeywords setValue:settings.zipcode forKey:@"pcode"];
+    if ([self.settings.zipcode length]) {
+        [adView.customKeywords setValue:self.settings.zipcode forKey:@"pcode"];
     }
 }
 
-- (void)loadBannerAdWithSettings:(AdSettings *)settings {
-    CGFloat settingsBannerWidth = (CGFloat)settings.bannerWidth;
-    CGFloat settingsBannerHeight = (CGFloat)settings.bannerHeight;
-    NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
-    CGFloat settingsAutoRefreshInterval = (CGFloat)settings.refreshRate;
+- (void)loadBannerAd {
+    CGFloat settingsBannerWidth = (CGFloat)self.settings.bannerWidth;
+    CGFloat settingsBannerHeight = (CGFloat)self.settings.bannerHeight;
+    NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", self.settings.placementID];
+    CGFloat settingsAutoRefreshInterval = (CGFloat)self.settings.refreshRate;
     
     CGFloat centerX = 0.0;
     CGFloat centerY = 0.0;
@@ -144,7 +157,7 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     self.bannerAdView.rootViewController = self;
     self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
     self.bannerAdView.placementId = settingsPlacementID;
-    [self loadAdvancedSettingsOnAdView:self.bannerAdView withSettings:settings];
+    [self loadAdvancedSettingsOnAdView:self.bannerAdView];
     
     [self.bannerAdView setAutoRefreshInterval:settingsAutoRefreshInterval];
     [self.scrollView addSubview:self.bannerAdView];
@@ -155,16 +168,16 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     }
 }
 
-- (void)loadInterstitialAdWithSettings:(AdSettings *)settings {
-    NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", settings.placementID];
-    NSString *backgroundColor = settings.backgroundColor;
+- (void)loadInterstitialAd {
+    NSString *settingsPlacementID = [NSString stringWithFormat:@"%d", self.settings.placementID];
+    NSString *backgroundColor = self.settings.backgroundColor;
 
     [self clearInterstitialAd];
     
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
     self.interstitialAd.backgroundColor = [AppNexusSDKAppGlobal colorFromString:backgroundColor];
-    [self loadAdvancedSettingsOnAdView:self.interstitialAd withSettings:settings];
+    [self loadAdvancedSettingsOnAdView:self.interstitialAd];
     
     [self addInterstitialButtonWithTitle:KAppNexusSDKAppShowInterstitialTitle action:@selector(loadInterstitial:)];
     
@@ -274,7 +287,7 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
         if (self.interstitialAd) {
             [self.interstitialButton removeFromSuperview];
             self.interstitialButton = nil;
-            [self addInterstitialButtonWithTitle:kAppNexusSDKAppNewInterstitialTitle action:@selector(loadAd)];
+            [self addInterstitialButtonWithTitle:kAppNexusSDKAppNewInterstitialTitle action:@selector(reloadAd)];
             [self.interstitialButton setHidden:YES];
         }
     }
