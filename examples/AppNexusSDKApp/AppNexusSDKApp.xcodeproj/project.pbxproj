@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A17B7FB18B5936C00F9803C /* BackgroundColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A17B7FA18B5936C00F9803C /* BackgroundColorView.m */; };
+		8A17B7FE18B5938500F9803C /* AppNexusSDKAppGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A17B7FD18B5938500F9803C /* AppNexusSDKAppGlobal.m */; };
 		8A8CAD0318A98E2E00DF9436 /* CustomKeywordsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8CAD0218A98E2E00DF9436 /* CustomKeywordsTVC.m */; };
 		8A9EFB0917CFD49200FCF79F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9EFB0817CFD49200FCF79F /* UIKit.framework */; };
 		8A9EFB0B17CFD49200FCF79F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9EFB0A17CFD49200FCF79F /* Foundation.framework */; };
@@ -143,6 +145,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8A17B7F918B5936C00F9803C /* BackgroundColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundColorView.h; sourceTree = "<group>"; };
+		8A17B7FA18B5936C00F9803C /* BackgroundColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundColorView.m; sourceTree = "<group>"; };
+		8A17B7FC18B5938500F9803C /* AppNexusSDKAppGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDKAppGlobal.h; sourceTree = "<group>"; };
+		8A17B7FD18B5938500F9803C /* AppNexusSDKAppGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNexusSDKAppGlobal.m; sourceTree = "<group>"; };
 		8A8CAD0118A98E2E00DF9436 /* CustomKeywordsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomKeywordsTVC.h; sourceTree = "<group>"; };
 		8A8CAD0218A98E2E00DF9436 /* CustomKeywordsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomKeywordsTVC.m; sourceTree = "<group>"; };
 		8A9EFB0517CFD49200FCF79F /* AppNexusSDKApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppNexusSDKApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -495,6 +501,8 @@
 		EC3FD6FE1822213C00B25418 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8A17B7FC18B5938500F9803C /* AppNexusSDKAppGlobal.h */,
+				8A17B7FD18B5938500F9803C /* AppNexusSDKAppGlobal.m */,
 				EC3FD6FF1822213C00B25418 /* AdSettings.h */,
 				EC3FD7001822213C00B25418 /* AdSettings.m */,
 			);
@@ -504,6 +512,8 @@
 		EC3FD7011822213C00B25418 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8A17B7F918B5936C00F9803C /* BackgroundColorView.h */,
+				8A17B7FA18B5936C00F9803C /* BackgroundColorView.m */,
 				8AB8A0DB18A5885A00487206 /* AppNexusSDKAppSectionHeaderView.h */,
 				8AB8A0DC18A5885A00487206 /* AppNexusSDKAppSectionHeaderView.m */,
 				EC3FD7021822213C00B25418 /* NoCaretUITextField.h */,
@@ -817,6 +827,7 @@
 				EC4055EE183C07F9006A1D09 /* ANDocument.m in Sources */,
 				EC3FD7391822213C00B25418 /* ANRequest.m in Sources */,
 				EC3FD73A1822213C00B25418 /* ANResponse+Make.m in Sources */,
+				8A17B7FB18B5936C00F9803C /* BackgroundColorView.m in Sources */,
 				EC3FD72E1822213C00B25418 /* AdSettingsViewController.m in Sources */,
 				8A8CAD0318A98E2E00DF9436 /* CustomKeywordsTVC.m in Sources */,
 				EC3FD72D1822213C00B25418 /* AdSettingsTVC.m in Sources */,
@@ -834,6 +845,7 @@
 				ECB124D01821A25D00CB4BE8 /* ANMediatedAd.m in Sources */,
 				EC3FD7341822213C00B25418 /* LogCoreDataTVC.m in Sources */,
 				EC3FD73D1822213C00B25418 /* CoreDataTableViewController.m in Sources */,
+				8A17B7FE18B5938500F9803C /* AppNexusSDKAppGlobal.m in Sources */,
 				EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */,
 				ECB124CE1821A25D00CB4BE8 /* ANLocation.m in Sources */,
 				EC3FD7361822213C00B25418 /* ANLog+Make.m in Sources */,

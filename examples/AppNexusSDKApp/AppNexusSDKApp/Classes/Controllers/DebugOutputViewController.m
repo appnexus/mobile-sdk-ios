@@ -36,7 +36,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)emailResults:(UIButton *)sender {
+- (IBAction)emailResults:(UIBarButtonItem *)sender {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         picker.mailComposeDelegate = self;
@@ -62,16 +62,11 @@
     return _refreshControl;
 }
 
-- (void)refreshControlSetup {
-    [self.refreshControl addTarget:self action:@selector(loadDebug) forControlEvents:UIControlEventValueChanged];
-    [self.debugOutputDisplay.scrollView addSubview:self.refreshControl];
-}
-
-- (IBAction)refreshDebug:(UIButton *)sender {
+- (IBAction)refreshDebug:(UIBarButtonItem *)sender {
     [self loadDebug];
 }
 
-- (IBAction)jumpToBottom:(UIButton *)sender {
+- (IBAction)jumpToBottom:(UIBarButtonItem *)sender {
     UIScrollView *webViewScrollView = [self.debugOutputDisplay scrollView];
     [webViewScrollView setContentOffset:CGPointMake(0.0, webViewScrollView.contentSize.height - webViewScrollView.bounds.size.height)
                                animated:NO];
@@ -102,11 +97,9 @@
     });
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self refreshControlSetup];
     [self loadDebug];
 }
 

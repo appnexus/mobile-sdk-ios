@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,19 +14,9 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import "ANAdProtocol.h"
 
-@protocol AppNexusSDKAppPreviewVCDelegate;
+@interface BackgroundColorView : UIView
 
-@interface AdPreviewTVC : UITableViewController
-@property (strong, nonatomic) CLLocation *lastLocation;
-@property (strong, nonatomic) id<AppNexusSDKAppPreviewVCDelegate> delegate;
-@end
-
-@protocol AppNexusSDKAppPreviewVCDelegate <NSObject>
-
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error;
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad;
+@property (strong, nonatomic) UIColor *color;
 
 @end

@@ -229,6 +229,7 @@
     // Expects a valid hex value in the format AARRGGBB or 0xAARRGGBB
     NSUInteger stringLength = [backgroundColor length];
     if (stringLength != 8 && stringLength != 10 && stringLength != 0) return NO;
+    if ([backgroundColor hasPrefix:@"0x"] && stringLength == 8) return NO;
     if (!stringLength) return YES;
     NSScanner *scanner = [NSScanner scannerWithString:backgroundColor];
     unsigned int scannedValue;

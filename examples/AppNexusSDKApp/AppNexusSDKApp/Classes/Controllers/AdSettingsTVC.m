@@ -22,6 +22,8 @@
 #import "AppNexusSDKAppSectionHeaderView.h"
 #import "AppNexusSDKAppModalViewController.h"
 #import "CustomKeywordsTVC.h"
+#import "BackgroundColorView.h"
+#import "AppNexusSDKAppGlobal.h"
 
 #define CLASS_NAME @"AdSettingsTVC"
 
@@ -37,10 +39,6 @@ static NSInteger const AdSettingsSectionHeaderGeneralIndex = 0;
 static NSInteger const AdSettingsSectionHeaderAdvancedIndex = 1;
 static NSInteger const AdSettingsSectionHeaderDebugAuctionIndex = 2;
 
-static NSInteger const AdSettingsSectionGeneralNumRows = 5;
-static NSInteger const AdSettingsSectionAdvancedNumRows = 7;
-static NSInteger const AdSettingsSectionDebugAuctionNumRows = 2;
-
 static BOOL AdSettingsSectionGeneralIsOpen = YES;
 static BOOL AdSettingsSectionAdvancedIsOpen = NO;
 static BOOL AdSettingsSectionDebugAuctionIsOpen = NO;
@@ -48,6 +46,9 @@ static BOOL AdSettingsSectionDebugAuctionIsOpen = NO;
 static NSString *const AdSettingsSectionHeaderTitleLabelGeneral = @"General";
 static NSString *const AdSettingsSectionHeaderTitleLabelAdvanced = @"Advanced";
 static NSString *const AdSettingsSectionHeaderTitleLabelDebugAuction = @"Debug Auction";
+
+static NSInteger const AdSettingsSizePickerIndex = 3;
+static NSInteger const AdSettingsRefreshRatePickerIndex = 5;
 
 #pragma end
 
@@ -68,18 +69,21 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 
 # pragma mark Banner
 @property (weak, nonatomic) IBOutlet NoCaretUITextField *sizeTextField;
-@property (strong, nonatomic) UIPickerView *sizePickerView;
+@property (weak, nonatomic) IBOutlet UIPickerView *sizePickerView;
 
 @property (weak, nonatomic) IBOutlet NoCaretUITextField *refreshRateTextField;
-@property (strong, nonatomic) UIPickerView *refreshRatePickerView;
+@property (weak, nonatomic) IBOutlet UIPickerView *refreshRatePickerView;
 
 #pragma mark Interstitial
 @property (weak, nonatomic) IBOutlet UITextField *backgroundColorTextField;
-@property (weak, nonatomic) IBOutlet UIView *colorView;
+@property (weak, nonatomic) IBOutlet BackgroundColorView *colorView;
 
 #pragma mark Debug
 @property (weak, nonatomic) IBOutlet UITextField *memberIDTextField;
 @property (weak, nonatomic) IBOutlet UITextField *dongleTextField;
+
+@property (nonatomic, assign) BOOL sizePickerViewIsVisible;
+@property (nonatomic, assign) BOOL refreshRatePickerViewIsVisible;
 
 @end
 
@@ -98,6 +102,15 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     [sender resignFirstResponder];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    if (self.sizePickerViewIsVisible || self.refreshRatePickerViewIsVisible) {
+        self.sizePickerViewIsVisible = NO;
+        self.refreshRatePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }
+}
+
 #pragma mark Current Settings Setup
 
 - (void)currentSettingsSetup {
@@ -114,29 +127,19 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 #pragma mark Picker Views - Initial Setup
 
 - (void)pickerViewSetup {
-    
-    self.sizePickerView = [self generatePickerView];
-    self.sizeTextField.inputView = self.sizePickerView;
-    self.sizePickerView.delegate = self;
     [self.sizePickerView selectRow:[[self.sizeDelegate class]
                                     indexForBannerSizeWithWidth:self.persistentSettings.bannerWidth
                                     height:self.persistentSettings.bannerHeight]
                        inComponent:0
                           animated:NO];
-    
-    self.refreshRatePickerView = [self generatePickerView];
-    self.refreshRateTextField.inputView = self.refreshRatePickerView;
-    self.refreshRatePickerView.delegate = self;
     [self.refreshRatePickerView selectRow:[[self.refreshRateDelegate class] indexForRefreshRate:self.persistentSettings.refreshRate]
                               inComponent:0
                                  animated:NO];
+    self.sizePickerViewIsVisible = NO;
+    self.refreshRatePickerViewIsVisible = NO;
 }
 
 #pragma mark Picker Views - Delegate Methods
-
-- (UIPickerView *)generatePickerView {
-    return [[UIPickerView alloc] initWithFrame:CGRectMake(0.0,0.0,self.view.frame.size.width,162.0)];
-}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     // Update persistent ad settings on change
@@ -176,18 +179,44 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 #pragma mark Picker Views - On Tap
 
 - (IBAction)refreshRateTap:(UITapGestureRecognizer *)sender {
-    if ([self.refreshRateTextField isEditing]) {
-        [self.refreshRateTextField resignFirstResponder];
-    } else {
-        [self.refreshRateTextField becomeFirstResponder];
+    if (self.persistentSettings.adType == AD_TYPE_BANNER) {
+        self.refreshRatePickerViewIsVisible = !self.refreshRatePickerViewIsVisible;
+        if (self.refreshRatePickerViewIsVisible) [self.tableView endEditing:YES];
+        self.sizePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+        [self pickerView:self.refreshRatePickerView setHidden:!self.refreshRatePickerViewIsVisible];
     }
 }
 
 - (IBAction)sizeTap:(UITapGestureRecognizer *)sender {
-    if ([self.sizeTextField isEditing]) {
-        [self.sizeTextField resignFirstResponder];
-    } else {
-        [self.sizeTextField becomeFirstResponder];
+    if (self.persistentSettings.adType == AD_TYPE_BANNER) {
+        self.sizePickerViewIsVisible = !self.sizePickerViewIsVisible;
+        if (self.sizePickerViewIsVisible) [self.tableView endEditing:YES];
+        self.refreshRatePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+        [self pickerView:self.sizePickerView setHidden:!self.sizePickerViewIsVisible];
+    }
+}
+
+- (void)pickerView:(UIPickerView *)pickerView setHidden:(BOOL)hidden {
+    [pickerView setHidden:hidden];
+}
+
+- (void)hidePickerViews {
+    if (self.sizePickerViewIsVisible) {
+        self.sizePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+        [self pickerView:self.sizePickerView setHidden:!self.sizePickerViewIsVisible];
+    }
+    
+    if (self.refreshRatePickerViewIsVisible) {
+        self.refreshRatePickerViewIsVisible = NO;
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+        [self pickerView:self.refreshRatePickerView setHidden:!self.refreshRatePickerViewIsVisible];
     }
 }
 
@@ -252,8 +281,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 
 - (BOOL)saveBackgroundColor:(NSString *)backgroundColor {
     if ([AdSettings backgroundColorIsValid:backgroundColor]) {
-        self.persistentSettings.backgroundColor = backgroundColor; // Save as is, regardless of case
-        // change color of UIView
+        self.persistentSettings.backgroundColor = backgroundColor;
         return YES;
     }
     
@@ -271,9 +299,13 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     self.dongleTextField.text = self.persistentSettings.dongle;
     self.placementIDTextField.text = [NSString stringWithFormat:@"%d", self.persistentSettings.placementID];
     self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
+    [self.colorView setColor:[AppNexusSDKAppGlobal colorFromString:self.persistentSettings.backgroundColor]];
     self.ageTextField.text = self.persistentSettings.age;
     self.reserveTextField.text = [[self.reservePriceDelegate class] stringFromReservePrice:self.persistentSettings.reserve];
     self.zipcodeTextField.text = self.persistentSettings.zipcode;
+    
+    [self.sizeTextField setEnabled:NO];
+    [self.refreshRateTextField setEnabled:NO];
 }
 
 #pragma mark Text Fields - On Tap
@@ -400,6 +432,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 
 - (void)handleBackgroundColorChange {
     BOOL isValid = [self saveBackgroundColor:self.backgroundColorTextField.text];
+    self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
+    [self.colorView setColor:[AppNexusSDKAppGlobal colorFromString:self.persistentSettings.backgroundColor]];
+
     if (!isValid) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:INVALID_HEX_ALERT_TITLE
                                                         message:INVALID_HEX_ALERT_MESSAGE
@@ -407,8 +442,6 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
                                               cancelButtonTitle:INVALID_HEX_ALERT_CANCEL
                                               otherButtonTitles:nil];
         [alert show];
-    } else {
-        self.backgroundColorTextField.text = self.persistentSettings.backgroundColor;
     }
 }
 
@@ -465,30 +498,42 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 - (void)toggleAdType:(BOOL)isBanner {
     UIColor *bannerColors = isBanner ? [UIColor orangeColor] : [UIColor grayColor];
     UIColor *interstitialColors = !isBanner ? [UIColor orangeColor] : [UIColor grayColor];
-    [self.sizeTextField setUserInteractionEnabled:isBanner];
+    
     self.sizeTextField.textColor = bannerColors;
-    [self.sizePickerView setUserInteractionEnabled:isBanner];
-    [self.refreshRateTextField setUserInteractionEnabled:isBanner];
     self.refreshRateTextField.textColor = bannerColors;
+    
+    [self.sizePickerView setUserInteractionEnabled:isBanner];
     [self.refreshRatePickerView setUserInteractionEnabled:isBanner];
+    
+    [self hidePickerViews];
 
     [self.backgroundColorTextField setUserInteractionEnabled:!isBanner];
     self.backgroundColorTextField.textColor = interstitialColors;
+    
+    self.colorView.hidden = isBanner;
 }
 
 #pragma mark Section Headers
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     AppNexusSDKAppSectionHeaderView *sectionHeaderView = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:AdSettingsSectionHeaderViewIdentifier];
-    if (section == AdSettingsSectionHeaderGeneralIndex) {
-        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelGeneral;
-        sectionHeaderView.disclosureButton.selected = AdSettingsSectionGeneralIsOpen;
-    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
-        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelAdvanced;
-        sectionHeaderView.disclosureButton.selected = AdSettingsSectionAdvancedIsOpen;
-    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
-        sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelDebugAuction;
-        sectionHeaderView.disclosureButton.selected = AdSettingsSectionDebugAuctionIsOpen;
+    switch (section) {
+        case (AdSettingsSectionHeaderGeneralIndex):
+            sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelGeneral;
+            sectionHeaderView.disclosureButton.selected = AdSettingsSectionGeneralIsOpen;
+            break;
+        case (AdSettingsSectionHeaderAdvancedIndex):
+            sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelAdvanced;
+            sectionHeaderView.disclosureButton.selected = AdSettingsSectionAdvancedIsOpen;
+            break;
+        case (AdSettingsSectionHeaderDebugAuctionIndex):
+            sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelDebugAuction;
+            sectionHeaderView.disclosureButton.selected = AdSettingsSectionDebugAuctionIsOpen;
+            break;
+        default:
+            sectionHeaderView.titleLabel.text = @"";
+            sectionHeaderView.disclosureButton.selected = NO;
+            break;
     }
     sectionHeaderView.section = section;
     sectionHeaderView.delegate = self;
@@ -496,26 +541,28 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 48.0f;
+    return 35.0f;
 }
 
 - (void)sectionHeaderView:(AppNexusSDKAppSectionHeaderView *)sectionHeaderView sectionOpened:(NSInteger)section {
-    NSInteger numRows = 0;
-    if (section == AdSettingsSectionHeaderGeneralIndex) {
-        if (AdSettingsSectionGeneralIsOpen) return;
-        AdSettingsSectionGeneralIsOpen = YES;
-        numRows = AdSettingsSectionGeneralNumRows;
-    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
-        if (AdSettingsSectionAdvancedIsOpen) return;
-        AdSettingsSectionAdvancedIsOpen = YES;
-        numRows = AdSettingsSectionAdvancedNumRows;
-    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
-        if (AdSettingsSectionDebugAuctionIsOpen) return;
-        AdSettingsSectionDebugAuctionIsOpen = YES;
-        numRows = AdSettingsSectionDebugAuctionNumRows;
+    switch (section) {
+        case (AdSettingsSectionHeaderGeneralIndex):
+            if (AdSettingsSectionGeneralIsOpen) return;
+            AdSettingsSectionGeneralIsOpen = YES;
+            break;
+        case (AdSettingsSectionHeaderAdvancedIndex):
+            if (AdSettingsSectionAdvancedIsOpen) return;
+            AdSettingsSectionAdvancedIsOpen = YES;
+            break;
+        case (AdSettingsSectionHeaderDebugAuctionIndex):
+            if (AdSettingsSectionDebugAuctionIsOpen) return;
+            AdSettingsSectionDebugAuctionIsOpen = YES;
+            break;
+        default:
+            return;
     }
     NSMutableArray *indexPathsToAdd = [[NSMutableArray alloc] init];
-    for (NSInteger i=0; i < numRows; i++) {
+    for (NSInteger i=0; i < [super tableView:self.tableView numberOfRowsInSection:section]; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:section];
         [indexPathsToAdd addObject:indexPath];
     }
@@ -523,22 +570,24 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 }
 
 - (void)sectionHeaderView:(AppNexusSDKAppSectionHeaderView *)sectionHeaderView sectionClosed:(NSInteger)section {
-    NSInteger numRows = 0;
-    if (section == AdSettingsSectionHeaderGeneralIndex) {
-        if (!AdSettingsSectionGeneralIsOpen) return;
-        AdSettingsSectionGeneralIsOpen = NO;
-        numRows = AdSettingsSectionGeneralNumRows;
-    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
-        if (!AdSettingsSectionAdvancedIsOpen) return;
-        AdSettingsSectionAdvancedIsOpen = NO;
-        numRows = AdSettingsSectionAdvancedNumRows;
-    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
-        if (!AdSettingsSectionDebugAuctionIsOpen) return;
-        AdSettingsSectionDebugAuctionIsOpen = NO;
-        numRows = AdSettingsSectionDebugAuctionNumRows;
+    switch (section) {
+        case (AdSettingsSectionHeaderGeneralIndex):
+            if (!AdSettingsSectionGeneralIsOpen) return;
+            AdSettingsSectionGeneralIsOpen = NO;
+            break;
+        case (AdSettingsSectionHeaderAdvancedIndex):
+            if (!AdSettingsSectionAdvancedIsOpen) return;
+            AdSettingsSectionAdvancedIsOpen = NO;
+            break;
+        case (AdSettingsSectionHeaderDebugAuctionIndex):
+            if (!AdSettingsSectionDebugAuctionIsOpen) return;
+            AdSettingsSectionDebugAuctionIsOpen = NO;
+            break;
+        default:
+            return;
     }
     NSMutableArray *indexPathsToDelete = [[NSMutableArray alloc] init];
-    for (NSInteger i=0; i < numRows; i++) {
+    for (NSInteger i=0; i < [super tableView:self.tableView numberOfRowsInSection:section]; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:section];
         [indexPathsToDelete addObject:indexPath];
     }
@@ -546,14 +595,20 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == AdSettingsSectionHeaderGeneralIndex) {
-        if (AdSettingsSectionGeneralIsOpen) return AdSettingsSectionGeneralNumRows;
-    } else if (section == AdSettingsSectionHeaderAdvancedIndex) {
-        if (AdSettingsSectionAdvancedIsOpen) return AdSettingsSectionAdvancedNumRows;
-    } else if (section == AdSettingsSectionHeaderDebugAuctionIndex) {
-        if (AdSettingsSectionDebugAuctionIsOpen) return AdSettingsSectionDebugAuctionNumRows;
+    switch (section) {
+        case AdSettingsSectionHeaderGeneralIndex:
+            if (!AdSettingsSectionGeneralIsOpen) return 0;
+            break;
+        case AdSettingsSectionHeaderAdvancedIndex:
+            if (!AdSettingsSectionAdvancedIsOpen) return 0;
+            break;
+        case AdSettingsSectionHeaderDebugAuctionIndex:
+            if (!AdSettingsSectionDebugAuctionIsOpen) return 0;
+            break;
+        default:
+            break;
     }
-    return 0;
+    return [super tableView:tableView numberOfRowsInSection:section];
 }
 
 #pragma mark Custom Keywords Modal View Controller
@@ -572,6 +627,22 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         [UIApplication sharedApplication].keyWindow.rootViewController.modalPresentationStyle = UIModalPresentationFullScreen;
         self.persistentSettings = nil;
     }];
+}
+
+#pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section==AdSettingsSectionHeaderGeneralIndex) {
+        if ((indexPath.item == AdSettingsSizePickerIndex && !self.sizePickerViewIsVisible) ||
+            (indexPath.item == AdSettingsRefreshRatePickerIndex && !self.refreshRatePickerViewIsVisible)) {
+            return 0.0f;
+        }
+    }
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self hidePickerViews];
 }
 
 @end

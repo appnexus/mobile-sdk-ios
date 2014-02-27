@@ -19,7 +19,7 @@
 #import "AdSettingsViewController.h"
 #import "AdPreviewTVC.h"
 #import "DebugSettingsViewController.h"
-#import "LogCoreDataTVC.h"
+#import "LogViewController.h"
 
 // Notification Logging
 #import "ANRequest+Make.h"
@@ -36,33 +36,41 @@
 #define REQUEST_NOTIFICATION @"AppNexusSDKAppViewControllerUpdatedRequest"
 
 @interface AppNexusSDKAppViewController () <UITabBarDelegate,
-LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
+LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, AppNexusSDKAppPreviewVCDelegate>
 
-// Parent View Controller Items
+#pragma mark Parent View Controller Items
+
 @property (weak, nonatomic) IBOutlet UITabBar *mainTabBar;
 @property (weak, nonatomic) IBOutlet UITabBarItem *previewTabBarItem;
 @property (weak, nonatomic) IBOutlet UITabBarItem *settingsTabBarItem;
 @property (weak, nonatomic) IBOutlet UITabBarItem *debugTabBarItem;
 @property (weak, nonatomic) IBOutlet UITabBarItem *logTabBarItem;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
-// Tab Bar Item Child View Controllers
+
+#pragma mark Child View Controller Items
 @property (strong, nonatomic) UIViewController *controllerInView;
 @property (strong, nonatomic) AdSettingsViewController *settings;
 @property (strong, nonatomic) AdPreviewTVC *preview;
 @property (strong, nonatomic) UINavigationController *debug;
-@property (strong, nonatomic) LogCoreDataTVC *log;
+@property (strong, nonatomic) UINavigationController *log;
+
+#pragma mark Logging Properties
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) ANDocument *document;
-@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (strong, nonatomic) NSMutableArray *mediatedClasses;
 
-// location
+#pragma mark Location Properties
+
 @property (strong, nonatomic) CLLocation *lastLocation;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
-@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *leftSwipeGesture;
-@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *rightSwipeGesture;
+// Not necessary (swipe gesture works without them)
+//@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *leftSwipeGesture;
+//@property (weak, nonatomic) IBOutlet UISwipeGestureRecognizer *rightSwipeGesture;
+
 @end
 
 @implementation AppNexusSDKAppViewController
@@ -75,7 +83,20 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 - (void)setup {
     [ANLogManager setANLogLevel:ANLogLevelAll];
     [self setInitialVCTabBarItem]; // Set Initially Selected Tab Bar Item
-    // Register for the log notifications
+    [self registerForNotifications];
+    self.mainTabBar.delegate = self; // Set Parent VC as delegate of the Tab Bar
+    [self anLogoSetup]; // Fix AN Logo constraints
+    [self useLogDocument]; // Create/Open Logging Document
+    [self locationSetup];
+    [self audioSetup];
+    
+    [self.settingsTabBarItem setSelectedImage:[UIImage imageNamed:@"GearIconSelected"]];
+    [self.previewTabBarItem setSelectedImage:[UIImage imageNamed:@"PhotoIconSelected"]];
+    [self.debugTabBarItem setSelectedImage:[UIImage imageNamed:@"InfoIconSelected"]];
+    [self.logTabBarItem setSelectedImage:[UIImage imageNamed:@"PencilIconSelected"]];
+}
+
+- (void)registerForNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(adFetcherWillRequestAd:)
                                                  name:kANAdFetcherWillRequestAdNotification
@@ -88,13 +109,10 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
                                              selector:@selector(ANLoggingNotifications:)
                                                  name:kANLoggingNotification
                                                object:nil];
-    self.mainTabBar.delegate = self; // Set Parent VC as delegate of the Tab Bar
-    [self anLogoSetup]; // Fix AN Logo constraints
-    [self useLogDocument]; // Create/Open Logging Document
-    [self locationSetup];
-    [self audioSetup];
-    self.leftSwipeGesture.delegate = self;
-    self.rightSwipeGesture.delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(ANMediationNotifications:)
+                                                 name:kANAdFetcherWillInstantiateMediatedClassNotification
+                                                object:nil];
 }
 
 - (void)audioSetup {
@@ -123,9 +141,12 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
     [self.locationManager startUpdatingLocation];
 }
 
-/*
-    Child View Controller Methods
- */
+- (NSMutableArray *)mediatedClasses {
+    if (!_mediatedClasses) _mediatedClasses = [[NSMutableArray alloc] init];
+    return _mediatedClasses;
+}
+
+#pragma mark Child View Controller Methods
 
 - (void)loadInitialVC {
     [self setInitialVCTabBarItem];
@@ -152,6 +173,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
     if (!self.preview) {
         self.preview = [self.storyboard instantiateViewControllerWithIdentifier:@"AdPreviewTVC"];
         self.preview.lastLocation = self.lastLocation;
+        self.preview.delegate = self;
     }
     if (self.controllerInView != self.preview) {
         [self bringChildViewControllerIntoView:self.preview];
@@ -173,8 +195,11 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
 - (void)loadLogVC {
     if (!self.log) {
-        self.log = [self.storyboard instantiateViewControllerWithIdentifier:@"LogViewController"];
-        self.log.managedObjectContext = self.managedObjectContext;
+        self.log = [self.storyboard instantiateViewControllerWithIdentifier:@"LogViewNavigationController"];
+        if ([[self.log.viewControllers objectAtIndex:0] isKindOfClass:[LogViewController class]]) {
+            LogViewController *lvc = (LogViewController *)[self.log.viewControllers objectAtIndex:0];
+            lvc.managedObjectContext = self.managedObjectContext;
+        }
     }
     if (self.controllerInView != self.log) {
         [self bringChildViewControllerIntoView:self.log];
@@ -232,10 +257,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
     [self loadPreviewVC];
 }
 
-
-/*
-    Notification Logging
- */
+#pragma mark Notification Logging
 
 // Logs ANLog Notifications
 - (void)ANLoggingNotifications:(NSNotification *)notification {
@@ -252,6 +274,11 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
                 withProcessID:[[NSProcessInfo processInfo] processIdentifier]
        inManagedObjectContext:self.managedObjectContext];
     }];
+}
+
+- (void)ANMediationNotifications:(NSNotification *)notification {
+    NSString *mediatedClass = [[notification userInfo] objectForKey:kANAdFetcherMediatedClassKey];
+    [self.mediatedClasses addObject:mediatedClass];
 }
 
 + (NSString *)logClassFromLogLevel:(NSInteger)level {
@@ -337,6 +364,8 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
     }
 }
 
+#pragma mark Location Manager
+
 // Delegate method from the CLLocationManagerDelegate protocol.
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
@@ -349,6 +378,8 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
         self.lastLocation = location;
     }
 }
+
+#pragma mark Swipe Gestures
 
 #define APPNEXUSSDKAPP_SETTINGS_TAB_INDEX 0
 #define APPNEXUSSDKAPP_PREVIEW_TAB_INDEX 1
@@ -406,6 +437,34 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+#pragma mark AppNexusSDKAppPreviewVCDelegate
+
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
+    if ([self.mediatedClasses count]) {
+        ANLogInfo([self prettyPrintMediatedClasses]);
+    }
+    self.mediatedClasses = nil;
+}
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
+    if ([self.mediatedClasses count]) {
+        ANLogInfo([self prettyPrintMediatedClasses]);
+    }
+    self.mediatedClasses = nil;
+}
+
+#pragma mark Other Methods
+
+- (NSString *)prettyPrintMediatedClasses {
+    NSMutableString *ppstring = nil;
+    ppstring = [[NSMutableString alloc] init];
+    [ppstring appendString:@"Mediating Classes:"];
+    for (NSInteger index=[self.mediatedClasses count]-1; index >= 0; index--) {
+        [ppstring appendFormat:@"\n%d: %@", index+1, [self.mediatedClasses objectAtIndex:index]];
+    }
+    return [ppstring copy];
 }
 
 @end

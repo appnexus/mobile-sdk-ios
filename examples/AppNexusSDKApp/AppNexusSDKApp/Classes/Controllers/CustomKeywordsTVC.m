@@ -62,10 +62,9 @@ static NSTimeInterval const kAppNexusSDKAppDeleteTimeIntervalInSeconds = 0.7;
 }
 
 - (void)setEditBarButtonItemOnNavigationItemAnimated:(BOOL)animated {
-    UIBarButtonItem *newItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CircleMinus"]
-                                                                style:UIBarButtonItemStylePlain
-                                                               target:self
-                                                               action:@selector(editTableViewItems:)];
+    UIBarButtonItem *newItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                             target:self
+                                                                             action:@selector(editTableViewItems:)];
     [self.navigationItem setLeftBarButtonItem:newItem animated:animated];
 }
 
