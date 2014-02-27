@@ -53,6 +53,7 @@ typedef enum _ANMRAIDState
 
 - (void)adDidFinishExpand;
 - (void)adDidFinishResize:(BOOL)success errorString:(NSString *)errorString;
+- (void)adDidChangeResizeOffset:(CGPoint)offset;
 - (void)adDidResetToDefault;
 
 @end

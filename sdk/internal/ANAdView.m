@@ -43,6 +43,8 @@ ANBrowserViewControllerDelegate>
 @property (nonatomic, readwrite) BOOL allowOrientationChange;
 @property (nonatomic, readwrite) ANMRAIDOrientation forceOrientation;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
+@property (nonatomic, readwrite, assign) CGPoint resizeOffset;
+@property (nonatomic, readwrite, assign) BOOL adjustFramesInResizeState;
 
 @end
 
@@ -210,7 +212,7 @@ ANBrowserViewControllerDelegate>
         self.defaultParentFrame = defaultParentView.frame;
         self.defaultFrame = contentView.frame;
     }
-    
+
     // expand to full screen
     if ((size.width == -1) && (size.height == -1)) {
         [contentView removeFromSuperview];
@@ -285,6 +287,8 @@ ANBrowserViewControllerDelegate>
         self.defaultFrame = contentView.frame;
     }
     
+    self.adjustFramesInResizeState = NO;
+    
     // resize contentView to new frame
     [contentView setFrame:CGRectMake(contentView.frame.origin.x, contentView.frame.origin.y, frame.size.width, frame.size.height)];
 
@@ -296,6 +300,11 @@ ANBrowserViewControllerDelegate>
                                            defaultParentView.frame.origin.y  + frame.origin.y,
                                            frame.size.width,
                                            frame.size.height)];
+    
+    self.adjustFramesInResizeState = YES;
+    [self setResizeOffset:CGPointMake(frame.origin.x + self.resizeOffset.x, frame.origin.y + self.resizeOffset.y)];
+    [self.mraidEventReceiverDelegate adDidChangeResizeOffset:self.resizeOffset];
+    
     return nil;
 }
 
@@ -591,6 +600,7 @@ ANBrowserViewControllerDelegate>
     if (self.isExpanded) [self adWillClose];
 
     [self removeCloseButton];
+    self.adjustFramesInResizeState = NO;
     
     [contentView setFrame:self.defaultFrame];
     [contentView removeFromSuperview];
@@ -599,7 +609,9 @@ ANBrowserViewControllerDelegate>
     
     self.defaultParentFrame = CGRectNull;
     self.defaultFrame = CGRectNull;
-    
+    [self setResizeOffset:CGPointZero];
+    [self.mraidEventReceiverDelegate adDidChangeResizeOffset:self.resizeOffset];
+
     if (self.mraidController) {
         [self.mraidController dismissViewControllerAnimated:NO completion:^{
             if (self.isExpanded) [self adDidClose];

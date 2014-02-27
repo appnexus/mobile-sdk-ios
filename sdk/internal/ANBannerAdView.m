@@ -53,11 +53,8 @@
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
-
-@end
-
-@interface ANBannerAdView()
-@property (nonatomic, readwrite, assign) BOOL adjustDefaultFrames;
+@property (nonatomic, readwrite, assign) CGPoint resizeOffset;
+@property (nonatomic, readwrite, assign) BOOL adjustFramesInResizeState;
 @end
 
 @implementation ANBannerAdView
@@ -170,7 +167,18 @@
 }
 
 - (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
+    if (self.adjustFramesInResizeState) {
+        CGRect adjustedFrame = CGRectMake(frame.origin.x + self.resizeOffset.x, frame.origin.y + self.resizeOffset.y, frame.size.width, frame.size.height);
+        [super setFrame:adjustedFrame];
+        self.defaultParentFrame = CGRectMake(frame.origin.x, frame.origin.y, self.defaultParentFrame.size.width, self.defaultParentFrame.size.height);
+        CGFloat defaultContentWidth = self.defaultFrame.size.width;
+        CGFloat defaultContentHeight = self.defaultFrame.size.height;
+        CGFloat defaultCenterX = (self.defaultParentFrame.size.width - defaultContentWidth) / 2;
+        CGFloat defaultCenterY = (self.defaultParentFrame.size.height - defaultContentHeight) / 2;
+        self.defaultFrame = CGRectMake(defaultCenterX, defaultCenterY, defaultContentWidth, defaultContentHeight);
+    } else {
+        [super setFrame:frame];
+    }
     // center the contentview
     CGFloat contentWidth = self.contentView.frame.size.width;
     CGFloat contentHeight = self.contentView.frame.size.height;
@@ -178,14 +186,6 @@
     CGFloat centerY = (self.frame.size.height - contentHeight) / 2;
     [self.contentView setFrame:
      CGRectMake(centerX, centerY, contentWidth, contentHeight)];
-    if (self.adjustDefaultFrames) {
-        self.defaultParentFrame = CGRectMake(frame.origin.x, frame.origin.y, self.defaultParentFrame.size.width, self.defaultParentFrame.size.height);
-        CGFloat defaultContentWidth = self.defaultFrame.size.width;
-        CGFloat defaultContentHeight = self.defaultFrame.size.height;
-        CGFloat defaultCenterX = (self.defaultParentFrame.size.width - defaultContentWidth) / 2;
-        CGFloat defaultCenterY = (self.defaultParentFrame.size.height - defaultContentHeight) / 2;
-        self.defaultFrame = CGRectMake(defaultCenterX, defaultCenterY, defaultContentWidth, defaultContentHeight);
-    }
 }
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated {
@@ -323,14 +323,14 @@
                               contentView:contentView
                                  position:closePosition];
     
-    self.adjustDefaultFrames = YES;
+    self.adjustFramesInResizeState = YES;
     
     // send mraid events
     [self.mraidEventReceiverDelegate adDidFinishResize:YES errorString:nil];
 }
 
 - (void)adShouldResetToDefault {
-    self.adjustDefaultFrames = NO;
+    self.adjustFramesInResizeState = NO;
     [super adShouldResetToDefault:self.contentView parentView:self];
 }
 

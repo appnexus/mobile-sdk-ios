@@ -101,6 +101,7 @@
 @property (nonatomic, readwrite) BOOL isViewable;
 @property (nonatomic, readwrite) CGRect defaultPosition;
 @property (nonatomic, readwrite) CGRect currentPosition;
+@property (nonatomic, readwrite, assign) CGPoint resizeOffset;
 @end
 
 @implementation ANMRAIDAdWebViewController
@@ -135,8 +136,13 @@
     [self.webView setIsViewable:self.isViewable];
     ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
     [self updatePosition];
-    if (CGRectEqualToRect(self.defaultPosition, CGRectZero)) {
-        self.defaultPosition = CGRectMake(CGPointZero.x, CGPointZero.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
+    if (CGRectEqualToRect(self.currentPosition, CGRectZero)) {
+        self.currentPosition = CGRectMake(CGPointZero.x, CGPointZero.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
+        self.defaultPosition = self.currentPosition;
+        [self.webView fireNewCurrentPositionEvent:self.currentPosition];
+        ANLogDebug(@"%@ | current position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
+                   (int)self.currentPosition.origin.x, (int)self.currentPosition.origin.y,
+                   (int)self.currentPosition.size.width, (int)self.currentPosition.size.height);
         [self.webView setDefaultPosition:self.defaultPosition];
         ANLogDebug(@"%@ | default position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
                    (int)self.defaultPosition.origin.x, (int)self.defaultPosition.origin.y,
@@ -179,8 +185,10 @@
                                                     CGRectEqualToRect(self.defaultPosition, CGRectZero))) {
                 self.defaultPosition = self.currentPosition;
                 [self.webView setDefaultPosition:self.defaultPosition];
-            } else if (self.resized) {
-                self.defaultPosition = CGRectMake(self.currentPosition.origin.x, self.currentPosition.origin.y, self.defaultPosition.size.width, self.defaultPosition.size.height);
+            } else if (self.resized && !self.expanded) {
+                self.defaultPosition = CGRectMake(self.currentPosition.origin.x - self.resizeOffset.x, self.currentPosition.origin.y - self.resizeOffset.y,
+                                                  self.defaultPosition.size.width, self.defaultPosition.size.height);
+                [self.webView setDefaultPosition:self.defaultPosition];
             }
             ANLogDebug(@"%@ | default position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
                        (int)self.defaultPosition.origin.x, (int)self.defaultPosition.origin.y,
@@ -816,6 +824,10 @@
 
 - (void)adDidResetToDefault {
     [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
+}
+
+- (void)adDidChangeResizeOffset:(CGPoint)offset {
+    self.resizeOffset = offset;
 }
 
 @end
