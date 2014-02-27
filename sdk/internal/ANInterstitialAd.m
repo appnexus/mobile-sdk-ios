@@ -68,7 +68,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
-@property (nonatomic, readwrite, strong) NSMutableSet *allowedAdSizes;
 @property (nonatomic, readwrite, assign) CGRect frame;
 
 @end
@@ -252,11 +251,13 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     NSString *promoSizesParameter = @"&promo_sizes=";
     NSMutableArray *sizesStringsArray = [NSMutableArray arrayWithCapacity:[self.allowedAdSizes count]];
     
-    for (NSValue *sizeValue in self.allowedAdSizes) {
-        CGSize size = [sizeValue CGSizeValue];
-        NSString *param = [NSString stringWithFormat:@"%ldx%ld", (long)size.width, (long)size.height];
-        
-        [sizesStringsArray addObject:param];
+    for (id sizeValue in self.allowedAdSizes) {
+        if ([sizeValue isKindOfClass:[NSValue class]]) {
+            CGSize size = [sizeValue CGSizeValue];
+            NSString *param = [NSString stringWithFormat:@"%ldx%ld", (long)size.width, (long)size.height];
+            
+            [sizesStringsArray addObject:param];
+        }
     }
     
     promoSizesParameter = [promoSizesParameter stringByAppendingString:[sizesStringsArray componentsJoinedByString:@","]];

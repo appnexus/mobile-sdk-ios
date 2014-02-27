@@ -15,10 +15,12 @@
 
 #import <Foundation/Foundation.h>
 
-// The lower the filter level, the more logs will be shown.
-// For example, `ANLogLevelInfo` will display messages from
-// `ANLogLevelInfo,` `ANLogLevelWarn,` and `ANLogLevelError.`
-// The default level is `ANLogLevelWarn`
+/**
+ The lower the filter level, the more logs will be shown.
+ For example, `ANLogLevelInfo` will display messages from
+ `ANLogLevelInfo,` `ANLogLevelWarn,` and `ANLogLevelError.`
+ The default level is `ANLogLevelWarn`
+ */
 typedef enum
 {
 	ANLogLevelAll		= 0,
@@ -30,13 +32,19 @@ typedef enum
 	ANLogLevelOff		= 60
 } ANLogLevel;
 
-// use the `ANLogManager` methods to set the desired level of log filter
+/**
+ Use the `ANLogManager` methods to set the desired level of log filter.
+ */
 @interface ANLogManager : NSObject
 
-// gets the current log filter level
+/**
+ Gets the current log filter level.
+ */
 + (ANLogLevel)getANLogLevel;
 
-// set the log filter level
+/**
+ Sets the log filter level.
+ */
 + (void)setANLogLevel:(ANLogLevel)level;
 
 @end
