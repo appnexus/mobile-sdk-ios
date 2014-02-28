@@ -43,6 +43,8 @@ ANBrowserViewControllerDelegate>
 @property (nonatomic, readwrite) BOOL allowOrientationChange;
 @property (nonatomic, readwrite) ANMRAIDOrientation forceOrientation;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
+@property (nonatomic, readwrite, assign) CGPoint resizeOffset;
+@property (nonatomic, readwrite, assign) BOOL adjustFramesInResizeState;
 
 @end
 
@@ -210,7 +212,7 @@ ANBrowserViewControllerDelegate>
         self.defaultParentFrame = defaultParentView.frame;
         self.defaultFrame = contentView.frame;
     }
-    
+
     // expand to full screen
     if ((size.width == -1) && (size.height == -1)) {
         [contentView removeFromSuperview];
@@ -228,7 +230,7 @@ ANBrowserViewControllerDelegate>
             [self adDidPresent];
         }];
     } else {
-        CGRect orientedScreenBounds = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:[UIScreen mainScreen].bounds];
+        CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect([UIScreen mainScreen].bounds);
         if (size.width == -1) size.width = orientedScreenBounds.size.width;
         if (size.height == -1) size.height = orientedScreenBounds.size.height;
         
@@ -285,21 +287,31 @@ ANBrowserViewControllerDelegate>
         self.defaultFrame = contentView.frame;
     }
     
-    // adjust the parent view to fit contentView
-    [defaultParentView setFrame:CGRectMake(defaultParentView.frame.origin.x  + frame.origin.x,
-                                           defaultParentView.frame.origin.y  + frame.origin.y,
-                                           frame.size.width + frame.origin.x,
-                                           frame.size.height + frame.origin.y)];
+    self.adjustFramesInResizeState = NO;
     
     // resize contentView to new frame
-    [contentView setFrame:frame];
+    [contentView setFrame:CGRectMake(contentView.frame.origin.x, contentView.frame.origin.y, frame.size.width, frame.size.height)];
+
+    /*
+        Adjust the parent view to fit contentView.
+        The parentView will realign the content view within its bounds.
+    */
+    [defaultParentView setFrame:CGRectMake(defaultParentView.frame.origin.x  + frame.origin.x,
+                                           defaultParentView.frame.origin.y  + frame.origin.y,
+                                           frame.size.width,
+                                           frame.size.height)];
+    
+    self.adjustFramesInResizeState = YES;
+    [self setResizeOffset:CGPointMake(frame.origin.x + self.resizeOffset.x, frame.origin.y + self.resizeOffset.y)];
+    [self.mraidEventReceiverDelegate adDidChangeResizeOffset:self.resizeOffset];
+    
     return nil;
 }
 
 - (NSString *)isResizeValid:(UIView *)contentView frameToResizeTo:(CGRect)frame {
     // for comparing to
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    CGRect orientedScreenBounds = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:screenBounds];
+    CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(screenBounds);
     
     // don't allow resizing to be larger than the screen in both directions
     if (frame.size.width > orientedScreenBounds.size.width && frame.size.height > orientedScreenBounds.size.height) {
@@ -307,7 +319,7 @@ ANBrowserViewControllerDelegate>
     }
     
     CGRect contentAbsoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
-    CGRect adjustedContentAbsoluteFrame = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:contentAbsoluteFrame];
+    CGRect adjustedContentAbsoluteFrame = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(contentAbsoluteFrame);
     
     // verify that at least 50x50 pixels of the creative are onscreen
     // by checking the intersection of the creative and the screen
@@ -398,10 +410,10 @@ ANBrowserViewControllerDelegate>
     
     // compute the absolute frame of the close event region
     CGRect screenBounds = [UIScreen mainScreen].bounds;
-    CGRect orientedScreenBounds = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:screenBounds];
+    CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(screenBounds);
     
     CGRect containerAbsoluteFrame = [containerView convertRect:containerView.bounds toView:nil];
-    CGRect adjustedContainerAbsoluteFrame = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:containerAbsoluteFrame];
+    CGRect adjustedContainerAbsoluteFrame = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(containerAbsoluteFrame);
     
     CGFloat closeAbsoluteOriginX = adjustedContainerAbsoluteFrame.origin.x + closeOriginX;
     CGFloat closeAbsoluteOriginY = adjustedContainerAbsoluteFrame.origin.y + closeOriginY;
@@ -416,7 +428,7 @@ ANBrowserViewControllerDelegate>
     // put it in the top-left of the available space
     if (!isCloseEventRegionOnScreen) {
         CGRect contentAbsoluteFrame = [contentView convertRect:contentView.bounds toView:nil];
-        CGRect adjustedContentAbsoluteFrame = [self adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:contentAbsoluteFrame];
+        CGRect adjustedContentAbsoluteFrame = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(contentAbsoluteFrame);
         
         CGRect contentIntersection = CGRectIntersection(orientedScreenBounds, adjustedContentAbsoluteFrame);
         closeOriginX = contentIntersection.origin.x - adjustedContainerAbsoluteFrame.origin.x;
@@ -436,30 +448,6 @@ ANBrowserViewControllerDelegate>
     self.closeButton = closeEventRegion;
     
     [containerView addSubview:closeEventRegion];
-}
-
-- (CGRect)adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect:(CGRect)rect {
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
-    CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
-    
-    CGRect adjustedRect;
-    switch ([UIApplication sharedApplication].statusBarOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
-            break;
-        default:
-            adjustedRect = rect;
-            break;
-    }
-    
-    return adjustedRect;
 }
 
 - (void)removeCloseButton
@@ -612,6 +600,7 @@ ANBrowserViewControllerDelegate>
     if (self.isExpanded) [self adWillClose];
 
     [self removeCloseButton];
+    self.adjustFramesInResizeState = NO;
     
     [contentView setFrame:self.defaultFrame];
     [contentView removeFromSuperview];
@@ -620,7 +609,9 @@ ANBrowserViewControllerDelegate>
     
     self.defaultParentFrame = CGRectNull;
     self.defaultFrame = CGRectNull;
-    
+    [self setResizeOffset:CGPointZero];
+    [self.mraidEventReceiverDelegate adDidChangeResizeOffset:self.resizeOffset];
+
     if (self.mraidController) {
         [self.mraidController dismissViewControllerAnimated:NO completion:^{
             if (self.isExpanded) [self adDidClose];
@@ -630,7 +621,6 @@ ANBrowserViewControllerDelegate>
     self.isExpanded = NO;
     
     [self.mraidEventReceiverDelegate adDidResetToDefault];
-    [self.mraidEventReceiverDelegate adDidChangePosition:contentView.frame];
 }
 
 #pragma mark ANBrowserViewControllerDelegate

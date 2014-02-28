@@ -489,7 +489,6 @@
  "width":width,
  "height": height
  };
- current_position = default_position;
  size_event_width = width;
  size_event_height = height;
  }

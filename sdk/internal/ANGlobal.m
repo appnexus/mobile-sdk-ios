@@ -115,3 +115,27 @@ NSString *convertToNSString(id value) {
     ANLogWarn(@"Failed to convert to NSString");
     return nil;
 }
+
+CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
+    CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
+    
+    CGRect adjustedRect;
+    switch ([UIApplication sharedApplication].statusBarOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+            adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
+            break;
+        default:
+            adjustedRect = rect;
+            break;
+    }
+    
+    return adjustedRect;
+}

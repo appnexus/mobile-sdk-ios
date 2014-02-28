@@ -315,7 +315,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     [super mraidExpandAddCloseButton:closeButton containerView:containerView];
     
     [self.mraidEventReceiverDelegate adDidFinishExpand];
-    [self.mraidEventReceiverDelegate adDidChangePosition:containerView.frame];
 }
 
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
@@ -343,7 +342,6 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     
     // send mraid events
     [self.mraidEventReceiverDelegate adDidFinishResize:YES errorString:nil];
-    [self.mraidEventReceiverDelegate adDidChangePosition:contentView.frame];
 }
 
 - (void)adShouldResetToDefault {

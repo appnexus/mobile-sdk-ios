@@ -65,3 +65,4 @@ NSString *ANUdidParameter(void);
 NSString *ANErrorString(NSString *key);
 NSBundle *ANResourcesBundle();
 NSString *convertToNSString(id value);
+CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
