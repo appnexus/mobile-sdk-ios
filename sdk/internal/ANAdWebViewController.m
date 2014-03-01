@@ -177,19 +177,21 @@
         CGRect newPosition = [self webViewPositionInWindowCoordinatesForWebView:self.webView];
         if (!CGRectEqualToRect(newPosition, self.currentPosition)) {
             self.currentPosition = newPosition;
+            if (!self.expanded) {
+                if (self.resized) {
+                    self.defaultPosition = CGRectMake(self.currentPosition.origin.x - self.resizeOffset.x, self.currentPosition.origin.y - self.resizeOffset.y,
+                                                      self.defaultPosition.size.width, self.defaultPosition.size.height);
+                    [self.webView setDefaultPosition:self.defaultPosition];
+                } else if (!self.resized && (CGSizeEqualToSize(self.defaultPosition.size, self.currentPosition.size) ||
+                            CGRectEqualToRect(self.defaultPosition, CGRectZero))) {
+                    self.defaultPosition = self.currentPosition;
+                    [self.webView setDefaultPosition:self.defaultPosition];
+                }
+            }
             [self.webView fireNewCurrentPositionEvent:self.currentPosition];
             ANLogDebug(@"%@ | current position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
                        (int)self.currentPosition.origin.x, (int)self.currentPosition.origin.y,
                        (int)self.currentPosition.size.width, (int)self.currentPosition.size.height);
-            if (!self.expanded && !self.resized && (CGSizeEqualToSize(self.defaultPosition.size, self.currentPosition.size) ||
-                                                    CGRectEqualToRect(self.defaultPosition, CGRectZero))) {
-                self.defaultPosition = self.currentPosition;
-                [self.webView setDefaultPosition:self.defaultPosition];
-            } else if (self.resized && !self.expanded) {
-                self.defaultPosition = CGRectMake(self.currentPosition.origin.x - self.resizeOffset.x, self.currentPosition.origin.y - self.resizeOffset.y,
-                                                  self.defaultPosition.size.width, self.defaultPosition.size.height);
-                [self.webView setDefaultPosition:self.defaultPosition];
-            }
             ANLogDebug(@"%@ | default position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
                        (int)self.defaultPosition.origin.x, (int)self.defaultPosition.origin.y,
                        (int)self.defaultPosition.size.width, (int)self.defaultPosition.size.height);
