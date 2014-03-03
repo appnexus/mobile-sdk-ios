@@ -28,73 +28,12 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MFMessageComposeViewController.h>
 
-@interface ANAdFetcher (ANAdWebViewController)
+@interface ANAdFetcher (ANMRAIDAdWebViewController)
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
 @end
 
-@interface ANAdWebViewController ()
-
-- (void)delegateShouldOpenInBrowser:(NSURL *)URL;
-
-@property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
-
-@end
-
-@implementation ANAdWebViewController
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (self.completedFirstLoad) {
-        NSURL *URL = [request URL];
-        NSURL *mainDocumentURL = [request mainDocumentURL];
-        
-        /*
-         The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab,
-         or move away from the existing page. This does not apply for links coming from inside an iFrame unless
-         window.open was explicitly written (even if these links are present inside an <a> tag). However, the
-         assumption here is that any user clicks should break out of the ad. This fix will catch both <a> tags
-         embedded in iFrames as well as asynchronous loads which occur after the first instance of webViewDidFinishLoad:.
-         Any creatives loading iFrames which desire clicks to continue displaying in the iFrame should be flagged as MRAID.
-         */
-        
-        if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] || navigationType == UIWebViewNavigationTypeLinkClicked) {
-            [self delegateShouldOpenInBrowser:URL];
-        } else {
-            return YES; /* Let the link load in the webView */
-        }
-        
-        return NO;
-    }
-    
-    return YES;
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if (!self.completedFirstLoad) {
-        self.adFetcher.loading = NO;
-        
-        // If this is our first successful load, then send this to the delegate. Otherwise, ignore.
-        self.completedFirstLoad = YES;
-        
-        ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
-        [self.adFetcher processFinalResponse:response];
-    }
-}
-
-- (void)delegateShouldOpenInBrowser:(NSURL *)URL {
-    if ([self.adFetcher.delegate respondsToSelector:@selector(adFetcher:adShouldOpenInBrowserWithURL:)]) {
-        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
-    }
-}
-
-- (void)dealloc {
-    [self.webView stopLoading];
-    self.webView.delegate = nil;
-    [self.webView removeFromSuperview];
-}
-
-@end
-
 @interface ANMRAIDAdWebViewController ()
+@property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
 @property (nonatomic, readwrite, assign) BOOL expanded;
 @property (nonatomic, readwrite, assign) BOOL resized;
 @property (nonatomic, readwrite, assign) NSTimer *viewabilityTimer;
@@ -102,33 +41,48 @@
 @property (nonatomic, readwrite) CGRect defaultPosition;
 @property (nonatomic, readwrite) CGRect currentPosition;
 @property (nonatomic, readwrite, assign) CGPoint resizeOffset;
+
+- (void)delegateShouldOpenInBrowser:(NSURL *)URL;
+
 @end
 
 @implementation ANMRAIDAdWebViewController
 
+- (void)delegateShouldOpenInBrowser:(NSURL *)URL {
+    if ([self.adFetcher.delegate respondsToSelector:@selector(adFetcher:adShouldOpenInBrowserWithURL:)]) {
+        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+    }
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if (!self.completedFirstLoad) {
 		self.adFetcher.loading = NO;
+        
+        // If this is our first successful load, then send this to the delegate. Otherwise, ignore.
         self.completedFirstLoad = YES;
 		
 		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
         [self.adFetcher processFinalResponse:response];
 
-        // set initial values for MRAID getters
-        [self setValuesForMRAIDSupportsFunction:webView];
-        [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
-        [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
-        
-        // setup rotation detection support
-        [self processDidChangeStatusBarOrientationNotifications];
-        
-        // setup viewability support
-        [self viewabilitySetup];
-        
-        [webView setPlacementType:[self.mraidDelegate adType]];
-        [webView fireStateChangeEvent:ANMRAIDStateDefault];
-        [webView fireReadyEvent];
+        if (self.isMRAID) [self finishMRAIDLoad:webView];
     }
+}
+
+- (void)finishMRAIDLoad:(UIWebView *)webView {
+    // set initial values for MRAID getters
+    [self setValuesForMRAIDSupportsFunction:webView];
+    [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
+    [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
+    
+    // setup rotation detection support
+    [self processDidChangeStatusBarOrientationNotifications];
+    
+    // setup viewability support
+    [self viewabilitySetup];
+    
+    [webView setPlacementType:[self.mraidDelegate adType]];
+    [webView fireStateChangeEvent:ANMRAIDStateDefault];
+    [webView fireReadyEvent];
 }
 
 - (void)viewabilitySetup {
@@ -204,9 +158,10 @@
 }
 
 - (void)dealloc {
-    if (self.viewabilityTimer) {
-        [self.viewabilityTimer invalidate];
-    }
+    [self.webView stopLoading];
+    self.webView.delegate = nil;
+    [self.webView removeFromSuperview];
+    [self.viewabilityTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -250,36 +205,52 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	if (self.completedFirstLoad) {
-		NSURL *URL = [request URL];
+        NSURL *URL = [request URL];
         NSURL *mainDocumentURL = [request mainDocumentURL];
-		NSString *scheme = [URL scheme];
-		
-		if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {            
-            /*
-                The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab, 
-                or move away from the existing page. This does not apply for links coming from inside an iFrame unless
-                window.open was explicitly written (even if these links are present inside an <a> tag). The assumption
-                here is that MRAID creatives should be using mraid.open to break out of the ad.
-             */
-            
-            if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]) {
-                [self delegateShouldOpenInBrowser:URL];
+        NSString *scheme = [URL scheme];
+        
+        if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
+            if (self.isMRAID) {
+                /*
+                 The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab,
+                 or move away from the existing page. This does not apply for links coming from inside an iFrame unless
+                 window.open was explicitly written (even if these links are present inside an <a> tag). The assumption
+                 here is that MRAID creatives should be using mraid.open to break out of the ad.
+                 */
+                
+                if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]) {
+                    [self delegateShouldOpenInBrowser:URL];
+                } else {
+                    return YES; /* Let the link load in the webView */
+                }
             } else {
-                return YES; /* Let the link load in the webView */
+                /*
+                 The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab,
+                 or move away from the existing page. This does not apply for links coming from inside an iFrame unless
+                 window.open was explicitly written (even if these links are present inside an <a> tag). However, the
+                 assumption here is that any user clicks should break out of the ad. This fix will catch both <a> tags
+                 embedded in iFrames as well as asynchronous loads which occur after the first instance of webViewDidFinishLoad:.
+                 Any creatives loading iFrames which desire clicks to continue displaying in the iFrame should be flagged as MRAID.
+                 */
+                
+                if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] || navigationType == UIWebViewNavigationTypeLinkClicked) {
+                    [self delegateShouldOpenInBrowser:URL];
+                } else {
+                    return YES; /* Let the link load in the webView */
+                }
             }
-
-		} else if ([scheme isEqualToString:@"mraid"]) {
-			// Do MRAID actions
-			[self dispatchNativeMRAIDURL:URL forWebView:webView];
-		} else if ([scheme isEqualToString:@"anwebconsole"]) {
+        } else if ([scheme isEqualToString:@"mraid"]) {
+            // Do MRAID actions
+            [self dispatchNativeMRAIDURL:URL forWebView:webView];
+        } else if ([scheme isEqualToString:@"anwebconsole"]) {
             [self printConsoleLog:URL];
         } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             [[UIApplication sharedApplication] openURL:URL];
         } else {
             ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
         }
-		
-		return NO;
+        
+        return NO;
 	}
     
     return YES;
@@ -380,6 +351,9 @@
     } else if([mraidCommand isEqualToString:@"open"]){
         NSString *uri = [queryComponents objectForKey:@"uri"];
         [self open:uri];
+    } else if ([mraidCommand isEqualToString:@"enable"]) {
+        self.isMRAID = YES;
+        if (self.completedFirstLoad) [self finishMRAIDLoad:webView];
     }
 }
 

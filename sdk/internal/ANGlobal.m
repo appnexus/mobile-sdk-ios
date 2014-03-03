@@ -139,3 +139,17 @@ CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect)
     
     return adjustedRect;
 }
+
+NSString *ANMRAIDBundlePath() {
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return @"";
+    }
+    NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
+    if (!mraidBundlePath) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return @"";
+    }
+    return mraidBundlePath;
+}

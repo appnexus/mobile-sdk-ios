@@ -19,7 +19,7 @@
 #import "ANAdWebViewController.h"
 #import "ANCustomAdapter.h"
 
-@class ANAdWebViewController;
+@class ANMRAIDAdWebViewController;
 @class ANLocation;
 @protocol ANAdFetcherDelegate;
 
