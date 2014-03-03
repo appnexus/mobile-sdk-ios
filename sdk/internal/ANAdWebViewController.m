@@ -204,11 +204,11 @@
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	if (self.completedFirstLoad) {
-        NSURL *URL = [request URL];
-        NSURL *mainDocumentURL = [request mainDocumentURL];
-        NSString *scheme = [URL scheme];
-        
+    NSURL *URL = [request URL];
+    NSURL *mainDocumentURL = [request mainDocumentURL];
+    NSString *scheme = [URL scheme];
+    
+    if (self.completedFirstLoad) {
         if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
             if (self.isMRAID) {
                 /*
@@ -251,7 +251,9 @@
         }
         
         return NO;
-	}
+	} else if ([scheme isEqualToString:@"mraid"] && [[URL host] isEqualToString:@"enable"]) {
+        [self dispatchNativeMRAIDURL:URL forWebView:webView];
+    }
     
     return YES;
 }
