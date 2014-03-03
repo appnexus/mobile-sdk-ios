@@ -253,6 +253,7 @@
         return NO;
 	} else if ([scheme isEqualToString:@"mraid"] && [[URL host] isEqualToString:@"enable"]) {
         [self dispatchNativeMRAIDURL:URL forWebView:webView];
+        return NO;
     }
     
     return YES;
