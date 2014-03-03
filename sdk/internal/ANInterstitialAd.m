@@ -217,7 +217,11 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (CGRect)frame {
     // By definition, interstitials can only ever have the entire screen's bounds as its frame
-    return adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect([UIScreen mainScreen].bounds);
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (UIInterfaceOrientationIsLandscape(self.controller.orientation)) {
+        return CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
+    }
+    return screenBounds;
 }
 
 - (void)setCloseDelay:(NSTimeInterval)closeDelay {
