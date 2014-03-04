@@ -273,9 +273,11 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     NSURL *baseURL = self.webViewController.isMRAID ? mraidBundlePath : self.URL;
     NSString *contentToLoad = response.content;
     if (!self.webViewController.isMRAID) {
-        NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"%@mraid.js\"></script>", [mraidBundlePath absoluteString]];
+        NSData *data = [NSData dataWithContentsOfFile:[[[NSBundle alloc] initWithPath:ANMRAIDBundlePath()] pathForResource:@"mraid"
+                                                                                                                    ofType:@"js"]];
+        NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>", [[NSString alloc] initWithData:data
+                                                                                                                                  encoding:NSUTF8StringEncoding]];
         contentToLoad = [mraidScript stringByAppendingString:contentToLoad];
-        ANLogDebug(@"%@ | Loading ad with content: %@", NSStringFromSelector(_cmd), contentToLoad);
     }
     [webView loadHTMLString:contentToLoad baseURL:baseURL];
 }
