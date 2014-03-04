@@ -355,6 +355,7 @@
         NSString *uri = [queryComponents objectForKey:@"uri"];
         [self open:uri];
     } else if ([mraidCommand isEqualToString:@"enable"]) {
+        if (self.isMRAID) return;
         self.isMRAID = YES;
         if (self.completedFirstLoad) [self finishMRAIDLoad:webView];
     }
