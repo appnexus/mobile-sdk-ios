@@ -407,7 +407,11 @@
  };
  
  mraid.util.sizeChangeEvent=function(width, height){
- if(state==='loading') return;
+ if(state==='loading') {
+ size_event_width = width;
+ size_event_height = height;
+ return;
+ }
  if(width != size_event_width || height != size_event_height) {
     size_event_width = width;
     size_event_height = height;
@@ -493,8 +497,6 @@
  "width":width,
  "height": height
  };
- size_event_width = width;
- size_event_height = height;
  }
  
  mraid.util.setCurrentPosition=function(x, y, width, height){
