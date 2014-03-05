@@ -31,7 +31,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @property (nonatomic, assign) BOOL testComplete;
 @property (nonatomic, strong) ANAdFetcher *fetcher;
 @property (nonatomic, strong) id adapter;
-@property (nonatomic, strong) ANAdWebViewController *webViewController;
+@property (nonatomic, strong) ANMRAIDAdWebViewController *webViewController;
 @property (nonatomic, strong) NSError *ANError;
 @property (nonatomic, strong) NSMutableURLRequest *successResultRequest;
 @property (nonatomic, strong) NSMutableURLRequest *request;
@@ -49,7 +49,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @interface ANAdFetcher ()
 - (void)processResponseData:(NSData *)data;
 - (ANMediationAdViewController *)mediationController;
-- (ANAdWebViewController *)webViewController;
+- (ANMRAIDAdWebViewController *)webViewController;
 - (NSMutableURLRequest *)successResultRequest;
 - (NSMutableURLRequest *)request;
 @end
