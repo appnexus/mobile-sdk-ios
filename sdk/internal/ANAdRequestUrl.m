@@ -64,7 +64,6 @@
     
     baseUrlString = [baseUrlString stringByAppendingString:[self locationParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self userAgentParameter]];
-    baseUrlString = [baseUrlString stringByAppendingString:[self orientationParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self connectionTypeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self devTimeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self languageParameter]];
@@ -172,13 +171,6 @@
     }
     
     return locationParameter;
-}
-
-- (NSString *)orientationParameter {
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    return [NSString stringWithFormat:@"&orientation=%@",
-            UIInterfaceOrientationIsLandscape(orientation) ? @"h" : @"v"];
 }
 
 - (NSString *)userAgentParameter {

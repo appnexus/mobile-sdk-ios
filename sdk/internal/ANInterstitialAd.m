@@ -269,12 +269,18 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
     return promoSizesParameter;
 }
 
+- (NSString *)orientationParameter {
+    NSString *orientation = UIInterfaceOrientationIsLandscape(self.controller.orientation) ? @"h" : @"v";
+    return [NSString stringWithFormat:@"&orientation=%@", orientation];
+}
+
 #pragma mark ANAdFetcherDelegate
 
 - (NSArray *)extraParameters {
     return [NSArray arrayWithObjects:
             [self sizeParameter],
             [self promoSizesParameter],
+            [self orientationParameter],
             nil];
 }
 

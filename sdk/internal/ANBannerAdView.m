@@ -243,11 +243,17 @@
     ;
 }
 
+- (NSString *)orientationParameter {
+    NSString *orientation = UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? @"h" : @"v";
+    return [NSString stringWithFormat:@"&orientation=%@", orientation];
+}
+
 #pragma mark ANAdFetcherDelegate
 
 - (NSArray *)extraParameters {
     return [NSArray arrayWithObjects:
             [self sizeParameter],
+            [self orientationParameter],
             nil];
 }
 
