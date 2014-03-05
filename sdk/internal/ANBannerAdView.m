@@ -217,11 +217,9 @@
         }];
     } else {
         UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        if (presentingController.presentingViewController) {
-            [presentingController presentViewController:browserViewController animated:YES completion:^{
-                [self adDidPresent];
-            }];
-        }
+        [presentingController presentViewController:browserViewController animated:YES completion:^{
+            [self adDidPresent];
+        }];
     }
 }
 

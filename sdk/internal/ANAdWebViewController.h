@@ -20,15 +20,11 @@
 
 @class ANAdFetcher;
 
-@interface ANAdWebViewController : NSObject <UIWebViewDelegate>
+@interface ANMRAIDAdWebViewController : NSObject <ANMRAIDEventReceiver, UIWebViewDelegate>
 
 @property (nonatomic, readwrite, weak) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, strong) UIWebView *webView;
-
-@end
-
-@interface ANMRAIDAdWebViewController : ANAdWebViewController <ANMRAIDEventReceiver>
-
 @property (nonatomic, readwrite, weak) id<ANMRAIDAdViewDelegate> mraidDelegate;
+@property (nonatomic, readwrite, assign) BOOL isMRAID;
 
 @end

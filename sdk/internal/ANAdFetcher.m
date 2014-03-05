@@ -40,7 +40,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 @property (nonatomic, readwrite, strong) NSURL *URL;
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
-@property (nonatomic, readwrite, strong) ANAdWebViewController *webViewController;
+@property (nonatomic, readwrite, strong) ANMRAIDAdWebViewController *webViewController;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
@@ -261,41 +261,25 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     // Generate a new webview to contain the HTML
     ANWebView *webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
     
-    NSURL *baseURL = nil;
-    
-    if (response.isMraid)
-    {
-        // MRAID adapter
-        NSBundle *resBundle = ANResourcesBundle();
-        if (!resBundle) {
-            ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
-            return;
-        }
-        NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
-        if (!mraidBundlePath) {
-            ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
-            return;
-        }
-        baseURL = [NSURL fileURLWithPath:mraidBundlePath];
-        
-        ANMRAIDAdWebViewController *mraidWebViewController = [[ANMRAIDAdWebViewController alloc] init];
-        mraidWebViewController.mraidDelegate = self.delegate;
-        mraidWebViewController.mraidDelegate.mraidEventReceiverDelegate = mraidWebViewController;
-        self.webViewController = mraidWebViewController;
-    }
-    else
-    {
-        // standard banner ad
-        baseURL = self.URL;
-        
-        self.webViewController = [[ANAdWebViewController alloc] init];
-    }
-    
+    self.webViewController = [[ANMRAIDAdWebViewController alloc] init];
+    self.webViewController.isMRAID = response.isMraid;
+    self.webViewController.mraidDelegate = self.delegate;
+    self.webViewController.mraidDelegate.mraidEventReceiverDelegate = self.webViewController;
     self.webViewController.adFetcher = self;
     self.webViewController.webView = webView;
     webView.delegate = self.webViewController;
     
-    [webView loadHTMLString:response.content baseURL:baseURL];
+    NSURL *mraidBundlePath = [NSURL fileURLWithPath:ANMRAIDBundlePath()];
+    NSURL *baseURL = self.webViewController.isMRAID ? mraidBundlePath : self.URL;
+    NSString *contentToLoad = response.content;
+    if (!self.webViewController.isMRAID) {
+        NSData *data = [NSData dataWithContentsOfFile:[[[NSBundle alloc] initWithPath:ANMRAIDBundlePath()] pathForResource:@"mraid"
+                                                                                                                    ofType:@"js"]];
+        NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>", [[NSString alloc] initWithData:data
+                                                                                                                                  encoding:NSUTF8StringEncoding]];
+        contentToLoad = [mraidScript stringByAppendingString:contentToLoad];
+    }
+    [webView loadHTMLString:contentToLoad baseURL:baseURL];
 }
 
 - (void)handleMediatedAds:(NSMutableArray *)mediatedAds
