@@ -21,4 +21,8 @@
     return [self createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:[NSString stringWithFormat:@"<script type=\\\"text/javascript\\\" src=\\\"mraid.js\\\"></script><script type=\\\"text/javascript\\\">document.write('<div style=\\\"background-color:#EF8200;height:1000px;width:1000px;\\\"><p>%@</p></div>');</script>", selector]];
 }
 
++ (NSString *)MRAIDListenerBannerWithSelectorName:(NSString *)selector {
+    return [self createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:[NSString stringWithFormat:@"<script type=\\\"text/javascript\\\" src=\\\"mraid.js\\\"></script><script type=\\\"text/javascript\\\"> var testWidth=0; var testHeight=0; var testState='none'; var testReadyDidFire=false; var testIsViewable = false; var testErrorMessage = ''; var testErrorAction = ''; mraid.addEventListener('ready', onReady); function onReady() {var dp = mraid.getDefaultPosition(); testWidth=dp.width; testHeight=dp.height; testReadyDidFire=true;}; mraid.addEventListener('sizeChange', onSizeChange); function onSizeChange(width, height) {testWidth=width;testHeight=height}; mraid.addEventListener('stateChange', onStateChange); function onStateChange(state) {testState=state}; mraid.addEventListener('viewableChange', isViewable); function isViewable(v) {testIsViewable=v}; mraid.addEventListener('error', onError); function onError(message, action) {testErrorMessage=message; testErrorAction=action;};</script><script type=\\\"text/javascript\\\">document.write('<div style=\\\"background-color:#EF8200;height:1000px;width:1000px;\\\"><p>%@</p></div>');</script>", selector]];
+}
+
 @end

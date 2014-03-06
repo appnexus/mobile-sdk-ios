@@ -19,5 +19,6 @@
 @interface ANMRAIDTestResponses : ANTestResponses
 
 + (NSString *)basicMRAIDBannerWithSelectorName:(NSString *)selector;
++ (NSString *)MRAIDListenerBannerWithSelectorName:(NSString *)selector;
 
 @end

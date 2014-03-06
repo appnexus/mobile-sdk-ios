@@ -225,6 +225,7 @@
  }
  break;
  case 'hidden':
+ mraid.util.errorEvent("mraid.resize() called while state is 'hidden'.", "mraid.resize()");
  break;
  
  }
