@@ -318,7 +318,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                   closeButton:(UIButton *)closeButton {
     [super mraidExpandAd:frame.size
              contentView:self.controller.contentView
-       defaultParentView:self.controller.view
+       defaultParentView:self.controller.containerView
       rootViewController:self.controller];
     
     UIView *containerView = self.mraidController ? self.mraidController.view : self.controller.contentView;
@@ -332,8 +332,8 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                 closePosition:(ANMRAIDCustomClosePosition)closePosition {
     // resized ads are never modal
     UIView *contentView = self.controller.contentView;
-    UIView *containerView = self.controller.view;
-    
+    UIView *containerView = self.controller.containerView;
+
     NSString *mraidResizeErrorString = [super mraidResizeAd:frame
                                                 contentView:contentView
                                           defaultParentView:containerView
@@ -355,7 +355,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 }
 
 - (void)adShouldResetToDefault {
-    [super adShouldResetToDefault:self.controller.contentView parentView:self.controller.view];
+    [super adShouldResetToDefault:self.controller.contentView parentView:self.controller.containerView];
 }
 
 #pragma mark ANBrowserViewControllerDelegate

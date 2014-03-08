@@ -180,6 +180,7 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
+    self.interstitialAd.closeDelay = 0.5f;
     self.interstitialAd.backgroundColor = [AppNexusSDKAppGlobal colorFromString:backgroundColor];
     [self loadAdvancedSettingsOnAdView:self.interstitialAd];
     

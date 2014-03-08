@@ -40,6 +40,7 @@
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:resBundle];
     self.originalHiddenState = NO;
     self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    self.containerView = [UIView new];
     return self;
 }
 
@@ -49,6 +50,9 @@
     }
     self.progressView.hidden = YES;
     self.closeButton.hidden = YES;
+    CGRect containerFrame = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(self.view.frame);
+    [self.containerView setFrame:containerFrame];
+    [self.view insertSubview:self.containerView atIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,7 +64,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.viewed) {
+    if (!self.viewed && ([self.delegate closeDelayForController] > 0.0)) {
         [self startCountdownTimer];
         self.viewed = YES;
     } else {
@@ -76,12 +80,10 @@
 
 - (void)startCountdownTimer
 {
-    if ([self.delegate closeDelayForController] > 0.0) {
-        self.progressView.hidden = NO;
-        self.closeButton.hidden = YES;
-        self.timerStartDate = [NSDate date];
-        self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
-    }
+    self.progressView.hidden = NO;
+    self.closeButton.hidden = YES;
+    self.timerStartDate = [NSDate date];
+    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
 }
 
 - (void)stopCountdownTimer
@@ -113,8 +115,8 @@
 - (void)centerContentView {
     CGFloat contentWidth = self.contentView.frame.size.width;
     CGFloat contentHeight = self.contentView.frame.size.height;
-    CGFloat centerX = (self.view.bounds.size.width - contentWidth) / 2;
-    CGFloat centerY = (self.view.bounds.size.height - contentHeight) / 2;
+    CGFloat centerX = (self.containerView.bounds.size.width - contentWidth) / 2;
+    CGFloat centerY = (self.containerView.bounds.size.height - contentHeight) / 2;
     
 	self.contentView.frame = CGRectMake(centerX, centerY, contentWidth, contentHeight);
 }
@@ -132,7 +134,7 @@
 				[webView setMediaProperties];
 			}
 			
-			[self.view insertSubview:contentView belowSubview:self.closeButton];
+			[self.containerView addSubview:contentView];
 		}
 		
 		[__contentView removeFromSuperview];
@@ -152,6 +154,7 @@
 {
     __backgroundColor = backgroundColor;
     self.view.backgroundColor = __backgroundColor;
+    self.containerView.backgroundColor = __backgroundColor;
 }
 
 - (IBAction)closeAction:(id)sender
