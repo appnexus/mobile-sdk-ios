@@ -1286,6 +1286,27 @@
     [self.banner loadAd];
 }
 
+- (void)testLoadInterstitialAd {
+    //[self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
+    [self stubWithBody:[ANMRAIDTestResponses basicMRAIDInterstitialWithSelectorName:NSStringFromSelector(_cmd)]];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial loadAd];
+    [self.interstitial setBackgroundColor:[UIColor redColor]];
+    [self.interstitial setCloseDelay:0.1];
+    [self delay:0.5];
+    [self.interstitial displayAdFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+    UIViewController *pvc = [UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController;
+    id wv = [[pvc.view subviews] firstObject];
+    STAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of BannerAdView");
+    self.webView = (ANWebView *)wv;
+    [self delay:2];
+    
+    [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, 50.0f) withOffset:CGPointZero withCustomClosePosition:@"top-left" allowOffscreen:YES];
+    [self resize];
+    
+    [self delay:100];
+}
+
 - (void)removeBannerFromSuperview {
     if (self.banner) {
         [self.banner removeFromSuperview];

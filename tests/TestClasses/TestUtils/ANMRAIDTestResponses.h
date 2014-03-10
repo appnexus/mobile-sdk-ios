@@ -20,5 +20,6 @@
 
 + (NSString *)basicMRAIDBannerWithSelectorName:(NSString *)selector;
 + (NSString *)MRAIDListenerBannerWithSelectorName:(NSString *)selector;
++ (NSString *)basicMRAIDInterstitialWithSelectorName:(NSString *)selector;
 
 @end
