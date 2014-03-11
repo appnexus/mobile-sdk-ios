@@ -50,7 +50,7 @@
  the example above to set the banner ad view's controller to your
  own view controller implementation.
 */
-@property (nonatomic, readwrite, assign) UIViewController *rootViewController;
+@property (nonatomic, readwrite, weak) UIViewController *rootViewController;
 
 /**
  Represents the width and height of the ad view.  In order for ads
