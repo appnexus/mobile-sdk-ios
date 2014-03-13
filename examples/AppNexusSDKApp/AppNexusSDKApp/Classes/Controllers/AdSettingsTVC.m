@@ -36,19 +36,25 @@
 static NSString *const AdSettingsSectionHeaderViewIdentifier = @"AdSettingsSectionHeaderViewIdentifier";
 
 static NSInteger const AdSettingsSectionHeaderGeneralIndex = 0;
-static NSInteger const AdSettingsSectionHeaderAdvancedIndex = 1;
-static NSInteger const AdSettingsSectionHeaderDebugAuctionIndex = 2;
+static NSInteger const AdSettingsSectionHeaderTargetingIndex = 1;
+static NSInteger const AdSettingsSectionHeaderAdvancedIndex = 2;
+static NSInteger const AdSettingsSectionHeaderDebugAuctionIndex = 3;
 
 static BOOL AdSettingsSectionGeneralIsOpen = YES;
+static BOOL AdSettingsSectionTargetingIsOpen = NO;
 static BOOL AdSettingsSectionAdvancedIsOpen = NO;
 static BOOL AdSettingsSectionDebugAuctionIsOpen = NO;
 
 static NSString *const AdSettingsSectionHeaderTitleLabelGeneral = @"General";
+static NSString *const AdSettingsSectionHeaderTitleLabelTargeting = @"Targeting";
 static NSString *const AdSettingsSectionHeaderTitleLabelAdvanced = @"Advanced";
-static NSString *const AdSettingsSectionHeaderTitleLabelDebugAuction = @"Debug Auction";
+static NSString *const AdSettingsSectionHeaderTitleLabelDebugAuction = @"Diagnostics";
 
-static NSInteger const AdSettingsSizePickerIndex = 3;
-static NSInteger const AdSettingsRefreshRatePickerIndex = 5;
+static NSInteger const AdSettingsSizePickerIndex = 2;
+static NSInteger const AdSettingsRefreshRatePickerIndex = 3;
+
+static NSInteger const AdSettingsSizePickerSection = 0;
+static NSInteger const AdSettingsRefreshRatePickerSection = 2;
 
 #pragma end
 
@@ -103,12 +109,7 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    if (self.sizePickerViewIsVisible || self.refreshRatePickerViewIsVisible) {
-        self.sizePickerViewIsVisible = NO;
-        self.refreshRatePickerViewIsVisible = NO;
-        [self.tableView beginUpdates];
-        [self.tableView endUpdates];
-    }
+    [self hidePickerViews];
 }
 
 #pragma mark Current Settings Setup
@@ -137,6 +138,8 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
                                  animated:NO];
     self.sizePickerViewIsVisible = NO;
     self.refreshRatePickerViewIsVisible = NO;
+    [self.sizePickerView setHidden:YES];
+    [self.refreshRatePickerView setHidden:YES];
 }
 
 #pragma mark Picker Views - Delegate Methods
@@ -530,6 +533,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
             sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelDebugAuction;
             sectionHeaderView.disclosureButton.selected = AdSettingsSectionDebugAuctionIsOpen;
             break;
+        case (AdSettingsSectionHeaderTargetingIndex):
+            sectionHeaderView.titleLabel.text = AdSettingsSectionHeaderTitleLabelTargeting;
+            sectionHeaderView.disclosureButton.selected = AdSettingsSectionTargetingIsOpen;
+            break;
         default:
             sectionHeaderView.titleLabel.text = @"";
             sectionHeaderView.disclosureButton.selected = NO;
@@ -558,6 +565,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
             if (AdSettingsSectionDebugAuctionIsOpen) return;
             AdSettingsSectionDebugAuctionIsOpen = YES;
             break;
+        case (AdSettingsSectionHeaderTargetingIndex):
+            if (AdSettingsSectionTargetingIsOpen) return;
+            AdSettingsSectionTargetingIsOpen = YES;
+            break;
         default:
             return;
     }
@@ -583,6 +594,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
             if (!AdSettingsSectionDebugAuctionIsOpen) return;
             AdSettingsSectionDebugAuctionIsOpen = NO;
             break;
+        case (AdSettingsSectionHeaderTargetingIndex):
+            if (!AdSettingsSectionTargetingIsOpen) return;
+            AdSettingsSectionTargetingIsOpen = NO;
+            break;
         default:
             return;
     }
@@ -604,6 +619,9 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
             break;
         case AdSettingsSectionHeaderDebugAuctionIndex:
             if (!AdSettingsSectionDebugAuctionIsOpen) return 0;
+            break;
+        case AdSettingsSectionHeaderTargetingIndex:
+            if (!AdSettingsSectionTargetingIsOpen) return 0;
             break;
         default:
             break;
@@ -632,11 +650,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section==AdSettingsSectionHeaderGeneralIndex) {
-        if ((indexPath.item == AdSettingsSizePickerIndex && !self.sizePickerViewIsVisible) ||
-            (indexPath.item == AdSettingsRefreshRatePickerIndex && !self.refreshRatePickerViewIsVisible)) {
-            return 0.0f;
-        }
+    BOOL isSizePickerCell = indexPath.section == AdSettingsSizePickerSection && indexPath.item == AdSettingsSizePickerIndex;
+    BOOL isRefreshRatePickerCell = indexPath.section == AdSettingsRefreshRatePickerSection && indexPath.item == AdSettingsRefreshRatePickerIndex;
+    if ((isSizePickerCell && !self.sizePickerViewIsVisible) || (isRefreshRatePickerCell && !self.refreshRatePickerViewIsVisible)) {
+        return 0.0f;
     }
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }

@@ -150,12 +150,12 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, A
 
 - (void)loadInitialVC {
     [self setInitialVCTabBarItem];
-    [self loadPreviewVC];
+    [self loadSettingsVC];
 }
 
 - (void)setInitialVCTabBarItem {
-    if ([self.mainTabBar selectedItem] != self.previewTabBarItem) {
-        [self.mainTabBar setSelectedItem:self.previewTabBarItem];
+    if ([self.mainTabBar selectedItem] != self.settingsTabBarItem) {
+        [self.mainTabBar setSelectedItem:self.settingsTabBarItem];
     }
 }
 
