@@ -166,10 +166,10 @@
  mraid.util.errorEvent("Invalid expandProperties. Retaining default values.", "mraid.setExpandProperties()");
  return;
  }
- if (typeof properties.width === "undefined") {
+ if (typeof properties.width !== "number") {
  properties.width = -1;
  }
- if (typeof properties.height === "undefined") {
+ if (typeof properties.height !== "number") {
  properties.height = -1;
  }
  if (properties.useCustomClose === true) {
@@ -184,13 +184,6 @@
  //returns a json object... {width:300, height:250, useCustomClose:false, isModal:false};
  mraid.getExpandProperties=function(){
  return expand_properties;
- };
- 
- // Takes a boolean
- mraid.useCustomClose=function(well_is_it){
- ep = mraid.getExpandProperties();
- ep.useCustomClose = well_is_it;
- mraid.setExpandProperties(ep);
  };
  
  // Loads a given URL (TODO make this native ) 
@@ -428,7 +421,7 @@
  mraid.util.errorEvent("Invalid resizeProperties", callingFunctionName);
  return false;
  }
- if (typeof properties.width === "undefined" || typeof properties.height === "undefined" || typeof properties.offsetX === "undefined" || typeof properties.offsetY === "undefined") {
+ if (typeof properties.width !== "number" || typeof properties.height !== "number" || typeof properties.offsetX !== "number" || typeof properties.offsetY !== "number") {
  mraid.util.errorEvent("Incomplete resizeProperties. width, height, offsetX, offsetY required", callingFunctionName);
  return false;
  }
