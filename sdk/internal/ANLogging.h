@@ -13,35 +13,23 @@
  limitations under the License.
  */
 
+#import "ANLogManager.h"
+
 #import <Foundation/Foundation.h>
 
 #define AN_DEBUG_MODE				1
 
 extern NSString *const kANLoggingNotification;
 extern NSString *const kANLogMessageKey;
+extern NSString *const kANLogMessageLevelKey;
 
-// Lower = finer-grained logs.
-typedef enum 
-{
-	ANLogLevelAll		= 0,
-	ANLogLevelTrace		= 10,
-	ANLogLevelDebug		= 20,
-	ANLogLevelInfo		= 30,
-	ANLogLevelWarn		= 40,
-	ANLogLevelError		= 50,
-	ANLogLevelFatal		= 60,
-	ANLogLevelOff		= 70
-} ANLogLevel;
-
-ANLogLevel ANLogGetLevel(void);
-void ANLogSetLevel(ANLogLevel level);
 void _ANLogTrace(NSString *format, ...);
 void _ANLogDebug(NSString *format, ...);
 void _ANLogInfo(NSString *format, ...);
 void _ANLogWarn(NSString *format, ...);
 void _ANLogError(NSString *format, ...);
-void _ANLogFatal(NSString *format, ...);
-void notifyListener(NSString *message);
+
+void notifyListener(NSString *message, NSInteger messageLevel);
 
 #if AN_DEBUG_MODE
 
@@ -50,7 +38,6 @@ void notifyListener(NSString *message);
 #define ANLogInfo(...) _ANLogInfo(__VA_ARGS__)
 #define ANLogWarn(...) _ANLogWarn(__VA_ARGS__)
 #define ANLogError(...) _ANLogError(__VA_ARGS__)
-#define ANLogFatal(...) _ANLogFatal(__VA_ARGS__)
 
 #else
 
@@ -59,6 +46,5 @@ void notifyListener(NSString *message);
 #define ANLogInfo(...) {}
 #define ANLogWarn(...) {}
 #define ANLogError(...) {}
-#define ANLogFatal(...) {}
 
 #endif

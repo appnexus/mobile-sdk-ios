@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="APLTableViewController"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" id="2" customClass="AppNexusSDKAppSectionHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                            <rect key="frame" x="20" y="13" width="44" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                            <rect key="frame" x="265" y="6" width="35" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="9CF-09-B3X"/>
+                                <constraint firstAttribute="height" constant="35" id="Pga-gT-uDU"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" image="ArrowRight">
+                                <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="toggleOpen:" destination="2" eventType="touchUpInside" id="17"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.97743941326530615" green="0.97743941326530615" blue="0.97743941326530615" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="3" firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="4vF-aD-Qxe"/>
+                        <constraint firstItem="3" firstAttribute="leading" secondItem="37" secondAttribute="leading" constant="20" symbolic="YES" id="Ern-7F-gyT"/>
+                        <constraint firstAttribute="centerY" secondItem="3" secondAttribute="centerY" id="UT0-BA-Cn0"/>
+                        <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" constant="20" symbolic="YES" id="xpX-qh-RzQ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="37" secondAttribute="trailing" id="A1H-bf-pcY"/>
+                <constraint firstItem="37" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="Gx0-xO-I5d"/>
+                <constraint firstItem="37" firstAttribute="top" secondItem="2" secondAttribute="top" id="Qvm-9d-oLs"/>
+                <constraint firstAttribute="bottom" secondItem="37" secondAttribute="bottom" id="cVn-1d-jPa"/>
+            </constraints>
+            <connections>
+                <outlet property="disclosureButton" destination="4" id="15"/>
+                <outlet property="titleLabel" destination="3" id="16"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="ArrowRight" width="7" height="14"/>
+    </resources>
+</document>

@@ -16,31 +16,12 @@
 #import "ANAdProtocol.h"
 
 @interface ANAdView : UIView <ANAdProtocol>
-{
-    // Size of the ad requested
-    CGSize __adSize;
-
-    // Placement id for the ad
-	NSString *__placementId;
-    
-    UIView *__contentView;
-    UIButton *__closeButton;
-}
 
 #pragma mark Deprecrated Properties
 
-// This property is deprecated, use "opensInNativeBrowser" instead
+/**
+ @deprecated This property is deprecated, use "opensInNativeBrowser" instead
+ */
 @property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
 
 @end
-
-@interface ANAdView (ANAdFetcher)
-@property (nonatomic, readwrite, strong) UIView *contentView;
-@property (nonatomic, readwrite, strong) UIButton *closeButton;
-
-- (void)removeCloseButton;
-
-@end
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////

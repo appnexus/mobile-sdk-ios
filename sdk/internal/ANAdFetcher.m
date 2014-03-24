@@ -15,22 +15,20 @@
 
 #import "ANAdFetcher.h"
 
+#import "ANAdRequestUrl.h"
 #import "ANAdWebViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
-#import "ANReachability.h"
 #import "ANWebView.h"
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
-#import "UIWebView+ANCategory.h"
-
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
+NSString *const kANAdFetcherWillInstantiateMediatedClassNotification = @"kANAdFetcherWillInstantiateMediatedClassKey";
+NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 @interface ANAdFetcher () <NSURLConnectionDataDelegate>
 
@@ -41,24 +39,14 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 @property (nonatomic, readwrite, strong) NSMutableData *data;
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 @property (nonatomic, readwrite, strong) NSURL *URL;
-@property (nonatomic, readonly) NSString *placementId;
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
-@property (nonatomic, readwrite, strong) ANAdWebViewController *webViewController;
+@property (nonatomic, readwrite, strong) ANMRAIDAdWebViewController *webViewController;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
 @end
 
 @implementation ANAdFetcher
-
-@synthesize URL = __URL;
-@synthesize autoRefreshTimer = __autoRefreshTimer;
-@synthesize loading = __loading;
-@synthesize data = __data;
-@synthesize request = __request;
-@synthesize connection = __connection;
-@synthesize webViewController = __webViewController;
-@synthesize delegate = __delegate;
 
 - (id)init
 {
@@ -101,16 +89,12 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 	{
         ANLogInfo(ANErrorString(@"fetcher_start"));
         
-        if ([self.delegate autoRefreshIntervalForAdFetcher:self] > 0.0)
-        {
-            ANLogDebug(ANErrorString(@"fetcher_start_auto"));
-        }
-        else
-        {
-            ANLogDebug(ANErrorString(@"fetcher_start_single"));
-        }
+        ANLogDebug(ANErrorString(([self getAutoRefreshFromDelegate] > 0.0)
+                                 ? @"fetcher_start_auto" : @"fetcher_start_single"));
 		
-        self.URL = URL ? URL : [self adURLWithBaseURLString:[NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME]];
+        NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME];
+        self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
+                                                                      baseUrlString:baseUrlString];
 		
 		if (self.URL != nil)
 		{
@@ -173,253 +157,38 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     self.data = nil;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-    [__connection cancel];
-	[__autoRefreshTimer invalidate];
+- (NSTimeInterval)getAutoRefreshFromDelegate {
+    if ([self.delegate respondsToSelector:@selector(autoRefreshIntervalForAdFetcher:)]) {
+        return [self.delegate autoRefreshIntervalForAdFetcher:self];
+    }
+    return 0.0f;
 }
 
-- (NSString *)placementId
-{
-    return [self.delegate placementId];
+- (CGSize)getAdSizeFromDelegate {
+    if ([self.delegate respondsToSelector:@selector(requestedSizeForAdFetcher:)]) {
+        return [self.delegate requestedSizeForAdFetcher:self];
+    }
+    return CGSizeZero;
+}
+
+- (void)sendDelegateFinishedResponse:(ANAdResponse *)response {
+    if ([self.delegate respondsToSelector:@selector(adFetcher:didFinishRequestWithResponse:)]) {
+        [self.delegate adFetcher:self didFinishRequestWithResponse:response];
+    }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [self.connection cancel];
+    [self.autoRefreshTimer invalidate];
+    [self clearMediationController];
 }
 
 #pragma mark Request Url Construction
 
-- (NSString *)URLEncodingFrom:(NSString *)originalString {
-    return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                                 (CFStringRef)originalString,
-                                                                                 NULL,
-                                                                                 (CFStringRef)@"!*'();:@&=+$,/?%#[]<>",
-                                                                                 kCFStringEncodingUTF8);
-}
-
-- (NSString *)jsonFormatParameter {
-    return @"&format=json";
-}
-
-- (NSString *)placementIdParameter {
-    if (![self.placementId length] > 0) {
-        ANLogError(ANErrorString(@"no_placement_id"));
-        return @"";
-    }
-    
-    return [NSString stringWithFormat:@"id=%@", [self URLEncodingFrom:self.placementId]];
-}
-
-- (NSString *)sdkVersionParameter {
-    return [NSString stringWithFormat:@"&sdkver=%@", AN_SDK_VERSION];
-}
-
-- (NSString *)dontTrackEnabledParameter {
-    return ANAdvertisingTrackingEnabled() ? @"" : @"&dnt=1";
-}
-
-- (NSString *)deviceMakeParameter {
-    return @"&devmake=Apple";
-}
-
-- (NSString *)deviceModelParameter {
-    return [NSString stringWithFormat:@"&devmodel=%@", [self URLEncodingFrom:ANDeviceModel()]];
-}
-
-- (NSString *)applicationIdParameter {
-    NSString *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    return [NSString stringWithFormat:@"&appid=%@", appId];
-}
-
-- (NSString *)firstLaunchParameter {
-    return isFirstLaunch() ? @"&firstlaunch=true" : @"";
-}
-
-- (NSString *)carrierMccMncParameters {
-    NSString *param = @"";
-    
-    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier *carrier = [netinfo subscriberCellularProvider];
-
-    // set the fields to empty string if not available
-    NSString *carrierParameter =
-    ([[carrier carrierName] length] > 0)
-    ? [self URLEncodingFrom:[carrier carrierName]] : @"";
-    
-    NSString *mccParameter =
-    ([[carrier mobileCountryCode] length] > 0)
-    ? [self URLEncodingFrom:[carrier mobileCountryCode]] : @"";
-    
-    NSString *mncParameter =
-    ([carrier mobileNetworkCode] > 0)
-    ? [self URLEncodingFrom:[carrier mobileNetworkCode]] : @"";
-    
-    if ([carrierParameter length] > 0) {
-        param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&carrier=%@", carrierParameter]];
-    }
-    
-    if ([mccParameter length] > 0) {
-        param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&mcc=%@", mccParameter]];
-    }
-    
-    if ([mncParameter length] > 0) {
-        param = [param stringByAppendingString:
-                 [NSString stringWithFormat:@"&mnc=%@", mncParameter]];
-    }
-    
-    return param;
-}
-
-- (NSString *)connectionTypeParameter {
-    ANReachability *reachability = [ANReachability reachabilityForInternetConnection];
-    ANNetworkStatus status = [reachability currentReachabilityStatus];
-    return status == ANNetworkStatusReachableViaWiFi ? @"&connection_type=wifi" : @"&connection_type=wan";
-}
-
-- (NSString *)supplyTypeParameter {
-    return @"&st=mobile_app";
-}
-
-- (NSString *)locationParameter {
-    ANLocation *location = [self.delegate location];
-    NSString *locationParameter = @"";
-    
-    if (location) {
-        NSDate *locationTimestamp = location.timestamp;
-        NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
-        NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
-        
-        locationParameter = [locationParameter
-                             stringByAppendingFormat:@"&loc=%f,%f&loc_age=%ld&loc_prec=%f",
-                             location.latitude, location.longitude,
-                             (long)ageInMilliseconds, location.horizontalAccuracy];
-    }
-    
-    return locationParameter;
-}
-
-- (NSString *)orientationParameter {
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    return [NSString stringWithFormat:@"&orientation=%@",
-            UIInterfaceOrientationIsLandscape(orientation) ? @"h" : @"v"];
-}
-
-- (NSString *)userAgentParameter {
-    return [NSString stringWithFormat:@"&ua=%@",
-            [self URLEncodingFrom:ANUserAgent()]];
-}
-
-- (NSString *)languageParameter {
-    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
-    return ([language length] > 0) ? [NSString stringWithFormat:@"&language=%@", language] : @"";
-}
-
-- (NSString *)devTimeParameter {
-    int timeInMiliseconds = (int) [[NSDate date] timeIntervalSince1970];
-    return [NSString stringWithFormat:@"&devtime=%d", timeInMiliseconds];
-}
-
-- (NSString *)nativeBrowserParameter {
-    return [NSString stringWithFormat:@"&native_browser=%d", self.delegate.opensInNativeBrowser];
-}
-
-- (NSString *)psaAndReserveParameter {
-    BOOL shouldServePsas = [self.delegate shouldServePublicServiceAnnouncements];
-    CGFloat reserve = [self.delegate reserve];
-    if (reserve > 0.0f) {
-        NSString *reserveParameter = [self URLEncodingFrom:[NSString stringWithFormat:@"%f", reserve]];
-        return [NSString stringWithFormat:@"&psa=0&reserve=%@", reserveParameter];
-    } else {
-        return shouldServePsas ? @"&psa=1" : @"&psa=0";
-    }
-}
-
-- (NSString *)ageParameter {
-    NSString *ageValue = [self.delegate age];
-    if ([ageValue length] < 1) {
-        return @"";
-    }
-    
-    ageValue = [self URLEncodingFrom:ageValue];
-    return [NSString stringWithFormat:@"&age=%@", ageValue];
-}
-
-- (NSString *)genderParameter {
-    ANGender genderValue = [self.delegate gender];
-    if (genderValue == MALE) {
-        return @"&gender=m";
-    } else if (genderValue == FEMALE) {
-        return @"&gender=f";
-    } else {
-        return @"";
-    }
-}
-
-- (NSString *)customKeywordsParameter {
-    NSString *customKeywordsParameter = @"";
-    NSMutableDictionary *customKeywords = [self.delegate customKeywords];
-    
-    if ([customKeywords count] < 1) {
-        return @"";
-    }
-    NSArray *customKeywordsKeys = [customKeywords allKeys];
-    
-    for (int i = 0; i < [customKeywords count]; i++) {
-        NSString *value;
-        if ([customKeywordsKeys[i] length] > 0)
-            value = [customKeywords valueForKey:customKeywordsKeys[i]];
-        if (value) {
-            customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
-                                       [NSString stringWithFormat:@"&%@=%@",
-                                        customKeywordsKeys[i],
-                                        [self URLEncodingFrom:value]]];
-        }
-    }
-    return customKeywordsParameter;
-}
-
-- (NSURL *)adURLWithBaseURLString:(NSString *)urlString {
-    urlString = [urlString stringByAppendingString:[self placementIdParameter]];
-	urlString = [urlString stringByAppendingString:ANUdidParameter()];
-    urlString = [urlString stringByAppendingString:[self dontTrackEnabledParameter]];
-    urlString = [urlString stringByAppendingString:[self deviceMakeParameter]];
-    urlString = [urlString stringByAppendingString:[self deviceModelParameter]];
-    urlString = [urlString stringByAppendingString:[self carrierMccMncParameters]];
-    urlString = [urlString stringByAppendingString:[self applicationIdParameter]];
-    urlString = [urlString stringByAppendingString:[self firstLaunchParameter]];
-
-    urlString = [urlString stringByAppendingString:[self locationParameter]];
-    urlString = [urlString stringByAppendingString:[self userAgentParameter]];
-    urlString = [urlString stringByAppendingString:[self orientationParameter]];
-    urlString = [urlString stringByAppendingString:[self connectionTypeParameter]];
-    urlString = [urlString stringByAppendingString:[self devTimeParameter]];
-    urlString = [urlString stringByAppendingString:[self languageParameter]];
-
-    urlString = [urlString stringByAppendingString:[self nativeBrowserParameter]];
-    urlString = [urlString stringByAppendingString:[self psaAndReserveParameter]];
-    urlString = [urlString stringByAppendingString:[self ageParameter]];
-    urlString = [urlString stringByAppendingString:[self genderParameter]];
-    urlString = [urlString stringByAppendingString:[self customKeywordsParameter]];
-
-    urlString = [urlString stringByAppendingString:[self jsonFormatParameter]];
-    urlString = [urlString stringByAppendingString:[self supplyTypeParameter]];
-    urlString = [urlString stringByAppendingString:[self sdkVersionParameter]];
-    
-    if ([self.delegate respondsToSelector:@selector(extraParametersForAdFetcher:)]) {
-        NSArray *extraParameters = [self.delegate extraParametersForAdFetcher:self];
-        
-        for (NSString *param in extraParameters) {
-            urlString = [urlString stringByAppendingString:param];
-        }
-    }
-	
-	return [NSURL URLWithString:urlString];
-}
-
 - (void)processFinalResponse:(ANAdResponse *)response {
-    [self.delegate adFetcher:self didFinishRequestWithResponse:response];
+    [self sendDelegateFinishedResponse:response];
     [self startAutoRefreshTimer];
 }
 
@@ -430,7 +199,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     self.autoRefreshTimer = nil;
     
     // setup new autoRefreshTimer if refresh interval positive
-    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
+    NSTimeInterval interval = [self getAutoRefreshFromDelegate];
     if (interval > 0.0f) {
         self.autoRefreshTimer = [NSTimer timerWithTimeInterval:interval
                                                         target:self
@@ -466,64 +235,51 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         [self handleMediatedAds:self.mediatedAds];
     }
     else {
-        CGSize sizeOfCreative;
-        if ([response.width floatValue] > 0 && [response.height floatValue] > 0)
-            sizeOfCreative = CGSizeMake([response.width floatValue], [response.height floatValue]);
-        else
-            sizeOfCreative = [self.delegate requestedSizeForAdFetcher:self];
-        
-        // Generate a new webview to contain the HTML
-        ANWebView *webView = [[ANWebView alloc] initWithFrame:(CGRect){{0, 0}, {sizeOfCreative.width, sizeOfCreative.height}}];
-        webView.backgroundColor = [UIColor clearColor];
-        webView.opaque = NO;
-        webView.scrollEnabled = NO;
-        
-        NSURL *baseURL = nil;
-        
-        
-        if (response.isMraid)
-        {
-            // MRAID adapter
-            NSBundle *resBundle = ANResourcesBundle();
-            if (!resBundle) {
-                ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
-                return;
-            }
-            NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
-            if (!mraidBundlePath) {
-                ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
-                return;
-            }
-            baseURL = [NSURL fileURLWithPath:mraidBundlePath];
-            
-            ANMRAIDAdWebViewController *mraidWebViewController = [[ANMRAIDAdWebViewController alloc] init];
-            mraidWebViewController.mraidDelegate = self.delegate;
-            self.webViewController = mraidWebViewController;
-        }
-        else
-        {
-            // standard banner ad
-            baseURL = self.URL;
-            
-            self.webViewController = [[ANAdWebViewController alloc] init];
-        }
-        
-        self.webViewController.adFetcher = self;
-        self.webViewController.webView = webView;
-        webView.delegate = self.webViewController;
-        
-        // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
-        CGSize receivedSize = webView.frame.size;
-        CGSize requestedSize = [self.delegate requestedSizeForAdFetcher:self];
-        
-        if (CGSizeLargerThanSize(receivedSize, requestedSize))
-        {
-            ANLogInfo([NSString stringWithFormat:ANErrorString(@"adsize_too_big"), (int)requestedSize.width, (int)requestedSize.height, (int)receivedSize.width, (int)receivedSize.height]);
-        }
-        
-        [webView loadHTMLString:response.content baseURL:baseURL];
+        // no mediatedAds, parse for non-mediated ad response
+        [self handleStandardAd:response];
     }
     
+}
+
+- (void)handleStandardAd:(ANAdResponse *)response {
+    // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
+    CGSize receivedSize = CGSizeMake([response.width floatValue], [response.height floatValue]);
+    CGSize requestedSize = [self getAdSizeFromDelegate];
+    
+    CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
+    CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
+    
+    if (!CGRectContainsRect(requestedRect, receivedRect)) {
+        ANLogInfo([NSString stringWithFormat:ANErrorString(@"adsize_too_big"),
+                   (int)receivedSize.width, (int)receivedSize.height,
+                   (int)requestedSize.width, (int)requestedSize.height]);
+    }
+
+    CGSize sizeOfCreative = ((receivedSize.width > 0)
+                             && (receivedSize.height > 0)) ? receivedSize : requestedSize;
+
+    // Generate a new webview to contain the HTML
+    ANWebView *webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
+    
+    self.webViewController = [[ANMRAIDAdWebViewController alloc] init];
+    self.webViewController.isMRAID = response.isMraid;
+    self.webViewController.mraidDelegate = self.delegate;
+    self.webViewController.mraidDelegate.mraidEventReceiverDelegate = self.webViewController;
+    self.webViewController.adFetcher = self;
+    self.webViewController.webView = webView;
+    webView.delegate = self.webViewController;
+    
+    NSURL *mraidBundlePath = [NSURL fileURLWithPath:ANMRAIDBundlePath()];
+    NSURL *baseURL = self.webViewController.isMRAID ? mraidBundlePath : self.URL;
+    NSString *contentToLoad = response.content;
+    if (!self.webViewController.isMRAID) {
+        NSData *data = [NSData dataWithContentsOfFile:[[[NSBundle alloc] initWithPath:ANMRAIDBundlePath()] pathForResource:@"mraid"
+                                                                                                                    ofType:@"js"]];
+        NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>", [[NSString alloc] initWithData:data
+                                                                                                                                  encoding:NSUTF8StringEncoding]];
+        contentToLoad = [mraidScript stringByAppendingString:contentToLoad];
+    }
+    [webView loadHTMLString:contentToLoad baseURL:baseURL];
 }
 
 - (void)handleMediatedAds:(NSMutableArray *)mediatedAds
@@ -537,9 +293,12 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     if (!currentAd) {
         ANLogDebug(@"ad was null");
         errorCode = ANAdResponseUnableToFill;
-        [self finishRequestWithErrorAndRefresh:nil code:errorCode];
     } else {
         ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), currentAd.className]);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherWillInstantiateMediatedClassNotification
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObject:currentAd.className
+                                                                                               forKey:kANAdFetcherMediatedClassKey]];
 
         Class adClass = NSClassFromString(currentAd.className);
         
@@ -550,7 +309,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         } else {
             id adInstance = [[adClass alloc] init];
             
-            if (!adInstance)
+            if (!adInstance || ![adInstance respondsToSelector:@selector(setDelegate:)])
             {
                 ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"ANCustomAdapterBanner or ANCustomAdapterInterstitial"]);
                 errorCode = ANAdResponseMediatedSDKUnavailable;
@@ -574,6 +333,7 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     }
     if (errorCode != ANDefaultCode) {
         [self fireResultCB:currentAd.resultCB reason:errorCode adObject:nil];
+        [self clearMediationController];
         return;
     }
     
@@ -588,9 +348,6 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
     adInstance.delegate = self.mediationController;
     [self.mediationController setAdapter:adInstance];
     [self.mediationController setResultCBString:resultCB];
-    
-    //start timeout
-    [self.mediationController startTimeout];
 }
 
 - (void)clearMediationController {
@@ -603,16 +360,20 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 {
     self.loading = NO;
     
-    NSTimeInterval interval = [self.delegate autoRefreshIntervalForAdFetcher:self];
-    ANLogInfo(@"No ad received. Will request ad in %f seconds.", interval);
-    
     NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:code userInfo:errorInfo];
     ANAdResponse *response = [ANAdResponse adResponseFailWithError:error];
     [self processFinalResponse:response];
+
+    NSTimeInterval interval = [self getAutoRefreshFromDelegate];
+    if (interval > 0.0) {
+        ANLogInfo(@"No ad received. Will request ad in %f seconds. Error: %@", interval, error.localizedDescription);
+    } else {
+        ANLogInfo(@"No ad received. Error: %@", error.localizedDescription);
+    }
 }
 
 - (void)startAutoRefreshTimer {
-    if (self.autoRefreshTimer == nil) {
+    if (!self.autoRefreshTimer) {
         ANLogDebug(ANErrorString(@"fetcher_stopped"));
     } else if ([self.autoRefreshTimer isScheduled]) {
         ANLogDebug(@"AutoRefresh timer already scheduled.");
@@ -736,14 +497,16 @@ NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
         ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:adObject];
         [self processFinalResponse:response];
     } else {
-        // fire the resultCB if there is one
-        if ([resultCBString length] > 0) {
-            // treat failed responses as normal requests
-            [self requestAdWithURL:[NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]]];
-        } else {
-            // if no resultCB and no successful ads yet,
-            // look for the next ad in the current array
-            [self processAdResponse:nil];
+        if (self.delegate) { // if there is still a delegate to send a successful ad response to
+            // fire the resultCB if there is one
+            if ([resultCBString length] > 0) {
+                // treat failed responses as normal requests
+                [self requestAdWithURL:[NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]]];
+            } else {
+                // if no resultCB and no successful ads yet,
+                // look for the next ad in the current array
+                [self processAdResponse:nil];
+            }
         }
     }
 }

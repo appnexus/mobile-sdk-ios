@@ -61,16 +61,6 @@ BOOL ANAdvertisingTrackingEnabled()
     return YES;
 }
 
-BOOL CGSizeLargerThanSize(CGSize firstSize, CGSize secondSize)
-{
-    if ((firstSize.height > secondSize.height) && (firstSize.width > secondSize.width))
-    {
-        return YES;
-    }
-    
-    return NO;
-}
-
 BOOL isFirstLaunch()
 {
 	BOOL isFirstLaunch = ![[NSUserDefaults standardUserDefaults] boolForKey:kANFirstLaunchKey];
@@ -99,7 +89,7 @@ NSString *ANUdidParameter() {
                 udidComponent = [NSString stringWithFormat:@"&idfa=%@", advertisingIdentifier];
             }
             else {
-                ANLogError(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
+                ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
             }
         }
 #endif
@@ -115,4 +105,51 @@ NSString *ANErrorString(NSString *key) {
 NSBundle *ANResourcesBundle() {
     NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
     return resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle mainBundle];
+}
+
+NSString *convertToNSString(id value) {
+    if ([value isKindOfClass:[NSString class]]) return value;
+    if ([value respondsToSelector:@selector(stringValue)]) {
+        return [value stringValue];
+    }
+    ANLogWarn(@"Failed to convert to NSString");
+    return nil;
+}
+
+CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
+    CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
+    
+    CGRect adjustedRect;
+    switch ([UIApplication sharedApplication].statusBarOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+            adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
+            break;
+        default:
+            adjustedRect = rect;
+            break;
+    }
+    
+    return adjustedRect;
+}
+
+NSString *ANMRAIDBundlePath() {
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return @"";
+    }
+    NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
+    if (!mraidBundlePath) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return @"";
+    }
+    return mraidBundlePath;
 }

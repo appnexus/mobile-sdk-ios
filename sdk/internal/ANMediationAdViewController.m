@@ -26,8 +26,8 @@
 @property (nonatomic, readwrite, assign) BOOL hasSucceeded;
 @property (nonatomic, readwrite, assign) BOOL hasFailed;
 @property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
-@property (nonatomic, readwrite, strong) ANAdFetcher *fetcher;
-@property (nonatomic, readwrite, strong) id<ANAdViewDelegate> adViewDelegate;
+@property (nonatomic, readwrite, weak) ANAdFetcher *fetcher;
+@property (nonatomic, readwrite, weak) id<ANAdViewDelegate> adViewDelegate;
 @property (nonatomic, readwrite, strong) NSString *resultCBString;
 @end
 
@@ -52,11 +52,9 @@
     self.hasFailed = YES;
     self.fetcher = nil;
     self.adViewDelegate = nil;
-    ANLogWarn(ANErrorString(@"mediation_finish"));
-}
-
-- (void)setResultCBString:(NSString *)resultCBString {
-    _resultCBString = resultCBString;
+    self.resultCBString = nil;
+    [self cancelTimeout];
+    ANLogInfo(ANErrorString(@"mediation_finish"));
 }
 
 - (BOOL)requestAd:(CGSize)size
@@ -72,9 +70,12 @@
     targetingParameters.idforadvertising = ANUdidParameter();
 
     // if the class implements both banner and interstitial protocols, default to banner first
-    if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]) {
+    if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
+        && [self.currentAdapter respondsToSelector:@selector(
+            requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
         // make sure the container is a banner view
         if ([adView isKindOfClass:[ANBannerAdView class]]) {
+            [self startTimeout];
             ANBannerAdView *banner = (ANBannerAdView *)adView;
 
             id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
@@ -85,9 +86,12 @@
                                targetingParameters:targetingParameters];
             return YES;
         }
-    } else if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+    } else if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]
+               && [self.currentAdapter respondsToSelector:@selector(
+                   requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
         // make sure the container is an interstitial view
         if ([adView isKindOfClass:[ANInterstitialAd class]]) {
+            [self startTimeout];
             id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
                                                            adUnitId:idString
@@ -97,7 +101,7 @@
     }
     
     ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"ANCustomAdapterBanner or ANCustomAdapterInterstitial"]);
-    self.hasFailed = YES;
+    [self clearAdapter];
     return NO;
 }
 
@@ -157,12 +161,10 @@
 #pragma mark helper methods
 
 - (BOOL)checkIfHasResponded {
-    // don't succeed or fail more than once per mediated ad
-    if (self.hasSucceeded || self.hasFailed) {
-        return YES;
-    }
+    // we received a callback from mediation adaptor, cancel timeout
     [self cancelTimeout];
-    return NO;
+    // don't succeed or fail more than once per mediated ad
+    return (self.hasSucceeded || self.hasFailed);
 }
 
 - (void)didReceiveAd:(id)adObject {
@@ -176,22 +178,25 @@
 
 - (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
     if ([self checkIfHasResponded]) return;
-    [self.fetcher fireResultCB:self.resultCBString reason:errorCode adObject:nil];
+    ANAdFetcher *fetcher = self.fetcher;
+    NSString *resultCBString = self.resultCBString;
     [self clearAdapter];
+    [fetcher fireResultCB:resultCBString reason:errorCode adObject:nil];
 }
 
 #pragma mark Timeout handler
 
 - (void)startTimeout {
-    if ([self checkIfHasResponded]) return;
-    self.timeoutCanceled = NO;
+    if (self.timeoutCanceled) return;
+    __weak ANMediationAdViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  kAppNexusMediationNetworkTimeoutInterval
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-                       if (self.timeoutCanceled) return;
+                       ANMediationAdViewController *strongSelf = weakSelf;
+                       if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(ANErrorString(@"mediation_timeout"));
-                       [self didFailToReceiveAd:ANAdResponseInternalError];
+                       [strongSelf didFailToReceiveAd:ANAdResponseInternalError];
                    });
     
 }

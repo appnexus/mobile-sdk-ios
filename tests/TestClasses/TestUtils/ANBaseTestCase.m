@@ -14,6 +14,7 @@
  */
 
 #import "ANBaseTestCase.h"
+#import "ANLogManager.h"
 
 @interface ANBaseTestCase () 
 
@@ -23,6 +24,7 @@
 
 - (void)setUp {
     [super setUp];
+    [ANLogManager setANLogLevel:ANLogLevelAll];
     [[LSNocilla sharedInstance] start];
 }
 
@@ -85,11 +87,24 @@
     return _testComplete;
 }
 
+- (void)delay:(NSTimeInterval)seconds {
+    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:seconds];
+    
+    do {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
+        if ([timeoutDate timeIntervalSinceNow] < 0.0) {
+            break;
+        }
+    }
+    while (true);
+}
+
 - (void)loadBannerAd {
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
                    adSize:CGSizeMake(320, 50)];
+    self.banner.rootViewController = [[UIApplication sharedApplication].delegate window].rootViewController;
     self.banner.autoRefreshInterval = 0.0;
     self.banner.delegate = self;
     [self.banner loadAd];

@@ -33,18 +33,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC142D8018BBB4B9003989A0 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		EC142D8118BBB4B9003989A0 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
+		EC142D8218BBB4B9003989A0 /* GADCustomEventBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBannerDelegate.h; sourceTree = "<group>"; };
+		EC142D8318BBB4B9003989A0 /* GADCustomEventExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventExtras.h; sourceTree = "<group>"; };
+		EC142D8418BBB4B9003989A0 /* GADCustomEventInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitial.h; sourceTree = "<group>"; };
+		EC142D8518BBB4B9003989A0 /* GADCustomEventInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitialDelegate.h; sourceTree = "<group>"; };
+		EC142D8618BBB4B9003989A0 /* GADCustomEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventRequest.h; sourceTree = "<group>"; };
+		EC142D8718BBB4B9003989A0 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
 		EC2A47581845447900D29747 /* ANGADCustomBannerAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADCustomBannerAd.h; sourceTree = "<group>"; };
 		EC2A47591845447900D29747 /* ANGADCustomBannerAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADCustomBannerAd.m; sourceTree = "<group>"; };
 		EC2A475A1845447900D29747 /* ANGADCustomInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADCustomInterstitialAd.h; sourceTree = "<group>"; };
 		EC2A475B1845447900D29747 /* ANGADCustomInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADCustomInterstitialAd.m; sourceTree = "<group>"; };
-		EC2A47611845462900D29747 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
-		EC2A47621845462900D29747 /* GADCustomEventBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBannerDelegate.h; sourceTree = "<group>"; };
-		EC2A47631845462900D29747 /* GADCustomEventExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventExtras.h; sourceTree = "<group>"; };
-		EC2A47641845462900D29747 /* GADCustomEventInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitial.h; sourceTree = "<group>"; };
-		EC2A47651845462900D29747 /* GADCustomEventInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitialDelegate.h; sourceTree = "<group>"; };
-		EC2A47661845462900D29747 /* GADCustomEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventRequest.h; sourceTree = "<group>"; };
-		EC2A47671845467700D29747 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
-		EC2A4768184546BD00D29747 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
 		EC3905FE186694B40017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		ECF23E961845340900A94DE8 /* libANSDKAdMob.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMob.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF23E991845340900A94DE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,6 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC142D7F18BBB4B9003989A0 /* GoogleAdMobAds */ = {
+			isa = PBXGroup;
+			children = (
+				EC142D8018BBB4B9003989A0 /* GADAdSize.h */,
+				EC142D8118BBB4B9003989A0 /* GADCustomEventBanner.h */,
+				EC142D8218BBB4B9003989A0 /* GADCustomEventBannerDelegate.h */,
+				EC142D8318BBB4B9003989A0 /* GADCustomEventExtras.h */,
+				EC142D8418BBB4B9003989A0 /* GADCustomEventInterstitial.h */,
+				EC142D8518BBB4B9003989A0 /* GADCustomEventInterstitialDelegate.h */,
+				EC142D8618BBB4B9003989A0 /* GADCustomEventRequest.h */,
+				EC142D8718BBB4B9003989A0 /* GADRequest.h */,
+			);
+			name = GoogleAdMobAds;
+			path = mediation/mediating/libs/GoogleAdMobAds;
+			sourceTree = "<group>";
+		};
 		EC2A47571845447900D29747 /* AdMob */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,26 +100,10 @@
 			path = mediation/mediating/AdMob;
 			sourceTree = "<group>";
 		};
-		EC2A47601845462900D29747 /* GoogleAdMobAdsSdkiOS-6.6.1 */ = {
-			isa = PBXGroup;
-			children = (
-				EC2A4768184546BD00D29747 /* GADRequest.h */,
-				EC2A47671845467700D29747 /* GADAdSize.h */,
-				EC2A47611845462900D29747 /* GADCustomEventBanner.h */,
-				EC2A47621845462900D29747 /* GADCustomEventBannerDelegate.h */,
-				EC2A47631845462900D29747 /* GADCustomEventExtras.h */,
-				EC2A47641845462900D29747 /* GADCustomEventInterstitial.h */,
-				EC2A47651845462900D29747 /* GADCustomEventInterstitialDelegate.h */,
-				EC2A47661845462900D29747 /* GADCustomEventRequest.h */,
-			);
-			name = "GoogleAdMobAdsSdkiOS-6.6.1";
-			path = "mediation/mediating/libs/GoogleAdMobAdsSdkiOS-6.6.1";
-			sourceTree = "<group>";
-		};
 		ECF23E8D1845340900A94DE8 = {
 			isa = PBXGroup;
 			children = (
-				EC2A47601845462900D29747 /* GoogleAdMobAdsSdkiOS-6.6.1 */,
+				EC142D7F18BBB4B9003989A0 /* GoogleAdMobAds */,
 				EC2A47571845447900D29747 /* AdMob */,
 				ECF23EBF184534D000A94DE8 /* ANSDK */,
 				ECF23E981845340900A94DE8 /* Frameworks */,
@@ -260,7 +260,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

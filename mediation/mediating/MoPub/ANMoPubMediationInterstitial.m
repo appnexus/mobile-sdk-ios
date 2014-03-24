@@ -15,6 +15,7 @@
 
 #import "ANMoPubMediationInterstitial.h"
 #import "ANInterstitialAd.h"
+#import "ANLocation.h"
 
 @interface ANMoPubMediationInterstitial ()
 
@@ -45,6 +46,18 @@
     
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:placementId];
     self.interstitial.delegate = self;
+    
+    if ([self.delegate location]) {
+        CLLocation *mpLoc = [self.delegate location];
+        ANLocation *anLoc = [ANLocation getLocationWithLatitude:(CGFloat)mpLoc.coordinate.latitude
+                                                      longitude:(CGFloat)mpLoc.coordinate.longitude
+                                                      timestamp:mpLoc.timestamp
+                                             horizontalAccuracy:(CGFloat)mpLoc.horizontalAccuracy];
+        [self.interstitial setLocation:anLoc];
+    }
+    
+    NSMutableDictionary *customKeywords = [info mutableCopy];
+    [self.interstitial setCustomKeywords:customKeywords];
     
     [self.interstitial loadAd];
 }

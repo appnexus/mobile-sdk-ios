@@ -17,7 +17,7 @@
 
 @protocol GADCustomEventInterstitial;
 
-@protocol GADCustomEventInterstitialDelegate <NSObject>
+@protocol GADCustomEventInterstitialDelegate<NSObject>
 
 // Your Custom Event object must call this when it receives or creates an
 // interstitial ad. If there is an ad object, pass it in the method call.
@@ -31,27 +31,22 @@
 - (void)customEventInterstitial:(id<GADCustomEventInterstitial>)customEvent
                       didFailAd:(NSError *)error;
 
-
 // When you call any of the the following methods, the call will be propagated
 // back to the GADInterstitialDelegate that you implemented and passed to
 // GADInterstitial.
 
 // Your Custom Event should call this when the interstitial is being displayed.
-- (void)customEventInterstitialWillPresent:
-    (id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialWillPresent:(id<GADCustomEventInterstitial>)customEvent;
 
 // Your Custom Event should call this when the interstitial is about to be
 // dismissed.
-- (void)customEventInterstitialWillDismiss:
-    (id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialWillDismiss:(id<GADCustomEventInterstitial>)customEvent;
 
 // Your Custom Event should call this when the interstitial has been dismissed.
-- (void)customEventInterstitialDidDismiss:
-    (id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialDidDismiss:(id<GADCustomEventInterstitial>)customEvent;
 
 // Your Custom Event should call this method when a user action will result in
 // App switching.
-- (void)customEventInterstitialWillLeaveApplication:
-    (id<GADCustomEventInterstitial>)customEvent;
+- (void)customEventInterstitialWillLeaveApplication:(id<GADCustomEventInterstitial>)customEvent;
 
 @end

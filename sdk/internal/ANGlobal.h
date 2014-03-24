@@ -23,7 +23,7 @@
 #define AN_RESOURCE_BUNDLE @"ANSDKResources"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"1.7"
+#define AN_SDK_VERSION              @"1.12"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -35,6 +35,7 @@
 #define kAppNexusRequestTimeoutInterval 30.0
 #define kAppNexusAnimationDuration 0.4f
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
+#define kAppNexusMRAIDCheckViewableFrequency 1.0
 
 // Banner AutoRefresh
 
@@ -59,8 +60,10 @@
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
-BOOL CGSizeLargerThanSize(CGSize firstSize, CGSize secondSize);
 BOOL isFirstLaunch(void);
 NSString *ANUdidParameter(void);
 NSString *ANErrorString(NSString *key);
 NSBundle *ANResourcesBundle();
+NSString *convertToNSString(id value);
+CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
+NSString *ANMRAIDBundlePath();

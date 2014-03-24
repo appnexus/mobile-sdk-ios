@@ -9,7 +9,7 @@
 #import "GADBannerView.h"
 #import "GADInterstitial.h"
 
-@protocol GADAppEventDelegate <NSObject>
+@protocol GADAppEventDelegate<NSObject>
 
 // Implement your app event within these methods. The delegate will be notified
 // when the SDK receives an app event message from the ad.

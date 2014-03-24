@@ -27,7 +27,6 @@
 
 @property (strong, nonatomic) NSString *requestURL;
 @property (strong, nonatomic) NSString *serverResponse;
-@property (weak, nonatomic) IBOutlet UIButton *emailButton;
 
 @end
 
@@ -49,7 +48,7 @@
     }
 }
 
-- (IBAction)emailResults:(UIButton *)sender {
+- (IBAction)emailResults:(UIBarButtonItem *)sender {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         picker.mailComposeDelegate = self;

@@ -26,34 +26,15 @@
 
 @implementation DataDisplayHelper
 
+#pragma mark Size Setting Delegate
+
 + (NSInteger)sizeCount {
     return [DEFAULT_BANNER_SIZES count];
-}
-
-+ (NSInteger)refreshRateCount {
-    return [DEFAULT_REFRESH_RATES count];
-}
-
-+ (NSString *)refreshRateStringAtIndex:(NSInteger)index {
-    int refreshRate = [[DEFAULT_REFRESH_RATES objectAtIndex:index] intValue];
-    if (!refreshRate) {
-        return TIME_DELAY_OFF;
-    } else {
-        return [NSString stringWithFormat:@"%d Seconds",refreshRate];
-    }
 }
 
 + (NSString *)sizeStringAtIndex:(NSInteger)index {
     NSArray *split = [[DEFAULT_BANNER_SIZES objectAtIndex:index] componentsSeparatedByString:@"|"];
     return [NSString stringWithFormat:@"%@%@%@",[split objectAtIndex:0], SIZE_SEPARATOR, [split objectAtIndex:1]];
-}
-
-+ (NSString *)refreshRateStringFromInteger:(NSInteger)refreshRate {
-    if(refreshRate) {
-        return [NSString stringWithFormat:@"%ld Seconds",(long)refreshRate];
-    } else {
-        return TIME_DELAY_OFF;
-    }
 }
 
 + (NSString *)bannerSizeWithWidth:(NSInteger)width height:(NSInteger)height {
@@ -70,10 +51,6 @@
     return [[split objectAtIndex:1] intValue];
 }
 
-+ (NSInteger)refreshRateAtIndex:(NSInteger)index {
-    return [[DEFAULT_REFRESH_RATES objectAtIndex:index] intValue];
-}
-
 + (NSInteger)indexForBannerSizeWithWidth:(NSInteger)width height:(NSInteger)height {
     for (int index=0; index < [DEFAULT_BANNER_SIZES count]; index++) {
         if ([self bannerWidthAtIndex:index] == width && [self bannerHeightAtIndex:index] == height) {
@@ -83,6 +60,33 @@
     return 0;
 }
 
+#pragma mark Refresh Rate Setting Delegate
+
++ (NSInteger)refreshRateCount {
+    return [DEFAULT_REFRESH_RATES count];
+}
+
++ (NSString *)refreshRateStringAtIndex:(NSInteger)index {
+    int refreshRate = [[DEFAULT_REFRESH_RATES objectAtIndex:index] intValue];
+    if (!refreshRate) {
+        return TIME_DELAY_OFF;
+    } else {
+        return [NSString stringWithFormat:@"%d Seconds",refreshRate];
+    }
+}
+
++ (NSString *)refreshRateStringFromInteger:(NSInteger)refreshRate {
+    if(refreshRate) {
+        return [NSString stringWithFormat:@"%ld Seconds",(long)refreshRate];
+    } else {
+        return TIME_DELAY_OFF;
+    }
+}
+
++ (NSInteger)refreshRateAtIndex:(NSInteger)index {
+    return [[DEFAULT_REFRESH_RATES objectAtIndex:index] intValue];
+}
+
 + (NSInteger)indexForRefreshRate:(NSInteger)refreshRate {
     for (int index=0; index < [DEFAULT_REFRESH_RATES count]; index++) {
         if ([self refreshRateAtIndex:index] == refreshRate) {
@@ -90,6 +94,15 @@
         }
     }
     return 0;
+}
+
+#pragma mark Reserve Price Setting Delegate
+
++ (NSString *)stringFromReservePrice:(double)price {
+    double priceCPM = price * 100.0;
+    int priceCPMfloor = floor(priceCPM);
+    if (abs(1 - priceCPMfloor/priceCPM) < 10e-15) return [NSString stringWithFormat:@"%.2f", price];
+    return [NSString stringWithFormat:@"%f", price];
 }
 
 @end

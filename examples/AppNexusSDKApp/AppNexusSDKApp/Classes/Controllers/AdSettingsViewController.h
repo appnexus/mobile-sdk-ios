@@ -14,6 +14,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "AppNexusSDKAppModalViewController.h"
 
 @protocol LoadPreviewVCDelegate <NSObject>
 
@@ -21,7 +22,7 @@
 
 @end
 
-@interface AdSettingsViewController : UIViewController
+@interface AdSettingsViewController : UIViewController <AppNexusSDKAppModalViewControllerDelegate>
 
 @property (strong, nonatomic) id <LoadPreviewVCDelegate> previewLoader;
 

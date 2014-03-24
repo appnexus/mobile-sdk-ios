@@ -17,27 +17,16 @@
 
 NSString *const kANLoggingNotification = @"kANLoggingNotification";
 NSString *const kANLogMessageKey = @"kANLogMessageKey";
-
-static ANLogLevel ANLOG_LEVEL = ANLogLevelDebug;
-
-ANLogLevel ANLogGetLevel()
-{
-	return ANLOG_LEVEL;
-}
-
-void ANLogSetLevel(ANLogLevel level)
-{
-	ANLOG_LEVEL = level;
-}
+NSString *const kANLogMessageLevelKey = @"kANLogMessageLevelKey";
 
 void _ANLogTrace(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelTrace)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelTrace)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
         va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init]);
+        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelTrace);
         NSLogv(format, args);
         va_end(args);
     }
@@ -45,12 +34,12 @@ void _ANLogTrace(NSString *format, ...)
 
 void _ANLogDebug(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelDebug)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelDebug)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
         va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init]);
+        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelDebug);
         NSLogv(format, args);
         va_end(args);
     }
@@ -58,12 +47,12 @@ void _ANLogDebug(NSString *format, ...)
 
 void _ANLogWarn(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelWarn)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelWarn)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
         va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init]);
+        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelWarn);
         NSLogv(format, args);
         va_end(args);
     }
@@ -71,12 +60,12 @@ void _ANLogWarn(NSString *format, ...)
 
 void _ANLogInfo(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelInfo)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelInfo)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
         va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init]);
+        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelInfo);
         NSLogv(format, args);
         va_end(args);
     }
@@ -84,33 +73,21 @@ void _ANLogInfo(NSString *format, ...)
 
 void _ANLogError(NSString *format, ...)
 {
-	if (ANLOG_LEVEL <= ANLogLevelError)
+	if ([ANLogManager getANLogLevel] <= ANLogLevelError)
     {
 		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
         va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init]);
+        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelError);
         NSLogv(format, args);
         va_end(args);
     }
 }
 
-void _ANLogFatal(NSString *format, ...)
-{
-	if (ANLOG_LEVEL <= ANLogLevelFatal)
-    {
-		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
-        va_list args;
-        va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init]);
-        NSLogv(format, args);
-        va_end(args);
-    }
-}
-
-void notifyListener(NSString *message)
-{
+void notifyListener(NSString *message, NSInteger messageLevel)
+{   
     [[NSNotificationCenter defaultCenter] postNotificationName:kANLoggingNotification
                                                         object:nil
-                                                      userInfo:[NSDictionary dictionaryWithObject:message forKey:kANLogMessageKey]];
+                                                      userInfo:@{kANLogMessageKey: message,
+                                                                 kANLogMessageLevelKey: [NSNumber numberWithInteger:messageLevel]}];
 }

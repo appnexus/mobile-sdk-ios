@@ -25,6 +25,11 @@
 #define DEFAULT_BACKGROUD_COLOR @"FF000000"
 #define DEFAULT_MEMBER_ID 0
 #define DEFAULT_DONGLE @""
+#define DEFAULT_AGE @""
+#define DEFAULT_GENDER UNKNOWN
+#define DEFAULT_RESERVE 0.0
+#define DEFAULT_CUSTOM_KEYWORDS [[NSDictionary alloc] init]
+#define DEFAULT_ZIPCODE @""
 
 @interface AdSettings : NSObject
 
@@ -47,6 +52,13 @@ typedef NS_ENUM(int, BrowserType) {
 
 @property (nonatomic) BrowserType browserType;
 @property (nonatomic) int placementID;
+
+@property (nonatomic) NSString *age;
+@property (nonatomic) double reserve;
+@property (nonatomic) int gender;
+@property (nonatomic) NSString *zipcode;
+
+@property (nonatomic) NSDictionary *customKeywords;
 
 /*
     Banner Properties

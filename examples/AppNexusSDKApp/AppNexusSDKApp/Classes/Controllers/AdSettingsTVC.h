@@ -36,9 +36,16 @@
 
 @end
 
+@protocol ReservePriceSettingDelegate <NSObject>
+
++ (NSString *)stringFromReservePrice:(double)price;
+
+@end
+
 @interface AdSettingsTVC : UITableViewController
 
 @property (strong, nonatomic) id <SizeSettingDelegate> sizeDelegate;
 @property (strong, nonatomic) id <RefreshRateSettingDelegate> refreshRateDelegate;
+@property (strong, nonatomic) id <ReservePriceSettingDelegate> reservePriceDelegate;
 
 @end

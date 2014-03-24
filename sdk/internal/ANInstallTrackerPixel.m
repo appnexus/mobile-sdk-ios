@@ -107,7 +107,7 @@
 	}
 	else
 	{
-		ANLogError(@"Already fired install tracker pixel. Please wait for this call to finish before firing another.");
+		ANLogWarn(@"Already fired install tracker pixel. Please wait for this call to finish before firing another.");
 	}
 }
 
@@ -140,7 +140,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-	ANLogError(@"Install tracker pixel connection %@ failed with error %@", connection, error);
+	ANLogWarn(@"Install tracker pixel connection %@ failed with error %@", connection, error);
 	
 	self.loading = NO;
 	
@@ -155,7 +155,7 @@
 	}
 	else
 	{
-		ANLogError(@"Install tracker pixel failed to convert after %d tries. Stopping attempts.", AN_INSTALL_TRACKER_PIXEL_MAX_ATTEMPTS);
+		ANLogWarn(@"Install tracker pixel failed to convert after %d tries. Stopping attempts.", AN_INSTALL_TRACKER_PIXEL_MAX_ATTEMPTS);
 	}
 }
 

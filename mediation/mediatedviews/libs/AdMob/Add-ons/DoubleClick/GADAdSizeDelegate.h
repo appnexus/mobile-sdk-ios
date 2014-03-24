@@ -14,7 +14,7 @@
 #import "GADAdSize.h"
 #import "GADBannerView.h"
 
-@protocol GADAdSizeDelegate <NSObject>
+@protocol GADAdSizeDelegate<NSObject>
 
 - (void)adView:(GADBannerView *)view willChangeAdSizeTo:(GADAdSize)size;
 

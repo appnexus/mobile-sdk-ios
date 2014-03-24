@@ -14,7 +14,7 @@
 
 #import "GADAdNetworkExtras.h"
 
-@interface GADCustomEventExtras : NSObject <GADAdNetworkExtras>
+@interface GADCustomEventExtras : NSObject<GADAdNetworkExtras>
 
 // Set additional parameters for the custom event with label |label|. To remove
 // additional parameters associated with |label|, pass in nil for |extras|.

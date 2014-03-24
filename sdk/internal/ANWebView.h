@@ -13,6 +13,36 @@
  limitations under the License.
  */
 
+#import "ANMRAIDProperties.h"
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 @interface ANWebView : UIWebView
-@property (nonatomic, assign) BOOL safety;
+@end
+
+@interface UIWebView (MRAIDExtensions)
+// MRAID events
+- (void)fireReadyEvent;
+- (void)fireStateChangeEvent:(ANMRAIDState)state;
+- (void)fireNewCurrentPositionEvent:(CGRect)frame;
+- (void)fireErrorEvent:(NSString *)errorString function:(NSString *)function;
+
+// set values for MRAID getters
+- (void)setPlacementType:(NSString *)placementType;
+- (void)setIsViewable:(BOOL)viewable;
+- (void)setCurrentPosition:(CGRect)frame;
+- (void)setDefaultPosition:(CGRect)frame;
+- (void)setScreenSize:(CGSize)size;
+- (void)setMaxSize:(CGSize)size;
+- (void)setSupportsTel:(BOOL)isSupported;
+- (void)setSupportsSMS:(BOOL)isSupported;
+- (void)setSupportsCalendar:(BOOL)isSupported;
+- (void)setSupportsStorePicture:(BOOL)isSupported;
+- (void)setSupportsInlineVideo:(BOOL)isSupported;
+
+- (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
+
+- (ANMRAIDState)getMRAIDState;
+
 @end

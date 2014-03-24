@@ -14,7 +14,7 @@
 // Your Custom Event handler object for banners must implement this protocol.
 // The requestBannerAd method will be called when Mediation schedules your
 // Custom Event to be executed.
-@protocol GADCustomEventBanner <NSObject>
+@protocol GADCustomEventBanner<NSObject>
 
 // This method is called by Mediation when your Custom Event is scheduled to
 // be executed. Results of the execution should be reported back via the
@@ -40,6 +40,6 @@
 // -setDelegate: yourself.
 //
 // In your object's -dealloc method, remember to nil out the delegate.
-@property (nonatomic, assign) id<GADCustomEventBannerDelegate>delegate;
+@property(nonatomic, assign) id<GADCustomEventBannerDelegate> delegate;
 
 @end

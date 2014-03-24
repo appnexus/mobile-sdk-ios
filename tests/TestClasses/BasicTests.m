@@ -110,7 +110,6 @@ float const BASIC_TIMEOUT = 10.0;
     [self checkAdDidLoad];
     
     [self showInterstitialAd];
-    [self checkInterstitialDisplayed:YES];
     [self clearTest];
 }
 
@@ -122,7 +121,6 @@ float const BASIC_TIMEOUT = 10.0;
     [self checkAdFailedToLoad];
     
     [self showInterstitialAd];
-    [self checkInterstitialDisplayed:NO];
     [self clearTest];
 }
 
@@ -134,7 +132,6 @@ float const BASIC_TIMEOUT = 10.0;
     [self checkAdFailedToLoad];
     
     [self showInterstitialAd];
-    [self checkInterstitialDisplayed:NO];
     [self clearTest];
 }
 

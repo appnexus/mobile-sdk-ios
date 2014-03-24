@@ -32,17 +32,11 @@
 
 @implementation DebugOutputViewController
 
-/*
-  
- Future Feature: Make fully searchable, kind of like Leff's debug auction tool
- 
- */
-
 - (IBAction)popDebugAuction:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)emailResults:(UIButton *)sender {
+- (IBAction)emailResults:(UIBarButtonItem *)sender {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         picker.mailComposeDelegate = self;
@@ -68,13 +62,14 @@
     return _refreshControl;
 }
 
-- (void)refreshControlSetup {
-    [self.refreshControl addTarget:self action:@selector(loadDebug) forControlEvents:UIControlEventValueChanged];
-    [self.debugOutputDisplay.scrollView addSubview:self.refreshControl];
+- (IBAction)refreshDebug:(UIBarButtonItem *)sender {
+    [self loadDebug];
 }
 
-- (IBAction)refreshDebug:(UIButton *)sender {
-    [self loadDebug];
+- (IBAction)jumpToBottom:(UIBarButtonItem *)sender {
+    UIScrollView *webViewScrollView = [self.debugOutputDisplay scrollView];
+    [webViewScrollView setContentOffset:CGPointMake(0.0, webViewScrollView.contentSize.height - webViewScrollView.bounds.size.height)
+                               animated:NO];
 }
 
 - (void)loadDebug {
@@ -86,8 +81,7 @@
                    settings.dongle]];
     
     NSURL *url = [[NSURL alloc] initWithString:urlString];
-    ANLogDebug(@"Running Debug: %@", urlString);
-    
+
     dispatch_queue_t debugQueue = dispatch_queue_create("debug downloader", NULL);
     dispatch_async(debugQueue, ^{
         UIApplication *myApplication = [UIApplication sharedApplication]; // get shared application context
@@ -103,11 +97,9 @@
     });
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self refreshControlSetup];
     [self loadDebug];
 }
 

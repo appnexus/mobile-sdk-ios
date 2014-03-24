@@ -15,9 +15,9 @@
 
 // Genders to help deliver more relevant ads.
 typedef NS_ENUM(NSInteger, GADGender) {
-  kGADGenderUnknown,
-  kGADGenderMale,
-  kGADGenderFemale
+  kGADGenderUnknown,  ///< Unknown gender.
+  kGADGenderMale,     ///< Male gender.
+  kGADGenderFemale    ///< Female gender.
 };
 
 // Specifies optional parameters for ad requests.

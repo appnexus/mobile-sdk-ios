@@ -15,6 +15,7 @@
 
 #import "ANMoPubMediationBanner.h"
 #import "ANBannerAdView.h"
+#import "ANLocation.h"
 
 @interface ANMoPubMediationBanner ()
 
@@ -46,7 +47,7 @@
     id widthParam = [info objectForKey:@"width"];
     id heightParam = [info objectForKey:@"height"];
     id placementId = [info objectForKey:@"id"];
-    
+
     // fail if any of the parameters is missing
     if (!widthParam || !heightParam || !placementId) {
         NSLog(@"Parameters from server were invalid");
@@ -58,6 +59,20 @@
     
     self.adBannerView = [ANBannerAdView adViewWithFrame:frame
                                             placementId:placementId];
+    self.adBannerView.rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    
+    if ([self.delegate location]) {
+        CLLocation *mpLoc = [self.delegate location];
+        ANLocation *anLoc = [ANLocation getLocationWithLatitude:(CGFloat)mpLoc.coordinate.latitude
+                                                      longitude:(CGFloat)mpLoc.coordinate.longitude
+                                                      timestamp:mpLoc.timestamp
+                                             horizontalAccuracy:(CGFloat)mpLoc.horizontalAccuracy];
+        [self.adBannerView setLocation:anLoc];
+    }
+    
+    NSMutableDictionary *customKeywords = [info mutableCopy];
+    [self.adBannerView setCustomKeywords:customKeywords];
+    
     self.adBannerView.delegate = self;
     [self.adBannerView loadAd];
 }

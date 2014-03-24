@@ -16,6 +16,6 @@
 #import <Foundation/Foundation.h>
 #import "AdSettingsTVC.h"
 
-@interface DataDisplayHelper : NSObject <SizeSettingDelegate, RefreshRateSettingDelegate>
+@interface DataDisplayHelper : NSObject <SizeSettingDelegate, RefreshRateSettingDelegate, ReservePriceSettingDelegate>
 
 @end

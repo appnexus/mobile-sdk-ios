@@ -14,7 +14,7 @@
 
 @class GADBannerView;
 
-@protocol GADSwipeableBannerViewDelegate <NSObject>
+@protocol GADSwipeableBannerViewDelegate<NSObject>
 
 @optional
 

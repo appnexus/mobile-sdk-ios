@@ -19,7 +19,7 @@
 #import "ANAdWebViewController.h"
 #import "ANCustomAdapter.h"
 
-@class ANAdWebViewController;
+@class ANMRAIDAdWebViewController;
 @class ANLocation;
 @protocol ANAdFetcherDelegate;
 
@@ -27,6 +27,8 @@ extern NSString *const kANAdFetcherWillRequestAdNotification;
 extern NSString *const kANAdFetcherDidReceiveResponseNotification;
 extern NSString *const kANAdFetcherAdRequestURLKey;
 extern NSString *const kANAdFetcherAdResponseKey;
+extern NSString *const kANAdFetcherWillInstantiateMediatedClassNotification;
+extern NSString *const kANAdFetcherMediatedClassKey;
 
 @interface ANAdFetcher : NSObject
 
@@ -41,28 +43,19 @@ extern NSString *const kANAdFetcherAdResponseKey;
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject;
+- (void)processAdResponse:(ANAdResponse *)response;
 - (void)processFinalResponse:(ANAdResponse *)response;
 @end
 
-@protocol ANAdFetcherDelegate <NSObject, ANAdViewDelegate, ANMRAIDAdViewDelegate>
-
-@property (nonatomic, readwrite, strong) NSString *placementId;
-@property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
-@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
-@property (nonatomic, readwrite, strong) ANLocation *location;
-@property (nonatomic, readwrite, assign) CGFloat reserve;
-@property (nonatomic, readwrite, strong) NSString *age;
-@property (nonatomic, readwrite, assign) ANGender gender;
-@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
-
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
+@protocol ANAdFetcherDelegate <ANAdProtocol, ANAdViewDelegate, ANMRAIDAdViewDelegate>
 
 @optional
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL;
 
 // Delegate method for ANAdView subclasses to provide parameters that are specific to them. Should return an array of NSString
-- (NSArray *)extraParametersForAdFetcher:(ANAdFetcher *)fetcher;
+- (NSArray *)extraParameters;
 
 @end

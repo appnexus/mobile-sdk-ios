@@ -48,12 +48,13 @@
 }
 
 - (void)resetViewForRotations:(UIInterfaceOrientation)orientation {
+    UIInterfaceOrientation orientationAfterRotation = orientation;
     if (!self.allowOrientationChange) {
-        return;
+        orientationAfterRotation = self.orientation;
     }
     
     CGRect mainBounds = [[UIScreen mainScreen] bounds];
-    if (UIInterfaceOrientationIsLandscape(orientation)) {
+    if (UIInterfaceOrientationIsLandscape(orientationAfterRotation)) {
         CGFloat portraitHeight = mainBounds.size.height;
         CGFloat portraitWidth = mainBounds.size.width;
         mainBounds.size.height = portraitWidth;
@@ -63,15 +64,6 @@
     [self.contentView setFrame:mainBounds];
 }
 
-- (void)forceOrientation:(UIInterfaceOrientation)orientation {
-    self.orientation = orientation;
-    
-    UIViewController *dummyVC = [UIViewController new];
-    [self presentViewController:dummyVC animated:NO completion:^{
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }];
-}
-
 // locking orientation in iOS 6+
 - (BOOL)shouldAutorotate {
     return self.allowOrientationChange;
@@ -79,7 +71,7 @@
 
 - (NSUInteger)supportedInterfaceOrientations {
     if (self.allowOrientationChange) {
-        return [super supportedInterfaceOrientations];
+        return [[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:[self.view window]];
     } else {
         switch (self.orientation) {
             case UIInterfaceOrientationPortrait:

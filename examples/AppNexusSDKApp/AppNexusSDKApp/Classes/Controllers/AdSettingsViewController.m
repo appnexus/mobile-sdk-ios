@@ -15,7 +15,6 @@
 
 #import "AdSettingsViewController.h"
 
-
 @interface AdSettingsViewController ()
 
 @end
@@ -25,6 +24,21 @@
 - (IBAction)loadPreviewTVC:(id)sender {
     // passback to AppNexusSDKAppViewController
     [self.previewLoader forceLoadPreviewVCWithReset];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController isKindOfClass:[AppNexusSDKAppModalViewController class]]) {
+        AppNexusSDKAppModalViewController *help = (AppNexusSDKAppModalViewController *)[segue destinationViewController];
+        help.orientation = [UIApplication sharedApplication].statusBarOrientation;
+        [UIApplication sharedApplication].keyWindow.rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        help.delegate = self;
+    }
+}
+
+- (void)sdkAppModalViewControllerShouldDismiss:(AppNexusSDKAppModalViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [UIApplication sharedApplication].keyWindow.rootViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+    }];
 }
 
 @end

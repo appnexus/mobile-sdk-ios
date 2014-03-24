@@ -43,7 +43,7 @@
     }
 }
 
-- (IBAction)emailResults:(UIButton *)sender {
+- (IBAction)emailResults:(UIBarButtonItem *)sender {
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         picker.mailComposeDelegate = self;

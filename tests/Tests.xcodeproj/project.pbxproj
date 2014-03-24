@@ -30,6 +30,8 @@
 		5CEF6F701732F8BC0054A86F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
 		5CEF6F721732F8C00054A86F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F711732F8C00054A86F /* AdSupport.framework */; };
 		5CEF6F761732F8C90054A86F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F751732F8C90054A86F /* CoreTelephony.framework */; };
+		8A3C4098189705500070F145 /* MRAIDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4095189705500070F145 /* MRAIDTests.m */; };
+		8A3C409C18970AFC0070F145 /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */; };
 		EC09B2B31834350E00D76510 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2B21834350E00D76510 /* BasicTests.m */; };
 		EC09B2F8183437CC00D76510 /* NSData+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2601834340200D76510 /* NSData+Nocilla.m */; };
 		EC09B2FA183437CC00D76510 /* NSString+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2621834340200D76510 /* NSString+Nocilla.m */; };
@@ -70,6 +72,8 @@
 		EC40562D183D6818006A1D09 /* ANLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A41822CAD300420840 /* ANLoadThenFail.m */; };
 		EC40562F183D6818006A1D09 /* ANTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD929A61822CAD300420840 /* ANTimeout.m */; };
 		EC405631183D6818006A1D09 /* ANSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = EC405606183D566C006A1D09 /* ANSuccessfulBanner.m */; };
+		EC7AB08B188883C300C27B1E /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AB08A188883C300C27B1E /* ANLogManager.m */; };
+		EC7AB08E188883DB00C27B1E /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AB08D188883DB00C27B1E /* ANAdRequestUrl.m */; };
 		EC7F4CD217C7FA4700F5039E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */; };
 		EC7F4CD417C7FA5300F5039E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */; };
 		EC7F4CD617C7FA9F00F5039E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */; };
@@ -104,6 +108,7 @@
 		ECABE5A81821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */; };
 		ECABE5A91821E4C80037E6C5 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5861821E4C80037E6C5 /* MRAID.bundle */; };
 		ECB57A551822C43700FA7441 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
+		ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */; };
 		ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECD9298B1822CAD300420840 /* InfoPlist.strings */; };
 		ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECD929901822CAD300420840 /* TestsTests-Info.plist */; };
 		ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD8155E17DA64C20046A256 /* SenTestingKit.framework */; };
@@ -163,6 +168,9 @@
 		5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5CEF6F711732F8C00054A86F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		5CEF6F751732F8C90054A86F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		8A3C4095189705500070F145 /* MRAIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAIDTests.m; sourceTree = "<group>"; };
+		8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDTestResponses.m; sourceTree = "<group>"; };
+		8A3C409A18970AFC0070F145 /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EC09B25F1834340200D76510 /* NSData+Nocilla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Nocilla.h"; sourceTree = "<group>"; };
 		EC09B2601834340200D76510 /* NSData+Nocilla.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Nocilla.m"; sourceTree = "<group>"; };
@@ -229,6 +237,10 @@
 		EC40560E183D5D88006A1D09 /* ANBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseTestCase.m; sourceTree = "<group>"; };
 		EC40560F183D5D88006A1D09 /* ANTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestResponses.h; sourceTree = "<group>"; };
 		EC405610183D5D88006A1D09 /* ANTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestResponses.m; sourceTree = "<group>"; };
+		EC7AB089188883BB00C27B1E /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
+		EC7AB08A188883C300C27B1E /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
+		EC7AB08C188883DB00C27B1E /* ANAdRequestUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequestUrl.h; sourceTree = "<group>"; };
+		EC7AB08D188883DB00C27B1E /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
 		EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -282,6 +294,8 @@
 		ECABE5841821E4C80037E6C5 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECABE5861821E4C80037E6C5 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
+		ECBA78B7187F6D4800F1D73F /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		ECD9298C1822CAD300420840 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationCallbacksTests.m; sourceTree = "<group>"; };
 		ECD9298F1822CAD300420840 /* MediationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationTests.m; sourceTree = "<group>"; };
@@ -389,19 +403,16 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				ECD9298A1822CAD300420840 /* TestClasses */,
-				ECABE5431821E4C80037E6C5 /* sdk */,
-				EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */,
-				080E96DDFE201D6D7F000001 /* Classes */,
 				5C3208F6173053FE00DAB5CF /* Default-568h@2x.png */,
-				EC09B25C1834340200D76510 /* libs */,
+				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				5C3208F3173053D700DAB5CF /* iPad */,
-				EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */,
+				EC09B25C1834340200D76510 /* libs */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				ECABE5431821E4C80037E6C5 /* sdk */,
+				ECD9298A1822CAD300420840 /* TestClasses */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -427,6 +438,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EC7F4CD517C7FA9F00F5039E /* QuartzCore.framework */,
+				EC7F4CD317C7FA5300F5039E /* MediaPlayer.framework */,
+				EC7F4CD117C7FA4700F5039E /* AVFoundation.framework */,
 				EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */,
 				5CA6D4BB17A9884A00DD6891 /* StoreKit.framework */,
 				5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */,
@@ -595,6 +609,8 @@
 			children = (
 				EC40560D183D5D88006A1D09 /* ANBaseTestCase.h */,
 				EC40560E183D5D88006A1D09 /* ANBaseTestCase.m */,
+				8A3C409A18970AFC0070F145 /* ANMRAIDTestResponses.h */,
+				8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */,
 				EC40560F183D5D88006A1D09 /* ANTestResponses.h */,
 				EC405610183D5D88006A1D09 /* ANTestResponses.m */,
 			);
@@ -604,12 +620,14 @@
 		ECABE5431821E4C80037E6C5 /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				ECE5B256184FA4BE00D0C8FD /* ANAdView.h */,
-				ECE5B257184FA4BE00D0C8FD /* ANCustomAdapter.h */,
-				ECE5B258184FA4BE00D0C8FD /* ANLocation.h */,
+				EC7AB089188883BB00C27B1E /* ANLogManager.h */,
 				ECABE5441821E4C80037E6C5 /* ANAdProtocol.h */,
+				ECE5B256184FA4BE00D0C8FD /* ANAdView.h */,
 				ECABE5451821E4C80037E6C5 /* ANBannerAdView.h */,
+				ECE5B257184FA4BE00D0C8FD /* ANCustomAdapter.h */,
 				ECABE5461821E4C80037E6C5 /* ANInterstitialAd.h */,
+				ECE5B258184FA4BE00D0C8FD /* ANLocation.h */,
+				ECBA78B7187F6D4800F1D73F /* ANTargetingParameters.h */,
 				ECABE5471821E4C80037E6C5 /* Categories */,
 				ECABE5581821E4C80037E6C5 /* internal */,
 				ECABE57B1821E4C80037E6C5 /* Resources */,
@@ -642,6 +660,8 @@
 				ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */,
 				ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */,
 				ECABE55C1821E4C80037E6C5 /* ANAdResponse.m */,
+				EC7AB08C188883DB00C27B1E /* ANAdRequestUrl.h */,
+				EC7AB08D188883DB00C27B1E /* ANAdRequestUrl.m */,
 				ECABE55E1821E4C80037E6C5 /* ANAdView.m */,
 				ECABE55F1821E4C80037E6C5 /* ANAdViewDelegate.h */,
 				ECABE5601821E4C80037E6C5 /* ANAdWebViewController.h */,
@@ -659,12 +679,14 @@
 				ECABE5701821E4C80037E6C5 /* ANLocation.m */,
 				ECABE5711821E4C80037E6C5 /* ANLogging.h */,
 				ECABE5721821E4C80037E6C5 /* ANLogging.m */,
+				EC7AB08A188883C300C27B1E /* ANLogManager.m */,
 				ECABE5731821E4C80037E6C5 /* ANMediatedAd.h */,
 				ECABE5741821E4C80037E6C5 /* ANMediatedAd.m */,
 				ECABE5751821E4C80037E6C5 /* ANMediationAdViewController.h */,
 				ECABE5761821E4C80037E6C5 /* ANMediationAdViewController.m */,
 				ECABE5771821E4C80037E6C5 /* ANReachability.h */,
 				ECABE5781821E4C80037E6C5 /* ANReachability.m */,
+				ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */,
 				ECABE5791821E4C80037E6C5 /* ANWebView.h */,
 				ECABE57A1821E4C80037E6C5 /* ANWebView.m */,
 			);
@@ -701,13 +723,14 @@
 		ECD9298A1822CAD300420840 /* TestClasses */ = {
 			isa = PBXGroup;
 			children = (
-				EC40560C183D5D88006A1D09 /* TestUtils */,
+				EC09B2B21834350E00D76510 /* BasicTests.m */,
 				ECD9298B1822CAD300420840 /* InfoPlist.strings */,
 				ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */,
 				ECD9298F1822CAD300420840 /* MediationTests.m */,
-				EC09B2B21834350E00D76510 /* BasicTests.m */,
+				8A3C4095189705500070F145 /* MRAIDTests.m */,
 				ECD929901822CAD300420840 /* TestsTests-Info.plist */,
 				ECD929911822CAD300420840 /* TestsTests-Prefix.pch */,
+				EC40560C183D5D88006A1D09 /* TestUtils */,
 				ECD929921822CAD300420840 /* TestViews */,
 			);
 			path = TestClasses;
@@ -872,10 +895,12 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				5C3208FB173061C700DAB5CF /* ANDemoAdsViewController.m in Sources */,
 				5C320905173090F300DAB5CF /* ANDemoConsoleViewController.m in Sources */,
+				ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				5C3209001730664500DAB5CF /* RootViewController.m in Sources */,
 				EC3640E6183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m in Sources */,
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
+				EC7AB08B188883C300C27B1E /* ANLogManager.m in Sources */,
 				ECABE58F1821E4C80037E6C5 /* ANAdResponse.m in Sources */,
 				ECABE5911821E4C80037E6C5 /* ANAdWebViewController.m in Sources */,
 				ECABE5901821E4C80037E6C5 /* ANAdView.m in Sources */,
@@ -883,6 +908,7 @@
 				ECABE5931821E4C80037E6C5 /* ANBrowserViewController.m in Sources */,
 				ECABE5951821E4C80037E6C5 /* ANGlobal.m in Sources */,
 				ECABE5961821E4C80037E6C5 /* ANInstallTrackerPixel.m in Sources */,
+				EC7AB08E188883DB00C27B1E /* ANAdRequestUrl.m in Sources */,
 				ECABE5971821E4C80037E6C5 /* ANInterstitialAd.m in Sources */,
 				ECABE5981821E4C80037E6C5 /* ANInterstitialAdViewController.m in Sources */,
 				ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */,
@@ -918,6 +944,7 @@
 				EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */,
 				ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */,
 				ECD929BA1822CD0E00420840 /* MediationTests.m in Sources */,
+				8A3C409C18970AFC0070F145 /* ANMRAIDTestResponses.m in Sources */,
 				EC09B2B31834350E00D76510 /* BasicTests.m in Sources */,
 				EC09B2F8183437CC00D76510 /* NSData+Nocilla.m in Sources */,
 				EC09B2FA183437CC00D76510 /* NSString+Nocilla.m in Sources */,
@@ -926,6 +953,7 @@
 				EC09B301183437CC00D76510 /* LSStubRequestDSL.m in Sources */,
 				EC09B303183437CC00D76510 /* LSStubResponseDSL.m in Sources */,
 				EC09B305183437CC00D76510 /* ASIHTTPRequestStub.m in Sources */,
+				8A3C4098189705500070F145 /* MRAIDTests.m in Sources */,
 				EC09B307183437CC00D76510 /* LSASIHTTPRequestAdapter.m in Sources */,
 				EC09B309183437CC00D76510 /* LSASIHTTPRequestHook.m in Sources */,
 				EC09B30B183437CC00D76510 /* LSHTTPClientHook.m in Sources */,
@@ -984,6 +1012,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1004,6 +1033,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1017,10 +1047,12 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = "Ad-Hoc";
 		};
@@ -1039,6 +1071,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Tests;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1077,6 +1110,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = TestsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -1157,10 +1191,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1172,9 +1207,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

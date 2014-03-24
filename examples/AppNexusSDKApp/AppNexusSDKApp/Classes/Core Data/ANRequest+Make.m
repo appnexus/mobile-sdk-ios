@@ -39,16 +39,14 @@
     NSArray *matches = [context executeFetchRequest:request error:&error];
 
     if (!matches) {
-        ANLogDebug(@"%@ %@ | Error Pulling From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        ANLogError(@"%@ %@ | Error Pulling From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         return nil;
     } else {
-        ANLogDebug(@"%@ %@ | Successfully Pulled From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         return [matches lastObject];
     }
 }
 
 + (void)deleteExcessRequests:(NSManagedObjectContext *)context {
-    ANLogDebug(@"%@ %@ | Deleting Excess Requests...", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"ANRequest"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"datetime" ascending:YES]];
 
@@ -56,13 +54,10 @@
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
     if (!matches) {
-        ANLogDebug(@"%@ %@ | Error Pulling From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        ANLogError(@"%@ %@ | Error Pulling From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     } else {
-        ANLogDebug(@"%@ %@ | Successfully Pulled From Managed Object Context", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        ANLogDebug(@"%@ %@ | Matches Count: %d", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [matches count]);
         if ([matches count] > REQUEST_STORE_LIMIT) {
             for (int i = 0; i < [matches count] - REQUEST_STORE_LIMIT; i++) {
-                ANLogDebug(@"%@ %@ | Deleting Request", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
                 [context deleteObject:[matches objectAtIndex:i]];
             }
         }
@@ -74,7 +69,6 @@
         ANRequest *request = [[self class] lastRequestMadeInManagedObjectContext:context];
         if (request) {
             ANResponse *response = [ANResponse responseWithOutput:output onDate:date inManagedObjectContext:context];
-            ANLogDebug(@"storeResponseOutput");
             request.response = response;
         }
     }
