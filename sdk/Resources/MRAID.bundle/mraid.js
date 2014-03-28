@@ -363,43 +363,50 @@
  placement_type=type;
  };
  
- mraid.util.readyEvent=function(){
- for(var i=0;i<listeners['ready'].length;i++){
- listeners['ready'][i]();
- }
- };
- 
- mraid.util.errorEvent=function(message, what_doing){
- for(var i=0;i<listeners['error'].length;i++){
- listeners['error'][i](message, what_doing);
- }
- };
- 
- mraid.util.viewableChangeEvent=function(is_viewable_now){
- if(state==='loading') return;
- is_viewable = is_viewable_now;
- for(var i=0;i<listeners['viewableChange'].length;i++){
- listeners['viewableChange'][i](is_viewable_now);
- }
- };
- 
- mraid.util.setIsViewable=function(is_it_viewable){
- if(is_viewable===is_it_viewable) return;
- is_viewable=is_it_viewable;
- mraid.util.viewableChangeEvent(is_viewable);
- };
- 
- mraid.util.stateChangeEvent=function(new_state){
- if(state===new_state && state!='resized') return;
- state=new_state;
- if(new_state==='hidden'){
- mraid.util.setIsViewable(false);
- }
- for(var i=0;i<listeners['stateChange'].length;i++){
- listeners['stateChange'][i](new_state);
- }
- };
- 
+    mraid.util.fireEvent = function (event) {
+        if (!listeners[event]) {
+            return;
+        }
+
+        var args = Array.prototype.slice.call(arguments);
+        args.shift();
+        var length = listeners[event].length;
+        for (var i = 0; i < length; i++) {
+            if (typeof listeners[event][i] === "function") {
+                listeners[event][i].apply(null, args);
+            }
+        }
+    }
+
+    mraid.util.readyEvent = function () {
+        mraid.util.fireEvent('ready');
+    };
+
+    mraid.util.errorEvent = function (message, what_doing) {
+        mraid.util.fireEvent('error', what_doing);
+    };
+
+    mraid.util.viewableChangeEvent = function (is_viewable_now) {
+        if (state === 'loading') return;
+        is_viewable = is_viewable_now;
+        mraid.util.fireEvent('viewableChange', is_viewable_now);
+    };
+
+    mraid.util.setIsViewable = function (is_it_viewable) {
+        if (is_viewable === is_it_viewable) return;
+        is_viewable = is_it_viewable;
+        mraid.util.viewableChangeEvent(is_viewable);
+    };
+
+    mraid.util.stateChangeEvent = function (new_state) {
+        if (state === new_state && state != 'resized') return;
+        state = new_state;
+        if (new_state === 'hidden') {
+            mraid.util.setIsViewable(false);
+        }
+        mraid.util.fireEvent('stateChange', new_state);
+    };
+
  mraid.util.sizeChangeEvent=function(width, height){
  if(state==='loading') {
  size_event_width = width;
@@ -409,10 +416,7 @@
  if(width != size_event_width || height != size_event_height) {
     size_event_width = width;
     size_event_height = height;
-    for(var i=0;i<listeners['sizeChange'].length;i++){
-        listeners['sizeChange'][i](width, height);
-    }
- 
+    mraid.util.fireEvent('sizeChange', width, height);
    }
  }
  
