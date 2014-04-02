@@ -17,5 +17,5 @@
 #import "ANCustomAdapter.h"
 
 @interface ANTimeout : NSObject <ANCustomAdapterBanner>
-
++ (void)setTimeout:(CGFloat)timeout;
 @end

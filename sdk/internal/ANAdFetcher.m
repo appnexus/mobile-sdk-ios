@@ -332,8 +332,8 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         }
     }
     if (errorCode != ANDefaultCode) {
-        [self fireResultCB:currentAd.resultCB reason:errorCode adObject:nil];
         [self clearMediationController];
+        [self fireResultCB:currentAd.resultCB reason:errorCode adObject:nil];
         return;
     }
     

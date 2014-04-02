@@ -72,6 +72,26 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
 }
 
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
+                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult {
+    ANMediatedAd *firstAd = [ANMediatedAd dummy];
+    firstAd.className = firstClass;
+    NSString *firstHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
+                              [[NSMutableArray alloc] initWithObjects:firstAd, nil]
+                                                                    withResultCB:firstResult];
+    
+    ANMediatedAd *secondAd = [ANMediatedAd dummy];
+    secondAd.className = secondClass;
+    NSString *secondHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
+                               [[NSMutableArray alloc] initWithObjects:secondAd, nil]
+                                                                     withResultCB:secondResult];
+    
+    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:
+                               [[NSMutableArray alloc] initWithObjects:firstHandler,
+                                secondHandler, nil]];
+    return [ANTestResponses createMediatedResponse:mediatedField];
+}
+
++ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
                             secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult
                              thirdClass:(NSString *)thirdClass thirdResult:(NSString *)thirdResult {
     ANMediatedAd *firstAd = [ANMediatedAd dummy];
