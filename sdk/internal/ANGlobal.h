@@ -16,6 +16,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define AN_BASE_URL @"http://mediation.adnxs.com/"
 #define AN_MOBILE_HOSTNAME @"mediation.adnxs.com/mob"
 #define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
@@ -61,9 +62,10 @@ NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
 BOOL isFirstLaunch(void);
-NSString *ANUdidParameter(void);
+NSString *ANUDID(void);
 NSString *ANErrorString(NSString *key);
 NSBundle *ANResourcesBundle();
 NSString *convertToNSString(id value);
 CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *ANMRAIDBundlePath();
+BOOL hasHttpPrefix(NSString *url);

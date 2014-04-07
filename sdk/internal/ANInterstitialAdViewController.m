@@ -17,6 +17,7 @@
 
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
 @interface ANInterstitialAdViewController ()
@@ -136,8 +137,10 @@
 			
 			[self.containerView addSubview:contentView];
 		}
-		
+        
+        [__contentView removeSubviews];
 		[__contentView removeFromSuperview];
+        [self.containerView removeSubviews];
 		
 		if ([__contentView isKindOfClass:[UIWebView class]])
 		{

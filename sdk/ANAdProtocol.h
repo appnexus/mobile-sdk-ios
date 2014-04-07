@@ -166,3 +166,17 @@ typedef enum _ANGender
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
 
 @end
+
+/**
+ Delegate to receive app events from the ad.
+ */
+@protocol ANAppEventDelegate <NSObject>
+
+/**
+ Called when the ad has sent the app an event via the AppNexus
+ Javascript API for Mobile
+ */
+- (void)ad:(id<ANAdProtocol>)ad
+didReceiveAppEvent:(NSString *)name withData:(NSString *)data;
+
+@end

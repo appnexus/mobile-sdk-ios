@@ -268,18 +268,41 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     self.webViewController.adFetcher = self;
     self.webViewController.webView = webView;
     webView.delegate = self.webViewController;
-    
-    NSURL *mraidBundlePath = [NSURL fileURLWithPath:ANMRAIDBundlePath()];
-    NSURL *baseURL = self.webViewController.isMRAID ? mraidBundlePath : self.URL;
+
     NSString *contentToLoad = response.content;
-    if (!self.webViewController.isMRAID) {
-        NSData *data = [NSData dataWithContentsOfFile:[[[NSBundle alloc] initWithPath:ANMRAIDBundlePath()] pathForResource:@"mraid"
-                                                                                                                    ofType:@"js"]];
-        NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>", [[NSString alloc] initWithData:data
-                                                                                                                                  encoding:NSUTF8StringEncoding]];
-        contentToLoad = [mraidScript stringByAppendingString:contentToLoad];
+    contentToLoad = [self prependMRAIDJS:contentToLoad];
+    contentToLoad = [self prependSDKJS:contentToLoad];
+    
+    [webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:AN_BASE_URL]];
+}
+
+- (NSString *)prependMRAIDJS:(NSString *)content {
+    NSString *mraidPath = ANMRAIDBundlePath();
+    if ([mraidPath length] < 1) {
+        return content;
     }
-    [webView loadHTMLString:contentToLoad baseURL:baseURL];
+    NSBundle *mraidBundle = [[NSBundle alloc] initWithPath:ANMRAIDBundlePath()];
+    NSData *data = [NSData dataWithContentsOfFile:[mraidBundle pathForResource:@"mraid" ofType:@"js"]];
+    NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>",
+                             [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+    return [mraidScript stringByAppendingString:content];
+}
+
+- (NSString *)prependSDKJS:(NSString *)content {
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return content;
+    }
+    NSData *sdkjsData = [NSData dataWithContentsOfFile:[resBundle pathForResource:@"sdkjs" ofType:@"js"]];
+    NSData *anjamData = [NSData dataWithContentsOfFile:[resBundle pathForResource:@"anjam" ofType:@"js"]];
+    NSString *sdkjs = [[NSString alloc] initWithData:sdkjsData encoding:NSUTF8StringEncoding];
+    NSString *anjam  = [[NSString alloc] initWithData:anjamData encoding:NSUTF8StringEncoding];
+    
+    NSString *sdkjsScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@ %@</script>",
+                             sdkjs, anjam];
+    return [sdkjsScript stringByAppendingString:content];
+    
 }
 
 - (void)handleMediatedAds:(NSMutableArray *)mediatedAds
@@ -502,7 +525,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     NSString *resultCBRequestString = [baseResultCBString
                                        stringByAppendingUrlParameter:@"reason"
                                        value:[NSString stringWithFormat:@"%d",reasonCode]];
-    resultCBRequestString = [resultCBRequestString stringByAppendingString:ANUdidParameter()];
+    resultCBRequestString = [resultCBRequestString stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
     return resultCBRequestString;
 }
 

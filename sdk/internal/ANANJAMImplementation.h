@@ -13,15 +13,13 @@
  limitations under the License.
  */
 
+#import "ANAdViewDelegate.h"
+#import "ANBrowserViewController.h"
+
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface UIView (ANCategory)
-
-- (void)presentView:(UIView *)view animated:(BOOL)animated;
-- (void)presentView:(UIView *)view animated:(BOOL)animated completion:(void (^)(BOOL))completion;
-
-- (void)dismissFromPresentingViewAnimated:(BOOL)animated;
-
-- (void)removeSubviews;
-
+@interface ANANJAMImplementation : NSObject 
++ (void)handleUrl:(NSURL *)url forWebView:(UIWebView *)webView
+      forDelegate:(id<ANAdViewDelegate, ANBrowserViewControllerDelegate>)delegate;
 @end

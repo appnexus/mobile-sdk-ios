@@ -52,7 +52,24 @@
  var current_position={};
  var size_event_width = 0;
  var size_event_height = 0;
+ var supports = [];
+ supports['sms'] = false;
+ supports['tel'] = false;
+ supports['calendar'] = false;
+ supports['storePicture'] = false;
+ supports['inlineVideo'] = false;
  
+ // constants for interaction with anjam.js
+ var MRAID_STATE = "state";
+ var MRAID_PLACEMENT_TYPE = "placementType";
+ var MRAID_VIEWABLE = "viewable";
+ var MRAID_EXPAND_PROPERTIES = "expandProperties";
+ var MRAID_RESIZE_PROPERTIES = "resizeProperties";
+ var MRAID_ORIENTATION_PROPERTIES = "orientationProperties";
+ var MRAID_SCREEN_SIZE = "screenSize";
+ var MRAID_MAX_SIZE = "maxSize";
+ var MRAID_DEFAULT_POSITION = "defaultPosition";
+ var MRAID_CURRENT_POSITION = "currentPosition";
  
  // ----- MRAID AD API FUNCTIONS -----
  
@@ -179,6 +196,9 @@
  }
  properties.isModal = true;
  expand_properties = properties;
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_EXPAND_PROPERTIES, expand_properties);
+ }
  };
  
  //returns a json object... {width:300, height:250, useCustomClose:false, isModal:false};
@@ -233,6 +253,9 @@
         props.allowOffscreen = true;
     }
     resize_properties = props;
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_RESIZE_PROPERTIES, resize_properties);
+ }
  }
  }
  
@@ -264,6 +287,9 @@
  }
  
  orientation_properties=properties;
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_ORIENTATION_PROPERTIES, orientation_properties);
+ }
  
  mraid.util.nativeCall("mraid://setOrientationProperties/?allow_orientation_change="+orientation_properties.allowOrientationChange
                        +"&force_orientation="+orientation_properties.forceOrientation);
@@ -299,20 +325,11 @@
  mraid.util.errorEvent("Method 'mraid.supports()' called during loading state.", "mraid.supports()");
  return;
  }
- switch(feature){
- case 'sms':
- return supports_sms;
- case 'tel':
- return supports_tel;
- case 'calendar':
- return supports_calendar;
- case 'storePicture':
- return supports_storePicture;
- case 'inlineVideo':
- return supports_inlineVideo;
- }
- mraid.util.errorEvent("Unknown feature to check for support: "+feature, "mraid.supports()");
+ if (supports[feature] !== "boolean") {
+ mraid.util.errorEvent("Unknown feature to check for support: " + feature, "mraid.supports()");
  return false;
+ }
+ return supports[feature];
  }
  
  // Gets the screen size of the device
@@ -361,6 +378,9 @@
  
  mraid.util.setPlacementType=function(type){
  placement_type=type;
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_PLACEMENT_TYPE, placement_type);
+ }
  };
  
     mraid.util.fireEvent = function (event) {
@@ -395,12 +415,18 @@
     mraid.util.setIsViewable = function (is_it_viewable) {
         if (is_viewable === is_it_viewable) return;
         is_viewable = is_it_viewable;
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_VIEWABLE, is_viewable);
+ }
         mraid.util.viewableChangeEvent(is_viewable);
     };
 
     mraid.util.stateChangeEvent = function (new_state) {
         if (state === new_state && state != 'resized') return;
         state = new_state;
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_STATE, state);
+ }
         if (new_state === 'hidden') {
             mraid.util.setIsViewable(false);
         }
@@ -452,41 +478,27 @@
  if(nativeCallQueue.length == 1) setTimeout(dequeue, 0);
  }
  
- var supports_sms = false;
- var supports_tel = false;
- var supports_calendar = false;
- var supports_storePicture = false;
- var supports_inlineVideo = false;
- 
- mraid.util.setSupportsSMS=function(val){
- supports_sms = val;
+ mraid.util.setSupports = function(feature, value) {
+ supports[feature] = value;
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateSupports(feature, value);
  }
- 
- 
- mraid.util.setSupportsTel=function(val){
- supports_tel=val;
- }
- 
- mraid.util.setSupportsCalendar=function(val){
- supports_calendar=val;
- }
- 
- mraid.util.setSupportsStorePicture=function(val){
- supports_storePicture=val;
- }
- 
- mraid.util.setSupportsInlineVideo=function(val){
- supports_inlineVideo=val;
  }
  
  mraid.util.setScreenSize=function(width, height){
  screen_size={"width":width,
  "height": height};
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_SCREEN_SIZE, screen_size);
+ }
  }
  
  mraid.util.setMaxSize=function(width, height){
  max_size={"width":width,
  "height": height};
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_MAX_SIZE, max_size);
+ }
  }
  
  mraid.util.setDefaultPosition=function(x, y, width, height){
@@ -495,6 +507,9 @@
  "width":width,
  "height": height
  };
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_DEFAULT_POSITION, default_position);
+ }
  }
  
  mraid.util.setCurrentPosition=function(x, y, width, height){
@@ -503,6 +518,9 @@
  "width":width,
  "height": height
  };
+ if ((typeof window.sdkjs) !== "undefined") {
+ window.sdkjs.mraidUpdateProperty(MRAID_CURRENT_POSITION, current_position);
+ }
  }
  
  }());

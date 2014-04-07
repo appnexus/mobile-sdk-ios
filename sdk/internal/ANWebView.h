@@ -35,11 +35,7 @@
 - (void)setDefaultPosition:(CGRect)frame;
 - (void)setScreenSize:(CGSize)size;
 - (void)setMaxSize:(CGSize)size;
-- (void)setSupportsTel:(BOOL)isSupported;
-- (void)setSupportsSMS:(BOOL)isSupported;
-- (void)setSupportsCalendar:(BOOL)isSupported;
-- (void)setSupportsStorePicture:(BOOL)isSupported;
-- (void)setSupportsInlineVideo:(BOOL)isSupported;
+- (void)setSupports:(NSString *)feature isSupported:(BOOL)isSupported;
 
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
 

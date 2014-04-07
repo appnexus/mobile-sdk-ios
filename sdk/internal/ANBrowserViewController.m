@@ -72,6 +72,15 @@
 	return self;
 }
 
++ (void)launchURL:(NSURL *)url withDelegate:(id<ANBrowserViewControllerDelegate>)delegate {
+    ANBrowserViewController *controller = [[ANBrowserViewController alloc] initWithURL:url];
+    controller.delegate = delegate;
+    if ([controller.delegate respondsToSelector:@selector(browserViewControllerShouldPresent:)]) {
+        [controller.delegate browserViewControllerShouldPresent:controller];
+        controller.isPresented = YES;
+    }
+}
+
 - (IBAction)closeAction:(id)sender
 {
 	[self.openInSheet dismissWithClickedButtonIndex:1 animated:NO];
@@ -92,7 +101,12 @@
 
 - (IBAction)openInAction:(id)sender
 {
-	self.openInSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Open In Browser", @"Title: Open in browser option") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Title: Cancel button") destructiveButtonTitle:nil otherButtonTitles:@"Open In External Browser", nil];
+	self.openInSheet = [[UIActionSheet alloc]
+                        initWithTitle:NSLocalizedString(@"Open In Browser", @"Title: Open in browser option")
+                        delegate:self
+                        cancelButtonTitle:NSLocalizedString(@"Cancel", @"Title: Cancel button")
+                        destructiveButtonTitle:nil
+                        otherButtonTitles:@"Open In External Browser", nil];
 	
 	[self.openInSheet showFromBarButtonItem:sender animated:YES];
 }
@@ -132,10 +146,8 @@
 {
     NSURL *URL = [request URL];
     if (!self.isPresented) ANLogDebug(@"%@ | Loading URL: %@", NSStringFromClass([self class]), URL);
-    NSString *scheme = [URL scheme];
-    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
 
-    if (schemeIsHttp) {
+    if (hasHttpPrefix([URL scheme])) {
         return YES;
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
@@ -170,8 +182,8 @@
     if (!self.isPresented) {
         if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldPresent:)]) {
             [self.delegate browserViewControllerShouldPresent:self];
+            self.isPresented = YES;
         }
-        self.isPresented = YES;
     }
 }
 

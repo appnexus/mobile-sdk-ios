@@ -51,4 +51,12 @@
                      }];
 }
 
+- (void)removeSubviews {
+    for (UIView *view in [self subviews]) {
+        if ([view respondsToSelector:@selector(removeFromSuperview)]) {
+            [view performSelector:@selector(removeFromSuperview)];
+        }
+    }
+}
+
 @end

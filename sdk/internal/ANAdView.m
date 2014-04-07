@@ -22,6 +22,7 @@
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
 #import "ANMRAIDViewController.h"
+#import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
 #define DEFAULT_PSAS YES
@@ -36,6 +37,7 @@ ANBrowserViewControllerDelegate>
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
@@ -506,7 +508,9 @@ ANBrowserViewControllerDelegate>
             [webView setDelegate:nil];
         }
 		
+        [_contentView removeSubviews];
 		[_contentView removeFromSuperview];
+        [self removeSubviews];
         
         if (contentView != nil) {
             if ([contentView isKindOfClass:[UIWebView class]]) {
@@ -575,10 +579,7 @@ ANBrowserViewControllerDelegate>
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
     [self adWasClicked];
     
-    NSString *scheme = [URL scheme];
-    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
-    
-    if (!self.opensInNativeBrowser && schemeIsHttp) {
+    if (!self.opensInNativeBrowser && hasHttpPrefix([URL scheme])) {
         if (!self.browserViewController) {
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
             self.browserViewController.delegate = self;
@@ -684,6 +685,12 @@ ANBrowserViewControllerDelegate>
 - (void)adWillLeaveApplication {
     if ([self.delegate respondsToSelector:@selector(adWillLeaveApplication:)]) {
         [self.delegate adWillLeaveApplication:self];
+    }
+}
+
+- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data {
+    if ([self.appEventDelegate respondsToSelector:@selector(ad:didReceiveAppEvent:withData:)]) {
+        [self.appEventDelegate ad:self didReceiveAppEvent:name withData:data];
     }
 }
 
