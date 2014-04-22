@@ -149,9 +149,9 @@
 		EC4817691845042A0066BBFE /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		EC48176A1845042A0066BBFE /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC6AAEC61884B62300CD2FDC /* ANMRAIDProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDProperties.h; sourceTree = "<group>"; };
 		EC7AB08118887E4600C27B1E /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
 		EC7AB08218887E5300C27B1E /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
-		EC6AAEC61884B62300CD2FDC /* ANMRAIDProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDProperties.h; sourceTree = "<group>"; };
 		EC9B33CA187DA9F300013F79 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		EC9B33CB187DA9F300013F79 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
@@ -352,7 +352,7 @@
 		EC3E5CD41843C6D50070315E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = AppNexus;
 			};
 			buildConfigurationList = EC3E5CD71843C6D50070315E /* Build configuration list for PBXProject "ANSDK" */;
@@ -456,10 +456,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
-					i386,
-				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -490,8 +486,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_FLATTEN_NIBS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SYMROOT = build;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
@@ -502,10 +498,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
-					i386,
-				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -530,7 +522,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_FLATTEN_NIBS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SYMROOT = build;

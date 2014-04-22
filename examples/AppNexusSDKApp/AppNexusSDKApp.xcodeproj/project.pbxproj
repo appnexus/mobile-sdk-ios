@@ -24,6 +24,7 @@
 		8AEBF36D17D0338D003C7214 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36C17D0338D003C7214 /* CoreLocation.framework */; };
 		8AEBF36F17D03394003C7214 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF36E17D03394003C7214 /* AdSupport.framework */; };
 		8AEBF37117D0339B003C7214 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEBF37017D0339B003C7214 /* SystemConfiguration.framework */; };
+		A8ED40FA1906C313009069FC /* MillennialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8ED40E11905CD76009069FC /* MillennialMedia.framework */; };
 		EC2A477A184558EC00D29747 /* libANMediatedViewsLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2A4777184558DB00D29747 /* libANMediatedViewsLibrary.a */; };
 		EC3FD72B1822213C00B25418 /* AppNexusSDKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3FD6D61822213C00B25418 /* AppNexusSDKAppDelegate.m */; };
 		EC3FD72C1822213C00B25418 /* AdPreviewTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3FD6DA1822213C00B25418 /* AdPreviewTVC.m */; };
@@ -169,6 +170,7 @@
 		8AEBF36C17D0338D003C7214 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		8AEBF36E17D03394003C7214 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8AEBF37017D0339B003C7214 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A8ED40E11905CD76009069FC /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillennialMedia.framework; path = ../../mediation/mediatedviews/libs/MMSDK/MillennialMedia.framework; sourceTree = "<group>"; };
 		EC2A4772184558DA00D29747 /* ANMediatedViewsLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANMediatedViewsLibrary.xcodeproj; path = ../../mediation/mediatedviews/ANMediatedViewsLibrary/ANMediatedViewsLibrary.xcodeproj; sourceTree = "<group>"; };
 		EC3FD6D31822213C00B25418 /* AppNexusSDKApp.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDKApp.pch; sourceTree = "<group>"; };
 		EC3FD6D41822213C00B25418 /* AppNexusSDKApp.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppNexusSDKApp.plist; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8ED40FA1906C313009069FC /* MillennialMedia.framework in Frameworks */,
 				ECE9882818A9894E0036B5D9 /* iAd.framework in Frameworks */,
 				ECF9AA8F1858C8A10079BCD0 /* EventKit.framework in Frameworks */,
 				EC2A477A184558EC00D29747 /* libANMediatedViewsLibrary.a in Frameworks */,
@@ -382,6 +385,7 @@
 		8A9EFB0717CFD49200FCF79F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A8ED40E11905CD76009069FC /* MillennialMedia.framework */,
 				8AEBF36E17D03394003C7214 /* AdSupport.framework */,
 				8ABB42C317FCBB0D000E3F2B /* AudioToolbox.framework */,
 				EC7DC2641817406200B813D1 /* AVFoundation.framework */,
@@ -961,6 +965,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/libs/MMSDK",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AppNexusSDKApp/AppNexusSDKApp.pch;
@@ -985,6 +991,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/libs/MMSDK",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AppNexusSDKApp/AppNexusSDKApp.pch;

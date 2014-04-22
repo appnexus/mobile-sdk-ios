@@ -14,7 +14,7 @@
  */
 
 #import "ANCustomAdapter.h"
-#import "MMRequest.h"
+#import <MillennialMedia/MMRequest.h>
 
 #import <Foundation/Foundation.h>
 

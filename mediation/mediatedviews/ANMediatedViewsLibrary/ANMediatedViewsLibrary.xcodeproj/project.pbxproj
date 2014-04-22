@@ -7,58 +7,63 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8ED40DE1905BDE5009069FC /* MillennialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8ED40DD1905BDE5009069FC /* MillennialMedia.framework */; };
+		A8ED40E01905CB8E009069FC /* MillennialMedia.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A8ED40DF1905CB8E009069FC /* MillennialMedia.framework */; };
 		ECAFB01A1864BF66007F1973 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB0191864BF66007F1973 /* ANAdAdapterBannerDFP.m */; };
 		ECAFB0271864D157007F1973 /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB0261864D157007F1973 /* ANAdAdapterInterstitialDFP.m */; };
 		ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB1237318219C9D00CB4BE8 /* Foundation.framework */; };
 		ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */; };
-		ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */; };
 		ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */; };
 		ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */; };
 		ECB1245B18219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245118219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m */; };
 		ECB1245C18219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245318219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m */; };
 		ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
 		ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
-		ECB1245F18219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1244B18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.h */; };
-		ECB1246018219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */; };
-		ECB1246118219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1244D18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h */; };
-		ECB1246218219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */; };
-		ECB1246318219ED600CB4BE8 /* ANAdAdapterBanneriAd.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245018219ECE00CB4BE8 /* ANAdAdapterBanneriAd.h */; };
-		ECB1246418219ED600CB4BE8 /* ANAdAdapterBanneriAd.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245118219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m */; };
-		ECB1246518219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245218219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.h */; };
-		ECB1246618219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245318219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m */; };
-		ECB1246718219ED600CB4BE8 /* ANAdAdapterBannerAdMob.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245518219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.h */; };
-		ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
-		ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */; };
-		ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
+		ECB1245F18219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1244B18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.h */; };
+		ECB1246018219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */; };
+		ECB1246118219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1244D18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h */; };
+		ECB1246218219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1244E18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m */; };
+		ECB1246318219ED600CB4BE8 /* ANAdAdapterBanneriAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1245018219ECE00CB4BE8 /* ANAdAdapterBanneriAd.h */; };
+		ECB1246418219ED600CB4BE8 /* ANAdAdapterBanneriAd.m in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1245118219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m */; };
+		ECB1246518219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1245218219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.h */; };
+		ECB1246618219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.m in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1245318219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m */; };
+		ECB1246718219ED600CB4BE8 /* ANAdAdapterBannerAdMob.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1245518219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.h */; };
+		ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1245618219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m */; };
+		ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1245718219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.h */; };
+		ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Copy Files */ = {isa = PBXBuildFile; fileRef = ECB1245818219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m */; };
 		ECCF18F51835792300B17EB4 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECCF18F41835792300B17EB4 /* iAd.framework */; };
 		ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFCC0DA1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		ECB1236E18219C9D00CB4BE8 /* CopyFiles */ = {
+		ECB1236E18219C9D00CB4BE8 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				ECB1245F18219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.h in CopyFiles */,
-				ECB1246018219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in CopyFiles */,
-				ECB1246118219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h in CopyFiles */,
-				ECB1246218219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in CopyFiles */,
-				ECB1246318219ED600CB4BE8 /* ANAdAdapterBanneriAd.h in CopyFiles */,
-				ECB1246418219ED600CB4BE8 /* ANAdAdapterBanneriAd.m in CopyFiles */,
-				ECB1246518219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.h in CopyFiles */,
-				ECB1246618219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.m in CopyFiles */,
-				ECB1246718219ED600CB4BE8 /* ANAdAdapterBannerAdMob.h in CopyFiles */,
-				ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in CopyFiles */,
-				ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in CopyFiles */,
-				ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in CopyFiles */,
+				A8ED40E01905CB8E009069FC /* MillennialMedia.framework in Copy Files */,
+				ECB1245F18219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.h in Copy Files */,
+				ECB1246018219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Copy Files */,
+				ECB1246118219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.h in Copy Files */,
+				ECB1246218219ED600CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Copy Files */,
+				ECB1246318219ED600CB4BE8 /* ANAdAdapterBanneriAd.h in Copy Files */,
+				ECB1246418219ED600CB4BE8 /* ANAdAdapterBanneriAd.m in Copy Files */,
+				ECB1246518219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.h in Copy Files */,
+				ECB1246618219ED600CB4BE8 /* ANAdAdapterInterstitialiAd.m in Copy Files */,
+				ECB1246718219ED600CB4BE8 /* ANAdAdapterBannerAdMob.h in Copy Files */,
+				ECB1246818219ED600CB4BE8 /* ANAdAdapterBannerAdMob.m in Copy Files */,
+				ECB1246918219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.h in Copy Files */,
+				ECB1246A18219ED600CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A8ED40DD1905BDE5009069FC /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillennialMedia.framework; path = ../libs/MMSDK/MillennialMedia.framework; sourceTree = "<group>"; };
+		A8ED40DF1905CB8E009069FC /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillennialMedia.framework; path = ../libs/MMSDK/MillennialMedia.framework; sourceTree = "<group>"; };
 		EC8477B11844166900A8BC80 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECAFB0181864BF66007F1973 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
 		ECAFB0191864BF66007F1973 /* ANAdAdapterBannerDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerDFP.m; sourceTree = "<group>"; };
@@ -120,10 +125,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8ED40DE1905BDE5009069FC /* MillennialMedia.framework in Frameworks */,
 				ECCF18F51835792300B17EB4 /* iAd.framework in Frameworks */,
 				ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */,
 				ECB123D118219D4F00CB4BE8 /* libGoogleAdMobAds.a in Frameworks */,
-				ECB123D218219D4F00CB4BE8 /* libMMSDK_5.1.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +164,7 @@
 		ECB1236718219C9D00CB4BE8 = {
 			isa = PBXGroup;
 			children = (
+				A8ED40DF1905CB8E009069FC /* MillennialMedia.framework */,
 				EC8477B11844166900A8BC80 /* ANCustomAdapter.h */,
 				ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */,
 				ECB1253C1821A35D00CB4BE8 /* ANLogging.h */,
@@ -178,6 +184,7 @@
 		ECB1237218219C9D00CB4BE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A8ED40DD1905BDE5009069FC /* MillennialMedia.framework */,
 				ECAFB0171864BF47007F1973 /* DFP */,
 				ECCF18F41835792300B17EB4 /* iAd.framework */,
 				ECB1244A18219ECD00CB4BE8 /* MillennialMedia */,
@@ -300,7 +307,7 @@
 			buildPhases = (
 				ECB1236C18219C9D00CB4BE8 /* Sources */,
 				ECB1236D18219C9D00CB4BE8 /* Frameworks */,
-				ECB1236E18219C9D00CB4BE8 /* CopyFiles */,
+				ECB1236E18219C9D00CB4BE8 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -432,11 +439,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ANMediatedViewsLibrary.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../libs/MMSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../libs/AdMob",
-					"$(PROJECT_DIR)/../libs/MMSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -448,11 +458,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ANMediatedViewsLibrary.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../libs/MMSDK",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../libs/AdMob",
-					"$(PROJECT_DIR)/../libs/MMSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

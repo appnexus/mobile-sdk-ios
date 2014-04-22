@@ -15,7 +15,7 @@
 
 #import "ANAdAdapterMillennialMediaBase.h"
 
-#import "MMAdView.h"
+#import <MillennialMedia/MMAdView.h>
 
 @implementation ANAdAdapterMillennialMediaBase
 @synthesize delegate;

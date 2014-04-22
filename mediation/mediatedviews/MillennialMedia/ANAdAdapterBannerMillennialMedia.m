@@ -16,7 +16,7 @@
 
 #import "ANAdAdapterBannerMillennialMedia.h"
 
-#import "MMAdView.h"
+#import <MillennialMedia/MMAdView.h>
 
 @interface ANAdAdapterBannerMillennialMedia ()
 @property (strong, nonatomic) CLLocationManager *locationManager;
