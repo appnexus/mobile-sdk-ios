@@ -303,7 +303,7 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
-    ANLogDebug(@"adFailed: %@", [error localizedDescription]);
+    ANLogDebug(@"adFailed with code %i: %@", [error code], [error localizedDescription]);
     [self.delegate ad:ad requestFailedWithError:error];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAppNexusSDKAppErrorTitle
                                                     message:[error localizedDescription]

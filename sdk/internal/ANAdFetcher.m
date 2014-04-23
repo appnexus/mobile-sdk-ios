@@ -385,97 +385,84 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 # pragma mark -
 # pragma mark NSURLConnectionDataDelegate
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-	@synchronized(self)
-	{
-		if (connection == self.connection)
-		{
-			if ([response isKindOfClass:[NSHTTPURLResponse class]])
-			{
-				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-				NSInteger status = [httpResponse statusCode];
-				
-				if (status >= 400)
-				{
-					[connection cancel];
-					NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
-																				  NSLocalizedString(@"Request failed with status code %d", @"Error Description: server request came back with error code."),
-																				  status]
-																		  forKey:NSLocalizedDescriptionKey];
-					NSError *statusError = [NSError errorWithDomain:AN_ERROR_DOMAIN
-															   code:status
-														   userInfo:errorInfo];
-					[self connection:connection didFailWithError:statusError];
-					return;
-				}
-			}
-			
-			self.data = [NSMutableData data];
-			
-			ANLogDebug(@"Received response: %@", response);
-			
-			[self setupAutoRefreshTimerIfNecessary];
-		}
-        // don't process the success resultCB response, just log it.
-		else if (connection == self.successResultConnection)
-		{
-			if ([response isKindOfClass:[NSHTTPURLResponse class]])
-			{
-				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-				NSInteger status = [httpResponse statusCode];
-				
-				ANLogDebug(@"Received response with code %ld from response URL request.", status);
-			}
-		} else {
-            ANLogDebug(@"Received response from unknown");
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	if (connection == self.connection) {
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            NSInteger status = [httpResponse statusCode];
+            
+            if (status >= 400) {
+                [connection cancel];
+                NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
+                                                                              NSLocalizedString(@"Request failed with status code %d", @"Error Description: server request came back with error code."),
+                                                                              status]
+                                                                      forKey:NSLocalizedDescriptionKey];
+                NSError *statusError = [NSError errorWithDomain:AN_ERROR_DOMAIN
+                                                           code:ANAdResponseNetworkError
+                                                       userInfo:errorInfo];
+                [self connection:connection didFailWithError:statusError];
+                return;
+            }
         }
-	}
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
-{
-	@synchronized(self)
-	{
-		if (connection == self.connection)
-		{
-			[self.data appendData:d];
-		}
-	}
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-	@synchronized(self)
-	{
-		if (connection == self.connection)
-		{
-            ANAdResponse *adResponse = [[ANAdResponse alloc] init];
-            adResponse = [adResponse processResponseData:self.data];
-            [self processAdResponse:adResponse];
-		}
-        // don't do anything for a succcessful resultCB
-        else if (connection == self.successResultConnection) {
-            ANLogDebug(@"Success resultCB finished loading");
+        
+        self.data = [NSMutableData data];
+        
+        ANLogDebug(@"Received response: %@", response);
+        
+        [self setupAutoRefreshTimerIfNecessary];
+    }
+    // don't process the success resultCB response, just log it.
+    else if (connection == self.successResultConnection) {
+        if ([response isKindOfClass:[NSHTTPURLResponse class]])
+        {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            NSInteger status = [httpResponse statusCode];
+            
+            ANLogDebug(@"Received response with code %ld from response URL request.", status);
         }
-	}
+    } else {
+        ANLogDebug(@"Received response from unknown");
+    }
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	@synchronized(self)
-	{
-		if (connection == self.connection)
-		{
-			ANLogError(@"Ad view connection %@ failed with error %@", connection, error);
-			
-			self.loading = NO;
-			
-			[self setupAutoRefreshTimerIfNecessary];
-			ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:error];
-            [self processFinalResponse:failureResponse];
-		}
-	}
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d {
+    if (connection == self.connection) {
+        [self.data appendData:d];
+    }
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    if (connection == self.connection) {
+        ANAdResponse *adResponse = [[ANAdResponse alloc] init];
+        adResponse = [adResponse processResponseData:self.data];
+        [self processAdResponse:adResponse];
+    }
+    // don't do anything for a succcessful resultCB
+    else if (connection == self.successResultConnection) {
+        ANLogDebug(@"Success resultCB finished loading");
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    if (connection == self.connection) {
+        NSString *errorMessage = [NSString stringWithFormat:
+                                  @"Ad request %@ failed with error %@",
+                                  connection, [error localizedDescription]];
+        ANLogError(errorMessage);
+        
+        self.loading = NO;
+        
+        [self setupAutoRefreshTimerIfNecessary];
+        
+        NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorMessage
+                                                              forKey:NSLocalizedDescriptionKey];
+        NSError *ANError = [NSError errorWithDomain:AN_ERROR_DOMAIN
+                                             code:ANAdResponseNetworkError
+                                         userInfo:errorInfo];
+        
+        ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:ANError];
+        [self processFinalResponse:failureResponse];
+    }
 }
 
 #pragma mark handling resultCB
