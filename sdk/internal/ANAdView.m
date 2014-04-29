@@ -172,29 +172,26 @@ ANBrowserViewControllerDelegate>
 - (void)updateOrientationPropertiesOnMRAIDViewController {
     if (self.mraidController) {
         self.mraidController.allowOrientationChange = self.allowOrientationChange;
-        
+        self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+
         if (!self.isExpanded) {
-            if (!self.allowOrientationChange) {
-                switch(self.forceOrientation) {
-                    case ANMRAIDOrientationLandscape:
-                        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
-                            self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
-                            break;
-                        }
-                        self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
+            switch(self.forceOrientation) {
+                case ANMRAIDOrientationLandscape:
+                    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
+                        self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
                         break;
-                    case ANMRAIDOrientationPortrait:
-                        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown) {
-                            self.mraidController.orientation = UIInterfaceOrientationPortraitUpsideDown;
-                            break;
-                        }
-                        self.mraidController.orientation = UIInterfaceOrientationPortrait;
+                    }
+                    self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
+                    break;
+                case ANMRAIDOrientationPortrait:
+                    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown) {
+                        self.mraidController.orientation = UIInterfaceOrientationPortraitUpsideDown;
                         break;
-                    default:
-                        self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-                }
-            } else {
-                self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+                    }
+                    self.mraidController.orientation = UIInterfaceOrientationPortrait;
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -218,11 +215,8 @@ ANBrowserViewControllerDelegate>
     // expand to full screen
     if ((size.width == -1) && (size.height == -1)) {
         [contentView removeFromSuperview];
-        if (!self.mraidController) {
-            self.mraidController = [ANMRAIDViewController new];
-            self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-        }
         
+        self.mraidController = [ANMRAIDViewController new];
         [self updateOrientationPropertiesOnMRAIDViewController];
         
         self.mraidController.contentView = contentView;

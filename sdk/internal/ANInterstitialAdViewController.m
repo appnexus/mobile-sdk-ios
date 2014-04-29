@@ -122,35 +122,30 @@
 	self.contentView.frame = CGRectMake(centerX, centerY, contentWidth, contentHeight);
 }
 
-- (void)setContentView:(UIView *)contentView
-{
-	if (contentView != __contentView)
-	{
-		if (contentView != nil)
-		{
-			if ([contentView isKindOfClass:[UIWebView class]])
-			{
-                UIWebView *webView = (UIWebView *)contentView;
-				[webView removeDocumentPadding];
-				[webView setMediaProperties];
-			}
-			
-			[self.containerView addSubview:contentView];
-		}
-        
+- (void)setContentView:(UIView *)contentView {
+	if (contentView != __contentView) {
+        if ([__contentView isKindOfClass:[UIWebView class]]) {
+            UIWebView *webView = (UIWebView *)__contentView;
+            [webView stopLoading];
+            [webView setDelegate:nil];
+        }
+
         [__contentView removeSubviews];
-		[__contentView removeFromSuperview];
+        [__contentView removeFromSuperview];
         [self.containerView removeSubviews];
-		
-		if ([__contentView isKindOfClass:[UIWebView class]])
-		{
-			UIWebView *webView = (UIWebView *)__contentView;
-			[webView setDelegate:nil];
-			[webView stopLoading];
-		}
-		
-		__contentView = contentView;
-	}
+        
+        if (contentView != nil) {
+            if ([contentView isKindOfClass:[UIWebView class]]) {
+                UIWebView *webView = (UIWebView *)contentView;
+                [webView removeDocumentPadding];
+                [webView setMediaProperties];
+            }
+            
+            [self.containerView addSubview:contentView];
+        }
+        
+        __contentView = contentView;
+    }
 }
 
 -(void)setBackgroundColor:(UIColor *)backgroundColor
