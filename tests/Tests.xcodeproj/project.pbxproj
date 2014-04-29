@@ -55,9 +55,10 @@
 		EC09B320183437CC00D76510 /* NSString+Matcheable.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B28E1834340200D76510 /* NSString+Matcheable.m */; };
 		EC09B327183437CC00D76510 /* LSStubRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2971834340200D76510 /* LSStubRequest.m */; };
 		EC09B329183437CC00D76510 /* LSStubResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2991834340200D76510 /* LSStubResponse.m */; };
-		EC3640E6183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3640E5183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m */; };
+		EC2E96C219103A00001A42EF /* ANANJAMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2E96C019103A00001A42EF /* ANANJAMImplementation.m */; };
+		EC2E96C419103A7D001A42EF /* ANFailAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3640EB184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m */; };
+		EC2E96C519103A7D001A42EF /* ANSuccessfulBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3640E5183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m */; };
 		EC3640E9183FFA9F00DB8000 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */; };
-		EC3640EC184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3640EB184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m */; };
 		EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */; };
 		EC405619183D670D006A1D09 /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = EC40560E183D5D88006A1D09 /* ANBaseTestCase.m */; };
 		EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = EC405610183D5D88006A1D09 /* ANTestResponses.m */; };
@@ -224,6 +225,9 @@
 		EC09B2981834340200D76510 /* LSStubResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSStubResponse.h; sourceTree = "<group>"; };
 		EC09B2991834340200D76510 /* LSStubResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSStubResponse.m; sourceTree = "<group>"; };
 		EC09B2B21834350E00D76510 /* BasicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicTests.m; sourceTree = "<group>"; };
+		EC2E96BF19103A00001A42EF /* ANANJAMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANANJAMImplementation.h; sourceTree = "<group>"; };
+		EC2E96C019103A00001A42EF /* ANANJAMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANANJAMImplementation.m; sourceTree = "<group>"; };
+		EC2E96C119103A00001A42EF /* ANMRAIDProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDProperties.h; sourceTree = "<group>"; };
 		EC3640E4183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSuccessfulBannerNeverCalled.h; sourceTree = "<group>"; };
 		EC3640E5183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSuccessfulBannerNeverCalled.m; sourceTree = "<group>"; };
 		EC3640E8183FFA9F00DB8000 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -654,6 +658,9 @@
 		ECABE5581821E4C80037E6C5 /* internal */ = {
 			isa = PBXGroup;
 			children = (
+				EC2E96BF19103A00001A42EF /* ANANJAMImplementation.h */,
+				EC2E96C019103A00001A42EF /* ANANJAMImplementation.m */,
+				EC2E96C119103A00001A42EF /* ANMRAIDProperties.h */,
 				EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */,
 				EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */,
 				ECABE5591821E4C80037E6C5 /* ANAdFetcher.h */,
@@ -814,7 +821,8 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastTestingUpgradeCheck = 0510;
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tests" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -891,24 +899,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC3640EC184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				5C3208FB173061C700DAB5CF /* ANDemoAdsViewController.m in Sources */,
 				5C320905173090F300DAB5CF /* ANDemoConsoleViewController.m in Sources */,
 				ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				5C3209001730664500DAB5CF /* RootViewController.m in Sources */,
-				EC3640E6183FE45B00DB8000 /* ANSuccessfulBannerNeverCalled.m in Sources */,
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
+				EC7AB08E188883DB00C27B1E /* ANAdRequestUrl.m in Sources */,
 				EC7AB08B188883C300C27B1E /* ANLogManager.m in Sources */,
 				ECABE58F1821E4C80037E6C5 /* ANAdResponse.m in Sources */,
 				ECABE5911821E4C80037E6C5 /* ANAdWebViewController.m in Sources */,
 				ECABE5901821E4C80037E6C5 /* ANAdView.m in Sources */,
+				EC2E96C219103A00001A42EF /* ANANJAMImplementation.m in Sources */,
 				ECABE5921821E4C80037E6C5 /* ANBannerAdView.m in Sources */,
 				ECABE5931821E4C80037E6C5 /* ANBrowserViewController.m in Sources */,
 				ECABE5951821E4C80037E6C5 /* ANGlobal.m in Sources */,
 				ECABE5961821E4C80037E6C5 /* ANInstallTrackerPixel.m in Sources */,
-				EC7AB08E188883DB00C27B1E /* ANAdRequestUrl.m in Sources */,
 				ECABE5971821E4C80037E6C5 /* ANInterstitialAd.m in Sources */,
 				ECABE5981821E4C80037E6C5 /* ANInterstitialAdViewController.m in Sources */,
 				ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */,
@@ -933,6 +940,7 @@
 				EC40561F183D6818006A1D09 /* ANAdAdapterBannerNoAds.m in Sources */,
 				EC405621183D6818006A1D09 /* ANAdAdapterBannerRequestFail.m in Sources */,
 				EC405623183D6818006A1D09 /* ANAdAdapterErrorCode.m in Sources */,
+				EC2E96C419103A7D001A42EF /* ANFailAndHitOtherCallbacks.m in Sources */,
 				EC405625183D6818006A1D09 /* ANFailedMultiple.m in Sources */,
 				EC405627183D6818006A1D09 /* ANFailThenLoad.m in Sources */,
 				EC405629183D6818006A1D09 /* ANLoadAndHitOtherCallbacks.m in Sources */,
@@ -940,6 +948,7 @@
 				EC40562D183D6818006A1D09 /* ANLoadThenFail.m in Sources */,
 				EC40562F183D6818006A1D09 /* ANTimeout.m in Sources */,
 				EC405631183D6818006A1D09 /* ANSuccessfulBanner.m in Sources */,
+				EC2E96C519103A7D001A42EF /* ANSuccessfulBannerNeverCalled.m in Sources */,
 				EC405619183D670D006A1D09 /* ANBaseTestCase.m in Sources */,
 				EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */,
 				ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */,
@@ -1052,7 +1061,7 @@
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = "Ad-Hoc";
 		};
@@ -1191,11 +1200,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1211,7 +1220,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
