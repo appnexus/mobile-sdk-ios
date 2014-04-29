@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC2E96D91911A147001A42EF /* ANANJAMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2E96D81911A147001A42EF /* ANANJAMImplementation.m */; };
 		EC3905FA186693B50017959C /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3905F9186693B50017959C /* ANTargetingParameters.m */; };
 		EC3905FB186693D30017959C /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3905F8186693AA0017959C /* ANTargetingParameters.h */; };
 		EC3E5CE01843C6D50070315E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3E5CDF1843C6D50070315E /* Foundation.framework */; };
@@ -90,6 +91,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EC2E96D71911A147001A42EF /* ANANJAMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANANJAMImplementation.h; sourceTree = "<group>"; };
+		EC2E96D81911A147001A42EF /* ANANJAMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANANJAMImplementation.m; sourceTree = "<group>"; };
 		EC3905F8186693AA0017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		EC3905F9186693B50017959C /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,6 +258,8 @@
 				EC3E5D1B1843C7560070315E /* ANAdViewDelegate.h */,
 				EC3E5D1C1843C7560070315E /* ANAdWebViewController.h */,
 				EC3E5D1D1843C7560070315E /* ANAdWebViewController.m */,
+				EC2E96D71911A147001A42EF /* ANANJAMImplementation.h */,
+				EC2E96D81911A147001A42EF /* ANANJAMImplementation.m */,
 				EC3E5D1E1843C7560070315E /* ANBannerAdView.m */,
 				EC3E5D1F1843C7560070315E /* ANBrowserViewController.h */,
 				EC3E5D201843C7560070315E /* ANBrowserViewController.m */,
@@ -358,7 +363,7 @@
 		EC3E5CD41843C6D50070315E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = AppNexus;
 			};
 			buildConfigurationList = EC3E5CD71843C6D50070315E /* Build configuration list for PBXProject "ANSDK" */;
@@ -419,6 +424,7 @@
 				EC3E5D4B1843C7560070315E /* ANAdView.m in Sources */,
 				EC3E5D491843C7560070315E /* ANAdFetcher.m in Sources */,
 				EC3E5D4C1843C7560070315E /* ANAdWebViewController.m in Sources */,
+				EC2E96D91911A147001A42EF /* ANANJAMImplementation.m in Sources */,
 				EC3E5D571843C7560070315E /* ANMRAIDViewController.m in Sources */,
 				EC3E5D4F1843C7560070315E /* ANGlobal.m in Sources */,
 				EC9B33CC187DA9F300013F79 /* ANWebView.m in Sources */,
@@ -464,10 +470,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
-					i386,
-				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -498,8 +500,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_FLATTEN_NIBS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SYMROOT = build;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
@@ -510,10 +512,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_INCLUDING_64_BIT)",
-					i386,
-				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -538,7 +536,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_FLATTEN_NIBS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SYMROOT = build;
