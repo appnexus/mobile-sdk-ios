@@ -16,6 +16,7 @@
 #import "ANAdWebViewController.h"
 
 #import "ANAdFetcher.h"
+#import "ANANJAMImplementation.h"
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -210,8 +211,15 @@
     NSURL *mainDocumentURL = [request mainDocumentURL];
     NSString *scheme = [URL scheme];
     
+    if ([scheme isEqualToString:@"anwebconsole"]) {
+        [self printConsoleLog:URL];
+        return NO;
+    }
+    
+    ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    
     if (self.completedFirstLoad) {
-        if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
+        if (hasHttpPrefix(scheme)) {
             if (self.isMRAID) {
                 /*
                  The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab,
@@ -244,8 +252,8 @@
         } else if ([scheme isEqualToString:@"mraid"]) {
             // Do MRAID actions
             [self dispatchNativeMRAIDURL:URL forWebView:webView];
-        } else if ([scheme isEqualToString:@"anwebconsole"]) {
-            [self printConsoleLog:URL];
+        } else if ([scheme isEqualToString:@"anjam"]) {
+            [ANANJAMImplementation handleUrl:URL forWebView:webView forDelegate:self.adFetcher.delegate];
         } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             [[UIApplication sharedApplication] openURL:URL];
         } else {
@@ -316,15 +324,14 @@
         cal = YES;
     }
     
-    [webView setSupportsSMS:sms];
-    [webView setSupportsTel:tel];
-    [webView setSupportsCalendar:cal];
-    [webView setSupportsInlineVideo:inline_video];
-    [webView setSupportsStorePicture:store_picture];
+    [webView setSupports:@"sms" isSupported:sms];
+    [webView setSupports:@"tel" isSupported:tel];
+    [webView setSupports:@"calendar" isSupported:cal];
+    [webView setSupports:@"inlineVideo" isSupported:inline_video];
+    [webView setSupports:@"storePicture" isSupported:store_picture];
 }
 
 - (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView {
-    ANLogDebug(@"MRAID URL: %@", [mraidURL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
     NSString *mraidCommand = [mraidURL host];
     NSString *query = [mraidURL query];
     NSDictionary *queryComponents = [query queryComponents];
@@ -745,20 +752,8 @@
 }
 
 - (void)printConsoleLog:(NSURL *)URL {
-    NSMutableString *urlString = [NSMutableString stringWithString:[URL absoluteString]];
-    [urlString replaceOccurrencesOfString:@"%20"
-                               withString:@" "
-                                  options:NSLiteralSearch
-                                    range:NSMakeRange(0, [urlString length])];
-    [urlString replaceOccurrencesOfString:@"%5B"
-                               withString:@"["
-                                  options:NSLiteralSearch
-                                    range:NSMakeRange(0, [urlString length])];
-    [urlString replaceOccurrencesOfString:@"%5D"
-                               withString:@"]"
-                                  options:NSLiteralSearch
-                                    range:NSMakeRange(0, [urlString length])];
-    ANLogDebug(urlString);
+    NSString *decodedString = [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    ANLogDebug(decodedString);
 }
 
 // expand close button for non-custom close is provided by SDK

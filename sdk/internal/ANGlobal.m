@@ -73,9 +73,7 @@ BOOL isFirstLaunch()
     return isFirstLaunch;
 }
 
-
-
-NSString *ANUdidParameter() {
+NSString *ANUDID() {
     static NSString *udidComponent = @"";
     
     if ([udidComponent isEqualToString:@""]) {
@@ -85,8 +83,8 @@ NSString *ANUdidParameter() {
             NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager]
                                                .advertisingIdentifier UUIDString];
             
-            if (advertisingIdentifier != nil) {
-                udidComponent = [NSString stringWithFormat:@"&idfa=%@", advertisingIdentifier];
+            if (advertisingIdentifier) {
+                udidComponent = advertisingIdentifier;
             }
             else {
                 ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
@@ -152,4 +150,8 @@ NSString *ANMRAIDBundlePath() {
         return @"";
     }
     return mraidBundlePath;
+}
+
+BOOL hasHttpPrefix(NSString *url) {
+    return ([url hasPrefix:@"http"] || [url hasPrefix:@"https"]);
 }

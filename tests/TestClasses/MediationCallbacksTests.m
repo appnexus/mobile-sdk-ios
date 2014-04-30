@@ -14,6 +14,7 @@
  */
 
 #import "ANBaseTestCase.h"
+#import "ANTimeout.h"
 
 static NSString *const kANLoadedMultiple = @"ANLoadedMultiple";
 static NSString *const kANTimeout = @"ANTimeout";
@@ -22,6 +23,7 @@ static NSString *const kANFailThenLoad = @"ANFailThenLoad";
 static NSString *const kANLoadAndHitOtherCallbacks = @"ANLoadAndHitOtherCallbacks";
 static NSString *const kANFailAndHitOtherCallbacks = @"ANFailAndHitOtherCallbacks";
 static NSString *const kANFailedMultiple = @"ANFailedMultiple";
+static NSString *const kClassDoesNotExist = @"ClassDoesNotExist";
 
 @interface MediationCallbacksTests : ANBaseTestCase
 @property (nonatomic, readwrite, assign) BOOL adLoadedMultiple;
@@ -69,6 +71,16 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 #pragma mark MediationCallback tests
 
+- (void)test17
+{
+    [ANTimeout setTimeout:CALLBACKS_TIMEOUT - 1];
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist firstResult:@""
+                                                      secondClass:kANTimeout secondResult:@""]];
+    [self stubResultCBResponses:@""];
+    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self clearTest];
+}
+
 - (void)test18LoadedMultiple
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadedMultiple]];
@@ -79,6 +91,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test19Timeout
 {
+    [ANTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 1];
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANTimeout]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + CALLBACKS_TIMEOUT];

@@ -17,6 +17,7 @@
 
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "NSString+ANCategory.h"
 
 #define AN_INSTALL_TRACKER_PIXEL_MAX_ATTEMPTS 5
 #define AN_INSTALL_TRACKER_PIXEL_ATTEMPT_DURATION 30.0
@@ -92,7 +93,7 @@
 	urlString = [urlString stringByAppendingString:[self trackingIDParameter]];
 	urlString = [urlString stringByAppendingString:[self dontTrackEnabledParameter]];
 	urlString = [urlString stringByAppendingString:[self applicationIdParameter]];
-	urlString = [urlString stringByAppendingString:ANUdidParameter()];
+	urlString = [urlString stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
 	
 	return [NSURL URLWithString:urlString];
 }

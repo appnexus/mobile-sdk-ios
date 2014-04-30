@@ -54,6 +54,10 @@
     .andReturn(200)
     .withBody(body)
     ;
+    stubRequest(@"GET", [AN_BASE_URL stringByAppendingString:@".*"].regex)
+    .andReturn(200)
+    .withBody(@"")
+    ;
 }
 
 - (void)stubResultCBResponses:(NSString *)body {

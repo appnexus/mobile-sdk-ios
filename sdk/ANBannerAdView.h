@@ -46,6 +46,12 @@
 @property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
 
 /**
+ Delegate object that receives custom app event notifications from this
+ ANBannerAdView.
+ */
+@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
+
+/**
  Required reference to the root view controller.  Used as shown in
  the example above to set the banner ad view's controller to your
  own view controller implementation.

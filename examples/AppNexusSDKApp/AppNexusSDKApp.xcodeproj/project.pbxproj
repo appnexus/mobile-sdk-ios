@@ -82,7 +82,10 @@
 		EC3FD7611822213C00B25418 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7281822213C00B25418 /* Default.png */; };
 		EC3FD7621822213C00B25418 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC3FD7291822213C00B25418 /* Default@2x.png */; };
 		EC4055EE183C07F9006A1D09 /* ANDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EC4055ED183C07F9006A1D09 /* ANDocument.m */; };
+		EC434069190815C700AC2D84 /* anjam.js in Resources */ = {isa = PBXBuildFile; fileRef = EC434068190815C700AC2D84 /* anjam.js */; };
+		EC5D88B918F451FE0001E0B2 /* ANANJAMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5D88B818F451FE0001E0B2 /* ANANJAMImplementation.m */; };
 		EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */; };
+		EC75D2AB1906E888002A694A /* sdkjs.js in Resources */ = {isa = PBXBuildFile; fileRef = EC75D2AA1906E888002A694A /* sdkjs.js */; };
 		EC77B0A718170D8E002123CB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC77B0A618170D8E002123CB /* StoreKit.framework */; };
 		EC7AB07F18887C2D00C27B1E /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7AB07E18887C2D00C27B1E /* ANLogManager.m */; };
 		EC7DC2631817404600B813D1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC7DC2621817404600B813D1 /* MediaPlayer.framework */; };
@@ -250,9 +253,13 @@
 		EC3FD7291822213C00B25418 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		EC4055EC183C07F9006A1D09 /* ANDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDocument.h; sourceTree = "<group>"; };
 		EC4055ED183C07F9006A1D09 /* ANDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDocument.m; sourceTree = "<group>"; };
+		EC434068190815C700AC2D84 /* anjam.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = anjam.js; sourceTree = "<group>"; };
+		EC5D88B718F451FE0001E0B2 /* ANANJAMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANANJAMImplementation.h; sourceTree = "<group>"; };
+		EC5D88B818F451FE0001E0B2 /* ANANJAMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANANJAMImplementation.m; sourceTree = "<group>"; };
 		EC6AAEC5188479C700CD2FDC /* ANMRAIDProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANMRAIDProperties.h; sourceTree = "<group>"; };
 		EC70ED8B18316B2000BDF92F /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
+		EC75D2AA1906E888002A694A /* sdkjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sdkjs.js; sourceTree = "<group>"; };
 		EC77B0A618170D8E002123CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EC7AB07E18887C2D00C27B1E /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
 		EC7AB08018887E2B00C27B1E /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
@@ -607,6 +614,8 @@
 				ECB124931821A25D00CB4BE8 /* ANAdViewDelegate.h */,
 				ECB124941821A25D00CB4BE8 /* ANAdWebViewController.h */,
 				ECB124951821A25D00CB4BE8 /* ANAdWebViewController.m */,
+				EC5D88B718F451FE0001E0B2 /* ANANJAMImplementation.h */,
+				EC5D88B818F451FE0001E0B2 /* ANANJAMImplementation.m */,
 				ECB124961821A25D00CB4BE8 /* ANBannerAdView.m */,
 				ECB124971821A25D00CB4BE8 /* ANBrowserViewController.h */,
 				ECB124981821A25D00CB4BE8 /* ANBrowserViewController.m */,
@@ -640,6 +649,8 @@
 		ECCF547618451FE40000E37C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EC434068190815C700AC2D84 /* anjam.js */,
+				EC75D2AA1906E888002A694A /* sdkjs.js */,
 				ECCF547718451FE40000E37C /* ANBrowserViewController.xib */,
 				ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */,
 				ECCF547918451FE40000E37C /* errors.strings */,
@@ -692,7 +703,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Preview;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
 					8A9EFB0417CFD49200FCF79F = {
@@ -790,6 +801,8 @@
 				EC3FD7521822213C00B25418 /* appnexus_launch_image_ipad_landscape@2x.png in Resources */,
 				EC3FD7591822213C00B25418 /* appnexus_settings_ipad.png in Resources */,
 				ECCF548F18451FE40000E37C /* MRAID.bundle in Resources */,
+				EC75D2AB1906E888002A694A /* sdkjs.js in Resources */,
+				EC434069190815C700AC2D84 /* anjam.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +862,7 @@
 				EC70ED8D18316B2000BDF92F /* ANMRAIDViewController.m in Sources */,
 				ECB124CE1821A25D00CB4BE8 /* ANLocation.m in Sources */,
 				EC3FD7361822213C00B25418 /* ANLog+Make.m in Sources */,
+				EC5D88B918F451FE0001E0B2 /* ANANJAMImplementation.m in Sources */,
 				ECAFB02D1864EE25007F1973 /* ANTargetingParameters.m in Sources */,
 				EC3FD7371822213C00B25418 /* ANLog.m in Sources */,
 				ECB124BD1821A25D00CB4BE8 /* UIView+ANCategory.m in Sources */,
@@ -891,10 +905,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"armv7,",
-					armv7s,
-				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -922,6 +932,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -929,10 +940,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"armv7,",
-					armv7s,
-				);
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -954,6 +961,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -971,7 +979,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AppNexusSDKApp/AppNexusSDKApp.pch;
 				INFOPLIST_FILE = AppNexusSDKApp/AppNexusSDKApp.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = AppNexusSDKApp;
 				PROVISIONING_PROFILE = "";
@@ -995,7 +1003,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AppNexusSDKApp/AppNexusSDKApp.pch;
 				INFOPLIST_FILE = AppNexusSDKApp/AppNexusSDKApp.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = AppNexusSDKApp;
 				PROVISIONING_PROFILE = "";

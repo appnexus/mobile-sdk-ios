@@ -31,7 +31,7 @@ NSString *const kAppNexusSDKAppErrorCancel = @"OK";
 NSString *const kAppNexusSDKAppNewInterstitialTitle = @"Load New Interstitial";
 NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
 
-@interface AdPreviewTVC () <ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate>
+@interface AdPreviewTVC () <ANAppEventDelegate, ANInterstitialAdDelegate, ANBannerAdViewDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) ANBannerAdView *bannerAdView;
 @property (strong, nonatomic) ANInterstitialAd *interstitialAd;
@@ -158,6 +158,7 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     
     self.bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(centerX, centerY, settingsBannerWidth, settingsBannerHeight)];
     self.bannerAdView.delegate = self;
+    self.bannerAdView.appEventDelegate = self;
     self.bannerAdView.rootViewController = self;
     self.bannerAdView.adSize = CGSizeMake(settingsBannerWidth, settingsBannerHeight);
     self.bannerAdView.placementId = settingsPlacementID;
@@ -180,6 +181,7 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:settingsPlacementID];
     self.interstitialAd.delegate = self;
+    self.interstitialAd.appEventDelegate = self;
     self.interstitialAd.closeDelay = 0.5f;
     self.interstitialAd.backgroundColor = [AppNexusSDKAppGlobal colorFromString:backgroundColor];
     [self loadAdvancedSettingsOnAdView:self.interstitialAd];
@@ -303,7 +305,7 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
-    ANLogDebug(@"adFailed: %@", [error localizedDescription]);
+    ANLogDebug(@"adFailed with code %i: %@", [error code], [error localizedDescription]);
     [self.delegate ad:ad requestFailedWithError:error];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kAppNexusSDKAppErrorTitle
                                                     message:[error localizedDescription]
@@ -348,6 +350,10 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
 
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
     ANLogDebug(@"adWillLeaveApplication");
+}
+
+- (void)ad:(id<ANAdProtocol>)ad didReceiveAppEvent:(NSString *)name withData:(NSString *)data {
+    ANLogDebug(@"adDidReceiveAppEvent: %@, %@", name, data);
 }
 
 /*

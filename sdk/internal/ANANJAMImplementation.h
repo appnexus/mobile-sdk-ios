@@ -13,9 +13,13 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "ANCustomAdapter.h"
+#import "ANAdViewDelegate.h"
+#import "ANBrowserViewController.h"
 
-@interface ANTimeout : NSObject <ANCustomAdapterBanner>
-+ (void)setTimeout:(CGFloat)timeout;
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+@interface ANANJAMImplementation : NSObject 
++ (void)handleUrl:(NSURL *)url forWebView:(UIWebView *)webView
+      forDelegate:(id<ANAdViewDelegate, ANBrowserViewControllerDelegate>)delegate;
 @end

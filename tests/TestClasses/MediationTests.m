@@ -335,6 +335,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 }
 
 #pragma mark ANAdFetcherDelegate
+
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response
 {
 	if (!__testComplete)
@@ -387,14 +388,24 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 	}
 }
 
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher
-{
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
 	return 0.0;
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return CGSizeMake(320, 50);
 }
+
+- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {};
+
+#pragma mark ANBrowserViewControllerDelegate
+
+- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller{};
+- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller{};
+- (void)browserViewControllerWillLaunchExternalApplication{};
+- (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller{};
+
+#pragma mark ANAdViewDelegate
 
 - (void)adWasClicked{};
 - (void)adWillPresent{};
@@ -403,5 +414,29 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 - (void)adDidClose{};
 - (void)adWillLeaveApplication{};
 - (void)adFailedToDisplay{};
+- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data{};
+
+#pragma mark ANMRAIDAdViewDelegate
+
+- (NSString *)adType{
+    return nil;
+};
+
+- (UIViewController *)displayController{
+    return nil;
+};
+
+- (void)adShouldResetToDefault{};
+- (void)adShouldExpandToFrame:(CGRect)frame closeButton:(UIButton *)closeButton{};
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
+                  closeButton:(UIButton *)closeButton
+                closePosition:(ANMRAIDCustomClosePosition)closePosition{};
+- (void)allowOrientationChange:(BOOL)allowOrientationChange
+         withForcedOrientation:(ANMRAIDOrientation)orientation{};
+
+# pragma mark ANAppEventDelegate
+
+- (void)ad:(id<ANAdProtocol>)ad
+didReceiveAppEvent:(NSString *)name withData:(NSString *)data{};
 
 @end

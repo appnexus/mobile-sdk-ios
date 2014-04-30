@@ -23,6 +23,7 @@
 - (void)adWillClose;
 - (void)adDidClose;
 - (void)adWillLeaveApplication;
+- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
 // for interstitials only
 - (void)adFailedToDisplay;

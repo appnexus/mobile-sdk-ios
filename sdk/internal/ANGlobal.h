@@ -16,6 +16,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define AN_BASE_URL @"http://mediation.adnxs.com/"
 #define AN_MOBILE_HOSTNAME @"mediation.adnxs.com/mob"
 #define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
@@ -23,7 +24,7 @@
 #define AN_RESOURCE_BUNDLE @"ANSDKResources"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"1.13"
+#define AN_SDK_VERSION              @"1.15"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -61,9 +62,10 @@ NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
 BOOL isFirstLaunch(void);
-NSString *ANUdidParameter(void);
+NSString *ANUDID(void);
 NSString *ANErrorString(NSString *key);
 NSBundle *ANResourcesBundle();
 NSString *convertToNSString(id value);
 CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *ANMRAIDBundlePath();
+BOOL hasHttpPrefix(NSString *url);

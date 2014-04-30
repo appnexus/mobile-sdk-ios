@@ -22,6 +22,7 @@
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
 #import "ANMRAIDViewController.h"
+#import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
 #define DEFAULT_PSAS YES
@@ -36,6 +37,7 @@ ANBrowserViewControllerDelegate>
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
@@ -170,29 +172,26 @@ ANBrowserViewControllerDelegate>
 - (void)updateOrientationPropertiesOnMRAIDViewController {
     if (self.mraidController) {
         self.mraidController.allowOrientationChange = self.allowOrientationChange;
-        
+        self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+
         if (!self.isExpanded) {
-            if (!self.allowOrientationChange) {
-                switch(self.forceOrientation) {
-                    case ANMRAIDOrientationLandscape:
-                        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
-                            self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
-                            break;
-                        }
-                        self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
+            switch(self.forceOrientation) {
+                case ANMRAIDOrientationLandscape:
+                    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight) {
+                        self.mraidController.orientation = UIInterfaceOrientationLandscapeRight;
                         break;
-                    case ANMRAIDOrientationPortrait:
-                        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown) {
-                            self.mraidController.orientation = UIInterfaceOrientationPortraitUpsideDown;
-                            break;
-                        }
-                        self.mraidController.orientation = UIInterfaceOrientationPortrait;
+                    }
+                    self.mraidController.orientation = UIInterfaceOrientationLandscapeLeft;
+                    break;
+                case ANMRAIDOrientationPortrait:
+                    if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown) {
+                        self.mraidController.orientation = UIInterfaceOrientationPortraitUpsideDown;
                         break;
-                    default:
-                        self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-                }
-            } else {
-                self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+                    }
+                    self.mraidController.orientation = UIInterfaceOrientationPortrait;
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -216,11 +215,8 @@ ANBrowserViewControllerDelegate>
     // expand to full screen
     if ((size.width == -1) && (size.height == -1)) {
         [contentView removeFromSuperview];
-        if (!self.mraidController) {
-            self.mraidController = [ANMRAIDViewController new];
-            self.mraidController.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-        }
         
+        self.mraidController = [ANMRAIDViewController new];
         [self updateOrientationPropertiesOnMRAIDViewController];
         
         self.mraidController.contentView = contentView;
@@ -506,7 +502,9 @@ ANBrowserViewControllerDelegate>
             [webView setDelegate:nil];
         }
 		
+        [_contentView removeSubviews];
 		[_contentView removeFromSuperview];
+        [self removeSubviews];
         
         if (contentView != nil) {
             if ([contentView isKindOfClass:[UIWebView class]]) {
@@ -575,10 +573,7 @@ ANBrowserViewControllerDelegate>
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {
     [self adWasClicked];
     
-    NSString *scheme = [URL scheme];
-    BOOL schemeIsHttp = ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]);
-    
-    if (!self.opensInNativeBrowser && schemeIsHttp) {
+    if (!self.opensInNativeBrowser && hasHttpPrefix([URL scheme])) {
         if (!self.browserViewController) {
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
             self.browserViewController.delegate = self;
@@ -684,6 +679,12 @@ ANBrowserViewControllerDelegate>
 - (void)adWillLeaveApplication {
     if ([self.delegate respondsToSelector:@selector(adWillLeaveApplication:)]) {
         [self.delegate adWillLeaveApplication:self];
+    }
+}
+
+- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data {
+    if ([self.appEventDelegate respondsToSelector:@selector(ad:didReceiveAppEvent:withData:)]) {
+        [self.appEventDelegate ad:self didReceiveAppEvent:name withData:data];
     }
 }
 

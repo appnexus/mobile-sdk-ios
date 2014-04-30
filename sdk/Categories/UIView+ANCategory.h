@@ -22,4 +22,6 @@
 
 - (void)dismissFromPresentingViewAnimated:(BOOL)animated;
 
+- (void)removeSubviews;
+
 @end

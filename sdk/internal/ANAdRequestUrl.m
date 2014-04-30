@@ -18,6 +18,7 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANReachability.h"
+#import "NSString+ANCategory.h"
 
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
@@ -54,7 +55,7 @@
 
 - (NSURL *)buildRequestUrlWithBaseUrlString:(NSString *)baseUrlString {
     baseUrlString = [baseUrlString stringByAppendingString:[self placementIdParameter]];
-	baseUrlString = [baseUrlString stringByAppendingString:ANUdidParameter()];
+	baseUrlString = [baseUrlString stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
     baseUrlString = [baseUrlString stringByAppendingString:[self dontTrackEnabledParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceMakeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceModelParameter]];

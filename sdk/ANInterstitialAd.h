@@ -47,6 +47,12 @@
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
 
 /**
+ Delegate object that receives custom app event notifications from this
+ ANInterstitialAd.
+ */
+@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
+
+/**
  The ad view's background color.
  */
 @property (nonatomic, readwrite, strong) UIColor *backgroundColor;

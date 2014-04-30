@@ -132,29 +132,9 @@
     [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setMaxSize(%i, %i);",width, height]];
 }
 
-- (void)setSupportsTel:(BOOL)isSupported {
-    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsTel(%@);",
-                                                  isSupported ? @"true" : @"false"]];
-}
-
-- (void)setSupportsSMS:(BOOL)isSupported {
-    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsSMS(%@);",
-                                                  isSupported ? @"true" : @"false"]];
-}
-
-- (void)setSupportsCalendar:(BOOL)isSupported {
-    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsCalendar(%@);",
-                                                  isSupported ? @"true" : @"false"]];
-}
-
-- (void)setSupportsStorePicture:(BOOL)isSupported {
-    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsStorePicture(%@);",
-                                                  isSupported ? @"true" : @"false"]];
-}
-
-- (void)setSupportsInlineVideo:(BOOL)isSupported {
-    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupportsInlineVideo(%@);",
-                                                  isSupported ? @"true" : @"false"]];
+- (void)setSupports:(NSString *)feature isSupported:(BOOL)isSupported {
+    [self stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.mraid.util.setSupports(\'%@\', %@);",
+                                                  feature, (isSupported ? @"true" : @"false")]];
 }
 
 - (ANMRAIDState)getMRAIDState {

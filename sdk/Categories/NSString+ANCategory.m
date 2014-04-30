@@ -56,28 +56,24 @@
 	return result;
 }
 
-- (NSString *)stringByAppendingUrlParameter:(NSString *)name value:(NSString*)value
-{
-    NSMutableString *string =[self mutableCopy];
+- (NSString *)stringByAppendingUrlParameter:(NSString *)name
+                                      value:(NSString *)value {
+    // don't append anything if either field is empty
+    if (([name length] < 1) || ([value length] < 1)) {
+        return self;
+    }
     
-	if ([string rangeOfString:@"="].length!=0)
-	{
-        [string appendFormat:@"&%@=%@", name, [value encodeAsURIComponent]];
-    }
-	else
-	{
-		if ([string rangeOfString:@"?"].location != [string length] - 1)
-		{
-			[string appendFormat:@"?%@=%@", name, [value encodeAsURIComponent]];
-
-		}
-		else
-		{
-			[string appendFormat:@"%@=%@", name, [value encodeAsURIComponent]];
-		}
-    }
+    NSMutableString *parameter = [NSMutableString stringWithFormat:@"%@=%@",
+                           name, [value encodeAsURIComponent]];
+    
+    // add the proper prefix depending on the current string
+    if ([self rangeOfString:@"="].length != 0) {
+        [parameter insertString:@"&" atIndex:0];
+    } else if ([self rangeOfString:@"?"].location != ([self length] - 1)) {
+        [parameter insertString:@"?" atIndex:0];
+    } // otherwise, keep the string as it is
 	
-    return string;
+    return [self stringByAppendingString:parameter];
 }
 
 @end

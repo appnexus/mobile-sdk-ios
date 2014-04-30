@@ -33,6 +33,8 @@
 - (IBAction)backAction:(id)sender;
 - (IBAction)openInAction:(id)sender;
 
++ (void)launchURL:(NSURL *)url withDelegate:(id<ANBrowserViewControllerDelegate>)delegate;
+
 @end
 
 @protocol ANBrowserViewControllerDelegate <NSObject>

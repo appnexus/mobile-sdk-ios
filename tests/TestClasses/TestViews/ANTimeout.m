@@ -19,6 +19,8 @@
 @implementation ANTimeout
 @synthesize delegate;
 
+static CGFloat waitTime;
+
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
@@ -27,12 +29,18 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
+    NSLog(@"ANTimeout request");
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 (kAppNexusMediationNetworkTimeoutInterval + 1)
+                                 (waitTime)
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
+                       NSLog(@"ANTimeout call loaded on %@", NSStringFromClass([self.delegate class]));
                        [self.delegate didLoadBannerAd:[UIView new]];
                    });
+}
+
++ (void)setTimeout:(CGFloat)timeout {
+    waitTime = timeout;
 }
 
 @end

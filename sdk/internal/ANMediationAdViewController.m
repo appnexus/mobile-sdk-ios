@@ -67,7 +67,7 @@
     targetingParameters.age = adView.age;
     targetingParameters.gender = adView.gender;
     targetingParameters.location = adView.location;
-    targetingParameters.idforadvertising = ANUdidParameter();
+    targetingParameters.idforadvertising = ANUDID();
 
     // if the class implements both banner and interstitial protocols, default to banner first
     if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
@@ -169,6 +169,10 @@
 
 - (void)didReceiveAd:(id)adObject {
     if ([self checkIfHasResponded]) return;
+    if (!adObject) {
+        [self didFailToReceiveAd:ANAdResponseInternalError];
+        return;
+    }
     self.hasSucceeded = YES;
     
     ANLogDebug(@"received an ad from the adapter");

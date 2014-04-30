@@ -1296,15 +1296,16 @@
     [self delay:0.5];
     [self.interstitial displayAdFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
     UIViewController *pvc = [UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController;
-    id wv = [[pvc.view subviews] firstObject];
-    STAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of BannerAdView");
+    // webview is contained in a container view
+    id wv = [[[[pvc.view subviews] firstObject] subviews] firstObject];
+    STAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of InterstitialAdView");
     self.webView = (ANWebView *)wv;
     [self delay:2];
     
     [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, 50.0f) withOffset:CGPointZero withCustomClosePosition:@"top-left" allowOffscreen:YES];
     [self resize];
     
-    [self delay:100];
+    [self delay:1];
 }
 
 - (void)removeBannerFromSuperview {

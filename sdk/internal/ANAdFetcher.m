@@ -268,18 +268,41 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     self.webViewController.adFetcher = self;
     self.webViewController.webView = webView;
     webView.delegate = self.webViewController;
-    
-    NSURL *mraidBundlePath = [NSURL fileURLWithPath:ANMRAIDBundlePath()];
-    NSURL *baseURL = self.webViewController.isMRAID ? mraidBundlePath : self.URL;
+
     NSString *contentToLoad = response.content;
-    if (!self.webViewController.isMRAID) {
-        NSData *data = [NSData dataWithContentsOfFile:[[[NSBundle alloc] initWithPath:ANMRAIDBundlePath()] pathForResource:@"mraid"
-                                                                                                                    ofType:@"js"]];
-        NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>", [[NSString alloc] initWithData:data
-                                                                                                                                  encoding:NSUTF8StringEncoding]];
-        contentToLoad = [mraidScript stringByAppendingString:contentToLoad];
+    contentToLoad = [self prependMRAIDJS:contentToLoad];
+    contentToLoad = [self prependSDKJS:contentToLoad];
+    
+    [webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:AN_BASE_URL]];
+}
+
+- (NSString *)prependMRAIDJS:(NSString *)content {
+    NSString *mraidPath = ANMRAIDBundlePath();
+    if ([mraidPath length] < 1) {
+        return content;
     }
-    [webView loadHTMLString:contentToLoad baseURL:baseURL];
+    NSBundle *mraidBundle = [[NSBundle alloc] initWithPath:ANMRAIDBundlePath()];
+    NSData *data = [NSData dataWithContentsOfFile:[mraidBundle pathForResource:@"mraid" ofType:@"js"]];
+    NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>",
+                             [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+    return [mraidScript stringByAppendingString:content];
+}
+
+- (NSString *)prependSDKJS:(NSString *)content {
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        return content;
+    }
+    NSData *sdkjsData = [NSData dataWithContentsOfFile:[resBundle pathForResource:@"sdkjs" ofType:@"js"]];
+    NSData *anjamData = [NSData dataWithContentsOfFile:[resBundle pathForResource:@"anjam" ofType:@"js"]];
+    NSString *sdkjs = [[NSString alloc] initWithData:sdkjsData encoding:NSUTF8StringEncoding];
+    NSString *anjam  = [[NSString alloc] initWithData:anjamData encoding:NSUTF8StringEncoding];
+    
+    NSString *sdkjsScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@ %@</script>",
+                             sdkjs, anjam];
+    return [sdkjsScript stringByAppendingString:content];
+    
 }
 
 - (void)handleMediatedAds:(NSMutableArray *)mediatedAds
@@ -332,8 +355,8 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         }
     }
     if (errorCode != ANDefaultCode) {
-        [self fireResultCB:currentAd.resultCB reason:errorCode adObject:nil];
         [self clearMediationController];
+        [self fireResultCB:currentAd.resultCB reason:errorCode adObject:nil];
         return;
     }
     
@@ -385,97 +408,84 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 # pragma mark -
 # pragma mark NSURLConnectionDataDelegate
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-	@synchronized(self)
-	{
-		if (connection == self.connection)
-		{
-			if ([response isKindOfClass:[NSHTTPURLResponse class]])
-			{
-				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-				NSInteger status = [httpResponse statusCode];
-				
-				if (status >= 400)
-				{
-					[connection cancel];
-					NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
-																				  NSLocalizedString(@"Request failed with status code %d", @"Error Description: server request came back with error code."),
-																				  status]
-																		  forKey:NSLocalizedDescriptionKey];
-					NSError *statusError = [NSError errorWithDomain:AN_ERROR_DOMAIN
-															   code:status
-														   userInfo:errorInfo];
-					[self connection:connection didFailWithError:statusError];
-					return;
-				}
-			}
-			
-			self.data = [NSMutableData data];
-			
-			ANLogDebug(@"Received response: %@", response);
-			
-			[self setupAutoRefreshTimerIfNecessary];
-		}
-        // don't process the success resultCB response, just log it.
-		else if (connection == self.successResultConnection)
-		{
-			if ([response isKindOfClass:[NSHTTPURLResponse class]])
-			{
-				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-				NSInteger status = [httpResponse statusCode];
-				
-				ANLogDebug(@"Received response with code %ld from response URL request.", status);
-			}
-		} else {
-            ANLogDebug(@"Received response from unknown");
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	if (connection == self.connection) {
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            NSInteger status = [httpResponse statusCode];
+            
+            if (status >= 400) {
+                [connection cancel];
+                NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
+                                                                              NSLocalizedString(@"Request failed with status code %d", @"Error Description: server request came back with error code."),
+                                                                              status]
+                                                                      forKey:NSLocalizedDescriptionKey];
+                NSError *statusError = [NSError errorWithDomain:AN_ERROR_DOMAIN
+                                                           code:ANAdResponseNetworkError
+                                                       userInfo:errorInfo];
+                [self connection:connection didFailWithError:statusError];
+                return;
+            }
         }
-	}
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
-{
-	@synchronized(self)
-	{
-		if (connection == self.connection)
-		{
-			[self.data appendData:d];
-		}
-	}
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-	@synchronized(self)
-	{
-		if (connection == self.connection)
-		{
-            ANAdResponse *adResponse = [[ANAdResponse alloc] init];
-            adResponse = [adResponse processResponseData:self.data];
-            [self processAdResponse:adResponse];
-		}
-        // don't do anything for a succcessful resultCB
-        else if (connection == self.successResultConnection) {
-            ANLogDebug(@"Success resultCB finished loading");
+        
+        self.data = [NSMutableData data];
+        
+        ANLogDebug(@"Received response: %@", response);
+        
+        [self setupAutoRefreshTimerIfNecessary];
+    }
+    // don't process the success resultCB response, just log it.
+    else if (connection == self.successResultConnection) {
+        if ([response isKindOfClass:[NSHTTPURLResponse class]])
+        {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            NSInteger status = [httpResponse statusCode];
+            
+            ANLogDebug(@"Received response with code %ld from response URL request.", status);
         }
-	}
+    } else {
+        ANLogDebug(@"Received response from unknown");
+    }
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	@synchronized(self)
-	{
-		if (connection == self.connection)
-		{
-			ANLogError(@"Ad view connection %@ failed with error %@", connection, error);
-			
-			self.loading = NO;
-			
-			[self setupAutoRefreshTimerIfNecessary];
-			ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:error];
-            [self processFinalResponse:failureResponse];
-		}
-	}
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d {
+    if (connection == self.connection) {
+        [self.data appendData:d];
+    }
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    if (connection == self.connection) {
+        ANAdResponse *adResponse = [[ANAdResponse alloc] init];
+        adResponse = [adResponse processResponseData:self.data];
+        [self processAdResponse:adResponse];
+    }
+    // don't do anything for a succcessful resultCB
+    else if (connection == self.successResultConnection) {
+        ANLogDebug(@"Success resultCB finished loading");
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    if (connection == self.connection) {
+        NSString *errorMessage = [NSString stringWithFormat:
+                                  @"Ad request %@ failed with error %@",
+                                  connection, [error localizedDescription]];
+        ANLogError(errorMessage);
+        
+        self.loading = NO;
+        
+        [self setupAutoRefreshTimerIfNecessary];
+        
+        NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorMessage
+                                                              forKey:NSLocalizedDescriptionKey];
+        NSError *ANError = [NSError errorWithDomain:AN_ERROR_DOMAIN
+                                             code:ANAdResponseNetworkError
+                                         userInfo:errorInfo];
+        
+        ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:ANError];
+        [self processFinalResponse:failureResponse];
+    }
 }
 
 #pragma mark handling resultCB
@@ -515,7 +525,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     NSString *resultCBRequestString = [baseResultCBString
                                        stringByAppendingUrlParameter:@"reason"
                                        value:[NSString stringWithFormat:@"%d",reasonCode]];
-    resultCBRequestString = [resultCBRequestString stringByAppendingString:ANUdidParameter()];
+    resultCBRequestString = [resultCBRequestString stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
     return resultCBRequestString;
 }
 

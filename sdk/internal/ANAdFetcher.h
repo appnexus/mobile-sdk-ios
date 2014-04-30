@@ -17,6 +17,7 @@
 #import "ANAdResponse.h"
 #import "ANAdViewDelegate.h"
 #import "ANAdWebViewController.h"
+#import "ANBrowserViewController.h"
 #import "ANCustomAdapter.h"
 
 @class ANMRAIDAdWebViewController;
@@ -47,7 +48,7 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (void)processFinalResponse:(ANAdResponse *)response;
 @end
 
-@protocol ANAdFetcherDelegate <ANAdProtocol, ANAdViewDelegate, ANMRAIDAdViewDelegate>
+@protocol ANAdFetcherDelegate <ANAdProtocol, ANAdViewDelegate, ANBrowserViewControllerDelegate, ANMRAIDAdViewDelegate>
 
 @optional
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
