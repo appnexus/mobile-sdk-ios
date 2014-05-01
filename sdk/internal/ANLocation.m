@@ -13,9 +13,10 @@
  limitations under the License.
  */
 
-#import "ANLocation.h"
+#import "ANBasicConfig.h"
+#import ANLOCATIONHEADER
 
-@implementation ANLocation
+@implementation ANLOCATION
 
 @synthesize latitude;
 @synthesize longitude;
@@ -24,7 +25,7 @@
 
 #define DEFAULT_HOR_ACC 100
 
-+ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
++ (ANLOCATION *)getLocationWithLatitude:(CGFloat)latitude
                               longitude:(CGFloat)longitude
                               timestamp:(NSDate *)timestamp
                      horizontalAccuracy:(CGFloat)horizontalAccuracy
@@ -47,7 +48,7 @@
         timestamp = [NSDate date];
     
     // make a new object every time to make sure we don't use old data
-    ANLocation *location = [[ANLocation alloc] init];
+    ANLOCATION *location = [[ANLOCATION alloc] init];
     location.latitude = latitude;
     location.longitude = longitude;
     location.timestamp = timestamp;

@@ -13,7 +13,8 @@
  limitations under the License.
  */
 
-#import "ANInterstitialAd.h"
+#import "ANBasicConfig.h"
+#import ANINTERSTITIALADHEADER
 
 #import "ANAdFetcher.h"
 #import "ANBrowserViewController.h"
@@ -35,7 +36,7 @@
 NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 
-@interface ANAdView (ANInterstitialAd) <ANAdFetcherDelegate>
+@interface ANADVIEW (ANINTERSTITIALAD) <ANAdFetcherDelegate>
 - (void)initialize;
 - (void)loadAd;
 - (void)adDidReceiveAd;
@@ -64,7 +65,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 @end
 
-@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate>
+@interface ANINTERSTITIALAD () <ANInterstitialAdViewControllerDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
@@ -72,7 +73,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 @end
 
-@implementation ANInterstitialAd
+@implementation ANINTERSTITIALAD
 @synthesize controller = __controller;
 @synthesize precachedAdObjects = __precachedAdObjects;
 @synthesize delegate = __delegate;
@@ -369,15 +370,15 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
-    __weak ANInterstitialAd *weakAd = self;
+    __weak ANINTERSTITIALAD *weakAd = self;
     
     [self.browserViewController dismissViewControllerAnimated:YES completion:^{
-        ANInterstitialAd *ad = weakAd;
+        ANINTERSTITIALAD *ad = weakAd;
         ad.browserViewController = nil;
     }];
 
     [self.controller dismissViewControllerAnimated:YES completion:^{
-        ANInterstitialAd *ad = weakAd;
+        ANINTERSTITIALAD *ad = weakAd;
         ad.controller = nil;
     }];
 }

@@ -152,6 +152,7 @@
 		8A17B7FA18B5936C00F9803C /* BackgroundColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundColorView.m; sourceTree = "<group>"; };
 		8A17B7FC18B5938500F9803C /* AppNexusSDKAppGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDKAppGlobal.h; sourceTree = "<group>"; };
 		8A17B7FD18B5938500F9803C /* AppNexusSDKAppGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNexusSDKAppGlobal.m; sourceTree = "<group>"; };
+		8A629C1C19129F0F00A295CE /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBasicConfig.h; sourceTree = "<group>"; };
 		8A8CAD0118A98E2E00DF9436 /* CustomKeywordsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomKeywordsTVC.h; sourceTree = "<group>"; };
 		8A8CAD0218A98E2E00DF9436 /* CustomKeywordsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomKeywordsTVC.m; sourceTree = "<group>"; };
 		8A9EFB0517CFD49200FCF79F /* AppNexusSDKApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppNexusSDKApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -606,10 +607,10 @@
 			children = (
 				ECB1248D1821A25D00CB4BE8 /* ANAdFetcher.h */,
 				ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */,
-				ECB1248F1821A25D00CB4BE8 /* ANAdResponse.h */,
-				ECB124901821A25D00CB4BE8 /* ANAdResponse.m */,
 				EC9B3445187DE12C00013F79 /* ANAdRequestUrl.h */,
 				EC9B3446187DE12C00013F79 /* ANAdRequestUrl.m */,
+				ECB1248F1821A25D00CB4BE8 /* ANAdResponse.h */,
+				ECB124901821A25D00CB4BE8 /* ANAdResponse.m */,
 				ECB124921821A25D00CB4BE8 /* ANAdView.m */,
 				ECB124931821A25D00CB4BE8 /* ANAdViewDelegate.h */,
 				ECB124941821A25D00CB4BE8 /* ANAdWebViewController.h */,
@@ -617,6 +618,7 @@
 				EC5D88B718F451FE0001E0B2 /* ANANJAMImplementation.h */,
 				EC5D88B818F451FE0001E0B2 /* ANANJAMImplementation.m */,
 				ECB124961821A25D00CB4BE8 /* ANBannerAdView.m */,
+				8A629C1C19129F0F00A295CE /* ANBasicConfig.h */,
 				ECB124971821A25D00CB4BE8 /* ANBrowserViewController.h */,
 				ECB124981821A25D00CB4BE8 /* ANBrowserViewController.m */,
 				ECB1249B1821A25D00CB4BE8 /* ANGlobal.h */,

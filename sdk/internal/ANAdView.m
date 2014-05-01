@@ -13,13 +13,14 @@
  limitations under the License.
  */
 
-#import "ANAdView.h"
+#import "ANBasicConfig.h"
+#import ANADVIEWHEADER
 
 #import "ANAdFetcher.h"
 #import "ANAdWebViewController.h"
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
-#import "ANInterstitialAd.h"
+#import ANINTERSTITIALADHEADER
 #import "ANLogging.h"
 #import "ANMRAIDViewController.h"
 #import "UIView+ANCategory.h"
@@ -29,15 +30,15 @@
 #define CLOSE_BUTTON_OFFSET_X 4.0
 #define CLOSE_BUTTON_OFFSET_Y 4.0
 
-@interface ANAdView () <ANAdFetcherDelegate, ANAdViewDelegate,
+@interface ANADVIEW () <ANAdFetcherDelegate, ANAdViewDelegate,
 ANBrowserViewControllerDelegate>
 
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) UIButton *closeButton;
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 
-@property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
-@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
+@property (nonatomic, readwrite, weak) id<ANADDELEGATE> delegate;
+@property (nonatomic, readwrite, weak) id<ANAPPEVENTDELEGATE> appEventDelegate;
 @property (nonatomic, readwrite, assign) CGRect defaultFrame;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
 @property (nonatomic, strong) ANMRAIDViewController *mraidController;
@@ -50,7 +51,7 @@ ANBrowserViewControllerDelegate>
 
 @end
 
-@implementation ANAdView
+@implementation ANADVIEW
 // ANAdProtocol properties
 @synthesize placementId = __placementId;
 @synthesize opensInNativeBrowser = __opensInNativeBrowser;
@@ -476,7 +477,7 @@ ANBrowserViewControllerDelegate>
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
-    self.location = [ANLocation getLocationWithLatitude:latitude
+    self.location = [ANLOCATION getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy];
@@ -533,7 +534,7 @@ ANBrowserViewControllerDelegate>
     return __placementId;
 }
 
-- (ANLocation *)location {
+- (ANLOCATION *)location {
     ANLogDebug(@"location returned %@", __location);
     return __location;
 }
@@ -564,7 +565,7 @@ ANBrowserViewControllerDelegate>
     return __age;
 }
 
-- (ANGender)gender {
+- (ANGENDER)gender {
     ANLogDebug(@"gender returned %d", __gender);
     return __gender;
 }
@@ -695,10 +696,10 @@ ANBrowserViewControllerDelegate>
 }
 
 - (void)adFailedToDisplay {
-    if ([self isMemberOfClass:[ANInterstitialAd class]]
-        && [self.delegate conformsToProtocol:@protocol(ANInterstitialAdDelegate)]) {
-        ANInterstitialAd *interstitialAd = (ANInterstitialAd *)self;
-        id<ANInterstitialAdDelegate> interstitialDelegate = (id<ANInterstitialAdDelegate>) self.delegate;
+    if ([self isMemberOfClass:[ANINTERSTITIALAD class]]
+        && [self.delegate conformsToProtocol:@protocol(ANINTERSTITIALADDELEGATE)]) {
+        ANINTERSTITIALAD *interstitialAd = (ANINTERSTITIALAD *)self;
+        id<ANINTERSTITIALADDELEGATE> interstitialDelegate = (id<ANINTERSTITIALADDELEGATE>) self.delegate;
         if ([interstitialDelegate respondsToSelector:@selector(adFailedToDisplay:)]) {
             [interstitialDelegate adFailedToDisplay:interstitialAd];
         }
