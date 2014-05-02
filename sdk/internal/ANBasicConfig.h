@@ -30,6 +30,8 @@
 #define ANBANNERADVIEWDELEGATE ANBannerAdViewDelegate
 #define ANINTERSTITIALADDELEGATE ANInterstitialAdDelegate
 #define ANTARGETINGPARAMETERS ANTargetingParameters
+#define ANMOPUBMEDIATIONBANNER ANMoPubMediationBanner
+#define ANMOPUBMEDIATIONINTERSITIAL ANMoPubMediationInterstitial
 
 #define ANADPROTOCOLHEADER "ANAdProtocol.h"
 #define ANADVIEWHEADER "ANAdView.h"
@@ -38,6 +40,8 @@
 #define ANLOCATIONHEADER "ANLocation.h"
 #define ANTARGETINGPARAMETERSHEADER "ANTargetingParameters.h"
 #define ANCUSTOMADAPTERHEADER "ANCustomAdapter.h"
+#define ANMOPUBMEDIATIONBANNERHEADER "ANMoPubMediationBanner.h"
+#define ANMOPUBMEDIATIONINTERSTITIALHEADER "ANMoPubMediationInterstitial.h"
 
 #endif
 
