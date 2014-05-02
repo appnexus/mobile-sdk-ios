@@ -14,6 +14,7 @@
  */
 
 #import "ANGlobal.h"
+#import "ANBasicConfig.h"
 
 #import "ANLogging.h"
 
@@ -141,12 +142,12 @@ CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect)
 NSString *ANMRAIDBundlePath() {
     NSBundle *resBundle = ANResourcesBundle();
     if (!resBundle) {
-        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        ANLogError(@"Resource not found. Make sure the %@ bundle is included in project", AN_RESOURCE_BUNDLE);
         return @"";
     }
     NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
     if (!mraidBundlePath) {
-        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        ANLogError(@"Resource not found. Make sure the %@ bundle is included in project", AN_RESOURCE_BUNDLE);
         return @"";
     }
     return mraidBundlePath;

@@ -43,6 +43,8 @@
 #define ANMOPUBMEDIATIONBANNERHEADER "ANMoPubMediationBanner.h"
 #define ANMOPUBMEDIATIONINTERSTITIALHEADER "ANMoPubMediationInterstitial.h"
 
+#define AN_RESOURCE_BUNDLE @"ANSDKResources"
+
 #endif
 
 #endif
