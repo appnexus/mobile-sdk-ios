@@ -29,12 +29,15 @@
 #define ANAPPEVENTDELEGATE ANAppEventDelegate
 #define ANBANNERADVIEWDELEGATE ANBannerAdViewDelegate
 #define ANINTERSTITIALADDELEGATE ANInterstitialAdDelegate
+#define ANTARGETINGPARAMETERS ANTargetingParameters
 
 #define ANADPROTOCOLHEADER "ANAdProtocol.h"
 #define ANADVIEWHEADER "ANAdView.h"
 #define ANBANNERADVIEWHEADER "ANBannerAdView.h"
 #define ANINTERSTITIALADHEADER "ANInterstitialAd.h"
 #define ANLOCATIONHEADER "ANLocation.h"
+#define ANTARGETINGPARAMETERSHEADER "ANTargetingParameters.h"
+#define ANCUSTOMADAPTERHEADER "ANCustomAdapter.h"
 
 #endif
 

@@ -20,7 +20,7 @@
 #import "ANAdViewDelegate.h"
 #import "ANAdWebViewController.h"
 #import "ANBrowserViewController.h"
-#import "ANCustomAdapter.h"
+#import ANCUSTOMADAPTERHEADER
 
 @class ANMRAIDAdWebViewController;
 @class ANLOCATION;

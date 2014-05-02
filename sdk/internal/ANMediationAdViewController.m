@@ -63,7 +63,7 @@
          adUnitId:(NSString *)idString
            adView:(id<ANAdFetcherDelegate>)adView {
     // create targeting parameters object from adView properties
-    ANTargetingParameters *targetingParameters = [ANTargetingParameters new];
+    ANTARGETINGPARAMETERS *targetingParameters = [ANTARGETINGPARAMETERS new];
     targetingParameters.customKeywords = adView.customKeywords;
     targetingParameters.age = adView.age;
     targetingParameters.gender = adView.gender;
