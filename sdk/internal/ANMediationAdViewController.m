@@ -13,11 +13,12 @@
  limitations under the License.
  */
 
+#import "ANBasicConfig.h"
 #import "ANMediationAdViewController.h"
 
-#import "ANBannerAdView.h"
+#import ANBANNERADVIEWHEADER
 #import "ANGlobal.h"
-#import "ANInterstitialAd.h"
+#import ANINTERSTITIALADHEADER
 #import "ANLogging.h"
 
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
@@ -62,7 +63,7 @@
          adUnitId:(NSString *)idString
            adView:(id<ANAdFetcherDelegate>)adView {
     // create targeting parameters object from adView properties
-    ANTargetingParameters *targetingParameters = [ANTargetingParameters new];
+    ANTARGETINGPARAMETERS *targetingParameters = [ANTARGETINGPARAMETERS new];
     targetingParameters.customKeywords = adView.customKeywords;
     targetingParameters.age = adView.age;
     targetingParameters.gender = adView.gender;
@@ -74,9 +75,9 @@
         && [self.currentAdapter respondsToSelector:@selector(
             requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
         // make sure the container is a banner view
-        if ([adView isKindOfClass:[ANBannerAdView class]]) {
+        if ([adView isKindOfClass:[ANBANNERADVIEW class]]) {
             [self startTimeout];
-            ANBannerAdView *banner = (ANBannerAdView *)adView;
+            ANBANNERADVIEW *banner = (ANBANNERADVIEW *)adView;
 
             id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
             [bannerAdapter requestBannerAdWithSize:size
@@ -90,7 +91,7 @@
                && [self.currentAdapter respondsToSelector:@selector(
                    requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
         // make sure the container is an interstitial view
-        if ([adView isKindOfClass:[ANInterstitialAd class]]) {
+        if ([adView isKindOfClass:[ANINTERSTITIALAD class]]) {
             [self startTimeout];
             id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString

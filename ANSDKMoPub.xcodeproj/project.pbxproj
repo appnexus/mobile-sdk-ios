@@ -11,22 +11,23 @@
 		ECF23EC8184534D000A94DE8 /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF23EC7184534D000A94DE8 /* libANSDK.a */; };
 		ECF23ECE184534E400A94DE8 /* ANMoPubMediationBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF23ECB184534E400A94DE8 /* ANMoPubMediationBanner.m */; };
 		ECF23ECF184534E400A94DE8 /* ANMoPubMediationInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = ECF23ECD184534E400A94DE8 /* ANMoPubMediationInterstitial.m */; };
-		ECF23ED0184534FD00A94DE8 /* ANMoPubMediationBanner.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECF23ECA184534E400A94DE8 /* ANMoPubMediationBanner.h */; };
-		ECF23ED1184534FD00A94DE8 /* ANMoPubMediationInterstitial.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECF23ECC184534E400A94DE8 /* ANMoPubMediationInterstitial.h */; };
-		ECF23FBE184537B500A94DE8 /* ANSDKResources.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECF23EC6184534D000A94DE8 /* ANSDKResources.bundle */; };
+		ECF23ED0184534FD00A94DE8 /* ANMoPubMediationBanner.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECF23ECA184534E400A94DE8 /* ANMoPubMediationBanner.h */; };
+		ECF23ED1184534FD00A94DE8 /* ANMoPubMediationInterstitial.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECF23ECC184534E400A94DE8 /* ANMoPubMediationInterstitial.h */; };
+		ECF23FBE184537B500A94DE8 /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = ECF23EC6184534D000A94DE8 /* ANSDKResources.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		ECF23E941845340900A94DE8 /* CopyFiles */ = {
+		ECF23E941845340900A94DE8 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				ECF23FBE184537B500A94DE8 /* ANSDKResources.bundle in CopyFiles */,
-				ECF23ED0184534FD00A94DE8 /* ANMoPubMediationBanner.h in CopyFiles */,
-				ECF23ED1184534FD00A94DE8 /* ANMoPubMediationInterstitial.h in CopyFiles */,
+				ECF23FBE184537B500A94DE8 /* ANSDKResources.bundle in Copy Files */,
+				ECF23ED0184534FD00A94DE8 /* ANMoPubMediationBanner.h in Copy Files */,
+				ECF23ED1184534FD00A94DE8 /* ANMoPubMediationInterstitial.h in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -145,7 +146,7 @@
 			buildPhases = (
 				ECF23E921845340900A94DE8 /* Sources */,
 				ECF23E931845340900A94DE8 /* Frameworks */,
-				ECF23E941845340900A94DE8 /* CopyFiles */,
+				ECF23E941845340900A94DE8 /* Copy Files */,
 			);
 			buildRules = (
 			);

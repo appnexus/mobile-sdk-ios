@@ -13,15 +13,17 @@
  limitations under the License.
  */
 
-#import "ANAdProtocol.h"
+#import "ANBasicConfig.h"
+
+#import ANADPROTOCOLHEADER
 #import "ANAdResponse.h"
 #import "ANAdViewDelegate.h"
 #import "ANAdWebViewController.h"
 #import "ANBrowserViewController.h"
-#import "ANCustomAdapter.h"
+#import ANCUSTOMADAPTERHEADER
 
 @class ANMRAIDAdWebViewController;
-@class ANLocation;
+@class ANLOCATION;
 @protocol ANAdFetcherDelegate;
 
 extern NSString *const kANAdFetcherWillRequestAdNotification;
@@ -48,7 +50,7 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (void)processFinalResponse:(ANAdResponse *)response;
 @end
 
-@protocol ANAdFetcherDelegate <ANAdProtocol, ANAdViewDelegate, ANBrowserViewControllerDelegate, ANMRAIDAdViewDelegate>
+@protocol ANAdFetcherDelegate <ANADPROTOCOL, ANAdViewDelegate, ANBrowserViewControllerDelegate, ANMRAIDAdViewDelegate>
 
 @optional
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;

@@ -13,9 +13,10 @@
  limitations under the License.
  */
 
+#import "ANBasicConfig.h"
 #import "ANAdResponse.h"
 
-#import "ANCustomAdapter.h"
+#import ANCUSTOMADAPTERHEADER
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"

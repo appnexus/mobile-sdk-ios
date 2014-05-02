@@ -13,7 +13,8 @@
  limitations under the License.
  */
 
-#import "ANBannerAdView.h"
+#import "ANBasicConfig.h"
+#import ANBANNERADVIEWHEADER
 
 #import "ANAdFetcher.h"
 #import "ANBrowserViewController.h"
@@ -23,7 +24,7 @@
 
 #define DEFAULT_ADSIZE CGSizeZero
 
-@interface ANAdView (ANBannerAdView) <ANAdFetcherDelegate>
+@interface ANADVIEW (ANBANNERADVIEW) <ANAdFetcherDelegate>
 - (void)initialize;
 - (void)loadAd;
 - (void)adDidReceiveAd;
@@ -60,7 +61,7 @@
 @property (nonatomic, readwrite, assign) BOOL adjustFramesInResizeState;
 @end
 
-@implementation ANBannerAdView
+@implementation ANBANNERADVIEW
 @synthesize autoRefreshInterval = __autoRefreshInterval;
 @synthesize adSize = __adSize;
 
@@ -82,11 +83,11 @@
 	__adSize = self.frame.size;
 }
 
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
++ (ANBANNERADVIEW *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:frame.size];
 }
 
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
++ (ANBANNERADVIEW *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:size];
 }
 
