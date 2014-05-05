@@ -44,6 +44,7 @@
 #define ANMOPUBMEDIATIONINTERSTITIALHEADER "ANMoPubMediationInterstitial.h"
 
 #define AN_RESOURCE_BUNDLE @"ANSDKResources"
+#define AN_LOG_NAME @"AppNexus"
 
 #endif
 
