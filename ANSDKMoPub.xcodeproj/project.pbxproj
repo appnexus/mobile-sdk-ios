@@ -33,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A46BA3B1917E42B00F4ADE1 /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = sdk/internal/ANBasicConfig.h; sourceTree = SOURCE_ROOT; };
 		EC3905FF186694CA0017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		ECF23E961845340900A94DE8 /* libANSDKMoPub.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKMoPub.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECF23E991845340900A94DE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -116,6 +117,7 @@
 		ECF23EC9184534E400A94DE8 /* MoPub */ = {
 			isa = PBXGroup;
 			children = (
+				8A46BA3B1917E42B00F4ADE1 /* ANBasicConfig.h */,
 				ECF23ECA184534E400A94DE8 /* ANMoPubMediationBanner.h */,
 				ECF23ECB184534E400A94DE8 /* ANMoPubMediationBanner.m */,
 				ECF23ECC184534E400A94DE8 /* ANMoPubMediationInterstitial.h */,

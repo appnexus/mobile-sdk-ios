@@ -13,17 +13,17 @@
  limitations under the License.
  */
 
-#import "ANMoPubMediationInterstitial.h"
-#import "ANInterstitialAd.h"
-#import "ANLocation.h"
+#import "ANBasicConfig.h"
+#import ANMOPUBMEDIATIONINTERSTITIALHEADER
+#import ANLOCATIONHEADER
 
-@interface ANMoPubMediationInterstitial ()
+@interface ANMOPUBMEDIATIONINTERSTITIAL ()
 
-@property (nonatomic, retain) ANInterstitialAd *interstitial;
+@property (nonatomic, retain) ANINTERSTITIALAD *interstitial;
 
 @end
 
-@implementation ANMoPubMediationInterstitial
+@implementation ANMOPUBMEDIATIONINTERSTITIAL
 
 @synthesize interstitial = _interstitial;
 
@@ -33,7 +33,7 @@
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
-    NSLog(@"Requesting AN Interstitial");
+    NSLog(@"Requesting %@", NSStringFromClass([ANINTERSTITIALAD class]));
     
     id placementId = [info objectForKey:@"id"];
     
@@ -44,12 +44,12 @@
         return;
     }
     
-    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:placementId];
+    self.interstitial = [[ANINTERSTITIALAD alloc] initWithPlacementId:placementId];
     self.interstitial.delegate = self;
     
     if ([self.delegate location]) {
         CLLocation *mpLoc = [self.delegate location];
-        ANLocation *anLoc = [ANLocation getLocationWithLatitude:(CGFloat)mpLoc.coordinate.latitude
+        ANLOCATION *anLoc = [ANLOCATION getLocationWithLatitude:(CGFloat)mpLoc.coordinate.latitude
                                                       longitude:(CGFloat)mpLoc.coordinate.longitude
                                                       timestamp:mpLoc.timestamp
                                              horizontalAccuracy:(CGFloat)mpLoc.horizontalAccuracy];
@@ -73,45 +73,45 @@
     self.interstitial = nil;
 }
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+- (void)adDidReceiveAd:(id<ANADPROTOCOL>)ad
 {
-    NSLog(@"Did load AN Interstitial");
+    NSLog(@"Did load %@", NSStringFromClass([ANINTERSTITIALAD class]));
     if (self.delegate)
         [self.delegate interstitialCustomEvent:self didLoadAd:self.interstitial];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+- (void)ad:(id<ANADPROTOCOL>)ad requestFailedWithError:(NSError *)error
 {
-    NSLog(@"Did fail to load AN Interstitial");
+    NSLog(@"Did fail to load %@", NSStringFromClass([ANINTERSTITIALAD class]));
     if (self.delegate)
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];
 }
 
-- (void)adFailedToDisplay:(ANInterstitialAd *)ad
+- (void)adFailedToDisplay:(ANINTERSTITIALAD *)ad
 {
-    NSLog(@"Failed to display AN Interstitial");
+    NSLog(@"Failed to display %@", NSStringFromClass([ANINTERSTITIALAD class]));
     if (self.delegate) {
         [self.delegate interstitialCustomEventDidExpire:self];
     }
 }
 
-- (void)adWillPresent:(id<ANAdProtocol>)ad {
+- (void)adWillPresent:(id<ANADPROTOCOL>)ad {
     [self.delegate interstitialCustomEventWillAppear:self];
 }
 
-- (void)adDidPresent:(id<ANAdProtocol>)ad {
+- (void)adDidPresent:(id<ANADPROTOCOL>)ad {
     [self.delegate interstitialCustomEventDidAppear:self];
 }
 
-- (void)adWillClose:(id<ANAdProtocol>)ad {
+- (void)adWillClose:(id<ANADPROTOCOL>)ad {
     [self.delegate interstitialCustomEventWillDisappear:self];
 }
 
-- (void)adDidClose:(id<ANAdProtocol>)ad {
+- (void)adDidClose:(id<ANADPROTOCOL>)ad {
     [self.delegate interstitialCustomEventDidDisappear:self];
 }
 
-- (void)adWasClicked:(id<ANAdProtocol>)ad {
+- (void)adWasClicked:(id<ANADPROTOCOL>)ad {
     [self.delegate interstitialCustomEventDidReceiveTapEvent:self];
 }
 

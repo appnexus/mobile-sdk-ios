@@ -13,16 +13,15 @@
  limitations under the License.
  */
 
+#import "ANBasicConfig.h"
+#import ANGADCUSTOMBANNERADHEADER
+#import ANLOCATIONHEADER
 
-#import "ANGADCustomBannerAd.h"
-#import "ANBannerAdView.h"
-#import "ANLocation.h"
-
-@interface ANGADCustomBannerAd ()
-@property (nonatomic, readwrite, strong) ANBannerAdView *bannerAdView;
+@interface ANGADCUSTOMBANNERAD ()
+@property (nonatomic, readwrite, strong) ANBANNERADVIEW *bannerAdView;
 @end
 
-@implementation ANGADCustomBannerAd
+@implementation ANGADCUSTOMBANNERAD
 @synthesize delegate;
 @synthesize bannerAdView;
 
@@ -33,11 +32,11 @@
               parameter:(NSString *)serverParameter
                   label:(NSString *)serverLabel
                 request:(GADCustomEventRequest *)customEventRequest
-{    
+{
     // Create an ad request using custom targeting options from the custom event
     // request.
     CGRect frame = CGRectMake(0, 0, adSize.size.width, adSize.size.height);
-    self.bannerAdView = [ANBannerAdView adViewWithFrame:frame placementId:serverParameter adSize:adSize.size];
+    self.bannerAdView = [ANBANNERADVIEW adViewWithFrame:frame placementId:serverParameter adSize:adSize.size];
     
     self.bannerAdView.rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     self.bannerAdView.delegate = self;
@@ -45,7 +44,7 @@
 	self.bannerAdView.shouldServePublicServiceAnnouncements = NO;
     
     if ([customEventRequest userHasLocation]) {
-        ANLocation *loc = [ANLocation getLocationWithLatitude:[customEventRequest userLatitude]
+        ANLOCATION *loc = [ANLOCATION getLocationWithLatitude:[customEventRequest userLatitude]
                                                     longitude:[customEventRequest userLongitude]
                                                     timestamp:nil
                                            horizontalAccuracy:[customEventRequest userLocationAccuracyInMeters]];
@@ -53,7 +52,7 @@
     }
     
     GADGender gadGender = [customEventRequest userGender];
-    ANGender anGender = UNKNOWN;
+    ANGENDER anGender = UNKNOWN;
     if (gadGender != kGADGenderUnknown) {
         if (gadGender == kGADGenderMale) anGender = MALE;
         else if (gadGender == kGADGenderFemale) anGender = FEMALE;
@@ -76,33 +75,33 @@
 
 #pragma mark ANAdViewDelegate
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+- (void)adDidReceiveAd:(id<ANADPROTOCOL>)ad
 {
-    [self.delegate customEventBanner:self didReceiveAd:(ANBannerAdView *)ad];
+    [self.delegate customEventBanner:self didReceiveAd:(ANBANNERADVIEW *)ad];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+- (void)ad:(id<ANADPROTOCOL>)ad requestFailedWithError:(NSError *)error
 {
     [self.delegate customEventBanner:self didFailAd:error];
 }
 
-- (void)adWasClicked:(id<ANAdProtocol>)ad {
+- (void)adWasClicked:(id<ANADPROTOCOL>)ad {
     [self.delegate customEventBanner:self clickDidOccurInAd:self.bannerAdView];
 }
 
-- (void)adWillPresent:(id<ANAdProtocol>)ad {
+- (void)adWillPresent:(id<ANADPROTOCOL>)ad {
     [self.delegate customEventBannerWillPresentModal:self];
 }
 
-- (void)adWillClose:(id<ANAdProtocol>)ad {
+- (void)adWillClose:(id<ANADPROTOCOL>)ad {
     [self.delegate customEventBannerWillDismissModal:self];
 }
 
-- (void)adDidClose:(id<ANAdProtocol>)ad {
+- (void)adDidClose:(id<ANADPROTOCOL>)ad {
     [self.delegate customEventBannerDidDismissModal:self];
 }
 
-- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+- (void)adWillLeaveApplication:(id<ANADPROTOCOL>)ad {
     [self.delegate customEventBannerWillLeaveApplication:self];
 }
 
