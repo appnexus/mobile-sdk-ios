@@ -31,7 +31,9 @@
 #define ANINTERSTITIALADDELEGATE ANInterstitialAdDelegate
 #define ANTARGETINGPARAMETERS ANTargetingParameters
 #define ANMOPUBMEDIATIONBANNER ANMoPubMediationBanner
-#define ANMOPUBMEDIATIONINTERSITIAL ANMoPubMediationInterstitial
+#define ANMOPUBMEDIATIONINTERSTITIAL ANMoPubMediationInterstitial
+#define ANGADCUSTOMBANNERAD ANGADCustomBannerAd
+#define ANGADCUSTOMINTERSTITIALAD ANGADCustomInterstitialAd
 
 #define ANADPROTOCOLHEADER "ANAdProtocol.h"
 #define ANADVIEWHEADER "ANAdView.h"
@@ -42,6 +44,8 @@
 #define ANCUSTOMADAPTERHEADER "ANCustomAdapter.h"
 #define ANMOPUBMEDIATIONBANNERHEADER "ANMoPubMediationBanner.h"
 #define ANMOPUBMEDIATIONINTERSTITIALHEADER "ANMoPubMediationInterstitial.h"
+#define ANGADCUSTOMBANNERADHEADER "ANGADCustomBannerAd.h"
+#define ANGADCUSTOMINTERSTITIALADHEADER "ANGADCustomInterstitialAd.h"
 
 #endif
 

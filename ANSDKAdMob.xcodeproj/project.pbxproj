@@ -33,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A46BA3C1917E4EA00F4ADE1 /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = sdk/internal/ANBasicConfig.h; sourceTree = SOURCE_ROOT; };
 		EC142D8018BBB4B9003989A0 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
 		EC142D8118BBB4B9003989A0 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
 		EC142D8218BBB4B9003989A0 /* GADCustomEventBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBannerDelegate.h; sourceTree = "<group>"; };
@@ -91,6 +92,7 @@
 		EC2A47571845447900D29747 /* AdMob */ = {
 			isa = PBXGroup;
 			children = (
+				8A46BA3C1917E4EA00F4ADE1 /* ANBasicConfig.h */,
 				EC2A47581845447900D29747 /* ANGADCustomBannerAd.h */,
 				EC2A47591845447900D29747 /* ANGADCustomBannerAd.m */,
 				EC2A475A1845447900D29747 /* ANGADCustomInterstitialAd.h */,
