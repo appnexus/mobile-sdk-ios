@@ -87,7 +87,7 @@
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];
 }
 
-- (void)adFailedToDisplay:(ANInterstitialAd *)ad
+- (void)adFailedToDisplay:(ANINTERSTITIALAD *)ad
 {
     NSLog(@"Failed to display %@", NSStringFromClass([ANINTERSTITIALAD class]));
     if (self.delegate) {
