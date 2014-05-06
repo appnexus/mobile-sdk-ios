@@ -59,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A7ADEDC191969E80054FB8F /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = ../../../sdk/internal/ANBasicConfig.h; sourceTree = "<group>"; };
 		EC8477B11844166900A8BC80 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/ANCustomAdapter.h; sourceTree = "<group>"; };
 		ECAFB0181864BF66007F1973 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
 		ECAFB0191864BF66007F1973 /* ANAdAdapterBannerDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerDFP.m; sourceTree = "<group>"; };
@@ -162,6 +163,7 @@
 				EC8477B11844166900A8BC80 /* ANCustomAdapter.h */,
 				ECB1253A1821A35D00CB4BE8 /* ANGlobal.h */,
 				ECB1253C1821A35D00CB4BE8 /* ANLogging.h */,
+				8A7ADEDC191969E80054FB8F /* ANBasicConfig.h */,
 				ECB1237218219C9D00CB4BE8 /* Frameworks */,
 				ECB1237118219C9D00CB4BE8 /* Products */,
 			);

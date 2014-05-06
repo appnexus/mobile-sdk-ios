@@ -48,7 +48,7 @@
 #define ANGADCUSTOMINTERSTITIALADHEADER "ANGADCustomInterstitialAd.h"
 
 #define AN_RESOURCE_BUNDLE @"ANSDKResources"
-#define AN_LOG_NAME @"AppNexus"
+#define AN_LOG_NAME @"APPNEXUS"
 
 #define ANCUSTOMADAPTER ANCustomAdapter
 #define ANCUSTOMADAPTERBANNER ANCustomAdapterBanner

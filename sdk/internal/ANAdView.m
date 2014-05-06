@@ -579,7 +579,7 @@ ANBrowserViewControllerDelegate>
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
             self.browserViewController.delegate = self;
         } else {
-            ANLogDebug(@"%@ %@ | Attempt to instantiate ANBrowserViewController when one is already being instantiated.", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            ANLogDebug(@"%@ | Attempt to instantiate in-app browser when one is already being instantiated.", NSStringFromSelector(_cmd));
         }
     }
     else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
@@ -641,7 +641,7 @@ ANBrowserViewControllerDelegate>
 }
 
 - (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller {
-    ANLogWarn(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    ANLogWarn(@"%@", NSStringFromSelector(_cmd));
     self.browserViewController = nil;
 }
 
