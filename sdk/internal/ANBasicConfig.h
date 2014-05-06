@@ -50,6 +50,14 @@
 #define AN_RESOURCE_BUNDLE @"ANSDKResources"
 #define AN_LOG_NAME @"AppNexus"
 
+#define ANCUSTOMADAPTER ANCustomAdapter
+#define ANCUSTOMADAPTERBANNER ANCustomAdapterBanner
+#define ANCUSTOMADAPTERINTERSTITIAL ANCustomAdapterInterstitial
+#define ANCUSTOMADAPTERDELEGATE ANCustomAdapterDelegate
+#define ANCUSTOMADAPTERBANNERDELEGATE ANCustomAdapterBannerDelegate
+#define ANCUSTOMADAPTERINTERSTITIALDELEGATE ANCustomAdapterInterstitialDelegate
+#define ANADRESPONSECODE ANAdResponseCode
+
 #endif
 
 #endif

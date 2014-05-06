@@ -311,11 +311,11 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     ANMediatedAd *currentAd = mediatedAds.firstObject;
     [mediatedAds removeObject:currentAd];
     
-    ANAdResponseCode errorCode = ANDefaultCode;
+    ANADRESPONSECODE errorCode = (ANADRESPONSECODE)ANDefaultCode;
     
     if (!currentAd) {
         ANLogDebug(@"ad was null");
-        errorCode = ANAdResponseUnableToFill;
+        errorCode = (ANADRESPONSECODE)ANAdResponseUnableToFill;
     } else {
         ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), currentAd.className]);
         [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherWillInstantiateMediatedClassNotification
@@ -328,14 +328,14 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         // Check to see if an instance of this class exists
         if (!adClass) {
             ANLogError(ANErrorString(@"class_not_found_exception"));
-            errorCode = ANAdResponseMediatedSDKUnavailable;
+            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
         } else {
             id adInstance = [[adClass alloc] init];
             
             if (!adInstance || ![adInstance respondsToSelector:@selector(setDelegate:)])
             {
                 ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"ANCustomAdapterBanner or ANCustomAdapterInterstitial"]);
-                errorCode = ANAdResponseMediatedSDKUnavailable;
+                errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
             }
             else {
                 [self initMediationController:adInstance resultCB:currentAd.resultCB];
@@ -349,7 +349,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                                               adView:self.delegate];
 
                 if (!requestedSuccessfully) {
-                    errorCode = ANAdResponseMediatedSDKUnavailable;
+                    errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
                 }
             }
         }
@@ -364,7 +364,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     // now we wait for a mediation adapter to hit one of our callbacks.
 }
 
-- (void)initMediationController:(id<ANCustomAdapter>)adInstance
+- (void)initMediationController:(id<ANCUSTOMADAPTER>)adInstance
           resultCB:(NSString *)resultCB {
     // create new mediation controller
     self.mediationController = [ANMediationAdViewController initWithFetcher:self adViewDelegate:self.delegate];
@@ -491,7 +491,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 #pragma mark handling resultCB
 
 - (void)fireResultCB:(NSString *)resultCBString
-              reason:(ANAdResponseCode)reason
+              reason:(ANADRESPONSECODE)reason
             adObject:(id)adObject {
     self.loading = NO;
     

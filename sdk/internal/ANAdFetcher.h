@@ -44,7 +44,7 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (void)startAutoRefreshTimer;
 - (void)setupAutoRefreshTimerIfNecessary;
 - (void)fireResultCB:(NSString *)resultCBString
-              reason:(ANAdResponseCode)reason
+              reason:(ANADRESPONSECODE)reason
             adObject:(id)adObject;
 - (void)processAdResponse:(ANAdResponse *)response;
 - (void)processFinalResponse:(ANAdResponse *)response;

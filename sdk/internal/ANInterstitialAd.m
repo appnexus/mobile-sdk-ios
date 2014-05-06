@@ -148,7 +148,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
                 controller.modalPresentationStyle = rootViewControllerDesiredPresentationStyle;
             }];
 		}
-		else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+		else if ([adToShow conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
 			[adToShow presentFromViewController:controller];
 		}
 		else {
@@ -194,7 +194,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT) {
             // Found a valid ad
             id readyAd = [adDict objectForKey:kANInterstitialAdViewKey];
-            if ([readyAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+            if ([readyAd conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
                 // if it's a mediated ad, check if it is ready
                 if ([readyAd respondsToSelector:@selector(isReady)]) {
                     return [readyAd isReady];
