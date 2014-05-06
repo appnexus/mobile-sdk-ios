@@ -13,13 +13,14 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterBanneriAd.h"
+#import "ANBasicConfig.h"
+#import ANADADAPTERBANNERIADHEADER
 
-@interface ANAdAdapterBanneriAd ()
+@interface ANADADAPTERBANNERIAD ()
 @property (nonatomic, readwrite, strong) id bannerView;
 @end
 
-@implementation ANAdAdapterBanneriAd
+@implementation ANADADAPTERBANNERIAD
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner
@@ -29,7 +30,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
+            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
     NSLog(@"Requesting iAd banner");
     Class iAdBannerClass = NSClassFromString(@"ADBannerView");
@@ -37,7 +38,7 @@
         self.bannerView = [[iAdBannerClass alloc] initWithAdType:ADAdTypeBanner];
         [self.bannerView setDelegate:self];
     } else {
-        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+        [self.delegate didFailToLoadAd:(ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable];
     }
 }
 
@@ -75,7 +76,7 @@
             break;
     }
 
-	[self.delegate didFailToLoadAd:code];
+	[self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
 }
 
 - (void)bannerViewWillLoadAd:(ADBannerView *)banner {

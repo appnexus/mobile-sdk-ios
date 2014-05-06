@@ -13,17 +13,17 @@
  limitations under the License.
  */
 
-
-#import "ANAdAdapterBannerMillennialMedia.h"
+#import "ANBasicConfig.h"
+#import ANADADAPTERBANNERMILLENNIALMEDIAHEADER
 
 #import "MMAdView.h"
 
-@interface ANAdAdapterBannerMillennialMedia ()
+@interface ANADADAPTERBANNERMILLENNIALMEDIA ()
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic, readwrite, strong) MMAdView *mmAdView;
 @end
 
-@implementation ANAdAdapterBannerMillennialMedia
+@implementation ANADADAPTERBANNERMILLENNIALMEDIA
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner
@@ -32,7 +32,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
+            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
     NSLog(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
     [MMSDK initialize];
@@ -70,7 +70,7 @@
                     break;
             }
             
-            [self.delegate didFailToLoadAd:code];
+            [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
         }
     }];
 }

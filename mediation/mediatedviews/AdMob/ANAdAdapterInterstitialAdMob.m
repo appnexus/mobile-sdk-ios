@@ -13,22 +13,23 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterInterstitialAdMob.h"
+#import "ANBasicConfig.h"
+#import ANADADAPTERINTERSTITIALADMOBHEADER
 
-@interface ANAdAdapterInterstitialAdMob ()
+@interface ANADADAPTERINTERSTITIALADMOB ()
 
 @property (nonatomic, readwrite, strong) GADInterstitial *interstitialAd;
 
 @end
 
-@implementation ANAdAdapterInterstitialAdMob
+@implementation ANADADAPTERINTERSTITIALADMOB
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterInterstitial
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters
+                       targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
     NSLog(@"Requesting AdMob interstitial");
 	self.interstitialAd = [[GADInterstitial alloc] init];
@@ -54,10 +55,10 @@
     return self.interstitialAd.isReady;
 }
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+- (GADRequest *)createRequestFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
 	GADRequest *request = [GADRequest request];
     
-    ANGender gender = targetingParameters.gender;
+    ANGENDER gender = targetingParameters.gender;
     switch (gender) {
         case MALE:
             request.gender = kGADGenderMale;
@@ -71,7 +72,7 @@
             break;
     }
     
-    ANLocation *location = targetingParameters.location;
+    ANLOCATION *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
                                longitude:location.longitude
@@ -135,7 +136,7 @@
             break;
     }
     
-    [self.delegate didFailToLoadAd:code];
+    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
 }
 
 - (void)interstitialWillPresentScreen:(GADInterstitial *)ad {

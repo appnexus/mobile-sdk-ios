@@ -13,9 +13,10 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterBannerAdMob.h"
+#import "ANBasicConfig.h"
+#import ANADADAPTERBANNERADMOBHEADER
 
-@interface ANAdAdapterBannerAdMob ()
+@interface ANADADAPTERBANNERADMOB ()
 @property (nonatomic, readwrite, strong) GADBannerView *bannerView;
 @end
 
@@ -34,7 +35,7 @@
 
 
 
-@implementation ANAdAdapterBannerAdMob
+@implementation ANADADAPTERBANNERADMOB
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner
@@ -43,7 +44,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
+            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
     NSLog(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
 	GADAdSize gadAdSize;
@@ -71,10 +72,10 @@
 	[self.bannerView loadRequest:[self createRequestFromTargetingParameters:targetingParameters]];
 }
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+- (GADRequest *)createRequestFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
 	GADRequest *request = [GADRequest request];
     
-    ANGender gender = targetingParameters.gender;
+    ANGENDER gender = targetingParameters.gender;
     switch (gender) {
         case MALE:
             request.gender = kGADGenderMale;
@@ -88,7 +89,7 @@
             break;
     }
     
-    ANLocation *location = targetingParameters.location;
+    ANLOCATION *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
                                longitude:location.longitude
@@ -171,7 +172,7 @@
             break;
     }
     
- 	[self.delegate didFailToLoadAd:code];
+ 	[self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
 }
 
 - (void)adViewWillPresentScreen:(GADBannerView *)adView {

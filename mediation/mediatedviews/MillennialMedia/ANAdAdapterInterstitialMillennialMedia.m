@@ -13,23 +13,23 @@
  limitations under the License.
  */
 
-
-#import "ANAdAdapterInterstitialMillennialMedia.h"
+#import "ANBasicConfig.h"
+#import ANADADAPTERINTERSTITIALMILLENNIALMEDIAHEADER
 
 #import "MMInterstitial.h"
 
-@interface ANAdAdapterInterstitialMillennialMedia ()
+@interface ANADADAPTERINTERSTITIALMILLENNIALMEDIA ()
 @property (nonatomic, readwrite, strong) NSString *apid;
 @end
 
-@implementation ANAdAdapterInterstitialMillennialMedia
+@implementation ANADADAPTERINTERSTITIALMILLENNIALMEDIA
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterInterstitial
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters
+                       targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
     NSLog(@"Requesting MillennialMedia interstitial");
     [MMSDK initialize];
@@ -74,7 +74,7 @@
                                         break;
                                 }
                                 
-                                [self.delegate didFailToLoadAd:code];
+                                [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
                             }
                         }];
     
