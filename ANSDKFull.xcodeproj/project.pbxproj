@@ -56,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A9C610C19195928008CF74C /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = sdk/internal/ANBasicConfig.h; sourceTree = SOURCE_ROOT; };
 		EC3905FC1866947D0017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		EC3E5DB01843EB3E0070315E /* libANSDKFull.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKFull.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3E5DB31843EB3E0070315E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -165,6 +166,7 @@
 		EC3E5DE11843ECF20070315E /* AdMob */ = {
 			isa = PBXGroup;
 			children = (
+				8A9C610C19195928008CF74C /* ANBasicConfig.h */,
 				EC3E5DE21843ECF20070315E /* ANAdAdapterBannerAdMob.h */,
 				EC3E5DE31843ECF20070315E /* ANAdAdapterBannerAdMob.m */,
 				EC3E5DE41843ECF20070315E /* ANAdAdapterInterstitialAdMob.h */,
