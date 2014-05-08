@@ -13,18 +13,17 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADADAPTERINTERSTITIALDFPHEADER
+#import "ANAdAdapterInterstitialDFP.h"
 
 #import "DFPExtras.h"
 
-@interface ANADADAPTERINTERSTITIALDFP ()
+@interface ANAdAdapterInterstitialDFP ()
 
 @property (nonatomic, readwrite, strong) DFPInterstitial *interstitialAd;
 
 @end
 
-@implementation ANADADAPTERINTERSTITIALDFP
+@implementation ANAdAdapterInterstitialDFP
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterInterstitial

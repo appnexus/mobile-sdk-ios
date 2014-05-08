@@ -13,17 +13,16 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADADAPTERBANNERMILLENNIALMEDIAHEADER
+#import "ANAdAdapterBannerMillennialMedia.h"
 
 #import "MMAdView.h"
 
-@interface ANADADAPTERBANNERMILLENNIALMEDIA ()
+@interface ANAdAdapterBannerMillennialMedia ()
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic, readwrite, strong) MMAdView *mmAdView;
 @end
 
-@implementation ANADADAPTERBANNERMILLENNIALMEDIA
+@implementation ANAdAdapterBannerMillennialMedia
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner

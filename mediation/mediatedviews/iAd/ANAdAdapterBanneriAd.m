@@ -13,14 +13,13 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADADAPTERBANNERIADHEADER
+#import "ANAdAdapterBanneriAd.h"
 
-@interface ANADADAPTERBANNERIAD ()
+@interface ANAdAdapterBanneriAd ()
 @property (nonatomic, readwrite, strong) id bannerView;
 @end
 
-@implementation ANADADAPTERBANNERIAD
+@implementation ANAdAdapterBanneriAd
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner

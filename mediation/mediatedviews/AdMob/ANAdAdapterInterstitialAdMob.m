@@ -13,16 +13,15 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADADAPTERINTERSTITIALADMOBHEADER
+#import "ANAdAdapterInterstitialAdMob.h"
 
-@interface ANADADAPTERINTERSTITIALADMOB ()
+@interface ANAdAdapterInterstitialAdMob ()
 
 @property (nonatomic, readwrite, strong) GADInterstitial *interstitialAd;
 
 @end
 
-@implementation ANADADAPTERINTERSTITIALADMOB
+@implementation ANAdAdapterInterstitialAdMob
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterInterstitial

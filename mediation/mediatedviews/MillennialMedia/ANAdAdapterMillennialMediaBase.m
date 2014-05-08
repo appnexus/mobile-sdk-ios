@@ -13,12 +13,11 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADADAPTERMILLENNIALMEDIABASEHEADER
+#import "ANAdAdapterMillennialMediaBase.h"
 
 #import "MMAdView.h"
 
-@implementation ANADADAPTERMILLENNIALMEDIABASE
+@implementation ANAdAdapterMillennialMediaBase
 @synthesize delegate;
 
 - (void) addMMNotificationObservers {

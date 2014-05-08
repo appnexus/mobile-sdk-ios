@@ -16,6 +16,6 @@
 
 #import "ANAdAdapterMillennialMediaBase.h"
 
-@interface ANAdAdapterBannerMillennialMedia : ANAdAdapterMillennialMediaBase <ANCustomAdapterBanner>
+@interface ANAdAdapterBannerMillennialMedia : ANAdAdapterMillennialMediaBase <ANCUSTOMADAPTERBANNER>
 
 @end

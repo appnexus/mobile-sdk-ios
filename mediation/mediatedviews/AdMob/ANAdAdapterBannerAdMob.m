@@ -13,10 +13,9 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADADAPTERBANNERADMOBHEADER
+#import "ANAdAdapterBannerAdMob.h"
 
-@interface ANADADAPTERBANNERADMOB ()
+@interface ANAdAdapterBannerAdMob ()
 @property (nonatomic, readwrite, strong) GADBannerView *bannerView;
 @end
 
@@ -35,7 +34,7 @@
 
 
 
-@implementation ANADADAPTERBANNERADMOB
+@implementation ANAdAdapterBannerAdMob
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner

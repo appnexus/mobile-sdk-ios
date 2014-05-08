@@ -13,16 +13,15 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADADAPTERINTERSTITIALMILLENNIALMEDIAHEADER
+#import "ANAdAdapterInterstitialMillennialMedia.h"
 
 #import "MMInterstitial.h"
 
-@interface ANADADAPTERINTERSTITIALMILLENNIALMEDIA ()
+@interface ANAdAdapterInterstitialMillennialMedia ()
 @property (nonatomic, readwrite, strong) NSString *apid;
 @end
 
-@implementation ANADADAPTERINTERSTITIALMILLENNIALMEDIA
+@implementation ANAdAdapterInterstitialMillennialMedia
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterInterstitial

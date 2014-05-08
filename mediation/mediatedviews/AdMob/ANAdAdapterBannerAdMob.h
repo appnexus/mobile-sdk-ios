@@ -13,10 +13,10 @@
  limitations under the License.
  */
 
-
-#import "ANCustomAdapter.h"
+#import "ANBasicConfig.h"
+#import ANCUSTOMADAPTERHEADER
 #import "GADBannerView.h"
 
-@interface ANAdAdapterBannerAdMob : NSObject <ANCustomAdapterBanner, GADBannerViewDelegate>
+@interface ANAdAdapterBannerAdMob : NSObject <ANCUSTOMADAPTERBANNER, GADBannerViewDelegate>
 
 @end

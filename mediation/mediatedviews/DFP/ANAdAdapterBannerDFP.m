@@ -13,12 +13,11 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADADAPTERBANNERDFPHEADER
+#import "ANAdAdapterBannerDFP.h"
 
 #import "DFPExtras.h"
 
-@interface ANADADAPTERBANNERDFP ()
+@interface ANAdAdapterBannerDFP ()
 @property (nonatomic, readwrite, strong) DFPBannerView *dfpBanner;
 @end
 
@@ -37,7 +36,7 @@
 
 
 
-@implementation ANADADAPTERBANNERDFP
+@implementation ANAdAdapterBannerDFP
 @synthesize delegate;
 
 
