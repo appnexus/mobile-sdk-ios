@@ -15,7 +15,7 @@
 
 #import "ANBasicConfig.h"
 #import ANCUSTOMADAPTERHEADER
-#import "MMRequest.h"
+#import <MillennialMedia/MMRequest.h>
 
 #import <Foundation/Foundation.h>
 
