@@ -149,11 +149,11 @@
         // minimum allowed value for auto refresh is (15).
         if (autoRefreshInterval < kANBannerMinimumAutoRefreshInterval) {
             __autoRefreshInterval = kANBannerMinimumAutoRefreshInterval;
-            ANLogWarn(@"setAutoRefreshInterval called with value %f, but cannot be less than %f", autoRefreshInterval, kANBannerMinimumAutoRefreshInterval);
+            ANLogWarn(@"setAutoRefreshInterval called with value %f, AutoRefresh interval set to minimum allowed value %f", autoRefreshInterval, kANBannerMinimumAutoRefreshInterval);
+        } else {
+            __autoRefreshInterval = autoRefreshInterval;
+            ANLogDebug(@"AutoRefresh interval set to %f seconds", __autoRefreshInterval);
         }
-        
-		ANLogDebug(@"AutoRefresh interval set to %f seconds", autoRefreshInterval);
-		__autoRefreshInterval = autoRefreshInterval;
         
         [self.adFetcher stopAd];
         
