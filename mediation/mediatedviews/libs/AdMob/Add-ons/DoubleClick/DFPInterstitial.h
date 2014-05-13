@@ -11,6 +11,6 @@
 
 @interface DFPInterstitial : GADInterstitial
 
-@property(nonatomic, assign) NSObject<GADAppEventDelegate> *appEventDelegate;
+@property(nonatomic, weak) NSObject<GADAppEventDelegate> *appEventDelegate;
 
 @end

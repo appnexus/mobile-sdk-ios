@@ -17,6 +17,9 @@
 
 @interface DFPExtras : GADAdMobExtras
 
+/// Content URL for targeting information.
+@property(nonatomic, copy) NSString *contentURL;
+/// Publisher provided user ID.
 @property(nonatomic, copy) NSString *publisherProvidedID;
 
 @end
