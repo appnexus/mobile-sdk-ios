@@ -102,8 +102,12 @@ NSString *ANErrorString(NSString *key) {
 }
 
 NSBundle *ANResourcesBundle() {
-    NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
-    return resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle mainBundle];
+    static NSBundle *resBundle;
+    if (!resBundle) {
+        NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
+        resBundle = resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle mainBundle];
+    }
+    return resBundle;
 }
 
 NSString *convertToNSString(id value) {
@@ -155,4 +159,34 @@ NSString *ANMRAIDBundlePath() {
 
 BOOL hasHttpPrefix(NSString *url) {
     return ([url hasPrefix:@"http"] || [url hasPrefix:@"https"]);
+}
+
+static NSMutableSet *invalidNetworks;
+
+NSMutableSet *ANInvalidNetworks() {
+    if (!invalidNetworks) {
+        invalidNetworks = [NSMutableSet new];
+    }
+    return invalidNetworks;
+}
+
+void ANAddInvalidNetwork(NSString *network) {
+    if (!invalidNetworks) {
+        invalidNetworks = [NSMutableSet new];
+    }
+    [invalidNetworks addObject:network];
+}
+
+static BOOL notificationsEnabled = NO;
+
+void ANSetNotificationsEnabled(BOOL enabled) {
+    notificationsEnabled = enabled;
+}
+
+void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo) {
+    if (notificationsEnabled) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:name
+                                                            object:object
+                                                          userInfo:userInfo];
+    }
 }

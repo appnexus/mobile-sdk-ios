@@ -69,13 +69,11 @@
     targetingParameters.gender = adView.gender;
     targetingParameters.location = adView.location;
     targetingParameters.idforadvertising = ANUDID();
-
-    // if the class implements both banner and interstitial protocols, default to banner first
-    if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERBANNER)]
-        && [self.currentAdapter respondsToSelector:@selector(
-            requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
-        // make sure the container is a banner view
-        if ([adView isKindOfClass:[ANBANNERADVIEW class]]) {
+    
+    if ([adView isKindOfClass:[ANBANNERADVIEW class]]) {
+        // make sure the container and protocol match
+        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERBANNER)]
+            && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
             [self startTimeout];
             ANBANNERADVIEW *banner = (ANBANNERADVIEW *)adView;
 
@@ -86,22 +84,25 @@
                                           adUnitId:idString
                                targetingParameters:targetingParameters];
             return YES;
+        } else {
+            ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"CustomAdapterBanner"]);
         }
-    } else if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]
-               && [self.currentAdapter respondsToSelector:@selector(
-                   requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
-        // make sure the container is an interstitial view
-        if ([adView isKindOfClass:[ANINTERSTITIALAD class]]) {
+    } else if ([adView isKindOfClass:[ANINTERSTITIALAD class]]) {
+        // make sure the container and protocol match
+        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]
+            && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
             [self startTimeout];
             id<ANCUSTOMADAPTERINTERSTITIAL> interstitialAdapter = (id<ANCUSTOMADAPTERINTERSTITIAL>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
                                                            adUnitId:idString
-                                                           targetingParameters:targetingParameters];
+                                                targetingParameters:targetingParameters];
             return YES;
+        } else {
+            ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"CustomAdapterInterstitial"]);
         }
     }
-    
-    ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"ANCustomAdapterBanner or ANCustomAdapterInterstitial"]);
+
+    // executes iff request was unsuccessful
     [self clearAdapter];
     return NO;
 }

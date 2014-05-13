@@ -22,6 +22,7 @@
 #import "LogViewController.h"
 
 // Notification Logging
+#import "ANGlobal.h"
 #import "ANRequest+Make.h"
 #import "ANLog+Make.h"
 #import "ANResponse.h"
@@ -82,6 +83,7 @@ LoadPreviewVCDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, A
 
 - (void)setup {
     [ANLogManager setANLogLevel:ANLogLevelAll];
+    ANSetNotificationsEnabled(YES);
     [self setInitialVCTabBarItem]; // Set Initially Selected Tab Bar Item
     [self registerForNotifications];
     self.mainTabBar.delegate = self; // Set Parent VC as delegate of the Tab Bar

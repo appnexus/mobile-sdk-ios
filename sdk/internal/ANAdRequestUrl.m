@@ -75,6 +75,8 @@
     baseUrlString = [baseUrlString stringByAppendingString:[self ageParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self genderParameter]];
     
+    baseUrlString = [baseUrlString stringByAppendingString:[self nonetParameter]];
+
     baseUrlString = [baseUrlString stringByAppendingString:[self jsonFormatParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self supplyTypeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self sdkVersionParameter]];
@@ -262,6 +264,24 @@
     }
     
     return extraString;
+}
+
+- (NSString *)nonetParameter {
+    NSMutableString *nonetString = [NSMutableString stringWithString:@""];
+
+    NSMutableSet *nonetworks = ANInvalidNetworks();
+    for (NSString *network in nonetworks) {
+        [nonetString appendString:network];
+        [nonetString appendString:@","];
+    }
+    
+    // remove trailing comma
+    if ([nonetString length] > 0) {
+        [nonetString deleteCharactersInRange:
+         NSMakeRange([nonetString length] - 1, 1)];
+    }
+   
+    return [NSString stringWithFormat:@"&nonet=%@", nonetString];
 }
 
 - (NSString *)jsonFormatParameter {

@@ -13,8 +13,10 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
 #import "ANLogging.h"
+
+#import "ANBasicConfig.h"
+#import "ANGlobal.h"
 
 NSString *const kANLoggingNotification = @"kANLoggingNotification";
 NSString *const kANLogMessageKey = @"kANLogMessageKey";
@@ -87,8 +89,7 @@ void _ANLogError(NSString *format, ...)
 
 void notifyListener(NSString *message, NSInteger messageLevel)
 {   
-    [[NSNotificationCenter defaultCenter] postNotificationName:kANLoggingNotification
-                                                        object:nil
-                                                      userInfo:@{kANLogMessageKey: message,
-                                                                 kANLogMessageLevelKey: [NSNumber numberWithInteger:messageLevel]}];
+    ANPostNotifications(kANLoggingNotification, nil,
+                        @{kANLogMessageKey: message,
+                          kANLogMessageLevelKey: [NSNumber numberWithInteger:messageLevel]});
 }
