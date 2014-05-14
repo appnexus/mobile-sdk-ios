@@ -15,6 +15,8 @@
 
 #import "ANAdAdapterBannerAdMob.h"
 
+#import "GADAdMobExtras.h"
+
 @interface ANAdAdapterBannerAdMob ()
 @property (nonatomic, readwrite, strong) GADBannerView *bannerView;
 @end
@@ -94,8 +96,10 @@
                                longitude:location.longitude
                                 accuracy:location.horizontalAccuracy];
     }
-    
-    request.additionalParameters = targetingParameters.customKeywords;
+
+    GADAdMobExtras *extras = [GADAdMobExtras new];
+    extras.additionalParameters = targetingParameters.customKeywords;
+    [request registerAdNetworkExtras:extras];
     
     return request;
 }

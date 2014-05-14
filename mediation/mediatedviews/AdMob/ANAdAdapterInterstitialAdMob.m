@@ -15,6 +15,8 @@
 
 #import "ANAdAdapterInterstitialAdMob.h"
 
+#import "GADAdMobExtras.h"
+
 @interface ANAdAdapterInterstitialAdMob ()
 
 @property (nonatomic, readwrite, strong) GADInterstitial *interstitialAd;
@@ -78,7 +80,9 @@
                                 accuracy:location.horizontalAccuracy];
     }
     
-    request.additionalParameters = targetingParameters.customKeywords;
+    GADAdMobExtras *extras = [GADAdMobExtras new];
+    extras.additionalParameters = targetingParameters.customKeywords;
+    [request registerAdNetworkExtras:extras];
     
     return request;
 }
