@@ -55,7 +55,6 @@ ANBrowserViewControllerDelegate>
 // ANAdProtocol properties
 @synthesize placementId = __placementId;
 @synthesize opensInNativeBrowser = __opensInNativeBrowser;
-@synthesize clickShouldOpenInBrowser = __clickShouldOpenInBrowser;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
 @synthesize location = __location;
 @synthesize reserve = __reserve;
@@ -538,15 +537,9 @@ ANBrowserViewControllerDelegate>
     return __shouldServePublicServiceAnnouncements;
 }
 
-// This property is deprecated, use "opensInNativeBrowser" instead
-- (BOOL)clickShouldOpenInBrowser {
-    return self.opensInNativeBrowser;
-}
-
 - (BOOL)opensInNativeBrowser {
-    BOOL opensInNativeBrowser = (__opensInNativeBrowser || __clickShouldOpenInBrowser);
-    ANLogDebug(@"opensInNativeBrowser returned %d", opensInNativeBrowser);
-    return opensInNativeBrowser;
+    ANLogDebug(@"opensInNativeBrowser returned %d", __opensInNativeBrowser);
+    return __opensInNativeBrowser;
 }
 
 - (CGFloat)reserve {
