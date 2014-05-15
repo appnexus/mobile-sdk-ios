@@ -29,7 +29,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
+            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
     NSLog(@"Requesting iAd banner");
     Class iAdBannerClass = NSClassFromString(@"ADBannerView");
@@ -37,7 +37,7 @@
         self.bannerView = [[iAdBannerClass alloc] initWithAdType:ADAdTypeBanner];
         [self.bannerView setDelegate:self];
     } else {
-        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+        [self.delegate didFailToLoadAd:(ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable];
     }
 }
 
@@ -75,7 +75,7 @@
             break;
     }
 
-	[self.delegate didFailToLoadAd:code];
+	[self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
 }
 
 - (void)bannerViewWillLoadAd:(ADBannerView *)banner {

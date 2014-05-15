@@ -35,7 +35,7 @@
     
     if (isScheduled)
     {
-        ANLogInfo(@"[ANTimer scheduleNow] %@ is scheduled", self);
+        ANLogInfo(@"[NSTimer scheduleNow] %@ is scheduled", self);
     }
 }
 

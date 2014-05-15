@@ -21,10 +21,9 @@
 #define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
 #define AN_ERROR_TABLE @"errors"
-#define AN_RESOURCE_BUNDLE @"ANSDKResources"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"1.15"
+#define AN_SDK_VERSION              @"1.16"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -69,3 +68,7 @@ NSString *convertToNSString(id value);
 CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *ANMRAIDBundlePath();
 BOOL hasHttpPrefix(NSString *url);
+NSMutableSet *ANInvalidNetworks();
+void ANAddInvalidNetwork(NSString *network);
+void ANSetNotificationsEnabled(BOOL enabled);
+void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);

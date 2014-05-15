@@ -17,11 +17,4 @@
 
 @interface ANAdView : UIView <ANAdProtocol>
 
-#pragma mark Deprecrated Properties
-
-/**
- @deprecated This property is deprecated, use "opensInNativeBrowser" instead
- */
-@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
-
 @end

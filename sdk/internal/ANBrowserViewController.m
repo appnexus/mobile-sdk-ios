@@ -145,7 +145,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSURL *URL = [request URL];
-    if (!self.isPresented) ANLogDebug(@"%@ | Loading URL: %@", NSStringFromClass([self class]), URL);
+    if (!self.isPresented) ANLogDebug(@"%@ | Loading URL: %@", NSStringFromSelector(_cmd), URL);
 
     if (hasHttpPrefix([URL scheme])) {
         return YES;
@@ -157,7 +157,7 @@
             [self.delegate browserViewControllerWillLaunchExternalApplication];
         }
         if (!self.isPresented) {
-            ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromClass([self class]), URL);
+            ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromSelector(_cmd), URL);
             if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
                 [self.delegate browserViewControllerWillNotPresent:self];
             }

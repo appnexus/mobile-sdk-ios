@@ -13,9 +13,10 @@
  limitations under the License.
  */
 
+#import "ANBasicConfig.h"
 #import "ANAdResponse.h"
 
-#import "ANCustomAdapter.h"
+#import ANCUSTOMADAPTERHEADER
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
@@ -85,9 +86,13 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     
 
     NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (!responseString) {
+        responseString = @"";
+    }
     ANLogDebug(@"Processing response: %@", responseString);
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherDidReceiveResponseNotification object:self userInfo:[NSDictionary dictionaryWithObject:responseString ? responseString : @"" forKey:kANAdFetcherAdResponseKey]];
+    ANPostNotifications(kANAdFetcherDidReceiveResponseNotification, self,
+                        @{kANAdFetcherAdResponseKey: responseString});
     
     if ([responseString length] < 1)
         return self;

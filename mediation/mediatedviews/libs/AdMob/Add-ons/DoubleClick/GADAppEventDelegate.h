@@ -11,8 +11,8 @@
 
 @protocol GADAppEventDelegate<NSObject>
 
-// Implement your app event within these methods. The delegate will be notified
-// when the SDK receives an app event message from the ad.
+/// Implement your app event within these methods. The delegate will be notified when the SDK
+/// receives an app event message from the ad.
 @optional
 
 - (void)adView:(GADBannerView *)banner

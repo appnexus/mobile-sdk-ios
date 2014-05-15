@@ -13,15 +13,15 @@
  limitations under the License.
  */
 
+#import "ANBasicConfig.h"
+#import ANGADCUSTOMINTERSTITIALADHEADER
+#import ANLOCATIONHEADER
 
-#import "ANGADCustomInterstitialAd.h"
-#import "ANLocation.h"
-
-@interface ANGADCustomInterstitialAd ()
-@property (nonatomic, readwrite, strong) ANInterstitialAd *interstitialAd;
+@interface ANGADCUSTOMINTERSTITIALAD ()
+@property (nonatomic, readwrite, strong) ANINTERSTITIALAD *interstitialAd;
 @end
 
-@implementation ANGADCustomInterstitialAd
+@implementation ANGADCUSTOMINTERSTITIALAD
 @synthesize interstitialAd;
 @synthesize delegate;
 
@@ -30,12 +30,12 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)serverParameter label:(NSString *)serverLabel request:(GADCustomEventRequest *)customEventRequest
 {
-	self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:serverParameter];
+	self.interstitialAd = [[ANINTERSTITIALAD alloc] initWithPlacementId:serverParameter];
     self.interstitialAd.delegate = self;
 	self.interstitialAd.shouldServePublicServiceAnnouncements = NO;
     
     if ([customEventRequest userHasLocation]) {
-        ANLocation *loc = [ANLocation getLocationWithLatitude:[customEventRequest userLatitude]
+        ANLOCATION *loc = [ANLOCATION getLocationWithLatitude:[customEventRequest userLatitude]
                                                     longitude:[customEventRequest userLongitude]
                                                     timestamp:nil
                                            horizontalAccuracy:[customEventRequest userLocationAccuracyInMeters]];
@@ -43,10 +43,10 @@
     }
     
     GADGender gadGender = [customEventRequest userGender];
-    ANGender anGender = UNKNOWN;
+    ANGENDER anGender = (ANGENDER)UNKNOWN;
     if (gadGender != kGADGenderUnknown) {
-        if (gadGender == kGADGenderMale) anGender = MALE;
-        else if (gadGender == kGADGenderFemale) anGender = FEMALE;
+        if (gadGender == kGADGenderMale) anGender = (ANGENDER)MALE;
+        else if (gadGender == kGADGenderFemale) anGender = (ANGENDER)FEMALE;
     }
     [self.interstitialAd setGender:anGender];
     
@@ -67,35 +67,35 @@
 #pragma mark -
 #pragma mark ANAdDelegate
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+- (void)adDidReceiveAd:(id<ANADPROTOCOL>)ad
 {
 	[self.delegate customEventInterstitial:self didReceiveAd:ad];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+- (void)ad:(id<ANADPROTOCOL>)ad requestFailedWithError:(NSError *)error
 {
     [self.delegate customEventInterstitial:self didFailAd:error];
 }
 
 #pragma mark -
-#pragma mark ANInterstitialAdDelegate
+#pragma mark ANINTERSTITIALADDelegate
 
-- (void)adFailedToDisplay:(ANInterstitialAd *)ad {
+- (void)adFailedToDisplay:(ANINTERSTITIALAD *)ad {
 }
 
-- (void)adWillPresent:(ANInterstitialAd *)ad {
+- (void)adWillPresent:(ANINTERSTITIALAD *)ad {
     [self.delegate customEventInterstitialWillPresent:self];
 }
 
-- (void)adWillClose:(ANInterstitialAd *)ad {
+- (void)adWillClose:(ANINTERSTITIALAD *)ad {
     [self.delegate customEventInterstitialWillDismiss:self];
 }
 
-- (void)adDidClose:(ANInterstitialAd *)adView {
+- (void)adDidClose:(ANINTERSTITIALAD *)adView {
     [self.delegate customEventInterstitialDidDismiss:self];
 }
 
-- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+- (void)adWillLeaveApplication:(id<ANADPROTOCOL>)ad {
     [self.delegate customEventInterstitialWillLeaveApplication:self];
 }
 

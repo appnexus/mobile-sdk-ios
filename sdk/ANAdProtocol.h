@@ -100,13 +100,6 @@ typedef enum _ANGender
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
-#pragma mark Deprecated Properties
-
-/**
- @deprecated This property is deprecated; use opensInNativeBrowser instead.
- */
-@property (nonatomic, readwrite, assign) BOOL clickShouldOpenInBrowser DEPRECATED_ATTRIBUTE;
-
 @end
 
 /**

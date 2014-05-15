@@ -13,11 +13,12 @@
  limitations under the License.
  */
 
-#import "ANCustomAdapter.h"
+#import "ANBasicConfig.h"
+#import ANCUSTOMADAPTERHEADER
 #import "DFPBannerView.h"
 #import "DFPSwipeableBannerView.h"
 #import "GADBannerViewDelegate.h"
 
-@interface ANAdAdapterBannerDFP : NSObject <ANCustomAdapterBanner, GADBannerViewDelegate>
+@interface ANAdAdapterBannerDFP : NSObject <ANCUSTOMADAPTERBANNER, GADBannerViewDelegate>
 
 @end

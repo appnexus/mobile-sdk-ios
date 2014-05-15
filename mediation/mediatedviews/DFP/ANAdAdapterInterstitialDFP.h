@@ -13,9 +13,10 @@
  limitations under the License.
  */
 
-#import "ANCustomAdapter.h"
+#import "ANBasicConfig.h"
+#import ANCUSTOMADAPTERHEADER
 #import "DFPInterstitial.h"
 
-@interface ANAdAdapterInterstitialDFP : NSObject <ANCustomAdapterInterstitial, GADInterstitialDelegate>
+@interface ANAdAdapterInterstitialDFP : NSObject <ANCUSTOMADAPTERINTERSTITIAL, GADInterstitialDelegate>
 
 @end

@@ -20,7 +20,7 @@
 @interface ANMediationAdViewController : NSObject
 
 - (void)startTimeout;
-- (void)setAdapter:(id<ANCustomAdapter>)adapter;
+- (void)setAdapter:(id<ANCUSTOMADAPTER>)adapter;
 - (void)clearAdapter;
 - (void)setResultCBString:(NSString *)resultCBString;
 - (BOOL)requestAd:(CGSize)size
@@ -33,5 +33,5 @@
 
 @end
 
-@interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
+@interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
 @end

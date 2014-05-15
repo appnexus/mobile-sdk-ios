@@ -10,8 +10,8 @@
 
 @interface DFPSwipeableBannerView : DFPBannerView
 
-// Set a delegate to be notified when the user activates and deactivates an ad.
-// Remember to nil out the delegate before releasing this banner.
-@property(nonatomic, assign) NSObject<GADSwipeableBannerViewDelegate> *swipeDelegate;
+/// Set a delegate to be notified when the user activates and deactivates an ad. Remember to nil out
+/// the delegate before releasing this banner.
+@property(nonatomic, weak) NSObject<GADSwipeableBannerViewDelegate> *swipeDelegate;
 
 @end

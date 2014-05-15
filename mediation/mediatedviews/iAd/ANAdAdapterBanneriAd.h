@@ -13,11 +13,12 @@
  limitations under the License.
  */
 
-#import "ANCustomAdapter.h"
+#import "ANBasicConfig.h"
+#import ANCUSTOMADAPTERHEADER
 
 #import <Foundation/Foundation.h>
 #import <iAd/iAd.h>
 
-@interface ANAdAdapterBanneriAd : NSObject <ANCustomAdapterBanner, ADBannerViewDelegate>
+@interface ANAdAdapterBanneriAd : NSObject <ANCUSTOMADAPTERBANNER, ADBannerViewDelegate>
 
 @end

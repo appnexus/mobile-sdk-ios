@@ -93,6 +93,7 @@
 /* Begin PBXFileReference section */
 		EC2E96D71911A147001A42EF /* ANANJAMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANANJAMImplementation.h; sourceTree = "<group>"; };
 		EC2E96D81911A147001A42EF /* ANANJAMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANANJAMImplementation.m; sourceTree = "<group>"; };
+		8A629C1D1912A68000A295CE /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBasicConfig.h; sourceTree = "<group>"; };
 		EC3905F8186693AA0017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		EC3905F9186693B50017959C /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,13 +248,12 @@
 		EC3E5D141843C7560070315E /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				EC7AB08218887E5300C27B1E /* ANLogManager.m */,
 				EC3E5D151843C7560070315E /* ANAdFetcher.h */,
 				EC3E5D161843C7560070315E /* ANAdFetcher.m */,
-				EC3E5D171843C7560070315E /* ANAdResponse.h */,
-				EC3E5D181843C7560070315E /* ANAdResponse.m */,
 				EC9B3449187DEB6900013F79 /* ANAdRequestUrl.h */,
 				EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */,
+				EC3E5D171843C7560070315E /* ANAdResponse.h */,
+				EC3E5D181843C7560070315E /* ANAdResponse.m */,
 				EC3E5D1A1843C7560070315E /* ANAdView.m */,
 				EC3E5D1B1843C7560070315E /* ANAdViewDelegate.h */,
 				EC3E5D1C1843C7560070315E /* ANAdWebViewController.h */,
@@ -261,6 +261,7 @@
 				EC2E96D71911A147001A42EF /* ANANJAMImplementation.h */,
 				EC2E96D81911A147001A42EF /* ANANJAMImplementation.m */,
 				EC3E5D1E1843C7560070315E /* ANBannerAdView.m */,
+				8A629C1D1912A68000A295CE /* ANBasicConfig.h */,
 				EC3E5D1F1843C7560070315E /* ANBrowserViewController.h */,
 				EC3E5D201843C7560070315E /* ANBrowserViewController.m */,
 				EC3E5D231843C7560070315E /* ANGlobal.h */,
@@ -273,6 +274,7 @@
 				EC3E5D2C1843C7560070315E /* ANLocation.m */,
 				EC3E5D2D1843C7560070315E /* ANLogging.h */,
 				EC3E5D2E1843C7560070315E /* ANLogging.m */,
+				EC7AB08218887E5300C27B1E /* ANLogManager.m */,
 				EC3E5D2F1843C7560070315E /* ANMediatedAd.h */,
 				EC3E5D301843C7560070315E /* ANMediatedAd.m */,
 				EC3E5D311843C7560070315E /* ANMediationAdViewController.h */,

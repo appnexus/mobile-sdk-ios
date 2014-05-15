@@ -15,6 +15,8 @@
 
 #import "ANAdAdapterBannerAdMob.h"
 
+#import "GADAdMobExtras.h"
+
 @interface ANAdAdapterBannerAdMob ()
 @property (nonatomic, readwrite, strong) GADBannerView *bannerView;
 @end
@@ -43,7 +45,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
+            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
     NSLog(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
 	GADAdSize gadAdSize;
@@ -71,10 +73,10 @@
 	[self.bannerView loadRequest:[self createRequestFromTargetingParameters:targetingParameters]];
 }
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+- (GADRequest *)createRequestFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
 	GADRequest *request = [GADRequest request];
     
-    ANGender gender = targetingParameters.gender;
+    ANGENDER gender = targetingParameters.gender;
     switch (gender) {
         case MALE:
             request.gender = kGADGenderMale;
@@ -88,14 +90,16 @@
             break;
     }
     
-    ANLocation *location = targetingParameters.location;
+    ANLOCATION *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
                                longitude:location.longitude
                                 accuracy:location.horizontalAccuracy];
     }
-    
-    request.additionalParameters = targetingParameters.customKeywords;
+
+    GADAdMobExtras *extras = [GADAdMobExtras new];
+    extras.additionalParameters = targetingParameters.customKeywords;
+    [request registerAdNetworkExtras:extras];
     
     return request;
 }
@@ -171,7 +175,7 @@
             break;
     }
     
- 	[self.delegate didFailToLoadAd:code];
+ 	[self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
 }
 
 - (void)adViewWillPresentScreen:(GADBannerView *)adView {

@@ -15,7 +15,7 @@
 
 #import "ANAdAdapterMillennialMediaBase.h"
 
-#import "MMAdView.h"
+#import <MillennialMedia/MMAdView.h>
 
 @implementation ANAdAdapterMillennialMediaBase
 @synthesize delegate;
@@ -62,10 +62,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (MMRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+- (MMRequest *)createRequestFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
 	MMRequest *request = [MMRequest request];
     
-    ANGender gender = targetingParameters.gender;
+    ANGENDER gender = targetingParameters.gender;
     switch (gender) {
         case MALE:
             request.gender = MMGenderMale;
@@ -79,7 +79,7 @@
             break;
     }
     
-    ANLocation *location = targetingParameters.location;
+    ANLOCATION *location = targetingParameters.location;
     if (location) {
         request.location = [[CLLocation alloc]
                             initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)

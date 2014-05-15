@@ -10,45 +10,44 @@
 @protocol GADAdSizeDelegate;
 @protocol GADAppEventDelegate;
 
+/// The view that displays DoubleClick For Publishers banner ads.
 @interface DFPBannerView : GADBannerView
 
-// Optional delegate object that will be notified if a creative sends
-// app events. Remember to nil out this property before releasing the object
-// that implements the GADAppEventDelegate protocol to avoid crashing the app.
-@property(nonatomic, assign) NSObject<GADAppEventDelegate> *appEventDelegate;
+/// Optional delegate that is notified when creatives send app events. To avoid crashing the app,
+/// remember to nil this property before releasing the object that implements the
+/// GADAppEventDelegate protocol.
+@property(nonatomic, weak) NSObject<GADAppEventDelegate> *appEventDelegate;
 
-// Optional delegate object that will be notified if a creative causes the
-// banner to change size. Remember to nil out this property before releasing the
-// object that implements the GADAdSizeDelegate protocol to avoid crashing the
-// app.
-@property(nonatomic, assign) NSObject<GADAdSizeDelegate> *adSizeDelegate;
+/// Optional delegate that is notified when creatives cause the banner to change size. To avoid
+/// crashing the app, remember to nil this property before releasing the object that implements the
+/// GADAdSizeDelegate protocol.
+@property(nonatomic, weak) NSObject<GADAdSizeDelegate> *adSizeDelegate;
 
-// Optional array of GADAdSize to specify all valid sizes that are appropriate
-// for this slot. Never create your own GADAdSize directly. Use one of the
-// predefined standard ad sizes (such as kGADAdSizeBanner), or create one using
-// the GADAdSizeFromCGSize method.
-//
-// Example code:
-//   GADAdSize size1 = GADAdSizeFromCGSize(CGSizeMake(320, 50));
-//   GADAdSize size2 = GADAdSizeFromCGSize(CGSizeMake(300, 50));
-//   NSMutableArray *validSizes = [NSMutableArray array];
-//   [validSizes addObject:[NSValue valueWithBytes:&size1
-//       objCType:@encode(GADAdSize)]];
-//   [validSizes addObject:[NSValue valueWithBytes:&size2
-//       objCType:@encode(GADAdSize)]];
-//
-//   myView.validAdSizes = validSizes;
-@property(nonatomic, retain) NSArray *validAdSizes;
+/// Optional array of NSValue encoded GADAdSize structs, specifying all valid sizes that are
+/// appropriate for this slot. Never create your own GADAdSize directly. Use one of the predefined
+/// standard ad sizes (such as kGADAdSizeBanner), or create one using the GADAdSizeFromCGSize
+/// method.
+///
+/// Example:
+///   \code
+///   GADAdSize size1 = GADAdSizeFromCGSize(CGSizeMake(320, 50));
+///   GADAdSize size2 = GADAdSizeFromCGSize(CGSizeMake(300, 50));
+///   NSMutableArray *validSizes = [NSMutableArray array];
+///   [validSizes addObject:[NSValue valueWithBytes:&size1 objCType:@encode(GADAdSize)]];
+///   [validSizes addObject:[NSValue valueWithBytes:&size2 objCType:@encode(GADAdSize)]];
+///
+///   myView.validAdSizes = validSizes;
+///   \endcode
+@property(nonatomic, strong) NSArray *validAdSizes;
 
-// Flag allowing publisher to specify when the ad is visible to the user.
+/// Indicates that the publisher will record impressions manually when the ad becomes visible to the
+/// user.
 @property(nonatomic, assign) BOOL enableManualImpressions;
 
-// Call this when the ad is visible and if you have set enableManualImpressions
-// to YES.
+/// If you've set enableManualImpressions to YES, call this method when the ad is visible.
 - (void)recordImpression;
 
-// Use this function to resize the banner view without launching a new ad
-// request.
+/// Use this function to resize the banner view without launching a new ad request.
 - (void)resize:(GADAdSize)size;
 
 @end

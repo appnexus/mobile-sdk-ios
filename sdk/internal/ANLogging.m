@@ -15,6 +15,9 @@
 
 #import "ANLogging.h"
 
+#import "ANBasicConfig.h"
+#import "ANGlobal.h"
+
 NSString *const kANLoggingNotification = @"kANLoggingNotification";
 NSString *const kANLogMessageKey = @"kANLogMessageKey";
 NSString *const kANLogMessageLevelKey = @"kANLogMessageLevelKey";
@@ -23,7 +26,7 @@ void _ANLogTrace(NSString *format, ...)
 {
 	if ([ANLogManager getANLogLevel] <= ANLogLevelTrace)
     {
-		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
+		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
         va_list args;
         va_start(args, format);
         notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelTrace);
@@ -36,7 +39,7 @@ void _ANLogDebug(NSString *format, ...)
 {
 	if ([ANLogManager getANLogLevel] <= ANLogLevelDebug)
     {
-		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
+		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
         va_list args;
         va_start(args, format);
         notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelDebug);
@@ -49,7 +52,7 @@ void _ANLogWarn(NSString *format, ...)
 {
 	if ([ANLogManager getANLogLevel] <= ANLogLevelWarn)
     {
-		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
+		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
         va_list args;
         va_start(args, format);
         notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelWarn);
@@ -62,7 +65,7 @@ void _ANLogInfo(NSString *format, ...)
 {
 	if ([ANLogManager getANLogLevel] <= ANLogLevelInfo)
     {
-		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
+		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
         va_list args;
         va_start(args, format);
         notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelInfo);
@@ -75,7 +78,7 @@ void _ANLogError(NSString *format, ...)
 {
 	if ([ANLogManager getANLogLevel] <= ANLogLevelError)
     {
-		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
+		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
         va_list args;
         va_start(args, format);
         notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelError);
@@ -86,8 +89,7 @@ void _ANLogError(NSString *format, ...)
 
 void notifyListener(NSString *message, NSInteger messageLevel)
 {   
-    [[NSNotificationCenter defaultCenter] postNotificationName:kANLoggingNotification
-                                                        object:nil
-                                                      userInfo:@{kANLogMessageKey: message,
-                                                                 kANLogMessageLevelKey: [NSNumber numberWithInteger:messageLevel]}];
+    ANPostNotifications(kANLoggingNotification, nil,
+                        @{kANLogMessageKey: message,
+                          kANLogMessageLevelKey: [NSNumber numberWithInteger:messageLevel]});
 }
