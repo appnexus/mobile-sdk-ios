@@ -301,6 +301,10 @@
     return self.adSize;
 }
 
+- (UIView *)containerView {
+    return self;
+}
+
 #pragma mark ANMRAIDAdViewDelegate
 
 - (NSString *)adType {

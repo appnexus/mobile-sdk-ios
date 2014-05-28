@@ -114,6 +114,7 @@
 		ECB124D11821A25D00CB4BE8 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AA1821A25D00CB4BE8 /* ANMediationAdViewController.m */; };
 		ECB124D21821A25D00CB4BE8 /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124AC1821A25D00CB4BE8 /* ANReachability.m */; };
 		ECB5846518ABF9180059FD2D /* CreativePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB5846418ABF9180059FD2D /* CreativePreviewViewController.m */; };
+		ECCA1106192D463800472379 /* ANPBBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECCA1105192D463800472379 /* ANPBBuffer.m */; };
 		ECCF548418451FE40000E37C /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547718451FE40000E37C /* ANBrowserViewController.xib */; };
 		ECCF548518451FE40000E37C /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */; };
 		ECCF548618451FE40000E37C /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECCF547918451FE40000E37C /* errors.strings */; };
@@ -317,6 +318,8 @@
 		ECB124AC1821A25D00CB4BE8 /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
 		ECB5846318ABF9180059FD2D /* CreativePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreativePreviewViewController.h; sourceTree = "<group>"; };
 		ECB5846418ABF9180059FD2D /* CreativePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreativePreviewViewController.m; sourceTree = "<group>"; };
+		ECCA1104192D463800472379 /* ANPBBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPBBuffer.h; sourceTree = "<group>"; };
+		ECCA1105192D463800472379 /* ANPBBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBBuffer.m; sourceTree = "<group>"; };
 		ECCF547718451FE40000E37C /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
 		ECCF547818451FE40000E37C /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
 		ECCF547918451FE40000E37C /* errors.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = errors.strings; sourceTree = "<group>"; };
@@ -643,6 +646,8 @@
 				EC6AAEC5188479C700CD2FDC /* ANMRAIDProperties.h */,
 				ECF9AA931858E5540079BCD0 /* ANMRAIDViewController.h */,
 				EC70ED8C18316B2000BDF92F /* ANMRAIDViewController.m */,
+				ECCA1104192D463800472379 /* ANPBBuffer.h */,
+				ECCA1105192D463800472379 /* ANPBBuffer.m */,
 				ECB124AB1821A25D00CB4BE8 /* ANReachability.h */,
 				ECB124AC1821A25D00CB4BE8 /* ANReachability.m */,
 				ECAFB02C1864EE25007F1973 /* ANTargetingParameters.m */,
@@ -853,6 +858,7 @@
 				EC3FD72C1822213C00B25418 /* AdPreviewTVC.m in Sources */,
 				ECB124CB1821A25D00CB4BE8 /* ANInterstitialAd.m in Sources */,
 				ECB124BB1821A25D00CB4BE8 /* NSString+ANCategory.m in Sources */,
+				ECCA1106192D463800472379 /* ANPBBuffer.m in Sources */,
 				ECB5846518ABF9180059FD2D /* CreativePreviewViewController.m in Sources */,
 				EC3FD73C1822213C00B25418 /* CoreDataExample.xcdatamodeld in Sources */,
 				8ADA000118A992E00016B1BC /* AddCustomKeywordTVC.m in Sources */,

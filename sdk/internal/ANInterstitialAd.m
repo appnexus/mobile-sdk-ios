@@ -22,6 +22,7 @@
 #import "ANInterstitialAdViewController.h"
 #import "ANLogging.h"
 #import "ANMRAIDViewController.h"
+#import "ANPBBuffer.h"
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
@@ -35,6 +36,7 @@
 
 NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
+NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
 
 @interface ANADVIEW (ANINTERSTITIALAD) <ANAdFetcherDelegate>
 - (void)initialize;
@@ -112,6 +114,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 - (void)displayAdFromViewController:(UIViewController *)controller {
 	self.controller.contentView = nil;
 	id adToShow = nil;
+    NSString *auctionID = nil;
     NSString *errorString = nil;
     
     while ([self.precachedAdObjects count] > 0
@@ -125,6 +128,7 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
         if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT) {
             // If ad is still valid, save a reference to it. We'll use it later
 			adToShow = [adDict objectForKey:kANInterstitialAdViewKey];
+            auctionID = [adDict objectForKey:kANInterstitialAdViewAuctionInfoKey];
         }
         
         // This ad is now stale, so remove it from our cached ads.
@@ -150,6 +154,9 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 		}
 		else if ([adToShow conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
 			[adToShow presentFromViewController:controller];
+
+            // capture mediated interstitials after show event
+            [ANPBBuffer captureDelayedImage:controller.presentedViewController.view forAuctionID:auctionID];
 		}
 		else {
             errorString = @"Got a non-presentable object %@. Cannot display interstitial.";
@@ -287,10 +294,14 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
     if ([response isSuccessful]) {
-        NSDictionary *adViewWithDateLoaded = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              response.adObject, kANInterstitialAdViewKey,
-                                              [NSDate date], kANInterstitialAdViewDateLoadedKey,
-                                              nil];
+        NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                     response.adObject, kANInterstitialAdViewKey,
+                                                     [NSDate date], kANInterstitialAdViewDateLoadedKey,
+                                                     nil];
+        // cannot insert nil objects
+        if (response.auctionID) {
+            [adViewWithDateLoaded setObject:response.auctionID forKey:kANInterstitialAdViewAuctionInfoKey];
+        }
         [self.precachedAdObjects addObject:adViewWithDateLoaded];
         ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
         
@@ -303,6 +314,10 @@ NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDate
 
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return self.frame.size;
+}
+
+- (UIView *)containerView {
+    return self.controller.view;
 }
 
 #pragma mark ANMRAIDAdViewDelegate

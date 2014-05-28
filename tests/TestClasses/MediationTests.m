@@ -16,6 +16,7 @@
 #import "ANBaseTestCase.h"
 #import "ANAdFetcher.h"
 #import "ANAdWebViewController.h"
+#import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANSuccessfulBannerNeverCalled.h"
 
@@ -56,7 +57,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 
 @interface ANMediationAdViewController ()
 - (id)currentAdapter;
-- (NSString *)resultCBString;
+- (ANMediatedAd *)mediatedAd;
 @end
 
 #pragma mark MediationTests
@@ -349,7 +350,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 			{
 				self.adapter = [[fetcher mediationController] currentAdapter];
 				[fetcher requestAdWithURL:
-                 [NSURL URLWithString:[[fetcher mediationController] resultCBString]]];
+                 [NSURL URLWithString:[[[fetcher mediationController] mediatedAd] resultCB]]];
 			}
 				break;
 			case 70:

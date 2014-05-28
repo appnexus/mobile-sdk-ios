@@ -45,7 +45,8 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (void)setupAutoRefreshTimerIfNecessary;
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANADRESPONSECODE)reason
-            adObject:(id)adObject;
+            adObject:(id)adObject
+           auctionID:(NSString *)auctionID;
 - (void)processAdResponse:(ANAdResponse *)response;
 - (void)processFinalResponse:(ANAdResponse *)response;
 @end
@@ -57,6 +58,7 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 - (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL;
+- (UIView *)containerView;
 
 // Delegate method for ANAdView subclasses to provide parameters that are specific to them. Should return an array of NSString
 - (NSArray *)extraParameters;

@@ -73,7 +73,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test17
 {
-    [ANTimeout setTimeout:CALLBACKS_TIMEOUT - 1];
+    [ANTimeout setTimeout:CALLBACKS_TIMEOUT - 2];
     [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist firstResult:@""
                                                       secondClass:kANTimeout secondResult:@""]];
     [self stubResultCBResponses:@""];
@@ -91,7 +91,7 @@ float const CALLBACKS_TIMEOUT = 5.0;
 
 - (void)test19Timeout
 {
-    [ANTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 1];
+    [ANTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 2];
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANTimeout]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + CALLBACKS_TIMEOUT];

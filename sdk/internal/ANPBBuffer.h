@@ -13,8 +13,17 @@
  limitations under the License.
  */
 
-#import "ANMediatedAd.h"
+#import "ANAdFetcher.h"
 
-@implementation ANMediatedAd
+#import <Foundation/Foundation.h>
 
+@interface ANPBBuffer : NSObject
+
++ (void)handleUrl:(NSURL *)URL forView:(UIView *)view;
+
+// returns auction_id field for convenience
++ (NSString *)saveAuctionInfo:(NSString *)auctionInfo;
+
++ (void)captureImage:(UIView *)view forAuctionID:(NSString *)auctionID;
++ (void)captureDelayedImage:(UIView *)view forAuctionID:(NSString *)auctionID;
 @end

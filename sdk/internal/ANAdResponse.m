@@ -34,6 +34,7 @@ NSString *const kResponseKeyClass = @"class";
 NSString *const kResponseKeyId = @"id";
 NSString *const kResponseKeyParam = @"param";
 NSString *const kResponseKeyResultCB = @"result_cb";
+NSString *const kResponseKeyAuctionInfo = @"auction_info";
 
 NSString *const kResponseValueError = @"error";
 NSString *const kResponseValueIOS = @"ios";
@@ -185,6 +186,8 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
                                 
                                 NSString *resultCB = [mediatedElement objectForKey:kResponseKeyResultCB];
                                 
+                                NSString *auctionInfo = [mediatedElement objectForKey:kResponseKeyAuctionInfo];
+                                
                                 ANMediatedAd *mediatedAd = [ANMediatedAd new];
                                 mediatedAd.className = className;
                                 mediatedAd.param = param;
@@ -192,6 +195,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
                                 mediatedAd.height = height;
                                 mediatedAd.adId = adId;
                                 mediatedAd.resultCB = resultCB;
+                                mediatedAd.auctionInfo = auctionInfo;
                                 
                                 if ([mediatedAd.className length] > 0)
                                     [_mediatedAds addObject:mediatedAd];

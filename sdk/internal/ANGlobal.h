@@ -57,6 +57,9 @@
 #define kANInterstitialDefaultCloseButtonDelay 10.0
 #define kANInterstitialMaximumCloseButtonDelay 10.0
 
+// Buffer Limit
+#define kANPBBufferLimit 10
+
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);

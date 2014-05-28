@@ -305,93 +305,12 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)handleMediatedAds:(NSMutableArray *)mediatedAds {
     // pop the front ad
-    ANMediatedAd *currentAd = mediatedAds.firstObject;
-    [mediatedAds removeObject:currentAd];
+    ANMediatedAd *adToParse = mediatedAds.firstObject;
+    [mediatedAds removeObject:adToParse];
 
-    // variables to pass into the failure handler if necessary
-    NSString *className = nil;
-    NSString *resultCB = nil;
-    NSString *errorInfo = nil;
-    ANADRESPONSECODE errorCode = (ANADRESPONSECODE)ANDefaultCode;
-    
-    if (!currentAd) {
-        errorInfo = @"null mediated ad object";
-        errorCode = (ANADRESPONSECODE)ANAdResponseUnableToFill;
-    } else {
-        className = currentAd.className;
-        resultCB = currentAd.resultCB;
-        
-        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
-                            @{kANAdFetcherMediatedClassKey: className});
-        
-        ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), className]);
-        
-        Class adClass = NSClassFromString(className);
-        
-        // Check to see if an instance of this class exists
-        if (!adClass) {
-            errorInfo = @"ClassNotFoundError";
-            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
-        } else {
-            id adInstance = [[adClass alloc] init];
-            
-            if (!adInstance || ![adInstance respondsToSelector:@selector(setDelegate:)])
-            {
-                errorInfo = @"InstantiationError";
-                errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
-            } else {
-                [self initMediationController:adInstance resultCB:resultCB];
-                
-                // Grab the size of the ad - interstitials will ignore this value
-                CGSize sizeOfCreative = CGSizeMake([currentAd.width floatValue], [currentAd.height floatValue]);
-                BOOL requestedSuccessfully = [self.mediationController
-                                              requestAd:sizeOfCreative
-                                              serverParameter:currentAd.param
-                                              adUnitId:currentAd.adId
-                                              adView:self.delegate];
-                
-                if (!requestedSuccessfully) {
-                    // don't add class to invalid networks list for this failure
-                    className = nil;
-                    errorInfo = @"ClassCastError";
-                    errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
-                }
-            }
-        }
-    }
-    
-    if (errorCode != (ANADRESPONSECODE)ANDefaultCode) {
-        [self handleInstantiationFailure:className resultCB:resultCB
-                               errorCode:errorCode errorInfo:errorInfo];
-    }
-    
-    // otherwise, no error yet
-    // wait for a mediation adapter to hit one of our callbacks.
-}
-
-- (void)handleInstantiationFailure:(NSString *)className
-                          resultCB:(NSString *)resultCB
-                         errorCode:(ANADRESPONSECODE)errorCode
-                         errorInfo:(NSString *)errorInfo {
-    if ([errorInfo length] > 0) {
-        ANLogError(ANErrorString(@"mediation_instantiation_failure"), errorInfo);
-    }
-    if ([className length] > 0) {
-        ANLogWarn(ANErrorString(@"mediation_adding_invalid"), className);
-        ANAddInvalidNetwork(className);
-    }
-
-    [self clearMediationController];
-    [self fireResultCB:resultCB reason:errorCode adObject:nil];
-}
-
-- (void)initMediationController:(id<ANCUSTOMADAPTER>)adInstance
-          resultCB:(NSString *)resultCB {
-    // create new mediation controller
-    self.mediationController = [ANMediationAdViewController initWithFetcher:self adViewDelegate:self.delegate];
-    adInstance.delegate = self.mediationController;
-    [self.mediationController setAdapter:adInstance];
-    [self.mediationController setResultCBString:resultCB];
+    self.mediationController = [ANMediationAdViewController initMediatedAd:adToParse
+                                                               withFetcher:self
+                                                            adViewDelegate:self.delegate];
 }
 
 - (void)clearMediationController {
@@ -513,7 +432,8 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANADRESPONSECODE)reason
-            adObject:(id)adObject {
+            adObject:(id)adObject
+           auctionID:(NSString *)auctionID {
     self.loading = NO;
     
     if (reason == ANAdResponseSuccessful) {
@@ -526,8 +446,12 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         }
 
         ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:adObject];
+        response.auctionID = auctionID;
         [self processFinalResponse:response];
     } else {
+        // clear all failed mediation controllers
+        [self clearMediationController];
+        
         if (self.delegate) { // if there is still a delegate to send a successful ad response to
             // fire the resultCB if there is one
             if ([resultCBString length] > 0) {
