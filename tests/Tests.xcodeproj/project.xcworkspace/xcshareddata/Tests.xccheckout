@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D70B2941-C7F2-42AC-BC5C-2A1FFAD5F125</string>
+	<string>067B9D43-A82A-4BED-BFBF-303818A8E506</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Tests</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>927F3B04-2EC3-4A18-A23F-43F44D42A34E</key>
+		<key>96B626BB-5A60-4B1C-99AB-A00E13088190</key>
 		<string>ssh://git.corp.appnexus.com/app/mobile-sdk-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>tests/Tests.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>927F3B04-2EC3-4A18-A23F-43F44D42A34E</key>
+		<key>96B626BB-5A60-4B1C-99AB-A00E13088190</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>927F3B04-2EC3-4A18-A23F-43F44D42A34E</string>
+	<string>96B626BB-5A60-4B1C-99AB-A00E13088190</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>927F3B04-2EC3-4A18-A23F-43F44D42A34E</string>
+			<string>96B626BB-5A60-4B1C-99AB-A00E13088190</string>
 			<key>IDESourceControlWCCName</key>
 			<string>mobile-sdk-ios</string>
 		</dict>

@@ -1,0 +1,73 @@
+/*   Copyright 2014 APPNEXUS INC
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+#import "ANAdAdapterBannerMoPub.h"
+
+@interface ANAdAdapterBannerMoPub ()
+
+@property (nonatomic, strong) MPAdView *adView;
+@property (nonatomic, weak) UIViewController *rootViewController;
+
+@end
+
+@implementation ANAdAdapterBannerMoPub
+
+@synthesize delegate;
+
+- (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
+                serverParameter:(NSString *)parameterString
+                       adUnitId:(NSString *)idString
+            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+    self.adView = [[MPAdView alloc] initWithAdUnitId:idString
+                                                size:size];
+    self.adView.delegate = self;
+    self.adView.location = [self locationFromTargetingParameters:targetingParameters];
+    self.adView.keywords = [self keywordsFromTargetingParameters:targetingParameters];
+    self.rootViewController = rootViewController;
+    [self.adView loadAd];
+}
+
+- (void)dealloc {
+    self.adView.delegate = nil;
+}
+
+#pragma mark - MPAdViewDelegate
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    return self.rootViewController;
+}
+
+- (void)adViewDidLoadAd:(MPAdView *)view {
+    [self.delegate didLoadBannerAd:view];
+}
+
+- (void)adViewDidFailToLoadAd:(MPAdView *)view {
+    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)ANAdResponseInternalError];
+}
+
+- (void)willPresentModalViewForAd:(MPAdView *)view {
+    [self.delegate willPresentAd];
+}
+
+- (void)didDismissModalViewForAd:(MPAdView *)view {
+    [self.delegate didCloseAd];
+}
+
+- (void)willLeaveApplicationFromAd:(MPAdView *)view {
+    [self.delegate willLeaveApplication];
+}
+
+@end

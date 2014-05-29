@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A2A835F1937F8C1002B95A9 /* ANAdAdapterBannerMoPub.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A55A3151937CBBF009759D1 /* ANAdAdapterBannerMoPub.h */; };
+		8A2A83601937F8C1002B95A9 /* ANAdAdapterInterstitialMoPub.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A55A3181937CBCC009759D1 /* ANAdAdapterInterstitialMoPub.h */; };
+		8A2A84B91937FC18002B95A9 /* ANAdAdapterBannerFacebook.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A86FA871936A73300198571 /* ANAdAdapterBannerFacebook.m */; };
+		8A2A84BA1937FC18002B95A9 /* ANAdAdapterInterstitialFacebook.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A86FA8A1936A75300198571 /* ANAdAdapterInterstitialFacebook.m */; };
+		8A2A84BB1937FC18002B95A9 /* ANAdAdapterBannerMoPub.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A55A3161937CBBF009759D1 /* ANAdAdapterBannerMoPub.m */; };
+		8A2A84BC1937FC18002B95A9 /* ANAdAdapterInterstitialMoPub.m in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A55A3191937CBCC009759D1 /* ANAdAdapterInterstitialMoPub.m */; };
+		8A55A3061937BA6C009759D1 /* ANAdAdapterBannerFacebook.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A86FA861936A73300198571 /* ANAdAdapterBannerFacebook.h */; };
+		8A55A3071937BA73009759D1 /* ANAdAdapterInterstitialFacebook.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A86FA891936A75300198571 /* ANAdAdapterInterstitialFacebook.h */; };
+		8A55A3111937C8C9009759D1 /* FBAudienceNetwork.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A3FD330193669980029337D /* FBAudienceNetwork.framework */; };
+		8A55A3121937C934009759D1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3FD330193669980029337D /* FBAudienceNetwork.framework */; };
+		8A55A4BC1937E811009759D1 /* ANAdAdapterMoPubBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A55A4BB1937E811009759D1 /* ANAdAdapterMoPubBase.m */; };
+		8A86FA881936A73300198571 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A86FA871936A73300198571 /* ANAdAdapterBannerFacebook.m */; };
+		8A86FA8B1936A75300198571 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A86FA8A1936A75300198571 /* ANAdAdapterInterstitialFacebook.m */; };
+		8AE3E35A193E62E000DE7FAE /* ANAdAdapterInterstitialMoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A55A3191937CBCC009759D1 /* ANAdAdapterInterstitialMoPub.m */; };
+		8AE3E35B193E62ED00DE7FAE /* ANAdAdapterBannerMoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A55A3161937CBBF009759D1 /* ANAdAdapterBannerMoPub.m */; };
 		A8ED40DE1905BDE5009069FC /* MillennialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8ED40DD1905BDE5009069FC /* MillennialMedia.framework */; };
 		A8ED40E01905CB8E009069FC /* MillennialMedia.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A8ED40DF1905CB8E009069FC /* MillennialMedia.framework */; };
 		ECAFB01A1864BF66007F1973 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECAFB0191864BF66007F1973 /* ANAdAdapterBannerDFP.m */; };
@@ -42,6 +57,15 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				8A2A84B91937FC18002B95A9 /* ANAdAdapterBannerFacebook.m in Copy Files */,
+				8A2A84BA1937FC18002B95A9 /* ANAdAdapterInterstitialFacebook.m in Copy Files */,
+				8A2A84BB1937FC18002B95A9 /* ANAdAdapterBannerMoPub.m in Copy Files */,
+				8A2A84BC1937FC18002B95A9 /* ANAdAdapterInterstitialMoPub.m in Copy Files */,
+				8A2A835F1937F8C1002B95A9 /* ANAdAdapterBannerMoPub.h in Copy Files */,
+				8A2A83601937F8C1002B95A9 /* ANAdAdapterInterstitialMoPub.h in Copy Files */,
+				8A55A3111937C8C9009759D1 /* FBAudienceNetwork.framework in Copy Files */,
+				8A55A3071937BA73009759D1 /* ANAdAdapterInterstitialFacebook.h in Copy Files */,
+				8A55A3061937BA6C009759D1 /* ANAdAdapterBannerFacebook.h in Copy Files */,
 				A8ED40E01905CB8E009069FC /* MillennialMedia.framework in Copy Files */,
 				ECB1245F18219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.h in Copy Files */,
 				ECB1246018219ED600CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Copy Files */,
@@ -62,7 +86,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A3FD330193669980029337D /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		8A55A3151937CBBF009759D1 /* ANAdAdapterBannerMoPub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerMoPub.h; path = ../MoPub/ANAdAdapterBannerMoPub.h; sourceTree = "<group>"; };
+		8A55A3161937CBBF009759D1 /* ANAdAdapterBannerMoPub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerMoPub.m; path = ../MoPub/ANAdAdapterBannerMoPub.m; sourceTree = "<group>"; };
+		8A55A3181937CBCC009759D1 /* ANAdAdapterInterstitialMoPub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterInterstitialMoPub.h; path = ../MoPub/ANAdAdapterInterstitialMoPub.h; sourceTree = "<group>"; };
+		8A55A3191937CBCC009759D1 /* ANAdAdapterInterstitialMoPub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialMoPub.m; path = ../MoPub/ANAdAdapterInterstitialMoPub.m; sourceTree = "<group>"; };
+		8A55A4BA1937E811009759D1 /* ANAdAdapterMoPubBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterMoPubBase.h; path = ../MoPub/ANAdAdapterMoPubBase.h; sourceTree = "<group>"; };
+		8A55A4BB1937E811009759D1 /* ANAdAdapterMoPubBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterMoPubBase.m; path = ../MoPub/ANAdAdapterMoPubBase.m; sourceTree = "<group>"; };
+		8A7581DE1939057800BDFC82 /* MPAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPAdView.h; sourceTree = "<group>"; };
+		8A7581E31939057800BDFC82 /* MPConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPConstants.h; sourceTree = "<group>"; };
+		8A7581E41939057800BDFC82 /* MPInterstitialAdController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPInterstitialAdController.h; sourceTree = "<group>"; };
 		8A7ADEDC191969E80054FB8F /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = ../../../sdk/internal/ANBasicConfig.h; sourceTree = "<group>"; };
+		8A86FA861936A73300198571 /* ANAdAdapterBannerFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerFacebook.h; path = ../Facebook/ANAdAdapterBannerFacebook.h; sourceTree = "<group>"; };
+		8A86FA871936A73300198571 /* ANAdAdapterBannerFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerFacebook.m; path = ../Facebook/ANAdAdapterBannerFacebook.m; sourceTree = "<group>"; };
+		8A86FA891936A75300198571 /* ANAdAdapterInterstitialFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterInterstitialFacebook.h; path = ../Facebook/ANAdAdapterInterstitialFacebook.h; sourceTree = "<group>"; };
+		8A86FA8A1936A75300198571 /* ANAdAdapterInterstitialFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialFacebook.m; path = ../Facebook/ANAdAdapterInterstitialFacebook.m; sourceTree = "<group>"; };
 		A8ED40DD1905BDE5009069FC /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillennialMedia.framework; path = ../libs/MMSDK/MillennialMedia.framework; sourceTree = "<group>"; };
 		A8ED40DF1905CB8E009069FC /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillennialMedia.framework; path = ../libs/MMSDK/MillennialMedia.framework; sourceTree = "<group>"; };
 		EC8477B11844166900A8BC80 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANCustomAdapter.h; path = ../../../sdk/ANCustomAdapter.h; sourceTree = "<group>"; };
@@ -96,11 +134,6 @@
 		ECB123C818219D4F00CB4BE8 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
 		ECB123C918219D4F00CB4BE8 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		ECB123CA18219D4F00CB4BE8 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMMSDK_5.1.1.a; sourceTree = "<group>"; };
-		ECB123CD18219D4F00CB4BE8 /* MMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAdView.h; sourceTree = "<group>"; };
-		ECB123CE18219D4F00CB4BE8 /* MMInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMInterstitial.h; sourceTree = "<group>"; };
-		ECB123CF18219D4F00CB4BE8 /* MMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRequest.h; sourceTree = "<group>"; };
-		ECB123D018219D4F00CB4BE8 /* MMSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSDK.h; sourceTree = "<group>"; };
 		ECB1244418219E2000CB4BE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ECB1244B18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMillennialMedia.h; sourceTree = "<group>"; };
 		ECB1244C18219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMillennialMedia.m; sourceTree = "<group>"; };
@@ -126,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A55A3121937C934009759D1 /* FBAudienceNetwork.framework in Frameworks */,
 				A8ED40DE1905BDE5009069FC /* MillennialMedia.framework in Frameworks */,
 				ECCF18F51835792300B17EB4 /* iAd.framework in Frameworks */,
 				ECB1237418219C9D00CB4BE8 /* Foundation.framework in Frameworks */,
@@ -136,6 +170,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A55A3141937CA22009759D1 /* MoPub */ = {
+			isa = PBXGroup;
+			children = (
+				8A55A3151937CBBF009759D1 /* ANAdAdapterBannerMoPub.h */,
+				8A55A3161937CBBF009759D1 /* ANAdAdapterBannerMoPub.m */,
+				8A55A3181937CBCC009759D1 /* ANAdAdapterInterstitialMoPub.h */,
+				8A55A3191937CBCC009759D1 /* ANAdAdapterInterstitialMoPub.m */,
+				8A55A4BA1937E811009759D1 /* ANAdAdapterMoPubBase.h */,
+				8A55A4BB1937E811009759D1 /* ANAdAdapterMoPubBase.m */,
+			);
+			name = MoPub;
+			sourceTree = "<group>";
+		};
+		8A75815A1939057800BDFC82 /* MoPubSDK */ = {
+			isa = PBXGroup;
+			children = (
+				8A7581DE1939057800BDFC82 /* MPAdView.h */,
+				8A7581E31939057800BDFC82 /* MPConstants.h */,
+				8A7581E41939057800BDFC82 /* MPInterstitialAdController.h */,
+			);
+			path = MoPubSDK;
+			sourceTree = "<group>";
+		};
+		8A86FA851936A6E600198571 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				8A86FA861936A73300198571 /* ANAdAdapterBannerFacebook.h */,
+				8A86FA871936A73300198571 /* ANAdAdapterBannerFacebook.m */,
+				8A86FA891936A75300198571 /* ANAdAdapterInterstitialFacebook.h */,
+				8A86FA8A1936A75300198571 /* ANAdAdapterInterstitialFacebook.m */,
+			);
+			name = Facebook;
+			sourceTree = "<group>";
+		};
 		ECAFB0171864BF47007F1973 /* DFP */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,15 +254,17 @@
 		ECB1237218219C9D00CB4BE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A8ED40DD1905BDE5009069FC /* MillennialMedia.framework */,
-				ECAFB0171864BF47007F1973 /* DFP */,
-				ECCF18F41835792300B17EB4 /* iAd.framework */,
-				ECB1244A18219ECD00CB4BE8 /* MillennialMedia */,
-				ECB1244F18219ECE00CB4BE8 /* iAd */,
 				ECB1245418219ECE00CB4BE8 /* AdMob */,
-				ECB1244418219E2000CB4BE8 /* UIKit.framework */,
-				ECB123B618219D4F00CB4BE8 /* libs */,
+				ECAFB0171864BF47007F1973 /* DFP */,
+				8A86FA851936A6E600198571 /* Facebook */,
 				ECB1237318219C9D00CB4BE8 /* Foundation.framework */,
+				ECB1244F18219ECE00CB4BE8 /* iAd */,
+				ECCF18F41835792300B17EB4 /* iAd.framework */,
+				ECB123B618219D4F00CB4BE8 /* libs */,
+				ECB1244A18219ECD00CB4BE8 /* MillennialMedia */,
+				A8ED40DD1905BDE5009069FC /* MillennialMedia.framework */,
+				8A55A3141937CA22009759D1 /* MoPub */,
+				ECB1244418219E2000CB4BE8 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -202,8 +272,9 @@
 		ECB123B618219D4F00CB4BE8 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				8A75815A1939057800BDFC82 /* MoPubSDK */,
+				8A3FD330193669980029337D /* FBAudienceNetwork.framework */,
 				ECB123B718219D4F00CB4BE8 /* AdMob */,
-				ECB123CB18219D4F00CB4BE8 /* MMSDK */,
 			);
 			name = libs;
 			path = ../libs;
@@ -248,18 +319,6 @@
 				ECB123BF18219D4F00CB4BE8 /* GADCustomEventRequest.h */,
 			);
 			path = Mediation;
-			sourceTree = "<group>";
-		};
-		ECB123CB18219D4F00CB4BE8 /* MMSDK */ = {
-			isa = PBXGroup;
-			children = (
-				ECB123CC18219D4F00CB4BE8 /* libMMSDK_5.1.1.a */,
-				ECB123CD18219D4F00CB4BE8 /* MMAdView.h */,
-				ECB123CE18219D4F00CB4BE8 /* MMInterstitial.h */,
-				ECB123CF18219D4F00CB4BE8 /* MMRequest.h */,
-				ECB123D018219D4F00CB4BE8 /* MMSDK.h */,
-			);
-			path = MMSDK;
 			sourceTree = "<group>";
 		};
 		ECB1244A18219ECD00CB4BE8 /* MillennialMedia */ = {
@@ -351,13 +410,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AE3E35B193E62ED00DE7FAE /* ANAdAdapterBannerMoPub.m in Sources */,
+				8AE3E35A193E62E000DE7FAE /* ANAdAdapterInterstitialMoPub.m in Sources */,
 				ECAFB01A1864BF66007F1973 /* ANAdAdapterBannerDFP.m in Sources */,
 				ECAFB0271864D157007F1973 /* ANAdAdapterInterstitialDFP.m in Sources */,
+				8A86FA8B1936A75300198571 /* ANAdAdapterInterstitialFacebook.m in Sources */,
 				ECB1245B18219ECE00CB4BE8 /* ANAdAdapterBanneriAd.m in Sources */,
 				ECB1245C18219ECE00CB4BE8 /* ANAdAdapterInterstitialiAd.m in Sources */,
 				ECB1245918219ECE00CB4BE8 /* ANAdAdapterBannerMillennialMedia.m in Sources */,
+				8A86FA881936A73300198571 /* ANAdAdapterBannerFacebook.m in Sources */,
 				ECB1245A18219ECE00CB4BE8 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
 				ECFCC0DB1831890F00797F72 /* ANAdAdapterMillennialMediaBase.m in Sources */,
+				8A55A4BC1937E811009759D1 /* ANAdAdapterMoPubBase.m in Sources */,
 				ECB1245D18219ECE00CB4BE8 /* ANAdAdapterBannerAdMob.m in Sources */,
 				ECB1245E18219ECE00CB4BE8 /* ANAdAdapterInterstitialAdMob.m in Sources */,
 			);
@@ -442,10 +506,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../libs/MMSDK",
+					"$(PROJECT_DIR)",
+					"/Users/josecu/Desktop/mobile-sdk-ios/mediation/mediatedviews/libs",
+					"$(PROJECT_DIR)/../libs/MoPubSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/../libs/MoPubSDK",
 					"$(PROJECT_DIR)/../libs/AdMob",
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -461,10 +529,14 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../libs/MMSDK",
+					"$(PROJECT_DIR)",
+					"/Users/josecu/Desktop/mobile-sdk-ios/mediation/mediatedviews/libs",
+					"$(PROJECT_DIR)/../libs/MoPubSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/../libs/MoPubSDK",
 					"$(PROJECT_DIR)/../libs/AdMob",
 				);
 				OTHER_LDFLAGS = "-ObjC";
