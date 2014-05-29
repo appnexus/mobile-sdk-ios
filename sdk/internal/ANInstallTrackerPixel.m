@@ -15,7 +15,6 @@
 
 #import "ANInstallTrackerPixel.h"
 
-#import "ANGlobal.h"
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
 
@@ -32,6 +31,7 @@
 @property (nonatomic, readwrite, strong) NSURLConnection *connection;
 @property (nonatomic, readwrite, strong) NSMutableData *data;
 @property (nonatomic, readwrite, strong) NSString *trackingID;
+@property (nonatomic, readwrite, strong) NSString *ANHostnameInstallURL;
 @property (nonatomic, readwrite, assign, getter = isLoading) BOOL loading;
 @end
 
@@ -50,6 +50,7 @@
 	{
 		self.trackingID = trackingID;
 		self.data = [NSMutableData data];
+        self.ANHostnameInstallURL = AN_MOBILE_HOSTNAME_INSTALL;
 		__lastAttemptInterval = 0;
 		
         self.request = [[NSMutableURLRequest alloc] initWithURL:nil
@@ -59,6 +60,21 @@
 	}
 	
 	return self;
+}
+
+- (void)setEndpoint:(ANMobileEndpoint)endpoint {
+    _endpoint = endpoint;
+    switch (endpoint) {
+        case ANMobileEndpointClientTesting:
+            self.ANHostnameInstallURL = AN_MOBILE_HOSTNAME_INSTALL_CTEST;
+            break;
+        case ANMobileEndpointSandbox:
+            self.ANHostnameInstallURL = AN_MOBILE_HOSTNAME_INSTALL_SAND;
+            break;
+        default:
+            self.ANHostnameInstallURL = AN_MOBILE_HOSTNAME_INSTALL;
+            break;
+    }
 }
 
 - (NSString *)trackingIDParameter

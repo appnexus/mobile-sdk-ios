@@ -44,6 +44,8 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
+@property (nonatomic, readwrite, strong) NSString *ANMobileHostname;
+@property (nonatomic, readwrite, strong) NSString *ANBaseURL;
 @end
 
 @implementation ANAdFetcher
@@ -55,10 +57,30 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 		self.data = [NSMutableData data];
         self.request = [ANAdFetcher initBasicRequest];
 		self.successResultRequest = [ANAdFetcher initBasicRequest];
+        self.ANMobileHostname = AN_MOBILE_HOSTNAME;
+        self.ANBaseURL = AN_BASE_URL;
         [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
     }
     
 	return self;
+}
+
+- (void)setEndpoint:(ANMobileEndpoint)endpoint {
+    _endpoint = endpoint;
+    switch (endpoint) {
+        case ANMobileEndpointClientTesting:
+            self.ANMobileHostname = AN_MOBILE_HOSTNAME_CTEST;
+            self.ANBaseURL = AN_BASE_URL_CTEST;
+            break;
+        case ANMobileEndpointSandbox:
+            self.ANMobileHostname = AN_MOBILE_HOSTNAME_SAND;
+            self.ANBaseURL = AN_BASE_URL_SAND;
+            break;
+        default:
+            self.ANMobileHostname = AN_MOBILE_HOSTNAME;
+            self.ANBaseURL = AN_BASE_URL;
+            break;
+    }
 }
 
 + (NSMutableURLRequest *)initBasicRequest {
@@ -92,7 +114,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         ANLogDebug(ANErrorString(([self getAutoRefreshFromDelegate] > 0.0)
                                  ? @"fetcher_start_auto" : @"fetcher_start_single"));
 		
-        NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME];
+        NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", self.ANMobileHostname];
         self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
                                                                       baseUrlString:baseUrlString];
 		
@@ -271,7 +293,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     contentToLoad = [self prependMRAIDJS:contentToLoad];
     contentToLoad = [self prependSDKJS:contentToLoad];
     
-    [webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:AN_BASE_URL]];
+    [webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:self.ANBaseURL]];
 }
 
 - (NSString *)prependMRAIDJS:(NSString *)content {
