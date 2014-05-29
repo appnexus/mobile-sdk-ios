@@ -20,6 +20,7 @@
 #import "ANAdViewDelegate.h"
 #import "ANAdWebViewController.h"
 #import "ANBrowserViewController.h"
+#import "ANGlobal.h"
 #import ANCUSTOMADAPTERHEADER
 
 @class ANMRAIDAdWebViewController;
@@ -37,6 +38,7 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> delegate;
 @property (nonatomic, readonly, getter = isLoading) BOOL loading;
+@property (nonatomic, readwrite, assign) ANMobileEndpoint endpoint;
 
 - (void)stopAd;
 - (void)requestAd;

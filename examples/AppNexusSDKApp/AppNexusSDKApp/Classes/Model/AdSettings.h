@@ -30,6 +30,7 @@
 #define DEFAULT_RESERVE 0.0
 #define DEFAULT_CUSTOM_KEYWORDS [[NSDictionary alloc] init]
 #define DEFAULT_ZIPCODE @""
+#define DEFAULT_ENVIRONMENT 0
 
 @interface AdSettings : NSObject
 
@@ -60,6 +61,8 @@ typedef NS_ENUM(int, BrowserType) {
 
 @property (nonatomic) NSDictionary *customKeywords;
 
+@property (nonatomic) NSUInteger environment;
+
 /*
     Banner Properties
  */
@@ -83,5 +86,6 @@ typedef NS_ENUM(int, BrowserType) {
 
 @property (nonatomic) int memberID;
 @property (strong, nonatomic) NSString *dongle;
+
 
 @end

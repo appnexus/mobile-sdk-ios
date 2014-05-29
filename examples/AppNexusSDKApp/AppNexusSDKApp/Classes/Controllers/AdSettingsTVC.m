@@ -24,6 +24,7 @@
 #import "CustomKeywordsTVC.h"
 #import "BackgroundColorView.h"
 #import "AppNexusSDKAppGlobal.h"
+#import "ANGlobal.h"
 
 #define CLASS_NAME @"AdSettingsTVC"
 
@@ -67,6 +68,8 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
 @property (weak, nonatomic) IBOutlet UISegmentedControl *adTypeToggle;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *allowPSAToggle;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *browserTypeToggle;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *environmentToggle;
+
 @property (weak, nonatomic) IBOutlet UITextField *placementIDTextField;
 @property (weak, nonatomic) IBOutlet UITextField *ageTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderToggle;
@@ -282,6 +285,10 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     self.persistentSettings.zipcode = zipcode;
 }
 
+- (void)saveEnvironment:(ANMobileEndpoint)environment {
+    self.persistentSettings.environment = environment;
+}
+
 - (BOOL)saveBackgroundColor:(NSString *)backgroundColor {
     if ([AdSettings backgroundColorIsValid:backgroundColor]) {
         self.persistentSettings.backgroundColor = backgroundColor;
@@ -468,6 +475,12 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
     }
     
     self.genderToggle.selectedSegmentIndex = self.persistentSettings.gender;
+ 
+    if (self.persistentSettings.environment == ANMobileEndpointProduction) {
+        self.environmentToggle.selectedSegmentIndex = 0;
+    } else if (self.persistentSettings.environment == ANMobileEndpointClientTesting) {
+        self.environmentToggle.selectedSegmentIndex = 1;
+    }
 }
 
 #pragma mark Segmented Controls - On Change
@@ -491,6 +504,19 @@ AppNexusSDKAppSectionHeaderViewDelegate, AppNexusSDKAppModalViewControllerDelega
         [self saveBrowser:BROWSER_TYPE_DEVICE];
     } else {
         [self saveBrowser:BROWSER_TYPE_IN_APP];
+    }
+}
+
+- (IBAction)setEnvrionmentSegmentedControl:(UISegmentedControl *)sender {
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            [self saveEnvironment:ANMobileEndpointProduction];
+            break;
+        case 1:
+            [self saveEnvironment:ANMobileEndpointClientTesting];
+            break;
+        default:
+            break;
     }
 }
 

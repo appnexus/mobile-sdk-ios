@@ -37,6 +37,7 @@
 #define RESERVE_KEY @"Reserve"
 #define CUSTOM_KEYWORDS_KEY @"CustomKeywords"
 #define ZIPCODE_KEY @"Zipcode"
+#define ENVIRONMENT_KEY @"Environment"
 
 - (id)init {
     NSDictionary *settingsFromUserDefaults = [[NSUserDefaults standardUserDefaults] dictionaryForKey:ALL_SETTINGS_KEY];
@@ -68,7 +69,8 @@
              GENDER_KEY:@(self.gender),
              RESERVE_KEY:@(self.reserve),
              CUSTOM_KEYWORDS_KEY:self.customKeywords,
-             ZIPCODE_KEY:self.zipcode};
+             ZIPCODE_KEY:self.zipcode,
+             ENVIRONMENT_KEY:@(self.environment)};
 }
 
 - (id)initFromPropertyList:(id)plist {
@@ -89,7 +91,8 @@
             _reserve = settingsDict[RESERVE_KEY] ? [settingsDict[RESERVE_KEY] doubleValue] : DEFAULT_RESERVE;
             _customKeywords = settingsDict[CUSTOM_KEYWORDS_KEY] ? settingsDict[CUSTOM_KEYWORDS_KEY] : DEFAULT_CUSTOM_KEYWORDS;
             _zipcode = settingsDict[ZIPCODE_KEY] ? settingsDict[ZIPCODE_KEY] : DEFAULT_ZIPCODE;
-
+            _environment = settingsDict[ENVIRONMENT_KEY] ? [settingsDict[ENVIRONMENT_KEY] unsignedIntegerValue] : DEFAULT_ENVIRONMENT;
+            
             /*
                 Banner Properties
              */
@@ -127,6 +130,7 @@
         _reserve = DEFAULT_RESERVE;
         _customKeywords = DEFAULT_CUSTOM_KEYWORDS;
         _zipcode = DEFAULT_ZIPCODE;
+        _environment = DEFAULT_ENVIRONMENT;
         
         /*
          Banner Properties
@@ -235,6 +239,11 @@
     unsigned int scannedValue;
     BOOL isValid = [scanner scanHexInt:&scannedValue];
     return isValid;
+}
+
+- (void)setEnvironment:(NSUInteger)environment {
+    _environment = environment;
+    [self synchronize];
 }
 
 @end
