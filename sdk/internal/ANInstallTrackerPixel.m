@@ -104,7 +104,7 @@
 
 - (NSURL *)pixelURL
 {
-	NSString *urlString = [NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME_INSTALL];
+	NSString *urlString = [NSString stringWithFormat:@"http://%@?", self.ANHostnameInstallURL];
 
 	urlString = [urlString stringByAppendingString:[self trackingIDParameter]];
 	urlString = [urlString stringByAppendingString:[self dontTrackEnabledParameter]];
