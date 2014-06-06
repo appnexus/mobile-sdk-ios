@@ -26,7 +26,7 @@
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
-#define DEFAULT_PSAS YES
+#define DEFAULT_PSAS NO
 #define CLOSE_BUTTON_OFFSET_X 4.0
 #define CLOSE_BUTTON_OFFSET_Y 4.0
 
