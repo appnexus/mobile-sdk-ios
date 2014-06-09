@@ -201,7 +201,6 @@
     }
     
     // executes iff request was unsuccessful
-    [self clearAdapter];
     return NO;
 }
 
