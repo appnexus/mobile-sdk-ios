@@ -57,6 +57,7 @@
 		EC9B33CC187DA9F300013F79 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B33CB187DA9F300013F79 /* ANWebView.m */; };
 		EC9B344A187DEB6900013F79 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9B3448187DEB6900013F79 /* ANAdRequestUrl.m */; };
 		ECD6B3CC19366176006681FF /* ANPBBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD6B3CB19366176006681FF /* ANPBBuffer.m */; };
+		ECD9EBB91947C7320084E78B /* ANClickOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9EBB81947C7320084E78B /* ANClickOverlayView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,8 @@
 		EC9B3449187DEB6900013F79 /* ANAdRequestUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequestUrl.h; sourceTree = "<group>"; };
 		ECD6B3CA19366176006681FF /* ANPBBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPBBuffer.h; sourceTree = "<group>"; };
 		ECD6B3CB19366176006681FF /* ANPBBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBBuffer.m; sourceTree = "<group>"; };
+		ECD9EBB71947C7320084E78B /* ANClickOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANClickOverlayView.h; sourceTree = "<group>"; };
+		ECD9EBB81947C7320084E78B /* ANClickOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANClickOverlayView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +270,8 @@
 				8A629C1D1912A68000A295CE /* ANBasicConfig.h */,
 				EC3E5D1F1843C7560070315E /* ANBrowserViewController.h */,
 				EC3E5D201843C7560070315E /* ANBrowserViewController.m */,
+				ECD9EBB71947C7320084E78B /* ANClickOverlayView.h */,
+				ECD9EBB81947C7320084E78B /* ANClickOverlayView.m */,
 				EC3E5D231843C7560070315E /* ANGlobal.h */,
 				EC3E5D241843C7560070315E /* ANGlobal.m */,
 				EC3E5D251843C7560070315E /* ANInstallTrackerPixel.h */,
@@ -445,6 +450,7 @@
 				EC3E5D531843C7560070315E /* ANLocation.m in Sources */,
 				EC3E5D4E1843C7560070315E /* ANBrowserViewController.m in Sources */,
 				EC3E5D551843C7560070315E /* ANMediatedAd.m in Sources */,
+				ECD9EBB91947C7320084E78B /* ANClickOverlayView.m in Sources */,
 				EC3E5D541843C7560070315E /* ANLogging.m in Sources */,
 				EC3E5D501843C7560070315E /* ANInstallTrackerPixel.m in Sources */,
 				EC3E5D511843C7560070315E /* ANInterstitialAd.m in Sources */,
