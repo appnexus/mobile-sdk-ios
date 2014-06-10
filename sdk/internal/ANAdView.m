@@ -25,6 +25,7 @@
 #import "ANMRAIDViewController.h"
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
+#import "ANClickOverlayView.h"
 
 #define DEFAULT_PSAS NO
 #define CLOSE_BUTTON_OFFSET_X 4.0
@@ -48,6 +49,7 @@ ANBrowserViewControllerDelegate>
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 @property (nonatomic, readwrite, assign) CGPoint resizeOffset;
 @property (nonatomic, readwrite, assign) BOOL adjustFramesInResizeState;
+@property (nonatomic, readwrite, strong) ANClickOverlayView *clickOverlay;
 
 @end
 
@@ -569,6 +571,7 @@ ANBrowserViewControllerDelegate>
     
     if (!self.opensInNativeBrowser && hasHttpPrefix([URL scheme])) {
         if (!self.browserViewController) {
+            [self showClickOverlay];
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
             self.browserViewController.delegate = self;
         } else {
@@ -582,6 +585,36 @@ ANBrowserViewControllerDelegate>
         ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
     }
 }
+
+- (ANClickOverlayView *)clickOverlay {
+    if (!_clickOverlay) _clickOverlay = [ANClickOverlayView overlayForView:[self viewToDisplayClickOverlay]];
+    return _clickOverlay;
+}
+
+- (UIView *)viewToDisplayClickOverlay {
+    return nil;
+}
+
+- (void)showClickOverlay {
+    if (![self.clickOverlay superview]) {
+        self.clickOverlay.alpha = 0.0;
+        [[self viewToDisplayClickOverlay] addSubview:self.clickOverlay];
+    }
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.clickOverlay.alpha = 1.0;
+                     }];
+}
+
+- (void)hideClickOverlay {
+    if ([self.clickOverlay superview]) {
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             self.clickOverlay.alpha = 0.0;
+                         }];
+    }
+}
+
 #pragma mark ANMRAIDAdViewDelegate
 
 - (void)adShouldResetToDefault:(UIView *)contentView
@@ -618,14 +651,17 @@ ANBrowserViewControllerDelegate>
     UIViewController *presentingViewController = controller.presentingViewController;
     [presentingViewController dismissViewControllerAnimated:YES completion:^ {
         self.browserViewController = nil;
+        [self hideClickOverlay];
     }];
 }
 
 - (void)browserViewControllerWillLaunchExternalApplication {
+    [self hideClickOverlay];
     [self adWillLeaveApplication];
 }
 
 - (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
+    [self hideClickOverlay];
     if (self.mraidController.presentingViewController) {
         [self.mraidController presentViewController:controller animated:YES completion:nil];
     } else {
@@ -636,6 +672,7 @@ ANBrowserViewControllerDelegate>
 - (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller {
     ANLogWarn(@"%@", NSStringFromSelector(_cmd));
     self.browserViewController = nil;
+    [self hideClickOverlay];
 }
 
 #pragma mark ANAdViewDelegate

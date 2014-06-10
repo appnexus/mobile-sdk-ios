@@ -382,6 +382,10 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 	}];
 }
 
+- (UIView *)viewToDisplayClickOverlay {
+    return self.controller.contentView;
+}
+
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {

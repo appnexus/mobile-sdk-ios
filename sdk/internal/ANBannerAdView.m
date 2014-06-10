@@ -387,4 +387,8 @@
     }];
 }
 
+- (UIView *)viewToDisplayClickOverlay {
+    return self.contentView;
+}
+
 @end

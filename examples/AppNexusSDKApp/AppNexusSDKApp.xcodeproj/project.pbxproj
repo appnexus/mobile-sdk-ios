@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8A17B7FB18B5936C00F9803C /* BackgroundColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A17B7FA18B5936C00F9803C /* BackgroundColorView.m */; };
 		8A17B7FE18B5938500F9803C /* AppNexusSDKAppGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A17B7FD18B5938500F9803C /* AppNexusSDKAppGlobal.m */; };
+		8A8177A11942110B0063C344 /* ANAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124921821A25D00CB4BE8 /* ANAdView.m */; };
+		8A8177A41942233E0063C344 /* ANClickOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8177A31942233E0063C344 /* ANClickOverlayView.m */; };
 		8A8CAD0318A98E2E00DF9436 /* CustomKeywordsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8CAD0218A98E2E00DF9436 /* CustomKeywordsTVC.m */; };
 		8A9EFB0917CFD49200FCF79F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9EFB0817CFD49200FCF79F /* UIKit.framework */; };
 		8A9EFB0B17CFD49200FCF79F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9EFB0A17CFD49200FCF79F /* Foundation.framework */; };
@@ -100,7 +102,6 @@
 		ECB124BE1821A25D00CB4BE8 /* UIWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124831821A25D00CB4BE8 /* UIWebView+ANCategory.m */; };
 		ECB124C21821A25D00CB4BE8 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB1248E1821A25D00CB4BE8 /* ANAdFetcher.m */; };
 		ECB124C31821A25D00CB4BE8 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124901821A25D00CB4BE8 /* ANAdResponse.m */; };
-		ECB124C41821A25D00CB4BE8 /* ANAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124921821A25D00CB4BE8 /* ANAdView.m */; };
 		ECB124C51821A25D00CB4BE8 /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124951821A25D00CB4BE8 /* ANAdWebViewController.m */; };
 		ECB124C61821A25D00CB4BE8 /* ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124961821A25D00CB4BE8 /* ANBannerAdView.m */; };
 		ECB124C71821A25D00CB4BE8 /* ANBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB124981821A25D00CB4BE8 /* ANBrowserViewController.m */; };
@@ -155,6 +156,8 @@
 		8A17B7FC18B5938500F9803C /* AppNexusSDKAppGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNexusSDKAppGlobal.h; sourceTree = "<group>"; };
 		8A17B7FD18B5938500F9803C /* AppNexusSDKAppGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNexusSDKAppGlobal.m; sourceTree = "<group>"; };
 		8A629C1C19129F0F00A295CE /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBasicConfig.h; sourceTree = "<group>"; };
+		8A8177A21942233E0063C344 /* ANClickOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANClickOverlayView.h; sourceTree = "<group>"; };
+		8A8177A31942233E0063C344 /* ANClickOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANClickOverlayView.m; sourceTree = "<group>"; };
 		8A8CAD0118A98E2E00DF9436 /* CustomKeywordsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomKeywordsTVC.h; sourceTree = "<group>"; };
 		8A8CAD0218A98E2E00DF9436 /* CustomKeywordsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomKeywordsTVC.m; sourceTree = "<group>"; };
 		8A9EFB0517CFD49200FCF79F /* AppNexusSDKApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppNexusSDKApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -628,6 +631,8 @@
 				8A629C1C19129F0F00A295CE /* ANBasicConfig.h */,
 				ECB124971821A25D00CB4BE8 /* ANBrowserViewController.h */,
 				ECB124981821A25D00CB4BE8 /* ANBrowserViewController.m */,
+				8A8177A21942233E0063C344 /* ANClickOverlayView.h */,
+				8A8177A31942233E0063C344 /* ANClickOverlayView.m */,
 				ECB1249B1821A25D00CB4BE8 /* ANGlobal.h */,
 				ECB1249C1821A25D00CB4BE8 /* ANGlobal.m */,
 				ECB1249D1821A25D00CB4BE8 /* ANInstallTrackerPixel.h */,
@@ -824,10 +829,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A8177A11942110B0063C344 /* ANAdView.m in Sources */,
 				EC3FD7331822213C00B25418 /* DebugSettingsViewController.m in Sources */,
 				8AB8A0D418A56B5C00487206 /* AppNexusSDKAppModalViewController.m in Sources */,
 				ECB124BE1821A25D00CB4BE8 /* UIWebView+ANCategory.m in Sources */,
-				ECB124C41821A25D00CB4BE8 /* ANAdView.m in Sources */,
 				ECB124C51821A25D00CB4BE8 /* ANAdWebViewController.m in Sources */,
 				ECB124C91821A25D00CB4BE8 /* ANGlobal.m in Sources */,
 				EC3FD73B1822213C00B25418 /* ANResponse.m in Sources */,
@@ -857,6 +862,7 @@
 				EC3FD72D1822213C00B25418 /* AdSettingsTVC.m in Sources */,
 				EC3FD72C1822213C00B25418 /* AdPreviewTVC.m in Sources */,
 				ECB124CB1821A25D00CB4BE8 /* ANInterstitialAd.m in Sources */,
+				8A8177A41942233E0063C344 /* ANClickOverlayView.m in Sources */,
 				ECB124BB1821A25D00CB4BE8 /* NSString+ANCategory.m in Sources */,
 				ECCA1106192D463800472379 /* ANPBBuffer.m in Sources */,
 				ECB5846518ABF9180059FD2D /* CreativePreviewViewController.m in Sources */,
