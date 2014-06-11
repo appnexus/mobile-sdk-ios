@@ -46,7 +46,9 @@
     [self.mmAdView getAdWithRequest:request onCompletion:^(BOOL success, NSError *error) {
         if (success) {
             NSLog(@"MillennialMedia banner did load");
-            [self.delegate didLoadBannerAd:self.mmAdView];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate didLoadBannerAd:self.mmAdView];
+            });
         } else {
             NSLog(@"MillennialMedia banner failed to load with error: %@", error);
             ANAdResponseCode code = ANAdResponseInternalError;
@@ -69,7 +71,9 @@
                     break;
             }
             
-            [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+            });
         }
     }];
 }
