@@ -507,7 +507,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../libs/MMSDK",
 					"$(PROJECT_DIR)",
-					"/Users/josecu/Desktop/mobile-sdk-ios/mediation/mediatedviews/libs",
+					"$(PROJECT_DIR)/../libs",
 					"$(PROJECT_DIR)/../libs/MoPubSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -530,7 +530,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../libs/MMSDK",
 					"$(PROJECT_DIR)",
-					"/Users/josecu/Desktop/mobile-sdk-ios/mediation/mediatedviews/libs",
+					"$(PROJECT_DIR)/../libs",
 					"$(PROJECT_DIR)/../libs/MoPubSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

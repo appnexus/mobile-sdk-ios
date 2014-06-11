@@ -13,7 +13,6 @@
 		8A302DD71939103F006703AC /* ANAdAdapterInterstitialMoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A302DD31939103F006703AC /* ANAdAdapterInterstitialMoPub.m */; };
 		8A302DD81939103F006703AC /* ANAdAdapterMoPubBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A302DD51939103F006703AC /* ANAdAdapterMoPubBase.m */; };
 		8A302DDA193910B7006703AC /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A302DD9193910B7006703AC /* FBAudienceNetwork.framework */; };
-		8A302ED919392E42006703AC /* FBAudienceNetwork.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A302DD9193910B7006703AC /* FBAudienceNetwork.framework */; };
 		A8ED40DA1905BA3E009069FC /* MillennialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8ED40D91905BA3E009069FC /* MillennialMedia.framework */; };
 		A8ED40DB1905BA50009069FC /* MillennialMedia.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A8ED40D91905BA3E009069FC /* MillennialMedia.framework */; };
 		EC3905FD1866948A0017959C /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3905FC1866947D0017959C /* ANTargetingParameters.h */; };
@@ -45,7 +44,6 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				8A302ED919392E42006703AC /* FBAudienceNetwork.framework in Copy Files */,
 				A8ED40DB1905BA50009069FC /* MillennialMedia.framework in Copy Files */,
 				EC7AB0881888814300C27B1E /* ANLogManager.h in Copy Files */,
 				EC3905FD1866948A0017959C /* ANTargetingParameters.h in Copy Files */,
