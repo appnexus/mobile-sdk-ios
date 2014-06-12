@@ -23,9 +23,6 @@
 @property (nonatomic, readwrite, strong) NSString *height;
 @property (nonatomic, readwrite, strong) NSString *adId;
 @property (nonatomic, readwrite, strong) NSString *resultCB;
-
-@end
-
-@protocol ANMediatedAd <NSObject>
+@property (nonatomic, readwrite, strong) NSString *auctionInfo;
 
 @end

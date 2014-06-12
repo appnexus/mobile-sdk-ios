@@ -20,6 +20,8 @@
 #import "ANGlobal.h"
 #import ANINTERSTITIALADHEADER
 #import "ANLogging.h"
+#import "ANMediatedAd.h"
+#import "ANPBBuffer.h"
 
 @interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
 
@@ -28,17 +30,112 @@
 @property (nonatomic, readwrite, assign) BOOL hasFailed;
 @property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
 @property (nonatomic, readwrite, weak) ANAdFetcher *fetcher;
-@property (nonatomic, readwrite, weak) id<ANAdViewDelegate> adViewDelegate;
-@property (nonatomic, readwrite, strong) NSString *resultCBString;
+@property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adViewDelegate;
+@property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
 @end
 
 @implementation ANMediationAdViewController
 
-+ (ANMediationAdViewController *)initWithFetcher:fetcher adViewDelegate:(id<ANAdViewDelegate>)adViewDelegate {
++ (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
+                                    withFetcher:(ANAdFetcher *)fetcher
+                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate {
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
     controller.fetcher = fetcher;
     controller.adViewDelegate = adViewDelegate;
-    return controller;
+    
+    if ([controller requestForAd:mediatedAd]) {
+        return controller;
+    } else {
+        return nil;
+    }
+}
+
+- (BOOL)requestForAd:(ANMediatedAd *)ad {
+    // variables to pass into the failure handler if necessary
+    NSString *className = nil;
+    NSString *errorInfo = nil;
+    ANADRESPONSECODE errorCode = (ANADRESPONSECODE)ANDefaultCode;
+    
+    do {
+        // check that the ad is non-nil
+        if (!ad) {
+            errorInfo = @"null mediated ad object";
+            errorCode = (ANADRESPONSECODE)ANAdResponseUnableToFill;
+            break;
+        }
+        
+        self.mediatedAd = ad;
+        className = ad.className;
+        
+        // notify that a mediated class name was received
+        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
+                            @{kANAdFetcherMediatedClassKey: className});
+        
+        ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), className]);
+        
+        // check to see if an instance of this class exists
+        Class adClass = NSClassFromString(className);
+        if (!adClass) {
+            errorInfo = @"ClassNotFoundError";
+            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
+            break;
+        }
+        
+        id adInstance = [[adClass alloc] init];
+        if (!adInstance
+            || ![adInstance respondsToSelector:@selector(setDelegate:)]
+            || ![adInstance conformsToProtocol:@protocol(ANCUSTOMADAPTER)]) {
+            errorInfo = @"InstantiationError";
+            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
+            break;
+        }
+        
+        // instance valid - request a mediated ad
+        id<ANCUSTOMADAPTER> adapter = (id<ANCUSTOMADAPTER>)adInstance;
+        adapter.delegate = self;
+        self.currentAdapter = adapter;
+        
+        // Grab the size of the ad - interstitials will ignore this value
+        CGSize sizeOfCreative = CGSizeMake([ad.width floatValue], [ad.height floatValue]);
+        BOOL requestedSuccessfully = [self requestAd:sizeOfCreative
+                                     serverParameter:ad.param
+                                            adUnitId:ad.adId
+                                              adView:self.adViewDelegate];
+        
+        if (!requestedSuccessfully) {
+            // don't add class to invalid networks list for this failure
+            className = nil;
+            errorInfo = @"ClassCastError";
+            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
+            break;
+        }
+        
+    } while (false);
+    
+    
+    if (errorCode != (ANADRESPONSECODE)ANDefaultCode) {
+        [self handleInstantiationFailure:className
+                               errorCode:errorCode errorInfo:errorInfo];
+        return NO;
+    }
+    
+    // otherwise, no error yet
+    // wait for a mediation adapter to hit one of our callbacks.
+    return YES;
+}
+
+- (void)handleInstantiationFailure:(NSString *)className
+                         errorCode:(ANADRESPONSECODE)errorCode
+                         errorInfo:(NSString *)errorInfo {
+    if ([errorInfo length] > 0) {
+        ANLogError(ANErrorString(@"mediation_instantiation_failure"), errorInfo);
+    }
+    if ([className length] > 0) {
+        ANLogWarn(ANErrorString(@"mediation_adding_invalid"), className);
+        ANAddInvalidNetwork(className);
+    }
+    
+    [self didFailToReceiveAd:errorCode];
 }
 
 - (void)setAdapter:adapter {
@@ -53,7 +150,7 @@
     self.hasFailed = YES;
     self.fetcher = nil;
     self.adViewDelegate = nil;
-    self.resultCBString = nil;
+    self.mediatedAd = nil;
     [self cancelTimeout];
     ANLogInfo(ANErrorString(@"mediation_finish"));
 }
@@ -74,9 +171,9 @@
         // make sure the container and protocol match
         if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERBANNER)]
             && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
+            
             [self startTimeout];
             ANBANNERADVIEW *banner = (ANBANNERADVIEW *)adView;
-
             id<ANCUSTOMADAPTERBANNER> bannerAdapter = (id<ANCUSTOMADAPTERBANNER>) self.currentAdapter;
             [bannerAdapter requestBannerAdWithSize:size
                                 rootViewController:banner.rootViewController
@@ -91,6 +188,7 @@
         // make sure the container and protocol match
         if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]
             && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
+            
             [self startTimeout];
             id<ANCUSTOMADAPTERINTERSTITIAL> interstitialAdapter = (id<ANCUSTOMADAPTERINTERSTITIAL>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
@@ -101,9 +199,8 @@
             ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"CustomAdapterInterstitial"]);
         }
     }
-
+    
     // executes iff request was unsuccessful
-    [self clearAdapter];
     return NO;
 }
 
@@ -127,37 +224,51 @@
 
 - (void)adWasClicked {
     if (self.hasFailed) return;
-    [self.adViewDelegate adWasClicked];
+    [self runInBlock:^(void) {
+        [self.adViewDelegate adWasClicked];
+    }];
 }
 
 - (void)willPresentAd {
     if (self.hasFailed) return;
-    [self.adViewDelegate adWillPresent];
+    [self runInBlock:^(void) {
+        [self.adViewDelegate adWillPresent];
+    }];
 }
 
 - (void)didPresentAd {
     if (self.hasFailed) return;
-    [self.adViewDelegate adDidPresent];
+    [self runInBlock:^(void) {
+        [self.adViewDelegate adDidPresent];
+    }];
 }
 
 - (void)willCloseAd {
     if (self.hasFailed) return;
-    [self.adViewDelegate adWillClose];
+    [self runInBlock:^(void) {
+        [self.adViewDelegate adWillClose];
+    }];
 }
 
 - (void)didCloseAd {
     if (self.hasFailed) return;
-    [self.adViewDelegate adDidClose];
+    [self runInBlock:^(void) {
+        [self.adViewDelegate adDidClose];
+    }];
 }
 
 - (void)willLeaveApplication {
     if (self.hasFailed) return;
-    [self.adViewDelegate adWillLeaveApplication];
+    [self runInBlock:^(void) {
+        [self.adViewDelegate adWillLeaveApplication];
+    }];
 }
 
 - (void)failedToDisplayAd {
     if (self.hasFailed) return;
-    [self.adViewDelegate adFailedToDisplay];
+    [self runInBlock:^(void) {
+        [self.adViewDelegate adFailedToDisplay];
+    }];
 }
 
 #pragma mark helper methods
@@ -178,16 +289,44 @@
     self.hasSucceeded = YES;
     
     ANLogDebug(@"received an ad from the adapter");
+
+    // save auctionInfo for the winning ad
+    NSString *auctionID = [ANPBBuffer saveAuctionInfo:self.mediatedAd.auctionInfo];
     
-    [self.fetcher fireResultCB:self.resultCBString reason:(ANADRESPONSECODE)ANAdResponseSuccessful adObject:adObject];
+    [self finish:(ANADRESPONSECODE)ANAdResponseSuccessful withAdObject:adObject auctionID:auctionID];
+
+    // if auctionInfo was present and had an auctionID,
+    // screenshot the view. For banners, do it here
+    if (auctionID && [adObject isKindOfClass:[UIView class]]) {
+        [ANPBBuffer captureDelayedImage:adObject forAuctionID:auctionID];
+    }
 }
 
 - (void)didFailToReceiveAd:(ANADRESPONSECODE)errorCode {
     if ([self checkIfHasResponded]) return;
-    ANAdFetcher *fetcher = self.fetcher;
-    NSString *resultCBString = self.resultCBString;
-    [self clearAdapter];
-    [fetcher fireResultCB:resultCBString reason:errorCode adObject:nil];
+    
+    [self finish:errorCode withAdObject:nil auctionID:nil];
+}
+
+- (void)finish:(ANADRESPONSECODE)errorCode withAdObject:(id)adObject
+     auctionID:(NSString *)auctionID {
+    // use queue to force return
+    [self runInBlock:^(void) {
+        ANAdFetcher *fetcher = self.fetcher;
+        NSString *resultCBString = self.mediatedAd.resultCB;
+        // fireResulCB will clear the adapter if fetcher exists
+        if (!fetcher) {
+            [self clearAdapter];
+        }
+        [fetcher fireResultCB:resultCBString reason:errorCode adObject:adObject auctionID:auctionID];
+    }];
+}
+
+- (void)runInBlock:(void (^)())block {
+    // nothing keeps 'block' alive, so we don't have a retain cycle
+    dispatch_async(dispatch_get_main_queue(), ^{
+        block();
+    });
 }
 
 #pragma mark Timeout handler

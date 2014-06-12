@@ -301,6 +301,10 @@
     return self.adSize;
 }
 
+- (UIView *)containerView {
+    return self;
+}
+
 #pragma mark ANMRAIDAdViewDelegate
 
 - (NSString *)adType {
@@ -381,6 +385,10 @@
         self.browserViewController = nil;
         [self adDidClose];
     }];
+}
+
+- (UIView *)viewToDisplayClickOverlay {
+    return self.contentView;
 }
 
 @end

@@ -16,14 +16,26 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+// Production
 #define AN_BASE_URL @"http://mediation.adnxs.com/"
 #define AN_MOBILE_HOSTNAME @"mediation.adnxs.com/mob"
 #define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"
+
+// Client Testing
+#define AN_BASE_URL_CTEST @"http://ib.client-testing.adnxs.net/"
+#define AN_MOBILE_HOSTNAME_CTEST @"ib.client-testing.adnxs.net/mob"
+#define AN_MOBILE_HOSTNAME_INSTALL_CTEST @"ib.client-testing.adnxs.net/install"
+
+//Sandbox
+#define AN_BASE_URL_SAND @"http://ib.sand-08.adnxs.net/"
+#define AN_MOBILE_HOSTNAME_SAND @"ib.sand-08.adnxs.net/mob"
+#define AN_MOBILE_HOSTNAME_INSTALL_SAND @"ib.sand-08.adnxs.net/install"
+
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"1.16"
+#define AN_SDK_VERSION              @"1.17"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -57,6 +69,15 @@
 #define kANInterstitialDefaultCloseButtonDelay 10.0
 #define kANInterstitialMaximumCloseButtonDelay 10.0
 
+// Buffer Limit
+#define kANPBBufferLimit 10
+
+typedef NS_ENUM(NSUInteger, ANMobileEndpoint) {
+    ANMobileEndpointProduction = 0,
+    ANMobileEndpointClientTesting,
+    ANMobileEndpointSandbox
+};
+
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
@@ -72,3 +93,4 @@ NSMutableSet *ANInvalidNetworks();
 void ANAddInvalidNetwork(NSString *network);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
+

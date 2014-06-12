@@ -108,6 +108,7 @@
 		ECABE5A71821E4C80037E6C5 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5841821E4C80037E6C5 /* UIButtonBarArrowRight.png */; };
 		ECABE5A81821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */; };
 		ECABE5A91821E4C80037E6C5 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECABE5861821E4C80037E6C5 /* MRAID.bundle */; };
+		ECABF11B192E5C58006FFFB2 /* ANPBBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABF119192E5C58006FFFB2 /* ANPBBuffer.m */; };
 		ECB57A551822C43700FA7441 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
 		ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */; };
 		ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECD9298B1822CAD300420840 /* InfoPlist.strings */; };
@@ -298,6 +299,8 @@
 		ECABE5841821E4C80037E6C5 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECABE5851821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECABE5861821E4C80037E6C5 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		ECABF119192E5C58006FFFB2 /* ANPBBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBBuffer.m; sourceTree = "<group>"; };
+		ECABF11A192E5C58006FFFB2 /* ANPBBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPBBuffer.h; sourceTree = "<group>"; };
 		ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
 		ECBA78B7187F6D4800F1D73F /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		ECD9298C1822CAD300420840 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -658,11 +661,6 @@
 		ECABE5581821E4C80037E6C5 /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				EC2E96BF19103A00001A42EF /* ANANJAMImplementation.h */,
-				EC2E96C019103A00001A42EF /* ANANJAMImplementation.m */,
-				EC2E96C119103A00001A42EF /* ANMRAIDProperties.h */,
-				EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */,
-				EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */,
 				ECABE5591821E4C80037E6C5 /* ANAdFetcher.h */,
 				ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */,
 				ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */,
@@ -673,6 +671,8 @@
 				ECABE55F1821E4C80037E6C5 /* ANAdViewDelegate.h */,
 				ECABE5601821E4C80037E6C5 /* ANAdWebViewController.h */,
 				ECABE5611821E4C80037E6C5 /* ANAdWebViewController.m */,
+				EC2E96BF19103A00001A42EF /* ANANJAMImplementation.h */,
+				EC2E96C019103A00001A42EF /* ANANJAMImplementation.m */,
 				ECABE5621821E4C80037E6C5 /* ANBannerAdView.m */,
 				ECABE5631821E4C80037E6C5 /* ANBrowserViewController.h */,
 				ECABE5641821E4C80037E6C5 /* ANBrowserViewController.m */,
@@ -691,6 +691,11 @@
 				ECABE5741821E4C80037E6C5 /* ANMediatedAd.m */,
 				ECABE5751821E4C80037E6C5 /* ANMediationAdViewController.h */,
 				ECABE5761821E4C80037E6C5 /* ANMediationAdViewController.m */,
+				EC2E96C119103A00001A42EF /* ANMRAIDProperties.h */,
+				EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */,
+				EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */,
+				ECABF11A192E5C58006FFFB2 /* ANPBBuffer.h */,
+				ECABF119192E5C58006FFFB2 /* ANPBBuffer.m */,
 				ECABE5771821E4C80037E6C5 /* ANReachability.h */,
 				ECABE5781821E4C80037E6C5 /* ANReachability.m */,
 				ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */,
@@ -905,6 +910,7 @@
 				ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				5C3209001730664500DAB5CF /* RootViewController.m in Sources */,
+				ECABF11B192E5C58006FFFB2 /* ANPBBuffer.m in Sources */,
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
 				EC7AB08E188883DB00C27B1E /* ANAdRequestUrl.m in Sources */,
 				EC7AB08B188883C300C27B1E /* ANLogManager.m in Sources */,

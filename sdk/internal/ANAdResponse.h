@@ -27,6 +27,7 @@
 @property (nonatomic, readwrite, strong) NSString *type;
 
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
+@property (nonatomic, readwrite, strong) NSString *auctionID;
 
 @property (nonatomic, readwrite, getter = containsAds) BOOL containsAds;
 

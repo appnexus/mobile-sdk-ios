@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,8 +13,11 @@
  limitations under the License.
  */
 
-#import "ANMediatedAd.h"
+#import "ANAdAdapterMoPubBase.h"
+#import "ANBasicConfig.h"
+#import ANCUSTOMADAPTERHEADER
+#import "MPAdView.h"
 
-@implementation ANMediatedAd
+@interface ANAdAdapterBannerMoPub : ANAdAdapterMoPubBase <ANCUSTOMADAPTERBANNER, MPAdViewDelegate>
 
 @end

@@ -20,6 +20,7 @@
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANPBBuffer.h"
 #import "ANWebView.h"
 #import "NSString+ANCategory.h"
 #import "UIWebView+ANCategory.h"
@@ -217,6 +218,15 @@
     }
     
     ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    
+    if ([scheme isEqualToString:@"appnexuspb"]) {
+        UIView *view = self.webView;
+        if ([self.adFetcher.delegate respondsToSelector:@selector(containerView)]) {
+            view = [self.adFetcher.delegate containerView];
+        }
+        [ANPBBuffer handleUrl:URL forView:view];
+        return NO;
+    }
     
     if (self.completedFirstLoad) {
         if (hasHttpPrefix(scheme)) {

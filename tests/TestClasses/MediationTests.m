@@ -16,6 +16,7 @@
 #import "ANBaseTestCase.h"
 #import "ANAdFetcher.h"
 #import "ANAdWebViewController.h"
+#import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANSuccessfulBannerNeverCalled.h"
 
@@ -33,7 +34,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @property (nonatomic, strong) id adapter;
 @property (nonatomic, strong) ANMRAIDAdWebViewController *webViewController;
 @property (nonatomic, strong) NSError *ANError;
-@property (nonatomic, strong) NSMutableURLRequest *successResultRequest;
+//@property (nonatomic, strong) NSMutableURLRequest *successResultRequest;
 @property (nonatomic, strong) NSMutableURLRequest *request;
 
 - (id)runTestForAdapter:(int)testNumber
@@ -50,13 +51,13 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 - (void)processResponseData:(NSData *)data;
 - (ANMediationAdViewController *)mediationController;
 - (ANMRAIDAdWebViewController *)webViewController;
-- (NSMutableURLRequest *)successResultRequest;
+//- (NSMutableURLRequest *)successResultRequest;
 - (NSMutableURLRequest *)request;
 @end
 
 @interface ANMediationAdViewController ()
 - (id)currentAdapter;
-- (NSString *)resultCBString;
+- (ANMediatedAd *)mediatedAd;
 @end
 
 #pragma mark MediationTests
@@ -106,11 +107,11 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
     STAssertTrue(result, [NSString stringWithFormat:@"Expected an adapter of class %@.", className]);
 }
 
-- (void)checkSuccessResultCB:(int)code {
-    NSString *resultCBString =[[self.helper successResultRequest].URL absoluteString];
-    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
-    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
-}
+//- (void)checkSuccessResultCB:(int)code {
+//    NSString *resultCBString =[[self.helper successResultRequest].URL absoluteString];
+//    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
+//    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
+//}
 
 - (void)checkLastRequest:(int)code {
     NSString *resultCBString =[[self.helper request].URL absoluteString];
@@ -128,7 +129,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
         case 1:
         {
             [self checkClass:kANSuccessfulBanner adapter:adapter];
-            [self checkSuccessResultCB:ANAdResponseSuccessful];
+//            [self checkSuccessResultCB:ANAdResponseSuccessful];
         }
             break;
             
@@ -257,21 +258,23 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
     [self runBasicTest:12];
 }
 
-- (void)test13FirstFailsIntoOverrideStd
-{
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
-                                                      secondClass:kANSuccessfulBannerNeverCalled]];
-    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
-    [self runBasicTest:13];
-}
+// no longer applicable
+//- (void)test13FirstFailsIntoOverrideStd
+//{
+//    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+//                                                      secondClass:kANSuccessfulBannerNeverCalled]];
+//    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
+//    [self runBasicTest:13];
+//}
 
-- (void)test14FirstFailsIntoOverrideMediated
-{
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
-                                                      secondClass:kANSuccessfulBannerNeverCalled]];
-    [self stubResultCBResponses:[ANTestResponses mediationSuccessfulBanner]];
-    [self runBasicTest:14];
-}
+// no longer applicable
+//- (void)test14FirstFailsIntoOverrideMediated
+//{
+//    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+//                                                      secondClass:kANSuccessfulBannerNeverCalled]];
+//    [self stubResultCBResponses:[ANTestResponses mediationSuccessfulBanner]];
+//    [self runBasicTest:14];
+//}
 
 - (void)test15TestNoFill
 {
@@ -300,7 +303,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @synthesize adapter = __adapter;
 @synthesize webViewController = __webViewController;
 @synthesize ANError = __ANError;
-@synthesize successResultRequest = __successResultRequest;
+//@synthesize successResultRequest = __successResultRequest;
 @synthesize request = __request;
 
 - (id)runTestForAdapter:(int)testNumber
@@ -340,7 +343,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 {
 	if (!__testComplete)
 	{
-        __successResultRequest = [__fetcher successResultRequest];
+//        __successResultRequest = [__fetcher successResultRequest];
         __request = [__fetcher request];
         
 		switch (__testNumber)
@@ -349,7 +352,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 			{
 				self.adapter = [[fetcher mediationController] currentAdapter];
 				[fetcher requestAdWithURL:
-                 [NSURL URLWithString:[[fetcher mediationController] resultCBString]]];
+                 [NSURL URLWithString:[[[fetcher mediationController] mediatedAd] resultCB]]];
 			}
 				break;
 			case 70:

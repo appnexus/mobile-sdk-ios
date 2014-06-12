@@ -14,10 +14,13 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ANGlobal.h"
 
 @protocol ANInstallTrackerPixelDelegate;
 
 @interface ANInstallTrackerPixel : NSObject <NSURLConnectionDataDelegate>
+
+@property (nonatomic, readwrite, assign) ANMobileEndpoint endpoint;
 
 - (id)initWithTrackingID:(NSString *)trackingID;
 - (void)fireInstallTrackerPixel;

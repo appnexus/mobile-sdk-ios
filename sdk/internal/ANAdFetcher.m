@@ -32,8 +32,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 @interface ANAdFetcher () <NSURLConnectionDataDelegate>
 
-@property (nonatomic, readwrite, strong) NSURLConnection *successResultConnection;
-@property (nonatomic, readwrite, strong) NSMutableURLRequest *successResultRequest;
 @property (nonatomic, readwrite, strong) NSURLConnection *connection;
 @property (nonatomic, readwrite, strong) NSMutableURLRequest *request;
 @property (nonatomic, readwrite, strong) NSMutableData *data;
@@ -44,6 +42,8 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
+@property (nonatomic, readwrite, strong) NSString *ANMobileHostname;
+@property (nonatomic, readwrite, strong) NSString *ANBaseURL;
 @end
 
 @implementation ANAdFetcher
@@ -54,11 +54,30 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     {
 		self.data = [NSMutableData data];
         self.request = [ANAdFetcher initBasicRequest];
-		self.successResultRequest = [ANAdFetcher initBasicRequest];
+        self.ANMobileHostname = AN_MOBILE_HOSTNAME;
+        self.ANBaseURL = AN_BASE_URL;
         [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
     }
     
 	return self;
+}
+
+- (void)setEndpoint:(ANMobileEndpoint)endpoint {
+    _endpoint = endpoint;
+    switch (endpoint) {
+        case ANMobileEndpointClientTesting:
+            self.ANMobileHostname = AN_MOBILE_HOSTNAME_CTEST;
+            self.ANBaseURL = AN_BASE_URL_CTEST;
+            break;
+        case ANMobileEndpointSandbox:
+            self.ANMobileHostname = AN_MOBILE_HOSTNAME_SAND;
+            self.ANBaseURL = AN_BASE_URL_SAND;
+            break;
+        default:
+            self.ANMobileHostname = AN_MOBILE_HOSTNAME;
+            self.ANBaseURL = AN_BASE_URL;
+            break;
+    }
 }
 
 + (NSMutableURLRequest *)initBasicRequest {
@@ -92,7 +111,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         ANLogDebug(ANErrorString(([self getAutoRefreshFromDelegate] > 0.0)
                                  ? @"fetcher_start_auto" : @"fetcher_start_single"));
 		
-        NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", AN_MOBILE_HOSTNAME];
+        NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", self.ANMobileHostname];
         self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
                                                                       baseUrlString:baseUrlString];
 		
@@ -271,7 +290,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     contentToLoad = [self prependMRAIDJS:contentToLoad];
     contentToLoad = [self prependSDKJS:contentToLoad];
     
-    [webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:AN_BASE_URL]];
+    [webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:self.ANBaseURL]];
 }
 
 - (NSString *)prependMRAIDJS:(NSString *)content {
@@ -305,93 +324,12 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)handleMediatedAds:(NSMutableArray *)mediatedAds {
     // pop the front ad
-    ANMediatedAd *currentAd = mediatedAds.firstObject;
-    [mediatedAds removeObject:currentAd];
+    ANMediatedAd *adToParse = mediatedAds.firstObject;
+    [mediatedAds removeObject:adToParse];
 
-    // variables to pass into the failure handler if necessary
-    NSString *className = nil;
-    NSString *resultCB = nil;
-    NSString *errorInfo = nil;
-    ANADRESPONSECODE errorCode = (ANADRESPONSECODE)ANDefaultCode;
-    
-    if (!currentAd) {
-        errorInfo = @"null mediated ad object";
-        errorCode = (ANADRESPONSECODE)ANAdResponseUnableToFill;
-    } else {
-        className = currentAd.className;
-        resultCB = currentAd.resultCB;
-        
-        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
-                            @{kANAdFetcherMediatedClassKey: className});
-        
-        ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), className]);
-        
-        Class adClass = NSClassFromString(className);
-        
-        // Check to see if an instance of this class exists
-        if (!adClass) {
-            errorInfo = @"ClassNotFoundError";
-            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
-        } else {
-            id adInstance = [[adClass alloc] init];
-            
-            if (!adInstance || ![adInstance respondsToSelector:@selector(setDelegate:)])
-            {
-                errorInfo = @"InstantiationError";
-                errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
-            } else {
-                [self initMediationController:adInstance resultCB:resultCB];
-                
-                // Grab the size of the ad - interstitials will ignore this value
-                CGSize sizeOfCreative = CGSizeMake([currentAd.width floatValue], [currentAd.height floatValue]);
-                BOOL requestedSuccessfully = [self.mediationController
-                                              requestAd:sizeOfCreative
-                                              serverParameter:currentAd.param
-                                              adUnitId:currentAd.adId
-                                              adView:self.delegate];
-                
-                if (!requestedSuccessfully) {
-                    // don't add class to invalid networks list for this failure
-                    className = nil;
-                    errorInfo = @"ClassCastError";
-                    errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
-                }
-            }
-        }
-    }
-    
-    if (errorCode != (ANADRESPONSECODE)ANDefaultCode) {
-        [self handleInstantiationFailure:className resultCB:resultCB
-                               errorCode:errorCode errorInfo:errorInfo];
-    }
-    
-    // otherwise, no error yet
-    // wait for a mediation adapter to hit one of our callbacks.
-}
-
-- (void)handleInstantiationFailure:(NSString *)className
-                          resultCB:(NSString *)resultCB
-                         errorCode:(ANADRESPONSECODE)errorCode
-                         errorInfo:(NSString *)errorInfo {
-    if ([errorInfo length] > 0) {
-        ANLogError(ANErrorString(@"mediation_instantiation_failure"), errorInfo);
-    }
-    if ([className length] > 0) {
-        ANLogWarn(ANErrorString(@"mediation_adding_invalid"), className);
-        ANAddInvalidNetwork(className);
-    }
-
-    [self clearMediationController];
-    [self fireResultCB:resultCB reason:errorCode adObject:nil];
-}
-
-- (void)initMediationController:(id<ANCUSTOMADAPTER>)adInstance
-          resultCB:(NSString *)resultCB {
-    // create new mediation controller
-    self.mediationController = [ANMediationAdViewController initWithFetcher:self adViewDelegate:self.delegate];
-    adInstance.delegate = self.mediationController;
-    [self.mediationController setAdapter:adInstance];
-    [self.mediationController setResultCBString:resultCB];
+    self.mediationController = [ANMediationAdViewController initMediatedAd:adToParse
+                                                               withFetcher:self
+                                                            adViewDelegate:self.delegate];
 }
 
 - (void)clearMediationController {
@@ -405,8 +343,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     self.loading = NO;
     
     NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:code userInfo:errorInfo];
-    ANAdResponse *response = [ANAdResponse adResponseFailWithError:error];
-    [self processFinalResponse:response];
 
     NSTimeInterval interval = [self getAutoRefreshFromDelegate];
     if (interval > 0.0) {
@@ -414,6 +350,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     } else {
         ANLogInfo(@"No ad received. Error: %@", error.localizedDescription);
     }
+
+    ANAdResponse *response = [ANAdResponse adResponseFailWithError:error];
+    [self processFinalResponse:response];
 }
 
 - (void)startAutoRefreshTimer {
@@ -454,16 +393,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         ANLogDebug(@"Received response: %@", response);
         
         [self setupAutoRefreshTimerIfNecessary];
-    }
-    // don't process the success resultCB response, just log it.
-    else if (connection == self.successResultConnection) {
-        if ([response isKindOfClass:[NSHTTPURLResponse class]])
-        {
-            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-            NSInteger status = [httpResponse statusCode];
-            
-            ANLogDebug(@"Received response with code %ld from response URL request.", status);
-        }
     } else {
         ANLogDebug(@"Received response from unknown");
     }
@@ -480,10 +409,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         ANAdResponse *adResponse = [[ANAdResponse alloc] init];
         adResponse = [adResponse processResponseData:self.data];
         [self processAdResponse:adResponse];
-    }
-    // don't do anything for a succcessful resultCB
-    else if (connection == self.successResultConnection) {
-        ANLogDebug(@"Success resultCB finished loading");
     }
 }
 
@@ -513,33 +438,65 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANADRESPONSECODE)reason
-            adObject:(id)adObject {
+            adObject:(id)adObject
+           auctionID:(NSString *)auctionID {
     self.loading = NO;
     
+    NSURL *resultURL = [NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]];
+    
     if (reason == ANAdResponseSuccessful) {
-        // fire the resultCB if there is one
+        // mediated ad succeeded. fire resultCB and ignore response
         if ([resultCBString length] > 0) {
-            // if it was successful, don't act on the response
-            self.successResultRequest = [ANAdFetcher initBasicRequest];
-            self.successResultRequest.URL = [NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]];
-            self.successResultConnection = [NSURLConnection connectionWithRequest:self.successResultRequest delegate:self];
+            [self fireAndIgnoreResultCB:resultURL];
         }
-
+        
         ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:adObject];
+        response.auctionID = auctionID;
         [self processFinalResponse:response];
     } else {
-        if (self.delegate) { // if there is still a delegate to send a successful ad response to
-            // fire the resultCB if there is one
-            if ([resultCBString length] > 0) {
-                // treat failed responses as normal requests
-                [self requestAdWithURL:[NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]]];
+        // mediated ad failed. clear mediation controller
+        [self clearMediationController];
+        
+        // stop waterfall if delegate reference (adview) was lost
+        if (!self.delegate) {
+            return;
+        }
+        
+        // fire the resultCB if there is one
+        if ([resultCBString length] > 0) {
+            // treat the LAST (failed) resultCB responses as normal requests
+            if ([self.mediatedAds count] == 0) {
+                [self requestAdWithURL:resultURL];
             } else {
-                // if no resultCB and no successful ads yet,
-                // look for the next ad in the current array
+                // otherwise, just fire resultCB asnychronously and ignore result
+                [self fireAndIgnoreResultCB:resultURL];
+                // not the last ad in waterfall, so continue to next ad
                 [self processAdResponse:nil];
             }
+        } else {
+            // if no resultCB and no successful ads yet,
+            // simply continue waterfall
+            [self processAdResponse:nil];
         }
     }
+}
+
+- (void)fireAndIgnoreResultCB:(NSURL *)url {
+    // just fire resultCB asnychronously and ignore result
+    NSMutableURLRequest *ignoredRequest = [ANAdFetcher initBasicRequest];
+    ignoredRequest.URL = url;
+    [NSURLConnection sendAsynchronousRequest:ignoredRequest
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               if (error) {
+                                   ANLogInfo(@"Ignored resultCB received response with error: %@", [error localizedDescription]);
+                               } else if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                                   NSInteger status = [(NSHTTPURLResponse *)response statusCode];
+                                   ANLogInfo(@"Ignored resultCB received response with code %ld", status);
+                               } else {
+                                   ANLogInfo(@"Ignored resultCB received response.");
+                               }
+                           }];
 }
 
 - (NSString *)createResultCBRequest:(NSString *)baseResultCBString reason:(int)reasonCode {

@@ -20,6 +20,7 @@
 #import "ANLogging.h"
 #import "ANAdProtocol.h"
 #import "AppNexusSDKAppGlobal.h"
+#import "ANAdFetcher.h"
 
 #define SV_BACKGROUND_COLOR_RED 249.0
 #define SV_BACKGROUND_COLOR_BLUE 249.0
@@ -135,6 +136,11 @@ NSString *const KAppNexusSDKAppShowInterstitialTitle = @"Display Interstitial";
     
     if ([self.settings.zipcode length]) {
         [adView.customKeywords setValue:self.settings.zipcode forKey:@"pcode"];
+    }
+    
+    ANAdFetcher *fetcher = [adView performSelector:@selector(adFetcher)];
+    if (fetcher) {
+        fetcher.endpoint = self.settings.environment;
     }
 }
 

@@ -50,7 +50,9 @@
                         onCompletion:^(BOOL success, NSError *error) {
                             if (success) {
                                 NSLog(@"MillennialMedia interstitial did load");
-                                [self.delegate didLoadInterstitialAd:self];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self.delegate didLoadInterstitialAd:self];
+                                });
                             } else {
                                 NSLog(@"MillennialMedia interstitial failed to load with error: %@", error);
                                 ANAdResponseCode code = ANAdResponseInternalError;
@@ -73,7 +75,9 @@
                                         break;
                                 }
                                 
-                                [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+                                });
                             }
                         }];
     
@@ -95,7 +99,9 @@
                       onCompletion:^(BOOL success, NSError *error) {
                           if (!success) {
                               NSLog(@"MillennialMedia interstitial call to display ad failed");
-                              [self.delegate failedToDisplayAd];
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  [self.delegate failedToDisplayAd];
+                              });
                           }
                       }];
 }

@@ -14,22 +14,18 @@
  */
 
 #import "ANAdFetcher.h"
+#import "ANMediatedAd.h"
 
 #import <Foundation/Foundation.h>
 
 @interface ANMediationAdViewController : NSObject
 
 - (void)startTimeout;
-- (void)setAdapter:(id<ANCUSTOMADAPTER>)adapter;
 - (void)clearAdapter;
-- (void)setResultCBString:(NSString *)resultCBString;
-- (BOOL)requestAd:(CGSize)size
- serverParameter:(NSString *)parameterString
-        adUnitId:(NSString *)idString
-           adView:(id<ANAdFetcherDelegate>)adView;
 
-+ (ANMediationAdViewController *)initWithFetcher:(ANAdFetcher *)fetcher
-                                   adViewDelegate:(id<ANAdViewDelegate>)adViewDelegate;
++ (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
+                                    withFetcher:(ANAdFetcher *)fetcher
+                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate;
 
 @end
 
