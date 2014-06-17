@@ -1,0 +1,275 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECE4ECB1194BA3EB0069D934 /* ANAdAdapterBanneriAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4ECAE194BA3EB0069D934 /* ANAdAdapterBanneriAd.m */; };
+		ECE4ECB2194BA3EB0069D934 /* ANAdAdapterInterstitialiAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4ECB0194BA3EB0069D934 /* ANAdAdapterInterstitialiAd.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECE4EC74194BA26F0069D934 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		EC0DF53F194F79030002F47C /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
+		EC0DF542194F79030002F47C /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		EC0DF544194F79030002F47C /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
+		EC0DF547194F79030002F47C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
+		ECE4EC76194BA26F0069D934 /* libANSDKiAdAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKiAdAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECE4ECAB194BA3DC0069D934 /* ANBasicConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = ../sdk/internal/ANBasicConfig.h; sourceTree = "<group>"; };
+		ECE4ECAD194BA3EB0069D934 /* ANAdAdapterBanneriAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBanneriAd.h; sourceTree = "<group>"; };
+		ECE4ECAE194BA3EB0069D934 /* ANAdAdapterBanneriAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBanneriAd.m; sourceTree = "<group>"; };
+		ECE4ECAF194BA3EB0069D934 /* ANAdAdapterInterstitialiAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialiAd.h; sourceTree = "<group>"; };
+		ECE4ECB0194BA3EB0069D934 /* ANAdAdapterInterstitialiAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialiAd.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECE4EC73194BA26F0069D934 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC0DF53E194F79030002F47C /* ANSDK */ = {
+			isa = PBXGroup;
+			children = (
+				EC0DF53F194F79030002F47C /* ANAdProtocol.h */,
+				EC0DF542194F79030002F47C /* ANCustomAdapter.h */,
+				EC0DF544194F79030002F47C /* ANLocation.h */,
+				EC0DF547194F79030002F47C /* ANTargetingParameters.h */,
+			);
+			name = ANSDK;
+			path = out/ANSDK;
+			sourceTree = "<group>";
+		};
+		ECE4EC6D194BA26F0069D934 = {
+			isa = PBXGroup;
+			children = (
+				ECE4ECAB194BA3DC0069D934 /* ANBasicConfig.h */,
+				EC0DF53E194F79030002F47C /* ANSDK */,
+				ECE4ECAC194BA3EB0069D934 /* iAd */,
+				ECE4EC77194BA26F0069D934 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECE4EC77194BA26F0069D934 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECE4EC76194BA26F0069D934 /* libANSDKiAdAdapter.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECE4ECAC194BA3EB0069D934 /* iAd */ = {
+			isa = PBXGroup;
+			children = (
+				ECE4ECAD194BA3EB0069D934 /* ANAdAdapterBanneriAd.h */,
+				ECE4ECAE194BA3EB0069D934 /* ANAdAdapterBanneriAd.m */,
+				ECE4ECAF194BA3EB0069D934 /* ANAdAdapterInterstitialiAd.h */,
+				ECE4ECB0194BA3EB0069D934 /* ANAdAdapterInterstitialiAd.m */,
+			);
+			name = iAd;
+			path = ../mediation/mediatedviews/iAd;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECE4EC75194BA26F0069D934 /* ANSDKiAdAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECE4EC99194BA26F0069D934 /* Build configuration list for PBXNativeTarget "ANSDKiAdAdapter" */;
+			buildPhases = (
+				ECE4EC72194BA26F0069D934 /* Sources */,
+				ECE4EC73194BA26F0069D934 /* Frameworks */,
+				ECE4EC74194BA26F0069D934 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ANSDKiAdAdapter;
+			productName = ANSDKiAdAdapter;
+			productReference = ECE4EC76194BA26F0069D934 /* libANSDKiAdAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECE4EC6E194BA26F0069D934 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = AppNexus;
+			};
+			buildConfigurationList = ECE4EC71194BA26F0069D934 /* Build configuration list for PBXProject "ANSDKiAdAdapter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ECE4EC6D194BA26F0069D934;
+			productRefGroup = ECE4EC77194BA26F0069D934 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECE4EC75194BA26F0069D934 /* ANSDKiAdAdapter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECE4EC72194BA26F0069D934 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECE4ECB2194BA3EB0069D934 /* ANAdAdapterInterstitialiAd.m in Sources */,
+				ECE4ECB1194BA3EB0069D934 /* ANAdAdapterBanneriAd.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ECE4EC97194BA26F0069D934 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ECE4EC98194BA26F0069D934 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECE4EC9A194BA26F0069D934 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDKiAdAdapter.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ECE4EC9B194BA26F0069D934 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDKiAdAdapter.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECE4EC71194BA26F0069D934 /* Build configuration list for PBXProject "ANSDKiAdAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECE4EC97194BA26F0069D934 /* Debug */,
+				ECE4EC98194BA26F0069D934 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECE4EC99194BA26F0069D934 /* Build configuration list for PBXNativeTarget "ANSDKiAdAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECE4EC9A194BA26F0069D934 /* Debug */,
+				ECE4EC9B194BA26F0069D934 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECE4EC6E194BA26F0069D934 /* Project object */;
+}

@@ -1,0 +1,307 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECFDEC921950E22D0043F777 /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFDEC911950E22D0043F777 /* libANSDK.a */; };
+		ECFDED661950E5060043F777 /* ANSDKResources.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECFDEC8F1950E22D0043F777 /* ANSDKResources.bundle */; };
+		ECFDED711950E5290043F777 /* ANMoPubMediationBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDED691950E5290043F777 /* ANMoPubMediationBanner.m */; };
+		ECFDED721950E5290043F777 /* ANMoPubMediationInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDED6B1950E5290043F777 /* ANMoPubMediationInterstitial.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECFDEC5C1950E1720043F777 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				ECFDED661950E5060043F777 /* ANSDKResources.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		ECFDEC5E1950E1720043F777 /* libANAdapterForMoPubSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANAdapterForMoPubSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECFDEC881950E22D0043F777 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
+		ECFDEC891950E22D0043F777 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
+		ECFDEC8A1950E22D0043F777 /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
+		ECFDEC8B1950E22D0043F777 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		ECFDEC8C1950E22D0043F777 /* ANInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAd.h; sourceTree = "<group>"; };
+		ECFDEC8D1950E22D0043F777 /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
+		ECFDEC8E1950E22D0043F777 /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
+		ECFDEC8F1950E22D0043F777 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANSDKResources.bundle; sourceTree = "<group>"; };
+		ECFDEC901950E22D0043F777 /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
+		ECFDEC911950E22D0043F777 /* libANSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libANSDK.a; sourceTree = "<group>"; };
+		ECFDECA41950E2540043F777 /* ANBasicConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = ../sdk/internal/ANBasicConfig.h; sourceTree = "<group>"; };
+		ECFDED681950E5290043F777 /* ANMoPubMediationBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMoPubMediationBanner.h; sourceTree = "<group>"; };
+		ECFDED691950E5290043F777 /* ANMoPubMediationBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMoPubMediationBanner.m; sourceTree = "<group>"; };
+		ECFDED6A1950E5290043F777 /* ANMoPubMediationInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMoPubMediationInterstitial.h; sourceTree = "<group>"; };
+		ECFDED6B1950E5290043F777 /* ANMoPubMediationInterstitial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMoPubMediationInterstitial.m; sourceTree = "<group>"; };
+		ECFDED6D1950E5290043F777 /* MPBannerCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBannerCustomEvent.h; sourceTree = "<group>"; };
+		ECFDED6E1950E5290043F777 /* MPBannerCustomEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBannerCustomEventDelegate.h; sourceTree = "<group>"; };
+		ECFDED6F1950E5290043F777 /* MPInterstitialCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPInterstitialCustomEvent.h; sourceTree = "<group>"; };
+		ECFDED701950E5290043F777 /* MPInterstitialCustomEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPInterstitialCustomEventDelegate.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECFDEC5B1950E1720043F777 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECFDEC921950E22D0043F777 /* libANSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ECFDEC551950E1720043F777 = {
+			isa = PBXGroup;
+			children = (
+				ECFDECA41950E2540043F777 /* ANBasicConfig.h */,
+				ECFDED671950E5290043F777 /* MoPub */,
+				ECFDEC871950E22D0043F777 /* ANSDK */,
+				ECFDEC5F1950E1720043F777 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECFDEC5F1950E1720043F777 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDEC5E1950E1720043F777 /* libANAdapterForMoPubSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECFDEC871950E22D0043F777 /* ANSDK */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDEC881950E22D0043F777 /* ANAdProtocol.h */,
+				ECFDEC891950E22D0043F777 /* ANAdView.h */,
+				ECFDEC8A1950E22D0043F777 /* ANBannerAdView.h */,
+				ECFDEC8B1950E22D0043F777 /* ANCustomAdapter.h */,
+				ECFDEC8C1950E22D0043F777 /* ANInterstitialAd.h */,
+				ECFDEC8D1950E22D0043F777 /* ANLocation.h */,
+				ECFDEC8E1950E22D0043F777 /* ANLogManager.h */,
+				ECFDEC8F1950E22D0043F777 /* ANSDKResources.bundle */,
+				ECFDEC901950E22D0043F777 /* ANTargetingParameters.h */,
+				ECFDEC911950E22D0043F777 /* libANSDK.a */,
+			);
+			name = ANSDK;
+			path = out/ANSDK;
+			sourceTree = "<group>";
+		};
+		ECFDED671950E5290043F777 /* MoPub */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDED681950E5290043F777 /* ANMoPubMediationBanner.h */,
+				ECFDED691950E5290043F777 /* ANMoPubMediationBanner.m */,
+				ECFDED6A1950E5290043F777 /* ANMoPubMediationInterstitial.h */,
+				ECFDED6B1950E5290043F777 /* ANMoPubMediationInterstitial.m */,
+				ECFDED6C1950E5290043F777 /* MoPubSDK */,
+			);
+			name = MoPub;
+			path = ../mediation/mediating/MoPub;
+			sourceTree = "<group>";
+		};
+		ECFDED6C1950E5290043F777 /* MoPubSDK */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDED6D1950E5290043F777 /* MPBannerCustomEvent.h */,
+				ECFDED6E1950E5290043F777 /* MPBannerCustomEventDelegate.h */,
+				ECFDED6F1950E5290043F777 /* MPInterstitialCustomEvent.h */,
+				ECFDED701950E5290043F777 /* MPInterstitialCustomEventDelegate.h */,
+			);
+			path = MoPubSDK;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECFDEC5D1950E1720043F777 /* ANAdapterForMoPubSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECFDEC811950E1720043F777 /* Build configuration list for PBXNativeTarget "ANAdapterForMoPubSDK" */;
+			buildPhases = (
+				ECFDEC5A1950E1720043F777 /* Sources */,
+				ECFDEC5B1950E1720043F777 /* Frameworks */,
+				ECFDEC5C1950E1720043F777 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ANAdapterForMoPubSDK;
+			productName = ANAdapterForMoPubSDK;
+			productReference = ECFDEC5E1950E1720043F777 /* libANAdapterForMoPubSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECFDEC561950E1720043F777 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = AppNexus;
+			};
+			buildConfigurationList = ECFDEC591950E1720043F777 /* Build configuration list for PBXProject "ANAdapterForMoPubSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ECFDEC551950E1720043F777;
+			productRefGroup = ECFDEC5F1950E1720043F777 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECFDEC5D1950E1720043F777 /* ANAdapterForMoPubSDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECFDEC5A1950E1720043F777 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECFDED711950E5290043F777 /* ANMoPubMediationBanner.m in Sources */,
+				ECFDED721950E5290043F777 /* ANMoPubMediationInterstitial.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ECFDEC7F1950E1720043F777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ECFDEC801950E1720043F777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECFDEC821950E1720043F777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANAdapterForMoPubSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ECFDEC831950E1720043F777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANAdapterForMoPubSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECFDEC591950E1720043F777 /* Build configuration list for PBXProject "ANAdapterForMoPubSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFDEC7F1950E1720043F777 /* Debug */,
+				ECFDEC801950E1720043F777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECFDEC811950E1720043F777 /* Build configuration list for PBXNativeTarget "ANAdapterForMoPubSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFDEC821950E1720043F777 /* Debug */,
+				ECFDEC831950E1720043F777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECFDEC561950E1720043F777 /* Project object */;
+}

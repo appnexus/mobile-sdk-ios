@@ -1,0 +1,317 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECFDED521950E4CB0043F777 /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFDED511950E4CB0043F777 /* libANSDK.a */; };
+		ECFDED621950E4D30043F777 /* ANGADCustomBannerAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDED551950E4D30043F777 /* ANGADCustomBannerAd.m */; };
+		ECFDED631950E4D30043F777 /* ANGADCustomInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDED571950E4D30043F777 /* ANGADCustomInterstitialAd.m */; };
+		ECFDED731950E7050043F777 /* ANSDKResources.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECFDED4F1950E4CB0043F777 /* ANSDKResources.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECFDED1C1950E48E0043F777 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				ECFDED731950E7050043F777 /* ANSDKResources.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		ECFDED1E1950E48E0043F777 /* libANAdapterForGoogleAdMobSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANAdapterForGoogleAdMobSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECFDED481950E4CB0043F777 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
+		ECFDED491950E4CB0043F777 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
+		ECFDED4A1950E4CB0043F777 /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
+		ECFDED4B1950E4CB0043F777 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		ECFDED4C1950E4CB0043F777 /* ANInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAd.h; sourceTree = "<group>"; };
+		ECFDED4D1950E4CB0043F777 /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
+		ECFDED4E1950E4CB0043F777 /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
+		ECFDED4F1950E4CB0043F777 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANSDKResources.bundle; sourceTree = "<group>"; };
+		ECFDED501950E4CB0043F777 /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
+		ECFDED511950E4CB0043F777 /* libANSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libANSDK.a; sourceTree = "<group>"; };
+		ECFDED541950E4D30043F777 /* ANGADCustomBannerAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADCustomBannerAd.h; sourceTree = "<group>"; };
+		ECFDED551950E4D30043F777 /* ANGADCustomBannerAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADCustomBannerAd.m; sourceTree = "<group>"; };
+		ECFDED561950E4D30043F777 /* ANGADCustomInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADCustomInterstitialAd.h; sourceTree = "<group>"; };
+		ECFDED571950E4D30043F777 /* ANGADCustomInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADCustomInterstitialAd.m; sourceTree = "<group>"; };
+		ECFDED591950E4D30043F777 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		ECFDED5A1950E4D30043F777 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
+		ECFDED5B1950E4D30043F777 /* GADCustomEventBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBannerDelegate.h; sourceTree = "<group>"; };
+		ECFDED5C1950E4D30043F777 /* GADCustomEventExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventExtras.h; sourceTree = "<group>"; };
+		ECFDED5D1950E4D30043F777 /* GADCustomEventInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitial.h; sourceTree = "<group>"; };
+		ECFDED5E1950E4D30043F777 /* GADCustomEventInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitialDelegate.h; sourceTree = "<group>"; };
+		ECFDED5F1950E4D30043F777 /* GADCustomEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventRequest.h; sourceTree = "<group>"; };
+		ECFDED601950E4D30043F777 /* GADModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADModules.h; sourceTree = "<group>"; };
+		ECFDED611950E4D30043F777 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		ECFDED641950E4DE0043F777 /* ANBasicConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = ../sdk/internal/ANBasicConfig.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECFDED1B1950E48E0043F777 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECFDED521950E4CB0043F777 /* libANSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ECFDED151950E48E0043F777 = {
+			isa = PBXGroup;
+			children = (
+				ECFDED641950E4DE0043F777 /* ANBasicConfig.h */,
+				ECFDED531950E4D30043F777 /* GoogleAdMob */,
+				ECFDED471950E4CB0043F777 /* ANSDK */,
+				ECFDED1F1950E48E0043F777 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECFDED1F1950E48E0043F777 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDED1E1950E48E0043F777 /* libANAdapterForGoogleAdMobSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECFDED471950E4CB0043F777 /* ANSDK */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDED481950E4CB0043F777 /* ANAdProtocol.h */,
+				ECFDED491950E4CB0043F777 /* ANAdView.h */,
+				ECFDED4A1950E4CB0043F777 /* ANBannerAdView.h */,
+				ECFDED4B1950E4CB0043F777 /* ANCustomAdapter.h */,
+				ECFDED4C1950E4CB0043F777 /* ANInterstitialAd.h */,
+				ECFDED4D1950E4CB0043F777 /* ANLocation.h */,
+				ECFDED4E1950E4CB0043F777 /* ANLogManager.h */,
+				ECFDED4F1950E4CB0043F777 /* ANSDKResources.bundle */,
+				ECFDED501950E4CB0043F777 /* ANTargetingParameters.h */,
+				ECFDED511950E4CB0043F777 /* libANSDK.a */,
+			);
+			name = ANSDK;
+			path = out/ANSDK;
+			sourceTree = "<group>";
+		};
+		ECFDED531950E4D30043F777 /* GoogleAdMob */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDED541950E4D30043F777 /* ANGADCustomBannerAd.h */,
+				ECFDED551950E4D30043F777 /* ANGADCustomBannerAd.m */,
+				ECFDED561950E4D30043F777 /* ANGADCustomInterstitialAd.h */,
+				ECFDED571950E4D30043F777 /* ANGADCustomInterstitialAd.m */,
+				ECFDED581950E4D30043F777 /* GoogleAdMobSDK */,
+			);
+			name = GoogleAdMob;
+			path = ../mediation/mediating/GoogleAdMob;
+			sourceTree = "<group>";
+		};
+		ECFDED581950E4D30043F777 /* GoogleAdMobSDK */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDED591950E4D30043F777 /* GADAdSize.h */,
+				ECFDED5A1950E4D30043F777 /* GADCustomEventBanner.h */,
+				ECFDED5B1950E4D30043F777 /* GADCustomEventBannerDelegate.h */,
+				ECFDED5C1950E4D30043F777 /* GADCustomEventExtras.h */,
+				ECFDED5D1950E4D30043F777 /* GADCustomEventInterstitial.h */,
+				ECFDED5E1950E4D30043F777 /* GADCustomEventInterstitialDelegate.h */,
+				ECFDED5F1950E4D30043F777 /* GADCustomEventRequest.h */,
+				ECFDED601950E4D30043F777 /* GADModules.h */,
+				ECFDED611950E4D30043F777 /* GADRequest.h */,
+			);
+			path = GoogleAdMobSDK;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECFDED1D1950E48E0043F777 /* ANAdapterForGoogleAdMobSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECFDED411950E48E0043F777 /* Build configuration list for PBXNativeTarget "ANAdapterForGoogleAdMobSDK" */;
+			buildPhases = (
+				ECFDED1A1950E48E0043F777 /* Sources */,
+				ECFDED1B1950E48E0043F777 /* Frameworks */,
+				ECFDED1C1950E48E0043F777 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ANAdapterForGoogleAdMobSDK;
+			productName = ANAdapterForGoogleAdMobSDK;
+			productReference = ECFDED1E1950E48E0043F777 /* libANAdapterForGoogleAdMobSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECFDED161950E48E0043F777 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = AppNexus;
+			};
+			buildConfigurationList = ECFDED191950E48E0043F777 /* Build configuration list for PBXProject "ANAdapterForGoogleAdMobSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ECFDED151950E48E0043F777;
+			productRefGroup = ECFDED1F1950E48E0043F777 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECFDED1D1950E48E0043F777 /* ANAdapterForGoogleAdMobSDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECFDED1A1950E48E0043F777 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECFDED621950E4D30043F777 /* ANGADCustomBannerAd.m in Sources */,
+				ECFDED631950E4D30043F777 /* ANGADCustomInterstitialAd.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ECFDED3F1950E48E0043F777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ECFDED401950E48E0043F777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECFDED421950E48E0043F777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANAdapterForGoogleAdMobSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ECFDED431950E48E0043F777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANAdapterForGoogleAdMobSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECFDED191950E48E0043F777 /* Build configuration list for PBXProject "ANAdapterForGoogleAdMobSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFDED3F1950E48E0043F777 /* Debug */,
+				ECFDED401950E48E0043F777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECFDED411950E48E0043F777 /* Build configuration list for PBXNativeTarget "ANAdapterForGoogleAdMobSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFDED421950E48E0043F777 /* Debug */,
+				ECFDED431950E48E0043F777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECFDED161950E48E0043F777 /* Project object */;
+}
