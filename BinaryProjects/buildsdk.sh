@@ -84,6 +84,23 @@ mkdir -p $MEDDIR
 cp ANSDK*Adapter/libANSDK*Adapter.a $MEDDIR
 rm -rf ANSDK*Adapter
 
-zip -r ANSDK.zip ANSDK ANMediationAdapters
-zip -r ANAdapterForGoogleAdMobSDK.zip ANAdapterForGoogleAdMobSDK
-zip -r ANAdapterForMoPubSDK.zip ANAdapterForMoPubSDK
+touch README.txt
+echo -e "
+The AppNexus Mobile Advertising SDK for iOS
+===========================================
+
+Include ANSDK.zip in your project in order to receive AppNexus ads.
+
+The ANMediationAdapters folder contains the adapters that enable the AppNexus SDK to mediate supported third-party networks.
+
+Include ANAdapterForGoogleAdMobSDK.zip in order to allow the GoogleAdMob SDK to mediate the AppNexus SDK.
+
+Include ANAdapterForMoPubSDK.zip in order to allow the MoPub SDK to mediate the AppNexus SDK.
+
+Documentation is available on our wiki: https://wiki.appnexus.com/display/sdk/Mobile+SDKs.
+
+" >> README.txt
+
+zip -r ANSDK.zip ANSDK ANMediationAdapters README.txt
+zip -r ANAdapterForGoogleAdMobSDK.zip ANAdapterForGoogleAdMobSDK README.txt
+zip -r ANAdapterForMoPubSDK.zip ANAdapterForMoPubSDK README.txt
