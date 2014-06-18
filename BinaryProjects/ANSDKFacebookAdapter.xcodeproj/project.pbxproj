@@ -1,0 +1,297 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECE4EB5D194B8B250069D934 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EB59194B8B250069D934 /* ANAdAdapterBannerFacebook.m */; };
+		ECE4EB5E194B8B250069D934 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EB5B194B8B250069D934 /* ANAdAdapterInterstitialFacebook.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECE4EB20194B79AC0069D934 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		ECE4EB22194B79AC0069D934 /* libANSDKFacebookAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKFacebookAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECE4EB4C194B7B700069D934 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
+		ECE4EB4D194B7B700069D934 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
+		ECE4EB4E194B7B700069D934 /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
+		ECE4EB4F194B7B700069D934 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		ECE4EB50194B7B700069D934 /* ANInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAd.h; sourceTree = "<group>"; };
+		ECE4EB51194B7B700069D934 /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
+		ECE4EB52194B7B700069D934 /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
+		ECE4EB53194B7B700069D934 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANSDKResources.bundle; sourceTree = "<group>"; };
+		ECE4EB54194B7B700069D934 /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
+		ECE4EB55194B7B700069D934 /* libANSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libANSDK.a; sourceTree = "<group>"; };
+		ECE4EB58194B8B250069D934 /* ANAdAdapterBannerFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerFacebook.h; sourceTree = "<group>"; };
+		ECE4EB59194B8B250069D934 /* ANAdAdapterBannerFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerFacebook.m; sourceTree = "<group>"; };
+		ECE4EB5A194B8B250069D934 /* ANAdAdapterInterstitialFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialFacebook.h; sourceTree = "<group>"; };
+		ECE4EB5B194B8B250069D934 /* ANAdAdapterInterstitialFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialFacebook.m; sourceTree = "<group>"; };
+		ECE4EB60194B90DE0069D934 /* ANBasicConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = ../sdk/internal/ANBasicConfig.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECE4EB1F194B79AC0069D934 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ECE4EB19194B79AC0069D934 = {
+			isa = PBXGroup;
+			children = (
+				ECE4EB60194B90DE0069D934 /* ANBasicConfig.h */,
+				ECE4EB57194B8B250069D934 /* Facebook */,
+				ECE4EB4B194B7B700069D934 /* ANSDK */,
+				ECE4EB23194B79AC0069D934 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECE4EB23194B79AC0069D934 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECE4EB22194B79AC0069D934 /* libANSDKFacebookAdapter.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECE4EB4B194B7B700069D934 /* ANSDK */ = {
+			isa = PBXGroup;
+			children = (
+				ECE4EB4C194B7B700069D934 /* ANAdProtocol.h */,
+				ECE4EB4D194B7B700069D934 /* ANAdView.h */,
+				ECE4EB4E194B7B700069D934 /* ANBannerAdView.h */,
+				ECE4EB4F194B7B700069D934 /* ANCustomAdapter.h */,
+				ECE4EB50194B7B700069D934 /* ANInterstitialAd.h */,
+				ECE4EB51194B7B700069D934 /* ANLocation.h */,
+				ECE4EB52194B7B700069D934 /* ANLogManager.h */,
+				ECE4EB53194B7B700069D934 /* ANSDKResources.bundle */,
+				ECE4EB54194B7B700069D934 /* ANTargetingParameters.h */,
+				ECE4EB55194B7B700069D934 /* libANSDK.a */,
+			);
+			name = ANSDK;
+			path = out/ANSDK;
+			sourceTree = "<group>";
+		};
+		ECE4EB57194B8B250069D934 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				ECE4EB58194B8B250069D934 /* ANAdAdapterBannerFacebook.h */,
+				ECE4EB59194B8B250069D934 /* ANAdAdapterBannerFacebook.m */,
+				ECE4EB5A194B8B250069D934 /* ANAdAdapterInterstitialFacebook.h */,
+				ECE4EB5B194B8B250069D934 /* ANAdAdapterInterstitialFacebook.m */,
+			);
+			name = Facebook;
+			path = ../mediation/mediatedviews/Facebook;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECE4EB21194B79AC0069D934 /* ANSDKFacebookAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECE4EB45194B79AC0069D934 /* Build configuration list for PBXNativeTarget "ANSDKFacebookAdapter" */;
+			buildPhases = (
+				ECE4EB1E194B79AC0069D934 /* Sources */,
+				ECE4EB1F194B79AC0069D934 /* Frameworks */,
+				ECE4EB20194B79AC0069D934 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ANSDKFacebookAdapter;
+			productName = ANSDKFacebookAdapter;
+			productReference = ECE4EB22194B79AC0069D934 /* libANSDKFacebookAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECE4EB1A194B79AC0069D934 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = AppNexus;
+			};
+			buildConfigurationList = ECE4EB1D194B79AC0069D934 /* Build configuration list for PBXProject "ANSDKFacebookAdapter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ECE4EB19194B79AC0069D934;
+			productRefGroup = ECE4EB23194B79AC0069D934 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECE4EB21194B79AC0069D934 /* ANSDKFacebookAdapter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECE4EB1E194B79AC0069D934 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECE4EB5D194B8B250069D934 /* ANAdAdapterBannerFacebook.m in Sources */,
+				ECE4EB5E194B8B250069D934 /* ANAdAdapterInterstitialFacebook.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ECE4EB43194B79AC0069D934 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ECE4EB44194B79AC0069D934 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LIBRARY_SEARCH_PATHS = "";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECE4EB46194B79AC0069D934 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDKFacebookAdapter.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ECE4EB47194B79AC0069D934 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDKFacebookAdapter.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECE4EB1D194B79AC0069D934 /* Build configuration list for PBXProject "ANSDKFacebookAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECE4EB43194B79AC0069D934 /* Debug */,
+				ECE4EB44194B79AC0069D934 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECE4EB45194B79AC0069D934 /* Build configuration list for PBXNativeTarget "ANSDKFacebookAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECE4EB46194B79AC0069D934 /* Debug */,
+				ECE4EB47194B79AC0069D934 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECE4EB1A194B79AC0069D934 /* Project object */;
+}

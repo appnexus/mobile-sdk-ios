@@ -1286,7 +1286,7 @@
     [self.banner loadAd];
 }
 
-- (void)testLoadInterstitialAd {
+/*- (void)testLoadInterstitialAd {
     //[self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
     [self stubWithBody:[ANMRAIDTestResponses basicMRAIDInterstitialWithSelectorName:NSStringFromSelector(_cmd)]];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
@@ -1306,7 +1306,7 @@
     [self resize];
     
     [self delay:1];
-}
+}*/
 
 - (void)removeBannerFromSuperview {
     if (self.banner) {

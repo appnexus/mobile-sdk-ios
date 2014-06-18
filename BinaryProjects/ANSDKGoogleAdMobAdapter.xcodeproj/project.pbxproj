@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ECFDED0F1950E4450043F777 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDECE51950E4450043F777 /* ANAdAdapterBannerAdMob.m */; };
+		ECFDED101950E4450043F777 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDECE71950E4450043F777 /* ANAdAdapterBannerDFP.m */; };
+		ECFDED111950E4450043F777 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDECE91950E4450043F777 /* ANAdAdapterInterstitialAdMob.m */; };
+		ECFDED121950E4450043F777 /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDECEB1950E4450043F777 /* ANAdAdapterInterstitialDFP.m */; };
+		ECFDED651950E4F00043F777 /* ANSDKResources.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECFDECDF1950E3F70043F777 /* ANSDKResources.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ECFDECAC1950E2870043F777 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				ECFDED651950E4F00043F777 /* ANSDKResources.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		ECFDECAE1950E2870043F777 /* libANSDKGoogleAdMobAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKGoogleAdMobAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECFDECD81950E3F70043F777 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
+		ECFDECD91950E3F70043F777 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
+		ECFDECDA1950E3F70043F777 /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
+		ECFDECDB1950E3F70043F777 /* ANCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCustomAdapter.h; sourceTree = "<group>"; };
+		ECFDECDC1950E3F70043F777 /* ANInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAd.h; sourceTree = "<group>"; };
+		ECFDECDD1950E3F70043F777 /* ANLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLocation.h; sourceTree = "<group>"; };
+		ECFDECDE1950E3F70043F777 /* ANLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogManager.h; sourceTree = "<group>"; };
+		ECFDECDF1950E3F70043F777 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANSDKResources.bundle; sourceTree = "<group>"; };
+		ECFDECE01950E3F70043F777 /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
+		ECFDECE11950E3F70043F777 /* libANSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libANSDK.a; sourceTree = "<group>"; };
+		ECFDECE41950E4450043F777 /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
+		ECFDECE51950E4450043F777 /* ANAdAdapterBannerAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMob.m; sourceTree = "<group>"; };
+		ECFDECE61950E4450043F777 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
+		ECFDECE71950E4450043F777 /* ANAdAdapterBannerDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerDFP.m; sourceTree = "<group>"; };
+		ECFDECE81950E4450043F777 /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
+		ECFDECE91950E4450043F777 /* ANAdAdapterInterstitialAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMob.m; sourceTree = "<group>"; };
+		ECFDECEA1950E4450043F777 /* ANAdAdapterInterstitialDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialDFP.h; sourceTree = "<group>"; };
+		ECFDECEB1950E4450043F777 /* ANAdAdapterInterstitialDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialDFP.m; sourceTree = "<group>"; };
+		ECFDECEF1950E4450043F777 /* DFPBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFPBannerView.h; sourceTree = "<group>"; };
+		ECFDECF01950E4450043F777 /* DFPExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFPExtras.h; sourceTree = "<group>"; };
+		ECFDECF11950E4450043F777 /* DFPInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFPInterstitial.h; sourceTree = "<group>"; };
+		ECFDECF21950E4450043F777 /* DFPSwipeableBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFPSwipeableBannerView.h; sourceTree = "<group>"; };
+		ECFDECF31950E4450043F777 /* GADAdSizeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSizeDelegate.h; sourceTree = "<group>"; };
+		ECFDECF41950E4450043F777 /* GADAppEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAppEventDelegate.h; sourceTree = "<group>"; };
+		ECFDECF51950E4450043F777 /* GADSwipeableBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADSwipeableBannerViewDelegate.h; sourceTree = "<group>"; };
+		ECFDECF71950E4450043F777 /* GADCustomEventBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBanner.h; sourceTree = "<group>"; };
+		ECFDECF81950E4450043F777 /* GADCustomEventBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventBannerDelegate.h; sourceTree = "<group>"; };
+		ECFDECF91950E4450043F777 /* GADCustomEventExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventExtras.h; sourceTree = "<group>"; };
+		ECFDECFA1950E4450043F777 /* GADCustomEventInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitial.h; sourceTree = "<group>"; };
+		ECFDECFB1950E4450043F777 /* GADCustomEventInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventInterstitialDelegate.h; sourceTree = "<group>"; };
+		ECFDECFC1950E4450043F777 /* GADCustomEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADCustomEventRequest.h; sourceTree = "<group>"; };
+		ECFDECFE1950E4450043F777 /* GADSearchBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADSearchBannerView.h; sourceTree = "<group>"; };
+		ECFDECFF1950E4450043F777 /* GADSearchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADSearchRequest.h; sourceTree = "<group>"; };
+		ECFDED001950E4450043F777 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
+		ECFDED011950E4450043F777 /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
+		ECFDED021950E4450043F777 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		ECFDED031950E4450043F777 /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
+		ECFDED041950E4450043F777 /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
+		ECFDED051950E4450043F777 /* GADInAppPurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInAppPurchase.h; sourceTree = "<group>"; };
+		ECFDED061950E4450043F777 /* GADInAppPurchaseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInAppPurchaseDelegate.h; sourceTree = "<group>"; };
+		ECFDED071950E4450043F777 /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
+		ECFDED081950E4450043F777 /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
+		ECFDED091950E4450043F777 /* GADModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADModules.h; sourceTree = "<group>"; };
+		ECFDED0A1950E4450043F777 /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		ECFDED0B1950E4450043F777 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
+		ECFDED0C1950E4450043F777 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
+		ECFDED0D1950E4450043F777 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		ECFDED0E1950E4450043F777 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		ECFDED141950E4700043F777 /* ANBasicConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = ../sdk/internal/ANBasicConfig.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECFDECAB1950E2870043F777 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ECFDECA51950E2860043F777 = {
+			isa = PBXGroup;
+			children = (
+				ECFDED141950E4700043F777 /* ANBasicConfig.h */,
+				ECFDECE31950E4450043F777 /* GoogleAdMob */,
+				ECFDECD71950E3F70043F777 /* ANSDK */,
+				ECFDECAF1950E2870043F777 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ECFDECAF1950E2870043F777 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDECAE1950E2870043F777 /* libANSDKGoogleAdMobAdapter.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECFDECD71950E3F70043F777 /* ANSDK */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDECD81950E3F70043F777 /* ANAdProtocol.h */,
+				ECFDECD91950E3F70043F777 /* ANAdView.h */,
+				ECFDECDA1950E3F70043F777 /* ANBannerAdView.h */,
+				ECFDECDB1950E3F70043F777 /* ANCustomAdapter.h */,
+				ECFDECDC1950E3F70043F777 /* ANInterstitialAd.h */,
+				ECFDECDD1950E3F70043F777 /* ANLocation.h */,
+				ECFDECDE1950E3F70043F777 /* ANLogManager.h */,
+				ECFDECDF1950E3F70043F777 /* ANSDKResources.bundle */,
+				ECFDECE01950E3F70043F777 /* ANTargetingParameters.h */,
+				ECFDECE11950E3F70043F777 /* libANSDK.a */,
+			);
+			name = ANSDK;
+			path = out/ANSDK;
+			sourceTree = "<group>";
+		};
+		ECFDECE31950E4450043F777 /* GoogleAdMob */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDECE41950E4450043F777 /* ANAdAdapterBannerAdMob.h */,
+				ECFDECE51950E4450043F777 /* ANAdAdapterBannerAdMob.m */,
+				ECFDECE61950E4450043F777 /* ANAdAdapterBannerDFP.h */,
+				ECFDECE71950E4450043F777 /* ANAdAdapterBannerDFP.m */,
+				ECFDECE81950E4450043F777 /* ANAdAdapterInterstitialAdMob.h */,
+				ECFDECE91950E4450043F777 /* ANAdAdapterInterstitialAdMob.m */,
+				ECFDECEA1950E4450043F777 /* ANAdAdapterInterstitialDFP.h */,
+				ECFDECEB1950E4450043F777 /* ANAdAdapterInterstitialDFP.m */,
+				ECFDECEC1950E4450043F777 /* GoogleAdMobSDK */,
+				ECFDED0E1950E4450043F777 /* README.txt */,
+			);
+			name = GoogleAdMob;
+			path = ../mediation/mediatedviews/GoogleAdMob;
+			sourceTree = "<group>";
+		};
+		ECFDECEC1950E4450043F777 /* GoogleAdMobSDK */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDECED1950E4450043F777 /* Add-ons */,
+				ECFDED001950E4450043F777 /* GADAdMobExtras.h */,
+				ECFDED011950E4450043F777 /* GADAdNetworkExtras.h */,
+				ECFDED021950E4450043F777 /* GADAdSize.h */,
+				ECFDED031950E4450043F777 /* GADBannerView.h */,
+				ECFDED041950E4450043F777 /* GADBannerViewDelegate.h */,
+				ECFDED051950E4450043F777 /* GADInAppPurchase.h */,
+				ECFDED061950E4450043F777 /* GADInAppPurchaseDelegate.h */,
+				ECFDED071950E4450043F777 /* GADInterstitial.h */,
+				ECFDED081950E4450043F777 /* GADInterstitialDelegate.h */,
+				ECFDED091950E4450043F777 /* GADModules.h */,
+				ECFDED0A1950E4450043F777 /* GADRequest.h */,
+				ECFDED0B1950E4450043F777 /* GADRequestError.h */,
+				ECFDED0C1950E4450043F777 /* libGoogleAdMobAds.a */,
+				ECFDED0D1950E4450043F777 /* README.txt */,
+			);
+			path = GoogleAdMobSDK;
+			sourceTree = "<group>";
+		};
+		ECFDECED1950E4450043F777 /* Add-ons */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDECEE1950E4450043F777 /* DoubleClick */,
+				ECFDECF61950E4450043F777 /* Mediation */,
+				ECFDECFD1950E4450043F777 /* Search */,
+			);
+			path = "Add-ons";
+			sourceTree = "<group>";
+		};
+		ECFDECEE1950E4450043F777 /* DoubleClick */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDECEF1950E4450043F777 /* DFPBannerView.h */,
+				ECFDECF01950E4450043F777 /* DFPExtras.h */,
+				ECFDECF11950E4450043F777 /* DFPInterstitial.h */,
+				ECFDECF21950E4450043F777 /* DFPSwipeableBannerView.h */,
+				ECFDECF31950E4450043F777 /* GADAdSizeDelegate.h */,
+				ECFDECF41950E4450043F777 /* GADAppEventDelegate.h */,
+				ECFDECF51950E4450043F777 /* GADSwipeableBannerViewDelegate.h */,
+			);
+			path = DoubleClick;
+			sourceTree = "<group>";
+		};
+		ECFDECF61950E4450043F777 /* Mediation */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDECF71950E4450043F777 /* GADCustomEventBanner.h */,
+				ECFDECF81950E4450043F777 /* GADCustomEventBannerDelegate.h */,
+				ECFDECF91950E4450043F777 /* GADCustomEventExtras.h */,
+				ECFDECFA1950E4450043F777 /* GADCustomEventInterstitial.h */,
+				ECFDECFB1950E4450043F777 /* GADCustomEventInterstitialDelegate.h */,
+				ECFDECFC1950E4450043F777 /* GADCustomEventRequest.h */,
+			);
+			path = Mediation;
+			sourceTree = "<group>";
+		};
+		ECFDECFD1950E4450043F777 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				ECFDECFE1950E4450043F777 /* GADSearchBannerView.h */,
+				ECFDECFF1950E4450043F777 /* GADSearchRequest.h */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECFDECAD1950E2870043F777 /* ANSDKGoogleAdMobAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECFDECD11950E2870043F777 /* Build configuration list for PBXNativeTarget "ANSDKGoogleAdMobAdapter" */;
+			buildPhases = (
+				ECFDECAA1950E2870043F777 /* Sources */,
+				ECFDECAB1950E2870043F777 /* Frameworks */,
+				ECFDECAC1950E2870043F777 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ANSDKGoogleAdMobAdapter;
+			productName = ANSDKGoogleAdMobAdapter;
+			productReference = ECFDECAE1950E2870043F777 /* libANSDKGoogleAdMobAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECFDECA61950E2860043F777 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = AppNexus;
+			};
+			buildConfigurationList = ECFDECA91950E2860043F777 /* Build configuration list for PBXProject "ANSDKGoogleAdMobAdapter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ECFDECA51950E2860043F777;
+			productRefGroup = ECFDECAF1950E2870043F777 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECFDECAD1950E2870043F777 /* ANSDKGoogleAdMobAdapter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECFDECAA1950E2870043F777 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECFDED101950E4450043F777 /* ANAdAdapterBannerDFP.m in Sources */,
+				ECFDED0F1950E4450043F777 /* ANAdAdapterBannerAdMob.m in Sources */,
+				ECFDED121950E4450043F777 /* ANAdAdapterInterstitialDFP.m in Sources */,
+				ECFDED111950E4450043F777 /* ANAdAdapterInterstitialAdMob.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		ECFDECCF1950E2870043F777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ECFDECD01950E2870043F777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECFDECD21950E2870043F777 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDKGoogleAdMobAdapter.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ECFDECD31950E2870043F777 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDKGoogleAdMobAdapter.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/out/ANSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECFDECA91950E2860043F777 /* Build configuration list for PBXProject "ANSDKGoogleAdMobAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFDECCF1950E2870043F777 /* Debug */,
+				ECFDECD01950E2870043F777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECFDECD11950E2870043F777 /* Build configuration list for PBXNativeTarget "ANSDKGoogleAdMobAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFDECD21950E2870043F777 /* Debug */,
+				ECFDECD31950E2870043F777 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECFDECA61950E2860043F777 /* Project object */;
+}

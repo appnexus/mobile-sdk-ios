@@ -30,6 +30,7 @@
 		5CEF6F701732F8BC0054A86F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */; };
 		5CEF6F721732F8C00054A86F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F711732F8C00054A86F /* AdSupport.framework */; };
 		5CEF6F761732F8C90054A86F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CEF6F751732F8C90054A86F /* CoreTelephony.framework */; };
+		8A13B6A119492A9F006CFC9C /* ANClickOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A13B6A019492A9F006CFC9C /* ANClickOverlayView.m */; };
 		8A3C4098189705500070F145 /* MRAIDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4095189705500070F145 /* MRAIDTests.m */; };
 		8A3C409C18970AFC0070F145 /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */; };
 		EC09B2B31834350E00D76510 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2B21834350E00D76510 /* BasicTests.m */; };
@@ -170,6 +171,8 @@
 		5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5CEF6F711732F8C00054A86F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		5CEF6F751732F8C90054A86F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		8A13B69F19492A9F006CFC9C /* ANClickOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANClickOverlayView.h; sourceTree = "<group>"; };
+		8A13B6A019492A9F006CFC9C /* ANClickOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANClickOverlayView.m; sourceTree = "<group>"; };
 		8A3C4095189705500070F145 /* MRAIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAIDTests.m; sourceTree = "<group>"; };
 		8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDTestResponses.m; sourceTree = "<group>"; };
 		8A3C409A18970AFC0070F145 /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
@@ -676,6 +679,8 @@
 				ECABE5621821E4C80037E6C5 /* ANBannerAdView.m */,
 				ECABE5631821E4C80037E6C5 /* ANBrowserViewController.h */,
 				ECABE5641821E4C80037E6C5 /* ANBrowserViewController.m */,
+				8A13B69F19492A9F006CFC9C /* ANClickOverlayView.h */,
+				8A13B6A019492A9F006CFC9C /* ANClickOverlayView.m */,
 				ECABE5671821E4C80037E6C5 /* ANGlobal.h */,
 				ECABE5681821E4C80037E6C5 /* ANGlobal.m */,
 				ECABE5691821E4C80037E6C5 /* ANInstallTrackerPixel.h */,
@@ -905,6 +910,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				8A13B6A119492A9F006CFC9C /* ANClickOverlayView.m in Sources */,
 				5C3208FB173061C700DAB5CF /* ANDemoAdsViewController.m in Sources */,
 				5C320905173090F300DAB5CF /* ANDemoConsoleViewController.m in Sources */,
 				ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */,

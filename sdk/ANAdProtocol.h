@@ -16,7 +16,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class ANAdFetcher;
 @class ANLocation;
 
 typedef enum _ANGender
