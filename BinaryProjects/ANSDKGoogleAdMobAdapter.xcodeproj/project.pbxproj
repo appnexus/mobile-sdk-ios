@@ -11,18 +11,19 @@
 		ECFDED101950E4450043F777 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDECE71950E4450043F777 /* ANAdAdapterBannerDFP.m */; };
 		ECFDED111950E4450043F777 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDECE91950E4450043F777 /* ANAdAdapterInterstitialAdMob.m */; };
 		ECFDED121950E4450043F777 /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = ECFDECEB1950E4450043F777 /* ANAdAdapterInterstitialDFP.m */; };
-		ECFDED651950E4F00043F777 /* ANSDKResources.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = ECFDECDF1950E3F70043F777 /* ANSDKResources.bundle */; };
+		ECFDED651950E4F00043F777 /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = ECFDECDF1950E3F70043F777 /* ANSDKResources.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		ECFDECAC1950E2870043F777 /* CopyFiles */ = {
+		ECFDECAC1950E2870043F777 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				ECFDED651950E4F00043F777 /* ANSDKResources.bundle in CopyFiles */,
+				ECFDED651950E4F00043F777 /* ANSDKResources.bundle in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -222,7 +223,7 @@
 			buildPhases = (
 				ECFDECAA1950E2870043F777 /* Sources */,
 				ECFDECAB1950E2870043F777 /* Frameworks */,
-				ECFDECAC1950E2870043F777 /* CopyFiles */,
+				ECFDECAC1950E2870043F777 /* Copy Files */,
 			);
 			buildRules = (
 			);
