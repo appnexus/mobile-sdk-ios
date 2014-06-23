@@ -33,7 +33,30 @@
 @implementation ANAdRequestUrl
 
 - (NSSet*)getParameterNames{
-    NSSet* pNames = [NSSet setWithObjects:@"id", @"dnt", @"devmake", @"devmodel", @"appid", @"firstlaunch", @"carrier", @"mcc", @"mnc", @"connection_type", @"loc", @"loc_age", @"loc_prec", @"orientation", @"ua", @"language", @"devtime", @"native_browser", @"psa", @"age", @"gender", @"format", @"st", @"sdkver", nil];
+    NSSet* pNames = [NSSet setWithObjects:
+                     @"id",
+                     @"dnt",
+                     @"devmake",
+                     @"devmodel",
+                     @"appid",
+                     @"firstlaunch",
+                     @"carrier",
+                     @"mcc",
+                     @"mnc",
+                     @"connection_type",
+                     @"loc",
+                     @"loc_age",
+                     @"loc_prec",
+                     @"orientation",
+                     @"ua",
+                     @"language",
+                     @"devtime",
+                     @"native_browser",
+                     @"psa",
+                     @"format",
+                     @"st",
+                     @"sdkver",
+                     nil];
     
     return pNames;
 }
