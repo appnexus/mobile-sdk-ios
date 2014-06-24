@@ -44,6 +44,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
 @property (nonatomic, readwrite, strong) NSString *ANMobileHostname;
 @property (nonatomic, readwrite, strong) NSString *ANBaseURL;
+
+// variables for measuring latency.
+@property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
 @end
 
 @implementation ANAdFetcher
@@ -102,6 +105,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 - (void)requestAdWithURL:(NSURL *)URL
 {
     [self.autoRefreshTimer invalidate];
+    [self markLatencyStart];
     self.request = [ANAdFetcher initBasicRequest];
     
     if (!self.isLoading)
@@ -442,7 +446,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
            auctionID:(NSString *)auctionID {
     self.loading = NO;
     
-    NSURL *resultURL = [NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]];
+    NSURL *resultURL = [NSURL URLWithString:resultCBString];
     
     if (reason == ANAdResponseSuccessful) {
         // mediated ad succeeded. fire resultCB and ignore response
@@ -499,12 +503,24 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                            }];
 }
 
-- (NSString *)createResultCBRequest:(NSString *)baseResultCBString reason:(int)reasonCode {
-    NSString *resultCBRequestString = [baseResultCBString
-                                       stringByAppendingUrlParameter:@"reason"
-                                       value:[NSString stringWithFormat:@"%d",reasonCode]];
-    resultCBRequestString = [resultCBRequestString stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
-    return resultCBRequestString;
+#pragma mark Total Latency Measurement
+
+/**
+ * Mark the beginning of an ad request for latency recording
+ */
+- (void)markLatencyStart {
+    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+}
+
+/**
+ * Returns the time difference since ad request start
+ */
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime {
+    if ((self.totalLatencyStart > 0) && (stopTime > 0)) {
+        return (stopTime - self.totalLatencyStart);
+    }
+    // return -1 if invalid parameters
+    return -1;
 }
 
 @end

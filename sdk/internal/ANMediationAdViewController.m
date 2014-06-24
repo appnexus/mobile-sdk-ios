@@ -22,6 +22,7 @@
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
 #import "ANPBBuffer.h"
+#import "NSString+ANCategory.h"
 
 @interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
 
@@ -32,6 +33,14 @@
 @property (nonatomic, readwrite, weak) ANAdFetcher *fetcher;
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adViewDelegate;
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
+
+// variables for measuring latency.
+@property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
+@property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
+@end
+
+@interface ANAdFetcher ()
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 @end
 
 @implementation ANMediationAdViewController
@@ -97,6 +106,7 @@
         
         // Grab the size of the ad - interstitials will ignore this value
         CGSize sizeOfCreative = CGSizeMake([ad.width floatValue], [ad.height floatValue]);
+
         BOOL requestedSuccessfully = [self requestAd:sizeOfCreative
                                      serverParameter:ad.param
                                             adUnitId:ad.adId
@@ -172,7 +182,9 @@
         if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERBANNER)]
             && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
             
+            [self markLatencyStart];
             [self startTimeout];
+
             ANBANNERADVIEW *banner = (ANBANNERADVIEW *)adView;
             id<ANCUSTOMADAPTERBANNER> bannerAdapter = (id<ANCUSTOMADAPTERBANNER>) self.currentAdapter;
             [bannerAdapter requestBannerAdWithSize:size
@@ -189,7 +201,9 @@
         if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]
             && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
             
+            [self markLatencyStart];
             [self startTimeout];
+            
             id<ANCUSTOMADAPTERINTERSTITIAL> interstitialAdapter = (id<ANCUSTOMADAPTERINTERSTITIAL>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
                                                            adUnitId:idString
@@ -287,6 +301,7 @@
         return;
     }
     self.hasSucceeded = YES;
+    [self markLatencyStop];
     
     ANLogDebug(@"received an ad from the adapter");
 
@@ -304,6 +319,7 @@
 
 - (void)didFailToReceiveAd:(ANADRESPONSECODE)errorCode {
     if ([self checkIfHasResponded]) return;
+    [self markLatencyStop];
     
     [self finish:errorCode withAdObject:nil auctionID:nil];
 }
@@ -313,7 +329,8 @@
     // use queue to force return
     [self runInBlock:^(void) {
         ANAdFetcher *fetcher = self.fetcher;
-        NSString *resultCBString = self.mediatedAd.resultCB;
+        NSString *resultCBString = [self createResultCBRequest:
+                                    self.mediatedAd.resultCB reason:errorCode];
         // fireResulCB will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
@@ -327,6 +344,39 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         block();
     });
+}
+
+- (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {
+    if ([baseString length] < 1) {
+        return @"";
+    }
+    
+    // append reason code
+    NSString *resultCBString = [baseString
+                                stringByAppendingUrlParameter:@"reason"
+                                value:[NSString stringWithFormat:@"%d",reasonCode]];
+    
+    // append idfa
+    resultCBString = [resultCBString
+                      stringByAppendingUrlParameter:@"idfa"
+                      value:ANUDID()];
+    
+    // append latency measurements
+    NSTimeInterval latency = [self getLatency] * 1000; // secs to ms
+    NSTimeInterval totalLatency = [self getTotalLatency] * 1000; // secs to ms
+    
+    if (latency > 0) {
+        resultCBString = [resultCBString
+                          stringByAppendingUrlParameter:@"latency"
+                          value:[NSString stringWithFormat:@"%.0f", latency]];
+    }
+    if (totalLatency > 0) {
+        resultCBString = [resultCBString
+                          stringByAppendingUrlParameter:@"total_latency"
+                          value:[NSString stringWithFormat:@"%.0f", totalLatency]];
+    }
+    
+    return resultCBString;
 }
 
 #pragma mark Timeout handler
@@ -349,5 +399,47 @@
 - (void)cancelTimeout {
     self.timeoutCanceled = YES;
 }
+
+# pragma mark Latency Measurement
+
+/**
+ * Should be called immediately after mediated SDK returns
+ * from `requestAd` call.
+ */
+- (void)markLatencyStart {
+    self.latencyStart = [NSDate timeIntervalSinceReferenceDate];
+}
+
+/**
+ * Should be called immediately after mediated SDK
+ * calls either of `onAdLoaded` or `onAdFailed`.
+ */
+- (void)markLatencyStop {
+    self.latencyStop = [NSDate timeIntervalSinceReferenceDate];
+}
+
+/**
+ * The latency of the call to the mediated SDK.
+ */
+- (NSTimeInterval)getLatency {
+    if ((self.latencyStart > 0) && (self.latencyStop > 0)) {
+        return (self.latencyStop - self.latencyStart);
+    }
+    // return -1 if invalid.
+    return -1;
+}
+
+/**
+ * The running total latency of the ad call.
+ */
+- (NSTimeInterval)getTotalLatency {
+    if (self.fetcher && (self.latencyStop > 0)) {
+        return [self.fetcher getTotalLatency:self.latencyStop];
+    }
+    // return -1 if invalid.
+    return -1;
+}
+
+
 
 @end
