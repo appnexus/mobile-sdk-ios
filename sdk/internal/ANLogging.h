@@ -23,21 +23,16 @@ extern NSString *const kANLoggingNotification;
 extern NSString *const kANLogMessageKey;
 extern NSString *const kANLogMessageLevelKey;
 
-void _ANLogTrace(NSString *format, ...);
-void _ANLogDebug(NSString *format, ...);
-void _ANLogInfo(NSString *format, ...);
-void _ANLogWarn(NSString *format, ...);
-void _ANLogError(NSString *format, ...);
-
 void notifyListener(NSString *message, NSInteger messageLevel);
 
 #if AN_DEBUG_MODE
 
-#define ANLogTrace(...) _ANLogTrace(__VA_ARGS__)
-#define ANLogDebug(...) _ANLogDebug(__VA_ARGS__)
-#define ANLogInfo(...) _ANLogInfo(__VA_ARGS__)
-#define ANLogWarn(...) _ANLogWarn(__VA_ARGS__)
-#define ANLogError(...) _ANLogError(__VA_ARGS__)
+void _ANLog(ANLogLevel level, NSString *format, ...);
+#define ANLogTrace(...) _ANLog(ANLogLevelTrace, __VA_ARGS__)
+#define ANLogDebug(...) _ANLog(ANLogLevelDebug, __VA_ARGS__)
+#define ANLogInfo(...) _ANLog(ANLogLevelInfo, __VA_ARGS__)
+#define ANLogWarn(...) _ANLog(ANLogLevelWarn, __VA_ARGS__)
+#define ANLogError(...) _ANLog(ANLogLevelError, __VA_ARGS__)
 
 #else
 
