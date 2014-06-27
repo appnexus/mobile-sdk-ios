@@ -22,7 +22,6 @@
 		ECE4EAE5194B768A0069D934 /* ANBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAAE194B768A0069D934 /* ANBrowserViewController.m */; };
 		ECE4EAE6194B768A0069D934 /* ANClickOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB0194B768A0069D934 /* ANClickOverlayView.m */; };
 		ECE4EAE7194B768A0069D934 /* ANGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB2194B768A0069D934 /* ANGlobal.m */; };
-		ECE4EAE8194B768A0069D934 /* ANInstallTrackerPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB4194B768A0069D934 /* ANInstallTrackerPixel.m */; };
 		ECE4EAE9194B768A0069D934 /* ANInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB5194B768A0069D934 /* ANInterstitialAd.m */; };
 		ECE4EAEA194B768A0069D934 /* ANInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB7194B768A0069D934 /* ANInterstitialAdViewController.m */; };
 		ECE4EAEB194B768A0069D934 /* ANLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB8194B768A0069D934 /* ANLocation.m */; };
@@ -130,8 +129,6 @@
 		ECE4EAB0194B768A0069D934 /* ANClickOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANClickOverlayView.m; sourceTree = "<group>"; };
 		ECE4EAB1194B768A0069D934 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGlobal.h; sourceTree = "<group>"; };
 		ECE4EAB2194B768A0069D934 /* ANGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGlobal.m; sourceTree = "<group>"; };
-		ECE4EAB3194B768A0069D934 /* ANInstallTrackerPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInstallTrackerPixel.h; sourceTree = "<group>"; };
-		ECE4EAB4194B768A0069D934 /* ANInstallTrackerPixel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInstallTrackerPixel.m; sourceTree = "<group>"; };
 		ECE4EAB5194B768A0069D934 /* ANInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAd.m; sourceTree = "<group>"; };
 		ECE4EAB6194B768A0069D934 /* ANInterstitialAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAdViewController.h; sourceTree = "<group>"; };
 		ECE4EAB7194B768A0069D934 /* ANInterstitialAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAdViewController.m; sourceTree = "<group>"; };
@@ -261,8 +258,6 @@
 				ECE4EAB0194B768A0069D934 /* ANClickOverlayView.m */,
 				ECE4EAB1194B768A0069D934 /* ANGlobal.h */,
 				ECE4EAB2194B768A0069D934 /* ANGlobal.m */,
-				ECE4EAB3194B768A0069D934 /* ANInstallTrackerPixel.h */,
-				ECE4EAB4194B768A0069D934 /* ANInstallTrackerPixel.m */,
 				ECE4EAB5194B768A0069D934 /* ANInterstitialAd.m */,
 				ECE4EAB6194B768A0069D934 /* ANInterstitialAdViewController.h */,
 				ECE4EAB7194B768A0069D934 /* ANInterstitialAdViewController.m */,
@@ -428,7 +423,6 @@
 				ECE4EAE4194B768A0069D934 /* ANBannerAdView.m in Sources */,
 				ECE4EAE5194B768A0069D934 /* ANBrowserViewController.m in Sources */,
 				ECE4EAE6194B768A0069D934 /* ANClickOverlayView.m in Sources */,
-				ECE4EAE8194B768A0069D934 /* ANInstallTrackerPixel.m in Sources */,
 				ECE4EAE9194B768A0069D934 /* ANInterstitialAd.m in Sources */,
 				ECE4EAEA194B768A0069D934 /* ANInterstitialAdViewController.m in Sources */,
 				ECE4EAE7194B768A0069D934 /* ANGlobal.m in Sources */,
