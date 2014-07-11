@@ -164,7 +164,6 @@
 - (void)dealloc {
     [self.webView stopLoading];
     self.webView.delegate = nil;
-    [self.webView removeFromSuperview];
     [self.viewabilityTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

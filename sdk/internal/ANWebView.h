@@ -14,11 +14,15 @@
  */
 
 #import "ANMRAIDProperties.h"
+#import "ANAdWebViewController.h"
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 @interface ANWebView : UIWebView
+
+@property (nonatomic, readwrite, strong) ANMRAIDAdWebViewController *controller;
+
 @end
 
 @interface UIWebView (MRAIDExtensions)

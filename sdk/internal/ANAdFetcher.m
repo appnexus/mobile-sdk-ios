@@ -38,7 +38,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 @property (nonatomic, readwrite, strong) NSURL *URL;
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
-@property (nonatomic, readwrite, strong) ANMRAIDAdWebViewController *webViewController;
+@property (nonatomic, readwrite, strong) ANWebView *webView;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
@@ -280,21 +280,22 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                              && (receivedSize.height > 0)) ? receivedSize : requestedSize;
 
     // Generate a new webview to contain the HTML
-    ANWebView *webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
+    self.webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
     
-    self.webViewController = [[ANMRAIDAdWebViewController alloc] init];
-    self.webViewController.isMRAID = response.isMraid;
-    self.webViewController.mraidDelegate = self.delegate;
-    self.webViewController.mraidDelegate.mraidEventReceiverDelegate = self.webViewController;
-    self.webViewController.adFetcher = self;
-    self.webViewController.webView = webView;
-    webView.delegate = self.webViewController;
-
+    ANMRAIDAdWebViewController *webViewController = [[ANMRAIDAdWebViewController alloc] init];
+    webViewController.isMRAID = response.isMraid;
+    webViewController.mraidDelegate = self.delegate;
+    webViewController.mraidDelegate.mraidEventReceiverDelegate = webViewController;
+    webViewController.adFetcher = self;
+    webViewController.webView = self.webView;
+    self.webView.delegate = webViewController;
+    self.webView.controller = webViewController;
+    
     NSString *contentToLoad = response.content;
     contentToLoad = [self prependMRAIDJS:contentToLoad];
     contentToLoad = [self prependSDKJS:contentToLoad];
     
-    [webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:self.ANBaseURL]];
+    [self.webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:self.ANBaseURL]];
 }
 
 - (NSString *)prependMRAIDJS:(NSString *)content {

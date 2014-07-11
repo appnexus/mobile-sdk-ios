@@ -17,6 +17,21 @@
 
 @protocol ANBannerAdViewDelegate;
 
+typedef NS_ENUM(NSUInteger, ANBannerViewBannerTransitionType) {
+    ANBannerViewBannerTransitionTypeFade = 0,
+    ANBannerViewBannerTransitionTypePush,
+    ANBannerViewBannerTransitionTypeMoveIn,
+    ANBannerViewBannerTransitionTypeReveal,
+    ANBannerViewBannerTransitionTypeFlip
+};
+
+typedef NS_ENUM(NSUInteger, ANBannerViewBannerTransitionDirection) {
+    ANBannerViewBannerTransitionDirectionUp = 0,
+    ANBannerViewBannerTransitionDirectionDown,
+    ANBannerViewBannerTransitionDirectionLeft,
+    ANBannerViewBannerTransitionDirectionRight,
+};
+
 #pragma mark Example implementation
 
 /**
@@ -72,6 +87,19 @@
  allowed is 15.0.  To disable autorefresh, set to 0.
  */
 @property (nonatomic, readwrite, assign) NSTimeInterval autoRefreshInterval;
+
+/**
+ Transition type between ads when a new ad loads and is inserted into the view hierarchy.
+ See the ANBannerViewBannerTransitionType enumeration above for accepted values.
+ */
+@property (nonatomic, readwrite, assign) ANBannerViewBannerTransitionType transitionType;
+
+/**
+ The direction in which ads move when a new ad loads and is inserted into the view hierarchy.
+ See the ANBannerViewBannerTransitionDirection enumeration above for accepted values. Not used
+ when the transition type is ANBannerViewBannerTransitionTypeFade (the default).
+ */
+@property (nonatomic, readwrite, assign) ANBannerViewBannerTransitionDirection transitionDirection;
 
 #pragma mark Creating an ad view and loading an ad
 

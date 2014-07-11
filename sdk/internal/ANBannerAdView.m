@@ -21,6 +21,8 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMRAIDViewController.h"
+#import "UIView+ANCategory.h"
+#import "UIWebView+ANCategory.h"
 
 #define DEFAULT_ADSIZE CGSizeZero
 
@@ -49,10 +51,10 @@
 
 - (void)loadAdFromHtml:(NSString *)html
                  width:(int)width height:(int)height;
+- (void)removeCloseButton;
 
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
-@property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) UIButton *closeButton;
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 @property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
@@ -61,9 +63,14 @@
 @property (nonatomic, readwrite, assign) BOOL adjustFramesInResizeState;
 @end
 
+@interface ANBANNERADVIEW ()
+@property (nonatomic, readwrite, strong) UIView *contentView;
+@end
+
 @implementation ANBANNERADVIEW
 @synthesize autoRefreshInterval = __autoRefreshInterval;
 @synthesize adSize = __adSize;
+@synthesize contentView = _contentView;
 
 #pragma mark Initialization
 
@@ -208,6 +215,161 @@
     }
 }
 
+- (void)setContentView:(UIView *)newContentView {
+    if (newContentView != _contentView) {
+        [self removeCloseButton];
+        
+        UIView *oldContentView = _contentView;
+        _contentView = newContentView;
+
+        if (newContentView != nil) {
+            if ([newContentView isKindOfClass:[UIWebView class]]) {
+                UIWebView *webView = (UIWebView *)newContentView;
+                [webView removeDocumentPadding];
+                [webView setMediaProperties];
+            }
+            
+            if (self.transitionType != ANBannerViewBannerTransitionTypeFlip) {
+                newContentView.hidden = YES;
+                [self addSubview:newContentView];
+            }
+        }
+        
+        [UIView animateWithDuration:1.0
+                         animations:^{
+                             if (self.transitionType == ANBannerViewBannerTransitionTypeFlip) {
+                                 if (oldContentView) {
+                                     CABasicAnimation *oldContentViewAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+                                     oldContentViewAnimation.delegate = self;
+                                     CATransform3D transform = CATransform3DIdentity;
+                                     transform.m34 = - 1.0 / 750.0; // perspective
+                                     switch (self.transitionDirection) {
+                                         case ANBannerViewBannerTransitionDirectionUp:
+                                             transform = CATransform3DRotate(transform, M_PI_2, 1, 0, 0);
+                                             break;
+                                         case ANBannerViewBannerTransitionDirectionDown:
+                                             transform = CATransform3DRotate(transform, -1.0 * M_PI_2, 1, 0, 0);
+                                             break;
+                                         case ANBannerViewBannerTransitionDirectionLeft:
+                                             transform = CATransform3DRotate(transform, -1.0 * M_PI_2, 0, 1, 0);
+                                             break;
+                                         case ANBannerViewBannerTransitionDirectionRight:
+                                             transform = CATransform3DRotate(transform, M_PI_2, 0, 1, 0);
+                                             break;
+                                         default:
+                                             transform = CATransform3DRotate(transform, M_PI_2, 1, 0, 0);
+                                             break;
+                                     }
+                                     oldContentViewAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+                                     oldContentView.layer.transform = transform;
+                                     oldContentViewAnimation.duration = 1.5f;
+                                     [oldContentView.layer addAnimation:oldContentViewAnimation
+                                                                 forKey:@"oldTransform"];
+                                 } else {
+                                     [self animationDidStop:nil
+                                                   finished:YES];
+                                 }
+                             } else {
+                                 CATransition *transition = [CATransition animation];
+                                 transition.startProgress = 0;
+                                 transition.endProgress = 1.0;
+                                 transition.type = [self CATransitionType];
+                                 transition.subtype = [self CATransitionSubtype];
+                                 transition.duration = 1.0;
+                                 transition.delegate = self;
+                                 
+                                 [oldContentView.layer addAnimation:transition
+                                                             forKey:@"transition"];
+                                 [newContentView.layer addAnimation:transition
+                                                             forKey:@"transition"];
+                                 
+                                 newContentView.hidden = NO;
+                                 oldContentView.hidden = YES;
+                             }
+                         }];
+    }
+}
+
+- (NSString *)CATransitionSubtype {
+    if (self.transitionType == ANBannerViewBannerTransitionTypeFade) {
+        return kCATransitionFade;
+    }
+    
+    switch (self.transitionDirection) {
+        case ANBannerViewBannerTransitionDirectionUp:
+            return kCATransitionFromTop;
+        case ANBannerViewBannerTransitionDirectionDown:
+            return kCATransitionFromBottom;
+        case ANBannerViewBannerTransitionDirectionLeft:
+            return kCATransitionFromLeft;
+        case ANBannerViewBannerTransitionDirectionRight:
+            return kCATransitionFromRight;
+        default:
+            return kCATransitionFade;
+    }
+}
+
+- (NSString *)CATransitionType {
+    switch (self.transitionType) {
+        case ANBannerViewBannerTransitionTypeFade:
+            return kCATransitionPush;
+        case ANBannerViewBannerTransitionTypePush:
+            return kCATransitionPush;
+        case ANBannerViewBannerTransitionTypeMoveIn:
+            return kCATransitionMoveIn;
+        case ANBannerViewBannerTransitionTypeReveal:
+            return kCATransitionReveal;
+        default:
+            return kCATransitionPush;
+    }
+}
+
+- (void)animationDidStop:(CAAnimation *)anim
+                finished:(BOOL)flag {
+    for (UIView *oldContentView in self.subviews) {
+        if (oldContentView != self.contentView) {
+            if ([oldContentView isKindOfClass:[UIWebView class]]) {
+                UIWebView *webView = (UIWebView *)oldContentView;
+                [webView stopLoading];
+                [webView setDelegate:nil];
+            }
+            
+            [oldContentView removeSubviews];
+            [oldContentView removeFromSuperview];
+        }
+    }
+    
+    if (self.transitionType == ANBannerViewBannerTransitionTypeFlip) {
+        [self addSubview:self.contentView];
+        
+        CABasicAnimation *newContentViewAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+        CATransform3D transform = CATransform3DIdentity;
+        transform.m34 = - 1.0 / 750.0;
+        switch (self.transitionDirection) {
+            case ANBannerViewBannerTransitionDirectionUp:
+                transform = CATransform3DRotate(transform, -1.0 * M_PI_2, 1, 0, 0);
+                break;
+            case ANBannerViewBannerTransitionDirectionDown:
+                transform = CATransform3DRotate(transform, M_PI_2, 1, 0, 0);
+                break;
+            case ANBannerViewBannerTransitionDirectionLeft:
+                transform = CATransform3DRotate(transform, M_PI_2, 0, 1, 0);
+                break;
+            case ANBannerViewBannerTransitionDirectionRight:
+                transform = CATransform3DRotate(transform, -1.0 * M_PI_2, 0, 1, 0);
+                break;
+            default:
+                transform = CATransform3DRotate(transform, -1.0 * M_PI_2, 1, 0, 0);
+                break;
+        }
+        newContentViewAnimation.fromValue = [NSValue valueWithCATransform3D:transform];
+        newContentViewAnimation.duration = 1.5f;
+        
+        [self.contentView.layer addAnimation:newContentViewAnimation
+                                      forKey:@"newTransform"];
+    }
+}
+
 #pragma mark Implementation of abstract methods from ANAdView
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
@@ -289,6 +451,7 @@
     }
     
     if (error) {
+        self.contentView = nil;
         [self adRequestFailedWithError:error];
     }
 }
