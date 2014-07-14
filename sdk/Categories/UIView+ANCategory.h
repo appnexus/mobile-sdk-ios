@@ -23,5 +23,6 @@
 - (void)dismissFromPresentingViewAnimated:(BOOL)animated;
 
 - (void)removeSubviews;
+- (void)removeSubviewsWithException:(UIView *)exception;
 
 @end

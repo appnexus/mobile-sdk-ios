@@ -17,19 +17,21 @@
 
 @protocol ANBannerAdViewDelegate;
 
-typedef NS_ENUM(NSUInteger, ANBannerViewBannerTransitionType) {
-    ANBannerViewBannerTransitionTypeFade = 0,
-    ANBannerViewBannerTransitionTypePush,
-    ANBannerViewBannerTransitionTypeMoveIn,
-    ANBannerViewBannerTransitionTypeReveal,
-    ANBannerViewBannerTransitionTypeFlip
+typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionType) {
+    ANBannerViewAdTransitionTypeFade = 0,
+    ANBannerViewAdTransitionTypePush,
+    ANBannerViewAdTransitionTypeMoveIn,
+    ANBannerViewAdTransitionTypeReveal,
+    ANBannerViewAdTransitionTypeFlip,
+    ANBannerViewAdTransitionTypeNone
 };
 
-typedef NS_ENUM(NSUInteger, ANBannerViewBannerTransitionDirection) {
-    ANBannerViewBannerTransitionDirectionUp = 0,
-    ANBannerViewBannerTransitionDirectionDown,
-    ANBannerViewBannerTransitionDirectionLeft,
-    ANBannerViewBannerTransitionDirectionRight,
+typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
+    ANBannerViewAdTransitionDirectionUp = 0,
+    ANBannerViewAdTransitionDirectionDown,
+    ANBannerViewAdTransitionDirectionLeft,
+    ANBannerViewAdTransitionDirectionRight,
+    ANBannerViewAdTransitionDirectionRandom
 };
 
 #pragma mark Example implementation
@@ -89,17 +91,23 @@ typedef NS_ENUM(NSUInteger, ANBannerViewBannerTransitionDirection) {
 @property (nonatomic, readwrite, assign) NSTimeInterval autoRefreshInterval;
 
 /**
- Transition type between ads when a new ad loads and is inserted into the view hierarchy.
- See the ANBannerViewBannerTransitionType enumeration above for accepted values.
+ The type of transition that occurs between an old ad and a new ad when the ad slot is refreshed
+ (either automatically or by calling loadAd). The default is fade. See the ANBannerViewAdTransitionType 
+ enumeration above for accepted values.
  */
-@property (nonatomic, readwrite, assign) ANBannerViewBannerTransitionType transitionType;
+@property (nonatomic, readwrite, assign) ANBannerViewAdTransitionType transitionType;
 
 /**
- The direction in which ads move when a new ad loads and is inserted into the view hierarchy.
- See the ANBannerViewBannerTransitionDirection enumeration above for accepted values. Not used
- when the transition type is ANBannerViewBannerTransitionTypeFade (the default).
+ The direction in which the transition between ads progresses. The default is up.
+ See the ANBannerViewAdTransitionDirection enumeration above for accepted values.
  */
-@property (nonatomic, readwrite, assign) ANBannerViewBannerTransitionDirection transitionDirection;
+@property (nonatomic, readwrite, assign) ANBannerViewAdTransitionDirection transitionDirection;
+
+/**
+ The duration of the transition between ads, default is 1 second. Has no effect if transitions
+ are disabled.
+ */
+@property (nonatomic, readwrite, assign) NSTimeInterval transitionDuration;
 
 #pragma mark Creating an ad view and loading an ad
 

@@ -59,4 +59,20 @@
     }
 }
 
+- (void)removeSubviewsWithException:(UIView *)exception {
+    for (UIView *view in self.subviews) {
+        if (view != exception) {
+            if ([view isKindOfClass:[UIWebView class]]) {
+                UIWebView *webView = (UIWebView *)view;
+                [webView stopLoading];
+                [webView setDelegate:nil];
+            }
+            
+            [view removeSubviews];
+            [view removeFromSuperview];
+        }
+    }
+
+}
+
 @end

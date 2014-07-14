@@ -48,6 +48,7 @@
 #define kAppNexusAnimationDuration 0.4f
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
 #define kAppNexusMRAIDCheckViewableFrequency 1.0
+#define kAppNexusBannerAdTransitionDefaultDuration 5.0;
 
 // Banner AutoRefresh
 
