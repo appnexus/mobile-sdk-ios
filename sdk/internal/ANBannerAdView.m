@@ -65,7 +65,7 @@
 
 @interface ANBANNERADVIEW ()
 @property (nonatomic, readwrite, strong) UIView *contentView;
-@property (nonatomic, readwrite, assign) BOOL transitionInProgress; // Should be used by pitbull
+@property (nonatomic, readwrite, strong) NSNumber *transitionInProgress; // Should be used by pitbull
 @end
 
 @implementation ANBANNERADVIEW
@@ -260,7 +260,7 @@
             [self addSubview:newContentView];
         }
         
-        self.transitionInProgress = YES;
+        self.transitionInProgress = @(YES);
 
         [UIView animateWithDuration:self.transitionDuration
                          animations:^{
@@ -402,7 +402,12 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 - (void)animationDidStop:(CAAnimation *)anim
                 finished:(BOOL)flag {
     [self removeSubviewsWithException:self.contentView];
-    self.transitionInProgress = NO;
+    self.transitionInProgress = @(NO);
+}
+
+- (NSNumber *)transitionInProgress {
+    if (!_transitionInProgress) _transitionInProgress = @(NO);
+    return _transitionInProgress;
 }
 
 #pragma mark Implementation of abstract methods from ANAdView

@@ -43,6 +43,7 @@
 @property (nonatomic, readwrite) CGRect defaultPosition;
 @property (nonatomic, readwrite) CGRect currentPosition;
 @property (nonatomic, readwrite, assign) CGPoint resizeOffset;
+@property (nonatomic, readwrite, strong) NSMutableArray *pitbullCaptureURLQueue;
 
 - (void)delegateShouldOpenInBrowser:(NSURL *)URL;
 
@@ -162,13 +163,14 @@
 }
 
 - (void)dealloc {
+    [self unregisterFromPitbullScreenCaptureNotifications];
     [self.webView stopLoading];
     self.webView.delegate = nil;
     [self.viewabilityTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (BOOL)getWebViewVisible {    
+- (BOOL)getWebViewVisible {
     BOOL isHidden = self.webView.hidden;
     if (isHidden) return NO;
     
@@ -219,6 +221,22 @@
     ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
     
     if ([scheme isEqualToString:@"appnexuspb"]) {
+        if ([self.adFetcher.delegate respondsToSelector:@selector(transitionInProgress)]) {
+            if ([URL.host isEqualToString:@"capture"]) {
+                NSNumber *transitionInProgress = [self.adFetcher.delegate performSelector:@selector(transitionInProgress)];
+                if ([transitionInProgress boolValue] == YES) {
+                    if (![self.pitbullCaptureURLQueue count]) {
+                        [self registerForPitbullScreenCaptureNotifications];
+                    }
+                    [self.pitbullCaptureURLQueue addObject:URL];
+                    return NO;
+                }
+            } else if ([URL.host isEqualToString:@"web"]) {
+                [self dispatchPitbullScreenCaptureCalls];
+                [self unregisterFromPitbullScreenCaptureNotifications];
+            }
+        }
+
         UIView *view = self.webView;
         if ([self.adFetcher.delegate respondsToSelector:@selector(containerView)]) {
             view = [self.adFetcher.delegate containerView];
@@ -812,6 +830,58 @@
 
 - (void)adDidChangeResizeOffset:(CGPoint)offset {
     self.resizeOffset = offset;
+}
+
+#pragma mark - Pitbull Image Capture Transition Adjustments
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if (object == self.adFetcher.delegate) {
+        NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
+        if ([transitionInProgress boolValue] == NO) {
+            [self unregisterFromPitbullScreenCaptureNotifications];
+            [self dispatchPitbullScreenCaptureCalls];
+        }
+    }
+}
+
+- (void)registerForPitbullScreenCaptureNotifications {
+    NSObject *object = self.adFetcher.delegate;
+    [object addObserver:self
+             forKeyPath:@"transitionInProgress"
+                options:NSKeyValueObservingOptionNew
+                context:nil];
+}
+
+- (void)unregisterFromPitbullScreenCaptureNotifications {
+    /*
+     Removing a non-registered observer results in an exception. There's no way to
+     check if you're registered or not. Hence the try-catch.
+     */
+    @try {
+        NSObject *bannerObject = self.adFetcher.delegate;
+        [bannerObject removeObserver:self
+                          forKeyPath:@"transitionInProgress"];
+    }
+    @catch (NSException * __unused exception) {}
+}
+
+- (void)dispatchPitbullScreenCaptureCalls {
+    for (NSURL *URL in self.pitbullCaptureURLQueue) {
+        UIView *view = self.webView;
+        if ([self.adFetcher.delegate respondsToSelector:@selector(containerView)]) {
+            view = [self.adFetcher.delegate containerView];
+        }
+        [ANPBBuffer handleUrl:URL forView:view];
+    }
+    self.pitbullCaptureURLQueue = nil;
+}
+
+- (NSMutableArray *)pitbullCaptureURLQueue {
+    if (!_pitbullCaptureURLQueue) _pitbullCaptureURLQueue = [[NSMutableArray alloc] initWithCapacity:5];
+    return _pitbullCaptureURLQueue;
 }
 
 @end

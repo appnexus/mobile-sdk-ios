@@ -196,14 +196,20 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
         forAuctionID:(NSString *)auctionID
           afterDelay:(int64_t)delay {
     if (view && auctionID && ![ANPBBuffer containsImageForID:auctionID]) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC),
-                       dispatch_get_main_queue(), ^{
-                           UIView *strongView = view;
-                           if (strongView) {
-                               UIImage *image = [ANPBBuffer captureView:strongView];
-                               [ANPBBuffer saveImage:image forAuctionID:auctionID];
-                           }
-                       });
+        void (^takeScreenshot)() = ^() {
+            UIView *strongView = view;
+            if (strongView) {
+                UIImage *image = [ANPBBuffer captureView:strongView];
+                [ANPBBuffer saveImage:image forAuctionID:auctionID];
+            }
+        };
+        
+        if (delay > 0) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC),
+                           dispatch_get_main_queue(), takeScreenshot);
+        } else {
+            takeScreenshot();
+        }
     }
 }
 
