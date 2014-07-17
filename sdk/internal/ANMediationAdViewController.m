@@ -23,6 +23,7 @@
 #import "ANMediatedAd.h"
 #import "ANPBBuffer.h"
 #import "NSString+ANCategory.h"
+#import "ANPBContainerView.h"
 
 @interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
 
@@ -33,6 +34,7 @@
 @property (nonatomic, readwrite, weak) ANAdFetcher *fetcher;
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adViewDelegate;
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
+@property (nonatomic, readwrite, strong) NSDictionary *pitbullAdForDelayedCapture;
 
 // variables for measuring latency.
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
@@ -308,12 +310,36 @@
     // save auctionInfo for the winning ad
     NSString *auctionID = [ANPBBuffer saveAuctionInfo:self.mediatedAd.auctionInfo];
     
+    if (auctionID) {
+        [ANPBBuffer addAdditionalInfo:@{kANPBBufferMediatedNetworkNameKey: self.mediatedAd.className,
+                                        kANPBBufferMediatedNetworkPlacementIDKey: self.mediatedAd.adId}
+                         forAuctionID:auctionID];
+        if ([adObject isKindOfClass:[UIView class]]) {
+            UIView *adView = (UIView *)adObject;
+            [ANPBBuffer addAdditionalInfo:@{kANPBBufferAdWidthKey: @(CGRectGetWidth(adView.frame)),
+                                            kANPBBufferAdHeightKey: @(CGRectGetHeight(adView.frame))}
+                             forAuctionID:auctionID];
+            ANPBContainerView *containerView = [[ANPBContainerView alloc] initWithContentView:adView];
+            adObject = containerView;
+        }
+    }
+    
     [self finish:(ANADRESPONSECODE)ANAdResponseSuccessful withAdObject:adObject auctionID:auctionID];
 
     // if auctionInfo was present and had an auctionID,
     // screenshot the view. For banners, do it here
     if (auctionID && [adObject isKindOfClass:[UIView class]]) {
-        [ANPBBuffer captureDelayedImage:adObject forAuctionID:auctionID];
+        if ([self.adViewDelegate respondsToSelector:@selector(transitionInProgress)]) {
+            NSNumber *transitionInProgress = [self.adViewDelegate performSelector:@selector(transitionInProgress)];
+            if ([transitionInProgress boolValue] == YES) {
+                self.pitbullAdForDelayedCapture = @{auctionID: adObject};
+                [self registerForPitbullScreenCaptureNotifications];
+            }
+        }
+        
+        if (!self.pitbullAdForDelayedCapture) {
+            [ANPBBuffer captureDelayedImage:adObject forAuctionID:auctionID];
+        }
     }
 }
 
@@ -440,6 +466,54 @@
     return -1;
 }
 
+#pragma mark - Pitbull Image Capture Transition Adjustments
 
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if (object == self.adViewDelegate) {
+        NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
+        if ([transitionInProgress boolValue] == NO) {
+            [self unregisterFromPitbullScreenCaptureNotifications];
+            [self dispatchPitbullScreenCapture];
+        }
+    }
+}
+
+- (void)registerForPitbullScreenCaptureNotifications {
+    NSObject *object = self.adViewDelegate;
+    [object addObserver:self
+             forKeyPath:@"transitionInProgress"
+                options:NSKeyValueObservingOptionNew
+                context:nil];
+}
+
+- (void)unregisterFromPitbullScreenCaptureNotifications {
+    /*
+     Removing a non-registered observer results in an exception. There's no way to
+     check if you're registered or not. Hence the try-catch.
+     */
+    NSObject *object = self.adViewDelegate;
+    @try {
+        [object removeObserver:self
+                    forKeyPath:@"transitionInProgress"];
+    }
+    @catch (NSException * __unused exception) {}
+}
+
+- (void)dispatchPitbullScreenCapture {
+    if (self.pitbullAdForDelayedCapture) {
+        [self.pitbullAdForDelayedCapture enumerateKeysAndObjectsUsingBlock:^(NSString *auctionID, UIView *view, BOOL *stop) {
+            [ANPBBuffer captureImage:view
+                        forAuctionID:auctionID];
+        }];
+        self.pitbullAdForDelayedCapture = nil;
+    }
+}
+
+- (void)dealloc {
+    [self unregisterFromPitbullScreenCaptureNotifications];
+}
 
 @end

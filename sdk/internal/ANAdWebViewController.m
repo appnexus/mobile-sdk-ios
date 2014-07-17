@@ -860,8 +860,8 @@
      Removing a non-registered observer results in an exception. There's no way to
      check if you're registered or not. Hence the try-catch.
      */
+    NSObject *bannerObject = self.adFetcher.delegate;
     @try {
-        NSObject *bannerObject = self.adFetcher.delegate;
         [bannerObject removeObserver:self
                           forKeyPath:@"transitionInProgress"];
     }
