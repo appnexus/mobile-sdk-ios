@@ -220,6 +220,7 @@
 #pragma mark - Transitions
 
 - (void)setContentView:(UIView *)newContentView {
+    NSLog(@"Setting content view!");
     if (newContentView != _contentView) {
         [self removeCloseButton];
         
@@ -232,71 +233,77 @@
             [webView setMediaProperties];
         }
 
-        if (self.transitionType == ANBannerViewAdTransitionTypeNone) {
-            if (newContentView) {
-                [self addSubview:newContentView];
-                [self removeSubviewsWithException:newContentView];
-            } else {
-                [self removeSubviews];
-            }
-            return;
-        }
-        
-        ANBannerViewAdTransitionType transitionType = self.transitionType;
-        if ((oldContentView && !newContentView) || (newContentView && !oldContentView)) {
-            transitionType = ANBannerViewAdTransitionTypeFade;
-        }
-        
-        ANBannerViewAdTransitionDirection transitionDirection = self.transitionDirection;
-        if (transitionDirection == ANBannerViewAdTransitionDirectionRandom) {
-            transitionDirection = arc4random_uniform(4);
-        }
+        [self swapOldContentView:oldContentView
+              withNewContentView:newContentView];
+    }
+}
 
-        if (transitionType != ANBannerViewAdTransitionTypeFlip) {
-            newContentView.hidden = YES;
-        }
-        
+- (void)swapOldContentView:(UIView *)oldContentView
+        withNewContentView:(UIView *)newContentView {
+    if (self.transitionType == ANBannerViewAdTransitionTypeNone) {
         if (newContentView) {
             [self addSubview:newContentView];
+            [self removeSubviewsWithException:newContentView];
+        } else {
+            [self removeSubviews];
         }
-        
-        self.transitionInProgress = @(YES);
-
-        [UIView animateWithDuration:self.transitionDuration
-                         animations:^{
-                             if (transitionType == ANBannerViewAdTransitionTypeFlip) {
-                                 CAKeyframeAnimation *oldContentViewAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-                                 oldContentViewAnimation.values = [self keyFrameValuesForOldContentViewFlipAnimationWithDirection:transitionDirection];
-                                 oldContentViewAnimation.delegate = self;
-                                 oldContentViewAnimation.duration = self.transitionDuration;
-                                 [oldContentView.layer addAnimation:oldContentViewAnimation
-                                                             forKey:@"oldContentView"];
-                                 
-                                 CAKeyframeAnimation *newContentViewAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-                                 newContentViewAnimation.values = [self keyFrameValuesForNewContentViewFlipAnimationWithDirection:transitionDirection];
-                                 newContentViewAnimation.duration = self.transitionDuration;
-                                 [newContentView.layer addAnimation:newContentViewAnimation
-                                                             forKey:@"newContentView"];
-                             } else {
-                                 CATransition *transition = [CATransition animation];
-                                 transition.startProgress = 0;
-                                 transition.endProgress = 1.0;
-                                 transition.type = [[self class] CATransitionTypeFromANTransitionType:transitionType];
-                                 transition.subtype = [[self class] CATransitionSubtypeFromANTransitionDirection:transitionDirection
-                                                                                            withANTransitionType:transitionType];
-                                 transition.duration = self.transitionDuration;
-                                 transition.delegate = self;
-                                 
-                                 [oldContentView.layer addAnimation:transition
-                                                             forKey:@"transition"];
-                                 [newContentView.layer addAnimation:transition
-                                                             forKey:@"transition"];
-                                 
-                                 newContentView.hidden = NO;
-                                 oldContentView.hidden = YES;
-                             }
-                         }];
+        return;
     }
+    
+    ANBannerViewAdTransitionType transitionType = self.transitionType;
+    if ((oldContentView && !newContentView) || (newContentView && !oldContentView)) {
+        transitionType = ANBannerViewAdTransitionTypeFade;
+    }
+    
+    ANBannerViewAdTransitionDirection transitionDirection = self.transitionDirection;
+    if (transitionDirection == ANBannerViewAdTransitionDirectionRandom) {
+        transitionDirection = arc4random_uniform(4);
+    }
+    
+    if (transitionType != ANBannerViewAdTransitionTypeFlip) {
+        newContentView.hidden = YES;
+    }
+    
+    if (newContentView) {
+        [self addSubview:newContentView];
+    }
+    
+    self.transitionInProgress = @(YES);
+    
+    [UIView animateWithDuration:self.transitionDuration
+                     animations:^{
+                         if (transitionType == ANBannerViewAdTransitionTypeFlip) {
+                             CAKeyframeAnimation *oldContentViewAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+                             oldContentViewAnimation.values = [self keyFrameValuesForOldContentViewFlipAnimationWithDirection:transitionDirection];
+                             oldContentViewAnimation.delegate = self;
+                             oldContentViewAnimation.duration = self.transitionDuration;
+                             [oldContentView.layer addAnimation:oldContentViewAnimation
+                                                         forKey:@"oldContentView"];
+                             
+                             CAKeyframeAnimation *newContentViewAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+                             newContentViewAnimation.values = [self keyFrameValuesForNewContentViewFlipAnimationWithDirection:transitionDirection];
+                             newContentViewAnimation.duration = self.transitionDuration;
+                             [newContentView.layer addAnimation:newContentViewAnimation
+                                                         forKey:@"newContentView"];
+                         } else {
+                             CATransition *transition = [CATransition animation];
+                             transition.startProgress = 0;
+                             transition.endProgress = 1.0;
+                             transition.type = [[self class] CATransitionTypeFromANTransitionType:transitionType];
+                             transition.subtype = [[self class] CATransitionSubtypeFromANTransitionDirection:transitionDirection
+                                                                                        withANTransitionType:transitionType];
+                             transition.duration = self.transitionDuration;
+                             transition.delegate = self;
+                             
+                             [oldContentView.layer addAnimation:transition
+                                                         forKey:@"transition"];
+                             [newContentView.layer addAnimation:transition
+                                                         forKey:@"transition"];
+                             
+                             newContentView.hidden = NO;
+                             oldContentView.hidden = YES;
+                         }
+                     }];
 }
 
 + (NSString *)CATransitionSubtypeFromANTransitionDirection:(ANBannerViewAdTransitionDirection)transitionDirection
@@ -334,7 +341,7 @@
     }
 }
 
-static NSInteger const kANBannerAdViewNumberOfKeyframeValuesToGenerate = 20;
+static NSInteger const kANBannerAdViewNumberOfKeyframeValuesToGenerate = 35;
 static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 
 - (NSArray *)keyFrameValuesForContentViewFlipAnimationWithDirection:(ANBannerViewAdTransitionDirection)direction

@@ -24,6 +24,7 @@
 #import "ANPBBuffer.h"
 #import "NSString+ANCategory.h"
 #import "ANPBContainerView.h"
+#import "ANMediationContainerView.h"
 
 @interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
 
@@ -307,6 +308,13 @@
     
     ANLogDebug(@"received an ad from the adapter");
 
+    if ([adObject isKindOfClass:[UIView class]]) {
+        UIView *adView = (UIView *)adObject;
+        ANMediationContainerView *containerView = [[ANMediationContainerView alloc] initWithMediatedView:adView];
+        containerView.controller = self;
+        adObject = containerView;
+    }
+    
     // save auctionInfo for the winning ad
     NSString *auctionID = [ANPBBuffer saveAuctionInfo:self.mediatedAd.auctionInfo];
     
@@ -513,6 +521,7 @@
 }
 
 - (void)dealloc {
+    [self clearAdapter];
     [self unregisterFromPitbullScreenCaptureNotifications];
 }
 

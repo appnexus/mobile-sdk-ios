@@ -203,7 +203,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
     [self.connection cancel];
     [self.autoRefreshTimer invalidate];
-    [self clearMediationController];
+    self.mediationController = nil;
 }
 
 #pragma mark Request Url Construction
@@ -232,7 +232,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)processAdResponse:(ANAdResponse *)response
 {
-    [self clearMediationController];
+    self.mediationController = nil;
 
     BOOL responseAdsExist = response && response.containsAds;
     BOOL oldAdsExist = [self.mediatedAds count] > 0;
@@ -335,12 +335,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     self.mediationController = [ANMediationAdViewController initMediatedAd:adToParse
                                                                withFetcher:self
                                                             adViewDelegate:self.delegate];
-}
-
-- (void)clearMediationController {
-    // clear any old adapters if they exist
-    [self.mediationController clearAdapter];
-    self.mediationController = nil;    
 }
 
 - (void)finishRequestWithErrorAndRefresh:(NSDictionary *)errorInfo code:(NSInteger)code
@@ -460,7 +454,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         [self processFinalResponse:response];
     } else {
         // mediated ad failed. clear mediation controller
-        [self clearMediationController];
+        self.mediationController = nil;
         
         // stop waterfall if delegate reference (adview) was lost
         if (!self.delegate) {
