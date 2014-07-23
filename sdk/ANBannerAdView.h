@@ -18,12 +18,12 @@
 @protocol ANBannerAdViewDelegate;
 
 typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionType) {
-    ANBannerViewAdTransitionTypeFade = 0,
+    ANBannerViewAdTransitionTypeNone = 0,
+    ANBannerViewAdTransitionTypeFade,
     ANBannerViewAdTransitionTypePush,
     ANBannerViewAdTransitionTypeMoveIn,
     ANBannerViewAdTransitionTypeReveal,
     ANBannerViewAdTransitionTypeFlip,
-    ANBannerViewAdTransitionTypeNone
 };
 
 typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
@@ -92,14 +92,15 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
 
 /**
  The type of transition that occurs between an old ad and a new ad when the ad slot is refreshed
- (either automatically or by calling loadAd). The default is fade. See the ANBannerViewAdTransitionType 
- enumeration above for accepted values.
+ (either automatically or by calling loadAd). Transitions are disabled by default. See the
+ ANBannerViewAdTransitionType enumeration above for accepted values.
  */
 @property (nonatomic, readwrite, assign) ANBannerViewAdTransitionType transitionType;
 
 /**
- The direction in which the transition between ads progresses. The default is up.
- See the ANBannerViewAdTransitionDirection enumeration above for accepted values.
+ The direction in which the transition between ads progresses. The default direction is up. Has no
+ effect if transitions are disabled, or set to "fade". See the ANBannerViewAdTransitionDirection
+ enumeration above for accepted values.
  */
 @property (nonatomic, readwrite, assign) ANBannerViewAdTransitionDirection transitionDirection;
 
