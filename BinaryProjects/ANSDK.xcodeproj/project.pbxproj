@@ -7,33 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8AD618CB1981C11F00AC0780 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6189F1981C11F00AC0780 /* ANAdFetcher.m */; };
+		8AD618CC1981C11F00AC0780 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A11981C11F00AC0780 /* ANAdRequestUrl.m */; };
+		8AD618CD1981C11F00AC0780 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A31981C11F00AC0780 /* ANAdResponse.m */; };
+		8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A41981C11F00AC0780 /* ANAdView.m */; };
+		8AD618CF1981C11F00AC0780 /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A71981C11F00AC0780 /* ANAdWebViewController.m */; };
+		8AD618D01981C11F00AC0780 /* ANANJAMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A91981C11F00AC0780 /* ANANJAMImplementation.m */; };
+		8AD618D11981C11F00AC0780 /* ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618AA1981C11F00AC0780 /* ANBannerAdView.m */; };
+		8AD618D21981C11F00AC0780 /* ANBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618AD1981C11F00AC0780 /* ANBrowserViewController.m */; };
+		8AD618D31981C11F00AC0780 /* ANClickOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618AF1981C11F00AC0780 /* ANClickOverlayView.m */; };
+		8AD618D41981C11F00AC0780 /* ANGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618B11981C11F00AC0780 /* ANGlobal.m */; };
+		8AD618D51981C11F00AC0780 /* ANInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618B21981C11F00AC0780 /* ANInterstitialAd.m */; };
+		8AD618D61981C11F00AC0780 /* ANInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618B41981C11F00AC0780 /* ANInterstitialAdViewController.m */; };
+		8AD618D71981C11F00AC0780 /* ANLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618B51981C11F00AC0780 /* ANLocation.m */; };
+		8AD618D81981C11F00AC0780 /* ANLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618B71981C11F00AC0780 /* ANLogging.m */; };
+		8AD618D91981C11F00AC0780 /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618B81981C11F00AC0780 /* ANLogManager.m */; };
+		8AD618DA1981C11F00AC0780 /* ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618BA1981C11F00AC0780 /* ANMediatedAd.m */; };
+		8AD618DB1981C11F00AC0780 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618BC1981C11F00AC0780 /* ANMediationAdViewController.m */; };
+		8AD618DC1981C11F00AC0780 /* ANMediationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618BE1981C11F00AC0780 /* ANMediationContainerView.m */; };
+		8AD618DD1981C11F00AC0780 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618C11981C11F00AC0780 /* ANMRAIDViewController.m */; };
+		8AD618DE1981C11F00AC0780 /* ANPBBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618C31981C11F00AC0780 /* ANPBBuffer.m */; };
+		8AD618DF1981C11F00AC0780 /* ANPBContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618C51981C11F00AC0780 /* ANPBContainerView.m */; };
+		8AD618E01981C11F00AC0780 /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618C71981C11F00AC0780 /* ANReachability.m */; };
+		8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */; };
+		8AD618E21981C11F00AC0780 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618CA1981C11F00AC0780 /* ANWebView.m */; };
+		8AD618E31981C19100AC0780 /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD618991981C10700AC0780 /* appnexus_logo_icon.png */; };
+		8AD618E41981C19500AC0780 /* appnexus_logo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */; };
 		EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		ECE4EADA194B768A0069D934 /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */; };
 		ECE4EADB194B768A0069D934 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA99194B768A0069D934 /* NSTimer+ANCategory.m */; };
 		ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */; };
 		ECE4EADD194B768A0069D934 /* UIWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9D194B768A0069D934 /* UIWebView+ANCategory.m */; };
-		ECE4EADE194B768A0069D934 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAA0194B768A0069D934 /* ANAdFetcher.m */; };
-		ECE4EADF194B768A0069D934 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAA2194B768A0069D934 /* ANAdRequestUrl.m */; };
-		ECE4EAE0194B768A0069D934 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAA4194B768A0069D934 /* ANAdResponse.m */; };
-		ECE4EAE1194B768A0069D934 /* ANAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAA5194B768A0069D934 /* ANAdView.m */; };
-		ECE4EAE2194B768A0069D934 /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAA8194B768A0069D934 /* ANAdWebViewController.m */; };
-		ECE4EAE3194B768A0069D934 /* ANANJAMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAAA194B768A0069D934 /* ANANJAMImplementation.m */; };
-		ECE4EAE4194B768A0069D934 /* ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAAB194B768A0069D934 /* ANBannerAdView.m */; };
-		ECE4EAE5194B768A0069D934 /* ANBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAAE194B768A0069D934 /* ANBrowserViewController.m */; };
-		ECE4EAE6194B768A0069D934 /* ANClickOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB0194B768A0069D934 /* ANClickOverlayView.m */; };
-		ECE4EAE7194B768A0069D934 /* ANGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB2194B768A0069D934 /* ANGlobal.m */; };
-		ECE4EAE9194B768A0069D934 /* ANInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB5194B768A0069D934 /* ANInterstitialAd.m */; };
-		ECE4EAEA194B768A0069D934 /* ANInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB7194B768A0069D934 /* ANInterstitialAdViewController.m */; };
-		ECE4EAEB194B768A0069D934 /* ANLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAB8194B768A0069D934 /* ANLocation.m */; };
-		ECE4EAEC194B768A0069D934 /* ANLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EABA194B768A0069D934 /* ANLogging.m */; };
-		ECE4EAED194B768A0069D934 /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EABB194B768A0069D934 /* ANLogManager.m */; };
-		ECE4EAEE194B768A0069D934 /* ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EABD194B768A0069D934 /* ANMediatedAd.m */; };
-		ECE4EAEF194B768A0069D934 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EABF194B768A0069D934 /* ANMediationAdViewController.m */; };
-		ECE4EAF0194B768A0069D934 /* ANMRAIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAC2194B768A0069D934 /* ANMRAIDViewController.m */; };
-		ECE4EAF1194B768A0069D934 /* ANPBBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAC4194B768A0069D934 /* ANPBBuffer.m */; };
-		ECE4EAF2194B768A0069D934 /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAC6194B768A0069D934 /* ANReachability.m */; };
-		ECE4EAF3194B768A0069D934 /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAC7194B768A0069D934 /* ANTargetingParameters.m */; };
-		ECE4EAF4194B768A0069D934 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EAC9194B768A0069D934 /* ANWebView.m */; };
 		ECE4EB03194B76960069D934 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACB194B768A0069D934 /* ANBrowserViewController.xib */; };
 		ECE4EB04194B76960069D934 /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACC194B768A0069D934 /* ANInterstitialAdViewController.xib */; };
 		ECE4EB05194B76960069D934 /* anjam.js in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACD194B768A0069D934 /* anjam.js */; };
@@ -91,6 +95,53 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8AD618991981C10700AC0780 /* appnexus_logo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appnexus_logo_icon.png; path = images/appnexus_logo_icon.png; sourceTree = "<group>"; };
+		8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appnexus_logo_icon@2x.png"; path = "images/appnexus_logo_icon@2x.png"; sourceTree = "<group>"; };
+		8AD6189E1981C11F00AC0780 /* ANAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcher.h; sourceTree = "<group>"; };
+		8AD6189F1981C11F00AC0780 /* ANAdFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcher.m; sourceTree = "<group>"; };
+		8AD618A01981C11F00AC0780 /* ANAdRequestUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequestUrl.h; sourceTree = "<group>"; };
+		8AD618A11981C11F00AC0780 /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
+		8AD618A21981C11F00AC0780 /* ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdResponse.h; sourceTree = "<group>"; };
+		8AD618A31981C11F00AC0780 /* ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponse.m; sourceTree = "<group>"; };
+		8AD618A41981C11F00AC0780 /* ANAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdView.m; sourceTree = "<group>"; };
+		8AD618A51981C11F00AC0780 /* ANAdViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdViewDelegate.h; sourceTree = "<group>"; };
+		8AD618A61981C11F00AC0780 /* ANAdWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdWebViewController.h; sourceTree = "<group>"; };
+		8AD618A71981C11F00AC0780 /* ANAdWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdWebViewController.m; sourceTree = "<group>"; };
+		8AD618A81981C11F00AC0780 /* ANANJAMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANANJAMImplementation.h; sourceTree = "<group>"; };
+		8AD618A91981C11F00AC0780 /* ANANJAMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANANJAMImplementation.m; sourceTree = "<group>"; };
+		8AD618AA1981C11F00AC0780 /* ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdView.m; sourceTree = "<group>"; };
+		8AD618AB1981C11F00AC0780 /* ANBasicConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBasicConfig.h; sourceTree = "<group>"; };
+		8AD618AC1981C11F00AC0780 /* ANBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBrowserViewController.h; sourceTree = "<group>"; };
+		8AD618AD1981C11F00AC0780 /* ANBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBrowserViewController.m; sourceTree = "<group>"; };
+		8AD618AE1981C11F00AC0780 /* ANClickOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANClickOverlayView.h; sourceTree = "<group>"; };
+		8AD618AF1981C11F00AC0780 /* ANClickOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANClickOverlayView.m; sourceTree = "<group>"; };
+		8AD618B01981C11F00AC0780 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGlobal.h; sourceTree = "<group>"; };
+		8AD618B11981C11F00AC0780 /* ANGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGlobal.m; sourceTree = "<group>"; };
+		8AD618B21981C11F00AC0780 /* ANInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAd.m; sourceTree = "<group>"; };
+		8AD618B31981C11F00AC0780 /* ANInterstitialAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAdViewController.h; sourceTree = "<group>"; };
+		8AD618B41981C11F00AC0780 /* ANInterstitialAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAdViewController.m; sourceTree = "<group>"; };
+		8AD618B51981C11F00AC0780 /* ANLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLocation.m; sourceTree = "<group>"; };
+		8AD618B61981C11F00AC0780 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogging.h; sourceTree = "<group>"; };
+		8AD618B71981C11F00AC0780 /* ANLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogging.m; sourceTree = "<group>"; };
+		8AD618B81981C11F00AC0780 /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
+		8AD618B91981C11F00AC0780 /* ANMediatedAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMediatedAd.h; sourceTree = "<group>"; };
+		8AD618BA1981C11F00AC0780 /* ANMediatedAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediatedAd.m; sourceTree = "<group>"; };
+		8AD618BB1981C11F00AC0780 /* ANMediationAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMediationAdViewController.h; sourceTree = "<group>"; };
+		8AD618BC1981C11F00AC0780 /* ANMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationAdViewController.m; sourceTree = "<group>"; };
+		8AD618BD1981C11F00AC0780 /* ANMediationContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMediationContainerView.h; sourceTree = "<group>"; };
+		8AD618BE1981C11F00AC0780 /* ANMediationContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationContainerView.m; sourceTree = "<group>"; };
+		8AD618BF1981C11F00AC0780 /* ANMRAIDProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDProperties.h; sourceTree = "<group>"; };
+		8AD618C01981C11F00AC0780 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
+		8AD618C11981C11F00AC0780 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
+		8AD618C21981C11F00AC0780 /* ANPBBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPBBuffer.h; sourceTree = "<group>"; };
+		8AD618C31981C11F00AC0780 /* ANPBBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBBuffer.m; sourceTree = "<group>"; };
+		8AD618C41981C11F00AC0780 /* ANPBContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPBContainerView.h; sourceTree = "<group>"; };
+		8AD618C51981C11F00AC0780 /* ANPBContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBContainerView.m; sourceTree = "<group>"; };
+		8AD618C61981C11F00AC0780 /* ANReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANReachability.h; sourceTree = "<group>"; };
+		8AD618C71981C11F00AC0780 /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
+		8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
+		8AD618C91981C11F00AC0780 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
+		8AD618CA1981C11F00AC0780 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
@@ -109,47 +160,6 @@
 		ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ANCategory.m"; sourceTree = "<group>"; };
 		ECE4EA9C194B768A0069D934 /* UIWebView+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ANCategory.h"; sourceTree = "<group>"; };
 		ECE4EA9D194B768A0069D934 /* UIWebView+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ANCategory.m"; sourceTree = "<group>"; };
-		ECE4EA9F194B768A0069D934 /* ANAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcher.h; sourceTree = "<group>"; };
-		ECE4EAA0194B768A0069D934 /* ANAdFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcher.m; sourceTree = "<group>"; };
-		ECE4EAA1194B768A0069D934 /* ANAdRequestUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdRequestUrl.h; sourceTree = "<group>"; };
-		ECE4EAA2194B768A0069D934 /* ANAdRequestUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdRequestUrl.m; sourceTree = "<group>"; };
-		ECE4EAA3194B768A0069D934 /* ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdResponse.h; sourceTree = "<group>"; };
-		ECE4EAA4194B768A0069D934 /* ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponse.m; sourceTree = "<group>"; };
-		ECE4EAA5194B768A0069D934 /* ANAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdView.m; sourceTree = "<group>"; };
-		ECE4EAA6194B768A0069D934 /* ANAdViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdViewDelegate.h; sourceTree = "<group>"; };
-		ECE4EAA7194B768A0069D934 /* ANAdWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdWebViewController.h; sourceTree = "<group>"; };
-		ECE4EAA8194B768A0069D934 /* ANAdWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdWebViewController.m; sourceTree = "<group>"; };
-		ECE4EAA9194B768A0069D934 /* ANANJAMImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANANJAMImplementation.h; sourceTree = "<group>"; };
-		ECE4EAAA194B768A0069D934 /* ANANJAMImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANANJAMImplementation.m; sourceTree = "<group>"; };
-		ECE4EAAB194B768A0069D934 /* ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdView.m; sourceTree = "<group>"; };
-		ECE4EAAC194B768A0069D934 /* ANBasicConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBasicConfig.h; sourceTree = "<group>"; };
-		ECE4EAAD194B768A0069D934 /* ANBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBrowserViewController.h; sourceTree = "<group>"; };
-		ECE4EAAE194B768A0069D934 /* ANBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBrowserViewController.m; sourceTree = "<group>"; };
-		ECE4EAAF194B768A0069D934 /* ANClickOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANClickOverlayView.h; sourceTree = "<group>"; };
-		ECE4EAB0194B768A0069D934 /* ANClickOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANClickOverlayView.m; sourceTree = "<group>"; };
-		ECE4EAB1194B768A0069D934 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGlobal.h; sourceTree = "<group>"; };
-		ECE4EAB2194B768A0069D934 /* ANGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGlobal.m; sourceTree = "<group>"; };
-		ECE4EAB5194B768A0069D934 /* ANInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAd.m; sourceTree = "<group>"; };
-		ECE4EAB6194B768A0069D934 /* ANInterstitialAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAdViewController.h; sourceTree = "<group>"; };
-		ECE4EAB7194B768A0069D934 /* ANInterstitialAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAdViewController.m; sourceTree = "<group>"; };
-		ECE4EAB8194B768A0069D934 /* ANLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLocation.m; sourceTree = "<group>"; };
-		ECE4EAB9194B768A0069D934 /* ANLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLogging.h; sourceTree = "<group>"; };
-		ECE4EABA194B768A0069D934 /* ANLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogging.m; sourceTree = "<group>"; };
-		ECE4EABB194B768A0069D934 /* ANLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLogManager.m; sourceTree = "<group>"; };
-		ECE4EABC194B768A0069D934 /* ANMediatedAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMediatedAd.h; sourceTree = "<group>"; };
-		ECE4EABD194B768A0069D934 /* ANMediatedAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediatedAd.m; sourceTree = "<group>"; };
-		ECE4EABE194B768A0069D934 /* ANMediationAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMediationAdViewController.h; sourceTree = "<group>"; };
-		ECE4EABF194B768A0069D934 /* ANMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationAdViewController.m; sourceTree = "<group>"; };
-		ECE4EAC0194B768A0069D934 /* ANMRAIDProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDProperties.h; sourceTree = "<group>"; };
-		ECE4EAC1194B768A0069D934 /* ANMRAIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDViewController.h; sourceTree = "<group>"; };
-		ECE4EAC2194B768A0069D934 /* ANMRAIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewController.m; sourceTree = "<group>"; };
-		ECE4EAC3194B768A0069D934 /* ANPBBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPBBuffer.h; sourceTree = "<group>"; };
-		ECE4EAC4194B768A0069D934 /* ANPBBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBBuffer.m; sourceTree = "<group>"; };
-		ECE4EAC5194B768A0069D934 /* ANReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANReachability.h; sourceTree = "<group>"; };
-		ECE4EAC6194B768A0069D934 /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
-		ECE4EAC7194B768A0069D934 /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
-		ECE4EAC8194B768A0069D934 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
-		ECE4EAC9194B768A0069D934 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		ECE4EACB194B768A0069D934 /* ANBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANBrowserViewController.xib; sourceTree = "<group>"; };
 		ECE4EACC194B768A0069D934 /* ANInterstitialAdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANInterstitialAdViewController.xib; sourceTree = "<group>"; };
 		ECE4EACD194B768A0069D934 /* anjam.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = anjam.js; sourceTree = "<group>"; };
@@ -184,6 +194,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AD6189D1981C11F00AC0780 /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				8AD6189E1981C11F00AC0780 /* ANAdFetcher.h */,
+				8AD6189F1981C11F00AC0780 /* ANAdFetcher.m */,
+				8AD618A01981C11F00AC0780 /* ANAdRequestUrl.h */,
+				8AD618A11981C11F00AC0780 /* ANAdRequestUrl.m */,
+				8AD618A21981C11F00AC0780 /* ANAdResponse.h */,
+				8AD618A31981C11F00AC0780 /* ANAdResponse.m */,
+				8AD618A41981C11F00AC0780 /* ANAdView.m */,
+				8AD618A51981C11F00AC0780 /* ANAdViewDelegate.h */,
+				8AD618A61981C11F00AC0780 /* ANAdWebViewController.h */,
+				8AD618A71981C11F00AC0780 /* ANAdWebViewController.m */,
+				8AD618A81981C11F00AC0780 /* ANANJAMImplementation.h */,
+				8AD618A91981C11F00AC0780 /* ANANJAMImplementation.m */,
+				8AD618AA1981C11F00AC0780 /* ANBannerAdView.m */,
+				8AD618AB1981C11F00AC0780 /* ANBasicConfig.h */,
+				8AD618AC1981C11F00AC0780 /* ANBrowserViewController.h */,
+				8AD618AD1981C11F00AC0780 /* ANBrowserViewController.m */,
+				8AD618AE1981C11F00AC0780 /* ANClickOverlayView.h */,
+				8AD618AF1981C11F00AC0780 /* ANClickOverlayView.m */,
+				8AD618B01981C11F00AC0780 /* ANGlobal.h */,
+				8AD618B11981C11F00AC0780 /* ANGlobal.m */,
+				8AD618B21981C11F00AC0780 /* ANInterstitialAd.m */,
+				8AD618B31981C11F00AC0780 /* ANInterstitialAdViewController.h */,
+				8AD618B41981C11F00AC0780 /* ANInterstitialAdViewController.m */,
+				8AD618B51981C11F00AC0780 /* ANLocation.m */,
+				8AD618B61981C11F00AC0780 /* ANLogging.h */,
+				8AD618B71981C11F00AC0780 /* ANLogging.m */,
+				8AD618B81981C11F00AC0780 /* ANLogManager.m */,
+				8AD618B91981C11F00AC0780 /* ANMediatedAd.h */,
+				8AD618BA1981C11F00AC0780 /* ANMediatedAd.m */,
+				8AD618BB1981C11F00AC0780 /* ANMediationAdViewController.h */,
+				8AD618BC1981C11F00AC0780 /* ANMediationAdViewController.m */,
+				8AD618BD1981C11F00AC0780 /* ANMediationContainerView.h */,
+				8AD618BE1981C11F00AC0780 /* ANMediationContainerView.m */,
+				8AD618BF1981C11F00AC0780 /* ANMRAIDProperties.h */,
+				8AD618C01981C11F00AC0780 /* ANMRAIDViewController.h */,
+				8AD618C11981C11F00AC0780 /* ANMRAIDViewController.m */,
+				8AD618C21981C11F00AC0780 /* ANPBBuffer.h */,
+				8AD618C31981C11F00AC0780 /* ANPBBuffer.m */,
+				8AD618C41981C11F00AC0780 /* ANPBContainerView.h */,
+				8AD618C51981C11F00AC0780 /* ANPBContainerView.m */,
+				8AD618C61981C11F00AC0780 /* ANReachability.h */,
+				8AD618C71981C11F00AC0780 /* ANReachability.m */,
+				8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */,
+				8AD618C91981C11F00AC0780 /* ANWebView.h */,
+				8AD618CA1981C11F00AC0780 /* ANWebView.m */,
+			);
+			path = internal;
+			sourceTree = "<group>";
+		};
 		EC3E5CD31843C6D50070315E = {
 			isa = PBXGroup;
 			children = (
@@ -212,8 +274,8 @@
 				ECE4EA92194B768A0069D934 /* ANLocation.h */,
 				ECE4EA93194B768A0069D934 /* ANLogManager.h */,
 				ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */,
+				8AD6189D1981C11F00AC0780 /* internal */,
 				ECE4EA95194B768A0069D934 /* Categories */,
-				ECE4EA9E194B768A0069D934 /* internal */,
 				ECE4EACA194B768A0069D934 /* Resources */,
 			);
 			name = sdk;
@@ -235,54 +297,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		ECE4EA9E194B768A0069D934 /* internal */ = {
-			isa = PBXGroup;
-			children = (
-				ECE4EA9F194B768A0069D934 /* ANAdFetcher.h */,
-				ECE4EAA0194B768A0069D934 /* ANAdFetcher.m */,
-				ECE4EAA1194B768A0069D934 /* ANAdRequestUrl.h */,
-				ECE4EAA2194B768A0069D934 /* ANAdRequestUrl.m */,
-				ECE4EAA3194B768A0069D934 /* ANAdResponse.h */,
-				ECE4EAA4194B768A0069D934 /* ANAdResponse.m */,
-				ECE4EAA5194B768A0069D934 /* ANAdView.m */,
-				ECE4EAA6194B768A0069D934 /* ANAdViewDelegate.h */,
-				ECE4EAA7194B768A0069D934 /* ANAdWebViewController.h */,
-				ECE4EAA8194B768A0069D934 /* ANAdWebViewController.m */,
-				ECE4EAA9194B768A0069D934 /* ANANJAMImplementation.h */,
-				ECE4EAAA194B768A0069D934 /* ANANJAMImplementation.m */,
-				ECE4EAAB194B768A0069D934 /* ANBannerAdView.m */,
-				ECE4EAAC194B768A0069D934 /* ANBasicConfig.h */,
-				ECE4EAAD194B768A0069D934 /* ANBrowserViewController.h */,
-				ECE4EAAE194B768A0069D934 /* ANBrowserViewController.m */,
-				ECE4EAAF194B768A0069D934 /* ANClickOverlayView.h */,
-				ECE4EAB0194B768A0069D934 /* ANClickOverlayView.m */,
-				ECE4EAB1194B768A0069D934 /* ANGlobal.h */,
-				ECE4EAB2194B768A0069D934 /* ANGlobal.m */,
-				ECE4EAB5194B768A0069D934 /* ANInterstitialAd.m */,
-				ECE4EAB6194B768A0069D934 /* ANInterstitialAdViewController.h */,
-				ECE4EAB7194B768A0069D934 /* ANInterstitialAdViewController.m */,
-				ECE4EAB8194B768A0069D934 /* ANLocation.m */,
-				ECE4EAB9194B768A0069D934 /* ANLogging.h */,
-				ECE4EABA194B768A0069D934 /* ANLogging.m */,
-				ECE4EABB194B768A0069D934 /* ANLogManager.m */,
-				ECE4EABC194B768A0069D934 /* ANMediatedAd.h */,
-				ECE4EABD194B768A0069D934 /* ANMediatedAd.m */,
-				ECE4EABE194B768A0069D934 /* ANMediationAdViewController.h */,
-				ECE4EABF194B768A0069D934 /* ANMediationAdViewController.m */,
-				ECE4EAC0194B768A0069D934 /* ANMRAIDProperties.h */,
-				ECE4EAC1194B768A0069D934 /* ANMRAIDViewController.h */,
-				ECE4EAC2194B768A0069D934 /* ANMRAIDViewController.m */,
-				ECE4EAC3194B768A0069D934 /* ANPBBuffer.h */,
-				ECE4EAC4194B768A0069D934 /* ANPBBuffer.m */,
-				ECE4EAC5194B768A0069D934 /* ANReachability.h */,
-				ECE4EAC6194B768A0069D934 /* ANReachability.m */,
-				ECE4EAC7194B768A0069D934 /* ANTargetingParameters.m */,
-				ECE4EAC8194B768A0069D934 /* ANWebView.h */,
-				ECE4EAC9194B768A0069D934 /* ANWebView.m */,
-			);
-			path = internal;
-			sourceTree = "<group>";
-		};
 		ECE4EACA194B768A0069D934 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +307,8 @@
 				ECE4EACF194B768A0069D934 /* images */,
 				ECE4EAD8194B768A0069D934 /* MRAID.bundle */,
 				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
+				8AD618991981C10700AC0780 /* appnexus_logo_icon.png */,
+				8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -383,6 +399,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD618E41981C19500AC0780 /* appnexus_logo_icon@2x.png in Resources */,
+				8AD618E31981C19100AC0780 /* appnexus_logo_icon.png in Resources */,
 				ECE4EB03194B76960069D934 /* ANBrowserViewController.xib in Resources */,
 				ECE4EB04194B76960069D934 /* ANInterstitialAdViewController.xib in Resources */,
 				ECE4EB07194B76960069D934 /* interstitial_closebox-down.png in Resources */,
@@ -414,32 +432,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECE4EADE194B768A0069D934 /* ANAdFetcher.m in Sources */,
-				ECE4EAE0194B768A0069D934 /* ANAdResponse.m in Sources */,
-				ECE4EADF194B768A0069D934 /* ANAdRequestUrl.m in Sources */,
-				ECE4EAE2194B768A0069D934 /* ANAdWebViewController.m in Sources */,
-				ECE4EAE1194B768A0069D934 /* ANAdView.m in Sources */,
-				ECE4EAE3194B768A0069D934 /* ANANJAMImplementation.m in Sources */,
-				ECE4EAE4194B768A0069D934 /* ANBannerAdView.m in Sources */,
-				ECE4EAE5194B768A0069D934 /* ANBrowserViewController.m in Sources */,
-				ECE4EAE6194B768A0069D934 /* ANClickOverlayView.m in Sources */,
-				ECE4EAE9194B768A0069D934 /* ANInterstitialAd.m in Sources */,
-				ECE4EAEA194B768A0069D934 /* ANInterstitialAdViewController.m in Sources */,
-				ECE4EAE7194B768A0069D934 /* ANGlobal.m in Sources */,
-				ECE4EAEB194B768A0069D934 /* ANLocation.m in Sources */,
-				ECE4EAEC194B768A0069D934 /* ANLogging.m in Sources */,
-				ECE4EAED194B768A0069D934 /* ANLogManager.m in Sources */,
-				ECE4EAEE194B768A0069D934 /* ANMediatedAd.m in Sources */,
-				ECE4EAEF194B768A0069D934 /* ANMediationAdViewController.m in Sources */,
-				ECE4EAF0194B768A0069D934 /* ANMRAIDViewController.m in Sources */,
-				ECE4EAF1194B768A0069D934 /* ANPBBuffer.m in Sources */,
-				ECE4EAF2194B768A0069D934 /* ANReachability.m in Sources */,
-				ECE4EAF3194B768A0069D934 /* ANTargetingParameters.m in Sources */,
-				ECE4EAF4194B768A0069D934 /* ANWebView.m in Sources */,
+				8AD618D51981C11F00AC0780 /* ANInterstitialAd.m in Sources */,
+				8AD618CF1981C11F00AC0780 /* ANAdWebViewController.m in Sources */,
+				8AD618DA1981C11F00AC0780 /* ANMediatedAd.m in Sources */,
 				ECE4EADA194B768A0069D934 /* NSString+ANCategory.m in Sources */,
+				8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */,
+				8AD618CB1981C11F00AC0780 /* ANAdFetcher.m in Sources */,
+				8AD618E21981C11F00AC0780 /* ANWebView.m in Sources */,
+				8AD618D61981C11F00AC0780 /* ANInterstitialAdViewController.m in Sources */,
 				ECE4EADB194B768A0069D934 /* NSTimer+ANCategory.m in Sources */,
+				8AD618D01981C11F00AC0780 /* ANANJAMImplementation.m in Sources */,
+				8AD618DC1981C11F00AC0780 /* ANMediationContainerView.m in Sources */,
+				8AD618CD1981C11F00AC0780 /* ANAdResponse.m in Sources */,
+				8AD618DE1981C11F00AC0780 /* ANPBBuffer.m in Sources */,
+				8AD618D21981C11F00AC0780 /* ANBrowserViewController.m in Sources */,
+				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
+				8AD618D81981C11F00AC0780 /* ANLogging.m in Sources */,
+				8AD618CC1981C11F00AC0780 /* ANAdRequestUrl.m in Sources */,
+				8AD618DB1981C11F00AC0780 /* ANMediationAdViewController.m in Sources */,
+				8AD618D11981C11F00AC0780 /* ANBannerAdView.m in Sources */,
+				8AD618DD1981C11F00AC0780 /* ANMRAIDViewController.m in Sources */,
+				8AD618D31981C11F00AC0780 /* ANClickOverlayView.m in Sources */,
+				8AD618DF1981C11F00AC0780 /* ANPBContainerView.m in Sources */,
 				ECE4EADD194B768A0069D934 /* UIWebView+ANCategory.m in Sources */,
+				8AD618E01981C11F00AC0780 /* ANReachability.m in Sources */,
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
+				8AD618D71981C11F00AC0780 /* ANLocation.m in Sources */,
+				8AD618D41981C11F00AC0780 /* ANGlobal.m in Sources */,
+				8AD618D91981C11F00AC0780 /* ANLogManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
