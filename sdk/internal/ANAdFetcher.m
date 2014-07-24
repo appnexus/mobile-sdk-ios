@@ -203,6 +203,16 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
     [self.connection cancel];
     [self.autoRefreshTimer invalidate];
+    [self clearMediationController];
+}
+
+- (void)clearMediationController {
+    /*
+     Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher. The controller maintains a weak reference to the 
+     ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still 
+     displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
+     */
+    self.mediationController.adFetcher = nil;
     self.mediationController = nil;
 }
 
@@ -232,7 +242,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)processAdResponse:(ANAdResponse *)response
 {
-    self.mediationController = nil;
+    [self clearMediationController];
 
     BOOL responseAdsExist = response && response.containsAds;
     BOOL oldAdsExist = [self.mediatedAds count] > 0;
@@ -279,6 +289,15 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     CGSize sizeOfCreative = ((receivedSize.width > 0)
                              && (receivedSize.height > 0)) ? receivedSize : requestedSize;
 
+    /*
+     The old controller should not continue to fire messages to the ad fetcher. The controller maintains a weak reference to the ad fetcher delegate
+     in the event the web view continues to persist (in the event the banner will still show, for example), so that messages between the controller and
+     the ad view can proceed uninterrupted.
+     */
+    if (self.webView) {
+        self.webView.controller.adFetcher = nil;
+    }
+    
     // Generate a new webview to contain the HTML
     self.webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
     
@@ -288,6 +307,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     webViewController.mraidDelegate.mraidEventReceiverDelegate = webViewController;
     webViewController.adFetcher = self;
     webViewController.webView = self.webView;
+    webViewController.adFetcherDelegate = self.delegate;
     self.webView.delegate = webViewController;
     self.webView.controller = webViewController;
     
@@ -454,7 +474,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         [self processFinalResponse:response];
     } else {
         // mediated ad failed. clear mediation controller
-        self.mediationController = nil;
+        [self clearMediationController];
         
         // stop waterfall if delegate reference (adview) was lost
         if (!self.delegate) {

@@ -19,10 +19,12 @@
 #import <UIKit/UIKit.h>
 
 @class ANAdFetcher;
+@protocol ANAdFetcherDelegate;
 
 @interface ANMRAIDAdWebViewController : NSObject <ANMRAIDEventReceiver, UIWebViewDelegate>
 
 @property (nonatomic, readwrite, weak) ANAdFetcher *adFetcher;
+@property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adFetcherDelegate;
 @property (nonatomic, readwrite, weak) UIWebView *webView;
 @property (nonatomic, readwrite, weak) id<ANMRAIDAdViewDelegate> mraidDelegate;
 @property (nonatomic, readwrite, assign) BOOL isMRAID;

@@ -32,7 +32,6 @@
 @property (nonatomic, readwrite, assign) BOOL hasSucceeded;
 @property (nonatomic, readwrite, assign) BOOL hasFailed;
 @property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
-@property (nonatomic, readwrite, weak) ANAdFetcher *fetcher;
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adViewDelegate;
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
 @property (nonatomic, readwrite, strong) NSDictionary *pitbullAdForDelayedCapture;
@@ -52,7 +51,7 @@
                                     withFetcher:(ANAdFetcher *)fetcher
                                  adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate {
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
-    controller.fetcher = fetcher;
+    controller.adFetcher = fetcher;
     controller.adViewDelegate = adViewDelegate;
     
     if ([controller requestForAd:mediatedAd]) {
@@ -161,7 +160,7 @@
     self.currentAdapter = nil;
     self.hasSucceeded = NO;
     self.hasFailed = YES;
-    self.fetcher = nil;
+    self.adFetcher = nil;
     self.adViewDelegate = nil;
     self.mediatedAd = nil;
     [self cancelTimeout];
@@ -362,7 +361,7 @@
      auctionID:(NSString *)auctionID {
     // use queue to force return
     [self runInBlock:^(void) {
-        ANAdFetcher *fetcher = self.fetcher;
+        ANAdFetcher *fetcher = self.adFetcher;
         NSString *resultCBString = [self createResultCBRequest:
                                     self.mediatedAd.resultCB reason:errorCode];
         // fireResulCB will clear the adapter if fetcher exists
@@ -467,8 +466,8 @@
  * The running total latency of the ad call.
  */
 - (NSTimeInterval)getTotalLatency {
-    if (self.fetcher && (self.latencyStop > 0)) {
-        return [self.fetcher getTotalLatency:self.latencyStop];
+    if (self.adFetcher && (self.latencyStop > 0)) {
+        return [self.adFetcher getTotalLatency:self.latencyStop];
     }
     // return -1 if invalid.
     return -1;

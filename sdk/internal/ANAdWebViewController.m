@@ -52,8 +52,8 @@
 @implementation ANMRAIDAdWebViewController
 
 - (void)delegateShouldOpenInBrowser:(NSURL *)URL {
-    if ([self.adFetcher.delegate respondsToSelector:@selector(adFetcher:adShouldOpenInBrowserWithURL:)]) {
-        [self.adFetcher.delegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
+    if ([self.adFetcherDelegate respondsToSelector:@selector(adFetcher:adShouldOpenInBrowserWithURL:)]) {
+        [self.adFetcherDelegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
     }
 }
 
@@ -221,9 +221,9 @@
     ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
     
     if ([scheme isEqualToString:@"appnexuspb"]) {
-        if ([self.adFetcher.delegate respondsToSelector:@selector(transitionInProgress)]) {
+        if ([self.adFetcherDelegate respondsToSelector:@selector(transitionInProgress)]) {
             if ([URL.host isEqualToString:@"capture"]) {
-                NSNumber *transitionInProgress = [self.adFetcher.delegate performSelector:@selector(transitionInProgress)];
+                NSNumber *transitionInProgress = [self.adFetcherDelegate performSelector:@selector(transitionInProgress)];
                 if ([transitionInProgress boolValue] == YES) {
                     if (![self.pitbullCaptureURLQueue count]) {
                         [self registerForPitbullScreenCaptureNotifications];
@@ -238,8 +238,8 @@
         }
 
         UIView *view = self.webView;
-        if ([self.adFetcher.delegate respondsToSelector:@selector(containerView)]) {
-            view = [self.adFetcher.delegate containerView];
+        if ([self.adFetcherDelegate respondsToSelector:@selector(containerView)]) {
+            view = [self.adFetcherDelegate containerView];
         }
         [ANPBBuffer handleUrl:URL forView:view];
         return NO;
@@ -280,7 +280,7 @@
             // Do MRAID actions
             [self dispatchNativeMRAIDURL:URL forWebView:webView];
         } else if ([scheme isEqualToString:@"anjam"]) {
-            [ANANJAMImplementation handleUrl:URL forWebView:webView forDelegate:self.adFetcher.delegate];
+            [ANANJAMImplementation handleUrl:URL forWebView:webView forDelegate:self.adFetcherDelegate];
         } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             [[UIApplication sharedApplication] openURL:URL];
         } else {
@@ -365,24 +365,24 @@
 
     if ([mraidCommand isEqualToString:@"expand"]) {
         // hidden state handled by mraid.js
-        [self.adFetcher.delegate adWasClicked];
+        [self.adFetcherDelegate adWasClicked];
         [self expandAction:webView queryComponents:queryComponents];
     }
     else if ([mraidCommand isEqualToString:@"close"]) {
         // hidden state handled by mraid.js
         [self closeAction:self];
     } else if([mraidCommand isEqualToString:@"resize"]) {
-        [self.adFetcher.delegate adWasClicked];
+        [self.adFetcherDelegate adWasClicked];
         [self resizeAction:webView queryComponents:queryComponents];
     } else if([mraidCommand isEqualToString:@"createCalendarEvent"]) {
-        [self.adFetcher.delegate adWasClicked];
+        [self.adFetcherDelegate adWasClicked];
         NSString *w3cEventJson = [queryComponents objectForKey:@"p"];
         [self createCalendarEventFromW3CCompliantJSONObject:w3cEventJson];
     } else if([mraidCommand isEqualToString:@"playVideo"]) {
-        [self.adFetcher.delegate adWasClicked];
+        [self.adFetcherDelegate adWasClicked];
         [self playVideo:queryComponents];
     } else if([mraidCommand isEqualToString:@"storePicture"]) {
-        [self.adFetcher.delegate adWasClicked];
+        [self.adFetcherDelegate adWasClicked];
         NSString *uri = [queryComponents objectForKey:@"uri"];
         [self storePicture:uri];
     } else if([mraidCommand isEqualToString:@"setOrientationProperties"]) {
@@ -838,7 +838,7 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    if (object == self.adFetcher.delegate) {
+    if (object == self.adFetcherDelegate) {
         NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
         if ([transitionInProgress boolValue] == NO) {
             [self unregisterFromPitbullScreenCaptureNotifications];
@@ -848,7 +848,7 @@
 }
 
 - (void)registerForPitbullScreenCaptureNotifications {
-    NSObject *object = self.adFetcher.delegate;
+    NSObject *object = self.adFetcherDelegate;
     [object addObserver:self
              forKeyPath:@"transitionInProgress"
                 options:NSKeyValueObservingOptionNew
@@ -860,7 +860,7 @@
      Removing a non-registered observer results in an exception. There's no way to
      check if you're registered or not. Hence the try-catch.
      */
-    NSObject *bannerObject = self.adFetcher.delegate;
+    NSObject *bannerObject = self.adFetcherDelegate;
     @try {
         [bannerObject removeObserver:self
                           forKeyPath:@"transitionInProgress"];
@@ -871,8 +871,8 @@
 - (void)dispatchPitbullScreenCaptureCalls {
     for (NSURL *URL in self.pitbullCaptureURLQueue) {
         UIView *view = self.webView;
-        if ([self.adFetcher.delegate respondsToSelector:@selector(containerView)]) {
-            view = [self.adFetcher.delegate containerView];
+        if ([self.adFetcherDelegate respondsToSelector:@selector(containerView)]) {
+            view = [self.adFetcherDelegate containerView];
         }
         [ANPBBuffer handleUrl:URL forView:view];
     }
