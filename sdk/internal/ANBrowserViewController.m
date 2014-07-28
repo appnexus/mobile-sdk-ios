@@ -37,7 +37,7 @@
 @synthesize openInSheet = __openInSheet;
 @synthesize delegate = __delegate;
 
-- (id)init
+- (instancetype)init
 {
     NSBundle *resBundle = ANResourcesBundle();
     if (!resBundle) {
@@ -60,7 +60,7 @@
     return self;
 }
 
-- (id)initWithURL:(NSURL *)url
+- (instancetype)initWithURL:(NSURL *)url
 {
 	self = [self init];
 	
@@ -191,7 +191,7 @@
 {
     ANLogWarn(@"In-app browser failed with error: %@", error);
     if (!self.isPresented) {
-        NSString *errorUrlString = [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey];
+        NSString *errorUrlString = error.userInfo[NSURLErrorFailingURLStringErrorKey];
         NSString *mainDocumentURL = [[webView.request mainDocumentURL] absoluteString];
         if (([errorUrlString isEqualToString:mainDocumentURL] || !mainDocumentURL) && ([error.domain isEqualToString:@"NSURLErrorDomain"] || [error.domain isEqualToString:@"WebKitErrorDomain"])) {
             if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {

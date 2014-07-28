@@ -27,7 +27,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet UIWebView *webView;
 @property (nonatomic, readwrite, weak) id<ANBrowserViewControllerDelegate> delegate;
 
-- (id)initWithURL:(NSURL *)url;
+- (instancetype)initWithURL:(NSURL *)url;
 - (IBAction)closeAction:(id)sender;
 - (IBAction)forwardAction:(id)sender;
 - (IBAction)backAction:(id)sender;

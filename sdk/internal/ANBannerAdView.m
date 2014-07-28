@@ -100,7 +100,7 @@
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:size];
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
     if (self != nil) {
@@ -110,7 +110,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
+- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
     self = [self initWithFrame:frame];
     
     if (self != nil) {
@@ -120,7 +120,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
+- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
     self = [self initWithFrame:frame placementId:placementId];
     
     if (self != nil) {
@@ -461,10 +461,7 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 #pragma mark ANAdFetcherDelegate
 
 - (NSArray *)extraParameters {
-    return [NSArray arrayWithObjects:
-            [self sizeParameter],
-            [self orientationParameter],
-            nil];
+    return @[[self sizeParameter],[self orientationParameter]];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
@@ -486,8 +483,7 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
             [self adDidReceiveAd];
         }
         else {
-            NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")
-                                                                  forKey:NSLocalizedDescriptionKey];
+            NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")};
             error = [NSError errorWithDomain:AN_ERROR_DOMAIN
                                         code:ANAdResponseNonViewResponse
                                     userInfo:errorInfo];

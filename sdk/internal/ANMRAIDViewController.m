@@ -21,7 +21,7 @@
 
 @implementation ANMRAIDViewController
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _allowOrientationChange = YES;

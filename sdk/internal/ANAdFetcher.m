@@ -51,7 +51,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 @implementation ANAdFetcher
 
-- (id)init
+- (instancetype)init
 {
 	if (self = [super init])
     {
@@ -138,8 +138,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 			}
 			else
 			{
-				NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Unable to make request due to bad URL connection.", @"Error: Bad URL connection.")
-																	  forKey:NSLocalizedDescriptionKey];
+				NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to make request due to bad URL connection.", @"Error: Bad URL connection.")};
 				NSError *badURLConnectionError = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseBadURLConnection userInfo:errorInfo];
 				ANAdResponse *response = [ANAdResponse adResponseFailWithError:badURLConnectionError];
                 [self processFinalResponse:response];
@@ -147,8 +146,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 		}
 		else
 		{
-			NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Unable to make request due to malformed URL.", @"Error: Malformed URL")
-                                                                  forKey:NSLocalizedDescriptionKey];
+			NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to make request due to malformed URL.", @"Error: Malformed URL")};
             NSError *badURLError = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseBadURL userInfo:errorInfo];
             ANAdResponse *response = [ANAdResponse adResponseFailWithError:badURLError];
             [self processFinalResponse:response];
@@ -249,8 +247,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     
     if (!responseAdsExist && !oldAdsExist) {
 		ANLogWarn(ANErrorString(@"response_no_ads"));
-        NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Request got successful response from server, but no ads were available.", @"Error: Response was received, but it contained no ads")
-                                                              forKey:NSLocalizedDescriptionKey];
+        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Request got successful response from server, but no ads were available.", @"Error: Response was received, but it contained no ads")};
         [self finishRequestWithErrorAndRefresh:errorInfo code:ANAdResponseUnableToFill];
         return;
     }
@@ -395,10 +392,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
             
             if (status >= 400) {
                 [connection cancel];
-                NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
+                NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:
                                                                               NSLocalizedString(@"Request failed with status code %d", @"Error Description: server request came back with error code."),
-                                                                              status]
-                                                                      forKey:NSLocalizedDescriptionKey];
+                                                                              status]};
                 NSError *statusError = [NSError errorWithDomain:AN_ERROR_DOMAIN
                                                            code:ANAdResponseNetworkError
                                                        userInfo:errorInfo];
@@ -442,8 +438,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         
         [self setupAutoRefreshTimerIfNecessary];
         
-        NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorMessage
-                                                              forKey:NSLocalizedDescriptionKey];
+        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: errorMessage};
         NSError *ANError = [NSError errorWithDomain:AN_ERROR_DOMAIN
                                              code:ANAdResponseNetworkError
                                          userInfo:errorInfo];

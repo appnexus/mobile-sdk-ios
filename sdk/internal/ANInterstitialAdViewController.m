@@ -32,7 +32,7 @@
 @synthesize contentView = __contentView;
 @synthesize backgroundColor = __backgroundColor;
 
-- (id)init {
+- (instancetype)init {
     NSBundle *resBundle = ANResourcesBundle();
     if (!resBundle) {
         ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");

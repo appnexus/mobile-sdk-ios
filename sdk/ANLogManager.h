@@ -21,8 +21,7 @@
  `ANLogLevelInfo,` `ANLogLevelWarn,` and `ANLogLevelError.`
  The default level is `ANLogLevelWarn`
  */
-typedef enum
-{
+typedef NS_ENUM(NSUInteger, ANLogLevel) {
 	ANLogLevelAll		= 0,
 	ANLogLevelTrace		= 10,
 	ANLogLevelDebug		= 20,
@@ -30,7 +29,7 @@ typedef enum
 	ANLogLevelWarn		= 40,
 	ANLogLevelError		= 50,
 	ANLogLevelOff		= 60
-} ANLogLevel;
+};
 
 /**
  Use the `ANLogManager` methods to set the desired level of log filter.
@@ -48,4 +47,3 @@ typedef enum
 + (void)setANLogLevel:(ANLogLevel)level;
 
 @end
-

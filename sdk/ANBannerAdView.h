@@ -122,8 +122,8 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
  so you may want to use that instead, unless you prefer to manage
  this manually.
  */
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
+- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
+- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
 /**
  Initializes an ad view.  These are autoreleased constructors of the
