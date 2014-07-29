@@ -23,6 +23,7 @@
 #import "ANLogging.h"
 #import "ANMRAIDViewController.h"
 #import "ANPBBuffer.h"
+#import "ANPBContainerView.h"
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
@@ -154,9 +155,16 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 		}
 		else if ([adToShow conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
 			[adToShow presentFromViewController:controller];
-
-            // capture mediated interstitials after show event
-            [ANPBBuffer captureDelayedImage:controller.presentedViewController.view forAuctionID:auctionID];
+            if (auctionID) {
+                ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
+                [controller.presentedViewController.view addSubview:logoView];
+                [ANPBBuffer addAdditionalInfo:@{kANPBBufferAdWidthKey: @(CGRectGetWidth(controller.presentedViewController.view.frame)),
+                                                kANPBBufferAdHeightKey: @(CGRectGetHeight(controller.presentedViewController.view.frame))}
+                                 forAuctionID:auctionID];
+                // capture mediated interstitials after show event
+                [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
+                                   forAuctionID:auctionID];
+            }
 		}
 		else {
             errorString = @"Got a non-presentable object %@. Cannot display interstitial.";

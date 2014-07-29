@@ -19,37 +19,126 @@
 
 @protocol FBAdViewDelegate;
 
-// Ad Sizes
+/*!
+ @typedef FBAdSize
+
+ @abstract
+ Represents the ad size.
+ */
 typedef struct FBAdSize {
   CGSize size;
 } FBAdSize;
 
-// 320x50
+/*!
+ @abstract Represents the banner ad size.
+ */
 extern FBAdSize const kFBAdSize320x50;
 
-// Interstital
+/*!
+ @abstract Represents the interstitial ad size.
+ */
 extern FBAdSize const kFBAdSizeInterstital;
 
+/*!
+ @class FBAdView
+
+ @abstract A customized UIView to represent a Facebook ad (a.k.a. banner ad).
+ */
 @interface FBAdView : UIView <UIWebViewDelegate>
 
+/*!
+ @method
+
+ @abstract
+ This is a method to initialize an FBAdView matching the given placement id.
+
+ @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
+ @param adSize The size of the ad; for example, kFBAdSize320x50.
+ @param rootViewController The view controller that will be used to present the ad and the app store view.
+ */
 - (instancetype)initWithPlacementID:(NSString *)placementID
                              adSize:(FBAdSize)adSize
                  rootViewController:(UIViewController *)viewController;
 
+/*!
+ @method
+
+ @abstract
+ Begins loading the FBAdView content.
+
+ @discussion You can implement `adViewDidLoad:` and `adView:didFailWithError:` methods
+ of `FBAdViewDelegate` if you would like to be notified as loading succeeds or fails.
+ */
 - (void)loadAd;
 
+/*!
+ @property
+ @abstract Typed access to the id of the ad placement.
+ */
 @property (nonatomic, copy, readonly) NSString *placementID;
+/*!
+ @property
+ @abstract Typed access to the app's root view controller.
+ */
 @property (nonatomic, weak, readonly) UIViewController *rootViewController;
+/*!
+ @property
+ @abstract the delegate
+ */
 @property (nonatomic, weak) id<FBAdViewDelegate> delegate;
 
 @end
 
+/*!
+ @protocol
+
+ @abstract
+ The methods declared by the FBAdViewDelegate protocol allow the adopting delegate to respond
+ to messages from the FBAdView class and thus respond to operations such as whether the ad has
+ been loaded, the person has clicked the ad.
+ */
 @protocol FBAdViewDelegate <NSObject>
 
 @optional
 
+/*!
+ @method
+
+ @abstract
+ Sent after an ad has been clicked by the person.
+
+ @param adView An FBAdView object sending the message.
+ */
 - (void)adViewDidClick:(FBAdView *)adView;
+/*!
+ @method
+
+ @abstract
+ When an ad is clicked, the modal view will be presented. And when the user finishes the
+ interaction with the modal view and dismiss it, this message will be sent, returning control
+ to the application.
+
+ @param adView An FBAdView object sending the message.
+ */
+- (void)adViewDidFinishHandlingClick:(FBAdView *)adView;
+/*!
+ @method
+
+ @abstract
+ Sent when an ad has been successfully loaded.
+
+ @param adView An FBAdView object sending the message.
+ */
 - (void)adViewDidLoad:(FBAdView *)adView;
+/*!
+ @method
+
+ @abstract
+ Sent after an FBAdView fails to load the ad.
+
+ @param adView An FBAdView object sending the message.
+ @param error An error object containing details of the error.
+ */
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error;
 
 @end

@@ -22,6 +22,9 @@
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
 #import "ANPBBuffer.h"
+#import "NSString+ANCategory.h"
+#import "ANPBContainerView.h"
+#import "ANMediationContainerView.h"
 
 @interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
 
@@ -29,9 +32,17 @@
 @property (nonatomic, readwrite, assign) BOOL hasSucceeded;
 @property (nonatomic, readwrite, assign) BOOL hasFailed;
 @property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
-@property (nonatomic, readwrite, weak) ANAdFetcher *fetcher;
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adViewDelegate;
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
+@property (nonatomic, readwrite, strong) NSDictionary *pitbullAdForDelayedCapture;
+
+// variables for measuring latency.
+@property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
+@property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
+@end
+
+@interface ANAdFetcher ()
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 @end
 
 @implementation ANMediationAdViewController
@@ -40,7 +51,7 @@
                                     withFetcher:(ANAdFetcher *)fetcher
                                  adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate {
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
-    controller.fetcher = fetcher;
+    controller.adFetcher = fetcher;
     controller.adViewDelegate = adViewDelegate;
     
     if ([controller requestForAd:mediatedAd]) {
@@ -97,6 +108,7 @@
         
         // Grab the size of the ad - interstitials will ignore this value
         CGSize sizeOfCreative = CGSizeMake([ad.width floatValue], [ad.height floatValue]);
+
         BOOL requestedSuccessfully = [self requestAd:sizeOfCreative
                                      serverParameter:ad.param
                                             adUnitId:ad.adId
@@ -148,7 +160,7 @@
     self.currentAdapter = nil;
     self.hasSucceeded = NO;
     self.hasFailed = YES;
-    self.fetcher = nil;
+    self.adFetcher = nil;
     self.adViewDelegate = nil;
     self.mediatedAd = nil;
     [self cancelTimeout];
@@ -172,7 +184,9 @@
         if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERBANNER)]
             && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
             
+            [self markLatencyStart];
             [self startTimeout];
+
             ANBANNERADVIEW *banner = (ANBANNERADVIEW *)adView;
             id<ANCUSTOMADAPTERBANNER> bannerAdapter = (id<ANCUSTOMADAPTERBANNER>) self.currentAdapter;
             [bannerAdapter requestBannerAdWithSize:size
@@ -189,7 +203,9 @@
         if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]
             && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
             
+            [self markLatencyStart];
             [self startTimeout];
+            
             id<ANCUSTOMADAPTERINTERSTITIAL> interstitialAdapter = (id<ANCUSTOMADAPTERINTERSTITIAL>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
                                                            adUnitId:idString
@@ -287,23 +303,56 @@
         return;
     }
     self.hasSucceeded = YES;
+    [self markLatencyStop];
     
     ANLogDebug(@"received an ad from the adapter");
 
+    if ([adObject isKindOfClass:[UIView class]]) {
+        UIView *adView = (UIView *)adObject;
+        ANMediationContainerView *containerView = [[ANMediationContainerView alloc] initWithMediatedView:adView];
+        containerView.controller = self;
+        adObject = containerView;
+    }
+    
     // save auctionInfo for the winning ad
     NSString *auctionID = [ANPBBuffer saveAuctionInfo:self.mediatedAd.auctionInfo];
+    
+    if (auctionID) {
+        [ANPBBuffer addAdditionalInfo:@{kANPBBufferMediatedNetworkNameKey: self.mediatedAd.className,
+                                        kANPBBufferMediatedNetworkPlacementIDKey: self.mediatedAd.adId}
+                         forAuctionID:auctionID];
+        if ([adObject isKindOfClass:[UIView class]]) {
+            UIView *adView = (UIView *)adObject;
+            [ANPBBuffer addAdditionalInfo:@{kANPBBufferAdWidthKey: @(CGRectGetWidth(adView.frame)),
+                                            kANPBBufferAdHeightKey: @(CGRectGetHeight(adView.frame))}
+                             forAuctionID:auctionID];
+            ANPBContainerView *containerView = [[ANPBContainerView alloc] initWithContentView:adView];
+            adObject = containerView;
+        }
+    }
     
     [self finish:(ANADRESPONSECODE)ANAdResponseSuccessful withAdObject:adObject auctionID:auctionID];
 
     // if auctionInfo was present and had an auctionID,
     // screenshot the view. For banners, do it here
     if (auctionID && [adObject isKindOfClass:[UIView class]]) {
-        [ANPBBuffer captureDelayedImage:adObject forAuctionID:auctionID];
+        if ([self.adViewDelegate respondsToSelector:@selector(transitionInProgress)]) {
+            NSNumber *transitionInProgress = [self.adViewDelegate performSelector:@selector(transitionInProgress)];
+            if ([transitionInProgress boolValue] == YES) {
+                self.pitbullAdForDelayedCapture = @{auctionID: adObject};
+                [self registerForPitbullScreenCaptureNotifications];
+            }
+        }
+        
+        if (!self.pitbullAdForDelayedCapture) {
+            [ANPBBuffer captureDelayedImage:adObject forAuctionID:auctionID];
+        }
     }
 }
 
 - (void)didFailToReceiveAd:(ANADRESPONSECODE)errorCode {
     if ([self checkIfHasResponded]) return;
+    [self markLatencyStop];
     
     [self finish:errorCode withAdObject:nil auctionID:nil];
 }
@@ -312,8 +361,9 @@
      auctionID:(NSString *)auctionID {
     // use queue to force return
     [self runInBlock:^(void) {
-        ANAdFetcher *fetcher = self.fetcher;
-        NSString *resultCBString = self.mediatedAd.resultCB;
+        ANAdFetcher *fetcher = self.adFetcher;
+        NSString *resultCBString = [self createResultCBRequest:
+                                    self.mediatedAd.resultCB reason:errorCode];
         // fireResulCB will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
@@ -327,6 +377,39 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         block();
     });
+}
+
+- (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {
+    if ([baseString length] < 1) {
+        return @"";
+    }
+    
+    // append reason code
+    NSString *resultCBString = [baseString
+                                stringByAppendingUrlParameter:@"reason"
+                                value:[NSString stringWithFormat:@"%d",reasonCode]];
+    
+    // append idfa
+    resultCBString = [resultCBString
+                      stringByAppendingUrlParameter:@"idfa"
+                      value:ANUDID()];
+    
+    // append latency measurements
+    NSTimeInterval latency = [self getLatency] * 1000; // secs to ms
+    NSTimeInterval totalLatency = [self getTotalLatency] * 1000; // secs to ms
+    
+    if (latency > 0) {
+        resultCBString = [resultCBString
+                          stringByAppendingUrlParameter:@"latency"
+                          value:[NSString stringWithFormat:@"%.0f", latency]];
+    }
+    if (totalLatency > 0) {
+        resultCBString = [resultCBString
+                          stringByAppendingUrlParameter:@"total_latency"
+                          value:[NSString stringWithFormat:@"%.0f", totalLatency]];
+    }
+    
+    return resultCBString;
 }
 
 #pragma mark Timeout handler
@@ -348,6 +431,97 @@
 
 - (void)cancelTimeout {
     self.timeoutCanceled = YES;
+}
+
+# pragma mark Latency Measurement
+
+/**
+ * Should be called immediately after mediated SDK returns
+ * from `requestAd` call.
+ */
+- (void)markLatencyStart {
+    self.latencyStart = [NSDate timeIntervalSinceReferenceDate];
+}
+
+/**
+ * Should be called immediately after mediated SDK
+ * calls either of `onAdLoaded` or `onAdFailed`.
+ */
+- (void)markLatencyStop {
+    self.latencyStop = [NSDate timeIntervalSinceReferenceDate];
+}
+
+/**
+ * The latency of the call to the mediated SDK.
+ */
+- (NSTimeInterval)getLatency {
+    if ((self.latencyStart > 0) && (self.latencyStop > 0)) {
+        return (self.latencyStop - self.latencyStart);
+    }
+    // return -1 if invalid.
+    return -1;
+}
+
+/**
+ * The running total latency of the ad call.
+ */
+- (NSTimeInterval)getTotalLatency {
+    if (self.adFetcher && (self.latencyStop > 0)) {
+        return [self.adFetcher getTotalLatency:self.latencyStop];
+    }
+    // return -1 if invalid.
+    return -1;
+}
+
+#pragma mark - Pitbull Image Capture Transition Adjustments
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if (object == self.adViewDelegate) {
+        NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
+        if ([transitionInProgress boolValue] == NO) {
+            [self unregisterFromPitbullScreenCaptureNotifications];
+            [self dispatchPitbullScreenCapture];
+        }
+    }
+}
+
+- (void)registerForPitbullScreenCaptureNotifications {
+    NSObject *object = self.adViewDelegate;
+    [object addObserver:self
+             forKeyPath:@"transitionInProgress"
+                options:NSKeyValueObservingOptionNew
+                context:nil];
+}
+
+- (void)unregisterFromPitbullScreenCaptureNotifications {
+    /*
+     Removing a non-registered observer results in an exception. There's no way to
+     check if you're registered or not. Hence the try-catch.
+     */
+    NSObject *object = self.adViewDelegate;
+    @try {
+        [object removeObserver:self
+                    forKeyPath:@"transitionInProgress"];
+    }
+    @catch (NSException * __unused exception) {}
+}
+
+- (void)dispatchPitbullScreenCapture {
+    if (self.pitbullAdForDelayedCapture) {
+        [self.pitbullAdForDelayedCapture enumerateKeysAndObjectsUsingBlock:^(NSString *auctionID, UIView *view, BOOL *stop) {
+            [ANPBBuffer captureImage:view
+                        forAuctionID:auctionID];
+        }];
+        self.pitbullAdForDelayedCapture = nil;
+    }
+}
+
+- (void)dealloc {
+    [self clearAdapter];
+    [self unregisterFromPitbullScreenCaptureNotifications];
 }
 
 @end

@@ -38,12 +38,15 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 @property (nonatomic, readwrite, strong) NSURL *URL;
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
-@property (nonatomic, readwrite, strong) ANMRAIDAdWebViewController *webViewController;
+@property (nonatomic, readwrite, strong) ANWebView *webView;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
 @property (nonatomic, readwrite, strong) NSString *ANMobileHostname;
 @property (nonatomic, readwrite, strong) NSString *ANBaseURL;
+
+// variables for measuring latency.
+@property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
 @end
 
 @implementation ANAdFetcher
@@ -102,6 +105,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 - (void)requestAdWithURL:(NSURL *)URL
 {
     [self.autoRefreshTimer invalidate];
+    [self markLatencyStart];
     self.request = [ANAdFetcher initBasicRequest];
     
     if (!self.isLoading)
@@ -202,6 +206,16 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     [self clearMediationController];
 }
 
+- (void)clearMediationController {
+    /*
+     Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher. The controller maintains a weak reference to the 
+     ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still 
+     displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
+     */
+    self.mediationController.adFetcher = nil;
+    self.mediationController = nil;
+}
+
 #pragma mark Request Url Construction
 
 - (void)processFinalResponse:(ANAdResponse *)response {
@@ -275,22 +289,33 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     CGSize sizeOfCreative = ((receivedSize.width > 0)
                              && (receivedSize.height > 0)) ? receivedSize : requestedSize;
 
-    // Generate a new webview to contain the HTML
-    ANWebView *webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
+    /*
+     The old controller should not continue to fire messages to the ad fetcher. The controller maintains a weak reference to the ad fetcher delegate
+     in the event the web view continues to persist (in the event the banner will still show, for example), so that messages between the controller and
+     the ad view can proceed uninterrupted.
+     */
+    if (self.webView) {
+        self.webView.controller.adFetcher = nil;
+    }
     
-    self.webViewController = [[ANMRAIDAdWebViewController alloc] init];
-    self.webViewController.isMRAID = response.isMraid;
-    self.webViewController.mraidDelegate = self.delegate;
-    self.webViewController.mraidDelegate.mraidEventReceiverDelegate = self.webViewController;
-    self.webViewController.adFetcher = self;
-    self.webViewController.webView = webView;
-    webView.delegate = self.webViewController;
-
+    // Generate a new webview to contain the HTML
+    self.webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
+    
+    ANMRAIDAdWebViewController *webViewController = [[ANMRAIDAdWebViewController alloc] init];
+    webViewController.isMRAID = response.isMraid;
+    webViewController.mraidDelegate = self.delegate;
+    webViewController.mraidDelegate.mraidEventReceiverDelegate = webViewController;
+    webViewController.adFetcher = self;
+    webViewController.webView = self.webView;
+    webViewController.adFetcherDelegate = self.delegate;
+    self.webView.delegate = webViewController;
+    self.webView.controller = webViewController;
+    
     NSString *contentToLoad = response.content;
     contentToLoad = [self prependMRAIDJS:contentToLoad];
     contentToLoad = [self prependSDKJS:contentToLoad];
     
-    [webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:self.ANBaseURL]];
+    [self.webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:self.ANBaseURL]];
 }
 
 - (NSString *)prependMRAIDJS:(NSString *)content {
@@ -330,12 +355,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     self.mediationController = [ANMediationAdViewController initMediatedAd:adToParse
                                                                withFetcher:self
                                                             adViewDelegate:self.delegate];
-}
-
-- (void)clearMediationController {
-    // clear any old adapters if they exist
-    [self.mediationController clearAdapter];
-    self.mediationController = nil;    
 }
 
 - (void)finishRequestWithErrorAndRefresh:(NSDictionary *)errorInfo code:(NSInteger)code
@@ -442,7 +461,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
            auctionID:(NSString *)auctionID {
     self.loading = NO;
     
-    NSURL *resultURL = [NSURL URLWithString:[self createResultCBRequest:resultCBString reason:reason]];
+    NSURL *resultURL = [NSURL URLWithString:resultCBString];
     
     if (reason == ANAdResponseSuccessful) {
         // mediated ad succeeded. fire resultCB and ignore response
@@ -499,12 +518,24 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                            }];
 }
 
-- (NSString *)createResultCBRequest:(NSString *)baseResultCBString reason:(int)reasonCode {
-    NSString *resultCBRequestString = [baseResultCBString
-                                       stringByAppendingUrlParameter:@"reason"
-                                       value:[NSString stringWithFormat:@"%d",reasonCode]];
-    resultCBRequestString = [resultCBRequestString stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
-    return resultCBRequestString;
+#pragma mark Total Latency Measurement
+
+/**
+ * Mark the beginning of an ad request for latency recording
+ */
+- (void)markLatencyStart {
+    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+}
+
+/**
+ * Returns the time difference since ad request start
+ */
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime {
+    if ((self.totalLatencyStart > 0) && (stopTime > 0)) {
+        return (stopTime - self.totalLatencyStart);
+    }
+    // return -1 if invalid parameters
+    return -1;
 }
 
 @end

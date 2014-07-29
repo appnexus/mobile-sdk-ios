@@ -1,3 +1,3 @@
-Update 6/13/14
-AdMob SDK Version 6.9.3
+Update 7/24/14
+AdMob SDK Version 6.10.0
 

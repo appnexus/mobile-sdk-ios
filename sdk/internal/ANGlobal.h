@@ -35,7 +35,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"1.18"
+#define AN_SDK_VERSION              @"1.19"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -48,6 +48,7 @@
 #define kAppNexusAnimationDuration 0.4f
 #define kAppNexusMediationNetworkTimeoutInterval 15.0
 #define kAppNexusMRAIDCheckViewableFrequency 1.0
+#define kAppNexusBannerAdTransitionDefaultDuration 1.0;
 
 // Banner AutoRefresh
 

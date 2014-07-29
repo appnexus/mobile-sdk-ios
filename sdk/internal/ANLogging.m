@@ -22,68 +22,15 @@ NSString *const kANLoggingNotification = @"kANLoggingNotification";
 NSString *const kANLogMessageKey = @"kANLogMessageKey";
 NSString *const kANLogMessageLevelKey = @"kANLogMessageLevelKey";
 
-void _ANLogTrace(NSString *format, ...)
-{
-	if ([ANLogManager getANLogLevel] <= ANLogLevelTrace)
-    {
+void _ANLog(ANLogLevel level, NSString *format, ...) {
+	if ([ANLogManager getANLogLevel] <= level) {
 		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
         va_list args;
         va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelTrace);
-        NSLogv(format, args);
+        NSString *fullString = [[NSString alloc] initWithFormat:format arguments:args];
         va_end(args);
-    }
-}
-
-void _ANLogDebug(NSString *format, ...)
-{
-	if ([ANLogManager getANLogLevel] <= ANLogLevelDebug)
-    {
-		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
-        va_list args;
-        va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelDebug);
-        NSLogv(format, args);
-        va_end(args);
-    }
-}
-
-void _ANLogWarn(NSString *format, ...)
-{
-	if ([ANLogManager getANLogLevel] <= ANLogLevelWarn)
-    {
-		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
-        va_list args;
-        va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelWarn);
-        NSLogv(format, args);
-        va_end(args);
-    }
-}
-
-void _ANLogInfo(NSString *format, ...)
-{
-	if ([ANLogManager getANLogLevel] <= ANLogLevelInfo)
-    {
-		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
-        va_list args;
-        va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelInfo);
-        NSLogv(format, args);
-        va_end(args);
-    }
-}
-
-void _ANLogError(NSString *format, ...)
-{
-	if ([ANLogManager getANLogLevel] <= ANLogLevelError)
-    {
-		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
-        va_list args;
-        va_start(args, format);
-        notifyListener([[[NSString alloc] initWithFormat:format arguments:args] init], ANLogLevelError);
-        NSLogv(format, args);
-        va_end(args);
+        notifyListener(fullString, level);
+        NSLog(@"%@", fullString);
     }
 }
 

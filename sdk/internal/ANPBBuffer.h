@@ -17,13 +17,23 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const kANPBBufferMediatedNetworkNameKey;
+extern NSString *const kANPBBufferMediatedNetworkPlacementIDKey;
+extern NSString *const kANPBBufferAdWidthKey;
+extern NSString *const kANPBBufferAdHeightKey;
+
 @interface ANPBBuffer : NSObject
 
 + (void)handleUrl:(NSURL *)URL forView:(UIView *)view;
 
 // returns auction_id field for convenience
 + (NSString *)saveAuctionInfo:(NSString *)auctionInfo;
++ (void)addAdditionalInfo:(NSDictionary *)info
+             forAuctionID:(NSString *)auctionID;
 
 + (void)captureImage:(UIView *)view forAuctionID:(NSString *)auctionID;
 + (void)captureDelayedImage:(UIView *)view forAuctionID:(NSString *)auctionID;
+
++ (void)launchPitbullApp;
+
 @end

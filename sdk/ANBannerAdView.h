@@ -17,6 +17,23 @@
 
 @protocol ANBannerAdViewDelegate;
 
+typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionType) {
+    ANBannerViewAdTransitionTypeNone = 0,
+    ANBannerViewAdTransitionTypeFade,
+    ANBannerViewAdTransitionTypePush,
+    ANBannerViewAdTransitionTypeMoveIn,
+    ANBannerViewAdTransitionTypeReveal,
+    ANBannerViewAdTransitionTypeFlip,
+};
+
+typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
+    ANBannerViewAdTransitionDirectionUp = 0,
+    ANBannerViewAdTransitionDirectionDown,
+    ANBannerViewAdTransitionDirectionLeft,
+    ANBannerViewAdTransitionDirectionRight,
+    ANBannerViewAdTransitionDirectionRandom
+};
+
 #pragma mark Example implementation
 
 /**
@@ -72,6 +89,26 @@
  allowed is 15.0.  To disable autorefresh, set to 0.
  */
 @property (nonatomic, readwrite, assign) NSTimeInterval autoRefreshInterval;
+
+/**
+ The type of transition that occurs between an old ad and a new ad when the ad slot is refreshed
+ (either automatically or by calling loadAd). Transitions are disabled by default. See the
+ ANBannerViewAdTransitionType enumeration above for accepted values.
+ */
+@property (nonatomic, readwrite, assign) ANBannerViewAdTransitionType transitionType;
+
+/**
+ The direction in which the transition between ads progresses. The default direction is up. Has no
+ effect if transitions are disabled, or set to "fade". See the ANBannerViewAdTransitionDirection
+ enumeration above for accepted values.
+ */
+@property (nonatomic, readwrite, assign) ANBannerViewAdTransitionDirection transitionDirection;
+
+/**
+ The duration of the transition between ads, default is 1 second. Has no effect if transitions
+ are disabled.
+ */
+@property (nonatomic, readwrite, assign) NSTimeInterval transitionDuration;
 
 #pragma mark Creating an ad view and loading an ad
 

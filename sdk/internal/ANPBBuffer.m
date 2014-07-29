@@ -19,17 +19,23 @@
 #import "NSString+ANCategory.h"
 
 #import <UIKit/UIKit.h>
+#import "ANLogging.h"
 
 @implementation ANPBBuffer
 
 static NSMutableDictionary *pbBuffer;
 static NSMutableArray *pbKeys;
-NSString *const kImageKey = @"kUTTypeImage";
-NSString *const kTextKey = @"kUTTypeUTF8PlainText";
-NSString *const kAuctionIDKey = @"auction_id";
-NSString *const kAuctionInfoKey = @"auction_info";
-NSString *const kPBAppUrl = @"appnexuspb://app?";
-int64_t const kPBCaptureDelay = 1; // delay in seconds
+NSString *const kANPBBufferImageKey = @"kUTTypeImage";
+NSString *const kANPBBufferTextKey = @"kUTTypeUTF8PlainText";
+NSString *const kANPBBufferAuctionIDKey = @"auction_id";
+NSString *const kANPBBufferAuctionInfoKey = @"auction_info";
+NSString *const kANPBBufferPBAppUrl = @"appnexuspb://app?";
+NSString *const kANPBBufferMediatedNetworkNameKey = @"mediated_network_name";
+NSString *const kANPBBufferMediatedNetworkPlacementIDKey = @"mediated_network_placement_id";
+NSString *const kANPBBufferAdWidthKey = @"width";
+NSString *const kANPBBufferAdHeightKey = @"height";
+
+int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
 
 # pragma mark static initializer, called before any methods are used
 
@@ -53,13 +59,13 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
     } else if ([host isEqualToString:@"app"]) {
         // record auction_info into buffer
         NSDictionary *queryComponents = [[URL query] queryComponents];
-        NSString *auctionInfo = [queryComponents objectForKey:kAuctionInfoKey];
+        NSString *auctionInfo = [queryComponents objectForKey:kANPBBufferAuctionInfoKey];
         [ANPBBuffer saveAuctionInfo:auctionInfo];
         
     } else if ([host isEqualToString:@"capture"]) {
         // take a screenshot and attach it to the info for this auction ID
         NSDictionary *queryComponents = [[URL query] queryComponents];
-        NSString *auctionID = [queryComponents objectForKey:kAuctionIDKey];
+        NSString *auctionID = [queryComponents objectForKey:kANPBBufferAuctionIDKey];
         [ANPBBuffer captureImage:view forAuctionID:auctionID];
         
     }
@@ -77,7 +83,7 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
                                   error:&jsonParsingError];
         
         if (!jsonParsingError) {
-            NSString *auctionID = [jsonDict objectForKey:kAuctionIDKey];
+            NSString *auctionID = [jsonDict objectForKey:kANPBBufferAuctionIDKey];
             if (auctionID && ![ANPBBuffer containsAuctionInfoForID:auctionID]) {
                 [ANPBBuffer trimBuffer];
                 [ANPBBuffer saveAuctionInfo:auctionInfo forAuctionID:auctionID];
@@ -91,7 +97,7 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
 // capture image with delay
 + (void)captureDelayedImage:(UIView *)view
                forAuctionID:(NSString *)auctionID {
-    [ANPBBuffer captureImage:view forAuctionID:auctionID afterDelay:kPBCaptureDelay];
+    [ANPBBuffer captureImage:view forAuctionID:auctionID afterDelay:kANPBBufferPBCaptureDelay];
 }
 
 // capture image with immediately
@@ -123,9 +129,37 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
 + (void)saveAuctionInfo:(NSString *)auctionInfo
            forAuctionID:(NSString *)auctionID {
     if (auctionID && auctionInfo) {
-        [pbBuffer setValue:@{kTextKey:auctionInfo}
+        [pbBuffer setValue:@{kANPBBufferTextKey:auctionInfo}
                     forKey:auctionID];
         [pbKeys addObject:auctionID];
+    }
+}
+
++ (void)addAdditionalInfo:(NSDictionary *)additionalInfo
+             forAuctionID:(NSString *)auctionID {
+    NSMutableDictionary *auctionInfo = [[pbBuffer objectForKey:auctionID] mutableCopy];
+    if (auctionInfo) {
+        NSString *oldText = [auctionInfo objectForKey:kANPBBufferTextKey];
+        NSData *oldData = [oldText dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *jsonParsingError = nil;
+        NSMutableDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:oldData
+                                                                        options:NSJSONReadingMutableContainers
+                                                                          error:&jsonParsingError];
+        if (!jsonParsingError) {
+            [jsonDict addEntriesFromDictionary:additionalInfo];
+            NSData *newData = [NSJSONSerialization dataWithJSONObject:jsonDict
+                                                              options:0
+                                                                error:nil];
+            NSString *newText = [[NSString alloc] initWithData:newData encoding:NSUTF8StringEncoding];
+            if (newText) {
+                [auctionInfo setObject:newText
+                                forKey:kANPBBufferTextKey];
+                [pbBuffer setObject:auctionInfo
+                             forKey:auctionID];
+            } else {
+                ANLogDebug(@"Error passing additional info into adtrace object");
+            }
+        }
     }
 }
 
@@ -137,7 +171,7 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
 // check if the pbBuffer contains an image for auctionID
 + (BOOL)containsImageForID:(NSString *)auctionID {
     NSDictionary *item = [pbBuffer objectForKey:auctionID];
-    return item && [item valueForKey:kImageKey];
+    return item && [item valueForKey:kANPBBufferImageKey];
 }
 
 /* Pasteboard methods */
@@ -152,7 +186,7 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
 }
 
 + (void)setPasteboardAndLaunch {
-    NSURL *appURL = [NSURL URLWithString:kPBAppUrl];
+    NSURL *appURL = [NSURL URLWithString:kANPBBufferPBAppUrl];
     
     if ([[UIApplication sharedApplication] canOpenURL:appURL]) {
         // copy buffer to pasteboard for the app
@@ -165,12 +199,16 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
     }
 }
 
++ (void)launchPitbullApp {
+    [ANPBBuffer setPasteboardAndLaunch];
+}
+
 /* Capture Image methods */
 
 + (void)saveImage:(UIImage *)image forAuctionID:(NSString *)auctionID {
     NSMutableDictionary *item = [[pbBuffer objectForKey:auctionID] mutableCopy];
     if (item) {
-        [item setValue:[ANPBBuffer compressImage:image] forKeyPath:kImageKey];
+        [item setValue:[ANPBBuffer compressImage:image] forKeyPath:kANPBBufferImageKey];
         [pbBuffer setObject:item forKey:auctionID];
     }
 }
@@ -196,14 +234,20 @@ int64_t const kPBCaptureDelay = 1; // delay in seconds
         forAuctionID:(NSString *)auctionID
           afterDelay:(int64_t)delay {
     if (view && auctionID && ![ANPBBuffer containsImageForID:auctionID]) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC),
-                       dispatch_get_main_queue(), ^{
-                           UIView *strongView = view;
-                           if (strongView) {
-                               UIImage *image = [ANPBBuffer captureView:strongView];
-                               [ANPBBuffer saveImage:image forAuctionID:auctionID];
-                           }
-                       });
+        void (^takeScreenshot)() = ^() {
+            UIView *strongView = view;
+            if (strongView) {
+                UIImage *image = [ANPBBuffer captureView:strongView];
+                [ANPBBuffer saveImage:image forAuctionID:auctionID];
+            }
+        };
+        
+        if (delay > 0) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC),
+                           dispatch_get_main_queue(), takeScreenshot);
+        } else {
+            takeScreenshot();
+        }
     }
 }
 
