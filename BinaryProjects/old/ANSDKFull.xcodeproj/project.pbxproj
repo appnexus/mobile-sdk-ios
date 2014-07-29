@@ -10,7 +10,7 @@
 		8A011F9219882CDD00D192C4 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8A011F8B19882CDD00D192C4 /* README.txt */; };
 		8A98874D198830FF00C5C8A9 /* libGoogleAdMobAds.a in Resources */ = {isa = PBXBuildFile; fileRef = 8A011F8A19882CDD00D192C4 /* libGoogleAdMobAds.a */; };
 		8A98874E1988320C00C5C8A9 /* libGoogleAdMobAds.a in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A011F8A19882CDD00D192C4 /* libGoogleAdMobAds.a */; };
-		A8ED40DB1905BA50009069FC /* MillennialMedia.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = A8ED40D91905BA3E009069FC /* MillennialMedia.framework */; };
+		8A98876A19884CEE00C5C8A9 /* MillennialMedia.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A98876819884CD400C5C8A9 /* MillennialMedia.framework */; };
 		EC3905FD1866948A0017959C /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = EC3905FC1866947D0017959C /* ANTargetingParameters.h */; };
 		EC3E5E0D1843ECF30070315E /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5DE31843ECF20070315E /* ANAdAdapterBannerAdMob.m */; };
 		EC3E5E0E1843ECF30070315E /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3E5DE51843ECF20070315E /* ANAdAdapterInterstitialAdMob.m */; };
@@ -40,7 +40,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				8A98874E1988320C00C5C8A9 /* libGoogleAdMobAds.a in Copy Files */,
-				A8ED40DB1905BA50009069FC /* MillennialMedia.framework in Copy Files */,
 				EC7AB0881888814300C27B1E /* ANLogManager.h in Copy Files */,
 				EC3905FD1866948A0017959C /* ANTargetingParameters.h in Copy Files */,
 				ECF23E7718452AEF00A94DE8 /* ANAdProtocol.h in Copy Files */,
@@ -50,6 +49,7 @@
 				ECF23E7B18452AEF00A94DE8 /* ANInterstitialAd.h in Copy Files */,
 				ECF23E7C18452AEF00A94DE8 /* ANLocation.h in Copy Files */,
 				ECF23E7D18452AEF00A94DE8 /* ANSDKResources.bundle in Copy Files */,
+				8A98876A19884CEE00C5C8A9 /* MillennialMedia.framework in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,8 +86,8 @@
 		8A011F8919882CDD00D192C4 /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
 		8A011F8A19882CDD00D192C4 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		8A011F8B19882CDD00D192C4 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		8A98876819884CD400C5C8A9 /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillennialMedia.framework; path = ../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/MillennialMedia.framework; sourceTree = "<group>"; };
 		8A9C610C19195928008CF74C /* ANBasicConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANBasicConfig.h; path = ../../../sdk/internal/ANBasicConfig.h; sourceTree = "<group>"; };
-		A8ED40D91905BA3E009069FC /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillennialMedia.framework; path = ../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/MillennialMedia.framework; sourceTree = "<group>"; };
 		EC3905FC1866947D0017959C /* ANTargetingParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTargetingParameters.h; sourceTree = "<group>"; };
 		EC3E5DB01843EB3E0070315E /* libANSDKFull.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKFull.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC3E5DE21843ECF20070315E /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				8A011F6A19882CDD00D192C4 /* GoogleAdMobSDK */,
-				A8ED40D91905BA3E009069FC /* MillennialMedia.framework */,
+				8A98876819884CD400C5C8A9 /* MillennialMedia.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -454,18 +454,13 @@
 				DSTROOT = /tmp/ANSDKFull.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/mediation/mediatedviews/libs/MMSDK",
-					"$(PROJECT_DIR)/mediation/mediatedviews/libs",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/out/ANSDK",
-					"$(PROJECT_DIR)/mediation/mediatedviews/libs/MMSDK",
-					"$(PROJECT_DIR)/mediation/mediatedviews/libs/AdMob/**",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKFull;
@@ -479,18 +474,13 @@
 				DSTROOT = /tmp/ANSDKFull.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/mediation/mediatedviews/libs/MMSDK",
-					"$(PROJECT_DIR)/mediation/mediatedviews/libs",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/out/ANSDK",
-					"$(PROJECT_DIR)/mediation/mediatedviews/libs/MMSDK",
-					"$(PROJECT_DIR)/mediation/mediatedviews/libs/AdMob/**",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKFull;
