@@ -15,7 +15,7 @@
 
 #import "ANTargetingParameters.h"
 
-typedef NS_ENUM(NSUInteger, ANAdResponseCode) {
+typedef NS_ENUM(NSInteger, ANAdResponseCode) {
     ANDefaultCode = -1,
     ANAdResponseSuccessful = 0,
     ANAdResponseInvalidRequest,
