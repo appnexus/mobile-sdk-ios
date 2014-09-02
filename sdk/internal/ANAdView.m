@@ -86,7 +86,7 @@ ANBrowserViewControllerDelegate>
 
 #pragma mark Initialization
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     if (self != nil) {
@@ -140,8 +140,7 @@ ANBrowserViewControllerDelegate>
     
     if (errorString) {
         ANLogError(errorString);
-        NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorString
-                                                              forKey:NSLocalizedDescriptionKey];
+        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: errorString};
         NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
         [self adRequestFailedWithError:error];
         return;

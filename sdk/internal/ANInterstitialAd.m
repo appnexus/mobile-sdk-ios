@@ -94,7 +94,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
 }
 
-- (id)initWithPlacementId:(NSString *)placementId {
+- (instancetype)initWithPlacementId:(NSString *)placementId {
 	self = [super init];
 	
 	if (self != nil) {
@@ -121,15 +121,15 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     while ([self.precachedAdObjects count] > 0
            && self.controller.contentView == nil) {
         // Pull the first ad off
-        NSDictionary *adDict = [self.precachedAdObjects objectAtIndex:0];
+        NSDictionary *adDict = self.precachedAdObjects[0];
         
         // Check to see if the date this was loaded is no more than 60 seconds ago
-        NSDate *dateLoaded = [adDict objectForKey:kANInterstitialAdViewDateLoadedKey];
+        NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         
         if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT) {
             // If ad is still valid, save a reference to it. We'll use it later
-			adToShow = [adDict objectForKey:kANInterstitialAdViewKey];
-            auctionID = [adDict objectForKey:kANInterstitialAdViewAuctionInfoKey];
+			adToShow = adDict[kANInterstitialAdViewKey];
+            auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
         }
         
         // This ad is now stale, so remove it from our cached ads.
@@ -183,12 +183,10 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 - (NSMutableSet *)getDefaultAllowedAdSizes {
     NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
     
-    NSArray *possibleSizesArray = [NSArray arrayWithObjects:
-								   [NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
+    NSArray *possibleSizesArray = @[[NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
                                    [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
                                    [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
-                                   [NSValue valueWithCGSize:kANInterstitialAdSize300x250],
-                                   nil];
+                                   [NSValue valueWithCGSize:kANInterstitialAdSize300x250]];
     for (NSValue *sizeValue in possibleSizesArray) {
         CGSize possibleSize = [sizeValue CGSizeValue];
         CGRect possibleSizeRect = CGRectMake(self.frame.origin.x, self.frame.origin.y, possibleSize.width, possibleSize.height);
@@ -202,13 +200,13 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 - (BOOL)isReady {
     // check the cache for a valid ad
     while ([self.precachedAdObjects count] > 0) {
-        NSDictionary *adDict = [self.precachedAdObjects objectAtIndex:0];
+        NSDictionary *adDict = self.precachedAdObjects[0];
         
         // Check to see if the ad has expired
-        NSDate *dateLoaded = [adDict objectForKey:kANInterstitialAdViewDateLoadedKey];
+        NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT) {
             // Found a valid ad
-            id readyAd = [adDict objectForKey:kANInterstitialAdViewKey];
+            id readyAd = adDict[kANInterstitialAdViewKey];
             if ([readyAd conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
                 // if it's a mediated ad, check if it is ready
                 if ([readyAd respondsToSelector:@selector(isReady)]) {
@@ -293,11 +291,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 #pragma mark ANAdFetcherDelegate
 
 - (NSArray *)extraParameters {
-    return [NSArray arrayWithObjects:
-            [self sizeParameter],
+    return @[[self sizeParameter],
             [self promoSizesParameter],
-            [self orientationParameter],
-            nil];
+            [self orientationParameter]];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
@@ -308,7 +304,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
                                                      nil];
         // cannot insert nil objects
         if (response.auctionID) {
-            [adViewWithDateLoaded setObject:response.auctionID forKey:kANInterstitialAdViewAuctionInfoKey];
+            adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
         }
         [self.precachedAdObjects addObject:adViewWithDateLoaded];
         ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);

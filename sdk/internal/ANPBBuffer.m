@@ -59,13 +59,13 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
     } else if ([host isEqualToString:@"app"]) {
         // record auction_info into buffer
         NSDictionary *queryComponents = [[URL query] queryComponents];
-        NSString *auctionInfo = [queryComponents objectForKey:kANPBBufferAuctionInfoKey];
+        NSString *auctionInfo = queryComponents[kANPBBufferAuctionInfoKey];
         [ANPBBuffer saveAuctionInfo:auctionInfo];
         
     } else if ([host isEqualToString:@"capture"]) {
         // take a screenshot and attach it to the info for this auction ID
         NSDictionary *queryComponents = [[URL query] queryComponents];
-        NSString *auctionID = [queryComponents objectForKey:kANPBBufferAuctionIDKey];
+        NSString *auctionID = queryComponents[kANPBBufferAuctionIDKey];
         [ANPBBuffer captureImage:view forAuctionID:auctionID];
         
     }
@@ -83,7 +83,7 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
                                   error:&jsonParsingError];
         
         if (!jsonParsingError) {
-            NSString *auctionID = [jsonDict objectForKey:kANPBBufferAuctionIDKey];
+            NSString *auctionID = jsonDict[kANPBBufferAuctionIDKey];
             if (auctionID && ![ANPBBuffer containsAuctionInfoForID:auctionID]) {
                 [ANPBBuffer trimBuffer];
                 [ANPBBuffer saveAuctionInfo:auctionInfo forAuctionID:auctionID];
@@ -119,7 +119,7 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
 // trim the buffer if necessary
 + (void)trimBuffer {
     if ([pbBuffer count] >= kANPBBufferLimit) {
-        id key = [pbKeys objectAtIndex:0];
+        id key = pbKeys[0];
         // remove first object and shift forward
         [pbKeys removeObjectAtIndex:0];
         [pbBuffer removeObjectForKey:key];
@@ -137,9 +137,9 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
 
 + (void)addAdditionalInfo:(NSDictionary *)additionalInfo
              forAuctionID:(NSString *)auctionID {
-    NSMutableDictionary *auctionInfo = [[pbBuffer objectForKey:auctionID] mutableCopy];
+    NSMutableDictionary *auctionInfo = [pbBuffer[auctionID] mutableCopy];
     if (auctionInfo) {
-        NSString *oldText = [auctionInfo objectForKey:kANPBBufferTextKey];
+        NSString *oldText = auctionInfo[kANPBBufferTextKey];
         NSData *oldData = [oldText dataUsingEncoding:NSUTF8StringEncoding];
         NSError *jsonParsingError = nil;
         NSMutableDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:oldData
@@ -152,10 +152,8 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
                                                                 error:nil];
             NSString *newText = [[NSString alloc] initWithData:newData encoding:NSUTF8StringEncoding];
             if (newText) {
-                [auctionInfo setObject:newText
-                                forKey:kANPBBufferTextKey];
-                [pbBuffer setObject:auctionInfo
-                             forKey:auctionID];
+                auctionInfo[kANPBBufferTextKey] = newText;
+                pbBuffer[auctionID] = auctionInfo;
             } else {
                 ANLogDebug(@"Error passing additional info into adtrace object");
             }
@@ -170,7 +168,7 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
 
 // check if the pbBuffer contains an image for auctionID
 + (BOOL)containsImageForID:(NSString *)auctionID {
-    NSDictionary *item = [pbBuffer objectForKey:auctionID];
+    NSDictionary *item = pbBuffer[auctionID];
     return item && [item valueForKey:kANPBBufferImageKey];
 }
 
@@ -179,7 +177,7 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
 + (NSArray *)getPasteboardArray {
     NSMutableArray *array = [NSMutableArray new];
     for (id key in pbKeys) {
-        id value = [pbBuffer objectForKey:key];
+        id value = pbBuffer[key];
         [array addObject:value];
     }
     return array;
@@ -206,10 +204,10 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
 /* Capture Image methods */
 
 + (void)saveImage:(UIImage *)image forAuctionID:(NSString *)auctionID {
-    NSMutableDictionary *item = [[pbBuffer objectForKey:auctionID] mutableCopy];
+    NSMutableDictionary *item = [pbBuffer[auctionID] mutableCopy];
     if (item) {
         [item setValue:[ANPBBuffer compressImage:image] forKeyPath:kANPBBufferImageKey];
-        [pbBuffer setObject:item forKey:auctionID];
+        pbBuffer[auctionID] = item;
     }
 }
 

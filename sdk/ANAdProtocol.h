@@ -18,12 +18,11 @@
 
 @class ANLocation;
 
-typedef enum _ANGender
-{
+typedef NS_ENUM(NSUInteger, ANGender) {
     UNKNOWN,
     MALE,
     FEMALE
-} ANGender;
+};
 
 /**
  ANAdProtocol defines the properties and methods that are common to

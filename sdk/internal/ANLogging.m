@@ -38,5 +38,5 @@ void notifyListener(NSString *message, NSInteger messageLevel)
 {   
     ANPostNotifications(kANLoggingNotification, nil,
                         @{kANLogMessageKey: message,
-                          kANLogMessageLevelKey: [NSNumber numberWithInteger:messageLevel]});
+                          kANLogMessageLevelKey: @(messageLevel)});
 }
