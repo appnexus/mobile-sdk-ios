@@ -148,7 +148,7 @@ NSString *ANMRAIDBundlePath() {
         ANLogError(@"Resource not found. Make sure the %@ bundle is included in project", AN_RESOURCE_BUNDLE);
         return @"";
     }
-    NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
+    NSString *mraidBundlePath = [resBundle pathForResource:@"ANMRAID" ofType:@"bundle"];
     if (!mraidBundlePath) {
         ANLogError(@"Resource not found. Make sure the %@ bundle is included in project", AN_RESOURCE_BUNDLE);
         return @"";

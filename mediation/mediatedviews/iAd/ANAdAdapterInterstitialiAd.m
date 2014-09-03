@@ -15,7 +15,7 @@
 
 #import "ANAdAdapterInterstitialiAd.h"
 
-@interface ANAdAdapterInterstitialiAd ()
+@interface ANAdAdapterInterstitialiAd () <NSFileManagerDelegate>
 @property (nonatomic, readwrite, strong) id interstitialAd;
 @end
 

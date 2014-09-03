@@ -38,7 +38,7 @@
 @property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
 @property (nonatomic, readwrite, assign) BOOL expanded;
 @property (nonatomic, readwrite, assign) BOOL resized;
-@property (nonatomic, readwrite, assign) NSTimer *viewabilityTimer;
+@property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
 @property (nonatomic, readwrite) BOOL isViewable;
 @property (nonatomic, readwrite) CGRect defaultPosition;
 @property (nonatomic, readwrite) CGRect currentPosition;

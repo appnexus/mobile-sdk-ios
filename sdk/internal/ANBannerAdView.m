@@ -220,7 +220,6 @@
 #pragma mark - Transitions
 
 - (void)setContentView:(UIView *)newContentView {
-    NSLog(@"Setting content view!");
     if (newContentView != _contentView) {
         [self removeCloseButton];
         

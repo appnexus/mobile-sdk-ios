@@ -15,7 +15,7 @@
 
 #import "ANAdAdapterBanneriAd.h"
 
-@interface ANAdAdapterBanneriAd ()
+@interface ANAdAdapterBanneriAd () <NSFileManagerDelegate>
 @property (nonatomic, readwrite, strong) id bannerView;
 @end
 

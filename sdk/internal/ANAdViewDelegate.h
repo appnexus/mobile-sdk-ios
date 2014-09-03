@@ -27,4 +27,7 @@
 
 // for interstitials only
 - (void)adFailedToDisplay;
+
+@optional
+- (void)transitionInProgress;
 @end

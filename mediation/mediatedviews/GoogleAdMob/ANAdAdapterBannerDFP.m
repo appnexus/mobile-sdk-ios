@@ -65,13 +65,8 @@
         gadAdSize = GADAdSizeFromCGSize(size);
     }
     
-    if (ssparam.isSwipable) {
-        self.dfpBanner = [[DFPSwipeableBannerView alloc] initWithAdSize:gadAdSize];
-    } else{
-        self.dfpBanner = [[DFPBannerView alloc] initWithAdSize:gadAdSize];
-    }
-    
 	GADRequest* request = [self createRequestFromTargetingParameters:targetingParameters];
+    self.dfpBanner = [[DFPBannerView alloc] initWithAdSize:gadAdSize];
 	self.dfpBanner.adUnitID = idString;
     self.dfpBanner.rootViewController = rootViewController;
     self.dfpBanner.delegate = self;
