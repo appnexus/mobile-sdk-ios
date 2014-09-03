@@ -134,8 +134,9 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
         // Grab the type of the ad
         _type = firstAd[kResponseKeyType];
         // Grab the size of the ad
-        _width = firstAd[kResponseKeyWidth];
-        _height = firstAd[kResponseKeyHeight];
+        // response width, height could be NSNumber, use description to extract string. If string, returns itself.
+        _width = [firstAd[kResponseKeyWidth] description];
+        _height = [firstAd[kResponseKeyHeight] description];
         // Grab the ad's content
         _content = firstAd[kResponseKeyContent];
         if (!_content || ([_content length] < 1)) {
@@ -171,8 +172,8 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
                     // Grab any extra user info included with the ad request
                     NSString *param = handlerElement[kResponseKeyParam];
                     // Grab dimensions
-                    NSString *width = handlerElement[kResponseKeyWidth];
-                    NSString *height = handlerElement[kResponseKeyHeight];
+                    NSString *width = [handlerElement[kResponseKeyWidth] description];
+                    NSString *height = [handlerElement[kResponseKeyHeight] description];
                     // Grab placement id associated with mediated network
                     NSString *adId = handlerElement[kResponseKeyId];
                     
