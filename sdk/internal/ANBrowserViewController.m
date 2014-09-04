@@ -113,6 +113,7 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
 	[self refreshButtons];
     [self.webView loadRequest:self.urlRequest];
 }

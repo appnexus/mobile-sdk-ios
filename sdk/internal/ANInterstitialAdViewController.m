@@ -46,6 +46,7 @@
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     if (!self.backgroundColor) {
         self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }
