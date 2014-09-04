@@ -21,75 +21,22 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
 
 @implementation UIWebView (ANCategory)
 
-- (void)removeDocumentPadding;
-{
+- (void)removeDocumentPadding {
     [self stringByEvaluatingJavaScriptFromString:kANAdRemovePaddingJavascriptString];
 }
 
 - (void)setMediaProperties {
-    if ([self respondsToSelector:@selector(setAllowsInlineMediaPlayback:)]) {
-        [self setAllowsInlineMediaPlayback:YES];
-    }
-    if ([self respondsToSelector:@selector(setMediaPlaybackRequiresUserAction:)]) {
-        [self setMediaPlaybackRequiresUserAction:NO];
-    }
+    [self setAllowsInlineMediaPlayback:YES];
+    [self setMediaPlaybackRequiresUserAction:NO];
 }
 
-- (void)setScrollEnabled:(BOOL)scrollable
-{
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0
-    // If iOS 5.0 and up, we can turn off scrolling using the directly-accessible -scrollView of UIWebView
-    if ([self respondsToSelector:@selector(scrollView)])
-    {
-        UIScrollView *scrollView = self.scrollView;
-        scrollView.scrollEnabled = scrollable;
-        scrollView.bounces = scrollable;
-    } 
-    else
-    // If less than iOS 5.0, we need to get the UIScrollView by searching through the UIWebView's subviews
-    #endif
-    {
-        UIScrollView *scrollView = nil;
-        
-        for (UIView *view in self.subviews)
-        {
-            if ([view isKindOfClass:[UIScrollView class]])
-            {
-                scrollView = (UIScrollView *)view;
-                break;
-            }
-        }
-        
-        scrollView.scrollEnabled = scrollable;
-        scrollView.bounces = scrollable;
-    }
+- (void)setScrollEnabled:(BOOL)scrollable {
+    self.scrollView.scrollEnabled = scrollable;
+    self.scrollView.bounces = scrollable;
 }
 
-- (BOOL)isScrollEnabled
-{
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0
-    // If iOS 5.0 and up, we can turn off scrolling using the directly-accessible -scrollView of UIWebView
-    if ([self respondsToSelector:@selector(scrollView)])
-    {
-        return self.scrollView.isScrollEnabled;
-    }
-    else
-        // If less than iOS 5.0, we need to get the UIScrollView by searching through the UIWebView's subviews
-#endif
-    {
-        UIScrollView *scrollView = nil;
-        
-        for (UIView *view in self.subviews)
-        {
-            if ([view isKindOfClass:[UIScrollView class]])
-            {
-                scrollView = (UIScrollView *)view;
-                break;
-            }
-        }
-        
-        return scrollView.isScrollEnabled;
-    }
+- (BOOL)isScrollEnabled{
+    return self.scrollView.isScrollEnabled;
 }
 
 @end
