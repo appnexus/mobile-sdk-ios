@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
+		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
 		8AD618CB1981C11F00AC0780 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6189F1981C11F00AC0780 /* ANAdFetcher.m */; };
 		8AD618CC1981C11F00AC0780 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A11981C11F00AC0780 /* ANAdRequestUrl.m */; };
 		8AD618CD1981C11F00AC0780 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A31981C11F00AC0780 /* ANAdResponse.m */; };
@@ -50,7 +52,6 @@
 		ECE4EB0C194B76960069D934 /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD5194B768A0069D934 /* UIButtonBarArrowLeft@2x.png */; };
 		ECE4EB0D194B76960069D934 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */; };
 		ECE4EB0E194B76960069D934 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */; };
-		ECE4EB0F194B76960069D934 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD8194B768A0069D934 /* MRAID.bundle */; };
 		ECE4EB10194B76960069D934 /* sdkjs.js in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD9194B768A0069D934 /* sdkjs.js */; };
 		ECE4EB11194B78280069D934 /* ANAdProtocol.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */; };
 		ECE4EB12194B78280069D934 /* ANAdView.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA8E194B768A0069D934 /* ANAdView.h */; };
@@ -95,6 +96,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANContentViewTransitions.h"; sourceTree = "<group>"; };
+		8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANContentViewTransitions.m"; sourceTree = "<group>"; };
+		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
 		8AD618991981C10700AC0780 /* appnexus_logo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appnexus_logo_icon.png; path = images/appnexus_logo_icon.png; sourceTree = "<group>"; };
 		8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appnexus_logo_icon@2x.png"; path = "images/appnexus_logo_icon@2x.png"; sourceTree = "<group>"; };
 		8AD6189E1981C11F00AC0780 /* ANAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcher.h; sourceTree = "<group>"; };
@@ -172,7 +176,6 @@
 		ECE4EAD5194B768A0069D934 /* UIButtonBarArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowLeft@2x.png"; sourceTree = "<group>"; };
 		ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
-		ECE4EAD8194B768A0069D934 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		ECE4EAD9194B768A0069D934 /* sdkjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sdkjs.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -274,8 +277,8 @@
 				ECE4EA92194B768A0069D934 /* ANLocation.h */,
 				ECE4EA93194B768A0069D934 /* ANLogManager.h */,
 				ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */,
-				8AD6189D1981C11F00AC0780 /* internal */,
 				ECE4EA95194B768A0069D934 /* Categories */,
+				8AD6189D1981C11F00AC0780 /* internal */,
 				ECE4EACA194B768A0069D934 /* Resources */,
 			);
 			name = sdk;
@@ -285,6 +288,8 @@
 		ECE4EA95194B768A0069D934 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */,
+				8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */,
 				ECE4EA96194B768A0069D934 /* NSString+ANCategory.h */,
 				ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */,
 				ECE4EA98194B768A0069D934 /* NSTimer+ANCategory.h */,
@@ -303,12 +308,12 @@
 				ECE4EACB194B768A0069D934 /* ANBrowserViewController.xib */,
 				ECE4EACC194B768A0069D934 /* ANInterstitialAdViewController.xib */,
 				ECE4EACD194B768A0069D934 /* anjam.js */,
-				ECE4EACE194B768A0069D934 /* errors.strings */,
-				ECE4EACF194B768A0069D934 /* images */,
-				ECE4EAD8194B768A0069D934 /* MRAID.bundle */,
-				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
+				8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */,
 				8AD618991981C10700AC0780 /* appnexus_logo_icon.png */,
 				8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */,
+				ECE4EACE194B768A0069D934 /* errors.strings */,
+				ECE4EACF194B768A0069D934 /* images */,
+				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -411,10 +416,10 @@
 				ECE4EB0C194B76960069D934 /* UIButtonBarArrowLeft@2x.png in Resources */,
 				ECE4EB0D194B76960069D934 /* UIButtonBarArrowRight.png in Resources */,
 				ECE4EB0E194B76960069D934 /* UIButtonBarArrowRight@2x.png in Resources */,
-				ECE4EB0F194B76960069D934 /* MRAID.bundle in Resources */,
 				ECE4EB05194B76960069D934 /* anjam.js in Resources */,
 				ECE4EB10194B76960069D934 /* sdkjs.js in Resources */,
 				ECE4EB06194B76960069D934 /* errors.strings in Resources */,
+				8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +459,7 @@
 				8AD618DD1981C11F00AC0780 /* ANMRAIDViewController.m in Sources */,
 				8AD618D31981C11F00AC0780 /* ANClickOverlayView.m in Sources */,
 				8AD618DF1981C11F00AC0780 /* ANPBContainerView.m in Sources */,
+				8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
 				ECE4EADD194B768A0069D934 /* UIWebView+ANCategory.m in Sources */,
 				8AD618E01981C11F00AC0780 /* ANReachability.m in Sources */,
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
