@@ -34,6 +34,18 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
     ANBannerViewAdTransitionDirectionRandom
 };
 
+typedef NS_ENUM(NSUInteger, ANBannerAdViewContentViewAlignment) {
+    ANBannerAdViewContentViewAlignmentCenter = 0,
+    ANBannerAdViewContentViewAlignmentTopLeft,
+    ANBannerAdViewContentViewAlignmentTopCenter,
+    ANBannerAdViewContentViewAlignmentTopRight,
+    ANBannerAdViewContentViewAlignmentCenterLeft,
+    ANBannerAdViewContentViewAlignmentCenterRight,
+    ANBannerAdViewContentViewAlignmentBottomLeft,
+    ANBannerAdViewContentViewAlignmentBottomCenter,
+    ANBannerAdViewContentViewAlignmentBottomRight
+};
+
 #pragma mark Example implementation
 
 /**
@@ -109,6 +121,8 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
  are disabled.
  */
 @property (nonatomic, readwrite, assign) NSTimeInterval transitionDuration;
+
+@property (nonatomic, readwrite, assign) ANBannerAdViewContentViewAlignment contentViewAlignment;
 
 #pragma mark Creating an ad view and loading an ad
 
