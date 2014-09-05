@@ -142,6 +142,12 @@
         case kGADErrorMediationInvalidAdSize:
             code = ANAdResponseInvalidRequest;
             break;
+        case kGADErrorInternalError:
+            code = ANAdResponseInternalError;
+            break;
+        case kGADErrorInvalidArgument:
+            code = ANAdResponseInvalidRequest;
+            break;
         default:
             code = ANAdResponseInternalError;
             break;
