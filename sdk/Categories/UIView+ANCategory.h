@@ -25,4 +25,7 @@
 - (void)removeSubviews;
 - (void)removeSubviewsWithException:(UIView *)exception;
 
+- (void)constrainWithFrameSize;
+- (void)constrainToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                                yAttribute:(NSLayoutAttribute)yAttribute;
 @end

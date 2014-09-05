@@ -31,6 +31,7 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
     if (self.transitionType == ANBannerViewAdTransitionTypeNone) {
         if (newContentView) {
             [self addSubview:newContentView];
+            [self addContentViewConstraintsToView:newContentView];
             [self removeSubviewsWithException:newContentView];
         } else {
             [self removeSubviews];
@@ -54,6 +55,7 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
     
     if (newContentView) {
         [self addSubview:newContentView];
+        [self addContentViewConstraintsToView:newContentView];
     }
     
     self.transitionInProgress = @(YES);
@@ -92,6 +94,51 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
                              oldContentView.hidden = YES;
                          }
                      }];
+}
+
+- (void)addContentViewConstraintsToView:(UIView *)view {
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    [view constrainWithFrameSize];
+    NSLayoutAttribute xAttribute = NSLayoutAttributeCenterX;
+    NSLayoutAttribute yAttribute = NSLayoutAttributeCenterY;
+    switch (self.contentViewAlignment) {
+        case ANBannerAdViewContentViewAlignmentTopLeft:
+            yAttribute = NSLayoutAttributeTop;
+            xAttribute = NSLayoutAttributeLeft;
+            break;
+        case ANBannerAdViewContentViewAlignmentTopCenter:
+            yAttribute = NSLayoutAttributeTop;
+            xAttribute = NSLayoutAttributeCenterX;
+            break;
+        case ANBannerAdViewContentViewAlignmentTopRight:
+            yAttribute = NSLayoutAttributeTop;
+            xAttribute = NSLayoutAttributeRight;
+            break;
+        case ANBannerAdViewContentViewAlignmentCenterLeft:
+            yAttribute = NSLayoutAttributeCenterY;
+            xAttribute = NSLayoutAttributeLeft;
+            break;
+        case ANBannerAdViewContentViewAlignmentCenterRight:
+            yAttribute = NSLayoutAttributeCenterY;
+            xAttribute = NSLayoutAttributeRight;
+            break;
+        case ANBannerAdViewContentViewAlignmentBottomLeft:
+            yAttribute = NSLayoutAttributeBottom;
+            xAttribute = NSLayoutAttributeLeft;
+            break;
+        case ANBannerAdViewContentViewAlignmentBottomCenter:
+            yAttribute = NSLayoutAttributeBottom;
+            xAttribute = NSLayoutAttributeCenterX;
+            break;
+        case ANBannerAdViewContentViewAlignmentBottomRight:
+            yAttribute = NSLayoutAttributeBottom;
+            xAttribute = NSLayoutAttributeRight;
+            break;
+        default: // ANBannerAdViewContentViewAlignmentCenter
+            break;
+    }
+    [view constrainToSuperviewWithXAttribute:xAttribute
+                                  yAttribute:yAttribute];
 }
 
 - (void)removeDelegateFromTransitionOnContentView:(UIView *)contentView {

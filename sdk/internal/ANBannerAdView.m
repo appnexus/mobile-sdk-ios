@@ -193,13 +193,6 @@
     } else {
         [super setFrame:frame];
     }
-    // center the contentview
-    CGFloat contentWidth = self.contentView.frame.size.width;
-    CGFloat contentHeight = self.contentView.frame.size.height;
-    CGFloat centerX = (self.frame.size.width - contentWidth) / 2;
-    CGFloat centerY = (self.frame.size.height - contentHeight) / 2;
-    [self.contentView setFrame:
-     CGRectMake(centerX, centerY, contentWidth, contentHeight)];
 }
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated {
@@ -297,15 +290,7 @@
         UIView *contentView = response.adObject;
         
         if ([contentView isKindOfClass:[UIView class]]) {
-            // center the contentview
-            CGFloat centerX = (self.frame.size.width - contentView.frame.size.width) / 2;
-            CGFloat centerY = (self.frame.size.height - contentView.frame.size.height) / 2;
-            [contentView setFrame:
-             CGRectMake(centerX, centerY,
-                        contentView.frame.size.width,
-                        contentView.frame.size.height)];
             self.contentView = contentView;
-            
             [self adDidReceiveAd];
         }
         else {
