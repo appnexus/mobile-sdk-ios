@@ -33,6 +33,10 @@
 		8A13B6A119492A9F006CFC9C /* ANClickOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A13B6A019492A9F006CFC9C /* ANClickOverlayView.m */; };
 		8A3C4098189705500070F145 /* MRAIDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4095189705500070F145 /* MRAIDTests.m */; };
 		8A3C409C18970AFC0070F145 /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */; };
+		8A7E79CC19BE0F80002C17A8 /* ANMediationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E79C919BE0F80002C17A8 /* ANMediationContainerView.m */; };
+		8A7E79CD19BE0F80002C17A8 /* ANPBContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E79CB19BE0F80002C17A8 /* ANPBContainerView.m */; };
+		8A7E79D019BE0F9C002C17A8 /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7E79CE19BE0F9C002C17A8 /* appnexus_logo_icon.png */; };
+		8A7E79D119BE0F9C002C17A8 /* appnexus_logo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7E79CF19BE0F9C002C17A8 /* appnexus_logo_icon@2x.png */; };
 		EC09B2B31834350E00D76510 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2B21834350E00D76510 /* BasicTests.m */; };
 		EC09B2F8183437CC00D76510 /* NSData+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2601834340200D76510 /* NSData+Nocilla.m */; };
 		EC09B2FA183437CC00D76510 /* NSString+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2621834340200D76510 /* NSString+Nocilla.m */; };
@@ -90,7 +94,6 @@
 		ECABE5921821E4C80037E6C5 /* ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5621821E4C80037E6C5 /* ANBannerAdView.m */; };
 		ECABE5931821E4C80037E6C5 /* ANBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5641821E4C80037E6C5 /* ANBrowserViewController.m */; };
 		ECABE5951821E4C80037E6C5 /* ANGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5681821E4C80037E6C5 /* ANGlobal.m */; };
-		ECABE5961821E4C80037E6C5 /* ANInstallTrackerPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE56A1821E4C80037E6C5 /* ANInstallTrackerPixel.m */; };
 		ECABE5971821E4C80037E6C5 /* ANInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE56B1821E4C80037E6C5 /* ANInterstitialAd.m */; };
 		ECABE5981821E4C80037E6C5 /* ANInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE56D1821E4C80037E6C5 /* ANInterstitialAdViewController.m */; };
 		ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECABE5701821E4C80037E6C5 /* ANLocation.m */; };
@@ -114,7 +117,6 @@
 		ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */; };
 		ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECD9298B1822CAD300420840 /* InfoPlist.strings */; };
 		ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECD929901822CAD300420840 /* TestsTests-Info.plist */; };
-		ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD8155E17DA64C20046A256 /* SenTestingKit.framework */; };
 		ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */; };
 		ECD929BA1822CD0E00420840 /* MediationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD9298F1822CAD300420840 /* MediationTests.m */; };
 		ECE5B25B184FA4C900D0C8FD /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECE5B259184FA4C900D0C8FD /* ANBrowserViewController.xib */; };
@@ -166,8 +168,7 @@
 		5CA6D41917A8686C00DD6891 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5CA6D4BB17A9884A00DD6891 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		5CD8155D17DA64C20046A256 /* TestsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5CD8155E17DA64C20046A256 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		5CD8155D17DA64C20046A256 /* TestsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CEF6F6F1732F8BC0054A86F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5CEF6F711732F8C00054A86F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		5CEF6F751732F8C90054A86F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -176,6 +177,12 @@
 		8A3C4095189705500070F145 /* MRAIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAIDTests.m; sourceTree = "<group>"; };
 		8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDTestResponses.m; sourceTree = "<group>"; };
 		8A3C409A18970AFC0070F145 /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
+		8A7E79C819BE0F80002C17A8 /* ANMediationContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMediationContainerView.h; sourceTree = "<group>"; };
+		8A7E79C919BE0F80002C17A8 /* ANMediationContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationContainerView.m; sourceTree = "<group>"; };
+		8A7E79CA19BE0F80002C17A8 /* ANPBContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPBContainerView.h; sourceTree = "<group>"; };
+		8A7E79CB19BE0F80002C17A8 /* ANPBContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBContainerView.m; sourceTree = "<group>"; };
+		8A7E79CE19BE0F9C002C17A8 /* appnexus_logo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appnexus_logo_icon.png; sourceTree = "<group>"; };
+		8A7E79CF19BE0F9C002C17A8 /* appnexus_logo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appnexus_logo_icon@2x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		EC09B25F1834340200D76510 /* NSData+Nocilla.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Nocilla.h"; sourceTree = "<group>"; };
 		EC09B2601834340200D76510 /* NSData+Nocilla.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Nocilla.m"; sourceTree = "<group>"; };
@@ -276,8 +283,6 @@
 		ECABE5641821E4C80037E6C5 /* ANBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBrowserViewController.m; sourceTree = "<group>"; };
 		ECABE5671821E4C80037E6C5 /* ANGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGlobal.h; sourceTree = "<group>"; };
 		ECABE5681821E4C80037E6C5 /* ANGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGlobal.m; sourceTree = "<group>"; };
-		ECABE5691821E4C80037E6C5 /* ANInstallTrackerPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInstallTrackerPixel.h; sourceTree = "<group>"; };
-		ECABE56A1821E4C80037E6C5 /* ANInstallTrackerPixel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInstallTrackerPixel.m; sourceTree = "<group>"; };
 		ECABE56B1821E4C80037E6C5 /* ANInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAd.m; sourceTree = "<group>"; };
 		ECABE56C1821E4C80037E6C5 /* ANInterstitialAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInterstitialAdViewController.h; sourceTree = "<group>"; };
 		ECABE56D1821E4C80037E6C5 /* ANInterstitialAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAdViewController.m; sourceTree = "<group>"; };
@@ -365,7 +370,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC3640E9183FFA9F00DB8000 /* CoreFoundation.framework in Frameworks */,
-				ECD929B51822CC1B00420840 /* SenTestingKit.framework in Frameworks */,
 				ECFF03291822C2E50021F14C /* AdSupport.framework in Frameworks */,
 				ECFF03261822C2B10021F14C /* AVFoundation.framework in Frameworks */,
 				ECFF03271822C2C90021F14C /* AudioToolbox.framework in Frameworks */,
@@ -405,7 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Tests.app */,
-				5CD8155D17DA64C20046A256 /* TestsTests.octest */,
+				5CD8155D17DA64C20046A256 /* TestsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -463,7 +467,6 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
-				5CD8155E17DA64C20046A256 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -666,10 +669,10 @@
 			children = (
 				ECABE5591821E4C80037E6C5 /* ANAdFetcher.h */,
 				ECABE55A1821E4C80037E6C5 /* ANAdFetcher.m */,
-				ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */,
-				ECABE55C1821E4C80037E6C5 /* ANAdResponse.m */,
 				EC7AB08C188883DB00C27B1E /* ANAdRequestUrl.h */,
 				EC7AB08D188883DB00C27B1E /* ANAdRequestUrl.m */,
+				ECABE55B1821E4C80037E6C5 /* ANAdResponse.h */,
+				ECABE55C1821E4C80037E6C5 /* ANAdResponse.m */,
 				ECABE55E1821E4C80037E6C5 /* ANAdView.m */,
 				ECABE55F1821E4C80037E6C5 /* ANAdViewDelegate.h */,
 				ECABE5601821E4C80037E6C5 /* ANAdWebViewController.h */,
@@ -683,8 +686,6 @@
 				8A13B6A019492A9F006CFC9C /* ANClickOverlayView.m */,
 				ECABE5671821E4C80037E6C5 /* ANGlobal.h */,
 				ECABE5681821E4C80037E6C5 /* ANGlobal.m */,
-				ECABE5691821E4C80037E6C5 /* ANInstallTrackerPixel.h */,
-				ECABE56A1821E4C80037E6C5 /* ANInstallTrackerPixel.m */,
 				ECABE56B1821E4C80037E6C5 /* ANInterstitialAd.m */,
 				ECABE56C1821E4C80037E6C5 /* ANInterstitialAdViewController.h */,
 				ECABE56D1821E4C80037E6C5 /* ANInterstitialAdViewController.m */,
@@ -696,11 +697,15 @@
 				ECABE5741821E4C80037E6C5 /* ANMediatedAd.m */,
 				ECABE5751821E4C80037E6C5 /* ANMediationAdViewController.h */,
 				ECABE5761821E4C80037E6C5 /* ANMediationAdViewController.m */,
+				8A7E79C819BE0F80002C17A8 /* ANMediationContainerView.h */,
+				8A7E79C919BE0F80002C17A8 /* ANMediationContainerView.m */,
 				EC2E96C119103A00001A42EF /* ANMRAIDProperties.h */,
 				EC4055F9183D43FB006A1D09 /* ANMRAIDViewController.h */,
 				EC4055FA183D43FB006A1D09 /* ANMRAIDViewController.m */,
 				ECABF11A192E5C58006FFFB2 /* ANPBBuffer.h */,
 				ECABF119192E5C58006FFFB2 /* ANPBBuffer.m */,
+				8A7E79CA19BE0F80002C17A8 /* ANPBContainerView.h */,
+				8A7E79CB19BE0F80002C17A8 /* ANPBContainerView.m */,
 				ECABE5771821E4C80037E6C5 /* ANReachability.h */,
 				ECABE5781821E4C80037E6C5 /* ANReachability.m */,
 				ECBA78B5187F6D4200F1D73F /* ANTargetingParameters.m */,
@@ -725,6 +730,8 @@
 		ECABE57D1821E4C80037E6C5 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				8A7E79CE19BE0F9C002C17A8 /* appnexus_logo_icon.png */,
+				8A7E79CF19BE0F9C002C17A8 /* appnexus_logo_icon@2x.png */,
 				ECABE57E1821E4C80037E6C5 /* interstitial_closebox-down.png */,
 				ECABE57F1821E4C80037E6C5 /* interstitial_closebox-down@2x.png */,
 				ECABE5801821E4C80037E6C5 /* interstitial_closebox.png */,
@@ -822,8 +829,8 @@
 			);
 			name = TestsTests;
 			productName = DemoTests;
-			productReference = 5CD8155D17DA64C20046A256 /* TestsTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 5CD8155D17DA64C20046A256 /* TestsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -860,6 +867,7 @@
 				ECABE5A91821E4C80037E6C5 /* MRAID.bundle in Resources */,
 				ECABE5A81821E4C80037E6C5 /* UIButtonBarArrowRight@2x.png in Resources */,
 				ECE5B25C184FA4C900D0C8FD /* ANInterstitialAdViewController.xib in Resources */,
+				8A7E79D119BE0F9C002C17A8 /* appnexus_logo_icon@2x.png in Resources */,
 				ECABE5A51821E4C80037E6C5 /* UIButtonBarArrowLeft.png in Resources */,
 				ECABE5A31821E4C80037E6C5 /* interstitial_closebox.png in Resources */,
 				ECABE5A11821E4C80037E6C5 /* interstitial_closebox-down.png in Resources */,
@@ -867,6 +875,7 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				5C3208F5173053D700DAB5CF /* MainWindow-iPad.xib in Resources */,
 				ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */,
+				8A7E79D019BE0F9C002C17A8 /* appnexus_logo_icon.png in Resources */,
 				ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */,
 				ECABE5A61821E4C80037E6C5 /* UIButtonBarArrowLeft@2x.png in Resources */,
 				5C3208F7173053FE00DAB5CF /* Default-568h@2x.png in Resources */,
@@ -925,9 +934,9 @@
 				ECABE5901821E4C80037E6C5 /* ANAdView.m in Sources */,
 				EC2E96C219103A00001A42EF /* ANANJAMImplementation.m in Sources */,
 				ECABE5921821E4C80037E6C5 /* ANBannerAdView.m in Sources */,
+				8A7E79CD19BE0F80002C17A8 /* ANPBContainerView.m in Sources */,
 				ECABE5931821E4C80037E6C5 /* ANBrowserViewController.m in Sources */,
 				ECABE5951821E4C80037E6C5 /* ANGlobal.m in Sources */,
-				ECABE5961821E4C80037E6C5 /* ANInstallTrackerPixel.m in Sources */,
 				ECABE5971821E4C80037E6C5 /* ANInterstitialAd.m in Sources */,
 				ECABE5981821E4C80037E6C5 /* ANInterstitialAdViewController.m in Sources */,
 				ECABE59A1821E4C80037E6C5 /* ANLocation.m in Sources */,
@@ -938,6 +947,7 @@
 				ECABE59E1821E4C80037E6C5 /* ANReachability.m in Sources */,
 				ECABE59F1821E4C80037E6C5 /* ANWebView.m in Sources */,
 				ECABE5871821E4C80037E6C5 /* NSString+ANCategory.m in Sources */,
+				8A7E79CC19BE0F80002C17A8 /* ANMediationContainerView.m in Sources */,
 				ECABE5881821E4C80037E6C5 /* NSTimer+ANCategory.m in Sources */,
 				ECABE58A1821E4C80037E6C5 /* UIWebView+ANCategory.m in Sources */,
 				ECABE5891821E4C80037E6C5 /* UIView+ANCategory.m in Sources */,
@@ -1114,8 +1124,8 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1134,7 +1144,6 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = TestsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -1154,8 +1163,8 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1167,7 +1176,6 @@
 				PRODUCT_NAME = TestsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
@@ -1187,8 +1195,8 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1200,7 +1208,6 @@
 				PRODUCT_NAME = TestsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
 			};
 			name = "Ad-Hoc";
 		};

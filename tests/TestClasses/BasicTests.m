@@ -47,29 +47,29 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)checkAdDidLoad {
-    STAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
-    STAssertFalse(self.adFailedToLoadCalled, @"Failure callback should not be called");
+    XCTAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
+    XCTAssertFalse(self.adFailedToLoadCalled, @"Failure callback should not be called");
 }
 
 - (void)checkAdFailedToLoad {
-    STAssertFalse(self.adDidLoadCalled, @"Success callback should not be called");
-    STAssertTrue(self.adFailedToLoadCalled, @"Failure callback should be called");
+    XCTAssertFalse(self.adDidLoadCalled, @"Success callback should not be called");
+    XCTAssertTrue(self.adFailedToLoadCalled, @"Failure callback should be called");
 }
 
 - (void)checkInterstitialDisplayed:(BOOL)displayed {
-    STAssertEquals((BOOL)!displayed, self.adFailedToDisplayCalled,
+    XCTAssertEqual((BOOL)!displayed, self.adFailedToDisplayCalled,
                    @"Interstitial callback adFailedToDisplay should be %d", (BOOL)!displayed);
-    STAssertEquals(displayed, self.adWillPresentCalled,
+    XCTAssertEqual(displayed, self.adWillPresentCalled,
                    @"Interstitial callback adWillPresent should be %d", displayed);
     if (displayed) {
         [self waitForDidPresentCalled];
     }
-    STAssertEquals(displayed, self.adDidPresentCalled,
+    XCTAssertEqual(displayed, self.adDidPresentCalled,
                    @"Interstitial callback adDidPresent should be %d", displayed);
 }
 
 - (void)waitForLoad {
-    STAssertTrue([self waitForCompletion:BASIC_TIMEOUT], @"Test timed out");
+    XCTAssertTrue([self waitForCompletion:BASIC_TIMEOUT], @"Test timed out");
 }
 
 #pragma mark Standard Tests

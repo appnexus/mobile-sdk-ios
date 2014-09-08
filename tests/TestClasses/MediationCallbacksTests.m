@@ -46,26 +46,26 @@ float const CALLBACKS_TIMEOUT = 5.0;
     [self loadBannerAd];
     [self waitForCompletion:waitTime];
     
-    STAssertEquals(didLoadValue, self.adDidLoadCalled,
+    XCTAssertEqual(didLoadValue, self.adDidLoadCalled,
                    @"callback adDidLoad should be %d", didLoadValue);
-    STAssertEquals((BOOL)!didLoadValue, self.adFailedToLoadCalled,
+    XCTAssertEqual((BOOL)!didLoadValue, self.adFailedToLoadCalled,
                    @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
-    STAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
-    STAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
+    XCTAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
+    XCTAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
 }
 
 - (void)checkCallbacks:(BOOL)called {
-    STAssertEquals(self.adWasClickedCalled, called,
+    XCTAssertEqual(self.adWasClickedCalled, called,
                    @"callback adWasClickCalled should be %d", called);
-    STAssertEquals(self.adWillPresentCalled, called,
+    XCTAssertEqual(self.adWillPresentCalled, called,
                    @"callback adWillPresentCalled should be %d", called);
-    STAssertEquals(self.adDidPresentCalled, called,
+    XCTAssertEqual(self.adDidPresentCalled, called,
                    @"callback adDidPresentCalled should be %d", called);
-    STAssertEquals(self.adWillCloseCalled, called,
+    XCTAssertEqual(self.adWillCloseCalled, called,
                    @"callback adWillCloseCalled should be %d", called);
-    STAssertEquals(self.adDidCloseCalled, called,
+    XCTAssertEqual(self.adDidCloseCalled, called,
                    @"callback adDidCloseCalled should be %d", called);
-    STAssertEquals(self.adWillLeaveApplicationCalled, called,
+    XCTAssertEqual(self.adWillLeaveApplicationCalled, called,
                    @"callback adWillLeaveApplicationCalled should be %d", called);
 }
 

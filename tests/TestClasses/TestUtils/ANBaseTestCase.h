@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "Nocilla.h"
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
@@ -22,7 +22,7 @@
 
 #define TEST_URL [@"http://" stringByAppendingString:AN_MOBILE_HOSTNAME]
 
-@interface ANBaseTestCase : SenTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
+@interface ANBaseTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 @property (nonatomic, readwrite, strong) ANInterstitialAd *interstitial;
