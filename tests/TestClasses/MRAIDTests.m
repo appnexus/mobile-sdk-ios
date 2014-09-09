@@ -549,7 +549,7 @@
     CGFloat originY = defaultPosition.origin.y;
     
     XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected portrait origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
-    XCTAssertFalse(originalOriginX == originX && originalOriginY == originY, @"Expected default position to be modified postion", originalOriginX, originalOriginY, originX, originY);
+    XCTAssertFalse(originalOriginX == originX && originalOriginY == originY, @"Expected default position to be modified postion");
     
     [self close];
     [self clearTest];

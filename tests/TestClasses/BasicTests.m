@@ -26,13 +26,6 @@ float const BASIC_TIMEOUT = 10.0;
     [super clearTest];
 }
 
-+ (void)stubWithBody:(NSString *)body {
-    stubRequest(@"GET", @"http://*".regex)
-    .andReturn(200)
-    .withBody(body)
-    ;
-}
-
 - (BOOL)waitForDidPresentCalled {
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:BASIC_TIMEOUT];
     

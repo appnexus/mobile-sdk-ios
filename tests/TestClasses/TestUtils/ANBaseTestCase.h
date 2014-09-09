@@ -14,7 +14,6 @@
  */
 
 #import <XCTest/XCTest.h>
-#import "Nocilla.h"
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
 #import "ANTestResponses.h"

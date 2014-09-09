@@ -306,6 +306,8 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 //@synthesize successResultRequest = __successResultRequest;
 @synthesize request = __request;
 
+@synthesize mraidEventReceiverDelegate = __mraidEventReceiverDelegate;
+
 - (id)runTestForAdapter:(int)testNumber
                    time:(NSTimeInterval)time {
     [self runBasicTest:testNumber];
