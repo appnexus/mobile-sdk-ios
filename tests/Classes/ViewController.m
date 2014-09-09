@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideStatusBar];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (void)hideStatusBar {
