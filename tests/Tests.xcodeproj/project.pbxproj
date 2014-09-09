@@ -8,20 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		5C199BDE178F47DF0062A257 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C199BDD178F47DF0062A257 /* CoreLocation.framework */; };
-		5C3208F5173053D700DAB5CF /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3208F4173053D700DAB5CF /* MainWindow-iPad.xib */; };
 		5C3208F7173053FE00DAB5CF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C3208F6173053FE00DAB5CF /* Default-568h@2x.png */; };
-		5C3208FB173061C700DAB5CF /* ANDemoAdsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3208F9173061C700DAB5CF /* ANDemoAdsViewController.m */; };
-		5C3208FC173061C700DAB5CF /* ANDemoAdsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3208FA173061C700DAB5CF /* ANDemoAdsViewController.xib */; };
-		5C3209001730664500DAB5CF /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3208FE1730664500DAB5CF /* RootViewController.m */; };
-		5C3209011730664500DAB5CF /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3208FF1730664500DAB5CF /* RootViewController.xib */; };
-		5C320905173090F300DAB5CF /* ANDemoConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C320903173090F300DAB5CF /* ANDemoConsoleViewController.m */; };
-		5C320906173090F300DAB5CF /* ANDemoConsoleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C320904173090F300DAB5CF /* ANDemoConsoleViewController.xib */; };
 		5C8729401742E04000662716 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C87293F1742E04000662716 /* MessageUI.framework */; };
 		5CA6D41A17A8686C00DD6891 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D41917A8686C00DD6891 /* iAd.framework */; };
 		5CA6D4BA17A9883900DD6891 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */; };
@@ -35,6 +26,9 @@
 		8A3C409C18970AFC0070F145 /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C409918970AFC0070F145 /* ANMRAIDTestResponses.m */; };
 		8A5BBBF019BF8B6800A7C84C /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BBBEF19BF8B6800A7C84C /* ANURLConnectionStub.m */; };
 		8A5BBBF119BF8B6C00A7C84C /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABAF7B719BF491A00CA4183 /* ANHTTPStubURLProtocol.m */; };
+		8A5BBBF419BFA70C00A7C84C /* TestsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A5BBBF319BFA70C00A7C84C /* TestsStoryboard.storyboard */; };
+		8A5BBBF619BFA86600A7C84C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BBBF519BFA86600A7C84C /* main.m */; };
+		8A5BBBF919BFAB3400A7C84C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5BBBF819BFAB3400A7C84C /* ViewController.m */; };
 		8A7E79CC19BE0F80002C17A8 /* ANMediationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E79C919BE0F80002C17A8 /* ANMediationContainerView.m */; };
 		8A7E79CD19BE0F80002C17A8 /* ANPBContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E79CB19BE0F80002C17A8 /* ANPBContainerView.m */; };
 		8A7E79D019BE0F9C002C17A8 /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7E79CE19BE0F9C002C17A8 /* appnexus_logo_icon.png */; };
@@ -129,21 +123,9 @@
 		1D6058910D05DD3D006BFB54 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Tests_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests_Prefix.pch; sourceTree = "<group>"; };
 		5C199BDD178F47DF0062A257 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		5C3208F4173053D700DAB5CF /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		5C3208F6173053FE00DAB5CF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		5C3208F8173061C700DAB5CF /* ANDemoAdsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDemoAdsViewController.h; sourceTree = "<group>"; };
-		5C3208F9173061C700DAB5CF /* ANDemoAdsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDemoAdsViewController.m; sourceTree = "<group>"; };
-		5C3208FA173061C700DAB5CF /* ANDemoAdsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANDemoAdsViewController.xib; sourceTree = "<group>"; };
-		5C3208FD1730664500DAB5CF /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		5C3208FE1730664500DAB5CF /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		5C3208FF1730664500DAB5CF /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
-		5C320902173090F300DAB5CF /* ANDemoConsoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDemoConsoleViewController.h; sourceTree = "<group>"; };
-		5C320903173090F300DAB5CF /* ANDemoConsoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDemoConsoleViewController.m; sourceTree = "<group>"; };
-		5C320904173090F300DAB5CF /* ANDemoConsoleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANDemoConsoleViewController.xib; sourceTree = "<group>"; };
 		5C87293F1742E04000662716 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		5CA6D41917A8686C00DD6891 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		5CA6D4B917A9883900DD6891 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -159,6 +141,10 @@
 		8A3C409A18970AFC0070F145 /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
 		8A5BBBEE19BF8B6800A7C84C /* ANURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANURLConnectionStub.h; sourceTree = "<group>"; };
 		8A5BBBEF19BF8B6800A7C84C /* ANURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANURLConnectionStub.m; sourceTree = "<group>"; };
+		8A5BBBF319BFA70C00A7C84C /* TestsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TestsStoryboard.storyboard; sourceTree = "<group>"; };
+		8A5BBBF519BFA86600A7C84C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Classes/main.m; sourceTree = "<group>"; };
+		8A5BBBF719BFAB3400A7C84C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8A5BBBF819BFAB3400A7C84C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8A7E79C819BE0F80002C17A8 /* ANMediationContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMediationContainerView.h; sourceTree = "<group>"; };
 		8A7E79C919BE0F80002C17A8 /* ANMediationContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationContainerView.m; sourceTree = "<group>"; };
 		8A7E79CA19BE0F80002C17A8 /* ANPBContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANPBContainerView.h; sourceTree = "<group>"; };
@@ -325,15 +311,9 @@
 			children = (
 				1D3623240D0F684500981E51 /* AppDelegate.h */,
 				1D3623250D0F684500981E51 /* AppDelegate.m */,
-				5C3208F8173061C700DAB5CF /* ANDemoAdsViewController.h */,
-				5C3208F9173061C700DAB5CF /* ANDemoAdsViewController.m */,
-				5C3208FA173061C700DAB5CF /* ANDemoAdsViewController.xib */,
-				5C3208FD1730664500DAB5CF /* RootViewController.h */,
-				5C3208FE1730664500DAB5CF /* RootViewController.m */,
-				5C3208FF1730664500DAB5CF /* RootViewController.xib */,
-				5C320902173090F300DAB5CF /* ANDemoConsoleViewController.h */,
-				5C320903173090F300DAB5CF /* ANDemoConsoleViewController.m */,
-				5C320904173090F300DAB5CF /* ANDemoConsoleViewController.xib */,
+				8A5BBBF319BFA70C00A7C84C /* TestsStoryboard.storyboard */,
+				8A5BBBF719BFAB3400A7C84C /* ViewController.h */,
+				8A5BBBF819BFAB3400A7C84C /* ViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -350,10 +330,9 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				5C3208F6173053FE00DAB5CF /* Default-568h@2x.png */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				5C3208F6173053FE00DAB5CF /* Default-568h@2x.png */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				5C3208F3173053D700DAB5CF /* iPad */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -367,7 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				32CA4F630368D1EE00C91783 /* Tests_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
+				8A5BBBF519BFA86600A7C84C /* main.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -375,7 +354,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Tests-Info.plist */,
 			);
 			name = Resources;
@@ -403,21 +381,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5C3208F3173053D700DAB5CF /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-				5C3208F4173053D700DAB5CF /* MainWindow-iPad.xib */,
-			);
-			name = iPad;
-			sourceTree = "<group>";
-		};
 		8ABAF7B519BF48C100CA4183 /* Stubbing */ = {
 			isa = PBXGroup;
 			children = (
-				8A5BBBEE19BF8B6800A7C84C /* ANURLConnectionStub.h */,
-				8A5BBBEF19BF8B6800A7C84C /* ANURLConnectionStub.m */,
 				8ABAF7B619BF491A00CA4183 /* ANHTTPStubURLProtocol.h */,
 				8ABAF7B719BF491A00CA4183 /* ANHTTPStubURLProtocol.m */,
+				8A5BBBEE19BF8B6800A7C84C /* ANURLConnectionStub.h */,
+				8A5BBBEF19BF8B6800A7C84C /* ANURLConnectionStub.m */,
 			);
 			path = Stubbing;
 			sourceTree = "<group>";
@@ -553,11 +523,11 @@
 			isa = PBXGroup;
 			children = (
 				EC09B2B21834350E00D76510 /* BasicTests.m */,
-				8ABAF7B519BF48C100CA4183 /* Stubbing */,
 				ECD9298B1822CAD300420840 /* InfoPlist.strings */,
 				ECD9298D1822CAD300420840 /* MediationCallbacksTests.m */,
 				ECD9298F1822CAD300420840 /* MediationTests.m */,
 				8A3C4095189705500070F145 /* MRAIDTests.m */,
+				8ABAF7B519BF48C100CA4183 /* Stubbing */,
 				ECD929901822CAD300420840 /* TestsTests-Info.plist */,
 				ECD929911822CAD300420840 /* TestsTests-Prefix.pch */,
 				EC40560C183D5D88006A1D09 /* TestUtils */,
@@ -678,18 +648,14 @@
 				ECABE5A31821E4C80037E6C5 /* interstitial_closebox.png in Resources */,
 				ECABE5A11821E4C80037E6C5 /* interstitial_closebox-down.png in Resources */,
 				ECABE5A01821E4C80037E6C5 /* errors.strings in Resources */,
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				5C3208F5173053D700DAB5CF /* MainWindow-iPad.xib in Resources */,
 				ECD929A71822CAD300420840 /* InfoPlist.strings in Resources */,
 				8A7E79D019BE0F9C002C17A8 /* appnexus_logo_icon.png in Resources */,
 				ECD929AA1822CAD300420840 /* TestsTests-Info.plist in Resources */,
 				ECABE5A61821E4C80037E6C5 /* UIButtonBarArrowLeft@2x.png in Resources */,
 				5C3208F7173053FE00DAB5CF /* Default-568h@2x.png in Resources */,
-				5C3208FC173061C700DAB5CF /* ANDemoAdsViewController.xib in Resources */,
+				8A5BBBF419BFA70C00A7C84C /* TestsStoryboard.storyboard in Resources */,
 				ECE5B25B184FA4C900D0C8FD /* ANBrowserViewController.xib in Resources */,
 				ECABE5A41821E4C80037E6C5 /* interstitial_closebox@2x.png in Resources */,
-				5C3209011730664500DAB5CF /* RootViewController.xib in Resources */,
-				5C320906173090F300DAB5CF /* ANDemoConsoleViewController.xib in Resources */,
 				ECABE5A21821E4C80037E6C5 /* interstitial_closebox-down@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,18 +690,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				8A13B6A119492A9F006CFC9C /* ANClickOverlayView.m in Sources */,
-				5C3208FB173061C700DAB5CF /* ANDemoAdsViewController.m in Sources */,
-				5C320905173090F300DAB5CF /* ANDemoConsoleViewController.m in Sources */,
 				ECBA78B6187F6D4200F1D73F /* ANTargetingParameters.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
-				5C3209001730664500DAB5CF /* RootViewController.m in Sources */,
 				ECABF11B192E5C58006FFFB2 /* ANPBBuffer.m in Sources */,
 				ECABE58E1821E4C80037E6C5 /* ANAdFetcher.m in Sources */,
 				EC7AB08E188883DB00C27B1E /* ANAdRequestUrl.m in Sources */,
 				EC7AB08B188883C300C27B1E /* ANLogManager.m in Sources */,
 				ECABE58F1821E4C80037E6C5 /* ANAdResponse.m in Sources */,
+				8A5BBBF619BFA86600A7C84C /* main.m in Sources */,
 				ECABE5911821E4C80037E6C5 /* ANAdWebViewController.m in Sources */,
 				ECABE5901821E4C80037E6C5 /* ANAdView.m in Sources */,
 				EC2E96C219103A00001A42EF /* ANANJAMImplementation.m in Sources */,
@@ -751,6 +714,7 @@
 				ECABE59D1821E4C80037E6C5 /* ANMediationAdViewController.m in Sources */,
 				EC4055FB183D43FB006A1D09 /* ANMRAIDViewController.m in Sources */,
 				ECABE59E1821E4C80037E6C5 /* ANReachability.m in Sources */,
+				8A5BBBF919BFAB3400A7C84C /* ViewController.m in Sources */,
 				ECABE59F1821E4C80037E6C5 /* ANWebView.m in Sources */,
 				ECABE5871821E4C80037E6C5 /* NSString+ANCategory.m in Sources */,
 				8A7E79CC19BE0F80002C17A8 /* ANMediationContainerView.m in Sources */,
@@ -864,6 +828,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
@@ -1005,6 +970,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
@@ -1021,6 +987,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
