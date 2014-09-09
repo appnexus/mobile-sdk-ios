@@ -15,7 +15,7 @@
 
 #import "ANBaseTestCase.h"
 #import "ANAdFetcher.h"
-#import "ANAdWebViewController.h"
+#import "ANWebView.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANSuccessfulBannerNeverCalled.h"
@@ -32,7 +32,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @property (nonatomic, assign) BOOL testComplete;
 @property (nonatomic, strong) ANAdFetcher *fetcher;
 @property (nonatomic, strong) id adapter;
-@property (nonatomic, strong) ANMRAIDAdWebViewController *webViewController;
+@property (nonatomic, strong) ANWebView *webView;
 @property (nonatomic, strong) NSError *ANError;
 //@property (nonatomic, strong) NSMutableURLRequest *successResultRequest;
 @property (nonatomic, strong) NSMutableURLRequest *request;
@@ -50,7 +50,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @interface ANAdFetcher ()
 - (void)processResponseData:(NSData *)data;
 - (ANMediationAdViewController *)mediationController;
-- (ANMRAIDAdWebViewController *)webViewController;
+- (ANWebView *)webView;
 //- (NSMutableURLRequest *)successResultRequest;
 - (NSMutableURLRequest *)request;
 @end
@@ -156,7 +156,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
         case 7:
         {
             [self checkClass:kANSuccessfulBanner adapter:adapter];
-            XCTAssertNotNil([self.helper webViewController], @"Expected webViewController to be non-nil");
+            XCTAssertNotNil([self.helper webView], @"Expected webView to be non-nil");
         }
             break;
         case 11:
@@ -172,7 +172,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
         case 13:
         {
             XCTAssertNil(adapter, @"Expected nil adapter");
-            XCTAssertNotNil([self.helper webViewController], @"Expected webViewController to be non-nil");
+            XCTAssertNotNil([self.helper webView], @"Expected webView to be non-nil");
         }
             break;
         case 14:
@@ -301,7 +301,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @synthesize testComplete = __testComplete;
 @synthesize fetcher = __fetcher;
 @synthesize adapter = __adapter;
-@synthesize webViewController = __webViewController;
+@synthesize webView = __webView;
 @synthesize ANError = __ANError;
 //@synthesize successResultRequest = __successResultRequest;
 @synthesize request = __request;
@@ -360,13 +360,13 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 			case 70:
 			{
                 // don't set adapter here, because we want to retain the adapter from case 7
-                self.webViewController = [fetcher webViewController];
+                self.webView = [fetcher webView];
 			}
 				break;
 			case 13:
 			{
 				self.adapter = [[fetcher mediationController] currentAdapter];
-                self.webViewController = [fetcher webViewController];
+                self.webView = [fetcher webView];
 			}
 				break;
 			case 15:
