@@ -1,0 +1,11 @@
+{  
+   "status":"ok",
+   "ads":[  
+      {  
+         "type":"banner",
+          "width":320,
+          "height":50,
+          "content":"<script src=\"mraid.js\"></script><script></script>var testWidth=0; var testHeight=0; var testState='none'; var testReadyDidFire=false; var testIsViewable = false; var testErrorMessage = ''; var testErrorAction = ''; mraid.addEventListener('ready', onReady); function onReady() {var dp = mraid.getDefaultPosition(); testWidth=dp.width; testHeight=dp.height; testReadyDidFire=true;}; mraid.addEventListener('sizeChange', onSizeChange); function onSizeChange(width, height) {testWidth=width;testHeight=height}; mraid.addEventListener('stateChange', onStateChange); function onStateChange(state) {testState=state}; mraid.addEventListener('viewableChange', isViewable); function isViewable(v) {testIsViewable=v}; mraid.addEventListener('error', onError); function onError(message, action) {testErrorMessage=message; testErrorAction=action;};<script>document.write('<div style=\"background-color:#EF8200;height:1000px;width:1000px;></div>');</script>"
+      }
+   ]
+}

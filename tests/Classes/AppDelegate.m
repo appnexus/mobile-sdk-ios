@@ -14,20 +14,12 @@
  */
 
 #import "AppDelegate.h"
-#import "RootViewController.h"
 
 @interface AppDelegate ()
-@property (nonatomic, readwrite, strong) RootViewController *rootViewController;
+
 @end
 
 @implementation AppDelegate
-
-@synthesize window = __window;
-
-- (void)applicationDidFinishLaunching:(UIApplication *)application
-{
-	self.window.rootViewController = [RootViewController new];
-}
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
     return UIInterfaceOrientationMaskAll;

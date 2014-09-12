@@ -15,6 +15,8 @@
 
 #import "ANBaseTestCase.h"
 #import "ANLogManager.h"
+#import "ANURLConnectionStub.h"
+#import "ANHTTPStubURLProtocol.h"
 
 @interface ANBaseTestCase () 
 
@@ -25,16 +27,10 @@
 - (void)setUp {
     [super setUp];
     [ANLogManager setANLogLevel:ANLogLevelAll];
-    [[LSNocilla sharedInstance] start];
-}
-
-- (void)tearDown {
-    [super tearDown];
-    [[LSNocilla sharedInstance] stop];
 }
 
 - (void)clearTest {
-    [[LSNocilla sharedInstance] clearStubs];
+    [ANHTTPStubURLProtocol removeAllStubs];
     _banner = nil;
     _interstitial = nil;
     _testComplete = NO;
@@ -47,34 +43,43 @@
     _adDidCloseCalled = NO;
     _adWillLeaveApplicationCalled = NO;
     _adFailedToDisplayCalled = NO;
+    UIViewController *presentingVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if (presentingVC) {
+        [self delay:1.0];
+        [presentingVC dismissViewControllerAnimated:NO completion:nil];
+    }
 }
 
 - (void)stubWithBody:(NSString *)body {
-    stubRequest(@"GET", [TEST_URL stringByAppendingString:@".*"].regex)
-    .andReturn(200)
-    .withBody(body)
-    ;
-    stubRequest(@"GET", [AN_BASE_URL stringByAppendingString:@".*"].regex)
-    .andReturn(200)
-    .withBody(@"")
-    ;
+    ANURLConnectionStub *testURLStub = [[ANURLConnectionStub alloc] init];
+    testURLStub.requestURLRegexPatternString = [TEST_URL stringByAppendingString:@".*"];
+    testURLStub.responseCode = 200;
+    testURLStub.responseBody = body;
+    [ANHTTPStubURLProtocol addStub:testURLStub];
+    
+    ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
+    anBaseURLStub.requestURLRegexPatternString = [AN_BASE_URL stringByAppendingString:@".*"];
+    anBaseURLStub.responseCode = 200;
+    anBaseURLStub.responseBody = @"";
+    [ANHTTPStubURLProtocol addStub:anBaseURLStub];
 }
 
 - (void)stubResultCBResponses:(NSString *)body {
-    NSString *resultCBRegex = [NSString stringWithFormat:@"^%@.*", OK_RESULT_CB_URL];
-    stubRequest(@"GET", resultCBRegex.regex)
-    .andReturn(200)
-    .withBody(body)
-    ;
+    ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
+    anBaseURLStub.requestURLRegexPatternString = [NSString stringWithFormat:@"^%@.*", OK_RESULT_CB_URL];
+    anBaseURLStub.responseCode = 200;
+    anBaseURLStub.responseBody = body;
+    [ANHTTPStubURLProtocol addStub:anBaseURLStub];
 }
 
 - (void)stubResultCBForErrorCode {
     for (int i = 0; i < 6; i++) {
-        NSString *resultCBRegex = [NSString stringWithFormat:@"^%@\\?reason=%i.*", OK_RESULT_CB_URL, i];
-        stubRequest(@"GET", resultCBRegex.regex)
-        .andReturn(200)
-        .withBody([ANTestResponses mediationErrorCodeBanner:i])
-        ;
+        NSString *resultCBURLString = [NSString stringWithFormat:@"^%@\\?reason=%i.*", OK_RESULT_CB_URL, i];
+        ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
+        anBaseURLStub.requestURLRegexPatternString = resultCBURLString;
+        anBaseURLStub.responseCode = 200;
+        anBaseURLStub.responseBody = [ANTestResponses mediationErrorCodeBanner:i];
+        [ANHTTPStubURLProtocol addStub:anBaseURLStub];
     }
 }
 

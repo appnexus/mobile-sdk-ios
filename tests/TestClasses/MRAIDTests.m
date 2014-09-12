@@ -44,13 +44,13 @@
 
 - (void)testBasicViewability { // MS-453
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
-    STAssertFalse([[self isViewable] boolValue], @"Expected ANWebView not to be visible");
+    XCTAssertFalse([[self isViewable] boolValue], @"Expected ANWebView not to be visible");
     
     [self addBannerAsSubview];
-    STAssertTrue([[self isViewable] boolValue], @"Expected ANWebView to be visible");
+    XCTAssertTrue([[self isViewable] boolValue], @"Expected ANWebView to be visible");
     
     [self removeBannerFromSuperview];
-    STAssertFalse([[self isViewable] boolValue], @"Expected ANWebView not to be visible");
+    XCTAssertFalse([[self isViewable] boolValue], @"Expected ANWebView not to be visible");
     
     [self clearTest];
 }
@@ -62,10 +62,10 @@
     
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"landscape"];
     [self expand];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft, @"Expected landscape left orientation");
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft, @"Expected landscape left orientation");
     
     [self close];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
     
     [self clearTest];
 }
@@ -75,10 +75,10 @@
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"portrait"];
     [self expand];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
     
     [self close];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
     
     [self clearTest];
 }
@@ -88,10 +88,10 @@
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"landscape"];
     [self expand];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
 
     [self close];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
 
     [self clearTest];
 }
@@ -102,11 +102,11 @@
     [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self expand];
-    STAssertFalse([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Did not expect portrait right side up orientation");
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
+    XCTAssertFalse([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Did not expect portrait right side up orientation");
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
     
     [self close];
-    STAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
 
     [self clearTest];
 }
@@ -121,7 +121,7 @@
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     CGFloat expectedWidth = screenBounds.size.width;
     CGFloat expectedHeight = screenBounds.size.height;
-    STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected portrait screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height]);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height);
     [self clearTest];
 }
 
@@ -134,7 +134,7 @@
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     CGFloat expectedWidth = screenBounds.size.height;
     CGFloat expectedHeight = screenBounds.size.width;
-    STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected landscape screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height]);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height);
     [self clearTest];
 }
 
@@ -147,7 +147,7 @@
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     CGFloat expectedWidth = screenBounds.size.height;
     CGFloat expectedHeight = screenBounds.size.width;
-    STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected landscape screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height]);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     screenSize = [self getScreenSize];
@@ -155,7 +155,7 @@
     height = screenSize.y;
     expectedWidth = screenBounds.size.width;
     expectedHeight = screenBounds.size.height;
-    STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected portrait screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height]);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self clearTest];
 }
@@ -174,7 +174,7 @@
     if (![UIApplication sharedApplication].statusBarHidden) {
         expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.height;
     }
-    STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected portrait max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height]);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
 
     [self clearTest];
 }
@@ -193,14 +193,14 @@
     if (![UIApplication sharedApplication].statusBarHidden) {
         expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.width;
     }
-    STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected landscape max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height]);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
 
     [self clearTest];
 }
 
 - (void)testMaxSizeLandscapeOnRotate {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
-    STAssertTrue(UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation), @"Expected to start in portrait orientation");
+    XCTAssertTrue(UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation), @"Expected to start in portrait orientation");
     [self rotateDeviceToOrientation:UIInterfaceOrientationLandscapeRight];
     
     CGPoint maxSize = [self getMaxSize];
@@ -213,7 +213,7 @@
     if (![UIApplication sharedApplication].statusBarHidden) {
         expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.width;
     }
-    STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected landscape max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height]);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
     maxSize = [self getMaxSize];
@@ -224,7 +224,7 @@
     if (![UIApplication sharedApplication].statusBarHidden) {
         expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.height;
     }
-    STAssertTrue(expectedWidth == width && expectedHeight == height, [NSString stringWithFormat:@"Expected portrait max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height]);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self clearTest];
 }
@@ -239,7 +239,7 @@
     CGFloat expectedWidth = self.banner.adSize.width;
     CGFloat expectedHeight = self.banner.adSize.height;
     
-    STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self clearTest];
 }
@@ -253,7 +253,7 @@
     CGFloat expectedWidth = self.banner.adSize.width;
     CGFloat expectedHeight = self.banner.adSize.height;
     
-    STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self clearTest];
 }
@@ -269,7 +269,7 @@
     CGFloat expectedWidth = screenBounds.size.width;
     CGFloat expectedHeight = screenBounds.size.height;
 
-    STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self close];
     [self clearTest];
@@ -283,7 +283,7 @@
      CGFloat originX = currentPosition.origin.x;
      CGFloat originY = currentPosition.origin.y;
      
-     STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+     XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
      
      [self clearTest];
 }
@@ -298,7 +298,7 @@
     CGFloat originX = currentPosition.origin.x;
     CGFloat originY = currentPosition.origin.y;
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
     
     [self close];
     [self clearTest];
@@ -319,7 +319,7 @@
     CGFloat originX = currentPosition.origin.x;
     CGFloat originY = currentPosition.origin.y;
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
     
     [self close];
     [self clearTest];
@@ -343,7 +343,7 @@
     CGFloat originX = currentPosition.origin.x;
     CGFloat originY = currentPosition.origin.y;
     
-    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
     [self close];
     
@@ -353,7 +353,7 @@
     expectedX = initialOriginX;
     expectedY = initialOriginY;
     
-    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
     [self clearTest];
 }
@@ -376,7 +376,7 @@
     CGFloat originX = currentPosition.origin.x;
     CGFloat originY = currentPosition.origin.y;
     
-    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
     [self moveBannerSubviewToOrigin:CGPointMake(150.0f, 60.0f)];
     
@@ -388,7 +388,7 @@
     originX = currentPosition.origin.x;
     originY = currentPosition.origin.y;
     
-    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
     [self close];
     
@@ -400,7 +400,7 @@
     originX = currentPosition.origin.x;
     originY = currentPosition.origin.y;
 
-    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
     [self clearTest];
 }
@@ -416,7 +416,7 @@
     CGFloat expectedWidth = self.banner.adSize.width;
     CGFloat expectedHeight = self.banner.adSize.height;
 
-    STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self clearTest];
 }
@@ -431,7 +431,7 @@
     CGFloat expectedWidth = self.banner.adSize.width;
     CGFloat expectedHeight = self.banner.adSize.height;
     
-    STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self clearTest];
 }
@@ -444,7 +444,7 @@
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
  
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
  
     [self clearTest];
 }
@@ -458,7 +458,7 @@
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected portrait origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected portrait origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
     
     [self close];
     [self clearTest];
@@ -474,7 +474,7 @@
     CGFloat expectedWidth = self.banner.adSize.width;
     CGFloat expectedHeight = self.banner.adSize.height;
     
-    STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self close];
     [self clearTest];
@@ -491,7 +491,7 @@
     CGFloat expectedWidth = self.banner.adSize.width;
     CGFloat expectedHeight = self.banner.adSize.height;
     
-    STAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
+    XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
     [self close];
     [self clearTest];
@@ -507,7 +507,7 @@
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected portrait origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected portrait origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
     
     [self close];
     [self clearTest];
@@ -525,7 +525,7 @@
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected landscape origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected landscape origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
     
     [self close];
     [self clearTest];
@@ -548,8 +548,8 @@
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected portrait origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
-    STAssertFalse(originalOriginX == originX && originalOriginY == originY, @"Expected default position to be modified postion", originalOriginX, originalOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected portrait origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertFalse(originalOriginX == originX && originalOriginY == originY, @"Expected default position to be modified postion");
     
     [self close];
     [self clearTest];
@@ -573,7 +573,7 @@
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
     expectedX = 150.0f;
     expectedY = 60.0f;
@@ -584,7 +584,7 @@
     originX = defaultPosition.origin.x;
     originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
     [self close];
     
@@ -592,7 +592,7 @@
     originX = defaultPosition.origin.x;
     originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
     [self clearTest];
 }
@@ -613,7 +613,7 @@
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
     
     [self close];
     [self clearTest];
@@ -641,7 +641,7 @@
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
     
-    STAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
+    XCTAssertTrue(expectedOriginX == originX && expectedOriginY == originY, @"Expected origin %f x %f, received %f x %f", expectedOriginX, expectedOriginY, originX, originY);
     
     [self close];
     [self clearTest];
@@ -661,7 +661,7 @@
     CGRect defaultPosition = [self getDefaultPosition];
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
-    STAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
+    XCTAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
     
     resizeOffset = CGPointMake(0.0f, -50.0f);
 
@@ -674,7 +674,7 @@
     defaultPosition = [self getDefaultPosition];
     originX = defaultPosition.origin.x;
     originY = defaultPosition.origin.y;
-    STAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
+    XCTAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
 
     [self close];
     [self clearTest];
@@ -694,7 +694,7 @@
     CGRect defaultPosition = [self getDefaultPosition];
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
-    STAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
+    XCTAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
     
     resizeOffset = CGPointMake(0.0f, -50.0f);
     
@@ -707,14 +707,14 @@
     defaultPosition = [self getDefaultPosition];
     originX = defaultPosition.origin.x;
     originY = defaultPosition.origin.y;
-    STAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
+    XCTAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
     
     [self expand];
     
     defaultPosition = [self getDefaultPosition];
     originX = defaultPosition.origin.x;
     originY = defaultPosition.origin.y;
-    STAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
+    XCTAssertTrue(initialOriginX == originX && initialOriginY == originY, @"Expected origin %f x %f, received %f x %f", initialOriginX, initialOriginY, originX, originY);
 
     [self close];
     [self clearTest];
@@ -810,19 +810,19 @@
     NSString *height = [self getResizePropertiesHeight];
     NSString *offsetX = [self getResizePropertiesOffsetX];
     NSString *offsetY = [self getResizePropertiesOffsetY];
-    STAssertTrue([width length] > 0, @"Expected width to be defined");
-    STAssertTrue([height length] > 0, @"Expected height to be defined");
-    STAssertTrue([offsetX length] > 0, @"Expected offsetX to be defined");
-    STAssertTrue([offsetY length] > 0, @"Expected offsetY to be defined");
-    STAssertTrue([width isEqualToString:([NSString stringWithFormat:@"%d", (int)resizeWidth])], @"Expected different width");
-    STAssertTrue([height isEqualToString:([NSString stringWithFormat:@"%d", (int)resizeHeight])], @"Expected different height");
-    STAssertTrue([offsetX isEqualToString:@"0"], @"Expected offsetX to be 0");
-    STAssertTrue([offsetY isEqualToString:@"0"], @"Expected offsetY to be 0");
+    XCTAssertTrue([width length] > 0, @"Expected width to be defined");
+    XCTAssertTrue([height length] > 0, @"Expected height to be defined");
+    XCTAssertTrue([offsetX length] > 0, @"Expected offsetX to be defined");
+    XCTAssertTrue([offsetY length] > 0, @"Expected offsetY to be defined");
+    XCTAssertTrue([width isEqualToString:([NSString stringWithFormat:@"%d", (int)resizeWidth])], @"Expected different width");
+    XCTAssertTrue([height isEqualToString:([NSString stringWithFormat:@"%d", (int)resizeHeight])], @"Expected different height");
+    XCTAssertTrue([offsetX isEqualToString:@"0"], @"Expected offsetX to be 0");
+    XCTAssertTrue([offsetY isEqualToString:@"0"], @"Expected offsetY to be 0");
 
     [self resize];
     [self assertState:@"resized"];
-    STAssertTrue(self.banner.frame.size.width == resizeWidth, @"Expected new width of banner frame to be resized width");
-    STAssertTrue(self.banner.frame.size.height == resizeHeight, @"Expected new height of banner frame to be resized height");
+    XCTAssertTrue(self.banner.frame.size.width == resizeWidth, @"Expected new width of banner frame to be resized width");
+    XCTAssertTrue(self.banner.frame.size.height == resizeHeight, @"Expected new height of banner frame to be resized height");
     [self clearTest];
 }
 
@@ -831,7 +831,7 @@
     CGFloat resizeHeight = 200.0f;
     [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, resizeHeight) withOffset:CGPointZero];
     [self resize];
-    STAssertTrue(self.banner.frame.size.height == resizeHeight , @"Expected new height of banner frame to be resized height");
+    XCTAssertTrue(self.banner.frame.size.height == resizeHeight , @"Expected new height of banner frame to be resized height");
     [self clearTest];
 }
 
@@ -841,8 +841,8 @@
     [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, resizeHeight) withOffset:CGPointZero];
     NSString *customClosePosition = [self getResizePropertiesCustomClosePosition];
     NSString *allowOffscreen = [self getResizePropertiesAllowOffscreen];
-    STAssertTrue([customClosePosition length] > 0, @"Expected custom close position to be defined");
-    STAssertTrue([allowOffscreen length] > 0, @"Expected allow offscreen to be defined");
+    XCTAssertTrue([customClosePosition length] > 0, @"Expected custom close position to be defined");
+    XCTAssertTrue([allowOffscreen length] > 0, @"Expected allow offscreen to be defined");
     [self clearTest];
 }
     
@@ -852,24 +852,24 @@
     [self setResizePropertiesResizeToSize:size1 withOffset:CGPointMake(-50.0f, 240.0f) withCustomClosePosition:@"top-left" allowOffscreen:NO];
     NSString *customClosePosition = [self getResizePropertiesCustomClosePosition];
     NSString *allowOffscreen = [self getResizePropertiesAllowOffscreen];
-    STAssertTrue([customClosePosition isEqualToString:@"top-left"], @"Expected close position to be top left");
-    STAssertTrue([allowOffscreen isEqualToString:@"false"], @"Expected allow offscreen to be false");
+    XCTAssertTrue([customClosePosition isEqualToString:@"top-left"], @"Expected close position to be top left");
+    XCTAssertTrue([allowOffscreen isEqualToString:@"false"], @"Expected allow offscreen to be false");
     CGSize size2 = CGSizeMake(500.0f, 300.0f);
     [self setResizePropertiesResizeToSize:size2 withOffset:CGPointMake(100.0f, 270.0f)];
     NSString *width = [self getResizePropertiesWidth];
     NSString *height = [self getResizePropertiesHeight];
-    STAssertTrue([width length] > 0, @"Expected width to be defined");
-    STAssertTrue([height length] > 0, @"Expected height to be defined");
-    STAssertTrue([width isEqualToString:@"500"], @"Expected different width");
-    STAssertTrue([height isEqualToString:@"300"], @"Expected different height");
+    XCTAssertTrue([width length] > 0, @"Expected width to be defined");
+    XCTAssertTrue([height length] > 0, @"Expected height to be defined");
+    XCTAssertTrue([width isEqualToString:@"500"], @"Expected different width");
+    XCTAssertTrue([height isEqualToString:@"300"], @"Expected different height");
     NSString *offsetX = [self getResizePropertiesOffsetX];
     NSString *offsetY = [self getResizePropertiesOffsetY];
-    STAssertTrue([offsetX isEqualToString:@"100"], @"Expected offsetX to be 100");
-    STAssertTrue([offsetY isEqualToString:@"270"], @"Expected offsetY to be 270");
+    XCTAssertTrue([offsetX isEqualToString:@"100"], @"Expected offsetX to be 100");
+    XCTAssertTrue([offsetY isEqualToString:@"270"], @"Expected offsetY to be 270");
     customClosePosition = [self getResizePropertiesCustomClosePosition];
     allowOffscreen = [self getResizePropertiesAllowOffscreen];
-    STAssertTrue([customClosePosition isEqualToString:@"top-right"], @"Expected close position to be top right (default)");
-    STAssertTrue([allowOffscreen isEqualToString:@"true"], @"Expected allow offscreen to be true (default)");
+    XCTAssertTrue([customClosePosition isEqualToString:@"top-right"], @"Expected close position to be top right (default)");
+    XCTAssertTrue([allowOffscreen isEqualToString:@"true"], @"Expected allow offscreen to be true (default)");
     [self clearTest];
 }
     
@@ -882,10 +882,10 @@
     NSString *offsetX = [self getResizePropertiesOffsetX];
     NSString *offsetY = [self getResizePropertiesOffsetY];
 
-    STAssertFalse([offsetX length], @"Expected offsetX to be undefined");
-    STAssertFalse([offsetY length], @"Expected offsetY to be undefined");
-    STAssertFalse([width length], @"Expected width to be undefined");
-    STAssertFalse([height length], @"Expected height to be undefined");
+    XCTAssertFalse([offsetX length], @"Expected offsetX to be undefined");
+    XCTAssertFalse([offsetY length], @"Expected offsetY to be undefined");
+    XCTAssertFalse([width length], @"Expected width to be undefined");
+    XCTAssertFalse([height length], @"Expected height to be undefined");
 
     [self resize];
     [self assertState:@"default"]; // Should not have resized
@@ -899,9 +899,9 @@
     CGFloat expandHeight = 200.0f;
     [self setExpandPropertiesExpandToSize:CGSizeMake(320.0f, expandHeight)];
     NSString *useCustomClose = [self getExpandPropertiesUseCustomClose];
-    STAssertTrue([useCustomClose isEqualToString:@"false"], @"Expected useCustomClose to be false");
+    XCTAssertTrue([useCustomClose isEqualToString:@"false"], @"Expected useCustomClose to be false");
     [self expand];
-    STAssertTrue(self.banner.frame.size.height == expandHeight , @"Expected new height of banner frame to be expanded height");
+    XCTAssertTrue(self.banner.frame.size.height == expandHeight , @"Expected new height of banner frame to be expanded height");
     [self close];
     [self clearTest];
 }
@@ -911,8 +911,8 @@
     [self setExpandPropertiesEmpty];
     NSString *width = [self getExpandPropertiesWidth];
     NSString *height = [self getExpandPropertiesHeight];
-    STAssertTrue([width length] > 0, @"Expected width to be defined");
-    STAssertTrue([height length] > 0, @"Expected height to be defined");
+    XCTAssertTrue([width length] > 0, @"Expected width to be defined");
+    XCTAssertTrue([height length] > 0, @"Expected height to be defined");
     [self clearTest];
 }
 
@@ -922,7 +922,7 @@
     [self expand];
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     CGSize currentSize = [self getCurrentPosition].size;
-    STAssertTrue(CGSizeEqualToSize(screenSize, currentSize), @"Expected expanded size to be screen size");
+    XCTAssertTrue(CGSizeEqualToSize(screenSize, currentSize), @"Expected expanded size to be screen size");
     [self close];
     [self clearTest];
 }
@@ -932,13 +932,13 @@
     CGFloat expandHeight = 200.0f;
     [self setExpandPropertiesExpandToSize:CGSizeMake(320.0f, expandHeight)];
     NSString *customClose = [self getExpandPropertiesUseCustomClose];
-    STAssertTrue([customClose length], @"expected custom close value to not be undefined");
-    STAssertTrue([customClose isEqualToString:@"false"], @"expected default value of custom close to be false");
+    XCTAssertTrue([customClose length], @"expected custom close value to not be undefined");
+    XCTAssertTrue([customClose isEqualToString:@"false"], @"expected default value of custom close to be false");
     
     // isModal works because it is set on every call to setExpandProperties.
     NSString *isModal = [self getExpandPropertiesIsModal];
-    STAssertTrue(![isModal isEqualToString:@""], @"expected isModal value to not be undefined");
-    STAssertTrue([isModal isEqualToString:@"true"], @"expected default value of isModal to be true");
+    XCTAssertTrue(![isModal isEqualToString:@""], @"expected isModal value to not be undefined");
+    XCTAssertTrue([isModal isEqualToString:@"true"], @"expected default value of isModal to be true");
     [self clearTest];
 }
 
@@ -968,20 +968,20 @@
     NSString *width = [self getExpandPropertiesWidth];
     NSString *height = [self getExpandPropertiesHeight];
     NSString *isModal = [self getExpandPropertiesIsModal];
-    STAssertTrue([useCustomClose isEqualToString:@"true"], @"Expected useCustomClose to be true");
-    STAssertTrue([width isEqualToString:@"320"], @"Expected width to be 320");
-    STAssertTrue([height isEqualToString:@"250"], @"Expected height to be 250");
-    STAssertTrue([isModal isEqualToString:@"true"], @"Expected isModal to be true");
+    XCTAssertTrue([useCustomClose isEqualToString:@"true"], @"Expected useCustomClose to be true");
+    XCTAssertTrue([width isEqualToString:@"320"], @"Expected width to be 320");
+    XCTAssertTrue([height isEqualToString:@"250"], @"Expected height to be 250");
+    XCTAssertTrue([isModal isEqualToString:@"true"], @"Expected isModal to be true");
     CGSize size2 = CGSizeMake(500.0f, 300.0f);
     [self setExpandPropertiesExpandToSize:size2];
     useCustomClose = [self getExpandPropertiesUseCustomClose];
     width = [self getExpandPropertiesWidth];
     height = [self getExpandPropertiesHeight];
     isModal = [self getExpandPropertiesIsModal];
-    STAssertTrue([useCustomClose isEqualToString:@"false"], @"Expected useCustomClose to be false");
-    STAssertTrue([width isEqualToString:@"500"], @"Expected width to be 320");
-    STAssertTrue([height isEqualToString:@"300"], @"Expected height to be 250");
-    STAssertTrue([isModal isEqualToString:@"true"], @"Expected isModal to be true");
+    XCTAssertTrue([useCustomClose isEqualToString:@"false"], @"Expected useCustomClose to be false");
+    XCTAssertTrue([width isEqualToString:@"500"], @"Expected width to be 320");
+    XCTAssertTrue([height isEqualToString:@"300"], @"Expected height to be 250");
+    XCTAssertTrue([isModal isEqualToString:@"true"], @"Expected isModal to be true");
     [self clearTest];
 }
 
@@ -1002,7 +1002,7 @@
                                         withSize:CGSizeMake(320.0f, 50.0f)];
     
     NSString *readyDidFire = [self.webView stringByEvaluatingJavaScriptFromString:@"testReadyDidFire"];
-    STAssertTrue([readyDidFire isEqualToString:@"true"], @"ready event callback not fired");
+    XCTAssertTrue([readyDidFire isEqualToString:@"true"], @"ready event callback not fired");
     
     [self clearTest];
 }
@@ -1016,8 +1016,8 @@
     NSString *height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
     NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
     
-    STAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
-    STAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
+    XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
+    XCTAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
                  
     [self expand];
     
@@ -1025,8 +1025,8 @@
     height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
     state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
 
-    STAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"568"], @"Expected width and height to be different");
-    STAssertTrue([state isEqualToString:@"expanded"], @"state change callback not fired");
+    XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"568"], @"Expected width and height to be different");
+    XCTAssertTrue([state isEqualToString:@"expanded"], @"state change callback not fired");
 
     [self close];
     
@@ -1034,8 +1034,8 @@
     height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
     state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
 
-    STAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
-    STAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
+    XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
+    XCTAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
 
     [self clearTest];
 }
@@ -1049,8 +1049,8 @@
     NSString *height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
     NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
     
-    STAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
-    STAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
+    XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
+    XCTAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
 
     [self setResizePropertiesResizeToSize:CGSizeMake(400.0f, 200.0f) withOffset:CGPointZero withCustomClosePosition:@"top-left" allowOffscreen:YES];
     [self resize];
@@ -1059,8 +1059,8 @@
     height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
     state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
     
-    STAssertTrue([width isEqualToString:@"400"] && [height isEqualToString:@"200"], @"Expected width and height to be different");
-    STAssertTrue([state isEqualToString:@"resized"], @"state change callback not fired");
+    XCTAssertTrue([width isEqualToString:@"400"] && [height isEqualToString:@"200"], @"Expected width and height to be different");
+    XCTAssertTrue([state isEqualToString:@"resized"], @"state change callback not fired");
 
     [self close];
     [self clearTest];
@@ -1079,8 +1079,8 @@
     NSString *height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
     NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
     
-    STAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"568"], @"Expected width and height to be different");
-    STAssertTrue([state isEqualToString:@"expanded"], @"state change callback not fired");
+    XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"568"], @"Expected width and height to be different");
+    XCTAssertTrue([state isEqualToString:@"expanded"], @"state change callback not fired");
     
     [self close];
     [self clearTest];
@@ -1092,20 +1092,20 @@
                                         withSize:CGSizeMake(320.0f, 50.0f)];
     [self close];
     NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
-    STAssertTrue([state isEqualToString:@"hidden"], @"state change callback not fired");
+    XCTAssertTrue([state isEqualToString:@"hidden"], @"state change callback not fired");
 
     [self expand];
     state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
     NSString *errorAction = [self.webView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
-    STAssertTrue([state isEqualToString:@"hidden"], @"state change callback fired when it should not have been");
-    STAssertTrue([errorAction isEqualToString:@"mraid.expand()"], @"Expected error from mraid.expand()");
+    XCTAssertTrue([state isEqualToString:@"hidden"], @"state change callback fired when it should not have been");
+    XCTAssertTrue([errorAction isEqualToString:@"mraid.expand()"], @"Expected error from mraid.expand()");
     
     [self setResizePropertiesResizeToSize:CGSizeMake(400.0f, 200.0f) withOffset:CGPointZero withCustomClosePosition:@"top-left" allowOffscreen:YES];
     [self resize];
     state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
     errorAction = [self.webView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
-    STAssertTrue([state isEqualToString:@"hidden"], @"state change callback fired when it should not have been");
-    STAssertTrue([errorAction isEqualToString:@"mraid.resize()"], @"Expected error from mraid.resize()");
+    XCTAssertTrue([state isEqualToString:@"hidden"], @"state change callback fired when it should not have been");
+    XCTAssertTrue([errorAction isEqualToString:@"mraid.resize()"], @"Expected error from mraid.resize()");
 
     [self clearTest];
 }
@@ -1115,19 +1115,19 @@
                                          atOrigin:CGPointZero
                                          withSize:CGSizeMake(320.0f, 50.0f)];
     NSString *isViewable = [self.webView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
-    STAssertTrue([isViewable isEqualToString:@"false"], @"expected banner to not be viewable");
+    XCTAssertTrue([isViewable isEqualToString:@"false"], @"expected banner to not be viewable");
     
     [self addBannerAsSubview];
     isViewable = [self.webView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
-    STAssertTrue([isViewable isEqualToString:@"true"], @"expected banner to be viewable");
+    XCTAssertTrue([isViewable isEqualToString:@"true"], @"expected banner to be viewable");
     
     [self moveBannerSubviewToOrigin:CGPointMake(1000.0f, 1000.0f)];
     isViewable = [self.webView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
-    STAssertTrue([isViewable isEqualToString:@"false"], @"expected banner to not be viewable");
+    XCTAssertTrue([isViewable isEqualToString:@"false"], @"expected banner to not be viewable");
     
     [self moveBannerSubviewToOrigin:CGPointMake(0.0f, 200.0f)];
     isViewable = [self.webView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
-    STAssertTrue([isViewable isEqualToString:@"true"], @"expected banner to be viewable");
+    XCTAssertTrue([isViewable isEqualToString:@"true"], @"expected banner to be viewable");
 
     [self clearTest];
 }
@@ -1138,11 +1138,11 @@
                                         withSize:CGSizeMake(320.0f, 50.0f)];
     [self.webView stringByEvaluatingJavaScriptFromString:@"mraid.removeEventListener('ready', onReady);"];
     NSString *errorAction = [self.webView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
-    STAssertTrue([errorAction isEqualToString:@""], @"Did not expect an error on removeEventListener()");
+    XCTAssertTrue([errorAction isEqualToString:@""], @"Did not expect an error on removeEventListener()");
     
     [self.webView stringByEvaluatingJavaScriptFromString:@"mraid.removeEventListener('ready', onReady);"];
     errorAction = [self.webView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
-    STAssertTrue([errorAction isEqualToString:@"mraid.removeEventListener()"], @"Expected error on removeEventListener()");
+    XCTAssertTrue([errorAction isEqualToString:@"mraid.removeEventListener()"], @"Expected error on removeEventListener()");
     
     [self clearTest];
 }
@@ -1153,7 +1153,7 @@
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     BOOL isSupported = [self supports:@"sms"];
     #if TARGET_IPHONE_SIMULATOR
-    STAssertFalse(isSupported, @"Expected iphone simulator to not support SMS");
+    XCTAssertFalse(isSupported, @"Expected iphone simulator to not support SMS");
     #else
     STAssertTrue(isSupported, @"Expected iPhone device to support SMS");
     #endif
@@ -1164,7 +1164,7 @@
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     BOOL isSupported = [self supports:@"tel"];
     #if TARGET_IPHONE_SIMULATOR
-    STAssertFalse(isSupported, @"Expected iphone simulator to not support Tel");
+    XCTAssertFalse(isSupported, @"Expected iphone simulator to not support Tel");
     #else
     STAssertTrue(isSupported, @"Expected iPhone device to support Tel");
     #endif
@@ -1174,21 +1174,21 @@
 - (void)testSupportCal {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     BOOL isSupported = [self supports:@"calendar"];
-    STAssertTrue(isSupported, @"Expected calendar support");
+    XCTAssertTrue(isSupported, @"Expected calendar support");
     [self clearTest];
 }
 
 - (void)testSupportInlineVideo {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     BOOL isSupported = [self supports:@"inlineVideo"];
-    STAssertTrue(isSupported, @"Expected inline video support");
+    XCTAssertTrue(isSupported, @"Expected inline video support");
     [self clearTest];
 }
 
 - (void)testSupportStorePicture {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     BOOL isSupported = [self supports:@"storePicture"];
-    STAssertTrue(isSupported, @"Expected store picture support");
+    XCTAssertTrue(isSupported, @"Expected store picture support");
     [self clearTest];
 }
 
@@ -1253,11 +1253,11 @@
                   usingStubBody:(NSString *)body {
     [self stubWithBody:body];
     [self loadBannerAdAtOrigin:CGPointMake(origin.x, origin.y) withSize:CGSizeMake(size.width, size.height)];
-    STAssertTrue([self waitForCompletion:MRAID_TESTS_TIMEOUT], @"Ad load timed out");
-    STAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
-    STAssertFalse(self.adFailedToLoadCalled, @"Failure callback should not be called");
+    XCTAssertTrue([self waitForCompletion:MRAID_TESTS_TIMEOUT], @"Ad load timed out");
+    XCTAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
+    XCTAssertFalse(self.adFailedToLoadCalled, @"Failure callback should not be called");
     id wv = [[self.banner subviews] firstObject];
-    STAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of BannerAdView");
+    XCTAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of BannerAdView");
     self.webView = (ANWebView *)wv;
 }
 
@@ -1316,7 +1316,7 @@
 }
 
 - (void)assertState:(NSString *)expectedState {
-    STAssertTrue([[self getState] isEqualToString:expectedState], [NSString stringWithFormat:@"Expected state '%@', instead in state '%@'", expectedState, [self getState]]);
+    XCTAssertTrue([[self getState] isEqualToString:expectedState], @"Expected state '%@', instead in state '%@'", expectedState, [self getState]);
 }
 
 - (void)rotateDeviceToOrientation:(UIInterfaceOrientation)orientation {

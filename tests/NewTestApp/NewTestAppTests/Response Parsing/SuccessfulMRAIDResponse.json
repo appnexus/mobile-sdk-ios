@@ -1,0 +1,11 @@
+{  
+   "status":"ok",
+   "ads":[  
+      {  
+         "type":"banner",
+          "width":320,
+          "height":50,
+          "content":"<script src=\"mraid.js\"></script>"
+      }
+   ]
+}

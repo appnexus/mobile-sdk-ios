@@ -15,7 +15,7 @@
 
 #import "ANBaseTestCase.h"
 #import "ANAdFetcher.h"
-#import "ANAdWebViewController.h"
+#import "ANWebView.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANSuccessfulBannerNeverCalled.h"
@@ -32,7 +32,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @property (nonatomic, assign) BOOL testComplete;
 @property (nonatomic, strong) ANAdFetcher *fetcher;
 @property (nonatomic, strong) id adapter;
-@property (nonatomic, strong) ANMRAIDAdWebViewController *webViewController;
+@property (nonatomic, strong) ANWebView *webView;
 @property (nonatomic, strong) NSError *ANError;
 //@property (nonatomic, strong) NSMutableURLRequest *successResultRequest;
 @property (nonatomic, strong) NSMutableURLRequest *request;
@@ -50,7 +50,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @interface ANAdFetcher ()
 - (void)processResponseData:(NSData *)data;
 - (ANMediationAdViewController *)mediationController;
-- (ANMRAIDAdWebViewController *)webViewController;
+- (ANWebView *)webView;
 //- (NSMutableURLRequest *)successResultRequest;
 - (NSMutableURLRequest *)request;
 @end
@@ -83,7 +83,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 - (void)runBasicTest:(int)testNumber {
     id adapter = [self.helper runTestForAdapter:testNumber time:15.0];
     
-    STAssertTrue([self.helper testComplete], @"Test timed out");
+    XCTAssertTrue([self.helper testComplete], @"Test timed out");
     [self runChecks:testNumber adapter:adapter];
     
     [self clearTest];
@@ -104,7 +104,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
         result = [adapter isMemberOfClass:adClass];
     }
     
-    STAssertTrue(result, [NSString stringWithFormat:@"Expected an adapter of class %@.", className]);
+    XCTAssertTrue(result, @"Expected an adapter of class %@", className);
 }
 
 //- (void)checkSuccessResultCB:(int)code {
@@ -116,11 +116,11 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 - (void)checkLastRequest:(int)code {
     NSString *resultCBString =[[self.helper request].URL absoluteString];
     NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
-    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
+    XCTAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
 }
 
 - (void)checkSuccessfulBannerNeverCalled {
-    STAssertFalse([ANSuccessfulBannerNeverCalled getCalled], @"Should never be called");
+    XCTAssertFalse([ANSuccessfulBannerNeverCalled getCalled], @"Should never be called");
 }
 
 - (void)runChecks:(int)testNumber adapter:(id)adapter {
@@ -156,7 +156,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
         case 7:
         {
             [self checkClass:kANSuccessfulBanner adapter:adapter];
-            STAssertNotNil([self.helper webViewController], @"Expected webViewController to be non-nil");
+            XCTAssertNotNil([self.helper webView], @"Expected webView to be non-nil");
         }
             break;
         case 11:
@@ -171,8 +171,8 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
             break;
         case 13:
         {
-            STAssertNil(adapter, @"Expected nil adapter");
-            STAssertNotNil([self.helper webViewController], @"Expected webViewController to be non-nil");
+            XCTAssertNil(adapter, @"Expected nil adapter");
+            XCTAssertNotNil([self.helper webView], @"Expected webView to be non-nil");
         }
             break;
         case 14:
@@ -182,7 +182,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
             break;
         case 15:
         {
-            STAssertTrue([[self.helper ANError] code] == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
+            XCTAssertTrue([[self.helper ANError] code] == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
         }
             break;
         case 16:
@@ -301,10 +301,12 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @synthesize testComplete = __testComplete;
 @synthesize fetcher = __fetcher;
 @synthesize adapter = __adapter;
-@synthesize webViewController = __webViewController;
+@synthesize webView = __webView;
 @synthesize ANError = __ANError;
 //@synthesize successResultRequest = __successResultRequest;
 @synthesize request = __request;
+
+@synthesize mraidEventReceiverDelegate = __mraidEventReceiverDelegate;
 
 - (id)runTestForAdapter:(int)testNumber
                    time:(NSTimeInterval)time {
@@ -358,13 +360,13 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 			case 70:
 			{
                 // don't set adapter here, because we want to retain the adapter from case 7
-                self.webViewController = [fetcher webViewController];
+                self.webView = [fetcher webView];
 			}
 				break;
 			case 13:
 			{
 				self.adapter = [[fetcher mediationController] currentAdapter];
-                self.webViewController = [fetcher webViewController];
+                self.webView = [fetcher webView];
 			}
 				break;
 			case 15:

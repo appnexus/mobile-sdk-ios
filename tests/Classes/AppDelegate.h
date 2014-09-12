@@ -15,12 +15,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *__window;
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-}
-
-@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (strong, nonatomic) UIWindow *window;
 
 @end
-
