@@ -477,6 +477,16 @@ ANBrowserViewControllerDelegate>
                                      horizontalAccuracy:horizontalAccuracy];
 }
 
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      precision:(NSInteger)precision {
+    self.location = [ANLOCATION getLocationWithLatitude:latitude
+                                              longitude:longitude
+                                              timestamp:timestamp
+                                     horizontalAccuracy:horizontalAccuracy
+                                              precision:precision];
+}
+
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
     if (([key length] < 1) || !value) {
         return;

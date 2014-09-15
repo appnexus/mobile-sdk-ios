@@ -85,11 +85,18 @@ typedef NS_ENUM(NSUInteger, ANGender) {
 @property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
 
 /**
- Set the ad view's location.  This allows ad buyers to do location
+ Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
+
+/**
+ Set the user's current location rounded to the number of decimal places specified in "precision".
+ */
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      precision:(NSInteger)precision;
 
 /**
  These methods add and remove custom keywords to and from the
