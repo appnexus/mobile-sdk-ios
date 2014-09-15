@@ -43,11 +43,38 @@
 @property (nonatomic, readwrite, assign) CGFloat horizontalAccuracy;
 
 /**
- Gets the user's location, along with a timestamp and a degree of
- accuracy.  Returns nil if invalid location data is passed in (see
+ Returns an ANLocation instance generated from a user's location. It is
+ expected that the latitude, longitude, timestamp, and horizontal accuracy 
+ parameters will be passed from a CLLocation instance.
+ 
+ Returns nil if invalid location data is passed in (see
  the property definitions above for what constitutes invalid data).
  */
-+ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                  timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
++ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
+                              longitude:(CGFloat)longitude
+                              timestamp:(NSDate *)timestamp
+                     horizontalAccuracy:(CGFloat)horizontalAccuracy;
+
+/**
+ Returns an ANLocation instance with latitude and longitude values truncated to the
+ number of decimal places specified in precision. It is expected that the latitude, 
+ longitude, timestamp, and horizontal accuracy parameters will be passed directly 
+ from a CLLocation instance.
+ 
+ Returns nil if invalid location data is passed in (see the property definitions
+ above for what constitutes invalid data). In addition, nil will be returned if the
+ precision is less than -1. If the precision is -1, the behavior of this method 
+ is identical to the getLocationWithLatitude:longitude:timestamp:horizontalAccuracy 
+ method.
+ 
+ If the precision is greater than or equal to zero, the horizontal accuracy will
+ only be used to validate the input data, and the default horizontal accuracy
+ (100 meters) will be passed into the resulting ANLocation instance.
+ */
++ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
+                              longitude:(CGFloat)longitude
+                              timestamp:(NSDate *)timestamp
+                     horizontalAccuracy:(CGFloat)horizontalAccuracy
+                              precision:(NSInteger)precision;
 
 @end

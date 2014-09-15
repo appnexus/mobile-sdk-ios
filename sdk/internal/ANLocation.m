@@ -18,39 +18,48 @@
 
 @implementation ANLOCATION
 
-@synthesize latitude;
-@synthesize longitude;
-@synthesize timestamp;
-@synthesize horizontalAccuracy;
-
 #define DEFAULT_HOR_ACC 100
 
 + (ANLOCATION *)getLocationWithLatitude:(CGFloat)latitude
                               longitude:(CGFloat)longitude
                               timestamp:(NSDate *)timestamp
+                     horizontalAccuracy:(CGFloat)horizontalAccuracy {
+    return [ANLOCATION getLocationWithLatitude:latitude
+                                     longitude:longitude
+                                     timestamp:timestamp
+                            horizontalAccuracy:horizontalAccuracy
+                                     precision:-1];
+}
+
++ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
+                              longitude:(CGFloat)longitude
+                              timestamp:(NSDate *)timestamp
                      horizontalAccuracy:(CGFloat)horizontalAccuracy
-{
-    // verify that lat and long are valid
-    if ((latitude < -90) || (latitude > 90))
+                              precision:(NSInteger)precision {
+    BOOL invalidLatitude = latitude < -90 || latitude > 90;
+    BOOL invalidLongitude = longitude < -180 || longitude > 180;
+    BOOL invalidHorizontalAccuracy = horizontalAccuracy < 0;
+    BOOL invalidPrecision = precision < -1;
+    if (invalidLatitude || invalidLongitude || invalidHorizontalAccuracy || invalidPrecision) {
         return nil;
-    if ((longitude < -180) || (longitude > 180))
-        return nil;
-    
-    // negative accuracy means the location is invalid; don't accept it
-    if (horizontalAccuracy < 0)
-        return nil;
-    // default value if no accuracy was passed
-    else if (horizontalAccuracy == 0)
+    }
+
+    if (horizontalAccuracy == 0 || precision != -1)
         horizontalAccuracy = DEFAULT_HOR_ACC;
     
-    // if given timestamp is nil, set time to now
-    if (!timestamp)
+    if (timestamp == nil)
         timestamp = [NSDate date];
     
     // make a new object every time to make sure we don't use old data
     ANLOCATION *location = [[ANLOCATION alloc] init];
-    location.latitude = latitude;
-    location.longitude = longitude;
+    if (precision == -1) {
+        location.latitude = latitude;
+        location.longitude = longitude;
+    } else {
+        CGFloat precisionFloat = powf(10, precision);
+        location.latitude = roundf(latitude * precisionFloat) / precisionFloat;
+        location.longitude = roundf(longitude * precisionFloat) / precisionFloat;
+    }
     location.timestamp = timestamp;
     location.horizontalAccuracy = horizontalAccuracy;
     return location;
