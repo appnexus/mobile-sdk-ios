@@ -19,12 +19,16 @@ static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStub
 
 @implementation ANHTTPStubURLProtocol
 
+#if kANHTTPStubURLProtocolEnabled
+
 + (void)load {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         [NSURLProtocol registerClass:[ANHTTPStubURLProtocol class]];
     }];
     [operation start];
 }
+
+#endif
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
     BOOL isTrue = [request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"];
@@ -48,7 +52,7 @@ static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStub
         NSData *responseData = [self buildDataForRequestUsingStub:stub];
         [client URLProtocol:self didLoadData:responseData];
         [client URLProtocolDidFinishLoading:self];
-        NSLog(@"Successfully loaded request: %@", [self request]);
+        //NSLog(@"Successfully loaded request: %@", [self request]);
     } else {
         NSLog(@"Could not load request successfully: %@", [self request]);
         NSLog(@"This can happen if the request was not stubbed, or if the stubs were removed before this request was completed (due to asynchronous request loading).");
@@ -79,6 +83,10 @@ static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStub
     if (stub) {
         [[[self class] sharedStubArray] addObject:stub];
     }
+}
+
++ (void)addStubs:(NSArray *)stubs {
+    [[[self class] sharedStubArray] addObjectsFromArray:stubs];
 }
 
 + (void)removeStub:(ANURLConnectionStub *)stub {
@@ -124,7 +132,12 @@ static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStub
 }
 
 - (NSData *)buildDataForRequestUsingStub:(ANURLConnectionStub *)stub {
-    return [stub.responseBody dataUsingEncoding:NSUTF8StringEncoding];
+    if ([stub.responseBody isKindOfClass:[NSString class]]) {
+        return [stub.responseBody dataUsingEncoding:NSUTF8StringEncoding];
+    } else if ([stub.responseBody isKindOfClass:[NSData class]]) {
+        return stub.responseBody;
+    }
+    return nil;
 }
 
 @end
