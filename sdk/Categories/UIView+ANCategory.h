@@ -25,7 +25,22 @@
 - (void)removeSubviews;
 - (void)removeSubviewsWithException:(UIView *)exception;
 
+#pragma mark - Autolayout
+
+- (void)constrainWithSize:(CGSize)size;
 - (void)constrainWithFrameSize;
-- (void)constrainToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
-                                yAttribute:(NSLayoutAttribute)yAttribute;
+- (void)removeSizeConstraint;
+- (void)extractWidthConstraint:(NSLayoutConstraint **)widthConstraint
+              heightConstraint:(NSLayoutConstraint **)heightConstraint;
+
+- (void)constrainToSizeOfSuperview;
+- (void)removeSizeConstraintToSuperview;
+
+- (void)alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                            yAttribute:(NSLayoutAttribute)yAttribute;
+- (void)alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                            yAttribute:(NSLayoutAttribute)yAttribute
+                               offsetX:(CGFloat)offsetX
+                               offsetY:(CGFloat)offsetY;
+
 @end

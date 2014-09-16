@@ -34,16 +34,16 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
     ANBannerViewAdTransitionDirectionRandom
 };
 
-typedef NS_ENUM(NSUInteger, ANBannerAdViewContentViewAlignment) {
-    ANBannerAdViewContentViewAlignmentCenter = 0,
-    ANBannerAdViewContentViewAlignmentTopLeft,
-    ANBannerAdViewContentViewAlignmentTopCenter,
-    ANBannerAdViewContentViewAlignmentTopRight,
-    ANBannerAdViewContentViewAlignmentCenterLeft,
-    ANBannerAdViewContentViewAlignmentCenterRight,
-    ANBannerAdViewContentViewAlignmentBottomLeft,
-    ANBannerAdViewContentViewAlignmentBottomCenter,
-    ANBannerAdViewContentViewAlignmentBottomRight
+typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
+    ANBannerViewAdAlignmentCenter = 0,
+    ANBannerViewAdAlignmentTopLeft,
+    ANBannerViewAdAlignmentTopCenter,
+    ANBannerViewAdAlignmentTopRight,
+    ANBannerViewAdAlignmentCenterLeft,
+    ANBannerViewAdAlignmentCenterRight,
+    ANBannerViewAdAlignmentBottomLeft,
+    ANBannerViewAdAlignmentBottomCenter,
+    ANBannerViewAdAlignmentBottomRight
 };
 
 #pragma mark Example implementation
@@ -122,7 +122,12 @@ typedef NS_ENUM(NSUInteger, ANBannerAdViewContentViewAlignment) {
  */
 @property (nonatomic, readwrite, assign) NSTimeInterval transitionDuration;
 
-@property (nonatomic, readwrite, assign) ANBannerAdViewContentViewAlignment contentViewAlignment;
+/**
+ The alignment of the ad within the banner view, in the event the ad is a different size than the 
+ banner view. This can happen if the adSize is omitted and an ad smaller than the frame size is
+ returned from the ad server. See the ANBannerViewAdAlignment enumeration above for accepted values.
+ */
+@property (nonatomic, readwrite, assign) ANBannerViewAdAlignment alignment;
 
 #pragma mark Creating an ad view and loading an ad
 
