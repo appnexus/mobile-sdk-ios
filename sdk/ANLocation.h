@@ -62,14 +62,14 @@
  from a CLLocation instance.
  
  Returns nil if invalid location data is passed in (see the property definitions
- above for what constitutes invalid data). In addition, nil will be returned if the
- precision is less than -1. If the precision is -1, the behavior of this method 
- is identical to the getLocationWithLatitude:longitude:timestamp:horizontalAccuracy 
- method.
+ above for what constitutes invalid data). In addition, if the precision is:
  
- If the precision is greater than or equal to zero, the horizontal accuracy will
- only be used to validate the input data, and the default horizontal accuracy
- (100 meters) will be passed into the resulting ANLocation instance.
+ ** Less than -1, nil will be returned.
+ 
+ ** Equal to -1, the behavior of this method is identical to the
+ getLocationWithLatitude:longitude:timestamp:horizontalAccuracy method
+ 
+ ** Greater than 6, the latitude & longitude values will be truncated to 6 decimal places.
  */
 + (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
                               longitude:(CGFloat)longitude

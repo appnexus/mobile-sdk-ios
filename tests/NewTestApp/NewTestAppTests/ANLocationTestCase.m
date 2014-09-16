@@ -30,8 +30,6 @@ static CGFloat const kAppNexusNewYorkLocationLongitudeOneDecimalPlace = -74.0;
 static CGFloat const kAppNexusNewYorkLocationLatitudeNoDecimalPlaces = 41;
 static CGFloat const kAppNexusNewYorkLocationLongitudeNoDecimalPlaces = -74;
 
-static CGFloat const kANLocationTestCaseExpectedDefaultHorizontalAccuracy = 100;
-
 @interface ANLocationTestCase : XCTestCase
 
 @end
@@ -47,7 +45,7 @@ static CGFloat const kANLocationTestCaseExpectedDefaultHorizontalAccuracy = 100;
     XCTAssertNotNil(location);
     XCTAssertEqual(location.latitude, kAppNexusNewYorkLocationLatitudeTwoDecimalPlaces);
     XCTAssertEqual(location.longitude, kAppNexusNewYorkLocationLongitudeTwoDecimalPlaces);
-    XCTAssertEqual(location.horizontalAccuracy, kANLocationTestCaseExpectedDefaultHorizontalAccuracy);
+    XCTAssertEqual(location.horizontalAccuracy, kAppNexusNewYorkHorizontalAccuracy);
 }
 
 - (void)testPrecisionOneDecimalPlace {
@@ -59,7 +57,7 @@ static CGFloat const kANLocationTestCaseExpectedDefaultHorizontalAccuracy = 100;
     XCTAssertNotNil(location);
     XCTAssertEqual(location.latitude, kAppNexusNewYorkLocationLatitudeOneDecimalPlace);
     XCTAssertEqual(location.longitude, kAppNexusNewYorkLocationLongitudeOneDecimalPlace);
-    XCTAssertEqual(location.horizontalAccuracy, kANLocationTestCaseExpectedDefaultHorizontalAccuracy);
+    XCTAssertEqual(location.horizontalAccuracy, kAppNexusNewYorkHorizontalAccuracy);
 }
 
 - (void)testPrecisionNoDecimalPlaces {
@@ -71,7 +69,7 @@ static CGFloat const kANLocationTestCaseExpectedDefaultHorizontalAccuracy = 100;
     XCTAssertNotNil(location);
     XCTAssertEqual(location.latitude, kAppNexusNewYorkLocationLatitudeNoDecimalPlaces);
     XCTAssertEqual(location.longitude, kAppNexusNewYorkLocationLongitudeNoDecimalPlaces);
-    XCTAssertEqual(location.horizontalAccuracy, kANLocationTestCaseExpectedDefaultHorizontalAccuracy);
+    XCTAssertEqual(location.horizontalAccuracy, kAppNexusNewYorkHorizontalAccuracy);
 }
 
 - (void)testPrecisionWithNoPrecision {

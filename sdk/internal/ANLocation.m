@@ -16,9 +16,10 @@
 #import "ANBasicConfig.h"
 #import ANLOCATIONHEADER
 
-@implementation ANLOCATION
+static NSInteger const kANLocationMaxLocationPrecision = 6;
+static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
 
-#define DEFAULT_HOR_ACC 100
+@implementation ANLOCATION
 
 + (ANLOCATION *)getLocationWithLatitude:(CGFloat)latitude
                               longitude:(CGFloat)longitude
@@ -44,8 +45,8 @@
         return nil;
     }
 
-    if (horizontalAccuracy == 0 || precision != -1)
-        horizontalAccuracy = DEFAULT_HOR_ACC;
+    if (horizontalAccuracy == 0)
+        horizontalAccuracy = kANLocationDefaultHorizontalAccuracy;
     
     if (timestamp == nil)
         timestamp = [NSDate date];
@@ -56,7 +57,12 @@
         location.latitude = latitude;
         location.longitude = longitude;
     } else {
-        CGFloat precisionFloat = powf(10, precision);
+        NSInteger effectivePrecision = precision;
+        if (precision > kANLocationMaxLocationPrecision) {
+            effectivePrecision = kANLocationMaxLocationPrecision;
+        }
+        
+        CGFloat precisionFloat = powf(10, effectivePrecision);
         location.latitude = roundf(latitude * precisionFloat) / precisionFloat;
         location.longitude = roundf(longitude * precisionFloat) / precisionFloat;
     }

@@ -23,10 +23,6 @@
 		8A5D270C199A734E00F2A516 /* SuccessfulMRAIDListenerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D270B199A734E00F2A516 /* SuccessfulMRAIDListenerResponse.json */; };
 		8A5D2710199A750300F2A516 /* ANAdViewMRAIDCreativeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D270F199A750300F2A516 /* ANAdViewMRAIDCreativeTestCase.m */; };
 		8A5D2712199A97FE00F2A516 /* ANMediationAdViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D2711199A97FE00F2A516 /* ANMediationAdViewControllerTestCase.m */; };
-		8A5D279A199A9BDB00F2A516 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D2749199A9BDB00F2A516 /* README.txt */; };
-		8A5D279B199A9BDB00F2A516 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D274A199A9BDB00F2A516 /* README.txt */; };
-		8A5D27A3199A9BDB00F2A516 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D276A199A9BDB00F2A516 /* LICENSE */; };
-		8A5D27A4199A9BDB00F2A516 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8A5D276B199A9BDB00F2A516 /* LICENSE.txt */; };
 		8A5D27AD199A9C2600F2A516 /* MillennialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D276C199A9BDB00F2A516 /* MillennialMedia.framework */; };
 		8A5D27AF199A9D7700F2A516 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D271B199A9BDA00F2A516 /* ANAdAdapterBannerFacebook.m */; };
 		8A5D27B0199A9D7700F2A516 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D271D199A9BDA00F2A516 /* ANAdAdapterInterstitialFacebook.m */; };
@@ -901,16 +897,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A5D27A4199A9BDB00F2A516 /* LICENSE.txt in Resources */,
 				8AD018EE19996519007874BA /* dogSelfie@2x.jpg in Resources */,
-				8A5D279B199A9BDB00F2A516 /* README.txt in Resources */,
 				8A5D270C199A734E00F2A516 /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				8AD018F219996CB9007874BA /* dogSelfie.jpg in Resources */,
-				8A5D27A3199A9BDB00F2A516 /* LICENSE in Resources */,
 				8AD018DC19995216007874BA /* SuccessfulMRAIDResponse.json in Resources */,
 				8AD018DA19994EAD007874BA /* SuccessfulMediationResponse.json in Resources */,
 				8AD018EF19996519007874BA /* GreyWhiteCat@2x.jpg in Resources */,
-				8A5D279A199A9BDB00F2A516 /* README.txt in Resources */,
 				8AD018F319996CB9007874BA /* GreyWhiteCat.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
