@@ -93,8 +93,7 @@ typedef NS_ENUM(NSUInteger, ANGender) {
 
 /**
  Set the user's current location rounded to the number of decimal places specified in "precision".
- Valid values are between 0 and 6 inclusive. If the precision is -1, the behavior is identical to
- setLocationWithLatitude:longitude:timestamp:horizontalAccuracy.
+ Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
  */
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy

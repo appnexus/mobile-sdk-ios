@@ -56,7 +56,7 @@
                      horizontalAccuracy:(CGFloat)horizontalAccuracy;
 
 /**
- Returns an ANLocation instance with latitude and longitude values truncated to the
+ Returns an ANLocation instance with latitude and longitude values rounded to the
  number of decimal places specified in precision. It is expected that the latitude, 
  longitude, timestamp, and horizontal accuracy parameters will be passed directly 
  from a CLLocation instance.
@@ -66,10 +66,9 @@
  
  ** Less than -1, nil will be returned.
  
- ** Equal to -1, the behavior of this method is identical to the
- getLocationWithLatitude:longitude:timestamp:horizontalAccuracy method
+ ** Equal to -1, no rounding will occur.
  
- ** Greater than 6, the latitude & longitude values will be truncated to 6 decimal places.
+ ** Greater than 6, the latitude & longitude values will be rounded to 6 decimal places.
  */
 + (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
                               longitude:(CGFloat)longitude
