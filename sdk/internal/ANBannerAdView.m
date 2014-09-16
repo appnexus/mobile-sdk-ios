@@ -352,12 +352,6 @@
                 closePosition:(ANMRAIDCustomClosePosition)closePosition {
     [self resetContentViewForMRAID];
 
-    CGRect contentViewFrame = self.contentView.frame;
-    [self.contentView removeSizeConstraint];
-    [self.contentView removeAlignmentConstraintsToSuperview];
-    self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
-    [self.contentView setFrame:contentViewFrame];
-
     // resized ads are never modal
     UIView *contentView = self.contentView;
     
