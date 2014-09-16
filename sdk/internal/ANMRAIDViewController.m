@@ -14,6 +14,7 @@
  */
 
 #import "ANMRAIDViewController.h"
+#import "ANGlobal.h"
 
 @interface ANMRAIDViewController ()
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
@@ -53,7 +54,7 @@
         orientationAfterRotation = self.orientation;
     }
     
-    CGRect mainBounds = [[UIScreen mainScreen] bounds];
+    CGRect mainBounds = ANPortraitScreenBounds();
     if (UIInterfaceOrientationIsLandscape(orientationAfterRotation)) {
         CGFloat portraitHeight = mainBounds.size.height;
         CGFloat portraitWidth = mainBounds.size.width;

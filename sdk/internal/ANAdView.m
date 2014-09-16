@@ -227,7 +227,7 @@ ANBrowserViewControllerDelegate>
             [self adDidPresent];
         }];
     } else {
-        CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect([UIScreen mainScreen].bounds);
+        CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(ANPortraitScreenBounds());
         if (size.width == -1) size.width = orientedScreenBounds.size.width;
         if (size.height == -1) size.height = orientedScreenBounds.size.height;
         
@@ -307,7 +307,7 @@ ANBrowserViewControllerDelegate>
 
 - (NSString *)isResizeValid:(UIView *)contentView frameToResizeTo:(CGRect)frame {
     // for comparing to
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(screenBounds);
     
     // don't allow resizing to be larger than the screen in both directions
@@ -406,7 +406,7 @@ ANBrowserViewControllerDelegate>
     }
     
     // compute the absolute frame of the close event region
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(screenBounds);
     
     CGRect containerAbsoluteFrame = [containerView convertRect:containerView.bounds toView:nil];

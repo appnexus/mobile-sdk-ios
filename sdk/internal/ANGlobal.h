@@ -94,4 +94,4 @@ NSMutableSet *ANInvalidNetworks();
 void ANAddInvalidNetwork(NSString *network);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
-
+CGRect ANPortraitScreenBounds();

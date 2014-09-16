@@ -42,5 +42,6 @@
                             yAttribute:(NSLayoutAttribute)yAttribute
                                offsetX:(CGFloat)offsetX
                                offsetY:(CGFloat)offsetY;
+- (void)removeAlignmentConstraintsToSuperview;
 
 @end

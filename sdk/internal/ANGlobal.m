@@ -119,27 +119,34 @@ NSString *convertToNSString(id value) {
 }
 
 CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
-    CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
-    
-    CGRect adjustedRect;
-    switch ([UIApplication sharedApplication].statusBarOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
-            break;
-        default:
-            adjustedRect = rect;
-            break;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(fixedCoordinateSpace)]) {
+        return rect;
+    } else
+#endif
+    {
+        CGRect screenBounds = ANPortraitScreenBounds();
+        CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
+        CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
+        
+        CGRect adjustedRect;
+        switch ([UIApplication sharedApplication].statusBarOrientation) {
+            case UIInterfaceOrientationLandscapeLeft:
+                adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
+                break;
+            default:
+                adjustedRect = rect;
+                break;
+        }
+        
+        return adjustedRect;
     }
-    
-    return adjustedRect;
 }
 
 NSString *ANMRAIDBundlePath() {
@@ -187,5 +194,17 @@ void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo) {
         [[NSNotificationCenter defaultCenter] postNotificationName:name
                                                             object:object
                                                           userInfo:userInfo];
+    }
+}
+
+CGRect ANPortraitScreenBounds() {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(fixedCoordinateSpace)]) {
+        return [UIScreen mainScreen].fixedCoordinateSpace.bounds;
+    }
+    else
+#endif
+    {
+        return [UIScreen mainScreen].bounds;
     }
 }

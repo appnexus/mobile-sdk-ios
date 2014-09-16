@@ -18,6 +18,7 @@
 #import "ANMRAIDTestResponses.h"
 #import "ANLogging.h"
 #import "ANLogManager.h"
+#import "ANGlobal.h"
 
 #define MRAID_TESTS_TIMEOUT 10.0
 #define MRAID_TESTS_DEFAULT_DELAY 1.5
@@ -118,7 +119,7 @@
     CGPoint screenSize = [self getScreenSize];
     CGFloat width = screenSize.x;
     CGFloat height = screenSize.y;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGFloat expectedWidth = screenBounds.size.width;
     CGFloat expectedHeight = screenBounds.size.height;
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height);
@@ -131,7 +132,7 @@
     CGPoint screenSize = [self getScreenSize];
     CGFloat width = screenSize.x;
     CGFloat height = screenSize.y;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGFloat expectedWidth = screenBounds.size.height;
     CGFloat expectedHeight = screenBounds.size.width;
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height);
@@ -144,7 +145,7 @@
     CGPoint screenSize = [self getScreenSize];
     CGFloat width = screenSize.x;
     CGFloat height = screenSize.y;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGFloat expectedWidth = screenBounds.size.height;
     CGFloat expectedHeight = screenBounds.size.width;
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape screen bounds %f x %f, received screen bounds %f x %f", expectedWidth, expectedHeight, width, height);
@@ -167,7 +168,7 @@
     CGPoint maxSize = [self getMaxSize];
     CGFloat width = maxSize.x;
     CGFloat height = maxSize.y;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGFloat expectedWidth = screenBounds.size.width;
     CGFloat expectedHeight = screenBounds.size.height;
     
@@ -186,7 +187,7 @@
     CGPoint maxSize = [self getMaxSize];
     CGFloat width = maxSize.x;
     CGFloat height = maxSize.y;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGFloat expectedWidth = screenBounds.size.height;
     CGFloat expectedHeight = screenBounds.size.width;
 
@@ -206,7 +207,7 @@
     CGPoint maxSize = [self getMaxSize];
     CGFloat width = maxSize.x;
     CGFloat height = maxSize.y;
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGFloat expectedWidth = screenBounds.size.height;
     CGFloat expectedHeight = screenBounds.size.width;
     
@@ -265,7 +266,7 @@
     CGFloat width = currentPosition.size.width;
     CGFloat height = currentPosition.size.height;
 
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGFloat expectedWidth = screenBounds.size.width;
     CGFloat expectedHeight = screenBounds.size.height;
 
@@ -920,7 +921,7 @@
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setExpandPropertiesEmpty];
     [self expand];
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    CGSize screenSize = ANPortraitScreenBounds().size;
     CGSize currentSize = [self getCurrentPosition].size;
     XCTAssertTrue(CGSizeEqualToSize(screenSize, currentSize), @"Expected expanded size to be screen size");
     [self close];
@@ -989,7 +990,7 @@
 /*- (void)testGetExpandPropertiesInitialSize {
  [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
  CGSize initSize = [self getExpandPropertiesSize];
- CGRect actualBounds = [[UIScreen mainScreen] bounds];
+ CGRect actualBounds = ANPortraitScreenBounds();
  STAssertTrue(actualBounds.size.width == initSize.width && actualBounds.size.height == initSize.height, @"Expected default expand properties to reflect actual screen values");
  [self clearTest];
  }*/
@@ -1025,7 +1026,11 @@
     height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
     state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
 
-    XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"568"], @"Expected width and height to be different");
+    CGRect portraitBounds = ANPortraitScreenBounds();
+    NSString *expectedWidth = [NSString stringWithFormat:@"%d", (int)portraitBounds.size.width];
+    NSString *expectedHeight = [NSString stringWithFormat:@"%d", (int)portraitBounds.size.height];
+    
+    XCTAssertTrue([width isEqualToString:expectedWidth] && [height isEqualToString:expectedHeight], @"Expected width and height to be different");
     XCTAssertTrue([state isEqualToString:@"expanded"], @"state change callback not fired");
 
     [self close];
@@ -1079,7 +1084,11 @@
     NSString *height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
     NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
     
-    XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"568"], @"Expected width and height to be different");
+    CGRect portraitBounds = ANPortraitScreenBounds();
+    NSString *expectedWidth = [NSString stringWithFormat:@"%d", (int)portraitBounds.size.width];
+    NSString *expectedHeight = [NSString stringWithFormat:@"%d", (int)portraitBounds.size.height];
+
+    XCTAssertTrue([width isEqualToString:expectedWidth] && [height isEqualToString:expectedHeight], @"Expected width and height to be different");
     XCTAssertTrue([state isEqualToString:@"expanded"], @"state change callback not fired");
     
     [self close];

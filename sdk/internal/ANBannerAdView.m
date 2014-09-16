@@ -334,6 +334,8 @@
 
 - (void)adShouldExpandToFrame:(CGRect)frame
                   closeButton:(UIButton *)closeButton {
+    [self resetContentViewForMRAID];
+    
     [super mraidExpandAd:frame.size
              contentView:self.contentView
        defaultParentView:self
@@ -348,6 +350,14 @@
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
                   closeButton:(UIButton *)closeButton
                 closePosition:(ANMRAIDCustomClosePosition)closePosition {
+    [self resetContentViewForMRAID];
+
+    CGRect contentViewFrame = self.contentView.frame;
+    [self.contentView removeSizeConstraint];
+    [self.contentView removeAlignmentConstraintsToSuperview];
+    self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
+    [self.contentView setFrame:contentViewFrame];
+
     // resized ads are never modal
     UIView *contentView = self.contentView;
     
@@ -376,6 +386,15 @@
 - (void)adShouldResetToDefault {
     self.adjustFramesInResizeState = NO;
     [super adShouldResetToDefault:self.contentView parentView:self];
+    [self constrainContentView];
+}
+
+- (void)resetContentViewForMRAID {
+    CGRect contentViewFrame = self.contentView.frame;
+    [self.contentView removeSizeConstraint];
+    [self.contentView removeAlignmentConstraintsToSuperview];
+    self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
+    [self.contentView setFrame:contentViewFrame];
 }
 
 #pragma mark delegate selector helper method

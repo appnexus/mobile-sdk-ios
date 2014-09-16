@@ -24,5 +24,6 @@
 - (void)performTransitionFromContentView:(UIView *)oldContentView
                            toContentView:(UIView *)newContentView;
 - (void)alignContentView;
+- (void)constrainContentView;
 
 @end

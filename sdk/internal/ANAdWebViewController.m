@@ -188,7 +188,7 @@
     }
     if (isInHiddenSuperview) return NO;
     
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGRect newBounds = [self.webView convertRect:self.webView.bounds toView:nil];
     BOOL isOnScreen = CGRectIntersectsRect(newBounds, screenBounds);
     if (!isOnScreen) return NO;
@@ -299,7 +299,7 @@
 - (void)setMaxSizeForMRAIDGetMaxSizeFunction:(UIWebView*) webView{
     UIApplication *application = [UIApplication sharedApplication];
     BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    CGSize screenSize = ANPortraitScreenBounds().size;
     int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
     int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
     
@@ -311,8 +311,9 @@
 }
 
 - (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
+    
     BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    CGSize screenSize = ANPortraitScreenBounds().size;
     int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
     int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
     
@@ -499,7 +500,7 @@
     moviePlayerViewController.moviePlayer.fullscreen = YES;
     moviePlayerViewController.moviePlayer.shouldAutoplay = YES;
     moviePlayerViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-    moviePlayerViewController.moviePlayer.view.frame = [[UIScreen mainScreen] bounds];
+    moviePlayerViewController.moviePlayer.view.frame = ANPortraitScreenBounds();
     moviePlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
