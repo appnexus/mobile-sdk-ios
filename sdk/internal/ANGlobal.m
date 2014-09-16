@@ -119,34 +119,38 @@ NSString *convertToNSString(id value) {
 }
 
 CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(fixedCoordinateSpace)]) {
+    // If portrait, no adjustment is necessary.
+    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {
         return rect;
-    } else
-#endif
-    {
-        CGRect screenBounds = ANPortraitScreenBounds();
-        CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
-        CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
-        
-        CGRect adjustedRect;
-        switch ([UIApplication sharedApplication].statusBarOrientation) {
-            case UIInterfaceOrientationLandscapeLeft:
-                adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
-                break;
-            case UIInterfaceOrientationLandscapeRight:
-                adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
-                break;
-            case UIInterfaceOrientationPortraitUpsideDown:
-                adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
-                break;
-            default:
-                adjustedRect = rect;
-                break;
-        }
-        
-        return adjustedRect;
     }
+    
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    // iOS 8
+    if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
+        return rect;
+    }
+    
+    // iOS 7 and below
+    CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
+    CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
+    
+    CGRect adjustedRect;
+    switch ([UIApplication sharedApplication].statusBarOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+            adjustedRect = CGRectMake(flippedOriginX, rect.origin.x, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            adjustedRect = CGRectMake(rect.origin.y, flippedOriginY, rect.size.height, rect.size.width);
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            adjustedRect = CGRectMake(flippedOriginY, flippedOriginX, rect.size.width, rect.size.height);
+            break;
+        default:
+            adjustedRect = rect;
+            break;
+    }
+    
+    return adjustedRect;
 }
 
 NSString *ANMRAIDBundlePath() {
@@ -198,13 +202,24 @@ void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo) {
 }
 
 CGRect ANPortraitScreenBounds() {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(fixedCoordinateSpace)]) {
-        return [UIScreen mainScreen].fixedCoordinateSpace.bounds;
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+        if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
+            // need to orient screen bounds
+            switch ([UIApplication sharedApplication].statusBarOrientation) {
+                case UIInterfaceOrientationLandscapeLeft:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationLandscapeRight:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    return CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
-    else
-#endif
-    {
-        return [UIScreen mainScreen].bounds;
-    }
+    return screenBounds;
 }
