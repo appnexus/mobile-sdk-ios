@@ -64,8 +64,6 @@
  Returns nil if invalid location data is passed in (see the property definitions
  above for what constitutes invalid data). In addition, if the precision is:
  
- ** Less than -1, nil will be returned.
- 
  ** Equal to -1, no rounding will occur.
  
  ** Greater than 6, the latitude & longitude values will be rounded to 6 decimal places.

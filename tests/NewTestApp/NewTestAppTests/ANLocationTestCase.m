@@ -90,7 +90,9 @@ static CGFloat const kAppNexusNewYorkLocationLongitudeNoDecimalPlaces = -74;
                                                      timestamp:[NSDate date]
                                             horizontalAccuracy:kAppNexusNewYorkHorizontalAccuracy
                                                      precision:-3];
-    XCTAssertNil(location);
+    XCTAssertEqual(location.latitude, kAppNexusNewYorkLocationLatitudeFull);
+    XCTAssertEqual(location.longitude, kAppNexusNewYorkLocationLongitudeFull);
+    XCTAssertEqual(location.horizontalAccuracy, kAppNexusNewYorkHorizontalAccuracy);
 }
 
 - (void)testNoPrecision {

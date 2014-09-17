@@ -15,6 +15,7 @@
 
 #import "ANBasicConfig.h"
 #import ANLOCATIONHEADER
+#import "ANLogging.h"
 
 static NSInteger const kANLocationMaxLocationPrecision = 6;
 static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
@@ -40,11 +41,15 @@ static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
     BOOL invalidLatitude = latitude < -90 || latitude > 90;
     BOOL invalidLongitude = longitude < -180 || longitude > 180;
     BOOL invalidHorizontalAccuracy = horizontalAccuracy < 0;
-    BOOL invalidPrecision = precision < -1;
-    if (invalidLatitude || invalidLongitude || invalidHorizontalAccuracy || invalidPrecision) {
+    if (invalidLatitude || invalidLongitude || invalidHorizontalAccuracy) {
         return nil;
     }
 
+    BOOL invalidPrecision = precision < -1;
+    if (invalidPrecision) {
+        ANLogWarn(@"Invalid precision passed in (%d) with location, no rounding will occur", (int)precision);
+    }
+    
     if (horizontalAccuracy == 0)
         horizontalAccuracy = kANLocationDefaultHorizontalAccuracy;
     
@@ -53,7 +58,7 @@ static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
     
     // make a new object every time to make sure we don't use old data
     ANLOCATION *location = [[ANLOCATION alloc] init];
-    if (precision == -1) {
+    if (precision <= -1) {
         location.latitude = latitude;
         location.longitude = longitude;
     } else {

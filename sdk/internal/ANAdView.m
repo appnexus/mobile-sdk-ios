@@ -480,15 +480,11 @@ ANBrowserViewControllerDelegate>
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
-    if (precision < -1) {
-        ANLogError(@"%@ Invalid location precision passed in, location invalid", NSStringFromSelector(_cmd));
-    } else {
-        self.location = [ANLOCATION getLocationWithLatitude:latitude
-                                                  longitude:longitude
-                                                  timestamp:timestamp
-                                         horizontalAccuracy:horizontalAccuracy
-                                                  precision:precision];
-    }
+    self.location = [ANLOCATION getLocationWithLatitude:latitude
+                                              longitude:longitude
+                                              timestamp:timestamp
+                                     horizontalAccuracy:horizontalAccuracy
+                                              precision:precision];
 }
 
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
