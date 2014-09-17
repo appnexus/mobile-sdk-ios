@@ -30,9 +30,21 @@ typedef struct FBAdSize {
 } FBAdSize;
 
 /*!
- @abstract Represents the banner ad size.
+ @abstract Represents the fixed banner ad size - 320pt by 50pt.
  */
 extern FBAdSize const kFBAdSize320x50;
+
+/*!
+ @abstract Represents the flexible banner ad size, where banner width depends on
+ its container width, and banner height is fixed as 50pt.
+ */
+extern FBAdSize const kFBAdSizeHeight50Banner;
+
+/*!
+ @abstract Represents the flexible banner ad size, where banner width depends on
+ its container width, and banner height is fixed as 90pt.
+ */
+extern FBAdSize const kFBAdSizeHeight90Banner;
 
 /*!
  @abstract Represents the interstitial ad size.
@@ -53,7 +65,7 @@ extern FBAdSize const kFBAdSizeInterstital;
  This is a method to initialize an FBAdView matching the given placement id.
 
  @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
- @param adSize The size of the ad; for example, kFBAdSize320x50.
+ @param adSize The size of the ad; for example, kFBAdSizeHeight50Banner or kFBAdSizeHeight90Banner.
  @param rootViewController The view controller that will be used to present the ad and the app store view.
  */
 - (instancetype)initWithPlacementID:(NSString *)placementID
@@ -140,6 +152,17 @@ extern FBAdSize const kFBAdSizeInterstital;
  @param error An error object containing details of the error.
  */
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error;
+
+/*!
+ @method
+
+ @abstract
+ Asks the delegate for a view controller to present modal content, such as the in-app
+ browser that can appear when an ad is clicked.
+
+ @return A view controller that is used to present modal content.
+ */
+- (UIViewController *)viewControllerForPresentingModalView;
 
 @end
 
