@@ -32,7 +32,6 @@
 @interface XCTestCase (ANBannerAdView)
 
 - (ANBannerAdView *)bannerViewWithFrameSize:(CGSize)frameSize;
-- (void)addBannerAdViewAsSubview:(ANBannerAdView *)bannerAdView;
 
 - (UIImageView *)catContentView;
 - (UIImageView *)dogContentView;

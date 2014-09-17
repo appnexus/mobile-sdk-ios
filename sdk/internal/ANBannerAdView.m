@@ -236,6 +236,11 @@
     return _transitionInProgress;
 }
 
+- (void)setAlignment:(ANBannerViewAdAlignment)alignment {
+    _alignment = alignment;
+    [self alignContentView];
+}
+
 #pragma mark Implementation of abstract methods from ANAdView
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {

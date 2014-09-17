@@ -19,19 +19,62 @@
 #import "ANAdFetcher.h"
 #import "XCTestCase+ANCategory.h"
 #import "XCTestCase+ANBannerAdView.h"
+#import "ANLogManager.h"
 
 @interface ANBannerAdViewTransitionsTestCase : XCTestCase
-
+@property (nonatomic, weak) ANBannerAdView *bannerAdView;
 @end
 
 @implementation ANBannerAdViewTransitionsTestCase
 
++ (void)load {
+    [ANLogManager setANLogLevel:ANLogLevelAll];
+}
+
+- (void)setUp {
+    [super setUp];
+    [self createBannerView];
+}
+
+- (void)tearDown {
+    [super tearDown];
+    [self cleanupRootViewController];
+}
+
+- (void)createBannerView {
+    ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    bannerAdView.rootViewController = rootViewController;
+    [rootViewController.view addSubview:bannerAdView];
+
+    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:rootViewController.view
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:bannerAdView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1.0f
+                                                                constant:0.0f];
+    NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:rootViewController.view
+                                                               attribute:NSLayoutAttributeCenterY
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:bannerAdView
+                                                               attribute:NSLayoutAttributeCenterY
+                                                              multiplier:1.0f
+                                                                constant:0.0f];
+    [rootViewController.view addConstraints:@[centerX, centerY]];
+    self.bannerAdView = bannerAdView;
+}
+
+- (void)cleanupRootViewController {
+    [self.bannerAdView.rootViewController.view removeConstraints:self.bannerAdView.rootViewController.view.constraints];
+    [self.bannerAdView removeFromSuperview];
+}
+
 - (void)testFadeTransition {
     // Setup
-    ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
+    ANBannerAdView *bannerAdView = self.bannerAdView;
     bannerAdView.transitionType = ANBannerViewAdTransitionTypeFade;
     bannerAdView.transitionDuration = 2.5f;
-    [self addBannerAdViewAsSubview:bannerAdView];
     
     // Adding Content View
     [bannerAdView setContentView:[self catContentView]];
@@ -48,10 +91,9 @@
 
 - (void)testFlipTransition {
     // Setup
-    ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
+    ANBannerAdView *bannerAdView = self.bannerAdView;
     bannerAdView.transitionType = ANBannerViewAdTransitionTypeFlip;
     bannerAdView.transitionDuration = 2.5f;
-    [self addBannerAdViewAsSubview:bannerAdView];
     
     // Adding first content view
     UIView *catContentView = [self catContentView];
@@ -74,10 +116,9 @@
 
 - (void)testFlipTransition2 {
     // Setup
-    ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
+    ANBannerAdView *bannerAdView = self.bannerAdView;
     bannerAdView.transitionType = ANBannerViewAdTransitionTypeFlip;
     bannerAdView.transitionDuration = 2.5f;
-    [self addBannerAdViewAsSubview:bannerAdView];
 
     // Adding first content view
     UIView *catContentView = [self catContentView];
