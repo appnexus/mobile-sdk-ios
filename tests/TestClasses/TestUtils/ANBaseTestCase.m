@@ -17,6 +17,7 @@
 #import "ANLogManager.h"
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubURLProtocol.h"
+#import "ANHTTPStubbingManager.h"
 
 @interface ANBaseTestCase () 
 
@@ -24,13 +25,17 @@
 
 @implementation ANBaseTestCase
 
++ (void)load {
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
+}
+
 - (void)setUp {
     [super setUp];
     [ANLogManager setANLogLevel:ANLogLevelAll];
 }
 
 - (void)clearTest {
-    [ANHTTPStubURLProtocol removeAllStubs];
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     _banner = nil;
     _interstitial = nil;
     _testComplete = NO;
@@ -55,13 +60,13 @@
     testURLStub.requestURLRegexPatternString = [TEST_URL stringByAppendingString:@".*"];
     testURLStub.responseCode = 200;
     testURLStub.responseBody = body;
-    [ANHTTPStubURLProtocol addStub:testURLStub];
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:testURLStub];
     
     ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
     anBaseURLStub.requestURLRegexPatternString = [AN_BASE_URL stringByAppendingString:@".*"];
     anBaseURLStub.responseCode = 200;
     anBaseURLStub.responseBody = @"";
-    [ANHTTPStubURLProtocol addStub:anBaseURLStub];
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
 }
 
 - (void)stubResultCBResponses:(NSString *)body {
@@ -69,7 +74,7 @@
     anBaseURLStub.requestURLRegexPatternString = [NSString stringWithFormat:@"^%@.*", OK_RESULT_CB_URL];
     anBaseURLStub.responseCode = 200;
     anBaseURLStub.responseBody = body;
-    [ANHTTPStubURLProtocol addStub:anBaseURLStub];
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
 }
 
 - (void)stubResultCBForErrorCode {
@@ -79,7 +84,7 @@
         anBaseURLStub.requestURLRegexPatternString = resultCBURLString;
         anBaseURLStub.responseCode = 200;
         anBaseURLStub.responseBody = [ANTestResponses mediationErrorCodeBanner:i];
-        [ANHTTPStubURLProtocol addStub:anBaseURLStub];
+        [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
     }
 }
 

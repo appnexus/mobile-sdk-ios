@@ -35,6 +35,7 @@
 		8A7E79CC19BE0F80002C17A8 /* ANMediationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7E79C919BE0F80002C17A8 /* ANMediationContainerView.m */; };
 		8A7E79D019BE0F9C002C17A8 /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7E79CE19BE0F9C002C17A8 /* appnexus_logo_icon.png */; };
 		8A7E79D119BE0F9C002C17A8 /* appnexus_logo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7E79CF19BE0F9C002C17A8 /* appnexus_logo_icon@2x.png */; };
+		8AA80F9019CA3779000007FC /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA80F8E19CA36E6000007FC /* ANHTTPStubbingManager.m */; };
 		EC09B2B31834350E00D76510 /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EC09B2B21834350E00D76510 /* BasicTests.m */; };
 		EC2E96C219103A00001A42EF /* ANANJAMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = EC2E96C019103A00001A42EF /* ANANJAMImplementation.m */; };
 		EC2E96C419103A7D001A42EF /* ANFailAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3640EB184001EC00DB8000 /* ANFailAndHitOtherCallbacks.m */; };
@@ -155,6 +156,8 @@
 		8A7E79C919BE0F80002C17A8 /* ANMediationContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationContainerView.m; sourceTree = "<group>"; };
 		8A7E79CE19BE0F9C002C17A8 /* appnexus_logo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appnexus_logo_icon.png; sourceTree = "<group>"; };
 		8A7E79CF19BE0F9C002C17A8 /* appnexus_logo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appnexus_logo_icon@2x.png"; sourceTree = "<group>"; };
+		8AA80F8D19CA36E6000007FC /* ANHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubbingManager.h; sourceTree = "<group>"; };
+		8AA80F8E19CA36E6000007FC /* ANHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubbingManager.m; sourceTree = "<group>"; };
 		8ABAF7B619BF491A00CA4183 /* ANHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubURLProtocol.h; sourceTree = "<group>"; };
 		8ABAF7B719BF491A00CA4183 /* ANHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubURLProtocol.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -387,6 +390,8 @@
 		8ABAF7B519BF48C100CA4183 /* Stubbing */ = {
 			isa = PBXGroup;
 			children = (
+				8AA80F8D19CA36E6000007FC /* ANHTTPStubbingManager.h */,
+				8AA80F8E19CA36E6000007FC /* ANHTTPStubbingManager.m */,
 				8ABAF7B619BF491A00CA4183 /* ANHTTPStubURLProtocol.h */,
 				8ABAF7B719BF491A00CA4183 /* ANHTTPStubURLProtocol.m */,
 				8A5BBBEE19BF8B6800A7C84C /* ANURLConnectionStub.h */,
@@ -753,6 +758,7 @@
 				EC40561A183D670D006A1D09 /* ANTestResponses.m in Sources */,
 				ECD929B91822CD0E00420840 /* MediationCallbacksTests.m in Sources */,
 				ECD929BA1822CD0E00420840 /* MediationTests.m in Sources */,
+				8AA80F9019CA3779000007FC /* ANHTTPStubbingManager.m in Sources */,
 				8A3C409C18970AFC0070F145 /* ANMRAIDTestResponses.m in Sources */,
 				EC09B2B31834350E00D76510 /* BasicTests.m in Sources */,
 				8A3C4098189705500070F145 /* MRAIDTests.m in Sources */,

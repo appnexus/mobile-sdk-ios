@@ -230,7 +230,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 - (CGRect)frame {
     // By definition, interstitials can only ever have the entire screen's bounds as its frame
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     if (UIInterfaceOrientationIsLandscape(self.controller.orientation)) {
         return CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
     }

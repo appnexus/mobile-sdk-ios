@@ -14,14 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANURLConnectionStub.h"
-
-#define kANHTTPStubURLProtocolEnabled 1
 
 @interface ANHTTPStubURLProtocol : NSURLProtocol
-
-+ (void)addStub:(ANURLConnectionStub *)stub;
-+ (void)addStubs:(NSArray *)stubs;
-+ (void)removeAllStubs;
 
 @end

@@ -193,13 +193,6 @@
     } else {
         [super setFrame:frame];
     }
-    // center the contentview
-    CGFloat contentWidth = self.contentView.frame.size.width;
-    CGFloat contentHeight = self.contentView.frame.size.height;
-    CGFloat centerX = (self.frame.size.width - contentWidth) / 2;
-    CGFloat centerY = (self.frame.size.height - contentHeight) / 2;
-    [self.contentView setFrame:
-     CGRectMake(centerX, centerY, contentWidth, contentHeight)];
 }
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated {
@@ -241,6 +234,11 @@
 - (NSNumber *)transitionInProgress {
     if (!_transitionInProgress) _transitionInProgress = @(NO);
     return _transitionInProgress;
+}
+
+- (void)setAlignment:(ANBannerViewAdAlignment)alignment {
+    _alignment = alignment;
+    [self alignContentView];
 }
 
 #pragma mark Implementation of abstract methods from ANAdView
@@ -297,15 +295,7 @@
         UIView *contentView = response.adObject;
         
         if ([contentView isKindOfClass:[UIView class]]) {
-            // center the contentview
-            CGFloat centerX = (self.frame.size.width - contentView.frame.size.width) / 2;
-            CGFloat centerY = (self.frame.size.height - contentView.frame.size.height) / 2;
-            [contentView setFrame:
-             CGRectMake(centerX, centerY,
-                        contentView.frame.size.width,
-                        contentView.frame.size.height)];
             self.contentView = contentView;
-            
             [self adDidReceiveAd];
         }
         else {
@@ -349,6 +339,8 @@
 
 - (void)adShouldExpandToFrame:(CGRect)frame
                   closeButton:(UIButton *)closeButton {
+    [self resetContentViewForMRAID];
+    
     [super mraidExpandAd:frame.size
              contentView:self.contentView
        defaultParentView:self
@@ -363,6 +355,8 @@
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
                   closeButton:(UIButton *)closeButton
                 closePosition:(ANMRAIDCustomClosePosition)closePosition {
+    [self resetContentViewForMRAID];
+
     // resized ads are never modal
     UIView *contentView = self.contentView;
     
@@ -391,6 +385,15 @@
 - (void)adShouldResetToDefault {
     self.adjustFramesInResizeState = NO;
     [super adShouldResetToDefault:self.contentView parentView:self];
+    [self constrainContentView];
+}
+
+- (void)resetContentViewForMRAID {
+    CGRect contentViewFrame = self.contentView.frame;
+    [self.contentView removeSizeConstraint];
+    [self.contentView removeAlignmentConstraintsToSuperview];
+    self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
+    [self.contentView setFrame:contentViewFrame];
 }
 
 #pragma mark delegate selector helper method

@@ -26,11 +26,10 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
 
 - (void)performTransitionFromContentView:(UIView *)oldContentView
                            toContentView:(UIView *)newContentView {
-    [self removeDelegateFromTransitionOnContentView:oldContentView];
-    
     if (self.transitionType == ANBannerViewAdTransitionTypeNone) {
         if (newContentView) {
             [self addSubview:newContentView];
+            [self constrainContentView];
             [self removeSubviewsWithException:newContentView];
         } else {
             [self removeSubviews];
@@ -54,6 +53,7 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
     
     if (newContentView) {
         [self addSubview:newContentView];
+        [self constrainContentView];
     }
     
     self.transitionInProgress = @(YES);
@@ -84,9 +84,9 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
                              transition.delegate = self;
                              
                              [oldContentView.layer addAnimation:transition
-                                                         forKey:kANContentViewTransitionsOldContentViewTransitionKey];
+                                                         forKey:kCATransition];
                              [newContentView.layer addAnimation:transition
-                                                         forKey:kANContentViewTransitionsNewContentViewTransitionKey];
+                                                         forKey:kCATransition];
                              
                              newContentView.hidden = NO;
                              oldContentView.hidden = YES;
@@ -94,9 +94,53 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
                      }];
 }
 
-- (void)removeDelegateFromTransitionOnContentView:(UIView *)contentView {
-    CAAnimation *animation = [contentView.layer animationForKey:kANContentViewTransitionsNewContentViewTransitionKey];
-    animation.delegate = nil;
+- (void)alignContentView {
+    NSLayoutAttribute xAttribute = NSLayoutAttributeCenterX;
+    NSLayoutAttribute yAttribute = NSLayoutAttributeCenterY;
+    switch (self.alignment) {
+        case ANBannerViewAdAlignmentTopLeft:
+            yAttribute = NSLayoutAttributeTop;
+            xAttribute = NSLayoutAttributeLeft;
+            break;
+        case ANBannerViewAdAlignmentTopCenter:
+            yAttribute = NSLayoutAttributeTop;
+            xAttribute = NSLayoutAttributeCenterX;
+            break;
+        case ANBannerViewAdAlignmentTopRight:
+            yAttribute = NSLayoutAttributeTop;
+            xAttribute = NSLayoutAttributeRight;
+            break;
+        case ANBannerViewAdAlignmentCenterLeft:
+            yAttribute = NSLayoutAttributeCenterY;
+            xAttribute = NSLayoutAttributeLeft;
+            break;
+        case ANBannerViewAdAlignmentCenterRight:
+            yAttribute = NSLayoutAttributeCenterY;
+            xAttribute = NSLayoutAttributeRight;
+            break;
+        case ANBannerViewAdAlignmentBottomLeft:
+            yAttribute = NSLayoutAttributeBottom;
+            xAttribute = NSLayoutAttributeLeft;
+            break;
+        case ANBannerViewAdAlignmentBottomCenter:
+            yAttribute = NSLayoutAttributeBottom;
+            xAttribute = NSLayoutAttributeCenterX;
+            break;
+        case ANBannerViewAdAlignmentBottomRight:
+            yAttribute = NSLayoutAttributeBottom;
+            xAttribute = NSLayoutAttributeRight;
+            break;
+        default: // ANBannerViewAdAlignmentCenter
+            break;
+    }
+    [self.contentView alignToSuperviewWithXAttribute:xAttribute
+                                          yAttribute:yAttribute];
+}
+
+- (void)constrainContentView {
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView constrainWithFrameSize];
+    [self alignContentView];
 }
 
 + (NSString *)CATransitionSubtypeFromANTransitionDirection:(ANBannerViewAdTransitionDirection)transitionDirection
@@ -201,8 +245,10 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 
 - (void)animationDidStop:(CAAnimation *)anim
                 finished:(BOOL)flag {
-    [self removeSubviewsWithException:self.contentView];
-    self.transitionInProgress = @(NO);
+    if (![self.contentView.layer.animationKeys count]) { // No animations left
+        [self removeSubviewsWithException:self.contentView];
+        self.transitionInProgress = @(NO);
+    }
 }
 
 @end

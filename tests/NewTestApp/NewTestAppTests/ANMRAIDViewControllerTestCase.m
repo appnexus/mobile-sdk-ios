@@ -18,15 +18,22 @@
 #import "ANMRAIDViewController.h"
 
 @interface ANMRAIDViewControllerTestCase : XCTestCase
-
 @property (nonatomic, readwrite, strong) ANMRAIDViewController *viewController;
-
 @end
 
 @implementation ANMRAIDViewControllerTestCase
 
-- (void)testExample {
+- (void)setUp {
+    [super setUp];
     self.viewController = [[ANMRAIDViewController alloc] init];
+}
+
+- (void)tearDown {
+    [super tearDown];
+    [self.viewController dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (void)testExample {
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300.0f, 250.0f)];
     self.viewController.contentView = contentView;
     [self.viewController.view addSubview:contentView];

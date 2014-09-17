@@ -14,25 +14,24 @@
  */
 
 #import "ANHTTPStubURLProtocol.h"
+#import "ANHTTPStubbingManager.h"
 
 static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStubURLProtocolException";
 
 @implementation ANHTTPStubURLProtocol
 
-#if kANHTTPStubURLProtocolEnabled
-
-+ (void)load {
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        [NSURLProtocol registerClass:[ANHTTPStubURLProtocol class]];
-    }];
-    [operation start];
-}
-
-#endif
-
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-    BOOL isTrue = [request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"];
-    return isTrue;
+    BOOL isHttpOrHttps = [request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"];
+    if (!isHttpOrHttps) {
+        return NO;
+    }
+    BOOL ignoreUnstubbedRequests = [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests;
+    if (ignoreUnstubbedRequests) {
+        ANURLConnectionStub *stub = [[ANHTTPStubbingManager sharedStubbingManager] stubForURLString:request.URL.absoluteString];
+        return (stub != nil);
+    } else {
+        return YES;
+    }
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
@@ -52,7 +51,7 @@ static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStub
         NSData *responseData = [self buildDataForRequestUsingStub:stub];
         [client URLProtocol:self didLoadData:responseData];
         [client URLProtocolDidFinishLoading:self];
-        //NSLog(@"Successfully loaded request: %@", [self request]);
+        NSLog(@"Successfully loaded request from stub: %@", [self request]);
     } else {
         NSLog(@"Could not load request successfully: %@", [self request]);
         NSLog(@"This can happen if the request was not stubbed, or if the stubs were removed before this request was completed (due to asynchronous request loading).");
@@ -68,60 +67,10 @@ static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStub
 
 #pragma mark - Stubbing
 
-+ (NSMutableArray *)sharedStubArray {
-    @synchronized(self) {
-        static dispatch_once_t sharedStubDictionaryToken;
-        static NSMutableArray *array;
-        dispatch_once(&sharedStubDictionaryToken, ^{
-            array = [[NSMutableArray alloc] init];
-        });
-        return array;
-    }
-}
-
-+ (void)addStub:(ANURLConnectionStub *)stub {
-    if (stub) {
-        [[[self class] sharedStubArray] addObject:stub];
-    }
-}
-
-+ (void)addStubs:(NSArray *)stubs {
-    [[[self class] sharedStubArray] addObjectsFromArray:stubs];
-}
-
-+ (void)removeStub:(ANURLConnectionStub *)stub {
-    if (stub) {
-        [[[self class] sharedStubArray] removeObject:stub];
-    }
-}
-
-+ (void)removeAllStubs {
-    [[[self class] sharedStubArray] removeAllObjects];
-}
-
 - (ANURLConnectionStub *)stubForRequest {
-    return [[self class] stubForURLString:[[[self request] URL] absoluteString]];
+    return [[ANHTTPStubbingManager sharedStubbingManager] stubForURLString:self.request.URL.absoluteString];
 }
 
-+ (ANURLConnectionStub *)stubForURLString:(NSString *)URLString {
-    NSString *requestURLString = URLString;
-    NSArray *stubArray = [[self class] sharedStubArray];
-    __block ANURLConnectionStub *stubMatch = nil;
-    [stubArray enumerateObjectsUsingBlock:^(ANURLConnectionStub *stub, NSUInteger idx, BOOL *stop) {
-        NSString *stubRequestURLString = stub.requestURLRegexPatternString;
-        NSError *error;
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:stubRequestURLString
-                                                                               options:NSRegularExpressionDotMatchesLineSeparators
-                                                                                 error:&error];
-        if ([regex numberOfMatchesInString:requestURLString
-                                   options:0
-                                     range:NSMakeRange(0, [requestURLString length])]) {
-            stubMatch = stub;
-            *stop = YES;
-        }
-    }];
-    return stubMatch;
-}
 
 - (NSURLResponse *)buildResponseForRequestUsingStub:(ANURLConnectionStub *)stub {
     NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[[self request] URL]

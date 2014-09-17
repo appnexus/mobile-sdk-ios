@@ -49,26 +49,4 @@
                                                               ofType:@"jpg"]];
 }
 
-- (void)addBannerAdViewAsSubview:(ANBannerAdView *)bannerAdView {
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    bannerAdView.rootViewController = rootViewController;
-    [rootViewController.view addSubview:bannerAdView];
-    
-    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:rootViewController.view
-                                                               attribute:NSLayoutAttributeCenterX
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:bannerAdView
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:1.0f
-                                                                constant:0.0f];
-    NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:rootViewController.view
-                                                               attribute:NSLayoutAttributeCenterY
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:bannerAdView
-                                                               attribute:NSLayoutAttributeCenterY
-                                                              multiplier:1.0f
-                                                                constant:0.0f];
-    [rootViewController.view addConstraints:@[centerX, centerY]];
-}
-
 @end

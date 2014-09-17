@@ -26,7 +26,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
     __weak ANAdAdapterBannerTimeoutThenSuccessful *weakSelf = self;
-    [NSTimer scheduledTimerWithTimeInterval:kAppNexusMediationNetworkTimeoutInterval + 0.1
+    [NSTimer scheduledTimerWithTimeInterval:kAppNexusMediationNetworkTimeoutInterval + 1.0
                                       block:^{
                                           ANAdAdapterBannerTimeoutThenSuccessful *strongSelf = weakSelf;
                                           [strongSelf.delegate didLoadBannerAd:[UIView new]];

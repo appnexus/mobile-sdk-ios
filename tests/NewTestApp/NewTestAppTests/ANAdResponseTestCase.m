@@ -76,43 +76,6 @@
     XCTAssertNotNil(fourthMediatedAd.resultCB);
 }
 
-// Tests to confirm the Impression Bus is returning valid JSON that we can parse
-#pragma mark - Impression Bus Tests
-
-- (void)testImpbusStandardAd {
-    NSURL *requestURL = [self sdkRequestURLForPlacementId:@"2140063"
-                                                   adSize:CGSizeMake(300.0, 250.0)];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:requestURL];
-    NSURLResponse *response;
-    NSError *error;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request
-                                                 returningResponse:&response
-                                                             error:&error];
-    XCTAssertNil(error, @"Received error from server for request %@: %@", [request URL], error);
-    ANAdResponse *parsedResponse = [[ANAdResponse alloc] init];
-    [parsedResponse processResponseData:responseData];
-    XCTAssert([parsedResponse.type isEqualToString:@"banner"]);
-    XCTAssert([parsedResponse.width isEqualToString:@"300"]);
-    XCTAssert([parsedResponse.height isEqualToString:@"250"]);
-    XCTAssertNotNil(parsedResponse.content);
-}
-
-- (void)testImpbusMediatedResponse {
-    NSURL *requestURL = [self sdkRequestURLForPlacementId:@"2407774"
-                                                   adSize:CGSizeMake(320.0, 50.0)];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:requestURL];
-    NSURLResponse *response;
-    NSError *error;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request
-                                                 returningResponse:&response
-                                                             error:&error];
-    XCTAssertNil(error, @"Received error from server for request %@: %@", [request URL], error);
-    ANAdResponse *parsedResponse = [[ANAdResponse alloc] init];
-    [parsedResponse processResponseData:responseData];
-}
-
-#pragma mark
-
 - (NSURL *)sdkRequestURLForPlacementId:(NSString *)placementId
                                 adSize:(CGSize)adSize {
     ANBannerAdView *bav = [self bannerViewWithFrameSize:adSize];
