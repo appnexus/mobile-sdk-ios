@@ -41,6 +41,7 @@
 		8A5D27C0199AA13300F2A516 /* XCTestCase+ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D27BF199AA13300F2A516 /* XCTestCase+ANMediatedAd.m */; };
 		8A5D27CB199AB26B00F2A516 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27CA199AB26B00F2A516 /* iAd.framework */; };
 		8A5D27D1199AC57900F2A516 /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5D27D0199AC57900F2A516 /* ANAdWebViewController+ANTest.m */; };
+		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
 		8A7936FC19A6B1DD003EB30A /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7936FB19A6B1DD003EB30A /* ANAdFetcher+ANTest.m */; };
 		8A7936FF19A6B256003EB30A /* ANBannerAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7936FE19A6B256003EB30A /* ANBannerAdView+ANTest.m */; };
 		8A79370219A6B2DD003EB30A /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A79370119A6B2DD003EB30A /* ANAdView+ANTest.m */; };
@@ -900,6 +901,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */,
 				8AA80F7D19CA3347000007FC /* ANBrowserViewController.xib in Resources */,
 				8AA80F7E19CA3347000007FC /* ANInterstitialAdViewController.xib in Resources */,
 				8AA80F7F19CA3347000007FC /* anjam.js in Resources */,
