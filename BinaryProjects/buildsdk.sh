@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Simple script to built the AppNexus Advertising SDK binary packages
+# Script to build the AppNexus SDK and various mediation adapters
 #
 OUTDIR=`pwd`/out
 OUTDIR_DEVICE=`pwd`/out_device
@@ -18,7 +18,7 @@ mkdir -p $LOGDIR
 function buildDevice {
 	echo "Building for device:" $1
 	LOGFILE=$LOGDIR/$1.log
-	xcodebuild -project $1.xcodeproj/ -scheme $1 -configuration 'Release' -sdk iphoneos7.1 CONFIGURATION_BUILD_DIR=$OUTDIR SYMROOT=$BUILDDIR OBJROOT=$BUILDDIR > $LOGFILE 2>&1 || { echo "Error in build check log $LOGFILE"; exit;}
+	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" CONFIGURATION_BUILD_DIR=$OUTDIR SYMROOT=$BUILDDIR OBJROOT=$BUILDDIR > $LOGFILE 2>&1 || { echo "Error in build check log $LOGFILE"; exit;}
 	mkdir -p $OUTDIR/$1
 	mv $OUTDIR/lib$1.a $OUTDIR/$1/lib$1.a
 }
@@ -26,7 +26,7 @@ function buildDevice {
 function buildSim {
 	echo "Building for simulator:" $1
 	LOGFILE=$LOGDIR/$1.log
-	xcodebuild -project $1.xcodeproj/ -scheme $1 -configuration 'Release' -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR=$OUTDIR SYMROOT=$BUILDDIR OBJROOT=$BUILDDIR > $LOGFILE 2>&1 || { echo "Error in build check log $LOGFILE"; exit;}
+	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR=$OUTDIR SYMROOT=$BUILDDIR OBJROOT=$BUILDDIR > $LOGFILE 2>&1 || { echo "Error in build check log $LOGFILE"; exit;}
 	mkdir -p $OUTDIR/$1
 	mv $OUTDIR/lib$1.a $OUTDIR/$1/lib$1.a
 }
@@ -77,30 +77,36 @@ rm -rf `pwd`/build
 # Package and Zip
 #####
 
-MEDDIR=$OUTDIR/ANMediationAdapters
+ANMEDDIR=$OUTDIR/ANAdaptersNetworksMediatedByAppNexus
 
 cd $OUTDIR
-mkdir -p $MEDDIR
-cp ANSDK*Adapter/libANSDK*Adapter.a $MEDDIR
+mkdir -p $ANMEDDIR
+cp ANSDK*Adapter/libANSDK*Adapter.a $ANMEDDIR
 rm -rf ANSDK*Adapter
+
+MEDANDIR=$OUTDIR/ANAdaptersNetworksMediatingAppNexus
+
+mkdir -p $MEDANDIR
+cp ANAdapterFor*/libANAdapterFor*.a $MEDANDIR
+rm -rf ANAdapterFor*
 
 touch README.txt
 echo -e "
 The AppNexus Mobile Advertising SDK for iOS
 ===========================================
 
-Include ANSDK.zip in your project in order to receive AppNexus ads.
+The ANSDK folder contains the AppNexus mobile advertising SDK. Documentation is available on our wiki (https://wiki.appnexus.com/display/sdk/Mobile+SDKs).
 
-The ANMediationAdapters folder contains the adapters that enable the AppNexus SDK to mediate supported third-party networks.
+The ANAdaptersNetworksMediatedByAppNexus folder contains adapters which allow the AppNexus SDK to serve mediated ads from third-party SDKs. For each network you would like the SDK to mediate, include the adapter in your project as well as the corresponding third-party SDK.
 
-Include ANAdapterForGoogleAdMobSDK.zip in order to allow the GoogleAdMob SDK to mediate the AppNexus SDK.
+The ANAdaptersNetworksMediatingAppNexus folder contains adapters which allow third-party SDKs to mediate AppNexus. Include an adapter in your project for each SDK which should call AppNexus as part of its mediation waterfall.
 
-Include ANAdapterForMoPubSDK.zip in order to allow the MoPub SDK to mediate the AppNexus SDK.
+Please note that mediation requires external setup as well. Documentation is available on our wiki (https://wiki.appnexus.com/display/sdk/Mediate+with+iOS).
 
-Documentation is available on our wiki: https://wiki.appnexus.com/display/sdk/Mobile+SDKs.
+For any questions directly pertaining to the SDK, please visit our Google group (https://groups.google.com/forum/#!forum/appnexussdk). For other inquiries, please reach out to your AppNexus representative.
+
+All The Best,
+
+Your AppNexus Team
 
 " >> README.txt
-
-zip -r ANSDK.zip ANSDK ANMediationAdapters README.txt
-zip -r ANAdapterForGoogleAdMobSDK.zip ANAdapterForGoogleAdMobSDK README.txt
-zip -r ANAdapterForMoPubSDK.zip ANAdapterForMoPubSDK README.txt

@@ -35,6 +35,38 @@
 		8AD618E21981C11F00AC0780 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618CA1981C11F00AC0780 /* ANWebView.m */; };
 		8AD618E31981C19100AC0780 /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD618991981C10700AC0780 /* appnexus_logo_icon.png */; };
 		8AD618E41981C19500AC0780 /* appnexus_logo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */; };
+		8AE2D79C19CC881D00001B70 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D79719CC880D00001B70 /* ANAdAdapterBannerFacebook.m */; };
+		8AE2D79D19CC881D00001B70 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D79919CC880D00001B70 /* ANAdAdapterInterstitialFacebook.m */; };
+		8AE2D79E19CC882200001B70 /* ANAdAdapterBannerFacebook.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D79619CC880D00001B70 /* ANAdAdapterBannerFacebook.h */; };
+		8AE2D79F19CC882200001B70 /* ANAdAdapterInterstitialFacebook.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D79819CC880D00001B70 /* ANAdAdapterInterstitialFacebook.h */; };
+		8AE2D7C519CC885600001B70 /* ANAdAdapterBannerMoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7A219CC885600001B70 /* ANAdAdapterBannerMoPub.m */; };
+		8AE2D7C619CC885600001B70 /* ANAdAdapterInterstitialMoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7A419CC885600001B70 /* ANAdAdapterInterstitialMoPub.m */; };
+		8AE2D7C719CC885600001B70 /* ANAdAdapterMoPubBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7A619CC885600001B70 /* ANAdAdapterMoPubBase.m */; };
+		8AE2D7CA19CC887C00001B70 /* ANAdAdapterBannerMoPub.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7A119CC885600001B70 /* ANAdAdapterBannerMoPub.h */; };
+		8AE2D7CB19CC887C00001B70 /* ANAdAdapterInterstitialMoPub.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7A319CC885600001B70 /* ANAdAdapterInterstitialMoPub.h */; };
+		8AE2D7CC19CC887C00001B70 /* ANAdAdapterMoPubBase.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7A519CC885600001B70 /* ANAdAdapterMoPubBase.h */; };
+		8AE2D7D719CC88AA00001B70 /* ANAdAdapterBannerMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7CF19CC88A000001B70 /* ANAdAdapterBannerMillennialMedia.m */; };
+		8AE2D7D819CC88AA00001B70 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7D119CC88A000001B70 /* ANAdAdapterInterstitialMillennialMedia.m */; };
+		8AE2D7D919CC88AA00001B70 /* ANAdAdapterMillennialMediaBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7D319CC88A000001B70 /* ANAdAdapterMillennialMediaBase.m */; };
+		8AE2D7DA19CC88B000001B70 /* ANAdAdapterBannerMillennialMedia.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7CE19CC88A000001B70 /* ANAdAdapterBannerMillennialMedia.h */; };
+		8AE2D7DB19CC88B000001B70 /* ANAdAdapterInterstitialMillennialMedia.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7D019CC88A000001B70 /* ANAdAdapterInterstitialMillennialMedia.h */; };
+		8AE2D7DC19CC88B000001B70 /* ANAdAdapterMillennialMediaBase.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7D219CC88A000001B70 /* ANAdAdapterMillennialMediaBase.h */; };
+		8AE2D7E219CC88EF00001B70 /* ANAdAdapterBanneriAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7DF19CC88EF00001B70 /* ANAdAdapterBanneriAd.m */; };
+		8AE2D7E319CC88EF00001B70 /* ANAdAdapterInterstitialiAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7E119CC88EF00001B70 /* ANAdAdapterInterstitialiAd.m */; };
+		8AE2D7E419CC88F500001B70 /* ANAdAdapterBanneriAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7DE19CC88EF00001B70 /* ANAdAdapterBanneriAd.h */; };
+		8AE2D7E519CC88F500001B70 /* ANAdAdapterInterstitialiAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7E019CC88EF00001B70 /* ANAdAdapterInterstitialiAd.h */; };
+		8AE2D7EF19CC891B00001B70 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7E819CC891B00001B70 /* ANAdAdapterBannerAdMob.m */; };
+		8AE2D7F019CC891B00001B70 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7EA19CC891B00001B70 /* ANAdAdapterBannerDFP.m */; };
+		8AE2D7F119CC891B00001B70 /* ANAdAdapterInterstitialAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7EC19CC891B00001B70 /* ANAdAdapterInterstitialAdMob.m */; };
+		8AE2D7F219CC891B00001B70 /* ANAdAdapterInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D7EE19CC891B00001B70 /* ANAdAdapterInterstitialDFP.m */; };
+		8AE2D7F319CC892200001B70 /* ANAdAdapterBannerAdMob.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7E719CC891B00001B70 /* ANAdAdapterBannerAdMob.h */; };
+		8AE2D7F419CC892200001B70 /* ANAdAdapterBannerDFP.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7E919CC891B00001B70 /* ANAdAdapterBannerDFP.h */; };
+		8AE2D7F519CC892200001B70 /* ANAdAdapterInterstitialAdMob.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7EB19CC891B00001B70 /* ANAdAdapterInterstitialAdMob.h */; };
+		8AE2D7F619CC892200001B70 /* ANAdAdapterInterstitialDFP.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7ED19CC891B00001B70 /* ANAdAdapterInterstitialDFP.h */; };
+		8AE2D86619CC9B3A00001B70 /* ANGADCustomBannerAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D86319CC9B3A00001B70 /* ANGADCustomBannerAd.m */; };
+		8AE2D86719CC9B3A00001B70 /* ANGADCustomInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D86519CC9B3A00001B70 /* ANGADCustomInterstitialAd.m */; };
+		8AE2D86F19CC9B7300001B70 /* ANMoPubMediationBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D86C19CC9B7300001B70 /* ANMoPubMediationBanner.m */; };
+		8AE2D87019CC9B7300001B70 /* ANMoPubMediationInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D86E19CC9B7300001B70 /* ANMoPubMediationInterstitial.m */; };
 		EC481796184504AD0066BBFE /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		ECE4EADA194B768A0069D934 /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */; };
 		ECE4EADB194B768A0069D934 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA99194B768A0069D934 /* NSTimer+ANCategory.m */; };
@@ -64,6 +96,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8AE2D7F719CC897000001B70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
+		8AE2D7F919CC897300001B70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
+		8AE2D7FB19CC897800001B70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
+		8AE2D7FD19CC897B00001B70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
+		8AE2D7FF19CC898000001B70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
+		8AE2D84719CC9A6F00001B70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
+		8AE2D85719CC9B0F00001B70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
 		EC4817941845049D0066BBFE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
@@ -74,6 +155,90 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8AE2D6C319CC874B00001B70 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				8AE2D7F319CC892200001B70 /* ANAdAdapterBannerAdMob.h in Copy Files */,
+				8AE2D7F419CC892200001B70 /* ANAdAdapterBannerDFP.h in Copy Files */,
+				8AE2D7F519CC892200001B70 /* ANAdAdapterInterstitialAdMob.h in Copy Files */,
+				8AE2D7F619CC892200001B70 /* ANAdAdapterInterstitialDFP.h in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D6F419CC878300001B70 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				8AE2D7E419CC88F500001B70 /* ANAdAdapterBanneriAd.h in Copy Files */,
+				8AE2D7E519CC88F500001B70 /* ANAdAdapterInterstitialiAd.h in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D72519CC879900001B70 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				8AE2D7DA19CC88B000001B70 /* ANAdAdapterBannerMillennialMedia.h in Copy Files */,
+				8AE2D7DB19CC88B000001B70 /* ANAdAdapterInterstitialMillennialMedia.h in Copy Files */,
+				8AE2D7DC19CC88B000001B70 /* ANAdAdapterMillennialMediaBase.h in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D75619CC87B200001B70 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				8AE2D7CA19CC887C00001B70 /* ANAdAdapterBannerMoPub.h in Copy Files */,
+				8AE2D7CB19CC887C00001B70 /* ANAdAdapterInterstitialMoPub.h in Copy Files */,
+				8AE2D7CC19CC887C00001B70 /* ANAdAdapterMoPubBase.h in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D78719CC87CC00001B70 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				8AE2D79E19CC882200001B70 /* ANAdAdapterBannerFacebook.h in Copy Files */,
+				8AE2D79F19CC882200001B70 /* ANAdAdapterInterstitialFacebook.h in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D84C19CC9A6F00001B70 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D85A19CC9B0F00001B70 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EC3E5CDA1843C6D50070315E /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -146,6 +311,49 @@
 		8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
 		8AD618C91981C11F00AC0780 /* ANWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
 		8AD618CA1981C11F00AC0780 /* ANWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
+		8AE2D6D119CC874B00001B70 /* libANSDKGoogleAdMobAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKGoogleAdMobAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE2D70219CC878300001B70 /* libANSDKiAdAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKiAdAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE2D73319CC879900001B70 /* libANSDKMillennialMediaAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKMillennialMediaAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE2D76419CC87B200001B70 /* libANSDKMoPubAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKMoPubAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE2D79519CC87CC00001B70 /* libANSDKFacebookAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKFacebookAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE2D79619CC880D00001B70 /* ANAdAdapterBannerFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerFacebook.h; path = ../mediation/mediatedviews/Facebook/ANAdAdapterBannerFacebook.h; sourceTree = "<group>"; };
+		8AE2D79719CC880D00001B70 /* ANAdAdapterBannerFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerFacebook.m; path = ../mediation/mediatedviews/Facebook/ANAdAdapterBannerFacebook.m; sourceTree = "<group>"; };
+		8AE2D79819CC880D00001B70 /* ANAdAdapterInterstitialFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterInterstitialFacebook.h; path = ../mediation/mediatedviews/Facebook/ANAdAdapterInterstitialFacebook.h; sourceTree = "<group>"; };
+		8AE2D79919CC880D00001B70 /* ANAdAdapterInterstitialFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialFacebook.m; path = ../mediation/mediatedviews/Facebook/ANAdAdapterInterstitialFacebook.m; sourceTree = "<group>"; };
+		8AE2D7A119CC885600001B70 /* ANAdAdapterBannerMoPub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMoPub.h; sourceTree = "<group>"; };
+		8AE2D7A219CC885600001B70 /* ANAdAdapterBannerMoPub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMoPub.m; sourceTree = "<group>"; };
+		8AE2D7A319CC885600001B70 /* ANAdAdapterInterstitialMoPub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialMoPub.h; sourceTree = "<group>"; };
+		8AE2D7A419CC885600001B70 /* ANAdAdapterInterstitialMoPub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialMoPub.m; sourceTree = "<group>"; };
+		8AE2D7A519CC885600001B70 /* ANAdAdapterMoPubBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterMoPubBase.h; sourceTree = "<group>"; };
+		8AE2D7A619CC885600001B70 /* ANAdAdapterMoPubBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterMoPubBase.m; sourceTree = "<group>"; };
+		8AE2D7CE19CC88A000001B70 /* ANAdAdapterBannerMillennialMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerMillennialMedia.h; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterBannerMillennialMedia.h; sourceTree = "<group>"; };
+		8AE2D7CF19CC88A000001B70 /* ANAdAdapterBannerMillennialMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerMillennialMedia.m; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterBannerMillennialMedia.m; sourceTree = "<group>"; };
+		8AE2D7D019CC88A000001B70 /* ANAdAdapterInterstitialMillennialMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterInterstitialMillennialMedia.h; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterInterstitialMillennialMedia.h; sourceTree = "<group>"; };
+		8AE2D7D119CC88A000001B70 /* ANAdAdapterInterstitialMillennialMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialMillennialMedia.m; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterInterstitialMillennialMedia.m; sourceTree = "<group>"; };
+		8AE2D7D219CC88A000001B70 /* ANAdAdapterMillennialMediaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterMillennialMediaBase.h; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterMillennialMediaBase.h; sourceTree = "<group>"; };
+		8AE2D7D319CC88A000001B70 /* ANAdAdapterMillennialMediaBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterMillennialMediaBase.m; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterMillennialMediaBase.m; sourceTree = "<group>"; };
+		8AE2D7DE19CC88EF00001B70 /* ANAdAdapterBanneriAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBanneriAd.h; path = ../mediation/mediatedviews/iAd/ANAdAdapterBanneriAd.h; sourceTree = "<group>"; };
+		8AE2D7DF19CC88EF00001B70 /* ANAdAdapterBanneriAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBanneriAd.m; path = ../mediation/mediatedviews/iAd/ANAdAdapterBanneriAd.m; sourceTree = "<group>"; };
+		8AE2D7E019CC88EF00001B70 /* ANAdAdapterInterstitialiAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterInterstitialiAd.h; path = ../mediation/mediatedviews/iAd/ANAdAdapterInterstitialiAd.h; sourceTree = "<group>"; };
+		8AE2D7E119CC88EF00001B70 /* ANAdAdapterInterstitialiAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialiAd.m; path = ../mediation/mediatedviews/iAd/ANAdAdapterInterstitialiAd.m; sourceTree = "<group>"; };
+		8AE2D7E719CC891B00001B70 /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerAdMob.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
+		8AE2D7E819CC891B00001B70 /* ANAdAdapterBannerAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerAdMob.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBannerAdMob.m; sourceTree = "<group>"; };
+		8AE2D7E919CC891B00001B70 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerDFP.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
+		8AE2D7EA19CC891B00001B70 /* ANAdAdapterBannerDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerDFP.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBannerDFP.m; sourceTree = "<group>"; };
+		8AE2D7EB19CC891B00001B70 /* ANAdAdapterInterstitialAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterInterstitialAdMob.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterInterstitialAdMob.h; sourceTree = "<group>"; };
+		8AE2D7EC19CC891B00001B70 /* ANAdAdapterInterstitialAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialAdMob.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterInterstitialAdMob.m; sourceTree = "<group>"; };
+		8AE2D7ED19CC891B00001B70 /* ANAdAdapterInterstitialDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterInterstitialDFP.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterInterstitialDFP.h; sourceTree = "<group>"; };
+		8AE2D7EE19CC891B00001B70 /* ANAdAdapterInterstitialDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialDFP.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterInterstitialDFP.m; sourceTree = "<group>"; };
+		8AE2D85319CC9A6F00001B70 /* libANAdapterForGoogleAdMobSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANAdapterForGoogleAdMobSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE2D86119CC9B0F00001B70 /* libANAdapterForMoPubSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANAdapterForMoPubSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AE2D86219CC9B3A00001B70 /* ANGADCustomBannerAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANGADCustomBannerAd.h; path = ../mediation/mediating/GoogleAdMob/ANGADCustomBannerAd.h; sourceTree = "<group>"; };
+		8AE2D86319CC9B3A00001B70 /* ANGADCustomBannerAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANGADCustomBannerAd.m; path = ../mediation/mediating/GoogleAdMob/ANGADCustomBannerAd.m; sourceTree = "<group>"; };
+		8AE2D86419CC9B3A00001B70 /* ANGADCustomInterstitialAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANGADCustomInterstitialAd.h; path = ../mediation/mediating/GoogleAdMob/ANGADCustomInterstitialAd.h; sourceTree = "<group>"; };
+		8AE2D86519CC9B3A00001B70 /* ANGADCustomInterstitialAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANGADCustomInterstitialAd.m; path = ../mediation/mediating/GoogleAdMob/ANGADCustomInterstitialAd.m; sourceTree = "<group>"; };
+		8AE2D86B19CC9B7300001B70 /* ANMoPubMediationBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANMoPubMediationBanner.h; path = ../mediation/mediating/MoPub/ANMoPubMediationBanner.h; sourceTree = "<group>"; };
+		8AE2D86C19CC9B7300001B70 /* ANMoPubMediationBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANMoPubMediationBanner.m; path = ../mediation/mediating/MoPub/ANMoPubMediationBanner.m; sourceTree = "<group>"; };
+		8AE2D86D19CC9B7300001B70 /* ANMoPubMediationInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANMoPubMediationInterstitial.h; path = ../mediation/mediating/MoPub/ANMoPubMediationInterstitial.h; sourceTree = "<group>"; };
+		8AE2D86E19CC9B7300001B70 /* ANMoPubMediationInterstitial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANMoPubMediationInterstitial.m; path = ../mediation/mediating/MoPub/ANMoPubMediationInterstitial.m; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
@@ -180,6 +388,55 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8AE2D6C219CC874B00001B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D6F319CC878300001B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D72419CC879900001B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D75519CC87B200001B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D78619CC87CC00001B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D84B19CC9A6F00001B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D85919CC9B0F00001B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EC3E5CD91843C6D50070315E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -249,10 +506,119 @@
 			path = internal;
 			sourceTree = "<group>";
 		};
+		8AE2D6A019CC871800001B70 /* Facebook Audience Network */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D79619CC880D00001B70 /* ANAdAdapterBannerFacebook.h */,
+				8AE2D79719CC880D00001B70 /* ANAdAdapterBannerFacebook.m */,
+				8AE2D79819CC880D00001B70 /* ANAdAdapterInterstitialFacebook.h */,
+				8AE2D79919CC880D00001B70 /* ANAdAdapterInterstitialFacebook.m */,
+			);
+			name = "Facebook Audience Network";
+			sourceTree = "<group>";
+		};
+		8AE2D7A019CC885600001B70 /* MoPub */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D7A119CC885600001B70 /* ANAdAdapterBannerMoPub.h */,
+				8AE2D7A219CC885600001B70 /* ANAdAdapterBannerMoPub.m */,
+				8AE2D7A319CC885600001B70 /* ANAdAdapterInterstitialMoPub.h */,
+				8AE2D7A419CC885600001B70 /* ANAdAdapterInterstitialMoPub.m */,
+				8AE2D7A519CC885600001B70 /* ANAdAdapterMoPubBase.h */,
+				8AE2D7A619CC885600001B70 /* ANAdAdapterMoPubBase.m */,
+			);
+			name = MoPub;
+			path = ../mediation/mediatedviews/MoPub;
+			sourceTree = "<group>";
+		};
+		8AE2D7CD19CC889000001B70 /* Millennial Media */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D7CE19CC88A000001B70 /* ANAdAdapterBannerMillennialMedia.h */,
+				8AE2D7CF19CC88A000001B70 /* ANAdAdapterBannerMillennialMedia.m */,
+				8AE2D7D019CC88A000001B70 /* ANAdAdapterInterstitialMillennialMedia.h */,
+				8AE2D7D119CC88A000001B70 /* ANAdAdapterInterstitialMillennialMedia.m */,
+				8AE2D7D219CC88A000001B70 /* ANAdAdapterMillennialMediaBase.h */,
+				8AE2D7D319CC88A000001B70 /* ANAdAdapterMillennialMediaBase.m */,
+			);
+			name = "Millennial Media";
+			sourceTree = "<group>";
+		};
+		8AE2D7DD19CC88C900001B70 /* iAd */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D7DE19CC88EF00001B70 /* ANAdAdapterBanneriAd.h */,
+				8AE2D7DF19CC88EF00001B70 /* ANAdAdapterBanneriAd.m */,
+				8AE2D7E019CC88EF00001B70 /* ANAdAdapterInterstitialiAd.h */,
+				8AE2D7E119CC88EF00001B70 /* ANAdAdapterInterstitialiAd.m */,
+			);
+			name = iAd;
+			sourceTree = "<group>";
+		};
+		8AE2D7E619CC88FB00001B70 /* Google AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D7E719CC891B00001B70 /* ANAdAdapterBannerAdMob.h */,
+				8AE2D7E819CC891B00001B70 /* ANAdAdapterBannerAdMob.m */,
+				8AE2D7E919CC891B00001B70 /* ANAdAdapterBannerDFP.h */,
+				8AE2D7EA19CC891B00001B70 /* ANAdAdapterBannerDFP.m */,
+				8AE2D7EB19CC891B00001B70 /* ANAdAdapterInterstitialAdMob.h */,
+				8AE2D7EC19CC891B00001B70 /* ANAdAdapterInterstitialAdMob.m */,
+				8AE2D7ED19CC891B00001B70 /* ANAdAdapterInterstitialDFP.h */,
+				8AE2D7EE19CC891B00001B70 /* ANAdAdapterInterstitialDFP.m */,
+			);
+			name = "Google AdMob";
+			sourceTree = "<group>";
+		};
+		8AE2D85419CC9AED00001B70 /* Google AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D86219CC9B3A00001B70 /* ANGADCustomBannerAd.h */,
+				8AE2D86319CC9B3A00001B70 /* ANGADCustomBannerAd.m */,
+				8AE2D86419CC9B3A00001B70 /* ANGADCustomInterstitialAd.h */,
+				8AE2D86519CC9B3A00001B70 /* ANGADCustomInterstitialAd.m */,
+			);
+			name = "Google AdMob";
+			sourceTree = "<group>";
+		};
+		8AE2D86A19CC9B5F00001B70 /* MoPub */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D86B19CC9B7300001B70 /* ANMoPubMediationBanner.h */,
+				8AE2D86C19CC9B7300001B70 /* ANMoPubMediationBanner.m */,
+				8AE2D86D19CC9B7300001B70 /* ANMoPubMediationInterstitial.h */,
+				8AE2D86E19CC9B7300001B70 /* ANMoPubMediationInterstitial.m */,
+			);
+			name = MoPub;
+			sourceTree = "<group>";
+		};
+		8AE2D87319CC9D7400001B70 /* Mediating AppNexus */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D85419CC9AED00001B70 /* Google AdMob */,
+				8AE2D86A19CC9B5F00001B70 /* MoPub */,
+			);
+			name = "Mediating AppNexus";
+			sourceTree = "<group>";
+		};
+		8AE2D87419CC9D9B00001B70 /* Mediated By AppNexus */ = {
+			isa = PBXGroup;
+			children = (
+				8AE2D6A019CC871800001B70 /* Facebook Audience Network */,
+				8AE2D7E619CC88FB00001B70 /* Google AdMob */,
+				8AE2D7DD19CC88C900001B70 /* iAd */,
+				8AE2D7CD19CC889000001B70 /* Millennial Media */,
+				8AE2D7A019CC885600001B70 /* MoPub */,
+			);
+			name = "Mediated By AppNexus";
+			sourceTree = "<group>";
+		};
 		EC3E5CD31843C6D50070315E = {
 			isa = PBXGroup;
 			children = (
-				ECE4EA8C194B768A0069D934 /* sdk */,
+				8AE2D87319CC9D7400001B70 /* Mediating AppNexus */,
+				ECE4EA8C194B768A0069D934 /* ANSDK */,
+				8AE2D87419CC9D9B00001B70 /* Mediated By AppNexus */,
 				EC3E5CDD1843C6D50070315E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -262,11 +628,18 @@
 			children = (
 				EC3E5CDC1843C6D50070315E /* libANSDK.a */,
 				EC48177B1845046A0066BBFE /* ANSDKResources.bundle */,
+				8AE2D6D119CC874B00001B70 /* libANSDKGoogleAdMobAdapter.a */,
+				8AE2D70219CC878300001B70 /* libANSDKiAdAdapter.a */,
+				8AE2D73319CC879900001B70 /* libANSDKMillennialMediaAdapter.a */,
+				8AE2D76419CC87B200001B70 /* libANSDKMoPubAdapter.a */,
+				8AE2D79519CC87CC00001B70 /* libANSDKFacebookAdapter.a */,
+				8AE2D85319CC9A6F00001B70 /* libANAdapterForGoogleAdMobSDK.a */,
+				8AE2D86119CC9B0F00001B70 /* libANAdapterForMoPubSDK.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ECE4EA8C194B768A0069D934 /* sdk */ = {
+		ECE4EA8C194B768A0069D934 /* ANSDK */ = {
 			isa = PBXGroup;
 			children = (
 				ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */,
@@ -281,7 +654,7 @@
 				8AD6189D1981C11F00AC0780 /* internal */,
 				ECE4EACA194B768A0069D934 /* Resources */,
 			);
-			name = sdk;
+			name = ANSDK;
 			path = ../sdk;
 			sourceTree = "<group>";
 		};
@@ -336,6 +709,139 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8AE2D6A119CC874B00001B70 /* ANSDKGoogleAdMobAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AE2D6CE19CC874B00001B70 /* Build configuration list for PBXNativeTarget "ANSDKGoogleAdMobAdapter" */;
+			buildPhases = (
+				8AE2D6A419CC874B00001B70 /* Sources */,
+				8AE2D6C219CC874B00001B70 /* Frameworks */,
+				8AE2D6C319CC874B00001B70 /* Copy Files */,
+				8AE2D6CD19CC874B00001B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AE2D7F819CC897000001B70 /* PBXTargetDependency */,
+			);
+			name = ANSDKGoogleAdMobAdapter;
+			productName = AppNexusSDK;
+			productReference = 8AE2D6D119CC874B00001B70 /* libANSDKGoogleAdMobAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8AE2D6D219CC878300001B70 /* ANSDKiAdAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AE2D6FF19CC878300001B70 /* Build configuration list for PBXNativeTarget "ANSDKiAdAdapter" */;
+			buildPhases = (
+				8AE2D6D519CC878300001B70 /* Sources */,
+				8AE2D6F319CC878300001B70 /* Frameworks */,
+				8AE2D6F419CC878300001B70 /* Copy Files */,
+				8AE2D6FE19CC878300001B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AE2D7FA19CC897300001B70 /* PBXTargetDependency */,
+			);
+			name = ANSDKiAdAdapter;
+			productName = AppNexusSDK;
+			productReference = 8AE2D70219CC878300001B70 /* libANSDKiAdAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8AE2D70319CC879900001B70 /* ANSDKMillennialMediaAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AE2D73019CC879900001B70 /* Build configuration list for PBXNativeTarget "ANSDKMillennialMediaAdapter" */;
+			buildPhases = (
+				8AE2D70619CC879900001B70 /* Sources */,
+				8AE2D72419CC879900001B70 /* Frameworks */,
+				8AE2D72519CC879900001B70 /* Copy Files */,
+				8AE2D72F19CC879900001B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AE2D7FC19CC897800001B70 /* PBXTargetDependency */,
+			);
+			name = ANSDKMillennialMediaAdapter;
+			productName = AppNexusSDK;
+			productReference = 8AE2D73319CC879900001B70 /* libANSDKMillennialMediaAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8AE2D73419CC87B200001B70 /* ANSDKMoPubAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AE2D76119CC87B200001B70 /* Build configuration list for PBXNativeTarget "ANSDKMoPubAdapter" */;
+			buildPhases = (
+				8AE2D73719CC87B200001B70 /* Sources */,
+				8AE2D75519CC87B200001B70 /* Frameworks */,
+				8AE2D75619CC87B200001B70 /* Copy Files */,
+				8AE2D76019CC87B200001B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AE2D7FE19CC897B00001B70 /* PBXTargetDependency */,
+			);
+			name = ANSDKMoPubAdapter;
+			productName = AppNexusSDK;
+			productReference = 8AE2D76419CC87B200001B70 /* libANSDKMoPubAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8AE2D76519CC87CC00001B70 /* ANSDKFacebookAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AE2D79219CC87CC00001B70 /* Build configuration list for PBXNativeTarget "ANSDKFacebookAdapter" */;
+			buildPhases = (
+				8AE2D76819CC87CC00001B70 /* Sources */,
+				8AE2D78619CC87CC00001B70 /* Frameworks */,
+				8AE2D78719CC87CC00001B70 /* Copy Files */,
+				8AE2D79119CC87CC00001B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AE2D80019CC898000001B70 /* PBXTargetDependency */,
+			);
+			name = ANSDKFacebookAdapter;
+			productName = AppNexusSDK;
+			productReference = 8AE2D79519CC87CC00001B70 /* libANSDKFacebookAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8AE2D84519CC9A6F00001B70 /* ANAdapterForGoogleAdMobSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AE2D85019CC9A6F00001B70 /* Build configuration list for PBXNativeTarget "ANAdapterForGoogleAdMobSDK" */;
+			buildPhases = (
+				8AE2D84819CC9A6F00001B70 /* Sources */,
+				8AE2D84B19CC9A6F00001B70 /* Frameworks */,
+				8AE2D84C19CC9A6F00001B70 /* Copy Files */,
+				8AE2D84F19CC9A6F00001B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AE2D84619CC9A6F00001B70 /* PBXTargetDependency */,
+			);
+			name = ANAdapterForGoogleAdMobSDK;
+			productName = AppNexusSDK;
+			productReference = 8AE2D85319CC9A6F00001B70 /* libANAdapterForGoogleAdMobSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8AE2D85519CC9B0F00001B70 /* ANAdapterForMoPubSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AE2D85E19CC9B0F00001B70 /* Build configuration list for PBXNativeTarget "ANAdapterForMoPubSDK" */;
+			buildPhases = (
+				8AE2D85819CC9B0F00001B70 /* Sources */,
+				8AE2D85919CC9B0F00001B70 /* Frameworks */,
+				8AE2D85A19CC9B0F00001B70 /* Copy Files */,
+				8AE2D85D19CC9B0F00001B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AE2D85619CC9B0F00001B70 /* PBXTargetDependency */,
+			);
+			name = ANAdapterForMoPubSDK;
+			productName = AppNexusSDK;
+			productReference = 8AE2D86119CC9B0F00001B70 /* libANAdapterForMoPubSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		EC3E5CDB1843C6D50070315E /* ANSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC3E5CFF1843C6D60070315E /* Build configuration list for PBXNativeTarget "ANSDK" */;
@@ -395,11 +901,67 @@
 			targets = (
 				EC3E5CDB1843C6D50070315E /* ANSDK */,
 				EC48177A1845046A0066BBFE /* ANSDKResources */,
+				8AE2D6A119CC874B00001B70 /* ANSDKGoogleAdMobAdapter */,
+				8AE2D6D219CC878300001B70 /* ANSDKiAdAdapter */,
+				8AE2D70319CC879900001B70 /* ANSDKMillennialMediaAdapter */,
+				8AE2D73419CC87B200001B70 /* ANSDKMoPubAdapter */,
+				8AE2D76519CC87CC00001B70 /* ANSDKFacebookAdapter */,
+				8AE2D84519CC9A6F00001B70 /* ANAdapterForGoogleAdMobSDK */,
+				8AE2D85519CC9B0F00001B70 /* ANAdapterForMoPubSDK */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8AE2D6CD19CC874B00001B70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D6FE19CC878300001B70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D72F19CC879900001B70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D76019CC87B200001B70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D79119CC87CC00001B70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D84F19CC9A6F00001B70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D85D19CC9B0F00001B70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EC4817791845046A0066BBFE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -433,6 +995,73 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8AE2D6A419CC874B00001B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE2D7F019CC891B00001B70 /* ANAdAdapterBannerDFP.m in Sources */,
+				8AE2D7EF19CC891B00001B70 /* ANAdAdapterBannerAdMob.m in Sources */,
+				8AE2D7F219CC891B00001B70 /* ANAdAdapterInterstitialDFP.m in Sources */,
+				8AE2D7F119CC891B00001B70 /* ANAdAdapterInterstitialAdMob.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D6D519CC878300001B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE2D7E319CC88EF00001B70 /* ANAdAdapterInterstitialiAd.m in Sources */,
+				8AE2D7E219CC88EF00001B70 /* ANAdAdapterBanneriAd.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D70619CC879900001B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE2D7D719CC88AA00001B70 /* ANAdAdapterBannerMillennialMedia.m in Sources */,
+				8AE2D7D819CC88AA00001B70 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
+				8AE2D7D919CC88AA00001B70 /* ANAdAdapterMillennialMediaBase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D73719CC87B200001B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE2D7C519CC885600001B70 /* ANAdAdapterBannerMoPub.m in Sources */,
+				8AE2D7C719CC885600001B70 /* ANAdAdapterMoPubBase.m in Sources */,
+				8AE2D7C619CC885600001B70 /* ANAdAdapterInterstitialMoPub.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D76819CC87CC00001B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE2D79C19CC881D00001B70 /* ANAdAdapterBannerFacebook.m in Sources */,
+				8AE2D79D19CC881D00001B70 /* ANAdAdapterInterstitialFacebook.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D84819CC9A6F00001B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE2D86619CC9B3A00001B70 /* ANGADCustomBannerAd.m in Sources */,
+				8AE2D86719CC9B3A00001B70 /* ANGADCustomInterstitialAd.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AE2D85819CC9B0F00001B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE2D86F19CC9B7300001B70 /* ANMoPubMediationBanner.m in Sources */,
+				8AE2D87019CC9B7300001B70 /* ANMoPubMediationInterstitial.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EC3E5CD81843C6D50070315E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -479,6 +1108,41 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8AE2D7F819CC897000001B70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8AE2D7F719CC897000001B70 /* PBXContainerItemProxy */;
+		};
+		8AE2D7FA19CC897300001B70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8AE2D7F919CC897300001B70 /* PBXContainerItemProxy */;
+		};
+		8AE2D7FC19CC897800001B70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8AE2D7FB19CC897800001B70 /* PBXContainerItemProxy */;
+		};
+		8AE2D7FE19CC897B00001B70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8AE2D7FD19CC897B00001B70 /* PBXContainerItemProxy */;
+		};
+		8AE2D80019CC898000001B70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8AE2D7FF19CC898000001B70 /* PBXContainerItemProxy */;
+		};
+		8AE2D84619CC9A6F00001B70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8AE2D84719CC9A6F00001B70 /* PBXContainerItemProxy */;
+		};
+		8AE2D85619CC9B0F00001B70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8AE2D85719CC9B0F00001B70 /* PBXContainerItemProxy */;
+		};
 		EC4817951845049D0066BBFE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC48177A1845046A0066BBFE /* ANSDKResources */;
@@ -487,6 +1151,220 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8AE2D6CF19CC874B00001B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"/**",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKGoogleAdMobAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8AE2D6D019CC874B00001B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"/**",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKGoogleAdMobAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		8AE2D70019CC878300001B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKiAdAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8AE2D70119CC878300001B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKiAdAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		8AE2D73119CC879900001B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/MillennialMedia\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKMillennialMediaAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8AE2D73219CC879900001B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/MillennialMedia\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKMillennialMediaAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		8AE2D76219CC87B200001B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKMoPubAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8AE2D76319CC87B200001B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKMoPubAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		8AE2D79319CC87CC00001B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/Facebook\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKFacebookAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8AE2D79419CC87CC00001B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/Facebook\"";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKFacebookAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		8AE2D85119CC9A6F00001B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"/**",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANAdapterForGoogleAdMobSDK;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8AE2D85219CC9A6F00001B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"/**",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANAdapterForGoogleAdMobSDK;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		8AE2D85F19CC9B0F00001B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANAdapterForMoPubSDK;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8AE2D86019CC9B0F00001B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANAdapterForMoPubSDK;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		EC3E5CFD1843C6D60070315E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -628,6 +1506,69 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8AE2D6CE19CC874B00001B70 /* Build configuration list for PBXNativeTarget "ANSDKGoogleAdMobAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AE2D6CF19CC874B00001B70 /* Debug */,
+				8AE2D6D019CC874B00001B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AE2D6FF19CC878300001B70 /* Build configuration list for PBXNativeTarget "ANSDKiAdAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AE2D70019CC878300001B70 /* Debug */,
+				8AE2D70119CC878300001B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AE2D73019CC879900001B70 /* Build configuration list for PBXNativeTarget "ANSDKMillennialMediaAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AE2D73119CC879900001B70 /* Debug */,
+				8AE2D73219CC879900001B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AE2D76119CC87B200001B70 /* Build configuration list for PBXNativeTarget "ANSDKMoPubAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AE2D76219CC87B200001B70 /* Debug */,
+				8AE2D76319CC87B200001B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AE2D79219CC87CC00001B70 /* Build configuration list for PBXNativeTarget "ANSDKFacebookAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AE2D79319CC87CC00001B70 /* Debug */,
+				8AE2D79419CC87CC00001B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AE2D85019CC9A6F00001B70 /* Build configuration list for PBXNativeTarget "ANAdapterForGoogleAdMobSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AE2D85119CC9A6F00001B70 /* Debug */,
+				8AE2D85219CC9A6F00001B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AE2D85E19CC9B0F00001B70 /* Build configuration list for PBXNativeTarget "ANAdapterForMoPubSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AE2D85F19CC9B0F00001B70 /* Debug */,
+				8AE2D86019CC9B0F00001B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EC3E5CD71843C6D50070315E /* Build configuration list for PBXProject "ANSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
