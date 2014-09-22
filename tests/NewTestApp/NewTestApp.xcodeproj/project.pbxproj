@@ -71,7 +71,6 @@
 		8AD018F319996CB9007874BA /* GreyWhiteCat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AD018F119996CB9007874BA /* GreyWhiteCat.jpg */; };
 		8AD018F619997F53007874BA /* XCTestCase+ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD018F519997F53007874BA /* XCTestCase+ANBannerAdView.m */; };
 		8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */; };
-		8AD0DBFF19CA48D200170BCB /* ANSDKFacebookAdapterTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0DBFE19CA48D200170BCB /* ANSDKFacebookAdapterTestCase.m */; };
 		8AE93C7319C73E7300F9E74E /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93C2A19C73E7300F9E74E /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8AE93C7419C73E7300F9E74E /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93C2C19C73E7300F9E74E /* NSString+ANCategory.m */; };
 		8AE93C7519C73E7300F9E74E /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93C2E19C73E7300F9E74E /* NSTimer+ANCategory.m */; };
@@ -102,8 +101,6 @@
 		8AE93C8E19C73E7300F9E74E /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93C5E19C73E7300F9E74E /* ANTargetingParameters.m */; };
 		8AE93C8F19C73E7300F9E74E /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93C6019C73E7300F9E74E /* ANWebView.m */; };
 		8AE93CA419C73FFD00F9E74E /* ANLocationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93CA319C73FFD00F9E74E /* ANLocationTestCase.m */; };
-		8AEAF03619D0BF3B002767E3 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AEAEFC219D0BF3B002767E3 /* ANAdAdapterBannerFacebook.m */; };
-		8AEAF03719D0BF3B002767E3 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AEAEFC419D0BF3B002767E3 /* ANAdAdapterInterstitialFacebook.m */; };
 		8AEAF03819D0BF3B002767E3 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEAEFC619D0BF3B002767E3 /* FBAudienceNetwork.framework */; };
 		8AEAF03919D0BF3B002767E3 /* ANAdAdapterBannerAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AEAEFC919D0BF3B002767E3 /* ANAdAdapterBannerAdMob.m */; };
 		8AEAF03A19D0BF3B002767E3 /* ANAdAdapterBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AEAEFCB19D0BF3B002767E3 /* ANAdAdapterBannerDFP.m */; };
@@ -125,6 +122,10 @@
 		8AEAF04B19D0BF3B002767E3 /* LICENSE-MOPUB in Resources */ = {isa = PBXBuildFile; fileRef = 8AEAF01819D0BF3B002767E3 /* LICENSE-MOPUB */; };
 		8AEAF04C19D0BF3B002767E3 /* MoPubSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AEAF01919D0BF3B002767E3 /* MoPubSDKResources.bundle */; };
 		8AEAF04D19D0BF3B002767E3 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8AEAF03519D0BF3B002767E3 /* README.txt */; };
+		8AEAF04E19D0C378002767E3 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AEAEFC219D0BF3B002767E3 /* ANAdAdapterBannerFacebook.m */; };
+		8AEAF04F19D0C37A002767E3 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AEAEFC419D0BF3B002767E3 /* ANAdAdapterInterstitialFacebook.m */; };
+		8AEAF05019D0C3F3002767E3 /* ANSDKFacebookAdapterTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD0DBFE19CA48D200170BCB /* ANSDKFacebookAdapterTestCase.m */; };
+		8AEAF05119D0C46C002767E3 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEAEFC619D0BF3B002767E3 /* FBAudienceNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -411,6 +412,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AEAF05119D0C46C002767E3 /* FBAudienceNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1089,6 +1091,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AEAF04F19D0C37A002767E3 /* ANAdAdapterInterstitialFacebook.m in Sources */,
+				8AEAF04E19D0C378002767E3 /* ANAdAdapterBannerFacebook.m in Sources */,
 				8AE93C7419C73E7300F9E74E /* NSString+ANCategory.m in Sources */,
 				8AEAF03F19D0BF3B002767E3 /* ANAdAdapterBanneriAd.m in Sources */,
 				8AE93C8019C73E7300F9E74E /* ANClickOverlayView.m in Sources */,
@@ -1115,8 +1119,6 @@
 				8AEAF04319D0BF3B002767E3 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
 				8AE93C8D19C73E7300F9E74E /* ANReachability.m in Sources */,
 				8AE93C8219C73E7300F9E74E /* ANInterstitialAd.m in Sources */,
-				8AEAF03619D0BF3B002767E3 /* ANAdAdapterBannerFacebook.m in Sources */,
-				8AEAF03719D0BF3B002767E3 /* ANAdAdapterInterstitialFacebook.m in Sources */,
 				8AEAF03C19D0BF3B002767E3 /* ANAdAdapterInterstitialDFP.m in Sources */,
 				8AE93C7A19C73E7300F9E74E /* ANAdResponse.m in Sources */,
 				8AEAF04419D0BF3B002767E3 /* ANAdAdapterMillennialMediaBase.m in Sources */,
@@ -1142,8 +1144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AEAF05019D0C3F3002767E3 /* ANSDKFacebookAdapterTestCase.m in Sources */,
 				8A3D2E5B199BD12100B82C36 /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
-				8AD0DBFF19CA48D200170BCB /* ANSDKFacebookAdapterTestCase.m in Sources */,
 				8AA80F9A19CA3C7A000007FC /* ANURLConnectionStub.m in Sources */,
 				8A5D2710199A750300F2A516 /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
 				8A3D2E70199BDE1600B82C36 /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
@@ -1296,9 +1298,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/Facebook",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/Facebook/FacebookSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Facebook/FacebookSDK",
 				);
 				GCC_WARN_UNDECLARED_SELECTOR = NO;
 				HEADER_SEARCH_PATHS = (
@@ -1311,9 +1311,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/InMobi/InMobiSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/MoPub/MoPubSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1329,9 +1327,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/Facebook",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/Facebook/FacebookSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Facebook/FacebookSDK",
 				);
 				GCC_WARN_UNDECLARED_SELECTOR = NO;
 				HEADER_SEARCH_PATHS = (
@@ -1344,9 +1340,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/InMobi/InMobiSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/MoPub/MoPubSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
