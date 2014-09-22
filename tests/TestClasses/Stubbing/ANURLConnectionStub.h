@@ -32,6 +32,10 @@
 + (ANURLConnectionStub *)stubForResource:(NSString *)resource
                                   ofType:(NSString *)type
         withRequestURLRegexPatternString:(NSString *)pattern;
++ (ANURLConnectionStub *)stubForResource:(NSString *)resource
+                                  ofType:(NSString *)type
+        withRequestURLRegexPatternString:(NSString *)pattern
+                                inBundle:(NSBundle *)bundle;
 
 + (ANURLConnectionStub *)stubForMraidFile;
 

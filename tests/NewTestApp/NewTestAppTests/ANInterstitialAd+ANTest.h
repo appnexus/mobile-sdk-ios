@@ -13,14 +13,10 @@
  limitations under the License.
  */
 
-#import "ANBannerAdView.h"
-#import "ANAdFetcher.h"
+#import "ANInterstitialAd.h"
 
-@interface ANBannerAdView (ANTest) <ANAdFetcherDelegate>
+@interface ANInterstitialAd (ANTest)
 
-@property (nonatomic) UIView *contentView;
-@property (nonatomic) NSNumber *transitionInProgress;
-
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
+@property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
 
 @end

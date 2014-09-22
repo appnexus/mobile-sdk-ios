@@ -13,14 +13,10 @@
  limitations under the License.
  */
 
-#import "ANBannerAdView.h"
-#import "ANAdFetcher.h"
+#import "ANMediationAdViewController.h"
 
-@interface ANBannerAdView (ANTest) <ANAdFetcherDelegate>
+@interface ANMediationAdViewController (ANTest)
 
-@property (nonatomic) UIView *contentView;
-@property (nonatomic) NSNumber *transitionInProgress;
-
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
+@property (nonatomic) id currentAdapter;
 
 @end

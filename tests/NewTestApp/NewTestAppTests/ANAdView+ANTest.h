@@ -16,10 +16,6 @@
 #import "ANAdView.h"
 #import "ANAdViewDelegate.h"
 
-static NSString *const kANAdViewDelegateNotification = @"adViewDelegate";
-static NSString *const kANAdViewDelegateNotificationType= @"notificationType";
-
-// Notification Types
 static NSString *const kANAdViewAdWasClickedNotification = @"adWasClicked";
 static NSString *const kANAdViewAdWillPresentNotification = @"adWillPresent";
 static NSString *const kANAdViewAdDidPresentNotification = @"adDidPresent";

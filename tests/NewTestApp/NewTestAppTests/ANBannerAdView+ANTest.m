@@ -17,6 +17,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wprotocol"
+#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation ANBannerAdView (ANTest)
 #pragma clang diagnostic pop
 
@@ -29,5 +30,7 @@
 @dynamic gender;
 @dynamic customKeywords;
 @dynamic mraidEventReceiverDelegate;
+@dynamic contentView;
+@dynamic transitionInProgress;
 
 @end

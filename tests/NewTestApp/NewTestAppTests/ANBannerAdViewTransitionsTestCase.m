@@ -20,6 +20,7 @@
 #import "XCTestCase+ANCategory.h"
 #import "XCTestCase+ANBannerAdView.h"
 #import "ANLogManager.h"
+#import "ANBannerAdView+ANTest.h"
 
 @interface ANBannerAdViewTransitionsTestCase : XCTestCase
 @property (nonatomic, weak) ANBannerAdView *bannerAdView;

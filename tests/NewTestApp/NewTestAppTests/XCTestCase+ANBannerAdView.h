@@ -17,18 +17,6 @@
 #import "ANBannerAdView.h"
 #import "ANAdFetcher.h"
 
-
-@interface ANBannerAdView (ExposeProperties)
-
-// Properties
-- (void)setContentView:(UIView *)contentView;
-- (NSNumber *)transitionInProgress;
-
-// Methods
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
-
-@end
-
 @interface XCTestCase (ANBannerAdView)
 
 - (ANBannerAdView *)bannerViewWithFrameSize:(CGSize)frameSize;

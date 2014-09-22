@@ -104,10 +104,9 @@
 }
 
 - (void)postNotificationWithName:(NSString *)name {
-    NSDictionary *userInfo = @{kANAdViewDelegateNotificationType:name};
     [[NSNotificationCenter defaultCenter] postNotificationName:name
                                                         object:self
-                                                      userInfo:userInfo];
+                                                      userInfo:nil];
 }
 
 @end
