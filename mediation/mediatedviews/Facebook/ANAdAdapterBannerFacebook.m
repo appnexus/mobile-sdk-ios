@@ -54,6 +54,13 @@
 
 - (void)adViewDidClick:(FBAdView *)adView {
     [self.delegate adWasClicked];
+    [self.delegate willPresentAd];
+    [self.delegate didPresentAd];
+}
+
+- (void)adViewDidFinishHandlingClick:(FBAdView *)adView {
+    [self.delegate willCloseAd];
+    [self.delegate didCloseAd];
 }
 
 @end
