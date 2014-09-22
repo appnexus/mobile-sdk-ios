@@ -8,7 +8,7 @@ OUTDIR_SIMULATOR=`pwd`/out_simulator
 LOGDIR=$OUTDIR/log
 BUILDDIR=$OUTDIR/build
 
-projects=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
+schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
 
 rm -fr $OUTDIR > /dev/null 2>&1
 rm -fr $OUTDIR_DEVICE > /dev/null 2>&1
@@ -33,7 +33,7 @@ function buildSim {
 
 ### device
 
-for i in ${projects[@]} 
+for i in ${schemes[@]}
 do
 	buildDevice $i
 done
@@ -47,7 +47,7 @@ mv $OUTDIR $OUTDIR_DEVICE
 
 mkdir -p $LOGDIR
 
-for i in ${projects[@]} 
+for i in ${schemes[@]}
 do
 	buildSim $i
 done
@@ -60,7 +60,7 @@ mv $OUTDIR $OUTDIR_SIMULATOR
 ### combine
 echo 'Combining architectures and copying header and resource files'
 
-for i in ${projects[@]} 
+for i in ${schemes[@]}
 do
 	mkdir -p $OUTDIR/$i
 	lipo -create $OUTDIR_DEVICE/$i/lib$i.a $OUTDIR_SIMULATOR/$i/lib$i.a  -output $OUTDIR/$i/lib$i.a
@@ -110,3 +110,31 @@ All The Best,
 Your AppNexus Team
 
 " >> README.txt
+
+function packageSDK {
+    if [[ $i == ANSDK* ]] && [[ $i == *Adapter ]];
+    then
+	tmp=${i#ANSDK}
+	className=${tmp%Adapter}
+	if [ "$className" == "iAd" ];
+	then
+	    return
+	fi
+	SDKDIR=$OUTDIR/../../mediation/mediatedviews/${className}/${className}SDK
+	if [ -d "$SDKDIR" ];
+	then
+	    echo "Packaging ${className} SDK"
+	    cp -r $SDKDIR $2
+	else
+	    echo "Warning: ${className} SDK not found"
+	fi
+    fi
+}
+
+external=$OUTDIR/externalSDKs
+mkdir -p $external
+
+for i in ${schemes[@]}
+do
+    packageSDK $i $external
+done

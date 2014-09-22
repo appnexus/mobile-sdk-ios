@@ -1158,10 +1158,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/**",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKGoogleAdMobAdapter;
 				SKIP_INSTALL = YES;
@@ -1175,10 +1175,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/**",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKGoogleAdMobAdapter;
 				SKIP_INSTALL = YES;
@@ -1211,7 +1211,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/MillennialMedia\"";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKMillennialMediaAdapter;
@@ -1223,7 +1223,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/MillennialMedia\"";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKMillennialMediaAdapter;
@@ -1239,11 +1239,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKMoPubAdapter;
@@ -1259,11 +1259,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKMoPubAdapter;
@@ -1275,7 +1275,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/Facebook\"";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKFacebookAdapter;
@@ -1287,7 +1287,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../mediation/External SDK Library/Facebook\"";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKFacebookAdapter;
@@ -1304,7 +1304,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANAdapterForGoogleAdMobSDK;
@@ -1321,7 +1321,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/AdMob\"/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANAdapterForGoogleAdMobSDK;
@@ -1338,7 +1338,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
@@ -1356,7 +1356,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(PROJECT_DIR)/../mediation/External SDK Library/MoPub\"",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
