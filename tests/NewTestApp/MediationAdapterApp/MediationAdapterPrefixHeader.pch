@@ -13,13 +13,9 @@
  limitations under the License.
  */
 
-#import "ViewController.h"
-#import "ANBannerAdView.h"
+#ifndef NewTestApp_MediationAdapterPrefixHeader_pch
+#define NewTestApp_MediationAdapterPrefixHeader_pch
 
-@interface ViewController ()
-@property (weak, nonatomic) IBOutlet ANBannerAdView *bannerAdView;
-@end
+#import <UIKit/UIKit.h>
 
-@implementation ViewController
-
-@end
+#endif

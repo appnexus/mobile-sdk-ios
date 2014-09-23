@@ -15,9 +15,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+NSString *const kANAdAdapterBaseAmazonAppKey = @"123";
 
-@property (strong, nonatomic) UIWindow *window;
+@interface ANNewTestAppViewController : UIViewController
 
 @end
 

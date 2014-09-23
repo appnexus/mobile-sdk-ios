@@ -15,6 +15,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "ANMediationAdapterViewController.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANURLConnectionStub.h"
 #import "ANBannerAdView.h"
@@ -32,47 +33,22 @@
 #import "ANAdView+ANTest.h"
 #import "ANInterstitialAd+ANTest.h"
 
-@interface ANSDKFacebookAdapterTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
+@interface FacebookAdapter : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
 @property (nonatomic) XCTestExpectation *adProtocolCallbackExpectation;
 @property (nonatomic) BOOL adDidLoad;
 @end
 
-@implementation ANSDKFacebookAdapterTestCase
-
-- (void)setUp {
-    [super setUp];
-    [ANLogManager setANLogLevel:ANLogLevelAll];
-    [self enableStubbing];
-}
+@implementation FacebookAdapter
 
 - (void)tearDown {
     [super tearDown];
     self.adProtocolCallbackExpectation = nil;
     self.adDidLoad = NO;
-    [self disableStubbing];
-}
-
-- (void)enableStubbing {
-    [[ANHTTPStubbingManager sharedStubbingManager] enable];
-    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
-}
-
-- (void)disableStubbing {
-    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = NO;
-    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    [[ANHTTPStubbingManager sharedStubbingManager] disable];
 }
 
 - (void)testBanner {
-    [self stubFacebookBanner];
-    
-    ANBannerAdView *bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)
-                                                             placementId:@"2054679"
-                                                                  adSize:CGSizeMake(320, 50)];
-    bannerAdView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    bannerAdView.delegate = self;
-    [bannerAdView.rootViewController.view addSubview:bannerAdView];
-    [bannerAdView loadAd];
+    ANMediationAdapterViewController *rootVC = (ANMediationAdapterViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    ANBannerAdView *bannerAdView = [rootVC loadFacebookBannerWithDelegate:self];
     
     self.adProtocolCallbackExpectation = [self expectationWithDescription:@"ANAdProtocolCallback"];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
@@ -123,12 +99,9 @@
 }
 
 - (void)testInterstitial {
-    [self stubFacebookInterstitial];
-    
-    ANInterstitialAd *interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"2054679"];
-    interstitialAd.delegate = self;
-    [interstitialAd loadAd];
-    
+    ANMediationAdapterViewController *rootVC = (ANMediationAdapterViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    ANInterstitialAd *interstitialAd = [rootVC loadFacebookInterstitialWithDelegate:self];
+
     self.adProtocolCallbackExpectation = [self expectationWithDescription:@"ANAdProtocolCallback"];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -189,34 +162,6 @@
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
     [self.adProtocolCallbackExpectation fulfill];
-}
-
-#pragma mark - Stubbing
-
-- (void)stubFacebookBanner {
-    ANURLConnectionStub *mediatedResponseStub = [ANURLConnectionStub stubForResource:@"FacebookBanner"
-                                                                              ofType:@"json"
-                                                    withRequestURLRegexPatternString:@"http://mediation.adnxs.com/mob\\?.*"
-                                                                            inBundle:[NSBundle bundleForClass:[self class]]];
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:mediatedResponseStub];
-    [self stubResultCBResponse];
-}
-
-- (void)stubFacebookInterstitial {
-    ANURLConnectionStub *mediatedResponseStub = [ANURLConnectionStub stubForResource:@"FacebookInterstitial"
-                                                                              ofType:@"json"
-                                                    withRequestURLRegexPatternString:@"http://mediation.adnxs.com/mob\\?.*"
-                                                                            inBundle:[NSBundle bundleForClass:[self class]]];
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:mediatedResponseStub];
-    [self stubResultCBResponse];
-}
-
-- (void)stubResultCBResponse {
-    ANURLConnectionStub *resultCBStub = [[ANURLConnectionStub alloc] init];
-    resultCBStub.requestURLRegexPatternString = @"http://nym1.mobile.adnxs.com/mediation.*";
-    resultCBStub.responseCode = 200;
-    resultCBStub.responseBody = @"";
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:resultCBStub];
 }
 
 @end

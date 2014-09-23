@@ -13,11 +13,13 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface NSObject (Swizzling)
 
-@property (strong, nonatomic) UIWindow *window;
++ (void)exchangeClassSelector:(SEL)originalSelector
+                 withSelector:(SEL)swizzledSelector;
++ (void)exchangeInstanceSelector:(SEL)originalSelector
+                    withSelector:(SEL)swizzledSelector;
 
 @end
-

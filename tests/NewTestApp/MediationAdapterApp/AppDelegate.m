@@ -13,9 +13,21 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import "ANLogManager.h"
+#import "ANHTTPStubbingManager.h"
 
-@interface ViewController : UIViewController
+@interface AppDelegate ()
 
 @end
 
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [ANLogManager setANLogLevel:ANLogLevelAll];
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
+    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    return YES;
+}
+
+@end

@@ -13,11 +13,13 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import "ANNewTestAppViewController.h"
+#import "ANBannerAdView.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface ANNewTestAppViewController ()
 
 @end
 
+@implementation ANNewTestAppViewController
+
+@end
