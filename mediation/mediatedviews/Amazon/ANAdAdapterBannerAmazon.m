@@ -19,6 +19,7 @@
 
 @interface ANAdAdapterBannerAmazon ()
 @property (nonatomic, readwrite, weak) UIViewController *rootViewController;
+@property (nonatomic, readwrite, strong) AmazonAdView *adView;
 @end
 
 @implementation ANAdAdapterBannerAmazon
@@ -35,6 +36,7 @@
     adView.delegate = self;
     self.rootViewController = rootViewController;
     [adView loadAd:[self adOptionsForTargetingParameters:targetingParameters]];
+    self.adView = adView;
 }
 
 - (UIViewController *)viewControllerForPresentingModalView {

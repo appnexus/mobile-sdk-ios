@@ -16,9 +16,10 @@
 #import <UIKit/UIKit.h>
 #import <AmazonAd/AmazonAdRegistration.h>
 #import <AmazonAd/AmazonAdError.h>
+#import <AmazonAd/AmazonAdOptions.h>
 #import "ANCustomAdapter.h"
 
-static NSString *const kANAdAdapterBaseAmazonAppKey = nil;
+extern NSString *const kANAdAdapterBaseAmazonAppKey;
 
 @interface ANAdAdapterBaseAmazon : NSObject <ANCustomAdapter>
 

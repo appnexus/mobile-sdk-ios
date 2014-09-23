@@ -27,6 +27,7 @@
     AmazonAdInterstitial *amazonInterstitial = [AmazonAdInterstitial amazonAdInterstitial];
     amazonInterstitial.delegate = self;
     [amazonInterstitial load:[self adOptionsForTargetingParameters:targetingParameters]];
+    self.amazonInterstitial = amazonInterstitial;
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController {
