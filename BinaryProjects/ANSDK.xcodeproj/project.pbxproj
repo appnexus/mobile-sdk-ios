@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
+		8AD5155D19D216E6002E53D6 /* ANAdAdapterBannerAmazon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5155619D216E6002E53D6 /* ANAdAdapterBannerAmazon.m */; };
+		8AD5155E19D216E6002E53D6 /* ANAdAdapterBaseAmazon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5155819D216E6002E53D6 /* ANAdAdapterBaseAmazon.m */; };
+		8AD5155F19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5155A19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m */; };
 		8AD618CB1981C11F00AC0780 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6189F1981C11F00AC0780 /* ANAdFetcher.m */; };
 		8AD618CC1981C11F00AC0780 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A11981C11F00AC0780 /* ANAdRequestUrl.m */; };
 		8AD618CD1981C11F00AC0780 /* ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618A31981C11F00AC0780 /* ANAdResponse.m */; };
@@ -96,6 +99,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8AD5153419D214CA002E53D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
 		8AE2D7F719CC897000001B70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
@@ -155,6 +165,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8AD5153919D214CA002E53D6 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE2D6C319CC874B00001B70 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -264,6 +284,14 @@
 		8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANContentViewTransitions.h"; sourceTree = "<group>"; };
 		8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANContentViewTransitions.m"; sourceTree = "<group>"; };
 		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
+		8AD5154019D214CA002E53D6 /* libANSDKAmazonAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAmazonAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AD5155519D216E6002E53D6 /* ANAdAdapterBannerAmazon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAmazon.h; sourceTree = "<group>"; };
+		8AD5155619D216E6002E53D6 /* ANAdAdapterBannerAmazon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAmazon.m; sourceTree = "<group>"; };
+		8AD5155719D216E6002E53D6 /* ANAdAdapterBaseAmazon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAmazon.h; sourceTree = "<group>"; };
+		8AD5155819D216E6002E53D6 /* ANAdAdapterBaseAmazon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAmazon.m; sourceTree = "<group>"; };
+		8AD5155919D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAmazon.h; sourceTree = "<group>"; };
+		8AD5155A19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAmazon.m; sourceTree = "<group>"; };
+		8AD5156019D21706002E53D6 /* Amazon.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Amazon.pch; sourceTree = "<group>"; };
 		8AD618991981C10700AC0780 /* appnexus_logo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appnexus_logo_icon.png; path = images/appnexus_logo_icon.png; sourceTree = "<group>"; };
 		8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appnexus_logo_icon@2x.png"; path = "images/appnexus_logo_icon@2x.png"; sourceTree = "<group>"; };
 		8AD6189E1981C11F00AC0780 /* ANAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcher.h; sourceTree = "<group>"; };
@@ -388,6 +416,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8AD5153819D214CA002E53D6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE2D6C219CC874B00001B70 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -454,6 +489,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8AD5155119D216E6002E53D6 /* Amazon */ = {
+			isa = PBXGroup;
+			children = (
+				8AD5155519D216E6002E53D6 /* ANAdAdapterBannerAmazon.h */,
+				8AD5155619D216E6002E53D6 /* ANAdAdapterBannerAmazon.m */,
+				8AD5155719D216E6002E53D6 /* ANAdAdapterBaseAmazon.h */,
+				8AD5155819D216E6002E53D6 /* ANAdAdapterBaseAmazon.m */,
+				8AD5155919D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.h */,
+				8AD5155A19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m */,
+				8AD5156019D21706002E53D6 /* Amazon.pch */,
+			);
+			name = Amazon;
+			path = ../mediation/mediatedviews/Amazon;
+			sourceTree = "<group>";
+		};
 		8AD6189D1981C11F00AC0780 /* internal */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +654,7 @@
 		8AE2D87419CC9D9B00001B70 /* Mediated By AppNexus */ = {
 			isa = PBXGroup;
 			children = (
+				8AD5155119D216E6002E53D6 /* Amazon */,
 				8AE2D6A019CC871800001B70 /* Facebook Audience Network */,
 				8AE2D7E619CC88FB00001B70 /* Google AdMob */,
 				8AE2D7DD19CC88C900001B70 /* iAd */,
@@ -635,6 +686,7 @@
 				8AE2D79519CC87CC00001B70 /* libANSDKFacebookAdapter.a */,
 				8AE2D85319CC9A6F00001B70 /* libANAdapterForGoogleAdMobSDK.a */,
 				8AE2D86119CC9B0F00001B70 /* libANAdapterForMoPubSDK.a */,
+				8AD5154019D214CA002E53D6 /* libANSDKAmazonAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -709,6 +761,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8AD5153219D214CA002E53D6 /* ANSDKAmazonAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AD5153D19D214CA002E53D6 /* Build configuration list for PBXNativeTarget "ANSDKAmazonAdapter" */;
+			buildPhases = (
+				8AD5153519D214CA002E53D6 /* Sources */,
+				8AD5153819D214CA002E53D6 /* Frameworks */,
+				8AD5153919D214CA002E53D6 /* Copy Files */,
+				8AD5153C19D214CA002E53D6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AD5153319D214CA002E53D6 /* PBXTargetDependency */,
+			);
+			name = ANSDKAmazonAdapter;
+			productName = AppNexusSDK;
+			productReference = 8AD5154019D214CA002E53D6 /* libANSDKAmazonAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		8AE2D6A119CC874B00001B70 /* ANSDKGoogleAdMobAdapter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AE2D6CE19CC874B00001B70 /* Build configuration list for PBXNativeTarget "ANSDKGoogleAdMobAdapter" */;
@@ -908,11 +979,19 @@
 				8AE2D76519CC87CC00001B70 /* ANSDKFacebookAdapter */,
 				8AE2D84519CC9A6F00001B70 /* ANAdapterForGoogleAdMobSDK */,
 				8AE2D85519CC9B0F00001B70 /* ANAdapterForMoPubSDK */,
+				8AD5153219D214CA002E53D6 /* ANSDKAmazonAdapter */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8AD5153C19D214CA002E53D6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE2D6CD19CC874B00001B70 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -995,6 +1074,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8AD5153519D214CA002E53D6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AD5155E19D216E6002E53D6 /* ANAdAdapterBaseAmazon.m in Sources */,
+				8AD5155F19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m in Sources */,
+				8AD5155D19D216E6002E53D6 /* ANAdAdapterBannerAmazon.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AE2D6A419CC874B00001B70 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1108,6 +1197,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8AD5153319D214CA002E53D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8AD5153419D214CA002E53D6 /* PBXContainerItemProxy */;
+		};
 		8AE2D7F819CC897000001B70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
@@ -1151,6 +1245,38 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8AD5153E19D214CA002E53D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/Amazon/AmazonSDK",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../mediation/mediatedviews/Amazon/Amazon.pch;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKAmazonAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8AD5153F19D214CA002E53D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/Amazon/AmazonSDK",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../mediation/mediatedviews/Amazon/Amazon.pch;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKAmazonAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		8AE2D6CF19CC874B00001B70 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1506,6 +1632,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8AD5153D19D214CA002E53D6 /* Build configuration list for PBXNativeTarget "ANSDKAmazonAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AD5153E19D214CA002E53D6 /* Debug */,
+				8AD5153F19D214CA002E53D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8AE2D6CE19CC874B00001B70 /* Build configuration list for PBXNativeTarget "ANSDKGoogleAdMobAdapter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

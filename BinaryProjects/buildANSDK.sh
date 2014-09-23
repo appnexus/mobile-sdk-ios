@@ -8,7 +8,7 @@ OUTDIR_SIMULATOR=`pwd`/out_simulator
 LOGDIR=$OUTDIR/log
 BUILDDIR=$OUTDIR/build
 
-schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
+schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
 
 rm -fr $OUTDIR > /dev/null 2>&1
 rm -fr $OUTDIR_DEVICE > /dev/null 2>&1
