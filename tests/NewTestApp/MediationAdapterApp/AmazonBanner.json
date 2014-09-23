@@ -10,7 +10,7 @@
                "param":"",
                "height":"50",
                "width":"320",
-               "id":"210827375150_10154672420735151",
+               "id":"123",
                "type":"ios",
                "class":"ANAdAdapterBannerAmazon"
             },
@@ -18,7 +18,7 @@
                "param":"",
                "height":"50",
                "width":"320",
-               "id":"210827375150_10154672419150151",
+               "id":"123",
                "type":"android",
                "class":"com.appnexus.opensdk.mediatedviews.AmazonBanner"
             }
