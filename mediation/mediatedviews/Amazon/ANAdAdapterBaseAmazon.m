@@ -36,7 +36,6 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
         [options setAdvancedOption:[obj description]
                             forKey:[key description]];
     }];
-    options.isTestRequest = YES;
     if (targetingParameters.location) {
         options.usesGeoLocation = YES;
     }

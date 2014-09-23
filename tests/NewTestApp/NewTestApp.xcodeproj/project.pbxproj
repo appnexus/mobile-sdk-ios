@@ -185,6 +185,10 @@
 		8AD5152719D2067A002E53D6 /* MPCloseButtonX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD5152019D2067A002E53D6 /* MPCloseButtonX@2x.png */; };
 		8AD5152819D2067A002E53D6 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AD5152119D2067A002E53D6 /* MRAID.bundle */; };
 		8AD5152919D2067A002E53D6 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AD5152119D2067A002E53D6 /* MRAID.bundle */; };
+		8AD5152C19D20F56002E53D6 /* ANAdAdapterBaseAmazon+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5152B19D20F55002E53D6 /* ANAdAdapterBaseAmazon+ANTest.m */; };
+		8AD5152D19D20F56002E53D6 /* ANAdAdapterBaseAmazon+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5152B19D20F55002E53D6 /* ANAdAdapterBaseAmazon+ANTest.m */; };
+		8AD5153019D20FD1002E53D6 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5152F19D20FD1002E53D6 /* NSObject+Swizzling.m */; };
+		8AD5153119D20FD1002E53D6 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5152F19D20FD1002E53D6 /* NSObject+Swizzling.m */; };
 		8AE93C7319C73E7300F9E74E /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93C2A19C73E7300F9E74E /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8AE93C7419C73E7300F9E74E /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93C2C19C73E7300F9E74E /* NSString+ANCategory.m */; };
 		8AE93C7519C73E7300F9E74E /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE93C2E19C73E7300F9E74E /* NSTimer+ANCategory.m */; };
@@ -375,6 +379,10 @@
 		8AD5151F19D2067A002E53D6 /* MPCloseButtonX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPCloseButtonX.png; sourceTree = "<group>"; };
 		8AD5152019D2067A002E53D6 /* MPCloseButtonX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPCloseButtonX@2x.png"; sourceTree = "<group>"; };
 		8AD5152119D2067A002E53D6 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		8AD5152A19D20F55002E53D6 /* ANAdAdapterBaseAmazon+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ANAdAdapterBaseAmazon+ANTest.h"; path = "../MediationAdapterApp/ANAdAdapterBaseAmazon+ANTest.h"; sourceTree = "<group>"; };
+		8AD5152B19D20F55002E53D6 /* ANAdAdapterBaseAmazon+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ANAdAdapterBaseAmazon+ANTest.m"; path = "../MediationAdapterApp/ANAdAdapterBaseAmazon+ANTest.m"; sourceTree = "<group>"; };
+		8AD5152E19D20FD1002E53D6 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzling.h"; sourceTree = "<group>"; };
+		8AD5152F19D20FD1002E53D6 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
 		8AE93C2019C73E7300F9E74E /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
 		8AE93C2119C73E7300F9E74E /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
 		8AE93C2219C73E7300F9E74E /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
@@ -750,13 +758,13 @@
 		8A9F94C119D1C37700AB739F /* MediationAdapterApp */ = {
 			isa = PBXGroup;
 			children = (
-				8A9F94C619D1C37700AB739F /* AppDelegate.h */,
-				8A9F94C719D1C37700AB739F /* AppDelegate.m */,
 				8A9F94C919D1C37700AB739F /* ANMediationAdapterViewController.h */,
 				8A9F94CA19D1C37700AB739F /* ANMediationAdapterViewController.m */,
-				8A9F94CC19D1C37700AB739F /* Main.storyboard */,
+				8A9F94C619D1C37700AB739F /* AppDelegate.h */,
+				8A9F94C719D1C37700AB739F /* AppDelegate.m */,
 				8A9F94CF19D1C37700AB739F /* Images.xcassets */,
 				8A9F94D119D1C37700AB739F /* LaunchScreen.xib */,
+				8A9F94CC19D1C37700AB739F /* Main.storyboard */,
 				8A9F94C219D1C37700AB739F /* Supporting Files */,
 			);
 			path = MediationAdapterApp;
@@ -878,6 +886,8 @@
 		8AD018DE199958F7007874BA /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8AD5152A19D20F55002E53D6 /* ANAdAdapterBaseAmazon+ANTest.h */,
+				8AD5152B19D20F55002E53D6 /* ANAdAdapterBaseAmazon+ANTest.m */,
 				8A7936FA19A6B1DD003EB30A /* ANAdFetcher+ANTest.h */,
 				8A7936FB19A6B1DD003EB30A /* ANAdFetcher+ANTest.m */,
 				8A79370019A6B2DD003EB30A /* ANAdView+ANTest.h */,
@@ -886,8 +896,12 @@
 				8A5D27D0199AC57900F2A516 /* ANAdWebViewController+ANTest.m */,
 				8A7936FD19A6B256003EB30A /* ANBannerAdView+ANTest.h */,
 				8A7936FE19A6B256003EB30A /* ANBannerAdView+ANTest.m */,
+				8AA0622119CB63740088A843 /* ANInterstitialAd+ANTest.h */,
+				8AA0622219CB63740088A843 /* ANInterstitialAd+ANTest.m */,
 				8A742A9319CB4A5300D2AE6F /* ANMediationAdViewController+ANTest.h */,
 				8A742A9419CB4A5300D2AE6F /* ANMediationAdViewController+ANTest.m */,
+				8AD5152E19D20FD1002E53D6 /* NSObject+Swizzling.h */,
+				8AD5152F19D20FD1002E53D6 /* NSObject+Swizzling.m */,
 				8AD018DF1999592F007874BA /* XCTestCase+ANAdResponse.h */,
 				8AD018E01999592F007874BA /* XCTestCase+ANAdResponse.m */,
 				8AD018F419997F53007874BA /* XCTestCase+ANBannerAdView.h */,
@@ -896,8 +910,6 @@
 				8AD018D719994DE0007874BA /* XCTestCase+ANCategory.m */,
 				8A5D27BE199AA13300F2A516 /* XCTestCase+ANMediatedAd.h */,
 				8A5D27BF199AA13300F2A516 /* XCTestCase+ANMediatedAd.m */,
-				8AA0622119CB63740088A843 /* ANInterstitialAd+ANTest.h */,
-				8AA0622219CB63740088A843 /* ANInterstitialAd+ANTest.m */,
 			);
 			name = Categories;
 			path = NewTestAppTests;
@@ -1496,6 +1508,7 @@
 				8A64C05919D1C63A00B92D30 /* ANAdAdapterInterstitialAmazon.m in Sources */,
 				8A64C06919D1C68C00B92D30 /* UIView+ANCategory.m in Sources */,
 				8A64C06719D1C68C00B92D30 /* NSString+ANCategory.m in Sources */,
+				8AD5153119D20FD1002E53D6 /* NSObject+Swizzling.m in Sources */,
 				8A64C07B19D1C68C00B92D30 /* ANMediationContainerView.m in Sources */,
 				8A64C07619D1C68C00B92D30 /* ANLocation.m in Sources */,
 				8A64C07F19D1C68C00B92D30 /* ANReachability.m in Sources */,
@@ -1508,6 +1521,7 @@
 				8A64C06A19D1C68C00B92D30 /* UIWebView+ANCategory.m in Sources */,
 				8A64C06219D1C65900B92D30 /* ANAdAdapterMillennialMediaBase.m in Sources */,
 				8A64C07319D1C68C00B92D30 /* ANGlobal.m in Sources */,
+				8AD5152D19D20F56002E53D6 /* ANAdAdapterBaseAmazon+ANTest.m in Sources */,
 				8A64C0B819D1CF0700B92D30 /* ANURLConnectionStub.m in Sources */,
 				8A64C07A19D1C68C00B92D30 /* ANMediationAdViewController.m in Sources */,
 				8A64C07E19D1C68C00B92D30 /* ANPBContainerView.m in Sources */,
@@ -1579,6 +1593,7 @@
 				8A9F94BA19D1C1F000AB739F /* ANAdAdapterBaseAmazon.m in Sources */,
 				8AE93C8419C73E7300F9E74E /* ANLocation.m in Sources */,
 				8AEAF04819D0BF3B002767E3 /* ANAdAdapterInterstitialMoPub.m in Sources */,
+				8AD5153019D20FD1002E53D6 /* NSObject+Swizzling.m in Sources */,
 				8AEAF04319D0BF3B002767E3 /* ANAdAdapterInterstitialMillennialMedia.m in Sources */,
 				8AE93C8D19C73E7300F9E74E /* ANReachability.m in Sources */,
 				8AE93C8219C73E7300F9E74E /* ANInterstitialAd.m in Sources */,
@@ -1587,6 +1602,7 @@
 				8AEAF04419D0BF3B002767E3 /* ANAdAdapterMillennialMediaBase.m in Sources */,
 				8AE93C8A19C73E7300F9E74E /* ANMRAIDViewController.m in Sources */,
 				8AE93C7B19C73E7300F9E74E /* ANAdView.m in Sources */,
+				8AD5152C19D20F56002E53D6 /* ANAdAdapterBaseAmazon+ANTest.m in Sources */,
 				8AE93C8119C73E7300F9E74E /* ANGlobal.m in Sources */,
 				8AE93C8819C73E7300F9E74E /* ANMediationAdViewController.m in Sources */,
 				8AEAF04719D0BF3B002767E3 /* ANAdAdapterBannerMoPub.m in Sources */,
