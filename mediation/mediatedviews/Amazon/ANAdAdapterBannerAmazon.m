@@ -18,8 +18,8 @@
 #import "ANAdAdapterBannerAmazon.h"
 
 @interface ANAdAdapterBannerAmazon ()
-@property (nonatomic, readwrite, weak) UIViewController *rootViewController;
-@property (nonatomic, readwrite, strong) AmazonAdView *adView;
+@property (nonatomic, weak) UIViewController *rootViewController;
+@property (nonatomic) AmazonAdView *adView;
 @end
 
 @implementation ANAdAdapterBannerAmazon
@@ -32,6 +32,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
+    NSLog(@"Requesting Amazon banner with size: %@", NSStringFromCGSize(size));
     [self registerAppKey:idString];
     AmazonAdView *adView = [AmazonAdView amazonAdViewWithAdSize:size];
     adView.delegate = self;
@@ -45,25 +46,30 @@
 }
 
 - (void)adViewDidLoad:(AmazonAdView *)view {
+    NSLog(@"Amazon banner did load");
     [self.delegate didLoadBannerAd:view];
 }
 
 - (void)adViewDidFailToLoad:(AmazonAdView *)view
                   withError:(AmazonAdError *)error {
+    NSLog(@"Amazon banner did fail to load");
     [self handleAmazonError:error];
 }
 
 - (void)adViewWillExpand:(AmazonAdView *)view {
+    NSLog(@"Amazon banner will expand");
     [self.delegate willPresentAd];
     [self.delegate didPresentAd];
 }
 
 - (void)adViewDidCollapse:(AmazonAdView *)view {
+    NSLog(@"Amazon banner will collapse");
     [self.delegate willCloseAd];
     [self.delegate didCloseAd];
 }
 
 - (void)adViewWillResize:(AmazonAdView *)view toFrame:(CGRect)frame {
+    NSLog(@"Amazon view will resize to frame: %@", NSStringFromCGRect(frame));
     // Do nothing.
 }
 

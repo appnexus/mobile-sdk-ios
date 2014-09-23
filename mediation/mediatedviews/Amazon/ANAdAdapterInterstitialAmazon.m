@@ -24,6 +24,7 @@
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
+    NSLog(@"Requesting Amazon interstitial");
     [self registerAppKey:idString];
     AmazonAdInterstitial *amazonInterstitial = [AmazonAdInterstitial amazonAdInterstitial];
     amazonInterstitial.delegate = self;
@@ -40,11 +41,13 @@
 }
 
 - (void)interstitialDidLoad:(AmazonAdInterstitial *)interstitial {
+    NSLog(@"Amazon interstitial did load");
     [self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitialDidFailToLoad:(AmazonAdInterstitial *)interstitial
                         withError:(AmazonAdError *)error {
+    NSLog(@"Amazon interstitial did fail to load");
     [self handleAmazonError:error];
 }
 
@@ -57,10 +60,12 @@
 }
 
 - (void)interstitialWillDismiss:(AmazonAdInterstitial *)interstitial {
+    NSLog(@"Amazon interstitial will dismiss");
     [self.delegate willCloseAd];
 }
 
 - (void)interstitialDidDismiss:(AmazonAdInterstitial *)interstitial {
+    NSLog(@"Amazon interstitial did dismiss");
     [self.delegate didCloseAd];
 }
 
