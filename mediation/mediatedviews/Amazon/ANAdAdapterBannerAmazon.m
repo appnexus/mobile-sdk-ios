@@ -32,6 +32,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
+    [self registerAppKey:idString];
     AmazonAdView *adView = [AmazonAdView amazonAdViewWithAdSize:size];
     adView.delegate = self;
     self.rootViewController = rootViewController;

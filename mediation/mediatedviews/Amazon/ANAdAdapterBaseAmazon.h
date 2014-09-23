@@ -19,11 +19,10 @@
 #import <AmazonAd/AmazonAdOptions.h>
 #import "ANCustomAdapter.h"
 
-extern NSString *const kANAdAdapterBaseAmazonAppKey;
-
 @interface ANAdAdapterBaseAmazon : NSObject <ANCustomAdapter>
 
 - (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters;
 - (void)handleAmazonError:(AmazonAdError *)amazonError;
+- (void)registerAppKey:(NSString *)key;
 
 @end

@@ -16,21 +16,18 @@
 #import <AmazonAd/AmazonAdOptions.h>
 #import "ANAdAdapterBaseAmazon.h"
 
-NSString *const kANAdAdapterBaseAmazonAgeKey = @"age";
+static NSString *const kANAdAdapterBaseAmazonAgeKey = @"age";
 
-NSString *const kANAdAdapterBaseAmazonGenderKey = @"gender";
-NSString *const kANAdAdapterBaseAmazonGenderMaleValue = @"male";
-NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"female";
+static NSString *const kANAdAdapterBaseAmazonGenderKey = @"gender";
+static NSString *const kANAdAdapterBaseAmazonGenderMaleValue = @"m";
+static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
 
 @implementation ANAdAdapterBaseAmazon
 
 @synthesize delegate = _delegate;
 
-+ (void)load {
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        [[AmazonAdRegistration sharedRegistration] setAppKey:kANAdAdapterBaseAmazonAppKey];
-    }];
-    [operation start];
+- (void)registerAppKey:(NSString *)key {
+    [[AmazonAdRegistration sharedRegistration] setAppKey:key];
 }
 
 - (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters {

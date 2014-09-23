@@ -24,6 +24,7 @@
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
+    [self registerAppKey:idString];
     AmazonAdInterstitial *amazonInterstitial = [AmazonAdInterstitial amazonAdInterstitial];
     amazonInterstitial.delegate = self;
     [amazonInterstitial load:[self adOptionsForTargetingParameters:targetingParameters]];
