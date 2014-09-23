@@ -25,6 +25,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *openInButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIWebView *webView;
+@property (nonatomic, readwrite, assign, getter=isPresented) BOOL presented;
 @property (nonatomic, readwrite, weak) id<ANBrowserViewControllerDelegate> delegate;
 
 - (instancetype)initWithURL:(NSURL *)url;

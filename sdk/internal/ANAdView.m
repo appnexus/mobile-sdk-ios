@@ -63,6 +63,7 @@ ANBrowserViewControllerDelegate>
 @synthesize age = __age;
 @synthesize gender = __gender;
 @synthesize customKeywords = __customKeywords;
+@synthesize landingPageLoadsInBackground = __landingPageLoadsInBackground;
 
 // ANMRAIDEventReceiver
 @synthesize mraidEventReceiverDelegate = __mraidEventReceiverDelegate;
@@ -114,6 +115,7 @@ ANBrowserViewControllerDelegate>
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
+    __landingPageLoadsInBackground = YES;
 }
 
 - (void)dealloc {
@@ -580,9 +582,13 @@ ANBrowserViewControllerDelegate>
     
     if (!self.opensInNativeBrowser && hasHttpPrefix([URL scheme])) {
         if (!self.browserViewController) {
-            [self showClickOverlay];
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
             self.browserViewController.delegate = self;
+            if (!self.landingPageLoadsInBackground) {
+                [self browserViewControllerShouldPresent:self.browserViewController];
+            } else {
+                [self showClickOverlay];
+            }
         } else {
             ANLogDebug(@"%@ | Attempt to instantiate in-app browser when one is already being instantiated.", NSStringFromSelector(_cmd));
         }
@@ -671,6 +677,7 @@ ANBrowserViewControllerDelegate>
 
 - (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
     [self hideClickOverlay];
+    controller.presented = YES;
     if (self.mraidController.presentingViewController) {
         [self.mraidController presentViewController:controller animated:YES completion:nil];
     } else {
