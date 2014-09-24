@@ -240,15 +240,13 @@
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
     [self adWillPresent];
-    if (self.rootViewController.presentingViewController) { // RVC is modal view
+    BOOL rvcAttachedToWindow = self.rootViewController.view.window ? YES : NO;
+    if (rvcAttachedToWindow) {
         [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
             [self adDidPresent];
         }];
     } else {
-        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        [presentingController presentViewController:browserViewController animated:YES completion:^{
-            [self adDidPresent];
-        }];
+        ANLogError(@"Cannot present in-app browser - rootViewController not set, or rootViewController not attached to window");
     }
 }
 
