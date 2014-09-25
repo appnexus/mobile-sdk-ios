@@ -584,7 +584,6 @@ ANBrowserViewControllerDelegate>
         if (!self.browserViewController) {
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
             self.browserViewController.delegate = self;
-            //self.landingPageLoadsInBackground = NO;
             if (self.landingPageLoadsInBackground) {
                 [self showClickOverlay];
             } else {

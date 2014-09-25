@@ -239,9 +239,9 @@
 #pragma mark Implementation of abstract methods from ANAdView
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
-    [self adWillPresent];
     BOOL rvcAttachedToWindow = self.rootViewController.view.window ? YES : NO;
     if (rvcAttachedToWindow) {
+        [self adWillPresent];
         [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
             [self adDidPresent];
         }];

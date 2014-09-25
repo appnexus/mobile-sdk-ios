@@ -88,7 +88,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[self refreshButtons];
-    [self observeLoading];
     [self.webView loadRequest:[[self class] requestForURL:self.url]];
 }
 
@@ -110,7 +109,6 @@
 - (void)dealloc {
 	self.webView.delegate = nil;
 	[self.webView stopLoading];
-    [self removeAsLoadingObserver];
 }
 
 - (void)setUrl:(NSURL *)url {
@@ -127,7 +125,7 @@
 #pragma mark UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    self.loading = webView.loading;
+    [self handleWebViewLoadingChange];
     NSURL *URL = [request URL];
 
     if (hasHttpPrefix([URL scheme])) {
@@ -150,52 +148,33 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    self.loading = webView.loading;
+    [self handleWebViewLoadingChange];
 	[self refreshButtons];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self handleWebViewLoadingChange];
     if (!self.completedInitialLoad) {
         self.completedInitialLoad = YES;
         if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldPresent:)]) {
             [self.delegate browserViewControllerShouldPresent:self];
         }
     }
-    self.loading = webView.loading;
 	[self refreshButtons];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    self.loading = webView.loading;
+    [self handleWebViewLoadingChange];
     [self refreshButtons];
     ANLogWarn(@"In-app browser failed with error: %@", error);
 }
 
-- (void)observeLoading {
-    [self addObserver:self
-           forKeyPath:@"loading"
-              options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
-              context:nil];
-}
-
-- (void)removeAsLoadingObserver {
-    @try {
-        [self removeObserver:self
-                  forKeyPath:@"loading"];
-    }
-    @catch (NSException * __unused exception) {}
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if ([keyPath isEqualToString:@"loading"]) {
-        BOOL oldValue = [[change objectForKey:NSKeyValueChangeOldKey] boolValue];
-        BOOL newValue = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
-        if (oldValue != newValue && [self.delegate respondsToSelector:@selector(browserViewController:browserIsLoading:)]) {
-            [self.delegate browserViewController:self browserIsLoading:self.loading];
-        }
+- (void)handleWebViewLoadingChange {
+    BOOL oldValue = self.loading;
+    self.loading = self.webView.loading;
+    if (oldValue != self.loading && [self.delegate respondsToSelector:@selector(browserViewController:browserIsLoading:)]) {
+        [self.delegate browserViewController:self
+                            browserIsLoading:self.loading];
     }
 }
 
