@@ -119,3 +119,4 @@ xcuserdata
 # Binary build product files
 
 **/out
+**/Products
