@@ -20,56 +20,35 @@
 #import "UIWebView+ANCategory.h"
 
 @interface ANBrowserViewController ()
-
-@property (nonatomic, readwrite, strong) NSMutableURLRequest *urlRequest;
 @property (nonatomic, readwrite, strong) UIActionSheet *openInSheet;
-@property (nonatomic, readwrite, assign) BOOL isPresented;
+@property (nonatomic, readwrite, assign) BOOL completedInitialLoad;
+@property (nonatomic, readwrite, assign, getter=isLoading) BOOL loading;
 @end
 
 @implementation ANBrowserViewController
-@synthesize forwardButton = __forwardButton;
-@synthesize backButton = __backButton;
-@synthesize openInButton = __openInButton;
-@synthesize doneButton = __doneButton;
-@synthesize activityIndicatorView = __activityIndicatorView;
-@synthesize webView = __webView;
-@synthesize urlRequest = __urlRequest;
-@synthesize openInSheet = __openInSheet;
-@synthesize delegate = __delegate;
 
-- (instancetype)init
-{
+- (instancetype)initWithURL:(NSURL *)url {
     NSBundle *resBundle = ANResourcesBundle();
     if (!resBundle) {
         ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
         return nil;
     }
-
+    
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:ANResourcesBundle()];
-    if (self)
-	{
-		self.urlRequest = [[NSMutableURLRequest alloc] initWithURL:nil
-                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                   timeoutInterval:kAppNexusRequestTimeoutInterval];
-        [self.urlRequest setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
+    if (self) {
+        _url = url;
+        [self.view description]; // A call to self.view is needed for the webView to be created and the load to begin
     }
     
-    self.isPresented = NO;
-    [self.view description]; // A call to self.view (however trivial) is needed for our view to be created
-    
-    return self;
+	return self;
 }
 
-- (instancetype)initWithURL:(NSURL *)url
-{
-	self = [self init];
-	
-	if (self != nil)
-	{
-		self.urlRequest.URL = url;
-	}
-	
-	return self;
++ (NSURLRequest *)requestForURL:(NSURL *)URL {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
+                                                                cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                            timeoutInterval:kAppNexusRequestTimeoutInterval];
+    [request setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
+    return [request copy];
 }
 
 + (void)launchURL:(NSURL *)url withDelegate:(id<ANBrowserViewControllerDelegate>)delegate {
@@ -77,30 +56,25 @@
     controller.delegate = delegate;
     if ([controller.delegate respondsToSelector:@selector(browserViewControllerShouldPresent:)]) {
         [controller.delegate browserViewControllerShouldPresent:controller];
-        controller.isPresented = YES;
     }
 }
 
-- (IBAction)closeAction:(id)sender
-{
+- (IBAction)closeAction:(id)sender {
 	[self.openInSheet dismissWithClickedButtonIndex:1 animated:NO];
     if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
         [self.delegate browserViewControllerShouldDismiss:self];
     }
 }
 
-- (IBAction)forwardAction:(id)sender
-{
+- (IBAction)forwardAction:(id)sender {
 	[self.webView goForward];
 }
 
-- (IBAction)backAction:(id)sender
-{
+- (IBAction)backAction:(id)sender {
 	[self.webView goBack];
 }
 
-- (IBAction)openInAction:(id)sender
-{
+- (IBAction)openInAction:(id)sender {
 	self.openInSheet = [[UIActionSheet alloc]
                         initWithTitle:NSLocalizedString(@"Open In Browser", @"Title: Open in browser option")
                         delegate:self
@@ -111,42 +85,48 @@
 	[self.openInSheet showFromBarButtonItem:sender animated:YES];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	[self refreshButtons];
-    [self.webView loadRequest:self.urlRequest];
+    [self.webView loadRequest:[[self class] requestForURL:self.url]];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [__webView stopLoading];
+    [self.webView stopLoading];
 }
 
-- (void)refreshButtons
-{
+- (void)refreshButtons {
 	self.backButton.enabled = [self.webView canGoBack];
 	self.forwardButton.enabled = [self.webView canGoForward];
 }
 
 - (void)setWebView:(UIWebView *)webView {
+    _webView = webView;
     [webView setMediaProperties];
-    __webView = webView;
 }
 
-- (void)dealloc
-{
-	__webView.delegate = nil;
-	[__webView stopLoading];
+- (void)dealloc {
+	self.webView.delegate = nil;
+	[self.webView stopLoading];
+}
+
+- (void)setUrl:(NSURL *)url {
+    if (![[url absoluteString] isEqualToString:[_url absoluteString]] || (!self.loading && !self.completedInitialLoad)) {
+        _url = url;
+        [self.webView stopLoading];
+        self.completedInitialLoad = NO;
+        [self.webView loadRequest:[[self class] requestForURL:url]];
+    } else {
+        ANLogWarn(@"In-app browser ignoring request to load - request is already loading");
+    }
 }
 
 #pragma mark UIWebViewDelegate
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    [self handleWebViewLoadingChange];
     NSURL *URL = [request URL];
-    if (!self.isPresented) ANLogDebug(@"%@ | Loading URL: %@", NSStringFromSelector(_cmd), URL);
 
     if (hasHttpPrefix([URL scheme])) {
         return YES;
@@ -157,12 +137,7 @@
         if ([self.delegate respondsToSelector:@selector(browserViewControllerWillLaunchExternalApplication)]) {
             [self.delegate browserViewControllerWillLaunchExternalApplication];
         }
-        if (!self.isPresented) {
-            ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromSelector(_cmd), URL);
-            if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
-                [self.delegate browserViewControllerWillNotPresent:self];
-            }
-        }
+        ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromSelector(_cmd), URL);
         [webView stopLoading];
         [[UIApplication sharedApplication] openURL:URL];
         return NO;
@@ -172,47 +147,44 @@
     }
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [self handleWebViewLoadingChange];
 	[self refreshButtons];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-	[self refreshButtons];
-    if (!self.isPresented) {
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self handleWebViewLoadingChange];
+    if (!self.completedInitialLoad) {
+        self.completedInitialLoad = YES;
         if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldPresent:)]) {
             [self.delegate browserViewControllerShouldPresent:self];
-            self.isPresented = YES;
         }
     }
+	[self refreshButtons];
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [self handleWebViewLoadingChange];
+    [self refreshButtons];
     ANLogWarn(@"In-app browser failed with error: %@", error);
-    if (!self.isPresented) {
-        NSString *errorUrlString = error.userInfo[NSURLErrorFailingURLStringErrorKey];
-        NSString *mainDocumentURL = [[webView.request mainDocumentURL] absoluteString];
-        if (([errorUrlString isEqualToString:mainDocumentURL] || !mainDocumentURL) && ([error.domain isEqualToString:@"NSURLErrorDomain"] || [error.domain isEqualToString:@"WebKitErrorDomain"])) {
-            if ([self.delegate respondsToSelector:@selector(browserViewControllerWillNotPresent:)]) {
-                [self.delegate browserViewControllerWillNotPresent:self];
-                [webView stopLoading];
-            }
-        }
+}
+
+- (void)handleWebViewLoadingChange {
+    BOOL oldValue = self.loading;
+    self.loading = self.webView.loading;
+    if (oldValue != self.loading && [self.delegate respondsToSelector:@selector(browserViewController:browserIsLoading:)]) {
+        [self.delegate browserViewController:self
+                            browserIsLoading:self.loading];
     }
 }
 
 #pragma mark UIActionSheetDelegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	if (buttonIndex == 0)
-	{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
 		NSURL *URL = self.webView.request.URL;
 		
-		if ([[UIApplication sharedApplication] canOpenURL:URL])
-		{
+		if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             if ([self.delegate respondsToSelector:@selector(browserViewControllerShouldDismiss:)]) {
                 [self.delegate browserViewControllerShouldDismiss:self];
             }
@@ -224,10 +196,8 @@
 	}
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-	if (actionSheet == self.openInSheet)
-	{
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (actionSheet == self.openInSheet) {
 		self.openInSheet = nil;
 	}
 }

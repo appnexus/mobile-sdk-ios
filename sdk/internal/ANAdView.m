@@ -63,6 +63,7 @@ ANBrowserViewControllerDelegate>
 @synthesize age = __age;
 @synthesize gender = __gender;
 @synthesize customKeywords = __customKeywords;
+@synthesize landingPageLoadsInBackground = __landingPageLoadsInBackground;
 
 // ANMRAIDEventReceiver
 @synthesize mraidEventReceiverDelegate = __mraidEventReceiverDelegate;
@@ -114,11 +115,12 @@ ANBrowserViewControllerDelegate>
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
+    __landingPageLoadsInBackground = YES;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+
     self.adFetcher.delegate = nil;
     [self.adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
     
@@ -580,11 +582,18 @@ ANBrowserViewControllerDelegate>
     
     if (!self.opensInNativeBrowser && hasHttpPrefix([URL scheme])) {
         if (!self.browserViewController) {
-            [self showClickOverlay];
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
             self.browserViewController.delegate = self;
+            if (self.landingPageLoadsInBackground) {
+                [self showClickOverlay];
+            } else {
+                [self browserViewControllerShouldPresent:self.browserViewController];
+            }
         } else {
-            ANLogDebug(@"%@ | Attempt to instantiate in-app browser when one is already being instantiated.", NSStringFromSelector(_cmd));
+            if (self.browserViewController.completedInitialLoad) {
+                [self browserViewControllerShouldPresent:self.browserViewController];
+            }
+            self.browserViewController.url = URL;
         }
     }
     else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
@@ -596,7 +605,10 @@ ANBrowserViewControllerDelegate>
 }
 
 - (ANClickOverlayView *)clickOverlay {
-    if (!_clickOverlay) _clickOverlay = [ANClickOverlayView overlayForView:[self viewToDisplayClickOverlay]];
+    if (!_clickOverlay) {
+        _clickOverlay = [ANClickOverlayView overlayForView:[self viewToDisplayClickOverlay]];
+        _clickOverlay.alpha = 0.0;
+    }
     return _clickOverlay;
 }
 
@@ -605,12 +617,9 @@ ANBrowserViewControllerDelegate>
 }
 
 - (void)showClickOverlay {
-    if (![self.clickOverlay superview]) {
-        self.clickOverlay.alpha = 0.0;
-        [[self viewToDisplayClickOverlay] addSubview:self.clickOverlay];
-    }
     [UIView animateWithDuration:0.5
                      animations:^{
+                         [[self viewToDisplayClickOverlay] addSubview:self.clickOverlay];
                          self.clickOverlay.alpha = 1.0;
                      }];
 }
@@ -620,7 +629,46 @@ ANBrowserViewControllerDelegate>
         [UIView animateWithDuration:0.5
                          animations:^{
                              self.clickOverlay.alpha = 0.0;
+                         } completion:^(BOOL finished) {
+                             [self.clickOverlay removeFromSuperview];
                          }];
+    }
+}
+
+#pragma mark ANBrowserViewControllerDelegate
+
+- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
+    UIViewController *presentingViewController = controller.presentingViewController;
+    [presentingViewController dismissViewControllerAnimated:YES completion:^ {
+        self.browserViewController = nil;
+    }];
+}
+
+- (void)browserViewControllerWillLaunchExternalApplication {
+    [self adWillLeaveApplication];
+}
+
+- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
+    if (!controller.presentingViewController) {
+        if (self.mraidController.presentingViewController) {
+            [self.mraidController presentViewController:controller
+                                               animated:YES
+                                             completion:nil];
+        } else {
+            [self openInBrowserWithController:controller];
+        }
+    } else {
+        ANLogDebug(@"In-app browser already presented - ignoring call to present");
+    }
+}
+
+- (void)browserViewController:(ANBrowserViewController *)controller browserIsLoading:(BOOL)isLoading {
+    if (self.landingPageLoadsInBackground) {
+        if (!controller.completedInitialLoad) {
+            isLoading ? [self showClickOverlay] : [self hideClickOverlay];
+        } else {
+            [self hideClickOverlay];
+        }
     }
 }
 
@@ -652,36 +700,6 @@ ANBrowserViewControllerDelegate>
     self.isExpanded = NO;
     
     [self.mraidEventReceiverDelegate adDidResetToDefault];
-}
-
-#pragma mark ANBrowserViewControllerDelegate
-
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
-    UIViewController *presentingViewController = controller.presentingViewController;
-    [presentingViewController dismissViewControllerAnimated:YES completion:^ {
-        self.browserViewController = nil;
-        [self hideClickOverlay];
-    }];
-}
-
-- (void)browserViewControllerWillLaunchExternalApplication {
-    [self hideClickOverlay];
-    [self adWillLeaveApplication];
-}
-
-- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
-    [self hideClickOverlay];
-    if (self.mraidController.presentingViewController) {
-        [self.mraidController presentViewController:controller animated:YES completion:nil];
-    } else {
-        [self openInBrowserWithController:controller];
-    }
-}
-
-- (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller {
-    ANLogWarn(@"%@", NSStringFromSelector(_cmd));
-    self.browserViewController = nil;
-    [self hideClickOverlay];
 }
 
 #pragma mark ANAdViewDelegate

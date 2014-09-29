@@ -106,6 +106,16 @@ typedef NS_ENUM(NSUInteger, ANGender) {
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
+/**
+ Set whether the landing page should load in the background or in the foreground when an ad is clicked.
+ If set to YES, when an ad is clicked the user is presented with an activity indicator view, and the in-app
+ browser displays only after the landing page content has finished loading. If set to NO, the in-app
+ browser displays immediately. The default is YES.
+ 
+ Has no effect if opensInNativeBrowser is set to YES.
+ */
+@property (nonatomic, readwrite, assign) BOOL landingPageLoadsInBackground;
+
 @end
 
 /**
