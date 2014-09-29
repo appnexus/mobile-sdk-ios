@@ -16,9 +16,6 @@
 #import <AmazonAd/AmazonAdView.h>
 #import "ANAdAdapterBaseAmazon.h"
 
-// Developer's note: The Amazon SDK will not compile unless a prefix header
-// is added to the project which imports <UIKit/UIKit.h>.
-
 @interface ANAdAdapterBannerAmazon : ANAdAdapterBaseAmazon <ANCustomAdapterBanner, AmazonAdViewDelegate>
 
 @end

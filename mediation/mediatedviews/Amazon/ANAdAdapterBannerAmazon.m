@@ -33,7 +33,6 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
     NSLog(@"Requesting Amazon banner with size: %@", NSStringFromCGSize(size));
-    [self registerAppKey:idString];
     AmazonAdView *adView = [AmazonAdView amazonAdViewWithAdSize:size];
     adView.delegate = self;
     self.rootViewController = rootViewController;
