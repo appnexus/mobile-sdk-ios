@@ -19,8 +19,6 @@
 #import "ANLogManager.h"
 #import "ANAdAdapterBaseAmazon.h"
 
-NSString *const kANAdAdapterBaseAmazonAppKey = @"123";
-
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
