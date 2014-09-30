@@ -793,12 +793,22 @@
                     action:@selector(closeAction:)
           forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
-    [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
-    [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    }
+    
+    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox"
+                                                                                  ofType:@"png"]];
+    UIImage *closeboxDown = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox_down"
+                                                                                 ofType:@"png"]];
+    [closeButton setImage:closeboxImage
+                 forState:UIControlStateNormal];
+    [closeButton setImage:closeboxDown
+                 forState:UIControlStateHighlighted];
     
     // setFrame here in order to pass the size dimensions along
-    [closeButton setFrame:CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height)];
+    [closeButton setFrame:CGRectMake(0, 0, closeboxImage.size.width, closeboxImage.size.height)];
     return closeButton;
 }
 
