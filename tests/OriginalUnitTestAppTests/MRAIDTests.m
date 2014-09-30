@@ -1164,7 +1164,7 @@
     #if TARGET_IPHONE_SIMULATOR
     XCTAssertFalse(isSupported, @"Expected iphone simulator to not support SMS");
     #else
-    STAssertTrue(isSupported, @"Expected iPhone device to support SMS");
+    XCTAssertTrue(isSupported, @"Expected iPhone device to support SMS");
     #endif
     [self clearTest];
 }
@@ -1175,7 +1175,7 @@
     #if TARGET_IPHONE_SIMULATOR
     XCTAssertFalse(isSupported, @"Expected iphone simulator to not support Tel");
     #else
-    STAssertTrue(isSupported, @"Expected iPhone device to support Tel");
+    XCTAssertTrue(isSupported, @"Expected iPhone device to support Tel");
     #endif
     [self clearTest];
 }
