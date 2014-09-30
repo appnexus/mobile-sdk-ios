@@ -35,6 +35,10 @@
 		8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
 		8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27CA199AB26B00F2A516 /* iAd.framework */; };
 		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
+		8A7F4CC519DB3976003ECC5C /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC119DB3976003ECC5C /* MPAdBrowserController.xib */; };
+		8A7F4CC619DB3976003ECC5C /* MPCloseButtonX.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */; };
+		8A7F4CC719DB3976003ECC5C /* MPCloseButtonX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */; };
+		8A7F4CC819DB3976003ECC5C /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC419DB3976003ECC5C /* MRAID.bundle */; };
 		8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095519DB16C50090EBED /* AppDelegate.m */; };
 		8AA0095B19DB16C50090EBED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095619DB16C50090EBED /* main.m */; };
 		8AA0095C19DB16C50090EBED /* TestsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA0095719DB16C50090EBED /* TestsStoryboard.storyboard */; };
@@ -343,6 +347,10 @@
 		8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8A5D27CA199AB26B00F2A516 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
+		8A7F4CC119DB3976003ECC5C /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
+		8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MPCloseButtonX.png; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPCloseButtonX.png; sourceTree = "<group>"; };
+		8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPCloseButtonX@2x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPCloseButtonX@2x.png"; sourceTree = "<group>"; };
+		8A7F4CC419DB3976003ECC5C /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MRAID.bundle; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MRAID.bundle; sourceTree = "<group>"; };
 		8A9F94C019D1C37700AB739F /* MediationAdapterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediationAdapterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediationAdapterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA0095419DB16C50090EBED /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -634,6 +642,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8A7F4CBD19DB395D003ECC5C /* MPResources */ = {
+			isa = PBXGroup;
+			children = (
+				8A7F4CC119DB3976003ECC5C /* MPAdBrowserController.xib */,
+				8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */,
+				8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */,
+				8A7F4CC419DB3976003ECC5C /* MRAID.bundle */,
+			);
+			name = MPResources;
+			sourceTree = "<group>";
+		};
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,6 +868,7 @@
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
+				8A7F4CBD19DB395D003ECC5C /* MPResources */,
 				8AD0182F199932F9007874BA /* NewTestApp */,
 				8AD01846199932F9007874BA /* NewTestAppTests */,
 				8AA0095319DB16C50090EBED /* OriginalUnitTestApp */,
@@ -1175,10 +1195,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A7F4CC619DB3976003ECC5C /* MPCloseButtonX.png in Resources */,
 				8AA009ED19DB1D670090EBED /* Images.xcassets in Resources */,
 				8AA00A2F19DB1FD70090EBED /* AmazonBanner.json in Resources */,
 				8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */,
 				8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */,
+				8A7F4CC519DB3976003ECC5C /* MPAdBrowserController.xib in Resources */,
 				8AA00A2319DB1F290090EBED /* FacebookBanner.json in Resources */,
 				8AA00A2419DB1F290090EBED /* FacebookInterstitial.json in Resources */,
 				8AA00A2519DB1F290090EBED /* iAdBanner.json in Resources */,
@@ -1186,10 +1208,12 @@
 				8AA00A2719DB1F290090EBED /* MillennialMediaBanner.json in Resources */,
 				8AA00A3119DB1FFB0090EBED /* AmazonInterstitial.json in Resources */,
 				8AA00A3619DB20A00090EBED /* AdMobInterstitial.json in Resources */,
+				8A7F4CC719DB3976003ECC5C /* MPCloseButtonX@2x.png in Resources */,
 				8AA00A2819DB1F290090EBED /* MillennialMediaInterstitial.json in Resources */,
 				8AA00A2919DB1F290090EBED /* MoPubBanner.json in Resources */,
 				8AA00A2A19DB1F290090EBED /* MoPubInterstitial.json in Resources */,
 				8AA00A3519DB20A00090EBED /* AdMobBanner.json in Resources */,
+				8A7F4CC819DB3976003ECC5C /* MRAID.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1565,7 +1589,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/OriginalUnitTestApp/Tests-Info.plist";
 				INFOPLIST_PREFIX_HEADER = "$(SRCROOT)/OriginalUnitTestApp/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1582,7 +1606,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/OriginalUnitTestApp/Tests-Info.plist";
 				INFOPLIST_PREFIX_HEADER = "$(SRCROOT)/OriginalUnitTestApp/Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1749,7 +1773,7 @@
 					"/Applications/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 				);
 				INFOPLIST_FILE = NewTestApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
@@ -1771,7 +1795,7 @@
 					"/Applications/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 				);
 				INFOPLIST_FILE = NewTestApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
