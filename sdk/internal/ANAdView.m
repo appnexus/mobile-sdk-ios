@@ -435,9 +435,20 @@ ANBrowserViewControllerDelegate>
         
         // add image to the region since it will be in a different
         // place with no visual cue
-        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
-        [closeEventRegion setImage:closeButtonImage forState:UIControlStateNormal];
-        [closeEventRegion setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
+        
+        NSBundle *resBundle = ANResourcesBundle();
+        if (!resBundle) {
+            ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        }
+        
+        UIImage *closeboxImage = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox"
+                                                                                      ofType:@"png"]];
+        UIImage *closeboxDown = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox_down"
+                                                                                     ofType:@"png"]];
+        [closeEventRegion setImage:closeboxImage
+                          forState:UIControlStateNormal];
+        [closeEventRegion setImage:closeboxDown
+                     forState:UIControlStateHighlighted];
     }
     closeEventRegion.frame = CGRectMake(closeOriginX, closeOriginY,
                                         closeEventRegionSize, closeEventRegionSize);

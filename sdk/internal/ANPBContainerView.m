@@ -15,6 +15,7 @@
 
 #import "ANPBContainerView.h"
 #import "ANPBBuffer.h"
+#import "ANLogging.h"
 
 static CGFloat const kANPBContainerViewLogoWidth = 50.0f;
 static CGFloat const kANPBContainerViewLogoAlpha = 0.6f;
@@ -44,7 +45,13 @@ static NSString *const kANPBContainerViewIconName = @"appnexus_logo_icon";
 }
 
 - (void)setupButton {
-    UIImage *icon = [UIImage imageNamed:kANPBContainerViewIconName];
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    }
+    
+    UIImage *icon = [UIImage imageWithContentsOfFile:[resBundle pathForResource:kANPBContainerViewIconName
+                                                                         ofType:@"png"]];
     if (icon) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kANPBContainerViewLogoWidth, kANPBContainerViewLogoWidth)];
         [button setImage:icon
