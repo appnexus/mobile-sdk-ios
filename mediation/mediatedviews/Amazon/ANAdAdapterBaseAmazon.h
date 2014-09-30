@@ -19,14 +19,13 @@
 #import <AmazonAd/AmazonAdOptions.h>
 #import "ANCustomAdapter.h"
 
-// Developer's note: The Amazon SDK will not compile unless a prefix header
-// is added to the project which imports <UIKit/UIKit.h>.
-
-// Amazon app key needs to be filled in here before the Amazon mediation adapters will work.
-static NSString *const kANAdAdapterBaseAmazonAppKey = @"";
-
+/**
+ The Amazon app key should be set before ads are loaded. All invocations of the Amazon mediation adapters
+ will fail to return an ad if the key is not set.
+ */
 @interface ANAdAdapterBaseAmazon : NSObject <ANCustomAdapter>
 
++ (void)setAmazonAppKey:(NSString *)appKey;
 - (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters;
 - (void)handleAmazonError:(AmazonAdError *)amazonError;
 

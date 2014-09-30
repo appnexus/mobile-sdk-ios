@@ -26,15 +26,8 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
 
 @synthesize delegate = _delegate;
 
-+ (void)load {
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        if (!kANAdAdapterBaseAmazonAppKey || [kANAdAdapterBaseAmazonAppKey length] == 0) {
-            NSLog(@"APPNEXUS: App key for Amazon mediation adapters not present - Amazon mediation will fail");
-        } else {
-            [[AmazonAdRegistration sharedRegistration] setAppKey:kANAdAdapterBaseAmazonAppKey];
-        }
-    }];
-    [operation start];
++ (void)setAmazonAppKey:(NSString *)appKey {
+    [[AmazonAdRegistration sharedRegistration] setAppKey:appKey];
 }
 
 - (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters {
