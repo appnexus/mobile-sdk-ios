@@ -84,6 +84,22 @@ extern FBAdSize const kFBAdSizeInterstital;
 - (void)loadAd;
 
 /*!
+ @method
+
+ @abstract
+ This is a method to disable auto refresh for the FBAdView instance
+
+ @discussion By default, we read the refresh interval from the placement setting in your Facebook
+ developers page. Once you call this method, the auto refresh will be disabled for this FBAdView
+ instance, and you cannot re-enable the refresh for this instance. A new created FBAdView will still
+ use the default behavior.
+
+ This method is designed for ad network mediation. We still recommend you to set the placement
+ refresh interval as 'None' if you're using one of the ad network mediation.
+ */
+- (void)disableAutoRefresh;
+
+/*!
  @property
  @abstract Typed access to the id of the ad placement.
  */
@@ -152,6 +168,16 @@ extern FBAdSize const kFBAdSizeInterstital;
  @param error An error object containing details of the error.
  */
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error;
+
+/*!
+ @method
+
+ @abstract
+ Sent immediately before the impression of an FBAdView object will be logged.
+
+ @param adView An FBAdView object sending the message.
+ */
+- (void)adViewWillLogImpression:(FBAdView *)adView;
 
 /*!
  @method

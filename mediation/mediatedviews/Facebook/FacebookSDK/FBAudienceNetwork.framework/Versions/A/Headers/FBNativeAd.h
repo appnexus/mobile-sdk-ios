@@ -167,6 +167,8 @@ typedef void (^FBNativeAdCompletionHandler)(FBNativeAd *nativeAd);
  */
 @protocol FBNativeAdDelegate <NSObject>
 
+@optional
+
 /*!
  @method
 
@@ -176,6 +178,17 @@ typedef void (^FBNativeAdCompletionHandler)(FBNativeAd *nativeAd);
  @param nativeAd An FBNativeAd object sending the message.
  */
 - (void)nativeAdDidLoad:(FBNativeAd *)nativeAd;
+
+/*!
+ @method
+
+ @abstract
+ Sent immediately before the impression of an FBNativeAd object will be logged.
+
+ @param nativeAd An FBNativeAd object sending the message.
+ */
+- (void)nativeAdWillLogImpression:(FBNativeAd *)nativeAd;
+
 /*!
  @method
 

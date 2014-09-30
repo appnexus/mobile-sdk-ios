@@ -145,4 +145,13 @@
  */
 - (void)interstitialAd:(FBInterstitialAd *)interstitialAd didFailWithError:(NSError *)error;
 
+/*!
+ @method
+
+ @abstract
+ Sent immediately before the impression of an FBInterstitialAd object will be logged.
+
+ @param interstitialAd An FBInterstitialAd object sending the message.
+ */
+- (void)interstitialAdWillLogImpression:(FBInterstitialAd *)interstitialAd;
 @end
