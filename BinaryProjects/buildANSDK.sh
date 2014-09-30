@@ -82,13 +82,15 @@ ANMEDDIR=$OUTDIR/ANAdaptersNetworksMediatedByAppNexus
 cd $OUTDIR
 mkdir -p $ANMEDDIR
 cp ANSDK*Adapter/libANSDK*Adapter.a $ANMEDDIR
-rm -rf ANSDK*Adapter
+rm ANSDK*Adapter/*.a
+rmdir ANSDK*Adapter > /dev/null 2>&1
 
 MEDANDIR=$OUTDIR/ANAdaptersNetworksMediatingAppNexus
 
 mkdir -p $MEDANDIR
 cp ANAdapterFor*/libANAdapterFor*.a $MEDANDIR
-rm -rf ANAdapterFor*
+rm ANAdapterFor*/*.a
+rmdir ANAdapterFor* > /dev/null 2>&1
 
 touch README.txt
 echo -e "

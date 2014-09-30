@@ -26,8 +26,8 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
 
 @synthesize delegate = _delegate;
 
-- (void)registerAppKey:(NSString *)key {
-    [[AmazonAdRegistration sharedRegistration] setAppKey:key];
++ (void)setAmazonAppKey:(NSString *)appKey {
+    [[AmazonAdRegistration sharedRegistration] setAppKey:appKey];
 }
 
 - (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters {

@@ -19,10 +19,14 @@
 #import <AmazonAd/AmazonAdOptions.h>
 #import "ANCustomAdapter.h"
 
+/**
+ The Amazon app key should be set before ads are loaded. All invocations of the Amazon mediation adapters
+ will fail to return an ad if the key is not set.
+ */
 @interface ANAdAdapterBaseAmazon : NSObject <ANCustomAdapter>
 
++ (void)setAmazonAppKey:(NSString *)appKey;
 - (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters;
 - (void)handleAmazonError:(AmazonAdError *)amazonError;
-- (void)registerAppKey:(NSString *)key;
 
 @end

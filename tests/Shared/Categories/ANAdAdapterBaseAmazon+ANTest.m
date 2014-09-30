@@ -22,6 +22,7 @@
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         [self exchangeInstanceSelector:@selector(adOptionsForTargetingParameters:)
                           withSelector:@selector(test_adOptionsForTargetingParameters:)];
+        [[self class] setAmazonAppKey:@"123"];
     }];
     [operation start];
 }
