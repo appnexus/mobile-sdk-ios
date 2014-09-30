@@ -204,7 +204,8 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         
         // Check to see if the ad has expired
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
-        if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT) {
+        NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
+        if (timeIntervalSinceDateLoaded > 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
             // Found a valid ad
             id readyAd = adDict[kANInterstitialAdViewKey];
             if ([readyAd conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
