@@ -125,8 +125,8 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         
         // Check to see if the date this was loaded is no more than 60 seconds ago
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
-        
-        if (([dateLoaded timeIntervalSinceNow] * -1) < AN_INTERSTITIAL_AD_TIMEOUT) {
+        NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
+        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
             // If ad is still valid, save a reference to it. We'll use it later
 			adToShow = adDict[kANInterstitialAdViewKey];
             auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
@@ -205,7 +205,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         // Check to see if the ad has expired
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
-        if (timeIntervalSinceDateLoaded > 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
+        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
             // Found a valid ad
             id readyAd = adDict[kANInterstitialAdViewKey];
             if ([readyAd conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
