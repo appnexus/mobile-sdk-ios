@@ -64,6 +64,6 @@
  * The `delegate` object defines several methods that you should call in order to inform MoPub
  * of the progress of your custom event.
  */
-@property (nonatomic, assign) id<MPNativeCustomEventDelegate> delegate;
+@property (nonatomic, weak) id<MPNativeCustomEventDelegate> delegate;
 
 @end

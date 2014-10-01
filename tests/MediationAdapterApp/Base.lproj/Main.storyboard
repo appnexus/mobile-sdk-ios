@@ -3,7 +3,6 @@
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Mediation Adapter View Controller-->
@@ -18,21 +17,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aeR-tn-bir">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzI-ME-wpN">
-                                <rect key="frame" x="16" y="438" width="568" height="162"/>
+                                <rect key="frame" x="0.0" y="438" width="600" height="162"/>
                                 <connections>
                                     <outlet property="dataSource" destination="vXZ-lx-hvc" id="13O-1i-eyH"/>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="dBU-ow-lGD"/>
                                 </connections>
                             </pickerView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aeR-tn-bir">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="hzI-ME-wpN" secondAttribute="trailing" id="B3t-4Q-GyT"/>
-                            <constraint firstItem="hzI-ME-wpN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="BCP-5B-IGf"/>
+                            <constraint firstItem="hzI-ME-wpN" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="0oN-Gg-0Uw"/>
+                            <constraint firstAttribute="trailing" secondItem="hzI-ME-wpN" secondAttribute="trailing" id="SUM-5Z-bJm"/>
                             <constraint firstAttribute="centerY" secondItem="aeR-tn-bir" secondAttribute="centerY" id="U7r-n3-5Ha"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="hzI-ME-wpN" secondAttribute="bottom" id="j2c-vn-Guv"/>
                             <constraint firstAttribute="centerX" secondItem="aeR-tn-bir" secondAttribute="centerX" id="uYH-z2-5Ua"/>

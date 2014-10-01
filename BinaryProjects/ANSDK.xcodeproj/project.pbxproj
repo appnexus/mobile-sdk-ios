@@ -384,6 +384,8 @@
 		8A944E2619D5AFCE007AAAB0 /* MPTableViewAdManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPTableViewAdManager.h; sourceTree = "<group>"; };
 		8A944E2719D5AFCE007AAAB0 /* MPTableViewAdPlacer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPTableViewAdPlacer.h; sourceTree = "<group>"; };
 		8A944E2819D5AFCE007AAAB0 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		8AC662A219DC9DDA004025D5 /* MPServerAdPositioning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPServerAdPositioning.h; sourceTree = "<group>"; };
+		8AC662A319DC9E07004025D5 /* MoPub-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPub-Bridging-Header.h"; sourceTree = "<group>"; };
 		8AD5154019D214CA002E53D6 /* libANSDKAmazonAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAmazonAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD5155519D216E6002E53D6 /* ANAdAdapterBannerAmazon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAmazon.h; sourceTree = "<group>"; };
 		8AD5155619D216E6002E53D6 /* ANAdAdapterBannerAmazon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAmazon.m; sourceTree = "<group>"; };
@@ -691,16 +693,16 @@
 			children = (
 				8A944E0819D5AFCD007AAAB0 /* libMoPubSDK.a */,
 				8A944E0919D5AFCD007AAAB0 /* LICENSE-MOPUB */,
+				8AC662A319DC9E07004025D5 /* MoPub-Bridging-Header.h */,
 				8A944E0A19D5AFCD007AAAB0 /* MPAdBrowserController.xib */,
 				8A944E0B19D5AFCD007AAAB0 /* MPAdConversionTracker.h */,
-				8A944E1119D5AFCD007AAAB0 /* MPCloseButtonX.png */,
-				8A944E1219D5AFCD007AAAB0 /* MPCloseButtonX@2x.png */,
-				8A944E2819D5AFCE007AAAB0 /* MRAID.bundle */,
 				8A944E0C19D5AFCD007AAAB0 /* MPAdPositioning.h */,
 				8A944E0D19D5AFCD007AAAB0 /* MPAdView.h */,
 				8A944E0E19D5AFCD007AAAB0 /* MPBannerCustomEvent.h */,
 				8A944E0F19D5AFCD007AAAB0 /* MPBannerCustomEventDelegate.h */,
 				8A944E1019D5AFCD007AAAB0 /* MPClientAdPositioning.h */,
+				8A944E1119D5AFCD007AAAB0 /* MPCloseButtonX.png */,
+				8A944E1219D5AFCD007AAAB0 /* MPCloseButtonX@2x.png */,
 				8A944E1319D5AFCD007AAAB0 /* MPCollectionViewAdPlacer.h */,
 				8A944E1419D5AFCD007AAAB0 /* MPConstants.h */,
 				8A944E1519D5AFCD007AAAB0 /* MPInterstitialAdController.h */,
@@ -718,10 +720,12 @@
 				8A944E2119D5AFCD007AAAB0 /* MPNativeAdSourceDelegate.h */,
 				8A944E2219D5AFCD007AAAB0 /* MPNativeCustomEvent.h */,
 				8A944E2319D5AFCD007AAAB0 /* MPNativeCustomEventDelegate.h */,
+				8AC662A219DC9DDA004025D5 /* MPServerAdPositioning.h */,
 				8A944E2419D5AFCE007AAAB0 /* MPStreamAdPlacementData.h */,
 				8A944E2519D5AFCE007AAAB0 /* MPStreamAdPlacer.h */,
 				8A944E2619D5AFCE007AAAB0 /* MPTableViewAdManager.h */,
 				8A944E2719D5AFCE007AAAB0 /* MPTableViewAdPlacer.h */,
+				8A944E2819D5AFCE007AAAB0 /* MRAID.bundle */,
 			);
 			path = MoPubSDK;
 			sourceTree = "<group>";

@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "MPClientAdPositioning.h"
+#import "MPServerAdPositioning.h"
 
 @class MPNativeAdRequestTargeting;
 
