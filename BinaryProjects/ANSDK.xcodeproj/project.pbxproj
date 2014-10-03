@@ -25,15 +25,15 @@
 		8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
-		8A6BE74619D5F2BD00498F77 /* ANAdProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A6BE74719D5F2BD00498F77 /* ANAdView.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA8E194B768A0069D934 /* ANAdView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A6BE74819D5F2BD00498F77 /* ANBannerAdView.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA8F194B768A0069D934 /* ANBannerAdView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A6BE74919D5F2BD00498F77 /* ANCustomAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA90194B768A0069D934 /* ANCustomAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A6BE74A19D5F2BD00498F77 /* ANInterstitialAd.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA91194B768A0069D934 /* ANInterstitialAd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A6BE74B19D5F2BD00498F77 /* ANLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA92194B768A0069D934 /* ANLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A6BE74C19D5F2BD00498F77 /* ANLogManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA93194B768A0069D934 /* ANLogManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A6BE74D19D5F2BD00498F77 /* ANTargetingParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8A6BE78219D60C3E00498F77 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A6BE78019D60C3E00498F77 /* ANSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8A6BE74619D5F2BD00498F77 /* ANAdProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */; };
+		8A6BE74719D5F2BD00498F77 /* ANAdView.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA8E194B768A0069D934 /* ANAdView.h */; };
+		8A6BE74819D5F2BD00498F77 /* ANBannerAdView.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA8F194B768A0069D934 /* ANBannerAdView.h */; };
+		8A6BE74919D5F2BD00498F77 /* ANCustomAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA90194B768A0069D934 /* ANCustomAdapter.h */; };
+		8A6BE74A19D5F2BD00498F77 /* ANInterstitialAd.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA91194B768A0069D934 /* ANInterstitialAd.h */; };
+		8A6BE74B19D5F2BD00498F77 /* ANLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA92194B768A0069D934 /* ANLocation.h */; };
+		8A6BE74C19D5F2BD00498F77 /* ANLogManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA93194B768A0069D934 /* ANLogManager.h */; };
+		8A6BE74D19D5F2BD00498F77 /* ANTargetingParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */; };
+		8A6BE78219D60C3E00498F77 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A6BE78019D60C3E00498F77 /* ANSDK.h */; };
 		8A6BE78819D61EDA00498F77 /* ANBannerAdView+ANContentViewTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */; };
 		8A6BE78919D61EDA00498F77 /* NSString+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA96194B768A0069D934 /* NSString+ANCategory.h */; };
 		8A6BE78A19D61EDA00498F77 /* NSTimer+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA98194B768A0069D934 /* NSTimer+ANCategory.h */; };
@@ -1392,7 +1392,7 @@
 		};
 		8A6BE76819D5F34500498F77 /* Build Framework Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -1402,7 +1402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport FRAMEWORK_LOCN=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework\"\n\nif [ -d ${FRAMEWORK_LOCN} ];\nthen\n    rm -rf ${FRAMEWORK_LOCN}\nfi\n\n# Create the path to the real Headers die\nmkdir -p \"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n\n# Create the required symlinks\n/bin/ln -sfh A \"${FRAMEWORK_LOCN}/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${FRAMEWORK_LOCN}/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \\\n\"${FRAMEWORK_LOCN}/${PRODUCT_NAME}\"\n\n# Copy the public headers into the framework\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \\\n\"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n";
+			shellScript = "#set -e\n\n#export FRAMEWORK_LOCN=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework\"\n\n#if [ -d ${FRAMEWORK_LOCN} ];\n#then\n#    rm -rf ${FRAMEWORK_LOCN}\n#fi\n#\n# Create the path to the real Headers die\n#mkdir -p \"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n#\n# Create the required symlinks\n#/bin/ln -sfh A \"${FRAMEWORK_LOCN}/Versions/Current\"\n#/bin/ln -sfh Versions/Current/Headers \"${FRAMEWORK_LOCN}/Headers\"\n#/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \\\n#\"${FRAMEWORK_LOCN}/${PRODUCT_NAME}\"\n#\n# Copy the public headers into the framework\n#/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \\\n#\"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1879,6 +1879,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				SYMROOT = build;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
@@ -1919,6 +1920,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				SYMROOT = build;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
