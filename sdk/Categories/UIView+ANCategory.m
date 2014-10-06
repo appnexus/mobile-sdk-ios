@@ -75,4 +75,154 @@
 
 }
 
+#pragma mark - Autolayout
+
+- (void)constrainWithFrameSize {
+    [self constrainWithSize:self.frame.size];
+}
+
+- (void)constrainWithSize:(CGSize)size {
+    [self removeSizeConstraintToSuperview];
+    
+    NSLayoutConstraint *widthConstraint;
+    NSLayoutConstraint *heightConstraint;
+    
+    [self extractWidthConstraint:&widthConstraint
+                heightConstraint:&heightConstraint];
+
+    if (!widthConstraint) {
+        widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:nil
+                                                       attribute:NSLayoutAttributeNotAnAttribute
+                                                      multiplier:1
+                                                        constant:size.width];
+        [self addConstraint:widthConstraint];
+    } else {
+        widthConstraint.constant = size.width;
+    }
+    if (!heightConstraint) {
+        heightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                       multiplier:1
+                                                         constant:size.height];
+        [self addConstraint:heightConstraint];
+    } else {
+        heightConstraint.constant = size.height;
+    }
+}
+
+- (void)constrainToSizeOfSuperview {
+    [self removeSizeConstraintToSuperview];
+    [self removeSizeConstraint];
+    
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:self.superview
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                      multiplier:1
+                                                                        constant:0];
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:self.superview
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                       multiplier:1
+                                                                         constant:0];
+    [self.superview addConstraints:@[widthConstraint, heightConstraint]];
+}
+
+- (void)alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                            yAttribute:(NSLayoutAttribute)yAttribute {
+    [self alignToSuperviewWithXAttribute:xAttribute
+                              yAttribute:yAttribute
+                                 offsetX:0
+                                 offsetY:0];
+}
+
+- (void)alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                            yAttribute:(NSLayoutAttribute)yAttribute
+                               offsetX:(CGFloat)offsetX
+                               offsetY:(CGFloat)offsetY {
+    [self removeAlignmentConstraintsToSuperview];
+    
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                   attribute:xAttribute
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.superview
+                                                                   attribute:xAttribute
+                                                                  multiplier:1
+                                                                    constant:offsetX];
+    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                   attribute:yAttribute
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.superview
+                                                                   attribute:yAttribute
+                                                                  multiplier:1
+                                                                    constant:offsetY];
+    [self.superview addConstraints:@[xConstraint, yConstraint]];
+}
+
+- (void)removeSizeConstraintToSuperview {
+    NSArray *superviewConstraintsCopy = [self.superview.constraints copy];
+    [superviewConstraintsCopy enumerateObjectsUsingBlock:^(NSLayoutConstraint *existingConstraint, NSUInteger idx, BOOL *stop) {
+        BOOL firstItemSelfSecondItemSuperview = existingConstraint.firstItem == self && existingConstraint.secondItem == self.superview;
+        BOOL firstItemSuperviewSecondItemSelf = existingConstraint.firstItem == self.superview && existingConstraint.secondItem == self;
+        BOOL attributesEqual = existingConstraint.firstAttribute == existingConstraint.secondAttribute;
+        BOOL isWidthOrHeightConstraint = existingConstraint.firstAttribute == NSLayoutAttributeWidth || existingConstraint.firstAttribute == NSLayoutAttributeHeight;
+        BOOL invalidConstraint = (firstItemSelfSecondItemSuperview || firstItemSuperviewSecondItemSelf) && attributesEqual && isWidthOrHeightConstraint;
+        if (invalidConstraint) {
+            [self.superview removeConstraint:existingConstraint];
+        }
+    }];
+}
+
+- (void)removeAlignmentConstraintsToSuperview {
+    NSArray *superviewConstraintsCopy = [self.superview.constraints copy];
+    [superviewConstraintsCopy enumerateObjectsUsingBlock:^(NSLayoutConstraint *existingConstraint, NSUInteger idx, BOOL *stop) {
+        BOOL firstItemSelfSecondItemSuperview = existingConstraint.firstItem == self && existingConstraint.secondItem == self.superview;
+        BOOL firstItemSuperviewSecondItemSelf = existingConstraint.firstItem == self.superview && existingConstraint.secondItem == self;
+        BOOL attributesEqual = existingConstraint.firstAttribute == existingConstraint.secondAttribute;
+        BOOL isWidthOrHeightConstraint = existingConstraint.firstAttribute == NSLayoutAttributeWidth || existingConstraint.firstAttribute == NSLayoutAttributeHeight;
+        BOOL invalidConstraint = (firstItemSelfSecondItemSuperview || firstItemSuperviewSecondItemSelf) && attributesEqual && !isWidthOrHeightConstraint;
+        if (invalidConstraint) {
+            [self.superview removeConstraint:existingConstraint];
+        }
+    }];
+}
+
+- (void)removeSizeConstraint {
+    NSLayoutConstraint *widthConstraint;
+    NSLayoutConstraint *heightConstraint;
+    [self extractWidthConstraint:&widthConstraint
+                heightConstraint:&heightConstraint];
+    
+    if (widthConstraint) {
+        [self removeConstraint:widthConstraint];
+    }
+    if (heightConstraint) {
+        [self removeConstraint:heightConstraint];
+    }
+}
+
+- (void)extractWidthConstraint:(NSLayoutConstraint **)widthConstraint
+              heightConstraint:(NSLayoutConstraint **)heightConstraint {
+    [self.constraints enumerateObjectsUsingBlock:^(NSLayoutConstraint *existingConstraint, NSUInteger idx, BOOL *stop) {
+        BOOL constraintOnlyOnSelf = existingConstraint.firstItem == self && existingConstraint.secondAttribute == NSLayoutAttributeNotAnAttribute && existingConstraint.secondItem == nil;
+        BOOL constraintIsWidthConstraint = existingConstraint.firstAttribute == NSLayoutAttributeWidth && constraintOnlyOnSelf;
+        BOOL constraintIsHeightConstraint = existingConstraint.firstAttribute == NSLayoutAttributeHeight && constraintOnlyOnSelf;
+        if (constraintIsWidthConstraint) {
+            *widthConstraint = existingConstraint;
+        }
+        if (constraintIsHeightConstraint) {
+            *heightConstraint = existingConstraint;
+        }
+    }];
+}
+
 @end

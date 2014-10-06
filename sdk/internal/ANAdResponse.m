@@ -117,7 +117,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 
 // returns true if no error in status. don't fail on null or missing status
 -(BOOL)checkStatusIsValid:(NSDictionary *)jsonResponse {
-    NSString *status = [jsonResponse objectForKey:kResponseKeyStatus];
+    NSString *status = jsonResponse[kResponseKeyStatus];
     if (status && ([status isEqual: kResponseValueError])) {
         ANLogError(ANErrorString(@"response_error"));
         return NO;
@@ -128,19 +128,17 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 // returns true if response contains an ad, false if not
 - (BOOL)handleStandardAds:(NSDictionary *)jsonResponse
 {
-    NSArray *ads = [jsonResponse objectForKey:kResponseKeyAds];
-    if (ads && ([ads count] > 0))
-    {
-        // Grab the first ad only
-        NSDictionary *firstAd = [ads objectAtIndex:0];
-
+    NSArray *ads = jsonResponse[kResponseKeyAds];
+    NSDictionary *firstAd = [ads firstObject]; // nil if there is no first ad
+    if (firstAd) {
         // Grab the type of the ad
-        _type = [firstAd objectForKey:kResponseKeyType];
+        _type = firstAd[kResponseKeyType];
         // Grab the size of the ad
-        _width = [firstAd objectForKey:kResponseKeyWidth];
-        _height = [firstAd objectForKey:kResponseKeyHeight];
+        // response width, height could be NSNumber, use description to extract string. If string, returns itself.
+        _width = [firstAd[kResponseKeyWidth] description];
+        _height = [firstAd[kResponseKeyHeight] description];
         // Grab the ad's content
-        _content = [firstAd objectForKey:kResponseKeyContent];
+        _content = firstAd[kResponseKeyContent];
         if (!_content || ([_content length] < 1)) {
             ANLogError(ANErrorString(@"blank_ad"));
         }
@@ -160,48 +158,40 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 // returns true if response contains an ad, false if not
 - (BOOL)handleMediatedAds:(NSDictionary *)jsonResponse
 {
-    NSArray *mediated = [jsonResponse objectForKey:kResponseKeyMediatedAds];
+    NSArray *mediated = jsonResponse[kResponseKeyMediatedAds];
     if (mediated && ([mediated count] > 0)) {
-        _mediatedAds = [[NSMutableArray alloc] initWithCapacity:0];
-        for (int i = 0; i < [mediated count]; i++) {
-            NSDictionary *mediatedElement = [mediated objectAtIndex:i];
-            if (mediatedElement) {
-                NSArray *handler = [mediatedElement objectForKey:kResponseKeyHandler];
-                if (handler) {
-                    for (int j = 0; j < [handler count]; j++) {
-                        NSDictionary *handlerElement = [handler objectAtIndex:j];
-                        if (handlerElement) {
-                            NSString *type = [handlerElement objectForKey:kResponseKeyType];
-                            // check that the mediated ad is for ios
-                            if (type && [[type lowercaseString] isEqual: kResponseValueIOS]) {
-                                // Grab the mediation network adapter's class string
-                                NSString *className = [handlerElement objectForKey:kResponseKeyClass];
-                                // Grab any extra user info included with the ad request
-                                NSString *param = [handlerElement objectForKey:kResponseKeyParam];
-                                // Grab dimensions
-                                NSString *width = [handlerElement objectForKey:kResponseKeyWidth];
-                                NSString *height = [handlerElement objectForKey:kResponseKeyHeight];
-                                // Grab placement id associated with mediated network
-                                NSString *adId = [handlerElement objectForKey:kResponseKeyId];
-                                
-                                NSString *resultCB = [mediatedElement objectForKey:kResponseKeyResultCB];
-                                
-                                NSString *auctionInfo = [mediatedElement objectForKey:kResponseKeyAuctionInfo];
-                                
-                                ANMediatedAd *mediatedAd = [ANMediatedAd new];
-                                mediatedAd.className = className;
-                                mediatedAd.param = param;
-                                mediatedAd.width = width;
-                                mediatedAd.height = height;
-                                mediatedAd.adId = adId;
-                                mediatedAd.resultCB = resultCB;
-                                mediatedAd.auctionInfo = auctionInfo;
-                                
-                                if ([mediatedAd.className length] > 0)
-                                    [_mediatedAds addObject:mediatedAd];
-                            }
-                        }
-                    }
+        _mediatedAds = [[NSMutableArray alloc] initWithCapacity:[mediated count]]; // Capacity is a performance hint
+        for (NSDictionary *mediatedElement in mediated) {
+            NSArray *handler = mediatedElement[kResponseKeyHandler];
+            for (NSDictionary *handlerElement in handler) {
+                NSString *type = handlerElement[kResponseKeyType];
+                // check that the mediated ad is for ios
+                if (type && [[type lowercaseString] isEqual: kResponseValueIOS]) {
+                    // Grab the mediation network adapter's class string
+                    NSString *className = handlerElement[kResponseKeyClass];
+                    // Grab any extra user info included with the ad request
+                    NSString *param = handlerElement[kResponseKeyParam];
+                    // Grab dimensions
+                    NSString *width = [handlerElement[kResponseKeyWidth] description];
+                    NSString *height = [handlerElement[kResponseKeyHeight] description];
+                    // Grab placement id associated with mediated network
+                    NSString *adId = handlerElement[kResponseKeyId];
+                    
+                    NSString *resultCB = mediatedElement[kResponseKeyResultCB];
+                    
+                    NSString *auctionInfo = mediatedElement[kResponseKeyAuctionInfo];
+                    
+                    ANMediatedAd *mediatedAd = [ANMediatedAd new];
+                    mediatedAd.className = className;
+                    mediatedAd.param = param;
+                    mediatedAd.width = width;
+                    mediatedAd.height = height;
+                    mediatedAd.adId = adId;
+                    mediatedAd.resultCB = resultCB;
+                    mediatedAd.auctionInfo = auctionInfo;
+                    
+                    if ([mediatedAd.className length] > 0)
+                        [_mediatedAds addObject:mediatedAd];
                 }
             }
         }

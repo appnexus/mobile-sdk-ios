@@ -23,6 +23,7 @@
 #import "ANMRAIDViewController.h"
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
+#import "ANBannerAdView+ANContentViewTransitions.h"
 
 #define DEFAULT_ADSIZE CGSizeZero
 
@@ -100,7 +101,7 @@
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:size];
 }
 
-- (id)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
     if (self != nil) {
@@ -110,7 +111,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
+- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
     self = [self initWithFrame:frame];
     
     if (self != nil) {
@@ -120,7 +121,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
+- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
     self = [self initWithFrame:frame placementId:placementId];
     
     if (self != nil) {
@@ -192,13 +193,6 @@
     } else {
         [super setFrame:frame];
     }
-    // center the contentview
-    CGFloat contentWidth = self.contentView.frame.size.width;
-    CGFloat contentHeight = self.contentView.frame.size.height;
-    CGFloat centerX = (self.frame.size.width - contentWidth) / 2;
-    CGFloat centerY = (self.frame.size.height - contentHeight) / 2;
-    [self.contentView setFrame:
-     CGRectMake(centerX, centerY, contentWidth, contentHeight)];
 }
 
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated {
@@ -220,196 +214,21 @@
 #pragma mark - Transitions
 
 - (void)setContentView:(UIView *)newContentView {
-    NSLog(@"Setting content view!");
     if (newContentView != _contentView) {
         [self removeCloseButton];
         
-        UIView *oldContentView = _contentView;
-        _contentView = newContentView;
-
         if ([newContentView isKindOfClass:[UIWebView class]]) {
             UIWebView *webView = (UIWebView *)newContentView;
             [webView removeDocumentPadding];
             [webView setMediaProperties];
         }
 
-        [self swapOldContentView:oldContentView
-              withNewContentView:newContentView];
-    }
-}
+        UIView *oldContentView = _contentView;
+        _contentView = newContentView;
 
-- (void)swapOldContentView:(UIView *)oldContentView
-        withNewContentView:(UIView *)newContentView {
-    if (self.transitionType == ANBannerViewAdTransitionTypeNone) {
-        if (newContentView) {
-            [self addSubview:newContentView];
-            [self removeSubviewsWithException:newContentView];
-        } else {
-            [self removeSubviews];
-        }
-        return;
+        [self performTransitionFromContentView:oldContentView
+                                 toContentView:newContentView];
     }
-    
-    ANBannerViewAdTransitionType transitionType = self.transitionType;
-    if ((oldContentView && !newContentView) || (newContentView && !oldContentView)) {
-        transitionType = ANBannerViewAdTransitionTypeFade;
-    }
-    
-    ANBannerViewAdTransitionDirection transitionDirection = self.transitionDirection;
-    if (transitionDirection == ANBannerViewAdTransitionDirectionRandom) {
-        transitionDirection = arc4random_uniform(4);
-    }
-    
-    if (transitionType != ANBannerViewAdTransitionTypeFlip) {
-        newContentView.hidden = YES;
-    }
-    
-    if (newContentView) {
-        [self addSubview:newContentView];
-    }
-    
-    self.transitionInProgress = @(YES);
-    
-    [UIView animateWithDuration:self.transitionDuration
-                     animations:^{
-                         if (transitionType == ANBannerViewAdTransitionTypeFlip) {
-                             CAKeyframeAnimation *oldContentViewAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-                             oldContentViewAnimation.values = [self keyFrameValuesForOldContentViewFlipAnimationWithDirection:transitionDirection];
-                             oldContentViewAnimation.delegate = self;
-                             oldContentViewAnimation.duration = self.transitionDuration;
-                             [oldContentView.layer addAnimation:oldContentViewAnimation
-                                                         forKey:@"oldContentView"];
-                             
-                             CAKeyframeAnimation *newContentViewAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-                             newContentViewAnimation.values = [self keyFrameValuesForNewContentViewFlipAnimationWithDirection:transitionDirection];
-                             newContentViewAnimation.duration = self.transitionDuration;
-                             [newContentView.layer addAnimation:newContentViewAnimation
-                                                         forKey:@"newContentView"];
-                         } else {
-                             CATransition *transition = [CATransition animation];
-                             transition.startProgress = 0;
-                             transition.endProgress = 1.0;
-                             transition.type = [[self class] CATransitionTypeFromANTransitionType:transitionType];
-                             transition.subtype = [[self class] CATransitionSubtypeFromANTransitionDirection:transitionDirection
-                                                                                        withANTransitionType:transitionType];
-                             transition.duration = self.transitionDuration;
-                             transition.delegate = self;
-                             
-                             [oldContentView.layer addAnimation:transition
-                                                         forKey:@"transition"];
-                             [newContentView.layer addAnimation:transition
-                                                         forKey:@"transition"];
-                             
-                             newContentView.hidden = NO;
-                             oldContentView.hidden = YES;
-                         }
-                     }];
-}
-
-+ (NSString *)CATransitionSubtypeFromANTransitionDirection:(ANBannerViewAdTransitionDirection)transitionDirection
-                                      withANTransitionType:(ANBannerViewAdTransitionType)transitionType {
-    if (transitionType == ANBannerViewAdTransitionTypeFade) {
-        return kCATransitionFade;
-    }
-    
-    switch (transitionDirection) {
-        case ANBannerViewAdTransitionDirectionUp:
-            return kCATransitionFromTop;
-        case ANBannerViewAdTransitionDirectionDown:
-            return kCATransitionFromBottom;
-        case ANBannerViewAdTransitionDirectionLeft:
-            return kCATransitionFromRight;
-        case ANBannerViewAdTransitionDirectionRight:
-            return kCATransitionFromLeft;
-        default:
-            return kCATransitionFade;
-    }
-}
-
-+ (NSString *)CATransitionTypeFromANTransitionType:(ANBannerViewAdTransitionType)transitionType {
-    switch (transitionType) {
-        case ANBannerViewAdTransitionTypeFade:
-            return kCATransitionPush;
-        case ANBannerViewAdTransitionTypePush:
-            return kCATransitionPush;
-        case ANBannerViewAdTransitionTypeMoveIn:
-            return kCATransitionMoveIn;
-        case ANBannerViewAdTransitionTypeReveal:
-            return kCATransitionReveal;
-        default:
-            return kCATransitionPush;
-    }
-}
-
-static NSInteger const kANBannerAdViewNumberOfKeyframeValuesToGenerate = 35;
-static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
-
-- (NSArray *)keyFrameValuesForContentViewFlipAnimationWithDirection:(ANBannerViewAdTransitionDirection)direction
-                                                  forOldContentView:(BOOL)isOldContentView {
-    CGFloat angle = 0.0f;
-    CGFloat x;
-    CGFloat y;
-    CGFloat frameFlipDimensionLength = 0.0f;
-    
-    switch (direction) {
-        case ANBannerViewAdTransitionDirectionUp:
-            x = 1;
-            y = 0;
-            angle = isOldContentView ? M_PI_2 : -M_PI_2;
-            frameFlipDimensionLength = CGRectGetHeight(self.frame);
-            break;
-        case ANBannerViewAdTransitionDirectionDown:
-            x = 1;
-            y = 0;
-            angle = isOldContentView ? -M_PI_2: M_PI_2;
-            frameFlipDimensionLength = CGRectGetHeight(self.frame);
-            break;
-        case ANBannerViewAdTransitionDirectionLeft:
-            x = 0;
-            y = 1;
-            angle = isOldContentView ? -M_PI_2 : M_PI_2;
-            frameFlipDimensionLength = CGRectGetWidth(self.frame);
-            break;
-        case ANBannerViewAdTransitionDirectionRight:
-            x = 0;
-            y = 1;
-            angle = isOldContentView ? M_PI_2 : -M_PI_2;
-            frameFlipDimensionLength = CGRectGetWidth(self.frame);
-            break;
-        default:
-            x = 1;
-            y = 0;
-            angle = isOldContentView ? M_PI_2 : -M_PI_2;
-            frameFlipDimensionLength = CGRectGetHeight(self.frame);
-            break;
-    }
-
-    NSMutableArray *keyframeValues = [[NSMutableArray alloc] init];
-    for (NSInteger valueNumber=0; valueNumber <= kANBannerAdViewNumberOfKeyframeValuesToGenerate; valueNumber++) {
-        CATransform3D transform = CATransform3DIdentity;
-        transform.m34 = kANBannerAdViewPerspectiveValue;
-        transform = CATransform3DTranslate(transform, 0, 0, -frameFlipDimensionLength / 2.0);
-        transform = CATransform3DRotate(transform, angle * valueNumber / kANBannerAdViewNumberOfKeyframeValuesToGenerate, x, y, 0);
-        transform = CATransform3DTranslate(transform, 0, 0, frameFlipDimensionLength / 2.0);
-        [keyframeValues addObject:[NSValue valueWithCATransform3D:transform]];
-    }
-    return isOldContentView ? keyframeValues : [[keyframeValues reverseObjectEnumerator] allObjects];
-}
-
-- (NSArray *)keyFrameValuesForOldContentViewFlipAnimationWithDirection:(ANBannerViewAdTransitionDirection)direction {
-    return [self keyFrameValuesForContentViewFlipAnimationWithDirection:direction
-                                                      forOldContentView:YES];
-}
-
-- (NSArray *)keyFrameValuesForNewContentViewFlipAnimationWithDirection:(ANBannerViewAdTransitionDirection)direction {
-    return [self keyFrameValuesForContentViewFlipAnimationWithDirection:direction
-                                                      forOldContentView:NO];
-}
-
-- (void)animationDidStop:(CAAnimation *)anim
-                finished:(BOOL)flag {
-    [self removeSubviewsWithException:self.contentView];
-    self.transitionInProgress = @(NO);
 }
 
 - (NSNumber *)transitionInProgress {
@@ -420,16 +239,14 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 #pragma mark Implementation of abstract methods from ANAdView
 
 - (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
-    [self adWillPresent];
-    if (self.rootViewController.presentingViewController) { // RVC is modal view
+    BOOL rvcAttachedToWindow = self.rootViewController.view.window ? YES : NO;
+    if (rvcAttachedToWindow) {
+        [self adWillPresent];
         [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
             [self adDidPresent];
         }];
     } else {
-        UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
-        [presentingController presentViewController:browserViewController animated:YES completion:^{
-            [self adDidPresent];
-        }];
+        ANLogError(@"Cannot present in-app browser - rootViewController not set, or rootViewController not attached to window");
     }
 }
 
@@ -461,10 +278,7 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 #pragma mark ANAdFetcherDelegate
 
 - (NSArray *)extraParameters {
-    return [NSArray arrayWithObjects:
-            [self sizeParameter],
-            [self orientationParameter],
-            nil];
+    return @[[self sizeParameter],[self orientationParameter]];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
@@ -474,20 +288,11 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
         UIView *contentView = response.adObject;
         
         if ([contentView isKindOfClass:[UIView class]]) {
-            // center the contentview
-            CGFloat centerX = (self.frame.size.width - contentView.frame.size.width) / 2;
-            CGFloat centerY = (self.frame.size.height - contentView.frame.size.height) / 2;
-            [contentView setFrame:
-             CGRectMake(centerX, centerY,
-                        contentView.frame.size.width,
-                        contentView.frame.size.height)];
             self.contentView = contentView;
-            
             [self adDidReceiveAd];
         }
         else {
-            NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")
-                                                                  forKey:NSLocalizedDescriptionKey];
+            NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")};
             error = [NSError errorWithDomain:AN_ERROR_DOMAIN
                                         code:ANAdResponseNonViewResponse
                                     userInfo:errorInfo];
@@ -527,6 +332,8 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 
 - (void)adShouldExpandToFrame:(CGRect)frame
                   closeButton:(UIButton *)closeButton {
+    [self resetContentViewForMRAID];
+    
     [super mraidExpandAd:frame.size
              contentView:self.contentView
        defaultParentView:self
@@ -541,6 +348,8 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 - (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
                   closeButton:(UIButton *)closeButton
                 closePosition:(ANMRAIDCustomClosePosition)closePosition {
+    [self resetContentViewForMRAID];
+
     // resized ads are never modal
     UIView *contentView = self.contentView;
     
@@ -569,6 +378,15 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 - (void)adShouldResetToDefault {
     self.adjustFramesInResizeState = NO;
     [super adShouldResetToDefault:self.contentView parentView:self];
+    [self constrainContentView];
+}
+
+- (void)resetContentViewForMRAID {
+    CGRect contentViewFrame = self.contentView.frame;
+    [self.contentView removeSizeConstraint];
+    [self.contentView removeAlignmentConstraintsToSuperview];
+    self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
+    [self.contentView setFrame:contentViewFrame];
 }
 
 #pragma mark delegate selector helper method

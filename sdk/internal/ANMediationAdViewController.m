@@ -353,7 +353,7 @@
 - (void)didFailToReceiveAd:(ANADRESPONSECODE)errorCode {
     if ([self checkIfHasResponded]) return;
     [self markLatencyStop];
-    
+    self.hasFailed = YES;
     [self finish:errorCode withAdObject:nil auctionID:nil];
 }
 

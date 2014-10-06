@@ -84,7 +84,7 @@
  @param placementId the placement ID given from AN
  @returns void
  */
-- (id)initWithPlacementId:(NSString *)placementId;
+- (instancetype)initWithPlacementId:(NSString *)placementId;
 
 /**
  Actually loads the ad into your ad view.

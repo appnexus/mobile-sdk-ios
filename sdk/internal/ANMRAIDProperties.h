@@ -13,41 +13,32 @@
  limitations under the License.
  */
 
-#ifndef _ANMRAIDConstants
-#define _ANMRAIDConstants
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-typedef enum _ANMRAIDOrientation
-{
+typedef NS_ENUM(NSUInteger, ANMRAIDOrientation) {
     ANMRAIDOrientationPortrait,
     ANMRAIDOrientationLandscape,
     ANMRAIDOrientationNone
-} ANMRAIDOrientation;
+};
 
-typedef enum _ANMRAIDCustomClosePosition
-{
+typedef NS_ENUM(NSUInteger, ANMRAIDCustomClosePosition) {
     ANMRAIDTopLeft,
     ANMRAIDTopCenter,
     ANMRAIDTopRight,
     ANMRAIDCenter,
     ANMRAIDBottomLeft,
     ANMRAIDBottomCenter,
-    ANMRAIDBottomRight,
-} ANMRAIDCustomClosePosition;
+    ANMRAIDBottomRight
+};
 
-typedef enum _ANMRAIDState
-{
+typedef NS_ENUM(NSUInteger, ANMRAIDState) {
     ANMRAIDStateLoading,
     ANMRAIDStateDefault,
     ANMRAIDStateExpanded,
     ANMRAIDStateHidden,
     ANMRAIDStateResized
-} ANMRAIDState;
-
-
-#endif
-
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+};
 
 @protocol ANMRAIDEventReceiver <NSObject>
 

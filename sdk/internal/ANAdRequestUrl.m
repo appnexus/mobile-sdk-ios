@@ -141,7 +141,7 @@
 }
 
 - (NSString *)applicationIdParameter {
-    NSString *appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    NSString *appId = [[NSBundle mainBundle] infoDictionary][@"CFBundleIdentifier"];
     return [NSString stringWithFormat:@"&appid=%@", appId];
 }
 
@@ -206,7 +206,7 @@
 }
 
 - (NSString *)languageParameter {
-    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    NSString *language = [NSLocale preferredLanguages][0];
     return ([language length] > 0) ? [NSString stringWithFormat:@"&language=%@", language] : @"";
 }
 

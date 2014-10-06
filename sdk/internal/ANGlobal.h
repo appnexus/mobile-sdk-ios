@@ -35,7 +35,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"1.19"
+#define AN_SDK_VERSION              @"1.20"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -94,4 +94,4 @@ NSMutableSet *ANInvalidNetworks();
 void ANAddInvalidNetwork(NSString *network);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
-
+CGRect ANPortraitScreenBounds();

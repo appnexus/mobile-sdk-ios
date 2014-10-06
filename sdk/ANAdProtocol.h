@@ -18,12 +18,11 @@
 
 @class ANLocation;
 
-typedef enum _ANGender
-{
+typedef NS_ENUM(NSUInteger, ANGender) {
     UNKNOWN,
     MALE,
     FEMALE
-} ANGender;
+};
 
 /**
  ANAdProtocol defines the properties and methods that are common to
@@ -86,11 +85,19 @@ typedef enum _ANGender
 @property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
 
 /**
- Set the ad view's location.  This allows ad buyers to do location
+ Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
+
+/**
+ Set the user's current location rounded to the number of decimal places specified in "precision".
+ Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
+ */
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      precision:(NSInteger)precision;
 
 /**
  These methods add and remove custom keywords to and from the
@@ -98,6 +105,16 @@ typedef enum _ANGender
  */
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeCustomKeywordWithKey:(NSString *)key;
+
+/**
+ Set whether the landing page should load in the background or in the foreground when an ad is clicked.
+ If set to YES, when an ad is clicked the user is presented with an activity indicator view, and the in-app
+ browser displays only after the landing page content has finished loading. If set to NO, the in-app
+ browser displays immediately. The default is YES.
+ 
+ Has no effect if opensInNativeBrowser is set to YES.
+ */
+@property (nonatomic, readwrite, assign) BOOL landingPageLoadsInBackground;
 
 @end
 

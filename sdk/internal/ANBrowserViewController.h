@@ -22,26 +22,30 @@
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *forwardButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *backButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *doneButton;
-@property (nonatomic, readwrite, weak) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *openInButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIWebView *webView;
-@property (nonatomic, readwrite, weak) id<ANBrowserViewControllerDelegate> delegate;
 
-- (id)initWithURL:(NSURL *)url;
 - (IBAction)closeAction:(id)sender;
 - (IBAction)forwardAction:(id)sender;
 - (IBAction)backAction:(id)sender;
 - (IBAction)openInAction:(id)sender;
 
+@property (nonatomic, readonly, assign) BOOL completedInitialLoad;
+@property (nonatomic, readonly, assign, getter=isLoading) BOOL loading;
+@property (nonatomic, readwrite, strong) NSURL *url;
+@property (nonatomic, readwrite, weak) id<ANBrowserViewControllerDelegate> delegate;
+
+- (instancetype)initWithURL:(NSURL *)url;
 + (void)launchURL:(NSURL *)url withDelegate:(id<ANBrowserViewControllerDelegate>)delegate;
 
 @end
 
 @protocol ANBrowserViewControllerDelegate <NSObject>
 
+@optional
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller;
 - (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller;
 - (void)browserViewControllerWillLaunchExternalApplication;
-- (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller;
+- (void)browserViewController:(ANBrowserViewController *)controller browserIsLoading:(BOOL)isLoading;
 
 @end

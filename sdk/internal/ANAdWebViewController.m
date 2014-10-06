@@ -38,7 +38,7 @@
 @property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
 @property (nonatomic, readwrite, assign) BOOL expanded;
 @property (nonatomic, readwrite, assign) BOOL resized;
-@property (nonatomic, readwrite, assign) NSTimer *viewabilityTimer;
+@property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
 @property (nonatomic, readwrite) BOOL isViewable;
 @property (nonatomic, readwrite) CGRect defaultPosition;
 @property (nonatomic, readwrite) CGRect currentPosition;
@@ -188,7 +188,7 @@
     }
     if (isInHiddenSuperview) return NO;
     
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGRect newBounds = [self.webView convertRect:self.webView.bounds toView:nil];
     BOOL isOnScreen = CGRectIntersectsRect(newBounds, screenBounds);
     if (!isOnScreen) return NO;
@@ -299,7 +299,7 @@
 - (void)setMaxSizeForMRAIDGetMaxSizeFunction:(UIWebView*) webView{
     UIApplication *application = [UIApplication sharedApplication];
     BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    CGSize screenSize = ANPortraitScreenBounds().size;
     int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
     int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
     
@@ -311,8 +311,9 @@
 }
 
 - (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
+    
     BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    CGSize screenSize = ANPortraitScreenBounds().size;
     int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
     int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
     
@@ -376,19 +377,19 @@
         [self resizeAction:webView queryComponents:queryComponents];
     } else if([mraidCommand isEqualToString:@"createCalendarEvent"]) {
         [self.adFetcherDelegate adWasClicked];
-        NSString *w3cEventJson = [queryComponents objectForKey:@"p"];
+        NSString *w3cEventJson = queryComponents[@"p"];
         [self createCalendarEventFromW3CCompliantJSONObject:w3cEventJson];
     } else if([mraidCommand isEqualToString:@"playVideo"]) {
         [self.adFetcherDelegate adWasClicked];
         [self playVideo:queryComponents];
     } else if([mraidCommand isEqualToString:@"storePicture"]) {
         [self.adFetcherDelegate adWasClicked];
-        NSString *uri = [queryComponents objectForKey:@"uri"];
+        NSString *uri = queryComponents[@"uri"];
         [self storePicture:uri];
     } else if([mraidCommand isEqualToString:@"setOrientationProperties"]) {
         [self setOrientationProperties:queryComponents];
     } else if([mraidCommand isEqualToString:@"open"]){
-        NSString *uri = [queryComponents objectForKey:@"uri"];
+        NSString *uri = queryComponents[@"uri"];
         [self open:uri];
     } else if ([mraidCommand isEqualToString:@"enable"]) {
         if (self.isMRAID) return;
@@ -454,10 +455,10 @@
 }
 
 - (void)expandAction:(UIWebView *)webView queryComponents:(NSDictionary *)queryComponents {
-    NSInteger expandedHeight = [[queryComponents objectForKey:@"h"] integerValue];
-    NSInteger expandedWidth = [[queryComponents objectForKey:@"w"] integerValue];
-    NSString *useCustomClose = [queryComponents objectForKey:@"useCustomClose"];
-    NSString *url = [queryComponents objectForKey:@"url"];
+    NSInteger expandedHeight = [queryComponents[@"h"] integerValue];
+    NSInteger expandedWidth = [queryComponents[@"w"] integerValue];
+    NSString *useCustomClose = queryComponents[@"useCustomClose"];
+    NSString *url = queryComponents[@"url"];
 
     [self setOrientationProperties:queryComponents];
     
@@ -475,29 +476,31 @@
 }
 
 - (void)resizeAction:(UIWebView *)webView queryComponents:(NSDictionary *)queryComponents {
-    int w = [[queryComponents objectForKey:@"w"] intValue];
-    int h = [[queryComponents objectForKey:@"h"] intValue];
-    int offsetX = [[queryComponents objectForKey:@"offset_x"] intValue];
-    int offsetY = [[queryComponents objectForKey:@"offset_y"] intValue];
-    NSString* customClosePosition = [queryComponents objectForKey:@"custom_close_position"];
-    BOOL allowOffscreen = [[queryComponents objectForKey:@"allow_offscreen"] boolValue];
+    int w = [queryComponents[@"w"] intValue];
+    int h = [queryComponents[@"h"] intValue];
+    int offsetX = [queryComponents[@"offset_x"] intValue];
+    int offsetY = [queryComponents[@"offset_y"] intValue];
+    NSString* customClosePosition = queryComponents[@"custom_close_position"];
+    BOOL allowOffscreen = [queryComponents[@"allow_offscreen"] boolValue];
     
     ANMRAIDCustomClosePosition closePosition = [self getCustomClosePositionFromString:customClosePosition];
     
-    [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h) allowOffscreen:allowOffscreen closeButton:[self resizeCloseButton] closePosition:closePosition];
-    
+    [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h)
+                               allowOffscreen:allowOffscreen
+                                  closeButton:[self resizeCloseButton]
+                                closePosition:closePosition];
     self.resized = YES;
 }
 
 - (void)playVideo:(NSDictionary *)queryComponents {
-    NSString *uri = [queryComponents objectForKey:@"uri"];
+    NSString *uri = queryComponents[@"uri"];
     NSURL *url = [NSURL URLWithString:uri];
     
     MPMoviePlayerViewController *moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
     moviePlayerViewController.moviePlayer.fullscreen = YES;
     moviePlayerViewController.moviePlayer.shouldAutoplay = YES;
     moviePlayerViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-    moviePlayerViewController.moviePlayer.view.frame = [[UIScreen mainScreen] bounds];
+    moviePlayerViewController.moviePlayer.view.frame = ANPortraitScreenBounds();
     moviePlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -520,17 +523,17 @@
     NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
     ANLogDebug(@"%@ | NSDictionary from JSON Calendar Object: %@", NSStringFromSelector(_cmd), jsonDict);
     
-    NSString* description = [jsonDict objectForKey:@"description"];
-    NSString* location = [jsonDict objectForKey:@"location"];
-    NSString* summary = [jsonDict objectForKey:@"summary"];
-    NSString* start = [jsonDict objectForKey:@"start"];
-    NSString* end = [jsonDict objectForKey:@"end"];
-    NSString* status = [jsonDict objectForKey:@"status"];
+    NSString* description = jsonDict[@"description"];
+    NSString* location = jsonDict[@"location"];
+    NSString* summary = jsonDict[@"summary"];
+    NSString* start = jsonDict[@"start"];
+    NSString* end = jsonDict[@"end"];
+    NSString* status = jsonDict[@"status"];
     /* 
      * iOS Not supported
-     * NSString* transparency = [jsonDict objectForKey:@"transparency"];
+     * NSString* transparency = jsonDict[@"transparency"];
      */
-    NSString* reminder = [jsonDict objectForKey:@"reminder"];
+    NSString* reminder = jsonDict[@"reminder"];
     
     EKEventStore* store = [[EKEventStore alloc] init];
     [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error){
@@ -600,9 +603,9 @@
             }
                 
                 
-            NSDictionary* repeat = [jsonDict objectForKey:@"recurrence"];
+            NSDictionary* repeat = jsonDict[@"recurrence"];
             if ([repeat isKindOfClass:[NSDictionary class]]) {
-                NSString* frequency = [repeat objectForKey:@"frequency"];
+                NSString* frequency = repeat[@"frequency"];
                 EKRecurrenceFrequency frequency_ios;
                 
                 if ([frequency isEqualToString:@"daily"]) frequency_ios = EKRecurrenceFrequencyDaily;
@@ -614,12 +617,12 @@
                     return;
                 }
 
-                int interval = [[repeat objectForKey:@"interval"] intValue];
+                int interval = [repeat[@"interval"] intValue];
                 if (interval < 1) {
                     interval = 1;
                 }
                     
-                NSString* expires = [repeat objectForKey:@"expires"];
+                NSString* expires = repeat[@"expires"];
                 //expires
                 EKRecurrenceEnd* end;
                 if([df1 dateFromString:expires]!=nil){
@@ -632,10 +635,10 @@
                     
                 /*
                  * iOS Not supported
-                 * NSArray* exceptionDates = [repeat objectForKey:@"exceptionDates"];
+                 * NSArray* exceptionDates = repeat[@"exceptionDates"];
                  */
                 
-                NSMutableArray* daysInWeek = [[repeat objectForKey:@"daysInWeek"] mutableCopy]; // Need a mutable copy of the array in order to transform NSNumber => EKRecurrenceDayOfWeek
+                NSMutableArray* daysInWeek = [repeat[@"daysInWeek"] mutableCopy]; // Need a mutable copy of the array in order to transform NSNumber => EKRecurrenceDayOfWeek
                 
                 for (NSInteger daysInWeekIndex=0; daysInWeekIndex < [daysInWeek count]; daysInWeekIndex++) {
                     NSInteger dayInWeekValue = [daysInWeek[daysInWeekIndex] integerValue]; // W3 value should be between 0 and 6 inclusive.
@@ -649,13 +652,13 @@
 
                 NSMutableArray* daysInMonth = nil; // Only valid for EKRecurrenceFrequencyMonthly
                 if (frequency_ios == EKRecurrenceFrequencyMonthly) {
-                    NSMutableArray* daysInMonth = [[repeat objectForKey:@"daysInMonth"] mutableCopy];
+                    NSMutableArray* daysInMonth = [repeat[@"daysInMonth"] mutableCopy];
                     
                     for (NSInteger daysInMonthIndex=0; daysInMonthIndex < [daysInMonth count]; daysInMonthIndex++) {
                         NSInteger dayInMonthValue = [daysInMonth[daysInMonthIndex] integerValue]; // W3 value should be between -30 and 31 inclusive.
                         if (dayInMonthValue >= -30 && dayInMonthValue <= 31) {
                             if (dayInMonthValue <= 0) { // W3 reverse values from 0 to -30, Apple reverse values from -1 to -31 (0 and -1 meaning last day of month respectively)
-                                daysInMonth[daysInMonthIndex] = [NSNumber numberWithInteger:dayInMonthValue-1];
+                                daysInMonth[daysInMonthIndex] = @(dayInMonthValue-1);
                             }
                         } else {
                             ANLogWarn(@"%@ | Invalid W3 day of month passed in: %d. Value should be between -30 and 31 inclusive.", NSStringFromSelector(_cmd), dayInMonthValue);
@@ -663,7 +666,7 @@
                         }
                     }
                     
-                    NSArray* weeksInMonth = [repeat objectForKey:@"weeksInMonth"]; // Need to implement W3 weeksInMonth for monthly occurrences
+                    NSArray* weeksInMonth = repeat[@"weeksInMonth"]; // Need to implement W3 weeksInMonth for monthly occurrences
                     NSMutableArray *updatedDaysInWeek = [[NSMutableArray alloc] init];
                     
                     for (NSNumber* weekNumber in weeksInMonth) {
@@ -689,7 +692,7 @@
                 NSMutableArray* daysInYear = nil;
 
                 if (frequency_ios == EKRecurrenceFrequencyYearly) {
-                    monthsInYear = [repeat objectForKey:@"monthsInYear"]; // Apple & W3 valid values from 1 to 12, inclusive.
+                    monthsInYear = repeat[@"monthsInYear"]; // Apple & W3 valid values from 1 to 12, inclusive.
                     
                     for (NSNumber *monthInYear in monthsInYear) {
                         NSInteger monthInYearValue = [monthInYear integerValue];
@@ -699,13 +702,13 @@
                         }
                     }
                     
-                    daysInYear = [[repeat objectForKey:@"daysInYear"] mutableCopy];
+                    daysInYear = [repeat[@"daysInYear"] mutableCopy];
                     
                     for (NSInteger daysInYearIndex=0; daysInYearIndex < [daysInYear count]; daysInYearIndex++) {
                         NSInteger dayInYearValue = [daysInYear[daysInYearIndex] integerValue]; // W3 value should be between -364 and 365 inclusive. (W3 doesn't care about leap years?)
                         if (dayInYearValue >= -364 && dayInYearValue <= 365) {
                             if (dayInYearValue <= 0) { // W3 reverse values from 0 to -364, Apple reverse values from -1 to -366
-                                daysInYear[daysInYearIndex] = [NSNumber numberWithInteger:dayInYearValue-1];
+                                daysInYear[daysInYearIndex] = @(dayInYearValue-1);
                             }
                         } else {
                             ANLogWarn(@"%@ | Invalid W3 day of year passed in: %d. Value should be between -364 and 365 inclusive.", NSStringFromSelector(_cmd), dayInYearValue);
@@ -725,7 +728,7 @@
                                                                                             end:end];
                 
                 if (rrule) { // EKRecurrenceRule will return nil if invalid values are passed in
-                    [event setRecurrenceRules:[NSArray arrayWithObjects:rrule, nil]];
+                    [event setRecurrenceRules:@[rrule]];
                     ANLogDebug(@"%@ | Created Recurrence Rule: %@", NSStringFromSelector(_cmd), rrule);
                 } else {
                     ANLogWarn(@"%@ | Invalid EKRecurrenceRule Values Passed In.", NSStringFromSelector(_cmd));
@@ -745,8 +748,8 @@
 
 - (void)setOrientationProperties:(NSDictionary *)queryComponents
 {
-    NSString *allow = [queryComponents objectForKey:@"allow_orientation_change"];
-    NSString *forcedOrientation = [queryComponents objectForKey:@"force_orientation"];
+    NSString *allow = queryComponents[@"allow_orientation_change"];
+    NSString *forcedOrientation = queryComponents[@"force_orientation"];
     
     ANMRAIDOrientation mraidOrientation = ANMRAIDOrientationNone;
     if ([forcedOrientation isEqualToString:@"none"]) {
@@ -790,12 +793,22 @@
                     action:@selector(closeAction:)
           forControlEvents:UIControlEventTouchUpInside];
     
-    UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
-    [closeButton setImage:closeButtonImage forState:UIControlStateNormal];
-    [closeButton setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
+    NSBundle *resBundle = ANResourcesBundle();
+    if (!resBundle) {
+        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    }
+    
+    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox"
+                                                                                  ofType:@"png"]];
+    UIImage *closeboxDown = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox_down"
+                                                                                 ofType:@"png"]];
+    [closeButton setImage:closeboxImage
+                 forState:UIControlStateNormal];
+    [closeButton setImage:closeboxDown
+                 forState:UIControlStateHighlighted];
     
     // setFrame here in order to pass the size dimensions along
-    [closeButton setFrame:CGRectMake(0, 0, closeButtonImage.size.width, closeButtonImage.size.height)];
+    [closeButton setFrame:CGRectMake(0, 0, closeboxImage.size.width, closeboxImage.size.height)];
     return closeButton;
 }
 

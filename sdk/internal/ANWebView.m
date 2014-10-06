@@ -21,7 +21,7 @@
 
 @implementation ANWebView
 
--(id)initWithFrame:(CGRect)frame {
+-(instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
@@ -30,6 +30,10 @@
         [self setMediaProperties];
     }
     return self;
+}
+
+- (void)dealloc {
+    self.delegate = nil;
 }
 
 @end

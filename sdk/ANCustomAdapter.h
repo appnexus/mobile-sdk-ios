@@ -15,8 +15,7 @@
 
 #import "ANTargetingParameters.h"
 
-typedef enum _ANAdResponseCode
-{
+typedef NS_ENUM(NSInteger, ANAdResponseCode) {
     ANDefaultCode = -1,
     ANAdResponseSuccessful = 0,
     ANAdResponseInvalidRequest,
@@ -28,7 +27,7 @@ typedef enum _ANAdResponseCode
 	ANAdResponseBadURL,
 	ANAdResponseBadURLConnection,
 	ANAdResponseNonViewResponse
-} ANAdResponseCode;
+};
 
 @protocol ANCustomAdapterDelegate <NSObject>
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode;

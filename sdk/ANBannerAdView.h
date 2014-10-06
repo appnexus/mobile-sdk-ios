@@ -34,6 +34,18 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
     ANBannerViewAdTransitionDirectionRandom
 };
 
+typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
+    ANBannerViewAdAlignmentCenter = 0,
+    ANBannerViewAdAlignmentTopLeft,
+    ANBannerViewAdAlignmentTopCenter,
+    ANBannerViewAdAlignmentTopRight,
+    ANBannerViewAdAlignmentCenterLeft,
+    ANBannerViewAdAlignmentCenterRight,
+    ANBannerViewAdAlignmentBottomLeft,
+    ANBannerViewAdAlignmentBottomCenter,
+    ANBannerViewAdAlignmentBottomRight
+};
+
 #pragma mark Example implementation
 
 /**
@@ -110,6 +122,13 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
  */
 @property (nonatomic, readwrite, assign) NSTimeInterval transitionDuration;
 
+/**
+ The alignment of the ad within the banner view, in the event the ad is a different size than the 
+ banner view. This can happen if the adSize is omitted and an ad smaller than the frame size is
+ returned from the ad server. See the ANBannerViewAdAlignment enumeration above for accepted values.
+ */
+@property (nonatomic, readwrite, assign) ANBannerViewAdAlignment alignment;
+
 #pragma mark Creating an ad view and loading an ad
 
 /**
@@ -122,8 +141,8 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionDirection) {
  so you may want to use that instead, unless you prefer to manage
  this manually.
  */
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
-- (id)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
+- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
+- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
 /**
  Initializes an ad view.  These are autoreleased constructors of the

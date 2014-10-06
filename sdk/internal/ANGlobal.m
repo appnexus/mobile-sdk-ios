@@ -43,8 +43,7 @@ NSString *ANDeviceModel()
     struct utsname systemInfo;
     uname(&systemInfo);
     
-    return [NSString stringWithCString:systemInfo.machine
-                              encoding:NSUTF8StringEncoding];
+    return @(systemInfo.machine);
 }
 
 BOOL ANAdvertisingTrackingEnabled()
@@ -120,7 +119,18 @@ NSString *convertToNSString(id value) {
 }
 
 CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
+    // If portrait, no adjustment is necessary.
+    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {
+        return rect;
+    }
+    
     CGRect screenBounds = [UIScreen mainScreen].bounds;
+    // iOS 8
+    if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
+        return rect;
+    }
+    
+    // iOS 7 and below
     CGFloat flippedOriginX = screenBounds.size.height - (rect.origin.y + rect.size.height);
     CGFloat flippedOriginY = screenBounds.size.width - (rect.origin.x + rect.size.width);
     
@@ -149,7 +159,7 @@ NSString *ANMRAIDBundlePath() {
         ANLogError(@"Resource not found. Make sure the %@ bundle is included in project", AN_RESOURCE_BUNDLE);
         return @"";
     }
-    NSString *mraidBundlePath = [resBundle pathForResource:@"MRAID" ofType:@"bundle"];
+    NSString *mraidBundlePath = [resBundle pathForResource:@"ANMRAID" ofType:@"bundle"];
     if (!mraidBundlePath) {
         ANLogError(@"Resource not found. Make sure the %@ bundle is included in project", AN_RESOURCE_BUNDLE);
         return @"";
@@ -189,4 +199,27 @@ void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo) {
                                                             object:object
                                                           userInfo:userInfo];
     }
+}
+
+CGRect ANPortraitScreenBounds() {
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+        if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
+            // need to orient screen bounds
+            switch ([UIApplication sharedApplication].statusBarOrientation) {
+                case UIInterfaceOrientationLandscapeLeft:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationLandscapeRight:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    return CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    return screenBounds;
 }

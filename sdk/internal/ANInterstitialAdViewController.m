@@ -32,7 +32,7 @@
 @synthesize contentView = __contentView;
 @synthesize backgroundColor = __backgroundColor;
 
-- (id)init {
+- (instancetype)init {
     NSBundle *resBundle = ANResourcesBundle();
     if (!resBundle) {
         ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
@@ -46,6 +46,7 @@
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     if (!self.backgroundColor) {
         self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }

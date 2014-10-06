@@ -63,6 +63,7 @@ ANBrowserViewControllerDelegate>
 @synthesize age = __age;
 @synthesize gender = __gender;
 @synthesize customKeywords = __customKeywords;
+@synthesize landingPageLoadsInBackground = __landingPageLoadsInBackground;
 
 // ANMRAIDEventReceiver
 @synthesize mraidEventReceiverDelegate = __mraidEventReceiverDelegate;
@@ -86,7 +87,7 @@ ANBrowserViewControllerDelegate>
 
 #pragma mark Initialization
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     if (self != nil) {
@@ -114,11 +115,12 @@ ANBrowserViewControllerDelegate>
     __location = nil;
     __reserve = 0.0f;
     __customKeywords = [[NSMutableDictionary alloc] init];
+    __landingPageLoadsInBackground = YES;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+
     self.adFetcher.delegate = nil;
     [self.adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
     
@@ -140,8 +142,7 @@ ANBrowserViewControllerDelegate>
     
     if (errorString) {
         ANLogError(errorString);
-        NSDictionary *errorInfo = [NSDictionary dictionaryWithObject:errorString
-                                                              forKey:NSLocalizedDescriptionKey];
+        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: errorString};
         NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
         [self adRequestFailedWithError:error];
         return;
@@ -228,7 +229,7 @@ ANBrowserViewControllerDelegate>
             [self adDidPresent];
         }];
     } else {
-        CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect([UIScreen mainScreen].bounds);
+        CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(ANPortraitScreenBounds());
         if (size.width == -1) size.width = orientedScreenBounds.size.width;
         if (size.height == -1) size.height = orientedScreenBounds.size.height;
         
@@ -308,7 +309,7 @@ ANBrowserViewControllerDelegate>
 
 - (NSString *)isResizeValid:(UIView *)contentView frameToResizeTo:(CGRect)frame {
     // for comparing to
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(screenBounds);
     
     // don't allow resizing to be larger than the screen in both directions
@@ -407,7 +408,7 @@ ANBrowserViewControllerDelegate>
     }
     
     // compute the absolute frame of the close event region
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGRect screenBounds = ANPortraitScreenBounds();
     CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(screenBounds);
     
     CGRect containerAbsoluteFrame = [containerView convertRect:containerView.bounds toView:nil];
@@ -434,9 +435,20 @@ ANBrowserViewControllerDelegate>
         
         // add image to the region since it will be in a different
         // place with no visual cue
-        UIImage *closeButtonImage = [UIImage imageNamed:@"interstitial_closebox"];
-        [closeEventRegion setImage:closeButtonImage forState:UIControlStateNormal];
-        [closeEventRegion setImage:[UIImage imageNamed:@"interstitial_closebox_down"] forState:UIControlStateHighlighted];
+        
+        NSBundle *resBundle = ANResourcesBundle();
+        if (!resBundle) {
+            ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+        }
+        
+        UIImage *closeboxImage = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox"
+                                                                                      ofType:@"png"]];
+        UIImage *closeboxDown = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox_down"
+                                                                                     ofType:@"png"]];
+        [closeEventRegion setImage:closeboxImage
+                          forState:UIControlStateNormal];
+        [closeEventRegion setImage:closeboxDown
+                     forState:UIControlStateHighlighted];
     }
     closeEventRegion.frame = CGRectMake(closeOriginX, closeOriginY,
                                         closeEventRegionSize, closeEventRegionSize);
@@ -476,6 +488,16 @@ ANBrowserViewControllerDelegate>
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy];
+}
+
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      precision:(NSInteger)precision {
+    self.location = [ANLOCATION getLocationWithLatitude:latitude
+                                              longitude:longitude
+                                              timestamp:timestamp
+                                     horizontalAccuracy:horizontalAccuracy
+                                              precision:precision];
 }
 
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
@@ -571,11 +593,18 @@ ANBrowserViewControllerDelegate>
     
     if (!self.opensInNativeBrowser && hasHttpPrefix([URL scheme])) {
         if (!self.browserViewController) {
-            [self showClickOverlay];
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
             self.browserViewController.delegate = self;
+            if (self.landingPageLoadsInBackground) {
+                [self showClickOverlay];
+            } else {
+                [self browserViewControllerShouldPresent:self.browserViewController];
+            }
         } else {
-            ANLogDebug(@"%@ | Attempt to instantiate in-app browser when one is already being instantiated.", NSStringFromSelector(_cmd));
+            if (self.browserViewController.completedInitialLoad) {
+                [self browserViewControllerShouldPresent:self.browserViewController];
+            }
+            self.browserViewController.url = URL;
         }
     }
     else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
@@ -587,7 +616,10 @@ ANBrowserViewControllerDelegate>
 }
 
 - (ANClickOverlayView *)clickOverlay {
-    if (!_clickOverlay) _clickOverlay = [ANClickOverlayView overlayForView:[self viewToDisplayClickOverlay]];
+    if (!_clickOverlay) {
+        _clickOverlay = [ANClickOverlayView overlayForView:[self viewToDisplayClickOverlay]];
+        _clickOverlay.alpha = 0.0;
+    }
     return _clickOverlay;
 }
 
@@ -596,12 +628,9 @@ ANBrowserViewControllerDelegate>
 }
 
 - (void)showClickOverlay {
-    if (![self.clickOverlay superview]) {
-        self.clickOverlay.alpha = 0.0;
-        [[self viewToDisplayClickOverlay] addSubview:self.clickOverlay];
-    }
     [UIView animateWithDuration:0.5
                      animations:^{
+                         [[self viewToDisplayClickOverlay] addSubview:self.clickOverlay];
                          self.clickOverlay.alpha = 1.0;
                      }];
 }
@@ -611,7 +640,46 @@ ANBrowserViewControllerDelegate>
         [UIView animateWithDuration:0.5
                          animations:^{
                              self.clickOverlay.alpha = 0.0;
+                         } completion:^(BOOL finished) {
+                             [self.clickOverlay removeFromSuperview];
                          }];
+    }
+}
+
+#pragma mark ANBrowserViewControllerDelegate
+
+- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
+    UIViewController *presentingViewController = controller.presentingViewController;
+    [presentingViewController dismissViewControllerAnimated:YES completion:^ {
+        self.browserViewController = nil;
+    }];
+}
+
+- (void)browserViewControllerWillLaunchExternalApplication {
+    [self adWillLeaveApplication];
+}
+
+- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
+    if (!controller.presentingViewController) {
+        if (self.mraidController.presentingViewController) {
+            [self.mraidController presentViewController:controller
+                                               animated:YES
+                                             completion:nil];
+        } else {
+            [self openInBrowserWithController:controller];
+        }
+    } else {
+        ANLogDebug(@"In-app browser already presented - ignoring call to present");
+    }
+}
+
+- (void)browserViewController:(ANBrowserViewController *)controller browserIsLoading:(BOOL)isLoading {
+    if (self.landingPageLoadsInBackground) {
+        if (!controller.completedInitialLoad) {
+            isLoading ? [self showClickOverlay] : [self hideClickOverlay];
+        } else {
+            [self hideClickOverlay];
+        }
     }
 }
 
@@ -643,36 +711,6 @@ ANBrowserViewControllerDelegate>
     self.isExpanded = NO;
     
     [self.mraidEventReceiverDelegate adDidResetToDefault];
-}
-
-#pragma mark ANBrowserViewControllerDelegate
-
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
-    UIViewController *presentingViewController = controller.presentingViewController;
-    [presentingViewController dismissViewControllerAnimated:YES completion:^ {
-        self.browserViewController = nil;
-        [self hideClickOverlay];
-    }];
-}
-
-- (void)browserViewControllerWillLaunchExternalApplication {
-    [self hideClickOverlay];
-    [self adWillLeaveApplication];
-}
-
-- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
-    [self hideClickOverlay];
-    if (self.mraidController.presentingViewController) {
-        [self.mraidController presentViewController:controller animated:YES completion:nil];
-    } else {
-        [self openInBrowserWithController:controller];
-    }
-}
-
-- (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller {
-    ANLogWarn(@"%@", NSStringFromSelector(_cmd));
-    self.browserViewController = nil;
-    [self hideClickOverlay];
 }
 
 #pragma mark ANAdViewDelegate
