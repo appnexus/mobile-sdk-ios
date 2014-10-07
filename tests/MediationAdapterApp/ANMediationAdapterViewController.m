@@ -18,6 +18,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANLogManager.h"
 #import "ANAdAdapterBaseAmazon.h"
+#import "ANMediatedAd.h"
 
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
@@ -94,11 +95,19 @@
 }
 
 - (void)stubFacebookBanner {
-    [self stubMediatedAdCallWithJSONResource:@"FacebookBanner"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerFacebook";
+    mediatedAd.adId = @"210827375150_10154672420735151";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
 }
 
 - (void)stubFacebookInterstitial {
-    [self stubMediatedAdCallWithJSONResource:@"FacebookInterstitial"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialFacebook";
+    mediatedAd.adId = @"210827375150_10154672420735151";
+    [self stubMediatedAd:mediatedAd];
 }
 
 #pragma mark - Amazon
@@ -114,11 +123,19 @@
 }
 
 - (void)stubAmazonBanner {
-    [self stubMediatedAdCallWithJSONResource:@"AmazonBanner"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerAmazon";
+    mediatedAd.adId = @"123";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
 }
 
 - (void)stubAmazonInterstitial {
-    [self stubMediatedAdCallWithJSONResource:@"AmazonInterstitial"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialAmazon";
+    mediatedAd.adId = @"123";
+    [self stubMediatedAd:mediatedAd];
 }
 
 #pragma mark - iAd
@@ -134,18 +151,27 @@
 }
 
 - (void)stubiAdBanner {
-    [self stubMediatedAdCallWithJSONResource:@"iAdBanner"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBanneriAd";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
 }
 
 - (void)stubiAdInterstitial {
-    [self stubMediatedAdCallWithJSONResource:@"iAdInterstitial"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialiAd";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
 }
 
 #pragma mark - MoPub
 
 - (ANBannerAdView *)loadMoPubBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
     [self stubMoPubBanner];
-    return [self bannerWithDelegate:delegate];
+    //return [self bannerWithDelegate:delegate];
+    return [self bannerWithDelegate:delegate frameSize:CGSizeMake(300,250) adSize:CGSizeMake(300, 250)];
 }
 
 - (ANInterstitialAd *)loadMoPubInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
@@ -154,11 +180,22 @@
 }
 
 - (void)stubMoPubBanner {
-    [self stubMediatedAdCallWithJSONResource:@"MoPubBanner"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerMoPub";
+    /*mediatedAd.adId = @"b735fe4e98b0449da95917215cb32268";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";*/
+    mediatedAd.adId = @"3d10bc157e724dfdb060347ae9884d64";
+    mediatedAd.width = @"300";
+    mediatedAd.height = @"250";
+    [self stubMediatedAd:mediatedAd];
 }
 
 - (void)stubMoPubInterstitial {
-    [self stubMediatedAdCallWithJSONResource:@"MoPubInterstitial"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialMoPub";
+    mediatedAd.adId = @"783ac4a38cc44144b3f62b9b89ca85b4";
+    [self stubMediatedAd:mediatedAd];
 }
 
 #pragma mark - Millennial Media
@@ -174,11 +211,19 @@
 }
 
 - (void)stubMillennialMediaBanner {
-    [self stubMediatedAdCallWithJSONResource:@"MillennialMediaBanner"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerMillennialMedia";
+    mediatedAd.adId = @"148502";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
 }
 
 - (void)stubMillennialMediaInterstitial {
-    [self stubMediatedAdCallWithJSONResource:@"MillennialMediaInterstitial"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialMillennialMedia";
+    mediatedAd.adId = @"148502";
+    [self stubMediatedAd:mediatedAd];
 }
 
 #pragma mark - Ad Mob
@@ -194,11 +239,19 @@
 }
 
 - (void)stubAdMobBanner {
-    [self stubMediatedAdCallWithJSONResource:@"AdMobBanner"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerAdMob";
+    mediatedAd.adId = @"123";
+    mediatedAd.width = @"300";
+    mediatedAd.height = @"250";
+    [self stubMediatedAd:mediatedAd];
 }
 
 - (void)stubAdMobInterstitial {
-    [self stubMediatedAdCallWithJSONResource:@"AdMobInterstitial"];
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialAdMob";
+    mediatedAd.adId = @"123";
+    [self stubMediatedAd:mediatedAd];
 }
 
 #pragma mark - ANAdProtocol
@@ -218,13 +271,39 @@
 
 # pragma mark - General
 
-- (void)stubMediatedAdCallWithJSONResource:(NSString *)resource {
+- (void)stubMediatedAd:(ANMediatedAd *)mediatedAd {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:@"BaseMediationSingleNetworkResponse"
+                                                                                        ofType:@"json"]
+                                                 encoding:NSUTF8StringEncoding
+                                                    error:nil];
+    NSMutableString *mutableBaseResponse = [baseResponse mutableCopy];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{CLASS}"
+                                         withString:mediatedAd.className ? mediatedAd.className : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{WIDTH}"
+                                         withString:mediatedAd.width ? mediatedAd.width : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{HEIGHT}"
+                                         withString:mediatedAd.height ? mediatedAd.height : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{ID}"
+                                         withString:mediatedAd.adId ? mediatedAd.adId : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{PARAM}"
+                                         withString:mediatedAd.param ? mediatedAd.param : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
+    stub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
+    stub.responseCode = 200;
+    stub.responseBody = [mutableBaseResponse copy];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    ANURLConnectionStub *mediatedResponseStub = [ANURLConnectionStub stubForResource:resource
-                                                                              ofType:@"json"
-                                                    withRequestURLRegexPatternString:@"http://mediation.adnxs.com/mob\\?.*"
-                                                                            inBundle:[NSBundle bundleForClass:[self class]]];
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:mediatedResponseStub];
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:stub];
     [self stubResultCBResponse];
 }
 
@@ -237,9 +316,17 @@
 }
 
 - (ANBannerAdView *)bannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    ANBannerAdView *bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)
+    return [self bannerWithDelegate:delegate
+                          frameSize:CGSizeMake(320, 50)
+                             adSize:CGSizeMake(320, 50)];
+}
+
+- (ANBannerAdView *)bannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
+                             frameSize:(CGSize)frameSize
+                                adSize:(CGSize)adSize {
+    ANBannerAdView *bannerAdView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, frameSize.width, frameSize.height)
                                                              placementId:@"2054679"
-                                                                  adSize:CGSizeMake(320, 50)];
+                                                                  adSize:CGSizeMake(adSize.width, adSize.height)];
     bannerAdView.rootViewController = self;
     bannerAdView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:bannerAdView];
