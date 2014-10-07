@@ -86,6 +86,7 @@ BOOL isFirstLaunch(void);
 NSString *ANUDID(void);
 NSString *ANErrorString(NSString *key);
 NSBundle *ANResourcesBundle();
+NSString *ANPathForANResource(NSString *name, NSString *type);
 NSString *convertToNSString(id value);
 CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *ANMRAIDBundlePath();

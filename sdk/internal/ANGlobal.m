@@ -101,12 +101,21 @@ NSString *ANErrorString(NSString *key) {
 }
 
 NSBundle *ANResourcesBundle() {
+    static dispatch_once_t resBundleToken;
     static NSBundle *resBundle;
-    if (!resBundle) {
+    dispatch_once(&resBundleToken, ^{
         NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
         resBundle = resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle mainBundle];
-    }
+    });
     return resBundle;
+}
+
+NSString *ANPathForANResource(NSString *name, NSString *type) {
+    NSString *path = [ANResourcesBundle() pathForResource:name ofType:type];
+    if (!path) {
+        ANLogError(@"Could not find resource %@.%@. Please make sure that %@.bundle or all the resources in sdk/resources are included in your app target's \"Copy Bundle Resources\".", name, type, AN_RESOURCE_BUNDLE);
+    }
+    return path;
 }
 
 NSString *convertToNSString(id value) {
@@ -154,17 +163,12 @@ CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect)
 }
 
 NSString *ANMRAIDBundlePath() {
-    NSBundle *resBundle = ANResourcesBundle();
-    if (!resBundle) {
-        ANLogError(@"Resource not found. Make sure the %@ bundle is included in project", AN_RESOURCE_BUNDLE);
-        return @"";
+    NSString *mraidPath = ANPathForANResource(@"ANMRAID", @"bundle");
+    if (!mraidPath) {
+        ANLogError(@"Could not find ANMRAID.bundle. Please make sure that %@.bundle or the ANMRAID.bundle resource in sdk/resources is included in your app target's \"Copy Bundle Resources\".", AN_RESOURCE_BUNDLE);
+        return nil;
     }
-    NSString *mraidBundlePath = [resBundle pathForResource:@"ANMRAID" ofType:@"bundle"];
-    if (!mraidBundlePath) {
-        ANLogError(@"Resource not found. Make sure the %@ bundle is included in project", AN_RESOURCE_BUNDLE);
-        return @"";
-    }
-    return mraidBundlePath;
+    return mraidPath;
 }
 
 BOOL hasHttpPrefix(NSString *url) {

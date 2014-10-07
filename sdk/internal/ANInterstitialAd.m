@@ -113,6 +113,10 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 }
 
 - (void)displayAdFromViewController:(UIViewController *)controller {
+    if (!self.controller) {
+        ANLogError(@"Could not present interstitial because of a nil controller.");
+        return;
+    }
 	self.controller.contentView = nil;
 	id adToShow = nil;
     NSString *auctionID = nil;

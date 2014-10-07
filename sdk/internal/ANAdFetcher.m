@@ -317,10 +317,11 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (NSString *)prependMRAIDJS:(NSString *)content {
     NSString *mraidPath = ANMRAIDBundlePath();
-    if ([mraidPath length] < 1) {
+    if (!mraidPath) {
+        ANLogError(@"Could not prepend ad content with mraid.js. MRAID will not be available to ad.");
         return content;
     }
-    NSBundle *mraidBundle = [[NSBundle alloc] initWithPath:ANMRAIDBundlePath()];
+    NSBundle *mraidBundle = [[NSBundle alloc] initWithPath:mraidPath];
     NSData *data = [NSData dataWithContentsOfFile:[mraidBundle pathForResource:@"mraid" ofType:@"js"]];
     NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>",
                              [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
@@ -328,13 +329,14 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 }
 
 - (NSString *)prependSDKJS:(NSString *)content {
-    NSBundle *resBundle = ANResourcesBundle();
-    if (!resBundle) {
-        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    NSString *sdkjsPath = ANPathForANResource(@"sdkjs", @"js");
+    NSString *anjamPath = ANPathForANResource(@"anjam", @"js");
+    if (!sdkjsPath || !anjamPath) {
+        ANLogError(@"Could not prepend ad content with ANJAM files. ANJAM will not be available to ad.");
         return content;
     }
-    NSData *sdkjsData = [NSData dataWithContentsOfFile:[resBundle pathForResource:@"sdkjs" ofType:@"js"]];
-    NSData *anjamData = [NSData dataWithContentsOfFile:[resBundle pathForResource:@"anjam" ofType:@"js"]];
+    NSData *sdkjsData = [NSData dataWithContentsOfFile:sdkjsPath];
+    NSData *anjamData = [NSData dataWithContentsOfFile:anjamPath];
     NSString *sdkjs = [[NSString alloc] initWithData:sdkjsData encoding:NSUTF8StringEncoding];
     NSString *anjam  = [[NSString alloc] initWithData:anjamData encoding:NSUTF8StringEncoding];
     

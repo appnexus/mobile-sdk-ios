@@ -45,23 +45,20 @@ static NSString *const kANPBContainerViewIconName = @"appnexus_logo_icon";
 }
 
 - (void)setupButton {
-    NSBundle *resBundle = ANResourcesBundle();
-    if (!resBundle) {
-        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    NSString *iconPath = ANPathForANResource(kANPBContainerViewIconName, @"png");
+    if (!iconPath) {
+        ANLogError(@"Could not add native AdTrace logo to ad");
+        return;
     }
-    
-    UIImage *icon = [UIImage imageWithContentsOfFile:[resBundle pathForResource:kANPBContainerViewIconName
-                                                                         ofType:@"png"]];
-    if (icon) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kANPBContainerViewLogoWidth, kANPBContainerViewLogoWidth)];
-        [button setImage:icon
-                forState:UIControlStateNormal];
-        [button setAlpha:kANPBContainerViewLogoAlpha];
-        [self addSubview:button];
-        [button addTarget:self
-                   action:@selector(launchPitbullApp)
-         forControlEvents:UIControlEventTouchUpInside];
-    }
+    UIImage *icon = [UIImage imageWithContentsOfFile:iconPath];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kANPBContainerViewLogoWidth, kANPBContainerViewLogoWidth)];
+    [button setImage:icon
+            forState:UIControlStateNormal];
+    [button setAlpha:kANPBContainerViewLogoAlpha];
+    [self addSubview:button];
+    [button addTarget:self
+               action:@selector(launchPitbullApp)
+     forControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

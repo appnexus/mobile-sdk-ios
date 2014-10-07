@@ -462,8 +462,15 @@
 
     [self setOrientationProperties:queryComponents];
     
-    // If no custom close included, show our default one.
-    UIButton *closeButton = [useCustomClose isEqualToString:@"true"] ? nil : [self expandCloseButton];
+    BOOL needDefaultCloseButton = ![useCustomClose isEqualToString:@"true"];
+    UIButton *closeButton = nil;
+    if (needDefaultCloseButton) {
+        closeButton = [self expandCloseButton];
+        if (!closeButton) {
+            ANLogError(@"Terminating MRAID expand due to invalid close button.");
+            return;
+        }
+    }
     
     [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)
                                   closeButton:closeButton];
@@ -793,19 +800,19 @@
                     action:@selector(closeAction:)
           forControlEvents:UIControlEventTouchUpInside];
     
-    NSBundle *resBundle = ANResourcesBundle();
-    if (!resBundle) {
-        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"interstitial_closebox", @"png")];
+    if (!closeboxImage) {
+        ANLogError(@"Could not create MRAID expand close button.");
+        return nil;
     }
-    
-    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox"
-                                                                                  ofType:@"png"]];
-    UIImage *closeboxDown = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox_down"
-                                                                                 ofType:@"png"]];
     [closeButton setImage:closeboxImage
                  forState:UIControlStateNormal];
-    [closeButton setImage:closeboxDown
-                 forState:UIControlStateHighlighted];
+    
+    UIImage *closeboxDown = [UIImage imageWithContentsOfFile:ANPathForANResource(@"interstitial_closebox_down", @"png")];
+    if (closeboxDown) {
+        [closeButton setImage:closeboxDown
+                     forState:UIControlStateHighlighted];
+    }
     
     // setFrame here in order to pass the size dimensions along
     [closeButton setFrame:CGRectMake(0, 0, closeboxImage.size.width, closeboxImage.size.height)];
