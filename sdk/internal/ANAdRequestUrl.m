@@ -35,7 +35,7 @@
 - (NSSet*)getParameterNames{
     NSSet* pNames = [NSSet setWithObjects:
                      @"id",
-                     @"dnt",
+                     @"LimitAdTrackingEnabled",
                      @"devmake",
                      @"devmodel",
                      @"appid",
@@ -129,7 +129,7 @@
 }
 
 - (NSString *)dontTrackEnabledParameter {
-    return ANAdvertisingTrackingEnabled() ? @"" : @"&dnt=1";
+    return ANAdvertisingTrackingEnabled() ? @"" : @"&LimitAdTrackingEnabled=1";
 }
 
 - (NSString *)deviceMakeParameter {
