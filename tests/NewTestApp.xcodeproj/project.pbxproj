@@ -34,6 +34,7 @@
 		8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48B19DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m */; };
 		8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
 		8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27CA199AB26B00F2A516 /* iAd.framework */; };
+		8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */; };
 		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
 		8A7AE41019DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */; };
 		8A7F4CC519DB3976003ECC5C /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC119DB3976003ECC5C /* MPAdBrowserController.xib */; };
@@ -75,7 +76,6 @@
 		8AA009C419DB1B200090EBED /* ANMediationAdapterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009B919DB1B200090EBED /* ANMediationAdapterViewController.m */; };
 		8AA009C519DB1B200090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009BB19DB1B200090EBED /* AppDelegate.m */; };
 		8AA009CA19DB1B200090EBED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009C219DB1B200090EBED /* main.m */; };
-		8AA009E119DB1CEC0090EBED /* FacebookAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009DF19DB1CEC0090EBED /* FacebookAdapter.m */; };
 		8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E319DB1D270090EBED /* AmazonAd.framework */; };
 		8AA009E619DB1D320090EBED /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */; };
 		8AA009E819DB1D3C0090EBED /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E719DB1D3C0090EBED /* libGoogleAdMobAds.a */; };
@@ -114,6 +114,9 @@
 		8AA00A5519DB2BF40090EBED /* ANMediationAdViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0719DB1E150090EBED /* ANMediationAdViewController+ANTest.m */; };
 		8AB387F819DB1245006F9E15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB387F719DB1245006F9E15 /* UIKit.framework */; };
 		8AB387F919DB1297006F9E15 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
+		8AB5324819F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */; };
+		8AB5326019F0469A00CA4427 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
+		8AB5326B19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */; };
 		8AD01833199932F9007874BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01832199932F9007874BA /* main.m */; };
 		8AD01836199932F9007874BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01835199932F9007874BA /* AppDelegate.m */; };
 		8AD01839199932F9007874BA /* ANNewTestAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01838199932F9007874BA /* ANNewTestAppViewController.m */; };
@@ -290,6 +293,48 @@
 			remoteGlobalIDString = 8AB387A419DB0CA8006F9E15;
 			remoteInfo = OriginalUnitTestApp;
 		};
+		8AB5325619F0464B00CA4427 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EABD46AA1857A0C700A5F081;
+			remoteInfo = KIF;
+		};
+		8AB5325819F0464B00CA4427 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB72047C1680DDAD00278DA2;
+			remoteInfo = "KIF-OCUnit";
+		};
+		8AB5325A19F0464B00CA4427 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB60ECC1177F8C83005A041A;
+			remoteInfo = "Test Host";
+		};
+		8AB5325C19F0464B00CA4427 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EABD46CD1857A0F300A5F081;
+			remoteInfo = "KIF Tests";
+		};
+		8AB5325E19F0464B00CA4427 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB60ECEB177F8DB3005A041A;
+			remoteInfo = "KIF Tests-OCUnit";
+		};
+		8AB5326119F046A500CA4427 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EABD46791857A0C700A5F081;
+			remoteInfo = KIF;
+		};
 		8AD01844199932F9007874BA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AD01825199932F9007874BA /* Project object */;
@@ -333,6 +378,7 @@
 		8A0AA48B19DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFill.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFill.m"; sourceTree = "<group>"; };
 		8A0AA48C19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerUnableToFillThenSuccessful.h; path = "Banner Adapters/ANAdAdapterBannerUnableToFillThenSuccessful.h"; sourceTree = "<group>"; };
 		8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFillThenSuccessful.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFillThenSuccessful.m"; sourceTree = "<group>"; };
+		8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MediationAdaptersTestCase.m; path = MediationAdapterAppTests/MediationAdaptersTestCase.m; sourceTree = SOURCE_ROOT; };
 		8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8A5D27CA199AB26B00F2A516 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
@@ -406,7 +452,6 @@
 		8AA009C119DB1B200090EBED /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AA009C219DB1B200090EBED /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8AA009C319DB1B200090EBED /* MediationAdapterPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediationAdapterPrefixHeader.pch; sourceTree = "<group>"; };
-		8AA009DF19DB1CEC0090EBED /* FacebookAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookAdapter.m; sourceTree = "<group>"; };
 		8AA009E019DB1CEC0090EBED /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AA009E319DB1D270090EBED /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AmazonAd.framework; path = ../mediation/mediatedviews/Amazon/AmazonSDK/AmazonAd.framework; sourceTree = "<group>"; };
 		8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = ../mediation/mediatedviews/Facebook/FacebookSDK/FBAudienceNetwork.framework; sourceTree = "<group>"; };
@@ -447,6 +492,11 @@
 		8AB387A519DB0CA8006F9E15 /* OriginalUnitTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OriginalUnitTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB387BD19DB0CA8006F9E15 /* OriginalUnitTestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OriginalUnitTestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB387F719DB1245006F9E15 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		8AB5324619F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBannerAdMob+ANTest.h"; sourceTree = "<group>"; };
+		8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBannerAdMob+ANTest.m"; sourceTree = "<group>"; };
+		8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
+		8AB5326919F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBannerMoPub+ANTest.h"; sourceTree = "<group>"; };
+		8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBannerMoPub+ANTest.m"; sourceTree = "<group>"; };
 		8AD0182D199932F9007874BA /* NewTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD01831199932F9007874BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD01832199932F9007874BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -491,6 +541,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AB5326019F0469A00CA4427 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,7 +820,7 @@
 		8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				8AA009DF19DB1CEC0090EBED /* FacebookAdapter.m */,
+				8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */,
 				8AA009E019DB1CEC0090EBED /* Info.plist */,
 			);
 			path = MediationAdapterAppTests;
@@ -802,6 +853,10 @@
 				8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */,
 				8AA00A1019DB1E150090EBED /* XCTestCase+ANMediatedAd.h */,
 				8AA00A1119DB1E150090EBED /* XCTestCase+ANMediatedAd.m */,
+				8AB5324619F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.h */,
+				8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */,
+				8AB5326919F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.h */,
+				8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -828,9 +883,22 @@
 			path = Responses;
 			sourceTree = "<group>";
 		};
+		8AB5324B19F0464B00CA4427 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8AB5325719F0464B00CA4427 /* libKIF.a */,
+				8AB5325919F0464B00CA4427 /* libKIF-OCUnit.a */,
+				8AB5325B19F0464B00CA4427 /* Test Host.app */,
+				8AB5325D19F0464B00CA4427 /* KIF Tests - XCTest.xctest */,
+				8AB5325F19F0464B00CA4427 /* KIF Tests-OCUnit.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8AD01824199932F9007874BA = {
 			isa = PBXGroup;
 			children = (
+				8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
@@ -940,6 +1008,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				8AB5326219F046A500CA4427 /* PBXTargetDependency */,
 				8A9F94DA19D1C37700AB739F /* PBXTargetDependency */,
 			);
 			name = MediationAdapterAppTests;
@@ -1071,6 +1140,10 @@
 					ProductGroup = 8AA0093219DB169B0090EBED /* Products */;
 					ProjectRef = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
 				},
+				{
+					ProductGroup = 8AB5324B19F0464B00CA4427 /* Products */;
+					ProjectRef = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1153,6 +1226,41 @@
 			fileType = archive.ar;
 			path = libANSDKAmazonAdapter.a;
 			remoteRef = 8AA0095119DB169B0090EBED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB5325719F0464B00CA4427 /* libKIF.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKIF.a;
+			remoteRef = 8AB5325619F0464B00CA4427 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB5325919F0464B00CA4427 /* libKIF-OCUnit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libKIF-OCUnit.a";
+			remoteRef = 8AB5325819F0464B00CA4427 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB5325B19F0464B00CA4427 /* Test Host.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Test Host.app";
+			remoteRef = 8AB5325A19F0464B00CA4427 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB5325D19F0464B00CA4427 /* KIF Tests - XCTest.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "KIF Tests - XCTest.xctest";
+			remoteRef = 8AB5325C19F0464B00CA4427 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB5325F19F0464B00CA4427 /* KIF Tests-OCUnit.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "KIF Tests-OCUnit.octest";
+			remoteRef = 8AB5325E19F0464B00CA4427 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1238,6 +1346,7 @@
 				8AA009F819DB1DE60090EBED /* ANHTTPStubbingManager.m in Sources */,
 				8AA009C419DB1B200090EBED /* ANMediationAdapterViewController.m in Sources */,
 				8AA009FA19DB1DE60090EBED /* ANURLConnectionStub.m in Sources */,
+				8AB5324819F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m in Sources */,
 				8AA009F919DB1DE60090EBED /* ANHTTPStubURLProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1246,8 +1355,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AA009E119DB1CEC0090EBED /* FacebookAdapter.m in Sources */,
+				8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */,
 				8AA00A3719DB21FA0090EBED /* XCTestCase+ANCategory.m in Sources */,
+				8AB5326B19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1412,6 +1522,11 @@
 			target = 8AB387A419DB0CA8006F9E15 /* OriginalUnitTestApp */;
 			targetProxy = 8AB387BE19DB0CA8006F9E15 /* PBXContainerItemProxy */;
 		};
+		8AB5326219F046A500CA4427 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KIF;
+			targetProxy = 8AB5326119F046A500CA4427 /* PBXContainerItemProxy */;
+		};
 		8AD01845199932F9007874BA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8AD0182C199932F9007874BA /* NewTestApp */;
@@ -1503,6 +1618,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"KIF_XCTEST=1",
 				);
 				INFOPLIST_FILE = MediationAdapterAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1522,6 +1638,7 @@
 					"$(inherited)",
 				);
 				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "KIF_XCTEST=1";
 				INFOPLIST_FILE = MediationAdapterAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

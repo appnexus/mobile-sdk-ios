@@ -18,7 +18,6 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANLogManager.h"
 #import "ANAdAdapterBaseAmazon.h"
-#import "ANMediatedAd.h"
 
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
@@ -41,7 +40,9 @@
              @"MillennialMediaBanner",
              @"MillennialMediaInterstitial",
              @"AdMobBanner",
-             @"AdMobInterstitial"];
+             @"AdMobInterstitial",
+             @"DFPBanner",
+             @"DFPInterstitial"];
 }
 
 #pragma mark - Picker View
@@ -170,8 +171,8 @@
 
 - (ANBannerAdView *)loadMoPubBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
     [self stubMoPubBanner];
-    //return [self bannerWithDelegate:delegate];
-    return [self bannerWithDelegate:delegate frameSize:CGSizeMake(300,250) adSize:CGSizeMake(300, 250)];
+    return [self bannerWithDelegate:delegate];
+    //return [self bannerWithDelegate:delegate frameSize:CGSizeMake(300,250) adSize:CGSizeMake(300, 250)]; // MRAID
 }
 
 - (ANInterstitialAd *)loadMoPubInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
@@ -182,12 +183,12 @@
 - (void)stubMoPubBanner {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterBannerMoPub";
-    /*mediatedAd.adId = @"b735fe4e98b0449da95917215cb32268";
+    mediatedAd.adId = @"b735fe4e98b0449da95917215cb32268";
     mediatedAd.width = @"320";
-    mediatedAd.height = @"50";*/
-    mediatedAd.adId = @"3d10bc157e724dfdb060347ae9884d64";
+    mediatedAd.height = @"50";
+    /*mediatedAd.adId = @"3d10bc157e724dfdb060347ae9884d64"; // MRAID
     mediatedAd.width = @"300";
-    mediatedAd.height = @"250";
+    mediatedAd.height = @"250";*/
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -213,7 +214,7 @@
 - (void)stubMillennialMediaBanner {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterBannerMillennialMedia";
-    mediatedAd.adId = @"148502";
+    mediatedAd.adId = @"139629";
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
     [self stubMediatedAd:mediatedAd];
@@ -222,7 +223,7 @@
 - (void)stubMillennialMediaInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialMillennialMedia";
-    mediatedAd.adId = @"148502";
+    mediatedAd.adId = @"139629";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -241,16 +242,44 @@
 - (void)stubAdMobBanner {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterBannerAdMob";
-    mediatedAd.adId = @"123";
-    mediatedAd.width = @"300";
-    mediatedAd.height = @"250";
+    mediatedAd.adId = @"ca-app-pub-5668774179595841/1125462353";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
     [self stubMediatedAd:mediatedAd];
 }
 
 - (void)stubAdMobInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialAdMob";
-    mediatedAd.adId = @"123";
+    mediatedAd.adId = @"ca-app-pub-5668774179595841/1125462353";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - DFP
+
+- (ANBannerAdView *)loadDFPBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
+    [self stubDFPBanner];
+    return [self bannerWithDelegate:delegate];
+}
+
+- (ANInterstitialAd *)loadDFPInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubDFPInterstitial];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubDFPBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerDFP";
+    mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubDFPInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialDFP";
+    mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
     [self stubMediatedAd:mediatedAd];
 }
 
