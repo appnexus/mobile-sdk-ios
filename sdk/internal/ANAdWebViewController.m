@@ -466,12 +466,15 @@
     UIButton *closeButton = nil;
     if (needDefaultCloseButton) {
         closeButton = [self expandCloseButton];
-        if (!closeButton) {
-            ANLogError(@"Terminating MRAID expand due to invalid close button.");
-            return;
-        }
+    } else {
+        closeButton = [self expandCloseButtonForCustomClose];
     }
     
+    if (!closeButton) {
+        ANLogError(@"Terminating MRAID expand due to invalid close button.");
+        return;
+    }
+
     [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)
                                   closeButton:closeButton];
     
@@ -816,6 +819,15 @@
     
     // setFrame here in order to pass the size dimensions along
     [closeButton setFrame:CGRectMake(0, 0, closeboxImage.size.width, closeboxImage.size.height)];
+    return closeButton;
+}
+
+- (UIButton *)expandCloseButtonForCustomClose {
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton addTarget:self
+                    action:@selector(closeAction:)
+          forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setFrame:CGRectMake(0, 0, 50.0, 50.0)];
     return closeButton;
 }
 
