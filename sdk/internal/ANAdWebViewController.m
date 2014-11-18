@@ -47,6 +47,8 @@
 
 - (void)delegateShouldOpenInBrowser:(NSURL *)URL;
 
+@property (nonatomic, readwrite, assign) BOOL isRegisteredForPitbullScreenCaptureNotifications;
+
 @end
 
 @implementation ANMRAIDAdWebViewController
@@ -880,24 +882,26 @@
 }
 
 - (void)registerForPitbullScreenCaptureNotifications {
-    NSObject *object = self.adFetcherDelegate;
-    [object addObserver:self
-             forKeyPath:@"transitionInProgress"
-                options:NSKeyValueObservingOptionNew
-                context:nil];
+    if (!self.isRegisteredForPitbullScreenCaptureNotifications) {
+        NSObject *object = self.adFetcherDelegate;
+        [object addObserver:self
+                 forKeyPath:@"transitionInProgress"
+                    options:NSKeyValueObservingOptionNew
+                    context:nil];
+        self.isRegisteredForPitbullScreenCaptureNotifications = YES;
+    }
 }
 
 - (void)unregisterFromPitbullScreenCaptureNotifications {
-    /*
-     Removing a non-registered observer results in an exception. There's no way to
-     check if you're registered or not. Hence the try-catch.
-     */
     NSObject *bannerObject = self.adFetcherDelegate;
-    @try {
-        [bannerObject removeObserver:self
-                          forKeyPath:@"transitionInProgress"];
+    if (self.isRegisteredForPitbullScreenCaptureNotifications) {
+        @try {
+            [bannerObject removeObserver:self
+                              forKeyPath:@"transitionInProgress"];
+        }
+        @catch (NSException * __unused exception) {}
+        self.isRegisteredForPitbullScreenCaptureNotifications = NO;
     }
-    @catch (NSException * __unused exception) {}
 }
 
 - (void)dispatchPitbullScreenCaptureCalls {

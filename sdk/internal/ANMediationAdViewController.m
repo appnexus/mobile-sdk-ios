@@ -39,6 +39,9 @@
 // variables for measuring latency.
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
+
+@property (nonatomic, readwrite, assign) BOOL isRegisteredForPitbullScreenCaptureNotifications;
+
 @end
 
 @interface ANAdFetcher ()
@@ -489,24 +492,26 @@
 }
 
 - (void)registerForPitbullScreenCaptureNotifications {
-    NSObject *object = self.adViewDelegate;
-    [object addObserver:self
-             forKeyPath:@"transitionInProgress"
-                options:NSKeyValueObservingOptionNew
-                context:nil];
+    if (!self.isRegisteredForPitbullScreenCaptureNotifications) {
+        NSObject *object = self.adViewDelegate;
+        [object addObserver:self
+                 forKeyPath:@"transitionInProgress"
+                    options:NSKeyValueObservingOptionNew
+                    context:nil];
+        self.isRegisteredForPitbullScreenCaptureNotifications = YES;
+    }
 }
 
 - (void)unregisterFromPitbullScreenCaptureNotifications {
-    /*
-     Removing a non-registered observer results in an exception. There's no way to
-     check if you're registered or not. Hence the try-catch.
-     */
-    NSObject *object = self.adViewDelegate;
-    @try {
-        [object removeObserver:self
-                    forKeyPath:@"transitionInProgress"];
+    if (self.isRegisteredForPitbullScreenCaptureNotifications) {
+        NSObject *object = self.adViewDelegate;
+        @try {
+            [object removeObserver:self
+                        forKeyPath:@"transitionInProgress"];
+        }
+        @catch (NSException * __unused exception) {}
+        self.isRegisteredForPitbullScreenCaptureNotifications = NO;
     }
-    @catch (NSException * __unused exception) {}
 }
 
 - (void)dispatchPitbullScreenCapture {
