@@ -610,7 +610,7 @@ ANBrowserViewControllerDelegate>
         [self adWillLeaveApplication];
         [[UIApplication sharedApplication] openURL:URL];
     } else {
-        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+        ANLogWarn(ANErrorString(@"opening_url_failed", URL));
     }
 }
 

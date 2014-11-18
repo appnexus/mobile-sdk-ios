@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AD0182C199932F9007874BA"
-               BuildableName = "NewTestApp.app"
-               BlueprintName = "NewTestApp"
+               BlueprintIdentifier = "8A9F94BF19D1C37700AB739F"
+               BuildableName = "MediationAdapterApp.app"
+               BlueprintName = "MediationAdapterApp"
                ReferencedContainer = "container:NewTestApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AD01842199932F9007874BA"
-               BuildableName = "NewTestAppTests.xctest"
-               BlueprintName = "NewTestAppTests"
+               BlueprintIdentifier = "8A9F94D719D1C37700AB739F"
+               BuildableName = "MediationAdapterAppTests.xctest"
+               BlueprintName = "MediationAdapterAppTests"
                ReferencedContainer = "container:NewTestApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AD01842199932F9007874BA"
-               BuildableName = "NewTestAppTests.xctest"
-               BlueprintName = "NewTestAppTests"
+               BlueprintIdentifier = "8A9F94D719D1C37700AB739F"
+               BuildableName = "MediationAdapterAppTests.xctest"
+               BlueprintName = "MediationAdapterAppTests"
                ReferencedContainer = "container:NewTestApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +56,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AD0182C199932F9007874BA"
-            BuildableName = "NewTestApp.app"
-            BlueprintName = "NewTestApp"
+            BlueprintIdentifier = "8A9F94BF19D1C37700AB739F"
+            BuildableName = "MediationAdapterApp.app"
+            BlueprintName = "MediationAdapterApp"
             ReferencedContainer = "container:NewTestApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -75,9 +75,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AD0182C199932F9007874BA"
-            BuildableName = "NewTestApp.app"
-            BlueprintName = "NewTestApp"
+            BlueprintIdentifier = "8A9F94BF19D1C37700AB739F"
+            BuildableName = "MediationAdapterApp.app"
+            BlueprintName = "MediationAdapterApp"
             ReferencedContainer = "container:NewTestApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -93,9 +93,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AD0182C199932F9007874BA"
-            BuildableName = "NewTestApp.app"
-            BlueprintName = "NewTestApp"
+            BlueprintIdentifier = "8A9F94BF19D1C37700AB739F"
+            BuildableName = "MediationAdapterApp.app"
+            BlueprintName = "MediationAdapterApp"
             ReferencedContainer = "container:NewTestApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

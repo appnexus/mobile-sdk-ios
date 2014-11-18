@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A88930091685088F00FC7C63"
-               BuildableName = "KIF Documentation"
-               BlueprintName = "KIF Documentation"
-               ReferencedContainer = "container:KIF.xcodeproj">
+               BlueprintIdentifier = "8AE2D73419CC87B200001B70"
+               BuildableName = "libANSDKMoPubAdapter.a"
+               BlueprintName = "ANSDKMoPubAdapter"
+               ReferencedContainer = "container:ANSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,10 +42,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A88930091685088F00FC7C63"
-            BuildableName = "KIF Documentation"
-            BlueprintName = "KIF Documentation"
-            ReferencedContainer = "container:KIF.xcodeproj">
+            BlueprintIdentifier = "8AE2D73419CC87B200001B70"
+            BuildableName = "libANSDKMoPubAdapter.a"
+            BlueprintName = "ANSDKMoPubAdapter"
+            ReferencedContainer = "container:ANSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,10 +60,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A88930091685088F00FC7C63"
-            BuildableName = "KIF Documentation"
-            BlueprintName = "KIF Documentation"
-            ReferencedContainer = "container:KIF.xcodeproj">
+            BlueprintIdentifier = "8AE2D73419CC87B200001B70"
+            BuildableName = "libANSDKMoPubAdapter.a"
+            BlueprintName = "ANSDKMoPubAdapter"
+            ReferencedContainer = "container:ANSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

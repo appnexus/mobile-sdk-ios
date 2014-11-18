@@ -85,7 +85,7 @@
         ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
                             @{kANAdFetcherMediatedClassKey: className});
         
-        ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), className]);
+        ANLogDebug(ANErrorString(@"instantiating_class", className));
         
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);
@@ -143,10 +143,10 @@
                          errorCode:(ANADRESPONSECODE)errorCode
                          errorInfo:(NSString *)errorInfo {
     if ([errorInfo length] > 0) {
-        ANLogError(ANErrorString(@"mediation_instantiation_failure"), errorInfo);
+        ANLogError(ANErrorString(@"mediation_instantiation_failure", errorInfo));
     }
     if ([className length] > 0) {
-        ANLogWarn(ANErrorString(@"mediation_adding_invalid"), className);
+        ANLogWarn(ANErrorString(@"mediation_adding_invalid", className));
         ANAddInvalidNetwork(className);
     }
     
@@ -199,7 +199,7 @@
                                targetingParameters:targetingParameters];
             return YES;
         } else {
-            ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"CustomAdapterBanner"]);
+            ANLogError(ANErrorString(@"instance_exception", @"CustomAdapterBanner"));
         }
     } else if ([adView isKindOfClass:[ANINTERSTITIALAD class]]) {
         // make sure the container and protocol match
@@ -215,7 +215,7 @@
                                                 targetingParameters:targetingParameters];
             return YES;
         } else {
-            ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"CustomAdapterInterstitial"]);
+            ANLogError(ANErrorString(@"instance_exception", @"CustomAdapterInterstitial"));
         }
     }
     

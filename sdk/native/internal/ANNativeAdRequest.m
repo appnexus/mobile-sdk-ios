@@ -29,7 +29,11 @@
 @implementation ANNativeAdRequest
 
 - (void)loadAd {
-    [self createAdFetcher];
+    if (self.delegate) {
+        [self createAdFetcher];
+    } else {
+        ANLogError(@"ANNativeAdRequestDelegate must be set on ANNativeAdRequest in order for an ad to begin loading");
+    }
 }
 
 - (NSMutableArray *)adFetchers {
@@ -141,10 +145,6 @@
         [loadImageDataQueue addOperation:loadImageData];
         return makeImage;
     }
-}
-
-- (void)dealloc {
-    ANLogDebug(@"Deallocating %@", NSStringFromClass([self class]));
 }
 
 #pragma mark - ANNativeAdTargetingProtocol

@@ -75,7 +75,7 @@
         }
         
         className = self.mediatedAd.className;
-        ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), className]);
+        ANLogDebug(ANErrorString(@"instantiating_class", className));
         
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);
@@ -135,10 +135,10 @@
                          errorCode:(ANAdResponseCode)errorCode
                          errorInfo:(NSString *)errorInfo {
     if ([errorInfo length] > 0) {
-        ANLogError(ANErrorString(@"mediation_instantiation_failure"), errorInfo);
+        ANLogError(ANErrorString(@"mediation_instantiation_failure", errorInfo));
     }
     if ([className length] > 0) {
-        ANLogWarn(ANErrorString(@"mediation_adding_invalid"), className);
+        ANLogWarn(ANErrorString(@"mediation_adding_invalid", className));
         ANAddInvalidNetwork(className);
     }
     
@@ -320,12 +320,6 @@
 
 - (void)didFailToLoadNativeAd:(ANAdResponseCode)errorCode {
     [self didFailToReceiveAd:errorCode];
-}
-
-#pragma mark dealloc
-
-- (void)dealloc {
-    ANLogDebug(@"Deallocating %@", NSStringFromClass([self class]));
 }
 
 @end

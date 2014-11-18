@@ -278,9 +278,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
     
     if (!CGRectContainsRect(requestedRect, receivedRect)) {
-        ANLogInfo([NSString stringWithFormat:ANErrorString(@"adsize_too_big"),
-                   (int)receivedSize.width, (int)receivedSize.height,
-                   (int)requestedSize.width, (int)requestedSize.height]);
+        ANLogInfo(ANErrorString(@"adsize_too_big",
+                                (int)receivedSize.width, (int)receivedSize.height,
+                                (int)requestedSize.width, (int)requestedSize.height));
     }
 
     CGSize sizeOfCreative = ((receivedSize.width > 0)

@@ -31,3 +31,4 @@
 "native_adapter_missing_methods"="Mediated SDK adapter must implement registerViewForImpressionTrackingAndClickHandling:withRootViewController:clickableViews: or registerViewForImpressionTracking:";
 "native_adapter_error"="Could not register with mediated SDK adapter, it does not implement the required methods.";
 "native_adapter_native_ad_delegate_missing"="The native mediated adapter has not synthesized the nativeAdDelegate property";
+"native_invalid_clickable_views"="A non-view object was passed in clickableViews. Ignoring.";

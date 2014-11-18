@@ -143,8 +143,6 @@
 }
 
 - (void)dealloc {
-    ANLogDebug(@"Deallocating %@", NSStringFromClass([self class]));
-
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.connection cancel];

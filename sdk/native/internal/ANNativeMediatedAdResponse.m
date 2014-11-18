@@ -164,7 +164,6 @@
 }
 
 - (void)dealloc {
-    ANLogDebug(@"Deallocating %@", NSStringFromClass([self class]));
     [self unregisterViewFromTracking];
 }
 
@@ -172,10 +171,13 @@
 
 - (void)attachGestureRecognizersToNativeView:(UIView *)nativeView
                           withClickableViews:(NSArray *)clickableViews {
-    // We don't know that clickableViews contains only views, we would have to validate this.
     if (clickableViews.count) {
-        [clickableViews enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-            [self attachGestureRecognizerToView:view];
+        [clickableViews enumerateObjectsUsingBlock:^(id clickableView, NSUInteger idx, BOOL *stop) {
+            if ([clickableView isKindOfClass:[UIView class]]) {
+                [self attachGestureRecognizerToView:clickableView];
+            } else {
+                ANLogWarn(ANErrorString(@"native_invalid_clickable_views"));
+            }
         }];
     } else {
         [self attachGestureRecognizerToView:nativeView];

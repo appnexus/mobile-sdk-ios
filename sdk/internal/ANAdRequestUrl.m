@@ -192,10 +192,10 @@
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
         
         if (location.precision >= 0) {
-            locationParameter = [NSString stringWithFormat:@"&loc=%.*f,%.*f",
+            locationParameter = [NSString stringWithFormat:@"&loc=%.*f%%2C%.*f",
                                  (int)location.precision, location.latitude, (int)location.precision, location.longitude];
         } else {
-            locationParameter = [NSString stringWithFormat:@"&loc=%f,%f",
+            locationParameter = [NSString stringWithFormat:@"&loc=%f%%2C%f",
                                  location.latitude, location.longitude];
         }
         
@@ -213,7 +213,7 @@
 
 - (NSString *)languageParameter {
     NSString *language = [NSLocale preferredLanguages][0];
-    return ([language length] > 0) ? [NSString stringWithFormat:@"&language=%@", language] : @"";
+    return ([language length] > 0) ? [NSString stringWithFormat:@"&language=%@", [self URLEncodingFrom:language]] : @"";
 }
 
 - (NSString *)devTimeParameter {
@@ -275,7 +275,7 @@
                                             [self URLEncodingFrom:value]]];
             }
         }else{
-            ANLogWarn(ANErrorString(@"request_parameter_override_attempt"), key);
+            ANLogWarn(ANErrorString(@"request_parameter_override_attempt", key));
         }
     }];
     
@@ -301,7 +301,7 @@
     NSMutableSet *nonetworks = ANInvalidNetworks();
     for (NSString *network in nonetworks) {
         [nonetString appendString:network];
-        [nonetString appendString:@","];
+        [nonetString appendString:@"%2C"];
     }
     
     // remove trailing comma

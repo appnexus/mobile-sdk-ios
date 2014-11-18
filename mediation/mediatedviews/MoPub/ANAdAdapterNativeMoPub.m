@@ -20,10 +20,12 @@
 #import "MPNativeAdRequestTargeting.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ANLogging.h"
+#import "MPNativeAdDelegate.h"
 
-@interface ANAdAdapterNativeMoPub ()
+@interface ANAdAdapterNativeMoPub () <MPNativeAdDelegate>
 
 @property (nonatomic, readwrite, strong) MPNativeAd *nativeAd;
+@property (nonatomic, readwrite, weak) UIViewController *rootViewController;
 
 @end
 
@@ -108,16 +110,21 @@
 
 #pragma mark - ANNativeCustomAdapter
 
+- (UIViewController *)viewControllerForPresentingModalView {
+    return self.rootViewController;
+}
+
 - (void)handleClickFromRootViewController:(UIViewController *)rvc {
     [self.nativeAdDelegate willPresentAd];
     [self.nativeAdDelegate didPresentAd];
-    [self.nativeAd displayContentFromRootViewController:rvc
-                                             completion:^(BOOL success, NSError *error) {
-                                                 if (error) {
-                                                     ANLogError(@"APPNEXUS: Error handling MoPub native ad click, %@", error);
-                                                 }
-                                                 [self.nativeAdDelegate willCloseAd];
-                                                 [self.nativeAdDelegate didCloseAd];
+    self.rootViewController = rvc;
+    self.nativeAd.delegate = self;
+    [self.nativeAd displayContentWithCompletion:^(BOOL success, NSError *error) {
+        if (error) {
+            ANLogError(@"APPNEXUS: Error handling MoPub native ad click, %@", error);
+        }
+        [self.nativeAdDelegate willCloseAd];
+        [self.nativeAdDelegate didCloseAd];
     }];
 }
 

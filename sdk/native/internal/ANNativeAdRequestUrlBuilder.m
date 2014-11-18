@@ -202,10 +202,18 @@
         NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
         
-        locationParameter = [locationParameter
-                             stringByAppendingFormat:@"loc=%f%%2C%f&loc_age=%ld&loc_prec=%f",
-                             location.latitude, location.longitude,
-                             (long)ageInMilliseconds, location.horizontalAccuracy];
+        if (location.precision >= 0) {
+            locationParameter = [NSString stringWithFormat:@"loc=%.*f%%2C%.*f",
+                                 (int)location.precision, location.latitude, (int)location.precision, location.longitude];
+        } else {
+            locationParameter = [NSString stringWithFormat:@"loc=%f%%2C%f",
+                                 location.latitude, location.longitude];
+        }
+        
+        if ([locationParameter length]) {
+            locationParameter = [locationParameter stringByAppendingFormat:@"&loc_age=%ld&loc_prec=%f",
+                                 (long)ageInMilliseconds, location.horizontalAccuracy];
+        }
     }
     
     return locationParameter;
@@ -275,7 +283,7 @@
                                             [self URLEncodingFrom:value]]];
             }
         }else{
-            ANLogWarn(ANErrorString(@"request_parameter_override_attempt"), key);
+            ANLogWarn(ANErrorString(@"request_parameter_override_attempt", key));
         }
     }];
     

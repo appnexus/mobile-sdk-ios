@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AD0182C199932F9007874BA"
-               BuildableName = "NewTestApp.app"
-               BlueprintName = "NewTestApp"
-               ReferencedContainer = "container:NewTestApp.xcodeproj">
+               BlueprintIdentifier = "EB60ECC0177F8C83005A041A"
+               BuildableName = "Test Host.app"
+               BlueprintName = "Test Host"
+               ReferencedContainer = "container:KIF.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AD01842199932F9007874BA"
-               BuildableName = "NewTestAppTests.xctest"
-               BlueprintName = "NewTestAppTests"
-               ReferencedContainer = "container:NewTestApp.xcodeproj">
+               BlueprintIdentifier = "EABD46AD1857A0F300A5F081"
+               BuildableName = "KIF Tests - XCTest.xctest"
+               BlueprintName = "KIF Tests"
+               ReferencedContainer = "container:KIF.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EB60ECEA177F8DB3005A041A"
+               BuildableName = "KIF Tests-OCUnit.octest"
+               BlueprintName = "KIF Tests-OCUnit"
+               ReferencedContainer = "container:KIF.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,20 +60,30 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AD01842199932F9007874BA"
-               BuildableName = "NewTestAppTests.xctest"
-               BlueprintName = "NewTestAppTests"
-               ReferencedContainer = "container:NewTestApp.xcodeproj">
+               BlueprintIdentifier = "EABD46AD1857A0F300A5F081"
+               BuildableName = "KIF Tests - XCTest.xctest"
+               BlueprintName = "KIF Tests"
+               ReferencedContainer = "container:KIF.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "EB60ECEA177F8DB3005A041A"
+               BuildableName = "KIF Tests-OCUnit.octest"
+               BlueprintName = "KIF Tests-OCUnit"
+               ReferencedContainer = "container:KIF.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AD0182C199932F9007874BA"
-            BuildableName = "NewTestApp.app"
-            BlueprintName = "NewTestApp"
-            ReferencedContainer = "container:NewTestApp.xcodeproj">
+            BlueprintIdentifier = "EB60ECC0177F8C83005A041A"
+            BuildableName = "Test Host.app"
+            BlueprintName = "Test Host"
+            ReferencedContainer = "container:KIF.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -75,10 +99,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AD0182C199932F9007874BA"
-            BuildableName = "NewTestApp.app"
-            BlueprintName = "NewTestApp"
-            ReferencedContainer = "container:NewTestApp.xcodeproj">
+            BlueprintIdentifier = "EB60ECC0177F8C83005A041A"
+            BuildableName = "Test Host.app"
+            BlueprintName = "Test Host"
+            ReferencedContainer = "container:KIF.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -93,10 +117,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AD0182C199932F9007874BA"
-            BuildableName = "NewTestApp.app"
-            BlueprintName = "NewTestApp"
-            ReferencedContainer = "container:NewTestApp.xcodeproj">
+            BlueprintIdentifier = "EB60ECC0177F8C83005A041A"
+            BuildableName = "Test Host.app"
+            BlueprintName = "Test Host"
+            ReferencedContainer = "container:KIF.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
