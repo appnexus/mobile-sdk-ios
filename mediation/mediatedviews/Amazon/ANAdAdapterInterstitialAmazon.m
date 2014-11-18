@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialAmazon.h"
+#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialAmazon ()
 @property (nonatomic) AmazonAdInterstitial *amazonInterstitial;
@@ -24,7 +25,7 @@
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
-    NSLog(@"Requesting Amazon interstitial");
+    ANLogDebug(@"Requesting Amazon interstitial");
     AmazonAdInterstitial *amazonInterstitial = [AmazonAdInterstitial amazonAdInterstitial];
     amazonInterstitial.delegate = self;
     [amazonInterstitial load:[self adOptionsForTargetingParameters:targetingParameters]];
@@ -40,13 +41,13 @@
 }
 
 - (void)interstitialDidLoad:(AmazonAdInterstitial *)interstitial {
-    NSLog(@"Amazon interstitial did load");
+    ANLogDebug(@"Amazon interstitial did load");
     [self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitialDidFailToLoad:(AmazonAdInterstitial *)interstitial
                         withError:(AmazonAdError *)error {
-    NSLog(@"Amazon interstitial did fail to load");
+    ANLogDebug(@"Amazon interstitial did fail to load");
     [self handleAmazonError:error];
 }
 
@@ -59,12 +60,12 @@
 }
 
 - (void)interstitialWillDismiss:(AmazonAdInterstitial *)interstitial {
-    NSLog(@"Amazon interstitial will dismiss");
+    ANLogDebug(@"Amazon interstitial will dismiss");
     [self.delegate willCloseAd];
 }
 
 - (void)interstitialDidDismiss:(AmazonAdInterstitial *)interstitial {
-    NSLog(@"Amazon interstitial did dismiss");
+    ANLogDebug(@"Amazon interstitial did dismiss");
     [self.delegate didCloseAd];
 }
 

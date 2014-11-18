@@ -14,7 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialAdMob.h"
-
+#import "ANLogging.h"
 #import "GADAdMobExtras.h"
 
 @interface ANAdAdapterInterstitialAdMob ()
@@ -32,7 +32,7 @@
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
-    NSLog(@"Requesting AdMob interstitial");
+    ANLogDebug(@"Requesting AdMob interstitial");
 	self.interstitialAd = [[GADInterstitial alloc] init];
 	self.interstitialAd.adUnitID = idString;
 	self.interstitialAd.delegate = self;
@@ -43,12 +43,12 @@
 - (void)presentFromViewController:(UIViewController *)viewController
 {
     if (!self.interstitialAd.isReady || self.interstitialAd.hasBeenUsed) {
-        NSLog(@"AdMob interstitial was unavailable");
+        ANLogDebug(@"AdMob interstitial was unavailable");
         [self.delegate failedToDisplayAd];
         return;
     }
 
-    NSLog(@"Showing AdMob interstitial");
+    ANLogDebug(@"Showing AdMob interstitial");
 	[self.interstitialAd presentFromRootViewController:viewController];
 }
 
@@ -91,13 +91,13 @@
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    NSLog(@"AdMob interstitial did load");
+    ANLogDebug(@"AdMob interstitial did load");
 	[self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    NSLog(@"AdMob interstitial failed to load with error: %@", error);
+    ANLogDebug(@"AdMob interstitial failed to load with error: %@", error);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {

@@ -96,8 +96,28 @@ NSString *ANUDID() {
     return udidComponent;
 }
 
-NSString *ANErrorString(NSString *key) {
-    return NSLocalizedStringFromTable(key, AN_ERROR_TABLE, @"");
+NSString *ANErrorString(NSString *key, ...) {
+    NSString *localizedDescription = NSLocalizedStringFromTableInBundle(key, AN_ERROR_TABLE, ANResourcesBundle(), @"");
+    if (localizedDescription) {
+        va_list args;
+        va_start(args, key);
+        localizedDescription = [[NSString alloc] initWithFormat:localizedDescription
+                                                      arguments:args];
+        va_end(args);
+    }
+    return localizedDescription;
+}
+
+NSError *ANError(NSString *key, NSInteger code, ...) {
+    NSDictionary *errorInfo = nil;
+    va_list args;
+    va_start(args, code);
+    NSString *localizedDescription = ANErrorString(key, args);
+    va_end(args);
+    errorInfo = @{NSLocalizedDescriptionKey: localizedDescription};
+    return [NSError errorWithDomain:AN_ERROR_DOMAIN
+                               code:code
+                           userInfo:errorInfo];
 }
 
 NSBundle *ANResourcesBundle() {

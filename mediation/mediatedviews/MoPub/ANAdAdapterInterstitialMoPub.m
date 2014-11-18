@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialMoPub.h"
+#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialMoPub ()
 
@@ -39,7 +40,7 @@
 
 - (void)presentFromViewController:(UIViewController *)viewController {
     if (![self isReady]) {
-        NSLog(@"MoPub interstitial was unavailable");
+        ANLogDebug(@"MoPub interstitial was unavailable");
         [self.delegate failedToDisplayAd];
         return;
     }

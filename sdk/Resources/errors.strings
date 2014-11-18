@@ -9,6 +9,7 @@
 "response_error"="E301: The server replied with an error: %@";
 "response_no_ads"="The server responded, but didn't return any ads.";
 "response_json_error"="E300: There was an error parsing the JSON response: %@";
+"response_bad_format"="The server responded with ads, but in an unexpected format.";
 "adsize_too_big"="E103: You requested an Ad larger than the measured ad space. Ad space size: %dx%d, request size: %dx%d";
 "blank_ad"="E302: The server returned an ad with the response, but it was blank. There is probably an issue with the creative.";
 "opening_url_failed"="Failed to launch custom protocol: %@";
@@ -19,3 +20,14 @@
 "mediation_finish"="Mediation Controller has finished.";
 "request_parameter_override_attempt"="Parameter %@ cannot be overridden by custom keywords";
 "mediation_timeout"="Mediation network timed out.";
+"bad_url_connection"="Unable to make request because of a bad URL connection.";
+"malformed_url"="Unable to make request because of a malformed URL.";
+
+"native_request_invalid_response"="Expected a ANNativeMediatedAdResponse.";
+
+"native_invalid_view"="A valid view is required for native ad response registration.";
+"native_invalid_rvc"="A valid root view controller is required for native ad response registration.";
+"native_expired_response"="The native response is expired, cannot use it for tracking";
+"native_adapter_missing_methods"="Mediated SDK adapter must implement registerViewForImpressionTrackingAndClickHandling:withRootViewController:clickableViews: or registerViewForImpressionTracking:";
+"native_adapter_error"="Could not register with mediated SDK adapter, it does not implement the required methods.";
+"native_adapter_native_ad_delegate_missing"="The native mediated adapter has not synthesized the nativeAdDelegate property";

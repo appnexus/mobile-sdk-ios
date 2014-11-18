@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialFacebook.h"
+#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialFacebook ()
 
@@ -35,7 +36,7 @@
 
 - (void)presentFromViewController:(UIViewController *)viewController {
     if (![self isReady]) {
-        NSLog(@"Facebook interstitial was unavailable");
+        ANLogDebug(@"Facebook interstitial was unavailable");
         [self.delegate failedToDisplayAd];
         return;
     }

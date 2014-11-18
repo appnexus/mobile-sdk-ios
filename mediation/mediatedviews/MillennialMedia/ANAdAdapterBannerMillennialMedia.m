@@ -14,7 +14,7 @@
  */
 
 #import "ANAdAdapterBannerMillennialMedia.h"
-
+#import "ANLogging.h"
 #import <MillennialMedia/MMAdView.h>
 
 @interface ANAdAdapterBannerMillennialMedia ()
@@ -33,7 +33,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
-    NSLog(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
+    ANLogDebug(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
     [MMSDK initialize];
     [self addMMNotificationObservers];
     
@@ -45,12 +45,12 @@
     
     [self.mmAdView getAdWithRequest:request onCompletion:^(BOOL success, NSError *error) {
         if (success) {
-            NSLog(@"MillennialMedia banner did load");
+            ANLogDebug(@"MillennialMedia banner did load");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.delegate didLoadBannerAd:self.mmAdView];
             });
         } else {
-            NSLog(@"MillennialMedia banner failed to load with error: %@", error);
+            ANLogDebug(@"MillennialMedia banner failed to load with error: %@", error);
             ANAdResponseCode code = ANAdResponseInternalError;
             
             switch (error.code) {
