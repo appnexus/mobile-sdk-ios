@@ -191,10 +191,16 @@
         NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
         
-        locationParameter = [locationParameter
-                             stringByAppendingFormat:@"&loc=%f,%f&loc_age=%ld&loc_prec=%f",
-                             location.latitude, location.longitude,
-                             (long)ageInMilliseconds, location.horizontalAccuracy];
+        if (location.precision >= 0) {
+            locationParameter = [NSString stringWithFormat:@"&loc=%.*f,%.*f",
+                                 (int)location.precision, location.latitude, (int)location.precision, location.longitude];
+        } else {
+            locationParameter = [NSString stringWithFormat:@"&loc=%f,%f",
+                                 location.latitude, location.longitude];
+        }
+        
+        locationParameter = [locationParameter stringByAppendingFormat:@"&loc_age=%ld&loc_prec=%f",
+         (long)ageInMilliseconds, location.horizontalAccuracy];
     }
     
     return locationParameter;
