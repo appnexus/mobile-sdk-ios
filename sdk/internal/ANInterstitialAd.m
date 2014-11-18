@@ -113,17 +113,10 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 }
 
 - (void)displayAdFromViewController:(UIViewController *)controller {
-    if (!self.controller) {
-        ANLogError(@"Could not present interstitial because of a nil controller.");
-        return;
-    }
-	self.controller.contentView = nil;
-	id adToShow = nil;
+    id adToShow = nil;
     NSString *auctionID = nil;
-    NSString *errorString = nil;
     
-    while ([self.precachedAdObjects count] > 0
-           && self.controller.contentView == nil) {
+    while ([self.precachedAdObjects count] > 0) {
         // Pull the first ad off
         NSDictionary *adDict = self.precachedAdObjects[0];
         
@@ -132,54 +125,45 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
         if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
             // If ad is still valid, save a reference to it. We'll use it later
-			adToShow = adDict[kANInterstitialAdViewKey];
+            adToShow = adDict[kANInterstitialAdViewKey];
             auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
+            [self.precachedAdObjects removeObjectAtIndex:0];
+            break;
         }
         
         // This ad is now stale, so remove it from our cached ads.
         [self.precachedAdObjects removeObjectAtIndex:0];
     }
-    
-    if (adToShow != nil) {
-		// Check to see what kind of ad it is.
-		if ([adToShow isKindOfClass:[UIView class]]) {
-			// If it's a view, then just set our content view to it.
-			self.controller.contentView = adToShow;
-            
-            // If there's a background color, pass that color to the controller which will modify the view
-            if (self.backgroundColor) {
-                self.controller.backgroundColor = self.backgroundColor;
-            }
-            
-            UIModalPresentationStyle rootViewControllerDesiredPresentationStyle = controller.modalPresentationStyle;
-            controller.modalPresentationStyle = UIModalPresentationCurrentContext;
-			[controller presentViewController:self.controller animated:YES completion:^{
-                controller.modalPresentationStyle = rootViewControllerDesiredPresentationStyle;
-            }];
-		}
-		else if ([adToShow conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
-			[adToShow presentFromViewController:controller];
-            if (auctionID) {
-                ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
-                [controller.presentedViewController.view addSubview:logoView];
-                [ANPBBuffer addAdditionalInfo:@{kANPBBufferAdWidthKey: @(CGRectGetWidth(controller.presentedViewController.view.frame)),
-                                                kANPBBufferAdHeightKey: @(CGRectGetHeight(controller.presentedViewController.view.frame))}
-                                 forAuctionID:auctionID];
-                // capture mediated interstitials after show event
-                [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
-                                   forAuctionID:auctionID];
-            }
-		}
-		else {
-            errorString = @"Got a non-presentable object %@. Cannot display interstitial.";
-		}
-    }
-    else {
-        errorString = @"Display ad called, but no valid ad to show. Please load another interstitial ad.";
-    }
-    
-    if (errorString) {
-        ANLogError(errorString);
+
+    if ([adToShow isKindOfClass:[UIView class]]) {
+        if (!self.controller) {
+            ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");
+            return;
+        }
+        self.controller.contentView = adToShow;
+        if (self.backgroundColor) {
+            self.controller.backgroundColor = self.backgroundColor;
+        }
+        UIModalPresentationStyle rootViewControllerDesiredPresentationStyle = controller.modalPresentationStyle;
+        controller.modalPresentationStyle = UIModalPresentationCurrentContext;
+        [controller presentViewController:self.controller
+                                 animated:YES
+                               completion:^{
+            controller.modalPresentationStyle = rootViewControllerDesiredPresentationStyle;
+        }];
+    } else if ([adToShow conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
+        [adToShow presentFromViewController:controller];
+        if (auctionID) {
+            ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
+            [controller.presentedViewController.view addSubview:logoView];
+            [ANPBBuffer addAdditionalInfo:@{kANPBBufferAdWidthKey: @(CGRectGetWidth(controller.presentedViewController.view.frame)),
+                                            kANPBBufferAdHeightKey: @(CGRectGetHeight(controller.presentedViewController.view.frame))}
+                             forAuctionID:auctionID];
+            [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
+                               forAuctionID:auctionID];
+        }
+    } else {
+        ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
         [self adFailedToDisplay];
     }
 }
