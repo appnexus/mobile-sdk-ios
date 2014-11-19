@@ -42,7 +42,7 @@
 @property (nonatomic, readwrite, assign, getter=hasExpired) BOOL expired;
 
 /*! 
- * Should instantiate a mediated ad request and begin a mediated ad load.
+ * Will be called by the AppNexus SDK when a mediated native ad request should be initiated.
  */
 - (void)requestNativeAdWithServerParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)adUnitId
@@ -74,6 +74,7 @@
  * Should notify the mediated SDK that the native view should no longer be tracked.
  */
 - (void)unregisterViewFromTracking;
+
 @end
 
 /*!

@@ -20,11 +20,15 @@
 /*!
  * Represents a response which should be created, populated, and returned
  * by a custom adapter.
+ * @see ANNativeAdResponse for descriptions of all the properties.
  */
 @interface ANNativeMediatedAdResponse : ANNativeAdResponse
 
 /*!
  * Designated initializer.
+ *
+ * @param adapter The mediation adapter which provided the native assets for this response.
+ * @param networkCode The network code for the mediated adapter.
  */
 - (instancetype)initWithCustomAdapter:(id<ANNativeCustomAdapter>)adapter
                           networkCode:(ANNativeAdNetworkCode)networkCode;

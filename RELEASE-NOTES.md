@@ -1,5 +1,27 @@
 ## RC 1.21
 
++ AppNexus Native API 1.0, with support for MoPub and Facebook mediation.
+
+### Other Bug Fixes:
+
++ ANLocation formatting on the ad call
+
++ KVO removeObserver exceptions
+
++ MRAID ad with custom close in expanded state did not correctly collapse back to default state.
+
++ Improved importing of SDK bundle resources.
+
+### 3rd party SDK updates:
+
++ AdMob 6.12.2
+
++ Amazon 2.1.4
+
++ Facebook 3.20
+
++ MoPub 3.2.0
+
 
 
 ## RC 1.20

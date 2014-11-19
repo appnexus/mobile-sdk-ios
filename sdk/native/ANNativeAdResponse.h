@@ -25,7 +25,7 @@
  * After the response is received as part of the [ANNativeAdRequest delegate] callback, a native view can
  * be created and the native ad elements populated. When the view is ready for display, it should be
  * registered with the response, and a delegate can optionally be attached to the response for callbacks
- * related to actions on the native view. Here is sample code which goes through this workflow:
+ * related to actions on the native view. Here is a sample workflow:
  *
  * @code
  * - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {

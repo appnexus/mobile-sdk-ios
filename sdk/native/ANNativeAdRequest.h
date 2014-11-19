@@ -56,7 +56,7 @@
 @property (nonatomic, readwrite, assign) BOOL shouldLoadMainImage;
 
 /*!
- * The delegate which is notified of a successful or failed request.
+ * The delegate which is notified of a successful or failed request. This should be set before calling [ANNativeAdRequest loadAd].
  */
 @property (nonatomic, readwrite, weak) id<ANNativeAdRequestDelegate> delegate;
 
@@ -69,7 +69,7 @@
 @end
 
 /*!
- * Defines the callbacks for one load of a ANNativeAdRequest instance.
+ * Defines the callbacks for each load of a ANNativeAdRequest instance.
  */
 @protocol ANNativeAdRequestDelegate <NSObject>
 
