@@ -16,6 +16,9 @@
 #ifndef NewTestApp_MediationAdapterPrefixHeader_pch
 #define NewTestApp_MediationAdapterPrefixHeader_pch
 
-#import <UIKit/UIKit.h>
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
 
 #endif

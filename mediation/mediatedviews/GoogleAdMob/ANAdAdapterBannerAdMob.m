@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterBannerAdMob.h"
+#import "ANLogging.h"
 
 #import "GADAdMobExtras.h"
 
@@ -47,7 +48,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
-    NSLog(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
+    ANLogDebug(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
 	GADAdSize gadAdSize;
     
     AdMobBannerServerSideParameters *ssparam = [self parseServerSide:parameterString];
@@ -127,13 +128,13 @@
 
 - (void)adViewDidReceiveAd:(GADBannerView *)view
 {
-    NSLog(@"AdMob banner did load");
+    ANLogDebug(@"AdMob banner did load");
 	[self.delegate didLoadBannerAd:view];
 }
 
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    NSLog(@"AdMob banner failed to load with error: %@", error);
+    ANLogDebug(@"AdMob banner failed to load with error: %@", error);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
@@ -202,7 +203,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"AdMob banner being destroyed");
+    ANLogDebug(@"AdMob banner being destroyed");
 	self.bannerView.delegate = nil;
 	self.bannerView = nil;
 }

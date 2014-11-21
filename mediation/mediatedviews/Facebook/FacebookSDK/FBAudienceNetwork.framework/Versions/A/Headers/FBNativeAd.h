@@ -17,7 +17,6 @@
 #import "FBAdImage.h"
 #import "FBAdView.h"
 
-@class FBAdRequest;
 @protocol FBNativeAdDelegate;
 
 /*!
@@ -27,16 +26,6 @@
  The FBNativeAd represents ad metadata to allow you to construct custom ad views.
  See the NativeAdSample in the sample apps section of the Audience Network framework.
  */
-@class FBNativeAd;
-
-/*!
- @typedef FBNativeAdCompletionHandler
-
- @abstract
- The completion handler invoked when the ad is clicked.
- */
-typedef void (^FBNativeAdCompletionHandler)(FBNativeAd *nativeAd);
-
 @interface FBNativeAd : NSObject
 
 /*!
@@ -85,7 +74,6 @@ typedef void (^FBNativeAdCompletionHandler)(FBNativeAd *nativeAd);
  */
 @property (nonatomic, weak) id<FBNativeAdDelegate> delegate;
 
-/* initialize an instance of FBNative Ad with a placement ID and a view controller */
 /*!
  @method
 
@@ -104,7 +92,7 @@ typedef void (^FBNativeAdCompletionHandler)(FBNativeAd *nativeAd);
 
  @param view The UIView you created to render all the native ads data elements.
  @param viewController The UIViewController that will be used to present SKStoreProductViewController
- (iTunes Store product information).
+ (iTunes Store product information) or the in-app browser.
 
  @discussion The whole area of the UIView will be clickable.
  */

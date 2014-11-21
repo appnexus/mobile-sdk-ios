@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterBannerFacebook.h"
+#import "ANLogging.h"
 
 @interface ANAdAdapterBannerFacebook()
 
@@ -40,7 +41,7 @@
 #pragma mark FBAdViewDelegate methods
 
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
-    NSLog(@"Facebook banner failed to load with error: %@", error);
+    ANLogDebug(@"Facebook banner failed to load with error: %@", error);
     ANAdResponseCode code = ANAdResponseInternalError;
     if (error.code == 1001) {
         code = ANAdResponseUnableToFill;

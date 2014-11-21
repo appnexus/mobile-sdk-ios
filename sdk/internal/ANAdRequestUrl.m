@@ -35,7 +35,7 @@
 - (NSSet*)getParameterNames{
     NSSet* pNames = [NSSet setWithObjects:
                      @"id",
-                     @"dnt",
+                     @"LimitAdTrackingEnabled",
                      @"devmake",
                      @"devmodel",
                      @"appid",
@@ -129,7 +129,7 @@
 }
 
 - (NSString *)dontTrackEnabledParameter {
-    return ANAdvertisingTrackingEnabled() ? @"" : @"&dnt=1";
+    return ANAdvertisingTrackingEnabled() ? @"" : @"&LimitAdTrackingEnabled=1";
 }
 
 - (NSString *)deviceMakeParameter {
@@ -191,10 +191,16 @@
         NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
         
-        locationParameter = [locationParameter
-                             stringByAppendingFormat:@"&loc=%f,%f&loc_age=%ld&loc_prec=%f",
-                             location.latitude, location.longitude,
-                             (long)ageInMilliseconds, location.horizontalAccuracy];
+        if (location.precision >= 0) {
+            locationParameter = [NSString stringWithFormat:@"&loc=%.*f%%2C%.*f",
+                                 (int)location.precision, location.latitude, (int)location.precision, location.longitude];
+        } else {
+            locationParameter = [NSString stringWithFormat:@"&loc=%f%%2C%f",
+                                 location.latitude, location.longitude];
+        }
+        
+        locationParameter = [locationParameter stringByAppendingFormat:@"&loc_age=%ld&loc_prec=%f",
+         (long)ageInMilliseconds, location.horizontalAccuracy];
     }
     
     return locationParameter;
@@ -207,7 +213,7 @@
 
 - (NSString *)languageParameter {
     NSString *language = [NSLocale preferredLanguages][0];
-    return ([language length] > 0) ? [NSString stringWithFormat:@"&language=%@", language] : @"";
+    return ([language length] > 0) ? [NSString stringWithFormat:@"&language=%@", [self URLEncodingFrom:language]] : @"";
 }
 
 - (NSString *)devTimeParameter {
@@ -269,7 +275,7 @@
                                             [self URLEncodingFrom:value]]];
             }
         }else{
-            ANLogWarn(ANErrorString(@"request_parameter_override_attempt"), key);
+            ANLogWarn(ANErrorString(@"request_parameter_override_attempt", key));
         }
     }];
     
@@ -295,7 +301,7 @@
     NSMutableSet *nonetworks = ANInvalidNetworks();
     for (NSString *network in nonetworks) {
         [nonetString appendString:network];
-        [nonetString appendString:@","];
+        [nonetString appendString:@"%2C"];
     }
     
     // remove trailing comma

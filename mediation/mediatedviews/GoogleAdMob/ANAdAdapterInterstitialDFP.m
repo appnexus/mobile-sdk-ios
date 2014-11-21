@@ -14,7 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialDFP.h"
-
+#import "ANLogging.h"
 #import "DFPExtras.h"
 
 @interface ANAdAdapterInterstitialDFP ()
@@ -32,7 +32,7 @@
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
-    NSLog(@"Requesting DFP interstitial");
+    ANLogDebug(@"Requesting DFP interstitial");
 	self.interstitialAd = [[DFPInterstitial alloc] init];
 	self.interstitialAd.adUnitID = idString;
 	self.interstitialAd.delegate = self;
@@ -43,12 +43,12 @@
 - (void)presentFromViewController:(UIViewController *)viewController
 {
     if (!self.interstitialAd.isReady || self.interstitialAd.hasBeenUsed) {
-        NSLog(@"DFP interstitial was unavailable");
+        ANLogDebug(@"DFP interstitial was unavailable");
         [self.delegate failedToDisplayAd];
         return;
     }
     
-    NSLog(@"Showing DFP interstitial");
+    ANLogDebug(@"Showing DFP interstitial");
 	[self.interstitialAd presentFromRootViewController:viewController];
 }
 
@@ -99,13 +99,13 @@
 
 - (void)interstitialDidReceiveAd:(DFPInterstitial *)ad
 {
-    NSLog(@"DFP interstitial did load");
+    ANLogDebug(@"DFP interstitial did load");
 	[self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    NSLog(@"DFP interstitial failed to load with error: %@", error);
+    ANLogDebug(@"DFP interstitial failed to load with error: %@", error);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {

@@ -47,6 +47,8 @@
 
 - (void)delegateShouldOpenInBrowser:(NSURL *)URL;
 
+@property (nonatomic, readwrite, assign) BOOL isRegisteredForPitbullScreenCaptureNotifications;
+
 @end
 
 @implementation ANMRAIDAdWebViewController
@@ -284,7 +286,7 @@
         } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             [[UIApplication sharedApplication] openURL:URL];
         } else {
-            ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+            ANLogWarn(ANErrorString(@"opening_url_failed", URL));
         }
         
         return NO;
@@ -462,9 +464,19 @@
 
     [self setOrientationProperties:queryComponents];
     
-    // If no custom close included, show our default one.
-    UIButton *closeButton = [useCustomClose isEqualToString:@"true"] ? nil : [self expandCloseButton];
+    BOOL needDefaultCloseButton = ![useCustomClose isEqualToString:@"true"];
+    UIButton *closeButton = nil;
+    if (needDefaultCloseButton) {
+        closeButton = [self expandCloseButton];
+    } else {
+        closeButton = [self expandCloseButtonForCustomClose];
+    }
     
+    if (!closeButton) {
+        ANLogError(@"Terminating MRAID expand due to invalid close button.");
+        return;
+    }
+
     [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)
                                   closeButton:closeButton];
     
@@ -793,22 +805,31 @@
                     action:@selector(closeAction:)
           forControlEvents:UIControlEventTouchUpInside];
     
-    NSBundle *resBundle = ANResourcesBundle();
-    if (!resBundle) {
-        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"interstitial_closebox", @"png")];
+    if (!closeboxImage) {
+        ANLogError(@"Could not create MRAID expand close button.");
+        return nil;
     }
-    
-    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox"
-                                                                                  ofType:@"png"]];
-    UIImage *closeboxDown = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox_down"
-                                                                                 ofType:@"png"]];
     [closeButton setImage:closeboxImage
                  forState:UIControlStateNormal];
-    [closeButton setImage:closeboxDown
-                 forState:UIControlStateHighlighted];
+    
+    UIImage *closeboxDown = [UIImage imageWithContentsOfFile:ANPathForANResource(@"interstitial_closebox_down", @"png")];
+    if (closeboxDown) {
+        [closeButton setImage:closeboxDown
+                     forState:UIControlStateHighlighted];
+    }
     
     // setFrame here in order to pass the size dimensions along
     [closeButton setFrame:CGRectMake(0, 0, closeboxImage.size.width, closeboxImage.size.height)];
+    return closeButton;
+}
+
+- (UIButton *)expandCloseButtonForCustomClose {
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton addTarget:self
+                    action:@selector(closeAction:)
+          forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setFrame:CGRectMake(0, 0, 50.0, 50.0)];
     return closeButton;
 }
 
@@ -861,24 +882,26 @@
 }
 
 - (void)registerForPitbullScreenCaptureNotifications {
-    NSObject *object = self.adFetcherDelegate;
-    [object addObserver:self
-             forKeyPath:@"transitionInProgress"
-                options:NSKeyValueObservingOptionNew
-                context:nil];
+    if (!self.isRegisteredForPitbullScreenCaptureNotifications) {
+        NSObject *object = self.adFetcherDelegate;
+        [object addObserver:self
+                 forKeyPath:@"transitionInProgress"
+                    options:NSKeyValueObservingOptionNew
+                    context:nil];
+        self.isRegisteredForPitbullScreenCaptureNotifications = YES;
+    }
 }
 
 - (void)unregisterFromPitbullScreenCaptureNotifications {
-    /*
-     Removing a non-registered observer results in an exception. There's no way to
-     check if you're registered or not. Hence the try-catch.
-     */
     NSObject *bannerObject = self.adFetcherDelegate;
-    @try {
-        [bannerObject removeObserver:self
-                          forKeyPath:@"transitionInProgress"];
+    if (self.isRegisteredForPitbullScreenCaptureNotifications) {
+        @try {
+            [bannerObject removeObserver:self
+                              forKeyPath:@"transitionInProgress"];
+        }
+        @catch (NSException * __unused exception) {}
+        self.isRegisteredForPitbullScreenCaptureNotifications = NO;
     }
-    @catch (NSException * __unused exception) {}
 }
 
 - (void)dispatchPitbullScreenCaptureCalls {

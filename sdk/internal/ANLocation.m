@@ -20,6 +20,12 @@
 static NSInteger const kANLocationMaxLocationPrecision = 6;
 static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
 
+@interface ANLOCATION ()
+
+@property (nonatomic, readwrite, assign) NSInteger precision;
+
+@end
+
 @implementation ANLOCATION
 
 + (ANLOCATION *)getLocationWithLatitude:(CGFloat)latitude
@@ -61,6 +67,7 @@ static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
     if (precision <= -1) {
         location.latitude = latitude;
         location.longitude = longitude;
+        location.precision = -1;
     } else {
         NSInteger effectivePrecision = precision;
         if (precision > kANLocationMaxLocationPrecision) {
@@ -70,6 +77,7 @@ static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
         CGFloat precisionFloat = powf(10, effectivePrecision);
         location.latitude = roundf(latitude * precisionFloat) / precisionFloat;
         location.longitude = roundf(longitude * precisionFloat) / precisionFloat;
+        location.precision = effectivePrecision;
     }
     location.timestamp = timestamp;
     location.horizontalAccuracy = horizontalAccuracy;

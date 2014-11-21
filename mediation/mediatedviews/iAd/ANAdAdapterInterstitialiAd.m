@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialiAd.h"
+#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialiAd () <NSFileManagerDelegate>
 @property (nonatomic, readwrite, strong) id interstitialAd;
@@ -29,7 +30,7 @@
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
-    NSLog(@"Requesting iAd interstitial");
+    ANLogDebug(@"Requesting iAd interstitial");
     Class iAdInterstitialClass = NSClassFromString(@"ADInterstitialAd");
     if (iAdInterstitialClass) {
         self.interstitialAd = [[iAdInterstitialClass alloc] init];
@@ -43,12 +44,12 @@
 {
     ADInterstitialAd *iAd = (ADInterstitialAd *)self.interstitialAd;
     if (!iAd.loaded) {
-        NSLog(@"iAd interstitial unavailable");
+        ANLogDebug(@"iAd interstitial unavailable");
         [self.delegate failedToDisplayAd];
         return;
     }
     
-    NSLog(@"Showing iAd interstitial");
+    ANLogDebug(@"Showing iAd interstitial");
     [self.delegate willPresentAd];
 	[self.interstitialAd presentFromViewController:viewController];
     [self.delegate didPresentAd];
@@ -63,25 +64,25 @@
 
 - (void)interstitialAdWillLoad:(ADInterstitialAd *)interstitialAd
 {
-    NSLog(@"iAd interstitial will load");
+    ANLogDebug(@"iAd interstitial will load");
 }
 
 - (void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd
 {
-    NSLog(@"iAd interstitial did load");
+    ANLogDebug(@"iAd interstitial did load");
     [self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitialAdDidUnload:(ADInterstitialAd *)interstitialAd
 {
-    NSLog(@"iAd interstitial did unload");
+    ANLogDebug(@"iAd interstitial did unload");
     [self.delegate failedToDisplayAd];
 }
 
 - (BOOL)interstitialAdActionShouldBegin:(ADInterstitialAd *)interstitialAd willLeaveApplication:(BOOL)willLeave {
     [self.delegate adWasClicked];
     if (willLeave) {
-        NSLog(@"iAd interstitial will leave application");
+        ANLogDebug(@"iAd interstitial will leave application");
         [self.delegate willLeaveApplication];
     }
     
@@ -89,14 +90,14 @@
 }
 
 - (void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd {
-    NSLog(@"iAd interstitial action did finish");
+    ANLogDebug(@"iAd interstitial action did finish");
     [self.delegate willCloseAd];
     [self.delegate didCloseAd];
 }
 
 - (void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
 {
-    NSLog(@"iAd banner interstitial to load with error: %@", [error localizedDescription]);
+    ANLogDebug(@"iAd banner interstitial to load with error: %@", [error localizedDescription]);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {

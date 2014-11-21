@@ -13,7 +13,7 @@
 #define HOSTNAME_FOR_TESTING        @"testing.ads.mopub.com"
 #define DEFAULT_PUB_ID              @"agltb3B1Yi1pbmNyDAsSBFNpdGUYkaoMDA"
 #define MP_SERVER_VERSION           @"8"
-#define MP_SDK_VERSION              @"3.0.0"
+#define MP_SDK_VERSION              @"3.2.0"
 
 // Sizing constants.
 extern CGSize const MOPUB_BANNER_SIZE;

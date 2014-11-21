@@ -16,6 +16,7 @@
 #import <UIKit/UIKit.h>
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
+#import "ANMediatedAd.h"
 
 @interface ANMediationAdapterViewController : UIViewController
 
@@ -31,10 +32,18 @@
 - (ANBannerAdView *)loadAdMobBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *)loadAdMobInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
+- (ANBannerAdView *)loadDFPBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadDFPInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
 - (ANBannerAdView *)loadMillennialMediaBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *)loadMillennialMediaInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
 - (ANBannerAdView *)loadMoPubBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *)loadMoPubInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (void)stubMediatedAd:(ANMediatedAd *)mediatedAd;
+- (ANBannerAdView *)bannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
+                             frameSize:(CGSize)frameSize
+                                adSize:(CGSize)adSize;
 
 @end

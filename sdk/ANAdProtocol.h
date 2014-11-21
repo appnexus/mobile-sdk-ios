@@ -15,14 +15,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ANAdConstants.h"
 
 @class ANLocation;
-
-typedef NS_ENUM(NSUInteger, ANGender) {
-    UNKNOWN,
-    MALE,
-    FEMALE
-};
 
 /**
  ANAdProtocol defines the properties and methods that are common to

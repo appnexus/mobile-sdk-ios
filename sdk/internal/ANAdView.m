@@ -436,15 +436,10 @@ ANBrowserViewControllerDelegate>
         // add image to the region since it will be in a different
         // place with no visual cue
         
-        NSBundle *resBundle = ANResourcesBundle();
-        if (!resBundle) {
-            ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
-        }
+        // Missing resources could be an issue here
+        UIImage *closeboxImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"interstitial_closebox", @"png")];
+        UIImage *closeboxDown = [UIImage imageWithContentsOfFile:ANPathForANResource(@"interstitial_closebox_down", @"png")];
         
-        UIImage *closeboxImage = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox"
-                                                                                      ofType:@"png"]];
-        UIImage *closeboxDown = [UIImage imageWithContentsOfFile:[resBundle pathForResource:@"interstitial_closebox_down"
-                                                                                     ofType:@"png"]];
         [closeEventRegion setImage:closeboxImage
                           forState:UIControlStateNormal];
         [closeEventRegion setImage:closeboxDown
@@ -594,6 +589,10 @@ ANBrowserViewControllerDelegate>
     if (!self.opensInNativeBrowser && hasHttpPrefix([URL scheme])) {
         if (!self.browserViewController) {
             self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
+            if (!self.browserViewController) {
+                ANLogError(@"Browser controller did not instantiate correctly. Terminating clickthrough.");
+                return;
+            }
             self.browserViewController.delegate = self;
             if (self.landingPageLoadsInBackground) {
                 [self showClickOverlay];
@@ -611,7 +610,7 @@ ANBrowserViewControllerDelegate>
         [self adWillLeaveApplication];
         [[UIApplication sharedApplication] openURL:URL];
     } else {
-        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+        ANLogWarn(ANErrorString(@"opening_url_failed", URL));
     }
 }
 

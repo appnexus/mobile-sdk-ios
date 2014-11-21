@@ -15,6 +15,7 @@
 
 #import <AmazonAd/AmazonAdOptions.h>
 #import "ANAdAdapterBaseAmazon.h"
+#import "ANLogging.h"
 
 static NSString *const kANAdAdapterBaseAmazonAgeKey = @"age";
 
@@ -57,7 +58,7 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
 }
 
 - (void)handleAmazonError:(AmazonAdError *)amazonError {
-    NSLog(@"Received error from Amazon with description: %@", amazonError.description);
+    ANLogDebug(@"Received error from Amazon with description: %@", amazonError.description);
     ANAdResponseCode responseCode = ANAdResponseInternalError;
     switch (amazonError.errorCode) {
         case AmazonAdErrorRequest:

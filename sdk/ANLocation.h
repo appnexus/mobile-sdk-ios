@@ -43,6 +43,12 @@
 @property (nonatomic, readwrite, assign) CGFloat horizontalAccuracy;
 
 /**
+ The precision of the location. Returns -1 if the location has unlimited
+ precision.
+ */
+@property (nonatomic, readonly, assign) NSInteger precision;
+
+/**
  Returns an ANLocation instance generated from a user's location. It is
  expected that the latitude, longitude, timestamp, and horizontal accuracy 
  parameters will be passed from a CLLocation instance.

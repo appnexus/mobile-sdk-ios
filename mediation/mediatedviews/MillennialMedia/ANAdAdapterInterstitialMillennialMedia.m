@@ -14,7 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialMillennialMedia.h"
-
+#import "ANLogging.h"
 #import <MillennialMedia/MMInterstitial.h>
 
 @interface ANAdAdapterInterstitialMillennialMedia ()
@@ -30,14 +30,14 @@
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
-    NSLog(@"Requesting MillennialMedia interstitial");
+    ANLogDebug(@"Requesting MillennialMedia interstitial");
     [MMSDK initialize];
     [self addMMNotificationObservers];
     
     self.apid = idString;
     
     if ([self isReady]) {
-        NSLog(@"MillennialMedia interstitial was already available, attempting to load cached ad");
+        ANLogDebug(@"MillennialMedia interstitial was already available, attempting to load cached ad");
         [self.delegate didLoadInterstitialAd:self];
         return;
     }
@@ -49,12 +49,12 @@
                                 apid:idString
                         onCompletion:^(BOOL success, NSError *error) {
                             if (success) {
-                                NSLog(@"MillennialMedia interstitial did load");
+                                ANLogDebug(@"MillennialMedia interstitial did load");
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     [self.delegate didLoadInterstitialAd:self];
                                 });
                             } else {
-                                NSLog(@"MillennialMedia interstitial failed to load with error: %@", error);
+                                ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
                                 ANAdResponseCode code = ANAdResponseInternalError;
                                 
                                 switch (error.code) {
@@ -87,18 +87,18 @@
 - (void)presentFromViewController:(UIViewController *)viewController
 {
     if (![self isReady]) {
-        NSLog(@"MillennialMedia interstitial no longer available, failed to present ad");
+        ANLogDebug(@"MillennialMedia interstitial no longer available, failed to present ad");
         [self.delegate failedToDisplayAd];
         return;
     }
     
-    NSLog(@"Showing MillennialMedia interstitial");
+    ANLogDebug(@"Showing MillennialMedia interstitial");
     [MMInterstitial displayForApid:self.apid
                 fromViewController:viewController
                    withOrientation:0
                       onCompletion:^(BOOL success, NSError *error) {
                           if (!success) {
-                              NSLog(@"MillennialMedia interstitial call to display ad failed");
+                              ANLogDebug(@"MillennialMedia interstitial call to display ad failed");
                               dispatch_async(dispatch_get_main_queue(), ^{
                                   [self.delegate failedToDisplayAd];
                               });

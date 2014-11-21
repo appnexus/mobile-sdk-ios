@@ -39,6 +39,9 @@
 // variables for measuring latency.
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
+
+@property (nonatomic, readwrite, assign) BOOL isRegisteredForPitbullScreenCaptureNotifications;
+
 @end
 
 @interface ANAdFetcher ()
@@ -82,7 +85,7 @@
         ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
                             @{kANAdFetcherMediatedClassKey: className});
         
-        ANLogDebug([NSString stringWithFormat:ANErrorString(@"instantiating_class"), className]);
+        ANLogDebug(ANErrorString(@"instantiating_class", className));
         
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);
@@ -140,10 +143,10 @@
                          errorCode:(ANADRESPONSECODE)errorCode
                          errorInfo:(NSString *)errorInfo {
     if ([errorInfo length] > 0) {
-        ANLogError(ANErrorString(@"mediation_instantiation_failure"), errorInfo);
+        ANLogError(ANErrorString(@"mediation_instantiation_failure", errorInfo));
     }
     if ([className length] > 0) {
-        ANLogWarn(ANErrorString(@"mediation_adding_invalid"), className);
+        ANLogWarn(ANErrorString(@"mediation_adding_invalid", className));
         ANAddInvalidNetwork(className);
     }
     
@@ -196,7 +199,7 @@
                                targetingParameters:targetingParameters];
             return YES;
         } else {
-            ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"CustomAdapterBanner"]);
+            ANLogError(ANErrorString(@"instance_exception", @"CustomAdapterBanner"));
         }
     } else if ([adView isKindOfClass:[ANINTERSTITIALAD class]]) {
         // make sure the container and protocol match
@@ -212,7 +215,7 @@
                                                 targetingParameters:targetingParameters];
             return YES;
         } else {
-            ANLogError([NSString stringWithFormat:ANErrorString(@"instance_exception"), @"CustomAdapterInterstitial"]);
+            ANLogError(ANErrorString(@"instance_exception", @"CustomAdapterInterstitial"));
         }
     }
     
@@ -489,24 +492,26 @@
 }
 
 - (void)registerForPitbullScreenCaptureNotifications {
-    NSObject *object = self.adViewDelegate;
-    [object addObserver:self
-             forKeyPath:@"transitionInProgress"
-                options:NSKeyValueObservingOptionNew
-                context:nil];
+    if (!self.isRegisteredForPitbullScreenCaptureNotifications) {
+        NSObject *object = self.adViewDelegate;
+        [object addObserver:self
+                 forKeyPath:@"transitionInProgress"
+                    options:NSKeyValueObservingOptionNew
+                    context:nil];
+        self.isRegisteredForPitbullScreenCaptureNotifications = YES;
+    }
 }
 
 - (void)unregisterFromPitbullScreenCaptureNotifications {
-    /*
-     Removing a non-registered observer results in an exception. There's no way to
-     check if you're registered or not. Hence the try-catch.
-     */
-    NSObject *object = self.adViewDelegate;
-    @try {
-        [object removeObserver:self
-                    forKeyPath:@"transitionInProgress"];
+    if (self.isRegisteredForPitbullScreenCaptureNotifications) {
+        NSObject *object = self.adViewDelegate;
+        @try {
+            [object removeObserver:self
+                        forKeyPath:@"transitionInProgress"];
+        }
+        @catch (NSException * __unused exception) {}
+        self.isRegisteredForPitbullScreenCaptureNotifications = NO;
     }
-    @catch (NSException * __unused exception) {}
 }
 
 - (void)dispatchPitbullScreenCapture {

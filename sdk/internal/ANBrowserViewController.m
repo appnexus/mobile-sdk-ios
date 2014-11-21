@@ -28,12 +28,10 @@
 @implementation ANBrowserViewController
 
 - (instancetype)initWithURL:(NSURL *)url {
-    NSBundle *resBundle = ANResourcesBundle();
-    if (!resBundle) {
-        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    if (!ANPathForANResource(NSStringFromClass([self class]), @"nib")) {
+        ANLogError(@"Could not instantiate browser controller because of missing NIB file");
         return nil;
     }
-    
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:ANResourcesBundle()];
     if (self) {
         _url = url;
@@ -142,7 +140,7 @@
         [[UIApplication sharedApplication] openURL:URL];
         return NO;
     } else {
-        ANLogWarn([NSString stringWithFormat:ANErrorString(@"opening_url_failed"), URL]);
+        ANLogWarn(ANErrorString(@"opening_url_failed", URL));
         return NO;
     }
 }

@@ -33,12 +33,11 @@
 @synthesize backgroundColor = __backgroundColor;
 
 - (instancetype)init {
-    NSBundle *resBundle = ANResourcesBundle();
-    if (!resBundle) {
-        ANLogError(@"Resource not found. Make sure the AppNexusSDKResources bundle is included in project");
+    if (!ANPathForANResource(NSStringFromClass([self class]), @"nib")) {
+        ANLogError(@"Could not instantiate interstitial controller because of missing NIB file");
         return nil;
     }
-    self = [super initWithNibName:NSStringFromClass([self class]) bundle:resBundle];
+    self = [super initWithNibName:NSStringFromClass([self class]) bundle:ANResourcesBundle()];
     self.originalHiddenState = NO;
     self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
     self.containerView = [UIView new];

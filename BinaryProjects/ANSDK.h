@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+    /*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -21,3 +21,11 @@
 #import "ANLocation.h"
 #import "ANLogManager.h"
 #import "ANTargetingParameters.h"
+#import "ANAdConstants.h"
+#import "ANNativeAdDelegate.h"
+#import "ANNativeAdRequest.h"
+#import "ANNativeAdResponse.h"
+#import "ANNativeAdStarRating.h"
+#import "ANNativeAdTargetingProtocol.h"
+#import "ANNativeCustomAdapter.h"
+#import "ANNativeMediatedAdResponse.h"

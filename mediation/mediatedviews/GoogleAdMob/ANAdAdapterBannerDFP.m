@@ -14,7 +14,7 @@
  */
 
 #import "ANAdAdapterBannerDFP.h"
-
+#import "ANLogging.h"
 #import "DFPExtras.h"
 
 @interface ANAdAdapterBannerDFP ()
@@ -48,7 +48,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
-    NSLog(@"Requesting DFP banner with size: %0.1fx%0.1f", size.width, size.height);
+    ANLogDebug(@"Requesting DFP banner with size: %0.1fx%0.1f", size.width, size.height);
 	GADAdSize gadAdSize;
     DFPBannerServerSideParameters *ssparam = [self parseServerSide:parameterString];
     
@@ -137,13 +137,13 @@
 
 - (void)adViewDidReceiveAd:(DFPBannerView *)view
 {
-    NSLog(@"DFP banner did load");
+    ANLogDebug(@"DFP banner did load");
 	[self.delegate didLoadBannerAd:view];
 }
 
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    NSLog(@"DFP banner failed to load with error: %@", [error localizedDescription]);
+    ANLogDebug(@"DFP banner failed to load with error: %@", [error localizedDescription]);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
@@ -212,7 +212,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"DFP banner being destroyed");
+    ANLogDebug(@"DFP banner being destroyed");
 	self.dfpBanner.delegate = nil;
 	self.dfpBanner = nil;
 }

@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterBanneriAd.h"
+#import "ANLogging.h"
 
 @interface ANAdAdapterBanneriAd () <NSFileManagerDelegate>
 @property (nonatomic, readwrite, strong) id bannerView;
@@ -31,7 +32,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
 {
-    NSLog(@"Requesting iAd banner");
+    ANLogDebug(@"Requesting iAd banner");
     Class iAdBannerClass = NSClassFromString(@"ADBannerView");
     if (iAdBannerClass) {
         self.bannerView = [[iAdBannerClass alloc] initWithAdType:ADAdTypeBanner];
@@ -45,7 +46,7 @@
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-    NSLog(@"iAd banner failed to load with error: %@", [error localizedDescription]);
+    ANLogDebug(@"iAd banner failed to load with error: %@", [error localizedDescription]);
     ANAdResponseCode code = ANAdResponseInternalError;
     
     switch (error.code) {
@@ -79,22 +80,22 @@
 }
 
 - (void)bannerViewWillLoadAd:(ADBannerView *)banner {
-    NSLog(@"iAd banner will load");
+    ANLogDebug(@"iAd banner will load");
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-    NSLog(@"iAd banner did load");
+    ANLogDebug(@"iAd banner did load");
 	[self.delegate didLoadBannerAd:banner];
 }
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
     [self.delegate adWasClicked];
     if (willLeave) {
-        NSLog(@"iAd banner will leave application");
+        ANLogDebug(@"iAd banner will leave application");
         [self.delegate willLeaveApplication];
     } else {
-        NSLog(@"iAd banner will present");
+        ANLogDebug(@"iAd banner will present");
         [self.delegate willPresentAd];
         [self.delegate didPresentAd];
     }

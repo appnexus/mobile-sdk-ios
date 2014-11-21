@@ -16,6 +16,7 @@
 #import <AmazonAd/AmazonAdOptions.h>
 #import <AmazonAd/AmazonAdError.h>
 #import "ANAdAdapterBannerAmazon.h"
+#import "ANLogging.h"
 
 @interface ANAdAdapterBannerAmazon ()
 @property (nonatomic, weak) UIViewController *rootViewController;
@@ -32,7 +33,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
-    NSLog(@"Requesting Amazon banner with size: %@", NSStringFromCGSize(size));
+    ANLogDebug(@"Requesting Amazon banner with size: %@", NSStringFromCGSize(size));
     AmazonAdView *adView = [AmazonAdView amazonAdViewWithAdSize:size];
     adView.delegate = self;
     self.rootViewController = rootViewController;
@@ -45,30 +46,30 @@
 }
 
 - (void)adViewDidLoad:(AmazonAdView *)view {
-    NSLog(@"Amazon banner did load");
+    ANLogDebug(@"Amazon banner did load");
     [self.delegate didLoadBannerAd:view];
 }
 
 - (void)adViewDidFailToLoad:(AmazonAdView *)view
                   withError:(AmazonAdError *)error {
-    NSLog(@"Amazon banner did fail to load");
+    ANLogDebug(@"Amazon banner did fail to load");
     [self handleAmazonError:error];
 }
 
 - (void)adViewWillExpand:(AmazonAdView *)view {
-    NSLog(@"Amazon banner will expand");
+    ANLogDebug(@"Amazon banner will expand");
     [self.delegate willPresentAd];
     [self.delegate didPresentAd];
 }
 
 - (void)adViewDidCollapse:(AmazonAdView *)view {
-    NSLog(@"Amazon banner will collapse");
+    ANLogDebug(@"Amazon banner will collapse");
     [self.delegate willCloseAd];
     [self.delegate didCloseAd];
 }
 
 - (void)adViewWillResize:(AmazonAdView *)view toFrame:(CGRect)frame {
-    NSLog(@"Amazon view will resize to frame: %@", NSStringFromCGRect(frame));
+    ANLogDebug(@"Amazon view will resize to frame: %@", NSStringFromCGRect(frame));
     // Do nothing.
 }
 
