@@ -41,6 +41,12 @@
 		8A7F4CC619DB3976003ECC5C /* MPCloseButtonX.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */; };
 		8A7F4CC719DB3976003ECC5C /* MPCloseButtonX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */; };
 		8A7F4CC819DB3976003ECC5C /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC419DB3976003ECC5C /* MRAID.bundle */; };
+		8A84E40C1A2516DF00C60EAB /* ANAdServerResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A84E40B1A2516DF00C60EAB /* ANAdServerResponseTestCase.m */; };
+		8A84E41B1A251C5000C60EAB /* nativeResponse1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A84E4191A251B5800C60EAB /* nativeResponse1.json */; };
+		8A84E41D1A251C9400C60EAB /* nativeResponse2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A84E41C1A251C9400C60EAB /* nativeResponse2.json */; };
+		8A84E41F1A251D6000C60EAB /* nativeResponse3.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A84E41E1A251D6000C60EAB /* nativeResponse3.json */; };
+		8A84E4211A251E6F00C60EAB /* nativeResponse4.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A84E4201A251E6F00C60EAB /* nativeResponse4.json */; };
+		8A84E4231A25202A00C60EAB /* nativeResponse5.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A84E4221A25202A00C60EAB /* nativeResponse5.json */; };
 		8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095519DB16C50090EBED /* AppDelegate.m */; };
 		8AA0095B19DB16C50090EBED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095619DB16C50090EBED /* main.m */; };
 		8AA0095C19DB16C50090EBED /* TestsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA0095719DB16C50090EBED /* TestsStoryboard.storyboard */; };
@@ -125,6 +131,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A84E4111A2516E000C60EAB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
 		8A9F94D919D1C37700AB739F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AD01825199932F9007874BA /* Project object */;
@@ -387,6 +400,12 @@
 		8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MPCloseButtonX.png; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPCloseButtonX.png; sourceTree = "<group>"; };
 		8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPCloseButtonX@2x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPCloseButtonX@2x.png"; sourceTree = "<group>"; };
 		8A7F4CC419DB3976003ECC5C /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MRAID.bundle; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MRAID.bundle; sourceTree = "<group>"; };
+		8A84E40B1A2516DF00C60EAB /* ANAdServerResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdServerResponseTestCase.m; sourceTree = "<group>"; };
+		8A84E4191A251B5800C60EAB /* nativeResponse1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = nativeResponse1.json; path = "Native Responses/nativeResponse1.json"; sourceTree = "<group>"; };
+		8A84E41C1A251C9400C60EAB /* nativeResponse2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = nativeResponse2.json; path = "Native Responses/nativeResponse2.json"; sourceTree = "<group>"; };
+		8A84E41E1A251D6000C60EAB /* nativeResponse3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = nativeResponse3.json; path = "Native Responses/nativeResponse3.json"; sourceTree = "<group>"; };
+		8A84E4201A251E6F00C60EAB /* nativeResponse4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = nativeResponse4.json; path = "Native Responses/nativeResponse4.json"; sourceTree = "<group>"; };
+		8A84E4221A25202A00C60EAB /* nativeResponse5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = nativeResponse5.json; path = "Native Responses/nativeResponse5.json"; sourceTree = "<group>"; };
 		8A9F94C019D1C37700AB739F /* MediationAdapterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediationAdapterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediationAdapterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA0095419DB16C50090EBED /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -591,6 +610,7 @@
 				8A0AA46719DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m */,
 				8A0AA46819DB30A2005EC52C /* ANMRAIDViewControllerTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
+				8A84E40B1A2516DF00C60EAB /* ANAdServerResponseTestCase.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -682,6 +702,18 @@
 			name = MPResources;
 			sourceTree = "<group>";
 		};
+		8A84E4181A251ADE00C60EAB /* Native Responses */ = {
+			isa = PBXGroup;
+			children = (
+				8A84E4191A251B5800C60EAB /* nativeResponse1.json */,
+				8A84E41C1A251C9400C60EAB /* nativeResponse2.json */,
+				8A84E41E1A251D6000C60EAB /* nativeResponse3.json */,
+				8A84E4201A251E6F00C60EAB /* nativeResponse4.json */,
+				8A84E4221A25202A00C60EAB /* nativeResponse5.json */,
+			);
+			name = "Native Responses";
+			sourceTree = "<group>";
+		};
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -695,6 +727,7 @@
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -954,6 +987,7 @@
 		8AD01846199932F9007874BA /* NewTestAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				8A84E4181A251ADE00C60EAB /* Native Responses */,
 				8A0AA46219DB30A2005EC52C /* Tests */,
 				8A3D2E7D199C12F600B82C36 /* Banner Adapters */,
 				8AD01847199932F9007874BA /* Supporting Files */,
@@ -1158,6 +1192,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusSDK.framework;
+			remoteRef = 8A84E4111A2516E000C60EAB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8AA0094019DB169B0090EBED /* libANSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1321,9 +1362,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A84E4211A251E6F00C60EAB /* nativeResponse4.json in Resources */,
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
+				8A84E4231A25202A00C60EAB /* nativeResponse5.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
+				8A84E41D1A251C9400C60EAB /* nativeResponse2.json in Resources */,
+				8A84E41B1A251C5000C60EAB /* nativeResponse1.json in Resources */,
+				8A84E41F1A251D6000C60EAB /* nativeResponse3.json in Resources */,
 				8AA00A4819DB2A9A0090EBED /* dogSelfie.jpg in Resources */,
 				8AA00A4919DB2A9A0090EBED /* dogSelfie@2x.jpg in Resources */,
 				8AA00A4A19DB2A9A0090EBED /* GreyWhiteCat.jpg in Resources */,
@@ -1428,6 +1474,7 @@
 				8A0AA49219DB3453005EC52C /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
 				8A0AA45819DB2CB4005EC52C /* ANBannerAdView+ANTest.m in Sources */,
 				8A0AA49519DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
+				8A84E40C1A2516DF00C60EAB /* ANAdServerResponseTestCase.m in Sources */,
 				8AA00A5219DB2B160090EBED /* XCTestCase+ANMediatedAd.m in Sources */,
 				8A0AA45A19DB2CB4005EC52C /* NSObject+Swizzling.m in Sources */,
 				8A0AA47019DB30A2005EC52C /* UIViewConstraintsTestCase.m in Sources */,

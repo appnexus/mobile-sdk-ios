@@ -13,10 +13,15 @@
  limitations under the License.
  */
 
-#import "ANNativeAdRequest.h"
+#import <Foundation/Foundation.h>
 
-@interface ANNativeAdRequest (ANBaseUrlOverride)
+@interface ANAdFetcherResponse : NSObject
 
-- (void)loadAdWithBaseUrlString:(NSString *)baseUrlString;
+- (instancetype)initAdResponseFailWithError:(NSError *)error;
+- (instancetype)initAdResponseSuccessWithAdObject:(id)adObject;
+
+@property (nonatomic, readonly, assign, getter=isSuccessful) BOOL successful;
+@property (nonatomic, readonly, strong) id adObject;
+@property (nonatomic, readonly, strong) NSError *error;
 
 @end

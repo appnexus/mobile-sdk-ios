@@ -20,7 +20,7 @@
 
 @interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
 
-@property (nonatomic, readwrite, strong) ANNativeMediatedAd *mediatedAd;
+@property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
 
 @property (nonatomic, readwrite, strong) id<ANNativeCustomAdapter> currentAdapter;
 @property (nonatomic, readwrite, assign) BOOL hasSucceeded;
@@ -35,7 +35,7 @@
 
 @implementation ANNativeMediatedAdController
 
-+ (instancetype)initMediatedAd:(ANNativeMediatedAd *)mediatedAd
++ (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
              adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
     ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd:mediatedAd
@@ -49,7 +49,7 @@
 
 }
 
-- (instancetype)initMediatedAd:(ANNativeMediatedAd *)mediatedAd
+- (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
              adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
     self = [super init];
@@ -75,7 +75,7 @@
         }
         
         className = self.mediatedAd.className;
-        ANLogDebug(ANErrorString(@"instantiating_class", className));
+        ANLogDebug(@"instantiating_class %@", className);
         
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);
@@ -135,10 +135,10 @@
                          errorCode:(ANAdResponseCode)errorCode
                          errorInfo:(NSString *)errorInfo {
     if ([errorInfo length] > 0) {
-        ANLogError(ANErrorString(@"mediation_instantiation_failure", errorInfo));
+        ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
     if ([className length] > 0) {
-        ANLogWarn(ANErrorString(@"mediation_adding_invalid", className));
+        ANLogWarn(@"mediation_adding_invalid %@", className);
         ANAddInvalidNetwork(className);
     }
     
@@ -156,7 +156,7 @@
     self.hasSucceeded = NO;
     self.hasFailed = YES;
     [self cancelTimeout];
-    ANLogInfo(ANErrorString(@"mediation_finish"));
+    ANLogInfo(@"mediation_finish");
 }
 
 - (ANTargetingParameters *)targetingParameters {
@@ -263,7 +263,7 @@
                    dispatch_get_main_queue(), ^{
                        ANNativeMediatedAdController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
-                       ANLogWarn(ANErrorString(@"mediation_timeout"));
+                       ANLogWarn(@"mediation_timeout");
                        [strongSelf didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
                    });
 }

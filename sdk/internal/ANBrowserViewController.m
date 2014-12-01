@@ -140,7 +140,7 @@
         [[UIApplication sharedApplication] openURL:URL];
         return NO;
     } else {
-        ANLogWarn(ANErrorString(@"opening_url_failed", URL));
+        ANLogWarn(@"opening_url_failed %@", URL);
         return NO;
     }
 }

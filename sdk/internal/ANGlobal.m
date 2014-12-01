@@ -96,23 +96,22 @@ NSString *ANUDID() {
     return udidComponent;
 }
 
-NSString *ANErrorString(NSString *key, ...) {
-    NSString *localizedDescription = NSLocalizedStringFromTableInBundle(key, AN_ERROR_TABLE, ANResourcesBundle(), @"");
-    if (localizedDescription) {
-        va_list args;
-        va_start(args, key);
-        localizedDescription = [[NSString alloc] initWithFormat:localizedDescription
-                                                      arguments:args];
-        va_end(args);
-    }
-    return localizedDescription;
+NSString *ANErrorString(NSString *key) {
+    return NSLocalizedStringFromTableInBundle(key, AN_ERROR_TABLE, ANResourcesBundle(), @"");
 }
 
 NSError *ANError(NSString *key, NSInteger code, ...) {
     NSDictionary *errorInfo = nil;
     va_list args;
     va_start(args, code);
-    NSString *localizedDescription = ANErrorString(key, args);
+    NSString *localizedDescription = ANErrorString(key);
+    if (localizedDescription) {
+        localizedDescription = [[NSString alloc] initWithFormat:localizedDescription
+                                                      arguments:args];
+    } else {
+        ANLogWarn(@"Could not find localized error string for key %@", key);
+        localizedDescription = @"";
+    }
     va_end(args);
     errorInfo = @{NSLocalizedDescriptionKey: localizedDescription};
     return [NSError errorWithDomain:AN_ERROR_DOMAIN

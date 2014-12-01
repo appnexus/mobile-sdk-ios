@@ -286,7 +286,7 @@
         } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
             [[UIApplication sharedApplication] openURL:URL];
         } else {
-            ANLogWarn(ANErrorString(@"opening_url_failed", URL));
+            ANLogWarn(@"opening_url_failed %@", URL);
         }
         
         return NO;
@@ -551,7 +551,7 @@
     [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error){
         if(! granted) {
             if (error != nil) {
-                ANLogWarn(error.localizedDescription);
+                ANLogWarn(@"%@", error.localizedDescription);
             } else {
                 ANLogWarn(@"Unable to create calendar event");
             }
@@ -657,7 +657,7 @@
                     if (dayInWeekValue >= 0 && dayInWeekValue <= 6) {
                         daysInWeek[daysInWeekIndex] = [EKRecurrenceDayOfWeek dayOfWeek:dayInWeekValue+1]; // Apple expects day of week value to be between 1 and 7 inclusive.
                     } else {
-                        ANLogWarn(@"%@ | Invalid W3 day of week passed in: %d. Value should be between 0 and 6 inclusive.", NSStringFromSelector(_cmd), dayInWeekValue);
+                        ANLogWarn(@"%@ | Invalid W3 day of week passed in: %ld. Value should be between 0 and 6 inclusive.", NSStringFromSelector(_cmd), (long)dayInWeekValue);
                         return;
                     }
                 }
@@ -673,7 +673,7 @@
                                 daysInMonth[daysInMonthIndex] = @(dayInMonthValue-1);
                             }
                         } else {
-                            ANLogWarn(@"%@ | Invalid W3 day of month passed in: %d. Value should be between -30 and 31 inclusive.", NSStringFromSelector(_cmd), dayInMonthValue);
+                            ANLogWarn(@"%@ | Invalid W3 day of month passed in: %ld. Value should be between -30 and 31 inclusive.", NSStringFromSelector(_cmd), (long)dayInMonthValue);
                             return;
                         }
                     }
@@ -688,11 +688,11 @@
                                 if (weekNumberValue <= 0) { // W3 reverse values from 0 to -3, Apple reverse values from -1 to -4
                                     weekNumberValue--;
                                 }
-                                ANLogDebug(@"%@ | Adding EKRecurrenceDayOfWeek object with day number %d and week number %d", NSStringFromSelector(_cmd), day.dayOfTheWeek, weekNumberValue);
+                                ANLogDebug(@"%@ | Adding EKRecurrenceDayOfWeek object with day number %ld and week number %ld", NSStringFromSelector(_cmd), (long)day.dayOfTheWeek, (long)weekNumberValue);
                                 [updatedDaysInWeek addObject:[EKRecurrenceDayOfWeek dayOfWeek:day.dayOfTheWeek weekNumber:weekNumberValue]];
                             }
                         } else {
-                            ANLogWarn(@"%@ | Invalid W3 week of month passed in: %d. Value should be between -3 and 4 inclusive.", NSStringFromSelector(_cmd), weekNumberValue);
+                            ANLogWarn(@"%@ | Invalid W3 week of month passed in: %ld. Value should be between -3 and 4 inclusive.", NSStringFromSelector(_cmd), (long)weekNumberValue);
                             return;
                         }
                     }
@@ -709,7 +709,7 @@
                     for (NSNumber *monthInYear in monthsInYear) {
                         NSInteger monthInYearValue = [monthInYear integerValue];
                         if (monthInYearValue < 0 && monthInYearValue > 12) {
-                            ANLogWarn(@"%@ | Invalid W3 month passed in: %d. Value should be between 1 and 12 inclusive.", NSStringFromSelector(_cmd), monthInYearValue);
+                            ANLogWarn(@"%@ | Invalid W3 month passed in: %ld. Value should be between 1 and 12 inclusive.", NSStringFromSelector(_cmd), (long)monthInYearValue);
                             return;
                         }
                     }
@@ -723,7 +723,7 @@
                                 daysInYear[daysInYearIndex] = @(dayInYearValue-1);
                             }
                         } else {
-                            ANLogWarn(@"%@ | Invalid W3 day of year passed in: %d. Value should be between -364 and 365 inclusive.", NSStringFromSelector(_cmd), dayInYearValue);
+                            ANLogWarn(@"%@ | Invalid W3 day of year passed in: %ld. Value should be between -364 and 365 inclusive.", NSStringFromSelector(_cmd), (long)dayInYearValue);
                             return;
                         }
                     }
@@ -750,7 +750,7 @@
             NSError* error = nil;
             [store saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
             if (error) {
-                ANLogWarn(error.localizedDescription);
+                ANLogWarn(@"%@", error.localizedDescription);
             }
         });
     }];
@@ -795,7 +795,7 @@
 
 - (void)printConsoleLog:(NSURL *)URL {
     NSString *decodedString = [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    ANLogDebug(decodedString);
+    ANLogDebug(@"%@", decodedString);
 }
 
 // expand close button for non-custom close is provided by SDK

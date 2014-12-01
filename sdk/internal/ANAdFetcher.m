@@ -110,10 +110,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     
     if (!self.isLoading)
 	{
-        ANLogInfo(ANErrorString(@"fetcher_start"));
-        
-        ANLogDebug(ANErrorString(([self getAutoRefreshFromDelegate] > 0.0)
-                                 ? @"fetcher_start_auto" : @"fetcher_start_single"));
+        ANLogInfo(@"fetcher_start");
+        NSString *errorKey = [self getAutoRefreshFromDelegate] > 0.0 ? @"fetcher_start_auto" : @"fetcher_start_single";
+        ANLogDebug(@"%@", errorKey);
 		
         NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", self.ANMobileHostname];
         self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
@@ -154,7 +153,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 	}
 	else
     {
-		ANLogWarn(ANErrorString(@"moot_restart"));
+		ANLogWarn(@"moot_restart");
     }
 }
 
@@ -246,7 +245,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     BOOL oldAdsExist = [self.mediatedAds count] > 0;
     
     if (!responseAdsExist && !oldAdsExist) {
-		ANLogWarn(ANErrorString(@"response_no_ads"));
+		ANLogWarn(@"response_no_ads");
         NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Request got successful response from server, but no ads were available.", @"Error: Response was received, but it contained no ads")};
         [self finishRequestWithErrorAndRefresh:errorInfo code:ANAdResponseUnableToFill];
         return;
@@ -278,9 +277,8 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
     
     if (!CGRectContainsRect(requestedRect, receivedRect)) {
-        ANLogInfo(ANErrorString(@"adsize_too_big",
-                                (int)receivedSize.width, (int)receivedSize.height,
-                                (int)requestedSize.width, (int)requestedSize.height));
+        ANLogInfo(@"adsize_too_big %d%d%d%d", (int)receivedSize.width, (int)receivedSize.height,
+                                            (int)requestedSize.width, (int)requestedSize.height);
     }
 
     CGSize sizeOfCreative = ((receivedSize.width > 0)
@@ -375,7 +373,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)startAutoRefreshTimer {
     if (!self.autoRefreshTimer) {
-        ANLogDebug(ANErrorString(@"fetcher_stopped"));
+        ANLogDebug(@"fetcher_stopped");
     } else if ([self.autoRefreshTimer isScheduled]) {
         ANLogDebug(@"AutoRefresh timer already scheduled.");
     } else {
@@ -434,7 +432,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         NSString *errorMessage = [NSString stringWithFormat:
                                   @"Ad request %@ failed with error %@",
                                   connection, [error localizedDescription]];
-        ANLogError(errorMessage);
+        ANLogError(@"%@", errorMessage);
         
         self.loading = NO;
         
@@ -508,7 +506,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                                    ANLogInfo(@"Ignored resultCB received response with error: %@", [error localizedDescription]);
                                } else if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                                    NSInteger status = [(NSHTTPURLResponse *)response statusCode];
-                                   ANLogInfo(@"Ignored resultCB received response with code %ld", status);
+                                   ANLogInfo(@"Ignored resultCB received response with code %ld", (long)status);
                                } else {
                                    ANLogInfo(@"Ignored resultCB received response.");
                                }

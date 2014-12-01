@@ -1,0 +1,26 @@
+{
+   "status":"OK",
+   "ads":[
+
+   ],
+   "mediated":[
+
+   ],
+   "native":[
+      {
+         "type":"install",
+         "title":"AppNexusSDKApp",
+         "description":"Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
+         "cta":"Install Now!",
+         "icon_img":"http://rlissack.adnxs.net:8080/jtest/appnexus_logo_icon@2x.png",
+         "main_img":"http://rlissack.adnxs.net:8080/jtest/MainImageAppNexusSDKApp@2x.png",
+         "rating":{
+            "value":5.0,
+            "scale":5
+         },
+         "click_tracker":[],
+         "imp_tracker":"",
+         "click_url":"https://itunes.apple.com/us/app/appnexussdkapp/id736869833?mt=8"
+      }
+   ]
+}

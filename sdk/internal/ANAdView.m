@@ -141,7 +141,7 @@ ANBrowserViewControllerDelegate>
     }
     
     if (errorString) {
-        ANLogError(errorString);
+        ANLogError(@"%@", errorString);
         NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: errorString};
         NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
         [self adRequestFailedWithError:error];
@@ -572,7 +572,7 @@ ANBrowserViewControllerDelegate>
 }
 
 - (ANGENDER)gender {
-    ANLogDebug(@"gender returned %d", __gender);
+    ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
     return __gender;
 }
 
@@ -610,7 +610,7 @@ ANBrowserViewControllerDelegate>
         [self adWillLeaveApplication];
         [[UIApplication sharedApplication] openURL:URL];
     } else {
-        ANLogWarn(ANErrorString(@"opening_url_failed", URL));
+        ANLogWarn(@"opening_url_failed %@", URL);
     }
 }
 

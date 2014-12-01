@@ -14,12 +14,18 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ANStandardAd.h"
+#import "ANNativeStandardAdResponse.h"
 
-@interface ANNativeMediatedAd : NSObject
+@interface ANAdServerResponse : NSObject
 
-@property (nonatomic, readwrite, strong) NSString *className;
-@property (nonatomic, readwrite, strong) NSString *param;
-@property (nonatomic, readwrite, strong) NSString *adId;
-@property (nonatomic, readwrite, strong) NSString *resultCB;
+- (instancetype)initWithAdServerData:(NSData *)data;
+
+@property (nonatomic, readonly, assign) BOOL containsAds;
+@property (nonatomic, readonly, strong) ANStandardAd *standardAd;
+@property (nonatomic, readonly, strong) ANNativeStandardAdResponse *nativeAd;
+@property (nonatomic, readonly, strong) NSMutableArray *standardAds;
+@property (nonatomic, readonly, strong) NSMutableArray *mediatedAds;
+@property (nonatomic, readonly, strong) NSMutableArray *nativeAds;
 
 @end

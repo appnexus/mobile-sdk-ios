@@ -82,21 +82,21 @@
                  clickableViews:(NSArray *)clickableViews
                           error:(NSError **)error {
     if (!view) {
-        ANLogError(ANErrorString(@"native_invalid_view"));
+        ANLogError(@"native_invalid_view");
         if (error) {
             *error = ANError(@"native_invalid_view", ANNativeAdRegisterErrorCodeInvalidView);
         }
         return NO;
     }
     if (!controller) {
-        ANLogError(ANErrorString(@"native_invalid_rvc"));
+        ANLogError(@"native_invalid_rvc");
         if (error) {
             *error = ANError(@"native_invalid_rvc", ANNativeAdRegisterErrorCodeInvalidRootViewController);
         }
         return NO;
     }
     if (self.hasExpired) {
-        ANLogError(ANErrorString(@"native_expired_response"));
+        ANLogError(@"native_expired_response");
         if (error) {
             *error = ANError(@"native_expired_response", ANNativeAdRegisterErrorCodeExpiredResponse);
         }
@@ -131,7 +131,7 @@
     if ([self.adapter respondsToSelector:@selector(nativeAdDelegate)]) {
         self.adapter.nativeAdDelegate = self;
     } else {
-        ANLogDebug(ANErrorString(@"native_adapter_native_ad_delegate_missing"));
+        ANLogDebug(@"native_adapter_native_ad_delegate_missing");
     }
     if ([self.adapter respondsToSelector:@selector(registerViewForImpressionTrackingAndClickHandling:withRootViewController:clickableViews:)]) {
         [self.adapter registerViewForImpressionTrackingAndClickHandling:view
@@ -144,7 +144,7 @@
                                 withClickableViews:clickableViews];
         return YES;
     } else {
-        ANLogError(ANErrorString(@"native_adapter_error"));
+        ANLogError(@"native_adapter_error");
         if (error) {
             *error = ANError(@"native_adapter_error", ANNativeAdRegisterErrorCodeBadAdapter);
         }
@@ -176,7 +176,7 @@
             if ([clickableView isKindOfClass:[UIView class]]) {
                 [self attachGestureRecognizerToView:clickableView];
             } else {
-                ANLogWarn(ANErrorString(@"native_invalid_clickable_views"));
+                ANLogWarn(@"native_invalid_clickable_views");
             }
         }];
     } else {

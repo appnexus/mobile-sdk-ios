@@ -13,18 +13,8 @@
  limitations under the License.
  */
 
-#import "ANNativeAdRequest+ANBaseUrlOverride.h"
+#import "ANStandardAd.h"
 
-@interface ANNativeAdRequest (ANNativeAdFetcher)
-
-- (void)createAdFetcherWithBaseUrlString:(NSString *)baseUrlString;
-
-@end
-
-@implementation ANNativeAdRequest (ANBaseUrlOverride)
-
-- (void)loadAdWithBaseUrlString:(NSString *)baseUrlString {
-    [self createAdFetcherWithBaseUrlString:baseUrlString];
-}
+@implementation ANStandardAd
 
 @end
