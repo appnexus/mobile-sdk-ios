@@ -77,4 +77,8 @@
     return NO;
 }
 
+- (void)dealloc {
+    self.adView.delegate = nil; // clearing unsafe_unretained property
+}
+
 @end
