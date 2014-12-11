@@ -27,15 +27,15 @@
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
 
-#import <EventKit/EventKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MFMessageComposeViewController.h>
+#import "ANCalendarManager.h"
 
 @interface ANAdFetcher (ANMRAIDAdWebViewController)
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
 @end
 
-@interface ANMRAIDAdWebViewController ()
+@interface ANMRAIDAdWebViewController () <ANCalendarManagerDelegate>
 @property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
 @property (nonatomic, readwrite, assign) BOOL expanded;
 @property (nonatomic, readwrite, assign) BOOL resized;
@@ -45,6 +45,7 @@
 @property (nonatomic, readwrite) CGRect currentPosition;
 @property (nonatomic, readwrite, assign) CGPoint resizeOffset;
 @property (nonatomic, readwrite, strong) NSMutableArray *pitbullCaptureURLQueue;
+@property (nonatomic, readwrite, strong) ANCalendarManager *calendarManager;
 
 - (void)delegateShouldOpenInBrowser:(NSURL *)URL;
 
@@ -505,233 +506,20 @@
     ANLogInfo(@"Movie Player finished: %@", notification);
 }
 
-- (void)createCalendarEventFromW3CCompliantJSONObject:(NSString *)json{
-    NSError* error;
-    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
-    ANLogDebug(@"%@ | NSDictionary from JSON Calendar Object: %@", NSStringFromSelector(_cmd), jsonDict);
-    
-    NSString* description = jsonDict[@"description"];
-    NSString* location = jsonDict[@"location"];
-    NSString* summary = jsonDict[@"summary"];
-    NSString* start = jsonDict[@"start"];
-    NSString* end = jsonDict[@"end"];
-    NSString* status = jsonDict[@"status"];
-    /* 
-     * iOS Not supported
-     * NSString* transparency = jsonDict[@"transparency"];
-     */
-    NSString* reminder = jsonDict[@"reminder"];
-    
-    EKEventStore* store = [[EKEventStore alloc] init];
-    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error){
-        if(! granted) {
-            if (error != nil) {
-                ANLogWarn(@"%@", error.localizedDescription);
-            } else {
-                ANLogWarn(@"Unable to create calendar event");
-            }
-            return;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            EKEvent *event = [EKEvent eventWithEventStore:store];
-            NSDateFormatter *df1 = [[NSDateFormatter alloc] init];
-            NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-            [df1 setDateFormat:@"yyyy-MM-dd'T'HH:mmZZZ"];
-            [df2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
-                
-            event.title=description;
-            event.notes=summary;
-            event.location=location;
-            event.calendar = [store defaultCalendarForNewEvents];
-            
-            if (start) {
-                if([df1 dateFromString:start]!=nil){
-                    event.startDate = [df1 dateFromString:start];
-                }else if([df2 dateFromString:start]!=nil){
-                    event.startDate = [df2 dateFromString:start];
-                }else{
-                    event.startDate = [NSDate dateWithTimeIntervalSince1970:[start doubleValue]];
-                }
-                
-                if([df1 dateFromString:end]!=nil){
-                    event.endDate = [df1 dateFromString:end];
-                }else if([df2 dateFromString:end]!=nil){
-                    event.endDate = [df2 dateFromString:end];
-                }else if (end) {
-                    event.endDate = [NSDate dateWithTimeIntervalSince1970:[end doubleValue]];
-                } else {
-                    ANLogDebug(@"%@ | No end date provided, defaulting to 60 minutes", NSStringFromSelector(_cmd));
-                    event.endDate = [event.startDate dateByAddingTimeInterval:3600]; // default to 60 mins
-                }
-
-                ANLogDebug(@"%@ | Event Start Date: %@, End Date: %@", NSStringFromSelector(_cmd), event.startDate, event.endDate);
-            } else {
-                ANLogWarn(@"%@ | Cannot create calendar event, no start date provided", NSStringFromSelector(_cmd));
-                return;
-            }
-            
-            if([df1 dateFromString:reminder]!=nil){
-                [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df1 dateFromString:reminder]]];
-            }else if([df2 dateFromString:reminder]!=nil){
-                [event addAlarm:[EKAlarm alarmWithAbsoluteDate:[df2 dateFromString:reminder]]];
-            } else if (reminder) {
-                [event addAlarm:[EKAlarm alarmWithRelativeOffset:
-                                    ([reminder doubleValue] / 1000.0)]]; // milliseconds to seconds conversion
-            }
-                
-            if([status isEqualToString:@"pending"]){
-                [event setAvailability:EKEventAvailabilityNotSupported];
-            }else if([status isEqualToString:@"tentative"]){
-                [event setAvailability:EKEventAvailabilityTentative];
-            }else if([status isEqualToString:@"confirmed"]){
-                [event setAvailability:EKEventAvailabilityBusy];
-            }else if([status isEqualToString:@"cancelled"]){
-                [event setAvailability:EKEventAvailabilityFree];
-            }
-                
-                
-            NSDictionary* repeat = jsonDict[@"recurrence"];
-            if ([repeat isKindOfClass:[NSDictionary class]]) {
-                NSString* frequency = repeat[@"frequency"];
-                EKRecurrenceFrequency frequency_ios;
-                
-                if ([frequency isEqualToString:@"daily"]) frequency_ios = EKRecurrenceFrequencyDaily;
-                else if ([frequency isEqualToString:@"weekly"]) frequency_ios = EKRecurrenceFrequencyWeekly;
-                else if ([frequency isEqualToString:@"monthly"]) frequency_ios = EKRecurrenceFrequencyMonthly;
-                else if ([frequency isEqualToString:@"yearly"]) frequency_ios = EKRecurrenceFrequencyYearly;
-                else {
-                    ANLogWarn(@"%@ | Invalid W3 frequency passed in: %@. Acceptable values are 'daily','weekly','monthly', and 'yearly'", NSStringFromSelector(_cmd), frequency);
-                    return;
-                }
-
-                int interval = [repeat[@"interval"] intValue];
-                if (interval < 1) {
-                    interval = 1;
-                }
-                    
-                NSString* expires = repeat[@"expires"];
-                //expires
-                EKRecurrenceEnd* end;
-                if([df1 dateFromString:expires]!=nil){
-                    end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df1 dateFromString:expires]];
-                }else if([df2 dateFromString:expires]!=nil){
-                    end = [EKRecurrenceEnd recurrenceEndWithEndDate:[df2 dateFromString:expires]];
-                } else if(expires && [NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]){
-                    end = [EKRecurrenceEnd recurrenceEndWithEndDate:[NSDate dateWithTimeIntervalSince1970:[expires doubleValue]]];
-                } // default is to never expire
-                    
-                /*
-                 * iOS Not supported
-                 * NSArray* exceptionDates = repeat[@"exceptionDates"];
-                 */
-                
-                NSMutableArray* daysInWeek = [repeat[@"daysInWeek"] mutableCopy]; // Need a mutable copy of the array in order to transform NSNumber => EKRecurrenceDayOfWeek
-                
-                for (NSInteger daysInWeekIndex=0; daysInWeekIndex < [daysInWeek count]; daysInWeekIndex++) {
-                    NSInteger dayInWeekValue = [daysInWeek[daysInWeekIndex] integerValue]; // W3 value should be between 0 and 6 inclusive.
-                    if (dayInWeekValue >= 0 && dayInWeekValue <= 6) {
-                        daysInWeek[daysInWeekIndex] = [EKRecurrenceDayOfWeek dayOfWeek:dayInWeekValue+1]; // Apple expects day of week value to be between 1 and 7 inclusive.
-                    } else {
-                        ANLogWarn(@"%@ | Invalid W3 day of week passed in: %ld. Value should be between 0 and 6 inclusive.", NSStringFromSelector(_cmd), (long)dayInWeekValue);
-                        return;
-                    }
-                }
-
-                NSMutableArray* daysInMonth = nil; // Only valid for EKRecurrenceFrequencyMonthly
-                if (frequency_ios == EKRecurrenceFrequencyMonthly) {
-                    NSMutableArray* daysInMonth = [repeat[@"daysInMonth"] mutableCopy];
-                    
-                    for (NSInteger daysInMonthIndex=0; daysInMonthIndex < [daysInMonth count]; daysInMonthIndex++) {
-                        NSInteger dayInMonthValue = [daysInMonth[daysInMonthIndex] integerValue]; // W3 value should be between -30 and 31 inclusive.
-                        if (dayInMonthValue >= -30 && dayInMonthValue <= 31) {
-                            if (dayInMonthValue <= 0) { // W3 reverse values from 0 to -30, Apple reverse values from -1 to -31 (0 and -1 meaning last day of month respectively)
-                                daysInMonth[daysInMonthIndex] = @(dayInMonthValue-1);
-                            }
-                        } else {
-                            ANLogWarn(@"%@ | Invalid W3 day of month passed in: %ld. Value should be between -30 and 31 inclusive.", NSStringFromSelector(_cmd), (long)dayInMonthValue);
-                            return;
-                        }
-                    }
-                    
-                    NSArray* weeksInMonth = repeat[@"weeksInMonth"]; // Need to implement W3 weeksInMonth for monthly occurrences
-                    NSMutableArray *updatedDaysInWeek = [[NSMutableArray alloc] init];
-                    
-                    for (NSNumber* weekNumber in weeksInMonth) {
-                        NSInteger weekNumberValue = [weekNumber integerValue];
-                        if (weekNumberValue >= -3 && weekNumberValue <= 4) { // W3 value should be between -3 and 4 inclusive.
-                            for (EKRecurrenceDayOfWeek* day in daysInWeek) {
-                                if (weekNumberValue <= 0) { // W3 reverse values from 0 to -3, Apple reverse values from -1 to -4
-                                    weekNumberValue--;
-                                }
-                                ANLogDebug(@"%@ | Adding EKRecurrenceDayOfWeek object with day number %ld and week number %ld", NSStringFromSelector(_cmd), (long)day.dayOfTheWeek, (long)weekNumberValue);
-                                [updatedDaysInWeek addObject:[EKRecurrenceDayOfWeek dayOfWeek:day.dayOfTheWeek weekNumber:weekNumberValue]];
-                            }
-                        } else {
-                            ANLogWarn(@"%@ | Invalid W3 week of month passed in: %ld. Value should be between -3 and 4 inclusive.", NSStringFromSelector(_cmd), (long)weekNumberValue);
-                            return;
-                        }
-                    }
-                    
-                    daysInWeek = updatedDaysInWeek;
-                }
-
-                NSArray *monthsInYear = nil;
-                NSMutableArray* daysInYear = nil;
-
-                if (frequency_ios == EKRecurrenceFrequencyYearly) {
-                    monthsInYear = repeat[@"monthsInYear"]; // Apple & W3 valid values from 1 to 12, inclusive.
-                    
-                    for (NSNumber *monthInYear in monthsInYear) {
-                        NSInteger monthInYearValue = [monthInYear integerValue];
-                        if (monthInYearValue < 0 && monthInYearValue > 12) {
-                            ANLogWarn(@"%@ | Invalid W3 month passed in: %ld. Value should be between 1 and 12 inclusive.", NSStringFromSelector(_cmd), (long)monthInYearValue);
-                            return;
-                        }
-                    }
-                    
-                    daysInYear = [repeat[@"daysInYear"] mutableCopy];
-                    
-                    for (NSInteger daysInYearIndex=0; daysInYearIndex < [daysInYear count]; daysInYearIndex++) {
-                        NSInteger dayInYearValue = [daysInYear[daysInYearIndex] integerValue]; // W3 value should be between -364 and 365 inclusive. (W3 doesn't care about leap years?)
-                        if (dayInYearValue >= -364 && dayInYearValue <= 365) {
-                            if (dayInYearValue <= 0) { // W3 reverse values from 0 to -364, Apple reverse values from -1 to -366
-                                daysInYear[daysInYearIndex] = @(dayInYearValue-1);
-                            }
-                        } else {
-                            ANLogWarn(@"%@ | Invalid W3 day of year passed in: %ld. Value should be between -364 and 365 inclusive.", NSStringFromSelector(_cmd), (long)dayInYearValue);
-                            return;
-                        }
-                    }
-                }
-                
-                EKRecurrenceRule* rrule = [[EKRecurrenceRule alloc] initRecurrenceWithFrequency:frequency_ios
-                                                                                       interval:interval
-                                                                                  daysOfTheWeek:daysInWeek
-                                                                                 daysOfTheMonth:daysInMonth
-                                                                                monthsOfTheYear:monthsInYear
-                                                                                 weeksOfTheYear:nil
-                                                                                  daysOfTheYear:daysInYear
-                                                                                   setPositions:nil
-                                                                                            end:end];
-                
-                if (rrule) { // EKRecurrenceRule will return nil if invalid values are passed in
-                    [event setRecurrenceRules:@[rrule]];
-                    ANLogDebug(@"%@ | Created Recurrence Rule: %@", NSStringFromSelector(_cmd), rrule);
-                } else {
-                    ANLogWarn(@"%@ | Invalid EKRecurrenceRule Values Passed In.", NSStringFromSelector(_cmd));
-                }
-            }
-        
-            NSError* error = nil;
-            [store saveEvent:event span:EKSpanThisEvent commit:YES error:&error];
-            if (error) {
-                ANLogWarn(@"%@", error.localizedDescription);
-            }
-        });
-    }];
+- (void)createCalendarEventFromW3CCompliantJSONObject:(NSString *)json {
+    NSError *error;
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding]
+                                                             options:kNilOptions
+                                                               error:&error];
+    if (!error) {
+        self.calendarManager = [[ANCalendarManager alloc] initWithCalendarDictionary:jsonDict
+                                                                            delegate:self];
+    }
 }
 
-
+- (UIViewController *)rootViewControllerForPresentationForCalendarManager:(ANCalendarManager *)calendarManager {
+    return [self.mraidDelegate displayController];
+}
 
 - (void)setOrientationProperties:(NSDictionary *)queryComponents
 {

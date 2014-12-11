@@ -97,6 +97,8 @@
 		8A82FDF61A30F36C00A267A0 /* ANNativeImpressionTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */; };
 		8A84E42C1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; };
 		8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8A8893C61A36693D00ADB1B8 /* ANCalendarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A8893C41A36693D00ADB1B8 /* ANCalendarManager.h */; };
+		8A8893C71A36693D00ADB1B8 /* ANCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8893C51A36693D00ADB1B8 /* ANCalendarManager.m */; };
 		8A9AED201A1BAD2700C58BDA /* ANAdConstants.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; };
 		8A9AED211A1BAD6000C58BDA /* ANAdConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A9AED221A1BAD7700C58BDA /* ANNativeAdDelegate.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */; };
@@ -523,6 +525,8 @@
 		8A82FDF31A30F36B00A267A0 /* ANNativeImpressionTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeImpressionTrackerManager.h; sourceTree = "<group>"; };
 		8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeImpressionTrackerManager.m; sourceTree = "<group>"; };
 		8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdResponse+PrivateMethods.h"; sourceTree = "<group>"; };
+		8A8893C41A36693D00ADB1B8 /* ANCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANCalendarManager.h; sourceTree = "<group>"; };
+		8A8893C51A36693D00ADB1B8 /* ANCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANCalendarManager.m; sourceTree = "<group>"; };
 		8A944DDE19D5AF8C007AAAB0 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
 		8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-AMAZON.txt"; sourceTree = "<group>"; };
 		8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
@@ -1096,6 +1100,8 @@
 				8AD618AB1981C11F00AC0780 /* ANBasicConfig.h */,
 				8AD618AC1981C11F00AC0780 /* ANBrowserViewController.h */,
 				8AD618AD1981C11F00AC0780 /* ANBrowserViewController.m */,
+				8A8893C41A36693D00ADB1B8 /* ANCalendarManager.h */,
+				8A8893C51A36693D00ADB1B8 /* ANCalendarManager.m */,
 				8AD618AE1981C11F00AC0780 /* ANClickOverlayView.h */,
 				8AD618AF1981C11F00AC0780 /* ANClickOverlayView.m */,
 				8AD618B01981C11F00AC0780 /* ANGlobal.h */,
@@ -1397,6 +1403,7 @@
 				8A9AED2A1A1BAD7A00C58BDA /* ANNativeAdRequest.h in Headers */,
 				8A9AED2B1A1BAD7A00C58BDA /* ANNativeAdResponse.h in Headers */,
 				8A9AED2C1A1BAD7A00C58BDA /* ANNativeAdStarRating.h in Headers */,
+				8A8893C61A36693D00ADB1B8 /* ANCalendarManager.h in Headers */,
 				8AEA6BE81A0BEEF5009DB71B /* ANNativeAdTargetingProtocol.h in Headers */,
 				8AE5E11D1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h in Headers */,
 				8A9AED2D1A1BAD7A00C58BDA /* ANNativeCustomAdapter.h in Headers */,
@@ -2056,6 +2063,7 @@
 				8AD618CD1981C11F00AC0780 /* ANAdResponse.m in Sources */,
 				8AD618DE1981C11F00AC0780 /* ANPBBuffer.m in Sources */,
 				8AD2DAEF1A1D3A6900878CDD /* ANAdServerResponse.m in Sources */,
+				8A8893C71A36693D00ADB1B8 /* ANCalendarManager.m in Sources */,
 				8AD618D21981C11F00AC0780 /* ANBrowserViewController.m in Sources */,
 				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
 				8AD618D81981C11F00AC0780 /* ANLogging.m in Sources */,
