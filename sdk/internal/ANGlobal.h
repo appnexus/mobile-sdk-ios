@@ -100,3 +100,6 @@ void ANAddInvalidNetwork(NSString *network);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
 CGRect ANPortraitScreenBounds();
+NSURLRequest *ANBasicRequestWithURL(NSURL *URL);
+NSMutableURLRequest *ANBasicMutableRequest();
+NSNumber *ANiTunesIDForURL(NSURL *URL);

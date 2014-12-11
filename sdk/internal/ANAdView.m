@@ -82,9 +82,6 @@ ANBrowserViewControllerDelegate>
                   closeButton:(UIButton *)closeButton
                 closePosition:(ANMRAIDCustomClosePosition)closePosition {}
 
-// AdFetcherDelegate methods
-- (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {}
-
 #pragma mark Initialization
 
 - (instancetype)init {
@@ -588,21 +585,14 @@ ANBrowserViewControllerDelegate>
     
     if (!self.opensInNativeBrowser && hasHttpPrefix([URL scheme])) {
         if (!self.browserViewController) {
-            self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL];
+            self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL
+                                                                             delegate:self
+                                                             delayPresentationForLoad:self.landingPageLoadsInBackground];
             if (!self.browserViewController) {
-                ANLogError(@"Browser controller did not instantiate correctly. Terminating clickthrough.");
+                ANLogError(@"Browser controller did not instantiate correctly.");
                 return;
             }
-            self.browserViewController.delegate = self;
-            if (self.landingPageLoadsInBackground) {
-                [self showClickOverlay];
-            } else {
-                [self browserViewControllerShouldPresent:self.browserViewController];
-            }
         } else {
-            if (self.browserViewController.completedInitialLoad) {
-                [self browserViewControllerShouldPresent:self.browserViewController];
-            }
             self.browserViewController.url = URL;
         }
     }
@@ -647,29 +637,16 @@ ANBrowserViewControllerDelegate>
 
 #pragma mark ANBrowserViewControllerDelegate
 
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
-    UIViewController *presentingViewController = controller.presentingViewController;
-    [presentingViewController dismissViewControllerAnimated:YES completion:^ {
-        self.browserViewController = nil;
-    }];
-}
-
-- (void)browserViewControllerWillLaunchExternalApplication {
+- (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller {
     [self adWillLeaveApplication];
 }
 
-- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller {
-    if (!controller.presentingViewController) {
-        if (self.mraidController.presentingViewController) {
-            [self.mraidController presentViewController:controller
-                                               animated:YES
-                                             completion:nil];
-        } else {
-            [self openInBrowserWithController:controller];
-        }
-    } else {
-        ANLogDebug(@"In-app browser already presented - ignoring call to present");
-    }
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller {
+    self.browserViewController = nil;
+}
+
+- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {
+    return self.mraidController.presentingViewController ? self.mraidController : nil;
 }
 
 - (void)browserViewController:(ANBrowserViewController *)controller browserIsLoading:(BOOL)isLoading {
@@ -778,6 +755,12 @@ ANBrowserViewControllerDelegate>
     if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
     }
+}
+
+- (void)openInAppBrowserWithUrl:(NSURL *)URL {
+    self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL
+                                                                     delegate:self
+                                                     delayPresentationForLoad:NO];
 }
 
 @end

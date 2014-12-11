@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,13 +13,8 @@
  limitations under the License.
  */
 
-#import "ANAdViewDelegate.h"
-
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface ANANJAMImplementation : NSObject 
-+ (void)handleUrl:(NSURL *)url
-       forWebView:(UIWebView *)webView
-      forDelegate:(id<ANAdViewDelegate>)delegate;
+@interface ANOpenInExternalBrowserActivity : UIActivity
+
 @end

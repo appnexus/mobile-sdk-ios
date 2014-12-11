@@ -246,3 +246,33 @@ CGRect ANPortraitScreenBounds() {
     }
     return screenBounds;
 }
+
+NSURLRequest *ANBasicRequestWithURL(NSURL *URL) {
+    NSMutableURLRequest *request = ANBasicMutableRequest();
+    request.URL = URL;
+    return [request copy];
+}
+
+NSMutableURLRequest *ANBasicMutableRequest() {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:nil
+                                                                cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                            timeoutInterval:kAppNexusRequestTimeoutInterval];
+    [request setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
+    return request;
+}
+
+NSNumber *ANiTunesIDForURL(NSURL *URL) {
+    if ([URL.host isEqualToString:@"itunes.apple.com"]) {
+        NSRegularExpression *idPattern = [[NSRegularExpression alloc] initWithPattern:@"id(\\d+)"
+                                                                              options:0
+                                                                                error:nil];
+        NSRange idRange = [idPattern rangeOfFirstMatchInString:URL.absoluteString
+                                                       options:0
+                                                         range:NSMakeRange(0, URL.absoluteString.length)];
+        if (idRange.length != 0) {
+            NSString *idString = [[URL.absoluteString substringWithRange:idRange] substringFromIndex:2];
+            return @([idString longLongValue]);
+        }
+    }
+    return nil;
+}

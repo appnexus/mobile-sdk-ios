@@ -38,8 +38,9 @@ NSString *const kANKeyCaller = @"caller";
 
 @implementation ANANJAMImplementation
 
-+ (void)handleUrl:(NSURL *)url forWebView:(UIWebView *)webView
-      forDelegate:(id<ANAdViewDelegate, ANBrowserViewControllerDelegate>)delegate {
++ (void)handleUrl:(NSURL *)url
+       forWebView:(UIWebView *)webView
+      forDelegate:(id<ANAdViewDelegate>)delegate {
     NSString *call = [url host];
     NSDictionary *queryComponents = [[url query] queryComponents];
     if ([call isEqualToString:kANCallMayDeepLink]) {
@@ -111,14 +112,12 @@ NSString *const kANKeyCaller = @"caller";
     }
 }
 
-+ (void)callInternalBrowser:(UIWebView *)webView query:(NSDictionary *)query
-                   delegate:(id<ANBrowserViewControllerDelegate>)delegate {
++ (void)callInternalBrowser:(UIWebView *)webView
+                      query:(NSDictionary *)query
+                   delegate:(id<ANAdViewDelegate>)delegate {
     NSString *urlParam = [query valueForKey:@"url"];
-    
     NSURL *url = [NSURL URLWithString:urlParam];
-    if (hasHttpPrefix([url scheme])) {
-        [ANBrowserViewController launchURL:url withDelegate:delegate];
-    }
+    [delegate openInAppBrowserWithUrl:url];
 }
 
 // Record Event

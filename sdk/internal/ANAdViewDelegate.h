@@ -24,6 +24,7 @@
 - (void)adDidClose;
 - (void)adWillLeaveApplication;
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
+- (void)openInAppBrowserWithUrl:(NSURL *)URL;
 
 // for interstitials only
 - (void)adFailedToDisplay;

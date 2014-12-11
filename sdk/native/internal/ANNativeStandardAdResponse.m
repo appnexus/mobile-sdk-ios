@@ -21,7 +21,7 @@
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
 
-@interface ANNativeStandardAdResponse()
+@interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate>
 
 @property (nonatomic, readwrite, strong) NSDate *dateCreated;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
@@ -70,6 +70,13 @@
     return YES;
 }
 
+#pragma mark - Unregistration
+
+- (void)unregisterViewFromTracking {
+    [super unregisterViewFromTracking];
+    [self.viewabilityTimer invalidate];
+}
+
 #pragma mark - Impression Tracking
 
 - (void)setupViewabilityTracker {
@@ -86,15 +93,16 @@
 }
 
 - (void)checkViewability {
-    self.viewabilityValue = (self.viewabilityValue << 1 | [self.viewForTracking an_isViewable]) & self.targetViewabilityValue;
-    if (self.viewabilityValue == self.targetViewabilityValue) {
+    self.viewabilityValue = (self.viewabilityValue << 1 | [self.viewForTracking an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
+    BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
+    if (isIABViewable) {
         [self trackImpression];
     }
 }
 
 - (void)trackImpression {
-    ANLogDebug(@"Tracking impression!");
     if (!self.impressionHasBeenTracked) {
+        ANLogDebug(@"Firing impression trackers");
         [self fireImpTrackers];
         [self.viewabilityTimer invalidate];
         self.impressionHasBeenTracked = YES;
@@ -105,25 +113,26 @@
     [self fireTrackersInArray:self.impTrackers];
 }
 
-#pragma mark - Unregistration
-
-- (void)unregisterViewFromTracking {
-    [super unregisterViewFromTracking];
-    [self.viewabilityTimer invalidate];
-}
-
 #pragma mark - Click handling
 
 - (void)handleClick {
     [self adWasClicked];
     [self fireClickTrackers];
-    [self willLeaveApplication];
-    [self openNativeBrowserWithURL:self.clickURL];
-    // TODO: Implement in-app browser stuff
-}
-
-- (void)openNativeBrowserWithURL:(NSURL *)URL {
-    [[UIApplication sharedApplication] openURL:URL];
+    
+    if (!self.opensInNativeBrowser) {
+        if (!self.inAppBrowser) {
+            self.inAppBrowser = [[ANBrowserViewController alloc] initWithURL:self.clickURL
+                                                                    delegate:self
+                                                    delayPresentationForLoad:self.landingPageLoadsInBackground];
+        } else {
+            self.inAppBrowser.url = self.clickURL;
+        }
+    } else if ([[UIApplication sharedApplication] canOpenURL:self.clickURL]) {
+        [self willLeaveApplication];
+        [[UIApplication sharedApplication] openURL:self.clickURL];
+    } else {
+        ANLogError(@"Could not open click URL: %@", self.clickURL);
+    }
 }
 
 - (void)fireClickTrackers {
@@ -135,23 +144,41 @@
 - (void)fireTrackersInArray:(NSArray *)trackerArray {
     for (NSString *URLString in trackerArray) {
         ANLogDebug(@"Firing tracker with URL %@", URLString);
-        NSURLRequest *request = [[self class] basicRequestForURL:[NSURL URLWithString:URLString]];
+        NSURLRequest *request = ANBasicRequestWithURL([NSURL URLWithString:URLString]);
         [NSURLConnection sendAsynchronousRequest:request
                                            queue:[NSOperationQueue mainQueue]
                                completionHandler:nil];
     }
 }
 
-+ (NSURLRequest *)basicRequestForURL:(NSURL *)URL {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
-                                                                cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                            timeoutInterval:kAppNexusRequestTimeoutInterval];
-    [request setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
-    return request;
-}
-
 - (void)dealloc {
     [self.viewabilityTimer invalidate];
+}
+
+#pragma mark - ANBrowserViewControllerDelegate
+
+- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {
+    return self.rootViewController;
+}
+
+- (void)willPresentBrowserViewController:(ANBrowserViewController *)controller {
+    [self willPresentAd];
+}
+
+- (void)didPresentBrowserViewController:(ANBrowserViewController *)controller {
+    [self didPresentAd];
+}
+
+- (void)willDismissBrowserViewController:(ANBrowserViewController *)controller {
+    [self willCloseAd];
+}
+
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller {
+    [self didCloseAd];
+}
+
+- (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller {
+    [self willLeaveApplication];
 }
 
 @end

@@ -25,6 +25,7 @@
 #import "NSString+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 #import "NSTimer+ANCategory.h"
+#import "UIView+ANCategory.h"
 
 #import <EventKit/EventKit.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -91,7 +92,7 @@
 }
 
 - (void)viewabilitySetup {
-    self.isViewable = [self getWebViewVisible];
+    self.isViewable = [self.webView an_isViewable];
     [self.webView setIsViewable:self.isViewable];
     ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
     [self updatePosition];
@@ -122,7 +123,7 @@
 }
 
 - (void)checkViewability {
-    BOOL isCurrentlyViewable = [self getWebViewVisible];
+    BOOL isCurrentlyViewable = [self.webView an_isViewable];
     if (self.isViewable != isCurrentlyViewable) {
         self.isViewable = isCurrentlyViewable;
         [self.webView setIsViewable:self.isViewable];
@@ -170,32 +171,6 @@
     self.webView.delegate = nil;
     [self.viewabilityTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (BOOL)getWebViewVisible {
-    BOOL isHidden = self.webView.hidden;
-    if (isHidden) return NO;
-    
-    BOOL isAttachedToWindow = self.webView.window ? YES : NO;
-    if (!isAttachedToWindow) return NO;
-    
-    BOOL isInHiddenSuperview = NO;
-    UIView *ancestorView = self.webView.superview;
-    while (ancestorView) {
-        if (ancestorView.hidden) {
-            isInHiddenSuperview = YES;
-            break;
-        }
-        ancestorView = ancestorView.superview;
-    }
-    if (isInHiddenSuperview) return NO;
-    
-    CGRect screenBounds = ANPortraitScreenBounds();
-    CGRect newBounds = [self.webView convertRect:self.webView.bounds toView:nil];
-    BOOL isOnScreen = CGRectIntersectsRect(newBounds, screenBounds);
-    if (!isOnScreen) return NO;
-
-    return YES;
 }
 
 - (void)processDidChangeStatusBarOrientationNotifications {

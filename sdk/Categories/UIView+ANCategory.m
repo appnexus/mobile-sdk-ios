@@ -95,6 +95,29 @@
     
     CGRect screenRect = [UIScreen mainScreen].bounds;
     CGRect normalizedSelfRect = [self convertRect:self.bounds toView:nil];
+    return CGRectIntersectsRect(normalizedSelfRect, screenRect);
+}
+
+- (BOOL)an_isAtLeastHalfViewable {
+    BOOL isHidden = self.hidden;
+    if (isHidden) return NO;
+    
+    BOOL isAttachedToWindow = self.window ? YES : NO;
+    if (!isAttachedToWindow) return NO;
+    
+    BOOL isInHiddenSuperview = NO;
+    UIView *ancestorView = self.superview;
+    while (ancestorView) {
+        if (ancestorView.hidden) {
+            isInHiddenSuperview = YES;
+            break;
+        }
+        ancestorView = ancestorView.superview;
+    }
+    if (isInHiddenSuperview) return NO;
+    
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    CGRect normalizedSelfRect = [self convertRect:self.bounds toView:nil];
     CGRect intersection = CGRectIntersection(screenRect, normalizedSelfRect);
     if (CGRectEqualToRect(intersection, CGRectNull)) {
         return NO;

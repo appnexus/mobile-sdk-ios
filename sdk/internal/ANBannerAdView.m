@@ -17,52 +17,15 @@
 #import ANBANNERADVIEWHEADER
 
 #import "ANAdFetcher.h"
-#import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMRAIDViewController.h"
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 #import "ANBannerAdView+ANContentViewTransitions.h"
+#import "ANAdView+PrivateMethods.h"
 
 #define DEFAULT_ADSIZE CGSizeZero
-
-@interface ANADVIEW (ANBANNERADVIEW) <ANAdFetcherDelegate>
-- (void)initialize;
-- (void)loadAd;
-- (void)adDidReceiveAd;
-- (void)adRequestFailedWithError:(NSError *)error;
-- (void)mraidExpandAd:(CGSize)size
-          contentView:(UIView *)contentView
-    defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController;
-- (void)mraidExpandAddCloseButton:(UIButton *)closeButton
-                    containerView:(UIView *)containerView;
-- (NSString *)mraidResizeAd:(CGRect)frame
-                contentView:(UIView *)contentView
-          defaultParentView:(UIView *)defaultParentView
-         rootViewController:(UIViewController *)rootViewController
-             allowOffscreen:(BOOL)allowOffscreen;
-- (void)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
-                         containerView:(UIView *)containerView
-                           contentView:(UIView *)contentView
-                              position:(ANMRAIDCustomClosePosition)position;
-- (void)adShouldResetToDefault:(UIView *)contentView
-                    parentView:(UIView *)parentView;
-
-- (void)loadAdFromHtml:(NSString *)html
-                 width:(int)width height:(int)height;
-- (void)removeCloseButton;
-
-@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
-@property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
-@property (nonatomic, readwrite, strong) UIButton *closeButton;
-@property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
-@property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
-@property (nonatomic, readwrite, assign) CGRect defaultFrame;
-@property (nonatomic, readwrite, assign) CGPoint resizeOffset;
-@property (nonatomic, readwrite, assign) BOOL adjustFramesInResizeState;
-@end
 
 @interface ANBANNERADVIEW ()
 @property (nonatomic, readwrite, strong) UIView *contentView;
@@ -238,18 +201,6 @@
 
 #pragma mark Implementation of abstract methods from ANAdView
 
-- (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
-    BOOL rvcAttachedToWindow = self.rootViewController.view.window ? YES : NO;
-    if (rvcAttachedToWindow) {
-        [self adWillPresent];
-        [self.rootViewController presentViewController:browserViewController animated:YES completion:^{
-            [self adDidPresent];
-        }];
-    } else {
-        ANLogError(@"Cannot present in-app browser - rootViewController not set, or rootViewController not attached to window");
-    }
-}
-
 - (void)loadAdFromHtml:(NSString *)html
                  width:(int)width height:(int)height {
     self.adSize = CGSizeMake(width, height);
@@ -405,18 +356,38 @@
 
 #pragma mark ANBrowserViewControllerDelegate
 
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller
-{
-    [self adWillClose];
-	UIViewController *presentingViewController = controller.presentingViewController;
-	[presentingViewController dismissViewControllerAnimated:YES completion:^{
-        self.browserViewController = nil;
-        [self adDidClose];
-    }];
-}
-
 - (UIView *)viewToDisplayClickOverlay {
     return self.contentView;
+}
+
+- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {
+    UIViewController *rvc = [super rootViewControllerForDisplayingBrowserViewController:controller];
+    return rvc ? rvc : self.rootViewController;
+}
+
+- (void)willDismissBrowserViewController:(ANBrowserViewController *)controller {
+    if (!self.mraidController.presentingViewController) {
+        [self adWillClose];
+    }
+}
+
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller {
+    [super didDismissBrowserViewController:controller];
+    if (!self.mraidController.presentingViewController) {
+        [self adDidClose];
+    }
+}
+
+- (void)willPresentBrowserViewController:(ANBrowserViewController *)controller {
+    if (!self.mraidController.presentingViewController) {
+        [self adWillPresent];
+    }
+}
+
+- (void)didPresentBrowserViewController:(ANBrowserViewController *)controller {
+    if (!self.mraidController.presentingViewController) {
+        [self adDidPresent];
+    }
 }
 
 @end
