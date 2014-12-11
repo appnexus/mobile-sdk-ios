@@ -25,6 +25,8 @@
 - (void)removeSubviews;
 - (void)removeSubviewsWithException:(UIView *)exception;
 
+- (BOOL)an_isViewable;
+
 #pragma mark - Autolayout
 
 - (void)constrainWithSize:(CGSize)size;

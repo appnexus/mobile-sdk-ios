@@ -50,6 +50,8 @@
 #define kAppNexusMRAIDCheckViewableFrequency 1.0
 #define kAppNexusBannerAdTransitionDefaultDuration 1.0
 #define kAppNexusNativeAdImageDownloadTimeoutInterval 10.0
+#define kAppNexusNativeAdCheckViewabilityForTrackingFrequency 0.25
+#define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
 // Banner AutoRefresh
 

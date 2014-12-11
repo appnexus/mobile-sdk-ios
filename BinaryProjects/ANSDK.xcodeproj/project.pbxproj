@@ -81,6 +81,8 @@
 		8A6BE79F19D61EF900498F77 /* ANPBContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AD618C41981C11F00AC0780 /* ANPBContainerView.h */; };
 		8A6BE7A019D61EF900498F77 /* ANReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AD618C61981C11F00AC0780 /* ANReachability.h */; };
 		8A6BE7A119D61EF900498F77 /* ANWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AD618C91981C11F00AC0780 /* ANWebView.h */; };
+		8A84E42C1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; };
+		8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A9AED201A1BAD2700C58BDA /* ANAdConstants.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; };
 		8A9AED211A1BAD6000C58BDA /* ANAdConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A9AED221A1BAD7700C58BDA /* ANNativeAdDelegate.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */; };
@@ -478,6 +480,7 @@
 		8A6606321A0A9A30008AB3D2 /* ANAdAdapterNativeMoPub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeMoPub.h; sourceTree = "<group>"; };
 		8A6606331A0A9A30008AB3D2 /* ANAdAdapterNativeMoPub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeMoPub.m; sourceTree = "<group>"; };
 		8A6BE78019D60C3E00498F77 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
+		8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdResponse+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A944DDE19D5AF8C007AAAB0 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
 		8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-AMAZON.txt"; sourceTree = "<group>"; };
 		8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
@@ -974,6 +977,7 @@
 				8AD2DAF31A1D3C2A00878CDD /* ANStandardAd.m */,
 				8A6514701A12DB31003F1047 /* UIView+ANNativeAdCategory.h */,
 				8A6514711A12DB31003F1047 /* UIView+ANNativeAdCategory.m */,
+				8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */,
 			);
 			name = internal;
 			path = native/internal;
@@ -1309,6 +1313,7 @@
 				8AD2DAEA1A1D3A5B00878CDD /* ANAdFetcherResponse.h in Headers */,
 				8A6BE79419D61EF900498F77 /* ANBrowserViewController.h in Headers */,
 				8A6BE79519D61EF900498F77 /* ANClickOverlayView.h in Headers */,
+				8A84E42C1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */,
 				8A6BE79619D61EF900498F77 /* ANGlobal.h in Headers */,
 				8A6BE79719D61EF900498F77 /* ANInterstitialAdViewController.h in Headers */,
 				8A6BE79819D61EF900498F77 /* ANLogging.h in Headers */,
@@ -1368,6 +1373,7 @@
 				8A9AEDD71A1BF88200C58BDA /* ANMediatedAd.h in Headers */,
 				8A9AEDD81A1BF88200C58BDA /* ANMediationAdViewController.h in Headers */,
 				8A9AEDD91A1BF88200C58BDA /* ANMediationContainerView.h in Headers */,
+				8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */,
 				8A9AEDDA1A1BF88200C58BDA /* ANMRAIDProperties.h in Headers */,
 				8A9AEDDB1A1BF88200C58BDA /* ANMRAIDViewController.h in Headers */,
 				8A9AEDDC1A1BF88200C58BDA /* ANPBBuffer.h in Headers */,

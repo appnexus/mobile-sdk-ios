@@ -75,6 +75,36 @@
 
 }
 
+- (BOOL)an_isViewable {
+    BOOL isHidden = self.hidden;
+    if (isHidden) return NO;
+    
+    BOOL isAttachedToWindow = self.window ? YES : NO;
+    if (!isAttachedToWindow) return NO;
+    
+    BOOL isInHiddenSuperview = NO;
+    UIView *ancestorView = self.superview;
+    while (ancestorView) {
+        if (ancestorView.hidden) {
+            isInHiddenSuperview = YES;
+            break;
+        }
+        ancestorView = ancestorView.superview;
+    }
+    if (isInHiddenSuperview) return NO;
+    
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    CGRect normalizedSelfRect = [self convertRect:self.bounds toView:nil];
+    CGRect intersection = CGRectIntersection(screenRect, normalizedSelfRect);
+    if (CGRectEqualToRect(intersection, CGRectNull)) {
+        return NO;
+    }
+    
+    CGFloat intersectionArea = CGRectGetWidth(intersection) * CGRectGetHeight(intersection);
+    CGFloat selfArea = CGRectGetWidth(normalizedSelfRect) * CGRectGetHeight(normalizedSelfRect);
+    return intersectionArea >= 0.5 * selfArea;
+}
+
 #pragma mark - Autolayout
 
 - (void)constrainWithFrameSize {
