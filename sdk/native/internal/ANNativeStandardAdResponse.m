@@ -20,6 +20,7 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
+#import "ANNativeImpressionTrackerManager.h"
 
 @interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate>
 
@@ -110,7 +111,13 @@
 }
 
 - (void)fireImpTrackers {
-    [self fireTrackersInArray:self.impTrackers];
+    NSMutableArray *impTrackersToFire = [[NSMutableArray alloc] initWithCapacity:self.impTrackers.count];
+    [self.impTrackers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[NSString class]]) {
+            [impTrackersToFire addObject:[NSURL URLWithString:obj]];
+        }
+    }];
+    [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:impTrackersToFire];
 }
 
 #pragma mark - Click handling
