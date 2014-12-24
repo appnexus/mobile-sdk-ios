@@ -15,68 +15,17 @@
 
 #import "ANAdView.h"
 
-@protocol ANBrowserViewControllerDelegate;
 @protocol ANAdFetcherDelegate;
-
 @class ANAdFetcher;
 
-@interface ANAdView (PrivateMethods)
+@interface ANAdView (PrivateMethods) <ANAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
-@property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
-@property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
-@property (nonatomic, readwrite, strong) UIButton *closeButton;
-@property (nonatomic, readwrite, assign) CGRect defaultParentFrame;
-@property (nonatomic, readwrite, assign) CGRect defaultFrame;
-@property (nonatomic, readwrite, assign) CGPoint resizeOffset;
-@property (nonatomic, readwrite, assign) BOOL adjustFramesInResizeState;
 
 - (void)initialize;
 - (void)loadAd;
-- (void)adDidReceiveAd;
-- (void)adRequestFailedWithError:(NSError *)error;
-- (void)mraidExpandAd:(CGSize)size
-          contentView:(UIView *)contentView
-    defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController;
-- (void)mraidExpandAddCloseButton:(UIButton *)closeButton
-                    containerView:(UIView *)containerView;
-- (NSString *)mraidResizeAd:(CGRect)frame
-                contentView:(UIView *)contentView
-          defaultParentView:(UIView *)defaultParentView
-         rootViewController:(UIViewController *)rootViewController
-             allowOffscreen:(BOOL)allowOffscreen;
-- (void)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
-                         containerView:(UIView *)containerView
-                           contentView:(UIView *)contentView
-                              position:(ANMRAIDCustomClosePosition)position;
-- (void)adShouldResetToDefault:(UIView *)contentView
-                    parentView:(UIView *)parentView;
-
 - (void)loadAdFromHtml:(NSString *)html
-                 width:(int)width height:(int)height;
-- (void)removeCloseButton;
-
-#pragma mark - ANMRAIDAdViewDelegate
-
-@property (nonatomic, readwrite, weak) id<ANMRAIDEventReceiver> mraidEventReceiverDelegate;
-
-#pragma mark - ANAdDelegate
-
-- (void)adWasClicked;
-- (void)adWillClose;
-- (void)adDidClose;
-- (void)adWillPresent;
-- (void)adDidPresent;
-- (void)adWillLeaveApplication;
-- (void)adFailedToDisplay;
-
-#pragma mark - ANBrowserViewControllerDelegate
-
-- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller;
-
-- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller;
-- (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller;
-- (void)browserViewController:(ANBrowserViewController *)controller browserIsLoading:(BOOL)isLoading;
+                 width:(int)width
+                height:(int)height;
 
 @end

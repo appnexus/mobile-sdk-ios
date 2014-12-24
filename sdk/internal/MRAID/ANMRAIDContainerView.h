@@ -14,17 +14,20 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "ANAdWebViewController.h"
 
-typedef NS_ENUM(NSUInteger, ANClickOverlayColorOption) {
-    ANClickOverlayColorOptionGrey,
-    ANClickOverlayColorOptionRed,
-    ANClickOverlayColorOptionTeal
-};
+@protocol ANAdViewInternalDelegate;
 
-#define ANCLICKOVERLAYCOLOROPTION ANClickOverlayColorOptionGrey
+@interface ANMRAIDContainerView : UIView
 
-@interface ANClickOverlayView : UIView
+- (instancetype)initWithSize:(CGSize)size
+                        HTML:(NSString *)html
+              webViewBaseURL:(NSURL *)baseURL;
 
-+ (ANClickOverlayView *)addOverlayToView:(UIView *)view;
+@property (nonatomic, readonly, assign) CGSize size;
+@property (nonatomic, readonly, strong) ANAdWebViewController *webViewController;
+
+@property (nonatomic, readwrite, weak) id<ANAdViewInternalDelegate> adViewDelegate;
+@property (nonatomic, readwrite, assign) BOOL embeddedInModalView;
 
 @end

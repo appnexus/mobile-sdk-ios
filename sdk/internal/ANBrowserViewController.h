@@ -43,6 +43,8 @@
 @property (nonatomic, readonly, assign) BOOL completedInitialLoad;
 @property (nonatomic, readonly, assign, getter=isLoading) BOOL loading;
 
+- (void)stopLoading;
+
 @end
 
 @protocol ANBrowserViewControllerDelegate <NSObject>

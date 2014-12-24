@@ -166,7 +166,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  This allows for a class of ads known as "expandables."  In order to
  show an expandable ad, set the animated flag to true.
  */
-- (void)setFrame:(CGRect)frame animated:(BOOL)animated;
+- (void)setFrame:(CGRect)frame animated:(BOOL)animated __attribute((deprecated(" Use UIView animation blocks to animate a frame change.")));
 
 @end
 
@@ -184,11 +184,11 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  the screen.  This is in response to a user interacting with an ad
  that resizes itself.
  */
-- (void)bannerAdView:(ANBannerAdView *)adView willResizeToFrame:(CGRect)frame;
+- (void)bannerAdView:(ANBannerAdView *)adView willResizeToFrame:(CGRect)frame __attribute((deprecated(" No longer called - SDK no longer resizes the banner frame.")));
 
 /**
  Sent after the adView has resized.
  */
-- (void)bannerAdViewDidResize:(ANBannerAdView *)adView;
+- (void)bannerAdViewDidResize:(ANBannerAdView *)adView __attribute((deprecated(" No longer called - SDK no longer resizes the banner frame.")));
 
 @end

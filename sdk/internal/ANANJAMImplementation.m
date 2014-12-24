@@ -38,25 +38,23 @@ NSString *const kANKeyCaller = @"caller";
 
 @implementation ANANJAMImplementation
 
-+ (void)handleUrl:(NSURL *)url
-       forWebView:(UIWebView *)webView
-      forDelegate:(id<ANAdViewDelegate>)delegate {
-    NSString *call = [url host];
-    NSDictionary *queryComponents = [[url query] queryComponents];
++ (void)handleURL:(NSURL *)URL withWebViewController:(ANAdWebViewController *)controller {
+    NSString *call = [URL host];
+    NSDictionary *queryComponents = [[URL query] queryComponents];
     if ([call isEqualToString:kANCallMayDeepLink]) {
-        [ANANJAMImplementation callMayDeepLink:webView query:queryComponents];
+        [ANANJAMImplementation callMayDeepLink:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallDeepLink]) {
-        [ANANJAMImplementation callDeepLink:webView query:queryComponents];
+        [ANANJAMImplementation callDeepLink:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallExternalBrowser]) {
-        [ANANJAMImplementation callExternalBrowser:webView query:queryComponents];
+        [ANANJAMImplementation callExternalBrowser:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallInternalBrowser]) {
-        [ANANJAMImplementation callInternalBrowser:webView query:queryComponents delegate:delegate];
+        [ANANJAMImplementation callInternalBrowser:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallRecordEvent]) {
-        [ANANJAMImplementation callRecordEvent:webView query:queryComponents];
+        [ANANJAMImplementation callRecordEvent:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallDispatchAppEvent]) {
-        [ANANJAMImplementation callDispatchAppEvent:webView query:queryComponents delegate:delegate];
+        [ANANJAMImplementation callDispatchAppEvent:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallGetDeviceID]) {
-        [ANANJAMImplementation callGetDeviceID:webView query:queryComponents];
+        [ANANJAMImplementation callGetDeviceID:controller query:queryComponents];
     } else {
         ANLogWarn(@"ANJAM called with unsupported function: %@", call);
     }
@@ -64,7 +62,7 @@ NSString *const kANKeyCaller = @"caller";
 
 // Deep Link
 
-+ (void)callMayDeepLink:(UIWebView *)webView query:(NSDictionary *)query {
++ (void)callMayDeepLink:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *cb = [query valueForKey:@"cb"];
     NSString *urlParam = [query valueForKey:@"url"];
     BOOL mayDeepLink;
@@ -80,10 +78,10 @@ NSString *const kANKeyCaller = @"caller";
                                  kANKeyCaller: kANCallMayDeepLink,
                                  @"mayDeepLink": mayDeepLink ? @"true" : @"false"
                                  };
-    [ANANJAMImplementation loadResult:webView cb:cb paramsList:paramsList];
+    [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
 }
 
-+ (void)callDeepLink:(UIWebView *)webView query:(NSDictionary *)query {
++ (void)callDeepLink:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *cb = [query valueForKey:@"cb"];
     NSString *urlParam = [query valueForKey:@"url"];
     
@@ -96,13 +94,13 @@ NSString *const kANKeyCaller = @"caller";
         NSDictionary *paramsList = @{
                                      kANKeyCaller: kANCallDeepLink,
                                      };
-        [ANANJAMImplementation loadResult:webView cb:cb paramsList:paramsList];
+        [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
     }
 }
 
 // Launch Browser
 
-+ (void)callExternalBrowser:(UIWebView *)webView query:(NSDictionary *)query {
++ (void)callExternalBrowser:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *urlParam = [query valueForKey:@"url"];
     
     NSURL *url = [NSURL URLWithString:urlParam];
@@ -112,17 +110,16 @@ NSString *const kANKeyCaller = @"caller";
     }
 }
 
-+ (void)callInternalBrowser:(UIWebView *)webView
-                      query:(NSDictionary *)query
-                   delegate:(id<ANAdViewDelegate>)delegate {
++ (void)callInternalBrowser:(ANAdWebViewController *)controller
+                      query:(NSDictionary *)query {
     NSString *urlParam = [query valueForKey:@"url"];
     NSURL *url = [NSURL URLWithString:urlParam];
-    [delegate openInAppBrowserWithUrl:url];
+    [controller.browserDelegate openInAppBrowserWithURL:url];
 }
 
 // Record Event
 
-+ (void)callRecordEvent:(UIWebView *)webView query:(NSDictionary *)query {
++ (void)callRecordEvent:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *urlParam = [query valueForKey:@"url"];
 
     NSURL *url = [NSURL URLWithString:urlParam];
@@ -132,22 +129,21 @@ NSString *const kANKeyCaller = @"caller";
     recordEventWebView.delegate = recordEventDelegate;
     [recordEventWebView setHidden:YES];
     [recordEventWebView loadRequest:[NSURLRequest requestWithURL:url]];
-    [webView addSubview:recordEventWebView];
+    [controller.contentView addSubview:recordEventWebView];
 }
 
 // Dispatch App Event
 
-+ (void)callDispatchAppEvent:(UIWebView *)webView query:(NSDictionary *)query
-                    delegate:(id<ANAdViewDelegate>)delegate {
++ (void)callDispatchAppEvent:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *event = [query valueForKey:@"event"];
     NSString *data = [query valueForKey:@"data"];
 
-    [delegate adDidReceiveAppEvent:event withData:data];
+    [controller.adViewDelegate adDidReceiveAppEvent:event withData:data];
 }
 
 // Get Device ID
 
-+ (void)callGetDeviceID:(UIWebView *)webView query:(NSDictionary *)query {
++ (void)callGetDeviceID:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *cb = [query valueForKey:@"cb"];
     
     // send idName:idfa, id: idfa value
@@ -156,13 +152,13 @@ NSString *const kANKeyCaller = @"caller";
                                  @"idname": @"idfa",
                                  @"id": ANUDID()
                                  };
-    [ANANJAMImplementation loadResult:webView cb:cb paramsList:paramsList];
+    [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
 }
 
 
 // Send the result back to JS
 
-+ (void)loadResult:(UIWebView *)webView cb:(NSString *)cb paramsList:(NSDictionary *)paramsList {
++ (void)loadResult:(ANAdWebViewController *)controller cb:(NSString *)cb paramsList:(NSDictionary *)paramsList {
     __block NSString *params = [NSString stringWithFormat:@"cb=%@", cb ? cb : @"-1"];
 
     [paramsList enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
@@ -175,7 +171,7 @@ NSString *const kANKeyCaller = @"caller";
     }];
     
     NSString *url = [NSString stringWithFormat:@"javascript:window.sdkjs.client.result(\"%@\")", params];
-    [webView stringByEvaluatingJavaScriptFromString:url];
+    [controller fireJavaScript:url];
 }
 
 @end

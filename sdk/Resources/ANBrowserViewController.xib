@@ -31,14 +31,14 @@
                         </constraint>
                     </constraints>
                     <items>
-                        <barButtonItem image="ArrowLeft.png" style="plain" id="17">
+                        <barButtonItem image="an_arrow_left.png" style="plain" id="17">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="backAction:" destination="-1" id="34"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="hli-Bh-5cJ"/>
-                        <barButtonItem image="ArrowRight.png" style="plain" id="19">
+                        <barButtonItem image="an_arrow_right.png" style="plain" id="19">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="forwardAction:" destination="-1" id="35"/>
@@ -69,7 +69,6 @@
                             </connections>
                         </barButtonItem>
                     </items>
-                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="barTintColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                 </toolbar>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jWV-ZZ-Vcz" userLabel="WebView Container View">
@@ -91,7 +90,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ArrowLeft.png" width="22" height="22"/>
-        <image name="ArrowRight.png" width="22" height="22"/>
+        <image name="an_arrow_left.png" width="22" height="22"/>
+        <image name="an_arrow_right.png" width="22" height="22"/>
     </resources>
 </document>

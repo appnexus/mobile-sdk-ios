@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,22 +13,16 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "ANMRAIDUtil.h"
 
-@protocol ANAdViewDelegate <NSObject>
+@interface ANMRAIDOrientationProperties : NSObject
 
-- (void)adWasClicked;
-- (void)adWillPresent;
-- (void)adDidPresent;
-- (void)adWillClose;
-- (void)adDidClose;
-- (void)adWillLeaveApplication;
-- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
-- (void)openInAppBrowserWithUrl:(NSURL *)URL;
++ (ANMRAIDOrientationProperties *)orientationPropertiesFromQueryComponents:(NSDictionary *)queryComponents;
 
-// for interstitials only
-- (void)adFailedToDisplay;
+- (instancetype)initWithAllowOrientationChange:(BOOL)allowOrientationChange
+                              forceOrientation:(ANMRAIDOrientation)forceOrientation;
 
-@optional
-- (void)transitionInProgress;
+@property (nonatomic, readonly, assign) BOOL allowOrientationChange;
+@property (nonatomic, readonly, assign) ANMRAIDOrientation forceOrientation;
+
 @end

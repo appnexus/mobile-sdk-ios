@@ -13,12 +13,12 @@
  limitations under the License.
  */
 
-#import "ANWebView.h"
 #import "ANBaseTestCase.h"
 #import "ANMRAIDTestResponses.h"
 #import "ANLogging.h"
 #import "ANLogManager.h"
 #import "ANGlobal.h"
+#import "ANMRAIDContainerView.h"
 
 #define MRAID_TESTS_TIMEOUT 10.0
 #define MRAID_TESTS_DEFAULT_DELAY 1.5
@@ -29,7 +29,7 @@
 @end
 
 @interface MRAIDTests : ANBaseTestCase
-@property (strong, nonatomic) ANWebView *webView;
+@property (strong, nonatomic) ANMRAIDContainerView *containerView;
 @end
 
 @implementation MRAIDTests
@@ -1002,7 +1002,7 @@
                                         atOrigin:CGPointZero
                                         withSize:CGSizeMake(320.0f, 50.0f)];
     
-    NSString *readyDidFire = [self.webView stringByEvaluatingJavaScriptFromString:@"testReadyDidFire"];
+    NSString *readyDidFire = [self.containerView stringByEvaluatingJavaScriptFromString:@"testReadyDidFire"];
     XCTAssertTrue([readyDidFire isEqualToString:@"true"], @"ready event callback not fired");
     
     [self clearTest];
@@ -1013,18 +1013,18 @@
                                         atOrigin:CGPointZero
                                         withSize:CGSizeMake(320.0f, 50.0f)];
     
-    NSString *width = [self.webView stringByEvaluatingJavaScriptFromString:@"testWidth"];
-    NSString *height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
-    NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
+    NSString *width = [self.containerView stringByEvaluatingJavaScriptFromString:@"testWidth"];
+    NSString *height = [self.containerView stringByEvaluatingJavaScriptFromString:@"testHeight"];
+    NSString *state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
     
     XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
     XCTAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
                  
     [self expand];
     
-    width = [self.webView stringByEvaluatingJavaScriptFromString:@"testWidth"];
-    height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
-    state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
+    width = [self.containerView stringByEvaluatingJavaScriptFromString:@"testWidth"];
+    height = [self.containerView stringByEvaluatingJavaScriptFromString:@"testHeight"];
+    state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
 
     CGRect portraitBounds = ANPortraitScreenBounds();
     NSString *expectedWidth = [NSString stringWithFormat:@"%d", (int)portraitBounds.size.width];
@@ -1035,9 +1035,9 @@
 
     [self close];
     
-    width = [self.webView stringByEvaluatingJavaScriptFromString:@"testWidth"];
-    height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
-    state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
+    width = [self.containerView stringByEvaluatingJavaScriptFromString:@"testWidth"];
+    height = [self.containerView stringByEvaluatingJavaScriptFromString:@"testHeight"];
+    state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
 
     XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
     XCTAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
@@ -1050,9 +1050,9 @@
                                         atOrigin:CGPointZero
                                         withSize:CGSizeMake(320.0f, 50.0f)];
     
-    NSString *width = [self.webView stringByEvaluatingJavaScriptFromString:@"testWidth"];
-    NSString *height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
-    NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
+    NSString *width = [self.containerView stringByEvaluatingJavaScriptFromString:@"testWidth"];
+    NSString *height = [self.containerView stringByEvaluatingJavaScriptFromString:@"testHeight"];
+    NSString *state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
     
     XCTAssertTrue([width isEqualToString:@"320"] && [height isEqualToString:@"50"], @"Expected width and height to be different");
     XCTAssertTrue([state isEqualToString:@"default"], @"state change callback not fired");
@@ -1060,9 +1060,9 @@
     [self setResizePropertiesResizeToSize:CGSizeMake(400.0f, 200.0f) withOffset:CGPointZero withCustomClosePosition:@"top-left" allowOffscreen:YES];
     [self resize];
     
-    width = [self.webView stringByEvaluatingJavaScriptFromString:@"testWidth"];
-    height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
-    state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
+    width = [self.containerView stringByEvaluatingJavaScriptFromString:@"testWidth"];
+    height = [self.containerView stringByEvaluatingJavaScriptFromString:@"testHeight"];
+    state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
     
     XCTAssertTrue([width isEqualToString:@"400"] && [height isEqualToString:@"200"], @"Expected width and height to be different");
     XCTAssertTrue([state isEqualToString:@"resized"], @"state change callback not fired");
@@ -1080,9 +1080,9 @@
     [self resize];
     [self expand];
     
-    NSString *width = [self.webView stringByEvaluatingJavaScriptFromString:@"testWidth"];
-    NSString *height = [self.webView stringByEvaluatingJavaScriptFromString:@"testHeight"];
-    NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
+    NSString *width = [self.containerView stringByEvaluatingJavaScriptFromString:@"testWidth"];
+    NSString *height = [self.containerView stringByEvaluatingJavaScriptFromString:@"testHeight"];
+    NSString *state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
     
     CGRect portraitBounds = ANPortraitScreenBounds();
     NSString *expectedWidth = [NSString stringWithFormat:@"%d", (int)portraitBounds.size.width];
@@ -1100,19 +1100,19 @@
                                         atOrigin:CGPointZero
                                         withSize:CGSizeMake(320.0f, 50.0f)];
     [self close];
-    NSString *state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
+    NSString *state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
     XCTAssertTrue([state isEqualToString:@"hidden"], @"state change callback not fired");
 
     [self expand];
-    state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
-    NSString *errorAction = [self.webView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
+    state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
+    NSString *errorAction = [self.containerView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
     XCTAssertTrue([state isEqualToString:@"hidden"], @"state change callback fired when it should not have been");
     XCTAssertTrue([errorAction isEqualToString:@"mraid.expand()"], @"Expected error from mraid.expand()");
     
     [self setResizePropertiesResizeToSize:CGSizeMake(400.0f, 200.0f) withOffset:CGPointZero withCustomClosePosition:@"top-left" allowOffscreen:YES];
     [self resize];
-    state = [self.webView stringByEvaluatingJavaScriptFromString:@"testState"];
-    errorAction = [self.webView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
+    state = [self.containerView stringByEvaluatingJavaScriptFromString:@"testState"];
+    errorAction = [self.containerView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
     XCTAssertTrue([state isEqualToString:@"hidden"], @"state change callback fired when it should not have been");
     XCTAssertTrue([errorAction isEqualToString:@"mraid.resize()"], @"Expected error from mraid.resize()");
 
@@ -1123,19 +1123,19 @@
     [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
                                          atOrigin:CGPointZero
                                          withSize:CGSizeMake(320.0f, 50.0f)];
-    NSString *isViewable = [self.webView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
+    NSString *isViewable = [self.containerView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
     XCTAssertTrue([isViewable isEqualToString:@"false"], @"expected banner to not be viewable");
     
     [self addBannerAsSubview];
-    isViewable = [self.webView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
+    isViewable = [self.containerView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
     XCTAssertTrue([isViewable isEqualToString:@"true"], @"expected banner to be viewable");
     
     [self moveBannerSubviewToOrigin:CGPointMake(1000.0f, 1000.0f)];
-    isViewable = [self.webView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
+    isViewable = [self.containerView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
     XCTAssertTrue([isViewable isEqualToString:@"false"], @"expected banner to not be viewable");
     
     [self moveBannerSubviewToOrigin:CGPointMake(0.0f, 200.0f)];
-    isViewable = [self.webView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
+    isViewable = [self.containerView stringByEvaluatingJavaScriptFromString:@"testIsViewable"];
     XCTAssertTrue([isViewable isEqualToString:@"true"], @"expected banner to be viewable");
 
     [self clearTest];
@@ -1145,12 +1145,12 @@
     [self addMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
                                         atOrigin:CGPointZero
                                         withSize:CGSizeMake(320.0f, 50.0f)];
-    [self.webView stringByEvaluatingJavaScriptFromString:@"mraid.removeEventListener('ready', onReady);"];
-    NSString *errorAction = [self.webView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
+    [self.containerView stringByEvaluatingJavaScriptFromString:@"mraid.removeEventListener('ready', onReady);"];
+    NSString *errorAction = [self.containerView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
     XCTAssertTrue([errorAction isEqualToString:@""], @"Did not expect an error on removeEventListener()");
     
-    [self.webView stringByEvaluatingJavaScriptFromString:@"mraid.removeEventListener('ready', onReady);"];
-    errorAction = [self.webView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
+    [self.containerView stringByEvaluatingJavaScriptFromString:@"mraid.removeEventListener('ready', onReady);"];
+    errorAction = [self.containerView stringByEvaluatingJavaScriptFromString:@"testErrorAction"];
     XCTAssertTrue([errorAction isEqualToString:@"mraid.removeEventListener()"], @"Expected error on removeEventListener()");
     
     [self clearTest];
@@ -1204,7 +1204,7 @@
 #pragma mark Helper Functions
 
 - (void)clearTest {
-    self.webView = nil;
+    self.containerView = nil;
     [self removeBannerFromSuperview];
     if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
         [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
@@ -1266,8 +1266,8 @@
     XCTAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
     XCTAssertFalse(self.adFailedToLoadCalled, @"Failure callback should not be called");
     id wv = [[self.banner subviews] firstObject];
-    XCTAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of BannerAdView");
-    self.webView = (ANWebView *)wv;
+    XCTAssertTrue([wv isKindOfClass:[ANMRAIDContainerView class]], @"Expected ANMRAIDContainerView as subview of BannerAdView");
+    self.containerView = (ANMRAIDContainerView *)wv;
 }
 
 - (void)addBannerAsSubview {
@@ -1466,7 +1466,7 @@
 }
 
 - (NSString *)mraidNativeCall:(NSString *)script withDelay:(NSTimeInterval)delay {
-    NSString *response = [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"mraid.%@",script]];
+    NSString *response = [self.containerView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"mraid.%@",script]];
     if (delay) {
         [self delay:delay];
     }

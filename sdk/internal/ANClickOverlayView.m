@@ -15,6 +15,8 @@
 
 #import "ANClickOverlayView.h"
 
+#import "UIView+ANCategory.h"
+
 #define OVERLAY_LARGE CGSizeMake(100.0, 70.0)
 #define OVERLAY_MEDIUM CGSizeMake(50.0, 35.0)
 
@@ -28,28 +30,64 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setBackgroundColor:[UIColor clearColor]];
+        [self addIndicatorView];
     }
     return self;
 }
 
-+ (ANClickOverlayView *)overlayForView:(UIView *)view {
-    CGSize overlaySize = OVERLAY_LARGE;
-    if (CGRectGetHeight(view.bounds) <= OVERLAY_LARGE.height) {
-        overlaySize = OVERLAY_MEDIUM;
-    }
-    CGFloat originX = CGRectGetMidX(view.bounds) - 0.5 * overlaySize.width;
-    CGFloat originY = CGRectGetMidY(view.bounds) - 0.5 * overlaySize.height;
-    ANClickOverlayView *overlay = [[ANClickOverlayView alloc] initWithFrame:CGRectMake(originX, originY, overlaySize.width, overlaySize.height)];
++ (ANClickOverlayView *)addOverlayToView:(UIView *)view {
+    ANClickOverlayView *overlay = [[ANClickOverlayView alloc] init];
+    [view addSubview:overlay];
+    overlay.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *heightSuperviewRelation = [NSLayoutConstraint constraintWithItem:overlay
+                                                                               attribute:NSLayoutAttributeHeight
+                                                                               relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                                  toItem:view
+                                                                               attribute:NSLayoutAttributeHeight
+                                                                              multiplier:1.0
+                                                                                constant:0.0];
+    NSLayoutConstraint *maxHeight = [NSLayoutConstraint constraintWithItem:overlay
+                                                                 attribute:NSLayoutAttributeHeight
+                                                                 relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                    toItem:nil
+                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                multiplier:1.0
+                                                                  constant:OVERLAY_LARGE.height];
+    NSLayoutConstraint *minHeight = [NSLayoutConstraint constraintWithItem:overlay
+                                                                 attribute:NSLayoutAttributeHeight
+                                                                 relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                    toItem:nil
+                                                                 attribute:NSLayoutAttributeNotAnAttribute
+                                                                multiplier:1.0
+                                                                  constant:OVERLAY_MEDIUM.height];
+    NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:overlay
+                                                              attribute:NSLayoutAttributeHeight
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:view
+                                                              attribute:NSLayoutAttributeHeight
+                                                             multiplier:0.9
+                                                               constant:0.0];
+    height.priority = UILayoutPriorityDefaultLow;
+    NSLayoutConstraint *aspectRatio = [NSLayoutConstraint constraintWithItem:overlay
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:overlay
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                  multiplier:1.5
+                                                                    constant:0.0];
+    [view addConstraints:@[heightSuperviewRelation, maxHeight, minHeight, aspectRatio,height]];
+    [overlay alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                 yAttribute:NSLayoutAttributeCenterY];
     return overlay;
 }
 
 - (void)addIndicatorView {
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    CGFloat originX = CGRectGetMidX(self.bounds) - 0.5 * CGRectGetWidth(indicator.bounds);
-    CGFloat originY = CGRectGetMidY(self.bounds) - 0.5 * CGRectGetHeight(indicator.bounds);
-    indicator.frame = CGRectMake(originX, originY, CGRectGetWidth(indicator.bounds), CGRectGetHeight(indicator.bounds));
     [indicator startAnimating];
     [self addSubview:indicator];
+    indicator.translatesAutoresizingMaskIntoConstraints = NO;
+    [indicator alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                   yAttribute:NSLayoutAttributeCenterY];
 }
 
 - (UIColor *)colorForColorOption:(ANClickOverlayColorOption)option withAlpha:(CGFloat)alpha {
@@ -80,8 +118,6 @@
     [bkColor setFill];
     [roundedRect fillWithBlendMode:kCGBlendModeNormal
                              alpha:1.0];
-    
-    [self addIndicatorView];
 }
 
 @end

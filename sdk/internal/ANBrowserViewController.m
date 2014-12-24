@@ -74,11 +74,13 @@
     [super viewDidLoad];
     [self refreshButtons];
     [self addWebViewToContainerView];
+    [self setupToolbar];
 }
 
 - (void)dealloc {
     [self resetBrowser];
     self.webView.delegate = nil;
+    self.iTunesStoreController.delegate = nil;
 }
 
 - (void)resetBrowser {
@@ -87,15 +89,36 @@
     self.webView = nil;
 }
 
+- (void)setupToolbar {
+    if (![self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
+        UIImage *backArrow = [UIImage imageWithContentsOfFile:ANPathForANResource(@"UIButtonBarArrowLeft", @"png")];
+        UIImage *forwardArrow = [UIImage imageWithContentsOfFile:ANPathForANResource(@"UIButtonBarArrowRight", @"png")];
+        [self.backButton setImage:backArrow];
+        [self.forwardButton setImage:forwardArrow];
+        
+        self.backButton.tintColor = [UIColor whiteColor];
+        self.forwardButton.tintColor = [UIColor whiteColor];
+        self.openInButton.tintColor = [UIColor whiteColor];
+        self.refreshButton.tintColor = nil;
+        self.doneButton.tintColor = nil;
+    }
+}
+
 #pragma mark - Adjust for status bar
 
 - (void)viewWillLayoutSubviews {
-    CGSize statusBarFrameSize = [[UIApplication sharedApplication] statusBarFrame].size;
-    CGFloat statusBarHeight = statusBarFrameSize.height;
-    if (statusBarFrameSize.height > statusBarFrameSize.width) {
-        statusBarHeight = statusBarFrameSize.width;
+    CGFloat containerViewDistanceToTopOfSuperview;
+    if ([self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
+        CGSize statusBarFrameSize = [[UIApplication sharedApplication] statusBarFrame].size;
+        containerViewDistanceToTopOfSuperview = statusBarFrameSize.height;
+        if (statusBarFrameSize.height > statusBarFrameSize.width) {
+            containerViewDistanceToTopOfSuperview = statusBarFrameSize.width;
+        }
+    } else {
+        containerViewDistanceToTopOfSuperview = 0;
     }
-    self.containerViewSuperviewTopConstraint.constant = statusBarHeight;
+    
+    self.containerViewSuperviewTopConstraint.constant = containerViewDistanceToTopOfSuperview;
 }
 
 #pragma mark - User Actions
@@ -165,28 +188,24 @@
     }
     
     UIViewController *rvc = [self.delegate rootViewControllerForDisplayingBrowserViewController:self];
-    if (!rvc) {
-        ANLogDebug(@"Cannot present in-app browser: delegate did not provide a root view controller");
+    if (!ANCanPresentFromViewController(rvc)) {
+        ANLogDebug(@"No root view controller provided, or root view controller view not attached to window - could not present in-app browser");
         return;
     }
-    BOOL rvcAttachedToWindow = rvc.view.window ? YES : NO;
-    if (rvcAttachedToWindow) {
-        self.presenting = YES;
-        if ([self.delegate respondsToSelector:@selector(willPresentBrowserViewController:)]) {
-            [self.delegate willPresentBrowserViewController:self];
-        }
-        __weak ANBrowserViewController *weakSelf = self;
-        [rvc presentViewController:controllerToPresent animated:YES completion:^{
-            ANBrowserViewController *strongSelf = weakSelf;
-            if ([strongSelf.delegate respondsToSelector:@selector(didPresentBrowserViewController:)]) {
-                [strongSelf.delegate didPresentBrowserViewController:strongSelf];
-            }
-            strongSelf.presenting = NO;
-            strongSelf.presented = YES;
-        }];
-    } else {
-        ANLogDebug(@"Cannot present in-app browser: root view controller not attached to window");
+
+    self.presenting = YES;
+    if ([self.delegate respondsToSelector:@selector(willPresentBrowserViewController:)]) {
+        [self.delegate willPresentBrowserViewController:self];
     }
+    __weak ANBrowserViewController *weakSelf = self;
+    [rvc presentViewController:controllerToPresent animated:YES completion:^{
+        ANBrowserViewController *strongSelf = weakSelf;
+        if ([strongSelf.delegate respondsToSelector:@selector(didPresentBrowserViewController:)]) {
+            [strongSelf.delegate didPresentBrowserViewController:strongSelf];
+        }
+        strongSelf.presenting = NO;
+        strongSelf.presented = YES;
+    }];
 }
 
 - (void)rootViewControllerShouldDismissPresentedViewController {
@@ -207,6 +226,12 @@
     if (self.presentingViewController) {
         controllerForDismissingModalView = self.presentingViewController;
     }
+    
+    if (self.activityPopover.popoverVisible) {
+        [self.activityPopover dismissPopoverAnimated:NO];
+    }
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     self.dismissing = YES;
     if ([self.delegate respondsToSelector:@selector(willDismissBrowserViewController:)]) {
@@ -370,16 +395,28 @@
     return _refreshIndicatorItem;
 }
 
+- (void)stopLoading {
+    [self.webView stopLoading];
+    [self updateLoadingStateForFinishLoad];
+}
+
 #pragma mark - SKStoreProductViewController
 
 - (void)loadAndPresentStoreControllerWithiTunesId:(NSNumber *)iTunesId {
     if (iTunesId) {
         self.iTunesStoreController = [[SKStoreProductViewController alloc] init];
         self.iTunesStoreController.delegate = self;
+        self.loading = YES;
+        [self loadingStateDidChangeFromOldValue:NO toNewValue:YES];
         __weak ANBrowserViewController *weakSelf = self;
         [self.iTunesStoreController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier:iTunesId}
                                               completionBlock:^(BOOL result, NSError *error) {
                                                   ANBrowserViewController *strongSelf = weakSelf;
+                                                  if (!strongSelf.loading) {
+                                                      return;
+                                                  }
+                                                  strongSelf.loading = NO;
+                                                  [strongSelf loadingStateDidChangeFromOldValue:YES toNewValue:NO];
                                                   if (result) {
                                                       if (strongSelf.isPresenting) {
                                                           self.postPresentingOperation = [NSBlockOperation blockOperationWithBlock:^{

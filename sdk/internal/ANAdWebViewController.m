@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,177 +13,338 @@
  limitations under the License.
  */
 
-#import "ANAdWebViewController.h"
+#define kANAdWebViewControllerWebKitEnabled 0
 
-#import "ANAdFetcher.h"
-#import "ANANJAMImplementation.h"
-#import "ANBrowserViewController.h"
+#if kANAdWebViewControllerWebKitEnabled
+#import <WebKit/WebKit.h>
+#endif 
+
+#import "ANAdWebViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANPBBuffer.h"
-#import "ANWebView.h"
+#import "ANMRAIDJavascriptUtil.h"
+#import "ANMRAIDOrientationProperties.h"
+#import "ANMRAIDExpandProperties.h"
+#import "ANMRAIDResizeProperties.h"
+#import "ANAdViewInternalDelegate.h"
+
 #import "NSString+ANCategory.h"
-#import "UIWebView+ANCategory.h"
 #import "NSTimer+ANCategory.h"
-#import "UIView+ANCategory.h"
+#import "UIWebView+ANCategory.h"
 
-#import <MediaPlayer/MediaPlayer.h>
-#import <MessageUI/MFMessageComposeViewController.h>
-#import "ANCalendarManager.h"
+NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
-@interface ANAdFetcher (ANMRAIDAdWebViewController)
-@property (nonatomic, readwrite, getter = isLoading) BOOL loading;
-@end
+#if kANAdWebViewControllerWebKitEnabled
+@interface ANAdWebViewController () <UIWebViewDelegate, WKNavigationDelegate>
+#else
+@interface ANAdWebViewController () <UIWebViewDelegate>
+#endif
 
-@interface ANMRAIDAdWebViewController () <ANCalendarManagerDelegate>
+@property (nonatomic, readwrite, strong) UIView *contentView;
+@property (nonatomic, readwrite, weak) UIWebView *legacyWebView;
+#if kANAdWebViewControllerWebKitEnabled
+@property (nonatomic, readwrite, weak) WKWebView *modernWebView;
+#endif
+@property (nonatomic, readwrite, assign) BOOL isMRAID;
+
 @property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
-@property (nonatomic, readwrite, assign) BOOL expanded;
-@property (nonatomic, readwrite, assign) BOOL resized;
+
 @property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
-@property (nonatomic, readwrite) BOOL isViewable;
-@property (nonatomic, readwrite) CGRect defaultPosition;
-@property (nonatomic, readwrite) CGRect currentPosition;
-@property (nonatomic, readwrite, assign) CGPoint resizeOffset;
-@property (nonatomic, readwrite, strong) NSMutableArray *pitbullCaptureURLQueue;
-@property (nonatomic, readwrite, strong) ANCalendarManager *calendarManager;
+@property (nonatomic, readwrite, assign, getter=isViewable) BOOL viewable;
+@property (nonatomic, readwrite, assign) CGRect defaultPosition;
+@property (nonatomic, readwrite, assign) CGRect currentPosition;
+@property (nonatomic, readwrite, assign) BOOL rapidTimerSet;
 
-- (void)delegateShouldOpenInBrowser:(NSURL *)URL;
-
-@property (nonatomic, readwrite, assign) BOOL isRegisteredForPitbullScreenCaptureNotifications;
+@property (nonatomic, readwrite, strong) ANAdWebViewControllerConfiguration *configuration;
 
 @end
 
-@implementation ANMRAIDAdWebViewController
+@implementation ANAdWebViewController
 
-- (void)delegateShouldOpenInBrowser:(NSURL *)URL {
-    if ([self.adFetcherDelegate respondsToSelector:@selector(adFetcher:adShouldOpenInBrowserWithURL:)]) {
-        [self.adFetcherDelegate adFetcher:self.adFetcher adShouldOpenInBrowserWithURL:URL];
-    }
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if (!self.completedFirstLoad) {
-		self.adFetcher.loading = NO;
-        
-        // If this is our first successful load, then send this to the delegate. Otherwise, ignore.
-        self.completedFirstLoad = YES;
-		
-		ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:webView];
-        [self.adFetcher processFinalResponse:response];
-
-        if (self.isMRAID) [self finishMRAIDLoad:webView];
-    }
-}
-
-- (void)finishMRAIDLoad:(UIWebView *)webView {
-    // set initial values for MRAID getters
-    [self setValuesForMRAIDSupportsFunction:webView];
-    [self setScreenSizeForMRAIDGetScreenSizeFunction:webView];
-    [self setMaxSizeForMRAIDGetMaxSizeFunction:webView];
-    
-    // setup rotation detection support
-    [self processDidChangeStatusBarOrientationNotifications];
-    
-    // setup viewability support
-    [self viewabilitySetup];
-    
-    [webView setPlacementType:[self.mraidDelegate adType]];
-    [webView fireStateChangeEvent:ANMRAIDStateDefault];
-    [webView fireReadyEvent];
-}
-
-- (void)viewabilitySetup {
-    self.isViewable = [self.webView an_isViewable];
-    [self.webView setIsViewable:self.isViewable];
-    ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
-    [self updatePosition];
-    if (CGRectEqualToRect(self.currentPosition, CGRectZero)) {
-        self.currentPosition = CGRectMake(CGPointZero.x, CGPointZero.y, self.webView.bounds.size.width, self.webView.bounds.size.height);
-        self.defaultPosition = self.currentPosition;
-        [self.webView fireNewCurrentPositionEvent:self.currentPosition];
-        ANLogDebug(@"%@ | current position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
-                   (int)self.currentPosition.origin.x, (int)self.currentPosition.origin.y,
-                   (int)self.currentPosition.size.width, (int)self.currentPosition.size.height);
-        [self.webView setDefaultPosition:self.defaultPosition];
-        ANLogDebug(@"%@ | default position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
-                   (int)self.defaultPosition.origin.x, (int)self.defaultPosition.origin.y,
-                   (int)self.defaultPosition.size.width, (int)self.defaultPosition.size.height);
-    }
-    
-    __weak ANMRAIDAdWebViewController *weakANMRAIDAdWebViewController = self;
-    self.viewabilityTimer = [NSTimer scheduledTimerWithTimeInterval:kAppNexusMRAIDCheckViewableFrequency
-                                                              block:^ {
-                                                                  ANMRAIDAdWebViewController *strongANMRAIDAdWebViewController = weakANMRAIDAdWebViewController;
-                                                                  [strongANMRAIDAdWebViewController checkViewability];
-                                                              }
-                                                            repeats:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationDidEnterBackground:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:[UIApplication sharedApplication]];
-}
-
-- (void)checkViewability {
-    BOOL isCurrentlyViewable = [self.webView an_isViewable];
-    if (self.isViewable != isCurrentlyViewable) {
-        self.isViewable = isCurrentlyViewable;
-        [self.webView setIsViewable:self.isViewable];
-        ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
-    }
-    [self updatePosition];
-}
-
-- (void)updatePosition {
-    if (self.isViewable) {
-        CGRect newPosition = [self webViewPositionInWindowCoordinatesForWebView:self.webView];
-        if (!CGRectEqualToRect(newPosition, self.currentPosition)) {
-            self.currentPosition = newPosition;
-            if (!self.expanded) {
-                if (self.resized) {
-                    self.defaultPosition = CGRectMake(self.currentPosition.origin.x - self.resizeOffset.x, self.currentPosition.origin.y - self.resizeOffset.y,
-                                                      self.defaultPosition.size.width, self.defaultPosition.size.height);
-                    [self.webView setDefaultPosition:self.defaultPosition];
-                } else if (!self.resized && (CGSizeEqualToSize(self.defaultPosition.size, self.currentPosition.size) ||
-                            CGRectEqualToRect(self.defaultPosition, CGRectZero))) {
-                    self.defaultPosition = self.currentPosition;
-                    [self.webView setDefaultPosition:self.defaultPosition];
-                }
-            }
-            [self.webView fireNewCurrentPositionEvent:self.currentPosition];
-            ANLogDebug(@"%@ | current position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
-                       (int)self.currentPosition.origin.x, (int)self.currentPosition.origin.y,
-                       (int)self.currentPosition.size.width, (int)self.currentPosition.size.height);
-            ANLogDebug(@"%@ | default position origin (%d, %d) size %dx%d", NSStringFromSelector(_cmd),
-                       (int)self.defaultPosition.origin.x, (int)self.defaultPosition.origin.y,
-                       (int)self.defaultPosition.size.width, (int)self.defaultPosition.size.height);
+- (instancetype)initWithConfiguration:(ANAdWebViewControllerConfiguration *)configuration {
+    if (self = [super init]) {
+        if (configuration) {
+            _configuration = [configuration copy];
+        } else {
+            _configuration = [[ANAdWebViewControllerConfiguration alloc] init];
         }
     }
+    return self;
 }
 
-- (void)applicationDidEnterBackground:(NSNotification *)notification {
-    self.isViewable = NO;
-    [self.webView setIsViewable:self.isViewable];
-    ANLogDebug(@"%@ | viewableChange: isViewable=%d", NSStringFromSelector(_cmd), self.isViewable);
+
+- (instancetype)initWithSize:(CGSize)size
+                         URL:(NSURL *)URL
+              webViewBaseURL:(NSURL *)baseURL {
+    self = [self initWithSize:size
+                          URL:URL
+               webViewBaseURL:baseURL
+                configuration:nil];
+    return self;
+
 }
 
-- (void)dealloc {
-    [self unregisterFromPitbullScreenCaptureNotifications];
-    [self.webView stopLoading];
-    self.webView.delegate = nil;
-    [self.viewabilityTimer invalidate];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (instancetype)initWithSize:(CGSize)size
+                         URL:(NSURL *)URL
+              webViewBaseURL:(NSURL *)baseURL
+               configuration:(ANAdWebViewControllerConfiguration *)configuration {
+    if (self = [self initWithConfiguration:configuration]) {
+#if kANAdWebViewControllerWebKitEnabled
+        if ([WKWebView class]) {
+            [self loadModernWebViewWithSize:size
+                                        URL:URL
+                                    baseURL:baseURL];
+        } else
+#endif
+        {
+            [self loadLegacyWebViewWithSize:size
+                                        URL:URL
+                                    baseURL:baseURL];
+        }
+    }
+    return self;
 }
 
-- (void)processDidChangeStatusBarOrientationNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleRotation:)
-                                                 name:UIApplicationDidChangeStatusBarOrientationNotification
-                                               object:[UIApplication sharedApplication]];
+- (instancetype)initWithSize:(CGSize)size
+                        HTML:(NSString *)html
+              webViewBaseURL:(NSURL *)baseURL {
+    self = [self initWithSize:size
+                         HTML:html
+               webViewBaseURL:baseURL
+                configuration:nil];
+    return self;
 }
 
-- (void)handleRotation:(NSNotification *)notification {
-    [self setMaxSizeForMRAIDGetMaxSizeFunction:self.webView];
-    [self setScreenSizeForMRAIDGetScreenSizeFunction:self.webView];
+- (instancetype)initWithSize:(CGSize)size
+                        HTML:(NSString *)html
+              webViewBaseURL:(NSURL *)baseURL
+               configuration:(ANAdWebViewControllerConfiguration *)configuration {
+    if (self = [self initWithConfiguration:configuration]) {
+        NSRange mraidJSRange = [html rangeOfString:kANWebViewControllerMraidJSFilename];
+        _isMRAID = (mraidJSRange.location != NSNotFound);
+        NSURL *base = baseURL;
+        if (!base) {
+            base = [NSURL URLWithString:AN_BASE_URL];
+        }
+#if kANAdWebViewControllerWebKitEnabled
+        if ([WKWebView class]) {
+            NSString *htmlToLoad = html;
+            if (!_configuration.scrollingEnabled) {
+                htmlToLoad = [[self class] prependViewportToHTML:html];
+            }
+            [self loadModernWebViewWithSize:size
+                                       HTML:htmlToLoad
+                                    baseURL:base];
+        } else
+#endif
+        {
+            NSString *htmlWithScripts = [[self class] prependScriptsToHTML:html];
+            [self loadLegacyWebViewWithSize:size
+                                       HTML:htmlWithScripts
+                                    baseURL:base];
+        }
+    }
+    return self;
+}
+
+#pragma mark - Scripts
+
++ (NSString *)mraidHTML {
+    return [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>",
+            [[self class] mraidJS]];
+}
+
++ (NSString *)anjamHTML {
+    return [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>",
+            [[self class] anjamJS]];
+}
+
++ (NSString *)mraidJS {
+    NSString *mraidPath = ANMRAIDBundlePath();
+    if (!mraidPath) {
+        return @"";
+    }
+    NSBundle *mraidBundle = [[NSBundle alloc] initWithPath:mraidPath];
+    NSData *data = [NSData dataWithContentsOfFile:[mraidBundle pathForResource:@"mraid" ofType:@"js"]];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
++ (NSString *)anjamJS {
+    NSString *sdkjsPath = ANPathForANResource(@"sdkjs", @"js");
+    NSString *anjamPath = ANPathForANResource(@"anjam", @"js");
+    if (!sdkjsPath || !anjamPath) {
+        return @"";
+    }
+    NSData *sdkjsData = [NSData dataWithContentsOfFile:sdkjsPath];
+    NSData *anjamData = [NSData dataWithContentsOfFile:anjamPath];
+    NSString *sdkjs = [[NSString alloc] initWithData:sdkjsData encoding:NSUTF8StringEncoding];
+    NSString *anjam  = [[NSString alloc] initWithData:anjamData encoding:NSUTF8StringEncoding];
+    return [NSString stringWithFormat:@"%@ %@", sdkjs, anjam];
+}
+
++ (NSString *)prependViewportToHTML:(NSString *)html {
+    return [NSString stringWithFormat:@"%@%@", @"<meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\">", html];
+}
+
++ (NSString *)prependScriptsToHTML:(NSString *)html {
+    return [NSString stringWithFormat:@"%@%@%@", [[self class] anjamHTML], [[self class] mraidHTML], html];
+}
+
+#pragma mark - UIWebView
+
++ (UIWebView *)defaultLegacyWebViewWithSize:(CGSize)size
+                              configuration:(ANAdWebViewControllerConfiguration *)configuration {
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    webView.backgroundColor = [UIColor clearColor];
+    webView.opaque = NO;
+    if (configuration.scrollingEnabled) {
+        webView.scrollView.scrollEnabled = YES;
+        webView.scrollView.bounces = YES;
+        webView.scalesPageToFit = YES;
+    } else {
+        webView.scrollView.scrollEnabled = NO;
+        webView.scrollView.bounces = NO;
+        webView.scalesPageToFit = NO;
+    }
+    webView.allowsInlineMediaPlayback = YES;
+    webView.mediaPlaybackRequiresUserAction = NO;
+    return webView;
+}
+
+- (void)loadLegacyWebViewWithSize:(CGSize)size
+                              URL:(NSURL *)URL
+                          baseURL:(NSURL *)baseURL {
+    UIWebView *webView = [[self class] defaultLegacyWebViewWithSize:size
+                                                      configuration:self.configuration];
+    webView.delegate = self;
+    self.legacyWebView = webView;
+    self.contentView = webView;
+    __weak UIWebView *weakWebView = webView;
+    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               UIWebView *strongWebView = weakWebView;
+                               if (strongWebView) {
+                                   NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                   if (html.length) {
+                                       NSString *htmlWithScripts = [[self class] prependScriptsToHTML:html];
+                                       [strongWebView loadHTMLString:htmlWithScripts baseURL:baseURL];
+                                   }
+                               }
+                           }];
+}
+
+- (void)loadLegacyWebViewWithSize:(CGSize)size
+                             HTML:(NSString *)html
+                          baseURL:(NSURL *)baseURL {
+    UIWebView *webView = [[self class] defaultLegacyWebViewWithSize:size
+                                                      configuration:self.configuration];
+    webView.delegate = self;
+    [webView loadHTMLString:html
+                    baseURL:baseURL];
+    self.legacyWebView = webView;
+    self.contentView = webView;
+}
+
+#pragma mark - WKWebView
+
+#if kANAdWebViewControllerWebKitEnabled
+
++ (WKWebView *)defaultModernWebViewWithSize:(CGSize)size
+                              configuration:(ANAdWebViewControllerConfiguration *)configuration {
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)
+                                            configuration:[[self class] defaultWebViewConfigurationWithConfiguration:configuration]];
+    webView.backgroundColor = [UIColor clearColor];
+    webView.opaque = NO;
+    if (configuration.scrollingEnabled) {
+        webView.scrollView.scrollEnabled = YES;
+        webView.scrollView.bounces = YES;
+    } else {
+        webView.scrollView.scrollEnabled = NO;
+        webView.scrollView.bounces = NO;
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:webView
+                                                        name:UIKeyboardWillChangeFrameNotification
+                                                      object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:webView
+                                                        name:UIKeyboardDidChangeFrameNotification
+                                                      object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:webView
+                                                        name:UIKeyboardWillShowNotification
+                                                      object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:webView
+                                                        name:UIKeyboardWillHideNotification
+                                                      object:nil];
+    }
+    return webView;
+}
+
+- (void)loadModernWebViewWithSize:(CGSize)size
+                              URL:(NSURL *)URL
+                          baseURL:(NSURL *)baseURL {
+    WKWebView *webView = [[self class] defaultModernWebViewWithSize:size
+                                                      configuration:self.configuration];
+    webView.navigationDelegate = self;
+    self.modernWebView = webView;
+    self.contentView = webView;
+    __weak WKWebView *weakWebView = webView;
+    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               WKWebView *strongWebView = weakWebView;
+                               if (strongWebView) {
+                                   NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                   if (html.length) {
+                                       [strongWebView loadHTMLString:html baseURL:baseURL];
+                                   }
+                               }
+                           }];
+}
+
+- (void)loadModernWebViewWithSize:(CGSize)size
+                             HTML:(NSString *)html
+                          baseURL:(NSURL *)baseURL {
+    WKWebView *webView = [[self class] defaultModernWebViewWithSize:size
+                                                      configuration:self.configuration];
+    webView.navigationDelegate = self;
+    [webView loadHTMLString:html
+                    baseURL:baseURL];
+    self.modernWebView = webView;
+    self.contentView = webView;
+}
+
++ (WKWebViewConfiguration *)defaultWebViewConfigurationWithConfiguration:(ANAdWebViewControllerConfiguration *)webViewControllerConfig {
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.allowsInlineMediaPlayback = YES;
+    configuration.mediaPlaybackRequiresUserAction = NO;
+    
+    WKUserContentController *controller = [[WKUserContentController alloc] init];
+    configuration.userContentController = controller;
+    
+    NSString *paddingJS = @"document.body.style.margin='0';document.body.style.padding = '0'";
+    
+    WKUserScript *mraidScript = [[WKUserScript alloc] initWithSource:[[self class] mraidJS]
+                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                    forMainFrameOnly:NO];
+    WKUserScript *anjamScript = [[WKUserScript alloc] initWithSource:[[self class] anjamJS]
+                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                    forMainFrameOnly:NO];
+    WKUserScript *paddingScript = [[WKUserScript alloc] initWithSource:paddingJS
+                                                         injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                      forMainFrameOnly:YES];
+    [controller addUserScript:anjamScript];
+    [controller addUserScript:mraidScript];
+    [controller addUserScript:paddingScript];
+    return configuration;
+}
+
+#endif
+
+# pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [webView removeDocumentPadding];
+    [self processWebViewDidFinishLoad];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -192,496 +353,450 @@
     NSString *scheme = [URL scheme];
     
     if ([scheme isEqualToString:@"anwebconsole"]) {
-        [self printConsoleLog:URL];
+        [self printConsoleLogWithURL:URL];
         return NO;
     }
-    
-    ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-    
-    if ([scheme isEqualToString:@"appnexuspb"]) {
-        if ([self.adFetcherDelegate respondsToSelector:@selector(transitionInProgress)]) {
-            if ([URL.host isEqualToString:@"capture"]) {
-                NSNumber *transitionInProgress = [self.adFetcherDelegate performSelector:@selector(transitionInProgress)];
-                if ([transitionInProgress boolValue] == YES) {
-                    if (![self.pitbullCaptureURLQueue count]) {
-                        [self registerForPitbullScreenCaptureNotifications];
-                    }
-                    [self.pitbullCaptureURLQueue addObject:URL];
-                    return NO;
-                }
-            } else if ([URL.host isEqualToString:@"web"]) {
-                [self dispatchPitbullScreenCaptureCalls];
-                [self unregisterFromPitbullScreenCaptureNotifications];
-            }
-        }
 
-        UIView *view = self.webView;
-        if ([self.adFetcherDelegate respondsToSelector:@selector(containerView)]) {
-            view = [self.adFetcherDelegate containerView];
-        }
-        [ANPBBuffer handleUrl:URL forView:view];
+    ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+
+    if ([scheme isEqualToString:@"appnexuspb"]) {
+        [self.pitbullDelegate handlePitbullURL:URL];
         return NO;
     }
-    
+
     if (self.completedFirstLoad) {
         if (hasHttpPrefix(scheme)) {
             if (self.isMRAID) {
-                /*
-                 The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab,
-                 or move away from the existing page. This does not apply for links coming from inside an iFrame unless
-                 window.open was explicitly written (even if these links are present inside an <a> tag). The assumption
-                 here is that MRAID creatives should be using mraid.open to break out of the ad.
-                 */
-                
-                if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]) {
-                    [self delegateShouldOpenInBrowser:URL];
-                } else {
-                    return YES; /* Let the link load in the webView */
+                if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] && self.configuration.navigationTriggersDefaultBrowser) {
+                    [self.browserDelegate openDefaultBrowserWithURL:URL];
+                    return NO;
                 }
             } else {
-                /*
-                 The mainDocumentURL will be equal to the URL whenever a URL has requested to load in a new window/tab,
-                 or move away from the existing page. This does not apply for links coming from inside an iFrame unless
-                 window.open was explicitly written (even if these links are present inside an <a> tag). However, the
-                 assumption here is that any user clicks should break out of the ad. This fix will catch both <a> tags
-                 embedded in iFrames as well as asynchronous loads which occur after the first instance of webViewDidFinishLoad:.
-                 Any creatives loading iFrames which desire clicks to continue displaying in the iFrame should be flagged as MRAID.
-                 */
-                
-                if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] || navigationType == UIWebViewNavigationTypeLinkClicked) {
-                    [self delegateShouldOpenInBrowser:URL];
-                } else {
-                    return YES; /* Let the link load in the webView */
+                if (([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] || navigationType == UIWebViewNavigationTypeLinkClicked)
+                    && self.configuration.navigationTriggersDefaultBrowser) {
+                    [self.browserDelegate openDefaultBrowserWithURL:URL];
+                    return NO;
                 }
             }
         } else if ([scheme isEqualToString:@"mraid"]) {
-            // Do MRAID actions
-            [self dispatchNativeMRAIDURL:URL forWebView:webView];
+            [self handleMRAIDURL:URL];
+            return NO;
         } else if ([scheme isEqualToString:@"anjam"]) {
-            [ANANJAMImplementation handleUrl:URL forWebView:webView forDelegate:self.adFetcherDelegate];
-        } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
-            [[UIApplication sharedApplication] openURL:URL];
+            [self.anjamDelegate handleANJAMURL:URL];
+            return NO;
         } else {
-            ANLogWarn(@"opening_url_failed %@", URL);
+            if (self.configuration.navigationTriggersDefaultBrowser) {
+                [self.browserDelegate openDefaultBrowserWithURL:URL];
+                return NO;
+            }
         }
-        
-        return NO;
-	} else if ([scheme isEqualToString:@"mraid"] && [[URL host] isEqualToString:@"enable"]) {
-        [self dispatchNativeMRAIDURL:URL forWebView:webView];
+    } else if ([scheme isEqualToString:@"mraid"] && [[URL host] isEqualToString:@"enable"]) {
+        [self handleMRAIDURL:URL];
         return NO;
     }
     
     return YES;
 }
 
-- (void)setMaxSizeForMRAIDGetMaxSizeFunction:(UIWebView*) webView{
-    UIApplication *application = [UIApplication sharedApplication];
-    BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([application statusBarOrientation]);
-    CGSize screenSize = ANPortraitScreenBounds().size;
-    int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
-    int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
-    
-    if (!application.statusBarHidden) {
-        orientedHeight -= MIN(application.statusBarFrame.size.height, application.statusBarFrame.size.width);
-    }
+#pragma mark - WKNavigationDelegate
 
-    [webView setMaxSize:CGSizeMake(orientedWidth, orientedHeight)];
+#if kANAdWebViewControllerWebKitEnabled
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [self processWebViewDidFinishLoad];
 }
 
-- (void)setScreenSizeForMRAIDGetScreenSizeFunction:(UIWebView*)webView{
-    
-    BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
-    CGSize screenSize = ANPortraitScreenBounds().size;
-    int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
-    int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
-    
-    [webView setScreenSize:CGSizeMake(orientedWidth, orientedHeight)];
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    ANLogDebug(@"%@ %@", NSStringFromSelector(_cmd), error);
 }
 
-- (CGRect)webViewPositionInWindowCoordinatesForWebView:(UIWebView *)webView {
-    CGRect webViewAbsoluteFrame = [webView convertRect:webView.bounds toView:nil];
-    CGRect bounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(webViewAbsoluteFrame);
-    UIApplication *application = [UIApplication sharedApplication];
-    if (!application.statusBarHidden) {
-        bounds.origin.y -= MIN(application.statusBarFrame.size.height, application.statusBarFrame.size.width);
-    }
-    return bounds;
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    ANLogDebug(@"%@ %@", NSStringFromSelector(_cmd), error);
 }
 
-- (void)setValuesForMRAIDSupportsFunction:(UIWebView*)webView{
-    BOOL sms = NO;
-    BOOL tel = NO;
-    BOOL cal = NO;
-    BOOL inline_video = YES;
-    BOOL store_picture = YES;
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURL *URL = navigationAction.request.URL;
+    NSString *URLScheme = URL.scheme;
     
-#ifdef __IPHONE_4_0
-    //SMS
-    sms = [MFMessageComposeViewController canSendText];
-#else
-    sms = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sms://"]];
-#endif
-    //TEL
-    tel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
-    
-    //CAL
-    EKEventStore *store = [[EKEventStore alloc] init];
-    if ([store respondsToSelector:@selector(requestAccessToEntityType:completion:)]) {
-        cal = YES;
-    }
-    
-    [webView setSupports:@"sms" isSupported:sms];
-    [webView setSupports:@"tel" isSupported:tel];
-    [webView setSupports:@"calendar" isSupported:cal];
-    [webView setSupports:@"inlineVideo" isSupported:inline_video];
-    [webView setSupports:@"storePicture" isSupported:store_picture];
-}
-
-- (void)dispatchNativeMRAIDURL:(NSURL *)mraidURL forWebView:(UIWebView *)webView {
-    NSString *mraidCommand = [mraidURL host];
-    NSString *query = [mraidURL query];
-    NSDictionary *queryComponents = [query queryComponents];
-
-    if ([mraidCommand isEqualToString:@"expand"]) {
-        // hidden state handled by mraid.js
-        [self.adFetcherDelegate adWasClicked];
-        [self expandAction:webView queryComponents:queryComponents];
-    }
-    else if ([mraidCommand isEqualToString:@"close"]) {
-        // hidden state handled by mraid.js
-        [self closeAction:self];
-    } else if([mraidCommand isEqualToString:@"resize"]) {
-        [self.adFetcherDelegate adWasClicked];
-        [self resizeAction:webView queryComponents:queryComponents];
-    } else if([mraidCommand isEqualToString:@"createCalendarEvent"]) {
-        [self.adFetcherDelegate adWasClicked];
-        NSString *w3cEventJson = queryComponents[@"p"];
-        [self createCalendarEventFromW3CCompliantJSONObject:w3cEventJson];
-    } else if([mraidCommand isEqualToString:@"playVideo"]) {
-        [self.adFetcherDelegate adWasClicked];
-        [self playVideo:queryComponents];
-    } else if([mraidCommand isEqualToString:@"storePicture"]) {
-        [self.adFetcherDelegate adWasClicked];
-        NSString *uri = queryComponents[@"uri"];
-        [self storePicture:uri];
-    } else if([mraidCommand isEqualToString:@"setOrientationProperties"]) {
-        [self setOrientationProperties:queryComponents];
-    } else if([mraidCommand isEqualToString:@"open"]){
-        NSString *uri = queryComponents[@"uri"];
-        [self open:uri];
-    } else if ([mraidCommand isEqualToString:@"enable"]) {
-        if (self.isMRAID) return;
-        self.isMRAID = YES;
-        if (self.completedFirstLoad) [self finishMRAIDLoad:webView];
-    }
-}
-
-- (void)open:(NSString *)url {
-    if ([url length] > 0) {
-        [self delegateShouldOpenInBrowser:[NSURL URLWithString:url]];
-    }
-}
-
-- (ANMRAIDCustomClosePosition)getCustomClosePositionFromString:(NSString *)value {
-    // default value is top-right
-    ANMRAIDCustomClosePosition position = ANMRAIDTopRight;
-    if ([value isEqualToString:@"top-left"]) {
-        position = ANMRAIDTopLeft;
-    } else if ([value isEqualToString:@"top-center"]) {
-        position = ANMRAIDTopCenter;
-    } else if ([value isEqualToString:@"top-right"]) {
-        position = ANMRAIDTopRight;
-    } else if ([value isEqualToString:@"center"]) {
-        position = ANMRAIDCenter;
-    } else if ([value isEqualToString:@"bottom-left"]) {
-        position = ANMRAIDBottomLeft;
-    } else if ([value isEqualToString:@"bottom-center"]) {
-        position = ANMRAIDBottomCenter;
-    } else if ([value isEqualToString:@"bottom-right"]) {
-        position = ANMRAIDBottomRight;
-    }
-    
-    return position;
-}
-
-- (IBAction)closeAction:(id)sender {
-    if (self.expanded || self.resized) {
-        [self.mraidDelegate adShouldResetToDefault];
-        
-        [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
-        self.expanded = NO;
-        self.resized = NO;
-    }
-    else {
-        // Clear the ad out
-        [self.webView setHidden:YES animated:YES];
-        self.webView = nil;
-    }
-}
-
-- (void)setExpanded:(BOOL)expanded {
-    if (expanded != _expanded) {
-        _expanded = expanded;
-        if (_expanded) {
-            [self.adFetcher stopAd];
-        }
-        else {
-            [self.adFetcher setupAutoRefreshTimerIfNecessary];
-            [self.adFetcher startAutoRefreshTimer];
-        }
-    }
-}
-
-- (void)expandAction:(UIWebView *)webView queryComponents:(NSDictionary *)queryComponents {
-    NSInteger expandedHeight = [queryComponents[@"h"] integerValue];
-    NSInteger expandedWidth = [queryComponents[@"w"] integerValue];
-    NSString *useCustomClose = queryComponents[@"useCustomClose"];
-    NSString *url = queryComponents[@"url"];
-
-    [self setOrientationProperties:queryComponents];
-    
-    BOOL needDefaultCloseButton = ![useCustomClose isEqualToString:@"true"];
-    UIButton *closeButton = nil;
-    if (needDefaultCloseButton) {
-        closeButton = [self expandCloseButton];
-    } else {
-        closeButton = [self expandCloseButtonForCustomClose];
-    }
-    
-    if (!closeButton) {
-        ANLogError(@"Terminating MRAID expand due to invalid close button.");
+    if ([URLScheme isEqualToString:@"anwebconsole"]) {
+        [self printConsoleLogWithURL:URL];
+        decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
-
-    [self.mraidDelegate adShouldExpandToFrame:CGRectMake(0, 0, expandedWidth, expandedHeight)
-                                  closeButton:closeButton];
     
-    self.expanded = YES;
-    
-    if ([url length] > 0) {
-        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-    }
-}
-
-- (void)resizeAction:(UIWebView *)webView queryComponents:(NSDictionary *)queryComponents {
-    int w = [queryComponents[@"w"] intValue];
-    int h = [queryComponents[@"h"] intValue];
-    int offsetX = [queryComponents[@"offset_x"] intValue];
-    int offsetY = [queryComponents[@"offset_y"] intValue];
-    NSString* customClosePosition = queryComponents[@"custom_close_position"];
-    BOOL allowOffscreen = [queryComponents[@"allow_offscreen"] boolValue];
-    
-    ANMRAIDCustomClosePosition closePosition = [self getCustomClosePositionFromString:customClosePosition];
-    
-    [self.mraidDelegate adShouldResizeToFrame:CGRectMake(offsetX, offsetY, w, h)
-                               allowOffscreen:allowOffscreen
-                                  closeButton:[self resizeCloseButton]
-                                closePosition:closePosition];
-    self.resized = YES;
-}
-
-- (void)playVideo:(NSDictionary *)queryComponents {
-    NSString *uri = queryComponents[@"uri"];
-    NSURL *url = [NSURL URLWithString:uri];
-    
-    MPMoviePlayerViewController *moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    moviePlayerViewController.moviePlayer.fullscreen = YES;
-    moviePlayerViewController.moviePlayer.shouldAutoplay = YES;
-    moviePlayerViewController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-    moviePlayerViewController.moviePlayer.view.frame = ANPortraitScreenBounds();
-    moviePlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayerDidFinish:)
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:moviePlayerViewController.moviePlayer];
-    
-    [moviePlayerViewController.moviePlayer prepareToPlay];
-    [[self.mraidDelegate displayController] presentMoviePlayerViewControllerAnimated:moviePlayerViewController];
-    [moviePlayerViewController.moviePlayer play];
-}
-
-- (void)moviePlayerDidFinish:(NSNotification *)notification
-{
-    ANLogInfo(@"Movie Player finished: %@", notification);
-}
-
-- (void)createCalendarEventFromW3CCompliantJSONObject:(NSString *)json {
-    NSError *error;
-    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding]
-                                                             options:kNilOptions
-                                                               error:&error];
-    if (!error) {
-        self.calendarManager = [[ANCalendarManager alloc] initWithCalendarDictionary:jsonDict
-                                                                            delegate:self];
-    }
-}
-
-- (UIViewController *)rootViewControllerForPresentationForCalendarManager:(ANCalendarManager *)calendarManager {
-    return [self.mraidDelegate displayController];
-}
-
-- (void)setOrientationProperties:(NSDictionary *)queryComponents
-{
-    NSString *allow = queryComponents[@"allow_orientation_change"];
-    NSString *forcedOrientation = queryComponents[@"force_orientation"];
-    
-    ANMRAIDOrientation mraidOrientation = ANMRAIDOrientationNone;
-    if ([forcedOrientation isEqualToString:@"none"]) {
-        mraidOrientation = ANMRAIDOrientationNone;
-    } else if ([forcedOrientation isEqualToString:@"portrait"]) {
-        mraidOrientation = ANMRAIDOrientationPortrait;
-    } else if ([forcedOrientation isEqualToString:@"landscape"]) {
-        mraidOrientation = ANMRAIDOrientationLandscape;
+    if ([URLScheme isEqualToString:@"appnexuspb"]) {
+        [self.pitbullDelegate handlePitbullURL:URL];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
     
-    [self.mraidDelegate allowOrientationChange:[allow boolValue]
-                         withForcedOrientation:mraidOrientation];
-}
-
-- (void)storePicture:(NSString*)uri
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url = [NSURL URLWithString:uri];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        if(data){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIImage *image = [[UIImage alloc] initWithData:data];
-                if (image) {
-                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-                }
-            });
+    if (self.completedFirstLoad) {
+        if ([URLScheme isEqualToString:@"mraid"]) {
+            [self handleMRAIDURL:URL];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        } else if ([URLScheme isEqualToString:@"anjam"]) {
+            [self.anjamDelegate handleANJAMURL:URL];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        } else {
+            if (self.configuration.navigationTriggersDefaultBrowser) {
+                [self.browserDelegate openDefaultBrowserWithURL:URL];
+                decisionHandler(WKNavigationActionPolicyCancel);
+                return;
+            }
         }
-    });
-    
-}
-
-- (void)printConsoleLog:(NSURL *)URL {
-    NSString *decodedString = [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    ANLogDebug(@"%@", decodedString);
-}
-
-// expand close button for non-custom close is provided by SDK
-- (UIButton *)expandCloseButton {
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton addTarget:self
-                    action:@selector(closeAction:)
-          forControlEvents:UIControlEventTouchUpInside];
-    
-    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"interstitial_closebox", @"png")];
-    if (!closeboxImage) {
-        ANLogError(@"Could not create MRAID expand close button.");
-        return nil;
-    }
-    [closeButton setImage:closeboxImage
-                 forState:UIControlStateNormal];
-    
-    UIImage *closeboxDown = [UIImage imageWithContentsOfFile:ANPathForANResource(@"interstitial_closebox_down", @"png")];
-    if (closeboxDown) {
-        [closeButton setImage:closeboxDown
-                     forState:UIControlStateHighlighted];
+    } else {
+        if ([URLScheme isEqualToString:@"mraid"]) {
+            if ([URL.host isEqualToString:@"enable"]) {
+                [self handleMRAIDURL:URL];
+            }
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        } else if ([URLScheme isEqualToString:@"anjam"]) {
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
     }
     
-    // setFrame here in order to pass the size dimensions along
-    [closeButton setFrame:CGRectMake(0, 0, closeboxImage.size.width, closeboxImage.size.height)];
-    return closeButton;
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (UIButton *)expandCloseButtonForCustomClose {
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton addTarget:self
-                    action:@selector(closeAction:)
-          forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setFrame:CGRectMake(0, 0, 50.0, 50.0)];
-    return closeButton;
+#endif
+
+# pragma mark - MRAID
+
+- (void)processWebViewDidFinishLoad {
+    if (!self.completedFirstLoad) {
+        self.completedFirstLoad = YES;
+        [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
+        if (self.isMRAID) {
+            [self finishMRAIDLoad];
+        }
+    }
 }
 
-// resize close button is a transparent region
-- (UIButton *)resizeCloseButton {
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton addTarget:self
-                    action:@selector(closeAction:)
-          forControlEvents:UIControlEventTouchUpInside];
-    return closeButton;
+- (void)finishMRAIDLoad {
+    [self fireJavaScript:[ANMRAIDJavascriptUtil feature:@"sms"
+                                            isSupported:[ANMRAIDUtil supportsSMS]]];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil feature:@"tel"
+                                            isSupported:[ANMRAIDUtil supportsTel]]];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil feature:@"calendar"
+                                            isSupported:[ANMRAIDUtil supportsCalendar]]];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil feature:@"inlineVideo"
+                                            isSupported:[ANMRAIDUtil supportsInlineVideo]]];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil feature:@"storePicture"
+                                            isSupported:[ANMRAIDUtil supportsStorePicture]]];
+    
+    [self updateWebViewOnOrientation];
+    [self updateWebViewOnPositionAndVisibilityStatus];
+    if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized) {
+        [self setupRapidTimerForCheckingPositionAndViewability];
+        self.rapidTimerSet = YES;
+    } else {
+        [self setupTimerForCheckingPositionAndVisibility];
+    }
+    [self setupApplicationDidEnterBackgroundNotification];
+    [self setupOrientationChangeNotification];
+    
+    if ([self.adViewDelegate adType]) {
+        [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:[self.adViewDelegate adType]]];
+    }
+    [self fireJavaScript:[ANMRAIDJavascriptUtil stateChange:self.configuration.initialMRAIDState]];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil readyEvent]];
 }
 
-#pragma mark ANMRAIDEventReceiver
+- (void)setupApplicationDidEnterBackgroundNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleApplicationDidEnterBackground:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:[UIApplication sharedApplication]];
+}
+
+- (void)handleApplicationDidEnterBackground:(NSNotification *)notification {
+    self.viewable = NO;
+    [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:NO]];
+}
+
+- (void)setupOrientationChangeNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleOrientationChange:)
+                                                 name:UIApplicationDidChangeStatusBarOrientationNotification
+                                               object:[UIApplication sharedApplication]];
+}
+
+- (void)handleOrientationChange:(NSNotification *)notification {
+    [self updateWebViewOnOrientation];
+}
+
+- (void)setupTimerForCheckingPositionAndVisibility {
+    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
+    if (self.viewabilityTimer) {
+        [self.viewabilityTimer invalidate];
+    }
+    __weak ANAdWebViewController *weakSelf = self;
+    self.viewabilityTimer = [NSTimer scheduledTimerWithTimeInterval:kAppNexusMRAIDCheckViewableFrequency
+                                                              block:^ {
+                                                                  ANAdWebViewController *strongSelf = weakSelf;
+                                                                  [strongSelf updateWebViewOnPositionAndVisibilityStatus];
+                                                              }
+                                                            repeats:YES];
+}
+
+- (void)setupRapidTimerForCheckingPositionAndViewability {
+    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
+    if (self.viewabilityTimer) {
+        [self.viewabilityTimer invalidate];
+    }
+    __weak ANAdWebViewController *weakSelf = self;
+    self.viewabilityTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                              block:^ {
+                                                                  ANAdWebViewController *strongSelf = weakSelf;
+                                                                  [strongSelf updateWebViewOnPositionAndVisibilityStatus];
+                                                              }
+                                                            repeats:YES];
+}
+
+- (void)updateWebViewOnPositionAndVisibilityStatus {
+    CGRect updatedDefaultPosition = [self.mraidDelegate defaultPosition];
+    if (!CGRectEqualToRect(self.defaultPosition, updatedDefaultPosition)) {
+        ANLogDebug(@"Default position change: %@", NSStringFromCGRect(updatedDefaultPosition));
+        self.defaultPosition = updatedDefaultPosition;
+        [self fireJavaScript:[ANMRAIDJavascriptUtil defaultPosition:self.defaultPosition]];
+    }
+    
+    CGRect updatedCurrentPosition = [self.mraidDelegate currentPosition];
+    if (!CGRectEqualToRect(self.currentPosition, updatedCurrentPosition)) {
+        ANLogDebug(@"Current position change: %@", NSStringFromCGRect(updatedCurrentPosition));
+        self.currentPosition = updatedCurrentPosition;
+        [self fireJavaScript:[ANMRAIDJavascriptUtil currentPosition:self.currentPosition]];
+    }
+    
+    BOOL isCurrentlyViewable = [self.mraidDelegate isViewable];
+    if (self.isViewable != isCurrentlyViewable) {
+        ANLogDebug(@"Viewable change: %d", isCurrentlyViewable);
+        self.viewable = isCurrentlyViewable;
+        [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:self.isViewable]];
+    }
+}
+
+- (void)updateWebViewOnOrientation {
+    [self fireJavaScript:[ANMRAIDJavascriptUtil screenSize:[ANMRAIDUtil screenSize]]];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil maxSize:[ANMRAIDUtil maxSize]]];
+}
+
+- (void)fireJavaScript:(NSString *)javascript {
+#if kANAdWebViewControllerWebKitEnabled
+    if (self.modernWebView) {
+        [self.modernWebView evaluateJavaScript:javascript completionHandler:nil];
+    } else
+#endif
+    {
+        [self.legacyWebView stringByEvaluatingJavaScriptFromString:javascript];
+    }
+}
+
+- (void)stopWebViewLoad {
+#if kANAdWebViewControllerWebKitEnabled
+    if (self.modernWebView) {
+        [self.modernWebView stopLoading];
+        self.modernWebView.navigationDelegate = nil;
+    } else
+#endif
+    {
+        [self.legacyWebView stopLoading];
+        self.legacyWebView.delegate = nil;
+    }
+    self.contentView = nil;
+}
+
+- (void)handleMRAIDURL:(NSURL *)URL {
+    ANLogDebug(@"Received MRAID query: %@", URL);
+    
+    NSString *mraidCommand = [URL host];
+    NSString *query = [URL query];
+    NSDictionary *queryComponents = [query queryComponents];
+    
+    ANMRAIDAction action = [ANMRAIDUtil actionForCommand:mraidCommand];
+    switch (action) {
+        case ANMRAIDActionUnknown:
+            ANLogDebug(@"Unknown MRAID action requested: %@", mraidCommand);
+            return;
+        case ANMRAIDActionExpand:
+            [self.adViewDelegate adWasClicked];
+            [self forwardExpandRequestWithQueryComponents:queryComponents];
+            break;
+        case ANMRAIDActionClose:
+            [self forwardCloseAction];
+            break;
+        case ANMRAIDActionResize:
+            [self.adViewDelegate adWasClicked];
+            [self forwardResizeRequestWithQueryComponents:queryComponents];
+            break;
+        case ANMRAIDActionCreateCalendarEvent: {
+            [self.adViewDelegate adWasClicked];
+            NSString *w3cEventJson = [queryComponents[@"p"] description];
+            [self forwardCalendarEventRequestWithW3CJSONString:w3cEventJson];
+            break;
+        }
+        case ANMRAIDActionPlayVideo: {
+            [self.adViewDelegate adWasClicked];
+            NSString *uri = [queryComponents[@"uri"] description];
+            [self.mraidDelegate adShouldPlayVideoWithUri:uri];
+            break;
+        }
+        case ANMRAIDActionStorePicture: {
+            [self.adViewDelegate adWasClicked];
+            NSString *uri = [queryComponents[@"uri"] description];
+            [self.mraidDelegate adShouldSavePictureWithUri:uri];
+            break;
+        }
+        case ANMRAIDActionSetOrientationProperties:
+            [self forwardOrientationPropertiesWithQueryComponents:queryComponents];
+            break;
+        case ANMRAIDActionOpenURI: {
+            NSString *uri = [queryComponents[@"uri"] description];
+            NSURL *URL = [NSURL URLWithString:uri];
+            if (uri.length && URL) {
+                [self.browserDelegate openDefaultBrowserWithURL:URL];
+            }
+            break;
+        }
+        case ANMRAIDActionEnable:
+            if (self.isMRAID) return;
+            self.isMRAID = YES;
+            if (self.completedFirstLoad) [self finishMRAIDLoad];
+            break;
+        default:
+            ANLogError(@"Known but unhandled MRAID action: %@", mraidCommand);
+            break;
+    }
+}
+
+- (void)forwardCloseAction {
+    [self.mraidDelegate adShouldClose];
+}
+
+- (void)forwardResizeRequestWithQueryComponents:(NSDictionary *)queryComponents {
+    ANMRAIDResizeProperties *resizeProperties = [ANMRAIDResizeProperties resizePropertiesFromQueryComponents:queryComponents];
+    [self.mraidDelegate adShouldAttemptResizeWithResizeProperties:resizeProperties];
+}
+
+- (void)forwardExpandRequestWithQueryComponents:(NSDictionary *)queryComponents  {
+    if (!self.rapidTimerSet) {
+        [self setupRapidTimerForCheckingPositionAndViewability];
+        self.rapidTimerSet = YES;
+    }
+    ANMRAIDExpandProperties *expandProperties = [ANMRAIDExpandProperties expandPropertiesFromQueryComponents:queryComponents];
+    [self forwardOrientationPropertiesWithQueryComponents:queryComponents];
+    [self.mraidDelegate adShouldExpandWithExpandProperties:expandProperties];
+}
+
+- (void)forwardOrientationPropertiesWithQueryComponents:(NSDictionary *)queryComponents {
+    ANMRAIDOrientationProperties *orientationProperties = [ANMRAIDOrientationProperties orientationPropertiesFromQueryComponents:queryComponents];
+    [self.mraidDelegate adShouldSetOrientationProperties:orientationProperties];
+}
+
+- (void)forwardCalendarEventRequestWithW3CJSONString:(NSString *)json {
+    NSError *error;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding]
+                                                    options:kNilOptions
+                                                      error:&error];
+    if (!error && [jsonObject isKindOfClass:[NSDictionary class]]) {
+        [self.mraidDelegate adShouldOpenCalendarWithCalendarDict:(NSDictionary *)jsonObject];
+    }
+}
+
+- (void)updatePlacementType:(NSString *)placementType {
+    if (self.isMRAID) {
+        [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:placementType]];
+    }
+}
+
+#pragma mark - MRAID Callbacks
 
 - (void)adDidFinishExpand {
-    [self.webView fireStateChangeEvent:ANMRAIDStateExpanded];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil stateChange:ANMRAIDStateExpanded]];
 }
 
-- (void)adDidFinishResize:(BOOL)success errorString:(NSString *)errorString {
+- (void)adDidFinishResize:(BOOL)success
+              errorString:(NSString *)errorString
+                isResized:(BOOL)isResized {
     if (success) {
-        [self.webView fireStateChangeEvent:ANMRAIDStateResized];
+        [self fireJavaScript:[ANMRAIDJavascriptUtil stateChange:ANMRAIDStateResized]];
     } else {
-        self.resized = NO;
-        [self.webView fireErrorEvent:errorString
-                            function:@"mraid.resize()"];
+        [self fireJavaScript:[ANMRAIDJavascriptUtil error:errorString
+                                              forFunction:@"mraid.resize()"]];
     }
 }
 
 - (void)adDidResetToDefault {
-    [self.webView fireStateChangeEvent:ANMRAIDStateDefault];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil stateChange:ANMRAIDStateDefault]];
 }
 
-- (void)adDidChangeResizeOffset:(CGPoint)offset {
-    self.resizeOffset = offset;
+- (void)adDidHide {
+    [self fireJavaScript:[ANMRAIDJavascriptUtil stateChange:ANMRAIDStateHidden]];
+    [self stopWebViewLoad];
 }
 
-#pragma mark - Pitbull Image Capture Transition Adjustments
+- (void)adDidFailCalendarEditWithErrorString:(NSString *)errorString {
+    [self fireJavaScript:[ANMRAIDJavascriptUtil error:errorString
+                                          forFunction:@"mraid.createCalendarEvent()"]];
+}
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if (object == self.adFetcherDelegate) {
-        NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
-        if ([transitionInProgress boolValue] == NO) {
-            [self unregisterFromPitbullScreenCaptureNotifications];
-            [self dispatchPitbullScreenCaptureCalls];
-        }
+- (void)adDidFailPhotoSaveWithErrorString:(NSString *)errorString {
+    [self fireJavaScript:[ANMRAIDJavascriptUtil error:errorString
+                                          forFunction:@"mraid.storePicture()"]];
+}
+
+#pragma mark - ANWebConsole
+
+- (void)printConsoleLogWithURL:(NSURL *)URL {
+    NSString *decodedString = [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    ANLogDebug(@"%@", decodedString);
+}
+
+- (void)dealloc {
+    [self stopWebViewLoad];
+    [self.viewabilityTimer invalidate];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - ANAdViewInternalDelegate
+
+- (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate {
+    _adViewDelegate = adViewDelegate;
+    if (_adViewDelegate) {
+        [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:[_adViewDelegate adType]]];
     }
-}
-
-- (void)registerForPitbullScreenCaptureNotifications {
-    if (!self.isRegisteredForPitbullScreenCaptureNotifications) {
-        NSObject *object = self.adFetcherDelegate;
-        [object addObserver:self
-                 forKeyPath:@"transitionInProgress"
-                    options:NSKeyValueObservingOptionNew
-                    context:nil];
-        self.isRegisteredForPitbullScreenCaptureNotifications = YES;
-    }
-}
-
-- (void)unregisterFromPitbullScreenCaptureNotifications {
-    NSObject *bannerObject = self.adFetcherDelegate;
-    if (self.isRegisteredForPitbullScreenCaptureNotifications) {
-        @try {
-            [bannerObject removeObserver:self
-                              forKeyPath:@"transitionInProgress"];
-        }
-        @catch (NSException * __unused exception) {}
-        self.isRegisteredForPitbullScreenCaptureNotifications = NO;
-    }
-}
-
-- (void)dispatchPitbullScreenCaptureCalls {
-    for (NSURL *URL in self.pitbullCaptureURLQueue) {
-        UIView *view = self.webView;
-        if ([self.adFetcherDelegate respondsToSelector:@selector(containerView)]) {
-            view = [self.adFetcherDelegate containerView];
-        }
-        [ANPBBuffer handleUrl:URL forView:view];
-    }
-    self.pitbullCaptureURLQueue = nil;
-}
-
-- (NSMutableArray *)pitbullCaptureURLQueue {
-    if (!_pitbullCaptureURLQueue) _pitbullCaptureURLQueue = [[NSMutableArray alloc] initWithCapacity:5];
-    return _pitbullCaptureURLQueue;
 }
 
 @end
 
+#pragma mark - ANAdWebViewControllerConfiguration Implementation
+
+@implementation ANAdWebViewControllerConfiguration
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _scrollingEnabled = NO;
+        _navigationTriggersDefaultBrowser = YES;
+        _initialMRAIDState = ANMRAIDStateDefault;
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    ANAdWebViewControllerConfiguration *configurationCopy = [[ANAdWebViewControllerConfiguration alloc] init];
+    configurationCopy.scrollingEnabled = self.scrollingEnabled;
+    configurationCopy.navigationTriggersDefaultBrowser = self.navigationTriggersDefaultBrowser;
+    configurationCopy.initialMRAIDState = self.initialMRAIDState;
+    return configurationCopy;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"(scrollingEnabled: %d, navigationTriggersDefaultBrowser: %d, initialMRAIDState: %lu",
+            self.scrollingEnabled, self.navigationTriggersDefaultBrowser, (long unsigned)self.initialMRAIDState];
+}
+
+@end

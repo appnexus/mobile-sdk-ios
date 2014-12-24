@@ -156,13 +156,10 @@
  break;
  case 'default':
  case 'resized':
- if((expand_properties.height !== -1 && expand_properties.width !== -1) && (expand_properties.height < current_position.height || expand_properties.width < current_position.width)){
- mraid.util.errorEvent("Can't expand to a size smaller than the default size.", "mraid.expand()");
- return;
- }
+ 
  mraid.util.nativeCall("mraid://expand/"
-                       +"?w="+mraid.getExpandProperties().width
-                       +"&h="+mraid.getExpandProperties().height
+                       +"?w=-1"
+                       +"&h=-1"
                        +"&useCustomClose="+mraid.getExpandProperties().useCustomClose
                        +(url!=null ? "&url="+url:"")
                        +"&allow_orientation_change="+orientation_properties.allowOrientationChange
@@ -183,19 +180,15 @@
  mraid.util.errorEvent("Invalid expandProperties. Retaining default values.", "mraid.setExpandProperties()");
  return;
  }
- if (typeof properties.width !== "number") {
- properties.width = -1;
+ if (typeof properties.width === "number") {
+ expand_properties.width = properties.width;
  }
- if (typeof properties.height !== "number") {
- properties.height = -1;
+ if (typeof properties.height === "number") {
+ expand_properties.height = properties.height;
  }
- if (properties.useCustomClose === true) {
- properties.useCustomClose = true;
- } else {
- properties.useCustomClose = false;
+ if (typeof properties.useCustomClose === "boolean") {
+ expand_properties.useCustomClose = properties.useCustomClose;
  }
- properties.isModal = true;
- expand_properties = properties;
  if ((typeof window.sdkjs) !== "undefined") {
  window.sdkjs.mraidUpdateProperty(MRAID_EXPAND_PROPERTIES, expand_properties);
  }
@@ -272,17 +265,20 @@
  // Takes an object... {allowOrientationChange:true, forceOrientation:"none"};
  mraid.setOrientationProperties=function(properties){
  if (typeof properties === "undefined") {
- mraid.util.errorEvent("Invalid orientationProperties. Setting to default properties", "mraid.setOrientationProperties()");
- properties={allowOrientationChange:true, forceOrientation:"none"};
+ mraid.util.errorEvent("Invalid orientationProperties.", "mraid.setOrientationProperties()");
+ return;
  } else {
- if(properties.forceOrientation!=='portrait' && properties.forceOrientation!=='landscape' && properties.forceOrientation!=='none' ){
+ 
+ if(properties.forceOrientation ==='portrait' || properties.forceOrientation ==='landscape' || properties.forceOrientation ==='none' ){
+ orientation_properties.forceOrientation = properties.forceOrientation;
+ } else {
  mraid.util.errorEvent("Invalid orientationProperties forceOrientation property", "mraid.setOrientationProperties()");
- properties.forceOrientation='none';
  }
  
- if(typeof properties.allowOrientationChange !== "boolean"){
+ if(typeof properties.allowOrientationChange === "boolean"){
+ orientation_properties.allowOrientationChange=orientation_properties.allowOrientationChange;
+ } else {
  mraid.util.errorEvent("Invalid orientationProperties allowOrientationChange property", "mraid.setOrientationProperties()");
- properties.allowOrientationChange=true;
  }
  }
  

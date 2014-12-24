@@ -17,9 +17,7 @@
 
 #import ANADPROTOCOLHEADER
 #import "ANAdResponse.h"
-#import "ANAdViewDelegate.h"
-#import "ANAdWebViewController.h"
-#import "ANBrowserViewController.h"
+#import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import ANCUSTOMADAPTERHEADER
 
@@ -53,16 +51,12 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (void)processFinalResponse:(ANAdResponse *)response;
 @end
 
-@protocol ANAdFetcherDelegate <ANADPROTOCOL, ANAdViewDelegate, ANBrowserViewControllerDelegate, ANMRAIDAdViewDelegate>
+@protocol ANAdFetcherDelegate <ANADPROTOCOL, ANAdViewInternalDelegate>
 
 @optional
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL;
-- (UIView *)containerView;
-
-// Delegate method for ANAdView subclasses to provide parameters that are specific to them. Should return an array of NSString
-- (NSArray *)extraParameters;
+- (NSArray *)extraParameters; // An array of NSString
 
 @end

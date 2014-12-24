@@ -15,16 +15,18 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, ANClickOverlayColorOption) {
-    ANClickOverlayColorOptionGrey,
-    ANClickOverlayColorOptionRed,
-    ANClickOverlayColorOptionTeal
-};
+@interface ANMRAIDExpandProperties : NSObject
 
-#define ANCLICKOVERLAYCOLOROPTION ANClickOverlayColorOptionGrey
++ (ANMRAIDExpandProperties *)expandPropertiesFromQueryComponents:(NSDictionary *)queryComponents;
 
-@interface ANClickOverlayView : UIView
+- (instancetype)initWithWidth:(CGFloat)width
+                       height:(CGFloat)height
+                          URL:(NSURL *)URL
+               useCustomClose:(BOOL)useCustomClose;
 
-+ (ANClickOverlayView *)addOverlayToView:(UIView *)view;
+@property (nonatomic, readonly, assign) CGFloat width;
+@property (nonatomic, readonly, assign) CGFloat height;
+@property (nonatomic, readonly, strong) NSURL *URL;
+@property (nonatomic, readonly, assign) BOOL useCustomClose;
 
 @end

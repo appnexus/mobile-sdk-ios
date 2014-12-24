@@ -19,7 +19,8 @@
 #import "ANAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANMRAIDViewController.h"
+#import "ANMRAIDContainerView.h"
+
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 #import "ANBannerAdView+ANContentViewTransitions.h"
@@ -27,9 +28,9 @@
 
 #define DEFAULT_ADSIZE CGSizeZero
 
-@interface ANBANNERADVIEW ()
+@interface ANBANNERADVIEW () <ANBannerAdViewInternalDelegate>
 @property (nonatomic, readwrite, strong) UIView *contentView;
-@property (nonatomic, readwrite, strong) NSNumber *transitionInProgress; // Should be used by pitbull
+@property (nonatomic, readwrite, strong) NSNumber *transitionInProgress;
 @end
 
 @implementation ANBANNERADVIEW
@@ -143,42 +144,10 @@
     return __autoRefreshInterval;
 }
 
-- (void)setFrame:(CGRect)frame {
-    if (self.adjustFramesInResizeState) {
-        CGRect adjustedFrame = CGRectMake(frame.origin.x + self.resizeOffset.x, frame.origin.y + self.resizeOffset.y, frame.size.width, frame.size.height);
-        [super setFrame:adjustedFrame];
-        self.defaultParentFrame = CGRectMake(frame.origin.x, frame.origin.y, self.defaultParentFrame.size.width, self.defaultParentFrame.size.height);
-        CGFloat defaultContentWidth = self.defaultFrame.size.width;
-        CGFloat defaultContentHeight = self.defaultFrame.size.height;
-        CGFloat defaultCenterX = (self.defaultParentFrame.size.width - defaultContentWidth) / 2;
-        CGFloat defaultCenterY = (self.defaultParentFrame.size.height - defaultContentHeight) / 2;
-        self.defaultFrame = CGRectMake(defaultCenterX, defaultCenterY, defaultContentWidth, defaultContentHeight);
-    } else {
-        [super setFrame:frame];
-    }
-}
-
-- (void)setFrame:(CGRect)frame animated:(BOOL)animated {
-    if (animated) {
-        [self willResizeToFrame:frame];
-        [UIView animateWithDuration:kAppNexusAnimationDuration animations:^{
-            [self setFrame:frame];
-        } completion:^(BOOL finished) {
-            [self bannerAdViewDidResize];
-		}];
-    }
-    else {
-        [self willResizeToFrame:frame];
-        [self setFrame:frame];
-        [self bannerAdViewDidResize];
-    }
-}
-
 #pragma mark - Transitions
 
 - (void)setContentView:(UIView *)newContentView {
     if (newContentView != _contentView) {
-        [self removeCloseButton];
         
         if ([newContentView isKindOfClass:[UIWebView class]]) {
             UIWebView *webView = (UIWebView *)newContentView;
@@ -189,6 +158,16 @@
         UIView *oldContentView = _contentView;
         _contentView = newContentView;
 
+        if ([newContentView isKindOfClass:[ANMRAIDContainerView class]]) {
+            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)newContentView;
+            standardAdView.adViewDelegate = self;
+        }
+        
+        if ([oldContentView isKindOfClass:[ANMRAIDContainerView class]]) {
+            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)oldContentView;
+            standardAdView.adViewDelegate = nil;
+        }
+        
         [self performTransitionFromContentView:oldContentView
                                  toContentView:newContentView];
     }
@@ -267,126 +246,28 @@
     return self.adSize;
 }
 
-- (UIView *)containerView {
-    return self;
-}
-
-#pragma mark ANMRAIDAdViewDelegate
+#pragma mark - ANAdViewInternalDelegate
 
 - (NSString *)adType {
     return @"inline";
 }
 
 - (UIViewController *)displayController {
-    return self.mraidController ? self.mraidController : self.rootViewController;
+    return self.rootViewController;
 }
 
-- (void)adShouldExpandToFrame:(CGRect)frame
-                  closeButton:(UIButton *)closeButton {
-    [self resetContentViewForMRAID];
-    
-    [super mraidExpandAd:frame.size
-             contentView:self.contentView
-       defaultParentView:self
-      rootViewController:self.rootViewController];
-    
-    UIView *containerView = self.mraidController ? self.mraidController.view : self;
-    [super mraidExpandAddCloseButton:closeButton containerView:containerView];
-    
-    [self.mraidEventReceiverDelegate adDidFinishExpand];
-}
+#pragma mark - Deprecated
 
-- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
-                  closeButton:(UIButton *)closeButton
-                closePosition:(ANMRAIDCustomClosePosition)closePosition {
-    [self resetContentViewForMRAID];
+- (void)setFrame:(CGRect)frame animated:(BOOL)animated {
+    if (animated) {
+        [UIView animateWithDuration:kAppNexusAnimationDuration animations:^{
+            [self setFrame:frame];
+        } completion:^(BOOL finished) {
 
-    // resized ads are never modal
-    UIView *contentView = self.contentView;
-    
-    NSString *mraidResizeErrorString = [super mraidResizeAd:frame
-                                                contentView:contentView
-                                          defaultParentView:self
-                                         rootViewController:self.rootViewController
-                                             allowOffscreen:allowOffscreen];
-    
-    if ([mraidResizeErrorString length] > 0) {
-        [self.mraidEventReceiverDelegate adDidFinishResize:NO errorString:mraidResizeErrorString];
-        return;
+        }];
     }
-    
-	[super mraidResizeAddCloseEventRegion:closeButton
-                            containerView:self
-                              contentView:contentView
-                                 position:closePosition];
-    
-    self.adjustFramesInResizeState = YES;
-    
-    // send mraid events
-    [self.mraidEventReceiverDelegate adDidFinishResize:YES errorString:nil];
-}
-
-- (void)adShouldResetToDefault {
-    self.adjustFramesInResizeState = NO;
-    [super adShouldResetToDefault:self.contentView parentView:self];
-    [self constrainContentView];
-}
-
-- (void)resetContentViewForMRAID {
-    CGRect contentViewFrame = self.contentView.frame;
-    [self.contentView removeSizeConstraint];
-    [self.contentView removeAlignmentConstraintsToSuperview];
-    self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
-    [self.contentView setFrame:contentViewFrame];
-}
-
-#pragma mark delegate selector helper method
-
-- (void)willResizeToFrame:(CGRect)frame {
-    if ([self.delegate respondsToSelector:@selector(bannerAdView:willResizeToFrame:)]) {
-        [self.delegate bannerAdView:self willResizeToFrame:frame];
-    }
-}
-
-- (void)bannerAdViewDidResize {
-    if ([self.delegate respondsToSelector:@selector(bannerAdViewDidResize:)]) {
-        [self.delegate bannerAdViewDidResize:self];
-    }
-}
-
-#pragma mark ANBrowserViewControllerDelegate
-
-- (UIView *)viewToDisplayClickOverlay {
-    return self.contentView;
-}
-
-- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {
-    UIViewController *rvc = [super rootViewControllerForDisplayingBrowserViewController:controller];
-    return rvc ? rvc : self.rootViewController;
-}
-
-- (void)willDismissBrowserViewController:(ANBrowserViewController *)controller {
-    if (!self.mraidController.presentingViewController) {
-        [self adWillClose];
-    }
-}
-
-- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller {
-    [super didDismissBrowserViewController:controller];
-    if (!self.mraidController.presentingViewController) {
-        [self adDidClose];
-    }
-}
-
-- (void)willPresentBrowserViewController:(ANBrowserViewController *)controller {
-    if (!self.mraidController.presentingViewController) {
-        [self adWillPresent];
-    }
-}
-
-- (void)didPresentBrowserViewController:(ANBrowserViewController *)controller {
-    if (!self.mraidController.presentingViewController) {
-        [self adDidPresent];
+    else {
+        [self setFrame:frame];
     }
 }
 

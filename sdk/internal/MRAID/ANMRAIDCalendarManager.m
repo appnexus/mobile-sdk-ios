@@ -13,11 +13,12 @@
  limitations under the License.
  */
 
-#import "ANCalendarManager.h"
+#import "ANMRAIDCalendarManager.h"
 #import <EventKit/EventKit.h>
 #import "ANLogging.h"
+#import "ANGlobal.h"
 
-@interface ANCalendarManager () <EKEventEditViewDelegate>
+@interface ANMRAIDCalendarManager () <EKEventEditViewDelegate>
 
 @property (nonatomic, readwrite, strong) EKEventStore *eventStore;
 @property (nonatomic, readwrite, strong) NSDictionary *calendarDict;
@@ -25,10 +26,10 @@
 
 @end
 
-@implementation ANCalendarManager
+@implementation ANMRAIDCalendarManager
 
 - (instancetype)initWithCalendarDictionary:(NSDictionary *)dict
-                                  delegate:(id<ANCalendarManagerDelegate>)delegate {
+                                  delegate:(id<ANMRAIDCalendarManagerDelegate>)delegate {
     if (self = [super init]) {
         _calendarDict = dict;
         _delegate = delegate;
@@ -43,11 +44,11 @@
 }
 
 - (void)requestAccessFromUserForCalendarAccess {
-    __weak ANCalendarManager *weakSelf = self;
+    __weak ANMRAIDCalendarManager *weakSelf = self;
     [self.eventStore requestAccessToEntityType:EKEntityTypeEvent
                                     completion:^(BOOL granted, NSError *error) {
                                         dispatch_async(dispatch_get_main_queue(), ^{
-                                            ANCalendarManager *strongSelf = weakSelf;
+                                            ANMRAIDCalendarManager *strongSelf = weakSelf;
                                             if (granted) {
                                                 [strongSelf setupCalendarUI];
                                             } else if (error) {
@@ -55,14 +56,23 @@
                                             } else {
                                                 ANLogError(@"MRAID creative requested calendar access, but access was denied.");
                                             }
+                                            
+                                            if (!granted) {
+                                                if ([strongSelf.delegate respondsToSelector:@selector(calendarManager:calendarEditFailedWithErrorString:)]) {
+                                                    [strongSelf.delegate calendarManager:strongSelf calendarEditFailedWithErrorString:@"User did not grant access to calendar"];
+                                                }
+                                            }
                                         });
                                     }];
 }
 
 - (void)setupCalendarUI {
     UIViewController *rvc = [self.delegate rootViewControllerForPresentationForCalendarManager:self];
-    if (!rvc.view.window) {
+    if (!ANCanPresentFromViewController(rvc)) {
         ANLogDebug(@"No root view controller provided, or root view controller view not attached to window - could not add event to calendar");
+        if ([self.delegate respondsToSelector:@selector(calendarManager:calendarEditFailedWithErrorString:)]) {
+            [self.delegate calendarManager:self calendarEditFailedWithErrorString:@"Could not present Calendar UI"];
+        }
         return;
     }
     EKEvent *event = [[self class] eventWithEventStore:self.eventStore
@@ -75,11 +85,11 @@
     if ([self.delegate respondsToSelector:@selector(willPresentCalendarEditForCalendarManager:)]) {
         [self.delegate willPresentCalendarEditForCalendarManager:self];
     }
-    __weak ANCalendarManager *weakSelf = self;
+    __weak ANMRAIDCalendarManager *weakSelf = self;
     [rvc presentViewController:eventEditController
                       animated:YES
                     completion:^{
-                        ANCalendarManager *strongSelf = weakSelf;
+                        ANMRAIDCalendarManager *strongSelf = weakSelf;
                         if ([strongSelf.delegate respondsToSelector:@selector(didPresentCalendarEditForCalendarManager:)]) {
                             [strongSelf.delegate didPresentCalendarEditForCalendarManager:strongSelf];
                         }
@@ -93,13 +103,18 @@
 #pragma mark - EKEventEditViewDelegate
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
+    if (action != EKEventEditViewActionSaved) {
+        if ([self.delegate respondsToSelector:@selector(calendarManager:calendarEditFailedWithErrorString:)]) {
+            [self.delegate calendarManager:self calendarEditFailedWithErrorString:@"User did not save event"];
+        }
+    }
     if ([self.delegate respondsToSelector:@selector(willDismissCalendarEditForCalendarManager:)]) {
         [self.delegate willDismissCalendarEditForCalendarManager:self];
     }
-    __weak ANCalendarManager *weakSelf = self;
+    __weak ANMRAIDCalendarManager *weakSelf = self;
     [controller dismissViewControllerAnimated:YES
                                    completion:^{
-                                       ANCalendarManager *strongSelf = weakSelf;
+                                       ANMRAIDCalendarManager *strongSelf = weakSelf;
                                        if ([strongSelf.delegate respondsToSelector:@selector(didDismissCalendarEditForCalendarManager:)]) {
                                            [strongSelf.delegate didDismissCalendarEditForCalendarManager:strongSelf];
                                        }
@@ -122,6 +137,9 @@
         endDate = [event.startDate dateByAddingTimeInterval:3600];
     }
     event.endDate = endDate;
+    
+    ANLogDebug(@"Event start date: %@", event.startDate);
+    ANLogDebug(@"Event end date: %@", event.endDate);
     
     EKAlarm *reminder = [[self class] alarmWithReminderString:[calendarObject[@"reminder"] description]];
     if (reminder) {
@@ -382,7 +400,7 @@
     static dispatch_once_t dateFormatter1Token;
     dispatch_once(&dateFormatter1Token, ^{
         dateFormatter1 = [[NSDateFormatter alloc] init];
-        dateFormatter1.dateFormat = @"yyyy-MM-dd'T'HH:mmZZZ";
+        dateFormatter1.dateFormat = @"yyyy-MM-dd'T'HH:mmZZZZZ";
     });
     return dateFormatter1;
 }
@@ -392,7 +410,7 @@
     static dispatch_once_t dateFormatter2Token;
     dispatch_once(&dateFormatter2Token, ^{
         dateFormatter2 = [[NSDateFormatter alloc] init];
-        dateFormatter2.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZ";
+        dateFormatter2.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZZZZZ";
     });
     return dateFormatter2;
 }

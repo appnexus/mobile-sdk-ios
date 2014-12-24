@@ -276,3 +276,7 @@ NSNumber *ANiTunesIDForURL(NSURL *URL) {
     }
     return nil;
 }
+
+BOOL ANCanPresentFromViewController(UIViewController *viewController) {
+    return viewController.view.window != nil ? YES : NO;
+}

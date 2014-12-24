@@ -13,13 +13,13 @@
  limitations under the License.
  */
 
-#import "ANAdViewDelegate.h"
-
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "ANAdViewInternalDelegate.h"
+#import "ANAdWebViewController.h"
+
 @interface ANANJAMImplementation : NSObject 
-+ (void)handleUrl:(NSURL *)url
-       forWebView:(UIWebView *)webView
-      forDelegate:(id<ANAdViewDelegate>)delegate;
+
++ (void)handleURL:(NSURL *)URL withWebViewController:(ANAdWebViewController *)controller;
+
 @end

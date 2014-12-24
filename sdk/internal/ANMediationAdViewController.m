@@ -286,7 +286,10 @@
 - (void)failedToDisplayAd {
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
-        [self.adViewDelegate adFailedToDisplay];
+        if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
+            id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)self.adViewDelegate;
+            [interstitialDelegate adFailedToDisplay];
+        }
     }];
 }
 

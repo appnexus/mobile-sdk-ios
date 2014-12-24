@@ -127,6 +127,7 @@
 		8AD01836199932F9007874BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01835199932F9007874BA /* AppDelegate.m */; };
 		8AD01839199932F9007874BA /* ANNewTestAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01838199932F9007874BA /* ANNewTestAppViewController.m */; };
 		8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */; };
+		8AE3999F1A42105B00C0D7B1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE3999E1A42105B00C0D7B1 /* WebKit.framework */; };
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
 /* End PBXBuildFile section */
 
@@ -528,6 +529,7 @@
 		8AD01843199932F9007874BA /* NewTestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewTestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD01848199932F9007874BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8AE3999E1A42105B00C0D7B1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8AF3654C19D472A60097019F /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
 		8AF3657F19D473B00097019F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8AF3658319D474650097019F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -568,6 +570,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AE3999F1A42105B00C0D7B1 /* WebKit.framework in Frameworks */,
 				8AA009A319DB16F30090EBED /* libANSDK.a in Frameworks */,
 				8AB387F919DB1297006F9E15 /* AdSupport.framework in Frameworks */,
 				8AB387F819DB1245006F9E15 /* UIKit.framework in Frameworks */,
@@ -675,6 +678,7 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8AE3999E1A42105B00C0D7B1 /* WebKit.framework */,
 				8AA009EB19DB1D530090EBED /* libMoPubSDK.a */,
 				8AA009E919DB1D480090EBED /* MillennialMedia.framework */,
 				8AA009E719DB1D3C0090EBED /* libGoogleAdMobAds.a */,
