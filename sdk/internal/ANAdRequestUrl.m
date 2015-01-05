@@ -296,21 +296,8 @@
 }
 
 - (NSString *)nonetParameter {
-    NSMutableString *nonetString = [NSMutableString stringWithString:@""];
-
-    NSMutableSet *nonetworks = ANInvalidNetworks();
-    for (NSString *network in nonetworks) {
-        [nonetString appendString:network];
-        [nonetString appendString:@"%2C"];
-    }
-    
-    // remove trailing comma
-    if ([nonetString length] > 0) {
-        [nonetString deleteCharactersInRange:
-         NSMakeRange([nonetString length] - 1, 1)];
-    }
-   
-    return [NSString stringWithFormat:@"&nonet=%@", nonetString];
+    NSArray *invalidNetworks = [ANInvalidNetworks() allObjects];
+    return invalidNetworks.count ? [NSString stringWithFormat:@"&nonet=%@", [invalidNetworks componentsJoinedByString:@"%2C"]] : @"";
 }
 
 - (NSString *)jsonFormatParameter {

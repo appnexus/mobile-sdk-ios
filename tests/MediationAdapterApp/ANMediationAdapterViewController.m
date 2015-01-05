@@ -42,7 +42,9 @@
              @"AdMobBanner",
              @"AdMobInterstitial",
              @"DFPBanner",
-             @"DFPInterstitial"];
+             @"DFPInterstitial",
+             @"DoesNotExistBanner",
+             @"DoesNotExistInterstitial"];
 }
 
 #pragma mark - Picker View
@@ -279,6 +281,34 @@
 - (void)stubDFPInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialDFP";
+    mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - Does Not Exist
+
+- (ANBannerAdView *)loadDoesNotExistBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
+    [self stubNonExistentBanner];
+    return [self bannerWithDelegate:delegate];
+}
+
+- (ANInterstitialAd *)loadDoesNotExistInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubNonExistentInterstitial];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubNonExistentBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerDoesNotExist";
+    mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubNonExistentInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialDoesNotExist";
     mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
     [self stubMediatedAd:mediatedAd];
 }
