@@ -44,9 +44,13 @@
 
 @end
 
+@class ANMRAIDOrientationProperties;
+
 @protocol ANInterstitialAdViewInternalDelegate <ANAdViewInternalDelegate>
 
 - (void)adFailedToDisplay;
 - (void)adShouldClose;
+- (void)adShouldSetOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties;
+- (void)adShouldUseCustomClose:(BOOL)useCustomClose;
 
 @end

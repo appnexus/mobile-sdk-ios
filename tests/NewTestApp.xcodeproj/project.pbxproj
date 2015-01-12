@@ -1139,7 +1139,7 @@
 				TargetAttributes = {
 					8A9F94BF19D1C37700AB739F = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = DC4W7ZY24G;
+						DevelopmentTeam = 8V5AA2KNR5;
 					};
 					8A9F94D719D1C37700AB739F = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -1147,6 +1147,7 @@
 					};
 					8AB387A419DB0CA8006F9E15 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 8V5AA2KNR5;
 					};
 					8AB387BC19DB0CA8006F9E15 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -1154,7 +1155,7 @@
 					};
 					8AD0182C199932F9007874BA = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = DC4W7ZY24G;
+						DevelopmentTeam = 8V5AA2KNR5;
 					};
 					8AD01842199932F9007874BA = {
 						CreatedOnToolsVersion = 6.0;
@@ -1704,6 +1705,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/OriginalUnitTestApp/Tests_Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1725,6 +1727,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/OriginalUnitTestApp/Tests_Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";

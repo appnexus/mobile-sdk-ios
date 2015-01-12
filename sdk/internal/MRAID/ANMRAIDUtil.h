@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, ANMRAIDAction) {
     ANMRAIDActionPlayVideo,
     ANMRAIDActionStorePicture,
     ANMRAIDActionSetOrientationProperties,
+    ANMRAIDActionSetUseCustomClose,
     ANMRAIDActionOpenURI,
     ANMRAIDActionEnable
 };

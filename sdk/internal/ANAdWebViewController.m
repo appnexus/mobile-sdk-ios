@@ -654,6 +654,12 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         case ANMRAIDActionSetOrientationProperties:
             [self forwardOrientationPropertiesWithQueryComponents:queryComponents];
             break;
+        case ANMRAIDActionSetUseCustomClose: {
+            NSString *value = [queryComponents[@"value"] description];
+            BOOL useCustomClose = [value isEqualToString:@"true"];
+            [self.mraidDelegate adShouldSetUseCustomClose:useCustomClose];
+            break;
+        }
         case ANMRAIDActionOpenURI: {
             NSString *uri = [queryComponents[@"uri"] description];
             NSURL *URL = [NSURL URLWithString:uri];

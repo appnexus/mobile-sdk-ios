@@ -82,6 +82,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     id adToShow = nil;
     NSString *auctionID = nil;
     
+    self.controller.orientationProperties = nil;
+    self.controller.useCustomClose = NO;
+    
     if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
         ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
         mraidContainerView.adViewDelegate = nil;
@@ -275,20 +278,6 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     return self.frame.size;
 }
 
-#pragma mark - ANAdViewInternalDelegate
-
-- (NSString *)adType {
-	return @"interstitial";
-}
-
-- (UIViewController *)displayController {
-    return self.controller;
-}
-
-- (void)adShouldClose {
-    [self.controller closeAction:nil];
-}
-
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
@@ -304,12 +293,46 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     return self.closeDelay;
 }
 
+- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange {
+    __weak ANInterstitialAd *weakSelf = self;
+    UIViewController *presentingViewController = self.controller.presentingViewController;
+    [presentingViewController dismissViewControllerAnimated:NO
+                                                 completion:^{
+                                                     ANInterstitialAd *strongSelf = weakSelf;
+                                                     [presentingViewController presentViewController:strongSelf.controller
+                                                                                            animated:NO
+                                                                                          completion:nil];
+                                                 }];
+}
+
+#pragma mark - ANAdViewInternalDelegate
+
+- (NSString *)adType {
+    return @"interstitial";
+}
+
+- (UIViewController *)displayController {
+    return self.controller;
+}
+
 #pragma mark - ANInterstitialAdViewInternalDelegate
 
 - (void)adFailedToDisplay {
     if ([self.delegate respondsToSelector:@selector(adFailedToDisplay:)]) {
         [self.delegate adFailedToDisplay:self];
     }
+}
+
+- (void)adShouldClose {
+    [self.controller closeAction:nil];
+}
+
+- (void)adShouldSetOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties {
+    self.controller.orientationProperties = orientationProperties;
+}
+
+- (void)adShouldUseCustomClose:(BOOL)useCustomClose {
+    self.controller.useCustomClose = useCustomClose;
 }
 
 @end

@@ -120,7 +120,11 @@
 - (void)setOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties {
     _orientationProperties = orientationProperties;
     if ([self.view an_isViewable]) {
-        [UIViewController attemptRotationToDeviceOrientation];
+        if (orientationProperties.allowOrientationChange && orientationProperties.forceOrientation == ANMRAIDOrientationNone) {
+            [UIViewController attemptRotationToDeviceOrientation];
+        } else {
+            [self.delegate dismissAndPresentAgainForPreferredInterfaceOrientationChange];
+        }
     }
 }
 
@@ -151,9 +155,11 @@
                 return UIInterfaceOrientationLandscapeRight;
             }
             return UIInterfaceOrientationLandscapeLeft;
-        default:
-            return [UIApplication sharedApplication].statusBarOrientation;
-    }
+        default: {
+            UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+            return currentOrientation;
+        }
+    }   
 }
 
 - (void)viewWillAppear:(BOOL)animated {

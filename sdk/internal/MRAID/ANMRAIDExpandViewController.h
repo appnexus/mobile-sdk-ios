@@ -37,5 +37,6 @@ static CGFloat const kANMRAIDExpandViewControllerCloseRegionHeight = 50.0;
 @protocol ANMRAIDExpandViewControllerDelegate <NSObject>
 
 - (void)closeButtonWasTappedOnExpandViewController:(ANMRAIDExpandViewController *)controller;
+- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange;
 
 @end

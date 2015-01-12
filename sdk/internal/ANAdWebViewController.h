@@ -47,6 +47,7 @@
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration;
 
+@property (nonatomic, readonly, assign) BOOL isMRAID;
 @property (nonatomic, readonly, strong) UIView *contentView;
 @property (nonatomic, readonly, assign) BOOL completedFirstLoad;
 @property (nonatomic, readonly, strong) ANAdWebViewControllerConfiguration *configuration;
@@ -114,6 +115,7 @@
 - (void)adShouldExpandWithExpandProperties:(ANMRAIDExpandProperties *)expandProperties;
 - (void)adShouldAttemptResizeWithResizeProperties:(ANMRAIDResizeProperties *)resizeProperties;
 - (void)adShouldSetOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties;
+- (void)adShouldSetUseCustomClose:(BOOL)useCustomClose;
 - (void)adShouldClose;
 
 - (void)adShouldOpenCalendarWithCalendarDict:(NSDictionary *)calendarDict;

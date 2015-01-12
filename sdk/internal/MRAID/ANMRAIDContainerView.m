@@ -49,6 +49,10 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
 @property (nonatomic, readwrite, strong) ANMRAIDExpandViewController *expandController;
 @property (nonatomic, readwrite, strong) ANMRAIDOrientationProperties *orientationProperties;
+
+@property (nonatomic, readwrite, assign) BOOL useCustomClose;
+@property (nonatomic, readwrite, strong) UIButton *customCloseRegion;
+
 @property (nonatomic, readwrite, strong) ANClickOverlayView *clickOverlay;
 
 @property (nonatomic, readwrite, strong) NSMutableArray *pitbullCaptureURLQueue;
@@ -103,6 +107,14 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     _adViewDelegate = adViewDelegate;
     self.webViewController.adViewDelegate = adViewDelegate;
     self.expandWebViewController.adViewDelegate = adViewDelegate;
+    if ([adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
+        id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)adViewDelegate;
+        [interstitialDelegate adShouldSetOrientationProperties:self.orientationProperties];
+        [interstitialDelegate adShouldUseCustomClose:self.useCustomClose];
+        if (self.useCustomClose) {
+            [self addSupplementaryCustomCloseRegion];
+        }
+    }
 }
 
 - (UIViewController *)displayController {
@@ -215,7 +227,6 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
                                                                     expandProperties:expandProperties];
     if (self.orientationProperties) {
         [self adShouldSetOrientationProperties:self.orientationProperties];
-        self.orientationProperties = nil;
     }
     self.expandController.delegate = self;
     [presentingController presentViewController:self.expandController
@@ -227,11 +238,45 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 }
 
 - (void)adShouldSetOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties {
+    ANLogDebug(@"Setting orientation properties: %@", [orientationProperties description]);
+    self.orientationProperties = orientationProperties;
     if (self.expandController) {
-        ANLogDebug(@"Setting orientation properties on expand controller: %@", [orientationProperties description]);
         self.expandController.orientationProperties = orientationProperties;
-    } else {
-        self.orientationProperties = orientationProperties;
+    } else if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
+        id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)self.adViewDelegate;
+        [interstitialDelegate adShouldSetOrientationProperties:orientationProperties];
+    }
+}
+
+- (void)adShouldSetUseCustomClose:(BOOL)useCustomClose {
+    ANLogDebug(@"Setting useCustomClose: %d", useCustomClose);
+    self.useCustomClose = useCustomClose;
+    if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
+        id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)self.adViewDelegate;
+        [interstitialDelegate adShouldUseCustomClose:useCustomClose];
+        if (useCustomClose) {
+            [self addSupplementaryCustomCloseRegion];
+        }
+    }
+}
+
+- (void)addSupplementaryCustomCloseRegion {
+    self.customCloseRegion = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.customCloseRegion.translatesAutoresizingMaskIntoConstraints = NO;
+    [self insertSubview:self.customCloseRegion
+           aboveSubview:self.webViewController.contentView];
+    [self.customCloseRegion constrainWithSize:CGSizeMake(50.0, 50.0)];
+    [self.customCloseRegion alignToSuperviewWithXAttribute:NSLayoutAttributeRight
+                                                yAttribute:NSLayoutAttributeTop];
+    [self.customCloseRegion addTarget:self
+                               action:@selector(closeInterstitial:)
+                     forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)closeInterstitial:(id)sender {
+    if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
+        id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)self.adViewDelegate;
+        [interstitialDelegate adShouldClose];
     }
 }
 
@@ -423,6 +468,18 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 
 - (void)closeButtonWasTappedOnExpandViewController:(ANMRAIDExpandViewController *)controller {
     [self adShouldResetToDefault];
+}
+
+- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange {
+    __weak ANMRAIDContainerView *weakSelf = self;
+    UIViewController *presentingViewController = self.expandController.presentingViewController;
+    [presentingViewController dismissViewControllerAnimated:NO
+                                                 completion:^{
+                                                     ANMRAIDContainerView *strongSelf = weakSelf;
+                                                     [presentingViewController presentViewController:strongSelf.expandController
+                                                                                            animated:NO
+                                                                                          completion:nil];
+                                                 }];
 }
 
 #pragma mark - ANWebViewControllerBrowserDelegate

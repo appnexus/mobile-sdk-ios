@@ -74,6 +74,8 @@
         return ANMRAIDActionStorePicture;
     } else if ([command isEqualToString:@"setOrientationProperties"]) {
         return ANMRAIDActionSetOrientationProperties;
+    } else if ([command isEqualToString:@"setUseCustomClose"]) {
+        return ANMRAIDActionSetUseCustomClose;
     } else if ([command isEqualToString:@"open"]) {
         return ANMRAIDActionOpenURI;
     } else if ([command isEqualToString:@"enable"]) {
