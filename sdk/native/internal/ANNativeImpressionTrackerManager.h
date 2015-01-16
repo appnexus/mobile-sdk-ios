@@ -15,6 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
+static const NSUInteger kANNativeImpressionTrackerManagerMaximumNumberOfRetries = 3;
+static const NSTimeInterval kANNativeImpressionTrackerManagerRetryInterval = 300;
+
 @interface ANNativeImpressionTrackerManager : NSObject
 
 + (instancetype)sharedManager;

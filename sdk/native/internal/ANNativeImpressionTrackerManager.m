@@ -19,12 +19,16 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
+#import "NSTimer+ANCategory.h"
+
 @interface ANNativeImpressionTrackerManager ()
 
 @property (nonatomic, readwrite, strong) NSMutableArray *trackerArray;
 @property (nonatomic, readwrite, strong) ANReachability *internetReachability;
 
 @property (nonatomic, readonly, assign) BOOL internetIsReachable;
+
+@property (nonatomic, readwrite, strong) NSTimer *impressionTrackerRetryTimer;
 
 @end
 
@@ -53,14 +57,38 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(reachabilityChanged:)
-                                                     name:kANReachabilityChangedNotification
-                                                   object:nil];
         _internetReachability = [ANReachability reachabilityForInternetConnection];
-        [_internetReachability startNotifier];
     }
     return self;
+}
+
+- (void)fireImpressionTrackerURLArray:(NSArray *)arrayWithURLs {
+    if (self.internetIsReachable) {
+        ANLogDebug(@"Internet is reachable - Firing impression trackers %@", arrayWithURLs);
+        [arrayWithURLs enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger idx, BOOL *stop) {
+            __weak ANNativeImpressionTrackerManager *weakSelf = self;
+            [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
+                                               queue:[NSOperationQueue mainQueue]
+                                   completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                       ANNativeImpressionTrackerManager *strongSelf = weakSelf;
+                                       if (connectionError) {
+                                           ANLogDebug(@"Connection error - queing impression tracker for firing later %@", URL);
+                                           [strongSelf queueImpressionTrackerURLForRetry:URL];
+                                       }
+                                   }];
+        }];
+    } else {
+        ANLogDebug(@"Internet is unreachable - queing impression trackers for firing later %@", arrayWithURLs);
+        [arrayWithURLs enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger idx, BOOL *stop) {
+            [self queueImpressionTrackerURLForRetry:URL];
+        }];
+    }
+}
+
+- (void)fireImpressionTrackerURL:(NSURL *)URL {
+    if (URL) {
+        [self fireImpressionTrackerURLArray:@[URL]];
+    }
 }
 
 - (BOOL)internetIsReachable {
@@ -72,57 +100,58 @@
     return NO;
 }
 
-- (void)reachabilityChanged:(NSNotification *)notification {
-    [self fireImpressionTrackersIfPossible];
-}
-
-- (void)fireImpressionTrackersIfPossible {
+- (void)retryImpressionTrackerFires {
+    NSArray *trackerArrayCopy;
     @synchronized(self) {
         if (self.trackerArray.count > 0 && self.internetIsReachable) {
             ANLogDebug(@"Internet back online - Firing impression trackers %@", self.trackerArray);
-            [self.trackerArray enumerateObjectsUsingBlock:^(ANNativeImpressionTrackerInfo *info, NSUInteger idx, BOOL *stop) {
-                if (!info.isExpired) {
-                    [self sendRequestForImpressionTrackerURL:info.URL];
-                }
-            }];
-            self.trackerArray = nil;
+            trackerArrayCopy = [self.trackerArray copy];
+            [self.trackerArray removeAllObjects];
+            [self.impressionTrackerRetryTimer invalidate];
         }
     }
+    __weak ANNativeImpressionTrackerManager *weakSelf = self;
+    [trackerArrayCopy enumerateObjectsUsingBlock:^(ANNativeImpressionTrackerInfo *info, NSUInteger idx, BOOL *stop) {
+        if (!info.isExpired) {
+            [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(info.URL)
+                                               queue:[NSOperationQueue mainQueue]
+                                   completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                       ANNativeImpressionTrackerManager *strongSelf = weakSelf;
+                                       if (connectionError) {
+                                           ANLogDebug(@"Connection error - queing impression tracker for firing later %@", info.URL);
+                                           info.numberOfTimesFired += 1;
+                                           if (info.numberOfTimesFired < kANNativeImpressionTrackerManagerMaximumNumberOfRetries && !info.isExpired) {
+                                               @synchronized(strongSelf) {
+                                                   [strongSelf.trackerArray addObject:info];
+                                                   [strongSelf scheduleRetryTimerIfNecessary];
+                                               }
+                                           }
+                                       } else {
+                                           ANLogDebug(@"Retry successful for %@", info);
+                                       }
+                                   }];
+        }
+    }];
 }
 
-- (void)fireImpressionTrackerURLArray:(NSArray *)arrayWithURLs {
-    if (self.internetIsReachable) {
-        ANLogDebug(@"Internet is reachable - Firing impression trackers %@", arrayWithURLs);
-        [arrayWithURLs enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger idx, BOOL *stop) {
-            [self sendRequestForImpressionTrackerURL:URL];
-        }];
-    } else {
-        ANLogDebug(@"Internet is unreachable - queing impression trackers for firing later %@", arrayWithURLs);
-        [arrayWithURLs enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger idx, BOOL *stop) {
-            ANNativeImpressionTrackerInfo *trackerInfo = [[ANNativeImpressionTrackerInfo alloc] initWithURL:URL];
-            @synchronized(self) {
-                [self.trackerArray addObject:trackerInfo];
-            }
-        }];
+- (void)queueImpressionTrackerURLForRetry:(NSURL *)URL {
+    ANNativeImpressionTrackerInfo *trackerInfo = [[ANNativeImpressionTrackerInfo alloc] initWithURL:URL];
+    @synchronized(self) {
+        [self.trackerArray addObject:trackerInfo];
+        [self scheduleRetryTimerIfNecessary];
     }
 }
 
-- (void)fireImpressionTrackerURL:(NSURL *)URL {
-    if (URL) {
-        [self fireImpressionTrackerURLArray:@[URL]];
+- (void)scheduleRetryTimerIfNecessary {
+    if (![self.impressionTrackerRetryTimer isScheduled]) {
+        __weak ANNativeImpressionTrackerManager *weakSelf = self;
+        self.impressionTrackerRetryTimer = [NSTimer scheduledTimerWithTimeInterval:kANNativeImpressionTrackerManagerRetryInterval
+                                                                             block:^{
+                                                                                 ANNativeImpressionTrackerManager *strongSelf = weakSelf;
+                                                                                 [strongSelf retryImpressionTrackerFires];
+                                                                             }
+                                                                           repeats:YES];
     }
-}
-
-- (void)sendRequestForImpressionTrackerURL:(NSURL *)URL {
-    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:nil];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:kANReachabilityChangedNotification
-                                                  object:nil];
 }
 
 - (NSArray *)trackerArray {

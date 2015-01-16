@@ -160,6 +160,10 @@
     // Abstract method, to be implemented by subclass
 }
 
+- (void)dealloc {
+    [self unregisterViewFromTracking];
+}
+
 # pragma mark - ANNativeAdDelegate
 
 - (void)adWasClicked {
