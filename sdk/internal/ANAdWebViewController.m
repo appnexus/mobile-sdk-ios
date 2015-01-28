@@ -31,6 +31,7 @@
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
 #import "UIWebView+ANCategory.h"
+#import "UIView+ANCategory.h"
 
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
@@ -596,7 +597,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     }
 }
 
-- (void)stopWebViewLoad {
+- (void)stopWebViewLoadForDealloc {
 #if kANAdWebViewControllerWebKitEnabled
     if (self.modernWebView) {
         [self.modernWebView stopLoading];
@@ -604,8 +605,12 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     } else
 #endif
     {
+        [self.legacyWebView loadHTMLString:@""
+                                   baseURL:nil];
         [self.legacyWebView stopLoading];
         self.legacyWebView.delegate = nil;
+        [self.legacyWebView removeSubviews];
+        [self.legacyWebView removeFromSuperview];
     }
     self.contentView = nil;
 }
@@ -742,7 +747,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (void)adDidHide {
     [self fireJavaScript:[ANMRAIDJavascriptUtil stateChange:ANMRAIDStateHidden]];
-    [self stopWebViewLoad];
+    [self stopWebViewLoadForDealloc];
 }
 
 - (void)adDidFailCalendarEditWithErrorString:(NSString *)errorString {
@@ -763,7 +768,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 }
 
 - (void)dealloc {
-    [self stopWebViewLoad];
+    [self stopWebViewLoadForDealloc];
     [self.viewabilityTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
