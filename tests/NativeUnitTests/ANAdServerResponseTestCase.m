@@ -17,6 +17,7 @@
 #import <XCTest/XCTest.h>
 #import "ANAdServerResponse.h"
 #import "XCTestCase+ANCategory.h"
+#import "ANMediatedAd.h"
 
 @interface ANAdServerResponseTestCase : XCTestCase
 
@@ -28,6 +29,10 @@
     ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"SuccessfulMediationResponse"]];
     XCTAssertTrue(response.containsAds);
     XCTAssertEqual(response.mediatedAds.count, 4);
+    for (ANMediatedAd *mediatedAd in response.mediatedAds) {
+        XCTAssertNotNil(mediatedAd.resultCB);
+        XCTAssertNotNil(mediatedAd.className);
+    }
     XCTAssertNil(response.nativeAd);
 }
 

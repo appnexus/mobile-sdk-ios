@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2015 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,16 +13,22 @@
  limitations under the License.
  */
 
-#import "ANAdFetcher.h"
-#import "ANMRAIDContainerView.h"
+#import "ANNativeAdRequest+ANBaseUrlOverride.h"
 
-static NSString *const kANAdFetcherFireResultCBRequestedNotification = @"ANAdFetcherFireResultCBRequested";
-static NSString *const kANAdFetcherFireResultCBRequestedReason = @"ANAdFetcherFireResultCBRequestedReason";
+@interface ANNativeAdRequest (ANNativeAdFetcher)
 
-@interface ANAdFetcher (ANTest)
+- (void)createAdFetcherWithBaseUrlString:(NSString *)baseUrlString;
 
-@property (nonatomic, readwrite, strong) ANMRAIDContainerView *standardAdView;
+@end
 
-- (void)handleStandardAd:(ANAdResponse *)response;
+@implementation ANNativeAdRequest (ANBaseUrlOverride)
+
+- (void)loadAdWithBaseUrlString:(NSString *)baseUrlString {
+    if (self.delegate) {
+        [self createAdFetcherWithBaseUrlString:baseUrlString];
+    } else {
+        NSLog(@"ANNativeAdRequestDelegate must be set on ANNativeAdRequest in order for an ad to begin loading");
+    }
+}
 
 @end

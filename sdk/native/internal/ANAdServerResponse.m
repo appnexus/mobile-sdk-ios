@@ -133,32 +133,42 @@ static NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 }
 
 + (NSMutableArray *)mediatedAdsFromJSONResponse:(NSDictionary *)jsonResponse {
-    NSMutableArray *mediatedAds = [[self class] validDictionaryArrayForKey:kANAdServerResponseKeyMediatedAds
-                                                            inJSONResponse:jsonResponse];
-    [[mediatedAds copy] enumerateObjectsUsingBlock:^(NSDictionary *mediatedAd, NSUInteger idx, BOOL *stop) {
-        mediatedAds[idx] = [[self class] parseMediatedAdFromDictionary:mediatedAd];
+    NSArray *mediatedAdDictArray = [[self class] validDictionaryArrayForKey:kANAdServerResponseKeyMediatedAds
+                                                             inJSONResponse:jsonResponse];
+    NSMutableArray *parsedMediatedAdObjects = [[NSMutableArray alloc] init];
+    [mediatedAdDictArray enumerateObjectsUsingBlock:^(NSDictionary *mediatedAdDict, NSUInteger idx, BOOL *stop) {
+        ANMediatedAd *mediatedAd = [[self class] parseMediatedAdFromDictionary:mediatedAdDict];
+        if (mediatedAd) {
+            [parsedMediatedAdObjects addObject:mediatedAd];
+        }
     }];
-    
-    return mediatedAds;
+    return parsedMediatedAdObjects;
 }
 
 + (NSMutableArray *)standardAdsFromJSONResponse:(NSDictionary *)jsonResponse {
-    NSMutableArray *standardAds = [[self class] validDictionaryArrayForKey:kANAdServerResponseKeyAds
-                                                            inJSONResponse:jsonResponse];
-    [[standardAds copy] enumerateObjectsUsingBlock:^(NSDictionary *standardAd, NSUInteger idx, BOOL *stop) {
-        standardAds[idx] = [[self class] parseStandardAdFromDictionary:standardAd];
+    NSArray *standardAdDictArray = [[self class] validDictionaryArrayForKey:kANAdServerResponseKeyAds
+                                                             inJSONResponse:jsonResponse];
+    NSMutableArray *parsedStandardAdObjects = [[NSMutableArray alloc] init];
+    [standardAdDictArray enumerateObjectsUsingBlock:^(NSDictionary *standardAdDict, NSUInteger idx, BOOL *stop) {
+        ANStandardAd *standardAd = [[self class] parseStandardAdFromDictionary:standardAdDict];
+        if (standardAd) {
+            [parsedStandardAdObjects addObject:standardAd];
+        }
     }];
-    
-    return standardAds;
+    return parsedStandardAdObjects;
 }
 
 + (NSMutableArray *)nativeAdsFromJSONResponse:(NSDictionary *)jsonResponse {
-    NSMutableArray *nativeAds = [[self class] validDictionaryArrayForKey:kANAdServerResponseKeyNativeAds
-                                                          inJSONResponse:jsonResponse];
-    [[nativeAds copy] enumerateObjectsUsingBlock:^(NSDictionary *nativeAd, NSUInteger idx, BOOL *stop) {
-        nativeAds[idx] = [[self class] parseNativeAdFromDictionary:nativeAd];
+    NSArray *nativeAdDictArray = [[self class] validDictionaryArrayForKey:kANAdServerResponseKeyNativeAds
+                                                           inJSONResponse:jsonResponse];
+    NSMutableArray *parsedNativeAdObjects = [[NSMutableArray alloc] init];
+    [nativeAdDictArray enumerateObjectsUsingBlock:^(NSDictionary *nativeAdDict, NSUInteger idx, BOOL *stop) {
+        ANNativeStandardAdResponse *nativeAd = [[self class] parseNativeAdFromDictionary:nativeAdDict];
+        if (nativeAd) {
+            [parsedNativeAdObjects addObject:nativeAd];
+        }
     }];
-    return nativeAds;
+    return parsedNativeAdObjects;
 }
 
 + (NSMutableArray *)validDictionaryArrayForKey:(NSString *)key
@@ -200,6 +210,7 @@ static NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 
 + (ANMediatedAd *)parseMediatedAdFromDictionary:(NSDictionary *)mediatedAdDict {
     if ([mediatedAdDict[kANAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
+        ANMediatedAd *mediatedAd;
         NSArray *handlerArray = (NSArray *)mediatedAdDict[kANAdServerResponseKeyHandler];
         for (id handlerObject in handlerArray) {
             if ([handlerObject isKindOfClass:[NSDictionary class]]) {
@@ -210,18 +221,19 @@ static NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
                     if ([className length] == 0) {
                         return nil;
                     }
-                    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+                    mediatedAd = [[ANMediatedAd alloc] init];
                     mediatedAd.className = className;
                     mediatedAd.param = [handlerDict[kANAdServerResponseKeyParam] description];
                     mediatedAd.width = [handlerDict[kANAdServerResponseKeyWidth] description];
                     mediatedAd.height = [handlerDict[kANAdServerResponseKeyHeight] description];
                     mediatedAd.adId = [handlerDict[kANAdServerResponseKeyId] description];
-                    mediatedAd.resultCB = [handlerDict[kANAdServerResponseKeyResultCB] description];
-                    mediatedAd.auctionInfo = [handlerDict[kANAdServerResponseKeyAuctionInfo] description];
-                    return mediatedAd;
+                    break;
                 }
             }
         }
+        mediatedAd.resultCB = [mediatedAdDict[kANAdServerResponseKeyResultCB] description];
+        mediatedAd.auctionInfo = [mediatedAdDict[kANAdServerResponseKeyAuctionInfo] description];
+        return mediatedAd;
     }
     return nil;
 }

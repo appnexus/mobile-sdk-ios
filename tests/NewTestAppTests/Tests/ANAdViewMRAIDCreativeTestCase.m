@@ -37,8 +37,8 @@
     ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
     self.adFetcher.delegate = bannerAdView;
     [self.adFetcher handleStandardAd:[self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener]];
-    ANWebView *webView = self.adFetcher.webView;
-    [bannerAdView setContentView:webView];
+    UIView *view = self.adFetcher.standardAdView;
+    [bannerAdView setContentView:view];
 }
 
 - (ANBannerAdView *)mraidListenerBannerAdView {
