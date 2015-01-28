@@ -52,11 +52,17 @@ extern FBAdSize const kFBAdSizeHeight90Banner;
 extern FBAdSize const kFBAdSizeInterstital;
 
 /*!
+ @abstract Represents the flexible rectangle ad size, where width depends on
+ its container width, and height is fixed as 250pt.
+ */
+extern FBAdSize const kFBAdSizeHeight250Rectangle;
+
+/*!
  @class FBAdView
 
  @abstract A customized UIView to represent a Facebook ad (a.k.a. banner ad).
  */
-@interface FBAdView : UIView <UIWebViewDelegate>
+@interface FBAdView : UIView
 
 /*!
  @method

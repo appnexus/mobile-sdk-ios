@@ -52,8 +52,10 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
         default:
             break;
     }
-    [options setAdvancedOption:targetingParameters.age
-                        forKey:kANAdAdapterBaseAmazonAgeKey];
+    if (targetingParameters.age) {
+        [options setAdvancedOption:targetingParameters.age
+                            forKey:kANAdAdapterBaseAmazonAgeKey];
+    }
     return options;
 }
 
