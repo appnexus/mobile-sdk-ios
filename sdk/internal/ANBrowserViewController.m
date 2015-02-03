@@ -36,6 +36,8 @@
 @property (nonatomic, readwrite, strong) NSOperation *postPresentingOperation;
 @property (nonatomic, readwrite, strong) NSOperation *postDismissingOperation;
 
+@property (nonatomic, readwrite, assign) BOOL userDidDismiss;
+
 @end
 
 @implementation ANBrowserViewController
@@ -124,6 +126,7 @@
 #pragma mark - User Actions
 
 - (IBAction)closeAction:(id)sender {
+    self.userDidDismiss = YES;
     [self rootViewControllerShouldDismissPresentedViewController];
 }
 
@@ -174,7 +177,7 @@
 }
 
 - (void)rootViewControllerShouldPresentViewController:(UIViewController *)controllerToPresent {
-    if (self.isPresenting || self.isPresented) {
+    if (self.isPresenting || self.isPresented || self.userDidDismiss) {
         return;
     }
     if (self.isDismissing) {
@@ -406,34 +409,20 @@
     if (iTunesId) {
         self.iTunesStoreController = [[SKStoreProductViewController alloc] init];
         self.iTunesStoreController.delegate = self;
-        self.loading = YES;
-        [self loadingStateDidChangeFromOldValue:NO toNewValue:YES];
-        __weak ANBrowserViewController *weakSelf = self;
         [self.iTunesStoreController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier:iTunesId}
-                                              completionBlock:^(BOOL result, NSError *error) {
-                                                  ANBrowserViewController *strongSelf = weakSelf;
-                                                  if (!strongSelf.loading) {
-                                                      return;
-                                                  }
-                                                  strongSelf.loading = NO;
-                                                  [strongSelf loadingStateDidChangeFromOldValue:YES toNewValue:NO];
-                                                  if (result) {
-                                                      if (strongSelf.isPresenting) {
-                                                          self.postPresentingOperation = [NSBlockOperation blockOperationWithBlock:^{
-                                                              [strongSelf presentStoreViewController];
-                                                          }];
-                                                          return;
-                                                      } else if (strongSelf.isDismissing) {
-                                                          self.postDismissingOperation = [NSBlockOperation blockOperationWithBlock:^{
-                                                              [strongSelf presentStoreViewController];
-                                                          }];
-                                                          return;
-                                                      }
-                                                      [strongSelf presentStoreViewController];
-                                                  } else {
-                                                      ANLogError(@"Could not load StoreKit controller, received error: %@", error);
-                                                  }
-                                           }];
+                                              completionBlock:nil];
+        if (self.isPresenting) {
+            self.postPresentingOperation = [NSBlockOperation blockOperationWithBlock:^{
+                [self presentStoreViewController];
+            }];
+            return;
+        } else if (self.isDismissing) {
+            self.postDismissingOperation = [NSBlockOperation blockOperationWithBlock:^{
+                [self presentStoreViewController];
+            }];
+            return;
+        }
+        [self presentStoreViewController];
     }
 }
 
@@ -448,6 +437,7 @@
 }
 
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
+    self.userDidDismiss = YES;
     [self rootViewControllerShouldDismissPresentedViewController];
 }
 

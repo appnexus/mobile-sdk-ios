@@ -1,5 +1,5 @@
 {  
-   "status":"OK",
+   "status":"ok",
    "ads":[  
 
    ],
@@ -23,8 +23,14 @@
          "rating":{  
             "value":5.0,
             "scale":5
-         }
-         "click_url":"https://itunes.apple.com/us/app/appnexussdkapp/id736869833?mt=8"
+         },
+         "impression_trackers":[  
+            "http://rlissack.adnxs.net:8080/jtest/trackImpression"
+         ],
+         "click_trackers":[  
+            "http://nym1.ib.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPA_AAAAAAAAAAAAAAAAAAAAAJkJvjGlBMFaZyDVla9jmxLH_n1UAAAAAJ-nIAC-AwAAvgMAAAIAAACL37AAtZgCAAAAAQBVU0QAVVNEACwB-gARIAAA5uUAAgMCAQIAAAAAJBbkOAAAAAA./cnd=%21-gXbOAi9vKkBEIu_wwUYtbEKIAQ./referrer=http%3A%2F%2Fapps.mobile.adnxs.com/clickenc="
+         ],
+         "click_url":"http://appnexus.com"
       }
    ]
 }

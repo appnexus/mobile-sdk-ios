@@ -28,9 +28,11 @@
 @property (nonatomic, readwrite, strong) NSString *socialContext;
 @property (nonatomic, readwrite, strong) NSDictionary *customElements;
 
-@property (nonatomic, readwrite, strong) NSString *type;
-@property (nonatomic, readwrite, strong) NSArray *clickTrackers;
-@property (nonatomic, readwrite, strong) NSArray *impTrackers;
+@property (nonatomic, readwrite, strong) NSString *mediaType;
+@property (nonatomic, readwrite, strong) NSString *fullText;
+
+@property (nonatomic, readwrite, strong) NSArray *clickTrackers; // Array of NSURL
+@property (nonatomic, readwrite, strong) NSArray *impTrackers; // Array of NSURL
 @property (nonatomic, readwrite, strong) NSURL *clickURL;
 @property (nonatomic, readwrite, strong) NSURL *clickFallbackURL;
 

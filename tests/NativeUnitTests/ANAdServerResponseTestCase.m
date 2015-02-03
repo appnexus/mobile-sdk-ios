@@ -40,7 +40,6 @@
     ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse1"]];
     XCTAssertTrue(response.containsAds);
     XCTAssertNotNil(response.nativeAd);
-    XCTAssertNotNil(response.nativeAd.type);
     XCTAssertNotNil(response.nativeAd.rating);
     XCTAssertEqual(response.nativeAd.rating.scale, 5);
     XCTAssertEqual(response.nativeAd.rating.value, 5.0);
@@ -71,6 +70,8 @@
     XCTAssertTrue(response.nativeAd.body);
     XCTAssertNil(response.nativeAd.rating);
 }
+
+#pragma mark - Invalid impression tracker array
 
 - (void)testNativeResponse5 {
     ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse5"]];

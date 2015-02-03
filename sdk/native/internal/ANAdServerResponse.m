@@ -41,20 +41,25 @@ static NSString *const kANAdServerResponseKeyResultCB = @"result_cb";
 static NSString *const kANAdServerResponseKeyAuctionInfo = @"auction_info";
 
 // Native
+static NSString *const kANAdServerResponseKeyNativeMediaType = @"media_type";
 static NSString *const kANAdServerResponseKeyNativeTitle = @"title";
 static NSString *const kANAdServerResponseKeyNativeDescription = @"description";
+static NSString *const kANAdServerResponseKeyNativeFullText = @"full_text";
 static NSString *const kANAdServerResponseKeyNativeContext = @"context";
-static NSString *const kANAdServerResponseKeyNativeIconImageUrl = @"icon_img";
-static NSString *const kANAdServerResponseKeyNativeMainImageUrl = @"main_img";
+static NSString *const kANAdServerResponseKeyNativeIconImageUrl = @"icon_img_url";
+static NSString *const kANAdServerResponseKeyNativeMainMedia = @"main_media";
+static NSString *const kANAdServerResponseKeyNativeMainMediaLabel = @"label";
+static NSString *const kANAdServerResponseKeyNativeMainMediaDefaultLabel = @"default";
+static NSString *const kANAdServerResponseKeyNativeMainMediaURL = @"url";
 static NSString *const kANAdServerResponseKeyNativeCallToAction = @"cta";
-static NSString *const kANAdServerResponseKeyNativeClickTrackArray = @"click_tracker";
-static NSString *const kANAdServerResponseKeyNativeImpTrackArray = @"imp_tracker";
+static NSString *const kANAdServerResponseKeyNativeClickTrackArray = @"click_trackers";
+static NSString *const kANAdServerResponseKeyNativeImpTrackArray = @"impression_trackers";
 static NSString *const kANAdServerResponseKeyNativeClickUrl = @"click_url";
 static NSString *const kANAdServerResponseKeyNativeClickFallbackUrl = @"click_fallback_url";
 static NSString *const kANAdServerResponseKeyNativeRatingDict = @"rating";
 static NSString *const kANAdServerResponseKeyNativeRatingValue = @"value";
 static NSString *const kANAdServerResponseKeyNativeRatingScale = @"scale";
-static NSString *const kANAdServerResponseKeyNativeCustomKeywordsDict = @"custom_keywords";
+static NSString *const kANAdServerResponseKeyNativeCustomKeywordsDict = @"custom";
 
 static NSString *const kANAdFetcherDidReceiveResponseNotification = @"kANAdFetcherDidReceiveResponseNotification";
 static NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
@@ -241,27 +246,70 @@ static NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 + (ANNativeStandardAdResponse *)parseNativeAdFromDictionary:(NSDictionary *)nativeAdDict {
     if (nativeAdDict) {
         ANNativeStandardAdResponse *nativeAd = [[ANNativeStandardAdResponse alloc] init];
-        nativeAd.type = [nativeAdDict[kANAdServerResponseKeyType] description];
-        nativeAd.title = [nativeAdDict[kANAdServerResponseKeyNativeTitle] description];
-        nativeAd.body = [nativeAdDict[kANAdServerResponseKeyNativeDescription] description];
-        nativeAd.socialContext = [nativeAdDict[kANAdServerResponseKeyNativeContext] description];
-        nativeAd.callToAction = [nativeAdDict[kANAdServerResponseKeyNativeCallToAction] description];
+        
+        if ([nativeAdDict[kANAdServerResponseKeyNativeMediaType] isKindOfClass:[NSString class]]) {
+            nativeAd.mediaType = nativeAdDict[kANAdServerResponseKeyNativeMediaType];
+        }
+        if ([nativeAdDict[kANAdServerResponseKeyNativeTitle] isKindOfClass:[NSString class]]) {
+            nativeAd.title = nativeAdDict[kANAdServerResponseKeyNativeTitle];
+        }
+        if ([nativeAdDict[kANAdServerResponseKeyNativeDescription] isKindOfClass:[NSString class]]) {
+            nativeAd.body = nativeAdDict[kANAdServerResponseKeyNativeDescription];
+        }
+        if ([nativeAdDict[kANAdServerResponseKeyNativeFullText] isKindOfClass:[NSString class]]) {
+            nativeAd.fullText = nativeAdDict[kANAdServerResponseKeyNativeFullText];
+        }
+        if ([nativeAdDict[kANAdServerResponseKeyNativeContext] isKindOfClass:[NSString class]]) {
+            nativeAd.socialContext = nativeAdDict[kANAdServerResponseKeyNativeContext];
+        }
+        if ([nativeAdDict[kANAdServerResponseKeyNativeCallToAction] isKindOfClass:[NSString class]]) {
+            nativeAd.callToAction = nativeAdDict[kANAdServerResponseKeyNativeCallToAction];
+        }
 
         NSString *iconImageURLString = [nativeAdDict[kANAdServerResponseKeyNativeIconImageUrl] description];
-        NSString *mainImageURLString = [nativeAdDict[kANAdServerResponseKeyNativeMainImageUrl] description];
         NSString *clickURLString = [nativeAdDict[kANAdServerResponseKeyNativeClickUrl] description];
         NSString *clickURLFallbackString = [nativeAdDict[kANAdServerResponseKeyNativeClickFallbackUrl] description];
 
         nativeAd.iconImageURL = [NSURL URLWithString:iconImageURLString];
-        nativeAd.mainImageURL = [NSURL URLWithString:mainImageURLString];
         nativeAd.clickURL = [NSURL URLWithString:clickURLString];
         nativeAd.clickFallbackURL = [NSURL URLWithString:clickURLFallbackString];
-
+        
+        if ([nativeAdDict[kANAdServerResponseKeyNativeMainMedia] isKindOfClass:[NSArray class]]) {
+            NSArray *mainMedia = nativeAdDict[kANAdServerResponseKeyNativeMainMedia];
+            [mainMedia enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if ([obj isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *mainImageData = obj;
+                    NSString *labelValue = [mainImageData[kANAdServerResponseKeyNativeMainMediaLabel] description];
+                    if ([labelValue isEqualToString:kANAdServerResponseKeyNativeMainMediaDefaultLabel]) {
+                        NSString *mainImageURLString = [[mainImageData objectForKey:kANAdServerResponseKeyNativeMainMediaURL] description];
+                        nativeAd.mainImageURL = [NSURL URLWithString:mainImageURLString];
+                        *stop = YES;
+                    }
+                }
+            }];
+        }
+        
         if ([nativeAdDict[kANAdServerResponseKeyNativeClickTrackArray] isKindOfClass:[NSArray class]]) {
-            nativeAd.clickTrackers = (NSArray *)nativeAdDict[kANAdServerResponseKeyNativeClickTrackArray];
+            NSArray *clickTrackArray = nativeAdDict[kANAdServerResponseKeyNativeClickTrackArray];
+            NSMutableArray *clickTrackURLs = [[NSMutableArray alloc] initWithCapacity:clickTrackArray.count];
+            [clickTrackArray enumerateObjectsUsingBlock:^(id clickTrackElement, NSUInteger idx, BOOL *stop) {
+                NSURL *clickURL = [NSURL URLWithString:[clickTrackElement description]];
+                if (clickURL) {
+                    [clickTrackURLs addObject:clickURL];
+                }
+            }];
+            nativeAd.clickTrackers = [clickTrackURLs copy];
         }
         if ([nativeAdDict[kANAdServerResponseKeyNativeImpTrackArray] isKindOfClass:[NSArray class]]) {
-            nativeAd.impTrackers = (NSArray *)nativeAdDict[kANAdServerResponseKeyNativeImpTrackArray];
+            NSArray *impTrackerArray = nativeAdDict[kANAdServerResponseKeyNativeImpTrackArray];
+            NSMutableArray *impTrackURLs = [[NSMutableArray alloc] initWithCapacity:impTrackerArray.count];
+            [impTrackerArray enumerateObjectsUsingBlock:^(id impTrackerElement, NSUInteger idx, BOOL *stop) {
+                NSURL *impURL = [NSURL URLWithString:[impTrackerElement description]];
+                if (impURL) {
+                    [impTrackURLs addObject:impURL];
+                }
+            }];
+            nativeAd.impTrackers = [impTrackURLs copy];
         }
         if ([nativeAdDict[kANAdServerResponseKeyNativeCustomKeywordsDict] isKindOfClass:[NSDictionary class]]) {
             nativeAd.customElements = (NSDictionary *)nativeAdDict[kANAdServerResponseKeyNativeCustomKeywordsDict];

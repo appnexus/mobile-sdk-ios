@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6221" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ANBrowserViewController">
@@ -33,6 +33,9 @@
                     <items>
                         <barButtonItem image="an_arrow_left.png" style="plain" id="17">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Back"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="backAction:" destination="-1" id="34"/>
                             </connections>
@@ -40,6 +43,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="hli-Bh-5cJ"/>
                         <barButtonItem image="an_arrow_right.png" style="plain" id="19">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Forward"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="forwardAction:" destination="-1" id="35"/>
                             </connections>
@@ -47,6 +53,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="f9A-un-3SL"/>
                         <barButtonItem style="plain" systemItem="action" id="11">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Action"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="openInAction:" destination="-1" id="36"/>
                             </connections>
@@ -54,6 +63,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="51x-OM-nbu"/>
                         <barButtonItem systemItem="refresh" id="F1H-By-jAw">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Refresh"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="refresh:" destination="-1" id="aRK-Dl-Tal"/>
                             </connections>
@@ -64,6 +76,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="MZH-vs-8Mr"/>
                         <barButtonItem title="Done" style="done" id="18">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Done"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="closeAction:" destination="-1" id="33"/>
                             </connections>
@@ -86,6 +101,9 @@
                 <constraint firstItem="10" firstAttribute="top" secondItem="jWV-ZZ-Vcz" secondAttribute="bottom" id="sRU-am-tG1"/>
                 <constraint firstAttribute="trailing" secondItem="jWV-ZZ-Vcz" secondAttribute="trailing" id="zJM-Mh-y86"/>
             </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="In App Browser"/>
+            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="140" y="154"/>
         </view>
     </objects>

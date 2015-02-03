@@ -17,6 +17,8 @@
 #import <XCTest/XCTest.h>
 #import "ANNativeAdRequest+ANBaseUrlOverride.h"
 #import "ANGlobal.h"
+#import "ANURLConnectionStub.h"
+#import "ANHTTPStubbingManager.h"
 
 @interface ANNativeAdRequestTestCase : XCTestCase <ANNativeAdRequestDelegate>
 
@@ -34,6 +36,8 @@
     [super setUp];
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
+    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    [self stubResultCBResponse];
 }
 
 - (void)tearDown {
@@ -43,10 +47,12 @@
     self.successfulAdCall = NO;
     self.adResponse = nil;
     self.adRequestError = nil;
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
 }
 
 - (void)testAppNexusWithMainImageLoad {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/appnexus_standard_response.json"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -61,7 +67,8 @@
 }
 
 - (void)testFacebook {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/facebook_mediated_response.json"];
+    [self stubRequestWithResponse:@"facebook_mediated_response"];
+    [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -78,7 +85,8 @@
 }
 
 - (void)testFacebookWithIconImageLoad {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/facebook_mediated_response.json"];
+    [self stubRequestWithResponse:@"facebook_mediated_response"];
+    [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -97,7 +105,8 @@
 }
 
 - (void)testMoPub {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/mopub_mediated_response.json"];
+    [self stubRequestWithResponse:@"mopub_mediated_response"];
+    [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -114,7 +123,8 @@
 }
 
 - (void)testInvalidMediationAdapter {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/custom_adapter_mediated_response.json"];
+    [self stubRequestWithResponse:@"custom_adapter_mediated_response"];
+    [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -125,7 +135,8 @@
 }
 
 - (void)testWaterfallMediationAdapterEndingInFacebook {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/custom_adapter_fb_mediated_response.json"];
+    [self stubRequestWithResponse:@"custom_adapter_fb_mediated_response"];
+    [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -142,7 +153,8 @@
 }
 
 - (void)testNoResponse {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/empty_response.json"];
+    [self stubRequestWithResponse:@"empty_response"];
+    [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -153,7 +165,8 @@
 }
 
 - (void)testCustomAdapterFailToStandardResponse {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/custom_adapter_to_standard_response.json"];
+    [self stubRequestWithResponse:@"custom_adapter_to_standard_response"];
+    [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -168,7 +181,8 @@
 }
 
 - (void)testCustomAdapterFailToNativeAd {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/custom_adapter_to_native_ad.json"];
+    [self stubRequestWithResponse:@"custom_adapter_to_native_ad"];
+    [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -183,7 +197,8 @@
 }
 
 - (void)testMediatedResponseInvalidType {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/custom_adapter_invalid_type.json"];
+    [self stubRequestWithResponse:@"custom_adapter_invalid_type"];
+    [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -194,7 +209,8 @@
 }
 
 - (void)testSuccessfulResponseWithNoAds {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/no_ads_ok_response.json"];
+    [self stubRequestWithResponse:@"no_ads_ok_response"];
+    [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -205,7 +221,8 @@
 }
 
 - (void)testMediatedResponseEmptyMediatedAd {
-    [self.adRequest loadAdWithBaseUrlString:@"http://rlissack.adnxs.net:8080/jtest/native/empty_mediated_ad_response.json"];
+    [self stubRequestWithResponse:@"empty_mediated_ad_response"];
+    [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
@@ -243,6 +260,8 @@
     }
 }
 
+#pragma mark - ANNativeAdRequestDelegate
+
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {
     self.adResponse = response;
     self.successfulAdCall = YES;
@@ -253,6 +272,29 @@
     self.adRequestError = error;
     self.successfulAdCall = NO;
     [self.delegateCallbackExpectation fulfill];
+}
+
+# pragma mark - Ad Server Response Stubbing
+
+- (void)stubRequestWithResponse:(NSString *)responseName {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
+                                                                                        ofType:@"json"]
+                                                 encoding:NSUTF8StringEncoding
+                                                    error:nil];
+    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
+    requestStub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
+    requestStub.responseCode = 200;
+    requestStub.responseBody = baseResponse;
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+}
+
+- (void)stubResultCBResponse {
+    ANURLConnectionStub *resultCBStub = [[ANURLConnectionStub alloc] init];
+    resultCBStub.requestURLRegexPatternString = @"http://nym1.mobile.adnxs.com/mediation.*";
+    resultCBStub.responseCode = 200;
+    resultCBStub.responseBody = @"";
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:resultCBStub];
 }
 
 @end

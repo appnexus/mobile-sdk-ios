@@ -111,13 +111,9 @@
 }
 
 - (void)fireImpTrackers {
-    NSMutableArray *impTrackersToFire = [[NSMutableArray alloc] initWithCapacity:self.impTrackers.count];
-    [self.impTrackers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[NSString class]]) {
-            [impTrackersToFire addObject:[NSURL URLWithString:obj]];
-        }
-    }];
-    [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:impTrackersToFire];
+    if (self.impTrackers) {
+        [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:self.impTrackers];
+    }
 }
 
 #pragma mark - Click handling
@@ -143,20 +139,16 @@
 }
 
 - (void)fireClickTrackers {
-    [self fireTrackersInArray:self.clickTrackers];
-}
-
-#pragma mark - Helper
-
-- (void)fireTrackersInArray:(NSArray *)trackerArray {
-    for (NSString *URLString in trackerArray) {
-        ANLogDebug(@"Firing tracker with URL %@", URLString);
-        NSURLRequest *request = ANBasicRequestWithURL([NSURL URLWithString:URLString]);
+    for (NSURL *URL in self.clickTrackers) {
+        ANLogDebug(@"Firing click tracker with URL %@", URL);
+        NSURLRequest *request = ANBasicRequestWithURL(URL);
         [NSURLConnection sendAsynchronousRequest:request
                                            queue:[NSOperationQueue mainQueue]
                                completionHandler:nil];
     }
 }
+
+#pragma mark - Helper
 
 - (void)dealloc {
     [self.viewabilityTimer invalidate];

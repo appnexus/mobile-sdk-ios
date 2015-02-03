@@ -17,10 +17,18 @@
 #import "ANHTTPStubbingManager.h"
 
 static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStubURLProtocolException";
+NSString *const kANHTTPStubURLProtocolRequestDidLoadNotification = @"ANHTTPStubURLProtocolRequestDidLoad";
+NSString *const kANHTTPStubURLProtocolRequest = @"ANHTTPStubURLProtocolRequest";
 
 @implementation ANHTTPStubURLProtocol
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
+    BOOL broadcastRequests = [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests;
+    if (broadcastRequests && request) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kANHTTPStubURLProtocolRequestDidLoadNotification
+                                                            object:nil
+                                                          userInfo:@{kANHTTPStubURLProtocolRequest:request}];
+    }
     BOOL isHttpOrHttps = [request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"];
     if (!isHttpOrHttps) {
         return NO;
