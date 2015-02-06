@@ -30,9 +30,12 @@ typedef NS_ENUM(NSInteger, ANAdResponseCode) {
 };
 
 typedef NS_ENUM(NSUInteger, ANGender) {
-    UNKNOWN,
-    MALE,
-    FEMALE
+    ANGenderUnknown,
+    ANGenderMale,
+    ANGenderFemale,
+    UNKNOWN __attribute__((deprecated)) = ANGenderUnknown,
+    MALE __attribute__((deprecated)) = ANGenderMale,
+    FEMALE __attribute__((deprecated)) = ANGenderFemale
 };
 
 typedef NS_ENUM(NSUInteger, ANNativeAdRegisterErrorCode) {

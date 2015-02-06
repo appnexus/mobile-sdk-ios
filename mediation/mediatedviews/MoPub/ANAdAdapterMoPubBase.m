@@ -24,10 +24,10 @@
     
     ANGENDER gender = targetingParameters.gender;
     switch (gender) {
-        case MALE:
+        case ANGenderMale:
             [keywordArray addObject:@"m_gender:male"];
             break;
-        case FEMALE:
+        case ANGenderFemale:
             [keywordArray addObject:@"m_gender:female"];
             break;
         default:

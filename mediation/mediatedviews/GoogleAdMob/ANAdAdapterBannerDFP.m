@@ -79,13 +79,13 @@
     
     ANGENDER gender = targetingParameters.gender;
     switch (gender) {
-        case MALE:
+        case ANGenderMale:
             request.gender = kGADGenderMale;
             break;
-        case FEMALE:
+        case ANGenderFemale:
             request.gender = kGADGenderFemale;
             break;
-        case UNKNOWN:
+        case ANGenderUnknown:
             request.gender = kGADGenderUnknown;
         default:
             break;

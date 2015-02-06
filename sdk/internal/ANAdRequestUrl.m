@@ -247,9 +247,9 @@
 
 - (NSString *)genderParameter {
     ANGENDER genderValue = [self.adFetcherDelegate gender];
-    if (genderValue == MALE) {
+    if (genderValue == ANGenderMale) {
         return @"&gender=m";
-    } else if (genderValue == FEMALE) {
+    } else if (genderValue == ANGenderFemale) {
         return @"&gender=f";
     } else {
         return @"";
