@@ -104,3 +104,7 @@ NSURLRequest *ANBasicRequestWithURL(NSURL *URL);
 NSMutableURLRequest *ANBasicMutableRequest();
 NSNumber *ANiTunesIDForURL(NSURL *URL);
 BOOL ANCanPresentFromViewController(UIViewController *viewController);
+
+@interface ANGlobal : NSObject
+
+@end

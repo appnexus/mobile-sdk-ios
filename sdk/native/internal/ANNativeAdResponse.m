@@ -167,7 +167,7 @@
 # pragma mark - ANNativeAdDelegate
 
 - (void)adWasClicked {
-    if ([self.delegate respondsToSelector:@selector(adWasClicked)]) {
+    if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {
         [self.delegate adWasClicked:self];
     }
 }

@@ -99,7 +99,7 @@
 		8AA009E819DB1D3C0090EBED /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E719DB1D3C0090EBED /* libGoogleAdMobAds.a */; };
 		8AA009EA19DB1D480090EBED /* MillennialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E919DB1D480090EBED /* MillennialMedia.framework */; };
 		8AA009EC19DB1D530090EBED /* libMoPubSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009EB19DB1D530090EBED /* libMoPubSDK.a */; };
-		8AA009ED19DB1D670090EBED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA009C019DB1B200090EBED /* Images.xcassets */; };
+		8AA009ED19DB1D670090EBED /* MediationAdapterAppImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA009C019DB1B200090EBED /* MediationAdapterAppImages.xcassets */; };
 		8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AA009BC19DB1B200090EBED /* LaunchScreen.xib */; };
 		8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA009BE19DB1B200090EBED /* Main.storyboard */; };
 		8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA0094019DB169B0090EBED /* libANSDK.a */; };
@@ -352,13 +352,6 @@
 			remoteGlobalIDString = EABD46AA1857A0C700A5F081;
 			remoteInfo = KIF;
 		};
-		8AB5325819F0464B00CA4427 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB72047C1680DDAD00278DA2;
-			remoteInfo = "KIF-OCUnit";
-		};
 		8AB5325A19F0464B00CA4427 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
@@ -372,13 +365,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = EABD46CD1857A0F300A5F081;
 			remoteInfo = "KIF Tests";
-		};
-		8AB5325E19F0464B00CA4427 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB60ECEB177F8DB3005A041A;
-			remoteInfo = "KIF Tests-OCUnit";
 		};
 		8AB5326119F046A500CA4427 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -523,7 +509,7 @@
 		8AA009BB19DB1B200090EBED /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8AA009BD19DB1B200090EBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8AA009BF19DB1B200090EBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8AA009C019DB1B200090EBED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8AA009C019DB1B200090EBED /* MediationAdapterAppImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MediationAdapterAppImages.xcassets; sourceTree = "<group>"; };
 		8AA009C119DB1B200090EBED /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AA009C219DB1B200090EBED /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8AA009C319DB1B200090EBED /* MediationAdapterPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediationAdapterPrefixHeader.pch; sourceTree = "<group>"; };
@@ -966,7 +952,7 @@
 				8AA009BB19DB1B200090EBED /* AppDelegate.m */,
 				8AA009BC19DB1B200090EBED /* LaunchScreen.xib */,
 				8AA009BE19DB1B200090EBED /* Main.storyboard */,
-				8AA009C019DB1B200090EBED /* Images.xcassets */,
+				8AA009C019DB1B200090EBED /* MediationAdapterAppImages.xcassets */,
 				8AA009C119DB1B200090EBED /* Info.plist */,
 				8AA009C219DB1B200090EBED /* main.m */,
 				8AA009C319DB1B200090EBED /* MediationAdapterPrefixHeader.pch */,
@@ -1050,10 +1036,8 @@
 			isa = PBXGroup;
 			children = (
 				8AB5325719F0464B00CA4427 /* libKIF.a */,
-				8AB5325919F0464B00CA4427 /* libKIF-OCUnit.a */,
 				8AB5325B19F0464B00CA4427 /* Test Host.app */,
 				8AB5325D19F0464B00CA4427 /* KIF Tests - XCTest.xctest */,
-				8AB5325F19F0464B00CA4427 /* KIF Tests-OCUnit.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1432,13 +1416,6 @@
 			remoteRef = 8AB5325619F0464B00CA4427 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		8AB5325919F0464B00CA4427 /* libKIF-OCUnit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libKIF-OCUnit.a";
-			remoteRef = 8AB5325819F0464B00CA4427 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		8AB5325B19F0464B00CA4427 /* Test Host.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -1451,13 +1428,6 @@
 			fileType = wrapper.cfbundle;
 			path = "KIF Tests - XCTest.xctest";
 			remoteRef = 8AB5325C19F0464B00CA4427 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8AB5325F19F0464B00CA4427 /* KIF Tests-OCUnit.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "KIF Tests-OCUnit.octest";
-			remoteRef = 8AB5325E19F0464B00CA4427 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1498,7 +1468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A7F4CC619DB3976003ECC5C /* MPCloseButtonX.png in Resources */,
-				8AA009ED19DB1D670090EBED /* Images.xcassets in Resources */,
+				8AA009ED19DB1D670090EBED /* MediationAdapterAppImages.xcassets in Resources */,
 				8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */,
 				8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */,
 				8A7F4CC519DB3976003ECC5C /* MPAdBrowserController.xib in Resources */,
@@ -1868,6 +1838,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = MediationAdapterApp/MediationAdapterPrefixHeader.pch;
@@ -1888,6 +1859,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = MediationAdapterApp/MediationAdapterPrefixHeader.pch;

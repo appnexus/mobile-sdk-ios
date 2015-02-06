@@ -29,7 +29,7 @@
 
 #import "ANNativeStandardAdResponse.h"
 
-@interface ANNativeAdResponseTestCase : KIFTestCase <ANNativeAdRequestDelegate>
+@interface ANNativeAdResponseTestCase : KIFTestCase <ANNativeAdRequestDelegate, ANNativeAdDelegate>
 
 @property (nonatomic, readwrite, strong) ANNativeAdRequest *adRequest;
 @property (nonatomic, readwrite, strong) XCTestExpectation *delegateCallbackExpectation;
@@ -40,6 +40,15 @@
 
 @property (nonatomic, readwrite, strong) NSMutableArray *impressionTrackers;
 @property (nonatomic, readwrite, strong) NSMutableArray *clickTrackers;
+
+@property (nonatomic, readwrite, strong) UIViewController *rootViewController;
+
+@property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWasClicked;
+@property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWillPresent;
+@property (nonatomic, readwrite, assign) BOOL receivedCallbackAdDidPresent;
+@property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWillClose;
+@property (nonatomic, readwrite, assign) BOOL receivedCallbackAdDidClose;
+@property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWillLeaveApplication;
 
 @end
 
@@ -52,11 +61,6 @@
     self.adRequest.delegate = self;
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self stubResultCBResponse];
-
-    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
-    NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    self.nativeAdView = [array firstObject];
-
 }
 
 - (void)tearDown {
@@ -70,17 +74,26 @@
     self.nativeAdView = nil;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kANHTTPStubURLProtocolRequestDidLoadNotification
+                                                  object:nil];
     self.impressionTrackers = nil;
     self.clickTrackers = nil;
+    
+    self.rootViewController = nil;
+    
+    self.receivedCallbackAdWasClicked = NO;
+    self.receivedCallbackAdWillPresent = NO;
+    self.receivedCallbackAdDidPresent = NO;
+    self.receivedCallbackAdWillClose = NO;
+    self.receivedCallbackAdDidClose = NO;
+    self.receivedCallbackAdWillLeaveApplication = NO;
 }
+
+#pragma mark - Tests
 
 - (void)testAppNexusWithIconImageLoad {
     [self stubRequestWithResponse:@"appnexus_standard_response"];
-    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestLoaded:)
-                                                 name:kANHTTPStubURLProtocolRequestDidLoadNotification
-                                               object:nil];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -90,43 +103,33 @@
                                  }];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
-    XCTAssertNotNil(self.adResponse.iconImage);
-    XCTAssertNil(self.adResponse.mainImage);
     
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.adResponse.title;
-    nativeAdView.bodyLabel.text = self.adResponse.body;
-    nativeAdView.iconImageView.image = self.adResponse.iconImage;
-    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:NO];
     
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rvc.view addSubview:nativeAdView];
+    [self createBasicNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
     
-    NSError *registerError;
-    [self.adResponse registerViewForTracking:nativeAdView
-                      withRootViewController:rvc
-                              clickableViews:@[nativeAdView.callToActionButton]
-                                       error:&registerError];
-    XCTAssertNil(registerError);
-    
-    ANNativeStandardAdResponse *standardResponse = (ANNativeStandardAdResponse *)self.adResponse;
-    XCTAssertEqual(standardResponse.impTrackers.count, 1);
-    XCTAssertEqual(standardResponse.clickTrackers.count, 1);
-
-    self.impressionTrackers = [standardResponse.impTrackers mutableCopy];
-    self.clickTrackers = [standardResponse.clickTrackers mutableCopy];
+    [self pullImpressionAndClickTrackersFromResponse];
+    [self setupURLDidLoadTracker];
+    [self assertPendingImpressionTrackerCount:1];
+    [self assertPendingClickTrackerCount:1];
     
     [tester waitForTimeInterval:2.0];
-    XCTAssertEqual(self.impressionTrackers.count, 0);
     
-    self.adResponse.landingPageLoadsInBackground = NO;
-    [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
-    [tester waitForViewWithAccessibilityLabel:@"In App Browser"];
+    [self assertPendingImpressionTrackerCount:0];
+    [self assertPendingClickTrackerCount:1];
+    
+    [self clickOnAd];
     [tester waitForTimeInterval:2.0];
-    XCTAssertEqual(self.clickTrackers.count, 0);
+    [self assertPresentCallbacksReceived];
+    [self assertPendingClickTrackerCount:0];
     
-    [tester tapViewWithAccessibilityLabel:@"Done"];
+    [self closeInAppBrowser];
     [tester waitForTimeInterval:3.0];
+    [self assertCloseCallbacksReceived];
 }
 
 - (void)testAppNexusWithIconAndMainImageLoad {
@@ -141,38 +144,22 @@
                                  }];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
-    XCTAssertNotNil(self.adResponse.iconImage);
-    XCTAssertNotNil(self.adResponse.mainImage);
     
-    XCTAssertTrue([self.adResponse.iconImage isKindOfClass:[UIImage class]]);
-    XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]);
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:YES];
 
-    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage" bundle:[NSBundle bundleForClass:[self class]]];
-    NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    self.nativeAdView = [array firstObject];
-
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.adResponse.title;
-    nativeAdView.bodyLabel.text = self.adResponse.body;
-    nativeAdView.iconImageView.image = self.adResponse.iconImage;
-    nativeAdView.mainImageView.image = self.adResponse.mainImage;
-    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
-    
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rvc.view addSubview:nativeAdView];
-    
-    NSError *registerError;
-    [self.adResponse registerViewForTracking:nativeAdView
-                      withRootViewController:rvc
-                              clickableViews:@[nativeAdView.callToActionButton]
-                                       error:&registerError];
-    XCTAssertNil(registerError);
+    [self createMainImageNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
     
     [tester waitForTimeInterval:2.0];
-    [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
+    
+    [self clickOnAd];
     [tester waitForTimeInterval:2.0];
-    XCTAssertNotNil(rvc.presentedViewController);
-    [rvc dismissViewControllerAnimated:YES completion:nil];
+    [self assertPresentCallbacksReceived];
+    
+    [self forceDismissPresentedController];
     [tester waitForTimeInterval:3.0];
 }
 
@@ -187,30 +174,22 @@
                                  }];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
-    XCTAssertNotNil(self.adResponse.iconImage);
-    XCTAssertNil(self.adResponse.mainImage);
     
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.adResponse.title;
-    nativeAdView.bodyLabel.text = self.adResponse.body;
-    nativeAdView.iconImageView.image = self.adResponse.iconImage;
-    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:NO];
     
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rvc.view addSubview:nativeAdView];
-    
-    NSError *registerError;
-    [self.adResponse registerViewForTracking:nativeAdView
-                      withRootViewController:rvc
-                              clickableViews:@[nativeAdView.callToActionButton]
-                                       error:&registerError];
-    XCTAssertNil(registerError);
+    [self createBasicNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
     
     [tester waitForTimeInterval:2.0];
-    [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
+    
+    [self clickOnAd];
     [tester waitForTimeInterval:2.0];
-    XCTAssertNotNil(rvc.presentedViewController);
-    [rvc dismissViewControllerAnimated:YES completion:nil];
+    [self assertPresentCallbacksReceived];
+    
+    [self forceDismissPresentedController];
     [tester waitForTimeInterval:3.0];
 }
 
@@ -226,40 +205,26 @@
                                  }];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
+    
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:YES];
+    
     XCTAssertTrue([self.adResponse.mainImageURL.absoluteString containsString:@"rlissack.adnxs.net"]);
-    XCTAssertNotNil(self.adResponse.iconImage);
-    XCTAssertNotNil(self.adResponse.mainImage);
-    
-    XCTAssertTrue([self.adResponse.iconImage isKindOfClass:[UIImage class]]);
-    XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]);
-    
-    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage" bundle:[NSBundle bundleForClass:[self class]]];
-    NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    self.nativeAdView = [array firstObject];
-    
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.adResponse.title;
-    nativeAdView.bodyLabel.text = self.adResponse.body;
-    nativeAdView.iconImageView.image = self.adResponse.iconImage;
-    nativeAdView.mainImageView.image = self.adResponse.mainImage;
-    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
-    
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rvc.view addSubview:nativeAdView];
-    
-    NSError *registerError;
-    [self.adResponse registerViewForTracking:nativeAdView
-                      withRootViewController:rvc
-                              clickableViews:@[nativeAdView.callToActionButton]
-                                       error:&registerError];
-    XCTAssertNil(registerError);
+
+    [self createMainImageNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
     
     [tester waitForTimeInterval:2.0];
-    [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
+    
+    [self clickOnAd];
     [tester waitForTimeInterval:2.0];
-    XCTAssertNotNil(rvc.presentedViewController);
-    [rvc dismissViewControllerAnimated:YES completion:nil];
+    [self assertPresentCallbacksReceived];
+    
+    [self closeInAppBrowser];
     [tester waitForTimeInterval:3.0];
+    [self assertCloseCallbacksReceived];
 }
 
 - (void)testAppNexusWithMultipleMainMediaDefault {
@@ -274,49 +239,30 @@
                                  }];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
+
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:YES];
+    
     XCTAssertTrue([self.adResponse.mainImageURL.absoluteString containsString:@"rlissack.adnxs.net"]);
-    XCTAssertNotNil(self.adResponse.iconImage);
-    XCTAssertNotNil(self.adResponse.mainImage);
     
-    XCTAssertTrue([self.adResponse.iconImage isKindOfClass:[UIImage class]]);
-    XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]);
-    
-    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage" bundle:[NSBundle bundleForClass:[self class]]];
-    NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    self.nativeAdView = [array firstObject];
-    
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.adResponse.title;
-    nativeAdView.bodyLabel.text = self.adResponse.body;
-    nativeAdView.iconImageView.image = self.adResponse.iconImage;
-    nativeAdView.mainImageView.image = self.adResponse.mainImage;
-    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
-    
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rvc.view addSubview:nativeAdView];
-    
-    NSError *registerError;
-    [self.adResponse registerViewForTracking:nativeAdView
-                      withRootViewController:rvc
-                              clickableViews:@[nativeAdView.callToActionButton]
-                                       error:&registerError];
-    XCTAssertNil(registerError);
+    [self createMainImageNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
     
     [tester waitForTimeInterval:2.0];
-    [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
+    
+    [self clickOnAd];
     [tester waitForTimeInterval:2.0];
-    XCTAssertNotNil(rvc.presentedViewController);
-    [rvc dismissViewControllerAnimated:YES completion:nil];
+    [self assertPresentCallbacksReceived];
+    
+    [self closeInAppBrowser];
     [tester waitForTimeInterval:3.0];
+    [self assertCloseCallbacksReceived];
 }
 
 - (void)testAppNexusWithMultipleTrackers {
     [self stubRequestWithResponse:@"appnexus_multiple_trackers"];
-    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(requestLoaded:)
-                                                 name:kANHTTPStubURLProtocolRequestDidLoadNotification
-                                               object:nil];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -326,42 +272,110 @@
                                  }];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
-    XCTAssertNotNil(self.adResponse.iconImage);
-    XCTAssertNil(self.adResponse.mainImage);
     
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.adResponse.title;
-    nativeAdView.bodyLabel.text = self.adResponse.body;
-    nativeAdView.iconImageView.image = self.adResponse.iconImage;
-    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:NO];
     
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rvc.view addSubview:nativeAdView];
+    [self createBasicNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
     
-    NSError *registerError;
-    [self.adResponse registerViewForTracking:nativeAdView
-                      withRootViewController:rvc
-                              clickableViews:@[nativeAdView.callToActionButton]
-                                       error:&registerError];
-    XCTAssertNil(registerError);
-    
-    ANNativeStandardAdResponse *standardResponse = (ANNativeStandardAdResponse *)self.adResponse;
-    XCTAssertEqual(standardResponse.impTrackers.count, 3);
-    XCTAssertEqual(standardResponse.clickTrackers.count, 4);
-    
-    self.impressionTrackers = [standardResponse.impTrackers mutableCopy];
-    self.clickTrackers = [standardResponse.clickTrackers mutableCopy];
-    
+    [self pullImpressionAndClickTrackersFromResponse];
+    [self setupURLDidLoadTracker];
+    [self assertPendingImpressionTrackerCount:3];
+    [self assertPendingClickTrackerCount:4];
+
     [tester waitForTimeInterval:2.0];
-    XCTAssertEqual(self.impressionTrackers.count, 0);
     
-    self.adResponse.landingPageLoadsInBackground = NO;
-    [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
-    [tester waitForViewWithAccessibilityLabel:@"In App Browser"];
+    [self assertPendingImpressionTrackerCount:0];
+    [self assertPendingClickTrackerCount:4];
+    
+    [self clickOnAd];
     [tester waitForTimeInterval:2.0];
-    XCTAssertEqual(self.clickTrackers.count, 0);
+    [self assertPresentCallbacksReceived];
+    [self assertPendingClickTrackerCount:0];
+
+    [self closeInAppBrowser];
+    [tester waitForTimeInterval:3.0];
+    [self assertCloseCallbacksReceived];
+}
+
+- (void)testAppNexusRecycledView {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self.adRequest loadAd];
+    self.adRequest.shouldLoadIconImage = YES;
+    self.adRequest.shouldLoadMainImage = YES;
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertTrue(self.successfulAdCall);
+    XCTAssertNil(self.adRequestError);
     
-    [tester tapViewWithAccessibilityLabel:@"Done"];
+    [self createMainImageNativeView];
+    [self populateNativeViewWithResponse];
+    [self addNativeViewToViewHierarchy];
+    [self registerNativeView];
+
+    [tester waitForTimeInterval:3.0];
+    
+    [self clickOnAd];
+    [tester waitForTimeInterval:2.0];
+    [self assertPresentCallbacksReceived];
+    
+    [self closeInAppBrowser];
+    [tester waitForTimeInterval:3.0];
+    [self assertCloseCallbacksReceived];
+    
+    self.adResponse = nil;
+    
+    //-----//
+    
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [self stubRequestWithResponse:@"facebook_mediated_response"];
+    [self stubResultCBResponse];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertTrue(self.successfulAdCall);
+    XCTAssertNil(self.adRequestError);
+    
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    
+    [tester waitForTimeInterval:3.0];
+    
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(coordinateSpace)]) {
+        [self clickOnAd];
+        [tester waitForTimeInterval:2.0];
+        [self assertPresentCallbacksReceived];
+        
+        [self forceDismissPresentedController];
+        [tester waitForTimeInterval:3.0];
+    }
+    
+    //-----//
+
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    [self stubResultCBResponse];
+    [self.adRequest loadAd];
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertTrue(self.successfulAdCall);
+    XCTAssertNil(self.adRequestError);
+
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    
     [tester waitForTimeInterval:3.0];
 }
 
@@ -377,27 +391,21 @@
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.adResponse.title;
-    nativeAdView.bodyLabel.text = self.adResponse.body;
-    nativeAdView.iconImageView.image = self.adResponse.iconImage;
-    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:NO];
     
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rvc.view addSubview:nativeAdView];
-    
-    NSError *registerError;
-    [self.adResponse registerViewForTracking:nativeAdView
-                      withRootViewController:rvc
-                              clickableViews:@[nativeAdView.callToActionButton]
-                                       error:&registerError];
-    XCTAssertNil(registerError);
+    [self createBasicNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
 
     [tester waitForTimeInterval:2.0];
-    [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
+    
+    [self clickOnAd];
     [tester waitForTimeInterval:2.0];
-    XCTAssertNotNil(rvc.presentedViewController);
-    [rvc dismissViewControllerAnimated:YES completion:nil];
+    [self assertPresentCallbacksReceived];
+    
+    [self forceDismissPresentedController];
     [tester waitForTimeInterval:3.0];
 }
 
@@ -413,29 +421,22 @@
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.adResponse.title;
-    nativeAdView.bodyLabel.text = self.adResponse.body;
-    nativeAdView.iconImageView.image = self.adResponse.iconImage;
-    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:NO];
     
-    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rvc.view addSubview:nativeAdView];
-    
-    NSError *registerError;
-    [self.adResponse registerViewForTracking:nativeAdView
-                      withRootViewController:rvc
-                              clickableViews:@[nativeAdView.callToActionButton]
-                                       error:&registerError];
-    XCTAssertNil(registerError);
+    [self createBasicNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
     
     [tester waitForTimeInterval:2.0];
 
     if ([[UIScreen mainScreen] respondsToSelector:@selector(coordinateSpace)]) {
-        [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
+        [self clickOnAd];
         [tester waitForTimeInterval:2.0];
-        XCTAssertNotNil(rvc.presentedViewController);
-        [rvc dismissViewControllerAnimated:YES completion:nil];
+        [self assertPresentCallbacksReceived];
+        
+        [self forceDismissPresentedController];
         [tester waitForTimeInterval:3.0];
     }
 }
@@ -477,6 +478,32 @@
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:resultCBStub];
 }
 
+#pragma mark - ANAdDelegate
+
+- (void)adWasClicked:(ANNativeAdResponse *)response {
+    self.receivedCallbackAdWasClicked = YES;
+}
+
+- (void)adWillPresent:(ANNativeAdResponse *)response {
+    self.receivedCallbackAdWillPresent = YES;
+}
+
+- (void)adDidPresent:(ANNativeAdResponse *)response {
+    self.receivedCallbackAdDidPresent = YES;
+}
+
+- (void)adWillClose:(ANNativeAdResponse *)response {
+    self.receivedCallbackAdWillClose = YES;
+}
+
+- (void)adDidClose:(ANNativeAdResponse *)response {
+    self.receivedCallbackAdDidClose = YES;
+}
+
+- (void)adWillLeaveApplication:(ANNativeAdResponse *)response {
+    self.receivedCallbackAdWillLeaveApplication = YES;
+}
+
 #pragma mark - Helper
 
 - (void)requestLoaded:(NSNotification *)notification {
@@ -501,6 +528,110 @@
     if (indexToRemove >= 0) {
         [self.clickTrackers removeObjectAtIndex:indexToRemove];
     }
+}
+
+- (void)setupURLDidLoadTracker {
+    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestLoaded:)
+                                                 name:kANHTTPStubURLProtocolRequestDidLoadNotification
+                                               object:nil];
+}
+
+- (void)iconImageShouldBePresentInResponse:(BOOL)iconPresent {
+    if (iconPresent) {
+        XCTAssertNotNil(self.adResponse.iconImage);
+        XCTAssertTrue([self.adResponse.iconImage isKindOfClass:[UIImage class]]);
+    } else {
+        XCTAssertNil(self.adResponse.iconImage);
+    }
+}
+
+- (void)mainImageShouldBePresentInResponse:(BOOL)mainImagePresent {
+    if (mainImagePresent) {
+        XCTAssertNotNil(self.adResponse.mainImage);
+        XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]);
+    } else {
+        XCTAssertNil(self.adResponse.mainImage);
+    }
+}
+
+- (void)createBasicNativeView {
+    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
+    NSArray *array = [adNib instantiateWithOwner:self options:nil];
+    self.nativeAdView = [array firstObject];
+}
+
+- (void)createMainImageNativeView {
+    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage" bundle:[NSBundle bundleForClass:[self class]]];
+    NSArray *array = [adNib instantiateWithOwner:self options:nil];
+    self.nativeAdView = [array firstObject];
+}
+
+- (void)populateNativeViewWithResponse {
+    ANNativeAdView *nativeAdView = self.nativeAdView;
+    nativeAdView.titleLabel.text = self.adResponse.title;
+    nativeAdView.bodyLabel.text = self.adResponse.body;
+    nativeAdView.iconImageView.image = self.adResponse.iconImage;
+    nativeAdView.mainImageView.image = self.adResponse.mainImage;
+    [nativeAdView.callToActionButton setTitle:self.adResponse.callToAction forState:UIControlStateNormal];
+}
+
+- (void)registerNativeView {
+    NSError *registerError;
+    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.adResponse.delegate = self;
+    [self.adResponse registerViewForTracking:self.nativeAdView
+                      withRootViewController:rvc
+                              clickableViews:@[self.nativeAdView.callToActionButton]
+                                       error:&registerError];
+    XCTAssertNil(registerError);
+}
+
+- (void)assertPendingImpressionTrackerCount:(NSInteger)numImpTrackers {
+    XCTAssertEqual(self.impressionTrackers.count, numImpTrackers);
+}
+
+- (void)assertPendingClickTrackerCount:(NSInteger)numClickTrackers {
+    XCTAssertEqual(self.clickTrackers.count, numClickTrackers);
+}
+
+- (void)pullImpressionAndClickTrackersFromResponse {
+    XCTAssertTrue([self.adResponse isKindOfClass:[ANNativeStandardAdResponse class]]);
+    ANNativeStandardAdResponse *standardResponse = (ANNativeStandardAdResponse *)self.adResponse;
+    self.impressionTrackers = [standardResponse.impTrackers mutableCopy];
+    self.clickTrackers = [standardResponse.clickTrackers mutableCopy];
+}
+
+- (void)addNativeViewToViewHierarchy {
+    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.rootViewController = rvc;
+    [rvc.view addSubview:self.nativeAdView];
+}
+
+- (void)clickOnAd {
+    self.adResponse.landingPageLoadsInBackground = NO;
+    [tester tapViewWithAccessibilityLabel:@"ANNativeAdViewCallToAction"];
+}
+
+- (void)assertPresentCallbacksReceived {
+    XCTAssertTrue(self.receivedCallbackAdWasClicked);
+    XCTAssertTrue(self.receivedCallbackAdWillPresent);
+    XCTAssertTrue(self.receivedCallbackAdDidPresent);
+}
+
+- (void)closeInAppBrowser {
+    [tester tapViewWithAccessibilityLabel:@"Done"];
+}
+
+- (void)forceDismissPresentedController {
+    XCTAssertNotNil(self.rootViewController.presentedViewController);
+    [self.rootViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)assertCloseCallbacksReceived {
+    XCTAssertTrue(self.receivedCallbackAdWillClose);
+    XCTAssertTrue(self.receivedCallbackAdDidClose);
 }
 
 @end

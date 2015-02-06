@@ -122,9 +122,11 @@ NSError *ANError(NSString *key, NSInteger code, ...) {
 NSBundle *ANResourcesBundle() {
     static dispatch_once_t resBundleToken;
     static NSBundle *resBundle;
+    static ANGlobal *globalInstance;
     dispatch_once(&resBundleToken, ^{
-        NSString *resBundlePath = [[NSBundle mainBundle] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
-        resBundle = resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle mainBundle];
+        globalInstance = [[ANGlobal alloc] init];
+        NSString *resBundlePath = [[NSBundle bundleForClass:[globalInstance class]] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
+        resBundle = resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle bundleForClass:[globalInstance class]];
     });
     return resBundle;
 }
@@ -280,3 +282,7 @@ NSNumber *ANiTunesIDForURL(NSURL *URL) {
 BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     return viewController.view.window != nil ? YES : NO;
 }
+
+@implementation ANGlobal
+
+@end

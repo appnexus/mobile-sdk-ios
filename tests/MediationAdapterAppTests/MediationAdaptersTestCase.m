@@ -132,7 +132,7 @@
     
 #if kANMediationAdaptersUITesting
     bannerAdView.accessibilityLabel = @"banner";
-    [tester tapScreenAtPoint:CGPointMake([UIScreen mainScreen].bounds.size.width - 10, 25)];
+    [tester tapScreenAtPoint:CGPointMake(310, 25)];
     [tester waitForTimeInterval:3.0];
     XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
     XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");

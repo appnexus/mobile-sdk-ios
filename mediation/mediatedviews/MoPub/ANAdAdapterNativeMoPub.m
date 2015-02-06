@@ -115,6 +115,7 @@
 }
 
 - (void)handleClickFromRootViewController:(UIViewController *)rvc {
+    [self.nativeAdDelegate adWasClicked];
     [self.nativeAdDelegate willPresentAd];
     [self.nativeAdDelegate didPresentAd];
     self.rootViewController = rvc;
