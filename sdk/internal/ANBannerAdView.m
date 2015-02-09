@@ -43,7 +43,6 @@
 - (void)initialize {
     [super initialize];
 	
-    self.backgroundColor = [UIColor clearColor];
     self.autoresizingMask = UIViewAutoresizingNone;
     
     // Set default autoRefreshInterval
@@ -70,6 +69,7 @@
     
     if (self != nil) {
         [self initialize];
+        self.backgroundColor = [UIColor clearColor];
     }
     
     return self;
