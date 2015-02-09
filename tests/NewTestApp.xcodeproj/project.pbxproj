@@ -47,6 +47,7 @@
 		8A549EBE1A706D6F009F797A /* nativeResponse4.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EB91A706D6F009F797A /* nativeResponse4.json */; };
 		8A549EBF1A706D6F009F797A /* nativeResponse5.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EBA1A706D6F009F797A /* nativeResponse5.json */; };
 		8A549EC01A706DA5009F797A /* SuccessfulMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */; };
+		8A661ED01A85597E00117553 /* appnexus_click_fallback_example.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */; };
 		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
 		8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */; };
 		8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0919DB1E150090EBED /* NSObject+Swizzling.m */; };
@@ -438,6 +439,7 @@
 		8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8A5D27CA199AB26B00F2A516 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
+		8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_click_fallback_example.json; sourceTree = "<group>"; };
 		8A764F021A7078F500C02A97 /* ANReachability+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANReachability+ANTest.h"; sourceTree = "<group>"; };
 		8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANReachability+ANTest.m"; sourceTree = "<group>"; };
 		8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BaseMediationSingleNetworkResponse.json; sourceTree = "<group>"; };
@@ -770,6 +772,7 @@
 			isa = PBXGroup;
 			children = (
 				8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */,
+				8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */,
 				8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */,
 				8AD052E21A802FCD00EE0182 /* appnexus_multiple_main_media.json */,
 				8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */,
@@ -1447,6 +1450,7 @@
 				8AE7AD821A7AA589009E2F2F /* custom_adapter_fb_mediated_response.json in Resources */,
 				8AE7AD881A7AA5F5009E2F2F /* custom_adapter_invalid_type.json in Resources */,
 				8AD052E31A802FCD00EE0182 /* appnexus_multiple_main_media.json in Resources */,
+				8A661ED01A85597E00117553 /* appnexus_click_fallback_example.json in Resources */,
 				8AE7AD6D1A7AA4CD009E2F2F /* appnexus_standard_response.json in Resources */,
 				8AD052ED1A80333800EE0182 /* appnexus_multiple_main_media_default.json in Resources */,
 				8A549EBC1A706D6F009F797A /* nativeResponse2.json in Resources */,

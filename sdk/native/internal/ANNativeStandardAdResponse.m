@@ -122,19 +122,32 @@
     [self adWasClicked];
     [self fireClickTrackers];
     
-    if (!self.opensInNativeBrowser) {
+    BOOL successfullyOpenedBrowserWithClickURL = [self openIntendedBrowserWithURL:self.clickURL];
+    if (!successfullyOpenedBrowserWithClickURL) {
+        ANLogDebug(@"Could not open click URL: %@", self.clickURL);
+        BOOL successfullyOpenedBrowserWithFallbackURL = [self openIntendedBrowserWithURL:self.clickFallbackURL];
+        if (!successfullyOpenedBrowserWithFallbackURL) {
+            ANLogError(@"Could not open click fallback URL: %@", self.clickFallbackURL);
+        }
+    }
+}
+
+- (BOOL)openIntendedBrowserWithURL:(NSURL *)URL {
+    if (!self.opensInNativeBrowser && (hasHttpPrefix(URL.absoluteString) || ANiTunesIDForURL(URL))) {
         if (!self.inAppBrowser) {
-            self.inAppBrowser = [[ANBrowserViewController alloc] initWithURL:self.clickURL
+            self.inAppBrowser = [[ANBrowserViewController alloc] initWithURL:URL
                                                                     delegate:self
                                                     delayPresentationForLoad:self.landingPageLoadsInBackground];
         } else {
             self.inAppBrowser.url = self.clickURL;
         }
-    } else if ([[UIApplication sharedApplication] canOpenURL:self.clickURL]) {
+        return YES;
+    } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         [self willLeaveApplication];
-        [[UIApplication sharedApplication] openURL:self.clickURL];
+        [[UIApplication sharedApplication] openURL:URL];
+        return YES;
     } else {
-        ANLogError(@"Could not open click URL: %@", self.clickURL);
+        return NO;
     }
 }
 

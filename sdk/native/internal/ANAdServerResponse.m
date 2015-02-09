@@ -41,7 +41,7 @@ static NSString *const kANAdServerResponseKeyResultCB = @"result_cb";
 static NSString *const kANAdServerResponseKeyAuctionInfo = @"auction_info";
 
 // Native
-static NSString *const kANAdServerResponseKeyNativeMediaType = @"media_type";
+static NSString *const kANAdServerResponseKeyNativeMediaType = @"type";
 static NSString *const kANAdServerResponseKeyNativeTitle = @"title";
 static NSString *const kANAdServerResponseKeyNativeDescription = @"description";
 static NSString *const kANAdServerResponseKeyNativeFullText = @"full_text";
@@ -55,7 +55,7 @@ static NSString *const kANAdServerResponseKeyNativeCallToAction = @"cta";
 static NSString *const kANAdServerResponseKeyNativeClickTrackArray = @"click_trackers";
 static NSString *const kANAdServerResponseKeyNativeImpTrackArray = @"impression_trackers";
 static NSString *const kANAdServerResponseKeyNativeClickUrl = @"click_url";
-static NSString *const kANAdServerResponseKeyNativeClickFallbackUrl = @"click_fallback_url";
+static NSString *const kANAdServerResponseKeyNativeClickFallbackUrl = @"click_url_fallback";
 static NSString *const kANAdServerResponseKeyNativeRatingDict = @"rating";
 static NSString *const kANAdServerResponseKeyNativeRatingValue = @"value";
 static NSString *const kANAdServerResponseKeyNativeRatingScale = @"scale";

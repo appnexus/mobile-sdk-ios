@@ -379,6 +379,49 @@
     [tester waitForTimeInterval:3.0];
 }
 
+- (void)testAppNexusClickFallbackBehavior {
+    [self stubRequestWithResponse:@"appnexus_click_fallback_example"];
+    [self.adRequest loadAd];
+    self.adRequest.shouldLoadIconImage = YES;
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertTrue(self.successfulAdCall);
+    XCTAssertNil(self.adRequestError);
+    
+    [self iconImageShouldBePresentInResponse:YES];
+    [self mainImageShouldBePresentInResponse:NO];
+    
+    [self createBasicNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
+    
+    [self pullImpressionAndClickTrackersFromResponse];
+    [self setupURLDidLoadTracker];
+    [self assertPendingImpressionTrackerCount:1];
+    [self assertPendingClickTrackerCount:1];
+    
+    [tester waitForTimeInterval:2.0];
+    
+    [self assertPendingImpressionTrackerCount:0];
+    [self assertPendingClickTrackerCount:1];
+    
+    [self clickOnAd];
+    // click_url_fallback will be triggered after click_url fails
+    [tester waitForTimeInterval:2.0];
+    [self assertPresentCallbacksReceived];
+    [self assertPendingClickTrackerCount:0];
+    
+    [self closeInAppBrowser];
+    [tester waitForTimeInterval:3.0];
+    [self assertCloseCallbacksReceived];
+}
+
+#pragma mark - Mediation Tests
+
 - (void)testMoPubWithIconImageLoad {
     [self stubRequestWithResponse:@"mopub_mediated_response"];
     [self.adRequest loadAd];
