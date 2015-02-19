@@ -186,6 +186,7 @@
 }
 
 - (void)didDismissBrowserViewController:(ANBrowserViewController *)controller {
+    self.inAppBrowser = nil;
     [self didCloseAd];
 }
 
