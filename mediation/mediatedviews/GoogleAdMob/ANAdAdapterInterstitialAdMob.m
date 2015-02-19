@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterInterstitialAdMob.h"
 #import "ANLogging.h"
-#import "GADAdMobExtras.h"
 
 @interface ANAdAdapterInterstitialAdMob ()
 
@@ -80,7 +79,7 @@
                                 accuracy:location.horizontalAccuracy];
     }
     
-    GADAdMobExtras *extras = [GADAdMobExtras new];
+    GADExtras *extras = [[GADExtras alloc] init];
     extras.additionalParameters = targetingParameters.customKeywords;
     [request registerAdNetworkExtras:extras];
     

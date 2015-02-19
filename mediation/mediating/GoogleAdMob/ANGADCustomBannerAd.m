@@ -52,10 +52,10 @@
     }
     
     GADGender gadGender = [customEventRequest userGender];
-    ANGENDER anGender = (ANGENDER)UNKNOWN;
+    ANGENDER anGender = (ANGENDER)ANGenderUnknown;
     if (gadGender != kGADGenderUnknown) {
-        if (gadGender == kGADGenderMale) anGender = (ANGENDER)MALE;
-        else if (gadGender == kGADGenderFemale) anGender = (ANGENDER)FEMALE;
+        if (gadGender == kGADGenderMale) anGender = (ANGENDER)ANGenderMale;
+        else if (gadGender == kGADGenderFemale) anGender = (ANGENDER)ANGenderFemale;
     }
     [self.bannerAdView setGender:anGender];
     

@@ -5,6 +5,10 @@
 //  Copyright (c) 2014 MoPub. All rights reserved.
 //
 
+#if __has_include("MPNativeAdSampleTableViewCell.h")
+    #import "MPNativeAdSampleTableViewCell.h"
+#endif
+
 #import "MPAdConversionTracker.h"
 #import "MPAdView.h"
 #import "MPBannerCustomEvent.h"
@@ -67,5 +71,9 @@
  * @param enabled A Boolean value indicating whether the SDK should listen for location updates.
  */
 @property (nonatomic, assign) BOOL locationUpdatesEnabled;
+
+- (void)start;
+- (NSString *)version;
+- (NSString *)bundleIdentifier;
 
 @end

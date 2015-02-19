@@ -37,6 +37,7 @@
 @property (nonatomic, readwrite, strong) NSOperation *postDismissingOperation;
 
 @property (nonatomic, readwrite, assign) BOOL userDidDismiss;
+@property (nonatomic, readwrite, assign) BOOL receivedInitialRequest;
 
 @end
 
@@ -88,6 +89,7 @@
 - (void)resetBrowser {
     self.completedInitialLoad = NO;
     self.loading = NO;
+    self.receivedInitialRequest = NO;
     self.webView = nil;
 }
 
@@ -312,11 +314,18 @@
         [[UIApplication sharedApplication] openURL:URL];
     } else {
         ANLogWarn(@"opening_url_failed %@", URL);
+        if (!self.receivedInitialRequest) {
+            if ([self.delegate respondsToSelector:@selector(browserViewController:couldNotHandleInitialURL:)]) {
+                [self.delegate browserViewController:self couldNotHandleInitialURL:URL];
+            }
+        }
     }
     
     if (shouldStartLoadWithRequest) {
         [self updateLoadingStateForStartLoad];
     }
+    
+    self.receivedInitialRequest = YES;
     
     return shouldStartLoadWithRequest;
 }

@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterBannerDFP.h"
 #import "ANLogging.h"
-#import "DFPExtras.h"
 
 @interface ANAdAdapterBannerDFP ()
 @property (nonatomic, readwrite, strong) DFPBannerView *dfpBanner;
@@ -98,7 +97,7 @@
                                 accuracy:location.horizontalAccuracy];
     }
     
-    DFPExtras *extras = [DFPExtras new];
+    GADExtras *extras = [[GADExtras alloc] init];
     NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
 
     NSString *age = targetingParameters.age;

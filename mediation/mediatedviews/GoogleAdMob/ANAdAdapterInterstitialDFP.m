@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterInterstitialDFP.h"
 #import "ANLogging.h"
-#import "DFPExtras.h"
 
 @interface ANAdAdapterInterstitialDFP ()
 
@@ -80,7 +79,7 @@
                                 accuracy:location.horizontalAccuracy];
     }
     
-    DFPExtras *extras = [DFPExtras new];
+    GADExtras *extras = [[GADExtras alloc] init];
     NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
     
     NSString *age = targetingParameters.age;

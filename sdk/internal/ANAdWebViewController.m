@@ -256,6 +256,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         } else if ([scheme isEqualToString:@"anjam"]) {
             [self.anjamDelegate handleANJAMURL:URL];
             return NO;
+        } else if ([scheme isEqualToString:@"about"]) {
+            return NO;
         } else {
             if (self.configuration.navigationTriggersDefaultBrowser) {
                 [self.browserDelegate openDefaultBrowserWithURL:URL];

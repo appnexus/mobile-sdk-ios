@@ -15,7 +15,7 @@
 
 #import "ANBasicConfig.h"
 #import ANCUSTOMADAPTERHEADER
-#import "GADInterstitial.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface ANAdAdapterInterstitialAdMob : NSObject <ANCUSTOMADAPTERINTERSTITIAL, GADInterstitialDelegate>
 

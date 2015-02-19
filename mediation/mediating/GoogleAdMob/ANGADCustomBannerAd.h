@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-#import "GADCustomEventBanner.h"
-#import "GADCustomEventBannerDelegate.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 #import "ANBannerAdView.h"
 
 @interface ANGADCustomBannerAd : NSObject <GADCustomEventBanner, ANBannerAdViewDelegate>

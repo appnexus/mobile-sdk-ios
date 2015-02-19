@@ -573,6 +573,11 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionBrowser];
 }
 
+- (void)browserViewController:(ANBrowserViewController *)controller
+     couldNotHandleInitialURL:(NSURL *)url {
+    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionBrowser];
+}
+
 # pragma mark - Click overlay
 
 - (UIView *)viewToDisplayClickOverlay {

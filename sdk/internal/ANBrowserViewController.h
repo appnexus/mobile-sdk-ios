@@ -54,6 +54,8 @@
 
 @optional
 - (void)browserViewController:(ANBrowserViewController *)controller
+     couldNotHandleInitialURL:(NSURL *)url;
+- (void)browserViewController:(ANBrowserViewController *)controller
              browserIsLoading:(BOOL)isLoading;
 - (void)willPresentBrowserViewController:(ANBrowserViewController *)controller;
 - (void)didPresentBrowserViewController:(ANBrowserViewController *)controller;
