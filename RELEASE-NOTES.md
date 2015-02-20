@@ -1,4 +1,43 @@
-## RC 1.21
+## RC 2.1
+
++ MS-856, MS-868, MS-875, MS-916, MS-918, MS-925 Implemented AppNexus Native Ad Console Support. 
+
++ MS-932 Introduced namespaced `ANGender` enum values (e.g. `ANGenderMale`). Deprecated existing values (e.g. `MALE`).
+
++ Updated to meet MRAID 2.0 compliance standards
+
+### Other Feature Additions:
+
++ MS-868 Added dependency on StoreKit framework, App Store URLs will open directly in the app instead of opening in the AppStore app when `opensInNativeBrowser` is set to NO on the ad view. 
+
++ MS-900 Added dependency on EventKitUI framework, user will be presented with a calendar event edit screen if an ad calls `mraid.createCalendarEvent`
+
++ UIWebView performance enhancements
+
+### Bug fixes:
+
++ MS-888 Clear AmazonAdView delegate on dealloc
+
++ MS-902 Fixed malformed URL issue caused by mediated networks not present in app
+
++ MS-934 Allow background color for banner to be set from .nib file or storyboard
+
+### Includes the following mediated network SDKs:
+
++ Google SDK Version 7.0.0
+
++ Amazon SDK Version 2.1.9
+
++ Facebook SDK Version 3.23
+
++ Millennial Media SDK Version 5.4.1
+
++ MoPub SDK Version 3.4.0
+
+Note: The AdMob and DFP mediation adapters have been updated to work with the new framework distribution mechanism for the Google Ads SDK (in version 7.0.0).
+
+
+## RC 1.21 (2.0)
 
 + AppNexus Native API 1.0, with support for MoPub and Facebook mediation.
 
@@ -96,4 +135,4 @@ To enable Amazon monetization, your app must register itself with Amazon when yo
 
     ...
 
-    [ANAdapaterBaseAmazone setAmazonAppKey: "YOUR APP KEY"];
+    [ANAdAdapterBaseAmazon setAmazonAppKey: "YOUR APP KEY"];
