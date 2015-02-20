@@ -15,9 +15,7 @@
 
 #import "ANBasicConfig.h"
 #import ANCUSTOMADAPTERHEADER
-#import "DFPBannerView.h"
-#import "DFPSwipeableBannerView.h"
-#import "GADBannerViewDelegate.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface ANAdAdapterBannerDFP : NSObject <ANCUSTOMADAPTERBANNER, GADBannerViewDelegate>
 

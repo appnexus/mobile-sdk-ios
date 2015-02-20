@@ -17,13 +17,13 @@
 #import ANINTERSTITIALADHEADER
 
 #import "ANAdFetcher.h"
-#import "ANBrowserViewController.h"
 #import "ANGlobal.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANLogging.h"
-#import "ANMRAIDViewController.h"
+#import "ANAdView+PrivateMethods.h"
 #import "ANPBBuffer.h"
 #import "ANPBContainerView.h"
+#import "ANMRAIDContainerView.h"
 
 #define AN_INTERSTITIAL_AD_TIMEOUT 60.0
 
@@ -39,36 +39,7 @@ NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
 
-@interface ANADVIEW (ANINTERSTITIALAD) <ANAdFetcherDelegate>
-- (void)initialize;
-- (void)loadAd;
-- (void)adDidReceiveAd;
-- (void)adRequestFailedWithError:(NSError *)error;
-- (void)mraidExpandAd:(CGSize)size
-          contentView:(UIView *)contentView
-    defaultParentView:(UIView *)defaultParentView
-   rootViewController:(UIViewController *)rootViewController;
-- (void)mraidExpandAddCloseButton:(UIButton *)closeButton
-                    containerView:(UIView *)containerView;
-- (NSString *)mraidResizeAd:(CGRect)frame
-                contentView:(UIView *)contentView
-          defaultParentView:(UIView *)defaultParentView
-         rootViewController:(UIViewController *)rootViewController
-             allowOffscreen:(BOOL)allowOffscreen;
-- (void)mraidResizeAddCloseEventRegion:(UIButton *)closeEventRegion
-                         containerView:(UIView *)containerView
-                           contentView:contentView
-                              position:(ANMRAIDCustomClosePosition)position;
-- (void)adShouldResetToDefault:(UIView *)contentView
-                    parentView:(UIView *)parentView;
-
-@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
-@property (nonatomic, readwrite, strong) ANMRAIDViewController *mraidController;
-@property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
-
-@end
-
-@interface ANINTERSTITIALAD () <ANInterstitialAdViewControllerDelegate>
+@interface ANINTERSTITIALAD () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
@@ -77,20 +48,15 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 @end
 
 @implementation ANINTERSTITIALAD
-@synthesize controller = __controller;
-@synthesize precachedAdObjects = __precachedAdObjects;
-@synthesize delegate = __delegate;
-@synthesize frame = __frame;
-@synthesize allowedAdSizes = __allowedAdSizes;
 
 #pragma mark Initialization
 
 - (void)initialize {
     [super initialize];
-    __controller = [[ANInterstitialAdViewController alloc] init];
-    __controller.delegate = self;
-    __precachedAdObjects = [NSMutableArray array];
-    __allowedAdSizes = [self getDefaultAllowedAdSizes];
+    _controller = [[ANInterstitialAdViewController alloc] init];
+    _controller.delegate = self;
+    _precachedAdObjects = [NSMutableArray array];
+    _allowedAdSizes = [self getDefaultAllowedAdSizes];
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
 }
 
@@ -116,6 +82,14 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     id adToShow = nil;
     NSString *auctionID = nil;
     
+    self.controller.orientationProperties = nil;
+    self.controller.useCustomClose = NO;
+    
+    if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
+        mraidContainerView.adViewDelegate = nil;
+    }
+    
     while ([self.precachedAdObjects count] > 0) {
         // Pull the first ad off
         NSDictionary *adDict = self.precachedAdObjects[0];
@@ -140,6 +114,12 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");
             return;
         }
+        if ([adToShow isKindOfClass:[ANMRAIDContainerView class]]) {
+            ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)adToShow;
+            mraidContainerView.adViewDelegate = self;
+            mraidContainerView.embeddedInModalView = YES;
+        }
+        
         self.controller.contentView = adToShow;
         if (self.backgroundColor) {
             self.controller.backgroundColor = self.backgroundColor;
@@ -235,17 +215,6 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     _closeDelay = closeDelay;
 }
 
-#pragma mark Implementation of Abstract methods from ANAdView
-
-- (void)openInBrowserWithController:(ANBrowserViewController *)browserViewController {
-	// Stop the countdown and enable close button immediately
-	[self.controller stopCountdownTimer];
-    if (self.controller.presentingViewController) {
-        // don't open the browser if the interstitial has been closed already
-        [self.controller presentViewController:self.browserViewController animated:YES completion:nil];
-    }
-}
-
 #pragma mark extraParameters methods
 
 - (NSString *)sizeParameter {
@@ -309,87 +278,12 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     return self.frame.size;
 }
 
-- (UIView *)containerView {
-    return self.controller.view;
-}
-
-#pragma mark ANMRAIDAdViewDelegate
-
-- (NSString *)adType {
-	return @"interstitial";
-}
-
-- (UIViewController *)displayController {
-    return self.mraidController ? self.mraidController : self.controller;
-}
-
-- (void)adShouldExpandToFrame:(CGRect)frame
-                  closeButton:(UIButton *)closeButton {
-    [super mraidExpandAd:frame.size
-             contentView:self.controller.contentView
-       defaultParentView:self.controller.containerView
-      rootViewController:self.controller];
-    
-    UIView *containerView = self.mraidController ? self.mraidController.view : self.controller.contentView;
-    [super mraidExpandAddCloseButton:closeButton containerView:containerView];
-    
-    [self.mraidEventReceiverDelegate adDidFinishExpand];
-}
-
-- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
-                  closeButton:(UIButton *)closeButton
-                closePosition:(ANMRAIDCustomClosePosition)closePosition {
-    // resized ads are never modal
-    UIView *contentView = self.controller.contentView;
-    UIView *containerView = self.controller.containerView;
-
-    NSString *mraidResizeErrorString = [super mraidResizeAd:frame
-                                                contentView:contentView
-                                          defaultParentView:containerView
-                                         rootViewController:self.controller
-                                             allowOffscreen:allowOffscreen];
-    
-    if ([mraidResizeErrorString length] > 0) {
-        [self.mraidEventReceiverDelegate adDidFinishResize:NO errorString:mraidResizeErrorString];
-        return;
-    }
-    
-	[super mraidResizeAddCloseEventRegion:closeButton
-                            containerView:containerView
-                              contentView:contentView
-                                 position:closePosition];
-    
-    // send mraid events
-    [self.mraidEventReceiverDelegate adDidFinishResize:YES errorString:nil];
-}
-
-- (void)adShouldResetToDefault {
-    [super adShouldResetToDefault:self.controller.contentView parentView:self.controller.containerView];
-}
-
-#pragma mark ANBrowserViewControllerDelegate
-
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller {
-	[controller dismissViewControllerAnimated:YES completion:^{
-		self.browserViewController = nil;
-	}];
-}
-
-- (UIView *)viewToDisplayClickOverlay {
-    return self.controller.contentView;
-}
-
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
     __weak ANINTERSTITIALAD *weakAd = self;
     
-    [self.browserViewController dismissViewControllerAnimated:YES completion:^{
-        ANINTERSTITIALAD *ad = weakAd;
-        ad.browserViewController = nil;
-    }];
-
-    [self.controller dismissViewControllerAnimated:YES completion:^{
+    [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
         ANINTERSTITIALAD *ad = weakAd;
         ad.controller = nil;
     }];
@@ -397,6 +291,48 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 - (NSTimeInterval)closeDelayForController {
     return self.closeDelay;
+}
+
+- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange {
+    __weak ANInterstitialAd *weakSelf = self;
+    UIViewController *presentingViewController = self.controller.presentingViewController;
+    [presentingViewController dismissViewControllerAnimated:NO
+                                                 completion:^{
+                                                     ANInterstitialAd *strongSelf = weakSelf;
+                                                     [presentingViewController presentViewController:strongSelf.controller
+                                                                                            animated:NO
+                                                                                          completion:nil];
+                                                 }];
+}
+
+#pragma mark - ANAdViewInternalDelegate
+
+- (NSString *)adType {
+    return @"interstitial";
+}
+
+- (UIViewController *)displayController {
+    return self.controller;
+}
+
+#pragma mark - ANInterstitialAdViewInternalDelegate
+
+- (void)adFailedToDisplay {
+    if ([self.delegate respondsToSelector:@selector(adFailedToDisplay:)]) {
+        [self.delegate adFailedToDisplay:self];
+    }
+}
+
+- (void)adShouldClose {
+    [self.controller closeAction:nil];
+}
+
+- (void)adShouldSetOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties {
+    self.controller.orientationProperties = orientationProperties;
+}
+
+- (void)adShouldUseCustomClose:(BOOL)useCustomClose {
+    self.controller.useCustomClose = useCustomClose;
 }
 
 @end

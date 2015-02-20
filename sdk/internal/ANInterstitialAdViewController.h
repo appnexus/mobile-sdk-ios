@@ -16,16 +16,20 @@
 #import <UIKit/UIKit.h>
 
 @protocol ANInterstitialAdViewControllerDelegate;
+@class ANMRAIDOrientationProperties;
 
 @interface ANInterstitialAdViewController : UIViewController
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdViewControllerDelegate> delegate;
-@property (nonatomic, readwrite, strong) UIView *containerView;
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, weak) IBOutlet UIButton *closeButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIProgressView *progressView;
 @property (nonatomic, readwrite, strong) UIColor *backgroundColor;
 @property (nonatomic, readonly, assign) UIInterfaceOrientation orientation;
+@property (nonatomic, readwrite, weak) IBOutlet NSLayoutConstraint *buttonTopToSuperviewConstraint;
+
+@property (nonatomic, readwrite, strong) ANMRAIDOrientationProperties *orientationProperties;
+@property (nonatomic, readwrite, assign) BOOL useCustomClose;
 
 - (IBAction)closeAction:(id)sender;
 - (void)stopCountdownTimer;
@@ -36,5 +40,6 @@
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller;
 - (NSTimeInterval)closeDelayForController;
+- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange;
 
 @end

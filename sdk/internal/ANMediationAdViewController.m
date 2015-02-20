@@ -85,7 +85,7 @@
         ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
                             @{kANAdFetcherMediatedClassKey: className});
         
-        ANLogDebug(ANErrorString(@"instantiating_class", className));
+        ANLogDebug(@"instantiating_class %@", className);
         
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);
@@ -143,10 +143,10 @@
                          errorCode:(ANADRESPONSECODE)errorCode
                          errorInfo:(NSString *)errorInfo {
     if ([errorInfo length] > 0) {
-        ANLogError(ANErrorString(@"mediation_instantiation_failure", errorInfo));
+        ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
     if ([className length] > 0) {
-        ANLogWarn(ANErrorString(@"mediation_adding_invalid", className));
+        ANLogWarn(@"mediation_adding_invalid %@", className);
         ANAddInvalidNetwork(className);
     }
     
@@ -167,7 +167,7 @@
     self.adViewDelegate = nil;
     self.mediatedAd = nil;
     [self cancelTimeout];
-    ANLogInfo(ANErrorString(@"mediation_finish"));
+    ANLogInfo(@"mediation_finish");
 }
 
 - (BOOL)requestAd:(CGSize)size
@@ -199,7 +199,7 @@
                                targetingParameters:targetingParameters];
             return YES;
         } else {
-            ANLogError(ANErrorString(@"instance_exception", @"CustomAdapterBanner"));
+            ANLogError(@"instance_exception %@", @"CustomAdapterBanner");
         }
     } else if ([adView isKindOfClass:[ANINTERSTITIALAD class]]) {
         // make sure the container and protocol match
@@ -215,7 +215,7 @@
                                                 targetingParameters:targetingParameters];
             return YES;
         } else {
-            ANLogError(ANErrorString(@"instance_exception", @"CustomAdapterInterstitial"));
+            ANLogError(@"instance_exception %@", @"CustomAdapterInterstitial");
         }
     }
     
@@ -286,7 +286,10 @@
 - (void)failedToDisplayAd {
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
-        [self.adViewDelegate adFailedToDisplay];
+        if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
+            id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)self.adViewDelegate;
+            [interstitialDelegate adFailedToDisplay];
+        }
     }];
 }
 
@@ -426,7 +429,7 @@
                    dispatch_get_main_queue(), ^{
                        ANMediationAdViewController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
-                       ANLogWarn(ANErrorString(@"mediation_timeout"));
+                       ANLogWarn(@"mediation_timeout");
                        [strongSelf didFailToReceiveAd:(ANADRESPONSECODE)ANAdResponseInternalError];
                    });
     

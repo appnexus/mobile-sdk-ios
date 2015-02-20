@@ -15,6 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *const kANHTTPStubURLProtocolRequestDidLoadNotification;
+extern NSString *const kANHTTPStubURLProtocolRequest;
+
 @interface ANHTTPStubURLProtocol : NSURLProtocol
 
 @end

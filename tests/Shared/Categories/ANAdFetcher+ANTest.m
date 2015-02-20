@@ -21,7 +21,7 @@
 @implementation ANAdFetcher (ANTest)
 #pragma clang diagnostic pop
 
-@dynamic webView;
+@dynamic standardAdView;
 
 + (void)load {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{

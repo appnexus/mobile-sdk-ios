@@ -74,10 +74,10 @@
     
     ANGender gender = targetingParameters.gender;
     switch (gender) {
-        case MALE:
+        case ANGenderMale:
             [keywordArray addObject:@"m_gender:male"];
             break;
-        case FEMALE:
+        case ANGenderFemale:
             [keywordArray addObject:@"m_gender:female"];
             break;
         default:
@@ -115,6 +115,7 @@
 }
 
 - (void)handleClickFromRootViewController:(UIViewController *)rvc {
+    [self.nativeAdDelegate adWasClicked];
     [self.nativeAdDelegate willPresentAd];
     [self.nativeAdDelegate didPresentAd];
     self.rootViewController = rvc;

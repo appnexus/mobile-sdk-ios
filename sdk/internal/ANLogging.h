@@ -27,7 +27,7 @@ void notifyListener(NSString *message, NSInteger messageLevel);
 
 #if AN_DEBUG_MODE
 
-void _ANLog(ANLogLevel level, NSString *format, ...);
+void _ANLog(ANLogLevel level, NSString *format, ...) NS_FORMAT_FUNCTION(2, 3);
 #define ANLogTrace(...) _ANLog(ANLogLevelTrace, __VA_ARGS__)
 #define ANLogDebug(...) _ANLog(ANLogLevelDebug, __VA_ARGS__)
 #define ANLogInfo(...) _ANLog(ANLogLevelInfo, __VA_ARGS__)

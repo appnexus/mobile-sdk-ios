@@ -16,21 +16,22 @@
 #import "ANAdFetcher.h"
 
 #import "ANAdRequestUrl.h"
-#import "ANAdWebViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
-#import "ANWebView.h"
+#import "ANMRAIDContainerView.h"
+
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
+#import "UIView+ANCategory.h"
 
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 NSString *const kANAdFetcherWillInstantiateMediatedClassNotification = @"kANAdFetcherWillInstantiateMediatedClassKey";
 NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
-@interface ANAdFetcher () <NSURLConnectionDataDelegate>
+@interface ANAdFetcher () <NSURLConnectionDataDelegate, ANAdWebViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, strong) NSURLConnection *connection;
 @property (nonatomic, readwrite, strong) NSMutableURLRequest *request;
@@ -38,7 +39,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 @property (nonatomic, readwrite, strong) NSURL *URL;
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
-@property (nonatomic, readwrite, strong) ANWebView *webView;
+@property (nonatomic, readwrite, strong) ANMRAIDContainerView *standardAdView;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
@@ -110,10 +111,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     
     if (!self.isLoading)
 	{
-        ANLogInfo(ANErrorString(@"fetcher_start"));
-        
-        ANLogDebug(ANErrorString(([self getAutoRefreshFromDelegate] > 0.0)
-                                 ? @"fetcher_start_auto" : @"fetcher_start_single"));
+        ANLogInfo(@"fetcher_start");
+        NSString *errorKey = [self getAutoRefreshFromDelegate] > 0.0 ? @"fetcher_start_auto" : @"fetcher_start_single";
+        ANLogDebug(@"%@", errorKey);
 		
         NSString *baseUrlString = [NSString stringWithFormat:@"http://%@?", self.ANMobileHostname];
         self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
@@ -154,7 +154,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 	}
 	else
     {
-		ANLogWarn(ANErrorString(@"moot_restart"));
+		ANLogWarn(@"moot_restart");
     }
 }
 
@@ -246,7 +246,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     BOOL oldAdsExist = [self.mediatedAds count] > 0;
     
     if (!responseAdsExist && !oldAdsExist) {
-		ANLogWarn(ANErrorString(@"response_no_ads"));
+		ANLogWarn(@"response_no_ads");
         NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Request got successful response from server, but no ads were available.", @"Error: Response was received, but it contained no ads")};
         [self finishRequestWithErrorAndRefresh:errorInfo code:ANAdResponseUnableToFill];
         return;
@@ -278,72 +278,28 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
     
     if (!CGRectContainsRect(requestedRect, receivedRect)) {
-        ANLogInfo(ANErrorString(@"adsize_too_big",
-                                (int)receivedSize.width, (int)receivedSize.height,
-                                (int)requestedSize.width, (int)requestedSize.height));
+        ANLogInfo(@"adsize_too_big %d%d%d%d", (int)receivedSize.width, (int)receivedSize.height,
+                                            (int)requestedSize.width, (int)requestedSize.height);
     }
 
     CGSize sizeOfCreative = ((receivedSize.width > 0)
                              && (receivedSize.height > 0)) ? receivedSize : requestedSize;
-
-    /*
-     The old controller should not continue to fire messages to the ad fetcher. The controller maintains a weak reference to the ad fetcher delegate
-     in the event the web view continues to persist (in the event the banner will still show, for example), so that messages between the controller and
-     the ad view can proceed uninterrupted.
-     */
-    if (self.webView) {
-        self.webView.controller.adFetcher = nil;
+    
+    if (self.standardAdView) {
+        self.standardAdView.webViewController.loadingDelegate = nil;
     }
     
-    // Generate a new webview to contain the HTML
-    self.webView = [[ANWebView alloc] initWithFrame:CGRectMake(0, 0, sizeOfCreative.width, sizeOfCreative.height)];
-    
-    ANMRAIDAdWebViewController *webViewController = [[ANMRAIDAdWebViewController alloc] init];
-    webViewController.isMRAID = response.isMraid;
-    webViewController.mraidDelegate = self.delegate;
-    webViewController.mraidDelegate.mraidEventReceiverDelegate = webViewController;
-    webViewController.adFetcher = self;
-    webViewController.webView = self.webView;
-    webViewController.adFetcherDelegate = self.delegate;
-    self.webView.delegate = webViewController;
-    self.webView.controller = webViewController;
-    
-    NSString *contentToLoad = response.content;
-    contentToLoad = [self prependMRAIDJS:contentToLoad];
-    contentToLoad = [self prependSDKJS:contentToLoad];
-    
-    [self.webView loadHTMLString:contentToLoad baseURL:[NSURL URLWithString:self.ANBaseURL]];
+    self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
+                                                                HTML:response.content
+                                                      webViewBaseURL:[NSURL URLWithString:self.ANBaseURL]];
+    self.standardAdView.webViewController.loadingDelegate = self;
 }
 
-- (NSString *)prependMRAIDJS:(NSString *)content {
-    NSString *mraidPath = ANMRAIDBundlePath();
-    if (!mraidPath) {
-        ANLogError(@"Could not prepend ad content with mraid.js. MRAID will not be available to ad.");
-        return content;
+- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
+    if (self.standardAdView.webViewController == controller) {
+        ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:self.standardAdView];
+        [self processFinalResponse:response];
     }
-    NSBundle *mraidBundle = [[NSBundle alloc] initWithPath:mraidPath];
-    NSData *data = [NSData dataWithContentsOfFile:[mraidBundle pathForResource:@"mraid" ofType:@"js"]];
-    NSString *mraidScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@</script>",
-                             [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
-    return [mraidScript stringByAppendingString:content];
-}
-
-- (NSString *)prependSDKJS:(NSString *)content {
-    NSString *sdkjsPath = ANPathForANResource(@"sdkjs", @"js");
-    NSString *anjamPath = ANPathForANResource(@"anjam", @"js");
-    if (!sdkjsPath || !anjamPath) {
-        ANLogError(@"Could not prepend ad content with ANJAM files. ANJAM will not be available to ad.");
-        return content;
-    }
-    NSData *sdkjsData = [NSData dataWithContentsOfFile:sdkjsPath];
-    NSData *anjamData = [NSData dataWithContentsOfFile:anjamPath];
-    NSString *sdkjs = [[NSString alloc] initWithData:sdkjsData encoding:NSUTF8StringEncoding];
-    NSString *anjam  = [[NSString alloc] initWithData:anjamData encoding:NSUTF8StringEncoding];
-    
-    NSString *sdkjsScript = [NSString stringWithFormat:@"<script type=\"text/javascript\">%@ %@</script>",
-                             sdkjs, anjam];
-    return [sdkjsScript stringByAppendingString:content];
-    
 }
 
 - (void)handleMediatedAds:(NSMutableArray *)mediatedAds {
@@ -375,7 +331,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)startAutoRefreshTimer {
     if (!self.autoRefreshTimer) {
-        ANLogDebug(ANErrorString(@"fetcher_stopped"));
+        ANLogDebug(@"fetcher_stopped");
     } else if ([self.autoRefreshTimer isScheduled]) {
         ANLogDebug(@"AutoRefresh timer already scheduled.");
     } else {
@@ -434,7 +390,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         NSString *errorMessage = [NSString stringWithFormat:
                                   @"Ad request %@ failed with error %@",
                                   connection, [error localizedDescription]];
-        ANLogError(errorMessage);
+        ANLogError(@"%@", errorMessage);
         
         self.loading = NO;
         
@@ -508,7 +464,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                                    ANLogInfo(@"Ignored resultCB received response with error: %@", [error localizedDescription]);
                                } else if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                                    NSInteger status = [(NSHTTPURLResponse *)response statusCode];
-                                   ANLogInfo(@"Ignored resultCB received response with code %ld", status);
+                                   ANLogInfo(@"Ignored resultCB received response with code %ld", (long)status);
                                } else {
                                    ANLogInfo(@"Ignored resultCB received response.");
                                }

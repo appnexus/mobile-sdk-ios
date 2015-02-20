@@ -24,6 +24,7 @@ NSString *const kANLogMessageLevelKey = @"kANLogMessageLevelKey";
 
 void _ANLog(ANLogLevel level, NSString *format, ...) {
 	if ([ANLogManager getANLogLevel] <= level) {
+        format = ANErrorString(format); // returns the format string if error string not found
 		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
         va_list args;
         va_start(args, format);

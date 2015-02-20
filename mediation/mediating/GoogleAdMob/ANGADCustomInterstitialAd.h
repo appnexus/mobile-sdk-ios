@@ -13,9 +13,7 @@
  limitations under the License.
  */
 
-
-#import "GADCustomEventInterstitial.h"
-#import "GADCustomEventInterstitialDelegate.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 #import "ANInterstitialAd.h"
 
 @interface ANGADCustomInterstitialAd : NSObject <GADCustomEventInterstitial, ANInterstitialAdDelegate>

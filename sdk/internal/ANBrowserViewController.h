@@ -19,33 +19,48 @@
 
 @interface ANBrowserViewController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
 
+@property (nonatomic, readwrite, weak) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *forwardButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *backButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *openInButton;
-@property (nonatomic, readwrite, weak) IBOutlet UIWebView *webView;
+@property (nonatomic, readwrite, strong) IBOutlet UIBarButtonItem *refreshButton;
+@property (nonatomic, readwrite, weak) IBOutlet UIView *webViewContainerView;
+@property (nonatomic, readwrite, weak) IBOutlet NSLayoutConstraint *containerViewSuperviewTopConstraint;
 
 - (IBAction)closeAction:(id)sender;
 - (IBAction)forwardAction:(id)sender;
 - (IBAction)backAction:(id)sender;
 - (IBAction)openInAction:(id)sender;
 
-@property (nonatomic, readonly, assign) BOOL completedInitialLoad;
-@property (nonatomic, readonly, assign, getter=isLoading) BOOL loading;
+- (instancetype)initWithURL:(NSURL *)url
+                   delegate:(id<ANBrowserViewControllerDelegate>)delegate
+   delayPresentationForLoad:(BOOL)shouldDelayPresentation;
+
 @property (nonatomic, readwrite, strong) NSURL *url;
 @property (nonatomic, readwrite, weak) id<ANBrowserViewControllerDelegate> delegate;
+@property (nonatomic, readonly, assign) BOOL delayPresentationForLoad;
+@property (nonatomic, readonly, assign) BOOL completedInitialLoad;
+@property (nonatomic, readonly, assign, getter=isLoading) BOOL loading;
 
-- (instancetype)initWithURL:(NSURL *)url;
-+ (void)launchURL:(NSURL *)url withDelegate:(id<ANBrowserViewControllerDelegate>)delegate;
+- (void)stopLoading;
 
 @end
 
 @protocol ANBrowserViewControllerDelegate <NSObject>
 
+@required
+- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller;
+
 @optional
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller;
-- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller;
-- (void)browserViewControllerWillLaunchExternalApplication;
-- (void)browserViewController:(ANBrowserViewController *)controller browserIsLoading:(BOOL)isLoading;
+- (void)browserViewController:(ANBrowserViewController *)controller
+     couldNotHandleInitialURL:(NSURL *)url;
+- (void)browserViewController:(ANBrowserViewController *)controller
+             browserIsLoading:(BOOL)isLoading;
+- (void)willPresentBrowserViewController:(ANBrowserViewController *)controller;
+- (void)didPresentBrowserViewController:(ANBrowserViewController *)controller;
+- (void)willDismissBrowserViewController:(ANBrowserViewController *)controller;
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller;
+- (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller;
 
 @end

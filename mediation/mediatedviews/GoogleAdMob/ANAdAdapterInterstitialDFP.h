@@ -15,7 +15,7 @@
 
 #import "ANBasicConfig.h"
 #import ANCUSTOMADAPTERHEADER
-#import "DFPInterstitial.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface ANAdAdapterInterstitialDFP : NSObject <ANCUSTOMADAPTERINTERSTITIAL, GADInterstitialDelegate>
 

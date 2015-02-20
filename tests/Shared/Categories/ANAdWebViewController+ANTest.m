@@ -15,7 +15,7 @@
 
 #import "ANAdWebViewController+ANTest.h"
 
-@implementation ANMRAIDAdWebViewController (ANTest)
+@implementation ANAdWebViewController (ANTest)
 
 @dynamic completedFirstLoad;
 

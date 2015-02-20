@@ -101,7 +101,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
     
     if (jsonParsingError != nil) {
-        ANLogError(ANErrorString(@"response_json_error", jsonParsingError));
+        ANLogError(@"response_json_error %@", jsonParsingError);
         
         return [ANAdResponse adResponseFailWithError:jsonParsingError];
     }
@@ -119,7 +119,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 -(BOOL)checkStatusIsValid:(NSDictionary *)jsonResponse {
     NSString *status = jsonResponse[kResponseKeyStatus];
     if (status && ([status isEqual: kResponseValueError])) {
-        ANLogError(ANErrorString(@"response_error", jsonResponse));
+        ANLogError(@"response_error %@", jsonResponse);
         return NO;
     }
     return YES;
@@ -140,7 +140,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
         // Grab the ad's content
         _content = firstAd[kResponseKeyContent];
         if (!_content || ([_content length] < 1)) {
-            ANLogError(ANErrorString(@"blank_ad"));
+            ANLogError(@"blank_ad");
         }
         else {
             // check for mraid.js file

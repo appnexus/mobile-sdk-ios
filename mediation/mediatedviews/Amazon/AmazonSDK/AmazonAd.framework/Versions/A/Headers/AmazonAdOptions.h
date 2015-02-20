@@ -9,7 +9,6 @@
 
 // Standard Amazon Ad Sizes for phones.
 extern const CGSize AmazonAdSize_320x50;
-extern const CGSize AmazonAdSize_300x50;
 extern const CGSize AmazonAdSize_300x250;
 
 // Standard Amazon Ad Sizes for tablets.

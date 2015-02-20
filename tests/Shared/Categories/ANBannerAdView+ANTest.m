@@ -29,7 +29,6 @@
 @dynamic age;
 @dynamic gender;
 @dynamic customKeywords;
-@dynamic mraidEventReceiverDelegate;
 @dynamic contentView;
 @dynamic transitionInProgress;
 

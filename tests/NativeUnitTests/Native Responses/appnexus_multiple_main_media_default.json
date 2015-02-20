@@ -1,0 +1,48 @@
+{  
+   "status":"ok",
+   "ads":[  
+
+   ],
+   "mediated":[  
+
+   ],
+   "native":[  
+      {  
+         "title":"AppNexusSDKApp",
+         "description":"Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
+         "cta":"Install Now!",
+         "icon_img_url":"http://rlissack.adnxs.net:8080/jtest/appnexus_logo_icon@2x.png",
+         "main_media":[
+            {
+               "url":"http://upload.wikimedia.org/wikipedia/commons/0/0a/Eastern_Grey_Squirrel.jpg",
+               "width":300,
+               "height":250,
+               "label":"banner"
+            },
+            {  
+               "url":"http://rlissack.adnxs.net:8080/jtest/MainImageAppNexusSDKApp@2x.png",
+               "width":300,
+               "height":250,
+               "label":"default"
+            },
+            {
+               "url":"http://animalstime.com/wp-content/uploads/2012/05/kangaroo-facts-for-kids.jpg",
+               "width":300,
+               "height":250,
+               "label":"default"
+            }
+         ],
+         "rating":{  
+            "value":5.0,
+            "scale":5
+         },
+         "impression_trackers":[  
+            "http://rlissack.adnxs.net:8080/jtest/trackImpression"
+         ],
+         "click_trackers":[  
+            "http://nym1.ib.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPA_AAAAAAAAAAAAAAAAAAAAAJkJvjGlBMFaZyDVla9jmxLH_n1UAAAAAJ-nIAC-AwAAvgMAAAIAAACL37AAtZgCAAAAAQBVU0QAVVNEACwB-gARIAAA5uUAAgMCAQIAAAAAJBbkOAAAAAA./cnd=%21-gXbOAi9vKkBEIu_wwUYtbEKIAQ./referrer=http%3A%2F%2Fapps.mobile.adnxs.com/clickenc="
+         ],
+         "click_url":"http://appnexus.com"
+      }
+   ]
+}

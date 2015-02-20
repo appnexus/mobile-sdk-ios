@@ -18,21 +18,11 @@
 #import "ANLogging.h"
 #import "ANGlobal.h"
 #import "UIView+ANNativeAdCategory.h"
-
-@interface ANNativeAdResponse (ANNativeMediatedAdResponse)
-
-@property (nonatomic, readwrite, strong) UIView *viewForTracking;
-
-- (void)unregisterViewFromTracking;
-
-@end
+#import "ANNativeAdResponse+PrivateMethods.h"
 
 @interface ANNativeMediatedAdResponse () <ANNativeCustomAdapterAdDelegate>
 
 @property (nonatomic, readwrite, strong) id<ANNativeCustomAdapter> adapter;
-@property (nonatomic, readwrite, weak) UIViewController *rootViewController;
-@property (nonatomic, readwrite, strong) NSMutableDictionary *viewToGestureRecognizerMapping;
-@property (nonatomic, readwrite, assign, getter=hasExpired) BOOL expired;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
 
 @end
@@ -77,51 +67,14 @@
 
 #pragma mark - Registration
 
-- (BOOL)registerViewForTracking:(UIView *)view
-         withRootViewController:(UIViewController *)controller
-                 clickableViews:(NSArray *)clickableViews
-                          error:(NSError **)error {
-    if (!view) {
-        ANLogError(ANErrorString(@"native_invalid_view"));
-        if (error) {
-            *error = ANError(@"native_invalid_view", ANNativeAdRegisterErrorCodeInvalidView);
-        }
-        return NO;
-    }
-    if (!controller) {
-        ANLogError(ANErrorString(@"native_invalid_rvc"));
-        if (error) {
-            *error = ANError(@"native_invalid_rvc", ANNativeAdRegisterErrorCodeInvalidRootViewController);
-        }
-        return NO;
-    }
-    if (self.hasExpired) {
-        ANLogError(ANErrorString(@"native_expired_response"));
-        if (error) {
-            *error = ANError(@"native_expired_response", ANNativeAdRegisterErrorCodeExpiredResponse);
-        }
-        return NO;
-    }
-    
-    ANNativeAdResponse *response = [view anNativeAdResponse];
-    if (response) {
-        ANLogDebug(@"Unregistering view from another response");
-        [response unregisterViewFromTracking];
-    }
-    
-    BOOL successfulAdapterRegistration = [self registerAdapterWithNativeView:view
-                                                          rootViewController:controller
-                                                              clickableViews:clickableViews
-                                                                       error:error];
-    if (successfulAdapterRegistration) {
-        self.viewForTracking = view;
-        [view setAnNativeAdResponse:self];
-        self.rootViewController = controller;
-        self.expired = YES;
-        return YES;
-    }
-    
-    return NO;
+- (BOOL)registerResponseInstanceWithNativeView:(UIView *)view
+                            rootViewController:(UIViewController *)controller
+                                clickableViews:(NSArray *)clickableViews
+                                         error:(NSError *__autoreleasing *)error {
+    return [self registerAdapterWithNativeView:view
+                            rootViewController:controller
+                                clickableViews:clickableViews
+                                         error:error];
 }
 
 - (BOOL)registerAdapterWithNativeView:(UIView *)view
@@ -131,7 +84,7 @@
     if ([self.adapter respondsToSelector:@selector(nativeAdDelegate)]) {
         self.adapter.nativeAdDelegate = self;
     } else {
-        ANLogDebug(ANErrorString(@"native_adapter_native_ad_delegate_missing"));
+        ANLogDebug(@"native_adapter_native_ad_delegate_missing");
     }
     if ([self.adapter respondsToSelector:@selector(registerViewForImpressionTrackingAndClickHandling:withRootViewController:clickableViews:)]) {
         [self.adapter registerViewForImpressionTrackingAndClickHandling:view
@@ -144,7 +97,7 @@
                                 withClickableViews:clickableViews];
         return YES;
     } else {
-        ANLogError(ANErrorString(@"native_adapter_error"));
+        ANLogError(@"native_adapter_error");
         if (error) {
             *error = ANError(@"native_adapter_error", ANNativeAdRegisterErrorCodeBadAdapter);
         }
@@ -155,109 +108,18 @@
 #pragma mark - Unregistration
 
 - (void)unregisterViewFromTracking {
+    [super unregisterViewFromTracking];
     if ([self.adapter respondsToSelector:@selector(unregisterViewFromTracking)]) {
         [self.adapter unregisterViewFromTracking];
     }
-    [self detachAllGestureRecognizers];
-    [self.viewForTracking setAnNativeAdResponse:nil];
-    self.viewForTracking = nil;
-}
-
-- (void)dealloc {
-    [self unregisterViewFromTracking];
 }
 
 #pragma mark - Click handling
-
-- (void)attachGestureRecognizersToNativeView:(UIView *)nativeView
-                          withClickableViews:(NSArray *)clickableViews {
-    if (clickableViews.count) {
-        [clickableViews enumerateObjectsUsingBlock:^(id clickableView, NSUInteger idx, BOOL *stop) {
-            if ([clickableView isKindOfClass:[UIView class]]) {
-                [self attachGestureRecognizerToView:clickableView];
-            } else {
-                ANLogWarn(ANErrorString(@"native_invalid_clickable_views"));
-            }
-        }];
-    } else {
-        [self attachGestureRecognizerToView:nativeView];
-    }
-}
-
-- (void)attachGestureRecognizerToView:(UIView *)view {
-    view.userInteractionEnabled = YES;
-    NSValue *key = [NSValue valueWithNonretainedObject:view];
-    NSValue *value;
-    
-    if ([view isKindOfClass:[UIButton class]]) {
-        UIButton *button = (UIButton *)view;
-        [button addTarget:self
-                   action:@selector(handleClick)
-         forControlEvents:UIControlEventTouchUpInside];
-        value = [NSValue valueWithNonretainedObject:[NSNull null]];
-    } else {
-        UITapGestureRecognizer *clickRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                          action:@selector(handleClick)];
-        [view addGestureRecognizer:clickRecognizer];
-        value = [NSValue valueWithNonretainedObject:clickRecognizer];
-    }
-    self.viewToGestureRecognizerMapping[key] = value;
-}
-
-- (void)detachAllGestureRecognizers {
-    [self.viewToGestureRecognizerMapping enumerateKeysAndObjectsUsingBlock:^(NSValue *viewValue, NSValue *gestureRecognizerValue, BOOL *stop) {
-        UIView *view = (UIView *)[viewValue nonretainedObjectValue];
-        if (view) {
-            if ([view isKindOfClass:[UIButton class]]) {
-                [(UIButton *)view removeTarget:self
-                                        action:@selector(handleClick)
-                              forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                UIGestureRecognizer *recognizer = (UIGestureRecognizer *)[gestureRecognizerValue nonretainedObjectValue];
-                if (recognizer) {
-                    [view removeGestureRecognizer:recognizer];
-                }
-            }
-        }
-    }];
-    [self.viewToGestureRecognizerMapping removeAllObjects];
-}
 
 - (void)handleClick {
     if ([self.adapter respondsToSelector:@selector(handleClickFromRootViewController:)]) {
         [self.adapter handleClickFromRootViewController:self.rootViewController];
     }
-}
-
-- (NSMutableDictionary *)viewToGestureRecognizerMapping {
-    if (!_viewToGestureRecognizerMapping) _viewToGestureRecognizerMapping = [[NSMutableDictionary alloc] init];
-    return _viewToGestureRecognizerMapping;
-}
-
-#pragma mark - ANNativeCustomAdapterAdDelegate
-
-- (void)adWasClicked {
-    [self.delegate adWasClicked:self];
-}
-
-- (void)willPresentAd {
-    [self.delegate adWillPresent:self];
-}
-
-- (void)didPresentAd {
-    [self.delegate adDidPresent:self];
-}
-
-- (void)willCloseAd {
-    [self.delegate adWillClose:self];
-}
-
-- (void)didCloseAd {
-    [self.delegate adDidClose:self];
-}
-
-- (void)willLeaveApplication {
-    [self.delegate adWillLeaveApplication:self];
 }
 
 @end

@@ -255,9 +255,9 @@
 
 - (NSString *)genderParameter {
     ANGender genderValue = [self.adRequestDelegate gender];
-    if (genderValue == MALE) {
+    if (genderValue == ANGenderMale) {
         return @"gender=m";
-    } else if (genderValue == FEMALE) {
+    } else if (genderValue == ANGenderFemale) {
         return @"gender=f";
     } else {
         return @"";
@@ -283,7 +283,7 @@
                                             [self URLEncodingFrom:value]]];
             }
         }else{
-            ANLogWarn(ANErrorString(@"request_parameter_override_attempt", key));
+            ANLogWarn(@"request_parameter_override_attempt %@", key);
         }
     }];
     

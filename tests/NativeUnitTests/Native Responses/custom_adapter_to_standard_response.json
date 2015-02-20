@@ -1,0 +1,28 @@
+{
+   "status":"ok",
+   "ads":[
+
+   ],
+   "mediated":[
+      {
+         "handler":[
+            {
+               "width":"",
+               "height":"",
+               "type":"ios",
+               "class":"MyDummyNativeCustomAdapter",
+               "id":"210827375150_10154672420735151"
+            },
+            {
+               "width":"320",
+               "height":"50",
+               "type":"android",
+               "class":"com.appnexus.opensdk.mediatedviews.MyDummyNativeCustomAdapter",
+               "id":"210827375150_10154672419150151"
+            }
+         ],
+         "init_cb":"",
+         "result_cb":"http://rlissack.adnxs.net:8080/jtest/native/appnexus_standard_response.json"
+      }
+   ]
+}

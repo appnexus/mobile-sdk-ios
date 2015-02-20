@@ -247,9 +247,9 @@
 
 - (NSString *)genderParameter {
     ANGENDER genderValue = [self.adFetcherDelegate gender];
-    if (genderValue == MALE) {
+    if (genderValue == ANGenderMale) {
         return @"&gender=m";
-    } else if (genderValue == FEMALE) {
+    } else if (genderValue == ANGenderFemale) {
         return @"&gender=f";
     } else {
         return @"";
@@ -274,8 +274,8 @@
                                             key,
                                             [self URLEncodingFrom:value]]];
             }
-        }else{
-            ANLogWarn(ANErrorString(@"request_parameter_override_attempt", key));
+        } else{
+            ANLogWarn(@"request_parameter_override_attempt %@", key);
         }
     }];
     
@@ -296,21 +296,8 @@
 }
 
 - (NSString *)nonetParameter {
-    NSMutableString *nonetString = [NSMutableString stringWithString:@""];
-
-    NSMutableSet *nonetworks = ANInvalidNetworks();
-    for (NSString *network in nonetworks) {
-        [nonetString appendString:network];
-        [nonetString appendString:@"%2C"];
-    }
-    
-    // remove trailing comma
-    if ([nonetString length] > 0) {
-        [nonetString deleteCharactersInRange:
-         NSMakeRange([nonetString length] - 1, 1)];
-    }
-   
-    return [NSString stringWithFormat:@"&nonet=%@", nonetString];
+    NSArray *invalidNetworks = [ANInvalidNetworks() allObjects];
+    return invalidNetworks.count ? [NSString stringWithFormat:@"&nonet=%@", [invalidNetworks componentsJoinedByString:@"%2C"]] : @"";
 }
 
 - (NSString *)jsonFormatParameter {

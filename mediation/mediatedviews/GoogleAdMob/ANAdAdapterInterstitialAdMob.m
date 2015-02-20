@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterInterstitialAdMob.h"
 #import "ANLogging.h"
-#import "GADAdMobExtras.h"
 
 @interface ANAdAdapterInterstitialAdMob ()
 
@@ -61,13 +60,13 @@
     
     ANGENDER gender = targetingParameters.gender;
     switch (gender) {
-        case MALE:
+        case ANGenderMale:
             request.gender = kGADGenderMale;
             break;
-        case FEMALE:
+        case ANGenderFemale:
             request.gender = kGADGenderFemale;
             break;
-        case UNKNOWN:
+        case ANGenderUnknown:
             request.gender = kGADGenderUnknown;
         default:
             break;
@@ -80,7 +79,7 @@
                                 accuracy:location.horizontalAccuracy];
     }
     
-    GADAdMobExtras *extras = [GADAdMobExtras new];
+    GADExtras *extras = [[GADExtras alloc] init];
     extras.additionalParameters = targetingParameters.customKeywords;
     [request registerAdNetworkExtras:extras];
     

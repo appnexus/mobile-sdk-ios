@@ -15,10 +15,11 @@
 
 #import "ANBaseTestCase.h"
 #import "ANAdFetcher.h"
-#import "ANWebView.h"
 #import "ANMediatedAd.h"
+#import "ANMRAIDContainerView.h"
 #import "ANMediationAdViewController.h"
 #import "ANSuccessfulBannerNeverCalled.h"
+#import "ANBrowserViewController.h"
 
 static NSString *const kANSuccessfulBanner = @"ANSuccessfulBanner";
 static NSString *const kANAdAdapterBannerDummy = @"ANAdAdapterBannerDummy";
@@ -32,8 +33,8 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @property (nonatomic, assign) BOOL testComplete;
 @property (nonatomic, strong) ANAdFetcher *fetcher;
 @property (nonatomic, strong) id adapter;
-@property (nonatomic, strong) ANWebView *webView;
 @property (nonatomic, strong) NSError *ANError;
+@property (nonatomic, strong) ANMRAIDContainerView *standardAdView;
 //@property (nonatomic, strong) NSMutableURLRequest *successResultRequest;
 @property (nonatomic, strong) NSMutableURLRequest *request;
 
@@ -50,7 +51,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @interface ANAdFetcher ()
 - (void)processResponseData:(NSData *)data;
 - (ANMediationAdViewController *)mediationController;
-- (ANWebView *)webView;
+- (ANMRAIDContainerView *)standardAdView;
 //- (NSMutableURLRequest *)successResultRequest;
 - (NSMutableURLRequest *)request;
 @end
@@ -156,7 +157,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
         case 7:
         {
             [self checkClass:kANSuccessfulBanner adapter:adapter];
-            XCTAssertNotNil([self.helper webView], @"Expected webView to be non-nil");
+            XCTAssertNotNil(self.helper.standardAdView, @"Expected webView to be non-nil");
         }
             break;
         case 11:
@@ -172,7 +173,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
         case 13:
         {
             XCTAssertNil(adapter, @"Expected nil adapter");
-            XCTAssertNotNil([self.helper webView], @"Expected webView to be non-nil");
+            XCTAssertNotNil(self.helper.standardAdView, @"Expected webView to be non-nil");
         }
             break;
         case 14:
@@ -301,12 +302,10 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 @synthesize testComplete = __testComplete;
 @synthesize fetcher = __fetcher;
 @synthesize adapter = __adapter;
-@synthesize webView = __webView;
+@synthesize standardAdView = __standardAdView;
 @synthesize ANError = __ANError;
 //@synthesize successResultRequest = __successResultRequest;
 @synthesize request = __request;
-
-@synthesize mraidEventReceiverDelegate = __mraidEventReceiverDelegate;
 
 - (id)runTestForAdapter:(int)testNumber
                    time:(NSTimeInterval)time {
@@ -360,13 +359,13 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 			case 70:
 			{
                 // don't set adapter here, because we want to retain the adapter from case 7
-                self.webView = [fetcher webView];
+                self.standardAdView = [fetcher standardAdView];
 			}
 				break;
 			case 13:
 			{
 				self.adapter = [[fetcher mediationController] currentAdapter];
-                self.webView = [fetcher webView];
+                self.standardAdView = [fetcher standardAdView];
 			}
 				break;
 			case 15:
@@ -410,7 +409,7 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 - (void)browserViewControllerWillLaunchExternalApplication{};
 - (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller{};
 
-#pragma mark ANAdViewDelegate
+#pragma mark ANAdViewInternalDelegate
 
 - (void)adWasClicked{};
 - (void)adWillPresent{};
@@ -420,6 +419,10 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 - (void)adWillLeaveApplication{};
 - (void)adFailedToDisplay{};
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data{};
+- (void)adDidReceiveAd{};
+- (void)adRequestFailedWithError:(NSError *)error{};
+- (void)adInteractionDidBegin{};
+- (void)adInteractionDidEnd{};
 
 #pragma mark ANMRAIDAdViewDelegate
 

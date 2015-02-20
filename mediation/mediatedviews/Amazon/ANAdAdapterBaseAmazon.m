@@ -41,19 +41,21 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
         options.usesGeoLocation = YES;
     }
     switch (targetingParameters.gender) {
-        case MALE:
+        case ANGenderMale:
             [options setAdvancedOption:kANAdAdapterBaseAmazonGenderMaleValue
                                 forKey:kANAdAdapterBaseAmazonGenderKey];
             break;
-        case FEMALE:
+        case ANGenderFemale:
             [options setAdvancedOption:kANAdAdapterBaseAmazonGenderFemaleValue
                                 forKey:kANAdAdapterBaseAmazonGenderKey];
             break;
         default:
             break;
     }
-    [options setAdvancedOption:targetingParameters.age
-                        forKey:kANAdAdapterBaseAmazonAgeKey];
+    if (targetingParameters.age) {
+        [options setAdvancedOption:targetingParameters.age
+                            forKey:kANAdAdapterBaseAmazonAgeKey];
+    }
     return options;
 }
 

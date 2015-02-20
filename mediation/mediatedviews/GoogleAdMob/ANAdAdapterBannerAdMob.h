@@ -15,7 +15,7 @@
 
 #import "ANBasicConfig.h"
 #import ANCUSTOMADAPTERHEADER
-#import "GADBannerView.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface ANAdAdapterBannerAdMob : NSObject <ANCUSTOMADAPTERBANNER, GADBannerViewDelegate>
 

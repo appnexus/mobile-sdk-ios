@@ -56,8 +56,8 @@
     NSError *error;
     
     if (response.isSuccessful) {
-        if ([response.adObject isKindOfClass:[ANNativeMediatedAdResponse class]]) {
-            ANNativeMediatedAdResponse *finalResponse = (ANNativeMediatedAdResponse *)response.adObject;
+        if ([response.adObject isKindOfClass:[ANNativeAdResponse class]]) {
+            ANNativeAdResponse *finalResponse = (ANNativeAdResponse *)response.adObject;
             
             __weak ANNativeAdRequest *weakSelf = self;
             NSOperation *finish = [NSBlockOperation blockOperationWithBlock:^{
@@ -66,13 +66,13 @@
                 [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
             }];
             
-            if (self.shouldLoadIconImage) {
+            if (self.shouldLoadIconImage && [finalResponse respondsToSelector:@selector(setIconImage:)]) {
                 [self setImageForImageURL:finalResponse.iconImageURL
                                  onObject:finalResponse
                                forKeyPath:@"iconImage"
                   withCompletionOperation:finish];
             }
-            if (self.shouldLoadMainImage) {
+            if (self.shouldLoadMainImage && [finalResponse respondsToSelector:@selector(setMainImage:)]) {
                 [self setImageForImageURL:finalResponse.mainImageURL
                                  onObject:finalResponse
                                forKeyPath:@"mainImage"

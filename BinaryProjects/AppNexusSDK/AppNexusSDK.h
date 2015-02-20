@@ -15,13 +15,8 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for AppNexusSDK.
 FOUNDATION_EXPORT double AppNexusSDKVersionNumber;
-
-//! Project version string for AppNexusSDK.
 FOUNDATION_EXPORT const unsigned char AppNexusSDKVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <AppNexusSDK/PublicHeader.h>
 
 #import <AppNexusSDK/ANAdConstants.h>
 #import <AppNexusSDK/ANAdProtocol.h>

@@ -15,7 +15,7 @@
 
 #import "ANAdWebViewController.h"
 
-@interface ANMRAIDAdWebViewController (ANTest)
+@interface ANAdWebViewController (ANTest)
 
 @property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
 

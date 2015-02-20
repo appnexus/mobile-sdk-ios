@@ -14,14 +14,14 @@
  */
 
 #import "ANAdFetcher.h"
-#import "ANWebView.h"
+#import "ANMRAIDContainerView.h"
 
 static NSString *const kANAdFetcherFireResultCBRequestedNotification = @"ANAdFetcherFireResultCBRequested";
 static NSString *const kANAdFetcherFireResultCBRequestedReason = @"ANAdFetcherFireResultCBRequestedReason";
 
 @interface ANAdFetcher (ANTest)
 
-@property (nonatomic, readwrite, strong) ANWebView *webView;
+@property (nonatomic, readwrite, strong) ANMRAIDContainerView *standardAdView;
 
 - (void)handleStandardAd:(ANAdResponse *)response;
 

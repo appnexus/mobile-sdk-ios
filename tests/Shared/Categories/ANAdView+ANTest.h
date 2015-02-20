@@ -14,7 +14,7 @@
  */
 
 #import "ANAdView.h"
-#import "ANAdViewDelegate.h"
+#import "ANAdViewInternalDelegate.h"
 
 static NSString *const kANAdViewAdWasClickedNotification = @"adWasClicked";
 static NSString *const kANAdViewAdWillPresentNotification = @"adWillPresent";
@@ -25,6 +25,6 @@ static NSString *const kANAdViewAdWillLeaveApplicationNotification = @"adWillLea
 static NSString *const kANAdViewAdDidReceiveAppEventNotification = @"adDidReceiveAppEvent";
 static NSString *const kANAdViewAdFailedToDisplayNotification = @"adFailedToDisplay";
 
-@interface ANAdView (ANTest) <ANAdViewDelegate>
+@interface ANAdView (ANTest) <ANAdViewInternalDelegate>
 
 @end

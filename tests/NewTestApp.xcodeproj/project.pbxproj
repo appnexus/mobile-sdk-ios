@@ -18,7 +18,6 @@
 		8A0AA46C19DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA46519DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m */; };
 		8A0AA46D19DB30A2005EC52C /* ANLocationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA46619DB30A2005EC52C /* ANLocationTestCase.m */; };
 		8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA46719DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m */; };
-		8A0AA46F19DB30A2005EC52C /* ANMRAIDViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA46819DB30A2005EC52C /* ANMRAIDViewControllerTestCase.m */; };
 		8A0AA47019DB30A2005EC52C /* UIViewConstraintsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */; };
 		8A0AA47719DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA47219DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */; };
 		8A0AA47819DB314C005EC52C /* ANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA47419DB314C005EC52C /* ANFailedMultiple.m */; };
@@ -33,14 +32,41 @@
 		8A0AA49519DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48919DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m */; };
 		8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48B19DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m */; };
 		8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
+		8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */; };
+		8A33A5131A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */; };
 		8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27CA199AB26B00F2A516 /* iAd.framework */; };
 		8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */; };
+		8A4017F81A95006B00D56208 /* MPCloseButtonX@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4017F71A95006B00D56208 /* MPCloseButtonX@3x.png */; };
+		8A4017F91A95006B00D56208 /* MPCloseButtonX@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4017F71A95006B00D56208 /* MPCloseButtonX@3x.png */; };
+		8A4018001A95008A00D56208 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC119DB3976003ECC5C /* MPAdBrowserController.xib */; };
+		8A4018011A95008A00D56208 /* MPCloseButtonX.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */; };
+		8A4018021A95008A00D56208 /* MPCloseButtonX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */; };
+		8A4018031A95008E00D56208 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC419DB3976003ECC5C /* MRAID.bundle */; };
+		8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4018041A9500A300D56208 /* GoogleMobileAds.framework */; };
+		8A549EAE1A706BC7009F797A /* ANNativeAdRequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */; };
+		8A549EB01A706BFE009F797A /* ANAdServerResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A549EAF1A706BFE009F797A /* ANAdServerResponseTestCase.m */; };
+		8A549EB21A706C65009F797A /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
+		8A549EB31A706C71009F797A /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
+		8A549EB41A706C7D009F797A /* ANAdAdapterBannerMoPub+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */; };
+		8A549EBB1A706D6F009F797A /* nativeResponse1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EB61A706D6F009F797A /* nativeResponse1.json */; };
+		8A549EBC1A706D6F009F797A /* nativeResponse2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EB71A706D6F009F797A /* nativeResponse2.json */; };
+		8A549EBD1A706D6F009F797A /* nativeResponse3.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EB81A706D6F009F797A /* nativeResponse3.json */; };
+		8A549EBE1A706D6F009F797A /* nativeResponse4.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EB91A706D6F009F797A /* nativeResponse4.json */; };
+		8A549EBF1A706D6F009F797A /* nativeResponse5.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EBA1A706D6F009F797A /* nativeResponse5.json */; };
+		8A549EC01A706DA5009F797A /* SuccessfulMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */; };
+		8A661ED01A85597E00117553 /* appnexus_click_fallback_example.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */; };
 		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
+		8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */; };
+		8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0919DB1E150090EBED /* NSObject+Swizzling.m */; };
 		8A7AE41019DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */; };
 		8A7F4CC519DB3976003ECC5C /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC119DB3976003ECC5C /* MPAdBrowserController.xib */; };
 		8A7F4CC619DB3976003ECC5C /* MPCloseButtonX.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */; };
 		8A7F4CC719DB3976003ECC5C /* MPCloseButtonX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */; };
 		8A7F4CC819DB3976003ECC5C /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC419DB3976003ECC5C /* MRAID.bundle */; };
+		8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
+		8A8458741A699CF90014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
+		8A8458881A69A34C0014F291 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AA0094219DB169B0090EBED /* ANSDKResources.bundle */; };
+		8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */; };
 		8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095519DB16C50090EBED /* AppDelegate.m */; };
 		8AA0095B19DB16C50090EBED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095619DB16C50090EBED /* main.m */; };
 		8AA0095C19DB16C50090EBED /* TestsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA0095719DB16C50090EBED /* TestsStoryboard.storyboard */; };
@@ -78,10 +104,9 @@
 		8AA009CA19DB1B200090EBED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009C219DB1B200090EBED /* main.m */; };
 		8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E319DB1D270090EBED /* AmazonAd.framework */; };
 		8AA009E619DB1D320090EBED /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */; };
-		8AA009E819DB1D3C0090EBED /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E719DB1D3C0090EBED /* libGoogleAdMobAds.a */; };
 		8AA009EA19DB1D480090EBED /* MillennialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009E919DB1D480090EBED /* MillennialMedia.framework */; };
 		8AA009EC19DB1D530090EBED /* libMoPubSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA009EB19DB1D530090EBED /* libMoPubSDK.a */; };
-		8AA009ED19DB1D670090EBED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA009C019DB1B200090EBED /* Images.xcassets */; };
+		8AA009ED19DB1D670090EBED /* MediationAdapterAppImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AA009C019DB1B200090EBED /* MediationAdapterAppImages.xcassets */; };
 		8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AA009BC19DB1B200090EBED /* LaunchScreen.xib */; };
 		8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA009BE19DB1B200090EBED /* Main.storyboard */; };
 		8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA0094019DB169B0090EBED /* libANSDK.a */; };
@@ -120,11 +145,45 @@
 		8AD01833199932F9007874BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01832199932F9007874BA /* main.m */; };
 		8AD01836199932F9007874BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01835199932F9007874BA /* AppDelegate.m */; };
 		8AD01839199932F9007874BA /* ANNewTestAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01838199932F9007874BA /* ANNewTestAppViewController.m */; };
+		8AD052E31A802FCD00EE0182 /* appnexus_multiple_main_media.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052E21A802FCD00EE0182 /* appnexus_multiple_main_media.json */; };
+		8AD052ED1A80333800EE0182 /* appnexus_multiple_main_media_default.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */; };
+		8AD052EF1A80461200EE0182 /* appnexus_multiple_trackers.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */; };
 		8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */; };
+		8AE3999F1A42105B00C0D7B1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE3999E1A42105B00C0D7B1 /* WebKit.framework */; };
+		8AE7AD6D1A7AA4CD009E2F2F /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */; };
+		8AE7AD7A1A7AA526009E2F2F /* custom_adapter_to_native_ad.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD791A7AA526009E2F2F /* custom_adapter_to_native_ad.json */; };
+		8AE7AD7C1A7AA53B009E2F2F /* custom_adapter_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD7B1A7AA53B009E2F2F /* custom_adapter_mediated_response.json */; };
+		8AE7AD7E1A7AA556009E2F2F /* empty_mediated_ad_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD7D1A7AA556009E2F2F /* empty_mediated_ad_response.json */; };
+		8AE7AD801A7AA56C009E2F2F /* mopub_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD7F1A7AA56C009E2F2F /* mopub_mediated_response.json */; };
+		8AE7AD821A7AA589009E2F2F /* custom_adapter_fb_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD811A7AA589009E2F2F /* custom_adapter_fb_mediated_response.json */; };
+		8AE7AD841A7AA5A7009E2F2F /* empty_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD831A7AA5A7009E2F2F /* empty_response.json */; };
+		8AE7AD861A7AA5C9009E2F2F /* no_ads_ok_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD851A7AA5C9009E2F2F /* no_ads_ok_response.json */; };
+		8AE7AD881A7AA5F5009E2F2F /* custom_adapter_invalid_type.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD871A7AA5F5009E2F2F /* custom_adapter_invalid_type.json */; };
+		8AE7AD8A1A7AA606009E2F2F /* custom_adapter_to_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD891A7AA606009E2F2F /* custom_adapter_to_standard_response.json */; };
+		8AE7AD8C1A7AA61D009E2F2F /* facebook_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD8B1A7AA61D009E2F2F /* facebook_mediated_response.json */; };
+		8AE7AD8E1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7AD8D1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m */; };
+		8AE7AD921A7AAE33009E2F2F /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD911A7AAE33009E2F2F /* ANNativeAdView.xib */; };
+		8AE7AD951A7AAE81009E2F2F /* ANNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7AD941A7AAE81009E2F2F /* ANNativeAdView.m */; };
+		8AE7AD981A7AB348009E2F2F /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
+		8AE7AD9C1A7AC372009E2F2F /* appnexus_standard_response_store_url.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */; };
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A549E9F1A706BA6009F797A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AD01825199932F9007874BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A9F94BF19D1C37700AB739F;
+			remoteInfo = MediationAdapterApp;
+		};
+		8A84E4111A2516E000C60EAB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
 		8A9F94D919D1C37700AB739F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AD01825199932F9007874BA /* Project object */;
@@ -300,13 +359,6 @@
 			remoteGlobalIDString = EABD46AA1857A0C700A5F081;
 			remoteInfo = KIF;
 		};
-		8AB5325819F0464B00CA4427 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB72047C1680DDAD00278DA2;
-			remoteInfo = "KIF-OCUnit";
-		};
 		8AB5325A19F0464B00CA4427 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
@@ -320,13 +372,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = EABD46CD1857A0F300A5F081;
 			remoteInfo = "KIF Tests";
-		};
-		8AB5325E19F0464B00CA4427 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB60ECEB177F8DB3005A041A;
-			remoteInfo = "KIF Tests-OCUnit";
 		};
 		8AB5326119F046A500CA4427 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -342,6 +387,13 @@
 			remoteGlobalIDString = 8AD0182C199932F9007874BA;
 			remoteInfo = NewTestApp;
 		};
+		8AE7AD961A7AB343009E2F2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EABD46791857A0C700A5F081;
+			remoteInfo = KIF;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -350,7 +402,6 @@
 		8A0AA46519DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewTransitionsTestCase.m; sourceTree = "<group>"; };
 		8A0AA46619DB30A2005EC52C /* ANLocationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLocationTestCase.m; sourceTree = "<group>"; };
 		8A0AA46719DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationAdViewControllerTestCase.m; sourceTree = "<group>"; };
-		8A0AA46819DB30A2005EC52C /* ANMRAIDViewControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDViewControllerTestCase.m; sourceTree = "<group>"; };
 		8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewConstraintsTestCase.m; sourceTree = "<group>"; };
 		8A0AA47119DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h; path = "Banner Adapters/ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h"; sourceTree = "<group>"; };
 		8A0AA47219DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m"; sourceTree = "<group>"; };
@@ -378,15 +429,37 @@
 		8A0AA48B19DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFill.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFill.m"; sourceTree = "<group>"; };
 		8A0AA48C19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerUnableToFillThenSuccessful.h; path = "Banner Adapters/ANAdAdapterBannerUnableToFillThenSuccessful.h"; sourceTree = "<group>"; };
 		8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFillThenSuccessful.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFillThenSuccessful.m"; sourceTree = "<group>"; };
+		8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeImpressionTrackerManagerTestCase.m; sourceTree = "<group>"; };
+		8A33A5111A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeImpressionTrackerManager+ANTest.h"; sourceTree = "<group>"; };
+		8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeImpressionTrackerManager+ANTest.m"; sourceTree = "<group>"; };
 		8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MediationAdaptersTestCase.m; path = MediationAdapterAppTests/MediationAdaptersTestCase.m; sourceTree = SOURCE_ROOT; };
+		8A4017F71A95006B00D56208 /* MPCloseButtonX@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPCloseButtonX@3x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPCloseButtonX@3x.png"; sourceTree = "<group>"; };
+		8A4018041A9500A300D56208 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/GoogleMobileAds.framework; sourceTree = "<group>"; };
+		8A4018071A95025C00D56208 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		8A40180A1A95028700D56208 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		8A549E991A706BA6009F797A /* NativeUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A549E9C1A706BA6009F797A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdRequestTestCase.m; sourceTree = "<group>"; };
+		8A549EAF1A706BFE009F797A /* ANAdServerResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdServerResponseTestCase.m; sourceTree = "<group>"; };
+		8A549EB61A706D6F009F797A /* nativeResponse1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponse1.json; sourceTree = "<group>"; };
+		8A549EB71A706D6F009F797A /* nativeResponse2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponse2.json; sourceTree = "<group>"; };
+		8A549EB81A706D6F009F797A /* nativeResponse3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponse3.json; sourceTree = "<group>"; };
+		8A549EB91A706D6F009F797A /* nativeResponse4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponse4.json; sourceTree = "<group>"; };
+		8A549EBA1A706D6F009F797A /* nativeResponse5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponse5.json; sourceTree = "<group>"; };
 		8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8A5D27CA199AB26B00F2A516 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
+		8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_click_fallback_example.json; sourceTree = "<group>"; };
+		8A764F021A7078F500C02A97 /* ANReachability+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANReachability+ANTest.h"; sourceTree = "<group>"; };
+		8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANReachability+ANTest.m"; sourceTree = "<group>"; };
 		8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BaseMediationSingleNetworkResponse.json; sourceTree = "<group>"; };
 		8A7F4CC119DB3976003ECC5C /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MPCloseButtonX.png; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPCloseButtonX.png; sourceTree = "<group>"; };
 		8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPCloseButtonX@2x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPCloseButtonX@2x.png"; sourceTree = "<group>"; };
 		8A7F4CC419DB3976003ECC5C /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MRAID.bundle; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MRAID.bundle; sourceTree = "<group>"; };
+		8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
+		8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
+		8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdViewMainImage.xib; sourceTree = "<group>"; };
 		8A9F94C019D1C37700AB739F /* MediationAdapterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediationAdapterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediationAdapterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA0095419DB16C50090EBED /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -448,14 +521,13 @@
 		8AA009BB19DB1B200090EBED /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8AA009BD19DB1B200090EBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8AA009BF19DB1B200090EBED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8AA009C019DB1B200090EBED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8AA009C019DB1B200090EBED /* MediationAdapterAppImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MediationAdapterAppImages.xcassets; sourceTree = "<group>"; };
 		8AA009C119DB1B200090EBED /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AA009C219DB1B200090EBED /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8AA009C319DB1B200090EBED /* MediationAdapterPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediationAdapterPrefixHeader.pch; sourceTree = "<group>"; };
 		8AA009E019DB1CEC0090EBED /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AA009E319DB1D270090EBED /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AmazonAd.framework; path = ../mediation/mediatedviews/Amazon/AmazonSDK/AmazonAd.framework; sourceTree = "<group>"; };
 		8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = ../mediation/mediatedviews/Facebook/FacebookSDK/FBAudienceNetwork.framework; sourceTree = "<group>"; };
-		8AA009E719DB1D3C0090EBED /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAdMobAds.a; path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		8AA009E919DB1D480090EBED /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillennialMedia.framework; path = ../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/MillennialMedia.framework; sourceTree = "<group>"; };
 		8AA009EB19DB1D530090EBED /* libMoPubSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMoPubSDK.a; path = ../mediation/mediatedviews/MoPub/MoPubSDK/libMoPubSDK.a; sourceTree = "<group>"; };
 		8AA009FC19DB1E150090EBED /* ANAdFetcher+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdFetcher+ANTest.h"; sourceTree = "<group>"; };
@@ -508,7 +580,27 @@
 		8AD0183D199932F9007874BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8AD01843199932F9007874BA /* NewTestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewTestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD01848199932F9007874BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8AD052E21A802FCD00EE0182 /* appnexus_multiple_main_media.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_main_media.json; sourceTree = "<group>"; };
+		8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_main_media_default.json; sourceTree = "<group>"; };
+		8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_trackers.json; sourceTree = "<group>"; };
 		8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8AE3999E1A42105B00C0D7B1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response.json; sourceTree = "<group>"; };
+		8AE7AD791A7AA526009E2F2F /* custom_adapter_to_native_ad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_to_native_ad.json; sourceTree = "<group>"; };
+		8AE7AD7B1A7AA53B009E2F2F /* custom_adapter_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_mediated_response.json; sourceTree = "<group>"; };
+		8AE7AD7D1A7AA556009E2F2F /* empty_mediated_ad_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty_mediated_ad_response.json; sourceTree = "<group>"; };
+		8AE7AD7F1A7AA56C009E2F2F /* mopub_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mopub_mediated_response.json; sourceTree = "<group>"; };
+		8AE7AD811A7AA589009E2F2F /* custom_adapter_fb_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_fb_mediated_response.json; sourceTree = "<group>"; };
+		8AE7AD831A7AA5A7009E2F2F /* empty_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty_response.json; sourceTree = "<group>"; };
+		8AE7AD851A7AA5C9009E2F2F /* no_ads_ok_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = no_ads_ok_response.json; sourceTree = "<group>"; };
+		8AE7AD871A7AA5F5009E2F2F /* custom_adapter_invalid_type.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_invalid_type.json; sourceTree = "<group>"; };
+		8AE7AD891A7AA606009E2F2F /* custom_adapter_to_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_to_standard_response.json; sourceTree = "<group>"; };
+		8AE7AD8B1A7AA61D009E2F2F /* facebook_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = facebook_mediated_response.json; sourceTree = "<group>"; };
+		8AE7AD8D1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdResponseTestCase.m; sourceTree = "<group>"; };
+		8AE7AD911A7AAE33009E2F2F /* ANNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdView.xib; sourceTree = "<group>"; };
+		8AE7AD931A7AAE81009E2F2F /* ANNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeAdView.h; sourceTree = "<group>"; };
+		8AE7AD941A7AAE81009E2F2F /* ANNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdView.m; sourceTree = "<group>"; };
+		8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response_store_url.json; sourceTree = "<group>"; };
 		8AF3654C19D472A60097019F /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
 		8AF3657F19D473B00097019F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8AF3658319D474650097019F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -517,19 +609,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8A549E961A706BA6009F797A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE7AD981A7AB348009E2F2F /* libKIF.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A9F94BD19D1C37700AB739F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
 				8AA009F219DB1DA50090EBED /* libANSDKGoogleAdMobAdapter.a in Frameworks */,
+				8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */,
 				8AA009F319DB1DA50090EBED /* libANSDKiAdAdapter.a in Frameworks */,
 				8AA009F419DB1DA50090EBED /* libANSDKMillennialMediaAdapter.a in Frameworks */,
 				8AA009F519DB1DA50090EBED /* libANSDKMoPubAdapter.a in Frameworks */,
 				8AA009F619DB1DA50090EBED /* libANSDKFacebookAdapter.a in Frameworks */,
 				8AA009F719DB1DA50090EBED /* libANSDKAmazonAdapter.a in Frameworks */,
 				8AA009E619DB1D320090EBED /* FBAudienceNetwork.framework in Frameworks */,
-				8AA009E819DB1D3C0090EBED /* libGoogleAdMobAds.a in Frameworks */,
 				8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */,
 				8AA009EA19DB1D480090EBED /* MillennialMedia.framework in Frameworks */,
 				8AA009EC19DB1D530090EBED /* libMoPubSDK.a in Frameworks */,
@@ -549,6 +649,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AE3999F1A42105B00C0D7B1 /* WebKit.framework in Frameworks */,
 				8AA009A319DB16F30090EBED /* libANSDK.a in Frameworks */,
 				8AB387F919DB1297006F9E15 /* AdSupport.framework in Frameworks */,
 				8AB387F819DB1245006F9E15 /* UIKit.framework in Frameworks */,
@@ -589,7 +690,6 @@
 				8A0AA46519DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m */,
 				8A0AA46619DB30A2005EC52C /* ANLocationTestCase.m */,
 				8A0AA46719DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m */,
-				8A0AA46819DB30A2005EC52C /* ANMRAIDViewControllerTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
 			);
 			path = Tests;
@@ -652,12 +752,68 @@
 			name = "Banner Adapters";
 			sourceTree = "<group>";
 		};
+		8A549E9A1A706BA6009F797A /* NativeUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */,
+				8AE7AD8D1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m */,
+				8A549EAF1A706BFE009F797A /* ANAdServerResponseTestCase.m */,
+				8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */,
+				8A549E9B1A706BA6009F797A /* Supporting Files */,
+			);
+			path = NativeUnitTests;
+			sourceTree = "<group>";
+		};
+		8A549E9B1A706BA6009F797A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8AE7AD931A7AAE81009E2F2F /* ANNativeAdView.h */,
+				8AE7AD941A7AAE81009E2F2F /* ANNativeAdView.m */,
+				8AE7AD911A7AAE33009E2F2F /* ANNativeAdView.xib */,
+				8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */,
+				8A549E9C1A706BA6009F797A /* Info.plist */,
+				8A549EB51A706D6F009F797A /* Native Responses */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8A549EB51A706D6F009F797A /* Native Responses */ = {
+			isa = PBXGroup;
+			children = (
+				8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */,
+				8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */,
+				8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */,
+				8AD052E21A802FCD00EE0182 /* appnexus_multiple_main_media.json */,
+				8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */,
+				8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */,
+				8AE7AD811A7AA589009E2F2F /* custom_adapter_fb_mediated_response.json */,
+				8AE7AD871A7AA5F5009E2F2F /* custom_adapter_invalid_type.json */,
+				8AE7AD7B1A7AA53B009E2F2F /* custom_adapter_mediated_response.json */,
+				8AE7AD791A7AA526009E2F2F /* custom_adapter_to_native_ad.json */,
+				8AE7AD891A7AA606009E2F2F /* custom_adapter_to_standard_response.json */,
+				8AE7AD7D1A7AA556009E2F2F /* empty_mediated_ad_response.json */,
+				8AE7AD831A7AA5A7009E2F2F /* empty_response.json */,
+				8AE7AD8B1A7AA61D009E2F2F /* facebook_mediated_response.json */,
+				8AE7AD7F1A7AA56C009E2F2F /* mopub_mediated_response.json */,
+				8A549EB61A706D6F009F797A /* nativeResponse1.json */,
+				8A549EB71A706D6F009F797A /* nativeResponse2.json */,
+				8A549EB81A706D6F009F797A /* nativeResponse3.json */,
+				8A549EB91A706D6F009F797A /* nativeResponse4.json */,
+				8A549EBA1A706D6F009F797A /* nativeResponse5.json */,
+				8AE7AD851A7AA5C9009E2F2F /* no_ads_ok_response.json */,
+			);
+			path = "Native Responses";
+			sourceTree = "<group>";
+		};
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A40180A1A95028700D56208 /* StoreKit.framework */,
+				8A4018071A95025C00D56208 /* CoreTelephony.framework */,
+				8A4018041A9500A300D56208 /* GoogleMobileAds.framework */,
+				8AE3999E1A42105B00C0D7B1 /* WebKit.framework */,
 				8AA009EB19DB1D530090EBED /* libMoPubSDK.a */,
 				8AA009E919DB1D480090EBED /* MillennialMedia.framework */,
-				8AA009E719DB1D3C0090EBED /* libGoogleAdMobAds.a */,
 				8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */,
 				8AA009E319DB1D270090EBED /* AmazonAd.framework */,
 				8AB387F719DB1245006F9E15 /* UIKit.framework */,
@@ -677,6 +833,7 @@
 				8A7F4CC119DB3976003ECC5C /* MPAdBrowserController.xib */,
 				8A7F4CC219DB3976003ECC5C /* MPCloseButtonX.png */,
 				8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */,
+				8A4017F71A95006B00D56208 /* MPCloseButtonX@3x.png */,
 				8A7F4CC419DB3976003ECC5C /* MRAID.bundle */,
 			);
 			name = MPResources;
@@ -695,6 +852,7 @@
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -809,7 +967,7 @@
 				8AA009BB19DB1B200090EBED /* AppDelegate.m */,
 				8AA009BC19DB1B200090EBED /* LaunchScreen.xib */,
 				8AA009BE19DB1B200090EBED /* Main.storyboard */,
-				8AA009C019DB1B200090EBED /* Images.xcassets */,
+				8AA009C019DB1B200090EBED /* MediationAdapterAppImages.xcassets */,
 				8AA009C119DB1B200090EBED /* Info.plist */,
 				8AA009C219DB1B200090EBED /* main.m */,
 				8AA009C319DB1B200090EBED /* MediationAdapterPrefixHeader.pch */,
@@ -829,6 +987,8 @@
 		8AA009FB19DB1E150090EBED /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */,
+				8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */,
 				8AA00A2B19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.h */,
 				8AA00A2C19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.m */,
 				8AA009FC19DB1E150090EBED /* ANAdFetcher+ANTest.h */,
@@ -857,6 +1017,10 @@
 				8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */,
 				8AB5326919F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.h */,
 				8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */,
+				8A764F021A7078F500C02A97 /* ANReachability+ANTest.h */,
+				8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */,
+				8A33A5111A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.h */,
+				8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -887,10 +1051,8 @@
 			isa = PBXGroup;
 			children = (
 				8AB5325719F0464B00CA4427 /* libKIF.a */,
-				8AB5325919F0464B00CA4427 /* libKIF-OCUnit.a */,
 				8AB5325B19F0464B00CA4427 /* Test Host.app */,
 				8AB5325D19F0464B00CA4427 /* KIF Tests - XCTest.xctest */,
-				8AB5325F19F0464B00CA4427 /* KIF Tests-OCUnit.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -900,6 +1062,7 @@
 			children = (
 				8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
+				8A549E9A1A706BA6009F797A /* NativeUnitTests */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
@@ -922,6 +1085,7 @@
 				8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */,
 				8AB387A519DB0CA8006F9E15 /* OriginalUnitTestApp.app */,
 				8AB387BD19DB0CA8006F9E15 /* OriginalUnitTestAppTests.xctest */,
+				8A549E991A706BA6009F797A /* NativeUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -972,6 +1136,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8A549E981A706BA6009F797A /* NativeUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A549EAC1A706BA6009F797A /* Build configuration list for PBXNativeTarget "NativeUnitTests" */;
+			buildPhases = (
+				8A549E951A706BA6009F797A /* Sources */,
+				8A549E961A706BA6009F797A /* Frameworks */,
+				8A549E971A706BA6009F797A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AE7AD971A7AB343009E2F2F /* PBXTargetDependency */,
+				8A549EA01A706BA6009F797A /* PBXTargetDependency */,
+			);
+			name = NativeUnitTests;
+			productName = NativeUnitTests;
+			productReference = 8A549E991A706BA6009F797A /* NativeUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8A9F94BF19D1C37700AB739F /* MediationAdapterApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A9F94E019D1C37800AB739F /* Build configuration list for PBXNativeTarget "MediationAdapterApp" */;
@@ -1099,9 +1282,13 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
+					8A549E981A706BA6009F797A = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 8A9F94BF19D1C37700AB739F;
+					};
 					8A9F94BF19D1C37700AB739F = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = DC4W7ZY24G;
+						DevelopmentTeam = 8V5AA2KNR5;
 					};
 					8A9F94D719D1C37700AB739F = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -1109,6 +1296,7 @@
 					};
 					8AB387A419DB0CA8006F9E15 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 8V5AA2KNR5;
 					};
 					8AB387BC19DB0CA8006F9E15 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -1116,7 +1304,7 @@
 					};
 					8AD0182C199932F9007874BA = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = DC4W7ZY24G;
+						DevelopmentTeam = 8V5AA2KNR5;
 					};
 					8AD01842199932F9007874BA = {
 						CreatedOnToolsVersion = 6.0;
@@ -1151,6 +1339,7 @@
 				8AD01842199932F9007874BA /* NewTestAppTests */,
 				8A9F94BF19D1C37700AB739F /* MediationAdapterApp */,
 				8A9F94D719D1C37700AB739F /* MediationAdapterAppTests */,
+				8A549E981A706BA6009F797A /* NativeUnitTests */,
 				8AB387A419DB0CA8006F9E15 /* OriginalUnitTestApp */,
 				8AB387BC19DB0CA8006F9E15 /* OriginalUnitTestAppTests */,
 			);
@@ -1158,6 +1347,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusSDK.framework;
+			remoteRef = 8A84E4111A2516E000C60EAB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8AA0094019DB169B0090EBED /* libANSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1235,13 +1431,6 @@
 			remoteRef = 8AB5325619F0464B00CA4427 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		8AB5325919F0464B00CA4427 /* libKIF-OCUnit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libKIF-OCUnit.a";
-			remoteRef = 8AB5325819F0464B00CA4427 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		8AB5325B19F0464B00CA4427 /* Test Host.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -1256,28 +1445,59 @@
 			remoteRef = 8AB5325C19F0464B00CA4427 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		8AB5325F19F0464B00CA4427 /* KIF Tests-OCUnit.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "KIF Tests-OCUnit.octest";
-			remoteRef = 8AB5325E19F0464B00CA4427 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8A549E971A706BA6009F797A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AE7AD861A7AA5C9009E2F2F /* no_ads_ok_response.json in Resources */,
+				8A549EBF1A706D6F009F797A /* nativeResponse5.json in Resources */,
+				8AE7AD9C1A7AC372009E2F2F /* appnexus_standard_response_store_url.json in Resources */,
+				8A549EBD1A706D6F009F797A /* nativeResponse3.json in Resources */,
+				8A4018001A95008A00D56208 /* MPAdBrowserController.xib in Resources */,
+				8AE7AD8C1A7AA61D009E2F2F /* facebook_mediated_response.json in Resources */,
+				8AE7AD7E1A7AA556009E2F2F /* empty_mediated_ad_response.json in Resources */,
+				8AE7AD7C1A7AA53B009E2F2F /* custom_adapter_mediated_response.json in Resources */,
+				8AE7AD821A7AA589009E2F2F /* custom_adapter_fb_mediated_response.json in Resources */,
+				8A4018021A95008A00D56208 /* MPCloseButtonX@2x.png in Resources */,
+				8AE7AD881A7AA5F5009E2F2F /* custom_adapter_invalid_type.json in Resources */,
+				8A4018011A95008A00D56208 /* MPCloseButtonX.png in Resources */,
+				8AD052E31A802FCD00EE0182 /* appnexus_multiple_main_media.json in Resources */,
+				8A661ED01A85597E00117553 /* appnexus_click_fallback_example.json in Resources */,
+				8AE7AD6D1A7AA4CD009E2F2F /* appnexus_standard_response.json in Resources */,
+				8AD052ED1A80333800EE0182 /* appnexus_multiple_main_media_default.json in Resources */,
+				8A549EBC1A706D6F009F797A /* nativeResponse2.json in Resources */,
+				8A549EBE1A706D6F009F797A /* nativeResponse4.json in Resources */,
+				8A549EBB1A706D6F009F797A /* nativeResponse1.json in Resources */,
+				8A4018031A95008E00D56208 /* MRAID.bundle in Resources */,
+				8AE7AD921A7AAE33009E2F2F /* ANNativeAdView.xib in Resources */,
+				8AE7AD8A1A7AA606009E2F2F /* custom_adapter_to_standard_response.json in Resources */,
+				8AE7AD841A7AA5A7009E2F2F /* empty_response.json in Resources */,
+				8AE7AD7A1A7AA526009E2F2F /* custom_adapter_to_native_ad.json in Resources */,
+				8AE7AD801A7AA56C009E2F2F /* mopub_mediated_response.json in Resources */,
+				8A4017F91A95006B00D56208 /* MPCloseButtonX@3x.png in Resources */,
+				8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */,
+				8AD052EF1A80461200EE0182 /* appnexus_multiple_trackers.json in Resources */,
+				8A549EC01A706DA5009F797A /* SuccessfulMediationResponse.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A9F94BE19D1C37700AB739F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8A7F4CC619DB3976003ECC5C /* MPCloseButtonX.png in Resources */,
-				8AA009ED19DB1D670090EBED /* Images.xcassets in Resources */,
+				8AA009ED19DB1D670090EBED /* MediationAdapterAppImages.xcassets in Resources */,
 				8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */,
 				8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */,
 				8A7F4CC519DB3976003ECC5C /* MPAdBrowserController.xib in Resources */,
 				8A7F4CC719DB3976003ECC5C /* MPCloseButtonX@2x.png in Resources */,
+				8A4017F81A95006B00D56208 /* MPCloseButtonX@3x.png in Resources */,
 				8A7F4CC819DB3976003ECC5C /* MRAID.bundle in Resources */,
 				8A7AE41019DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json in Resources */,
+				8A8458881A69A34C0014F291 /* ANSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1334,6 +1554,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8A549E951A706BA6009F797A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A549EB41A706C7D009F797A /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
+				8A549EB31A706C71009F797A /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
+				8A33A5131A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m in Sources */,
+				8A549EB21A706C65009F797A /* XCTestCase+ANCategory.m in Sources */,
+				8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */,
+				8AE7AD951A7AAE81009E2F2F /* ANNativeAdView.m in Sources */,
+				8A549EAE1A706BC7009F797A /* ANNativeAdRequestTestCase.m in Sources */,
+				8AE7AD8E1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m in Sources */,
+				8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */,
+				8A549EB01A706BFE009F797A /* ANAdServerResponseTestCase.m in Sources */,
+				8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A9F94BC19D1C37700AB739F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1357,6 +1595,7 @@
 			files = (
 				8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */,
 				8AA00A3719DB21FA0090EBED /* XCTestCase+ANCategory.m in Sources */,
+				8A8458741A699CF90014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8AB5326B19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1418,6 +1657,7 @@
 				8A0AA45919DB2CB4005EC52C /* ANInterstitialAd+ANTest.m in Sources */,
 				8A0AA48F19DB3453005EC52C /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
 				8AA00A5119DB2B160090EBED /* XCTestCase+ANCategory.m in Sources */,
+				8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */,
 				8AA00A5019DB2B160090EBED /* XCTestCase+ANBannerAdView.m in Sources */,
 				8A0AA48E19DB3453005EC52C /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
@@ -1442,7 +1682,6 @@
 				8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
 				8A0AA47819DB314C005EC52C /* ANFailedMultiple.m in Sources */,
 				8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */,
-				8A0AA46F19DB30A2005EC52C /* ANMRAIDViewControllerTestCase.m in Sources */,
 				8AA00A5519DB2BF40090EBED /* ANMediationAdViewController+ANTest.m in Sources */,
 				8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */,
 				8A0AA49319DB3453005EC52C /* ANAdAdapterBannerSuccessful.m in Sources */,
@@ -1452,6 +1691,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8A549EA01A706BA6009F797A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8A9F94BF19D1C37700AB739F /* MediationAdapterApp */;
+			targetProxy = 8A549E9F1A706BA6009F797A /* PBXContainerItemProxy */;
+		};
 		8A9F94DA19D1C37700AB739F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8A9F94BF19D1C37700AB739F /* MediationAdapterApp */;
@@ -1532,6 +1776,11 @@
 			target = 8AD0182C199932F9007874BA /* NewTestApp */;
 			targetProxy = 8AD01844199932F9007874BA /* PBXContainerItemProxy */;
 		};
+		8AE7AD971A7AB343009E2F2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KIF;
+			targetProxy = 8AE7AD961A7AB343009E2F2F /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1570,10 +1819,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8A549EA11A706BA6009F797A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NativeUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MediationAdapterApp.app/MediationAdapterApp";
+			};
+			name = Debug;
+		};
+		8A549EA21A706BA6009F797A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NativeUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MediationAdapterApp.app/MediationAdapterApp";
+			};
+			name = Release;
+		};
 		8A9F94E119D1C37800AB739F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = MediationAdapterApp/MediationAdapterPrefixHeader.pch;
@@ -1594,6 +1881,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = MediationAdapterApp/MediationAdapterPrefixHeader.pch;
@@ -1653,6 +1941,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/OriginalUnitTestApp/Tests_Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1674,6 +1963,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/OriginalUnitTestApp/Tests_Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
@@ -1750,6 +2040,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1771,10 +2062,7 @@
 					"$(PROJECT_DIR)/../mediation/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1807,6 +2095,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1821,10 +2110,7 @@
 					"$(PROJECT_DIR)/../mediation/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -1919,6 +2205,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8A549EAC1A706BA6009F797A /* Build configuration list for PBXNativeTarget "NativeUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A549EA11A706BA6009F797A /* Debug */,
+				8A549EA21A706BA6009F797A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8A9F94E019D1C37800AB739F /* Build configuration list for PBXNativeTarget "MediationAdapterApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

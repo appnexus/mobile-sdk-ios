@@ -25,6 +25,6 @@ typedef NS_ENUM(NSUInteger, ANClickOverlayColorOption) {
 
 @interface ANClickOverlayView : UIView
 
-+ (ANClickOverlayView *)overlayForView:(UIView *)view;
++ (ANClickOverlayView *)addOverlayToView:(UIView *)view;
 
 @end

@@ -35,7 +35,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"2.0"
+#define AN_SDK_VERSION              @"2.1"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -50,6 +50,8 @@
 #define kAppNexusMRAIDCheckViewableFrequency 1.0
 #define kAppNexusBannerAdTransitionDefaultDuration 1.0
 #define kAppNexusNativeAdImageDownloadTimeoutInterval 10.0
+#define kAppNexusNativeAdCheckViewabilityForTrackingFrequency 0.25
+#define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
 // Banner AutoRefresh
 
@@ -85,8 +87,8 @@ NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
 BOOL isFirstLaunch(void);
 NSString *ANUDID(void);
-NSString *ANErrorString(NSString *key, ...);
-NSError *ANError(NSString *key, NSInteger code, ...);
+NSString *ANErrorString(NSString *key);
+NSError *ANError(NSString *key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);
 NSBundle *ANResourcesBundle();
 NSString *ANPathForANResource(NSString *name, NSString *type);
 NSString *convertToNSString(id value);
@@ -98,3 +100,11 @@ void ANAddInvalidNetwork(NSString *network);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
 CGRect ANPortraitScreenBounds();
+NSURLRequest *ANBasicRequestWithURL(NSURL *URL);
+NSMutableURLRequest *ANBasicMutableRequest();
+NSNumber *ANiTunesIDForURL(NSURL *URL);
+BOOL ANCanPresentFromViewController(UIViewController *viewController);
+
+@interface ANGlobal : NSObject
+
+@end

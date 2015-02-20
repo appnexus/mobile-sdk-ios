@@ -13,12 +13,13 @@
  limitations under the License.
  */
 
-#import "ANWebView.h"
 #import "ANBaseTestCase.h"
 #import "ANMRAIDTestResponses.h"
 #import "ANLogging.h"
 #import "ANLogManager.h"
 #import "ANGlobal.h"
+#import "ANMRAIDContainerView.h"
+#import "ANMRAIDUtil.h"
 
 #define MRAID_TESTS_TIMEOUT 10.0
 #define MRAID_TESTS_DEFAULT_DELAY 1.5
@@ -28,8 +29,13 @@
 -(void)setOrientation:(UIInterfaceOrientation)orientation;
 @end
 
+@interface ANMRAIDContainerView (PrivateMethods)
+- (CGRect)currentPosition;
+@end
+
 @interface MRAIDTests : ANBaseTestCase
-@property (strong, nonatomic) ANWebView *webView;
+@property (strong, nonatomic) UIWebView *webView;
+@property (strong, nonatomic) ANMRAIDContainerView *standardAdView;
 @end
 
 @implementation MRAIDTests
@@ -379,29 +385,33 @@
     
     XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
     
-    [self moveBannerSubviewToOrigin:CGPointMake(150.0f, 60.0f)];
-    
-    // maintain resize offset
-    expectedX = 140.0f;
-    expectedY = 50.0f;
-    
-    currentPosition = [self getCurrentPosition];
-    originX = currentPosition.origin.x;
-    originY = currentPosition.origin.y;
-    
-    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
-    
-    [self close];
-    
-    // revert resize offset on default
-    expectedX = 150.0f;
-    expectedY = 60.0f;
-
-    currentPosition = [self getCurrentPosition];
-    originX = currentPosition.origin.x;
-    originY = currentPosition.origin.y;
-
-    XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(coordinateSpace)]) {
+        [self moveBannerSubviewToOrigin:CGPointMake(150.0f, 60.0f)];
+        
+        // maintain resize offset
+        expectedX = 140.0f;
+        expectedY = 50.0f;
+        
+        currentPosition = [self getCurrentPosition];
+        originX = currentPosition.origin.x;
+        originY = currentPosition.origin.y;
+        
+        XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+        
+        [self close];
+        
+        // revert resize offset on default
+        expectedX = 150.0f;
+        expectedY = 60.0f;
+        
+        currentPosition = [self getCurrentPosition];
+        originX = currentPosition.origin.x;
+        originY = currentPosition.origin.y;
+        
+        XCTAssertTrue(expectedX == originX && expectedY == originY, @"Expected origin %f x %f, received %f x %f", expectedX, expectedY, originX, originY);
+    } else {
+        [self close];
+    }
     
     [self clearTest];
 }
@@ -822,8 +832,11 @@
 
     [self resize];
     [self assertState:@"resized"];
-    XCTAssertTrue(self.banner.frame.size.width == resizeWidth, @"Expected new width of banner frame to be resized width");
-    XCTAssertTrue(self.banner.frame.size.height == resizeHeight, @"Expected new height of banner frame to be resized height");
+    
+    CGRect currentPosition = [self.standardAdView currentPosition];
+    
+    XCTAssertTrue(currentPosition.size.width == resizeWidth, @"Expected new width of banner frame to be resized width");
+    XCTAssertTrue(currentPosition.size.height == resizeHeight, @"Expected new height of banner frame to be resized height");
     [self clearTest];
 }
 
@@ -832,7 +845,9 @@
     CGFloat resizeHeight = 200.0f;
     [self setResizePropertiesResizeToSize:CGSizeMake(320.0f, resizeHeight) withOffset:CGPointZero];
     [self resize];
-    XCTAssertTrue(self.banner.frame.size.height == resizeHeight , @"Expected new height of banner frame to be resized height");
+    
+    CGRect currentPosition = [self.standardAdView currentPosition];
+    XCTAssertTrue(currentPosition.size.height == resizeHeight , @"Expected new height of banner frame to be resized height");
     [self clearTest];
 }
 
@@ -899,10 +914,12 @@
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     CGFloat expandHeight = 200.0f;
     [self setExpandPropertiesExpandToSize:CGSizeMake(320.0f, expandHeight)];
+    
     NSString *useCustomClose = [self getExpandPropertiesUseCustomClose];
     XCTAssertTrue([useCustomClose isEqualToString:@"false"], @"Expected useCustomClose to be false");
     [self expand];
-    XCTAssertTrue(self.banner.frame.size.height == expandHeight , @"Expected new height of banner frame to be expanded height");
+    
+    XCTAssertTrue([ANMRAIDUtil screenSize].height == [self.standardAdView currentPosition].size.height , @"Expected expand height to be ignored");
     [self close];
     [self clearTest];
 }
@@ -947,7 +964,7 @@
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setExpandPropertiesExpandToSize:CGSizeZero];
     [self expand];
-    [self assertState:@"default"];
+    [self assertState:@"expanded"]; // Size is ignored in MRAID 2.0
     [self clearTest];
 }
     
@@ -955,7 +972,7 @@
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setExpandPropertiesExpandToSize:CGSizeMake(-10.0f, 250.0f)];
     [self expand];
-    [self assertState:@"default"];
+    [self assertState:@"expanded"]; // Size is ignored in MRAID 2.0
     [self clearTest];
 }
     
@@ -979,7 +996,7 @@
     width = [self getExpandPropertiesWidth];
     height = [self getExpandPropertiesHeight];
     isModal = [self getExpandPropertiesIsModal];
-    XCTAssertTrue([useCustomClose isEqualToString:@"false"], @"Expected useCustomClose to be false");
+    XCTAssertTrue([useCustomClose isEqualToString:@"true"], @"Expected useCustomClose to still be true");
     XCTAssertTrue([width isEqualToString:@"500"], @"Expected width to be 320");
     XCTAssertTrue([height isEqualToString:@"300"], @"Expected height to be 250");
     XCTAssertTrue([isModal isEqualToString:@"true"], @"Expected isModal to be true");
@@ -1205,6 +1222,7 @@
 
 - (void)clearTest {
     self.webView = nil;
+    self.standardAdView = nil;
     [self removeBannerFromSuperview];
     if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
         [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
@@ -1265,9 +1283,12 @@
     XCTAssertTrue([self waitForCompletion:MRAID_TESTS_TIMEOUT], @"Ad load timed out");
     XCTAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
     XCTAssertFalse(self.adFailedToLoadCalled, @"Failure callback should not be called");
-    id wv = [[self.banner subviews] firstObject];
-    XCTAssertTrue([wv isKindOfClass:[ANWebView class]], @"Expected ANWebView as subview of BannerAdView");
-    self.webView = (ANWebView *)wv;
+    id containerView = [[self.banner subviews] firstObject];
+    XCTAssertTrue([containerView isKindOfClass:[ANMRAIDContainerView class]], @"Expected ANMRAIDContainerView as subview of BannerAdView");
+    self.standardAdView = (ANMRAIDContainerView *)containerView;
+    ANAdWebViewController *webViewController = self.standardAdView.webViewController;
+    XCTAssertTrue([webViewController.contentView isKindOfClass:[UIWebView class]], @"No support for testing WKWebView MRAID because JavaScript callbacks are asynchronous");
+    self.webView = (UIWebView *)webViewController.contentView;
 }
 
 - (void)addBannerAsSubview {

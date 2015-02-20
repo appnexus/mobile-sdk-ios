@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterInterstitialDFP.h"
 #import "ANLogging.h"
-#import "DFPExtras.h"
 
 @interface ANAdAdapterInterstitialDFP ()
 
@@ -61,13 +60,13 @@
     
     ANGENDER gender = targetingParameters.gender;
     switch (gender) {
-        case MALE:
+        case ANGenderMale:
             request.gender = kGADGenderMale;
             break;
-        case FEMALE:
+        case ANGenderFemale:
             request.gender = kGADGenderFemale;
             break;
-        case UNKNOWN:
+        case ANGenderUnknown:
             request.gender = kGADGenderUnknown;
         default:
             break;
@@ -80,7 +79,7 @@
                                 accuracy:location.horizontalAccuracy];
     }
     
-    DFPExtras *extras = [DFPExtras new];
+    GADExtras *extras = [[GADExtras alloc] init];
     NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
     
     NSString *age = targetingParameters.age;

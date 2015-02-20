@@ -14,7 +14,7 @@
  */
 
 #import "ANNativeAdFetcher.h"
-#import "ANNativeMediatedAd.h"
+#import "ANMediatedAd.h"
 #import "ANNativeAdTargetingProtocol.h"
 
 @protocol ANNativeMediationAdControllerDelegate;
@@ -22,7 +22,7 @@
 @interface ANNativeMediatedAdController : NSObject
 
 // Designated initializer
-+ (instancetype)initMediatedAd:(ANNativeMediatedAd *)mediatedAd
++ (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
              adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate;
 

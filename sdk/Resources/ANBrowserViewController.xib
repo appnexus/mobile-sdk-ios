@@ -1,80 +1,114 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ANBrowserViewController">
             <connections>
                 <outlet property="backButton" destination="17" id="27"/>
+                <outlet property="containerViewSuperviewTopConstraint" destination="Zdm-pe-Vqt" id="phX-BI-YRi"/>
                 <outlet property="doneButton" destination="18" id="28"/>
                 <outlet property="forwardButton" destination="19" id="29"/>
                 <outlet property="openInButton" destination="11" id="30"/>
+                <outlet property="refreshButton" destination="F1H-By-jAw" id="aD7-uQ-Cbc"/>
+                <outlet property="toolbar" destination="10" id="v9v-RU-Bmh"/>
                 <outlet property="view" destination="1" id="3"/>
-                <outlet property="webView" destination="4" id="31"/>
+                <outlet property="webViewContainerView" destination="jWV-ZZ-Vcz" id="cjm-mx-6p8"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="1">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <webView multipleTouchEnabled="YES" contentMode="scaleToFill" scalesPageToFit="YES" id="4">
-                    <rect key="frame" x="0.0" y="20" width="320" height="484"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="32"/>
-                    </connections>
-                </webView>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="10">
-                    <rect key="frame" x="0.0" y="504" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10">
+                    <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="sFb-sv-Cde">
+                            <variation key="heightClass=compact" constant="32"/>
+                        </constraint>
+                    </constraints>
                     <items>
-                        <barButtonItem image="UIButtonBarArrowLeft.png" style="plain" id="17">
-                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <barButtonItem image="an_arrow_left.png" style="plain" id="17">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Back"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="backAction:" destination="-1" id="34"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="20"/>
-                        <barButtonItem image="UIButtonBarArrowRight.png" style="plain" id="19">
-                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="hli-Bh-5cJ"/>
+                        <barButtonItem image="an_arrow_right.png" style="plain" id="19">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Forward"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="forwardAction:" destination="-1" id="35"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="21"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="f9A-un-3SL"/>
                         <barButtonItem style="plain" systemItem="action" id="11">
-                            <color key="tintColor" red="0.1082073997" green="0.54139823710000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Action"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="openInAction:" destination="-1" id="36"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="51x-OM-nbu"/>
+                        <barButtonItem systemItem="refresh" id="F1H-By-jAw">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Refresh"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="refresh:" destination="-1" id="aRK-Dl-Tal"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="qBo-va-oKv"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="YLN-vy-wDe"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="22"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="MZH-vs-8Mr"/>
                         <barButtonItem title="Done" style="done" id="18">
-                            <color key="tintColor" red="0.10820739966907766" green="0.54139823709035495" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Done"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="closeAction:" destination="-1" id="33"/>
                             </connections>
                         </barButtonItem>
                     </items>
-                    <color key="barTintColor" red="0.97885529891304346" green="0.97885529891304346" blue="0.97885529891304346" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="barTintColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                 </toolbar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jWV-ZZ-Vcz" userLabel="WebView Container View">
+                    <rect key="frame" x="0.0" y="20" width="600" height="536"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <constraints>
+                <constraint firstItem="10" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="JgA-v0-hJG"/>
+                <constraint firstItem="10" firstAttribute="top" secondItem="jWV-ZZ-Vcz" secondAttribute="bottom" id="JiJ-sp-Xbi"/>
+                <constraint firstItem="jWV-ZZ-Vcz" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="WzN-CS-rw8"/>
+                <constraint firstItem="jWV-ZZ-Vcz" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="Zdm-pe-Vqt"/>
+                <constraint firstAttribute="trailing" secondItem="10" secondAttribute="trailing" id="bey-bI-Fbp"/>
+                <constraint firstAttribute="bottom" secondItem="10" secondAttribute="bottom" id="iFi-NF-2i3"/>
+                <constraint firstItem="10" firstAttribute="top" secondItem="jWV-ZZ-Vcz" secondAttribute="bottom" id="sRU-am-tG1"/>
+                <constraint firstAttribute="trailing" secondItem="jWV-ZZ-Vcz" secondAttribute="trailing" id="zJM-Mh-y86"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="In App Browser"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="140" y="154"/>
         </view>
     </objects>
     <resources>
-        <image name="UIButtonBarArrowLeft.png" width="16" height="19"/>
-        <image name="UIButtonBarArrowRight.png" width="16" height="19"/>
+        <image name="an_arrow_left.png" width="22" height="22"/>
+        <image name="an_arrow_right.png" width="22" height="22"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

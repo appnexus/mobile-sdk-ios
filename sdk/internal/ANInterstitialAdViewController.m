@@ -19,6 +19,8 @@
 #import "ANLogging.h"
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
+#import "ANMRAIDOrientationProperties.h"
+#import "NSTimer+ANCategory.h"
 
 @interface ANInterstitialAdViewController ()
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;
@@ -26,11 +28,10 @@
 @property (nonatomic, readwrite, assign) BOOL viewed;
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
 @property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
+@property (nonatomic, readwrite, assign, getter=isDismissing) BOOL dismissing;
 @end
 
 @implementation ANInterstitialAdViewController
-@synthesize contentView = __contentView;
-@synthesize backgroundColor = __backgroundColor;
 
 - (instancetype)init {
     if (!ANPathForANResource(NSStringFromClass([self class]), @"nib")) {
@@ -40,7 +41,6 @@
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:ANResourcesBundle()];
     self.originalHiddenState = NO;
     self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    self.containerView = [UIView new];
     return self;
 }
 
@@ -51,16 +51,36 @@
     }
     self.progressView.hidden = YES;
     self.closeButton.hidden = YES;
-    CGRect containerFrame = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(self.view.frame);
-    [self.containerView setFrame:containerFrame];
-    [self.view insertSubview:self.containerView atIndex:0];
+    if (self.contentView && !self.contentView.superview) {
+        [self.view addSubview:self.contentView];
+        [self.view insertSubview:self.contentView
+                    belowSubview:self.progressView];
+        [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                              yAttribute:NSLayoutAttributeCenterY];
+    }
+    [self setupCloseButtonImageWithCustomClose:self.useCustomClose];
+}
+
+- (void)setupCloseButtonImageWithCustomClose:(BOOL)useCustomClose {
+    if (useCustomClose) {
+        [self.closeButton setImage:nil
+                          forState:UIControlStateNormal];
+        return;
+    }
+    BOOL atLeastiOS7 = [self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)];
+    NSString *closeboxImageName = @"interstitial_flat_closebox";
+    if (!atLeastiOS7) {
+        closeboxImageName = @"interstitial_closebox";
+    }
+    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:ANPathForANResource(closeboxImageName, @"png")];
+    [self.closeButton setImage:closeboxImage
+                      forState:UIControlStateNormal];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
     [self setStatusBarHidden:YES];
-    [self centerContentView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -79,23 +99,25 @@
     [self.progressTimer invalidate];
 }
 
-- (void)startCountdownTimer
-{
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.dismissing = NO;
+}
+
+- (void)startCountdownTimer {
     self.progressView.hidden = NO;
     self.closeButton.hidden = YES;
     self.timerStartDate = [NSDate date];
     self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
 }
 
-- (void)stopCountdownTimer
-{
+- (void)stopCountdownTimer {
 	[self.progressTimer invalidate];
-	[self.progressView setHidden:YES];
-    [self.closeButton setHidden:NO];
+    self.progressView.hidden = YES;
+    self.closeButton.hidden = NO;
 }
 
-- (void)progressTimerDidFire:(NSTimer *)timer
-{
+- (void)progressTimerDidFire:(NSTimer *)timer {
 	NSDate *timeNow = [NSDate date];
 	NSTimeInterval timeShown = [timeNow timeIntervalSinceDate:self.timerStartDate];
     NSTimeInterval closeDelay = [self.delegate closeDelayForController];
@@ -106,76 +128,67 @@
 	}
 }
 
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
-{
-	[UIView animateWithDuration:duration animations:^{
-        [self centerContentView];
-	}];
-}
-
-- (void)centerContentView {
-    CGFloat contentWidth = self.contentView.frame.size.width;
-    CGFloat contentHeight = self.contentView.frame.size.height;
-    CGFloat centerX = (self.containerView.bounds.size.width - contentWidth) / 2;
-    CGFloat centerY = (self.containerView.bounds.size.height - contentHeight) / 2;
-    
-	self.contentView.frame = CGRectMake(centerX, centerY, contentWidth, contentHeight);
-}
-
 - (void)setContentView:(UIView *)contentView {
-	if (contentView != __contentView) {
-        if ([__contentView isKindOfClass:[UIWebView class]]) {
-            UIWebView *webView = (UIWebView *)__contentView;
+	if (contentView != _contentView) {
+        if ([_contentView isKindOfClass:[UIWebView class]]) {
+            UIWebView *webView = (UIWebView *)_contentView;
             [webView stopLoading];
             [webView setDelegate:nil];
         }
-
-        [__contentView removeSubviews];
-        [__contentView removeFromSuperview];
-        [self.containerView removeSubviews];
         
-        if (contentView != nil) {
-            if ([contentView isKindOfClass:[UIWebView class]]) {
-                UIWebView *webView = (UIWebView *)contentView;
-                [webView removeDocumentPadding];
-                [webView setMediaProperties];
-            }
-            
-            [self.containerView addSubview:contentView];
-        }
+        [_contentView removeFromSuperview];
+        _contentView = contentView;
         
-        __contentView = contentView;
+        [self.view insertSubview:_contentView
+                    belowSubview:self.progressView];
+        _contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        [_contentView constrainWithFrameSize];
+        [_contentView alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                          yAttribute:NSLayoutAttributeCenterY];
     }
 }
 
--(void)setBackgroundColor:(UIColor *)backgroundColor
-{
-    __backgroundColor = backgroundColor;
-    self.view.backgroundColor = __backgroundColor;
-    self.containerView.backgroundColor = __backgroundColor;
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    _backgroundColor = backgroundColor;
+    self.view.backgroundColor = _backgroundColor;
 }
 
-- (IBAction)closeAction:(id)sender
-{
+- (IBAction)closeAction:(id)sender {
+    if ([self.progressTimer isScheduled]) {
+        return;
+    }
+    self.dismissing = YES;
 	[self.delegate interstitialAdViewControllerShouldDismiss:self];
 }
 
-// hiding the status bar in iOS 7
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
-// hiding the status bar pre-iOS 7
 - (void)setStatusBarHidden:(BOOL)hidden {
     [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
 }
 
-// locking orientation in iOS 6+
 - (BOOL)shouldAutorotate {
     return NO;
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
+    if (self.orientationProperties) {
+        if (self.orientationProperties.allowOrientationChange) {
+            return UIInterfaceOrientationMaskAll;
+        } else {
+            switch (self.orientationProperties.forceOrientation) {
+                case ANMRAIDOrientationPortrait:
+                    return UIInterfaceOrientationMaskPortrait;
+                case ANMRAIDOrientationLandscape:
+                    return UIInterfaceOrientationMaskLandscape;
+                default:
+                    return UIInterfaceOrientationMaskAll;
+            }
+        }
+    }
+
     switch (self.orientation) {
         case UIInterfaceOrientationLandscapeLeft:
             return UIInterfaceOrientationMaskLandscapeLeft;
@@ -188,10 +201,67 @@
     }
 }
 
-// locking orientation in pre-iOS 6
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return NO;
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    if (self.orientationProperties) {
+        switch (self.orientationProperties.forceOrientation) {
+            case ANMRAIDOrientationPortrait:
+                if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+                    return UIInterfaceOrientationPortraitUpsideDown;
+                }
+                return UIInterfaceOrientationPortrait;
+            case ANMRAIDOrientationLandscape:
+                if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
+                    return UIInterfaceOrientationLandscapeRight;
+                }
+                return UIInterfaceOrientationLandscapeLeft;
+            default:
+                break;
+        }
+    }
+    return self.orientation;
+}
+
+- (void)viewWillLayoutSubviews {
+    CGFloat buttonDistanceToSuperview;
+    if ([self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
+        CGSize statusBarFrameSize = [[UIApplication sharedApplication] statusBarFrame].size;
+        buttonDistanceToSuperview = statusBarFrameSize.height;
+        if (statusBarFrameSize.height > statusBarFrameSize.width) {
+            buttonDistanceToSuperview = statusBarFrameSize.width;
+        }
+    } else {
+        buttonDistanceToSuperview = 0;
+    }
+    
+    self.buttonTopToSuperviewConstraint.constant = buttonDistanceToSuperview;
+    
+    if (!self.isDismissing) {
+        CGRect normalizedContentViewFrame = CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame));
+        if (!CGRectContainsRect(self.view.frame, normalizedContentViewFrame)) {
+            CGRect rotatedNormalizedContentViewFrame = CGRectMake(0, 0, CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame));
+            if (CGRectContainsRect(self.view.frame, rotatedNormalizedContentViewFrame)) {
+                [self.contentView constrainWithSize:CGSizeMake(CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame))];
+            }
+        }
+    }
+}
+
+- (void)setUseCustomClose:(BOOL)useCustomClose {
+    if (_useCustomClose != useCustomClose) {
+        _useCustomClose = useCustomClose;
+        [self setupCloseButtonImageWithCustomClose:useCustomClose];
+    }
+}
+
+- (void)setOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties {
+    _orientationProperties = orientationProperties;
+    if ([self.view an_isViewable]) {
+        if (orientationProperties.allowOrientationChange && orientationProperties.forceOrientation == ANMRAIDOrientationNone) {
+            [UIViewController attemptRotationToDeviceOrientation];
+        } else if ([UIApplication sharedApplication].statusBarOrientation != [self preferredInterfaceOrientationForPresentation]) {
+            [self.delegate dismissAndPresentAgainForPreferredInterfaceOrientationChange];
+        }
+    }
 }
 
 @end
-

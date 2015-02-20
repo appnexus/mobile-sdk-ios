@@ -1,0 +1,55 @@
+{  
+   "status":"ok",
+   "ads":[  
+
+   ],
+   "native":[  
+      {  
+         "title":"AppNexusSDKApp",
+         "description":"Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
+         "cta":"Install Now!",
+         "icon_img_url":"http://rlissack.adnxs.net:8080/jtest/appnexus_logo_icon@2x.png",
+         "main_media":[  
+            {  
+               "url":"http://rlissack.adnxs.net:8080/jtest/MainImageAppNexusSDKApp@2x.png",
+               "width":300,
+               "height":250,
+               "label":"default"
+            }
+         ],
+         "rating":{  
+            "value":5.0,
+            "scale":5
+         },
+         "impression_trackers":[  
+            "http://rlissack.adnxs.net:8080/jtest/trackImpression"
+         ],
+         "click_trackers":[  
+            "http://nym1.ib.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPA_AAAAAAAAAAAAAAAAAAAAAJkJvjGlBMFaZyDVla9jmxLH_n1UAAAAAJ-nIAC-AwAAvgMAAAIAAACL37AAtZgCAAAAAQBVU0QAVVNEACwB-gARIAAA5uUAAgMCAQIAAAAAJBbkOAAAAAA./cnd=%21-gXbOAi9vKkBEIu_wwUYtbEKIAQ./referrer=http%3A%2F%2Fapps.mobile.adnxs.com/clickenc="
+         ],
+         "click_url":"http://appnexus.com"
+      }
+   ],
+   "mediated":[  
+      {  
+         "handler":[  
+            {  
+               "width":"",
+               "height":"",
+               "type":"ios",
+               "class":"MyDummyNativeCustomAdapter",
+               "id":"210827375150_10154672420735151"
+            },
+            {  
+               "width":"320",
+               "height":"50",
+               "type":"android",
+               "class":"com.appnexus.opensdk.mediatedviews.MyDummyNativeCustomAdapter",
+               "id":"210827375150_10154672419150151"
+            }
+         ],
+         "init_cb":"",
+         "result_cb":"http://rlissack.adnxs.net:8080/jtest/native/empty_mediated_ad_response.json"
+      }
+   ]
+}
