@@ -14,6 +14,7 @@
  */
 
 #import "ANBasicConfig.h"
+#import "ANLogging.h"
 #import ANMOPUBMEDIATIONINTERSTITIALHEADER
 #import ANLOCATIONHEADER
 
@@ -33,13 +34,13 @@
 
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
-    NSLog(@"Requesting %@", NSStringFromClass([ANINTERSTITIALAD class]));
+    ANLogDebug(@"Requesting %@", NSStringFromClass([ANINTERSTITIALAD class]));
     
     id placementId = [info objectForKey:@"id"];
     
     // fail if any of the parameters is missing
     if (!placementId) {
-        NSLog(@"Parameters from server were invalid");
+        ANLogDebug(@"Parameters from server were invalid");
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:nil];
         return;
     }
@@ -75,21 +76,21 @@
 
 - (void)adDidReceiveAd:(id<ANADPROTOCOL>)ad
 {
-    NSLog(@"Did load %@", NSStringFromClass([ANINTERSTITIALAD class]));
+    ANLogDebug(@"Did load %@", NSStringFromClass([ANINTERSTITIALAD class]));
     if (self.delegate)
         [self.delegate interstitialCustomEvent:self didLoadAd:self.interstitial];
 }
 
 - (void)ad:(id<ANADPROTOCOL>)ad requestFailedWithError:(NSError *)error
 {
-    NSLog(@"Did fail to load %@", NSStringFromClass([ANINTERSTITIALAD class]));
+    ANLogDebug(@"Did fail to load %@", NSStringFromClass([ANINTERSTITIALAD class]));
     if (self.delegate)
         [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];
 }
 
 - (void)adFailedToDisplay:(ANINTERSTITIALAD *)ad
 {
-    NSLog(@"Failed to display %@", NSStringFromClass([ANINTERSTITIALAD class]));
+    ANLogDebug(@"Failed to display %@", NSStringFromClass([ANINTERSTITIALAD class]));
     if (self.delegate) {
         [self.delegate interstitialCustomEventDidExpire:self];
     }

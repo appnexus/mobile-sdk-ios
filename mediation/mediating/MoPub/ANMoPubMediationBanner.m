@@ -14,6 +14,7 @@
  */
 
 #import "ANBasicConfig.h"
+#import "ANLogging.h"
 #import ANMOPUBMEDIATIONBANNERHEADER
 #import ANLOCATIONHEADER
 
@@ -42,7 +43,7 @@
 
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info
 {
-    NSLog(@"Requesting %@", NSStringFromClass([ANBANNERADVIEW class]));
+    ANLogDebug(@"Requesting %@", NSStringFromClass([ANBANNERADVIEW class]));
 
     id widthParam = [info objectForKey:@"width"];
     id heightParam = [info objectForKey:@"height"];
@@ -50,7 +51,7 @@
 
     // fail if any of the parameters is missing
     if (!widthParam || !heightParam || !placementId) {
-        NSLog(@"Parameters from server were invalid");
+        ANLogDebug(@"Parameters from server were invalid");
         [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:nil];
         return;
     }
@@ -79,14 +80,14 @@
 
 - (void)adDidReceiveAd:(id<ANADPROTOCOL>)ad
 {
-    NSLog(@"Did load %@", NSStringFromClass([ANBANNERADVIEW class]));
+    ANLogDebug(@"Did load %@", NSStringFromClass([ANBANNERADVIEW class]));
     if (self.delegate)
         [self.delegate bannerCustomEvent:self didLoadAd:self.adBannerView];
 }
 
 - (void)ad:(id<ANADPROTOCOL>)ad requestFailedWithError:(NSError *)error
 {
-    NSLog(@"Did fail to load %@", NSStringFromClass([ANBANNERADVIEW class]));
+    ANLogDebug(@"Did fail to load %@", NSStringFromClass([ANBANNERADVIEW class]));
     if (self.delegate)
         [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
 }
