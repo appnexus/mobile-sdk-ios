@@ -58,6 +58,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     _precachedAdObjects = [NSMutableArray array];
     _allowedAdSizes = [self getDefaultAllowedAdSizes];
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
+    _opaque = YES;
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -124,13 +125,16 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         if (self.backgroundColor) {
             self.controller.backgroundColor = self.backgroundColor;
         }
-        UIModalPresentationStyle rootViewControllerDesiredPresentationStyle = controller.modalPresentationStyle;
-        controller.modalPresentationStyle = UIModalPresentationCurrentContext;
+        self.controller.modalPresentationStyle = UIModalPresentationFullScreen;
+        if ([self.controller respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
+            self.controller.modalPresentationCapturesStatusBarAppearance = YES;
+        }
+        if (!self.opaque && [self.controller respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+            self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        }
         [controller presentViewController:self.controller
                                  animated:YES
-                               completion:^{
-            controller.modalPresentationStyle = rootViewControllerDesiredPresentationStyle;
-        }];
+                               completion:nil];
     } else if ([adToShow conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
         [adToShow presentFromViewController:controller];
         if (auctionID) {
