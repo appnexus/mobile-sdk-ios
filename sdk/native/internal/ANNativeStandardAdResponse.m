@@ -139,7 +139,7 @@
                                                                     delegate:self
                                                     delayPresentationForLoad:self.landingPageLoadsInBackground];
         } else {
-            self.inAppBrowser.url = self.clickURL;
+            self.inAppBrowser.url = URL;
         }
         return YES;
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
