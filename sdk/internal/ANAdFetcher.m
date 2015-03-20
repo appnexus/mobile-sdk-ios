@@ -138,17 +138,13 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 			}
 			else
 			{
-				NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to make request due to bad URL connection.", @"Error: Bad URL connection.")};
-				NSError *badURLConnectionError = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseBadURLConnection userInfo:errorInfo];
-				ANAdResponse *response = [ANAdResponse adResponseFailWithError:badURLConnectionError];
+				ANAdResponse *response = [ANAdResponse adResponseFailWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
                 [self processFinalResponse:response];
 			}
 		}
 		else
 		{
-			NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to make request due to malformed URL.", @"Error: Malformed URL")};
-            NSError *badURLError = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseBadURL userInfo:errorInfo];
-            ANAdResponse *response = [ANAdResponse adResponseFailWithError:badURLError];
+            ANAdResponse *response = [ANAdResponse adResponseFailWithError:ANError(@"malformed_url", ANAdResponseBadURL)];
             [self processFinalResponse:response];
 		}
 	}
@@ -247,8 +243,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     
     if (!responseAdsExist && !oldAdsExist) {
 		ANLogWarn(@"response_no_ads");
-        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Request got successful response from server, but no ads were available.", @"Error: Response was received, but it contained no ads")};
-        [self finishRequestWithErrorAndRefresh:errorInfo code:ANAdResponseUnableToFill];
+        [self finishRequestWithErrorAndRefresh:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
     
@@ -312,19 +307,17 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                                                             adViewDelegate:self.delegate];
 }
 
-- (void)finishRequestWithErrorAndRefresh:(NSDictionary *)errorInfo code:(NSInteger)code
+- (void)finishRequestWithErrorAndRefresh:(NSError *)error
 {
     self.loading = NO;
     
-    NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:code userInfo:errorInfo];
-
     NSTimeInterval interval = [self getAutoRefreshFromDelegate];
     if (interval > 0.0) {
         ANLogInfo(@"No ad received. Will request ad in %f seconds. Error: %@", interval, error.localizedDescription);
     } else {
         ANLogInfo(@"No ad received. Error: %@", error.localizedDescription);
     }
-
+    
     ANAdResponse *response = [ANAdResponse adResponseFailWithError:error];
     [self processFinalResponse:response];
 }
@@ -350,12 +343,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
             
             if (status >= 400) {
                 [connection cancel];
-                NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:
-                                                                              NSLocalizedString(@"Request failed with status code %d", @"Error Description: server request came back with error code."),
-                                                                              status]};
-                NSError *statusError = [NSError errorWithDomain:AN_ERROR_DOMAIN
-                                                           code:ANAdResponseNetworkError
-                                                       userInfo:errorInfo];
+                NSError *statusError = ANError(@"connection_failed %ld", ANAdResponseNetworkError, (long)status);
                 [self connection:connection didFailWithError:statusError];
                 return;
             }
@@ -387,21 +375,14 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     if (connection == self.connection) {
-        NSString *errorMessage = [NSString stringWithFormat:
-                                  @"Ad request %@ failed with error %@",
-                                  connection, [error localizedDescription]];
-        ANLogError(@"%@", errorMessage);
+        NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
+        ANLogError(@"%@", connectionError);
         
         self.loading = NO;
         
         [self setupAutoRefreshTimerIfNecessary];
         
-        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: errorMessage};
-        NSError *ANError = [NSError errorWithDomain:AN_ERROR_DOMAIN
-                                             code:ANAdResponseNetworkError
-                                         userInfo:errorInfo];
-        
-        ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:ANError];
+        ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:connectionError];
         [self processFinalResponse:failureResponse];
     }
 }
@@ -459,16 +440,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     ignoredRequest.URL = url;
     [NSURLConnection sendAsynchronousRequest:ignoredRequest
                                        queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                               if (error) {
-                                   ANLogInfo(@"Ignored resultCB received response with error: %@", [error localizedDescription]);
-                               } else if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                   NSInteger status = [(NSHTTPURLResponse *)response statusCode];
-                                   ANLogInfo(@"Ignored resultCB received response with code %ld", (long)status);
-                               } else {
-                                   ANLogInfo(@"Ignored resultCB received response.");
-                               }
-                           }];
+                           completionHandler:nil];
 }
 
 #pragma mark Total Latency Measurement
