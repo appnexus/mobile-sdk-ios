@@ -23,6 +23,8 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
+#import "ANNativeMediatedAdController.h"
+
 @interface ANNativeAdRequestUrlBuilder ()
 @property (nonatomic, readwrite, strong) NSString *baseUrlString;
 @property (nonatomic, readwrite, weak) id<ANNativeAdTargetingProtocol> adRequestDelegate;
@@ -291,7 +293,7 @@
 }
 
 - (NSString *)nonetParameter {
-    NSArray *invalidNetworks = [ANInvalidNetworks() allObjects];
+    NSArray *invalidNetworks = [[ANNativeMediatedAdController invalidNetworks] allObjects];
     return [invalidNetworks count] ? [NSString stringWithFormat:@"nonet=%@", [invalidNetworks componentsJoinedByString:@"%2C"]] : @"";
 }
 

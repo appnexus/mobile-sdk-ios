@@ -95,8 +95,6 @@ NSString *convertToNSString(id value);
 CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *ANMRAIDBundlePath();
 BOOL hasHttpPrefix(NSString *url);
-NSMutableSet *ANInvalidNetworks();
-void ANAddInvalidNetwork(NSString *network);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
 CGRect ANPortraitScreenBounds();

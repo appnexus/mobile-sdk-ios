@@ -50,6 +50,38 @@
 
 @implementation ANMediationAdViewController
 
+#pragma mark - Invalid Networks
+
++ (NSMutableSet *)bannerInvalidNetworks {
+    static dispatch_once_t bannerInvalidNetworksToken;
+    static NSMutableSet *bannerInvalidNetworks;
+    dispatch_once(&bannerInvalidNetworksToken, ^{
+        bannerInvalidNetworks = [[NSMutableSet alloc] init];
+    });
+    return bannerInvalidNetworks;
+}
+
++ (NSMutableSet *)interstitialInvalidNetworks {
+    static dispatch_once_t interstitialInvalidNetworksToken;
+    static NSMutableSet *interstitialInvalidNetworks;
+    dispatch_once(&interstitialInvalidNetworksToken, ^{
+        interstitialInvalidNetworks = [[NSMutableSet alloc] init];
+    });
+    return interstitialInvalidNetworks;
+}
+
++ (void)addBannerInvalidNetwork:(NSString *)network {
+    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] bannerInvalidNetworks];
+    [invalidNetworks addObject:network];
+}
+
++ (void)addInterstitialInvalidNetwork:(NSString *)network {
+    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] interstitialInvalidNetworks];
+    [invalidNetworks addObject:network];
+}
+
+#pragma mark -
+
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
                                     withFetcher:(ANAdFetcher *)fetcher
                                  adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate {
@@ -146,8 +178,15 @@
         ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
     if ([className length] > 0) {
-        ANLogWarn(@"mediation_adding_invalid %@", className);
-        ANAddInvalidNetwork(className);
+        if ([self.adViewDelegate isKindOfClass:[ANBannerAdView class]]) {
+            ANLogWarn(@"mediation_adding_invalid_for_media_type %@ %@", className, @"banner");
+            [[self class] addBannerInvalidNetwork:className];
+        } else if ([self.adViewDelegate isKindOfClass:[ANInterstitialAd class]]) {
+            ANLogWarn(@"mediation_adding_invalid_for_media_type %@ %@", className, @"interstitial");
+            [[self class] addInterstitialInvalidNetwork:className];
+        } else {
+            ANLogDebug(@"Instantiation failure for unknown ad view, could not add %@ to an invalid networks list", className);
+        }
     }
     
     [self didFailToReceiveAd:errorCode];

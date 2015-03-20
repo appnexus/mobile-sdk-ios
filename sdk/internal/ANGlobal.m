@@ -196,22 +196,6 @@ BOOL hasHttpPrefix(NSString *url) {
     return ([url hasPrefix:@"http"] || [url hasPrefix:@"https"]);
 }
 
-static NSMutableSet *invalidNetworks;
-
-NSMutableSet *ANInvalidNetworks() {
-    if (!invalidNetworks) {
-        invalidNetworks = [NSMutableSet new];
-    }
-    return invalidNetworks;
-}
-
-void ANAddInvalidNetwork(NSString *network) {
-    if (!invalidNetworks) {
-        invalidNetworks = [NSMutableSet new];
-    }
-    [invalidNetworks addObject:network];
-}
-
 static BOOL notificationsEnabled = NO;
 
 void ANSetNotificationsEnabled(BOOL enabled) {

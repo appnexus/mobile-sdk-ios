@@ -20,6 +20,9 @@
 
 @interface ANMediationAdViewController : NSObject
 
++ (NSSet *)bannerInvalidNetworks;
++ (NSSet *)interstitialInvalidNetworks;
+
 - (void)startTimeout;
 - (void)clearAdapter;
 

@@ -16,6 +16,7 @@
 "opening_url_failed %@"="Failed to launch custom protocol: %@";
 "mediation_instantiation_failure %@"="Instantiating mediated ad failed due to %@";
 "mediation_adding_invalid %@"="Adding %@ to invalid networks list";
+"mediation_adding_invalid_for_media_type %@ %@"="Adding %@ to %@ invalid networks list";
 "instantiating_class %@"="Instantiating %@";
 "instance_exception %@"="MediatedAdView is null or not an instance of %@";
 "mediation_finish"="Mediation Controller has finished.";

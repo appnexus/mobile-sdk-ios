@@ -24,6 +24,10 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
+#import "ANMediationAdViewController.h"
+#import "ANBannerAdView.h"
+#import "ANInterstitialAd.h"
+
 @interface ANAdRequestUrl()
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adFetcherDelegate;
 @end
@@ -296,7 +300,16 @@
 }
 
 - (NSString *)nonetParameter {
-    NSArray *invalidNetworks = [ANInvalidNetworks() allObjects];
+    NSArray *invalidNetworks;
+    if ([self.adFetcherDelegate isKindOfClass:[ANBannerAdView class]]) {
+        invalidNetworks = [[ANMediationAdViewController bannerInvalidNetworks] allObjects];
+    } else if ([self.adFetcherDelegate isKindOfClass:[ANInterstitialAd class]]) {
+        invalidNetworks = [[ANMediationAdViewController interstitialInvalidNetworks] allObjects];
+    } else {
+        ANLogDebug(@"Could not find nonet list for %@ ad view", self.adFetcherDelegate);
+        invalidNetworks = nil;
+    }
+    
     return invalidNetworks.count ? [NSString stringWithFormat:@"&nonet=%@", [invalidNetworks componentsJoinedByString:@"%2C"]] : @"";
 }
 
