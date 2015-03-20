@@ -46,19 +46,14 @@ NSString *ANDeviceModel()
     return @(systemInfo.machine);
 }
 
-BOOL ANAdvertisingTrackingEnabled()
-{
-    // Beginning in iOS 6, Apple allows users to turn off advertising tracking in their settings, which we must respect.
-    // By default, this value is YES. If a user does turn this off, use the unique identifier *only* for the following:
-    // Frequency capping, conversion events, estimating number of unique users, security and fraud detection, and debugging.
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-    if (NSClassFromString(@"ASIdentifierManager"))
-    {
-        return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
-    }
-#endif
-    
-    return YES;
+BOOL ANAdvertisingTrackingEnabled() {
+    // If a user does turn this off, use the unique identifier *only* for the following:
+    // - Frequency capping
+    // - Conversion events
+    // - Estimating number of unique users
+    // - Security and fraud detection
+    // - Debugging
+    return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
 }
 
 BOOL isFirstLaunch()
@@ -77,20 +72,13 @@ NSString *ANUDID() {
     static NSString *udidComponent = @"";
     
     if ([udidComponent isEqualToString:@""]) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-        if (NSClassFromString(@"ASIdentifierManager")) {
-            // iOS 6: Use the ASIdentifierManager provided method of getting the identifier
-            NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager]
-                                               .advertisingIdentifier UUIDString];
-            
-            if (advertisingIdentifier) {
-                udidComponent = advertisingIdentifier;
-            }
-            else {
-                ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
-            }
+        NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+        
+        if (advertisingIdentifier) {
+            udidComponent = advertisingIdentifier;
+        } else {
+            ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
         }
-#endif
 	}
 	
     return udidComponent;
