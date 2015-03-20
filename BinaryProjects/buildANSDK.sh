@@ -3,32 +3,32 @@
 # Script to build the AppNexus SDK and various mediation adapters
 #
 OUTDIR=`pwd`/out
-OUTDIR_DEVICE=`pwd`/out_device
-OUTDIR_SIMULATOR=`pwd`/out_simulator
-LOGDIR=$OUTDIR/log
-BUILDDIR=$OUTDIR/build
+OD_DEVICE=`pwd`/out_device
+OD_SIMULATOR=`pwd`/out_simulator
+LOGDIR="$OUTDIR"/log
+BUILDDIR="$OUTDIR"/build
 
 schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
 
-rm -fr $OUTDIR > /dev/null 2>&1
-rm -fr $OUTDIR_DEVICE > /dev/null 2>&1
-rm -fr $OUTDIR_SIMULATOR > /dev/null 2>&1
-mkdir -p $LOGDIR
+rm -fr "$OUTDIR" > /dev/null 2>&1
+rm -fr "$OD_DEVICE" > /dev/null 2>&1
+rm -fr "$OD_SIMULATOR" > /dev/null 2>&1
+mkdir -p "$LOGDIR"
 
 function buildDevice {
 	echo "Building for device:" $1
-	LOGFILE=$LOGDIR/$1.log
-	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" CONFIGURATION_BUILD_DIR=$OUTDIR SYMROOT=$BUILDDIR OBJROOT=$BUILDDIR > $LOGFILE 2>&1 || { echo "Error in build check log $LOGFILE"; exit;}
-	mkdir -p $OUTDIR/$1
-	mv $OUTDIR/lib$1.a $OUTDIR/$1/lib$1.a
+	LOGFILE="$LOGDIR"/$1.log
+	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+	mkdir -p "$OUTDIR"/$1
+	mv "$OUTDIR"/lib$1.a "$OUTDIR"/$1/lib$1.a
 }
 
 function buildSim {
 	echo "Building for simulator:" $1
-	LOGFILE=$LOGDIR/$1.log
-	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR=$OUTDIR SYMROOT=$BUILDDIR OBJROOT=$BUILDDIR > $LOGFILE 2>&1 || { echo "Error in build check log $LOGFILE"; exit;}
-	mkdir -p $OUTDIR/$1
-	mv $OUTDIR/lib$1.a $OUTDIR/$1/lib$1.a
+	LOGFILE="$LOGDIR"/$1.log
+	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+	mkdir -p "$OUTDIR"/$1
+	mv "$OUTDIR"/lib$1.a "$OUTDIR"/$1/lib$1.a
 }
 
 ### device
@@ -38,57 +38,57 @@ do
 	buildDevice $i
 done
 
-rm -rf $OUTDIR/Intermediates
-rm -rf $BUILDDIR
+rm -rf "$OUTDIR"/Intermediates
+rm -rf "$BUILDDIR"
 
-mv $OUTDIR $OUTDIR_DEVICE
+mv "$OUTDIR" "$OD_DEVICE"
 
 ### simulator
 
-mkdir -p $LOGDIR
+mkdir -p "$LOGDIR"
 
 for i in ${schemes[@]}
 do
 	buildSim $i
 done
 
-rm -rf $OUTDIR/Intermediates
-rm -rf $BUILDDIR
+rm -rf "$OUTDIR"/Intermediates
+rm -rf "$BUILDDIR"
 
-mv $OUTDIR $OUTDIR_SIMULATOR
+mv "$OUTDIR" "$OD_SIMULATOR"
 
 ### combine
 echo 'Combining architectures and copying header and resource files'
 
 for i in ${schemes[@]}
 do
-	mkdir -p $OUTDIR/$i
-	lipo -create $OUTDIR_DEVICE/$i/lib$i.a $OUTDIR_SIMULATOR/$i/lib$i.a  -output $OUTDIR/$i/lib$i.a
-	rm -rf $OUTDIR_DEVICE/$i/lib$i.a
-	cp -a $OUTDIR_DEVICE/$i $OUTDIR
+	mkdir -p "$OUTDIR"/$i
+	lipo -create "$OD_DEVICE"/$i/lib$i.a "$OD_SIMULATOR"/$i/lib$i.a  -output "$OUTDIR"/$i/lib$i.a
+	rm -rf "$OD_DEVICE"/$i/lib$i.a
+	cp -a "$OD_DEVICE"/$i "$OUTDIR"
 done
 
 
-rm -fr $OUTDIR_DEVICE > /dev/null 2>&1
-rm -fr $OUTDIR_SIMULATOR > /dev/null 2>&1
+rm -fr "$OD_DEVICE" > /dev/null 2>&1
+rm -fr "$OD_SIMULATOR" > /dev/null 2>&1
 rm -rf `pwd`/build
 
 #####
 # Package and Zip
 #####
 
-ANMEDDIR=$OUTDIR/ANAdaptersNetworksMediatedByAppNexus
+ANMEDDIR="$OUTDIR"/ANAdaptersNetworksMediatedByAppNexus
 
-cd $OUTDIR
-mkdir -p $ANMEDDIR
-cp ANSDK*Adapter/libANSDK*Adapter.a $ANMEDDIR
+cd "$OUTDIR"
+mkdir -p "$ANMEDDIR"
+cp ANSDK*Adapter/libANSDK*Adapter.a "$ANMEDDIR"
 rm ANSDK*Adapter/*.a
 rmdir ANSDK*Adapter > /dev/null 2>&1
 
-MEDANDIR=$OUTDIR/ANAdaptersNetworksMediatingAppNexus
+MEDANDIR="$OUTDIR"/ANAdaptersNetworksMediatingAppNexus
 
-mkdir -p $MEDANDIR
-cp ANAdapterFor*/libANAdapterFor*.a $MEDANDIR
+mkdir -p "$MEDANDIR"
+cp ANAdapterFor*/libANAdapterFor*.a "$MEDANDIR"
 rm ANAdapterFor*/*.a
 rmdir ANAdapterFor* > /dev/null 2>&1
 
@@ -122,21 +122,21 @@ function packageSDK {
 	then
 	    return
 	fi
-	SDKDIR=$OUTDIR/../../mediation/mediatedviews/${className}/${className}SDK
+	SDKDIR="$OUTDIR"/../../mediation/mediatedviews/${className}/${className}SDK
 	if [ -d "$SDKDIR" ];
 	then
 	    echo "Packaging ${className} SDK"
-	    cp -r $SDKDIR $2
+	    cp -r "$SDKDIR" "$2"
 	else
 	    echo "Warning: ${className} SDK not found"
 	fi
     fi
 }
 
-external=$OUTDIR/externalSDKs
-mkdir -p $external
+external="$OUTDIR"/externalSDKs
+mkdir -p "$external"
 
 for i in ${schemes[@]}
 do
-    packageSDK $i $external
+    packageSDK $i "$external"
 done
