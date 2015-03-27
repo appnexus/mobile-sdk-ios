@@ -24,6 +24,12 @@
 #define MRAID_TESTS_TIMEOUT 10.0
 #define MRAID_TESTS_DEFAULT_DELAY 1.5
 
+@interface ANMRAIDContainerView (ANMRAIDTestsCategory)
+
+@property (nonatomic, readwrite, assign) BOOL userInteractedWithContentView;
+
+@end
+
 @interface UIDevice (HackyWayToRotateTheDeviceForTestingPurposesBecauseAppleDeclaredSuchAMethodInTheirPrivateImplementationOfTheUIDeviceClass)
 -(void)setOrientation:(UIInterfaceOrientation)orientation animated:(BOOL)animated;
 -(void)setOrientation:(UIInterfaceOrientation)orientation;
@@ -1286,6 +1292,7 @@
     id containerView = [[self.banner subviews] firstObject];
     XCTAssertTrue([containerView isKindOfClass:[ANMRAIDContainerView class]], @"Expected ANMRAIDContainerView as subview of BannerAdView");
     self.standardAdView = (ANMRAIDContainerView *)containerView;
+    self.standardAdView.userInteractedWithContentView = YES;
     ANAdWebViewController *webViewController = self.standardAdView.webViewController;
     XCTAssertTrue([webViewController.contentView isKindOfClass:[UIWebView class]], @"No support for testing WKWebView MRAID because JavaScript callbacks are asynchronous");
     self.webView = (UIWebView *)webViewController.contentView;
