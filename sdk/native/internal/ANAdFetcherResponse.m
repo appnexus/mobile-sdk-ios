@@ -41,4 +41,12 @@
     return self;
 }
 
++ (ANAdFetcherResponse *)responseWithError:(NSError *)error {
+    return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
+}
+
++ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject {
+    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject];
+}
+
 @end

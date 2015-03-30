@@ -14,7 +14,6 @@
  */
 
 #import "ANNativeCustomAdapter.h"
-#import "ANAdResponse.h"
 #import "ANGlobal.h"
 #import "ANNativeAdTargetingProtocol.h"
 #import "ANAdFetcherResponse.h"

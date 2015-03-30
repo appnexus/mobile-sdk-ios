@@ -16,12 +16,13 @@
 #import "ANBasicConfig.h"
 
 #import ANADPROTOCOLHEADER
-#import "ANAdResponse.h"
+#import "ANAdFetcherResponse.h"
 #import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import ANCUSTOMADAPTERHEADER
 
 @class ANMRAIDAdWebViewController;
+@class ANAdServerResponse;
 @class ANLOCATION;
 @protocol ANAdFetcherDelegate;
 
@@ -47,14 +48,14 @@ extern NSString *const kANAdFetcherMediatedClassKey;
               reason:(ANADRESPONSECODE)reason
             adObject:(id)adObject
            auctionID:(NSString *)auctionID;
-- (void)processAdResponse:(ANAdResponse *)response;
-- (void)processFinalResponse:(ANAdResponse *)response;
+- (void)processAdResponse:(ANAdServerResponse *)response;
+- (void)processFinalResponse:(ANAdFetcherResponse *)response;
 @end
 
 @protocol ANAdFetcherDelegate <ANADPROTOCOL, ANAdViewInternalDelegate>
 
 @optional
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSArray *)extraParameters; // An array of NSString

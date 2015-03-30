@@ -61,8 +61,8 @@ static NSString *const kANAdServerResponseKeyNativeRatingValue = @"value";
 static NSString *const kANAdServerResponseKeyNativeRatingScale = @"scale";
 static NSString *const kANAdServerResponseKeyNativeCustomKeywordsDict = @"custom";
 
-static NSString *const kANAdFetcherDidReceiveResponseNotification = @"kANAdFetcherDidReceiveResponseNotification";
-static NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
+NSString *const kANAdFetcherDidReceiveResponseNotification = @"kANAdFetcherDidReceiveResponseNotification";
+NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 
 @interface ANAdServerResponse ()
 
@@ -81,6 +81,24 @@ static NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     self = [super init];
     if (self) {
         [self processResponseData:data];
+    }
+    return self;
+}
+
++ (ANAdServerResponse *)responseWithData:(NSData *)data {
+    return [[ANAdServerResponse alloc] initWithAdServerData:data];
+}
+
+- (instancetype)initWithContent:(NSString *)htmlContent
+                          width:(NSInteger)width
+                         height:(NSInteger)height {
+    self = [super init];
+    if (self) {
+        _standardAd = [[ANStandardAd alloc] init];
+        _standardAd.width = [NSString stringWithFormat:@"%ld", (long)width];
+        _standardAd.height = [NSString stringWithFormat:@"%ld", (long)height];
+        _standardAd.content = htmlContent;
+        _containsAds = YES;
     }
     return self;
 }

@@ -52,7 +52,7 @@
     [self.adFetchers addObject:adFetcher];
 }
 
-- (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
+- (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
     NSError *error;
     
     if (response.isSuccessful) {

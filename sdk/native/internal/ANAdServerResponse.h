@@ -19,6 +19,8 @@
 
 @interface ANAdServerResponse : NSObject
 
++ (ANAdServerResponse *)responseWithData:(NSData *)data;
+
 - (instancetype)initWithAdServerData:(NSData *)data;
 
 @property (nonatomic, readonly, assign) BOOL containsAds;
@@ -27,5 +29,9 @@
 @property (nonatomic, readonly, strong) NSMutableArray *standardAds;
 @property (nonatomic, readonly, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readonly, strong) NSMutableArray *nativeAds;
+
+- (instancetype)initWithContent:(NSString *)htmlContent
+                          width:(NSInteger)width
+                         height:(NSInteger)height;
 
 @end

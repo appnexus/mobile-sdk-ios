@@ -21,6 +21,7 @@
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANMRAIDContainerView.h"
+#import "ANAdServerResponse.h"
 
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
@@ -138,13 +139,13 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 			}
 			else
 			{
-				ANAdResponse *response = [ANAdResponse adResponseFailWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
+                ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
                 [self processFinalResponse:response];
 			}
 		}
 		else
 		{
-            ANAdResponse *response = [ANAdResponse adResponseFailWithError:ANError(@"malformed_url", ANAdResponseBadURL)];
+            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"malformed_url", ANAdResponseBadURL)];
             [self processFinalResponse:response];
 		}
 	}
@@ -186,7 +187,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     return CGSizeZero;
 }
 
-- (void)sendDelegateFinishedResponse:(ANAdResponse *)response {
+- (void)sendDelegateFinishedResponse:(ANAdFetcherResponse *)response {
     if ([self.delegate respondsToSelector:@selector(adFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate adFetcher:self didFinishRequestWithResponse:response];
     }
@@ -212,7 +213,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 #pragma mark Request Url Construction
 
-- (void)processFinalResponse:(ANAdResponse *)response {
+- (void)processFinalResponse:(ANAdFetcherResponse *)response {
     [self sendDelegateFinishedResponse:response];
     [self startAutoRefreshTimer];
 }
@@ -234,7 +235,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     }
 }
 
-- (void)processAdResponse:(ANAdResponse *)response
+- (void)processAdResponse:(ANAdServerResponse *)response
 {
     [self clearMediationController];
 
@@ -259,14 +260,14 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     }
     else {
         // no mediatedAds, parse for non-mediated ad response
-        [self handleStandardAd:response];
+        [self handleStandardAd:response.standardAd];
     }
     
 }
 
-- (void)handleStandardAd:(ANAdResponse *)response {
+- (void)handleStandardAd:(ANStandardAd *)standardAd {
     // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
-    CGSize receivedSize = CGSizeMake([response.width floatValue], [response.height floatValue]);
+    CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
     CGSize requestedSize = [self getAdSizeFromDelegate];
     
     CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
@@ -285,14 +286,14 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     }
     
     self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
-                                                                HTML:response.content
+                                                                HTML:standardAd.content
                                                       webViewBaseURL:[NSURL URLWithString:self.ANBaseURL]];
     self.standardAdView.webViewController.loadingDelegate = self;
 }
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
     if (self.standardAdView.webViewController == controller) {
-        ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:self.standardAdView];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
         [self processFinalResponse:response];
     }
 }
@@ -317,8 +318,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     } else {
         ANLogInfo(@"No ad received. Error: %@", error.localizedDescription);
     }
-    
-    ANAdResponse *response = [ANAdResponse adResponseFailWithError:error];
+    ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:error];
     [self processFinalResponse:response];
 }
 
@@ -367,8 +367,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     if (connection == self.connection) {
-        ANAdResponse *adResponse = [[ANAdResponse alloc] init];
-        adResponse = [adResponse processResponseData:self.data];
+        ANAdServerResponse *adResponse = [ANAdServerResponse responseWithData:self.data];
         [self processAdResponse:adResponse];
     }
 }
@@ -382,8 +381,8 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         
         [self setupAutoRefreshTimerIfNecessary];
         
-        ANAdResponse *failureResponse = [ANAdResponse adResponseFailWithError:connectionError];
-        [self processFinalResponse:failureResponse];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:connectionError];
+        [self processFinalResponse:response];
     }
 }
 
@@ -402,8 +401,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         if ([resultCBString length] > 0) {
             [self fireAndIgnoreResultCB:resultURL];
         }
-        
-        ANAdResponse *response = [ANAdResponse adResponseSuccessfulWithAdObject:adObject];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject];
         response.auctionID = auctionID;
         [self processFinalResponse:response];
     } else {

@@ -211,7 +211,7 @@
     return @[[self sizeParameter],[self orientationParameter]];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
     NSError *error;
     
     if ([response isSuccessful]) {
