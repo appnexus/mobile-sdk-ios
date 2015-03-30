@@ -285,11 +285,13 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
+    [self adWillClose];
     __weak ANINTERSTITIALAD *weakAd = self;
     
     [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
         ANINTERSTITIALAD *ad = weakAd;
         ad.controller = nil;
+        [ad adDidClose];
     }];
 }
 
