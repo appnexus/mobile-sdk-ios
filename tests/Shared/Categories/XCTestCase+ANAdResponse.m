@@ -17,9 +17,8 @@
 
 @implementation XCTestCase (ANAdResponse)
 
-- (ANAdResponse *)responseWithJSONResource:(NSString *)JSONResource {
-    ANAdResponse *response = [[ANAdResponse alloc] init];
-    [response processResponseData:[self dataWithJSONResource:JSONResource]];
+- (ANAdServerResponse *)responseWithJSONResource:(NSString *)JSONResource {
+    ANAdServerResponse *response = [ANAdServerResponse responseWithData:[self dataWithJSONResource:JSONResource]];
     return response;
 }
 

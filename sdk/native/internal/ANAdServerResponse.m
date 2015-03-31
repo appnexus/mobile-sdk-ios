@@ -113,7 +113,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
             self.mediatedAds = [[self class] mediatedAdsFromJSONResponse:jsonResponse];
             self.nativeAds = [[self class] nativeAdsFromJSONResponse:jsonResponse];
             self.nativeAd = [self.nativeAds firstObject];
-            if (self.standardAd || self.mediatedAds || self.nativeAds) {
+            if (self.standardAd || self.mediatedAds.count || self.nativeAds.count) {
                 self.containsAds = YES;
             }
         }
@@ -220,7 +220,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
         ad.content = [standardAdDict[kANAdServerResponseKeyContent] description];
         if (!ad.content || [ad.content length] == 0) {
             ANLogError(@"blank_ad");
-            return ad;
+            return nil;
         }
         NSRange mraidJSRange = [ad.content rangeOfString:kANAdServerResponseMraidJSFilename];
         if (mraidJSRange.location != NSNotFound) {

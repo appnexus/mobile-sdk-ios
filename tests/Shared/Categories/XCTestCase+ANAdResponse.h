@@ -14,7 +14,7 @@
  */
 
 #import "XCTestCase+ANCategory.h"
-#import "ANAdResponse.h"
+#import "ANAdServerResponse.h"
 
 static NSString *const kANAdResponseSuccessfulMRAID = @"SuccessfulMRAIDResponse";
 static NSString *const kANAdResponseSuccessfulMediation = @"SuccessfulMediationResponse";
@@ -22,6 +22,6 @@ static NSString *const kANAdResponseSuccessfulMRAIDListener = @"SuccessfulMRAIDL
 
 @interface XCTestCase (ANAdResponse)
 
-- (ANAdResponse *)responseWithJSONResource:(NSString *)JSONResource;
+- (ANAdServerResponse *)responseWithJSONResource:(NSString *)JSONResource;
 
 @end

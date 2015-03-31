@@ -15,6 +15,7 @@
 
 #import "ANAdFetcher.h"
 #import "ANMRAIDContainerView.h"
+#import "ANStandardAd.h"
 
 static NSString *const kANAdFetcherFireResultCBRequestedNotification = @"ANAdFetcherFireResultCBRequested";
 static NSString *const kANAdFetcherFireResultCBRequestedReason = @"ANAdFetcherFireResultCBRequestedReason";
@@ -23,6 +24,6 @@ static NSString *const kANAdFetcherFireResultCBRequestedReason = @"ANAdFetcherFi
 
 @property (nonatomic, readwrite, strong) ANMRAIDContainerView *standardAdView;
 
-- (void)handleStandardAd:(ANAdResponse *)response;
+- (void)handleStandardAd:(ANStandardAd *)standardAd;
 
 @end

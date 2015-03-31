@@ -36,16 +36,10 @@
 - (void)testExample {
     ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
     self.adFetcher.delegate = bannerAdView;
-    [self.adFetcher handleStandardAd:[self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener]];
+    ANAdServerResponse *adServerResponse = [self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener];
+    [self.adFetcher handleStandardAd:adServerResponse.standardAd];
     UIView *view = self.adFetcher.standardAdView;
     [bannerAdView setContentView:view];
-}
-
-- (ANBannerAdView *)mraidListenerBannerAdView {
-    ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
-    ANAdResponse *mraidResponse = [self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener];
-    [bannerAdView adFetcher:nil didFinishRequestWithResponse:mraidResponse];
-    return bannerAdView;
 }
 
 @end
