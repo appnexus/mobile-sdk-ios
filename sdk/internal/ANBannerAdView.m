@@ -96,10 +96,6 @@
 }
 
 - (void)loadAd {
-    if (!self.rootViewController) {
-        ANLogWarn(@"BannerAdView's rootViewController was not set. This may cause the ad to behave incorrectly");
-    }
-    
     [super loadAd];
 }
 
@@ -253,7 +249,11 @@
 }
 
 - (UIViewController *)displayController {
-    return self.rootViewController;
+    UIViewController *displayController = self.rootViewController;
+    if (!displayController) {
+        displayController = [self an_parentViewController];
+    }
+    return displayController;
 }
 
 #pragma mark - Deprecated

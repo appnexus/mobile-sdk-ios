@@ -128,6 +128,19 @@
     return intersectionArea >= 0.5 * selfArea;
 }
 
+- (UIViewController *)an_parentViewController {
+    UIResponder *responder = self;
+    
+    while (responder) {
+        if ([responder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)responder;
+        }
+        responder = [responder nextResponder];
+    }
+    
+    return nil;    
+}
+
 #pragma mark - Autolayout
 
 - (void)constrainWithFrameSize {

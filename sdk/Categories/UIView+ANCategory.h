@@ -28,6 +28,8 @@
 - (BOOL)an_isViewable;
 - (BOOL)an_isAtLeastHalfViewable;
 
+- (UIViewController *)an_parentViewController;
+
 #pragma mark - Autolayout
 
 - (void)constrainWithSize:(CGSize)size;
