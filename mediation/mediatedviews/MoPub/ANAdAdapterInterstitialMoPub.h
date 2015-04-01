@@ -14,10 +14,9 @@
  */
 
 #import "ANAdAdapterMoPubBase.h"
-#import "ANBasicConfig.h"
-#import ANCUSTOMADAPTERHEADER
+#import "ANCustomAdapter.h"
 #import "MPInterstitialAdController.h"
 
-@interface ANAdAdapterInterstitialMoPub : ANAdAdapterMoPubBase <ANCUSTOMADAPTERINTERSTITIAL, MPInterstitialAdControllerDelegate>
+@interface ANAdAdapterInterstitialMoPub : ANAdAdapterMoPubBase <ANCustomAdapterInterstitial, MPInterstitialAdControllerDelegate>
 
 @end

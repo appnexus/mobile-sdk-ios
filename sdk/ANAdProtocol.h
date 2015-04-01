@@ -69,7 +69,7 @@
 @property (nonatomic, readwrite, strong) NSString *age;
 
 /**
- The user's gender.  See the _ANGENDER struct above for details.
+ The user's gender.  See the ANGender enumeration in ANAdConstants.h for details.
  */
 @property (nonatomic, readwrite, assign) ANGender gender;
 

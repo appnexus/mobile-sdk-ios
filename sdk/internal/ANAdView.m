@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADVIEWHEADER
+#import "ANAdView.h"
 
 #import "ANAdFetcher.h"
 #import "ANGlobal.h"
@@ -26,15 +25,15 @@
 
 #define DEFAULT_PSAS NO
 
-@interface ANADVIEW () <ANAdFetcherDelegate, ANAdViewInternalDelegate>
+@interface ANAdView () <ANAdFetcherDelegate, ANAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
-@property (nonatomic, readwrite, weak) id<ANADDELEGATE> delegate;
-@property (nonatomic, readwrite, weak) id<ANAPPEVENTDELEGATE> appEventDelegate;
+@property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 
 @end
 
-@implementation ANADVIEW
+@implementation ANAdView
 // ANAdProtocol properties
 @synthesize placementId = __placementId;
 @synthesize opensInNativeBrowser = __opensInNativeBrowser;
@@ -124,7 +123,7 @@
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
-    self.location = [ANLOCATION getLocationWithLatitude:latitude
+    self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy];
@@ -133,7 +132,7 @@
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
-    self.location = [ANLOCATION getLocationWithLatitude:latitude
+    self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy
@@ -163,7 +162,7 @@
     return __placementId;
 }
 
-- (ANLOCATION *)location {
+- (ANLocation *)location {
     ANLogDebug(@"location returned %@", __location);
     return __location;
 }
@@ -188,7 +187,7 @@
     return __age;
 }
 
-- (ANGENDER)gender {
+- (ANGender)gender {
     ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
     return __gender;
 }

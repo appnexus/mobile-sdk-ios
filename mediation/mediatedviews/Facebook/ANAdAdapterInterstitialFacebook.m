@@ -28,7 +28,7 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+                       targetingParameters:(ANTargetingParameters *)targetingParameters {
     self.fbInterstitialAd = [[FBInterstitialAd alloc] initWithPlacementID:idString];
     self.fbInterstitialAd.delegate = self;
     [self.fbInterstitialAd loadAd];
@@ -59,7 +59,7 @@
     if (error.code == 1001) {
         code = ANAdResponseUnableToFill;
     }
-    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+    [self.delegate didFailToLoadAd:code];
 }
 
 - (void)interstitialAdDidClick:(FBInterstitialAd *)interstitialAd {

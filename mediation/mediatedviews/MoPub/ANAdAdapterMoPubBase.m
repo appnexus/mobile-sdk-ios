@@ -19,10 +19,10 @@
 
 @synthesize delegate;
 
-- (NSString *)keywordsFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+- (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
     NSMutableArray *keywordArray = [[NSMutableArray alloc] init];
     
-    ANGENDER gender = targetingParameters.gender;
+    ANGender gender = targetingParameters.gender;
     switch (gender) {
         case ANGenderMale:
             [keywordArray addObject:@"m_gender:male"];
@@ -45,8 +45,8 @@
     return [keywordArray componentsJoinedByString:@","];
 }
 
-- (CLLocation *)locationFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
-    ANLOCATION *location = targetingParameters.location;
+- (CLLocation *)locationFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+    ANLocation *location = targetingParameters.location;
     if (location) {
         CLLocation *mpLoc = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)
                                                           altitude:0

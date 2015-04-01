@@ -30,7 +30,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+            targetingParameters:(ANTargetingParameters *)targetingParameters {
     self.adView = [[MPAdView alloc] initWithAdUnitId:idString
                                                 size:size];
     self.adView.delegate = self;
@@ -55,7 +55,7 @@
 }
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view {
-    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)ANAdResponseInternalError];
+    [self.delegate didFailToLoadAd:ANAdResponseInternalError];
 }
 
 - (void)willPresentModalViewForAd:(MPAdView *)view {

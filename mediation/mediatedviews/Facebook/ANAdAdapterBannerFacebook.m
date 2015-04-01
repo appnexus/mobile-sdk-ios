@@ -30,7 +30,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+            targetingParameters:(ANTargetingParameters *)targetingParameters {
     self.fbAdView = [[FBAdView alloc] initWithPlacementID:idString
                                                    adSize:kFBAdSize320x50
                                        rootViewController:rootViewController];
@@ -46,7 +46,7 @@
     if (error.code == 1001) {
         code = ANAdResponseUnableToFill;
     }
-    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+    [self.delegate didFailToLoadAd:code];
 }
 
 - (void)adViewDidLoad:(FBAdView *)adView {

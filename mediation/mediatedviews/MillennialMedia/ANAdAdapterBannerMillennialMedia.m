@@ -31,7 +31,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
     [MMSDK initialize];
@@ -72,7 +72,7 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+                [self.delegate didFailToLoadAd:code];
             });
         }
     }];

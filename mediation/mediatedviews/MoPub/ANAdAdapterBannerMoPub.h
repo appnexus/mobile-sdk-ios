@@ -14,10 +14,9 @@
  */
 
 #import "ANAdAdapterMoPubBase.h"
-#import "ANBasicConfig.h"
-#import ANCUSTOMADAPTERHEADER
+#import "ANCustomAdapter.h"
 #import "MPAdView.h"
 
-@interface ANAdAdapterBannerMoPub : ANAdAdapterMoPubBase <ANCUSTOMADAPTERBANNER, MPAdViewDelegate>
+@interface ANAdAdapterBannerMoPub : ANAdAdapterMoPubBase <ANCustomAdapterBanner, MPAdViewDelegate>
 
 @end

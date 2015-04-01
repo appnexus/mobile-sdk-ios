@@ -62,10 +62,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (MMRequest *)createRequestFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+- (MMRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
 	MMRequest *request = [MMRequest request];
     
-    ANGENDER gender = targetingParameters.gender;
+    ANGender gender = targetingParameters.gender;
     switch (gender) {
         case ANGenderMale:
             request.gender = MMGenderMale;
@@ -79,7 +79,7 @@
             break;
     }
     
-    ANLOCATION *location = targetingParameters.location;
+    ANLocation *location = targetingParameters.location;
     if (location) {
         request.location = [[CLLocation alloc]
                             initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)

@@ -13,26 +13,25 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANLOCATIONHEADER
+#import "ANLocation.h"
 #import "ANLogging.h"
 
 static NSInteger const kANLocationMaxLocationPrecision = 6;
 static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
 
-@interface ANLOCATION ()
+@interface ANLocation ()
 
 @property (nonatomic, readwrite, assign) NSInteger precision;
 
 @end
 
-@implementation ANLOCATION
+@implementation ANLocation
 
-+ (ANLOCATION *)getLocationWithLatitude:(CGFloat)latitude
++ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
                               longitude:(CGFloat)longitude
                               timestamp:(NSDate *)timestamp
                      horizontalAccuracy:(CGFloat)horizontalAccuracy {
-    return [ANLOCATION getLocationWithLatitude:latitude
+    return [ANLocation getLocationWithLatitude:latitude
                                      longitude:longitude
                                      timestamp:timestamp
                             horizontalAccuracy:horizontalAccuracy
@@ -63,7 +62,7 @@ static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
         timestamp = [NSDate date];
     
     // make a new object every time to make sure we don't use old data
-    ANLOCATION *location = [[ANLOCATION alloc] init];
+    ANLocation *location = [[ANLocation alloc] init];
     if (precision <= -1) {
         location.latitude = latitude;
         location.longitude = longitude;

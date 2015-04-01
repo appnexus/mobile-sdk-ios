@@ -28,7 +28,7 @@
 // iAd doesn't have use placement id
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting iAd interstitial");
     Class iAdInterstitialClass = NSClassFromString(@"ADInterstitialAd");
@@ -36,7 +36,7 @@
         self.interstitialAd = [[iAdInterstitialClass alloc] init];
         [self.interstitialAd setDelegate:self];
     } else {
-        [self.delegate didFailToLoadAd:(ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable];
+        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
     }
 }
 
@@ -127,7 +127,7 @@
             break;
     }
     
-	[self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+	[self.delegate didFailToLoadAd:code];
 }
 
 @end

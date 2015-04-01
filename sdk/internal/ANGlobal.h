@@ -73,6 +73,8 @@
 #define kANInterstitialDefaultCloseButtonDelay 10.0
 #define kANInterstitialMaximumCloseButtonDelay 10.0
 
+#define kANSDKResourcesBundleName @"ANSDKResources"
+
 // Buffer Limit
 #define kANPBBufferLimit 10
 

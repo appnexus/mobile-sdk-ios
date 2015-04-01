@@ -32,6 +32,6 @@
 
 @end
 
-@interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
+@interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 @property (nonatomic, readwrite, weak) ANAdFetcher *adFetcher;
 @end

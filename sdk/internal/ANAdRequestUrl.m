@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
 #import "ANAdRequestUrl.h"
 
 #import "ANGlobal.h"
@@ -187,7 +186,7 @@
 }
 
 - (NSString *)locationParameter {
-    ANLOCATION *location = [self.adFetcherDelegate location];
+    ANLocation *location = [self.adFetcherDelegate location];
     NSString *locationParameter = @"";
     
     if (location) {
@@ -250,7 +249,7 @@
 }
 
 - (NSString *)genderParameter {
-    ANGENDER genderValue = [self.adFetcherDelegate gender];
+    ANGender genderValue = [self.adFetcherDelegate gender];
     if (genderValue == ANGenderMale) {
         return @"&gender=m";
     } else if (genderValue == ANGenderFemale) {

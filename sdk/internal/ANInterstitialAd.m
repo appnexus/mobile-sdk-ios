@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANINTERSTITIALADHEADER
+#import "ANInterstitialAd.h"
 
 #import "ANAdFetcher.h"
 #import "ANGlobal.h"
@@ -39,7 +38,7 @@ NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
 
-@interface ANINTERSTITIALAD () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
+@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
@@ -47,7 +46,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 @end
 
-@implementation ANINTERSTITIALAD
+@implementation ANInterstitialAd
 
 #pragma mark Initialization
 
@@ -135,7 +134,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         [controller presentViewController:self.controller
                                  animated:YES
                                completion:nil];
-    } else if ([adToShow conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
+    } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
         [adToShow presentFromViewController:controller];
         if (auctionID) {
             ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
@@ -180,7 +179,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
             // Found a valid ad
             id readyAd = adDict[kANInterstitialAdViewKey];
-            if ([readyAd conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
+            if ([readyAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
                 // if it's a mediated ad, check if it is ready
                 if ([readyAd respondsToSelector:@selector(isReady)]) {
                     return [readyAd isReady];
@@ -286,10 +285,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
     [self adWillClose];
-    __weak ANINTERSTITIALAD *weakAd = self;
-    
+    __weak ANInterstitialAd *weakAd = self;
     [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        ANINTERSTITIALAD *ad = weakAd;
+        ANInterstitialAd *ad = weakAd;
         ad.controller = nil;
         [ad adDidClose];
     }];

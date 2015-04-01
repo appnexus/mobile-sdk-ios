@@ -389,7 +389,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 #pragma mark handling resultCB
 
 - (void)fireResultCB:(NSString *)resultCBString
-              reason:(ANADRESPONSECODE)reason
+              reason:(ANAdResponseCode)reason
             adObject:(id)adObject
            auctionID:(NSString *)auctionID {
     self.loading = NO;

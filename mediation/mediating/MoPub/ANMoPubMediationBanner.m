@@ -13,19 +13,18 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
 #import "ANLogging.h"
-#import ANMOPUBMEDIATIONBANNERHEADER
-#import ANLOCATIONHEADER
+#import "ANMoPubMediationBanner.h"
+#import "ANLocation.h"
 
-@interface ANMOPUBMEDIATIONBANNER ()
+@interface ANMoPubMediationBanner ()
 
-@property (nonatomic, retain) ANBANNERADVIEW *adBannerView;
+@property (nonatomic, retain) ANBannerAdView *adBannerView;
 
 @end
 
 
-@implementation ANMOPUBMEDIATIONBANNER
+@implementation ANMoPubMediationBanner
 
 - (id)init
 {
@@ -43,7 +42,7 @@
 
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info
 {
-    ANLogDebug(@"Requesting %@", NSStringFromClass([ANBANNERADVIEW class]));
+    ANLogDebug(@"Requesting %@", NSStringFromClass([ANBannerAdView class]));
 
     id widthParam = [info objectForKey:@"width"];
     id heightParam = [info objectForKey:@"height"];
@@ -58,13 +57,13 @@
     
     CGRect frame = CGRectMake(0, 0, [widthParam floatValue], [heightParam floatValue]);
     
-    self.adBannerView = [ANBANNERADVIEW adViewWithFrame:frame
+    self.adBannerView = [ANBannerAdView adViewWithFrame:frame
                                             placementId:placementId];
     self.adBannerView.rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     
     if ([self.delegate location]) {
         CLLocation *mpLoc = [self.delegate location];
-        ANLOCATION *anLoc = [ANLOCATION getLocationWithLatitude:(CGFloat)mpLoc.coordinate.latitude
+        ANLocation *anLoc = [ANLocation getLocationWithLatitude:(CGFloat)mpLoc.coordinate.latitude
                                                       longitude:(CGFloat)mpLoc.coordinate.longitude
                                                       timestamp:mpLoc.timestamp
                                              horizontalAccuracy:(CGFloat)mpLoc.horizontalAccuracy];
@@ -78,29 +77,29 @@
     [self.adBannerView loadAd];
 }
 
-- (void)adDidReceiveAd:(id<ANADPROTOCOL>)ad
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
 {
-    ANLogDebug(@"Did load %@", NSStringFromClass([ANBANNERADVIEW class]));
+    ANLogDebug(@"Did load %@", NSStringFromClass([ANBannerAdView class]));
     if (self.delegate)
         [self.delegate bannerCustomEvent:self didLoadAd:self.adBannerView];
 }
 
-- (void)ad:(id<ANADPROTOCOL>)ad requestFailedWithError:(NSError *)error
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
 {
-    ANLogDebug(@"Did fail to load %@", NSStringFromClass([ANBANNERADVIEW class]));
+    ANLogDebug(@"Did fail to load %@", NSStringFromClass([ANBannerAdView class]));
     if (self.delegate)
         [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
 }
 
-- (void)adWillPresent:(id<ANADPROTOCOL>)ad {
+- (void)adWillPresent:(id<ANAdProtocol>)ad {
     [self.delegate bannerCustomEventWillBeginAction:self];
 }
 
-- (void)adDidClose:(id<ANADPROTOCOL>)ad {
+- (void)adDidClose:(id<ANAdProtocol>)ad {
     [self.delegate bannerCustomEventDidFinishAction:self];
 }
 
-- (void)adWillLeaveApplication:(id<ANADPROTOCOL>)ad {
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
     [self.delegate bannerCustomEventWillLeaveApplication:self];
 }
 

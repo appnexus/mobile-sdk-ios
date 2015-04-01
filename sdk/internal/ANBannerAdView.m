@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANBANNERADVIEWHEADER
+#import "ANBannerAdView.h"
 
 #import "ANAdFetcher.h"
 #import "ANGlobal.h"
@@ -28,12 +27,12 @@
 
 #define DEFAULT_ADSIZE CGSizeZero
 
-@interface ANBANNERADVIEW () <ANBannerAdViewInternalDelegate>
+@interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) NSNumber *transitionInProgress;
 @end
 
-@implementation ANBANNERADVIEW
+@implementation ANBannerAdView
 @synthesize autoRefreshInterval = __autoRefreshInterval;
 @synthesize adSize = __adSize;
 @synthesize contentView = _contentView;
@@ -56,11 +55,11 @@
 	__adSize = self.frame.size;
 }
 
-+ (ANBANNERADVIEW *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
++ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:frame.size];
 }
 
-+ (ANBANNERADVIEW *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
++ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:size];
 }
 

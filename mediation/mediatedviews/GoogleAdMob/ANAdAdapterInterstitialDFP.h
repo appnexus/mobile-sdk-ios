@@ -13,10 +13,9 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANCUSTOMADAPTERHEADER
+#import "ANCustomAdapter.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface ANAdAdapterInterstitialDFP : NSObject <ANCUSTOMADAPTERINTERSTITIAL, GADInterstitialDelegate>
+@interface ANAdAdapterInterstitialDFP : NSObject <ANCustomAdapterInterstitial, GADInterstitialDelegate>
 
 @end

@@ -26,7 +26,7 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+                       targetingParameters:(ANTargetingParameters *)targetingParameters {
     self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:idString];
     self.interstitialAd.location = [self locationFromTargetingParameters:targetingParameters];
     self.interstitialAd.keywords = [self keywordsFromTargetingParameters:targetingParameters];
@@ -59,7 +59,7 @@
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial {
-    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)ANAdResponseInternalError];
+    [self.delegate didFailToLoadAd:ANAdResponseInternalError];
 }
 
 - (void)interstitialWillAppear:(MPInterstitialAdController *)interstitial {

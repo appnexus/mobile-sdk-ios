@@ -13,10 +13,9 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANCUSTOMADAPTERHEADER
+#import "ANCustomAdapter.h"
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
-@interface ANAdAdapterInterstitialFacebook : NSObject <ANCUSTOMADAPTERINTERSTITIAL, FBInterstitialAdDelegate>
+@interface ANAdAdapterInterstitialFacebook : NSObject <ANCustomAdapterInterstitial, FBInterstitialAdDelegate>
 
 @end

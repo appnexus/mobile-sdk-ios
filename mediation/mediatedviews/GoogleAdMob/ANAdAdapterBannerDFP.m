@@ -45,7 +45,7 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting DFP banner with size: %0.1fx%0.1f", size.width, size.height);
 	GADAdSize gadAdSize;
@@ -72,11 +72,11 @@
 	[self.dfpBanner loadRequest:request];
 }
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters
 {
 	GADRequest *request = [GADRequest request];
     
-    ANGENDER gender = targetingParameters.gender;
+    ANGender gender = targetingParameters.gender;
     switch (gender) {
         case ANGenderMale:
             request.gender = kGADGenderMale;
@@ -90,7 +90,7 @@
             break;
     }
 
-    ANLOCATION *location = targetingParameters.location;
+    ANLocation *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
                                longitude:location.longitude
@@ -190,7 +190,7 @@
             break;
     }
     
- 	[self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+ 	[self.delegate didFailToLoadAd:code];
 }
 
 - (void)adViewWillPresentScreen:(DFPBannerView *)adView {
