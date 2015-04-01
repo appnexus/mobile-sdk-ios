@@ -111,7 +111,7 @@
 #pragma mark Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
-    placementId = convertToNSString(placementId);
+    placementId = ANConvertToNSString(placementId);
     if ([placementId length] < 1) {
         ANLogError(@"Could not set placementId to non-string value");
         return;

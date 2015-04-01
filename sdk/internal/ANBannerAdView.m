@@ -147,8 +147,8 @@
         
         if ([newContentView isKindOfClass:[UIWebView class]]) {
             UIWebView *webView = (UIWebView *)newContentView;
-            [webView removeDocumentPadding];
-            [webView setMediaProperties];
+            [webView an_removeDocumentPadding];
+            [webView an_setMediaProperties];
         }
 
         UIView *oldContentView = _contentView;

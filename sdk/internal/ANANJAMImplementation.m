@@ -40,7 +40,7 @@ NSString *const kANKeyCaller = @"caller";
 
 + (void)handleURL:(NSURL *)URL withWebViewController:(ANAdWebViewController *)controller {
     NSString *call = [URL host];
-    NSDictionary *queryComponents = [[URL query] queryComponents];
+    NSDictionary *queryComponents = [[URL query] an_queryComponents];
     if ([call isEqualToString:kANCallMayDeepLink]) {
         [ANANJAMImplementation callMayDeepLink:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallDeepLink]) {
@@ -104,7 +104,7 @@ NSString *const kANKeyCaller = @"caller";
     NSString *urlParam = [query valueForKey:@"url"];
     
     NSURL *url = [NSURL URLWithString:urlParam];
-    if (hasHttpPrefix([url scheme])
+    if (ANHasHttpPrefix([url scheme])
         && [[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
     }
@@ -162,11 +162,11 @@ NSString *const kANKeyCaller = @"caller";
     __block NSString *params = [NSString stringWithFormat:@"cb=%@", cb ? cb : @"-1"];
 
     [paramsList enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        key = convertToNSString(key);
-        NSString *valueString = convertToNSString(value);
+        key = ANConvertToNSString(key);
+        NSString *valueString = ANConvertToNSString(value);
         if (([key length] > 0) && ([valueString length] > 0)) {
             params = [params stringByAppendingFormat:@"&%@=%@", key,
-                      [valueString encodeAsURIComponent]];
+                      [valueString an_encodeAsURIComponent]];
         }
     }];
     

@@ -105,7 +105,7 @@
 
 - (void)resizeWithResizeProperties:(ANMRAIDResizeProperties *)properties {
     self.resizeView.closePosition = properties.customClosePosition;
-    [self.resizeView constrainWithSize:CGSizeMake(properties.width, properties.height)];
+    [self.resizeView an_constrainWithSize:CGSizeMake(properties.width, properties.height)];
     
     if (!self.resizeView.superview) {
         [self.anchorView.window addSubview:self.resizeView];

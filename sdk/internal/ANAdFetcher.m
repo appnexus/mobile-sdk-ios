@@ -325,10 +325,10 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 - (void)startAutoRefreshTimer {
     if (!self.autoRefreshTimer) {
         ANLogDebug(@"fetcher_stopped");
-    } else if ([self.autoRefreshTimer isScheduled]) {
+    } else if ([self.autoRefreshTimer an_isScheduled]) {
         ANLogDebug(@"AutoRefresh timer already scheduled.");
     } else {
-		[self.autoRefreshTimer scheduleNow];
+		[self.autoRefreshTimer an_scheduleNow];
 	}
 }
 

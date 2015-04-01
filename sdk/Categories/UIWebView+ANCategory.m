@@ -21,21 +21,21 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
 
 @implementation UIWebView (ANCategory)
 
-- (void)removeDocumentPadding {
+- (void)an_removeDocumentPadding {
     [self stringByEvaluatingJavaScriptFromString:kANAdRemovePaddingJavascriptString];
 }
 
-- (void)setMediaProperties {
+- (void)an_setMediaProperties {
     [self setAllowsInlineMediaPlayback:YES];
     [self setMediaPlaybackRequiresUserAction:NO];
 }
 
-- (void)setScrollEnabled:(BOOL)scrollable {
+- (void)setAn_scrollEnabled:(BOOL)scrollable {
     self.scrollView.scrollEnabled = scrollable;
     self.scrollView.bounces = scrollable;
 }
 
-- (BOOL)isScrollEnabled{
+- (BOOL)isAn_scrollEnabled{
     return self.scrollView.isScrollEnabled;
 }
 

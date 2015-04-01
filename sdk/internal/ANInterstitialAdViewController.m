@@ -55,8 +55,8 @@
         [self.view addSubview:self.contentView];
         [self.view insertSubview:self.contentView
                     belowSubview:self.progressView];
-        [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                              yAttribute:NSLayoutAttributeCenterY];
+        [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                                 yAttribute:NSLayoutAttributeCenterY];
     }
     [self setupCloseButtonImageWithCustomClose:self.useCustomClose];
 }
@@ -142,9 +142,9 @@
         [self.view insertSubview:_contentView
                     belowSubview:self.progressView];
         _contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [_contentView constrainWithFrameSize];
-        [_contentView alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                          yAttribute:NSLayoutAttributeCenterY];
+        [_contentView an_constrainWithFrameSize];
+        [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                             yAttribute:NSLayoutAttributeCenterY];
     }
 }
 
@@ -154,7 +154,7 @@
 }
 
 - (IBAction)closeAction:(id)sender {
-    if ([self.progressTimer isScheduled]) {
+    if ([self.progressTimer an_isScheduled]) {
         return;
     }
     self.dismissing = YES;
@@ -240,7 +240,7 @@
         if (!CGRectContainsRect(self.view.frame, normalizedContentViewFrame)) {
             CGRect rotatedNormalizedContentViewFrame = CGRectMake(0, 0, CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame));
             if (CGRectContainsRect(self.view.frame, rotatedNormalizedContentViewFrame)) {
-                [self.contentView constrainWithSize:CGSizeMake(CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame))];
+                [self.contentView an_constrainWithSize:CGSizeMake(CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame))];
             }
         }
     }

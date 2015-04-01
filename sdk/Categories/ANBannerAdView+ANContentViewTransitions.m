@@ -30,9 +30,9 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
         if (newContentView) {
             [self addSubview:newContentView];
             [self constrainContentView];
-            [self removeSubviewsWithException:newContentView];
+            [self an_removeSubviewsWithException:newContentView];
         } else {
-            [self removeSubviews];
+            [self an_removeSubviews];
         }
         return;
     }
@@ -133,13 +133,13 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
         default: // ANBannerViewAdAlignmentCenter
             break;
     }
-    [self.contentView alignToSuperviewWithXAttribute:xAttribute
-                                          yAttribute:yAttribute];
+    [self.contentView an_alignToSuperviewWithXAttribute:xAttribute
+                                             yAttribute:yAttribute];
 }
 
 - (void)constrainContentView {
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView constrainWithFrameSize];
+    [self.contentView an_constrainWithFrameSize];
     [self alignContentView];
 }
 
@@ -246,7 +246,7 @@ static CGFloat kANBannerAdViewPerspectiveValue = -1.0 / 750.0;
 - (void)animationDidStop:(CAAnimation *)anim
                 finished:(BOOL)flag {
     if (![self.contentView.layer.animationKeys count]) { // No animations left
-        [self removeSubviewsWithException:self.contentView];
+        [self an_removeSubviewsWithException:self.contentView];
         self.transitionInProgress = @(NO);
     }
 }

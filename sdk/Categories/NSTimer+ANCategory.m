@@ -19,19 +19,19 @@
 
 @implementation NSTimer (ANCategory)
 
-- (BOOL)isScheduled
+- (BOOL)an_isScheduled
 {
     CFRunLoopRef runLoopRef = [[NSRunLoop currentRunLoop] getCFRunLoop];
     return CFRunLoopContainsTimer(runLoopRef, (__bridge CFRunLoopTimerRef)self, kCFRunLoopDefaultMode);
 }
 
-- (void)scheduleNow
+- (void)an_scheduleNow
 {
     ANLogDebug(@"Scheduled timer (%p) with interval %.0f.", self,
                [self.fireDate timeIntervalSinceNow]);
 	[[NSRunLoop currentRunLoop] addTimer:self forMode:NSDefaultRunLoopMode];
     
-    BOOL isScheduled = [self isScheduled];
+    BOOL isScheduled = [self an_isScheduled];
     
     if (isScheduled)
     {
@@ -39,17 +39,17 @@
     }
 }
 
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                      block:(void (^)())block
-                                    repeats:(BOOL)repeats {
++ (NSTimer *)an_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
+                                         block:(void (^)())block
+                                       repeats:(BOOL)repeats {
     return [self scheduledTimerWithTimeInterval:interval
                                          target:self
-                                       selector:@selector(runBlockWithTimer:)
+                                       selector:@selector(an_runBlockWithTimer:)
                                        userInfo:[block copy]
                                         repeats:repeats];
 }
 
-+ (void)runBlockWithTimer:(NSTimer *)timer {
++ (void)an_runBlockWithTimer:(NSTimer *)timer {
     void (^block)() = timer.userInfo;
     if (block) {
         block();

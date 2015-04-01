@@ -58,13 +58,13 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
         
     } else if ([host isEqualToString:@"app"]) {
         // record auction_info into buffer
-        NSDictionary *queryComponents = [[URL query] queryComponents];
+        NSDictionary *queryComponents = [[URL query] an_queryComponents];
         NSString *auctionInfo = queryComponents[kANPBBufferAuctionInfoKey];
         [ANPBBuffer saveAuctionInfo:auctionInfo];
         
     } else if ([host isEqualToString:@"capture"]) {
         // take a screenshot and attach it to the info for this auction ID
-        NSDictionary *queryComponents = [[URL query] queryComponents];
+        NSDictionary *queryComponents = [[URL query] an_queryComponents];
         NSString *auctionID = queryComponents[kANPBBufferAuctionIDKey];
         [ANPBBuffer captureImage:view forAuctionID:auctionID];
         

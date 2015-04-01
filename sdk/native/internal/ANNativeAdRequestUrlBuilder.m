@@ -162,7 +162,7 @@
 }
 
 - (NSString *)firstLaunchParameter {
-    return isFirstLaunch() ? @"firstlaunch=true" : @"";
+    return ANIsFirstLaunch() ? @"firstlaunch=true" : @"";
 }
 
 - (NSString *)carrierMccMncParameters {
@@ -275,8 +275,8 @@
     }
     
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        key = convertToNSString(key);
-        value = convertToNSString(value);
+        key = ANConvertToNSString(key);
+        value = ANConvertToNSString(value);
         if(![self stringInParameterList:key]){
             if ([value length] > 0) {
                 customKeywordsParameter = [customKeywordsParameter stringByAppendingString:

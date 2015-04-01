@@ -98,9 +98,9 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         UIView *contentView = self.webViewController.contentView;
         contentView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:contentView];
-        [contentView constrainToSizeOfSuperview];
-        [contentView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                         yAttribute:NSLayoutAttributeTop];
+        [contentView an_constrainToSizeOfSuperview];
+        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                            yAttribute:NSLayoutAttributeTop];
     }
     return self;
 }
@@ -166,7 +166,7 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 - (CGRect)defaultPosition {
     if (self.window) {
         CGRect absoluteContentViewFrame = [self convertRect:self.bounds toView:nil];
-        CGRect position = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
+        CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
         self.lastKnownDefaultPosition = position;
         return position;
@@ -183,7 +183,7 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     
     if (contentView) {
         CGRect absoluteContentViewFrame = [contentView convertRect:contentView.bounds toView:nil];
-        CGRect position = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
+        CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
         self.lastKnownCurrentPosition = position;
         return position;
@@ -282,9 +282,9 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     self.customCloseRegion.translatesAutoresizingMaskIntoConstraints = NO;
     [self insertSubview:self.customCloseRegion
            aboveSubview:self.webViewController.contentView];
-    [self.customCloseRegion constrainWithSize:CGSizeMake(50.0, 50.0)];
-    [self.customCloseRegion alignToSuperviewWithXAttribute:NSLayoutAttributeRight
-                                                yAttribute:NSLayoutAttributeTop];
+    [self.customCloseRegion an_constrainWithSize:CGSizeMake(50.0, 50.0)];
+    [self.customCloseRegion an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
+                                                   yAttribute:NSLayoutAttributeTop];
     [self.customCloseRegion addTarget:self
                                action:@selector(closeInterstitial:)
                      forControlEvents:UIControlEventTouchUpInside];
@@ -362,9 +362,9 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     if (contentView.superview != self) {
         [self addSubview:contentView];
         [contentView removeConstraints:contentView.constraints];
-        [contentView constrainToSizeOfSuperview];
-        [contentView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                         yAttribute:NSLayoutAttributeTop];
+        [contentView an_constrainToSizeOfSuperview];
+        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                            yAttribute:NSLayoutAttributeTop];
     }
 
     [self.webViewController adDidResetToDefault];

@@ -17,13 +17,13 @@
 
 @interface UIView (ANCategory)
 
-- (void)presentView:(UIView *)view animated:(BOOL)animated;
-- (void)presentView:(UIView *)view animated:(BOOL)animated completion:(void (^)(BOOL))completion;
+- (void)an_presentView:(UIView *)view animated:(BOOL)animated;
+- (void)an_presentView:(UIView *)view animated:(BOOL)animated completion:(void (^)(BOOL))completion;
 
-- (void)dismissFromPresentingViewAnimated:(BOOL)animated;
+- (void)an_dismissFromPresentingViewAnimated:(BOOL)animated;
 
-- (void)removeSubviews;
-- (void)removeSubviewsWithException:(UIView *)exception;
+- (void)an_removeSubviews;
+- (void)an_removeSubviewsWithException:(UIView *)exception;
 
 - (BOOL)an_isViewable;
 - (BOOL)an_isAtLeastHalfViewable;
@@ -32,21 +32,21 @@
 
 #pragma mark - Autolayout
 
-- (void)constrainWithSize:(CGSize)size;
-- (void)constrainWithFrameSize;
-- (void)removeSizeConstraint;
-- (void)extractWidthConstraint:(NSLayoutConstraint **)widthConstraint
-              heightConstraint:(NSLayoutConstraint **)heightConstraint;
+- (void)an_constrainWithSize:(CGSize)size;
+- (void)an_constrainWithFrameSize;
+- (void)an_removeSizeConstraint;
+- (void)an_extractWidthConstraint:(NSLayoutConstraint **)widthConstraint
+                 heightConstraint:(NSLayoutConstraint **)heightConstraint;
 
-- (void)constrainToSizeOfSuperview;
-- (void)removeSizeConstraintToSuperview;
+- (void)an_constrainToSizeOfSuperview;
+- (void)an_removeSizeConstraintToSuperview;
 
-- (void)alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
-                            yAttribute:(NSLayoutAttribute)yAttribute;
-- (void)alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
-                            yAttribute:(NSLayoutAttribute)yAttribute
-                               offsetX:(CGFloat)offsetX
-                               offsetY:(CGFloat)offsetY;
-- (void)removeAlignmentConstraintsToSuperview;
+- (void)an_alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                               yAttribute:(NSLayoutAttribute)yAttribute;
+- (void)an_alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                               yAttribute:(NSLayoutAttribute)yAttribute
+                                  offsetX:(CGFloat)offsetX
+                                  offsetY:(CGFloat)offsetY;
+- (void)an_removeAlignmentConstraintsToSuperview;
 
 @end

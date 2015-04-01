@@ -56,7 +56,7 @@ BOOL ANAdvertisingTrackingEnabled() {
     return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
 }
 
-BOOL isFirstLaunch()
+BOOL ANIsFirstLaunch()
 {
 	BOOL isFirstLaunch = ![[NSUserDefaults standardUserDefaults] boolForKey:kANFirstLaunchKey];
 	
@@ -127,7 +127,7 @@ NSString *ANPathForANResource(NSString *name, NSString *type) {
     return path;
 }
 
-NSString *convertToNSString(id value) {
+NSString *ANConvertToNSString(id value) {
     if ([value isKindOfClass:[NSString class]]) return value;
     if ([value respondsToSelector:@selector(stringValue)]) {
         return [value stringValue];
@@ -136,7 +136,7 @@ NSString *convertToNSString(id value) {
     return nil;
 }
 
-CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
+CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
     // If portrait, no adjustment is necessary.
     if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {
         return rect;
@@ -180,7 +180,7 @@ NSString *ANMRAIDBundlePath() {
     return mraidPath;
 }
 
-BOOL hasHttpPrefix(NSString *url) {
+BOOL ANHasHttpPrefix(NSString *url) {
     return ([url hasPrefix:@"http"] || [url hasPrefix:@"https"]);
 }
 

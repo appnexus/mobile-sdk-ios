@@ -83,7 +83,7 @@
 
 - (NSURL *)buildRequestUrlWithBaseUrlString:(NSString *)baseUrlString {
     baseUrlString = [baseUrlString stringByAppendingString:[self placementIdParameter]];
-	baseUrlString = [baseUrlString stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
+	baseUrlString = [baseUrlString an_stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
     baseUrlString = [baseUrlString stringByAppendingString:[self dontTrackEnabledParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceMakeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceModelParameter]];
@@ -150,7 +150,7 @@
 }
 
 - (NSString *)firstLaunchParameter {
-    return isFirstLaunch() ? @"&firstlaunch=true" : @"";
+    return ANIsFirstLaunch() ? @"&firstlaunch=true" : @"";
 }
 
 - (NSString *)carrierMccMncParameters {
@@ -269,8 +269,8 @@
     }
 
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        key = convertToNSString(key);
-        value = convertToNSString(value);
+        key = ANConvertToNSString(key);
+        value = ANConvertToNSString(value);
         if(![self stringInParameterList:key]){
             if ([value length] > 0) {
                 customKeywordsParameter = [customKeywordsParameter stringByAppendingString:

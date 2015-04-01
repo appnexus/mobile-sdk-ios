@@ -431,12 +431,12 @@
     
     // append reason code
     NSString *resultCBString = [baseString
-                                stringByAppendingUrlParameter:@"reason"
+                                an_stringByAppendingUrlParameter:@"reason"
                                 value:[NSString stringWithFormat:@"%d",reasonCode]];
     
     // append idfa
     resultCBString = [resultCBString
-                      stringByAppendingUrlParameter:@"idfa"
+                      an_stringByAppendingUrlParameter:@"idfa"
                       value:ANUDID()];
     
     // append latency measurements
@@ -445,12 +445,12 @@
     
     if (latency > 0) {
         resultCBString = [resultCBString
-                          stringByAppendingUrlParameter:@"latency"
+                          an_stringByAppendingUrlParameter:@"latency"
                           value:[NSString stringWithFormat:@"%.0f", latency]];
     }
     if (totalLatency > 0) {
         resultCBString = [resultCBString
-                          stringByAppendingUrlParameter:@"total_latency"
+                          an_stringByAppendingUrlParameter:@"total_latency"
                           value:[NSString stringWithFormat:@"%.0f", totalLatency]];
     }
     

@@ -17,7 +17,7 @@
 
 @implementation NSString (ANCategory)
 
-- (NSDictionary *)queryComponents
+- (NSDictionary *)an_queryComponents
 {
     NSMutableDictionary *parameters = nil;
     
@@ -40,7 +40,7 @@
     return parameters;
 }
 
-- (NSString*)encodeAsURIComponent
+- (NSString*)an_encodeAsURIComponent
 {
 	const char* p = [self UTF8String];
 	NSMutableString* result = [NSMutableString string];
@@ -56,15 +56,15 @@
 	return result;
 }
 
-- (NSString *)stringByAppendingUrlParameter:(NSString *)name
-                                      value:(NSString *)value {
+- (NSString *)an_stringByAppendingUrlParameter:(NSString *)name
+                                         value:(NSString *)value {
     // don't append anything if either field is empty
     if (([name length] < 1) || ([value length] < 1)) {
         return self;
     }
     
     NSMutableString *parameter = [NSMutableString stringWithFormat:@"%@=%@",
-                           name, [value encodeAsURIComponent]];
+                           name, [value an_encodeAsURIComponent]];
     
     // add the proper prefix depending on the current string
     if ([self rangeOfString:@"="].length != 0) {
