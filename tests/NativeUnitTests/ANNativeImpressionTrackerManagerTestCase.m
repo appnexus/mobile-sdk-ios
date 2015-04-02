@@ -54,7 +54,7 @@
     XCTAssertFalse(self.urlWasFired);
     
     NSTimer *fireTimer = [ANNativeImpressionTrackerManager sharedManager].impressionTrackerRetryTimer;
-    XCTAssertTrue(fireTimer.isScheduled);
+    XCTAssertTrue(fireTimer.an_isScheduled);
     
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:NO];
     fireTimer.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];

@@ -58,19 +58,19 @@ static CGFloat const kUIViewConstraintsTestCaseContainerViewHeight = 400;
 
 - (void)testConstrainWithSize {
     CGSize contentViewSize = CGSizeMake(300, 250);
-    [self.contentView constrainWithSize:contentViewSize];
+    [self.contentView an_constrainWithSize:contentViewSize];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.size.width, contentViewSize.width);
     XCTAssertEqual(self.contentView.frame.size.height, contentViewSize.height);
     
     contentViewSize = CGSizeMake(200, 400);
-    [self.contentView constrainWithSize:contentViewSize];
+    [self.contentView an_constrainWithSize:contentViewSize];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.size.width, contentViewSize.width);
     XCTAssertEqual(self.contentView.frame.size.height, contentViewSize.height);
     
     contentViewSize = CGSizeMake(100, 600);
-    [self.contentView constrainWithSize:contentViewSize];
+    [self.contentView an_constrainWithSize:contentViewSize];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.size.width, contentViewSize.width);
     XCTAssertEqual(self.contentView.frame.size.height, contentViewSize.height);
@@ -79,28 +79,28 @@ static CGFloat const kUIViewConstraintsTestCaseContainerViewHeight = 400;
 - (void)testConstrainWithFrameSize {
     CGSize contentViewSize = CGSizeMake(300, 400);
     [self.contentView setFrame:CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, contentViewSize.width, contentViewSize.height)];
-    [self.contentView constrainWithFrameSize];
+    [self.contentView an_constrainWithFrameSize];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.size.width, contentViewSize.width);
     XCTAssertEqual(self.contentView.frame.size.height, contentViewSize.height);
     
     contentViewSize = CGSizeMake(500, 300);
     [self.contentView setFrame:CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, contentViewSize.width, contentViewSize.height)];
-    [self.contentView constrainWithFrameSize];
+    [self.contentView an_constrainWithFrameSize];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.size.width, contentViewSize.width);
     XCTAssertEqual(self.contentView.frame.size.height, contentViewSize.height);
 }
 
 - (void)testConstrainToSizeOfSuperview {
-    [self.contentView constrainToSizeOfSuperview];
+    [self.contentView an_constrainToSizeOfSuperview];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.size.width, self.containerView.frame.size.width);
     XCTAssertEqual(self.contentView.frame.size.height, self.containerView.frame.size.height);
     
     CGSize sizeToScaleContainerView = CGSizeMake(kUIViewConstraintsTestCaseContainerViewWidth * 2, kUIViewConstraintsTestCaseContainerViewHeight * 2);
     self.containerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.containerView constrainWithSize:sizeToScaleContainerView];
+    [self.containerView an_constrainWithSize:sizeToScaleContainerView];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     // Content view should automatically scale
     XCTAssertEqual(self.contentView.frame.size.width, self.containerView.frame.size.width);
@@ -109,33 +109,33 @@ static CGFloat const kUIViewConstraintsTestCaseContainerViewHeight = 400;
 
 - (void)testAlignToSuperviewNoOffset {
     CGSize contentViewSize = CGSizeMake(300, 250);
-    [self.contentView constrainWithSize:contentViewSize];
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                          yAttribute:NSLayoutAttributeCenterY];
+    [self.contentView an_constrainWithSize:contentViewSize];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                             yAttribute:NSLayoutAttributeCenterY];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.center.x, kUIViewConstraintsTestCaseContainerViewWidth / 2);
     XCTAssertEqual(self.contentView.center.y, kUIViewConstraintsTestCaseContainerViewHeight / 2);
     
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                          yAttribute:NSLayoutAttributeTop];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                             yAttribute:NSLayoutAttributeTop];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.origin.x, 0);
     XCTAssertEqual(self.contentView.frame.origin.y, 0);
     
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeRight
-                                          yAttribute:NSLayoutAttributeTop];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
+                                             yAttribute:NSLayoutAttributeTop];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.origin.x, kUIViewConstraintsTestCaseContainerViewWidth - contentViewSize.width);
     XCTAssertEqual(self.contentView.frame.origin.y, 0);
     
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                          yAttribute:NSLayoutAttributeBottom];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                             yAttribute:NSLayoutAttributeBottom];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.frame.origin.x, 0);
     XCTAssertEqual(self.contentView.frame.origin.y, kUIViewConstraintsTestCaseContainerViewHeight - contentViewSize.height);
     
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                          yAttribute:NSLayoutAttributeBottom];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                             yAttribute:NSLayoutAttributeBottom];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.center.x, kUIViewConstraintsTestCaseContainerViewWidth / 2);
     XCTAssertEqual(self.contentView.frame.origin.y, kUIViewConstraintsTestCaseContainerViewHeight - contentViewSize.height);
@@ -143,14 +143,14 @@ static CGFloat const kUIViewConstraintsTestCaseContainerViewHeight = 400;
     // Scale container view, content view should realign automatically as well.
     CGSize sizeToScaleContainerView = CGSizeMake(kUIViewConstraintsTestCaseContainerViewWidth * 2, kUIViewConstraintsTestCaseContainerViewHeight * 2);
     self.containerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.containerView constrainWithSize:sizeToScaleContainerView];
+    [self.containerView an_constrainWithSize:sizeToScaleContainerView];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     // Content view still aligned "bottom-center"
     XCTAssertEqual(self.contentView.center.x, sizeToScaleContainerView.width / 2);
     XCTAssertEqual(self.contentView.frame.origin.y, sizeToScaleContainerView.height - contentViewSize.height);
 
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                          yAttribute:NSLayoutAttributeCenterY];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                             yAttribute:NSLayoutAttributeCenterY];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.center.x, sizeToScaleContainerView.width / 2);
     XCTAssertEqual(self.contentView.center.y, sizeToScaleContainerView.height / 2);
@@ -158,19 +158,19 @@ static CGFloat const kUIViewConstraintsTestCaseContainerViewHeight = 400;
 
 - (void)testAlignToSuperviewWithOffset {
     CGSize contentViewSize = CGSizeMake(300, 250);
-    [self.contentView constrainWithSize:contentViewSize];
+    [self.contentView an_constrainWithSize:contentViewSize];
     CGPoint offset = CGPointMake(-10, -10);
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                          yAttribute:NSLayoutAttributeCenterY
-                                             offsetX:offset.x
-                                             offsetY:offset.y];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                             yAttribute:NSLayoutAttributeCenterY
+                                                offsetX:offset.x
+                                                offsetY:offset.y];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     XCTAssertEqual(self.contentView.center.x, (kUIViewConstraintsTestCaseContainerViewWidth / 2) + offset.x);
     XCTAssertEqual(self.contentView.center.y, (kUIViewConstraintsTestCaseContainerViewHeight / 2) + offset.y);
     
     CGSize sizeToScaleContainerView = CGSizeMake(kUIViewConstraintsTestCaseContainerViewWidth * 2, kUIViewConstraintsTestCaseContainerViewHeight * 2);
     self.containerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.containerView constrainWithSize:sizeToScaleContainerView];
+    [self.containerView an_constrainWithSize:sizeToScaleContainerView];
     [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
     // Content view still aligned "center"
     XCTAssertEqual(self.contentView.center.x, (sizeToScaleContainerView.width / 2) + offset.x);

@@ -52,7 +52,7 @@
 
 - (GADRequest *)test_createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
     GADRequest *request = [self test_createRequestFromTargetingParameters:targetingParameters];
-    //request.testDevices = @[ GAD_SIMULATOR_ID ]; //(Automatic in Google SDK Version 7.0.0)
+    request.testDevices = @[ kDFPSimulatorID ];
     return request;
 }
 
