@@ -35,7 +35,9 @@
 @implementation ANMediationAdapterViewController
 
 + (NSArray *)networks {
-    return @[@"FacebookBanner",
+    return @[@"VdopiaBanner",
+             @"VdopiaInterstitial",
+             @"FacebookBanner",
              @"FacebookInterstitial",
              @"FacebookNative",
              @"MoPubBanner",
@@ -371,6 +373,34 @@
 - (void)stubInMobiNative {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterNativeInMobi";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - Vdopia
+
+- (ANBannerAdView *)loadVdopiaBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
+    [self stubVdopiaBanner];
+    return [self bannerWithDelegate:delegate];
+}
+
+- (ANInterstitialAd *)loadVdopiaInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubVdopiaInterstitial];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubVdopiaBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerVdopia";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    mediatedAd.adId = @"AX123";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubVdopiaInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialVdopia";
+    mediatedAd.adId = @"AX123";
     [self stubMediatedAd:mediatedAd];
 }
 

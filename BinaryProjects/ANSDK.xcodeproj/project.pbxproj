@@ -14,6 +14,9 @@
 		8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
+		8A4B96B71ACD9A6E00FFEB2A /* ANAdAdapterBannerVdopia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B96A61ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.m */; };
+		8A4B96B91ACD9A6E00FFEB2A /* ANAdAdapterInterstitialVdopia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B96A41ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.m */; };
+		8A4B96BC1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B96BB1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m */; };
 		8A4FF3A11A2F72D00000E4CC /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A01A2F72D00000E4CC /* compass@2x.png */; };
 		8A4FF3A41A2F8ACC0000E4CC /* an_arrow_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */; };
 		8A4FF3A71A2F8AFE0000E4CC /* an_arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */; };
@@ -257,6 +260,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
 		8A9AEDAD1A1BE8AA00C58BDA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
@@ -337,6 +347,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8A4B96B01ACD9A4C00FFEB2A /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AA5B4BF1AA8B4A500522E1C /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -471,6 +491,24 @@
 		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
 		8A4018191A95213200D56208 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		8A40181F1A95224800D56208 /* MPCloseButtonX@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPCloseButtonX@3x.png"; sourceTree = "<group>"; };
+		8A4B96981ACD997500FFEB2A /* close_button_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button_normal.png; sourceTree = "<group>"; };
+		8A4B96991ACD997500FFEB2A /* close_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button_pressed.png; sourceTree = "<group>"; };
+		8A4B969A1ACD997500FFEB2A /* libLWSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLWSDK.a; sourceTree = "<group>"; };
+		8A4B969B1ACD997500FFEB2A /* LVDOAdRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdRequest.h; sourceTree = "<group>"; };
+		8A4B969C1ACD997500FFEB2A /* LVDOAdRequestError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdRequestError.h; sourceTree = "<group>"; };
+		8A4B969D1ACD997500FFEB2A /* LVDOAdSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdSize.h; sourceTree = "<group>"; };
+		8A4B969E1ACD997500FFEB2A /* LVDOAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdView.h; sourceTree = "<group>"; };
+		8A4B969F1ACD997500FFEB2A /* LVDOAdViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdViewDelegate.h; sourceTree = "<group>"; };
+		8A4B96A01ACD997500FFEB2A /* LVDOInterstitialView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOInterstitialView.h; sourceTree = "<group>"; };
+		8A4B96A11ACD997500FFEB2A /* mraid.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = mraid.txt; sourceTree = "<group>"; };
+		8A4B96A21ACD997500FFEB2A /* vdopiaCrossButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vdopiaCrossButton.png; sourceTree = "<group>"; };
+		8A4B96A31ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialVdopia.h; sourceTree = "<group>"; };
+		8A4B96A41ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialVdopia.m; sourceTree = "<group>"; };
+		8A4B96A51ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerVdopia.h; sourceTree = "<group>"; };
+		8A4B96A61ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerVdopia.m; sourceTree = "<group>"; };
+		8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKVdopiaAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A4B96BA1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseVdopia.h; sourceTree = "<group>"; };
+		8A4B96BB1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseVdopia.m; sourceTree = "<group>"; };
 		8A4FF3A01A2F72D00000E4CC /* compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@2x.png"; sourceTree = "<group>"; };
 		8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_left@3x.png"; sourceTree = "<group>"; };
 		8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_left@2x.png"; sourceTree = "<group>"; };
@@ -735,6 +773,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8A4B96AF1ACD9A4C00FFEB2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AA5B4BE1AA8B4A500522E1C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -855,6 +900,39 @@
 			);
 			name = GoogleAdMobSDK;
 			path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK;
+			sourceTree = "<group>";
+		};
+		8A4B96961ACD997500FFEB2A /* Vdopia */ = {
+			isa = PBXGroup;
+			children = (
+				8A4B96A51ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.h */,
+				8A4B96A61ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.m */,
+				8A4B96BA1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.h */,
+				8A4B96BB1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m */,
+				8A4B96A31ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.h */,
+				8A4B96A41ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.m */,
+				8A4B96971ACD997500FFEB2A /* VdopiaSDK */,
+			);
+			name = Vdopia;
+			path = ../mediation/mediatedviews/Vdopia;
+			sourceTree = "<group>";
+		};
+		8A4B96971ACD997500FFEB2A /* VdopiaSDK */ = {
+			isa = PBXGroup;
+			children = (
+				8A4B96981ACD997500FFEB2A /* close_button_normal.png */,
+				8A4B96991ACD997500FFEB2A /* close_button_pressed.png */,
+				8A4B969A1ACD997500FFEB2A /* libLWSDK.a */,
+				8A4B969B1ACD997500FFEB2A /* LVDOAdRequest.h */,
+				8A4B969C1ACD997500FFEB2A /* LVDOAdRequestError.h */,
+				8A4B969D1ACD997500FFEB2A /* LVDOAdSize.h */,
+				8A4B969E1ACD997500FFEB2A /* LVDOAdView.h */,
+				8A4B969F1ACD997500FFEB2A /* LVDOAdViewDelegate.h */,
+				8A4B96A01ACD997500FFEB2A /* LVDOInterstitialView.h */,
+				8A4B96A11ACD997500FFEB2A /* mraid.txt */,
+				8A4B96A21ACD997500FFEB2A /* vdopiaCrossButton.png */,
+			);
+			path = VdopiaSDK;
 			sourceTree = "<group>";
 		};
 		8A944DDD19D5AF8C007AAAB0 /* AmazonSDK */ = {
@@ -1211,6 +1289,7 @@
 		8AE2D87419CC9D9B00001B70 /* Mediated By AppNexus */ = {
 			isa = PBXGroup;
 			children = (
+				8A4B96961ACD997500FFEB2A /* Vdopia */,
 				8AA5B4B61AA8B48E00522E1C /* InMobi */,
 				8AD5155119D216E6002E53D6 /* Amazon */,
 				8AE2D6A019CC871800001B70 /* Facebook Audience Network */,
@@ -1269,6 +1348,7 @@
 				8AD5154019D214CA002E53D6 /* libANSDKAmazonAdapter.a */,
 				8A9AED8C1A1BE84F00C58BDA /* AppNexusSDK.framework */,
 				8AA5B4C41AA8B4A500522E1C /* libANSDKInMobiAdapter.a */,
+				8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1425,6 +1505,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8A4B96A71ACD9A4C00FFEB2A /* ANSDKVdopiaAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A4B96B21ACD9A4C00FFEB2A /* Build configuration list for PBXNativeTarget "ANSDKVdopiaAdapter" */;
+			buildPhases = (
+				8A4B96AA1ACD9A4C00FFEB2A /* Sources */,
+				8A4B96AF1ACD9A4C00FFEB2A /* Frameworks */,
+				8A4B96B01ACD9A4C00FFEB2A /* Copy Files */,
+				8A4B96B11ACD9A4C00FFEB2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8A4B96A81ACD9A4C00FFEB2A /* PBXTargetDependency */,
+			);
+			name = ANSDKVdopiaAdapter;
+			productName = AppNexusSDK;
+			productReference = 8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A9AEDA31A1BE84F00C58BDA /* Build configuration list for PBXNativeTarget "AppNexusSDK" */;
@@ -1686,6 +1785,7 @@
 				8AE2D76519CC87CC00001B70 /* ANSDKFacebookAdapter */,
 				8AD5153219D214CA002E53D6 /* ANSDKAmazonAdapter */,
 				8AA5B4B71AA8B4A500522E1C /* ANSDKInMobiAdapter */,
+				8A4B96A71ACD9A4C00FFEB2A /* ANSDKVdopiaAdapter */,
 				8AE2D84519CC9A6F00001B70 /* ANAdapterForGoogleAdMobSDK */,
 				8AE2D85519CC9B0F00001B70 /* ANAdapterForMoPubSDK */,
 				8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */,
@@ -1694,6 +1794,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8A4B96B11ACD9A4C00FFEB2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A9AED8A1A1BE84F00C58BDA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1809,6 +1916,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8A4B96AA1ACD9A4C00FFEB2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A4B96B71ACD9A6E00FFEB2A /* ANAdAdapterBannerVdopia.m in Sources */,
+				8A4B96B91ACD9A6E00FFEB2A /* ANAdAdapterInterstitialVdopia.m in Sources */,
+				8A4B96BC1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A9AEDE71A1BF98600C58BDA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2027,6 +2144,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8A4B96A81ACD9A4C00FFEB2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */;
+		};
 		8A9AEDAE1A1BE8AA00C58BDA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC48177A1845046A0066BBFE /* ANSDKResources */;
@@ -2085,6 +2207,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8A4B96B31ACD9A4C00FFEB2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
+				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKVdopiaAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8A4B96B41ACD9A4C00FFEB2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
+				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKVdopiaAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		8A9AED9F1A1BE84F00C58BDA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2154,10 +2312,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/InMobi/InMobiSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKInMobiAdapter;
 				SKIP_INSTALL = YES;
@@ -2175,10 +2330,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/InMobi/InMobiSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKInMobiAdapter;
 				SKIP_INSTALL = YES;
@@ -2585,6 +2737,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8A4B96B21ACD9A4C00FFEB2A /* Build configuration list for PBXNativeTarget "ANSDKVdopiaAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A4B96B31ACD9A4C00FFEB2A /* Debug */,
+				8A4B96B41ACD9A4C00FFEB2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8A9AEDA31A1BE84F00C58BDA /* Build configuration list for PBXNativeTarget "AppNexusSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

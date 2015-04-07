@@ -43,6 +43,12 @@
 		8A4018021A95008A00D56208 /* MPCloseButtonX@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC319DB3976003ECC5C /* MPCloseButtonX@2x.png */; };
 		8A4018031A95008E00D56208 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A7F4CC419DB3976003ECC5C /* MRAID.bundle */; };
 		8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4018041A9500A300D56208 /* GoogleMobileAds.framework */; };
+		8A4B96CA1ACDEDFA00FFEB2A /* libLWSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4B96C91ACDEDFA00FFEB2A /* libLWSDK.a */; };
+		8A4B96D41ACDEE6300FFEB2A /* close_button_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B96D01ACDEE6300FFEB2A /* close_button_normal.png */; };
+		8A4B96D51ACDEE6300FFEB2A /* close_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B96D11ACDEE6300FFEB2A /* close_button_pressed.png */; };
+		8A4B96D61ACDEE6300FFEB2A /* mraid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B96D21ACDEE6300FFEB2A /* mraid.txt */; };
+		8A4B96D71ACDEE6300FFEB2A /* vdopiaCrossButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B96D31ACDEE6300FFEB2A /* vdopiaCrossButton.png */; };
+		8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */; };
 		8A549EAE1A706BC7009F797A /* ANNativeAdRequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */; };
 		8A549EB01A706BFE009F797A /* ANAdServerResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A549EAF1A706BFE009F797A /* ANAdServerResponseTestCase.m */; };
 		8A549EB21A706C65009F797A /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
@@ -177,6 +183,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A4B96C41ACDEDE300FFEB2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A4B96B51ACD9A4C00FFEB2A;
+			remoteInfo = ANSDKVdopiaAdapter;
+		};
+		8A4B96CB1ACDEE0B00FFEB2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AA5B4B71AA8B4A500522E1C;
+			remoteInfo = ANSDKInMobiAdapter;
+		};
+		8A4B96CD1ACDEE1600FFEB2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A4B96A71ACD9A4C00FFEB2A;
+			remoteInfo = ANSDKVdopiaAdapter;
+		};
 		8A549E9F1A706BA6009F797A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AD01825199932F9007874BA /* Project object */;
@@ -451,6 +478,11 @@
 		8A4018041A9500A300D56208 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		8A4018071A95025C00D56208 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8A40180A1A95028700D56208 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		8A4B96C91ACDEDFA00FFEB2A /* libLWSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLWSDK.a; path = ../mediation/mediatedviews/Vdopia/VdopiaSDK/libLWSDK.a; sourceTree = "<group>"; };
+		8A4B96D01ACDEE6300FFEB2A /* close_button_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_button_normal.png; path = ../mediation/mediatedviews/Vdopia/VdopiaSDK/close_button_normal.png; sourceTree = "<group>"; };
+		8A4B96D11ACDEE6300FFEB2A /* close_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_button_pressed.png; path = ../mediation/mediatedviews/Vdopia/VdopiaSDK/close_button_pressed.png; sourceTree = "<group>"; };
+		8A4B96D21ACDEE6300FFEB2A /* mraid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mraid.txt; path = ../mediation/mediatedviews/Vdopia/VdopiaSDK/mraid.txt; sourceTree = "<group>"; };
+		8A4B96D31ACDEE6300FFEB2A /* vdopiaCrossButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vdopiaCrossButton.png; path = ../mediation/mediatedviews/Vdopia/VdopiaSDK/vdopiaCrossButton.png; sourceTree = "<group>"; };
 		8A549E991A706BA6009F797A /* NativeUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A549E9C1A706BA6009F797A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdRequestTestCase.m; sourceTree = "<group>"; };
@@ -653,8 +685,10 @@
 				8AA009E619DB1D320090EBED /* FBAudienceNetwork.framework in Frameworks */,
 				8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */,
 				8AA009EA19DB1D480090EBED /* MillennialMedia.framework in Frameworks */,
+				8A4B96CA1ACDEDFA00FFEB2A /* libLWSDK.a in Frameworks */,
 				8AA009EC19DB1D530090EBED /* libMoPubSDK.a in Frameworks */,
 				8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */,
+				8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,6 +807,17 @@
 			name = "Banner Adapters";
 			sourceTree = "<group>";
 		};
+		8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */ = {
+			isa = PBXGroup;
+			children = (
+				8A4B96D01ACDEE6300FFEB2A /* close_button_normal.png */,
+				8A4B96D11ACDEE6300FFEB2A /* close_button_pressed.png */,
+				8A4B96D21ACDEE6300FFEB2A /* mraid.txt */,
+				8A4B96D31ACDEE6300FFEB2A /* vdopiaCrossButton.png */,
+			);
+			name = VdopiaResources;
+			sourceTree = "<group>";
+		};
 		8A549E9A1A706BA6009F797A /* NativeUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -829,6 +874,7 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A4B96C91ACDEDFA00FFEB2A /* libLWSDK.a */,
 				8AA5B4F81AA90CED00522E1C /* libz.dylib */,
 				8AA5B4F61AA90CCE00522E1C /* libsqlite3.dylib */,
 				8A40180A1A95028700D56208 /* StoreKit.framework */,
@@ -875,6 +921,7 @@
 				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
 				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
 				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
@@ -1085,19 +1132,20 @@
 		8AD01824199932F9007874BA = {
 			isa = PBXGroup;
 			children = (
-				8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
-				8A549E9A1A706BA6009F797A /* NativeUnitTests */,
+				8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
 				8A7F4CBD19DB395D003ECC5C /* MPResources */,
+				8A549E9A1A706BA6009F797A /* NativeUnitTests */,
 				8AD0182F199932F9007874BA /* NewTestApp */,
 				8AD01846199932F9007874BA /* NewTestAppTests */,
 				8AA0095319DB16C50090EBED /* OriginalUnitTestApp */,
 				8AA0095E19DB16CD0090EBED /* OriginalUnitTestAppTests */,
 				8AD0182E199932F9007874BA /* Products */,
 				8AA009A419DB18AE0090EBED /* Shared */,
+				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1191,6 +1239,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				8A4B96CE1ACDEE1600FFEB2A /* PBXTargetDependency */,
+				8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */,
 				8AA009CF19DB1BC10090EBED /* PBXTargetDependency */,
 				8AA009D119DB1BC10090EBED /* PBXTargetDependency */,
 				8AA009D319DB1BC10090EBED /* PBXTargetDependency */,
@@ -1372,6 +1422,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKVdopiaAdapter.a;
+			remoteRef = 8A4B96C41ACDEDE300FFEB2A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1521,16 +1578,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A7F4CC619DB3976003ECC5C /* MPCloseButtonX.png in Resources */,
+				8A4B96D71ACDEE6300FFEB2A /* vdopiaCrossButton.png in Resources */,
 				8AA009ED19DB1D670090EBED /* MediationAdapterAppImages.xcassets in Resources */,
 				8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */,
 				8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */,
 				8A7F4CC519DB3976003ECC5C /* MPAdBrowserController.xib in Resources */,
+				8A4B96D61ACDEE6300FFEB2A /* mraid.txt in Resources */,
 				8A7F4CC719DB3976003ECC5C /* MPCloseButtonX@2x.png in Resources */,
 				8A4017F81A95006B00D56208 /* MPCloseButtonX@3x.png in Resources */,
+				8A4B96D51ACDEE6300FFEB2A /* close_button_pressed.png in Resources */,
 				8A7F4CC819DB3976003ECC5C /* MRAID.bundle in Resources */,
 				8A7AE41019DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				8A8458881A69A34C0014F291 /* ANSDKResources.bundle in Resources */,
 				8AA3DA121AAA0DAD00255F94 /* ANNativeAdView.xib in Resources */,
+				8A4B96D41ACDEE6300FFEB2A /* close_button_normal.png in Resources */,
 				8AA3DA131AAA0DAD00255F94 /* ANNativeAdViewMainImage.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1726,6 +1787,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANSDKInMobiAdapter;
+			targetProxy = 8A4B96CB1ACDEE0B00FFEB2A /* PBXContainerItemProxy */;
+		};
+		8A4B96CE1ACDEE1600FFEB2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANSDKVdopiaAdapter;
+			targetProxy = 8A4B96CD1ACDEE1600FFEB2A /* PBXContainerItemProxy */;
+		};
 		8A549EA01A706BA6009F797A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8A9F94BF19D1C37700AB739F /* MediationAdapterApp */;
@@ -2100,6 +2171,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2151,6 +2223,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
