@@ -19,6 +19,7 @@
 #import "ANLogManager.h"
 #import "ANAdAdapterBaseAmazon.h"
 #import "ANAdAdapterBaseInMobi.h"
+#import "ANAdAdapterBaseAdColony.h"
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
 
@@ -37,6 +38,7 @@
 + (NSArray *)networks {
     return @[@"VdopiaBanner",
              @"VdopiaInterstitial",
+             @"AdColonyInterstitial",
              @"FacebookBanner",
              @"FacebookInterstitial",
              @"FacebookNative",
@@ -401,6 +403,22 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialVdopia";
     mediatedAd.adId = @"AX123";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - AdColony
+
+- (ANInterstitialAd *)loadAdColonyInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubAdColonyInterstitial];
+    [ANAdAdapterBaseAdColony configureWithAppID:@"appe1ba2960e786424bb5"
+                                        zoneIDs:@[@"vzcc692652bbe74d4e92"]];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubAdColonyInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialAdColony";
+    mediatedAd.adId = @"vzcc692652bbe74d4e92";
     [self stubMediatedAd:mediatedAd];
 }
 

@@ -32,6 +32,11 @@
 		8A0AA49519DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48919DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m */; };
 		8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48B19DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m */; };
 		8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
+		8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14826F1AD344B70046F1B9 /* AdColony.framework */; };
+		8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */; };
+		8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE3999E1A42105B00C0D7B1 /* WebKit.framework */; };
+		8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14827D1AD346220046F1B9 /* Social.framework */; };
+		8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482801AD346430046F1B9 /* CoreMedia.framework */; };
 		8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */; };
 		8A33A5131A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */; };
 		8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27CA199AB26B00F2A516 /* iAd.framework */; };
@@ -203,6 +208,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8A4B96A71ACD9A4C00FFEB2A;
 			remoteInfo = ANSDKVdopiaAdapter;
+        };
+		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A1482571AD337320046F1B9;
+			remoteInfo = ANSDKAdColonyAdapter;
 		};
 		8A549E9F1A706BA6009F797A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -470,6 +482,9 @@
 		8A0AA48B19DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFill.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFill.m"; sourceTree = "<group>"; };
 		8A0AA48C19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerUnableToFillThenSuccessful.h; path = "Banner Adapters/ANAdAdapterBannerUnableToFillThenSuccessful.h"; sourceTree = "<group>"; };
 		8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFillThenSuccessful.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFillThenSuccessful.m"; sourceTree = "<group>"; };
+		8A14826F1AD344B70046F1B9 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdColony.framework; path = ../mediation/mediatedviews/AdColony/AdColonySDK/AdColony.framework; sourceTree = "<group>"; };
+		8A14827D1AD346220046F1B9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		8A1482801AD346430046F1B9 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeImpressionTrackerManagerTestCase.m; sourceTree = "<group>"; };
 		8A33A5111A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeImpressionTrackerManager+ANTest.h"; sourceTree = "<group>"; };
 		8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeImpressionTrackerManager+ANTest.m"; sourceTree = "<group>"; };
@@ -670,6 +685,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */,
+				8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */,
+				8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */,
+				8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */,
 				8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */,
 				8AA5B4F71AA90CCE00522E1C /* libsqlite3.dylib in Frameworks */,
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
@@ -677,6 +696,7 @@
 				8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */,
 				8AA009F319DB1DA50090EBED /* libANSDKiAdAdapter.a in Frameworks */,
 				8AA009F419DB1DA50090EBED /* libANSDKMillennialMediaAdapter.a in Frameworks */,
+				8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */,
 				8AA009F519DB1DA50090EBED /* libANSDKMoPubAdapter.a in Frameworks */,
 				8AA009F619DB1DA50090EBED /* libANSDKFacebookAdapter.a in Frameworks */,
 				8AA009F719DB1DA50090EBED /* libANSDKAmazonAdapter.a in Frameworks */,
@@ -875,6 +895,9 @@
 			isa = PBXGroup;
 			children = (
 				8A4B96C91ACDEDFA00FFEB2A /* libLWSDK.a */,
+				8A1482801AD346430046F1B9 /* CoreMedia.framework */,
+				8A14827D1AD346220046F1B9 /* Social.framework */,
+				8A14826F1AD344B70046F1B9 /* AdColony.framework */,
 				8AA5B4F81AA90CED00522E1C /* libz.dylib */,
 				8AA5B4F61AA90CCE00522E1C /* libsqlite3.dylib */,
 				8A40180A1A95028700D56208 /* StoreKit.framework */,
@@ -922,6 +945,7 @@
 				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
 				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
@@ -1427,6 +1451,13 @@
 			fileType = archive.ar;
 			path = libANSDKVdopiaAdapter.a;
 			remoteRef = 8A4B96C41ACDEDE300FFEB2A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKAdColonyAdapter.a;
+			remoteRef = 8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */ = {
@@ -2147,6 +2178,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2206,6 +2238,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

@@ -44,6 +44,8 @@
 		8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */; };
 		8A82FDF61A30F36C00A267A0 /* ANNativeImpressionTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */; };
 		8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */; };
+		8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */; };
 		8A9AED201A1BAD2700C58BDA /* ANAdConstants.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; };
 		8A9AED221A1BAD7700C58BDA /* ANNativeAdDelegate.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */; };
 		8A9AED231A1BAD7700C58BDA /* ANNativeAdRequest.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A35B89619FEB5EC0016C81F /* ANNativeAdRequest.h */; };
@@ -267,6 +269,13 @@
 			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
 			remoteInfo = ANSDK;
 		};
+		8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
 		8A9AEDAD1A1BE8AA00C58BDA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
@@ -348,6 +357,16 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8A4B96B01ACD9A4C00FFEB2A /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A1482521AD337320046F1B9 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(PRODUCT_NAME)";
@@ -478,6 +497,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A1482481AD3371C0046F1B9 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdColony.framework; sourceTree = "<group>"; };
+		8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdColonyAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2F48211A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANOpenInExternalBrowserActivity.h; sourceTree = "<group>"; };
 		8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANOpenInExternalBrowserActivity.m; sourceTree = "<group>"; };
 		8A2F483C1A2E33B000B0EA05 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
@@ -530,6 +551,10 @@
 		8A82FDF31A30F36B00A267A0 /* ANNativeImpressionTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeImpressionTrackerManager.h; sourceTree = "<group>"; };
 		8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeImpressionTrackerManager.m; sourceTree = "<group>"; };
 		8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdResponse+PrivateMethods.h"; sourceTree = "<group>"; };
+		8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdColony.h; sourceTree = "<group>"; };
+		8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdColony.m; sourceTree = "<group>"; };
+		8A8E0FDC1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdColony.h; sourceTree = "<group>"; };
+		8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdColony.m; sourceTree = "<group>"; };
 		8A944DDE19D5AF8C007AAAB0 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
 		8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-AMAZON.txt"; sourceTree = "<group>"; };
 		8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
@@ -780,6 +805,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8A1482511AD337320046F1B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AA5B4BE1AA8B4A500522E1C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -878,6 +910,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A1482461AD3371C0046F1B9 /* AdColony */ = {
+			isa = PBXGroup;
+			children = (
+				8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */,
+				8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */,
+				8A8E0FDC1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.h */,
+				8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */,
+				8A1482471AD3371C0046F1B9 /* AdColonySDK */,
+			);
+			name = AdColony;
+			path = ../mediation/mediatedviews/AdColony;
+			sourceTree = "<group>";
+		};
+		8A1482471AD3371C0046F1B9 /* AdColonySDK */ = {
+			isa = PBXGroup;
+			children = (
+				8A1482481AD3371C0046F1B9 /* AdColony.framework */,
+			);
+			path = AdColonySDK;
+			sourceTree = "<group>";
+		};
 		8A35B87919FEAAE30016C81F /* native */ = {
 			isa = PBXGroup;
 			children = (
@@ -1290,6 +1343,7 @@
 			isa = PBXGroup;
 			children = (
 				8A4B96961ACD997500FFEB2A /* Vdopia */,
+				8A1482461AD3371C0046F1B9 /* AdColony */,
 				8AA5B4B61AA8B48E00522E1C /* InMobi */,
 				8AD5155119D216E6002E53D6 /* Amazon */,
 				8AE2D6A019CC871800001B70 /* Facebook Audience Network */,
@@ -1349,6 +1403,7 @@
 				8A9AED8C1A1BE84F00C58BDA /* AppNexusSDK.framework */,
 				8AA5B4C41AA8B4A500522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1522,6 +1577,25 @@
 			name = ANSDKVdopiaAdapter;
 			productName = AppNexusSDK;
 			productReference = 8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8A1482491AD337320046F1B9 /* ANSDKAdColonyAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A1482541AD337320046F1B9 /* Build configuration list for PBXNativeTarget "ANSDKAdColonyAdapter" */;
+			buildPhases = (
+				8A14824C1AD337320046F1B9 /* Sources */,
+				8A1482511AD337320046F1B9 /* Frameworks */,
+				8A1482521AD337320046F1B9 /* Copy Files */,
+				8A1482531AD337320046F1B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8A14824A1AD337320046F1B9 /* PBXTargetDependency */,
+			);
+			name = ANSDKAdColonyAdapter;
+			productName = AppNexusSDK;
+			productReference = 8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */ = {
@@ -1786,6 +1860,7 @@
 				8AD5153219D214CA002E53D6 /* ANSDKAmazonAdapter */,
 				8AA5B4B71AA8B4A500522E1C /* ANSDKInMobiAdapter */,
 				8A4B96A71ACD9A4C00FFEB2A /* ANSDKVdopiaAdapter */,
+				8A1482491AD337320046F1B9 /* ANSDKAdColonyAdapter */,
 				8AE2D84519CC9A6F00001B70 /* ANAdapterForGoogleAdMobSDK */,
 				8AE2D85519CC9B0F00001B70 /* ANAdapterForMoPubSDK */,
 				8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */,
@@ -1795,6 +1870,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		8A4B96B11ACD9A4C00FFEB2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A1482531AD337320046F1B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1923,6 +2005,15 @@
 				8A4B96B71ACD9A6E00FFEB2A /* ANAdAdapterBannerVdopia.m in Sources */,
 				8A4B96B91ACD9A6E00FFEB2A /* ANAdAdapterInterstitialVdopia.m in Sources */,
 				8A4B96BC1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8A14824C1AD337320046F1B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */,
+				8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2149,6 +2240,11 @@
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
 			targetProxy = 8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */;
 		};
+		8A14824A1AD337320046F1B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */;
+		};
 		8A9AEDAE1A1BE8AA00C58BDA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC48177A1845046A0066BBFE /* ANSDKResources */;
@@ -2239,6 +2335,39 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKVdopiaAdapter;
+			};
+			name = Release;
+		};
+		8A1482551AD337320046F1B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKAdColonyAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8A1482561AD337320046F1B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKAdColonyAdapter;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -2742,6 +2871,15 @@
 			buildConfigurations = (
 				8A4B96B31ACD9A4C00FFEB2A /* Debug */,
 				8A4B96B41ACD9A4C00FFEB2A /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+		8A1482541AD337320046F1B9 /* Build configuration list for PBXNativeTarget "ANSDKAdColonyAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A1482551AD337320046F1B9 /* Debug */,
+				8A1482561AD337320046F1B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
