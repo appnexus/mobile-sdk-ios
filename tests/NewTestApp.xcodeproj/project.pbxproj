@@ -167,6 +167,14 @@
 		8AD052ED1A80333800EE0182 /* appnexus_multiple_main_media_default.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */; };
 		8AD052EF1A80461200EE0182 /* appnexus_multiple_trackers.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */; };
 		8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */; };
+		8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */; };
+		8AD7C5051AD3253C0049C997 /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C4FC1AD3253C0049C997 /* __vungle.db */; };
+		8AD7C5061AD3253C0049C997 /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C4FD1AD3253C0049C997 /* vg_close.png */; };
+		8AD7C5071AD3253C0049C997 /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C4FE1AD3253C0049C997 /* vg_cta.png */; };
+		8AD7C5081AD3253C0049C997 /* vg_mute_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C4FF1AD3253C0049C997 /* vg_mute_off.png */; };
+		8AD7C5091AD3253C0049C997 /* vg_mute_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C5001AD3253C0049C997 /* vg_mute_on.png */; };
+		8AD7C50A1AD3253C0049C997 /* vg_timer.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C5011AD3253C0049C997 /* vg_timer.png */; };
+		8AD7C50C1AD32B400049C997 /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD7C5031AD3253C0049C997 /* VungleSDK.framework */; };
 		8AE3999F1A42105B00C0D7B1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE3999E1A42105B00C0D7B1 /* WebKit.framework */; };
 		8AE7AD6D1A7AA4CD009E2F2F /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */; };
 		8AE7AD7A1A7AA526009E2F2F /* custom_adapter_to_native_ad.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD791A7AA526009E2F2F /* custom_adapter_to_native_ad.json */; };
@@ -440,6 +448,13 @@
 			remoteGlobalIDString = 8AD0182C199932F9007874BA;
 			remoteInfo = NewTestApp;
 		};
+		8AD7C4E41AD3214B0049C997 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8AD7C4D81AD2FABA0049C997;
+			remoteInfo = ANSDKVungleAdapter;
+		};
 		8AE7AD961A7AB343009E2F2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
@@ -648,6 +663,13 @@
 		8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_main_media_default.json; sourceTree = "<group>"; };
 		8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_trackers.json; sourceTree = "<group>"; };
 		8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8AD7C4FC1AD3253C0049C997 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
+		8AD7C4FD1AD3253C0049C997 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
+		8AD7C4FE1AD3253C0049C997 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
+		8AD7C4FF1AD3253C0049C997 /* vg_mute_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_off.png; sourceTree = "<group>"; };
+		8AD7C5001AD3253C0049C997 /* vg_mute_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_on.png; sourceTree = "<group>"; };
+		8AD7C5011AD3253C0049C997 /* vg_timer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_timer.png; sourceTree = "<group>"; };
+		8AD7C5031AD3253C0049C997 /* VungleSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VungleSDK.framework; sourceTree = "<group>"; };
 		8AE3999E1A42105B00C0D7B1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response.json; sourceTree = "<group>"; };
 		8AE7AD791A7AA526009E2F2F /* custom_adapter_to_native_ad.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_to_native_ad.json; sourceTree = "<group>"; };
@@ -689,6 +711,8 @@
 				8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */,
 				8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */,
 				8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */,
+				8AD7C50C1AD32B400049C997 /* VungleSDK.framework in Frameworks */,
+				8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */,
 				8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */,
 				8AA5B4F71AA90CCE00522E1C /* libsqlite3.dylib in Frameworks */,
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
@@ -898,6 +922,7 @@
 				8A1482801AD346430046F1B9 /* CoreMedia.framework */,
 				8A14827D1AD346220046F1B9 /* Social.framework */,
 				8A14826F1AD344B70046F1B9 /* AdColony.framework */,
+				8AD7C5041AD3253C0049C997 /* VungleSDK.embeddedframework */,
 				8AA5B4F81AA90CED00522E1C /* libz.dylib */,
 				8AA5B4F61AA90CCE00522E1C /* libsqlite3.dylib */,
 				8A40180A1A95028700D56208 /* StoreKit.framework */,
@@ -946,6 +971,7 @@
 				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
 				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
@@ -1228,6 +1254,29 @@
 				8AD01848199932F9007874BA /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8AD7C5021AD3253C0049C997 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8AD7C4FC1AD3253C0049C997 /* __vungle.db */,
+				8AD7C4FD1AD3253C0049C997 /* vg_close.png */,
+				8AD7C4FE1AD3253C0049C997 /* vg_cta.png */,
+				8AD7C4FF1AD3253C0049C997 /* vg_mute_off.png */,
+				8AD7C5001AD3253C0049C997 /* vg_mute_on.png */,
+				8AD7C5011AD3253C0049C997 /* vg_timer.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8AD7C5041AD3253C0049C997 /* VungleSDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				8AD7C5021AD3253C0049C997 /* Resources */,
+				8AD7C5031AD3253C0049C997 /* VungleSDK.framework */,
+			);
+			name = VungleSDK.embeddedframework;
+			path = ../mediation/mediatedviews/Vungle/VungleSDK/VungleSDK.embeddedframework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1565,6 +1614,13 @@
 			remoteRef = 8AB5325C19F0464B00CA4427 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKVungleAdapter.a;
+			remoteRef = 8AD7C4E41AD3214B0049C997 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1608,16 +1664,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD7C50A1AD3253C0049C997 /* vg_timer.png in Resources */,
+				8AD7C5051AD3253C0049C997 /* __vungle.db in Resources */,
 				8A7F4CC619DB3976003ECC5C /* MPCloseButtonX.png in Resources */,
 				8A4B96D71ACDEE6300FFEB2A /* vdopiaCrossButton.png in Resources */,
 				8AA009ED19DB1D670090EBED /* MediationAdapterAppImages.xcassets in Resources */,
+				8AD7C5081AD3253C0049C997 /* vg_mute_off.png in Resources */,
 				8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */,
 				8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */,
 				8A7F4CC519DB3976003ECC5C /* MPAdBrowserController.xib in Resources */,
 				8A4B96D61ACDEE6300FFEB2A /* mraid.txt in Resources */,
+				8AD7C5071AD3253C0049C997 /* vg_cta.png in Resources */,
 				8A7F4CC719DB3976003ECC5C /* MPCloseButtonX@2x.png in Resources */,
+				8AD7C5061AD3253C0049C997 /* vg_close.png in Resources */,
 				8A4017F81A95006B00D56208 /* MPCloseButtonX@3x.png in Resources */,
 				8A4B96D51ACDEE6300FFEB2A /* close_button_pressed.png in Resources */,
+				8AD7C5091AD3253C0049C997 /* vg_mute_on.png in Resources */,
 				8A7F4CC819DB3976003ECC5C /* MRAID.bundle in Resources */,
 				8A7AE41019DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				8A8458881A69A34C0014F291 /* ANSDKResources.bundle in Resources */,
@@ -2179,6 +2241,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2239,6 +2302,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

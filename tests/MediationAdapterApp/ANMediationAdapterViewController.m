@@ -20,6 +20,7 @@
 #import "ANAdAdapterBaseAmazon.h"
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseAdColony.h"
+#import "ANAdAdapterBaseVungle.h"
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
 
@@ -39,6 +40,7 @@
     return @[@"VdopiaBanner",
              @"VdopiaInterstitial",
              @"AdColonyInterstitial",
+             @"VungleInterstitial",
              @"FacebookBanner",
              @"FacebookInterstitial",
              @"FacebookNative",
@@ -175,6 +177,24 @@
     mediatedAd.adId = @"123";
     [self stubMediatedAd:mediatedAd];
 }
+
+#pragma mark - Vungle
+
+-  (ANInterstitialAd *)loadVungleInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    static dispatch_once_t vungleToken;
+    dispatch_once(&vungleToken, ^{
+        [ANAdAdapterBaseVungle setVungleAppId:@"736869833"];
+    });
+    [self stubVungleInterstitial];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubVungleInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialVungle";
+    [self stubMediatedAd:mediatedAd];
+}
+
 
 #pragma mark - iAd
 

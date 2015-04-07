@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-<<<<<<< HEAD
-   LastUpgradeVersion = "0610"
-=======
    LastUpgradeVersion = "0620"
->>>>>>> MS-1047-Mediate-Vungle
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -18,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8AA5B4B71AA8B4A500522E1C"
-               BuildableName = "libANSDKInMobiAdapter.a"
-               BlueprintName = "ANSDKInMobiAdapter"
+               BlueprintIdentifier = "8AD7C4CA1AD2FABA0049C997"
+               BuildableName = "libANSDKVungleAdapter.a"
+               BlueprintName = "ANSDKVungleAdapter"
                ReferencedContainer = "container:ANSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AA5B4B71AA8B4A500522E1C"
-            BuildableName = "libANSDKInMobiAdapter.a"
-            BlueprintName = "ANSDKInMobiAdapter"
+            BlueprintIdentifier = "8AD7C4CA1AD2FABA0049C997"
+            BuildableName = "libANSDKVungleAdapter.a"
+            BlueprintName = "ANSDKVungleAdapter"
             ReferencedContainer = "container:ANSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8AA5B4B71AA8B4A500522E1C"
-            BuildableName = "libANSDKInMobiAdapter.a"
-            BlueprintName = "ANSDKInMobiAdapter"
+            BlueprintIdentifier = "8AD7C4CA1AD2FABA0049C997"
+            BuildableName = "libANSDKVungleAdapter.a"
+            BlueprintName = "ANSDKVungleAdapter"
             ReferencedContainer = "container:ANSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
