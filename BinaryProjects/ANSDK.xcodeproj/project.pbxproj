@@ -44,6 +44,9 @@
 		8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */; };
 		8A82FDF61A30F36C00A267A0 /* ANNativeImpressionTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */; };
 		8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8A8DEFA21AD5C03D00742AD7 /* ANAdAdapterBaseInMobi.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AA5B4E51AA8B7F800522E1C /* ANAdAdapterBaseInMobi.h */; };
+		8A8DEFA31AD5C04700742AD7 /* ANAdAdapterBaseAdColony.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */; };
+		8A8DEFA41AD5C05300742AD7 /* ANAdAdapterBaseVungle.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AD7C4DC1AD2FF070049C997 /* ANAdAdapterBaseVungle.h */; };
 		8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */; };
 		8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */; };
 		8A9AED201A1BAD2700C58BDA /* ANAdConstants.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; };
@@ -271,14 +274,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */ = {
+		8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
 			remoteInfo = ANSDK;
 		};
-		8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */ = {
+		8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
 			proxyType = 1;
@@ -372,17 +375,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8A4B96B01ACD9A4C00FFEB2A /* Copy Files */ = {
+		8A1482521AD337320046F1B9 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				8A8DEFA31AD5C04700742AD7 /* ANAdAdapterBaseAdColony.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A1482521AD337320046F1B9 /* Copy Files */ = {
+		8A4B96B01ACD9A4C00FFEB2A /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(PRODUCT_NAME)";
@@ -398,6 +402,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				8A8DEFA21AD5C03D00742AD7 /* ANAdAdapterBaseInMobi.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,6 +424,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				8A8DEFA41AD5C05300742AD7 /* ANAdAdapterBaseVungle.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -836,14 +842,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8A4B96AF1ACD9A4C00FFEB2A /* Frameworks */ = {
+		8A1482511AD337320046F1B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A1482511AD337320046F1B9 /* Frameworks */ = {
+		8A4B96AF1ACD9A4C00FFEB2A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1433,7 +1439,6 @@
 			children = (
 				8A4B96961ACD997500FFEB2A /* Vdopia */,
 				8A1482461AD3371C0046F1B9 /* AdColony */,
-				8AA5B4B61AA8B48E00522E1C /* InMobi */,
 				8AD5155119D216E6002E53D6 /* Amazon */,
 				8AE2D6A019CC871800001B70 /* Facebook Audience Network */,
 				8AE2D7E619CC88FB00001B70 /* Google AdMob */,
@@ -1652,25 +1657,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8A4B96A71ACD9A4C00FFEB2A /* ANSDKVdopiaAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8A4B96B21ACD9A4C00FFEB2A /* Build configuration list for PBXNativeTarget "ANSDKVdopiaAdapter" */;
-			buildPhases = (
-				8A4B96AA1ACD9A4C00FFEB2A /* Sources */,
-				8A4B96AF1ACD9A4C00FFEB2A /* Frameworks */,
-				8A4B96B01ACD9A4C00FFEB2A /* Copy Files */,
-				8A4B96B11ACD9A4C00FFEB2A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8A4B96A81ACD9A4C00FFEB2A /* PBXTargetDependency */,
-			);
-			name = ANSDKVdopiaAdapter;
-			productName = AppNexusSDK;
-			productReference = 8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		8A1482491AD337320046F1B9 /* ANSDKAdColonyAdapter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A1482541AD337320046F1B9 /* Build configuration list for PBXNativeTarget "ANSDKAdColonyAdapter" */;
@@ -1688,6 +1674,25 @@
 			name = ANSDKAdColonyAdapter;
 			productName = AppNexusSDK;
 			productReference = 8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8A4B96A71ACD9A4C00FFEB2A /* ANSDKVdopiaAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A4B96B21ACD9A4C00FFEB2A /* Build configuration list for PBXNativeTarget "ANSDKVdopiaAdapter" */;
+			buildPhases = (
+				8A4B96AA1ACD9A4C00FFEB2A /* Sources */,
+				8A4B96AF1ACD9A4C00FFEB2A /* Frameworks */,
+				8A4B96B01ACD9A4C00FFEB2A /* Copy Files */,
+				8A4B96B11ACD9A4C00FFEB2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8A4B96A81ACD9A4C00FFEB2A /* PBXTargetDependency */,
+			);
+			name = ANSDKVdopiaAdapter;
+			productName = AppNexusSDK;
+			productReference = 8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */ = {
@@ -1981,14 +1986,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8A4B96B11ACD9A4C00FFEB2A /* Resources */ = {
+		8A1482531AD337320046F1B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8A1482531AD337320046F1B9 /* Resources */ = {
+		8A4B96B11ACD9A4C00FFEB2A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2123,6 +2128,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8A14824C1AD337320046F1B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */,
+				8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A4B96AA1ACD9A4C00FFEB2A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2130,15 +2144,6 @@
 				8A4B96B71ACD9A6E00FFEB2A /* ANAdAdapterBannerVdopia.m in Sources */,
 				8A4B96B91ACD9A6E00FFEB2A /* ANAdAdapterInterstitialVdopia.m in Sources */,
 				8A4B96BC1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A14824C1AD337320046F1B9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */,
-				8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2369,15 +2374,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8A4B96A81ACD9A4C00FFEB2A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */;
-		};
 		8A14824A1AD337320046F1B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
 			targetProxy = 8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */;
+		};
+		8A4B96A81ACD9A4C00FFEB2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */;
 		};
 		8A9AEDAE1A1BE8AA00C58BDA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2442,6 +2447,40 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8A1482551AD337320046F1B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKAdColonyAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8A1482561AD337320046F1B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ANSDK.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ANSDKAdColonyAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		8A4B96B31ACD9A4C00FFEB2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2474,40 +2513,6 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKVdopiaAdapter;
-			};
-			name = Release;
-		};
-		8A1482551AD337320046F1B9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKAdColonyAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		8A1482561AD337320046F1B9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKAdColonyAdapter;
-				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -3045,20 +3050,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8A4B96B21ACD9A4C00FFEB2A /* Build configuration list for PBXNativeTarget "ANSDKVdopiaAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8A4B96B31ACD9A4C00FFEB2A /* Debug */,
-				8A4B96B41ACD9A4C00FFEB2A /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
 		8A1482541AD337320046F1B9 /* Build configuration list for PBXNativeTarget "ANSDKAdColonyAdapter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8A1482551AD337320046F1B9 /* Debug */,
 				8A1482561AD337320046F1B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A4B96B21ACD9A4C00FFEB2A /* Build configuration list for PBXNativeTarget "ANSDKVdopiaAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A4B96B31ACD9A4C00FFEB2A /* Debug */,
+				8A4B96B41ACD9A4C00FFEB2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

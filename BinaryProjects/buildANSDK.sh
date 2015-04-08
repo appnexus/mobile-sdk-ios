@@ -8,7 +8,7 @@ OD_SIMULATOR=`pwd`/out_simulator
 LOGDIR="$OUTDIR"/log
 BUILDDIR="$OUTDIR"/build
 
-schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
+schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter ANSDKVdopiaAdapter ANSDKVungleAdapter ANSDKAdColonyAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
 
 rm -fr "$OUTDIR" > /dev/null 2>&1
 rm -fr "$OD_DEVICE" > /dev/null 2>&1
