@@ -14,7 +14,11 @@
  */
 
 #import "ANAdAdapterBaseInMobi.h"
+
 #import "ANLogging.h"
+#import "ANAdConstants.h"
+#import "ANTargetingParameters.h"
+
 #import "InMobi.h"
 #import "IMError.h"
 

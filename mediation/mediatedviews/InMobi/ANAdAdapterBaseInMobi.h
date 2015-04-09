@@ -13,18 +13,14 @@
  limitations under the License.
  */
 
-#import "ANAdConstants.h"
-#import "ANTargetingParameters.h"
+#import <Foundation/Foundation.h>
 
-@class IMError;
-
+/**
+ The InMobi app ID should be set before ads are loaded. All invocations of the InMobi mediation adapters
+ will fail to return an ad if the ID is not set.
+ */
 @interface ANAdAdapterBaseInMobi : NSObject
 
 + (void)setInMobiAppID:(NSString *)appId;
-
-+ (NSString *)appId;
-+ (ANAdResponseCode)responseCodeFromInMobiError:(IMError *)error;
-+ (void)setInMobiTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
-+ (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
 
 @end

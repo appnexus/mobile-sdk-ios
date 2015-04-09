@@ -15,6 +15,7 @@
 
 #import "ANAdAdapterNativeInMobi.h"
 #import "ANAdAdapterBaseInMobi.h"
+#import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
 
 #import "InMobi.h"

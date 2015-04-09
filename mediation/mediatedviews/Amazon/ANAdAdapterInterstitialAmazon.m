@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialAmazon.h"
+#import "ANAdAdapterBaseAmazon+PrivateMethods.h"
 #import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialAmazon ()

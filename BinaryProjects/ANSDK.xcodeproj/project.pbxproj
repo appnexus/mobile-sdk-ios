@@ -587,6 +587,8 @@
 		8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdColony.m; sourceTree = "<group>"; };
 		8A8E0FDC1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdColony.h; sourceTree = "<group>"; };
 		8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdColony.m; sourceTree = "<group>"; };
+		8A8E0FE61AD45170004C5C50 /* ANAdAdapterBaseInMobi+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseInMobi+PrivateMethods.h"; sourceTree = "<group>"; };
+		8A8E0FE81AD451DC004C5C50 /* ANAdAdapterBaseAmazon+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAmazon+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A944DDE19D5AF8C007AAAB0 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
 		8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-AMAZON.txt"; sourceTree = "<group>"; };
 		8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
@@ -1134,6 +1136,7 @@
 				8AA5B4CF1AA8B72C00522E1C /* ANAdAdapterBannerInMobi.m */,
 				8AA5B4E51AA8B7F800522E1C /* ANAdAdapterBaseInMobi.h */,
 				8AA5B4E61AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m */,
+				8A8E0FE61AD45170004C5C50 /* ANAdAdapterBaseInMobi+PrivateMethods.h */,
 				8AA5B4DF1AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.h */,
 				8AA5B4E01AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m */,
 				8AA5B4E11AA8B74E00522E1C /* ANAdAdapterNativeInMobi.h */,
@@ -1228,6 +1231,7 @@
 				8AD5155619D216E6002E53D6 /* ANAdAdapterBannerAmazon.m */,
 				8AD5155719D216E6002E53D6 /* ANAdAdapterBaseAmazon.h */,
 				8AD5155819D216E6002E53D6 /* ANAdAdapterBaseAmazon.m */,
+				8A8E0FE81AD451DC004C5C50 /* ANAdAdapterBaseAmazon+PrivateMethods.h */,
 				8AD5155919D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.h */,
 				8AD5155A19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m */,
 			);

@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2015 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,14 +13,14 @@
  limitations under the License.
  */
 
-#import "ANCustomAdapter.h"
+#import "ANAdAdapterBaseAmazon.h"
 
-/**
- The Amazon app key should be set before ads are loaded. All invocations of the Amazon mediation adapters
- will fail to return an ad if the key is not set.
- */
-@interface ANAdAdapterBaseAmazon : NSObject <ANCustomAdapter>
+@class AmazonAdOptions;
+@class AmazonAdError;
 
-+ (void)setAmazonAppKey:(NSString *)appKey;
+@interface ANAdAdapterBaseAmazon (PrivateMethods)
+
+- (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters;
+- (void)handleAmazonError:(AmazonAdError *)amazonError;
 
 @end
