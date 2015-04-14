@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialAdColony.h"
+#import "ANAdAdapterBaseAdColony+PrivateMethods.h"
 #import "ANLogging.h"
 #import <AdColony/AdColony.h>
 
@@ -33,6 +34,7 @@
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters];
     self.zoneID = idString;
     ADCOLONY_ZONE_STATUS zoneStatus = [AdColony zoneStatusForZone:idString];
     ANAdResponseCode errorCode = ANAdResponseInternalError;

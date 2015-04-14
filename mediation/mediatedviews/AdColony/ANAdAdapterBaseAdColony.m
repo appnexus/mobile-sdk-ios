@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterBaseAdColony.h"
+#import "ANAdAdapterBaseAdColony+PrivateMethods.h"
 #import <AdColony/AdColony.h>
 
 @implementation ANAdAdapterBaseAdColony
@@ -24,6 +25,35 @@
                          zoneIDs:zoneIDs
                         delegate:nil
                          logging:NO];
+}
+
++ (void)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters {
+    if (targetingParameters.age) {
+        [AdColony setUserMetadata:ADC_SET_USER_AGE
+                        withValue:targetingParameters.age];
+    }
+    
+    switch (targetingParameters.gender) {
+        case ANGenderMale:
+            [AdColony setUserMetadata:ADC_SET_USER_GENDER
+                            withValue:ADC_USER_MALE];
+            break;
+        case ANGenderFemale:
+            [AdColony setUserMetadata:ADC_SET_USER_GENDER
+                            withValue:ADC_USER_FEMALE];
+            break;
+        default:
+            break;
+    }
+    
+    if (targetingParameters.location) {
+        NSString *latitude = [NSString stringWithFormat:@"%f", targetingParameters.location.latitude];
+        NSString *longitude = [NSString stringWithFormat:@"%f", targetingParameters.location.longitude];
+        [AdColony setUserMetadata:ADC_SET_USER_LATITUDE
+                        withValue:latitude];
+        [AdColony setUserMetadata:ADC_SET_USER_LONGITUDE
+                        withValue:longitude];
+    }
 }
 
 @end
