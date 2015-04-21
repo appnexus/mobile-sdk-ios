@@ -31,7 +31,10 @@
                        targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting MillennialMedia interstitial");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wexplicit-initialize-call"
     [MMSDK initialize];
+#pragma clang diagnostic pop
     [self addMMNotificationObservers];
     
     self.apid = idString;

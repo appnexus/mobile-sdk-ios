@@ -34,7 +34,10 @@
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wexplicit-initialize-call"
     [MMSDK initialize];
+#pragma clang diagnostic pop
     [self addMMNotificationObservers];
     
     //MMRequest object
