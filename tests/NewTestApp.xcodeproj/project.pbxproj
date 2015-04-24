@@ -77,6 +77,8 @@
 		8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
 		8A8458741A699CF90014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
 		8A8458881A69A34C0014F291 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AA0094219DB169B0090EBED /* ANSDKResources.bundle */; };
+		8A949AE51ADF23C500D83DCE /* libANSDKChartboostAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */; };
+		8A949AEA1ADF23D900D83DCE /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE91ADF23D900D83DCE /* Chartboost.framework */; };
 		8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */; };
 		8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095519DB16C50090EBED /* AppDelegate.m */; };
 		8AA0095B19DB16C50090EBED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095619DB16C50090EBED /* main.m */; };
@@ -196,6 +198,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A1482571AD337320046F1B9;
+			remoteInfo = ANSDKAdColonyAdapter;
+		};
 		8A4B96C41ACDEDE300FFEB2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
@@ -216,13 +225,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8A4B96A71ACD9A4C00FFEB2A;
 			remoteInfo = ANSDKVdopiaAdapter;
-        };
-		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A1482571AD337320046F1B9;
-			remoteInfo = ANSDKAdColonyAdapter;
 		};
 		8A549E9F1A706BA6009F797A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -237,6 +239,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
 			remoteInfo = AppNexusSDK;
+		};
+		8A949AE31ADF23C500D83DCE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A949ACE1ADF131500D83DCE;
+			remoteInfo = ANSDKChartboostAdapter;
 		};
 		8A9F94D919D1C37700AB739F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -535,6 +544,7 @@
 		8A7F4CC419DB3976003ECC5C /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MRAID.bundle; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MRAID.bundle; sourceTree = "<group>"; };
 		8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
 		8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
+		8A949AE91ADF23D900D83DCE /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Chartboost.framework; path = ../mediation/mediatedviews/Chartboost/ChartboostSDK/Chartboost.framework; sourceTree = "<group>"; };
 		8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdViewMainImage.xib; sourceTree = "<group>"; };
 		8A9F94C019D1C37700AB739F /* MediationAdapterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediationAdapterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediationAdapterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -728,10 +738,12 @@
 				8AA5B4F51AA90C6D00522E1C /* libInMobi-4.5.1.a in Frameworks */,
 				8AA009E619DB1D320090EBED /* FBAudienceNetwork.framework in Frameworks */,
 				8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */,
+				8A949AEA1ADF23D900D83DCE /* Chartboost.framework in Frameworks */,
 				8AA009EA19DB1D480090EBED /* MillennialMedia.framework in Frameworks */,
 				8A4B96CA1ACDEDFA00FFEB2A /* libLWSDK.a in Frameworks */,
 				8AA009EC19DB1D530090EBED /* libMoPubSDK.a in Frameworks */,
 				8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */,
+				8A949AE51ADF23C500D83DCE /* libANSDKChartboostAdapter.a in Frameworks */,
 				8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -918,6 +930,7 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A949AE91ADF23D900D83DCE /* Chartboost.framework */,
 				8A4B96C91ACDEDFA00FFEB2A /* libLWSDK.a */,
 				8A1482801AD346430046F1B9 /* CoreMedia.framework */,
 				8A14827D1AD346220046F1B9 /* Social.framework */,
@@ -972,6 +985,7 @@
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
 				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
@@ -1495,13 +1509,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKVdopiaAdapter.a;
-			remoteRef = 8A4B96C41ACDEDE300FFEB2A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1509,11 +1516,25 @@
 			remoteRef = 8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKVdopiaAdapter.a;
+			remoteRef = 8A4B96C41ACDEDE300FFEB2A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AppNexusSDK.framework;
 			remoteRef = 8A84E4111A2516E000C60EAB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKChartboostAdapter.a;
+			remoteRef = 8A949AE31ADF23C500D83DCE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8AA0094019DB169B0090EBED /* libANSDK.a */ = {
@@ -2242,6 +2263,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2303,6 +2325,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

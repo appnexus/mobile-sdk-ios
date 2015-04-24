@@ -21,6 +21,7 @@
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseAdColony.h"
 #import "ANAdAdapterBaseVungle.h"
+#import "ANAdAdapterBaseChartboost.h"
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
 
@@ -41,6 +42,7 @@
              @"VdopiaInterstitial",
              @"AdColonyInterstitial",
              @"VungleInterstitial",
+             @"ChartboostInterstitial",
              @"FacebookBanner",
              @"FacebookInterstitial",
              @"FacebookNative",
@@ -439,6 +441,29 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialAdColony";
     mediatedAd.adId = @"vzcc692652bbe74d4e92";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - Chartboost
+
+- (ANInterstitialAd *)loadChartboostInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubChartboostInterstitial];
+    static dispatch_once_t startToken;
+    dispatch_once(&startToken, ^{
+       [ANAdAdapterBaseChartboost startWithAppId:@"552d680204b01658a177f467"
+                                    appSignature:@"8051c2d6e6178ad46448e54460c255f04cfc50e0"];
+    });
+    ANInterstitialAd *interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"2054679"];
+    interstitialAd.delegate = delegate;
+    [interstitialAd addCustomKeywordWithKey:kANAdAdapterBaseChartboostCBLocationKey
+                                      value:CBLocationHomeScreen];
+    [interstitialAd loadAd];
+    return interstitialAd;
+}
+
+- (void)stubChartboostInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialChartboost";
     [self stubMediatedAd:mediatedAd];
 }
 
