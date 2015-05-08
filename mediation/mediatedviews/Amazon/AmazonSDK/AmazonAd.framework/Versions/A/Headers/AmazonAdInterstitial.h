@@ -2,8 +2,7 @@
 //  AmazonAdInterstitial.h
 //  AmazonMobileAdsSDK
 //
-//  Created by Guo, Wei on 5/27/14.
-//  Copyright (c) 2014 Amazon.com. All rights reserved.
+//  Copyright (c) 2014-2015 Amazon.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

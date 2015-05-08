@@ -32,8 +32,7 @@
                        targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting DFP interstitial");
-	self.interstitialAd = [[DFPInterstitial alloc] init];
-	self.interstitialAd.adUnitID = idString;
+	self.interstitialAd = [[DFPInterstitial alloc] initWithAdUnitID:idString];
 	self.interstitialAd.delegate = self;
 	[self.interstitialAd loadRequest:
      [self createRequestFromTargetingParameters:targetingParameters]];

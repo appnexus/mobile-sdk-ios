@@ -32,8 +32,7 @@
                        targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting AdMob interstitial");
-	self.interstitialAd = [[GADInterstitial alloc] init];
-	self.interstitialAd.adUnitID = idString;
+	self.interstitialAd = [[GADInterstitial alloc] initWithAdUnitID:idString];
 	self.interstitialAd.delegate = self;
     [self.interstitialAd loadRequest:
      [self createRequestFromTargetingParameters:targetingParameters]];

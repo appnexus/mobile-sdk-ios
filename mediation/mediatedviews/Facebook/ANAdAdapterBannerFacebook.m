@@ -31,11 +31,16 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
-    self.fbAdView = [[FBAdView alloc] initWithPlacementID:idString
-                                                   adSize:kFBAdSize320x50
-                                       rootViewController:rootViewController];
-    self.fbAdView.delegate = self;
-    [self.fbAdView loadAd];
+    if (CGSizeEqualToSize(size, kFBAdSize320x50.size)) {
+        self.fbAdView = [[FBAdView alloc] initWithPlacementID:idString
+                                                       adSize:kFBAdSize320x50
+                                           rootViewController:rootViewController];
+        self.fbAdView.frame = CGRectMake(0, 0, kFBAdSize320x50.size.width, kFBAdSize320x50.size.height);
+        self.fbAdView.delegate = self;
+        [self.fbAdView loadAd];
+    } else {
+        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    }
 }
  
 #pragma mark FBAdViewDelegate methods

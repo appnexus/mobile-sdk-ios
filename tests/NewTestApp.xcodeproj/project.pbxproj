@@ -157,6 +157,7 @@
 		8AA5B4F51AA90C6D00522E1C /* libInMobi-4.5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5B4F41AA90C6D00522E1C /* libInMobi-4.5.1.a */; };
 		8AA5B4F71AA90CCE00522E1C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5B4F61AA90CCE00522E1C /* libsqlite3.dylib */; };
 		8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5B4F81AA90CED00522E1C /* libz.dylib */; };
+		8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */; };
 		8AB387F819DB1245006F9E15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB387F719DB1245006F9E15 /* UIKit.framework */; };
 		8AB387F919DB1297006F9E15 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
 		8AB5324819F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */; };
@@ -717,6 +718,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */,
 				8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */,
 				8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */,
 				8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */,
