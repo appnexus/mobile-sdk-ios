@@ -85,7 +85,7 @@
 }
 
 - (void)adWasClicked:(id<ANAdProtocol>)ad {
-    [self.delegate customEventBanner:self clickDidOccurInAd:self.bannerAdView];
+    [self.delegate customEventBannerWasClicked:self];
 }
 
 - (void)adWillPresent:(id<ANAdProtocol>)ad {

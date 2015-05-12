@@ -68,7 +68,7 @@
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
 {
-	[self.delegate customEventInterstitial:self didReceiveAd:ad];
+	[self.delegate customEventInterstitialDidReceiveAd:self];
 }
 
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
