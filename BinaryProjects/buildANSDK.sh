@@ -99,7 +99,7 @@ The AppNexus Mobile Advertising SDK for iOS
 
 The ANSDK folder contains the AppNexus mobile advertising SDK. Documentation is available on our wiki (https://wiki.appnexus.com/display/sdk/Mobile+SDKs).
 
-The ANAdaptersNetworksMediatedByAppNexus folder contains adapters which allow the AppNexus SDK to serve mediated ads from third-party SDKs. For each network you would like the SDK to mediate, include the adapter in your project as well as the corresponding third-party SDK.
+The ANAdaptersNetworksMediatedByAppNexus folder contains adapters which allow the AppNexus SDK to serve mediated ads from third-party SDKs. For each network you would like the SDK to mediate, include the adapter in your project, the corresponding third-party SDK, and the base header file (e.g. ANAdAdapterBaseAmazon) if present in the root folder.
 
 The ANAdaptersNetworksMediatingAppNexus folder contains adapters which allow third-party SDKs to mediate AppNexus. Include an adapter in your project for each SDK which should call AppNexus as part of its mediation waterfall.
 

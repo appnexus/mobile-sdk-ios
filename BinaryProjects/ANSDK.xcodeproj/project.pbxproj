@@ -42,6 +42,7 @@
 		8A6D2E8D1A44A751003CE77A /* interstitial_flat_closebox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E841A44A5D3003CE77A /* interstitial_flat_closebox@3x.png */; };
 		8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E871A44A62A003CE77A /* interstitial_flat_closebox@2x.png */; };
 		8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */; };
+		8A7FB9511B0527E800C90859 /* ANAdAdapterBaseChartboost.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A949AD21ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.h */; };
 		8A82FDF61A30F36C00A267A0 /* ANNativeImpressionTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */; };
 		8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A8DEFA21AD5C03D00742AD7 /* ANAdAdapterBaseInMobi.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AA5B4E51AA8B7F800522E1C /* ANAdAdapterBaseInMobi.h */; };
@@ -405,6 +406,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				8A7FB9511B0527E800C90859 /* ANAdAdapterBaseChartboost.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
