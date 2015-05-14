@@ -55,7 +55,7 @@
 }
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view {
-    [self.delegate didFailToLoadAd:ANAdResponseInternalError];
+    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
 }
 
 - (void)willPresentModalViewForAd:(MPAdView *)view {

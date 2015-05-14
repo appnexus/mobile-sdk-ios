@@ -65,7 +65,7 @@
                                         code = ANAdResponseInternalError;
                                         break;
                                     case MMAdServerError:
-                                        code = ANAdResponseNetworkError;
+                                        code = ANAdResponseUnableToFill;
                                         break;
                                     case MMAdUnavailable:
                                         code = ANAdResponseUnableToFill;
