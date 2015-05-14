@@ -13,9 +13,8 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANTARGETINGPARAMETERSHEADER
+#import "ANTargetingParameters.h"
 
-@implementation ANTARGETINGPARAMETERS
+@implementation ANTargetingParameters
 
 @end

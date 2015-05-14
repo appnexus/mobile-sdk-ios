@@ -13,27 +13,27 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANADVIEWHEADER
+#import "ANAdView.h"
 
 #import "ANAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANAdServerResponse.h"
 
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
 #define DEFAULT_PSAS NO
 
-@interface ANADVIEW () <ANAdFetcherDelegate, ANAdViewInternalDelegate>
+@interface ANAdView () <ANAdFetcherDelegate, ANAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
-@property (nonatomic, readwrite, weak) id<ANADDELEGATE> delegate;
-@property (nonatomic, readwrite, weak) id<ANAPPEVENTDELEGATE> appEventDelegate;
+@property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 
 @end
 
-@implementation ANADVIEW
+@implementation ANAdView
 // ANAdProtocol properties
 @synthesize placementId = __placementId;
 @synthesize opensInNativeBrowser = __opensInNativeBrowser;
@@ -101,20 +101,16 @@
 
 - (void)loadAdFromHtml:(NSString *)html
                  width:(int)width height:(int)height {
-    ANAdResponse *response = [ANAdResponse new];
-    response.content = html;
-    response.width = [NSString stringWithFormat:@"%i", width];
-    response.height = [NSString stringWithFormat:@"%i", height];
-    response.isMraid = YES;
-    response.containsAds = YES;
-    
+    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithContent:html
+                                                                         width:width
+                                                                        height:height];
     [self.adFetcher processAdResponse:response];
 }
 
 #pragma mark Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
-    placementId = convertToNSString(placementId);
+    placementId = ANConvertToNSString(placementId);
     if ([placementId length] < 1) {
         ANLogError(@"Could not set placementId to non-string value");
         return;
@@ -127,7 +123,7 @@
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
-    self.location = [ANLOCATION getLocationWithLatitude:latitude
+    self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy];
@@ -136,7 +132,7 @@
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
-    self.location = [ANLOCATION getLocationWithLatitude:latitude
+    self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy
@@ -166,7 +162,7 @@
     return __placementId;
 }
 
-- (ANLOCATION *)location {
+- (ANLocation *)location {
     ANLogDebug(@"location returned %@", __location);
     return __location;
 }
@@ -191,7 +187,7 @@
     return __age;
 }
 
-- (ANGENDER)gender {
+- (ANGender)gender {
     ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
     return __gender;
 }

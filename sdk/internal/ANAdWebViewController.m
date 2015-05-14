@@ -215,7 +215,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 # pragma mark - UIWebViewDelegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [webView removeDocumentPadding];
+    [webView an_removeDocumentPadding];
     [self processWebViewDidFinishLoad];
 }
 
@@ -237,7 +237,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     }
 
     if (self.completedFirstLoad) {
-        if (hasHttpPrefix(scheme)) {
+        if (ANHasHttpPrefix(scheme)) {
             if (self.isMRAID) {
                 if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] && self.configuration.navigationTriggersDefaultBrowser) {
                     [self.browserDelegate openDefaultBrowserWithURL:URL];
@@ -343,12 +343,12 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         [self.viewabilityTimer invalidate];
     }
     __weak ANAdWebViewController *weakSelf = self;
-    self.viewabilityTimer = [NSTimer scheduledTimerWithTimeInterval:kAppNexusMRAIDCheckViewableFrequency
-                                                              block:^ {
-                                                                  ANAdWebViewController *strongSelf = weakSelf;
-                                                                  [strongSelf updateWebViewOnPositionAndVisibilityStatus];
-                                                              }
-                                                            repeats:YES];
+    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusMRAIDCheckViewableFrequency
+                                                                 block:^ {
+                                                                     ANAdWebViewController *strongSelf = weakSelf;
+                                                                     [strongSelf updateWebViewOnPositionAndVisibilityStatus];
+                                                                 }
+                                                               repeats:YES];
 }
 
 - (void)setupRapidTimerForCheckingPositionAndViewability {
@@ -357,12 +357,12 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         [self.viewabilityTimer invalidate];
     }
     __weak ANAdWebViewController *weakSelf = self;
-    self.viewabilityTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                              block:^ {
-                                                                  ANAdWebViewController *strongSelf = weakSelf;
-                                                                  [strongSelf updateWebViewOnPositionAndVisibilityStatus];
-                                                              }
-                                                            repeats:YES];
+    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:0.1
+                                                                 block:^ {
+                                                                     ANAdWebViewController *strongSelf = weakSelf;
+                                                                     [strongSelf updateWebViewOnPositionAndVisibilityStatus];
+                                                                 }
+                                                               repeats:YES];
 }
 
 - (void)updateWebViewOnPositionAndVisibilityStatus {
@@ -416,7 +416,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                                    baseURL:nil];
         [self.legacyWebView stopLoading];
         self.legacyWebView.delegate = nil;
-        [self.legacyWebView removeSubviews];
+        [self.legacyWebView an_removeSubviews];
         [self.legacyWebView removeFromSuperview];
     }
     self.contentView = nil;
@@ -427,7 +427,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     NSString *mraidCommand = [URL host];
     NSString *query = [URL query];
-    NSDictionary *queryComponents = [query queryComponents];
+    NSDictionary *queryComponents = [query an_queryComponents];
     
     ANMRAIDAction action = [ANMRAIDUtil actionForCommand:mraidCommand];
     switch (action) {

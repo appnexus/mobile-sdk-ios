@@ -28,10 +28,13 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting MillennialMedia interstitial");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wexplicit-initialize-call"
     [MMSDK initialize];
+#pragma clang diagnostic pop
     [self addMMNotificationObservers];
     
     self.apid = idString;
@@ -62,7 +65,7 @@
                                         code = ANAdResponseInternalError;
                                         break;
                                     case MMAdServerError:
-                                        code = ANAdResponseNetworkError;
+                                        code = ANAdResponseUnableToFill;
                                         break;
                                     case MMAdUnavailable:
                                         code = ANAdResponseUnableToFill;
@@ -76,7 +79,7 @@
                                 }
                                 
                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+                                    [self.delegate didFailToLoadAd:code];
                                 });
                             }
                         }];

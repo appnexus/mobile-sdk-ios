@@ -41,12 +41,12 @@
 
 - (void)createExpirationTimer {
     __weak ANNativeImpressionTrackerInfo *weakSelf = self;
-    self.expirationTimer = [NSTimer scheduledTimerWithTimeInterval:kANNativeImpressionTrackerExpirationInterval
-                                                             block:^{
-                                                                 ANNativeImpressionTrackerInfo *strongSelf = weakSelf;
-                                                                 strongSelf.expired = YES;
-                                                             }
-                                                           repeats:NO];
+    self.expirationTimer = [NSTimer an_scheduledTimerWithTimeInterval:kANNativeImpressionTrackerExpirationInterval
+                                                                block:^{
+                                                                    ANNativeImpressionTrackerInfo *strongSelf = weakSelf;
+                                                                    strongSelf.expired = YES;
+                                                                }
+                                                              repeats:NO];
 }
 
 - (NSString *)description {

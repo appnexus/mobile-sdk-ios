@@ -16,6 +16,7 @@
 #import <AmazonAd/AmazonAdOptions.h>
 #import <AmazonAd/AmazonAdError.h>
 #import "ANAdAdapterBannerAmazon.h"
+#import "ANAdAdapterBaseAmazon+PrivateMethods.h"
 #import "ANLogging.h"
 
 @interface ANAdAdapterBannerAmazon ()

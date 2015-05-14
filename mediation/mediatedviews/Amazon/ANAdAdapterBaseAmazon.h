@@ -13,10 +13,6 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
-#import <AmazonAd/AmazonAdRegistration.h>
-#import <AmazonAd/AmazonAdError.h>
-#import <AmazonAd/AmazonAdOptions.h>
 #import "ANCustomAdapter.h"
 
 /**
@@ -26,7 +22,5 @@
 @interface ANAdAdapterBaseAmazon : NSObject <ANCustomAdapter>
 
 + (void)setAmazonAppKey:(NSString *)appKey;
-- (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters;
-- (void)handleAmazonError:(AmazonAdError *)amazonError;
 
 @end

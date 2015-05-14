@@ -1,53 +1,53 @@
 OUTDIR=`pwd`/out
-OUTDIR_DEVICE=`pwd`/out_device
-OUTDIR_SIMULATOR=`pwd`/out_simulator
-LOGDIR=$OUTDIR/log
-BUILDDIR=$OUTDIR/build
+OD_DEVICE=`pwd`/out_device
+OD_SIMULATOR=`pwd`/out_simulator
+LOGDIR="$OUTDIR"/log
+BUILDDIR="$OUTDIR"/build
 SCHEMENAME="AppNexusSDK"
 
-rm -fr $OUTDIR > /dev/null 2>&1
-rm -fr $OUTDIR_DEVICE > /dev/null 2>&1
-rm -fr $OUTDIR_SIMULATOR > /dev/null 2>&1
+rm -fr "$OUTDIR" > /dev/null 2>&1
+rm -fr "$OD_DEVICE" > /dev/null 2>&1
+rm -fr "$OD_SIMULATOR" > /dev/null 2>&1
 
 function buildDevice {
     echo "Building framework for device:" $1
-    LOGFILE=$LOGDIR/$1.log
-    xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" CONFIGURATION_BUILD_DIR=$OUTDIR SYMROOT=$BUILDDIR OBJROOT=$BUILDDIR > $LOGFILE 2>&1 || { echo "Error in build check log $LOGFILE"; exit;}
-    mkdir -p $OUTDIR/$1
-    mv $OUTDIR/$1.framework $OUTDIR/$1/$1.framework
+    LOGFILE="$LOGDIR"/$1.log
+    xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+    mkdir -p "$OUTDIR"/$1
+    mv "$OUTDIR"/$1.framework "$OUTDIR"/$1/$1.framework
 }
 
 function buildSim {
     echo "Building framework for simulator:" $1
-    LOGFILE=$LOGDIR/$1.log
-    xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR=$OUTDIR SYMROOT=$BUILDDIR OBJROOT=$BUILDDIR > $LOGFILE 2>&1 || { echo "Error in build check log $LOGFILE"; exit;}
-    mkdir -p $OUTDIR/$1
-    mv $OUTDIR/$1.framework $OUTDIR/$1/$1.framework
+    LOGFILE="$LOGDIR"/$1.log
+    xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+    mkdir -p "$OUTDIR"/$1
+    mv "$OUTDIR"/$1.framework "$OUTDIR"/$1/$1.framework
 }
 
 ### device
-mkdir -p $LOGDIR
+mkdir -p "$LOGDIR"
 buildDevice $SCHEMENAME
-rm -rf $OUTDIR/Intermediates
-rm -rf $BUILDDIR
-mv $OUTDIR $OUTDIR_DEVICE
+rm -rf "$OUTDIR"/Intermediates
+rm -rf "$BUILDDIR"
+mv "$OUTDIR" "$OD_DEVICE"
 
 ### simulator
 
-mkdir -p $LOGDIR
+mkdir -p "$LOGDIR"
 buildSim $SCHEMENAME
-rm -rf $OUTDIR/Intermediates
-rm -rf $BUILDDIR
-mv $OUTDIR $OUTDIR_SIMULATOR
+rm -rf "$OUTDIR"/Intermediates
+rm -rf "$BUILDDIR"
+mv "$OUTDIR" "$OD_SIMULATOR"
 
 ### combine
 echo 'Combining framework architectures'
 
-mkdir -p $OUTDIR/$SCHEMENAME
-cp -a $OUTDIR_DEVICE/$SCHEMENAME/$SCHEMENAME.framework $OUTDIR/$SCHEMENAME
-lipo -create $OUTDIR_DEVICE/$SCHEMENAME/$SCHEMENAME.framework/$SCHEMENAME $OUTDIR_SIMULATOR/$SCHEMENAME/$SCHEMENAME.framework/$SCHEMENAME  -output $OUTDIR/$SCHEMENAME/$SCHEMENAME.framework/$SCHEMENAME
-rm -rf $OUTDIR_DEVICE/$SCHEMENAME/$SCHEMENAME.framework
+mkdir -p "$OUTDIR"/$SCHEMENAME
+cp -a "$OD_DEVICE"/$SCHEMENAME/$SCHEMENAME.framework "$OUTDIR"/$SCHEMENAME
+lipo -create "$OD_DEVICE"/$SCHEMENAME/$SCHEMENAME.framework/$SCHEMENAME "$OD_SIMULATOR"/$SCHEMENAME/$SCHEMENAME.framework/$SCHEMENAME  -output "$OUTDIR"/$SCHEMENAME/$SCHEMENAME.framework/$SCHEMENAME
+rm -rf "$OD_DEVICE"/$SCHEMENAME/$SCHEMENAME.framework
 
-rm -fr $OUTDIR_DEVICE > /dev/null 2>&1
-rm -fr $OUTDIR_SIMULATOR > /dev/null 2>&1
+rm -fr "$OD_DEVICE" > /dev/null 2>&1
+rm -fr "$OD_SIMULATOR" > /dev/null 2>&1
 rm -rf `pwd`/build

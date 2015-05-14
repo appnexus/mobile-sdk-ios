@@ -23,6 +23,8 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
+#import "ANNativeMediatedAdController.h"
+
 @interface ANNativeAdRequestUrlBuilder ()
 @property (nonatomic, readwrite, strong) NSString *baseUrlString;
 @property (nonatomic, readwrite, weak) id<ANNativeAdTargetingProtocol> adRequestDelegate;
@@ -160,7 +162,7 @@
 }
 
 - (NSString *)firstLaunchParameter {
-    return isFirstLaunch() ? @"firstlaunch=true" : @"";
+    return ANIsFirstLaunch() ? @"firstlaunch=true" : @"";
 }
 
 - (NSString *)carrierMccMncParameters {
@@ -273,8 +275,8 @@
     }
     
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        key = convertToNSString(key);
-        value = convertToNSString(value);
+        key = ANConvertToNSString(key);
+        value = ANConvertToNSString(value);
         if(![self stringInParameterList:key]){
             if ([value length] > 0) {
                 customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
@@ -291,7 +293,7 @@
 }
 
 - (NSString *)nonetParameter {
-    NSArray *invalidNetworks = [ANInvalidNetworks() allObjects];
+    NSArray *invalidNetworks = [[ANNativeMediatedAdController invalidNetworks] allObjects];
     return [invalidNetworks count] ? [NSString stringWithFormat:@"nonet=%@", [invalidNetworks componentsJoinedByString:@"%2C"]] : @"";
 }
 

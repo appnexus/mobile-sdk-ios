@@ -18,21 +18,37 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANLogManager.h"
 #import "ANAdAdapterBaseAmazon.h"
+#import "ANAdAdapterBaseInMobi.h"
+#import "ANAdAdapterBaseAdColony.h"
+#import "ANAdAdapterBaseVungle.h"
+#import "ANAdAdapterBaseChartboost.h"
+#import "ANNativeAdRequest.h"
+#import "ANNativeAdView.h"
 
-@interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ANNativeAdRequestDelegate, ANNativeAdDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) ANInterstitialAd *interstitialAd;
 @property (nonatomic, weak) ANBannerAdView *bannerAdView;
+@property (nonatomic) ANNativeAdRequest *nativeAdRequest;
+@property (nonatomic) ANNativeAdResponse *nativeAdResponse;
+@property (nonatomic) ANNativeAdView *nativeAdView;
 @end
 
 @implementation ANMediationAdapterViewController
 
 + (NSArray *)networks {
-    return @[@"FacebookBanner",
+    return @[@"VdopiaBanner",
+             @"VdopiaInterstitial",
+             @"AdColonyInterstitial",
+             @"VungleInterstitial",
+             @"ChartboostInterstitial",
+             @"FacebookBanner",
              @"FacebookInterstitial",
+             @"FacebookNative",
              @"MoPubBanner",
              @"MoPubInterstitial",
+             @"MoPubNative",
              @"iAdBanner",
              @"iAdInterstitial",
              @"AmazonBanner",
@@ -43,6 +59,9 @@
              @"AdMobInterstitial",
              @"DFPBanner",
              @"DFPInterstitial",
+             @"InMobiBanner",
+             @"InMobiInterstitial",
+             @"InMobiNative",
              @"DoesNotExistBanner",
              @"DoesNotExistInterstitial"];
 }
@@ -75,14 +94,19 @@
     #pragma clang diagnostic pop
     if ([ad isKindOfClass:[ANBannerAdView class]]) {
         self.bannerAdView = (ANBannerAdView *)ad;
-    } else {
+    } else if ([ad isKindOfClass:[ANInterstitialAd class]]) {
         self.interstitialAd = (ANInterstitialAd *)ad;
+    } else {
+        self.nativeAdRequest = (ANNativeAdRequest *)ad;
     }
 }
 
 - (void)clearCurrentAd {
     [self.bannerAdView removeFromSuperview];
     self.interstitialAd = nil;
+    [self.nativeAdView removeFromSuperview];
+    self.nativeAdView = nil;
+    self.nativeAdResponse = nil;
 }
 
 #pragma mark - Facebook
@@ -109,6 +133,21 @@
 - (void)stubFacebookInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialFacebook";
+    mediatedAd.adId = @"210827375150_10154672420735151";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (ANNativeAdRequest *)loadFacebookNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
+    [self stubFacebookNative];
+    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
+    nativeAdRequest.shouldLoadIconImage = YES;
+    nativeAdRequest.shouldLoadMainImage = YES;
+    return nativeAdRequest;
+}
+
+- (void)stubFacebookNative {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterNativeFacebook";
     mediatedAd.adId = @"210827375150_10154672420735151";
     [self stubMediatedAd:mediatedAd];
 }
@@ -140,6 +179,24 @@
     mediatedAd.adId = @"123";
     [self stubMediatedAd:mediatedAd];
 }
+
+#pragma mark - Vungle
+
+-  (ANInterstitialAd *)loadVungleInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    static dispatch_once_t vungleToken;
+    dispatch_once(&vungleToken, ^{
+        [ANAdAdapterBaseVungle setVungleAppId:@"736869833"];
+    });
+    [self stubVungleInterstitial];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubVungleInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialVungle";
+    [self stubMediatedAd:mediatedAd];
+}
+
 
 #pragma mark - iAd
 
@@ -198,6 +255,21 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialMoPub";
     mediatedAd.adId = @"783ac4a38cc44144b3f62b9b89ca85b4";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (ANNativeAdRequest *)loadMoPubNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
+    [self stubMoPubNative];
+    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
+    nativeAdRequest.shouldLoadIconImage = YES;
+    nativeAdRequest.shouldLoadMainImage = YES;
+    return nativeAdRequest;
+}
+
+- (void)stubMoPubNative {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterNativeMoPub";
+    mediatedAd.adId = @"2e1dc30d43c34a888d91b5203560bbf6";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -285,6 +357,116 @@
     [self stubMediatedAd:mediatedAd];
 }
 
+#pragma mark - InMobi
+
+- (ANBannerAdView *)loadInMobiBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
+    [self stubInMobiBanner];
+    [ANAdAdapterBaseInMobi setInMobiAppID:@"0c4a211baa254c3ab8bfb7dee681a666"];
+    return [self bannerWithDelegate:delegate];
+}
+
+- (ANInterstitialAd *)loadInMobiInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubInMobiInterstitial];
+    [ANAdAdapterBaseInMobi setInMobiAppID:@"0c4a211baa254c3ab8bfb7dee681a666"];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubInMobiBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerInMobi";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubInMobiInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialInMobi";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (ANNativeAdRequest *)loadInMobiNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
+    [self stubInMobiNative];
+    [ANAdAdapterBaseInMobi setInMobiAppID:@"0c4a211baa254c3ab8bfb7dee681a666"];
+    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
+    nativeAdRequest.shouldLoadIconImage = YES;
+    nativeAdRequest.shouldLoadMainImage = YES;
+    return nativeAdRequest;
+}
+
+- (void)stubInMobiNative {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterNativeInMobi";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - Vdopia
+
+- (ANBannerAdView *)loadVdopiaBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
+    [self stubVdopiaBanner];
+    return [self bannerWithDelegate:delegate];
+}
+
+- (ANInterstitialAd *)loadVdopiaInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubVdopiaInterstitial];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubVdopiaBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerVdopia";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    mediatedAd.adId = @"AX123";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubVdopiaInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialVdopia";
+    mediatedAd.adId = @"AX123";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - AdColony
+
+- (ANInterstitialAd *)loadAdColonyInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubAdColonyInterstitial];
+    [ANAdAdapterBaseAdColony configureWithAppID:@"appe1ba2960e786424bb5"
+                                        zoneIDs:@[@"vzcc692652bbe74d4e92"]];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubAdColonyInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialAdColony";
+    mediatedAd.adId = @"vzcc692652bbe74d4e92";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - Chartboost
+
+- (ANInterstitialAd *)loadChartboostInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubChartboostInterstitial];
+    static dispatch_once_t startToken;
+    dispatch_once(&startToken, ^{
+       [ANAdAdapterBaseChartboost startWithAppId:@"552d680204b01658a177f467"
+                                    appSignature:@"8051c2d6e6178ad46448e54460c255f04cfc50e0"];
+    });
+    ANInterstitialAd *interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"2054679"];
+    interstitialAd.delegate = delegate;
+    [interstitialAd addCustomKeywordWithKey:kANAdAdapterBaseChartboostCBLocationKey
+                                      value:CBLocationHomeScreen];
+    [interstitialAd loadAd];
+    return interstitialAd;
+}
+
+- (void)stubChartboostInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialChartboost";
+    [self stubMediatedAd:mediatedAd];
+}
+
 #pragma mark - Does Not Exist
 
 - (ANBannerAdView *)loadDoesNotExistBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
@@ -326,6 +508,81 @@
         [self.interstitialAd displayAdFromViewController:self];
     }
     [self.activityIndicator stopAnimating];
+}
+
+#pragma mark - ANNativeAdRequestDelegate
+
+- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    self.nativeAdResponse = response;
+    [self createMainImageNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
+    [self.activityIndicator stopAnimating];
+}
+
+- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [self.activityIndicator stopAnimating];
+}
+
+
+#pragma mark - ANAdProtocol/ANNativeAdDelegate
+
+- (void)adWasClicked:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adWillPresent:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adDidPresent:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adWillClose:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adDidClose:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)adWillLeaveApplication:(id)ad {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+#pragma mark - Native
+
+- (void)createMainImageNativeView {
+    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage" bundle:[NSBundle bundleForClass:[self class]]];
+    NSArray *array = [adNib instantiateWithOwner:self options:nil];
+    self.nativeAdView = [array firstObject];
+}
+
+- (void)populateNativeViewWithResponse {
+    ANNativeAdView *nativeAdView = self.nativeAdView;
+    nativeAdView.titleLabel.text = self.nativeAdResponse.title;
+    nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
+    nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
+    nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
+    [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
+}
+
+- (void)registerNativeView {
+    NSError *registerError;
+    UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    self.nativeAdResponse.delegate = self;
+    [self.nativeAdResponse registerViewForTracking:self.nativeAdView
+                            withRootViewController:rvc
+                                    clickableViews:@[self.nativeAdView.callToActionButton]
+                                             error:&registerError];
+}
+
+- (void)addNativeViewToViewHierarchy {
+    [self.view addSubview:self.nativeAdView];
 }
 
 # pragma mark - General
@@ -400,6 +657,13 @@
     interstitialAd.delegate = delegate;
     [interstitialAd loadAd];
     return interstitialAd;
+}
+
+- (ANNativeAdRequest *)nativeAdRequestWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
+    ANNativeAdRequest *nativeAdRequest = [[ANNativeAdRequest alloc] init];
+    nativeAdRequest.delegate = self;
+    [nativeAdRequest loadAd];
+    return nativeAdRequest;
 }
 
 - (BOOL)prefersStatusBarHidden {

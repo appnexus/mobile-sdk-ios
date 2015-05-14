@@ -18,7 +18,7 @@ limitations under the License.
 
 @interface UIWebView (ANCategory)
 
-@property(nonatomic, getter=isScrollEnabled) BOOL scrollEnabled;
-- (void)removeDocumentPadding;
-- (void)setMediaProperties;
+@property(nonatomic, getter=isAn_scrollEnabled) BOOL an_scrollEnabled;
+- (void)an_removeDocumentPadding;
+- (void)an_setMediaProperties;
 @end

@@ -66,7 +66,7 @@
                  forState:UIControlStateNormal];
     closeButton.hidden = YES;
     closeButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [closeButton constrainWithSize:CGSizeMake(kANResizeViewCloseRegionWidth, kANResizeViewCloseRegionHeight)];
+    [closeButton an_constrainWithSize:CGSizeMake(kANResizeViewCloseRegionWidth, kANResizeViewCloseRegionHeight)];
     _supplementaryCloseRegion = closeButton;
     [self addSubview:_supplementaryCloseRegion];
 }
@@ -113,9 +113,9 @@
             break;
     }
     
-    [self.closeRegion constrainWithSize:CGSizeMake(kANResizeViewCloseRegionWidth, kANResizeViewCloseRegionHeight)];
-    [self.closeRegion alignToSuperviewWithXAttribute:xAttribute
-                                          yAttribute:yAttribute];
+    [self.closeRegion an_constrainWithSize:CGSizeMake(kANResizeViewCloseRegionWidth, kANResizeViewCloseRegionHeight)];
+    [self.closeRegion an_alignToSuperviewWithXAttribute:xAttribute
+                                             yAttribute:yAttribute];
 }
 
 #pragma mark - Content View
@@ -151,9 +151,9 @@
 - (void)setupContentViewConstraints {
     [self.contentView removeConstraints:self.contentView.constraints];
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView constrainToSizeOfSuperview];
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                          yAttribute:NSLayoutAttributeTop];
+    [self.contentView an_constrainToSizeOfSuperview];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                             yAttribute:NSLayoutAttributeTop];
 }
 
 #pragma mark - ANResizeViewDelegate

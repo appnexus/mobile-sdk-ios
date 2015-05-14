@@ -50,5 +50,6 @@ typedef NS_ENUM(NSUInteger, ANNativeAdNetworkCode) {
     ANNativeAdNetworkCodeAppNexus = 0,
     ANNativeAdNetworkCodeMoPub,
     ANNativeAdNetworkCodeFacebook,
+    ANNativeAdNetworkCodeInMobi,
     ANNativeAdNetworkCodeCustom,
 };

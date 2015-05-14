@@ -20,6 +20,9 @@
 
 @interface ANMediationAdViewController : NSObject
 
++ (NSSet *)bannerInvalidNetworks;
++ (NSSet *)interstitialInvalidNetworks;
+
 - (void)startTimeout;
 - (void)clearAdapter;
 
@@ -29,6 +32,6 @@
 
 @end
 
-@interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
+@interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 @property (nonatomic, readwrite, weak) ANAdFetcher *adFetcher;
 @end

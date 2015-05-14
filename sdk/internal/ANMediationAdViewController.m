@@ -13,12 +13,11 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
 #import "ANMediationAdViewController.h"
 
-#import ANBANNERADVIEWHEADER
+#import "ANBannerAdView.h"
 #import "ANGlobal.h"
-#import ANINTERSTITIALADHEADER
+#import "ANInterstitialAd.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
 #import "ANPBBuffer.h"
@@ -26,9 +25,9 @@
 #import "ANPBContainerView.h"
 #import "ANMediationContainerView.h"
 
-@interface ANMediationAdViewController () <ANCUSTOMADAPTERBANNERDELEGATE, ANCUSTOMADAPTERINTERSTITIALDELEGATE>
+@interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 
-@property (nonatomic, readwrite, strong) id<ANCUSTOMADAPTER> currentAdapter;
+@property (nonatomic, readwrite, strong) id<ANCustomAdapter> currentAdapter;
 @property (nonatomic, readwrite, assign) BOOL hasSucceeded;
 @property (nonatomic, readwrite, assign) BOOL hasFailed;
 @property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
@@ -50,6 +49,38 @@
 
 @implementation ANMediationAdViewController
 
+#pragma mark - Invalid Networks
+
++ (NSMutableSet *)bannerInvalidNetworks {
+    static dispatch_once_t bannerInvalidNetworksToken;
+    static NSMutableSet *bannerInvalidNetworks;
+    dispatch_once(&bannerInvalidNetworksToken, ^{
+        bannerInvalidNetworks = [[NSMutableSet alloc] init];
+    });
+    return bannerInvalidNetworks;
+}
+
++ (NSMutableSet *)interstitialInvalidNetworks {
+    static dispatch_once_t interstitialInvalidNetworksToken;
+    static NSMutableSet *interstitialInvalidNetworks;
+    dispatch_once(&interstitialInvalidNetworksToken, ^{
+        interstitialInvalidNetworks = [[NSMutableSet alloc] init];
+    });
+    return interstitialInvalidNetworks;
+}
+
++ (void)addBannerInvalidNetwork:(NSString *)network {
+    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] bannerInvalidNetworks];
+    [invalidNetworks addObject:network];
+}
+
++ (void)addInterstitialInvalidNetwork:(NSString *)network {
+    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] interstitialInvalidNetworks];
+    [invalidNetworks addObject:network];
+}
+
+#pragma mark -
+
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
                                     withFetcher:(ANAdFetcher *)fetcher
                                  adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate {
@@ -68,13 +99,13 @@
     // variables to pass into the failure handler if necessary
     NSString *className = nil;
     NSString *errorInfo = nil;
-    ANADRESPONSECODE errorCode = (ANADRESPONSECODE)ANDefaultCode;
+    ANAdResponseCode errorCode = ANDefaultCode;
     
     do {
         // check that the ad is non-nil
         if (!ad) {
             errorInfo = @"null mediated ad object";
-            errorCode = (ANADRESPONSECODE)ANAdResponseUnableToFill;
+            errorCode = ANAdResponseUnableToFill;
             break;
         }
         
@@ -91,21 +122,21 @@
         Class adClass = NSClassFromString(className);
         if (!adClass) {
             errorInfo = @"ClassNotFoundError";
-            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseMediatedSDKUnavailable;
             break;
         }
         
         id adInstance = [[adClass alloc] init];
         if (!adInstance
             || ![adInstance respondsToSelector:@selector(setDelegate:)]
-            || ![adInstance conformsToProtocol:@protocol(ANCUSTOMADAPTER)]) {
+            || ![adInstance conformsToProtocol:@protocol(ANCustomAdapter)]) {
             errorInfo = @"InstantiationError";
-            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseMediatedSDKUnavailable;
             break;
         }
         
         // instance valid - request a mediated ad
-        id<ANCUSTOMADAPTER> adapter = (id<ANCUSTOMADAPTER>)adInstance;
+        id<ANCustomAdapter> adapter = (id<ANCustomAdapter>)adInstance;
         adapter.delegate = self;
         self.currentAdapter = adapter;
         
@@ -121,14 +152,14 @@
             // don't add class to invalid networks list for this failure
             className = nil;
             errorInfo = @"ClassCastError";
-            errorCode = (ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable;
+            errorCode = ANAdResponseMediatedSDKUnavailable;
             break;
         }
         
     } while (false);
     
     
-    if (errorCode != (ANADRESPONSECODE)ANDefaultCode) {
+    if (errorCode != ANDefaultCode) {
         [self handleInstantiationFailure:className
                                errorCode:errorCode errorInfo:errorInfo];
         return NO;
@@ -140,14 +171,21 @@
 }
 
 - (void)handleInstantiationFailure:(NSString *)className
-                         errorCode:(ANADRESPONSECODE)errorCode
+                         errorCode:(ANAdResponseCode)errorCode
                          errorInfo:(NSString *)errorInfo {
     if ([errorInfo length] > 0) {
         ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
     if ([className length] > 0) {
-        ANLogWarn(@"mediation_adding_invalid %@", className);
-        ANAddInvalidNetwork(className);
+        if ([self.adViewDelegate isKindOfClass:[ANBannerAdView class]]) {
+            ANLogWarn(@"mediation_adding_invalid_for_media_type %@ %@", className, @"banner");
+            [[self class] addBannerInvalidNetwork:className];
+        } else if ([self.adViewDelegate isKindOfClass:[ANInterstitialAd class]]) {
+            ANLogWarn(@"mediation_adding_invalid_for_media_type %@ %@", className, @"interstitial");
+            [[self class] addInterstitialInvalidNetwork:className];
+        } else {
+            ANLogDebug(@"Instantiation failure for unknown ad view, could not add %@ to an invalid networks list", className);
+        }
     }
     
     [self didFailToReceiveAd:errorCode];
@@ -175,23 +213,23 @@
          adUnitId:(NSString *)idString
            adView:(id<ANAdFetcherDelegate>)adView {
     // create targeting parameters object from adView properties
-    ANTARGETINGPARAMETERS *targetingParameters = [ANTARGETINGPARAMETERS new];
+    ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
     targetingParameters.customKeywords = adView.customKeywords;
     targetingParameters.age = adView.age;
     targetingParameters.gender = adView.gender;
     targetingParameters.location = adView.location;
     targetingParameters.idforadvertising = ANUDID();
     
-    if ([adView isKindOfClass:[ANBANNERADVIEW class]]) {
+    if ([adView isKindOfClass:[ANBannerAdView class]]) {
         // make sure the container and protocol match
-        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERBANNER)]
+        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
             && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
             
             [self markLatencyStart];
             [self startTimeout];
 
-            ANBANNERADVIEW *banner = (ANBANNERADVIEW *)adView;
-            id<ANCUSTOMADAPTERBANNER> bannerAdapter = (id<ANCUSTOMADAPTERBANNER>) self.currentAdapter;
+            ANBannerAdView *banner = (ANBannerAdView *)adView;
+            id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
             [bannerAdapter requestBannerAdWithSize:size
                                 rootViewController:banner.rootViewController
                                    serverParameter:parameterString
@@ -201,15 +239,15 @@
         } else {
             ANLogError(@"instance_exception %@", @"CustomAdapterBanner");
         }
-    } else if ([adView isKindOfClass:[ANINTERSTITIALAD class]]) {
+    } else if ([adView isKindOfClass:[ANInterstitialAd class]]) {
         // make sure the container and protocol match
-        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]
+        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]
             && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
             
             [self markLatencyStart];
             [self startTimeout];
             
-            id<ANCUSTOMADAPTERINTERSTITIAL> interstitialAdapter = (id<ANCUSTOMADAPTERINTERSTITIAL>) self.currentAdapter;
+            id<ANCustomAdapterInterstitial> interstitialAdapter = (id<ANCustomAdapterInterstitial>) self.currentAdapter;
             [interstitialAdapter requestInterstitialAdWithParameter:parameterString
                                                            adUnitId:idString
                                                 targetingParameters:targetingParameters];
@@ -231,13 +269,13 @@
 
 #pragma mark ANCustomAdapterInterstitialDelegate
 
-- (void)didLoadInterstitialAd:(id<ANCUSTOMADAPTERINTERSTITIAL>)adapter {
+- (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter {
 	[self didReceiveAd:adapter];
 }
 
 #pragma mark ANCustomAdapterDelegate
 
-- (void)didFailToLoadAd:(ANADRESPONSECODE)errorCode {
+- (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
     [self didFailToReceiveAd:errorCode];
 }
 
@@ -305,7 +343,7 @@
 - (void)didReceiveAd:(id)adObject {
     if ([self checkIfHasResponded]) return;
     if (!adObject) {
-        [self didFailToReceiveAd:(ANADRESPONSECODE)ANAdResponseInternalError];
+        [self didFailToReceiveAd:ANAdResponseInternalError];
         return;
     }
     self.hasSucceeded = YES;
@@ -337,7 +375,7 @@
         }
     }
     
-    [self finish:(ANADRESPONSECODE)ANAdResponseSuccessful withAdObject:adObject auctionID:auctionID];
+    [self finish:ANAdResponseSuccessful withAdObject:adObject auctionID:auctionID];
 
     // if auctionInfo was present and had an auctionID,
     // screenshot the view. For banners, do it here
@@ -356,14 +394,14 @@
     }
 }
 
-- (void)didFailToReceiveAd:(ANADRESPONSECODE)errorCode {
+- (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
     if ([self checkIfHasResponded]) return;
     [self markLatencyStop];
     self.hasFailed = YES;
     [self finish:errorCode withAdObject:nil auctionID:nil];
 }
 
-- (void)finish:(ANADRESPONSECODE)errorCode withAdObject:(id)adObject
+- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject
      auctionID:(NSString *)auctionID {
     // use queue to force return
     [self runInBlock:^(void) {
@@ -392,12 +430,12 @@
     
     // append reason code
     NSString *resultCBString = [baseString
-                                stringByAppendingUrlParameter:@"reason"
+                                an_stringByAppendingUrlParameter:@"reason"
                                 value:[NSString stringWithFormat:@"%d",reasonCode]];
     
     // append idfa
     resultCBString = [resultCBString
-                      stringByAppendingUrlParameter:@"idfa"
+                      an_stringByAppendingUrlParameter:@"idfa"
                       value:ANUDID()];
     
     // append latency measurements
@@ -406,12 +444,12 @@
     
     if (latency > 0) {
         resultCBString = [resultCBString
-                          stringByAppendingUrlParameter:@"latency"
+                          an_stringByAppendingUrlParameter:@"latency"
                           value:[NSString stringWithFormat:@"%.0f", latency]];
     }
     if (totalLatency > 0) {
         resultCBString = [resultCBString
-                          stringByAppendingUrlParameter:@"total_latency"
+                          an_stringByAppendingUrlParameter:@"total_latency"
                           value:[NSString stringWithFormat:@"%.0f", totalLatency]];
     }
     
@@ -430,7 +468,7 @@
                        ANMediationAdViewController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(@"mediation_timeout");
-                       [strongSelf didFailToReceiveAd:(ANADRESPONSECODE)ANAdResponseInternalError];
+                       [strongSelf didFailToReceiveAd:ANAdResponseInternalError];
                    });
     
 }

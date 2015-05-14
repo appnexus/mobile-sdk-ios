@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANINTERSTITIALADHEADER
+#import "ANInterstitialAd.h"
 
 #import "ANAdFetcher.h"
 #import "ANGlobal.h"
@@ -39,7 +38,7 @@ NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
 
-@interface ANINTERSTITIALAD () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
+@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
@@ -47,7 +46,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 @end
 
-@implementation ANINTERSTITIALAD
+@implementation ANInterstitialAd
 
 #pragma mark Initialization
 
@@ -58,6 +57,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     _precachedAdObjects = [NSMutableArray array];
     _allowedAdSizes = [self getDefaultAllowedAdSizes];
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
+    _opaque = YES;
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -124,14 +124,17 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         if (self.backgroundColor) {
             self.controller.backgroundColor = self.backgroundColor;
         }
-        UIModalPresentationStyle rootViewControllerDesiredPresentationStyle = controller.modalPresentationStyle;
-        controller.modalPresentationStyle = UIModalPresentationCurrentContext;
+        self.controller.modalPresentationStyle = UIModalPresentationFullScreen;
+        if ([self.controller respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
+            self.controller.modalPresentationCapturesStatusBarAppearance = YES;
+        }
+        if (!self.opaque && [self.controller respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+            self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        }
         [controller presentViewController:self.controller
                                  animated:YES
-                               completion:^{
-            controller.modalPresentationStyle = rootViewControllerDesiredPresentationStyle;
-        }];
-    } else if ([adToShow conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
+                               completion:nil];
+    } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
         [adToShow presentFromViewController:controller];
         if (auctionID) {
             ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
@@ -176,7 +179,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
             // Found a valid ad
             id readyAd = adDict[kANInterstitialAdViewKey];
-            if ([readyAd conformsToProtocol:@protocol(ANCUSTOMADAPTERINTERSTITIAL)]) {
+            if ([readyAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
                 // if it's a mediated ad, check if it is ready
                 if ([readyAd respondsToSelector:@selector(isReady)]) {
                     return [readyAd isReady];
@@ -254,7 +257,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             [self orientationParameter]];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response {
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
     if ([response isSuccessful]) {
         NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                      response.adObject, kANInterstitialAdViewKey,
@@ -281,11 +284,12 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 #pragma mark ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
-    __weak ANINTERSTITIALAD *weakAd = self;
-    
+    [self adWillClose];
+    __weak ANInterstitialAd *weakAd = self;
     [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        ANINTERSTITIALAD *ad = weakAd;
+        ANInterstitialAd *ad = weakAd;
         ad.controller = nil;
+        [ad adDidClose];
     }];
 }
 

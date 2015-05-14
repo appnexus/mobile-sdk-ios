@@ -16,6 +16,6 @@
 
 #import "ANAdAdapterMillennialMediaBase.h"
 
-@interface ANAdAdapterInterstitialMillennialMedia : ANAdAdapterMillennialMediaBase <ANCUSTOMADAPTERINTERSTITIAL>
+@interface ANAdAdapterInterstitialMillennialMedia : ANAdAdapterMillennialMediaBase <ANCustomAdapterInterstitial>
 
 @end

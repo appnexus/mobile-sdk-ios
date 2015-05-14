@@ -17,7 +17,7 @@
 #import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialiAd () <NSFileManagerDelegate>
-@property (nonatomic, readwrite, strong) id interstitialAd;
+@property (nonatomic, readwrite, strong) ADInterstitialAd *interstitialAd;
 @end
 
 @implementation ANAdAdapterInterstitialiAd
@@ -28,16 +28,11 @@
 // iAd doesn't have use placement id
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting iAd interstitial");
-    Class iAdInterstitialClass = NSClassFromString(@"ADInterstitialAd");
-    if (iAdInterstitialClass) {
-        self.interstitialAd = [[iAdInterstitialClass alloc] init];
-        [self.interstitialAd setDelegate:self];
-    } else {
-        [self.delegate didFailToLoadAd:(ANADRESPONSECODE)ANAdResponseMediatedSDKUnavailable];
-    }
+    self.interstitialAd = [[ADInterstitialAd alloc] init];
+    [self.interstitialAd setDelegate:self];
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController
@@ -127,7 +122,7 @@
             break;
     }
     
-	[self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+	[self.delegate didFailToLoadAd:code];
 }
 
 @end

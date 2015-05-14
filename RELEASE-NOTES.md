@@ -1,3 +1,83 @@
+## RC 2.2
+
+### Feature additions:
+
++ MS-910 Interstitials with transparent backgrounds now supported on iOS 8
+
++ MS-941 Enhanced user interaction detection on ad views
+
++ MS-982 Auto-detect a banner root view controller if one isn't provided
+
+### Bug fixes:
+
++ MS-882 Handle banner, interstitial, native invalid network detection separately
+
++ MS-970, MS-1038 Binary build scripts now work in directories where the file path contains one or more spaces
+
++ MS-971 Fixed native ad click fallback behavior 
+
++ MS-1000 Fire adWillClose and adDidClose on ANInterstitialAd
+
+### Internal improvements:
+
++ MS-540 Add ANLogging support in ANMoPubMediationBanner & ANMoPubMediationInterstitial
+
++ MS-962 Simplify IDFA retrieval based on 6.0 deployment target
+
++ MS-976, MS-1042, MS-1055 Break apart ANAdResponse into ANAdServerResponse & ANAdFetcherResponse 
+
++ MS-975 Improved AdFetcher error handling
+
++ MS-1022, MS-1054 Added AN namespace to all category methods
+
++ MS-1024 Removed ANBasicConfig
+
+### Mediation adapter bug fixes:
+
++ MS-963 Fix for isReady in Amazon interstitial adapter
+
++ MS-1113 Silence warning in Millennial adapters when compiling for iOS 8.3
+
++ MS-1186 Address deprecated methods in ANGADCustomBannerAd & ANGADCustomInterstitialAd from Google AdMob SDK 7.2.1
+
++ MS-1188 Simplify iAd adapters based on 6.0 deployment target
+
++ MS-1193 Improved error code handling for MoPub & Millennial adapters
+
+### New mediation adapters:
+
++ MS-942 InMobi Banner, Interstitial, Native
+
++ MS-1045 AdColony Interstitial
+
++ MS-1047 Vungle Interstitial
+
++ MS-1048 VDOPIA Banner, Interstitial
+
++ MS-1071 Chartboost Interstitial
+
+### Contains the following mediated SDKs:
+
++ AdMob SDK Version 7.2.1
+
++ Amazon SDK Version 2.2.6
+
++ Facebook SDK Version 4.1.0
+
++ Millennial Media SDK Version 5.4.1
+
++ MoPub SDK Version 3.7.0
+
++ InMobi SDK Version 4.5.1
+
++ VDOPIA Lightweight SDK Version 4
+
++ Vungle SDK 3.0.13
+
++ AdColony SDK 2.5.0
+
++ Chartboost SDK 5.2.1
+
 ## RC 2.1
 
 + MS-856, MS-868, MS-875, MS-916, MS-918, MS-925 Implemented AppNexus Native Ad Console Support. 

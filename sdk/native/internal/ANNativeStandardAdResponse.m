@@ -85,12 +85,12 @@
     NSInteger requiredAmountOfSimultaneousViewableEvents = lround(kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
                                                                   / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
     self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
-    self.viewabilityTimer = [NSTimer scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
-                                                              block:^ {
-                                                                  ANNativeStandardAdResponse *strongSelf = weakSelf;
-                                                                  [strongSelf checkViewability];
-                                                              }
-                                                            repeats:YES];
+    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
+                                                                 block:^ {
+                                                                     ANNativeStandardAdResponse *strongSelf = weakSelf;
+                                                                     [strongSelf checkViewability];
+                                                                 }
+                                                               repeats:YES];
 }
 
 - (void)checkViewability {
@@ -133,13 +133,13 @@
 }
 
 - (BOOL)openIntendedBrowserWithURL:(NSURL *)URL {
-    if (!self.opensInNativeBrowser && (hasHttpPrefix(URL.absoluteString) || ANiTunesIDForURL(URL))) {
+    if (!self.opensInNativeBrowser && (ANHasHttpPrefix(URL.absoluteString) || ANiTunesIDForURL(URL))) {
         if (!self.inAppBrowser) {
             self.inAppBrowser = [[ANBrowserViewController alloc] initWithURL:URL
                                                                     delegate:self
                                                     delayPresentationForLoad:self.landingPageLoadsInBackground];
         } else {
-            self.inAppBrowser.url = self.clickURL;
+            self.inAppBrowser.url = URL;
         }
         return YES;
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {

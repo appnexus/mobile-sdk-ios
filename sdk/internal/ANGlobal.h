@@ -35,7 +35,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"2.1"
+#define AN_SDK_VERSION              @"2.2"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
@@ -73,6 +73,8 @@
 #define kANInterstitialDefaultCloseButtonDelay 10.0
 #define kANInterstitialMaximumCloseButtonDelay 10.0
 
+#define kANSDKResourcesBundleName @"ANSDKResources"
+
 // Buffer Limit
 #define kANPBBufferLimit 10
 
@@ -85,18 +87,16 @@ typedef NS_ENUM(NSUInteger, ANMobileEndpoint) {
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
-BOOL isFirstLaunch(void);
+BOOL ANIsFirstLaunch(void);
 NSString *ANUDID(void);
 NSString *ANErrorString(NSString *key);
 NSError *ANError(NSString *key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);
 NSBundle *ANResourcesBundle();
 NSString *ANPathForANResource(NSString *name, NSString *type);
-NSString *convertToNSString(id value);
-CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
+NSString *ANConvertToNSString(id value);
+CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *ANMRAIDBundlePath();
-BOOL hasHttpPrefix(NSString *url);
-NSMutableSet *ANInvalidNetworks();
-void ANAddInvalidNetwork(NSString *network);
+BOOL ANHasHttpPrefix(NSString *url);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
 CGRect ANPortraitScreenBounds();

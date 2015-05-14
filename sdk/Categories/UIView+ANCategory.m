@@ -19,12 +19,12 @@
 
 @implementation UIView (ANCategory)
 
-- (void)presentView:(UIView *)view animated:(BOOL)animated
+- (void)an_presentView:(UIView *)view animated:(BOOL)animated
 {
-	[self presentView:view animated:animated completion:NULL];
+	[self an_presentView:view animated:animated completion:NULL];
 }
 
-- (void)presentView:(UIView *)view animated:(BOOL)animated completion:(void (^)(BOOL))completion
+- (void)an_presentView:(UIView *)view animated:(BOOL)animated completion:(void (^)(BOOL))completion
 {
 	view.transform = CGAffineTransformMakeTranslation(0, self.bounds.size.height);
 	
@@ -38,7 +38,7 @@
 					 completion:completion];
 }
 
-- (void)dismissFromPresentingViewAnimated:(BOOL)animated
+- (void)an_dismissFromPresentingViewAnimated:(BOOL)animated
 {
 	NSTimeInterval animationDuration = animated ? kAppNexusAnimationDuration : 0.0;
 
@@ -51,7 +51,7 @@
                      }];
 }
 
-- (void)removeSubviews {
+- (void)an_removeSubviews {
     for (UIView *view in [self subviews]) {
         if ([view respondsToSelector:@selector(removeFromSuperview)]) {
             [view performSelector:@selector(removeFromSuperview)];
@@ -59,7 +59,7 @@
     }
 }
 
-- (void)removeSubviewsWithException:(UIView *)exception {
+- (void)an_removeSubviewsWithException:(UIView *)exception {
     for (UIView *view in self.subviews) {
         if (view != exception) {
             if ([view isKindOfClass:[UIWebView class]]) {
@@ -68,7 +68,7 @@
                 [webView setDelegate:nil];
             }
             
-            [view removeSubviews];
+            [view an_removeSubviews];
             [view removeFromSuperview];
         }
     }
@@ -128,20 +128,33 @@
     return intersectionArea >= 0.5 * selfArea;
 }
 
-#pragma mark - Autolayout
-
-- (void)constrainWithFrameSize {
-    [self constrainWithSize:self.frame.size];
+- (UIViewController *)an_parentViewController {
+    UIResponder *responder = self;
+    
+    while (responder) {
+        if ([responder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)responder;
+        }
+        responder = [responder nextResponder];
+    }
+    
+    return nil;    
 }
 
-- (void)constrainWithSize:(CGSize)size {
-    [self removeSizeConstraintToSuperview];
+#pragma mark - Autolayout
+
+- (void)an_constrainWithFrameSize {
+    [self an_constrainWithSize:self.frame.size];
+}
+
+- (void)an_constrainWithSize:(CGSize)size {
+    [self an_removeSizeConstraintToSuperview];
     
     NSLayoutConstraint *widthConstraint;
     NSLayoutConstraint *heightConstraint;
     
-    [self extractWidthConstraint:&widthConstraint
-                heightConstraint:&heightConstraint];
+    [self an_extractWidthConstraint:&widthConstraint
+                   heightConstraint:&heightConstraint];
 
     if (!widthConstraint) {
         widthConstraint = [NSLayoutConstraint constraintWithItem:self
@@ -169,9 +182,9 @@
     }
 }
 
-- (void)constrainToSizeOfSuperview {
-    [self removeSizeConstraintToSuperview];
-    [self removeSizeConstraint];
+- (void)an_constrainToSizeOfSuperview {
+    [self an_removeSizeConstraintToSuperview];
+    [self an_removeSizeConstraint];
     
     NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                        attribute:NSLayoutAttributeWidth
@@ -190,19 +203,19 @@
     [self.superview addConstraints:@[widthConstraint, heightConstraint]];
 }
 
-- (void)alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
-                            yAttribute:(NSLayoutAttribute)yAttribute {
-    [self alignToSuperviewWithXAttribute:xAttribute
-                              yAttribute:yAttribute
-                                 offsetX:0
-                                 offsetY:0];
+- (void)an_alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                               yAttribute:(NSLayoutAttribute)yAttribute {
+    [self an_alignToSuperviewWithXAttribute:xAttribute
+                                 yAttribute:yAttribute
+                                    offsetX:0
+                                    offsetY:0];
 }
 
-- (void)alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
-                            yAttribute:(NSLayoutAttribute)yAttribute
-                               offsetX:(CGFloat)offsetX
-                               offsetY:(CGFloat)offsetY {
-    [self removeAlignmentConstraintsToSuperview];
+- (void)an_alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
+                               yAttribute:(NSLayoutAttribute)yAttribute
+                                  offsetX:(CGFloat)offsetX
+                                  offsetY:(CGFloat)offsetY {
+    [self an_removeAlignmentConstraintsToSuperview];
     
     NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                    attribute:xAttribute
@@ -221,7 +234,7 @@
     [self.superview addConstraints:@[xConstraint, yConstraint]];
 }
 
-- (void)removeSizeConstraintToSuperview {
+- (void)an_removeSizeConstraintToSuperview {
     NSArray *superviewConstraintsCopy = [self.superview.constraints copy];
     [superviewConstraintsCopy enumerateObjectsUsingBlock:^(NSLayoutConstraint *existingConstraint, NSUInteger idx, BOOL *stop) {
         BOOL firstItemSelfSecondItemSuperview = existingConstraint.firstItem == self && existingConstraint.secondItem == self.superview;
@@ -235,7 +248,7 @@
     }];
 }
 
-- (void)removeAlignmentConstraintsToSuperview {
+- (void)an_removeAlignmentConstraintsToSuperview {
     NSArray *superviewConstraintsCopy = [self.superview.constraints copy];
     [superviewConstraintsCopy enumerateObjectsUsingBlock:^(NSLayoutConstraint *existingConstraint, NSUInteger idx, BOOL *stop) {
         BOOL firstItemSelfSecondItemSuperview = existingConstraint.firstItem == self && existingConstraint.secondItem == self.superview;
@@ -249,11 +262,11 @@
     }];
 }
 
-- (void)removeSizeConstraint {
+- (void)an_removeSizeConstraint {
     NSLayoutConstraint *widthConstraint;
     NSLayoutConstraint *heightConstraint;
-    [self extractWidthConstraint:&widthConstraint
-                heightConstraint:&heightConstraint];
+    [self an_extractWidthConstraint:&widthConstraint
+                   heightConstraint:&heightConstraint];
     
     if (widthConstraint) {
         [self removeConstraint:widthConstraint];
@@ -263,8 +276,8 @@
     }
 }
 
-- (void)extractWidthConstraint:(NSLayoutConstraint **)widthConstraint
-              heightConstraint:(NSLayoutConstraint **)heightConstraint {
+- (void)an_extractWidthConstraint:(NSLayoutConstraint **)widthConstraint
+                 heightConstraint:(NSLayoutConstraint **)heightConstraint {
     [self.constraints enumerateObjectsUsingBlock:^(NSLayoutConstraint *existingConstraint, NSUInteger idx, BOOL *stop) {
         BOOL constraintOnlyOnSelf = existingConstraint.firstItem == self && existingConstraint.secondAttribute == NSLayoutAttributeNotAnAttribute && existingConstraint.secondItem == nil;
         BOOL constraintIsWidthConstraint = existingConstraint.firstAttribute == NSLayoutAttributeWidth && constraintOnlyOnSelf;

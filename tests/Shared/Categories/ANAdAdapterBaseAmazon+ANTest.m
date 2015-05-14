@@ -15,6 +15,8 @@
 
 #import "ANAdAdapterBaseAmazon+ANTest.h"
 #import "NSObject+Swizzling.h"
+#import "ANAdAdapterBaseAmazon+PrivateMethods.h"
+#import <AmazonAd/AmazonAdOptions.h>
 
 @implementation ANAdAdapterBaseAmazon (ANTest)
 

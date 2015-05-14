@@ -76,8 +76,8 @@
                                                                   multiplier:1.5
                                                                     constant:0.0];
     [view addConstraints:@[heightSuperviewRelation, maxHeight, minHeight, aspectRatio,height]];
-    [overlay alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                 yAttribute:NSLayoutAttributeCenterY];
+    [overlay an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                    yAttribute:NSLayoutAttributeCenterY];
     return overlay;
 }
 
@@ -86,8 +86,8 @@
     [indicator startAnimating];
     [self addSubview:indicator];
     indicator.translatesAutoresizingMaskIntoConstraints = NO;
-    [indicator alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                   yAttribute:NSLayoutAttributeCenterY];
+    [indicator an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                      yAttribute:NSLayoutAttributeCenterY];
 }
 
 - (UIColor *)colorForColorOption:(ANClickOverlayColorOption)option withAlpha:(CGFloat)alpha {

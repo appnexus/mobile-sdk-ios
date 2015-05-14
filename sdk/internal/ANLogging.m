@@ -15,7 +15,6 @@
 
 #import "ANLogging.h"
 
-#import "ANBasicConfig.h"
 #import "ANGlobal.h"
 
 NSString *const kANLoggingNotification = @"kANLoggingNotification";
@@ -25,7 +24,7 @@ NSString *const kANLogMessageLevelKey = @"kANLogMessageLevelKey";
 void _ANLog(ANLogLevel level, NSString *format, ...) {
 	if ([ANLogManager getANLogLevel] <= level) {
         format = ANErrorString(format); // returns the format string if error string not found
-		format = [NSString stringWithFormat:@"%@: %@", AN_LOG_NAME, format];
+		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
         va_list args;
         va_start(args, format);
         NSString *fullString = [[NSString alloc] initWithFormat:format arguments:args];

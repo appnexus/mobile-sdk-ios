@@ -31,10 +31,13 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
+            targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wexplicit-initialize-call"
     [MMSDK initialize];
+#pragma clang diagnostic pop
     [self addMMNotificationObservers];
     
     //MMRequest object
@@ -58,7 +61,7 @@
                     code = ANAdResponseInternalError;
                     break;
                 case MMAdServerError:
-                    code = ANAdResponseNetworkError;
+                    code = ANAdResponseUnableToFill;
                     break;
                 case MMAdUnavailable:
                     code = ANAdResponseUnableToFill;
@@ -72,7 +75,7 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+                [self.delegate didFailToLoadAd:code];
             });
         }
     }];

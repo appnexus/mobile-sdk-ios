@@ -21,6 +21,6 @@
 @property (nonatomic) UIView *contentView;
 @property (nonatomic) NSNumber *transitionInProgress;
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
 
 @end

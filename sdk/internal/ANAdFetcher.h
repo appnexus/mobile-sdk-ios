@@ -13,16 +13,15 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-
-#import ANADPROTOCOLHEADER
-#import "ANAdResponse.h"
+#import "ANAdFetcherResponse.h"
+#import "ANAdProtocol.h"
 #import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
-#import ANCUSTOMADAPTERHEADER
+#import "ANCustomAdapter.h"
 
 @class ANMRAIDAdWebViewController;
-@class ANLOCATION;
+@class ANAdServerResponse;
+@class ANLocation;
 @protocol ANAdFetcherDelegate;
 
 extern NSString *const kANAdFetcherWillRequestAdNotification;
@@ -44,17 +43,17 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (void)startAutoRefreshTimer;
 - (void)setupAutoRefreshTimerIfNecessary;
 - (void)fireResultCB:(NSString *)resultCBString
-              reason:(ANADRESPONSECODE)reason
+              reason:(ANAdResponseCode)reason
             adObject:(id)adObject
            auctionID:(NSString *)auctionID;
-- (void)processAdResponse:(ANAdResponse *)response;
-- (void)processFinalResponse:(ANAdResponse *)response;
+- (void)processAdResponse:(ANAdServerResponse *)response;
+- (void)processFinalResponse:(ANAdFetcherResponse *)response;
 @end
 
-@protocol ANAdFetcherDelegate <ANADPROTOCOL, ANAdViewInternalDelegate>
+@protocol ANAdFetcherDelegate <ANAdProtocol, ANAdViewInternalDelegate>
 
 @optional
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdResponse *)response;
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSArray *)extraParameters; // An array of NSString

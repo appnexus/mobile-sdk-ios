@@ -2,7 +2,7 @@
 //  AmazonAdError.h
 //  AmazonMobileAdsSDK
 //
-//  Copyright (c) 2012-2014 Amazon.com. All rights reserved.
+//  Copyright (c) 2012-2015 Amazon.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

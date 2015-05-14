@@ -53,9 +53,19 @@
 @property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 
 /**
- The ad view's background color.
+ The ad view's background color. If the color is fully or partially transparent,
+ set opaque to NO to render an interstitial with a transparent background.
+ 
+ @note: Transparent interstitial backgrounds are supported only on iOS 8 and above.
  */
 @property (nonatomic, readwrite, strong) UIColor *backgroundColor;
+
+/**
+ Set to NO if the background color is fully or partially transparent. Default is YES.
+ 
+ @note: Transparent interstitial backgrounds are supported only on iOS 8 and above.
+ */
+@property (nonatomic, readwrite, getter=isOpaque) BOOL opaque;
 
 /**
  Whether the interstitial ad has been fetched and is ready to

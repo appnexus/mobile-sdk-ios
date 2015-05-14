@@ -14,7 +14,6 @@
  */
 
 #import "ANGlobal.h"
-#import "ANBasicConfig.h"
 
 #import "ANLogging.h"
 
@@ -46,22 +45,17 @@ NSString *ANDeviceModel()
     return @(systemInfo.machine);
 }
 
-BOOL ANAdvertisingTrackingEnabled()
-{
-    // Beginning in iOS 6, Apple allows users to turn off advertising tracking in their settings, which we must respect.
-    // By default, this value is YES. If a user does turn this off, use the unique identifier *only* for the following:
-    // Frequency capping, conversion events, estimating number of unique users, security and fraud detection, and debugging.
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-    if (NSClassFromString(@"ASIdentifierManager"))
-    {
-        return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
-    }
-#endif
-    
-    return YES;
+BOOL ANAdvertisingTrackingEnabled() {
+    // If a user does turn this off, use the unique identifier *only* for the following:
+    // - Frequency capping
+    // - Conversion events
+    // - Estimating number of unique users
+    // - Security and fraud detection
+    // - Debugging
+    return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
 }
 
-BOOL isFirstLaunch()
+BOOL ANIsFirstLaunch()
 {
 	BOOL isFirstLaunch = ![[NSUserDefaults standardUserDefaults] boolForKey:kANFirstLaunchKey];
 	
@@ -77,20 +71,13 @@ NSString *ANUDID() {
     static NSString *udidComponent = @"";
     
     if ([udidComponent isEqualToString:@""]) {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-        if (NSClassFromString(@"ASIdentifierManager")) {
-            // iOS 6: Use the ASIdentifierManager provided method of getting the identifier
-            NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager]
-                                               .advertisingIdentifier UUIDString];
-            
-            if (advertisingIdentifier) {
-                udidComponent = advertisingIdentifier;
-            }
-            else {
-                ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
-            }
+        NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
+        
+        if (advertisingIdentifier) {
+            udidComponent = advertisingIdentifier;
+        } else {
+            ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
         }
-#endif
 	}
 	
     return udidComponent;
@@ -125,7 +112,7 @@ NSBundle *ANResourcesBundle() {
     static ANGlobal *globalInstance;
     dispatch_once(&resBundleToken, ^{
         globalInstance = [[ANGlobal alloc] init];
-        NSString *resBundlePath = [[NSBundle bundleForClass:[globalInstance class]] pathForResource:AN_RESOURCE_BUNDLE ofType:@"bundle"];
+        NSString *resBundlePath = [[NSBundle bundleForClass:[globalInstance class]] pathForResource:kANSDKResourcesBundleName ofType:@"bundle"];
         resBundle = resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle bundleForClass:[globalInstance class]];
     });
     return resBundle;
@@ -134,12 +121,12 @@ NSBundle *ANResourcesBundle() {
 NSString *ANPathForANResource(NSString *name, NSString *type) {
     NSString *path = [ANResourcesBundle() pathForResource:name ofType:type];
     if (!path) {
-        ANLogError(@"Could not find resource %@.%@. Please make sure that %@.bundle or all the resources in sdk/resources are included in your app target's \"Copy Bundle Resources\".", name, type, AN_RESOURCE_BUNDLE);
+        ANLogError(@"Could not find resource %@.%@. Please make sure that %@.bundle or all the resources in sdk/resources are included in your app target's \"Copy Bundle Resources\".", name, type, kANSDKResourcesBundleName);
     }
     return path;
 }
 
-NSString *convertToNSString(id value) {
+NSString *ANConvertToNSString(id value) {
     if ([value isKindOfClass:[NSString class]]) return value;
     if ([value respondsToSelector:@selector(stringValue)]) {
         return [value stringValue];
@@ -148,7 +135,7 @@ NSString *convertToNSString(id value) {
     return nil;
 }
 
-CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
+CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
     // If portrait, no adjustment is necessary.
     if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {
         return rect;
@@ -186,30 +173,14 @@ CGRect adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect)
 NSString *ANMRAIDBundlePath() {
     NSString *mraidPath = ANPathForANResource(@"ANMRAID", @"bundle");
     if (!mraidPath) {
-        ANLogError(@"Could not find ANMRAID.bundle. Please make sure that %@.bundle or the ANMRAID.bundle resource in sdk/resources is included in your app target's \"Copy Bundle Resources\".", AN_RESOURCE_BUNDLE);
+        ANLogError(@"Could not find ANMRAID.bundle. Please make sure that %@.bundle or the ANMRAID.bundle resource in sdk/resources is included in your app target's \"Copy Bundle Resources\".", kANSDKResourcesBundleName);
         return nil;
     }
     return mraidPath;
 }
 
-BOOL hasHttpPrefix(NSString *url) {
+BOOL ANHasHttpPrefix(NSString *url) {
     return ([url hasPrefix:@"http"] || [url hasPrefix:@"https"]);
-}
-
-static NSMutableSet *invalidNetworks;
-
-NSMutableSet *ANInvalidNetworks() {
-    if (!invalidNetworks) {
-        invalidNetworks = [NSMutableSet new];
-    }
-    return invalidNetworks;
-}
-
-void ANAddInvalidNetwork(NSString *network) {
-    if (!invalidNetworks) {
-        invalidNetworks = [NSMutableSet new];
-    }
-    [invalidNetworks addObject:network];
 }
 
 static BOOL notificationsEnabled = NO;

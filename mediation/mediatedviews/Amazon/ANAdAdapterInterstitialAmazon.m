@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialAmazon.h"
+#import "ANAdAdapterBaseAmazon+PrivateMethods.h"
 #import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialAmazon ()
@@ -33,11 +34,17 @@
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController {
+    if (![self isReady]) {
+        ANLogDebug(@"Amazon interstitial was unavailable");
+        [self.delegate failedToDisplayAd];
+        return;
+    }
+
     [self.amazonInterstitial presentFromViewController:viewController];
 }
 
 - (BOOL)isReady {
-    return YES;
+    return self.amazonInterstitial.isReady;
 }
 
 - (void)interstitialDidLoad:(AmazonAdInterstitial *)interstitial {

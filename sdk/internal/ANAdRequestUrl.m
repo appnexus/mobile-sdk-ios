@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
 #import "ANAdRequestUrl.h"
 
 #import "ANGlobal.h"
@@ -23,6 +22,10 @@
 
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+
+#import "ANMediationAdViewController.h"
+#import "ANBannerAdView.h"
+#import "ANInterstitialAd.h"
 
 @interface ANAdRequestUrl()
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adFetcherDelegate;
@@ -79,7 +82,7 @@
 
 - (NSURL *)buildRequestUrlWithBaseUrlString:(NSString *)baseUrlString {
     baseUrlString = [baseUrlString stringByAppendingString:[self placementIdParameter]];
-	baseUrlString = [baseUrlString stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
+	baseUrlString = [baseUrlString an_stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
     baseUrlString = [baseUrlString stringByAppendingString:[self dontTrackEnabledParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceMakeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceModelParameter]];
@@ -146,7 +149,7 @@
 }
 
 - (NSString *)firstLaunchParameter {
-    return isFirstLaunch() ? @"&firstlaunch=true" : @"";
+    return ANIsFirstLaunch() ? @"&firstlaunch=true" : @"";
 }
 
 - (NSString *)carrierMccMncParameters {
@@ -183,7 +186,7 @@
 }
 
 - (NSString *)locationParameter {
-    ANLOCATION *location = [self.adFetcherDelegate location];
+    ANLocation *location = [self.adFetcherDelegate location];
     NSString *locationParameter = @"";
     
     if (location) {
@@ -246,7 +249,7 @@
 }
 
 - (NSString *)genderParameter {
-    ANGENDER genderValue = [self.adFetcherDelegate gender];
+    ANGender genderValue = [self.adFetcherDelegate gender];
     if (genderValue == ANGenderMale) {
         return @"&gender=m";
     } else if (genderValue == ANGenderFemale) {
@@ -265,8 +268,8 @@
     }
 
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        key = convertToNSString(key);
-        value = convertToNSString(value);
+        key = ANConvertToNSString(key);
+        value = ANConvertToNSString(value);
         if(![self stringInParameterList:key]){
             if ([value length] > 0) {
                 customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
@@ -296,7 +299,16 @@
 }
 
 - (NSString *)nonetParameter {
-    NSArray *invalidNetworks = [ANInvalidNetworks() allObjects];
+    NSArray *invalidNetworks;
+    if ([self.adFetcherDelegate isKindOfClass:[ANBannerAdView class]]) {
+        invalidNetworks = [[ANMediationAdViewController bannerInvalidNetworks] allObjects];
+    } else if ([self.adFetcherDelegate isKindOfClass:[ANInterstitialAd class]]) {
+        invalidNetworks = [[ANMediationAdViewController interstitialInvalidNetworks] allObjects];
+    } else {
+        ANLogDebug(@"Could not find nonet list for %@ ad view", self.adFetcherDelegate);
+        invalidNetworks = nil;
+    }
+    
     return invalidNetworks.count ? [NSString stringWithFormat:@"&nonet=%@", [invalidNetworks componentsJoinedByString:@"%2C"]] : @"";
 }
 

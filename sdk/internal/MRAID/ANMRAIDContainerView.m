@@ -69,6 +69,8 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 
 @property (nonatomic, readwrite, strong) ANAdWebViewController *expandWebViewController;
 
+@property (nonatomic, readwrite, assign) BOOL userInteractedWithContentView;
+
 @end
 
 @implementation ANMRAIDContainerView
@@ -96,9 +98,9 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         UIView *contentView = self.webViewController.contentView;
         contentView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:contentView];
-        [contentView constrainToSizeOfSuperview];
-        [contentView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                         yAttribute:NSLayoutAttributeTop];
+        [contentView an_constrainToSizeOfSuperview];
+        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                            yAttribute:NSLayoutAttributeTop];
     }
     return self;
 }
@@ -148,12 +150,23 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     }
 }
 
+#pragma mark - User Interaction Testing
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *viewThatWasHit = [super hitTest:point withEvent:event];
+    if (!self.userInteractedWithContentView && [viewThatWasHit isDescendantOfView:self.webViewController.contentView]) {
+        ANLogDebug(@"Detected user interaction with ad");
+        self.userInteractedWithContentView = YES;
+    }
+    return viewThatWasHit;
+}
+
 #pragma mark - ANNewAdWebViewControllerMRAIDDelegate
 
 - (CGRect)defaultPosition {
     if (self.window) {
         CGRect absoluteContentViewFrame = [self convertRect:self.bounds toView:nil];
-        CGRect position = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
+        CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
         self.lastKnownDefaultPosition = position;
         return position;
@@ -170,7 +183,7 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     
     if (contentView) {
         CGRect absoluteContentViewFrame = [contentView convertRect:contentView.bounds toView:nil];
-        CGRect position = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
+        CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
         self.lastKnownCurrentPosition = position;
         return position;
@@ -187,6 +200,10 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     UIViewController *presentingController = [self displayController];
     if (!presentingController) {
         ANLogDebug(@"Ignoring call to mraid.expand() - no root view controller to present from");
+        return;
+    }
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to expand ad as no hit was detected on ad");
         return;
     }
     
@@ -265,9 +282,9 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     self.customCloseRegion.translatesAutoresizingMaskIntoConstraints = NO;
     [self insertSubview:self.customCloseRegion
            aboveSubview:self.webViewController.contentView];
-    [self.customCloseRegion constrainWithSize:CGSizeMake(50.0, 50.0)];
-    [self.customCloseRegion alignToSuperviewWithXAttribute:NSLayoutAttributeRight
-                                                yAttribute:NSLayoutAttributeTop];
+    [self.customCloseRegion an_constrainWithSize:CGSizeMake(50.0, 50.0)];
+    [self.customCloseRegion an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
+                                                   yAttribute:NSLayoutAttributeTop];
     [self.customCloseRegion addTarget:self
                                action:@selector(closeInterstitial:)
                      forControlEvents:UIControlEventTouchUpInside];
@@ -281,6 +298,11 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 }
 
 - (void)adShouldAttemptResizeWithResizeProperties:(ANMRAIDResizeProperties *)resizeProperties {
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to resize ad as no hit was detected on ad");
+        return;
+    }
+
     ANLogDebug(@"Attempting resize with resize properties: %@", [resizeProperties description]);
     [self handleBrowserLoadingForMRAIDStateChange];
     [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionExpandedOrResized];
@@ -340,9 +362,9 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
     if (contentView.superview != self) {
         [self addSubview:contentView];
         [contentView removeConstraints:contentView.constraints];
-        [contentView constrainToSizeOfSuperview];
-        [contentView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                         yAttribute:NSLayoutAttributeTop];
+        [contentView an_constrainToSizeOfSuperview];
+        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                            yAttribute:NSLayoutAttributeTop];
     }
 
     [self.webViewController adDidResetToDefault];
@@ -368,12 +390,22 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 }
 
 - (void)adShouldOpenCalendarWithCalendarDict:(NSDictionary *)calendarDict {
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to open calendar as no hit was detected on ad");
+        return;
+    }
+    
     [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionCalendar];
     self.calendarManager = [[ANMRAIDCalendarManager alloc] initWithCalendarDictionary:calendarDict
                                                                         delegate:self];
 }
 
 - (void)adShouldSavePictureWithUri:(NSString *)uri {
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to save picture as no hit was detected on ad");
+        return;
+    }
+    
     [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionPicture];
     [ANMRAIDUtil storePictureWithUri:uri
                 withCompletionTarget:self
@@ -394,6 +426,11 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         ANLogDebug(@"Ignoring call to mraid.playVideo() - no root view controller to present from");
         return;
     }
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to play video as no hit was detected on ad");
+        return;
+    }
+    
     [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionVideo];
     self.resizeManager.resizeView.hidden = YES;
     [ANMRAIDUtil playVideoWithUri:uri
@@ -489,6 +526,10 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         ANLogDebug(@"Ignoring attempt to trigger browser on ad while not attached to a view.");
         return;
     }
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to trigger browser as no hit was registered on the ad");
+        return;
+    }
     
     [self.adViewDelegate adWasClicked];
     
@@ -504,6 +545,11 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 }
 
 - (void)openInAppBrowserWithURL:(NSURL *)URL {
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to trigger browser as no hit was registered on the ad");
+        return;
+    }
+    
     [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionBrowser];
     if (!self.browserViewController) {
         self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL

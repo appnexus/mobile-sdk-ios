@@ -17,8 +17,8 @@
 
 @interface NSString (ANCategory)
 
-- (NSDictionary *)queryComponents;
-- (NSString *)encodeAsURIComponent;
-- (NSString *)stringByAppendingUrlParameter:(NSString *)name value:(NSString*)value;
+- (NSDictionary *)an_queryComponents;
+- (NSString *)an_encodeAsURIComponent;
+- (NSString *)an_stringByAppendingUrlParameter:(NSString *)name value:(NSString*)value;
 
 @end

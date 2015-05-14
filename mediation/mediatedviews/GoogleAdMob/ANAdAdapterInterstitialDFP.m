@@ -29,11 +29,10 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting DFP interstitial");
-	self.interstitialAd = [[DFPInterstitial alloc] init];
-	self.interstitialAd.adUnitID = idString;
+	self.interstitialAd = [[DFPInterstitial alloc] initWithAdUnitID:idString];
 	self.interstitialAd.delegate = self;
 	[self.interstitialAd loadRequest:
      [self createRequestFromTargetingParameters:targetingParameters]];
@@ -55,10 +54,10 @@
     return self.interstitialAd.isReady;
 }
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
 	GADRequest *request = [GADRequest request];
     
-    ANGENDER gender = targetingParameters.gender;
+    ANGender gender = targetingParameters.gender;
     switch (gender) {
         case ANGenderMale:
             request.gender = kGADGenderMale;
@@ -72,7 +71,7 @@
             break;
     }
     
-    ANLOCATION *location = targetingParameters.location;
+    ANLocation *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude
                                longitude:location.longitude
@@ -152,7 +151,7 @@
             break;
     }
     
-    [self.delegate didFailToLoadAd:(ANADRESPONSECODE)code];
+    [self.delegate didFailToLoadAd:code];
 }
 
 - (void)interstitialWillPresentScreen:(DFPInterstitial *)ad {

@@ -35,6 +35,20 @@
 
 @implementation ANNativeMediatedAdController
 
++ (NSMutableSet *)invalidNetworks {
+    static dispatch_once_t invalidNetworksToken;
+    static NSMutableSet *invalidNetworks;
+    dispatch_once(&invalidNetworksToken, ^{
+        invalidNetworks = [[NSMutableSet alloc] init];
+    });
+    return invalidNetworks;
+}
+
++ (void)addInvalidNetwork:(NSString *)network {
+    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] invalidNetworks];
+    [invalidNetworks addObject:network];
+}
+
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
              adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
@@ -139,7 +153,7 @@
     }
     if ([className length] > 0) {
         ANLogWarn(@"mediation_adding_invalid %@", className);
-        ANAddInvalidNetwork(className);
+        [[self class] addInvalidNetwork:className];
     }
     
     [self didFailToReceiveAd:errorCode];
@@ -226,12 +240,12 @@
     
     // append reason code
     NSString *resultCBString = [baseString
-                                stringByAppendingUrlParameter:@"reason"
+                                an_stringByAppendingUrlParameter:@"reason"
                                 value:[NSString stringWithFormat:@"%d",reasonCode]];
     
     // append idfa
     resultCBString = [resultCBString
-                      stringByAppendingUrlParameter:@"idfa"
+                      an_stringByAppendingUrlParameter:@"idfa"
                       value:ANUDID()];
     
     // append latency measurements
@@ -240,12 +254,12 @@
     
     if (latency > 0) {
         resultCBString = [resultCBString
-                          stringByAppendingUrlParameter:@"latency"
+                          an_stringByAppendingUrlParameter:@"latency"
                           value:[NSString stringWithFormat:@"%.0f", latency]];
     }
     if (totalLatency > 0) {
         resultCBString = [resultCBString
-                          stringByAppendingUrlParameter:@"total_latency"
+                          an_stringByAppendingUrlParameter:@"total_latency"
                           value:[NSString stringWithFormat:@"%.0f", totalLatency]];
     }
     

@@ -276,7 +276,7 @@
         _webView = [[UIWebView alloc] init];
         _webView.delegate = self;
         _webView.scalesPageToFit = YES;
-        [_webView setMediaProperties];
+        [_webView an_setMediaProperties];
     }
     return _webView;
 }
@@ -284,9 +284,9 @@
 - (void)addWebViewToContainerView {
     [self.webViewContainerView addSubview:self.webView];
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.webView constrainToSizeOfSuperview];
-    [self.webView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                      yAttribute:NSLayoutAttributeTop];
+    [self.webView an_constrainToSizeOfSuperview];
+    [self.webView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                         yAttribute:NSLayoutAttributeTop];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -297,7 +297,7 @@
     if (iTunesId) {
         [webView stopLoading];
         [self loadAndPresentStoreControllerWithiTunesId:iTunesId];
-    } else if (hasHttpPrefix([URL scheme])) {
+    } else if (ANHasHttpPrefix([URL scheme])) {
         if (!self.presented && !self.presenting && !self.delayPresentationForLoad) {
             [self rootViewControllerShouldPresentBrowserViewController];
         }

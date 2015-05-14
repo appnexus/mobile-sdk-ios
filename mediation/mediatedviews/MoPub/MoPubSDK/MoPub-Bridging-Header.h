@@ -33,3 +33,9 @@
 
 #import "MPCollectionViewAdPlacer.h"
 #import "MPTableViewAdPlacer.h"
+
+#import "MPMediationSettingsProtocol.h"
+#import "MPRewardedVideo.h"
+#import "MPRewardedVideoReward.h"
+#import "MPRewardedVideoCustomEvent.h"
+#import "MPRewardedVideoError.h"

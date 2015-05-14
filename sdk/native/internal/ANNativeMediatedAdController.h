@@ -21,6 +21,8 @@
 
 @interface ANNativeMediatedAdController : NSObject
 
++ (NSSet *)invalidNetworks;
+
 // Designated initializer
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate

@@ -13,13 +13,12 @@
  limitations under the License.
  */
 
-#import "ANBasicConfig.h"
-#import ANCUSTOMADAPTERHEADER
+#import "ANCustomAdapter.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface ANAdAdapterMoPubBase : NSObject <ANCUSTOMADAPTER>
+@interface ANAdAdapterMoPubBase : NSObject <ANCustomAdapter>
 
-- (NSString *)keywordsFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters;
-- (CLLocation *)locationFromTargetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters;
+- (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
+- (CLLocation *)locationFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
 
 @end

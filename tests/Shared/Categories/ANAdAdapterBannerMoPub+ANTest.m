@@ -30,7 +30,7 @@
                   rootViewController:(UIViewController *)rootViewController
                      serverParameter:(NSString *)parameterString
                             adUnitId:(NSString *)idString
-                 targetingParameters:(ANTARGETINGPARAMETERS *)targetingParameters {
+                 targetingParameters:(ANTargetingParameters *)targetingParameters {
     if ([idString length] == 0) {
         [self test_requestBannerAdWithSize:size
                         rootViewController:rootViewController

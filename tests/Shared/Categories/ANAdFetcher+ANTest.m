@@ -52,7 +52,7 @@
 }
 
 - (void)test_fireResultCB:(NSString *)resultCBString
-                   reason:(ANADRESPONSECODE)reason
+                   reason:(ANAdResponseCode)reason
                  adObject:(id)adObject
                 auctionID:(NSString *)auctionID {
     NSDictionary *userInfo = @{kANAdFetcherFireResultCBRequestedReason:@(reason)};

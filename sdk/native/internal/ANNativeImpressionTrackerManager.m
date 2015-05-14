@@ -143,14 +143,14 @@
 }
 
 - (void)scheduleRetryTimerIfNecessary {
-    if (![self.impressionTrackerRetryTimer isScheduled]) {
+    if (![self.impressionTrackerRetryTimer an_isScheduled]) {
         __weak ANNativeImpressionTrackerManager *weakSelf = self;
-        self.impressionTrackerRetryTimer = [NSTimer scheduledTimerWithTimeInterval:kANNativeImpressionTrackerManagerRetryInterval
-                                                                             block:^{
-                                                                                 ANNativeImpressionTrackerManager *strongSelf = weakSelf;
-                                                                                 [strongSelf retryImpressionTrackerFires];
-                                                                             }
-                                                                           repeats:YES];
+        self.impressionTrackerRetryTimer = [NSTimer an_scheduledTimerWithTimeInterval:kANNativeImpressionTrackerManagerRetryInterval
+                                                                                block:^{
+                                                                                    ANNativeImpressionTrackerManager *strongSelf = weakSelf;
+                                                                                    [strongSelf retryImpressionTrackerFires];
+                                                                                }
+                                                                              repeats:YES];
     }
 }
 

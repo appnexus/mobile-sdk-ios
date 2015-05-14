@@ -2,7 +2,7 @@
 //  AmazonAdView.h
 //  AmazonMobileAdsSDK
 //
-//  Copyright (c) 2012-2014 Amazon.com. All rights reserved.
+//  Copyright (c) 2012-2015 Amazon.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,7 +14,7 @@
 
 @interface AmazonAdView : UIView
 
-@property (nonatomic, unsafe_unretained) id<AmazonAdViewDelegate> delegate;
+@property (nonatomic, weak) id<AmazonAdViewDelegate> delegate;
 
 // Create an Ad view and instantiate it using one of the standard AdSize options specified in AmazonAdOptions
 + (instancetype)amazonAdViewWithAdSize:(CGSize)adSize;

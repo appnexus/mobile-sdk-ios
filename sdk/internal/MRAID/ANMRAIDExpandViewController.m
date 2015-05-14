@@ -59,8 +59,8 @@
                     action:@selector(closeButtonWasTapped)
           forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeButton];
-    [closeButton constrainWithSize:CGSizeMake(kANMRAIDExpandViewControllerCloseRegionWidth, kANMRAIDExpandViewControllerCloseRegionHeight)];
-    [closeButton alignToSuperviewWithXAttribute:NSLayoutAttributeRight
+    [closeButton an_constrainWithSize:CGSizeMake(kANMRAIDExpandViewControllerCloseRegionWidth, kANMRAIDExpandViewControllerCloseRegionHeight)];
+    [closeButton an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
                                      yAttribute:NSLayoutAttributeTop];
     if (!self.expandProperties.useCustomClose) {
         BOOL atLeastiOS7 = [self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)];
@@ -82,15 +82,15 @@
 - (void)attachContentView {
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView removeConstraints:self.contentView.constraints];
-    [self.contentView removeSizeConstraintToSuperview];
-    [self.contentView removeAlignmentConstraintsToSuperview];
+    [self.contentView an_removeSizeConstraintToSuperview];
+    [self.contentView an_removeAlignmentConstraintsToSuperview];
     
     [self.view insertSubview:self.contentView
                 belowSubview:self.closeButton];
     if (self.expandProperties.width == -1 && self.expandProperties.height == -1) {
-        [self.contentView constrainToSizeOfSuperview];
+        [self.contentView an_constrainToSizeOfSuperview];
     } else {
-        CGRect orientedScreenBounds = adjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(ANPortraitScreenBounds());
+        CGRect orientedScreenBounds = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(ANPortraitScreenBounds());
         CGFloat expandedWidth = self.expandProperties.width;
         CGFloat expandedHeight = self.expandProperties.height;
         
@@ -100,18 +100,18 @@
         if (expandedHeight == -1) {
             expandedHeight = orientedScreenBounds.size.height;
         }
-        [self.contentView constrainWithSize:CGSizeMake(expandedWidth, expandedHeight)];
+        [self.contentView an_constrainWithSize:CGSizeMake(expandedWidth, expandedHeight)];
     }
     
-    [self.contentView alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                          yAttribute:NSLayoutAttributeTop];
+    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                             yAttribute:NSLayoutAttributeTop];
 }
 
 - (UIView *)detachContentView {
     UIView *contentView = self.contentView;
     [contentView removeConstraints:contentView.constraints];
-    [contentView removeSizeConstraintToSuperview];
-    [contentView removeAlignmentConstraintsToSuperview];
+    [contentView an_removeSizeConstraintToSuperview];
+    [contentView an_removeAlignmentConstraintsToSuperview];
     [contentView removeFromSuperview];
     self.contentView = nil;
     return contentView;
