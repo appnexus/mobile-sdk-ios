@@ -59,7 +59,7 @@
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial {
-    [self.delegate didFailToLoadAd:ANAdResponseInternalError];
+    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
 }
 
 - (void)interstitialWillAppear:(MPInterstitialAdController *)interstitial {

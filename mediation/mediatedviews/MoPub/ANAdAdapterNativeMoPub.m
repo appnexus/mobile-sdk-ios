@@ -47,7 +47,7 @@
     [nativeAdRequest startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
         if (error) {
             ANLogError(@"Error loading MoPub native ad: %@", error);
-            [self.requestDelegate didFailToLoadNativeAd:ANAdResponseInternalError];
+            [self.requestDelegate didFailToLoadNativeAd:ANAdResponseUnableToFill];
         } else {
             [self processNativeAd:response];
         }
