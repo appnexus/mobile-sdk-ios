@@ -65,6 +65,7 @@
 		8A549EBE1A706D6F009F797A /* nativeResponse4.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EB91A706D6F009F797A /* nativeResponse4.json */; };
 		8A549EBF1A706D6F009F797A /* nativeResponse5.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EBA1A706D6F009F797A /* nativeResponse5.json */; };
 		8A549EC01A706DA5009F797A /* SuccessfulMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */; };
+		8A56E6971B27483000642ACC /* ANNativeAdColonyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */; };
 		8A661ED01A85597E00117553 /* appnexus_click_fallback_example.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */; };
 		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
 		8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */; };
@@ -532,6 +533,8 @@
 		8A549EB81A706D6F009F797A /* nativeResponse3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponse3.json; sourceTree = "<group>"; };
 		8A549EB91A706D6F009F797A /* nativeResponse4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponse4.json; sourceTree = "<group>"; };
 		8A549EBA1A706D6F009F797A /* nativeResponse5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponse5.json; sourceTree = "<group>"; };
+		8A56E68B1B27482700642ACC /* ANNativeAdColonyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeAdColonyView.h; sourceTree = "<group>"; };
+		8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdColonyView.m; sourceTree = "<group>"; };
 		8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8A5D27CA199AB26B00F2A516 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
@@ -891,6 +894,8 @@
 		8A549E9B1A706BA6009F797A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8A56E68B1B27482700642ACC /* ANNativeAdColonyView.h */,
+				8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */,
 				8AE7AD931A7AAE81009E2F2F /* ANNativeAdView.h */,
 				8AE7AD941A7AAE81009E2F2F /* ANNativeAdView.m */,
 				8AE7AD911A7AAE33009E2F2F /* ANNativeAdView.xib */,
@@ -1790,6 +1795,7 @@
 				8AA009C519DB1B200090EBED /* AppDelegate.m in Sources */,
 				8AA00A2D19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.m in Sources */,
 				8AA009CA19DB1B200090EBED /* main.m in Sources */,
+				8A56E6971B27483000642ACC /* ANNativeAdColonyView.m in Sources */,
 				8AA00A3919DB22410090EBED /* ANAdView+ANTest.m in Sources */,
 				8AA3DA0A1AAA0D9D00255F94 /* ANNativeAdView.m in Sources */,
 				8AA00A3219DB204A0090EBED /* NSObject+Swizzling.m in Sources */,

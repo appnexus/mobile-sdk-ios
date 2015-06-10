@@ -13,15 +13,13 @@
  limitations under the License.
  */
 
-#import <AdColony/AdColonyNativeAdView.h>
+#import <UIKit/UIKit.h>
 
-// Can be used to query ANNativeAdResponse customElements for native ads from AdColony
-// Returns AdColonyNativeAdView
-extern NSString *const kANAdAdapterNativeAdColonyVideoView;
+@class AdColonyNativeAdView;
 
-@interface ANAdAdapterBaseAdColony : NSObject
+@interface ANNativeAdColonyView : UIView
 
-+ (void)configureWithAppID:(NSString *)appID
-                   zoneIDs:(NSArray *)zoneIDs;
+- (instancetype)initWithNativeAdView:(AdColonyNativeAdView *)nativeAdView
+                               frame:(CGRect)frame;
 
 @end

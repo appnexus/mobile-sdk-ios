@@ -24,6 +24,7 @@
 #import "ANAdAdapterBaseChartboost.h"
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
+#import "ANNativeAdColonyView.h"
 
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ANNativeAdRequestDelegate, ANNativeAdDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
@@ -33,6 +34,7 @@
 @property (nonatomic) ANNativeAdRequest *nativeAdRequest;
 @property (nonatomic) ANNativeAdResponse *nativeAdResponse;
 @property (nonatomic) ANNativeAdView *nativeAdView;
+@property (nonatomic) ANNativeAdColonyView *adColonyView;
 @end
 
 @implementation ANMediationAdapterViewController
@@ -41,6 +43,7 @@
     return @[@"VdopiaBanner",
              @"VdopiaInterstitial",
              @"AdColonyInterstitial",
+             @"AdColonyNative",
              @"VungleInterstitial",
              @"ChartboostInterstitial",
              @"FacebookBanner",
@@ -444,6 +447,23 @@
     [self stubMediatedAd:mediatedAd];
 }
 
+- (ANNativeAdRequest *)loadAdColonyNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
+    [self stubAdColonyNative];
+    [ANAdAdapterBaseAdColony configureWithAppID:@"app553a8f6740d84f3ba0"
+                                        zoneIDs:@[@"vzee73d915bab747ee8a"]];
+    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
+    nativeAdRequest.shouldLoadIconImage = YES;
+    nativeAdRequest.shouldLoadMainImage = YES;
+    return nativeAdRequest;
+}
+
+- (void)stubAdColonyNative {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterNativeAdColony";
+    mediatedAd.adId = @"vzee73d915bab747ee8a";
+    [self stubMediatedAd:mediatedAd];
+}
+
 #pragma mark - Chartboost
 
 - (ANInterstitialAd *)loadChartboostInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
@@ -557,32 +577,53 @@
 #pragma mark - Native
 
 - (void)createMainImageNativeView {
-    UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage" bundle:[NSBundle bundleForClass:[self class]]];
-    NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    self.nativeAdView = [array firstObject];
+    if (self.nativeAdResponse.networkCode == ANNativeAdNetworkCodeAdColony) {
+        AdColonyNativeAdView *videoView = (AdColonyNativeAdView *)self.nativeAdResponse.customElements[kANAdAdapterNativeAdColonyVideoView];
+        self.adColonyView = [[ANNativeAdColonyView alloc] initWithNativeAdView:videoView
+                                                                         frame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 480)];
+    } else {
+        UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage" bundle:[NSBundle bundleForClass:[self class]]];
+        NSArray *array = [adNib instantiateWithOwner:self options:nil];
+        self.nativeAdView = [array firstObject];
+    }
 }
 
 - (void)populateNativeViewWithResponse {
     ANNativeAdView *nativeAdView = self.nativeAdView;
-    nativeAdView.titleLabel.text = self.nativeAdResponse.title;
-    nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
-    nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
-    nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
-    [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
+    if (self.nativeAdResponse.networkCode != ANNativeAdNetworkCodeAdColony) {
+        nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
+        nativeAdView.titleLabel.text = self.nativeAdResponse.title;
+        nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
+        nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
+        [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
+    }
 }
 
 - (void)registerNativeView {
     NSError *registerError;
     UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
     self.nativeAdResponse.delegate = self;
-    [self.nativeAdResponse registerViewForTracking:self.nativeAdView
-                            withRootViewController:rvc
-                                    clickableViews:@[self.nativeAdView.callToActionButton]
-                                             error:&registerError];
+    if (self.nativeAdResponse.networkCode == ANNativeAdNetworkCodeAdColony) {
+        [self.nativeAdResponse registerViewForTracking:self.adColonyView
+                                withRootViewController:rvc
+                                        clickableViews:nil
+                                                 error:&registerError];
+    } else {
+        [self.nativeAdResponse registerViewForTracking:self.nativeAdView
+                                withRootViewController:rvc
+                                        clickableViews:@[self.nativeAdView.callToActionButton]
+                                                 error:&registerError];
+    }
 }
 
 - (void)addNativeViewToViewHierarchy {
-    [self.view addSubview:self.nativeAdView];
+    if (self.nativeAdResponse.networkCode == ANNativeAdNetworkCodeAdColony) {
+        CGSize fittingSize = [self.adColonyView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        self.adColonyView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), fittingSize.height);
+        [self.view addSubview:self.adColonyView];
+    } else {
+        [self.view addSubview:self.nativeAdView];
+    }
 }
 
 # pragma mark - General
