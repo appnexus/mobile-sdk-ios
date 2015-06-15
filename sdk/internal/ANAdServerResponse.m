@@ -128,9 +128,6 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
         return nil;
     }
 
-    ANPostNotifications(kANAdFetcherDidReceiveResponseNotification, self,
-                        @{kANAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-
     NSError *jsonParsingError = nil;
     id jsonResponse = [NSJSONSerialization JSONObjectWithData:data
                                                       options:0
