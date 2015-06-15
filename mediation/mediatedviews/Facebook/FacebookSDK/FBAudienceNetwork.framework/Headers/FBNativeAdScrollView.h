@@ -18,17 +18,19 @@
 
 #import <UIKit/UIKit.h>
 
+#import "FBAdDefines.h"
 #import "FBNativeAdView.h"
 #import "FBNativeAdsManager.h"
 
 @protocol FBNativeAdView;
 
 /*!
- @typedef FBNativeAdScrollView
+ @class FBNativeAdScrollView
  @abstract Contains multiple ads in a scroll view.
  @discussion
  If adding this view to a XIB or Storyboard, you may recieve the error "Unknown class FBNativeAdScrollView in Interface Builder file" in some cases. This error is caused by the linker failing to include FBNativeAdScrollView in your build. To resolve this, call [FBNativeAdScrollView class] in your project, or add "-all_load -ObjC" to "Other Linker Flags" in your project settings.
  */
+FB_CLASS_EXPORT
 @interface FBNativeAdScrollView : UIView
 
 /*!

@@ -68,7 +68,7 @@
  * Use this property to access the UIButton and customize anything about it except its title text and tap action.
  * @param engagementButton The engagement button that is already embedded within this ad.
  */
-@property (nonatomic) UIButton* engagementButton;
+@property (nonatomic, readonly) UIButton* engagementButton;
 
 /**
  * Returns the recommended height for the AdColonyNativeAdView if it will be displayed at the specified width.
@@ -161,4 +161,10 @@
  * @param muted Whether the ad was muted or unmuted.
  */
 -(void)onAdColonyNativeAd:(AdColonyNativeAdView*)ad muted:(BOOL)muted;
+
+/**
+ * Notifies your app that a user has engaged with the native ad via an in-video engagement mechanism.
+ * @param ad The affected native ad view.
+ */
+-(void)onAdColonyNativeAdEngagementPressed:(AdColonyNativeAdView*)ad;
 @end

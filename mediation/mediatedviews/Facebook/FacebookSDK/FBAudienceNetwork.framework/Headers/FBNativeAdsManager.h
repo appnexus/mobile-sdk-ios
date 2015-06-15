@@ -16,8 +16,8 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "FBAdDefines.h"
 #import "FBNativeAd.h"
-
 
 /*!
  @protocol FBNativeAdsManagerDelegate
@@ -49,6 +49,7 @@
 
  @abstract This class provides a mechanism to fetch a set of ads and then use them within your application. The recommended usage is to call nextNativeAd: at the moment when you are about to render an ad. The native ads manager supports giving out as many ads as needed by cloning over the set of ads it got back from the server which can be useful for feed scenarios.
  */
+FB_CLASS_EXPORT
 @interface FBNativeAdsManager : NSObject
 
 /*!
