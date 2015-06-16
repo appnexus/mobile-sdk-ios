@@ -81,7 +81,6 @@
 		8A949AE51ADF23C500D83DCE /* libANSDKChartboostAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */; };
 		8A949AEA1ADF23D900D83DCE /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE91ADF23D900D83DCE /* Chartboost.framework */; };
 		8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */; };
-		8A9FB01E1B29F9AE004EAC63 /* libInMobi-4.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9FB01D1B29F9AE004EAC63 /* libInMobi-4.5.3.a */; };
 		8A9FB01F1B29F9B6004EAC63 /* libInMobi-4.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9FB01D1B29F9AE004EAC63 /* libInMobi-4.5.3.a */; };
 		8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095519DB16C50090EBED /* AppDelegate.m */; };
 		8AA0095B19DB16C50090EBED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095619DB16C50090EBED /* main.m */; };
@@ -157,7 +156,6 @@
 		8AA3DA121AAA0DAD00255F94 /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD911A7AAE33009E2F2F /* ANNativeAdView.xib */; };
 		8AA3DA131AAA0DAD00255F94 /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */; };
 		8AA5B4F01AA90C3E00522E1C /* libANSDKInMobiAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */; };
-		8AA5B4F71AA90CCE00522E1C /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5B4F61AA90CCE00522E1C /* libsqlite3.dylib */; };
 		8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5B4F81AA90CED00522E1C /* libz.dylib */; };
 		8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */; };
 		8AB387F819DB1245006F9E15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB387F719DB1245006F9E15 /* UIKit.framework */; };
@@ -165,6 +163,10 @@
 		8AB5324819F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */; };
 		8AB5326019F0469A00CA4427 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8AB5326B19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */; };
+		8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD011A61B2F652B001B0107 /* IOKit.framework */; };
+		8AD011A81B2F656B001B0107 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD011A61B2F652B001B0107 /* IOKit.framework */; };
+		8AD011A91B2F657E001B0107 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD011A61B2F652B001B0107 /* IOKit.framework */; };
+		8AD011B01B2F6C54001B0107 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD011AF1B2F6C54001B0107 /* libsqlite3.dylib */; };
 		8AD01833199932F9007874BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01832199932F9007874BA /* main.m */; };
 		8AD01836199932F9007874BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01835199932F9007874BA /* AppDelegate.m */; };
 		8AD01839199932F9007874BA /* ANNewTestAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD01838199932F9007874BA /* ANNewTestAppViewController.m */; };
@@ -453,6 +455,27 @@
 			remoteGlobalIDString = EABD46791857A0C700A5F081;
 			remoteInfo = KIF;
 		};
+		8AD011A01B2F63CC001B0107 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB72047C1680DDAD00278DA2;
+			remoteInfo = "KIF-OCUnit";
+		};
+		8AD011A21B2F63CC001B0107 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB60ECEB177F8DB3005A041A;
+			remoteInfo = "KIF Tests-OCUnit";
+		};
+		8AD011A41B2F63CC001B0107 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9CC9673B1AD4B1B600576D13;
+			remoteInfo = KIFFramework;
+		};
 		8AD01844199932F9007874BA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AD01825199932F9007874BA /* Project object */;
@@ -653,7 +676,6 @@
 		8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SuccessfulMRAIDResponse.json; sourceTree = "<group>"; };
 		8AA00A2B19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAmazon+ANTest.h"; sourceTree = "<group>"; };
 		8AA00A2C19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBaseAmazon+ANTest.m"; sourceTree = "<group>"; };
-		8AA5B4F61AA90CCE00522E1C /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8AA5B4F81AA90CED00522E1C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8AB387A519DB0CA8006F9E15 /* OriginalUnitTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OriginalUnitTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB387BD19DB0CA8006F9E15 /* OriginalUnitTestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OriginalUnitTestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -663,6 +685,8 @@
 		8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
 		8AB5326919F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBannerMoPub+ANTest.h"; sourceTree = "<group>"; };
 		8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBannerMoPub+ANTest.m"; sourceTree = "<group>"; };
+		8AD011A61B2F652B001B0107 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		8AD011AF1B2F6C54001B0107 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8AD0182D199932F9007874BA /* NewTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD01831199932F9007874BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8AD01832199932F9007874BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -715,6 +739,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AE7AD981A7AB348009E2F2F /* libKIF.a in Frameworks */,
+				8AD011A91B2F657E001B0107 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,6 +747,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD011B01B2F6C54001B0107 /* libsqlite3.dylib in Frameworks */,
 				8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */,
 				8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */,
 				8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */,
@@ -730,7 +756,6 @@
 				8AD7C50C1AD32B400049C997 /* VungleSDK.framework in Frameworks */,
 				8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */,
 				8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */,
-				8AA5B4F71AA90CCE00522E1C /* libsqlite3.dylib in Frameworks */,
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
 				8AA009F219DB1DA50090EBED /* libANSDKGoogleAdMobAdapter.a in Frameworks */,
 				8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */,
@@ -750,6 +775,7 @@
 				8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */,
 				8A949AE51ADF23C500D83DCE /* libANSDKChartboostAdapter.a in Frameworks */,
 				8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */,
+				8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */,
 				8A9FB01F1B29F9B6004EAC63 /* libInMobi-4.5.3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -759,6 +785,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AB5326019F0469A00CA4427 /* libKIF.a in Frameworks */,
+				8AD011A81B2F656B001B0107 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,7 +811,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A9FB01E1B29F9AE004EAC63 /* libInMobi-4.5.3.a in Frameworks */,
 				8AF3659419D479130097019F /* AdSupport.framework in Frameworks */,
 				8AA00A4219DB2A3A0090EBED /* libANSDK.a in Frameworks */,
 			);
@@ -939,6 +965,8 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8AD011AF1B2F6C54001B0107 /* libsqlite3.dylib */,
+				8AD011A61B2F652B001B0107 /* IOKit.framework */,
 				8A949AE91ADF23D900D83DCE /* Chartboost.framework */,
 				8A4B96C91ACDEDFA00FFEB2A /* libLWSDK.a */,
 				8A1482801AD346430046F1B9 /* CoreMedia.framework */,
@@ -946,7 +974,6 @@
 				8A14826F1AD344B70046F1B9 /* AdColony.framework */,
 				8AD7C5041AD3253C0049C997 /* VungleSDK.embeddedframework */,
 				8AA5B4F81AA90CED00522E1C /* libz.dylib */,
-				8AA5B4F61AA90CCE00522E1C /* libsqlite3.dylib */,
 				8A40180A1A95028700D56208 /* StoreKit.framework */,
 				8A4018071A95025C00D56208 /* CoreTelephony.framework */,
 				8A4018041A9500A300D56208 /* GoogleMobileAds.framework */,
@@ -1196,8 +1223,11 @@
 			isa = PBXGroup;
 			children = (
 				8AB5325719F0464B00CA4427 /* libKIF.a */,
+				8AD011A11B2F63CC001B0107 /* libKIF-OCUnit.a */,
 				8AB5325B19F0464B00CA4427 /* Test Host.app */,
 				8AB5325D19F0464B00CA4427 /* KIF Tests - XCTest.xctest */,
+				8AD011A31B2F63CC001B0107 /* KIF Tests-OCUnit.octest */,
+				8AD011A51B2F63CC001B0107 /* KIF.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1642,6 +1672,27 @@
 			fileType = wrapper.cfbundle;
 			path = "KIF Tests - XCTest.xctest";
 			remoteRef = 8AB5325C19F0464B00CA4427 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AD011A11B2F63CC001B0107 /* libKIF-OCUnit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libKIF-OCUnit.a";
+			remoteRef = 8AD011A01B2F63CC001B0107 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AD011A31B2F63CC001B0107 /* KIF Tests-OCUnit.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "KIF Tests-OCUnit.octest";
+			remoteRef = 8AD011A21B2F63CC001B0107 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AD011A51B2F63CC001B0107 /* KIF.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KIF.framework;
+			remoteRef = 8AD011A41B2F63CC001B0107 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */ = {
@@ -2102,10 +2153,7 @@
 				INFOPLIST_FILE = MediationAdapterApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/InMobi/InMobiSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -2122,10 +2170,7 @@
 				INFOPLIST_FILE = MediationAdapterApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/InMobi/InMobiSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -2384,10 +2429,7 @@
 				INFOPLIST_FILE = NewTestApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/InMobi/InMobiSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2409,10 +2451,7 @@
 				INFOPLIST_FILE = NewTestApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/josecu/Desktop/mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/InMobi/InMobiSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

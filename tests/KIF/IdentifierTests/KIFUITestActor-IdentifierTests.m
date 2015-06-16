@@ -196,7 +196,20 @@
 	}];
 }
 
+- (BOOL) tryFindingViewWithAccessibilityIdentifier:(NSString *) accessibilityIdentifier
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"accessibilityIdentifier = %@", accessibilityIdentifier];
+    return [UIAccessibilityElement accessibilityElement:nil view:nil withElementMatchingPredicate:predicate tappable:NO error:nil];
+}
 
+- (void)swipeViewWithAccessibilityIdentifier:(NSString *)identifier inDirection:(KIFSwipeDirection)direction
+{
+    UIView *viewToSwipe = nil;
+    UIAccessibilityElement *element = nil;
 
+    [self waitForAccessibilityElement: &element view:&viewToSwipe withIdentifier:identifier tappable:NO];
+
+    [self swipeAccessibilityElement:element inView:viewToSwipe inDirection:direction];
+}
 
 @end

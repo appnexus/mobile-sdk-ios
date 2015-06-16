@@ -320,13 +320,13 @@
     }];
 }
 
-- (void)enterTextIntoCurrentFirstResponder:(NSString *)text;
+- (void)enterTextIntoCurrentFirstResponder:(NSString *)text
 {
     [self waitForKeyInputReady];
     [self enterTextIntoCurrentFirstResponder:text fallbackView:nil];
 }
 
-- (void)enterTextIntoCurrentFirstResponder:(NSString *)text fallbackView:(UIView *)fallbackView;
+- (void)enterTextIntoCurrentFirstResponder:(NSString *)text fallbackView:(UIView *)fallbackView
 {
     for (NSUInteger characterIndex = 0; characterIndex < [text length]; characterIndex++) {
         NSString *characterString = [text substringWithRange:NSMakeRange(characterIndex, 1)];
@@ -500,8 +500,12 @@
                 UILabel *label = (labels.count > 0 ? labels[0] : nil);
                 rowTitle = label.text;
             }
-            NSAssert(rowTitle != nil, @"Unknown picker type. Delegate responds neither to pickerView:titleForRow:forComponent: nor to pickerView:viewForRow:forComponent:reusingView:");
-            [dataToSelect addObject: rowTitle];
+            
+            if (rowTitle) {
+                [dataToSelect addObject: rowTitle];
+            } else {
+                @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Unknown picker type. Delegate responds neither to pickerView:titleForRow:forComponent: nor to pickerView:viewForRow:forComponent:reusingView:" userInfo:nil];
+            }
         }
     }
     
@@ -748,6 +752,21 @@
     [self waitForAnimationsToFinish];
 }
 
+- (void)swipeRowAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)tableView inDirection:(KIFSwipeDirection)direction
+{
+    const NSUInteger kNumberOfPointsInSwipePath = 20;
+    
+    UITableViewCell *cell = [self waitForCellAtIndexPath:indexPath inTableView:tableView];
+    CGRect cellFrame = [cell.contentView convertRect:cell.contentView.frame toView:tableView];
+    CGPoint swipeStart = CGPointCenteredInRect(cellFrame);
+    KIFDisplacement swipeDisplacement = KIFDisplacementForSwipingInDirection(direction);
+    [tableView dragFromPoint:swipeStart displacement:swipeDisplacement steps:kNumberOfPointsInSwipePath];
+    
+    // Wait for the view to stabilize.
+    [tester waitForTimeInterval:0.5];
+    
+}
+
 - (void)tapItemAtIndexPath:(NSIndexPath *)indexPath inCollectionViewWithAccessibilityIdentifier:(NSString *)identifier
 {
     UICollectionView *collectionView;
@@ -782,21 +801,26 @@
 
 - (void)swipeViewWithAccessibilityLabel:(NSString *)label value:(NSString *)value traits:(UIAccessibilityTraits)traits inDirection:(KIFSwipeDirection)direction
 {
-    const NSUInteger kNumberOfPointsInSwipePath = 20;
-
-    // The original version of this came from http://groups.google.com/group/kif-framework/browse_thread/thread/df3f47eff9f5ac8c
-
     UIView *viewToSwipe = nil;
     UIAccessibilityElement *element = nil;
 
-    [self waitForAccessibilityElement:&element view:&viewToSwipe withLabel:label value:value traits:traits tappable:NO];
+    [self waitForAccessibilityElement:&element view:&viewToSwipe withLabel:label value:value traits:traits tappable:YES];
 
+    [self swipeAccessibilityElement:element inView:viewToSwipe inDirection:direction];
+}
+
+- (void)swipeAccessibilityElement:(UIAccessibilityElement *)element inView:(UIView *)viewToSwipe inDirection:(KIFSwipeDirection)direction
+{
+    // The original version of this came from http://groups.google.com/group/kif-framework/browse_thread/thread/df3f47eff9f5ac8c
+  
+    const NSUInteger kNumberOfPointsInSwipePath = 20;
+  
     // Within this method, all geometry is done in the coordinate system of the view to swipe.
-
+  
     CGRect elementFrame = [viewToSwipe.windowOrIdentityWindow convertRect:element.accessibilityFrame toView:viewToSwipe];
     CGPoint swipeStart = CGPointCenteredInRect(elementFrame);
     KIFDisplacement swipeDisplacement = KIFDisplacementForSwipingInDirection(direction);
-
+  
     [viewToSwipe dragFromPoint:swipeStart displacement:swipeDisplacement steps:kNumberOfPointsInSwipePath];
 }
 
@@ -956,9 +980,20 @@
     [collectionView scrollToItemAtIndexPath:indexPath
                            atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally | UICollectionViewScrollPositionCenteredVertically
                                    animated:YES];
-    [self waitForTimeInterval:0.5];
+
+    [self waitForAnimationsToFinish];
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
 
+    //For big collection views with many cells the cell might not be ready yet. Relayout and try again.
+    if(cell == nil) {
+        [collectionView layoutIfNeeded];
+        [collectionView scrollToItemAtIndexPath:indexPath
+                               atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally | UICollectionViewScrollPositionCenteredVertically
+                                       animated:YES];
+        [self waitForAnimationsToFinish];
+        cell = [collectionView cellForItemAtIndexPath:indexPath];
+    }
+    
     if (!cell) {
         [self failWithError:[NSError KIFErrorWithFormat: @"Collection view cell at index path %@ not found", indexPath] stopTest:YES];
     }
@@ -994,6 +1029,10 @@
     if (![tableView dragCell:cell toIndexPath:destinationIndexPath error:&error]) {
         [self failWithError:error stopTest:YES];
     }
+}
+
+- (void)deactivateAppForDuration:(NSTimeInterval)duration {
+    [UIAutomationHelper deactivateAppForDuration:@(duration)];
 }
 
 @end
