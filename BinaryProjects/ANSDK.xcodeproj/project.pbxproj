@@ -24,6 +24,7 @@
 		8A4FF3AA1A2F8CC10000E4CC /* an_arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A91A2F8CC10000E4CC /* an_arrow_right@3x.png */; };
 		8A4FF3AD1A2F8CE50000E4CC /* an_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AB1A2F8CE50000E4CC /* an_arrow_right@2x.png */; };
 		8A4FF3AE1A2F8CE50000E4CC /* an_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AC1A2F8CE50000E4CC /* an_arrow_right.png */; };
+		8A56E67C1B264DC200642ACC /* ANAdAdapterNativeAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A56E67B1B264DC200642ACC /* ANAdAdapterNativeAdColony.m */; };
 		8A598F8B1A1EA061009BA879 /* ANNativeStandardAdResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A598F881A1EA061009BA879 /* ANNativeStandardAdResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A598F8C1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */; };
 		8A598F8D1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */; };
@@ -584,6 +585,8 @@
 		8A4FF3A91A2F8CC10000E4CC /* an_arrow_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_right@3x.png"; sourceTree = "<group>"; };
 		8A4FF3AB1A2F8CE50000E4CC /* an_arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_right@2x.png"; sourceTree = "<group>"; };
 		8A4FF3AC1A2F8CE50000E4CC /* an_arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = an_arrow_right.png; sourceTree = "<group>"; };
+		8A56E67A1B264DC200642ACC /* ANAdAdapterNativeAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeAdColony.h; sourceTree = "<group>"; };
+		8A56E67B1B264DC200642ACC /* ANAdAdapterNativeAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeAdColony.m; sourceTree = "<group>"; };
 		8A598F881A1EA061009BA879 /* ANNativeStandardAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeStandardAdResponse.h; sourceTree = "<group>"; };
 		8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeStandardAdResponse.m; sourceTree = "<group>"; };
 		8A6514701A12DB31003F1047 /* UIView+ANNativeAdCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ANNativeAdCategory.h"; sourceTree = "<group>"; };
@@ -654,6 +657,7 @@
 		8A9AED8C1A1BE84F00C58BDA /* AppNexusSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppNexusSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9AED8F1A1BE84F00C58BDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A9AED901A1BE84F00C58BDA /* AppNexusSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppNexusSDK.h; sourceTree = "<group>"; };
+		8A9FB0131B29F97A004EAC63 /* libInMobi-4.5.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-4.5.3.a"; sourceTree = "<group>"; };
 		8AA5B4C41AA8B4A500522E1C /* libANSDKInMobiAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKInMobiAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AA5B4CE1AA8B72C00522E1C /* ANAdAdapterBannerInMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerInMobi.h; sourceTree = "<group>"; };
 		8AA5B4CF1AA8B72C00522E1C /* ANAdAdapterBannerInMobi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerInMobi.m; sourceTree = "<group>"; };
@@ -668,7 +672,6 @@
 		8AA5B4D91AA8B72C00522E1C /* IMNativeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMNativeDelegate.h; sourceTree = "<group>"; };
 		8AA5B4DA1AA8B72C00522E1C /* InMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobi.h; sourceTree = "<group>"; };
 		8AA5B4DB1AA8B72C00522E1C /* InMobiAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InMobiAnalytics.h; sourceTree = "<group>"; };
-		8AA5B4DC1AA8B72C00522E1C /* libInMobi-4.5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-4.5.1.a"; sourceTree = "<group>"; };
 		8AA5B4DF1AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialInMobi.h; sourceTree = "<group>"; };
 		8AA5B4E01AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialInMobi.m; sourceTree = "<group>"; };
 		8AA5B4E11AA8B74E00522E1C /* ANAdAdapterNativeInMobi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeInMobi.h; sourceTree = "<group>"; };
@@ -1004,6 +1007,8 @@
 				8A8DEF891AD58EC900742AD7 /* ANAdAdapterBaseAdColony+PrivateMethods.h */,
 				8A8E0FDC1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.h */,
 				8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */,
+				8A56E67A1B264DC200642ACC /* ANAdAdapterNativeAdColony.h */,
+				8A56E67B1B264DC200642ACC /* ANAdAdapterNativeAdColony.m */,
 			);
 			name = AdColony;
 			path = ../mediation/mediatedviews/AdColony;
@@ -1217,7 +1222,7 @@
 				8AA5B4D91AA8B72C00522E1C /* IMNativeDelegate.h */,
 				8AA5B4DA1AA8B72C00522E1C /* InMobi.h */,
 				8AA5B4DB1AA8B72C00522E1C /* InMobiAnalytics.h */,
-				8AA5B4DC1AA8B72C00522E1C /* libInMobi-4.5.1.a */,
+				8A9FB0131B29F97A004EAC63 /* libInMobi-4.5.3.a */,
 			);
 			path = InMobiSDK;
 			sourceTree = "<group>";
@@ -2215,6 +2220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A56E67C1B264DC200642ACC /* ANAdAdapterNativeAdColony.m in Sources */,
 				8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */,
 				8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */,
 			);

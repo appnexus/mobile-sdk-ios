@@ -19,6 +19,7 @@
 #import <StoreKit/StoreKit.h>
 #import <UIKit/UIKit.h>
 
+#import "FBAdDefines.h"
 #import "FBAdSize.h"
 
 @protocol FBAdViewDelegate;
@@ -28,6 +29,7 @@
 
  @abstract A customized UIView to represent a Facebook ad (a.k.a. banner ad).
  */
+FB_CLASS_EXPORT
 @interface FBAdView : UIView
 
 /*!

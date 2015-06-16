@@ -1,3 +1,39 @@
+## RC 2.3
+
+### Bug fixes:
+
++ MS-1219 Removed OpenUDID dependency
+
++ MS-1265 Move location of kANAdFetcherDidReceiveResponseNotification
+
++ MS-1267 Testing improvements
+
+### New mediation adapters:
+
++ MS-1107 AdColony Native
+
+### Contains the following mediated SDKs:
+
++ AdMob SDK Version 7.3.1
+
++ Amazon SDK Version 2.2.8
+
++ Facebook SDK Version 4.2.0
+
++ Millennial Media SDK Version 5.4.1
+
++ MoPub SDK Version 3.8.0
+
++ InMobi SDK Version 4.5.3
+
++ VDOPIA Lightweight SDK Version 4
+
++ Vungle SDK 3.0.13
+
++ AdColony SDK 2.5.1
+
++ Chartboost SDK 5.4.0
+
 ## RC 2.2
 
 ### Feature additions:

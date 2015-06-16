@@ -14,9 +14,9 @@
 #define MP_BUNDLE_IDENTIFIER        @"com.mopub.mopub"
 
 #ifdef MP_FABRIC
-    #define MP_SDK_VERSION              @"3.7.0+kit"
+    #define MP_SDK_VERSION              @"3.8.0+kit"
 #else
-    #define MP_SDK_VERSION              @"3.7.0"
+    #define MP_SDK_VERSION              @"3.8.0"
 #endif
 
 // Sizing constants.

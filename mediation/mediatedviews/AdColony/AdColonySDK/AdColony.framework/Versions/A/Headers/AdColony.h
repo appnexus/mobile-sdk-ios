@@ -15,13 +15,13 @@
 /**
  * Enum for zone status
  */
-typedef enum {
+typedef NS_ENUM(NSUInteger, ADCOLONY_ZONE_STATUS) {
     ADCOLONY_ZONE_STATUS_NO_ZONE = 0,   /**< AdColony has not been configured with that zone ID. */
     ADCOLONY_ZONE_STATUS_OFF,           /**< The zone has been turned off on the [Control Panel](http://clients.adcolony.com). */
     ADCOLONY_ZONE_STATUS_LOADING,       /**< The zone is preparing ads for display. */
     ADCOLONY_ZONE_STATUS_ACTIVE,        /**< The zone has completed preparing ads for display. */
     ADCOLONY_ZONE_STATUS_UNKNOWN        /**< AdColony has not yet received the zone's configuration from the server. */
-} ADCOLONY_ZONE_STATUS;
+};
 
 #pragma mark -
 #pragma mark Forward declarations

@@ -53,7 +53,7 @@ typedef enum {
 @property (nonatomic, readonly) NSString *iapProductID;
 
 /**
- * The number of items the user wishes to purchase.
+ * The number of items to be purchased.
  * @param iapQuantity An int denoting the number of items the user wishes to purchase.
  */
 @property (nonatomic, readonly) int iapQuantity;

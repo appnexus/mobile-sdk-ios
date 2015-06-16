@@ -238,7 +238,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 - (void)processAdResponse:(ANAdServerResponse *)response
 {
     [self clearMediationController];
-
+    
     BOOL responseAdsExist = response && response.containsAds;
     BOOL oldAdsExist = [self.mediatedAds count] > 0;
     
@@ -368,6 +368,10 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     if (connection == self.connection) {
         ANAdServerResponse *adResponse = [ANAdServerResponse responseWithData:self.data];
+        NSString *responseString = [[NSString alloc] initWithData:self.data
+                                                         encoding:NSUTF8StringEncoding];
+        ANPostNotifications(kANAdFetcherDidReceiveResponseNotification, self,
+                            @{kANAdFetcherAdResponseKey: (responseString ? responseString : @"")});
         [self processAdResponse:adResponse];
     }
 }
