@@ -319,7 +319,7 @@
 - (void)stubAdMobBanner {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterBannerAdMob";
-    mediatedAd.adId = @"ca-app-pub-5668774179595841/1125462353";
+    mediatedAd.adId = @"ca-app-pub-8961681709559022/7336091790";
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
     [self stubMediatedAd:mediatedAd];
@@ -328,7 +328,7 @@
 - (void)stubAdMobInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialAdMob";
-    mediatedAd.adId = @"ca-app-pub-5668774179595841/1125462353";
+    mediatedAd.adId = @"ca-app-pub-8961681709559022/1180736194";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -347,7 +347,7 @@
 - (void)stubDFPBanner {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterBannerDFP";
-    mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
+    mediatedAd.adId = @"/19968336/MediationAdapterAppTest";
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
     [self stubMediatedAd:mediatedAd];
@@ -356,7 +356,7 @@
 - (void)stubDFPInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialDFP";
-    mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
+    mediatedAd.adId = @"/19968336/MediationAdapterAppTest";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -435,8 +435,11 @@
 
 - (ANInterstitialAd *)loadAdColonyInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
     [self stubAdColonyInterstitial];
-    [ANAdAdapterBaseAdColony configureWithAppID:@"appe1ba2960e786424bb5"
-                                        zoneIDs:@[@"vzcc692652bbe74d4e92"]];
+    static dispatch_once_t startToken;
+    dispatch_once(&startToken, ^{
+        [ANAdAdapterBaseAdColony configureWithAppID:@"appe1ba2960e786424bb5"
+                                            zoneIDs:@[@"vzcc692652bbe74d4e92"]];
+    });
     return [self interstitialWithDelegate:delegate];
 }
 
@@ -449,8 +452,11 @@
 
 - (ANNativeAdRequest *)loadAdColonyNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
     [self stubAdColonyNative];
-    [ANAdAdapterBaseAdColony configureWithAppID:@"app553a8f6740d84f3ba0"
-                                        zoneIDs:@[@"vzee73d915bab747ee8a"]];
+    static dispatch_once_t startToken;
+    dispatch_once(&startToken, ^{
+        [ANAdAdapterBaseAdColony configureWithAppID:@"app553a8f6740d84f3ba0"
+                                            zoneIDs:@[@"vzee73d915bab747ee8a"]];
+    });
     ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
     nativeAdRequest.shouldLoadIconImage = YES;
     nativeAdRequest.shouldLoadMainImage = YES;
