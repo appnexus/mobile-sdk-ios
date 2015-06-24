@@ -46,11 +46,18 @@
 - (instancetype)initWithURL:(NSURL *)url
                    delegate:(id<ANBrowserViewControllerDelegate>)delegate
    delayPresentationForLoad:(BOOL)shouldDelayPresentation {
-    if (!ANPathForANResource(NSStringFromClass([self class]), @"nib")) {
-        ANLogError(@"Could not instantiate browser controller because of missing NIB file");
-        return nil;
+    NSString *sizeClassesNib = @"ANBrowserViewController_SizeClasses";
+    NSString *oldNib = @"ANBrowserViewController";
+    NSString *nibName = sizeClassesNib;
+    if (!ANPathForANResource(sizeClassesNib, @"nib")) {
+        if (ANPathForANResource(oldNib, @"nib")) {
+            nibName = oldNib;
+        } else {
+            ANLogError(@"Could not instantiate browser controller because of missing NIB file");
+            return nil;
+        }
     }
-    self = [super initWithNibName:NSStringFromClass([self class])
+    self = [super initWithNibName:nibName
                            bundle:ANResourcesBundle()];
     if (self) {
         _url = url;

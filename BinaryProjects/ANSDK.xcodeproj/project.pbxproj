@@ -11,6 +11,7 @@
 		8A2F48251A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
 		8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
 		8A2F483D1A2E33B000B0EA05 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F483C1A2E33B000B0EA05 /* compass.png */; };
+		8A3601271B39B51300B7BB62 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */; };
 		8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
@@ -555,6 +556,7 @@
 		8A35B8A219FEBEBD0016C81F /* ANNativeCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeCustomAdapter.h; path = native/ANNativeCustomAdapter.h; sourceTree = "<group>"; };
 		8A35B8AA19FEC9640016C81F /* ANAdAdapterNativeFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterNativeFacebook.h; path = ../mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.h; sourceTree = "<group>"; };
 		8A35B8AB19FEC9640016C81F /* ANAdAdapterNativeFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeFacebook.m; path = ../mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.m; sourceTree = "<group>"; };
+		8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
 		8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANContentViewTransitions.h"; sourceTree = "<group>"; };
 		8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANContentViewTransitions.m"; sourceTree = "<group>"; };
 		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
@@ -1615,6 +1617,7 @@
 			isa = PBXGroup;
 			children = (
 				ECE4EACB194B768A0069D934 /* ANBrowserViewController.xib */,
+				8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */,
 				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 				ECE4EACD194B768A0069D934 /* anjam.js */,
 				ECE4EACC194B768A0069D934 /* ANInterstitialAdViewController.xib */,
@@ -2179,6 +2182,7 @@
 				8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */,
 				8AD618E41981C19500AC0780 /* appnexus_logo_icon@2x.png in Resources */,
 				8AD618E31981C19100AC0780 /* appnexus_logo_icon.png in Resources */,
+				8A3601271B39B51300B7BB62 /* ANBrowserViewController_SizeClasses.xib in Resources */,
 				8A6D2E8D1A44A751003CE77A /* interstitial_flat_closebox@3x.png in Resources */,
 				8A4FF3AA1A2F8CC10000E4CC /* an_arrow_right@3x.png in Resources */,
 				ECE4EB03194B76960069D934 /* ANBrowserViewController.xib in Resources */,
