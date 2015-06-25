@@ -1,3 +1,9 @@
+## RC 2.3.1
+
+### Bug fixes:
+
++ MS-1317 Addressed iPad in-app browser compile issue
+
 ## RC 2.3
 
 ### Bug fixes:
