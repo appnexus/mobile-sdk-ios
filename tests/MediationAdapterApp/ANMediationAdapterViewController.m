@@ -25,6 +25,7 @@
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
 #import "ANNativeAdColonyView.h"
+#import "ANDFPCacheManager.h"
 
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ANNativeAdRequestDelegate, ANNativeAdDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
@@ -60,7 +61,10 @@
              @"MillennialMediaInterstitial",
              @"AdMobBanner",
              @"AdMobInterstitial",
+             @"DFPCacheBanner",
+             @"DFPCacheSmartBanner",
              @"DFPBanner",
+             @"DFPSmartBanner",
              @"DFPInterstitial",
              @"InMobiBanner",
              @"InMobiInterstitial",
@@ -334,9 +338,29 @@
 
 #pragma mark - DFP
 
+- (id)loadDFPCacheBannerWithDelegate:(id)delegate {
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [ANDFPCacheManager cacheBannerWithDFPAdUnitId:@"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab"
+                                           adSize:CGSizeMake(320.0, 50.0)];
+    return nil;
+}
+
+- (id)loadDFPCacheSmartBannerWithDelegate:(id)delegate {
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [ANDFPCacheManager cacheSmartBannerWithDFPAdUnitId:@"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab"];
+    return nil;
+}
+
 - (ANBannerAdView *)loadDFPBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
     [self stubDFPBanner];
     return [self bannerWithDelegate:delegate];
+}
+
+- (ANBannerAdView *)loadDFPSmartBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
+    [self stubDFPSmartBanner];
+    return [self bannerWithDelegate:delegate
+                          frameSize:CGSizeMake(self.view.frame.size.width, 50)
+                             adSize:CGSizeMake(320, 50)];
 }
 
 - (ANInterstitialAd *)loadDFPInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
@@ -350,6 +374,16 @@
     mediatedAd.adId = @"/19968336/MediationAdapterAppTest";
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubDFPSmartBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerDFP";
+    mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    mediatedAd.param = @"{\\\"smartbanner\\\":1}";
     [self stubMediatedAd:mediatedAd];
 }
 

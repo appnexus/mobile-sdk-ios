@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterInterstitialDFP.h"
+#import "ANAdAdapterBaseDFP.h"
 #import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialDFP ()
@@ -55,42 +56,7 @@
 }
 
 - (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
-	GADRequest *request = [GADRequest request];
-    
-    ANGender gender = targetingParameters.gender;
-    switch (gender) {
-        case ANGenderMale:
-            request.gender = kGADGenderMale;
-            break;
-        case ANGenderFemale:
-            request.gender = kGADGenderFemale;
-            break;
-        case ANGenderUnknown:
-            request.gender = kGADGenderUnknown;
-        default:
-            break;
-    }
-    
-    ANLocation *location = targetingParameters.location;
-    if (location) {
-        [request setLocationWithLatitude:location.latitude
-                               longitude:location.longitude
-                                accuracy:location.horizontalAccuracy];
-    }
-    
-    GADExtras *extras = [[GADExtras alloc] init];
-    NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
-    
-    NSString *age = targetingParameters.age;
-    if (age) {
-        [extrasDictionary setValue:age forKey:@"Age"];
-    }
-    
-    extras.additionalParameters = extrasDictionary;
-    
-    [request registerAdNetworkExtras:extras];
-    
-    return request;
+    return [ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters];
 }
 
 #pragma mark GADInterstitialDelegate

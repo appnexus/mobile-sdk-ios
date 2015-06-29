@@ -14,10 +14,13 @@
  */
 
 #import "ANAdAdapterBannerDFP.h"
+#import "ANAdAdapterBaseDFP.h"
 #import "ANLogging.h"
+#import "ANDFPCacheManager+Internal.h"
 
 @interface ANAdAdapterBannerDFP ()
 @property (nonatomic, readwrite, strong) DFPBannerView *dfpBanner;
+@property (nonatomic, readwrite, assign) BOOL trackImpressionForCachedBannerView;
 @end
 
 
@@ -48,8 +51,39 @@
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting DFP banner with size: %0.1fx%0.1f", size.width, size.height);
-	GADAdSize gadAdSize;
+    
     DFPBannerServerSideParameters *ssparam = [self parseServerSide:parameterString];
+
+    ANDFPCacheManager *sharedManager = [ANDFPCacheManager sharedManager];
+    ANDFPBannerViewIdentifier *identifier = [[ANDFPBannerViewIdentifier alloc] init];
+    identifier.adUnitId = idString;
+    if (ssparam.isSmartBanner) {
+        BOOL isLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]);
+        identifier.orientation = isLandscape ? ANDFPSmartBannerOrientationLandscape : ANDFPSmartBannerOrientationPortrait;
+    } else {
+        identifier.adSize = size;
+    }
+    ANDFPBannerViewCacheInstance *cacheInstance = [sharedManager DFPBannerViewCacheInstanceForIdentifier:identifier];
+    if (cacheInstance) {
+        self.dfpBanner = cacheInstance.bannerView;
+        self.dfpBanner.rootViewController = rootViewController;
+        self.dfpBanner.delegate = self;
+        
+        switch (cacheInstance.loadingState) {
+            case ANDFPBannerViewLoadingStateSucceeded:
+                [self.dfpBanner recordImpression];
+                [self adViewDidReceiveAd:self.dfpBanner];
+                return;
+            case ANDFPBannerViewLoadingStateStarted:
+                self.trackImpressionForCachedBannerView = YES;
+                return;
+            case ANDFPBannerViewLoadingStateFailed:
+            case ANDFPBannerViewLoadingStatePending:
+                break;
+        }
+    }
+    
+	GADAdSize gadAdSize;
     
     // Allow server side to enable Smart Banners for this placement
     if (ssparam.isSmartBanner) {
@@ -72,47 +106,9 @@
 	[self.dfpBanner loadRequest:request];
 }
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters
-{
-	GADRequest *request = [GADRequest request];
-    
-    ANGender gender = targetingParameters.gender;
-    switch (gender) {
-        case ANGenderMale:
-            request.gender = kGADGenderMale;
-            break;
-        case ANGenderFemale:
-            request.gender = kGADGenderFemale;
-            break;
-        case ANGenderUnknown:
-            request.gender = kGADGenderUnknown;
-        default:
-            break;
-    }
-
-    ANLocation *location = targetingParameters.location;
-    if (location) {
-        [request setLocationWithLatitude:location.latitude
-                               longitude:location.longitude
-                                accuracy:location.horizontalAccuracy];
-    }
-    
-    GADExtras *extras = [[GADExtras alloc] init];
-    NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
-
-    NSString *age = targetingParameters.age;
-    if (age) {
-        [extrasDictionary setValue:age forKey:@"Age"];
-    }
-    
-    extras.additionalParameters = extrasDictionary;
-    
-    [request registerAdNetworkExtras:extras];
-    
-    
-    return request;
+- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+    return [ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters];
 }
-
 
 - (DFPBannerServerSideParameters*) parseServerSide:(NSString*) serverSideParameters
 {
@@ -136,12 +132,17 @@
 
 - (void)adViewDidReceiveAd:(DFPBannerView *)view
 {
+    if (self.trackImpressionForCachedBannerView) {
+        [view recordImpression];
+        self.trackImpressionForCachedBannerView = NO;
+    }
     ANLogDebug(@"DFP banner did load");
 	[self.delegate didLoadBannerAd:view];
 }
 
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
 {
+    self.trackImpressionForCachedBannerView = NO;
     ANLogDebug(@"DFP banner failed to load with error: %@", [error localizedDescription]);
     ANAdResponseCode code = ANAdResponseInternalError;
     
