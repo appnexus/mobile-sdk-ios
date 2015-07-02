@@ -77,31 +77,51 @@ rm -rf `pwd`/build
 # Package and Zip
 #####
 
-ANMEDDIR="$OUTDIR"/ANAdaptersNetworksMediatedByAppNexus
+ANMEDDIR="$OUTDIR"/NetworksMediatedByAppNexusSDK
 
 cd "$OUTDIR"
 mkdir -p "$ANMEDDIR"
-cp ANSDK*Adapter/libANSDK*Adapter.a "$ANMEDDIR"
-rm ANSDK*Adapter/*.a
-rmdir ANSDK*Adapter > /dev/null 2>&1
 
-MEDANDIR="$OUTDIR"/ANAdaptersNetworksMediatingAppNexus
+for i in ${schemes[@]}
+do
+    if [[ $i == ANSDK* ]] && [[ $i == *Adapter ]];
+    then
+	cp -a $i "$ANMEDDIR"
+	rm -rf $i
+	tmp=${i#ANSDK}
+        className=${tmp%Adapter}
+	mv "$ANMEDDIR"/$i "$ANMEDDIR"/$className
+    fi
+done
+
+MEDANDIR="$OUTDIR"/NetworksMediatingAppNexusSDK
 
 mkdir -p "$MEDANDIR"
-cp ANAdapterFor*/libANAdapterFor*.a "$MEDANDIR"
-rm ANAdapterFor*/*.a
-rmdir ANAdapterFor* > /dev/null 2>&1
+
+for i in ${schemes[@]}
+do
+    if [[ $i == ANAdapterFor* ]];
+    then
+        cp -a $i "$MEDANDIR"
+        rm -rf $i
+        tmp=${i#ANAdapterFor}
+	className=${tmp%SDK}
+	mv "$MEDANDIR"/$i "$MEDANDIR"/$className
+    fi
+done
+
+mv "$OUTDIR"/"ANSDK" "$OUTDIR"/"AppNexusSDK"
 
 touch README.txt
 echo -e "
 The AppNexus Mobile Advertising SDK for iOS
 ===========================================
 
-The ANSDK folder contains the AppNexus mobile advertising SDK. Documentation is available on our wiki (https://wiki.appnexus.com/display/sdk/Mobile+SDKs).
+The AppNexusSDK folder contains the AppNexus mobile advertising SDK. Documentation is available on our wiki (https://wiki.appnexus.com/display/sdk/Mobile+SDKs).
 
-The ANAdaptersNetworksMediatedByAppNexus folder contains adapters which allow the AppNexus SDK to serve mediated ads from third-party SDKs. For each network you would like the SDK to mediate, include the adapter in your project, the corresponding third-party SDK, and the base header file (e.g. ANAdAdapterBaseAmazon) if present in the root folder.
+The NetworksMediatedByAppNexusSDK folder contains adapters which allow the AppNexus SDK to serve mediated ads from third-party SDKs. For each network you would like the SDK to mediate, include the network's folder, along with the corresponding third-party SDK, in your project.
 
-The ANAdaptersNetworksMediatingAppNexus folder contains adapters which allow third-party SDKs to mediate AppNexus. Include an adapter in your project for each SDK which should call AppNexus as part of its mediation waterfall.
+The NetworksMediatingAppNexusSDK folder contains adapters which allow third-party SDKs to mediate AppNexus. Include an adapter in your project for the SDK which should call AppNexus as part of its mediation waterfall.
 
 Please note that mediation requires external setup as well. Documentation is available on our wiki (https://wiki.appnexus.com/display/sdk/Mediate+with+iOS).
 
@@ -133,7 +153,7 @@ function packageSDK {
     fi
 }
 
-external="$OUTDIR"/externalSDKs
+external="$OUTDIR"/ExternalLibraries
 mkdir -p "$external"
 
 for i in ${schemes[@]}
