@@ -18,10 +18,25 @@
 #import "UIView+ANNativeAdCategory.h"
 #import "ANGlobal.h"
 
+#pragma mark - ANNativeAdResponseGestureRecognizerRecord
+
+@interface ANNativeAdResponseGestureRecognizerRecord : NSObject
+
+@property (nonatomic, weak) UIView *viewWithTracking;
+@property (nonatomic, weak) UIGestureRecognizer *gestureRecognizer;
+
+@end
+
+@implementation ANNativeAdResponseGestureRecognizerRecord
+
+@end
+
+#pragma mark - ANNativeAdResponse
+
 @interface ANNativeAdResponse ()
 
 @property (nonatomic, readwrite, strong) UIView *viewForTracking;
-@property (nonatomic, readwrite, strong) NSMutableDictionary *viewToGestureRecognizerMapping;
+@property (nonatomic, readwrite, strong) NSMutableArray *gestureRecognizerRecords;
 @property (nonatomic, readwrite, weak) UIViewController *rootViewController;
 @property (nonatomic, readwrite, assign, getter=hasExpired) BOOL expired;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
@@ -114,46 +129,45 @@
 
 - (void)attachGestureRecognizerToView:(UIView *)view {
     view.userInteractionEnabled = YES;
-    NSValue *key = [NSValue valueWithNonretainedObject:view];
-    NSValue *value;
+    
+    ANNativeAdResponseGestureRecognizerRecord *record = [[ANNativeAdResponseGestureRecognizerRecord alloc] init];
+    record.viewWithTracking = view;
     
     if ([view isKindOfClass:[UIButton class]]) {
         UIButton *button = (UIButton *)view;
         [button addTarget:self
                    action:@selector(handleClick)
          forControlEvents:UIControlEventTouchUpInside];
-        value = [NSValue valueWithNonretainedObject:[NSNull null]];
     } else {
         UITapGestureRecognizer *clickRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                           action:@selector(handleClick)];
         [view addGestureRecognizer:clickRecognizer];
-        value = [NSValue valueWithNonretainedObject:clickRecognizer];
+        record.gestureRecognizer = clickRecognizer;
     }
-    self.viewToGestureRecognizerMapping[key] = value;
+    
+    [self.gestureRecognizerRecords addObject:record];
 }
 
 - (void)detachAllGestureRecognizers {
-    [self.viewToGestureRecognizerMapping enumerateKeysAndObjectsUsingBlock:^(NSValue *viewValue, NSValue *gestureRecognizerValue, BOOL *stop) {
-        UIView *view = (UIView *)[viewValue nonretainedObjectValue];
+    [self.gestureRecognizerRecords enumerateObjectsUsingBlock:^(ANNativeAdResponseGestureRecognizerRecord *record, NSUInteger idx, BOOL *stop) {
+        UIView *view = record.viewWithTracking;
         if (view) {
             if ([view isKindOfClass:[UIButton class]]) {
                 [(UIButton *)view removeTarget:self
                                         action:@selector(handleClick)
                               forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                UIGestureRecognizer *recognizer = (UIGestureRecognizer *)[gestureRecognizerValue nonretainedObjectValue];
-                if (recognizer) {
-                    [view removeGestureRecognizer:recognizer];
-                }
+            } else if (record.gestureRecognizer) {
+                [view removeGestureRecognizer:record.gestureRecognizer];
             }
         }
     }];
-    [self.viewToGestureRecognizerMapping removeAllObjects];
+    
+    [self.gestureRecognizerRecords removeAllObjects];
 }
 
-- (NSMutableDictionary *)viewToGestureRecognizerMapping {
-    if (!_viewToGestureRecognizerMapping) _viewToGestureRecognizerMapping = [[NSMutableDictionary alloc] init];
-    return _viewToGestureRecognizerMapping;
+- (NSMutableArray *)gestureRecognizerRecords {
+    if (!_gestureRecognizerRecords) _gestureRecognizerRecords = [[NSMutableArray alloc] init];
+    return _gestureRecognizerRecords;
 }
 
 - (void)handleClick {
