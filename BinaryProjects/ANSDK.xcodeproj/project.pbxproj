@@ -57,6 +57,7 @@
 		8A949AD11ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD01ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m */; };
 		8A949AD41ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD31ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m */; };
 		8A949AD91ADF1F3B00D83DCE /* ANChartboostEventReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD81ADF1F3B00D83DCE /* ANChartboostEventReceiver.m */; };
+		8A9686DD1B4327EB00D9399B /* ANAdAdapterNativeInMobi.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AA5B4E11AA8B74E00522E1C /* ANAdAdapterNativeInMobi.h */; };
 		8A9AED201A1BAD2700C58BDA /* ANAdConstants.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; };
 		8A9AED221A1BAD7700C58BDA /* ANNativeAdDelegate.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */; };
 		8A9AED231A1BAD7700C58BDA /* ANNativeAdRequest.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A35B89619FEB5EC0016C81F /* ANNativeAdRequest.h */; };
@@ -430,6 +431,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				8A8DEFA21AD5C03D00742AD7 /* ANAdAdapterBaseInMobi.h in Copy Files */,
+				8A9686DD1B4327EB00D9399B /* ANAdAdapterNativeInMobi.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
