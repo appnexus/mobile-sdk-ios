@@ -32,6 +32,7 @@
 		8A0AA49519DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48919DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m */; };
 		8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48B19DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m */; };
 		8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
+		8A0EFA941B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA931B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m */; };
 		8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14826F1AD344B70046F1B9 /* AdColony.framework */; };
 		8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */; };
 		8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE3999E1A42105B00C0D7B1 /* WebKit.framework */; };
@@ -80,6 +81,9 @@
 		8A8458881A69A34C0014F291 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AA0094219DB169B0090EBED /* ANSDKResources.bundle */; };
 		8A949AE51ADF23C500D83DCE /* libANSDKChartboostAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */; };
 		8A949AEA1ADF23D900D83DCE /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE91ADF23D900D83DCE /* Chartboost.framework */; };
+		8A9687351B4351E900D9399B /* libANSDKYahooAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */; };
+		8A96873E1B43520300D9399B /* libFlurry_6.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A96873C1B43520300D9399B /* libFlurry_6.4.0.a */; };
+		8A96873F1B43520300D9399B /* libFlurryAds_6.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A96873D1B43520300D9399B /* libFlurryAds_6.4.0.a */; };
 		8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */; };
 		8A9FB01F1B29F9B6004EAC63 /* libInMobi-4.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9FB01D1B29F9AE004EAC63 /* libInMobi-4.5.3.a */; };
 		8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095519DB16C50090EBED /* AppDelegate.m */; };
@@ -251,6 +255,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 8A949ACE1ADF131500D83DCE;
 			remoteInfo = ANSDKChartboostAdapter;
+		};
+		8A9687331B4351E900D9399B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A96871A1B43314E00D9399B;
+			remoteInfo = ANSDKYahooAdapter;
 		};
 		8A9F94D919D1C37700AB739F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -532,6 +543,8 @@
 		8A0AA48B19DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFill.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFill.m"; sourceTree = "<group>"; };
 		8A0AA48C19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerUnableToFillThenSuccessful.h; path = "Banner Adapters/ANAdAdapterBannerUnableToFillThenSuccessful.h"; sourceTree = "<group>"; };
 		8A0AA48D19DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerUnableToFillThenSuccessful.m; path = "Banner Adapters/ANAdAdapterBannerUnableToFillThenSuccessful.m"; sourceTree = "<group>"; };
+		8A0EFA921B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseYahoo+ANTest.h"; sourceTree = "<group>"; };
+		8A0EFA931B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBaseYahoo+ANTest.m"; sourceTree = "<group>"; };
 		8A14826F1AD344B70046F1B9 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdColony.framework; path = ../mediation/mediatedviews/AdColony/AdColonySDK/AdColony.framework; sourceTree = "<group>"; };
 		8A14827D1AD346220046F1B9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		8A1482801AD346430046F1B9 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -573,6 +586,8 @@
 		8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
 		8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
 		8A949AE91ADF23D900D83DCE /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Chartboost.framework; path = ../mediation/mediatedviews/Chartboost/ChartboostSDK/Chartboost.framework; sourceTree = "<group>"; };
+		8A96873C1B43520300D9399B /* libFlurry_6.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry_6.4.0.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurry_6.4.0.a; sourceTree = "<group>"; };
+		8A96873D1B43520300D9399B /* libFlurryAds_6.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds_6.4.0.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds_6.4.0.a; sourceTree = "<group>"; };
 		8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdViewMainImage.xib; sourceTree = "<group>"; };
 		8A9F94C019D1C37700AB739F /* MediationAdapterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediationAdapterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediationAdapterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -755,6 +770,7 @@
 				8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */,
 				8AD7C50C1AD32B400049C997 /* VungleSDK.framework in Frameworks */,
 				8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */,
+				8A96873F1B43520300D9399B /* libFlurryAds_6.4.0.a in Frameworks */,
 				8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */,
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
 				8AA009F219DB1DA50090EBED /* libANSDKGoogleAdMobAdapter.a in Frameworks */,
@@ -763,6 +779,7 @@
 				8AA009F419DB1DA50090EBED /* libANSDKMillennialMediaAdapter.a in Frameworks */,
 				8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */,
 				8AA009F519DB1DA50090EBED /* libANSDKMoPubAdapter.a in Frameworks */,
+				8A96873E1B43520300D9399B /* libFlurry_6.4.0.a in Frameworks */,
 				8AA009F619DB1DA50090EBED /* libANSDKFacebookAdapter.a in Frameworks */,
 				8AA009F719DB1DA50090EBED /* libANSDKAmazonAdapter.a in Frameworks */,
 				8AA5B4F01AA90C3E00522E1C /* libANSDKInMobiAdapter.a in Frameworks */,
@@ -777,6 +794,7 @@
 				8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */,
 				8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */,
 				8A9FB01F1B29F9B6004EAC63 /* libInMobi-4.5.3.a in Frameworks */,
+				8A9687351B4351E900D9399B /* libANSDKYahooAdapter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -965,6 +983,8 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A96873C1B43520300D9399B /* libFlurry_6.4.0.a */,
+				8A96873D1B43520300D9399B /* libFlurryAds_6.4.0.a */,
 				8AD011AF1B2F6C54001B0107 /* libsqlite3.dylib */,
 				8AD011A61B2F652B001B0107 /* IOKit.framework */,
 				8A949AE91ADF23D900D83DCE /* Chartboost.framework */,
@@ -1022,6 +1042,7 @@
 				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
 				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
@@ -1159,10 +1180,14 @@
 		8AA009FB19DB1E150090EBED /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */,
-				8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */,
+				8AB5324619F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.h */,
+				8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */,
+				8AB5326919F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.h */,
+				8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */,
 				8AA00A2B19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.h */,
 				8AA00A2C19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.m */,
+				8A0EFA921B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.h */,
+				8A0EFA931B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m */,
 				8AA009FC19DB1E150090EBED /* ANAdFetcher+ANTest.h */,
 				8AA009FD19DB1E150090EBED /* ANAdFetcher+ANTest.m */,
 				8AA009FE19DB1E150090EBED /* ANAdView+ANTest.h */,
@@ -1175,6 +1200,12 @@
 				8AA00A0519DB1E150090EBED /* ANInterstitialAd+ANTest.m */,
 				8AA00A0619DB1E150090EBED /* ANMediationAdViewController+ANTest.h */,
 				8AA00A0719DB1E150090EBED /* ANMediationAdViewController+ANTest.m */,
+				8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */,
+				8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */,
+				8A33A5111A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.h */,
+				8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */,
+				8A764F021A7078F500C02A97 /* ANReachability+ANTest.h */,
+				8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */,
 				8AA00A0819DB1E150090EBED /* NSObject+Swizzling.h */,
 				8AA00A0919DB1E150090EBED /* NSObject+Swizzling.m */,
 				8AA00A0A19DB1E150090EBED /* XCTestCase+ANAdResponse.h */,
@@ -1185,14 +1216,6 @@
 				8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */,
 				8AA00A1019DB1E150090EBED /* XCTestCase+ANMediatedAd.h */,
 				8AA00A1119DB1E150090EBED /* XCTestCase+ANMediatedAd.m */,
-				8AB5324619F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.h */,
-				8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */,
-				8AB5326919F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.h */,
-				8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */,
-				8A764F021A7078F500C02A97 /* ANReachability+ANTest.h */,
-				8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */,
-				8A33A5111A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.h */,
-				8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1576,6 +1599,13 @@
 			remoteRef = 8A949AE31ADF23C500D83DCE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKYahooAdapter.a;
+			remoteRef = 8A9687331B4351E900D9399B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8AA0094019DB169B0090EBED /* libANSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1850,6 +1880,7 @@
 				8AA009CA19DB1B200090EBED /* main.m in Sources */,
 				8A56E6971B27483000642ACC /* ANNativeAdColonyView.m in Sources */,
 				8AA00A3919DB22410090EBED /* ANAdView+ANTest.m in Sources */,
+				8A0EFA941B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m in Sources */,
 				8AA3DA0A1AAA0D9D00255F94 /* ANNativeAdView.m in Sources */,
 				8AA00A3219DB204A0090EBED /* NSObject+Swizzling.m in Sources */,
 				8AA009F819DB1DE60090EBED /* ANHTTPStubbingManager.m in Sources */,
@@ -2350,6 +2381,8 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2405,6 +2438,8 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";

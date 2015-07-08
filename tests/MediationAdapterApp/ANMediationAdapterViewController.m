@@ -26,6 +26,7 @@
 #import "ANNativeAdView.h"
 #import "ANNativeAdColonyView.h"
 #import "ANDFPCacheManager.h"
+#import "ANAdAdapterBaseYahoo.h"
 
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ANNativeAdRequestDelegate, ANNativeAdDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
@@ -41,7 +42,10 @@
 @implementation ANMediationAdapterViewController
 
 + (NSArray *)networks {
-    return @[@"VdopiaBanner",
+    return @[@"YahooNative",
+             @"YahooBanner",
+             @"YahooInterstitial",
+             @"VdopiaBanner",
              @"VdopiaInterstitial",
              @"AdColonyInterstitial",
              @"AdColonyNative",
@@ -434,6 +438,61 @@
 - (void)stubInMobiNative {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterNativeInMobi";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - Yahoo
+
+- (ANBannerAdView *)loadYahooBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
+    [self stubYahooBanner];
+    static dispatch_once_t yahooNativeToken;
+    dispatch_once(&yahooNativeToken, ^{
+        [ANAdAdapterBaseYahoo setFlurryAPIKey:@"DC3DMYBNXF8G4X47SFQC"];
+    });
+    return [self bannerWithDelegate:delegate];
+}
+
+- (ANInterstitialAd *)loadYahooInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubYahooInterstitial];
+    static dispatch_once_t yahooNativeToken;
+    dispatch_once(&yahooNativeToken, ^{
+        [ANAdAdapterBaseYahoo setFlurryAPIKey:@"DC3DMYBNXF8G4X47SFQC"];
+    });
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (ANNativeAdRequest *)loadYahooNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
+    [self stubYahooNative];
+    static dispatch_once_t yahooNativeToken;
+    dispatch_once(&yahooNativeToken, ^{
+        [ANAdAdapterBaseYahoo setFlurryAPIKey:@"DC3DMYBNXF8G4X47SFQC"];
+    });
+    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
+    nativeAdRequest.shouldLoadIconImage = YES;
+    nativeAdRequest.shouldLoadMainImage = YES;
+    return nativeAdRequest;
+}
+
+- (void)stubYahooBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerYahoo";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    mediatedAd.adId = @"iOS Banner";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubYahooInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialYahoo";
+    mediatedAd.adId = @"iOS Interstitial";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubYahooNative {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterNativeYahoo";
+    mediatedAd.adId = @"iOS Test Ad Slot";
     [self stubMediatedAd:mediatedAd];
 }
 
