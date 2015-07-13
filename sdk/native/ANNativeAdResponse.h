@@ -145,7 +145,7 @@
  * it will be automatically detached from that response before being attached to this response.
  *
  * @param view The view which is populated with the native ad elements. Must not be nil.
- * @param controller The root view controller which contains the view. Must not be nil.
+ * @param rvc The root view controller which contains the view. Must not be nil.
  * @param views Specifies view subviews which should be clickable, instead of the whole view (the default). May be nil.
  * @note The response holds a strong reference to the registered view.
  * @see ANNativeAdRegisterErrorCode in ANAdConstants.h for possible error code values.
