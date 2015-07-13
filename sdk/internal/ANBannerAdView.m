@@ -255,19 +255,4 @@
     return displayController;
 }
 
-#pragma mark - Deprecated
-
-- (void)setFrame:(CGRect)frame animated:(BOOL)animated {
-    if (animated) {
-        [UIView animateWithDuration:kAppNexusAnimationDuration animations:^{
-            [self setFrame:frame];
-        } completion:^(BOOL finished) {
-
-        }];
-    }
-    else {
-        [self setFrame:frame];
-    }
-}
-
 @end
