@@ -17,6 +17,7 @@
 #import "ANNativeCustomAdapter.h"
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
+#import "ANAdFetcher.h"
 
 @interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
 
@@ -91,6 +92,10 @@
         className = self.mediatedAd.className;
         ANLogDebug(@"instantiating_class %@", className);
         
+        // notify that a mediated class name was received
+        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
+                            @{kANAdFetcherMediatedClassKey: className});
+
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);
         if (!adClass) {

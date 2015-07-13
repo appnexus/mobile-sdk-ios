@@ -20,6 +20,7 @@
 #import "ANNativeAdRequestUrlBuilder.h"
 #import "ANNativeAdTargetingProtocol.h"
 #import "ANAdServerResponse.h"
+#import "ANAdFetcher.h"
 
 @interface ANNativeAdFetcher () <ANNativeMediationAdControllerDelegate>
 
@@ -34,6 +35,8 @@
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) ANNativeStandardAdResponse *nativeAd;
 @property (nonatomic, readwrite, strong) ANNativeMediatedAdController *mediationController;
+
+@property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
 
 @end
 
@@ -75,6 +78,7 @@
 }
 
 - (void)requestAd {
+    self.requestShouldBePosted = YES;
     NSURL *adRequestUrl = [ANNativeAdRequestUrlBuilder requestUrlWithAdRequestDelegate:self.delegate
                                                                          baseUrlString:self.baseUrlString];
     [self requestAdWithURL:adRequestUrl];
@@ -92,6 +96,15 @@
             self.connection = [NSURLConnection connectionWithRequest:request
                                                             delegate:self];
             if (self.connection) {
+                
+                ANLogInfo(@"Beginning loading ad from URL: %@", URL);
+                
+                if (self.requestShouldBePosted) {
+                    ANPostNotifications(kANAdFetcherWillRequestAdNotification, self,
+                                        @{kANAdFetcherAdRequestURLKey: URL});
+                    self.requestShouldBePosted = NO;
+                }
+
                 self.loading = YES;
             } else {
                 [self finishRequestWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
@@ -195,6 +208,10 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     if (connection == self.connection) {
         ANAdServerResponse *adResponse = [[ANAdServerResponse alloc] initWithAdServerData:self.data];
+        NSString *responseString = [[NSString alloc] initWithData:self.data
+                                                         encoding:NSUTF8StringEncoding];
+        ANPostNotifications(kANAdFetcherDidReceiveResponseNotification, self,
+                            @{kANAdFetcherAdResponseKey: (responseString ? responseString : @"")});
         [self processAdServerResponse:adResponse];
     }
 }
