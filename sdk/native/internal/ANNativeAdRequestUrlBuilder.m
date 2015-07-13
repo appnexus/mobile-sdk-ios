@@ -25,6 +25,8 @@
 
 #import "ANNativeMediatedAdController.h"
 
+static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
+
 @interface ANNativeAdRequestUrlBuilder ()
 @property (nonatomic, readwrite, strong) NSString *baseUrlString;
 @property (nonatomic, readwrite, weak) id<ANNativeAdTargetingProtocol> adRequestDelegate;
@@ -83,7 +85,7 @@
     [queryStringParameters addObject:[self sizeParameter]];
     
     [queryStringParameters removeObject:@""];
-    return [queryStringParameters componentsJoinedByString:@"&"];
+    return [queryStringParameters componentsJoinedByString:kANNativeAdRequestUrlBuilderQueryStringSeparator];
 }
 
 - (NSSet*)getParameterNames {
@@ -186,7 +188,7 @@
         [param addObject:mncParam];
     }
     
-    return [param componentsJoinedByString:@"&"];
+    return [param componentsJoinedByString:kANNativeAdRequestUrlBuilderQueryStringSeparator];
 }
 
 - (NSString *)connectionTypeParameter {
@@ -267,29 +269,27 @@
 }
 
 - (NSString *)customKeywordsParameter {
-    __block NSString *customKeywordsParameter = @"";
     NSMutableDictionary *customKeywords = [self.adRequestDelegate customKeywords];
     
     if ([customKeywords count] < 1) {
         return @"";
     }
     
+    NSMutableArray *param = [[NSMutableArray alloc] init];
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         key = ANConvertToNSString(key);
         value = ANConvertToNSString(value);
         if(![self stringInParameterList:key]){
             if ([value length] > 0) {
-                customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
-                                           [NSString stringWithFormat:@"%@=%@",
-                                            key,
-                                            [self URLEncodingFrom:value]]];
+                [param addObject:[NSString stringWithFormat:@"%@=%@",key,
+                                  [self URLEncodingFrom:value]]];
             }
         }else{
             ANLogWarn(@"request_parameter_override_attempt %@", key);
         }
     }];
     
-    return customKeywordsParameter;
+    return [param componentsJoinedByString:kANNativeAdRequestUrlBuilderQueryStringSeparator];
 }
 
 - (NSString *)nonetParameter {
