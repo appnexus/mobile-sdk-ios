@@ -16,7 +16,6 @@
 		8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
 		8A2F483D1A2E33B000B0EA05 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F483C1A2E33B000B0EA05 /* compass.png */; };
 		8A3601271B39B51300B7BB62 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */; };
-		8A3601341B39DE8B00B7BB62 /* ANDFPBannerViewIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A3601331B39DE8B00B7BB62 /* ANDFPBannerViewIdentifier.h */; };
 		8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
@@ -151,14 +150,6 @@
 		8AA5B4E31AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E01AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m */; };
 		8AA5B4E41AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E21AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m */; };
 		8AA5B4E71AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E61AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m */; };
-		8ABC94281B3879E800E10E45 /* ANDFPBannerViewCacheInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC941F1B3879E800E10E45 /* ANDFPBannerViewCacheInstance.m */; };
-		8ABC94291B3879E800E10E45 /* ANDFPBannerViewIdentifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC94201B3879E800E10E45 /* ANDFPBannerViewIdentifier.m */; };
-		8ABC942A1B3879E800E10E45 /* ANDFPCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC94221B3879E800E10E45 /* ANDFPCacheManager.m */; };
-		8ABC942B1B3879E800E10E45 /* ANDFPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC94241B3879E800E10E45 /* ANDFPRootViewController.m */; };
-		8ABC942C1B3879E800E10E45 /* ANDFPCacheManagerTargeting+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC94261B3879E800E10E45 /* ANDFPCacheManagerTargeting+Internal.m */; };
-		8ABC942D1B3879E800E10E45 /* ANDFPCacheManagerTargeting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC94271B3879E800E10E45 /* ANDFPCacheManagerTargeting.m */; };
-		8ABC942F1B387A2700E10E45 /* ANDFPCacheManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8ABC941B1B3879E800E10E45 /* ANDFPCacheManager.h */; };
-		8ABC94301B387A2700E10E45 /* ANDFPCacheManagerTargeting.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8ABC941C1B3879E800E10E45 /* ANDFPCacheManagerTargeting.h */; };
 		8AC65F4C1A40DE63006BCF39 /* ANMRAIDCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F381A40DE63006BCF39 /* ANMRAIDCalendarManager.m */; };
 		8AC65F4E1A40DE63006BCF39 /* ANMRAIDContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F3A1A40DE63006BCF39 /* ANMRAIDContainerView.m */; };
 		8AC65F501A40DE63006BCF39 /* ANMRAIDExpandProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F3C1A40DE63006BCF39 /* ANMRAIDExpandProperties.m */; };
@@ -487,8 +478,6 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				8ABC942F1B387A2700E10E45 /* ANDFPCacheManager.h in Copy Files */,
-				8ABC94301B387A2700E10E45 /* ANDFPCacheManagerTargeting.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,7 +589,6 @@
 		8A35B8AA19FEC9640016C81F /* ANAdAdapterNativeFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterNativeFacebook.h; path = ../mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.h; sourceTree = "<group>"; };
 		8A35B8AB19FEC9640016C81F /* ANAdAdapterNativeFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeFacebook.m; path = ../mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.m; sourceTree = "<group>"; };
 		8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
-		8A3601331B39DE8B00B7BB62 /* ANDFPBannerViewIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDFPBannerViewIdentifier.h; sourceTree = "<group>"; };
 		8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANContentViewTransitions.h"; sourceTree = "<group>"; };
 		8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANContentViewTransitions.m"; sourceTree = "<group>"; };
 		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
@@ -770,18 +758,6 @@
 		8AB8762E1A0994310022D9A5 /* ANNativeMediatedAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeMediatedAdResponse.m; sourceTree = "<group>"; };
 		8ABB76691A00385C00FEAD9D /* ANAdConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdConstants.h; sourceTree = "<group>"; };
 		8ABB766D1A004DBD00FEAD9D /* ANNativeAdStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdStarRating.h; path = native/ANNativeAdStarRating.h; sourceTree = "<group>"; };
-		8ABC941B1B3879E800E10E45 /* ANDFPCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDFPCacheManager.h; sourceTree = "<group>"; };
-		8ABC941C1B3879E800E10E45 /* ANDFPCacheManagerTargeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDFPCacheManagerTargeting.h; sourceTree = "<group>"; };
-		8ABC941E1B3879E800E10E45 /* ANDFPBannerViewCacheInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDFPBannerViewCacheInstance.h; sourceTree = "<group>"; };
-		8ABC941F1B3879E800E10E45 /* ANDFPBannerViewCacheInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDFPBannerViewCacheInstance.m; sourceTree = "<group>"; };
-		8ABC94201B3879E800E10E45 /* ANDFPBannerViewIdentifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDFPBannerViewIdentifier.m; sourceTree = "<group>"; };
-		8ABC94211B3879E800E10E45 /* ANDFPCacheManager+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANDFPCacheManager+Internal.h"; sourceTree = "<group>"; };
-		8ABC94221B3879E800E10E45 /* ANDFPCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDFPCacheManager.m; sourceTree = "<group>"; };
-		8ABC94231B3879E800E10E45 /* ANDFPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDFPRootViewController.h; sourceTree = "<group>"; };
-		8ABC94241B3879E800E10E45 /* ANDFPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDFPRootViewController.m; sourceTree = "<group>"; };
-		8ABC94251B3879E800E10E45 /* ANDFPCacheManagerTargeting+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANDFPCacheManagerTargeting+Internal.h"; sourceTree = "<group>"; };
-		8ABC94261B3879E800E10E45 /* ANDFPCacheManagerTargeting+Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANDFPCacheManagerTargeting+Internal.m"; sourceTree = "<group>"; };
-		8ABC94271B3879E800E10E45 /* ANDFPCacheManagerTargeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDFPCacheManagerTargeting.m; sourceTree = "<group>"; };
 		8AC65F371A40DE63006BCF39 /* ANMRAIDCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDCalendarManager.h; sourceTree = "<group>"; };
 		8AC65F381A40DE63006BCF39 /* ANMRAIDCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDCalendarManager.m; sourceTree = "<group>"; };
 		8AC65F391A40DE63006BCF39 /* ANMRAIDContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDContainerView.h; sourceTree = "<group>"; };
@@ -1466,35 +1442,6 @@
 			path = native/internal;
 			sourceTree = "<group>";
 		};
-		8ABC94191B3879E800E10E45 /* DFPCacheManager */ = {
-			isa = PBXGroup;
-			children = (
-				8ABC941B1B3879E800E10E45 /* ANDFPCacheManager.h */,
-				8ABC941C1B3879E800E10E45 /* ANDFPCacheManagerTargeting.h */,
-				8ABC941D1B3879E800E10E45 /* internal */,
-			);
-			name = DFPCacheManager;
-			path = ../mediation/mediatedviews/GoogleAdMob/DFPCacheManager;
-			sourceTree = "<group>";
-		};
-		8ABC941D1B3879E800E10E45 /* internal */ = {
-			isa = PBXGroup;
-			children = (
-				8ABC941E1B3879E800E10E45 /* ANDFPBannerViewCacheInstance.h */,
-				8ABC941F1B3879E800E10E45 /* ANDFPBannerViewCacheInstance.m */,
-				8A3601331B39DE8B00B7BB62 /* ANDFPBannerViewIdentifier.h */,
-				8ABC94201B3879E800E10E45 /* ANDFPBannerViewIdentifier.m */,
-				8ABC94211B3879E800E10E45 /* ANDFPCacheManager+Internal.h */,
-				8ABC94221B3879E800E10E45 /* ANDFPCacheManager.m */,
-				8ABC94231B3879E800E10E45 /* ANDFPRootViewController.h */,
-				8ABC94241B3879E800E10E45 /* ANDFPRootViewController.m */,
-				8ABC94251B3879E800E10E45 /* ANDFPCacheManagerTargeting+Internal.h */,
-				8ABC94261B3879E800E10E45 /* ANDFPCacheManagerTargeting+Internal.m */,
-				8ABC94271B3879E800E10E45 /* ANDFPCacheManagerTargeting.m */,
-			);
-			path = internal;
-			sourceTree = "<group>";
-		};
 		8AC65F361A40DE63006BCF39 /* MRAID */ = {
 			isa = PBXGroup;
 			children = (
@@ -1694,7 +1641,6 @@
 		8AE2D7E619CC88FB00001B70 /* Google AdMob */ = {
 			isa = PBXGroup;
 			children = (
-				8ABC94191B3879E800E10E45 /* DFPCacheManager */,
 				8AE2D7E719CC891B00001B70 /* ANAdAdapterBannerAdMob.h */,
 				8AE2D7E819CC891B00001B70 /* ANAdAdapterBannerAdMob.m */,
 				8AE2D7E919CC891B00001B70 /* ANAdAdapterBannerDFP.h */,
@@ -1918,7 +1864,6 @@
 				8A9AEDBB1A1BE8CE00C58BDA /* ANNativeAdRequest.h in Headers */,
 				8A9AEDBC1A1BE8CE00C58BDA /* ANNativeAdResponse.h in Headers */,
 				8A9AEDBD1A1BE8CE00C58BDA /* ANNativeAdStarRating.h in Headers */,
-				8A3601341B39DE8B00B7BB62 /* ANDFPBannerViewIdentifier.h in Headers */,
 				8A9AEDBE1A1BE8CE00C58BDA /* ANNativeAdTargetingProtocol.h in Headers */,
 				8A9AEDBF1A1BE8CE00C58BDA /* ANNativeCustomAdapter.h in Headers */,
 				8A9AEDC01A1BE8CE00C58BDA /* ANNativeMediatedAdResponse.h in Headers */,
@@ -2626,15 +2571,9 @@
 			files = (
 				8AE2D7F019CC891B00001B70 /* ANAdAdapterBannerDFP.m in Sources */,
 				8AE2D7EF19CC891B00001B70 /* ANAdAdapterBannerAdMob.m in Sources */,
-				8ABC942D1B3879E800E10E45 /* ANDFPCacheManagerTargeting.m in Sources */,
-				8ABC94281B3879E800E10E45 /* ANDFPBannerViewCacheInstance.m in Sources */,
-				8ABC94291B3879E800E10E45 /* ANDFPBannerViewIdentifier.m in Sources */,
 				8A0AF2EF1B30946200E62975 /* ANAdAdapterBaseDFP.m in Sources */,
 				8AE2D7F219CC891B00001B70 /* ANAdAdapterInterstitialDFP.m in Sources */,
-				8ABC942A1B3879E800E10E45 /* ANDFPCacheManager.m in Sources */,
 				8AE2D7F119CC891B00001B70 /* ANAdAdapterInterstitialAdMob.m in Sources */,
-				8ABC942C1B3879E800E10E45 /* ANDFPCacheManagerTargeting+Internal.m in Sources */,
-				8ABC942B1B3879E800E10E45 /* ANDFPRootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
