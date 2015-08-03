@@ -25,7 +25,6 @@
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
 #import "ANNativeAdColonyView.h"
-#import "ANDFPCacheManager.h"
 #import "ANAdAdapterBaseYahoo.h"
 
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ANNativeAdRequestDelegate, ANNativeAdDelegate>
@@ -65,8 +64,6 @@
              @"MillennialMediaInterstitial",
              @"AdMobBanner",
              @"AdMobInterstitial",
-             @"DFPCacheBanner",
-             @"DFPCacheSmartBanner",
              @"DFPBanner",
              @"DFPSmartBanner",
              @"DFPInterstitial",
@@ -341,19 +338,6 @@
 }
 
 #pragma mark - DFP
-
-- (id)loadDFPCacheBannerWithDelegate:(id)delegate {
-    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    [ANDFPCacheManager cacheBannerWithDFPAdUnitId:@"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab"
-                                           adSize:CGSizeMake(320.0, 50.0)];
-    return nil;
-}
-
-- (id)loadDFPCacheSmartBannerWithDelegate:(id)delegate {
-    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    [ANDFPCacheManager cacheSmartBannerWithDFPAdUnitId:@"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab"];
-    return nil;
-}
 
 - (ANBannerAdView *)loadDFPBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
     [self stubDFPBanner];
