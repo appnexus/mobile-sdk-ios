@@ -1,3 +1,51 @@
+## RC 2.4
+
+### Bug fixes:
+
++ MS-1365 Fix handling of custom keywords on ANNativeAdRequest
+
++ MS-1306 Improved handling of clickable elements for native ad views
+
++ MS-1331 Expose ANAdAdapterNativeInMobi header in binary output
+
+### Other changes/additions:
+
++ MS-1238 Added request, response notification broadcasts
+
++ MS-1366 Removed old ANGender enum values & banner resize callbacks
+
++ MS-1333 Improved Binary Build Script
+
+### New mediation adapters:
+
++ MS-1321 Yahoo Flurry Banner, Interstitial, Native
+
++ MS-1413 Millennial Banner, Interstitial (rewritten for MMAdSDK 6.0.1)
+
+### MS-1413 Contains the following mediated SDKs:
+
++ AdMob SDK Version 7.3.1
+
++ Amazon SDK Version 2.2.8
+
++ Facebook SDK Version 4.4.0
+
++ Millennial Media SDK Version 6.0.1
+
++ MoPub SDK Version 3.9.0
+
++ InMobi SDK Version 4.5.3 
+
++ VDOPIA Lightweight SDK Version 4
+
++ Vungle SDK 3.1.2
+
++ AdColony SDK 2.5.3
+
++ Chartboost SDK 5.5.1
+
++ Yahoo Flurry SDK 6.5.0
+
 ## RC 2.3.1
 
 ### Bug fixes:
