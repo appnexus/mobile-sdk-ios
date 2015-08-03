@@ -165,7 +165,8 @@ NSString *const kANAdAdapterNativeAdColonyVideoView = @"ANAdAdapterNativeAdColon
     // Do nothing
 }
 
-- (void)onAdColonyNativeAdEngagementPressed:(AdColonyNativeAdView *)ad {
+- (void)onAdColonyNativeAdEngagementPressed:(AdColonyNativeAdView *)ad
+                                   expanded:(BOOL)expanded {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.nativeAdDelegate adWasClicked];
 }

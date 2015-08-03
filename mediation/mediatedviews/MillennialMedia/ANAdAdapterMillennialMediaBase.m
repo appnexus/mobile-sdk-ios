@@ -15,78 +15,30 @@
 
 #import "ANAdAdapterMillennialMediaBase.h"
 
-#import <MillennialMedia/MMAdView.h>
-
 @implementation ANAdAdapterMillennialMediaBase
 @synthesize delegate;
 
-- (void) addMMNotificationObservers {
-    // Notification will fire when an ad causes the application to terminate or enter the background
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationWillTerminateFromAd:)
-                                                 name:MillennialMediaAdWillTerminateApplication
-                                               object:nil];
+- (void)configureMillennialSettingsWithTargetingParameters:(ANTargetingParameters *)targetingParameters {
+    static dispatch_once_t initializeMillennialToken;
+    dispatch_once(&initializeMillennialToken, ^{
+       [[MMSDK sharedInstance] initializeWithSettings:[[MMAppSettings alloc] init]
+                                     withUserSettings:[[MMUserSettings alloc] init]];
+    });
     
-    // Notification will fire when an ad is tapped.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(adWasTapped:)
-                                                 name:MillennialMediaAdWasTapped
-                                               object:nil];
-    
-    // Notification will fire when an ad modal will appear.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(adModalWillAppear:)
-                                                 name:MillennialMediaAdModalWillAppear
-                                               object:nil];
-    
-    // Notification will fire when an ad modal did appear.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(adModalDidAppear:)
-                                                 name:MillennialMediaAdModalDidAppear
-                                               object:nil];
-    
-    // Notification will fire when an ad modal will dismiss.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(adModalWillDismiss:)
-                                                 name:MillennialMediaAdModalWillDismiss
-                                               object:nil];
-    
-    // Notification will fire when an ad modal did dismiss.
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(adModalDidDismiss:)
-                                                 name:MillennialMediaAdModalDidDismiss
-                                               object:nil];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (MMRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
-	MMRequest *request = [MMRequest request];
+    MMUserSettings *userSettings = [[MMSDK sharedInstance] userSettings];
     
     ANGender gender = targetingParameters.gender;
     switch (gender) {
         case ANGenderMale:
-            request.gender = MMGenderMale;
+            userSettings.gender = MMGenderMale;
             break;
         case ANGenderFemale:
-            request.gender = MMGenderFemale;
+            userSettings.gender = MMGenderFemale;
             break;
         case ANGenderUnknown:
-            request.gender = MMGenderOther;
+            userSettings.gender = MMGenderOther;
         default:
             break;
-    }
-    
-    ANLocation *location = targetingParameters.location;
-    if (location) {
-        request.location = [[CLLocation alloc]
-                            initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                            altitude:0
-                            horizontalAccuracy:location.horizontalAccuracy
-                            verticalAccuracy:0 course:0 speed:0
-                            timestamp:location.timestamp];
     }
     
     NSString *age = targetingParameters.age;
@@ -95,39 +47,13 @@
         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
         NSNumber *ageNumber = [numberFormatter numberFromString:age];
         if (ageNumber) {
-            request.age = ageNumber;
+            userSettings.age = ageNumber;
         }
     }
     
-    request.keywords = [[targetingParameters.customKeywords allValues] copy];
-    
-    return request;
-}
-
-#pragma mark - Millennial Media Notification Methods
-
-- (void)adWasTapped:(NSNotification *)notification {
-    [self.delegate adWasClicked];
-}
-
-- (void)applicationWillTerminateFromAd:(NSNotification *)notification {
-    [self.delegate willLeaveApplication];
-}
-
-- (void)adModalWillDismiss:(NSNotification *)notification {
-    [self.delegate willCloseAd];
-}
-
-- (void)adModalDidDismiss:(NSNotification *)notification {
-    [self.delegate didCloseAd];
-}
-
-- (void)adModalWillAppear:(NSNotification *)notification {
-    [self.delegate willPresentAd];
-}
-
-- (void)adModalDidAppear:(NSNotification *)notification {
-    [self.delegate didPresentAd];
+    if (targetingParameters.location) {
+        [MMSDK sharedInstance].sendLocationIfAvailable = YES;
+    }
 }
 
 @end

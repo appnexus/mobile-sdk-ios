@@ -14,11 +14,10 @@
  */
 
 #import "ANCustomAdapter.h"
-#import <MillennialMedia/MMRequest.h>
-
-#import <Foundation/Foundation.h>
+#import <MMAdSDK/MMAdSDK.h>
 
 @interface ANAdAdapterMillennialMediaBase : NSObject <ANCustomAdapter>
-- (void) addMMNotificationObservers;
-- (MMRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
+
+- (void)configureMillennialSettingsWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
+
 @end

@@ -1,6 +1,64 @@
 iOS Change Log
 ==============
 
+Version 5.5.1 *(2015-07-08)*
+----------------------------
+
+Fixes:
+- Fixed an issue that crashed or hung the SDK during initialization. 
+Improvements:
+- Chartboost example application now supports clicking on the inPlay ad. 
+
+
+Version 5.5.0 *(2015-06-28)*
+----------------------------
+
+Features:
+
+Fixes:
+- Fixed bug that prevented video ads from resuming/being dismissed after incoming phone calls.  
+- Corrected video prefetcher behavior to prevent unwanted deletions of videos prior to show calls. 
+- Fixed bug that prevented proper caching of new MoreApps data after the first call. 
+- Suppressed erroneous CoreData unable to load `CBHTTPRequestEntity` warning message.  
+
+Improvements:
+- Rewarded videos no longer need to wait until the video prefetcher is complete before showing an existing video. 
+- Mediation partners can call `setMediation:withVersion` to set the library name and version. 
+- AFNetworking library updated to version 2.5.4. 
+- Sample app supports portrait rotation. 
+
+
+Version 5.4.0 *(2015-06-01)*
+----------------------------
+
+Features:
+
+- Added additional argument to `setFramework` to allow framework developers to add a version string. (Unity `4.6.0f1`, for example). 
+
+Fixes:
+
+- `didPrefetchVideo` now returns when video prefetching is complete. Once this call returns, you can show rewarded videoes. 
+
+Improvements:
+
+- Added `timezone` to `/api/install` call `REQUEST` body. 
+
+Version 5.3.0 *(2015-05-06)*
+----------------------------
+
+Features:
+
+- Added [Weeby](http://www.weeby.co) to available frameworks. 
+
+Fixes:
+
+- Fix issue where video ad-types would stall after a declined phone call. 
+
+Improvements:
+
+- Native iOS SDK now sends the version of the Unity wrapper SDK along with every request. 
+- Added `"rooted_device":true` or `"rooted_device":false` to `/api/install` call `REQUEST` body to detect jailbroken devices. 
+
 Version 5.2.1 *(2015-04-09)*
 ----------------------------
 
@@ -19,8 +77,8 @@ Version 5.2.0 *(2015-04-03)*
 
 Features:
 
-- Add a developer facing function to force close any visible impression and or loading views. 
-- Added a new method to CBAnalytics 'trackInAppPurchaseEventWithString' that acts like the trackInAppPurchaseEvent but takes a string instead of raw receipt data to allow frameworks to pass in base64 encoded receipts. 
+- Add a developer facing function, `closeImpression`, to force close any visible impression and or loading views. 
+- Added a new method to CBAnalytics `trackInAppPurchaseEventWithString` that acts like the `trackInAppPurchaseEvent` but takes a string instead of raw receipt data to allow frameworks to pass in base64 encoded receipts. 
 - PIA Level Tracking available in CBAnalytics 
 
 Fixes:

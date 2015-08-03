@@ -15,11 +15,13 @@
 
 #import "ANAdAdapterBannerMillennialMedia.h"
 #import "ANLogging.h"
-#import <MillennialMedia/MMAdView.h>
+#import <MMAdSDK/MMAdSDK.h>
 
-@interface ANAdAdapterBannerMillennialMedia ()
-@property (strong, nonatomic) CLLocationManager *locationManager;
-@property (nonatomic, readwrite, strong) MMAdView *mmAdView;
+@interface ANAdAdapterBannerMillennialMedia () <MMInlineDelegate>
+
+@property (nonatomic, readwrite, strong) MMInlineAd *inlineAd;
+@property (nonatomic, readwrite, weak) UIViewController *rootViewController;
+
 @end
 
 @implementation ANAdAdapterBannerMillennialMedia
@@ -31,54 +33,130 @@
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
-{
-    ANLogDebug(@"Requesting MillennialMedia banner with size %fx%f", size.width, size.height);
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wexplicit-initialize-call"
-    [MMSDK initialize];
-#pragma clang diagnostic pop
-    [self addMMNotificationObservers];
+            targetingParameters:(ANTargetingParameters *)targetingParameters {
+    ANLogTrace(@"%@ %@ | Requesting MillennialMedia banner with size %fx%f",
+               NSStringFromClass([self class]), NSStringFromSelector(_cmd), size.width, size.height);
+    if (!idString) {
+        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        return;
+    }
+    [self configureMillennialSettingsWithTargetingParameters:targetingParameters];
+    self.inlineAd = [[MMInlineAd alloc] initWithPlacementId:idString
+                                                       size:size];
+    self.inlineAd.delegate = self;
+    self.inlineAd.refreshInterval = MMInlineDisableRefresh;
+    self.rootViewController = rootViewController;
     
-    //MMRequest object
-    MMRequest *request = [self createRequestFromTargetingParameters:targetingParameters];
+    MMRequestInfo *requestInfo = [[MMRequestInfo alloc] init];
+    requestInfo.keywords = [[targetingParameters.customKeywords allValues] copy];
     
-    self.mmAdView = [[MMAdView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) apid:idString
-                                 rootViewController:rootViewController];
+    [self.inlineAd request:requestInfo];
+}
+
+- (void)dealloc {
+    self.inlineAd.delegate = nil;
+}
+
+#pragma mark - MMInlineDelegate
+
+- (UIViewController * __nonnull)viewControllerForPresentingModalView {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    return self.rootViewController;
+}
+
+- (void)inlineAdRequestDidSucceed:(MMInlineAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    if (self.inlineAd.view) {
+        [self.delegate didLoadBannerAd:self.inlineAd.view];
+    } else {
+        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    }
+}
+
+- (void)inlineAd:(MMInlineAd * __nonnull)ad requestDidFailWithError:(NSError * __nonnull)error {
+    ANLogDebug(@"MillennialMedia banner failed to load with error: %@", error);
+    ANAdResponseCode code = ANAdResponseInternalError;
     
-    [self.mmAdView getAdWithRequest:request onCompletion:^(BOOL success, NSError *error) {
-        if (success) {
-            ANLogDebug(@"MillennialMedia banner did load");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate didLoadBannerAd:self.mmAdView];
-            });
-        } else {
-            ANLogDebug(@"MillennialMedia banner failed to load with error: %@", error);
-            ANAdResponseCode code = ANAdResponseInternalError;
-            
-            switch (error.code) {
-                case MMAdUnknownError:
-                    code = ANAdResponseInternalError;
-                    break;
-                case MMAdServerError:
-                    code = ANAdResponseUnableToFill;
-                    break;
-                case MMAdUnavailable:
-                    code = ANAdResponseUnableToFill;
-                    break;
-                case MMAdDisabled:
-                    code = ANAdResponseInvalidRequest;
-                    break;
-                default:
-                    code = ANAdResponseInternalError;
-                    break;
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate didFailToLoadAd:code];
-            });
-        }
-    }];
+    switch (error.code) {
+        case MMSDKErrorServerResponseBadStatus:
+            code = ANAdResponseInvalidRequest;
+            break;
+        case MMSDKErrorServerResponseNoContent:
+            code = ANAdResponseUnableToFill;
+            break;
+        case MMSDKErrorPlacementRequestInProgress:
+            code = ANAdResponseInternalError;
+            break;
+        case MMSDKErrorRequestsDisabled:
+            ANLogDebug(@"%@ - MMSDKErrorRequestsDisabled", NSStringFromSelector(_cmd));
+            code = ANAdResponseMediatedSDKUnavailable;
+            break;
+        case MMSDKErrorNoFill:
+            code = ANAdResponseUnableToFill;
+            break;
+        case MMSDKErrorVersionMismatch:
+            code = ANAdResponseInternalError;
+            break;
+        case MMSDKErrorMediaDownloadFailed:
+            code = ANAdResponseNetworkError;
+            break;
+        case MMSDKErrorRequestTimeout:
+            code = ANAdResponseNetworkError;
+            break;
+        case MMSDKErrorNotInitialized:
+            ANLogDebug(@"%@ - MMSDKErrorNotInitialized", NSStringFromSelector(_cmd));
+            code = ANAdResponseInternalError;
+            break;
+        default:
+            code = ANAdResponseInternalError;
+            break;
+    }
+    
+    [self.delegate didFailToLoadAd:code];
+}
+
+- (void)inlineAdContentTapped:(MMInlineAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate adWasClicked];
+}
+
+- (void)inlineAd:(MMInlineAd * __nonnull)ad
+    willResizeTo:(CGRect)frame
+       isClosing:(BOOL)isClosingResize {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
+}
+
+- (void)inlineAd:(MMInlineAd * __nonnull)ad
+     didResizeTo:(CGRect)frame
+       isClosing:(BOOL)isClosingResize {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
+}
+
+- (void)inlineAdWillPresentModal:(MMInlineAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate willPresentAd];
+}
+
+- (void)inlineAdDidPresentModal:(MMInlineAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate didPresentAd];
+}
+
+- (void)inlineAdWillCloseModal:(MMInlineAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate willCloseAd];
+}
+
+- (void)inlineAdDidCloseModal:(MMInlineAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate didCloseAd];
+}
+
+- (void)inlineAdWillLeaveApplication:(MMInlineAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate willLeaveApplication];
 }
 
 @end

@@ -15,10 +15,10 @@
 
 #import "ANAdAdapterInterstitialMillennialMedia.h"
 #import "ANLogging.h"
-#import <MillennialMedia/MMInterstitial.h>
+#import <MMAdSDK/MMAdSDK.h>
 
-@interface ANAdAdapterInterstitialMillennialMedia ()
-@property (nonatomic, readwrite, strong) NSString *apid;
+@interface ANAdAdapterInterstitialMillennialMedia () <MMInterstitialDelegate>
+@property (nonatomic, readwrite, strong) MMInterstitialAd *interstitialAd;
 @end
 
 @implementation ANAdAdapterInterstitialMillennialMedia
@@ -28,89 +28,138 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters
-{
-    ANLogDebug(@"Requesting MillennialMedia interstitial");
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wexplicit-initialize-call"
-    [MMSDK initialize];
-#pragma clang diagnostic pop
-    [self addMMNotificationObservers];
-    
-    self.apid = idString;
-    
-    if ([self isReady]) {
+                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    if (!idString) {
+        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        return;
+    }
+    [self configureMillennialSettingsWithTargetingParameters:targetingParameters];
+    self.interstitialAd = [[MMInterstitialAd alloc] initWithPlacementId:idString];
+    self.interstitialAd.delegate = self;
+    if (self.isReady) {
         ANLogDebug(@"MillennialMedia interstitial was already available, attempting to load cached ad");
         [self.delegate didLoadInterstitialAd:self];
         return;
     }
     
-    //MMRequest object
-    MMRequest *request = [self createRequestFromTargetingParameters:targetingParameters];
+    MMRequestInfo *requestInfo = [[MMRequestInfo alloc] init];
+    requestInfo.keywords = [[targetingParameters.customKeywords allValues] copy];
     
-    [MMInterstitial fetchWithRequest:request
-                                apid:idString
-                        onCompletion:^(BOOL success, NSError *error) {
-                            if (success) {
-                                ANLogDebug(@"MillennialMedia interstitial did load");
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [self.delegate didLoadInterstitialAd:self];
-                                });
-                            } else {
-                                ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
-                                ANAdResponseCode code = ANAdResponseInternalError;
-                                
-                                switch (error.code) {
-                                    case MMAdUnknownError:
-                                        code = ANAdResponseInternalError;
-                                        break;
-                                    case MMAdServerError:
-                                        code = ANAdResponseUnableToFill;
-                                        break;
-                                    case MMAdUnavailable:
-                                        code = ANAdResponseUnableToFill;
-                                        break;
-                                    case MMAdDisabled:
-                                        code = ANAdResponseInvalidRequest;
-                                        break;
-                                    default:
-                                        code = ANAdResponseInternalError;
-                                        break;
-                                }
-                                
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [self.delegate didFailToLoadAd:code];
-                                });
-                            }
-                        }];
-    
-    
+    [self.interstitialAd load:requestInfo];
 }
 
-- (void)presentFromViewController:(UIViewController *)viewController
-{
+- (void)presentFromViewController:(UIViewController *)viewController {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (![self isReady]) {
         ANLogDebug(@"MillennialMedia interstitial no longer available, failed to present ad");
         [self.delegate failedToDisplayAd];
         return;
     }
     
-    ANLogDebug(@"Showing MillennialMedia interstitial");
-    [MMInterstitial displayForApid:self.apid
-                fromViewController:viewController
-                   withOrientation:0
-                      onCompletion:^(BOOL success, NSError *error) {
-                          if (!success) {
-                              ANLogDebug(@"MillennialMedia interstitial call to display ad failed");
-                              dispatch_async(dispatch_get_main_queue(), ^{
-                                  [self.delegate failedToDisplayAd];
-                              });
-                          }
-                      }];
+    [self.interstitialAd showFromViewController:viewController];
 }
 
 - (BOOL)isReady {
-    return [MMInterstitial isAdAvailableForApid:self.apid];
+    return self.interstitialAd.ready && !self.interstitialAd.expired;
+}
+
+- (void)dealloc {
+    self.interstitialAd.delegate = nil;
+}
+
+#pragma mark - MMInterstitialDelegate
+
+- (void)interstitialAdLoadDidSucceed:(MMInterstitialAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate didLoadInterstitialAd:self];
+}
+
+- (void)interstitialAd:(MMInterstitialAd * __nonnull)ad loadDidFailWithError:(NSError * __nonnull)error {
+    ANLogDebug(@"MillennialMedia interstitial failed to load with error: %@", error);
+    ANAdResponseCode code = ANAdResponseInternalError;
+    
+    switch (error.code) {
+        case MMSDKErrorServerResponseBadStatus:
+            code = ANAdResponseInvalidRequest;
+            break;
+        case MMSDKErrorServerResponseNoContent:
+            code = ANAdResponseUnableToFill;
+            break;
+        case MMSDKErrorPlacementRequestInProgress:
+            code = ANAdResponseInternalError;
+            break;
+        case MMSDKErrorRequestsDisabled:
+            code = ANAdResponseMediatedSDKUnavailable;
+            break;
+        case MMSDKErrorNoFill:
+            code = ANAdResponseUnableToFill;
+            break;
+        case MMSDKErrorVersionMismatch:
+            code = ANAdResponseInternalError;
+            break;
+        case MMSDKErrorMediaDownloadFailed:
+            code = ANAdResponseNetworkError;
+            break;
+        case MMSDKErrorRequestTimeout:
+            code = ANAdResponseNetworkError;
+            break;
+        case MMSDKErrorNotInitialized:
+            ANLogError(@"%@ - Millennial Media SDK Uninitialized", NSStringFromSelector(_cmd));
+            code = ANAdResponseInternalError;
+            break;
+        case MMSDKErrorInterstitialAdAlreadyLoaded:
+            code = ANAdResponseInternalError;
+            break;
+        case MMSDKErrorInterstitialAdContentUnavailable:
+            code = ANAdResponseUnableToFill;
+            break;
+        default:
+            code = ANAdResponseInternalError;
+            break;
+    }
+    
+    [self.delegate didFailToLoadAd:code];
+}
+
+- (void)interstitialAdWillDisplay:(MMInterstitialAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
+}
+
+- (void)interstitialAdDidDisplay:(MMInterstitialAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
+}
+
+- (void)interstitialAd:(MMInterstitialAd * __nonnull)ad showDidFailWithError:(NSError * __nonnull)error {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate failedToDisplayAd];
+}
+
+- (void)interstitialAdWillDismiss:(MMInterstitialAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate willCloseAd];
+}
+
+- (void)interstitialAdDidDismiss:(MMInterstitialAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate didCloseAd];
+}
+
+- (void)interstitialAdDidExpire:(MMInterstitialAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
+}
+
+- (void)interstitialAdTapped:(MMInterstitialAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate adWasClicked];
+}
+
+- (void)interstitialAdWillLeaveApplication:(MMInterstitialAd * __nonnull)ad {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate willLeaveApplication];
 }
 
 @end

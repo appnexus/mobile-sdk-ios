@@ -166,5 +166,5 @@
  * Notifies your app that a user has engaged with the native ad via an in-video engagement mechanism.
  * @param ad The affected native ad view.
  */
--(void)onAdColonyNativeAdEngagementPressed:(AdColonyNativeAdView*)ad;
+-(void)onAdColonyNativeAdEngagementPressed:(AdColonyNativeAdView*)ad expanded:(BOOL)expanded;
 @end

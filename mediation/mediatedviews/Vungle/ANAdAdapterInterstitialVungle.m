@@ -29,14 +29,14 @@
 
 - (BOOL)isReady {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    return [VungleSDK sharedSDK].isCachedAdAvailable;
+    return [VungleSDK sharedSDK].isAdPlayable;
 }
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if ([VungleSDK sharedSDK].isCachedAdAvailable) {
+    if ([VungleSDK sharedSDK].isAdPlayable) {
         ANLogTrace(@"%@ %@ | Vungle interstitial cached ad available", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         [self.delegate didLoadInterstitialAd:self];
     } else {
@@ -96,11 +96,6 @@
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate willCloseAd];
     [self.delegate didCloseAd];
-}
-
-- (void)vungleSDKhasCachedAdAvailable {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    // Do nothing.
 }
 
 - (void)dealloc {

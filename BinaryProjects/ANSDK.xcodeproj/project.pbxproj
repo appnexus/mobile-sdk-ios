@@ -580,6 +580,7 @@
 		8A0EFA901B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialYahoo.m; sourceTree = "<group>"; };
 		8A1482481AD3371C0046F1B9 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdColony.framework; sourceTree = "<group>"; };
 		8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdColonyAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A2BD4001B66F6450000DB66 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MMAdSDK.framework; sourceTree = "<group>"; };
 		8A2F48211A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANOpenInExternalBrowserActivity.h; sourceTree = "<group>"; };
 		8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANOpenInExternalBrowserActivity.m; sourceTree = "<group>"; };
 		8A2F483C1A2E33B000B0EA05 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
@@ -646,7 +647,6 @@
 		8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-AMAZON.txt"; sourceTree = "<group>"; };
 		8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		8A944E0519D5AFBB007AAAB0 /* LICENSE-MILLENNIAL MEDIA.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "LICENSE-MILLENNIAL MEDIA.txt"; sourceTree = "<group>"; };
-		8A944E0619D5AFBB007AAAB0 /* MillennialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MillennialMedia.framework; sourceTree = "<group>"; };
 		8A944E0819D5AFCD007AAAB0 /* libMoPubSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMoPubSDK.a; sourceTree = "<group>"; };
 		8A944E0A19D5AFCD007AAAB0 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MPAdBrowserController.xib; sourceTree = "<group>"; };
 		8A944E0B19D5AFCD007AAAB0 /* MPAdConversionTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPAdConversionTracker.h; sourceTree = "<group>"; };
@@ -1173,7 +1173,7 @@
 			isa = PBXGroup;
 			children = (
 				8A944E0519D5AFBB007AAAB0 /* LICENSE-MILLENNIAL MEDIA.txt */,
-				8A944E0619D5AFBB007AAAB0 /* MillennialMedia.framework */,
+				8A2BD4001B66F6450000DB66 /* MMAdSDK.framework */,
 			);
 			name = MillennialMediaSDK;
 			path = ../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK;
