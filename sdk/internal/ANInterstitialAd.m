@@ -24,7 +24,7 @@
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 
-#define AN_INTERSTITIAL_AD_TIMEOUT 60.0
+#define AN_INTERSTITIAL_AD_TIMEOUT 1200.0
 
 // List of allowed ad sizes for interstitials.  These must fit in the
 // maximum size of the view, which in this case, will be the size of
@@ -91,27 +91,35 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     }
     
     while ([self.precachedAdObjects count] > 0) {
-        // Pull the first ad off
-        NSDictionary *adDict = self.precachedAdObjects[0];
-        
-        // Check to see if the date this was loaded is no more than 60 seconds ago
-        NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
-        NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
-        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
-            // If ad is still valid, save a reference to it. We'll use it later
-            adToShow = adDict[kANInterstitialAdViewKey];
-            auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
-            [self.precachedAdObjects removeObjectAtIndex:0];
-            break;
-        }
-        
-        // This ad is now stale, so remove it from our cached ads.
+        NSDictionary *precachedAdObject = self.precachedAdObjects[0];
         [self.precachedAdObjects removeObjectAtIndex:0];
+
+        id precachedAd = precachedAdObject[kANInterstitialAdViewKey];
+        NSString *precachedAdAuctionId = precachedAdObject[kANInterstitialAdViewAuctionInfoKey];
+        
+        if ([precachedAd isKindOfClass:[UIView class]]) {
+            NSDate *dateLoaded = precachedAdObject[kANInterstitialAdViewDateLoadedKey];
+            NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
+            if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
+                adToShow = precachedAd;
+                auctionID = precachedAdAuctionId;
+                break;
+            }
+        } else if ([precachedAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+            if ([precachedAd isReady]) {
+                adToShow = precachedAd;
+                auctionID = precachedAdAuctionId;
+                break;
+            }
+        } else {
+            ANLogError(@"Unknown Type For Interstitial Ad: %@, Unable To Process", NSStringFromClass([precachedAd class]));
+        }
     }
 
     if ([adToShow isKindOfClass:[UIView class]]) {
         if (!self.controller) {
             ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");
+            [self adFailedToDisplay];
             return;
         }
         if ([adToShow isKindOfClass:[ANMRAIDContainerView class]]) {
