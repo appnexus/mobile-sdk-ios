@@ -94,7 +94,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         // Pull the first ad off
         NSDictionary *adDict = self.precachedAdObjects[0];
         
-        // Check to see if the date this was loaded is no more than 60 seconds ago
+        // Check to see if ad has expired
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
         if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < kANInterstitialAdTimeout) {
