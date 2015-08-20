@@ -83,7 +83,6 @@
 }
 
 - (void)adWillPresent:(ANInterstitialAd *)ad {
-    [self.delegate customEventInterstitialWillPresent:self];
 }
 
 - (void)adWillClose:(ANInterstitialAd *)ad {
@@ -103,7 +102,8 @@
 
 - (void)presentFromRootViewController:(UIViewController *)rootViewController
 {
-	[self.interstitialAd displayAdFromViewController:rootViewController];
+    [self.delegate customEventInterstitialWillPresent:self];
+    [self.interstitialAd displayAdFromViewController:rootViewController];
 }
 
 @end
