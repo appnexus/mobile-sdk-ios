@@ -24,7 +24,7 @@
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 
-#define AN_INTERSTITIAL_AD_TIMEOUT 1200.0
+static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 
 // List of allowed ad sizes for interstitials.  These must fit in the
 // maximum size of the view, which in this case, will be the size of
@@ -91,29 +91,22 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     }
     
     while ([self.precachedAdObjects count] > 0) {
-        NSDictionary *precachedAdObject = self.precachedAdObjects[0];
-        [self.precachedAdObjects removeObjectAtIndex:0];
-
-        id precachedAd = precachedAdObject[kANInterstitialAdViewKey];
-        NSString *precachedAdAuctionId = precachedAdObject[kANInterstitialAdViewAuctionInfoKey];
+        // Pull the first ad off
+        NSDictionary *adDict = self.precachedAdObjects[0];
         
-        if ([precachedAd isKindOfClass:[UIView class]]) {
-            NSDate *dateLoaded = precachedAdObject[kANInterstitialAdViewDateLoadedKey];
-            NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
-            if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
-                adToShow = precachedAd;
-                auctionID = precachedAdAuctionId;
-                break;
-            }
-        } else if ([precachedAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
-            if ([precachedAd isReady]) {
-                adToShow = precachedAd;
-                auctionID = precachedAdAuctionId;
-                break;
-            }
-        } else {
-            ANLogError(@"Unknown Type For Interstitial Ad: %@, Unable To Process", NSStringFromClass([precachedAd class]));
+        // Check to see if ad has expired
+        NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
+        NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
+        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < kANInterstitialAdTimeout) {
+            // If ad is still valid, save a reference to it. We'll use it later
+            adToShow = adDict[kANInterstitialAdViewKey];
+            auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
+            [self.precachedAdObjects removeObjectAtIndex:0];
+            break;
         }
+        
+        // This ad is now stale, so remove it from our cached ads.
+        [self.precachedAdObjects removeObjectAtIndex:0];
     }
 
     if ([adToShow isKindOfClass:[UIView class]]) {
@@ -184,7 +177,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         // Check to see if the ad has expired
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
-        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < AN_INTERSTITIAL_AD_TIMEOUT) {
+        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < kANInterstitialAdTimeout) {
             // Found a valid ad
             id readyAd = adDict[kANInterstitialAdViewKey];
             if ([readyAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
