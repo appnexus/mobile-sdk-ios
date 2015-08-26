@@ -221,17 +221,11 @@ CGRect ANPortraitScreenBounds() {
 }
 
 NSURLRequest *ANBasicRequestWithURL(NSURL *URL) {
-    NSMutableURLRequest *request = ANBasicMutableRequest();
-    request.URL = URL;
-    return [request copy];
-}
-
-NSMutableURLRequest *ANBasicMutableRequest() {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:nil
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:kAppNexusRequestTimeoutInterval];
     [request setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
-    return request;
+    return [request copy];
 }
 
 NSNumber *ANiTunesIDForURL(NSURL *URL) {

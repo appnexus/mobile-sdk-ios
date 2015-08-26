@@ -173,7 +173,7 @@
     return NO;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     if (self.orientationProperties) {
         if (self.orientationProperties.allowOrientationChange) {
             return UIInterfaceOrientationMaskAll;
