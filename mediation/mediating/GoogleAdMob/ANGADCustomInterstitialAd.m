@@ -80,10 +80,11 @@
 #pragma mark ANInterstitialAdDelegate
 
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad {
+    
 }
 
 - (void)adWillPresent:(ANInterstitialAd *)ad {
-    [self.delegate customEventInterstitialWillPresent:self];
+
 }
 
 - (void)adWillClose:(ANInterstitialAd *)ad {
@@ -103,7 +104,12 @@
 
 - (void)presentFromRootViewController:(UIViewController *)rootViewController
 {
-	[self.interstitialAd displayAdFromViewController:rootViewController];
+    if (![self.interstitialAd isReady]) {
+        NSLog(@"Could not display interstitial ad, no ad ready");
+        return;
+    }
+    [self.delegate customEventInterstitialWillPresent:self];
+    [self.interstitialAd displayAdFromViewController:rootViewController];
 }
 
 @end
