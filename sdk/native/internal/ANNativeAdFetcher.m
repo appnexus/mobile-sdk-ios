@@ -276,7 +276,7 @@
     ANLogDebug(@"Firing resultCB with url %@", url);
     [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(url)
                                        queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                
                            }];
 }
