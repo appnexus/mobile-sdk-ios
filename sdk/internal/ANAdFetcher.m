@@ -35,7 +35,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @interface ANAdFetcher () <NSURLConnectionDataDelegate, ANAdWebViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, strong) NSURLConnection *connection;
-@property (nonatomic, readwrite, strong) NSMutableURLRequest *request;
+@property (nonatomic, readwrite, strong) NSURLRequest *request;
 @property (nonatomic, readwrite, strong) NSMutableData *data;
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 @property (nonatomic, readwrite, strong) NSURL *URL;
@@ -58,7 +58,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 	if (self = [super init])
     {
 		self.data = [NSMutableData data];
-        self.request = [ANAdFetcher initBasicRequest];
         self.ANMobileHostname = AN_MOBILE_HOSTNAME;
         self.ANBaseURL = AN_BASE_URL;
         [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
@@ -85,17 +84,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     }
 }
 
-+ (NSMutableURLRequest *)initBasicRequest {
-    NSMutableURLRequest *request =
-    [[NSMutableURLRequest alloc] initWithURL:nil
-                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                             timeoutInterval:kAppNexusRequestTimeoutInterval];
-    
-    [request setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
-    
-    return request;
-}
-
 - (void)autoRefreshTimerDidFire:(NSTimer *)timer
 {
 	[self.connection cancel];
@@ -108,7 +96,6 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 {
     [self.autoRefreshTimer invalidate];
     [self markLatencyStart];
-    self.request = [ANAdFetcher initBasicRequest];
     
     if (!self.isLoading)
 	{
@@ -122,7 +109,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 		
 		if (self.URL != nil)
 		{
-			self.request.URL = self.URL;
+            self.request = ANBasicRequestWithURL(self.URL);
 			self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
 			
 			if (self.connection != nil)
@@ -438,11 +425,11 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)fireAndIgnoreResultCB:(NSURL *)url {
     // just fire resultCB asnychronously and ignore result
-    NSMutableURLRequest *ignoredRequest = [ANAdFetcher initBasicRequest];
-    ignoredRequest.URL = url;
-    [NSURLConnection sendAsynchronousRequest:ignoredRequest
+    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(url)
                                        queue:[NSOperationQueue mainQueue]
-                           completionHandler:nil];
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                               
+                           }];
 }
 
 #pragma mark Total Latency Measurement

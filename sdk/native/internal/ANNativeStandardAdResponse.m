@@ -154,10 +154,11 @@
 - (void)fireClickTrackers {
     for (NSURL *URL in self.clickTrackers) {
         ANLogDebug(@"Firing click tracker with URL %@", URL);
-        NSURLRequest *request = ANBasicRequestWithURL(URL);
-        [NSURLConnection sendAsynchronousRequest:request
+        [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
                                            queue:[NSOperationQueue mainQueue]
-                               completionHandler:nil];
+                               completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                                   
+                               }];
     }
 }
 

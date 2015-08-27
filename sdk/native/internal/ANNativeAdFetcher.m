@@ -69,14 +69,6 @@
 
 #pragma mark - Ad Server Request
 
-+ (NSMutableURLRequest *)initBasicRequest {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:nil
-                                                                cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                            timeoutInterval:kAppNexusRequestTimeoutInterval];
-    [request setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
-    return request;
-}
-
 - (void)requestAd {
     self.requestShouldBePosted = YES;
     NSURL *adRequestUrl = [ANNativeAdRequestUrlBuilder requestUrlWithAdRequestDelegate:self.delegate
@@ -86,14 +78,12 @@
 
 - (void)requestAdWithURL:(NSURL *)URL {
     [self markLatencyStart];
-    NSMutableURLRequest *request = [[self class] initBasicRequest];
     
     if (!self.isLoading) {
         ANLogInfo(@"fetcher_start");
                 
         if (URL) {
-            request.URL = URL;
-            self.connection = [NSURLConnection connectionWithRequest:request
+            self.connection = [NSURLConnection connectionWithRequest:ANBasicRequestWithURL(URL)
                                                             delegate:self];
             if (self.connection) {
                 
@@ -284,11 +274,11 @@
 
 - (void)fireAndIgnoreResultCB:(NSURL *)url {
     ANLogDebug(@"Firing resultCB with url %@", url);
-    NSMutableURLRequest *ignoredRequest = [[self class] initBasicRequest];
-    ignoredRequest.URL = url;
-    [NSURLConnection sendAsynchronousRequest:ignoredRequest
+    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(url)
                                        queue:[NSOperationQueue mainQueue]
-                           completionHandler:nil];
+                           completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+                               
+                           }];
 }
 
 #pragma mark - Latency
