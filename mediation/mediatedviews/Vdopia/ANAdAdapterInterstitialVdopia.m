@@ -40,7 +40,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
+#if __IPHONE_9_0
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+#else
+- (NSUInteger)supportedInterfaceOrientations {
+#endif
     switch (self.orientation) {
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:
