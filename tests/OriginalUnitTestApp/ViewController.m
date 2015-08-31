@@ -38,7 +38,11 @@
     return YES;
 }
 
+#if __IPHONE_9_0
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+#else
+- (NSUInteger)supportedInterfaceOrientations {
+#endif
     return UIInterfaceOrientationMaskAll;
 }
 

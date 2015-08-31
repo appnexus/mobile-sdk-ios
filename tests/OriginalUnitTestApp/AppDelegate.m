@@ -21,7 +21,12 @@
 
 @implementation AppDelegate
 
+#if __IPHONE_9_0
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+#else
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+#endif
+
     return UIInterfaceOrientationMaskAll;
 }
 
