@@ -1,7 +1,7 @@
 /*
  * Chartboost.h
  * Chartboost
- * 5.5.1
+ * 5.5.3
  *
  * Copyright 2011 Chartboost. All rights reserved.
  */
@@ -415,6 +415,7 @@ example setFramework:Unity withVersion:4.6, setFrameworkVersion:5.2.1
  Set a custom mediation library to append to the POST body of every request.
  example setMediation:@"MoPub" withVersion:@"3.8.0"
  
+ @param libraryName The name of the mediation library.
  @param libraryVersion The version sent as a string.
  
  @discussion This is an internal method used by mediation partners to track their usage.

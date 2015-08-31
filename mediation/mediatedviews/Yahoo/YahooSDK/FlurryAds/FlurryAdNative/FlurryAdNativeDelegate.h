@@ -103,5 +103,14 @@
  */
 - (void) adNative:(FlurryAdNative*) nativeAd adError:(FlurryAdError) adError errorDescription:(NSError*) errorDescription;
 
+/*!
+ *  @brief Informational callback invoked when an ad impression is logged
+ *  @since 6.6.0
+ *
+ *  @param nativeAd The native ad object associated with the impressions
+ *
+ */
+- (void) adNativeDidLogImpression:(FlurryAdNative*) nativeAd;
+
 
 @end
