@@ -1,3 +1,39 @@
+## RC 2.5
+
+### Bug fixes:
+
++ MS-1503 Fixed customEventInterstitialWillPresent call in ANGADCustomInterstitialAd.m
+
+### Other changes:
+
++ MS-1511 Xcode 7 / iOS 9 updates
+
++ MS-1371 Increase interstitial timeout to 4.5 minutes
+
+### MS-1519 Contains the following mediated SDKs:
+
++ AdMob SDK Version 7.4.1
+
++ Amazon SDK Version 2.2.10
+
++ Facebook SDK Version 4.5.1
+
++ Millennial Media SDK Version 6.0.1
+
++ MoPub SDK Version 3.11.0
+
++ InMobi SDK Version 4.5.3
+
++ VDOPIA Lightweight SDK Version 4
+
++ Vungle SDK 3.1.2
+
++ AdColony SDK 2.5.3
+
++ Chartboost SDK 5.5.3
+
++ Yahoo Flurry SDK 7.0.0
+
 ## RC 2.4
 
 ### Bug fixes:
