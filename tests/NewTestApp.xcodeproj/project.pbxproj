@@ -748,6 +748,7 @@
 		8AF3658319D474650097019F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		8AF3658519D4746E0097019F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8AF3659319D479130097019F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		8AFE8BFF1B97B934007BAD27 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1061,6 +1062,7 @@
 				8AA0095519DB16C50090EBED /* AppDelegate.m */,
 				8AA0095619DB16C50090EBED /* main.m */,
 				8AA0095719DB16C50090EBED /* TestsStoryboard.storyboard */,
+				8AFE8BFF1B97B934007BAD27 /* Tests-Info.plist */,
 				8AA0095819DB16C50090EBED /* ViewController.h */,
 				8AA0095919DB16C50090EBED /* ViewController.m */,
 				8AA009B119DB19120090EBED /* Images.xcassets */,
