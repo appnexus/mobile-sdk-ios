@@ -120,3 +120,8 @@ xcuserdata
 
 **/out
 **/Products
+
+####
+# Xcode 7
+
+*.xcscmblueprint
