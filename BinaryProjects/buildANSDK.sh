@@ -8,6 +8,28 @@ OD_SIMULATOR=`pwd`/out_simulator
 LOGDIR="$OUTDIR"/log
 BUILDDIR="$OUTDIR"/build
 
+BITCODE=false
+
+#!/bin/bash
+while [ ! $# -eq 0 ]
+do
+    case "$1" in
+        --bitcode | -b)
+            BITCODE=true
+            ;;
+	--no-bitcode | -nb)
+	    BITCODE=false
+	    ;;
+    esac
+    shift
+done
+
+BITCODEFLAG=""
+if [ $BITCODE == true ]; then
+    BITCODEFLAG="-fembed-bitcode"
+    echo "Bitcode enabled"
+fi 
+
 schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter ANSDKVdopiaAdapter ANSDKVungleAdapter ANSDKAdColonyAdapter ANSDKChartboostAdapter ANSDKYahooAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
 
 rm -fr "$OUTDIR" > /dev/null 2>&1
@@ -18,7 +40,7 @@ mkdir -p "$LOGDIR"
 function buildDevice {
 	echo "Building for device:" $1
 	LOGFILE="$LOGDIR"/$1.log
-	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphoneos" OTHER_CFLAGS="$BITCODEFLAG" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
 	mkdir -p "$OUTDIR"/$1
 	mv "$OUTDIR"/lib$1.a "$OUTDIR"/$1/lib$1.a
 }
@@ -26,7 +48,7 @@ function buildDevice {
 function buildSim {
 	echo "Building for simulator:" $1
 	LOGFILE="$LOGDIR"/$1.log
-	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+	xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" OTHER_CFLAGS="$BITCODEFLAG" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
 	mkdir -p "$OUTDIR"/$1
 	mv "$OUTDIR"/lib$1.a "$OUTDIR"/$1/lib$1.a
 }
