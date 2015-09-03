@@ -87,6 +87,8 @@
 		8A949AE51ADF23C500D83DCE /* libANSDKChartboostAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */; };
 		8A949AEA1ADF23D900D83DCE /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE91ADF23D900D83DCE /* Chartboost.framework */; };
 		8A9687351B4351E900D9399B /* libANSDKYahooAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */; };
+		8A9A45F91B98BC37003B5F43 /* OriginalUnitTestAppLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A9A45F81B98BC37003B5F43 /* OriginalUnitTestAppLaunch.storyboard */; settings = {ASSET_TAGS = (); }; };
+		8A9A46081B98BE59003B5F43 /* NewTestAppLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A9A46071B98BE59003B5F43 /* NewTestAppLaunch.storyboard */; settings = {ASSET_TAGS = (); }; };
 		8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */; };
 		8A9FB01F1B29F9B6004EAC63 /* libInMobi-4.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9FB01D1B29F9AE004EAC63 /* libInMobi-4.5.3.a */; };
 		8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095519DB16C50090EBED /* AppDelegate.m */; };
@@ -592,6 +594,8 @@
 		8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
 		8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
 		8A949AE91ADF23D900D83DCE /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Chartboost.framework; path = ../mediation/mediatedviews/Chartboost/ChartboostSDK/Chartboost.framework; sourceTree = "<group>"; };
+		8A9A45F81B98BC37003B5F43 /* OriginalUnitTestAppLaunch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OriginalUnitTestAppLaunch.storyboard; sourceTree = "<group>"; };
+		8A9A46071B98BE59003B5F43 /* NewTestAppLaunch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewTestAppLaunch.storyboard; sourceTree = "<group>"; };
 		8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdViewMainImage.xib; sourceTree = "<group>"; };
 		8A9F94C019D1C37700AB739F /* MediationAdapterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediationAdapterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediationAdapterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1066,6 +1070,7 @@
 				8AA0095819DB16C50090EBED /* ViewController.h */,
 				8AA0095919DB16C50090EBED /* ViewController.m */,
 				8AA009B119DB19120090EBED /* Images.xcassets */,
+				8A9A45F81B98BC37003B5F43 /* OriginalUnitTestAppLaunch.storyboard */,
 			);
 			path = OriginalUnitTestApp;
 			sourceTree = "<group>";
@@ -1306,6 +1311,7 @@
 				8AD0183A199932F9007874BA /* Main.storyboard */,
 				8AD0183D199932F9007874BA /* Images.xcassets */,
 				8AD01830199932F9007874BA /* Supporting Files */,
+				8A9A46071B98BE59003B5F43 /* NewTestAppLaunch.storyboard */,
 			);
 			path = NewTestApp;
 			sourceTree = "<group>";
@@ -1820,6 +1826,7 @@
 				8AA009B619DB1A290090EBED /* ANSDKResources.bundle in Resources */,
 				8AA009B319DB19790090EBED /* Images.xcassets in Resources */,
 				8AA0095C19DB16C50090EBED /* TestsStoryboard.storyboard in Resources */,
+				8A9A45F91B98BC37003B5F43 /* OriginalUnitTestAppLaunch.storyboard in Resources */,
 				8AA009B019DB18CC0090EBED /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1836,6 +1843,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A9A46081B98BE59003B5F43 /* NewTestAppLaunch.storyboard in Resources */,
 				8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */,
 				8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */,
 				8AA00A4319DB2A410090EBED /* ANSDKResources.bundle in Resources */,
@@ -2176,6 +2184,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = MediationAdapterApp/MediationAdapterPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2198,6 +2207,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-3";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = MediationAdapterApp/MediationAdapterPrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "$(inherited)";
