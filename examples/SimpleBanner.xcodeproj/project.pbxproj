@@ -43,6 +43,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8AB3BC7B1B98A82D00CB4BA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8AA5B4C41AA8B4A500522E1C;
+			remoteInfo = ANSDKInMobiAdapter;
+		};
+		8AB3BC7D1B98A82D00CB4BA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A4B96B51ACD9A4C00FFEB2A;
+			remoteInfo = ANSDKVdopiaAdapter;
+		};
+		8AB3BC7F1B98A82D00CB4BA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A1482571AD337320046F1B9;
+			remoteInfo = ANSDKAdColonyAdapter;
+		};
+		8AB3BC811B98A82D00CB4BA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8AD7C4D81AD2FABA0049C997;
+			remoteInfo = ANSDKVungleAdapter;
+		};
+		8AB3BC831B98A82D00CB4BA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A949ACE1ADF131500D83DCE;
+			remoteInfo = ANSDKChartboostAdapter;
+		};
+		8AB3BC851B98A82D00CB4BA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A96871A1B43314E00D9399B;
+			remoteInfo = ANSDKYahooAdapter;
+		};
+		8AB3BC871B98A82D00CB4BA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
 		8AED80A919DDA7C6002F5D9F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
@@ -227,9 +276,16 @@
 				8AED80B219DDA7C6002F5D9F /* libANSDKMillennialMediaAdapter.a */,
 				8AED80B419DDA7C6002F5D9F /* libANSDKMoPubAdapter.a */,
 				8AED80B619DDA7C6002F5D9F /* libANSDKFacebookAdapter.a */,
+				8AED80BC19DDA7C6002F5D9F /* libANSDKAmazonAdapter.a */,
+				8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */,
+				8AB3BC7E1B98A82D00CB4BA3 /* libANSDKVdopiaAdapter.a */,
+				8AB3BC801B98A82D00CB4BA3 /* libANSDKAdColonyAdapter.a */,
+				8AB3BC821B98A82D00CB4BA3 /* libANSDKVungleAdapter.a */,
+				8AB3BC841B98A82D00CB4BA3 /* libANSDKChartboostAdapter.a */,
+				8AB3BC861B98A82D00CB4BA3 /* libANSDKYahooAdapter.a */,
 				8AED80B819DDA7C6002F5D9F /* libANAdapterForGoogleAdMobSDK.a */,
 				8AED80BA19DDA7C6002F5D9F /* libANAdapterForMoPubSDK.a */,
-				8AED80BC19DDA7C6002F5D9F /* libANSDKAmazonAdapter.a */,
+				8AB3BC881B98A82D00CB4BA3 /* AppNexusSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -372,7 +428,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Simple;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
 					FF2FD7CC19706A5D002CAD63 = {
@@ -406,6 +462,55 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKInMobiAdapter.a;
+			remoteRef = 8AB3BC7B1B98A82D00CB4BA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB3BC7E1B98A82D00CB4BA3 /* libANSDKVdopiaAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKVdopiaAdapter.a;
+			remoteRef = 8AB3BC7D1B98A82D00CB4BA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB3BC801B98A82D00CB4BA3 /* libANSDKAdColonyAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKAdColonyAdapter.a;
+			remoteRef = 8AB3BC7F1B98A82D00CB4BA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB3BC821B98A82D00CB4BA3 /* libANSDKVungleAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKVungleAdapter.a;
+			remoteRef = 8AB3BC811B98A82D00CB4BA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB3BC841B98A82D00CB4BA3 /* libANSDKChartboostAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKChartboostAdapter.a;
+			remoteRef = 8AB3BC831B98A82D00CB4BA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB3BC861B98A82D00CB4BA3 /* libANSDKYahooAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKYahooAdapter.a;
+			remoteRef = 8AB3BC851B98A82D00CB4BA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AB3BC881B98A82D00CB4BA3 /* AppNexusSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusSDK.framework;
+			remoteRef = 8AB3BC871B98A82D00CB4BA3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8AED80AA19DDA7C6002F5D9F /* libANSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -594,6 +699,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -657,12 +763,12 @@
 				GCC_PREFIX_HEADER = "SimpleBanner/SimpleBanner-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/../sdk/**",
 				);
 				INFOPLIST_FILE = "SimpleBanner/SimpleBanner-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "AN.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -677,12 +783,12 @@
 				GCC_PREFIX_HEADER = "SimpleBanner/SimpleBanner-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/../sdk/**",
 				);
 				INFOPLIST_FILE = "SimpleBanner/SimpleBanner-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "AN.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -693,7 +799,6 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SimpleBanner.app/SimpleBanner";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
@@ -704,6 +809,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SimpleBannerTests/SimpleBannerTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "AN.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -715,13 +821,13 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SimpleBanner.app/SimpleBanner";
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleBanner/SimpleBanner-Prefix.pch";
 				INFOPLIST_FILE = "SimpleBannerTests/SimpleBannerTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "AN.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
