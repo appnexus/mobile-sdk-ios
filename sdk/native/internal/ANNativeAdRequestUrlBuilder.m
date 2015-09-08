@@ -199,28 +199,26 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
 
 - (NSString *)locationParameter {
     ANLocation *location = [self.adRequestDelegate location];
-    NSString *locationParameter = @"";
-    
+    NSMutableArray *param = [[NSMutableArray alloc] init];
+
     if (location) {
         NSDate *locationTimestamp = location.timestamp;
         NSTimeInterval ageInSeconds = -1.0 * [locationTimestamp timeIntervalSinceNow];
         NSInteger ageInMilliseconds = (NSInteger)(ageInSeconds * 1000);
         
         if (location.precision >= 0) {
-            locationParameter = [NSString stringWithFormat:@"loc=%.*f%%2C%.*f",
-                                 (int)location.precision, location.latitude, (int)location.precision, location.longitude];
+            [param addObject:[NSString stringWithFormat:@"loc=%.*f%%2C%.*f",
+                              (int)location.precision, location.latitude, (int)location.precision, location.longitude]];
         } else {
-            locationParameter = [NSString stringWithFormat:@"loc=%f%%2C%f",
-                                 location.latitude, location.longitude];
+            [param addObject:[NSString stringWithFormat:@"loc=%f%%2C%f",
+                              location.latitude, location.longitude]];
         }
         
-        if ([locationParameter length]) {
-            locationParameter = [locationParameter stringByAppendingFormat:@"&loc_age=%ld&loc_prec=%f",
-                                 (long)ageInMilliseconds, location.horizontalAccuracy];
-        }
+        [param addObject:[NSString stringWithFormat:@"loc_age=%ld",(long)ageInMilliseconds]];
+        [param addObject:[NSString stringWithFormat:@"loc_prec=%f",location.horizontalAccuracy]];
     }
     
-    return locationParameter;
+    return [param componentsJoinedByString:kANNativeAdRequestUrlBuilderQueryStringSeparator];
 }
 
 - (NSString *)userAgentParameter {
