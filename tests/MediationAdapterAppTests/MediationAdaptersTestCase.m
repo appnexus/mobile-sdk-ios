@@ -80,26 +80,27 @@
     XCTAssertFalse(self.didFailToReceiveAd, @"Received successful callback, but no ad was received.");
     
 #if kANMediationAdaptersUITesting
-    bannerAdView.accessibilityLabel = @"banner";
-    [tester tapViewWithAccessibilityLabel:@"banner"];
-    [tester waitForTimeInterval:3.0];
-    XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
-    XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
-    XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
-    [tester waitForTimeInterval:2.0];
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
-    [tester tapScreenAtPoint:CGPointMake(screenBounds.size.width - 25, screenBounds.size.height - 25)];
-    if (screenBounds.size.height > 1136) {
-        CGFloat x = (screenBounds.size.width - 640) / 2 + 640 - 10;
-        CGFloat y = (screenBounds.size.height - 1136) / 2 + 10;
-        [tester tapScreenAtPoint:CGPointMake(x,y)];
-    } else {
-        [tester tapScreenAtPoint:CGPointMake(screenBounds.size.width - 10, 10)];
-    }
-    [tester waitForTimeInterval:3.0];
-    XCTAssertTrue(self.adWillClose, @"expected adWillClose callback");
-    XCTAssertTrue(self.adDidClose, @"expected adDidClose callback");
-    [tester waitForTimeInterval:2.0];
+    // New MMAdSDK test ad triggers the external browser, making it impossible to test for callbacks
+//    bannerAdView.accessibilityLabel = @"banner";
+//    [tester tapViewWithAccessibilityLabel:@"banner"];
+//    [tester waitForTimeInterval:3.0];
+//    XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
+//    XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
+//    XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
+//    [tester waitForTimeInterval:2.0];
+//    CGRect screenBounds = [UIScreen mainScreen].bounds;
+//    [tester tapScreenAtPoint:CGPointMake(screenBounds.size.width - 25, screenBounds.size.height - 25)];
+//    if (screenBounds.size.height > 1136) {
+//        CGFloat x = (screenBounds.size.width - 640) / 2 + 640 - 10;
+//        CGFloat y = (screenBounds.size.height - 1136) / 2 + 10;
+//        [tester tapScreenAtPoint:CGPointMake(x,y)];
+//    } else {
+//        [tester tapScreenAtPoint:CGPointMake(screenBounds.size.width - 10, 10)];
+//    }
+//    [tester waitForTimeInterval:3.0];
+//    XCTAssertTrue(self.adWillClose, @"expected adWillClose callback");
+//    XCTAssertTrue(self.adDidClose, @"expected adDidClose callback");
+//    [tester waitForTimeInterval:2.0];
 #endif
 }
 
@@ -131,13 +132,18 @@
     XCTAssertFalse(self.didFailToReceiveAd, @"Received successful callback, but no ad was received.");
     
 #if kANMediationAdaptersUITesting
-    bannerAdView.accessibilityLabel = @"banner";
-    [tester tapScreenAtPoint:CGPointMake(310, 25)];
-    [tester waitForTimeInterval:3.0];
-    XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
-    XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
-    XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
-    [tester waitForTimeInterval:3.0];
+    
+    // Facebook SDK uses WKWebView in iOS 8+, making UI testing impossible
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0.0"
+                                                  options:NSNumericSearch] == NSOrderedAscending) {
+        bannerAdView.accessibilityLabel = @"banner";
+        [tester tapScreenAtPoint:CGPointMake(310, 25)];
+        [tester waitForTimeInterval:3.0];
+        XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
+        XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
+        XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
+        [tester waitForTimeInterval:3.0];
+    }
 #endif
 }
 

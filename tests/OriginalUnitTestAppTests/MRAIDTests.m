@@ -71,28 +71,27 @@
 #pragma mark mraid.setOrientationProperties()
 
 - (void)testForceOrientationLandscapeFromPortrait { // MS-481
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
+
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
-    
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"landscape"];
     [self expand];
     XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft, @"Expected landscape left orientation");
     
     [self close];
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
-    
     [self clearTest];
 }
 
 - (void)testForceOrientationPortraitFromLandscape { // MS-481
     [self rotateDeviceToOrientation:UIInterfaceOrientationLandscapeRight];
+    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
+
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self setOrientationPropertiesWithAllowOrientationChange:NO forceOrientation:@"portrait"];
     [self expand];
     XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
     
     [self close];
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight, @"Expected landscape right orientation");
-    
     [self clearTest];
 }
 
