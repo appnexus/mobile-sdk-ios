@@ -10,17 +10,19 @@
 /**
  * Enum for in-app purchase (IAP) engagement types
  */
-typedef enum {
-    ADCOLONY_IAP_ENGAGEMENT_NONE = 0,    /**<IAPP was not enabled for the associated ad object. */
-    ADCOLONY_IAP_ENGAGEMENT_AUTOMATIC,   /**<IAPP was enabled for the ad; however, there was no user engagement. */
-    ADCOLONY_IAP_ENGAGEMENT_END_CARD,    /**<IAPP was enabled for the ad, and the user engaged via a dynamic end card (DEC). */
-    ADCOLONY_IAP_ENGAGEMENT_OVERLAY      /**<IAPP was enabled for the ad, and the user engaged via an in-vdeo engagement (Overlay). */
-} ADCOLONY_IAP_ENGAGEMENT;
+typedef NS_ENUM(NSUInteger, ADCOLONY_IAP_ENGAGEMENT) {
+    ADCOLONY_IAP_ENGAGEMENT_NONE = 0,    /** IAPP was not enabled for the associated ad object. */
+    ADCOLONY_IAP_ENGAGEMENT_AUTOMATIC,   /** IAPP was enabled for the ad; however, there was no user engagement. */
+    ADCOLONY_IAP_ENGAGEMENT_END_CARD,    /** IAPP was enabled for the ad, and the user engaged via a dynamic end card (DEC). */
+    ADCOLONY_IAP_ENGAGEMENT_OVERLAY      /** IAPP was enabled for the ad, and the user engaged via an in-vdeo engagement (Overlay). */
+};
+
+NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - AdColonyAdInfo interface
 
 /**
- * AdColonyAdInfo objects are passed to the `- onAdColonyAdFinishedWithInfo:` callback of AdColonyAdDelegates. 
+ * AdColonyAdInfo objects are passed to the `[AdColonyAdDelegate onAdColonyAdFinishedWithInfo:]` callback of AdColonyAdDelegates.
  * These objects can be queried for useful information about the ad such as the associated zone ID, whether or 
  * not the ad was shown, or any relevant In-App Purchase Promo (IAPP)-related information.
  */
@@ -63,5 +65,6 @@ typedef enum {
  * @param iapEngagementType An `ADCOLONY_IAP_ENGAGEMENT` indicating the engagement mechanism.
  */
 @property (nonatomic, readonly) ADCOLONY_IAP_ENGAGEMENT iapEngagementType;
-
 @end
+
+NS_ASSUME_NONNULL_END

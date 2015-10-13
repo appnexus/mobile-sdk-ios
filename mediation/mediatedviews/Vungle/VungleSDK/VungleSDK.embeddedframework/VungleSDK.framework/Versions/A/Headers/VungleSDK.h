@@ -17,7 +17,7 @@ extern NSString* VunglePlayAdOptionKeyIncentivizedAlertTitleText;
 extern NSString* VunglePlayAdOptionKeyIncentivizedAlertBodyText;
 extern NSString* VunglePlayAdOptionKeyIncentivizedAlertCloseButtonText;
 extern NSString* VunglePlayAdOptionKeyIncentivizedAlertContinueButtonText;
-extern NSString* VunglePlayAdOptionKeyShowClose __deprecated_msg("Set this option on the Vungle dashboard instead.");
+extern NSString * VunglePlayAdOptionKeyShowClose __deprecated_msg("Set this option on the Vungle dashboard instead.");
 extern NSString* VunglePlayAdOptionKeyOrientations;
 extern NSString* VunglePlayAdOptionKeyUser;
 extern NSString* VunglePlayAdOptionKeyPlacement;
