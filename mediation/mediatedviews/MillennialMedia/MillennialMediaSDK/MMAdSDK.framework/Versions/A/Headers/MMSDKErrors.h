@@ -71,7 +71,13 @@ typedef NS_ENUM(NSInteger, MMSDKError) {
     /** The VAST document contains more than 3 Wrapper tags. */
     MMSDKErrorVASTExcessiveWrappers = -30,
     /** The SDK has not yet been initialized. */
-    MMSDKErrorNotInitialized = -31
+    MMSDKErrorNotInitialized = -31,
+    /** A request abort was requested, but the request succeeded. */
+    MMSDKErrorSuccessDuringAbort = -32,
+    /** A request abort was requested, but the request failed due to an error. */
+    MMSDKErrorFailureDuringAbort = -33,
+    /** A request abort was requested, but no request was in progress. */
+    MMSDKErrorNoRequestAbort = -34
 };
 
 #endif

@@ -1,3 +1,39 @@
+## RC 2.6
+
+### Bug fixes:
+
++ MS-1573 Improve how location is passed on a native ad request url
+
+### Other changes:
+
++ MS-1389 Updated test project & sample app for Xcode 7 / iOS 9
+
++ MS-1389 Bitcode ANSDK binary can be built by running "./buildANSDK.sh -b"
+
+### MS-1654 Contains the following mediated SDKs:
+
++ AdMob SDK Version 7.5.1
+
++ Amazon SDK Version 2.2.10
+
++ Facebook SDK Version 4.7.0
+
++ Millennial Media SDK Version 6.1.0
+
++ MoPub SDK Version 3.11.0
+
++ InMobi SDK Version 4.5.3
+
++ VDOPIA Lightweight SDK Version 4
+
++ Vungle SDK 3.2.0
+
++ AdColony SDK 2.6.0
+
++ Chartboost SDK 5.5.3
+
++ Yahoo Flurry SDK 7.2.1
+
 ## RC 2.5
 
 ### Bug fixes:

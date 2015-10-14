@@ -34,6 +34,7 @@
 #endif
 
 #define FB_CLASS_EXPORT __attribute__((visibility("default")))
+#define FB_DEPRECATED __attribute__((deprecated))
 
 #if __IPHONE_9_0
 #define FBInterfaceOrientationMask UIInterfaceOrientationMask
