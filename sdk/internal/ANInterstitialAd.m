@@ -23,6 +23,10 @@
 #import "ANPBBuffer.h"
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
+#import "ANVast.h"
+#import "ANBrowserViewController.h"
+#import "ANVideoPlayerViewController.h"
+#import "ANVideoAd.h"
 
 static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 
@@ -38,15 +42,22 @@ NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
 
-@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
+@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate, UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
 @property (nonatomic, readwrite, assign) CGRect frame;
+@property (nonatomic, readwrite, strong) ANBrowserViewController *browserController;
+@property (nonatomic, strong) NSTimer *progressUpdateTimer;
+@property (nonatomic, strong) ANVideoPlayerViewController* playbackViewController;
+@property (nonatomic, strong) ANVast *vastAd;
 
 @end
 
 @implementation ANInterstitialAd
+@synthesize browserController = _browserController;
+@synthesize playbackViewController = _playbackViewController;
+@synthesize vastAd = _vastAd;
 
 #pragma mark Initialization
 
@@ -146,7 +157,23 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
                                forAuctionID:auctionID];
         }
-    } else {
+    } else if([adToShow isKindOfClass:[ANVideoAd class]]){
+        
+        self.controller = (ANInterstitialAdViewController *)controller;
+        
+        ANVideoAd *videoAd = (ANVideoAd *)adToShow;
+        
+        
+        if (!self.playbackViewController)
+        {
+            _playbackViewController = [[ANVideoPlayerViewController alloc] initWithVastDataModel:videoAd.vastDataModel];
+            [_playbackViewController setSkipOffSet:self.closeDelay];
+            [_playbackViewController setSkipOffSetType:self.closeDelayType];
+        }
+        
+        [controller presentViewController:self.playbackViewController animated:YES completion:nil];
+        
+    }else {
         ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
         [self adFailedToDisplay];
     }
@@ -338,6 +365,62 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 - (void)adShouldUseCustomClose:(BOOL)useCustomClose {
     self.controller.useCustomClose = useCustomClose;
+}
+
+#pragma mark - ANPlayerViewControllerDelegate
+
+- (void)openClickInBrowserWithURL:(NSURL *)url{
+    _browserController = [[ANBrowserViewController alloc] initWithURL:url delegate:self delayPresentationForLoad:NO];
+    
+    if (!self.browserController) {
+        NSLog(@"Failed to initialize the browser.");
+    }
+}
+
+- (void)fireVideoEventImpressions:(ANVideoEvent)event{
+    switch (event) {
+        case ANVideoEventPause:
+        {
+            if ([self.delegate respondsToSelector:@selector(videoAdPaused:)]) {
+                [self.delegate videoAdPaused:self];
+            }
+            break;
+        }
+        case ANVideoEventResume:
+        {
+            if ([self.delegate respondsToSelector:@selector(videoAdResumed:)]) {
+                [self.delegate videoAdResumed:self];
+            }
+            break;
+        }
+        case ANVideoEventStop:
+        {
+            if ([self.delegate respondsToSelector:@selector(videoAdFinishedPlaying:)]) {
+                [self.delegate videoAdFinishedPlaying:self];
+            }
+            break;
+        }
+        case ANVideoEventStart:
+        {
+            if ([self.delegate respondsToSelector:@selector(videoAdStarted:)]) {
+                [self.delegate videoAdStarted:self];
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+#pragma mark - ANBrowserViewControllerDelegate
+
+- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller{
+    return [self.controller presentedViewController];
+}
+
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller{
+    //play the video
+    [self.playbackViewController play];
 }
 
 @end

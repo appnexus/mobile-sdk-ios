@@ -16,6 +16,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+//Version Check
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+
 // Production
 #define AN_BASE_URL @"http://mediation.adnxs.com/"
 #define AN_MOBILE_HOSTNAME @"mediation.adnxs.com/mob"
@@ -41,6 +49,8 @@
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
 #define APPNEXUS_LEADERBOARD_SIZE		CGSizeMake(728, 90)
 #define APPNEXUS_WIDE_SKYSCRAPER_SIZE	CGSizeMake(160, 600)
+
+#define String(charValue) [NSString stringWithCString:charValue encoding:NSUTF8StringEncoding];
 
 #pragma mark Constants
 
@@ -77,6 +87,36 @@
 
 // Buffer Limit
 #define kANPBBufferLimit 10
+
+typedef NS_ENUM(NSUInteger, ANMediaFileDeliveryMethod){
+    ANMediaFileDeliveryMethodStreaming = 0,
+    ANMediaFileDeliveryMethodProgressive
+};
+
+typedef NS_ENUM(NSUInteger, ANExtensionType){
+    ANExtensionTypeAdServer = 0,
+    ANExtensionTypeCustomTracking,
+    ANExtensionTypeValue,
+};
+
+typedef NS_ENUM(NSUInteger, ANVideoEvent){
+    ANVideoEventUnknown = 0,
+    ANVideoEventStart,
+    ANVideoEventQuartileFirst,
+    ANVideoEventQuartileMidPoint,
+    ANVideoEventQuartileThird,
+    ANVideoEventQuartileComplete,
+    ANVideoEventZoomRestore,
+    ANVideoEventZoomFullScreen,
+    ANVideoEventPlay,
+    ANVideoEventPause,
+    ANVideoEventResume,
+    ANVideoEventRewind,
+    ANVideoEventMute,
+    ANVideoEventUnMute,
+    ANVideoEventStop,
+    ANVideoEventClose
+};
 
 typedef NS_ENUM(NSUInteger, ANMobileEndpoint) {
     ANMobileEndpointProduction = 0,

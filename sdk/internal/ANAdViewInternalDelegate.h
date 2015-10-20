@@ -14,6 +14,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "ANGlobal.h"
 
 @protocol ANAdViewInternalDelegate <NSObject>
 

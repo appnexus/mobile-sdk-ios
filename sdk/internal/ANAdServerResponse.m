@@ -17,6 +17,7 @@
 #import "ANLogging.h"
 #import "ANGlobal.h"
 #import "ANMediatedAd.h"
+#import "ANVast.h"
 
 static NSString *const kANAdServerResponseKeyStatus = @"status";
 static NSString *const kANAdServerResponseKeyType = @"type";
@@ -72,6 +73,8 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 @property (nonatomic, readwrite, strong) NSMutableArray *standardAds;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readwrite, strong) NSMutableArray *nativeAds;
+@property (nonatomic, readwrite, strong) ANVideoAd *videoAd;
+@property (nonatomic, readwrite, strong) NSMutableArray *videoAds;
 
 @end
 
@@ -113,7 +116,9 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
             self.mediatedAds = [[self class] mediatedAdsFromJSONResponse:jsonResponse];
             self.nativeAds = [[self class] nativeAdsFromJSONResponse:jsonResponse];
             self.nativeAd = [self.nativeAds firstObject];
-            if (self.standardAd || self.mediatedAds.count || self.nativeAds.count) {
+            self.videoAds = [[self class] videoAdsFromJSONResponse:jsonResponse];
+            self.videoAd = [self.videoAds firstObject];
+            if (self.standardAd || self.mediatedAds.count || self.nativeAds.count || self.videoAd) {
                 self.containsAds = YES;
             }
         }
@@ -191,6 +196,19 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     return parsedNativeAdObjects;
 }
 
++ (NSMutableArray *)videoAdsFromJSONResponse:(NSDictionary *)jsonResponse {
+    NSArray *videoAdDictArray = [[self class] validDictionaryArrayForKey:kANAdServerResponseKeyAds
+                                                             inJSONResponse:jsonResponse];
+    NSMutableArray *parsedVideoAdObjects = [[NSMutableArray alloc] init];
+    [videoAdDictArray enumerateObjectsUsingBlock:^(NSDictionary *videoAdDict, NSUInteger idx, BOOL *stop) {
+        ANVideoAd *videoAd = [[self class] parseVideoAdFromDictionary:videoAdDict];
+        if (videoAd) {
+            [parsedVideoAdObjects addObject:videoAd];
+        }
+    }];
+    return parsedVideoAdObjects;
+}
+
 + (NSMutableArray *)validDictionaryArrayForKey:(NSString *)key
                                 inJSONResponse:(NSDictionary *)jsonResponse {
     if ([jsonResponse[key] isKindOfClass:[NSArray class]]) {
@@ -215,6 +233,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
         ad.width = [standardAdDict[kANAdServerResponseKeyWidth] description];
         ad.height = [standardAdDict[kANAdServerResponseKeyHeight] description];
         ad.content = [standardAdDict[kANAdServerResponseKeyContent] description];
+        
         if (!ad.content || [ad.content length] == 0) {
             ANLogError(@"blank_ad");
             return nil;
@@ -347,5 +366,35 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
     }
     return nil;
 }
+
++ (ANVideoAd *)parseVideoAdFromDictionary:(NSDictionary *)videoAdDict {
+    if (videoAdDict) {
+        ANVideoAd *ad = [[ANVideoAd alloc] init];
+        ad.type = [videoAdDict[kANAdServerResponseKeyType] description];
+        ad.width = [videoAdDict[kANAdServerResponseKeyWidth] description];
+        ad.height = [videoAdDict[kANAdServerResponseKeyHeight] description];
+        ad.content = [videoAdDict[kANAdServerResponseKeyContent] description];
+        
+        //Video Implementation - Deepak
+        NSError *error;
+        ad.vastDataModel = [[ANVast alloc] init];
+        [ad.vastDataModel parseVastResponseWithURL:nil error:&error];
+        //Video Implementation - Deepak
+        
+        if (!ad.content || [ad.content length] == 0) {
+            ANLogError(@"blank_ad");
+            return nil;
+        }
+        
+        NSRange mraidJSRange = [ad.content rangeOfString:kANAdServerResponseMraidJSFilename];
+        if (mraidJSRange.location != NSNotFound) {
+            ad.mraid = YES;
+        }
+        
+        return ad;
+    }
+    return nil;
+}
+
 
 @end

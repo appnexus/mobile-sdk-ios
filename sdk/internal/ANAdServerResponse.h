@@ -16,6 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "ANStandardAd.h"
 #import "ANNativeStandardAdResponse.h"
+#import "ANVideoAd.h"
 
 @interface ANAdServerResponse : NSObject
 
@@ -29,6 +30,8 @@
 @property (nonatomic, readonly, strong) NSMutableArray *standardAds;
 @property (nonatomic, readonly, strong) NSMutableArray *mediatedAds;
 @property (nonatomic, readonly, strong) NSMutableArray *nativeAds;
+@property (nonatomic, readonly, strong) ANVideoAd *videoAd;
+@property (nonatomic, readonly, strong) NSMutableArray *videoAds;
 
 - (instancetype)initWithContent:(NSString *)htmlContent
                           width:(NSInteger)width

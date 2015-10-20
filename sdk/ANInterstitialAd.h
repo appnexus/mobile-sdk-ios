@@ -16,6 +16,7 @@
 #import "ANAdView.h"
 
 @protocol ANInterstitialAdDelegate;
+@protocol ANVideoAdDelegate;
 
 /**
  This is the interface through which interstitial ads are (1)
@@ -44,7 +45,7 @@
  */
 @interface ANInterstitialAd : ANAdView
 
-@property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate, ANVideoAdDelegate> delegate;
 
 /**
  Delegate object that receives custom app event notifications from this
@@ -80,6 +81,13 @@
  appear immediately.
  */
 @property (nonatomic, readwrite, assign) NSTimeInterval closeDelay;
+
+/**
+ The delay counter between when an interstitial ad is displayed and when the
+ close button appears to the user. 0 = closeDelayTypeAbsolute and 
+ 1 = closeDelayTypeRelative. Accepts ANCloseDelayType enum.
+ */
+@property (nonatomic, readwrite, assign) NSUInteger closeDelayType;
 
 /**
  The set of allowed ad sizes for the interstitial ad.
@@ -140,4 +148,13 @@
  @endcode
  */
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad;
+
+@end
+
+@protocol ANVideoAdDelegate <ANAdDelegate>
+
+- (void) videoAdPaused:(ANInterstitialAd *)ad;
+- (void) videoAdResumed:(ANInterstitialAd *)ad;
+- (void) videoAdStarted:(ANInterstitialAd *)ad;
+- (void) videoAdFinishedPlaying:(ANInterstitialAd *)ad;
 @end

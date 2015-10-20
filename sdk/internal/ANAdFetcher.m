@@ -27,6 +27,8 @@
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
 
+#import "ANVideoAd.h"
+
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 NSString *const kANAdFetcherWillInstantiateMediatedClassNotification = @"kANAdFetcherWillInstantiateMediatedClassKey";
@@ -42,6 +44,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, getter = isLoading) BOOL loading;
 @property (nonatomic, readwrite, strong) ANMRAIDContainerView *standardAdView;
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
+@property (nonatomic, readwrite, strong) ANVideoAd *videoAd;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) BOOL requestShouldBePosted;
 @property (nonatomic, readwrite, strong) NSString *ANMobileHostname;
@@ -239,11 +242,15 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     // then it must be a non-mediated ad
     if (responseAdsExist) {
         self.mediatedAds = response.mediatedAds;
+        self.videoAd = response.videoAd;
     }
     
     if ([self.mediatedAds count] > 0) {
         // mediated
         [self handleMediatedAds:self.mediatedAds];
+    }
+    else if(self.videoAd){
+        [self handleVideoAd:self.videoAd];
     }
     else {
         // no mediatedAds, parse for non-mediated ad response
@@ -276,7 +283,21 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                                                                 HTML:standardAd.content
                                                       webViewBaseURL:[NSURL URLWithString:self.ANBaseURL]];
     self.standardAdView.webViewController.loadingDelegate = self;
+    
 }
+
+- (void)handleVideoAd:(ANVideoAd *)videoAd {
+    
+//    self.playerController = [[ANPlayerViewController alloc] init];
+//    ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.playerController];
+//    [self processFinalResponse:response];
+    
+    ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.videoAd];
+    [self processFinalResponse:response];
+    
+
+}
+
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
     if (self.standardAdView.webViewController == controller) {

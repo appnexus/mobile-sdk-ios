@@ -15,6 +15,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, ANCloseDelayType){
+    ANCloseDelayTypeAbsolute = 0,
+    ANCloseDelayTypeRelative
+};
+
 typedef NS_ENUM(NSInteger, ANAdResponseCode) {
     ANDefaultCode = -1,
     ANAdResponseSuccessful = 0,
