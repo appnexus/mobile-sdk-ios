@@ -1,4 +1,4 @@
-/* Copyright 2015 APPNEXUS INC
+/*   Copyright 2015 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -9,25 +9,24 @@
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- 
  See the License for the specific language governing permissions and
  limitations under the License.
- 
  */
 
-
 #import <Foundation/Foundation.h>
-#import "ANInLine.h"
-#import "ANWrapper.h"
+#import "ANStandardAd.h"
+#import "ANVideoAd.h"
 
-@interface ANVast : NSObject
+@interface ANUniversalTagAdServerResponse : NSObject
 
-- (instancetype)initWithContent:(NSString *)vast;
++ (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;
 
-@property (nonatomic, readonly) NSString *version;
-@property (nonatomic, readonly) NSString *AdId;
-@property (nonatomic, readonly) ANInLine *anInLine;
-@property (nonatomic, readonly) ANWrapper *anWrapper;
-@property (nonatomic, readonly) NSURL *mediaFileURL;
+- (instancetype)initWithAdServerData:(NSData *)data;
+
+@property (nonatomic, readonly, assign) BOOL containsAds;
+@property (nonatomic, readonly, strong) ANStandardAd *standardAd;
+@property (nonatomic, readonly, strong) NSMutableArray *standardAds;
+@property (nonatomic, readonly, strong) ANVideoAd *videoAd;
+@property (nonatomic, readonly, strong) NSMutableArray *videoAds;
 
 @end

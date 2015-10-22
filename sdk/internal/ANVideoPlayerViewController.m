@@ -52,7 +52,8 @@
     
     if (self) {
         self.vastDataModel = vastDataModel;
-        _fileURL = [self.vastDataModel getMediaFileURL];
+        _fileURL = self.vastDataModel.mediaFileURL;
+        ANLogDebug(@"Playing Media File URL %@", _fileURL);
     }
 
     return self;
@@ -224,7 +225,7 @@
 
 - (void)mute:(BOOL)value{
     AVAudioSession *session = [AVAudioSession sharedInstance];
-    NSError *error = [[NSError alloc] init];
+    NSError *error;
     
     float volume = 1.0;
 
