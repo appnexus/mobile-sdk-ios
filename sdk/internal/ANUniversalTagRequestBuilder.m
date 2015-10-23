@@ -122,7 +122,6 @@
     if ([self.adFetcherDelegate conformsToProtocol:@protocol(ANInterstitialAdFetcherDelegate)]) {
         id<ANInterstitialAdFetcherDelegate> interstitialDelegate = (id<ANInterstitialAdFetcherDelegate>)self.adFetcherDelegate;
         NSMutableSet *allowedSizes = [interstitialDelegate allowedAdSizes];
-        [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
         NSMutableArray *sizeObjectArray = [[NSMutableArray alloc] init];
         for (id sizeValue in allowedSizes) {
             if ([sizeValue isKindOfClass:[NSValue class]]) {
@@ -133,6 +132,7 @@
         }
         tagDict[@"sizes"] = sizeObjectArray;
     }
+    tagDict[@"ad_types"] = @[@"banner", @"video"];
     tagDict[@"disable_psa"] = @([self.adFetcherDelegate shouldServePublicServiceAnnouncements]);
     return [tagDict copy];
 }
