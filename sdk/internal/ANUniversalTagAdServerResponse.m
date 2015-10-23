@@ -116,6 +116,10 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
         ANVideoAd *videoAd = [[ANVideoAd alloc] init];
         videoAd.content = [video[kANUniversalTagAdServerResponseVideoKeyContent] description];
         videoAd.vastDataModel = [[ANVast alloc] initWithContent:videoAd.content];
+        if (!videoAd.vastDataModel) {
+            ANLogDebug(@"Invalid VAST content, unable to use");
+            return nil;
+        }
         return videoAd;
     }
     return nil;

@@ -42,10 +42,18 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
         NSError *error;
         [self parseVastResponse:vast
                           error:&error];
-        if (!error) {
-            self.mediaFileURL = [self optimalMediaFileURL];
-        } else {
-            ANLogError(@"VAST parsing error: %@", error);
+        if (error) {
+            ANLogDebug(@"Error parsing VAST response: %@", error);
+            return nil;
+        }
+        if (!self.anInLine) {
+            ANLogDebug(@"No linear ad found in VAST content, unable to use");
+            return nil;
+        }
+        self.mediaFileURL = [self optimalMediaFileURL];
+        if (!self.mediaFileURL) {
+            ANLogDebug(@"No valid media URL found in VAST content, unable to use");
+            return nil;
         }
     }
     return self;
