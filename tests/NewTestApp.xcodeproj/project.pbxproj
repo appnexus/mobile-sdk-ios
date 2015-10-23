@@ -88,7 +88,6 @@
 		8A949AEA1ADF23D900D83DCE /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A949AE91ADF23D900D83DCE /* Chartboost.framework */; };
 		8A9687351B4351E900D9399B /* libANSDKYahooAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */; };
 		8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */; };
-		8A9FB01F1B29F9B6004EAC63 /* libInMobi-4.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9FB01D1B29F9AE004EAC63 /* libInMobi-4.5.3.a */; };
 		8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095519DB16C50090EBED /* AppDelegate.m */; };
 		8AA0095B19DB16C50090EBED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0095619DB16C50090EBED /* main.m */; };
 		8AA0095C19DB16C50090EBED /* TestsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AA0095719DB16C50090EBED /* TestsStoryboard.storyboard */; };
@@ -206,6 +205,7 @@
 		8AE7AD951A7AAE81009E2F2F /* ANNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7AD941A7AAE81009E2F2F /* ANNativeAdView.m */; };
 		8AE7AD981A7AB348009E2F2F /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8AE7AD9C1A7AC372009E2F2F /* appnexus_standard_response_store_url.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */; };
+		8AE87A181BDADE3B001053D2 /* libInMobi-5.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE87A171BDADE3B001053D2 /* libInMobi-5.0.1.a */; settings = {ASSET_TAGS = (); }; };
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
 /* End PBXBuildFile section */
 
@@ -597,7 +597,6 @@
 		8A9BF1431A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdViewMainImage.xib; sourceTree = "<group>"; };
 		8A9F94C019D1C37700AB739F /* MediationAdapterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediationAdapterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediationAdapterAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A9FB01D1B29F9AE004EAC63 /* libInMobi-4.5.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libInMobi-4.5.3.a"; path = "../mediation/mediatedviews/InMobi/InMobiSDK/libInMobi-4.5.3.a"; sourceTree = "<group>"; };
 		8AA0095419DB16C50090EBED /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8AA0095519DB16C50090EBED /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8AA0095619DB16C50090EBED /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -747,6 +746,7 @@
 		8AE7AD931A7AAE81009E2F2F /* ANNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeAdView.h; sourceTree = "<group>"; };
 		8AE7AD941A7AAE81009E2F2F /* ANNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdView.m; sourceTree = "<group>"; };
 		8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response_store_url.json; sourceTree = "<group>"; };
+		8AE87A171BDADE3B001053D2 /* libInMobi-5.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libInMobi-5.0.1.a"; path = "../mediation/mediatedviews/InMobi/InMobiSDK/libInMobi-5.0.1.a"; sourceTree = "<group>"; };
 		8AF3654C19D472A60097019F /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
 		8AF3657F19D473B00097019F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8AF3658319D474650097019F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -787,6 +787,7 @@
 				8AA009F419DB1DA50090EBED /* libANSDKMillennialMediaAdapter.a in Frameworks */,
 				8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */,
 				8AA009F519DB1DA50090EBED /* libANSDKMoPubAdapter.a in Frameworks */,
+				8AE87A181BDADE3B001053D2 /* libInMobi-5.0.1.a in Frameworks */,
 				8AA009F619DB1DA50090EBED /* libANSDKFacebookAdapter.a in Frameworks */,
 				8AA009F719DB1DA50090EBED /* libANSDKAmazonAdapter.a in Frameworks */,
 				8AA5B4F01AA90C3E00522E1C /* libANSDKInMobiAdapter.a in Frameworks */,
@@ -801,7 +802,6 @@
 				8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */,
 				8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */,
 				8A2BD4111B670E540000DB66 /* MMAdSDK.framework in Frameworks */,
-				8A9FB01F1B29F9B6004EAC63 /* libInMobi-4.5.3.a in Frameworks */,
 				8A9687351B4351E900D9399B /* libANSDKYahooAdapter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1008,7 +1008,7 @@
 				8A4018041A9500A300D56208 /* GoogleMobileAds.framework */,
 				8AE3999E1A42105B00C0D7B1 /* WebKit.framework */,
 				8AA009EB19DB1D530090EBED /* libMoPubSDK.a */,
-				8A9FB01D1B29F9AE004EAC63 /* libInMobi-4.5.3.a */,
+				8AE87A171BDADE3B001053D2 /* libInMobi-5.0.1.a */,
 				8A2BD4101B670E540000DB66 /* MMAdSDK.framework */,
 				8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */,
 				8AA009E319DB1D270090EBED /* AmazonAd.framework */,
