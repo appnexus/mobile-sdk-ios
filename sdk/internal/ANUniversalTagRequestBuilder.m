@@ -133,7 +133,7 @@
         tagDict[@"sizes"] = sizeObjectArray;
     }
     tagDict[@"ad_types"] = @[@"banner", @"video"];
-    tagDict[@"disable_psa"] = @([self.adFetcherDelegate shouldServePublicServiceAnnouncements]);
+    tagDict[@"disable_psa"] = @(![self.adFetcherDelegate shouldServePublicServiceAnnouncements]);
     return [tagDict copy];
 }
 
