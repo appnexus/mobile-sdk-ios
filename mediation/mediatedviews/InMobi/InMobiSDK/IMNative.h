@@ -1,90 +1,82 @@
 //
 //  IMNative.h
-//  InMobi Monetization SDK
-//
-//  Copyright (c) 2013 InMobi. All rights reserved.
-//
+//  APIs
+//  Copyright (c) 2015 InMobi. All rights reserved.
 //
 /**
- This class represents a Native ad. A minimum implementation to
- get an ad is:
- 
-   - Initialize an IMNative instance by providing appid
-   - Load the Native ad.
-   - Implement the IMNativeDelegate methods to know when to get the ad content.
- 
- Below is a sample example:
- 
-        IMNative* nativeAd = [[IMNative alloc] initWithAppId:@"YOUR_APP_ID"];
-        nativeAd.delegate = self;
-        [nativeAd loadAd];
- 
- * You may use InMobi class for additional targetting options.
+ * Class to integrate native ads in your application
+ * Use this class to integrate native ads in your application. For native ads, your application is given the raw assets for the ad. Your application can render these in a manner that is native to the look and feel of your application to drive better user engagement with the ad. If you need to customize aspects of ad impression and click-through reporting, your application can use the IMCustomNative class.
  */
-
-#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#include "IMCommonConstants.h"
 #import "IMNativeDelegate.h"
+
 @interface IMNative : NSObject
 /**
- * Publisher specific ad content in the format specified by the publisher. 
- * Use this content to render the ad.
+ * The content of the native ad.
  */
-@property (atomic, strong) NSString* content;
+@property (nonatomic, strong, readonly) NSString* adContent;
 /**
- * Native delegate to get success/failure response for the native ad.
+ * The delegate to receive callbacks
  */
 @property (nonatomic, weak) id<IMNativeDelegate> delegate;
-
 /**
- * Initializes the native ad instance with the appId provided
- * @param appId Application Id registered on the InMobi portal.
- */
--(id)initWithAppId:(NSString*)appId;
-/**
- * This method loads a native ad. This will automatically detach any previously attached view and invalidate the native instance.
- * Until the load is complete, no operations can be performed on this instance.
- */
--(void)loadAd;
-/**
- * Once the rendering is done, this method attaches the native ad to the provided view.
- * The view passed to this method is the view that renders the ad from the native ad instance's content.
- * It is necessary to attach a view before any clicks can be reported to the native ad instance.
- * @param view The view rendered from content of the native ad.
- */
--(void)attachToView:(UIView*)view;
-/**
- * This method detaches the native ad instance from the view it was attached to.
- * Once detached, The native instance gets invalidated until it is loaded again.
- * Only detach the view when you are completely done with it, like moving to a different page, not showing the ad anymore or
- * releasing the view that rendered the ad etc.
- */
--(void)detachFromView;
-/**
- * This method reports a click to the native ad.
- * When the publisher considers an action on the view as a click,
- * call this method to report the click to InMobi.
- * @param params Any additional params to be passed for better reporting.
- */
--(void)handleClick:(NSDictionary*)params;
-
-/**
- * A free form NSDictionary for any demographic information,
- * not available via InMobi class.
- */
-@property (nonatomic,strong) NSDictionary *additionaParameters;
-/**
- * A free form set of keywords, separated by ','
+ * A free form set of keywords, separated by ',' to be sent with the ad request.
  * E.g: "sports,cars,bikes"
  */
-@property (nonatomic,copy) NSString *keywords;
+@property (nonatomic, strong) NSString* keywords;
 /**
- * Ref-tag key to be passed to an ad instance.
+ * Any additional information to be passed to InMobi.
  */
-@property (nonatomic,copy) NSString *refTagKey;
+@property (nonatomic, strong) NSDictionary* extras;
 /**
- * Ref-tag value to be passed to an ad instance.
+ * Initialize a Native ad with the given PlacementId
+ * @param placementId The placementId for loading the interstitial
  */
-@property (nonatomic,copy) NSString *refTagValue;
+-(instancetype)initWithPlacementId:(long long)placementId;
+/**
+ * Initialize a Native ad with the given PlacementId
+ * @param placementId The placementId for loading the interstitial
+ * @param delegte The delegate to receive callbacks from IMNative
+ */
+-(instancetype)initWithPlacementId:(long long)placementId delegate:(id<IMNativeDelegate>)delegate;
+/**
+ * Loads a Native ad
+ */
+-(void)load;
+/**
+ * Binds the native instance to the rendered view to fire impressions.
+ * @param native The native instance that was used to create the view.
+ * @param view The view that has rendered the native ad's content
+ */
++(void)bindNative:(IMNative*)native toView:(UIView*)view;
+/**
+ * Use this method to stop tracking impressions on a particular view. This method should be called especially when using native ads inside UITableView.
+ * If the view submited previously was a UITableViewCell, please use this method to stop tracking the view to avoid faulty impressions.
+ * Your -(UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexpath:(NSIndexPath*)indexPath should look like below
+ 
+        if(isAnAd) { //This is an ad.
+            // Build the native ad from the assets.
+            //Call bindNative to start tracking impressions.
+            [IMNative bindNative:nativeAd toView:view];
+        } else { //This is a content element.
+            [IMNative unBindView:view];
+        }
+ 
+ * @param view The view on which the impressions should not be tracked anymore.
+ */
++(void)unBindView:(UIView*)view;
+/**
+ * Reports that a click has happened on the native ad.
+ * @param params Any additional params that the publisher would like to report.
+ */
+-(void)reportAdClick:(NSDictionary*)params;
+/**
+ * Reports that a click has happened on the native ad and open the landing page too.
+ * @param params Any additional params that the publisher would like to report.
+ */
+-(void)reportAdClickAndOpenLandingURL:(NSDictionary*)params;
+
+
 
 @end

@@ -1,83 +1,77 @@
 //
 //  IMInterstitialDelegate.h
-//  InMobi Monetization SDK
-//
-//  Copyright (c) 2013 InMobi. All rights reserved.
+//  APIs
+//  Copyright (c) 2015 InMobi. All rights reserved.
 //
 
+/**
+ * A listener for receiving notifications during the lifecycle of an interstitial.
+ *
+ * Note All the events in this listener will be invoked on your application's UI thread.
+ 
+ In most cases your application will need to listen for the following events on an interstitial
+ 
+ The outcome of an ad request (if the request succeeded or failed);
+ see interstitialDidFinishLoading:(IMInterstitial*)interstitial; and interstitial:(IMInterstitial*)interstitial didFailToLoadWithError:(IMRequestStatus*)error;
+ 
+ The full screen ad is diplayed that covered the screen. This means that the user can no longer interact with your application;
+ see interstitialDidPresent:(IMInterstitial *)interstitial;
+ 
+ The full screen ad was dismissed. The user is now free to interact with your application;
+ see interstitialDidDismiss:(IMInterstitial*)interstitial;
+ 
+ A user interaction with the ad will result in the User leaving your application context;
+ see userWillLeaveApplicationFromInterstitial:(IMInterstitial*)interstitial;
+ 
+ If your application involves running rewarded or incentivised ads, then you should, in addition to the above events, also listen for the interstitial:(IMInterstitial*)interstitial rewardActionCompletedWithRewards:(NSDictionary*)rewards event and handle it appropriately to unlock rewards for the user of your app.
+ */
 #import <Foundation/Foundation.h>
-#import "IMError.h"
+#import "IMRequestStatus.h"
 
 @class IMInterstitial;
-
-/**
- * Delegate to receive state change message from IMInterstitial.
- */
 @protocol IMInterstitialDelegate <NSObject>
-
 @optional
+/**
+ * Notifies the delegate that the interstitial has finished loading
+ */
+-(void)interstitialDidFinishLoading:(IMInterstitial*)interstitial;
+/**
+ * Notifies the delegate that the interstitial has failed to load with some error.
+ */
+-(void)interstitial:(IMInterstitial*)interstitial didFailToLoadWithError:(IMRequestStatus*)error;
+/**
+ * Notifies the delegate that the interstitial would be presented.
+ */
+-(void)interstitialWillPresent:(IMInterstitial*)interstitial;
+/**
+ * Notifies the delegate that the interstitial has been presented.
+ */
+-(void)interstitialDidPresent:(IMInterstitial *)interstitial;
+/**
+ * Notifies the delegate that the interstitial has failed to present with some error.
+ */
+-(void)interstitial:(IMInterstitial*)interstitial didFailToPresentWithError:(IMRequestStatus*)error;
+/**
+ * Notifies the delegate that the interstitial will be dismissed.
+ */
+-(void)interstitialWillDismiss:(IMInterstitial*)interstitial;
+/**
+ * Notifies the delegate that the interstitial has been dismissed.
+ */
+-(void)interstitialDidDismiss:(IMInterstitial*)interstitial;
+/**
+ * Notifies the delegate that the interstitial has been interacted with.
+ */
+-(void)interstitial:(IMInterstitial*)interstitial didInteractWithParams:(NSDictionary*)params;
+/**
+ * Notifies the delegate that the user has performed the action to be incentivised with.
+ */
+-(void)interstitial:(IMInterstitial*)interstitial rewardActionCompletedWithRewards:(NSDictionary*)rewards;
+/**
+ * Notifies the delegate that the user will leave application context.
+ */
+-(void)userWillLeaveApplicationFromInterstitial:(IMInterstitial*)interstitial;
 
-#pragma mark Interstitial Request Notifications
 
-/**
- * Sent when an interstitial ad request succeeded.
- * @param ad The IMInterstitial instance which finished loading.
- */
-- (void)interstitialDidReceiveAd:(IMInterstitial *)ad;
-
-/**
- * Sent when an interstitial ad request failed
- * @param ad The IMInterstitial instance which failed to load.
- * @param error The IMError associated with the failure.
- */
-- (void)interstitial:(IMInterstitial *)ad
-        didFailToReceiveAdWithError:(IMError *)error;
-
-#pragma mark Interstitial Interaction Notifications
-
-/**
- * Sent just before presenting an interstitial.  After this method finishes the
- * interstitial will animate onto the screen.  Use this opportunity to stop
- * animations and save the state of your application in case the user leaves
- * while the interstitial is on screen (e.g. to visit the App Store from a link
- * on the interstitial).
- * @param ad The IMInterstitial instance which will present the screen.
- */
-- (void)interstitialWillPresentScreen:(IMInterstitial *)ad;
-
-/**
- * Sent before the interstitial is to be animated off the screen.
- * @param ad The IMInterstitial instance which will dismiss the screen.
- */
-- (void)interstitialWillDismissScreen:(IMInterstitial *)ad;
-
-/**
- * Sent just after dismissing an interstitial and it has animated off the screen.
- * @param ad The IMInterstitial instance which was responsible for dismissing the screen.
- */
-- (void)interstitialDidDismissScreen:(IMInterstitial *)ad;
-/**
- * Callback sent just before the application goes into the background because
- * the user clicked on a link in the ad that will launch another application
- * (such as the App Store). The normal UIApplicationDelegate methods like
- * applicationDidEnterBackground: will immediately be called after this.
- * @param ad The IMInterstitial instance that is launching another application.
- */
-- (void)interstitialWillLeaveApplication:(IMInterstitial *)ad;
-/**
- * Called when the interstitial is tapped or interacted with by the user
- * Optional data is available to publishers to act on when using
- * monetization platform to render promotional ads.
- * @param ad The IMInterstitial instance which was responsible for this action.
- * @param dictionary The NSDictionary object which was passed from the ad.
- */
--(void)interstitialDidInteract:(IMInterstitial *)ad withParams:(NSDictionary *)dictionary;
-/**
- * Called when the interstitial failed to display.
- * This should normally occur if the state != kIMInterstitialStateReady.
- * @param ad The IMInterstitial instance responsible for this error.
- * @param error The IMError associated with this failure.
- */
-- (void)interstitial:(IMInterstitial *)ad didFailToPresentScreenWithError:(IMError *)error;
 @end
 
