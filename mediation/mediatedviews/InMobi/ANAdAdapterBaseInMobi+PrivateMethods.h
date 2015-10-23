@@ -17,12 +17,12 @@
 #import "ANAdConstants.h"
 
 @class ANTargetingParameters;
-@class IMError;
+@class IMRequestStatus;
 
 @interface ANAdAdapterBaseInMobi (PrivateMethods)
 
 + (NSString *)appId;
-+ (ANAdResponseCode)responseCodeFromInMobiError:(IMError *)error;
++ (ANAdResponseCode)responseCodeFromInMobiRequestStatus:(IMRequestStatus *)status;
 + (void)setInMobiTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
 + (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
 
