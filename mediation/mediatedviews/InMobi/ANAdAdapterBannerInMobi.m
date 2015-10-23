@@ -41,6 +41,11 @@
         [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }
+    if (!idString.length) {
+        ANLogError(@"Unable to load InMobi banner due to empty ad unit id");
+        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        return;
+    }
     CGRect frame = CGRectMake(0, 0, size.width, size.height);
     self.banner = [[IMBanner alloc] initWithFrame:frame placementId:[idString longLongValue]];
     self.banner.delegate = self;

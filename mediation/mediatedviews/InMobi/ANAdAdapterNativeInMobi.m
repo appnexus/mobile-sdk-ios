@@ -87,6 +87,11 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
         [self.requestDelegate didFailToLoadNativeAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }
+    if (!adUnitId.length) {
+        ANLogError(@"Unable to load InMobi native ad due to empty ad unit id");
+        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseUnableToFill];
+        return;
+    }
     NSString *appId;
     if (adUnitId.length) {
         appId = adUnitId;
