@@ -57,11 +57,11 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
 - (void)processResponseData:(NSData *)data {
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
     if (jsonResponse) {
-        if ([[self class] isNoBidResponse:jsonResponse]) {
-            return;
-        }
         NSArray *tags = [[self class] tagsFromJSONResponse:jsonResponse];
         for (NSDictionary *tag in tags) {
+            if ([[self class] isNoBidTag:tag]) {
+                continue;
+            }
             NSDictionary *adObject = [[self class] adObjectFromTag:tag];
             if (adObject) {
                 ANStandardAd *standardAd = [[self class] standardAdFromAdObject:adObject];
@@ -82,9 +82,9 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
     }
 }
 
-+ (BOOL)isNoBidResponse:(NSDictionary *)jsonResponse {
-    if (jsonResponse[kANUniversalTagAdServerResponseKeyNoBid]) {
-        BOOL noBid = [jsonResponse[kANUniversalTagAdServerResponseKeyNoBid] boolValue];
++ (BOOL)isNoBidTag:(NSDictionary *)tag {
+    if (tag[kANUniversalTagAdServerResponseKeyNoBid]) {
+        BOOL noBid = [tag[kANUniversalTagAdServerResponseKeyNoBid] boolValue];
         return noBid;
     }
     return NO;
