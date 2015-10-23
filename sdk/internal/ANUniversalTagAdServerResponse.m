@@ -16,6 +16,7 @@
 #import "ANUniversalTagAdServerResponse.h"
 #import "ANLogging.h"
 
+static NSString *const kANUniversalTagAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kANUniversalTagAdServerResponseKeyTags = @"tags";
 static NSString *const kANUniversalTagAdServerResponseKeyAd = @"ad";
 
@@ -56,6 +57,9 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
 - (void)processResponseData:(NSData *)data {
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
     if (jsonResponse) {
+        if ([[self class] isNoBidResponse:jsonResponse]) {
+            return;
+        }
         NSArray *tags = [[self class] tagsFromJSONResponse:jsonResponse];
         for (NSDictionary *tag in tags) {
             NSDictionary *adObject = [[self class] adObjectFromTag:tag];
@@ -76,6 +80,14 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
     if (self.standardAd || self.videoAd) {
         self.containsAds = YES;
     }
+}
+
++ (BOOL)isNoBidResponse:(NSDictionary *)jsonResponse {
+    if (jsonResponse[kANUniversalTagAdServerResponseKeyNoBid]) {
+        BOOL noBid = [jsonResponse[kANUniversalTagAdServerResponseKeyNoBid] boolValue];
+        return noBid;
+    }
+    return NO;
 }
 
 + (NSArray *)tagsFromJSONResponse:(NSDictionary *)jsonResponse {
