@@ -107,15 +107,27 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 
 - (void)registerViewForImpressionTracking:(UIView *)view {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    [IMNative bindNative:self.nativeAd toView:view];
+    [IMNative bindNative:self.nativeAd
+                  toView:view];
     self.boundView = view;
     self.expired = YES;
 }
 
 - (void)handleClickFromRootViewController:(UIViewController *)rvc {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    [self.nativeAdDelegate adWasClicked];
-    [self.nativeAd reportAdClickAndOpenLandingURL:nil];
+    id landingPageURLValue = self.nativeContent[kANAdAdapterNativeInMobiLandingURLKey];
+    if ([landingPageURLValue isKindOfClass:[NSString class]]) {
+        NSString *landingPageURLString = (NSString *)landingPageURLValue;
+        [self.nativeAdDelegate adWasClicked];
+        [self.nativeAd reportAdClick:nil];
+        NSURL *landingPageURL = [NSURL URLWithString:landingPageURLString];
+        if (landingPageURL) {
+            [self.nativeAdDelegate willLeaveApplication];
+            [[UIApplication sharedApplication] openURL:landingPageURL];
+        }
+    } else {
+        ANLogDebug(@"InMobi ad was clicked, but adapter was unable to find landing url –– Ignoring request to handle click.");
+    }
 }
 
 - (void)unregisterViewFromTracking {
