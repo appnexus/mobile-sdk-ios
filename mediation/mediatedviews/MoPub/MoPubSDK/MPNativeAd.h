@@ -172,6 +172,15 @@
 - (void)loadImageIntoImageView:(UIImageView *)imageView;
 
 /**
+ * Loads the ad object's Digital Advertising Alliance icon into the provided image view.
+ * The SDK takes control of the view. You should not do anything with the view other than
+ * position and size it in your native ad view. The SDK will handle all taps on the image view.
+ *
+ * @param imageView An image view.
+ */
+- (void)loadDAAIconIntoImageView:(UIImageView *)imageView;
+
+/**
  * Loads the ad object's title into the provided label.
  *
  * @param label A label.
