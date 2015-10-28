@@ -1,111 +1,105 @@
 //
 //  IMInterstitial.h
-//  InMobi Monetization SDK
+//  APIs
+//  Copyright (c) 2015 InMobi. All rights reserved.
 //
-//  Copyright (c) 2013 InMobi. All rights reserved.
-//
-
+/**
+ * Class to integrate full screen interstitial ads in your application
+ * Adding interstitial ads is demonstrated in the code fragment below
+ * Implement the following in the viewcontroller
+ 
+ IMInterstitial *interstitialView = [[IMInterstitial alloc] initWithPlacementId:1203280001];
+ interstitialView.delegate = self;
+ [interstitialView load];
+ 
+ - (void)interstitialDidFinishLoading:(IMInterstitial *)interstitial {
+ [interstitial show];
+ }
+ 
+ - (void)interstitial:(IMInterstitial *)interstitial didFailToLoadWithError:(IMRequestStatus *)error {
+ NSLog(@"Interstitial failed to load ad");
+ NSLog(@"Error : %@",error.description);
+ }
+ 
+ - (void)interstitial:(IMInterstitial *)interstitial didFailToPresentWithError:(IMRequestStatus *)error{
+ NSLog(@"Interstitial didFailToPresentWithError");
+ NSLog(@"Error : %@",error.description);
+ }
+ 
+ - (void)interstitialDidDismiss:(IMInterstitial *)interstitial {
+ NSLog(@"interstitialDidDismiss");
+ }
+ 
+ - (void)interstitialWillDismiss:(IMInterstitial *)interstitial {
+ NSLog(@"interstitialWillDismiss");
+ }
+ 
+ - (void)interstitialWillPresent:(IMInterstitial *)interstitial {
+ NSLog(@"interstitialWillPresent");
+ }
+ 
+ - (void)interstitialDidPresent:(IMInterstitial *)interstitial {
+ NSLog(@"interstitialDidPresent");
+ }
+ 
+ - (void)userWillLeaveApplicationFromInterstitial:(IMInterstitial *)interstitial {
+ NSLog(@"userWillLeaveApplicationFromInterstitial");
+ }
+ */
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "InMobi.h"
 #import "IMInterstitialDelegate.h"
-#import "IMIncentivisedDelegate.h"
-@protocol IMNetworkExtras;
 
-/**
- * Class to display an Interstitial Ad.
- * Interstitials are full screen advertisements that are shown at natural
- * transition points in your application such as between game levels, when
- * switching news stories, in general when transitioning from one view controller
- * to another. It is best to request for an interstitial several seconds before
- * when it is actually needed, so that it can preload its content and become
- * ready to present, and when the time comes, it can be immediately presented to
- * the user with a smooth experience.
- */
+typedef NS_ENUM(NSInteger, IMInterstitialAnimationType) {
+    kIMInterstitialAnimationTypeCoverVertical,
+    kIMInterstitialAnimationTypeFlipHorizontal,
+    kIMInterstitialAnimationTypeNone
+};
+
 @interface IMInterstitial : NSObject
-
-#pragma mark - Initialization
 /**
- * Initializes an IMInterstitial instance with the specified appId.
- * @param appId Application Id registered on the InMobi portal.
- * @note |appId| is required to be non empty, else the instance of
- * IMInterstitial is not created and nil is returned instead.
+ * The delegate to receive callbacks
  */
-- (id)initWithAppId:(NSString *)appId;
+@property (nonatomic, weak) id<IMInterstitialDelegate> delegate;
 /**
- * Initializes an IMInterstitial instance, and sets the specified slot id.
- * @param slotId Slot id to uniquely identify a placement in your app.
- */
-- (id)initWithSlotId:(long long)slotId;
-
-#pragma mark - Initialization for IB Integration
-/**
- * Application Id for the request.
- * @note Use the application id registered on the InMobi portal.
- */
-@property (nonatomic, copy) NSString *appId;
-/**
- * Slot id is the specific placement id for the request.
- * @note Use the slot id registered on the InMobi portal.
- */
-@property (nonatomic) long long slotId;
-
-#pragma mark - Loading Interstitial
-/**
- * Loads the Interstitial. Additional targetting options may be provided using
- * the InMobi class.
- * It is best to call this method several seconds before the interstitial is
- * needed to preload its content. Once, it is fetched and is ready to display,
- * you can present it using presentInterstitialAnimated: method.
- */
-- (void)loadInterstitial;
-/**
- * Stops the current loading of the Interstitial if in progress.
- */
-- (void)stopLoading;
-
-#pragma mark - Presenting Interstitial
-/**
- * This presents the interstitial ad that takes over the entire screen until
- * the user dismisses it. This has no effect unless the interstitial state is
- * kIMInterstitialStateReady and/or the delegate's interstitialDidReceiveAd:
- * has been received. After the interstitial has been dismissed by the user,
- * the delegate's interstitialDidDismissScreen: will be called.
- * @param animated Display the interstitial by using an animation. This is
- * similar to presenting a Modal-View-Controller like animation, from the bottom.
- */
-- (void)presentInterstitialAnimated:(BOOL)animated;
-
-#pragma mark - Optional properties
-/**
- * Delegate object that receives state change notifications from this
- * interstitial object. Typically, this is a UIViewController instance.
- * @warning Whenever you release the Interstitial object, make sure to set its
- * delegate to nil to prevent any chance of your application crashing.
- */
-@property (nonatomic, weak) NSObject<IMInterstitialDelegate> *delegate;
-
-/**
- * Delegate object that receives the params when an incentivised action is complete. 
- * @warning Whenever you release the Interstitial object, make sure to set its
- * incentivisedDelegate to nil to prevent any chance of your application crashing.
- */
-@property (nonatomic, weak) NSObject<IMIncentivisedDelegate> *incentivisedDelegate;
-/**
- * Returns the state of the interstitial ad. The delegate's
- * interstitialDidFinishRequest: will be called when this switches from the
- * kIMInterstitialStateInit state to the kIMInterstitialStateReady state.
- */
-@property (readonly) IMInterstitialState state;
-/**
- * A free form NSDictionary for any demographic information,
- * not available via InMobi class.
- */
-@property (nonatomic,strong) NSDictionary *additionaParameters;
-/**
- * A free form set of keywords, separated by ','
+ * A free form set of keywords, separated by ',' to be sent with the ad request.
  * E.g: "sports,cars,bikes"
  */
-@property (nonatomic,copy) NSString *keywords;
+@property (nonatomic, strong) NSString* keywords;
+/**
+ * Any additional information to be passed to InMobi.
+ */
+@property (nonatomic, strong) NSDictionary* extras;
+/**
+ * Initialize an Interstitial with the given PlacementId
+ * @param placementId The placementId for loading the interstitial
+ */
+-(instancetype)initWithPlacementId:(long long)placementId;
+/**
+ * Initialize an Interstitial with the given PlacementId
+ * @param placementId The placementId for loading the interstitial
+ * @param delegate The delegate to receive callbacks
+ */
+-(instancetype)initWithPlacementId:(long long)placementId delegate:(id<IMInterstitialDelegate>)delegate;
+/**
+ * Loads an Interstitial
+ */
+-(void)load;
+/**
+ * To query if the interstitial is ready to be shown
+ */
+-(BOOL)isReady;
+/**
+ * Displays the interstitial on the screen
+ * @param view controller, this view controller will be used to present interestitial.
+ */
+-(void)showFromViewController:(UIViewController *)viewController;
+/**
+ * Displays the interstitial on the screen
+ * @param view controller, this view controller will be used to present interestitial.
+ * @param type The transition type for interstitial presentation.
+ */
+-(void)showFromViewController:(UIViewController *)viewController withAnimation:(IMInterstitialAnimationType)type;
 
 @end
+
