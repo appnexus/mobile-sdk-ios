@@ -16,6 +16,7 @@
 #import "ANInterstitialAd.h"
 
 #import "ANAdFetcher.h"
+#import "ANInterstitialAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANLogging.h"
@@ -42,7 +43,8 @@ NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
 
-@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate, UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate>
+@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate,
+UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate, ANInterstitialAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
@@ -51,6 +53,8 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 @property (nonatomic, strong) NSTimer *progressUpdateTimer;
 @property (nonatomic, strong) ANVideoPlayerViewController* playbackViewController;
 @property (nonatomic, strong) ANVast *vastAd;
+@property (nonatomic, strong) ANInterstitialAdFetcher *interstitialAdFetcher;
+@property (nonatomic, strong) NSMutableArray *adFetchers;
 
 @end
 
@@ -69,6 +73,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     _allowedAdSizes = [self getDefaultAllowedAdSizes];
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
     _opaque = YES;
+    self.adFetcher = nil;
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -83,10 +88,59 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 - (void)dealloc {
     self.controller.delegate = nil;
+    for (ANInterstitialAdFetcher *fetcher in self.adFetchers) {
+        [fetcher stopAdLoad];
+    }
+}
+
+- (NSMutableArray *)adFetchers {
+    if (!_adFetchers) _adFetchers = [[NSMutableArray alloc] init];
+    return _adFetchers;
 }
 
 - (void)loadAd {
-    [super loadAd];
+    // Do not call superclass, use ANInterstitialAdFetcher instead
+    
+    NSString *errorString;
+    if ([self.placementId length] < 1) {
+        errorString = ANErrorString(@"no_placement_id");
+    }
+    
+    if (errorString) {
+        ANLogError(@"%@", errorString);
+        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: errorString};
+        NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN
+                                             code:ANAdResponseInvalidRequest
+                                         userInfo:errorInfo];
+        [self adRequestFailedWithError:error];
+        return;
+    }
+    
+    ANInterstitialAdFetcher *adFetcher = [[ANInterstitialAdFetcher alloc] initWithDelegate:self];
+    [self.adFetchers addObject:adFetcher];
+}
+
+- (void)interstitialAdFetcher:(ANInterstitialAdFetcher *)fetcher
+ didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
+    [self.adFetchers removeObject:fetcher];
+    if ([response isSuccessful]) {
+        NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                     response.adObject, kANInterstitialAdViewKey,
+                                                     [NSDate date], kANInterstitialAdViewDateLoadedKey,
+                                                     nil];
+        // cannot insert nil objects
+        if (response.auctionID) {
+            adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
+        }
+        [self.precachedAdObjects addObject:adViewWithDateLoaded];
+        ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
+        
+        [self adDidReceiveAd];
+    }
+    else {
+        [self adRequestFailedWithError:response.error];
+    }
+
 }
 
 - (void)displayAdFromViewController:(UIViewController *)controller {

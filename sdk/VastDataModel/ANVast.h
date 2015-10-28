@@ -22,13 +22,12 @@
 
 @interface ANVast : NSObject
 
-@property (nonatomic, strong) NSString *version;
-@property (nonatomic, strong) NSString *AdId;
-@property (nonatomic, strong) ANInLine *anInLine;
-@property (nonatomic, strong) ANWrapper *anWrapper;
+- (instancetype)initWithContent:(NSString *)vast;
 
-//+ (instancetype)sharedInstance;
-- (void)parseVastResponseWithURL:(NSURL *)xmlURL error:(NSError **)error;
-- (NSURL *) getMediaFileURL;
+@property (nonatomic, readonly) NSString *version;
+@property (nonatomic, readonly) NSString *AdId;
+@property (nonatomic, readonly) ANInLine *anInLine;
+@property (nonatomic, readonly) ANWrapper *anWrapper;
+@property (nonatomic, readonly) NSURL *mediaFileURL;
 
 @end

@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2015 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,23 +15,18 @@
 
 #import <Foundation/Foundation.h>
 #import "ANStandardAd.h"
-#import "ANNativeStandardAdResponse.h"
+#import "ANVideoAd.h"
 
-@interface ANAdServerResponse : NSObject
+@interface ANUniversalTagAdServerResponse : NSObject
 
-+ (ANAdServerResponse *)responseWithData:(NSData *)data;
++ (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;
 
 - (instancetype)initWithAdServerData:(NSData *)data;
 
 @property (nonatomic, readonly, assign) BOOL containsAds;
 @property (nonatomic, readonly, strong) ANStandardAd *standardAd;
-@property (nonatomic, readonly, strong) ANNativeStandardAdResponse *nativeAd;
 @property (nonatomic, readonly, strong) NSMutableArray *standardAds;
-@property (nonatomic, readonly, strong) NSMutableArray *mediatedAds;
-@property (nonatomic, readonly, strong) NSMutableArray *nativeAds;
-
-- (instancetype)initWithContent:(NSString *)htmlContent
-                          width:(NSInteger)width
-                         height:(NSInteger)height;
+@property (nonatomic, readonly, strong) ANVideoAd *videoAd;
+@property (nonatomic, readonly, strong) NSMutableArray *videoAds;
 
 @end

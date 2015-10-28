@@ -25,35 +25,64 @@
 NSString *const kANVideoSupportedFormats = @"video/mp4"; //,video/x-flv";
 NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460, temporarily been set to 1200 to enable ad display
 
+@interface ANVast ()
+
+@property (nonatomic) NSString *version;
+@property (nonatomic) NSString *AdId;
+@property (nonatomic) ANInLine *anInLine;
+@property (nonatomic) ANWrapper *anWrapper;
+@property (nonatomic) NSURL *mediaFileURL;
+
+@end
+
 @implementation ANVast
 
-static NSString *XML_URL = @"http://oasc-training7.247realmedia.com/2/VastVideoAd.com/@Bottom";
-static ANVast *sharedInstance;
+- (instancetype)initWithContent:(NSString *)vast {
+    if (self = [super init]) {
+        NSError *error;
+        [self parseVastResponse:vast
+                          error:&error];
+        if (error) {
+            ANLogDebug(@"Error parsing VAST response: %@", error);
+            return nil;
+        }
+        if (!self.anInLine) {
+            ANLogDebug(@"No linear ad found in VAST content, unable to use");
+            return nil;
+        }
+        self.mediaFileURL = [self optimalMediaFileURL];
+        if (!self.mediaFileURL) {
+            ANLogDebug(@"No valid media URL found in VAST content, unable to use");
+            return nil;
+        }
+    }
+    return self;
+}
+
+- (void)parseVastResponse:(NSString *)response
+                    error:(NSError **)error {
+    ANXML *xml = [ANXML newANXMLWithXMLString:response
+                                        error:error];
+    if (!*error) {
+        waitForVastParsingCompletion = dispatch_semaphore_create(0);
+        releaseCounter = 0;
+        [self parseRootElement:xml.rootXMLElement];
+        dispatch_semaphore_wait(waitForVastParsingCompletion, dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC));
+    }
+}
+
 static dispatch_semaphore_t waitForVastParsingCompletion;
 static int releaseCounter;
 
-- (void) parseResponseWithURL:(NSURL *)xmlURL error:(NSError *__autoreleasing *)error{
-    
-    NSURL *url = xmlURL?xmlURL:[NSURL URLWithString:XML_URL];
-    
-    ANXML *xmlParser = [ANXML newANXMLWithURL:url success:^(ANXML *tbxml) {
+- (void)parseResponseWithURL:(NSURL *)xmlURL
+                       error:(NSError **)error {
+    [ANXML newANXMLWithURL:xmlURL
+                   success:^(ANXML *tbxml) {
         [self parseRootElement:tbxml.rootXMLElement];
-    } failure:^(ANXML *tbxml, NSError *error) {
-        NSLog(@"XML Error: %@", error.localizedDescription);
+    }
+                   failure:^(ANXML *tbxml, NSError *error) {
+        ANLogError(@"XML Error: %@", error.localizedDescription);
     }];
-
-    //mark for release - the unused object
-    xmlParser = nil;
-}
-
-- (void)parseVastResponseWithURL:(NSURL *)xmlURL error:(NSError *__autoreleasing *)error{
-    waitForVastParsingCompletion = dispatch_semaphore_create(0);
-    
-    releaseCounter = 0;
-    [self parseResponseWithURL:xmlURL error:error];
-    
-    dispatch_semaphore_wait(waitForVastParsingCompletion, dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC));
-    
 }
 
 - (void) parseRootElement:(ANXMLElement *)rootElement{
@@ -84,7 +113,7 @@ static int releaseCounter;
                     self.anWrapper = [[ANWrapper alloc] initWithXMLElement:wrapperElement];
                     if (self.anWrapper.vastAdTagURI) {
                         NSURL *vastURL = [NSURL URLWithString:self.anWrapper.vastAdTagURI];
-                        NSError *error = [[NSError alloc] init];
+                        NSError *error;
                         releaseCounter++;
                         [self parseResponseWithURL:vastURL error:&error];
                     }
@@ -102,7 +131,7 @@ static int releaseCounter;
     }
 }
 
-- (NSURL *) getMediaFileURL{
+- (NSURL *)optimalMediaFileURL {
     ANInLine *inLine = (self.anInLine)?self.anInLine:self.anWrapper;
     NSString *fileURI = @"";
     for (ANCreative *creative in inLine.creatives) {
