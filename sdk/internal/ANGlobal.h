@@ -115,7 +115,9 @@ typedef NS_ENUM(NSUInteger, ANVideoEvent){
     ANVideoEventMute,
     ANVideoEventUnMute,
     ANVideoEventStop,
-    ANVideoEventClose
+    ANVideoEventClose,
+    ANVideoEventCloseLinear,
+    ANVideoEventSkip
 };
 
 typedef NS_ENUM(NSUInteger, ANMobileEndpoint) {

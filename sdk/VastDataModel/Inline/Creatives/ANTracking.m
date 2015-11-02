@@ -24,19 +24,14 @@
     self = [super init];
     
     if (self) {
-        ANXMLElement *trackingElement = [ANXML childElementNamed:@"Tracking" parentElement:element];
-        if (trackingElement) {
-            
-            NSString *trackingURI = String(trackingElement->text);
-            if (trackingURI) {
-                self.trackingURI = trackingURI;
-            }
+    	NSString *trackingURI = String(element->text);
+        if (trackingURI) {
+        	self.trackingURI = trackingURI;
+        }
 
-            NSString *event = [ANXML valueOfAttributeNamed:@"event" forElement:trackingElement];
-            if (event) {
-                self.vastEvent = event;
-            }
-            
+        NSString *event = [ANXML valueOfAttributeNamed:@"event" forElement:element];
+        if (event) {
+        	self.vastEvent = event;
         }
     }
     

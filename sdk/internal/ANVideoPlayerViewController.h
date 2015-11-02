@@ -24,6 +24,7 @@
 @property (strong, nonatomic) ANVast *vastDataModel;
 @property (nonatomic) float skipOffSet;
 @property (nonatomic) NSUInteger skipOffSetType;
+@property (nonatomic) BOOL openClicksInNativeBrowser;
 
 - (instancetype) initWithVastDataModel:(ANVast *)vastDataModel;
 - (void) play;

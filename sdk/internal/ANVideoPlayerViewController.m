@@ -26,9 +26,10 @@
 #import "ANGlobal.h"
 #import <math.h>
 #import "ANCircularAnimationView.h"
+#import "ANBrowserViewController.h"
 
 
-@interface ANVideoPlayerViewController ()<ANCircularAnimationViewDelegate, ANVolumeButtonViewDelegate>{
+@interface ANVideoPlayerViewController ()<ANCircularAnimationViewDelegate, ANVolumeButtonViewDelegate, UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate>{
     float previousDuration;
     BOOL isStarted;
     BOOL isFirstQuartileDone;
@@ -41,7 +42,7 @@
 @property (nonatomic, strong) ANPlayerView *playerView;
 @property (nonatomic, strong) ANVolumeButtonView *volumeView;
 @property (nonatomic, strong) ANCircularAnimationView *circularAnimationView;
-
+@property (nonatomic, strong) ANBrowserViewController *browserController;
 @end
 
 @implementation ANVideoPlayerViewController
@@ -54,6 +55,9 @@
         self.vastDataModel = vastDataModel;
         _fileURL = self.vastDataModel.mediaFileURL;
         ANLogDebug(@"Playing Media File URL %@", _fileURL);
+        _openClicksInNativeBrowser = NO;
+        _skipOffSet = 10.0;
+        _skipOffSetType = ANCloseDelayTypeAbsolute;
     }
 
     return self;
@@ -75,6 +79,23 @@
 - (void) setupVolumeView{
     _volumeView = [[ANVolumeButtonView alloc] initWithDelegate:self];
     [self.volumeView addVolumeViewWithContainer:self.playerView];
+}
+
+- (NSString *) getClickThroughURL{
+    ANInLine *inLine = (self.vastDataModel.anInLine)?self.vastDataModel.anInLine:self.vastDataModel.anWrapper;
+    if (inLine) {
+        for (ANCreative *creative in inLine.creatives) {
+            if (creative) {
+                if (creative.anLinear.anVideoClicks) {
+                    if (creative.anLinear.anVideoClicks.clickThrough) {
+                        return creative.anLinear.anVideoClicks.clickThrough;
+                    }
+                }
+            }
+        }
+    }
+    
+    return nil;
 }
 
 - (float) getSkipOffSetFromVastDataModel{
@@ -123,6 +144,20 @@
     
     [selfView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[playerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(playerView)]];
     [selfView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[playerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(playerView)]];
+    
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapOnPlayerViewWithGestureRecognizer:)];
+    singleFingerTap.delegate = self;
+    [playerView addGestureRecognizer:singleFingerTap];
+}
+
+- (void) handleSingleTapOnPlayerViewWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer{
+    NSURL *clickURL = [NSURL URLWithString:[self getClickThroughURL]];
+    if (clickURL) {
+        [self openClickInBrowserWithURL:clickURL];
+        [self fireClickTracking];
+    }else{
+        ANLogDebug(@"Click URL not found. Ensure clickthrough URL is available in the Vast Tag");
+    }
 }
 
 - (void) setupCircularView{
@@ -159,7 +194,25 @@
     [self.playerView.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 100) queue:nil usingBlock:^(CMTime time) {
         [SELF updateEventsWithSeconds:CMTimeGetSeconds(time)]; //Fire every 0.01 seconds
     }];
+    
+    [self registerForApplicaitonNotifications];
 
+}
+
+- (void)viewDidUnload{
+    [self removeApplicationNotifications];
+}
+
+- (void) registerForApplicaitonNotifications{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void) removeApplicationNotifications{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void) applicationWillEnterForeground{
+    [self play];
 }
 
 - (void) updateEventsWithSeconds:(float) seconds{
@@ -176,6 +229,7 @@
     if (currentDuration > 0 && !isStarted) {
         isStarted = YES;
         ANLogDebug(@"Started");
+        [self fireTrackingEventWithEvent:ANVideoEventStart];
         
         //send video start event tracking
     }else if(currentDuration > 0){
@@ -184,22 +238,28 @@
             if (currentDuration > quartileDuration && !isFirstQuartileDone) {
                 isFirstQuartileDone = YES;
                 ANLogDebug(@"First Quartile");
+                [self fireTrackingEventWithEvent:ANVideoEventQuartileFirst];
                 
                 //send first quartile event tracking
             }else if(currentDuration > quartileDuration*2 && !isMidPointQuartileDone){
                 isMidPointQuartileDone = YES;
                 ANLogDebug(@"Mid Point");
+                [self fireTrackingEventWithEvent:ANVideoEventQuartileMidPoint];
                 
                 //send mid quartile event tracking
             }else if(currentDuration > quartileDuration * 3 && !isThirdQuartileDone){
                 isThirdQuartileDone = YES;
                 ANLogDebug(@"Third Quartile");
+                [self fireTrackingEventWithEvent:ANVideoEventQuartileThird];
                 
                 //send third quartile event tracking
             }
-        }else if(currentDuration == totalDuration){
+        }
+        
+        if(currentDuration == totalDuration){
             isCompleteQuartileDone = YES;
             ANLogDebug(@"Complete Quartile");
+            [self fireTrackingEventWithEvent:ANVideoEventQuartileComplete];
             
             //send quartile complete event tracking
         }
@@ -208,7 +268,11 @@
 
 - (void)closeInterstitial{
     [self pause];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self fireTrackingEventWithEvent:ANVideoEventClose];
+        [self fireTrackingEventWithEvent:ANVideoEventCloseLinear];
+        [self removeApplicationNotifications];
+    }];
 }
 
 - (BOOL)prefersStatusBarHidden{
@@ -217,10 +281,16 @@
 
 - (void)play{
     [self.playerView.player play];
+    
+    if (CMTimeGetSeconds(self.playerView.player.currentTime) > 0) {
+        [self fireTrackingEventWithEvent:ANVideoEventResume];
+    }
 }
 
 - (void)pause{
     [self.playerView.player pause];
+    
+    [self fireTrackingEventWithEvent:ANVideoEventPause];
 }
 
 - (void)mute:(BOOL)value{
@@ -238,11 +308,13 @@
     if (value) {
         [self.playerView.player setVolume:0];
         ANLogDebug(@"Volume Muted.");
+        [self fireTrackingEventWithEvent:ANVideoEventMute];
         
         //send mute event tracking
     }else{
         [self.playerView.player setVolume:volume];
         ANLogDebug(@"Volume Unmuted.");
+        [self fireTrackingEventWithEvent:ANVideoEventUnMute];
         
         //send unmute event tracking
     }
@@ -250,6 +322,89 @@
 
 - (void)closeButtonClicked{
     [self closeInterstitial];
+    [self fireTrackingEventWithEvent:ANVideoEventSkip];
+}
+
+- (void) fireTrackingEventWithEvent:(ANVideoEvent)event{
+    NSString *eventString = [NSString string];
+    switch (event) {
+        case ANVideoEventStart:
+            eventString = @"start";
+            break;
+        case ANVideoEventQuartileFirst:
+            eventString = @"firstQuartile";
+            break;
+        case ANVideoEventQuartileMidPoint:
+            eventString = @"midpoint";
+            break;
+        case ANVideoEventQuartileThird:
+            eventString = @"thirdQuartile";
+            break;
+        case ANVideoEventQuartileComplete:
+            eventString = @"complete";
+            break;
+        case ANVideoEventSkip:
+            eventString = @"skip";
+            break;
+        case ANVideoEventMute:
+            eventString = @"mute";
+            break;
+        case ANVideoEventUnMute:
+            eventString = @"unmute";
+            break;
+        case ANVideoEventPause:
+            eventString = @"pause";
+            break;
+        case ANVideoEventResume:
+            eventString = @"resume";
+            break;
+        case ANVideoEventClose:
+            eventString = @"close";
+            break;
+        case ANVideoEventCloseLinear:
+            eventString = @"closeLinear";
+            break;
+        default:
+            break;
+    }
+    
+    NSArray *trackingArray = [NSArray array];
+    ANInLine *anInline = self.vastDataModel.anInLine?self.vastDataModel.anInLine:self.vastDataModel.anWrapper;
+    for (ANCreative *creative in anInline.creatives) {
+        if (creative) {
+            if (creative.anLinear) {
+                if (creative.anLinear.trackingEvents.count > 0) {
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"vastEvent == %@", eventString];
+                    trackingArray = [creative.anLinear.trackingEvents filteredArrayUsingPredicate:predicate];
+                    
+                    for (ANTracking *tracking in trackingArray) {
+                        [self fireImpressionWithURL:tracking.trackingURI forEvent:eventString];
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (void) fireClickTracking{
+    ANInLine *anInline = self.vastDataModel.anInLine?self.vastDataModel.anInLine:self.vastDataModel.anWrapper;
+    if (anInline) {
+        for (ANCreative *creative in anInline.creatives) {
+            if (creative) {
+                if (creative.anLinear.anVideoClicks) {
+                    NSString *clickTrackingURL = creative.anLinear.anVideoClicks.clickTracking;
+                    [self fireImpressionWithURL:clickTrackingURL forEvent:@"click"];
+                }
+            }
+        }
+    }
+}
+
+- (void) fireImpressionWithURL:(NSString *)urlString forEvent:(NSString *)eventString{
+    NSURLRequest *requestURL = [NSURLRequest requestWithURL:[NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    [NSURLConnection sendAsynchronousRequest:requestURL queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        ANLogDebug(@"Impression Fired: Event=%@, URL: %@", eventString, [[requestURL URL] absoluteString]);
+    }];
 }
 
 - (void)dealloc{
@@ -258,8 +413,35 @@
     _volumeView = nil;
     _playerView = nil;
     _circularAnimationView = nil;
+    _browserController = nil;
     
 }
 
+- (void)openClickInBrowserWithURL:(NSURL *)url{
+    
+    if (!self.openClicksInNativeBrowser) {
+        _browserController = [[ANBrowserViewController alloc] initWithURL:url delegate:self delayPresentationForLoad:NO];
+        
+        if (!self.browserController) {
+            NSLog(@"Failed to initialize the browser.");
+        }
+    }else{
+        [self pause];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
+#pragma mark - ANBrowserViewControllerDelegate
+
+- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller{
+    UIViewController *rootViewController = [[self presentationController] presentedViewController];
+    
+    return rootViewController;
+}
+
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller{
+    //play the video
+    [self play];
+}
 
 @end

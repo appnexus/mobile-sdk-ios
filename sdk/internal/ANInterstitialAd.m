@@ -223,6 +223,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate, ANInterstitialAdFe
             _playbackViewController = [[ANVideoPlayerViewController alloc] initWithVastDataModel:videoAd.vastDataModel];
             [_playbackViewController setSkipOffSet:self.closeDelay];
             [_playbackViewController setSkipOffSetType:self.closeDelayType];
+            [_playbackViewController setOpenClicksInNativeBrowser:self.opensInNativeBrowser];
         }
         
         [controller presentViewController:self.playbackViewController animated:YES completion:nil];
@@ -428,41 +429,6 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate, ANInterstitialAdFe
     
     if (!self.browserController) {
         NSLog(@"Failed to initialize the browser.");
-    }
-}
-
-- (void)fireVideoEventImpressions:(ANVideoEvent)event{
-    switch (event) {
-        case ANVideoEventPause:
-        {
-            if ([self.delegate respondsToSelector:@selector(videoAdPaused:)]) {
-                [self.delegate videoAdPaused:self];
-            }
-            break;
-        }
-        case ANVideoEventResume:
-        {
-            if ([self.delegate respondsToSelector:@selector(videoAdResumed:)]) {
-                [self.delegate videoAdResumed:self];
-            }
-            break;
-        }
-        case ANVideoEventStop:
-        {
-            if ([self.delegate respondsToSelector:@selector(videoAdFinishedPlaying:)]) {
-                [self.delegate videoAdFinishedPlaying:self];
-            }
-            break;
-        }
-        case ANVideoEventStart:
-        {
-            if ([self.delegate respondsToSelector:@selector(videoAdStarted:)]) {
-                [self.delegate videoAdStarted:self];
-            }
-            break;
-        }
-        default:
-            break;
     }
 }
 
