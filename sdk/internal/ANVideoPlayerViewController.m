@@ -278,10 +278,11 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 }
 
 - (void)fireClickTracking {
-    if (self.vastDataModel.clickTrackingURL) {
-        ANLogDebug(@"(click, %@)", self.vastDataModel.clickTrackingURL);
-        [self fireImpressionWithURL:self.vastDataModel.clickTrackingURL];
-    }
+    NSArray *trackingArray = self.vastDataModel.clickTrackingURL;
+    [trackingArray enumerateObjectsUsingBlock:^(NSString *clickTrackingURL, NSUInteger idx, BOOL *stop) {
+        ANLogDebug(@"(click, %@)", clickTrackingURL);
+        [self fireImpressionWithURL:clickTrackingURL];
+    }];
 }
 
 - (void)fireImpressionWithURL:(NSString *)urlString {

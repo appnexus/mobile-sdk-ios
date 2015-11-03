@@ -20,7 +20,7 @@
 - (ANInLine *)inlineAd;
 - (NSString *)getClickThroughURL;
 - (float)getSkipOffSetFromVastDataModel;
-- (NSString *)clickTrackingURL;
+- (NSArray *)clickTrackingURL;
 - (NSArray *)trackingArrayForEvent:(ANVideoEvent)event;
 
 @end
