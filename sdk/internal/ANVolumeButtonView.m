@@ -43,8 +43,13 @@
 - (void) addVolumeViewWithContainer:(UIView *)containerView{
     
     _volumeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    UIImage *volumeImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"mute-off",@"png")];
-    [self.volumeButton setBackgroundImage:volumeImage forState:UIControlStateNormal];
+//    UIImage *volumeImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"mute-off",@"png")];
+//    [self.volumeButton setBackgroundImage:volumeImage forState:UIControlStateNormal];
+
+    isVolumeMuted = ([self.delegate getSystemVolume] > 0) ? NO : YES;
+    isVolumeMuted = !isVolumeMuted; //negate the value as it would again be negated inside handleVolumeButton
+    
+    [self handleVolumeButton];
     
     [self.volumeButton addTarget:self action:@selector(handleVolumeButton) forControlEvents:UIControlEventTouchUpInside];
     

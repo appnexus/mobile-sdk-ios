@@ -21,6 +21,7 @@
 @protocol ANVolumeButtonViewDelegate
 
 - (void) mute:(BOOL)value;
+- (float) getSystemVolume;
 
 @end
 

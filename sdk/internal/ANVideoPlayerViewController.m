@@ -27,6 +27,7 @@
 #import <math.h>
 #import "ANCircularAnimationView.h"
 #import "ANBrowserViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 
 @interface ANVideoPlayerViewController ()<ANCircularAnimationViewDelegate, ANVolumeButtonViewDelegate, UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate>{
@@ -223,15 +224,19 @@
     float quartileDuration = totalDuration/4;
 
     if (self.playerView.player.rate > 0 && !self.playerView.player.error) {
+        //creative load event should be fired only when the video is viewed.
+        [self fireTrackingEventWithEvent:ANVideoEventCreativeView];
+
         [self.circularAnimationView performCircularAnimationWithStartTime:[NSDate date]];
     }
 
     if (currentDuration > 0 && !isStarted) {
         isStarted = YES;
         ANLogDebug(@"Started");
-        [self fireTrackingEventWithEvent:ANVideoEventStart];
         
         //send video start event tracking
+        [self fireTrackingEventWithEvent:ANVideoEventStart];
+        
     }else if(currentDuration > 0){
         if(currentDuration > previousDuration){
             previousDuration = currentDuration;
@@ -297,7 +302,7 @@
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSError *error;
     
-    float volume = 1.0;
+    float volume = 0.5;
 
     if ([session setActive:YES error:&error]) {
         volume = session.outputVolume;
@@ -318,6 +323,19 @@
         
         //send unmute event tracking
     }
+}
+
+- (float)getSystemVolume{
+    MPVolumeView *slide = [MPVolumeView new];
+    UISlider *volumeViewSlider;
+    
+    for (UIView *view in [slide subviews]){
+        if ([[[view class] description] isEqualToString:@"MPVolumeSlider"]) {
+            volumeViewSlider = (UISlider *) view;
+        }
+    }
+    
+    return [volumeViewSlider value];
 }
 
 - (void)closeButtonClicked{
@@ -363,6 +381,9 @@
             break;
         case ANVideoEventCloseLinear:
             eventString = @"closeLinear";
+            break;
+        case ANVideoEventCreativeView:
+            eventString = @"creativeView";
             break;
         default:
             break;
