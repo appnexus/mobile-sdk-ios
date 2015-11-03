@@ -65,7 +65,7 @@
     }
     NSArray *trackingArray = @[];
     for (ANCreative *creative in creatives) {
-        if (creative.anLinear.anVideoClicks) {
+        if (creative.anLinear.anVideoClicks.clickTracking) {
             trackingArray = [trackingArray arrayByAddingObject:creative.anLinear.anVideoClicks.clickTracking];
         }
     }
