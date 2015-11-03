@@ -55,8 +55,8 @@
                                               yAttribute:NSLayoutAttributeTop];
     [self.volumeButton an_constrainToSizeOfSuperview];
     
-    [self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1]];
-    [self setAlpha:0.7];
+    [self.volumeButton setAlpha:0.7];
+    [self setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)handleVolumeButton {

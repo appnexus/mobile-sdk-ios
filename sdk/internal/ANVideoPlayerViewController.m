@@ -138,8 +138,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     [self.circularAnimationView an_constrainWithSize:CGSizeMake(40,40)];
     [self.circularAnimationView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
                                                        yAttribute:NSLayoutAttributeTop
-                                                          offsetX:-15.0
-                                                          offsetY:15.0];
+                                                          offsetX:-17.0
+                                                          offsetY:17.0];
     float skipOffSet = [self skipOffset];
     self.circularAnimationView.skipOffset = skipOffSet;
 }
@@ -149,7 +149,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     self.volumeView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.volumeView];
     [self.view bringSubviewToFront:self.volumeView];
-    [self.volumeView an_constrainWithSize:CGSizeMake(50,50)];
+    [self.volumeView an_constrainWithSize:CGSizeMake(44,44)];
     [self.volumeView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
                                             yAttribute:NSLayoutAttributeBottom
                                                offsetX:-15.0
