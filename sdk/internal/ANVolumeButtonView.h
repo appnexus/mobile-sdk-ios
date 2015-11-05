@@ -15,12 +15,11 @@
  
  */
 
-
 #import <UIKit/UIKit.h>
 
 @protocol ANVolumeButtonViewDelegate
 
-- (void) mute:(BOOL)value;
+- (void)mute:(BOOL)value;
 
 @end
 
@@ -28,7 +27,6 @@
 
 @property (nonatomic, weak) id<ANVolumeButtonViewDelegate> delegate;
 
-- (instancetype) initWithDelegate:(id<ANVolumeButtonViewDelegate>)delegate;
-- (void) addVolumeViewWithContainer:(UIView *)containerView;
+- (instancetype)initWithDelegate:(id<ANVolumeButtonViewDelegate>)delegate;
 
 @end

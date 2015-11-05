@@ -75,7 +75,6 @@
 
     [self.layer setCornerRadius:20.0];
     
-    [self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1]];
     [self setAlpha:0.7];
 }
 

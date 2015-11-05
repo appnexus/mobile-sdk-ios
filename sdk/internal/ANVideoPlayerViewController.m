@@ -26,10 +26,17 @@
 #import "ANGlobal.h"
 #import <math.h>
 #import "ANCircularAnimationView.h"
+#import "ANBrowserViewController.h"
 
+#import "ANVASTUtil.h"
+#import "ANVAST+ANCategory.h"
+#import "UIView+ANCategory.h"
 
-@interface ANVideoPlayerViewController ()<ANCircularAnimationViewDelegate, ANVolumeButtonViewDelegate>{
+@interface ANVideoPlayerViewController ()<ANCircularAnimationViewDelegate, ANVolumeButtonViewDelegate,
+UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     float previousDuration;
+    BOOL isSkipped;
+    BOOL creativeView;
     BOOL isStarted;
     BOOL isFirstQuartileDone;
     BOOL isMidPointQuartileDone;
@@ -41,6 +48,8 @@
 @property (nonatomic, strong) ANPlayerView *playerView;
 @property (nonatomic, strong) ANVolumeButtonView *volumeView;
 @property (nonatomic, strong) ANCircularAnimationView *circularAnimationView;
+@property (nonatomic, strong) ANBrowserViewController *browserController;
+@property (nonatomic, strong) id observer;
 
 @end
 
@@ -51,118 +60,114 @@
     self = [super init];
     
     if (self) {
-        self.vastDataModel = vastDataModel;
+        _vastDataModel = vastDataModel;
         _fileURL = self.vastDataModel.mediaFileURL;
         ANLogDebug(@"Playing Media File URL %@", _fileURL);
+        _publisherSkipOffset = 5.0;
     }
 
     return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor blackColor];
+    
+    [self setupPlayer];
+    [self setupCircularView];
+    [self setupVolumeView];
+    
+    [self registerForApplicationNotifications];
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    if (!creativeView) {
+        creativeView = YES;
+        [self fireTrackingEventWithEvent:ANVideoEventCreativeView];
+    }
+    __weak typeof(self) weakSelf = self;
     
+    self.observer = [self.playerView.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 100)
+                                                                         queue:nil
+                                                                    usingBlock:^(CMTime time) {
+                                                        [weakSelf updateEventsWithSeconds:CMTimeGetSeconds(time)];
+                                                    }];
     [self play];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
-    [self pause];
-}
-
-- (void) setupVolumeView{
-    _volumeView = [[ANVolumeButtonView alloc] initWithDelegate:self];
-    [self.volumeView addVolumeViewWithContainer:self.playerView];
-}
-
-- (float) getSkipOffSetFromVastDataModel{
-    ANInLine *inLine = (self.vastDataModel.anInLine)?self.vastDataModel.anInLine:self.vastDataModel.anWrapper;
-    
-    float skipOffSet = 0.0;
-
-    for (ANCreative *creative in inLine.creatives) {
-        if(creative.anLinear.skipOffSet.length > 0){
-            NSArray *timeComponents = [creative.anLinear.skipOffSet componentsSeparatedByString:@":"];
-            skipOffSet = [[timeComponents lastObject] floatValue];
-        }
+    [self.playerView.player removeTimeObserver:self.observer];
+    if (!isSkipped) {
+        [self pause];
     }
-    
-    if (!skipOffSet) {
-        if (self.skipOffSet) {
-            int iDuration = (int)CMTimeGetSeconds(self.playerView.player.currentItem.asset.duration);
-            if (self.skipOffSetType == ANCloseDelayTypeRelative) {
-                int skipOffsetTime = MIN(100, MAX(0, (int)self.skipOffSet));
-                float percent = (float)skipOffsetTime/100.0;
-                float calculatedTime = iDuration*percent;
-                skipOffSet = calculatedTime;
-            }else if(self.skipOffSetType == ANCloseDelayTypeAbsolute){
-                skipOffSet = MIN(MAX(0, (int)self.skipOffSet), iDuration);
-            }
-        }
-    }
-    
-    return skipOffSet;
 }
 
-- (void) setupPlayer{
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+#pragma mark - Setup
+
+- (void)setupPlayer {
     AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:self.fileURL];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
     
     self.playerView = [[ANPlayerView alloc] init];
     [self.playerView setPlayer:player];
     [self.playerView setVideoFillMode:AVLayerVideoGravityResizeAspect];
+    self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    UIView *selfView = self.view;
-    UIView *playerView = self.playerView;
+    [self.view addSubview:self.playerView];
+    [self.playerView an_constrainToSizeOfSuperview];
     
-    [playerView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    [selfView addSubview:self.playerView];
-    
-    [selfView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[playerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(playerView)]];
-    [selfView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[playerView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(playerView)]];
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(handleSingleTapOnPlayerViewWithGestureRecognizer:)];
+    singleFingerTap.delegate = self;
+    [self.playerView addGestureRecognizer:singleFingerTap];
 }
 
-- (void) setupCircularView{
-    _circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+- (void)setupCircularView {
+    self.circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     self.circularAnimationView.delegate = self;
-    
-    UIView *selfView = self.view;
-    UIView *circularView = self.circularAnimationView;
-    
-    [circularView setTranslatesAutoresizingMaskIntoConstraints:NO];
-
-    [selfView addSubview:circularView];
-    
-    [selfView bringSubviewToFront:circularView];
-    
-    [selfView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[circularView(==40)]-15-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(circularView)]];
-    [selfView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-15-[circularView(==40)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(circularView)]];
-    
-    float skipOffSet = [self getSkipOffSetFromVastDataModel];
-    
+    self.circularAnimationView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.circularAnimationView];
+    [self.view bringSubviewToFront:self.circularAnimationView];
+    [self.circularAnimationView an_constrainWithSize:CGSizeMake(40,40)];
+    [self.circularAnimationView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
+                                                       yAttribute:NSLayoutAttributeTop
+                                                          offsetX:-17.0
+                                                          offsetY:17.0];
+    float skipOffSet = [self skipOffset];
     self.circularAnimationView.skipOffset = skipOffSet;
-
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self setupPlayer];
-    [self setupCircularView];
-    [self setupVolumeView];
-
-    __weak typeof(self) SELF = self;
-    
-    [self.playerView.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 100) queue:nil usingBlock:^(CMTime time) {
-        [SELF updateEventsWithSeconds:CMTimeGetSeconds(time)]; //Fire every 0.01 seconds
-    }];
-
+- (void)setupVolumeView {
+    self.volumeView = [[ANVolumeButtonView alloc] initWithDelegate:self];
+    self.volumeView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.volumeView];
+    [self.view bringSubviewToFront:self.volumeView];
+    [self.volumeView an_constrainWithSize:CGSizeMake(44,44)];
+    [self.volumeView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
+                                            yAttribute:NSLayoutAttributeBottom
+                                               offsetX:-15.0
+                                               offsetY:-15.0];
 }
 
-- (void) updateEventsWithSeconds:(float) seconds{
+- (float)skipOffset {
+    float skipOffset = [self.vastDataModel getSkipOffSetFromVastDataModel];
+    
+    if (!skipOffset && self.publisherSkipOffset) {
+        int iDuration = (int)CMTimeGetSeconds(self.playerView.player.currentItem.asset.duration);
+        skipOffset = MIN(MAX(0, (int)self.publisherSkipOffset), iDuration);
+    }
+    
+    return skipOffset;
+}
+
+- (void)updateEventsWithSeconds:(float)seconds {
     
     float totalDuration = CMTimeGetSeconds([self.playerView.player.currentItem.asset duration]);
     float currentDuration = seconds;
@@ -176,90 +181,175 @@
     if (currentDuration > 0 && !isStarted) {
         isStarted = YES;
         ANLogDebug(@"Started");
-        
-        //send video start event tracking
-    }else if(currentDuration > 0){
-        if(currentDuration > previousDuration){
+        [self fireTrackingEventWithEvent:ANVideoEventStart];
+    } else if(currentDuration > 0){
+        if (currentDuration > previousDuration){
             previousDuration = currentDuration;
             if (currentDuration > quartileDuration && !isFirstQuartileDone) {
                 isFirstQuartileDone = YES;
                 ANLogDebug(@"First Quartile");
-                
-                //send first quartile event tracking
-            }else if(currentDuration > quartileDuration*2 && !isMidPointQuartileDone){
+                [self fireTrackingEventWithEvent:ANVideoEventQuartileFirst];
+            } else if(currentDuration > quartileDuration*2 && !isMidPointQuartileDone){
                 isMidPointQuartileDone = YES;
                 ANLogDebug(@"Mid Point");
-                
-                //send mid quartile event tracking
-            }else if(currentDuration > quartileDuration * 3 && !isThirdQuartileDone){
+                [self fireTrackingEventWithEvent:ANVideoEventQuartileMidPoint];
+            } else if(currentDuration > quartileDuration * 3 && !isThirdQuartileDone){
                 isThirdQuartileDone = YES;
                 ANLogDebug(@"Third Quartile");
-                
-                //send third quartile event tracking
+                [self fireTrackingEventWithEvent:ANVideoEventQuartileThird];
             }
-        }else if(currentDuration == totalDuration){
+        }
+        
+        if (currentDuration >= totalDuration && !isCompleteQuartileDone){
             isCompleteQuartileDone = YES;
             ANLogDebug(@"Complete Quartile");
-            
-            //send quartile complete event tracking
+            [self fireTrackingEventWithEvent:ANVideoEventQuartileComplete];
         }
     }
 }
 
-- (void)closeInterstitial{
-    [self pause];
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)closeInterstitial {
+    isSkipped = YES;
+    if (!isCompleteQuartileDone) {
+        [self.playerView.player pause];
+        [self fireTrackingEventWithEvent:ANVideoEventSkip];
+    }
+    [self removeApplicationNotifications];
+    [self dismissViewControllerAnimated:YES
+                             completion:^{
+        [self fireTrackingEventWithEvent:ANVideoEventClose];
+        [self fireTrackingEventWithEvent:ANVideoEventCloseLinear];
+    }];
 }
 
-- (BOOL)prefersStatusBarHidden{
-    return YES;
+#pragma mark - Player Controls
+
+- (void)play {
+    if (!isCompleteQuartileDone) {
+        if (isStarted && CMTimeGetSeconds(self.playerView.player.currentTime) > 0) {
+            [self fireTrackingEventWithEvent:ANVideoEventResume];
+        }
+        [self.playerView.player play];
+    }
 }
 
-- (void)play{
-    [self.playerView.player play];
+- (void)pause {
+    if (!isCompleteQuartileDone) {
+        [self.playerView.player pause];
+        [self fireTrackingEventWithEvent:ANVideoEventPause];
+    }
 }
 
-- (void)pause{
-    [self.playerView.player pause];
-}
-
-- (void)mute:(BOOL)value{
+- (void)mute:(BOOL)value {
     AVAudioSession *session = [AVAudioSession sharedInstance];
     NSError *error;
     
-    float volume = 1.0;
+    float volume = 0.5;
 
     if ([session setActive:YES error:&error]) {
         volume = session.outputVolume;
-    }else{
+    } else{
         ANLogInfo(@"Unable to get system volume.");
     }
     
     if (value) {
         [self.playerView.player setVolume:0];
         ANLogDebug(@"Volume Muted.");
-        
-        //send mute event tracking
-    }else{
+        [self fireTrackingEventWithEvent:ANVideoEventMute];
+    } else{
         [self.playerView.player setVolume:volume];
         ANLogDebug(@"Volume Unmuted.");
-        
-        //send unmute event tracking
+        [self fireTrackingEventWithEvent:ANVideoEventUnMute];
     }
 }
 
-- (void)closeButtonClicked{
+- (void)closeButtonClicked {
     [self closeInterstitial];
 }
 
-- (void)dealloc{
-    
-    _fileURL = nil;
-    _volumeView = nil;
-    _playerView = nil;
-    _circularAnimationView = nil;
-    
+#pragma mark - Tracking
+
+- (void)fireTrackingEventWithEvent:(ANVideoEvent)event {
+    NSArray *trackingArray = [self.vastDataModel trackingArrayForEvent:event];
+    [trackingArray enumerateObjectsUsingBlock:^(ANTracking *tracking, NSUInteger idx, BOOL *stop) {
+        ANLogDebug(@"(%@, %@)", [ANVASTUtil eventStringForVideoEvent:event], tracking.trackingURI);
+        [self fireImpressionWithURL:tracking.trackingURI];
+    }];
 }
 
+- (void)fireClickTracking {
+    NSArray *trackingArray = self.vastDataModel.clickTrackingURL;
+    [trackingArray enumerateObjectsUsingBlock:^(NSString *clickTrackingURL, NSUInteger idx, BOOL *stop) {
+        ANLogDebug(@"(click, %@)", clickTrackingURL);
+        [self fireImpressionWithURL:clickTrackingURL];
+    }];
+}
+
+- (void)fireImpressionWithURL:(NSString *)urlString {
+    NSURL *impressionURL = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURLRequest *request = ANBasicRequestWithURL(impressionURL);
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+
+    }];
+}
+
+#pragma mark - Observe
+
+- (void)registerForApplicationNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillEnterForeground)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+}
+
+- (void)removeApplicationNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillEnterForegroundNotification
+                                                  object:nil];
+}
+
+- (void)dealloc {
+    [self removeApplicationNotifications];
+}
+
+- (void) applicationWillEnterForeground{
+    [self play];
+}
+
+#pragma mark - ANBrowserViewControllerDelegate
+
+- (void)handleSingleTapOnPlayerViewWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer{
+    NSURL *clickURL = [NSURL URLWithString:[self.vastDataModel getClickThroughURL]];
+    if (clickURL) {
+        [self openClickInBrowserWithURL:clickURL];
+        [self fireClickTracking];
+    }else{
+        ANLogDebug(@"Click URL not found.");
+    }
+}
+
+- (void)openClickInBrowserWithURL:(NSURL *)url {
+    if (!self.openClicksInNativeBrowser) {
+        _browserController = [[ANBrowserViewController alloc] initWithURL:url
+                                                                 delegate:self
+                                                 delayPresentationForLoad:NO];
+        if (!self.browserController) {
+            ANLogDebug(@"Failed to initialize the browser.");
+        }
+    } else{
+        [self pause];
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
+- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {
+    return self;
+}
+
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller{
+    [self play];
+}
 
 @end

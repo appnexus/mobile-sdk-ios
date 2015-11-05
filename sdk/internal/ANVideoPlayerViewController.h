@@ -15,18 +15,17 @@
  
  */
 
-
 #import <UIKit/UIKit.h>
 #import "ANVast.h"
 
 @interface ANVideoPlayerViewController : UIViewController
 
 @property (strong, nonatomic) ANVast *vastDataModel;
-@property (nonatomic) float skipOffSet;
-@property (nonatomic) NSUInteger skipOffSetType;
+@property (nonatomic) float publisherSkipOffset;
+@property (nonatomic) BOOL openClicksInNativeBrowser;
 
-- (instancetype) initWithVastDataModel:(ANVast *)vastDataModel;
-- (void) play;
-- (void) pause;
+- (instancetype)initWithVastDataModel:(ANVast *)vastDataModel;
+- (void)play;
+- (void)pause;
 
 @end
