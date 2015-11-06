@@ -42,6 +42,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     BOOL isMidPointQuartileDone;
     BOOL isThirdQuartileDone;
     BOOL isCompleteQuartileDone;
+    BOOL isImpressionFired;
 }
 
 @property (nonatomic, strong) NSURL *fileURL;
@@ -175,6 +176,14 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     float quartileDuration = totalDuration/4;
 
     if (self.playerView.player.rate > 0 && !self.playerView.player.error) {
+        if (!isImpressionFired) {
+            isImpressionFired = YES;
+            for (ANImpression *impression in self.vastDataModel.anInLine.impressions) {
+                if (impression) {
+                    [self fireImpressionWithURL:impression.value];
+                }
+            }
+        }
         [self.circularAnimationView performCircularAnimationWithStartTime:[NSDate date]];
     }
 
@@ -217,7 +226,6 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     [self removeApplicationNotifications];
     [self dismissViewControllerAnimated:YES
                              completion:^{
-        [self fireTrackingEventWithEvent:ANVideoEventClose];
         [self fireTrackingEventWithEvent:ANVideoEventCloseLinear];
     }];
 }

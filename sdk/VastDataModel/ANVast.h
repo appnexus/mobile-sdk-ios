@@ -27,7 +27,7 @@
 @property (nonatomic, readonly) NSString *version;
 @property (nonatomic, readonly) NSString *AdId;
 @property (nonatomic, readonly) ANInLine *anInLine;
-@property (nonatomic, readonly) ANWrapper *anWrapper;
+@property (nonatomic, readonly) NSMutableArray *anWrappers;
 @property (nonatomic, readonly) NSURL *mediaFileURL;
 
 @end
