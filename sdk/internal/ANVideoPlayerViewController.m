@@ -180,6 +180,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
             isImpressionFired = YES;
             for (ANImpression *impression in self.vastDataModel.anInLine.impressions) {
                 if (impression) {
+                    ANLogDebug(@"(impression, %@)", impression.value);
                     [self fireImpressionWithURL:impression.value];
                 }
             }
