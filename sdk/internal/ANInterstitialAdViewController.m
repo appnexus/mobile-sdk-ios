@@ -60,12 +60,13 @@
 }
 
 - (void)setupCircularView {
-    _circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    CGSize closeButtonSize = APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_SIZE;
+    _circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, closeButtonSize.width, closeButtonSize.height)];
     self.circularAnimationView.delegate = self;
     self.circularAnimationView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.circularAnimationView];
     [self.view bringSubviewToFront:self.circularAnimationView];
-    [self.circularAnimationView an_constrainWithSize:CGSizeMake(40,40)];
+    [self.circularAnimationView an_constrainWithSize:closeButtonSize];
     [self.circularAnimationView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
                                                        yAttribute:NSLayoutAttributeTop
                                                           offsetX:-17.0
@@ -150,14 +151,6 @@
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
     _backgroundColor = backgroundColor;
     self.view.backgroundColor = _backgroundColor;
-}
-
-- (IBAction)closeAction:(id)sender {
-    if ([self.progressTimer an_isScheduled]) {
-        return;
-    }
-    self.dismissing = YES;
-	[self.delegate interstitialAdViewControllerShouldDismiss:self];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -273,7 +266,11 @@
 }
     
 - (void)closeButtonClicked{
-    [self closeAction:nil];
+    if ([self.progressTimer an_isScheduled]) {
+        return;
+    }
+    self.dismissing = YES;
+    [self.delegate interstitialAdViewControllerShouldDismiss:self];
 }
     
 

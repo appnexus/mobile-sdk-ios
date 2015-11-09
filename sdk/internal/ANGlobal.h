@@ -62,6 +62,7 @@
 #define kAppNexusNativeAdImageDownloadTimeoutInterval 10.0
 #define kAppNexusNativeAdCheckViewabilityForTrackingFrequency 0.25
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
+#define APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_SIZE	CGSizeMake(40, 40)
 
 // Banner AutoRefresh
 
