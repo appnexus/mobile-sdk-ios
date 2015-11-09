@@ -22,6 +22,9 @@
 
 - (void) closeButtonClicked;
 
+@optional
+- (void) stopTimerForHTMLInterstitial;
+
 @end
 
 @interface ANCircularAnimationView : UIControl

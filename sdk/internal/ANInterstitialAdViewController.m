@@ -21,14 +21,16 @@
 #import "UIWebView+ANCategory.h"
 #import "ANMRAIDOrientationProperties.h"
 #import "NSTimer+ANCategory.h"
+#import "ANCircularAnimationView.h"
 
-@interface ANInterstitialAdViewController ()
+@interface ANInterstitialAdViewController ()<ANCircularAnimationViewDelegate>
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;
 @property (nonatomic, readwrite, strong) NSDate *timerStartDate;
 @property (nonatomic, readwrite, assign) BOOL viewed;
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
 @property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @property (nonatomic, readwrite, assign, getter=isDismissing) BOOL dismissing;
+@property (nonatomic, strong) ANCircularAnimationView *circularAnimationView;
 @end
 
 @implementation ANInterstitialAdViewController
@@ -49,32 +51,39 @@
     if (!self.backgroundColor) {
         self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
     }
-    self.progressView.hidden = YES;
-    self.closeButton.hidden = YES;
     if (self.contentView && !self.contentView.superview) {
         [self.view addSubview:self.contentView];
-        [self.view insertSubview:self.contentView
-                    belowSubview:self.progressView];
         [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
                                                  yAttribute:NSLayoutAttributeCenterY];
     }
     [self setupCloseButtonImageWithCustomClose:self.useCustomClose];
 }
 
+- (void)setupCircularView {
+    _circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    self.circularAnimationView.delegate = self;
+    self.circularAnimationView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.circularAnimationView];
+    [self.view bringSubviewToFront:self.circularAnimationView];
+    [self.circularAnimationView an_constrainWithSize:CGSizeMake(40,40)];
+    [self.circularAnimationView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
+                                                       yAttribute:NSLayoutAttributeTop
+                                                          offsetX:-17.0
+                                                          offsetY:17.0];
+    float skipOffSet = [self.delegate closeDelayForController];
+    self.circularAnimationView.skipOffset = skipOffSet;
+    [self.circularAnimationView setBackgroundColor:[UIColor grayColor]];
+    [self.circularAnimationView setAlpha:0.2];
+    
+}
+
 - (void)setupCloseButtonImageWithCustomClose:(BOOL)useCustomClose {
     if (useCustomClose) {
-        [self.closeButton setImage:nil
-                          forState:UIControlStateNormal];
         return;
     }
-    BOOL atLeastiOS7 = [self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)];
-    NSString *closeboxImageName = @"interstitial_flat_closebox";
-    if (!atLeastiOS7) {
-        closeboxImageName = @"interstitial_closebox";
-    }
-    UIImage *closeboxImage = [UIImage imageWithContentsOfFile:ANPathForANResource(closeboxImageName, @"png")];
-    [self.closeButton setImage:closeboxImage
-                      forState:UIControlStateNormal];
+
+    _circularAnimationView = nil;
+    [self setupCircularView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -105,27 +114,16 @@
 }
 
 - (void)startCountdownTimer {
-    self.progressView.hidden = NO;
-    self.closeButton.hidden = YES;
     self.timerStartDate = [NSDate date];
     self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(progressTimerDidFire:) userInfo:nil repeats:YES];
 }
 
 - (void)stopCountdownTimer {
 	[self.progressTimer invalidate];
-    self.progressView.hidden = YES;
-    self.closeButton.hidden = NO;
 }
 
 - (void)progressTimerDidFire:(NSTimer *)timer {
-	NSDate *timeNow = [NSDate date];
-	NSTimeInterval timeShown = [timeNow timeIntervalSinceDate:self.timerStartDate];
-    NSTimeInterval closeDelay = [self.delegate closeDelayForController];
-	[self.progressView setProgress:(timeShown / closeDelay)];
-    
-	if (timeShown >= closeDelay && self.closeButton.hidden == YES) {
-        [self stopCountdownTimer];
-	}
+    [self.circularAnimationView performCircularAnimationWithStartTime:[NSDate date]];
 }
 
 - (void)setContentView:(UIView *)contentView {
@@ -138,9 +136,10 @@
         
         [_contentView removeFromSuperview];
         _contentView = contentView;
-        
+
+        [self.view addSubview:_contentView];
         [self.view insertSubview:_contentView
-                    belowSubview:self.progressView];
+                    belowSubview:self.circularAnimationView];
         _contentView.translatesAutoresizingMaskIntoConstraints = NO;
         [_contentView an_constrainWithFrameSize];
         [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
@@ -267,5 +266,15 @@
         }
     }
 }
+    
+#pragma ANCircularAnimationView Delegates
+- (void)stopTimerForHTMLInterstitial{
+    [self stopCountdownTimer];
+}
+    
+- (void)closeButtonClicked{
+    [self closeAction:nil];
+}
+    
 
 @end

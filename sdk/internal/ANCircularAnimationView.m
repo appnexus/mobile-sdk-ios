@@ -90,9 +90,13 @@
     if (timeElapsed < self.skipOffset) {
         [self.countdownlabel setText:[NSString stringWithFormat:@"%ld", (long)ceil(self.skipOffset - timeElapsed)]];
     }
-    [self updateProgress:timeElapsed/self.skipOffset];
-    if (timeElapsed >= self.skipOffset) {
+    float floatProgress = timeElapsed/self.skipOffset;
+    NSString *strProgress = [NSString stringWithFormat:@"%.02f", floatProgress];
+    floatProgress = [strProgress floatValue];
+    [self updateProgress:floatProgress];
+    if (timeElapsed >= self.skipOffset && !self.countdownlabel.hidden) {
         self.countdownlabel.hidden = YES;
+        [self.delegate stopTimerForHTMLInterstitial];
         [self drawCloseButton];
         isButtonClickable = YES;
     }
