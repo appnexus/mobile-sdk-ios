@@ -91,7 +91,7 @@
         [self.countdownlabel setText:[NSString stringWithFormat:@"%ld", (long)ceil(self.skipOffset - timeElapsed)]];
     }
     [self updateProgress:timeElapsed/self.skipOffset];
-    if (timeElapsed >= self.skipOffset) {
+    if (timeElapsed >= self.skipOffset && !self.countdownlabel.hidden) {
         self.countdownlabel.hidden = YES;
         [self drawCloseButton];
         isButtonClickable = YES;

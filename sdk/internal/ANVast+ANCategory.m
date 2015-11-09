@@ -19,7 +19,7 @@
 @implementation ANVast (ANCategory)
 
 - (ANInLine *)inlineAd {
-    return self.anInLine ? self.anInLine : self.anWrapper;
+    return self.anInLine ? self.anInLine : [self.anWrappers lastObject]; //last object has the valid inline element
 }
 
 - (NSString *)getClickThroughURL {
@@ -53,16 +53,22 @@
 
 /**
  TODO: Proper tracking for nested VAST wrappers
+ [DeepakB:] Done.
  */
 
 - (NSArray *)clickTrackingURL {
-    NSArray *creatives = @[];
+    __block NSArray *creatives = @[];
     if (self.anInLine.creatives) {
         creatives = [creatives arrayByAddingObjectsFromArray:self.anInLine.creatives];
     }
-    if (self.anWrapper.creatives) {
-        creatives = [creatives arrayByAddingObjectsFromArray:self.anWrapper.creatives];
-    }
+    
+    [self.anWrappers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ANWrapper *wrapper = (ANWrapper *)obj;
+        if (wrapper.creatives) {
+            creatives = [creatives arrayByAddingObjectsFromArray:wrapper.creatives];
+        }
+    }];
+    
     NSArray *trackingArray = @[];
     for (ANCreative *creative in creatives) {
         if (creative.anLinear.anVideoClicks.clickTracking) {
@@ -76,13 +82,17 @@
 }
 
 - (NSArray *)trackingArrayForEvent:(ANVideoEvent)event {
-    NSArray *creatives = @[];
+    __block NSArray *creatives = @[];
     if (self.anInLine.creatives) {
         creatives = [creatives arrayByAddingObjectsFromArray:self.anInLine.creatives];
     }
-    if (self.anWrapper.creatives) {
-        creatives = [creatives arrayByAddingObjectsFromArray:self.anWrapper.creatives];
-    }
+    
+    [self.anWrappers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ANWrapper *wrapper = (ANWrapper *)obj;
+        if (wrapper.creatives) {
+            creatives = [creatives arrayByAddingObjectsFromArray:wrapper.creatives];
+        }
+    }];
 
     NSString *vastEventString = [ANVASTUtil eventStringForVideoEvent:event];
     if (vastEventString) {
@@ -90,8 +100,10 @@
         for (ANCreative *creative in creatives) {
             if (creative.anLinear.trackingEvents.count > 0) {
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"vastEvent == %@", vastEventString];
-                trackingArray = [trackingArray arrayByAddingObjectsFromArray:
-                                 [creative.anLinear.trackingEvents filteredArrayUsingPredicate:predicate]];
+                NSArray *trackingEventsArray = [creative.anLinear.trackingEvents filteredArrayUsingPredicate:predicate];
+                if (trackingEventsArray) {
+                    trackingArray = [trackingArray arrayByAddingObjectsFromArray:trackingEventsArray];
+                }
             }
         }
         return trackingArray;

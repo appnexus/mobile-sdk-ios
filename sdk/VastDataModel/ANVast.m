@@ -30,7 +30,7 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
 @property (nonatomic) NSString *version;
 @property (nonatomic) NSString *AdId;
 @property (nonatomic) ANInLine *anInLine;
-@property (nonatomic) ANWrapper *anWrapper;
+@property (nonatomic) NSMutableArray *anWrappers;
 @property (nonatomic) NSURL *mediaFileURL;
 
 @end
@@ -108,14 +108,41 @@ static int releaseCounter;
             if (inlineElement) {
                 self.anInLine = [[ANInLine alloc] initWithXMLElement:inlineElement];
             }else{
+                
                 ANXMLElement *wrapperElement = [ANXML childElementNamed:@"Wrapper" parentElement:ad];
+
                 if (wrapperElement) {
-                    self.anWrapper = [[ANWrapper alloc] initWithXMLElement:wrapperElement];
-                    if (self.anWrapper.vastAdTagURI) {
-                        NSURL *vastURL = [NSURL URLWithString:self.anWrapper.vastAdTagURI];
-                        NSError *error;
-                        releaseCounter++;
-                        [self parseResponseWithURL:vastURL error:&error];
+
+                    ANWrapper *wrapper = [[ANWrapper alloc] initWithXMLElement:wrapperElement];
+
+                    if (wrapper) {
+                        
+                        if (wrapper.vastAdTagURI) {
+                            
+                            if (!self.anWrappers) {
+                                //initialize wrapper array if not alreay done.
+                                self.anWrappers = [NSMutableArray array];
+                            }
+                            
+                            //wrappers can get into infinite loop. there should be a system to break out of the infinite loop.
+                            __block BOOL isVastTagURIAlreadyExists = NO;
+                            
+                            [self.anWrappers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                ANWrapper *anWrapper = (ANWrapper *)obj;
+                                if ([anWrapper.vastAdTagURI isEqualToString:wrapper.vastAdTagURI]) {
+                                    isVastTagURIAlreadyExists = YES;
+                                    *stop = YES;
+                                }
+                            }];
+
+                            if (!isVastTagURIAlreadyExists) {
+                                [self.anWrappers addObject:wrapper];
+                                NSURL *vastURL = [NSURL URLWithString:wrapper.vastAdTagURI];
+                                NSError *error;
+                                releaseCounter++;
+                                [self parseResponseWithURL:vastURL error:&error];
+                            }
+                        }
                     }
                 }
             }
@@ -132,7 +159,7 @@ static int releaseCounter;
 }
 
 - (NSURL *)optimalMediaFileURL {
-    ANInLine *inLine = (self.anInLine)?self.anInLine:self.anWrapper;
+    ANInLine *inLine = (self.anInLine)?self.anInLine:[self.anWrappers lastObject]; //last object will be the valid inline element
     NSString *fileURI = @"";
     for (ANCreative *creative in inLine.creatives) {
         

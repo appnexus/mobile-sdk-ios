@@ -41,8 +41,6 @@
             return @"pause";
         case ANVideoEventResume:
             return @"resume";
-        case ANVideoEventClose:
-            return @"close";
         case ANVideoEventCloseLinear:
             return @"closeLinear";
         case ANVideoEventCreativeView:
