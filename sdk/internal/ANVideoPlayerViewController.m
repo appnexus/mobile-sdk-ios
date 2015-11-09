@@ -179,10 +179,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
         if (!isImpressionFired) {
             isImpressionFired = YES;
             for (ANImpression *impression in self.vastDataModel.anInLine.impressions) {
-                if (impression) {
-                    ANLogDebug(@"(impression, %@)", impression.value);
-                    [self fireImpressionWithURL:impression.value];
-                }
+            	ANLogDebug(@"(impression, %@)", impression.value);
+                [self fireImpressionWithURL:impression.value];
             }
         }
         [self.circularAnimationView performCircularAnimationWithStartTime:[NSDate date]];

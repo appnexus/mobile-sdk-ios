@@ -53,6 +53,7 @@
 
 /**
  TODO: Proper tracking for nested VAST wrappers
+ [DeepakB:] Done.
  */
 
 - (NSArray *)clickTrackingURL {
@@ -63,8 +64,11 @@
     
     [self.anWrappers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ANWrapper *wrapper = (ANWrapper *)obj;
-        creatives = [creatives arrayByAddingObjectsFromArray:wrapper.creatives];
+        if (wrapper.creatives) {
+            creatives = [creatives arrayByAddingObjectsFromArray:wrapper.creatives];
+        }
     }];
+    
     NSArray *trackingArray = @[];
     for (ANCreative *creative in creatives) {
         if (creative.anLinear.anVideoClicks.clickTracking) {
@@ -85,7 +89,9 @@
     
     [self.anWrappers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ANWrapper *wrapper = (ANWrapper *)obj;
-        creatives = [creatives arrayByAddingObjectsFromArray:wrapper.creatives];
+        if (wrapper.creatives) {
+            creatives = [creatives arrayByAddingObjectsFromArray:wrapper.creatives];
+        }
     }];
 
     NSString *vastEventString = [ANVASTUtil eventStringForVideoEvent:event];
@@ -94,8 +100,10 @@
         for (ANCreative *creative in creatives) {
             if (creative.anLinear.trackingEvents.count > 0) {
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"vastEvent == %@", vastEventString];
-                trackingArray = [trackingArray arrayByAddingObjectsFromArray:
-                                 [creative.anLinear.trackingEvents filteredArrayUsingPredicate:predicate]];
+                NSArray *trackingEventsArray = [creative.anLinear.trackingEvents filteredArrayUsingPredicate:predicate];
+                if (trackingEventsArray) {
+                    trackingArray = [trackingArray arrayByAddingObjectsFromArray:trackingEventsArray];
+                }
             }
         }
         return trackingArray;
