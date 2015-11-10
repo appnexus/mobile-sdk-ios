@@ -44,8 +44,7 @@
 - (void)addVolumeButton {
     self.volumeButton = [[UIButton alloc] init];
     self.volumeButton.translatesAutoresizingMaskIntoConstraints = NO;
-    isVolumeMuted = ([ANVASTUtil getSystemVolume] > 0) ? NO : YES;
-    isVolumeMuted = !isVolumeMuted; //negate the value as it would again be negated inside handleVolumeButton
+    isVolumeMuted = NO; //negate the value as it would again be negated inside handleVolumeButton
     [self handleVolumeButton];
     [self.volumeButton addTarget:self
                           action:@selector(handleVolumeButton)

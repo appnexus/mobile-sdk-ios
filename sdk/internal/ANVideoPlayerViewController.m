@@ -74,7 +74,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor blackColor];
-    
+
     [self setupPlayer];
     [self setupCircularView];
     [self setupVolumeView];
@@ -100,6 +100,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [self handleVolumeLevelForViewLoad:NO];
+    
     [self.playerView.player removeTimeObserver:self.observer];
     if (!isSkipped) {
         [self pause];
@@ -147,6 +149,10 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 - (void)setupVolumeView {
     self.volumeView = [[ANVolumeButtonView alloc] initWithDelegate:self];
+
+    //Mute player as soon as possible on start to avoid being muted after video is loaded. This is a race condition.
+    [self handleVolumeLevelForViewLoad:YES];
+    
     self.volumeView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.volumeView];
     [self.view bringSubviewToFront:self.volumeView];
@@ -357,6 +363,19 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 - (void)didDismissBrowserViewController:(ANBrowserViewController *)controller{
     [self play];
+}
+
+- (void) handleVolumeLevelForViewLoad:(BOOL)value{
+    if (!value) {
+        //restore player volume to system volume on closing
+        float systemVolume = [ANVASTUtil getSystemVolume];
+        [self.playerView.player setVolume:systemVolume];
+        [self mute:NO];
+    }else{
+        //mute on start
+        [self.playerView.player setVolume:0.0];
+        [self mute:YES];
+    }
 }
 
 @end
