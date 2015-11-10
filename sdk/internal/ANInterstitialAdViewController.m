@@ -49,7 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!self.backgroundColor) {
-        self.backgroundColor = [UIColor whiteColor]; // Default white color, clear color background doesn't work with interstitial modal view
+        self.backgroundColor = [UIColor blackColor];
     }
     if (self.contentView && !self.contentView.superview) {
         [self.view addSubview:self.contentView];
@@ -72,10 +72,7 @@
                                                           offsetX:-17.0
                                                           offsetY:17.0];
     float skipOffSet = [self.delegate closeDelayForController];
-    self.circularAnimationView.skipOffset = skipOffSet;
-    [self.circularAnimationView setBackgroundColor:[UIColor grayColor]];
-    [self.circularAnimationView setAlpha:0.2];
-    
+    self.circularAnimationView.skipOffset = skipOffSet;    
 }
 
 - (void)setupCloseButtonImageWithCustomClose:(BOOL)useCustomClose {
