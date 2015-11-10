@@ -61,7 +61,8 @@
 
 - (void)setupCircularView {
     CGSize closeButtonSize = APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_SIZE;
-    _circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, closeButtonSize.width, closeButtonSize.height)];
+    [self.circularAnimationView removeFromSuperview];
+    self.circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, closeButtonSize.width, closeButtonSize.height)];
     self.circularAnimationView.delegate = self;
     self.circularAnimationView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.circularAnimationView];
@@ -72,16 +73,18 @@
                                                           offsetX:-17.0
                                                           offsetY:17.0];
     float skipOffSet = [self.delegate closeDelayForController];
-    self.circularAnimationView.skipOffset = skipOffSet;    
+    self.circularAnimationView.skipOffset = skipOffSet;
 }
 
 - (void)setupCloseButtonImageWithCustomClose:(BOOL)useCustomClose {
     if (useCustomClose) {
-        return;
+        // MRAID custom close
+        self.closeButton.hidden = NO;
+        [self.circularAnimationView removeFromSuperview];
+    } else {
+        self.closeButton.hidden = YES;
+        [self setupCircularView];
     }
-
-    _circularAnimationView = nil;
-    [self setupCircularView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -148,6 +151,12 @@
 - (void)setBackgroundColor:(UIColor *)backgroundColor {
     _backgroundColor = backgroundColor;
     self.view.backgroundColor = _backgroundColor;
+}
+
+- (IBAction)closeAction:(id)sender {
+    // This method is intended to fire only for MRAID custom close
+    self.dismissing = YES;
+	[self.delegate interstitialAdViewControllerShouldDismiss:self];
 }
 
 - (BOOL)prefersStatusBarHidden {
