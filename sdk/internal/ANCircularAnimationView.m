@@ -96,7 +96,9 @@
     [self updateProgress:floatProgress];
     if (timeElapsed >= self.skipOffset && !self.countdownlabel.hidden) {
         self.countdownlabel.hidden = YES;
-        [self.delegate stopTimerForHTMLInterstitial];
+        if ([self.delegate respondsToSelector:@selector(stopTimerForHTMLInterstitial)]) {
+            [self.delegate stopTimerForHTMLInterstitial];
+        }
         [self drawCloseButton];
         isButtonClickable = YES;
     }

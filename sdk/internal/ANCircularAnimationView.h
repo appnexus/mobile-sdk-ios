@@ -18,7 +18,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ANCircularAnimationViewDelegate
+@protocol ANCircularAnimationViewDelegate <NSObject>
 
 - (void) closeButtonClicked;
 
