@@ -90,10 +90,7 @@
     if (timeElapsed < self.skipOffset) {
         [self.countdownlabel setText:[NSString stringWithFormat:@"%ld", (long)ceil(self.skipOffset - timeElapsed)]];
     }
-    float floatProgress = timeElapsed/self.skipOffset;
-    NSString *strProgress = [NSString stringWithFormat:@"%.02f", floatProgress];
-    floatProgress = [strProgress floatValue];
-    [self updateProgress:floatProgress];
+    [self updateProgress:timeElapsed/self.skipOffset];
     if (timeElapsed >= self.skipOffset && !self.countdownlabel.hidden) {
         self.countdownlabel.hidden = YES;
         if ([self.delegate respondsToSelector:@selector(stopTimerForHTMLInterstitial)]) {
