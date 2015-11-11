@@ -139,12 +139,13 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 }
 
 - (void)setupCircularView {
-    self.circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    CGSize closeButtonSize = APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_SIZE;
+    self.circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, closeButtonSize.width, closeButtonSize.height)];
     self.circularAnimationView.delegate = self;
     self.circularAnimationView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.circularAnimationView];
     [self.view bringSubviewToFront:self.circularAnimationView];
-    [self.circularAnimationView an_constrainWithSize:CGSizeMake(40,40)];
+    [self.circularAnimationView an_constrainWithSize:closeButtonSize];
     [self.circularAnimationView an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
                                                        yAttribute:NSLayoutAttributeTop
                                                           offsetX:-17.0

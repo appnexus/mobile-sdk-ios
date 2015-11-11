@@ -18,9 +18,12 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ANCircularAnimationViewDelegate
+@protocol ANCircularAnimationViewDelegate <NSObject>
 
 - (void) closeButtonClicked;
+
+@optional
+- (void) stopTimerForHTMLInterstitial;
 
 @end
 
