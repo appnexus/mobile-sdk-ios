@@ -94,6 +94,24 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode {
+    self = [self initWithFrame:frame];
+    if (self != nil) {
+        [self setInventoryCode:inventoryCode memberId:memberId];
+    }
+    
+    return self;
+    
+}
+
+- (instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode adSize:(CGSize)size{
+    self = [self initWithFrame:frame memberId:memberId inventoryCode:inventoryCode];
+    if (self != nil) {
+        self.adSize = size;
+    }
+    return self;
+}
+
 - (void)loadAd {
     [super loadAd];
 }

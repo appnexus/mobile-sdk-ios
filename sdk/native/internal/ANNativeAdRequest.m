@@ -150,6 +150,8 @@
 #pragma mark - ANNativeAdTargetingProtocol
 
 @synthesize placementId = _placementId;
+@synthesize memberId = _memberId;
+@synthesize inventoryCode = _inventoryCode;
 @synthesize gender = _gender;
 @synthesize location = _location;
 @synthesize reserve = _reserve;
@@ -193,6 +195,18 @@
     }
     
     [self.customKeywords removeObjectForKey:key];
+}
+
+- (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberId{
+    inventoryCode = ANConvertToNSString(inventoryCode);
+    if (inventoryCode && inventoryCode != _inventoryCode) {
+        ANLogDebug(@"Setting inventory code to %@", inventoryCode);
+        _inventoryCode = inventoryCode;
+    }
+    if (memberId > 0 && memberId != _memberId) {
+        ANLogDebug(@"Setting member id to %d", (int) memberId);
+        _memberId = memberId;
+    }
 }
 
 @end

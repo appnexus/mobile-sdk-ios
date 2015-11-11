@@ -145,6 +145,14 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 - (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
 /**
+ Instead of requesting ads using placement id, alternatively, you can 
+ use either of the initialization methods below to initialize a banner
+ using member id and inventory code.
+ */
+- (instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode;
+- (instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode adSize:(CGSize)size;
+
+/**
  Initializes an ad view.  These are autoreleased constructors of the
  above initializers that will handle the frame initialization for
  you.  (For usage, see the example at the top of this file).

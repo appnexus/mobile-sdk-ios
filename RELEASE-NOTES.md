@@ -1,3 +1,9 @@
+## RC 27
+
+### New Features
+
++ MS-1701 Public api to support inventory code and member id
+
 ## RC 2.6
 
 ### Bug fixes:

@@ -36,6 +36,8 @@
 @implementation ANAdView
 // ANAdProtocol properties
 @synthesize placementId = __placementId;
+@synthesize memberId = __memberId;
+@synthesize inventoryCode = __invCode;
 @synthesize opensInNativeBrowser = __opensInNativeBrowser;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
 @synthesize location = __location;
@@ -121,6 +123,18 @@
     }
 }
 
+- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
+    invCode = ANConvertToNSString(invCode);
+    if (invCode && invCode != __invCode) {
+        ANLogDebug(@"Setting inventory code to %@", invCode);
+        __invCode = invCode;
+    }
+    if (memberId > 0 && memberId != __memberId) {
+        ANLogDebug(@"Setting member id to %d", (int) memberId);
+        __memberId = memberId;
+    }
+}
+
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
@@ -160,6 +174,16 @@
 - (NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
     return __placementId;
+}
+
+- (NSInteger )memberId {
+    ANLogDebug(@"memberId returned %d", (int)__memberId);
+    return __memberId;
+}
+
+- (NSString *)inventoryCode {
+    ANLogDebug(@"inventoryCode returned %@", __invCode);
+    return __invCode;
 }
 
 - (ANLocation *)location {

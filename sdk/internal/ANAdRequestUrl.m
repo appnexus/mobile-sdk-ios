@@ -81,7 +81,7 @@
 }
 
 - (NSURL *)buildRequestUrlWithBaseUrlString:(NSString *)baseUrlString {
-    baseUrlString = [baseUrlString stringByAppendingString:[self placementIdParameter]];
+    baseUrlString = [baseUrlString stringByAppendingString:[self placementIdentifierParameter]];
 	baseUrlString = [baseUrlString an_stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
     baseUrlString = [baseUrlString stringByAppendingString:[self dontTrackEnabledParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceMakeParameter]];
@@ -121,9 +121,13 @@
                                                                                  kCFStringEncodingUTF8);
 }
 
-- (NSString *)placementIdParameter {
+- (NSString *)placementIdentifierParameter {
+    NSString *invCode = [self.adFetcherDelegate inventoryCode];
+    NSInteger memberId = [self.adFetcherDelegate memberId];
+    if (memberId > 0 && invCode) {
+        return [NSString stringWithFormat:@"member=%d&inv_code=%@", (int)memberId, [self URLEncodingFrom:invCode]];
+    }
     NSString *placementId = [self.adFetcherDelegate placementId];
-
     if ([placementId length] < 1) {
         return @"";
     }
