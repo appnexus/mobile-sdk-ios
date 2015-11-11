@@ -192,6 +192,10 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
             	ANLogDebug(@"(impression, %@)", impression.value);
                 [self fireImpressionWithURL:impression.value];
             }
+            if (self.vastDataModel.notifyUrlString) {
+                ANLogDebug(@"(impression, %@)", self.vastDataModel.notifyUrlString);
+                [self fireImpressionWithURL:self.vastDataModel.notifyUrlString];
+            }
         }
         [self.circularAnimationView performCircularAnimationWithStartTime:[NSDate date]];
     }

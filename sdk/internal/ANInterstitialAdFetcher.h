@@ -18,7 +18,13 @@
 
 @protocol ANInterstitialAdFetcherDelegate;
 
+#define kANANInterstitialAdFetcherUseUTV2 1
+
+#if kANANInterstitialAdFetcherUseUTV2
+static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://rlissack.adnxs.net:8080/jtest/utv2video";
+#else
 static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://ib.adnxs.com/ut/v1";
+#endif
 
 @interface ANInterstitialAdFetcher : NSObject
 
