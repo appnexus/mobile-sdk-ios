@@ -20,9 +20,7 @@
 #import "ANVASTUtil.h"
 #import "UIView+ANCategory.h"
 
-@interface ANVolumeButtonView(){
-    BOOL isVolumeMuted;
-}
+@interface ANVolumeButtonView() 
 
 @property (nonatomic, strong) UIButton *volumeButton;
 
@@ -44,9 +42,6 @@
 - (void)addVolumeButton {
     self.volumeButton = [[UIButton alloc] init];
     self.volumeButton.translatesAutoresizingMaskIntoConstraints = NO;
-    isVolumeMuted = ([ANVASTUtil getSystemVolume] > 0) ? NO : YES;
-    isVolumeMuted = !isVolumeMuted; //negate the value as it would again be negated inside handleVolumeButton
-    [self handleVolumeButton];
     [self.volumeButton addTarget:self
                           action:@selector(handleVolumeButton)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -60,24 +55,21 @@
 }
 
 - (void)handleVolumeButton {
-    isVolumeMuted = !isVolumeMuted;
-    
-    UIImage *volumeImage;
-    
-    if (isVolumeMuted) {
-        volumeImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"mute-on", @"png")];
-        [self mute:YES];
-    }else{
-        volumeImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"mute-off",@"png")];
-        [self mute:NO];
-    }
-
-    [self.volumeButton setBackgroundImage:volumeImage forState:UIControlStateNormal];
-
+    self.isVolumeMuted = !self.isVolumeMuted;
+    [self.delegate mutePlayer:self.isVolumeMuted];
 }
 
-- (void)mute:(BOOL)value {
-    [self.delegate mute:value];
+- (void)setIsVolumeMuted:(BOOL)isVolumeMuted {
+    _isVolumeMuted = isVolumeMuted;
+    UIImage *volumeImage;
+    
+    if (_isVolumeMuted) {
+        volumeImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"mute-on", @"png")];
+    } else {
+        volumeImage = [UIImage imageWithContentsOfFile:ANPathForANResource(@"mute-off",@"png")];
+    }
+    
+    [self.volumeButton setBackgroundImage:volumeImage forState:UIControlStateNormal];
 }
 
 @end

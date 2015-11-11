@@ -19,6 +19,5 @@
 @interface ANVASTUtil : NSObject
 
 + (NSString *)eventStringForVideoEvent:(ANVideoEvent)event;
-+ (float)getSystemVolume;
 
 @end

@@ -32,6 +32,11 @@
 #import "ANVAST+ANCategory.h"
 #import "UIView+ANCategory.h"
 
+static float const kANVideoPlayerViewControllerVolumeMuteOnValue = 0.0;
+static float const kANVideoPlayerViewControllerVolumeMuteOffValue = 1.0;
+
+static BOOL const kANVideoPlayerViewControllerDoMuteOnLoad = YES;
+
 @interface ANVideoPlayerViewController ()<ANCircularAnimationViewDelegate, ANVolumeButtonViewDelegate,
 UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     float previousDuration;
@@ -74,7 +79,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor blackColor];
-    
+
     [self setupPlayer];
     [self setupCircularView];
     [self setupVolumeView];
@@ -100,6 +105,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    
     [self.playerView.player removeTimeObserver:self.observer];
     if (!isSkipped) {
         [self pause];
@@ -115,6 +121,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 - (void)setupPlayer {
     AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:self.fileURL];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    player.volume = kANVideoPlayerViewControllerDoMuteOnLoad ?
+            kANVideoPlayerViewControllerVolumeMuteOnValue : kANVideoPlayerViewControllerVolumeMuteOffValue;
     
     self.playerView = [[ANPlayerView alloc] init];
     [self.playerView setPlayer:player];
@@ -147,6 +155,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 - (void)setupVolumeView {
     self.volumeView = [[ANVolumeButtonView alloc] initWithDelegate:self];
+    self.volumeView.isVolumeMuted = kANVideoPlayerViewControllerDoMuteOnLoad;
     self.volumeView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.volumeView];
     [self.view bringSubviewToFront:self.volumeView];
@@ -247,24 +256,13 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     }
 }
 
-- (void)mute:(BOOL)value {
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    NSError *error;
-    
-    float volume = 0.5;
-
-    if ([session setActive:YES error:&error]) {
-        volume = session.outputVolume;
-    } else{
-        ANLogInfo(@"Unable to get system volume.");
-    }
-    
+- (void)mutePlayer:(BOOL)value {
     if (value) {
-        [self.playerView.player setVolume:0];
+        [self.playerView.player setVolume:kANVideoPlayerViewControllerVolumeMuteOnValue];
         ANLogDebug(@"Volume Muted.");
         [self fireTrackingEventWithEvent:ANVideoEventMute];
     } else{
-        [self.playerView.player setVolume:volume];
+        [self.playerView.player setVolume:kANVideoPlayerViewControllerVolumeMuteOffValue];
         ANLogDebug(@"Volume Unmuted.");
         [self fireTrackingEventWithEvent:ANVideoEventUnMute];
     }
