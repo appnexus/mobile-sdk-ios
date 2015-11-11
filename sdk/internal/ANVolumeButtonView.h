@@ -19,7 +19,7 @@
 
 @protocol ANVolumeButtonViewDelegate
 
-- (void)mute:(BOOL)value;
+- (void)mutePlayer:(BOOL)value;
 
 @end
 
@@ -28,5 +28,7 @@
 @property (nonatomic, weak) id<ANVolumeButtonViewDelegate> delegate;
 
 - (instancetype)initWithDelegate:(id<ANVolumeButtonViewDelegate>)delegate;
+
+@property (nonatomic) BOOL isVolumeMuted;
 
 @end

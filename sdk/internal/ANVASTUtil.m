@@ -51,8 +51,4 @@
     }
 }
 
-+ (float)getSystemVolume {
-    return [[AVAudioSession sharedInstance] outputVolume];
-}
-
 @end
