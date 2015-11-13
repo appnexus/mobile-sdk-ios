@@ -17,6 +17,7 @@
 
 
 #import "ANCircularAnimationView.h"
+#import "ANGlobal.h"
 
 @interface ANCircularAnimationView (){
     NSDate *startTime;
@@ -129,7 +130,7 @@
 }
 
 - (void) drawCloseButton{
-    CGRect lineFrame = CGRectMake(10, 10, self.bounds.size.width-10, self.bounds.size.height-10);
+    CGRect lineFrame = APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_CROSS_RECT;
     CAShapeLayer *line1 = [[CAShapeLayer alloc] init];
     UIBezierPath *path1 = [UIBezierPath bezierPath];
     

@@ -60,7 +60,7 @@
 }
 
 - (void)setupCircularView {
-    CGSize closeButtonSize = APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_SIZE;
+    CGSize closeButtonSize = APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_VIEW_SIZE;
     [self.circularAnimationView removeFromSuperview];
     self.circularAnimationView = [[ANCircularAnimationView alloc] initWithFrame:CGRectMake(0, 0, closeButtonSize.width, closeButtonSize.height)];
     self.circularAnimationView.delegate = self;
