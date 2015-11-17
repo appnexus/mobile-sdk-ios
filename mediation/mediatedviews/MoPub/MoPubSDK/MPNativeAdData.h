@@ -13,6 +13,5 @@
 
 @property (nonatomic, copy) NSString *adUnitID;
 @property (nonatomic, strong) MPNativeAd *ad;
-@property (nonatomic, assign) Class renderingClass;
 
 @end

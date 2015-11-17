@@ -12,6 +12,7 @@
 @protocol MPStreamAdPlacerDelegate;
 @protocol MPNativeAdRendering;
 @class MPNativeAdRequestTargeting;
+@class MPNativeAd;
 
 /**
  * The `MPStreamAdPlacer` class allows you to retrieve native ads from the MoPub ad server and
@@ -57,20 +58,22 @@
  */
 @property (nonatomic, strong) NSArray *visibleIndexPaths;
 
+@property (nonatomic, readonly) NSArray *rendererConfigurations;
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, weak) id<MPStreamAdPlacerDelegate> delegate;
 @property (nonatomic, readonly, copy) MPAdPositioning *adPositioning;
-@property (nonatomic, readonly, assign) Class defaultAdRenderingClass;
 
 /**
  * Creates and returns a new ad placer that can display ads in a stream.
  *
  * @param controller The view controller which should be used to present modal content.
  * @param positioning The positioning object that specifies where ads should be shown in the stream.
- * @param defaultAdRenderingClass The class that will be used to render ads. This must be a subclass
- * of `UIView` and also needs to implement the `MPNativeAdRendering` protocol.
+ * @param rendererConfigurations An array of MPNativeAdRendererConfiguration objects that control how
+ * the native ad is rendered. You should pass in configurations that can render any ad type that
+ * may be displayed for the given ad unit.
+ *
  */
-+ (instancetype)placerWithViewController:(UIViewController *)controller adPositioning:(MPAdPositioning *)positioning defaultAdRenderingClass:(Class)defaultAdRenderingClass;
++ (instancetype)placerWithViewController:(UIViewController *)controller adPositioning:(MPAdPositioning *)positioning rendererConfigurations:(NSArray *)rendererConfigurations;
 
 /**
  * Lets the ad placer know of how many items are in a section. This allows the ad placer
@@ -82,29 +85,12 @@
 - (void)setItemCount:(NSUInteger)count forSection:(NSInteger)section;
 
 /**
- * Opens a resource defined by the ad at the index path using an appropriate mechanism (typically,
- * an in-application modal web browser or a modal App Store controller).
- *
- * @param indexPath The index path of the ad we want to display content for.
- */
-- (void)displayContentForAdAtAdjustedIndexPath:(NSIndexPath *)indexPath;
-
-/**
- * Retrieves the reuse identifier for the type of rendering class.
- *
- * @param indexPath The index path of cell that you want the reuse identifier for.
- *
- * @return The reuse identifier for the rendering class for the cell at index path.
- */
-- (NSString *)reuseIdentifierForRenderingClassAtIndexPath:(NSIndexPath *)indexPath;
-
-/**
  * Uses the corresponding rendering class to render content in the view.
  *
  * @param indexPath The index path of the cell you want to render.
  * @param view The view you want to render your contents into.
  */
-- (void)renderAdAtIndexPath:(NSIndexPath *)indexPath inView:(UIView<MPNativeAdRendering> *)view;
+- (void)renderAdAtIndexPath:(NSIndexPath *)indexPath inView:(UIView *)view;
 
 /**
  * Get the size of the ad at the index path.
@@ -261,5 +247,26 @@
 @optional
 - (void)adPlacer:(MPStreamAdPlacer *)adPlacer didLoadAdAtIndexPath:(NSIndexPath *)indexPath;
 - (void)adPlacer:(MPStreamAdPlacer *)adPlacer didRemoveAdsAtIndexPaths:(NSArray *)indexPaths;
+
+/*
+ * This method is called when a native ad, placed by the stream ad placer, will present a modal view controller.
+ *
+ * @param placer The stream ad placer that contains the ad displaying the modal.
+ */
+- (void)nativeAdWillPresentModalForStreamAdPlacer:(MPStreamAdPlacer *)adPlacer;
+
+/*
+ * This method is called when a native ad, placed by the stream ad placer, did dismiss its modal view controller.
+ *
+ * @param placer The stream ad placer that contains the ad that dismissed the modal.
+ */
+- (void)nativeAdDidDismissModalForStreamAdPlacer:(MPStreamAdPlacer *)adPlacer;
+
+/*
+ * This method is called when a native ad, placed by the stream ad placer, will cause the app to background due to user interaction with the ad.
+ *
+ * @param placer The stream ad placer that contains the ad causing the app to background.
+ */
+- (void)nativeAdWillLeaveApplicationFromStreamAdPlacer:(MPStreamAdPlacer *)adPlacer;
 
 @end
