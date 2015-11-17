@@ -43,7 +43,7 @@ NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
 
-@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate, ANInterstitialAdFetcherDelegate>
+@interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate, ANInterstitialAdFetcherDelegate, ANVideoAdInternalDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
 @property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
@@ -217,6 +217,8 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         self.playbackViewController = [[ANVideoPlayerViewController alloc] initWithVastDataModel:videoAd.vastDataModel];
         [self.playbackViewController setPublisherSkipOffset:self.closeDelay];
         [self.playbackViewController setOpenClicksInNativeBrowser:self.opensInNativeBrowser];
+        [self.playbackViewController setDelegate:self];
+        [self.playbackViewController setVideoAd:videoAd];
         
         [controller presentViewController:self.playbackViewController
                                  animated:YES
@@ -416,4 +418,65 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     self.controller.useCustomClose = useCustomClose;
 }
 
+#pragma mark - ANVideoAdDelegate
+
+- (void)adStartedPlayingVideo:(ANVideoAd *)ad{
+    if ([self.videoAdDelegate respondsToSelector:@selector(adStartedPlayingVideo:)]) {
+        [self.videoAdDelegate adStartedPlayingVideo:self];
+    }
+}
+
+- (void)adPausedVideo:(ANVideoAd *)ad{
+    if ([self.videoAdDelegate respondsToSelector:@selector(adPausedVideo:)]) {
+        [self.videoAdDelegate adPausedVideo:self];
+    }
+}
+
+- (void)adResumedVideo:(ANVideoAd *)ad{
+    if ([self.videoAdDelegate respondsToSelector:@selector(adResumedVideo:)]) {
+        [self.videoAdDelegate adResumedVideo:self];
+    }
+}
+
+- (void)adFinishedQuartileEvent:(ANVideoEvent)videoEvent withAd:(ANVideoAd *)ad{
+    if ([self.videoAdDelegate respondsToSelector:@selector(adFinishedQuartileEvent:withAd:)]) {
+        [self.videoAdDelegate adFinishedQuartileEvent:videoEvent withAd:self];
+    }
+}
+
+- (void)adSkippedVideo:(ANVideoAd *)ad{
+    if ([self.videoAdDelegate respondsToSelector:@selector(adSkippedVideo:)]) {
+        [self.videoAdDelegate adSkippedVideo:self];
+    }
+}
+
+- (void)adMuted:(BOOL)isMuted withAd:(ANVideoAd *)ad{
+    if ([self.videoAdDelegate respondsToSelector:@selector(adMuted:withAd:)]) {
+        [self.videoAdDelegate adMuted:isMuted withAd:self];
+    }
+}
+
+- (void)adFinishedPlayingCompleteVideo:(ANVideoAd *)ad{
+    if ([self.videoAdDelegate respondsToSelector:@selector(adFinishedPlayingCompleteVideo:)]) {
+        [self.videoAdDelegate adFinishedPlayingCompleteVideo:self];
+    }
+}
+
+- (void)adDidPerformClickThroughOnVideo:(ANVideoAd *)ad{
+    if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {
+        [self.delegate adWasClicked:self];
+    }
+}
+
+- (void)adWillCloseVideo:(ANVideoAd *)ad{
+    if ([self.delegate respondsToSelector:@selector(adWillClose:)]) {
+        [self.delegate adWillClose:self];
+    }
+}
+
+- (void)adDidCloseVideo:(ANVideoAd *)ad{
+    if ([self.delegate respondsToSelector:@selector(adDidClose:)]) {
+        [self.delegate adDidClose:self];
+    }
+}
 @end

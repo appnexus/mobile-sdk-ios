@@ -100,27 +100,6 @@ typedef NS_ENUM(NSUInteger, ANExtensionType){
     ANExtensionTypeValue,
 };
 
-typedef NS_ENUM(NSUInteger, ANVideoEvent){
-    ANVideoEventUnknown = 0,
-    ANVideoEventStart,
-    ANVideoEventQuartileFirst,
-    ANVideoEventQuartileMidPoint,
-    ANVideoEventQuartileThird,
-    ANVideoEventQuartileComplete,
-    ANVideoEventZoomRestore,
-    ANVideoEventZoomFullScreen,
-    ANVideoEventPlay,
-    ANVideoEventPause,
-    ANVideoEventResume,
-    ANVideoEventRewind,
-    ANVideoEventMute,
-    ANVideoEventUnMute,
-    ANVideoEventStop,
-    ANVideoEventCloseLinear,
-    ANVideoEventSkip,
-    ANVideoEventCreativeView
-};
-
 typedef NS_ENUM(NSUInteger, ANMobileEndpoint) {
     ANMobileEndpointProduction = 0,
     ANMobileEndpointClientTesting,
