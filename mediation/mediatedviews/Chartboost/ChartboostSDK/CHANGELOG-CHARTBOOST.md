@@ -1,12 +1,67 @@
 iOS Change Log
 ==============
 
-Version 5.5.1 *(2015-07-08)*
+Version 6.0.1 *(2015-10-13)*
 ----------------------------
 
 Fixes:
-- Fixed an issue that crashed or hung the SDK during initialization. 
+
+- Calls to cacheInterstitial and cacheRewardedVideo retry again when there is nothing in the video cache 
+- Xcode 7.0.1 would not archive with bitcode enabled 
+- Fixed build warnings with bitcode enabled 
+
+Version 6.0.0 *(2015-10-12)*
+----------------------------
+
+Features:
+
+- Video experience rebuilt from the ground up, upgrade to this SDK to enable Chartboost's behind-the-scenes video optimization (highly recommended!)
+- Removed deprecated Chartboost Newsfeed.
+
+Fixes:
+
+- cacheRewardedVideo would stop audio of the playing video. 
+- pulling headphones out during the confirmation screen of rewarded videos no longer starts the video. 
+- accepting or declining a phonecall during the confirmation screen of rewarded videos no longer starts the video. 
+
 Improvements:
+
+- setMediation now uses enumerated constants for partners. 
+
+
+Version 5.5.4 *(2015-09-01)*
+----------------------------
+
+Features:
+
+Fixes:
+
+Improvements:
+
+- Bitcode support for iOS 9.
+
+Version 5.5.3 *(2015-07-28)*
+----------------------------
+
+Features:
+
+Fixes:
+
+- Fix to include the armv7s slice. 
+
+Improvements:
+
+Version 5.5.1 *(2015-07-08)*
+----------------------------
+
+Features:
+
+Fixes:
+
+- Fixed an issue that crashed or hung the SDK during initialization. 
+
+Improvements:
+
 - Chartboost example application now supports clicking on the inPlay ad. 
 
 
@@ -16,12 +71,14 @@ Version 5.5.0 *(2015-06-28)*
 Features:
 
 Fixes:
+
 - Fixed bug that prevented video ads from resuming/being dismissed after incoming phone calls.  
 - Corrected video prefetcher behavior to prevent unwanted deletions of videos prior to show calls. 
 - Fixed bug that prevented proper caching of new MoreApps data after the first call. 
 - Suppressed erroneous CoreData unable to load `CBHTTPRequestEntity` warning message.  
 
 Improvements:
+
 - Rewarded videos no longer need to wait until the video prefetcher is complete before showing an existing video. 
 - Mediation partners can call `setMediation:withVersion` to set the library name and version. 
 - AFNetworking library updated to version 2.5.4. 
