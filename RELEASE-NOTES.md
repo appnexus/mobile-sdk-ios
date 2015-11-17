@@ -28,6 +28,10 @@
 
 + Yahoo Flurry SDK 7.3.0
 
+### Known Issues
+
++ Amazon SDK 2.2.11 emits warnings in Xcode 7 of the following kind: "Warning: Could not resolve external type c:objc(cs)". These will be addressed in a subsequent release.
+
 ## ~~RC 2.7~~
 
 ## RC 2.6
