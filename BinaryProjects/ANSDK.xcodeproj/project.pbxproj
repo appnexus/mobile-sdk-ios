@@ -699,6 +699,7 @@
 		8A893F121BFBD713007AC313 /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		8A893F131BFBD713007AC313 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		8A893F141BFBD713007AC313 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		8A893F4A1BFBDEB0007AC313 /* libInMobi-5.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-5.0.2.a"; sourceTree = "<group>"; };
 		8A8DEF891AD58EC900742AD7 /* ANAdAdapterBaseAdColony+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAdColony+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdColony.h; sourceTree = "<group>"; };
 		8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdColony.m; sourceTree = "<group>"; };
@@ -909,8 +910,6 @@
 		8AE87A051BDAD044001053D2 /* IMNativeDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMNativeDelegate.h; sourceTree = "<group>"; };
 		8AE87A061BDAD044001053D2 /* IMRequestStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMRequestStatus.h; sourceTree = "<group>"; };
 		8AE87A071BDAD044001053D2 /* IMSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMSdk.h; sourceTree = "<group>"; };
-		8AE87A081BDAD044001053D2 /* libInMobi-5.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-5.0.1.a"; sourceTree = "<group>"; };
-		8AE87A091BDAD044001053D2 /* LICENSE-INMOBI.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "LICENSE-INMOBI.txt"; sourceTree = "<group>"; };
 		8AEA6BE71A0BEEF5009DB71B /* ANNativeAdTargetingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdTargetingProtocol.h; path = native/ANNativeAdTargetingProtocol.h; sourceTree = "<group>"; };
 		8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdDelegate.h; path = native/ANNativeAdDelegate.h; sourceTree = "<group>"; };
 		8AF3C19A1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeImpressionTrackerInfo.h; sourceTree = "<group>"; };
@@ -1774,8 +1773,7 @@
 				8AE87A051BDAD044001053D2 /* IMNativeDelegate.h */,
 				8AE87A061BDAD044001053D2 /* IMRequestStatus.h */,
 				8AE87A071BDAD044001053D2 /* IMSdk.h */,
-				8AE87A081BDAD044001053D2 /* libInMobi-5.0.1.a */,
-				8AE87A091BDAD044001053D2 /* LICENSE-INMOBI.txt */,
+				8A893F4A1BFBDEB0007AC313 /* libInMobi-5.0.2.a */,
 			);
 			path = InMobiSDK;
 			sourceTree = "<group>";
