@@ -14,7 +14,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "ANGlobal.h"
+#import "ANAdConstants.h"
 
 @protocol ANAdViewInternalDelegate <NSObject>
 
@@ -54,4 +54,18 @@
 - (void)adShouldSetOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties;
 - (void)adShouldUseCustomClose:(BOOL)useCustomClose;
 
+@end
+
+@class ANVideoAd;
+@protocol ANVideoAdInternalDelegate <ANAdViewInternalDelegate>
+- (void) adStartedPlayingVideo:(ANVideoAd *) ad;
+- (void) adPausedVideo:(ANVideoAd *) ad;
+- (void) adResumedVideo:(ANVideoAd *) ad;
+- (void) adSkippedVideo:(ANVideoAd *) ad;
+- (void) adFinishedQuartileEvent:(ANVideoEvent)videoEvent withAd:(ANVideoAd *) ad;
+- (void) adFinishedPlayingCompleteVideo:(ANVideoAd *) ad;
+- (void) adMuted:(BOOL) isMuted withAd:(ANVideoAd *) ad;
+- (void) adDidPerformClickThroughOnVideo:(ANVideoAd *) ad;
+- (void) adWillCloseVideo:(ANVideoAd *) ad;
+- (void) adDidCloseVideo:(ANVideoAd *) ad;
 @end
