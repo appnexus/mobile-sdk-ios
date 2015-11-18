@@ -43,6 +43,9 @@
 - (void)tearDown {
     [super tearDown];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kANHTTPStubURLProtocolRequestDidLoadNotification
+                                                  object:nil];
 }
 
 - (void)setupRequestTracker {
@@ -54,8 +57,11 @@
 }
 
 - (void)requestLoaded:(NSNotification *)notification {
-    self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
-    [self.requestExpectation fulfill];
+    if (self.requestExpectation) {
+        self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
+        [self.requestExpectation fulfill];
+        self.requestExpectation = nil;
+    }
 }
 
 - (void)testSetPlacementOnlyOnBanner {
