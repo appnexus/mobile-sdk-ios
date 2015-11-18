@@ -23,10 +23,12 @@
 @interface ANNativeAdRequestTestCase : XCTestCase <ANNativeAdRequestDelegate>
 
 @property (nonatomic, readwrite, strong) ANNativeAdRequest *adRequest;
+@property (nonatomic, readwrite, strong) XCTestExpectation *requestExpectation;
 @property (nonatomic, readwrite, strong) XCTestExpectation *delegateCallbackExpectation;
 @property (nonatomic, readwrite, assign) BOOL successfulAdCall;
 @property (nonatomic, readwrite, strong) ANNativeAdResponse *adResponse;
 @property (nonatomic, readwrite, strong) NSError *adRequestError;
+@property (nonatomic) NSURLRequest *request;
 
 @end
 
@@ -38,6 +40,7 @@
     self.adRequest.delegate = self;
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self stubResultCBResponse];
+    [self setupRequestTracker];
 }
 
 - (void)tearDown {
@@ -48,6 +51,65 @@
     self.adResponse = nil;
     self.adRequestError = nil;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+}
+
+- (void)setupRequestTracker {
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(requestLoaded:)
+                                                 name:kANHTTPStubURLProtocolRequestDidLoadNotification
+                                               object:nil];
+}
+
+- (void)requestLoaded:(NSNotification *)notification {
+    self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
+    [self.requestExpectation fulfill];
+}
+
+
+- (void)testSetPlacementIdOnlyOnNative {
+    [self.adRequest setPlacementId:@"1"];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertEqual(@"1", [self.adRequest placementId]);
+    XCTAssertTrue([requestPath containsString:@"?id=1"]);
+}
+
+- (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
+    [self.adRequest setInventoryCode:@"test" memberId:2];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertEqual(2, [self.adRequest memberId]);
+    XCTAssertEqual(@"test", [self.adRequest inventoryCode]);
+    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
+}
+
+- (void)testSetBothInventoryCodeAndPlacementIdOnNative {
+    [self.adRequest setInventoryCode:@"test" memberId:2];
+    [self.adRequest setPlacementId:@"1"];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertEqual(2, [self.adRequest memberId]);
+    XCTAssertEqual(@"test", [self.adRequest inventoryCode]);
+    XCTAssertEqual(@"1", [self.adRequest placementId]);
+    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
+    XCTAssertTrue(![requestPath containsString:@"?id=1"]);
 }
 
 - (void)testAppNexusWithMainImageLoad {
