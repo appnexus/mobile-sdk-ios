@@ -1,8 +1,38 @@
-## RC 27
+## RC 2.8
 
 ### New Features
 
-+ MS-1701 Public api to support inventory code and member id
++ MS-1701 Added public API to support passing inventory code and member ID in lieu of placement ID
+
+### MS-1712 Contains the following mediated SDKs:
+
++ AdMob SDK Version 7.5.2
+
++ Amazon SDK Version 2.2.11
+
++ Facebook SDK Version 4.8.0
+
++ Millennial Media SDK Version 6.1.0
+
++ MoPub SDK Version 4.1.0
+
++ InMobi SDK Version 5.0.2
+
++ VDOPIA Lightweight SDK Version 4
+
++ Vungle SDK 3.2.0
+
++ AdColony SDK 2.6.0
+
++ Chartboost SDK 6.0.1
+
++ Yahoo Flurry SDK 7.3.0
+
+### Known Issues
+
++ Amazon SDK 2.2.11 emits warnings in Xcode 7 of the following kind: "Warning: Could not resolve external type c:objc(cs)". These will be addressed in a subsequent release.
+
+## ~~RC 2.7~~
 
 ## RC 2.6
 
