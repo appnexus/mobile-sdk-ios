@@ -20,6 +20,7 @@
 #import "ANGlobal.h"
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
+#import "XCTestCase+ANCategory.h"
 
 @interface ANPublicAPITestCase : XCTestCase
 
@@ -34,6 +35,7 @@
 
 - (void)setUp {
     [super setUp];
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self setupRequestTracker];
 }
@@ -44,7 +46,6 @@
 }
 
 - (void)setupRequestTracker {
-    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestLoaded:)
@@ -58,6 +59,8 @@
 }
 
 - (void)testSetPlacementOnlyOnBanner {
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
@@ -74,6 +77,8 @@
 }
 
 - (void)testSetInventoryCodeAndMemberIDOnBanner {
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+        self.requestExpectation = [self expectationWithDescription:@"request"];
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    memberId:1
@@ -92,6 +97,8 @@
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnBanner {
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
@@ -111,8 +118,9 @@
 }
 
 - (void)testSetPlacementOnlyOnInterstitial {
-    self.interstitial = [[ANInterstitialAd alloc]
-                   initWithPlacementId:@"1"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
     [self.interstitial loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
@@ -120,13 +128,15 @@
                                  }];
     self.requestExpectation = nil;
     NSString *requestPath = [[self.request URL] absoluteString];
-    XCTAssertEqual(@"1", [self.banner placementId]);
+    XCTAssertEqual(@"1", [self.interstitial placementId]);
     XCTAssertTrue([requestPath containsString:@"?id=1"]);
 }
 
 - (void)testSetInventoryCodeAndMemberIDOnInterstitial {
-    self.interstitial = [[ANInterstitialAd alloc]
-                   initWithMemberId:2 inventoryCode:@"test"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithMemberId:2
+                                                     inventoryCode:@"test"];
     [self.interstitial loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
@@ -135,13 +145,14 @@
     self.requestExpectation = nil;
     NSString *requestPath = [[self.request URL] absoluteString];
     XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
-    XCTAssertEqual(1, [self.interstitial memberId]);
-    XCTAssertTrue([requestPath containsString:@"?member=1&inv_code=test"]);
+    XCTAssertEqual(2, [self.interstitial memberId]);
+    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnInterstitial {
-    self.interstitial = [[ANInterstitialAd alloc]
-                   initWithPlacementId:@"1"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
     [self.interstitial setInventoryCode:@"test" memberId:2];
     [self.interstitial loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -155,5 +166,19 @@
     XCTAssertEqual(2, [self.interstitial memberId]);
     XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
 }
+
+- (void)stubRequestWithResponse:(NSString *)responseName {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
+                                                                                        ofType:@"json"]
+                                                       encoding:NSUTF8StringEncoding
+                                                          error:nil];
+    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
+    requestStub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
+    requestStub.responseCode = 200;
+    requestStub.responseBody = baseResponse;
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+}
+
 
 @end

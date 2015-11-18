@@ -54,7 +54,6 @@
 }
 
 - (void)setupRequestTracker {
-    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestLoaded:)
@@ -69,7 +68,9 @@
 
 
 - (void)testSetPlacementIdOnlyOnNative {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setPlacementId:@"1"];
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
@@ -82,7 +83,9 @@
 }
 
 - (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
@@ -96,8 +99,10 @@
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnNative {
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
     [self.adRequest setPlacementId:@"1"];
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {

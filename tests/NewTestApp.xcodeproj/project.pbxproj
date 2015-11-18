@@ -208,6 +208,10 @@
 		8AE87A181BDADE3B001053D2 /* libInMobi-5.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE87A171BDADE3B001053D2 /* libInMobi-5.0.1.a */; };
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
 		F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */; };
+		F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */; };
+		F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */; };
+		F50D81681BFCDC77008D74DB /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009AB19DB18AE0090EBED /* ANURLConnectionStub.m */; };
+		F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1858,6 +1862,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
+				F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
 				8AA00A4819DB2A9A0090EBED /* dogSelfie.jpg in Resources */,
@@ -1975,6 +1980,7 @@
 			files = (
 				8A0AA45919DB2CB4005EC52C /* ANInterstitialAd+ANTest.m in Sources */,
 				8A0AA48F19DB3453005EC52C /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
+				F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */,
 				8AA00A5119DB2B160090EBED /* XCTestCase+ANCategory.m in Sources */,
 				8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */,
@@ -1993,6 +1999,7 @@
 				8A0AA46C19DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m in Sources */,
 				8A0AA49019DB3453005EC52C /* ANAdAdapterBannerNetworkError.m in Sources */,
 				8A0AA49119DB3453005EC52C /* ANAdAdapterBannerNoDelegate.m in Sources */,
+				F50D81681BFCDC77008D74DB /* ANURLConnectionStub.m in Sources */,
 				F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */,
 				8A0AA46A19DB30A2005EC52C /* ANAdResponseTestCase.m in Sources */,
 				8A0AA47919DB314C005EC52C /* ANLoadAndHitOtherCallbacks.m in Sources */,
@@ -2001,6 +2008,7 @@
 				8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */,
 				8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
 				8A0AA47819DB314C005EC52C /* ANFailedMultiple.m in Sources */,
+				F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */,
 				8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */,
 				8AA00A5519DB2BF40090EBED /* ANMediationAdViewController+ANTest.m in Sources */,
 				8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */,
