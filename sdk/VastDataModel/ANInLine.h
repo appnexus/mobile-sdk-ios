@@ -17,7 +17,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "ANGlobal.h"
+#import "ANAdConstants.h"
 #import "ANAdSystem.h"
 #import "ANImpression.h"
 #import "ANCreative.h"

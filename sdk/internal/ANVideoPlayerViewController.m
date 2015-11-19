@@ -204,6 +204,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
         isStarted = YES;
         ANLogDebug(@"Started");
         [self fireTrackingEventWithEvent:ANVideoEventStart];
+        [self.delegate adStartedPlayingVideo:self.videoAd];
     } else if(currentDuration > 0){
         if (currentDuration > previousDuration){
             previousDuration = currentDuration;
@@ -211,14 +212,17 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
                 isFirstQuartileDone = YES;
                 ANLogDebug(@"First Quartile");
                 [self fireTrackingEventWithEvent:ANVideoEventQuartileFirst];
+                [self.delegate adFinishedQuartileEvent:ANVideoEventQuartileFirst withAd:self.videoAd];
             } else if(currentDuration > quartileDuration*2 && !isMidPointQuartileDone){
                 isMidPointQuartileDone = YES;
                 ANLogDebug(@"Mid Point");
                 [self fireTrackingEventWithEvent:ANVideoEventQuartileMidPoint];
+                [self.delegate adFinishedQuartileEvent:ANVideoEventQuartileMidPoint withAd:self.videoAd];
             } else if(currentDuration > quartileDuration * 3 && !isThirdQuartileDone){
                 isThirdQuartileDone = YES;
                 ANLogDebug(@"Third Quartile");
                 [self fireTrackingEventWithEvent:ANVideoEventQuartileThird];
+                [self.delegate adFinishedQuartileEvent:ANVideoEventQuartileThird withAd:self.videoAd];
             }
         }
         
@@ -226,6 +230,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
             isCompleteQuartileDone = YES;
             ANLogDebug(@"Complete Quartile");
             [self fireTrackingEventWithEvent:ANVideoEventQuartileComplete];
+            [self.delegate adFinishedPlayingCompleteVideo:self.videoAd];
         }
     }
 }
@@ -235,11 +240,14 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     if (!isCompleteQuartileDone) {
         [self.playerView.player pause];
         [self fireTrackingEventWithEvent:ANVideoEventSkip];
+        [self.delegate adSkippedVideo:self.videoAd];
     }
+    [self.delegate adWillCloseVideo:self.videoAd];
     [self removeApplicationNotifications];
     [self dismissViewControllerAnimated:YES
                              completion:^{
-        [self fireTrackingEventWithEvent:ANVideoEventCloseLinear];
+                                [self fireTrackingEventWithEvent:ANVideoEventCloseLinear];
+                                [self.delegate adDidCloseVideo:self.videoAd];
     }];
 }
 
@@ -249,6 +257,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     if (!isCompleteQuartileDone) {
         if (isStarted && CMTimeGetSeconds(self.playerView.player.currentTime) > 0) {
             [self fireTrackingEventWithEvent:ANVideoEventResume];
+            [self.delegate adResumedVideo:self.videoAd];
         }
         [self.playerView.player play];
     }
@@ -258,6 +267,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     if (!isCompleteQuartileDone) {
         [self.playerView.player pause];
         [self fireTrackingEventWithEvent:ANVideoEventPause];
+        [self.delegate adPausedVideo:self.videoAd];
     }
 }
 
@@ -271,6 +281,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
         ANLogDebug(@"Volume Unmuted.");
         [self fireTrackingEventWithEvent:ANVideoEventUnMute];
     }
+    
+    [self.delegate adMuted:value withAd:self.videoAd];
 }
 
 - (void)closeButtonClicked {
@@ -341,6 +353,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 }
 
 - (void)openClickInBrowserWithURL:(NSURL *)url {
+    
     if (!self.openClicksInNativeBrowser) {
         _browserController = [[ANBrowserViewController alloc] initWithURL:url
                                                                  delegate:self
@@ -352,6 +365,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
         [self pause];
         [[UIApplication sharedApplication] openURL:url];
     }
+    
+    [self.delegate adDidPerformClickThroughOnVideo:self.videoAd];
 }
 
 - (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {

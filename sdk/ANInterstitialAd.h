@@ -45,7 +45,7 @@
  */
 @interface ANInterstitialAd : ANAdView
 
-@property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate, ANVideoAdDelegate> delegate;
+@property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
 
 /**
  Delegate object that receives custom app event notifications from this
@@ -53,6 +53,11 @@
  */
 @property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 
+/**
+ Delegate object that receives custom video event notifications from this
+ ANInterstitialAd.
+ */
+@property (nonatomic, readwrite, weak) id<ANVideoAdDelegate> videoAdDelegate;
 /**
  The ad view's background color. If the color is fully or partially transparent,
  set opaque to NO to render an interstitial with a transparent background.
@@ -153,8 +158,13 @@
 
 @protocol ANVideoAdDelegate <ANAdDelegate>
 
-- (void) videoAdPaused:(ANInterstitialAd *)ad;
-- (void) videoAdResumed:(ANInterstitialAd *)ad;
-- (void) videoAdStarted:(ANInterstitialAd *)ad;
-- (void) videoAdFinishedPlaying:(ANInterstitialAd *)ad;
+@optional
+- (void) adStartedPlayingVideo:(id<ANAdProtocol>)ad;
+- (void) adPausedVideo:(id<ANAdProtocol>)ad;
+- (void) adResumedVideo:(id<ANAdProtocol>)ad;
+- (void) adSkippedVideo:(id<ANAdProtocol>)ad;
+- (void) adFinishedQuartileEvent:(ANVideoEvent)videoEvent withAd:(id<ANAdProtocol>)ad;
+- (void) adFinishedPlayingCompleteVideo:(id<ANAdProtocol>)ad;
+- (void) adMuted:(BOOL) isMuted withAd:(id<ANAdProtocol>)ad;
+
 @end
