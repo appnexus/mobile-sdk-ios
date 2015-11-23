@@ -58,7 +58,7 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
 
 - (NSString *)queryString {
     NSMutableArray *queryStringParameters = [[NSMutableArray alloc] init];
-    [queryStringParameters addObject:[self placementIdParameter]];
+    [queryStringParameters addObject:[self placementIdentifierParameter]];
     [queryStringParameters addObject:[self idfaParameter]];
     [queryStringParameters addObject:[self dontTrackEnabledParameter]];
     [queryStringParameters addObjectsFromArray:@[[self deviceMakeParameter], [self deviceModelParameter]]];
@@ -136,7 +136,12 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
     return [NSString stringWithFormat:@"idfa=%@", [self URLEncodingFrom:ANUDID()]];
 }
 
-- (NSString *)placementIdParameter {
+- (NSString *)placementIdentifierParameter {
+    NSString *invCode = [self.adRequestDelegate inventoryCode];
+    NSInteger memberId = [self.adRequestDelegate memberId];
+    if (memberId > 0 && invCode) {
+        return [NSString stringWithFormat:@"member=%d&inv_code=%@", (int)memberId, [self URLEncodingFrom:invCode]];
+    }
     NSString *placementId = [self.adRequestDelegate placementId];
     
     if ([placementId length] < 1) {

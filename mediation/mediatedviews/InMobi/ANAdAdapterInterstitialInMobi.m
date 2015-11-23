@@ -36,26 +36,25 @@
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (![ANAdAdapterBaseInMobi appId].length) {
         ANLogError(@"InMobi mediation failed. Call [ANAdAdapterBaseInMobi setInMobiAppID:@\"YOUR_PROPERTY_ID\"] to set the InMobi global App Id");
+        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        return;
+    }
+    if (!idString.length) {
+        ANLogError(@"Unable to load InMobi interstitial due to empty ad unit id");
         [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }
-    NSString *appId;
-    if (idString.length) {
-        appId = idString;
-    } else {
-        appId = [ANAdAdapterBaseInMobi appId];
-    }
-    self.adInterstitial = [[IMInterstitial alloc] initWithAppId:appId];
+    self.adInterstitial = [[IMInterstitial alloc] initWithPlacementId:[idString longLongValue]];
     self.adInterstitial.delegate = self;
-    self.adInterstitial.additionaParameters = targetingParameters.customKeywords;
+    self.adInterstitial.extras = targetingParameters.customKeywords;
     self.adInterstitial.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
     [ANAdAdapterBaseInMobi setInMobiTargetingWithTargetingParameters:targetingParameters];
-    [self.adInterstitial loadInterstitial];
+    [self.adInterstitial load];
 }
 
 - (BOOL)isReady {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    return self.adInterstitial.state == kIMInterstitialStateReady;
+    return [self.adInterstitial isReady];
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController {
@@ -66,49 +65,64 @@
         return;
     }
     
-    [self.adInterstitial presentInterstitialAnimated:YES];
+    [self.adInterstitial showFromViewController:viewController];
 }
 
 - (void)dealloc {
-    [self.adInterstitial stopLoading];
     self.adInterstitial.delegate = nil;
 }
 
 #pragma mark - IMInterstitialDelegate
 
-- (void)interstitialDidReceiveAd:(IMInterstitial *)ad {
+- (void)interstitialDidFinishLoading:(IMInterstitial*)interstitial {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate didLoadInterstitialAd:self];
 }
 
-- (void)interstitial:(IMInterstitial *)ad didFailToReceiveAdWithError:(IMError *)error {
+- (void)interstitial:(IMInterstitial*)interstitial didFailToLoadWithError:(IMRequestStatus*)error  {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANLogDebug(@"Received InMobi Error: %@", error);
-    [self.delegate didFailToLoadAd:[ANAdAdapterBaseInMobi responseCodeFromInMobiError:error]];
+    [self.delegate didFailToLoadAd:[ANAdAdapterBaseInMobi responseCodeFromInMobiRequestStatus:error]];
 }
 
-- (void)interstitialWillPresentScreen:(IMInterstitial *)ad {
-    // Do nothing.
+- (void)interstitialWillPresent:(IMInterstitial*)interstitial {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
 }
 
-- (void)interstitialWillDismissScreen:(IMInterstitial *)ad {
+- (void)interstitialDidPresent:(IMInterstitial *)interstitial {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
+}
+
+- (void)interstitial:(IMInterstitial*)interstitial didFailToPresentWithError:(IMRequestStatus*)error {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate failedToDisplayAd];
+}
+
+- (void)interstitialWillDismiss:(IMInterstitial*)interstitial {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate willCloseAd];
 }
 
-- (void)interstitialDidDismissScreen:(IMInterstitial *)ad {
+- (void)interstitialDidDismiss:(IMInterstitial*)interstitial {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate didCloseAd];
 }
 
-- (void)interstitialWillLeaveApplication:(IMInterstitial *)ad {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    [self.delegate willLeaveApplication];
-}
-
-- (void)interstitialDidInteract:(IMInterstitial *)ad withParams:(NSDictionary *)dictionary {
+- (void)interstitial:(IMInterstitial*)interstitial didInteractWithParams:(NSDictionary*)params {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate adWasClicked];
+}
+
+- (void)interstitial:(IMInterstitial*)interstitial rewardActionCompletedWithRewards:(NSDictionary*)rewards {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
+}
+
+- (void)userWillLeaveApplicationFromInterstitial:(IMInterstitial*)interstitial {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate willLeaveApplication];
 }
 
 @end

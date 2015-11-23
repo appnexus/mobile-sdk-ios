@@ -20,15 +20,6 @@
 
 #import "IMBanner.h"
 
-#define kANAdAdapterBannerInMobiAdSize320w48h CGSizeMake(320,48)
-#define kANAdAdapterBannerInMobiAdSize300w250h CGSizeMake(300,250)
-#define kANAdAdapterBannerInMobiAdSize728w90h CGSizeMake(728,90)
-#define kANAdAdapterBannerInMobiAdSize468w60h CGSizeMake(468,60)
-#define kANAdAdapterBannerInMobiAdSize120w600h CGSizeMake(120,600)
-#define kANAdAdapterBannerInMobiAdSize320w50h CGSizeMake(320,50)
-
-static int const kANAdAdapterBannerInMobiInvalidAdSize = -1;
-
 @interface ANAdAdapterBannerInMobi () <IMBannerDelegate>
 
 @property (nonatomic, readwrite, strong) IMBanner *banner;
@@ -50,75 +41,55 @@ static int const kANAdAdapterBannerInMobiInvalidAdSize = -1;
         [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }
-    CGRect frame = CGRectMake(0, 0, size.width, size.height);
-    NSString *appId;
-    if (idString.length) {
-        appId = idString;
-    } else {
-        appId = [ANAdAdapterBaseInMobi appId];
-    }
-    int adSize = [[self class] adSizeValueForAdSize:size];
-    if (adSize == kANAdAdapterBannerInMobiInvalidAdSize) {
+    if (!idString.length) {
+        ANLogError(@"Unable to load InMobi banner due to empty ad unit id");
         [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
         return;
     }
-    self.banner = [[IMBanner alloc] initWithFrame:frame
-                                            appId:appId
-                                           adSize:adSize];
+    CGRect frame = CGRectMake(0, 0, size.width, size.height);
+    self.banner = [[IMBanner alloc] initWithFrame:frame placementId:[idString longLongValue]];
     self.banner.delegate = self;
-    self.banner.refreshInterval = REFRESH_INTERVAL_OFF;
-    self.banner.additionaParameters = targetingParameters.customKeywords;
+    [self.banner shouldAutoRefresh:NO];
     self.banner.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
+    self.banner.extras = targetingParameters.customKeywords;
     [ANAdAdapterBaseInMobi setInMobiTargetingWithTargetingParameters:targetingParameters];
-    [self.banner loadBanner];
-}
-
-+ (int)adSizeValueForAdSize:(CGSize)adSize {
-    if (CGSizeEqualToSize(adSize, kANAdAdapterBannerInMobiAdSize320w48h)) {
-        return IM_UNIT_320x48;
-    } else if (CGSizeEqualToSize(adSize, kANAdAdapterBannerInMobiAdSize300w250h)) {
-        return IM_UNIT_300x250;
-    } else if (CGSizeEqualToSize(adSize, kANAdAdapterBannerInMobiAdSize728w90h)) {
-        return IM_UNIT_728x90;
-    } else if (CGSizeEqualToSize(adSize, kANAdAdapterBannerInMobiAdSize468w60h)) {
-        return IM_UNIT_468x60;
-    } else if (CGSizeEqualToSize(adSize, kANAdAdapterBannerInMobiAdSize120w600h)) {
-        return IM_UNIT_120x600;
-    } else if (CGSizeEqualToSize(adSize, kANAdAdapterBannerInMobiAdSize320w50h)) {
-        return IM_UNIT_320x50;
-    } else {
-        ANLogDebug(@"Invalid banner size passed to InMobi Adapter %@", NSStringFromCGSize(adSize));
-    }
-    
-    return kANAdAdapterBannerInMobiInvalidAdSize;
+    [self.banner load];
 }
 
 - (void)dealloc {
-    [self.banner stopLoading];
     self.banner.delegate = nil;
 }
 
 #pragma mark - IMBannerDelegate
 
-- (void)bannerDidReceiveAd:(IMBanner *)banner {
+- (void)bannerDidFinishLoading:(IMBanner *)banner {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate didLoadBannerAd:banner];
 }
 
-- (void)banner:(IMBanner *)banner didFailToReceiveAdWithError:(IMError *)error {
+- (void)banner:(IMBanner *)banner didFailToLoadWithError:(IMRequestStatus *)error {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANLogDebug(@"Received InMobi Error: %@", error);
-    [self.delegate didFailToLoadAd:[ANAdAdapterBaseInMobi responseCodeFromInMobiError:error]];
+    [self.delegate didFailToLoadAd:[ANAdAdapterBaseInMobi responseCodeFromInMobiRequestStatus:error]];
 }
 
-- (void)bannerDidInteract:(IMBanner *)banner withParams:(NSDictionary *)dictionary {
+- (void)banner:(IMBanner *)banner didInteractWithParams:(NSDictionary *)params {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate adWasClicked];
+}
+
+- (void)userWillLeaveApplicationFromBanner:(IMBanner *)banner {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate willLeaveApplication];
 }
 
 - (void)bannerWillPresentScreen:(IMBanner *)banner {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate willPresentAd];
+}
+
+- (void)bannerDidPresentScreen:(IMBanner *)banner {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate didPresentAd];
 }
 
@@ -132,9 +103,9 @@ static int const kANAdAdapterBannerInMobiInvalidAdSize = -1;
     [self.delegate didCloseAd];
 }
 
-- (void)bannerWillLeaveApplication:(IMBanner *)banner {
+- (void)banner:(IMBanner *)banner rewardActionCompletedWithRewards:(NSDictionary *)rewards {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    [self.delegate willLeaveApplication];
+    // Do nothing
 }
 
 @end

@@ -1,75 +1,69 @@
 //
 //  IMBannerDelegate.h
-//  InMobi Monetization SDK
+//  APIs
+//  Copyright (c) 2015 InMobi. All rights reserved.
 //
-//  Copyright (c) 2013 InMobi. All rights reserved.
-//
-
+/**
+ * A listener for receiving notifications during the lifecycle of a banner ad.
+ *
+ * Note All the events in this listener will be invoked on your application's UI thread.
+ 
+ In most cases your application will need to listen for the following events on a banner ad
+ 
+ The outcome of an ad request (if the request succeeded or failed); 
+ see bannerDidFinishLoading:(IMBanner*)banner; and banner:(IMBanner*)banner didFailToLoadWithError:(IMRequestStatus*)error;
+ 
+ The ad opened an overlay that covered the screen. This means that the user can no longer interact with your application; 
+ see bannerDidPresentScreen:(IMBanner*)banner
+ 
+ The ad overlay opened was dismissed. The user is now free to interact with your application; 
+ see bannerDidDismissScreen:(IMBanner*)banner;
+ 
+ A user interaction with the ad will result in the User leaving your application context; 
+ see userWillLeaveApplicationFromBanner:(IMBanner*)banner;
+ 
+ If your application involves running rewarded or incentivised ads, then you should, in addition to the above events, also listen for the banner:(IMBanner*)banner rewardActionCompletedWithRewards:(NSDictionary*)rewards event and handle it appropriately to unlock rewards for the user of your app.
+ */
 #import <Foundation/Foundation.h>
-#import "IMError.h"
+#import "IMRequestStatus.h"
 
 @class IMBanner;
-
-/**
- * This is the delegate for receiving state change messages from an IMBanner.
- * Use this to receive callbacks for banner ad request succeeding, failing or
- * for the events after the banner ad is clicked.
- */
 @protocol IMBannerDelegate <NSObject>
-
-@optional
-
-#pragma mark Banner Request Notifications
 /**
- * Callback sent when an ad request loaded an ad. This is a good opportunity
- * to add this view to the hierarchy if it has not yet been added.
- * @param banner The IMBanner instance which finished loading the ad request.
+ * Notifies the delegate that the banner has finished loading
  */
-- (void)bannerDidReceiveAd:(IMBanner *)banner;
+-(void)bannerDidFinishLoading:(IMBanner*)banner;
 /**
- * Callback sent when an ad request failed. Normally this is because no network
- * connection was available or no ads were available (i.e. no fill).
- * @param banner The IMBanner instance that failed to load the ad request.
- * @param error The error that occurred during loading.
+ * Notifies the delegate that the banner has failed to load with some error.
  */
-- (void)banner:(IMBanner *)banner didFailToReceiveAdWithError:(IMError *)error;
-
-#pragma mark Banner Interaction Notifications
+-(void)banner:(IMBanner*)banner didFailToLoadWithError:(IMRequestStatus*)error;
 /**
- * Called when the banner is tapped or interacted with by the user
- * Optional data is available to publishers to act on when using
- * monetization platform to render promotional ads.
- * @param banner The IMBanner instance that presents the screen.
- * @param dictionary The NSDictionary containing the parameters as passed by the creative
+ * Notifies the delegate that the banner was interacted with.
  */
--(void)bannerDidInteract:(IMBanner *)banner withParams:(NSDictionary *)dictionary;
+-(void)banner:(IMBanner*)banner didInteractWithParams:(NSDictionary*)params;
 /**
- * Callback sent just before when the banner is presenting a full screen view
- * to the user. Use this opportunity to stop animations and save the state of
- * your application in case the user leaves while the full screen view is on
- * screen (e.g. to visit the App Store from a link on the full screen view).
- * @param banner The IMBanner instance that presents the screen.
+ * Notifies the delegate that the user would be taken out of the application context.
  */
-- (void)bannerWillPresentScreen:(IMBanner *)banner;
+-(void)userWillLeaveApplicationFromBanner:(IMBanner*)banner;
 /**
- * Callback sent just before dismissing the full screen view.
- * @param banner The IMBanner instance that dismisses the screen.
+ * Notifies the delegate that the banner would be presenting a full screen content.
  */
-- (void)bannerWillDismissScreen:(IMBanner *)banner;
+-(void)bannerWillPresentScreen:(IMBanner*)banner;
 /**
- * Callback sent just after dismissing the full screen view.
- * Use this opportunity to restart anything you may have stopped as part of
- * bannerWillPresentScreen: callback.
- * @param banner The IMBanner instance that dismissed the screen.
+ * Notifies the delegate that the banner has finished presenting screen.
  */
-- (void)bannerDidDismissScreen:(IMBanner *)banner;
+-(void)bannerDidPresentScreen:(IMBanner*)banner;
 /**
- * Callback sent just before the application goes into the background because
- * the user clicked on a link in the ad that will launch another application
- * (such as the App Store). The normal UIApplicationDelegate methods like
- * applicationDidEnterBackground: will immediately be called after this.
- * @param banner The IMBanner instance that is launching another application.
+ * Notifies the delegate that the banner will start dismissing the presented screen.
  */
-- (void)bannerWillLeaveApplication:(IMBanner *)banner;
+-(void)bannerWillDismissScreen:(IMBanner*)banner;
+/**
+ * Notifies the delegate that the banner has dismissed the presented screen.
+ */
+-(void)bannerDidDismissScreen:(IMBanner*)banner;
+/**
+ * Notifies the delegate that the user has completed the action to be incentivised with.
+ */
+-(void)banner:(IMBanner*)banner rewardActionCompletedWithRewards:(NSDictionary*)rewards;
 
 @end

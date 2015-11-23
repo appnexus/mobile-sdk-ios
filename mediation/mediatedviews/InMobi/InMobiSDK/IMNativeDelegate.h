@@ -1,26 +1,60 @@
 //
 //  IMNativeDelegate.h
-//  InMobi Monetization SDK
+//  APIs
+//  Copyright (c) 2015 InMobi. All rights reserved.
 //
-//  Copyright (c) 2013 InMobi. All rights reserved.
-//
+
 /**
- * Implement these methods to get notified about the status of a native ad. These will be reported on the main thread.
+ * A listener for receiving notifications during the lifecycle of an native ad.
+ *
+ * Note All the events in this listener will be invoked on your application's UI thread.
+ *
+ * In most cases your application will need to listen for the following events on an native ad
+ 
+ The outcome of an ad request (if the request succeeded or failed); 
+ see nativeDidFinishLoading:(IMNative*)native; and native:(IMNative*)native didFailToLoadWithError:(IMRequestStatus*)error;
+ 
+ The ad opened an overlay that covered the screen. This means that the user can no longer interact with your application; 
+ see nativeDidPresentScreen:(IMNative*)native;
+ 
+ The ad opened overlay was dismissed. The user is now free to interact with your application; 
+ see nativeDidDismissScreen:(IMNative*)native;
+ 
+ A user interaction with the ad will result in the User leaving your application context; 
+ see userWillLeaveApplicationFromNative:(IMNative*)native;
  */
 #import <Foundation/Foundation.h>
-#import "IMError.h"
+#import "IMRequestStatus.h"
+
+
 @class IMNative;
 @protocol IMNativeDelegate <NSObject>
-
-@required
 /**
- * Once a native ad successfully finishes loading, the delegate will be notified with this method. 
- * At this point, the content of the native ad is filled and is usable by the publisher.
+ * Notifies the delegate that the native ad has finished loading
  */
--(void)nativeAdDidFinishLoading:(IMNative*)native;
+-(void)nativeDidFinishLoading:(IMNative*)native;
 /**
- * Upon error, the native ad delegate will be notified by this method.
+ * Notifies the delegate that the native ad has failed to load with error.
  */
--(void)nativeAd:(IMNative*)native didFailWithError:(IMError*)error;
-
+-(void)native:(IMNative*)native didFailToLoadWithError:(IMRequestStatus*)error;
+/**
+ * Notifies the delegate that the native ad would be presenting a full screen content.
+ */
+-(void)nativeWillPresentScreen:(IMNative*)native;
+/**
+ * Notifies the delegate that the native ad has presented a full screen content.
+ */
+-(void)nativeDidPresentScreen:(IMNative*)native;
+/**
+ * Notifies the delegate that the native ad would be dismissing the presented full screen content.
+ */
+-(void)nativeWillDismissScreen:(IMNative*)native;
+/**
+ * Notifies the delegate that the native ad has dismissed the presented full screen content.
+ */
+-(void)nativeDidDismissScreen:(IMNative*)native;
+/**
+ * Notifies the delegate that the user will be taken outside the application context.
+ */
+-(void)userWillLeaveApplicationFromNative:(IMNative*)native;
 @end

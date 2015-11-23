@@ -28,6 +28,22 @@
 @property (nonatomic, readwrite, strong) NSString *placementId;
 
 /*!
+ * An AppNexus member ID. A member ID is a numeric ID that's associated
+ * with the member that this app belongs to.
+ */
+
+@property (nonatomic, readonly, assign) NSInteger memberId;
+
+/*!
+ * An inventory code for a placement to represent a place where ads can
+ * be shown. In the presence of both placement and inventory code, AppNexus
+ * SDK favors inventory code over placement id. A member ID is required to request
+ * an ad using inventory code.
+ */
+
+@property (nonatomic, readonly, strong) NSString *inventoryCode;
+
+/*!
  * The user's location. Setting the user's location allows ad buyers to do
  * location targeting, which may increase spend.
  * @see ANLocation in ANLocation.h
@@ -91,5 +107,11 @@
  * @see customKeywords
  */
 - (void)removeCustomKeywordWithKey:(NSString *)key;
+
+/*!
+ * Set the inventory code and member id for the place that ads will be shown.
+ */
+
+- (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberId;
 
 @end

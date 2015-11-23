@@ -18,7 +18,7 @@
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
 
-#import "InMobi.h"
+#import "IMSdk.h"
 #import "IMNative.h"
 
 static NSInteger const kANAdAdapterNativeInMobiRatingScaleDefault = 5;
@@ -28,6 +28,7 @@ static NSString *const kANAdAdapterNativeInMobiImageURLKey = @"url";
 
 @property (nonatomic, readwrite, strong) IMNative *nativeAd;
 @property (nonatomic, readwrite, strong) NSDictionary *nativeContent;
+@property (nonatomic, readwrite, weak) UIView *boundView;
 
 @end
 
@@ -86,22 +87,29 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
         [self.requestDelegate didFailToLoadNativeAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }
+    if (!adUnitId.length) {
+        ANLogError(@"Unable to load InMobi native ad due to empty ad unit id");
+        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseUnableToFill];
+        return;
+    }
     NSString *appId;
     if (adUnitId.length) {
         appId = adUnitId;
     } else {
         appId = [ANAdAdapterBaseInMobi appId];
     }
-    self.nativeAd = [[IMNative alloc] initWithAppId:appId];
+    self.nativeAd = [[IMNative alloc] initWithPlacementId:[adUnitId longLongValue]];
     self.nativeAd.delegate = self;
-    self.nativeAd.additionaParameters = targetingParameters.customKeywords;
+    self.nativeAd.extras = targetingParameters.customKeywords;
     self.nativeAd.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
-    [self.nativeAd loadAd];
+    [self.nativeAd load];
 }
 
 - (void)registerViewForImpressionTracking:(UIView *)view {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    [self.nativeAd attachToView:view];
+    [IMNative bindNative:self.nativeAd
+                  toView:view];
+    self.boundView = view;
     self.expired = YES;
 }
 
@@ -111,13 +119,11 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
     if ([landingPageURLValue isKindOfClass:[NSString class]]) {
         NSString *landingPageURLString = (NSString *)landingPageURLValue;
         [self.nativeAdDelegate adWasClicked];
-        [self.nativeAd handleClick:nil];
+        [self.nativeAd reportAdClick:nil];
         NSURL *landingPageURL = [NSURL URLWithString:landingPageURLString];
-        if ([[UIApplication sharedApplication] canOpenURL:landingPageURL]) {
+        if (landingPageURL) {
             [self.nativeAdDelegate willLeaveApplication];
             [[UIApplication sharedApplication] openURL:landingPageURL];
-        } else {
-            ANLogDebug(@"Could not open native browser with InMobi landingURL %@", landingPageURLString);
         }
     } else {
         ANLogDebug(@"InMobi ad was clicked, but adapter was unable to find landing url –– Ignoring request to handle click.");
@@ -126,16 +132,18 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 
 - (void)unregisterViewFromTracking {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    [self.nativeAd detachFromView];
+    if (self.boundView) {
+        [IMNative unBindView:self.boundView];
+    }
     self.nativeAd.delegate = nil;
     self.nativeAd = nil;
 }
 
 #pragma mark - IMNativeDelegate
 
-- (void)nativeAdDidFinishLoading:(IMNative *)native {
+- (void)nativeDidFinishLoading:(IMNative *)native {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    NSDictionary *nativeContent = [[self class] nativeContentFromContentString:native.content];
+    NSDictionary *nativeContent = [[self class] nativeContentFromContentString:native.adContent];
     if (!nativeContent) {
         [self.requestDelegate didFailToLoadNativeAd:ANAdResponseInternalError];
         return;
@@ -149,10 +157,36 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
     [self.requestDelegate didLoadNativeAd:adResponse];
 }
 
-- (void)nativeAd:(IMNative *)native didFailWithError:(IMError *)error {
+- (void)native:(IMNative*)native didFailToLoadWithError:(IMRequestStatus *)error {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANLogDebug(@"Received InMobi Error: %@", error);
-    [self.requestDelegate didFailToLoadNativeAd:[ANAdAdapterBaseInMobi responseCodeFromInMobiError:error]];
+    [self.requestDelegate didFailToLoadNativeAd:[ANAdAdapterBaseInMobi responseCodeFromInMobiRequestStatus:error]];
+}
+
+-(void)nativeWillPresentScreen:(IMNative *)native {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate willPresentAd];
+}
+
+- (void)nativeDidPresentScreen:(IMNative *)native {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate didPresentAd];
+}
+
+- (void)nativeWillDismissScreen:(IMNative *)native {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate willCloseAd];
+
+}
+
+- (void)nativeDidDismissScreen:(IMNative *)native {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate didCloseAd];
+}
+
+- (void)userWillLeaveApplicationFromNative:(IMNative *)native {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate willLeaveApplication];
 }
 
 #pragma mark - Helper

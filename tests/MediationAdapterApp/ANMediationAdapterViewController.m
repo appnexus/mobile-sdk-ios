@@ -401,12 +401,14 @@
     mediatedAd.className = @"ANAdAdapterBannerInMobi";
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
+    mediatedAd.adId = @"1431977778764702";
     [self stubMediatedAd:mediatedAd];
 }
 
 - (void)stubInMobiInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialInMobi";
+    mediatedAd.adId = @"1431977778766816";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -422,6 +424,7 @@
 - (void)stubInMobiNative {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterNativeInMobi";
+    mediatedAd.adId = @"1431977778767375";
     [self stubMediatedAd:mediatedAd];
 }
 

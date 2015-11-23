@@ -36,6 +36,8 @@
 @implementation ANAdView
 // ANAdProtocol properties
 @synthesize placementId = __placementId;
+@synthesize memberId = __memberId;
+@synthesize inventoryCode = __invCode;
 @synthesize opensInNativeBrowser = __opensInNativeBrowser;
 @synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
 @synthesize location = __location;
@@ -83,7 +85,9 @@
 
 - (void)loadAd {
     NSString *errorString;
-    if ([self.placementId length] < 1) {
+    BOOL placementIdValid = [self.placementId length] >= 1;
+    BOOL inventoryCodeValid = ([self memberId] >=1 ) && [self inventoryCode];
+    if (!placementIdValid && !inventoryCodeValid) {
         errorString = ANErrorString(@"no_placement_id");
     }
     
@@ -118,6 +122,18 @@
     if (placementId != __placementId) {
         ANLogDebug(@"Setting placementId to %@", placementId);
         __placementId = placementId;
+    }
+}
+
+- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
+    invCode = ANConvertToNSString(invCode);
+    if (invCode && invCode != __invCode) {
+        ANLogDebug(@"Setting inventory code to %@", invCode);
+        __invCode = invCode;
+    }
+    if (memberId > 0 && memberId != __memberId) {
+        ANLogDebug(@"Setting member id to %d", (int) memberId);
+        __memberId = memberId;
     }
 }
 
@@ -160,6 +176,16 @@
 - (NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
     return __placementId;
+}
+
+- (NSInteger )memberId {
+    ANLogDebug(@"memberId returned %d", (int)__memberId);
+    return __memberId;
+}
+
+- (NSString *)inventoryCode {
+    ANLogDebug(@"inventoryCode returned %@", __invCode);
+    return __invCode;
 }
 
 - (ANLocation *)location {

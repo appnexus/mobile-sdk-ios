@@ -85,6 +85,16 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 	return self;
 }
 
+- (instancetype)initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode {
+    self = [super init];
+    
+    if (self != nil) {
+        [self setInventoryCode:inventoryCode memberId:memberId];
+    }
+    
+    return self;
+}
+
 - (void)dealloc {
     self.controller.delegate = nil;
     for (ANInterstitialAdFetcher *fetcher in self.adFetchers) {

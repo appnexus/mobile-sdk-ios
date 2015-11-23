@@ -108,6 +108,12 @@
  @returns void
  */
 - (instancetype)initWithPlacementId:(NSString *)placementId;
+/**
+ Instead of requesting ads using placement id, alternatively, you can
+ use the initialization method below to initialize an interstitial
+ using member id and inventory code.
+ */
+- (instancetype)initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode;
 
 /**
  Actually loads the ad into your ad view.

@@ -19,8 +19,8 @@
 #import "ANAdConstants.h"
 #import "ANTargetingParameters.h"
 
-#import "InMobi.h"
-#import "IMError.h"
+#import "IMSdk.h"
+#import "IMRequestStatus.h"
 
 @implementation ANAdAdapterBaseInMobi
 
@@ -31,28 +31,32 @@ static NSString *kANAdAdapterBaseInMobiAppId = @"";
 }
 
 + (void)setInMobiAppID:(NSString *)newAppId {
-    [InMobi initialize:newAppId];
+    [IMSdk initWithAccountID:newAppId];
     kANAdAdapterBaseInMobiAppId = newAppId;
 }
 
-+ (ANAdResponseCode)responseCodeFromInMobiError:(IMError *)error {
-    switch (error.code) {
-        case kIMErrorInvalidRequest:
-            return ANAdResponseInvalidRequest;
-        case kIMErrorNoFill:
-            return ANAdResponseUnableToFill;
-        case kIMErrorInternal:
-            return ANAdResponseInternalError;
-        case kIMErrorTimeout:
++ (ANAdResponseCode)responseCodeFromInMobiRequestStatus:(IMRequestStatus *)status {
+    switch (status.code) {
+        case kIMStatusCodeNetworkUnReachable:
             return ANAdResponseNetworkError;
-        case kIMErrorRequestCancelled:
+        case kIMStatusCodeNoFill:
+            return ANAdResponseUnableToFill;
+        case kIMStatusCodeRequestInvalid:
+            return ANAdResponseInvalidRequest;
+        case kIMStatusCodeRequestPending:
             return ANAdResponseInternalError;
-        case kIMErrorDoMonetization:
+        case kIMStatusCodeRequestTimedOut:
+            return ANAdResponseNetworkError;
+        case kIMStatusCodeInternalError:
             return ANAdResponseInternalError;
-        case kIMErrorDoNothing:
+        case kIMStatusCodeServerError:
+            return ANAdResponseNetworkError;
+        case kIMStatusCodeAdActive:
             return ANAdResponseInternalError;
+        case kIMStatusCodeEarlyRefreshRequest:
+            return ANAdResponseUnableToFill;
         default:
-            ANLogDebug(@"Unhandled InMobi IMError %@", error);
+            ANLogDebug(@"Unhandled IMRequestStatus code: %ld", (long)status.code);
             return ANAdResponseInternalError;
     }
 }
@@ -61,25 +65,43 @@ static NSString *kANAdAdapterBaseInMobiAppId = @"";
     if (targetingParameters.age) {
         NSNumber *ageNumber = [[[self class] sharedAgeNumberFormatter] numberFromString:targetingParameters.age];
         if (ageNumber) {
-            [InMobi setAge:[ageNumber integerValue]];
+            NSInteger age = 0;
+            if ([ageNumber integerValue] > 1900) {
+                NSDate *date = [NSDate date];
+                NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                NSDateComponents *components = [cal components:0
+                                                      fromDate:date];
+                age = [components year] - [ageNumber integerValue];
+            } else {
+                age = [ageNumber integerValue];
+            }
+            if (age > 0) {
+                [IMSdk setAge:age];
+            }
         }
+        
     }
     
     switch (targetingParameters.gender) {
         case ANGenderMale:
-            [InMobi setGender:kIMGenderMale];
+            [IMSdk setGender:kIMSDKGenderMale];
             break;
         case ANGenderFemale:
-            [InMobi setGender:kIMGenderFemale];
+            [IMSdk setGender:kIMSDKGenderFemale];
             break;
         default:
             break;
     }
     
     if (targetingParameters.location) {
-        [InMobi setLocationWithLatitude:targetingParameters.location.latitude
-                              longitude:targetingParameters.location.longitude
-                               accuracy:targetingParameters.location.horizontalAccuracy];
+        ANLocation *anLocation = targetingParameters.location;
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(anLocation.latitude, anLocation.longitude);
+        CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
+                                                             altitude:-1
+                                                   horizontalAccuracy:anLocation.horizontalAccuracy
+                                                     verticalAccuracy:-1
+                                                            timestamp:anLocation.timestamp];
+        [IMSdk setLocation:location];
     }
 }
 
