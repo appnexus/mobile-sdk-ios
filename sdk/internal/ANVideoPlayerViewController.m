@@ -129,6 +129,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     [self.playerView setVideoFillMode:AVLayerVideoGravityResizeAspect];
     self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
     
+    self.playerView.accessibilityLabel = @"player";
+    
     [self.view addSubview:self.playerView];
     [self.playerView an_constrainToSizeOfSuperview];
     
