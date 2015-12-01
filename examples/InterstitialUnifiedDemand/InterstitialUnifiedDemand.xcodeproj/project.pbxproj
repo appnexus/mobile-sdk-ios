@@ -24,6 +24,8 @@
 		EFDD763B1C047BED0073ACC4 /* VolumeClickTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD763A1C047BED0073ACC4 /* VolumeClickTest.m */; settings = {ASSET_TAGS = (); }; };
 		EFDD763E1C047D9B0073ACC4 /* PlayerClickTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD763D1C047D9B0073ACC4 /* PlayerClickTest.m */; settings = {ASSET_TAGS = (); }; };
 		EFDD76411C047E7A0073ACC4 /* CloseVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD76401C047E7A0073ACC4 /* CloseVideoTest.m */; settings = {ASSET_TAGS = (); }; };
+		EFF21EC71C0C60F100766443 /* OpenInInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF21EC61C0C60F100766443 /* OpenInInAppBrowser.m */; settings = {ASSET_TAGS = (); }; };
+		EFF21ECA1C0C614400766443 /* OpenInNativeBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF21EC91C0C614400766443 /* OpenInNativeBrowser.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +210,10 @@
 		EFDD763D1C047D9B0073ACC4 /* PlayerClickTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerClickTest.m; path = VideoClicks/PlayerClickTest.m; sourceTree = "<group>"; };
 		EFDD763F1C047E7A0073ACC4 /* CloseVideoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CloseVideoTest.h; path = VideoClicks/CloseVideoTest.h; sourceTree = "<group>"; };
 		EFDD76401C047E7A0073ACC4 /* CloseVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CloseVideoTest.m; path = VideoClicks/CloseVideoTest.m; sourceTree = "<group>"; };
+		EFF21EC51C0C60F100766443 /* OpenInInAppBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenInInAppBrowser.h; path = OpenInBrowser/OpenInInAppBrowser.h; sourceTree = "<group>"; };
+		EFF21EC61C0C60F100766443 /* OpenInInAppBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenInInAppBrowser.m; path = OpenInBrowser/OpenInInAppBrowser.m; sourceTree = "<group>"; };
+		EFF21EC81C0C614400766443 /* OpenInNativeBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenInNativeBrowser.h; path = OpenInBrowser/OpenInNativeBrowser.h; sourceTree = "<group>"; };
+		EFF21EC91C0C614400766443 /* OpenInNativeBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenInNativeBrowser.m; path = OpenInBrowser/OpenInNativeBrowser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +251,7 @@
 		4960078D1BFED9B100B50A1F /* InterstitialUnifiedDemandTests */ = {
 			isa = PBXGroup;
 			children = (
+				EFF21EAB1C0C5B0F00766443 /* OpenClickInBrowser */,
 				496007901BFED9B100B50A1F /* Info.plist */,
 				EFDD76351C0478BC0073ACC4 /* VideoClicks */,
 				4960079C1BFEDAFE00B50A1F /* DisplayVideoAd */,
@@ -336,6 +343,17 @@
 			name = VideoClicks;
 			sourceTree = "<group>";
 		};
+		EFF21EAB1C0C5B0F00766443 /* OpenClickInBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				EFF21EC51C0C60F100766443 /* OpenInInAppBrowser.h */,
+				EFF21EC61C0C60F100766443 /* OpenInInAppBrowser.m */,
+				EFF21EC81C0C614400766443 /* OpenInNativeBrowser.h */,
+				EFF21EC91C0C614400766443 /* OpenInNativeBrowser.m */,
+			);
+			name = OpenClickInBrowser;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -381,7 +399,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = AppNexus;
+				ORGANIZATIONNAME = "APPNEXUS INC";
 				TargetAttributes = {
 					4960078B1BFED9B100B50A1F = {
 						CreatedOnToolsVersion = 7.0;
@@ -602,10 +620,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFF21ECA1C0C614400766443 /* OpenInNativeBrowser.m in Sources */,
 				EFDD76411C047E7A0073ACC4 /* CloseVideoTest.m in Sources */,
 				EFDD763B1C047BED0073ACC4 /* VolumeClickTest.m in Sources */,
 				4960079B1BFEDAF400B50A1F /* DisplayVideoAd.m in Sources */,
 				EFDD763E1C047D9B0073ACC4 /* PlayerClickTest.m in Sources */,
+				EFF21EC71C0C60F100766443 /* OpenInInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
