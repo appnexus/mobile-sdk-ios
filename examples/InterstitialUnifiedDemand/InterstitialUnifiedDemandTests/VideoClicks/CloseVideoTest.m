@@ -61,7 +61,7 @@
 - (void) test1ClickOnClose{
     
     [tester waitForViewWithAccessibilityLabel:@"close button"];
-    [tester waitForTimeInterval:10.0];
+    [tester waitForTimeInterval:15.0];
     [tester tapViewWithAccessibilityLabel:@"close button"];
     
     self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];

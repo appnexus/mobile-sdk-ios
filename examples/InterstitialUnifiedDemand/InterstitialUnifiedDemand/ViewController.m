@@ -26,7 +26,7 @@
     // HTML Placement
 //    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"2140061"];
     self.interstitialAd.closeDelay = 5.0;
-    self.interstitialAd.opensInNativeBrowser = YES;
+    self.interstitialAd.opensInNativeBrowser = NO;
     self.interstitialAd.shouldServePublicServiceAnnouncements = YES;
     self.interstitialAd.delegate = self;
     self.interstitialAd.videoAdDelegate = self;
@@ -111,6 +111,10 @@
             NSLog(@"App: Event not handled.");
             break;
     }
+}
+
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
+    NSLog(@"App: ad will leave application.");
 }
 
 @end

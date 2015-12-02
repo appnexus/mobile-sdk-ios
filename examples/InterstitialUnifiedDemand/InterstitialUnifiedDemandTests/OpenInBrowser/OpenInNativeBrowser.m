@@ -24,25 +24,21 @@
 
 @interface OpenInNativeBrowser()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
     ANInterstitialAd *interstitialAdView;
+    BOOL isDelegateFired;
 }
 
 @property (nonatomic, strong) XCTestExpectation *expectation;
-@property (nonatomic) int tapsRequired;
 
 @end
 
 @implementation OpenInNativeBrowser
 
 - (void)setUp{
-    UIView *view = [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     
-    for (UIView *subView in view.subviews) {
-        if ([subView isKindOfClass:NSClassFromString(@"ANInterstitialAd")]) {
-            break;
-        }
-    }
+    isDelegateFired = NO;
+    [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     
-    int breakCounter = 10;
+    int breakCounter = 5;
     
     while (interstitial && breakCounter--) {
         [self performClickOnInterstitial];
@@ -60,14 +56,15 @@
 
 - (void) test1OpenClickInNativeBrowser{
     
-    interstitialAdView.opensInNativeBrowser = YES;
+    self.expectation = [self expectationWithDescription:@"Waiting for delegates to fire."];
     
     [tester tapViewWithAccessibilityLabel:@"player"];
-    
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];
+
     [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        XCTAssertTrue(error, @"Click opened in In-App browser. failed case.");
+        NSLog(@"isDelegateFired: %i", isDelegateFired);
+        XCTAssertTrue(isDelegateFired, @"Click opened in In-App Browser.");
     }];
+    
 }
 
 -(void) setupDelegatesForVideo{
@@ -88,6 +85,8 @@
 }
 
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: ad will leave application");
+    isDelegateFired = YES;
     [self.expectation fulfill];
 }
 
