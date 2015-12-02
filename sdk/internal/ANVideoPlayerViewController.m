@@ -116,6 +116,16 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     return YES;
 }
 
+- (BOOL) landingPageLoadsInBackground{
+    BOOL returnVal = NO;
+    
+    if ([self.delegate respondsToSelector:@selector(landingPageLoadsInBackground)]) {
+        returnVal = [self.delegate landingPageLoadsInBackground];
+    }
+    
+    return returnVal;
+}
+
 #pragma mark - Setup
 
 - (void)setupPlayer {
@@ -354,10 +364,12 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 - (void)openClickInBrowserWithURL:(NSURL *)url {
     
+    BOOL canLandingPageLoadInBackground = [self landingPageLoadsInBackground];
+    
     if (!self.openClicksInNativeBrowser) {
         _browserController = [[ANBrowserViewController alloc] initWithURL:url
                                                                  delegate:self
-                                                 delayPresentationForLoad:NO];
+                                                 delayPresentationForLoad:canLandingPageLoadInBackground];
         if (!self.browserController) {
             ANLogDebug(@"Failed to initialize the browser.");
         }
