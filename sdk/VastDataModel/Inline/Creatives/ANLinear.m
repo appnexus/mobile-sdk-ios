@@ -31,7 +31,7 @@
         
         ANXMLElement *durationElement = [ANXML childElementNamed:@"Duration" parentElement:element];
         if (durationElement) {
-            self.duration = String(durationElement->text);
+            self.duration = ANString(durationElement->text);
         }
         
         ANXMLElement *trackingElements = [ANXML childElementNamed:@"TrackingEvents" parentElement:element];
@@ -49,7 +49,7 @@
         
         ANXMLElement *paramElement = [ANXML childElementNamed:@"AdParameters" parentElement:element];
         if (paramElement) {
-            NSString *adParam = String(paramElement->text);
+            NSString *adParam = ANString(paramElement->text);
             if (adParam) {
                 self.adParameters = adParam;
             }

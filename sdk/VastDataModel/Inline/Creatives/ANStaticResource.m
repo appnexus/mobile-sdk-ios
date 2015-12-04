@@ -25,7 +25,7 @@
     self = [super init];
     
     if (self) {
-        self.staticResourceURI = String(element->text);
+        self.staticResourceURI = ANString(element->text);
         self.creativeType = [ANXML valueOfAttributeNamed:@"CreativeType" forElement:element];
     }
     

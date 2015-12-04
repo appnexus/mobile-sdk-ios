@@ -32,22 +32,22 @@
         
         ANXMLElement *adTitleElement = [ANXML childElementNamed:@"AdTitle" parentElement:element];
         if (adTitleElement) {
-            self.adTitle = String(adTitleElement->text);
+            self.adTitle = ANString(adTitleElement->text);
         }
         
         ANXMLElement *descElement = [ANXML childElementNamed:@"Description" parentElement:element];
         if (descElement) {
-            self.adDescription = String(descElement->text);
+            self.adDescription = ANString(descElement->text);
         }
         
         ANXMLElement *surveyElement = [ANXML childElementNamed:@"Survey" parentElement:element];
         if (surveyElement) {
-            self.adSurvey = String(surveyElement->text);
+            self.adSurvey = ANString(surveyElement->text);
         }
         
         ANXMLElement *errorElement = [ANXML childElementNamed:@"Error" parentElement:element];
         if (errorElement) {
-            self.adError = String(errorElement->text);
+            self.adError = ANString(errorElement->text);
         }
         
         ANXMLElement *impressionElement = [ANXML childElementNamed:@"Impression" parentElement:element];

@@ -24,7 +24,7 @@
     self = [super init];
     
     if (self) {
-    	NSString *trackingURI = String(element->text);
+    	NSString *trackingURI = ANString(element->text);
         if (trackingURI) {
         	self.trackingURI = trackingURI;
         }

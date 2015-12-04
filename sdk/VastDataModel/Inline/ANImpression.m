@@ -25,7 +25,7 @@
     self = [super init];
     
     if (self) {
-        self.value = String(element->text);
+        self.value = ANString(element->text);
         self.impressionId = [ANXML valueOfAttributeNamed:@"id" forElement:element];
     }
     

@@ -26,7 +26,7 @@
     self = [super init];
     
     if (self) {
-        self.customClickURI = String(element->text);
+        self.customClickURI = ANString(element->text);
         
         NSString *customClickId = [ANXML valueOfAttributeNamed:@"id" forElement:element];
         if (customClickId) {
