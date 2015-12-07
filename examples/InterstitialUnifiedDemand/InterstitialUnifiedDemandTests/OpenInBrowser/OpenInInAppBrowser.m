@@ -27,8 +27,6 @@
     BOOL isDelegateFired;
 }
 
-@property (nonatomic, strong) XCTestExpectation *expectation;
-
 @end
 
 @implementation OpenInInAppBrowser
@@ -38,6 +36,8 @@
     isDelegateFired = NO;
     [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     
+    [self setupDelegatesForVideo];
+
     int breakCounter = 5;
     
     while (interstitial && breakCounter--) {
@@ -45,7 +45,6 @@
         [tester waitForTimeInterval:2.0];
     }
     
-    [self setupDelegatesForVideo];
     if (!interstitial) {
         [tester waitForViewWithAccessibilityLabel:@"player"];
         if (!player) {
@@ -91,7 +90,6 @@ static dispatch_semaphore_t waitForDelegateToFire;
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
     NSLog(@"Test: ad will leave application.");
     isDelegateFired = YES;
-    [self.expectation fulfill];
 }
 
 - (void) notifySemaphoreForRelease{

@@ -26,63 +26,79 @@
     ANInterstitialAd *interstitialAdView;
 }
 
-@property (nonatomic, strong) XCTestExpectation *expectation;
-@property (nonatomic) int tapsRequired;
+@property (nonatomic, assign) BOOL isVolumeButtonClicked;
 
 @end
 
 @implementation VolumeClickTest
 
+static dispatch_semaphore_t waitForVolumeButtonToBeClicked;
+
 - (void)setUp{
-    UIView *view = [tester waitForViewWithAccessibilityLabel:@"interstitial"];
+    [super setUp];
     
-    for (UIView *subView in view.subviews) {
-        if ([subView isKindOfClass:NSClassFromString(@"ANInterstitialAd")]) {
-            break;
-        }
-    }
-    
-    int breakCounter = 10;
+    self.isVolumeButtonClicked = NO;
+}
+
+- (void)tearDown{
+    [super tearDown];
+}
+
+- (void)test1PrepareForVolumeTesting{
+    [tester waitForViewWithAccessibilityLabel:@"interstitial"];
+    [self setupDelegatesForVideo];
+
+    int breakCounter = 5;
     
     while (interstitial && breakCounter--) {
         [self performClickOnInterstitial];
         [tester waitForTimeInterval:2.0];
     }
     
-    [self setupDelegatesForVideo];
+
     if (!interstitial) {
         [tester waitForViewWithAccessibilityLabel:@"player"];
         if (!player) {
             NSLog(@"Test: Not able to load the video.");
         }
     }
+    
+    XCTAssertNil(interstitial, @"Failed to load video.");
 }
 
-- (void) test1UnmuteVolume{
+- (void) test2UnmuteVolume{
     
-    [tester tapViewWithAccessibilityLabel:@"volume button"];
+    XCTAssertNil(interstitial, @"Failed to load video.");
+ 
+    waitForVolumeButtonToBeClicked = dispatch_semaphore_create(0);
     
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-        }
-    }];
+    [self performSelector:@selector(tapOnvolumeButton) withObject:nil afterDelay:2.0];
+
+    dispatch_semaphore_wait(waitForVolumeButtonToBeClicked, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
+    XCTAssertTrue(self.isVolumeButtonClicked, @"failed");
 }
 
-- (void) test2MuteVolume{
-    
+- (void) tapOnvolumeButton{
     [tester tapViewWithAccessibilityLabel:@"volume button"];
-    
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-        }
-    }];
-    
 }
+
+//- (void) test3MuteVolume{
+//
+//    XCTAssertNil(interstitial, @"Failed to load video.");
+//
+//    self.isDelegateFired = NO;
+//    
+//    self.muteExpectation = [self expectationWithDescription:@"Waiting for muting the volume."];
+//
+//    [tester tapViewWithAccessibilityLabel:@"volume button"];
+//    
+//    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
+//        NSLog(@"isDelegateFired: %i", self.isDelegateFired);
+//        XCTAssertTrue(self.isDelegateFired, @"Failed to mute the player volume.");
+//    }];
+//    
+//}
 
 -(void) setupDelegatesForVideo{
     
@@ -103,8 +119,16 @@
 
 - (void)adMuted:(BOOL)isMuted withAd:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad was %@", isMuted?@"Muted":@"Unmuted");
-    XCTAssertTrue(YES, @"AsMuted delegate fired.");
-    [self.expectation fulfill];
+    self.isVolumeButtonClicked = YES;
+    dispatch_semaphore_signal(waitForVolumeButtonToBeClicked);
+}
+
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: ad receive ad");
+}
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error{
+    NSLog(@"Test: request failed with error.");
 }
 
 @end

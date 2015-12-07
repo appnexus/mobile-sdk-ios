@@ -37,7 +37,8 @@
     
     isDelegateFired = NO;
     [tester waitForViewWithAccessibilityLabel:@"interstitial"];
-    
+    [self setupDelegatesForVideo];
+
     int breakCounter = 5;
     
     while (interstitial && breakCounter--) {
@@ -45,7 +46,7 @@
         [tester waitForTimeInterval:2.0];
     }
     
-    [self setupDelegatesForVideo];
+    self.expectation = [self expectationWithDescription:@"Waiting for delegates to fire."];
     if (!interstitial) {
         [tester waitForViewWithAccessibilityLabel:@"player"];
         if (!player) {
@@ -55,8 +56,6 @@
 }
 
 - (void) test1OpenClickInNativeBrowser{
-    
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to fire."];
     
     [tester tapViewWithAccessibilityLabel:@"player"];
 

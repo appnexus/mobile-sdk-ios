@@ -14,29 +14,34 @@
  limitations under the License.
  
  */
-
 #define interstitial [[[UIApplication sharedApplication] keyWindow] accessibilityElementWithLabel:@"interstitial"]
 #define player [[[UIApplication sharedApplication] keyWindow] accessibilityElementWithLabel:@"player"]
 
-#import "CloseVideoTest.h"
+#import "PlayerDelegateTests.h"
 #import <KIF/KIFTestCase.h>
 #import "ANInterstitialAd.h"
 
-@interface CloseVideoTest()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
+@interface PlayerDelegateTests()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
     ANInterstitialAd *interstitialAdView;
+    BOOL isAdStartedPlayingVideo;
+    BOOL isFirstQuartileDone;
+    BOOL isMidPointQuartileDone;
+    BOOL isthirdQuartileDone;
+    BOOL isCreativeViewDone;
+    BOOL isPlayingCompelete;
 }
 
 @property (nonatomic, strong) XCTestExpectation *expectation;
 
 @end
 
-@implementation CloseVideoTest
+@implementation PlayerDelegateTests
 
 - (void)setUp{
     [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     [self setupDelegatesForVideo];
-
-    int breakCounter = 10;
+    
+    int breakCounter = 5;
     
     while (interstitial && breakCounter--) {
         [self performClickOnInterstitial];
@@ -50,18 +55,35 @@
             NSLog(@"Test: Not able to load the video.");
         }
     }
+    
 }
 
-- (void) test1ClickOnClose{
+- (void)tearDown{
+    interstitialAdView.delegate = nil;
+    interstitialAdView.videoAdDelegate = nil;
+    interstitialAdView = nil;
+    isAdStartedPlayingVideo = NO;
+    isCreativeViewDone = NO;
+    isFirstQuartileDone = NO;
+    isMidPointQuartileDone = NO;
+    isthirdQuartileDone = NO;
+    isPlayingCompelete = NO;
+    self.expectation = nil;
+}
+
+- (void) test1PlayerRelatedDelegates{
     
-    [tester waitForViewWithAccessibilityLabel:@"close button"];
-    [tester waitForTimeInterval:15.0];
-    [tester tapViewWithAccessibilityLabel:@"close button"];
-    
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        XCTAssertNil(error.description, @"Click on close of video failed.");
+    [self waitForExpectationsWithTimeout:100.0 handler:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", error.description);
+        }
     }];
-    
+
+    XCTAssertTrue(isAdStartedPlayingVideo, @"Ad failed to start video.");
+    XCTAssertTrue(isFirstQuartileDone, @"Ad did not play till first quartile.");
+    XCTAssertTrue(isMidPointQuartileDone, @"Ad did not play till mid point quartile.");
+    XCTAssertTrue(isthirdQuartileDone, @"Ad did not play till third quartile.");
+    XCTAssertTrue(isPlayingCompelete, @"Ad did not finish playing video till the end.");
 }
 
 -(void) setupDelegatesForVideo{
@@ -81,27 +103,34 @@
     }
 }
 
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: ad received ad.");
+}
+
+- (void)adStartedPlayingVideo:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: video ad started playing video.");
+    isAdStartedPlayingVideo = YES;
+}
+
 - (void)adFinishedQuartileEvent:(ANVideoEvent)videoEvent withAd:(id<ANAdProtocol>)ad{
     switch (videoEvent) {
-        case ANVideoEventCloseLinear:
-            NSLog(@"Test: Closing video.");
-            [self.expectation fulfill];
+        case ANVideoEventQuartileFirst:
+            isFirstQuartileDone = YES;
+            break;
+        case ANVideoEventQuartileMidPoint:
+            isMidPointQuartileDone = YES;
+            break;
+        case ANVideoEventQuartileThird:
+            isthirdQuartileDone = YES;
             break;
         default:
             break;
     }
 }
 
-- (void)adSkippedVideo:(id<ANAdProtocol>)ad{
-    NSLog(@"Test: Ad Skipped Video.");
-}
-
-- (void)adWillClose:(id<ANAdProtocol>)ad{
-    NSLog(@"Test: Ad will close now.");
-}
-
-- (void)adDidClose:(id<ANAdProtocol>)ad{
-    NSLog(@"Test: Ad Did close now.");
+- (void)adFinishedPlayingCompleteVideo:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: Video finished playing complete video.");
+    isPlayingCompelete = YES;
     [self.expectation fulfill];
 }
 

@@ -27,29 +27,23 @@
 }
 
 @property (nonatomic, strong) XCTestExpectation *expectation;
-@property (nonatomic) int tapsRequired;
 
 @end
 
 @implementation PlayerClickTest
 
 - (void)setUp{
-    UIView *view = [tester waitForViewWithAccessibilityLabel:@"interstitial"];
+    [tester waitForViewWithAccessibilityLabel:@"interstitial"];
+    [self setupDelegatesForVideo];
     
-    for (UIView *subView in view.subviews) {
-        if ([subView isKindOfClass:NSClassFromString(@"ANInterstitialAd")]) {
-            break;
-        }
-    }
-    
-    int breakCounter = 10;
+    int breakCounter = 5;
     
     while (interstitial && breakCounter--) {
         [self performClickOnInterstitial];
         [tester waitForTimeInterval:2.0];
     }
     
-    [self setupDelegatesForVideo];
+    self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];
     if (!interstitial) {
         [tester waitForViewWithAccessibilityLabel:@"player"];
         if (!player) {
@@ -63,11 +57,8 @@
     [tester waitForViewWithAccessibilityLabel:@"close button"];
     [tester tapViewWithAccessibilityLabel:@"player"];
     
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];
     [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-        }
+        XCTAssertNil(error.description, @"Click failed on player.");
     }];
     
 }
@@ -91,12 +82,10 @@
 
 -(void)adPausedVideo:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad was paused.");
-    XCTAssertTrue(YES, @"Test: adPausedVideo delegate fired.");
 }
 
 - (void)adWasClicked:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad was clicked.");
-    XCTAssertTrue(YES, @"Test: adWasClicked delegate fired.");
     [self.expectation fulfill];
 }
 
