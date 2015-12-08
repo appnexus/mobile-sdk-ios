@@ -24,16 +24,26 @@
 
 @interface OpenInInAppBrowser()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
     ANInterstitialAd *interstitialAdView;
-    BOOL isDelegateFired;
 }
 
 @end
 
 @implementation OpenInInAppBrowser
 
+static BOOL isDelegateFired;
+
 - (void)setUp{
+    [super setUp];
     
     isDelegateFired = NO;
+}
+
+- (void)tearDown{
+    [super tearDown];
+}
+
+- (void)test1PrepareForDisplay{
+    
     [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     
     [self setupDelegatesForVideo];
@@ -51,11 +61,15 @@
             NSLog(@"Test: Not able to load the video.");
         }
     }
+    
+    XCTAssertNil(interstitial, @"Failed ot load video.");
 }
 
 static dispatch_semaphore_t waitForDelegateToFire;
 
 - (void) test1OpenClickInInAppBrowser{
+    
+    XCTAssertNil(interstitial, @"Failed to load video.");
     
     waitForDelegateToFire = dispatch_semaphore_create(0);
     
@@ -64,7 +78,7 @@ static dispatch_semaphore_t waitForDelegateToFire;
     [tester tapViewWithAccessibilityLabel:@"player"];
     
     dispatch_semaphore_wait(waitForDelegateToFire, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
-
+    
     XCTAssertFalse(isDelegateFired, @"Click opened in Native Browser. failed case.");
     
 }
@@ -94,6 +108,14 @@ static dispatch_semaphore_t waitForDelegateToFire;
 
 - (void) notifySemaphoreForRelease{
     dispatch_semaphore_signal(waitForDelegateToFire);
+}
+
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: ad receive ad");
+}
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error{
+    NSLog(@"Test: request failed with error.");
 }
 
 @end

@@ -26,13 +26,23 @@
     ANInterstitialAd *interstitialAdView;
 }
 
-@property (nonatomic, strong) XCTestExpectation *expectation;
-
 @end
 
 @implementation PlayerClickTest
 
+static BOOL isPlayerClicked;
+
 - (void)setUp{
+    [super setUp];
+    
+    isPlayerClicked = NO;
+}
+
+-(void)tearDown{
+    [super tearDown];
+}
+
+- (void)test1PrepareForDisplay{
     [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     [self setupDelegatesForVideo];
     
@@ -43,23 +53,29 @@
         [tester waitForTimeInterval:2.0];
     }
     
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];
     if (!interstitial) {
         [tester waitForViewWithAccessibilityLabel:@"player"];
         if (!player) {
             NSLog(@"Test: Not able to load the video.");
         }
     }
+    
+    XCTAssertNil(interstitial, @"Failed to load video.");
 }
 
-- (void) test1ClickOnPlayer{
+static dispatch_semaphore_t waitForPlayerToBeClicked;
+
+- (void) test2ClickOnPlayer{
     
-    [tester waitForViewWithAccessibilityLabel:@"close button"];
+    XCTAssertNil(interstitial, @"Failed to load video.");
+    
+    waitForPlayerToBeClicked = dispatch_semaphore_create(0);
+
     [tester tapViewWithAccessibilityLabel:@"player"];
     
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        XCTAssertNil(error.description, @"Click failed on player.");
-    }];
+    dispatch_semaphore_wait(waitForPlayerToBeClicked, dispatch_time(DISPATCH_TIME_NOW, 10*NSEC_PER_SEC));
+        
+    XCTAssertTrue(isPlayerClicked, @"Failed.");
     
 }
 
@@ -86,8 +102,16 @@
 
 - (void)adWasClicked:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad was clicked.");
-    [self.expectation fulfill];
+    isPlayerClicked = YES;
+    dispatch_semaphore_signal(waitForPlayerToBeClicked);
 }
 
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: ad receive ad");
+}
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error{
+    NSLog(@"Test: request failed with error.");
+}
 
 @end

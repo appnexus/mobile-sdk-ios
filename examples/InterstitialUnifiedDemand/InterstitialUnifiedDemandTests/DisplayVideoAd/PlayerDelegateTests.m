@@ -23,21 +23,23 @@
 
 @interface PlayerDelegateTests()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
     ANInterstitialAd *interstitialAdView;
-    BOOL isAdStartedPlayingVideo;
-    BOOL isFirstQuartileDone;
-    BOOL isMidPointQuartileDone;
-    BOOL isthirdQuartileDone;
-    BOOL isCreativeViewDone;
-    BOOL isPlayingCompelete;
 }
-
-@property (nonatomic, strong) XCTestExpectation *expectation;
-
 @end
 
 @implementation PlayerDelegateTests
 
-- (void)setUp{
+static BOOL isAdStartedPlayingVideo;
+static BOOL isFirstQuartileDone;
+static BOOL isMidPointQuartileDone;
+static BOOL isthirdQuartileDone;
+static BOOL isCreativeViewDone;
+static BOOL isPlayingCompelete;
+
+-(void)setUp{
+    [super setUp];
+}
+
+- (void)test1PrepareForDisplay{
     [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     [self setupDelegatesForVideo];
     
@@ -48,7 +50,6 @@
         [tester waitForTimeInterval:2.0];
     }
     
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];
     if (!interstitial) {
         [tester waitForViewWithAccessibilityLabel:@"player"];
         if (!player) {
@@ -56,29 +57,29 @@
         }
     }
     
+    XCTAssertNil(interstitial, @"Failed to load video");
+
 }
 
 - (void)tearDown{
-    interstitialAdView.delegate = nil;
-    interstitialAdView.videoAdDelegate = nil;
-    interstitialAdView = nil;
     isAdStartedPlayingVideo = NO;
     isCreativeViewDone = NO;
     isFirstQuartileDone = NO;
     isMidPointQuartileDone = NO;
     isthirdQuartileDone = NO;
     isPlayingCompelete = NO;
-    self.expectation = nil;
 }
 
-- (void) test1PlayerRelatedDelegates{
-    
-    [self waitForExpectationsWithTimeout:100.0 handler:^(NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", error.description);
-        }
-    }];
+static dispatch_semaphore_t waitForPlayerDelegatesToFire;
 
+- (void) test2PlayerRelatedDelegates{
+    
+    XCTAssertNil(interstitial, @"Failed to load video");
+    
+    waitForPlayerDelegatesToFire = dispatch_semaphore_create(0);
+    
+    dispatch_semaphore_wait(waitForPlayerDelegatesToFire, dispatch_time(DISPATCH_TIME_NOW, 100*NSEC_PER_SEC));
+    
     XCTAssertTrue(isAdStartedPlayingVideo, @"Ad failed to start video.");
     XCTAssertTrue(isFirstQuartileDone, @"Ad did not play till first quartile.");
     XCTAssertTrue(isMidPointQuartileDone, @"Ad did not play till mid point quartile.");
@@ -104,7 +105,11 @@
 }
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad{
-    NSLog(@"Test: ad received ad.");
+    NSLog(@"Test: ad receive ad");
+}
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error{
+    NSLog(@"Test: request failed with error.");
 }
 
 - (void)adStartedPlayingVideo:(id<ANAdProtocol>)ad{
@@ -115,12 +120,15 @@
 - (void)adFinishedQuartileEvent:(ANVideoEvent)videoEvent withAd:(id<ANAdProtocol>)ad{
     switch (videoEvent) {
         case ANVideoEventQuartileFirst:
+            NSLog(@"Test: First Quartile");
             isFirstQuartileDone = YES;
             break;
         case ANVideoEventQuartileMidPoint:
+            NSLog(@"Test: Mid Point");
             isMidPointQuartileDone = YES;
             break;
         case ANVideoEventQuartileThird:
+            NSLog(@"Test: Third Quartile");
             isthirdQuartileDone = YES;
             break;
         default:
@@ -131,7 +139,7 @@
 - (void)adFinishedPlayingCompleteVideo:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Video finished playing complete video.");
     isPlayingCompelete = YES;
-    [self.expectation fulfill];
+    dispatch_semaphore_signal(waitForPlayerDelegatesToFire);
 }
 
 @end

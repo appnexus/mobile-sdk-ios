@@ -26,41 +26,59 @@
     ANInterstitialAd *interstitialAdView;
 }
 
-@property (nonatomic, strong) XCTestExpectation *expectation;
-
 @end
 
 @implementation CloseVideoTest
 
+static BOOL isCloseButtonClicked;
+
 - (void)setUp{
+    [super setUp];
+    isCloseButtonClicked = NO;
+}
+
+- (void)tearDown{
+    [super tearDown];
+}
+
+- (void)test1PrepareForDisplay{
     [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     [self setupDelegatesForVideo];
 
-    int breakCounter = 10;
+    int breakCounter = 5;
     
     while (interstitial && breakCounter--) {
         [self performClickOnInterstitial];
         [tester waitForTimeInterval:2.0];
     }
     
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to be fired."];
     if (!interstitial) {
         [tester waitForViewWithAccessibilityLabel:@"player"];
         if (!player) {
             NSLog(@"Test: Not able to load the video.");
         }
     }
+    
+    XCTAssertNil(interstitial, @"Failed to load video");
 }
 
-- (void) test1ClickOnClose{
+static dispatch_semaphore_t waitForCloseButtonToBeClicked;
+
+- (void) test2ClickOnClose{
+
+    XCTAssertNil(interstitial, @"Failed to load video");
+
+    waitForCloseButtonToBeClicked = dispatch_semaphore_create(0);
     
-    [tester waitForViewWithAccessibilityLabel:@"close button"];
+//    [tester waitForViewWithAccessibilityLabel:@"close button"];
     [tester waitForTimeInterval:15.0];
     [tester tapViewWithAccessibilityLabel:@"close button"];
     
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        XCTAssertNil(error.description, @"Click on close of video failed.");
-    }];
+    dispatch_semaphore_wait(waitForCloseButtonToBeClicked, dispatch_time(DISPATCH_TIME_NOW,10*NSEC_PER_SEC));
+    
+    NSLog(@"isCloseButtonClicked: %@", isCloseButtonClicked?@"YES":@"NO");
+    
+    XCTAssertTrue(isCloseButtonClicked, @"Failed.");
     
 }
 
@@ -81,17 +99,6 @@
     }
 }
 
-- (void)adFinishedQuartileEvent:(ANVideoEvent)videoEvent withAd:(id<ANAdProtocol>)ad{
-    switch (videoEvent) {
-        case ANVideoEventCloseLinear:
-            NSLog(@"Test: Closing video.");
-            [self.expectation fulfill];
-            break;
-        default:
-            break;
-    }
-}
-
 - (void)adSkippedVideo:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad Skipped Video.");
 }
@@ -102,7 +109,16 @@
 
 - (void)adDidClose:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad Did close now.");
-    [self.expectation fulfill];
+    isCloseButtonClicked = YES;
+    dispatch_semaphore_signal(waitForCloseButtonToBeClicked);
+}
+
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: ad receive ad");
+}
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error{
+    NSLog(@"Test: request failed with error.");
 }
 
 @end

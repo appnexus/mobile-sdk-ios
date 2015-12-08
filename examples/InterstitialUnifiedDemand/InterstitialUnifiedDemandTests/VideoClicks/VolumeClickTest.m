@@ -26,18 +26,17 @@
     ANInterstitialAd *interstitialAdView;
 }
 
-@property (nonatomic, assign) BOOL isVolumeButtonClicked;
-
 @end
 
 @implementation VolumeClickTest
 
 static dispatch_semaphore_t waitForVolumeButtonToBeClicked;
+static BOOL isVolumeButtonClicked;
 
 - (void)setUp{
     [super setUp];
     
-    self.isVolumeButtonClicked = NO;
+    isVolumeButtonClicked = NO;
 }
 
 - (void)tearDown{
@@ -52,7 +51,7 @@ static dispatch_semaphore_t waitForVolumeButtonToBeClicked;
     
     while (interstitial && breakCounter--) {
         [self performClickOnInterstitial];
-        [tester waitForTimeInterval:2.0];
+        [tester waitForTimeInterval:3.0];
     }
     
 
@@ -72,33 +71,30 @@ static dispatch_semaphore_t waitForVolumeButtonToBeClicked;
  
     waitForVolumeButtonToBeClicked = dispatch_semaphore_create(0);
     
-    [self performSelector:@selector(tapOnvolumeButton) withObject:nil afterDelay:2.0];
+    [self tapOnVolumeButton];
 
     dispatch_semaphore_wait(waitForVolumeButtonToBeClicked, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
     
-    XCTAssertTrue(self.isVolumeButtonClicked, @"failed");
+    XCTAssertTrue(isVolumeButtonClicked, @"failed");
 }
 
-- (void) tapOnvolumeButton{
+- (void) tapOnVolumeButton{
     [tester tapViewWithAccessibilityLabel:@"volume button"];
 }
 
-//- (void) test3MuteVolume{
-//
-//    XCTAssertNil(interstitial, @"Failed to load video.");
-//
-//    self.isDelegateFired = NO;
-//    
-//    self.muteExpectation = [self expectationWithDescription:@"Waiting for muting the volume."];
-//
-//    [tester tapViewWithAccessibilityLabel:@"volume button"];
-//    
-//    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-//        NSLog(@"isDelegateFired: %i", self.isDelegateFired);
-//        XCTAssertTrue(self.isDelegateFired, @"Failed to mute the player volume.");
-//    }];
-//    
-//}
+- (void) test3MuteVolume{
+
+    XCTAssertNil(interstitial, @"Failed to load video.");
+    
+    waitForVolumeButtonToBeClicked = dispatch_semaphore_create(1);
+    
+    [self tapOnVolumeButton];
+    
+    dispatch_semaphore_wait(waitForVolumeButtonToBeClicked, dispatch_time(DISPATCH_TIME_NOW, 10*NSEC_PER_SEC));
+    
+    XCTAssertTrue(isVolumeButtonClicked, @"failed.");
+
+}
 
 -(void) setupDelegatesForVideo{
     
@@ -119,7 +115,7 @@ static dispatch_semaphore_t waitForVolumeButtonToBeClicked;
 
 - (void)adMuted:(BOOL)isMuted withAd:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad was %@", isMuted?@"Muted":@"Unmuted");
-    self.isVolumeButtonClicked = YES;
+    isVolumeButtonClicked = YES;
     dispatch_semaphore_signal(waitForVolumeButtonToBeClicked);
 }
 

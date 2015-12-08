@@ -364,10 +364,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
             ANLogDebug(@"Failed to initialize the browser.");
         }
     } else{
-        if ([self.delegate conformsToProtocol:@protocol(ANAdViewInternalDelegate)]) {
-            if([self.delegate respondsToSelector:@selector(adWillLeaveApplication)]){
-                [self.delegate adWillLeaveApplication];
-            }
+        if([self.delegate respondsToSelector:@selector(adWillLeaveApplication)]){
+            [self.delegate adWillLeaveApplication];
         }
         [self pause];
         [[UIApplication sharedApplication] openURL:url];

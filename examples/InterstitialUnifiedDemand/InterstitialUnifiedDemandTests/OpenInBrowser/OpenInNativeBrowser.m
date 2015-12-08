@@ -24,18 +24,26 @@
 
 @interface OpenInNativeBrowser()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
     ANInterstitialAd *interstitialAdView;
-    BOOL isDelegateFired;
 }
-
-@property (nonatomic, strong) XCTestExpectation *expectation;
 
 @end
 
 @implementation OpenInNativeBrowser
 
+static BOOL isDelegateFired;
+
 - (void)setUp{
+    [super setUp];
     
     isDelegateFired = NO;
+}
+
+-(void)tearDown{
+    [super tearDown];
+}
+
+- (void)test1PrepareForDisplay{
+    
     [tester waitForViewWithAccessibilityLabel:@"interstitial"];
     [self setupDelegatesForVideo];
 
@@ -46,23 +54,29 @@
         [tester waitForTimeInterval:2.0];
     }
     
-    self.expectation = [self expectationWithDescription:@"Waiting for delegates to fire."];
     if (!interstitial) {
         [tester waitForViewWithAccessibilityLabel:@"player"];
         if (!player) {
             NSLog(@"Test: Not able to load the video.");
         }
     }
+    
+    XCTAssertNil(interstitial, @"Failed to load video.");
 }
 
-- (void) test1OpenClickInNativeBrowser{
+static dispatch_semaphore_t waitForDelegateTobeFired;
+
+- (void) test2OpenClickInNativeBrowser{
+    
+    XCTAssertNil(interstitial, @"Failed to load video.");
+
+    waitForDelegateTobeFired = dispatch_semaphore_create(0);
     
     [tester tapViewWithAccessibilityLabel:@"player"];
-
-    [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * _Nullable error) {
-        NSLog(@"isDelegateFired: %i", isDelegateFired);
-        XCTAssertTrue(isDelegateFired, @"Click opened in In-App Browser.");
-    }];
+    
+    dispatch_semaphore_wait(waitForDelegateTobeFired, dispatch_time(DISPATCH_TIME_NOW, 10*NSEC_PER_SEC));
+        
+    XCTAssertTrue(isDelegateFired, @"Failed.");
     
 }
 
@@ -72,6 +86,7 @@
     if (controller) {
         SEL aSelector = NSSelectorFromString(@"interstitialAd");
         interstitialAdView = (ANInterstitialAd *)[controller performSelector:aSelector];
+        interstitialAdView.opensInNativeBrowser = YES;
         interstitialAdView.delegate = self;
         interstitialAdView.videoAdDelegate = self;
     }
@@ -86,7 +101,16 @@
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
     NSLog(@"Test: ad will leave application");
     isDelegateFired = YES;
-    [self.expectation fulfill];
+    dispatch_semaphore_signal(waitForDelegateTobeFired);
 }
+
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad{
+    NSLog(@"Test: ad receive ad");
+}
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error{
+    NSLog(@"Test: request failed with error.");
+}
+
 
 @end
