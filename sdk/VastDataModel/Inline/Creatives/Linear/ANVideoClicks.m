@@ -27,12 +27,12 @@
     if (self) {
         ANXMLElement *clickThrough = [ANXML childElementNamed:@"ClickThrough" parentElement:element];
         if (clickThrough) {
-            self.clickThrough = String(clickThrough->text);
+            self.clickThrough = ANString(clickThrough->text);
         }
 
         ANXMLElement *clickTracking = [ANXML childElementNamed:@"ClickTracking" parentElement:element];
         if (clickTracking) {
-            self.clickTracking = String(clickTracking->text);
+            self.clickTracking = ANString(clickTracking->text);
         }
 
         ANXMLElement *customClick = [ANXML childElementNamed:@"CustomClick" parentElement:element];

@@ -25,7 +25,7 @@
     self = [super init];
     
     if (self) {
-        self.fileURI = String(element->text);
+        self.fileURI = ANString(element->text);
         self.fileId = [ANXML valueOfAttributeNamed:@"id" forElement:element];
         self.deliveryMethod = [ANXML valueOfAttributeNamed:@"delivery" forElement:element];
         self.fileType = [ANXML valueOfAttributeNamed:@"type" forElement:element];

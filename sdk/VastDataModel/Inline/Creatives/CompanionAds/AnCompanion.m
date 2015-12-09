@@ -38,12 +38,12 @@
         
         ANXMLElement *iFrameResourceElement = [ANXML childElementNamed:@"IFrameResource" parentElement:element];
         if (iFrameResourceElement) {
-            self.iFrameResource = String(iFrameResourceElement->text);
+            self.iFrameResource = ANString(iFrameResourceElement->text);
         }
         
         ANXMLElement *htmlResourceElement = [ANXML childElementNamed:@"HTMLResource" parentElement:element];
         if (htmlResourceElement) {
-            self.htmlResource = String(htmlResourceElement->text);
+            self.htmlResource = ANString(htmlResourceElement->text);
         }
         
         ANXMLElement *trackingElements = [ANXML childElementNamed:@"TrackingEvents" parentElement:element];
@@ -61,17 +61,17 @@
         
         ANXMLElement *companionClickThroughElement = [ANXML childElementNamed:@"CompanionClickThrough" parentElement:element];
         if (companionClickThroughElement) {
-            self.clickThroughURI = String(companionClickThroughElement->text);
+            self.clickThroughURI = ANString(companionClickThroughElement->text);
         }
         
         ANXMLElement *altTextElement = [ANXML childElementNamed:@"AltText" parentElement:element];
         if (altTextElement) {
-            self.altText = String(altTextElement->text);
+            self.altText = ANString(altTextElement->text);
         }
         
         ANXMLElement *adParametersElement = [ANXML childElementNamed:@"AdParameters" parentElement:element];
         if (adParametersElement) {
-            self.adParameters = String(adParametersElement->text);
+            self.adParameters = ANString(adParametersElement->text);
         }
     }
     

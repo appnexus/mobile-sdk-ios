@@ -27,7 +27,7 @@
     if (self) {
         ANXMLElement *vastAdTagURIElement = [ANXML childElementNamed:@"VASTAdTagURI" parentElement:element];
         if (vastAdTagURIElement) {
-            self.vastAdTagURI = String(vastAdTagURIElement->text);
+            self.vastAdTagURI = ANString(vastAdTagURIElement->text);
         }
     }
     

@@ -41,22 +41,22 @@
         
         ANXMLElement *iFrameResourceElement = [ANXML childElementNamed:@"IFrameResource" parentElement:element];
         if (iFrameResourceElement) {
-            self.iFrameResource = String(iFrameResourceElement->text);
+            self.iFrameResource = ANString(iFrameResourceElement->text);
         }
         
         ANXMLElement *htmlResourceElement = [ANXML childElementNamed:@"HTMLResource" parentElement:element];
         if (htmlResourceElement) {
-            self.htmlResource = String(htmlResourceElement->text);
+            self.htmlResource = ANString(htmlResourceElement->text);
         }
 
         ANXMLElement *clickThroughElement = [ANXML nextSiblingNamed:@"ClickThrough" searchFromElement:element];
         if (clickThroughElement) {
-            self.clickThroughURI = String(clickThroughElement->text);
+            self.clickThroughURI = ANString(clickThroughElement->text);
         }
         
         ANXMLElement *adParametersElement = [ANXML nextSiblingNamed:@"AdParameters" searchFromElement:element];
         if (adParametersElement) {
-            self.adParameters = String(adParametersElement->text);
+            self.adParameters = ANString(adParametersElement->text);
         }
 
     }
