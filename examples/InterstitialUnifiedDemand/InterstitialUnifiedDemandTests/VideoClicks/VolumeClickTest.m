@@ -40,11 +40,7 @@ static XCTestExpectation *expectation;
 + (void)tearDown{
     [super tearDown];
     UIViewController *controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    UIViewController *visibleViewController = controller.navigationController.visibleViewController;
-    while (visibleViewController) {
-        [visibleViewController dismissViewControllerAnimated:YES completion:nil];
-        visibleViewController = controller.navigationController.visibleViewController;
-    }
+    [controller dismissViewControllerAnimated:NO completion:nil];
     interstitialAdView.delegate = nil;
     interstitialAdView.videoAdDelegate = nil;
     interstitialAdView = nil;
