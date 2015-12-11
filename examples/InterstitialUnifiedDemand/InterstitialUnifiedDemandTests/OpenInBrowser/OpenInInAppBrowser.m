@@ -22,24 +22,33 @@
 #import <KIF/KIFTestCase.h>
 #import "ANInterstitialAd.h"
 
-@interface OpenInInAppBrowser()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
-    ANInterstitialAd *interstitialAdView;
-}
-
+@interface OpenInInAppBrowser()<ANVideoAdDelegate, ANInterstitialAdDelegate>
 @end
 
 @implementation OpenInInAppBrowser
 
 static BOOL isDelegateFired;
 
-- (void)setUp{
+static ANInterstitialAd *interstitialAdView;
+static XCTestExpectation *expectation;
+
++ (void)setUp{
     [super setUp];
-    
     isDelegateFired = NO;
 }
 
 - (void)tearDown{
     [super tearDown];
+    UIViewController *controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIViewController *visibleViewController = controller.navigationController.visibleViewController;
+    while (visibleViewController) {
+        [visibleViewController dismissViewControllerAnimated:YES completion:nil];
+        visibleViewController = controller.navigationController.visibleViewController;
+    }
+    interstitialAdView.delegate = nil;
+    interstitialAdView.videoAdDelegate = nil;
+    interstitialAdView = nil;
+    expectation = nil;
 }
 
 - (void)test1PrepareForDisplay{
@@ -65,19 +74,17 @@ static BOOL isDelegateFired;
     XCTAssertNil(interstitial, @"Failed ot load video.");
 }
 
-static dispatch_semaphore_t waitForDelegateToFire;
-
-- (void) test1OpenClickInInAppBrowser{
+- (void) test2OpenClickInInAppBrowser{
     
     XCTAssertNil(interstitial, @"Failed to load video.");
     
-    waitForDelegateToFire = dispatch_semaphore_create(0);
+    expectation = [self expectationWithDescription:@"Waiting for player to be clicked."];
     
-    [self performSelector:@selector(notifySemaphoreForRelease) withObject:nil afterDelay:5.0];
-    
+    [tester waitForViewWithAccessibilityLabel:@"player"];
     [tester tapViewWithAccessibilityLabel:@"player"];
     
-    dispatch_semaphore_wait(waitForDelegateToFire, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
+    [self performSelector:@selector(notifyExpectation) withObject:nil afterDelay:3.0];
+    [self waitForExpectationsWithTimeout:6.0 handler:nil];
     
     XCTAssertFalse(isDelegateFired, @"Click opened in Native Browser. failed case.");
     
@@ -106,8 +113,10 @@ static dispatch_semaphore_t waitForDelegateToFire;
     isDelegateFired = YES;
 }
 
-- (void) notifySemaphoreForRelease{
-    dispatch_semaphore_signal(waitForDelegateToFire);
+- (void) notifyExpectation{
+    if (!isDelegateFired) {
+        [expectation fulfill];
+    }
 }
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad{

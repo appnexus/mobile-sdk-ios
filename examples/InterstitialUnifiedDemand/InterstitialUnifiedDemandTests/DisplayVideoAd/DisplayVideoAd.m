@@ -22,13 +22,29 @@
 #import <KIF/KIFTestCase.h>
 #import "ANInterstitialAd.h"
 
-@interface DisplayVideoAd()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
-    ANInterstitialAd *interstitialAdView;
-}
-
+@interface DisplayVideoAd()<ANVideoAdDelegate, ANInterstitialAdDelegate>
 @end
 
 @implementation DisplayVideoAd
+
+static ANInterstitialAd *interstitialAdView;
+
++ (void)setUp{
+    [super setUp];
+}
+
++ (void)tearDown{
+    [super tearDown];
+    UIViewController *controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIViewController *visibleViewController = controller.navigationController.visibleViewController;
+    while (visibleViewController) {
+        [visibleViewController dismissViewControllerAnimated:YES completion:nil];
+        visibleViewController = controller.navigationController.visibleViewController;
+    }
+    interstitialAdView.delegate = nil;
+    interstitialAdView.videoAdDelegate = nil;
+    interstitialAdView = nil;
+}
 
 - (void) test1SetUp{
     
@@ -54,11 +70,10 @@
 
 - (void) test3ExistenceOfCloseCountDownTimerAtTopRight{
     XCTAssertNil(interstitial, @"Video could not be loaded.");
-    [tester waitForViewWithAccessibilityLabel:@"player"];
     UIView *circularView = [tester waitForViewWithAccessibilityLabel:@"close button"];
     CGRect superViewFrame = circularView.superview.frame;
     CGRect testFrame = CGRectMake(superViewFrame.size.width - 75, superViewFrame.origin.y, 50, 75);
-    XCTAssertTrue(CGRectContainsPoint(testFrame, circularView.frame.origin));
+    XCTAssertTrue(CGRectContainsPoint(testFrame, circularView.frame.origin), @"Countdown timer not found at top right position.");
 }
 
 - (void) test2ExistenceOfVolumeView{
@@ -69,14 +84,13 @@
 
 - (void) test4ExistenceOfVolumeButtonAtBottomRight{
     XCTAssertNil(interstitial, @"Video could not be loaded.");
-    [tester waitForViewWithAccessibilityLabel:@"player"];
     UIView *volumeView = [tester waitForViewWithAccessibilityLabel:@"volume button"];
     CGRect superViewFrame = volumeView.superview.superview.frame;
     CGRect testFrame = CGRectMake(superViewFrame.size.width - 75, superViewFrame.size.height-75, 50, 50);
     
     CGPoint point = [volumeView convertPoint:volumeView.superview.center toView:volumeView.superview];
     
-    XCTAssertTrue(CGRectContainsPoint(testFrame, point));
+    XCTAssertTrue(CGRectContainsPoint(testFrame, point), @"Volume button not found at bottom right position.");
 }
 
 -(void) setupDelegatesForVideo{

@@ -22,24 +22,33 @@
 #import <KIF/KIFTestCase.h>
 #import "ANInterstitialAd.h"
 
-@interface PlayerClickTest()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
-    ANInterstitialAd *interstitialAdView;
-}
-
+@interface PlayerClickTest()<ANVideoAdDelegate, ANInterstitialAdDelegate>
 @end
 
 @implementation PlayerClickTest
 
 static BOOL isPlayerClicked;
 
-- (void)setUp{
+static ANInterstitialAd *interstitialAdView;
+static XCTestExpectation *expectation;
+
++ (void)setUp{
     [super setUp];
-    
     isPlayerClicked = NO;
 }
 
--(void)tearDown{
++ (void)tearDown{
     [super tearDown];
+    UIViewController *controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIViewController *visibleViewController = controller.navigationController.visibleViewController;
+    while (visibleViewController) {
+        [visibleViewController dismissViewControllerAnimated:YES completion:nil];
+        visibleViewController = controller.navigationController.visibleViewController;
+    }
+    interstitialAdView.delegate = nil;
+    interstitialAdView.videoAdDelegate = nil;
+    interstitialAdView = nil;
+    expectation = nil;
 }
 
 - (void)test1PrepareForDisplay{
@@ -63,19 +72,17 @@ static BOOL isPlayerClicked;
     XCTAssertNil(interstitial, @"Failed to load video.");
 }
 
-static dispatch_semaphore_t waitForPlayerToBeClicked;
-
 - (void) test2ClickOnPlayer{
     
     XCTAssertNil(interstitial, @"Failed to load video.");
     
-    waitForPlayerToBeClicked = dispatch_semaphore_create(0);
-
+    expectation = [self expectationWithDescription:@"Waiting for player to be clicked."];
+    
     [tester tapViewWithAccessibilityLabel:@"player"];
     
-    dispatch_semaphore_wait(waitForPlayerToBeClicked, dispatch_time(DISPATCH_TIME_NOW, 10*NSEC_PER_SEC));
-        
-    XCTAssertTrue(isPlayerClicked, @"Failed.");
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    
+    XCTAssertTrue(isPlayerClicked, @"Failed to perform click on video.");
     
 }
 
@@ -103,7 +110,7 @@ static dispatch_semaphore_t waitForPlayerToBeClicked;
 - (void)adWasClicked:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad was clicked.");
     isPlayerClicked = YES;
-    dispatch_semaphore_signal(waitForPlayerToBeClicked);
+    [expectation fulfill];
 }
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad{

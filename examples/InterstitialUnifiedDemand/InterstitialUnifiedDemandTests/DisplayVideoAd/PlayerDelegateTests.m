@@ -21,9 +21,7 @@
 #import <KIF/KIFTestCase.h>
 #import "ANInterstitialAd.h"
 
-@interface PlayerDelegateTests()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
-    ANInterstitialAd *interstitialAdView;
-}
+@interface PlayerDelegateTests()<ANVideoAdDelegate, ANInterstitialAdDelegate>
 @end
 
 @implementation PlayerDelegateTests
@@ -35,8 +33,31 @@ static BOOL isthirdQuartileDone;
 static BOOL isCreativeViewDone;
 static BOOL isPlayingCompelete;
 
--(void)setUp{
+static ANInterstitialAd *interstitialAdView;
+static XCTestExpectation *expectation;
+
++ (void)setUp{
     [super setUp];
+}
+
++ (void)tearDown{
+    [super tearDown];
+    UIViewController *controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIViewController *visibleViewController = controller.navigationController.visibleViewController;
+    while (visibleViewController) {
+        [visibleViewController dismissViewControllerAnimated:YES completion:nil];
+        visibleViewController = controller.navigationController.visibleViewController;
+    }
+    interstitialAdView.delegate = nil;
+    interstitialAdView.videoAdDelegate = nil;
+    interstitialAdView = nil;
+    isAdStartedPlayingVideo = NO;
+    isCreativeViewDone = NO;
+    isFirstQuartileDone = NO;
+    isMidPointQuartileDone = NO;
+    isthirdQuartileDone = NO;
+    isPlayingCompelete = NO;
+    expectation = nil;
 }
 
 - (void)test1PrepareForDisplay{
@@ -61,24 +82,13 @@ static BOOL isPlayingCompelete;
 
 }
 
-- (void)tearDown{
-    isAdStartedPlayingVideo = NO;
-    isCreativeViewDone = NO;
-    isFirstQuartileDone = NO;
-    isMidPointQuartileDone = NO;
-    isthirdQuartileDone = NO;
-    isPlayingCompelete = NO;
-}
-
-static dispatch_semaphore_t waitForPlayerDelegatesToFire;
-
 - (void) test2PlayerRelatedDelegates{
     
+
     XCTAssertNil(interstitial, @"Failed to load video");
     
-    waitForPlayerDelegatesToFire = dispatch_semaphore_create(0);
-    
-    dispatch_semaphore_wait(waitForPlayerDelegatesToFire, dispatch_time(DISPATCH_TIME_NOW, 100*NSEC_PER_SEC));
+    expectation = [self expectationWithDescription:@"wait for all delegates to fire"];
+    [self waitForExpectationsWithTimeout:100.0 handler:nil];
     
     XCTAssertTrue(isAdStartedPlayingVideo, @"Ad failed to start video.");
     XCTAssertTrue(isFirstQuartileDone, @"Ad did not play till first quartile.");
@@ -139,7 +149,7 @@ static dispatch_semaphore_t waitForPlayerDelegatesToFire;
 - (void)adFinishedPlayingCompleteVideo:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Video finished playing complete video.");
     isPlayingCompelete = YES;
-    dispatch_semaphore_signal(waitForPlayerDelegatesToFire);
+    [expectation fulfill];
 }
 
 @end

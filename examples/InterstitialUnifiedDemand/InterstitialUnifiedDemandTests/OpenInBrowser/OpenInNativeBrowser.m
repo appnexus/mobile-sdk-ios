@@ -22,24 +22,33 @@
 #import <KIF/KIFTestCase.h>
 #import "ANInterstitialAd.h"
 
-@interface OpenInNativeBrowser()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
-    ANInterstitialAd *interstitialAdView;
-}
-
+@interface OpenInNativeBrowser()<ANVideoAdDelegate, ANInterstitialAdDelegate>
 @end
 
 @implementation OpenInNativeBrowser
 
 static BOOL isDelegateFired;
 
-- (void)setUp{
+static ANInterstitialAd *interstitialAdView;
+static XCTestExpectation *expectation;
+
++ (void)setUp{
     [super setUp];
-    
     isDelegateFired = NO;
 }
 
--(void)tearDown{
++ (void)tearDown{
     [super tearDown];
+    UIViewController *controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIViewController *visibleViewController = controller.navigationController.visibleViewController;
+    while (visibleViewController) {
+        [visibleViewController dismissViewControllerAnimated:YES completion:nil];
+        visibleViewController = controller.navigationController.visibleViewController;
+    }
+    interstitialAdView.delegate = nil;
+    interstitialAdView.videoAdDelegate = nil;
+    interstitialAdView = nil;
+    expectation = nil;
 }
 
 - (void)test1PrepareForDisplay{
@@ -64,18 +73,16 @@ static BOOL isDelegateFired;
     XCTAssertNil(interstitial, @"Failed to load video.");
 }
 
-static dispatch_semaphore_t waitForDelegateTobeFired;
-
 - (void) test2OpenClickInNativeBrowser{
     
     XCTAssertNil(interstitial, @"Failed to load video.");
-
-    waitForDelegateTobeFired = dispatch_semaphore_create(0);
+    
+    expectation = [self expectationWithDescription:@"Waiting for player to be clicked."];
     
     [tester tapViewWithAccessibilityLabel:@"player"];
     
-    dispatch_semaphore_wait(waitForDelegateTobeFired, dispatch_time(DISPATCH_TIME_NOW, 10*NSEC_PER_SEC));
-        
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    
     XCTAssertTrue(isDelegateFired, @"Failed.");
     
 }
@@ -101,7 +108,7 @@ static dispatch_semaphore_t waitForDelegateTobeFired;
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
     NSLog(@"Test: ad will leave application");
     isDelegateFired = YES;
-    dispatch_semaphore_signal(waitForDelegateTobeFired);
+    [expectation fulfill];
 }
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad{

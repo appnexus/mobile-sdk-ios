@@ -22,23 +22,33 @@
 #import <KIF/KIFTestCase.h>
 #import "ANInterstitialAd.h"
 
-@interface CloseVideoTest()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
-    ANInterstitialAd *interstitialAdView;
-}
+@interface CloseVideoTest()<ANVideoAdDelegate, ANInterstitialAdDelegate>
 
 @end
 
 @implementation CloseVideoTest
 
 static BOOL isCloseButtonClicked;
+static ANInterstitialAd *interstitialAdView;
+static XCTestExpectation *expectation;
 
-- (void)setUp{
++ (void)setUp{
     [super setUp];
     isCloseButtonClicked = NO;
 }
 
-- (void)tearDown{
++ (void)tearDown{
     [super tearDown];
+    UIViewController *controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIViewController *visibleViewController = controller.navigationController.visibleViewController;
+    while (visibleViewController) {
+        [visibleViewController dismissViewControllerAnimated:YES completion:nil];
+        visibleViewController = controller.navigationController.visibleViewController;
+    }
+    interstitialAdView.delegate = nil;
+    interstitialAdView.videoAdDelegate = nil;
+    interstitialAdView = nil;
+    expectation = nil;
 }
 
 - (void)test1PrepareForDisplay{
@@ -62,22 +72,17 @@ static BOOL isCloseButtonClicked;
     XCTAssertNil(interstitial, @"Failed to load video");
 }
 
-static dispatch_semaphore_t waitForCloseButtonToBeClicked;
-
 - (void) test2ClickOnClose{
 
     XCTAssertNil(interstitial, @"Failed to load video");
+    
+    expectation = [self expectationWithDescription:@"Waiting for Close button to be clicked."];
 
-    waitForCloseButtonToBeClicked = dispatch_semaphore_create(0);
-    
-//    [tester waitForViewWithAccessibilityLabel:@"close button"];
-    [tester waitForTimeInterval:15.0];
+    [tester waitForViewWithAccessibilityLabel:@"close button"];
     [tester tapViewWithAccessibilityLabel:@"close button"];
-    
-    dispatch_semaphore_wait(waitForCloseButtonToBeClicked, dispatch_time(DISPATCH_TIME_NOW,10*NSEC_PER_SEC));
-    
-    NSLog(@"isCloseButtonClicked: %@", isCloseButtonClicked?@"YES":@"NO");
-    
+
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+
     XCTAssertTrue(isCloseButtonClicked, @"Failed.");
     
 }
@@ -110,7 +115,7 @@ static dispatch_semaphore_t waitForCloseButtonToBeClicked;
 - (void)adDidClose:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad Did close now.");
     isCloseButtonClicked = YES;
-    dispatch_semaphore_signal(waitForCloseButtonToBeClicked);
+    [expectation fulfill];
 }
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad{

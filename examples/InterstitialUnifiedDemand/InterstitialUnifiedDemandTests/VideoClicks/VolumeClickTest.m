@@ -22,25 +22,38 @@
 #import <KIF/KIFTestCase.h>
 #import "ANInterstitialAd.h"
 
-@interface VolumeClickTest()<ANVideoAdDelegate, ANInterstitialAdDelegate>{
-    ANInterstitialAd *interstitialAdView;
-}
-
+@interface VolumeClickTest()<ANVideoAdDelegate, ANInterstitialAdDelegate>
 @end
 
 @implementation VolumeClickTest
 
-static dispatch_semaphore_t waitForVolumeButtonToBeClicked;
 static BOOL isVolumeButtonClicked;
 
-- (void)setUp{
+static ANInterstitialAd *interstitialAdView;
+static XCTestExpectation *expectation;
+
++ (void)setUp{
     [super setUp];
-    
     isVolumeButtonClicked = NO;
+}
+
++ (void)tearDown{
+    [super tearDown];
+    UIViewController *controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    UIViewController *visibleViewController = controller.navigationController.visibleViewController;
+    while (visibleViewController) {
+        [visibleViewController dismissViewControllerAnimated:YES completion:nil];
+        visibleViewController = controller.navigationController.visibleViewController;
+    }
+    interstitialAdView.delegate = nil;
+    interstitialAdView.videoAdDelegate = nil;
+    interstitialAdView = nil;
 }
 
 - (void)tearDown{
     [super tearDown];
+    isVolumeButtonClicked = NO;
+    expectation = nil;
 }
 
 - (void)test1PrepareForVolumeTesting{
@@ -68,14 +81,15 @@ static BOOL isVolumeButtonClicked;
 - (void) test2UnmuteVolume{
     
     XCTAssertNil(interstitial, @"Failed to load video.");
- 
-    waitForVolumeButtonToBeClicked = dispatch_semaphore_create(0);
-    
-    [self tapOnVolumeButton];
 
-    dispatch_semaphore_wait(waitForVolumeButtonToBeClicked, dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC));
+    expectation = [self expectationWithDescription:@"Waiting to unmute volume."];
     
-    XCTAssertTrue(isVolumeButtonClicked, @"failed");
+    [tester waitForViewWithAccessibilityLabel:@"player"];
+    [self tapOnVolumeButton];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    
+    XCTAssertTrue(isVolumeButtonClicked, @"failed to unmute volume.");
 }
 
 - (void) tapOnVolumeButton{
@@ -86,13 +100,13 @@ static BOOL isVolumeButtonClicked;
 
     XCTAssertNil(interstitial, @"Failed to load video.");
     
-    waitForVolumeButtonToBeClicked = dispatch_semaphore_create(1);
+    expectation = [self expectationWithDescription:@"Waiting to mute volume."];
     
     [self tapOnVolumeButton];
     
-    dispatch_semaphore_wait(waitForVolumeButtonToBeClicked, dispatch_time(DISPATCH_TIME_NOW, 10*NSEC_PER_SEC));
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
     
-    XCTAssertTrue(isVolumeButtonClicked, @"failed.");
+    XCTAssertTrue(isVolumeButtonClicked, @"failed to mute volume.");
 
 }
 
@@ -116,7 +130,7 @@ static BOOL isVolumeButtonClicked;
 - (void)adMuted:(BOOL)isMuted withAd:(id<ANAdProtocol>)ad{
     NSLog(@"Test: Ad was %@", isMuted?@"Muted":@"Unmuted");
     isVolumeButtonClicked = YES;
-    dispatch_semaphore_signal(waitForVolumeButtonToBeClicked);
+    [expectation fulfill];
 }
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad{
