@@ -72,7 +72,7 @@
 - (NSDictionary *)requestBody {
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
     
-    NSDictionary *tags = [self tag];
+    NSDictionary *tags = [self tag:requestDict];
     if (tags) {
         requestDict[@"tags"] = @[tags];
     }
@@ -113,12 +113,19 @@
     return [kvSegmentsArray copy];
 }
 
-- (NSDictionary *)tag {
+- (NSDictionary *)tag:(NSMutableDictionary *) requestDict {
     NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
     NSInteger placementId = [[self.adFetcherDelegate placementId] integerValue];
-    if (placementId > 0) {
+
+    NSString *invCode = [self.adFetcherDelegate inventoryCode];
+    NSInteger memberId = [self.adFetcherDelegate memberId];
+    if(invCode && memberId>0){
+        tagDict[@"code"] = invCode;
+        requestDict[@"member_id"] = @(memberId);
+    }else {
         tagDict[@"id"] = @(placementId);
     }
+    
     if ([self.adFetcherDelegate conformsToProtocol:@protocol(ANInterstitialAdFetcherDelegate)]) {
         id<ANInterstitialAdFetcherDelegate> interstitialDelegate = (id<ANInterstitialAdFetcherDelegate>)self.adFetcherDelegate;
         NSMutableSet *allowedSizes = [interstitialDelegate allowedAdSizes];
