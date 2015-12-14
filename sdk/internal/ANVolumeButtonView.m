@@ -52,6 +52,7 @@
     
     [self.volumeButton setAlpha:0.7];
     [self setBackgroundColor:[UIColor clearColor]];
+    self.volumeButton.accessibilityLabel = @"volume button";
 }
 
 - (void)handleVolumeButton {

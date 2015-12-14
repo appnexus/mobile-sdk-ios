@@ -123,6 +123,7 @@
     [self.countdownlabel setTextAlignment:NSTextAlignmentCenter];
     
     UIView *countdownLabelView = self.countdownlabel;
+    countdownLabelView.accessibilityLabel = @"countdown label";
     
     [self addSubview:countdownLabelView];
     [self bringSubviewToFront:countdownLabelView];
@@ -162,6 +163,8 @@
     
     [self.layer addSublayer:line1];
     [self.layer addSublayer:line2];
+    
+    self.accessibilityLabel = @"close button";
     
 }
 

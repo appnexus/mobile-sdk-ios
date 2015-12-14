@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		496007961BFEDA0D00B50A1F /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 496007801BFED7AB00B50A1F /* libKIF.a */; };
+		4960079B1BFEDAF400B50A1F /* DisplayVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960079A1BFEDAF400B50A1F /* DisplayVideoAd.m */; settings = {ASSET_TAGS = (); }; };
+		496007A01BFF2A6E00B50A1F /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A0D45291BF1615D0097D925 /* ANSDKResources.bundle */; };
 		8A00B20C1BF1634000818A2A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A00B2011BF1633F00818A2A /* AppDelegate.m */; };
 		8A00B20D1BF1634000818A2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A00B2021BF1633F00818A2A /* Assets.xcassets */; };
 		8A00B20E1BF1634000818A2A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A00B2031BF1633F00818A2A /* LaunchScreen.storyboard */; };
@@ -16,9 +19,51 @@
 		8A00B2131BF1634000818A2A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A00B20B1BF1634000818A2A /* ViewController.m */; };
 		8A0D45481BF161870097D925 /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A0D45271BF1615D0097D925 /* libANSDK.a */; };
 		8A0D45491BF1618D0097D925 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A0D45291BF1615D0097D925 /* ANSDKResources.bundle */; };
+		EF8E4FDA1C101C8600FD711C /* PlayerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8E4FD91C101C8600FD711C /* PlayerDelegateTests.m */; settings = {ASSET_TAGS = (); }; };
+		EFAA6F9E1C04270700C3C83B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAA6F9D1C04270700C3C83B /* CoreGraphics.framework */; };
+		EFDD763B1C047BED0073ACC4 /* VolumeClickTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD763A1C047BED0073ACC4 /* VolumeClickTest.m */; settings = {ASSET_TAGS = (); }; };
+		EFDD763E1C047D9B0073ACC4 /* PlayerClickTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD763D1C047D9B0073ACC4 /* PlayerClickTest.m */; settings = {ASSET_TAGS = (); }; };
+		EFDD76411C047E7A0073ACC4 /* CloseVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD76401C047E7A0073ACC4 /* CloseVideoTest.m */; settings = {ASSET_TAGS = (); }; };
+		EFF21EC71C0C60F100766443 /* OpenInInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF21EC61C0C60F100766443 /* OpenInInAppBrowser.m */; settings = {ASSET_TAGS = (); }; };
+		EFF21ECA1C0C614400766443 /* OpenInNativeBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF21EC91C0C614400766443 /* OpenInNativeBrowser.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4960077F1BFED7AB00B50A1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 496007661BFED7AB00B50A1F /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EABD46AA1857A0C700A5F081;
+			remoteInfo = KIF;
+		};
+		496007811BFED7AB00B50A1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 496007661BFED7AB00B50A1F /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB60ECC1177F8C83005A041A;
+			remoteInfo = "Test Host";
+		};
+		496007831BFED7AB00B50A1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 496007661BFED7AB00B50A1F /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EABD46CD1857A0F300A5F081;
+			remoteInfo = "KIF Tests";
+		};
+		496007851BFED7AB00B50A1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 496007661BFED7AB00B50A1F /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9CC9673B1AD4B1B600576D13;
+			remoteInfo = KIFFramework;
+		};
+		496007911BFED9B100B50A1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A87BED91BD941E900281EA9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A87BEE01BD941E900281EA9;
+			remoteInfo = InterstitialUnifiedDemand;
+		};
 		8A0D45261BF1615D0097D925 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8A0D45121BF1615D0097D925 /* ANSDK.xcodeproj */;
@@ -141,6 +186,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		496007661BFED7AB00B50A1F /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = "KIF-master/KIF.xcodeproj"; sourceTree = "<group>"; };
+		4960078C1BFED9B100B50A1F /* InterstitialUnifiedDemandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterstitialUnifiedDemandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		496007901BFED9B100B50A1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		496007991BFEDAF400B50A1F /* DisplayVideoAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayVideoAd.h; path = DisplayVideoAd/DisplayVideoAd.h; sourceTree = "<group>"; };
+		4960079A1BFEDAF400B50A1F /* DisplayVideoAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisplayVideoAd.m; path = DisplayVideoAd/DisplayVideoAd.m; sourceTree = "<group>"; };
 		8A00B2001BF1633F00818A2A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8A00B2011BF1633F00818A2A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8A00B2021BF1633F00818A2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,9 +203,31 @@
 		8A00B20B1BF1634000818A2A /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8A0D45121BF1615D0097D925 /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
 		8A87BEE11BD941E900281EA9 /* InterstitialUnifiedDemand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterstitialUnifiedDemand.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF8E4FD81C101C8600FD711C /* PlayerDelegateTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerDelegateTests.h; path = DisplayVideoAd/PlayerDelegateTests.h; sourceTree = "<group>"; };
+		EF8E4FD91C101C8600FD711C /* PlayerDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerDelegateTests.m; path = DisplayVideoAd/PlayerDelegateTests.m; sourceTree = "<group>"; };
+		EFAA6F9D1C04270700C3C83B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EFDD76391C047BED0073ACC4 /* VolumeClickTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VolumeClickTest.h; path = VideoClicks/VolumeClickTest.h; sourceTree = "<group>"; };
+		EFDD763A1C047BED0073ACC4 /* VolumeClickTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VolumeClickTest.m; path = VideoClicks/VolumeClickTest.m; sourceTree = "<group>"; };
+		EFDD763C1C047D9B0073ACC4 /* PlayerClickTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerClickTest.h; path = VideoClicks/PlayerClickTest.h; sourceTree = "<group>"; };
+		EFDD763D1C047D9B0073ACC4 /* PlayerClickTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayerClickTest.m; path = VideoClicks/PlayerClickTest.m; sourceTree = "<group>"; };
+		EFDD763F1C047E7A0073ACC4 /* CloseVideoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CloseVideoTest.h; path = VideoClicks/CloseVideoTest.h; sourceTree = "<group>"; };
+		EFDD76401C047E7A0073ACC4 /* CloseVideoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CloseVideoTest.m; path = VideoClicks/CloseVideoTest.m; sourceTree = "<group>"; };
+		EFF21EC51C0C60F100766443 /* OpenInInAppBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenInInAppBrowser.h; path = OpenInBrowser/OpenInInAppBrowser.h; sourceTree = "<group>"; };
+		EFF21EC61C0C60F100766443 /* OpenInInAppBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenInInAppBrowser.m; path = OpenInBrowser/OpenInInAppBrowser.m; sourceTree = "<group>"; };
+		EFF21EC81C0C614400766443 /* OpenInNativeBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenInNativeBrowser.h; path = OpenInBrowser/OpenInNativeBrowser.h; sourceTree = "<group>"; };
+		EFF21EC91C0C614400766443 /* OpenInNativeBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenInNativeBrowser.m; path = OpenInBrowser/OpenInNativeBrowser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		496007891BFED9B100B50A1F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFAA6F9E1C04270700C3C83B /* CoreGraphics.framework in Frameworks */,
+				496007961BFEDA0D00B50A1F /* libKIF.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A87BEDE1BD941E900281EA9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -167,6 +239,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		496007671BFED7AB00B50A1F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				496007801BFED7AB00B50A1F /* libKIF.a */,
+				496007821BFED7AB00B50A1F /* Test Host.app */,
+				496007841BFED7AB00B50A1F /* KIF Tests - XCTest.xctest */,
+				496007861BFED7AB00B50A1F /* KIF.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4960078D1BFED9B100B50A1F /* InterstitialUnifiedDemandTests */ = {
+			isa = PBXGroup;
+			children = (
+				EFF21EAB1C0C5B0F00766443 /* OpenClickInBrowser */,
+				496007901BFED9B100B50A1F /* Info.plist */,
+				EFDD76351C0478BC0073ACC4 /* VideoClicks */,
+				4960079C1BFEDAFE00B50A1F /* DisplayVideoAd */,
+			);
+			path = InterstitialUnifiedDemandTests;
+			sourceTree = "<group>";
+		};
+		4960079C1BFEDAFE00B50A1F /* DisplayVideoAd */ = {
+			isa = PBXGroup;
+			children = (
+				496007991BFEDAF400B50A1F /* DisplayVideoAd.h */,
+				4960079A1BFEDAF400B50A1F /* DisplayVideoAd.m */,
+				EF8E4FD81C101C8600FD711C /* PlayerDelegateTests.h */,
+				EF8E4FD91C101C8600FD711C /* PlayerDelegateTests.m */,
+			);
+			name = DisplayVideoAd;
+			sourceTree = "<group>";
+		};
 		8A00B1FF1BF1633F00818A2A /* InterstitialUnifiedDemand */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,8 +316,11 @@
 		8A87BED81BD941E900281EA9 = {
 			isa = PBXGroup;
 			children = (
+				EFAA6F9D1C04270700C3C83B /* CoreGraphics.framework */,
+				496007661BFED7AB00B50A1F /* KIF.xcodeproj */,
 				8A0D45121BF1615D0097D925 /* ANSDK.xcodeproj */,
 				8A00B1FF1BF1633F00818A2A /* InterstitialUnifiedDemand */,
+				4960078D1BFED9B100B50A1F /* InterstitialUnifiedDemandTests */,
 				8A87BEE21BD941E900281EA9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -221,13 +329,56 @@
 			isa = PBXGroup;
 			children = (
 				8A87BEE11BD941E900281EA9 /* InterstitialUnifiedDemand.app */,
+				4960078C1BFED9B100B50A1F /* InterstitialUnifiedDemandTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		EFDD76351C0478BC0073ACC4 /* VideoClicks */ = {
+			isa = PBXGroup;
+			children = (
+				EFDD76391C047BED0073ACC4 /* VolumeClickTest.h */,
+				EFDD763A1C047BED0073ACC4 /* VolumeClickTest.m */,
+				EFDD763C1C047D9B0073ACC4 /* PlayerClickTest.h */,
+				EFDD763D1C047D9B0073ACC4 /* PlayerClickTest.m */,
+				EFDD763F1C047E7A0073ACC4 /* CloseVideoTest.h */,
+				EFDD76401C047E7A0073ACC4 /* CloseVideoTest.m */,
+			);
+			name = VideoClicks;
+			sourceTree = "<group>";
+		};
+		EFF21EAB1C0C5B0F00766443 /* OpenClickInBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				EFF21EC51C0C60F100766443 /* OpenInInAppBrowser.h */,
+				EFF21EC61C0C60F100766443 /* OpenInInAppBrowser.m */,
+				EFF21EC81C0C614400766443 /* OpenInNativeBrowser.h */,
+				EFF21EC91C0C614400766443 /* OpenInNativeBrowser.m */,
+			);
+			name = OpenClickInBrowser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4960078B1BFED9B100B50A1F /* InterstitialUnifiedDemandTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 496007931BFED9B100B50A1F /* Build configuration list for PBXNativeTarget "InterstitialUnifiedDemandTests" */;
+			buildPhases = (
+				496007881BFED9B100B50A1F /* Sources */,
+				496007891BFED9B100B50A1F /* Frameworks */,
+				4960078A1BFED9B100B50A1F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				496007921BFED9B100B50A1F /* PBXTargetDependency */,
+			);
+			name = InterstitialUnifiedDemandTests;
+			productName = InterstitialUnifiedDemandTests;
+			productReference = 4960078C1BFED9B100B50A1F /* InterstitialUnifiedDemandTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8A87BEE01BD941E900281EA9 /* InterstitialUnifiedDemand */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A87BEF81BD941E900281EA9 /* Build configuration list for PBXNativeTarget "InterstitialUnifiedDemand" */;
@@ -252,11 +403,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = AppNexus;
+				ORGANIZATIONNAME = "APPNEXUS INC";
 				TargetAttributes = {
+					4960078B1BFED9B100B50A1F = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = TBFU6QDZMS;
+						TestTargetID = 8A87BEE01BD941E900281EA9;
+					};
 					8A87BEE01BD941E900281EA9 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = HR94J6TSB3;
+						DevelopmentTeam = TBFU6QDZMS;
 					};
 				};
 			};
@@ -276,15 +432,48 @@
 					ProductGroup = 8A0D45131BF1615D0097D925 /* Products */;
 					ProjectRef = 8A0D45121BF1615D0097D925 /* ANSDK.xcodeproj */;
 				},
+				{
+					ProductGroup = 496007671BFED7AB00B50A1F /* Products */;
+					ProjectRef = 496007661BFED7AB00B50A1F /* KIF.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
 				8A87BEE01BD941E900281EA9 /* InterstitialUnifiedDemand */,
+				4960078B1BFED9B100B50A1F /* InterstitialUnifiedDemandTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		496007801BFED7AB00B50A1F /* libKIF.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKIF.a;
+			remoteRef = 4960077F1BFED7AB00B50A1F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		496007821BFED7AB00B50A1F /* Test Host.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Test Host.app";
+			remoteRef = 496007811BFED7AB00B50A1F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		496007841BFED7AB00B50A1F /* KIF Tests - XCTest.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "KIF Tests - XCTest.xctest";
+			remoteRef = 496007831BFED7AB00B50A1F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		496007861BFED7AB00B50A1F /* KIF.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = KIF.framework;
+			remoteRef = 496007851BFED7AB00B50A1F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8A0D45271BF1615D0097D925 /* libANSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -407,6 +596,14 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4960078A1BFED9B100B50A1F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				496007A01BFF2A6E00B50A1F /* ANSDKResources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A87BEDF1BD941E900281EA9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -422,6 +619,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		496007881BFED9B100B50A1F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFF21ECA1C0C614400766443 /* OpenInNativeBrowser.m in Sources */,
+				EFDD76411C047E7A0073ACC4 /* CloseVideoTest.m in Sources */,
+				EFDD763B1C047BED0073ACC4 /* VolumeClickTest.m in Sources */,
+				EF8E4FDA1C101C8600FD711C /* PlayerDelegateTests.m in Sources */,
+				4960079B1BFEDAF400B50A1F /* DisplayVideoAd.m in Sources */,
+				EFDD763E1C047D9B0073ACC4 /* PlayerClickTest.m in Sources */,
+				EFF21EC71C0C60F100766443 /* OpenInInAppBrowser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A87BEDD1BD941E900281EA9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -433,6 +644,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		496007921BFED9B100B50A1F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8A87BEE01BD941E900281EA9 /* InterstitialUnifiedDemand */;
+			targetProxy = 496007911BFED9B100B50A1F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8A00B2031BF1633F00818A2A /* LaunchScreen.storyboard */ = {
@@ -454,6 +673,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		496007941BFED9B100B50A1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../sdk";
+				INFOPLIST_FILE = InterstitialUnifiedDemandTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					IOKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.appNexus.InterstitialUnifiedDemandTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InterstitialUnifiedDemand.app/InterstitialUnifiedDemand";
+			};
+			name = Debug;
+		};
+		496007951BFED9B100B50A1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../sdk";
+				INFOPLIST_FILE = InterstitialUnifiedDemandTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					IOKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.appNexus.InterstitialUnifiedDemandTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InterstitialUnifiedDemand.app/InterstitialUnifiedDemand";
+			};
+			name = Release;
+		};
 		8A87BEF61BD941E900281EA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -547,7 +802,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = corp.appnexus.InterstitialUnifiedDemand;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appNexus.InterstitialUnifiedDemand;
 				PRODUCT_NAME = InterstitialUnifiedDemand;
 				PROVISIONING_PROFILE = "";
 			};
@@ -564,7 +819,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = corp.appnexus.InterstitialUnifiedDemand;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appNexus.InterstitialUnifiedDemand;
 				PRODUCT_NAME = InterstitialUnifiedDemand;
 				PROVISIONING_PROFILE = "";
 			};
@@ -573,6 +828,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		496007931BFED9B100B50A1F /* Build configuration list for PBXNativeTarget "InterstitialUnifiedDemandTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				496007941BFED9B100B50A1F /* Debug */,
+				496007951BFED9B100B50A1F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8A87BEDC1BD941E900281EA9 /* Build configuration list for PBXProject "InterstitialUnifiedDemand" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

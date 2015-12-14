@@ -52,6 +52,26 @@
                ReferencedContainer = "container:NewTestApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4956B63A1BFC8C2B00E0C0EB"
+               BuildableName = "InterstitialUnifiedDemand.xctest"
+               BlueprintName = "InterstitialUnifiedDemand"
+               ReferencedContainer = "container:NewTestApp.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4956B6541BFD71F600E0C0EB"
+               BuildableName = "InterstitialUnifiedDemand.xctest"
+               BlueprintName = "InterstitialUnifiedDemand"
+               ReferencedContainer = "container:NewTestApp.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

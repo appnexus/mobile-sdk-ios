@@ -139,6 +139,8 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     [self.playerView setVideoFillMode:AVLayerVideoGravityResizeAspect];
     self.playerView.translatesAutoresizingMaskIntoConstraints = NO;
     
+    self.playerView.accessibilityLabel = @"player";
+    
     [self.view addSubview:self.playerView];
     [self.playerView an_constrainToSizeOfSuperview];
     
@@ -374,6 +376,9 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
             ANLogDebug(@"Failed to initialize the browser.");
         }
     } else{
+        if([self.delegate respondsToSelector:@selector(adWillLeaveApplication)]){
+            [self.delegate adWillLeaveApplication];
+        }
         [self pause];
         [[UIApplication sharedApplication] openURL:url];
     }
