@@ -16,6 +16,7 @@
 #import "ANUniversalTagAdServerResponse.h"
 #import "ANLogging.h"
 #import "ANInterstitialAdFetcher.h"
+#import "ANMediatedAd.h"
 
 static NSString *const kANUniversalTagAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kANUniversalTagAdServerResponseKeyTags = @"tags";
@@ -36,6 +37,20 @@ static NSString *const kANUniversalTagAdServerResponseBannerKeyContent = @"conte
 
 static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.js";
 
+// Mediated
+static NSString *const kANUniversalTagAdServerResponseValueIOS = @"ios";
+static NSString *const kANUniversalTagAdServerResponseKeyHandler = @"handler";
+static NSString *const kANUniversalTagAdServerResponseKeyClass = @"class";
+static NSString *const kANUniversalTagAdServerResponseKeyId = @"id";
+static NSString *const kANUniversalTagAdServerResponseKeyParam = @"param";
+static NSString *const kANUniversalTagAdServerResponseKeyResultCB = @"response_url";
+
+
+// Standard
+static NSString *const kANUniversalTagAdServerResponseKeyType = @"type";
+static NSString *const kANUniversalTagAdServerResponseKeyWidth = @"width";
+static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
+
 @interface ANUniversalTagAdServerResponse ()
 
 @property (nonatomic, readwrite, assign) BOOL containsAds;
@@ -43,6 +58,9 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
 @property (nonatomic, readwrite, strong) NSMutableArray *standardAds;
 @property (nonatomic, readwrite, strong) ANVideoAd *videoAd;
 @property (nonatomic, readwrite, strong) NSMutableArray *videoAds;
+@property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
+
+@property (nonatomic, readwrite, strong) NSMutableArray *ads;
 
 @end
 
@@ -74,11 +92,11 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
             }
             NSDictionary *adObject = [[self class] adObjectFromTag:tag];
             if (adObject) {
-                ANStandardAd *standardAd = [[self class] standardAdFromAdObject:adObject];
+                ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:adObject];
                 if (standardAd) {
                     [self.standardAds addObject:standardAd];
                 }
-                ANVideoAd *videoAd = [[self class] videoAdFromAdObject:adObject];
+                ANVideoAd *videoAd = [[self class] videoAdFromRTBObject:adObject];
                 if (videoAd) {
                     videoAd.vastDataModel.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
                     [self.videoAds addObject:videoAd];
@@ -113,40 +131,6 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
     return nil;
 }
 
-+ (ANStandardAd *)standardAdFromAdObject:(NSDictionary *)adObject {
-    if ([adObject[kANUniversalTagAdServerResponseKeyBanner] isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *banner = adObject[kANUniversalTagAdServerResponseKeyBanner];
-        ANStandardAd *standardAd = [[ANStandardAd alloc] init];
-        standardAd.width = [banner[kANUniversalTagAdServerResponseBannerKeyWidth] description];
-        standardAd.height = [banner[kANUniversalTagAdServerResponseBannerKeyHeight] description];
-        standardAd.content = [banner[kANUniversalTagAdServerResponseBannerKeyContent] description];
-        if (!standardAd.content || [standardAd.content length] == 0) {
-            ANLogError(@"blank_ad");
-            return nil;
-        }
-        NSRange mraidJSRange = [standardAd.content rangeOfString:kANUniversalTagAdServerResponseMraidJSFilename];
-        if (mraidJSRange.location != NSNotFound) {
-            standardAd.mraid = YES;
-        }
-        return standardAd;
-    }
-    return nil;
-}
-
-+ (ANVideoAd *)videoAdFromAdObject:(NSDictionary *)adObject {
-    if ([adObject[kANUniversalTagAdServerResponseKeyVideo] isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *video = adObject[kANUniversalTagAdServerResponseKeyVideo];
-        ANVideoAd *videoAd = [[ANVideoAd alloc] init];
-        videoAd.content = [video[kANUniversalTagAdServerResponseVideoKeyContent] description];
-        videoAd.vastDataModel = [[ANVast alloc] initWithContent:videoAd.content];
-        if (!videoAd.vastDataModel) {
-            ANLogDebug(@"Invalid VAST content, unable to use");
-            return nil;
-        }
-        return videoAd;
-    }
-    return nil;
-}
 
 #pragma mark - Universal Tag V2 Support
 
@@ -164,26 +148,36 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
                     if (![adObject isKindOfClass:[NSDictionary class]]) {
                         continue;
                     }
+                    // need trackers
                     NSDictionary *rtbObject = [[self class] rtbObjectFromAdObject:adObject];
-                    if (!rtbObject) {
-                        return;
+                    if (rtbObject) {
+                        ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
+                        if (standardAd) {
+                            [self.ads addObject:standardAd];
+                        }
+                        ANVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
+                        if (videoAd) {
+                            videoAd.vastDataModel.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
+                            [self.ads addObject:videoAd];
+                        }
                     }
-                    ANStandardAd *standardAd = [[self class] standardAdFromAdObject:rtbObject];
-                    if (standardAd) {
-                        [self.standardAds addObject:standardAd];
+                    NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
+                    if (csmObject) {
+                        ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
+                        if (mediatedAd) {
+                            [self.ads addObject:mediatedAd];
+                        }
                     }
-                    ANVideoAd *videoAd = [[self class] videoAdFromAdObject:rtbObject];
-                    if (videoAd) {
-                        videoAd.vastDataModel.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
-                        [self.videoAds addObject:videoAd];
+                    NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
+                    if (ssmObject) {
+                        // add ssm object to mediated array
+                        // add notify url to ssm vast mediated object
                     }
                 }
             }
         }
     }
-    self.standardAd = [self.standardAds firstObject];
-    self.videoAd = [self.videoAds firstObject];
-    if (self.standardAd || self.videoAd) {
+    if (self.ads.count > 0) {
         self.containsAds = YES;
     }
 }
@@ -202,6 +196,100 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
     return nil;
 }
 
++ (NSDictionary *)csmObjectFromAdObject:(NSDictionary *)adObject {
+    if ([adObject[@"csm"] isKindOfClass:[NSDictionary class]]) {
+        return adObject[@"csm"];
+    }
+    return nil;
+}
+
++ (NSDictionary *)ssmObjectFromAdObject:(NSDictionary *)adObject {
+    if ([adObject[@"ssm"] isKindOfClass:[NSDictionary class]]) {
+        return adObject[@"ssm"];
+    }
+    return nil;
+}
+
++ (ANStandardAd *)standardAdFromRTBObject:(NSDictionary *)rtbObject {
+    if ([rtbObject[kANUniversalTagAdServerResponseKeyBanner] isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *banner = rtbObject[kANUniversalTagAdServerResponseKeyBanner];
+        ANStandardAd *standardAd = [[ANStandardAd alloc] init];
+        standardAd.width = [banner[kANUniversalTagAdServerResponseBannerKeyWidth] description];
+        standardAd.height = [banner[kANUniversalTagAdServerResponseBannerKeyHeight] description];
+        standardAd.content = [banner[kANUniversalTagAdServerResponseBannerKeyContent] description];
+        standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:rtbObject];
+        if (!standardAd.content || [standardAd.content length] == 0) {
+            ANLogError(@"blank_ad");
+            return nil;
+        }
+        NSRange mraidJSRange = [standardAd.content rangeOfString:kANUniversalTagAdServerResponseMraidJSFilename];
+        if (mraidJSRange.location != NSNotFound) {
+            standardAd.mraid = YES;
+        }
+        return standardAd;
+    }
+    return nil;
+}
+
++ (ANVideoAd *)videoAdFromRTBObject:(NSDictionary *)rtbObject {
+    if ([rtbObject[kANUniversalTagAdServerResponseKeyVideo] isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *video = rtbObject[kANUniversalTagAdServerResponseKeyVideo];
+        ANVideoAd *videoAd = [[ANVideoAd alloc] init];
+        videoAd.content = [video[kANUniversalTagAdServerResponseVideoKeyContent] description];
+        videoAd.vastDataModel = [[ANVast alloc] initWithContent:videoAd.content];
+        if (!videoAd.vastDataModel) {
+            ANLogDebug(@"Invalid VAST content, unable to use");
+            return nil;
+        }
+        videoAd.vastDataModel.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:rtbObject];
+        return videoAd;
+    }
+    return nil;
+}
+
++ (ANMediatedAd *)mediatedAdFromCSMObject:(NSDictionary *)csmObject {
+    if ([csmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
+        ANMediatedAd *mediatedAd;
+        NSArray *handlerArray = (NSArray *)csmObject[kANUniversalTagAdServerResponseKeyHandler];
+        for (id handlerObject in handlerArray) {
+            if ([handlerObject isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *handlerDict = (NSDictionary *)handlerObject;
+                NSString *type = [handlerDict[kANUniversalTagAdServerResponseKeyType] description];
+                if ([type.lowercaseString isEqualToString:kANUniversalTagAdServerResponseValueIOS]) {
+                    NSString *className = [handlerDict[kANUniversalTagAdServerResponseKeyClass] description];
+                    if ([className length] == 0) {
+                        return nil;
+                    }
+                    mediatedAd = [[ANMediatedAd alloc] init];
+                    mediatedAd.className = className;
+                    mediatedAd.param = [handlerDict[kANUniversalTagAdServerResponseKeyParam] description];
+                    mediatedAd.width = [handlerDict[kANUniversalTagAdServerResponseKeyWidth] description];
+                    mediatedAd.height = [handlerDict[kANUniversalTagAdServerResponseKeyHeight] description];
+                    mediatedAd.adId = [handlerDict[kANUniversalTagAdServerResponseKeyId] description];
+                    break;
+                }
+            }
+        }
+        mediatedAd.resultCB = [csmObject[kANUniversalTagAdServerResponseKeyResultCB] description];
+        mediatedAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:csmObject];
+        return mediatedAd;
+    }
+    return nil;
+}
+
++ (NSArray *)impressionUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    if ([contentSourceObject[@"trackers"] isKindOfClass:[NSArray class]]) {
+        NSArray *trackers = contentSourceObject[@"trackers"];
+        if ([[trackers firstObject] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *trackerDict = [trackers firstObject];
+            if ([trackerDict[@"impression_urls"] isKindOfClass:[NSArray class]]) {
+               return trackerDict[@"impression_urls"];
+            }
+        }
+    }
+    return nil;
+}
+
 #pragma mark - Helper Methods
 
 - (NSMutableArray *)standardAds {
@@ -212,6 +300,16 @@ static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.
 - (NSMutableArray *)videoAds {
     if (!_videoAds) _videoAds = [[NSMutableArray alloc] init];
     return _videoAds;
+}
+
+- (NSMutableArray *)mediatedAds {
+    if (!_mediatedAds) _mediatedAds = [[NSMutableArray alloc] init];
+    return _mediatedAds;
+}
+
+- (NSMutableArray *)ads {
+    if (!_ads) _ads = [[NSMutableArray alloc] init];
+    return _ads;
 }
 
 + (NSDictionary *)jsonResponseFromData:(NSData *)data {

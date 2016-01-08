@@ -31,5 +31,6 @@
 @property (nonatomic, readonly) NSURL *mediaFileURL;
 
 @property (nonatomic, readwrite) NSString *notifyUrlString;
+@property (nonatomic, readwrite) NSArray *impressionUrls;
 
 @end

@@ -20,6 +20,8 @@
 #import "ANMRAIDContainerView.h"
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANUniversalTagAdServerResponse.h"
+#import "ANMediatedAd.h"
+#import "ANMediationAdViewController.h"
 
 @interface ANInterstitialAdFetcher () <NSURLConnectionDataDelegate, ANAdWebViewControllerLoadingDelegate>
 
@@ -29,6 +31,10 @@
 @property (nonatomic, readwrite, strong) NSMutableData *data;
 
 @property (nonatomic, readwrite, strong) ANMRAIDContainerView *standardAdView;
+
+@property (nonatomic, readwrite, strong) NSMutableArray *ads;
+@property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
+@property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
 
 @end
 
@@ -53,6 +59,7 @@
 #pragma mark - Ad Request
 
 - (void)requestAd {
+    [self markLatencyStart];
     NSURLRequest *request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate
                                                                               baseUrlString:kANInterstitialAdFetcherDefaultRequestUrlString];
     self.connection = [NSURLConnection connectionWithRequest:request
@@ -69,25 +76,23 @@
     [self.connection cancel];
     self.connection = nil;
     self.data = nil;
+    self.ads = nil;
+    [self clearMediationController];
 }
 
 #pragma mark - Ad Response
 
-- (void)processAdResponse:(ANUniversalTagAdServerResponse *)response {
-    BOOL responseAdsExist = response && response.containsAds;
+- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response {
+    BOOL numberOfAds = response.ads != nil ? response.ads.count : 0;
 
-    if (!responseAdsExist) {
+    if (numberOfAds == 0) {
         ANLogWarn(@"response_no_ads");
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
     
-    if (response.videoAd) {
-        ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:response.videoAd];
-        [self processFinalResponse:adFetcherResponse];
-    } else {
-        [self handleStandardAd:response.standardAd];
-    }
+    self.ads = response.ads;
+    [self continueWaterfall];
 }
 
 - (void)finishRequestWithError:(NSError *)error {
@@ -96,7 +101,35 @@
 }
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response {
+    self.ads = nil;
     [self sendDelegateFinishedResponse:response];
+}
+
+- (void)continueWaterfall {
+    BOOL numberOfAdsLeft = self.ads.count > 0;
+    
+    if (numberOfAdsLeft == 0) {
+        ANLogWarn(@"response_no_ads");
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        return;
+    }
+    
+    // stop waterfall if delegate reference (adview) was lost
+    if (!self.delegate) {
+        return;
+    }
+    
+    id nextAd = [self.ads firstObject];
+    [self.ads removeObjectAtIndex:0];
+    if ([nextAd isKindOfClass:[ANMediatedAd class]]) {
+        [self handleMediatedAd:nextAd];
+    } else if ([nextAd isKindOfClass:[ANVideoAd class]]) {
+        [self handleVideoAd:nextAd];
+    } else if ([nextAd isKindOfClass:[ANStandardAd class]]) {
+        [self handleStandardAd:nextAd];
+    } else {
+        ANLogError(@"Implementation error: Unknown ad in ads waterfall");
+    }
 }
 
 #pragma mark - Standard Ads
@@ -115,6 +148,59 @@
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
     ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
     [self processFinalResponse:response];
+}
+
+#pragma mark - VAST Ads
+
+- (void)handleVideoAd:(ANVideoAd *)vastAd {
+    NSString *notifyUrlString = vastAd.vastDataModel.notifyUrlString;
+    if (notifyUrlString.length > 0) {
+        ANLogDebug(@"(notify_url, %@)", notifyUrlString);
+        [self fireAndIgnoreResultCB:[NSURL URLWithString:notifyUrlString]];
+    }
+    ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:vastAd];
+    [self processFinalResponse:adFetcherResponse];
+}
+
+#pragma mark - Mediated Ads
+
+- (void)handleMediatedAd:(ANMediatedAd *)mediatedAd {
+    [self clearMediationController];
+    // Casting ANInterstitialAdFetcher to ANAdFetcher is intentional, even if they have no relation.
+    // This class implements the necessary methods from ANAdFether in order to avoid any issues.
+    self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
+                                                               withFetcher:(ANAdFetcher *)self
+                                                            adViewDelegate:self.delegate];
+}
+
+- (void)clearMediationController {
+    self.mediationController = nil;
+}
+
+- (void)fireAndIgnoreResultCB:(NSURL *)url {
+    // just fire resultCB asnychronously and ignore result
+    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(url)
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               
+                           }];
+}
+
+- (void)fireResultCB:(NSString *)resultCBString
+              reason:(ANAdResponseCode)reason
+            adObject:(id)adObject
+           auctionID:(NSString *)auctionID {
+    NSURL *resultURL = [NSURL URLWithString:resultCBString];
+    if ([resultCBString length] > 0) {
+        [self fireAndIgnoreResultCB:resultURL];
+    }
+    if (reason == ANAdResponseSuccessful) {
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject];
+        response.auctionID = auctionID;
+        [self processFinalResponse:response];
+    } else {
+        [self continueWaterfall];
+    }
 }
 
 #pragma mark - NSURLConnectionDataDelegate
@@ -153,7 +239,7 @@
                                                          encoding:NSUTF8StringEncoding];
         ANPostNotifications(kANAdFetcherDidReceiveResponseNotification, self,
                             @{kANAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-        [self processAdResponse:adResponse];
+        [self processAdServerResponse:adResponse];
     }
 }
 
@@ -164,6 +250,26 @@
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:connectionError];
         [self processFinalResponse:response];
     }
+}
+
+#pragma mark Total Latency Measurement
+
+/**
+ * Mark the beginning of an ad request for latency recording
+ */
+- (void)markLatencyStart {
+    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+}
+
+/**
+ * Returns the time difference since ad request start
+ */
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime {
+    if ((self.totalLatencyStart > 0) && (stopTime > 0)) {
+        return (stopTime - self.totalLatencyStart);
+    }
+    // return -1 if invalid parameters
+    return -1;
 }
 
 @end

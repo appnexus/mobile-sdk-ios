@@ -59,23 +59,24 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
     return self;
 }
 
-- (void)parseVastResponse:(NSString *)response
+- (BOOL)parseVastResponse:(NSString *)response
                     error:(NSError **)error {
     ANXML *xml = [ANXML newANXMLWithXMLString:response
                                         error:error];
-    if (!*error) {
+    BOOL errorOcurred = (*error != nil);
+    if (!errorOcurred) {
         waitForVastParsingCompletion = dispatch_semaphore_create(0);
         releaseCounter = 0;
         [self parseRootElement:xml.rootXMLElement];
         dispatch_semaphore_wait(waitForVastParsingCompletion, dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC));
     }
+    return errorOcurred;
 }
 
 static dispatch_semaphore_t waitForVastParsingCompletion;
 static int releaseCounter;
 
-- (void)parseResponseWithURL:(NSURL *)xmlURL
-                       error:(NSError **)error {
+- (void)parseResponseWithURL:(NSURL *)xmlURL {
     [ANXML newANXMLWithURL:xmlURL
                    success:^(ANXML *tbxml) {
         [self parseRootElement:tbxml.rootXMLElement];
@@ -138,9 +139,8 @@ static int releaseCounter;
                             if (!isVastTagURIAlreadyExists) {
                                 [self.anWrappers addObject:wrapper];
                                 NSURL *vastURL = [NSURL URLWithString:wrapper.vastAdTagURI];
-                                NSError *error;
                                 releaseCounter++;
-                                [self parseResponseWithURL:vastURL error:&error];
+                                [self parseResponseWithURL:vastURL];
                             }
                         }
                     }

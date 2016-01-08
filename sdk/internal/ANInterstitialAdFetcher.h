@@ -18,7 +18,7 @@
 
 @protocol ANInterstitialAdFetcherDelegate;
 
-#define kANANInterstitialAdFetcherUseUTV2 0
+#define kANANInterstitialAdFetcherUseUTV2 1
 
 #if kANANInterstitialAdFetcherUseUTV2
 static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://rlissack.adnxs.net:8080/jtest/utv2video";
@@ -30,6 +30,11 @@ static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http:
 
 - (instancetype)initWithDelegate:(id<ANInterstitialAdFetcherDelegate>)delegate;
 - (void)stopAdLoad;
+- (void)fireResultCB:(NSString *)resultCBString
+              reason:(ANAdResponseCode)reason
+            adObject:(id)adObject
+           auctionID:(NSString *)auctionID;
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 
 @end
 
