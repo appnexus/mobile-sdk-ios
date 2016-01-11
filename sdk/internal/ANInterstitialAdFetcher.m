@@ -36,6 +36,8 @@
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
 
+@property (nonatomic, readwrite, strong) NSArray *impressionUrls;
+
 @end
 
 
@@ -121,12 +123,17 @@
     
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
+    self.impressionUrls = nil;
     if ([nextAd isKindOfClass:[ANMediatedAd class]]) {
-        [self handleMediatedAd:nextAd];
+        ANMediatedAd *mediatedAd = (ANMediatedAd *)nextAd;
+        self.impressionUrls = mediatedAd.impressionUrls;
+        [self handleMediatedAd:mediatedAd];
     } else if ([nextAd isKindOfClass:[ANVideoAd class]]) {
         [self handleVideoAd:nextAd];
     } else if ([nextAd isKindOfClass:[ANStandardAd class]]) {
-        [self handleStandardAd:nextAd];
+        ANStandardAd *standardAd = (ANStandardAd *)nextAd;
+        self.impressionUrls = standardAd.impressionUrls;
+        [self handleStandardAd:standardAd];
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall");
     }
@@ -147,6 +154,7 @@
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
     ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
+    response.impressionUrls = self.impressionUrls;
     [self processFinalResponse:response];
 }
 
@@ -197,6 +205,7 @@
     if (reason == ANAdResponseSuccessful) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject];
         response.auctionID = auctionID;
+        response.impressionUrls = self.impressionUrls;
         [self processFinalResponse:response];
     } else {
         [self continueWaterfall];

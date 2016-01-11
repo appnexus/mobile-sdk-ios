@@ -139,6 +139,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         if (response.auctionID) {
             adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
         }
+        if (response.impressionUrls) {
+            adViewWithDateLoaded[@"impressionUrls"] = response.impressionUrls;
+        }
         [self.precachedAdObjects addObject:adViewWithDateLoaded];
         ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
         
@@ -165,6 +168,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     }
     id adToShow = nil;
     NSString *auctionID = nil;
+    NSArray *impressionUrls = nil;
     
     self.controller.orientationProperties = nil;
     self.controller.useCustomClose = NO;
@@ -185,6 +189,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             // If ad is still valid, save a reference to it. We'll use it later
             adToShow = adDict[kANInterstitialAdViewKey];
             auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
+            impressionUrls = adDict[@"impressionUrls"];
             [self.precachedAdObjects removeObjectAtIndex:0];
             break;
         }
@@ -195,6 +200,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
     if ([adToShow isKindOfClass:[UIView class]]) {
         self.controller = [[ANInterstitialAdViewController alloc] init];
+        self.controller.impressionUrls = impressionUrls;
         self.controller.delegate = self;
         if (!self.controller) {
             ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");

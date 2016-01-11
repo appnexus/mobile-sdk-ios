@@ -22,6 +22,7 @@
 #import "ANMRAIDOrientationProperties.h"
 #import "NSTimer+ANCategory.h"
 #import "ANCircularAnimationView.h"
+#import "ANNativeImpressionTrackerManager.h"
 
 @interface ANInterstitialAdViewController ()<ANCircularAnimationViewDelegate>
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;
@@ -31,6 +32,12 @@
 @property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @property (nonatomic, readwrite, assign, getter=isDismissing) BOOL dismissing;
 @property (nonatomic, strong) ANCircularAnimationView *circularAnimationView;
+
+@property (nonatomic, readwrite, assign) NSUInteger viewabilityValue;
+@property (nonatomic, readwrite, assign) NSUInteger targetViewabilityValue;
+@property (nonatomic, readwrite, strong) NSTimer *viewabilityTimer;
+@property (nonatomic, readwrite, assign) BOOL impressionHasBeenTracked;
+
 @end
 
 @implementation ANInterstitialAdViewController
@@ -96,6 +103,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (!self.viewed && ([self.delegate closeDelayForController] > 0.0)) {
+        [self setupViewabilityTracker];
         [self startCountdownTimer];
         self.viewed = YES;
     } else {
@@ -279,5 +287,49 @@
     [self.delegate interstitialAdViewControllerShouldDismiss:self];
 }
     
+#pragma mark - Impression Tracking
+
+- (void)setupViewabilityTracker {
+    __weak ANInterstitialAdViewController *weakSelf = self;
+    NSInteger requiredAmountOfSimultaneousViewableEvents = lround(kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
+                                                                  / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
+    self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
+    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
+                                                                 block:^ {
+                                                                     ANInterstitialAdViewController *strongSelf = weakSelf;
+                                                                     [strongSelf checkViewability];
+                                                                 }
+                                                               repeats:YES];
+}
+
+- (void)checkViewability {
+    self.viewabilityValue = (self.viewabilityValue << 1 | [self.view an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
+    BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
+    if (isIABViewable) {
+        [self trackImpression];
+    }
+}
+
+- (void)trackImpression {
+    if (!self.impressionHasBeenTracked) {
+        ANLogDebug(@"Firing impression trackers");
+        [self fireImpTrackers];
+        [self.viewabilityTimer invalidate];
+        self.impressionHasBeenTracked = YES;
+    }
+}
+
+- (void)fireImpTrackers {
+    if (self.impressionUrls) {
+        NSMutableArray *impressionURLArray = [[NSMutableArray alloc] init];
+        [self.impressionUrls enumerateObjectsUsingBlock:^(NSString *urlString, NSUInteger idx, BOOL *stop) {
+            NSURL *URL = [NSURL URLWithString:urlString];
+            if (URL) {
+                [impressionURLArray addObject:URL];
+            }
+        }];
+        [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:impressionURLArray];
+    }
+}
 
 @end

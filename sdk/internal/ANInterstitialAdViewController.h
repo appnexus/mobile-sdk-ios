@@ -30,6 +30,8 @@
 @property (nonatomic, readwrite, strong) ANMRAIDOrientationProperties *orientationProperties;
 @property (nonatomic, readwrite, assign) BOOL useCustomClose;
 
+@property (nonatomic, readwrite, strong) NSArray *impressionUrls; // Array of impression url strings
+
 - (IBAction)closeAction:(id)sender;
 - (void)stopCountdownTimer;
 
