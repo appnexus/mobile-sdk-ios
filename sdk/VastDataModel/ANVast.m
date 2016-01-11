@@ -36,6 +36,10 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
 @end
 
 @implementation ANVast
+{
+    dispatch_semaphore_t waitForVastParsingCompletion;
+    int releaseCounter;
+}
 
 - (instancetype)initWithContent:(NSString *)vast {
     if (self = [super init]) {
@@ -68,13 +72,10 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
         waitForVastParsingCompletion = dispatch_semaphore_create(0);
         releaseCounter = 0;
         [self parseRootElement:xml.rootXMLElement];
-        dispatch_semaphore_wait(waitForVastParsingCompletion, dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC));
+        dispatch_semaphore_wait(waitForVastParsingCompletion, DISPATCH_TIME_FOREVER);
     }
     return errorOcurred;
 }
-
-static dispatch_semaphore_t waitForVastParsingCompletion;
-static int releaseCounter;
 
 - (void)parseResponseWithURL:(NSURL *)xmlURL {
     [ANXML newANXMLWithURL:xmlURL

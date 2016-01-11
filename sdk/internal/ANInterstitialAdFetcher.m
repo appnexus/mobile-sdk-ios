@@ -193,6 +193,7 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ANVast *vastDataModel = [[ANVast alloc] initWithContent:videoAd.content];
         vastDataModel.videoAd = videoAd;
+        videoAd.vastDataModel = vastDataModel;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!vastDataModel) {
                 ANLogDebug(@"Invalid VAST content, unable to use");
@@ -202,7 +203,6 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
                 [self processFinalResponse:adFetcherResponse];
             }
         });
-        
     });
 }
 
