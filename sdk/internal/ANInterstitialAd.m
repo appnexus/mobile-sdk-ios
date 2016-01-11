@@ -66,8 +66,6 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 - (void)initialize {
     [super initialize];
-    _controller = [[ANInterstitialAdViewController alloc] init];
-    _controller.delegate = self;
     _precachedAdObjects = [NSMutableArray array];
     _allowedAdSizes = [self getDefaultAllowedAdSizes];
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
@@ -149,10 +147,22 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     else {
         [self adRequestFailedWithError:response.error];
     }
-
 }
 
 - (void)displayAdFromViewController:(UIViewController *)controller {
+    BOOL displayError = NO;
+    if (!controller) {
+        ANLogError(@"Cannot present interstitial on a nil controller");
+        displayError = YES;
+    }
+    if (!ANCanPresentFromViewController(controller)) {
+        ANLogError(@"View controller already presenting another controller modally, or view controller view not attached to window - could not present interstitial");
+        displayError = YES;
+    }
+    if (displayError) {
+        [self adFailedToDisplay];
+        return;
+    }
     id adToShow = nil;
     NSString *auctionID = nil;
     
@@ -184,6 +194,8 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     }
 
     if ([adToShow isKindOfClass:[UIView class]]) {
+        self.controller = [[ANInterstitialAdViewController alloc] init];
+        self.controller.delegate = self;
         if (!self.controller) {
             ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");
             [self adFailedToDisplay];
