@@ -72,7 +72,13 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
         waitForVastParsingCompletion = dispatch_semaphore_create(0);
         releaseCounter = 0;
         [self parseRootElement:xml.rootXMLElement];
-        dispatch_semaphore_wait(waitForVastParsingCompletion, DISPATCH_TIME_FOREVER);
+        long result = dispatch_semaphore_wait(waitForVastParsingCompletion, dispatch_time(DISPATCH_TIME_NOW,
+                                                                            kAppNexusMediationNetworkTimeoutInterval * NSEC_PER_SEC));
+        if (result != 0) {
+            ANLogDebug(@"Timeout reached while parsing VAST");
+            errorOcurred = YES;
+            *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseNetworkError);
+        }
     }
     return errorOcurred;
 }
