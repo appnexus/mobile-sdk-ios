@@ -72,11 +72,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
 - (instancetype)initWithAdServerData:(NSData *)data {
     self = [super init];
     if (self) {
-    #if kANANInterstitialAdFetcherUseUTV2
         [self processV2ResponseData:data];
-    #else
-        [self processResponseData:data];
-    #endif
     }
     return self;
 }
@@ -84,56 +80,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
 + (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data {
     return [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:data];
 }
-
-- (void)processResponseData:(NSData *)data {
-    NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
-    if (jsonResponse) {
-        NSArray *tags = [[self class] tagsFromJSONResponse:jsonResponse];
-        for (NSDictionary *tag in tags) {
-            if ([[self class] isNoBidTag:tag]) {
-                continue;
-            }
-            NSDictionary *adObject = [[self class] adObjectFromTag:tag];
-            if (adObject) {
-                ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:adObject];
-                if (standardAd) {
-                    [self.standardAds addObject:standardAd];
-                }
-                ANVideoAd *videoAd = [[self class] videoAdFromRTBObject:adObject];
-                if (videoAd) {
-                    videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
-                    [self.videoAds addObject:videoAd];
-                }
-            }
-        }
-    }
-    self.standardAd = [self.standardAds firstObject];
-    self.videoAd = [self.videoAds firstObject];
-    if (self.standardAd || self.videoAd) {
-        self.containsAds = YES;
-    }
-}
-
-+ (BOOL)isNoBidTag:(NSDictionary *)tag {
-    if (tag[kANUniversalTagAdServerResponseKeyNoBid]) {
-        BOOL noBid = [tag[kANUniversalTagAdServerResponseKeyNoBid] boolValue];
-        return noBid;
-    }
-    return NO;
-}
-
-+ (NSArray *)tagsFromJSONResponse:(NSDictionary *)jsonResponse {
-    return [[self class] validDictionaryArrayForKey:kANUniversalTagAdServerResponseKeyTags
-                                     inJSONResponse:jsonResponse];
-}
-
-+ (NSDictionary *)adObjectFromTag:(NSDictionary *)tag {
-    if ([tag[kANUniversalTagAdServerResponseKeyAd] isKindOfClass:[NSDictionary class]]) {
-        return tag[kANUniversalTagAdServerResponseKeyAd];
-    }
-    return nil;
-}
-
 
 #pragma mark - Universal Tag V2 Support
 
@@ -194,6 +140,19 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
     if (self.ads.count > 0) {
         self.containsAds = YES;
     }
+}
+
++ (NSArray *)tagsFromJSONResponse:(NSDictionary *)jsonResponse {
+    return [[self class] validDictionaryArrayForKey:kANUniversalTagAdServerResponseKeyTags
+                                     inJSONResponse:jsonResponse];
+}
+
++ (BOOL)isNoBidTag:(NSDictionary *)tag {
+    if (tag[kANUniversalTagAdServerResponseKeyNoBid]) {
+        BOOL noBid = [tag[kANUniversalTagAdServerResponseKeyNoBid] boolValue];
+        return noBid;
+    }
+    return NO;
 }
 
 + (NSArray *)adsArrayFromTag:(NSDictionary *)tag {
