@@ -32,4 +32,6 @@
 
 @property (nonatomic, readonly, strong) NSMutableArray *ads;
 
+@property (nonatomic, readonly, strong) NSString *noAdUrlString;
+
 @end

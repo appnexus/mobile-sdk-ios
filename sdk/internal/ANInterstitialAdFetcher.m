@@ -37,6 +37,7 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
 @property (nonatomic, readwrite, strong) ANMRAIDContainerView *standardAdView;
 
 @property (nonatomic, readwrite, strong) NSMutableArray *ads;
+@property (nonatomic, readwrite, strong) NSURL *noAdUrl;
 @property (nonatomic, readwrite, strong) ANMediationAdViewController *mediationController;
 @property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
 
@@ -100,6 +101,9 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
         return;
     }
     
+    if (response.noAdUrlString) {
+        self.noAdUrl = [NSURL URLWithString:response.noAdUrlString];
+    }
     self.ads = response.ads;
     [self continueWaterfall];
 }
@@ -119,6 +123,10 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
     
     if (numberOfAdsLeft == 0) {
         ANLogWarn(@"response_no_ads");
+        if (self.noAdUrl) {
+            ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
+            [self fireAndIgnoreResultCB:self.noAdUrl];
+        }
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }

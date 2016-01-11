@@ -23,7 +23,7 @@
 #if kANANInterstitialAdFetcherUseUTV2
 //static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://mediation.adnxs.com/ut/v2";
 //static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://rlissack.adnxs.net:8080/jtest/utv2html";
-static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://rlissack.adnxs.net:8080/jtest/utv2ssmbanner";
+static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://rlissack.adnxs.net:8080/jtest/utv2csmnobid";
 #else
 static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://mediation.adnxs.com/ut/v1";
 #endif

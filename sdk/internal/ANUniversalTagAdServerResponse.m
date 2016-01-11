@@ -63,6 +63,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
 @property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 
 @property (nonatomic, readwrite, strong) NSMutableArray *ads;
+@property (nonatomic, readwrite, strong) NSString *noAdUrlString;
 
 @end
 
@@ -140,49 +141,49 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
     if (jsonResponse) {
         NSArray *tags = [[self class] tagsFromJSONResponse:jsonResponse];
-        for (NSDictionary *tag in tags) {
-            if ([[self class] isNoBidTag:tag]) {
-                continue;
-            }
-            NSArray *adsArray = [[self class] adsArrayFromTag:tag];
-            if (adsArray) {
-                for (id adObject in adsArray) {
-                    if (![adObject isKindOfClass:[NSDictionary class]]) {
-                        continue;
+        NSDictionary *firstTag = [tags firstObject];
+        if ([[self class] isNoBidTag:firstTag]) {
+            return;
+        }
+        // Only the first tag is supported today
+        self.noAdUrlString = firstTag[@"no_ad_url"];
+        NSArray *adsArray = [[self class] adsArrayFromTag:firstTag];
+        if (adsArray) {
+            for (id adObject in adsArray) {
+                if (![adObject isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                NSDictionary *rtbObject = [[self class] rtbObjectFromAdObject:adObject];
+                if (rtbObject) {
+                    ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
+                    if (standardAd) {
+                        [self.ads addObject:standardAd];
                     }
-                    // need trackers
-                    NSDictionary *rtbObject = [[self class] rtbObjectFromAdObject:adObject];
-                    if (rtbObject) {
-                        ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
+                    ANVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
+                    if (videoAd) {
+                        videoAd.vastDataModel.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
+                        [self.ads addObject:videoAd];
+                    }
+                }
+                NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
+                if (csmObject) {
+                    ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
+                    if (mediatedAd) {
+                        [self.ads addObject:mediatedAd];
+                    }
+                }
+                NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
+                if (ssmObject) {
+                    if ([adObject[@"ad_type"] isEqualToString:@"banner"]) {
+                        ANSSMStandardAd *standardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
                         if (standardAd) {
                             [self.ads addObject:standardAd];
                         }
-                        ANVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
+                    } else if ([adObject[@"ad_type"] isEqualToString:@"video"]) {
+                        ANSSMVideoAd *videoAd = [[self class] videoSSMAdFromSSMObject:ssmObject];
                         if (videoAd) {
-                            videoAd.vastDataModel.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
+                            videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
                             [self.ads addObject:videoAd];
-                        }
-                    }
-                    NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
-                    if (csmObject) {
-                        ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
-                        if (mediatedAd) {
-                            [self.ads addObject:mediatedAd];
-                        }
-                    }
-                    NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
-                    if (ssmObject) {
-                        if ([adObject[@"ad_type"] isEqualToString:@"banner"]) {
-                            ANSSMStandardAd *standardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
-                            if (standardAd) {
-                                [self.ads addObject:standardAd];
-                            }
-                        } else if ([adObject[@"ad_type"] isEqualToString:@"video"]) {
-                            ANSSMVideoAd *videoAd = [[self class] videoSSMAdFromSSMObject:ssmObject];
-                            if (videoAd) {
-                                videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
-                                [self.ads addObject:videoAd];
-                            }
                         }
                     }
                 }
