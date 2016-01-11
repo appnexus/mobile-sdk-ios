@@ -17,6 +17,8 @@
 #import "ANStandardAd.h"
 #import "ANVideoAd.h"
 
+static NSString *const kANUniversalTagAdServerResponseMraidJSFilename;
+
 @interface ANUniversalTagAdServerResponse : NSObject
 
 + (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;

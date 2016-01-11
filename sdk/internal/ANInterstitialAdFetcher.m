@@ -327,6 +327,10 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
         standardAd.width = ssmAd.width;
         standardAd.height = ssmAd.height;
         standardAd.impressionUrls = ssmAd.impressionUrls;
+        NSRange mraidJSRange = [standardAd.content rangeOfString:kANUniversalTagAdServerResponseMraidJSFilename];
+        if (mraidJSRange.location != NSNotFound) {
+            standardAd.mraid = YES;
+        }
         [self.ads insertObject:standardAd atIndex:0];
         [self continueWaterfall];
     } else if ([self.currentSSMAd isKindOfClass:[ANSSMVideoAd class]]) {
