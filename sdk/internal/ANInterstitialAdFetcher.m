@@ -22,8 +22,12 @@
 #import "ANUniversalTagAdServerResponse.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
+#import "ANSSMStandardAd.h"
+#import "ANSSMVideoAd.h"
+#import "ANSSMContentFetcher.h"
 
-@interface ANInterstitialAdFetcher () <NSURLConnectionDataDelegate, ANAdWebViewControllerLoadingDelegate>
+@interface ANInterstitialAdFetcher () <NSURLConnectionDataDelegate,
+ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdFetcherDelegate> delegate;
 
@@ -37,6 +41,9 @@
 @property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
 
 @property (nonatomic, readwrite, strong) NSArray *impressionUrls;
+
+@property (nonatomic, readwrite, strong) id currentSSMAd;
+@property (nonatomic, readwrite, strong) ANSSMContentFetcher *contentFetcher;
 
 @end
 
@@ -124,6 +131,7 @@
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
     self.impressionUrls = nil;
+    self.currentSSMAd = nil;
     if ([nextAd isKindOfClass:[ANMediatedAd class]]) {
         ANMediatedAd *mediatedAd = (ANMediatedAd *)nextAd;
         self.impressionUrls = mediatedAd.impressionUrls;
@@ -134,6 +142,14 @@
         ANStandardAd *standardAd = (ANStandardAd *)nextAd;
         self.impressionUrls = standardAd.impressionUrls;
         [self handleStandardAd:standardAd];
+    } else if ([nextAd isKindOfClass:[ANSSMVideoAd class]]) {
+        self.currentSSMAd = nextAd;
+        self.contentFetcher = [[ANSSMContentFetcher alloc] initWithUrlString:((ANSSMVideoAd *)nextAd).urlString
+                                                                    delegate:self];
+    } else if ([nextAd isKindOfClass:[ANSSMStandardAd class]]) {
+        self.currentSSMAd = nextAd;
+        self.contentFetcher = [[ANSSMContentFetcher alloc] initWithUrlString:((ANSSMStandardAd *)nextAd).urlString
+                                                                    delegate:self];
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall");
     }
@@ -279,6 +295,34 @@
     }
     // return -1 if invalid parameters
     return -1;
+}
+
+#pragma mark - ANSSMContentFetcherDelegate
+
+- (void)contentFetcher:(ANSSMContentFetcher *)fetcher didLoadContent:(NSString *)content {
+    if ([self.currentSSMAd isKindOfClass:[ANSSMStandardAd class]]) {
+        ANSSMStandardAd *ssmAd = (ANSSMStandardAd *)self.currentSSMAd;
+        ANStandardAd *standardAd = [[ANStandardAd alloc] init];
+        standardAd.content = content;
+        standardAd.width = ssmAd.width;
+        standardAd.height = ssmAd.height;
+        standardAd.impressionUrls = ssmAd.impressionUrls;
+        [self.ads insertObject:standardAd atIndex:0];
+        [self continueWaterfall];
+    } else if ([self.currentSSMAd isKindOfClass:[ANSSMVideoAd class]]) {
+//        ANSSMVideoAd *ssmAd = (ANSSMVideoAd *)self.currentSSMAd;
+        ANVideoAd *videoAd = [[ANVideoAd alloc] init];
+        videoAd.content = content;
+        // TODO: Add tracking urls to workflow.
+        [self.ads insertObject:videoAd atIndex:0];
+        [self continueWaterfall];
+    } else {
+        [self contentFetcherFailedToLoadContent:fetcher];
+    }
+}
+
+- (void)contentFetcherFailedToLoadContent:(ANSSMContentFetcher *)fetcher {
+    [self continueWaterfall];
 }
 
 @end

@@ -17,6 +17,8 @@
 #import "ANLogging.h"
 #import "ANInterstitialAdFetcher.h"
 #import "ANMediatedAd.h"
+#import "ANSSMStandardAd.h"
+#import "ANSSMVideoAd.h"
 
 static NSString *const kANUniversalTagAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kANUniversalTagAdServerResponseKeyTags = @"tags";
@@ -170,8 +172,18 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
                     }
                     NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
                     if (ssmObject) {
-                        // add ssm object to mediated array
-                        // add notify url to ssm vast mediated object
+                        if ([adObject[@"ad_type"] isEqualToString:@"banner"]) {
+                            ANSSMStandardAd *standardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
+                            if (standardAd) {
+                                [self.ads addObject:standardAd];
+                            }
+                        } else if ([adObject[@"ad_type"] isEqualToString:@"video"]) {
+                            ANSSMVideoAd *videoAd = [[self class] videoSSMAdFromSSMObject:ssmObject];
+                            if (videoAd) {
+                                videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
+                                [self.ads addObject:videoAd];
+                            }
+                        }
                     }
                 }
             }
@@ -277,15 +289,140 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
     return nil;
 }
 
-+ (NSArray *)impressionUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
++ (ANSSMStandardAd *)standardSSMAdFromSSMObject:(NSDictionary *)ssmObject {
+    if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
+        NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
+        if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
+            ANSSMStandardAd *standardAd = [[ANSSMStandardAd alloc] init];
+            standardAd.urlString = handlerDict[@"url"];
+            standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
+            if ([ssmObject[kANUniversalTagAdServerResponseKeyBanner] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *banner = ssmObject[kANUniversalTagAdServerResponseKeyBanner];
+                standardAd.width = [banner[kANUniversalTagAdServerResponseBannerKeyWidth] description];
+                standardAd.height = [banner[kANUniversalTagAdServerResponseBannerKeyHeight] description];
+            }
+            return standardAd;
+        }
+    }
+    return nil;
+}
+
++ (ANSSMVideoAd *)videoSSMAdFromSSMObject:(NSDictionary *)ssmObject {
+    if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
+        NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
+        if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
+            ANSSMVideoAd *videoAd = [[ANSSMVideoAd alloc] init];
+            videoAd.urlString = handlerDict[@"url"];
+            videoAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
+            videoAd.errorUrls = [[self class] errorUrlsFromContentSourceObject:ssmObject];
+            videoAd.videoClickUrls = [[self class] videoClickUrlsFromContentSourceObject:ssmObject];
+            videoAd.videoEventStartUrls = [[self class] videoStartUrlsFromContentSourceObject:ssmObject];
+            videoAd.videoEventSkipUrls = [[self class] videoSkipUrlsFromContentSourceObject:ssmObject];
+            videoAd.videoEventFirstQuartileUrls = [[self class] videoFirstQuartileUrlsFromContentSourceObject:ssmObject];
+            videoAd.videoEventMidpointUrls = [[self class] videoMidpointUrlsFromContentSourceObject:ssmObject];
+            videoAd.videoEventThirdQuartileUrls = [[self class] videoThirdQuartileUrlsFromContentSourceObject:ssmObject];
+            videoAd.videoEventCompleteUrls = [[self class] videoCompleteUrlsFromContentSourceObject:ssmObject];
+            return videoAd;
+        }
+    }
+    return nil;
+}
+
+#pragma mark - Trackers
+
++ (NSDictionary *)trackerDictFromContentSourceObject:(NSDictionary *)contentSourceObject {
     if ([contentSourceObject[@"trackers"] isKindOfClass:[NSArray class]]) {
         NSArray *trackers = contentSourceObject[@"trackers"];
         if ([[trackers firstObject] isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *trackerDict = [trackers firstObject];
-            if ([trackerDict[@"impression_urls"] isKindOfClass:[NSArray class]]) {
-               return trackerDict[@"impression_urls"];
-            }
+            return [trackers firstObject];
         }
+    }
+    return nil;
+}
+
++ (NSDictionary *)videoEventsDictFromTrackerDict:(NSDictionary *)trackerDict {
+    if ([trackerDict[@"video_events"] isKindOfClass:[NSDictionary class]]) {
+        return trackerDict[@"video_events"];
+    }
+    return nil;
+}
+
++ (NSArray *)impressionUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    if ([trackerDict[@"impression_urls"] isKindOfClass:[NSArray class]]) {
+        return trackerDict[@"impression_urls"];
+    }
+    return nil;
+}
+
++ (NSArray *)errorUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    if ([trackerDict[@"error_urls"] isKindOfClass:[NSArray class]]) {
+        return trackerDict[@"error_urls"];
+    }
+    return nil;
+}
+
++ (NSArray *)videoClickUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    if ([trackerDict[@"video_click_urls"] isKindOfClass:[NSArray class]]) {
+        return trackerDict[@"video_click_urls"];
+    }
+    return nil;
+}
+
++ (NSArray *)videoStartUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
+    if ([videoEventsDict[@"start"] isKindOfClass:[NSArray class]]) {
+        return videoEventsDict[@"start"];
+    }
+    return nil;
+}
+
++ (NSArray *)videoSkipUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
+    if ([videoEventsDict[@"skip"] isKindOfClass:[NSArray class]]) {
+        return videoEventsDict[@"skip"];
+    }
+    return nil;
+}
+
++ (NSArray *)videoFirstQuartileUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
+    if ([videoEventsDict[@"firstQuartile"] isKindOfClass:[NSArray class]]) {
+        return videoEventsDict[@"firstQuartile"];
+    }
+    return nil;
+}
+
++ (NSArray *)videoMidpointUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
+    if ([videoEventsDict[@"midpoint"] isKindOfClass:[NSArray class]]) {
+        return videoEventsDict[@"midpoint"];
+    }
+    return nil;
+}
+
++ (NSArray *)videoThirdQuartileUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
+    if ([videoEventsDict[@"thirdQuartile"] isKindOfClass:[NSArray class]]) {
+        return videoEventsDict[@"thirdQuartile"];
+    }
+    return nil;
+}
+
++ (NSArray *)videoCompleteUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
+    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
+    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
+    if ([videoEventsDict[@"complete"] isKindOfClass:[NSArray class]]) {
+        return videoEventsDict[@"complete"];
     }
     return nil;
 }
