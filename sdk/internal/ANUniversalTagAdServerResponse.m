@@ -168,7 +168,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
                 NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
                 if (csmObject) {
                     ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
-                    if (mediatedAd) {
+                    // Ignore non-supported CSM (e.g. web CSM, video CSM)
+                    if (mediatedAd && mediatedAd.className.length > 0) {
                         [self.ads addObject:mediatedAd];
                     }
                 }
