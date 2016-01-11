@@ -20,6 +20,8 @@
 #import "ANInLine.h"
 #import "ANWrapper.h"
 
+@class ANVideoAd;
+
 @interface ANVast : NSObject
 
 - (instancetype)initWithContent:(NSString *)vast;
@@ -30,7 +32,6 @@
 @property (nonatomic, readonly) NSMutableArray *anWrappers;
 @property (nonatomic, readonly) NSURL *mediaFileURL;
 
-@property (nonatomic, readwrite) NSString *notifyUrlString;
-@property (nonatomic, readwrite) NSArray *impressionUrls;
+@property (nonatomic, readwrite, weak) ANVideoAd *videoAd;
 
 @end

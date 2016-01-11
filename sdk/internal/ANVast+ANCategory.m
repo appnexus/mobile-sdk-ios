@@ -82,6 +82,7 @@
 }
 
 - (NSArray *)trackingArrayForEvent:(ANVideoEvent)event {
+    // TODO: Parse CSM/SSM VAST trackers from here
     __block NSArray *creatives = @[];
     if (self.anInLine.creatives) {
         creatives = [creatives arrayByAddingObjectsFromArray:self.anInLine.creatives];

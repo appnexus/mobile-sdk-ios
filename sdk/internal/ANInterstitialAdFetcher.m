@@ -184,14 +184,26 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
 
 #pragma mark - VAST Ads
 
-- (void)handleVideoAd:(ANVideoAd *)vastAd {
-    NSString *notifyUrlString = vastAd.vastDataModel.notifyUrlString;
+- (void)handleVideoAd:(ANVideoAd *)videoAd {
+    NSString *notifyUrlString = videoAd.notifyUrlString;
     if (notifyUrlString.length > 0) {
         ANLogDebug(@"(notify_url, %@)", notifyUrlString);
         [self fireAndIgnoreResultCB:[NSURL URLWithString:notifyUrlString]];
     }
-    ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:vastAd];
-    [self processFinalResponse:adFetcherResponse];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        ANVast *vastDataModel = [[ANVast alloc] initWithContent:videoAd.content];
+        vastDataModel.videoAd = videoAd;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!vastDataModel) {
+                ANLogDebug(@"Invalid VAST content, unable to use");
+                [self continueWaterfall];
+            } else {
+                ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:videoAd];
+                [self processFinalResponse:adFetcherResponse];
+            }
+        });
+        
+    });
 }
 
 #pragma mark - Mediated Ads
@@ -318,10 +330,14 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
         [self.ads insertObject:standardAd atIndex:0];
         [self continueWaterfall];
     } else if ([self.currentSSMAd isKindOfClass:[ANSSMVideoAd class]]) {
-//        ANSSMVideoAd *ssmAd = (ANSSMVideoAd *)self.currentSSMAd;
+        ANSSMVideoAd *ssmAd = (ANSSMVideoAd *)self.currentSSMAd;
         ANVideoAd *videoAd = [[ANVideoAd alloc] init];
         videoAd.content = content;
-        // TODO: Add tracking urls to workflow.
+        videoAd.impressionUrls = ssmAd.impressionUrls;
+        videoAd.notifyUrlString = ssmAd.notifyUrlString;
+        videoAd.errorUrls = ssmAd.errorUrls;
+        videoAd.videoEventTrackers = ssmAd.videoEventTrackers;
+        videoAd.videoClickUrls = ssmAd.videoClickUrls;
         [self.ads insertObject:videoAd atIndex:0];
         [self continueWaterfall];
     } else {

@@ -31,6 +31,7 @@
 #import "ANVASTUtil.h"
 #import "ANVAST+ANCategory.h"
 #import "UIView+ANCategory.h"
+#import "ANVideoAd.h"
 
 static float const kANVideoPlayerViewControllerVolumeMuteOnValue = 0.0;
 static float const kANVideoPlayerViewControllerVolumeMuteOffValue = 1.0;
@@ -200,14 +201,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     if (self.playerView.player.rate > 0 && !self.playerView.player.error) {
         if (!isImpressionFired) {
             isImpressionFired = YES;
-            for (ANImpression *impression in self.vastDataModel.anInLine.impressions) {
-            	ANLogDebug(@"(VAST impression, %@)", impression.value);
-                [self fireImpressionWithURL:impression.value];
-            }
-            for (NSString *impressionUrlString in self.vastDataModel.impressionUrls) {
-                ANLogDebug(@"(UT impression, %@)", impressionUrlString);
-                [self fireImpressionWithURL:impressionUrlString];
-            }
+            [self fireImpressionTracking];
         }
         [self.circularAnimationView performCircularAnimationWithStartTime:[NSDate date]];
     }
@@ -305,14 +299,31 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 - (void)fireTrackingEventWithEvent:(ANVideoEvent)event {
     NSArray *trackingArray = [self.vastDataModel trackingArrayForEvent:event];
+    if (self.videoAd.videoEventTrackers[@(event)]) {
+        trackingArray = [trackingArray arrayByAddingObjectsFromArray:self.videoAd.videoEventTrackers[@(event)]];
+    }
     [trackingArray enumerateObjectsUsingBlock:^(ANTracking *tracking, NSUInteger idx, BOOL *stop) {
         ANLogDebug(@"(%@, %@)", [ANVASTUtil eventStringForVideoEvent:event], tracking.trackingURI);
         [self fireImpressionWithURL:tracking.trackingURI];
     }];
 }
 
+- (void)fireImpressionTracking {
+    for (ANImpression *impression in self.vastDataModel.anInLine.impressions) {
+        ANLogDebug(@"(VAST impression, %@)", impression.value);
+        [self fireImpressionWithURL:impression.value];
+    }
+    for (NSString *impressionUrlString in self.vastDataModel.videoAd.impressionUrls) {
+        ANLogDebug(@"(UT impression, %@)", impressionUrlString);
+        [self fireImpressionWithURL:impressionUrlString];
+    }
+}
+
 - (void)fireClickTracking {
     NSArray *trackingArray = self.vastDataModel.clickTrackingURL;
+    if (self.videoAd.videoClickUrls) {
+        [trackingArray arrayByAddingObjectsFromArray:self.videoAd.videoClickUrls];
+    }
     [trackingArray enumerateObjectsUsingBlock:^(NSString *clickTrackingURL, NSUInteger idx, BOOL *stop) {
         ANLogDebug(@"(click, %@)", clickTrackingURL);
         [self fireImpressionWithURL:clickTrackingURL];

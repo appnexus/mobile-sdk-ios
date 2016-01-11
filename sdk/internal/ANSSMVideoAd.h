@@ -18,18 +18,11 @@
 @interface ANSSMVideoAd : NSObject
 
 @property (nonatomic, readwrite, strong) NSString *urlString;
-
 @property (nonatomic, readwrite, strong) NSString *notifyUrlString;
-
 @property (nonatomic, readwrite, strong) NSArray *impressionUrls; // Array of impression url strings
+
+@property (nonatomic, readwrite, strong) NSDictionary *videoEventTrackers;
 @property (nonatomic, readwrite, strong) NSArray *errorUrls;
 @property (nonatomic, readwrite, strong) NSArray *videoClickUrls;
-
-@property (nonatomic, readwrite, strong) NSArray *videoEventStartUrls;
-@property (nonatomic, readwrite, strong) NSArray *videoEventSkipUrls;
-@property (nonatomic, readwrite, strong) NSArray *videoEventFirstQuartileUrls;
-@property (nonatomic, readwrite, strong) NSArray *videoEventMidpointUrls;
-@property (nonatomic, readwrite, strong) NSArray *videoEventThirdQuartileUrls;
-@property (nonatomic, readwrite, strong) NSArray *videoEventCompleteUrls;
 
 @end

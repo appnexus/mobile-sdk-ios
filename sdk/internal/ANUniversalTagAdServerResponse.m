@@ -101,7 +101,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
                 }
                 ANVideoAd *videoAd = [[self class] videoAdFromRTBObject:adObject];
                 if (videoAd) {
-                    videoAd.vastDataModel.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
+                    videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
                     [self.videoAds addObject:videoAd];
                 }
             }
@@ -161,7 +161,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
                     }
                     ANVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
                     if (videoAd) {
-                        videoAd.vastDataModel.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
+                        videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyNotifyUrl] description];
                         [self.ads addObject:videoAd];
                     }
                 }
@@ -249,12 +249,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
         NSDictionary *video = rtbObject[kANUniversalTagAdServerResponseKeyVideo];
         ANVideoAd *videoAd = [[ANVideoAd alloc] init];
         videoAd.content = [video[kANUniversalTagAdServerResponseVideoKeyContent] description];
-        videoAd.vastDataModel = [[ANVast alloc] initWithContent:videoAd.content];
-        if (!videoAd.vastDataModel) {
-            ANLogDebug(@"Invalid VAST content, unable to use");
-            return nil;
-        }
-        videoAd.vastDataModel.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:rtbObject];
+        videoAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:rtbObject];        
         return videoAd;
     }
     return nil;
@@ -319,12 +314,32 @@ static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
             videoAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
             videoAd.errorUrls = [[self class] errorUrlsFromContentSourceObject:ssmObject];
             videoAd.videoClickUrls = [[self class] videoClickUrlsFromContentSourceObject:ssmObject];
-            videoAd.videoEventStartUrls = [[self class] videoStartUrlsFromContentSourceObject:ssmObject];
-            videoAd.videoEventSkipUrls = [[self class] videoSkipUrlsFromContentSourceObject:ssmObject];
-            videoAd.videoEventFirstQuartileUrls = [[self class] videoFirstQuartileUrlsFromContentSourceObject:ssmObject];
-            videoAd.videoEventMidpointUrls = [[self class] videoMidpointUrlsFromContentSourceObject:ssmObject];
-            videoAd.videoEventThirdQuartileUrls = [[self class] videoThirdQuartileUrlsFromContentSourceObject:ssmObject];
-            videoAd.videoEventCompleteUrls = [[self class] videoCompleteUrlsFromContentSourceObject:ssmObject];
+            NSMutableDictionary *videoEventTrackers = [[NSMutableDictionary alloc] init];
+            NSArray *startTrackers = [[self class] videoStartUrlsFromContentSourceObject:ssmObject];
+            if (startTrackers) {
+                videoEventTrackers[@(ANVideoEventStart)] = startTrackers;
+            }
+            NSArray *skipTrackers = [[self class] videoSkipUrlsFromContentSourceObject:ssmObject];
+            if (skipTrackers) {
+                videoEventTrackers[@(ANVideoEventSkip)] = skipTrackers;
+            }
+            NSArray *firstQuartileTrackers = [[self class] videoFirstQuartileUrlsFromContentSourceObject:ssmObject];
+            if (firstQuartileTrackers) {
+                videoEventTrackers[@(ANVideoEventQuartileFirst)] = firstQuartileTrackers;
+            }
+            NSArray *midpointTrackers = [[self class] videoMidpointUrlsFromContentSourceObject:ssmObject];
+            if (midpointTrackers) {
+                videoEventTrackers[@(ANVideoEventQuartileMidPoint)] = midpointTrackers;
+            }
+            NSArray *thirdQuartileTrackers = [[self class] videoThirdQuartileUrlsFromContentSourceObject:ssmObject];
+            if (thirdQuartileTrackers) {
+                videoEventTrackers[@(ANVideoEventQuartileThird)] = thirdQuartileTrackers;
+            }
+            NSArray *videoCompleteTrackers = [[self class] videoCompleteUrlsFromContentSourceObject:ssmObject];
+            if (videoCompleteTrackers) {
+                videoEventTrackers[@(ANVideoEventQuartileComplete)] = videoCompleteTrackers;
+            }
+            videoAd.videoEventTrackers = [videoEventTrackers copy];
             return videoAd;
         }
     }
