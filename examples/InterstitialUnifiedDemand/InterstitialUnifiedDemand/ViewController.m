@@ -22,9 +22,9 @@
     [super viewDidLoad];
     [ANLogManager setANLogLevel:ANLogLevelOff];
     // VAST Placement
-    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"5778861"];
+//    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"5778861"];
     // HTML Placement
-//    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"2140061"];
+    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"2140061"];
     self.interstitialAd.closeDelay = 5.0;
     self.interstitialAd.opensInNativeBrowser = NO;
     self.interstitialAd.shouldServePublicServiceAnnouncements = YES;

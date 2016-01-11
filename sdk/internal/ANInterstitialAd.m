@@ -28,6 +28,7 @@
 #import "ANBrowserViewController.h"
 #import "ANVideoPlayerViewController.h"
 #import "ANVideoAd.h"
+#import "ANNativeImpressionTrackerManager.h"
 
 static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 
@@ -238,6 +239,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
                                forAuctionID:auctionID];
         }
+        if (impressionUrls) {
+            [self fireMediatedImpressionTrackers:impressionUrls];
+        }
     } else if([adToShow isKindOfClass:[ANVideoAd class]]){
         
         ANVideoAd *videoAd = (ANVideoAd *)adToShow;
@@ -256,6 +260,17 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
         [self adFailedToDisplay];
     }
+}
+
+- (void)fireMediatedImpressionTrackers:(NSArray *)impressionUrls {
+    NSMutableArray *impressionURLArray = [[NSMutableArray alloc] init];
+    [impressionUrls enumerateObjectsUsingBlock:^(NSString *urlString, NSUInteger idx, BOOL *stop) {
+        NSURL *URL = [NSURL URLWithString:urlString];
+        if (URL) {
+            [impressionURLArray addObject:URL];
+        }
+    }];
+    [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:impressionURLArray];
 }
 
 - (NSMutableSet *)getDefaultAllowedAdSizes {
