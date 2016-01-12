@@ -32,9 +32,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsRTBObject = @"rtb";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsNotifyUrl = @"notify_url";
 
-static NSString *const kANUniversalTagAdServerResponseValueAdTypeBanner = @"banner";
-static NSString *const kANUniversalTagAdServerResponseValueAdTypeVideo = @"video";
-
 static NSString *const kANUniversalTagAdServerResponseKeyVideoObject = @"video";
 static NSString *const kANUniversalTagAdServerResponseKeyVideoContent = @"content";
 
@@ -138,19 +135,14 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 }
                 NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
                 if (ssmObject) {
-                    if ([adObject[kANUniversalTagAdServerResponseKeyAdsAdType]
-                         isEqualToString:kANUniversalTagAdServerResponseValueAdTypeBanner]) {
-                        ANSSMStandardAd *standardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
-                        if (standardAd) {
-                            [self.ads addObject:standardAd];
-                        }
-                    } else if ([adObject[kANUniversalTagAdServerResponseKeyAdsAdType]
-                                isEqualToString:kANUniversalTagAdServerResponseValueAdTypeVideo]) {
-                        ANSSMVideoAd *videoAd = [[self class] videoSSMAdFromSSMObject:ssmObject];
-                        if (videoAd) {
-                            videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
-                            [self.ads addObject:videoAd];
-                        }
+                    ANSSMStandardAd *standardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
+                    if (standardAd) {
+                        [self.ads addObject:standardAd];
+                    }
+                    ANSSMVideoAd *videoAd = [[self class] videoSSMAdFromSSMObject:ssmObject];
+                    if (videoAd) {
+                        videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
+                        [self.ads addObject:videoAd];
                     }
                 }
             }
@@ -262,61 +254,65 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 }
 
 + (ANSSMStandardAd *)standardSSMAdFromSSMObject:(NSDictionary *)ssmObject {
-    if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
-        NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
-        if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
-            ANSSMStandardAd *standardAd = [[ANSSMStandardAd alloc] init];
-            standardAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
-            standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
-            if ([ssmObject[kANUniversalTagAdServerResponseKeyBannerObject] isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *banner = ssmObject[kANUniversalTagAdServerResponseKeyBannerObject];
-                standardAd.width = [banner[kANUniversalTagAdServerResponseKeyBannerWidth] description];
-                standardAd.height = [banner[kANUniversalTagAdServerResponseKeyBannerHeight] description];
+    if ([ssmObject[kANUniversalTagAdServerResponseKeyBannerObject] isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *banner = ssmObject[kANUniversalTagAdServerResponseKeyBannerObject];
+        if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
+            NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
+            if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
+                ANSSMStandardAd *standardAd = [[ANSSMStandardAd alloc] init];
+                standardAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
+                standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
+                if ([ssmObject[kANUniversalTagAdServerResponseKeyBannerObject] isKindOfClass:[NSDictionary class]]) {
+                    standardAd.width = [banner[kANUniversalTagAdServerResponseKeyBannerWidth] description];
+                    standardAd.height = [banner[kANUniversalTagAdServerResponseKeyBannerHeight] description];
+                }
+                return standardAd;
             }
-            return standardAd;
         }
     }
     return nil;
 }
 
 + (ANSSMVideoAd *)videoSSMAdFromSSMObject:(NSDictionary *)ssmObject {
-    if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
-        NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
-        if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
-            ANSSMVideoAd *videoAd = [[ANSSMVideoAd alloc] init];
-            videoAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
-            videoAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
-            videoAd.errorUrls = [[self class] errorUrlsFromContentSourceObject:ssmObject];
-            videoAd.videoClickUrls = [[self class] videoClickUrlsFromContentSourceObject:ssmObject];
-            NSMutableDictionary *videoEventTrackers = [[NSMutableDictionary alloc] init];
-            NSArray *startTrackers = [[self class] videoStartUrlsFromContentSourceObject:ssmObject];
-            if (startTrackers) {
-                videoEventTrackers[@(ANVideoEventStart)] = startTrackers;
+    if ([ssmObject[kANUniversalTagAdServerResponseKeyVideoObject] isKindOfClass:[NSDictionary class]]) {
+        if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
+            NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
+            if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
+                ANSSMVideoAd *videoAd = [[ANSSMVideoAd alloc] init];
+                videoAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
+                videoAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
+                videoAd.errorUrls = [[self class] errorUrlsFromContentSourceObject:ssmObject];
+                videoAd.videoClickUrls = [[self class] videoClickUrlsFromContentSourceObject:ssmObject];
+                NSMutableDictionary *videoEventTrackers = [[NSMutableDictionary alloc] init];
+                NSArray *startTrackers = [[self class] videoStartUrlsFromContentSourceObject:ssmObject];
+                if (startTrackers) {
+                    videoEventTrackers[@(ANVideoEventStart)] = startTrackers;
+                }
+                NSArray *skipTrackers = [[self class] videoSkipUrlsFromContentSourceObject:ssmObject];
+                if (skipTrackers) {
+                    videoEventTrackers[@(ANVideoEventSkip)] = skipTrackers;
+                }
+                NSArray *firstQuartileTrackers = [[self class] videoFirstQuartileUrlsFromContentSourceObject:ssmObject];
+                if (firstQuartileTrackers) {
+                    videoEventTrackers[@(ANVideoEventQuartileFirst)] = firstQuartileTrackers;
+                }
+                NSArray *midpointTrackers = [[self class] videoMidpointUrlsFromContentSourceObject:ssmObject];
+                if (midpointTrackers) {
+                    videoEventTrackers[@(ANVideoEventQuartileMidPoint)] = midpointTrackers;
+                }
+                NSArray *thirdQuartileTrackers = [[self class] videoThirdQuartileUrlsFromContentSourceObject:ssmObject];
+                if (thirdQuartileTrackers) {
+                    videoEventTrackers[@(ANVideoEventQuartileThird)] = thirdQuartileTrackers;
+                }
+                NSArray *videoCompleteTrackers = [[self class] videoCompleteUrlsFromContentSourceObject:ssmObject];
+                if (videoCompleteTrackers) {
+                    videoEventTrackers[@(ANVideoEventQuartileComplete)] = videoCompleteTrackers;
+                }
+                videoAd.videoEventTrackers = [videoEventTrackers copy];
+                return videoAd;
             }
-            NSArray *skipTrackers = [[self class] videoSkipUrlsFromContentSourceObject:ssmObject];
-            if (skipTrackers) {
-                videoEventTrackers[@(ANVideoEventSkip)] = skipTrackers;
-            }
-            NSArray *firstQuartileTrackers = [[self class] videoFirstQuartileUrlsFromContentSourceObject:ssmObject];
-            if (firstQuartileTrackers) {
-                videoEventTrackers[@(ANVideoEventQuartileFirst)] = firstQuartileTrackers;
-            }
-            NSArray *midpointTrackers = [[self class] videoMidpointUrlsFromContentSourceObject:ssmObject];
-            if (midpointTrackers) {
-                videoEventTrackers[@(ANVideoEventQuartileMidPoint)] = midpointTrackers;
-            }
-            NSArray *thirdQuartileTrackers = [[self class] videoThirdQuartileUrlsFromContentSourceObject:ssmObject];
-            if (thirdQuartileTrackers) {
-                videoEventTrackers[@(ANVideoEventQuartileThird)] = thirdQuartileTrackers;
-            }
-            NSArray *videoCompleteTrackers = [[self class] videoCompleteUrlsFromContentSourceObject:ssmObject];
-            if (videoCompleteTrackers) {
-                videoEventTrackers[@(ANVideoEventQuartileComplete)] = videoCompleteTrackers;
-            }
-            videoAd.videoEventTrackers = [videoEventTrackers copy];
-            return videoAd;
         }
     }
     return nil;
