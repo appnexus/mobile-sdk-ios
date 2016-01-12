@@ -88,9 +88,9 @@
 #pragma mark - Ad Response
 
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response {
-    BOOL numberOfAds = response.ads != nil ? response.ads.count : 0;
+    BOOL containsAds = response.ads != nil && response.ads.count > 0;
 
-    if (numberOfAds == 0) {
+    if (!containsAds) {
         ANLogWarn(@"response_no_ads");
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
