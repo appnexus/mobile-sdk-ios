@@ -114,9 +114,14 @@
 }
 
 - (void)continueWaterfall {
-    BOOL numberOfAdsLeft = self.ads.count > 0;
+    // stop waterfall if delegate reference (adview) was lost
+    if (!self.delegate) {
+        return;
+    }
     
-    if (numberOfAdsLeft == 0) {
+    BOOL adsLeft = self.ads.count > 0;
+    
+    if (!adsLeft) {
         ANLogWarn(@"response_no_ads");
         if (self.noAdUrl) {
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
@@ -126,24 +131,15 @@
         return;
     }
     
-    // stop waterfall if delegate reference (adview) was lost
-    if (!self.delegate) {
-        return;
-    }
-    
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
     self.impressionUrls = nil;
     if ([nextAd isKindOfClass:[ANMediatedAd class]]) {
-        ANMediatedAd *mediatedAd = (ANMediatedAd *)nextAd;
-        self.impressionUrls = mediatedAd.impressionUrls;
-        [self handleMediatedAd:mediatedAd];
+        [self handleMediatedAd:nextAd];
     } else if ([nextAd isKindOfClass:[ANVideoAd class]]) {
         [self handleVideoAd:nextAd];
     } else if ([nextAd isKindOfClass:[ANStandardAd class]]) {
-        ANStandardAd *standardAd = (ANStandardAd *)nextAd;
-        self.impressionUrls = standardAd.impressionUrls;
-        [self handleStandardAd:standardAd];
+        [self handleStandardAd:nextAd];
     } else if ([nextAd isKindOfClass:[ANSSMVideoAd class]]) {
         [self handleSSMVideoAd:nextAd];
     } else if ([nextAd isKindOfClass:[ANSSMStandardAd class]]) {
@@ -156,6 +152,8 @@
 #pragma mark - Standard Ads
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd {
+    self.impressionUrls = standardAd.impressionUrls;
+
     CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
     
     // Setting the base URL to /ut will result in mraid.js not loading properly from the server
@@ -253,6 +251,7 @@
 
 - (void)handleMediatedAd:(ANMediatedAd *)mediatedAd {
     [self clearMediationController];
+    self.impressionUrls = mediatedAd.impressionUrls;
     // Casting ANInterstitialAdFetcher to ANAdFetcher is intentional, even if they have no relation.
     // This class implements the necessary methods from ANAdFether in order to avoid any issues.
     self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
