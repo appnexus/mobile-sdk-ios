@@ -20,8 +20,6 @@
 #import "ANInLine.h"
 #import "ANWrapper.h"
 
-@class ANVideoAd;
-
 @interface ANVast : NSObject
 
 - (instancetype)initWithContent:(NSString *)vast;
