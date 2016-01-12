@@ -28,10 +28,8 @@
 @property (nonatomic, readonly, strong) NSMutableArray *standardAds;
 @property (nonatomic, readonly, strong) ANVideoAd *videoAd;
 @property (nonatomic, readonly, strong) NSMutableArray *videoAds;
-@property (nonatomic, readonly, strong) NSMutableArray *mediatedAds;
 
 @property (nonatomic, readonly, strong) NSMutableArray *ads;
-
 @property (nonatomic, readonly, strong) NSString *noAdUrlString;
 
 @end

@@ -84,7 +84,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 @property (nonatomic, readwrite, strong) NSMutableArray *standardAds;
 @property (nonatomic, readwrite, strong) ANVideoAd *videoAd;
 @property (nonatomic, readwrite, strong) NSMutableArray *videoAds;
-@property (nonatomic, readwrite, strong) NSMutableArray *mediatedAds;
 
 @property (nonatomic, readwrite, strong) NSMutableArray *ads;
 @property (nonatomic, readwrite, strong) NSString *noAdUrlString;
@@ -439,11 +438,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 - (NSMutableArray *)videoAds {
     if (!_videoAds) _videoAds = [[NSMutableArray alloc] init];
     return _videoAds;
-}
-
-- (NSMutableArray *)mediatedAds {
-    if (!_mediatedAds) _mediatedAds = [[NSMutableArray alloc] init];
-    return _mediatedAds;
 }
 
 - (NSMutableArray *)ads {
