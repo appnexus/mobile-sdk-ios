@@ -18,7 +18,7 @@
 
 @protocol ANInterstitialAdFetcherDelegate;
 
-static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://mediation.adnxs.com/ut/v2";
+static NSString *const kANInterstitialAdFetcherDefaultRequestUrlString = @"http://rlissack.adnxs.net:8080/jtest/utv2ssmbanner";
 extern NSString *const kANUniversalTagAdServerResponseMraidJSFilename;
 
 @interface ANInterstitialAdFetcher : NSObject

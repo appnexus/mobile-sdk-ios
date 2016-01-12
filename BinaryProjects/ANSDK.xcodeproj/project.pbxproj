@@ -208,7 +208,6 @@
 		8AE2D87019CC9B7300001B70 /* ANMoPubMediationInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D86E19CC9B7300001B70 /* ANMoPubMediationInterstitial.m */; };
 		8AE3E1561C441F8E004AA151 /* ANSSMStandardAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3E1551C441F8E004AA151 /* ANSSMStandardAd.m */; };
 		8AE3E1591C441FA6004AA151 /* ANSSMVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3E1581C441FA6004AA151 /* ANSSMVideoAd.m */; };
-		8AE3E15C1C443AA4004AA151 /* ANSSMContentFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3E15B1C443AA4004AA151 /* ANSSMContentFetcher.m */; };
 		8AE5E11E1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AE5E11C1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8AE7AD9E1A7AC4E5009E2F2F /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE7AD9D1A7AC4E5009E2F2F /* EventKitUI.framework */; };
 		8AF366BD19D492F30097019F /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
@@ -943,8 +942,6 @@
 		8AE3E1551C441F8E004AA151 /* ANSSMStandardAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMStandardAd.m; sourceTree = "<group>"; };
 		8AE3E1571C441FA6004AA151 /* ANSSMVideoAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSSMVideoAd.h; sourceTree = "<group>"; };
 		8AE3E1581C441FA6004AA151 /* ANSSMVideoAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMVideoAd.m; sourceTree = "<group>"; };
-		8AE3E15A1C443AA4004AA151 /* ANSSMContentFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSSMContentFetcher.h; sourceTree = "<group>"; };
-		8AE3E15B1C443AA4004AA151 /* ANSSMContentFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMContentFetcher.m; sourceTree = "<group>"; };
 		8AE5E11C1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdView+PrivateMethods.h"; sourceTree = "<group>"; };
 		8AE7AD9D1A7AC4E5009E2F2F /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		8AE879FE1BDAD044001053D2 /* IMBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBanner.h; sourceTree = "<group>"; };
@@ -1269,8 +1266,6 @@
 				8A73F9DC1BD6B34D00D18188 /* ANPlayerView.m */,
 				8A73F9DD1BD6B34D00D18188 /* ANReachability.h */,
 				8A73F9DE1BD6B34D00D18188 /* ANReachability.m */,
-				8AE3E15A1C443AA4004AA151 /* ANSSMContentFetcher.h */,
-				8AE3E15B1C443AA4004AA151 /* ANSSMContentFetcher.m */,
 				8AE3E1541C441F8E004AA151 /* ANSSMStandardAd.h */,
 				8AE3E1551C441F8E004AA151 /* ANSSMStandardAd.m */,
 				8AE3E1571C441FA6004AA151 /* ANSSMVideoAd.h */,
@@ -2832,7 +2827,6 @@
 				8A73FA331BD6B34E00D18188 /* ANAdRequestUrl.m in Sources */,
 				8AE3E1591C441FA6004AA151 /* ANSSMVideoAd.m in Sources */,
 				8A73FA351BD6B34E00D18188 /* ANAdView.m in Sources */,
-				8AE3E15C1C443AA4004AA151 /* ANSSMContentFetcher.m in Sources */,
 				8A87BF4B1BD9471600281EA9 /* ANUniversalTagAdServerResponse.m in Sources */,
 				8A73FA421BD6B34E00D18188 /* ANMediatedAd.m in Sources */,
 				8A6385E31A14336000280054 /* ANNativeAdRequestUrlBuilder.m in Sources */,

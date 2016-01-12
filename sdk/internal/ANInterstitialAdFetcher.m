@@ -24,10 +24,8 @@
 #import "ANMediationAdViewController.h"
 #import "ANSSMStandardAd.h"
 #import "ANSSMVideoAd.h"
-#import "ANSSMContentFetcher.h"
 
-@interface ANInterstitialAdFetcher () <NSURLConnectionDataDelegate,
-ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
+@interface ANInterstitialAdFetcher () <NSURLConnectionDataDelegate, ANAdWebViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, weak) id<ANInterstitialAdFetcherDelegate> delegate;
 
@@ -42,9 +40,6 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
 @property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
 
 @property (nonatomic, readwrite, strong) NSArray *impressionUrls;
-
-@property (nonatomic, readwrite, strong) id currentSSMAd;
-@property (nonatomic, readwrite, strong) ANSSMContentFetcher *contentFetcher;
 
 @end
 
@@ -139,7 +134,6 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
     self.impressionUrls = nil;
-    self.currentSSMAd = nil;
     if ([nextAd isKindOfClass:[ANMediatedAd class]]) {
         ANMediatedAd *mediatedAd = (ANMediatedAd *)nextAd;
         self.impressionUrls = mediatedAd.impressionUrls;
@@ -151,16 +145,64 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
         self.impressionUrls = standardAd.impressionUrls;
         [self handleStandardAd:standardAd];
     } else if ([nextAd isKindOfClass:[ANSSMVideoAd class]]) {
-        self.currentSSMAd = nextAd;
-        self.contentFetcher = [[ANSSMContentFetcher alloc] initWithUrlString:((ANSSMVideoAd *)nextAd).urlString
-                                                                    delegate:self];
+        [self handleSSMVideoAd:nextAd];
     } else if ([nextAd isKindOfClass:[ANSSMStandardAd class]]) {
-        self.currentSSMAd = nextAd;
-        self.contentFetcher = [[ANSSMContentFetcher alloc] initWithUrlString:((ANSSMStandardAd *)nextAd).urlString
-                                                                    delegate:self];
+        [self handleSSMStandardAd:nextAd];
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall");
     }
+}
+
+- (void)handleSSMVideoAd:(ANSSMVideoAd *)ssmVideoAd {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *URL = [NSURL URLWithString:ssmVideoAd.urlString];
+        NSURLRequest *request = ANBasicRequestWithURL(URL);
+        NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                             returningResponse:nil
+                                                         error:nil];
+        NSString *content = [[NSString alloc] initWithData:data
+                                                  encoding:NSUTF8StringEncoding];
+        if (content && content.length > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ANVideoAd *videoAd = [[ANVideoAd alloc] init];
+                videoAd.content = content;
+                videoAd.notifyUrlString = ssmVideoAd.notifyUrlString;
+                videoAd.impressionUrls = ssmVideoAd.impressionUrls;
+                videoAd.errorUrls = ssmVideoAd.errorUrls;
+                videoAd.videoClickUrls = ssmVideoAd.videoClickUrls;
+                videoAd.videoEventTrackers = ssmVideoAd.videoEventTrackers;
+                [self.ads insertObject:videoAd atIndex:0];
+                [self continueWaterfall];
+            });
+        }
+    });
+}
+
+- (void)handleSSMStandardAd:(ANSSMStandardAd *)ssmStandardAd {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *URL = [NSURL URLWithString:ssmStandardAd.urlString];
+        NSURLRequest *request = ANBasicRequestWithURL(URL);
+        NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                             returningResponse:nil
+                                                         error:nil];
+        NSString *content = [[NSString alloc] initWithData:data
+                                                  encoding:NSUTF8StringEncoding];
+        if (content && content.length > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ANStandardAd *standardAd = [[ANStandardAd alloc] init];
+                standardAd.content = content;
+                standardAd.width = ssmStandardAd.width;
+                standardAd.height = ssmStandardAd.height;
+                standardAd.impressionUrls = ssmStandardAd.impressionUrls;
+                NSRange mraidJSRange = [standardAd.content rangeOfString:kANUniversalTagAdServerResponseMraidJSFilename];
+                if (mraidJSRange.location != NSNotFound) {
+                    standardAd.mraid = YES;
+                }
+                [self.ads insertObject:standardAd atIndex:0];
+                [self continueWaterfall];
+            });
+        }
+    });
 }
 
 #pragma mark - Standard Ads
@@ -315,42 +357,6 @@ ANAdWebViewControllerLoadingDelegate, ANSSMContentFetcherDelegate>
     }
     // return -1 if invalid parameters
     return -1;
-}
-
-#pragma mark - ANSSMContentFetcherDelegate
-
-- (void)contentFetcher:(ANSSMContentFetcher *)fetcher didLoadContent:(NSString *)content {
-    if ([self.currentSSMAd isKindOfClass:[ANSSMStandardAd class]]) {
-        ANSSMStandardAd *ssmAd = (ANSSMStandardAd *)self.currentSSMAd;
-        ANStandardAd *standardAd = [[ANStandardAd alloc] init];
-        standardAd.content = content;
-        standardAd.width = ssmAd.width;
-        standardAd.height = ssmAd.height;
-        standardAd.impressionUrls = ssmAd.impressionUrls;
-        NSRange mraidJSRange = [standardAd.content rangeOfString:kANUniversalTagAdServerResponseMraidJSFilename];
-        if (mraidJSRange.location != NSNotFound) {
-            standardAd.mraid = YES;
-        }
-        [self.ads insertObject:standardAd atIndex:0];
-        [self continueWaterfall];
-    } else if ([self.currentSSMAd isKindOfClass:[ANSSMVideoAd class]]) {
-        ANSSMVideoAd *ssmAd = (ANSSMVideoAd *)self.currentSSMAd;
-        ANVideoAd *videoAd = [[ANVideoAd alloc] init];
-        videoAd.content = content;
-        videoAd.impressionUrls = ssmAd.impressionUrls;
-        videoAd.notifyUrlString = ssmAd.notifyUrlString;
-        videoAd.errorUrls = ssmAd.errorUrls;
-        videoAd.videoEventTrackers = ssmAd.videoEventTrackers;
-        videoAd.videoClickUrls = ssmAd.videoClickUrls;
-        [self.ads insertObject:videoAd atIndex:0];
-        [self continueWaterfall];
-    } else {
-        [self contentFetcherFailedToLoadContent:fetcher];
-    }
-}
-
-- (void)contentFetcherFailedToLoadContent:(ANSSMContentFetcher *)fetcher {
-    [self continueWaterfall];
 }
 
 @end
