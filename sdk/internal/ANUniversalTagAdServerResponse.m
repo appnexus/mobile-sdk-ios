@@ -263,10 +263,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 ANSSMStandardAd *standardAd = [[ANSSMStandardAd alloc] init];
                 standardAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
                 standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
-                if ([ssmObject[kANUniversalTagAdServerResponseKeyBannerObject] isKindOfClass:[NSDictionary class]]) {
-                    standardAd.width = [banner[kANUniversalTagAdServerResponseKeyBannerWidth] description];
-                    standardAd.height = [banner[kANUniversalTagAdServerResponseKeyBannerHeight] description];
-                }
+                standardAd.width = [banner[kANUniversalTagAdServerResponseKeyBannerWidth] description];
+                standardAd.height = [banner[kANUniversalTagAdServerResponseKeyBannerHeight] description];
                 return standardAd;
             }
         }
