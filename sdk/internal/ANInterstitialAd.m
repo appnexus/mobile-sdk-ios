@@ -43,6 +43,7 @@ static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
+NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdViewImpressionUrlsKey";
 
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate, ANInterstitialAdFetcherDelegate, ANVideoAdInternalDelegate>
 
@@ -141,7 +142,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
         }
         if (response.impressionUrls) {
-            adViewWithDateLoaded[@"impressionUrls"] = response.impressionUrls;
+            adViewWithDateLoaded[kANInterstitialAdViewImpressionUrlsKey] = response.impressionUrls;
         }
         [self.precachedAdObjects addObject:adViewWithDateLoaded];
         ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
@@ -190,7 +191,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             // If ad is still valid, save a reference to it. We'll use it later
             adToShow = adDict[kANInterstitialAdViewKey];
             auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
-            impressionUrls = adDict[@"impressionUrls"];
+            impressionUrls = adDict[kANInterstitialAdViewImpressionUrlsKey];
             [self.precachedAdObjects removeObjectAtIndex:0];
             break;
         }
