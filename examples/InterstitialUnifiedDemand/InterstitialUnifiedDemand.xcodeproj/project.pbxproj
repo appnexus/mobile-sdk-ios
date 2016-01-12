@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		496007961BFEDA0D00B50A1F /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 496007801BFED7AB00B50A1F /* libKIF.a */; };
-		4960079B1BFEDAF400B50A1F /* DisplayVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960079A1BFEDAF400B50A1F /* DisplayVideoAd.m */; settings = {ASSET_TAGS = (); }; };
+		4960079B1BFEDAF400B50A1F /* DisplayVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960079A1BFEDAF400B50A1F /* DisplayVideoAd.m */; };
 		496007A01BFF2A6E00B50A1F /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A0D45291BF1615D0097D925 /* ANSDKResources.bundle */; };
 		8A00B20C1BF1634000818A2A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A00B2011BF1633F00818A2A /* AppDelegate.m */; };
 		8A00B20D1BF1634000818A2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A00B2021BF1633F00818A2A /* Assets.xcassets */; };
@@ -19,13 +19,13 @@
 		8A00B2131BF1634000818A2A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A00B20B1BF1634000818A2A /* ViewController.m */; };
 		8A0D45481BF161870097D925 /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A0D45271BF1615D0097D925 /* libANSDK.a */; };
 		8A0D45491BF1618D0097D925 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A0D45291BF1615D0097D925 /* ANSDKResources.bundle */; };
-		EF8E4FDA1C101C8600FD711C /* PlayerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8E4FD91C101C8600FD711C /* PlayerDelegateTests.m */; settings = {ASSET_TAGS = (); }; };
+		EF8E4FDA1C101C8600FD711C /* PlayerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8E4FD91C101C8600FD711C /* PlayerDelegateTests.m */; };
 		EFAA6F9E1C04270700C3C83B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAA6F9D1C04270700C3C83B /* CoreGraphics.framework */; };
-		EFDD763B1C047BED0073ACC4 /* VolumeClickTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD763A1C047BED0073ACC4 /* VolumeClickTest.m */; settings = {ASSET_TAGS = (); }; };
-		EFDD763E1C047D9B0073ACC4 /* PlayerClickTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD763D1C047D9B0073ACC4 /* PlayerClickTest.m */; settings = {ASSET_TAGS = (); }; };
-		EFDD76411C047E7A0073ACC4 /* CloseVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD76401C047E7A0073ACC4 /* CloseVideoTest.m */; settings = {ASSET_TAGS = (); }; };
-		EFF21EC71C0C60F100766443 /* OpenInInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF21EC61C0C60F100766443 /* OpenInInAppBrowser.m */; settings = {ASSET_TAGS = (); }; };
-		EFF21ECA1C0C614400766443 /* OpenInNativeBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF21EC91C0C614400766443 /* OpenInNativeBrowser.m */; settings = {ASSET_TAGS = (); }; };
+		EFDD763B1C047BED0073ACC4 /* VolumeClickTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD763A1C047BED0073ACC4 /* VolumeClickTest.m */; };
+		EFDD763E1C047D9B0073ACC4 /* PlayerClickTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD763D1C047D9B0073ACC4 /* PlayerClickTest.m */; };
+		EFDD76411C047E7A0073ACC4 /* CloseVideoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDD76401C047E7A0073ACC4 /* CloseVideoTest.m */; };
+		EFF21EC71C0C60F100766443 /* OpenInInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF21EC61C0C60F100766443 /* OpenInInAppBrowser.m */; };
+		EFF21ECA1C0C614400766443 /* OpenInNativeBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF21EC91C0C614400766443 /* OpenInNativeBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -412,7 +412,7 @@
 					};
 					8A87BEE01BD941E900281EA9 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = TBFU6QDZMS;
+						DevelopmentTeam = HR94J6TSB3;
 					};
 				};
 			};
