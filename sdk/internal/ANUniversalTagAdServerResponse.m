@@ -43,7 +43,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyBannerWidth = @"width";
 static NSString *const kANUniversalTagAdServerResponseKeyBannerHeight = @"height";
 static NSString *const kANUniversalTagAdServerResponseKeyBannerContent = @"content";
 
-static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.js";
+NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.js";
 
 // SSM
 
