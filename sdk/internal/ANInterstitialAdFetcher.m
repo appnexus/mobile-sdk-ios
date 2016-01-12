@@ -56,7 +56,7 @@
 }
 
 - (void)sendDelegateFinishedResponse:(ANAdFetcherResponse *)response {
-    if ([self.delegate respondsToSelector:@selector(adFetcher:didFinishRequestWithResponse:)]) {
+    if ([self.delegate respondsToSelector:@selector(interstitialAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate interstitialAdFetcher:self didFinishRequestWithResponse:response];
     }
 }

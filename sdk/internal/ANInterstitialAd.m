@@ -340,64 +340,7 @@ NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdView
 
 #pragma mark extraParameters methods
 
-- (NSString *)sizeParameter {
-    return [NSString stringWithFormat:@"&size=%ldx%ld",
-            (long)self.frame.size.width,
-            (long)self.frame.size.height];
-}
-
-- (NSString *)promoSizesParameter {
-    NSString *promoSizesParameter = @"&promo_sizes=";
-    NSMutableArray *sizesStringsArray = [NSMutableArray arrayWithCapacity:[self.allowedAdSizes count]];
-    
-    for (id sizeValue in self.allowedAdSizes) {
-        if ([sizeValue isKindOfClass:[NSValue class]]) {
-            CGSize size = [sizeValue CGSizeValue];
-            NSString *param = [NSString stringWithFormat:@"%ldx%ld", (long)size.width, (long)size.height];
-            
-            [sizesStringsArray addObject:param];
-        }
-    }
-    
-    promoSizesParameter = [promoSizesParameter stringByAppendingString:[sizesStringsArray componentsJoinedByString:@","]];
-    
-    return promoSizesParameter;
-}
-
-- (NSString *)orientationParameter {
-    NSString *orientation = UIInterfaceOrientationIsLandscape(self.controller.orientation) ? @"h" : @"v";
-    return [NSString stringWithFormat:@"&orientation=%@", orientation];
-}
-
-#pragma mark ANAdFetcherDelegate
-
-- (NSArray *)extraParameters {
-    return @[[self sizeParameter],
-            [self promoSizesParameter],
-            [self orientationParameter]];
-}
-
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
-    if ([response isSuccessful]) {
-        NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                     response.adObject, kANInterstitialAdViewKey,
-                                                     [NSDate date], kANInterstitialAdViewDateLoadedKey,
-                                                     nil];
-        // cannot insert nil objects
-        if (response.auctionID) {
-            adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
-        }
-        [self.precachedAdObjects addObject:adViewWithDateLoaded];
-        ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
-        
-        [self adDidReceiveAd];
-    }
-    else {
-        [self adRequestFailedWithError:response.error];
-    }
-}
-
-- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
+- (CGSize)screenSize {
     return self.frame.size;
 }
 

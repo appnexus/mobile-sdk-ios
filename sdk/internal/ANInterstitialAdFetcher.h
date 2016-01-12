@@ -36,6 +36,7 @@ extern NSString *const kANUniversalTagAdServerResponseMraidJSFilename;
 @protocol ANInterstitialAdFetcherDelegate <ANAdFetcherDelegate>
 
 - (NSMutableSet *)allowedAdSizes;
+- (CGSize)screenSize;
 
 @optional
 
