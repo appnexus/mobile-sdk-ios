@@ -49,6 +49,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     BOOL isThirdQuartileDone;
     BOOL isCompleteQuartileDone;
     BOOL isImpressionFired;
+    AVPlayerItem *playerItem;
 }
 
 @property (nonatomic, strong) NSURL *fileURL;
@@ -130,7 +131,11 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 #pragma mark - Setup
 
 - (void)setupPlayer {
-    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:self.fileURL];
+    playerItem = [AVPlayerItem playerItemWithURL:self.fileURL];
+    [playerItem addObserver:self
+                 forKeyPath:@"status"
+                    options:NSKeyValueObservingOptionNew
+                    context:NULL];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
     player.volume = kANVideoPlayerViewControllerDoMuteOnLoad ?
             kANVideoPlayerViewControllerVolumeMuteOnValue : kANVideoPlayerViewControllerVolumeMuteOffValue;
@@ -149,6 +154,29 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
                                                                                       action:@selector(handleSingleTapOnPlayerViewWithGestureRecognizer:)];
     singleFingerTap.delegate = self;
     [self.playerView addGestureRecognizer:singleFingerTap];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if ([object isKindOfClass:[AVPlayerItem class]] && [keyPath isEqualToString:@"status"]) {
+        AVPlayerItem *item = (AVPlayerItem *)object;
+        switch (item.status) {
+            case AVPlayerItemStatusFailed:
+                ANLogDebug(@"AVPlayerStatusFailed received from player");
+                [self closeInterstitial];
+                break;
+            case AVPlayerItemStatusReadyToPlay:
+                ANLogDebug(@"AVPlayerItemStatusReadyToPlay received from player");
+                break;
+            case AVPlayerItemStatusUnknown:
+                ANLogDebug(@"AVPlayerItemStatusUnknown received from player");
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 - (void)setupCircularView {
@@ -356,6 +384,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 }
 
 - (void)dealloc {
+    [playerItem removeObserver:self forKeyPath:@"status"];
     [self removeApplicationNotifications];
 }
 
