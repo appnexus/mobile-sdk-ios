@@ -327,12 +327,14 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 - (void)fireTrackingEventWithEvent:(ANVideoEvent)event {
     NSArray *trackingArray = [self.videoAd.vastDataModel trackingArrayForEvent:event];
-    if (self.videoAd.videoEventTrackers[@(event)]) {
-        trackingArray = [trackingArray arrayByAddingObjectsFromArray:self.videoAd.videoEventTrackers[@(event)]];
-    }
     [trackingArray enumerateObjectsUsingBlock:^(ANTracking *tracking, NSUInteger idx, BOOL *stop) {
         ANLogDebug(@"(%@, %@)", [ANVASTUtil eventStringForVideoEvent:event], tracking.trackingURI);
         [self fireImpressionWithURL:tracking.trackingURI];
+    }];
+    NSArray *videoEventTrackers = self.videoAd.videoEventTrackers[@(event)];
+    [videoEventTrackers enumerateObjectsUsingBlock:^(NSString *urlString, NSUInteger idx, BOOL *stop) {
+        ANLogDebug(@"(%@, %@)", [ANVASTUtil eventStringForVideoEvent:event], urlString);
+        [self fireImpressionWithURL:urlString];
     }];
 }
 
@@ -350,7 +352,11 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 - (void)fireClickTracking {
     NSArray *trackingArray = self.videoAd.vastDataModel.clickTrackingURL;
     if (self.videoAd.videoClickUrls) {
-        [trackingArray arrayByAddingObjectsFromArray:self.videoAd.videoClickUrls];
+        if (trackingArray) {
+            [trackingArray arrayByAddingObjectsFromArray:self.videoAd.videoClickUrls];
+        } else {
+            trackingArray = self.videoAd.videoClickUrls;
+        }
     }
     [trackingArray enumerateObjectsUsingBlock:^(NSString *clickTrackingURL, NSUInteger idx, BOOL *stop) {
         ANLogDebug(@"(click, %@)", clickTrackingURL);

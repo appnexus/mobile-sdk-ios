@@ -169,7 +169,10 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
     ANInLine *inLine = (self.anInLine)?self.anInLine:[self.anWrappers lastObject]; //last object will be the valid inline element
     NSString *fileURI = @"";
     for (ANCreative *creative in inLine.creatives) {
-        
+        // SDK only supports linear
+        if (!creative.anLinear) {
+            continue;
+        }
         //Sort array on bitRate = Ascending
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"bitRate" ascending:YES];
         NSArray *mediaFiles = [creative.anLinear.mediaFiles sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];

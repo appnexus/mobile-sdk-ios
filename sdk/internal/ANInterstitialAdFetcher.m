@@ -172,15 +172,9 @@
 
 - (void)handleSSMStandardAd:(ANSSMStandardAd *)ssmStandardAd {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *URL = [NSURL URLWithString:ssmStandardAd.urlString];
-        NSURLRequest *request = ANBasicRequestWithURL(URL);
-        NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                             returningResponse:nil
-                                                         error:nil];
-        NSString *content = [[NSString alloc] initWithData:data
-                                                  encoding:NSUTF8StringEncoding];
+        NSString *content = [self contentForUrlString:ssmStandardAd.urlString];
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (content && content.length > 0) {
+            if (content) {
                 ANStandardAd *standardAd = [[ANStandardAd alloc] init];
                 standardAd.content = content;
                 standardAd.width = ssmStandardAd.width;
@@ -194,7 +188,6 @@
             }
             [self continueWaterfall];
         });
-
     });
 }
 
@@ -223,15 +216,9 @@
 
 - (void)handleSSMVideoAd:(ANSSMVideoAd *)ssmVideoAd {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *URL = [NSURL URLWithString:ssmVideoAd.urlString];
-        NSURLRequest *request = ANBasicRequestWithURL(URL);
-        NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                             returningResponse:nil
-                                                         error:nil];
-        NSString *content = [[NSString alloc] initWithData:data
-                                                  encoding:NSUTF8StringEncoding];
+        NSString *content = [self contentForUrlString:ssmVideoAd.urlString];
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (content && content.length > 0) {
+            if (content) {
                 ANVideoAd *videoAd = [[ANVideoAd alloc] init];
                 videoAd.content = content;
                 videoAd.notifyUrlString = ssmVideoAd.notifyUrlString;
@@ -357,6 +344,34 @@
     }
     // return -1 if invalid parameters
     return -1;
+}
+
+#pragma mark - Helper
+
+- (NSString *)contentForUrlString:(NSString *)urlString {
+    NSURL *URL = [NSURL URLWithString:urlString];
+    NSURLRequest *request = ANBasicRequestWithURL(URL);
+    NSURLResponse *response;
+    NSError *error;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    if (error) {
+        return nil;
+    }
+    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        NSInteger status = [httpResponse statusCode];
+        if (status >= 400) {
+            return nil;
+        }
+    }
+    NSString *content = [[NSString alloc] initWithData:data
+                                              encoding:NSUTF8StringEncoding];
+    if (content.length > 0) {
+        return content;
+    }
+    return nil;
 }
 
 @end
