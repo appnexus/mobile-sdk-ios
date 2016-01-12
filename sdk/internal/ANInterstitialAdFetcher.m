@@ -181,8 +181,8 @@
                                                          error:nil];
         NSString *content = [[NSString alloc] initWithData:data
                                                   encoding:NSUTF8StringEncoding];
-        if (content && content.length > 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (content && content.length > 0) {
                 ANStandardAd *standardAd = [[ANStandardAd alloc] init];
                 standardAd.content = content;
                 standardAd.width = ssmStandardAd.width;
@@ -193,9 +193,10 @@
                     standardAd.mraid = YES;
                 }
                 [self.ads insertObject:standardAd atIndex:0];
-                [self continueWaterfall];
-            });
-        }
+            }
+            [self continueWaterfall];
+        });
+
     });
 }
 
@@ -209,12 +210,12 @@
     }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         ANVast *vastDataModel = [[ANVast alloc] initWithContent:videoAd.content];
-        videoAd.vastDataModel = vastDataModel;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!vastDataModel) {
                 ANLogDebug(@"Invalid VAST content, unable to use");
                 [self continueWaterfall];
             } else {
+                videoAd.vastDataModel = vastDataModel;
                 ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:videoAd];
                 [self processFinalResponse:adFetcherResponse];
             }
@@ -231,8 +232,8 @@
                                                          error:nil];
         NSString *content = [[NSString alloc] initWithData:data
                                                   encoding:NSUTF8StringEncoding];
-        if (content && content.length > 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (content && content.length > 0) {
                 ANVideoAd *videoAd = [[ANVideoAd alloc] init];
                 videoAd.content = content;
                 videoAd.notifyUrlString = ssmVideoAd.notifyUrlString;
@@ -241,9 +242,10 @@
                 videoAd.videoClickUrls = ssmVideoAd.videoClickUrls;
                 videoAd.videoEventTrackers = ssmVideoAd.videoEventTrackers;
                 [self.ads insertObject:videoAd atIndex:0];
-                [self continueWaterfall];
-            });
-        }
+            }
+            [self continueWaterfall];
+        });
+
     });
 }
 
