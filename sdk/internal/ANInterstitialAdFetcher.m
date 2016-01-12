@@ -153,29 +153,23 @@
     }
 }
 
-- (void)handleSSMVideoAd:(ANSSMVideoAd *)ssmVideoAd {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *URL = [NSURL URLWithString:ssmVideoAd.urlString];
-        NSURLRequest *request = ANBasicRequestWithURL(URL);
-        NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                             returningResponse:nil
-                                                         error:nil];
-        NSString *content = [[NSString alloc] initWithData:data
-                                                  encoding:NSUTF8StringEncoding];
-        if (content && content.length > 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                ANVideoAd *videoAd = [[ANVideoAd alloc] init];
-                videoAd.content = content;
-                videoAd.notifyUrlString = ssmVideoAd.notifyUrlString;
-                videoAd.impressionUrls = ssmVideoAd.impressionUrls;
-                videoAd.errorUrls = ssmVideoAd.errorUrls;
-                videoAd.videoClickUrls = ssmVideoAd.videoClickUrls;
-                videoAd.videoEventTrackers = ssmVideoAd.videoEventTrackers;
-                [self.ads insertObject:videoAd atIndex:0];
-                [self continueWaterfall];
-            });
-        }
-    });
+#pragma mark - Standard Ads
+
+- (void)handleStandardAd:(ANStandardAd *)standardAd {
+    CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
+    
+    // Setting the base URL to /ut will result in mraid.js not loading properly from the server
+    // which will cause rendering issues for certain MRAID creatives.
+    self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:receivedSize
+                                                                HTML:standardAd.content
+                                                      webViewBaseURL:[NSURL URLWithString:AN_BASE_URL]];
+    self.standardAdView.webViewController.loadingDelegate = self;
+}
+
+- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
+    ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
+    response.impressionUrls = self.impressionUrls;
+    [self processFinalResponse:response];
 }
 
 - (void)handleSSMStandardAd:(ANSSMStandardAd *)ssmStandardAd {
@@ -205,25 +199,6 @@
     });
 }
 
-#pragma mark - Standard Ads
-
-- (void)handleStandardAd:(ANStandardAd *)standardAd {
-    CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
-    
-    // Setting the base URL to /ut will result in mraid.js not loading properly from the server
-    // which will cause rendering issues for certain MRAID creatives.
-    self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:receivedSize
-                                                                HTML:standardAd.content
-                                                      webViewBaseURL:[NSURL URLWithString:AN_BASE_URL]];
-    self.standardAdView.webViewController.loadingDelegate = self;
-}
-
-- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
-    ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
-    response.impressionUrls = self.impressionUrls;
-    [self processFinalResponse:response];
-}
-
 #pragma mark - VAST Ads
 
 - (void)handleVideoAd:(ANVideoAd *)videoAd {
@@ -245,6 +220,31 @@
                 [self processFinalResponse:adFetcherResponse];
             }
         });
+    });
+}
+
+- (void)handleSSMVideoAd:(ANSSMVideoAd *)ssmVideoAd {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *URL = [NSURL URLWithString:ssmVideoAd.urlString];
+        NSURLRequest *request = ANBasicRequestWithURL(URL);
+        NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                             returningResponse:nil
+                                                         error:nil];
+        NSString *content = [[NSString alloc] initWithData:data
+                                                  encoding:NSUTF8StringEncoding];
+        if (content && content.length > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ANVideoAd *videoAd = [[ANVideoAd alloc] init];
+                videoAd.content = content;
+                videoAd.notifyUrlString = ssmVideoAd.notifyUrlString;
+                videoAd.impressionUrls = ssmVideoAd.impressionUrls;
+                videoAd.errorUrls = ssmVideoAd.errorUrls;
+                videoAd.videoClickUrls = ssmVideoAd.videoClickUrls;
+                videoAd.videoEventTrackers = ssmVideoAd.videoEventTrackers;
+                [self.ads insertObject:videoAd atIndex:0];
+                [self continueWaterfall];
+            });
+        }
     });
 }
 
