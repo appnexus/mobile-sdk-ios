@@ -79,12 +79,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 @interface ANUniversalTagAdServerResponse ()
 
-@property (nonatomic, readwrite, assign) BOOL containsAds;
-@property (nonatomic, readwrite, strong) ANStandardAd *standardAd;
-@property (nonatomic, readwrite, strong) NSMutableArray *standardAds;
-@property (nonatomic, readwrite, strong) ANVideoAd *videoAd;
-@property (nonatomic, readwrite, strong) NSMutableArray *videoAds;
-
 @property (nonatomic, readwrite, strong) NSMutableArray *ads;
 @property (nonatomic, readwrite, strong) NSString *noAdUrlString;
 
@@ -161,9 +155,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 }
             }
         }
-    }
-    if (self.ads.count > 0) {
-        self.containsAds = YES;
     }
 }
 
@@ -429,16 +420,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 }
 
 #pragma mark - Helper Methods
-
-- (NSMutableArray *)standardAds {
-    if (!_standardAds) _standardAds = [[NSMutableArray alloc] init];
-    return _standardAds;
-}
-
-- (NSMutableArray *)videoAds {
-    if (!_videoAds) _videoAds = [[NSMutableArray alloc] init];
-    return _videoAds;
-}
 
 - (NSMutableArray *)ads {
     if (!_ads) _ads = [[NSMutableArray alloc] init];

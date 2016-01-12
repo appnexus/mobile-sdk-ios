@@ -23,12 +23,6 @@
 
 - (instancetype)initWithAdServerData:(NSData *)data;
 
-@property (nonatomic, readonly, assign) BOOL containsAds;
-@property (nonatomic, readonly, strong) ANStandardAd *standardAd;
-@property (nonatomic, readonly, strong) NSMutableArray *standardAds;
-@property (nonatomic, readonly, strong) ANVideoAd *videoAd;
-@property (nonatomic, readonly, strong) NSMutableArray *videoAds;
-
 @property (nonatomic, readonly, strong) NSMutableArray *ads;
 @property (nonatomic, readonly, strong) NSString *noAdUrlString;
 
