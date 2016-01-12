@@ -102,13 +102,15 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.viewed && ([self.delegate closeDelayForController] > 0.0)) {
+    if (!self.viewed) {
         [self setupViewabilityTracker];
+    }
+    if (!self.viewed && ([self.delegate closeDelayForController] > 0.0)) {
         [self startCountdownTimer];
-        self.viewed = YES;
     } else {
         [self stopCountdownTimer];
     }
+    self.viewed = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
