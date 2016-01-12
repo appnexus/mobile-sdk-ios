@@ -21,13 +21,12 @@
 
 @interface ANVideoPlayerViewController : UIViewController
 
-@property (strong, nonatomic) ANVast *vastDataModel;
 @property (nonatomic) float publisherSkipOffset;
 @property (nonatomic) BOOL openClicksInNativeBrowser;
 @property (nonatomic, readwrite, weak) id<ANVideoAdInternalDelegate> delegate;
 @property (nonatomic, strong) ANVideoAd *videoAd;
 
-- (instancetype)initWithVastDataModel:(ANVast *)vastDataModel;
+- (instancetype)initWithVideoAd:(ANVideoAd *)videoAd;
 - (void)play;
 - (void)pause;
 

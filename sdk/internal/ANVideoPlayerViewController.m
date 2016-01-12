@@ -62,13 +62,13 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 @implementation ANVideoPlayerViewController
 
-- (instancetype)initWithVastDataModel:(ANVast *)vastDataModel{
+- (instancetype)initWithVideoAd:(ANVideoAd *)videoAd {
     
     self = [super init];
     
     if (self) {
-        _vastDataModel = vastDataModel;
-        _fileURL = self.vastDataModel.mediaFileURL;
+        _videoAd = videoAd;
+        _fileURL = self.videoAd.vastDataModel.mediaFileURL;
         ANLogDebug(@"Playing Media File URL %@", _fileURL);
         _publisherSkipOffset = 5.0;
     }
@@ -181,7 +181,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 }
 
 - (float)skipOffset {
-    float skipOffset = [self.vastDataModel getSkipOffSetFromVastDataModel];
+    float skipOffset = [self.videoAd.vastDataModel getSkipOffSetFromVastDataModel];
     
     if (!skipOffset && self.publisherSkipOffset) {
         int iDuration = (int)CMTimeGetSeconds(self.playerView.player.currentItem.asset.duration);
@@ -298,7 +298,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 #pragma mark - Tracking
 
 - (void)fireTrackingEventWithEvent:(ANVideoEvent)event {
-    NSArray *trackingArray = [self.vastDataModel trackingArrayForEvent:event];
+    NSArray *trackingArray = [self.videoAd.vastDataModel trackingArrayForEvent:event];
     if (self.videoAd.videoEventTrackers[@(event)]) {
         trackingArray = [trackingArray arrayByAddingObjectsFromArray:self.videoAd.videoEventTrackers[@(event)]];
     }
@@ -309,18 +309,18 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 }
 
 - (void)fireImpressionTracking {
-    for (ANImpression *impression in self.vastDataModel.anInLine.impressions) {
+    for (ANImpression *impression in self.videoAd.vastDataModel.anInLine.impressions) {
         ANLogDebug(@"(VAST impression, %@)", impression.value);
         [self fireImpressionWithURL:impression.value];
     }
-    for (NSString *impressionUrlString in self.vastDataModel.videoAd.impressionUrls) {
+    for (NSString *impressionUrlString in self.videoAd.impressionUrls) {
         ANLogDebug(@"(UT impression, %@)", impressionUrlString);
         [self fireImpressionWithURL:impressionUrlString];
     }
 }
 
 - (void)fireClickTracking {
-    NSArray *trackingArray = self.vastDataModel.clickTrackingURL;
+    NSArray *trackingArray = self.videoAd.vastDataModel.clickTrackingURL;
     if (self.videoAd.videoClickUrls) {
         [trackingArray arrayByAddingObjectsFromArray:self.videoAd.videoClickUrls];
     }
@@ -366,7 +366,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 #pragma mark - ANBrowserViewControllerDelegate
 
 - (void)handleSingleTapOnPlayerViewWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer{
-    NSURL *clickURL = [NSURL URLWithString:[self.vastDataModel getClickThroughURL]];
+    NSURL *clickURL = [NSURL URLWithString:[self.videoAd.vastDataModel getClickThroughURL]];
     if (clickURL) {
         [self openClickInBrowserWithURL:clickURL];
         [self fireClickTracking];

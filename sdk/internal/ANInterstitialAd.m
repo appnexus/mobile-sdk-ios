@@ -53,7 +53,6 @@ NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdView
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserController;
 @property (nonatomic, strong) NSTimer *progressUpdateTimer;
 @property (nonatomic, strong) ANVideoPlayerViewController *playbackViewController;
-@property (nonatomic, strong) ANVast *vastAd;
 @property (nonatomic, strong) ANInterstitialAdFetcher *interstitialAdFetcher;
 @property (nonatomic, strong) NSMutableArray *adFetchers;
 
@@ -62,7 +61,6 @@ NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdView
 @implementation ANInterstitialAd
 @synthesize browserController = _browserController;
 @synthesize playbackViewController = _playbackViewController;
-@synthesize vastAd = _vastAd;
 
 #pragma mark Initialization
 
@@ -247,11 +245,10 @@ NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdView
         
         ANVideoAd *videoAd = (ANVideoAd *)adToShow;
         
-        self.playbackViewController = [[ANVideoPlayerViewController alloc] initWithVastDataModel:videoAd.vastDataModel];
+        self.playbackViewController = [[ANVideoPlayerViewController alloc] initWithVideoAd:videoAd];
         [self.playbackViewController setPublisherSkipOffset:self.closeDelay];
         [self.playbackViewController setOpenClicksInNativeBrowser:self.opensInNativeBrowser];
         [self.playbackViewController setDelegate:self];
-        [self.playbackViewController setVideoAd:videoAd];
         
         [controller presentViewController:self.playbackViewController
                                  animated:YES

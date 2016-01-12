@@ -32,6 +32,4 @@
 @property (nonatomic, readonly) NSMutableArray *anWrappers;
 @property (nonatomic, readonly) NSURL *mediaFileURL;
 
-@property (nonatomic, readwrite, weak) ANVideoAd *videoAd;
-
 @end
