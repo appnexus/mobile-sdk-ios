@@ -18,6 +18,7 @@
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubURLProtocol.h"
 #import "ANHTTPStubbingManager.h"
+#import "ANInterstitialAdFetcher.h"
 
 @interface ANBaseTestCase () 
 
@@ -67,6 +68,14 @@
     anBaseURLStub.responseCode = 200;
     anBaseURLStub.responseBody = @"";
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
+}
+
+- (void)stubUTv2WithBody:(NSString *)body {
+    ANURLConnectionStub *testURLStub = [[ANURLConnectionStub alloc] init];
+    testURLStub.requestURLRegexPatternString = kANInterstitialAdFetcherDefaultRequestUrlString;
+    testURLStub.responseCode = 200;
+    testURLStub.responseBody = body;
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:testURLStub];
 }
 
 - (void)stubResultCBResponses:(NSString *)body {

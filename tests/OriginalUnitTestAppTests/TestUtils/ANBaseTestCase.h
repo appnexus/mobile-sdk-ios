@@ -38,6 +38,7 @@
 @property (nonatomic, assign) BOOL adFailedToDisplayCalled;
 
 - (void)clearTest;
+- (void)stubUTv2WithBody:(NSString *)body;
 - (void)stubWithBody:(NSString *)body;
 - (void)stubResultCBResponses:(NSString *)body;
 - (void)stubResultCBForErrorCode;

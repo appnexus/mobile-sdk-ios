@@ -20,6 +20,7 @@ static NSString *const OK_RESULT_CB_URL = @"http://result";
 // use these functions
 
 + (NSString *)successfulBanner;
++ (NSString *)successfulBannerUTv2;
 + (NSString *)blankContentBanner;
 + (NSString *)mediationSuccessfulBanner;
 + (NSString *)mediationNoAdsBanner;
