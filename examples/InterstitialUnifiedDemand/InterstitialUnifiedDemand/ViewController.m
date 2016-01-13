@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [ANLogManager setANLogLevel:ANLogLevelOff];
+    [ANLogManager setANLogLevel:ANLogLevelAll];
     // VAST Placement
     self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"5778861"];
     // HTML Placement
@@ -47,6 +47,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     NSLog(@"view did appear");
 }
 

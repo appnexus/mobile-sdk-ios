@@ -31,6 +31,7 @@
 #import "ANVASTUtil.h"
 #import "ANVAST+ANCategory.h"
 #import "UIView+ANCategory.h"
+#import "ANVideoAd.h"
 
 static float const kANVideoPlayerViewControllerVolumeMuteOnValue = 0.0;
 static float const kANVideoPlayerViewControllerVolumeMuteOffValue = 1.0;
@@ -48,6 +49,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     BOOL isThirdQuartileDone;
     BOOL isCompleteQuartileDone;
     BOOL isImpressionFired;
+    AVPlayerItem *playerItem;
 }
 
 @property (nonatomic, strong) NSURL *fileURL;
@@ -61,13 +63,13 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 
 @implementation ANVideoPlayerViewController
 
-- (instancetype)initWithVastDataModel:(ANVast *)vastDataModel{
+- (instancetype)initWithVideoAd:(ANVideoAd *)videoAd {
     
     self = [super init];
     
     if (self) {
-        _vastDataModel = vastDataModel;
-        _fileURL = self.vastDataModel.mediaFileURL;
+        _videoAd = videoAd;
+        _fileURL = self.videoAd.vastDataModel.mediaFileURL;
         ANLogDebug(@"Playing Media File URL %@", _fileURL);
         _publisherSkipOffset = 5.0;
     }
@@ -129,7 +131,11 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 #pragma mark - Setup
 
 - (void)setupPlayer {
-    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:self.fileURL];
+    playerItem = [AVPlayerItem playerItemWithURL:self.fileURL];
+    [playerItem addObserver:self
+                 forKeyPath:@"status"
+                    options:NSKeyValueObservingOptionNew
+                    context:NULL];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
     player.volume = kANVideoPlayerViewControllerDoMuteOnLoad ?
             kANVideoPlayerViewControllerVolumeMuteOnValue : kANVideoPlayerViewControllerVolumeMuteOffValue;
@@ -148,6 +154,29 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
                                                                                       action:@selector(handleSingleTapOnPlayerViewWithGestureRecognizer:)];
     singleFingerTap.delegate = self;
     [self.playerView addGestureRecognizer:singleFingerTap];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if ([object isKindOfClass:[AVPlayerItem class]] && [keyPath isEqualToString:@"status"]) {
+        AVPlayerItem *item = (AVPlayerItem *)object;
+        switch (item.status) {
+            case AVPlayerItemStatusFailed:
+                ANLogDebug(@"AVPlayerStatusFailed received from player");
+                [self closeInterstitial];
+                break;
+            case AVPlayerItemStatusReadyToPlay:
+                ANLogDebug(@"AVPlayerItemStatusReadyToPlay received from player");
+                break;
+            case AVPlayerItemStatusUnknown:
+                ANLogDebug(@"AVPlayerItemStatusUnknown received from player");
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 - (void)setupCircularView {
@@ -180,7 +209,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 }
 
 - (float)skipOffset {
-    float skipOffset = [self.vastDataModel getSkipOffSetFromVastDataModel];
+    float skipOffset = [self.videoAd.vastDataModel getSkipOffSetFromVastDataModel];
     
     if (!skipOffset && self.publisherSkipOffset) {
         int iDuration = (int)CMTimeGetSeconds(self.playerView.player.currentItem.asset.duration);
@@ -200,14 +229,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
     if (self.playerView.player.rate > 0 && !self.playerView.player.error) {
         if (!isImpressionFired) {
             isImpressionFired = YES;
-            for (ANImpression *impression in self.vastDataModel.anInLine.impressions) {
-            	ANLogDebug(@"(impression, %@)", impression.value);
-                [self fireImpressionWithURL:impression.value];
-            }
-            if (self.vastDataModel.notifyUrlString) {
-                ANLogDebug(@"(impression, %@)", self.vastDataModel.notifyUrlString);
-                [self fireImpressionWithURL:self.vastDataModel.notifyUrlString];
-            }
+            [self fireImpressionTracking];
         }
         [self.circularAnimationView performCircularAnimationWithStartTime:[NSDate date]];
     }
@@ -304,15 +326,38 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 #pragma mark - Tracking
 
 - (void)fireTrackingEventWithEvent:(ANVideoEvent)event {
-    NSArray *trackingArray = [self.vastDataModel trackingArrayForEvent:event];
+    NSArray *trackingArray = [self.videoAd.vastDataModel trackingArrayForEvent:event];
     [trackingArray enumerateObjectsUsingBlock:^(ANTracking *tracking, NSUInteger idx, BOOL *stop) {
         ANLogDebug(@"(%@, %@)", [ANVASTUtil eventStringForVideoEvent:event], tracking.trackingURI);
         [self fireImpressionWithURL:tracking.trackingURI];
     }];
+    NSArray *videoEventTrackers = self.videoAd.videoEventTrackers[@(event)];
+    [videoEventTrackers enumerateObjectsUsingBlock:^(NSString *urlString, NSUInteger idx, BOOL *stop) {
+        ANLogDebug(@"(%@, %@)", [ANVASTUtil eventStringForVideoEvent:event], urlString);
+        [self fireImpressionWithURL:urlString];
+    }];
+}
+
+- (void)fireImpressionTracking {
+    for (ANImpression *impression in self.videoAd.vastDataModel.anInLine.impressions) {
+        ANLogDebug(@"(VAST impression, %@)", impression.value);
+        [self fireImpressionWithURL:impression.value];
+    }
+    for (NSString *impressionUrlString in self.videoAd.impressionUrls) {
+        ANLogDebug(@"(UT impression, %@)", impressionUrlString);
+        [self fireImpressionWithURL:impressionUrlString];
+    }
 }
 
 - (void)fireClickTracking {
-    NSArray *trackingArray = self.vastDataModel.clickTrackingURL;
+    NSArray *trackingArray = self.videoAd.vastDataModel.clickTrackingURL;
+    if (self.videoAd.videoClickUrls) {
+        if (trackingArray) {
+            [trackingArray arrayByAddingObjectsFromArray:self.videoAd.videoClickUrls];
+        } else {
+            trackingArray = self.videoAd.videoClickUrls;
+        }
+    }
     [trackingArray enumerateObjectsUsingBlock:^(NSString *clickTrackingURL, NSUInteger idx, BOOL *stop) {
         ANLogDebug(@"(click, %@)", clickTrackingURL);
         [self fireImpressionWithURL:clickTrackingURL];
@@ -345,6 +390,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 }
 
 - (void)dealloc {
+    [playerItem removeObserver:self forKeyPath:@"status"];
     [self removeApplicationNotifications];
 }
 
@@ -355,7 +401,7 @@ UIGestureRecognizerDelegate, ANBrowserViewControllerDelegate> {
 #pragma mark - ANBrowserViewControllerDelegate
 
 - (void)handleSingleTapOnPlayerViewWithGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer{
-    NSURL *clickURL = [NSURL URLWithString:[self.vastDataModel getClickThroughURL]];
+    NSURL *clickURL = [NSURL URLWithString:[self.videoAd.vastDataModel getClickThroughURL]];
     if (clickURL) {
         [self openClickInBrowserWithURL:clickURL];
         [self fireClickTracking];

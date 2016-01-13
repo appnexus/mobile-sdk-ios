@@ -69,19 +69,20 @@ static XCTestExpectation *expectation;
     XCTAssertNil(interstitial, @"Failed to load video.");
 }
 
-- (void) test2OpenClickInNativeBrowser{
-    
-    XCTAssertNil(interstitial, @"Failed to load video.");
-    
-    expectation = [self expectationWithDescription:@"Waiting for player to be clicked."];
-    
-    [tester tapViewWithAccessibilityLabel:@"player"];
-    
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
-    
-    XCTAssertTrue(isDelegateFired, @"Failed.");
-    
-}
+// TODO: Find a new way to test click-through to the in-app browser
+//- (void) test2OpenClickInNativeBrowser{
+//    
+//    XCTAssertNil(interstitial, @"Failed to load video.");
+//    
+//    expectation = [self expectationWithDescription:@"Waiting for player to be clicked."];
+//    
+//    [tester tapViewWithAccessibilityLabel:@"player"];
+//    
+//    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+//    
+//    XCTAssertTrue(isDelegateFired, @"Failed.");
+//    
+//}
 
 -(void) setupDelegatesForVideo{
     

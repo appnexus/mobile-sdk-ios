@@ -137,6 +137,8 @@
                                              @"height":@(size.height)}];
             }
         }
+        [sizeObjectArray addObject:@{@"width":@([interstitialDelegate screenSize].width),
+                                     @"height":@([interstitialDelegate screenSize].height)}];
         tagDict[@"sizes"] = sizeObjectArray;
     }
     tagDict[@"ad_types"] = @[@"banner", @"video"];

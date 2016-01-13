@@ -36,6 +36,10 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
 @end
 
 @implementation ANVast
+{
+    dispatch_semaphore_t waitForVastParsingCompletion;
+    int releaseCounter;
+}
 
 - (instancetype)initWithContent:(NSString *)vast {
     if (self = [super init]) {
@@ -59,23 +63,27 @@ NSString *const kANVideoBitrateCapOverWAN = @"1200"; //this should be set to 460
     return self;
 }
 
-- (void)parseVastResponse:(NSString *)response
+- (BOOL)parseVastResponse:(NSString *)response
                     error:(NSError **)error {
     ANXML *xml = [ANXML newANXMLWithXMLString:response
                                         error:error];
-    if (!*error) {
+    BOOL errorOcurred = (*error != nil);
+    if (!errorOcurred) {
         waitForVastParsingCompletion = dispatch_semaphore_create(0);
         releaseCounter = 0;
         [self parseRootElement:xml.rootXMLElement];
-        dispatch_semaphore_wait(waitForVastParsingCompletion, dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC));
+        long result = dispatch_semaphore_wait(waitForVastParsingCompletion, dispatch_time(DISPATCH_TIME_NOW,
+                                                                            kAppNexusMediationNetworkTimeoutInterval * NSEC_PER_SEC));
+        if (result != 0) {
+            ANLogDebug(@"Timeout reached while parsing VAST");
+            errorOcurred = YES;
+            *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseNetworkError);
+        }
     }
+    return errorOcurred;
 }
 
-static dispatch_semaphore_t waitForVastParsingCompletion;
-static int releaseCounter;
-
-- (void)parseResponseWithURL:(NSURL *)xmlURL
-                       error:(NSError **)error {
+- (void)parseResponseWithURL:(NSURL *)xmlURL {
     [ANXML newANXMLWithURL:xmlURL
                    success:^(ANXML *tbxml) {
         [self parseRootElement:tbxml.rootXMLElement];
@@ -138,9 +146,8 @@ static int releaseCounter;
                             if (!isVastTagURIAlreadyExists) {
                                 [self.anWrappers addObject:wrapper];
                                 NSURL *vastURL = [NSURL URLWithString:wrapper.vastAdTagURI];
-                                NSError *error;
                                 releaseCounter++;
-                                [self parseResponseWithURL:vastURL error:&error];
+                                [self parseResponseWithURL:vastURL];
                             }
                         }
                     }
@@ -162,7 +169,10 @@ static int releaseCounter;
     ANInLine *inLine = (self.anInLine)?self.anInLine:[self.anWrappers lastObject]; //last object will be the valid inline element
     NSString *fileURI = @"";
     for (ANCreative *creative in inLine.creatives) {
-        
+        // SDK only supports linear
+        if (!creative.anLinear) {
+            continue;
+        }
         //Sort array on bitRate = Ascending
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"bitRate" ascending:YES];
         NSArray *mediaFiles = [creative.anLinear.mediaFiles sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];

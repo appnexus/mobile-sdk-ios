@@ -28,6 +28,7 @@
 #import "ANBrowserViewController.h"
 #import "ANVideoPlayerViewController.h"
 #import "ANVideoAd.h"
+#import "ANNativeImpressionTrackerManager.h"
 
 static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 
@@ -42,6 +43,7 @@ static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
+NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdViewImpressionUrlsKey";
 
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate, ANInterstitialAdFetcherDelegate, ANVideoAdInternalDelegate>
 
@@ -51,7 +53,6 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserController;
 @property (nonatomic, strong) NSTimer *progressUpdateTimer;
 @property (nonatomic, strong) ANVideoPlayerViewController *playbackViewController;
-@property (nonatomic, strong) ANVast *vastAd;
 @property (nonatomic, strong) ANInterstitialAdFetcher *interstitialAdFetcher;
 @property (nonatomic, strong) NSMutableArray *adFetchers;
 
@@ -60,14 +61,11 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 @implementation ANInterstitialAd
 @synthesize browserController = _browserController;
 @synthesize playbackViewController = _playbackViewController;
-@synthesize vastAd = _vastAd;
 
 #pragma mark Initialization
 
 - (void)initialize {
     [super initialize];
-    _controller = [[ANInterstitialAdViewController alloc] init];
-    _controller.delegate = self;
     _precachedAdObjects = [NSMutableArray array];
     _allowedAdSizes = [self getDefaultAllowedAdSizes];
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
@@ -141,6 +139,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         if (response.auctionID) {
             adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
         }
+        if (response.impressionUrls) {
+            adViewWithDateLoaded[kANInterstitialAdViewImpressionUrlsKey] = response.impressionUrls;
+        }
         [self.precachedAdObjects addObject:adViewWithDateLoaded];
         ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
         
@@ -149,12 +150,25 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     else {
         [self adRequestFailedWithError:response.error];
     }
-
 }
 
 - (void)displayAdFromViewController:(UIViewController *)controller {
+    BOOL displayError = NO;
+    if (!controller) {
+        ANLogError(@"Cannot present interstitial on a nil controller");
+        displayError = YES;
+    }
+    if (!ANCanPresentFromViewController(controller)) {
+        ANLogError(@"View controller already presenting another controller modally, or view controller view not attached to window - could not present interstitial");
+        displayError = YES;
+    }
+    if (displayError) {
+        [self adFailedToDisplay];
+        return;
+    }
     id adToShow = nil;
     NSString *auctionID = nil;
+    NSArray *impressionUrls = nil;
     
     self.controller.orientationProperties = nil;
     self.controller.useCustomClose = NO;
@@ -175,6 +189,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             // If ad is still valid, save a reference to it. We'll use it later
             adToShow = adDict[kANInterstitialAdViewKey];
             auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
+            impressionUrls = adDict[kANInterstitialAdViewImpressionUrlsKey];
             [self.precachedAdObjects removeObjectAtIndex:0];
             break;
         }
@@ -184,6 +199,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     }
 
     if ([adToShow isKindOfClass:[UIView class]]) {
+        self.controller = [[ANInterstitialAdViewController alloc] init];
+        self.controller.impressionUrls = impressionUrls;
+        self.controller.delegate = self;
         if (!self.controller) {
             ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");
             [self adFailedToDisplay];
@@ -220,15 +238,17 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
                                forAuctionID:auctionID];
         }
+        if (impressionUrls) {
+            [self fireMediatedImpressionTrackers:impressionUrls];
+        }
     } else if([adToShow isKindOfClass:[ANVideoAd class]]){
         
         ANVideoAd *videoAd = (ANVideoAd *)adToShow;
         
-        self.playbackViewController = [[ANVideoPlayerViewController alloc] initWithVastDataModel:videoAd.vastDataModel];
+        self.playbackViewController = [[ANVideoPlayerViewController alloc] initWithVideoAd:videoAd];
         [self.playbackViewController setPublisherSkipOffset:self.closeDelay];
         [self.playbackViewController setOpenClicksInNativeBrowser:self.opensInNativeBrowser];
         [self.playbackViewController setDelegate:self];
-        [self.playbackViewController setVideoAd:videoAd];
         
         [controller presentViewController:self.playbackViewController
                                  animated:YES
@@ -238,6 +258,17 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
         [self adFailedToDisplay];
     }
+}
+
+- (void)fireMediatedImpressionTrackers:(NSArray *)impressionUrls {
+    NSMutableArray *impressionURLArray = [[NSMutableArray alloc] init];
+    [impressionUrls enumerateObjectsUsingBlock:^(NSString *urlString, NSUInteger idx, BOOL *stop) {
+        NSURL *URL = [NSURL URLWithString:urlString];
+        if (URL) {
+            [impressionURLArray addObject:URL];
+        }
+    }];
+    [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:impressionURLArray];
 }
 
 - (NSMutableSet *)getDefaultAllowedAdSizes {
@@ -309,64 +340,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 #pragma mark extraParameters methods
 
-- (NSString *)sizeParameter {
-    return [NSString stringWithFormat:@"&size=%ldx%ld",
-            (long)self.frame.size.width,
-            (long)self.frame.size.height];
-}
-
-- (NSString *)promoSizesParameter {
-    NSString *promoSizesParameter = @"&promo_sizes=";
-    NSMutableArray *sizesStringsArray = [NSMutableArray arrayWithCapacity:[self.allowedAdSizes count]];
-    
-    for (id sizeValue in self.allowedAdSizes) {
-        if ([sizeValue isKindOfClass:[NSValue class]]) {
-            CGSize size = [sizeValue CGSizeValue];
-            NSString *param = [NSString stringWithFormat:@"%ldx%ld", (long)size.width, (long)size.height];
-            
-            [sizesStringsArray addObject:param];
-        }
-    }
-    
-    promoSizesParameter = [promoSizesParameter stringByAppendingString:[sizesStringsArray componentsJoinedByString:@","]];
-    
-    return promoSizesParameter;
-}
-
-- (NSString *)orientationParameter {
-    NSString *orientation = UIInterfaceOrientationIsLandscape(self.controller.orientation) ? @"h" : @"v";
-    return [NSString stringWithFormat:@"&orientation=%@", orientation];
-}
-
-#pragma mark ANAdFetcherDelegate
-
-- (NSArray *)extraParameters {
-    return @[[self sizeParameter],
-            [self promoSizesParameter],
-            [self orientationParameter]];
-}
-
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
-    if ([response isSuccessful]) {
-        NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                     response.adObject, kANInterstitialAdViewKey,
-                                                     [NSDate date], kANInterstitialAdViewDateLoadedKey,
-                                                     nil];
-        // cannot insert nil objects
-        if (response.auctionID) {
-            adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
-        }
-        [self.precachedAdObjects addObject:adViewWithDateLoaded];
-        ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
-        
-        [self adDidReceiveAd];
-    }
-    else {
-        [self adRequestFailedWithError:response.error];
-    }
-}
-
-- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
+- (CGSize)screenSize {
     return self.frame.size;
 }
 

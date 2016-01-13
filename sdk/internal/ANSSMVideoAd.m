@@ -1,4 +1,4 @@
-/*   Copyright 2015 APPNEXUS INC
+/*   Copyright 2016 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,17 +13,8 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "ANStandardAd.h"
-#import "ANVideoAd.h"
+#import "ANSSMVideoAd.h"
 
-@interface ANUniversalTagAdServerResponse : NSObject
-
-+ (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;
-
-- (instancetype)initWithAdServerData:(NSData *)data;
-
-@property (nonatomic, readonly, strong) NSMutableArray *ads;
-@property (nonatomic, readonly, strong) NSString *noAdUrlString;
+@implementation ANSSMVideoAd
 
 @end

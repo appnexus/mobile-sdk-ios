@@ -18,7 +18,14 @@
 
 @interface ANVideoAd : NSObject
 
-@property (nonatomic, readwrite, strong) NSString *content;
+@property (nonatomic, readwrite) NSString *content;
+@property (nonatomic, readwrite) NSString *notifyUrlString;
+@property (nonatomic, readwrite) NSArray *impressionUrls;
+
+@property (nonatomic, readwrite, strong) NSDictionary *videoEventTrackers;
+@property (nonatomic, readwrite, strong) NSArray *errorUrls;
+@property (nonatomic, readwrite, strong) NSArray *videoClickUrls;
+
 @property (nonatomic, readwrite, strong) ANVast *vastDataModel;
 
 @end
