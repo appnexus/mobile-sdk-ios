@@ -495,13 +495,4 @@
     XCTAssertTrue(([requestPath containsString:@"size=200x150"]));
 }
 
-- (void)testAllowedSizesOnInterstitial {
-    // Make sure that ANInterstitialAd.allowedAdSizes is passed correctly in the request body
-}
-
-- (void)testLocationOnInterstitial {
-    // Make sure that ANInterstitialAd.location is passed correctly in the request body
-}
-
-
 @end
