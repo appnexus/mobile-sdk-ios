@@ -278,28 +278,230 @@
     }
 }
 
+- (void)testSetAgeOnInterstitial {
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubUTv2RequestWithResponse:@"UTv2RTBHTML"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setAge:@"18"];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *user = postData[@"user"];
+    XCTAssertNotNil(user);
+    NSNumber *age = (NSNumber *)[user valueForKey:@"age"];
+    XCTAssertNotNil(age);
+    XCTAssertEqualObjects(age, @(18));
+}
+
+- (void)testSetOpensInNativeBrowserOnBanner {
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    
+    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    
+    self.banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(200, 150)];
+    [self.banner setOpensInNativeBrowser:YES];
+    
+    [self.banner loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertTrue(self.banner.opensInNativeBrowser);
+    XCTAssertTrue([requestPath containsString:@"&native_browser=1"]);
+    
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self.banner setOpensInNativeBrowser:NO];
+    [self.banner loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    requestPath = [[self.request URL] absoluteString];
+    XCTAssertFalse(self.banner.opensInNativeBrowser);
+    XCTAssertTrue([requestPath containsString:@"&native_browser=0"]);
+}
+
+- (void)testSetShouldServePublicServiceAnnoucementsOnInterstitial {
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubUTv2RequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setShouldServePublicServiceAnnouncements:YES];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *tags = postData[@"tags"];
+    XCTAssertNotNil(tags);
+    NSNumber *disablePSA = [[tags firstObject] valueForKey:@"disable_psa"];
+    XCTAssertNotNil(disablePSA);
+    XCTAssertFalse([disablePSA boolValue]);
+    
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self.interstitial setShouldServePublicServiceAnnouncements:NO];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                               options:kNilOptions
+                                                 error:nil];
+    XCTAssertNotNil(postData);
+    tags = postData[@"tags"];
+    XCTAssertNotNil(tags);
+    disablePSA = [[tags firstObject] valueForKey:@"disable_psa"];
+    XCTAssertNotNil(disablePSA);
+    XCTAssertTrue([disablePSA boolValue]);
+}
+
+- (void)testSetReserveOnBanner {
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    
+    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    
+    self.banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(200, 150)];
+    [self.banner setReserve:1.0];
+    
+    [self.banner loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertNotNil(requestPath);
+    NSURLComponents *components = [[NSURLComponents alloc] initWithString:requestPath];
+    XCTAssertNotNil(components);
+    NSArray *queryItems = components.queryItems;
+    XCTAssertNotNil(queryItems);
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", @"reserve"];
+    NSURLQueryItem *queryItem = [[queryItems
+                                  filteredArrayUsingPredicate:predicate]
+                                 firstObject];
+    XCTAssertNotNil(queryItem);
+    XCTAssertTrue([queryItem.value hasPrefix:@"1.0"]);
+}
+
+- (void)testSetGenderOnInterstitial {
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubUTv2RequestWithResponse:@"UTv2RTBHTML"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setGender:ANGenderMale];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *user = postData[@"user"];
+    XCTAssertNotNil(user);
+    NSNumber *gender = [user valueForKey:@"gender"];
+    XCTAssertEqualObjects(gender, @(1));
+    
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self.interstitial setGender:ANGenderFemale];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                          options:kNilOptions
+                                            error:nil];
+    XCTAssertNotNil(postData);
+    user = postData[@"user"];
+    XCTAssertNotNil(user);
+    gender = [user valueForKey:@"gender"];
+    XCTAssertEqualObjects(gender, @(2));
+}
+
+- (void)testSetCustomKeywordsOnInterstitial {
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubUTv2RequestWithResponse:@"UTv2RTBHTML"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setCustomKeywords:[NSMutableDictionary dictionaryWithObject:@"object" forKey:@"key"]];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *keywords = postData[@"keywords"];
+    XCTAssertNotNil(keywords);
+    NSString *key = [[keywords firstObject] valueForKey:@"key"];
+    XCTAssertEqualObjects(key, @"key");
+    NSString *value = [[keywords firstObject] valueForKey:@"value"];
+    XCTAssertEqualObjects(value, @"object");
+}
+
+- (void)testSetSizeAndOrientationParameterOnBanner {
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    
+    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+
+    self.banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(200, 150)];
+    
+
+    [self.banner loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertNotNil(requestPath);
+    XCTAssertTrue([requestPath containsString:@"orientation=h"]);
+    XCTAssertTrue(([requestPath containsString:@"size=200x150"]));
+}
+
 - (void)testAllowedSizesOnInterstitial {
     // Make sure that ANInterstitialAd.allowedAdSizes is passed correctly in the request body
-}
-
-- (void)testShouldServePublicServiceAnnouncementsOnInterstitial {
-    // Make sure that ANInterstitialAd.shouldServePublicServiceAnnouncements is passed correctly in the request body
-}
-
-- (void)testAgeOnInterstitial {
-    // Make sure that ANInterstitialAd.age is passed correctly in the request body
-}
-
-- (void)testGenderOnInterstitial {
-    // Make sure that ANInterstitialAd.gender is passed correctly in the request body
 }
 
 - (void)testLocationOnInterstitial {
     // Make sure that ANInterstitialAd.location is passed correctly in the request body
 }
 
-- (void)testCustomKeywordsOnInterstitial {
-    // Make sure that ANInterstitialAd.customKeywords is passed correctly in the request body
-}
 
 @end
