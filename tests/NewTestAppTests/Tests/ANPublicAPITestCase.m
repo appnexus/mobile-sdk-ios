@@ -194,6 +194,141 @@
     XCTAssertNil(tag[@"id"]);
 }
 
+- (void) testSetAgeOnInterstitial{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setAge:@"18"];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *user = postData[@"user"];
+    XCTAssertNotNil(user);
+    NSString *age = (NSString *)[user valueForKey:@"age"];
+    XCTAssertNotNil(age);
+    XCTAssertNotEqual(@"18", age);
+}
+
+- (void) testSetOpensInNativeBrowserOnInterstitial{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setOpensInNativeBrowser:YES];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    XCTAssertTrue(self.interstitial.opensInNativeBrowser);
+}
+
+- (void) testSetShouldServePublicServiceAnnoucementsOnInterstitial{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setShouldServePublicServiceAnnouncements:YES];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *tags = postData[@"tags"];
+    XCTAssertNotNil(tags);
+    BOOL disablePSA = [tags valueForKey:@"disable_psa"];
+    XCTAssertFalse(disablePSA);
+}
+
+- (void) testSetReserveOnInterstitial{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setReserve:1.0];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *user = postData[@"user"];
+    XCTAssertNotNil(user);
+    NSString *reserve = (NSString *)[user valueForKey:@"reserve"];
+    XCTAssertNotNil(reserve);
+    XCTAssertNotEqual(@"1.0", reserve);
+}
+
+- (void) testSetGenderOnInterstitial{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setGender:ANGenderMale];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *user = postData[@"user"];
+    XCTAssertNotNil(user);
+    ANGender gender = (ANGender)[user valueForKey:@"gender"];
+    XCTAssertNotEqual(ANGenderFemale, gender);
+}
+
+- (void) testSetCustomKeywordsOnInterstitial{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setCustomKeywords:[NSMutableDictionary dictionaryWithObject:@"object" forKey:@"key"]];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *keywords = postData[@"keywords"];
+    XCTAssertNotNil(keywords);
+    NSString *object = [keywords valueForKey:@"key"];
+    XCTAssertNotEqual(@"object", object);
+}
+
+- (void) testSetlandingPageLoadsInBackgroundOnInterstitial{
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial setLandingPageLoadsInBackground:YES];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    XCTAssertTrue(self.interstitial.landingPageLoadsInBackground);
+}
+
 - (void)stubRequestWithResponse:(NSString *)responseName {
     NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
     NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
