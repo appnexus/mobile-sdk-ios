@@ -36,6 +36,15 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"HelloWorld"];
 }
 
++ (NSString *)successfulBannerUTv2 {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:@"UTv2RTBHTML"
+                                                                                        ofType:@"json"]
+                                                       encoding:NSUTF8StringEncoding
+                                                          error:nil];
+    return baseResponse;
+}
+
 + (NSString *)blankContentBanner {
     return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@""];
 }

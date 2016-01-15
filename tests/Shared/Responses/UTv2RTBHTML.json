@@ -1,0 +1,29 @@
+{  
+    "version":"0.0.2",
+    "tags":[  
+        {  
+            "uuid":"null",
+            "auction_id":"4005765276550092434",
+            "ut_url":"http://nym1.ib.adnxs.com/ut/notify?e=wqT_3QKOAqgFAQAAAgDWAAUI05nqsQUQkq3z0rrJ1cs3GPCmvcm7ioC6ESABKi0JAAAABQIAEQUGDAAAABkBBRAAAPA_IQkJCAAAKREJ8Lkwnc-CATi-B0DlAUgCUNf46QRYtbEKYABokUB4AIABAZIBA1VTRJgBwAKgAeADqAEBsAEAuAEBwAEByAEA0AEA2AEA4AEA8AEA2ALoB-ACocEJgAMAiAMBkAMAmAMXoAMAqgMAsAMAuAMAwAOsAsgDANIDKAgAEiRhNjVjMTExYy1kMjI4LTQ2OTctODAxZC0wYTMyODI1OGEwYzbYAwDgAwDoAwDwAwD4AwCABACSBAYvdXQvdjGYBAA.&s=298ad88d05422192c2a75eadce277200ddcc7b0f",
+            "tag_id":2140061,
+            "ads":[  
+                {  
+                    "content_source":"rtb",
+                    "ad_type":"banner",
+                    "buyer_member_id":229,
+                    "creative_id":10124375,
+                    "media_type_id":1,
+                    "media_subtype_id":1,
+                    "notify_url":"http://nym1.ib.adnxs.com/it?e=wqT_3QKOAqgFAQAAAgDWAAUI05nqsQUQkq3z0rrJ1cs3GPCmvcm7ioC6ESABKi0JAAAABQIAEQUGDAAAABkBBRAAAPA_IQkJCAAAKREJ8Lkwnc-CATi-B0DlAUgCUNf46QRYtbEKYABokUB4AIABAZIBA1VTRJgBwAKgAeADqAEBsAEAuAEBwAEByAEA0AEA2AEA4AEA8AEA2ALoB-ACocEJgAMAiAMBkAMAmAMXoAMAqgMAsAMAuAMAwAOsAsgDANIDKAgAEiRhNjVjMTExYy1kMjI4LTQ2OTctODAxZC0wYTMyODI1OGEwYzbYAwDgAwDoAwDwAwD4AwCABACSBAYvdXQvdjGYBAA.&s=298ad88d05422192c2a75eadce277200ddcc7b0f",
+                    "rtb":{  
+                        "banner":{  
+                            "width":320,
+                            "height":480,
+                            "content":"HelloWorld"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

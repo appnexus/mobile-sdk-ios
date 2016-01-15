@@ -133,9 +133,17 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
-    XCTAssertEqual(@"1", [self.interstitial placementId]);
-    XCTAssertTrue([requestPath containsString:@"?id=1"]);
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    XCTAssertNil(postData[@"member_id"]);
+    NSArray *tags = postData[@"tags"];
+    XCTAssertNotNil(tags);
+    NSDictionary *tag = [tags firstObject];
+    XCTAssertNotNil(tag);
+    XCTAssertEqualObjects(tag[@"id"], @(1));
+    XCTAssertNil(tag[@"code"]);
 }
 
 - (void)testSetInventoryCodeAndMemberIDOnInterstitial {
@@ -149,10 +157,17 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
-    XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
-    XCTAssertEqual(2, [self.interstitial memberId]);
-    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    XCTAssertEqualObjects(postData[@"member_id"], @(2));
+    NSArray *tags = postData[@"tags"];
+    XCTAssertNotNil(tags);
+    NSDictionary *tag = [tags firstObject];
+    XCTAssertNotNil(tag);
+    XCTAssertEqualObjects(tag[@"code"], @"test");
+    XCTAssertNil(tag[@"id"]);
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnInterstitial {
@@ -166,11 +181,17 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
-    XCTAssertEqual(@"1", [self.interstitial placementId]);
-    XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
-    XCTAssertEqual(2, [self.interstitial memberId]);
-    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    XCTAssertEqualObjects(postData[@"member_id"], @(2));
+    NSArray *tags = postData[@"tags"];
+    XCTAssertNotNil(tags);
+    NSDictionary *tag = [tags firstObject];
+    XCTAssertNotNil(tag);
+    XCTAssertEqualObjects(tag[@"code"], @"test");
+    XCTAssertNil(tag[@"id"]);
 }
 
 - (void)stubRequestWithResponse:(NSString *)responseName {

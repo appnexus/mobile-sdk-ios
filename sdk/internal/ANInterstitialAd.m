@@ -109,7 +109,9 @@ NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdView
     // Do not call superclass, use ANInterstitialAdFetcher instead
     
     NSString *errorString;
-    if ([self.placementId length] < 1) {
+    BOOL placementIdValid = [self.placementId length] >= 1;
+    BOOL inventoryCodeValid = ([self memberId] >=1 ) && [self inventoryCode];
+    if (!placementIdValid && !inventoryCodeValid) {
         errorString = ANErrorString(@"no_placement_id");
     }
     
