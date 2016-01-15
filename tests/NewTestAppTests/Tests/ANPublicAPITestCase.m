@@ -227,7 +227,9 @@
                                      
                                  }];
     self.requestExpectation = nil;
+    NSString *requestPath = [[self.request URL] absoluteString];
     XCTAssertTrue(self.interstitial.opensInNativeBrowser);
+    XCTAssertTrue([requestPath containsString:@"&native_browser=1"]);
 }
 
 - (void) testSetShouldServePublicServiceAnnoucementsOnInterstitial{
@@ -241,14 +243,9 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
-                                                             options:kNilOptions
-                                                               error:nil];
-    XCTAssertNotNil(postData);
-    NSArray *tags = postData[@"tags"];
-    XCTAssertNotNil(tags);
-    BOOL disablePSA = [tags valueForKey:@"disable_psa"];
-    XCTAssertFalse(disablePSA);
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertTrue(self.interstitial.shouldServePublicServiceAnnouncements);
+    XCTAssertTrue([requestPath containsString:@"&psa=1"]);
 }
 
 - (void) testSetReserveOnInterstitial{
@@ -311,22 +308,32 @@
     XCTAssertNotNil(postData);
     NSArray *keywords = postData[@"keywords"];
     XCTAssertNotNil(keywords);
-    NSString *object = [keywords valueForKey:@"key"];
+    NSString *object = [[keywords firstObject] valueForKey:@"key"];
     XCTAssertNotEqual(@"object", object);
 }
 
-- (void) testSetlandingPageLoadsInBackgroundOnInterstitial{
-    self.requestExpectation = [self expectationWithDescription:@"request"];
+- (void) testSetSizeAndOrientationParameterOnBanner{
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
-    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
-    [self.interstitial setLandingPageLoadsInBackground:YES];
-    [self.interstitial loadAd];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    
+    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+
+    self.banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(200, 150)];
+    
+
+    [self.banner loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
                                  }];
     self.requestExpectation = nil;
-    XCTAssertTrue(self.interstitial.landingPageLoadsInBackground);
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertNotNil(requestPath);
+    XCTAssertTrue([requestPath containsString:@"&size=200x150&orientation=h"]);
 }
 
 - (void)stubRequestWithResponse:(NSString *)responseName {
