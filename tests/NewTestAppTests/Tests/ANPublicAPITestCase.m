@@ -194,7 +194,7 @@
     XCTAssertNil(tag[@"id"]);
 }
 
-- (void) testSetAgeOnInterstitial{
+- (void)testSetAgeOnInterstitial {
     self.requestExpectation = [self expectationWithDescription:@"request"];
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
@@ -211,12 +211,12 @@
     XCTAssertNotNil(postData);
     NSArray *user = postData[@"user"];
     XCTAssertNotNil(user);
-    NSString *age = (NSString *)[user valueForKey:@"age"];
+    NSNumber *age = (NSNumber *)[user valueForKey:@"age"];
     XCTAssertNotNil(age);
-    XCTAssertNotEqual(@"18", age);
+    XCTAssertEqualObjects(age, @(18));
 }
 
-- (void) testSetOpensInNativeBrowserOnBanner{
+- (void)testSetOpensInNativeBrowserOnBanner {
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
     
@@ -238,9 +238,21 @@
     NSString *requestPath = [[self.request URL] absoluteString];
     XCTAssertTrue(self.banner.opensInNativeBrowser);
     XCTAssertTrue([requestPath containsString:@"&native_browser=1"]);
+    
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self.banner setOpensInNativeBrowser:NO];
+    [self.banner loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    requestPath = [[self.request URL] absoluteString];
+    XCTAssertFalse(self.banner.opensInNativeBrowser);
+    XCTAssertTrue([requestPath containsString:@"&native_browser=0"]);
 }
 
-- (void) testSetShouldServePublicServiceAnnoucementsOnInterstitial{
+- (void)testSetShouldServePublicServiceAnnoucementsOnInterstitial {
     self.requestExpectation = [self expectationWithDescription:@"request"];
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
@@ -257,11 +269,30 @@
     XCTAssertNotNil(postData);
     NSArray *tags = postData[@"tags"];
     XCTAssertNotNil(tags);
-    bool disablepsa = (bool)[tags valueForKey:@"disable_psa"];
-    XCTAssertTrue(disablepsa);
+    NSNumber *disablePSA = [[tags firstObject] valueForKey:@"disable_psa"];
+    XCTAssertNotNil(disablePSA);
+    XCTAssertFalse([disablePSA boolValue]);
+    
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self.interstitial setShouldServePublicServiceAnnouncements:NO];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                               options:kNilOptions
+                                                 error:nil];
+    XCTAssertNotNil(postData);
+    tags = postData[@"tags"];
+    XCTAssertNotNil(tags);
+    disablePSA = [[tags firstObject] valueForKey:@"disable_psa"];
+    XCTAssertNotNil(disablePSA);
+    XCTAssertTrue([disablePSA boolValue]);
 }
 
-- (void) testSetReserveOnBanner{
+- (void)testSetReserveOnBanner {
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
     
@@ -291,10 +322,10 @@
                                   filteredArrayUsingPredicate:predicate]
                                  firstObject];
     XCTAssertNotNil(queryItem);
-    XCTAssertTrue(queryItem.value);
+    XCTAssertTrue([queryItem.value hasPrefix:@"1.0"]);
 }
 
-- (void) testSetGenderOnInterstitial{
+- (void)testSetGenderOnInterstitial {
     self.requestExpectation = [self expectationWithDescription:@"request"];
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
@@ -311,11 +342,28 @@
     XCTAssertNotNil(postData);
     NSArray *user = postData[@"user"];
     XCTAssertNotNil(user);
-    ANGender gender = (ANGender)[user valueForKey:@"gender"];
-    XCTAssertNotEqual(ANGenderFemale, gender);
+    NSNumber *gender = [user valueForKey:@"gender"];
+    XCTAssertEqualObjects(gender, @(1));
+    
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    [self.interstitial setGender:ANGenderFemale];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                          options:kNilOptions
+                                            error:nil];
+    XCTAssertNotNil(postData);
+    user = postData[@"user"];
+    XCTAssertNotNil(user);
+    gender = [user valueForKey:@"gender"];
+    XCTAssertEqualObjects(gender, @(2));
 }
 
-- (void) testSetCustomKeywordsOnInterstitial{
+- (void)testSetCustomKeywordsOnInterstitial {
     self.requestExpectation = [self expectationWithDescription:@"request"];
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
@@ -332,11 +380,13 @@
     XCTAssertNotNil(postData);
     NSArray *keywords = postData[@"keywords"];
     XCTAssertNotNil(keywords);
-    NSString *object = [[keywords firstObject] valueForKey:@"key"];
-    XCTAssertNotEqual(@"object", object);
+    NSString *key = [[keywords firstObject] valueForKey:@"key"];
+    XCTAssertEqualObjects(key, @"key");
+    NSString *value = [[keywords firstObject] valueForKey:@"value"];
+    XCTAssertEqualObjects(value, @"object");
 }
 
-- (void) testSetSizeAndOrientationParameterOnBanner{
+- (void)testSetSizeAndOrientationParameterOnBanner {
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
     
@@ -357,7 +407,8 @@
     self.requestExpectation = nil;
     NSString *requestPath = [[self.request URL] absoluteString];
     XCTAssertNotNil(requestPath);
-    XCTAssertTrue([requestPath containsString:@"&size=200x150&orientation=h"]);
+    XCTAssertTrue([requestPath containsString:@"orientation=h"]);
+    XCTAssertTrue(([requestPath containsString:@"size=200x150"]));
 }
 
 - (void)stubRequestWithResponse:(NSString *)responseName {
