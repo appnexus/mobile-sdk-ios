@@ -95,8 +95,7 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)testSuccessfulInterstitialDidLoad {
-    // response format for interstitials and banners is the same
-    [self stubWithBody:[ANTestResponses successfulBanner]];
+    [self stubUTv2WithBody:[ANTestResponses successfulBannerUTv2]];
     [self fetchInterstitialAd];
     [self waitForLoad];
 

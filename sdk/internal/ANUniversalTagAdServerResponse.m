@@ -106,7 +106,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
             return;
         }
         // Only the first tag is supported today
-        self.noAdUrlString = firstTag[@"no_ad_url"];
+        self.noAdUrlString = firstTag[kANUniversalTagAdServerResponseKeyTagNoAdUrl];
         NSArray *adsArray = [[self class] adsArrayFromTag:firstTag];
         if (adsArray) {
             for (id adObject in adsArray) {
@@ -217,7 +217,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         NSDictionary *video = rtbObject[kANUniversalTagAdServerResponseKeyVideoObject];
         ANVideoAd *videoAd = [[ANVideoAd alloc] init];
         videoAd.content = [video[kANUniversalTagAdServerResponseKeyVideoContent] description];
-        videoAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:rtbObject];        
         return videoAd;
     }
     return nil;
