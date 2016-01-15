@@ -216,19 +216,27 @@
     XCTAssertNotEqual(@"18", age);
 }
 
-- (void) testSetOpensInNativeBrowserOnInterstitial{
-    self.requestExpectation = [self expectationWithDescription:@"request"];
+- (void) testSetOpensInNativeBrowserOnBanner{
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
-    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
-    [self.interstitial setOpensInNativeBrowser:YES];
-    [self.interstitial loadAd];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    
+    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    
+    self.banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(200, 150)];
+    [self.banner setOpensInNativeBrowser:YES];
+    
+    [self.banner loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
                                  }];
     self.requestExpectation = nil;
     NSString *requestPath = [[self.request URL] absoluteString];
-    XCTAssertTrue(self.interstitial.opensInNativeBrowser);
+    XCTAssertTrue(self.banner.opensInNativeBrowser);
     XCTAssertTrue([requestPath containsString:@"&native_browser=1"]);
 }
 
