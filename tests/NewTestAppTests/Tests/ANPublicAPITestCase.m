@@ -253,26 +253,37 @@
     XCTAssertTrue(disablepsa);
 }
 
-- (void) testSetReserveOnInterstitial{
-    self.requestExpectation = [self expectationWithDescription:@"request"];
+- (void) testSetReserveOnBanner{
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
-    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
-    [self.interstitial setReserve:1.0];
-    [self.interstitial loadAd];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    
+    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+    
+    self.banner = [[ANBannerAdView alloc]
+                   initWithFrame:CGRectMake(0, 0, 320, 50)
+                   placementId:@"1"
+                   adSize:CGSizeMake(200, 150)];
+    [self.banner setReserve:1.0];
+    
+    [self.banner loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
                                  }];
     self.requestExpectation = nil;
-    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
-                                                             options:kNilOptions
-                                                               error:nil];
-    XCTAssertNotNil(postData);
-    NSArray *user = postData[@"user"];
-    XCTAssertNotNil(user);
-    NSString *reserve = (NSString *)[user valueForKey:@"reserve"];
-    XCTAssertNotNil(reserve);
-    XCTAssertNotEqual(@"1.0", reserve);
+    NSString *requestPath = [[self.request URL] absoluteString];
+    XCTAssertNotNil(requestPath);
+    NSURLComponents *components = [[NSURLComponents alloc] initWithString:requestPath];
+    XCTAssertNotNil(components);
+    NSArray *queryItems = components.queryItems;
+    XCTAssertNotNil(queryItems);
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name=%@", @"reserve"];
+    NSURLQueryItem *queryItem = [[queryItems
+                                  filteredArrayUsingPredicate:predicate]
+                                 firstObject];
+    XCTAssertNotNil(queryItem);
+    XCTAssertTrue(queryItem.value);
 }
 
 - (void) testSetGenderOnInterstitial{
