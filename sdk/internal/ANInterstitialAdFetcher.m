@@ -152,6 +152,10 @@
 #pragma mark - Standard Ads
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd {
+    if ([standardAd.width isEqualToString:@"1"] && [standardAd.height isEqualToString:@"1"]) {
+        ANLogDebug(@"Server returned 1x1 HTML ad, not supported by SDK");
+        [self continueWaterfall];
+    }
     self.impressionUrls = standardAd.impressionUrls;
 
     CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
