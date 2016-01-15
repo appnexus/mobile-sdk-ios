@@ -243,9 +243,14 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
-    XCTAssertTrue(self.interstitial.shouldServePublicServiceAnnouncements);
-    XCTAssertTrue([requestPath containsString:@"&psa=1"]);
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *tags = postData[@"tags"];
+    XCTAssertNotNil(tags);
+    bool disablepsa = (bool)[tags valueForKey:@"disable_psa"];
+    XCTAssertTrue(disablepsa);
 }
 
 - (void) testSetReserveOnInterstitial{
