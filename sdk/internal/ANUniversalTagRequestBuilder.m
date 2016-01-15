@@ -129,6 +129,9 @@
     if ([self.adFetcherDelegate conformsToProtocol:@protocol(ANInterstitialAdFetcherDelegate)]) {
         id<ANInterstitialAdFetcherDelegate> interstitialDelegate = (id<ANInterstitialAdFetcherDelegate>)self.adFetcherDelegate;
         NSMutableSet *allowedSizes = [[interstitialDelegate allowedAdSizes] mutableCopy];
+        if (allowedSizes == nil) {
+            allowedSizes = [[NSMutableSet alloc] init];
+        }
         [allowedSizes addObject:[NSValue valueWithCGSize:interstitialDelegate.screenSize]];
         [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
         NSMutableArray *sizeObjectArray = [[NSMutableArray alloc] init];
