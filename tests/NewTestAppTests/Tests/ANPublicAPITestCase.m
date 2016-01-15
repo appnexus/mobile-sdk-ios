@@ -21,6 +21,8 @@
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "XCTestCase+ANCategory.h"
+#import "ANInterstitialAdFetcher.h"
+#import "ANGlobal.h"
 
 @interface ANPublicAPITestCase : XCTestCase
 
@@ -63,6 +65,34 @@
         self.requestExpectation = nil;
     }
 }
+
+- (void)stubRequestWithResponse:(NSString *)responseName {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
+                                                                                        ofType:@"json"]
+                                                       encoding:NSUTF8StringEncoding
+                                                          error:nil];
+    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
+    requestStub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
+    requestStub.responseCode = 200;
+    requestStub.responseBody = baseResponse;
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+}
+
+- (void)stubUTv2RequestWithResponse:(NSString *)responseName {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
+                                                                                        ofType:@"json"]
+                                                       encoding:NSUTF8StringEncoding
+                                                          error:nil];
+    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
+    requestStub.requestURLRegexPatternString = kANInterstitialAdFetcherDefaultRequestUrlString;
+    requestStub.responseCode = 200;
+    requestStub.responseBody = baseResponse;
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+}
+
+#pragma mark - Banner
 
 - (void)testSetPlacementOnlyOnBanner {
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
@@ -123,8 +153,10 @@
     XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
 }
 
+#pragma mark - Interstitial
+
 - (void)testSetPlacementOnlyOnInterstitial {
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    [self stubUTv2RequestWithResponse:@"UTv2RTBHTML"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
     [self.interstitial loadAd];
@@ -147,7 +179,7 @@
 }
 
 - (void)testSetInventoryCodeAndMemberIDOnInterstitial {
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+    [self stubUTv2RequestWithResponse:@"UTv2RTBHTML"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
     self.interstitial = [[ANInterstitialAd alloc] initWithMemberId:2
                                                      inventoryCode:@"test"];
@@ -171,8 +203,8 @@
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnInterstitial {
+    [self stubUTv2RequestWithResponse:@"UTv2RTBHTML"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
     [self.interstitial setInventoryCode:@"test" memberId:2];
     [self.interstitial loadAd];
@@ -194,18 +226,80 @@
     XCTAssertNil(tag[@"id"]);
 }
 
-- (void)stubRequestWithResponse:(NSString *)responseName {
-    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
-    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
-                                                                                        ofType:@"json"]
-                                                       encoding:NSUTF8StringEncoding
-                                                          error:nil];
-    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
-    requestStub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
-    requestStub.responseCode = 200;
-    requestStub.responseBody = baseResponse;
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+- (void)testDefaultAllowedSizesOnInterstitial {
+    [self stubUTv2RequestWithResponse:@"UTv2RTBHTML"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [self.interstitial loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError * _Nullable error) {
+                                     
+                                 }];
+    self.requestExpectation = nil;
+    NSDictionary *postData = [NSJSONSerialization JSONObjectWithData:self.request.HTTPBody
+                                                             options:kNilOptions
+                                                               error:nil];
+    XCTAssertNotNil(postData);
+    NSArray *tags = postData[@"tags"];
+    XCTAssertTrue(tags.count > 0);
+    NSDictionary *tag = [tags firstObject];
+    XCTAssertNotNil(tag);
+    NSArray *sizes = tag[@"sizes"];
+    XCTAssertNotNil(sizes);
+    __block NSMutableArray *passedSizes = [[NSMutableArray alloc] init];
+    [sizes enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+        NSNumber *width = obj[@"width"];
+        NSNumber *height = obj[@"height"];
+        XCTAssertNotNil(width);
+        XCTAssertNotNil(height);
+        [passedSizes addObject:[NSString stringWithFormat:@"%dx%d", (int)[width integerValue], (int)[height integerValue]]];
+    }];
+    CGFloat screenWidth = [UIScreen mainScreen].coordinateSpace.bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].coordinateSpace.bounds.size.height;
+    if (screenWidth >= 300 && screenHeight >= 250) {
+        XCTAssertTrue([passedSizes containsObject:@"300x250"]);
+    } else {
+        XCTAssertFalse([passedSizes containsObject:@"300x250"]);
+    }
+    if (screenWidth >= 320 && screenHeight >= 480) {
+        XCTAssertTrue([passedSizes containsObject:@"320x480"]);
+    } else {
+        XCTAssertFalse([passedSizes containsObject:@"320x480"]);
+    }
+    if (screenWidth >= 900 && screenHeight >= 500) {
+        XCTAssertTrue([passedSizes containsObject:@"900x500"]);
+    } else {
+        XCTAssertFalse([passedSizes containsObject:@"900x500"]);
+    }
+    if (screenWidth >= 1024 && screenHeight >= 1024) {
+        XCTAssertTrue([passedSizes containsObject:@"1024x1024"]);
+    } else {
+        XCTAssertFalse([passedSizes containsObject:@"1024x1024"]);
+    }
 }
 
+- (void)testAllowedSizesOnInterstitial {
+    // Make sure that ANInterstitialAd.allowedAdSizes is passed correctly in the request body
+}
+
+- (void)testShouldServePublicServiceAnnouncementsOnInterstitial {
+    // Make sure that ANInterstitialAd.shouldServePublicServiceAnnouncements is passed correctly in the request body
+}
+
+- (void)testAgeOnInterstitial {
+    // Make sure that ANInterstitialAd.age is passed correctly in the request body
+}
+
+- (void)testGenderOnInterstitial {
+    // Make sure that ANInterstitialAd.gender is passed correctly in the request body
+}
+
+- (void)testLocationOnInterstitial {
+    // Make sure that ANInterstitialAd.location is passed correctly in the request body
+}
+
+- (void)testCustomKeywordsOnInterstitial {
+    // Make sure that ANInterstitialAd.customKeywords is passed correctly in the request body
+}
 
 @end

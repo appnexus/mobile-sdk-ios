@@ -46,6 +46,7 @@
 		8A370A0E1B697A42002B05C6 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A370A0D1B697A42002B05C6 /* libFlurry.a */; };
 		8A370A101B697A4B002B05C6 /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A370A0F1B697A4B002B05C6 /* libFlurryAds.a */; };
 		8A370A121B697B0E002B05C6 /* vg_privacy.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A370A111B697B0E002B05C6 /* vg_privacy.png */; };
+		8A38B08A1C481D24004D90A1 /* UTv2RTBHTML.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AF480231C45CBDC0075D2BA /* UTv2RTBHTML.json */; };
 		8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27CA199AB26B00F2A516 /* iAd.framework */; };
 		8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */; };
 		8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4018041A9500A300D56208 /* GoogleMobileAds.framework */; };
@@ -1976,6 +1977,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
+				8A38B08A1C481D24004D90A1 /* UTv2RTBHTML.json in Resources */,
 				F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
