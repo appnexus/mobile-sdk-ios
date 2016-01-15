@@ -144,7 +144,7 @@
         }
         tagDict[@"sizes"] = sizeObjectArray;
     }
-    tagDict[@"allowed_media_types"] = @[@(1),@(3),@(5)];
+    tagDict[@"allowed_media_types"] = @[@(1),@(3),@(4)];
     tagDict[@"disable_psa"] = @(![self.adFetcherDelegate shouldServePublicServiceAnnouncements]);
     return [tagDict copy];
 }
