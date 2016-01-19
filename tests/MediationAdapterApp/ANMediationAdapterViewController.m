@@ -142,7 +142,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialFacebook";
     mediatedAd.adId = @"210827375150_10154672420735151";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 - (ANNativeAdRequest *)loadFacebookNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
@@ -185,7 +185,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialAmazon";
     mediatedAd.adId = @"123";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 #pragma mark - Vungle
@@ -202,7 +202,7 @@
 - (void)stubVungleInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialVungle";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 
@@ -231,7 +231,7 @@
     mediatedAd.className = @"ANAdAdapterInterstitialiAd";
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 #pragma mark - MoPub
@@ -263,7 +263,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialMoPub";
     mediatedAd.adId = @"783ac4a38cc44144b3f62b9b89ca85b4";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 - (ANNativeAdRequest *)loadMoPubNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
@@ -306,7 +306,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialMillennialMedia";
     mediatedAd.adId = @"139629";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 #pragma mark - Ad Mob
@@ -334,7 +334,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialAdMob";
     mediatedAd.adId = @"ca-app-pub-8961681709559022/1180736194";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 #pragma mark - DFP
@@ -379,7 +379,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialDFP";
     mediatedAd.adId = @"/19968336/MediationAdapterAppTest";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 #pragma mark - InMobi
@@ -409,7 +409,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialInMobi";
     mediatedAd.adId = @"1431977778766816";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 - (ANNativeAdRequest *)loadInMobiNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
@@ -473,7 +473,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialYahoo";
     mediatedAd.adId = @"iOS Interstitial";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 - (void)stubYahooNative {
@@ -508,7 +508,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialVdopia";
     mediatedAd.adId = @"AX123";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 #pragma mark - AdColony
@@ -527,7 +527,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialAdColony";
     mediatedAd.adId = @"vzcc692652bbe74d4e92";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 - (ANNativeAdRequest *)loadAdColonyNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
@@ -570,7 +570,7 @@
 - (void)stubChartboostInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialChartboost";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 #pragma mark - Does Not Exist
@@ -598,7 +598,7 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialDoesNotExist";
     mediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/AutoShazam_TagsTab";
-    [self stubMediatedAd:mediatedAd];
+    [self stubInterstitialMediatedAd:mediatedAd];
 }
 
 #pragma mark - ANAdProtocol
@@ -714,6 +714,43 @@
 
 # pragma mark - General
 
+- (void)stubInterstitialMediatedAd:(ANMediatedAd *)mediatedAd {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:@"BaseInterstitialMediationResponse"
+                                                                                        ofType:@"json"]
+                                                       encoding:NSUTF8StringEncoding
+                                                          error:nil];
+    NSMutableString *mutableBaseResponse = [baseResponse mutableCopy];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{CLASS}"
+                                         withString:mediatedAd.className ? mediatedAd.className : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{WIDTH}"
+                                         withString:mediatedAd.width ? mediatedAd.width : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{HEIGHT}"
+                                         withString:mediatedAd.height ? mediatedAd.height : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{ID}"
+                                         withString:mediatedAd.adId ? mediatedAd.adId : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    [mutableBaseResponse replaceOccurrencesOfString:@"#{PARAM}"
+                                         withString:mediatedAd.param ? mediatedAd.param : @""
+                                            options:NSLiteralSearch
+                                              range:NSMakeRange(0, [mutableBaseResponse length])];
+    ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
+    stub.requestURLRegexPatternString = @"http://mediation.adnxs.com/ut/v2";
+    stub.responseCode = 200;
+    stub.responseBody = [mutableBaseResponse copy];
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:stub];
+    [self stubResultCBResponse];
+    [self stubImpressionTracker];
+}
+
 - (void)stubMediatedAd:(ANMediatedAd *)mediatedAd {
     NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
     NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:@"BaseMediationSingleNetworkResponse"
@@ -753,6 +790,14 @@
 - (void)stubResultCBResponse {
     ANURLConnectionStub *resultCBStub = [[ANURLConnectionStub alloc] init];
     resultCBStub.requestURLRegexPatternString = @"http://nym1.mobile.adnxs.com/mediation.*";
+    resultCBStub.responseCode = 200;
+    resultCBStub.responseBody = @"";
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:resultCBStub];
+}
+
+- (void)stubImpressionTracker {
+    ANURLConnectionStub *resultCBStub = [[ANURLConnectionStub alloc] init];
+    resultCBStub.requestURLRegexPatternString = @"http://other.tracker.com";
     resultCBStub.responseCode = 200;
     resultCBStub.responseBody = @"";
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:resultCBStub];

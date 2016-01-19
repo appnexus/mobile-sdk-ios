@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4956B69A1BFDA49700E0C0EB /* InterstitialUnifiedDemand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956B6991BFDA49700E0C0EB /* InterstitialUnifiedDemand.m */; };
 		8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FD19DB1E150090EBED /* ANAdFetcher+ANTest.m */; };
 		8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */; };
 		8A0AA45719DB2CB4005EC52C /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0119DB1E150090EBED /* ANAdWebViewController+ANTest.m */; };
@@ -45,6 +46,7 @@
 		8A370A0E1B697A42002B05C6 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A370A0D1B697A42002B05C6 /* libFlurry.a */; };
 		8A370A101B697A4B002B05C6 /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A370A0F1B697A4B002B05C6 /* libFlurryAds.a */; };
 		8A370A121B697B0E002B05C6 /* vg_privacy.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A370A111B697B0E002B05C6 /* vg_privacy.png */; };
+		8A38B08A1C481D24004D90A1 /* UTv2RTBHTML.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AF480231C45CBDC0075D2BA /* UTv2RTBHTML.json */; };
 		8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27CA199AB26B00F2A516 /* iAd.framework */; };
 		8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */; };
 		8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4018041A9500A300D56208 /* GoogleMobileAds.framework */; };
@@ -192,6 +194,7 @@
 		8AD052ED1A80333800EE0182 /* appnexus_multiple_main_media_default.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */; };
 		8AD052EF1A80461200EE0182 /* appnexus_multiple_trackers.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */; };
 		8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */; };
+		8AD286F11C4E9D1300A499C1 /* BaseInterstitialMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD286E21C4E9C1700A499C1 /* BaseInterstitialMediationResponse.json */; };
 		8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */; };
 		8AD7C5051AD3253C0049C997 /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C4FC1AD3253C0049C997 /* __vungle.db */; };
 		8AD7C5061AD3253C0049C997 /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C4FD1AD3253C0049C997 /* vg_close.png */; };
@@ -217,6 +220,7 @@
 		8AE7AD981A7AB348009E2F2F /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8AE7AD9C1A7AC372009E2F2F /* appnexus_standard_response_store_url.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */; };
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
+		8AF480321C45CDF60075D2BA /* UTv2RTBHTML.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AF480231C45CBDC0075D2BA /* UTv2RTBHTML.json */; };
 		F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */; };
 		F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */; };
 		F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */; };
@@ -225,6 +229,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4956B69C1BFDA49700E0C0EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AD01825199932F9007874BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AD0182C199932F9007874BA;
+			remoteInfo = NewTestApp;
+		};
 		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
@@ -529,6 +540,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4956B6971BFDA49700E0C0EB /* InterstitialUnifiedDemand.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterstitialUnifiedDemand.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4956B6991BFDA49700E0C0EB /* InterstitialUnifiedDemand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterstitialUnifiedDemand.m; sourceTree = "<group>"; };
+		4956B69B1BFDA49700E0C0EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A0AA46319DB30A2005EC52C /* ANAdResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseTestCase.m; sourceTree = "<group>"; };
 		8A0AA46419DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdViewMRAIDCreativeTestCase.m; sourceTree = "<group>"; };
 		8A0AA46519DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewTransitionsTestCase.m; sourceTree = "<group>"; };
@@ -754,6 +768,7 @@
 		8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_main_media_default.json; sourceTree = "<group>"; };
 		8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_trackers.json; sourceTree = "<group>"; };
 		8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8AD286E21C4E9C1700A499C1 /* BaseInterstitialMediationResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BaseInterstitialMediationResponse.json; sourceTree = "<group>"; };
 		8AD7C4FC1AD3253C0049C997 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
 		8AD7C4FD1AD3253C0049C997 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
 		8AD7C4FE1AD3253C0049C997 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
@@ -782,11 +797,19 @@
 		8AF3658319D474650097019F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		8AF3658519D4746E0097019F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8AF3659319D479130097019F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		8AF480231C45CBDC0075D2BA /* UTv2RTBHTML.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UTv2RTBHTML.json; sourceTree = "<group>"; };
 		8AFE8BFF1B97B934007BAD27 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4956B6941BFDA49700E0C0EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A549E961A706BA6009F797A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -883,6 +906,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4956B6981BFDA49700E0C0EB /* InterstitialUnifiedDemand */ = {
+			isa = PBXGroup;
+			children = (
+				4956B6991BFDA49700E0C0EB /* InterstitialUnifiedDemand.m */,
+				4956B69B1BFDA49700E0C0EB /* Info.plist */,
+			);
+			path = InterstitialUnifiedDemand;
+			sourceTree = "<group>";
+		};
 		8A0AA46219DB30A2005EC52C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1296,6 +1328,8 @@
 				8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */,
 				8AA00A2119DB1E150090EBED /* SuccessfulMRAIDListenerResponse.json */,
 				8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */,
+				8AF480231C45CBDC0075D2BA /* UTv2RTBHTML.json */,
+				8AD286E21C4E9C1700A499C1 /* BaseInterstitialMediationResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1318,6 +1352,7 @@
 			children = (
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
 				8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */,
+				4956B6981BFDA49700E0C0EB /* InterstitialUnifiedDemand */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
@@ -1343,6 +1378,7 @@
 				8AB387A519DB0CA8006F9E15 /* OriginalUnitTestApp.app */,
 				8AB387BD19DB0CA8006F9E15 /* OriginalUnitTestAppTests.xctest */,
 				8A549E991A706BA6009F797A /* NativeUnitTests.xctest */,
+				4956B6971BFDA49700E0C0EB /* InterstitialUnifiedDemand.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1417,6 +1453,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4956B6961BFDA49700E0C0EB /* InterstitialUnifiedDemand */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4956B69E1BFDA49800E0C0EB /* Build configuration list for PBXNativeTarget "InterstitialUnifiedDemand" */;
+			buildPhases = (
+				4956B6931BFDA49700E0C0EB /* Sources */,
+				4956B6941BFDA49700E0C0EB /* Frameworks */,
+				4956B6951BFDA49700E0C0EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4956B69D1BFDA49700E0C0EB /* PBXTargetDependency */,
+			);
+			name = InterstitialUnifiedDemand;
+			productName = InterstitialUnifiedDemand;
+			productReference = 4956B6971BFDA49700E0C0EB /* InterstitialUnifiedDemand.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		8A549E981A706BA6009F797A /* NativeUnitTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A549EAC1A706BA6009F797A /* Build configuration list for PBXNativeTarget "NativeUnitTests" */;
@@ -1565,6 +1619,11 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
+					4956B6961BFDA49700E0C0EB = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = TBFU6QDZMS;
+						TestTargetID = 8AD0182C199932F9007874BA;
+					};
 					8A549E981A706BA6009F797A = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 8A9F94BF19D1C37700AB739F;
@@ -1625,6 +1684,7 @@
 				8A549E981A706BA6009F797A /* NativeUnitTests */,
 				8AB387A419DB0CA8006F9E15 /* OriginalUnitTestApp */,
 				8AB387BC19DB0CA8006F9E15 /* OriginalUnitTestAppTests */,
+				4956B6961BFDA49700E0C0EB /* InterstitialUnifiedDemand */,
 			);
 		};
 /* End PBXProject section */
@@ -1794,6 +1854,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4956B6951BFDA49700E0C0EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A549E971A706BA6009F797A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1851,6 +1918,7 @@
 				8A893F411BFBD77D007AC313 /* MPMutedBtn@2x.png in Resources */,
 				8A893F3B1BFBD77D007AC313 /* MPCloseButtonX@2x.png in Resources */,
 				8A893F491BFBD77D007AC313 /* MPAdBrowserController.xib in Resources */,
+				8AD286F11C4E9D1300A499C1 /* BaseInterstitialMediationResponse.json in Resources */,
 				8AD7C5091AD3253C0049C997 /* vg_mute_on.png in Resources */,
 				8A893F471BFBD77D007AC313 /* MPUnmutedBtn@2x.png in Resources */,
 				8A893F401BFBD77D007AC313 /* MPMutedBtn@1x.png in Resources */,
@@ -1892,6 +1960,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AF480321C45CDF60075D2BA /* UTv2RTBHTML.json in Resources */,
 				8AA0098A19DB16CD0090EBED /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1912,6 +1981,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
+				8A38B08A1C481D24004D90A1 /* UTv2RTBHTML.json in Resources */,
 				F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
@@ -1925,6 +1995,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4956B6931BFDA49700E0C0EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4956B69A1BFDA49700E0C0EB /* InterstitialUnifiedDemand.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A549E951A706BA6009F797A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2069,6 +2147,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4956B69D1BFDA49700E0C0EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8AD0182C199932F9007874BA /* NewTestApp */;
+			targetProxy = 4956B69C1BFDA49700E0C0EB /* PBXContainerItemProxy */;
+		};
 		8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ANSDKInMobiAdapter;
@@ -2207,6 +2290,37 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4956B69F1BFDA49800E0C0EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = InterstitialUnifiedDemand/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.appNexus.InterstitialUnifiedDemand;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = NewTestApp;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		4956B6A01BFDA49800E0C0EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = InterstitialUnifiedDemand/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.appNexus.InterstitialUnifiedDemand;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = NewTestApp;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		8A549EA11A706BA6009F797A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2610,6 +2724,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4956B69E1BFDA49800E0C0EB /* Build configuration list for PBXNativeTarget "InterstitialUnifiedDemand" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4956B69F1BFDA49800E0C0EB /* Debug */,
+				4956B6A01BFDA49800E0C0EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8A549EAC1A706BA6009F797A /* Build configuration list for PBXNativeTarget "NativeUnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -16,6 +16,7 @@
 #import "ANAdView.h"
 
 @protocol ANInterstitialAdDelegate;
+@protocol ANVideoAdDelegate;
 
 /**
  This is the interface through which interstitial ads are (1)
@@ -53,6 +54,11 @@
 @property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 
 /**
+ Delegate object that receives custom video event notifications from this
+ ANInterstitialAd.
+ */
+@property (nonatomic, readwrite, weak) id<ANVideoAdDelegate> videoAdDelegate;
+/**
  The ad view's background color. If the color is fully or partially transparent,
  set opaque to NO to render an interstitial with a transparent background.
  
@@ -80,6 +86,13 @@
  appear immediately.
  */
 @property (nonatomic, readwrite, assign) NSTimeInterval closeDelay;
+
+/**
+ The delay counter between when an interstitial ad is displayed and when the
+ close button appears to the user. 0 = closeDelayTypeAbsolute and 
+ 1 = closeDelayTypeRelative. Accepts ANCloseDelayType enum.
+ */
+@property (nonatomic, readwrite, assign) NSUInteger closeDelayType;
 
 /**
  The set of allowed ad sizes for the interstitial ad.
@@ -146,4 +159,18 @@
  @endcode
  */
 - (void)adFailedToDisplay:(ANInterstitialAd *)ad;
+
+@end
+
+@protocol ANVideoAdDelegate <ANAdDelegate>
+
+@optional
+- (void) adStartedPlayingVideo:(id<ANAdProtocol>)ad;
+- (void) adPausedVideo:(id<ANAdProtocol>)ad;
+- (void) adResumedVideo:(id<ANAdProtocol>)ad;
+- (void) adSkippedVideo:(id<ANAdProtocol>)ad;
+- (void) adFinishedQuartileEvent:(ANVideoEvent)videoEvent withAd:(id<ANAdProtocol>)ad;
+- (void) adFinishedPlayingCompleteVideo:(id<ANAdProtocol>)ad;
+- (void) adMuted:(BOOL) isMuted withAd:(id<ANAdProtocol>)ad;
+
 @end

@@ -15,6 +15,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, ANCloseDelayType){
+    ANCloseDelayTypeAbsolute = 0,
+    ANCloseDelayTypeRelative
+};
+
 typedef NS_ENUM(NSInteger, ANAdResponseCode) {
     ANDefaultCode = -1,
     ANAdResponseSuccessful = 0,
@@ -51,4 +56,25 @@ typedef NS_ENUM(NSUInteger, ANNativeAdNetworkCode) {
     ANNativeAdNetworkCodeAdColony,
     ANNativeAdNetworkCodeYahoo,
     ANNativeAdNetworkCodeCustom,
+};
+
+typedef NS_ENUM(NSUInteger, ANVideoEvent){
+    ANVideoEventUnknown = 0,
+    ANVideoEventStart,
+    ANVideoEventQuartileFirst,
+    ANVideoEventQuartileMidPoint,
+    ANVideoEventQuartileThird,
+    ANVideoEventQuartileComplete,
+    ANVideoEventZoomRestore,
+    ANVideoEventZoomFullScreen,
+    ANVideoEventPlay,
+    ANVideoEventPause,
+    ANVideoEventResume,
+    ANVideoEventRewind,
+    ANVideoEventMute,
+    ANVideoEventUnMute,
+    ANVideoEventStop,
+    ANVideoEventCloseLinear,
+    ANVideoEventSkip,
+    ANVideoEventCreativeView
 };

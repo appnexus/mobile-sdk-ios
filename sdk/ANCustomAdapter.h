@@ -61,3 +61,4 @@
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter;
 - (void)failedToDisplayAd;
 @end
+

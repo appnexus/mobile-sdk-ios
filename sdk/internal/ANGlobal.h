@@ -16,6 +16,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+//Version Check
+#define AN_SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define AN_SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define AN_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define AN_SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define AN_SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
 // Production
 #define AN_BASE_URL @"http://mediation.adnxs.com/"
 #define AN_MOBILE_HOSTNAME @"mediation.adnxs.com/mob"
@@ -42,6 +49,8 @@
 #define APPNEXUS_LEADERBOARD_SIZE		CGSizeMake(728, 90)
 #define APPNEXUS_WIDE_SKYSCRAPER_SIZE	CGSizeMake(160, 600)
 
+#define ANString(charValue) [NSString stringWithCString:charValue encoding:NSUTF8StringEncoding];
+
 #pragma mark Constants
 
 #define kAppNexusRequestTimeoutInterval 30.0
@@ -52,6 +61,8 @@
 #define kAppNexusNativeAdImageDownloadTimeoutInterval 10.0
 #define kAppNexusNativeAdCheckViewabilityForTrackingFrequency 0.25
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
+#define APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_VIEW_SIZE	CGSizeMake(40, 40)
+#define APPNEXUS_INTERSTITIAL_CLOSE_BUTTON_CROSS_RECT	CGRectMake(13, 13, 27, 27)
 
 // Banner AutoRefresh
 
@@ -77,6 +88,17 @@
 
 // Buffer Limit
 #define kANPBBufferLimit 10
+
+typedef NS_ENUM(NSUInteger, ANMediaFileDeliveryMethod){
+    ANMediaFileDeliveryMethodStreaming = 0,
+    ANMediaFileDeliveryMethodProgressive
+};
+
+typedef NS_ENUM(NSUInteger, ANExtensionType){
+    ANExtensionTypeAdServer = 0,
+    ANExtensionTypeCustomTracking,
+    ANExtensionTypeValue,
+};
 
 typedef NS_ENUM(NSUInteger, ANMobileEndpoint) {
     ANMobileEndpointProduction = 0,
