@@ -194,6 +194,7 @@
 		8AD052ED1A80333800EE0182 /* appnexus_multiple_main_media_default.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */; };
 		8AD052EF1A80461200EE0182 /* appnexus_multiple_trackers.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */; };
 		8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */; };
+		8AD286F11C4E9D1300A499C1 /* BaseInterstitialMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD286E21C4E9C1700A499C1 /* BaseInterstitialMediationResponse.json */; };
 		8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */; };
 		8AD7C5051AD3253C0049C997 /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C4FC1AD3253C0049C997 /* __vungle.db */; };
 		8AD7C5061AD3253C0049C997 /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD7C4FD1AD3253C0049C997 /* vg_close.png */; };
@@ -767,6 +768,7 @@
 		8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_main_media_default.json; sourceTree = "<group>"; };
 		8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_trackers.json; sourceTree = "<group>"; };
 		8AD0DBFC19CA40AE00170BCB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8AD286E21C4E9C1700A499C1 /* BaseInterstitialMediationResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BaseInterstitialMediationResponse.json; sourceTree = "<group>"; };
 		8AD7C4FC1AD3253C0049C997 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
 		8AD7C4FD1AD3253C0049C997 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
 		8AD7C4FE1AD3253C0049C997 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
@@ -1327,6 +1329,7 @@
 				8AA00A2119DB1E150090EBED /* SuccessfulMRAIDListenerResponse.json */,
 				8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */,
 				8AF480231C45CBDC0075D2BA /* UTv2RTBHTML.json */,
+				8AD286E21C4E9C1700A499C1 /* BaseInterstitialMediationResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1915,6 +1918,7 @@
 				8A893F411BFBD77D007AC313 /* MPMutedBtn@2x.png in Resources */,
 				8A893F3B1BFBD77D007AC313 /* MPCloseButtonX@2x.png in Resources */,
 				8A893F491BFBD77D007AC313 /* MPAdBrowserController.xib in Resources */,
+				8AD286F11C4E9D1300A499C1 /* BaseInterstitialMediationResponse.json in Resources */,
 				8AD7C5091AD3253C0049C997 /* vg_mute_on.png in Resources */,
 				8A893F471BFBD77D007AC313 /* MPUnmutedBtn@2x.png in Resources */,
 				8A893F401BFBD77D007AC313 /* MPMutedBtn@1x.png in Resources */,
