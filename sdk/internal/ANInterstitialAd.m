@@ -53,8 +53,8 @@ NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdView
 @property (nonatomic, readwrite, strong) ANBrowserViewController *browserController;
 @property (nonatomic, strong) NSTimer *progressUpdateTimer;
 @property (nonatomic, strong) ANVideoPlayerViewController *playbackViewController;
-@property (nonatomic, strong) ANInterstitialAdFetcher *interstitialAdFetcher;
 @property (nonatomic, strong) NSMutableArray *adFetchers;
+@property (nonatomic, strong) id<ANCustomAdapterInterstitial> mediatedAdapter;
 
 @end
 
@@ -199,6 +199,8 @@ NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdView
         // This ad is now stale, so remove it from our cached ads.
         [self.precachedAdObjects removeObjectAtIndex:0];
     }
+    
+    self.mediatedAdapter = nil;
 
     if ([adToShow isKindOfClass:[UIView class]]) {
         self.controller = [[ANInterstitialAdViewController alloc] init];
@@ -230,6 +232,7 @@ NSString *const kANInterstitialAdViewImpressionUrlsKey = @"kANInterstitialAdView
                                  animated:YES
                                completion:nil];
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+        self.mediatedAdapter = adToShow; // Keep a reference to the "adToShow" here to prevent deallocation
         [adToShow presentFromViewController:controller];
         if (auctionID) {
             ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
