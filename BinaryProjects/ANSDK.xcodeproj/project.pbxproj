@@ -29,7 +29,6 @@
 		8A56E67C1B264DC200642ACC /* ANAdAdapterNativeAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A56E67B1B264DC200642ACC /* ANAdAdapterNativeAdColony.m */; };
 		8A598F8B1A1EA061009BA879 /* ANNativeStandardAdResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A598F881A1EA061009BA879 /* ANNativeStandardAdResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A598F8C1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */; };
-		8A598F8D1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */; };
 		8A6385DF1A14336000280054 /* ANNativeAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8761F1A0994310022D9A5 /* ANNativeAdFetcher.m */; };
 		8A6385E01A14336000280054 /* ANNativeAdImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876211A0994310022D9A5 /* ANNativeAdImageCache.m */; };
 		8A6385E11A14336000280054 /* ANNativeAdStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876221A0994310022D9A5 /* ANNativeAdStarRating.m */; };
@@ -152,20 +151,6 @@
 		8A9AEDE31A1BF88300C58BDA /* ANNativeAdRequestUrlBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AB876241A0994310022D9A5 /* ANNativeAdRequestUrlBuilder.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A9AEDE51A1BF88300C58BDA /* ANNativeMediatedAdController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AB8762B1A0994310022D9A5 /* ANNativeMediatedAdController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A9AEDE61A1BF88300C58BDA /* UIView+ANNativeAdCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A6514701A12DB31003F1047 /* UIView+ANNativeAdCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8A9AEDE81A1BF99D00C58BDA /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
-		8A9AEDE91A1BF99D00C58BDA /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */; };
-		8A9AEDEA1A1BF99D00C58BDA /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA99194B768A0069D934 /* NSTimer+ANCategory.m */; };
-		8A9AEDEB1A1BF99D00C58BDA /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */; };
-		8A9AEDEC1A1BF99D00C58BDA /* UIWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9D194B768A0069D934 /* UIWebView+ANCategory.m */; };
-		8A9AEE051A1BF99D00C58BDA /* ANNativeAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8761F1A0994310022D9A5 /* ANNativeAdFetcher.m */; };
-		8A9AEE061A1BF99D00C58BDA /* ANNativeAdImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876211A0994310022D9A5 /* ANNativeAdImageCache.m */; };
-		8A9AEE071A1BF99D00C58BDA /* ANNativeAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876231A0994310022D9A5 /* ANNativeAdRequest.m */; };
-		8A9AEE091A1BF99D00C58BDA /* ANNativeAdRequestUrlBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876251A0994310022D9A5 /* ANNativeAdRequestUrlBuilder.m */; };
-		8A9AEE0A1A1BF99D00C58BDA /* ANNativeAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876261A0994310022D9A5 /* ANNativeAdResponse.m */; };
-		8A9AEE0B1A1BF99D00C58BDA /* ANNativeAdStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876221A0994310022D9A5 /* ANNativeAdStarRating.m */; };
-		8A9AEE0D1A1BF99D00C58BDA /* ANNativeMediatedAdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8762C1A0994310022D9A5 /* ANNativeMediatedAdController.m */; };
-		8A9AEE0E1A1BF99D00C58BDA /* ANNativeMediatedAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8762E1A0994310022D9A5 /* ANNativeMediatedAdResponse.m */; };
-		8A9AEE0F1A1BF99D00C58BDA /* UIView+ANNativeAdCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6514711A12DB31003F1047 /* UIView+ANNativeAdCategory.m */; };
 		8AA5B4DD1AA8B72C00522E1C /* ANAdAdapterBannerInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4CF1AA8B72C00522E1C /* ANAdAdapterBannerInMobi.m */; };
 		8AA5B4E31AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E01AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m */; };
 		8AA5B4E41AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E21AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m */; };
@@ -180,6 +165,90 @@
 		8ABC3FF81BE91B530099501F /* mute-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ABC3FF21BE91B530099501F /* mute-on@2x.png */; };
 		8ABC3FF91BE91B530099501F /* mute-on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8ABC3FF31BE91B530099501F /* mute-on@3x.png */; };
 		8ABC3FFC1BE91D910099501F /* ANVast+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC3FFB1BE91D910099501F /* ANVast+ANCategory.m */; };
+		8AD287521C4ED8FE00A499C1 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
+		8AD287531C4ED8FE00A499C1 /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */; };
+		8AD287541C4ED8FE00A499C1 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA99194B768A0069D934 /* NSTimer+ANCategory.m */; };
+		8AD287551C4ED8FE00A499C1 /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */; };
+		8AD287561C4ED8FE00A499C1 /* UIWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9D194B768A0069D934 /* UIWebView+ANCategory.m */; };
+		8AD287571C4ED8FE00A499C1 /* ANAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9B21BD6B34D00D18188 /* ANAdFetcher.m */; };
+		8AD287581C4ED8FE00A499C1 /* ANAdFetcherResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9B41BD6B34D00D18188 /* ANAdFetcherResponse.m */; };
+		8AD287591C4ED8FE00A499C1 /* ANAdRequestUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9B61BD6B34D00D18188 /* ANAdRequestUrl.m */; };
+		8AD2875A1C4ED8FE00A499C1 /* ANAdServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9B81BD6B34D00D18188 /* ANAdServerResponse.m */; };
+		8AD2875B1C4ED8FE00A499C1 /* ANAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9B91BD6B34D00D18188 /* ANAdView.m */; };
+		8AD2875C1C4ED8FE00A499C1 /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9BC1BD6B34D00D18188 /* ANAdWebViewController.m */; };
+		8AD2875D1C4ED8FE00A499C1 /* ANANJAMImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9BE1BD6B34D00D18188 /* ANANJAMImplementation.m */; };
+		8AD2875E1C4ED8FE00A499C1 /* ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9BF1BD6B34D00D18188 /* ANBannerAdView.m */; };
+		8AD2875F1C4ED8FE00A499C1 /* ANBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9C11BD6B34D00D18188 /* ANBrowserViewController.m */; };
+		8AD287601C4ED8FE00A499C1 /* ANCircularAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9C31BD6B34D00D18188 /* ANCircularAnimationView.m */; };
+		8AD287611C4ED8FE00A499C1 /* ANClickOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9C51BD6B34D00D18188 /* ANClickOverlayView.m */; };
+		8AD287621C4ED8FE00A499C1 /* ANGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9C71BD6B34D00D18188 /* ANGlobal.m */; };
+		8AD287631C4ED8FE00A499C1 /* ANInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9C81BD6B34D00D18188 /* ANInterstitialAd.m */; };
+		8AD287641C4ED8FE00A499C1 /* ANInterstitialAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A87BF4F1BD961EB00281EA9 /* ANInterstitialAdFetcher.m */; };
+		8AD287651C4ED8FE00A499C1 /* ANInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9CA1BD6B34D00D18188 /* ANInterstitialAdViewController.m */; };
+		8AD287661C4ED8FE00A499C1 /* ANLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9CB1BD6B34D00D18188 /* ANLocation.m */; };
+		8AD287671C4ED8FE00A499C1 /* ANLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9CD1BD6B34D00D18188 /* ANLogging.m */; };
+		8AD287681C4ED8FE00A499C1 /* ANLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9CE1BD6B34D00D18188 /* ANLogManager.m */; };
+		8AD287691C4ED8FE00A499C1 /* ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9D01BD6B34D00D18188 /* ANMediatedAd.m */; };
+		8AD2876A1C4ED8FE00A499C1 /* ANMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9D21BD6B34D00D18188 /* ANMediationAdViewController.m */; };
+		8AD2876B1C4ED8FE00A499C1 /* ANMediationContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9D41BD6B34D00D18188 /* ANMediationContainerView.m */; };
+		8AD2876C1C4ED8FE00A499C1 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9D61BD6B34D00D18188 /* ANOpenInExternalBrowserActivity.m */; };
+		8AD2876D1C4ED8FE00A499C1 /* ANPBBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9D81BD6B34D00D18188 /* ANPBBuffer.m */; };
+		8AD2876E1C4ED8FE00A499C1 /* ANPBContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9DA1BD6B34D00D18188 /* ANPBContainerView.m */; };
+		8AD2876F1C4ED8FE00A499C1 /* ANPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9DC1BD6B34D00D18188 /* ANPlayerView.m */; };
+		8AD287701C4ED8FE00A499C1 /* ANReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9DE1BD6B34D00D18188 /* ANReachability.m */; };
+		8AD287711C4ED8FE00A499C1 /* ANSSMStandardAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3E1551C441F8E004AA151 /* ANSSMStandardAd.m */; };
+		8AD287721C4ED8FE00A499C1 /* ANSSMVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3E1581C441FA6004AA151 /* ANSSMVideoAd.m */; };
+		8AD287731C4ED8FE00A499C1 /* ANStandardAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9E01BD6B34D00D18188 /* ANStandardAd.m */; };
+		8AD287741C4ED8FE00A499C1 /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9E11BD6B34D00D18188 /* ANTargetingParameters.m */; };
+		8AD287751C4ED8FE00A499C1 /* ANUniversalTagAdServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A87BF4A1BD9471600281EA9 /* ANUniversalTagAdServerResponse.m */; };
+		8AD287761C4ED8FE00A499C1 /* ANUniversalTagRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A87BF341BD9443000281EA9 /* ANUniversalTagRequestBuilder.m */; };
+		8AD287771C4ED8FE00A499C1 /* ANVast+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC3FFB1BE91D910099501F /* ANVast+ANCategory.m */; };
+		8AD287781C4ED8FE00A499C1 /* ANVASTUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC3FEC1BE9195B0099501F /* ANVASTUtil.m */; };
+		8AD287791C4ED8FE00A499C1 /* ANVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9E31BD6B34D00D18188 /* ANVideoAd.m */; };
+		8AD2877A1C4ED8FE00A499C1 /* ANVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9E51BD6B34D00D18188 /* ANVideoPlayerViewController.m */; };
+		8AD2877B1C4ED8FE00A499C1 /* ANVolumeButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9E71BD6B34D00D18188 /* ANVolumeButtonView.m */; };
+		8AD2877C1C4ED8FE00A499C1 /* ANMRAIDCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9EA1BD6B34D00D18188 /* ANMRAIDCalendarManager.m */; };
+		8AD2877D1C4ED8FE00A499C1 /* ANMRAIDContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9EC1BD6B34D00D18188 /* ANMRAIDContainerView.m */; };
+		8AD2877E1C4ED8FE00A499C1 /* ANMRAIDExpandProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9EE1BD6B34D00D18188 /* ANMRAIDExpandProperties.m */; };
+		8AD2877F1C4ED8FE00A499C1 /* ANMRAIDExpandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9F01BD6B34D00D18188 /* ANMRAIDExpandViewController.m */; };
+		8AD287801C4ED8FE00A499C1 /* ANMRAIDJavascriptUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9F21BD6B34D00D18188 /* ANMRAIDJavascriptUtil.m */; };
+		8AD287811C4ED8FE00A499C1 /* ANMRAIDOrientationProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9F41BD6B34D00D18188 /* ANMRAIDOrientationProperties.m */; };
+		8AD287821C4ED8FE00A499C1 /* ANMRAIDResizeProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9F61BD6B34D00D18188 /* ANMRAIDResizeProperties.m */; };
+		8AD287831C4ED8FE00A499C1 /* ANMRAIDResizeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9F81BD6B34D00D18188 /* ANMRAIDResizeView.m */; };
+		8AD287841C4ED8FE00A499C1 /* ANMRAIDResizeViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9FA1BD6B34D00D18188 /* ANMRAIDResizeViewManager.m */; };
+		8AD287851C4ED8FE00A499C1 /* ANMRAIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9FC1BD6B34D00D18188 /* ANMRAIDUtil.m */; };
+		8AD287861C4ED8FE00A499C1 /* ANNativeAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8761F1A0994310022D9A5 /* ANNativeAdFetcher.m */; };
+		8AD287871C4ED8FE00A499C1 /* ANNativeAdImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876211A0994310022D9A5 /* ANNativeAdImageCache.m */; };
+		8AD287881C4ED8FE00A499C1 /* ANNativeAdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876231A0994310022D9A5 /* ANNativeAdRequest.m */; };
+		8AD287891C4ED8FE00A499C1 /* ANNativeAdRequestUrlBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876251A0994310022D9A5 /* ANNativeAdRequestUrlBuilder.m */; };
+		8AD2878A1C4ED8FE00A499C1 /* ANNativeAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876261A0994310022D9A5 /* ANNativeAdResponse.m */; };
+		8AD2878B1C4ED8FE00A499C1 /* ANNativeAdStarRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876221A0994310022D9A5 /* ANNativeAdStarRating.m */; };
+		8AD2878C1C4ED8FE00A499C1 /* ANNativeImpressionTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */; };
+		8AD2878D1C4ED8FE00A499C1 /* ANNativeImpressionTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3C19B1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m */; };
+		8AD2878E1C4ED8FE00A499C1 /* ANNativeMediatedAdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8762C1A0994310022D9A5 /* ANNativeMediatedAdController.m */; };
+		8AD2878F1C4ED8FE00A499C1 /* ANNativeMediatedAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8762E1A0994310022D9A5 /* ANNativeMediatedAdResponse.m */; };
+		8AD287901C4ED8FE00A499C1 /* ANNativeStandardAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */; };
+		8AD287911C4ED8FE00A499C1 /* UIView+ANNativeAdCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6514711A12DB31003F1047 /* UIView+ANNativeAdCategory.m */; };
+		8AD287921C4ED8FE00A499C1 /* ANInLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F9FF1BD6B34D00D18188 /* ANInLine.m */; };
+		8AD287931C4ED8FE00A499C1 /* ANVast.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA011BD6B34D00D18188 /* ANVast.m */; };
+		8AD287941C4ED8FE00A499C1 /* ANVastDataModelInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA031BD6B34D00D18188 /* ANVastDataModelInterface.m */; };
+		8AD287951C4ED8FE00A499C1 /* ANWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA051BD6B34D00D18188 /* ANWrapper.m */; };
+		8AD287961C4ED8FE00A499C1 /* ANAdSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA081BD6B34D00D18188 /* ANAdSystem.m */; };
+		8AD287971C4ED8FE00A499C1 /* ANImpression.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA0A1BD6B34D00D18188 /* ANImpression.m */; };
+		8AD287981C4ED8FE00A499C1 /* ANCreative.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA0D1BD6B34D00D18188 /* ANCreative.m */; };
+		8AD287991C4ED8FE00A499C1 /* ANLinear.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA0F1BD6B34D00D18188 /* ANLinear.m */; };
+		8AD2879A1C4ED8FE00A499C1 /* ANNonLinearAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA111BD6B34D00D18188 /* ANNonLinearAds.m */; };
+		8AD2879B1C4ED8FE00A499C1 /* ANStaticResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA131BD6B34D00D18188 /* ANStaticResource.m */; };
+		8AD2879C1C4ED8FE00A499C1 /* ANTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA151BD6B34D00D18188 /* ANTracking.m */; };
+		8AD2879D1C4ED8FE00A499C1 /* AnCompanion.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA181BD6B34D00D18188 /* AnCompanion.m */; };
+		8AD2879E1C4ED8FE00A499C1 /* ANVideoClicks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA1B1BD6B34D00D18188 /* ANVideoClicks.m */; };
+		8AD2879F1C4ED8FE00A499C1 /* ANMediaFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA1E1BD6B34D00D18188 /* ANMediaFile.m */; };
+		8AD287A01C4ED8FE00A499C1 /* ANCustomClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA211BD6B34D00D18188 /* ANCustomClick.m */; };
+		8AD287A11C4ED8FE00A499C1 /* ANNonLinear.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A73FA241BD6B34D00D18188 /* ANNonLinear.m */; };
+		8AD287A21C4ED8FE00A499C1 /* ANXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AAD5D151BD6C0E300B4CD53 /* ANXML.m */; };
+		8AD287A31C4ED8FF00A499C1 /* ANXML+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AAD5D131BD6C0E300B4CD53 /* ANXML+HTTP.m */; };
+		8AD287A51C4ED92B00A499C1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD287A41C4ED92B00A499C1 /* AVFoundation.framework */; };
+		8AD287A71C4ED94300A499C1 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD287A61C4ED94300A499C1 /* CoreMedia.framework */; };
 		8AD5155D19D216E6002E53D6 /* ANAdAdapterBannerAmazon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5155619D216E6002E53D6 /* ANAdAdapterBannerAmazon.m */; };
 		8AD5155E19D216E6002E53D6 /* ANAdAdapterBaseAmazon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5155819D216E6002E53D6 /* ANAdAdapterBaseAmazon.m */; };
 		8AD5155F19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5155A19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m */; };
@@ -212,8 +281,6 @@
 		8AE7AD9E1A7AC4E5009E2F2F /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE7AD9D1A7AC4E5009E2F2F /* EventKitUI.framework */; };
 		8AF366BD19D492F30097019F /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8AF3C19D1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3C19B1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m */; };
-		8AF3C19F1A3631460018FB6A /* ANNativeImpressionTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */; };
-		8AF3C1A01A3631490018FB6A /* ANNativeImpressionTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3C19B1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m */; };
 		8AF9F08D19DA131F00758111 /* ANAdAdapterBaseAmazon.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AD5155719D216E6002E53D6 /* ANAdAdapterBaseAmazon.h */; };
 		8AFC045F1A2E74AC00BEA485 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC045E1A2E74AC00BEA485 /* UIKit.framework */; };
 		8AFC04611A2E74C800BEA485 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04601A2E74C800BEA485 /* CoreGraphics.framework */; };
@@ -873,6 +940,8 @@
 		8ABC3FF31BE91B530099501F /* mute-on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute-on@3x.png"; sourceTree = "<group>"; };
 		8ABC3FFA1BE91D910099501F /* ANVast+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANVast+ANCategory.h"; sourceTree = "<group>"; };
 		8ABC3FFB1BE91D910099501F /* ANVast+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVast+ANCategory.m"; sourceTree = "<group>"; };
+		8AD287A41C4ED92B00A499C1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8AD287A61C4ED94300A499C1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		8AD5154019D214CA002E53D6 /* libANSDKAmazonAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAmazonAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD5155519D216E6002E53D6 /* ANAdAdapterBannerAmazon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAmazon.h; sourceTree = "<group>"; };
 		8AD5155619D216E6002E53D6 /* ANAdAdapterBannerAmazon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAmazon.m; sourceTree = "<group>"; };
@@ -1103,6 +1172,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AD287A71C4ED94300A499C1 /* CoreMedia.framework in Frameworks */,
+				8AD287A51C4ED92B00A499C1 /* AVFoundation.framework in Frameworks */,
 				8AE7AD9E1A7AC4E5009E2F2F /* EventKitUI.framework in Frameworks */,
 				8AFC04731A2E78E400BEA485 /* StoreKit.framework in Frameworks */,
 				8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */,
@@ -1912,6 +1983,8 @@
 		8AE5E11F1A2FDCDB00FDE858 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8AD287A61C4ED94300A499C1 /* CoreMedia.framework */,
+				8AD287A41C4ED92B00A499C1 /* AVFoundation.framework */,
 				8AE7AD9D1A7AC4E5009E2F2F /* EventKitUI.framework */,
 				8AFC04721A2E78E400BEA485 /* StoreKit.framework */,
 				8AFC04701A2E760800BEA485 /* MessageUI.framework */,
@@ -2687,23 +2760,88 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A9AEDE81A1BF99D00C58BDA /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
-				8A9AEDE91A1BF99D00C58BDA /* NSString+ANCategory.m in Sources */,
-				8A9AEDEA1A1BF99D00C58BDA /* NSTimer+ANCategory.m in Sources */,
-				8A9AEDEB1A1BF99D00C58BDA /* UIView+ANCategory.m in Sources */,
-				8A9AEDEC1A1BF99D00C58BDA /* UIWebView+ANCategory.m in Sources */,
-				8A598F8D1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */,
-				8AF3C1A01A3631490018FB6A /* ANNativeImpressionTrackerInfo.m in Sources */,
-				8A9AEE051A1BF99D00C58BDA /* ANNativeAdFetcher.m in Sources */,
-				8A9AEE061A1BF99D00C58BDA /* ANNativeAdImageCache.m in Sources */,
-				8AF3C19F1A3631460018FB6A /* ANNativeImpressionTrackerManager.m in Sources */,
-				8A9AEE071A1BF99D00C58BDA /* ANNativeAdRequest.m in Sources */,
-				8A9AEE091A1BF99D00C58BDA /* ANNativeAdRequestUrlBuilder.m in Sources */,
-				8A9AEE0A1A1BF99D00C58BDA /* ANNativeAdResponse.m in Sources */,
-				8A9AEE0B1A1BF99D00C58BDA /* ANNativeAdStarRating.m in Sources */,
-				8A9AEE0D1A1BF99D00C58BDA /* ANNativeMediatedAdController.m in Sources */,
-				8A9AEE0E1A1BF99D00C58BDA /* ANNativeMediatedAdResponse.m in Sources */,
-				8A9AEE0F1A1BF99D00C58BDA /* UIView+ANNativeAdCategory.m in Sources */,
+				8AD287521C4ED8FE00A499C1 /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
+				8AD287531C4ED8FE00A499C1 /* NSString+ANCategory.m in Sources */,
+				8AD287541C4ED8FE00A499C1 /* NSTimer+ANCategory.m in Sources */,
+				8AD287551C4ED8FE00A499C1 /* UIView+ANCategory.m in Sources */,
+				8AD287561C4ED8FE00A499C1 /* UIWebView+ANCategory.m in Sources */,
+				8AD287571C4ED8FE00A499C1 /* ANAdFetcher.m in Sources */,
+				8AD287581C4ED8FE00A499C1 /* ANAdFetcherResponse.m in Sources */,
+				8AD287591C4ED8FE00A499C1 /* ANAdRequestUrl.m in Sources */,
+				8AD2875A1C4ED8FE00A499C1 /* ANAdServerResponse.m in Sources */,
+				8AD2875B1C4ED8FE00A499C1 /* ANAdView.m in Sources */,
+				8AD2875C1C4ED8FE00A499C1 /* ANAdWebViewController.m in Sources */,
+				8AD2875D1C4ED8FE00A499C1 /* ANANJAMImplementation.m in Sources */,
+				8AD2875E1C4ED8FE00A499C1 /* ANBannerAdView.m in Sources */,
+				8AD2875F1C4ED8FE00A499C1 /* ANBrowserViewController.m in Sources */,
+				8AD287601C4ED8FE00A499C1 /* ANCircularAnimationView.m in Sources */,
+				8AD287611C4ED8FE00A499C1 /* ANClickOverlayView.m in Sources */,
+				8AD287621C4ED8FE00A499C1 /* ANGlobal.m in Sources */,
+				8AD287631C4ED8FE00A499C1 /* ANInterstitialAd.m in Sources */,
+				8AD287641C4ED8FE00A499C1 /* ANInterstitialAdFetcher.m in Sources */,
+				8AD287651C4ED8FE00A499C1 /* ANInterstitialAdViewController.m in Sources */,
+				8AD287661C4ED8FE00A499C1 /* ANLocation.m in Sources */,
+				8AD287671C4ED8FE00A499C1 /* ANLogging.m in Sources */,
+				8AD287681C4ED8FE00A499C1 /* ANLogManager.m in Sources */,
+				8AD287691C4ED8FE00A499C1 /* ANMediatedAd.m in Sources */,
+				8AD2876A1C4ED8FE00A499C1 /* ANMediationAdViewController.m in Sources */,
+				8AD2876B1C4ED8FE00A499C1 /* ANMediationContainerView.m in Sources */,
+				8AD2876C1C4ED8FE00A499C1 /* ANOpenInExternalBrowserActivity.m in Sources */,
+				8AD2876D1C4ED8FE00A499C1 /* ANPBBuffer.m in Sources */,
+				8AD2876E1C4ED8FE00A499C1 /* ANPBContainerView.m in Sources */,
+				8AD2876F1C4ED8FE00A499C1 /* ANPlayerView.m in Sources */,
+				8AD287701C4ED8FE00A499C1 /* ANReachability.m in Sources */,
+				8AD287711C4ED8FE00A499C1 /* ANSSMStandardAd.m in Sources */,
+				8AD287721C4ED8FE00A499C1 /* ANSSMVideoAd.m in Sources */,
+				8AD287731C4ED8FE00A499C1 /* ANStandardAd.m in Sources */,
+				8AD287741C4ED8FE00A499C1 /* ANTargetingParameters.m in Sources */,
+				8AD287751C4ED8FE00A499C1 /* ANUniversalTagAdServerResponse.m in Sources */,
+				8AD287761C4ED8FE00A499C1 /* ANUniversalTagRequestBuilder.m in Sources */,
+				8AD287771C4ED8FE00A499C1 /* ANVast+ANCategory.m in Sources */,
+				8AD287781C4ED8FE00A499C1 /* ANVASTUtil.m in Sources */,
+				8AD287791C4ED8FE00A499C1 /* ANVideoAd.m in Sources */,
+				8AD2877A1C4ED8FE00A499C1 /* ANVideoPlayerViewController.m in Sources */,
+				8AD2877B1C4ED8FE00A499C1 /* ANVolumeButtonView.m in Sources */,
+				8AD2877C1C4ED8FE00A499C1 /* ANMRAIDCalendarManager.m in Sources */,
+				8AD2877D1C4ED8FE00A499C1 /* ANMRAIDContainerView.m in Sources */,
+				8AD2877E1C4ED8FE00A499C1 /* ANMRAIDExpandProperties.m in Sources */,
+				8AD2877F1C4ED8FE00A499C1 /* ANMRAIDExpandViewController.m in Sources */,
+				8AD287801C4ED8FE00A499C1 /* ANMRAIDJavascriptUtil.m in Sources */,
+				8AD287811C4ED8FE00A499C1 /* ANMRAIDOrientationProperties.m in Sources */,
+				8AD287821C4ED8FE00A499C1 /* ANMRAIDResizeProperties.m in Sources */,
+				8AD287831C4ED8FE00A499C1 /* ANMRAIDResizeView.m in Sources */,
+				8AD287841C4ED8FE00A499C1 /* ANMRAIDResizeViewManager.m in Sources */,
+				8AD287851C4ED8FE00A499C1 /* ANMRAIDUtil.m in Sources */,
+				8AD287861C4ED8FE00A499C1 /* ANNativeAdFetcher.m in Sources */,
+				8AD287871C4ED8FE00A499C1 /* ANNativeAdImageCache.m in Sources */,
+				8AD287881C4ED8FE00A499C1 /* ANNativeAdRequest.m in Sources */,
+				8AD287891C4ED8FE00A499C1 /* ANNativeAdRequestUrlBuilder.m in Sources */,
+				8AD2878A1C4ED8FE00A499C1 /* ANNativeAdResponse.m in Sources */,
+				8AD2878B1C4ED8FE00A499C1 /* ANNativeAdStarRating.m in Sources */,
+				8AD2878C1C4ED8FE00A499C1 /* ANNativeImpressionTrackerManager.m in Sources */,
+				8AD2878D1C4ED8FE00A499C1 /* ANNativeImpressionTrackerInfo.m in Sources */,
+				8AD2878E1C4ED8FE00A499C1 /* ANNativeMediatedAdController.m in Sources */,
+				8AD2878F1C4ED8FE00A499C1 /* ANNativeMediatedAdResponse.m in Sources */,
+				8AD287901C4ED8FE00A499C1 /* ANNativeStandardAdResponse.m in Sources */,
+				8AD287911C4ED8FE00A499C1 /* UIView+ANNativeAdCategory.m in Sources */,
+				8AD287921C4ED8FE00A499C1 /* ANInLine.m in Sources */,
+				8AD287931C4ED8FE00A499C1 /* ANVast.m in Sources */,
+				8AD287941C4ED8FE00A499C1 /* ANVastDataModelInterface.m in Sources */,
+				8AD287951C4ED8FE00A499C1 /* ANWrapper.m in Sources */,
+				8AD287961C4ED8FE00A499C1 /* ANAdSystem.m in Sources */,
+				8AD287971C4ED8FE00A499C1 /* ANImpression.m in Sources */,
+				8AD287981C4ED8FE00A499C1 /* ANCreative.m in Sources */,
+				8AD287991C4ED8FE00A499C1 /* ANLinear.m in Sources */,
+				8AD2879A1C4ED8FE00A499C1 /* ANNonLinearAds.m in Sources */,
+				8AD2879B1C4ED8FE00A499C1 /* ANStaticResource.m in Sources */,
+				8AD2879C1C4ED8FE00A499C1 /* ANTracking.m in Sources */,
+				8AD2879D1C4ED8FE00A499C1 /* AnCompanion.m in Sources */,
+				8AD2879E1C4ED8FE00A499C1 /* ANVideoClicks.m in Sources */,
+				8AD2879F1C4ED8FE00A499C1 /* ANMediaFile.m in Sources */,
+				8AD287A01C4ED8FE00A499C1 /* ANCustomClick.m in Sources */,
+				8AD287A11C4ED8FE00A499C1 /* ANNonLinear.m in Sources */,
+				8AD287A21C4ED8FE00A499C1 /* ANXML.m in Sources */,
+				8AD287A31C4ED8FF00A499C1 /* ANXML+HTTP.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
