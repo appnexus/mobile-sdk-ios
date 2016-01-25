@@ -68,6 +68,9 @@
 		8A56E6971B27483000642ACC /* ANNativeAdColonyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */; };
 		8A661ED01A85597E00117553 /* appnexus_click_fallback_example.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */; };
 		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
+		8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */; };
+		8A75A9AE1C56C0A1008FB1AB /* ANJAMDeviceIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A75A9A61C56BE81008FB1AB /* ANJAMDeviceIdResponse.json */; };
+		8A75A9AF1C56C0A4008FB1AB /* ANJAMDispatchAppEventResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A75A9A81C56BEBF008FB1AB /* ANJAMDispatchAppEventResponse.json */; };
 		8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */; };
 		8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0919DB1E150090EBED /* NSObject+Swizzling.m */; };
 		8A7AE41019DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */; };
@@ -598,6 +601,9 @@
 		8A5D27CA199AB26B00F2A516 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
 		8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_click_fallback_example.json; sourceTree = "<group>"; };
+		8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANJAMTestCase.m; sourceTree = "<group>"; };
+		8A75A9A61C56BE81008FB1AB /* ANJAMDeviceIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMDeviceIdResponse.json; sourceTree = "<group>"; };
+		8A75A9A81C56BEBF008FB1AB /* ANJAMDispatchAppEventResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMDispatchAppEventResponse.json; sourceTree = "<group>"; };
 		8A764F021A7078F500C02A97 /* ANReachability+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANReachability+ANTest.h"; sourceTree = "<group>"; };
 		8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANReachability+ANTest.m"; sourceTree = "<group>"; };
 		8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BaseMediationSingleNetworkResponse.json; sourceTree = "<group>"; };
@@ -893,6 +899,7 @@
 				8A0AA46719DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
 				F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */,
+				8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1296,6 +1303,8 @@
 				8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */,
 				8AA00A2119DB1E150090EBED /* SuccessfulMRAIDListenerResponse.json */,
 				8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */,
+				8A75A9A61C56BE81008FB1AB /* ANJAMDeviceIdResponse.json */,
+				8A75A9A81C56BEBF008FB1AB /* ANJAMDispatchAppEventResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1911,8 +1920,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A75A9AE1C56C0A1008FB1AB /* ANJAMDeviceIdResponse.json in Resources */,
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
 				F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */,
+				8A75A9AF1C56C0A4008FB1AB /* ANJAMDispatchAppEventResponse.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
 				8AA00A4819DB2A9A0090EBED /* dogSelfie.jpg in Resources */,
@@ -2037,6 +2048,7 @@
 				8AA00A5019DB2B160090EBED /* XCTestCase+ANBannerAdView.m in Sources */,
 				8A0AA48E19DB3453005EC52C /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
 				8A0AA47719DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
+				8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */,
 				8A0AA45719DB2CB4005EC52C /* ANAdWebViewController+ANTest.m in Sources */,
 				8AA00A4F19DB2B160090EBED /* XCTestCase+ANAdResponse.m in Sources */,
 				8A0AA46D19DB30A2005EC52C /* ANLocationTestCase.m in Sources */,
