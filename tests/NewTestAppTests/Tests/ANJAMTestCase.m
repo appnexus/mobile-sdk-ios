@@ -64,13 +64,11 @@
 - (void)ad:(id<ANAdProtocol>)ad didReceiveAppEvent:(NSString *)name withData:(NSString *)data {
     if ([name isEqualToString:@"idfa"]) {
         XCTAssertNotNil(data);
-        XCTAssertEqualObjects(name, @"idfa");
         NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
         XCTAssertEqualObjects(data, advertisingIdentifier);
         [self.deviceIdExpectation fulfill];
     } else if ([name isEqualToString:@"SomeEvent"]) {
         XCTAssertNotNil(data);
-        XCTAssertEqualObjects(name, @"SomeEvent");
         XCTAssertEqualObjects(data, @"TheEventData");
         [self.dispatchAppEventExpectation fulfill];
     }
