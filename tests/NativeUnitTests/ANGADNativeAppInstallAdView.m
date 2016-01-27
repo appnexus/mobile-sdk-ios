@@ -13,12 +13,8 @@
  limitations under the License.
  */
 
-#import "ANTargetingParameters.h"
-#import <GoogleMobileAds/GoogleMobileAds.h>
+#import "ANGADNativeAppInstallAdView.h"
 
-@interface ANAdAdapterBaseDFP : NSObject
-
-+ (GADRequest *)googleAdRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
-+ (ANAdResponseCode)responseCodeFromRequestError:(GADRequestError *)error;
+@implementation ANGADNativeAppInstallAdView
 
 @end

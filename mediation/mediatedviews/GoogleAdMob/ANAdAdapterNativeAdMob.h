@@ -1,4 +1,4 @@
-/*   Copyright 2015 APPNEXUS INC
+/*   Copyright 2016 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,12 +13,14 @@
  limitations under the License.
  */
 
-#import "ANTargetingParameters.h"
-#import <GoogleMobileAds/GoogleMobileAds.h>
+#import "ANNativeCustomAdapter.h"
 
-@interface ANAdAdapterBaseDFP : NSObject
+extern NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey;
+extern NSString *const kANAdAdapterNativeAdMobNativeContentKey;
 
-+ (GADRequest *)googleAdRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
-+ (ANAdResponseCode)responseCodeFromRequestError:(GADRequestError *)error;
+@interface ANAdAdapterNativeAdMob : NSObject <ANNativeCustomAdapter>
+
++ (void)enableNativeAppInstallAds;
++ (void)enableNativeContentAds;
 
 @end
