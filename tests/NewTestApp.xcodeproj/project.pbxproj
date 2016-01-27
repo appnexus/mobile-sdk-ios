@@ -220,6 +220,8 @@
 		8AE7AD981A7AB348009E2F2F /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8AE7AD9C1A7AC372009E2F2F /* appnexus_standard_response_store_url.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */; };
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
+		EF532B981C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */; settings = {ASSET_TAGS = (); }; };
+		EF532B991C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */; settings = {ASSET_TAGS = (); }; };
 		F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */; };
 		F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */; };
 		F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */; };
@@ -789,6 +791,8 @@
 		8AF3658519D4746E0097019F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8AF3659319D479130097019F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8AFE8BFF1B97B934007BAD27 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMExternalBrowserResponse.json; sourceTree = "<group>"; };
+		EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMInternalBrowserResponse.json; sourceTree = "<group>"; };
 		F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1305,6 +1309,8 @@
 				8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */,
 				8A75A9A61C56BE81008FB1AB /* ANJAMDeviceIdResponse.json */,
 				8A75A9A81C56BEBF008FB1AB /* ANJAMDispatchAppEventResponse.json */,
+				EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */,
+				EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1911,7 +1917,9 @@
 			files = (
 				8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */,
 				8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */,
+				EF532B981C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */,
 				8AA00A4319DB2A410090EBED /* ANSDKResources.bundle in Resources */,
+				EF532B991C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */,
 				8ACB37EB1B98C66F0027E90B /* NewTestAppLaunch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

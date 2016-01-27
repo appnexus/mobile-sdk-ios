@@ -19,11 +19,14 @@
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "XCTestCase+ANCategory.h"
+#import "ANMRAIDContainerView.h"
 
-@interface ANJAMTestCase : XCTestCase <ANAppEventDelegate>
+@interface ANJAMTestCase : XCTestCase <ANAppEventDelegate, ANAdWebViewControllerBrowserDelegate>
 @property (nonatomic, strong) ANBannerAdView *adView;
 @property (nonatomic, strong) XCTestExpectation *deviceIdExpectation;
 @property (nonatomic, strong) XCTestExpectation *dispatchAppEventExpectation;
+@property (nonatomic, strong) XCTestExpectation *internalBrowserExpectation;
+@property (nonatomic, strong) XCTestExpectation *externalBrowserExpectation;
 @end
 
 @implementation ANJAMTestCase
@@ -32,7 +35,7 @@
     [super setUp];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
-
+    
     self.adView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)
                                             placementId:@"2140063"
                                                  adSize:CGSizeMake(320, 50)];
@@ -59,6 +62,48 @@
     [self.adView loadAd];
     [self waitForExpectationsWithTimeout:6.0 handler:nil];
     self.dispatchAppEventExpectation = nil;
+}
+
+- (void)testANJAMInternalBrowserResponse{
+    
+    //this test fails as the delegate is not fired.
+    
+    [self stubRequestWithResponse:@"ANJAMInternalBrowserResponse"];
+    [self.adView loadAd];
+    ANMRAIDContainerView *mraidView = (ANMRAIDContainerView *)[self.adView performSelector:NSSelectorFromString(@"contentView")];
+    ANAdWebViewController *webViewController = mraidView.webViewController;
+    
+    webViewController.browserDelegate = self;
+    
+    self.adView.opensInNativeBrowser = NO;
+    
+    self.internalBrowserExpectation = [self expectationWithDescription:@"Waiting for internal browser to be opened."];
+    [self waitForExpectationsWithTimeout:6.0 handler:nil];
+    self.internalBrowserExpectation = nil;
+    
+    webViewController = nil;
+    mraidView = nil;
+}
+
+- (void)testANJAMExternalBrowserResponse{
+    
+    //This test fails as the delegate is not fired.
+    
+    [self stubRequestWithResponse:@"ANJAMExternalBrowserResponse"];
+    [self.adView loadAd];
+    ANMRAIDContainerView *mraidView = (ANMRAIDContainerView *)[self.adView performSelector:NSSelectorFromString(@"contentView")];
+    ANAdWebViewController *webViewController = mraidView.webViewController;
+    
+    webViewController.browserDelegate = self;
+    
+    self.adView.opensInNativeBrowser = YES;
+    
+    self.externalBrowserExpectation = [self expectationWithDescription:@"Waiting for default browser to be opened."];
+    [self waitForExpectationsWithTimeout:6.0 handler:nil];
+    self.externalBrowserExpectation = nil;
+    
+    webViewController = nil;
+    mraidView = nil;
 }
 
 - (void)ad:(id<ANAdProtocol>)ad didReceiveAppEvent:(NSString *)name withData:(NSString *)data {
@@ -88,5 +133,24 @@
     requestStub.responseBody = baseResponse;
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
 }
+
+- (void)openDefaultBrowserWithURL:(NSURL *)URL{
+    XCTAssertNotNil(URL);
+    XCTAssertNotEqual(URL.absoluteString.length, 0);
+    if (self.internalBrowserExpectation) {
+        [self.internalBrowserExpectation fulfill];
+    }
+}
+
+- (void)openInAppBrowserWithURL:(NSURL *)URL{
+    XCTAssertNotNil(URL);
+    XCTAssertNotEqual(URL.absoluteString.length, 0);
+    if (self.externalBrowserExpectation) {
+        [self.externalBrowserExpectation fulfill];
+    }
+}
+
+//Help me with RecordEvent Response test case. Not sure how i will get handle to ANRecordEventDelegate to handle webViewDidFinishLoad delegate method.
+//How to get handle to ANAdWebViewController so that i can get the delegates openInAppBrowserWithURL: and openDefaultBrowserWithURL: to fire. the contentview holds the standardAdView object which in turn holds the ANAdWebViewController object. But in my case, the contentView itself is nil, so, not able to get the other objects.
 
 @end
