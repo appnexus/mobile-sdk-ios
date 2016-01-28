@@ -222,6 +222,11 @@
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
 		EF532B981C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */; settings = {ASSET_TAGS = (); }; };
 		EF532B991C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */; settings = {ASSET_TAGS = (); }; };
+		EF532BA71C5A47A100AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */; };
+		EF532BA81C5A47A400AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */; };
+		EF532BAA1C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */; settings = {ASSET_TAGS = (); }; };
+		EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */; settings = {ASSET_TAGS = (); }; };
+		EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */; settings = {ASSET_TAGS = (); }; };
 		F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */; };
 		F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */; };
 		F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */; };
@@ -793,6 +798,9 @@
 		8AFE8BFF1B97B934007BAD27 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMExternalBrowserResponse.json; sourceTree = "<group>"; };
 		EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMInternalBrowserResponse.json; sourceTree = "<group>"; };
+		EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMMayDeepLinkResponse.json; sourceTree = "<group>"; };
+		EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMMayDeepLinkResponseNo.json; sourceTree = "<group>"; };
+		EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMRecordEventResponse.json; sourceTree = "<group>"; };
 		F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1311,6 +1319,9 @@
 				8A75A9A81C56BEBF008FB1AB /* ANJAMDispatchAppEventResponse.json */,
 				EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */,
 				EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */,
+				EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */,
+				EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */,
+				EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1933,11 +1944,16 @@
 				F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */,
 				8A75A9AF1C56C0A4008FB1AB /* ANJAMDispatchAppEventResponse.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
+				EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
 				8AA00A4819DB2A9A0090EBED /* dogSelfie.jpg in Resources */,
 				8AA00A4919DB2A9A0090EBED /* dogSelfie@2x.jpg in Resources */,
 				8AA00A4A19DB2A9A0090EBED /* GreyWhiteCat.jpg in Resources */,
+				EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */,
 				8AA00A4B19DB2A9A0090EBED /* GreyWhiteCat@2x.jpg in Resources */,
+				EF532BA71C5A47A100AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */,
+				EF532BAA1C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json in Resources */,
+				EF532BA81C5A47A400AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

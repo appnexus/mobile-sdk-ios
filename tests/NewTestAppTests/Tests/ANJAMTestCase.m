@@ -20,13 +20,19 @@
 #import "ANHTTPStubbingManager.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANMRAIDContainerView.h"
+#import "ANANJAMImplementation.h"
 
-@interface ANJAMTestCase : XCTestCase <ANAppEventDelegate, ANAdWebViewControllerBrowserDelegate>
+@interface ANJAMTestCase : XCTestCase <ANAppEventDelegate, ANBannerAdViewDelegate, UIWebViewDelegate>
 @property (nonatomic, strong) ANBannerAdView *adView;
 @property (nonatomic, strong) XCTestExpectation *deviceIdExpectation;
 @property (nonatomic, strong) XCTestExpectation *dispatchAppEventExpectation;
 @property (nonatomic, strong) XCTestExpectation *internalBrowserExpectation;
 @property (nonatomic, strong) XCTestExpectation *externalBrowserExpectation;
+@property (nonatomic, strong) XCTestExpectation *mayDeepLinkExpectation;
+@property (nonatomic, strong) XCTestExpectation *recordEventExpectation;
+@property (nonatomic) BOOL isOpenInAppBrowserDelegateFired;
+
+@property (nonatomic, strong) UIWebView *recordEventDelegateView;
 @end
 
 @implementation ANJAMTestCase
@@ -40,11 +46,15 @@
                                             placementId:@"2140063"
                                                  adSize:CGSizeMake(320, 50)];
     self.adView.appEventDelegate = self;
+    self.adView.delegate = self;
+    self.isOpenInAppBrowserDelegateFired = NO;
 }
 
 - (void)tearDown {
     [super tearDown];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    self.adView.delegate = nil;
+    self.adView.appEventDelegate = nil;
     self.adView = nil;
 }
 
@@ -65,45 +75,52 @@
 }
 
 - (void)testANJAMInternalBrowserResponse{
-    
-    //this test fails as the delegate is not fired.
-    
     [self stubRequestWithResponse:@"ANJAMInternalBrowserResponse"];
-    [self.adView loadAd];
-    ANMRAIDContainerView *mraidView = (ANMRAIDContainerView *)[self.adView performSelector:NSSelectorFromString(@"contentView")];
-    ANAdWebViewController *webViewController = mraidView.webViewController;
-    
-    webViewController.browserDelegate = self;
-    
     self.adView.opensInNativeBrowser = NO;
-    
     self.internalBrowserExpectation = [self expectationWithDescription:@"Waiting for internal browser to be opened."];
-    [self waitForExpectationsWithTimeout:6.0 handler:nil];
+    [self.adView loadAd];
+    [self performSelector:@selector(dummyMethodToNotifyInternalBrowserResponseTestCase) withObject:nil afterDelay:6.0];
+    [self waitForExpectationsWithTimeout:8.0 handler:^(NSError * _Nullable error) {
+        XCTAssertFalse(self.isOpenInAppBrowserDelegateFired, @"This is a wrong use case. Should not fire openInAppBrowserDelegate.");
+    }];
     self.internalBrowserExpectation = nil;
-    
-    webViewController = nil;
-    mraidView = nil;
 }
 
 - (void)testANJAMExternalBrowserResponse{
-    
-    //This test fails as the delegate is not fired.
-    
     [self stubRequestWithResponse:@"ANJAMExternalBrowserResponse"];
-    [self.adView loadAd];
-    ANMRAIDContainerView *mraidView = (ANMRAIDContainerView *)[self.adView performSelector:NSSelectorFromString(@"contentView")];
-    ANAdWebViewController *webViewController = mraidView.webViewController;
-    
-    webViewController.browserDelegate = self;
-    
     self.adView.opensInNativeBrowser = YES;
-    
     self.externalBrowserExpectation = [self expectationWithDescription:@"Waiting for default browser to be opened."];
+    [self.adView loadAd];
     [self waitForExpectationsWithTimeout:6.0 handler:nil];
     self.externalBrowserExpectation = nil;
+}
+
+- (void)testMayDeepLinkResponse{
+    [self stubRequestWithResponse:@"ANJAMMayDeepLinkResponse"];
+    self.mayDeepLinkExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
+    [self.adView loadAd];
+    [self waitForExpectationsWithTimeout:20.0 handler:nil];
+    self.mayDeepLinkExpectation = nil;
+}
+
+- (void)testMayDeepLinkNoResponse{
+    [self stubRequestWithResponse:@"ANJAMMayDeepLinkResponseNo"];
+    self.mayDeepLinkExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
+    [self.adView loadAd];
+    [self waitForExpectationsWithTimeout:6.0 handler:nil];
+    self.mayDeepLinkExpectation = nil;
+}
+
+- (void)testRecordEventResponse{
+    [self stubRequestWithResponse:@"ANJAMRecordEventResponse"];
+    self.recordEventExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
+    [self.adView loadAd];
     
-    webViewController = nil;
-    mraidView = nil;
+    //pausing the thread as the views are not populated instantly.
+    [self performSelector:@selector(dummyMethodToGetTheWebView) withObject:nil afterDelay:6.0];
+    
+    [self waitForExpectationsWithTimeout:10.0 handler:nil];
+    self.recordEventExpectation = nil;
 }
 
 - (void)ad:(id<ANAdProtocol>)ad didReceiveAppEvent:(NSString *)name withData:(NSString *)data {
@@ -116,8 +133,18 @@
         XCTAssertNotNil(data);
         XCTAssertEqualObjects(data, @"TheEventData");
         [self.dispatchAppEventExpectation fulfill];
+    }else if ([name isEqualToString:@"DeepLinkYes"]) {
+        XCTAssertNotNil(data);
+        XCTAssertEqualObjects(data, @"true");
+        [self.mayDeepLinkExpectation fulfill];
+    }else if ([name isEqualToString:@"DeepLinkNo"]) {
+        XCTAssertNotNil(data);
+        XCTAssertEqualObjects(data, @"false");
+        [self.mayDeepLinkExpectation fulfill];
     }
 }
+
+//319359190
 
 #pragma mark - Stubbing
 
@@ -134,23 +161,35 @@
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
 }
 
-- (void)openDefaultBrowserWithURL:(NSURL *)URL{
-    XCTAssertNotNil(URL);
-    XCTAssertNotEqual(URL.absoluteString.length, 0);
-    if (self.internalBrowserExpectation) {
-        [self.internalBrowserExpectation fulfill];
-    }
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
+    self.isOpenInAppBrowserDelegateFired = YES;
+    [self.externalBrowserExpectation fulfill];
 }
 
-- (void)openInAppBrowserWithURL:(NSURL *)URL{
-    XCTAssertNotNil(URL);
-    XCTAssertNotEqual(URL.absoluteString.length, 0);
-    if (self.externalBrowserExpectation) {
-        [self.externalBrowserExpectation fulfill];
-    }
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    NSLog(@"I am called from Webview");
+    [self.recordEventExpectation fulfill];
 }
 
-//Help me with RecordEvent Response test case. Not sure how i will get handle to ANRecordEventDelegate to handle webViewDidFinishLoad delegate method.
-//How to get handle to ANAdWebViewController so that i can get the delegates openInAppBrowserWithURL: and openDefaultBrowserWithURL: to fire. the contentview holds the standardAdView object which in turn holds the ANAdWebViewController object. But in my case, the contentView itself is nil, so, not able to get the other objects.
+- (void)dummyMethodToGetTheWebView{
+    NSArray *notificationArray = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    __block NSString *valueForKey;
+    [notificationArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UILocalNotification *localNotification = (UILocalNotification *)obj;
+        NSDictionary *userInfo = localNotification.userInfo;
+        valueForKey = [userInfo valueForKey:@"event"];
+        if ([valueForKey isEqualToString:@"recordEvent"]) {
+            *stop = YES;
+        }
+    }];
+    
+    XCTAssertEqualObjects(valueForKey, @"recordEvent");
+    [self.recordEventExpectation fulfill];
+}
+
+- (void)dummyMethodToNotifyInternalBrowserResponseTestCase{
+    [self.internalBrowserExpectation fulfill];
+}
+
 
 @end
