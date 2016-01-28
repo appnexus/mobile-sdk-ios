@@ -13,8 +13,17 @@
  limitations under the License.
  */
 
-#import <GoogleMobileAds/GoogleMobileAds.h>
+#import <UIKit/UIKit.h>
 
-@interface ANGADNativeAppInstallAdView : GADNativeAppInstallAdView
+/**
+ Passed as root view controller to objects before root view controller
+ becomes known.
+ */
+@interface ANProxyViewController : NSProxy
+
+- (instancetype)init;
+
+@property (nonatomic, readwrite, weak) UIViewController *rootViewController;
+@property (nonatomic, readwrite, weak) UIView *adView;
 
 @end

@@ -13,8 +13,8 @@
  limitations under the License.
  */
 
-#import <GoogleMobileAds/GoogleMobileAds.h>
+#import "ANGADNativeContentAdView.h"
 
-@interface ANGADNativeAppInstallAdView : GADNativeAppInstallAdView
+@implementation ANGADNativeContentAdView
 
 @end

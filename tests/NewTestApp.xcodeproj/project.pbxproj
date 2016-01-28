@@ -185,6 +185,10 @@
 		8AB5324819F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */; };
 		8AB5326019F0469A00CA4427 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8AB5326B19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */; };
+		8ABC03BD1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03BC1C5AC7C400D7C789 /* ANGADNativeContentAdView.m */; };
+		8ABC03BE1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03BC1C5AC7C400D7C789 /* ANGADNativeContentAdView.m */; };
+		8ABC03CD1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ABC03CC1C5AC82200D7C789 /* ANGADNativeContentAdView.xib */; };
+		8ABC03CE1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ABC03CC1C5AC82200D7C789 /* ANGADNativeContentAdView.xib */; };
 		8ACB37EB1B98C66F0027E90B /* NewTestAppLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ACB37EA1B98C66F0027E90B /* NewTestAppLaunch.xib */; };
 		8ACB37ED1B98C6860027E90B /* OriginalUnitTestAppLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ACB37EC1B98C6860027E90B /* OriginalUnitTestAppLaunch.xib */; };
 		8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD011A61B2F652B001B0107 /* IOKit.framework */; };
@@ -754,6 +758,9 @@
 		8AB5324A19F0464B00CA4427 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
 		8AB5326919F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBannerMoPub+ANTest.h"; sourceTree = "<group>"; };
 		8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBannerMoPub+ANTest.m"; sourceTree = "<group>"; };
+		8ABC03BB1C5AC7C400D7C789 /* ANGADNativeContentAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADNativeContentAdView.h; sourceTree = "<group>"; };
+		8ABC03BC1C5AC7C400D7C789 /* ANGADNativeContentAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADNativeContentAdView.m; sourceTree = "<group>"; };
+		8ABC03CC1C5AC82200D7C789 /* ANGADNativeContentAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANGADNativeContentAdView.xib; sourceTree = "<group>"; };
 		8ACB37EA1B98C66F0027E90B /* NewTestAppLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewTestAppLaunch.xib; sourceTree = "<group>"; };
 		8ACB37EC1B98C6860027E90B /* OriginalUnitTestAppLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OriginalUnitTestAppLaunch.xib; sourceTree = "<group>"; };
 		8AD011A61B2F652B001B0107 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -1010,6 +1017,9 @@
 				8A201C111C5960DA009EE62D /* ANGADNativeAppInstallAdView.h */,
 				8A201C0E1C5960BC009EE62D /* ANGADNativeAppInstallAdView.m */,
 				8A201BFE1C596072009EE62D /* ANGADNativeAppInstallAdView.xib */,
+				8ABC03BB1C5AC7C400D7C789 /* ANGADNativeContentAdView.h */,
+				8ABC03BC1C5AC7C400D7C789 /* ANGADNativeContentAdView.m */,
+				8ABC03CC1C5AC82200D7C789 /* ANGADNativeContentAdView.xib */,
 				8A56E68B1B27482700642ACC /* ANNativeAdColonyView.h */,
 				8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */,
 				8AE7AD931A7AAE81009E2F2F /* ANNativeAdView.h */,
@@ -1859,6 +1869,7 @@
 				8AE7AD801A7AA56C009E2F2F /* mopub_mediated_response.json in Resources */,
 				8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */,
 				8AD052EF1A80461200EE0182 /* appnexus_multiple_trackers.json in Resources */,
+				8ABC03CE1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */,
 				8A549EC01A706DA5009F797A /* SuccessfulMediationResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1904,6 +1915,7 @@
 				8AA3DA131AAA0DAD00255F94 /* ANNativeAdViewMainImage.xib in Resources */,
 				8A201BFF1C596072009EE62D /* ANGADNativeAppInstallAdView.xib in Resources */,
 				8A893F3A1BFBD77D007AC313 /* MPCloseButtonX.png in Resources */,
+				8ABC03CD1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */,
 				8A370A121B697B0E002B05C6 /* vg_privacy.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1979,6 +1991,7 @@
 			files = (
 				8A549EB41A706C7D009F797A /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
 				8A549EB31A706C71009F797A /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
+				8ABC03BE1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */,
 				8A33A5131A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m in Sources */,
 				8A549EB21A706C65009F797A /* XCTestCase+ANCategory.m in Sources */,
 				8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */,
@@ -2007,6 +2020,7 @@
 				8AA00A3219DB204A0090EBED /* NSObject+Swizzling.m in Sources */,
 				8AA009F819DB1DE60090EBED /* ANHTTPStubbingManager.m in Sources */,
 				8AA009C419DB1B200090EBED /* ANMediationAdapterViewController.m in Sources */,
+				8ABC03BD1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */,
 				8AA009FA19DB1DE60090EBED /* ANURLConnectionStub.m in Sources */,
 				8AB5324819F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m in Sources */,
 				8AA009F919DB1DE60090EBED /* ANHTTPStubURLProtocol.m in Sources */,

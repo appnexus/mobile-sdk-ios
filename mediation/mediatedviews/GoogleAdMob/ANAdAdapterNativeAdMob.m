@@ -16,6 +16,8 @@
 #import "ANAdAdapterNativeAdMob.h"
 #import "ANAdAdapterBaseDFP.h"
 #import "ANLogging.h"
+#import "ANGlobal.h"
+#import "ANProxyViewController.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey = @"kANAdAdapterNativeAdMobNativeAppInstallAdKey";
@@ -24,6 +26,7 @@ NSString *const kANAdAdapterNativeAdMobNativeContentKey = @"kANAdAdapterNativeAd
 @interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate, GADNativeContentAdLoaderDelegate>
 
 @property (nonatomic) GADAdLoader *nativeAdLoader;
+@property (nonatomic) ANProxyViewController *proxyViewController;
 
 @end
 
@@ -46,6 +49,13 @@ static BOOL nativeContentAdsEnabled = NO;
 
 #pragma mark - ANNativeCustomAdapter
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.proxyViewController = [[ANProxyViewController alloc] init];
+    }
+    return self;
+}
+
 - (void)requestNativeAdWithServerParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)adUnitId
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
@@ -62,7 +72,7 @@ static BOOL nativeContentAdsEnabled = NO;
     }
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.nativeAdLoader = [[GADAdLoader alloc] initWithAdUnitID:adUnitId
-                                             rootViewController:nil
+                                             rootViewController:(UIViewController *)self.proxyViewController
                                                         adTypes:[adTypes copy]
                                                         options:@[]];
     self.nativeAdLoader.delegate = self;
@@ -73,6 +83,8 @@ static BOOL nativeContentAdsEnabled = NO;
                                    withRootViewController:(UIViewController *)rvc
                                            clickableViews:(NSArray *)clickableViews {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    self.proxyViewController.rootViewController = rvc;
+    self.proxyViewController.adView = view;
 }
 
 #pragma mark - GADAdLoaderDelegate
