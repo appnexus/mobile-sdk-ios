@@ -38,6 +38,7 @@
 		8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE3999E1A42105B00C0D7B1 /* WebKit.framework */; };
 		8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14827D1AD346220046F1B9 /* Social.framework */; };
 		8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482801AD346430046F1B9 /* CoreMedia.framework */; };
+		8A16BC911C5AAA2A00D45D49 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8A2BD4111B670E540000DB66 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4101B670E540000DB66 /* MMAdSDK.framework */; };
 		8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4121B670EAE0000DB66 /* libxml2.dylib */; };
 		8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */; };
@@ -220,13 +221,13 @@
 		8AE7AD981A7AB348009E2F2F /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8AE7AD9C1A7AC372009E2F2F /* appnexus_standard_response_store_url.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */; };
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
-		EF532B981C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */; settings = {ASSET_TAGS = (); }; };
-		EF532B991C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */; settings = {ASSET_TAGS = (); }; };
+		EF532B981C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */; };
+		EF532B991C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */; };
 		EF532BA71C5A47A100AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */; };
 		EF532BA81C5A47A400AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */; };
-		EF532BAA1C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */; settings = {ASSET_TAGS = (); }; };
-		EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */; settings = {ASSET_TAGS = (); }; };
-		EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */; settings = {ASSET_TAGS = (); }; };
+		EF532BAA1C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */; };
+		EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */; };
+		EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */; };
 		F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */; };
 		F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */; };
 		F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */; };
@@ -895,6 +896,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A16BC911C5AAA2A00D45D49 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2618,6 +2620,11 @@
 				INFOPLIST_FILE = NewTestAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					IOKit,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewTestApp.app/NewTestApp";
@@ -2637,6 +2644,11 @@
 				INFOPLIST_FILE = NewTestAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					IOKit,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewTestApp.app/NewTestApp";

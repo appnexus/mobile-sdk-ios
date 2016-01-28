@@ -182,13 +182,6 @@ NSString *const kANKeyCaller = @"caller";
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     ANLogDebug(@"RecordEvent completed succesfully");
-    
-    //Added below notification as i was unable to get the delegates into the test app test cases.
-    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60];
-    localNotification.userInfo = [NSDictionary dictionaryWithObject:@"recordEvent" forKey:@"event"];
-    localNotification.timeZone = [NSTimeZone defaultTimeZone];
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 @end

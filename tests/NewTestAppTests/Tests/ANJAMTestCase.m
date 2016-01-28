@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import <XCTest/XCTest.h>
+#import <KIF/KIF.h>
 #import <AdSupport/AdSupport.h>
 #import "ANBannerAdView.h"
 #import "ANURLConnectionStub.h"
@@ -21,8 +21,11 @@
 #import "XCTestCase+ANCategory.h"
 #import "ANMRAIDContainerView.h"
 #import "ANANJAMImplementation.h"
+#import "ANBrowserViewController.h"
+#import "ANGlobal.h"
+#import "ANLogging.h"
 
-@interface ANJAMTestCase : XCTestCase <ANAppEventDelegate, ANBannerAdViewDelegate, UIWebViewDelegate>
+@interface ANJAMTestCase : KIFTestCase <ANAppEventDelegate, ANBannerAdViewDelegate, UIWebViewDelegate>
 @property (nonatomic, strong) ANBannerAdView *adView;
 @property (nonatomic, strong) XCTestExpectation *deviceIdExpectation;
 @property (nonatomic, strong) XCTestExpectation *dispatchAppEventExpectation;
@@ -30,7 +33,6 @@
 @property (nonatomic, strong) XCTestExpectation *externalBrowserExpectation;
 @property (nonatomic, strong) XCTestExpectation *mayDeepLinkExpectation;
 @property (nonatomic, strong) XCTestExpectation *recordEventExpectation;
-@property (nonatomic) BOOL isOpenInAppBrowserDelegateFired;
 
 @property (nonatomic, strong) UIWebView *recordEventDelegateView;
 @end
@@ -45,17 +47,22 @@
     self.adView = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)
                                             placementId:@"2140063"
                                                  adSize:CGSizeMake(320, 50)];
+    self.adView.accessibilityLabel = @"AdView";
+    self.adView.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     self.adView.appEventDelegate = self;
     self.adView.delegate = self;
-    self.isOpenInAppBrowserDelegateFired = NO;
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.adView];
 }
 
 - (void)tearDown {
     [super tearDown];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [self.adView removeFromSuperview];
     self.adView.delegate = nil;
     self.adView.appEventDelegate = nil;
     self.adView = nil;
+    [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
+                                                                                                               completion:nil];
 }
 
 - (void)testANJAMDeviceIDResponse {
@@ -76,14 +83,15 @@
 
 - (void)testANJAMInternalBrowserResponse{
     [self stubRequestWithResponse:@"ANJAMInternalBrowserResponse"];
-    self.adView.opensInNativeBrowser = NO;
+    self.adView.opensInNativeBrowser = YES;
     self.internalBrowserExpectation = [self expectationWithDescription:@"Waiting for internal browser to be opened."];
     [self.adView loadAd];
-    [self performSelector:@selector(dummyMethodToNotifyInternalBrowserResponseTestCase) withObject:nil afterDelay:6.0];
-    [self waitForExpectationsWithTimeout:8.0 handler:^(NSError * _Nullable error) {
-        XCTAssertFalse(self.isOpenInAppBrowserDelegateFired, @"This is a wrong use case. Should not fire openInAppBrowserDelegate.");
-    }];
-    self.internalBrowserExpectation = nil;
+    [tester waitForTimeInterval:1.0];
+    [tester tapViewWithAccessibilityLabel:@"AdView"];
+    [self waitForExpectationsWithTimeout:2.0
+                                 handler:nil];
+    XCTAssertTrue([[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController
+                   isKindOfClass:[ANBrowserViewController class]]);
 }
 
 - (void)testANJAMExternalBrowserResponse{
@@ -91,7 +99,12 @@
     self.adView.opensInNativeBrowser = YES;
     self.externalBrowserExpectation = [self expectationWithDescription:@"Waiting for default browser to be opened."];
     [self.adView loadAd];
-    [self waitForExpectationsWithTimeout:6.0 handler:nil];
+    [tester waitForTimeInterval:3.0];
+    if ([NSProcessInfo processInfo].operatingSystemVersion.majorVersion >= 9) {
+        [tester acknowledgeSystemAlert];
+    }
+    [self waitForExpectationsWithTimeout:3.0
+                                 handler:nil];
     self.externalBrowserExpectation = nil;
 }
 
@@ -114,13 +127,26 @@
 - (void)testRecordEventResponse{
     [self stubRequestWithResponse:@"ANJAMRecordEventResponse"];
     self.recordEventExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
+    ANSetNotificationsEnabled(YES);
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receivedLog:)
+                                                 name:kANLoggingNotification
+                                               object:nil];
     [self.adView loadAd];
-    
-    //pausing the thread as the views are not populated instantly.
-    [self performSelector:@selector(dummyMethodToGetTheWebView) withObject:nil afterDelay:6.0];
-    
+    [tester waitForTimeInterval:3.0];
     [self waitForExpectationsWithTimeout:10.0 handler:nil];
     self.recordEventExpectation = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:kANLoggingNotification
+                                                  object:nil];
+    ANSetNotificationsEnabled(NO);
+}
+
+- (void)receivedLog:(NSNotification *)notification {
+    NSString *message = notification.userInfo[kANLogMessageKey];
+    if ([message isEqualToString:@"APPNEXUS: RecordEvent completed succesfully"]) {
+        [self.recordEventExpectation fulfill];
+    }
 }
 
 - (void)ad:(id<ANAdProtocol>)ad didReceiveAppEvent:(NSString *)name withData:(NSString *)data {
@@ -144,8 +170,6 @@
     }
 }
 
-//319359190
-
 #pragma mark - Stubbing
 
 - (void)stubRequestWithResponse:(NSString *)responseName {
@@ -161,35 +185,14 @@
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
 }
 
-- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
-    self.isOpenInAppBrowserDelegateFired = YES;
-    [self.externalBrowserExpectation fulfill];
-}
+#pragma mark - ANBannerAdViewDelegate
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    NSLog(@"I am called from Webview");
-    [self.recordEventExpectation fulfill];
-}
-
-- (void)dummyMethodToGetTheWebView{
-    NSArray *notificationArray = [[UIApplication sharedApplication] scheduledLocalNotifications];
-    __block NSString *valueForKey;
-    [notificationArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UILocalNotification *localNotification = (UILocalNotification *)obj;
-        NSDictionary *userInfo = localNotification.userInfo;
-        valueForKey = [userInfo valueForKey:@"event"];
-        if ([valueForKey isEqualToString:@"recordEvent"]) {
-            *stop = YES;
-        }
-    }];
-    
-    XCTAssertEqualObjects(valueForKey, @"recordEvent");
-    [self.recordEventExpectation fulfill];
-}
-
-- (void)dummyMethodToNotifyInternalBrowserResponseTestCase{
+- (void)adDidPresent:(id<ANAdProtocol>)ad {
     [self.internalBrowserExpectation fulfill];
 }
 
+- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
+    [self.externalBrowserExpectation fulfill];
+}
 
 @end
