@@ -96,7 +96,7 @@
 
 - (void)testANJAMExternalBrowserResponse{
     [self stubRequestWithResponse:@"ANJAMExternalBrowserResponse"];
-    self.adView.opensInNativeBrowser = YES;
+    self.adView.opensInNativeBrowser = NO;
     self.externalBrowserExpectation = [self expectationWithDescription:@"Waiting for default browser to be opened."];
     [self.adView loadAd];
     [tester waitForTimeInterval:3.0];
