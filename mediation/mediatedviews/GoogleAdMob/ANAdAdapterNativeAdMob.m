@@ -23,7 +23,8 @@
 NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey = @"kANAdAdapterNativeAdMobNativeAppInstallAdKey";
 NSString *const kANAdAdapterNativeAdMobNativeContentKey = @"kANAdAdapterNativeAdMobNativeContentKey";
 
-@interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate, GADNativeContentAdLoaderDelegate>
+@interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate,
+GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
 
 @property (nonatomic) GADAdLoader *nativeAdLoader;
 @property (nonatomic) ANProxyViewController *proxyViewController;
@@ -66,7 +67,7 @@ static BOOL nativeContentAdsEnabled = NO;
         [adTypes addObject:kGADAdLoaderAdTypeNativeContent];
     }
     if (adTypes.count == 0) {
-        ANLogDebug(@"No AdMob Native Ad types enabled –– did you forget to call ANAdAdapterNativeAdMob.enableNativeAppInstallAds or ANAdAdapterNativeAdMob.enableNativeContentAds?");
+        ANLogDebug(@"No AdMob Native Ad types enabled –– did you forget to call [ANAdAdapterNativeAdMob enableNativeAppInstallAds] or [ANAdAdapterNativeAdMob enableNativeContentAds]?");
         [self.requestDelegate didFailToLoadNativeAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }
@@ -102,6 +103,7 @@ static BOOL nativeContentAdsEnabled = NO;
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeAdMob];
+    nativeAppInstallAd.delegate = self;
     response.title = nativeAppInstallAd.headline;
     response.body = nativeAppInstallAd.body;
     response.iconImageURL = nativeAppInstallAd.icon.imageURL;
@@ -118,6 +120,7 @@ static BOOL nativeContentAdsEnabled = NO;
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeAdMob];
+    nativeContentAd.delegate = self;
     response.title = nativeContentAd.headline;
     response.body = nativeContentAd.body;
     response.iconImageURL = nativeContentAd.logo.imageURL;
@@ -125,6 +128,29 @@ static BOOL nativeContentAdsEnabled = NO;
     response.callToAction = nativeContentAd.callToAction;
     response.customElements = @{kANAdAdapterNativeAdMobNativeContentKey:nativeContentAd};
     [self.requestDelegate didLoadNativeAd:response];
+}
+
+#pragma mark - GADNativeAdDelegate
+
+- (void)nativeAdWillPresentScreen:(GADNativeAd *)nativeAd {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate willPresentAd];
+    [self.nativeAdDelegate didPresentAd];
+}
+
+- (void)nativeAdWillDismissScreen:(GADNativeAd *)nativeAd {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate willCloseAd];
+}
+
+- (void)nativeAdDidDismissScreen:(GADNativeAd *)nativeAd {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate didCloseAd];
+}
+
+- (void)nativeAdWillLeaveApplication:(GADNativeAd *)nativeAd {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate willLeaveApplication];
 }
 
 @end
