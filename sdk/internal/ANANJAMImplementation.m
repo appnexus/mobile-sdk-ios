@@ -106,6 +106,8 @@ NSString *const kANKeyCaller = @"caller";
     NSURL *url = [NSURL URLWithString:urlParam];
     if (ANHasHttpPrefix([url scheme])
         && [[UIApplication sharedApplication] canOpenURL:url]) {
+        //added as the test case was failing due to unavailability of a delegate.
+        [controller.adViewDelegate adWillLeaveApplication];
         [[UIApplication sharedApplication] openURL:url];
     }
 }

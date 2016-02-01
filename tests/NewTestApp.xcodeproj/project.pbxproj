@@ -38,6 +38,7 @@
 		8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE3999E1A42105B00C0D7B1 /* WebKit.framework */; };
 		8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14827D1AD346220046F1B9 /* Social.framework */; };
 		8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482801AD346430046F1B9 /* CoreMedia.framework */; };
+		8A16BC911C5AAA2A00D45D49 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8A2BD4111B670E540000DB66 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4101B670E540000DB66 /* MMAdSDK.framework */; };
 		8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4121B670EAE0000DB66 /* libxml2.dylib */; };
 		8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */; };
@@ -220,6 +221,13 @@
 		8AE7AD981A7AB348009E2F2F /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB5325719F0464B00CA4427 /* libKIF.a */; };
 		8AE7AD9C1A7AC372009E2F2F /* appnexus_standard_response_store_url.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD9B1A7AC372009E2F2F /* appnexus_standard_response_store_url.json */; };
 		8AF3659419D479130097019F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
+		EF532B981C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */; };
+		EF532B991C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */; };
+		EF532BA71C5A47A100AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */; };
+		EF532BA81C5A47A400AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */; };
+		EF532BAA1C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */; };
+		EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */; };
+		EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */; };
 		F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */; };
 		F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */; };
 		F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */; };
@@ -789,6 +797,11 @@
 		8AF3658519D4746E0097019F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		8AF3659319D479130097019F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8AFE8BFF1B97B934007BAD27 /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMExternalBrowserResponse.json; sourceTree = "<group>"; };
+		EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMInternalBrowserResponse.json; sourceTree = "<group>"; };
+		EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMMayDeepLinkResponse.json; sourceTree = "<group>"; };
+		EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMMayDeepLinkResponseNo.json; sourceTree = "<group>"; };
+		EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMRecordEventResponse.json; sourceTree = "<group>"; };
 		F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -883,6 +896,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A16BC911C5AAA2A00D45D49 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1305,6 +1319,11 @@
 				8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */,
 				8A75A9A61C56BE81008FB1AB /* ANJAMDeviceIdResponse.json */,
 				8A75A9A81C56BEBF008FB1AB /* ANJAMDispatchAppEventResponse.json */,
+				EF532B961C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json */,
+				EF532B971C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json */,
+				EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */,
+				EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */,
+				EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1911,7 +1930,9 @@
 			files = (
 				8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */,
 				8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */,
+				EF532B981C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */,
 				8AA00A4319DB2A410090EBED /* ANSDKResources.bundle in Resources */,
+				EF532B991C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */,
 				8ACB37EB1B98C66F0027E90B /* NewTestAppLaunch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1925,11 +1946,16 @@
 				F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */,
 				8A75A9AF1C56C0A4008FB1AB /* ANJAMDispatchAppEventResponse.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
+				EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
 				8AA00A4819DB2A9A0090EBED /* dogSelfie.jpg in Resources */,
 				8AA00A4919DB2A9A0090EBED /* dogSelfie@2x.jpg in Resources */,
 				8AA00A4A19DB2A9A0090EBED /* GreyWhiteCat.jpg in Resources */,
+				EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */,
 				8AA00A4B19DB2A9A0090EBED /* GreyWhiteCat@2x.jpg in Resources */,
+				EF532BA71C5A47A100AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */,
+				EF532BAA1C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json in Resources */,
+				EF532BA81C5A47A400AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2594,6 +2620,11 @@
 				INFOPLIST_FILE = NewTestAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					IOKit,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewTestApp.app/NewTestApp";
@@ -2613,6 +2644,11 @@
 				INFOPLIST_FILE = NewTestAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					IOKit,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewTestApp.app/NewTestApp";

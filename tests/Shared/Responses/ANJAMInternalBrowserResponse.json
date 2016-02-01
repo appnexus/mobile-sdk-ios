@@ -1,0 +1,11 @@
+{
+    "status":"ok",
+    "ads":[
+           {
+           "type":"banner",
+           "width":320,
+           "height":50,
+           "content":"<script src=\"mraid.js\"></script><img src='http://placekitten.com/g/320/50' width='320' height='50' onclick='anjam.InternalBrowser(\"http://www.example.com/pixel?id=123\");'></img>"
+           }
+           ]
+}
