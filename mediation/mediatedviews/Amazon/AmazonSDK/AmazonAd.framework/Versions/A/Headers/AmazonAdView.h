@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "AmazonAdOptions.h"
 
 @class AmazonAdError;
 @class AmazonAdOptions;
@@ -19,8 +20,17 @@
 // Create an Ad view and instantiate it using one of the standard AdSize options specified in AmazonAdOptions
 + (instancetype)amazonAdViewWithAdSize:(CGSize)adSize;
 
-// Instantiate using one of the standard AdSize options specified in AmazonAdOptions. 
+// Instantiate an auto size ad via nib or storyboard
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+// Instantiate an auto size ad
+- (instancetype)initWithFrame:(CGRect)frame;
+// Instantiate using one of the standard AdSize options specified in AmazonAdOptions.
 - (instancetype)initWithAdSize:(CGSize)adSize;
+
+// Set vertical alignment constraint for an ad in the ad view container
+- (void)setVerticalAlignment:(AmazonAdVerticalAlignment)alignment;
+// Set horizontal alignment constraint for an ad in the ad view container
+- (void)setHorizontalAlignment:(AmazonAdHorizontalAlignment)alignment;
 
 // Loads an Ad in this view
 - (void)loadAd:(AmazonAdOptions *)options;
