@@ -90,6 +90,24 @@ FB_CLASS_EXPORT
 
 /*!
  @method
+ 
+ @abstract
+ If an ad provided service is mediating Audience Network in their sdk, it is required to set the name of the mediation service
+ 
+ @param service Representing the name of the mediation that is mediation Audience Network
+ */
++ (void)setMediationService:(NSString *)service;
+
+/*!
+ @method
+ 
+ @abstract
+ Returns the name of the mediation service that is mediating Audience Network
+ */
++ (NSString *)getMediationService;
+
+/*!
+ @method
 
  @abstract
  Sets the url prefix to use when making ad requests.
