@@ -17,6 +17,13 @@
 
 extern NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey;
 extern NSString *const kANAdAdapterNativeAdMobNativeContentKey;
+extern NSString *const kANAdAdapterNativeAdMobAdTypeKey;
+
+typedef NS_ENUM(NSInteger, ANAdAdapterNativeAdMobAdType) {
+    ANAdAdapterNativeAdMobAdTypeUnknown = 0,
+    ANAdAdapterNativeAdMobAdTypeInstall,
+    ANAdAdapterNativeAdMobAdTypeContent
+};
 
 @interface ANAdAdapterNativeAdMob : NSObject <ANNativeCustomAdapter>
 

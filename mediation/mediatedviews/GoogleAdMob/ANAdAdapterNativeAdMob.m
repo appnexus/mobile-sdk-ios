@@ -22,6 +22,7 @@
 
 NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey = @"kANAdAdapterNativeAdMobNativeAppInstallAdKey";
 NSString *const kANAdAdapterNativeAdMobNativeContentKey = @"kANAdAdapterNativeAdMobNativeContentKey";
+NSString *const kANAdAdapterNativeAdMobAdTypeKey = @"kANAdAdapterNativeAdMobAdTypeKey";
 
 @interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate,
 GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
@@ -133,7 +134,8 @@ static BOOL nativeContentAdsEnabled = NO;
     response.rating = [[ANNativeAdStarRating alloc] initWithValue:[nativeAppInstallAd.starRating floatValue]
                                                             scale:5.0];
     response.socialContext = nativeAppInstallAd.store;
-    response.customElements = @{kANAdAdapterNativeAdMobNativeAppInstallAdKey:nativeAppInstallAd};
+    response.customElements = @{kANAdAdapterNativeAdMobNativeAppInstallAdKey:nativeAppInstallAd,
+                                kANAdAdapterNativeAdMobAdTypeKey:@(ANAdAdapterNativeAdMobAdTypeInstall)};
     [self.requestDelegate didLoadNativeAd:response];
 }
 
@@ -148,7 +150,8 @@ static BOOL nativeContentAdsEnabled = NO;
     response.iconImageURL = nativeContentAd.logo.imageURL;
     response.mainImageURL = ((GADNativeAdImage *)[nativeContentAd.images firstObject]).imageURL;
     response.callToAction = nativeContentAd.callToAction;
-    response.customElements = @{kANAdAdapterNativeAdMobNativeContentKey:nativeContentAd};
+    response.customElements = @{kANAdAdapterNativeAdMobNativeContentKey:nativeContentAd,
+                                kANAdAdapterNativeAdMobAdTypeKey:@(ANAdAdapterNativeAdMobAdTypeContent)};
     [self.requestDelegate didLoadNativeAd:response];
 }
 

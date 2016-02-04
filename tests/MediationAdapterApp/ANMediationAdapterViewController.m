@@ -702,18 +702,26 @@
         }
         case ANNativeAdNetworkCodeAdMob: {
             UINib *adNib;
-            if (self.nativeAdResponse.customElements[kANAdAdapterNativeAdMobNativeAppInstallAdKey]) {
-                adNib = [UINib nibWithNibName:@"ANGADNativeAppInstallAdView"
-                                       bundle:[NSBundle bundleForClass:[self class]]];
-                NSArray *array = [adNib instantiateWithOwner:self
-                                                     options:nil];
-                self.gadInstallView = [array firstObject];
-            } else if (self.nativeAdResponse.customElements[kANAdAdapterNativeAdMobNativeContentKey]) {
-                adNib = [UINib nibWithNibName:@"ANGADNativeContentAdView"
-                                       bundle:[NSBundle bundleForClass:[self class]]];
-                NSArray *array = [adNib instantiateWithOwner:self
-                                                     options:nil];
-                self.gadContentView = [array firstObject];
+            ANAdAdapterNativeAdMobAdType type = [self.nativeAdResponse.customElements[kANAdAdapterNativeAdMobAdTypeKey] integerValue];
+            switch (type) {
+                case ANAdAdapterNativeAdMobAdTypeInstall: {
+                    adNib = [UINib nibWithNibName:@"ANGADNativeAppInstallAdView"
+                                           bundle:[NSBundle bundleForClass:[self class]]];
+                    NSArray *array = [adNib instantiateWithOwner:self
+                                                         options:nil];
+                    self.gadInstallView = [array firstObject];
+                    break;
+                }
+                case ANAdAdapterNativeAdMobAdTypeContent: {
+                    adNib = [UINib nibWithNibName:@"ANGADNativeContentAdView"
+                                           bundle:[NSBundle bundleForClass:[self class]]];
+                    NSArray *array = [adNib instantiateWithOwner:self
+                                                         options:nil];
+                    self.gadContentView = [array firstObject];
+                    break;
+                }
+                default:
+                    break;
             }
             return;
         }
