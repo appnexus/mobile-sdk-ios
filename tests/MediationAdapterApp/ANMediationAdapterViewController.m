@@ -740,8 +740,6 @@
                 ((UILabel *)self.gadInstallView.bodyView).text = self.nativeAdResponse.body;
                 [((UIButton *)self.gadInstallView.callToActionView) setTitle:self.nativeAdResponse.callToAction
                                                                     forState:UIControlStateNormal];
-                GADNativeAppInstallAd *installAd = self.nativeAdResponse.customElements[kANAdAdapterNativeAdMobNativeAppInstallAdKey];
-                self.gadInstallView.nativeAppInstallAd = installAd;
             } else if (self.gadContentView) {
                 ((UIImageView *)self.gadContentView.logoView).image = self.nativeAdResponse.iconImage;
                 ((UIImageView *)self.gadContentView.imageView).image = self.nativeAdResponse.mainImage;
@@ -749,8 +747,6 @@
                 ((UILabel *)self.gadContentView.bodyView).text = self.nativeAdResponse.body;
                 [((UIButton *)self.gadContentView.callToActionView) setTitle:self.nativeAdResponse.callToAction
                                                                     forState:UIControlStateNormal];
-                GADNativeContentAd *contentAd = self.nativeAdResponse.customElements[kANAdAdapterNativeAdMobNativeContentKey];
-                self.gadContentView.nativeContentAd = contentAd;
             }
             return;
         }

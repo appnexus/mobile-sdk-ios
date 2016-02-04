@@ -28,6 +28,8 @@ GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
 
 @property (nonatomic) GADAdLoader *nativeAdLoader;
 @property (nonatomic) ANProxyViewController *proxyViewController;
+@property (nonatomic) GADNativeAppInstallAd *nativeAppInstallAd;
+@property (nonatomic) GADNativeContentAd *nativeContentAd;
 
 @end
 
@@ -86,6 +88,24 @@ static BOOL nativeContentAdsEnabled = NO;
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.proxyViewController.rootViewController = rvc;
     self.proxyViewController.adView = view;
+    if (self.nativeAppInstallAd) {
+        if ([view isKindOfClass:[GADNativeAppInstallAdView class]]) {
+            GADNativeAppInstallAdView *nativeAppInstallAdView = (GADNativeAppInstallAdView *)view;
+            [nativeAppInstallAdView setNativeAppInstallAd:self.nativeAppInstallAd];
+        } else {
+            ANLogError(@"Could not register native ad view––expected a view which is a subclass of GADNativeAppInstallAdView");
+        }
+        return;
+    }
+    if (self.nativeContentAd) {
+        if ([view isKindOfClass:[GADNativeContentAdView class]]) {
+            GADNativeContentAdView *nativeContentAdView = (GADNativeContentAdView *)view;
+            [nativeContentAdView setNativeContentAd:self.nativeContentAd];
+        } else {
+            ANLogError(@"Could not register native ad view––expected a view which is a subclass of GADNativeContentAdView");
+        }
+        return;
+    }
 }
 
 #pragma mark - GADAdLoaderDelegate
@@ -101,6 +121,7 @@ static BOOL nativeContentAdsEnabled = NO;
 
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeAppInstallAd:(GADNativeAppInstallAd *)nativeAppInstallAd {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    self.nativeAppInstallAd = nativeAppInstallAd;
     ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeAdMob];
     nativeAppInstallAd.delegate = self;
@@ -118,6 +139,7 @@ static BOOL nativeContentAdsEnabled = NO;
 
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeContentAd:(GADNativeContentAd *)nativeContentAd {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    self.nativeContentAd = nativeContentAd;
     ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeAdMob];
     nativeContentAd.delegate = self;
