@@ -1,6 +1,6 @@
 AdMob SDK Version 7.5.2 (as of 11/17/2015)
-Amazon SDK Version 2.2.11 (as of 11/17/2015)
 Facebook SDK Version 4.9.1 (as of 02/02/2016)
+Amazon SDK Version 2.2.13 (as of 02/02/2016)
 Millennial Media SDK Version 6.1.0 (as of 11/17/2015)
 MoPub SDK Version 4.1.0 (as of 11/17/2015)
 InMobi SDK Version 5.2.0 (as of 02/02/2016)
