@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */; };
 		8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FD19DB1E150090EBED /* ANAdFetcher+ANTest.m */; };
 		8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */; };
 		8A0AA45719DB2CB4005EC52C /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0119DB1E150090EBED /* ANAdWebViewController+ANTest.m */; };
@@ -547,6 +548,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adMob_mediated_response.json; sourceTree = "<group>"; };
 		8A0AA46319DB30A2005EC52C /* ANAdResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseTestCase.m; sourceTree = "<group>"; };
 		8A0AA46419DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdViewMRAIDCreativeTestCase.m; sourceTree = "<group>"; };
 		8A0AA46519DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewTransitionsTestCase.m; sourceTree = "<group>"; };
@@ -909,7 +911,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A16BC911C5AAA2A00D45D49 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1343,6 +1344,7 @@
 				EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */,
 				EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */,
 				EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */,
+				8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1866,6 +1868,7 @@
 				8AE7AD8A1A7AA606009E2F2F /* custom_adapter_to_standard_response.json in Resources */,
 				8AE7AD841A7AA5A7009E2F2F /* empty_response.json in Resources */,
 				8AE7AD7A1A7AA526009E2F2F /* custom_adapter_to_native_ad.json in Resources */,
+				8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */,
 				8AE7AD801A7AA56C009E2F2F /* mopub_mediated_response.json in Resources */,
 				8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */,
 				8AD052EF1A80461200EE0182 /* appnexus_multiple_trackers.json in Resources */,

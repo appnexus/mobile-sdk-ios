@@ -1,0 +1,28 @@
+{
+   "status":"ok",
+   "ads":[
+
+   ],
+   "mediated":[
+      {
+         "handler":[
+            {
+               "width":"",
+               "height":"",
+               "type":"ios",
+               "class":"ANAdAdapterNativeAdMob",
+               "id":"ca-app-pub-3940256099942544/3986624511"
+            },
+            {
+               "width":"320",
+               "height":"50",
+               "type":"android",
+               "class":"",
+               "id":""
+            }
+         ],
+         "init_cb":"",
+         "result_cb":""
+      }
+   ]
+}
