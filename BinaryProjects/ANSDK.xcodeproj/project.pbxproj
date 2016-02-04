@@ -11,6 +11,7 @@
 		8A0EFA8B1B4356F600196294 /* ANAdAdapterBaseYahoo.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A9687211B433A3300D9399B /* ANAdAdapterBaseYahoo.h */; };
 		8A0EFA8E1B4357E900196294 /* ANAdAdapterBannerYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA8D1B4357E900196294 /* ANAdAdapterBannerYahoo.m */; };
 		8A0EFA911B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA901B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m */; };
+		8A201BFD1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A201BFC1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m */; };
 		8A2F48241A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A2F48211A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A2F48251A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
 		8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
@@ -149,6 +150,8 @@
 		8AA5B4E31AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E01AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m */; };
 		8AA5B4E41AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E21AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m */; };
 		8AA5B4E71AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E61AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m */; };
+		8ABC03D51C5AD5FD00D7C789 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
+		8ABC03D61C5AD79800D7C789 /* ANAdAdapterNativeAdMob.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */; };
 		8AC65F4C1A40DE63006BCF39 /* ANMRAIDCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F381A40DE63006BCF39 /* ANMRAIDCalendarManager.m */; };
 		8AC65F4E1A40DE63006BCF39 /* ANMRAIDContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F3A1A40DE63006BCF39 /* ANMRAIDContainerView.m */; };
 		8AC65F501A40DE63006BCF39 /* ANMRAIDExpandProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F3C1A40DE63006BCF39 /* ANMRAIDExpandProperties.m */; };
@@ -477,6 +480,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				8ABC03D61C5AD79800D7C789 /* ANAdAdapterNativeAdMob.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -579,6 +583,8 @@
 		8A0EFA901B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialYahoo.m; sourceTree = "<group>"; };
 		8A1482481AD3371C0046F1B9 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdColony.framework; sourceTree = "<group>"; };
 		8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdColonyAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterNativeAdMob.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.h; sourceTree = "<group>"; };
+		8A201BFC1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeAdMob.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.m; sourceTree = "<group>"; };
 		8A2BD4001B66F6450000DB66 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MMAdSDK.framework; sourceTree = "<group>"; };
 		8A2F48211A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANOpenInExternalBrowserActivity.h; sourceTree = "<group>"; };
 		8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANOpenInExternalBrowserActivity.m; sourceTree = "<group>"; };
@@ -776,6 +782,8 @@
 		8AB8762E1A0994310022D9A5 /* ANNativeMediatedAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeMediatedAdResponse.m; sourceTree = "<group>"; };
 		8ABB76691A00385C00FEAD9D /* ANAdConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdConstants.h; sourceTree = "<group>"; };
 		8ABB766D1A004DBD00FEAD9D /* ANNativeAdStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdStarRating.h; path = native/ANNativeAdStarRating.h; sourceTree = "<group>"; };
+		8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANProxyViewController.h; sourceTree = "<group>"; };
+		8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANProxyViewController.m; sourceTree = "<group>"; };
 		8AC65F371A40DE63006BCF39 /* ANMRAIDCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDCalendarManager.h; sourceTree = "<group>"; };
 		8AC65F381A40DE63006BCF39 /* ANMRAIDCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDCalendarManager.m; sourceTree = "<group>"; };
 		8AC65F391A40DE63006BCF39 /* ANMRAIDContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDContainerView.h; sourceTree = "<group>"; };
@@ -1566,6 +1574,8 @@
 				8AD618C31981C11F00AC0780 /* ANPBBuffer.m */,
 				8AD618C41981C11F00AC0780 /* ANPBContainerView.h */,
 				8AD618C51981C11F00AC0780 /* ANPBContainerView.m */,
+				8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */,
+				8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */,
 				8AD618C61981C11F00AC0780 /* ANReachability.h */,
 				8AD618C71981C11F00AC0780 /* ANReachability.m */,
 				8AF5A87D1ACC60D50089C529 /* ANStandardAd.h */,
@@ -1686,6 +1696,8 @@
 				8AE2D7EC19CC891B00001B70 /* ANAdAdapterInterstitialAdMob.m */,
 				8AE2D7ED19CC891B00001B70 /* ANAdAdapterInterstitialDFP.h */,
 				8AE2D7EE19CC891B00001B70 /* ANAdAdapterInterstitialDFP.m */,
+				8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */,
+				8A201BFC1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m */,
 				8A4018181A95213200D56208 /* GoogleAdMobSDK */,
 			);
 			name = "Google AdMob";
@@ -2623,6 +2635,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A201BFD1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m in Sources */,
 				8AE2D7F019CC891B00001B70 /* ANAdAdapterBannerDFP.m in Sources */,
 				8AE2D7EF19CC891B00001B70 /* ANAdAdapterBannerAdMob.m in Sources */,
 				8A0AF2EF1B30946200E62975 /* ANAdAdapterBaseDFP.m in Sources */,
@@ -2719,6 +2732,7 @@
 				8AC7C5391A3B5CEF00AA5548 /* ANAdWebViewController.m in Sources */,
 				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
 				8AD618D81981C11F00AC0780 /* ANLogging.m in Sources */,
+				8ABC03D51C5AD5FD00D7C789 /* ANProxyViewController.m in Sources */,
 				8AD618CC1981C11F00AC0780 /* ANAdRequestUrl.m in Sources */,
 				8AD618DB1981C11F00AC0780 /* ANMediationAdViewController.m in Sources */,
 				8AD618D11981C11F00AC0780 /* ANBannerAdView.m in Sources */,

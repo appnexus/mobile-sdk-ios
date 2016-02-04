@@ -56,4 +56,54 @@
     return request;
 }
 
++ (ANAdResponseCode)responseCodeFromRequestError:(GADRequestError *)error {
+    ANAdResponseCode code = ANAdResponseInternalError;
+    
+    switch (error.code) {
+        case kGADErrorInvalidRequest:
+            code = ANAdResponseInvalidRequest;
+            break;
+        case kGADErrorNoFill:
+            code = ANAdResponseUnableToFill;
+            break;
+        case kGADErrorNetworkError:
+            code = ANAdResponseNetworkError;
+            break;
+        case kGADErrorServerError:
+            code = ANAdResponseNetworkError;
+            break;
+        case kGADErrorOSVersionTooLow:
+            code = ANAdResponseInternalError;
+            break;
+        case kGADErrorTimeout:
+            code = ANAdResponseNetworkError;
+            break;
+        case kGADErrorInterstitialAlreadyUsed:
+            code = ANAdResponseInternalError;
+            break;
+        case kGADErrorMediationDataError:
+            code = ANAdResponseInvalidRequest;
+            break;
+        case kGADErrorMediationAdapterError:
+            code = ANAdResponseInternalError;
+            break;
+        case kGADErrorMediationNoFill:
+            code = ANAdResponseUnableToFill;
+            break;
+        case kGADErrorMediationInvalidAdSize:
+            code = ANAdResponseInvalidRequest;
+            break;
+        case kGADErrorInternalError:
+            code = ANAdResponseInternalError;
+            break;
+        case kGADErrorInvalidArgument:
+            code = ANAdResponseInvalidRequest;
+            break;
+        default:
+            code = ANAdResponseInternalError;
+            break;
+    }
+    return code;
+}
+
 @end

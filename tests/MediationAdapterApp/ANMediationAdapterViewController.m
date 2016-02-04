@@ -26,6 +26,10 @@
 #import "ANNativeAdView.h"
 #import "ANNativeAdColonyView.h"
 #import "ANAdAdapterBaseYahoo.h"
+#import "ANGADNativeAppInstallAdView.h"
+#import "ANGADNativeContentAdView.h"
+#import "ANAdAdapterNativeAdMob.h"
+#import "UIView+ANCategory.h"
 
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ANNativeAdRequestDelegate, ANNativeAdDelegate>
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
@@ -36,12 +40,15 @@
 @property (nonatomic) ANNativeAdResponse *nativeAdResponse;
 @property (nonatomic) ANNativeAdView *nativeAdView;
 @property (nonatomic) ANNativeAdColonyView *adColonyView;
+@property (nonatomic) ANGADNativeAppInstallAdView *gadInstallView;
+@property (nonatomic) ANGADNativeContentAdView *gadContentView;
 @end
 
 @implementation ANMediationAdapterViewController
 
 + (NSArray *)networks {
-    return @[@"YahooNative",
+    return @[@"AdMobNative",
+             @"YahooNative",
              @"YahooBanner",
              @"YahooInterstitial",
              @"VdopiaBanner",
@@ -115,6 +122,12 @@
     [self.nativeAdView removeFromSuperview];
     self.nativeAdView = nil;
     self.nativeAdResponse = nil;
+    [self.adColonyView removeFromSuperview];
+    [self.gadInstallView removeFromSuperview];
+    [self.gadContentView removeFromSuperview];
+    self.gadContentView = nil;
+    self.adColonyView = nil;
+    self.gadInstallView = nil;
 }
 
 #pragma mark - Facebook
@@ -321,6 +334,16 @@
     return [self interstitialWithDelegate:delegate];
 }
 
+- (ANNativeAdRequest *)loadAdMobNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
+    [self stubAdMobNative];
+    [ANAdAdapterNativeAdMob enableNativeAppInstallAds];
+    [ANAdAdapterNativeAdMob enableNativeContentAds];
+    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
+    nativeAdRequest.shouldLoadIconImage = YES;
+    nativeAdRequest.shouldLoadMainImage = YES;
+    return nativeAdRequest;
+}
+
 - (void)stubAdMobBanner {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterBannerAdMob";
@@ -334,6 +357,13 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialAdMob";
     mediatedAd.adId = @"ca-app-pub-8961681709559022/1180736194";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubAdMobNative {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterNativeAdMob";
+    mediatedAd.adId = @"ca-app-pub-3940256099942544/3986624511";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -663,25 +693,81 @@
 #pragma mark - Native
 
 - (void)createMainImageNativeView {
-    if (self.nativeAdResponse.networkCode == ANNativeAdNetworkCodeAdColony) {
-        AdColonyNativeAdView *videoView = (AdColonyNativeAdView *)self.nativeAdResponse.customElements[kANAdAdapterNativeAdColonyVideoView];
-        self.adColonyView = [[ANNativeAdColonyView alloc] initWithNativeAdView:videoView
-                                                                         frame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 480)];
-    } else {
-        UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage" bundle:[NSBundle bundleForClass:[self class]]];
-        NSArray *array = [adNib instantiateWithOwner:self options:nil];
-        self.nativeAdView = [array firstObject];
+    switch (self.nativeAdResponse.networkCode) {
+        case ANNativeAdNetworkCodeAdColony: {
+            AdColonyNativeAdView *videoView = (AdColonyNativeAdView *)self.nativeAdResponse.customElements[kANAdAdapterNativeAdColonyVideoView];
+            self.adColonyView = [[ANNativeAdColonyView alloc] initWithNativeAdView:videoView
+                                                                             frame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 480)];
+            return;
+        }
+        case ANNativeAdNetworkCodeAdMob: {
+            UINib *adNib;
+            ANAdAdapterNativeAdMobAdType type = [self.nativeAdResponse.customElements[kANAdAdapterNativeAdMobAdTypeKey] integerValue];
+            switch (type) {
+                case ANAdAdapterNativeAdMobAdTypeInstall: {
+                    adNib = [UINib nibWithNibName:@"ANGADNativeAppInstallAdView"
+                                           bundle:[NSBundle bundleForClass:[self class]]];
+                    NSArray *array = [adNib instantiateWithOwner:self
+                                                         options:nil];
+                    self.gadInstallView = [array firstObject];
+                    break;
+                }
+                case ANAdAdapterNativeAdMobAdTypeContent: {
+                    adNib = [UINib nibWithNibName:@"ANGADNativeContentAdView"
+                                           bundle:[NSBundle bundleForClass:[self class]]];
+                    NSArray *array = [adNib instantiateWithOwner:self
+                                                         options:nil];
+                    self.gadContentView = [array firstObject];
+                    break;
+                }
+                default:
+                    break;
+            }
+            return;
+        }
+        default: {
+            UINib *adNib = [UINib nibWithNibName:@"ANNativeAdViewMainImage"
+                                          bundle:[NSBundle bundleForClass:[self class]]];
+            NSArray *array = [adNib instantiateWithOwner:self
+                                                 options:nil];
+            self.nativeAdView = [array firstObject];
+            return;
+        }
     }
 }
 
 - (void)populateNativeViewWithResponse {
-    ANNativeAdView *nativeAdView = self.nativeAdView;
-    if (self.nativeAdResponse.networkCode != ANNativeAdNetworkCodeAdColony) {
-        nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
-        nativeAdView.titleLabel.text = self.nativeAdResponse.title;
-        nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
-        nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
-        [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction forState:UIControlStateNormal];
+    switch (self.nativeAdResponse.networkCode) {
+        case ANNativeAdNetworkCodeAdColony:
+            return;
+        case ANNativeAdNetworkCodeAdMob: {
+            if (self.gadInstallView) {
+                ((UIImageView *)self.gadInstallView.iconView).image = self.nativeAdResponse.iconImage;
+                ((UIImageView *)self.gadInstallView.imageView).image = self.nativeAdResponse.mainImage;
+                ((UILabel *)self.gadInstallView.headlineView).text = self.nativeAdResponse.title;
+                ((UILabel *)self.gadInstallView.bodyView).text = self.nativeAdResponse.body;
+                [((UIButton *)self.gadInstallView.callToActionView) setTitle:self.nativeAdResponse.callToAction
+                                                                    forState:UIControlStateNormal];
+            } else if (self.gadContentView) {
+                ((UIImageView *)self.gadContentView.logoView).image = self.nativeAdResponse.iconImage;
+                ((UIImageView *)self.gadContentView.imageView).image = self.nativeAdResponse.mainImage;
+                ((UILabel *)self.gadContentView.headlineView).text = self.nativeAdResponse.title;
+                ((UILabel *)self.gadContentView.bodyView).text = self.nativeAdResponse.body;
+                [((UIButton *)self.gadContentView.callToActionView) setTitle:self.nativeAdResponse.callToAction
+                                                                    forState:UIControlStateNormal];
+            }
+            return;
+        }
+        default: {
+            ANNativeAdView *nativeAdView = self.nativeAdView;
+            nativeAdView.iconImageView.image = self.nativeAdResponse.iconImage;
+            nativeAdView.titleLabel.text = self.nativeAdResponse.title;
+            nativeAdView.bodyLabel.text = self.nativeAdResponse.body;
+            nativeAdView.mainImageView.image = self.nativeAdResponse.mainImage;
+            [nativeAdView.callToActionButton setTitle:self.nativeAdResponse.callToAction
+                                             forState:UIControlStateNormal];
+            return;
+        }
     }
 }
 
@@ -689,26 +775,65 @@
     NSError *registerError;
     UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
     self.nativeAdResponse.delegate = self;
-    if (self.nativeAdResponse.networkCode == ANNativeAdNetworkCodeAdColony) {
-        [self.nativeAdResponse registerViewForTracking:self.adColonyView
-                                withRootViewController:rvc
-                                        clickableViews:nil
-                                                 error:&registerError];
-    } else {
-        [self.nativeAdResponse registerViewForTracking:self.nativeAdView
-                                withRootViewController:rvc
-                                        clickableViews:@[self.nativeAdView.callToActionButton]
-                                                 error:&registerError];
+    switch (self.nativeAdResponse.networkCode) {
+        case ANNativeAdNetworkCodeAdColony:
+            [self.nativeAdResponse registerViewForTracking:self.adColonyView
+                                    withRootViewController:rvc
+                                            clickableViews:nil
+                                                     error:&registerError];
+            return;
+        case ANNativeAdNetworkCodeAdMob:
+            if (self.gadInstallView) {
+                [self.nativeAdResponse registerViewForTracking:self.gadInstallView
+                                        withRootViewController:rvc
+                                                clickableViews:nil
+                                                         error:&registerError];
+            } else if (self.gadContentView) {
+                [self.nativeAdResponse registerViewForTracking:self.gadContentView
+                                        withRootViewController:rvc
+                                                clickableViews:nil
+                                                         error:&registerError];
+            }
+            return;
+        default:
+            [self.nativeAdResponse registerViewForTracking:self.nativeAdView
+                                    withRootViewController:rvc
+                                            clickableViews:@[self.nativeAdView.callToActionButton]
+                                                     error:&registerError];
+            return;
     }
 }
 
 - (void)addNativeViewToViewHierarchy {
-    if (self.nativeAdResponse.networkCode == ANNativeAdNetworkCodeAdColony) {
-        CGSize fittingSize = [self.adColonyView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-        self.adColonyView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), fittingSize.height);
-        [self.view addSubview:self.adColonyView];
-    } else {
-        [self.view addSubview:self.nativeAdView];
+    switch (self.nativeAdResponse.networkCode) {
+        case ANNativeAdNetworkCodeAdColony: {
+            CGSize fittingSize = [self.adColonyView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            self.adColonyView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), fittingSize.height);
+            [self.view addSubview:self.adColonyView];
+            return;
+        }
+        case ANNativeAdNetworkCodeAdMob: {
+            UIView *nativeAdView;
+            if (self.gadInstallView) {
+                nativeAdView = self.gadInstallView;
+            } else if (self.gadContentView) {
+                nativeAdView = self.gadContentView;
+            }
+            nativeAdView.translatesAutoresizingMaskIntoConstraints = NO;
+            [nativeAdView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[nativeAdView(==320)]"
+                                                                                 options:kNilOptions
+                                                                                 metrics:nil
+                                                                                   views:@{@"nativeAdView":nativeAdView}]];
+            CGSize fittingSize = [nativeAdView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+            [nativeAdView an_constrainWithSize:fittingSize];
+            [self.view addSubview:nativeAdView];
+            [nativeAdView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                                 yAttribute:NSLayoutAttributeTop];
+            return;
+        }
+        default:
+            [self.view addSubview:self.nativeAdView];
+            return;
     }
 }
 
