@@ -90,6 +90,7 @@ FB_CLASS_EXPORT
                          adChoicesIcon:(FBAdImage *)adChoicesIcon
                       adChoicesLinkURL:(NSURL *)adChoicesLinkURL
                             attributes:(nullable FBNativeAdViewAttributes *)attributes;
+
 /*!
  @method
 
@@ -105,6 +106,26 @@ FB_CLASS_EXPORT
 - (instancetype)initWithViewController:(UIViewController *)viewController
                          adChoicesIcon:(FBAdImage *)adChoicesIcon
                       adChoicesLinkURL:(NSURL *)adChoicesLinkURL
+                            attributes:(nullable FBNativeAdViewAttributes *)attributes
+                            expandable:(BOOL)expandable;
+
+/*!
+ @method
+
+ @abstract
+ Initialize this view with explicit parameters.
+
+ @param viewController View controller to present the AdChoices webview from.
+ @param adChoicesIcon Native ad AdChoices icon.
+ @param adChoicesLinkURL Native ad AdChoices link URL.
+ @param adChoicesText Native ad AdChoices label.
+ @param attributes Attributes to configure look and feel.
+ @param expandable Controls whether view defaults to expanded or not, see property documentation
+ */
+- (instancetype)initWithViewController:(UIViewController *)viewController
+                         adChoicesIcon:(FBAdImage *)adChoicesIcon
+                      adChoicesLinkURL:(NSURL *)adChoicesLinkURL
+                         adChoicesText:(nullable NSString*)adChoicesText
                             attributes:(nullable FBNativeAdViewAttributes *)attributes
                             expandable:(BOOL)expandable NS_DESIGNATED_INITIALIZER;
 /*!

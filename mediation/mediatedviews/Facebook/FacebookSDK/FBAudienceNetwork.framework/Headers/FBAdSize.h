@@ -61,11 +61,4 @@ FB_EXPORT FBAdSize const kFBAdSizeInterstital;
  */
 FB_EXPORT FBAdSize const kFBAdSizeHeight250Rectangle;
 
-FB_CLASS_EXPORT
-@interface FBAdCustomSize : NSObject
-
-+ (FBAdSize)customSize:(CGSize)size;
-
-@end
-
 NS_ASSUME_NONNULL_END

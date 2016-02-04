@@ -37,7 +37,7 @@ FB_CLASS_EXPORT
 
 /*!
  @property
- @abstract Maximum native ads that this scroll view will load. Defaults to 5. If changed after calling loadAds, all current ads will be discarded and loadAds must be called again.
+ @abstract Maximum native ads that this scroll view will load. Defaults to 10. If changed after calling loadAds, all current ads will be discarded and loadAds must be called again.
  */
 @property (nonatomic, assign, readonly) NSUInteger maximumNativeAdCount;
 
