@@ -1,6 +1,57 @@
 iOS Change Log
 ==============
 
+Version 6.2.1 *(2016-01-18)*
+----------------------------
+Variation of 6.2.0 for developers needing to build on older versions of xcode. This SDK version does not have bitcode support.
+
+
+Version 6.2.0 *(2016-01-18)*
+----------------------------
+Features:
+
+- New method 'getSDKVersion' returns the current version of the Chartboost SDK. 
+- New method 'setDelegate' changes the Chartboost delegate object. 
+- New method 'setAutoIAPTracking' replaces the need to call trackInAppPurchaseEvent. If enabled, Chartboost will listen for purchase events. 
+
+Improvements:
+
+- Added imports to Foundation and UIKit in Chartboost.h. 
+
+Fixes:
+
+- Improved SDK stability when running with Address Sanitizer. 
+- Blank ads no longer appear if the device is rotated into an unsupported orientation. 
+- Fixed rare issue where MoreApps or a blank screen would sometimes be displayed when attempting to show an interstitial ad. 
+
+
+Version 6.1.2 *(2015-11-20)*
+----------------------------
+
+Fixes:
+- Fixed a crash on startup due to CoreData not being able to initialize. Happened most frequent if device was out of memory. 
+
+
+Version 6.1.1 *(2015-11-12)*
+----------------------------
+Variation of 6.1.0 for developers needing to build on older versions of xcode. This SDK version does not have bitcode support.
+
+
+Version 6.1.0 *(2015-11-12)*
+----------------------------
+
+Improvements:
+
+- Added support for iOS9 split screen mode. 
+
+- Added didInitialize delegate that is called when Chartboost has been initialized. Replaces didPrefetchVideo. 
+
+Fixes:
+
+- Fixed a rare crash when reopening the application when an ad was just displayed. 
+- The delegate didPrefetchVideo is only called once. 
+
+
 Version 6.0.1 *(2015-10-13)*
 ----------------------------
 
@@ -28,6 +79,13 @@ Improvements:
 
 - setMediation now uses enumerated constants for partners. 
 
+Version 5.5.5 *(2015-09-23)*
+----------------------------
+
+Fixes:
+- Fixed a z-order issue with Unity version 5.1.1+. 
+- setMediation now uses enumerated constants for partners. 
+- Reworked delegates to run on main thread. 
 
 Version 5.5.4 *(2015-09-01)*
 ----------------------------
@@ -195,7 +253,7 @@ Fixes:
 
 Improvements:
 
-- Better inplay caching  
+- Better inplay caching
 - Added orientation information to api-click, and video-complete calls. Allows for better analytics 
 - Remove hardcoded affiliate token. Now pulled from the server 
 - Added example usage of isAnyViewVisible: delegate method into the sample project 
@@ -420,12 +478,12 @@ Version 3.3.1 *(2013-10-29)*
 Version 3.3.0 *(2013-10-17)*
 ----------------------------
 
-- Fully compatible with iOS 7 64-bit-only projects. Maintains support for 32-bit projects and iOS 5.1+ devices. 
+- Fully compatible with iOS 7 64-bit-only projects. Maintains support for 32-bit projects and iOS 5.1+ devices.
 
 Version 3.2.2 *(2013-10-08)*
 ----------------------------
 
-- Added a new public method (`dismissChartboostView`) to dismiss an interstitial or More Apps view programmatically 
+- Added a new public method (`dismissChartboostView`) to dismiss an interstitial or More Apps view programmatically
 - Fixed a bug causing indefinite loading after More Apps page clicks while in Airplane Mode
 - Fixed a crash bug that would occur if the SDK received corrupt image data
 - Fixed bug affecting display of More Apps button labels on iOS 7 devices
@@ -486,7 +544,7 @@ identifierForAdvertising**
 - Fixed shouldRequestInterstitialsInFirstSession delegate method; now requests
   interstitials only after 2nd startSession call
 - Internal API upgrades
- 
+
 Version 3.0.6 *(2012-09-13)*
 ----------------------------
 
@@ -535,7 +593,7 @@ Version 3.0.0 *(2012-07-02)*
     - Requirement: rename ChartBoost class to Chartboost (lowercase b, no
       camelCase) Feeling hardcore? Run this bash command in your project
       directory to update camelcase ChartBoost in all your files:
-      
+
       ```bash
       for ext in '*.m' '*.h' '*.c' '*.mm'; do find . -name "$ext" -exec sed -i '' 's/ChartBoost/Chartboost/g' '{}' \; ; done
       ```
