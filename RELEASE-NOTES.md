@@ -1,3 +1,37 @@
+## RC 2.9
+
+### New Features
+
++ MS-2031 AdMob Native Mediation
+
+### Bug Fixes
+
++ Improved behavior for ANJAM window listener
+
+### MS-1913 Contains the following mediated SDKs:
+
++ AdMob SDK Version 7.6.0
+
++ Facebook SDK Version 4.9.1
+
++ Amazon SDK Version 2.2.13
+
++ Millennial Media SDK Version 6.1
+
++ MoPub SDK Version 4.1.0
+
++ InMobi SDK Version 5.2.0 
+
++ VDOPIA Lightweight SDK Version 4
+
++ Vungle SDK 3.2.0
+
++ AdColony SDK 2.6.1
+
++ Chartboost SDK 6.2.1
+
++ Yahoo Flurry SDK 7.3.0
+
 ## RC 2.8
 
 ### New Features
