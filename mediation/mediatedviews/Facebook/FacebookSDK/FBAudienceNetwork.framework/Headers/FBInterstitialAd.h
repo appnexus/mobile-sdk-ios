@@ -88,7 +88,7 @@ FB_CLASS_EXPORT
  @discussion You can implement `interstitialAdDidClick:`, `interstitialAdWillClose:` and `interstitialAdWillClose`
  methods of `FBInterstitialAdDelegate` if you would like to stay informed for thoses events
  */
-- (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController;
+- (BOOL)showAdFromRootViewController:(nullable UIViewController *)rootViewController;
 
 @end
 

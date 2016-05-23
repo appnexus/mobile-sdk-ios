@@ -36,12 +36,6 @@
 #define FB_CLASS_EXPORT __attribute__((visibility("default")))
 #define FB_DEPRECATED __attribute__((deprecated))
 
-#if __has_attribute(objc_boxable)
-#define FB_OBJC_BOXABLE __attribute__((objc_boxable))
-#else
-#define FB_OBJC_BOXABLE
-#endif
-
 #if __has_feature(objc_generics)
 #define FB_NSArrayOf(x) NSArray<x>
 #define FB_NSMutableArrayOf(x) NSMutableArray<x>
@@ -71,5 +65,7 @@
 #else
 #define FBInterfaceOrientationMask NSUInteger
 #endif
+
+#define FB_ALIAS __attribute__((weak, weakref, alias ("kFBAdSizeInterstital")))
 
 #endif
