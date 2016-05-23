@@ -12,6 +12,13 @@
 @protocol MPNativeAdRendererSettings;
 @class MPNativeAdRendererConfiguration;
 
+/**
+ *  Provide an implementation of this handler for your renderer settings.
+ *
+ *  @param maximumWidth Max width of the ad expected to be rendered as.
+ *
+ *  @return Size of the view as rendered given the maximum width desired.
+ */
 typedef CGSize (^MPNativeViewSizeHandler)(CGFloat maximumWidth);
 
 /**

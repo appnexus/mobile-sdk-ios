@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class MPRewardedVideoReward;
+@class CLLocation;
 @protocol MPRewardedVideoDelegate;
 
 /**
@@ -36,6 +37,23 @@
 + (void)loadRewardedVideoAdWithAdUnitID:(NSString *)adUnitID withMediationSettings:(NSArray *)mediationSettings;
 
 /**
+ * Loads a rewarded video ad for the given ad unit ID.
+ *
+ * The mediation settings array should contain ad network specific objects for networks that may be loaded for the given ad unit ID.
+ * You should set the properties on these objects to determine how the underlying ad network should behave. You only need to supply
+ * objects for the networks you wish to configure. If you do not want your network to behave differently from its default behavior, do
+ * not pass in an mediation settings object for that network.
+ *
+ * @param adUnitID The ad unit ID that ads should be loaded from.
+ * @param keywords A string representing a set of keywords that should be passed to the MoPub ad server to receive
+ * more relevant advertising.
+  *@param location Latitude/Longitude that are passed to the MoPub ad server
+ * @param mediationSettings An array of mediation settings objects that map to networks that may show ads for the ad unit ID. This array
+ * should only contain objects for networks you wish to configure. This can be nil.
+ */
++ (void)loadRewardedVideoAdWithAdUnitID:(NSString *)adUnitID keywords:(NSString *)keywords location:(CLLocation *)location mediationSettings:(NSArray *)mediationSettings;
+
+/**
  * Returns whether or not an ad is available for the given ad unit ID.
  *
  * @param adUnitID The ad unit ID associated with the ad you want to retrieve the availability for.
@@ -48,7 +66,7 @@
  * @param adUnitID The ad unit ID associated with the video ad you wish to play.
  * @param viewController The view controller that will present the rewarded video ad.
  *
- * @warning **Important**: You should not attempt to play the rewarded video unless `+hasAdAvailableForAdUnitID:` indicates that an 
+ * @warning **Important**: You should not attempt to play the rewarded video unless `+hasAdAvailableForAdUnitID:` indicates that an
  * ad is available for playing or you have received the `[-rewardedVideoAdDidLoadForAdUnitID:]([MPRewardedVideoDelegate rewardedVideoAdDidLoadForAdUnitID:])`
  * message.
  */
