@@ -1,6 +1,59 @@
 iOS Change Log
 ==============
 
+Version 6.4.4 *(2016-05-4)*
+----------------------------
+- With this SDK we will begin rolling out a brand new Chartboost Video experience, tailored specially for games. Upgrade now!
+- We've also improved key features like video caching, memory management, and data usage for optimal SDK performance.
+- Various Bug Fixes
+
+Version 6.4.3 *(2016-03-31)*
+----------------------------
+- With this SDK we will begin rolling out a brand new Chartboost Video experience, tailored specially for games. Upgrade now!
+- We've also improved key features like video caching, memory management, and data usage for optimal SDK performance.
+- Various Bug Fixes
+- This version is a variation of SDK version 6.4.0 for developers who need to build on older versions of Xcode. This SDK version does not have bitcode support.
+
+Version 6.4.2 *(2016-03-31)*
+----------------------------
+- With this SDK we will begin rolling out a brand new Chartboost Video experience, tailored specially for games. Upgrade now!
+- We've also improved key features like video caching, memory management, and data usage for optimal SDK performance.
+- Various Bug Fixes
+
+Version 6.4.1 *(2016-03-14)*
+----------------------------
+- With this SDK we will begin rolling out a brand new Chartboost Video experience, tailored specially for games. Upgrade now!
+- We've also improved key features like video caching, memory management, and data usage for optimal SDK performance.
+- This version is a variation of SDK version 6.4.0 for developers who need to build on older versions of Xcode. This SDK version does not have bitcode support.
+
+Version 6.4.0 *(2016-03-14)*
+----------------------------
+- With this SDK we will begin rolling out a brand new Chartboost Video experience, tailored specially for games. Upgrade now!
+- We've also improved key features like video caching, memory management, and data usage for optimal SDK performance.
+
+*Features & Improvements:*
+- Calls to 'cacheInterstitial' and 'cacheRewarded' have been optimized to require less memory.
+- Interstitials will now fail gracefully instead of showing with missing assets.
+- Added a retry mechanism for downloading failed assets.
+- Closing the "loading" view has moved to the main thread.
+
+*Fixes:*
+- Updated documentation to use 'hasInterstitial' instead of 'hasCachedInterstitial.'
+
+Version 6.3.1 *(2016-02-08)*
+------------------------------
+- Upgrade now to enable Chartboost's behind-the-scenes video optimization.
+- This version is a variation of SDK version 6.3.0 for developers who need to build on older versions of Xcode. This SDK version does not have bitcode support.
+
+
+Version 6.3.0 *(2016-02-08)*
+------------------------------
+- Upgrade now to enable Chartboost's behind-the-scenes video optimization.
+
+*Improvements:*
+- Certain network request failures no longer cause a crash.
+
+
 Version 6.2.1 *(2016-01-18)*
 ----------------------------
 Variation of 6.2.0 for developers needing to build on older versions of xcode. This SDK version does not have bitcode support.
@@ -12,7 +65,7 @@ Features:
 
 - New method 'getSDKVersion' returns the current version of the Chartboost SDK. 
 - New method 'setDelegate' changes the Chartboost delegate object. 
-- New method 'setAutoIAPTracking' replaces the need to call trackInAppPurchaseEvent. If enabled, Chartboost will listen for purchase events. 
+- New method 'setAutoIAPTracking' replaces the need to call trackInAppPurchaseEvent. If enabled, Chartboost will listen for purchase events 
 
 Improvements:
 
@@ -20,9 +73,9 @@ Improvements:
 
 Fixes:
 
-- Improved SDK stability when running with Address Sanitizer. 
-- Blank ads no longer appear if the device is rotated into an unsupported orientation. 
-- Fixed rare issue where MoreApps or a blank screen would sometimes be displayed when attempting to show an interstitial ad. 
+- Fixed a crash when running with Address Sanitizer. 
+- Fixed an issue with a blank ad appearing if the device was rotated into an unsupported orientation. 
+- Fixed an issue where MoreApps or a blank screen would sometimes be displayed when attempting to show an interstitial ad. 
 
 
 Version 6.1.2 *(2015-11-20)*
