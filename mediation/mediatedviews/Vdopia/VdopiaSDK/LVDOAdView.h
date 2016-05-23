@@ -6,14 +6,20 @@
 //
 //
 
+
+enum LVDOInvocationType
+{
+    LVDOInvocationDirect = 0,
+    LVDOInvocationDFPMediation
+};
+
 enum viewPosition
 {
     topBanner=0,
     middleBanner,
-    bottomBanner
-    
+    bottomBanner,
+    fullScreenBanner
 };
-
 
 #import <UIKit/UIKit.h>
 #import "LVDOAdRequest.h"
@@ -36,7 +42,13 @@ enum viewPosition
     float tabFactor;
     BOOL isExpanded;
     CGSize originalSize;
-
+    int invocationType;
+    BOOL isDisplayShownForAd;
+    
+    
+    NSArray *uiviewArr;
+    UIScrollView *scView;
+    UITableView *tbView;
 }
 
 /** @name Initializing a Banner Ad */
@@ -66,6 +78,8 @@ enum viewPosition
  */
 @property (nonatomic, assign) id<LVDOAdViewDelegate> delegate;
 @property(nonatomic,assign)int bannerPosition;
+@property(nonatomic,assign)int invocationType;
+
 /** @name Setting Request Parameters */
 
 /**
