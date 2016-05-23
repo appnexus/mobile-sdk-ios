@@ -683,6 +683,13 @@
 		8A4EF42B1CF39E71002C2DF1 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		8A4EF42C1CF39E71002C2DF1 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		8A4EF4561CF39F29002C2DF1 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MPAdBrowserController.xib; sourceTree = "<group>"; };
+		8A4EF4581CF3B1CA002C2DF1 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
+		8A4EF4591CF3B1CA002C2DF1 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
+		8A4EF45A1CF3B1CA002C2DF1 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
+		8A4EF45B1CF3B1CA002C2DF1 /* vg_mute_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_off.png; sourceTree = "<group>"; };
+		8A4EF45C1CF3B1CA002C2DF1 /* vg_mute_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_on.png; sourceTree = "<group>"; };
+		8A4EF45D1CF3B1CA002C2DF1 /* vg_privacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_privacy.png; sourceTree = "<group>"; };
+		8A4EF45E1CF3B1CA002C2DF1 /* VungleSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VungleSDK.framework; sourceTree = "<group>"; };
 		8A4FF3A01A2F72D00000E4CC /* compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@2x.png"; sourceTree = "<group>"; };
 		8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_left@3x.png"; sourceTree = "<group>"; };
 		8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_left@2x.png"; sourceTree = "<group>"; };
@@ -856,13 +863,6 @@
 		8AD7C4DA1AD2FB430049C997 /* ANAdAdapterInterstitialVungle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialVungle.m; sourceTree = "<group>"; };
 		8AD7C4DC1AD2FF070049C997 /* ANAdAdapterBaseVungle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseVungle.h; sourceTree = "<group>"; };
 		8AD7C4DD1AD2FF070049C997 /* ANAdAdapterBaseVungle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseVungle.m; sourceTree = "<group>"; };
-		8AD7C4EE1AD325150049C997 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
-		8AD7C4EF1AD325150049C997 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
-		8AD7C4F01AD325150049C997 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
-		8AD7C4F11AD325150049C997 /* vg_mute_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_off.png; sourceTree = "<group>"; };
-		8AD7C4F21AD325150049C997 /* vg_mute_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_on.png; sourceTree = "<group>"; };
-		8AD7C4F31AD325150049C997 /* vg_timer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_timer.png; sourceTree = "<group>"; };
-		8AD7C4F41AD325150049C997 /* VungleSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VungleSDK.framework; sourceTree = "<group>"; };
 		8AE2D6D119CC874B00001B70 /* libANSDKGoogleAdMobAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKGoogleAdMobAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE2D70219CC878300001B70 /* libANSDKiAdAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKiAdAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE2D73319CC879900001B70 /* libANSDKMillennialMediaAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKMillennialMediaAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1257,6 +1257,19 @@
 			path = MoPubSDK;
 			sourceTree = "<group>";
 		};
+		8A4EF4571CF3B1CA002C2DF1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8A4EF4581CF3B1CA002C2DF1 /* __vungle.db */,
+				8A4EF4591CF3B1CA002C2DF1 /* vg_close.png */,
+				8A4EF45A1CF3B1CA002C2DF1 /* vg_cta.png */,
+				8A4EF45B1CF3B1CA002C2DF1 /* vg_mute_off.png */,
+				8A4EF45C1CF3B1CA002C2DF1 /* vg_mute_on.png */,
+				8A4EF45D1CF3B1CA002C2DF1 /* vg_privacy.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8A944DDD19D5AF8C007AAAB0 /* AmazonSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1602,31 +1615,10 @@
 		8AD7C4C61AD2FA0E0049C997 /* VungleSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8AD7C4EC1AD325150049C997 /* VungleSDK.embeddedframework */,
+				8A4EF4571CF3B1CA002C2DF1 /* Resources */,
+				8A4EF45E1CF3B1CA002C2DF1 /* VungleSDK.framework */,
 			);
 			path = VungleSDK;
-			sourceTree = "<group>";
-		};
-		8AD7C4EC1AD325150049C997 /* VungleSDK.embeddedframework */ = {
-			isa = PBXGroup;
-			children = (
-				8AD7C4ED1AD325150049C997 /* Resources */,
-				8AD7C4F41AD325150049C997 /* VungleSDK.framework */,
-			);
-			path = VungleSDK.embeddedframework;
-			sourceTree = "<group>";
-		};
-		8AD7C4ED1AD325150049C997 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8AD7C4EE1AD325150049C997 /* __vungle.db */,
-				8AD7C4EF1AD325150049C997 /* vg_close.png */,
-				8AD7C4F01AD325150049C997 /* vg_cta.png */,
-				8AD7C4F11AD325150049C997 /* vg_mute_off.png */,
-				8AD7C4F21AD325150049C997 /* vg_mute_on.png */,
-				8AD7C4F31AD325150049C997 /* vg_timer.png */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		8AE2D6A019CC871800001B70 /* Facebook Audience Network */ = {
