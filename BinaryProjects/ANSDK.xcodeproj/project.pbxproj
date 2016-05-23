@@ -617,6 +617,7 @@
 		8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKVdopiaAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4B96BA1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseVdopia.h; sourceTree = "<group>"; };
 		8A4B96BB1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseVdopia.m; sourceTree = "<group>"; };
+		8A4EF0C91CF3854E002C2DF1 /* libInMobi-5.3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-5.3.1.a"; sourceTree = "<group>"; };
 		8A4FF3A01A2F72D00000E4CC /* compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@2x.png"; sourceTree = "<group>"; };
 		8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_left@3x.png"; sourceTree = "<group>"; };
 		8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_left@2x.png"; sourceTree = "<group>"; };
@@ -705,7 +706,6 @@
 		8A893F121BFBD713007AC313 /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		8A893F131BFBD713007AC313 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		8A893F141BFBD713007AC313 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
-		8A893F4A1BFBDEB0007AC313 /* libInMobi-5.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-5.0.2.a"; sourceTree = "<group>"; };
 		8A8DEF891AD58EC900742AD7 /* ANAdAdapterBaseAdColony+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAdColony+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdColony.h; sourceTree = "<group>"; };
 		8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdColony.m; sourceTree = "<group>"; };
@@ -1785,7 +1785,7 @@
 				8AE87A051BDAD044001053D2 /* IMNativeDelegate.h */,
 				8AE87A061BDAD044001053D2 /* IMRequestStatus.h */,
 				8AE87A071BDAD044001053D2 /* IMSdk.h */,
-				8A893F4A1BFBDEB0007AC313 /* libInMobi-5.0.2.a */,
+				8A4EF0C91CF3854E002C2DF1 /* libInMobi-5.3.1.a */,
 			);
 			path = InMobiSDK;
 			sourceTree = "<group>";
@@ -3462,6 +3462,7 @@
 				DSTROOT = /tmp/ANSDK.dst;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
 				PRODUCT_NAME = ANSDK;

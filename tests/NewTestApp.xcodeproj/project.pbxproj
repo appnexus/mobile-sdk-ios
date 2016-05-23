@@ -59,6 +59,8 @@
 		8A4B96D61ACDEE6300FFEB2A /* mraid.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B96D21ACDEE6300FFEB2A /* mraid.txt */; };
 		8A4B96D71ACDEE6300FFEB2A /* vdopiaCrossButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4B96D31ACDEE6300FFEB2A /* vdopiaCrossButton.png */; };
 		8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */; };
+		8A4EF0D81CF3856D002C2DF1 /* libInMobi-5.3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */; };
+		8A4EF0DB1CF3880B002C2DF1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4EF0D91CF38790002C2DF1 /* libc++.tbd */; };
 		8A549EAE1A706BC7009F797A /* ANNativeAdRequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */; };
 		8A549EB01A706BFE009F797A /* ANAdServerResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A549EAF1A706BFE009F797A /* ANAdServerResponseTestCase.m */; };
 		8A549EB21A706C65009F797A /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
@@ -251,7 +253,6 @@
 		EF532BAA1C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */; };
 		EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */; };
 		EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */; };
-		EFBD0D981C60E5D8007483EA /* libInMobi-5.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFBD0D971C60E5D8007483EA /* libInMobi-5.2.0.a */; };
 		F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */; };
 		F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */; };
 		F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */; };
@@ -622,6 +623,8 @@
 		8A4B96D11ACDEE6300FFEB2A /* close_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = close_button_pressed.png; path = ../mediation/mediatedviews/Vdopia/VdopiaSDK/close_button_pressed.png; sourceTree = "<group>"; };
 		8A4B96D21ACDEE6300FFEB2A /* mraid.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mraid.txt; path = ../mediation/mediatedviews/Vdopia/VdopiaSDK/mraid.txt; sourceTree = "<group>"; };
 		8A4B96D31ACDEE6300FFEB2A /* vdopiaCrossButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vdopiaCrossButton.png; path = ../mediation/mediatedviews/Vdopia/VdopiaSDK/vdopiaCrossButton.png; sourceTree = "<group>"; };
+		8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libInMobi-5.3.1.a"; path = "../mediation/mediatedviews/InMobi/InMobiSDK/libInMobi-5.3.1.a"; sourceTree = "<group>"; };
+		8A4EF0D91CF38790002C2DF1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8A549E991A706BA6009F797A /* NativeUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A549E9C1A706BA6009F797A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdRequestTestCase.m; sourceTree = "<group>"; };
@@ -837,7 +840,6 @@
 		EF532BA91C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMMayDeepLinkResponse.json; sourceTree = "<group>"; };
 		EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMMayDeepLinkResponseNo.json; sourceTree = "<group>"; };
 		EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMRecordEventResponse.json; sourceTree = "<group>"; };
-		EFBD0D971C60E5D8007483EA /* libInMobi-5.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libInMobi-5.2.0.a"; path = "../mediation/mediatedviews/InMobi/InMobiSDK/libInMobi-5.2.0.a"; sourceTree = "<group>"; };
 		F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -855,6 +857,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A4EF0DB1CF3880B002C2DF1 /* libc++.tbd in Frameworks */,
 				8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */,
 				8AD011B01B2F6C54001B0107 /* libsqlite3.dylib in Frameworks */,
 				8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */,
@@ -864,6 +867,7 @@
 				8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */,
 				8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */,
 				8AD7C50C1AD32B400049C997 /* VungleSDK.framework in Frameworks */,
+				8A4EF0D81CF3856D002C2DF1 /* libInMobi-5.3.1.a in Frameworks */,
 				8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */,
 				8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */,
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
@@ -871,7 +875,6 @@
 				8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */,
 				8AA009F319DB1DA50090EBED /* libANSDKiAdAdapter.a in Frameworks */,
 				8AA009F419DB1DA50090EBED /* libANSDKMillennialMediaAdapter.a in Frameworks */,
-				EFBD0D981C60E5D8007483EA /* libInMobi-5.2.0.a in Frameworks */,
 				8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */,
 				8AA009F519DB1DA50090EBED /* libANSDKMoPubAdapter.a in Frameworks */,
 				8AA009F619DB1DA50090EBED /* libANSDKFacebookAdapter.a in Frameworks */,
@@ -1101,14 +1104,15 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A4EF0D91CF38790002C2DF1 /* libc++.tbd */,
 				8A9CBADA1C652EE900558C95 /* MediaPlayer.framework */,
 				8A9CBAD71C652ED400558C95 /* EventKit.framework */,
 				8A9CBAD51C652EB200558C95 /* SystemConfiguration.framework */,
 				8A9CBAD21C652E9B00558C95 /* MessageUI.framework */,
 				8A9CBAC31C652E7D00558C95 /* EventKitUI.framework */,
-				EFBD0D971C60E5D8007483EA /* libInMobi-5.2.0.a */,
 				8A370A0D1B697A42002B05C6 /* libFlurry.a */,
 				8A370A0F1B697A4B002B05C6 /* libFlurryAds.a */,
+				8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */,
 				8A2BD4121B670EAE0000DB66 /* libxml2.dylib */,
 				8AD011AF1B2F6C54001B0107 /* libsqlite3.dylib */,
 				8AD011A61B2F652B001B0107 /* IOKit.framework */,
