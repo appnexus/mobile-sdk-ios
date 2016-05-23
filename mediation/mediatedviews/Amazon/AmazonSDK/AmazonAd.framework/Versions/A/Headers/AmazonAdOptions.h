@@ -15,6 +15,7 @@ typedef NS_ENUM(NSInteger, AmazonAdVerticalAlignment)
     AmazonAdVerticalAlignmentTop,
     AmazonAdVerticalAlignmentCenter,
     AmazonAdVerticalAlignmentBottom,
+    AmazonAdVerticalAlignmentFitToContent
 };
 
 /**
@@ -24,7 +25,7 @@ typedef NS_ENUM(NSInteger, AmazonAdHorizontalAlignment)
 {
     AmazonAdHorizontalAlignmentLeft,
     AmazonAdHorizontalAlignmentCenter,
-    AmazonAdHorizontalAlignmentRight,
+    AmazonAdHorizontalAlignmentRight
 };
 
 /**
@@ -36,6 +37,11 @@ extern const CGSize AmazonAdSize_320x50;
  * Standard 300x250 Amazon Ad Size.
  */
 extern const CGSize AmazonAdSize_300x250;
+
+/**
+ * Standard 600x90 Amazon Ad Size for tablets.
+ */
+extern const CGSize AmazonAdSize_600x90;
 
 /** 
  * Standard 728x90 Amazon Ad Size for tablets.
