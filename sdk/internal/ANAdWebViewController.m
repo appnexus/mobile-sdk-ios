@@ -36,7 +36,7 @@
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 #if kANAdWebViewControllerWebKitEnabled
-@interface ANAdWebViewController () <UIWebViewDelegate, WKNavigationDelegate>
+@interface ANAdWebViewController () <UIWebViewDelegate, WKNavigationDelegate, WKUIDelegate>
 #else
 @interface ANAdWebViewController () <UIWebViewDelegate>
 #endif
@@ -287,6 +287,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     WKWebView *webView = [[self class] defaultModernWebViewWithSize:size
                                                       configuration:self.configuration];
     webView.navigationDelegate = self;
+    webView.UIDelegate = self;
     self.modernWebView = webView;
     self.contentView = webView;
     __weak WKWebView *weakWebView = webView;
@@ -309,6 +310,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     WKWebView *webView = [[self class] defaultModernWebViewWithSize:size
                                                       configuration:self.configuration];
     webView.navigationDelegate = self;
+    webView.UIDelegate = self;
     [webView loadHTMLString:html
                     baseURL:baseURL];
     self.modernWebView = webView;
@@ -409,9 +411,9 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     return YES;
 }
 
-#pragma mark - WKNavigationDelegate
-
 #if kANAdWebViewControllerWebKitEnabled
+
+#pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [self processWebViewDidFinishLoad];
@@ -473,6 +475,18 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     }
     
     decisionHandler(WKNavigationActionPolicyAllow);
+}
+
+#pragma mark - WKUIDelegate
+
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration
+   forNavigationAction:(WKNavigationAction *)navigationAction
+        windowFeatures:(WKWindowFeatures *)windowFeatures {
+    if (navigationAction.targetFrame == nil) {
+        [self.browserDelegate openDefaultBrowserWithURL:navigationAction.request.URL];
+    }
+
+    return nil;
 }
 
 #endif
