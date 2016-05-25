@@ -100,14 +100,6 @@ FB_CLASS_EXPORT
 
 /*!
  @method
- 
- @abstract
- Returns the name of the mediation service that is mediating Audience Network
- */
-+ (NSString *)getMediationService;
-
-/*!
- @method
 
  @abstract
  Sets the url prefix to use when making ad requests.

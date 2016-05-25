@@ -1,7 +1,7 @@
 /*
  * Chartboost.h
  * Chartboost
- * 6.2.0
+ * 6.4.4
  *
  * Copyright 2011 Chartboost. All rights reserved.
  */
@@ -61,6 +61,8 @@ typedef NS_ENUM(NSUInteger, CBMediation) {
     CBMediationMoPub,
     /*! Supersonic */
     CBMediationSupersonic,
+    /*! AdMob */
+    CBMediationAdMob,
 };
 
 
@@ -73,29 +75,31 @@ typedef NS_ENUM(NSUInteger, CBMediation) {
  */
 typedef NS_ENUM(NSUInteger, CBLoadError) {
     /*! Unknown internal error. */
-    CBLoadErrorInternal,
+    CBLoadErrorInternal = 0,
     /*! Network is currently unavailable. */
-    CBLoadErrorInternetUnavailable,
+    CBLoadErrorInternetUnavailable = 1,
     /*! Too many requests are pending for that location.  */
-    CBLoadErrorTooManyConnections,
+    CBLoadErrorTooManyConnections = 2,
     /*! Interstitial loaded with wrong orientation. */
-    CBLoadErrorWrongOrientation,
+    CBLoadErrorWrongOrientation = 3,
     /*! Interstitial disabled, first session. */
-    CBLoadErrorFirstSessionInterstitialsDisabled,
+    CBLoadErrorFirstSessionInterstitialsDisabled = 4,
     /*! Network request failed. */
-    CBLoadErrorNetworkFailure,
+    CBLoadErrorNetworkFailure = 5,
     /*!  No ad received. */
-    CBLoadErrorNoAdFound,
+    CBLoadErrorNoAdFound = 6,
     /*! Session not started. */
-    CBLoadErrorSessionNotStarted,
+    CBLoadErrorSessionNotStarted = 7,
+	/*! There is an impression already visible.*/
+	CBLoadErrorImpressionAlreadyVisible = 8,
     /*! User manually cancelled the impression. */
-    CBLoadErrorUserCancellation,
+    CBLoadErrorUserCancellation = 10,
     /*! No location detected. */
-    CBLoadErrorNoLocationFound,
+    CBLoadErrorNoLocationFound = 11,
+    /*! Error downloading asset. */
+    CBLoadErrorAssetDownloadFailure = 16,
     /*! Video Prefetching is not finished */
-    CBLoadErrorPrefetchingIncomplete,
-    /*! There is an impression already visible.*/
-    CBLoadErrorImpressionAlreadyVisible
+    CBLoadErrorPrefetchingIncomplete = 21
 };
 
 /*!
@@ -606,17 +610,11 @@ example setFramework:Unity withVersion:4.6, setFrameworkVersion:5.2.1
 
 
 /*!
- @abstract
- Called when the developer wants to start or stop automatically track all in-app purchases made in the app.
- 
- @param shouldTrack If YES, replaces the need to call the CBAnalytics.trackInAppPurchaseEvent.
-  */
-+ (void)setAutoIAPTracking:(BOOL)shouldTrack;
-
-
-/*!
  @abstract 
  returns YES if auto IAP tracking is enabled, NO if it isn't.
+
+ @discussion Call to check if automatic tracking of in-app purchases is enabled. 
+ The setting is controlled by the server.
  */
 + (BOOL)getAutoIAPTracking;
 
