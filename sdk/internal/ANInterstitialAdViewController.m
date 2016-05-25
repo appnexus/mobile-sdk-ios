@@ -29,6 +29,7 @@
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
 @property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @property (nonatomic, readwrite, assign, getter=isDismissing) BOOL dismissing;
+@property (nonatomic, readwrite, assign) BOOL fullscreenAd;
 @end
 
 @implementation ANInterstitialAdViewController
@@ -142,9 +143,16 @@
         [self.view insertSubview:_contentView
                     belowSubview:self.progressView];
         _contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [_contentView an_constrainWithFrameSize];
-        [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                             yAttribute:NSLayoutAttributeCenterY];
+        self.fullscreenAd = CGSizeEqualToSize(_contentView.frame.size, CGSizeMake(1, 1));
+        if (self.fullscreenAd) {
+            [_contentView an_constrainToSizeOfSuperview];
+            [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                 yAttribute:NSLayoutAttributeTop];
+        } else {
+            [_contentView an_constrainWithFrameSize];
+            [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
+                                                 yAttribute:NSLayoutAttributeCenterY];
+        }
     }
 }
 
@@ -170,7 +178,7 @@
 }
 
 - (BOOL)shouldAutorotate {
-    return NO;
+    return self.fullscreenAd;
 }
 
 #if __IPHONE_9_0
@@ -191,6 +199,10 @@
                     return UIInterfaceOrientationMaskAll;
             }
         }
+    }
+    
+    if (self.fullscreenAd) {
+        return UIInterfaceOrientationMaskAll;
     }
 
     switch (self.orientation) {
