@@ -1,3 +1,35 @@
+## RC 2.10
+
+### New Features
+
++ MS-2251 Banner ads are rendered in a WKWebView instead of UIWebView in iOS 8+
+
++ MS-2307 Ability to traffic full-screen interstitial creatives
+
+### MS-2316 Contains the following mediated SDKs:
+
++ AdMob SDK Version 7.8.1
+
++ Facebook SDK Version 4.12.0
+
++ Amazon SDK Version 2.2.14
+
++ Millennial Media SDK Version 6.1.0
+
++ MoPub SDK Version 4.6.0
+
++ InMobi SDK Version 5.3.1
+
++ VDOPIA Lightweight SDK v1.4
+
++ Vungle SDK 3.2.1
+
++ AdColony SDK 2.6.1
+
++ Chartboost SDK 6.4.4
+
++ Yahoo Flurry SDK 7.6.3
+
 ## RC 2.9
 
 ### New Features
