@@ -95,6 +95,7 @@
 }
 
 - (void)testANJAMExternalBrowserResponse{
+    #if TARGET_IPHONE_SIMULATOR
     [self stubRequestWithResponse:@"ANJAMExternalBrowserResponse"];
     self.adView.opensInNativeBrowser = NO;
     self.externalBrowserExpectation = [self expectationWithDescription:@"Waiting for default browser to be opened."];
@@ -106,6 +107,7 @@
     [self waitForExpectationsWithTimeout:3.0
                                  handler:nil];
     self.externalBrowserExpectation = nil;
+    #endif
 }
 
 - (void)testMayDeepLinkResponse{
@@ -125,6 +127,7 @@
 }
 
 - (void)testRecordEventResponse{
+    #if TARGET_IPHONE_SIMULATOR
     [self stubRequestWithResponse:@"ANJAMRecordEventResponse"];
     self.recordEventExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
     ANSetNotificationsEnabled(YES);
@@ -140,6 +143,7 @@
                                                     name:kANLoggingNotification
                                                   object:nil];
     ANSetNotificationsEnabled(NO);
+    #endif
 }
 
 - (void)receivedLog:(NSNotification *)notification {
