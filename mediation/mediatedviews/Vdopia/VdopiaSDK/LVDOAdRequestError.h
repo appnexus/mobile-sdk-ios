@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 enum vdoErrorCodes
 {
-     vdoAdErrorIncorrectAdRecieved=0,
+    vdoAdErrorIncorrectAdRecieved=0,
      vdoAdErrorunKnownAd,
      vdoAdErrorNoAd,
      vdoAdErrorInventoryUnavailable,

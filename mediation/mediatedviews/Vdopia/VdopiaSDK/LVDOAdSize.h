@@ -12,22 +12,18 @@ enum vdoSize
 {
     adSizeBanner=0,
     adSizeIABMRECT,
-    adSizeIABMRECTInview,
     adSizeIABBanner,
     adSizeLeaderboard,
     adSizeExpandableBanner,
-    adSizeInView,
-    
 
     
 };
 // iPhone and iPod Touch ad size. Typically 320x50.
 extern CGSize const kVDOAdSizeBanner ;
 extern CGSize const kVDOAdSizeIABMRECT;
-extern CGSize const kVDOAdSizeIABMRECTInview;
 extern CGSize const kVDOAdSizeIABBanner;
 extern CGSize const kVDOAdSizeLeaderboard;
 extern CGSize const kVDOAdSizeExpandabledBanner;
-extern CGSize const kVDOAdSizeInView;
+
 extern CGSize const kVDOAdSizeInvalid;
 
