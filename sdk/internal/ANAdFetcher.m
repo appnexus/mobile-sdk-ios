@@ -110,7 +110,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 		if (self.URL != nil)
 		{
             self.request = ANBasicRequestWithURL(self.URL);
-			self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+            self.connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
+            [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+            [self.connection start];
 			
 			if (self.connection != nil)
 			{
