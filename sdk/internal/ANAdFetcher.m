@@ -110,10 +110,15 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 		if (self.URL != nil)
 		{
             self.request = ANBasicRequestWithURL(self.URL);
-			self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
-			
+			self.connection = [[NSURLConnection alloc] initWithRequest:self.request
+                                                              delegate:self
+                                                      startImmediately:NO];
 			if (self.connection != nil)
 			{
+                [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop]
+                                           forMode:NSRunLoopCommonModes];
+                [self.connection start];
+                
 				ANLogInfo(@"Beginning loading ad from URL: %@", self.URL);
 				
                 if (self.requestShouldBePosted) {
