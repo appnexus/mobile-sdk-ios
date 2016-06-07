@@ -56,6 +56,7 @@
 		8A8DEFA41AD5C05300742AD7 /* ANAdAdapterBaseVungle.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AD7C4DC1AD2FF070049C997 /* ANAdAdapterBaseVungle.h */; };
 		8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */; };
 		8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */; };
+		8A92F9EB1D05E1B500F689C7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A92F9EA1D05E1B500F689C7 /* WebKit.framework */; };
 		8A949AD11ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD01ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m */; };
 		8A949AD41ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD31ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m */; };
 		8A949AD91ADF1F3B00D83DCE /* ANChartboostEventReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD81ADF1F3B00D83DCE /* ANChartboostEventReceiver.m */; };
@@ -709,6 +710,7 @@
 		8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdColony.m; sourceTree = "<group>"; };
 		8A8E0FE61AD45170004C5C50 /* ANAdAdapterBaseInMobi+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseInMobi+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A8E0FE81AD451DC004C5C50 /* ANAdAdapterBaseAmazon+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAmazon+PrivateMethods.h"; sourceTree = "<group>"; };
+		8A92F9EA1D05E1B500F689C7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8A944DDE19D5AF8C007AAAB0 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
 		8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-AMAZON.txt"; sourceTree = "<group>"; };
 		8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
@@ -1073,6 +1075,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A92F9EB1D05E1B500F689C7 /* WebKit.framework in Frameworks */,
 				8AE7AD9E1A7AC4E5009E2F2F /* EventKitUI.framework in Frameworks */,
 				8AFC04731A2E78E400BEA485 /* StoreKit.framework in Frameworks */,
 				8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */,
@@ -1730,6 +1733,7 @@
 		8AE5E11F1A2FDCDB00FDE858 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A92F9EA1D05E1B500F689C7 /* WebKit.framework */,
 				8AE7AD9D1A7AC4E5009E2F2F /* EventKitUI.framework */,
 				8AFC04721A2E78E400BEA485 /* StoreKit.framework */,
 				8AFC04701A2E760800BEA485 /* MessageUI.framework */,
