@@ -38,7 +38,8 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction) {
 
 @interface ANMRAIDContainerView () <ANAdWebViewControllerMRAIDDelegate, ANMRAIDResizeViewManagerDelegate,
 ANMRAIDCalendarManagerDelegate, ANAdWebViewControllerBrowserDelegate, ANMRAIDExpandViewControllerDelegate,
-ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebViewControllerANJAMDelegate>
+ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebViewControllerANJAMDelegate,
+ANAdWebViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, strong) NSURL *baseURL;
@@ -92,15 +93,9 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
         self.webViewController.browserDelegate = self;
         self.webViewController.pitbullDelegate = self;
         self.webViewController.anjamDelegate = self;
-        
+        self.webViewController.loadingDelegate = self;
+                
         self.backgroundColor = [UIColor clearColor];
-        
-        UIView *contentView = self.webViewController.contentView;
-        contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:contentView];
-        [contentView an_constrainToSizeOfSuperview];
-        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                            yAttribute:NSLayoutAttributeTop];
     }
     return self;
 }
@@ -743,6 +738,26 @@ ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebVi
 - (void)handleANJAMURL:(NSURL *)URL {
     [ANANJAMImplementation handleURL:URL
                withWebViewController:self.webViewController];
+}
+
+#pragma mark - ANAdWebViewControllerLoadingDelegate
+
+- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
+    if (controller == self.webViewController) {
+        // Attaching WKWebView to screen for an instant to allow it to fully load in the background
+        // before the call to [ANAdDelegate adDidReceiveAd]
+        [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
+                                                           atIndex:0];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.15 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            UIView *contentView = self.webViewController.contentView;
+            contentView.translatesAutoresizingMaskIntoConstraints = NO;
+            [self addSubview:contentView];
+            [contentView an_constrainToSizeOfSuperview];
+            [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                yAttribute:NSLayoutAttributeTop];
+            [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
+        });
+    }
 }
 
 @end

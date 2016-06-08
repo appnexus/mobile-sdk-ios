@@ -274,13 +274,13 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                              && (receivedSize.height > 0)) ? receivedSize : requestedSize;
     
     if (self.standardAdView) {
-        self.standardAdView.webViewController.loadingDelegate = nil;
+        self.standardAdView.loadingDelegate = nil;
     }
     
     self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
                                                                 HTML:standardAd.content
                                                       webViewBaseURL:[NSURL URLWithString:self.ANBaseURL]];
-    self.standardAdView.webViewController.loadingDelegate = self;
+    self.standardAdView.loadingDelegate = self;
 }
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
