@@ -15,6 +15,7 @@
 
 #import "ANBrowserViewController.h"
 #import <StoreKit/StoreKit.h>
+#import <WebKit/WebKit.h>
 
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -22,10 +23,14 @@
 #import "UIView+ANCategory.h"
 #import "ANOpenInExternalBrowserActivity.h"
 
-@interface ANBrowserViewController () <SKStoreProductViewControllerDelegate>
+@interface ANBrowserViewController () <SKStoreProductViewControllerDelegate,
+WKNavigationDelegate, WKUIDelegate>
 @property (nonatomic, readwrite, assign) BOOL completedInitialLoad;
 @property (nonatomic, readwrite, assign, getter=isLoading) BOOL loading;
-@property (nonatomic, readwrite, strong) UIWebView *webView;
+
+@property (nonatomic, readwrite, strong) WKWebView *modernWebView;
+@property (nonatomic, readwrite, strong) UIWebView *legacyWebView;
+
 @property (nonatomic, readwrite, strong) UIBarButtonItem *refreshIndicatorItem;
 @property (nonatomic, readwrite, strong) UIPopoverController *activityPopover;
 @property (nonatomic, readwrite, strong) SKStoreProductViewController *iTunesStoreController;
@@ -63,16 +68,40 @@
         _url = url;
         _delegate = delegate;
         _delayPresentationForLoad = shouldDelayPresentation;
-        [self.webView loadRequest:ANBasicRequestWithURL(url)];
+        [self initializeWebView];
+        NSURLRequest *request = ANBasicRequestWithURL(url);
+        if (self.modernWebView) {
+            [self.modernWebView loadRequest:request];
+        } else {
+            [self.legacyWebView loadRequest:request];
+        }
     }
     return self;
+}
+
+- (void)initializeWebView {
+    if ([WKWebView class]) {
+        self.modernWebView = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame
+                                                configuration:[ANBrowserViewController defaultWebViewConfiguration]];
+        self.modernWebView.navigationDelegate = self;
+        self.modernWebView.UIDelegate = self;
+    } else {
+        self.legacyWebView = [[UIWebView alloc] init];
+        self.legacyWebView.delegate = self;
+        self.legacyWebView.scalesPageToFit = YES;
+        [self.legacyWebView an_setMediaProperties];
+    }
 }
 
 - (void)setUrl:(NSURL *)url {
     if (![[url absoluteString] isEqualToString:[_url absoluteString]] || (!self.loading && !self.completedInitialLoad)) {
         _url = url;
         [self resetBrowser];
-        [self.webView loadRequest:ANBasicRequestWithURL(url)];
+        if (self.modernWebView) {
+            [self.modernWebView loadRequest:ANBasicRequestWithURL(url)];
+        } else {
+            [self.legacyWebView loadRequest:ANBasicRequestWithURL(url)];
+        }
     } else {
         ANLogWarn(@"In-app browser ignoring request to load - request is already loading");
     }
@@ -89,7 +118,9 @@
 
 - (void)dealloc {
     [self resetBrowser];
-    self.webView.delegate = nil;
+    self.legacyWebView.delegate = nil;
+    self.modernWebView.navigationDelegate = nil;
+    self.modernWebView.UIDelegate = nil;
     self.iTunesStoreController.delegate = nil;
 }
 
@@ -97,22 +128,105 @@
     self.completedInitialLoad = NO;
     self.loading = NO;
     self.receivedInitialRequest = NO;
-    self.webView = nil;
+    self.legacyWebView = nil;
+    self.modernWebView = nil;
 }
 
-- (void)setupToolbar {
-    if (![self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
-        UIImage *backArrow = [UIImage imageWithContentsOfFile:ANPathForANResource(@"UIButtonBarArrowLeft", @"png")];
-        UIImage *forwardArrow = [UIImage imageWithContentsOfFile:ANPathForANResource(@"UIButtonBarArrowRight", @"png")];
-        [self.backButton setImage:backArrow];
-        [self.forwardButton setImage:forwardArrow];
-        
-        self.backButton.tintColor = [UIColor whiteColor];
-        self.forwardButton.tintColor = [UIColor whiteColor];
-        self.openInButton.tintColor = [UIColor whiteColor];
-        self.refreshButton.tintColor = nil;
-        self.doneButton.tintColor = nil;
+- (void)stopLoading {
+    if (self.modernWebView) {
+        [self.modernWebView stopLoading];
+    } else {
+        [self.legacyWebView stopLoading];
     }
+    [self updateLoadingStateForFinishLoad];
+}
+
+- (void)loadingStateDidChangeFromOldValue:(BOOL)oldValue toNewValue:(BOOL)newValue {
+    if (oldValue != newValue) {
+        if ([self.delegate respondsToSelector:@selector(browserViewController:browserIsLoading:)]) {
+            [self.delegate browserViewController:self
+                                browserIsLoading:newValue];
+        }
+    }
+}
+
+- (void)updateLoadingStateForStartLoad {
+    BOOL oldValue = self.loading;
+    if (self.modernWebView) {
+        self.loading = self.modernWebView.loading;
+    } else {
+        self.loading = self.legacyWebView.loading;
+    }
+    [self loadingStateDidChangeFromOldValue:oldValue toNewValue:self.loading];
+    [self refreshToolbarActivityIndicator];
+    [self refreshButtons];
+}
+
+- (void)updateLoadingStateForFinishLoad {
+    BOOL oldValue = self.loading;
+    if (self.modernWebView) {
+        self.loading = self.modernWebView.loading;
+    } else {
+        self.loading = self.legacyWebView.loading;
+        if (self.loading) {
+            NSString *readyState = [self.legacyWebView stringByEvaluatingJavaScriptFromString:@"document.readyState"];
+            if ([readyState isEqualToString:@"complete"]) {
+                self.loading = NO;
+            }
+        }
+    }
+    [self loadingStateDidChangeFromOldValue:oldValue toNewValue:self.loading];
+    [self refreshToolbarActivityIndicator];
+    [self refreshButtons];
+}
+
+- (BOOL)shouldStartLoadWithRequest:(NSURLRequest *)request {
+    NSURL *URL = [request URL];
+    NSNumber *iTunesId = ANiTunesIDForURL(URL);
+    BOOL shouldStartLoadWithRequest = NO;
+    
+    if (iTunesId) {
+        if (self.modernWebView) {
+            [self.modernWebView stopLoading];
+        } else {
+            [self.legacyWebView stopLoading];
+        }
+        [self loadAndPresentStoreControllerWithiTunesId:iTunesId];
+    } else if (ANHasHttpPrefix([URL scheme])) {
+        if (!self.presented && !self.presenting && !self.delayPresentationForLoad) {
+            [self rootViewControllerShouldPresentBrowserViewController];
+        }
+        shouldStartLoadWithRequest = YES;
+    } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        if (!self.completedInitialLoad) {
+            [self rootViewControllerShouldDismissPresentedViewController];
+        }
+        if ([self.delegate respondsToSelector:@selector(willLeaveApplicationFromBrowserViewController:)]) {
+            [self.delegate willLeaveApplicationFromBrowserViewController:self];
+        }
+        ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromSelector(_cmd), URL);
+        if (self.modernWebView) {
+            [self.modernWebView stopLoading];
+        } else {
+            [self.legacyWebView stopLoading];
+        }
+        [[UIApplication sharedApplication] openURL:URL];
+    } else {
+        ANLogWarn(@"opening_url_failed %@", URL);
+        if (!self.receivedInitialRequest) {
+            if ([self.delegate respondsToSelector:@selector(browserViewController:couldNotHandleInitialURL:)]) {
+                [self.delegate browserViewController:self couldNotHandleInitialURL:URL];
+            }
+        }
+    }
+    
+    if (shouldStartLoadWithRequest) {
+        [self updateLoadingStateForStartLoad];
+    }
+    
+    self.receivedInitialRequest = YES;
+    
+    return shouldStartLoadWithRequest;
 }
 
 #pragma mark - Adjust for status bar
@@ -132,6 +246,74 @@
     self.containerViewSuperviewTopConstraint.constant = containerViewDistanceToTopOfSuperview;
 }
 
+#pragma - User Interface
+
+- (void)addWebViewToContainerView {
+    UIView *contentView;
+    if (self.modernWebView) {
+        contentView = self.modernWebView;
+    } else {
+        contentView = self.legacyWebView;
+    }
+    [self.webViewContainerView addSubview:contentView];
+    contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    [contentView an_constrainToSizeOfSuperview];
+    [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                        yAttribute:NSLayoutAttributeTop];
+}
+
+- (void)setupToolbar {
+    if (![self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
+        UIImage *backArrow = [UIImage imageWithContentsOfFile:ANPathForANResource(@"UIButtonBarArrowLeft", @"png")];
+        UIImage *forwardArrow = [UIImage imageWithContentsOfFile:ANPathForANResource(@"UIButtonBarArrowRight", @"png")];
+        [self.backButton setImage:backArrow];
+        [self.forwardButton setImage:forwardArrow];
+        
+        self.backButton.tintColor = [UIColor whiteColor];
+        self.forwardButton.tintColor = [UIColor whiteColor];
+        self.openInButton.tintColor = [UIColor whiteColor];
+        self.refreshButton.tintColor = nil;
+        self.doneButton.tintColor = nil;
+    }
+}
+
+- (void)refreshButtons {
+    if (self.modernWebView) {
+        self.backButton.enabled = self.modernWebView.canGoBack;
+        self.forwardButton.enabled = self.modernWebView.canGoForward;
+    } else {
+        self.backButton.enabled = self.legacyWebView.canGoBack;
+        self.forwardButton.enabled = self.legacyWebView.canGoForward;
+    }
+}
+
+- (void)refreshToolbarActivityIndicator {
+    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+    NSUInteger refreshItemIndex = [toolbarItems indexOfObject:self.refreshButton];
+    if (refreshItemIndex == NSNotFound) {
+        refreshItemIndex = [toolbarItems indexOfObject:self.refreshIndicatorItem];
+    }
+    if (refreshItemIndex != NSNotFound) {
+        if (self.loading) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            toolbarItems[refreshItemIndex] = self.refreshIndicatorItem;
+        } else {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            toolbarItems[refreshItemIndex] = self.refreshButton;
+        }
+        [self.toolbar setItems:[toolbarItems copy] animated:NO];
+    }
+}
+
+- (UIBarButtonItem *)refreshIndicatorItem {
+    if (!_refreshIndicatorItem) {
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [indicator startAnimating];
+        _refreshIndicatorItem = [[UIBarButtonItem alloc] initWithCustomView:indicator];
+    }
+    return _refreshIndicatorItem;
+}
+
 #pragma mark - User Actions
 
 - (IBAction)closeAction:(id)sender {
@@ -140,15 +322,28 @@
 }
 
 - (IBAction)forwardAction:(id)sender {
-    [self.webView goForward];
+    if (self.modernWebView) {
+        [self.modernWebView goForward];
+    } else {
+        [self.legacyWebView goForward];
+    }
 }
 
 - (IBAction)backAction:(id)sender {
-    [self.webView goBack];
+    if (self.modernWebView) {
+        [self.modernWebView goBack];
+    } else {
+        [self.legacyWebView goBack];
+    }
 }
 
 - (IBAction)openInAction:(id)sender {
-    NSURL *webViewURL = self.webView.request.URL;
+    NSURL *webViewURL;
+    if (self.modernWebView) {
+        webViewURL = self.modernWebView.URL;
+    } else {
+        webViewURL = self.legacyWebView.request.URL;
+    }
     if (webViewURL.absoluteString.length) {
         NSArray *appActivities = @[[[ANOpenInExternalBrowserActivity alloc] init]];
         UIActivityViewController *share = [[UIActivityViewController alloc] initWithActivityItems:@[webViewURL]
@@ -167,12 +362,11 @@
 }
 
 - (IBAction)refresh:(id)sender {
-    [self.webView reload];
-}
-
-- (void)refreshButtons {
-    self.backButton.enabled = self.webView.canGoBack;
-    self.forwardButton.enabled = self.webView.canGoForward;
+    if (self.modernWebView) {
+        [self.modernWebView reload];
+    } else {
+        [self.legacyWebView reload];
+    }
 }
 
 #pragma mark - Presentation Methods
@@ -276,69 +470,82 @@
     }
 }
 
-#pragma mark - UIWebViewDelegate
+#pragma mark - WKWebView
 
-- (UIWebView *)webView {
-    if (!_webView) {
-        _webView = [[UIWebView alloc] init];
-        _webView.delegate = self;
-        _webView.scalesPageToFit = YES;
-        [_webView an_setMediaProperties];
-    }
-    return _webView;
-}
-
-- (void)addWebViewToContainerView {
-    [self.webViewContainerView addSubview:self.webView];
-    self.webView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.webView an_constrainToSizeOfSuperview];
-    [self.webView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                         yAttribute:NSLayoutAttributeTop];
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSURL *URL = [request URL];
-    NSNumber *iTunesId = ANiTunesIDForURL(URL);
-    BOOL shouldStartLoadWithRequest = NO;
++ (WKWebViewConfiguration *)defaultWebViewConfiguration {
+    static dispatch_once_t processPoolToken;
+    static WKProcessPool *anSdkProcessPool;
+    dispatch_once(&processPoolToken, ^{
+        anSdkProcessPool = [[WKProcessPool alloc] init];
+    });
     
-    if (iTunesId) {
-        [webView stopLoading];
-        [self loadAndPresentStoreControllerWithiTunesId:iTunesId];
-    } else if (ANHasHttpPrefix([URL scheme])) {
-        if (!self.presented && !self.presenting && !self.delayPresentationForLoad) {
-            [self rootViewControllerShouldPresentBrowserViewController];
-        }
-        shouldStartLoadWithRequest = YES;
-    } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
-        if (!self.completedInitialLoad) {
-            [self rootViewControllerShouldDismissPresentedViewController];
-        }
-        if ([self.delegate respondsToSelector:@selector(willLeaveApplicationFromBrowserViewController:)]) {
-            [self.delegate willLeaveApplicationFromBrowserViewController:self];
-        }
-        ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromSelector(_cmd), URL);
-        [webView stopLoading];
-        [[UIApplication sharedApplication] openURL:URL];
-    } else {
-        ANLogWarn(@"opening_url_failed %@", URL);
-        if (!self.receivedInitialRequest) {
-            if ([self.delegate respondsToSelector:@selector(browserViewController:couldNotHandleInitialURL:)]) {
-                [self.delegate browserViewController:self couldNotHandleInitialURL:URL];
-            }
-        }
-    }
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.allowsInlineMediaPlayback = YES;
+    configuration.mediaPlaybackRequiresUserAction = NO;
+    configuration.processPool = anSdkProcessPool;
+    
+    return configuration;
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    ANLogTrace(@"%@", NSStringFromSelector(_cmd));
+    BOOL shouldStartLoadWithRequest = [self shouldStartLoadWithRequest:navigationAction.request];
     
     if (shouldStartLoadWithRequest) {
-        [self updateLoadingStateForStartLoad];
+        decisionHandler(WKNavigationActionPolicyAllow);
+    } else {
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
+}
+
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    ANLogTrace(@"%@", NSStringFromSelector(_cmd));
+    [self updateLoadingStateForStartLoad];
+}
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    ANLogTrace(@"%@ %@", NSStringFromSelector(_cmd), error);
+    [self updateLoadingStateForFinishLoad];
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    ANLogTrace(@"%@", NSStringFromSelector(_cmd));
+    [self updateLoadingStateForFinishLoad];
+    if (!self.completedInitialLoad) {
+        self.completedInitialLoad = YES;
+        if (!self.presented) {
+            [self rootViewControllerShouldPresentBrowserViewController];
+        }
+    }
+}
+
+#pragma mark - WKUIDelegate
+
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration
+   forNavigationAction:(WKNavigationAction *)navigationAction
+        windowFeatures:(WKWindowFeatures *)windowFeatures {
+    if (navigationAction.targetFrame == nil) {
+        [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
     }
     
-    self.receivedInitialRequest = YES;
-    
-    return shouldStartLoadWithRequest;
+    return nil;
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return [self shouldStartLoadWithRequest:request];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     [self updateLoadingStateForStartLoad];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    ANLogWarn(@"In-app browser received error: %@", error);
+    [self updateLoadingStateForFinishLoad];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -349,74 +556,6 @@
             [self rootViewControllerShouldPresentBrowserViewController];
         }
     }
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    ANLogWarn(@"In-app browser received error: %@", error);
-    [self updateLoadingStateForFinishLoad];
-}
-
-- (void)loadingStateDidChangeFromOldValue:(BOOL)oldValue toNewValue:(BOOL)newValue {
-    if (oldValue != newValue) {
-        if ([self.delegate respondsToSelector:@selector(browserViewController:browserIsLoading:)]) {
-            [self.delegate browserViewController:self
-                                browserIsLoading:newValue];
-        }
-    }
-}
-
-- (void)updateLoadingStateForStartLoad {
-    BOOL oldValue = self.loading;
-    self.loading = self.webView.loading;
-    [self loadingStateDidChangeFromOldValue:oldValue toNewValue:self.loading];
-    [self refreshToolbarActivityIndicator];
-    [self refreshButtons];
-}
-
-- (void)updateLoadingStateForFinishLoad {
-    BOOL oldValue = self.loading;
-    self.loading = self.webView.loading;
-    if (self.loading) {
-        NSString *readyState = [self.webView stringByEvaluatingJavaScriptFromString:@"document.readyState"];
-        if ([readyState isEqualToString:@"complete"]) {
-            self.loading = NO;
-        }
-    }
-    [self loadingStateDidChangeFromOldValue:oldValue toNewValue:self.loading];
-    [self refreshToolbarActivityIndicator];
-    [self refreshButtons];
-}
-
-- (void)refreshToolbarActivityIndicator {
-    NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-    NSUInteger refreshItemIndex = [toolbarItems indexOfObject:self.refreshButton];
-    if (refreshItemIndex == NSNotFound) {
-        refreshItemIndex = [toolbarItems indexOfObject:self.refreshIndicatorItem];
-    }
-    if (refreshItemIndex != NSNotFound) {
-        if (self.loading) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-            toolbarItems[refreshItemIndex] = self.refreshIndicatorItem;
-        } else {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            toolbarItems[refreshItemIndex] = self.refreshButton;
-        }
-        [self.toolbar setItems:[toolbarItems copy] animated:NO];
-    }
-}
-
-- (UIBarButtonItem *)refreshIndicatorItem {
-    if (!_refreshIndicatorItem) {
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [indicator startAnimating];
-        _refreshIndicatorItem = [[UIBarButtonItem alloc] initWithCustomView:indicator];
-    }
-    return _refreshIndicatorItem;
-}
-
-- (void)stopLoading {
-    [self.webView stopLoading];
-    [self updateLoadingStateForFinishLoad];
 }
 
 #pragma mark - SKStoreProductViewController
