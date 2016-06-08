@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A3EDB491D0873A200957227 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3EDB481D0873A200957227 /* WebKit.framework */; };
+		8A3EDB5A1D0873B200957227 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3EDB591D0873B200957227 /* EventKitUI.framework */; };
+		8A3EDB5B1D0873CD00957227 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7FB19706AFC002CAD63 /* EventKit.framework */; };
 		8AED80CD19DDA81C002F5D9F /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AED80AC19DDA7C6002F5D9F /* ANSDKResources.bundle */; };
 		8AED80CE19DDA89D002F5D9F /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AED80AA19DDA7C6002F5D9F /* libANSDK.a */; };
 		FF2FD7AD19706A5D002CAD63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7AC19706A5D002CAD63 /* Foundation.framework */; };
@@ -29,7 +32,6 @@
 		FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7F519706ADE002CAD63 /* AVFoundation.framework */; };
 		FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7F719706AE7002CAD63 /* CFNetwork.framework */; };
 		FF2FD7FA19706AF6002CAD63 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7F919706AF5002CAD63 /* CoreTelephony.framework */; };
-		FF2FD7FC19706AFC002CAD63 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7FB19706AFC002CAD63 /* EventKit.framework */; };
 		FF2FD7FE19706B10002CAD63 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7FD19706B10002CAD63 /* iAd.framework */; };
 		FF2FD80019706B18002CAD63 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7FF19706B18002CAD63 /* MediaPlayer.framework */; };
 		FF2FD80219706B28002CAD63 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD80119706B28002CAD63 /* MessageUI.framework */; };
@@ -186,6 +188,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8A3EDB481D0873A200957227 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		8A3EDB591D0873B200957227 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
 		FF2FD7A919706A5D002CAD63 /* SimpleBanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleBanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF2FD7AC19706A5D002CAD63 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -230,6 +234,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A3EDB5B1D0873CD00957227 /* EventKit.framework in Frameworks */,
+				8A3EDB5A1D0873B200957227 /* EventKitUI.framework in Frameworks */,
+				8A3EDB491D0873A200957227 /* WebKit.framework in Frameworks */,
 				FF2FD7B119706A5D002CAD63 /* UIKit.framework in Frameworks */,
 				FF2FD81019706B69002CAD63 /* SystemConfiguration.framework in Frameworks */,
 				FF2FD80E19706B61002CAD63 /* StoreKit.framework in Frameworks */,
@@ -241,7 +248,6 @@
 				FF2FD80219706B28002CAD63 /* MessageUI.framework in Frameworks */,
 				FF2FD80019706B18002CAD63 /* MediaPlayer.framework in Frameworks */,
 				FF2FD7FE19706B10002CAD63 /* iAd.framework in Frameworks */,
-				FF2FD7FC19706AFC002CAD63 /* EventKit.framework in Frameworks */,
 				FF2FD7FA19706AF6002CAD63 /* CoreTelephony.framework in Frameworks */,
 				FF2FD7AF19706A5D002CAD63 /* CoreGraphics.framework in Frameworks */,
 				FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */,
@@ -313,6 +319,8 @@
 		FF2FD7AB19706A5D002CAD63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A3EDB591D0873B200957227 /* EventKitUI.framework */,
+				8A3EDB481D0873A200957227 /* WebKit.framework */,
 				FF2FD80F19706B69002CAD63 /* SystemConfiguration.framework */,
 				FF2FD80D19706B61002CAD63 /* StoreKit.framework */,
 				FF2FD80B19706B57002CAD63 /* Social.framework */,
