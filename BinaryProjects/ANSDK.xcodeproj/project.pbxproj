@@ -153,6 +153,7 @@
 		8AA5B4E71AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E61AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m */; };
 		8ABC03D51C5AD5FD00D7C789 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
 		8ABC03D61C5AD79800D7C789 /* ANAdAdapterNativeAdMob.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */; };
+		8ABF77591D08CE420068B535 /* ANStoreProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */; };
 		8AC65F4C1A40DE63006BCF39 /* ANMRAIDCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F381A40DE63006BCF39 /* ANMRAIDCalendarManager.m */; };
 		8AC65F4E1A40DE63006BCF39 /* ANMRAIDContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F3A1A40DE63006BCF39 /* ANMRAIDContainerView.m */; };
 		8AC65F501A40DE63006BCF39 /* ANMRAIDExpandProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F3C1A40DE63006BCF39 /* ANMRAIDExpandProperties.m */; };
@@ -782,6 +783,8 @@
 		8ABB766D1A004DBD00FEAD9D /* ANNativeAdStarRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdStarRating.h; path = native/ANNativeAdStarRating.h; sourceTree = "<group>"; };
 		8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANProxyViewController.h; sourceTree = "<group>"; };
 		8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANProxyViewController.m; sourceTree = "<group>"; };
+		8ABF77571D08CE420068B535 /* ANStoreProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANStoreProductViewController.h; sourceTree = "<group>"; };
+		8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANStoreProductViewController.m; sourceTree = "<group>"; };
 		8AC65F371A40DE63006BCF39 /* ANMRAIDCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDCalendarManager.h; sourceTree = "<group>"; };
 		8AC65F381A40DE63006BCF39 /* ANMRAIDCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDCalendarManager.m; sourceTree = "<group>"; };
 		8AC65F391A40DE63006BCF39 /* ANMRAIDContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDContainerView.h; sourceTree = "<group>"; };
@@ -1578,6 +1581,8 @@
 				8AD618C71981C11F00AC0780 /* ANReachability.m */,
 				8AF5A87D1ACC60D50089C529 /* ANStandardAd.h */,
 				8AF5A87E1ACC60D50089C529 /* ANStandardAd.m */,
+				8ABF77571D08CE420068B535 /* ANStoreProductViewController.h */,
+				8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */,
 				8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */,
 				8AC65F361A40DE63006BCF39 /* MRAID */,
 			);
@@ -2708,6 +2713,7 @@
 				8AC65F501A40DE63006BCF39 /* ANMRAIDExpandProperties.m in Sources */,
 				8A2F48251A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */,
 				ECE4EADA194B768A0069D934 /* NSString+ANCategory.m in Sources */,
+				8ABF77591D08CE420068B535 /* ANStoreProductViewController.m in Sources */,
 				8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */,
 				8AC65F5C1A40DE63006BCF39 /* ANMRAIDResizeViewManager.m in Sources */,
 				8A598F8C1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */,

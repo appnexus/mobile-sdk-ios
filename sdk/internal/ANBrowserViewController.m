@@ -14,7 +14,7 @@
  */
 
 #import "ANBrowserViewController.h"
-#import <StoreKit/StoreKit.h>
+#import "ANStoreProductViewController.h"
 #import <WebKit/WebKit.h>
 
 #import "ANGlobal.h"
@@ -562,7 +562,7 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (void)loadAndPresentStoreControllerWithiTunesId:(NSNumber *)iTunesId {
     if (iTunesId) {
-        self.iTunesStoreController = [[SKStoreProductViewController alloc] init];
+        self.iTunesStoreController = [[ANStoreProductViewController alloc] init];
         self.iTunesStoreController.delegate = self;
         [self.iTunesStoreController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier:iTunesId}
                                               completionBlock:nil];
