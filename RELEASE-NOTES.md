@@ -1,3 +1,25 @@
+## RC 2.11
+
+### New Features
+
++ MS-2211 Use WKWebView for the in-app browser on iOS 8+
+
++ MS-2214 Suppress user selection of ads
+
+### Bug Fixes
+
++ MS-2163 Schedule NSURLConnection of ANAdFetcher in the current run loop for mode NSRunLoopCommonModes
+
++ MS-2163 Fully load WKWebView in the background before sending the `[ANAdDelegate adDidReceiveAd]` callback
+
++ MS-2214 Allow the app user to dismiss the in-app App Store window even if the ad view which presented it has been deallocated
+
++ MS-2214 Disable video autoplay on iPhones running iOS 9 and below
+
+### Mediated SDKs
+
+No change
+
 ## RC 2.10
 
 ### New Features
