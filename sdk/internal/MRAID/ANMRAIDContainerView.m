@@ -221,6 +221,8 @@ ANAdWebViewControllerLoadingDelegate>
         customConfig.scrollingEnabled = YES;
         customConfig.navigationTriggersDefaultBrowser = NO;
         customConfig.initialMRAIDState = ANMRAIDStateExpanded;
+        customConfig.calloutsEnabled = YES;
+        customConfig.userSelectionEnabled = YES;
         self.expandWebViewController = [[ANAdWebViewController alloc] initWithSize:[ANMRAIDUtil screenSize]
                                                                                URL:expandProperties.URL
                                                                     webViewBaseURL:self.baseURL

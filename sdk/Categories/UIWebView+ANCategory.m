@@ -27,7 +27,12 @@ NSString *const kANAdRemovePaddingJavascriptString = @"document.body.style.margi
 
 - (void)an_setMediaProperties {
     [self setAllowsInlineMediaPlayback:YES];
-    [self setMediaPlaybackRequiresUserAction:NO];
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        [self setMediaPlaybackRequiresUserAction:NO];
+    } else {
+        // Prevent full-screen autoplay on iPhone running iOS 7
+        [self setMediaPlaybackRequiresUserAction:YES];
+    }
 }
 
 - (void)setAn_scrollEnabled:(BOOL)scrollable {

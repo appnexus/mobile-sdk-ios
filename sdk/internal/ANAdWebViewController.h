@@ -78,6 +78,8 @@
 @property (nonatomic, readwrite, assign) BOOL scrollingEnabled;
 @property (nonatomic, readwrite, assign) BOOL navigationTriggersDefaultBrowser;
 @property (nonatomic, readwrite, assign) ANMRAIDState initialMRAIDState;
+@property (nonatomic, readwrite, assign) BOOL calloutsEnabled;
+@property (nonatomic, readwrite, assign) BOOL userSelectionEnabled;
 
 @end
 

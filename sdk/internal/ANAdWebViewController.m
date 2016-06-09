@@ -207,8 +207,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         webView.scrollView.bounces = NO;
         webView.scalesPageToFit = NO;
     }
-    webView.allowsInlineMediaPlayback = YES;
-    webView.mediaPlaybackRequiresUserAction = NO;
+    [webView an_setMediaProperties];
     return webView;
 }
 
@@ -325,9 +324,23 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     });
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    configuration.allowsInlineMediaPlayback = YES;
-    configuration.mediaPlaybackRequiresUserAction = NO;
     configuration.processPool = anSdkProcessPool;
+    configuration.allowsInlineMediaPlayback = YES;
+    
+    // configuration.allowsInlineMediaPlayback = YES is not respected
+    // on iPhone on WebKit versions shipped with iOS 9 and below, the
+    // video always loads in full-screen.
+    // See: https://bugs.webkit.org/show_bug.cgi?id=147512
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+        configuration.mediaPlaybackRequiresUserAction = NO;
+    } else {
+        if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)] &&
+            [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
+            configuration.mediaPlaybackRequiresUserAction = NO;
+        } else {
+            configuration.mediaPlaybackRequiresUserAction = YES;
+        }
+    }
     
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     configuration.userContentController = controller;
@@ -343,6 +356,20 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     WKUserScript *paddingScript = [[WKUserScript alloc] initWithSource:paddingJS
                                                          injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                       forMainFrameOnly:YES];
+    if (!webViewControllerConfig.calloutsEnabled) {
+        NSString *calloutSuppressionJS = @"document.documentElement.style.webkitTouchCallout='none';";
+        WKUserScript *calloutSuppressionScript = [[WKUserScript alloc] initWithSource:calloutSuppressionJS
+                                                                        injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                                     forMainFrameOnly:NO];
+        [controller addUserScript:calloutSuppressionScript];
+    }
+    if (!webViewControllerConfig.userSelectionEnabled) {
+        NSString *userSelectionSuppressionJS = @"document.documentElement.style.webkitUserSelect='none';";
+        WKUserScript *userSelectionSuppressionScript = [[WKUserScript alloc] initWithSource:userSelectionSuppressionJS
+                                                                              injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+                                                                           forMainFrameOnly:NO];
+        [controller addUserScript:userSelectionSuppressionScript];
+    }
     [controller addUserScript:anjamScript];
     [controller addUserScript:mraidScript];
     [controller addUserScript:paddingScript];
@@ -819,6 +846,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         _scrollingEnabled = NO;
         _navigationTriggersDefaultBrowser = YES;
         _initialMRAIDState = ANMRAIDStateDefault;
+        _calloutsEnabled = NO;
+        _userSelectionEnabled = NO;
     }
     return self;
 }
@@ -828,12 +857,16 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     configurationCopy.scrollingEnabled = self.scrollingEnabled;
     configurationCopy.navigationTriggersDefaultBrowser = self.navigationTriggersDefaultBrowser;
     configurationCopy.initialMRAIDState = self.initialMRAIDState;
+    configurationCopy.calloutsEnabled = self.calloutsEnabled;
+    configurationCopy.userSelectionEnabled = self.userSelectionEnabled;
     return configurationCopy;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"(scrollingEnabled: %d, navigationTriggersDefaultBrowser: %d, initialMRAIDState: %lu",
-            self.scrollingEnabled, self.navigationTriggersDefaultBrowser, (long unsigned)self.initialMRAIDState];
+    return [NSString stringWithFormat:@"(scrollingEnabled: %d, navigationTriggersDefaultBrowser: %d, \
+            initialMRAIDState: %lu, calloutsEnabled: %d, userSelectionEnabled: %d", self.scrollingEnabled,
+            self.navigationTriggersDefaultBrowser, (long unsigned)self.initialMRAIDState, self.calloutsEnabled,
+            self.userSelectionEnabled];
 }
 
 @end

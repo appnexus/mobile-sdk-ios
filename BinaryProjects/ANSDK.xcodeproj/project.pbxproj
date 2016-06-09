@@ -147,6 +147,7 @@
 		8A9AEE0D1A1BF99D00C58BDA /* ANNativeMediatedAdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8762C1A0994310022D9A5 /* ANNativeMediatedAdController.m */; };
 		8A9AEE0E1A1BF99D00C58BDA /* ANNativeMediatedAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8762E1A0994310022D9A5 /* ANNativeMediatedAdResponse.m */; };
 		8A9AEE0F1A1BF99D00C58BDA /* UIView+ANNativeAdCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6514711A12DB31003F1047 /* UIView+ANNativeAdCategory.m */; };
+		8A9BBE021D09C4E1001FF571 /* ANStoreProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */; };
 		8AA5B4DD1AA8B72C00522E1C /* ANAdAdapterBannerInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4CF1AA8B72C00522E1C /* ANAdAdapterBannerInMobi.m */; };
 		8AA5B4E31AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E01AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m */; };
 		8AA5B4E41AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E21AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m */; };
@@ -2598,6 +2599,7 @@
 				8A9AEE0E1A1BF99D00C58BDA /* ANNativeMediatedAdResponse.m in Sources */,
 				8A9AEE0F1A1BF99D00C58BDA /* UIView+ANNativeAdCategory.m in Sources */,
 				8AC65F621A40DE74006BCF39 /* ANMRAIDContainerView.m in Sources */,
+				8A9BBE021D09C4E1001FF571 /* ANStoreProductViewController.m in Sources */,
 				8AF5A8841ACC60D50089C529 /* ANAdServerResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
