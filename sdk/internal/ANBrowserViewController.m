@@ -184,6 +184,8 @@ WKNavigationDelegate, WKUIDelegate>
     NSURL *URL = [request URL];
     NSNumber *iTunesId = ANiTunesIDForURL(URL);
     BOOL shouldStartLoadWithRequest = NO;
+
+    ANLogDebug(@"Opening URL: %@", URL);
     
     if (iTunesId) {
         if (self.modernWebView) {
@@ -500,7 +502,6 @@ WKNavigationDelegate, WKUIDelegate>
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    ANLogTrace(@"%@", NSStringFromSelector(_cmd));
     BOOL shouldStartLoadWithRequest = [self shouldStartLoadWithRequest:navigationAction.request];
     
     if (shouldStartLoadWithRequest) {
@@ -511,7 +512,6 @@ WKNavigationDelegate, WKUIDelegate>
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    ANLogTrace(@"%@", NSStringFromSelector(_cmd));
     [self updateLoadingStateForStartLoad];
 }
 

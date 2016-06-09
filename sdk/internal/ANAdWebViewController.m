@@ -356,12 +356,13 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     WKUserScript *paddingScript = [[WKUserScript alloc] initWithSource:paddingJS
                                                          injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                       forMainFrameOnly:YES];
+    // Ad highlight does not work properly when callouts are disabled
     if (!webViewControllerConfig.calloutsEnabled) {
-        NSString *calloutSuppressionJS = @"document.documentElement.style.webkitTouchCallout='none';";
-        WKUserScript *calloutSuppressionScript = [[WKUserScript alloc] initWithSource:calloutSuppressionJS
-                                                                        injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
-                                                                     forMainFrameOnly:NO];
-        [controller addUserScript:calloutSuppressionScript];
+//        NSString *calloutSuppressionJS = @"document.documentElement.style.webkitTouchCallout='none';";
+//        WKUserScript *calloutSuppressionScript = [[WKUserScript alloc] initWithSource:calloutSuppressionJS
+//                                                                        injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
+//                                                                     forMainFrameOnly:NO];
+//        [controller addUserScript:calloutSuppressionScript];
     }
     if (!webViewControllerConfig.userSelectionEnabled) {
         NSString *userSelectionSuppressionJS = @"document.documentElement.style.webkitUserSelect='none';";

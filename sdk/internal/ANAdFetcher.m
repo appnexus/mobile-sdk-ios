@@ -281,6 +281,8 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                                                                 HTML:standardAd.content
                                                       webViewBaseURL:[NSURL URLWithString:self.ANBaseURL]];
     self.standardAdView.loadingDelegate = self;
+    // Allow ANJAM events to always be passed to the ANAdView 
+    self.standardAdView.webViewController.adViewANJAMDelegate = self.delegate;
 }
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
