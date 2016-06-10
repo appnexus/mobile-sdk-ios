@@ -41,6 +41,8 @@
     if (delegate == nil) {
         // Allows dismissal of SKStoreProductViewController even if owner has been deallocated
         [super setDelegate:self];
+    } else {
+        [super setDelegate:delegate];
     }
 }
 

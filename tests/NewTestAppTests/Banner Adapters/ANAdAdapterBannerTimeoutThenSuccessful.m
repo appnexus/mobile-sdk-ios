@@ -25,13 +25,17 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
-    __weak ANAdAdapterBannerTimeoutThenSuccessful *weakSelf = self;
-    [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusMediationNetworkTimeoutInterval + 1.0
-                                         block:^{
-                                             ANAdAdapterBannerTimeoutThenSuccessful *strongSelf = weakSelf;
-                                             [strongSelf.delegate didLoadBannerAd:[UIView new]];
-                                         }
-                                       repeats:NO];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:kAppNexusMediationNetworkTimeoutInterval + 1.0
+                                             target:self
+                                           selector:@selector(adDidLoad)
+                                           userInfo:nil
+                                            repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer
+                                 forMode:NSRunLoopCommonModes];
+}
+
+- (void)adDidLoad {
+    [self.delegate didLoadBannerAd:[UIView new]];
 }
 
 @end

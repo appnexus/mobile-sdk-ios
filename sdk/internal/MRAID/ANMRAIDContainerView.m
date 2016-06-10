@@ -103,7 +103,9 @@ ANAdWebViewControllerLoadingDelegate>
 - (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate {
     _adViewDelegate = adViewDelegate;
     self.webViewController.adViewDelegate = adViewDelegate;
+    self.webViewController.adViewANJAMDelegate = adViewDelegate;
     self.expandWebViewController.adViewDelegate = adViewDelegate;
+    self.expandWebViewController.adViewANJAMDelegate = adViewDelegate;
     if ([adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
         id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)adViewDelegate;
         [interstitialDelegate adShouldSetOrientationProperties:self.orientationProperties];
@@ -748,12 +750,14 @@ ANAdWebViewControllerLoadingDelegate>
     if (controller == self.webViewController) {
         // Attaching WKWebView to screen for an instant to allow it to fully load in the background
         // before the call to [ANAdDelegate adDidReceiveAd]
+        self.webViewController.contentView.hidden = YES;
         [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
                                                            atIndex:0];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.15 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
             UIView *contentView = self.webViewController.contentView;
             contentView.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:contentView];
+            self.webViewController.contentView.hidden = NO;
             [contentView an_constrainToSizeOfSuperview];
             [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
                                                 yAttribute:NSLayoutAttributeTop];

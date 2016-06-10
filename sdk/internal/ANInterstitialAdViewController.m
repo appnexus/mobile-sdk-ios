@@ -279,5 +279,18 @@
         }
     }
 }
+ 
+// Allow WKWebView to present WKActionSheet
+- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    if (self.presentedViewController) {
+        [self.presentedViewController presentViewController:viewControllerToPresent
+                                                   animated:flag
+                                                 completion:completion];
+    } else {
+        [super presentViewController:viewControllerToPresent
+                            animated:flag
+                          completion:completion];
+    }
+}
 
 @end
