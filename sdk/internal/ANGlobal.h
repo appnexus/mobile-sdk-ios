@@ -22,8 +22,8 @@
 #define AN_MOBILE_HOSTNAME_INSTALL @"mediation.adnxs.com/install"
 
 // Client Testing
-#define AN_BASE_URL_CTEST @"http://ib.client-testing.adnxs.net/"
-#define AN_MOBILE_HOSTNAME_CTEST @"ib.client-testing.adnxs.net/mob"
+#define AN_BASE_URL_CTEST @"http://ib-test.adnxs.com/"
+#define AN_MOBILE_HOSTNAME_CTEST @"ib-test.adnxs.com/mob"
 #define AN_MOBILE_HOSTNAME_INSTALL_CTEST @"ib.client-testing.adnxs.net/install"
 
 //Sandbox
