@@ -25,10 +25,13 @@
               webViewBaseURL:(NSURL *)baseURL;
 
 @property (nonatomic, readonly, assign) CGSize size;
+@property (nonatomic, readonly, assign, getter=isResponsiveAd) BOOL responsiveAd;
+
 @property (nonatomic, readonly, strong) ANAdWebViewController *webViewController;
 @property (nonatomic, readwrite, weak) id<ANAdWebViewControllerLoadingDelegate> loadingDelegate;
 
 @property (nonatomic, readwrite, weak) id<ANAdViewInternalDelegate> adViewDelegate;
 @property (nonatomic, readwrite, assign) BOOL embeddedInModalView;
+
 
 @end

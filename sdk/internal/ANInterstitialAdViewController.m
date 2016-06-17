@@ -21,6 +21,7 @@
 #import "UIWebView+ANCategory.h"
 #import "ANMRAIDOrientationProperties.h"
 #import "NSTimer+ANCategory.h"
+#import "ANMRAIDContainerView.h"
 
 @interface ANInterstitialAdViewController ()
 @property (nonatomic, readwrite, strong) NSTimer *progressTimer;
@@ -29,7 +30,7 @@
 @property (nonatomic, readwrite, assign) BOOL originalHiddenState;
 @property (nonatomic, readwrite, assign) UIInterfaceOrientation orientation;
 @property (nonatomic, readwrite, assign, getter=isDismissing) BOOL dismissing;
-@property (nonatomic, readwrite, assign) BOOL fullscreenAd;
+@property (nonatomic, readwrite, assign) BOOL responsiveAd;
 @end
 
 @implementation ANInterstitialAdViewController
@@ -143,8 +144,13 @@
         [self.view insertSubview:_contentView
                     belowSubview:self.progressView];
         _contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.fullscreenAd = CGSizeEqualToSize(_contentView.frame.size, CGSizeMake(1, 1));
-        if (self.fullscreenAd) {
+        if ([_contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+            if (((ANMRAIDContainerView *) _contentView).isResponsiveAd) {
+                self.responsiveAd = YES;
+            }
+        }
+        
+        if (self.responsiveAd) {
             [_contentView an_constrainToSizeOfSuperview];
             [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
                                                  yAttribute:NSLayoutAttributeTop];
@@ -178,7 +184,7 @@
 }
 
 - (BOOL)shouldAutorotate {
-    return self.fullscreenAd;
+    return self.responsiveAd;
 }
 
 #if __IPHONE_9_0
@@ -201,7 +207,7 @@
         }
     }
     
-    if (self.fullscreenAd) {
+    if (self.responsiveAd) {
         return UIInterfaceOrientationMaskAll;
     }
 
