@@ -72,6 +72,8 @@ ANAdWebViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, assign) BOOL userInteractedWithContentView;
 
+@property (nonatomic, readwrite, assign) BOOL responsiveAd;
+
 @end
 
 @implementation ANMRAIDContainerView
@@ -79,16 +81,26 @@ ANAdWebViewControllerLoadingDelegate>
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL {
-    if (self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)]) {
+    CGSize initialSize = size;
+    BOOL responsiveAd = NO;
+    if (CGSizeEqualToSize(initialSize, CGSizeMake(1, 1))) {
+        responsiveAd = YES;
+        initialSize = ANPortraitScreenBounds().size;
+    }
+    CGRect initialRect = CGRectMake(0, 0, initialSize.width, initialSize.height);
+    
+    if (self = [super initWithFrame:initialRect]) {
         _size = size;
         _baseURL = baseURL;
+        _responsiveAd = responsiveAd;
         
-        _lastKnownCurrentPosition = CGRectMake(0, 0, size.width, size.height);
-        _lastKnownDefaultPosition = CGRectMake(0, 0, size.width, size.height);
+        _lastKnownCurrentPosition = initialRect;
+        _lastKnownDefaultPosition = initialRect;
         
-        self.webViewController = [[ANAdWebViewController alloc] initWithSize:size
+        self.webViewController = [[ANAdWebViewController alloc] initWithSize:initialSize
                                                                         HTML:html
                                                               webViewBaseURL:baseURL];
+
         self.webViewController.mraidDelegate = self;
         self.webViewController.browserDelegate = self;
         self.webViewController.pitbullDelegate = self;
