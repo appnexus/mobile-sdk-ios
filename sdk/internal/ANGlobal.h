@@ -24,7 +24,7 @@
 // Client Testing
 #define AN_BASE_URL_CTEST @"http://ib-test.adnxs.com/"
 #define AN_MOBILE_HOSTNAME_CTEST @"ib-test.adnxs.com/mob"
-#define AN_MOBILE_HOSTNAME_INSTALL_CTEST @"ib.client-testing.adnxs.net/install"
+#define AN_MOBILE_HOSTNAME_INSTALL_CTEST @"ib-test.adnxs.com/install"
 
 //Sandbox
 #define AN_BASE_URL_SAND @"http://ib.sand-08.adnxs.net/"
@@ -35,7 +35,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"2.11"
+#define AN_SDK_VERSION              @"2.12"
 
 #define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)

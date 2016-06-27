@@ -1,3 +1,21 @@
+## RC 2.12
+
+### Bug Fixes
+
++ MS-2382 Allow numbers passed as strings in mraid.js resizeProperties & expandProperties
+
++ MS-2332 Load interstitial full-screen ads in a web view the size of the screen
+
++ Updated client testing endpoints to ib-test.adnxs.com
+
++ Load MRAID/ANJAM scripts only in main frame
+
++ Open default browser only for a new window navigation
+
+### Mediated SDKs
+
+No change
+
 ## RC 2.11
 
 ### New Features

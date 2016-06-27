@@ -349,10 +349,10 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     WKUserScript *mraidScript = [[WKUserScript alloc] initWithSource:[[self class] mraidJS]
                                                        injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                    forMainFrameOnly:NO];
+                                                    forMainFrameOnly:YES];
     WKUserScript *anjamScript = [[WKUserScript alloc] initWithSource:[[self class] anjamJS]
                                                        injectionTime:WKUserScriptInjectionTimeAtDocumentStart
-                                                    forMainFrameOnly:NO];
+                                                    forMainFrameOnly:YES];
     WKUserScript *paddingScript = [[WKUserScript alloc] initWithSource:paddingJS
                                                          injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                       forMainFrameOnly:YES];
@@ -482,12 +482,10 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
             [self.anjamDelegate handleANJAMURL:URL];
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
-        } else {
-            if (self.configuration.navigationTriggersDefaultBrowser) {
-                [self.browserDelegate openDefaultBrowserWithURL:URL];
-                decisionHandler(WKNavigationActionPolicyCancel);
-                return;
-            }
+        } else if (navigationAction.targetFrame == nil) {
+            [self.browserDelegate openDefaultBrowserWithURL:URL];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
         }
     } else {
         if ([URLScheme isEqualToString:@"mraid"]) {
