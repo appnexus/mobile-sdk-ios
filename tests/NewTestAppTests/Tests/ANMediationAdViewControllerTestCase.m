@@ -115,7 +115,7 @@
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self validateAdFetcherCallbackWithResponseCode:ANAdResponseInternalError
-                                            timeout:kAppNexusRequestTimeoutInterval + 5.0];
+                                            timeout:kAppNexusRequestTimeoutInterval];
 }
 
 - (void)testMediatedAdUnableToFillThenSuccessful {

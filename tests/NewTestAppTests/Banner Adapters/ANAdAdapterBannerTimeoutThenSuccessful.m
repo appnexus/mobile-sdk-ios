@@ -25,7 +25,7 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
-    NSTimer *timer = [NSTimer timerWithTimeInterval:kAppNexusMediationNetworkTimeoutInterval + 1.0
+    NSTimer *timer = [NSTimer timerWithTimeInterval:kAppNexusMediationNetworkTimeoutInterval + 5.0
                                              target:self
                                            selector:@selector(adDidLoad)
                                            userInfo:nil
