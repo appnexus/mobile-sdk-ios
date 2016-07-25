@@ -60,12 +60,24 @@
 #define __nullable
 #endif
 
-#if __IPHONE_9_0
-#define FBInterfaceOrientationMask UIInterfaceOrientationMask
-#else
-#define FBInterfaceOrientationMask NSUInteger
+#ifndef FB_IOS9_SDK_OR_LATER
+#define FB_IOS9_SDK_OR_LATER (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_9_0)
 #endif
 
-#define FB_ALIAS __attribute__((weak, weakref, alias ("kFBAdSizeInterstital")))
+#ifndef FBInterfaceOrientationMask
+#if !FB_IOS9_SDK_OR_LATER
+#define FBInterfaceOrientationMask NSUInteger
+#else
+#define FBInterfaceOrientationMask UIInterfaceOrientationMask
+#endif // FB_IOS9_SDK_OR_LATER
+#endif // FBInterfaceOrientationMask
+
+#ifndef FB_SUBCLASSING_RESTRICTED
+#if defined(__has_attribute) && __has_attribute(objc_subclassing_restricted)
+#define FB_SUBCLASSING_RESTRICTED __attribute__((objc_subclassing_restricted))
+#else
+#define FB_SUBCLASSING_RESTRICTED
+#endif
+#endif
 
 #endif

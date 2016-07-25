@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @abstract Additional functionality on top of FBNativeAdsManager to assist in using native ads within a UITableView. This class contains a mechanism to map indexPaths to native ads in a stable manner as well as helpers which assist in doing the math to include ads at a regular interval within a table view.
  */
-FB_CLASS_EXPORT
+FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @interface FBNativeAdTableViewAdProvider : NSObject
 
 /*!
