@@ -32,8 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract A modal view controller to represent a Facebook interstitial ad. This
  is a full-screen ad shown in your application.
  */
-FB_CLASS_EXPORT
-@interface FBInterstitialAd : UIViewController <FBAdViewDelegate>
+FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
+@interface FBInterstitialAd : NSObject
 
 /*!
  @property
