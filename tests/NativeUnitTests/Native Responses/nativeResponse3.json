@@ -11,10 +11,10 @@
          "title":"AppNexusSDKApp",
          "description":"Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
          "cta":"Install Now!",
-         "icon_img_url":http://rlissack.adnxs.net:8080/jtest/appnexus_logo_icon@2x.png",
+         "icon_img_url":https://acdn.adnxs.com/mobile/native_test/icon_image_100_100.png",
          "main_media":[
             {
-               "url":"http://rlissack.adnxs.net:8080/jtest/MainImageAppNexusSDKApp@2x.png",
+               "url":"https://acdn.adnxs.com/mobile/native_test/main_image_640_334.png",
                "width":300,
                "height":250,
                "label":"default"

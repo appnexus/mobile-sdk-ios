@@ -105,22 +105,23 @@
 }
 
 - (void)testiAdSuccessfulBanner {
-    ANBannerAdView *bannerAdView = [self.rootViewController loadiAdBannerWithDelegate:self];
-    [self.rootViewController.view addSubview:bannerAdView];
-    
-    self.adResponseExpectation = [self expectationWithDescription:@"ad received/failed response"];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
-    XCTAssertFalse(self.didFailToReceiveAd, @"Received successful callback, but no ad was received.");
-    
-#if kANMediationAdaptersUITesting
-    bannerAdView.accessibilityLabel = @"banner";
-    [tester tapViewWithAccessibilityLabel:@"banner"];
-    [tester waitForTimeInterval:3.0];
-    XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
-    XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
-    XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
-    [tester waitForTimeInterval:3.0];
-#endif
+    // iAd App Network shut down as of July 1, 2016
+//    ANBannerAdView *bannerAdView = [self.rootViewController loadiAdBannerWithDelegate:self];
+//    [self.rootViewController.view addSubview:bannerAdView];
+//    
+//    self.adResponseExpectation = [self expectationWithDescription:@"ad received/failed response"];
+//    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+//    XCTAssertFalse(self.didFailToReceiveAd, @"Received successful callback, but no ad was received.");
+//    
+//#if kANMediationAdaptersUITesting
+//    bannerAdView.accessibilityLabel = @"banner";
+//    [tester tapViewWithAccessibilityLabel:@"banner"];
+//    [tester waitForTimeInterval:3.0];
+//    XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
+//    XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
+//    XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
+//    [tester waitForTimeInterval:3.0];
+//#endif
 }
 
 - (void)testFacebookSuccessfulBanner {

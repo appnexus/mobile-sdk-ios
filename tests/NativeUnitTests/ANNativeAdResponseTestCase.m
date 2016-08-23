@@ -212,7 +212,7 @@
     [self iconImageShouldBePresentInResponse:YES];
     [self mainImageShouldBePresentInResponse:YES];
     
-    XCTAssertTrue([self.adResponse.mainImageURL.absoluteString containsString:@"rlissack.adnxs.net"]);
+    XCTAssertTrue([self.adResponse.mainImageURL.absoluteString containsString:@"acdn.adnxs.com/mobile"]);
 
     [self createMainImageNativeView];
     [self populateNativeViewWithResponse];
@@ -246,7 +246,7 @@
     [self iconImageShouldBePresentInResponse:YES];
     [self mainImageShouldBePresentInResponse:YES];
     
-    XCTAssertTrue([self.adResponse.mainImageURL.absoluteString containsString:@"rlissack.adnxs.net"]);
+    XCTAssertTrue([self.adResponse.mainImageURL.absoluteString containsString:@"acdn.adnxs.com/mobile"]);
     
     [self createMainImageNativeView];
     [self populateNativeViewWithResponse];
