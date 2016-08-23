@@ -23,6 +23,8 @@
 #import "UIView+ANCategory.h"
 #import "ANOpenInExternalBrowserActivity.h"
 
+#import "ANSDKConfig.h"
+
 @interface ANBrowserViewController () <SKStoreProductViewControllerDelegate,
 WKNavigationDelegate, WKUIDelegate>
 @property (nonatomic, readwrite, assign) BOOL completedInitialLoad;
@@ -195,10 +197,19 @@ WKNavigationDelegate, WKUIDelegate>
         }
         [self loadAndPresentStoreControllerWithiTunesId:iTunesId];
     } else if (ANHasHttpPrefix([URL scheme])) {
-        if (!self.presented && !self.presenting && !self.delayPresentationForLoad) {
-            [self rootViewControllerShouldPresentBrowserViewController];
+        if ([ANSDKConfig sharedInstance].HTTPSEnabled && ![[URL scheme] hasPrefix:@"https"]) {
+            if (self.modernWebView) {
+                [self.modernWebView stopLoading];
+            } else {
+                [self.legacyWebView stopLoading];
+            }
+            [[UIApplication sharedApplication] openURL:URL];
+        } else {
+            if (!self.presented && !self.presenting && !self.delayPresentationForLoad) {
+                [self rootViewControllerShouldPresentBrowserViewController];
+            }
+            shouldStartLoadWithRequest = YES;
         }
-        shouldStartLoadWithRequest = YES;
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         if (!self.completedInitialLoad) {
             [self rootViewControllerShouldDismissPresentedViewController];

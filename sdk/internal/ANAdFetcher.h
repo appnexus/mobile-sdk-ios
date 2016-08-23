@@ -35,7 +35,6 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> delegate;
 @property (nonatomic, readonly, getter = isLoading) BOOL loading;
-@property (nonatomic, readwrite, assign) ANMobileEndpoint endpoint;
 
 - (void)stopAd;
 - (void)requestAd;

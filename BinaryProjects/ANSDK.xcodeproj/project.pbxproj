@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
+		8A02D6EE1D6CE014006831A3 /* ANSDKConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKConfig.h */; };
+		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
+		8A02D7071D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */; };
+		8A02D7081D6CE946006831A3 /* ANSDKConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKConfig.m */; };
+		8A02D7091D6CE946006831A3 /* ANSDKConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKConfig.m */; };
 		8A0AF2EF1B30946200E62975 /* ANAdAdapterBaseDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */; };
 		8A0EFA8B1B4356F600196294 /* ANAdAdapterBaseYahoo.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A9687211B433A3300D9399B /* ANAdAdapterBaseYahoo.h */; };
 		8A0EFA8E1B4357E900196294 /* ANAdAdapterBannerYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA8D1B4357E900196294 /* ANAdAdapterBannerYahoo.m */; };
@@ -578,6 +584,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
+		8A02D6EC1D6CE014006831A3 /* ANSDKConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDKConfig.h; sourceTree = "<group>"; };
+		8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseUrlConfig.h; sourceTree = "<group>"; };
+		8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANSDKConfig+PrivateMethods.h"; sourceTree = "<group>"; };
+		8A02D6FF1D6CE946006831A3 /* ANSDKConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSDKConfig.m; sourceTree = "<group>"; };
 		8A0AF2ED1B30946200E62975 /* ANAdAdapterBaseDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseDFP.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.h; sourceTree = "<group>"; };
 		8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseDFP.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.m; sourceTree = "<group>"; };
 		8A0EFA8C1B4357E900196294 /* ANAdAdapterBannerYahoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerYahoo.h; sourceTree = "<group>"; };
@@ -697,7 +708,6 @@
 		8A6514711A12DB31003F1047 /* UIView+ANNativeAdCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ANNativeAdCategory.m"; sourceTree = "<group>"; };
 		8A67FE961B7068C700E2B326 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		8A67FE971B7068D100E2B326 /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAds.a; sourceTree = "<group>"; };
-		8A6BE78019D60C3E00498F77 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
 		8A6CD9261A96B2FD0060BCF4 /* compass@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@3x.png"; sourceTree = "<group>"; };
 		8A6D2E841A44A5D3003CE77A /* interstitial_flat_closebox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_flat_closebox@3x.png"; sourceTree = "<group>"; };
 		8A6D2E871A44A62A003CE77A /* interstitial_flat_closebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_flat_closebox@2x.png"; sourceTree = "<group>"; };
@@ -1111,6 +1121,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A02D6F81D6CE946006831A3 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */,
+				8A02D6FF1D6CE946006831A3 /* ANSDKConfig.m */,
+				8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
 		8A1482461AD3371C0046F1B9 /* AdColony */ = {
 			isa = PBXGroup;
 			children = (
@@ -1585,6 +1605,7 @@
 				8ABF77571D08CE420068B535 /* ANStoreProductViewController.h */,
 				8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */,
 				8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */,
+				8A02D6F81D6CE946006831A3 /* config */,
 				8AC65F361A40DE63006BCF39 /* MRAID */,
 			);
 			path = internal;
@@ -1796,7 +1817,7 @@
 			isa = PBXGroup;
 			children = (
 				ECE4EA8C194B768A0069D934 /* ANSDK */,
-				8A6BE78019D60C3E00498F77 /* ANSDK.h */,
+				8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */,
 				8A9AED8D1A1BE84F00C58BDA /* AppNexusSDK */,
 				8AE5E11F1A2FDCDB00FDE858 /* Frameworks */,
 				8AE2D87419CC9D9B00001B70 /* Mediated By AppNexus */,
@@ -1834,12 +1855,13 @@
 			children = (
 				8ABB76691A00385C00FEAD9D /* ANAdConstants.h */,
 				ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */,
-				ECE4EA90194B768A0069D934 /* ANCustomAdapter.h */,
 				ECE4EA8E194B768A0069D934 /* ANAdView.h */,
 				ECE4EA8F194B768A0069D934 /* ANBannerAdView.h */,
+				ECE4EA90194B768A0069D934 /* ANCustomAdapter.h */,
 				ECE4EA91194B768A0069D934 /* ANInterstitialAd.h */,
 				ECE4EA92194B768A0069D934 /* ANLocation.h */,
 				ECE4EA93194B768A0069D934 /* ANLogManager.h */,
+				8A02D6EC1D6CE014006831A3 /* ANSDKConfig.h */,
 				ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */,
 				ECE4EA95194B768A0069D934 /* Categories */,
 				8AD6189D1981C11F00AC0780 /* internal */,
@@ -1853,6 +1875,7 @@
 		ECE4EA95194B768A0069D934 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8AE5E11C1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h */,
 				8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */,
 				8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */,
 				ECE4EA96194B768A0069D934 /* NSString+ANCategory.h */,
@@ -1863,7 +1886,6 @@
 				ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */,
 				ECE4EA9C194B768A0069D934 /* UIWebView+ANCategory.h */,
 				ECE4EA9D194B768A0069D934 /* UIWebView+ANCategory.m */,
-				8AE5E11C1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1917,12 +1939,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */,
+				8A02D6EE1D6CE014006831A3 /* ANSDKConfig.h in Headers */,
 				8A9AED911A1BE84F00C58BDA /* AppNexusSDK.h in Headers */,
 				8A9AEDB11A1BE8C200C58BDA /* ANAdConstants.h in Headers */,
 				8A9AEDB21A1BE8C200C58BDA /* ANAdProtocol.h in Headers */,
 				8A9AEDB31A1BE8C200C58BDA /* ANAdView.h in Headers */,
 				8A9AEDB41A1BE8C200C58BDA /* ANBannerAdView.h in Headers */,
+				8A02D7071D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h in Headers */,
 				8A9AEDB51A1BE8C200C58BDA /* ANCustomAdapter.h in Headers */,
+				8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */,
 				8A9AEDB61A1BE8C200C58BDA /* ANInterstitialAd.h in Headers */,
 				8A9AEDB71A1BE8C200C58BDA /* ANLocation.h in Headers */,
 				8A9AEDB81A1BE8C200C58BDA /* ANLogManager.h in Headers */,
@@ -2578,6 +2604,7 @@
 				8AC65F661A40DE74006BCF39 /* ANMRAIDExpandViewController.m in Sources */,
 				8AC65F681A40DE74006BCF39 /* ANMRAIDJavascriptUtil.m in Sources */,
 				8A9AEDFA1A1BF99D00C58BDA /* ANLogging.m in Sources */,
+				8A02D7091D6CE946006831A3 /* ANSDKConfig.m in Sources */,
 				8A9AEDFB1A1BF99D00C58BDA /* ANLogManager.m in Sources */,
 				8AC65F701A40DE74006BCF39 /* ANMRAIDResizeViewManager.m in Sources */,
 				8A9AEDFC1A1BF99D00C58BDA /* ANMediatedAd.m in Sources */,
@@ -2753,6 +2780,7 @@
 				8A6385E01A14336000280054 /* ANNativeAdImageCache.m in Sources */,
 				8AC65F4C1A40DE63006BCF39 /* ANMRAIDCalendarManager.m in Sources */,
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
+				8A02D7081D6CE946006831A3 /* ANSDKConfig.m in Sources */,
 				8AC65F5E1A40DE63006BCF39 /* ANMRAIDUtil.m in Sources */,
 				8AC65F4E1A40DE63006BCF39 /* ANMRAIDContainerView.m in Sources */,
 				8A6385DF1A14336000280054 /* ANNativeAdFetcher.m in Sources */,
