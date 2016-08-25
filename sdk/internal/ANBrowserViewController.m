@@ -132,6 +132,7 @@ WKNavigationDelegate, WKUIDelegate>
     self.receivedInitialRequest = NO;
     self.legacyWebView = nil;
     self.modernWebView = nil;
+    [self initializeWebView];
 }
 
 - (void)stopLoading {
@@ -197,19 +198,10 @@ WKNavigationDelegate, WKUIDelegate>
         }
         [self loadAndPresentStoreControllerWithiTunesId:iTunesId];
     } else if (ANHasHttpPrefix([URL scheme])) {
-        if ([ANSDKConfig sharedInstance].HTTPSEnabled && ![[URL scheme] hasPrefix:@"https"]) {
-            if (self.modernWebView) {
-                [self.modernWebView stopLoading];
-            } else {
-                [self.legacyWebView stopLoading];
-            }
-            [[UIApplication sharedApplication] openURL:URL];
-        } else {
-            if (!self.presented && !self.presenting && !self.delayPresentationForLoad) {
-                [self rootViewControllerShouldPresentBrowserViewController];
-            }
-            shouldStartLoadWithRequest = YES;
+        if (!self.presented && !self.presenting && !self.delayPresentationForLoad) {
+            [self rootViewControllerShouldPresentBrowserViewController];
         }
+        shouldStartLoadWithRequest = YES;
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         if (!self.completedInitialLoad) {
             [self rootViewControllerShouldDismissPresentedViewController];
@@ -523,11 +515,23 @@ WKNavigationDelegate, WKUIDelegate>
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    ANLogTrace(@"%@", NSStringFromSelector(_cmd));
     [self updateLoadingStateForStartLoad];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     ANLogTrace(@"%@ %@", NSStringFromSelector(_cmd), error);
+    [self updateLoadingStateForFinishLoad];
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    ANLogTrace(@"%@ %@", NSStringFromSelector(_cmd), error);
+    if ([error.domain isEqualToString:NSURLErrorDomain] && (error.code == NSURLErrorSecureConnectionFailed || error.code == NSURLErrorAppTransportSecurityRequiresSecureConnection)) {
+        NSURL *url = error.userInfo[NSURLErrorFailingURLErrorKey];
+        ANLogError(@"In-app browser attempted to load URL which is not compliant with App Transport Security.\
+                   Opening the URL in the native browser. URL: %@", url);
+        [[UIApplication sharedApplication] openURL:url];
+    }
     [self updateLoadingStateForFinishLoad];
 }
 
