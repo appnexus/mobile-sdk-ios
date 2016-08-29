@@ -48,7 +48,7 @@
                                                  name:kANHTTPStubURLProtocolRequestDidLoadNotification
                                                object:nil];
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:YES];
-    self.URL = [NSURL URLWithString:@"http://rlissack.adnxs.net:8080/jtest/native/empty_response.json"];
+    self.URL = [NSURL URLWithString:@"https://acdn.adnxs.com/mobile/native_test/empty_response.json"];
     [ANNativeImpressionTrackerManager fireImpressionTrackerURL:self.URL];
     [XCTestCase delayForTimeInterval:3.0];
     XCTAssertFalse(self.urlWasFired);
