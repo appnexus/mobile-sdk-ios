@@ -21,10 +21,10 @@ NSString *const kANLoggingNotification = @"kANLoggingNotification";
 NSString *const kANLogMessageKey = @"kANLogMessageKey";
 NSString *const kANLogMessageLevelKey = @"kANLogMessageLevelKey";
 
-void _ANLog(ANLogLevel level, NSString *format, ...) {
+void _ANLog(ANLogLevel level, NSString *levelString, char const *logContext, NSString *format, ...) {
 	if ([ANLogManager getANLogLevel] <= level) {
         format = ANErrorString(format); // returns the format string if error string not found
-		format = [NSString stringWithFormat:@"APPNEXUS: %@", format];
+		format = [NSString stringWithFormat:@" APPNEXUS %@  %s -- %@", levelString, logContext, format];
         va_list args;
         va_start(args, format);
         NSString *fullString = [[NSString alloc] initWithFormat:format arguments:args];
