@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67F961D760011009270E6 /* libz.1.2.5.tbd */; };
+		4FD67FA51D760019009270E6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3658519D4746E0097019F /* AudioToolbox.framework */; };
+		4FD67FA61D760020009270E6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3657F19D473B00097019F /* AVFoundation.framework */; };
+		4FD67FA81D760026009270E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67FA71D760026009270E6 /* CoreGraphics.framework */; };
+		4FD67FA91D76002B009270E6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482801AD346430046F1B9 /* CoreMedia.framework */; };
+		4FD67FAB1D76003D009270E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67FAA1D76003D009270E6 /* QuartzCore.framework */; };
+		4FD67FAC1D760043009270E6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14827D1AD346220046F1B9 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */; };
 		8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FD19DB1E150090EBED /* ANAdFetcher+ANTest.m */; };
 		8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */; };
@@ -547,6 +554,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
+		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4FD67FAA1D76003D009270E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adMob_mediated_response.json; sourceTree = "<group>"; };
 		8A0AA46319DB30A2005EC52C /* ANAdResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseTestCase.m; sourceTree = "<group>"; };
 		8A0AA46419DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdViewMRAIDCreativeTestCase.m; sourceTree = "<group>"; };
@@ -898,6 +908,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FD67FAC1D760043009270E6 /* Social.framework in Frameworks */,
+				4FD67FAB1D76003D009270E6 /* QuartzCore.framework in Frameworks */,
+				8A9CBAC41C652E7D00558C95 /* EventKitUI.framework in Frameworks */,
+				4FD67FA91D76002B009270E6 /* CoreMedia.framework in Frameworks */,
+				4FD67FA81D760026009270E6 /* CoreGraphics.framework in Frameworks */,
+				4FD67FA61D760020009270E6 /* AVFoundation.framework in Frameworks */,
+				4FD67FA51D760019009270E6 /* AudioToolbox.framework in Frameworks */,
+				4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */,
 				8AF8411E1CF7541D00F97FA9 /* WebKit.framework in Frameworks */,
 				8A9CBADB1C652EE900558C95 /* MediaPlayer.framework in Frameworks */,
 				8A9CBAD91C652EDB00558C95 /* CoreTelephony.framework in Frameworks */,
@@ -905,7 +923,6 @@
 				8A9CBAD61C652EB200558C95 /* SystemConfiguration.framework in Frameworks */,
 				8A9CBAD41C652EA400558C95 /* StoreKit.framework in Frameworks */,
 				8A9CBAD31C652E9B00558C95 /* MessageUI.framework in Frameworks */,
-				8A9CBAC41C652E7D00558C95 /* EventKitUI.framework in Frameworks */,
 				8AF3659419D479130097019F /* AdSupport.framework in Frameworks */,
 				8AA00A4219DB2A3A0090EBED /* libANSDK.a in Frameworks */,
 			);
@@ -1084,6 +1101,9 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4FD67FAA1D76003D009270E6 /* QuartzCore.framework */,
+				4FD67FA71D760026009270E6 /* CoreGraphics.framework */,
+				4FD67F961D760011009270E6 /* libz.1.2.5.tbd */,
 				8AF8413C1CF75A0200F97FA9 /* libLWSDK.a */,
 				8AF8412E1CF755F900F97FA9 /* libc++.1.tbd */,
 				8AF8412C1CF755DA00F97FA9 /* libc++abi.tbd */,

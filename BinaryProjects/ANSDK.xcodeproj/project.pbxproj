@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FD67FAE1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */; };
+		4FD67FAF1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */; };
 		8A0AF2EF1B30946200E62975 /* ANAdAdapterBaseDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */; };
 		8A0EFA8B1B4356F600196294 /* ANAdAdapterBaseYahoo.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A9687211B433A3300D9399B /* ANAdAdapterBaseYahoo.h */; };
 		8A0EFA8E1B4357E900196294 /* ANAdAdapterBannerYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA8D1B4357E900196294 /* ANAdAdapterBannerYahoo.m */; };
@@ -578,6 +580,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SDKIntegrationKeys.plist; sourceTree = "<group>"; };
 		8A0AF2ED1B30946200E62975 /* ANAdAdapterBaseDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseDFP.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.h; sourceTree = "<group>"; };
 		8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseDFP.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.m; sourceTree = "<group>"; };
 		8A0EFA8C1B4357E900196294 /* ANAdAdapterBannerYahoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerYahoo.h; sourceTree = "<group>"; };
@@ -1437,6 +1440,7 @@
 		8A9AED8E1A1BE84F00C58BDA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */,
 				8A9AED8F1A1BE84F00C58BDA /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -2384,6 +2388,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FD67FAF1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */,
 				8ADA36201A82A8D700AF65AA /* ANSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2496,6 +2501,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FD67FAE1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */,
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

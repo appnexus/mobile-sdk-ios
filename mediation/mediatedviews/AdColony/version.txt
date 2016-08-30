@@ -1,0 +1,3 @@
+2.6.2
+Could not test native.  Reason: AN presently excluded from private beta.
+Retest again in the future or resolve by other means -- see JIRA MS-2687.
