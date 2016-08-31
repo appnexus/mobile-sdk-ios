@@ -1,3 +1,9 @@
+## RC 2.12.1
+
+### Mediated SDKs
+
++ Facebook SDK Version 4.14.0
+
 ## RC 2.12
 
 ### Bug Fixes

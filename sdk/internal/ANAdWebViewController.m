@@ -457,6 +457,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURL *URL = navigationAction.request.URL;
+    NSURL *mainDocumentURL = navigationAction.request.mainDocumentURL;
     NSString *URLScheme = URL.scheme;
     
     if ([URLScheme isEqualToString:@"anwebconsole"]) {
@@ -474,7 +475,26 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     }
     
     if (self.completedFirstLoad) {
-        if ([URLScheme isEqualToString:@"mraid"]) {
+        if (ANHasHttpPrefix(URLScheme)) {
+            if (self.isMRAID) {
+                if (([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]
+                     || navigationAction.targetFrame == nil)
+                    && self.configuration.navigationTriggersDefaultBrowser) {
+                    [self.browserDelegate openDefaultBrowserWithURL:URL];
+                    decisionHandler(WKNavigationActionPolicyCancel);
+                    return;
+                }
+            } else {
+                if (([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]]
+                     || navigationAction.navigationType == WKNavigationTypeLinkActivated
+                     || navigationAction.targetFrame == nil)
+                    && self.configuration.navigationTriggersDefaultBrowser) {
+                    [self.browserDelegate openDefaultBrowserWithURL:URL];
+                    decisionHandler(WKNavigationActionPolicyCancel);
+                    return;
+                }
+            }
+        } else if ([URLScheme isEqualToString:@"mraid"]) {
             [self handleMRAIDURL:URL];
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
@@ -482,10 +502,15 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
             [self.anjamDelegate handleANJAMURL:URL];
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
-        } else if (navigationAction.targetFrame == nil) {
-            [self.browserDelegate openDefaultBrowserWithURL:URL];
+        } else if ([URLScheme isEqualToString:@"about"]) {
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
+        } else {
+            if (self.configuration.navigationTriggersDefaultBrowser) {
+                [self.browserDelegate openDefaultBrowserWithURL:URL];
+                decisionHandler(WKNavigationActionPolicyCancel);
+                return;
+            }
         }
     } else {
         if ([URLScheme isEqualToString:@"mraid"]) {

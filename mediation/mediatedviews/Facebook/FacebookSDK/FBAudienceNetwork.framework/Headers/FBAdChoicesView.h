@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract
  FBAdChoicesView offers a simple way to display a sponsored or AdChoices icon.
  */
-FB_CLASS_EXPORT
+FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @interface FBAdChoicesView : UIView
 
 /*!

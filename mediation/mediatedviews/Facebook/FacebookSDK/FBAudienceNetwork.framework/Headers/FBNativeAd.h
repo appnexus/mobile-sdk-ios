@@ -40,7 +40,7 @@ typedef NS_OPTIONS(NSInteger, FBNativeAdsCachePolicy) {
  The FBNativeAd represents ad metadata to allow you to construct custom ad views.
  See the NativeAdSample in the sample apps section of the Audience Network framework.
  */
-FB_CLASS_EXPORT
+FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @interface FBNativeAd : NSObject
 
 /*!

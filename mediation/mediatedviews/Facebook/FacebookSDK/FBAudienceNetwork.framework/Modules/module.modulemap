@@ -6,7 +6,7 @@ framework module FBAudienceNetwork {
         export *
     }
 
-    requires objc, objc_arc, blocks
+    requires objc, blocks
 
     link framework "AdSupport"
     link framework "AudioToolbox"
