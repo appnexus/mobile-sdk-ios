@@ -23,6 +23,7 @@
  */
 typedef NS_ENUM(NSUInteger, ANLogLevel) {
 	ANLogLevelAll		= 0,
+    ANLogLevelMark      = 9,
 	ANLogLevelTrace		= 10,
 	ANLogLevelDebug		= 20,
 	ANLogLevelInfo		= 30,
