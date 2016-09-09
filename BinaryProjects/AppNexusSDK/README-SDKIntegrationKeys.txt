@@ -16,11 +16,22 @@ unless otherwise noted.  Please copy (or recreate) the key and its
 value in the designated Info.plist of the app into which you are
 integrating the AppNexus SDK.
 
+Most of the following keys have nuances of meaning and/or
+relationships to legacy keys.  Please consider Apple documentation
+regarding CocoaKeys:
+
+  https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html
+
+
 
 
 AdColony
   LSApplicationQueriesScheme
   NSAppTransportSecurity[1]
+
+Millennial
+  NSAppTransportSecurity[1]
+  NSLocationWhenInUseUsageDescription[2]
 
 
 FIX -- ADD
@@ -28,11 +39,12 @@ FIX -- ADD
 
 
 
-[1] NOTE  Please see developer.apple.com if exceptions to
-          NSAppTransportSecurity are needed:
+NOTES
 
-  https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html
+  [1] See developer.apple.com if exceptions to NSAppTransportSecurity are needed:
 
+  [2] Customize this string for your application.
+      NSLocationWhenInUseUsageDescription supercedes NSLocationUsageDescription.
 
 
 

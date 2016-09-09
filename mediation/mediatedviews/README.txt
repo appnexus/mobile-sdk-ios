@@ -1,21 +1,23 @@
 
 CURRENT VERSIONS OF MEDIATED SDKs
 ================================================
-
-  Amazon SDK              vFIX
-  AdColony SDK            v2.6.2
+                             
+  SDK                     version       iOS     ATS     Bitcode   Multitasking    IPv6
+  ----------------------------------------------------------------------------------------------
+  Amazon                  FIX           .       .       .         .               .
+  AdColony                2.6.2         .       .       .         .               .
         ** AdColony native is deactivated.
-  AdMob SDK               v7.10.1
+  AdMob                   7.10.1        .       .       .         .               .
         ** Does not include Firebase support.
-  Chartboost SDK          v6.4.7
-  Facebook SDK            v4.15.0
-  InMobi SDK              vFIX
-  Millennial Media SDK    vFIX
-  MoPub SDK               vFIX
-  VDOPIA Lightweight SDK  vFIX
+  Chartboost              6.4.7         .       .       .         .               .
+  Facebook                4.15.0        .       .       .         .               .
+  InMobi                  FIX           .       .       .         .               .
+  Millennial Media        FIX           7+      no      no        yes             yes 
+  MoPub                   FIX           .       .       .         .               .
+  VDOPIA Lightweight      FIX           .       .       .         .               .
         FIX -- need status update?
-  Vungle SDK              vFIX
-  Yahoo Flurry SDK        vFIX
+  Vungle                  FIX           .       .       .         .               .
+  Yahoo Flurry            FIX           .       .       .         .               .
 
 
 
