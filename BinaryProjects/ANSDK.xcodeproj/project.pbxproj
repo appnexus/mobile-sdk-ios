@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
-		8A02D6EE1D6CE014006831A3 /* ANSDKConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKConfig.h */; };
+		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
 		8A02D7071D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */; };
-		8A02D7081D6CE946006831A3 /* ANSDKConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKConfig.m */; };
-		8A02D7091D6CE946006831A3 /* ANSDKConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKConfig.m */; };
+		8A02D7081D6CE946006831A3 /* ANSDKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */; };
+		8A02D7091D6CE946006831A3 /* ANSDKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */; };
 		8A0AF2EF1B30946200E62975 /* ANAdAdapterBaseDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */; };
 		8A0EFA8B1B4356F600196294 /* ANAdAdapterBaseYahoo.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A9687211B433A3300D9399B /* ANAdAdapterBaseYahoo.h */; };
 		8A0EFA8E1B4357E900196294 /* ANAdAdapterBannerYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA8D1B4357E900196294 /* ANAdAdapterBannerYahoo.m */; };
@@ -585,10 +585,10 @@
 
 /* Begin PBXFileReference section */
 		8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
-		8A02D6EC1D6CE014006831A3 /* ANSDKConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDKConfig.h; sourceTree = "<group>"; };
+		8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDKSettings.h; sourceTree = "<group>"; };
 		8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseUrlConfig.h; sourceTree = "<group>"; };
 		8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANSDKConfig+PrivateMethods.h"; sourceTree = "<group>"; };
-		8A02D6FF1D6CE946006831A3 /* ANSDKConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSDKConfig.m; sourceTree = "<group>"; };
+		8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSDKSettings.m; sourceTree = "<group>"; };
 		8A0AF2ED1B30946200E62975 /* ANAdAdapterBaseDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseDFP.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.h; sourceTree = "<group>"; };
 		8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseDFP.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.m; sourceTree = "<group>"; };
 		8A0EFA8C1B4357E900196294 /* ANAdAdapterBannerYahoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerYahoo.h; sourceTree = "<group>"; };
@@ -1125,7 +1125,7 @@
 			isa = PBXGroup;
 			children = (
 				8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */,
-				8A02D6FF1D6CE946006831A3 /* ANSDKConfig.m */,
+				8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */,
 				8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */,
 			);
 			path = config;
@@ -1861,7 +1861,7 @@
 				ECE4EA91194B768A0069D934 /* ANInterstitialAd.h */,
 				ECE4EA92194B768A0069D934 /* ANLocation.h */,
 				ECE4EA93194B768A0069D934 /* ANLogManager.h */,
-				8A02D6EC1D6CE014006831A3 /* ANSDKConfig.h */,
+				8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */,
 				ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */,
 				ECE4EA95194B768A0069D934 /* Categories */,
 				8AD6189D1981C11F00AC0780 /* internal */,
@@ -1940,7 +1940,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */,
-				8A02D6EE1D6CE014006831A3 /* ANSDKConfig.h in Headers */,
+				8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */,
 				8A9AED911A1BE84F00C58BDA /* AppNexusSDK.h in Headers */,
 				8A9AEDB11A1BE8C200C58BDA /* ANAdConstants.h in Headers */,
 				8A9AEDB21A1BE8C200C58BDA /* ANAdProtocol.h in Headers */,
@@ -2604,7 +2604,7 @@
 				8AC65F661A40DE74006BCF39 /* ANMRAIDExpandViewController.m in Sources */,
 				8AC65F681A40DE74006BCF39 /* ANMRAIDJavascriptUtil.m in Sources */,
 				8A9AEDFA1A1BF99D00C58BDA /* ANLogging.m in Sources */,
-				8A02D7091D6CE946006831A3 /* ANSDKConfig.m in Sources */,
+				8A02D7091D6CE946006831A3 /* ANSDKSettings.m in Sources */,
 				8A9AEDFB1A1BF99D00C58BDA /* ANLogManager.m in Sources */,
 				8AC65F701A40DE74006BCF39 /* ANMRAIDResizeViewManager.m in Sources */,
 				8A9AEDFC1A1BF99D00C58BDA /* ANMediatedAd.m in Sources */,
@@ -2780,7 +2780,7 @@
 				8A6385E01A14336000280054 /* ANNativeAdImageCache.m in Sources */,
 				8AC65F4C1A40DE63006BCF39 /* ANMRAIDCalendarManager.m in Sources */,
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
-				8A02D7081D6CE946006831A3 /* ANSDKConfig.m in Sources */,
+				8A02D7081D6CE946006831A3 /* ANSDKSettings.m in Sources */,
 				8AC65F5E1A40DE63006BCF39 /* ANMRAIDUtil.m in Sources */,
 				8AC65F4E1A40DE63006BCF39 /* ANMRAIDContainerView.m in Sources */,
 				8A6385DF1A14336000280054 /* ANNativeAdFetcher.m in Sources */,

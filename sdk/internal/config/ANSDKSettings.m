@@ -13,8 +13,8 @@
  limitations under the License.
  */
 
-#import "ANSDKConfig.h"
-#import "ANSDKConfig+PrivateMethods.h"
+#import "ANSDKSettings.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
 @interface ANProdHTTPBaseUrlConfig : NSObject <ANBaseUrlConfig>
 
@@ -66,21 +66,21 @@
 
 @end
 
-@interface ANSDKConfig()
+@interface ANSDKSettings()
 
 @property (nonatomic) id<ANBaseUrlConfig> baseUrlConfig;
 
 @end
 
-@implementation ANSDKConfig
+@implementation ANSDKSettings
 
 + (id)sharedInstance {
-    static dispatch_once_t sdkConfigToken;
-    static ANSDKConfig *sdkConfig;
-    dispatch_once(&sdkConfigToken, ^{
-        sdkConfig = [[ANSDKConfig alloc] init];
+    static dispatch_once_t sdkSettingsToken;
+    static ANSDKSettings *sdkSettings;
+    dispatch_once(&sdkSettingsToken, ^{
+        sdkSettings = [[ANSDKSettings alloc] init];
     });
-    return sdkConfig;
+    return sdkSettings;
 }
 
 - (id<ANBaseUrlConfig>)baseUrlConfig {

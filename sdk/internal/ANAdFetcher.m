@@ -27,7 +27,7 @@
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
 
-#import "ANSDKConfig+PrivateMethods.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
@@ -84,7 +84,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
         ANLogDebug(@"%@", errorKey);
 		
         self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
-                                                                      baseUrlString:[[[ANSDKConfig sharedInstance] baseUrlConfig] adRequestBaseUrl]];
+                                                                      baseUrlString:[[[ANSDKSettings sharedInstance] baseUrlConfig] adRequestBaseUrl]];
 		
 		if (self.URL != nil)
 		{
@@ -258,7 +258,7 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     
     self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
                                                                 HTML:standardAd.content
-                                                      webViewBaseURL:[NSURL URLWithString:[[[ANSDKConfig sharedInstance] baseUrlConfig] webViewBaseUrl]]];
+                                                      webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
     self.standardAdView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView 
     self.standardAdView.webViewController.adViewANJAMDelegate = self.delegate;

@@ -13,10 +13,10 @@
  limitations under the License.
  */
 
-#import "ANSDKConfig.h"
+#import "ANSDKSettings.h"
 #import "ANBaseUrlConfig.h"
 
-@interface ANSDKConfig (PrivateMethods)
+@interface ANSDKSettings (PrivateMethods)
 
 @property (nonatomic) id<ANBaseUrlConfig> baseUrlConfig;
 

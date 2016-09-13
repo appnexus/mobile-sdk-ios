@@ -23,7 +23,7 @@
 #import "UIView+ANCategory.h"
 #import "ANOpenInExternalBrowserActivity.h"
 
-#import "ANSDKConfig.h"
+#import "ANSDKSettings.h"
 
 @interface ANBrowserViewController () <SKStoreProductViewControllerDelegate,
 WKNavigationDelegate, WKUIDelegate>

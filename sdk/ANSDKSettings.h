@@ -15,7 +15,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ANSDKConfig : NSObject
+@interface ANSDKSettings : NSObject
 
 + (instancetype)sharedInstance;
 
