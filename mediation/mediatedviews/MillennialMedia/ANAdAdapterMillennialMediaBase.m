@@ -56,4 +56,9 @@
     }
 }
 
++ (void)setMillennialSiteId:(NSString *)siteId  {
+    MMAppSettings  *appSettings  = [MMSDK sharedInstance].appSettings;
+    appSettings.siteId = siteId;
+}
+
 @end
