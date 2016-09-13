@@ -27,12 +27,12 @@ void notifyListener(NSString *message, NSInteger messageLevel);
 
 #if AN_DEBUG_MODE
 
-void _ANLog(ANLogLevel level, NSString *format, ...) NS_FORMAT_FUNCTION(2, 3);
-#define ANLogTrace(...) _ANLog(ANLogLevelTrace, __VA_ARGS__)
-#define ANLogDebug(...) _ANLog(ANLogLevelDebug, __VA_ARGS__)
-#define ANLogInfo(...) _ANLog(ANLogLevelInfo, __VA_ARGS__)
-#define ANLogWarn(...) _ANLog(ANLogLevelWarn, __VA_ARGS__)
-#define ANLogError(...) _ANLog(ANLogLevelError, __VA_ARGS__)
+void _ANLog(ANLogLevel level, NSString *levelString, char const *logContext, NSString *format, ...)  NS_FORMAT_FUNCTION(4, 5);
+#define ANLogTrace(...)  _ANLog(ANLogLevelTrace, @"TRACE",   __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogDebug(...)  _ANLog(ANLogLevelDebug, @"DEBUG",   __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogInfo(...)   _ANLog(ANLogLevelInfo,  @"INFO",    __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogWarn(...)   _ANLog(ANLogLevelWarn,  @"WARNING", __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogError(...)  _ANLog(ANLogLevelError, @"ERROR",   __PRETTY_FUNCTION__, __VA_ARGS__)
 
 #else
 
