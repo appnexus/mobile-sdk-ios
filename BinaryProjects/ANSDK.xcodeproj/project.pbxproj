@@ -10,7 +10,7 @@
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
 		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
-		8A02D7071D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */; };
+		8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6FE1D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h */; };
 		8A02D7081D6CE946006831A3 /* ANSDKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */; };
 		8A02D7091D6CE946006831A3 /* ANSDKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */; };
 		8A0AF2EF1B30946200E62975 /* ANAdAdapterBaseDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */; };
@@ -587,7 +587,7 @@
 		8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
 		8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDKSettings.h; sourceTree = "<group>"; };
 		8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseUrlConfig.h; sourceTree = "<group>"; };
-		8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANSDKConfig+PrivateMethods.h"; sourceTree = "<group>"; };
+		8A02D6FE1D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANSDKSettings+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSDKSettings.m; sourceTree = "<group>"; };
 		8A0AF2ED1B30946200E62975 /* ANAdAdapterBaseDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseDFP.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.h; sourceTree = "<group>"; };
 		8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseDFP.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.m; sourceTree = "<group>"; };
@@ -1126,7 +1126,7 @@
 			children = (
 				8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */,
 				8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */,
-				8A02D6FE1D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h */,
+				8A02D6FE1D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -1946,7 +1946,7 @@
 				8A9AEDB21A1BE8C200C58BDA /* ANAdProtocol.h in Headers */,
 				8A9AEDB31A1BE8C200C58BDA /* ANAdView.h in Headers */,
 				8A9AEDB41A1BE8C200C58BDA /* ANBannerAdView.h in Headers */,
-				8A02D7071D6CE946006831A3 /* ANSDKConfig+PrivateMethods.h in Headers */,
+				8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */,
 				8A9AEDB51A1BE8C200C58BDA /* ANCustomAdapter.h in Headers */,
 				8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */,
 				8A9AEDB61A1BE8C200C58BDA /* ANInterstitialAd.h in Headers */,

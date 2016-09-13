@@ -99,6 +99,7 @@ WKNavigationDelegate, WKUIDelegate>
     if (![[url absoluteString] isEqualToString:[_url absoluteString]] || (!self.loading && !self.completedInitialLoad)) {
         _url = url;
         [self resetBrowser];
+        [self initializeWebView];
         if (self.modernWebView) {
             [self.modernWebView loadRequest:ANBasicRequestWithURL(url)];
         } else {
@@ -132,7 +133,6 @@ WKNavigationDelegate, WKUIDelegate>
     self.receivedInitialRequest = NO;
     self.legacyWebView = nil;
     self.modernWebView = nil;
-    [self initializeWebView];
 }
 
 - (void)stopLoading {
