@@ -131,6 +131,12 @@ NSString *ANConvertToNSString(id value) {
     if ([value respondsToSelector:@selector(stringValue)]) {
         return [value stringValue];
     }
+    //changes made by punnaghai
+    if([value isKindOfClass:[NSArray class]]){
+        NSString * stringValue = [[value valueForKey:@"description"] componentsJoinedByString:@","];
+        return stringValue;
+    }
+    //end
     ANLogWarn(@"Failed to convert to NSString");
     return nil;
 }
