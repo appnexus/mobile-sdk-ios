@@ -1,23 +1,27 @@
 
 CURRENT VERSIONS OF MEDIATED SDKs
 ================================================
-                             
-  SDK                     version       iOS     ATS     Bitcode   Multitasking    IPv6
+                                        minimum           
+  SDK                     version       iOS       ATS     Bitcode   Multitasking    IPv6
   ----------------------------------------------------------------------------------------------
-  Amazon                  FIX           .       .       .         .               .
-  AdColony                2.6.2         .       .       .         .               .
+  Amazon                  2.2.15        8+        no      yes       (uns)           (uns)
+  AdColony                2.6.2         .         .       .         .               .
         ** AdColony native is deactivated.
-  AdMob                   7.10.1        .       .       .         .               .
+  AdMob                   7.10.1        .         .       .         .               .
         ** Does not include Firebase support.
-  Chartboost              6.4.7         .       .       .         .               .
-  Facebook                4.15.0        .       .       .         .               .
-  InMobi                  FIX           .       .       .         .               .
-  Millennial Media        FIX           7+      no      no        yes             yes 
-  MoPub                   FIX           .       .       .         .               .
-  VDOPIA Lightweight      FIX           .       .       .         .               .
+  Chartboost              6.4.7         .         .       .         .               .
+  Facebook                4.15.0        .         .       .         .               .
+  InMobi                  FIX           .         .       .         .               .
+  Millennial Media        FIX           7+        no      no        yes             yes 
+  MoPub                   FIX           .         .       .         .               .
+  VDOPIA Lightweight      FIX           .         .       .         .               .
         FIX -- need status update?
-  Vungle                  FIX           .       .       .         .               .
-  Yahoo Flurry            FIX           .       .       .         .               .
+  Vungle                  FIX           .         .       .         .               .
+  Yahoo Flurry            FIX           .         .       .         .               .
+
+
+        (uns) = unspecified by SDK documentation
+        .     = not yet recorded here...
 
 
 

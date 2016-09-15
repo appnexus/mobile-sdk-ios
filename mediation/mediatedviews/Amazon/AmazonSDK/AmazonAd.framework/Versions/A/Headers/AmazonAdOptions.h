@@ -2,7 +2,7 @@
 //  AmazonAdOptions.h
 //  AmazonMobileAdsSDK
 //
-//  Copyright (c) 2012-2015 Amazon.com. All rights reserved.
+//  Copyright (c) 2012-2016 Amazon.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -53,6 +53,9 @@ extern const CGSize AmazonAdSize_728x90;
  */
 extern const CGSize AmazonAdSize_1024x50;
 
+/**
+ * AmazonAdOptions contains a set of options for loading Ads.
+ */
 @interface AmazonAdOptions : NSObject
 
 /**
@@ -77,11 +80,20 @@ extern const CGSize AmazonAdSize_1024x50;
 @property (nonatomic) NSTimeInterval timeout;
 
 /**
- * Gets an instance of options to use.
+ * @return an instance of options to use.
  */
 + (instancetype)options;
 
+/**
+ * Sets an advanced option property in the form of a key/value pair.
+ * @param value Advanced option property value
+ * @param key Advanced option property key
+ */
 - (void)setAdvancedOption:(NSString *)value forKey:(NSString *)key;
+
+/**
+ * @return a dictionary of the advanced option properties.
+ */
 - (NSDictionary *)advancedOptions;
 
 @end

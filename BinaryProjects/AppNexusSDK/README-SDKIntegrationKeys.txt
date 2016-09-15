@@ -2,7 +2,6 @@
 README -- SDKIntegrationKeys.plist
 ======================================
 
-
 The keys in this property list are taken from the integration
 instructions published by each mediated SDK at the last time they were
 updated.  The keys are listed below per SDK.  Only the keys are
@@ -24,27 +23,61 @@ regarding CocoaKeys:
 
 
 
-
 AdColony
+  NSAppTransportSecurity[1]
+
+
+Amazon
   LSApplicationQueriesScheme
   NSAppTransportSecurity[1]
 
-Millennial
+
+Chartboost
+  FIX
+
+
+Facebook
+  FIX
+
+
+GoogleAdMob
+  FIX
+
+
+iAd
+  FIX
+
+
+InMobi
+  FIX
+
+
+MillennialMedia
   NSAppTransportSecurity[1]
   NSLocationWhenInUseUsageDescription[2]
 
-
-FIX -- ADD
-
-
+MoPub
+  FIX
 
 
-NOTES
+Vdopia
+  FIX
 
-  [1] See developer.apple.com if exceptions to NSAppTransportSecurity are needed:
 
-  [2] Customize this string for your application.
-      NSLocationWhenInUseUsageDescription supercedes NSLocationUsageDescription.
+Vungle
+  FIX
+
+
+Yahoo
+  FIX
+
+
+
+
+  NOTES
+    [1] See developer.apple.com if exceptions to NSAppTransportSecurity are needed.
+    [2] Customize this string for your application.
+        NSLocationWhenInUseUsageDescription supercedes NSLocationUsageDescription.
 
 
 
