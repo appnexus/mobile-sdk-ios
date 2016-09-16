@@ -91,7 +91,7 @@
  Used to pass custom keywords across different mobile ad server and
  SDK integrations.
  */
-@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
+@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *,NSArray *> *customKeywords;
 
 /**
  Set the user's current location.  This allows ad buyers to do location
@@ -114,6 +114,14 @@
  */
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
 - (void)removeCustomKeywordWithKey:(NSString *)key;
+
+/**
+ This method adds custom keywords with value array to the to
+ customKeywords dictionary.
+ */
+- (void)addCustomKeywordWithKey:(NSString *)key withArrayValues:(NSArray *)value;
+
+
 
 /**
  Set the inventory code and member id for the place that ads will be shown.
