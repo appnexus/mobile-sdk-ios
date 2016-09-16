@@ -273,16 +273,18 @@
 
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         key = ANConvertToNSString(key);
-        value = ANConvertToNSString(value);
-        if(![self stringInParameterList:key]){
+        
+        if([value isKindOfClass:[NSArray class]]){
+            for (id valueString in value) {
+                customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
+                                           ANCreateKeyValueString(key, valueString)];
+            }
+            
+        } else{
             if ([value length] > 0) {
                 customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
-                                           [NSString stringWithFormat:@"&%@=%@",
-                                            key,
-                                            [self URLEncodingFrom:value]]];
+                                           ANCreateKeyValueString(key, value)];
             }
-        } else{
-            ANLogWarn(@"request_parameter_override_attempt %@", key);
         }
     }];
     
