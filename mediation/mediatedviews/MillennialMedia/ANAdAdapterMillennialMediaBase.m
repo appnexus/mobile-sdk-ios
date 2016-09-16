@@ -14,17 +14,25 @@
  */
 
 #import "ANAdAdapterMillennialMediaBase.h"
+#import "ANLogging.h"
 
 @implementation ANAdAdapterMillennialMediaBase
 @synthesize delegate;
 
-- (void)configureMillennialSettingsWithTargetingParameters:(ANTargetingParameters *)targetingParameters {
-    static dispatch_once_t initializeMillennialToken;
+
++ (void) initializeMillennialSDK  {
+    static dispatch_once_t  initializeMillennialToken;
+
     dispatch_once(&initializeMillennialToken, ^{
-       [[MMSDK sharedInstance] initializeWithSettings:[[MMAppSettings alloc] init]
-                                     withUserSettings:[[MMUserSettings alloc] init]];
+        [[MMSDK sharedInstance] initializeWithSettings:[[MMAppSettings alloc] init]
+                                      withUserSettings:[[MMUserSettings alloc] init]];
     });
-    
+}
+
+
+- (void)configureMillennialSettingsWithTargetingParameters:(ANTargetingParameters *)targetingParameters {
+    [ANAdAdapterMillennialMediaBase initializeMillennialSDK];
+
     MMUserSettings *userSettings = [[MMSDK sharedInstance] userSettings];
     
     ANGender gender = targetingParameters.gender;
@@ -57,8 +65,13 @@
 }
 
 + (void)setMillennialSiteId:(NSString *)siteId  {
+    [ANAdAdapterMillennialMediaBase initializeMillennialSDK];
+
     MMAppSettings  *appSettings  = [MMSDK sharedInstance].appSettings;
-    appSettings.siteId = siteId;
+
+    if (appSettings) {
+        appSettings.siteId = siteId;
+    }
 }
 
 @end
