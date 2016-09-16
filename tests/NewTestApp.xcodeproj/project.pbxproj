@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F142BA21D89E3B30079D3CE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */; };
+		4F41F5311D8AFECF00DC37D4 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F41F5301D8AFECF00DC37D4 /* SafariServices.framework */; };
 		4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67F961D760011009270E6 /* libz.1.2.5.tbd */; };
 		4FD67FA51D760019009270E6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3658519D4746E0097019F /* AudioToolbox.framework */; };
 		4FD67FA61D760020009270E6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3657F19D473B00097019F /* AVFoundation.framework */; };
@@ -554,6 +556,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		4F41F5301D8AFECF00DC37D4 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4FD67FAA1D76003D009270E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -832,6 +836,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F41F5311D8AFECF00DC37D4 /* SafariServices.framework in Frameworks */,
+				4F142BA21D89E3B30079D3CE /* JavaScriptCore.framework in Frameworks */,
 				8A4EF0DB1CF3880B002C2DF1 /* libc++.tbd in Frameworks */,
 				8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */,
 				8AD011B01B2F6C54001B0107 /* libsqlite3.dylib in Frameworks */,
@@ -1101,6 +1107,8 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4F41F5301D8AFECF00DC37D4 /* SafariServices.framework */,
+				4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */,
 				4FD67FAA1D76003D009270E6 /* QuartzCore.framework */,
 				4FD67FA71D760026009270E6 /* CoreGraphics.framework */,
 				4FD67F961D760011009270E6 /* libz.1.2.5.tbd */,

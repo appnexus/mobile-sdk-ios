@@ -75,6 +75,7 @@ NSString *ANUDID() {
         
         if (advertisingIdentifier) {
             udidComponent = advertisingIdentifier;
+            ANLogInfo(@"IDFA = %@", advertisingIdentifier);
         } else {
             ANLogWarn(@"No advertisingIdentifier retrieved. Cannot generate udidComponent.");
         }

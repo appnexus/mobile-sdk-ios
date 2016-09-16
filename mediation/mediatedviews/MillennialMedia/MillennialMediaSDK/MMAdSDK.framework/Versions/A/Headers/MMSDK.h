@@ -8,8 +8,8 @@
 #ifndef MMSDK_Header_h
 #define MMSDK_Header_h
 
-@import Foundation;
-@import CoreLocation;
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 typedef NS_OPTIONS(NSUInteger, MMLogFlag) {
     MMLogFlagError  = (1 << 0),

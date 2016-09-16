@@ -18,13 +18,21 @@
 @implementation ANAdAdapterMillennialMediaBase
 @synthesize delegate;
 
+
+static NSString  *millennialSiteId          = nil;
+static BOOL       hasMillennialBeenInvoked  = NO;
+
+
 - (void)configureMillennialSettingsWithTargetingParameters:(ANTargetingParameters *)targetingParameters {
-    static dispatch_once_t initializeMillennialToken;
+    static dispatch_once_t  initializeMillennialToken;
     dispatch_once(&initializeMillennialToken, ^{
-       [[MMSDK sharedInstance] initializeWithSettings:[[MMAppSettings alloc] init]
-                                     withUserSettings:[[MMUserSettings alloc] init]];
+        [[MMSDK sharedInstance] initializeWithSettings:[[MMAppSettings alloc] init]
+                                      withUserSettings:[[MMUserSettings alloc] init]];
+        hasMillennialBeenInvoked = YES;
     });
-    
+
+    [ANAdAdapterMillennialMediaBase assignMillennialSiteId];
+
     MMUserSettings *userSettings = [[MMSDK sharedInstance] userSettings];
     
     ANGender gender = targetingParameters.gender;
@@ -53,6 +61,22 @@
     
     if (targetingParameters.location) {
         [MMSDK sharedInstance].sendLocationIfAvailable = YES;
+    }
+}
+
++ (void) assignMillennialSiteId  {
+    MMAppSettings  *appSettings  = [[MMSDK sharedInstance] appSettings];
+
+    if (appSettings) {
+        appSettings.siteId = millennialSiteId;
+    }
+}
+
++ (void) setMillennialSiteId:(NSString *)siteId  {
+    millennialSiteId = siteId;
+
+    if (hasMillennialBeenInvoked)  {
+        [ANAdAdapterMillennialMediaBase assignMillennialSiteId];
     }
 }
 

@@ -36,6 +36,8 @@ framework module FBAudienceNetwork {
     header "FBNativeAdScrollView.h"
     header "FBNativeAdTableViewAdProvider.h"
     header "FBNativeAdTableViewCellProvider.h"
+    header "FBNativeAdCollectionViewAdProvider.h"
+    header "FBNativeAdCollectionViewCellProvider.h"
     header "FBNativeAdView.h"
     header "FBNativeAdsManager.h"
 }
