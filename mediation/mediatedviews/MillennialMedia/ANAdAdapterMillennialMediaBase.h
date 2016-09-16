@@ -20,4 +20,7 @@
 
 - (void)configureMillennialSettingsWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
 
++ (void)setMillennialSiteId:(NSString *)siteId;
+
+
 @end

@@ -8,7 +8,7 @@
 #ifndef MMUserSettings_Header_h
 #define MMUserSettings_Header_h
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 typedef NS_ENUM (NSInteger, MMEthnicity) {
     MMEthnicityHispanic = 1,

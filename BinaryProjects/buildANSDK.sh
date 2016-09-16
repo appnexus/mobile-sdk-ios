@@ -8,7 +8,7 @@ OD_SIMULATOR=`pwd`/out_simulator
 LOGDIR="$OUTDIR"/log
 BUILDDIR="$OUTDIR"/build
 
-BITCODE=false
+BITCODE=true
 
 #!/bin/bash
 while [ ! $# -eq 0 ]

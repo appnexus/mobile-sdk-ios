@@ -12,7 +12,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 The MobileAds SDK uses TouchJSON, Copyright (c) 2011 Jonathan Wight, all rights reserved, under the BSD 2-Clause license, which reads as follows:
 
-Redistribution and use in source and binary forms, with or withoutmodification, are permitted provided that the following conditions are met:
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
 Redistributions of source code must retain the above copyright notice,this list of conditions and the following disclaimer.
 

@@ -8,7 +8,7 @@
 #ifndef MMAppSettings_Header_h
 #define MMAppSettings_Header_h
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /**
  * The object used to configure persistent app-wide settings which are integral for SDK operation.

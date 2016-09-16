@@ -2,7 +2,6 @@
 README -- SDKIntegrationKeys.plist
 ======================================
 
-
 The keys in this property list are taken from the integration
 instructions published by each mediated SDK at the last time they were
 updated.  The keys are listed below per SDK.  Only the keys are
@@ -16,23 +15,69 @@ unless otherwise noted.  Please copy (or recreate) the key and its
 value in the designated Info.plist of the app into which you are
 integrating the AppNexus SDK.
 
+Most of the following keys have nuances of meaning and/or
+relationships to legacy keys.  Please consider Apple documentation
+regarding CocoaKeys:
+
+  https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html
+
 
 
 AdColony
+  NSAppTransportSecurity[1]
+
+
+Amazon
   LSApplicationQueriesScheme
   NSAppTransportSecurity[1]
 
 
-FIX -- ADD
+Chartboost
+  FIX
+
+
+Facebook
+  FIX
+
+
+GoogleAdMob
+  FIX
+
+
+iAd
+  FIX
+
+
+InMobi
+  FIX
+
+
+MillennialMedia
+  NSAppTransportSecurity[1]
+  NSLocationWhenInUseUsageDescription[2]
+
+MoPub
+  FIX
+
+
+Vdopia
+  FIX
+
+
+Vungle
+  FIX
+
+
+Yahoo
+  FIX
 
 
 
 
-[1] NOTE  Please see developer.apple.com if exceptions to
-          NSAppTransportSecurity are needed:
-
-  https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html
-
+  NOTES
+    [1] See developer.apple.com if exceptions to NSAppTransportSecurity are needed.
+    [2] Customize this string for your application.
+        NSLocationWhenInUseUsageDescription supercedes NSLocationUsageDescription.
 
 
 
