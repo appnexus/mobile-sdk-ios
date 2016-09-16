@@ -180,13 +180,31 @@
                                               precision:precision];
 }
 
-- (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value {
+- (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
     if (([key length] < 1) || !value) {
         return;
     }
-    
+    if(self.customKeywords[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
+        if(![valueArray containsObject:value]){
+            
+            [valueArray addObject:value];
+            [self.customKeywords setValue:valueArray forKey:key];
+        }
+        
+    } else {
+        NSArray *valueArray = [NSArray arrayWithObject:value];
+        [self.customKeywords setValue:valueArray forKey:key];
+    }
+}
+
+- (void)addCustomKeywordWithKey:(NSString *)key withArrayValues:(NSArray *)value {
+    if (([key length] < 1) || !value) {
+        return;
+    }
+    // this will replace the existing value for the key with the new array
     [self.customKeywords setValue:value forKey:key];
+    
 }
 
 - (void)removeCustomKeywordWithKey:(NSString *)key {

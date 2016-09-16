@@ -109,6 +109,12 @@
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
 /*!
+ * Convenience method to add an array of values for custom keyword .
+ *
+ */
+- (void)addCustomKeywordWithKey:(NSString *)key withArrayValues:(NSArray *)value;
+
+/*!
  * Set the inventory code and member id for the place that ads will be shown.
  */
 

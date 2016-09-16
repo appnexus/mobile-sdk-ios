@@ -272,27 +272,31 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
 }
 
 - (NSString *)customKeywordsParameter {
+    __block NSString *customKeywordsParameter = @"";
     NSMutableDictionary *customKeywords = [self.adRequestDelegate customKeywords];
     
     if ([customKeywords count] < 1) {
         return @"";
     }
     
-    NSMutableArray *param = [[NSMutableArray alloc] init];
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         key = ANConvertToNSString(key);
-        value = ANConvertToNSString(value);
-        if(![self stringInParameterList:key]){
-            if ([value length] > 0) {
-                [param addObject:[NSString stringWithFormat:@"%@=%@",key,
-                                  [self URLEncodingFrom:value]]];
+        
+        if([value isKindOfClass:[NSArray class]]){
+            for (id valueString in value) {
+                customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
+                                           ANCreateKeyValueString(key, valueString)];
             }
-        }else{
-            ANLogWarn(@"request_parameter_override_attempt %@", key);
+            
+        } else{
+            if ([value length] > 0) {
+                customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
+                                           ANCreateKeyValueString(key, value)];
+            }
         }
     }];
     
-    return [param componentsJoinedByString:kANNativeAdRequestUrlBuilderQueryStringSeparator];
+    return customKeywordsParameter;
 }
 
 - (NSString *)nonetParameter {
