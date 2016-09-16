@@ -11,7 +11,7 @@ CURRENT VERSIONS OF MEDIATED SDKs
         ** Does not include Firebase support.
   Chartboost              6.4.7         .         .       .         .               .
   Facebook                4.15.0        .         .       .         .               .
-  InMobi                  FIX           .         .       .         .               .
+  InMobi                  FIX           7+        .       .         .               .
   Millennial Media        FIX           7+        no      no        yes             yes 
   MoPub                   FIX           .         .       .         .               .
   VDOPIA Lightweight      FIX           .         .       .         .               .
