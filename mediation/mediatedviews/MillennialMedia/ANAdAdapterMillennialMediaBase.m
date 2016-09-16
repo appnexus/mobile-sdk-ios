@@ -14,24 +14,24 @@
  */
 
 #import "ANAdAdapterMillennialMediaBase.h"
-#import "ANLogging.h"
 
 @implementation ANAdAdapterMillennialMediaBase
 @synthesize delegate;
 
 
-+ (void) initializeMillennialSDK  {
-    static dispatch_once_t  initializeMillennialToken;
-
-    dispatch_once(&initializeMillennialToken, ^{
-        [[MMSDK sharedInstance] initializeWithSettings:[[MMAppSettings alloc] init]
-                                      withUserSettings:[[MMUserSettings alloc] init]];
-    });
-}
+static NSString  *millennialSiteId          = nil;
+static BOOL       hasMillennialBeenInvoked  = NO;
 
 
 - (void)configureMillennialSettingsWithTargetingParameters:(ANTargetingParameters *)targetingParameters {
-    [ANAdAdapterMillennialMediaBase initializeMillennialSDK];
+    static dispatch_once_t  initializeMillennialToken;
+    dispatch_once(&initializeMillennialToken, ^{
+        [[MMSDK sharedInstance] initializeWithSettings:[[MMAppSettings alloc] init]
+                                      withUserSettings:[[MMUserSettings alloc] init]];
+        hasMillennialBeenInvoked = YES;
+    });
+
+    [ANAdAdapterMillennialMediaBase assignMillennialSiteId];
 
     MMUserSettings *userSettings = [[MMSDK sharedInstance] userSettings];
     
@@ -64,13 +64,19 @@
     }
 }
 
-+ (void)setMillennialSiteId:(NSString *)siteId  {
-    [ANAdAdapterMillennialMediaBase initializeMillennialSDK];
-
-    MMAppSettings  *appSettings  = [MMSDK sharedInstance].appSettings;
++ (void) assignMillennialSiteId  {
+    MMAppSettings  *appSettings  = [[MMSDK sharedInstance] appSettings];
 
     if (appSettings) {
-        appSettings.siteId = siteId;
+        appSettings.siteId = millennialSiteId;
+    }
+}
+
++ (void) setMillennialSiteId:(NSString *)siteId  {
+    millennialSiteId = siteId;
+
+    if (hasMillennialBeenInvoked)  {
+        [ANAdAdapterMillennialMediaBase assignMillennialSiteId];
     }
 }
 
