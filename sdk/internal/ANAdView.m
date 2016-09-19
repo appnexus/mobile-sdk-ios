@@ -174,7 +174,11 @@
 }
 
 - (void)addCustomKeywordWithKey:(NSString *)key withArrayValues:(NSArray *)value {
-    if (([key length] < 1) || !value) {
+    if ([key length] < 1) {
+        return;
+    }
+    
+    if(value == nil || ([value count] < 1)){
         return;
     }
     // this will replace the existing value for the key with the new array
