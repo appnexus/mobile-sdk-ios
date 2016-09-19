@@ -15,6 +15,7 @@
 
 #import "ANURLConnectionStub.h"
 #import "ANGlobal.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
 @implementation ANURLConnectionStub
 
@@ -66,7 +67,7 @@
 + (ANURLConnectionStub *)stubForStandardBannerWithAdSize:(CGSize)adSize
                                                  content:(NSString *)content {
     ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
-    stub.requestURLRegexPatternString = [NSString stringWithFormat:@"http://%@\\?", AN_MOBILE_HOSTNAME];
+    stub.requestURLRegexPatternString = [[ANSDKSettings sharedInstance].baseUrlConfig adRequestBaseUrl];
     stub.responseCode = 200;
     stub.responseBody = [NSJSONSerialization dataWithJSONObject:[[self class] responseForStandardBannerWithAdSize:adSize
                                                                                                           content:content]
@@ -77,7 +78,7 @@
 
 + (ANURLConnectionStub *)stubForMraidFile {
     ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
-    stub.requestURLRegexPatternString = [AN_BASE_URL stringByAppendingString:@"mraid.js"];
+    stub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig webViewBaseUrl] stringByAppendingString:@"mraid.js"];
     stub.responseBody = @"";
     stub.responseCode = 200;
     return stub;
