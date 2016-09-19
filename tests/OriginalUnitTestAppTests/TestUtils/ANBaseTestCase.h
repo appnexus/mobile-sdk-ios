@@ -18,8 +18,9 @@
 #import "ANInterstitialAd.h"
 #import "ANTestResponses.h"
 #import "ANGlobal.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
-#define TEST_URL [@"http://" stringByAppendingString:AN_MOBILE_HOSTNAME]
+#define TEST_URL [[ANSDKSettings sharedInstance].baseUrlConfig adRequestBaseUrl]
 
 @interface ANBaseTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
 

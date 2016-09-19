@@ -148,7 +148,7 @@
 
 - (void)receivedLog:(NSNotification *)notification {
     NSString *message = notification.userInfo[kANLogMessageKey];
-    if ([message isEqualToString:@"APPNEXUS: RecordEvent completed succesfully"]) {
+    if ([message hasSuffix:@"RecordEvent completed succesfully"]) {
         [self.recordEventExpectation fulfill];
     }
 }

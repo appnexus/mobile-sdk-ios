@@ -63,7 +63,7 @@
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:testURLStub];
     
     ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
-    anBaseURLStub.requestURLRegexPatternString = [AN_BASE_URL stringByAppendingString:@".*"];
+    anBaseURLStub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig webViewBaseUrl] stringByAppendingString:@".*"];
     anBaseURLStub.responseCode = 200;
     anBaseURLStub.responseBody = @"";
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
