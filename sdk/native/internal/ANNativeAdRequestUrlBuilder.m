@@ -294,8 +294,15 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
                                            ANCreateKeyValueString(key, value)];
             }
         }
+        
     }];
     
+    //remove the extra & from the params list
+    if ([customKeywordsParameter length] > 0) {
+        
+        customKeywordsParameter = [customKeywordsParameter substringToIndex:[customKeywordsParameter length] - 1];
+        
+    }
     return customKeywordsParameter;
 }
 

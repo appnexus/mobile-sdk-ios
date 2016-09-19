@@ -97,7 +97,7 @@
 
 /*!
  * Convenience method to add a custom keyword key, value pair to customKeywords.
- * @see location
+ * @see customKeywords
  */
 - (void)addCustomKeywordWithKey:(NSString *)key
                           value:(NSString *)value;
@@ -109,8 +109,8 @@
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
 /*!
- * Convenience method to add an array of values for custom keyword .
- *
+ * Convenience method to add a custom keyword with a list of values to customKeywords
+ * @see customKeywords
  */
 - (void)addCustomKeywordWithKey:(NSString *)key withArrayValues:(NSArray *)value;
 

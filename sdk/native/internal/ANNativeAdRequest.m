@@ -186,7 +186,7 @@
     }
     if(self.customKeywords[key] != nil){
         NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
-        if(![valueArray containsObject:value]){
+        if(valueArray !=nil && ![valueArray containsObject:value]){
             
             [valueArray addObject:value];
             [self.customKeywords setValue:valueArray forKey:key];

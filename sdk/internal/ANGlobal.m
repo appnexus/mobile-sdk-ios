@@ -137,7 +137,7 @@ NSString *ANConvertToNSString(id value) {
 
 NSString *ANCreateKeyValueString(NSString *key, NSString *value){
     
-    return [NSString stringWithFormat:@"&%@=%@",key,ANConvertToNSString(value)];
+    return [NSString stringWithFormat:@"%@=%@&",key,ANConvertToNSString(value)];
     
 }
 

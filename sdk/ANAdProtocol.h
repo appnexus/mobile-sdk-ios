@@ -116,8 +116,7 @@
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
 /**
- This method adds custom keywords with value array to the to
- customKeywords dictionary.
+ This method adds a custom keyword with a list of values to the customKeywords dictionary
  */
 - (void)addCustomKeywordWithKey:(NSString *)key withArrayValues:(NSArray *)value;
 
