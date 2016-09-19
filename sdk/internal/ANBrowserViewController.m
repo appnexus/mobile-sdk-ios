@@ -23,6 +23,8 @@
 #import "UIView+ANCategory.h"
 #import "ANOpenInExternalBrowserActivity.h"
 
+#import "ANSDKSettings.h"
+
 @interface ANBrowserViewController () <SKStoreProductViewControllerDelegate,
 WKNavigationDelegate, WKUIDelegate>
 @property (nonatomic, readwrite, assign) BOOL completedInitialLoad;
@@ -97,6 +99,7 @@ WKNavigationDelegate, WKUIDelegate>
     if (![[url absoluteString] isEqualToString:[_url absoluteString]] || (!self.loading && !self.completedInitialLoad)) {
         _url = url;
         [self resetBrowser];
+        [self initializeWebView];
         if (self.modernWebView) {
             [self.modernWebView loadRequest:ANBasicRequestWithURL(url)];
         } else {
@@ -512,11 +515,23 @@ WKNavigationDelegate, WKUIDelegate>
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    ANLogTrace(@"%@", NSStringFromSelector(_cmd));
     [self updateLoadingStateForStartLoad];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     ANLogTrace(@"%@ %@", NSStringFromSelector(_cmd), error);
+    [self updateLoadingStateForFinishLoad];
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    ANLogTrace(@"%@ %@", NSStringFromSelector(_cmd), error);
+    if ([error.domain isEqualToString:NSURLErrorDomain] && (error.code == NSURLErrorSecureConnectionFailed || error.code == NSURLErrorAppTransportSecurityRequiresSecureConnection)) {
+        NSURL *url = error.userInfo[NSURLErrorFailingURLErrorKey];
+        ANLogError(@"In-app browser attempted to load URL which is not compliant with App Transport Security.\
+                   Opening the URL in the native browser. URL: %@", url);
+        [[UIApplication sharedApplication] openURL:url];
+    }
     [self updateLoadingStateForFinishLoad];
 }
 

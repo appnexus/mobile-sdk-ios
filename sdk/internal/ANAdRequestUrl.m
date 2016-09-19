@@ -81,6 +81,7 @@
 }
 
 - (NSURL *)buildRequestUrlWithBaseUrlString:(NSString *)baseUrlString {
+    baseUrlString = [baseUrlString stringByAppendingString:@"?"];
     baseUrlString = [baseUrlString stringByAppendingString:[self placementIdentifierParameter]];
 	baseUrlString = [baseUrlString an_stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
     baseUrlString = [baseUrlString stringByAppendingString:[self dontTrackEnabledParameter]];

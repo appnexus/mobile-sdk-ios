@@ -22,6 +22,8 @@
 #import "ANAdServerResponse.h"
 #import "ANAdFetcher.h"
 
+#import "ANSDKSettings+PrivateMethods.h"
+
 @interface ANNativeAdFetcher () <ANNativeMediationAdControllerDelegate>
 
 @property (nonatomic, readwrite, weak) id<ANNativeAdFetcherDelegate> delegate;
@@ -56,7 +58,7 @@
 
 - (instancetype)initWithDelegate:(id<ANNativeAdFetcherDelegate>)delegate {
     return [self initWithDelegate:delegate
-                    baseUrlString:kANNativeAdFetcherDefaultBaseUrlString];
+                    baseUrlString:[[[ANSDKSettings sharedInstance] baseUrlConfig] adRequestBaseUrl]];
 }
 
 - (instancetype)init {

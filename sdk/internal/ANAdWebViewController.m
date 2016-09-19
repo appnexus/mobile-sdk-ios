@@ -33,6 +33,8 @@
 #import "UIWebView+ANCategory.h"
 #import "UIView+ANCategory.h"
 
+#import "ANSDKSettings+PrivateMethods.h"
+
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 #if kANAdWebViewControllerWebKitEnabled
@@ -125,7 +127,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         _isMRAID = (mraidJSRange.location != NSNotFound);
         NSURL *base = baseURL;
         if (!base) {
-            base = [NSURL URLWithString:AN_BASE_URL];
+            base = [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]];
         }
 #if kANAdWebViewControllerWebKitEnabled
         if ([WKWebView class]) {
