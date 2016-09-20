@@ -234,28 +234,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF2FD7F219706AD2002CAD63 /* AdSupport.framework in Frameworks */,
+				FF2FD7F419706AD9002CAD63 /* AudioToolbox.framework in Frameworks */,
+				FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */,
+				FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */,
+				FF2FD7AF19706A5D002CAD63 /* CoreGraphics.framework in Frameworks */,
+				FF2FD7FA19706AF6002CAD63 /* CoreTelephony.framework in Frameworks */,
 				8A3EDB5B1D0873CD00957227 /* EventKit.framework in Frameworks */,
 				8A3EDB5A1D0873B200957227 /* EventKitUI.framework in Frameworks */,
-				8A3EDB491D0873A200957227 /* WebKit.framework in Frameworks */,
-				FF2FD7B119706A5D002CAD63 /* UIKit.framework in Frameworks */,
-				FF2FD81019706B69002CAD63 /* SystemConfiguration.framework in Frameworks */,
-				FF2FD80E19706B61002CAD63 /* StoreKit.framework in Frameworks */,
-				FF2FD80C19706B57002CAD63 /* Social.framework in Frameworks */,
-				FF2FD80A19706B50002CAD63 /* Security.framework in Frameworks */,
-				FF2FD80819706B48002CAD63 /* QuartzCore.framework in Frameworks */,
-				FF2FD80619706B38002CAD63 /* PassKit.framework in Frameworks */,
-				FF2FD80419706B30002CAD63 /* MobileCoreServices.framework in Frameworks */,
-				FF2FD80219706B28002CAD63 /* MessageUI.framework in Frameworks */,
-				FF2FD80019706B18002CAD63 /* MediaPlayer.framework in Frameworks */,
-				FF2FD7FE19706B10002CAD63 /* iAd.framework in Frameworks */,
-				FF2FD7FA19706AF6002CAD63 /* CoreTelephony.framework in Frameworks */,
-				FF2FD7AF19706A5D002CAD63 /* CoreGraphics.framework in Frameworks */,
-				FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */,
-				FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */,
-				FF2FD7F419706AD9002CAD63 /* AudioToolbox.framework in Frameworks */,
-				FF2FD7F219706AD2002CAD63 /* AdSupport.framework in Frameworks */,
 				FF2FD7AD19706A5D002CAD63 /* Foundation.framework in Frameworks */,
+				FF2FD7FE19706B10002CAD63 /* iAd.framework in Frameworks */,
 				8AED80CE19DDA89D002F5D9F /* libANSDK.a in Frameworks */,
+				FF2FD80019706B18002CAD63 /* MediaPlayer.framework in Frameworks */,
+				FF2FD80219706B28002CAD63 /* MessageUI.framework in Frameworks */,
+				FF2FD80419706B30002CAD63 /* MobileCoreServices.framework in Frameworks */,
+				FF2FD80619706B38002CAD63 /* PassKit.framework in Frameworks */,
+				FF2FD80819706B48002CAD63 /* QuartzCore.framework in Frameworks */,
+				FF2FD80A19706B50002CAD63 /* Security.framework in Frameworks */,
+				FF2FD80C19706B57002CAD63 /* Social.framework in Frameworks */,
+				FF2FD80E19706B61002CAD63 /* StoreKit.framework in Frameworks */,
+				FF2FD81019706B69002CAD63 /* SystemConfiguration.framework in Frameworks */,
+				FF2FD7B119706A5D002CAD63 /* UIKit.framework in Frameworks */,
+				8A3EDB491D0873A200957227 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,9 +263,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF2FD7CF19706A5D002CAD63 /* XCTest.framework in Frameworks */,
-				FF2FD7D119706A5D002CAD63 /* UIKit.framework in Frameworks */,
 				FF2FD7D019706A5D002CAD63 /* Foundation.framework in Frameworks */,
+				FF2FD7D119706A5D002CAD63 /* UIKit.framework in Frameworks */,
+				FF2FD7CF19706A5D002CAD63 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,23 +275,23 @@
 		8AED809C19DDA7C6002F5D9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AED80AA19DDA7C6002F5D9F /* libANSDK.a */,
 				8AED80AC19DDA7C6002F5D9F /* ANSDKResources.bundle */,
-				8AED80AE19DDA7C6002F5D9F /* libANSDKGoogleAdMobAdapter.a */,
-				8AED80B019DDA7C6002F5D9F /* libANSDKiAdAdapter.a */,
-				8AED80B219DDA7C6002F5D9F /* libANSDKMillennialMediaAdapter.a */,
-				8AED80B419DDA7C6002F5D9F /* libANSDKMoPubAdapter.a */,
-				8AED80B619DDA7C6002F5D9F /* libANSDKFacebookAdapter.a */,
-				8AED80BC19DDA7C6002F5D9F /* libANSDKAmazonAdapter.a */,
-				8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */,
-				8AB3BC7E1B98A82D00CB4BA3 /* libANSDKVdopiaAdapter.a */,
-				8AB3BC801B98A82D00CB4BA3 /* libANSDKAdColonyAdapter.a */,
-				8AB3BC821B98A82D00CB4BA3 /* libANSDKVungleAdapter.a */,
-				8AB3BC841B98A82D00CB4BA3 /* libANSDKChartboostAdapter.a */,
-				8AB3BC861B98A82D00CB4BA3 /* libANSDKYahooAdapter.a */,
+				8AB3BC881B98A82D00CB4BA3 /* AppNexusSDK.framework */,
 				8AED80B819DDA7C6002F5D9F /* libANAdapterForGoogleAdMobSDK.a */,
 				8AED80BA19DDA7C6002F5D9F /* libANAdapterForMoPubSDK.a */,
-				8AB3BC881B98A82D00CB4BA3 /* AppNexusSDK.framework */,
+				8AED80AA19DDA7C6002F5D9F /* libANSDK.a */,
+				8AB3BC801B98A82D00CB4BA3 /* libANSDKAdColonyAdapter.a */,
+				8AED80BC19DDA7C6002F5D9F /* libANSDKAmazonAdapter.a */,
+				8AB3BC841B98A82D00CB4BA3 /* libANSDKChartboostAdapter.a */,
+				8AED80B619DDA7C6002F5D9F /* libANSDKFacebookAdapter.a */,
+				8AED80AE19DDA7C6002F5D9F /* libANSDKGoogleAdMobAdapter.a */,
+				8AED80B019DDA7C6002F5D9F /* libANSDKiAdAdapter.a */,
+				8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */,
+				8AED80B219DDA7C6002F5D9F /* libANSDKMillennialMediaAdapter.a */,
+				8AED80B419DDA7C6002F5D9F /* libANSDKMoPubAdapter.a */,
+				8AB3BC7E1B98A82D00CB4BA3 /* libANSDKVdopiaAdapter.a */,
+				8AB3BC821B98A82D00CB4BA3 /* libANSDKVungleAdapter.a */,
+				8AB3BC861B98A82D00CB4BA3 /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -299,11 +299,11 @@
 		FF2FD7A019706A5D002CAD63 = {
 			isa = PBXGroup;
 			children = (
-				8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */,
-				FF2FD7B219706A5D002CAD63 /* SimpleBanner */,
-				FF2FD7D419706A5E002CAD63 /* SimpleBannerTests */,
 				FF2FD7AB19706A5D002CAD63 /* Frameworks */,
 				FF2FD7AA19706A5D002CAD63 /* Products */,
+				FF2FD7B219706A5D002CAD63 /* SimpleBanner */,
+				FF2FD7D419706A5E002CAD63 /* SimpleBannerTests */,
+				8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -319,27 +319,27 @@
 		FF2FD7AB19706A5D002CAD63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8A3EDB591D0873B200957227 /* EventKitUI.framework */,
-				8A3EDB481D0873A200957227 /* WebKit.framework */,
-				FF2FD80F19706B69002CAD63 /* SystemConfiguration.framework */,
-				FF2FD80D19706B61002CAD63 /* StoreKit.framework */,
-				FF2FD80B19706B57002CAD63 /* Social.framework */,
-				FF2FD80919706B50002CAD63 /* Security.framework */,
-				FF2FD80719706B48002CAD63 /* QuartzCore.framework */,
-				FF2FD80519706B38002CAD63 /* PassKit.framework */,
-				FF2FD80319706B30002CAD63 /* MobileCoreServices.framework */,
-				FF2FD80119706B28002CAD63 /* MessageUI.framework */,
-				FF2FD7FF19706B18002CAD63 /* MediaPlayer.framework */,
-				FF2FD7FD19706B10002CAD63 /* iAd.framework */,
-				FF2FD7FB19706AFC002CAD63 /* EventKit.framework */,
-				FF2FD7F919706AF5002CAD63 /* CoreTelephony.framework */,
-				FF2FD7F719706AE7002CAD63 /* CFNetwork.framework */,
-				FF2FD7F519706ADE002CAD63 /* AVFoundation.framework */,
-				FF2FD7F319706AD9002CAD63 /* AudioToolbox.framework */,
 				FF2FD7F119706AD2002CAD63 /* AdSupport.framework */,
-				FF2FD7AC19706A5D002CAD63 /* Foundation.framework */,
+				FF2FD7F319706AD9002CAD63 /* AudioToolbox.framework */,
+				FF2FD7F519706ADE002CAD63 /* AVFoundation.framework */,
+				FF2FD7F719706AE7002CAD63 /* CFNetwork.framework */,
 				FF2FD7AE19706A5D002CAD63 /* CoreGraphics.framework */,
+				FF2FD7F919706AF5002CAD63 /* CoreTelephony.framework */,
+				FF2FD7FB19706AFC002CAD63 /* EventKit.framework */,
+				8A3EDB591D0873B200957227 /* EventKitUI.framework */,
+				FF2FD7AC19706A5D002CAD63 /* Foundation.framework */,
+				FF2FD7FD19706B10002CAD63 /* iAd.framework */,
+				FF2FD7FF19706B18002CAD63 /* MediaPlayer.framework */,
+				FF2FD80119706B28002CAD63 /* MessageUI.framework */,
+				FF2FD80319706B30002CAD63 /* MobileCoreServices.framework */,
+				FF2FD80519706B38002CAD63 /* PassKit.framework */,
+				FF2FD80719706B48002CAD63 /* QuartzCore.framework */,
+				FF2FD80919706B50002CAD63 /* Security.framework */,
+				FF2FD80B19706B57002CAD63 /* Social.framework */,
+				FF2FD80D19706B61002CAD63 /* StoreKit.framework */,
+				FF2FD80F19706B69002CAD63 /* SystemConfiguration.framework */,
 				FF2FD7B019706A5D002CAD63 /* UIKit.framework */,
+				8A3EDB481D0873A200957227 /* WebKit.framework */,
 				FF2FD7CE19706A5D002CAD63 /* XCTest.framework */,
 			);
 			name = Frameworks;
@@ -348,14 +348,14 @@
 		FF2FD7B219706A5D002CAD63 /* SimpleBanner */ = {
 			isa = PBXGroup;
 			children = (
+				FF2FD7B319706A5D002CAD63 /* Supporting Files */,
+				FF2FD7C719706A5D002CAD63 /* Images.xcassets */,
+				FF2FD7C119706A5D002CAD63 /* Main_iPad.storyboard */,
+				FF2FD7BE19706A5D002CAD63 /* Main_iPhone.storyboard */,
 				FF2FD7BB19706A5D002CAD63 /* SimpleAppDelegate.h */,
 				FF2FD7BC19706A5D002CAD63 /* SimpleAppDelegate.m */,
-				FF2FD7BE19706A5D002CAD63 /* Main_iPhone.storyboard */,
-				FF2FD7C119706A5D002CAD63 /* Main_iPad.storyboard */,
 				FF2FD7C419706A5D002CAD63 /* SimpleViewController.h */,
 				FF2FD7C519706A5D002CAD63 /* SimpleViewController.m */,
-				FF2FD7C719706A5D002CAD63 /* Images.xcassets */,
-				FF2FD7B319706A5D002CAD63 /* Supporting Files */,
 			);
 			path = SimpleBanner;
 			sourceTree = "<group>";
@@ -363,9 +363,9 @@
 		FF2FD7B319706A5D002CAD63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FF2FD7B419706A5D002CAD63 /* SimpleBanner-Info.plist */,
 				FF2FD7B519706A5D002CAD63 /* InfoPlist.strings */,
 				FF2FD7B819706A5D002CAD63 /* main.m */,
+				FF2FD7B419706A5D002CAD63 /* SimpleBanner-Info.plist */,
 				FF2FD7BA19706A5D002CAD63 /* SimpleBanner-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -374,8 +374,8 @@
 		FF2FD7D419706A5E002CAD63 /* SimpleBannerTests */ = {
 			isa = PBXGroup;
 			children = (
-				FF2FD7DA19706A5E002CAD63 /* SimpleBannerTests.m */,
 				FF2FD7D519706A5E002CAD63 /* Supporting Files */,
+				FF2FD7DA19706A5E002CAD63 /* SimpleBannerTests.m */,
 			);
 			path = SimpleBannerTests;
 			sourceTree = "<group>";
@@ -383,8 +383,8 @@
 		FF2FD7D519706A5E002CAD63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FF2FD7D619706A5E002CAD63 /* SimpleBannerTests-Info.plist */,
 				FF2FD7D719706A5E002CAD63 /* InfoPlist.strings */,
+				FF2FD7D619706A5E002CAD63 /* SimpleBannerTests-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -596,11 +596,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF2FD7C319706A5D002CAD63 /* Main_iPad.storyboard in Resources */,
-				FF2FD7C819706A5D002CAD63 /* Images.xcassets in Resources */,
-				FF2FD7C019706A5D002CAD63 /* Main_iPhone.storyboard in Resources */,
-				FF2FD7B719706A5D002CAD63 /* InfoPlist.strings in Resources */,
 				8AED80CD19DDA81C002F5D9F /* ANSDKResources.bundle in Resources */,
+				FF2FD7C819706A5D002CAD63 /* Images.xcassets in Resources */,
+				FF2FD7B719706A5D002CAD63 /* InfoPlist.strings in Resources */,
+				FF2FD7C319706A5D002CAD63 /* Main_iPad.storyboard in Resources */,
+				FF2FD7C019706A5D002CAD63 /* Main_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,9 +619,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF2FD7B919706A5D002CAD63 /* main.m in Sources */,
 				FF2FD7BD19706A5D002CAD63 /* SimpleAppDelegate.m in Sources */,
 				FF2FD7C619706A5D002CAD63 /* SimpleViewController.m in Sources */,
-				FF2FD7B919706A5D002CAD63 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

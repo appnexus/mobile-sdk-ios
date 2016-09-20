@@ -10,7 +10,7 @@
  * implement `viewControllerForPresentingModalView` to provide a root view controller from which
  * the ad view should present modal content.
  */
-
+@class MPNativeAd;
 @protocol MPNativeAdDelegate <NSObject>
 
 @optional
