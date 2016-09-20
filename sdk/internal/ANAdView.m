@@ -199,6 +199,16 @@
     [self.customKeywordsMap removeAllObjects];
 }
 
+- (void)setCustomKeywords:(NSMutableDictionary *)customKeywords {
+    __customKeywords = customKeywords;
+    [self.customKeywordsMap removeAllObjects];
+    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        key = ANConvertToNSString(key);
+        value = ANConvertToNSString(value);
+        self.customKeywordsMap[key] = @[value];
+    }];
+}
+
 #pragma mark Getter methods
 
 - (NSString *)placementId {
