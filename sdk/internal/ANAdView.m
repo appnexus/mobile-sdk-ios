@@ -160,10 +160,15 @@
         return;
     }
     if(self.customKeywords[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
-        if(valueArray !=nil && ![valueArray containsObject:value]){
-           
+        id values = self.customKeywords[key];
+        
+        if([values isKindOfClass:[NSArray class]] && ![values containsObject:value]){
+            NSMutableArray *valueArray = (NSMutableArray *)[values mutableCopy];
             [valueArray addObject:value];
+            [self.customKeywords setValue:valueArray forKey:key];
+            
+        } else {
+            NSArray *valueArray = [NSArray arrayWithObject:value];
             [self.customKeywords setValue:valueArray forKey:key];
         }
         

@@ -298,9 +298,9 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
     }];
     
     //remove the extra & from the params list
-    if ([customKeywordsParameter length] > 0) {
+    if ([customKeywordsParameter length] > 0 && [customKeywordsParameter hasPrefix:kANNativeAdRequestUrlBuilderQueryStringSeparator]) {
         
-        customKeywordsParameter = [customKeywordsParameter substringToIndex:[customKeywordsParameter length] - 1];
+        customKeywordsParameter = [customKeywordsParameter substringFromIndex:1];
         
     }
     return customKeywordsParameter;

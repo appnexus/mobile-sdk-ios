@@ -91,7 +91,7 @@
  Used to pass custom keywords across different mobile ad server and
  SDK integrations.
  */
-@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *,NSArray *> *customKeywords;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
 
 /**
  Set the user's current location.  This allows ad buyers to do location
