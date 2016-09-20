@@ -135,12 +135,6 @@ NSString *ANConvertToNSString(id value) {
     return nil;
 }
 
-NSString *ANCreateKeyValueString(NSString *key, NSString *value){
-    
-    return [NSString stringWithFormat:@"&%@=%@",key,ANConvertToNSString(value)];
-    
-}
-
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect) {
     // If portrait, no adjustment is necessary.
     if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) {

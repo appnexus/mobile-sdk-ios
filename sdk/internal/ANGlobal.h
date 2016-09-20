@@ -94,7 +94,6 @@ NSError *ANError(NSString *key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);
 NSBundle *ANResourcesBundle();
 NSString *ANPathForANResource(NSString *name, NSString *type);
 NSString *ANConvertToNSString(id value);
-NSString *ANCreateKeyValueString(NSString *key, NSString *value);
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
 NSString *ANMRAIDBundlePath();
 BOOL ANHasHttpPrefix(NSString *url);
