@@ -23,10 +23,19 @@
 @interface ANNativeAdRequest () <ANNativeAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
+@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
 
 @end
 
 @implementation ANNativeAdRequest
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _customKeywords = [[NSMutableDictionary alloc] init];
+        _customKeywordsMap = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
 
 - (void)loadAd {
     if (self.delegate) {
@@ -180,49 +189,45 @@
                                               precision:precision];
 }
 
-- (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
+- (void)addCustomKeywordWithKey:(NSString *)key
+                          value:(NSString *)value {
     if (([key length] < 1) || !value) {
         return;
     }
-    if(self.customKeywords[key] != nil){
-        id values = self.customKeywords[key];
-        
-        if([values isKindOfClass:[NSArray class]] && ![values containsObject:value]){
-            NSMutableArray *valueArray = (NSMutableArray *)[values mutableCopy];
-            [valueArray addObject:value];
-            [self.customKeywords setValue:valueArray forKey:key];
-            
-        } else {
-            NSArray *valueArray = [NSArray arrayWithObject:value];
-            [self.customKeywords setValue:valueArray forKey:key];
-        }
-        
-    } else {
-        NSArray *valueArray = [NSArray arrayWithObject:value];
-        [self.customKeywords setValue:valueArray forKey:key];
-    }
-}
-
-- (void)addCustomKeywordWithKey:(NSString *)key withArrayValues:(NSArray *)value {
-    if ([key length] < 1) {
-        return;
-    }
-    
-    if(value == nil || ([value count] < 1)){
-        return;
-    }
-
-    // this will replace the existing value for the key with the new array
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // ANTargetingParameters still depends on this value
     [self.customKeywords setValue:value forKey:key];
-    
+#pragma clang diagnostic pop
+    if(self.customKeywordsMap[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+        if (![valueArray containsObject:value]) {
+            [valueArray addObject:value];
+        }
+        self.customKeywordsMap[key] = [valueArray copy];
+    } else {
+        self.customKeywordsMap[key] = @[value];
+    }
 }
 
 - (void)removeCustomKeywordWithKey:(NSString *)key {
     if (([key length] < 1)) {
         return;
     }
-    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // ANTargetingParameters still depends on this value
     [self.customKeywords removeObjectForKey:key];
+#pragma clang diagnostic pop
+    [self.customKeywordsMap removeObjectForKey:key];
+}
+
+- (void)clearCustomKeywords {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    [self.customKeywords removeAllObjects];
+#pragma clang diagnostic pop
+    [self.customKeywordsMap removeAllObjects];
 }
 
 - (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberId{

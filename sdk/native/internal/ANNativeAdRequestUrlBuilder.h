@@ -14,11 +14,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANNativeAdTargetingProtocol.h"
+#import "ANNativeAdFetcher.h"
 
 @interface ANNativeAdRequestUrlBuilder : NSObject
 
-+ (NSURL *)requestUrlWithAdRequestDelegate:(id<ANNativeAdTargetingProtocol>)delegate
++ (NSURL *)requestUrlWithAdRequestDelegate:(id<ANNativeAdFetcherDelegate>)delegate
                              baseUrlString:(NSString *)baseUrlString;
 
 @end

@@ -36,5 +36,6 @@ static NSString *const kANNativeAdFetcherDefaultBaseUrlString = @"http://mediati
 @protocol ANNativeAdFetcherDelegate <ANNativeAdTargetingProtocol>
 
 - (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
 
 @end
