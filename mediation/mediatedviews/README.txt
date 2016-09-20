@@ -14,8 +14,6 @@ CURRENT VERSIONS OF MEDIATED SDKs
   InMobi                  FIX           7+        .       .         .               .
   Millennial Media        6.3.0         7+        no      no        yes             yes 
   MoPub                   4.9.1         7+        no      yes[1]    (uns)           yes[2]
-  VDOPIA Lightweight      FIX           .         .       .         .               .
-        FIX -- need status update?
   Vungle                  FIX           .         .       .         .               .
   Yahoo Flurry            FIX           .         .       .         .               .
 

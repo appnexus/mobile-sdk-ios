@@ -29,6 +29,7 @@
 		4F63B8991D918FE200E22FE0 /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8871D918FE200E22FE0 /* MPUnmutedBtn@2x.png */; };
 		4F63B89A1D918FE200E22FE0 /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8881D918FE200E22FE0 /* MPUnmutedBtn@3x.png */; };
 		4F63B8A91D91901300E22FE0 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8A81D91901300E22FE0 /* MRAID.bundle */; };
+		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67F961D760011009270E6 /* libz.1.2.5.tbd */; };
 		4FD67FA51D760019009270E6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3658519D4746E0097019F /* AudioToolbox.framework */; };
 		4FD67FA61D760020009270E6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3657F19D473B00097019F /* AVFoundation.framework */; };
@@ -84,7 +85,6 @@
 		8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */; };
 		8A4EF0D81CF3856D002C2DF1 /* libInMobi-5.3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */; };
 		8A4EF0DB1CF3880B002C2DF1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4EF0D91CF38790002C2DF1 /* libc++.tbd */; };
-		8A4EF4551CF39F10002C2DF1 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A4EF4541CF39F10002C2DF1 /* MPAdBrowserController.xib */; };
 		8A4EF4671CF3B1E3002C2DF1 /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 8A4EF4601CF3B1E3002C2DF1 /* __vungle.db */; };
 		8A4EF4681CF3B1E3002C2DF1 /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4EF4611CF3B1E3002C2DF1 /* vg_close.png */; };
 		8A4EF4691CF3B1E3002C2DF1 /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4EF4621CF3B1E3002C2DF1 /* vg_cta.png */; };
@@ -596,6 +596,7 @@
 		4F63B8871D918FE200E22FE0 /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPUnmutedBtn@2x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		4F63B8881D918FE200E22FE0 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPUnmutedBtn@3x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F63B8A81D91901300E22FE0 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MRAID.bundle; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MRAID.bundle; sourceTree = "<group>"; };
+		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4FD67FAA1D76003D009270E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -653,7 +654,6 @@
 		8A40180A1A95028700D56208 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libInMobi-5.3.1.a"; path = "../mediation/mediatedviews/InMobi/InMobiSDK/libInMobi-5.3.1.a"; sourceTree = "<group>"; };
 		8A4EF0D91CF38790002C2DF1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		8A4EF4541CF39F10002C2DF1 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		8A4EF4601CF3B1E3002C2DF1 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
 		8A4EF4611CF3B1E3002C2DF1 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
 		8A4EF4621CF3B1E3002C2DF1 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
@@ -1202,7 +1202,7 @@
 		8A7F4CBD19DB395D003ECC5C /* MoPub */ = {
 			isa = PBXGroup;
 			children = (
-				8A4EF4541CF39F10002C2DF1 /* MPAdBrowserController.xib */,
+				4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */,
 				4F63B8771D918FE200E22FE0 /* MPCloseBtn.png */,
 				4F63B8781D918FE200E22FE0 /* MPCloseBtn@2x.png */,
 				4F63B8791D918FE200E22FE0 /* MPCloseBtn@3x.png */,
@@ -1973,7 +1973,6 @@
 				8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */,
 				8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */,
 				8AA009ED19DB1D670090EBED /* MediationAdapterAppImages.xcassets in Resources */,
-				8A4EF4551CF39F10002C2DF1 /* MPAdBrowserController.xib in Resources */,
 				4F63B8891D918FE200E22FE0 /* MPCloseBtn.png in Resources */,
 				4F63B88A1D918FE200E22FE0 /* MPCloseBtn@2x.png in Resources */,
 				4F63B88B1D918FE200E22FE0 /* MPCloseBtn@3x.png in Resources */,
@@ -2007,6 +2006,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
