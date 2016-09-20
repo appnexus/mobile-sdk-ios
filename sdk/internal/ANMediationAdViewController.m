@@ -214,7 +214,10 @@
            adView:(id<ANAdFetcherDelegate>)adView {
     // create targeting parameters object from adView properties
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     targetingParameters.customKeywords = adView.customKeywords;
+#pragma clang diagnostic pop
     targetingParameters.age = adView.age;
     targetingParameters.gender = adView.gender;
     targetingParameters.location = adView.location;

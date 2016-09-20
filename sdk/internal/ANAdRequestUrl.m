@@ -265,26 +265,22 @@
 
 - (NSString *)customKeywordsParameter {
     __block NSString *customKeywordsParameter = @"";
-    NSMutableDictionary *customKeywords = [self.adFetcherDelegate customKeywords];
+    NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap = [self.adFetcherDelegate customKeywordsMap];
     
-    if ([customKeywords count] < 1) {
+    if ([customKeywordsMap count] < 1) {
         return @"";
     }
 
-    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        key = ANConvertToNSString(key);
-        
-        if([value isKindOfClass:[NSArray class]]){
-            for (id valueString in value) {
+    [customKeywordsMap enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray<NSString *> *valueArray, BOOL *stop) {
+        if(![self stringInParameterList:key]){
+            for (NSString *valueString in valueArray) {
                 customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
-                                           ANCreateKeyValueString(key, valueString)];
+                                           [NSString stringWithFormat:@"&%@=%@",
+                                            key,
+                                            [self URLEncodingFrom:valueString]]];
             }
-            
-        } else{
-            if ([value length] > 0) {
-                customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
-                                           ANCreateKeyValueString(key, value)];
-            }
+        } else {
+            ANLogWarn(@"request_parameter_override_attempt %@", key);
         }
     }];
     

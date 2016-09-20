@@ -57,5 +57,6 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSArray *)extraParameters; // An array of NSString
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
 
 @end
