@@ -123,7 +123,7 @@ typedef enum
  *
  * Banners from some third-party ad networks have orientation-specific behaviors and/or sizes.
  * You may use this method to lock ads to a certain orientation. For instance,
- * if you call this with MPInterfaceOrientationPortrait, native networks (e.g. iAd) will never
+ * if you call this with MPInterfaceOrientationPortrait, native networks will never
  * return ads sized for the landscape orientation.
  *
  * @param orientation An MPNativeAdOrientation enum value.

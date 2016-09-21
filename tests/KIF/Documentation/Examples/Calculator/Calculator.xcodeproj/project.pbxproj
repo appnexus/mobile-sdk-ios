@@ -109,9 +109,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4C30DE167B9E3A00E31109 /* UIKit.framework in Frameworks */,
-				EB4C30E0167B9E3A00E31109 /* Foundation.framework in Frameworks */,
 				EB4C30E2167B9E3A00E31109 /* CoreGraphics.framework in Frameworks */,
+				EB4C30E0167B9E3A00E31109 /* Foundation.framework in Frameworks */,
+				EB4C30DE167B9E3A00E31109 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,11 +119,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A88930681685133100FC7C63 /* libKIF.a in Frameworks */,
 				EB4C317B167BB0A900E31109 /* CoreGraphics.framework in Frameworks */,
+				EB4C3142167BA79700E31109 /* Foundation.framework in Frameworks */,
+				A88930681685133100FC7C63 /* libKIF.a in Frameworks */,
 				EB4C3140167BA79700E31109 /* SenTestingKit.framework in Frameworks */,
 				EB4C3141167BA79700E31109 /* UIKit.framework in Frameworks */,
-				EB4C3142167BA79700E31109 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,9 +133,9 @@
 		A8892FF81684F0A400FC7C63 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				EB2A8A8A1781D68600C6299F /* KIF Tests.octest */,
 				A88930001684F0A400FC7C63 /* libKIF.a */,
 				EB2A8A881781D68600C6299F /* Test Host.app */,
-				EB2A8A8A1781D68600C6299F /* KIF Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,8 +143,8 @@
 		EB4C30CE167B9E3A00E31109 = {
 			isa = PBXGroup;
 			children = (
-				EB4C30E3167B9E3A00E31109 /* Calculator */,
 				EB4C3143167BA79700E31109 /* Acceptance Tests */,
+				EB4C30E3167B9E3A00E31109 /* Calculator */,
 				EB4C30DC167B9E3A00E31109 /* Frameworks */,
 				EB4C30DA167B9E3A00E31109 /* Products */,
 			);
@@ -153,8 +153,8 @@
 		EB4C30DA167B9E3A00E31109 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EB4C30D9167B9E3A00E31109 /* Calculator.app */,
 				EB4C313F167BA79700E31109 /* Acceptance Tests.octest */,
+				EB4C30D9167B9E3A00E31109 /* Calculator.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -162,12 +162,12 @@
 		EB4C30DC167B9E3A00E31109 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB4C30E1167B9E3A00E31109 /* CoreGraphics.framework */,
+				EB4C30DF167B9E3A00E31109 /* Foundation.framework */,
 				A8892FF71684F0A400FC7C63 /* KIF.xcodeproj */,
 				EB7204861680E02800278DA2 /* libKIFTestCase.a */,
-				EB4C30DD167B9E3A00E31109 /* UIKit.framework */,
-				EB4C30DF167B9E3A00E31109 /* Foundation.framework */,
-				EB4C30E1167B9E3A00E31109 /* CoreGraphics.framework */,
 				EB4C3101167B9E3A00E31109 /* SenTestingKit.framework */,
+				EB4C30DD167B9E3A00E31109 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,15 +175,15 @@
 		EB4C30E3167B9E3A00E31109 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				EB4C30E4167B9E3A00E31109 /* Supporting Files */,
+				EB4C3150167BA89A00E31109 /* AboutViewController.h */,
+				EB4C3151167BA89A00E31109 /* AboutViewController.m */,
+				EB4C3152167BA89B00E31109 /* AboutViewController.xib */,
 				EB4C30EC167B9E3A00E31109 /* AppDelegate.h */,
 				EB4C30ED167B9E3A00E31109 /* AppDelegate.m */,
 				EB4C30F5167B9E3A00E31109 /* BasicCalculatorViewController.h */,
 				EB4C30F6167B9E3A00E31109 /* BasicCalculatorViewController.m */,
 				EB4C30F8167B9E3A00E31109 /* BasicCalculatorViewController.xib */,
-				EB4C30E4167B9E3A00E31109 /* Supporting Files */,
-				EB4C3150167BA89A00E31109 /* AboutViewController.h */,
-				EB4C3151167BA89A00E31109 /* AboutViewController.m */,
-				EB4C3152167BA89B00E31109 /* AboutViewController.xib */,
 				EB4C3157167BA99D00E31109 /* HomeViewController.h */,
 				EB4C3158167BA99D00E31109 /* HomeViewController.m */,
 				EB4C3159167BA99E00E31109 /* HomeViewController.xib */,
@@ -195,12 +195,12 @@
 			isa = PBXGroup;
 			children = (
 				EB4C30E5167B9E3A00E31109 /* Calculator-Info.plist */,
-				EB4C30E6167B9E3A00E31109 /* InfoPlist.strings */,
-				EB4C30E9167B9E3A00E31109 /* main.m */,
 				EB4C30EB167B9E3A00E31109 /* Calculator-Prefix.pch */,
+				EB4C30F3167B9E3A00E31109 /* Default-568h@2x.png */,
 				EB4C30EF167B9E3A00E31109 /* Default.png */,
 				EB4C30F1167B9E3A00E31109 /* Default@2x.png */,
-				EB4C30F3167B9E3A00E31109 /* Default-568h@2x.png */,
+				EB4C30E6167B9E3A00E31109 /* InfoPlist.strings */,
+				EB4C30E9167B9E3A00E31109 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -218,8 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				EB4C3145167BA79700E31109 /* Acceptance Tests-Info.plist */,
-				EB4C3146167BA79700E31109 /* InfoPlist.strings */,
 				EB4C314C167BA79700E31109 /* Acceptance Tests-Prefix.pch */,
+				EB4C3146167BA79700E31109 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -326,13 +326,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4C30E8167B9E3A00E31109 /* InfoPlist.strings in Resources */,
+				EB4C3155167BA89B00E31109 /* AboutViewController.xib in Resources */,
+				EB4C30FA167B9E3A00E31109 /* BasicCalculatorViewController.xib in Resources */,
+				EB4C30F4167B9E3A00E31109 /* Default-568h@2x.png in Resources */,
 				EB4C30F0167B9E3A00E31109 /* Default.png in Resources */,
 				EB4C30F2167B9E3A00E31109 /* Default@2x.png in Resources */,
-				EB4C30F4167B9E3A00E31109 /* Default-568h@2x.png in Resources */,
-				EB4C30FA167B9E3A00E31109 /* BasicCalculatorViewController.xib in Resources */,
-				EB4C3155167BA89B00E31109 /* AboutViewController.xib in Resources */,
 				EB4C315C167BA99E00E31109 /* HomeViewController.xib in Resources */,
+				EB4C30E8167B9E3A00E31109 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,9 +340,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4C3148167BA79700E31109 /* InfoPlist.strings in Resources */,
 				EB4C3156167BA89B00E31109 /* AboutViewController.xib in Resources */,
 				EB4C315D167BA99E00E31109 /* HomeViewController.xib in Resources */,
+				EB4C3148167BA79700E31109 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,11 +369,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB4C30EA167B9E3A00E31109 /* main.m in Sources */,
+				EB4C3153167BA89B00E31109 /* AboutViewController.m in Sources */,
 				EB4C30EE167B9E3A00E31109 /* AppDelegate.m in Sources */,
 				EB4C30F7167B9E3A00E31109 /* BasicCalculatorViewController.m in Sources */,
-				EB4C3153167BA89B00E31109 /* AboutViewController.m in Sources */,
 				EB4C315A167BA99E00E31109 /* HomeViewController.m in Sources */,
+				EB4C30EA167B9E3A00E31109 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -408,10 +408,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CC881A91AD4CE39002CD34C /* UIKit.framework in Frameworks */,
+				9CC881AD1AD4CE50002CD34C /* CoreFoundation.framework in Frameworks */,
 				9CC881AC1AD4CE4B002CD34C /* Foundation.framework in Frameworks */,
 				9CC881AA1AD4CE45002CD34C /* IOKit.framework in Frameworks */,
-				9CC881AD1AD4CE50002CD34C /* CoreFoundation.framework in Frameworks */,
+				9CC881A91AD4CE39002CD34C /* UIKit.framework in Frameworks */,
 				9CC881AB1AD4CE47002CD34C /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,10 +420,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EABD46D21857A24E00A5F081 /* XCTest.framework in Frameworks */,
 				EABD468E1857A0C700A5F081 /* Foundation.framework in Frameworks */,
-				EABD468F1857A0C700A5F081 /* UIKit.framework in Frameworks */,
 				0E27A9EE1B45B53D00A6DE6E /* IOKit.framework in Frameworks */,
+				EABD468F1857A0C700A5F081 /* UIKit.framework in Frameworks */,
+				EABD46D21857A24E00A5F081 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,12 +431,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EABD46D61858C8ED00A5F081 /* libKIF.a in Frameworks */,
-				EABD46CF1857A15400A5F081 /* XCTest.framework in Frameworks */,
-				EABD46C31857A0F300A5F081 /* UIKit.framework in Frameworks */,
-				EABD46C41857A0F300A5F081 /* Foundation.framework in Frameworks */,
 				EABD46C51857A0F300A5F081 /* CoreGraphics.framework in Frameworks */,
+				EABD46C41857A0F300A5F081 /* Foundation.framework in Frameworks */,
 				E9F646F81AA3BABA00C37EA3 /* IOKit.framework in Frameworks */,
+				EABD46D61858C8ED00A5F081 /* libKIF.a in Frameworks */,
+				EABD46C31857A0F300A5F081 /* UIKit.framework in Frameworks */,
+				EABD46CF1857A15400A5F081 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,11 +444,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB60ECC2177F8C83005A041A /* UIKit.framework in Frameworks */,
-				EB60ECC3177F8C83005A041A /* Foundation.framework in Frameworks */,
+				84D293B81A2C8DF700C10944 /* AddressBookUI.framework in Frameworks */,
 				EB60ECC5177F8C83005A041A /* CoreGraphics.framework in Frameworks */,
 				84D293AF1A2C867300C10944 /* CoreLocation.framework in Frameworks */,
-				84D293B81A2C8DF700C10944 /* AddressBookUI.framework in Frameworks */,
+				EB60ECC3177F8C83005A041A /* Foundation.framework in Frameworks */,
+				EB60ECC2177F8C83005A041A /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,11 +456,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB60ED1B177F90EA005A041A /* CoreGraphics.framework in Frameworks */,
+				EB60ECEE177F8DB3005A041A /* Foundation.framework in Frameworks */,
 				EB60ED1C177F90F0005A041A /* libKIF-OCUnit.a in Frameworks */,
 				EB60ECEC177F8DB3005A041A /* SenTestingKit.framework in Frameworks */,
 				EB60ECED177F8DB3005A041A /* UIKit.framework in Frameworks */,
-				EB60ECEE177F8DB3005A041A /* Foundation.framework in Frameworks */,
-				EB60ED1B177F90EA005A041A /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,8 +468,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB7204511680DDAD00278DA2 /* SenTestingKit.framework in Frameworks */,
 				EB7204521680DDAD00278DA2 /* Foundation.framework in Frameworks */,
+				EB7204511680DDAD00278DA2 /* SenTestingKit.framework in Frameworks */,
 				EB7204531680DDAD00278DA2 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,8 +480,8 @@
 		9CC9673C1AD4B1B600576D13 /* KIF Framework */ = {
 			isa = PBXGroup;
 			children = (
-				9CC9673F1AD4B1B600576D13 /* KIF.h */,
 				9CC9673D1AD4B1B600576D13 /* Supporting Files */,
+				9CC9673F1AD4B1B600576D13 /* KIF.h */,
 			);
 			name = "KIF Framework";
 			path = KIFFramework;
@@ -498,24 +498,24 @@
 		AAB0725D139719AC008AF393 = {
 			isa = PBXGroup;
 			children = (
-				EB60ECBC177F8C51005A041A /* KIF */,
-				EB60ECC6177F8C83005A041A /* Test Host */,
-				EB60ECEF177F8DB3005A041A /* KIF Tests */,
-				9CC9673C1AD4B1B600576D13 /* KIF Framework */,
 				AAB0726A139719AC008AF393 /* Frameworks */,
+				EB60ECBC177F8C51005A041A /* KIF */,
+				9CC9673C1AD4B1B600576D13 /* KIF Framework */,
+				EB60ECEF177F8DB3005A041A /* KIF Tests */,
 				AAB07269139719AC008AF393 /* Products */,
+				EB60ECC6177F8C83005A041A /* Test Host */,
 			);
 			sourceTree = "<group>";
 		};
 		AAB07269139719AC008AF393 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EB72047C1680DDAD00278DA2 /* libKIF-OCUnit.a */,
-				EB60ECC1177F8C83005A041A /* Test Host.app */,
-				EB60ECEB177F8DB3005A041A /* KIF Tests-OCUnit.octest */,
-				EABD46AA1857A0C700A5F081 /* libKIF.a */,
 				EABD46CD1857A0F300A5F081 /* KIF Tests - XCTest.xctest */,
+				EB60ECEB177F8DB3005A041A /* KIF Tests-OCUnit.octest */,
 				9CC9673B1AD4B1B600576D13 /* KIF.framework */,
+				EB72047C1680DDAD00278DA2 /* libKIF-OCUnit.a */,
+				EABD46AA1857A0C700A5F081 /* libKIF.a */,
+				EB60ECC1177F8C83005A041A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -523,15 +523,15 @@
 		AAB0726A139719AC008AF393 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9CC881A21AD4CAAC002CD34C /* CoreFoundation.framework */,
-				E9AD81F91AA180B900B369FD /* IOKit.framework */,
 				84D293B71A2C8DF700C10944 /* AddressBookUI.framework */,
+				9CC881A21AD4CAAC002CD34C /* CoreFoundation.framework */,
+				EB60ECC4177F8C83005A041A /* CoreGraphics.framework */,
 				84D293AE1A2C867300C10944 /* CoreLocation.framework */,
-				EABD46AB1857A0EB00A5F081 /* XCTest.framework */,
+				AAB0726B139719AC008AF393 /* Foundation.framework */,
+				E9AD81F91AA180B900B369FD /* IOKit.framework */,
 				EB4C3138167BA3D200E31109 /* SenTestingKit.framework */,
 				AAB072B413971AEA008AF393 /* UIKit.framework */,
-				AAB0726B139719AC008AF393 /* Foundation.framework */,
-				EB60ECC4177F8C83005A041A /* CoreGraphics.framework */,
+				EABD46AB1857A0EB00A5F081 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -549,21 +549,21 @@
 			isa = PBXGroup;
 			children = (
 				EB4C312F167BA39200E31109 /* Actors */,
-				A88930111685098E00FC7C63 /* KIF.h */,
-				EB4C3127167BA37B00E31109 /* KIFTestCase.h */,
-				EB4C3128167BA37B00E31109 /* KIFTestCase.m */,
-				EB4C3123167BA37B00E31109 /* KIFTestActor.h */,
-				EB4C3124167BA37B00E31109 /* KIFTestActor.m */,
-				AAB0728513971A98008AF393 /* KIF-Prefix.pch */,
-				C194255615D83DE9004FC314 /* KIFTypist.h */,
-				C194255715D83DE9004FC314 /* KIFTypist.m */,
-				EBAE488517A4E5C30005EE19 /* KIFTestStepValidation.h */,
-				EBAE488617A4E5C30005EE19 /* KIFTestStepValidation.m */,
-				EABD46D31857BE8600A5F081 /* KIF-XCTestPrefix.pch */,
-				84D293B91A2CC30B00C10944 /* UIAutomationHelper.h */,
-				84D293BA1A2CC30B00C10944 /* UIAutomationHelper.m */,
 				0EAA1C111B4B371700FFB2FB /* IOHIDEvent+KIF.h */,
 				0EAA1C121B4B371700FFB2FB /* IOHIDEvent+KIF.m */,
+				AAB0728513971A98008AF393 /* KIF-Prefix.pch */,
+				EABD46D31857BE8600A5F081 /* KIF-XCTestPrefix.pch */,
+				A88930111685098E00FC7C63 /* KIF.h */,
+				EB4C3123167BA37B00E31109 /* KIFTestActor.h */,
+				EB4C3124167BA37B00E31109 /* KIFTestActor.m */,
+				EB4C3127167BA37B00E31109 /* KIFTestCase.h */,
+				EB4C3128167BA37B00E31109 /* KIFTestCase.m */,
+				EBAE488517A4E5C30005EE19 /* KIFTestStepValidation.h */,
+				EBAE488617A4E5C30005EE19 /* KIFTestStepValidation.m */,
+				C194255615D83DE9004FC314 /* KIFTypist.h */,
+				C194255715D83DE9004FC314 /* KIFTypist.m */,
+				84D293B91A2CC30B00C10944 /* UIAutomationHelper.h */,
+				84D293BA1A2CC30B00C10944 /* UIAutomationHelper.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -571,39 +571,39 @@
 		AAB0729313971AB2008AF393 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				39160B1013D1E6BB00311E38 /* LoadableCategory.h */,
 				AAB0729413971AB2008AF393 /* CGGeometry-KIFAdditions.h */,
 				AAB0729513971AB2008AF393 /* CGGeometry-KIFAdditions.m */,
-				CDFD8E84139728B4008D299F /* NSFileManager-KIFAdditions.h */,
-				CDFD8E85139728B4008D299F /* NSFileManager-KIFAdditions.m */,
-				AAB0729613971AB2008AF393 /* UIAccessibilityElement-KIFAdditions.h */,
-				AAB0729713971AB2008AF393 /* UIAccessibilityElement-KIFAdditions.m */,
-				AAB0729813971AB2008AF393 /* UIApplication-KIFAdditions.h */,
-				AAB0729913971AB2008AF393 /* UIApplication-KIFAdditions.m */,
-				AAB0729A13971AB2008AF393 /* UIScrollView-KIFAdditions.h */,
-				AAB0729B13971AB2008AF393 /* UIScrollView-KIFAdditions.m */,
-				AAB0729C13971AB2008AF393 /* UITouch-KIFAdditions.h */,
-				AAB0729D13971AB2008AF393 /* UITouch-KIFAdditions.m */,
-				AAB072A013971AB2008AF393 /* UIView-KIFAdditions.h */,
-				AAB072A113971AB2008AF393 /* UIView-KIFAdditions.m */,
-				AAB072A213971AB2008AF393 /* UIWindow-KIFAdditions.h */,
-				AAB072A313971AB2008AF393 /* UIWindow-KIFAdditions.m */,
-				D927B9DD18F9E46400DAD036 /* UITableView-KIFAdditions.h */,
-				D927B9DE18F9E46400DAD036 /* UITableView-KIFAdditions.m */,
+				39160B1013D1E6BB00311E38 /* LoadableCategory.h */,
 				EBAE487A17A45A8E0005EE19 /* NSBundle-KIFAdditions.h */,
 				EBAE487B17A45A8E0005EE19 /* NSBundle-KIFAdditions.m */,
 				EBAE487F17A460E50005EE19 /* NSError-KIFAdditions.h */,
 				EBAE488017A460E50005EE19 /* NSError-KIFAdditions.m */,
-				EABD4749185F509E00A5F081 /* SenTestCase-KIFAdditions.h */,
-				EABD474A185F509E00A5F081 /* SenTestCase-KIFAdditions.m */,
-				EABD46751857A07600A5F081 /* XCTestCase-KIFAdditions.h */,
-				EABD46761857A07600A5F081 /* XCTestCase-KIFAdditions.m */,
 				EAC809681864F19C000E819F /* NSException-KIFAdditions.h */,
 				EAC809691864F19C000E819F /* NSException-KIFAdditions.m */,
+				CDFD8E84139728B4008D299F /* NSFileManager-KIFAdditions.h */,
+				CDFD8E85139728B4008D299F /* NSFileManager-KIFAdditions.m */,
+				EABD4749185F509E00A5F081 /* SenTestCase-KIFAdditions.h */,
+				EABD474A185F509E00A5F081 /* SenTestCase-KIFAdditions.m */,
+				AAB0729613971AB2008AF393 /* UIAccessibilityElement-KIFAdditions.h */,
+				AAB0729713971AB2008AF393 /* UIAccessibilityElement-KIFAdditions.m */,
+				AAB0729813971AB2008AF393 /* UIApplication-KIFAdditions.h */,
+				AAB0729913971AB2008AF393 /* UIApplication-KIFAdditions.m */,
 				E977D1051AA4062B005645BF /* UIEvent+KIFAdditions.h */,
 				E977D1061AA4062B005645BF /* UIEvent+KIFAdditions.m */,
-				3ADD2160096BE41C780FBD95 /* UIView-Debugging.m */,
+				AAB0729A13971AB2008AF393 /* UIScrollView-KIFAdditions.h */,
+				AAB0729B13971AB2008AF393 /* UIScrollView-KIFAdditions.m */,
+				D927B9DD18F9E46400DAD036 /* UITableView-KIFAdditions.h */,
+				D927B9DE18F9E46400DAD036 /* UITableView-KIFAdditions.m */,
+				AAB0729C13971AB2008AF393 /* UITouch-KIFAdditions.h */,
+				AAB0729D13971AB2008AF393 /* UITouch-KIFAdditions.m */,
 				3ADD26484C6C438B71DC15C5 /* UIView-Debugging.h */,
+				3ADD2160096BE41C780FBD95 /* UIView-Debugging.m */,
+				AAB072A013971AB2008AF393 /* UIView-KIFAdditions.h */,
+				AAB072A113971AB2008AF393 /* UIView-KIFAdditions.m */,
+				AAB072A213971AB2008AF393 /* UIWindow-KIFAdditions.h */,
+				AAB072A313971AB2008AF393 /* UIWindow-KIFAdditions.m */,
+				EABD46751857A07600A5F081 /* XCTestCase-KIFAdditions.h */,
+				EABD46761857A07600A5F081 /* XCTestCase-KIFAdditions.m */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -622,10 +622,10 @@
 			children = (
 				EB4C3130167BA3AC00E31109 /* KIFSystemTestActor.h */,
 				EB4C3131167BA3AC00E31109 /* KIFSystemTestActor.m */,
-				EB4C3132167BA3AC00E31109 /* KIFUITestActor.h */,
-				EB4C3133167BA3AC00E31109 /* KIFUITestActor.m */,
 				EB2526461981BF7A00DBC747 /* KIFUITestActor-ConditionalTests.h */,
 				EB2526471981BF7A00DBC747 /* KIFUITestActor-ConditionalTests.m */,
+				EB4C3132167BA3AC00E31109 /* KIFUITestActor.h */,
+				EB4C3133167BA3AC00E31109 /* KIFUITestActor.m */,
 			);
 			name = Actors;
 			sourceTree = "<group>";
@@ -644,21 +644,21 @@
 		EB60ECC6177F8C83005A041A /* Test Host */ = {
 			isa = PBXGroup;
 			children = (
+				EB60ECC7177F8C83005A041A /* Supporting Files */,
 				3812FB601A1212A700335733 /* AnimationViewController.m */,
-				2CDEE1CA181DBED200DF6E63 /* PickerController.m */,
-				EB60ED04177F9041005A041A /* MainStoryboard.storyboard */,
 				EB60ECFC177F9031005A041A /* AppDelegate.m */,
-				EB60ECFD177F9031005A041A /* ShowHideViewController.m */,
+				97E8A5CE1B0A62F700124E3B /* BackgroundViewController.m */,
+				EA0F25491829839E006FF825 /* CollectionViewController.m */,
 				EB9FB42617A5BACB00DDF160 /* GestureViewController.m */,
+				EB60ED04177F9041005A041A /* MainStoryboard.storyboard */,
+				2CDEE1CA181DBED200DF6E63 /* PickerController.m */,
+				D9EA274218F05A6700D87E57 /* ScrollViewController.m */,
+				EB60ECFD177F9031005A041A /* ShowHideViewController.m */,
+				84D293AC1A2C84F700C10944 /* SystemAlertViewController.m */,
+				D927B9DB18F9DF2D00DAD036 /* TableViewController.m */,
 				EB60ECFE177F9032005A041A /* TapViewController.m */,
 				EB60ECFF177F9032005A041A /* TestSuiteViewController.m */,
-				EA0F25491829839E006FF825 /* CollectionViewController.m */,
-				D9EA274218F05A6700D87E57 /* ScrollViewController.m */,
-				D927B9DB18F9DF2D00DAD036 /* TableViewController.m */,
 				AE62FCD51A1D2447002B10DA /* WebViewController.m */,
-				84D293AC1A2C84F700C10944 /* SystemAlertViewController.m */,
-				97E8A5CE1B0A62F700124E3B /* BackgroundViewController.m */,
-				EB60ECC7177F8C83005A041A /* Supporting Files */,
 			);
 			path = "Test Host";
 			sourceTree = "<group>";
@@ -666,15 +666,15 @@
 		EB60ECC7177F8C83005A041A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EB60ECC8177F8C83005A041A /* Test Host-Info.plist */,
-				EB60ECC9177F8C83005A041A /* InfoPlist.strings */,
-				EB60ECCC177F8C84005A041A /* main.m */,
-				EB60ECCE177F8C84005A041A /* Test Host-Prefix.pch */,
+				EB60ECD6177F8C84005A041A /* Default-568h@2x.png */,
 				EB60ECD2177F8C84005A041A /* Default.png */,
 				EB60ECD4177F8C84005A041A /* Default@2x.png */,
-				EB60ECD6177F8C84005A041A /* Default-568h@2x.png */,
 				AE62FCD71A1D2667002B10DA /* index.html */,
+				EB60ECC9177F8C83005A041A /* InfoPlist.strings */,
+				EB60ECCC177F8C84005A041A /* main.m */,
 				AE62FCD91A1D26BB002B10DA /* page2.html */,
+				EB60ECC8177F8C83005A041A /* Test Host-Info.plist */,
+				EB60ECCE177F8C84005A041A /* Test Host-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -682,32 +682,32 @@
 		EB60ECEF177F8DB3005A041A /* KIF Tests */ = {
 			isa = PBXGroup;
 			children = (
-				2CED883D181F5EE1005ABD20 /* PickerTests.m */,
+				EB60ECF0177F8DB3005A041A /* Supporting Files */,
+				EB1A44D91A0C33AD004A3F61 /* AccessibilityIdentifierTests.m */,
+				97E8A5D01B0A63D100124E3B /* BackgroundTests.m */,
+				EB22B5AF17AF52640090B848 /* CascadingFailureTests.m */,
+				EA0F2546182979BE006FF825 /* CollectionViewTests.m */,
+				EB02523D17AA109400A7D13A /* CompositionTests.m */,
+				4A48107A19708CAB0003A32E /* ExistTests.m */,
 				EB60ED19177F90C2005A041A /* GestureTests.m */,
-				3812FB621A12188700335733 /* WaitForAnimationTests.m */,
+				EB9FC00417E144B700138266 /* LandscapeTests.m */,
 				EB60ED07177F90BA005A041A /* LongPressTests.m */,
 				EB60ED08177F90BA005A041A /* ModalViewTests.m */,
-				EB60ED09177F90BA005A041A /* SpecificControlTests.m */,
-				EB60ED0A177F90BA005A041A /* SystemTests.m */,
-				EB60ED0B177F90BA005A041A /* TappingTests.m */,
-				EB3F654417AA0B8400469D18 /* TableViewTests.m */,
-				EA0F2546182979BE006FF825 /* CollectionViewTests.m */,
+				2EE1270F198991920031D347 /* MultiFingerTests.m */,
+				2CED883D181F5EE1005ABD20 /* PickerTests.m */,
 				D9EA274018F05A6000D87E57 /* ScrollViewTests.m */,
-				EB02523D17AA109400A7D13A /* CompositionTests.m */,
+				EB09000F17E3696A00AA15B1 /* SearchFieldTests.m */,
+				EB60ED09177F90BA005A041A /* SpecificControlTests.m */,
+				84D293B01A2C891700C10944 /* SystemAlertTests.m */,
+				EB60ED0A177F90BA005A041A /* SystemTests.m */,
+				EB3F654417AA0B8400469D18 /* TableViewTests.m */,
+				EB60ED0B177F90BA005A041A /* TappingTests.m */,
 				EB60ED0C177F90BA005A041A /* TypingTests.m */,
 				EB60ED0D177F90BA005A041A /* WaitForAbscenceTests.m */,
-				4A48107A19708CAB0003A32E /* ExistTests.m */,
+				3812FB621A12188700335733 /* WaitForAnimationTests.m */,
 				EB60ED0E177F90BA005A041A /* WaitForTappableViewTests.m */,
 				EB60ED0F177F90BA005A041A /* WaitForViewTests.m */,
-				EB22B5AF17AF52640090B848 /* CascadingFailureTests.m */,
-				EB9FC00417E144B700138266 /* LandscapeTests.m */,
-				EB09000F17E3696A00AA15B1 /* SearchFieldTests.m */,
-				2EE1270F198991920031D347 /* MultiFingerTests.m */,
-				EB1A44D91A0C33AD004A3F61 /* AccessibilityIdentifierTests.m */,
 				AE62FCCF1A1D20E5002B10DA /* WebViewTests.m */,
-				84D293B01A2C891700C10944 /* SystemAlertTests.m */,
-				97E8A5D01B0A63D100124E3B /* BackgroundTests.m */,
-				EB60ECF0177F8DB3005A041A /* Supporting Files */,
 			);
 			path = "KIF Tests";
 			sourceTree = "<group>";
@@ -715,10 +715,10 @@
 		EB60ECF0177F8DB3005A041A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EABD46D01857A18900A5F081 /* KIF XCTests-Prefix.pch */,
-				EB60ECF1177F8DB3005A041A /* KIF Tests-Info.plist */,
 				EB60ECF2177F8DB3005A041A /* InfoPlist.strings */,
+				EB60ECF1177F8DB3005A041A /* KIF Tests-Info.plist */,
 				EB60ECF8177F8DB3005A041A /* KIF Tests-Prefix.pch */,
+				EABD46D01857A18900A5F081 /* KIF XCTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -730,33 +730,33 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CC967401AD4B1B600576D13 /* KIF.h in Headers */,
-				9CC967561AD4B1F100576D13 /* LoadableCategory.h in Headers */,
 				9CC967571AD4B1F100576D13 /* CGGeometry-KIFAdditions.h in Headers */,
+				0EAA1C171B4B372700FFB2FB /* IOHIDEvent+KIF.h in Headers */,
+				9CC967401AD4B1B600576D13 /* KIF.h in Headers */,
+				9CC967731AD4B1FF00576D13 /* KIFSystemTestActor.h in Headers */,
+				9CC9677C1AD4B20700576D13 /* KIFTestActor.h in Headers */,
+				9CC9677A1AD4B20700576D13 /* KIFTestCase.h in Headers */,
+				9CC967811AD4B20700576D13 /* KIFTestStepValidation.h in Headers */,
+				9CC9677F1AD4B20700576D13 /* KIFTypist.h in Headers */,
+				9CC967771AD4B1FF00576D13 /* KIFUITestActor-ConditionalTests.h in Headers */,
+				5C877DD01B057E13006A3AC6 /* KIFUITestActor-IdentifierTests.h in Headers */,
+				9CC967751AD4B1FF00576D13 /* KIFUITestActor.h in Headers */,
+				9CC967561AD4B1F100576D13 /* LoadableCategory.h in Headers */,
+				9CC967691AD4B1F100576D13 /* NSBundle-KIFAdditions.h in Headers */,
+				9CC9676B1AD4B1F100576D13 /* NSError-KIFAdditions.h in Headers */,
+				9CC9676F1AD4B1F100576D13 /* NSException-KIFAdditions.h in Headers */,
 				9CC967591AD4B1F100576D13 /* NSFileManager-KIFAdditions.h in Headers */,
 				9CC9675B1AD4B1F100576D13 /* UIAccessibilityElement-KIFAdditions.h in Headers */,
-				0EAA1C171B4B372700FFB2FB /* IOHIDEvent+KIF.h in Headers */,
 				9CC9675D1AD4B1F100576D13 /* UIApplication-KIFAdditions.h in Headers */,
+				9CC967841AD4B20700576D13 /* UIAutomationHelper.h in Headers */,
+				9CC967711AD4B1F100576D13 /* UIEvent+KIFAdditions.h in Headers */,
 				9CC9675F1AD4B1F100576D13 /* UIScrollView-KIFAdditions.h in Headers */,
-				9CC967731AD4B1FF00576D13 /* KIFSystemTestActor.h in Headers */,
-				9CC9677A1AD4B20700576D13 /* KIFTestCase.h in Headers */,
-				5C877DD01B057E13006A3AC6 /* KIFUITestActor-IdentifierTests.h in Headers */,
-				9CC9677C1AD4B20700576D13 /* KIFTestActor.h in Headers */,
-				9CC9677F1AD4B20700576D13 /* KIFTypist.h in Headers */,
-				9CC967811AD4B20700576D13 /* KIFTestStepValidation.h in Headers */,
-				9CC967751AD4B1FF00576D13 /* KIFUITestActor.h in Headers */,
-				9CC967771AD4B1FF00576D13 /* KIFUITestActor-ConditionalTests.h in Headers */,
+				9CC967671AD4B1F100576D13 /* UITableView-KIFAdditions.h in Headers */,
 				9CC967611AD4B1F100576D13 /* UITouch-KIFAdditions.h in Headers */,
+				5C877DD11B0A8B8F006A3AC6 /* UIView-Debugging.h in Headers */,
 				9CC967631AD4B1F100576D13 /* UIView-KIFAdditions.h in Headers */,
 				9CC967651AD4B1F100576D13 /* UIWindow-KIFAdditions.h in Headers */,
-				9CC967671AD4B1F100576D13 /* UITableView-KIFAdditions.h in Headers */,
-				9CC967691AD4B1F100576D13 /* NSBundle-KIFAdditions.h in Headers */,
-				5C877DD11B0A8B8F006A3AC6 /* UIView-Debugging.h in Headers */,
-				9CC9676B1AD4B1F100576D13 /* NSError-KIFAdditions.h in Headers */,
 				9CC9676D1AD4B1F100576D13 /* XCTestCase-KIFAdditions.h in Headers */,
-				9CC9676F1AD4B1F100576D13 /* NSException-KIFAdditions.h in Headers */,
-				9CC967711AD4B1F100576D13 /* UIEvent+KIFAdditions.h in Headers */,
-				9CC967841AD4B20700576D13 /* UIAutomationHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,34 +764,34 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB1A44D51A0C3268004A3F61 /* KIFUITestActor-IdentifierTests.h in Headers */,
-				EABD46911857A0C700A5F081 /* KIF.h in Headers */,
-				D927B9DF18F9E46400DAD036 /* UITableView-KIFAdditions.h in Headers */,
 				EABD46921857A0C700A5F081 /* CGGeometry-KIFAdditions.h in Headers */,
-				EABD46931857A0C700A5F081 /* UIAccessibilityElement-KIFAdditions.h in Headers */,
-				9CC967BE1AD4B55E00576D13 /* KIF-XCTestPrefix.pch in Headers */,
-				EABD46941857A0C700A5F081 /* UIApplication-KIFAdditions.h in Headers */,
-				EABD46951857A0C700A5F081 /* UIScrollView-KIFAdditions.h in Headers */,
-				EABD46971857A0C700A5F081 /* UITouch-KIFAdditions.h in Headers */,
-				EABD46981857A0C700A5F081 /* UIView-KIFAdditions.h in Headers */,
-				EABD46991857A0C700A5F081 /* UIWindow-KIFAdditions.h in Headers */,
-				EABD469A1857A0C700A5F081 /* NSFileManager-KIFAdditions.h in Headers */,
 				0EAA1C131B4B371700FFB2FB /* IOHIDEvent+KIF.h in Headers */,
-				EABD469B1857A0C700A5F081 /* LoadableCategory.h in Headers */,
-				EABD469C1857A0C700A5F081 /* KIFTypist.h in Headers */,
+				9CC967BE1AD4B55E00576D13 /* KIF-XCTestPrefix.pch in Headers */,
+				EABD46911857A0C700A5F081 /* KIF.h in Headers */,
+				EABD469F1857A0C700A5F081 /* KIFSystemTestActor.h in Headers */,
 				EABD469D1857A0C700A5F081 /* KIFTestActor.h in Headers */,
 				EABD469E1857A0C700A5F081 /* KIFTestCase.h in Headers */,
-				EABD469F1857A0C700A5F081 /* KIFSystemTestActor.h in Headers */,
+				EABD46A31857A0C700A5F081 /* KIFTestStepValidation.h in Headers */,
+				EABD469C1857A0C700A5F081 /* KIFTypist.h in Headers */,
+				EB2526481981BF7A00DBC747 /* KIFUITestActor-ConditionalTests.h in Headers */,
+				EB1A44D51A0C3268004A3F61 /* KIFUITestActor-IdentifierTests.h in Headers */,
 				EABD46A01857A0C700A5F081 /* KIFUITestActor.h in Headers */,
+				EABD469B1857A0C700A5F081 /* LoadableCategory.h in Headers */,
 				EABD46A11857A0C700A5F081 /* NSBundle-KIFAdditions.h in Headers */,
+				EABD46A21857A0C700A5F081 /* NSError-KIFAdditions.h in Headers */,
 				EAC8096A1864F19C000E819F /* NSException-KIFAdditions.h in Headers */,
-				EABD46961857A0C700A5F081 /* XCTestCase-KIFAdditions.h in Headers */,
+				EABD469A1857A0C700A5F081 /* NSFileManager-KIFAdditions.h in Headers */,
+				EABD46931857A0C700A5F081 /* UIAccessibilityElement-KIFAdditions.h in Headers */,
+				EABD46941857A0C700A5F081 /* UIApplication-KIFAdditions.h in Headers */,
 				84D293BB1A2CC30B00C10944 /* UIAutomationHelper.h in Headers */,
 				E977D1071AA4062B005645BF /* UIEvent+KIFAdditions.h in Headers */,
-				EABD46A21857A0C700A5F081 /* NSError-KIFAdditions.h in Headers */,
-				EABD46A31857A0C700A5F081 /* KIFTestStepValidation.h in Headers */,
+				EABD46951857A0C700A5F081 /* UIScrollView-KIFAdditions.h in Headers */,
+				D927B9DF18F9E46400DAD036 /* UITableView-KIFAdditions.h in Headers */,
+				EABD46971857A0C700A5F081 /* UITouch-KIFAdditions.h in Headers */,
 				3ADD25CC71BF27D675768787 /* UIView-Debugging.h in Headers */,
-				EB2526481981BF7A00DBC747 /* KIFUITestActor-ConditionalTests.h in Headers */,
+				EABD46981857A0C700A5F081 /* UIView-KIFAdditions.h in Headers */,
+				EABD46991857A0C700A5F081 /* UIWindow-KIFAdditions.h in Headers */,
+				EABD46961857A0C700A5F081 /* XCTestCase-KIFAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,31 +799,31 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A88930121685098E00FC7C63 /* KIF.h in Headers */,
 				EB7204591680DDAD00278DA2 /* CGGeometry-KIFAdditions.h in Headers */,
-				EB72045A1680DDAD00278DA2 /* UIAccessibilityElement-KIFAdditions.h in Headers */,
-				EB72045B1680DDAD00278DA2 /* UIApplication-KIFAdditions.h in Headers */,
-				EB1A44D71A0C327D004A3F61 /* KIFUITestActor-IdentifierTests.h in Headers */,
-				EB72045C1680DDAD00278DA2 /* UIScrollView-KIFAdditions.h in Headers */,
-				EB72045D1680DDAD00278DA2 /* UITouch-KIFAdditions.h in Headers */,
-				EB72045E1680DDAD00278DA2 /* UIView-KIFAdditions.h in Headers */,
-				EB72045F1680DDAD00278DA2 /* UIWindow-KIFAdditions.h in Headers */,
-				EB7204601680DDAD00278DA2 /* NSFileManager-KIFAdditions.h in Headers */,
-				EB7204611680DDAD00278DA2 /* LoadableCategory.h in Headers */,
-				EB7204621680DDAD00278DA2 /* KIFTypist.h in Headers */,
-				EB7204631680DDAD00278DA2 /* KIFTestActor.h in Headers */,
-				84D293BC1A2CC30B00C10944 /* UIAutomationHelper.h in Headers */,
-				EB7204641680DDAD00278DA2 /* KIFTestCase.h in Headers */,
-				EB7204651680DDAD00278DA2 /* KIFSystemTestActor.h in Headers */,
 				0EAA1C151B4B372500FFB2FB /* IOHIDEvent+KIF.h in Headers */,
+				EB7204551680DDAD00278DA2 /* KIF-Prefix.pch in Headers */,
+				A88930121685098E00FC7C63 /* KIF.h in Headers */,
+				EB7204651680DDAD00278DA2 /* KIFSystemTestActor.h in Headers */,
+				EB7204631680DDAD00278DA2 /* KIFTestActor.h in Headers */,
+				EB7204641680DDAD00278DA2 /* KIFTestCase.h in Headers */,
+				EBAE488717A4E5C30005EE19 /* KIFTestStepValidation.h in Headers */,
+				EB7204621680DDAD00278DA2 /* KIFTypist.h in Headers */,
+				EB1A44D71A0C327D004A3F61 /* KIFUITestActor-IdentifierTests.h in Headers */,
 				EB7204661680DDAD00278DA2 /* KIFUITestActor.h in Headers */,
+				EB7204611680DDAD00278DA2 /* LoadableCategory.h in Headers */,
 				EBAE487C17A45A8E0005EE19 /* NSBundle-KIFAdditions.h in Headers */,
 				EBAE488117A460E50005EE19 /* NSError-KIFAdditions.h in Headers */,
-				D927B9E118F9E47000DAD036 /* UITableView-KIFAdditions.h in Headers */,
+				EB7204601680DDAD00278DA2 /* NSFileManager-KIFAdditions.h in Headers */,
 				EABD474B185F509E00A5F081 /* SenTestCase-KIFAdditions.h in Headers */,
-				EBAE488717A4E5C30005EE19 /* KIFTestStepValidation.h in Headers */,
-				EB7204551680DDAD00278DA2 /* KIF-Prefix.pch in Headers */,
+				EB72045A1680DDAD00278DA2 /* UIAccessibilityElement-KIFAdditions.h in Headers */,
+				EB72045B1680DDAD00278DA2 /* UIApplication-KIFAdditions.h in Headers */,
+				84D293BC1A2CC30B00C10944 /* UIAutomationHelper.h in Headers */,
+				EB72045C1680DDAD00278DA2 /* UIScrollView-KIFAdditions.h in Headers */,
+				D927B9E118F9E47000DAD036 /* UITableView-KIFAdditions.h in Headers */,
+				EB72045D1680DDAD00278DA2 /* UITouch-KIFAdditions.h in Headers */,
 				3ADD2532FE4917CD5755AA59 /* UIView-Debugging.h in Headers */,
+				EB72045E1680DDAD00278DA2 /* UIView-KIFAdditions.h in Headers */,
+				EB72045F1680DDAD00278DA2 /* UIWindow-KIFAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1011,11 +1011,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB60ECCB177F8C84005A041A /* InfoPlist.strings in Resources */,
+				EB60ECD7177F8C84005A041A /* Default-568h@2x.png in Resources */,
 				EB60ECD3177F8C84005A041A /* Default.png in Resources */,
 				EB60ECD5177F8C84005A041A /* Default@2x.png in Resources */,
 				AE62FCD81A1D2667002B10DA /* index.html in Resources */,
-				EB60ECD7177F8C84005A041A /* Default-568h@2x.png in Resources */,
+				EB60ECCB177F8C84005A041A /* InfoPlist.strings in Resources */,
 				EB60ED06177F9041005A041A /* MainStoryboard.storyboard in Resources */,
 				AE62FCDA1A1D26BB002B10DA /* page2.html in Resources */,
 			);
@@ -1065,31 +1065,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CC967D01AD4B5B900576D13 /* KIFTestCase.m in Sources */,
-				0EAA1C181B4B372700FFB2FB /* IOHIDEvent+KIF.m in Sources */,
-				9CC967D11AD4B5B900576D13 /* KIFTestActor.m in Sources */,
-				9CC967D21AD4B5B900576D13 /* KIFTypist.m in Sources */,
-				9CC967D31AD4B5B900576D13 /* KIFTestStepValidation.m in Sources */,
-				9CC967D41AD4B5B900576D13 /* UIAutomationHelper.m in Sources */,
-				9CC967D51AD4B5B900576D13 /* KIFUITestActor-IdentifierTests.m in Sources */,
-				9CC967CD1AD4B59A00576D13 /* KIFSystemTestActor.m in Sources */,
-				9CC967CE1AD4B59A00576D13 /* KIFUITestActor.m in Sources */,
-				9CC967CF1AD4B59A00576D13 /* KIFUITestActor-ConditionalTests.m in Sources */,
 				9CC967BF1AD4B58C00576D13 /* CGGeometry-KIFAdditions.m in Sources */,
+				0EAA1C181B4B372700FFB2FB /* IOHIDEvent+KIF.m in Sources */,
+				9CC967CD1AD4B59A00576D13 /* KIFSystemTestActor.m in Sources */,
+				9CC967D11AD4B5B900576D13 /* KIFTestActor.m in Sources */,
+				9CC967D01AD4B5B900576D13 /* KIFTestCase.m in Sources */,
+				9CC967D31AD4B5B900576D13 /* KIFTestStepValidation.m in Sources */,
+				9CC967D21AD4B5B900576D13 /* KIFTypist.m in Sources */,
+				9CC967CF1AD4B59A00576D13 /* KIFUITestActor-ConditionalTests.m in Sources */,
+				9CC967D51AD4B5B900576D13 /* KIFUITestActor-IdentifierTests.m in Sources */,
+				9CC967CE1AD4B59A00576D13 /* KIFUITestActor.m in Sources */,
+				9CC967C81AD4B58C00576D13 /* NSBundle-KIFAdditions.m in Sources */,
+				9CC967C91AD4B58C00576D13 /* NSError-KIFAdditions.m in Sources */,
+				9CC967CB1AD4B58C00576D13 /* NSException-KIFAdditions.m in Sources */,
 				9CC967C01AD4B58C00576D13 /* NSFileManager-KIFAdditions.m in Sources */,
 				9CC967C11AD4B58C00576D13 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
 				9CC967C21AD4B58C00576D13 /* UIApplication-KIFAdditions.m in Sources */,
+				9CC967D41AD4B5B900576D13 /* UIAutomationHelper.m in Sources */,
+				9CC967CC1AD4B58C00576D13 /* UIEvent+KIFAdditions.m in Sources */,
 				9CC967C31AD4B58C00576D13 /* UIScrollView-KIFAdditions.m in Sources */,
+				9CC967C71AD4B58C00576D13 /* UITableView-KIFAdditions.m in Sources */,
 				9CC967C41AD4B58C00576D13 /* UITouch-KIFAdditions.m in Sources */,
+				5C877DD21B0A8B93006A3AC6 /* UIView-Debugging.m in Sources */,
 				9CC967C51AD4B58C00576D13 /* UIView-KIFAdditions.m in Sources */,
 				9CC967C61AD4B58C00576D13 /* UIWindow-KIFAdditions.m in Sources */,
-				9CC967C71AD4B58C00576D13 /* UITableView-KIFAdditions.m in Sources */,
-				9CC967C81AD4B58C00576D13 /* NSBundle-KIFAdditions.m in Sources */,
-				9CC967C91AD4B58C00576D13 /* NSError-KIFAdditions.m in Sources */,
 				9CC967CA1AD4B58C00576D13 /* XCTestCase-KIFAdditions.m in Sources */,
-				9CC967CB1AD4B58C00576D13 /* NSException-KIFAdditions.m in Sources */,
-				9CC967CC1AD4B58C00576D13 /* UIEvent+KIFAdditions.m in Sources */,
-				5C877DD21B0A8B93006A3AC6 /* UIView-Debugging.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,29 +1099,29 @@
 			files = (
 				EABD467B1857A0C700A5F081 /* CGGeometry-KIFAdditions.m in Sources */,
 				0EAA1C141B4B371700FFB2FB /* IOHIDEvent+KIF.m in Sources */,
-				EABD467C1857A0C700A5F081 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
-				84D293BD1A2CC30B00C10944 /* UIAutomationHelper.m in Sources */,
-				EABD467D1857A0C700A5F081 /* UIApplication-KIFAdditions.m in Sources */,
-				EABD467E1857A0C700A5F081 /* UIScrollView-KIFAdditions.m in Sources */,
-				EABD467F1857A0C700A5F081 /* UITouch-KIFAdditions.m in Sources */,
-				EABD46801857A0C700A5F081 /* UIView-KIFAdditions.m in Sources */,
-				EABD46811857A0C700A5F081 /* UIWindow-KIFAdditions.m in Sources */,
-				EABD46821857A0C700A5F081 /* NSFileManager-KIFAdditions.m in Sources */,
-				D927B9E018F9E46400DAD036 /* UITableView-KIFAdditions.m in Sources */,
-				EABD46831857A0C700A5F081 /* KIFTypist.m in Sources */,
+				EABD46871857A0C700A5F081 /* KIFSystemTestActor.m in Sources */,
 				EABD46841857A0C700A5F081 /* KIFTestActor.m in Sources */,
 				EABD46851857A0C700A5F081 /* KIFTestCase.m in Sources */,
-				EABD46861857A0C700A5F081 /* XCTestCase-KIFAdditions.m in Sources */,
-				EB1A44D61A0C3268004A3F61 /* KIFUITestActor-IdentifierTests.m in Sources */,
+				EABD468B1857A0C700A5F081 /* KIFTestStepValidation.m in Sources */,
+				EABD46831857A0C700A5F081 /* KIFTypist.m in Sources */,
 				EB2526491981BF7A00DBC747 /* KIFUITestActor-ConditionalTests.m in Sources */,
-				E977D1081AA4062B005645BF /* UIEvent+KIFAdditions.m in Sources */,
-				EABD46871857A0C700A5F081 /* KIFSystemTestActor.m in Sources */,
-				EAC8096B1864F19C000E819F /* NSException-KIFAdditions.m in Sources */,
+				EB1A44D61A0C3268004A3F61 /* KIFUITestActor-IdentifierTests.m in Sources */,
 				EABD46881857A0C700A5F081 /* KIFUITestActor.m in Sources */,
 				EABD46891857A0C700A5F081 /* NSBundle-KIFAdditions.m in Sources */,
 				EABD468A1857A0C700A5F081 /* NSError-KIFAdditions.m in Sources */,
-				EABD468B1857A0C700A5F081 /* KIFTestStepValidation.m in Sources */,
+				EAC8096B1864F19C000E819F /* NSException-KIFAdditions.m in Sources */,
+				EABD46821857A0C700A5F081 /* NSFileManager-KIFAdditions.m in Sources */,
+				EABD467C1857A0C700A5F081 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
+				EABD467D1857A0C700A5F081 /* UIApplication-KIFAdditions.m in Sources */,
+				84D293BD1A2CC30B00C10944 /* UIAutomationHelper.m in Sources */,
+				E977D1081AA4062B005645BF /* UIEvent+KIFAdditions.m in Sources */,
+				EABD467E1857A0C700A5F081 /* UIScrollView-KIFAdditions.m in Sources */,
+				D927B9E018F9E46400DAD036 /* UITableView-KIFAdditions.m in Sources */,
+				EABD467F1857A0C700A5F081 /* UITouch-KIFAdditions.m in Sources */,
 				4D2FD4EE1AF5936700E61192 /* UIView-Debugging.m in Sources */,
+				EABD46801857A0C700A5F081 /* UIView-KIFAdditions.m in Sources */,
+				EABD46811857A0C700A5F081 /* UIWindow-KIFAdditions.m in Sources */,
+				EABD46861857A0C700A5F081 /* XCTestCase-KIFAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,31 +1129,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EABD46B11857A0F300A5F081 /* SearchFieldTests.m in Sources */,
+				EB1A44DA1A0C33AD004A3F61 /* AccessibilityIdentifierTests.m in Sources */,
+				97E8A5D11B0A63D100124E3B /* BackgroundTests.m in Sources */,
 				EABD46B21857A0F300A5F081 /* CascadingFailureTests.m in Sources */,
+				EA47DA2818EDFD6F0034D2F5 /* CollectionViewTests.m in Sources */,
 				EABD46B31857A0F300A5F081 /* CompositionTests.m in Sources */,
 				4A48107B19708CAB0003A32E /* ExistTests.m in Sources */,
-				EA4655881905B92500B2C60E /* PickerTests.m in Sources */,
-				3812FB631A12188700335733 /* WaitForAnimationTests.m in Sources */,
-				EB1A44DA1A0C33AD004A3F61 /* AccessibilityIdentifierTests.m in Sources */,
+				EABD46BF1857A0F300A5F081 /* GestureTests.m in Sources */,
+				EABD46BD1857A0F300A5F081 /* LandscapeTests.m in Sources */,
 				EABD46B41857A0F300A5F081 /* LongPressTests.m in Sources */,
 				EABD46B51857A0F300A5F081 /* ModalViewTests.m in Sources */,
+				2EE12710198991920031D347 /* MultiFingerTests.m in Sources */,
+				EA4655881905B92500B2C60E /* PickerTests.m in Sources */,
+				D9EA274118F05A6000D87E57 /* ScrollViewTests.m in Sources */,
+				EABD46B11857A0F300A5F081 /* SearchFieldTests.m in Sources */,
 				EABD46B61857A0F300A5F081 /* SpecificControlTests.m in Sources */,
+				84D293B11A2C891700C10944 /* SystemAlertTests.m in Sources */,
 				EABD46B71857A0F300A5F081 /* SystemTests.m in Sources */,
+				EABD46BE1857A0F300A5F081 /* TableViewTests.m in Sources */,
 				EABD46B81857A0F300A5F081 /* TappingTests.m in Sources */,
 				EABD46B91857A0F300A5F081 /* TypingTests.m in Sources */,
 				EABD46BA1857A0F300A5F081 /* WaitForAbscenceTests.m in Sources */,
-				EA47DA2818EDFD6F0034D2F5 /* CollectionViewTests.m in Sources */,
+				3812FB631A12188700335733 /* WaitForAnimationTests.m in Sources */,
 				EABD46BB1857A0F300A5F081 /* WaitForTappableViewTests.m in Sources */,
 				EABD46BC1857A0F300A5F081 /* WaitForViewTests.m in Sources */,
-				97E8A5D11B0A63D100124E3B /* BackgroundTests.m in Sources */,
-				EABD46BD1857A0F300A5F081 /* LandscapeTests.m in Sources */,
-				EABD46BE1857A0F300A5F081 /* TableViewTests.m in Sources */,
-				EABD46BF1857A0F300A5F081 /* GestureTests.m in Sources */,
-				2EE12710198991920031D347 /* MultiFingerTests.m in Sources */,
-				D9EA274118F05A6000D87E57 /* ScrollViewTests.m in Sources */,
 				AE62FCD01A1D20E5002B10DA /* WebViewTests.m in Sources */,
-				84D293B11A2C891700C10944 /* SystemAlertTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1161,20 +1161,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97E8A5CF1B0A62F700124E3B /* BackgroundViewController.m in Sources */,
-				EB9FB42717A5BACB00DDF160 /* GestureViewController.m in Sources */,
-				EA0F254A1829839E006FF825 /* CollectionViewController.m in Sources */,
-				84D293AD1A2C84F700C10944 /* SystemAlertViewController.m in Sources */,
-				AE62FCD61A1D2447002B10DA /* WebViewController.m in Sources */,
-				EB60ECCD177F8C84005A041A /* main.m in Sources */,
-				EB60ED00177F9032005A041A /* AppDelegate.m in Sources */,
-				D927B9DC18F9DF2D00DAD036 /* TableViewController.m in Sources */,
-				EB60ED01177F9032005A041A /* ShowHideViewController.m in Sources */,
-				EB60ED02177F9032005A041A /* TapViewController.m in Sources */,
-				2CDEE1CB181DBED200DF6E63 /* PickerController.m in Sources */,
-				EB60ED03177F9032005A041A /* TestSuiteViewController.m in Sources */,
-				D9EA274318F05A6700D87E57 /* ScrollViewController.m in Sources */,
 				3812FB611A1212A700335733 /* AnimationViewController.m in Sources */,
+				EB60ED00177F9032005A041A /* AppDelegate.m in Sources */,
+				97E8A5CF1B0A62F700124E3B /* BackgroundViewController.m in Sources */,
+				EA0F254A1829839E006FF825 /* CollectionViewController.m in Sources */,
+				EB9FB42717A5BACB00DDF160 /* GestureViewController.m in Sources */,
+				EB60ECCD177F8C84005A041A /* main.m in Sources */,
+				2CDEE1CB181DBED200DF6E63 /* PickerController.m in Sources */,
+				D9EA274318F05A6700D87E57 /* ScrollViewController.m in Sources */,
+				EB60ED01177F9032005A041A /* ShowHideViewController.m in Sources */,
+				84D293AD1A2C84F700C10944 /* SystemAlertViewController.m in Sources */,
+				D927B9DC18F9DF2D00DAD036 /* TableViewController.m in Sources */,
+				EB60ED02177F9032005A041A /* TapViewController.m in Sources */,
+				EB60ED03177F9032005A041A /* TestSuiteViewController.m in Sources */,
+				AE62FCD61A1D2447002B10DA /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1182,24 +1182,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EE12711198991920031D347 /* MultiFingerTests.m in Sources */,
-				EB09001017E3696A00AA15B1 /* SearchFieldTests.m in Sources */,
 				EB22B5B017AF52640090B848 /* CascadingFailureTests.m in Sources */,
+				EA0F2547182979BE006FF825 /* CollectionViewTests.m in Sources */,
 				EB02523E17AA109400A7D13A /* CompositionTests.m in Sources */,
+				EB60ED1A177F90C2005A041A /* GestureTests.m in Sources */,
+				EB9FC00517E144B700138266 /* LandscapeTests.m in Sources */,
 				EB60ED10177F90BA005A041A /* LongPressTests.m in Sources */,
 				EB60ED11177F90BA005A041A /* ModalViewTests.m in Sources */,
+				2EE12711198991920031D347 /* MultiFingerTests.m in Sources */,
+				2CED883E181F5EE1005ABD20 /* PickerTests.m in Sources */,
+				EB09001017E3696A00AA15B1 /* SearchFieldTests.m in Sources */,
 				EB60ED12177F90BA005A041A /* SpecificControlTests.m in Sources */,
 				EB60ED13177F90BA005A041A /* SystemTests.m in Sources */,
+				EB3F654517AA0B8400469D18 /* TableViewTests.m in Sources */,
 				EB60ED14177F90BA005A041A /* TappingTests.m in Sources */,
-				2CED883E181F5EE1005ABD20 /* PickerTests.m in Sources */,
 				EB60ED15177F90BA005A041A /* TypingTests.m in Sources */,
 				EB60ED16177F90BA005A041A /* WaitForAbscenceTests.m in Sources */,
-				EA0F2547182979BE006FF825 /* CollectionViewTests.m in Sources */,
 				EB60ED17177F90BA005A041A /* WaitForTappableViewTests.m in Sources */,
 				EB60ED18177F90BA005A041A /* WaitForViewTests.m in Sources */,
-				EB9FC00517E144B700138266 /* LandscapeTests.m in Sources */,
-				EB3F654517AA0B8400469D18 /* TableViewTests.m in Sources */,
-				EB60ED1A177F90C2005A041A /* GestureTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,29 +1208,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB7204431680DDAD00278DA2 /* CGGeometry-KIFAdditions.m in Sources */,
-				EB7204441680DDAD00278DA2 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
-				EB7204451680DDAD00278DA2 /* UIApplication-KIFAdditions.m in Sources */,
-				EB7204461680DDAD00278DA2 /* UIScrollView-KIFAdditions.m in Sources */,
-				EB7204471680DDAD00278DA2 /* UITouch-KIFAdditions.m in Sources */,
-				EB7204481680DDAD00278DA2 /* UIView-KIFAdditions.m in Sources */,
-				D927B9E218F9E47600DAD036 /* UITableView-KIFAdditions.m in Sources */,
-				EB7204491680DDAD00278DA2 /* UIWindow-KIFAdditions.m in Sources */,
-				EB72044A1680DDAD00278DA2 /* NSFileManager-KIFAdditions.m in Sources */,
-				EB72044B1680DDAD00278DA2 /* KIFTypist.m in Sources */,
-				EB1A44D81A0C3284004A3F61 /* KIFUITestActor-IdentifierTests.m in Sources */,
-				EB25264A1981BF8400DBC747 /* KIFUITestActor-ConditionalTests.m in Sources */,
+				0EAA1C161B4B372500FFB2FB /* IOHIDEvent+KIF.m in Sources */,
+				EB72044E1680DDAD00278DA2 /* KIFSystemTestActor.m in Sources */,
 				EB72044C1680DDAD00278DA2 /* KIFTestActor.m in Sources */,
 				EB72044D1680DDAD00278DA2 /* KIFTestCase.m in Sources */,
-				EB72044E1680DDAD00278DA2 /* KIFSystemTestActor.m in Sources */,
+				EBAE488817A4E5C30005EE19 /* KIFTestStepValidation.m in Sources */,
+				EB72044B1680DDAD00278DA2 /* KIFTypist.m in Sources */,
+				EB25264A1981BF8400DBC747 /* KIFUITestActor-ConditionalTests.m in Sources */,
+				EB1A44D81A0C3284004A3F61 /* KIFUITestActor-IdentifierTests.m in Sources */,
 				EB72044F1680DDAD00278DA2 /* KIFUITestActor.m in Sources */,
 				EBAE487D17A45A8E0005EE19 /* NSBundle-KIFAdditions.m in Sources */,
-				84D293BE1A2CC30B00C10944 /* UIAutomationHelper.m in Sources */,
 				EBAE488217A460E50005EE19 /* NSError-KIFAdditions.m in Sources */,
-				EBAE488817A4E5C30005EE19 /* KIFTestStepValidation.m in Sources */,
+				EB72044A1680DDAD00278DA2 /* NSFileManager-KIFAdditions.m in Sources */,
 				EABD474C185F509E00A5F081 /* SenTestCase-KIFAdditions.m in Sources */,
-				0EAA1C161B4B372500FFB2FB /* IOHIDEvent+KIF.m in Sources */,
+				EB7204441680DDAD00278DA2 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
+				EB7204451680DDAD00278DA2 /* UIApplication-KIFAdditions.m in Sources */,
+				84D293BE1A2CC30B00C10944 /* UIAutomationHelper.m in Sources */,
 				E977D1091AA40736005645BF /* UIEvent+KIFAdditions.m in Sources */,
+				EB7204461680DDAD00278DA2 /* UIScrollView-KIFAdditions.m in Sources */,
+				D927B9E218F9E47600DAD036 /* UITableView-KIFAdditions.m in Sources */,
+				EB7204471680DDAD00278DA2 /* UITouch-KIFAdditions.m in Sources */,
 				4D2FD4EF1AF5936800E61192 /* UIView-Debugging.m in Sources */,
+				EB7204481680DDAD00278DA2 /* UIView-KIFAdditions.m in Sources */,
+				EB7204491680DDAD00278DA2 /* UIWindow-KIFAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

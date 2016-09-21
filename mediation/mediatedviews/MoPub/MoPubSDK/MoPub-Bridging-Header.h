@@ -16,6 +16,8 @@
 #import "MPInterstitialCustomEvent.h"
 #import "MPInterstitialCustomEventDelegate.h"
 
+#if MP_HAS_NATIVE_PACKAGE
+
 #import "MPNativeAd.h"
 #import "MPNativeAdAdapter.h"
 #import "MPNativeAdConstants.h"
@@ -34,12 +36,13 @@
 #import "MOPUBNativeVideoAdRendererSettings.h"
 #import "MOPUBNativeVideoAdRenderer.h"
 #import "MPNativeAdRenderingImageLoader.h"
-
 #import "MPClientAdPositioning.h"
 #import "MPServerAdPositioning.h"
-
 #import "MPCollectionViewAdPlacer.h"
 #import "MPTableViewAdPlacer.h"
+
+#endif
+
 
 #import "MPMediationSettingsProtocol.h"
 #import "MPRewardedVideo.h"

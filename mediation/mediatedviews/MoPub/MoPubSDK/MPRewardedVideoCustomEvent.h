@@ -40,6 +40,8 @@
  * rewarded video ad from a third-party ad network. It must also notify the
  * `MPRewardedVideoCustomEventDelegate` of certain lifecycle events.
  *
+ * The default implementation of this method does nothing. Subclasses must override this method and implement code to load a rewarded video here.
+ *
  * **Important**: The application may provide a mediation settings object containing properties that you should use to configure how you use
  * the ad network's APIs. Call `[-mediationSettingsForClass:]([MPRewardedVideoCustomEventDelegate mediationSettingsForClass:])`
  * specifying a specific class that your custom event uses to retrieve the mediation settings object if it exists. You define
@@ -54,6 +56,9 @@
  * Called when the MoPubSDK wants to know if an ad is currently available for the ad network.
  *
  * This call is typically invoked when the application wants to check whether an ad unit has an ad ready to display.
+ *
+ * Subclasses must override this method and implement coheck whether or not a rewarded vidoe ad is available for presentation.
+ *
  */
 - (BOOL)hasAdAvailable;
 
@@ -63,6 +68,8 @@
  * This message is sent sometime after a rewarded video has been successfully loaded, as a result
  * of your code calling `-[MPRewardedVideo presentRewardedVideoAdForAdUnitID:fromViewController:]`. Your implementation
  * of this method should present the rewarded video ad from the specified view controller.
+ *
+ * The default implementation of this method does nothing. Subclasses must override this method and implement code to display a rewarded video here.
  *
  * If you decide to [opt out of automatic impression tracking](enableAutomaticImpressionAndClickTracking), you should place your
  * manual calls to [-trackImpression]([MPRewardedVideoCustomEventDelegate trackImpression]) in this method to ensure correct metrics.
@@ -91,11 +98,12 @@
  *
  * Due to the way ad mediation works, two ad units may load the same ad network for displaying ads. When one ad unit plays
  * an ad, the other ad unit may need to update its state and notify the application an ad may no longer be available as it
- * may have already played. If an ad becomes unavailable for this custom event, call 
+ * may have already played. If an ad becomes unavailable for this custom event, call
  * `[-rewardedVideoDidExpireForCustomEvent:]([MPRewardedVideoCustomEventDelegate rewardedVideoDidExpireForCustomEvent:])`
  * to notify the application that an ad is no longer available.
  *
- * This method will only be called if your custom event has reported that an ad had successfully loaded.
+ * This method will only be called if your custom event has reported that an ad had successfully loaded. The default implementation of this method does nothing.
+ * Subclasses must override this method and implement code to handle when the custom event is no longer needed by the rewarded video system.
  */
 - (void)handleAdPlayedForCustomEventNetwork;
 
@@ -264,6 +272,13 @@
  * kMPRewardedVideoRewardCurrencyTypeUnspecified.
  */
 - (void)rewardedVideoShouldRewardUserForCustomEvent:(MPRewardedVideoCustomEvent *)customEvent reward:(MPRewardedVideoReward *)reward;
+
+/**
+ * Call this method to get the customer ID associated with this custom event.
+ *
+ * @return The user's customer ID.
+ */
+- (NSString *)customerIdForRewardedVideoCustomEvent:(MPRewardedVideoCustomEvent *)customEvent;
 
 /** @name Impression and Click Tracking */
 

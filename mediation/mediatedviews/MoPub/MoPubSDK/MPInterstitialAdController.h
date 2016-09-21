@@ -222,7 +222,7 @@
 /**
  * Sent when a loaded interstitial ad is no longer eligible to be displayed.
  *
- * Interstitial ads from certain networks (such as iAd) may expire their content at any time,
+ * Interstitial ads from certain networks may expire their content at any time,
  * even if the content is currently on-screen. This method notifies you when the currently-
  * loaded interstitial has expired and is no longer eligible for display.
  *

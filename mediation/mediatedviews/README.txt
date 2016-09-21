@@ -12,16 +12,22 @@ CURRENT VERSIONS OF MEDIATED SDKs
   Chartboost              6.4.7         .         .       .         .               .
   Facebook                4.15.0        .         .       .         .               .
   InMobi                  FIX           7+        .       .         .               .
-  Millennial Media        FIX           7+        no      no        yes             yes 
-  MoPub                   FIX           .         .       .         .               .
-  VDOPIA Lightweight      FIX           .         .       .         .               .
-        FIX -- need status update?
+  Millennial Media        6.3.0         7+        no      no        yes             yes 
+  MoPub                   4.9.1         7+        no      yes[1]    (uns)           yes[2]
   Vungle                  FIX           .         .       .         .               .
   Yahoo Flurry            FIX           .         .       .         .               .
 
 
         (uns) = unspecified by SDK documentation
-        .     = not yet recorded here...
+        .     = [yet to be determined by examining SDK and documentation] FIX
+  
+
+  NOTES
+    MoPub
+      [1]  "For publishers who use the MoPub open source SDK, Bitcode
+            is supported out of the box. For publishers who are integrated
+            via Fabric, we are working on making our SDK support bitcode."
+      [2]  "The IPv6 requirement has no implications for MoPub SDK."
 
 
 

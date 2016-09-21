@@ -69,9 +69,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAB073AD139861C0008AF393 /* UIKit.framework in Frameworks */,
-				AAB073AF139861C0008AF393 /* Foundation.framework in Frameworks */,
 				AAB073B1139861C0008AF393 /* CoreGraphics.framework in Frameworks */,
+				AAB073AF139861C0008AF393 /* Foundation.framework in Frameworks */,
+				AAB073AD139861C0008AF393 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,11 +79,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB9DB7441781DDBA0087B6FD /* libKIF.a in Frameworks */,
 				EB9DB7451781DDC70087B6FD /* CoreGraphics.framework in Frameworks */,
+				EB9DB7351781DBD40087B6FD /* Foundation.framework in Frameworks */,
+				EB9DB7441781DDBA0087B6FD /* libKIF.a in Frameworks */,
 				EB9DB7331781DBD40087B6FD /* SenTestingKit.framework in Frameworks */,
 				EB9DB7341781DBD40087B6FD /* UIKit.framework in Frameworks */,
-				EB9DB7351781DBD40087B6FD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,19 +93,19 @@
 		AAB0739D139861C0008AF393 = {
 			isa = PBXGroup;
 			children = (
-				4440B32B17F5692A00253D51 /* Default-568h@2x.png */,
-				AAB073B2139861C0008AF393 /* Testable */,
 				EB9DB7361781DBD40087B6FD /* Acceptance Tests */,
 				AAB073AB139861C0008AF393 /* Frameworks */,
 				AAB073A9139861C0008AF393 /* Products */,
+				AAB073B2139861C0008AF393 /* Testable */,
+				4440B32B17F5692A00253D51 /* Default-568h@2x.png */,
 			);
 			sourceTree = "<group>";
 		};
 		AAB073A9139861C0008AF393 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AAB073A8139861C0008AF393 /* Testable.app */,
 				EB9DB7321781DBD40087B6FD /* Acceptance Tests.octest */,
+				AAB073A8139861C0008AF393 /* Testable.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,11 +113,11 @@
 		AAB073AB139861C0008AF393 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EB9DB7431781DDBA0087B6FD /* libKIF.a */,
-				AAB073AC139861C0008AF393 /* UIKit.framework */,
-				AAB073AE139861C0008AF393 /* Foundation.framework */,
 				AAB073B0139861C0008AF393 /* CoreGraphics.framework */,
+				AAB073AE139861C0008AF393 /* Foundation.framework */,
+				EB9DB7431781DDBA0087B6FD /* libKIF.a */,
 				EB72049D1680E2EE00278DA2 /* SenTestingKit.framework */,
+				AAB073AC139861C0008AF393 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -125,13 +125,13 @@
 		AAB073B2139861C0008AF393 /* Testable */ = {
 			isa = PBXGroup;
 			children = (
-				AAB073BB139861C0008AF393 /* TestableAppDelegate.h */,
-				AAB073BC139861C0008AF393 /* TestableAppDelegate.m */,
+				AAB073B3139861C0008AF393 /* Supporting Files */,
 				AAB073BE139861C0008AF393 /* MainWindow.xib */,
 				AAB073C1139861C0008AF393 /* RootViewController.h */,
 				AAB073C2139861C0008AF393 /* RootViewController.m */,
 				AAB073C4139861C0008AF393 /* RootViewController.xib */,
-				AAB073B3139861C0008AF393 /* Supporting Files */,
+				AAB073BB139861C0008AF393 /* TestableAppDelegate.h */,
+				AAB073BC139861C0008AF393 /* TestableAppDelegate.m */,
 			);
 			path = Testable;
 			sourceTree = "<group>";
@@ -139,10 +139,10 @@
 		AAB073B3139861C0008AF393 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AAB073B4139861C0008AF393 /* Testable-Info.plist */,
 				AAB073B5139861C0008AF393 /* InfoPlist.strings */,
-				AAB073B8139861C0008AF393 /* Testable-Prefix.pch */,
 				AAB073B9139861C0008AF393 /* main.m */,
+				AAB073B4139861C0008AF393 /* Testable-Info.plist */,
+				AAB073B8139861C0008AF393 /* Testable-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -150,10 +150,10 @@
 		EB9DB7361781DBD40087B6FD /* Acceptance Tests */ = {
 			isa = PBXGroup;
 			children = (
+				EB9DB7371781DBD40087B6FD /* Supporting Files */,
 				EB47EFB21781DF6D006BBFAC /* IntegrationTestCases.m */,
 				EB47EFB31781DF6D006BBFAC /* KIFUITestActor+EXAddition.h */,
 				EB47EFB41781DF6D006BBFAC /* KIFUITestActor+EXAddition.m */,
-				EB9DB7371781DBD40087B6FD /* Supporting Files */,
 			);
 			path = "Acceptance Tests";
 			sourceTree = "<group>";
@@ -162,8 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				EB9DB7381781DBD40087B6FD /* Acceptance Tests-Info.plist */,
-				EB9DB7391781DBD40087B6FD /* InfoPlist.strings */,
 				EB9DB73F1781DBD40087B6FD /* Acceptance Tests-Prefix.pch */,
+				EB9DB7391781DBD40087B6FD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -238,8 +238,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAB073B7139861C0008AF393 /* InfoPlist.strings in Resources */,
 				4440B32C17F5692A00253D51 /* Default-568h@2x.png in Resources */,
+				AAB073B7139861C0008AF393 /* InfoPlist.strings in Resources */,
 				AAB073C0139861C0008AF393 /* MainWindow.xib in Resources */,
 				AAB073C6139861C0008AF393 /* RootViewController.xib in Resources */,
 			);
@@ -277,8 +277,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAB073BA139861C0008AF393 /* main.m in Sources */,
-				AAB073BD139861C0008AF393 /* TestableAppDelegate.m in Sources */,
 				AAB073C3139861C0008AF393 /* RootViewController.m in Sources */,
+				AAB073BD139861C0008AF393 /* TestableAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
