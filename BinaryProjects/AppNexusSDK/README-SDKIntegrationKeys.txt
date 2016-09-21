@@ -65,7 +65,8 @@ Vdopia
 
 
 Vungle
-  FIX
+  NSAppTransportSecurity[1]
+  UIViewControllerBasedStatusBarAppearance  (optionally set to NO)
 
 
 Yahoo
