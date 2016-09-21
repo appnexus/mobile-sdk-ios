@@ -15,7 +15,7 @@ CURRENT VERSIONS OF MEDIATED SDKs
   Millennial Media        6.3.0         7+        no      no        yes             yes 
   MoPub                   4.9.1         7+        no      yes[1]    (uns)           yes[2]
   Vungle                  FIX           .         .       .         .               .
-  Yahoo Flurry            FIX           .         .       .         .               .
+  Yahoo Flurry          7.6.4          7+         .       .         .               .
 
 
         (uns) = unspecified by SDK documentation
