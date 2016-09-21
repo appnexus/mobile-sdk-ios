@@ -276,7 +276,7 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     NSMutableDictionary *customKeywords = [self.adRequestDelegate customKeywords];
 #pragma clang diagnostic pop
-    NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap = [self.adRequestDelegate customKeywordsMap];
+    NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap = [[self.adRequestDelegate customKeywordsMap] mutableCopy];
     
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         key = ANConvertToNSString(key);
