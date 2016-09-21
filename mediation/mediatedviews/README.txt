@@ -17,7 +17,7 @@ CURRENT VERSIONS OF MEDIATED SDKs
   VDOPIA Lightweight      1.4           .         .       .         .               .
         FIX -- need status update?
   Vungle                  4.0.5         7+        no      yes       (uns)           (uns)
-  Yahoo Flurry            7.6.4         .         .       .         .               .
+  Yahoo Flurry            7.6.4         7+        .       .         .               .
 
 
         (uns) = unspecified by SDK documentation
