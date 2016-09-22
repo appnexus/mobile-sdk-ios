@@ -1,43 +1,5 @@
 
-CURRENT VERSIONS OF MEDIATED SDKs
-================================================
-                                        minimum           
-  SDK                     version       iOS       ATS     Bitcode   Multitasking    IPv6
-  ----------------------------------------------------------------------------------------------
-  Amazon                  2.2.15        8+        no      yes       (uns)           (uns)
-  AdColony                2.6.2         .         .       .         .               .
-        ** AdColony native is deactivated.
-  AdMob                   7.10.1        6+        .       .         .               .
-        ** Does not include Firebase support.
-  Chartboost              6.4.7         .         .       .         .               .
-  Facebook                4.15.0        .         .       .         .               .
-  InMobi                  5.3.1         7+        .       .         .               .
-  Millennial Media        6.3.0         7+        no      no        yes             yes 
-  MoPub                   4.9.1         7+        no      yes[1]    (uns)           yes[2]
-  VDOPIA Lightweight      1.4           .         .       .         .               .
-        FIX -- need status update?
-  Vungle                  4.0.5         7+        no      yes       (uns)           (uns)
-  Yahoo Flurry            7.6.4         7+        .       .         .               .
-
-
-        (uns) = unspecified by SDK documentation
-        .     = [yet to be determined by examining SDK and documentation] FIX
-  
-
-  NOTES
-    MoPub
-      [1]  "For publishers who use the MoPub open source SDK, Bitcode
-            is supported out of the box. For publishers who are integrated
-            via Fabric, we are working on making our SDK support bitcode."
-      [2]  "The IPv6 requirement has no implications for MoPub SDK."
-
-
-
-
-CHANGELOG FOR MEDIATED SDKs
-================================================
-
-RC FIXVERSION -- FIXDATE
+RC 2.13 -- 2016 September 22
 
   Amazon SDK              v2.2.15
   AdColony SDK            v2.6.2
@@ -50,7 +12,7 @@ RC FIXVERSION -- FIXDATE
   Yahoo Flurry SDK        v7.6.4
 
 
-RC 2.21.1 -- 2016 July 26
+RC 2.12.1 -- 2016 July 26
 
   Facebook SDK  v4.14.0
 
@@ -69,4 +31,9 @@ RC 2.10 -- 2016 May 26
           ** Unable to certify VDOPIA Lightweight SDK v1.5 
   Vungle SDK              v3.2.1 
   Yahoo Flurry SDK        v7.6.3 
+
+
+For information about previous mediated SDK upgrades, please see:
+
+  https://github.com/appnexus/mobile-sdk-ios
 
