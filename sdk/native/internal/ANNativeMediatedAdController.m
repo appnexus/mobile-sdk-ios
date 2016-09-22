@@ -180,7 +180,10 @@
 
 - (ANTargetingParameters *)targetingParameters {
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     targetingParameters.customKeywords = self.adRequestDelegate.customKeywords;
+#pragma clang diagnostic pop
     targetingParameters.age = self.adRequestDelegate.age;
     targetingParameters.gender = self.adRequestDelegate.gender;
     targetingParameters.location = self.adRequestDelegate.location;
