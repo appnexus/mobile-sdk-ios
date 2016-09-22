@@ -7,15 +7,17 @@ CURRENT VERSIONS OF MEDIATED SDKs
   Amazon                  2.2.15        8+        no      yes       (uns)           (uns)
   AdColony                2.6.2         .         .       .         .               .
         ** AdColony native is deactivated.
-  AdMob                   7.10.1        .         .       .         .               .
+  AdMob                   7.10.1        6+        .       .         .               .
         ** Does not include Firebase support.
   Chartboost              6.4.7         .         .       .         .               .
   Facebook                4.15.0        .         .       .         .               .
-  InMobi                  FIX           7+        .       .         .               .
+  InMobi                  5.3.1         7+        .       .         .               .
   Millennial Media        6.3.0         7+        no      no        yes             yes 
   MoPub                   4.9.1         7+        no      yes[1]    (uns)           yes[2]
-  Vungle                  FIX           .         .       .         .               .
-  Yahoo Flurry          7.6.4          7+         .       .         .               .
+  VDOPIA Lightweight      1.4           .         .       .         .               .
+        FIX -- need status update?
+  Vungle                  4.0.5         7+        no      yes       (uns)           (uns)
+  Yahoo Flurry            7.6.4         7+        .       .         .               .
 
 
         (uns) = unspecified by SDK documentation
@@ -35,9 +37,17 @@ CURRENT VERSIONS OF MEDIATED SDKs
 CHANGELOG FOR MEDIATED SDKs
 ================================================
 
-RC FIX -- FIX
+RC FIXVERSION -- FIXDATE
 
-  FIX
+  Amazon SDK              v2.2.15
+  AdColony SDK            v2.6.2
+  AdMob SDK               v7.10.1
+  Chartboost SDK          v6.4.7
+  Facebook SDK            v4.15.0 
+  Millennial Media SDK    v6.3.0 
+  MoPub SDK               v4.9.0 
+  Vungle SDK              v4.0.5
+  Yahoo Flurry SDK        v7.6.4
 
 
 RC 2.21.1 -- 2016 July 26
