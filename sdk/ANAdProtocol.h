@@ -91,7 +91,7 @@
  Used to pass custom keywords across different mobile ad server and
  SDK integrations.
  */
-@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords __attribute((deprecated));
 
 /**
  Set the user's current location.  This allows ad buyers to do location
@@ -109,11 +109,30 @@
                       precision:(NSInteger)precision;
 
 /**
- These methods add and remove custom keywords to and from the
- customKeywords dictionary.
+ * Add a custom keyword to the request URL for the ad.  This
+ * is used to set custom targeting parameters within the
+ * AppNexus platform.  You will be given the keys and values
+ * to use by your AppNexus account representative or your ad
+ * network.
+ *
+ * @param key   The key to add
+ * @param value The value to add
  */
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
+
+/**
+ * Remove a custom keyword from the request URL for the ad.
+ * Use this to remove a keyword previously set using the
+ * addCustomKeywordWithKey:value: method.
+ *
+ * @param key The key to remove
+ */
 - (void)removeCustomKeywordWithKey:(NSString *)key;
+
+/**
+ * Clear all custom keywords from the request URL.
+ */
+- (void)clearCustomKeywords;
 
 /**
  Set the inventory code and member id for the place that ads will be shown.

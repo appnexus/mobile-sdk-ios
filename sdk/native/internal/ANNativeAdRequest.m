@@ -23,10 +23,19 @@
 @interface ANNativeAdRequest () <ANNativeAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
+@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
 
 @end
 
 @implementation ANNativeAdRequest
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _customKeywords = [[NSMutableDictionary alloc] init];
+        _customKeywordsMap = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
 
 - (void)loadAd {
     if (self.delegate) {
@@ -185,16 +194,40 @@
     if (([key length] < 1) || !value) {
         return;
     }
-    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // ANTargetingParameters still depends on this value
     [self.customKeywords setValue:value forKey:key];
+#pragma clang diagnostic pop
+    if(self.customKeywordsMap[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+        if (![valueArray containsObject:value]) {
+            [valueArray addObject:value];
+        }
+        self.customKeywordsMap[key] = [valueArray copy];
+    } else {
+        self.customKeywordsMap[key] = @[value];
+    }
 }
 
 - (void)removeCustomKeywordWithKey:(NSString *)key {
     if (([key length] < 1)) {
         return;
     }
-    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // ANTargetingParameters still depends on this value
     [self.customKeywords removeObjectForKey:key];
+#pragma clang diagnostic pop
+    [self.customKeywordsMap removeObjectForKey:key];
+}
+
+- (void)clearCustomKeywords {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    [self.customKeywords removeAllObjects];
+#pragma clang diagnostic pop
+    [self.customKeywordsMap removeAllObjects];
 }
 
 - (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberId{

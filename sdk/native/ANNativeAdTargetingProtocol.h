@@ -72,7 +72,7 @@
  * Used to pass custom keywords across different mobile ad server and
  * SDK integrations.
  */
-@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords;
+@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords __attribute((deprecated));
 
 /*!
  * Convenience method to set the user's current location.
@@ -97,7 +97,7 @@
 
 /*!
  * Convenience method to add a custom keyword key, value pair to customKeywords.
- * @see location
+ * @see customKeywords
  */
 - (void)addCustomKeywordWithKey:(NSString *)key
                           value:(NSString *)value;
@@ -107,6 +107,12 @@
  * @see customKeywords
  */
 - (void)removeCustomKeywordWithKey:(NSString *)key;
+
+/*!
+ * Convenience method to remove all the keywords from customKeywords.
+ * @see customKeywords
+ */
+- (void)clearCustomKeywords;
 
 /*!
  * Set the inventory code and member id for the place that ads will be shown.

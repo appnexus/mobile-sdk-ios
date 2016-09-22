@@ -266,23 +266,38 @@
 
 - (NSString *)customKeywordsParameter {
     __block NSString *customKeywordsParameter = @"";
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     NSMutableDictionary *customKeywords = [self.adFetcherDelegate customKeywords];
-    
-    if ([customKeywords count] < 1) {
-        return @"";
-    }
+#pragma clang diagnostic pop
+    NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap = [[self.adFetcherDelegate customKeywordsMap] mutableCopy];
 
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         key = ANConvertToNSString(key);
         value = ANConvertToNSString(value);
+        if (customKeywordsMap[key] == nil) {
+            customKeywordsMap[key] = [[NSMutableArray alloc] init];
+        }
+        if (![customKeywordsMap[key] containsObject:value]) {
+            NSMutableArray *valueArray = [customKeywordsMap[key] mutableCopy];
+            [valueArray addObject:value];
+            customKeywordsMap[key] = valueArray;
+        }
+    }];
+    
+    if ([customKeywordsMap count] < 1) {
+        return @"";
+    }
+
+    [customKeywordsMap enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray<NSString *> *valueArray, BOOL *stop) {
         if(![self stringInParameterList:key]){
-            if ([value length] > 0) {
+            for (NSString *valueString in valueArray) {
                 customKeywordsParameter = [customKeywordsParameter stringByAppendingString:
                                            [NSString stringWithFormat:@"&%@=%@",
                                             key,
-                                            [self URLEncodingFrom:value]]];
+                                            [self URLEncodingFrom:valueString]]];
             }
-        } else{
+        } else {
             ANLogWarn(@"request_parameter_override_attempt %@", key);
         }
     }];
