@@ -14,7 +14,6 @@
  */
 
 #import "ANCustomAdapter.h"
-#import <MMAdSDK/MMAdSDK.h>
 
 @interface ANAdAdapterMillennialMediaBase : NSObject <ANCustomAdapter>
 

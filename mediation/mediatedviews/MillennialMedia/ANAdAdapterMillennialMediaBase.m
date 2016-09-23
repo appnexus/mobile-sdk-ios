@@ -14,6 +14,7 @@
  */
 
 #import "ANAdAdapterMillennialMediaBase.h"
+#import <MMAdSDK/MMAdSDK.h>
 
 @implementation ANAdAdapterMillennialMediaBase
 @synthesize delegate;
