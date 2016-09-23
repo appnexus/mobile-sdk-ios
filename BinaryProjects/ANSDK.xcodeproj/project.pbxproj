@@ -31,7 +31,7 @@
 		4FD67FAE1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */; };
 		4FD67FAF1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */; };
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
-		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; };
+		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
 		8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6FE1D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h */; };
 		8A02D7081D6CE946006831A3 /* ANSDKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */; };
@@ -182,6 +182,7 @@
 		8AA5B4E41AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E21AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m */; };
 		8AA5B4E71AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E61AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m */; };
 		8AB178B81D95D28600E59CDF /* ANAdAdapterMillennialMediaBase.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7D219CC88A000001B70 /* ANAdAdapterMillennialMediaBase.h */; };
+		8AB178B91D95D7F400E59CDF /* ANSDKSettings.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; };
 		8ABC03D51C5AD5FD00D7C789 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
 		8ABC03D61C5AD79800D7C789 /* ANAdAdapterNativeAdMob.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */; };
 		8ABF77591D08CE420068B535 /* ANStoreProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */; };
@@ -602,6 +603,7 @@
 				8A9AED281A1BAD7700C58BDA /* ANNativeMediatedAdResponse.h in Copy Files */,
 				8AF366BD19D492F30097019F /* ANSDKResources.bundle in Copy Files */,
 				ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */,
+				8AB178B91D95D7F400E59CDF /* ANSDKSettings.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1980,6 +1982,7 @@
 				8A9AEDD21A1BF88200C58BDA /* ANBrowserViewController.h in Headers */,
 				8A9AEDD31A1BF88200C58BDA /* ANClickOverlayView.h in Headers */,
 				8A9AEDB51A1BE8C200C58BDA /* ANCustomAdapter.h in Headers */,
+				8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */,
 				8A9AEDD41A1BF88200C58BDA /* ANGlobal.h in Headers */,
 				8A9AEDB61A1BE8C200C58BDA /* ANInterstitialAd.h in Headers */,
 				8A9AEDD51A1BF88200C58BDA /* ANInterstitialAdViewController.h in Headers */,
@@ -2018,7 +2021,6 @@
 				8A9AEDDE1A1BF88300C58BDA /* ANReachability.h in Headers */,
 				8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */,
 				8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */,
-				8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */,
 				8AF5A8851ACC60D50089C529 /* ANStandardAd.h in Headers */,
 				8A9AEDB91A1BE8C200C58BDA /* ANTargetingParameters.h in Headers */,
 				8A9AED911A1BE84F00C58BDA /* AppNexusSDK.h in Headers */,
