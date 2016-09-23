@@ -1,3 +1,33 @@
+## RC 2.13
+
+### New Features
+
++ MS-2580 Added switch to enable HTTPS in SDK for calls made by the AppNexus SDK
+
+    + Currently, ad calls may not always be ATS compliant. The AppNexus ad server will be fully ATS compliant by the end of 2016 without the need for an SDK change.
+
+    + Because the AppNexus SDK does not control ad calls made by mediated SDKs, ATS compliance for mediated SDKs is the responsibility of each respective vendor. As mediated SDKs become ATS compliant the AppNexus SDK will be upgraded to support them.
+
++ MS-2584 Added static method to pass Nexage Site ID into Millennial SDK mediated adapter
+
+### Bug Fixes
+
++ MS-2664 Fixed click-through issue affecting some ads loading in WKWebView
+
++ MS-2227 Multiple values for a single key now supported for AppNexus ad serving
+
+### Mediated SDKs
+
++  Amazon SDK              v2.2.15
++  AdColony SDK            v2.6.2
++  AdMob SDK               v7.10.1
++  Chartboost SDK          v6.4.7
++  Facebook SDK            v4.15.0
++  Millennial Media SDK    v6.3.0
++  MoPub SDK               v4.9.0
++  Vungle SDK              v4.0.5
++  Yahoo Flurry SDK        v7.6.4
+
 ## RC 2.12.1
 
 ### Mediated SDKs
