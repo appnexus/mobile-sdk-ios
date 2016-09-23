@@ -181,6 +181,7 @@
 		8AA5B4E31AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E01AA8B74E00522E1C /* ANAdAdapterInterstitialInMobi.m */; };
 		8AA5B4E41AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E21AA8B74E00522E1C /* ANAdAdapterNativeInMobi.m */; };
 		8AA5B4E71AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA5B4E61AA8B7F800522E1C /* ANAdAdapterBaseInMobi.m */; };
+		8AB178B81D95D28600E59CDF /* ANAdAdapterMillennialMediaBase.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AE2D7D219CC88A000001B70 /* ANAdAdapterMillennialMediaBase.h */; };
 		8ABC03D51C5AD5FD00D7C789 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
 		8ABC03D61C5AD79800D7C789 /* ANAdAdapterNativeAdMob.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */; };
 		8ABF77591D08CE420068B535 /* ANStoreProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */; };
@@ -533,6 +534,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				8AB178B81D95D28600E59CDF /* ANAdAdapterMillennialMediaBase.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
