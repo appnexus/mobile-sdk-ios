@@ -21,6 +21,8 @@
 #import "ANMRAIDContainerView.h"
 #import "ANMRAIDUtil.h"
 #import <WebKit/WebKit.h>
+#import "XCTestCase+ANCategory.h"
+
 
 #define MRAID_TESTS_TIMEOUT 10.0
 #define MRAID_TESTS_DEFAULT_DELAY 1.5
@@ -648,13 +650,15 @@
                   withCustomClosePosition:@"bottom-center"
                            allowOffscreen:YES];
     [self resize];
-    
+
     expectedOriginX = 124.0f;
     expectedOriginY = 270.0f;
     [self.banner setFrame:CGRectMake(expectedOriginX, expectedOriginY, self.banner.frame.size.width, self.banner.frame.size.height)];
 
     [self rotateDeviceToOrientation:UIInterfaceOrientationLandscapeRight];
-    
+
+    [XCTestCase delayForTimeInterval:0.5];
+
     CGRect defaultPosition = [self getDefaultPosition];
     CGFloat originX = defaultPosition.origin.x;
     CGFloat originY = defaultPosition.origin.y;
