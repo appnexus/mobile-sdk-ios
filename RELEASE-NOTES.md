@@ -2,7 +2,11 @@
 
 ### New Features
 
-+ MS-2580 Added switch to enable HTTPS in SDK (NOTE: At the moment, the HTTPS calls may not always be ATS compliant. AppNexus will be fully ATS compliant by end of 2016.)
++ MS-2580 Added switch to enable HTTPS in SDK for calls made by the AppNexus SDK
+
+    + Currently, ad calls may not always be ATS compliant. The AppNexus ad server will be fully ATS compliant by the end of 2016 without the need for an SDK change.
+
+    + Because the AppNexus SDK does not control ad calls made by mediated SDKs, ATS compliance for mediated SDKs is the responsibility of each respective vendor. As mediated SDKs become ATS compliant the AppNexus SDK will be upgraded to support them.
 
 + MS-2584 Added static method to pass Nexage Site ID into Millennial SDK mediated adapter
 
