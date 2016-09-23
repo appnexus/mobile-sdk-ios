@@ -1,3 +1,7 @@
+## RC 2.13.1
+
++ Expose Millennial Site ID Header In ANSDKMillennialMediaAdapter Binary Target
+
 ## RC 2.13
 
 ### New Features
