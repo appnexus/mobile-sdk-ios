@@ -29,6 +29,14 @@
 		4F63B8991D918FE200E22FE0 /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8871D918FE200E22FE0 /* MPUnmutedBtn@2x.png */; };
 		4F63B89A1D918FE200E22FE0 /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8881D918FE200E22FE0 /* MPUnmutedBtn@3x.png */; };
 		4F63B8A91D91901300E22FE0 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8A81D91901300E22FE0 /* MRAID.bundle */; };
+		4F7646191D957E4300B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4F76461A1D957E4A00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4F76461B1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4F76461C1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4F76461D1D957E4D00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4F76461E1D957E4E00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4F7646211D95994B00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
+		4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
 		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67F961D760011009270E6 /* libz.1.2.5.tbd */; };
 		4FD67FA51D760019009270E6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3658519D4746E0097019F /* AudioToolbox.framework */; };
@@ -95,7 +103,6 @@
 		8A4EF46D1CF3B1E3002C2DF1 /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4EF4661CF3B1E3002C2DF1 /* VungleSDK.framework */; };
 		8A549EAE1A706BC7009F797A /* ANNativeAdRequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */; };
 		8A549EB01A706BFE009F797A /* ANAdServerResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A549EAF1A706BFE009F797A /* ANAdServerResponseTestCase.m */; };
-		8A549EB21A706C65009F797A /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
 		8A549EB31A706C71009F797A /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
 		8A549EB41A706C7D009F797A /* ANAdAdapterBannerMoPub+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */; };
 		8A549EBB1A706D6F009F797A /* nativeResponse1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EB61A706D6F009F797A /* nativeResponse1.json */; };
@@ -1953,6 +1960,7 @@
 				8AE7AD841A7AA5A7009E2F2F /* empty_response.json in Resources */,
 				8AE7AD8C1A7AA61D009E2F2F /* facebook_mediated_response.json in Resources */,
 				8AE7AD801A7AA56C009E2F2F /* mopub_mediated_response.json in Resources */,
+				4F76461D1D957E4D00B15742 /* MPAdBrowserController.xib in Resources */,
 				8A549EBB1A706D6F009F797A /* nativeResponse1.json in Resources */,
 				8A549EBC1A706D6F009F797A /* nativeResponse2.json in Resources */,
 				8A549EBD1A706D6F009F797A /* nativeResponse3.json in Resources */,
@@ -1979,6 +1987,7 @@
 				8AA009EE19DB1D790090EBED /* LaunchScreen.xib in Resources */,
 				8AA009EF19DB1D790090EBED /* Main.storyboard in Resources */,
 				8AA009ED19DB1D670090EBED /* MediationAdapterAppImages.xcassets in Resources */,
+				4F76461C1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */,
 				4F63B8891D918FE200E22FE0 /* MPCloseBtn.png in Resources */,
 				4F63B88A1D918FE200E22FE0 /* MPCloseBtn@2x.png in Resources */,
 				4F63B88B1D918FE200E22FE0 /* MPCloseBtn@3x.png in Resources */,
@@ -2023,6 +2032,7 @@
 				8AA009B619DB1A290090EBED /* ANSDKResources.bundle in Resources */,
 				8AA009B019DB18CC0090EBED /* Default-568h@2x.png in Resources */,
 				8AA009B319DB19790090EBED /* Images.xcassets in Resources */,
+				4F7646191D957E4300B15742 /* MPAdBrowserController.xib in Resources */,
 				8ACB37ED1B98C6860027E90B /* OriginalUnitTestAppLaunch.xib in Resources */,
 				8AA0095C19DB16C50090EBED /* TestsStoryboard.storyboard in Resources */,
 			);
@@ -2033,6 +2043,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AA0098A19DB16CD0090EBED /* InfoPlist.strings in Resources */,
+				4F76461E1D957E4E00B15742 /* MPAdBrowserController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2045,6 +2056,7 @@
 				8AA00A4319DB2A410090EBED /* ANSDKResources.bundle in Resources */,
 				8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */,
 				8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */,
+				4F76461A1D957E4A00B15742 /* MPAdBrowserController.xib in Resources */,
 				8ACB37EB1B98C66F0027E90B /* NewTestAppLaunch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2065,6 +2077,7 @@
 				8AA00A4919DB2A9A0090EBED /* dogSelfie@2x.jpg in Resources */,
 				8AA00A4A19DB2A9A0090EBED /* GreyWhiteCat.jpg in Resources */,
 				8AA00A4B19DB2A9A0090EBED /* GreyWhiteCat@2x.jpg in Resources */,
+				4F76461B1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */,
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
@@ -2090,7 +2103,7 @@
 				8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */,
 				8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */,
 				8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */,
-				8A549EB21A706C65009F797A /* XCTestCase+ANCategory.m in Sources */,
+				4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2164,6 +2177,7 @@
 				8AA0098B19DB16CD0090EBED /* MediationCallbacksTests.m in Sources */,
 				8AA0098C19DB16CD0090EBED /* MediationTests.m in Sources */,
 				8AA0098D19DB16CD0090EBED /* MRAIDTests.m in Sources */,
+				4F7646211D95994B00B15742 /* XCTestCase+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
