@@ -152,7 +152,7 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
 }
 
 - (NSString *)dontTrackEnabledParameter {
-    return ANAdvertisingTrackingEnabled() ? @"" : @"LimitAdTrackingEnabled=1";
+    return ANAdvertisingTrackingEnabled() ? @"LimitAdTrackingEnabled=0" : @"LimitAdTrackingEnabled=1";
 }
 
 - (NSString *)deviceMakeParameter {
