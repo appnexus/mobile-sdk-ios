@@ -133,7 +133,12 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
 }
 
 - (NSString *)idfaParameter {
-    return [NSString stringWithFormat:@"idfa=%@", [self URLEncodingFrom:ANUDID()]];
+    NSString *idfa = ANUDID();
+    if ([idfa isEqualToString:@"00000000-0000-0000-0000-000000000000"]) {
+        ANLogDebug(@"IDFA is sentinel value, not sending to server");
+        return @"";
+    }
+    return [NSString stringWithFormat:@"idfa=%@", [self URLEncodingFrom:idfa]];
 }
 
 - (NSString *)placementIdentifierParameter {
