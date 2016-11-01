@@ -85,7 +85,7 @@
     baseUrlString = [baseUrlString stringByAppendingString:[self placementIdentifierParameter]];
     NSString *idfa = ANUDID();
     if ([idfa isEqualToString:@"00000000-0000-0000-0000-000000000000"]) {
-        ANLogDebug(@"IDFA is sentinel value, not sending to server");
+        ANLogInfo(@"IDFA is sentinel value, not sending to server");
     } else {
         baseUrlString = [baseUrlString an_stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
     }
