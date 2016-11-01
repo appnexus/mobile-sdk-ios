@@ -83,7 +83,12 @@
 - (NSURL *)buildRequestUrlWithBaseUrlString:(NSString *)baseUrlString {
     baseUrlString = [baseUrlString stringByAppendingString:@"?"];
     baseUrlString = [baseUrlString stringByAppendingString:[self placementIdentifierParameter]];
-	baseUrlString = [baseUrlString an_stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
+    NSString *idfa = ANUDID();
+    if ([idfa isEqualToString:@"00000000-0000-0000-0000-000000000000"]) {
+        ANLogInfo(@"IDFA is sentinel value, not sending to server");
+    } else {
+        baseUrlString = [baseUrlString an_stringByAppendingUrlParameter:@"idfa" value:ANUDID()];
+    }
     baseUrlString = [baseUrlString stringByAppendingString:[self dontTrackEnabledParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceMakeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self deviceModelParameter]];
