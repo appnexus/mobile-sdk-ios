@@ -46,6 +46,7 @@
 		8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
 		8A2F483D1A2E33B000B0EA05 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F483C1A2E33B000B0EA05 /* compass.png */; };
 		8A3601271B39B51300B7BB62 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */; };
+		8A3AC2761DCA4DF1005D4E46 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A3AC2751DCA4DF1005D4E46 /* Info.plist */; };
 		8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
@@ -701,6 +702,7 @@
 		8A35B8AA19FEC9640016C81F /* ANAdAdapterNativeFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterNativeFacebook.h; path = ../mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.h; sourceTree = "<group>"; };
 		8A35B8AB19FEC9640016C81F /* ANAdAdapterNativeFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeFacebook.m; path = ../mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.m; sourceTree = "<group>"; };
 		8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
+		8A3AC2751DCA4DF1005D4E46 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANContentViewTransitions.h"; sourceTree = "<group>"; };
 		8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANContentViewTransitions.m"; sourceTree = "<group>"; };
 		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
@@ -1843,6 +1845,7 @@
 		EC3E5CD31843C6D50070315E = {
 			isa = PBXGroup;
 			children = (
+				8A3AC2751DCA4DF1005D4E46 /* Info.plist */,
 				ECE4EA8C194B768A0069D934 /* ANSDK */,
 				8A9AED8D1A1BE84F00C58BDA /* AppNexusSDK */,
 				8AE5E11F1A2FDCDB00FDE858 /* Frameworks */,
@@ -2573,6 +2576,7 @@
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
 				4FD67FAE1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */,
+				8A3AC2761DCA4DF1005D4E46 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3578,6 +3582,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				INFOPLIST_FILE = "$(PROJECT_DIR)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3595,6 +3600,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "$(PROJECT_DIR)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
