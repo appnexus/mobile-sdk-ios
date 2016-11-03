@@ -109,9 +109,9 @@
 		A88CD9741A019AFF0064F706 = {
 			isa = PBXGroup;
 			children = (
+				A88CD97E1A019AFF0064F706 /* Products */,
 				A88CD97F1A019AFF0064F706 /* Testable Swift */,
 				A88CD9971A019AFF0064F706 /* Testable SwiftTests */,
-				A88CD97E1A019AFF0064F706 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,12 +127,12 @@
 		A88CD97F1A019AFF0064F706 /* Testable Swift */ = {
 			isa = PBXGroup;
 			children = (
+				A88CD9801A019AFF0064F706 /* Supporting Files */,
 				A88CD9821A019AFF0064F706 /* AppDelegate.swift */,
-				A88CD9841A019AFF0064F706 /* MasterViewController.swift */,
-				A88CD9881A019AFF0064F706 /* Main.storyboard */,
 				A88CD98B1A019AFF0064F706 /* Images.xcassets */,
 				A88CD98D1A019AFF0064F706 /* LaunchScreen.xib */,
-				A88CD9801A019AFF0064F706 /* Supporting Files */,
+				A88CD9881A019AFF0064F706 /* Main.storyboard */,
+				A88CD9841A019AFF0064F706 /* MasterViewController.swift */,
 			);
 			path = "Testable Swift";
 			sourceTree = "<group>";
@@ -148,12 +148,12 @@
 		A88CD9971A019AFF0064F706 /* Testable SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
-				A88CD9A41A019D510064F706 /* KIF.xcodeproj */,
-				A88CD99A1A019AFF0064F706 /* Testable_SwiftTests.swift */,
 				A88CD9981A019AFF0064F706 /* Supporting Files */,
+				A88CD9A41A019D510064F706 /* KIF.xcodeproj */,
 				A88CD9BB1A019F0B0064F706 /* SimpleObjCTest.m */,
 				A88CD9BD1A019F300064F706 /* SimpleSwiftTest.swift */,
 				A88CD9BA1A019F0B0064F706 /* Testable SwiftTests-Bridging-Header.h */,
+				A88CD99A1A019AFF0064F706 /* Testable_SwiftTests.swift */,
 			);
 			path = "Testable SwiftTests";
 			sourceTree = "<group>";
@@ -169,11 +169,11 @@
 		A88CD9A51A019D510064F706 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A88CD9AE1A019D520064F706 /* libKIF.a */,
-				A88CD9B01A019D520064F706 /* libKIF-OCUnit.a */,
-				A88CD9B21A019D520064F706 /* Test Host.app */,
 				A88CD9B41A019D520064F706 /* KIF Tests - XCTest.xctest */,
 				A88CD9B61A019D520064F706 /* KIF Tests-OCUnit.octest */,
+				A88CD9B01A019D520064F706 /* libKIF-OCUnit.a */,
+				A88CD9AE1A019D520064F706 /* libKIF.a */,
+				A88CD9B21A019D520064F706 /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,9 +302,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A88CD98A1A019AFF0064F706 /* Main.storyboard in Resources */,
-				A88CD98F1A019AFF0064F706 /* LaunchScreen.xib in Resources */,
 				A88CD98C1A019AFF0064F706 /* Images.xcassets in Resources */,
+				A88CD98F1A019AFF0064F706 /* LaunchScreen.xib in Resources */,
+				A88CD98A1A019AFF0064F706 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,8 +322,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A88CD9851A019AFF0064F706 /* MasterViewController.swift in Sources */,
 				A88CD9831A019AFF0064F706 /* AppDelegate.swift in Sources */,
+				A88CD9851A019AFF0064F706 /* MasterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,9 +331,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A88CD99B1A019AFF0064F706 /* Testable_SwiftTests.swift in Sources */,
-				A88CD9BE1A019F300064F706 /* SimpleSwiftTest.swift in Sources */,
 				A88CD9BC1A019F0B0064F706 /* SimpleObjCTest.m in Sources */,
+				A88CD9BE1A019F300064F706 /* SimpleSwiftTest.swift in Sources */,
+				A88CD99B1A019AFF0064F706 /* Testable_SwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

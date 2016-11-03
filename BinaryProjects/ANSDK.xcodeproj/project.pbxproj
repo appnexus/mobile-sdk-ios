@@ -28,8 +28,6 @@
 		4F824D081D909E1000AFC7EA /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */; };
 		4F824D091D909E1000AFC7EA /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */; };
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
-		4FD67FAE1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */; };
-		4FD67FAF1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */; };
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
 		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
@@ -603,8 +601,8 @@
 				8A9AED271A1BAD7700C58BDA /* ANNativeCustomAdapter.h in Copy Files */,
 				8A9AED281A1BAD7700C58BDA /* ANNativeMediatedAdResponse.h in Copy Files */,
 				8AF366BD19D492F30097019F /* ANSDKResources.bundle in Copy Files */,
-				ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */,
 				8AB178B91D95D7F400E59CDF /* ANSDKSettings.h in Copy Files */,
+				ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1985,7 +1983,6 @@
 				8A9AEDD21A1BF88200C58BDA /* ANBrowserViewController.h in Headers */,
 				8A9AEDD31A1BF88200C58BDA /* ANClickOverlayView.h in Headers */,
 				8A9AEDB51A1BE8C200C58BDA /* ANCustomAdapter.h in Headers */,
-				8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */,
 				8A9AEDD41A1BF88200C58BDA /* ANGlobal.h in Headers */,
 				8A9AEDB61A1BE8C200C58BDA /* ANInterstitialAd.h in Headers */,
 				8A9AEDD51A1BF88200C58BDA /* ANInterstitialAdViewController.h in Headers */,
@@ -2024,6 +2021,7 @@
 				8A9AEDDE1A1BF88300C58BDA /* ANReachability.h in Headers */,
 				8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */,
 				8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */,
+				8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */,
 				8AF5A8851ACC60D50089C529 /* ANStandardAd.h in Headers */,
 				8A9AEDB91A1BE8C200C58BDA /* ANTargetingParameters.h in Headers */,
 				8A9AED911A1BE84F00C58BDA /* AppNexusSDK.h in Headers */,
@@ -2441,7 +2439,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ADA36201A82A8D700AF65AA /* ANSDKResources.bundle in Resources */,
-				4FD67FAF1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2575,8 +2572,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
-				4FD67FAE1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */,
-				8A3AC2761DCA4DF1005D4E46 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
