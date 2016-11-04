@@ -44,7 +44,6 @@
 		8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
 		8A2F483D1A2E33B000B0EA05 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F483C1A2E33B000B0EA05 /* compass.png */; };
 		8A3601271B39B51300B7BB62 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */; };
-		8A3AC2761DCA4DF1005D4E46 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8A3AC2751DCA4DF1005D4E46 /* Info.plist */; };
 		8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
@@ -674,7 +673,6 @@
 		4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F824CF41D909E1000AFC7EA /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
-		4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SDKIntegrationKeys.plist; sourceTree = "<group>"; };
 		8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
 		8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDKSettings.h; sourceTree = "<group>"; };
 		8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseUrlConfig.h; sourceTree = "<group>"; };
@@ -1484,7 +1482,6 @@
 			isa = PBXGroup;
 			children = (
 				8A9AED8F1A1BE84F00C58BDA /* Info.plist */,
-				4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
