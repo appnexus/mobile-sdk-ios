@@ -141,6 +141,15 @@
     return nil;    
 }
 
+- (CGRect)an_originalFrame {
+    CGAffineTransform currentTransform = self.transform;
+    self.transform = CGAffineTransformIdentity;
+    CGRect originalFrame = self.frame;
+    self.transform = currentTransform;
+
+    return originalFrame;
+}
+
 #pragma mark - Autolayout
 
 - (void)an_constrainWithFrameSize {

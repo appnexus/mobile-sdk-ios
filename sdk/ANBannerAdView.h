@@ -129,6 +129,15 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 @property (nonatomic, readwrite, assign) ANBannerViewAdAlignment alignment;
 
+/**
+ Set whether ads will expand to fit the container width. This
+ feature will cause ad creatives that are smaller than the view
+ size to 'stretch' to the current size. This may cause image
+ quality degradation for the benefit of having an ad occupy the
+ entire ad view. This feature is disabled by default.
+ */
+@property (nonatomic, readwrite, assign) BOOL shouldResizeAdToFitContainer;
+
 #pragma mark Creating an ad view and loading an ad
 
 /**
