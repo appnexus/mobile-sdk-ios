@@ -29,7 +29,6 @@
 		4F824D091D909E1000AFC7EA /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */; };
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
 		4FD67FAE1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */; };
-		4FD67FAF1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FD67FAD1D7619E4009270E6 /* SDKIntegrationKeys.plist */; };
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
 		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
@@ -982,6 +981,7 @@
 		8AFC046E1A2E75AE00BEA485 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8AFC04701A2E760800BEA485 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8AFC04721A2E78E400BEA485 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		DA2AEB921DD0C32800CA229F /* PropertyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PropertyList.plist; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
@@ -1920,6 +1920,7 @@
 		ECE4EACA194B768A0069D934 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DA2AEB921DD0C32800CA229F /* PropertyList.plist */,
 				ECE4EACF194B768A0069D934 /* images */,
 				ECE4EACB194B768A0069D934 /* ANBrowserViewController.xib */,
 				8A3601261B39B2E000B7BB62 /* ANBrowserViewController_SizeClasses.xib */,
@@ -2362,8 +2363,11 @@
 		EC3E5CD41843C6D50070315E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftMigration = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
 					8A9AED8B1A1BE84F00C58BDA = {
@@ -2438,7 +2442,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ADA36201A82A8D700AF65AA /* ANSDKResources.bundle in Resources */,
-				4FD67FAF1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3090,7 +3093,7 @@
 			buildSettings = {
 				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3121,7 +3124,7 @@
 			buildSettings = {
 				CLANG_MODULES_AUTOLINK = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3471,15 +3474,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMPRESS_PNG_FILES = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3493,7 +3501,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_FLATTEN_NIBS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -3514,14 +3522,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMPRESS_PNG_FILES = NO;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3529,7 +3542,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_FLATTEN_NIBS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -3578,6 +3591,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				INFOPLIST_FILE = "/Users/audungk/Source/mobile-sdk-ios/sdk/Resources/PropertyList.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3595,6 +3609,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "/Users/audungk/Source/mobile-sdk-ios/sdk/Resources/PropertyList.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
