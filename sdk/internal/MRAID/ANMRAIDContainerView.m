@@ -177,6 +177,7 @@ ANAdWebViewControllerLoadingDelegate>
         CGRect absoluteContentViewFrame = [self convertRect:self.bounds toView:nil];
         CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
+        position.size = [self an_originalFrame].size; // In the case of a magnified webview, need to pass the non-magnified size to the webview
         self.lastKnownDefaultPosition = position;
         return position;
     } else {
@@ -194,6 +195,7 @@ ANAdWebViewControllerLoadingDelegate>
         CGRect absoluteContentViewFrame = [contentView convertRect:contentView.bounds toView:nil];
         CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
+        position.size = [contentView an_originalFrame].size; // In the case of a magnified webview, need to pass the non-magnified size to the webview
         self.lastKnownCurrentPosition = position;
         return position;
     } else {
