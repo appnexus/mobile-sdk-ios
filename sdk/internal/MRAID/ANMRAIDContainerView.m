@@ -655,6 +655,10 @@ ANAdWebViewControllerLoadingDelegate>
         self.clickOverlay.alpha = 0.0;
     }
     
+    if (!CGAffineTransformIsIdentity(self.transform)) {
+        self.clickOverlay.transform = CGAffineTransformInvert(self.transform);
+    }
+
     self.clickOverlay.hidden = NO;
     
     [UIView animateWithDuration:0.5
