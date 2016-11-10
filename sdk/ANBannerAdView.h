@@ -66,7 +66,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  @endcode
  
  */
-@interface ANBannerAdView : ANAdView
+@interface ANBannerAdView : ANAdView <CAAnimationDelegate>
 
 /**
  Delegate object that receives notifications from this
