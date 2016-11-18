@@ -70,7 +70,7 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
                              CAKeyframeAnimation *newContentViewAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
                              newContentViewAnimation.values = [self keyFrameValuesForNewContentViewFlipAnimationWithDirection:transitionDirection];
                              newContentViewAnimation.duration = self.transitionDuration;
-                             newContentViewAnimation.delegate = self;
+                             newContentViewAnimation.delegate = (id<CAAnimationDelegate>)self;
                              [newContentView.layer addAnimation:newContentViewAnimation
                                                          forKey:kANContentViewTransitionsNewContentViewTransitionKey];
                          } else {
@@ -81,7 +81,7 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
                              transition.subtype = [[self class] CATransitionSubtypeFromANTransitionDirection:transitionDirection
                                                                                         withANTransitionType:transitionType];
                              transition.duration = self.transitionDuration;
-                             transition.delegate = self;
+                             transition.delegate = (id<CAAnimationDelegate>)self;
                              
                              [oldContentView.layer addAnimation:transition
                                                          forKey:kCATransition];
