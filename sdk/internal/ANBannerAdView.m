@@ -30,6 +30,7 @@
 @interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) NSNumber *transitionInProgress;
+@property (nonatomic, readwrite, strong) NSArray<NSValue *> *promoSizes;
 @end
 
 @implementation ANBannerAdView
@@ -127,6 +128,16 @@
     if (!CGSizeEqualToSize(adSize, __adSize)) {
         ANLogDebug(@"Setting adSize to %@", NSStringFromCGSize(adSize));
         __adSize = adSize;
+    }
+}
+
+- (void)setAdSizes:(NSArray<NSValue *> *)adSizes {
+    _adSizes = adSizes;
+    if ([adSizes firstObject]) {
+        self.adSize = [[adSizes firstObject] CGSizeValue];
+    }
+    if ([adSizes count] > 1) {
+        self.promoSizes = [[NSArray<NSValue *> alloc] initWithArray:[adSizes subarrayWithRange:NSMakeRange(1, adSizes.count - 1)]];
     }
 }
 
@@ -230,10 +241,30 @@
     return [NSString stringWithFormat:@"&orientation=%@", orientation];
 }
 
+- (NSString *)promoSizesParameter {
+    if (self.promoSizes.count > 0) {
+        NSString *promoSizesParameter = @"&promo_sizes=";
+        NSMutableArray *sizesStringsArray = [NSMutableArray arrayWithCapacity:[self.promoSizes count]];
+        
+        for (NSValue *sizeValue in self.promoSizes) {
+            CGSize size = [sizeValue CGSizeValue];
+            NSString *param = [NSString stringWithFormat:@"%ldx%ld", (long)size.width, (long)size.height];
+            
+            [sizesStringsArray addObject:param];
+        }
+        
+        promoSizesParameter = [promoSizesParameter stringByAppendingString:[sizesStringsArray componentsJoinedByString:@","]];
+        
+        return promoSizesParameter;
+    }
+    
+    return @"";
+}
+
 #pragma mark ANAdFetcherDelegate
 
 - (NSArray *)extraParameters {
-    return @[[self sizeParameter],[self orientationParameter]];
+    return @[[self sizeParameter],[self promoSizesParameter],[self orientationParameter]];
 }
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {

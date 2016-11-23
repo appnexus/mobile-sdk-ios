@@ -97,6 +97,12 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 @property (nonatomic, readwrite, assign) CGSize adSize;
 
 /**
+ The set of allowed ad sizes for the banner ad.
+ The set should contain CGSize values wrapped as NSValue objects.
+ */
+@property (nonatomic, readwrite, strong) NSArray<NSValue *> *adSizes;
+
+/**
  Autorefresh interval.  Default interval is 30.0; the minimum
  allowed is 15.0.  To disable autorefresh, set to 0.
  */
