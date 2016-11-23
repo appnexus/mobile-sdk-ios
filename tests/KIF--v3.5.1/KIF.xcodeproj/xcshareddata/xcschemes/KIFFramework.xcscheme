@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0710"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -9,15 +9,15 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
+            buildForProfiling = "NO"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC3E5CDB1843C6D50070315E"
-               BuildableName = "libANSDK.a"
-               BlueprintName = "ANSDK"
-               ReferencedContainer = "container:ANSDK.xcodeproj">
+               BlueprintIdentifier = "9CC9673A1AD4B1B600576D13"
+               BuildableName = "KIF.framework"
+               BlueprintName = "KIFFramework"
+               ReferencedContainer = "container:KIF.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9CC9673A1AD4B1B600576D13"
+            BuildableName = "KIF.framework"
+            BlueprintName = "KIFFramework"
+            ReferencedContainer = "container:KIF.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -45,19 +54,12 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC3E5CDB1843C6D50070315E"
-            BuildableName = "libANSDK.a"
-            BlueprintName = "ANSDK"
-            ReferencedContainer = "container:ANSDK.xcodeproj">
+            BlueprintIdentifier = "9CC9673A1AD4B1B600576D13"
+            BuildableName = "KIF.framework"
+            BlueprintName = "KIFFramework"
+            ReferencedContainer = "container:KIF.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -67,15 +69,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC3E5CDB1843C6D50070315E"
-            BuildableName = "libANSDK.a"
-            BlueprintName = "ANSDK"
-            ReferencedContainer = "container:ANSDK.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

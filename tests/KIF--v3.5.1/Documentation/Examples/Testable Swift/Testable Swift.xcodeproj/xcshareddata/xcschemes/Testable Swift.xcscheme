@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC3E5CDB1843C6D50070315E"
-               BuildableName = "libANSDK.a"
-               BlueprintName = "ANSDK"
-               ReferencedContainer = "container:ANSDK.xcodeproj">
+               BlueprintIdentifier = "A88CD97C1A019AFF0064F706"
+               BuildableName = "Testable Swift.app"
+               BlueprintName = "Testable Swift"
+               ReferencedContainer = "container:Testable Swift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A88CD9931A019AFF0064F706"
+               BuildableName = "Testable SwiftTests.xctest"
+               BlueprintName = "Testable SwiftTests"
+               ReferencedContainer = "container:Testable Swift.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A88CD97C1A019AFF0064F706"
+            BuildableName = "Testable Swift.app"
+            BlueprintName = "Testable Swift"
+            ReferencedContainer = "container:Testable Swift.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -42,22 +61,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC3E5CDB1843C6D50070315E"
-            BuildableName = "libANSDK.a"
-            BlueprintName = "ANSDK"
-            ReferencedContainer = "container:ANSDK.xcodeproj">
+            BlueprintIdentifier = "A88CD97C1A019AFF0064F706"
+            BuildableName = "Testable Swift.app"
+            BlueprintName = "Testable Swift"
+            ReferencedContainer = "container:Testable Swift.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -67,15 +80,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EC3E5CDB1843C6D50070315E"
-            BuildableName = "libANSDK.a"
-            BlueprintName = "ANSDK"
-            ReferencedContainer = "container:ANSDK.xcodeproj">
+            BlueprintIdentifier = "A88CD97C1A019AFF0064F706"
+            BuildableName = "Testable Swift.app"
+            BlueprintName = "Testable Swift"
+            ReferencedContainer = "container:Testable Swift.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
