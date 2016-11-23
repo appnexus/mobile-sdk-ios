@@ -1,8 +1,23 @@
+
+## RC 2.13.2
+
+### Bug Fixes
+
++ MS-2212  Allow RTB banners to fit full screen.  New BOOL property: shouldResizeAdToFitContainer.
+
++ MS-2820  Support multiple sizes in SDK ad request.
+
++ PR-10  Integrate third party PR: project and schema updates per Xcode 8.
+
+
+
 ## RC 2.13.1
 
 + Expose ANAdAdapterMillennialMediaBase.h In ANSDKMillennialMediaAdapter Binary Target
 
 + Expose ANSDKSettings.h In ANSDK Binary Target
+
+
 
 ## RC 2.13
 
@@ -33,6 +48,8 @@
 +  MoPub SDK               v4.9.0
 +  Vungle SDK              v4.0.5
 +  Yahoo Flurry SDK        v7.6.4
+
+
 
 ## RC 2.12.1
 
