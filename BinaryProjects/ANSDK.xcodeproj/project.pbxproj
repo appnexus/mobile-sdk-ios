@@ -1840,6 +1840,7 @@
 		EC3E5CD31843C6D50070315E = {
 			isa = PBXGroup;
 			children = (
+				8A3AC2751DCA4DF1005D4E46 /* Info.plist */,
 				ECE4EA8C194B768A0069D934 /* ANSDK */,
 				8A9AED8D1A1BE84F00C58BDA /* AppNexusSDK */,
 				8AE5E11F1A2FDCDB00FDE858 /* Frameworks */,
@@ -2569,8 +2570,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
-				8A3AC2761DCA4DF1005D4E46 /* Info.plist in Resources */,
-				4FD67FAE1D7619E4009270E6 /* SDKIntegrationKeys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
