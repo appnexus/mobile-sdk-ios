@@ -186,6 +186,18 @@
     }
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (self.shouldResizeAdToFitContainer && [self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
+        CGFloat horizontalScaleFactor = self.frame.size.width / [standardAdView an_originalFrame].size.width;
+        CGFloat verticalScaleFactor = self.frame.size.height / [standardAdView an_originalFrame].size.height;
+        CGFloat scaleFactor = horizontalScaleFactor < verticalScaleFactor ? horizontalScaleFactor : verticalScaleFactor;
+        CGAffineTransform transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
+        standardAdView.transform = transform;
+    }
+}
+
 - (NSNumber *)transitionInProgress {
     if (!_transitionInProgress) _transitionInProgress = @(NO);
     return _transitionInProgress;

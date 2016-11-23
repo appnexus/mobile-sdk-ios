@@ -30,6 +30,8 @@
 
 - (UIViewController *)an_parentViewController;
 
+- (CGRect)an_originalFrame;
+
 #pragma mark - Autolayout
 
 - (void)an_constrainWithSize:(CGSize)size;

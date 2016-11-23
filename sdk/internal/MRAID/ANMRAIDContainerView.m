@@ -177,6 +177,10 @@ ANAdWebViewControllerLoadingDelegate>
         CGRect absoluteContentViewFrame = [self convertRect:self.bounds toView:nil];
         CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
+        if (!CGAffineTransformIsIdentity(self.transform)) {
+            // In the case of a magnified webview, need to pass the non-magnified size to the webview
+            position.size = [self an_originalFrame].size;
+        }
         self.lastKnownDefaultPosition = position;
         return position;
     } else {
@@ -194,6 +198,10 @@ ANAdWebViewControllerLoadingDelegate>
         CGRect absoluteContentViewFrame = [contentView convertRect:contentView.bounds toView:nil];
         CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
         position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
+        if (!CGAffineTransformIsIdentity(self.transform)) {
+            // In the case of a magnified webview, need to pass the non-magnified size to the webview
+            position.size = [contentView an_originalFrame].size;
+        }
         self.lastKnownCurrentPosition = position;
         return position;
     } else {
@@ -653,6 +661,11 @@ ANAdWebViewControllerLoadingDelegate>
         self.clickOverlay.alpha = 0.0;
     }
     
+    if (!CGAffineTransformIsIdentity(self.transform)) {
+        // In the case that ANMRAIDContainerView is magnified it is necessary to invert this magnification for the click overlay
+        self.clickOverlay.transform = CGAffineTransformInvert(self.transform);
+    }
+
     self.clickOverlay.hidden = NO;
     
     [UIView animateWithDuration:0.5
