@@ -35,6 +35,7 @@
     var CALL_READY = "ready";
     var CALL_RESULT = "result";
     var CALL_MRAID = "mraid";
+    var CALL_PING = "Ping";
 
     // public window variable to be invoked by mraid.js
     var sdkjs = window.sdkjs = {};
@@ -130,6 +131,18 @@
                 sdkjs.callGetDeviceID(queryParameters);
             } else if (path === CALL_MRAID) {
                 sdkjs.callMraid(queryParameters);
+            } else if (path === CALL_PING) {
+                /* An iframe can send a post message directly to the top window
+                 * in order to be sure to be inside the AppNexus SDK context (without injecting anjam.js):
+                 *
+                 * window.top.postMessage('anjam:Ping?cb=toto', '*');
+                 *
+                 * The SDK will anwser a message like 'sdkjs:result?caller=Ping&answer=1&cb=toto'
+                 * The iframe needs a listener:
+                 * window.addEventListener("message", function(_e) { if(_e.data === 'sdkjs:result?caller=Ping&answer=1&cb=toto') { console.log('Ping received'); } else { console.log('other event: ' + _e.data); } } );
+                 */
+                var queryStringParameters = 'caller=' + CALL_PING + '&answer=1&cb=' + queryParameters.cb;
+                sdkjs.sendPingAnswer(queryStringParameters, window.top);
             }
         }
     }
@@ -166,6 +179,19 @@
         var w = window.open("", name, null, false);
         anjamFrames.push(w);
         sdkjs.fireMessage(CALL_READY);
+    }
+
+    // It send a ping answered for each frames
+    sdkjs.sendPingAnswer = function (queryStringParameters, currentWindow) {
+        try{
+            currentWindow.postMessage( SDKJS_PROTOCOL + CALL_RESULT + "?" + queryStringParameters, "*");
+            var frames = currentWindow.frames;
+            for (var i = 0; i < frames.length; i++) {
+                sdkjs.sendPingAnswer(queryStringParameters, frames[i]);
+            }
+        } catch(_e) {
+            sdkjs.anlog("SDKJS can send properly ping answer to sub window: " + _e);
+        }
     }
 
     sdkjs.dequeue = function () {
