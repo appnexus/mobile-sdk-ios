@@ -20,7 +20,7 @@ function buildDevice {
 function buildSim {
     echo "Building framework for simulator:" $1
     LOGFILE="$LOGDIR"/$1.log
-    xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+    xcodebuild -project "ANSDK.xcodeproj" -scheme $1 -configuration "Release" -sdk "iphonesimulator" CONFIGURATION_BUILD_DIR="$OUTDIR" SYMROOT="$BUILDDIR" OBJROOT="$BUILDDIR" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
     mkdir -p "$OUTDIR"/$1
     mv "$OUTDIR"/$1.framework "$OUTDIR"/$1/$1.framework
 }
