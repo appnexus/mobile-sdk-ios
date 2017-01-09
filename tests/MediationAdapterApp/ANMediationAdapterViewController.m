@@ -17,6 +17,7 @@
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANLogManager.h"
+#import "ANAdAdapterBaseAdMarvel.h"
 #import "ANAdAdapterBaseAmazon.h"
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseAdColony.h"
@@ -48,6 +49,8 @@
 
 + (NSArray *)networks {
     return @[@"AdMobNative",
+             @"AdMarvelBanner",
+             @"AdMarvelInterstitial",
              @"YahooNative",
              @"YahooBanner",
              @"YahooInterstitial",
@@ -170,6 +173,39 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterNativeFacebook";
     mediatedAd.adId = @"210827375150_10154672420735151";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - AdMarvel
+
+- (ANBannerAdView *)loadAdMarvelBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate{
+    [ANAdAdapterBaseAdMarvel setSiteId:@"1355"];
+    [ANAdAdapterBaseAdMarvel setPartnerId:@"1dd21b33bd603c95"];
+    [self stubAdMarvelBanner];
+    return [self bannerWithDelegate:delegate];
+}
+
+- (ANInterstitialAd *) loadAdMarvelInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate{
+    [ANAdAdapterBaseAdMarvel setSiteId:@"1194"];
+    [ANAdAdapterBaseAdMarvel setPartnerId:@"1dd21b33bd603c95"];
+    [self stubAdMarvelInterstitial];
+    return [self interstitialWithDelegate:delegate];
+}
+
+
+- (void)stubAdMarvelBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerAdMarvel";
+    mediatedAd.adId = @"123";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (void)stubAdMarvelInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialAdMarvel";
+    mediatedAd.adId = @"123";
     [self stubMediatedAd:mediatedAd];
 }
 
