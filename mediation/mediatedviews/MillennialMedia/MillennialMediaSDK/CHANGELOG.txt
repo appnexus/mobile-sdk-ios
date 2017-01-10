@@ -1,5 +1,11 @@
 Changelog
 ----------------------------------
+6.3.1
+- iOS 10 compatibility updates
+- Improved ATS support to comply with Apple's new security requirements
+- Updated Moat library to version 2.6.13 that fixes the use of private APIs
+- Removed requirements for CoreBluetooth and StoreKit frameworks
+
 6.3.0
 - Added support for HTML ads with <iframe>, <body> and <head> top-level elements
 - Added support for VPAID interstitial ads
@@ -15,7 +21,7 @@ Changelog
 - Fixed video playback automatically adjusting volume
 
 6.1.0
-- iOS 9 compatibility
+- iOS 9 compatibility updates
 - Improved SSL compatibility, including ATS support
 - Improved IPv6 support
 - Fixed issue where bluetooth permissions dialogues would appear

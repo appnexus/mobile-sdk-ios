@@ -1,4 +1,4 @@
-# Millennial Media iOS Advertising SDK 6.3.0
+# Millennial Media iOS Advertising SDK 6.3.1
 
 ## Requirements
 
