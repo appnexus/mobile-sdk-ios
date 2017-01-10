@@ -13,10 +13,8 @@
 @interface ANAdAdapterBannerSmartAd ()
     
     @property (nonatomic, strong) SASBannerView *adView;
-    
 
-    
-    @end
+@end
 
 @implementation ANAdAdapterBannerSmartAd
     
@@ -29,6 +27,10 @@
             targetingParameters:(ANTargetingParameters *)targetingParameters {
     
     NSDictionary * adUnitDictionary = [self parseAdUnitParameters:idString];
+    NSString *targetString;
+    if(targetingParameters != nil){
+        targetString = [super keywordsFromTargetingParameters:targetingParameters];
+    }
     
     if(adUnitDictionary[@"siteId"] == nil || [adUnitDictionary[@"siteId"] isEqualToString:@""]){
         ANLogTrace(@"SmartAd mediation failed. siteId not provided in the adUnit dictionary");
@@ -42,7 +44,7 @@
         self.adView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.adView.modalParentViewController = rootViewController;
         if(formatIdString != nil && ![formatIdString isEqualToString:@""]){
-            [self.adView loadFormatId:(NSInteger)formatIdString pageId:pageId master:TRUE target:nil];
+            [self.adView loadFormatId:[formatIdString integerValue] pageId:pageId master:TRUE target:targetString];
         }else {
             ANLogTrace(@"SmartAd mediation failed. FormatId not provided in the adUnit dictionary");
             [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];

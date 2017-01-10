@@ -8,7 +8,8 @@
 
 #import "ANCustomAdapter.h"
 #import "SASInterstitialView.h"
+#import "ANAdAdapterSmartAdBase.h"
 
-@interface ANAdAdapterInterstitialSmartAd : NSObject<ANCustomAdapterInterstitial,SASAdViewDelegate>
+@interface ANAdAdapterInterstitialSmartAd : ANAdAdapterSmartAdBase < ANCustomAdapterInterstitial,SASAdViewDelegate >
 
 @end

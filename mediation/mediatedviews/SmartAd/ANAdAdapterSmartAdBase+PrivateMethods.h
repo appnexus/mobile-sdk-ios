@@ -18,10 +18,6 @@
 
 @interface ANAdAdapterSmartAdBase (PrivateMethods)
 
-+ (NSString *) SmartAdPageId;
-
-+ (NSString *) SmartAdFormatId;
-
 -(NSDictionary *) parseAdUnitParameters:(NSString *) adUnitString;
 
 @end

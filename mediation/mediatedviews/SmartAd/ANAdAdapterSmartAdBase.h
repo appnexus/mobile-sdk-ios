@@ -10,10 +10,10 @@
 #import "ANCustomAdapter.h"
 #import <CoreLocation/CoreLocation.h>
 
+#define SMARTAD_BASEURL		@"https://mobile.smartadserver.com"
+
 @interface ANAdAdapterSmartAdBase : NSObject <ANCustomAdapter>
 
 - (NSString *) keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
-
-- (void) locationFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
 
 @end

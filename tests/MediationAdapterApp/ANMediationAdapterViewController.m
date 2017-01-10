@@ -188,8 +188,7 @@
 - (void)stubSmartAdBanner {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterBannerSmartAd";
-    //mediatedAd.adId = @"{\"siteId\":\"104808\",\"pageId\":\"663262\",\"formatId\":\"15140\"}";
-    mediatedAd.adId = @"siteId:104808";
+    mediatedAd.adId = @"{\\\"siteId\\\":\\\"104808\\\",\\\"pageId\\\":\\\"663262\\\",\\\"formatId\\\":\\\"15140\\\"}";
 
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
@@ -204,7 +203,7 @@
 - (void)stubSmartAdInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialSmartAd";
-    mediatedAd.adId = @"{\"siteId\":\"54522\",\"pageId\":\"401554\",\"formatId\":\"14514\"}";
+    mediatedAd.adId = @"{\\\"siteId\\\":\\\"54522\\\",\\\"pageId\\\":\\\"401554\\\",\\\"formatId\\\":\\\"14514\\\"}";
     [self stubMediatedAd:mediatedAd];
 }
 

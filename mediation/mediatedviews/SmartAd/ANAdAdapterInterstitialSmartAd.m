@@ -7,6 +7,8 @@
 //
 
 #import "ANAdAdapterInterstitialSmartAd.h"
+#import "ANLogging.h"
+#import "ANAdAdapterSmartAdBase+PrivateMethods.h"
 
 @interface ANAdAdapterInterstitialSmartAd ()
     
@@ -23,37 +25,66 @@
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
     
+    NSDictionary * adUnitDictionary = [self parseAdUnitParameters:idString];
+    NSString *targetString;
+    if(targetingParameters != nil){
+        targetString = [super keywordsFromTargetingParameters:targetingParameters];
+    }
     
-    self.sasInterstitialAd = [[SASInterstitialView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) loader:NO];
-    self.sasInterstitialAd.delegate = self;
-    [SASAdView setSiteID:54522 baseURL:@"https://mobile.smartadserver.com"];
-    [self.sasInterstitialAd loadFormatId:14514 pageId:@"401554" master:YES target:nil];
-    
+    if(adUnitDictionary[@"siteId"] == nil || [adUnitDictionary[@"siteId"] isEqualToString:@""]){
+        ANLogTrace(@"SmartAd mediation failed. siteId not provided in the adUnit dictionary");
+        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+        return;
+    }else {
+        NSString *pageId = adUnitDictionary[@"pageId"];
+        NSString *formatIdString = adUnitDictionary[@"formatId"];
+        self.sasInterstitialAd = [[SASInterstitialView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) loader:NO];
+        self.sasInterstitialAd.delegate = self;
+        if(formatIdString != nil && ![formatIdString isEqualToString:@""]){
+            [self.sasInterstitialAd loadFormatId:[formatIdString integerValue] pageId:pageId master:YES target:targetString];
+        }else {
+            ANLogTrace(@"SmartAd mediation failed. FormatId not provided in the adUnit dictionary");
+            [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
+            return;
+        }
+    }
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController {
     self.sasInterstitialAd.modalParentViewController = viewController;
-     [[[[[[UIApplication sharedApplication] delegate] window] rootViewController] view] addSubview:self.sasInterstitialAd];
+     [[self rootView] addSubview:self.sasInterstitialAd];
+}
+
+-(UIView *) rootView{
+    return [[[[[UIApplication sharedApplication] delegate] window] rootViewController] view];
 }
     
 #pragma mark - SASAdView delegate
 
 - (void)adViewDidLoad:(SASAdView *)adView {
-    NSLog(@"Interstitial has been loaded");
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.delegate didLoadInterstitialAd:self];
-    
     
 }
     
     
 - (void)adView:(SASAdView *)adView didFailToLoadWithError:(NSError *)error {
-    NSLog(@"Interstitial has failed to load with error: %@", [error description]);
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
    
 }
-    
-    
+
 - (void)adViewDidDisappear:(SASAdView *)adView {
-    NSLog(@"Interstitial has disappeared");
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate didCloseAd];
+    
+}
+
+- (BOOL)adView:(nonnull SASAdView *)adView shouldHandleURL:(nonnull NSURL *)URL{
+    
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.delegate adWasClicked];
+    return YES;
     
 }
 
