@@ -44,6 +44,9 @@
 - (ANBannerAdView *)loadMoPubBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *)loadMoPubInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
+- (ANBannerAdView *)loadSmartAdBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadSmartAdInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
 - (void)stubMediatedAd:(ANMediatedAd *)mediatedAd;
 - (ANBannerAdView *)bannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
                              frameSize:(CGSize)frameSize
