@@ -32,6 +32,10 @@
 		604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */; };
 		604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */; };
 		604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */; };
+		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
+		60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */; };
+		60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */; };
+		60359EFD1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */; };
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
 		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
@@ -325,6 +329,13 @@
 			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
 			remoteInfo = ANSDK;
 		};
+		60359ECD1E1EA13B0017EF56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
 		8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
@@ -441,6 +452,15 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		60359FED1E23FCB50017EF56 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60359EAE1E1EA1180017EF56 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -720,6 +740,30 @@
 		604C10FC1E24261F006D6C97 /* ANAdAdapterSmartAdBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterSmartAdBase.h; sourceTree = "<group>"; };
 		604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterSmartAdBase.m; sourceTree = "<group>"; };
 		604C10FF1E242E9B006D6C97 /* ANAdAdapterSmartAdBase+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterSmartAdBase+PrivateMethods.h"; sourceTree = "<group>"; };
+		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelDelegate.h; sourceTree = "<group>"; };
+		60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAd.h; sourceTree = "<group>"; };
+		60359EBD1E1EA12C0017EF56 /* AdMarvelNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAdDelegate.h; sourceTree = "<group>"; };
+		60359EBE1E1EA12C0017EF56 /* AdMarvelReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelReward.h; sourceTree = "<group>"; };
+		60359EBF1E1EA12C0017EF56 /* AdMarvelRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelRewardDelegate.h; sourceTree = "<group>"; };
+		60359EC01E1EA12C0017EF56 /* AdMarvelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelView.h; sourceTree = "<group>"; };
+		60359EC11E1EA12C0017EF56 /* libAdMarvelSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMarvelSDK.a; sourceTree = "<group>"; };
+		60359EC31E1EA12C0017EF56 /* OMWCustomBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomBanner.h; sourceTree = "<group>"; };
+		60359EC41E1EA12C0017EF56 /* OMWCustomBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomBannerDelegate.h; sourceTree = "<group>"; };
+		60359EC51E1EA12C0017EF56 /* OMWCustomInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomInterstitial.h; sourceTree = "<group>"; };
+		60359EC61E1EA12C0017EF56 /* OMWCustomInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomInterstitialDelegate.h; sourceTree = "<group>"; };
+		60359EC71E1EA12C0017EF56 /* OMWCustomNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNative.h; sourceTree = "<group>"; };
+		60359EC81E1EA12C0017EF56 /* OMWCustomNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNativeAd.h; sourceTree = "<group>"; };
+		60359EC91E1EA12C0017EF56 /* OMWCustomNativeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNativeDelegate.h; sourceTree = "<group>"; };
+		60359ECA1E1EA12C0017EF56 /* OMWCustomReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomReward.h; sourceTree = "<group>"; };
+		60359ECB1E1EA12C0017EF56 /* OMWCustomRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomRewardDelegate.h; sourceTree = "<group>"; };
+		60359ECF1E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMarvel.h; sourceTree = "<group>"; };
+		60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMarvel.m; sourceTree = "<group>"; };
+		60359ED21E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMarvel.h; sourceTree = "<group>"; };
+		60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMarvel.m; sourceTree = "<group>"; };
+		60359ED51E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdMarvel.h; sourceTree = "<group>"; };
+		60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdMarvel.m; sourceTree = "<group>"; };
+		60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterAdMarvelBase+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
 		8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDKSettings.h; sourceTree = "<group>"; };
 		8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseUrlConfig.h; sourceTree = "<group>"; };
@@ -1066,6 +1110,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		60359EAD1E1EA1180017EF56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A1482511AD337320046F1B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1319,6 +1370,53 @@
 				6035A00B1E23FCCB0017EF56 /* SASVideoEvent.h */,
 			);
 			path = headers;
+			sourceTree = "<group>";
+		};
+		60359EB91E1EA12C0017EF56 /* AdMarvel */ = {
+			isa = PBXGroup;
+			children = (
+				60359EBA1E1EA12C0017EF56 /* AdMarvelSDK */,
+				60359ECF1E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.h */,
+				60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */,
+				60359ED21E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.h */,
+				60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */,
+				60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */,
+				60359ED51E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.h */,
+				60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */,
+			);
+			name = AdMarvel;
+			path = ../mediation/mediatedviews/AdMarvel;
+			sourceTree = "<group>";
+		};
+		60359EBA1E1EA12C0017EF56 /* AdMarvelSDK */ = {
+			isa = PBXGroup;
+			children = (
+				60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */,
+				60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */,
+				60359EBD1E1EA12C0017EF56 /* AdMarvelNativeAdDelegate.h */,
+				60359EBE1E1EA12C0017EF56 /* AdMarvelReward.h */,
+				60359EBF1E1EA12C0017EF56 /* AdMarvelRewardDelegate.h */,
+				60359EC01E1EA12C0017EF56 /* AdMarvelView.h */,
+				60359EC11E1EA12C0017EF56 /* libAdMarvelSDK.a */,
+				60359EC21E1EA12C0017EF56 /* SDKConnectorHeaders */,
+			);
+			path = AdMarvelSDK;
+			sourceTree = "<group>";
+		};
+		60359EC21E1EA12C0017EF56 /* SDKConnectorHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				60359EC31E1EA12C0017EF56 /* OMWCustomBanner.h */,
+				60359EC41E1EA12C0017EF56 /* OMWCustomBannerDelegate.h */,
+				60359EC51E1EA12C0017EF56 /* OMWCustomInterstitial.h */,
+				60359EC61E1EA12C0017EF56 /* OMWCustomInterstitialDelegate.h */,
+				60359EC71E1EA12C0017EF56 /* OMWCustomNative.h */,
+				60359EC81E1EA12C0017EF56 /* OMWCustomNativeAd.h */,
+				60359EC91E1EA12C0017EF56 /* OMWCustomNativeDelegate.h */,
+				60359ECA1E1EA12C0017EF56 /* OMWCustomReward.h */,
+				60359ECB1E1EA12C0017EF56 /* OMWCustomRewardDelegate.h */,
+			);
+			path = SDKConnectorHeaders;
 			sourceTree = "<group>";
 		};
 		8A02D6F81D6CE946006831A3 /* config */ = {
@@ -1870,6 +1968,7 @@
 			isa = PBXGroup;
 			children = (
 				60359FF81E23FCCB0017EF56 /* SmartAd */,
+				60359EB91E1EA12C0017EF56 /* AdMarvel */,
 				8A1482461AD3371C0046F1B9 /* AdColony */,
 				8AD5155119D216E6002E53D6 /* Amazon */,
 				8A949AB51ADF12EA00D83DCE /* Chartboost */,
@@ -1977,6 +2076,7 @@
 				8AD7C4D81AD2FABA0049C997 /* libANSDKVungleAdapter.a */,
 				8A96871A1B43314E00D9399B /* libANSDKYahooAdapter.a */,
 				60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */,
+				60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2090,6 +2190,7 @@
 				8A9AEDB61A1BE8C200C58BDA /* ANInterstitialAd.h in Headers */,
 				8A9AEDD51A1BF88200C58BDA /* ANInterstitialAdViewController.h in Headers */,
 				8A9AEDB71A1BE8C200C58BDA /* ANLocation.h in Headers */,
+				60359EFD1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h in Headers */,
 				8A9AEDD61A1BF88200C58BDA /* ANLogging.h in Headers */,
 				8A9AEDB81A1BE8C200C58BDA /* ANLogManager.h in Headers */,
 				8A9AEDD71A1BF88200C58BDA /* ANMediatedAd.h in Headers */,
@@ -2156,6 +2257,24 @@
 			name = ANSDKSmartAdAdapter;
 			productName = ANSDKSmartAdAdapter;
 			productReference = 60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */;
+			buildPhases = (
+				60359EAC1E1EA1180017EF56 /* Sources */,
+				60359EAD1E1EA1180017EF56 /* Frameworks */,
+				60359EAE1E1EA1180017EF56 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60359ECE1E1EA13B0017EF56 /* PBXTargetDependency */,
+			);
+			name = ANSDKAdMarvelAdapter;
+			productName = ANSDKAdMarvelAdapter;
+			productReference = 60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8A1482491AD337320046F1B9 /* ANSDKAdColonyAdapter */ = {
@@ -2493,6 +2612,10 @@
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
+					60359EAF1E1EA1180017EF56 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 					8A9AED8B1A1BE84F00C58BDA = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -2528,6 +2651,7 @@
 				8AE2D85519CC9B0F00001B70 /* ANAdapterForMoPubSDK */,
 				8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */,
 				60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */,
+				60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */,
 			);
 		};
 /* End PBXProject section */
@@ -2720,6 +2844,16 @@
 				604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
 				604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */,
 				604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60359EAC1E1EA1180017EF56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */,
+				60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */,
+				60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3002,6 +3136,11 @@
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
 			targetProxy = 6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */;
 		};
+		60359ECE1E1EA13B0017EF56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 60359ECD1E1EA13B0017EF56 /* PBXContainerItemProxy */;
+		};
 		8A14824A1AD337320046F1B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
@@ -3126,6 +3265,60 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		60359EB61E1EA1180017EF56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		60359EB71E1EA1180017EF56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3821,6 +4014,15 @@
 			buildConfigurations = (
 				60359FF61E23FCB50017EF56 /* Debug */,
 				60359FF71E23FCB50017EF56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60359EB61E1EA1180017EF56 /* Debug */,
+				60359EB71E1EA1180017EF56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

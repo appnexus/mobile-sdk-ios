@@ -51,6 +51,10 @@
 		6035A0281E23FE1E0017EF56 /* libSmartAdServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */; };
 		6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A0291E23FE3F0017EF56 /* sas.bundle */; };
 		6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */; };
+		60359EF01E1EC34C0017EF56 /* libANSDKAdMarvelAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */; };
+		60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */; };
+		60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF71E1EC5B70017EF56 /* Accounts.framework */; };
+		60359EFA1E1EC5F50017EF56 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
 		605EDBCB1D92F2050042DC0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBCA1D92F2050042DC0C /* Foundation.framework */; };
@@ -338,6 +342,20 @@
 			remoteGlobalIDString = 60359FEF1E23FCB50017EF56;
 			remoteInfo = ANSDKSmartAdAdapter;
 		};
+		60359EE61E1EC2F00017EF56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 60359EB01E1EA1180017EF56;
+			remoteInfo = ANSDKAdMarvelAdapter;
+		};
+		60359EF11E1EC38C0017EF56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 60359EAF1E1EA1180017EF56;
+			remoteInfo = ANSDKAdMarvelAdapter;
+		};
 		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
@@ -614,6 +632,9 @@
 		4FD67FAA1D76003D009270E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSmartAdServer.a; path = ../mediation/mediatedviews/SmartAd/SmartAdSDK/libSmartAdServer.a; sourceTree = "<group>"; };
 		6035A0291E23FE3F0017EF56 /* sas.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = sas.bundle; path = ../mediation/mediatedviews/SmartAd/SmartAdSDK/sas.bundle; sourceTree = "<group>"; };
+		60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdMarvelSDK.a; path = ../mediation/mediatedviews/AdMarvel/AdMarvelSDK/libAdMarvelSDK.a; sourceTree = "<group>"; };
+		60359EF71E1EC5B70017EF56 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		605EDBC41D92E9A00042DC0C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurry.a; sourceTree = "<group>"; };
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
@@ -889,6 +910,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60359EFA1E1EC5F50017EF56 /* AssetsLibrary.framework in Frameworks */,
+				60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */,
+				60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */,
+				60359EF01E1EC34C0017EF56 /* libANSDKAdMarvelAdapter.a in Frameworks */,
 				8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */,
 				8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */,
 				8A949AEA1ADF23D900D83DCE /* Chartboost.framework in Frameworks */,
@@ -1194,6 +1219,9 @@
 			isa = PBXGroup;
 			children = (
 				6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */,
+				60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */,
+				60359EF71E1EC5B70017EF56 /* Accounts.framework */,
+				60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */,
 				8A4EF45F1CF3B1E3002C2DF1 /* Resources */,
 				8A14826F1AD344B70046F1B9 /* AdColony.framework */,
 				8AF3659319D479130097019F /* AdSupport.framework */,
@@ -1290,6 +1318,10 @@
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
+				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1607,6 +1639,7 @@
 			);
 			dependencies = (
 				6035A0141E23FDFD0017EF56 /* PBXTargetDependency */,
+				60359EF21E1EC38C0017EF56 /* PBXTargetDependency */,
 				8A4B96CE1ACDEE1600FFEB2A /* PBXTargetDependency */,
 				8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */,
 				8AA009CF19DB1BC10090EBED /* PBXTargetDependency */,
@@ -1836,6 +1869,13 @@
 			fileType = archive.ar;
 			path = libANSDKSmartAdAdapter.a;
 			remoteRef = 6035A01D1E23FDFD0017EF56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKAdMarvelAdapter.a;
+			remoteRef = 60359EE61E1EC2F00017EF56 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */ = {
@@ -2267,6 +2307,11 @@
 			name = ANSDKSmartAdAdapter;
 			targetProxy = 6035A0131E23FDFD0017EF56 /* PBXContainerItemProxy */;
 		};
+		60359EF21E1EC38C0017EF56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANSDKAdMarvelAdapter;
+			targetProxy = 60359EF11E1EC38C0017EF56 /* PBXContainerItemProxy */;
+		};
 		8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ANSDKInMobiAdapter;
@@ -2646,6 +2691,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2707,6 +2753,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
