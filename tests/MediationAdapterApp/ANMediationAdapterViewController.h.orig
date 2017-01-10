@@ -44,12 +44,16 @@
 - (ANBannerAdView *)loadMoPubBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *)loadMoPubInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
+<<<<<<< HEAD
 - (ANBannerAdView *)loadSmartAdBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *)loadSmartAdInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
+||||||| merged common ancestors
+=======
 - (ANBannerAdView *)loadAdMarvelBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *) loadAdMarvelInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
+>>>>>>> 6a87bc7eac01bd7c3f8addecb84d3f91c2062777
 - (void)stubMediatedAd:(ANMediatedAd *)mediatedAd;
 - (ANBannerAdView *)bannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
                              frameSize:(CGSize)frameSize
