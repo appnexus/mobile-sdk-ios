@@ -47,7 +47,7 @@
         NSData *data = [adUnitString dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *adUnitDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         if(adUnitDictionary != nil){
-            NSInteger siteId = [adUnitDictionary[@"siteId"] integerValue];
+            NSInteger siteId = [adUnitDictionary[SMART_SITEID] integerValue];
             [self setSmartAdSiteId:siteId];
         }
         return adUnitDictionary;

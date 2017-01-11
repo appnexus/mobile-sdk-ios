@@ -32,13 +32,13 @@
         targetString = [super keywordsFromTargetingParameters:targetingParameters];
     }
     
-    if(adUnitDictionary[@"siteId"] == nil || [adUnitDictionary[@"siteId"] isEqualToString:@""]){
+    if(adUnitDictionary[SMART_SITEID] == nil || [adUnitDictionary[SMART_SITEID] isEqualToString:@""]){
         ANLogTrace(@"SmartAd mediation failed. siteId not provided in the adUnit dictionary");
         [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }else {
-        NSString *pageId = adUnitDictionary[@"pageId"];
-        NSString *formatIdString = adUnitDictionary[@"formatId"];
+        NSString *pageId = adUnitDictionary[SMART_PAGEID];
+        NSString *formatIdString = adUnitDictionary[SMART_FORMATID];
         self.adView = [[SASBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) loader:NO];
         self.adView.delegate = self;
         self.adView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
