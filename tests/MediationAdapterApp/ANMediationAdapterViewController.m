@@ -49,6 +49,8 @@
 
 + (NSArray *)networks {
     return @[@"AdMobNative",
+             @"SmartAdBanner",
+             @"SmartAdInterstitial",
              @"AdMarvelBanner",
              @"AdMarvelInterstitial",
              @"YahooNative",
@@ -173,6 +175,35 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterNativeFacebook";
     mediatedAd.adId = @"210827375150_10154672420735151";
+    [self stubMediatedAd:mediatedAd];
+}
+
+#pragma mark - SmartAd
+
+-(ANBannerAdView *) loadSmartAdBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
+    [self stubSmartAdBanner];
+    return [self bannerWithDelegate:delegate];
+}
+
+- (void)stubSmartAdBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerSmartAd";
+    mediatedAd.adId = @"{\\\"siteId\\\":\\\"104808\\\",\\\"pageId\\\":\\\"663262\\\",\\\"formatId\\\":\\\"15140\\\"}";
+
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
+}
+
+- (ANInterstitialAd *)loadSmartAdInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
+    [self stubSmartAdInterstitial];
+    return [self interstitialWithDelegate:delegate];
+}
+
+- (void)stubSmartAdInterstitial {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterInterstitialSmartAd";
+    mediatedAd.adId = @"{\\\"siteId\\\":\\\"54522\\\",\\\"pageId\\\":\\\"401554\\\",\\\"formatId\\\":\\\"14514\\\"}";
     [self stubMediatedAd:mediatedAd];
 }
 

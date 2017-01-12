@@ -28,6 +28,10 @@
 		4F824D081D909E1000AFC7EA /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */; };
 		4F824D091D909E1000AFC7EA /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */; };
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
+		6035A02C1E2401020017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A00D1E23FCCB0017EF56 /* sas.bundle */; };
+		604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */; };
+		604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */; };
+		604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */; };
 		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
 		60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */; };
 		60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */; };
@@ -318,6 +322,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
+			remoteInfo = ANSDK;
+		};
 		60359ECD1E1EA13B0017EF56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
@@ -440,6 +451,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		60359FED1E23FCB50017EF56 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60359EAE1E1EA1180017EF56 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -693,6 +713,33 @@
 		4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F824CF41D909E1000AFC7EA /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKSmartAdAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60359FFB1E23FCCB0017EF56 /* SASAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAd.h; sourceTree = "<group>"; };
+		60359FFC1E23FCCB0017EF56 /* SASAdChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdChoicesView.h; sourceTree = "<group>"; };
+		60359FFD1E23FCCB0017EF56 /* SASAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdView.h; sourceTree = "<group>"; };
+		60359FFE1E23FCCB0017EF56 /* SASAdViewContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdViewContainerCell.h; sourceTree = "<group>"; };
+		60359FFF1E23FCCB0017EF56 /* SASAdViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdViewDelegate.h; sourceTree = "<group>"; };
+		6035A0001E23FCCB0017EF56 /* SASBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASBannerView.h; sourceTree = "<group>"; };
+		6035A0011E23FCCB0017EF56 /* SASInterstitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASInterstitialView.h; sourceTree = "<group>"; };
+		6035A0021E23FCCB0017EF56 /* SASMediationAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASMediationAd.h; sourceTree = "<group>"; };
+		6035A0031E23FCCB0017EF56 /* SASNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAd.h; sourceTree = "<group>"; };
+		6035A0041E23FCCB0017EF56 /* SASNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdDelegate.h; sourceTree = "<group>"; };
+		6035A0051E23FCCB0017EF56 /* SASNativeAdImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdImage.h; sourceTree = "<group>"; };
+		6035A0061E23FCCB0017EF56 /* SASNativeAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdManager.h; sourceTree = "<group>"; };
+		6035A0071E23FCCB0017EF56 /* SASNativeAdMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdMediaView.h; sourceTree = "<group>"; };
+		6035A0081E23FCCB0017EF56 /* SASNativeAdMediaViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdMediaViewDelegate.h; sourceTree = "<group>"; };
+		6035A0091E23FCCB0017EF56 /* SASNativeAdPlacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdPlacement.h; sourceTree = "<group>"; };
+		6035A00A1E23FCCB0017EF56 /* SASReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASReward.h; sourceTree = "<group>"; };
+		6035A00B1E23FCCB0017EF56 /* SASVideoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASVideoEvent.h; sourceTree = "<group>"; };
+		6035A00C1E23FCCB0017EF56 /* libSmartAdServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSmartAdServer.a; sourceTree = "<group>"; };
+		6035A00D1E23FCCB0017EF56 /* sas.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = sas.bundle; sourceTree = "<group>"; };
+		604C10F61E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSmartAd.h; sourceTree = "<group>"; };
+		604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSmartAd.m; sourceTree = "<group>"; };
+		604C10F91E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialSmartAd.h; sourceTree = "<group>"; };
+		604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialSmartAd.m; sourceTree = "<group>"; };
+		604C10FC1E24261F006D6C97 /* ANAdAdapterSmartAdBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterSmartAdBase.h; sourceTree = "<group>"; };
+		604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterSmartAdBase.m; sourceTree = "<group>"; };
+		604C10FF1E242E9B006D6C97 /* ANAdAdapterSmartAdBase+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterSmartAdBase+PrivateMethods.h"; sourceTree = "<group>"; };
 		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelDelegate.h; sourceTree = "<group>"; };
 		60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAd.h; sourceTree = "<group>"; };
@@ -1056,6 +1103,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		60359FEC1E23FCB50017EF56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60359EAD1E1EA1180017EF56 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1266,6 +1320,56 @@
 				4F824CF41D909E1000AFC7EA /* MRAID.bundle */,
 			);
 			path = MoPubSDK;
+			sourceTree = "<group>";
+		};
+		60359FF81E23FCCB0017EF56 /* SmartAd */ = {
+			isa = PBXGroup;
+			children = (
+				60359FF91E23FCCB0017EF56 /* SmartAdSDK */,
+				604C10F61E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.h */,
+				604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */,
+				604C10F91E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.h */,
+				604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */,
+				604C10FC1E24261F006D6C97 /* ANAdAdapterSmartAdBase.h */,
+				604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */,
+				604C10FF1E242E9B006D6C97 /* ANAdAdapterSmartAdBase+PrivateMethods.h */,
+			);
+			name = SmartAd;
+			path = ../mediation/mediatedviews/SmartAd;
+			sourceTree = "<group>";
+		};
+		60359FF91E23FCCB0017EF56 /* SmartAdSDK */ = {
+			isa = PBXGroup;
+			children = (
+				60359FFA1E23FCCB0017EF56 /* headers */,
+				6035A00C1E23FCCB0017EF56 /* libSmartAdServer.a */,
+				6035A00D1E23FCCB0017EF56 /* sas.bundle */,
+			);
+			path = SmartAdSDK;
+			sourceTree = "<group>";
+		};
+		60359FFA1E23FCCB0017EF56 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				60359FFB1E23FCCB0017EF56 /* SASAd.h */,
+				60359FFC1E23FCCB0017EF56 /* SASAdChoicesView.h */,
+				60359FFD1E23FCCB0017EF56 /* SASAdView.h */,
+				60359FFE1E23FCCB0017EF56 /* SASAdViewContainerCell.h */,
+				60359FFF1E23FCCB0017EF56 /* SASAdViewDelegate.h */,
+				6035A0001E23FCCB0017EF56 /* SASBannerView.h */,
+				6035A0011E23FCCB0017EF56 /* SASInterstitialView.h */,
+				6035A0021E23FCCB0017EF56 /* SASMediationAd.h */,
+				6035A0031E23FCCB0017EF56 /* SASNativeAd.h */,
+				6035A0041E23FCCB0017EF56 /* SASNativeAdDelegate.h */,
+				6035A0051E23FCCB0017EF56 /* SASNativeAdImage.h */,
+				6035A0061E23FCCB0017EF56 /* SASNativeAdManager.h */,
+				6035A0071E23FCCB0017EF56 /* SASNativeAdMediaView.h */,
+				6035A0081E23FCCB0017EF56 /* SASNativeAdMediaViewDelegate.h */,
+				6035A0091E23FCCB0017EF56 /* SASNativeAdPlacement.h */,
+				6035A00A1E23FCCB0017EF56 /* SASReward.h */,
+				6035A00B1E23FCCB0017EF56 /* SASVideoEvent.h */,
+			);
+			path = headers;
 			sourceTree = "<group>";
 		};
 		60359EB91E1EA12C0017EF56 /* AdMarvel */ = {
@@ -1863,6 +1967,7 @@
 		8AE2D87419CC9D9B00001B70 /* Mediated By AppNexus */ = {
 			isa = PBXGroup;
 			children = (
+				60359FF81E23FCCB0017EF56 /* SmartAd */,
 				60359EB91E1EA12C0017EF56 /* AdMarvel */,
 				8A1482461AD3371C0046F1B9 /* AdColony */,
 				8AD5155119D216E6002E53D6 /* Amazon */,
@@ -1970,6 +2075,7 @@
 				8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */,
 				8AD7C4D81AD2FABA0049C997 /* libANSDKVungleAdapter.a */,
 				8A96871A1B43314E00D9399B /* libANSDKYahooAdapter.a */,
+				60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */,
 				60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */,
 			);
 			name = Products;
@@ -2134,6 +2240,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60359FF51E23FCB50017EF56 /* Build configuration list for PBXNativeTarget "ANSDKSmartAdAdapter" */;
+			buildPhases = (
+				60359FEB1E23FCB50017EF56 /* Sources */,
+				60359FEC1E23FCB50017EF56 /* Frameworks */,
+				60359FED1E23FCB50017EF56 /* CopyFiles */,
+				6035A02D1E2402FC0017EF56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6035A0101E23FDA80017EF56 /* PBXTargetDependency */,
+			);
+			name = ANSDKSmartAdAdapter;
+			productName = ANSDKSmartAdAdapter;
+			productReference = 60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */;
@@ -2483,6 +2608,10 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
+					60359FEE1E23FCB50017EF56 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
 					60359EAF1E1EA1180017EF56 = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
@@ -2521,12 +2650,21 @@
 				8AE2D84519CC9A6F00001B70 /* ANAdapterForGoogleAdMobSDK */,
 				8AE2D85519CC9B0F00001B70 /* ANAdapterForMoPubSDK */,
 				8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */,
+				60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */,
 				60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6035A02D1E2402FC0017EF56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6035A02C1E2401020017EF56 /* sas.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A1482531AD337320046F1B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2699,6 +2837,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		60359FEB1E23FCB50017EF56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
+				604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */,
+				604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		60359EAC1E1EA1180017EF56 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2983,6 +3131,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6035A0101E23FDA80017EF56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */;
+		};
 		60359ECE1E1EA13B0017EF56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
@@ -3071,6 +3224,54 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		60359FF61E23FCB50017EF56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		60359FF71E23FCB50017EF56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		60359EB61E1EA1180017EF56 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3808,6 +4009,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		60359FF51E23FCB50017EF56 /* Build configuration list for PBXNativeTarget "ANSDKSmartAdAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60359FF61E23FCB50017EF56 /* Debug */,
+				60359FF71E23FCB50017EF56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
