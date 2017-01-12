@@ -37,13 +37,13 @@
         targetString = [super keywordsFromTargetingParameters:targetingParameters];
     }
     
-    if(adUnitDictionary[SMART_SITEID] == nil || [adUnitDictionary[SMART_SITEID] isEqualToString:@""]){
+    if(adUnitDictionary[SMARTAD_SITEID] == nil || [adUnitDictionary[SMARTAD_SITEID] isEqualToString:@""]){
         ANLogTrace(@"SmartAd mediation failed. siteId not provided in the adUnit dictionary");
         [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }else {
-        NSString *pageId = adUnitDictionary[SMART_PAGEID];
-        NSString *formatIdString = adUnitDictionary[SMART_FORMATID];
+        NSString *pageId = adUnitDictionary[SMARTAD_PAGEID];
+        NSString *formatIdString = adUnitDictionary[SMARTAD_FORMATID];
         self.sasInterstitialAd = [[SASInterstitialView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) loader:NO];
         self.sasInterstitialAd.delegate = self;
         if(formatIdString != nil && ![formatIdString isEqualToString:@""]){
