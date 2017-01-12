@@ -17,9 +17,9 @@
 #import <CoreLocation/CoreLocation.h>
 
 #define SMARTAD_BASEURL		@"https://mobile.smartadserver.com"
-#define SMART_SITEID        @"site_id"
-#define SMART_FORMATID      @"format_id"
-#define SMART_PAGEID        @"page_id"
+#define SMARTAD_SITEID        @"site_id"
+#define SMARTAD_FORMATID      @"format_id"
+#define SMARTAD_PAGEID        @"page_id"
 
 @interface ANAdAdapterSmartAdBase : NSObject <ANCustomAdapter>
 
