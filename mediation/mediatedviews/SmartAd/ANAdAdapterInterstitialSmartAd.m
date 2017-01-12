@@ -62,27 +62,27 @@
 #pragma mark - SASAdView delegate
 
 - (void)adViewDidLoad:(SASAdView *)adView {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    ANLogTrace(@"");
     [self.delegate didLoadInterstitialAd:self];
     
 }
     
     
 - (void)adView:(SASAdView *)adView didFailToLoadWithError:(NSError *)error {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    ANLogTrace(@"");
     [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
    
 }
 
 - (void)adViewDidDisappear:(SASAdView *)adView {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    ANLogTrace(@"");
     [self.delegate didCloseAd];
     
 }
 
 - (BOOL)adView:(nonnull SASAdView *)adView shouldHandleURL:(nonnull NSURL *)URL{
     
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    ANLogTrace(@"");
     [self.delegate adWasClicked];
     return YES;
     
