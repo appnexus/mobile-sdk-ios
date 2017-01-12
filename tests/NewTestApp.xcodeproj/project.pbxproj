@@ -52,6 +52,9 @@
 		60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */; };
 		60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF71E1EC5B70017EF56 /* Accounts.framework */; };
 		60359EFA1E1EC5F50017EF56 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */; };
+		604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */; };
+		604C11691E26E0F6006D6C97 /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C11681E26E0F6006D6C97 /* RFMAdSDK.framework */; };
+		604C116D1E26E1C6006D6C97 /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 604C116C1E26E1C6006D6C97 /* RFMAdSDK.bundle */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
 		605EDBCB1D92F2050042DC0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBCA1D92F2050042DC0C /* Foundation.framework */; };
@@ -339,6 +342,20 @@
 			remoteGlobalIDString = 60359EAF1E1EA1180017EF56;
 			remoteInfo = ANSDKAdMarvelAdapter;
 		};
+		604C11541E26E0D3006D6C97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 604C112C1E26BE4B006D6C97;
+			remoteInfo = ANSDKRubiconAdapter;
+		};
+		604C115E1E26E0D3006D6C97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 604C112D1E26BE4B006D6C97;
+			remoteInfo = ANSDKRubiconAdapter;
+		};
 		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
@@ -616,6 +633,8 @@
 		60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdMarvelSDK.a; path = ../mediation/mediatedviews/AdMarvel/AdMarvelSDK/libAdMarvelSDK.a; sourceTree = "<group>"; };
 		60359EF71E1EC5B70017EF56 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		604C11681E26E0F6006D6C97 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RFMAdSDK.framework; path = ../mediation/mediatedviews/Rubicon/RFMAdSDK/RFMAdSDK.framework; sourceTree = "<group>"; };
+		604C116C1E26E1C6006D6C97 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = ../mediation/mediatedviews/Rubicon/RFMAdSDK/RFMAdSDK.bundle; sourceTree = "<group>"; };
 		605EDBC41D92E9A00042DC0C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurry.a; sourceTree = "<group>"; };
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
@@ -891,6 +910,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				604C11691E26E0F6006D6C97 /* RFMAdSDK.framework in Frameworks */,
+				604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */,
 				60359EFA1E1EC5F50017EF56 /* AssetsLibrary.framework in Frameworks */,
 				60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */,
 				60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */,
@@ -1009,6 +1030,7 @@
 		4F6F83681D9195BE0007051E /* ResourcesForMediatedSDKs */ = {
 			isa = PBXGroup;
 			children = (
+				604C116E1E26E1D6006D6C97 /* Rubicon */,
 				8A7F4CBD19DB395D003ECC5C /* MoPub */,
 			);
 			name = ResourcesForMediatedSDKs;
@@ -1025,6 +1047,14 @@
 				4F81C3821DE6331900623BD3 /* KIFFrameworkConsumerTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		604C116E1E26E1D6006D6C97 /* Rubicon */ = {
+			isa = PBXGroup;
+			children = (
+				604C116C1E26E1C6006D6C97 /* RFMAdSDK.bundle */,
+			);
+			name = Rubicon;
 			sourceTree = "<group>";
 		};
 		8A0AA46219DB30A2005EC52C /* Tests */ = {
@@ -1188,6 +1218,7 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				604C11681E26E0F6006D6C97 /* RFMAdSDK.framework */,
 				60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */,
 				60359EF71E1EC5B70017EF56 /* Accounts.framework */,
 				60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */,
@@ -1287,6 +1318,7 @@
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1603,6 +1635,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				604C11551E26E0D3006D6C97 /* PBXTargetDependency */,
 				60359EF21E1EC38C0017EF56 /* PBXTargetDependency */,
 				8A4B96CE1ACDEE1600FFEB2A /* PBXTargetDependency */,
 				8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */,
@@ -1835,6 +1868,13 @@
 			remoteRef = 60359EE61E1EC2F00017EF56 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKRubiconAdapter.a;
+			remoteRef = 604C115E1E26E0D3006D6C97 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1996,6 +2036,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				604C116D1E26E1C6006D6C97 /* RFMAdSDK.bundle in Resources */,
 				8A4EF4671CF3B1E3002C2DF1 /* __vungle.db in Resources */,
 				8A201BFF1C596072009EE62D /* ANGADNativeAppInstallAdView.xib in Resources */,
 				8ABC03CD1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */,
@@ -2262,6 +2303,11 @@
 			isa = PBXTargetDependency;
 			name = ANSDKAdMarvelAdapter;
 			targetProxy = 60359EF11E1EC38C0017EF56 /* PBXContainerItemProxy */;
+		};
+		604C11551E26E0D3006D6C97 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANSDKRubiconAdapter;
+			targetProxy = 604C11541E26E0D3006D6C97 /* PBXContainerItemProxy */;
 		};
 		8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2613,6 +2659,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RFMAdSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2681,6 +2728,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RFMAdSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;

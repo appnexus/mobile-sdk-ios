@@ -30,6 +30,7 @@
 #import "ANGADNativeAppInstallAdView.h"
 #import "ANGADNativeContentAdView.h"
 #import "ANAdAdapterNativeAdMob.h"
+#import "ANAdAdapterBaseRubicon.h"
 #import "UIView+ANCategory.h"
 
 @interface ANMediationAdapterViewController () <ANBannerAdViewDelegate, ANInterstitialAdDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ANNativeAdRequestDelegate, ANNativeAdDelegate>
@@ -49,6 +50,7 @@
 
 + (NSArray *)networks {
     return @[@"AdMobNative",
+             @"RubiconBanner",
              @"AdMarvelBanner",
              @"AdMarvelInterstitial",
              @"YahooNative",
@@ -131,6 +133,23 @@
     self.gadContentView = nil;
     self.adColonyView = nil;
     self.gadInstallView = nil;
+}
+
+#pragma mark -Rubicon
+
+- (ANBannerAdView *)loadRubiconBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate{
+    [self stubRubiconBanner];
+    return [self bannerWithDelegate:delegate];
+}
+
+- (void)stubRubiconBanner {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    [ANAdAdapterBaseRubicon setRubiconPublisherID:@"111008"];
+    mediatedAd.className = @"ANAdAdapterBannerRubicon";
+    mediatedAd.adId = @"{\\\"app_id\\\":\\\"01573C50497A0130031B123139244773\\\",\\\"pub_id\\\":\\\"111008\\\",\\\"base_url\\\":\\\"https://mrp.rubiconproject.com/\\\"}";
+    mediatedAd.width = @"320";
+    mediatedAd.height = @"50";
+    [self stubMediatedAd:mediatedAd];
 }
 
 #pragma mark - Facebook
