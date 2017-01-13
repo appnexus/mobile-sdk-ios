@@ -34,6 +34,9 @@
     }
     self.rfmAdRequest = [super constructRequestObject:idString];
     
+    //set the targeting parameters for the request object
+    [super setTargetingParameters:targetingParameters forRequest:self.rfmAdRequest];
+    
     if (![self.rfmAdView requestFreshAdWithRequestParams:self.rfmAdRequest]) {
         ANLogError(@"Ad request denied");
     }
@@ -52,6 +55,10 @@
 
 -(UIView *)rfmAdSuperView{
     return self.rootViewController.view;
+}
+
+-(UIViewController *)viewControllerForRFMModalView{
+    return self.rootViewController;
 }
 
 - (void)didRequestAd:(RFMAdView *)adView withUrl:(NSString *)requestUrlString{
