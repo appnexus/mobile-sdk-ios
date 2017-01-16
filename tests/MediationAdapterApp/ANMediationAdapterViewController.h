@@ -50,6 +50,8 @@
 - (ANBannerAdView *)loadAdMarvelBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *) loadAdMarvelInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
+- (ANBannerAdView *)loadRubiconBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+
 - (void)stubMediatedAd:(ANMediatedAd *)mediatedAd;
 - (ANBannerAdView *)bannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
                              frameSize:(CGSize)frameSize
