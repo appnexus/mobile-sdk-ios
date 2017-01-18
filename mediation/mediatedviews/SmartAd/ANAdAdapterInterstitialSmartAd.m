@@ -37,7 +37,7 @@
     if(targetingParameters != nil){
         targetString = [super keywordsFromTargetingParameters:targetingParameters];
     }
-    self.isInterstitialReady = false;
+    self.isInterstitialReady = NO;
     if(adUnitDictionary[SMARTAD_SITEID] == nil || [adUnitDictionary[SMARTAD_SITEID] isEqualToString:@""]){
         ANLogTrace(@"SmartAd mediation failed. siteId not provided in the adUnit dictionary");
         [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
@@ -77,7 +77,7 @@
 - (void)adViewDidLoad:(SASAdView *)adView {
     ANLogTrace(@"");
     [self.delegate didLoadInterstitialAd:self];
-    self.isInterstitialReady = true;
+    self.isInterstitialReady = YES;
     
 }
     
