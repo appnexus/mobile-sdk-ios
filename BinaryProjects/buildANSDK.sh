@@ -28,9 +28,9 @@ BITCODEFLAG=""
 if [ $BITCODE == true ]; then
     BITCODEFLAG="-fembed-bitcode"
     echo "Bitcode enabled"
-fi 
+fi
 
-schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter ANSDKVdopiaAdapter ANSDKVungleAdapter ANSDKAdColonyAdapter ANSDKChartboostAdapter ANSDKYahooAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK )
+schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter ANSDKVdopiaAdapter ANSDKVungleAdapter ANSDKAdColonyAdapter ANSDKChartboostAdapter ANSDKYahooAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK ANSDKSmartAdAdapter ANSDKAdMarvelAdapter ANSDKRubiconAdapter )
 
 rm -fr "$OUTDIR" > /dev/null 2>&1
 rm -fr "$OD_DEVICE" > /dev/null 2>&1

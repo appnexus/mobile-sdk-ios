@@ -28,14 +28,16 @@
 		4F824D081D909E1000AFC7EA /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */; };
 		4F824D091D909E1000AFC7EA /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */; };
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
-		6035A02C1E2401020017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A00D1E23FCCB0017EF56 /* sas.bundle */; };
-		604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */; };
-		604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */; };
-		604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */; };
+		601BDD7B1E2FCA26002698D7 /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */; };
+		601BDD7C1E2FCA26002698D7 /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */; };
 		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
 		60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */; };
 		60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */; };
 		60359EFD1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */; };
+		6035A02C1E2401020017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A00D1E23FCCB0017EF56 /* sas.bundle */; };
+		604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */; };
+		604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */; };
+		604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */; };
 		604C114A1E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C11491E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m */; };
 		604C11511E26D912006D6C97 /* ANAdAdapterBaseRubicon.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C11501E26D912006D6C97 /* ANAdAdapterBaseRubicon.m */; };
 		604C116B1E26E17B006D6C97 /* ANAdAdapterBaseRubicon.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 604C114F1E26D912006D6C97 /* ANAdAdapterBaseRubicon.h */; };
@@ -325,14 +327,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */ = {
+		60359ECD1E1EA13B0017EF56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
 			remoteInfo = ANSDK;
 		};
-		60359ECD1E1EA13B0017EF56 /* PBXContainerItemProxy */ = {
+		6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
 			proxyType = 1;
@@ -461,7 +463,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		60359FED1E23FCB50017EF56 /* CopyFiles */ = {
+		60359EAE1E1EA1180017EF56 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -470,7 +472,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		60359EAE1E1EA1180017EF56 /* CopyFiles */ = {
+		60359FED1E23FCB50017EF56 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -733,6 +735,32 @@
 		4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F824CF41D909E1000AFC7EA /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = ../RubiconSDK/RFMAdSDK.bundle; sourceTree = "<group>"; };
+		601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RFMAdSDK.framework; path = ../RubiconSDK/RFMAdSDK.framework; sourceTree = "<group>"; };
+		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelDelegate.h; sourceTree = "<group>"; };
+		60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAd.h; sourceTree = "<group>"; };
+		60359EBD1E1EA12C0017EF56 /* AdMarvelNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAdDelegate.h; sourceTree = "<group>"; };
+		60359EBE1E1EA12C0017EF56 /* AdMarvelReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelReward.h; sourceTree = "<group>"; };
+		60359EBF1E1EA12C0017EF56 /* AdMarvelRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelRewardDelegate.h; sourceTree = "<group>"; };
+		60359EC01E1EA12C0017EF56 /* AdMarvelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelView.h; sourceTree = "<group>"; };
+		60359EC11E1EA12C0017EF56 /* libAdMarvelSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMarvelSDK.a; sourceTree = "<group>"; };
+		60359EC31E1EA12C0017EF56 /* OMWCustomBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomBanner.h; sourceTree = "<group>"; };
+		60359EC41E1EA12C0017EF56 /* OMWCustomBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomBannerDelegate.h; sourceTree = "<group>"; };
+		60359EC51E1EA12C0017EF56 /* OMWCustomInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomInterstitial.h; sourceTree = "<group>"; };
+		60359EC61E1EA12C0017EF56 /* OMWCustomInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomInterstitialDelegate.h; sourceTree = "<group>"; };
+		60359EC71E1EA12C0017EF56 /* OMWCustomNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNative.h; sourceTree = "<group>"; };
+		60359EC81E1EA12C0017EF56 /* OMWCustomNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNativeAd.h; sourceTree = "<group>"; };
+		60359EC91E1EA12C0017EF56 /* OMWCustomNativeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNativeDelegate.h; sourceTree = "<group>"; };
+		60359ECA1E1EA12C0017EF56 /* OMWCustomReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomReward.h; sourceTree = "<group>"; };
+		60359ECB1E1EA12C0017EF56 /* OMWCustomRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomRewardDelegate.h; sourceTree = "<group>"; };
+		60359ECF1E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMarvel.h; sourceTree = "<group>"; };
+		60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMarvel.m; sourceTree = "<group>"; };
+		60359ED21E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMarvel.h; sourceTree = "<group>"; };
+		60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMarvel.m; sourceTree = "<group>"; };
+		60359ED51E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdMarvel.h; sourceTree = "<group>"; };
+		60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdMarvel.m; sourceTree = "<group>"; };
+		60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterAdMarvelBase+PrivateMethods.h"; sourceTree = "<group>"; };
 		60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKSmartAdAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		60359FFB1E23FCCB0017EF56 /* SASAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAd.h; sourceTree = "<group>"; };
 		60359FFC1E23FCCB0017EF56 /* SASAdChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdChoicesView.h; sourceTree = "<group>"; };
@@ -760,35 +788,9 @@
 		604C10FC1E24261F006D6C97 /* ANAdAdapterSmartAdBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterSmartAdBase.h; sourceTree = "<group>"; };
 		604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterSmartAdBase.m; sourceTree = "<group>"; };
 		604C10FF1E242E9B006D6C97 /* ANAdAdapterSmartAdBase+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterSmartAdBase+PrivateMethods.h"; sourceTree = "<group>"; };
-		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelDelegate.h; sourceTree = "<group>"; };
-		60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAd.h; sourceTree = "<group>"; };
-		60359EBD1E1EA12C0017EF56 /* AdMarvelNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAdDelegate.h; sourceTree = "<group>"; };
-		60359EBE1E1EA12C0017EF56 /* AdMarvelReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelReward.h; sourceTree = "<group>"; };
-		60359EBF1E1EA12C0017EF56 /* AdMarvelRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelRewardDelegate.h; sourceTree = "<group>"; };
-		60359EC01E1EA12C0017EF56 /* AdMarvelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelView.h; sourceTree = "<group>"; };
-		60359EC11E1EA12C0017EF56 /* libAdMarvelSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMarvelSDK.a; sourceTree = "<group>"; };
-		60359EC31E1EA12C0017EF56 /* OMWCustomBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomBanner.h; sourceTree = "<group>"; };
-		60359EC41E1EA12C0017EF56 /* OMWCustomBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomBannerDelegate.h; sourceTree = "<group>"; };
-		60359EC51E1EA12C0017EF56 /* OMWCustomInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomInterstitial.h; sourceTree = "<group>"; };
-		60359EC61E1EA12C0017EF56 /* OMWCustomInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomInterstitialDelegate.h; sourceTree = "<group>"; };
-		60359EC71E1EA12C0017EF56 /* OMWCustomNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNative.h; sourceTree = "<group>"; };
-		60359EC81E1EA12C0017EF56 /* OMWCustomNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNativeAd.h; sourceTree = "<group>"; };
-		60359EC91E1EA12C0017EF56 /* OMWCustomNativeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNativeDelegate.h; sourceTree = "<group>"; };
-		60359ECA1E1EA12C0017EF56 /* OMWCustomReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomReward.h; sourceTree = "<group>"; };
-		60359ECB1E1EA12C0017EF56 /* OMWCustomRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomRewardDelegate.h; sourceTree = "<group>"; };
-		60359ECF1E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMarvel.h; sourceTree = "<group>"; };
-		60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMarvel.m; sourceTree = "<group>"; };
-		60359ED21E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMarvel.h; sourceTree = "<group>"; };
-		60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMarvel.m; sourceTree = "<group>"; };
-		60359ED51E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdMarvel.h; sourceTree = "<group>"; };
-		60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdMarvel.m; sourceTree = "<group>"; };
-		60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterAdMarvelBase+PrivateMethods.h"; sourceTree = "<group>"; };
 		604C112D1E26BE4B006D6C97 /* libANSDKRubiconAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKRubiconAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		604C11481E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerRubicon.h; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBannerRubicon.h; sourceTree = "<group>"; };
 		604C11491E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerRubicon.m; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBannerRubicon.m; sourceTree = "<group>"; };
-		604C114C1E26D8C4006D6C97 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RFMAdSDK.bundle; sourceTree = "<group>"; };
-		604C114D1E26D8C4006D6C97 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RFMAdSDK.framework; sourceTree = "<group>"; };
 		604C114F1E26D912006D6C97 /* ANAdAdapterBaseRubicon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseRubicon.h; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBaseRubicon.h; sourceTree = "<group>"; };
 		604C11501E26D912006D6C97 /* ANAdAdapterBaseRubicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseRubicon.m; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBaseRubicon.m; sourceTree = "<group>"; };
 		8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
@@ -1130,14 +1132,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		60359FEC1E23FCB50017EF56 /* Frameworks */ = {
+		60359EAD1E1EA1180017EF56 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		60359EAD1E1EA1180017EF56 /* Frameworks */ = {
+		60359FEC1E23FCB50017EF56 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1148,6 +1150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				601BDD7C1E2FCA26002698D7 /* RFMAdSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1356,6 +1359,53 @@
 			path = MoPubSDK;
 			sourceTree = "<group>";
 		};
+		60359EB91E1EA12C0017EF56 /* AdMarvel */ = {
+			isa = PBXGroup;
+			children = (
+				60359EBA1E1EA12C0017EF56 /* AdMarvelSDK */,
+				60359ECF1E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.h */,
+				60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */,
+				60359ED21E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.h */,
+				60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */,
+				60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */,
+				60359ED51E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.h */,
+				60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */,
+			);
+			name = AdMarvel;
+			path = ../mediation/mediatedviews/AdMarvel;
+			sourceTree = "<group>";
+		};
+		60359EBA1E1EA12C0017EF56 /* AdMarvelSDK */ = {
+			isa = PBXGroup;
+			children = (
+				60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */,
+				60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */,
+				60359EBD1E1EA12C0017EF56 /* AdMarvelNativeAdDelegate.h */,
+				60359EBE1E1EA12C0017EF56 /* AdMarvelReward.h */,
+				60359EBF1E1EA12C0017EF56 /* AdMarvelRewardDelegate.h */,
+				60359EC01E1EA12C0017EF56 /* AdMarvelView.h */,
+				60359EC11E1EA12C0017EF56 /* libAdMarvelSDK.a */,
+				60359EC21E1EA12C0017EF56 /* SDKConnectorHeaders */,
+			);
+			path = AdMarvelSDK;
+			sourceTree = "<group>";
+		};
+		60359EC21E1EA12C0017EF56 /* SDKConnectorHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				60359EC31E1EA12C0017EF56 /* OMWCustomBanner.h */,
+				60359EC41E1EA12C0017EF56 /* OMWCustomBannerDelegate.h */,
+				60359EC51E1EA12C0017EF56 /* OMWCustomInterstitial.h */,
+				60359EC61E1EA12C0017EF56 /* OMWCustomInterstitialDelegate.h */,
+				60359EC71E1EA12C0017EF56 /* OMWCustomNative.h */,
+				60359EC81E1EA12C0017EF56 /* OMWCustomNativeAd.h */,
+				60359EC91E1EA12C0017EF56 /* OMWCustomNativeDelegate.h */,
+				60359ECA1E1EA12C0017EF56 /* OMWCustomReward.h */,
+				60359ECB1E1EA12C0017EF56 /* OMWCustomRewardDelegate.h */,
+			);
+			path = SDKConnectorHeaders;
+			sourceTree = "<group>";
+		};
 		60359FF81E23FCCB0017EF56 /* SmartAd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1406,57 +1456,10 @@
 			path = headers;
 			sourceTree = "<group>";
 		};
-		60359EB91E1EA12C0017EF56 /* AdMarvel */ = {
-			isa = PBXGroup;
-			children = (
-				60359EBA1E1EA12C0017EF56 /* AdMarvelSDK */,
-				60359ECF1E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.h */,
-				60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */,
-				60359ED21E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.h */,
-				60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */,
-				60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */,
-				60359ED51E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.h */,
-				60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */,
-			);
-			name = AdMarvel;
-			path = ../mediation/mediatedviews/AdMarvel;
-			sourceTree = "<group>";
-		};
-		60359EBA1E1EA12C0017EF56 /* AdMarvelSDK */ = {
-			isa = PBXGroup;
-			children = (
-				60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */,
-				60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */,
-				60359EBD1E1EA12C0017EF56 /* AdMarvelNativeAdDelegate.h */,
-				60359EBE1E1EA12C0017EF56 /* AdMarvelReward.h */,
-				60359EBF1E1EA12C0017EF56 /* AdMarvelRewardDelegate.h */,
-				60359EC01E1EA12C0017EF56 /* AdMarvelView.h */,
-				60359EC11E1EA12C0017EF56 /* libAdMarvelSDK.a */,
-				60359EC21E1EA12C0017EF56 /* SDKConnectorHeaders */,
-			);
-			path = AdMarvelSDK;
-			sourceTree = "<group>";
-		};
-		60359EC21E1EA12C0017EF56 /* SDKConnectorHeaders */ = {
-			isa = PBXGroup;
-			children = (
-				60359EC31E1EA12C0017EF56 /* OMWCustomBanner.h */,
-				60359EC41E1EA12C0017EF56 /* OMWCustomBannerDelegate.h */,
-				60359EC51E1EA12C0017EF56 /* OMWCustomInterstitial.h */,
-				60359EC61E1EA12C0017EF56 /* OMWCustomInterstitialDelegate.h */,
-				60359EC71E1EA12C0017EF56 /* OMWCustomNative.h */,
-				60359EC81E1EA12C0017EF56 /* OMWCustomNativeAd.h */,
-				60359EC91E1EA12C0017EF56 /* OMWCustomNativeDelegate.h */,
-				60359ECA1E1EA12C0017EF56 /* OMWCustomReward.h */,
-				60359ECB1E1EA12C0017EF56 /* OMWCustomRewardDelegate.h */,
-			);
-			path = SDKConnectorHeaders;
-			sourceTree = "<group>";
-		};
 		604C11471E26D37D006D6C97 /* Rubicon */ = {
 			isa = PBXGroup;
 			children = (
-				604C114B1E26D458006D6C97 /* RFMAdSDK */,
+				604C114B1E26D458006D6C97 /* RubiconSDK */,
 				604C11481E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.h */,
 				604C11491E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m */,
 				604C114F1E26D912006D6C97 /* ANAdAdapterBaseRubicon.h */,
@@ -1465,13 +1468,13 @@
 			name = Rubicon;
 			sourceTree = "<group>";
 		};
-		604C114B1E26D458006D6C97 /* RFMAdSDK */ = {
+		604C114B1E26D458006D6C97 /* RubiconSDK */ = {
 			isa = PBXGroup;
 			children = (
-				604C114C1E26D8C4006D6C97 /* RFMAdSDK.bundle */,
-				604C114D1E26D8C4006D6C97 /* RFMAdSDK.framework */,
+				601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */,
+				601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */,
 			);
-			name = RFMAdSDK;
+			name = RubiconSDK;
 			path = ../mediation/mediatedviews/Rubicon/RFMAdSDK;
 			sourceTree = "<group>";
 		};
@@ -2298,6 +2301,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */;
+			buildPhases = (
+				60359EAC1E1EA1180017EF56 /* Sources */,
+				60359EAD1E1EA1180017EF56 /* Frameworks */,
+				60359EAE1E1EA1180017EF56 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60359ECE1E1EA13B0017EF56 /* PBXTargetDependency */,
+			);
+			name = ANSDKAdMarvelAdapter;
+			productName = ANSDKAdMarvelAdapter;
+			productReference = 60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60359FF51E23FCB50017EF56 /* Build configuration list for PBXNativeTarget "ANSDKSmartAdAdapter" */;
@@ -2315,24 +2336,6 @@
 			name = ANSDKSmartAdAdapter;
 			productName = ANSDKSmartAdAdapter;
 			productReference = 60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */;
-			buildPhases = (
-				60359EAC1E1EA1180017EF56 /* Sources */,
-				60359EAD1E1EA1180017EF56 /* Frameworks */,
-				60359EAE1E1EA1180017EF56 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				60359ECE1E1EA13B0017EF56 /* PBXTargetDependency */,
-			);
-			name = ANSDKAdMarvelAdapter;
-			productName = ANSDKAdMarvelAdapter;
-			productReference = 60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		604C112C1E26BE4B006D6C97 /* ANSDKRubiconAdapter */ = {
@@ -2685,11 +2688,11 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
-					60359FEE1E23FCB50017EF56 = {
+					60359EAF1E1EA1180017EF56 = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
-					60359EAF1E1EA1180017EF56 = {
+					60359FEE1E23FCB50017EF56 = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
@@ -2739,18 +2742,19 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		604C116A1E26E10D006D6C97 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6035A02D1E2402FC0017EF56 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6035A02C1E2401020017EF56 /* sas.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		604C116A1E26E10D006D6C97 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				601BDD7B1E2FCA26002698D7 /* RFMAdSDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2926,16 +2930,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		60359FEB1E23FCB50017EF56 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
-				604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */,
-				604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		60359EAC1E1EA1180017EF56 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2943,6 +2937,16 @@
 				60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */,
 				60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */,
 				60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60359FEB1E23FCB50017EF56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
+				604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */,
+				604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3229,15 +3233,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6035A0101E23FDA80017EF56 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */;
-		};
 		60359ECE1E1EA13B0017EF56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
 			targetProxy = 60359ECD1E1EA13B0017EF56 /* PBXContainerItemProxy */;
+		};
+		6035A0101E23FDA80017EF56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
+			targetProxy = 6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */;
 		};
 		604C11421E26C883006D6C97 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3327,54 +3331,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		60359FF61E23FCB50017EF56 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		60359FF71E23FCB50017EF56 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		60359EB61E1EA1180017EF56 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3429,6 +3385,54 @@
 			};
 			name = Release;
 		};
+		60359FF61E23FCB50017EF56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		60359FF71E23FCB50017EF56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		604C11331E26BE4B006D6C97 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3438,7 +3442,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RFMAdSDK/**";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK/**";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3461,7 +3465,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RFMAdSDK/**";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK/**";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4158,20 +4162,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		60359FF51E23FCB50017EF56 /* Build configuration list for PBXNativeTarget "ANSDKSmartAdAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				60359FF61E23FCB50017EF56 /* Debug */,
-				60359FF71E23FCB50017EF56 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				60359EB61E1EA1180017EF56 /* Debug */,
 				60359EB71E1EA1180017EF56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60359FF51E23FCB50017EF56 /* Build configuration list for PBXNativeTarget "ANSDKSmartAdAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60359FF61E23FCB50017EF56 /* Debug */,
+				60359FF71E23FCB50017EF56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
