@@ -48,16 +48,16 @@
 		4FD67FA91D76002B009270E6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482801AD346430046F1B9 /* CoreMedia.framework */; };
 		4FD67FAB1D76003D009270E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67FAA1D76003D009270E6 /* QuartzCore.framework */; };
 		4FD67FAC1D760043009270E6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14827D1AD346220046F1B9 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		6035A0281E23FE1E0017EF56 /* libSmartAdServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */; };
-		6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A0291E23FE3F0017EF56 /* sas.bundle */; };
-		6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */; };
+		601BDD7E1E2FCA2E002698D7 /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 601BDD7D1E2FCA2E002698D7 /* RFMAdSDK.bundle */; };
 		60359EF01E1EC34C0017EF56 /* libANSDKAdMarvelAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */; };
 		60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */; };
 		60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF71E1EC5B70017EF56 /* Accounts.framework */; };
 		60359EFA1E1EC5F50017EF56 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */; };
+		6035A0281E23FE1E0017EF56 /* libSmartAdServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */; };
+		6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A0291E23FE3F0017EF56 /* sas.bundle */; };
+		6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */; };
 		604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */; };
 		604C11691E26E0F6006D6C97 /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C11681E26E0F6006D6C97 /* RFMAdSDK.framework */; };
-		604C116D1E26E1C6006D6C97 /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 604C116C1E26E1C6006D6C97 /* RFMAdSDK.bundle */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
 		605EDBCB1D92F2050042DC0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBCA1D92F2050042DC0C /* Foundation.framework */; };
@@ -331,20 +331,6 @@
 			remoteGlobalIDString = FAB8A0141CAC546A00C6DFC1;
 			remoteInfo = KIFFrameworkConsumerTests;
 		};
-		6035A0131E23FDFD0017EF56 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 60359FEE1E23FCB50017EF56;
-			remoteInfo = ANSDKSmartAdAdapter;
-		};
-		6035A01D1E23FDFD0017EF56 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 60359FEF1E23FCB50017EF56;
-			remoteInfo = ANSDKSmartAdAdapter;
-		};
 		60359EE61E1EC2F00017EF56 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
@@ -358,6 +344,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 60359EAF1E1EA1180017EF56;
 			remoteInfo = ANSDKAdMarvelAdapter;
+		};
+		6035A0131E23FDFD0017EF56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 60359FEE1E23FCB50017EF56;
+			remoteInfo = ANSDKSmartAdAdapter;
+		};
+		6035A01D1E23FDFD0017EF56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 60359FEF1E23FCB50017EF56;
+			remoteInfo = ANSDKSmartAdAdapter;
 		};
 		604C11541E26E0D3006D6C97 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -647,13 +647,13 @@
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4FD67FAA1D76003D009270E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSmartAdServer.a; path = ../mediation/mediatedviews/SmartAd/SmartAdSDK/libSmartAdServer.a; sourceTree = "<group>"; };
-		6035A0291E23FE3F0017EF56 /* sas.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = sas.bundle; path = ../mediation/mediatedviews/SmartAd/SmartAdSDK/sas.bundle; sourceTree = "<group>"; };
+		601BDD7D1E2FCA2E002698D7 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = "/Users/ppuviarasu/Documents/development/app_mobile-sdk/apps/iOS/mobile-sdk-ios/mediation/mediatedviews/Rubicon/RFMAdSDK/../RubiconSDK/RFMAdSDK.bundle"; sourceTree = "<absolute>"; };
 		60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdMarvelSDK.a; path = ../mediation/mediatedviews/AdMarvel/AdMarvelSDK/libAdMarvelSDK.a; sourceTree = "<group>"; };
 		60359EF71E1EC5B70017EF56 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSmartAdServer.a; path = ../mediation/mediatedviews/SmartAd/SmartAdSDK/libSmartAdServer.a; sourceTree = "<group>"; };
+		6035A0291E23FE3F0017EF56 /* sas.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = sas.bundle; path = ../mediation/mediatedviews/SmartAd/SmartAdSDK/sas.bundle; sourceTree = "<group>"; };
 		604C11681E26E0F6006D6C97 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RFMAdSDK.framework; path = ../mediation/mediatedviews/Rubicon/RFMAdSDK/RFMAdSDK.framework; sourceTree = "<group>"; };
-		604C116C1E26E1C6006D6C97 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = ../mediation/mediatedviews/Rubicon/RFMAdSDK/RFMAdSDK.bundle; sourceTree = "<group>"; };
 		605EDBC41D92E9A00042DC0C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurry.a; sourceTree = "<group>"; };
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
@@ -1071,20 +1071,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		604C116E1E26E1D6006D6C97 /* Rubicon */ = {
-			isa = PBXGroup;
-			children = (
-				604C116C1E26E1C6006D6C97 /* RFMAdSDK.bundle */,
-			);
-			name = Rubicon;
-			sourceTree = "<group>";
-		};
 		6035A02B1E23FE610017EF56 /* SmartAd */ = {
 			isa = PBXGroup;
 			children = (
 				6035A0291E23FE3F0017EF56 /* sas.bundle */,
 			);
 			name = SmartAd;
+			sourceTree = "<group>";
+		};
+		604C116E1E26E1D6006D6C97 /* Rubicon */ = {
+			isa = PBXGroup;
+			children = (
+				601BDD7D1E2FCA2E002698D7 /* RFMAdSDK.bundle */,
+			);
+			name = Rubicon;
 			sourceTree = "<group>";
 		};
 		8A0AA46219DB30A2005EC52C /* Tests */ = {
@@ -1345,9 +1345,6 @@
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
 				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
-				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
-				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
@@ -1897,18 +1894,18 @@
 			remoteRef = 4F81C3811DE6331900623BD3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKSmartAdAdapter.a;
-			remoteRef = 6035A01D1E23FDFD0017EF56 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libANSDKAdMarvelAdapter.a;
 			remoteRef = 60359EE61E1EC2F00017EF56 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKSmartAdAdapter.a;
+			remoteRef = 6035A01D1E23FDFD0017EF56 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */ = {
@@ -2079,7 +2076,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604C116D1E26E1C6006D6C97 /* RFMAdSDK.bundle in Resources */,
+				601BDD7E1E2FCA2E002698D7 /* RFMAdSDK.bundle in Resources */,
 				6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */,
 				8A4EF4671CF3B1E3002C2DF1 /* __vungle.db in Resources */,
 				8A201BFF1C596072009EE62D /* ANGADNativeAppInstallAdView.xib in Resources */,
@@ -2343,15 +2340,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6035A0141E23FDFD0017EF56 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ANSDKSmartAdAdapter;
-			targetProxy = 6035A0131E23FDFD0017EF56 /* PBXContainerItemProxy */;
-		};
 		60359EF21E1EC38C0017EF56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ANSDKAdMarvelAdapter;
 			targetProxy = 60359EF11E1EC38C0017EF56 /* PBXContainerItemProxy */;
+		};
+		6035A0141E23FDFD0017EF56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANSDKSmartAdAdapter;
+			targetProxy = 6035A0131E23FDFD0017EF56 /* PBXContainerItemProxy */;
 		};
 		604C11551E26E0D3006D6C97 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2708,7 +2705,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RFMAdSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2778,7 +2775,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RFMAdSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
