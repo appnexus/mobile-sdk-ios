@@ -17,6 +17,8 @@
 
 @implementation ANAdAdapterBaseRubicon
 
+@synthesize delegate = _delegate;
+
 +(void) setRubiconPublisherID:(NSString *) publisherID{
     
     [RFMAdSDK initWithAccountId:publisherID];
