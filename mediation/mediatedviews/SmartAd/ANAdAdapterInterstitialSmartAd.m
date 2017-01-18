@@ -19,14 +19,15 @@
 @interface ANAdAdapterInterstitialSmartAd ()
     
     @property (nonatomic, strong) SASInterstitialView *sasInterstitialAd;
-    
+    @property (nonatomic) BOOL isInterstitialReady;
+
 @end
 
 @implementation ANAdAdapterInterstitialSmartAd
 
     
 @synthesize delegate;
-    
+
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
@@ -36,7 +37,7 @@
     if(targetingParameters != nil){
         targetString = [super keywordsFromTargetingParameters:targetingParameters];
     }
-    
+    self.isInterstitialReady = false;
     if(adUnitDictionary[SMARTAD_SITEID] == nil || [adUnitDictionary[SMARTAD_SITEID] isEqualToString:@""]){
         ANLogTrace(@"SmartAd mediation failed. siteId not provided in the adUnit dictionary");
         [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
@@ -46,6 +47,7 @@
         NSString *formatIdString = adUnitDictionary[SMARTAD_FORMATID];
         self.sasInterstitialAd = [[SASInterstitialView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width , [UIScreen mainScreen].bounds.size.height) loader:NO];
         self.sasInterstitialAd.delegate = self;
+        
         if(formatIdString != nil && ![formatIdString isEqualToString:@""]){
             [self.sasInterstitialAd loadFormatId:[formatIdString integerValue] pageId:pageId master:YES target:targetString];
         }else {
@@ -63,7 +65,7 @@
 
 - (BOOL)isReady {
     ANLogTrace(@"");
-    return self.sasInterstitialAd.isUnlimited;
+    return self.isInterstitialReady;
 }
 
 -(UIView *) rootView{
@@ -75,6 +77,7 @@
 - (void)adViewDidLoad:(SASAdView *)adView {
     ANLogTrace(@"");
     [self.delegate didLoadInterstitialAd:self];
+    self.isInterstitialReady = true;
     
 }
     
