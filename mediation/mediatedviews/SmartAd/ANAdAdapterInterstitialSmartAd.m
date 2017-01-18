@@ -61,6 +61,11 @@
      [[self rootView] addSubview:self.sasInterstitialAd];
 }
 
+- (BOOL)isReady {
+    ANLogTrace(@"");
+    return self.sasInterstitialAd.isUnlimited;
+}
+
 -(UIView *) rootView{
     return [[[[[UIApplication sharedApplication] delegate] window] rootViewController] view];
 }
