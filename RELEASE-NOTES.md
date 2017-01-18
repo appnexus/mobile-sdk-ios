@@ -1,3 +1,22 @@
+## 2.14
+
+### Mediated SDKs
+
++   AdMarvel        v4.2.0
++   Rubicon         v6.1.0
++   SmartAd Server  v6.6
++   Millenial Media v6.3.1
++   AdMob           v6.4.1
+
+### Bug Fixes
+
++   MS-2839 Fix Anjam and Sdk communication for creative served in iframe
+
++   MS-2856 Error building with Carthage
+
++   MS-2841 Add a "ping" feature to the SDK without anjam.js injection
+
+
 
 ## RC 2.13.2
 
