@@ -20,7 +20,7 @@
 #define RUBICON_APP_ID      @"adId"
 #define RUBICON_PUB_ID      @"pubId"
 
-@interface ANAdAdapterBaseRubicon : NSObject
+@interface ANAdAdapterBaseRubicon : NSObject <ANCustomAdapter>
 
 +(void) setRubiconPublisherID:(NSString *) publisherID;
 
