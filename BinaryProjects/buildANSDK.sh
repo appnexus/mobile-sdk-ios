@@ -30,7 +30,7 @@ if [ $BITCODE == true ]; then
     echo "Bitcode enabled"
 fi
 
-schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKiAdAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter ANSDKVdopiaAdapter ANSDKVungleAdapter ANSDKAdColonyAdapter ANSDKChartboostAdapter ANSDKYahooAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK ANSDKSmartAdAdapter ANSDKAdMarvelAdapter ANSDKRubiconAdapter )
+schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter ANSDKVdopiaAdapter ANSDKVungleAdapter ANSDKAdColonyAdapter ANSDKChartboostAdapter ANSDKYahooAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK ANSDKSmartAdAdapter ANSDKAdMarvelAdapter ANSDKRubiconAdapter )
 
 rm -fr "$OUTDIR" > /dev/null 2>&1
 rm -fr "$OD_DEVICE" > /dev/null 2>&1
@@ -160,10 +160,6 @@ function packageSDK {
     then
 	tmp=${i#ANSDK}
 	className=${tmp%Adapter}
-	if [ "$className" == "iAd" ];
-	then
-	    return
-	fi
 	SDKDIR="$OUTDIR"/../../mediation/mediatedviews/${className}/${className}SDK
 	if [ -d "$SDKDIR" ];
 	then
