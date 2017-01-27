@@ -929,14 +929,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604C11691E26E0F6006D6C97 /* RFMAdSDK.framework in Frameworks */,
-				604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */,
-				60359EFA1E1EC5F50017EF56 /* AssetsLibrary.framework in Frameworks */,
 				60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */,
-				60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */,
-				60359EF01E1EC34C0017EF56 /* libANSDKAdMarvelAdapter.a in Frameworks */,
 				8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */,
 				8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */,
+				60359EFA1E1EC5F50017EF56 /* AssetsLibrary.framework in Frameworks */,
 				8A949AEA1ADF23D900D83DCE /* Chartboost.framework in Frameworks */,
 				8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */,
 				8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */,
@@ -945,8 +941,10 @@
 				8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */,
 				8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */,
 				4F142BA21D89E3B30079D3CE /* JavaScriptCore.framework in Frameworks */,
+				60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */,
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
 				8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */,
+				60359EF01E1EC34C0017EF56 /* libANSDKAdMarvelAdapter.a in Frameworks */,
 				8AA009F719DB1DA50090EBED /* libANSDKAmazonAdapter.a in Frameworks */,
 				8A949AE51ADF23C500D83DCE /* libANSDKChartboostAdapter.a in Frameworks */,
 				8AA009F619DB1DA50090EBED /* libANSDKFacebookAdapter.a in Frameworks */,
@@ -955,10 +953,11 @@
 				8AA5B4F01AA90C3E00522E1C /* libANSDKInMobiAdapter.a in Frameworks */,
 				8AA009F419DB1DA50090EBED /* libANSDKMillennialMediaAdapter.a in Frameworks */,
 				4F23AEA11D909F330058F4B8 /* libANSDKMoPubAdapter.a in Frameworks */,
+				604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */,
+				6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */,
 				8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */,
 				8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */,
 				8A9687351B4351E900D9399B /* libANSDKYahooAdapter.a in Frameworks */,
-				6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */,
 				8A4EF0DB1CF3880B002C2DF1 /* libc++.tbd in Frameworks */,
 				605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */,
 				605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */,
@@ -970,6 +969,7 @@
 				8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */,
 				8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */,
 				8A2BD4111B670E540000DB66 /* MMAdSDK.framework in Frameworks */,
+				604C11691E26E0F6006D6C97 /* RFMAdSDK.framework in Frameworks */,
 				4F41F5311D8AFECF00DC37D4 /* SafariServices.framework in Frameworks */,
 				8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */,
 				8A4EF46D1CF3B1E3002C2DF1 /* VungleSDK.framework in Frameworks */,
@@ -1051,9 +1051,9 @@
 		4F6F83681D9195BE0007051E /* ResourcesForMediatedSDKs */ = {
 			isa = PBXGroup;
 			children = (
+				8A7F4CBD19DB395D003ECC5C /* MoPub */,
 				604C116E1E26E1D6006D6C97 /* Rubicon */,
 				6035A02B1E23FE610017EF56 /* SmartAd */,
-				8A7F4CBD19DB395D003ECC5C /* MoPub */,
 			);
 			name = ResourcesForMediatedSDKs;
 			sourceTree = "<group>";
@@ -1061,12 +1061,12 @@
 		4F81C36E1DE6331900623BD3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F81C3781DE6331900623BD3 /* libKIF.a */,
-				4F81C37A1DE6331900623BD3 /* Test Host.app */,
 				4F81C37C1DE6331900623BD3 /* KIF Tests - XCTest.xctest */,
 				4F81C37E1DE6331900623BD3 /* KIF.framework */,
 				4F81C3801DE6331900623BD3 /* KIFFrameworkConsumer.app */,
 				4F81C3821DE6331900623BD3 /* KIFFrameworkConsumerTests.xctest */,
+				4F81C3781DE6331900623BD3 /* libKIF.a */,
+				4F81C37A1DE6331900623BD3 /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1248,15 +1248,12 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				604C11681E26E0F6006D6C97 /* RFMAdSDK.framework */,
-				6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */,
-				60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */,
-				60359EF71E1EC5B70017EF56 /* Accounts.framework */,
-				60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */,
 				8A4EF45F1CF3B1E3002C2DF1 /* Resources */,
+				60359EF71E1EC5B70017EF56 /* Accounts.framework */,
 				8A14826F1AD344B70046F1B9 /* AdColony.framework */,
 				8AF3659319D479130097019F /* AdSupport.framework */,
 				8AA009E319DB1D270090EBED /* AmazonAd.framework */,
+				60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */,
 				8AF3658519D4746E0097019F /* AudioToolbox.framework */,
 				8AF3657F19D473B00097019F /* AVFoundation.framework */,
 				8A949AE91ADF23D900D83DCE /* Chartboost.framework */,
@@ -1273,6 +1270,7 @@
 				8A5D27CA199AB26B00F2A516 /* iAd.framework */,
 				8AD011A61B2F652B001B0107 /* IOKit.framework */,
 				4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */,
+				60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */,
 				8AF8412E1CF755F900F97FA9 /* libc++.1.tbd */,
 				8A4EF0D91CF38790002C2DF1 /* libc++.tbd */,
 				8AF8412C1CF755DA00F97FA9 /* libc++abi.tbd */,
@@ -1282,6 +1280,7 @@
 				8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */,
 				8AF8413C1CF75A0200F97FA9 /* libLWSDK.a */,
 				8AA009EB19DB1D530090EBED /* libMoPubSDK.a */,
+				6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */,
 				8AD011AF1B2F6C54001B0107 /* libsqlite3.dylib */,
 				8A2BD4121B670EAE0000DB66 /* libxml2.dylib */,
 				4FD67F961D760011009270E6 /* libz.1.2.5.tbd */,
@@ -1290,6 +1289,7 @@
 				8A9CBAD21C652E9B00558C95 /* MessageUI.framework */,
 				8A2BD4101B670E540000DB66 /* MMAdSDK.framework */,
 				4FD67FAA1D76003D009270E6 /* QuartzCore.framework */,
+				604C11681E26E0F6006D6C97 /* RFMAdSDK.framework */,
 				4F41F5301D8AFECF00DC37D4 /* SafariServices.framework */,
 				8A14827D1AD346220046F1B9 /* Social.framework */,
 				8A40180A1A95028700D56208 /* StoreKit.framework */,
@@ -1331,26 +1331,26 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094019DB169B0090EBED /* libANSDK.a */,
 				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA0094619DB169B0090EBED /* libANSDKiAdAdapter.a */,
-				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
-				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
-				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				8AA0094019DB169B0090EBED /* libANSDK.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
+				8AA0094619DB169B0090EBED /* libANSDKiAdAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
+				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
 				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2076,8 +2076,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				601BDD7E1E2FCA2E002698D7 /* RFMAdSDK.bundle in Resources */,
-				6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */,
 				8A4EF4671CF3B1E3002C2DF1 /* __vungle.db in Resources */,
 				8A201BFF1C596072009EE62D /* ANGADNativeAppInstallAdView.xib in Resources */,
 				8ABC03CD1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */,
@@ -2111,6 +2109,8 @@
 				4F63B89A1D918FE200E22FE0 /* MPUnmutedBtn@3x.png in Resources */,
 				4F63B8A91D91901300E22FE0 /* MRAID.bundle in Resources */,
 				8AF841441CF75A1600F97FA9 /* mraid.txt in Resources */,
+				601BDD7E1E2FCA2E002698D7 /* RFMAdSDK.bundle in Resources */,
+				6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */,
 				8AF841451CF75A1600F97FA9 /* vdopiaCrossButton.png in Resources */,
 				8A4EF4681CF3B1E3002C2DF1 /* vg_close.png in Resources */,
 				8A4EF4691CF3B1E3002C2DF1 /* vg_cta.png in Resources */,
