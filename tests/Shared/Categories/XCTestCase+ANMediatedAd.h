@@ -30,7 +30,6 @@
 - (ANMediatedAd *)mediatedAdMultipleSuccessCallbacks;
 - (ANMediatedAd *)mediatedAdMultipleFailureCallbacks;
 
-- (ANMediatedAd *)iAdBannerMediatedAd;
-- (ANMediatedAd *)iAdInterstitialMediatedAd;
+- (ANMediatedAd *)facebookInterstitialMediatedAd;
 
 @end

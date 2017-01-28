@@ -70,8 +70,6 @@
              @"MoPubBanner",
              @"MoPubInterstitial",
              @"MoPubNative",
-             @"iAdBanner",
-             @"iAdInterstitial",
              @"AmazonBanner",
              @"AmazonInterstitial",
              @"MillennialMediaBanner",
@@ -302,35 +300,6 @@
 - (void)stubVungleInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialVungle";
-    [self stubMediatedAd:mediatedAd];
-}
-
-
-#pragma mark - iAd
-
-- (ANBannerAdView *)loadiAdBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    [self stubiAdBanner];
-    return [self bannerWithDelegate:delegate];
-}
-
-- (ANInterstitialAd *)loadiAdInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubiAdInterstitial];
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubiAdBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBanneriAd";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubiAdInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialiAd";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
     [self stubMediatedAd:mediatedAd];
 }
 
