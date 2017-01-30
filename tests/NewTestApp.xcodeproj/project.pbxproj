@@ -99,7 +99,6 @@
 		8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4121B670EAE0000DB66 /* libxml2.dylib */; };
 		8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */; };
 		8A33A5131A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */; };
-		8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27CA199AB26B00F2A516 /* iAd.framework */; };
 		8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */; };
 		8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4018041A9500A300D56208 /* GoogleMobileAds.framework */; };
 		8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */; };
@@ -712,7 +711,6 @@
 		8A56E68B1B27482700642ACC /* ANNativeAdColonyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeAdColonyView.h; sourceTree = "<group>"; };
 		8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdColonyView.m; sourceTree = "<group>"; };
 		8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		8A5D27CA199AB26B00F2A516 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
 		8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_click_fallback_example.json; sourceTree = "<group>"; };
 		8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANJAMTestCase.m; sourceTree = "<group>"; };
@@ -923,7 +921,6 @@
 				8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */,
 				8AA009E619DB1D320090EBED /* FBAudienceNetwork.framework in Frameworks */,
 				8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */,
-				8A3B37AF19D62A4E00CE24A5 /* iAd.framework in Frameworks */,
 				8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */,
 				4F142BA21D89E3B30079D3CE /* JavaScriptCore.framework in Frameworks */,
 				60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */,
@@ -1252,7 +1249,6 @@
 				8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */,
 				605EDBCA1D92F2050042DC0C /* Foundation.framework */,
 				8A4018041A9500A300D56208 /* GoogleMobileAds.framework */,
-				8A5D27CA199AB26B00F2A516 /* iAd.framework */,
 				8AD011A61B2F652B001B0107 /* IOKit.framework */,
 				4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */,
 				60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */,

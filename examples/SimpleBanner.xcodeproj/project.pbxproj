@@ -32,7 +32,6 @@
 		FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7F519706ADE002CAD63 /* AVFoundation.framework */; };
 		FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7F719706AE7002CAD63 /* CFNetwork.framework */; };
 		FF2FD7FA19706AF6002CAD63 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7F919706AF5002CAD63 /* CoreTelephony.framework */; };
-		FF2FD7FE19706B10002CAD63 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7FD19706B10002CAD63 /* iAd.framework */; };
 		FF2FD80019706B18002CAD63 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7FF19706B18002CAD63 /* MediaPlayer.framework */; };
 		FF2FD80219706B28002CAD63 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD80119706B28002CAD63 /* MessageUI.framework */; };
 		FF2FD80419706B30002CAD63 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD80319706B30002CAD63 /* MobileCoreServices.framework */; };
@@ -45,6 +44,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8A4A99611E3FB1F000956FDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 60359FEF1E23FCB50017EF56;
+			remoteInfo = ANSDKSmartAdAdapter;
+		};
+		8A4A99631E3FB1F000956FDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 60359EB01E1EA1180017EF56;
+			remoteInfo = ANSDKAdMarvelAdapter;
+		};
+		8A4A99651E3FB1F000956FDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 604C112D1E26BE4B006D6C97;
+			remoteInfo = ANSDKRubiconAdapter;
+		};
 		8AB3BC7B1B98A82D00CB4BA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
@@ -114,13 +134,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 8AE2D6D119CC874B00001B70;
 			remoteInfo = ANSDKGoogleAdMobAdapter;
-		};
-		8AED80AF19DDA7C6002F5D9F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D70219CC878300001B70;
-			remoteInfo = ANSDKiAdAdapter;
 		};
 		8AED80B119DDA7C6002F5D9F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -217,7 +230,6 @@
 		FF2FD7F719706AE7002CAD63 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FF2FD7F919706AF5002CAD63 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		FF2FD7FB19706AFC002CAD63 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
-		FF2FD7FD19706B10002CAD63 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		FF2FD7FF19706B18002CAD63 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		FF2FD80119706B28002CAD63 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		FF2FD80319706B30002CAD63 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -243,7 +255,6 @@
 				8A3EDB5B1D0873CD00957227 /* EventKit.framework in Frameworks */,
 				8A3EDB5A1D0873B200957227 /* EventKitUI.framework in Frameworks */,
 				FF2FD7AD19706A5D002CAD63 /* Foundation.framework in Frameworks */,
-				FF2FD7FE19706B10002CAD63 /* iAd.framework in Frameworks */,
 				8AED80CE19DDA89D002F5D9F /* libANSDK.a in Frameworks */,
 				FF2FD80019706B18002CAD63 /* MediaPlayer.framework in Frameworks */,
 				FF2FD80219706B28002CAD63 /* MessageUI.framework in Frameworks */,
@@ -275,23 +286,25 @@
 		8AED809C19DDA7C6002F5D9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AED80AC19DDA7C6002F5D9F /* ANSDKResources.bundle */,
-				8AB3BC881B98A82D00CB4BA3 /* AppNexusSDK.framework */,
-				8AED80B819DDA7C6002F5D9F /* libANAdapterForGoogleAdMobSDK.a */,
-				8AED80BA19DDA7C6002F5D9F /* libANAdapterForMoPubSDK.a */,
 				8AED80AA19DDA7C6002F5D9F /* libANSDK.a */,
-				8AB3BC801B98A82D00CB4BA3 /* libANSDKAdColonyAdapter.a */,
-				8AED80BC19DDA7C6002F5D9F /* libANSDKAmazonAdapter.a */,
-				8AB3BC841B98A82D00CB4BA3 /* libANSDKChartboostAdapter.a */,
-				8AED80B619DDA7C6002F5D9F /* libANSDKFacebookAdapter.a */,
+				8AED80AC19DDA7C6002F5D9F /* ANSDKResources.bundle */,
 				8AED80AE19DDA7C6002F5D9F /* libANSDKGoogleAdMobAdapter.a */,
-				8AED80B019DDA7C6002F5D9F /* libANSDKiAdAdapter.a */,
-				8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */,
 				8AED80B219DDA7C6002F5D9F /* libANSDKMillennialMediaAdapter.a */,
 				8AED80B419DDA7C6002F5D9F /* libANSDKMoPubAdapter.a */,
+				8AED80B619DDA7C6002F5D9F /* libANSDKFacebookAdapter.a */,
+				8AED80BC19DDA7C6002F5D9F /* libANSDKAmazonAdapter.a */,
+				8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */,
 				8AB3BC7E1B98A82D00CB4BA3 /* libANSDKVdopiaAdapter.a */,
+				8AB3BC801B98A82D00CB4BA3 /* libANSDKAdColonyAdapter.a */,
 				8AB3BC821B98A82D00CB4BA3 /* libANSDKVungleAdapter.a */,
+				8AB3BC841B98A82D00CB4BA3 /* libANSDKChartboostAdapter.a */,
 				8AB3BC861B98A82D00CB4BA3 /* libANSDKYahooAdapter.a */,
+				8AED80B819DDA7C6002F5D9F /* libANAdapterForGoogleAdMobSDK.a */,
+				8AED80BA19DDA7C6002F5D9F /* libANAdapterForMoPubSDK.a */,
+				8AB3BC881B98A82D00CB4BA3 /* AppNexusSDK.framework */,
+				8A4A99621E3FB1F000956FDE /* libANSDKSmartAdAdapter.a */,
+				8A4A99641E3FB1F000956FDE /* libANSDKAdMarvelAdapter.a */,
+				8A4A99661E3FB1F000956FDE /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -328,7 +341,6 @@
 				FF2FD7FB19706AFC002CAD63 /* EventKit.framework */,
 				8A3EDB591D0873B200957227 /* EventKitUI.framework */,
 				FF2FD7AC19706A5D002CAD63 /* Foundation.framework */,
-				FF2FD7FD19706B10002CAD63 /* iAd.framework */,
 				FF2FD7FF19706B18002CAD63 /* MediaPlayer.framework */,
 				FF2FD80119706B28002CAD63 /* MessageUI.framework */,
 				FF2FD80319706B30002CAD63 /* MobileCoreServices.framework */,
@@ -470,6 +482,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8A4A99621E3FB1F000956FDE /* libANSDKSmartAdAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKSmartAdAdapter.a;
+			remoteRef = 8A4A99611E3FB1F000956FDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8A4A99641E3FB1F000956FDE /* libANSDKAdMarvelAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKAdMarvelAdapter.a;
+			remoteRef = 8A4A99631E3FB1F000956FDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8A4A99661E3FB1F000956FDE /* libANSDKRubiconAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKRubiconAdapter.a;
+			remoteRef = 8A4A99651E3FB1F000956FDE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -538,13 +571,6 @@
 			fileType = archive.ar;
 			path = libANSDKGoogleAdMobAdapter.a;
 			remoteRef = 8AED80AD19DDA7C6002F5D9F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8AED80B019DDA7C6002F5D9F /* libANSDKiAdAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKiAdAdapter.a;
-			remoteRef = 8AED80AF19DDA7C6002F5D9F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8AED80B219DDA7C6002F5D9F /* libANSDKMillennialMediaAdapter.a */ = {
