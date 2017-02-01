@@ -57,7 +57,7 @@
 }
 
 - (void)testInterstitialMediatedAdWithBannerAdViewDelegate {
-    ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self iAdInterstitialMediatedAd]
+    ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self facebookInterstitialMediatedAd]
                                                                               withFetcher:self.adFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNil(controller, @"Did not expect a controller for a class of the wrong adapter type");

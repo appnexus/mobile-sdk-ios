@@ -69,15 +69,9 @@
     return mediatedAd;
 }
 
-- (ANMediatedAd *)iAdBannerMediatedAd {
+- (ANMediatedAd *)facebookInterstitialMediatedAd {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBanneriAd";
-    return mediatedAd;
-}
-
-- (ANMediatedAd *)iAdInterstitialMediatedAd {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialiAd";
+    mediatedAd.className = @"ANAdAdapterInterstitialFacebook";
     return mediatedAd;
 }
 
