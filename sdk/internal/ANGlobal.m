@@ -251,4 +251,15 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
 
 @implementation ANGlobal
 
++ (void) openURL: (NSString *)urlString
+{
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)])
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    }
+}
+
+
 @end

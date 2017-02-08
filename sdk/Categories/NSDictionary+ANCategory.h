@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2017 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,16 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ANStandardAd : NSObject
+@interface NSDictionary (ANCategory)
 
-@property (nonatomic, readwrite, strong) NSString *content;
-@property (nonatomic, readwrite, strong) NSString *height;
-@property (nonatomic, readwrite, strong) NSString *width;
-@property (nonatomic, readwrite, strong) NSString *type;
-
-@property (nonatomic, readwrite, assign, getter=isMraid) BOOL mraid;
-
-@property (nonatomic, readwrite, strong)  NSArray  *impressionUrls; // Array of impression url strings
-
+- (NSString *)an_jsonStringWithPrettyPrint:(BOOL) prettyPrint;
 
 @end
+

@@ -13,9 +13,12 @@
  limitations under the License.
  */
 
+
 #import "ANLogManager.h"
 
 #import <Foundation/Foundation.h>
+
+
 
 #define AN_DEBUG_MODE				1
 
@@ -28,15 +31,18 @@ void notifyListener(NSString *message, NSInteger messageLevel);
 #if AN_DEBUG_MODE
 
 void _ANLog(ANLogLevel level, NSString *levelString, char const *logContext, NSString *format, ...)  NS_FORMAT_FUNCTION(4, 5);
-#define ANLogMark(...)   _ANLog(ANLogLevelTrace, @"MARK",    __PRETTY_FUNCTION__, __VA_ARGS__)
-#define ANLogTrace(...)  _ANLog(ANLogLevelTrace, @"TRACE",   __PRETTY_FUNCTION__, __VA_ARGS__)
-#define ANLogDebug(...)  _ANLog(ANLogLevelDebug, @"DEBUG",   __PRETTY_FUNCTION__, __VA_ARGS__)
-#define ANLogInfo(...)   _ANLog(ANLogLevelInfo,  @"INFO",    __PRETTY_FUNCTION__, __VA_ARGS__)
-#define ANLogWarn(...)   _ANLog(ANLogLevelWarn,  @"WARNING", __PRETTY_FUNCTION__, __VA_ARGS__)
-#define ANLogError(...)  _ANLog(ANLogLevelError, @"ERROR",   __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogMark()             _ANLog(ANLogLevelTrace, @"MARK",    __PRETTY_FUNCTION__, @"")
+#define ANLogMarkMessage(...)   _ANLog(ANLogLevelTrace, @"MARK",    __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogTrace(...)         _ANLog(ANLogLevelTrace, @"TRACE",   __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogDebug(...)         _ANLog(ANLogLevelDebug, @"DEBUG",   __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogInfo(...)          _ANLog(ANLogLevelInfo,  @"INFO",    __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogWarn(...)          _ANLog(ANLogLevelWarn,  @"WARNING", __PRETTY_FUNCTION__, __VA_ARGS__)
+#define ANLogError(...)         _ANLog(ANLogLevelError, @"ERROR",   __PRETTY_FUNCTION__, __VA_ARGS__)
 
 #else
 
+#define ANLogMark() {}
+#define ANLogMarkMessage(...) {}
 #define ANLogTrace(...) {}
 #define ANLogDebug(...) {}
 #define ANLogInfo(...) {}
@@ -44,3 +50,5 @@ void _ANLog(ANLogLevel level, NSString *levelString, char const *logContext, NSS
 #define ANLogError(...) {}
 
 #endif
+
+

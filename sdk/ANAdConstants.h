@@ -53,3 +53,24 @@ typedef NS_ENUM(NSUInteger, ANNativeAdNetworkCode) {
     ANNativeAdNetworkCodeCustom,
     ANNativeAdNetworkCodeAdMob
 };
+
+typedef NS_ENUM(NSUInteger, ANVideoEvent){
+    ANVideoEventUnknown = 0,
+    ANVideoEventStart,
+    ANVideoEventQuartileFirst,
+    ANVideoEventQuartileMidPoint,
+    ANVideoEventQuartileThird,
+    ANVideoEventQuartileComplete,
+    ANVideoEventZoomRestore,
+    ANVideoEventZoomFullScreen,
+    ANVideoEventPlay,
+    ANVideoEventPause,
+    ANVideoEventResume,
+    ANVideoEventRewind,
+    ANVideoEventMute,
+    ANVideoEventUnMute,
+    ANVideoEventStop,
+    ANVideoEventCloseLinear,
+    ANVideoEventSkip,
+    ANVideoEventCreativeView
+};

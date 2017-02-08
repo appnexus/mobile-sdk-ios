@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2015 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,16 +15,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ANStandardAd : NSObject
+@interface ANUniversalTagAdServerResponse : NSObject
 
-@property (nonatomic, readwrite, strong) NSString *content;
-@property (nonatomic, readwrite, strong) NSString *height;
-@property (nonatomic, readwrite, strong) NSString *width;
-@property (nonatomic, readwrite, strong) NSString *type;
++ (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;
 
-@property (nonatomic, readwrite, assign, getter=isMraid) BOOL mraid;
+- (instancetype)initWithAdServerData:(NSData *)data;
 
-@property (nonatomic, readwrite, strong)  NSArray  *impressionUrls; // Array of impression url strings
-
+@property (nonatomic, readonly, strong) NSMutableArray *ads;
+@property (nonatomic, readonly, strong) NSString *noAdUrlString;
 
 @end

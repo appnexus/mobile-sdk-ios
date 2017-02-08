@@ -83,6 +83,9 @@ NSURLRequest *ANBasicRequestWithURL(NSURL *URL);
 NSNumber *ANiTunesIDForURL(NSURL *URL);
 BOOL ANCanPresentFromViewController(UIViewController *viewController);
 
+
 @interface ANGlobal : NSObject
+
+    + (void) openURL: (NSString *)urlString;
 
 @end
