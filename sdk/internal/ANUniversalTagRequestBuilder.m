@@ -153,23 +153,8 @@
     }
 
     //
-    NSMutableSet *allowedSizes = nil;
-    if ([self.adFetcherDelegate conformsToProtocol:@protocol(ANInterstitialUniversalAdFetcherDelegate)])
-    {
-        id<ANInterstitialUniversalAdFetcherDelegate> interstitialDelegate = (id<ANInterstitialUniversalAdFetcherDelegate>)self.adFetcherDelegate;
-        allowedSizes = [[interstitialDelegate allowedAdSizes] mutableCopy];
-        if (allowedSizes != nil) {
-            //add the additional 1x1 size to the other sizes passed
-            [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
-        }
-        
-    } else if ([self.adFetcherDelegate conformsToProtocol:@protocol(ANUniversalAdFetcherDelegate)]) {
-        allowedSizes = [[NSMutableSet alloc] init];
-        [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
-
-    } else {
-        ANLogError(@"CANNOT MATCH adFetcherDelegate to a SPECIFIC DELEGATE FORMAT.  Skipping format specific JSON tag objects...");
-    }
+    NSMutableSet *allowedSizes = [[NSMutableSet alloc] init];
+    [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
     
     if(allowedSizes != nil){
         NSMutableArray *sizeObjectArray = [[NSMutableArray alloc] init];
