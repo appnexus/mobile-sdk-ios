@@ -19,5 +19,6 @@
 
 - (NSString *)webViewBaseUrl;
 - (NSString *)adRequestBaseUrl;
+- (NSString *)utAdRequestBaseUrl;
 
 @end

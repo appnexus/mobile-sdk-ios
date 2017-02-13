@@ -39,6 +39,10 @@
     return @"http://mediation.adnxs.com/mob";
 }
 
+-(NSString *) utAdRequestBaseUrl {
+    return @"http://mediation.adnxs.com/ut/v2";
+}
+
 @end
 
 @interface ANProdHTTPSBaseUrlConfig : NSObject <ANBaseUrlConfig>
@@ -62,6 +66,10 @@
 
 - (NSString *)adRequestBaseUrl {
     return @"https://mediation.adnxs.com/mob";
+}
+
+-(NSString *) utAdRequestBaseUrl {
+    return @"https://mediation.adnxs.com/ut/v2";
 }
 
 @end

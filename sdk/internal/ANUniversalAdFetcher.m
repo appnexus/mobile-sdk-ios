@@ -20,6 +20,7 @@
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"
 #import "ANVideoAdPlayer.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
 @interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate>
 
@@ -57,8 +58,9 @@
 #pragma mark - Ad Request
 
 - (void)requestAd {
+    NSString *urlString = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest *request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate
-                                                                              baseUrlString:kANUniversalAdFetcherDefaultRequestUrlString];
+                                                                              baseUrlString:urlString];
     self.connection = [NSURLConnection connectionWithRequest:request
                                                     delegate:self];
     if (!self.connection) {
