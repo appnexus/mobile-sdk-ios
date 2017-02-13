@@ -156,8 +156,7 @@
     NSMutableSet *allowedSizes = [[NSMutableSet alloc] init];
     [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
     
-    if(allowedSizes != nil){
-        NSMutableArray *sizeObjectArray = [[NSMutableArray alloc] init];
+    NSMutableArray *sizeObjectArray = [[NSMutableArray alloc] init];
         for (id sizeValue in allowedSizes) {
             if ([sizeValue isKindOfClass:[NSValue class]]) {
                 CGSize size = [sizeValue CGSizeValue];
@@ -166,7 +165,7 @@
             }
         }
         tagDict[@"sizes"] = sizeObjectArray;
-    }
+    
 
     //
     tagDict[@"allowed_media_types"] = @[@(4)];
