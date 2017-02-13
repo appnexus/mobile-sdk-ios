@@ -153,32 +153,35 @@
     }
 
     //
+    NSMutableSet *allowedSizes = nil;
     if ([self.adFetcherDelegate conformsToProtocol:@protocol(ANInterstitialUniversalAdFetcherDelegate)])
     {
         id<ANInterstitialUniversalAdFetcherDelegate> interstitialDelegate = (id<ANInterstitialUniversalAdFetcherDelegate>)self.adFetcherDelegate;
-        NSMutableSet *allowedSizes = [[interstitialDelegate allowedAdSizes] mutableCopy];
-        if (allowedSizes == nil) {
-            allowedSizes = [[NSMutableSet alloc] init];
+        allowedSizes = [[interstitialDelegate allowedAdSizes] mutableCopy];
+        if (allowedSizes != nil) {
+            //add the additional 1x1 size to the other sizes passed
+            [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
         }
+        
+    } else if ([self.adFetcherDelegate conformsToProtocol:@protocol(ANUniversalAdFetcherDelegate)]) {
+        allowedSizes = [[NSMutableSet alloc] init];
         [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
+
+    } else {
+        ANLogError(@"CANNOT MATCH adFetcherDelegate to a SPECIFIC DELEGATE FORMAT.  Skipping format specific JSON tag objects...");
+    }
+    
+    if(allowedSizes != nil){
         NSMutableArray *sizeObjectArray = [[NSMutableArray alloc] init];
         for (id sizeValue in allowedSizes) {
             if ([sizeValue isKindOfClass:[NSValue class]]) {
                 CGSize size = [sizeValue CGSizeValue];
                 [sizeObjectArray addObject:@{@"width":@(size.width),
-                                             @"height":@(size.height)}];
+                                         @"height":@(size.height)}];
             }
         }
         tagDict[@"sizes"] = sizeObjectArray;
-
-
-    } else if ([self.adFetcherDelegate conformsToProtocol:@protocol(ANUniversalAdFetcherDelegate)]) {
-        //EMPTY
-
-    } else {
-        ANLogError(@"CANNOT MATCH adFetcherDelegate to a SPECIFIC DELEGATE FORMAT.  Skipping format specific JSON tag objects...");
     }
-
 
     //
     tagDict[@"allowed_media_types"] = @[@(1),@(3),@(4)];
