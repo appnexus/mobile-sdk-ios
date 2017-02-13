@@ -184,8 +184,13 @@
     }
 
     //
-    tagDict[@"allowed_media_types"] = @[@(1),@(3),@(4)];
-    tagDict[@"disable_psa"] = @(![self.adFetcherDelegate shouldServePublicServiceAnnouncements]);
+    tagDict[@"allowed_media_types"] = @[@(4)];
+    
+    //
+    tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
+    
+    //
+    tagDict[@"require_asset_url"] = [NSNumber numberWithBool:0];
 
     //
     CGFloat  reservePrice  = [self.adFetcherDelegate reserve];
