@@ -245,8 +245,7 @@
 
         }
     }
-
-    else if([data isEqualToString:@"video-error"]){
+    else if([data isEqualToString:@"video-error"] || [data isEqualToString:@"Timed-out"]){
         
         //we need to remove the webview to makesure we dont get any other response from the loaded index.html page
         [self removePlayer];
