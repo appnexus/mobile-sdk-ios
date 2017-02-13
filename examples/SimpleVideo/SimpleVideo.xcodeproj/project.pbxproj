@@ -13,7 +13,6 @@
 		60846A1B1E43C676005D46BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60846A191E43C676005D46BC /* Main.storyboard */; };
 		60846A1D1E43C676005D46BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60846A1C1E43C676005D46BC /* Assets.xcassets */; };
 		60846A201E43C676005D46BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60846A1E1E43C676005D46BC /* LaunchScreen.storyboard */; };
-		60846A2B1E43C676005D46BC /* SimpleVideoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A2A1E43C676005D46BC /* SimpleVideoUITests.m */; };
 		60846A8E1E48E19B005D46BC /* AVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A8D1E48E19B005D46BC /* AVPlayerView.m */; };
 /* End PBXBuildFile section */
 
@@ -172,8 +171,6 @@
 		60846A1F1E43C676005D46BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60846A211E43C676005D46BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60846A261E43C676005D46BC /* SimpleVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		60846A2A1E43C676005D46BC /* SimpleVideoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleVideoUITests.m; sourceTree = "<group>"; };
-		60846A2C1E43C676005D46BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60846A8C1E48E19B005D46BC /* AVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVPlayerView.h; sourceTree = "<group>"; };
 		60846A8D1E48E19B005D46BC /* AVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVPlayerView.m; sourceTree = "<group>"; };
 		60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
@@ -202,7 +199,6 @@
 			children = (
 				60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */,
 				60846A0F1E43C676005D46BC /* SimpleVideo */,
-				60846A291E43C676005D46BC /* SimpleVideoUITests */,
 				60846A0E1E43C676005D46BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -240,15 +236,6 @@
 				60846A111E43C676005D46BC /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		60846A291E43C676005D46BC /* SimpleVideoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				60846A2A1E43C676005D46BC /* SimpleVideoUITests.m */,
-				60846A2C1E43C676005D46BC /* Info.plist */,
-			);
-			path = SimpleVideoUITests;
 			sourceTree = "<group>";
 		};
 		60AB324D1E52163C00429ED7 /* Products */ = {
@@ -533,7 +520,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60846A2B1E43C676005D46BC /* SimpleVideoUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
