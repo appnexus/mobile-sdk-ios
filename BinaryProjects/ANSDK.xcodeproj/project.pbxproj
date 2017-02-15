@@ -1535,10 +1535,10 @@
 		609732FF1E42EAFF0061EC0A /* ANVideoResources */ = {
 			isa = PBXGroup;
 			children = (
-				60AB32891E521FE500429ED7 /* MobileVastPlayer.js */,
 				609733001E42EAFF0061EC0A /* ASTMediationManager.js */,
 				609733011E42EAFF0061EC0A /* index.html */,
 				609733021E42EAFF0061EC0A /* Info.plist */,
+				60AB32891E521FE500429ED7 /* MobileVastPlayer.js */,
 			);
 			path = ANVideoResources;
 			sourceTree = "<group>";
@@ -2866,10 +2866,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ADA36201A82A8D700AF65AA /* ANSDKResources.bundle in Resources */,
-				60AB328C1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
 				6097330B1E42EAFF0061EC0A /* ASTMediationManager.js in Resources */,
 				6097330D1E42EAFF0061EC0A /* index.html in Resources */,
 				6097330F1E42EAFF0061EC0A /* Info.plist in Resources */,
+				60AB328C1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2982,10 +2982,10 @@
 				609733151E42EB0E0061EC0A /* index.html in Resources */,
 				ECE4EB09194B76960069D934 /* interstitial_closebox.png in Resources */,
 				ECE4EB0A194B76960069D934 /* interstitial_closebox@2x.png in Resources */,
-				60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
 				8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */,
 				8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */,
 				8A6D2E8D1A44A751003CE77A /* interstitial_flat_closebox@3x.png in Resources */,
+				60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
 				ECE4EB10194B76960069D934 /* sdkjs.js in Resources */,
 				ECE4EB0B194B76960069D934 /* UIButtonBarArrowLeft.png in Resources */,
 				ECE4EB0C194B76960069D934 /* UIButtonBarArrowLeft@2x.png in Resources */,
@@ -2999,10 +2999,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
-				60AB328A1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
 				6097330A1E42EAFF0061EC0A /* ASTMediationManager.js in Resources */,
 				6097330C1E42EAFF0061EC0A /* index.html in Resources */,
 				6097330E1E42EAFF0061EC0A /* Info.plist in Resources */,
+				60AB328A1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
