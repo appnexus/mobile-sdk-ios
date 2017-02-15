@@ -197,9 +197,9 @@
 		60846A041E43C676005D46BC = {
 			isa = PBXGroup;
 			children = (
-				60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */,
-				60846A0F1E43C676005D46BC /* SimpleVideo */,
 				60846A0E1E43C676005D46BC /* Products */,
+				60846A0F1E43C676005D46BC /* SimpleVideo */,
+				60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -215,17 +215,17 @@
 		60846A0F1E43C676005D46BC /* SimpleVideo */ = {
 			isa = PBXGroup;
 			children = (
+				60846A101E43C676005D46BC /* Supporting Files */,
 				60846A131E43C676005D46BC /* AppDelegate.h */,
 				60846A141E43C676005D46BC /* AppDelegate.m */,
-				60846A161E43C676005D46BC /* ViewController.h */,
-				60846A171E43C676005D46BC /* ViewController.m */,
-				60846A191E43C676005D46BC /* Main.storyboard */,
 				60846A1C1E43C676005D46BC /* Assets.xcassets */,
-				60846A1E1E43C676005D46BC /* LaunchScreen.storyboard */,
-				60846A211E43C676005D46BC /* Info.plist */,
-				60846A101E43C676005D46BC /* Supporting Files */,
 				60846A8C1E48E19B005D46BC /* AVPlayerView.h */,
 				60846A8D1E48E19B005D46BC /* AVPlayerView.m */,
+				60846A211E43C676005D46BC /* Info.plist */,
+				60846A1E1E43C676005D46BC /* LaunchScreen.storyboard */,
+				60846A191E43C676005D46BC /* Main.storyboard */,
+				60846A161E43C676005D46BC /* ViewController.h */,
+				60846A171E43C676005D46BC /* ViewController.m */,
 			);
 			path = SimpleVideo;
 			sourceTree = "<group>";
@@ -241,25 +241,25 @@
 		60AB324D1E52163C00429ED7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				60AB32631E52163C00429ED7 /* libANSDK.a */,
 				60AB32651E52163C00429ED7 /* ANSDKResources.bundle */,
-				60AB32671E52163C00429ED7 /* libANSDKGoogleAdMobAdapter.a */,
-				60AB32691E52163C00429ED7 /* libANSDKMillennialMediaAdapter.a */,
-				60AB326B1E52163C00429ED7 /* libANSDKMoPubAdapter.a */,
-				60AB326D1E52163C00429ED7 /* libANSDKFacebookAdapter.a */,
-				60AB326F1E52163C00429ED7 /* libANSDKAmazonAdapter.a */,
-				60AB32711E52163C00429ED7 /* libANSDKInMobiAdapter.a */,
-				60AB32731E52163C00429ED7 /* libANSDKVdopiaAdapter.a */,
-				60AB32751E52163C00429ED7 /* libANSDKAdColonyAdapter.a */,
-				60AB32771E52163C00429ED7 /* libANSDKVungleAdapter.a */,
-				60AB32791E52163C00429ED7 /* libANSDKChartboostAdapter.a */,
-				60AB327B1E52163C00429ED7 /* libANSDKYahooAdapter.a */,
+				60AB32811E52163C00429ED7 /* AppNexusSDK.framework */,
 				60AB327D1E52163C00429ED7 /* libANAdapterForGoogleAdMobSDK.a */,
 				60AB327F1E52163C00429ED7 /* libANAdapterForMoPubSDK.a */,
-				60AB32811E52163C00429ED7 /* AppNexusSDK.framework */,
-				60AB32831E52163C00429ED7 /* libANSDKSmartAdAdapter.a */,
+				60AB32631E52163C00429ED7 /* libANSDK.a */,
+				60AB32751E52163C00429ED7 /* libANSDKAdColonyAdapter.a */,
 				60AB32851E52163C00429ED7 /* libANSDKAdMarvelAdapter.a */,
+				60AB326F1E52163C00429ED7 /* libANSDKAmazonAdapter.a */,
+				60AB32791E52163C00429ED7 /* libANSDKChartboostAdapter.a */,
+				60AB326D1E52163C00429ED7 /* libANSDKFacebookAdapter.a */,
+				60AB32671E52163C00429ED7 /* libANSDKGoogleAdMobAdapter.a */,
+				60AB32711E52163C00429ED7 /* libANSDKInMobiAdapter.a */,
+				60AB32691E52163C00429ED7 /* libANSDKMillennialMediaAdapter.a */,
+				60AB326B1E52163C00429ED7 /* libANSDKMoPubAdapter.a */,
 				60AB32871E52163C00429ED7 /* libANSDKRubiconAdapter.a */,
+				60AB32831E52163C00429ED7 /* libANSDKSmartAdAdapter.a */,
+				60AB32731E52163C00429ED7 /* libANSDKVdopiaAdapter.a */,
+				60AB32771E52163C00429ED7 /* libANSDKVungleAdapter.a */,
+				60AB327B1E52163C00429ED7 /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -489,8 +489,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60846A201E43C676005D46BC /* LaunchScreen.storyboard in Resources */,
 				60846A1D1E43C676005D46BC /* Assets.xcassets in Resources */,
+				60846A201E43C676005D46BC /* LaunchScreen.storyboard in Resources */,
 				60846A1B1E43C676005D46BC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,10 +509,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60846A8E1E48E19B005D46BC /* AVPlayerView.m in Sources */,
-				60846A181E43C676005D46BC /* ViewController.m in Sources */,
 				60846A151E43C676005D46BC /* AppDelegate.m in Sources */,
+				60846A8E1E48E19B005D46BC /* AVPlayerView.m in Sources */,
 				60846A121E43C676005D46BC /* main.m in Sources */,
+				60846A181E43C676005D46BC /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
