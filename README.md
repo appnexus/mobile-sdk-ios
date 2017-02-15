@@ -12,7 +12,7 @@ Get the latest release notes here: http://wiki.appnexus.com/x/L4aTAw
 Easily include the AppNexus SDK in your Podfile:
 
 ```
-platform :ios, '6.0'
+platform :ios, '8.0'
 
 target 'SimpleBanner' do
   pod 'AppNexusSDK'
