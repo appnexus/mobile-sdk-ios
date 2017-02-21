@@ -20,11 +20,11 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION              @"2.14"
+#define AN_SDK_VERSION                  @"3.0"
 
-#define APPNEXUS_BANNER_SIZE			CGSizeMake(320, 50)
-#define APPNEXUS_MEDIUM_RECT_SIZE		CGSizeMake(300, 250)
-#define APPNEXUS_LEADERBOARD_SIZE		CGSizeMake(728, 90)
+#define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
+#define APPNEXUS_MEDIUM_RECT_SIZE	CGSizeMake(300, 250)
+#define APPNEXUS_LEADERBOARD_SIZE	CGSizeMake(728, 90)
 #define APPNEXUS_WIDE_SKYSCRAPER_SIZE	CGSizeMake(160, 600)
 
 #pragma mark Constants
