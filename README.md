@@ -14,7 +14,8 @@ Easily include the AppNexus SDK in your Podfile:
 ```
 platform :ios, '8.0'
 
-target 'SimpleBanner' do
+target 'MyAmazingApp' do
   pod 'AppNexusSDK'
 end
 ```
+
