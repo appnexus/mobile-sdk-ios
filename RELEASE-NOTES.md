@@ -1,3 +1,18 @@
+
+## 3.0
+
+### New Features
+
++ Support for instream video.
+
+
+### Bug Fixes and Updates
+
++ Remove iAd.
++ Minimum supported iOS version is now v8.0
+
+
+
 ## 2.14
 
 ### Mediated SDKs
