@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F1B9E291E5CDABE002FF0B4 /* ANInstreamVideoAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */; };
 		4F824CF61D909E1000AFC7EA /* LICENSE-MOPUB in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */; };
 		4F824CF71D909E1000AFC7EA /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CBA1D909E1000AFC7EA /* MPAdBrowserController.xib */; };
 		4F824CF81D909E1000AFC7EA /* MPCloseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CC11D909E1000AFC7EA /* MPCloseBtn.png */; };
@@ -676,6 +677,7 @@
 				ECE4EB12194B78280069D934 /* ANAdView.h in Copy Files */,
 				ECE4EB13194B78280069D934 /* ANBannerAdView.h in Copy Files */,
 				ECE4EB14194B78280069D934 /* ANCustomAdapter.h in Copy Files */,
+				4F1B9E291E5CDABE002FF0B4 /* ANInstreamVideoAd.h in Copy Files */,
 				ECE4EB15194B78280069D934 /* ANInterstitialAd.h in Copy Files */,
 				ECE4EB16194B78280069D934 /* ANLocation.h in Copy Files */,
 				ECE4EB17194B78280069D934 /* ANLogManager.h in Copy Files */,
