@@ -470,9 +470,8 @@
 
 #pragma mark - InMobi
 
-NSString * const  kInMobiAccountId_2017February21  = @"5e780dfd2c84482e882c311319c3c987";
+NSString * const  kInMobiAccountId_2017February21                       = @"5e780dfd2c84482e882c311319c3c987";
 NSString * const  kInMobiPlacementDefaultNativeContent1_2017February21  = @"1486240123565";
-//NSString * const  kInMobiPlacementDefaultNativeContent1a_2017February21  = @"1472634828120";  //no workie.
 
 
 - (ANBannerAdView *)loadInMobiBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
@@ -509,9 +508,7 @@ NSString * const  kInMobiPlacementDefaultNativeContent1_2017February21  = @"1486
 
 - (ANNativeAdRequest *)loadInMobiNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
     [self stubInMobiNative];
-//    [ANAdAdapterBaseInMobi setInMobiAppID:@"0c4a211baa254c3ab8bfb7dee681a666"];
     [ANAdAdapterBaseInMobi setInMobiAppID:@"4028cb8b2c3a0b45012c406824e800ba"];   //from Ads Demo in v5.3.1
-//    [ANAdAdapterBaseInMobi setInMobiAppID:kInMobiAccountId_2017February21];
     ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
     nativeAdRequest.shouldLoadIconImage = YES;
     nativeAdRequest.shouldLoadMainImage = YES;
@@ -521,8 +518,6 @@ NSString * const  kInMobiPlacementDefaultNativeContent1_2017February21  = @"1486
 - (void)stubInMobiNative {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterNativeInMobi";
-//    mediatedAd.adId = @"1431977778767375";
-//    mediatedAd.adId = @"1486240123565";   //from Ads Demo in v5.3.1
     mediatedAd.adId = kInMobiPlacementDefaultNativeContent1_2017February21;
     [self stubMediatedAd:mediatedAd];
 }
