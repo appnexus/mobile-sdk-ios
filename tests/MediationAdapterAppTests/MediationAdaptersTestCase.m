@@ -111,7 +111,6 @@
     self.adResponseExpectation = [self expectationWithDescription:@"ad received/failed response"];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
     XCTAssertFalse(self.didFailToReceiveAd, @"ad:requestFailedWithError: was called when adDidReceiveAd: was expected");
-    [tester waitForTimeInterval:3.0];
     
 #if kANMediationAdaptersUITesting
     
