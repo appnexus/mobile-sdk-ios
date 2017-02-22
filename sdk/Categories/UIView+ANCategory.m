@@ -165,18 +165,34 @@
     [self an_extractWidthConstraint:&widthConstraint
                    heightConstraint:&heightConstraint];
 
-    if (!widthConstraint) {
-        widthConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:nil
-                                                       attribute:NSLayoutAttributeNotAnAttribute
-                                                      multiplier:1
-                                                        constant:size.width];
-        [self addConstraint:widthConstraint];
+    if (size.width > 1) {
+        if (!widthConstraint) {
+            widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                           attribute:NSLayoutAttributeWidth
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:nil
+                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                          multiplier:1
+                                                            constant:size.width];
+            [self addConstraint:widthConstraint];
+        } else {
+            widthConstraint.constant = size.width;
+        }
     } else {
-        widthConstraint.constant = size.width;
+        // Dynamic width - fill width of superview
+        if (widthConstraint) {
+            [self removeConstraint:widthConstraint];
+        }
+        NSLayoutConstraint *superviewWidthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                    attribute:NSLayoutAttributeWidth
+                                                                                    relatedBy:NSLayoutRelationEqual
+                                                                                       toItem:self.superview
+                                                                                    attribute:NSLayoutAttributeWidth
+                                                                                   multiplier:1
+                                                                                     constant:0];
+        [self.superview addConstraint:superviewWidthConstraint];
     }
+
     if (!heightConstraint) {
         heightConstraint = [NSLayoutConstraint constraintWithItem:self
                                                         attribute:NSLayoutAttributeHeight
