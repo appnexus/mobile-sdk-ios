@@ -16,6 +16,7 @@
 #import "ANPBContainerView.h"
 #import "ANPBBuffer.h"
 #import "ANLogging.h"
+#import "UIView+ANCategory.h"
 
 static CGFloat const kANPBContainerViewLogoWidth = 50.0f;
 static CGFloat const kANPBContainerViewLogoAlpha = 0.6f;
@@ -27,6 +28,10 @@ static NSString *const kANPBContainerViewIconName = @"appnexus_logo_icon";
     self = [super initWithFrame:contentView.frame];
     if (self) {
         [self addSubview:contentView];
+        contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        [contentView an_constrainWithFrameSize];
+        [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeTop
+                                            yAttribute:NSLayoutAttributeLeft];
         [self setupButton];
     }
     return self;
