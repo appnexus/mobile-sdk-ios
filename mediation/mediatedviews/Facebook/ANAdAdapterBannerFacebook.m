@@ -32,15 +32,20 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
     FBAdSize fbAdSize;
+    CGRect frame;
 
     if (CGSizeEqualToSize(size, CGSizeMake(320, 50))) {
         fbAdSize = kFBAdSize320x50;
+        frame = CGRectMake(0, 0, 320, 50);
     } else if (size.height == 50) {
         fbAdSize = kFBAdSizeHeight50Banner;
+        frame = CGRectMake(0, 0, 1, 50);
     } else if (size.height == 90) {
         fbAdSize = kFBAdSizeHeight90Banner;
+        frame = CGRectMake(0, 0, 1, 90);
     } else if (size.height == 250) {
         fbAdSize = kFBAdSizeHeight250Rectangle;
+        frame = CGRectMake(0, 0, 1, 250);
     } else {
         [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
         return;
@@ -49,6 +54,7 @@
     self.fbAdView = [[FBAdView alloc] initWithPlacementID:idString
                                                    adSize:fbAdSize
                                        rootViewController:rootViewController];
+    self.fbAdView.frame = frame;
     self.fbAdView.delegate = self;
     [self.fbAdView loadAd];
 }
