@@ -29,6 +29,7 @@
 		4F63B8991D918FE200E22FE0 /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8871D918FE200E22FE0 /* MPUnmutedBtn@2x.png */; };
 		4F63B89A1D918FE200E22FE0 /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8881D918FE200E22FE0 /* MPUnmutedBtn@3x.png */; };
 		4F63B8A91D91901300E22FE0 /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F63B8A81D91901300E22FE0 /* MRAID.bundle */; };
+		4F72677D1E5F823E006A3468 /* ANReachabilityTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */; };
 		4F7646191D957E4300B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4F76461A1D957E4A00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4F76461B1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
@@ -626,6 +627,7 @@
 		4F63B8871D918FE200E22FE0 /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPUnmutedBtn@2x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		4F63B8881D918FE200E22FE0 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPUnmutedBtn@3x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F63B8A81D91901300E22FE0 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MRAID.bundle; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MRAID.bundle; sourceTree = "<group>"; };
+		4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachabilityTestCase.m; sourceTree = "<group>"; };
 		4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = "KIF--v3.5.1/KIF.xcodeproj"; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
@@ -1078,6 +1080,7 @@
 				8A0AA46619DB30A2005EC52C /* ANLocationTestCase.m */,
 				8A0AA46719DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m */,
 				F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */,
+				4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
 			);
 			path = Tests;
@@ -2298,6 +2301,7 @@
 				8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */,
 				8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */,
+				4F72677D1E5F823E006A3468 /* ANReachabilityTestCase.m in Sources */,
 				F50D81681BFCDC77008D74DB /* ANURLConnectionStub.m in Sources */,
 				8A0AA45A19DB2CB4005EC52C /* NSObject+Swizzling.m in Sources */,
 				8A0AA47019DB30A2005EC52C /* UIViewConstraintsTestCase.m in Sources */,
