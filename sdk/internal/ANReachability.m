@@ -103,36 +103,36 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 + (instancetype)reachabilityWithHostName:(NSString *)hostName
 {
-	ANReachability* returnValue = NULL;
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [hostName UTF8String]);
-	if (reachability != NULL)
-	{
-		returnValue= [[self alloc] init];
-		if (returnValue != NULL)
-		{
-			returnValue->_reachabilityRef = reachability;
-			returnValue->_alwaysReturnLocalWiFiStatus = NO;
-		}
-	}
-	return returnValue;
+    ANReachability* returnValue = [[self alloc] init];
+
+    if (returnValue != NULL)
+    {
+        SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [hostName UTF8String]);
+        
+        if (reachability != NULL) {
+            returnValue->_reachabilityRef = reachability;
+            returnValue->_alwaysReturnLocalWiFiStatus = NO;
+        }
+    }
+    
+    return returnValue;
 }
 
 + (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress
 {
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)hostAddress);
-
-	ANReachability* returnValue = NULL;
-
-	if (reachability != NULL)
-	{
-		returnValue = [[self alloc] init];
-		if (returnValue != NULL)
-		{
-			returnValue->_reachabilityRef = reachability;
-			returnValue->_alwaysReturnLocalWiFiStatus = NO;
-		}
-	}
-	return returnValue;
+    ANReachability* returnValue = [[self alloc] init];
+    
+    if (returnValue != NULL)
+    {
+        SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)hostAddress);
+        
+        if (reachability != NULL) {
+            returnValue->_reachabilityRef = reachability;
+            returnValue->_alwaysReturnLocalWiFiStatus = NO;            
+        }
+    }
+    
+    return returnValue;
 }
 
 + (instancetype)reachabilityForInternetConnection
