@@ -14,6 +14,7 @@
  */
 
 #import "UIView+ANCategory.h"
+#import "ANLogging.h"
 
 #import "ANGlobal.h"
 
@@ -183,14 +184,18 @@
         if (widthConstraint) {
             [self removeConstraint:widthConstraint];
         }
-        NSLayoutConstraint *superviewWidthConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                                    attribute:NSLayoutAttributeWidth
-                                                                                    relatedBy:NSLayoutRelationEqual
-                                                                                       toItem:self.superview
-                                                                                    attribute:NSLayoutAttributeWidth
-                                                                                   multiplier:1
-                                                                                     constant:0];
-        [self.superview addConstraint:superviewWidthConstraint];
+        if (self.superview) {
+            NSLayoutConstraint *superviewWidthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                        attribute:NSLayoutAttributeWidth
+                                                                                        relatedBy:NSLayoutRelationEqual
+                                                                                           toItem:self.superview
+                                                                                        attribute:NSLayoutAttributeWidth
+                                                                                       multiplier:1
+                                                                                         constant:0];
+            [self.superview addConstraint:superviewWidthConstraint];
+        } else {
+            ANLogError(@"Failed to properly size dynamic width content view %@ to superview, as superview is nil", self);
+        }
     }
 
     if (!heightConstraint) {
