@@ -25,6 +25,7 @@
 #import "ANBannerAdView.h"
 #import "ANGlobal.h"
 #import "XCTestCase+ANCategory.h"
+#import "UIView+ANCategory.h"
 
 #if kANMediationAdaptersUITesting
 @interface MediationAdaptersTestCase : KIFTestCase <ANBannerAdViewDelegate>
@@ -138,6 +139,24 @@
     
     UIView *contentView = [[bannerAdView subviews] firstObject];
     XCTAssertEqual(contentView.frame.size.width, self.rootViewController.view.frame.size.width);
+    XCTAssertEqual(contentView.frame.size.height, 50);
+
+    [bannerAdView setFrame:CGRectMake(0, 0, 250, 60)];
+    [XCTestCase delayForTimeInterval:1];
+    XCTAssertEqual(contentView.frame.size.width, 250);
+    XCTAssertEqual(contentView.frame.size.height, 50);
+
+    [self.rootViewController.view addSubview:bannerAdView];
+
+    [bannerAdView setFrame:CGRectMake(0, 0, 240, 60)];
+    [XCTestCase delayForTimeInterval:1];
+    XCTAssertEqual(contentView.frame.size.width, 240);
+    XCTAssertEqual(contentView.frame.size.height, 50);
+
+    bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
+    [bannerAdView an_constrainWithSize:CGSizeMake(200, 100)];
+    [XCTestCase delayForTimeInterval:1];
+    XCTAssertEqual(contentView.frame.size.width, 200);
     XCTAssertEqual(contentView.frame.size.height, 50);
 }
 

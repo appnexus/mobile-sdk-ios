@@ -122,6 +122,9 @@
 		8A549EBF1A706D6F009F797A /* nativeResponse5.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A549EBA1A706D6F009F797A /* nativeResponse5.json */; };
 		8A549EC01A706DA5009F797A /* SuccessfulMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */; };
 		8A56E6971B27483000642ACC /* ANNativeAdColonyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */; };
+		8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A65209A1E6773770011EFB3 /* ANMediationContainerViewTestCase.m */; };
+		8A6520AB1E67738A0011EFB3 /* ANPBContainerViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */; };
+		8A6520AF1E6785770011EFB3 /* ANBannerAdViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6520AE1E6785770011EFB3 /* ANBannerAdViewTestCase.m */; };
 		8A661ED01A85597E00117553 /* appnexus_click_fallback_example.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */; };
 		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
 		8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */; };
@@ -712,6 +715,9 @@
 		8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdColonyView.m; sourceTree = "<group>"; };
 		8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
+		8A65209A1E6773770011EFB3 /* ANMediationContainerViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationContainerViewTestCase.m; sourceTree = "<group>"; };
+		8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBContainerViewTestCase.m; sourceTree = "<group>"; };
+		8A6520AE1E6785770011EFB3 /* ANBannerAdViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewTestCase.m; sourceTree = "<group>"; };
 		8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_click_fallback_example.json; sourceTree = "<group>"; };
 		8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANJAMTestCase.m; sourceTree = "<group>"; };
 		8A75A9A61C56BE81008FB1AB /* ANJAMDeviceIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMDeviceIdResponse.json; sourceTree = "<group>"; };
@@ -1042,12 +1048,12 @@
 		4F81C36E1DE6331900623BD3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4F81C3781DE6331900623BD3 /* libKIF.a */,
+				4F81C37A1DE6331900623BD3 /* Test Host.app */,
 				4F81C37C1DE6331900623BD3 /* KIF Tests - XCTest.xctest */,
 				4F81C37E1DE6331900623BD3 /* KIF.framework */,
 				4F81C3801DE6331900623BD3 /* KIFFrameworkConsumer.app */,
 				4F81C3821DE6331900623BD3 /* KIFFrameworkConsumerTests.xctest */,
-				4F81C3781DE6331900623BD3 /* libKIF.a */,
-				4F81C37A1DE6331900623BD3 /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1079,6 +1085,9 @@
 				8A0AA46719DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m */,
 				F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
+				8A65209A1E6773770011EFB3 /* ANMediationContainerViewTestCase.m */,
+				8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */,
+				8A6520AE1E6785770011EFB3 /* ANBannerAdViewTestCase.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1311,25 +1320,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
-				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0094019DB169B0090EBED /* libANSDK.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
 				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
 				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
+				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2282,6 +2291,7 @@
 				8A0AA47719DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
 				8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */,
 				8A0AA46A19DB30A2005EC52C /* ANAdResponseTestCase.m in Sources */,
+				8A6520AB1E67738A0011EFB3 /* ANPBContainerViewTestCase.m in Sources */,
 				8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */,
 				8A0AA46B19DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
 				8A0AA45719DB2CB4005EC52C /* ANAdWebViewController+ANTest.m in Sources */,
@@ -2292,6 +2302,8 @@
 				F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */,
 				8A0AA45919DB2CB4005EC52C /* ANInterstitialAd+ANTest.m in Sources */,
 				8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */,
+				8A6520AF1E6785770011EFB3 /* ANBannerAdViewTestCase.m in Sources */,
+				8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */,
 				8A0AA47919DB314C005EC52C /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				8A0AA46D19DB30A2005EC52C /* ANLocationTestCase.m in Sources */,
 				8AA00A5519DB2BF40090EBED /* ANMediationAdViewController+ANTest.m in Sources */,
