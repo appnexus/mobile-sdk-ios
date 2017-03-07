@@ -19,13 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		60846A271E43C676005D46BC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60846A051E43C676005D46BC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 60846A0C1E43C676005D46BC;
-			remoteInfo = SimpleVideo;
-		};
 		60AB32621E52163C00429ED7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
@@ -193,7 +186,6 @@
 		60846A1C1E43C676005D46BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60846A1F1E43C676005D46BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60846A211E43C676005D46BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		60846A261E43C676005D46BC /* SimpleVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		60846A8C1E48E19B005D46BC /* AVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVPlayerView.h; sourceTree = "<group>"; };
 		60846A8D1E48E19B005D46BC /* AVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVPlayerView.m; sourceTree = "<group>"; };
 		60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
@@ -205,13 +197,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60BCAFB71E6F248100F86217 /* AppNexusSDK.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		60846A231E43C676005D46BC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +216,6 @@
 			isa = PBXGroup;
 			children = (
 				60846A0D1E43C676005D46BC /* SimpleVideo.app */,
-				60846A261E43C676005D46BC /* SimpleVideoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -310,24 +294,6 @@
 			productReference = 60846A0D1E43C676005D46BC /* SimpleVideo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		60846A251E43C676005D46BC /* SimpleVideoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 60846A321E43C676005D46BC /* Build configuration list for PBXNativeTarget "SimpleVideoUITests" */;
-			buildPhases = (
-				60846A221E43C676005D46BC /* Sources */,
-				60846A231E43C676005D46BC /* Frameworks */,
-				60846A241E43C676005D46BC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				60846A281E43C676005D46BC /* PBXTargetDependency */,
-			);
-			name = SimpleVideoUITests;
-			productName = SimpleVideoUITests;
-			productReference = 60846A261E43C676005D46BC /* SimpleVideoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -341,11 +307,6 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = HR94J6TSB3;
 						ProvisioningStyle = Automatic;
-					};
-					60846A251E43C676005D46BC = {
-						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 60846A0C1E43C676005D46BC;
 					};
 				};
 			};
@@ -369,7 +330,6 @@
 			projectRoot = "";
 			targets = (
 				60846A0C1E43C676005D46BC /* SimpleVideo */,
-				60846A251E43C676005D46BC /* SimpleVideoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -521,13 +481,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		60846A241E43C676005D46BC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -542,21 +495,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		60846A221E43C676005D46BC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		60846A281E43C676005D46BC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 60846A0C1E43C676005D46BC /* SimpleVideo */;
-			targetProxy = 60846A271E43C676005D46BC /* PBXContainerItemProxy */;
-		};
 		60BCAFBA1E6F248100F86217 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AppNexusSDK;
@@ -700,28 +641,6 @@
 			};
 			name = Release;
 		};
-		60846A331E43C676005D46BC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SimpleVideoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.SimpleVideoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SimpleVideo;
-			};
-			name = Debug;
-		};
-		60846A341E43C676005D46BC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SimpleVideoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.SimpleVideoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SimpleVideo;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -739,15 +658,6 @@
 			buildConfigurations = (
 				60846A301E43C676005D46BC /* Debug */,
 				60846A311E43C676005D46BC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		60846A321E43C676005D46BC /* Build configuration list for PBXNativeTarget "SimpleVideoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				60846A331E43C676005D46BC /* Debug */,
-				60846A341E43C676005D46BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
