@@ -86,10 +86,14 @@
     self.adView.opensInNativeBrowser = YES;
     self.internalBrowserExpectation = [self expectationWithDescription:@"Waiting for internal browser to be opened."];
     [self.adView loadAd];
-    [tester waitForTimeInterval:1.0];
+    [tester waitForTimeInterval:3.0];
     [tester tapViewWithAccessibilityLabel:@"AdView"];
-    [self waitForExpectationsWithTimeout:6.0
-                                 handler:nil];
+    [self waitForExpectationsWithTimeout:3.0
+                                 handler:^(NSError *error){
+                                     if (error) {
+                                         NSLog(@"Timeout Error: %@", error);
+                                     }
+                                 }];
     XCTAssertTrue([[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController
                    isKindOfClass:[ANBrowserViewController class]]);
 }
