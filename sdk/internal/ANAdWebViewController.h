@@ -61,6 +61,8 @@
 @property (nonatomic, readwrite, weak) id<ANAdWebViewControllerANJAMDelegate> anjamDelegate;
 @property (nonatomic, readwrite, weak) id<ANAdWebViewControllerMRAIDDelegate> mraidDelegate;
 
+@property (nonatomic, readwrite, assign) NSTimeInterval checkViewableTimeInterval;
+
 - (void)adDidFinishExpand;
 - (void)adDidFinishResize:(BOOL)success
               errorString:(NSString *)errorString

@@ -26,6 +26,7 @@ NSString *const kANCallInternalBrowser = @"InternalBrowser";
 NSString *const kANCallRecordEvent = @"RecordEvent";
 NSString *const kANCallDispatchAppEvent = @"DispatchAppEvent";
 NSString *const kANCallGetDeviceID = @"GetDeviceID";
+NSString *const kANCallSetMraidRefreshFrequency = @"SetMRAIDRefreshFrequency";
 
 NSString *const kANKeyCaller = @"caller";
 
@@ -55,6 +56,8 @@ NSString *const kANKeyCaller = @"caller";
         [ANANJAMImplementation callDispatchAppEvent:controller query:queryComponents];
     } else if ([call isEqualToString:kANCallGetDeviceID]) {
         [ANANJAMImplementation callGetDeviceID:controller query:queryComponents];
+    } else if ([call isEqualToString:kANCallSetMraidRefreshFrequency]) {
+        [ANANJAMImplementation callSetMraidRefreshFrequency:controller query:queryComponents];
     } else {
         ANLogWarn(@"ANJAM called with unsupported function: %@", call);
     }
@@ -157,6 +160,10 @@ NSString *const kANKeyCaller = @"caller";
     [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
 }
 
++ (void)callSetMraidRefreshFrequency:(ANAdWebViewController *)controller query:(NSDictionary *)query {
+    NSString *milliseconds = [query valueForKey:@"ms"];
+    controller.checkViewableTimeInterval = [milliseconds doubleValue] / 1000;
+}
 
 // Send the result back to JS
 

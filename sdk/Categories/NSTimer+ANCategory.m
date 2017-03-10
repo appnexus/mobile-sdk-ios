@@ -56,4 +56,18 @@
     }
 }
 
++ (NSTimer *)an_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
+                                         block:(void (^)())block
+                                       repeats:(BOOL)repeats
+                                          mode:(NSRunLoopMode)mode {
+    NSTimer *timer = [self timerWithTimeInterval:interval
+                                          target:self
+                                        selector:@selector(an_runBlockWithTimer:)
+                                        userInfo:[block copy]
+                                         repeats:repeats];
+    [[NSRunLoop currentRunLoop] addTimer:timer
+                                 forMode:mode];
+    return timer;
+}
+
 @end
