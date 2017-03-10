@@ -124,7 +124,6 @@
 		8A56E6971B27483000642ACC /* ANNativeAdColonyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A56E68C1B27482700642ACC /* ANNativeAdColonyView.m */; };
 		8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A65209A1E6773770011EFB3 /* ANMediationContainerViewTestCase.m */; };
 		8A6520AB1E67738A0011EFB3 /* ANPBContainerViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */; };
-		8A6520AF1E6785770011EFB3 /* ANBannerAdViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6520AE1E6785770011EFB3 /* ANBannerAdViewTestCase.m */; };
 		8A661ED01A85597E00117553 /* appnexus_click_fallback_example.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */; };
 		8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AD0183A199932F9007874BA /* Main.storyboard */; };
 		8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */; };
@@ -717,7 +716,6 @@
 		8A64C0B519D1CBE000B92D30 /* NewTestAppPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewTestAppPrefixHeader.pch; sourceTree = "<group>"; };
 		8A65209A1E6773770011EFB3 /* ANMediationContainerViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationContainerViewTestCase.m; sourceTree = "<group>"; };
 		8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBContainerViewTestCase.m; sourceTree = "<group>"; };
-		8A6520AE1E6785770011EFB3 /* ANBannerAdViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewTestCase.m; sourceTree = "<group>"; };
 		8A661ECF1A85597E00117553 /* appnexus_click_fallback_example.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_click_fallback_example.json; sourceTree = "<group>"; };
 		8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANJAMTestCase.m; sourceTree = "<group>"; };
 		8A75A9A61C56BE81008FB1AB /* ANJAMDeviceIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMDeviceIdResponse.json; sourceTree = "<group>"; };
@@ -1087,7 +1085,6 @@
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
 				8A65209A1E6773770011EFB3 /* ANMediationContainerViewTestCase.m */,
 				8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */,
-				8A6520AE1E6785770011EFB3 /* ANBannerAdViewTestCase.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2302,7 +2299,6 @@
 				F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */,
 				8A0AA45919DB2CB4005EC52C /* ANInterstitialAd+ANTest.m in Sources */,
 				8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */,
-				8A6520AF1E6785770011EFB3 /* ANBannerAdViewTestCase.m in Sources */,
 				8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */,
 				8A0AA47919DB314C005EC52C /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				8A0AA46D19DB30A2005EC52C /* ANLocationTestCase.m in Sources */,
