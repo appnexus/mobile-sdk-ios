@@ -43,3 +43,4 @@ Then(/^something should happen$/) do
   #  wait_for_element_exists("* text:'My Entry'")
 end
 
+

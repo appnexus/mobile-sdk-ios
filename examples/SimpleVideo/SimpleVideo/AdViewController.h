@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AppNexusSDK/AppNexusSDK.h>
 
 @interface AdViewController : UIViewController
+
+    @property (strong, nonatomic)  ANInstreamVideoAd  *videoAd;
 
 @end

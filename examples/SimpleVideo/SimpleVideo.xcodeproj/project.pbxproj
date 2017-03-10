@@ -14,8 +14,21 @@
 		60846A1D1E43C676005D46BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60846A1C1E43C676005D46BC /* Assets.xcassets */; };
 		60846A201E43C676005D46BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60846A1E1E43C676005D46BC /* LaunchScreen.storyboard */; };
 		60846A8E1E48E19B005D46BC /* AVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A8D1E48E19B005D46BC /* AVPlayerView.m */; };
+		60B6A1A41E7253E600ED7DB8 /* safariwebview.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60B6A1A01E7253E600ED7DB8 /* safariwebview.rb */; };
+		60B6A1A61E7253E600ED7DB8 /* uiwebview.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60B6A1A21E7253E600ED7DB8 /* uiwebview.rb */; };
+		60B6A1A71E7253E600ED7DB8 /* wkwebview.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60B6A1A31E7253E600ED7DB8 /* wkwebview.rb */; };
+		60B6A1A91E72546500ED7DB8 /* javascript_steps.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60B6A1A81E72546500ED7DB8 /* javascript_steps.rb */; };
+		60B6A1AB1E7256B800ED7DB8 /* wait_options.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60B6A1AA1E7256B800ED7DB8 /* wait_options.rb */; };
 		60BCAFB71E6F248100F86217 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60AB32811E52163C00429ED7 /* AppNexusSDK.framework */; };
 		60BCAFB81E6F248100F86217 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 60AB32811E52163C00429ED7 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		60BCAFC11E6F3E9C00F86217 /* AdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BCAFC01E6F3E9C00F86217 /* AdViewController.m */; };
+		60BCAFD61E6F591E00F86217 /* calabash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BCAFD51E6F591E00F86217 /* calabash.framework */; };
+		60BCAFE11E6F593600F86217 /* sample.feature in Resources */ = {isa = PBXBuildFile; fileRef = 60BCAFD81E6F593600F86217 /* sample.feature */; };
+		60BCAFE21E6F593600F86217 /* sample_steps.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60BCAFDA1E6F593600F86217 /* sample_steps.rb */; };
+		60BCAFE31E6F593600F86217 /* 01_launch.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60BCAFDC1E6F593600F86217 /* 01_launch.rb */; };
+		60BCAFE41E6F593600F86217 /* dry_run.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60BCAFDD1E6F593600F86217 /* dry_run.rb */; };
+		60BCAFE51E6F593600F86217 /* env.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60BCAFDE1E6F593600F86217 /* env.rb */; };
+		60BCAFE61E6F593600F86217 /* cucumber.rb in Resources */ = {isa = PBXBuildFile; fileRef = 60BCAFE01E6F593600F86217 /* cucumber.rb */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,6 +202,20 @@
 		60846A8C1E48E19B005D46BC /* AVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVPlayerView.h; sourceTree = "<group>"; };
 		60846A8D1E48E19B005D46BC /* AVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVPlayerView.m; sourceTree = "<group>"; };
 		60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
+		60B6A1A01E7253E600ED7DB8 /* safariwebview.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = safariwebview.rb; sourceTree = "<group>"; };
+		60B6A1A21E7253E600ED7DB8 /* uiwebview.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = uiwebview.rb; sourceTree = "<group>"; };
+		60B6A1A31E7253E600ED7DB8 /* wkwebview.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = wkwebview.rb; sourceTree = "<group>"; };
+		60B6A1A81E72546500ED7DB8 /* javascript_steps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = javascript_steps.rb; sourceTree = "<group>"; };
+		60B6A1AA1E7256B800ED7DB8 /* wait_options.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = wait_options.rb; sourceTree = "<group>"; };
+		60BCAFBF1E6F3E9C00F86217 /* AdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdViewController.h; sourceTree = "<group>"; };
+		60BCAFC01E6F3E9C00F86217 /* AdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdViewController.m; sourceTree = "<group>"; };
+		60BCAFD51E6F591E00F86217 /* calabash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = calabash.framework; sourceTree = "<group>"; };
+		60BCAFD81E6F593600F86217 /* sample.feature */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample.feature; sourceTree = "<group>"; };
+		60BCAFDA1E6F593600F86217 /* sample_steps.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = sample_steps.rb; sourceTree = "<group>"; };
+		60BCAFDC1E6F593600F86217 /* 01_launch.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = 01_launch.rb; sourceTree = "<group>"; };
+		60BCAFDD1E6F593600F86217 /* dry_run.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = dry_run.rb; sourceTree = "<group>"; };
+		60BCAFDE1E6F593600F86217 /* env.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = env.rb; sourceTree = "<group>"; };
+		60BCAFE01E6F593600F86217 /* cucumber.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = cucumber.rb; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60BCAFD61E6F591E00F86217 /* calabash.framework in Frameworks */,
 				60BCAFB71E6F248100F86217 /* AppNexusSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,9 +234,11 @@
 		60846A041E43C676005D46BC = {
 			isa = PBXGroup;
 			children = (
+				60BCAFD71E6F593600F86217 /* features */,
 				60846A0E1E43C676005D46BC /* Products */,
 				60846A0F1E43C676005D46BC /* SimpleVideo */,
 				60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */,
+				60BCAFD41E6F591D00F86217 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -234,6 +264,8 @@
 				60846A191E43C676005D46BC /* Main.storyboard */,
 				60846A161E43C676005D46BC /* ViewController.h */,
 				60846A171E43C676005D46BC /* ViewController.m */,
+				60BCAFBF1E6F3E9C00F86217 /* AdViewController.h */,
+				60BCAFC01E6F3E9C00F86217 /* AdViewController.m */,
 			);
 			path = SimpleVideo;
 			sourceTree = "<group>";
@@ -270,6 +302,64 @@
 				60AB32871E52163C00429ED7 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		60B6A19F1E7253E600ED7DB8 /* pages */ = {
+			isa = PBXGroup;
+			children = (
+				60B6A1A01E7253E600ED7DB8 /* safariwebview.rb */,
+				60B6A1A21E7253E600ED7DB8 /* uiwebview.rb */,
+				60B6A1A31E7253E600ED7DB8 /* wkwebview.rb */,
+			);
+			path = pages;
+			sourceTree = "<group>";
+		};
+		60BCAFD41E6F591D00F86217 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60BCAFD51E6F591E00F86217 /* calabash.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		60BCAFD71E6F593600F86217 /* features */ = {
+			isa = PBXGroup;
+			children = (
+				60BCAFD81E6F593600F86217 /* sample.feature */,
+				60B6A19F1E7253E600ED7DB8 /* pages */,
+				60BCAFD91E6F593600F86217 /* steps */,
+				60BCAFDB1E6F593600F86217 /* support */,
+			);
+			path = features;
+			sourceTree = "<group>";
+		};
+		60BCAFD91E6F593600F86217 /* steps */ = {
+			isa = PBXGroup;
+			children = (
+				60B6A1A81E72546500ED7DB8 /* javascript_steps.rb */,
+				60BCAFDA1E6F593600F86217 /* sample_steps.rb */,
+			);
+			path = steps;
+			sourceTree = "<group>";
+		};
+		60BCAFDB1E6F593600F86217 /* support */ = {
+			isa = PBXGroup;
+			children = (
+				60B6A1AA1E7256B800ED7DB8 /* wait_options.rb */,
+				60BCAFDC1E6F593600F86217 /* 01_launch.rb */,
+				60BCAFDD1E6F593600F86217 /* dry_run.rb */,
+				60BCAFDE1E6F593600F86217 /* env.rb */,
+				60BCAFDF1E6F593600F86217 /* patches */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		60BCAFDF1E6F593600F86217 /* patches */ = {
+			isa = PBXGroup;
+			children = (
+				60BCAFE01E6F593600F86217 /* cucumber.rb */,
+			);
+			path = patches;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -475,9 +565,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60BCAFE21E6F593600F86217 /* sample_steps.rb in Resources */,
+				60BCAFE51E6F593600F86217 /* env.rb in Resources */,
 				60846A1D1E43C676005D46BC /* Assets.xcassets in Resources */,
+				60B6A1A71E7253E600ED7DB8 /* wkwebview.rb in Resources */,
+				60B6A1A61E7253E600ED7DB8 /* uiwebview.rb in Resources */,
 				60846A201E43C676005D46BC /* LaunchScreen.storyboard in Resources */,
+				60BCAFE31E6F593600F86217 /* 01_launch.rb in Resources */,
+				60B6A1A41E7253E600ED7DB8 /* safariwebview.rb in Resources */,
+				60BCAFE11E6F593600F86217 /* sample.feature in Resources */,
+				60BCAFE61E6F593600F86217 /* cucumber.rb in Resources */,
 				60846A1B1E43C676005D46BC /* Main.storyboard in Resources */,
+				60BCAFE41E6F593600F86217 /* dry_run.rb in Resources */,
+				60B6A1AB1E7256B800ED7DB8 /* wait_options.rb in Resources */,
+				60B6A1A91E72546500ED7DB8 /* javascript_steps.rb in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +592,7 @@
 				60846A151E43C676005D46BC /* AppDelegate.m in Sources */,
 				60846A8E1E48E19B005D46BC /* AVPlayerView.m in Sources */,
 				60846A121E43C676005D46BC /* main.m in Sources */,
+				60BCAFC11E6F3E9C00F86217 /* AdViewController.m in Sources */,
 				60846A181E43C676005D46BC /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,12 +721,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SimpleVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-force_load",
+					"\"$(SOURCE_ROOT)/calabash.framework/calabash\"",
+					"-framework",
+					CFNetwork,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.SimpleVideo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -632,12 +748,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SimpleVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.SimpleVideo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

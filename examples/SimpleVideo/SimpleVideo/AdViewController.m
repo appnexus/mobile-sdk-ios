@@ -8,7 +8,8 @@
 
 #import "AdViewController.h"
 
-@interface AdViewController ()
+
+@interface AdViewController ()<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate>
 
 @end
 
@@ -16,7 +17,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"Modal View Presented");
+    
+    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:@"9924001"];
+    [self.videoAd loadAdWithDelegate:self];
+    self.videoAd.opensInNativeBrowser = false;
     // Do any additional setup after loading the view.
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+}
+
+-(BOOL) prefersStatusBarHidden{
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +39,60 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void) adDidReceiveAd: (id<ANAdProtocol>)ad
+{
+    if(self.videoAd != nil){
+        [self.videoAd playAdWithContainer:self.view withDelegate:self];
+    }
 }
-*/
+
+- (void)                ad: (id<ANAdProtocol>)ad
+    requestFailedWithError: (NSError *)error
+{
+    
+}
+
+//----------------------------- -o-
+- (void) adCompletedFirstQuartile:(id<ANAdProtocol>)ad
+{
+    NSLog(@"adCompletedFirstQuartile");
+}
+
+
+//----------------------------- -o-
+- (void) adCompletedMidQuartile:(id<ANAdProtocol>)ad
+{
+    NSLog(@"adCompletedMidQuartile");
+}
+
+
+//----------------------------- -o-
+- (void) adCompletedThirdQuartile:(id<ANAdProtocol>)ad
+{
+    NSLog(@"adCompletedThirdQuartile");
+}
+
+
+//----------------------------- -o-
+- (void) adWasClicked: (id<ANAdProtocol>)ad
+{
+    NSLog(@"adWasClicked");
+}
+
+//----------------------------- -o-
+-(void) adMute: (id<ANAdProtocol>)ad
+    withStatus: (BOOL)muteStatus
+{
+    NSLog(@"adMute");
+    
+}
+
+-(void) adDidComplete:(id<ANAdProtocol>)ad withState:(ANInstreamVideoPlaybackStateType)state{
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+}
+
 
 @end

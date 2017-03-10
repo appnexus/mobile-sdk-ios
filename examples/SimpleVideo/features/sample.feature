@@ -1,7 +1,9 @@
 Feature: Sample Feature
 
-Scenario: Sample Scenario
-  Given the app has launched
-  And I have done a specific thing
-  When I do something
-  Then something should happen
+Scenario: Simple Play content video Scenario
+    Given the app has launched
+    And I touch the "play" button
+    And I wait for 10 seconds
+    And I can query for the body with javascript
+
+

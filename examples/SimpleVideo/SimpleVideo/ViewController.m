@@ -15,6 +15,7 @@
 
 #import "ViewController.h"
 #import "AVPlayerView.h"
+#import "AdViewController.h"
 
 
 @import AVFoundation;
@@ -75,10 +76,6 @@ NSString *const placementId = @"9924001";
     }
     [self setupContentPlayer];
     
-    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placementId];
-    [self.videoAd loadAdWithDelegate:self];
-    self.videoAd.opensInNativeBrowser = false;
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,18 +86,21 @@ NSString *const placementId = @"9924001";
 - (IBAction)playButton_Touch:(id)sender {
     self.playButton.hidden = true;
     
-    if(self.isvideoAdAvailable == false){
-     
-        [self.videoContentPlayer play];
-    
-    }else {
-    
-        [self.videoContentPlayer pause];
-        [self.videoAd playAdWithContainer:self.videoView withDelegate:self];
+    [self.videoContentPlayer pause];
         self.isvideoAdAvailable = false;
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        AdViewController *adViewController = [storyboard instantiateViewControllerWithIdentifier:@"AdViewController"];
+        
+        [adViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+        [adViewController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        
+        
+        [self presentViewController:adViewController animated:YES completion:nil];
     
-    }
 }
+
+
 
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
