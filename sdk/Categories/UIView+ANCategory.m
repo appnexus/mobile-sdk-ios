@@ -195,6 +195,16 @@
             [self.superview addConstraint:superviewWidthConstraint];
         } else {
             ANLogError(@"Failed to properly size dynamic width content view %@ to superview, as superview is nil", self);
+            // It's impossible to know what the right width to use here is because the width is supposed to be flexible.
+            // But adding a constant to minimize any issue and hopefully this error rectifies itself when the view is actually displayed.
+            widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                           attribute:NSLayoutAttributeWidth
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:nil
+                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                          multiplier:1
+                                                            constant:320];
+            [self addConstraint:widthConstraint];
         }
     }
 
