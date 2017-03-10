@@ -125,18 +125,18 @@
 
         return;
     }
-
+    
+    [containerView addSubview:self];
 
     //
     [self.webView removeFromSuperview];
 
     [self.webView setHidden:false];
     [containerView addSubview:self.webView];
-
+    
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.webView an_constrainToSizeOfSuperview];
     [self.webView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft yAttribute:NSLayoutAttributeTop];
-
 
     //
     NSString *exec = @"playAd();";
@@ -349,8 +349,9 @@ ANLogMark();
 
 - (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller
 {
-ANLogMark();
-    return [[[[UIApplication sharedApplication]delegate] window] rootViewController];
+    ANLogMark();
+    return [self an_parentViewController];
+    
 }
 
 
