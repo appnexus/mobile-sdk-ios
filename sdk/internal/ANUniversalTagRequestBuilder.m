@@ -125,14 +125,12 @@
         }
 
         NSSet  *setOfUniqueArrayValues  = [NSSet setWithArray:valueArray];
-
-        for (NSString *value in setOfUniqueArrayValues) {
-            [kvSegmentsArray addObject:@{ @"key":key, @"value":value }];
-        }
+        
+       
+        
+        [kvSegmentsArray addObject:@{ @"key":key, @"value":[setOfUniqueArrayValues allObjects] }];
     }
 
-    //
-    //ANLogDebug(@"kvSegmentsArray = %@", kvSegmentsArray);
     return [kvSegmentsArray copy];
 }
 

@@ -59,6 +59,8 @@
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
 		605EDBCB1D92F2050042DC0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBCA1D92F2050042DC0C /* Foundation.framework */; };
+		60B6A1B71E732F8F00ED7DB8 /* ANUniversalTagRequestBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B6A1B61E732F8F00ED7DB8 /* ANUniversalTagRequestBuilderTests.m */; };
+		60B6A1D21E734E7D00ED7DB8 /* TestANUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B6A1D11E734E7D00ED7DB8 /* TestANUniversalFetcher.m */; };
 		8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */; };
 		8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FD19DB1E150090EBED /* ANAdFetcher+ANTest.m */; };
 		8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */; };
@@ -371,6 +373,13 @@
 			remoteGlobalIDString = 604C112D1E26BE4B006D6C97;
 			remoteInfo = ANSDKRubiconAdapter;
 		};
+		60B6A1B91E732F8F00ED7DB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AD01825199932F9007874BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AD0182C199932F9007874BA;
+			remoteInfo = NewTestApp;
+		};
 		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
@@ -640,6 +649,11 @@
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
 		605EDBCA1D92F2050042DC0C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		60B6A1B41E732F8F00ED7DB8 /* UTModuleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UTModuleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		60B6A1B61E732F8F00ED7DB8 /* ANUniversalTagRequestBuilderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANUniversalTagRequestBuilderTests.m; sourceTree = "<group>"; };
+		60B6A1B81E732F8F00ED7DB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60B6A1D01E734E7D00ED7DB8 /* TestANUniversalFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestANUniversalFetcher.h; sourceTree = "<group>"; };
+		60B6A1D11E734E7D00ED7DB8 /* TestANUniversalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestANUniversalFetcher.m; sourceTree = "<group>"; };
 		8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adMob_mediated_response.json; sourceTree = "<group>"; };
 		8A0AA46319DB30A2005EC52C /* ANAdResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseTestCase.m; sourceTree = "<group>"; };
 		8A0AA46419DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdViewMRAIDCreativeTestCase.m; sourceTree = "<group>"; };
@@ -899,6 +913,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		60B6A1B11E732F8F00ED7DB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A549E961A706BA6009F797A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1042,12 +1063,12 @@
 		4F81C36E1DE6331900623BD3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4F81C3781DE6331900623BD3 /* libKIF.a */,
+				4F81C37A1DE6331900623BD3 /* Test Host.app */,
 				4F81C37C1DE6331900623BD3 /* KIF Tests - XCTest.xctest */,
 				4F81C37E1DE6331900623BD3 /* KIF.framework */,
 				4F81C3801DE6331900623BD3 /* KIFFrameworkConsumer.app */,
 				4F81C3821DE6331900623BD3 /* KIFFrameworkConsumerTests.xctest */,
-				4F81C3781DE6331900623BD3 /* libKIF.a */,
-				4F81C37A1DE6331900623BD3 /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1066,6 +1087,25 @@
 				8AE76EB71E3C1B7500A3107F /* RFMAdSDK.bundle */,
 			);
 			name = Rubicon;
+			sourceTree = "<group>";
+		};
+		60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */ = {
+			isa = PBXGroup;
+			children = (
+				60B6A1CF1E734D7900ED7DB8 /* ANUniversalFetcher */,
+				60B6A1B61E732F8F00ED7DB8 /* ANUniversalTagRequestBuilderTests.m */,
+				60B6A1B81E732F8F00ED7DB8 /* Info.plist */,
+			);
+			path = UTModuleTests;
+			sourceTree = "<group>";
+		};
+		60B6A1CF1E734D7900ED7DB8 /* ANUniversalFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				60B6A1D01E734E7D00ED7DB8 /* TestANUniversalFetcher.h */,
+				60B6A1D11E734E7D00ED7DB8 /* TestANUniversalFetcher.m */,
+			);
+			name = ANUniversalFetcher;
 			sourceTree = "<group>";
 		};
 		8A0AA46219DB30A2005EC52C /* Tests */ = {
@@ -1311,25 +1351,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
-				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0094019DB169B0090EBED /* libANSDK.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
 				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
 				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
+				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1539,6 +1579,7 @@
 		8AD01824199932F9007874BA = {
 			isa = PBXGroup;
 			children = (
+				60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
@@ -1566,6 +1607,7 @@
 				8AD01843199932F9007874BA /* NewTestAppTests.xctest */,
 				8AB387A519DB0CA8006F9E15 /* OriginalUnitTestApp.app */,
 				8AB387BD19DB0CA8006F9E15 /* OriginalUnitTestAppTests.xctest */,
+				60B6A1B41E732F8F00ED7DB8 /* UTModuleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1617,6 +1659,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		60B6A1B31E732F8F00ED7DB8 /* UTModuleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60B6A1CB1E732F8F00ED7DB8 /* Build configuration list for PBXNativeTarget "UTModuleTests" */;
+			buildPhases = (
+				60B6A1B01E732F8F00ED7DB8 /* Sources */,
+				60B6A1B11E732F8F00ED7DB8 /* Frameworks */,
+				60B6A1B21E732F8F00ED7DB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60B6A1BA1E732F8F00ED7DB8 /* PBXTargetDependency */,
+			);
+			name = UTModuleTests;
+			productName = UTModuleTests;
+			productReference = 60B6A1B41E732F8F00ED7DB8 /* UTModuleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8A549E981A706BA6009F797A /* NativeUnitTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A549EAC1A706BA6009F797A /* Build configuration list for PBXNativeTarget "NativeUnitTests" */;
@@ -1765,6 +1825,12 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
+					60B6A1B31E732F8F00ED7DB8 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = HR94J6TSB3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8AD0182C199932F9007874BA;
+					};
 					8A549E981A706BA6009F797A = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 8A9F94BF19D1C37700AB739F;
@@ -1825,6 +1891,7 @@
 				8A549E981A706BA6009F797A /* NativeUnitTests */,
 				8AB387A419DB0CA8006F9E15 /* OriginalUnitTestApp */,
 				8AB387BC19DB0CA8006F9E15 /* OriginalUnitTestAppTests */,
+				60B6A1B31E732F8F00ED7DB8 /* UTModuleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -2008,6 +2075,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		60B6A1B21E732F8F00ED7DB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A549E971A706BA6009F797A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2161,6 +2235,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		60B6A1B01E732F8F00ED7DB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60B6A1D21E734E7D00ED7DB8 /* TestANUniversalFetcher.m in Sources */,
+				60B6A1B71E732F8F00ED7DB8 /* ANUniversalTagRequestBuilderTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A549E951A706BA6009F797A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2326,6 +2409,11 @@
 			name = ANSDKRubiconAdapter;
 			targetProxy = 604C11541E26E0D3006D6C97 /* PBXContainerItemProxy */;
 		};
+		60B6A1BA1E732F8F00ED7DB8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8AD0182C199932F9007874BA /* NewTestApp */;
+			targetProxy = 60B6A1B91E732F8F00ED7DB8 /* PBXContainerItemProxy */;
+		};
 		8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ANSDKInMobiAdapter;
@@ -2449,6 +2537,41 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		60B6A1BB1E732F8F00ED7DB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				INFOPLIST_FILE = UTModuleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.UTModuleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewTestApp.app/NewTestApp";
+			};
+			name = Debug;
+		};
+		60B6A1BC1E732F8F00ED7DB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				INFOPLIST_FILE = UTModuleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.UTModuleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewTestApp.app/NewTestApp";
+			};
+			name = Release;
+		};
 		8A549EA11A706BA6009F797A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2875,6 +2998,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		60B6A1CB1E732F8F00ED7DB8 /* Build configuration list for PBXNativeTarget "UTModuleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60B6A1BB1E732F8F00ED7DB8 /* Debug */,
+				60B6A1BC1E732F8F00ED7DB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8A549EAC1A706BA6009F797A /* Build configuration list for PBXNativeTarget "NativeUnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

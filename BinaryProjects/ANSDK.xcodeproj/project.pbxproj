@@ -75,15 +75,11 @@
 		609733071E42EAFF0061EC0A /* ANVideoAdPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732FD1E42EAFF0061EC0A /* ANVideoAdPlayer.h */; };
 		609733081E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */; };
 		609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */; };
-		6097330A1E42EAFF0061EC0A /* ASTMediationManager.js in Resources */ = {isa = PBXBuildFile; fileRef = 609733001E42EAFF0061EC0A /* ASTMediationManager.js */; };
 		6097330B1E42EAFF0061EC0A /* ASTMediationManager.js in Resources */ = {isa = PBXBuildFile; fileRef = 609733001E42EAFF0061EC0A /* ASTMediationManager.js */; };
-		6097330C1E42EAFF0061EC0A /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 609733011E42EAFF0061EC0A /* index.html */; };
 		6097330D1E42EAFF0061EC0A /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 609733011E42EAFF0061EC0A /* index.html */; };
-		6097330E1E42EAFF0061EC0A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 609733021E42EAFF0061EC0A /* Info.plist */; };
 		6097330F1E42EAFF0061EC0A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 609733021E42EAFF0061EC0A /* Info.plist */; };
 		609733141E42EB0B0061EC0A /* ASTMediationManager.js in Resources */ = {isa = PBXBuildFile; fileRef = 609733001E42EAFF0061EC0A /* ASTMediationManager.js */; };
 		609733151E42EB0E0061EC0A /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 609733011E42EAFF0061EC0A /* index.html */; };
-		60AB328A1E521FE500429ED7 /* MobileVastPlayer.js in Resources */ = {isa = PBXBuildFile; fileRef = 60AB32891E521FE500429ED7 /* MobileVastPlayer.js */; };
 		60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */ = {isa = PBXBuildFile; fileRef = 60AB32891E521FE500429ED7 /* MobileVastPlayer.js */; };
 		60AB328C1E521FE500429ED7 /* MobileVastPlayer.js in Resources */ = {isa = PBXBuildFile; fileRef = 60AB32891E521FE500429ED7 /* MobileVastPlayer.js */; };
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
@@ -3001,10 +2997,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
-				6097330A1E42EAFF0061EC0A /* ASTMediationManager.js in Resources */,
-				6097330C1E42EAFF0061EC0A /* index.html in Resources */,
-				6097330E1E42EAFF0061EC0A /* Info.plist in Resources */,
-				60AB328A1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
