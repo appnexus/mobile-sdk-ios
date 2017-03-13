@@ -130,8 +130,6 @@
     //
     [self.webView removeFromSuperview];
     
-    [containerView addSubview:self];
-
     [self.webView setHidden:false];
     [containerView addSubview:self.webView];
 
@@ -352,7 +350,7 @@ ANLogMark();
 - (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller
 {
 ANLogMark();
-    return [self an_parentViewController];
+    return [self.webView an_parentViewController] ;
 }
 
 
