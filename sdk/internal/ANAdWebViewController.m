@@ -60,6 +60,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 @property (nonatomic, readwrite, strong) ANAdWebViewControllerConfiguration *configuration;
 
+@property (nonatomic, readwrite, assign) NSRunLoopMode checkViewableRunLoopMode;
+
 @end
 
 @implementation ANAdWebViewController
@@ -71,6 +73,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         } else {
             _configuration = [[ANAdWebViewControllerConfiguration alloc] init];
         }
+        _checkViewableTimeInterval = kAppNexusMRAIDCheckViewableFrequency;
+        _checkViewableRunLoopMode = NSDefaultRunLoopMode;
     }
     return self;
 }
@@ -610,31 +614,46 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 }
 
 - (void)setupTimerForCheckingPositionAndVisibility {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    if (self.viewabilityTimer) {
-        [self.viewabilityTimer invalidate];
-    }
-    __weak ANAdWebViewController *weakSelf = self;
-    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusMRAIDCheckViewableFrequency
-                                                                 block:^ {
-                                                                     ANAdWebViewController *strongSelf = weakSelf;
-                                                                     [strongSelf updateWebViewOnPositionAndVisibilityStatus];
-                                                                 }
-                                                               repeats:YES];
+    [self enableViewabilityTimerWithTimeInterval:self.checkViewableTimeInterval
+                                            mode:self.checkViewableRunLoopMode];
 }
 
 - (void)setupRapidTimerForCheckingPositionAndViewability {
+    [self enableViewabilityTimerWithTimeInterval:0.1
+                                            mode:NSRunLoopCommonModes];
+}
+
+- (void)setCheckViewableTimeInterval:(NSTimeInterval)timeInterval {
+    _checkViewableTimeInterval = timeInterval;
+    _checkViewableRunLoopMode = NSRunLoopCommonModes;
+    if (self.viewabilityTimer) {
+        [self enableViewabilityTimerWithTimeInterval:_checkViewableTimeInterval
+                                                mode:_checkViewableRunLoopMode];
+    } // Otherwise will be enabled in finishMRAIDLoad method
+}
+
+- (void)enableViewabilityTimerWithTimeInterval:(NSTimeInterval)timeInterval mode:(NSRunLoopMode)mode {
     ANLogDebug(@"%@", NSStringFromSelector(_cmd));
     if (self.viewabilityTimer) {
         [self.viewabilityTimer invalidate];
     }
     __weak ANAdWebViewController *weakSelf = self;
-    self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:0.1
-                                                                 block:^ {
-                                                                     ANAdWebViewController *strongSelf = weakSelf;
-                                                                     [strongSelf updateWebViewOnPositionAndVisibilityStatus];
-                                                                 }
-                                                               repeats:YES];
+    if (mode == NSRunLoopCommonModes) {
+        self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:timeInterval
+                                                                     block:^{
+                                                                         ANAdWebViewController *strongSelf = weakSelf;
+                                                                         [strongSelf updateWebViewOnPositionAndVisibilityStatus];
+                                                                     }
+                                                                   repeats:YES
+                                                                      mode:mode];
+    } else {
+        self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:timeInterval
+                                                                     block:^ {
+                                                                         ANAdWebViewController *strongSelf = weakSelf;
+                                                                         [strongSelf updateWebViewOnPositionAndVisibilityStatus];
+                                                                     }
+                                                                   repeats:YES];
+    }
 }
 
 - (void)updateWebViewOnPositionAndVisibilityStatus {
