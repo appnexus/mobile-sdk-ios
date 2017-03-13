@@ -14,6 +14,7 @@
  */
 
 #import "UIView+ANCategory.h"
+#import "ANLogging.h"
 
 #import "ANGlobal.h"
 
@@ -165,18 +166,48 @@
     [self an_extractWidthConstraint:&widthConstraint
                    heightConstraint:&heightConstraint];
 
-    if (!widthConstraint) {
-        widthConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:nil
-                                                       attribute:NSLayoutAttributeNotAnAttribute
-                                                      multiplier:1
-                                                        constant:size.width];
-        [self addConstraint:widthConstraint];
+    if (size.width > 1) {
+        if (!widthConstraint) {
+            widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                           attribute:NSLayoutAttributeWidth
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:nil
+                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                          multiplier:1
+                                                            constant:size.width];
+            [self addConstraint:widthConstraint];
+        } else {
+            widthConstraint.constant = size.width;
+        }
     } else {
-        widthConstraint.constant = size.width;
+        // Dynamic width - fill width of superview
+        if (widthConstraint) {
+            [self removeConstraint:widthConstraint];
+        }
+        if (self.superview) {
+            NSLayoutConstraint *superviewWidthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                        attribute:NSLayoutAttributeWidth
+                                                                                        relatedBy:NSLayoutRelationEqual
+                                                                                           toItem:self.superview
+                                                                                        attribute:NSLayoutAttributeWidth
+                                                                                       multiplier:1
+                                                                                         constant:0];
+            [self.superview addConstraint:superviewWidthConstraint];
+        } else {
+            ANLogError(@"Failed to properly size dynamic width content view %@ to superview, as superview is nil", self);
+            // It's impossible to know what the right width to use here is because the width is supposed to be flexible.
+            // But adding a constant to minimize any issue and hopefully this error rectifies itself when the view is actually displayed.
+            widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                           attribute:NSLayoutAttributeWidth
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:nil
+                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                          multiplier:1
+                                                            constant:320];
+            [self addConstraint:widthConstraint];
+        }
     }
+
     if (!heightConstraint) {
         heightConstraint = [NSLayoutConstraint constraintWithItem:self
                                                         attribute:NSLayoutAttributeHeight

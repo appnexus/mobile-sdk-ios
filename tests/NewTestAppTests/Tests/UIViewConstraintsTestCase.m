@@ -76,6 +76,14 @@ static CGFloat const kUIViewConstraintsTestCaseContainerViewHeight = 400;
     XCTAssertEqual(self.contentView.frame.size.height, contentViewSize.height);
 }
 
+- (void)testConstrainWithSizeWithDynamicWidth {
+    CGSize contentViewSize = CGSizeMake(1, 250);
+    [self.contentView an_constrainWithSize:contentViewSize];
+    [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
+    XCTAssertEqual(self.contentView.frame.size.width, kUIViewConstraintsTestCaseContainerViewWidth);
+    XCTAssertEqual(self.contentView.frame.size.height, contentViewSize.height);
+}
+
 - (void)testConstrainWithFrameSize {
     CGSize contentViewSize = CGSizeMake(300, 400);
     [self.contentView setFrame:CGRectMake(self.contentView.frame.origin.x, self.contentView.frame.origin.y, contentViewSize.width, contentViewSize.height)];

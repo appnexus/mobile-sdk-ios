@@ -159,6 +159,19 @@
     return [self bannerWithDelegate:delegate];
 }
 
+- (ANBannerAdView *)loadFacebookBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
+                                            adSize:(CGSize)adSize {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerFacebook";
+    mediatedAd.adId = @"210827375150_10154672420735151";
+    mediatedAd.width = [NSString stringWithFormat:@"%ld", (long)adSize.width];
+    mediatedAd.height = [NSString stringWithFormat:@"%ld", (long)adSize.height];
+    [self stubMediatedAd:mediatedAd];
+    return [self bannerWithDelegate:delegate
+                          frameSize:adSize
+                             adSize:adSize];
+}
+
 - (ANInterstitialAd *)loadFacebookInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
     [self stubFacebookInterstitial];
     return [self interstitialWithDelegate:delegate];

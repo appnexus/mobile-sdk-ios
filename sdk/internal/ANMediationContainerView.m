@@ -14,6 +14,7 @@
  */
 
 #import "ANMediationContainerView.h"
+#import "UIView+ANCategory.h"
 
 @implementation ANMediationContainerView
 
@@ -21,6 +22,10 @@
     self = [super initWithFrame:view.frame];
     if (self) {
         [self addSubview:view];
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        [view an_constrainWithFrameSize];
+        [view an_alignToSuperviewWithXAttribute:NSLayoutAttributeTop
+                                     yAttribute:NSLayoutAttributeLeft];
     }
     return self;
 }
