@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		607E3BC71E7844C300C76D57 /* calabash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607E3BC61E7844C300C76D57 /* calabash.framework */; };
+		607E3BC81E7844C300C76D57 /* calabash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 607E3BC61E7844C300C76D57 /* calabash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60846A121E43C676005D46BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A111E43C676005D46BC /* main.m */; };
 		60846A151E43C676005D46BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A141E43C676005D46BC /* AppDelegate.m */; };
 		60846A181E43C676005D46BC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A171E43C676005D46BC /* ViewController.m */; };
@@ -182,6 +184,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				60BCAFB81E6F248100F86217 /* AppNexusSDK.framework in Embed Frameworks */,
+				607E3BC81E7844C300C76D57 /* calabash.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,6 +192,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		607E3BC61E7844C300C76D57 /* calabash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = calabash.framework; sourceTree = "<group>"; };
 		60846A0D1E43C676005D46BC /* SimpleVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60846A111E43C676005D46BC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		60846A131E43C676005D46BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 			files = (
 				60BCAFD61E6F591E00F86217 /* calabash.framework in Frameworks */,
 				60BCAFB71E6F248100F86217 /* AppNexusSDK.framework in Frameworks */,
+				607E3BC71E7844C300C76D57 /* calabash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +239,7 @@
 		60846A041E43C676005D46BC = {
 			isa = PBXGroup;
 			children = (
+				607E3BC61E7844C300C76D57 /* calabash.framework */,
 				60BCAFD71E6F593600F86217 /* features */,
 				60846A0E1E43C676005D46BC /* Products */,
 				60846A0F1E43C676005D46BC /* SimpleVideo */,
