@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		607E3BF01E7860E900C76D57 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60AB32811E52163C00429ED7 /* AppNexusSDK.framework */; };
+		607E3BF11E7860E900C76D57 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 60AB32811E52163C00429ED7 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60846A121E43C676005D46BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A111E43C676005D46BC /* main.m */; };
 		60846A151E43C676005D46BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A141E43C676005D46BC /* AppDelegate.m */; };
 		60846A181E43C676005D46BC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A171E43C676005D46BC /* ViewController.m */; };
@@ -17,6 +19,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		607E3BF21E7860E900C76D57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A9AED8B1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
 		60846A271E43C676005D46BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 60846A051E43C676005D46BC /* Project object */;
@@ -159,6 +168,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		607E3BF41E7860EA00C76D57 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				607E3BF11E7860E900C76D57 /* AppNexusSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		60846A0D1E43C676005D46BC /* SimpleVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60846A111E43C676005D46BC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -181,6 +204,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				607E3BF01E7860E900C76D57 /* AppNexusSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,25 +265,25 @@
 		60AB324D1E52163C00429ED7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				60AB32651E52163C00429ED7 /* ANSDKResources.bundle */,
-				60AB32811E52163C00429ED7 /* AppNexusSDK.framework */,
-				60AB327D1E52163C00429ED7 /* libANAdapterForGoogleAdMobSDK.a */,
-				60AB327F1E52163C00429ED7 /* libANAdapterForMoPubSDK.a */,
 				60AB32631E52163C00429ED7 /* libANSDK.a */,
-				60AB32751E52163C00429ED7 /* libANSDKAdColonyAdapter.a */,
-				60AB32851E52163C00429ED7 /* libANSDKAdMarvelAdapter.a */,
-				60AB326F1E52163C00429ED7 /* libANSDKAmazonAdapter.a */,
-				60AB32791E52163C00429ED7 /* libANSDKChartboostAdapter.a */,
-				60AB326D1E52163C00429ED7 /* libANSDKFacebookAdapter.a */,
+				60AB32651E52163C00429ED7 /* ANSDKResources.bundle */,
 				60AB32671E52163C00429ED7 /* libANSDKGoogleAdMobAdapter.a */,
-				60AB32711E52163C00429ED7 /* libANSDKInMobiAdapter.a */,
 				60AB32691E52163C00429ED7 /* libANSDKMillennialMediaAdapter.a */,
 				60AB326B1E52163C00429ED7 /* libANSDKMoPubAdapter.a */,
-				60AB32871E52163C00429ED7 /* libANSDKRubiconAdapter.a */,
-				60AB32831E52163C00429ED7 /* libANSDKSmartAdAdapter.a */,
+				60AB326D1E52163C00429ED7 /* libANSDKFacebookAdapter.a */,
+				60AB326F1E52163C00429ED7 /* libANSDKAmazonAdapter.a */,
+				60AB32711E52163C00429ED7 /* libANSDKInMobiAdapter.a */,
 				60AB32731E52163C00429ED7 /* libANSDKVdopiaAdapter.a */,
+				60AB32751E52163C00429ED7 /* libANSDKAdColonyAdapter.a */,
 				60AB32771E52163C00429ED7 /* libANSDKVungleAdapter.a */,
+				60AB32791E52163C00429ED7 /* libANSDKChartboostAdapter.a */,
 				60AB327B1E52163C00429ED7 /* libANSDKYahooAdapter.a */,
+				60AB327D1E52163C00429ED7 /* libANAdapterForGoogleAdMobSDK.a */,
+				60AB327F1E52163C00429ED7 /* libANAdapterForMoPubSDK.a */,
+				60AB32811E52163C00429ED7 /* AppNexusSDK.framework */,
+				60AB32831E52163C00429ED7 /* libANSDKSmartAdAdapter.a */,
+				60AB32851E52163C00429ED7 /* libANSDKAdMarvelAdapter.a */,
+				60AB32871E52163C00429ED7 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,10 +298,12 @@
 				60846A091E43C676005D46BC /* Sources */,
 				60846A0A1E43C676005D46BC /* Frameworks */,
 				60846A0B1E43C676005D46BC /* Resources */,
+				607E3BF41E7860EA00C76D57 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				607E3BF31E7860E900C76D57 /* PBXTargetDependency */,
 			);
 			name = SimpleVideo;
 			productName = SimpleVideo;
@@ -526,6 +552,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		607E3BF31E7860E900C76D57 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AppNexusSDK;
+			targetProxy = 607E3BF21E7860E900C76D57 /* PBXContainerItemProxy */;
+		};
 		60846A281E43C676005D46BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 60846A0C1E43C676005D46BC /* SimpleVideo */;
