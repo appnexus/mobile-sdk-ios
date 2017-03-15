@@ -6,6 +6,9 @@
 
 +   MS-2853 Engineer ANJAM so that getCurrentPosition() get the position on-the-fly
 
++   PR-12 Integrate third party PR: Fix reachability leak
+
+
 #### Instream Video Ads
 
 +   Modify the parent controller that is being set to load the click thru url.

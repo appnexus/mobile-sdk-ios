@@ -1069,12 +1069,12 @@
 		4F81C36E1DE6331900623BD3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F81C3781DE6331900623BD3 /* libKIF.a */,
-				4F81C37A1DE6331900623BD3 /* Test Host.app */,
 				4F81C37C1DE6331900623BD3 /* KIF Tests - XCTest.xctest */,
 				4F81C37E1DE6331900623BD3 /* KIF.framework */,
 				4F81C3801DE6331900623BD3 /* KIFFrameworkConsumer.app */,
 				4F81C3821DE6331900623BD3 /* KIFFrameworkConsumerTests.xctest */,
+				4F81C3781DE6331900623BD3 /* libKIF.a */,
+				4F81C37A1DE6331900623BD3 /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1123,11 +1123,11 @@
 				8A75A9A41C56BE43008FB1AB /* ANJAMTestCase.m */,
 				8A0AA46619DB30A2005EC52C /* ANLocationTestCase.m */,
 				8A0AA46719DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m */,
+				8A65209A1E6773770011EFB3 /* ANMediationContainerViewTestCase.m */,
+				8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */,
 				F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */,
 				4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
-				8A65209A1E6773770011EFB3 /* ANMediationContainerViewTestCase.m */,
-				8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1360,25 +1360,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094019DB169B0090EBED /* libANSDK.a */,
 				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
-				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
-				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094019DB169B0090EBED /* libANSDK.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
+				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
 				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1588,7 +1588,6 @@
 		8AD01824199932F9007874BA = {
 			isa = PBXGroup;
 			children = (
-				60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
@@ -1600,6 +1599,7 @@
 				8AD0182E199932F9007874BA /* Products */,
 				4F6F83681D9195BE0007051E /* ResourcesForMediatedSDKs */,
 				8AA009A419DB18AE0090EBED /* Shared */,
+				60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */,
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
 				4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */,
@@ -2248,8 +2248,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60B6A1D21E734E7D00ED7DB8 /* TestANUniversalFetcher.m in Sources */,
 				60B6A1B71E732F8F00ED7DB8 /* ANUniversalTagRequestBuilderTests.m in Sources */,
+				60B6A1D21E734E7D00ED7DB8 /* TestANUniversalFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2374,7 +2374,6 @@
 				8A0AA47719DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
 				8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */,
 				8A0AA46A19DB30A2005EC52C /* ANAdResponseTestCase.m in Sources */,
-				8A6520AB1E67738A0011EFB3 /* ANPBContainerViewTestCase.m in Sources */,
 				8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */,
 				8A0AA46B19DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
 				8A0AA45719DB2CB4005EC52C /* ANAdWebViewController+ANTest.m in Sources */,
@@ -2385,12 +2384,13 @@
 				F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */,
 				8A0AA45919DB2CB4005EC52C /* ANInterstitialAd+ANTest.m in Sources */,
 				8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */,
-				8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */,
 				8A0AA47919DB314C005EC52C /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				8A0AA46D19DB30A2005EC52C /* ANLocationTestCase.m in Sources */,
 				8AA00A5519DB2BF40090EBED /* ANMediationAdViewController+ANTest.m in Sources */,
 				8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */,
+				8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */,
 				8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
+				8A6520AB1E67738A0011EFB3 /* ANPBContainerViewTestCase.m in Sources */,
 				F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */,
 				4F72677D1E5F823E006A3468 /* ANReachabilityTestCase.m in Sources */,
 				F50D81681BFCDC77008D74DB /* ANURLConnectionStub.m in Sources */,
