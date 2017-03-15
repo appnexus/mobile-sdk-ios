@@ -69,7 +69,6 @@
              @"FacebookNative",
              @"MoPubBanner",
              @"MoPubInterstitial",
-             @"MoPubNative",
              @"AmazonBanner",
              @"AmazonInterstitial",
              @"MillennialMediaBanner",
@@ -348,21 +347,6 @@
     [self stubMediatedAd:mediatedAd];
 }
 
-- (ANNativeAdRequest *)loadMoPubNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
-    [self stubMoPubNative];
-    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
-    nativeAdRequest.shouldLoadIconImage = YES;
-    nativeAdRequest.shouldLoadMainImage = YES;
-    return nativeAdRequest;
-}
-
-- (void)stubMoPubNative {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterNativeMoPub";
-    mediatedAd.adId = @"c37e619e69c34ddda4da4c2d378a8f29";
-    [self stubMediatedAd:mediatedAd];
-}
-
 #pragma mark - Millennial Media
 
 - (ANBannerAdView *)loadMillennialMediaBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
@@ -477,7 +461,7 @@
 - (void)stubDFPInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialDFP";
-    mediatedAd.adId = @"/19968336/MediationAdapterAppTest";
+    mediatedAd.adId = @"/6499/example/interstitial";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -620,6 +604,11 @@ NSString * const  kInMobiPlacementDefaultNativeContent1_2017February21  = @"1486
 
 #pragma mark - AdColony
 
+/************
+AdColony Native & Interstital cannot be tested at the same instance of the app because of single instance initialization of configuring the appID/Zone Id
+So close the app & test the next ad type
+*************/
+
 - (ANInterstitialAd *)loadAdColonyInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
     [self stubAdColonyInterstitial];
     static dispatch_once_t startToken;
@@ -641,8 +630,8 @@ NSString * const  kInMobiPlacementDefaultNativeContent1_2017February21  = @"1486
     [self stubAdColonyNative];
     static dispatch_once_t startToken;
     dispatch_once(&startToken, ^{
-        [ANAdAdapterBaseAdColony configureWithAppID:@"appe1ba2960e786424bb5"
-                                            zoneIDs:@[@"vzcc692652bbe74d4e92"]];
+        [ANAdAdapterBaseAdColony configureWithAppID:@"app2086517932ad4b608a"
+                                            zoneIDs:@[@"vz7c0765ee52af4d67b9"]];
     });
     ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
     nativeAdRequest.shouldLoadIconImage = YES;
@@ -653,7 +642,7 @@ NSString * const  kInMobiPlacementDefaultNativeContent1_2017February21  = @"1486
 - (void)stubAdColonyNative {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterNativeAdColony";
-    mediatedAd.adId = @"vzcc692652bbe74d4e92";
+    mediatedAd.adId = @"vz7c0765ee52af4d67b9";
     [self stubMediatedAd:mediatedAd];
 }
 
