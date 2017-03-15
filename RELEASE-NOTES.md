@@ -1,3 +1,14 @@
+## 3.1
+
+### Bug Fixes and Updates
+
++ MS-2630 Support for new sizes when mediating Facebook banners
+
++ MS-2853 Engineer ANJAM so that getCurrentPosition() get the position on-the-fly
+
++ Changes made to set the parent controller when loading the click thru url.
+
++ Changes to the UT module to modify the custom targeting params format
 
 ## 3.0
 
