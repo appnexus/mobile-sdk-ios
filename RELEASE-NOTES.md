@@ -1,3 +1,16 @@
+## 3.1
+
+### Bug Fixes and Updates
+
++   MS-2630 Support for new sizes when mediating Facebook banners
+
++   MS-2853 Engineer ANJAM so that getCurrentPosition() get the position on-the-fly
+
+#### Instream Video Ads
+
++   Modify the parent controller that is being set to load the click thru url.
+
++   Update the custom targeting params format
 
 ## 3.0
 
