@@ -2,11 +2,13 @@
 
 ### Bug Fixes and Updates
 
-+   MS-2630 Support for new sizes when mediating Facebook banners
++   MS-2630  Support for new sizes when mediating Facebook banners
 
-+   MS-2853 Engineer ANJAM so that getCurrentPosition() get the position on-the-fly
++   MS-2853  Engineer ANJAM so that getCurrentPosition() get the position on-the-fly
 
-+   PR-12 Integrate third party PR: Fix reachability leak
++   MS-2908  Update CocoaPods release to include external SDKs as dependencies
+
++   PR-12  Integrate third party PR: Fix reachability leak
 
 
 #### Instream Video Ads
