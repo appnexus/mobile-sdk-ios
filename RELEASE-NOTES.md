@@ -6,7 +6,7 @@
 
 +   MS-2853  Engineer ANJAM so that getCurrentPosition() get the position on-the-fly
 
-+   MS-2908  Update CocoaPods release to include external SDKs as dependencies
++   MS-2954  Add Google adapter subspec to Cocoapods
 
 +   PR-12  Integrate third party PR: Fix reachability leak
 
