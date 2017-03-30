@@ -125,11 +125,13 @@
         }
         
             function setPlayerLayout(targetDiv){
+                var maxScreenSize = Math.max(screen.width, screen.height);
+                
                 if(targetDiv !== undefined){
                     targetDiv.style.position = "absolute";
                     targetDiv.style.left = 0;
-                    targetDiv.style.width = window.innerWidth;
-                    targetDiv.style.height = window.innerHeight;
+                    targetDiv.style.width = maxScreenSize;
+                    targetDiv.style.height = maxScreenSize;
                     targetDiv.style.top = 0;
                 }
             }
