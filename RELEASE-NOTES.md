@@ -1,3 +1,9 @@
+## 3.1.2
+
+### Bug Fixes
+
++   MS-2984 Video Rendering issue on iOS 10.3
+
 ## 3.1
 
 ### Bug Fixes and Updates
