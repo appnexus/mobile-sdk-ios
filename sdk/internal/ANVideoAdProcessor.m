@@ -30,7 +30,6 @@
 
 - (instancetype)initWithDelegate:(id<ANVideoAdProcessorDelegate>)delegate withAdVideoContent:(id) videoAdContent{
     
-    ANLogMark();
     if (self = [self init]) {
         self.delegate = delegate;
         
@@ -57,7 +56,6 @@
 }
 
 -(void) processAdVideoContent{
-    ANLogMark();
     self.adPlayer = [[ANVideoAdPlayer alloc] init];
     if(self.adPlayer != nil){
         self.adPlayer.delegate = self;
@@ -80,7 +78,6 @@
 #pragma mark ANVideoAdPlayerDelegate methods
 
 -(void) videoAdReady {
-    ANLogMark();
     [self.adPlayer setDelegate:nil];
     
     if([self.delegate respondsToSelector:@selector(videoAdProcessor:didFinishVideoProcessing:)]){
@@ -92,7 +89,6 @@
     
 }
 -(void) videoAdLoadFailed:(NSError *)error{
-    ANLogMark();
     [self.adPlayer setDelegate:nil];
     
     if([self.delegate respondsToSelector:@selector(videoAdProcessor:didFailVideoProcessing:)]){

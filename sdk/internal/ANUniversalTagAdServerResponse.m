@@ -103,7 +103,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 - (void)processV2ResponseData:(NSData *)data {
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
-    //ANLogMarkMessage(@"jsonResponse=%@", [jsonResponse description]);
+    ANLogMarkMessage(@"jsonResponse=%@", [jsonResponse description]);
 
     if (jsonResponse) {
         NSArray *tags = [[self class] tagsFromJSONResponse:jsonResponse];

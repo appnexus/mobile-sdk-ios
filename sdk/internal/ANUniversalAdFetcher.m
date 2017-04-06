@@ -58,6 +58,7 @@
 #pragma mark - Ad Request
 
 - (void)requestAd {
+ANLogMark();
     NSString *urlString = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest *request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate
                                                                               baseUrlString:urlString];
@@ -80,7 +81,9 @@
 
 #pragma mark - Ad Response
 
-- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response {
+- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
+{
+ANLogMark();
     BOOL containsAds = response.ads != nil && response.ads.count > 0;
 
     if (!containsAds) {
