@@ -38,7 +38,9 @@
 @synthesize adSize = __adSize;
 @synthesize contentView = _contentView;
 
-#pragma mark Initialization
+
+
+#pragma mark - Initialization
 
 - (void)initialize {
     [super initialize];
@@ -117,7 +119,9 @@
     [super loadAd];
 }
 
-#pragma mark Getter and Setter methods
+
+
+#pragma mark - Getter and Setter methods
 
 - (CGSize)adSize {
     ANLogDebug(@"adSize returned %@", NSStringFromCGSize(__adSize));
@@ -168,6 +172,8 @@
     return __autoRefreshInterval;
 }
 
+
+
 #pragma mark - Transitions
 
 - (void)setContentView:(UIView *)newContentView {
@@ -214,7 +220,9 @@
     return _transitionInProgress;
 }
 
-#pragma mark Implementation of abstract methods from ANAdView
+
+
+#pragma mark - Implementation of abstract methods from ANAdView
 
 - (void)loadAdFromHtml:(NSString *)html
                  width:(int)width height:(int)height {
@@ -222,7 +230,9 @@
     [super loadAdFromHtml:html width:width height:height];
 }
 
-#pragma mark extraParameters methods
+
+
+#pragma mark - extraParameters methods
 
 - (NSString *)sizeParameter {
     NSString *sizeParameterString = [NSString stringWithFormat:@"&size=%ldx%ld",
@@ -261,7 +271,10 @@
     return @"";
 }
 
-#pragma mark ANAdFetcherDelegate
+
+
+
+#pragma mark - ANAdFetcherDelegate
 
 - (NSArray *)extraParameters {
     return @[[self sizeParameter],[self promoSizesParameter],[self orientationParameter]];
@@ -301,6 +314,8 @@
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
     return self.adSize;
 }
+
+
 
 #pragma mark - ANAdViewInternalDelegate
 

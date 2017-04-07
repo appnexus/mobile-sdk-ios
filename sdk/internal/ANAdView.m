@@ -49,7 +49,9 @@
 @synthesize customKeywordsMap = __customKeywordsMap;
 @synthesize landingPageLoadsInBackground = __landingPageLoadsInBackground;
 
-#pragma mark Initialization
+
+
+#pragma mark - Initialization
 
 - (instancetype)init {
     self = [super init];
@@ -114,7 +116,9 @@
     [self.adFetcher processAdResponse:response];
 }
 
-#pragma mark Setter methods
+
+
+#pragma mark - Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -199,7 +203,9 @@
     [self.customKeywordsMap removeAllObjects];
 }
 
-#pragma mark Getter methods
+
+
+#pragma mark - Getter methods
 
 - (NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
@@ -251,7 +257,9 @@
     return __customKeywords;
 }
 
-#pragma mark ANAdViewInternalDelegate
+
+
+#pragma mark - ANAdViewInternalDelegate
 
 - (void)adWasClicked {
     if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {

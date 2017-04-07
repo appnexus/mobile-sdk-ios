@@ -51,7 +51,11 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 @property (nonatomic, readwrite, assign) NSTimeInterval totalLatencyStart;
 @end
 
+
+
 @implementation ANAdFetcher
+
+#pragma mark - Constructors.
 
 - (instancetype)init
 {
@@ -74,55 +78,53 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (void)requestAdWithURL:(NSURL *)URL
 {
+ANLogMark();
     [self.autoRefreshTimer invalidate];
     [self markLatencyStart];
     
     if (!self.isLoading)
-	{
+    {
         ANLogInfo(@"fetcher_start");
         NSString *errorKey = [self getAutoRefreshFromDelegate] > 0.0 ? @"fetcher_start_auto" : @"fetcher_start_single";
         ANLogDebug(@"%@", errorKey);
-		
-        self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:self.delegate
-                                                                      baseUrlString:[[[ANSDKSettings sharedInstance] baseUrlConfig] adRequestBaseUrl]];
-		
-		if (self.URL != nil)
-		{
-            self.request = ANBasicRequestWithURL(self.URL);
-			self.connection = [[NSURLConnection alloc] initWithRequest:self.request
-                                                              delegate:self
-                                                      startImmediately:NO];
-			if (self.connection != nil)
-			{
-                [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                                           forMode:NSRunLoopCommonModes];
-                [self.connection start];
                 
-				ANLogInfo(@"Beginning loading ad from URL: %@", self.URL);
-				
+        self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate: self.delegate
+                                                                      baseUrlString: [[[ANSDKSettings sharedInstance] baseUrlConfig] adRequestBaseUrl]];
+            
+        if (self.URL != nil)
+        {
+            self.request     = ANBasicRequestWithURL(self.URL);
+            self.connection  = [[NSURLConnection alloc] initWithRequest: self.request
+                                                               delegate: self
+                                                       startImmediately: NO ];
+
+            if (self.connection != nil)
+            {
+                [self.connection scheduleInRunLoop: [NSRunLoop currentRunLoop]
+                                           forMode: NSRunLoopCommonModes];
+                [self.connection start];
+            
+                ANLogInfo(@"Beginning loading ad from URL: %@", self.URL);
+                            
                 if (self.requestShouldBePosted) {
-                    ANPostNotifications(kANAdFetcherWillRequestAdNotification, self,
-                                        @{kANAdFetcherAdRequestURLKey: self.URL});
+                    ANPostNotifications(kANAdFetcherWillRequestAdNotification, self, @{kANAdFetcherAdRequestURLKey: self.URL});
                     self.requestShouldBePosted = NO;
                 }
-                
-				self.loading = YES;
-			}
-			else
-			{
+            
+                self.loading = YES;
+
+            } else {
                 ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
                 [self processFinalResponse:response];
-			}
-		}
-		else
-		{
+            }
+
+        } else {
             ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"malformed_url", ANAdResponseBadURL)];
             [self processFinalResponse:response];
-		}
-	}
-	else
-    {
-		ANLogWarn(@"moot_restart");
+        }
+
+    } else {
+	ANLogWarn(@"moot_restart");
     }
 }
 
@@ -182,7 +184,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     self.mediationController = nil;
 }
 
-#pragma mark Request Url Construction
+
+
+#pragma mark - Request Url Construction
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response {
     [self sendDelegateFinishedResponse:response];
@@ -305,8 +309,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 	}
 }
 
-# pragma mark -
-# pragma mark NSURLConnectionDataDelegate
+
+
+#pragma mark - NSURLConnectionDataDelegate
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	if (connection == self.connection) {
@@ -363,7 +368,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
     }
 }
 
-#pragma mark handling resultCB
+
+
+#pragma mark - handling resultCB
 
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANAdResponseCode)reason
@@ -418,7 +425,9 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                            }];
 }
 
-#pragma mark Total Latency Measurement
+
+
+#pragma mark - Total Latency Measurement
 
 /**
  * Mark the beginning of an ad request for latency recording
