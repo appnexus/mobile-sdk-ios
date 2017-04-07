@@ -59,20 +59,20 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 
 - (instancetype)init
 {
-	if (self = [super init])
+    if (self = [super init])
     {
-		self.data = [NSMutableData data];
+        self.data = [NSMutableData data];
         [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
     }
     
-	return self;
+    return self;
 }
 
 - (void)autoRefreshTimerDidFire:(NSTimer *)timer
 {
-	[self.connection cancel];
-	self.loading = NO;
-    
+    [self.connection cancel];
+    self.loading = NO;
+
     [self requestAd];
 }
 
@@ -94,6 +94,8 @@ ANLogMark();
         if (self.URL != nil)
         {
             self.request     = ANBasicRequestWithURL(self.URL);
+ANLogMarkMessage(@"[self.request allHTTPHeaderFields]=%@", [self.request allHTTPHeaderFields]);
+ANLogMarkMessage(@"[self.request HTTPBody]=%@", [self.request HTTPBody]);
             self.connection  = [[NSURLConnection alloc] initWithRequest: self.request
                                                                delegate: self
                                                        startImmediately: NO ];
@@ -212,13 +214,14 @@ ANLogMark();
 
 - (void)processAdResponse:(ANAdServerResponse *)response
 {
+ANLogMark();
     [self clearMediationController];
     
     BOOL responseAdsExist = response && response.containsAds;
     BOOL oldAdsExist = [self.mediatedAds count] > 0;
     
     if (!responseAdsExist && !oldAdsExist) {
-		ANLogWarn(@"response_no_ads");
+        ANLogWarn(@"response_no_ads");
         [self finishRequestWithErrorAndRefresh:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
@@ -313,8 +316,11 @@ ANLogMark();
 
 #pragma mark - NSURLConnectionDataDelegate
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	if (connection == self.connection) {
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+ANLogMark();
+    if (connection == self.connection)
+    {
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             NSInteger status = [httpResponse statusCode];
@@ -325,25 +331,37 @@ ANLogMark();
                 [self connection:connection didFailWithError:statusError];
                 return;
             }
+
+            ANLogMarkMessage(@"httpResponse.allHeaderFields=%@", httpResponse.allHeaderFields);
+            ANLogMarkMessage(@"response.expectedContentLength=%@", @(response.expectedContentLength)  );
         }
         
         self.data = [NSMutableData data];
         
         ANLogDebug(@"Received response: %@", response);
-        
+
         [self setupAutoRefreshTimerIfNecessary];
+
     } else {
         ANLogDebug(@"Received response from unknown");
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d {
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
+{
+ANLogMark();
     if (connection == self.connection) {
         [self.data appendData:d];
+
+        NSString  *theData  = [[NSString alloc] initWithData:d encoding:NSASCIIStringEncoding];
+        ANLogMarkMessage(@"theData(string)=%@", theData);  //DEBUG
+        ANLogMarkMessage(@"theData(json)=%@", [NSJSONSerialization JSONObjectWithData:d options:0 error:nil]);  //DEBUG
     }
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+ANLogMark();
     if (connection == self.connection) {
         ANAdServerResponse *adResponse = [ANAdServerResponse responseWithData:self.data];
         NSString *responseString = [[NSString alloc] initWithData:self.data
@@ -354,7 +372,9 @@ ANLogMark();
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+ANLogMark();
     if (connection == self.connection) {
         NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
         ANLogError(@"%@", connectionError);

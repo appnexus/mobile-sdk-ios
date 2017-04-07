@@ -31,6 +31,8 @@ extern NSString *const kANAdFetcherAdResponseKey;
 extern NSString *const kANAdFetcherWillInstantiateMediatedClassNotification;
 extern NSString *const kANAdFetcherMediatedClassKey;
 
+
+
 @interface ANAdFetcher : NSObject
 
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> delegate;
