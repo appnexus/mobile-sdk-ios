@@ -15,6 +15,8 @@
 
 #import "ANSDKSettings.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "ANGlobal.h"
+#import "ANLogManager.h"
 
 @interface ANProdHTTPBaseUrlConfig : NSObject <ANBaseUrlConfig>
 
@@ -41,6 +43,19 @@
 
 -(NSString *) utAdRequestBaseUrl {
     return @"http://mediation.adnxs.com/ut/v2";
+}
+
+-(NSURL *) videoWebViewUrl {
+    if(ANLogManager.getANLogLevel > ANLogLevelDebug){
+        return [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+    }else{
+        NSURL* url = [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+        NSString *URLString = [url absoluteString];
+        NSString *debugQueryString = @"?ast_debug=true";
+        NSString *URLwithDebugQueryString = [URLString stringByAppendingString: debugQueryString];
+        NSURL *debugURL = [NSURL URLWithString:URLwithDebugQueryString];
+        return debugURL;
+    }
 }
 
 @end
@@ -70,6 +85,19 @@
 
 -(NSString *) utAdRequestBaseUrl {
     return @"https://mediation.adnxs.com/ut/v2";
+}
+
+-(NSURL *) videoWebViewUrl {
+    if(ANLogManager.getANLogLevel > ANLogLevelDebug){
+        return [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+    }else{
+        NSURL* url = [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+        NSString *URLString = [url absoluteString];
+        NSString *debugQueryString = @"?ast_debug=true";
+        NSString *URLwithDebugQueryString = [URLString stringByAppendingString: debugQueryString];
+        NSURL *debugURL = [NSURL URLWithString:URLwithDebugQueryString];
+        return debugURL;
+    }
 }
 
 @end
