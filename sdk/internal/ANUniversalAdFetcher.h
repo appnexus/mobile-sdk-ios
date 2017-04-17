@@ -30,6 +30,7 @@ static NSString *const kANUniversalAdFetcherDefaultRequestUrlString = @"http://m
 
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
 - (void)stopAdLoad;
+- (void) requestAd; 
 
 @end
 
@@ -41,7 +42,6 @@ static NSString *const kANUniversalAdFetcherDefaultRequestUrlString = @"http://m
 @protocol  ANUniversalAdFetcherDelegate  <ANAdFetcherDelegate>
 
 @optional
-
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 
@@ -53,7 +53,6 @@ static NSString *const kANUniversalAdFetcherDefaultRequestUrlString = @"http://m
 @protocol  ANInterstitialUniversalAdFetcherDelegate  <ANUniversalAdFetcherDelegate>        //UNUSED
 
 @required
-
 - (NSMutableSet *)allowedAdSizes;
 - (CGSize)screenSize;
 

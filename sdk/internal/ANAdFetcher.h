@@ -18,11 +18,15 @@
 #import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import "ANCustomAdapter.h"
+#import "ANStandardAd.h"
+
 
 @class ANMRAIDAdWebViewController;
 @class ANAdServerResponse;
 @class ANLocation;
 @protocol ANAdFetcherDelegate;
+
+
 
 extern NSString *const kANAdFetcherWillRequestAdNotification;
 extern NSString *const kANAdFetcherDidReceiveResponseNotification;
@@ -49,7 +53,16 @@ extern NSString *const kANAdFetcherMediatedClassKey;
            auctionID:(NSString *)auctionID;
 - (void)processAdResponse:(ANAdServerResponse *)response;
 - (void)processFinalResponse:(ANAdFetcherResponse *)response;
+
+
++ (void) handleStandardAd:(ANStandardAd *)standardAd withDelegate:(id<ANAdFetcherDelegate>)delegate;
+- (void)handleStandardAd:(ANStandardAd *)standardAd;
+    //FIX -- toss one of these...
+
+
 @end
+
+
 
 @protocol ANAdFetcherDelegate <ANAdProtocol, ANAdViewInternalDelegate>
 

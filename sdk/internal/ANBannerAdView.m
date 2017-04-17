@@ -27,16 +27,23 @@
 
 #define DEFAULT_ADSIZE CGSizeZero
 
+
+
 @interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
+
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) NSNumber *transitionInProgress;
 @property (nonatomic, readwrite, strong) NSArray<NSValue *> *promoSizes;
+
 @end
 
+
+
 @implementation ANBannerAdView
-@synthesize autoRefreshInterval = __autoRefreshInterval;
-@synthesize adSize = __adSize;
-@synthesize contentView = _contentView;
+
+@synthesize  autoRefreshInterval  = __autoRefreshInterval;
+@synthesize  adSize               = __adSize;
+@synthesize  contentView          = _contentView;
 
 
 
@@ -47,15 +54,16 @@
 	
     self.autoresizingMask = UIViewAutoresizingNone;
     
-    // Set default autoRefreshInterval
-    __autoRefreshInterval = kANBannerDefaultAutoRefreshInterval;
-    __adSize = CGSizeZero;
-    _transitionDuration = kAppNexusBannerAdTransitionDefaultDuration;
+    // Defaults.
+    //
+    __autoRefreshInterval  = kANBannerDefaultAutoRefreshInterval;
+    __adSize               = CGSizeZero;
+    _transitionDuration    = kAppNexusBannerAdTransitionDefaultDuration;
 }
 
 - (void)awakeFromNib {
-	[super awakeFromNib];
-	__adSize = self.frame.size;
+    [super awakeFromNib];
+    __adSize = self.frame.size;
 }
 
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
@@ -115,7 +123,9 @@
     return self;
 }
 
-- (void)loadAd {
+- (void)loadAd
+{
+ANLogMark();
     [super loadAd];
 }
 
@@ -128,14 +138,14 @@
     return __adSize;
 }
 
-- (void)setAdSize:(CGSize)adSize {
+- (void)setAdSize:(CGSize)adSize {  //FIX toss unused?
     if (!CGSizeEqualToSize(adSize, __adSize)) {
         ANLogDebug(@"Setting adSize to %@", NSStringFromCGSize(adSize));
         __adSize = adSize;
     }
 }
 
-- (void)setAdSizes:(NSArray<NSValue *> *)adSizes {
+- (void)setAdSizes:(NSArray<NSValue *> *)adSizes {      //FIX toss unused?
     _adSizes = adSizes;
     if ([adSizes firstObject]) {
         self.adSize = [[adSizes firstObject] CGSizeValue];
@@ -280,7 +290,9 @@
     return @[[self sizeParameter],[self promoSizesParameter],[self orientationParameter]];
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+{
+ANLogMark();
     NSError *error;
     
     if ([response isSuccessful]) {
@@ -321,6 +333,18 @@
 
 - (NSString *)adType {
     return @"inline";
+}
+
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+{
+ANLogMark();
+    return  @[ @(1) ];
+}
+
+- (CGSize)adSizeValue
+{
+ANLogMark();
+    return  self.adSize;
 }
 
 - (UIViewController *)displayController {

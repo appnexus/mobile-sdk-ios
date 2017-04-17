@@ -29,10 +29,16 @@
 
 #import "ANSDKSettings+PrivateMethods.h"
 
+
+
+
 NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
 NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
 NSString *const kANAdFetcherWillInstantiateMediatedClassNotification = @"kANAdFetcherWillInstantiateMediatedClassKey";
 NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
+
+
+
 
 @interface ANAdFetcher () <NSURLConnectionDataDelegate, ANAdWebViewControllerLoadingDelegate>
 
@@ -72,11 +78,14 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 {
     [self.connection cancel];
     self.loading = NO;
+    //FIX -- shuld this simply call [self stopAd] to be consisternt in all cases?
 
     [self requestAd];
 }
 
 - (void)requestAdWithURL:(NSURL *)URL
+                            //FIX -- also called by fireResultCB:reason:adObject:auctionID:
+                            //  separate URL invocation from URL constructdion...
 {
 ANLogMark();
     [self.autoRefreshTimer invalidate];
@@ -85,9 +94,11 @@ ANLogMark();
     if (!self.isLoading)
     {
         ANLogInfo(@"fetcher_start");
+                                                /* FIX TOSS -- errorKey UNUSED?
         NSString *errorKey = [self getAutoRefreshFromDelegate] > 0.0 ? @"fetcher_start_auto" : @"fetcher_start_single";
         ANLogDebug(@"%@", errorKey);
-                
+                                                */
+
         self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate: self.delegate
                                                                       baseUrlString: [[[ANSDKSettings sharedInstance] baseUrlConfig] adRequestBaseUrl]];
             
@@ -162,7 +173,9 @@ ANLogMarkMessage(@"[self.request HTTPBody]=%@", [self.request HTTPBody]);
     return CGSizeZero;
 }
 
-- (void)sendDelegateFinishedResponse:(ANAdFetcherResponse *)response {
+- (void)sendDelegateFinishedResponse:(ANAdFetcherResponse *)response
+{
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate adFetcher:self didFinishRequestWithResponse:response];
     }
@@ -190,7 +203,9 @@ ANLogMarkMessage(@"[self.request HTTPBody]=%@", [self.request HTTPBody]);
 
 #pragma mark - Request Url Construction
 
-- (void)processFinalResponse:(ANAdFetcherResponse *)response {
+- (void)processFinalResponse:(ANAdFetcherResponse *)response
+{
+ANLogMark();
     [self sendDelegateFinishedResponse:response];
     [self startAutoRefreshTimer];
 }
@@ -243,17 +258,34 @@ ANLogMark();
     
 }
 
-- (void)handleStandardAd:(ANStandardAd *)standardAd {
++ (void) handleStandardAd: (ANStandardAd *)standardAd
+             withDelegate: (id<ANAdFetcherDelegate>)delegate
+{
+    ANAdFetcher  *adFetcher  = [[[self class] alloc] init];
+
+    adFetcher.delegate = delegate;
+    [adFetcher handleStandardAd:standardAd];
+}
+
+- (void)handleStandardAd:(ANStandardAd *)standardAd
+{
+ANLogMark();
     // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
     CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
     CGSize requestedSize = [self getAdSizeFromDelegate];
     
     CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
     CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
+
+    //FIX DEBUG
+    if (nil == self.delegate) {     //FIX -- where should this delegate live?
+        CGFloat  offset  = 10;
+        requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width + offset, receivedSize.height + offset);
+    }
     
     if (!CGRectContainsRect(requestedRect, receivedRect)) {
-        ANLogInfo(@"adsize_too_big %d%d%d%d", (int)receivedSize.width, (int)receivedSize.height,
-                                            (int)requestedSize.width, (int)requestedSize.height);
+        ANLogInfo(@"adsize_too_big %d%d%d%d", (int)receivedRect.size.width, (int)receivedRect.size.height,
+                                            (int)requestedRect.size.width, (int)requestedRect.size.height);
     }
 
     CGSize sizeOfCreative = ((receivedSize.width > 0)
@@ -271,7 +303,9 @@ ANLogMark();
     self.standardAdView.webViewController.adViewANJAMDelegate = self.delegate;
 }
 
-- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
+- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
+{
+ANLogMark();
     if (self.standardAdView.webViewController == controller) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
         [self processFinalResponse:response];

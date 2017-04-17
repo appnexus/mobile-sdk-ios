@@ -22,9 +22,16 @@
 #import "ANVideoAdPlayer.h"
 #import "ANSDKSettings+PrivateMethods.h"
 
+//#import "ANStandardAd.h"
+#import "ANAdFetcher.h"
+//#import "ANAdServerResponse.h"  //FIX  toss
+
+
+
 @interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate>
 
 @property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> delegate;
+@property (nonatomic, readwrite, strong)  ANAdFetcher  *adFetcher;
 
 @property (nonatomic, readwrite, strong) NSURLConnection *connection;
 @property (nonatomic, readwrite, strong) NSMutableData *data;
@@ -38,13 +45,15 @@
 @end
 
 
+
+
 @implementation ANUniversalAdFetcher
 
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate {
     if (self = [self init]) {
         self.delegate = delegate;
         self.data = [NSMutableData data];
-        [self requestAd];
+//        [self requestAd];  //FIX separate request from iinitializetion?
     }
     return self;
 }
@@ -55,15 +64,19 @@
     }
 }
 
+
+
 #pragma mark - Ad Request
 
-- (void)requestAd {
+- (void)requestAd
+{
 ANLogMark();
-    NSString *urlString = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    NSURLRequest *request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate
-                                                                              baseUrlString:urlString];
+    NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
+
     self.connection = [NSURLConnection connectionWithRequest:request
                                                     delegate:self];
+
     if (!self.connection) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
         [self processFinalResponse:response];
@@ -72,19 +85,23 @@ ANLogMark();
     }
 }
 
-- (void)stopAdLoad {
+- (void)stopAdLoad
+{
+ANLogMark();
     [self.connection cancel];
     self.connection = nil;
     self.data = nil;
     self.ads = nil;
 }
 
+
+
 #pragma mark - Ad Response
 
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
 {
 ANLogMark();
-    BOOL containsAds = response.ads != nil && response.ads.count > 0;
+    BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
 
     if (!containsAds) {
         ANLogWarn(@"response_no_ads");
@@ -96,6 +113,7 @@ ANLogMark();
         self.noAdUrl = [NSURL URLWithString:response.noAdUrlString];
     }
     self.ads = response.ads;
+
     [self continueWaterfall];
 }
 
@@ -109,13 +127,15 @@ ANLogMark();
     [self sendDelegateFinishedResponse:response];
 }
 
-- (void)continueWaterfall {
+- (void)continueWaterfall
+{
+ANLogMark();
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
         return;
     }
     
-    BOOL adsLeft = self.ads.count > 0;
+    BOOL adsLeft = (self.ads.count > 0);
     
     if (!adsLeft) {
         ANLogWarn(@"response_no_ads");
@@ -129,14 +149,31 @@ ANLogMark();
     
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
+
     if ([nextAd isKindOfClass:[ANRTBVideoAd class]]) {
         [self handleRTBVideoAd:nextAd];
+
     } else if([nextAd isKindOfClass:[ANCSMVideoAd class]]){
         [self handleCSMVideoAd:nextAd];
+
+    } else if ( [nextAd isKindOfClass:[ANStandardAd class]] ) {
+                    //FIX -- interim solution!
+//        ANAdServerResponse  *serverResponse  = [[ANAdServerResponse alloc] initWithAdServerData:nextAd];
+//        [[[ANAdFetcher alloc] init] processAdResponse:serverResponse];
+
+//        [ANAdFetcher handleStandardAd:nextAd withDelegate:self.delegate];
+
+        self.adFetcher  = [[ANAdFetcher alloc] init];
+
+        self.adFetcher.delegate = self.delegate;
+        [self.adFetcher handleStandardAd:nextAd];
+
     } else {
-        ANLogError(@"Implementation error: Unknown ad in ads waterfall");
+        ANLogError(@"Implementation error: Unknown ad in ads waterfall.  (class=%@)", [nextAd class]);
     }
 }
+
+
 
 #pragma mark - VAST Ads
 
@@ -156,15 +193,19 @@ ANLogMark();
     if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
         ANLogError(@"FAILED to create ANVideoAdProcessor object.");
     }
-
 }
 
+
+
 #pragma mark - video ad
+
 -(void) handleCSMVideoAd:(id) videoAd {
     if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
         ANLogError(@"FAILED to create ANVideoAdProcessor object.");
     }
 }
+
+
 
 #pragma mark - ANVideoAdProcessor delegate
 
@@ -191,9 +232,13 @@ ANLogMark();
                            }];
 }
 
+
+
 #pragma mark - NSURLConnectionDataDelegate
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+ANLogMark();
     if (connection == self.connection) {
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -215,13 +260,17 @@ ANLogMark();
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d {
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
+{
+ANLogMark();
     if (connection == self.connection) {
         [self.data appendData:d];
     }
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+ANLogMark();
     if (connection == self.connection) {
         ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:self.data];
         NSString *responseString = [[NSString alloc] initWithData:self.data
@@ -233,7 +282,9 @@ ANLogMark();
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+ANLogMark();
     if (connection == self.connection) {
         NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
         ANLogError(@"%@", connectionError);
@@ -241,4 +292,6 @@ ANLogMark();
         [self processFinalResponse:response];
     }
 }
+
+
 @end

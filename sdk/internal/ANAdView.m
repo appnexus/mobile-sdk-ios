@@ -15,7 +15,8 @@
 
 #import "ANAdView.h"
 
-#import "ANAdFetcher.h"
+#import "ANAdFetcher.h"     //FIX -- deprecated TOSS
+#import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANAdServerResponse.h"
@@ -25,14 +26,24 @@
 
 #define DEFAULT_PSAS NO
 
-@interface ANAdView () <ANAdFetcherDelegate, ANAdViewInternalDelegate>
+static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
+//static Boolean  useUniversalTags  = NO;    //FIX -- temporary for DEBUG
 
-@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
+
+
+
+@interface ANAdView () <ANAdFetcherDelegate, ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
+
+@property (nonatomic, readwrite, strong) ANAdFetcher           *adFetcher;
+@property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
+
 @property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
 @property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 @property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
 
 @end
+
+
 
 @implementation ANAdView
 // ANAdProtocol properties
@@ -72,7 +83,8 @@
     self.clipsToBounds = YES;
     self.adFetcher = [[ANAdFetcher alloc] init];
     self.adFetcher.delegate = self;
-    
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];  //FIX -- invocation triggers request...
+
     __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
     __location = nil;
     __reserve = 0.0f;
@@ -81,31 +93,49 @@
     __landingPageLoadsInBackground = YES;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
+ANLogMark();
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     self.adFetcher.delegate = nil;
     [self.adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
+
+    //FIX  need stopAd for UT?  YES for url connection, NO for timer which should be encapsulated separately, perhaps in ANBannerPreviewViewController
 }
 
-- (void)loadAd {
-    NSString *errorString;
-    BOOL placementIdValid = [self.placementId length] >= 1;
-    BOOL inventoryCodeValid = ([self memberId] >=1 ) && [self inventoryCode];
+
+- (void)loadAd
+{
+ANLogMark();
+    BOOL  placementIdValid    = [self.placementId length] >= 1;
+    BOOL  inventoryCodeValid  = ([self memberId] >=1 ) && [self inventoryCode];
+
     if (!placementIdValid && !inventoryCodeValid) {
-        errorString = ANErrorString(@"no_placement_id");
-    }
-    
-    if (errorString) {
+        NSString      *errorString  = ANErrorString(@"no_placement_id");
+        NSDictionary  *errorInfo    = @{NSLocalizedDescriptionKey: errorString};
+        NSError       *error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+
         ANLogError(@"%@", errorString);
-        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: errorString};
-        NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
         [self adRequestFailedWithError:error];
         return;
     }
-    
-    [self.adFetcher stopAd];
-    [self.adFetcher requestAd];
+
+    //
+    if (!useUniversalTags)  {
+        [self.adFetcher stopAd];
+        [self.adFetcher requestAd];
+
+    } else {
+        [self.universalAdFetcher stopAdLoad];  //FIX --= yes?
+//        self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+                    //FIX -- request after init?  (need to) percolate up to the class that calls this format?  why?
+        [self.universalAdFetcher requestAd];
+
+        if (! self.universalAdFetcher)  {
+            ANLogError(@"FAILED TO FETCH ad via UT.");
+        }
+    }
 }
 
 - (void)loadAdFromHtml:(NSString *)html
@@ -259,6 +289,22 @@
 
 
 
+
+//---------------------------------------------------------- -o--
+#pragma mark - ANUniversalAdFetcherDelegate.
+
+//--------------------- -o-
+- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+{
+ANLogMarkMessage(@"UNUSED.");
+
+}
+
+
+
+
+//---------------------------------------------------------- -o--
 #pragma mark - ANAdViewInternalDelegate
 
 - (void)adWasClicked {
@@ -303,7 +349,9 @@
     }
 }
 
-- (void)adDidReceiveAd {
+- (void)adDidReceiveAd
+{
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
         [self.delegate adDidReceiveAd:self];
     }

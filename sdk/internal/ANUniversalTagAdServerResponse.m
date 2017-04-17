@@ -78,12 +78,19 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsThirdQuartil
 static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls = @"complete";
 
 
+
+
+
 @interface ANUniversalTagAdServerResponse ()
 
 @property (nonatomic, readwrite, strong) NSMutableArray *ads;
 @property (nonatomic, readwrite, strong) NSString *noAdUrlString;
 
 @end
+
+
+
+
 
 @implementation ANUniversalTagAdServerResponse
 
@@ -101,7 +108,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 #pragma mark - Universal Tag V2 Support
 
-- (void)processV2ResponseData:(NSData *)data {
+- (void)processV2ResponseData:(NSData *)data
+{
+ANLogMark();
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
     ANLogMarkMessage(@"jsonResponse=%@", [jsonResponse description]);
 
@@ -341,6 +350,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     return nil;
 }
 
+
+
+
 #pragma mark - Trackers
 
 + (NSDictionary *)trackerDictFromContentSourceObject:(NSDictionary *)contentSourceObject {
@@ -437,6 +449,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     }
     return nil;
 }
+
+
+
 
 #pragma mark - Helper Methods
 

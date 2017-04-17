@@ -15,6 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
+
+
+
 @interface ANUniversalTagAdServerResponse : NSObject
 
 + (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;

@@ -15,8 +15,11 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @protocol ANAdViewInternalDelegate <NSObject>
 
+@required
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
 
@@ -29,6 +32,8 @@
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
 - (NSString *)adType;
+- (NSArray<NSValue *> *)adAllowedMediaTypes;
+
 - (UIViewController *)displayController;
 - (BOOL)opensInNativeBrowser;
 - (BOOL)landingPageLoadsInBackground;
@@ -36,13 +41,20 @@
 - (void)adInteractionDidBegin;
 - (void)adInteractionDidEnd;
 
+@optional
+- (CGSize)adSizeValue;
+
 @end
+
+
 
 @protocol ANBannerAdViewInternalDelegate <ANAdViewInternalDelegate>
 
 - (NSNumber *)transitionInProgress;
 
 @end
+
+
 
 @class ANMRAIDOrientationProperties;
 
