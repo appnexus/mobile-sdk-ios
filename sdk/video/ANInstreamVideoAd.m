@@ -58,8 +58,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //--------------------- -o-
 - (id) initWithPlacementId: (NSString *)placementId 
 {
-ANLogMark();
-
     self = [super init];
     if (!self)  { return nil; }
 
@@ -88,8 +86,6 @@ ANLogMark();
 //--------------------- -o-
 - (BOOL) loadAdWithDelegate: (id<ANInstreamVideoAdLoadDelegate>)loadDelegate;
 {
-    ANLogMark();
-
     if (! loadDelegate) {
         ANLogWarn(@"loadDelegate is UNDEFINED.  ANInstreamVideoAdLoadDelegate allows detection of when a video ad is successfully received and loaded.");
     }
@@ -109,8 +105,6 @@ ANLogMark();
 - (void) playAdWithContainer: (UIView *)adContainer
                 withDelegate: (id<ANInstreamVideoAdPlayDelegate>)playDelegate;
 {
-ANLogMark();
-
     if (!playDelegate) {
         ANLogError(@"playDelegate is UNDEFINED.  ANInstreamVideoAdPlayDelegate allows the lifecycle of a video ad to be tracked, including when the video ad is completed.");
         return;
@@ -125,7 +119,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) removeAd
 {
-ANLogMark();
     if(self.adPlayer != nil){
         [self.adPlayer removePlayer];
         [self.adPlayer removeFromSuperview];
@@ -141,8 +134,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdReady
 {
-ANLogMark();
-
     self.isVideoTagReady = YES;
 
     if ([self.loadDelegate respondsToSelector:@selector(adDidReceiveAd:)]) {
@@ -154,7 +145,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdLoadFailed:(NSError *)error
 {
-ANLogMark();
     self.didVideoTagFail = YES;
 
     self.descriptionOfFailure  = nil;
@@ -172,8 +162,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdPlayFailed:(NSError *)error
 {
-ANLogMark();
-
     self.didVideoTagFail = YES;
 
     if ([self.playDelegate respondsToSelector:@selector(adDidComplete:withState:)])  {
@@ -187,7 +175,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdError:(NSError *)error
 {
-ANLogMark();
     self.descriptionOfFailure  = nil;
     self.failureNSError        = error;
 
@@ -200,8 +187,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdWillPresent:(ANVideoAdPlayer *)videoAd
 {
-ANLogMark();
-
     if ([self.playDelegate respondsToSelector:@selector(adWillPresent:)]) {
         [self.playDelegate adWillPresent:self];
     }
@@ -211,8 +196,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdDidPresent:(ANVideoAdPlayer *)videoAd
 {
-ANLogMark();
-
     if ([self.playDelegate respondsToSelector:@selector(adDidPresent:)]) {
         [self.playDelegate adDidPresent:self];
     }
@@ -222,8 +205,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdWillClose:(ANVideoAdPlayer *)videoAd
 {
-ANLogMark();
-
     if ([self.playDelegate respondsToSelector:@selector(adWillClose:)]) {
         [self.playDelegate adWillClose:self];
     }
@@ -233,8 +214,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdDidClose:(ANVideoAdPlayer *)videoAd
 {
-ANLogMark();
-
     if ([self.playDelegate respondsToSelector:@selector(adDidClose:)]) {
         [self removeAd];
         [self.playDelegate adDidClose:self];
@@ -254,8 +233,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdImpressionListeners:(ANVideoAdPlayerTracker)tracker
 {
-//ANLogMark();
-
     switch (tracker) {
         case ANVideoAdPlayerTrackerFirstQuartile:
             if ([self.playDelegate respondsToSelector:@selector(adCompletedFirstQuartile:)]) {
@@ -287,8 +264,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdEventListeners:(ANVideoAdPlayerEvent)eventTrackers
 {
-//ANLogMark();
-
     switch (eventTrackers) {
         case ANVideoAdPlayerEventSkip:
             self.didUserSkipAd = YES;
@@ -346,8 +321,6 @@ ANLogMark();
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
-ANLogMark();
-    
     if ([response.adObject isKindOfClass:[ANVideoAdPlayer class]]) {
         
         self.adPlayer = (ANVideoAdPlayer *) response.adObject;
@@ -434,6 +407,13 @@ ANLogMarkMessage(@"UNUSED");
 ANLogMarkMessage(@"UNUSED");
 }
 
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+            //FIX -- needs unit test.  all uses of this delegate method.
+{
+ANLogMark();
+    return  @[ @(4) ];
+}
+
 
 
 
@@ -473,8 +453,6 @@ ANLogMarkMessage(@"UNUSED");
 - (void)addCustomKeywordWithKey:(NSString *)key
                           value:(NSString *)value
 {
-ANLogMark();
-
     if (([key length] < 1) || !value) {
         return;
     }
@@ -499,8 +477,6 @@ ANLogMark();
 
 - (void)removeCustomKeywordWithKey:(NSString *)key
 {
-ANLogMark();
-
     if (([key length] < 1)) {
         return;
     }
@@ -517,8 +493,6 @@ ANLogMark();
 
 - (void)clearCustomKeywords
 {
-ANLogMark();
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [self.customKeywords removeAllObjects];

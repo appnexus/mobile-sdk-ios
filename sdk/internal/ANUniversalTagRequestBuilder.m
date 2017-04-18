@@ -38,11 +38,13 @@
 @implementation ANUniversalTagRequestBuilder
 
 + (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
-                                      baseUrlString:(NSString *)baseUrlString {
+                                      baseUrlString:(NSString *)baseUrlString
+{
     ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate:adFetcherDelegate
                                                                                                      baseUrlString:baseUrlString];
     return [requestBuilder request];
 }
+
 
 - (instancetype)initWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
                             baseUrlString:(NSString *)baseUrlString {
@@ -53,23 +55,29 @@
     return self;
 }
 
-- (NSURLRequest *)request {
-    NSURL *URL = [NSURL URLWithString:self.baseURLString];
-    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:URL
-                                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                                   timeoutInterval:kAppNexusRequestTimeoutInterval];
+- (NSURLRequest *)request
+{
+ANLogMark();
+    NSURL                *URL             = [NSURL URLWithString:self.baseURLString];
+    NSMutableURLRequest  *mutableRequest  = [[NSMutableURLRequest alloc] initWithURL: URL
+                                                                         cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
+                                                                     timeoutInterval: kAppNexusRequestTimeoutInterval];
+
     [mutableRequest setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
     [mutableRequest setHTTPMethod:@"POST"];
-    NSError *error;
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:[self requestBody]
-                                                       options:kNilOptions
-                                                         error:&error];
+
+    NSError  *error     = nil;
+    NSData   *postData  = [NSJSONSerialization dataWithJSONObject: [self requestBody]
+                                                          options: kNilOptions
+                                                            error: &error];
+
     if (!error) {
-        //ANLogDebug(@"[self requestBody] = %@", [self requestBody]);
+        ANLogDebug(@"[self requestBody] = %@", [self requestBody]);
         NSString *jsonString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
         ANLogDebug(@"Post JSON: %@", jsonString);
         [mutableRequest setHTTPBody:postData];
         return [mutableRequest copy];
+
     } else {
         ANLogError(@"Error formulating Universal Tag request: %@", error);
         return nil;
@@ -134,8 +142,10 @@
     return [kvSegmentsArray copy];
 }
 
+
 - (NSDictionary *)tag:(NSMutableDictionary *) requestDict
 {
+ANLogMark();
     NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
 
     NSInteger placementId = [[self.adFetcherDelegate placementId] integerValue];
@@ -151,23 +161,36 @@
     }
 
     //
-    NSMutableSet *allowedSizes = [[NSMutableSet alloc] init];
-    [allowedSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
-    
-    NSMutableArray *sizeObjectArray = [[NSMutableArray alloc] init];
-        for (id sizeValue in allowedSizes) {
-            if ([sizeValue isKindOfClass:[NSValue class]]) {
-                CGSize size = [sizeValue CGSizeValue];
-                [sizeObjectArray addObject:@{@"width":@(size.width),
-                                         @"height":@(size.height)}];
-            }
+    NSMutableArray  *sizeObjectArray  = [[NSMutableArray alloc] init];
+    NSArray         *allowedSizes     = [NSArray arrayWithObject:[NSValue valueWithCGSize:CGSizeMake(1,1)]];
+
+    if (    [[self.adFetcherDelegate adType] isEqualToString:@"inline"]
+         && [self.adFetcherDelegate respondsToSelector:@selector(adSizeValue)] )
+    {
+        allowedSizes = [(NSArray *)allowedSizes arrayByAddingObjectsFromArray:@[ [NSValue valueWithCGSize:[self.adFetcherDelegate adSizeValue]] ]];
+    }
+
+    for (id sizeValue in allowedSizes) {
+        if ([sizeValue isKindOfClass:[NSValue class]]) {
+            CGSize size = [sizeValue CGSizeValue];
+            [sizeObjectArray addObject:@{
+                                         @"width":@(size.width),
+                                         @"height":@(size.height)
+                                        }];
         }
-        tagDict[@"sizes"] = sizeObjectArray;
-    
+    }
+
+ANLogMarkMessage(@"sizeObjectArray=%@", sizeObjectArray);
+    tagDict[@"sizes"] = sizeObjectArray;
+                        //x FIX must be configurable
+                        //FIX does this break video?
+
 
     //
-    tagDict[@"allowed_media_types"] = @[@(4)];
-    
+    tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
+        //x FIX -- ust be cpofiguratbal
+        //FIX -- every want to union multiple arrays of allowed media types?
+
     //
     tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
     

@@ -83,7 +83,9 @@
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
                                     withFetcher:(ANAdFetcher *)fetcher
-                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate {
+                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate
+{
+ANLogMark();
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
     controller.adFetcher = fetcher;
     controller.adViewDelegate = adViewDelegate;
@@ -264,19 +266,25 @@
     return NO;
 }
 
-#pragma mark ANCustomAdapterBannerDelegate
+
+
+#pragma mark - ANCustomAdapterBannerDelegate
 
 - (void)didLoadBannerAd:(UIView *)view {
 	[self didReceiveAd:view];
 }
 
-#pragma mark ANCustomAdapterInterstitialDelegate
+
+
+#pragma mark - ANCustomAdapterInterstitialDelegate
 
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter {
 	[self didReceiveAd:adapter];
 }
 
-#pragma mark ANCustomAdapterDelegate
+
+
+#pragma mark - ANCustomAdapterDelegate
 
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
     [self didFailToReceiveAd:errorCode];
@@ -334,7 +342,9 @@
     }];
 }
 
-#pragma mark helper methods
+
+
+#pragma mark - helper methods
 
 - (BOOL)checkIfHasResponded {
     // we received a callback from mediation adaptor, cancel timeout
@@ -459,7 +469,9 @@
     return resultCBString;
 }
 
-#pragma mark Timeout handler
+
+
+#pragma mark - Timeout handler
 
 - (void)startTimeout {
     if (self.timeoutCanceled) return;
@@ -480,7 +492,9 @@
     self.timeoutCanceled = YES;
 }
 
-# pragma mark Latency Measurement
+
+
+# pragma mark - Latency Measurement
 
 /**
  * Should be called immediately after mediated SDK returns
@@ -519,6 +533,8 @@
     // return -1 if invalid.
     return -1;
 }
+
+
 
 #pragma mark - Pitbull Image Capture Transition Adjustments
 

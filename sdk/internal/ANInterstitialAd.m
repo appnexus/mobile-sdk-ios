@@ -352,4 +352,12 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     self.controller.useCustomClose = useCustomClose;
 }
 
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+//FIX -- needs unit test.  all uses of this delegate method.
+{
+    ANLogMark();
+    return  @[ @(3) ];
+}
+
+
 @end

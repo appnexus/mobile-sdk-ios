@@ -61,7 +61,6 @@
 }
 
 -(void) removePlayer{
-    ANLogMark();
     if(self.webView != nil){
         [self.webView setNavigationDelegate:nil];
         [self.webView setUIDelegate:nil];
@@ -277,7 +276,6 @@
             forNavigationAction: (nonnull WKNavigationAction *)navigationAction
                  windowFeatures: (nonnull WKWindowFeatures *)windowFeatures
 {
-ANLogMark();
         if (!navigationAction.targetFrame.isMainFrame)
         {
             NSString *urlString = [[navigationAction.request URL] absoluteString];
@@ -324,7 +322,6 @@ ANLogMark();
 
 - (void) webView: (WKWebView *) webView didFinishNavigation: (WKNavigation *) navigation
 {
-ANLogMark();
     NSString *exec = @"";
     if([self.vastContent length] > 0){
         NSString *exec_template = @"createVastPlayerWithContent('%@');";
@@ -349,7 +346,6 @@ ANLogMark();
 
 - (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller
 {
-ANLogMark();
     return [self.webView an_parentViewController] ;
 }
 
@@ -357,20 +353,19 @@ ANLogMark();
 - (void)browserViewController:(ANBrowserViewController *)controller
      couldNotHandleInitialURL:(NSURL *)url
 {
-ANLogMark();
+ANLogMarkMessage(@"UNUSED.");
 }
 
 
 - (void)browserViewController:(ANBrowserViewController *)controller
              browserIsLoading:(BOOL)isLoading
 {
-ANLogMark();
+ANLogMarkMessage(@"UNUSED.");
 }
 
 
 - (void)willPresentBrowserViewController:(ANBrowserViewController *)controller
 {
-ANLogMark();
     if ([self.delegate respondsToSelector:@selector(videoAdWillPresent:)]) {
         [self.delegate videoAdWillPresent:self];
     }
@@ -379,7 +374,6 @@ ANLogMark();
 
 - (void)didPresentBrowserViewController:(ANBrowserViewController *)controller
 {
-ANLogMark();
     if ([self.delegate respondsToSelector:@selector(videoAdDidPresent:)]) {
         [self.delegate videoAdDidPresent:self];
     }
@@ -388,7 +382,6 @@ ANLogMark();
 
 - (void)willDismissBrowserViewController:(ANBrowserViewController *)controller
 {
-ANLogMark();
     if ([self.delegate respondsToSelector:@selector(videoAdWillClose:)]) {
         [self.delegate videoAdWillClose:self];
     }
@@ -397,8 +390,6 @@ ANLogMark();
 
 - (void)didDismissBrowserViewController:(ANBrowserViewController *)controller
 {
-ANLogMark();
-
     self.browserViewController = nil;
 
     if ([self.delegate respondsToSelector:@selector(videoAdDidClose:)]) {
@@ -413,7 +404,7 @@ ANLogMark();
 
 - (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller
 {
-ANLogMark();
+ANLogMarkMessage(@"UNUSED.");
 }
 
 

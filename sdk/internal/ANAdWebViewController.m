@@ -114,7 +114,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
-              webViewBaseURL:(NSURL *)baseURL {
+              webViewBaseURL:(NSURL *)baseURL
+{
     self = [self initWithSize:size
                          HTML:html
                webViewBaseURL:baseURL
@@ -125,7 +126,9 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
-               configuration:(ANAdWebViewControllerConfiguration *)configuration {
+               configuration:(ANAdWebViewControllerConfiguration *)configuration
+{
+ANLogMark();
     if (self = [self initWithConfiguration:configuration]) {
         NSRange mraidJSRange = [html rangeOfString:kANWebViewControllerMraidJSFilename];
         _isMRAID = (mraidJSRange.location != NSNotFound);
@@ -449,7 +452,9 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 #pragma mark - WKNavigationDelegate
 
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+ANLogMark();
     [self processWebViewDidFinishLoad];
 }
 
@@ -538,7 +543,9 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration
    forNavigationAction:(WKNavigationAction *)navigationAction
-        windowFeatures:(WKWindowFeatures *)windowFeatures {
+        windowFeatures:(WKWindowFeatures *)windowFeatures
+{
+ANLogMark();
     if (navigationAction.targetFrame == nil) {
         [self.browserDelegate openDefaultBrowserWithURL:navigationAction.request.URL];
     }

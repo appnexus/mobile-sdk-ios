@@ -18,6 +18,7 @@
 #import "ANRTBVideoAd.h"
 #import "ANAdConstants.h"
 
+
 @interface ANVideoAdProcessor()
     @property (nonatomic, readwrite, strong) id<ANVideoAdProcessorDelegate> delegate;
     @property (nonatomic, strong)   NSString        *csmJsonContent;
@@ -26,11 +27,12 @@
     @property  (nonatomic, strong)  ANVideoAdPlayer *adPlayer;
 @end
 
+
+
 @implementation ANVideoAdProcessor
 
 - (instancetype)initWithDelegate:(id<ANVideoAdProcessorDelegate>)delegate withAdVideoContent:(id) videoAdContent{
     
-    ANLogMark();
     if (self = [self init]) {
         self.delegate = delegate;
         
@@ -57,8 +59,8 @@
 }
 
 -(void) processAdVideoContent{
-    ANLogMark();
     self.adPlayer = [[ANVideoAdPlayer alloc] init];
+    
     if(self.adPlayer != nil){
         self.adPlayer.delegate = self;
         if(self.videoURLString){
@@ -77,10 +79,10 @@
 }
 
 
-#pragma mark ANVideoAdPlayerDelegate methods
+
+#pragma mark -  ANVideoAdPlayerDelegate methods
 
 -(void) videoAdReady {
-    ANLogMark();
     [self.adPlayer setDelegate:nil];
     
     if([self.delegate respondsToSelector:@selector(videoAdProcessor:didFinishVideoProcessing:)]){
@@ -88,11 +90,9 @@
     }else {
         ANLogError(@"no delegate subscription found");
     }
-    
-    
 }
+
 -(void) videoAdLoadFailed:(NSError *)error{
-    ANLogMark();
     [self.adPlayer setDelegate:nil];
     
     if([self.delegate respondsToSelector:@selector(videoAdProcessor:didFailVideoProcessing:)]){
@@ -101,7 +101,6 @@
     }else {
         ANLogError(@"no delegate subscription found");
     }
-    
 }
 
 

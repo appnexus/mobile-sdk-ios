@@ -15,6 +15,10 @@
 
 #import "ANAdFetcherResponse.h"
 
+#import "ANLogging.h"
+
+
+
 @interface ANAdFetcherResponse ()
 
 @property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
@@ -22,6 +26,8 @@
 @property (nonatomic, readwrite, strong) NSError *error;
 
 @end
+
+
 
 @implementation ANAdFetcherResponse
 
@@ -45,7 +51,9 @@
     return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
 }
 
-+ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject {
++ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject
+{
+ANLogMark();
     return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject];
 }
 
