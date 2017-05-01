@@ -318,9 +318,9 @@
  Implement this method if you want to be able to modify the frame of the sticked view, for example if your UINavigationBar disappears at some point of the scroll, etc...
  
  @param adView the sending adView.
- @param stickView the view instance that is stuck/unstuck to the UIWindow
+ @param stickyView the view instance that is stuck/unstuck to the UIWindow
  @param stuck true if the view is stuck, false if the view is not stuck anymore
- @param frame the frame of the stickyView.
+ @param stickyFrame the frame of the stickyView.
  @warning This method is not only called the first time an ad creative is expanded, but also when the user rotates the device.
  
  */

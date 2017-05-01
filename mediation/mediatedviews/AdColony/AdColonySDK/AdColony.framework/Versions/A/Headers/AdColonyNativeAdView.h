@@ -14,7 +14,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
 #pragma mark - AdColonyNativeAdView
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+
 
 /**
  * The AdColonyNativeAdView is used to display non-fullscreen AdColony ads in a fashion that matches the look-and-feel of your application;
@@ -169,6 +174,12 @@ NS_ASSUME_NONNULL_BEGIN
  * @param ad The affected native ad view.
  */
 -(void)onAdColonyNativeAdEngagementPressed:(AdColonyNativeAdView*)ad expanded:(BOOL)expanded;
+
+
+#pragma clang diagnostic pop
+
 @end
 
+
 NS_ASSUME_NONNULL_END
+

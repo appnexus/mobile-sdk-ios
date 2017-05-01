@@ -868,11 +868,11 @@ example setFramework:Unity withVersion:4.6, setFrameworkVersion:5.2.1
  
  @discussion Implement to be notified of when the prefetching process has finished successfully.
 
- @deprecated This method has been deprecated and will be removed in a future version. Use didInitialize instead
+ @deprecated This method has been deprecated and will be removed in a future version.  Use didInitialize instead.
  
  */
 
-- (void)didPrefetchVideos;
+- (void)didPrefetchVideos  __attribute__((deprecated("This method has been deprecated and will be removed in a future version.  Use didInitialize instead.")));
 
 #pragma mark - Rewarded Video Delegate
 
@@ -1053,7 +1053,7 @@ example setFramework:Unity withVersion:4.6, setFrameworkVersion:5.2.1
  
  @deprecated This method has been deprecated and will be removed in a future version.
  */
-- (BOOL)shouldDisplayMoreApps __attribute__((deprecated("As of version 4.5, use shouldDisplayMoreApps:(CBLocation)location")));;
+- (BOOL)shouldDisplayMoreApps __attribute__((deprecated("As of version 4.5, use shouldDisplayMoreApps:(CBLocation)location")));
 
 /*!
  @abstract
