@@ -282,7 +282,7 @@ ANLogMarkMessage(@"sizeObjectArray=%@", sizeObjectArray);
     }
     deviceDict[@"connectiontype"] = @(connectionType);
     
-    if (carrier.mobileCountryCode.length > 0) {
+    if (carrier.mobileCountryCode.length > 0) {  //FIX -- why no workie?
         deviceDict[@"mcc"] = @([carrier.mobileCountryCode integerValue]);
     }
     if (carrier.mobileNetworkCode.length > 0) {

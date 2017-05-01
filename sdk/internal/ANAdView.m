@@ -83,7 +83,8 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
     self.clipsToBounds = YES;
     self.adFetcher = [[ANAdFetcher alloc] init];
     self.adFetcher.delegate = self;
-    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];  //FIX -- invocation triggers request...
+
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
 
     __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
     __location = nil;
@@ -98,10 +99,15 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
 ANLogMark();
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    self.adFetcher.delegate = nil;
-    [self.adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
+    if (!useUniversalTags) {
+        self.adFetcher.delegate = nil;
+        [self.adFetcher stopAd];
+        // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
 
-    //FIX  need stopAd for UT?  YES for url connection, NO for timer which should be encapsulated separately, perhaps in ANBannerPreviewViewController
+    } else {
+            //FIX  need stopAd for UT?  YES for url connection, NO for timer which should be encapsulated separately, perhaps in ANBannerPreviewViewController
+        [self.universalAdFetcher stopAdLoad];
+    }
 }
 
 
