@@ -13,7 +13,7 @@
 @class RFMNativeAd;
 
 /**
- * Native ad protocol for the receiving of native ad callbacks or notifications.
+ * Native ad protocol for receiving native ad callbacks and notifications.
  *
  * The native ad delegate should conform to this protocol.
  */

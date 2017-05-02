@@ -25,6 +25,9 @@
 #define kAdParamsNativeLayoutKey @"layout"
 #define kAdParamsNativeAdChoicesImgUrlKey @"adChoicesImgUrl"
 #define kAdParamsNativeAdChoicesOptOutUrlKey @"adChoicesOptUrl"
+#define kAdParamsNativeAdPlacerIndexPathKey @"adPlacerIndexPath"
+#define kAdParamsNativeAdPlacerKey @"adPlacer"
+#define kAdParamsNativeAdPlacerDelegateKey @"adPlacerDelegate"
 
 #define kAdParamsMediationExtensionKey @"ext"
 #define kAdParamsId @"id"

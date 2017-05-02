@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RFMAdProtocols.h"
 
 /**
  * Parameters to be passed to RFM Ad Server while fetching an ad.
@@ -167,6 +168,8 @@
  
  */
 @property (nonatomic, strong) NSString *rfmAdTestAdId;
+
+@property (nonatomic, assign) RFMCuePointPosition cuePointPosition;
 
 #pragma mark - Deprecated
 

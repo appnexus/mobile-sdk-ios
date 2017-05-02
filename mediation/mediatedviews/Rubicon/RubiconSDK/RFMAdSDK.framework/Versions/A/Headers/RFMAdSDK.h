@@ -19,6 +19,16 @@
 #import <RFMAdSDK/RFMFastLane.h>
 #import <RFMAdSDK/RFMRewardedVideo.h>
 #import <RFMAdSDK/RFMNativeAd.h>
+#import <RFMAdSDK/RFMNativeAdPlacer.h>
+#import <RFMAdSDK/RFMAdsLoader.h>
+#import <RFMAdSDK/RFMAdsLoaderDelegate.h>
+#import <RFMAdSDK/RFMAVPlayerProgressObserver.h>
+#import <RFMAdSDK/RFMVideoPlayerProgressObserver.h>
+#import <RFMAdSDK/RFMAdSession.h>
+#import <RFMAdSDK/RFMVideoAdSession.h>
+#import <RFMAdSDK/RFMAdProtocols.h>
+#import <RFMAdSDK/RFMPlayerControl.h>
+#import <RFMAdSDK/NSValue+RFMCuePoint.h>
 
 /**
  * Main interface for including RFMAdSDK headers
