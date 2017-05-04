@@ -17,6 +17,7 @@
 #import "ANAdAdapterBaseAdMarvel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ANCustomAdapter.h"
+#import "ANLogging.h"
 
 static NSString *kPartnerId = @"";
 static NSString *kSiteId = @"";
@@ -124,6 +125,10 @@ static NSString *kSiteId = @"";
      }
     
     return keywordDictionary;
+}
+
+- (void)handleAdMarvelSDKClick:(NSString *)urlString forAdMarvelView:(AdMarvelView *)adMarvelView {
+    ANLogTrace(@"Call to handle special functionality within the application is unsupported by the AdMarvel adapter");
 }
 
 #pragma -
