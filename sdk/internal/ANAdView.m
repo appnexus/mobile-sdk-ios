@@ -24,7 +24,10 @@
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
-#define DEFAULT_PSAS NO
+
+
+#define  DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT  NO
+
 
 static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
 //static Boolean  useUniversalTags  = NO;    //FIX -- temporary for DEBUG
@@ -46,19 +49,23 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
 
 
 @implementation ANAdView
-// ANAdProtocol properties
-@synthesize placementId = __placementId;
-@synthesize memberId = __memberId;
-@synthesize inventoryCode = __invCode;
-@synthesize opensInNativeBrowser = __opensInNativeBrowser;
-@synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
-@synthesize location = __location;
-@synthesize reserve = __reserve;
-@synthesize age = __age;
-@synthesize gender = __gender;
-@synthesize customKeywords = __customKeywords;
-@synthesize customKeywordsMap = __customKeywordsMap;
-@synthesize landingPageLoadsInBackground = __landingPageLoadsInBackground;
+
+// ANAdProtocol properties.
+//
+@synthesize  placementId                            = __placementId;
+@synthesize  memberId                               = __memberId;
+@synthesize  inventoryCode                          = __invCode;
+@synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
+@synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
+@synthesize  location                               = __location;
+@synthesize  reserve                                = __reserve;
+@synthesize  age                                    = __age;
+@synthesize  gender                                 = __gender;
+@synthesize  customKeywords                         = __customKeywords;
+@synthesize  customKeywordsMap                      = __customKeywordsMap;
+@synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
+@synthesize  adSize                                 = __adSize;
+@synthesize  allowedAdSizes                         = __allowedAdSizes;
 
 
 
@@ -86,12 +93,12 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
 
     self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
 
-    __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
-    __location = nil;
-    __reserve = 0.0f;
-    __customKeywords = [[NSMutableDictionary alloc] init];
-    __customKeywordsMap = [[NSMutableDictionary alloc] init];
-    __landingPageLoadsInBackground = YES;
+    __shouldServePublicServiceAnnouncements  = DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT;
+    __location                               = nil;
+    __reserve                                = 0.0f;
+    __customKeywords                         = [[NSMutableDictionary alloc] init];
+    __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
+    __landingPageLoadsInBackground           = YES;
 }
 
 - (void)dealloc
@@ -293,6 +300,7 @@ ANLogMark();
     return __customKeywords;
 }
 
+//FIX UT add zip
 
 
 
@@ -380,14 +388,24 @@ ANLogMark();
     [self.adFetcher startAutoRefreshTimer];
 }
 
-- (NSString *)adType {
-    ANLogDebug(@"%@ is abstract, should be implemented by subclass", NSStringFromSelector(_cmd));
+- (NSString *)adTypeForMRAID    {
+            //FIX UT consolidate return values as a function of entryPointType?
+    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return @"";
 }
 
 - (UIViewController *)displayController {
     ANLogDebug(@"%@ is abstract, should be implemented by subclass", NSStringFromSelector(_cmd));
     return nil;
+}
+
+- (ANEntryPointType) entryPointType {
+    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
+    return  ANEntryPointTypeUndefined;
+}
+
+- (CGSize) frameSize  {
+    return self.frame.size;
 }
 
 @end

@@ -24,6 +24,9 @@
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 
+
+
+
 static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 
 // List of allowed ad sizes for interstitials.  These must fit in the
@@ -39,6 +42,9 @@ NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
 NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
 
+
+
+
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
@@ -46,6 +52,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 @property (nonatomic, readwrite, assign) CGRect frame;
 
 @end
+
+
+
 
 @implementation ANInterstitialAd
 
@@ -56,9 +65,11 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     _controller = [[ANInterstitialAdViewController alloc] init];
     _controller.delegate = self;
     _precachedAdObjects = [NSMutableArray array];
-    _allowedAdSizes = [self getDefaultAllowedAdSizes];
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
     _opaque = YES;
+
+    self.allowedAdSizes = [self getDefaultAllowedAdSizes];
+
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -163,13 +174,15 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     }
 }
 
-- (NSMutableSet *)getDefaultAllowedAdSizes {
+- (NSMutableSet *)getDefaultAllowedAdSizes
+{
+ANLogMark();
     NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
     
     NSArray *possibleSizesArray = @[[NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
-                                   [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
-                                   [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
-                                   [NSValue valueWithCGSize:kANInterstitialAdSize300x250]];
+                                    [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
+                                    [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
+                                    [NSValue valueWithCGSize:kANInterstitialAdSize300x250]];
     for (NSValue *sizeValue in possibleSizesArray) {
         CGSize possibleSize = [sizeValue CGSizeValue];
         CGRect possibleSizeRect = CGRectMake(self.frame.origin.x, self.frame.origin.y, possibleSize.width, possibleSize.height);
@@ -177,7 +190,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             [defaultAllowedSizes addObject:sizeValue];
         }
     }
-    [defaultAllowedSizes addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
+
     return defaultAllowedSizes;
 }
 
@@ -231,15 +244,16 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     _closeDelay = closeDelay;
 }
 
+        /* FIX move representation to UT tags object
 #pragma mark extraParameters methods
 
-- (NSString *)sizeParameter {
+- (NSString *)sizeParameter {   //FIX UT share in ANAdView
     return [NSString stringWithFormat:@"&size=%ldx%ld",
             (long)self.frame.size.width,
             (long)self.frame.size.height];
 }
 
-- (NSString *)promoSizesParameter {
+- (NSString *)promoSizesParameter {      //FIX UT share in ANAdView
     NSString *promoSizesParameter = @"&promo_sizes=";
     NSMutableArray *sizesStringsArray = [NSMutableArray arrayWithCapacity:[self.allowedAdSizes count]];
     
@@ -256,19 +270,26 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     
     return promoSizesParameter;
 }
+                */
 
+            /* FIX -- toss
 - (NSString *)orientationParameter {
     NSString *orientation = UIInterfaceOrientationIsLandscape(self.controller.orientation) ? @"h" : @"v";
     return [NSString stringWithFormat:@"&orientation=%@", orientation];
 }
+                        */
 
 #pragma mark ANAdFetcherDelegate
 
-- (NSArray *)extraParameters {
+
+        /*
+- (NSArray *)extraParameters {  //FIX MOB ONLY toss
     return @[[self sizeParameter],
-            [self promoSizesParameter],
-            [self orientationParameter]];
+             [self promoSizesParameter]];
+    
+//            [self orientationParameter]];
 }
+                    */
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
     if ([response isSuccessful]) {
@@ -324,7 +345,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 
 #pragma mark - ANAdViewInternalDelegate
 
-- (NSString *)adType {
+- (NSString *)adTypeForMRAID {
     return @"interstitial";
 }
 
@@ -353,10 +374,14 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
-//FIX -- needs unit test.  all uses of this delegate method.
+                        //FIX UTTEST -- needs unit test.  all uses of this delegate method.
 {
     ANLogMark();
-    return  @[ @(3) ];
+    return  @[ @(1), @(3) ];
+}
+
+- (ANEntryPointType) entryPointType  {
+    return  ANEntryPointTypeInterstitialAd;
 }
 
 

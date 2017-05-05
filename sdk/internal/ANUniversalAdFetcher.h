@@ -50,6 +50,7 @@ static NSString *const kANUniversalAdFetcherDefaultRequestUrlString = @"http://m
 
 
 
+            /* FIX toss
 @protocol  ANInterstitialUniversalAdFetcherDelegate  <ANUniversalAdFetcherDelegate>        //UNUSED
 
 @required
@@ -57,4 +58,5 @@ static NSString *const kANUniversalAdFetcherDefaultRequestUrlString = @"http://m
 - (CGSize)screenSize;
 
 @end
+                */
 

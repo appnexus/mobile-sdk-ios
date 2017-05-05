@@ -590,8 +590,8 @@ ANLogMark();
     [self setupApplicationDidEnterBackgroundNotification];
     [self setupOrientationChangeNotification];
     
-    if ([self.adViewDelegate adType]) {
-        [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:[self.adViewDelegate adType]]];
+    if ([self.adViewDelegate adTypeForMRAID]) {
+        [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:[self.adViewDelegate adTypeForMRAID]]];
     }
     [self fireJavaScript:[ANMRAIDJavascriptUtil stateChange:self.configuration.initialMRAIDState]];
     [self fireJavaScript:[ANMRAIDJavascriptUtil readyEvent]];
@@ -883,7 +883,7 @@ ANLogMark();
 - (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate {
     _adViewDelegate = adViewDelegate;
     if (_adViewDelegate) {
-        [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:[_adViewDelegate adType]]];
+        [self fireJavaScript:[ANMRAIDJavascriptUtil placementType:[_adViewDelegate adTypeForMRAID]]];
     }
 }
 

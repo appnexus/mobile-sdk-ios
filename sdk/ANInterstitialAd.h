@@ -81,12 +81,13 @@
  */
 @property (nonatomic, readwrite, assign) NSTimeInterval closeDelay;
 
-/**
- The set of allowed ad sizes for the interstitial ad.
- The set should contain CGSize values wrapped as NSValue objects.
- */
+            /**
+             The set of allowed ad sizes for the interstitial ad.
+             The set should contain CGSize values wrapped as NSValue objects.
+             */
+            /* FIX -- toss moved into parent or delegate.....
 @property (nonatomic, readwrite, strong) NSMutableSet *allowedAdSizes;
-
+            */
 /**
  Initialize the ad view, with required placement ID. Note that
  you'll need to get a placement ID from your AppNexus representative

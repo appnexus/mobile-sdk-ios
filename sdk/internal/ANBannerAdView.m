@@ -25,7 +25,6 @@
 #import "ANBannerAdView+ANContentViewTransitions.h"
 #import "ANAdView+PrivateMethods.h"
 
-#define DEFAULT_ADSIZE CGSizeZero
 
 
 
@@ -33,7 +32,7 @@
 
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) NSNumber *transitionInProgress;
-@property (nonatomic, readwrite, strong) NSArray<NSValue *> *promoSizes;
+//@property (nonatomic, readwrite, strong) NSArray<NSValue *> *promoSizes;  //FIX toss
 
 @end
 
@@ -57,7 +56,7 @@
     // Defaults.
     //
     __autoRefreshInterval  = kANBannerDefaultAutoRefreshInterval;
-    __adSize               = CGSizeZero;
+    __adSize               = APPNEXUS_SIZE_ZERO;
     _transitionDuration    = kAppNexusBannerAdTransitionDefaultDuration;
 }
 
@@ -138,20 +137,20 @@ ANLogMark();
     return __adSize;
 }
 
-- (void)setAdSize:(CGSize)adSize {  //FIX toss unused?
+- (void)setAdSize:(CGSize)adSize {
     if (!CGSizeEqualToSize(adSize, __adSize)) {
         ANLogDebug(@"Setting adSize to %@", NSStringFromCGSize(adSize));
         __adSize = adSize;
     }
 }
 
-- (void)setAdSizes:(NSArray<NSValue *> *)adSizes {      //FIX toss unused?
+- (void)setAdSizes:(NSArray<NSValue *> *)adSizes {
     _adSizes = adSizes;
     if ([adSizes firstObject]) {
         self.adSize = [[adSizes firstObject] CGSizeValue];
     }
     if ([adSizes count] > 1) {
-        self.promoSizes = [[NSArray<NSValue *> alloc] initWithArray:[adSizes subarrayWithRange:NSMakeRange(1, adSizes.count - 1)]];
+        self.allowedAdSizes = [[NSMutableSet<NSValue *> alloc] initWithArray:[adSizes subarrayWithRange:NSMakeRange(1, adSizes.count - 1)]];
     }
 }
 
@@ -234,14 +233,17 @@ ANLogMark();
 
 #pragma mark - Implementation of abstract methods from ANAdView
 
-- (void)loadAdFromHtml:(NSString *)html
-                 width:(int)width height:(int)height {
+- (void)loadAdFromHtml: (NSString *)html
+                 width: (int)width
+                height: (int)height
+{
     self.adSize = CGSizeMake(width, height);
     [super loadAdFromHtml:html width:width height:height];
 }
 
 
 
+            /* FIX move repreatntaion to UT tags object
 #pragma mark - extraParameters methods
 
 - (NSString *)sizeParameter {
@@ -251,15 +253,12 @@ ANLogMark();
     NSString *maxSizeParameterString = [NSString stringWithFormat:@"&max_size=%ldx%ld",
                                         (long)self.frame.size.width,
                                         (long)self.frame.size.height];
-    
-    return CGSizeEqualToSize(__adSize, DEFAULT_ADSIZE) ? maxSizeParameterString : sizeParameterString;
-    ;
+
+    return CGSizeEqualToSize(__adSize, DEFAULT_ADSIZE_ZERO) ? maxSizeParameterString : sizeParameterString;
+
+    //FIX UT -- adjust primary_size, sizes array and allow_samller_sizes
 }
 
-- (NSString *)orientationParameter {
-    NSString *orientation = UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? @"h" : @"v";
-    return [NSString stringWithFormat:@"&orientation=%@", orientation];
-}
 
 - (NSString *)promoSizesParameter {
     if (self.promoSizes.count > 0) {
@@ -279,16 +278,29 @@ ANLogMark();
     }
     
     return @"";
+
+        //FIX UT -- move representation logic into UT tag object
 }
+                    */
+
+/* FIX -- toss
+ - (NSString *)orientationParameter {
+ NSString *orientation = UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? @"h" : @"v";
+ return [NSString stringWithFormat:@"&orientation=%@", orientation];
+ }
+ */
 
 
 
 
 #pragma mark - ANAdFetcherDelegate
 
-- (NSArray *)extraParameters {
-    return @[[self sizeParameter],[self promoSizesParameter],[self orientationParameter]];
+        /*
+- (NSArray *)extraParameters {  // FIX TOSS /MOB only
+//    return @[[self sizeParameter],[self promoSizesParameter],[self orientationParameter]];
+    return @[[self sizeParameter],[self promoSizesParameter]];
 }
+                */
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
@@ -331,7 +343,7 @@ ANLogMark();
 
 #pragma mark - ANAdViewInternalDelegate
 
-- (NSString *)adType {
+- (NSString *) adTypeForMRAID  {
     return @"inline";
 }
 
@@ -354,5 +366,10 @@ ANLogMark();
     }
     return displayController;
 }
+
+- (ANEntryPointType) entryPointType  {
+    return  ANEntryPointTypeBannerAdView;
+}
+
 
 @end
