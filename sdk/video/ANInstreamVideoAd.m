@@ -386,7 +386,7 @@ ANLogMarkMessage(@"UNUSED");
 ANLogMarkMessage(@"UNUSED");
 }
 
-- (NSString *)adType
+- (NSString *)adTypeForMRAID
 {
     return  @"instreamVideo";   //XXX
 }
@@ -408,11 +408,20 @@ ANLogMarkMessage(@"UNUSED");
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
-            //FIX -- needs unit test.  all uses of this delegate method.
+            //FIX UTTEST -- needs unit test.  all uses of this delegate method.
 {
 ANLogMark();
     return  @[ @(4) ];
 }
+
+- (ANEntryPointType) entryPointType  {
+    return  ANEntryPointTypeInstreamVideo;
+}
+
+
+
+
+
 
 
 

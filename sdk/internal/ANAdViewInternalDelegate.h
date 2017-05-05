@@ -15,6 +15,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ANGlobal.h"
+
 
 
 @protocol ANAdViewInternalDelegate <NSObject>
@@ -31,7 +33,8 @@
 - (void)adWillLeaveApplication;
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
-- (NSString *)adType;
+- (NSString *)adTypeForMRAID;
+- (ANEntryPointType) entryPointType;
 - (NSArray<NSValue *> *)adAllowedMediaTypes;
 
 - (UIViewController *)displayController;
@@ -43,6 +46,8 @@
 
 @optional
 - (CGSize)adSizeValue;
+- (CGSize) frameSize;
+
 
 @end
 

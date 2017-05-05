@@ -57,7 +57,7 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 
 + (void) handleStandardAd:(ANStandardAd *)standardAd withDelegate:(id<ANAdFetcherDelegate>)delegate;
 - (void)handleStandardAd:(ANStandardAd *)standardAd;
-    //FIX -- toss one of these...
+    //FIX UT -- toss one of these...
 
 
 @end
@@ -70,7 +70,6 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
-- (NSArray *)extraParameters; // An array of NSString
 - (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
 
 @end

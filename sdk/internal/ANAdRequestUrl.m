@@ -81,6 +81,7 @@
 }
 
 - (NSURL *)buildRequestUrlWithBaseUrlString:(NSString *)baseUrlString {
+            //FIX MOB everything must go...
     baseUrlString = [baseUrlString stringByAppendingString:@"?"];
     baseUrlString = [baseUrlString stringByAppendingString:[self placementIdentifierParameter]];
     NSString *idfa = ANUDID();
@@ -113,7 +114,7 @@
     baseUrlString = [baseUrlString stringByAppendingString:[self supplyTypeParameter]];
     baseUrlString = [baseUrlString stringByAppendingString:[self sdkVersionParameter]];
     
-    baseUrlString = [baseUrlString stringByAppendingString:[self extraParameters]];
+//    baseUrlString = [baseUrlString stringByAppendingString:[self extraParameters]];
     baseUrlString = [baseUrlString stringByAppendingString:[self customKeywordsParameter]];
     
 	return [NSURL URLWithString:baseUrlString];
@@ -308,19 +309,6 @@
     }];
     
     return customKeywordsParameter;
-}
-
-- (NSString *)extraParameters {
-    NSString *extraString = @"";
-    if ([self.adFetcherDelegate respondsToSelector:@selector(extraParameters)]) {
-        NSArray *extraParameters = [self.adFetcherDelegate extraParameters];
-        
-        for (NSString *param in extraParameters) {
-            extraString = [extraString stringByAppendingString:param];
-        }
-    }
-    
-    return extraString;
 }
 
 - (NSString *)nonetParameter {

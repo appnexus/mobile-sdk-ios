@@ -66,15 +66,17 @@ ANLogMark();
     [mutableRequest setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
     [mutableRequest setHTTPMethod:@"POST"];
 
-    NSError  *error     = nil;
-    NSData   *postData  = [NSJSONSerialization dataWithJSONObject: [self requestBody]
-                                                          options: kNilOptions
-                                                            error: &error];
+    NSError       *error       = nil;
+    NSDictionary  *jsonObject  = [self requestBody];
+    NSData        *postData    = [NSJSONSerialization dataWithJSONObject: jsonObject
+                                                                 options: kNilOptions
+                                                                   error: &error];
 
     if (!error) {
-        ANLogDebug(@"[self requestBody] = %@", [self requestBody]);
         NSString *jsonString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
         ANLogDebug(@"Post JSON: %@", jsonString);
+        ANLogDebug(@"[self requestBody] = %@", jsonObject);   //DEBUG
+
         [mutableRequest setHTTPBody:postData];
         return [mutableRequest copy];
 
@@ -107,7 +109,13 @@ ANLogMark();
     if (keywords) {
         requestDict[@"keywords"] = keywords;
     }
-    
+
+    //
+    requestDict[@"sdkver"]       = AN_SDK_VERSION;
+    requestDict[@"supply_type"]  = @"mobile_app";
+
+
+    //
     return [requestDict copy];
 }
 
@@ -160,36 +168,82 @@ ANLogMark();
         tagDict[@"id"] = @(placementId);
     }
 
+    
     //
-    NSMutableArray  *sizeObjectArray  = [[NSMutableArray alloc] init];
-    NSArray         *allowedSizes     = [NSArray arrayWithObject:[NSValue valueWithCGSize:CGSizeMake(1,1)]];
+    ANEntryPointType  entryPointType     = self.adFetcherDelegate.entryPointType;
+    CGSize            adSize             = self.adFetcherDelegate.adSize;
+    NSMutableSet<NSValue *>  *allowedAdSizes  = [self.adFetcherDelegate.allowedAdSizes mutableCopy];
+    BOOL              allowSmallerSizes  = NO;
 
-    if (    [[self.adFetcherDelegate adType] isEqualToString:@"inline"]
-         && [self.adFetcherDelegate respondsToSelector:@selector(adSizeValue)] )
-    {
-        allowedSizes = [(NSArray *)allowedSizes arrayByAddingObjectsFromArray:@[ [NSValue valueWithCGSize:[self.adFetcherDelegate adSizeValue]] ]];
+    if (nil == allowedAdSizes)  {
+        allowedAdSizes = [[NSMutableSet alloc] init];
     }
 
-    for (id sizeValue in allowedSizes) {
-        if ([sizeValue isKindOfClass:[NSValue class]]) {
-            CGSize size = [sizeValue CGSizeValue];
-            [sizeObjectArray addObject:@{
-                                         @"width":@(size.width),
-                                         @"height":@(size.height)
-                                        }];
+    switch (entryPointType)
+    {
+        case ANEntryPointTypeBannerAdView:
+            if (CGSizeEqualToSize(adSize, APPNEXUS_SIZE_ZERO))
+            {
+                adSize = [self.adFetcherDelegate frameSize];
+                allowSmallerSizes = YES;
+            } else {
+                allowSmallerSizes = NO;
+            }
+
+            [allowedAdSizes addObject:[NSValue valueWithCGSize:adSize]];
+            break;
+
+
+        case ANEntryPointTypeInterstitialAd:
+            adSize = [self.adFetcherDelegate frameSize];
+            break;
+
+
+        default:
+            ANLogError(@"UNRECOGNIZED ANEntryPointType.  (%lu)", (unsigned long)entryPointType);
+                                //FIX UT -- handle all known cases...
+    }
+
+
+    for (id element in self.adFetcherDelegate.adAllowedMediaTypes)
+    {
+        if (1 != [element integerValue])  {
+            [allowedAdSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
+            break;
         }
     }
 
-ANLogMarkMessage(@"sizeObjectArray=%@", sizeObjectArray);
-    tagDict[@"sizes"] = sizeObjectArray;
-                        //x FIX must be configurable
-                        //FIX does this break video?
+
+    tagDict[@"primary_size"] = @{
+                                    @"width"  : @(adSize.width),
+                                    @"height" : @(adSize.height)
+                                };
+                    //FIX UTTEST
+
+    NSMutableArray  *sizesObjectArray  = [[NSMutableArray alloc] init];
+
+    for (id sizeValue in allowedAdSizes) {
+        if ([sizeValue isKindOfClass:[NSValue class]]) {
+            CGSize  size  = [sizeValue CGSizeValue];
+            [sizesObjectArray addObject:@{
+                                             @"width"  : @(size.width),
+                                             @"height" : @(size.height)
+                                         } ];
+        }
+    }
+
+    tagDict[@"sizes"] = sizesObjectArray;
+                    //FIX UTTEST
+
+    // tag.allow_smaller_sizes indicates whether tag.primary_size is the maximum size requested (allowSmallerSizes=YES),
+    // or whether tag.primary_size is the exact size requested (allowSmallerSizes=NO).
+    //
+    tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
+                    //FIX UTTEST
 
 
     //
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
-        //x FIX -- ust be cpofiguratbal
-        //FIX -- every want to union multiple arrays of allowed media types?
 
     //
     tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
@@ -311,11 +365,20 @@ ANLogMarkMessage(@"sizeObjectArray=%@", sizeObjectArray);
     }
 }
 
-- (NSDictionary *)geo {
-    ANLocation *location = [self.adFetcherDelegate location];
+- (NSDictionary *)geo 
+{
+    ANLocation  *location  = [self.adFetcherDelegate location];
+    NSString    *zipcode   = [self.adFetcherDelegate zipcode];
+
+    //
+    if (!location && !zipcode)  {
+        return nil;
+    }
+
+    NSMutableDictionary  *geoDict  = [[NSMutableDictionary alloc] init];
+
+    //
     if (location) {
-        NSMutableDictionary *geoDict = [[NSMutableDictionary alloc] init];
-        
         CGFloat latitude = location.latitude;
         CGFloat longitude = location.longitude;
         
@@ -336,11 +399,16 @@ ANLogMarkMessage(@"sizeObjectArray=%@", sizeObjectArray);
         
         geoDict[@"loc_age"] = @(ageInMilliseconds);
         geoDict[@"loc_precision"] = @((NSInteger)location.horizontalAccuracy);
-        
-        return [geoDict copy];
-    } else {
-        return nil;
     }
+
+    //
+    if (zipcode) {
+            //TBD -- error check zipcode string -- must be location aware.
+        geoDict[@"zip"] = [zipcode copy];
+    }
+
+    //
+    return [geoDict copy];
 }
 
 + (NSNumberFormatter *)precisionNumberFormatter {

@@ -47,14 +47,3 @@ static NSString *const kANUniversalAdFetcherDefaultRequestUrlString = @"http://m
 
 @end
 
-
-
-
-@protocol  ANInterstitialUniversalAdFetcherDelegate  <ANUniversalAdFetcherDelegate>        //UNUSED
-
-@required
-- (NSMutableSet *)allowedAdSizes;
-- (CGSize)screenSize;
-
-@end
-

@@ -15,7 +15,7 @@
 
 #import "ANAdView.h"
 
-#import "ANAdFetcher.h"     //FIX -- deprecated TOSS
+#import "ANAdFetcher.h"     //FIX UT -- deprecated TOSS
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -24,10 +24,9 @@
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
-#define DEFAULT_PSAS NO
 
-static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
-//static Boolean  useUniversalTags  = NO;    //FIX -- temporary for DEBUG
+
+#define  DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT  NO
 
 
 
@@ -46,19 +45,24 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
 
 
 @implementation ANAdView
-// ANAdProtocol properties
-@synthesize placementId = __placementId;
-@synthesize memberId = __memberId;
-@synthesize inventoryCode = __invCode;
-@synthesize opensInNativeBrowser = __opensInNativeBrowser;
-@synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
-@synthesize location = __location;
-@synthesize reserve = __reserve;
-@synthesize age = __age;
-@synthesize gender = __gender;
-@synthesize customKeywords = __customKeywords;
-@synthesize customKeywordsMap = __customKeywordsMap;
-@synthesize landingPageLoadsInBackground = __landingPageLoadsInBackground;
+
+// ANAdProtocol properties.
+//
+@synthesize  placementId                            = __placementId;
+@synthesize  memberId                               = __memberId;
+@synthesize  inventoryCode                          = __invCode;
+@synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
+@synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
+@synthesize  location                               = __location;
+@synthesize  zipcode                                = __zipcode;
+@synthesize  reserve                                = __reserve;
+@synthesize  age                                    = __age;
+@synthesize  gender                                 = __gender;
+@synthesize  customKeywords                         = __customKeywords;
+@synthesize  customKeywordsMap                      = __customKeywordsMap;
+@synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
+@synthesize  adSize                                 = __adSize;
+@synthesize  allowedAdSizes                         = __allowedAdSizes;
 
 
 
@@ -83,14 +87,15 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
     self.clipsToBounds = YES;
     self.adFetcher = [[ANAdFetcher alloc] init];
     self.adFetcher.delegate = self;
-    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];  //FIX -- invocation triggers request...
 
-    __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
-    __location = nil;
-    __reserve = 0.0f;
-    __customKeywords = [[NSMutableDictionary alloc] init];
-    __customKeywordsMap = [[NSMutableDictionary alloc] init];
-    __landingPageLoadsInBackground = YES;
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+
+    __shouldServePublicServiceAnnouncements  = DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT;
+    __location                               = nil;
+    __reserve                                = 0.0f;
+    __customKeywords                         = [[NSMutableDictionary alloc] init];
+    __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
+    __landingPageLoadsInBackground           = YES;
 }
 
 - (void)dealloc
@@ -98,10 +103,14 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
 ANLogMark();
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    self.adFetcher.delegate = nil;
-    [self.adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
+                    /* FIX MOB was...
+        self.adFetcher.delegate = nil;
+        [self.adFetcher stopAd];
+        // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
+                    */
 
     //FIX  need stopAd for UT?  YES for url connection, NO for timer which should be encapsulated separately, perhaps in ANBannerPreviewViewController
+    [self.universalAdFetcher stopAdLoad];
 }
 
 
@@ -122,19 +131,17 @@ ANLogMark();
     }
 
     //
-    if (!useUniversalTags)  {
+                /* FIX MOB was...
         [self.adFetcher stopAd];
         [self.adFetcher requestAd];
+                 */
 
-    } else {
-        [self.universalAdFetcher stopAdLoad];  //FIX --= yes?
-//        self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-                    //FIX -- request after init?  (need to) percolate up to the class that calls this format?  why?
-        [self.universalAdFetcher requestAd];
 
-        if (! self.universalAdFetcher)  {
-            ANLogError(@"FAILED TO FETCH ad via UT.");
-        }
+    [self.universalAdFetcher stopAdLoad];  //FIX UT --= yes?
+    [self.universalAdFetcher requestAd];
+
+    if (! self.universalAdFetcher)  {
+        ANLogError(@"FAILED TO FETCH ad via UT.");
     }
 }
 
@@ -257,6 +264,11 @@ ANLogMark();
     return __location;
 }
 
+- (NSString *) zipcode {
+    ANLogDebug(@"zipcode returned %@", __zipcode);
+    return __zipcode;
+}
+
 - (BOOL)shouldServePublicServiceAnnouncements {
     ANLogDebug(@"shouldServePublicServeAnnouncements returned %d", __shouldServePublicServiceAnnouncements);
     return __shouldServePublicServiceAnnouncements;
@@ -374,14 +386,24 @@ ANLogMark();
     [self.adFetcher startAutoRefreshTimer];
 }
 
-- (NSString *)adType {
-    ANLogDebug(@"%@ is abstract, should be implemented by subclass", NSStringFromSelector(_cmd));
+- (NSString *)adTypeForMRAID    {
+            //FIX UT consolidate return values as a function of entryPointType?
+    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return @"";
 }
 
 - (UIViewController *)displayController {
     ANLogDebug(@"%@ is abstract, should be implemented by subclass", NSStringFromSelector(_cmd));
     return nil;
+}
+
+- (ANEntryPointType) entryPointType {
+    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
+    return  ANEntryPointTypeUndefined;
+}
+
+- (CGSize) frameSize  {
+    return self.frame.size;
 }
 
 @end

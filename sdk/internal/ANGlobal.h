@@ -16,6 +16,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+
+
+#pragma mark - Constants
+
+
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
 #define AN_ERROR_TABLE @"errors"
 
@@ -27,7 +32,9 @@
 #define APPNEXUS_LEADERBOARD_SIZE	CGSizeMake(728, 90)
 #define APPNEXUS_WIDE_SKYSCRAPER_SIZE	CGSizeMake(160, 600)
 
-#pragma mark Constants
+#define APPNEXUS_SIZE_ZERO              CGSizeZero
+
+
 
 #define kAppNexusRequestTimeoutInterval 30.0
 #define kAppNexusAnimationDuration 0.4f
@@ -38,7 +45,17 @@
 #define kAppNexusNativeAdCheckViewabilityForTrackingFrequency 0.25
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
-// Banner AutoRefresh
+
+typedef NS_ENUM(NSUInteger, ANEntryPointType) {
+    ANEntryPointTypeUndefined,
+    ANEntryPointTypeBannerAdView,
+    ANEntryPointTypeInterstitialAd,
+    ANEntryPointTypeInstreamVideo
+};
+
+
+
+#pragma mark - Banner AutoRefresh
 
 // These constants control the default behavior of the ad view autorefresh (i.e.,
 // how often the view will fetch a new ad).  Ads will only autorefresh
@@ -63,6 +80,9 @@
 // Buffer Limit
 #define kANPBBufferLimit 10
 
+
+#pragma mark - Global functions.
+
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
@@ -83,6 +103,9 @@ NSURLRequest *ANBasicRequestWithURL(NSURL *URL);
 NSNumber *ANiTunesIDForURL(NSURL *URL);
 BOOL ANCanPresentFromViewController(UIViewController *viewController);
 
+
+
+#pragma mark - Global class.
 
 @interface ANGlobal : NSObject
 
