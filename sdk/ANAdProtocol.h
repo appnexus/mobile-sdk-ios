@@ -70,6 +70,11 @@
 @property (nonatomic, readwrite, strong) ANLocation *location;
 
 /**
+ The user's zip code.
+ */
+@property (nonatomic, readwrite, strong)  NSString  *zipcode;
+
+/**
  The reserve price is the minimum bid amount you'll accept to show
  an ad.  Use this with caution, as it can drastically reduce fill
  rates (i.e., you will make less money).
@@ -102,15 +107,12 @@
  have a sizeless placement.
  */
 @property (nonatomic, readwrite, assign)  CGSize  adSize;
-                    //FIX UT -- move to internal delegate?
 
 /**
  The set of allowed ad sizes for ANBannerAdView and ANInterstitialAd.
  The set should contain CGSize values wrapped as NSValue objects.
  */
 @property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
-                    //FIX UT -- move to internal delegate?
-
 
 
 /**

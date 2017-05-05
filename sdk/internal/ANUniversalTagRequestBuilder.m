@@ -109,7 +109,13 @@ ANLogMark();
     if (keywords) {
         requestDict[@"keywords"] = keywords;
     }
-    
+
+    //
+    requestDict[@"sdkver"]       = AN_SDK_VERSION;
+    requestDict[@"supply_type"]  = @"mobile_app";
+
+
+    //
     return [requestDict copy];
 }
 
@@ -164,14 +170,6 @@ ANLogMark();
 
     
     //
-    ANLogMarkMessage(@"entryPointType=%@", @(self.adFetcherDelegate.entryPointType));
-    ANLogMarkMessage(@"adSize=%@x%@", @(self.adFetcherDelegate.adSize.width), @(self.adFetcherDelegate.adSize.height));
-    ANLogMarkMessage(@"frameSize=%@x%@", @(self.adFetcherDelegate.frameSize.width), @(self.adFetcherDelegate.frameSize.height));
-    ANLogMarkMessage(@"adAllowedMediaTypes=%@", self.adFetcherDelegate.adAllowedMediaTypes);
-    ANLogMarkMessage(@"allowedAdSizes=%@", self.adFetcherDelegate.allowedAdSizes);
-
-
-
     ANEntryPointType  entryPointType     = self.adFetcherDelegate.entryPointType;
     CGSize            adSize             = self.adFetcherDelegate.adSize;
     NSMutableSet<NSValue *>  *allowedAdSizes  = [self.adFetcherDelegate.allowedAdSizes mutableCopy];
@@ -193,8 +191,6 @@ ANLogMark();
             }
 
             [allowedAdSizes addObject:[NSValue valueWithCGSize:adSize]];
-            ANLogMarkMessage(@"allowedAdSizes=%@", allowedAdSizes);
-
             break;
 
 
@@ -205,12 +201,11 @@ ANLogMark();
 
         default:
             ANLogError(@"UNRECOGNIZED ANEntryPointType.  (%lu)", (unsigned long)entryPointType);
-            //FIX UT -- handle all known cases...
+                                //FIX UT -- handle all known cases...
     }
 
 
     for (id element in self.adFetcherDelegate.adAllowedMediaTypes)
-                            //FIX -- where does interstitial add its own 1x1?
     {
         if (1 != [element integerValue])  {
             [allowedAdSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
@@ -370,11 +365,20 @@ ANLogMark();
     }
 }
 
-- (NSDictionary *)geo {
-    ANLocation *location = [self.adFetcherDelegate location];
+- (NSDictionary *)geo 
+{
+    ANLocation  *location  = [self.adFetcherDelegate location];
+    NSString    *zipcode   = [self.adFetcherDelegate zipcode];
+
+    //
+    if (!location && !zipcode)  {
+        return nil;
+    }
+
+    NSMutableDictionary  *geoDict  = [[NSMutableDictionary alloc] init];
+
+    //
     if (location) {
-        NSMutableDictionary *geoDict = [[NSMutableDictionary alloc] init];
-        
         CGFloat latitude = location.latitude;
         CGFloat longitude = location.longitude;
         
@@ -395,11 +399,16 @@ ANLogMark();
         
         geoDict[@"loc_age"] = @(ageInMilliseconds);
         geoDict[@"loc_precision"] = @((NSInteger)location.horizontalAccuracy);
-        
-        return [geoDict copy];
-    } else {
-        return nil;
     }
+
+    //
+    if (zipcode) {
+            //TBD -- error check zipcode string -- must be location aware.
+        geoDict[@"zip"] = [zipcode copy];
+    }
+
+    //
+    return [geoDict copy];
 }
 
 + (NSNumberFormatter *)precisionNumberFormatter {

@@ -58,6 +58,7 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
 @synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
 @synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
 @synthesize  location                               = __location;
+@synthesize  zipcode                                = __zipcode;
 @synthesize  reserve                                = __reserve;
 @synthesize  age                                    = __age;
 @synthesize  gender                                 = __gender;
@@ -270,6 +271,11 @@ ANLogMark();
     return __location;
 }
 
+- (NSString *) zipcode {
+    ANLogDebug(@"zipcode returned %@", __zipcode);
+    return __zipcode;
+}
+
 - (BOOL)shouldServePublicServiceAnnouncements {
     ANLogDebug(@"shouldServePublicServeAnnouncements returned %d", __shouldServePublicServiceAnnouncements);
     return __shouldServePublicServiceAnnouncements;
@@ -300,7 +306,6 @@ ANLogMark();
     return __customKeywords;
 }
 
-//FIX UT add zip
 
 
 
