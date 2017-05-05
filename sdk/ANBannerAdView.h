@@ -93,17 +93,6 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 */
 @property (nonatomic, readwrite, weak) UIViewController *rootViewController;
 
-                    //FIX toss moved upstairs (somewhere)
-///**
-// Represents the width and height of the ad view.  In order for ads
-// to display correctly, you must verify that your AppNexus placement
-// is a ``sizeless'' placement.  If you are seeing ads of a fixed size
-// being squeezed into differently-sized views, you probably do not
-// have a sizeless placement.
-// */
-//@property (nonatomic, readwrite, assign) CGSize adSize;
-//
-
 
 /**
  The set of allowed ad sizes for the banner ad.

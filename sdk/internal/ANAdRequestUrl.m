@@ -311,21 +311,6 @@
     return customKeywordsParameter;
 }
 
-        /* FIX MOB TOSS
-- (NSString *)extraParameters {
-    NSString *extraString = @"";
-    if ([self.adFetcherDelegate respondsToSelector:@selector(extraParameters)]) {
-        NSArray *extraParameters = [self.adFetcherDelegate extraParameters];
-        
-        for (NSString *param in extraParameters) {
-            extraString = [extraString stringByAppendingString:param];
-        }
-    }
-    
-    return extraString;
-}
-                */
-
 - (NSString *)nonetParameter {
     NSArray *invalidNetworks;
     if ([self.adFetcherDelegate isKindOfClass:[ANBannerAdView class]]) {

@@ -24,7 +24,7 @@
 
 //#import "ANStandardAd.h"
 #import "ANAdFetcher.h"
-//#import "ANAdServerResponse.h"  //FIX  toss
+//#import "ANAdServerResponse.h"  //FIX UT  toss
 
 
 
@@ -53,7 +53,6 @@
     if (self = [self init]) {
         self.delegate = delegate;
         self.data = [NSMutableData data];
-//        [self requestAd];  //FIX separate request from iinitializetion?
     }
     return self;
 }
@@ -157,12 +156,7 @@ ANLogMark();
         [self handleCSMVideoAd:nextAd];
 
     } else if ( [nextAd isKindOfClass:[ANStandardAd class]] ) {
-                    //FIX -- interim solution!
-//        ANAdServerResponse  *serverResponse  = [[ANAdServerResponse alloc] initWithAdServerData:nextAd];
-//        [[[ANAdFetcher alloc] init] processAdResponse:serverResponse];
-
-//        [ANAdFetcher handleStandardAd:nextAd withDelegate:self.delegate];
-
+                    //FIX UT -- interim solution!  needs refactor!
         self.adFetcher  = [[ANAdFetcher alloc] init];
 
         self.adFetcher.delegate = self.delegate;

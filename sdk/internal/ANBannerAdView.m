@@ -32,7 +32,6 @@
 
 @property (nonatomic, readwrite, strong) UIView *contentView;
 @property (nonatomic, readwrite, strong) NSNumber *transitionInProgress;
-//@property (nonatomic, readwrite, strong) NSArray<NSValue *> *promoSizes;  //FIX toss
 
 @end
 
@@ -243,64 +242,8 @@ ANLogMark();
 
 
 
-            /* FIX move repreatntaion to UT tags object
-#pragma mark - extraParameters methods
-
-- (NSString *)sizeParameter {
-    NSString *sizeParameterString = [NSString stringWithFormat:@"&size=%ldx%ld",
-                                     (long)__adSize.width,
-                                     (long)__adSize.height];
-    NSString *maxSizeParameterString = [NSString stringWithFormat:@"&max_size=%ldx%ld",
-                                        (long)self.frame.size.width,
-                                        (long)self.frame.size.height];
-
-    return CGSizeEqualToSize(__adSize, DEFAULT_ADSIZE_ZERO) ? maxSizeParameterString : sizeParameterString;
-
-    //FIX UT -- adjust primary_size, sizes array and allow_samller_sizes
-}
-
-
-- (NSString *)promoSizesParameter {
-    if (self.promoSizes.count > 0) {
-        NSString *promoSizesParameter = @"&promo_sizes=";
-        NSMutableArray *sizesStringsArray = [NSMutableArray arrayWithCapacity:[self.promoSizes count]];
-        
-        for (NSValue *sizeValue in self.promoSizes) {
-            CGSize size = [sizeValue CGSizeValue];
-            NSString *param = [NSString stringWithFormat:@"%ldx%ld", (long)size.width, (long)size.height];
-            
-            [sizesStringsArray addObject:param];
-        }
-        
-        promoSizesParameter = [promoSizesParameter stringByAppendingString:[sizesStringsArray componentsJoinedByString:@","]];
-        
-        return promoSizesParameter;
-    }
-    
-    return @"";
-
-        //FIX UT -- move representation logic into UT tag object
-}
-                    */
-
-/* FIX -- toss
- - (NSString *)orientationParameter {
- NSString *orientation = UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) ? @"h" : @"v";
- return [NSString stringWithFormat:@"&orientation=%@", orientation];
- }
- */
-
-
-
 
 #pragma mark - ANAdFetcherDelegate
-
-        /*
-- (NSArray *)extraParameters {  // FIX TOSS /MOB only
-//    return @[[self sizeParameter],[self promoSizesParameter],[self orientationParameter]];
-    return @[[self sizeParameter],[self promoSizesParameter]];
-}
-                */
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {

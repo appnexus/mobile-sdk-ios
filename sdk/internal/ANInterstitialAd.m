@@ -244,52 +244,10 @@ ANLogMark();
     _closeDelay = closeDelay;
 }
 
-        /* FIX move representation to UT tags object
-#pragma mark extraParameters methods
 
-- (NSString *)sizeParameter {   //FIX UT share in ANAdView
-    return [NSString stringWithFormat:@"&size=%ldx%ld",
-            (long)self.frame.size.width,
-            (long)self.frame.size.height];
-}
 
-- (NSString *)promoSizesParameter {      //FIX UT share in ANAdView
-    NSString *promoSizesParameter = @"&promo_sizes=";
-    NSMutableArray *sizesStringsArray = [NSMutableArray arrayWithCapacity:[self.allowedAdSizes count]];
-    
-    for (id sizeValue in self.allowedAdSizes) {
-        if ([sizeValue isKindOfClass:[NSValue class]]) {
-            CGSize size = [sizeValue CGSizeValue];
-            NSString *param = [NSString stringWithFormat:@"%ldx%ld", (long)size.width, (long)size.height];
-            
-            [sizesStringsArray addObject:param];
-        }
-    }
-    
-    promoSizesParameter = [promoSizesParameter stringByAppendingString:[sizesStringsArray componentsJoinedByString:@","]];
-    
-    return promoSizesParameter;
-}
-                */
-
-            /* FIX -- toss
-- (NSString *)orientationParameter {
-    NSString *orientation = UIInterfaceOrientationIsLandscape(self.controller.orientation) ? @"h" : @"v";
-    return [NSString stringWithFormat:@"&orientation=%@", orientation];
-}
-                        */
 
 #pragma mark ANAdFetcherDelegate
-
-
-        /*
-- (NSArray *)extraParameters {  //FIX MOB ONLY toss
-    return @[[self sizeParameter],
-             [self promoSizesParameter]];
-    
-//            [self orientationParameter]];
-}
-                    */
 
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
     if ([response isSuccessful]) {

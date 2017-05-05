@@ -15,7 +15,7 @@
 
 #import "ANAdView.h"
 
-#import "ANAdFetcher.h"     //FIX -- deprecated TOSS
+#import "ANAdFetcher.h"     //FIX UT -- deprecated TOSS
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -27,10 +27,6 @@
 
 
 #define  DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT  NO
-
-
-static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
-//static Boolean  useUniversalTags  = NO;    //FIX -- temporary for DEBUG
 
 
 
@@ -107,15 +103,14 @@ static Boolean  useUniversalTags  = YES;    //FIX -- temporary for DEBUG
 ANLogMark();
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    if (!useUniversalTags) {
+                    /* FIX MOB was...
         self.adFetcher.delegate = nil;
         [self.adFetcher stopAd];
         // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
+                    */
 
-    } else {
-            //FIX  need stopAd for UT?  YES for url connection, NO for timer which should be encapsulated separately, perhaps in ANBannerPreviewViewController
-        [self.universalAdFetcher stopAdLoad];
-    }
+    //FIX  need stopAd for UT?  YES for url connection, NO for timer which should be encapsulated separately, perhaps in ANBannerPreviewViewController
+    [self.universalAdFetcher stopAdLoad];
 }
 
 
@@ -136,19 +131,17 @@ ANLogMark();
     }
 
     //
-    if (!useUniversalTags)  {
+                /* FIX MOB was...
         [self.adFetcher stopAd];
         [self.adFetcher requestAd];
+                 */
 
-    } else {
-        [self.universalAdFetcher stopAdLoad];  //FIX --= yes?
-//        self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-                    //FIX -- request after init?  (need to) percolate up to the class that calls this format?  why?
-        [self.universalAdFetcher requestAd];
 
-        if (! self.universalAdFetcher)  {
-            ANLogError(@"FAILED TO FETCH ad via UT.");
-        }
+    [self.universalAdFetcher stopAdLoad];  //FIX UT --= yes?
+    [self.universalAdFetcher requestAd];
+
+    if (! self.universalAdFetcher)  {
+        ANLogError(@"FAILED TO FETCH ad via UT.");
     }
 }
 

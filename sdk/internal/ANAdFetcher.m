@@ -78,13 +78,13 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
 {
     [self.connection cancel];
     self.loading = NO;
-    //FIX -- shuld this simply call [self stopAd] to be consisternt in all cases?
+    //FIX UT  -- shuld this simply call [self stopAd] to be consisternt in all cases?
 
     [self requestAd];
 }
 
 - (void)requestAdWithURL:(NSURL *)URL
-                            //FIX -- also called by fireResultCB:reason:adObject:auctionID:
+                            //FIX UT -- also called by fireResultCB:reason:adObject:auctionID:
                             //  separate URL invocation from URL constructdion...
 {
 ANLogMark();
@@ -94,10 +94,6 @@ ANLogMark();
     if (!self.isLoading)
     {
         ANLogInfo(@"fetcher_start");
-                                                /* FIX TOSS -- errorKey UNUSED?
-        NSString *errorKey = [self getAutoRefreshFromDelegate] > 0.0 ? @"fetcher_start_auto" : @"fetcher_start_single";
-        ANLogDebug(@"%@", errorKey);
-                                                */
 
         self.URL = URL ? URL : [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate: self.delegate
                                                                       baseUrlString: [[[ANSDKSettings sharedInstance] baseUrlConfig] adRequestBaseUrl]];
@@ -278,7 +274,7 @@ ANLogMark();
     CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
 
     //FIX DEBUG
-    if (nil == self.delegate) {     //FIX -- where should this delegate live?
+    if (nil == self.delegate) {     //FIX UT -- where should this delegate live?
         CGFloat  offset  = 10;
         requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width + offset, receivedSize.height + offset);
     }

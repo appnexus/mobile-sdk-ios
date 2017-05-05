@@ -336,7 +336,7 @@ ANLogMark();
     }
     deviceDict[@"connectiontype"] = @(connectionType);
     
-    if (carrier.mobileCountryCode.length > 0) {  //FIX -- why no workie?
+    if (carrier.mobileCountryCode.length > 0) {
         deviceDict[@"mcc"] = @([carrier.mobileCountryCode integerValue]);
     }
     if (carrier.mobileNetworkCode.length > 0) {
