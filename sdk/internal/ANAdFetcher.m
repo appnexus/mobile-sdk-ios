@@ -200,6 +200,7 @@ ANLogMark();
 #pragma mark - Request Url Construction
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
+        //FIX UT remove timer, put somewhere else...
 {
 ANLogMark();
     [self sendDelegateFinishedResponse:response];
@@ -297,6 +298,24 @@ ANLogMark();
     self.standardAdView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView 
     self.standardAdView.webViewController.adViewANJAMDelegate = self.delegate;
+
+
+    //
+    NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire impressionUrls.", __PRETTY_FUNCTION__];
+    dispatch_queue_t   backgroundQueue      = dispatch_queue_create([backgroundQueueName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
+
+    dispatch_async(backgroundQueue, ^{
+        for (NSString *urlString in standardAd.impressionUrls)
+        {
+            ANLogMarkMessage(@"urlString=%@", urlString);   //DEBUG
+            NSURLSessionDataTask  *dataTask =
+                [[NSURLSession sharedSession] dataTaskWithURL: [NSURL URLWithString:urlString]
+                                            completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                ANLogMarkMessage(@"\n\tdata=%@ \n\tresponse=%@ \n\terror=%@", data, response, error);   //DEBUG
+                                            }];
+            [dataTask resume];
+        }
+    });
 }
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
