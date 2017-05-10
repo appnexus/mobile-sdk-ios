@@ -15,7 +15,7 @@
 
 #import "ANInterstitialAd.h"
 
-#import "ANAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANLogging.h"
@@ -38,18 +38,18 @@ static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 #define kANInterstitialAdSize900x500 CGSizeMake(900,500)
 #define kANInterstitialAdSize1024x1024 CGSizeMake(1024,1024)
 
-NSString *const kANInterstitialAdViewKey = @"kANInterstitialAdViewKey";
-NSString *const kANInterstitialAdViewDateLoadedKey = @"kANInterstitialAdViewDateLoadedKey";
-NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuctionInfoKey";
+NSString *const  kANInterstitialAdViewKey             = @"kANInterstitialAdViewKey";
+NSString *const  kANInterstitialAdViewDateLoadedKey   = @"kANInterstitialAdViewDateLoadedKey";
+NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewAuctionInfoKey";
 
 
 
 
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong) ANInterstitialAdViewController *controller;
-@property (nonatomic, readwrite, strong) NSMutableArray *precachedAdObjects;
-@property (nonatomic, readwrite, assign) CGRect frame;
+@property (nonatomic, readwrite, strong)  ANInterstitialAdViewController  *controller;
+@property (nonatomic, readwrite, strong)  NSMutableArray                  *precachedAdObjects;
+@property (nonatomic, readwrite, assign)  CGRect                           frame;
 
 @end
 
@@ -100,9 +100,10 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
     [super loadAd];
 }
 
-- (void)displayAdFromViewController:(UIViewController *)controller {
-    id adToShow = nil;
-    NSString *auctionID = nil;
+- (void)displayAdFromViewController:(UIViewController *)controller
+{
+    id         adToShow   = nil;
+    NSString  *auctionID  = nil;
     
     self.controller.orientationProperties = nil;
     self.controller.useCustomClose = NO;
@@ -157,6 +158,7 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
         [controller presentViewController:self.controller
                                  animated:YES
                                completion:nil];
+
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
         [adToShow presentFromViewController:controller];
         if (auctionID) {
@@ -168,10 +170,14 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
             [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
                                forAuctionID:auctionID];
         }
+
     } else {
         ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
         [self adFailedToDisplay];
+        return;
     }
+
+    [self fireImpressionUrls];
 }
 
 - (NSMutableSet *)getDefaultAllowedAdSizes
@@ -247,9 +253,11 @@ ANLogMark();
 
 
 
-#pragma mark ANAdFetcherDelegate
+#pragma mark - ANUniversalAdFetcherDelegate
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
+- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+{
+ANLogMark();
     if ([response isSuccessful]) {
         NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                      response.adObject, kANInterstitialAdViewKey,
@@ -269,11 +277,14 @@ ANLogMark();
     }
 }
 
-- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return self.frame.size;
 }
 
-#pragma mark ANInterstitialAdViewControllerDelegate
+
+
+
+#pragma mark - ANInterstitialAdViewControllerDelegate
 
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
     [self adWillClose];
@@ -301,6 +312,9 @@ ANLogMark();
                                                  }];
 }
 
+
+
+
 #pragma mark - ANAdViewInternalDelegate
 
 - (NSString *)adTypeForMRAID {
@@ -310,6 +324,9 @@ ANLogMark();
 - (UIViewController *)displayController {
     return self.controller;
 }
+
+
+
 
 #pragma mark - ANInterstitialAdViewInternalDelegate
 

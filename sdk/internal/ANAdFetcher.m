@@ -15,7 +15,6 @@
 
 #import "ANAdFetcher.h"
 
-#import "ANAdRequestUrl.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
@@ -32,10 +31,10 @@
 
 
 
-NSString *const kANAdFetcherWillRequestAdNotification = @"kANAdFetcherWillRequestAdNotification";
-NSString *const kANAdFetcherAdRequestURLKey = @"kANAdFetcherAdRequestURLKey";
-NSString *const kANAdFetcherWillInstantiateMediatedClassNotification = @"kANAdFetcherWillInstantiateMediatedClassKey";
-NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
+NSString *const  kANAdFetcherWillRequestAdNotification                 = @"kANAdFetcherWillRequestAdNotification";
+NSString *const  kANAdFetcherAdRequestURLKey                           = @"kANAdFetcherAdRequestURLKey";
+NSString *const  kANAdFetcherWillInstantiateMediatedClassNotification  = @"kANAdFetcherWillInstantiateMediatedClassKey";
+NSString *const  kANAdFetcherMediatedClassKey                          = @"kANAdFetcherMediatedClassKey";
 
 
 
@@ -87,10 +86,13 @@ NSString *const kANAdFetcherMediatedClassKey = @"kANAdFetcherMediatedClassKey";
                             //FIX UT -- also called by fireResultCB:reason:adObject:auctionID:
                             //  separate URL invocation from URL constructdion...
 {
-ANLogMark();
+ANLogMarkMessage(@"REMOVED FROM THE SDK.");
     [self.autoRefreshTimer invalidate];
     [self markLatencyStart];
-    
+
+
+
+                        /* fix --FIX -- toss
     if (!self.isLoading)
     {
         ANLogInfo(@"fetcher_start");
@@ -135,6 +137,7 @@ ANLogMarkMessage(@"[self.request HTTPBody]=%@", [self.request HTTPBody]);
     } else {
 	ANLogWarn(@"moot_restart");
     }
+                                    */
 }
 
 - (void)requestAd
@@ -200,7 +203,6 @@ ANLogMark();
 #pragma mark - Request Url Construction
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
-        //FIX UT remove timer, put somewhere else...
 {
 ANLogMark();
     [self sendDelegateFinishedResponse:response];
@@ -255,14 +257,6 @@ ANLogMark();
     
 }
 
-+ (void) handleStandardAd: (ANStandardAd *)standardAd
-             withDelegate: (id<ANAdFetcherDelegate>)delegate
-{
-    ANAdFetcher  *adFetcher  = [[[self class] alloc] init];
-
-    adFetcher.delegate = delegate;
-    [adFetcher handleStandardAd:standardAd];
-}
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
@@ -298,24 +292,6 @@ ANLogMark();
     self.standardAdView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView 
     self.standardAdView.webViewController.adViewANJAMDelegate = self.delegate;
-
-
-    //
-    NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire impressionUrls.", __PRETTY_FUNCTION__];
-    dispatch_queue_t   backgroundQueue      = dispatch_queue_create([backgroundQueueName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
-
-    dispatch_async(backgroundQueue, ^{
-        for (NSString *urlString in standardAd.impressionUrls)
-        {
-            ANLogMarkMessage(@"urlString=%@", urlString);   //DEBUG
-            NSURLSessionDataTask  *dataTask =
-                [[NSURLSession sharedSession] dataTaskWithURL: [NSURL URLWithString:urlString]
-                                            completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                                ANLogMarkMessage(@"\n\tdata=%@ \n\tresponse=%@ \n\terror=%@", data, response, error);   //DEBUG
-                                            }];
-            [dataTask resume];
-        }
-    });
 }
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
@@ -339,6 +315,7 @@ ANLogMark();
 
 - (void)finishRequestWithErrorAndRefresh:(NSError *)error
 {
+ANLogMark();
     self.loading = NO;
     
     NSTimeInterval interval = [self getAutoRefreshFromDelegate];
@@ -444,7 +421,9 @@ ANLogMark();
 - (void)fireResultCB:(NSString *)resultCBString
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject
-           auctionID:(NSString *)auctionID {
+           auctionID:(NSString *)auctionID
+{
+ANLogMark();
     self.loading = NO;
     
     NSURL *resultURL = [NSURL URLWithString:resultCBString];

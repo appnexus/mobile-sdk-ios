@@ -15,7 +15,8 @@
 
 #import "ANBannerAdView.h"
 
-#import "ANAdFetcher.h"
+//#import "ANAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMRAIDContainerView.h"
@@ -30,8 +31,8 @@
 
 @interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong) UIView *contentView;
-@property (nonatomic, readwrite, strong) NSNumber *transitionInProgress;
+@property (nonatomic, readwrite, strong)  UIView    *contentView;
+@property (nonatomic, readwrite, strong)  NSNumber  *transitionInProgress;
 
 @end
 
@@ -165,10 +166,10 @@ ANLogMark();
             ANLogDebug(@"AutoRefresh interval set to %f seconds", __autoRefreshInterval);
         }
         
-        [self.adFetcher stopAd];
+        [self.universalAdFetcher stopAdLoad];
         
         ANLogDebug(@"New autoRefresh interval set. Making ad request.");
-        [self.adFetcher requestAd];
+        [self.universalAdFetcher requestAd];
     } else {
 		ANLogDebug(@"Turning auto refresh off");
 		__autoRefreshInterval = autoRefreshInterval;
@@ -243,9 +244,10 @@ ANLogMark();
 
 
 
-#pragma mark - ANAdFetcherDelegate
+#pragma mark - ANUniversalAdFetcherDelegate
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+
+- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
 ANLogMark();
     NSError *error;
@@ -256,8 +258,12 @@ ANLogMark();
         if ([contentView isKindOfClass:[UIView class]]) {
             self.contentView = contentView;
             [self adDidReceiveAd];
-        }
-        else {
+
+            if ([self an_isViewable])  {
+                [self fireImpressionUrls];
+            }
+
+        } else {
             NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")};
             error = [NSError errorWithDomain:AN_ERROR_DOMAIN
                                         code:ANAdResponseNonViewResponse
@@ -277,10 +283,12 @@ ANLogMark();
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
     return self.autoRefreshInterval;
 }
+        //FIX UT is it unniversal?
 
-- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return self.adSize;
 }
+
 
 
 
@@ -312,6 +320,19 @@ ANLogMark();
 
 - (ANEntryPointType) entryPointType  {
     return  ANEntryPointTypeBannerAdView;
+}
+
+
+
+
+#pragma mark - UIView observer methods.
+
+- (void)didMoveToWindow
+{
+ANLogMark();
+    if ([self an_isViewable])  {
+        [self fireImpressionUrls];
+    }
 }
 
 

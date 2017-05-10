@@ -47,7 +47,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyBannerContent = @"conte
 
 
 // SSM
-
 static NSString *const kANUniversalTagAdServerResponseKeySSMHandlerUrl = @"url";
 
 
@@ -80,7 +79,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 
 
-
 @interface ANUniversalTagAdServerResponse ()
 
 @property (nonatomic, readwrite, strong) NSMutableArray *ads;
@@ -91,8 +89,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 
 
-
 @implementation ANUniversalTagAdServerResponse
+
+#pragma mark - Lifecycle.
 
 - (instancetype)initWithAdServerData:(NSData *)data {
     self = [super init];
@@ -105,6 +104,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 + (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data {
     return [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:data];
 }
+
+
 
 #pragma mark - Universal Tag V2 Support
 
@@ -251,15 +252,21 @@ ANLogMark();
     if ([csmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
         ANMediatedAd *mediatedAd;
         NSArray *handlerArray = (NSArray *)csmObject[kANUniversalTagAdServerResponseKeyHandler];
-        for (id handlerObject in handlerArray) {
-            if ([handlerObject isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *handlerDict = (NSDictionary *)handlerObject;
-                NSString *type = [handlerDict[kANUniversalTagAdServerResponseKeyType] description];
-                if ([type.lowercaseString isEqualToString:kANUniversalTagAdServerResponseValueIOS]) {
+
+        for (id handlerObject in handlerArray)
+        {
+            if ([handlerObject isKindOfClass:[NSDictionary class]])
+            {
+                NSDictionary  *handlerDict  = (NSDictionary *)handlerObject;
+                NSString      *type         = [handlerDict[kANUniversalTagAdServerResponseKeyType] description];
+
+                if ([type.lowercaseString isEqualToString:kANUniversalTagAdServerResponseValueIOS])
+                {
                     NSString *className = [handlerDict[kANUniversalTagAdServerResponseKeyClass] description];
                     if ([className length] == 0) {
                         return nil;
                     }
+
                     mediatedAd = [[ANMediatedAd alloc] init];
                     mediatedAd.className = className;
                     mediatedAd.param = [handlerDict[kANUniversalTagAdServerResponseKeyParam] description];
@@ -270,10 +277,12 @@ ANLogMark();
                 }
             }
         }
+
         mediatedAd.resultCB = [csmObject[kANUniversalTagAdServerResponseKeyResultCB] description];
         mediatedAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:csmObject];
         return mediatedAd;
     }
+
     return nil;
 }
 
@@ -288,12 +297,18 @@ ANLogMark();
 }
 
 + (ANSSMStandardAd *)standardSSMAdFromSSMObject:(NSDictionary *)ssmObject {
-    if ([ssmObject[kANUniversalTagAdServerResponseKeyBannerObject] isKindOfClass:[NSDictionary class]]) {
+    if ([ssmObject[kANUniversalTagAdServerResponseKeyBannerObject] isKindOfClass:[NSDictionary class]])
+    {
         NSDictionary *banner = ssmObject[kANUniversalTagAdServerResponseKeyBannerObject];
-        if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
+
+        if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]])
+        {
             NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
-            if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
+
+            if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]])
+            {
                 NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
+
                 ANSSMStandardAd *standardAd = [[ANSSMStandardAd alloc] init];
                 standardAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
                 standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
@@ -306,17 +321,23 @@ ANLogMark();
     return nil;
 }
 
-+ (ANSSMVideoAd *)videoSSMAdFromSSMObject:(NSDictionary *)ssmObject {
-    if ([ssmObject[kANUniversalTagAdServerResponseKeyVideoObject] isKindOfClass:[NSDictionary class]]) {
-        if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
++ (ANSSMVideoAd *)videoSSMAdFromSSMObject:(NSDictionary *)ssmObject
+{
+    if ([ssmObject[kANUniversalTagAdServerResponseKeyVideoObject] isKindOfClass:[NSDictionary class]])
+    {
+        if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]])
+        {
             NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
+
             if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
+
                 ANSSMVideoAd *videoAd = [[ANSSMVideoAd alloc] init];
                 videoAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
                 videoAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
                 videoAd.errorUrls = [[self class] errorUrlsFromContentSourceObject:ssmObject];
                 videoAd.videoClickUrls = [[self class] videoClickUrlsFromContentSourceObject:ssmObject];
+
                 NSMutableDictionary *videoEventTrackers = [[NSMutableDictionary alloc] init];
                 NSArray *startTrackers = [[self class] videoStartUrlsFromContentSourceObject:ssmObject];
                 if (startTrackers) {
@@ -342,6 +363,7 @@ ANLogMark();
                 if (videoCompleteTrackers) {
                     videoEventTrackers[@(ANVideoEventQuartileComplete)] = videoCompleteTrackers;
                 }
+
                 videoAd.videoEventTrackers = [videoEventTrackers copy];
                 return videoAd;
             }
