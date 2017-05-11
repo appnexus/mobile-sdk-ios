@@ -1,3 +1,14 @@
+## 3.2
+
+### Bug Fixes and Updates
+
++   Fixed AdMarvel banner ad misalignment
+
+### Mediated SDKs
+
++  Rubicon SDK              v6.3.0
+
+
 ## 3.1.2
 
 ### Bug Fixes
@@ -209,7 +220,7 @@ No change
 
 + MoPub SDK Version 4.1.0
 
-+ InMobi SDK Version 5.2.0 
++ InMobi SDK Version 5.2.0
 
 + VDOPIA Lightweight SDK Version 4
 
@@ -365,7 +376,7 @@ No change
 
 + MoPub SDK Version 3.9.0
 
-+ InMobi SDK Version 4.5.3 
++ InMobi SDK Version 4.5.3
 
 + VDOPIA Lightweight SDK Version 4
 
@@ -435,7 +446,7 @@ No change
 
 + MS-970, MS-1038 Binary build scripts now work in directories where the file path contains one or more spaces
 
-+ MS-971 Fixed native ad click fallback behavior 
++ MS-971 Fixed native ad click fallback behavior
 
 + MS-1000 Fire adWillClose and adDidClose on ANInterstitialAd
 
@@ -445,7 +456,7 @@ No change
 
 + MS-962 Simplify IDFA retrieval based on 6.0 deployment target
 
-+ MS-976, MS-1042, MS-1055 Break apart ANAdResponse into ANAdServerResponse & ANAdFetcherResponse 
++ MS-976, MS-1042, MS-1055 Break apart ANAdResponse into ANAdServerResponse & ANAdFetcherResponse
 
 + MS-975 Improved AdFetcher error handling
 
@@ -501,7 +512,7 @@ No change
 
 ## RC 2.1
 
-+ MS-856, MS-868, MS-875, MS-916, MS-918, MS-925 Implemented AppNexus Native Ad Console Support. 
++ MS-856, MS-868, MS-875, MS-916, MS-918, MS-925 Implemented AppNexus Native Ad Console Support.
 
 + MS-932 Introduced namespaced `ANGender` enum values (e.g. `ANGenderMale`). Deprecated existing values (e.g. `MALE`).
 
@@ -509,7 +520,7 @@ No change
 
 ### Other Feature Additions:
 
-+ MS-868 Added dependency on StoreKit framework, App Store URLs will open directly in the app instead of opening in the AppStore app when `opensInNativeBrowser` is set to NO on the ad view. 
++ MS-868 Added dependency on StoreKit framework, App Store URLs will open directly in the app instead of opening in the AppStore app when `opensInNativeBrowser` is set to NO on the ad view.
 
 + MS-900 Added dependency on EventKitUI framework, user will be presented with a calendar event edit screen if an ad calls `mraid.createCalendarEvent`
 
