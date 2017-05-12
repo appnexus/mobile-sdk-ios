@@ -1,3 +1,10 @@
+## 3.2.1
+
+### Bug Fixes and Updates
+
++   MS-3016 - Fixed podspec configuration and fake framework import issue in Rubicon mediation adapter..
+
+
 ## 3.2
 
 ### Bug Fixes and Updates
