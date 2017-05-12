@@ -14,6 +14,7 @@
  */
 #import "ANAdAdapterBaseRubicon.h"
 #import <CoreLocation/CoreLocation.h>
+#import <RFMAdSDK/RFMAdSDK.h>
 
 @implementation ANAdAdapterBaseRubicon
 
