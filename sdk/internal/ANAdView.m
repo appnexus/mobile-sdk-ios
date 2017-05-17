@@ -15,7 +15,7 @@
 
 #import "ANAdView.h"
 
-#import "ANAdFetcher.h"     //FIX UT -- deprecated TOSS
+//#import "ANAdFetcher.h"     //FIX UT -- deprecated TOSS
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -23,6 +23,8 @@
 
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
+
+#import "ANBannerAdView.h"
 
 
 
@@ -33,12 +35,10 @@
 
 @interface ANAdView () <ANAdFetcherDelegate, ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong) ANAdFetcher           *adFetcher;
-@property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
+@property (nonatomic, readwrite, weak)    id<ANAdDelegate>        delegate;
+@property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>  appEventDelegate;
 
-@property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
-@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
-@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywordsMap;
 
 @end
 
@@ -85,8 +85,6 @@
 
 - (void)initialize {
     self.clipsToBounds = YES;
-    self.adFetcher = [[ANAdFetcher alloc] init];
-    self.adFetcher.delegate = self;
 
     self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
 
@@ -96,6 +94,8 @@
     __customKeywords                         = [[NSMutableDictionary alloc] init];
     __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
     __landingPageLoadsInBackground           = YES;
+
+    _impressionUrlsHaveBeenFired = NO;
 }
 
 - (void)dealloc
@@ -103,13 +103,6 @@
 ANLogMark();
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-                    /* FIX MOB was...
-        self.adFetcher.delegate = nil;
-        [self.adFetcher stopAd];
-        // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
-                    */
-
-    //FIX  need stopAd for UT?  YES for url connection, NO for timer which should be encapsulated separately, perhaps in ANBannerPreviewViewController
     [self.universalAdFetcher stopAdLoad];
 }
 
@@ -130,14 +123,7 @@ ANLogMark();
         return;
     }
 
-    //
-                /* FIX MOB was...
-        [self.adFetcher stopAd];
-        [self.adFetcher requestAd];
-                 */
-
-
-    [self.universalAdFetcher stopAdLoad];  //FIX UT --= yes?
+    [self.universalAdFetcher stopAdLoad];
     [self.universalAdFetcher requestAd];
 
     if (! self.universalAdFetcher)  {
@@ -145,12 +131,48 @@ ANLogMark();
     }
 }
 
+
+    /* FIX toss   -or-  need this still?
 - (void)loadAdFromHtml:(NSString *)html
                  width:(int)width height:(int)height {
+                                                    //FIX UT iupdfate?
     ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithContent:html
                                                                          width:width
                                                                         height:height];
     [self.adFetcher processAdResponse:response];
+}
+        */
+
+
+
+
+#pragma mark - Support for subclasses.
+
+- (void) fireImpressionUrls
+{
+    if (!self.impressionUrls || self.impressionUrlsHaveBeenFired) {
+        return;
+    }
+ANLogMark();
+
+    //
+    NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire impressionUrls.", __PRETTY_FUNCTION__];
+    dispatch_queue_t   backgroundQueue      = dispatch_queue_create([backgroundQueueName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
+
+    dispatch_async(backgroundQueue, ^{
+        for (NSString *urlString in self.impressionUrls)
+        {
+            ANLogMarkMessage(@"urlString=%@", urlString);   //DEBUG
+            NSURLSessionDataTask  *dataTask =
+                [[NSURLSession sharedSession] dataTaskWithURL: [NSURL URLWithString:urlString]
+                                            completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                ANLogMarkMessage(@"\n\tdata=%@ \n\tresponse=%@ \n\terror=%@", data, response, error);   //DEBUG
+                                            }];
+            [dataTask resume];
+        }
+    });
+
+    self.impressionUrlsHaveBeenFired = YES;
 }
 
 
@@ -313,6 +335,12 @@ ANLogMarkMessage(@"UNUSED.");
 
 }
 
+- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher impressionUrls:(NSArray<NSString *> *)impressionUrls
+{
+    self.impressionUrls = impressionUrls;
+ANLogMarkMessage(@"%@", self.impressionUrls);
+}
+
 
 
 
@@ -375,6 +403,8 @@ ANLogMark();
     }
 }
 
+
+        /* FIX toss --or-- adap[t to UT?
 - (void)adInteractionDidBegin {
     ANLogDebug(@"%@", NSStringFromSelector(_cmd));
     [self.adFetcher stopAd];
@@ -385,6 +415,7 @@ ANLogMark();
     [self.adFetcher setupAutoRefreshTimerIfNecessary];
     [self.adFetcher startAutoRefreshTimer];
 }
+                */
 
 - (NSString *)adTypeForMRAID    {
             //FIX UT consolidate return values as a function of entryPointType?
@@ -406,4 +437,7 @@ ANLogMark();
     return self.frame.size;
 }
 
+
+
 @end
+

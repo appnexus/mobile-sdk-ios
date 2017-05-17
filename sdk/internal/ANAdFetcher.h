@@ -55,9 +55,7 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 - (void)processFinalResponse:(ANAdFetcherResponse *)response;
 
 
-+ (void) handleStandardAd:(ANStandardAd *)standardAd withDelegate:(id<ANAdFetcherDelegate>)delegate;
 - (void)handleStandardAd:(ANStandardAd *)standardAd;
-    //FIX UT -- toss one of these...
 
 
 @end

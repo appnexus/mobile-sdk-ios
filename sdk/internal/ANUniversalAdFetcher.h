@@ -19,7 +19,7 @@
 
 
 
-static NSString *const kANUniversalAdFetcherDefaultRequestUrlString = @"http://mediation.adnxs.com/ut/v2";
+static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http://mediation.adnxs.com/ut/v2";
 
 
 
@@ -41,7 +41,15 @@ static NSString *const kANUniversalAdFetcherDefaultRequestUrlString = @"http://m
 //
 @protocol  ANUniversalAdFetcherDelegate  <ANAdFetcherDelegate>
 
-@optional
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+
+- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+             impressionUrls: (NSArray<NSString *> *)impressionUrls;
+
+
+
+@optional  //FIX UT  is it optional?
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 

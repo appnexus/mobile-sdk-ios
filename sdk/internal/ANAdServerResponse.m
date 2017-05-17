@@ -64,6 +64,8 @@ static NSString *const kANAdServerResponseKeyNativeCustomKeywordsDict = @"custom
 NSString *const kANAdFetcherDidReceiveResponseNotification = @"kANAdFetcherDidReceiveResponseNotification";
 NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 
+
+
 @interface ANAdServerResponse ()
 
 @property (nonatomic, readwrite, assign) BOOL containsAds;
@@ -74,6 +76,8 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
 @property (nonatomic, readwrite, strong) NSMutableArray *nativeAds;
 
 @end
+
+
 
 @implementation ANAdServerResponse
 

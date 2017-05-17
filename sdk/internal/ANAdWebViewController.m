@@ -557,7 +557,9 @@ ANLogMark();
 
 # pragma mark - MRAID
 
-- (void)processWebViewDidFinishLoad {
+- (void)processWebViewDidFinishLoad
+{
+ANLogMark();
     if (!self.completedFirstLoad) {
         self.completedFirstLoad = YES;
         [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];

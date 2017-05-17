@@ -31,6 +31,8 @@
 
 @implementation ANAdFetcherResponse
 
+#pragma mark - Lifecycle.
+
 - (instancetype)initAdResponseFailWithError:(NSError *)error {
     self = [super init];
     if (self) {
@@ -47,6 +49,10 @@
     return self;
 }
 
+
+
+#pragma mark - Class methods.
+
 + (ANAdFetcherResponse *)responseWithError:(NSError *)error {
     return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
 }
@@ -56,5 +62,6 @@
 ANLogMark();
     return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject];
 }
+
 
 @end
