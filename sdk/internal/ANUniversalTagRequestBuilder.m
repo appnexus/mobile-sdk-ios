@@ -86,33 +86,43 @@ ANLogMark();
     }
 }
 
-- (NSDictionary *)requestBody {
+- (NSDictionary *)requestBody
+{
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
-    
+
+    //
     NSDictionary *tags = [self tag:requestDict];
     if (tags) {
         requestDict[@"tags"] = @[tags];
     }
+
     NSDictionary *user = [self user];
     if (user) {
         requestDict[@"user"] = user;
     }
+
     NSDictionary *device = [self device];
     if (device) {
         requestDict[@"device"] = device;
     }
+
     NSDictionary *app = [self app];
     if (app) {
         requestDict[@"app"] = app;
     }
+
     NSArray *keywords = [self keywords];
     if (keywords) {
         requestDict[@"keywords"] = keywords;
     }
 
-    //
-    requestDict[@"sdkver"]       = AN_SDK_VERSION;
-    requestDict[@"supply_type"]  = @"mobile_app";
+    NSDictionary  *sdk  = [self sdk];
+    if (sdk) {
+        requestDict[@"sdk"] = sdk;
+    }
+    requestDict[@"sdkver"] = AN_SDK_VERSION;  //LEGACY.  Replaced by sdk object.
+
+    requestDict[@"supply_type"] = @"mobile_app";
 
 
     //
@@ -428,6 +438,13 @@ ANLogMark();
     } else {
         return nil;
     }
+}
+
+- (NSDictionary *)sdk {
+    return  @{
+                  @"source" : @"ansdk",
+                  @"version" : AN_SDK_VERSION
+            };
 }
 
 @end
