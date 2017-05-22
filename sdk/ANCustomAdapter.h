@@ -16,6 +16,10 @@
 #import "ANTargetingParameters.h"
 #import "ANAdConstants.h"
 
+
+
+
+
 @protocol ANCustomAdapterDelegate <NSObject>
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode;
 - (void)adWasClicked;
@@ -26,36 +30,56 @@
 - (void)willLeaveApplication;
 @end
 
+
+
+
 @protocol ANCustomAdapter <NSObject>
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterDelegate> delegate;
 @end
 
+
+
+
 @protocol ANCustomAdapterBannerDelegate;
 
 @protocol ANCustomAdapterBanner <ANCustomAdapter>
+
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters;
+
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterBannerDelegate, ANCustomAdapterDelegate> delegate;
+
 @end
+
+
 
 
 @protocol ANCustomAdapterInterstitialDelegate;
 
 @protocol ANCustomAdapterInterstitial <ANCustomAdapter>
+
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters;
 - (void)presentFromViewController:(UIViewController *)viewController;
 - (BOOL)isReady;
+
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
+
 @end
+
+
+
 
 @protocol ANCustomAdapterBannerDelegate <ANCustomAdapterDelegate>
 - (void)didLoadBannerAd:(UIView *)view;
 @end
+
+
+
 
 @protocol ANCustomAdapterInterstitialDelegate <ANCustomAdapterDelegate>
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter;

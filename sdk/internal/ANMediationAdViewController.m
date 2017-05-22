@@ -52,6 +52,7 @@
 #pragma mark - Invalid Networks
 
 + (NSMutableSet *)bannerInvalidNetworks {
+ANLogMark();
     static dispatch_once_t bannerInvalidNetworksToken;
     static NSMutableSet *bannerInvalidNetworks;
     dispatch_once(&bannerInvalidNetworksToken, ^{
@@ -61,6 +62,7 @@
 }
 
 + (NSMutableSet *)interstitialInvalidNetworks {
+ANLogMark();
     static dispatch_once_t interstitialInvalidNetworksToken;
     static NSMutableSet *interstitialInvalidNetworks;
     dispatch_once(&interstitialInvalidNetworksToken, ^{
@@ -70,11 +72,13 @@
 }
 
 + (void)addBannerInvalidNetwork:(NSString *)network {
+ANLogMark();
     NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] bannerInvalidNetworks];
     [invalidNetworks addObject:network];
 }
 
 + (void)addInterstitialInvalidNetwork:(NSString *)network {
+ANLogMark();
     NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] interstitialInvalidNetworks];
     [invalidNetworks addObject:network];
 }
@@ -98,6 +102,7 @@ ANLogMark();
 }
 
 - (BOOL)requestForAd:(ANMediatedAd *)ad {
+ANLogMark();
     // variables to pass into the failure handler if necessary
     NSString *className = nil;
     NSString *errorInfo = nil;
@@ -174,7 +179,9 @@ ANLogMark();
 
 - (void)handleInstantiationFailure:(NSString *)className
                          errorCode:(ANAdResponseCode)errorCode
-                         errorInfo:(NSString *)errorInfo {
+                         errorInfo:(NSString *)errorInfo
+{
+ANLogMark();
     if ([errorInfo length] > 0) {
         ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
@@ -194,10 +201,12 @@ ANLogMark();
 }
 
 - (void)setAdapter:adapter {
+ANLogMark();
     self.currentAdapter = adapter;
 }
 
 - (void)clearAdapter {
+ANLogMark();
     if (self.currentAdapter)
         self.currentAdapter.delegate = nil;
     self.currentAdapter = nil;
@@ -213,7 +222,9 @@ ANLogMark();
 - (BOOL)requestAd:(CGSize)size
   serverParameter:(NSString *)parameterString
          adUnitId:(NSString *)idString
-           adView:(id<ANAdFetcherDelegate>)adView {
+           adView:(id<ANAdFetcherDelegate>)adView
+{
+ANLogMark();
     // create targeting parameters object from adView properties
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
 #pragma clang diagnostic push
@@ -271,6 +282,7 @@ ANLogMark();
 #pragma mark - ANCustomAdapterBannerDelegate
 
 - (void)didLoadBannerAd:(UIView *)view {
+ANLogMark();
 	[self didReceiveAd:view];
 }
 
@@ -279,6 +291,7 @@ ANLogMark();
 #pragma mark - ANCustomAdapterInterstitialDelegate
 
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter {
+ANLogMark();
 	[self didReceiveAd:adapter];
 }
 
@@ -287,10 +300,12 @@ ANLogMark();
 #pragma mark - ANCustomAdapterDelegate
 
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
+ANLogMark();
     [self didFailToReceiveAd:errorCode];
 }
 
 - (void)adWasClicked {
+ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWasClicked];
@@ -298,6 +313,7 @@ ANLogMark();
 }
 
 - (void)willPresentAd {
+ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillPresent];
@@ -305,6 +321,7 @@ ANLogMark();
 }
 
 - (void)didPresentAd {
+ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adDidPresent];
@@ -312,6 +329,7 @@ ANLogMark();
 }
 
 - (void)willCloseAd {
+ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillClose];
@@ -319,6 +337,7 @@ ANLogMark();
 }
 
 - (void)didCloseAd {
+ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adDidClose];
@@ -326,6 +345,7 @@ ANLogMark();
 }
 
 - (void)willLeaveApplication {
+ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillLeaveApplication];
@@ -333,6 +353,7 @@ ANLogMark();
 }
 
 - (void)failedToDisplayAd {
+ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
@@ -354,6 +375,7 @@ ANLogMark();
 }
 
 - (void)didReceiveAd:(id)adObject {
+ANLogMark();
     if ([self checkIfHasResponded]) return;
     if (!adObject) {
         [self didFailToReceiveAd:ANAdResponseInternalError];
@@ -408,14 +430,18 @@ ANLogMark();
 }
 
 - (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
+ANLogMark();
     if ([self checkIfHasResponded]) return;
     [self markLatencyStop];
     self.hasFailed = YES;
     [self finish:errorCode withAdObject:nil auctionID:nil];
 }
 
-- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject
-     auctionID:(NSString *)auctionID {
+- (void)finish: (ANAdResponseCode)errorCode
+  withAdObject: (id)adObject
+     auctionID: (NSString *)auctionID
+{
+ANLogMark();
     // use queue to force return
     [self runInBlock:^(void) {
         ANAdFetcher *fetcher = self.adFetcher;
@@ -430,6 +456,7 @@ ANLogMark();
 }
 
 - (void)runInBlock:(void (^)())block {
+ANLogMark();
     // nothing keeps 'block' alive, so we don't have a retain cycle
     dispatch_async(dispatch_get_main_queue(), ^{
         block();
@@ -437,6 +464,7 @@ ANLogMark();
 }
 
 - (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {
+ANLogMark();
     if ([baseString length] < 1) {
         return @"";
     }
@@ -465,7 +493,8 @@ ANLogMark();
                           an_stringByAppendingUrlParameter:@"total_latency"
                           value:[NSString stringWithFormat:@"%.0f", totalLatency]];
     }
-    
+
+ANLogMarkMessage(@"resultCBString=%@", resultCBString);
     return resultCBString;
 }
 
@@ -474,6 +503,7 @@ ANLogMark();
 #pragma mark - Timeout handler
 
 - (void)startTimeout {
+ANLogMark();
     if (self.timeoutCanceled) return;
     __weak ANMediationAdViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
@@ -489,6 +519,7 @@ ANLogMark();
 }
 
 - (void)cancelTimeout {
+ANLogMark();
     self.timeoutCanceled = YES;
 }
 
@@ -501,6 +532,7 @@ ANLogMark();
  * from `requestAd` call.
  */
 - (void)markLatencyStart {
+ANLogMark();
     self.latencyStart = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -509,6 +541,7 @@ ANLogMark();
  * calls either of `onAdLoaded` or `onAdFailed`.
  */
 - (void)markLatencyStop {
+ANLogMark();
     self.latencyStop = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -516,6 +549,7 @@ ANLogMark();
  * The latency of the call to the mediated SDK.
  */
 - (NSTimeInterval)getLatency {
+ANLogMark();
     if ((self.latencyStart > 0) && (self.latencyStop > 0)) {
         return (self.latencyStop - self.latencyStart);
     }
@@ -527,6 +561,7 @@ ANLogMark();
  * The running total latency of the ad call.
  */
 - (NSTimeInterval)getTotalLatency {
+ANLogMark();
     if (self.adFetcher && (self.latencyStop > 0)) {
         return [self.adFetcher getTotalLatency:self.latencyStop];
     }
@@ -541,7 +576,9 @@ ANLogMark();
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
-                       context:(void *)context {
+                       context:(void *)context
+{
+ANLogMark();
     if (object == self.adViewDelegate) {
         NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
         if ([transitionInProgress boolValue] == NO) {
@@ -552,6 +589,7 @@ ANLogMark();
 }
 
 - (void)registerForPitbullScreenCaptureNotifications {
+ANLogMark();
     if (!self.isRegisteredForPitbullScreenCaptureNotifications) {
         NSObject *object = self.adViewDelegate;
         [object addObserver:self
@@ -563,6 +601,7 @@ ANLogMark();
 }
 
 - (void)unregisterFromPitbullScreenCaptureNotifications {
+ANLogMark();
     if (self.isRegisteredForPitbullScreenCaptureNotifications) {
         NSObject *object = self.adViewDelegate;
         @try {
@@ -575,6 +614,7 @@ ANLogMark();
 }
 
 - (void)dispatchPitbullScreenCapture {
+ANLogMark();
     if (self.pitbullAdForDelayedCapture) {
         [self.pitbullAdForDelayedCapture enumerateKeysAndObjectsUsingBlock:^(NSString *auctionID, UIView *view, BOOL *stop) {
             [ANPBBuffer captureImage:view
@@ -585,6 +625,7 @@ ANLogMark();
 }
 
 - (void)dealloc {
+ANLogMark();
     [self clearAdapter];
     [self unregisterFromPitbullScreenCaptureNotifications];
 }

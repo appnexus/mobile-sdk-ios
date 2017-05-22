@@ -270,7 +270,8 @@
                           an_stringByAppendingUrlParameter:@"total_latency"
                           value:[NSString stringWithFormat:@"%.0f", totalLatency]];
     }
-    
+
+ANLogMarkMessage(@"resultCBString=%@", resultCBString); 
     return resultCBString;
 }
 

@@ -231,8 +231,9 @@ ANLogMark();
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:impressionUrls:)])
     {
         [self.delegate universalAdFetcher:self impressionUrls:standardAd.impressionUrls];
-            //FIX -- need a (deep) copy?
-            //FIX race condition if standardAd is destroyed?
+            //FIX x -- need a (deep) copy?
+            //FIX x race condition if standardAd is destroyed?
+            //FIX  incorporate int o adObject.
     }
 
     self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
