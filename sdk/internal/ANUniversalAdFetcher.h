@@ -30,7 +30,15 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
 - (void)stopAdLoad;
-- (void) requestAd; 
+- (void) requestAd;
+
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
+
+- (void)fireResultCB:(NSString *)resultCBString
+              reason:(ANAdResponseCode)reason
+            adObject:(id)adObject
+           auctionID:(NSString *)auctionID;
+
 
 @end
 
@@ -47,11 +55,12 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 - (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
              impressionUrls: (NSArray<NSString *> *)impressionUrls;
 
-
-
-@optional  //FIX UT  is it optional?
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
+
+
+//FIX -- need custom keywords map.
+
 
 @end
 

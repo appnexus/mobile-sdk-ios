@@ -26,6 +26,8 @@
 #import "ANAdFetcher.h"
 
 #import "ANMRAIDContainerView.h"
+#import "ANMediatedAd.h"
+#import "ANMediationAdViewController.h"
 
 
 
@@ -43,6 +45,11 @@
 @property (nonatomic, readwrite, strong)  NSArray                   *impressionUrls;
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView      *standardAdView;
+
+@property (nonatomic, readwrite, strong)  ANMediationAdViewController  *mediationController;
+                            //FIX UT why does this need to be cleared -- do we use it here the same as in adfetcher the first?
+
+
 
 @end
 
@@ -62,6 +69,18 @@
 }
 
 
+- (void)clearMediationController {
+                    //FIX -- needed for why exactly?
+    /*
+     Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher. The controller maintains a weak reference to the
+     ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still
+     displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
+     */
+    self.mediationController.adFetcher = nil;
+    self.mediationController = nil;
+}
+
+
 
 
 #pragma mark - Ad Request
@@ -74,6 +93,10 @@ ANLogMark();
 
     self.connection = [NSURLConnection connectionWithRequest:request
                                                     delegate:self];
+
+    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+                //FIX -- review this location
+
 
     if (!self.connection) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
@@ -166,6 +189,9 @@ ANLogMark();
     } else if ( [nextAd isKindOfClass:[ANStandardAd class]] ) {
         [self handleStandardAd:nextAd];
 
+    } else if ( [nextAd isKindOfClass:[ANMediatedAd class]] ) {
+        [self handleMediatedAd:nextAd];
+
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall.  (class=%@)", [nextAd class]);
     }
@@ -244,6 +270,15 @@ ANLogMark();
     self.standardAdView.webViewController.adViewANJAMDelegate = self.delegate;
 
 }
+
+
+- (void)handleMediatedAd:(ANMediatedAd *)mediatedAd
+{
+    self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
+                                                               withFetcher:self
+                                                            adViewDelegate:self.delegate];
+}
+
 
 
 
@@ -353,15 +388,72 @@ ANLogMark();
     [self continueWaterfall];
 }
 
-- (void)fireAndIgnoreResultCB:(NSURL *)url {
-    // just fire resultCB asnychronously and ignore result
+
+
+#pragma mark - Helper methods.
+
+/**
+ * RETURN: success  time difference since ad request start
+ *         error    -1
+ */
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime
+{
+    NSTimeInterval  totalLatency  = -1;
+
+    if ((self.totalLatencyStart > 0) && (stopTime > 0)) {
+        totalLatency = (stopTime - self.totalLatencyStart);
+    }
+
+    //
+    return  totalLatency;
+}
+
+
+- (void)fireResultCB:(NSString *)resultCBString
+              reason:(ANAdResponseCode)reason
+            adObject:(id)adObject
+           auctionID:(NSString *)auctionID
+{
+ANLogMark();
+    NSURL *resultURL = [NSURL URLWithString:resultCBString];
+
+    if ([resultCBString length] > 0) {
+        [self fireAndIgnoreResultCB:resultURL];
+    }
+
+    //
+    if (reason == ANAdResponseSuccessful) {
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject];
+
+        response.auctionID = auctionID;
+        [self processFinalResponse:response];
+
+    } else {
+        ANLogError(@"FAILED with reason=%@.", @(reason));
+
+        // mediated ad failed. clear mediation controller
+        [self clearMediationController];
+
+        // stop waterfall if delegate reference (adview) was lost
+        if (!self.delegate) {
+            return;
+        }
+
+        [self continueWaterfall];
+    }
+}
+
+
+// just fire resultCB asnychronously and ignore result
+//
+- (void)fireAndIgnoreResultCB:(NSURL *)url
+{
     [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(url)
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
                            }];
 }
-
 
 
 @end

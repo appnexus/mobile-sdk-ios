@@ -15,6 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
+
+
+
 @interface ANAdFetcherResponse : NSObject
 
 @property (nonatomic, readonly, assign, getter=isSuccessful) BOOL successful;
@@ -22,6 +25,7 @@
 @property (nonatomic, readonly, strong) NSError *error;
 
 @property (nonatomic, readwrite, strong) NSString *auctionID;
+
 
 //
 + (ANAdFetcherResponse *)responseWithError:(NSError *)error;

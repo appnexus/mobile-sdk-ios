@@ -83,7 +83,7 @@ NSString *const  kANAdFetcherMediatedClassKey                          = @"kANAd
 }
 
 - (void)requestAdWithURL:(NSURL *)URL
-                            //FIX UT -- also called by fireResultCB:reason:adObject:auctionID:
+                            //x FIX UT -- also called by fireResultCB:reason:adObject:auctionID:
                             //  separate URL invocation from URL constructdion...
 {
 ANLogMarkMessage(@"REMOVED FROM THE SDK.");
@@ -311,6 +311,7 @@ ANLogMark();
     self.mediationController = [ANMediationAdViewController initMediatedAd:adToParse
                                                                withFetcher:self
                                                             adViewDelegate:self.delegate];
+                        //NB LEAVE WARNINGS -- eventually this module will be deleted...
 }
 
 - (void)finishRequestWithErrorAndRefresh:(NSError *)error

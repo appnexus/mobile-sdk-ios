@@ -124,8 +124,11 @@ ANLogMark();
         // Only the first tag is supported today
         self.noAdUrlString = firstTag[kANUniversalTagAdServerResponseKeyTagNoAdUrl];
         NSArray *adsArray = [[self class] adsArrayFromTag:firstTag];
-        if (adsArray) {
-            
+        if (adsArray)
+        {
+            // NB  Though adObject is parsed in multiple ways, we ASSUME only one --and exaclty one-- will be successful.
+            //     The same is true within the clause for each Content Source type.
+            //
             for (id adObject in adsArray)
             {
                 if (![adObject isKindOfClass:[NSDictionary class]]) {
@@ -147,17 +150,26 @@ ANLogMark();
                 }
 
                 NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
-                if (csmObject) {
-                    
-                    ANCSMVideoAd *csmVideoAd = [[self class] videoCSMAdFromCSMObject:adObject withTagObject:firstTag];
-                    if(csmVideoAd){
-                        [self.ads addObject:csmVideoAd];
-                    }
-                    
+                if (csmObject)
+                {
                     ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
-                    // Ignore non-supported CSM (e.g. web CSM, video CSM)
-                    if (mediatedAd && mediatedAd.className.length > 0) {
-                        [self.ads addObject:mediatedAd];
+
+                    if (mediatedAd)
+                    {
+                        // Ignore non-supported CSM (e.g. web CSM, video CSM)
+                        //
+                        if (mediatedAd.className.length > 0) {
+                            [self.ads addObject:mediatedAd];
+                        }
+
+                    // ASSUME anything other than a traditional mediated CSM adObject is a video mediated CSM adObject.
+                    // TBDQ -- How to be more specific?
+                    } else {
+                                                //FIX -- test me!
+                        ANCSMVideoAd *csmVideoAd = [[self class] videoCSMAdFromCSMObject:adObject withTagObject:firstTag];
+                        if(csmVideoAd){
+                            [self.ads addObject:csmVideoAd];
+                        }
                     }
                 }
 
@@ -173,7 +185,12 @@ ANLogMark();
                         [self.ads addObject:videoAd];
                     }
                 }
-            } //endfor
+
+                if (!(rtbObject || csmObject || ssmObject))  {
+                    ANLogError(@"UNRECOGNIZED adObject.  (adObject=%@)", adObject);
+                }
+
+            } //endfor -- adObject
         }
     }
 }
@@ -201,7 +218,7 @@ ANLogMark();
 + (NSDictionary *)rtbObjectFromAdObject:(NSDictionary *)adObject {
     if ([adObject[kANUniversalTagAdServerResponseKeyAdsRTBObject] isKindOfClass:[NSDictionary class]]) {
         return adObject[kANUniversalTagAdServerResponseKeyAdsRTBObject];
-}
+    }
     return nil;
 }
 
@@ -248,10 +265,12 @@ ANLogMark();
 }
 
 
-+ (ANMediatedAd *)mediatedAdFromCSMObject:(NSDictionary *)csmObject {
-    if ([csmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]]) {
-        ANMediatedAd *mediatedAd;
-        NSArray *handlerArray = (NSArray *)csmObject[kANUniversalTagAdServerResponseKeyHandler];
++ (ANMediatedAd *)mediatedAdFromCSMObject:(NSDictionary *)csmObject
+{
+    if ([csmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]])
+    {
+        ANMediatedAd  *mediatedAd    = nil;
+        NSArray       *handlerArray  = (NSArray *)csmObject[kANUniversalTagAdServerResponseKeyHandler];
 
         for (id handlerObject in handlerArray)
         {
@@ -268,19 +287,24 @@ ANLogMark();
                     }
 
                     mediatedAd = [[ANMediatedAd alloc] init];
-                    mediatedAd.className = className;
-                    mediatedAd.param = [handlerDict[kANUniversalTagAdServerResponseKeyParam] description];
-                    mediatedAd.width = [handlerDict[kANUniversalTagAdServerResponseKeyWidth] description];
-                    mediatedAd.height = [handlerDict[kANUniversalTagAdServerResponseKeyHeight] description];
-                    mediatedAd.adId = [handlerDict[kANUniversalTagAdServerResponseKeyId] description];
+
+                    mediatedAd.className  = className;
+                    mediatedAd.param      = [handlerDict[kANUniversalTagAdServerResponseKeyParam] description];
+                    mediatedAd.width      = [handlerDict[kANUniversalTagAdServerResponseKeyWidth] description];
+                    mediatedAd.height     = [handlerDict[kANUniversalTagAdServerResponseKeyHeight] description];
+                    mediatedAd.adId       = [handlerDict[kANUniversalTagAdServerResponseKeyId] description];
                     break;
                 }
             }
-        }
+        } //endfor -- handlerObject
 
-        mediatedAd.resultCB = [csmObject[kANUniversalTagAdServerResponseKeyResultCB] description];
-        mediatedAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:csmObject];
-        return mediatedAd;
+        if (mediatedAd)
+        {
+            mediatedAd.resultCB        = [csmObject[kANUniversalTagAdServerResponseKeyResultCB] description];
+            mediatedAd.impressionUrls  = [[self class] impressionUrlsFromContentSourceObject:csmObject];
+
+            return  mediatedAd;
+        }
     }
 
     return nil;

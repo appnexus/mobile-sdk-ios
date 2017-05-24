@@ -150,10 +150,11 @@ ANLogMark();
 
 - (void) fireImpressionUrls
 {
+ANLogMark();
     if (!self.impressionUrls || self.impressionUrlsHaveBeenFired) {
         return;
     }
-ANLogMark();
+ANLogMarkMessage(@"FIRED...");
 
     //
     NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire impressionUrls.", __PRETTY_FUNCTION__];
@@ -348,42 +349,49 @@ ANLogMarkMessage(@"%@", self.impressionUrls);
 #pragma mark - ANAdViewInternalDelegate
 
 - (void)adWasClicked {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {
         [self.delegate adWasClicked:self];
     }
 }
 
 - (void)adWillPresent {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
         [self.delegate adWillPresent:self];
     }
 }
 
 - (void)adDidPresent {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adDidPresent:)]) {
         [self.delegate adDidPresent:self];
     }
 }
 
 - (void)adWillClose {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adWillClose:)]) {
         [self.delegate adWillClose:self];
     }
 }
 
 - (void)adDidClose {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adDidClose:)]) {
         [self.delegate adDidClose:self];
     }
 }
 
 - (void)adWillLeaveApplication {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adWillLeaveApplication:)]) {
         [self.delegate adWillLeaveApplication:self];
     }
 }
 
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data {
+ANLogMark();
     if ([self.appEventDelegate respondsToSelector:@selector(ad:didReceiveAppEvent:withData:)]) {
         [self.appEventDelegate ad:self didReceiveAppEvent:name withData:data];
     }
@@ -398,6 +406,7 @@ ANLogMark();
 }
 
 - (void)adRequestFailedWithError:(NSError *)error {
+ANLogMark();
     if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
     }

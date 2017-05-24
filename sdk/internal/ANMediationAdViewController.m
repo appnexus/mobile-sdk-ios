@@ -25,13 +25,15 @@
 #import "ANPBContainerView.h"
 #import "ANMediationContainerView.h"
 
+
+
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 
 @property (nonatomic, readwrite, strong) id<ANCustomAdapter> currentAdapter;
 @property (nonatomic, readwrite, assign) BOOL hasSucceeded;
 @property (nonatomic, readwrite, assign) BOOL hasFailed;
 @property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
-@property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adViewDelegate;
+@property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> adViewDelegate;
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
 @property (nonatomic, readwrite, strong) NSDictionary *pitbullAdForDelayedCapture;
 
@@ -43,51 +45,21 @@
 
 @end
 
+            /* FIX -- tross
 @interface ANAdFetcher ()
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 @end
+                    */
+
+
 
 @implementation ANMediationAdViewController
 
-#pragma mark - Invalid Networks
-
-+ (NSMutableSet *)bannerInvalidNetworks {
-ANLogMark();
-    static dispatch_once_t bannerInvalidNetworksToken;
-    static NSMutableSet *bannerInvalidNetworks;
-    dispatch_once(&bannerInvalidNetworksToken, ^{
-        bannerInvalidNetworks = [[NSMutableSet alloc] init];
-    });
-    return bannerInvalidNetworks;
-}
-
-+ (NSMutableSet *)interstitialInvalidNetworks {
-ANLogMark();
-    static dispatch_once_t interstitialInvalidNetworksToken;
-    static NSMutableSet *interstitialInvalidNetworks;
-    dispatch_once(&interstitialInvalidNetworksToken, ^{
-        interstitialInvalidNetworks = [[NSMutableSet alloc] init];
-    });
-    return interstitialInvalidNetworks;
-}
-
-+ (void)addBannerInvalidNetwork:(NSString *)network {
-ANLogMark();
-    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] bannerInvalidNetworks];
-    [invalidNetworks addObject:network];
-}
-
-+ (void)addInterstitialInvalidNetwork:(NSString *)network {
-ANLogMark();
-    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] interstitialInvalidNetworks];
-    [invalidNetworks addObject:network];
-}
-
-#pragma mark -
+#pragma mark - Lifecycle.
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
-                                    withFetcher:(ANAdFetcher *)fetcher
-                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate
+                                    withFetcher:(ANUniversalAdFetcher *)fetcher
+                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate
 {
 ANLogMark();
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
@@ -177,6 +149,7 @@ ANLogMark();
     return YES;
 }
 
+
 - (void)handleInstantiationFailure:(NSString *)className
                          errorCode:(ANAdResponseCode)errorCode
                          errorInfo:(NSString *)errorInfo
@@ -200,10 +173,12 @@ ANLogMark();
     [self didFailToReceiveAd:errorCode];
 }
 
+
 - (void)setAdapter:adapter {
 ANLogMark();
     self.currentAdapter = adapter;
 }
+
 
 - (void)clearAdapter {
 ANLogMark();
@@ -222,7 +197,7 @@ ANLogMark();
 - (BOOL)requestAd:(CGSize)size
   serverParameter:(NSString *)parameterString
          adUnitId:(NSString *)idString
-           adView:(id<ANAdFetcherDelegate>)adView
+           adView:(id<ANUniversalAdFetcherDelegate>)adView
 {
 ANLogMark();
     // create targeting parameters object from adView properties
@@ -235,11 +210,13 @@ ANLogMark();
     targetingParameters.gender = adView.gender;
     targetingParameters.location = adView.location;
     targetingParameters.idforadvertising = ANUDID();
-    
+
+    //
     if ([adView isKindOfClass:[ANBannerAdView class]]) {
         // make sure the container and protocol match
-        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
-            && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
+        if (    [[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
+             && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)])
+        {
             
             [self markLatencyStart];
             [self startTimeout];
@@ -255,10 +232,12 @@ ANLogMark();
         } else {
             ANLogError(@"instance_exception %@", @"CustomAdapterBanner");
         }
+
     } else if ([adView isKindOfClass:[ANInterstitialAd class]]) {
         // make sure the container and protocol match
-        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]
-            && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
+        if (    [[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]
+             && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)])
+        {
             
             [self markLatencyStart];
             [self startTimeout];
@@ -271,11 +250,53 @@ ANLogMark();
         } else {
             ANLogError(@"instance_exception %@", @"CustomAdapterInterstitial");
         }
+
+    } else {
+        ANLogError(@"UNRECOGNIZED Entry Point classname.  (%@)", [adView class]);
     }
+
     
     // executes iff request was unsuccessful
     return NO;
 }
+
+
+
+
+#pragma mark - Invalid Networks
+
++ (NSMutableSet *)bannerInvalidNetworks {
+    ANLogMark();
+    static dispatch_once_t bannerInvalidNetworksToken;
+    static NSMutableSet *bannerInvalidNetworks;
+    dispatch_once(&bannerInvalidNetworksToken, ^{
+        bannerInvalidNetworks = [[NSMutableSet alloc] init];
+    });
+    return bannerInvalidNetworks;
+}
+
++ (NSMutableSet *)interstitialInvalidNetworks {
+    ANLogMark();
+    static dispatch_once_t interstitialInvalidNetworksToken;
+    static NSMutableSet *interstitialInvalidNetworks;
+    dispatch_once(&interstitialInvalidNetworksToken, ^{
+        interstitialInvalidNetworks = [[NSMutableSet alloc] init];
+    });
+    return interstitialInvalidNetworks;
+}
+
++ (void)addBannerInvalidNetwork:(NSString *)network {
+    ANLogMark();
+    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] bannerInvalidNetworks];
+    [invalidNetworks addObject:network];
+}
+
++ (void)addInterstitialInvalidNetwork:(NSString *)network {
+    ANLogMark();
+    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] interstitialInvalidNetworks];
+    [invalidNetworks addObject:network];
+}
+
 
 
 
@@ -374,13 +395,17 @@ ANLogMark();
     return (self.hasSucceeded || self.hasFailed);
 }
 
-- (void)didReceiveAd:(id)adObject {
+- (void)didReceiveAd:(id)adObject
+{
 ANLogMark();
-    if ([self checkIfHasResponded]) return;
+    if ([self checkIfHasResponded])  { return; }
+
     if (!adObject) {
         [self didFailToReceiveAd:ANAdResponseInternalError];
         return;
     }
+
+    //
     self.hasSucceeded = YES;
     [self markLatencyStop];
     
@@ -437,6 +462,7 @@ ANLogMark();
     [self finish:errorCode withAdObject:nil auctionID:nil];
 }
 
+
 - (void)finish: (ANAdResponseCode)errorCode
   withAdObject: (id)adObject
      auctionID: (NSString *)auctionID
@@ -444,9 +470,9 @@ ANLogMark();
 ANLogMark();
     // use queue to force return
     [self runInBlock:^(void) {
-        ANAdFetcher *fetcher = self.adFetcher;
-        NSString *resultCBString = [self createResultCBRequest:
-                                    self.mediatedAd.resultCB reason:errorCode];
+        ANUniversalAdFetcher *fetcher = self.adFetcher;
+        NSString *resultCBString = [self createResultCBRequest:self.mediatedAd.resultCB reason:errorCode];
+
         // fireResulCB will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
@@ -454,6 +480,7 @@ ANLogMark();
         [fetcher fireResultCB:resultCBString reason:errorCode adObject:adObject auctionID:auctionID];
     }];
 }
+
 
 - (void)runInBlock:(void (^)())block {
 ANLogMark();
@@ -463,35 +490,33 @@ ANLogMark();
     });
 }
 
-- (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {
+- (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode
+                    //FIX are latency values correct when medaition adapter is invoked but failes or timesout?
+{
 ANLogMark();
     if ([baseString length] < 1) {
         return @"";
     }
     
     // append reason code
-    NSString *resultCBString = [baseString
-                                an_stringByAppendingUrlParameter:@"reason"
-                                value:[NSString stringWithFormat:@"%d",reasonCode]];
+    NSString *resultCBString = [baseString an_stringByAppendingUrlParameter: @"reason"
+                                                                      value: [NSString stringWithFormat:@"%d",reasonCode]];
     
     // append idfa
-    resultCBString = [resultCBString
-                      an_stringByAppendingUrlParameter:@"idfa"
-                      value:ANUDID()];
+    resultCBString = [resultCBString an_stringByAppendingUrlParameter: @"idfa"
+                                                                value: ANUDID()];
     
     // append latency measurements
-    NSTimeInterval latency = [self getLatency] * 1000; // secs to ms
-    NSTimeInterval totalLatency = [self getTotalLatency] * 1000; // secs to ms
+    NSTimeInterval latency       = [self getLatency] * 1000; // secs to ms
+    NSTimeInterval totalLatency  = [self getTotalLatency] * 1000; // secs to ms
     
     if (latency > 0) {
-        resultCBString = [resultCBString
-                          an_stringByAppendingUrlParameter:@"latency"
-                          value:[NSString stringWithFormat:@"%.0f", latency]];
+        resultCBString = [resultCBString an_stringByAppendingUrlParameter: @"latency"
+                                                                    value: [NSString stringWithFormat:@"%.0f", latency]];
     }
     if (totalLatency > 0) {
-        resultCBString = [resultCBString
-                          an_stringByAppendingUrlParameter:@"total_latency"
-                          value:[NSString stringWithFormat:@"%.0f", totalLatency]];
+        resultCBString = [resultCBString an_stringByAppendingUrlParameter: @"total_latency"
+                                                                    value :[NSString stringWithFormat:@"%.0f", totalLatency]];
     }
 
 ANLogMarkMessage(@"resultCBString=%@", resultCBString);
@@ -500,7 +525,8 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
 
 
 
-#pragma mark - Timeout handler
+#pragma mark - Timeout handler              
+                        //FIX -- status of this?
 
 - (void)startTimeout {
 ANLogMark();
