@@ -274,6 +274,12 @@ ANLogMark();
 
 - (void)handleMediatedAd:(ANMediatedAd *)mediatedAd
 {
+    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:impressionUrls:)])
+    {
+        [self.delegate universalAdFetcher:self impressionUrls:mediatedAd.impressionUrls];
+        //FIX  incorporate int o adObject.
+    }
+
     self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
                                                                withFetcher:self
                                                             adViewDelegate:self.delegate];
