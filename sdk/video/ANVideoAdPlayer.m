@@ -151,7 +151,8 @@
 
 - (void) createVideoPlayer
 {
-    NSURL *url = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
+    NSString *urlString = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
+    NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];//Creating a WKWebViewConfiguration object so a controller can be added to it.
