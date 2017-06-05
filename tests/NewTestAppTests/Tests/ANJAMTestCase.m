@@ -88,7 +88,7 @@
     [self.adView loadAd];
     [tester waitForTimeInterval:1.0];
     [tester tapViewWithAccessibilityLabel:@"AdView"];
-    [self waitForExpectationsWithTimeout:2.0
+    [self waitForExpectationsWithTimeout:12.0
                                  handler:nil];
     XCTAssertTrue([[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController
                    isKindOfClass:[ANBrowserViewController class]]);
