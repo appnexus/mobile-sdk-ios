@@ -25,6 +25,8 @@
 #import "ANMRAIDContainerView.h"
 
 static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
+static NSString *const ETRAppNexusShowingMediatedAdNotification = @"ETRAppNexusShowingMediatedAd";
+
 
 // List of allowed ad sizes for interstitials.  These must fit in the
 // maximum size of the view, which in this case, will be the size of
@@ -147,6 +149,9 @@ NSString *const kANInterstitialAdViewAuctionInfoKey = @"kANInterstitialAdViewAuc
                                  animated:YES
                                completion:nil];
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+        NSString *adToShowClassName = NSStringFromClass([adToShow class]);
+        NSDictionary* userInfo = @{@"ETRANMEdiatedAdNetworkClassName": adToShowClassName};
+        [[NSNotificationCenter defaultCenter] postNotificationName:ETRAppNexusShowingMediatedAdNotification object:self userInfo:userInfo];
         [adToShow presentFromViewController:controller];
         if (auctionID) {
             ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
