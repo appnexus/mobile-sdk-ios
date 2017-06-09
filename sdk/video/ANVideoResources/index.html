@@ -25,20 +25,6 @@
         <script src="MobileVastPlayer.js"></script>
         <script src="ASTMediationManager.js"></script>
         <script>
-            var isIOS = (/iphone|ipad|ipod/i).test(window.navigator.userAgent.toLowerCase());
-            if (isIOS) {
-                console = {};
-                console.log = function(log) {
-                    var iframe = document.createElement('iframe');
-                    iframe.setAttribute('src', 'anwebconsole: ' + log);
-                    document.documentElement.appendChild(iframe);
-                    iframe.parentNode.removeChild(iframe);
-                    iframe = null;
-                };
-                console.debug = console.info = console.warn = console.error = console.log;
-            }
-        </script>
-        <script>
             var final_video_content = '<div id="video-content" style="width: 375px; height: 375px, background-color:#000000">';
             var ua = getMobileOperatingSystem();
             var options = {
@@ -61,6 +47,7 @@
                 "waterfallTimeout": 15000,
                 "waterfallSteps": -1,
                 "fitInContainer":false,
+                "mobileSDK": true,
                 "showFullScreenButton":false,
                 "shouldResizeVideoToFillMobileWebview":true,
                 "enableNativeInline":true, //this option is required if we are using HTML 5 player
@@ -68,6 +55,15 @@
                 "learnMore": {
                     "enabled": true,
                     "clickToPause": false
+                },
+                "data": {
+                    "skipOffset": "",
+                    "durationMsec": null,
+                    "skipOffsetMsec": null,
+                    "isVastVideoSkippable": false,
+                    "vastProgressEvent": {},
+                    "vastDurationMsec": null,
+                    "adIcons": null
                 },
                 "vpaidEnvironmentVars": {
                     "rhythmone": true
