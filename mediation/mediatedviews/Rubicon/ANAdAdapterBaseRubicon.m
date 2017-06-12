@@ -30,7 +30,8 @@
     
     if(idString != nil || ![idString isEqualToString:@""]){
         NSData *data = [idString dataUsingEncoding:NSUTF8StringEncoding];
-        id idDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSError *error = nil;
+        id idDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         if(idDictionary != nil && [idDictionary isKindOfClass:[NSDictionary class]]){
             NSString *appId = [idDictionary objectForKey:RUBICON_APP_ID];
             NSString *publisherId = [idDictionary objectForKey:RUBICON_PUB_ID];

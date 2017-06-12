@@ -47,7 +47,8 @@ static NSString *kSiteId = @"";
     
     if(idString != nil || ![idString isEqualToString:@""]){
         NSData *data = [idString dataUsingEncoding:NSUTF8StringEncoding];
-        id idDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSError *error = nil;
+        id idDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         if(idDictionary != nil && [idDictionary isKindOfClass:[NSDictionary class]]){
             kSiteId = [idDictionary objectForKey:@"site_id"];
             kPartnerId = [idDictionary objectForKey:@"partner_id"];
