@@ -1,3 +1,10 @@
+## 3.3
+
+### Bug Fixes and Updates
+
++   MS-2828 - VPAID support for Instream-Video.
+
+
 ## 3.2.1
 
 ### Bug Fixes and Updates
