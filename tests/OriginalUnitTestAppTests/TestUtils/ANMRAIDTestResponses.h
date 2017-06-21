@@ -22,4 +22,7 @@
 + (NSString *)MRAIDListenerBannerWithSelectorName:(NSString *)selector;
 + (NSString *)basicMRAIDInterstitialWithSelectorName:(NSString *)selector;
 
++ (NSString *)iFrameAboutBannerWithSelectorName:(NSString *)selector;
++ (NSString *)mainFrameAboutBannerWithSelectorName:(NSString *)selector;
+
 @end
