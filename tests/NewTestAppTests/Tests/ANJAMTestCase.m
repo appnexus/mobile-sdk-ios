@@ -94,6 +94,8 @@
                    isKindOfClass:[ANBrowserViewController class]]);
 }
 
+/*
+// [tester acknowledgeSystemAlert] no longer able to dismiss Safari pop-up
 - (void)testANJAMExternalBrowserResponse{
     #if TARGET_IPHONE_SIMULATOR
     [self stubRequestWithResponse:@"ANJAMExternalBrowserResponse"];
@@ -108,7 +110,7 @@
                                  handler:nil];
     self.externalBrowserExpectation = nil;
     #endif
-}
+}*/
 
 - (void)testMayDeepLinkResponse{
     [self stubRequestWithResponse:@"ANJAMMayDeepLinkResponse"];
