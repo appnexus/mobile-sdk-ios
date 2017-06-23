@@ -1233,6 +1233,28 @@
     [self clearTest];
 }
 
+#pragma Test about: Loading
+
+- (void)testiFrameAboutProtocolLoading {
+    [self loadMRAIDBannerAtOrigin:CGPointZero
+                         withSize:CGSizeMake(320, 50)
+                    usingStubBody:[ANMRAIDTestResponses iFrameAboutBannerWithSelectorName:NSStringFromSelector(_cmd)]];
+    [self addBannerAsSubview];
+    NSString *result = [self evaluateJavascript:@"messageReceived"];
+    XCTAssertEqualObjects(result, @"true", @"Expected about:srcdoc to be supported");
+    [self clearTest];
+}
+
+- (void)testMainFrameAboutProtocolLoading {
+    [self loadMRAIDBannerAtOrigin:CGPointZero
+                         withSize:CGSizeMake(320, 50)
+                    usingStubBody:[ANMRAIDTestResponses mainFrameAboutBannerWithSelectorName:NSStringFromSelector(_cmd)]];
+    [self addBannerAsSubview];
+    NSString *result = [self evaluateJavascript:@"document.documentURI"];
+    XCTAssertEqualObjects(result, @"http://mediation.adnxs.com/", @"Did not expect redirect to about:blank");
+    [self clearTest];
+}
+
 #pragma mark Helper Functions
 
 - (void)clearTest {

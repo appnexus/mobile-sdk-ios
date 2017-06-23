@@ -509,7 +509,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
         } else if ([URLScheme isEqualToString:@"about"]) {
-            decisionHandler(WKNavigationActionPolicyCancel);
+            if (navigationAction.targetFrame && navigationAction.targetFrame.mainFrame == NO) {
+                decisionHandler(WKNavigationActionPolicyAllow);
+            } else {
+                decisionHandler(WKNavigationActionPolicyCancel);
+            }
             return;
         } else {
             if (self.configuration.navigationTriggersDefaultBrowser) {
