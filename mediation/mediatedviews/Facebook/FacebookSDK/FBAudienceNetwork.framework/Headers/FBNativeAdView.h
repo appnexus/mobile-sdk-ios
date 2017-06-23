@@ -1,4 +1,4 @@
-// Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+// Copyright 2004-present Facebook. All Rights Reserved.
 //
 // You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
 // copy, modify, and distribute this software in source code or binary form for use
@@ -18,148 +18,116 @@
 
 #import <UIKit/UIKit.h>
 
-#import "FBAdDefines.h"
-#import "FBNativeAd.h"
+#import <FBAudienceNetwork/FBAdDefines.h>
+#import <FBAudienceNetwork/FBNativeAd.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class FBNativeAdViewAttributes;
 
-/*!
- @enum FBNativeAdViewType enum
- @abstract Determines the type of native ad template. Different views are created
+/**
+ Determines the type of native ad template. Different views are created
  for different values of FBNativeAdViewType
  */
 typedef NS_ENUM(NSInteger, FBNativeAdViewType) {
+    /// Fixed height view, 100 points (banner equivalent)
     FBNativeAdViewTypeGenericHeight100 = 1,
+    /// Fixed height view, 120 points (banner equivalent)
     FBNativeAdViewTypeGenericHeight120,
+    /// Fixed height view, 300 points
     FBNativeAdViewTypeGenericHeight300,
+    /// Fixed height view, 400 points
     FBNativeAdViewTypeGenericHeight400,
 };
 
-/*!
- @class FBNativeAdView
-
- @abstract
- The FBNativeAdView creates prebuilt native ad template views and manages native ads.
+/**
+  The FBNativeAdView creates prebuilt native ad template views and manages native ads.
  */
 FB_CLASS_EXPORT
 @interface FBNativeAdView : UIView
 
-/*!
- @property
- @abstract The type of the view, specifies which template to use
+/**
+  The type of the view, specifies which template to use
  */
 @property (nonatomic, assign, readonly) FBNativeAdViewType type;
 
-/*!
- @method
- @abstract
- This is a method to create a native ad template using the given placement id and type.
- @param nativeAd The native ad to use to create this view.
- @param type The type of this native ad template. For more information, consult FBNativeAdViewType.
+/**
+  This is a method to create a native ad template using the given placement id and type.
+ - Parameter nativeAd: The native ad to use to create this view.
+ - Parameter type: The type of this native ad template. For more information, consult FBNativeAdViewType.
  */
 + (nonnull instancetype)nativeAdViewWithNativeAd:(nonnull FBNativeAd *)nativeAd withType:(FBNativeAdViewType)type;
 
-/*!
- @property
- @abstract A view controller that is used to present modal content. If nil, the view searches for a view controller.
+/**
+  A view controller that is used to present modal content. If nil, the view searches for a view controller.
  */
 @property (nonatomic, weak, nullable) UIViewController *viewController;
 
-/*!
- @method
- @abstract
- This is a method to create a native ad template using the given placement id and type.
- @param nativeAd The native ad to use to create this view.
- @param type The type of this native ad template. For more information, consult FBNativeAdViewType.
- @param attributes The attributes to render this native ad template with.
+/**
+  This is a method to create a native ad template using the given placement id and type.
+ - Parameter nativeAd: The native ad to use to create this view.
+ - Parameter type: The type of this native ad template. For more information, consult FBNativeAdViewType.
+ - Parameter attributes: The attributes to render this native ad template with.
  */
 + (nonnull instancetype)nativeAdViewWithNativeAd:(nonnull FBNativeAd *)nativeAd withType:(FBNativeAdViewType)type withAttributes:(nonnull FBNativeAdViewAttributes *)attributes;
 
 @end
 
-/*!
- @class FBNativeAdViewLayout
- @abstract
- Describes the look and feel of a native ad view.
+/**
+  Describes the look and feel of a native ad view.
  */
 @interface FBNativeAdViewAttributes : NSObject <NSCopying>
 
-/*!
- @method
- @abstract
- This is a method to create native ad view attributes with a dictionary
+/**
+  This is a method to create native ad view attributes with a dictionary
  */
 - (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *) dict NS_DESIGNATED_INITIALIZER;
 
-/*!
- @property
- @abstract
- Background color of the native ad view.
+/**
+  Background color of the native ad view.
  */
 @property (nonatomic, copy, nullable) UIColor *backgroundColor;
-/*!
- @property
- @abstract
- Color of the title label.
+/**
+  Color of the title label.
  */
 @property (nonatomic, copy, nullable) UIColor *titleColor;
-/*!
- @property
- @abstract
- Font of the title label.
+/**
+  Font of the title label.
  */
 @property (nonatomic, copy, nullable) UIFont *titleFont;
-/*!
- @property
- @abstract
- Color of the description label.
+/**
+  Color of the description label.
  */
 @property (nonatomic, copy, nullable) UIColor *descriptionColor;
-/*!
- @property
- @abstract
- Font of the description label.
+/**
+  Font of the description label.
  */
 @property (nonatomic, copy, nullable) UIFont *descriptionFont;
-/*!
- @property
- @abstract
- Background color of the call to action button.
+/**
+  Background color of the call to action button.
  */
 @property (nonatomic, copy, nullable) UIColor *buttonColor;
-/*!
- @property
- @abstract
- Color of the call to action button's title label.
+/**
+  Color of the call to action button's title label.
  */
 @property (nonatomic, copy, nullable) UIColor *buttonTitleColor;
-/*!
- @property
- @abstract
- Font of the call to action button's title label.
+/**
+  Font of the call to action button's title label.
  */
 @property (nonatomic, copy, nullable) UIFont *buttonTitleFont;
-/*!
- @property
- @abstract
- Border color of the call to action button. If nil, no border is shown.
+/**
+  Border color of the call to action button. If nil, no border is shown.
  */
 @property (nonatomic, copy, nullable) UIColor *buttonBorderColor;
-/*!
- @property
- @abstract
- Enables or disables autoplay for some types of media. Defaults to YES.
+/**
+  Enables or disables autoplay for some types of media. Defaults to YES.
  */
 @property (nonatomic, assign, getter=isAutoplayEnabled) BOOL autoplayEnabled;
 
-/*!
- @method
- @abstract
- Returns default attributes for a given type.
+/**
+  Returns default attributes for a given type.
 
- @param type The type for this layout.
+ - Parameter type: The type for this layout.
  */
 + (nonnull instancetype)defaultAttributesForType:(FBNativeAdViewType)type;
 

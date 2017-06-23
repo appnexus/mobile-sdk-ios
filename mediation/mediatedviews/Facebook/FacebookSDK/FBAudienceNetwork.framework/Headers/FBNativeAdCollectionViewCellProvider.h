@@ -1,4 +1,4 @@
-// Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+// Copyright 2004-present Facebook. All Rights Reserved.
 //
 // You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
 // copy, modify, and distribute this software in source code or binary form for use
@@ -19,54 +19,44 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "FBAdDefines.h"
-#import "FBNativeAd.h"
-#import "FBNativeAdCollectionViewAdProvider.h"
-#import "FBNativeAdView.h"
-#import "FBNativeAdsManager.h"
+#import <FBAudienceNetwork/FBAdDefines.h>
+#import <FBAudienceNetwork/FBNativeAd.h>
+#import <FBAudienceNetwork/FBNativeAdCollectionViewAdProvider.h>
+#import <FBAudienceNetwork/FBNativeAdView.h>
+#import <FBAudienceNetwork/FBNativeAdsManager.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @class FBNativeAdCollectionViewCellProvider
-
- @abstract Class which assists in putting FBNativeAdViews into UICollectionViews. This class manages the creation of UICollectionViewCells which host native ad views. Functionality is provided to create UICollectionCellViews as needed for a given indexPath as well as computing the height of the cells.
+/**
+  Class which assists in putting FBNativeAdViews into UICollectionViews. This class manages the creation of UICollectionViewCells which host native ad views. Functionality is provided to create UICollectionCellViews as needed for a given indexPath as well as computing the height of the cells.
  */
 FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @interface FBNativeAdCollectionViewCellProvider : FBNativeAdCollectionViewAdProvider
 
-/*!
- @method
+/**
+  Method to create a FBNativeAdCollectionViewCellProvider.
 
- @abstract Method to create a FBNativeAdCollectionViewCellProvider.
-
- @param manager The naitve ad manager consumed by this provider
- @param type The type of this native ad template. For more information, consult FBNativeAdViewType.
+ - Parameter manager: The naitve ad manager consumed by this provider
+ - Parameter type: The type of this native ad template. For more information, consult FBNativeAdViewType.
  */
 - (instancetype)initWithManager:(FBNativeAdsManager *)manager forType:(FBNativeAdViewType)type;
 
-/*!
- @method
+/**
+  Method to create a FBNativeAdCollectionViewCellProvider.
 
- @abstract Method to create a FBNativeAdCollectionViewCellProvider.
-
- @param manager The naitve ad manager consumed by this provider
- @param type The type of this native ad template. For more information, consult FBNativeAdViewType.
- @param attributes The layout of this native ad template. For more information, consult FBNativeAdViewLayout.
+ - Parameter manager: The naitve ad manager consumed by this provider
+ - Parameter type: The type of this native ad template. For more information, consult FBNativeAdViewType.
+ - Parameter attributes: The layout of this native ad template. For more information, consult FBNativeAdViewLayout.
  */
 - (instancetype)initWithManager:(FBNativeAdsManager *)manager forType:(FBNativeAdViewType)type forAttributes:(FBNativeAdViewAttributes *)attributes NS_DESIGNATED_INITIALIZER;
 
-/*!
- @method
-
- @abstract Helper method for implementors of UICollectionViewDataSource who would like to host native ad UICollectionViewCells in their collection view.
+/**
+  Helper method for implementors of UICollectionViewDataSource who would like to host native ad UICollectionViewCells in their collection view.
  */
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
-/*!
- @method
-
- @abstract Helper method for implementors of UICollectionViewDelegate who would like to host native ad UICollectionViewCells in their collection view.
+/**
+  Helper method for implementors of UICollectionViewDelegate who would like to host native ad UICollectionViewCells in their collection view.
  */
 - (CGFloat)collectionView:(nonnull UICollectionView *)collectionView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath;
 

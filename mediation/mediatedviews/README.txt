@@ -1,3 +1,7 @@
+3.3  -- 2017 June 23
+
+  Facebook SDK		  v4.23.0 
+
 3.2  -- 2017 May 11
 
   Rubicon SDK             v6.3.0
