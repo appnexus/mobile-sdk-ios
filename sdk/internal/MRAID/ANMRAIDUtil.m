@@ -17,6 +17,7 @@
 #import <MessageUI/MFMessageComposeViewController.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "ANGlobal.h"
+#import "ANLogging.h"
 
 @implementation ANMRAIDUtil
 
@@ -48,6 +49,7 @@
     static BOOL kSupportsTel;
     dispatch_once(&kSupportsTelToken, ^{
         kSupportsTel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
+        ANLogDebug(@"%@ support tel:// protocol", (kSupportsTel ? @"Does" : @"Does not"));
     });
     return kSupportsTel;
 }
