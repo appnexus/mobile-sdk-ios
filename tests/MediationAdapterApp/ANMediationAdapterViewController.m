@@ -156,6 +156,10 @@
 
 - (ANBannerAdView *)loadFacebookBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
     [self stubFacebookBanner];
+
+    [FBAdSettings setLogLevel:FBAdLogLevelLog];
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
+
     [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
     return [self bannerWithDelegate:delegate];
 }
@@ -167,6 +171,8 @@
     mediatedAd.adId = @"210827375150_10154672420735151";
     mediatedAd.width = [NSString stringWithFormat:@"%ld", (long)adSize.width];
     mediatedAd.height = [NSString stringWithFormat:@"%ld", (long)adSize.height];
+    [FBAdSettings setLogLevel:FBAdLogLevelLog];
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
     [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
     [self stubMediatedAd:mediatedAd];
     return [self bannerWithDelegate:delegate
@@ -176,6 +182,8 @@
 
 - (ANInterstitialAd *)loadFacebookInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
     [self stubFacebookInterstitial];
+    [FBAdSettings setLogLevel:FBAdLogLevelLog];
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
     [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
     return [self interstitialWithDelegate:delegate];
 }
@@ -201,6 +209,9 @@
     ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
     nativeAdRequest.shouldLoadIconImage = YES;
     nativeAdRequest.shouldLoadMainImage = YES;
+    
+    [FBAdSettings setLogLevel:FBAdLogLevelLog];
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
     [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
     return nativeAdRequest;
 }

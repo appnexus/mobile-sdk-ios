@@ -86,7 +86,7 @@
     self.adView.opensInNativeBrowser = YES;
     self.internalBrowserExpectation = [self expectationWithDescription:@"Waiting for internal browser to be opened."];
     [self.adView loadAd];
-    [tester waitForTimeInterval:1.0];
+    [tester waitForTimeInterval:3.0];
     [tester tapViewWithAccessibilityLabel:@"AdView"];
     [self waitForExpectationsWithTimeout:2.0
                                  handler:nil];
