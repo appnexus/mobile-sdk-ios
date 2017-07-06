@@ -44,7 +44,12 @@
 }
 
 + (BOOL)supportsTel {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
+    static dispatch_once_t kSupportsTelToken;
+    static BOOL kSupportsTel;
+    dispatch_once(&kSupportsTelToken, ^{
+        kSupportsTel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
+    });
+    return kSupportsTel;
 }
 
 + (BOOL)supportsCalendar {
