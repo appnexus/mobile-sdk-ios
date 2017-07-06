@@ -97,12 +97,21 @@ typedef NS_ENUM(NSInteger, FBAdTestAdType) {
 FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @interface FBAdSettings : NSObject
 
-// When test mode is on, setting a non default value for testAdType will
-// request the specified type of ad.
+/**
+ Controls support for audio-only video playback when the app is backgrounded.  Note that this is only supported
+ when using FBMediaViewVideoRenderer, and requires corresponding support for background audio to be added to
+ the app.  Default value is NO.
+ */
+@property (class, nonatomic, assign, getter=isBackgroundVideoPlaybackAllowed) BOOL backgroundVideoPlaybackAllowed;
+
+/**
+ When test mode is on, setting a non default value for testAdType will
+ requests the specified type of ad.
+ */
 @property (class, nonatomic, assign) FBAdTestAdType testAdType;
 
 /**
-  Returns test mode on/off.
+ Returns test mode on/off.
  */
 + (BOOL)isTestMode;
 
