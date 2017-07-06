@@ -1,4 +1,4 @@
-3.3  -- 2017 June 23
+3.4  -- 2017 July 6
 
   Facebook SDK		  v4.24.0 
 
