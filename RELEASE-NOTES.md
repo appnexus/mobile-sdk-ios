@@ -1,3 +1,14 @@
+## 3.4
+
+### Bug Fixes and Updates
+
++   MS-3026 - Add support for about:srcdoc.
+
+### Mediated SDKs
+
++  Facebook SDK            v4.24.0
+
+
 ## 3.3
 
 ### Bug Fixes and Updates
