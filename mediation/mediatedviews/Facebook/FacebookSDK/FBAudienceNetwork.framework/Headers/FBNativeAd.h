@@ -89,6 +89,19 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  */
 @property (nonatomic, copy, readonly, nullable) NSString *body;
 /**
+ Typed access to the AdChoices icon. See `FBAdImage` for details. See `FBAdChoicesView` for an included implementation.
+ */
+@property (nonatomic, strong, readonly, nullable) FBAdImage *adChoicesIcon;
+/**
+ Typed access to the AdChoices URL. Navigate to this link when the icon is tapped. See `FBAdChoicesView` for an included implementation.
+ */
+@property (nonatomic, copy, readonly, nullable) NSURL *adChoicesLinkURL;
+/**
+ Typed access to the AdChoices text, usually a localized version of "AdChoices". See `FBAdChoicesView` for an included implementation.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *adChoicesText;
+
+/**
   Set the native ad caching policy. This controls which media (images, video, etc) from the native ad are cached before the native ad calls nativeAdLoaded on its delegate. The default is to not block on caching. Ensure that media is loaded through FBMediaView or through [FBAdImage loadImageAsyncWithBlock:] to take full advantage of caching.
  */
 @property (nonatomic, assign) FBNativeAdsCachePolicy mediaCachePolicy;
