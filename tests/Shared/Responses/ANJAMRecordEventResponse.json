@@ -5,7 +5,7 @@
             "type":"banner",
             "width":320,
             "height":50,
-            "content":"<script src=\"mraid.js\"></script><a href='https://www.reddit.com/r/cats/'><img src='http://placekitten.com/g/320/50' width='320' height='50'></img></a><script>anjam.RecordEvent('http://www.example.com/pixel?id=123');</script>"
+            "content":"<script src=\"mraid.js\"></script><a href='https://www.reddit.com/r/cats/'><img src='http://placekitten.com/g/320/50' width='320' height='50'></img></a><script>anjam.RecordEvent('http://www.appnexus.com/pixel?id=123');</script>"
         }
     ]
 }

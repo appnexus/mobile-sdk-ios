@@ -1,4 +1,4 @@
-// Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+// Copyright 2004-present Facebook. All Rights Reserved.
 //
 // You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
 // copy, modify, and distribute this software in source code or binary form for use
@@ -19,76 +19,63 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "FBAdDefines.h"
-#import "FBNativeAd.h"
-#import "FBNativeAdsManager.h"
+#import <FBAudienceNetwork/FBAdDefines.h>
+#import <FBAudienceNetwork/FBNativeAd.h>
+#import <FBAudienceNetwork/FBNativeAdsManager.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @class FBNativeAdCollectionViewAdProvider
-
- @abstract Additional functionality on top of FBNativeAdsManager to assist in using native ads within a UICollectionView. This class contains a mechanism to map indexPaths to native ads in a stable manner as well as helpers which assist in doing the math to include ads at a regular interval within a collection view.
+/**
+  Additional functionality on top of FBNativeAdsManager to assist in using native ads within a UICollectionView. This class contains a mechanism to map indexPaths to native ads in a stable manner as well as helpers which assist in doing the math to include ads at a regular interval within a collection view.
  */
-FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
+FB_CLASS_EXPORT
 @interface FBNativeAdCollectionViewAdProvider : NSObject
 
-/*!
- @property
- @abstract Passes delegate methods from FBNativeAd. Separate delegate calls will be made for each native ad contained.
+/**
+  Passes delegate methods from FBNativeAd. Separate delegate calls will be made for each native ad contained.
  */
 @property (nonatomic, weak, nullable) id<FBNativeAdDelegate> delegate;
 
-/*!
- @method
+/**
+  Create a FBNativeAdCollectionViewAdProvider.
 
- @abstract Create a FBNativeAdCollectionViewAdProvider.
-
- @param manager The FBNativeAdsManager which is consumed by this class.
+ - Parameter manager: The FBNativeAdsManager which is consumed by this class.
  */
 - (instancetype)initWithManager:(FBNativeAdsManager *)manager NS_DESIGNATED_INITIALIZER;
 
-/*!
- @method
+/**
+  Retrieve a native ad for an indexPath, will return the same ad for a given indexPath until the native ads manager is refreshed. This method is intended for usage with a collection view and specifically the caller is recommended to wait until  collectionView:cellForRowAtIndexPath: to ensure getting the best native ad for the given collection cell.
 
- @abstract Retrieve a native ad for an indexPath, will return the same ad for a given indexPath until the native ads manager is refreshed. This method is intended for usage with a collection view and specifically the caller is recommended to wait until  collectionView:cellForRowAtIndexPath: to ensure getting the best native ad for the given collection cell.
-
- @param collectionView The collectionView where native ad will be used
- @param indexPath The indexPath to use as a key for this native ad
- @return A FBNativeAd which is loaded and ready to be used.
+ - Parameter collectionView: The collectionView where native ad will be used
+ - Parameter indexPath: The indexPath to use as a key for this native ad
+ - Returns: A FBNativeAd which is loaded and ready to be used.
  */
 - (FBNativeAd *)collectionView:(UICollectionView *)collectionView nativeAdForRowAtIndexPath:(NSIndexPath *)indexPath;
 
-/*!
- @method
+/**
+  Support for evenly distributed native ads within a collection view. Computes whether this cell is an ad or not.
 
- @abstract Support for evenly distributed native ads within a collection view. Computes whether this cell is an ad or not.
-
- @param indexPath The indexPath of the cell within the collection view
- @param stride The frequency that native ads are to appear within the collection view
- @return Boolean indicating whether the cell at the path is an ad
+ - Parameter indexPath: The indexPath of the cell within the collection view
+ - Parameter stride: The frequency that native ads are to appear within the collection view
+ - Returns: Boolean indicating whether the cell at the path is an ad
  */
 - (BOOL)isAdCellAtIndexPath:(NSIndexPath *)indexPath forStride:(NSUInteger)stride;
 
-/*!
- @method
+/**
+  Support for evenly distributed native ads within a collection view. Adjusts a non-ad cell indexPath to the indexPath it would be in a collection with no ads.
 
- @abstract Support for evenly distributed native ads within a collection view. Adjusts a non-ad cell indexPath to the indexPath it would be in a collection with no ads.
-
- @param indexPath The indexPath to of the non-ad cell
- @param stride The frequency that native ads are to appear within the collection view
- @return An indexPath adjusted to what it would be in a collection view with no ads
+ - Parameter indexPath: The indexPath to of the non-ad cell
+ - Parameter stride: The frequency that native ads are to appear within the collection view
+ - Returns: An indexPath adjusted to what it would be in a collection view with no ads
  */
 - (NSIndexPath *)adjustNonAdCellIndexPath:(NSIndexPath *)indexPath forStride:(NSUInteger)stride;
 
-/*!
- @method
+/**
+  Support for evenly distributed native ads within a collection view. Adjusts the total count of cells within the collection view to account for the ad cells.
 
- @abstract Support for evenly distributed native ads within a collection view. Adjusts the total count of cells within the collection view to account for the ad cells.
-
- @param count The count of cells in the collection view not including ads
- @param stride The frequency that native ads are to appear within the collection view
- @return The total count of cells within the collection view including both ad and non-ad cells
+ - Parameter count: The count of cells in the collection view not including ads
+ - Parameter stride: The frequency that native ads are to appear within the collection view
+ - Returns: The total count of cells within the collection view including both ad and non-ad cells
  */
 - (NSUInteger)adjustCount:(NSUInteger)count forStride:(NSUInteger)stride;
 

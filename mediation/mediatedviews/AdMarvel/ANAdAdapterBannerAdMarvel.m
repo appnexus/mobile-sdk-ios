@@ -19,9 +19,10 @@
 #import "AdMarvelView.h"
 #import "ANLogging.h"
 
-@interface ANAdAdapterBannerAdMarvel ()
+@interface ANAdAdapterBannerAdMarvel () <AdMarvelDelegate>
 
     @property (nonatomic, strong) AdMarvelView *adMarvelView;
+    @property (nonatomic, assign) CGSize size;
 
 @end
 
@@ -39,8 +40,9 @@
     [self setRootViewController:rootViewController];
    
     [self setTargetingParameters:targetingParameters];
+    self.size = size;
     self.adMarvelView = [AdMarvelView createAdMarvelViewWithDelegate:self];
-    
+
     [self startAdRequest];
     
 }
@@ -82,5 +84,11 @@
 }
 
 #pragma mark - 
+
+#pragma mark AdMarvelDelegate methods
+
+- (CGRect)adMarvelViewFrame:(AdMarvelView *)adMarvelView {
+    return CGRectMake(0, 0, self.size.width, self.size.height);
+}
 
 @end

@@ -17,6 +17,7 @@
 #import "ANAdAdapterBaseAdMarvel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "ANCustomAdapter.h"
+#import "ANLogging.h"
 
 static NSString *kPartnerId = @"";
 static NSString *kSiteId = @"";
@@ -46,7 +47,12 @@ static NSString *kSiteId = @"";
     
     if(idString != nil || ![idString isEqualToString:@""]){
         NSData *data = [idString dataUsingEncoding:NSUTF8StringEncoding];
-        id idDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSError *jsonParsingError = nil;
+        id idDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
+        if (jsonParsingError) {
+            ANLogError(@"json_error %@", jsonParsingError);
+        }
+        
         if(idDictionary != nil && [idDictionary isKindOfClass:[NSDictionary class]]){
             kSiteId = [idDictionary objectForKey:@"site_id"];
             kPartnerId = [idDictionary objectForKey:@"partner_id"];
@@ -124,6 +130,10 @@ static NSString *kSiteId = @"";
      }
     
     return keywordDictionary;
+}
+
+- (void)handleAdMarvelSDKClick:(NSString *)urlString forAdMarvelView:(AdMarvelView *)adMarvelView {
+    ANLogTrace(@"Call to handle special functionality within the application is unsupported by the AdMarvel adapter");
 }
 
 #pragma -

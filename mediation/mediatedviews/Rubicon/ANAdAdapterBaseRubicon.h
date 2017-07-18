@@ -13,8 +13,9 @@
  limitations under the License.
  */
 #import <Foundation/Foundation.h>
-#import <RFMAdSDK/RFMAdSDK.h>
 #import "ANCustomAdapter.h"
+
+@class RFMAdRequest;
 
 #define RUBICON_BASEURL		@"serverName"
 #define RUBICON_APP_ID      @"adId"

@@ -14,6 +14,7 @@
  */
 #import "ANAdAdapterBannerRubicon.h"
 #import "ANLogging.h"
+#import "ANBannerAdView.h"
 
 @interface ANAdAdapterBannerRubicon()
 
@@ -36,10 +37,13 @@
     self.rootViewController = rootViewController;
     
     if (!_rfmAdView) {
-        self.rfmAdView = [RFMAdView createAdWithDelegate:self];
+        self.rfmAdView = [RFMAdView createAdOfFrame:RFM_AD_FRAME_OF_SIZE(size.width,size.height)
+                                   withPortraitCenter:RFM_AD_SET_CENTER(size.width/2,size.height/2)
+                                   withLandscapeCenter:RFM_AD_SET_CENTER(size.width/2,size.height/2)
+                                          withDelegate:self];
+        
     }
     self.rfmAdRequest = [super constructRequestObject:idString];
-    
     //set the targeting parameters for the request object
     [super setTargetingParameters:targetingParameters forRequest:self.rfmAdRequest];
     
@@ -60,7 +64,8 @@
 #pragma mark - RFM Ad Delegate
 
 -(UIView *)rfmAdSuperView{
-    return self.rootViewController.view;
+    ANBannerAdView *bannerAdView = [self.delegate performSelector:@selector(adViewDelegate)];
+    return [bannerAdView.subviews firstObject]; // Should be an ANMediationContainerView
 }
 
 -(UIViewController *)viewControllerForRFMModalView{

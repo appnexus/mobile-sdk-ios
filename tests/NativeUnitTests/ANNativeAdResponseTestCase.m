@@ -30,6 +30,7 @@
 #import "ANNativeStandardAdResponse.h"
 #import "ANAdAdapterNativeAdMob.h"
 #import "ANGADNativeAppInstallAdView.h"
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 @interface ANNativeAdResponseTestCase : KIFTestCase <ANNativeAdRequestDelegate, ANNativeAdDelegate>
 
@@ -457,6 +458,9 @@
 
 - (void)testFacebookWithIconImageLoad {
     [self stubRequestWithResponse:@"facebook_mediated_response"];
+    [FBAdSettings setLogLevel:FBAdLogLevelLog];
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
+    [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];

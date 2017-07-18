@@ -7,6 +7,7 @@
 //
 
 #import "RFMMediationConstants.h"
+#import "RFMNativeAdPlacer.h"
 @class RFMAdView;
 @class RFMBaseMediator;
 @class RFMRewardedVideo;
@@ -67,5 +68,8 @@
 //@optional
 // Forensics reporting
 -(void)mediator:(RFMBaseMediator *)mediator willStartLoadWebViewWithTime:(NSDate *)date;
+// Native Ad Placer
+-(void)mediator:(RFMBaseMediator *)mediator didFinishLoadingAdWithIndexPath:(NSIndexPath *)indexPath placer:(RFMNativeAdPlacer *)adPlacer delegate:(id<RFMNativeAdPlacerDelegate>)delegate;
+-(void)mediator:(RFMBaseMediator *)mediator didFailToLoadAdWithReason:(NSString *)errorReason indexPath:(NSIndexPath *)indexPath placer:(RFMNativeAdPlacer *)adPlacer delegate:(id<RFMNativeAdPlacerDelegate>)delegate;
 
 @end

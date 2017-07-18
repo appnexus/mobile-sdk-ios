@@ -19,6 +19,8 @@
 #import "ANGlobal.h"
 #import "UIView+ANCategory.h"
 #import "ANAdConstants.h"
+#import "ANSDKSettings+PrivateMethods.h"
+
 
 
 
@@ -148,7 +150,7 @@
 
 - (void) createVideoPlayer
 {
-    NSURL *url = [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+    NSURL *url = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];//Creating a WKWebViewConfiguration object so a controller can be added to it.
@@ -339,6 +341,19 @@
     ANLogInfo(@"web page loading completed");
 }
 
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSURL *URL = navigationAction.request.URL;
+    NSString *URLScheme = URL.scheme;
+    
+    if ([URLScheme isEqualToString:@"anwebconsole"]) {
+        [self printConsoleLogWithURL:URL];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
+    
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
+
 
 
 
@@ -405,6 +420,13 @@ ANLogMarkMessage(@"UNUSED.");
 - (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller
 {
 ANLogMarkMessage(@"UNUSED.");
+}
+
+#pragma mark - ANWebConsole
+
+- (void)printConsoleLogWithURL:(NSURL *)URL {
+    NSString *decodedString = [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    ANLogDebug(@"%@", decodedString);
 }
 
 

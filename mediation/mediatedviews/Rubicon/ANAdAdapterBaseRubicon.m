@@ -13,7 +13,9 @@
  limitations under the License.
  */
 #import "ANAdAdapterBaseRubicon.h"
+#import "ANLogging.h"
 #import <CoreLocation/CoreLocation.h>
+#import <RFMAdSDK/RFMAdSDK.h>
 
 @implementation ANAdAdapterBaseRubicon
 
@@ -29,7 +31,12 @@
     
     if(idString != nil || ![idString isEqualToString:@""]){
         NSData *data = [idString dataUsingEncoding:NSUTF8StringEncoding];
-        id idDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSError *jsonParsingError = nil;
+        id idDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
+        if (jsonParsingError) {
+            ANLogError(@"json_error %@", jsonParsingError);
+        }
+        
         if(idDictionary != nil && [idDictionary isKindOfClass:[NSDictionary class]]){
             NSString *appId = [idDictionary objectForKey:RUBICON_APP_ID];
             NSString *publisherId = [idDictionary objectForKey:RUBICON_PUB_ID];
