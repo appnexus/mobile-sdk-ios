@@ -29,6 +29,7 @@
 		4F824D081D909E1000AFC7EA /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */; };
 		4F824D091D909E1000AFC7EA /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */; };
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
+		4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */; };
 		601BDD7B1E2FCA26002698D7 /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */; };
 		601BDD7C1E2FCA26002698D7 /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */; };
 		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
@@ -111,7 +112,6 @@
 		8A4FF3AA1A2F8CC10000E4CC /* an_arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A91A2F8CC10000E4CC /* an_arrow_right@3x.png */; };
 		8A4FF3AD1A2F8CE50000E4CC /* an_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AB1A2F8CE50000E4CC /* an_arrow_right@2x.png */; };
 		8A4FF3AE1A2F8CE50000E4CC /* an_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AC1A2F8CE50000E4CC /* an_arrow_right.png */; };
-		8A56E67C1B264DC200642ACC /* ANAdAdapterNativeAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A56E67B1B264DC200642ACC /* ANAdAdapterNativeAdColony.m */; };
 		8A598F8B1A1EA061009BA879 /* ANNativeStandardAdResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A598F881A1EA061009BA879 /* ANNativeStandardAdResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A598F8C1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */; };
 		8A598F8D1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */; };
@@ -758,6 +758,7 @@
 		4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F824CF41D909E1000AFC7EA /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
+		4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdColony.framework; path = "../../../../../../../../../../../../user/project/sprint/july/src/AdColony-iOS-SDK-3/AdColony.framework"; sourceTree = "<group>"; };
 		601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = ../RubiconSDK/RFMAdSDK.bundle; sourceTree = "<group>"; };
 		601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RFMAdSDK.framework; path = ../RubiconSDK/RFMAdSDK.framework; sourceTree = "<group>"; };
 		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -853,7 +854,6 @@
 		8A0EFA8D1B4357E900196294 /* ANAdAdapterBannerYahoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerYahoo.m; sourceTree = "<group>"; };
 		8A0EFA8F1B4357FB00196294 /* ANAdAdapterInterstitialYahoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialYahoo.h; sourceTree = "<group>"; };
 		8A0EFA901B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialYahoo.m; sourceTree = "<group>"; };
-		8A1482481AD3371C0046F1B9 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdColony.framework; sourceTree = "<group>"; };
 		8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdColonyAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterNativeAdMob.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.h; sourceTree = "<group>"; };
 		8A201BFC1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeAdMob.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.m; sourceTree = "<group>"; };
@@ -894,8 +894,6 @@
 		8A4FF3A91A2F8CC10000E4CC /* an_arrow_right@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_right@3x.png"; sourceTree = "<group>"; };
 		8A4FF3AB1A2F8CE50000E4CC /* an_arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_right@2x.png"; sourceTree = "<group>"; };
 		8A4FF3AC1A2F8CE50000E4CC /* an_arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = an_arrow_right.png; sourceTree = "<group>"; };
-		8A56E67A1B264DC200642ACC /* ANAdAdapterNativeAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeAdColony.h; sourceTree = "<group>"; };
-		8A56E67B1B264DC200642ACC /* ANAdAdapterNativeAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeAdColony.m; sourceTree = "<group>"; };
 		8A598F881A1EA061009BA879 /* ANNativeStandardAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeStandardAdResponse.h; sourceTree = "<group>"; };
 		8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeStandardAdResponse.m; sourceTree = "<group>"; };
 		8A6514701A12DB31003F1047 /* UIView+ANNativeAdCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ANNativeAdCategory.h"; sourceTree = "<group>"; };
@@ -1316,6 +1314,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1560,8 +1559,6 @@
 				8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */,
 				8A8E0FDC1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.h */,
 				8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */,
-				8A56E67A1B264DC200642ACC /* ANAdAdapterNativeAdColony.h */,
-				8A56E67B1B264DC200642ACC /* ANAdAdapterNativeAdColony.m */,
 			);
 			name = AdColony;
 			path = ../mediation/mediatedviews/AdColony;
@@ -1570,7 +1567,7 @@
 		8A1482471AD3371C0046F1B9 /* AdColonySDK */ = {
 			isa = PBXGroup;
 			children = (
-				8A1482481AD3371C0046F1B9 /* AdColony.framework */,
+				4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */,
 			);
 			path = AdColonySDK;
 			sourceTree = "<group>";
@@ -3038,7 +3035,6 @@
 			files = (
 				8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */,
 				8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */,
-				8A56E67C1B264DC200642ACC /* ANAdAdapterNativeAdColony.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

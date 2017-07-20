@@ -15,7 +15,8 @@
 
 #import "ANAdAdapterBaseAdColony.h"
 #import "ANAdAdapterBaseAdColony+PrivateMethods.h"
-#import <AdColony/AdColony.h>
+
+
 
 @implementation ANAdAdapterBaseAdColony
 

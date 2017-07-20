@@ -13,10 +13,12 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterInterstitialAdColony.h"
+#import "ANAdAdapterBaseAdColony.h"
 #import "ANAdAdapterBaseAdColony+PrivateMethods.h"
+#import "ANAdAdapterInterstitialAdColony.h"
 #import "ANLogging.h"
-#import <AdColony/AdColony.h>
+
+
 
 @interface ANAdAdapterInterstitialAdColony () <AdColonyAdDelegate>
 

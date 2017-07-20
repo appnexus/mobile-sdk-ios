@@ -13,7 +13,16 @@
  limitations under the License.
  */
 
-#import <AdColony/AdColonyNativeAdView.h>
+#import <AdColony/AdColony.h>
+#import <AdColony/AdColonyAdOptions.h>
+#import <AdColony/AdColonyAdRequestError.h>
+#import <AdColony/AdColonyAppOptions.h>
+#import <AdColony/AdColonyInterstitial.h>
+#import <AdColony/AdColonyOptions.h>
+#import <AdColony/AdColonyTypes.h>
+#import <AdColony/AdColonyUserMetadata.h>
+#import <AdColony/AdColonyZone.h>
+
 
 // Can be used to query ANNativeAdResponse customElements for native ads from AdColony
 // Returns AdColonyNativeAdView

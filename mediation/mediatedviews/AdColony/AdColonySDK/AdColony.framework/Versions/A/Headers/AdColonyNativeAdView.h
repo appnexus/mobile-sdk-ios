@@ -1,174 +1,198 @@
-/*
- *  AdColonyNativeAdView.h
- *  adc-ios-sdk
- *
- *  Created by John Fernandes-Salling on 11/21/13.
- */
-
+#import "AdColonyTypes.h"
 #import <UIKit/UIKit.h>
-
-#pragma mark - Forward Declarations
-
-@protocol AdColonyNativeAdDelegate;
-@class AdColonyAdInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark - AdColonyNativeAdView
-
 /**
- * The AdColonyNativeAdView is used to display non-fullscreen AdColony ads in a fashion that matches the look-and-feel of your application;
- * it contains the video and enegagement components of the native ad and manages the display and playback of the video.
- * The native ad has an accompanying delegate if you need information about the video starting, finishing, or any user interactions with the ad.
- * The object also exposes additional information about the advertisement that is intended to be displayed alongside the video.
- * The native ad may include a engagement button which it displays beneath the video; the appearance of this button is customizable.
- * Instances of this class should not be initialized directly; instead, use `[AdColony getNativeAdForZone:presentingViewController:]`.
+ AdColonyNativeAdViews are used to display non-fullscreen AdColony ads in a fashion that matches the look-and-feel of your application;
+ it contains the video and engagement components of the native ad and manages the display and playback of the video.
+ Event handler block properties are provided so your app can react to ad-level events such as a open or close.
+ The object also exposes additional information about the advertisement that is intended to be displayed alongside the video.
+ The native ad may include an engagement button which is fully customizable by the publisher.
+ Instances of this class should not be initialized directly; instead, use the AdColonyNativeAdView passed back the success handler in
+ `[AdColony requestNativeAdViewInZone:size:options:viewController:success:failure:]`.
  */
 @interface AdColonyNativeAdView : UIView
 
-/** @name Delegate */
+/** @name Zone */
 
 /**
- * The delegate for the AdColonyNativeAd, which will receive callbacks about the video starting, finishing, and user interactions with the ad.
- * Setting this property is optional; in many cases the callbacks provided by the delegate are not required to create a good user experience.
- * @param delegate The AdColonyNativeAdDelegate.
+ @abstract Represents the unique zone identifier string from which the AdColonyNativeAdView was requested.
+ @discussion AdColony zone IDs can be created at the [Control Panel](http://clients.adcolony.com).
  */
-@property (nonatomic, weak, nullable) id<AdColonyNativeAdDelegate> delegate;
+@property (nonatomic, readonly) NSString *zoneID;
+
+
+/** @name Ad Lifecycle */
+
+/**
+ @abstract Indicates whether or not the AdColonyNativeAdView has begun displaying its video content in response to being displayed on screen.
+ @discussion This property will be set to `YES` if the in-feed video has started playback.
+ */
+@property (nonatomic, readonly) BOOL started;
+
+/**
+ @abstract Indicates whether or not the AdColonyNativeAdView has finished displaying its video content in response to being displayed on screen.
+ @discussion This property will be set to `YES` if the in-feed video has completed playback.
+ */
+@property (nonatomic, readonly) BOOL finished;
+
+/**
+ @abstract Indicates whether or not the AdColonyNativeAdView has been expanded to fullscreen mode.
+ @discussion This property will be set to `YES` if the in-feed video has been expanded to fullscreen.
+ */
+@property (nonatomic, readonly) BOOL opened;
+
 
 /** @name Creative Content and User Interface */
 
 /**
- * The name of the advertiser for this ad. Approximately 25 characters.
- * AdColony requires this to be displayed alongside the AdColonyNativeAdView.
- * @param advertiserName The name of this ad's advertiser.
+ @abstract Represents the name of the advertiser for this ad. Approximately 25 characters.
+ @discussion AdColony requires this to be displayed alongside the AdColonyNativeAdView.
  */
-@property (nonatomic, readonly) NSString* advertiserName;
+@property (nonatomic, readonly) NSString *advertiserName;
 
 /**
- * The advertiser's icon for this ad (may be `nil`). Typically 200x200 pixels for Retina display at up to 100x100 screen points.
- * Display of this image is optional.
- * @param advertiserIrcon The icon of this ad's advertiser.
+ @abstract Represents the advertiser's icon for this ad (may be `nil`).
+ @discussion Typically 200x200 pixels for Retina display at up to 100x100 screen points. Display of this image is optional.
  */
-@property (nonatomic, readonly, nullable) UIImage* advertiserIcon;
+@property (nonatomic, readonly, nullable) UIImage *advertiserIcon;
 
 /**
- * A short title for this ad. Approximately 25 characters.
- * Display of this string is optional.
- * @param adTitle The title of this ad.
+ @abstract Represents a short title for this ad.
+ @discussion Approximately 25 characters. Display of this string is optional.
  */
-@property (nonatomic, readonly) NSString* adTitle;
+@property (nonatomic, readonly) NSString *adTitle;
 
 /**
- * A mid-length description of this ad. Up to approximately 90 characters.
- * Display of this string is optional.
- * @param adDescription The description of this ad.
+ @abstract Represents a mid-length description of this ad.
+ @discussion Up to approximately 90 characters. Display of this string is optional.
  */
-@property (nonatomic, readonly) NSString* adDescription;
+@property (nonatomic, readonly) NSString *adDescription;
 
 /**
- * The engagement button for this ad (may be `nil`). This is automatically displayed beneath the video component.
- * Use this property to access the UIButton and customize anything about it except its title text and tap action.
- * @param engagementButton The engagement button that is already embedded within this ad.
+ @abstract Represents the engagement button for this ad (may be `nil`). This is automatically displayed beneath the video component.
+ @discussion Leverage this property to access the UIButton and customize anything about it except its title text and tap action.
  */
-@property (nonatomic, nullable) UIButton* engagementButton;
+@property (nonatomic, strong, nullable) UIButton *engagementButton;
 
-/**
- * Returns the recommended height for the AdColonyNativeAdView if it will be displayed at the specified width.
- * When calculating a frame for the AdColonyNativeAdView, use the recommended height for your chosen width in order to minimize padding space around the video.
- * @param width The display width for which this method will return the best display height.
- * @return The best display height for the desired width.
- */
--(CGFloat)recommendedHeightForWidth:(CGFloat)width;
 
 /** @name Audio */
 
 /**
- * The volume level of the video component of the ad. Defaults to 0.05f.
- * @param volume Volume
+ @abstract Represents the volume level of the video component of the ad. Defaults to 0.05f.
+ @discussion Leverage this property to set the volume of the native ad.
  */
 @property (nonatomic) float volume;
 
 /**
- * Whether or not the video component of the ad is muted. Defaults to NO.
- * @param muted Muted
+ @abstract Indicates whether or not the video component of the ad is muted. Defaults to NO.
+ @discussion Defaults to `NO`. Leverage this property to determine if the native ad is muted or not.
  */
 @property (nonatomic) BOOL muted;
+
+
+/** @name IAP */
+
+/**
+ @abstract Represents the unique zone identifier string from which the AdColonyNativeAdView was requested.
+ @discussion AdColony zone IDs can be created at the [Control Panel](http://clients.adcolony.com).
+ */
+@property (nonatomic, readonly) BOOL iapEnabled;
+
+
+/** @name Event Handlers */
+
+/**
+ @abstract Notifies your app that a native ad has begun displaying its video content in response to being displayed on screen.
+ @discussion Note that the associated code block will be dispatched on the main thread.
+ @param start The block of code to be executed.
+ */
+- (void)setStart:(nullable void (^)(void))start;
+
+/**
+ @abstract Notifies your app that a native ad has finished displaying its video content in response to being displayed on screen.
+ @discussion Note that the associated code block will be dispatched on the main thread.
+ @param finish The block of code to be executed.
+ */
+- (void)setFinish:(nullable void (^)(void))finish;
+
+/**
+ @abstract Notifies your app that a native ad has been expanded to fullscreen mode.
+ @discussion Within the handler, apps should implement app-specific code such as pausing app music if appropriate.
+ Note that the associated code block will be dispatched on the main thread.
+ @param open The block of code to be executed.
+ */
+- (void)setOpen:(nullable void (^)(void))open;
+
+/**
+ @abstract Notifies your app that a native ad finished displaying its video content.
+ @discussion Within the handler, apps should implement app-specific code such as resuming app music if appropriate.
+ Note that the associated code block will be dispatched on the main thread.
+ @param close The block of code to be executed.
+ */
+- (void)setClose:(void (^)(void))close;
+
+/**
+ @abstract Sets the block of code to be executed when the ad triggers an IAP opportunity.
+ @discussion Note that the associated code block will be dispatched on the main thread.
+ @param iapOpportunity The block of code to be executed.
+ */
+- (void)setIapOpportunity:(nullable void (^)(NSString *iapProductID, AdColonyIAPEngagement engagement))iapOpportunity;
+
+/**
+ @abstract Notifies your app that a native ad was muted or unmuted by a user.
+ @discussion Note that the associated code block will be dispatched on the main thread.
+ @param mute The block of code to be executed.
+ */
+- (void)setMute:(void (^)(BOOL muted))mute;
+
+/**
+ @abstract Notifies your app that a user has engaged with the native ad via an in-video engagement mechanism.
+ @discussion Note that the associated code block will be dispatched on the main thread.
+ @param engagement The block of code to be executed.
+ */
+- (void)setEngagement:(void (^)(BOOL expanded))engagement;
+
+/**
+ @abstract Sets the block of code to be executed when an action causes the user to leave the application.
+ @discussion Note that the associated code block will be dispatched on the main thread.
+ @param leftApplication The block of code to be executed.
+ */
+- (void)setLeftApplication:(nullable void (^)(void))leftApplication;
+
+/**
+ @abstract Sets the block of code to be executed when the user taps on the ad, causing an action to be taken.
+ @discussion Note that the associated code block will be dispatched on the main thread.
+ @param click The block of code to be executed.
+ */
+- (void)setClick:(nullable void (^)(void))click;
+
 
 /** @name Playback */
 
 /**
- * Pauses the video component of the native ad if it is currently playing.
- * This should be used when the native ad goes off-screen temporarily: for
- * example, when it is contained in a UITableViewCell that has been scrolled
- * off-screen; or when the ad is contained in a UIViewController and that view
- * controller has called the method `viewWillDisappear`.
- * Any use of this method must be paired with a corresponding call to `resume`.
+ @abstract Pauses the video component of the native ad if it is currently playing.
+ @discussion This should be used when the native ad goes off-screen temporarily: for example, when it is contained in a UITableViewCell that has been scrolled off-screen;
+ or when the ad is contained in a UIViewController and that view controller has called the method `viewWillDisappear`.
+ Note that any use of this method must be paired with a corresponding call to `resume`.
  */
--(void)pause;
+- (void)pause;
 
 /**
- * Resumes the video component of the native ad if it has been paused.
- * This should be used when a native ad that was off-screen temporarily has
- * come back on-screen: for example, when the ad is contained in a UIViewController
- * and that view controller has called the method `viewWillAppear`.
- * This method must be used to undo a previous corresponding call to `pause`.
+ @abstract Resumes the video component of the native ad if it has been paused.
+ @discussion This should be used when a native ad that was off-screen temporarily has come back on-screen; 
+ for example, when the ad is contained in a UIViewController and that view controller has called the method `viewWillAppear`.
+ Note that this method must be used to undo a previous corresponding call to `pause`.
  */
--(void)resume;
-@end
-
-#pragma mark - AdColonyNativeAdDelegate
+- (void)resume;
 
 /**
- * The AdColonyNativeAdDelegate protocol provides callbacks about AdColony's native ad display and user interaction.
+ @abstract Indicates that the AdColonyNativeAdView has been removed from the view hierarchy and should be destroyed.
+ @discussion The AdColony SDK maintains internal resources when the ad is being displayed.
+ When this method is called, all internal resources are destroyed and the associated memory is freed.
  */
-@protocol AdColonyNativeAdDelegate <NSObject>
-@optional
-
-/**
- * Notifies your app that a native ad has begun displaying its video content in response to being displayed on screen.
- * @param ad The affected native ad view.
- */
--(void)onAdColonyNativeAdStarted:(AdColonyNativeAdView*)ad;
-
-/**
- * Notifies your app that a native ad has been interacted with by a user and is expanding to full-screen playback.
- * Within the callback, apps should implement app-specific code such as turning off app music.
- * @param ad The affected native ad view.
- */
--(void)onAdColonyNativeAdExpanded:(AdColonyNativeAdView*)ad;
-
-/**
- * Notifies your app that a native ad finished displaying its video content.
- * If the native ad was expanded to full-screen, this indicates that the full-screen mode has been exited.
- * Within the callback, apps should implement app-specific code such as resuming app music if it was turned off.
- * @param ad The affected native ad view.
- * @param expanded Whether or not the native ad had been expanded to full-screen by the user.
- */
--(void)onAdColonyNativeAdFinished:(AdColonyNativeAdView*)ad expanded:(BOOL)expanded;
-
-/**
- * Alternative for `[AdColonyNativeAdDelegate onAdColonyNativeAdFinished:expanded]` that passes an AdColonyAdInfo object to the delegate. The AdColonyAdInfo object can be queried
- * for information about the ad session: whether or not the ad was shown, the associated zone ID, whether or not the video was an In-App Purchase Promo (IAPP),
- * the type of engagement that triggered an IAP, etc. If your application is showing IAPP advertisements, you will need to implement this callback
- * instead of `[AdColonyNativeAdDelegate onAdColonyNativeAdFinished:expanded]` so you can decide what action to take once the ad has completed.
- * @param ad The affected native ad view.
- * @param info An AdColonyAdInfo object containing information about the associated ad.
- * @see AdColonyAdInfo
- */
--(void)onAdColonyNativeAd:(AdColonyNativeAdView*)ad finishedWithInfo:(AdColonyAdInfo*)info expanded:(BOOL)expanded;
-
-/**
- * Notifies your app that a native ad was muted or unmuted by a user.
- * @param ad The affected native ad view.
- * @param muted Whether the ad was muted or unmuted.
- */
--(void)onAdColonyNativeAd:(AdColonyNativeAdView*)ad muted:(BOOL)muted;
-
-/**
- * Notifies your app that a user has engaged with the native ad via an in-video engagement mechanism.
- * @param ad The affected native ad view.
- */
--(void)onAdColonyNativeAdEngagementPressed:(AdColonyNativeAdView*)ad expanded:(BOOL)expanded;
+- (void)destroy;
 @end
 
 NS_ASSUME_NONNULL_END
