@@ -33,4 +33,6 @@ extern NSString *const kANAdAdapterNativeAdColonyVideoView;
 + (void)configureWithAppID:(NSString *)appID
                    zoneIDs:(NSArray *)zoneIDs;
 
++ (BOOL) isReadyToServeAds;
+
 @end

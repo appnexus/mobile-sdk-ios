@@ -20,7 +20,7 @@
 
 
 
-@interface ANAdAdapterInterstitialAdColony () <AdColonyAdDelegate>
+@interface ANAdAdapterInterstitialAdColony()
 
 @property (nonatomic, readwrite, strong) NSString *zoneID;
 
@@ -34,10 +34,14 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
+{
+    ANLogTrace(@"");
+
     [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters];
     self.zoneID = idString;
+
+    //
     ADCOLONY_ZONE_STATUS zoneStatus = [AdColony zoneStatusForZone:idString];
     ANAdResponseCode errorCode = ANAdResponseInternalError;
     switch (zoneStatus) {
@@ -62,6 +66,7 @@
             errorCode = ANAdResponseInternalError;
             break;
     }
+
     ANLogDebug(@"%@ %@ | AdColony interstitial unavailable, zone status %ld", NSStringFromClass([self class]), NSStringFromSelector(_cmd), (long)zoneStatus);
     [self.delegate didFailToLoadAd:errorCode];
 }
@@ -83,12 +88,17 @@
     return (zoneStatus == ADCOLONY_ZONE_STATUS_ACTIVE);
 }
 
+
+
+
 #pragma mark - AdColonyAdDelegate
 
+        /*FIX TOSS -- replaced wit5h config compoletin block
 - (void)onAdColonyAdStartedInZone:(NSString *)zoneID {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     // Do nothing.
 }
+        */
 
 - (void)onAdColonyAdFinishedWithInfo:(AdColonyAdInfo *)info {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
