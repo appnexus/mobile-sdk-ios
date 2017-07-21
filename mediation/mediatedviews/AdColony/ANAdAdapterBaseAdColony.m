@@ -31,7 +31,7 @@ static BOOL  isReadyToServeAds  = NO;
     appOptions.disableLogging  = YES;
     appOptions.userID          = nil;
     appOptions.adOrientation   = AdColonyOrientationAll;
-        //FIX also set default appOptions.userMetadata -- or derfer to *TargetingParameters?
+        //FIX also set defaults on appOptions.userMetadata -- or derfer to *TargetingParameters?
 
 
     [ANAdAdapterBaseAdColony setIsReadyToServeAds:NO];
@@ -44,10 +44,8 @@ static BOOL  isReadyToServeAds  = NO;
                                                   //FIX  test me
                                       [ANAdAdapterBaseAdColony setIsReadyToServeAds:YES];
                                                   //FIX -- better to set userID then test whether it is set properly to decide whther completion block has run?
-                                      ANLogTrace(@"AdColony version %@ -- is READY to serve ads.  \n\tzones=%@", [AdColony getSDKVersion], zones);
-                                  }                                      //(FIX happilly repelacesd dekeltate?
-                                                                         //(FIX  note when fired -- ready to receive ads?
-                                                                         //FIX -- need startegey for handling other delegates.
+                                      ANLogTrace(@"AdColony version %@ is READY to serve ads.  \n\tzones=%@", [AdColony getSDKVersion], zones);
+                                  }
      ];
 }
 
@@ -64,6 +62,7 @@ static BOOL  isReadyToServeAds  = NO;
 
 + (void)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters
                         //FIX test me -- prove that appOptions is being set properly
+                        //FIX What else?  custonKeywords --> user interests?
 {
     AdColonyAppOptions  *appOptions  = [AdColony getAppOptions];
 

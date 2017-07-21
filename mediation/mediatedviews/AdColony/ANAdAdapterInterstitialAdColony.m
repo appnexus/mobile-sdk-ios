@@ -22,9 +22,12 @@
 
 @interface ANAdAdapterInterstitialAdColony()
 
-@property (nonatomic, readwrite, strong) NSString *zoneID;
+@property (nonatomic, readwrite, strong)  NSString              *zoneID;
+@property (nonatomic, strong)             AdColonyInterstitial  *interstitialAd;
 
 @end
+
+
 
 @implementation ANAdAdapterInterstitialAdColony
 
@@ -40,87 +43,124 @@
 
     [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters];
     self.zoneID = idString;
+    self.interstitialAd = nil;
+
+    if (![self isReady]) {
+        ANLogDebug(@"AdColony interstitial unavailable.");
+        [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        return;
+    }
+
 
     //
-    ADCOLONY_ZONE_STATUS zoneStatus = [AdColony zoneStatusForZone:idString];
-    ANAdResponseCode errorCode = ANAdResponseInternalError;
-    switch (zoneStatus) {
-        case ADCOLONY_ZONE_STATUS_ACTIVE:
-            ANLogDebug(@"%@ %@ | AdColony interstitial ad available", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-            [self.delegate didLoadInterstitialAd:self];
+    __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
+
+    AdColonyAdOptions  *adOptions  = [[AdColonyAdOptions alloc] init];
+    [AdColony requestInterstitialInZone: self.zoneID
+                                options: adOptions
+
+                                success: ^(AdColonyInterstitial * _Nonnull ad)
+                                {
+                                    __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+                                    if (!strongSelf) {
+                                        ANLogDebug(@"CANNOT EVALUATE pointer to self.");
+                                        return;
+                                    }
+
+                                    strongSelf.interstitialAd = ad;
+                                    [strongSelf configureAdColonyAdEventHandlers];
+
+                                    //
+                                    ANLogDebug(@"AdColony interstitial ad available.");
+                                    [self.delegate didLoadInterstitialAd:self];
+                                }
+
+                                failure: ^(AdColonyAdRequestError * _Nonnull error)
+                                {
+                                    ANAdResponseCode  anAdResponseCode  = ANAdResponseInternalError;
+
+                                            /* FIX  pointer to NS_ENUM?!
+                                    switch (error) {
+                                    case AdColonyRequestErrorInvalidRequest:
+                                            anAdResponseCode = ANAdResponseInvalidRequest;
+                                            break;
+                                    case AdColonyRequestErrorSkippedRequest:
+                                            anAdResponseCode = ANAdResponseUnableToFill;
+                                            break;
+                                    case AdColonyRequestErrorNoFillForRequest:
+                                            anAdResponseCode = ANAdResponseUnableToFill;
+                                            break;
+                                    case AdColonyRequestErrorUnready:
+                                            anAdResponseCode = ANAdResponseInternalError;
+                                            break;
+                                    }
+                                                     */
+
+                                    ANLogDebug(@"AdColony interstitial unavailable.");
+                                    [self.delegate didFailToLoadAd:anAdResponseCode];
+                                }
+     ];
+}
+
+- (void) configureAdColonyAdEventHandlers
+        //FIX HANDLE audio start/stop?
+{
+    ANLogMark();
+
+    __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
+
+    [self.interstitialAd setOpen:^{
+        [weakSelf.delegate didPresentAd];
+    }];
+
+    [self.interstitialAd setClose:^{
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogError(@"CANNOT EVALUATE pointer to self.");
             return;
-        case ADCOLONY_ZONE_STATUS_NO_ZONE:
-            errorCode = ANAdResponseInvalidRequest;
-            break;
-        case ADCOLONY_ZONE_STATUS_OFF:
-            errorCode = ANAdResponseInvalidRequest;
-            break;
-        case ADCOLONY_ZONE_STATUS_LOADING:
-            errorCode = ANAdResponseUnableToFill;
-            break;
-        case ADCOLONY_ZONE_STATUS_UNKNOWN:
-            errorCode = ANAdResponseInternalError;
-            break;
-        default:
-            ANLogDebug(@"%@ %@ | Unhandled AdColony Zone Status: %ld", NSStringFromClass([self class]), NSStringFromSelector(_cmd), (long)zoneStatus);
-            errorCode = ANAdResponseInternalError;
-            break;
-    }
+        }
 
-    ANLogDebug(@"%@ %@ | AdColony interstitial unavailable, zone status %ld", NSStringFromClass([self class]), NSStringFromSelector(_cmd), (long)zoneStatus);
-    [self.delegate didFailToLoadAd:errorCode];
+        [strongSelf.delegate willCloseAd];
+        [strongSelf.delegate didCloseAd];
+    }];
+
+    [self.interstitialAd setExpire:^{
+        ANLogDebug(@"Interstitial ad WILL EXPIRE in 5 seconds....");
+    }];
+
+    [self.interstitialAd setClick:^{
+        [weakSelf.delegate adWasClicked];
+    }];
+
+    [self.interstitialAd setLeftApplication:^{
+        [weakSelf.delegate willLeaveApplication];
+    }];
 }
 
-- (void)presentFromViewController:(UIViewController *)viewController {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if ([self isReady]) {
-        [AdColony playVideoAdForZone:self.zoneID
-                        withDelegate:self];
-    } else {
-        ANLogDebug(@"%@ %@ | failedToDisplayAd", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+- (BOOL)isReady
+{
+    ANLogTrace(@"");
+
+    AdColonyZone  *zone                  = [AdColony zoneForID:self.zoneID];
+    BOOL           adExistsAndIsExpired  = self.interstitialAd ? NO : self.interstitialAd.expired;
+
+    return  ([ANAdAdapterBaseAdColony isReadyToServeAds] && zone.enabled && !adExistsAndIsExpired);
+}
+
+
+- (void)presentFromViewController:(UIViewController *)viewController
+{
+    ANLogTrace(@"");
+
+    if (![self isReady]) {
+        ANLogDebug(@"failedToDisplayAd");
         [self.delegate failedToDisplayAd];
+        return;
     }
+
+    [self.delegate willPresentAd];
+    [self.interstitialAd showWithPresentingViewController:viewController];
 }
 
-- (BOOL)isReady {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    ADCOLONY_ZONE_STATUS zoneStatus = [AdColony zoneStatusForZone:self.zoneID];
-    return (zoneStatus == ADCOLONY_ZONE_STATUS_ACTIVE);
-}
-
-
-
-
-#pragma mark - AdColonyAdDelegate
-
-        /*FIX TOSS -- replaced wit5h config compoletin block
-- (void)onAdColonyAdStartedInZone:(NSString *)zoneID {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    // Do nothing.
-}
-        */
-
-- (void)onAdColonyAdFinishedWithInfo:(AdColonyAdInfo *)info {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if (info.shown) {
-        [self.delegate willCloseAd];
-        [self.delegate didCloseAd];
-    } else {
-        ANLogDebug(@"%@ %@ | failedToDisplayAd", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        [self.delegate failedToDisplayAd];
-    }
-}
-
-- (void)onAdColonyAdAttemptFinished:(BOOL)shown
-                             inZone:(NSString *)zoneID {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if (shown) {
-        [self.delegate willCloseAd];
-        [self.delegate didCloseAd];
-    } else {
-        ANLogDebug(@"%@ %@ | failedToDisplayAd", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        [self.delegate failedToDisplayAd];
-    }
-}
 
 @end
