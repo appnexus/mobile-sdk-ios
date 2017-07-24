@@ -13,9 +13,20 @@
  limitations under the License.
  */
 
+#import <AdColony/AdColony.h>
+#import <AdColony/AdColonyAdOptions.h>
+#import <AdColony/AdColonyAdRequestError.h>
+#import <AdColony/AdColonyAppOptions.h>
+#import <AdColony/AdColonyInterstitial.h>
+#import <AdColony/AdColonyOptions.h>
+#import <AdColony/AdColonyTypes.h>
+#import <AdColony/AdColonyUserMetadata.h>
+#import <AdColony/AdColonyZone.h>
+
 #import "ANAdAdapterBaseAdColony.h"
 #import "ANAdAdapterBaseAdColony+PrivateMethods.h"
 #import "ANAdAdapterInterstitialAdColony.h"
+
 #import "ANLogging.h"
 
 
@@ -45,7 +56,10 @@
     self.zoneID = idString;
     self.interstitialAd = nil;
 
-    if (![self isReady]) {
+
+    AdColonyZone  *zone  = [AdColony zoneForID:self.zoneID];
+
+    if (![ANAdAdapterBaseAdColony isReadyToServeAds] || !zone.enabled) {
         ANLogDebug(@"AdColony interstitial unavailable.");
         [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
         return;
@@ -141,10 +155,7 @@
 {
     ANLogTrace(@"");
 
-    AdColonyZone  *zone                  = [AdColony zoneForID:self.zoneID];
-    BOOL           adExistsAndIsExpired  = self.interstitialAd ? NO : self.interstitialAd.expired;
-
-    return  ([ANAdAdapterBaseAdColony isReadyToServeAds] && zone.enabled && !adExistsAndIsExpired);
+    return  self.interstitialAd && !self.interstitialAd.expired;
 }
 
 

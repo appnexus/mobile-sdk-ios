@@ -13,10 +13,21 @@
  limitations under the License.
  */
 
+#import <AdColony/AdColony.h>
+#import <AdColony/AdColonyAdOptions.h>
+#import <AdColony/AdColonyAdRequestError.h>
+#import <AdColony/AdColonyAppOptions.h>
+#import <AdColony/AdColonyInterstitial.h>
+#import <AdColony/AdColonyOptions.h>
+#import <AdColony/AdColonyTypes.h>
+#import <AdColony/AdColonyUserMetadata.h>
+#import <AdColony/AdColonyZone.h>
+
 #import "ANAdAdapterBaseAdColony.h"
 #import "ANAdAdapterBaseAdColony+PrivateMethods.h"
 
 #import "ANLogging.h"
+
 
 
 static BOOL  isReadyToServeAds  = NO;
@@ -62,35 +73,38 @@ static BOOL  isReadyToServeAds  = NO;
 
 + (void)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters
                         //FIX test me -- prove that appOptions is being set properly
-                        //FIX What else?  custonKeywords --> user interests?
+                        //x FIX What else?  custonKeywords --> user interests?
 {
     AdColonyAppOptions  *appOptions  = [AdColony getAppOptions];
 
     if (targetingParameters.age) {
-//        [appOptions.userMetadata setUserAge:targetingParameters.age];
-                //FIX  NB wants Integer
-                //FIX  use hidden apis for usermetadata?
-
-        [appOptions.userMetadata setMetadataWithKey:@"userAge" andStringValue:targetingParameters.age];
+        appOptions.userMetadata.userAge = [targetingParameters.age integerValue];
     }
     
     switch (targetingParameters.gender) {
         case ANGenderMale:
-            [appOptions.userMetadata setMetadataWithKey:@"userGender" andStringValue:ADCUserMale];
+            appOptions.userMetadata.userGender = ADCUserMale;
             break;
         case ANGenderFemale:
-            [appOptions.userMetadata setMetadataWithKey:@"userGender" andStringValue:ADCUserFemale];
+            appOptions.userMetadata.userGender = ADCUserFemale;
             break;
+            
         default:
             break;
     }
     
     if (targetingParameters.location) {
-        NSString *latitude = [NSString stringWithFormat:@"%f", targetingParameters.location.latitude];
-        NSString *longitude = [NSString stringWithFormat:@"%f", targetingParameters.location.longitude];
+        appOptions.userMetadata.userLatitude = [NSNumber numberWithFloat:targetingParameters.location.latitude];
+        appOptions.userMetadata.userLongitude = [NSNumber numberWithFloat:targetingParameters.location.longitude];
+    }
 
-        [appOptions.userMetadata setMetadataWithKey:@"userLatitude" andStringValue:latitude];
-        [appOptions.userMetadata setMetadataWithKey:@"userLongitude" andStringValue:longitude];
+    if ([targetingParameters.customKeywords count] > 0)
+    {
+        for (NSString *key in targetingParameters.customKeywords) {
+            NSString  *value  = [targetingParameters.customKeywords objectForKey:key];
+
+            [appOptions.userMetadata setMetadataWithKey:key andStringValue:value];
+        }
     }
 }
 
