@@ -22,6 +22,7 @@
 + (void)configureWithAppID:(NSString *)appID
                    zoneIDs:(NSArray *)zoneIDs;
 
-+ (BOOL) isReadyToServeAds;
++ (void)configureAndInitializeWithAppID:(NSString *)appID
+                                zoneIDs:(NSArray *)zoneIDs;
 
 @end

@@ -30,52 +30,53 @@
 
 
 
-static BOOL  isReadyToServeAds  = NO;
+static NSString             *appID    = nil;
+static NSArray<NSString *>  *zoneIDs  = nil;
+
 
 
 @implementation ANAdAdapterBaseAdColony
 
-+ (void)configureWithAppID:(NSString *)appID
-                   zoneIDs:(NSArray *)zoneIDs
+#pragma mark - Configuration lifecycle.
+
++ (void)configureWithAppID: (NSString *)appIDValue
+                   zoneIDs: (NSArray *)zoneIDsValue
 {
-    AdColonyAppOptions  *appOptions  = [[AdColonyAppOptions alloc] init];
-    appOptions.disableLogging  = YES;
-    appOptions.userID          = nil;
-    appOptions.adOrientation   = AdColonyOrientationAll;
-        //FIX also set defaults on appOptions.userMetadata -- or derfer to *TargetingParameters?
+    appID    = appIDValue;
+    zoneIDs  = zoneIDsValue;
 
+    ANLogTrace(@"AdColony version %@ is CONFIGURED to serve ads.", [AdColony getSDKVersion]);
+}
 
-    [ANAdAdapterBaseAdColony setIsReadyToServeAds:NO];
-                //FIX  test me
++ (void)configureAndInitializeWithAppID: (NSString *)appID
+                                zoneIDs: (NSArray *)zoneIDs
+{
+    [ANAdAdapterBaseAdColony configureWithAppID: appID
+                                        zoneIDs: zoneIDs ];
 
-    [AdColony configureWithAppID: appID
-                         zoneIDs: zoneIDs
-                         options: appOptions
-                      completion: ^(NSArray<AdColonyZone *> * _Nonnull zones) {
-                                                  //FIX  test me
-                                      [ANAdAdapterBaseAdColony setIsReadyToServeAds:YES];
-                                                  //FIX -- better to set userID then test whether it is set properly to decide whther completion block has run?
+    [ANAdAdapterBaseAdColony initializeAdColonySDK:nil];
+}
+
++ (void)initializeAdColonySDK: (void (^)(void))completionAction
+{
+    [AdColony configureWithAppID: [ANAdAdapterBaseAdColony getAppID]
+                         zoneIDs: [ANAdAdapterBaseAdColony getZoneIDs]
+                         options: [ANAdAdapterBaseAdColony getAppOptions]
+                      completion: ^(NSArray<AdColonyZone *> * _Nonnull zones)
+                                  {
                                       ANLogTrace(@"AdColony version %@ is READY to serve ads.  \n\tzones=%@", [AdColony getSDKVersion], zones);
+                                      if (!completionAction) {
+                                          completionAction();
+                                      }
                                   }
      ];
 }
 
-+ (BOOL) isReadyToServeAds
-                    //FIX  test me
-{
-    return  isReadyToServeAds;
-}
-
-+ (void) setIsReadyToServeAds: (BOOL) value
-{
-    isReadyToServeAds = value;
-}
-
 + (void)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters
-                        //FIX test me -- prove that appOptions is being set properly
-                        //x FIX What else?  custonKeywords --> user interests?
 {
-    AdColonyAppOptions  *appOptions  = [AdColony getAppOptions];
+ANLogMark();
+
+    AdColonyAppOptions  *appOptions  = [ANAdAdapterBaseAdColony getAppOptions];
 
     if (targetingParameters.age) {
         appOptions.userMetadata.userAge = [targetingParameters.age integerValue];
@@ -99,6 +100,7 @@ static BOOL  isReadyToServeAds  = NO;
     }
 
     if ([targetingParameters.customKeywords count] > 0)
+                    //FIX  test me
     {
         for (NSString *key in targetingParameters.customKeywords) {
             NSString  *value  = [targetingParameters.customKeywords objectForKey:key];
@@ -107,5 +109,36 @@ static BOOL  isReadyToServeAds  = NO;
         }
     }
 }
+
+
+
+#pragma mark - Helper methods.
+
++ (NSString *) getAppID
+{
+    return appID;
+}
+
++ (NSArray<NSString *> *) getZoneIDs
+{
+    return zoneIDs;
+}
+
++ (AdColonyAppOptions *) getAppOptions
+{
+    AdColonyAppOptions  *appOptions  = [AdColony getAppOptions];
+
+    if (nil == appOptions) {
+        appOptions = [[AdColonyAppOptions alloc] init];
+        appOptions.disableLogging  = YES;
+    }
+
+    if (nil == appOptions.userMetadata) {
+        appOptions.userMetadata = [[AdColonyUserMetadata alloc] init];
+    }
+
+    return  appOptions;
+}
+
 
 @end
