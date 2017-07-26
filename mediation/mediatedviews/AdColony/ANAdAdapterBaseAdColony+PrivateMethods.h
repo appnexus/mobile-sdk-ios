@@ -18,7 +18,7 @@
 
 @interface ANAdAdapterBaseAdColony (PrivateMethods)
 
-+ (void)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
++ (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
 
 + (NSString *) getAppID;
 
@@ -26,6 +26,7 @@
 
 + (AdColonyAppOptions *) getAppOptions;
 
-+ (void)initializeAdColonySDK: (void(^)(void))completionAction;
++ (void)initializeAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
+                                    completionAction: (void(^)(void))completionAction;
 
 @end

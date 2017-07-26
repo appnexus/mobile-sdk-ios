@@ -58,8 +58,6 @@
 {
     ANLogTrace(@"");
 
-    [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParametersValue];
-
     self.parameterString       = parameterStringValue;
     self.zoneID                = idStringValue;
     self.targettingParameters  = targetingParametersValue;
@@ -69,75 +67,10 @@
 
 
     //
-//    [ANAdAdapterBaseAdColony initializeAdColonySDK:^{ [self requestInterstitialFromSDK]; }];
-    [ANAdAdapterBaseAdColony initializeAdColonySDK:nil];
-
-    [NSThread sleepForTimeInterval:5];
-
-    if (! self.interstitialAd) {
-        ANLogMarkMessage(@"NEED TO DO THIS AGAIN?");  //FIX  probably not...
-        [self requestInterstitialFromSDK];
-    }
-
-
-                /*
-    AdColonyZone  *zone  = [AdColony zoneForID:self.zoneID];
-
-    if (!zone.enabled) {
-        ANLogDebug(@"AdColony zoneID is NOT ENABLED.  (%@)", self.zoneID);
-        [self.delegate didFailToLoadAd:ANAdResponseInvalidRequest];
-        return;
-    }
-
-
-    //
     __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
 
-    [AdColony requestInterstitialInZone: self.zoneID
-                                options: nil
-
-                                success: ^(AdColonyInterstitial * _Nonnull ad)
-                                {
-                                    __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
-                                    if (!strongSelf) {
-                                        ANLogDebug(@"CANNOT EVALUATE strongSelf.");
-                                        return;
-                                    }
-
-                                    strongSelf.interstitialAd = ad;
-                                    [strongSelf configureAdColonyAdEventHandlers];
-
-                                    //
-                                    ANLogDebug(@"AdColony interstitial ad available.");
-                                    [self.delegate didLoadInterstitialAd:self];
-                                }
-
-                                failure: ^(AdColonyAdRequestError * _Nonnull error)
-                                {
-                                    ANAdResponseCode  anAdResponseCode  = ANAdResponseInternalError;
-
-                                    switch (error.code) {
-                                        case AdColonyRequestErrorInvalidRequest:
-                                                anAdResponseCode = ANAdResponseInvalidRequest;
-                                                break;
-                                        case AdColonyRequestErrorSkippedRequest:
-                                                anAdResponseCode = ANAdResponseUnableToFill;
-                                                break;
-                                        case AdColonyRequestErrorNoFillForRequest:
-                                                anAdResponseCode = ANAdResponseUnableToFill;
-                                                break;
-                                        case AdColonyRequestErrorUnready:
-                                                anAdResponseCode = ANAdResponseInternalError;
-                                                break;
-                                        default:
-                                            ANLogDebug(@"AdColony FAILURE with UNKNOWN CODE.  (%@)", @(error.code));
-                                    }
-
-                                    ANLogDebug(@"AdColony interstitial unavailable.");
-                                    [self.delegate didFailToLoadAd:anAdResponseCode];
-                                }
-     ];
-                    */
+    [ANAdAdapterBaseAdColony initializeAdColonySDKWithTargetingParameters: targetingParametersValue
+                                                         completionAction: ^{ [weakSelf requestInterstitialFromSDK]; } ];
 }
 
 - (void) requestInterstitialFromSDK
@@ -146,7 +79,11 @@ ANLogMark();
 
     AdColonyZone  *zone  = [AdColony zoneForID:self.zoneID];
 
-    if (!zone.enabled) {
+    if (!zone) {
+        ANLogDebug(@"AdColony zoneID is INVALID.  (%@)", self.zoneID);
+        [self.delegate didFailToLoadAd:ANAdResponseInvalidRequest];
+        return;
+    } else if (!zone.enabled) {
         ANLogDebug(@"AdColony zoneID is NOT ENABLED.  (%@)", self.zoneID);
         [self.delegate didFailToLoadAd:ANAdResponseInvalidRequest];
         return;
@@ -156,6 +93,9 @@ ANLogMark();
     //
     __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
 
+    // ASSUMING nothing is lost by not setting AdColonyAdOptions because...
+    // AdColonyAppOptions is set (and reset) in [ANAdAdapterBaseAdColony initializeAdColonySDKWithTargetingParameters:completionAction:].
+    //
     [AdColony requestInterstitialInZone: self.zoneID
                                 options: nil
 
@@ -203,7 +143,6 @@ ANLogMark();
 }
 
 - (void) configureAdColonyAdEventHandlers
-        //FIX HANDLE audio start/stop?
 {
     ANLogMark();
 

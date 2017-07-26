@@ -54,60 +54,76 @@ static NSArray<NSString *>  *zoneIDs  = nil;
     [ANAdAdapterBaseAdColony configureWithAppID: appID
                                         zoneIDs: zoneIDs ];
 
-    [ANAdAdapterBaseAdColony initializeAdColonySDK:nil];
+    [ANAdAdapterBaseAdColony initializeAdColonySDKWithTargetingParameters:nil completionAction:nil];
 }
 
-+ (void)initializeAdColonySDK: (void (^)(void))completionAction
++ (void)initializeAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
+                                    completionAction: (void (^)(void))completionAction
 {
+    AdColonyAppOptions  *appOptions  = [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters];
+
     [AdColony configureWithAppID: [ANAdAdapterBaseAdColony getAppID]
                          zoneIDs: [ANAdAdapterBaseAdColony getZoneIDs]
-                         options: [ANAdAdapterBaseAdColony getAppOptions]
+                         options: appOptions
                       completion: ^(NSArray<AdColonyZone *> * _Nonnull zones)
                                   {
                                       ANLogTrace(@"AdColony version %@ is READY to serve ads.  \n\tzones=%@", [AdColony getSDKVersion], zones);
-                                      if (!completionAction) {
-                                          completionAction();
+
+                                      //NB  Set these AGAIN in the case where [AdColony configureWithAppID:...] recognizes it has been run successfully before.
+                                      //    In this case, we don't know whether the options: argument is evaluated.
+                                      //    Resetting AdColonyAppOptions here in the hopes that updated targettingParameters could affect the next [ANAdAdapterInterstitialAdColony requestInterstitialAdWithParameter:...].
+                                      //
+                                      [AdColony setAppOptions:appOptions];
+
+                                      if (completionAction) {
+                                          dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+                                              completionAction();
+                                          });
                                       }
                                   }
      ];
 }
 
-+ (void)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters
++ (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters
 {
 ANLogMark();
 
     AdColonyAppOptions  *appOptions  = [ANAdAdapterBaseAdColony getAppOptions];
 
-    if (targetingParameters.age) {
-        appOptions.userMetadata.userAge = [targetingParameters.age integerValue];
-    }
-    
-    switch (targetingParameters.gender) {
-        case ANGenderMale:
-            appOptions.userMetadata.userGender = ADCUserMale;
-            break;
-        case ANGenderFemale:
-            appOptions.userMetadata.userGender = ADCUserFemale;
-            break;
-            
-        default:
-            break;
-    }
-    
-    if (targetingParameters.location) {
-        appOptions.userMetadata.userLatitude = [NSNumber numberWithFloat:targetingParameters.location.latitude];
-        appOptions.userMetadata.userLongitude = [NSNumber numberWithFloat:targetingParameters.location.longitude];
-    }
-
-    if ([targetingParameters.customKeywords count] > 0)
-                    //FIX  test me
+    if (targetingParameters)
     {
-        for (NSString *key in targetingParameters.customKeywords) {
-            NSString  *value  = [targetingParameters.customKeywords objectForKey:key];
+        if (targetingParameters.age) {
+            appOptions.userMetadata.userAge = [targetingParameters.age integerValue];
+        }
+        
+        switch (targetingParameters.gender) {
+            case ANGenderMale:
+                appOptions.userMetadata.userGender = ADCUserMale;
+                break;
+            case ANGenderFemale:
+                appOptions.userMetadata.userGender = ADCUserFemale;
+                break;
+                
+            default:
+                break;
+        }
+        
+        if (targetingParameters.location) {
+            appOptions.userMetadata.userLatitude = [NSNumber numberWithFloat:targetingParameters.location.latitude];
+            appOptions.userMetadata.userLongitude = [NSNumber numberWithFloat:targetingParameters.location.longitude];
+        }
 
-            [appOptions.userMetadata setMetadataWithKey:key andStringValue:value];
+        if ([targetingParameters.customKeywords count] > 0)
+        {
+            for (NSString *key in targetingParameters.customKeywords) {
+                NSString  *value  = [targetingParameters.customKeywords objectForKey:key];
+
+                [appOptions.userMetadata setMetadataWithKey:key andStringValue:value];
+            }
         }
     }
+
+    return  appOptions;
 }
 
 
