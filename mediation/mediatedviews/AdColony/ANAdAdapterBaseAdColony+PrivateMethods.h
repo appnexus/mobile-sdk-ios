@@ -20,13 +20,9 @@
 
 + (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
 
-+ (NSString *) getAppID;
-
-+ (NSArray<NSString *> *) getZoneIDs;
-
 + (AdColonyAppOptions *) getAppOptions;
 
-+ (void)initializeAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
-                                    completionAction: (void(^)(void))completionAction;
++ (void)loadInterstitialAfterConfigAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
+                                                     completionAction: (void(^)(void))completionAction;
 
 @end

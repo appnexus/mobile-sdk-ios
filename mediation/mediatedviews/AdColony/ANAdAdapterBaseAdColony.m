@@ -30,47 +30,114 @@
 
 
 
-static NSString             *appID    = nil;
-static NSArray<NSString *>  *zoneIDs  = nil;
+typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
+    AdColonyConfigurationStateUnknown,
+    AdColonyConfigurationStateInProcess,
+    AdColonyConfigurationStateInitialized
+};
+
+
+
+@interface  ANAdAdapterBaseAdColony()
+
+@property (nonatomic)          AdColonyConfigurationState  configurationState;
+@property (nonatomic, strong)  NSArray                     *completionActionArray;
+
+@property (nonatomic, strong)  NSString             *appID;
+@property (nonatomic, strong)  NSArray<NSString *>  *zoneIDs;
+
+
+@end
 
 
 
 @implementation ANAdAdapterBaseAdColony
+
+#pragma mark - Instance management.
+
++ (ANAdAdapterBaseAdColony *)sharedInstance
+{
+    static dispatch_once_t           onceToken;
+    static ANAdAdapterBaseAdColony  *instance = nil;
+
+    dispatch_once(&onceToken, ^{
+        instance = [[[self class] alloc] init];
+    });
+
+    return  instance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (!self)  { return nil; }
+
+    self.configurationState     = AdColonyConfigurationStateUnknown;
+    self.completionActionArray  = @[];
+
+    return  self;
+}
+
+
 
 #pragma mark - Configuration lifecycle.
 
 + (void)configureWithAppID: (NSString *)appIDValue
                    zoneIDs: (NSArray *)zoneIDsValue
 {
-    appID    = appIDValue;
-    zoneIDs  = zoneIDsValue;
+    ANAdAdapterBaseAdColony  *sharedInstance  = [[self class] sharedInstance];
+
+    sharedInstance.appID    = appIDValue;
+    sharedInstance.zoneIDs  = zoneIDsValue;
 
     ANLogTrace(@"AdColony version %@ is CONFIGURED to serve ads.", [AdColony getSDKVersion]);
 }
 
-+ (void)initializeAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
-                                    completionAction: (void (^)(void))completionAction
++ (void)loadInterstitialAfterConfigAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
+                                                     completionAction: (void (^)(void))completionAction
 {
-    AdColonyAppOptions  *appOptions  = [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters];
+    ANAdAdapterBaseAdColony  *sharedInstance  = [ANAdAdapterBaseAdColony sharedInstance];
+    AdColonyAppOptions       *appOptions      = [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters];
 
-    [AdColony configureWithAppID: [ANAdAdapterBaseAdColony getAppID]
-                         zoneIDs: [ANAdAdapterBaseAdColony getZoneIDs]
-                         options: appOptions
-                      completion: ^(NSArray<AdColonyZone *> * _Nonnull zones)
-                                  {
-                                      ANLogTrace(@"AdColony version %@ is READY to serve ads.  \n\tzones=%@", [AdColony getSDKVersion], zones);
 
-                                      //NB  Set these AGAIN in the case where [AdColony configureWithAppID:...] recognizes it has been run successfully before.
-                                      //    In this case, we don't know whether the options: argument is evaluated.
-                                      //    Resetting AdColonyAppOptions here in the hopes that updated targettingParameters could affect the next [ANAdAdapterInterstitialAdColony requestInterstitialAdWithParameter:...].
-                                      //
-                                      [AdColony setAppOptions:appOptions];
+    @synchronized (sharedInstance)
+    {
+        if (AdColonyConfigurationStateInitialized == sharedInstance.configurationState)
+        {
+            if (completionAction)
+            {
+                [AdColony setAppOptions:appOptions];
+                completionAction();
+            }
 
-                                      if (completionAction) {
-                                          completionAction();
-                                      }
-                                  }
-     ];
+        } else {
+            if (completionAction) {
+                sharedInstance.completionActionArray = [sharedInstance.completionActionArray arrayByAddingObject:completionAction];
+            }
+
+            //
+            if (AdColonyConfigurationStateInProcess != sharedInstance.configurationState) {
+                sharedInstance.configurationState = AdColonyConfigurationStateInProcess;
+
+
+                [AdColony configureWithAppID: sharedInstance.appID
+                                     zoneIDs: sharedInstance.zoneIDs
+                                     options: appOptions
+                                  completion: ^(NSArray<AdColonyZone *> * _Nonnull zones)
+                                              {
+                                                  @synchronized (sharedInstance) {
+                                                      sharedInstance.configurationState = AdColonyConfigurationStateInitialized;
+                                                      ANLogTrace(@"AdColony version %@ is READY to serve ads.  \n\tzones=%@", [AdColony getSDKVersion], zones);
+
+                                                      for (void(^action)() in sharedInstance.completionActionArray) {
+                                                          action();
+                                                      }
+                                                  }
+                                              }
+                 ];
+            }
+        }
+    }
 }
 
 + (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters
@@ -118,16 +185,6 @@ ANLogMark();
 
 
 #pragma mark - Helper methods.
-
-+ (NSString *) getAppID
-{
-    return appID;
-}
-
-+ (NSArray<NSString *> *) getZoneIDs
-{
-    return zoneIDs;
-}
 
 + (AdColonyAppOptions *) getAppOptions
 {

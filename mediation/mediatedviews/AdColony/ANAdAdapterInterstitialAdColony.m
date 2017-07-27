@@ -69,16 +69,16 @@
     //
     __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
 
-    [ANAdAdapterBaseAdColony initializeAdColonySDKWithTargetingParameters: targetingParametersValue
-                                                         completionAction: ^{
-                                                             __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
-                                                             if (!strongSelf)  {
-                                                                 ANLogDebug(@"CANNOT EVALUATE strongSelf.");
-                                                                 return;
-                                                             }
+    [ANAdAdapterBaseAdColony loadInterstitialAfterConfigAdColonySDKWithTargetingParameters: targetingParametersValue
+                                                                          completionAction: ^{
+                                                                              __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+                                                                              if (!strongSelf)  {
+                                                                                    ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+                                                                                    return;
+                                                                                }
 
-                                                             [strongSelf requestInterstitialFromSDK];
-                                                         }
+                                                                              [strongSelf requestInterstitialFromSDK];
+                                                                          }
      ];
 }
 
@@ -103,7 +103,7 @@ ANLogMark();
     __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
 
     // ASSUMING nothing is lost by not setting AdColonyAdOptions because...
-    // AdColonyAppOptions is set (and reset) in [ANAdAdapterBaseAdColony initializeAdColonySDKWithTargetingParameters:completionAction:].
+    // AdColonyAppOptions is set (and reset) in [ANAdAdapterBaseAdColony loadInterstitialAfterConfigAdColonySDKWithTargetingParameters:completionAction:].
     //
     [AdColony requestInterstitialInZone: self.zoneID
                                 options: nil
