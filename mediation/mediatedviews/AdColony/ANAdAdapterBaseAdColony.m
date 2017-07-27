@@ -48,15 +48,6 @@ static NSArray<NSString *>  *zoneIDs  = nil;
     ANLogTrace(@"AdColony version %@ is CONFIGURED to serve ads.", [AdColony getSDKVersion]);
 }
 
-+ (void)configureAndInitializeWithAppID: (NSString *)appID
-                                zoneIDs: (NSArray *)zoneIDs
-{
-    [ANAdAdapterBaseAdColony configureWithAppID: appID
-                                        zoneIDs: zoneIDs ];
-
-    [ANAdAdapterBaseAdColony initializeAdColonySDKWithTargetingParameters:nil completionAction:nil];
-}
-
 + (void)initializeAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
                                     completionAction: (void (^)(void))completionAction
 {
@@ -76,9 +67,7 @@ static NSArray<NSString *>  *zoneIDs  = nil;
                                       [AdColony setAppOptions:appOptions];
 
                                       if (completionAction) {
-                                          dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
-                                              completionAction();
-                                          });
+                                          completionAction();
                                       }
                                   }
      ];

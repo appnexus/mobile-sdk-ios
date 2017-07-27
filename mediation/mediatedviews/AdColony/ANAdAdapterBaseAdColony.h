@@ -22,7 +22,4 @@
 + (void)configureWithAppID:(NSString *)appID
                    zoneIDs:(NSArray *)zoneIDs;
 
-+ (void)configureAndInitializeWithAppID:(NSString *)appID
-                                zoneIDs:(NSArray *)zoneIDs;
-
 @end

@@ -70,7 +70,16 @@
     __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
 
     [ANAdAdapterBaseAdColony initializeAdColonySDKWithTargetingParameters: targetingParametersValue
-                                                         completionAction: ^{ [weakSelf requestInterstitialFromSDK]; } ];
+                                                         completionAction: ^{
+                                                             __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+                                                             if (!strongSelf)  {
+                                                                 ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+                                                                 return;
+                                                             }
+
+                                                             [strongSelf requestInterstitialFromSDK];
+                                                         }
+     ];
 }
 
 - (void) requestInterstitialFromSDK
@@ -112,11 +121,17 @@ ANLogMark();
 
                                              //
                                              ANLogDebug(@"AdColony interstitial ad available.");
-                                             [self.delegate didLoadInterstitialAd:self];
+                                             [strongSelf.delegate didLoadInterstitialAd:strongSelf];
                                          }
 
                                 failure: ^(AdColonyAdRequestError * _Nonnull error)
                                          {
+                                             __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+                                             if (!strongSelf) {
+                                                 ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+                                                 return;
+                                             }
+
                                              ANAdResponseCode  anAdResponseCode  = ANAdResponseInternalError;
 
                                              switch (error.code) {
@@ -137,7 +152,7 @@ ANLogMark();
                                              }
 
                                              ANLogDebug(@"AdColony interstitial unavailable.");
-                                             [self.delegate didFailToLoadAd:anAdResponseCode];
+                                             [strongSelf.delegate didFailToLoadAd:anAdResponseCode];
                                          }
      ];
 }
@@ -149,8 +164,14 @@ ANLogMark();
     __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
 
     [self.interstitialAd setOpen:^{
-        weakSelf.isAdShown = YES;
-        [weakSelf.delegate didPresentAd];
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+            return;
+        }
+
+        strongSelf.isAdShown = YES;
+        [strongSelf.delegate didPresentAd];
     }];
 
     [self.interstitialAd setClose:^{
@@ -167,21 +188,40 @@ ANLogMark();
     [self.interstitialAd setExpire:^{
         ANLogDebug(@"Interstitial ad WILL EXPIRE in 5 seconds...");  //XXX
 
-        if (!weakSelf.isAdShown) {
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+            return;
+        }
+
+
+        if (!strongSelf.isAdShown) {
             ANLogDebug(@"Refreshing interstitial ad...");
 
-            [weakSelf requestInterstitialAdWithParameter: weakSelf.parameterString
-                                                adUnitId: weakSelf.zoneID
-                                     targetingParameters: weakSelf.targettingParameters ];
+            [strongSelf requestInterstitialAdWithParameter: strongSelf.parameterString
+                                                  adUnitId: strongSelf.zoneID
+                                       targetingParameters: strongSelf.targettingParameters ];
         }
     }];
 
     [self.interstitialAd setClick:^{
-        [weakSelf.delegate adWasClicked];
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+            return;
+        }
+
+        [strongSelf.delegate adWasClicked];
     }];
 
     [self.interstitialAd setLeftApplication:^{
-        [weakSelf.delegate willLeaveApplication];
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+            return;
+        }
+
+        [strongSelf.delegate willLeaveApplication];
     }];
 }
 
