@@ -144,7 +144,7 @@ typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
 {
 ANLogMark();
 
-    AdColonyAppOptions  *appOptions  = [ANAdAdapterBaseAdColony getAppOptions];
+    AdColonyAppOptions  *appOptions  = [ANAdAdapterBaseAdColony makeAppOptions];    //NB  Fresh instance of AdColonyAppOptions for each set of targetingParameters.
 
     if (targetingParameters)
     {
@@ -186,13 +186,12 @@ ANLogMark();
 
 #pragma mark - Helper methods.
 
-+ (AdColonyAppOptions *) getAppOptions
++ (AdColonyAppOptions *) getAppOptions    //UNUSED.
 {
     AdColonyAppOptions  *appOptions  = [AdColony getAppOptions];
 
     if (nil == appOptions) {
-        appOptions = [[AdColonyAppOptions alloc] init];
-        appOptions.disableLogging  = YES;
+        appOptions = [[self class] makeAppOptions];
     }
 
     if (nil == appOptions.userMetadata) {
@@ -201,6 +200,17 @@ ANLogMark();
 
     return  appOptions;
 }
+
++ (AdColonyAppOptions *) makeAppOptions
+{
+    AdColonyAppOptions  *appOptions = [[AdColonyAppOptions alloc] init];
+
+    appOptions.disableLogging  = YES;
+    appOptions.userMetadata    = [[AdColonyUserMetadata alloc] init];
+
+    return  appOptions;
+}
+
 
 
 @end

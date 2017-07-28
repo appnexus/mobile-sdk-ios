@@ -22,6 +22,8 @@
 
 + (AdColonyAppOptions *) getAppOptions;
 
++ (AdColonyAppOptions *) makeAppOptions;
+
 + (void)loadInterstitialAfterConfigAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
                                                      completionAction: (void(^)(void))completionAction;
 
