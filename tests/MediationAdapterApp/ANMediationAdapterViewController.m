@@ -25,7 +25,6 @@
 #import "ANAdAdapterBaseChartboost.h"
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
-#import "ANNativeAdColonyView.h"
 #import "ANAdAdapterBaseYahoo.h"
 #import "ANGADNativeAppInstallAdView.h"
 #import "ANGADNativeContentAdView.h"
@@ -42,7 +41,6 @@
 @property (nonatomic) ANNativeAdRequest *nativeAdRequest;
 @property (nonatomic) ANNativeAdResponse *nativeAdResponse;
 @property (nonatomic) ANNativeAdView *nativeAdView;
-@property (nonatomic) ANNativeAdColonyView *adColonyView;
 @property (nonatomic) ANGADNativeAppInstallAdView *gadInstallView;
 @property (nonatomic) ANGADNativeContentAdView *gadContentView;
 @end
@@ -62,7 +60,6 @@
              @"VdopiaBanner",
              @"VdopiaInterstitial",
              @"AdColonyInterstitial",
-             @"AdColonyNative",
              @"VungleInterstitial",
              @"ChartboostInterstitial",
              @"FacebookBanner",
@@ -127,11 +124,9 @@
     [self.nativeAdView removeFromSuperview];
     self.nativeAdView = nil;
     self.nativeAdResponse = nil;
-    [self.adColonyView removeFromSuperview];
     [self.gadInstallView removeFromSuperview];
     [self.gadContentView removeFromSuperview];
     self.gadContentView = nil;
-    self.adColonyView = nil;
     self.gadInstallView = nil;
 }
 
@@ -776,12 +771,6 @@ So close the app & test the next ad type
 
 - (void)createMainImageNativeView {
     switch (self.nativeAdResponse.networkCode) {
-        case ANNativeAdNetworkCodeAdColony: {
-            AdColonyNativeAdView *videoView = (AdColonyNativeAdView *)self.nativeAdResponse.customElements[kANAdAdapterNativeAdColonyVideoView];
-            self.adColonyView = [[ANNativeAdColonyView alloc] initWithNativeAdView:videoView
-                                                                             frame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 480)];
-            return;
-        }
         case ANNativeAdNetworkCodeAdMob: {
             UINib *adNib;
             ANAdAdapterNativeAdMobAdType type = [self.nativeAdResponse.customElements[kANAdAdapterNativeAdMobAdTypeKey] integerValue];
@@ -820,8 +809,6 @@ So close the app & test the next ad type
 
 - (void)populateNativeViewWithResponse {
     switch (self.nativeAdResponse.networkCode) {
-        case ANNativeAdNetworkCodeAdColony:
-            return;
         case ANNativeAdNetworkCodeAdMob: {
             if (self.gadInstallView) {
                 ((UIImageView *)self.gadInstallView.iconView).image = self.nativeAdResponse.iconImage;
@@ -858,12 +845,6 @@ So close the app & test the next ad type
     UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
     self.nativeAdResponse.delegate = self;
     switch (self.nativeAdResponse.networkCode) {
-        case ANNativeAdNetworkCodeAdColony:
-            [self.nativeAdResponse registerViewForTracking:self.adColonyView
-                                    withRootViewController:rvc
-                                            clickableViews:nil
-                                                     error:&registerError];
-            return;
         case ANNativeAdNetworkCodeAdMob:
             if (self.gadInstallView) {
                 [self.nativeAdResponse registerViewForTracking:self.gadInstallView
@@ -888,12 +869,6 @@ So close the app & test the next ad type
 
 - (void)addNativeViewToViewHierarchy {
     switch (self.nativeAdResponse.networkCode) {
-        case ANNativeAdNetworkCodeAdColony: {
-            CGSize fittingSize = [self.adColonyView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-            self.adColonyView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), fittingSize.height);
-            [self.view addSubview:self.adColonyView];
-            return;
-        }
         case ANNativeAdNetworkCodeAdMob: {
             UIView *nativeAdView;
             if (self.gadInstallView) {
