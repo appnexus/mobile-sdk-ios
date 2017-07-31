@@ -97,8 +97,7 @@ typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
                                                      completionAction: (void (^)(void))completionAction
 {
     ANAdAdapterBaseAdColony  *sharedInstance  = [ANAdAdapterBaseAdColony sharedInstance];
-    AdColonyAppOptions       *appOptions      = [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters];
-
+    AdColonyAppOptions       *appOptions      = nil;
 
     @synchronized (sharedInstance)
     {
@@ -106,19 +105,25 @@ typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
         {
             if (completionAction)
             {
+                appOptions = [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters usingSharedInstance:NO];
                 [AdColony setAppOptions:appOptions];
                 completionAction();
             }
 
         } else {
+            //NB  All cached completionActions will share the same set of appOptions,
+            //    from whichever instance enters AdColonyConfigurationStateInProcess.
+            //
             if (completionAction) {
                 sharedInstance.completionActionArray = [sharedInstance.completionActionArray arrayByAddingObject:completionAction];
             }
 
             //
-            if (AdColonyConfigurationStateInProcess != sharedInstance.configurationState) {
+            if (AdColonyConfigurationStateInProcess != sharedInstance.configurationState)
+            {
                 sharedInstance.configurationState = AdColonyConfigurationStateInProcess;
 
+                appOptions = [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters usingSharedInstance:YES];
 
                 [AdColony configureWithAppID: sharedInstance.appID
                                      zoneIDs: sharedInstance.zoneIDs
@@ -140,12 +145,23 @@ typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
     }
 }
 
-+ (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters
++ (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters: (ANTargetingParameters *)targetingParameters
+                                                usingSharedInstance: (BOOL)useSharedInstance
 {
 ANLogMark();
 
-    AdColonyAppOptions  *appOptions  = [ANAdAdapterBaseAdColony makeAppOptions];    //NB  Fresh instance of AdColonyAppOptions for each set of targetingParameters.
+    // Begin building targeting parameters from shared instance (possibly created by the client)
+    //   or start fresh.
+    //
+    AdColonyAppOptions  *appOptions  = nil;
 
+    if (useSharedInstance) {
+        appOptions = [ANAdAdapterBaseAdColony getAppOptions];
+    } else {
+        appOptions = [ANAdAdapterBaseAdColony makeAppOptions];
+    }
+
+    //
     if (targetingParameters)
     {
         if (targetingParameters.age) {
@@ -186,7 +202,7 @@ ANLogMark();
 
 #pragma mark - Helper methods.
 
-+ (AdColonyAppOptions *) getAppOptions    //UNUSED.
++ (AdColonyAppOptions *) getAppOptions
 {
     AdColonyAppOptions  *appOptions  = [AdColony getAppOptions];
 

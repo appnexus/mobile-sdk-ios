@@ -18,7 +18,8 @@
 
 @interface ANAdAdapterBaseAdColony (PrivateMethods)
 
-+ (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
++ (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters: (ANTargetingParameters *)targetingParameters
+                                                usingSharedInstance: (BOOL) useSharedInstance;
 
 + (AdColonyAppOptions *) getAppOptions;
 
