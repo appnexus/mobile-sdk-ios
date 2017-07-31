@@ -18,6 +18,14 @@
 
 @interface ANAdAdapterBaseAdColony (PrivateMethods)
 
-+ (void)setAdColonyTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters;
++ (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters: (ANTargetingParameters *)targetingParameters
+                                                usingSharedInstance: (BOOL) useSharedInstance;
+
++ (AdColonyAppOptions *) getAppOptions;
+
++ (AdColonyAppOptions *) makeAppOptions;
+
++ (void)loadInterstitialAfterConfigAdColonySDKWithTargetingParameters: (ANTargetingParameters *)targetingParameters
+                                                     completionAction: (void(^)(void))completionAction;
 
 @end

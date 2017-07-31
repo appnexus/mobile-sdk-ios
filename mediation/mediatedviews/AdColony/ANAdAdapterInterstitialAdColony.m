@@ -13,16 +13,38 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterInterstitialAdColony.h"
-#import "ANAdAdapterBaseAdColony+PrivateMethods.h"
-#import "ANLogging.h"
 #import <AdColony/AdColony.h>
+#import <AdColony/AdColonyAdOptions.h>
+#import <AdColony/AdColonyAdRequestError.h>
+#import <AdColony/AdColonyAppOptions.h>
+#import <AdColony/AdColonyInterstitial.h>
+#import <AdColony/AdColonyOptions.h>
+#import <AdColony/AdColonyTypes.h>
+#import <AdColony/AdColonyUserMetadata.h>
+#import <AdColony/AdColonyZone.h>
 
-@interface ANAdAdapterInterstitialAdColony () <AdColonyAdDelegate>
+#import "ANAdAdapterBaseAdColony.h"
+#import "ANAdAdapterBaseAdColony+PrivateMethods.h"
+#import "ANAdAdapterInterstitialAdColony.h"
 
-@property (nonatomic, readwrite, strong) NSString *zoneID;
+#import "ANLogging.h"
+
+
+
+@interface ANAdAdapterInterstitialAdColony()
+
+@property (nonatomic, readwrite, strong)  NSString               *parameterString;
+@property (nonatomic, readwrite, strong)  NSString               *zoneID;   //Equal to idStringValue.
+@property (nonatomic, readwrite, strong)  ANTargetingParameters  *targettingParameters;
+
+@property (nonatomic, strong)             AdColonyInterstitial  *interstitialAd;
+@property (nonatomic)                     BOOL                   isAdShown;
+
+
 
 @end
+
+
 
 @implementation ANAdAdapterInterstitialAdColony
 
@@ -30,85 +52,196 @@
 
 @synthesize delegate = _delegate;
 
-- (void)requestInterstitialAdWithParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    [ANAdAdapterBaseAdColony setAdColonyTargetingWithTargetingParameters:targetingParameters];
-    self.zoneID = idString;
-    ADCOLONY_ZONE_STATUS zoneStatus = [AdColony zoneStatusForZone:idString];
-    ANAdResponseCode errorCode = ANAdResponseInternalError;
-    switch (zoneStatus) {
-        case ADCOLONY_ZONE_STATUS_ACTIVE:
-            ANLogDebug(@"%@ %@ | AdColony interstitial ad available", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-            [self.delegate didLoadInterstitialAd:self];
+- (void)requestInterstitialAdWithParameter:(NSString *)parameterStringValue
+                                  adUnitId:(NSString *)idStringValue
+                       targetingParameters:(ANTargetingParameters *)targetingParametersValue
+{
+    ANLogTrace(@"");
+
+    self.parameterString       = parameterStringValue;
+    self.zoneID                = idStringValue;
+    self.targettingParameters  = targetingParametersValue;
+
+    self.interstitialAd  = nil;
+    self.isAdShown       = NO;
+
+
+    //
+    __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
+
+    [ANAdAdapterBaseAdColony loadInterstitialAfterConfigAdColonySDKWithTargetingParameters: targetingParametersValue
+                                                                          completionAction: ^{
+                                                                              __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+                                                                              if (!strongSelf)  {
+                                                                                    ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+                                                                                    return;
+                                                                                }
+
+                                                                              [strongSelf requestInterstitialFromSDK];
+                                                                          }
+     ];
+}
+
+- (void) requestInterstitialFromSDK
+{
+    AdColonyZone  *zone  = [AdColony zoneForID:self.zoneID];
+
+    if (!zone) {
+        ANLogDebug(@"AdColony zoneID is INVALID.  (%@)", self.zoneID);
+        [self.delegate didFailToLoadAd:ANAdResponseInvalidRequest];
+        return;
+    } else if (!zone.enabled) {
+        ANLogDebug(@"AdColony zoneID is NOT ENABLED.  (%@)", self.zoneID);
+        [self.delegate didFailToLoadAd:ANAdResponseInvalidRequest];
+        return;
+    }
+
+
+    //
+    __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
+
+    // ASSUMING nothing is lost by not setting AdColonyAdOptions because...
+    // AdColonyAppOptions is set (and reset) in [ANAdAdapterBaseAdColony loadInterstitialAfterConfigAdColonySDKWithTargetingParameters:completionAction:].
+    //
+    [AdColony requestInterstitialInZone: self.zoneID
+                                options: nil
+
+                                success: ^(AdColonyInterstitial * _Nonnull ad)
+                                         {
+                                             __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+                                             if (!strongSelf) {
+                                                 ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+                                                 return;
+                                             }
+
+                                             strongSelf.interstitialAd = ad;
+                                             [strongSelf configureAdColonyAdEventHandlers];
+
+                                             //
+                                             ANLogDebug(@"AdColony interstitial ad available.");
+                                             [strongSelf.delegate didLoadInterstitialAd:strongSelf];
+                                         }
+
+                                failure: ^(AdColonyAdRequestError * _Nonnull error)
+                                         {
+                                             __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+                                             if (!strongSelf) {
+                                                 ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+                                                 return;
+                                             }
+
+                                             ANAdResponseCode  anAdResponseCode  = ANAdResponseInternalError;
+
+                                             switch (error.code) {
+                                                 case AdColonyRequestErrorInvalidRequest:
+                                                     anAdResponseCode = ANAdResponseInvalidRequest;
+                                                     break;
+                                                 case AdColonyRequestErrorSkippedRequest:
+                                                     anAdResponseCode = ANAdResponseUnableToFill;
+                                                     break;
+                                                 case AdColonyRequestErrorNoFillForRequest:
+                                                     anAdResponseCode = ANAdResponseUnableToFill;
+                                                     break;
+                                                 case AdColonyRequestErrorUnready:
+                                                     anAdResponseCode = ANAdResponseInternalError;
+                                                     break;
+                                                 default:
+                                                     ANLogDebug(@"AdColony FAILURE with UNKNOWN CODE.  (%@)", @(error.code));
+                                             }
+
+                                             ANLogDebug(@"AdColony interstitial unavailable.");
+                                             [strongSelf.delegate didFailToLoadAd:anAdResponseCode];
+                                         }
+     ];
+}
+
+- (void) configureAdColonyAdEventHandlers
+{
+    __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
+
+    [self.interstitialAd setOpen:^{
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogDebug(@"CANNOT EVALUATE strongSelf.");
             return;
-        case ADCOLONY_ZONE_STATUS_NO_ZONE:
-            errorCode = ANAdResponseInvalidRequest;
-            break;
-        case ADCOLONY_ZONE_STATUS_OFF:
-            errorCode = ANAdResponseInvalidRequest;
-            break;
-        case ADCOLONY_ZONE_STATUS_LOADING:
-            errorCode = ANAdResponseUnableToFill;
-            break;
-        case ADCOLONY_ZONE_STATUS_UNKNOWN:
-            errorCode = ANAdResponseInternalError;
-            break;
-        default:
-            ANLogDebug(@"%@ %@ | Unhandled AdColony Zone Status: %ld", NSStringFromClass([self class]), NSStringFromSelector(_cmd), (long)zoneStatus);
-            errorCode = ANAdResponseInternalError;
-            break;
-    }
-    ANLogDebug(@"%@ %@ | AdColony interstitial unavailable, zone status %ld", NSStringFromClass([self class]), NSStringFromSelector(_cmd), (long)zoneStatus);
-    [self.delegate didFailToLoadAd:errorCode];
+        }
+
+        strongSelf.isAdShown = YES;
+        [strongSelf.delegate didPresentAd];
+    }];
+
+    [self.interstitialAd setClose:^{
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogError(@"CANNOT EVALUATE strongSelf.");
+            return;
+        }
+
+        [strongSelf.delegate willCloseAd];
+        [strongSelf.delegate didCloseAd];
+    }];
+
+    [self.interstitialAd setExpire:^{
+        ANLogDebug(@"Interstitial ad WILL EXPIRE in 5 seconds...");  //XXX
+
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+            return;
+        }
+
+
+        if (!strongSelf.isAdShown) {
+            ANLogDebug(@"Refreshing interstitial ad...");
+
+            [strongSelf requestInterstitialAdWithParameter: strongSelf.parameterString
+                                                  adUnitId: strongSelf.zoneID
+                                       targetingParameters: strongSelf.targettingParameters ];
+        }
+    }];
+
+    [self.interstitialAd setClick:^{
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+            return;
+        }
+
+        [strongSelf.delegate adWasClicked];
+    }];
+
+    [self.interstitialAd setLeftApplication:^{
+        __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
+        if (!strongSelf) {
+            ANLogDebug(@"CANNOT EVALUATE strongSelf.");
+            return;
+        }
+
+        [strongSelf.delegate willLeaveApplication];
+    }];
 }
 
-- (void)presentFromViewController:(UIViewController *)viewController {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if ([self isReady]) {
-        [AdColony playVideoAdForZone:self.zoneID
-                        withDelegate:self];
-    } else {
-        ANLogDebug(@"%@ %@ | failedToDisplayAd", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+- (BOOL)isReady
+{
+    ANLogTrace(@"");
+
+    return  self.interstitialAd && !self.interstitialAd.expired;
+}
+
+
+- (void)presentFromViewController:(UIViewController *)viewController
+{
+    ANLogTrace(@"");
+
+    if (![self isReady]) {
+        ANLogDebug(@"failedToDisplayAd");
         [self.delegate failedToDisplayAd];
+        return;
     }
+
+    [self.delegate willPresentAd];
+    [self.interstitialAd showWithPresentingViewController:viewController];
 }
 
-- (BOOL)isReady {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    ADCOLONY_ZONE_STATUS zoneStatus = [AdColony zoneStatusForZone:self.zoneID];
-    return (zoneStatus == ADCOLONY_ZONE_STATUS_ACTIVE);
-}
-
-#pragma mark - AdColonyAdDelegate
-
-- (void)onAdColonyAdStartedInZone:(NSString *)zoneID {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    // Do nothing.
-}
-
-- (void)onAdColonyAdFinishedWithInfo:(AdColonyAdInfo *)info {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if (info.shown) {
-        [self.delegate willCloseAd];
-        [self.delegate didCloseAd];
-    } else {
-        ANLogDebug(@"%@ %@ | failedToDisplayAd", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        [self.delegate failedToDisplayAd];
-    }
-}
-
-- (void)onAdColonyAdAttemptFinished:(BOOL)shown
-                             inZone:(NSString *)zoneID {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if (shown) {
-        [self.delegate willCloseAd];
-        [self.delegate didCloseAd];
-    } else {
-        ANLogDebug(@"%@ %@ | failedToDisplayAd", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-        [self.delegate failedToDisplayAd];
-    }
-}
 
 @end
