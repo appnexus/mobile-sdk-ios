@@ -84,8 +84,6 @@
 
 - (void) requestInterstitialFromSDK
 {
-ANLogMark();
-
     AdColonyZone  *zone  = [AdColony zoneForID:self.zoneID];
 
     if (!zone) {
@@ -159,8 +157,6 @@ ANLogMark();
 
 - (void) configureAdColonyAdEventHandlers
 {
-    ANLogMark();
-
     __weak ANAdAdapterInterstitialAdColony  *weakSelf  = self;
 
     [self.interstitialAd setOpen:^{

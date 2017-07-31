@@ -148,8 +148,6 @@ typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
 + (AdColonyAppOptions *)setAdColonyTargetingWithTargetingParameters: (ANTargetingParameters *)targetingParameters
                                                 usingSharedInstance: (BOOL)useSharedInstance
 {
-ANLogMark();
-
     // Begin building targeting parameters from shared instance (possibly created by the client)
     //   or start fresh.
     //
