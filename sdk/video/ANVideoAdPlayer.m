@@ -368,14 +368,14 @@
 - (void)browserViewController:(ANBrowserViewController *)controller
      couldNotHandleInitialURL:(NSURL *)url
 {
-ANLogMarkMessage(@"UNUSED.");
+ANLogTrace(@"UNUSED.");
 }
 
 
 - (void)browserViewController:(ANBrowserViewController *)controller
              browserIsLoading:(BOOL)isLoading
 {
-ANLogMarkMessage(@"UNUSED.");
+ANLogTrace(@"UNUSED.");
 }
 
 
@@ -419,7 +419,7 @@ ANLogMarkMessage(@"UNUSED.");
 
 - (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller
 {
-ANLogMarkMessage(@"UNUSED.");
+ANLogTrace(@"UNUSED.");
 }
 
 #pragma mark - ANWebConsole

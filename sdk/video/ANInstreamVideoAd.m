@@ -342,48 +342,48 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 - (void)adDidReceiveAd
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (void)adRequestFailedWithError:(NSError *)error
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (void)adWasClicked
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (void)adWillPresent
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (void)adDidPresent
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (void)adWillClose
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (void)adDidClose
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 
 - (void)adWillLeaveApplication
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (NSString *)adTypeForMRAID
@@ -393,24 +393,24 @@ ANLogMarkMessage(@"UNUSED");
 
 - (UIViewController *)displayController
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
     return  nil;
 }
 
 - (void)adInteractionDidBegin
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (void)adInteractionDidEnd
 {
-ANLogMarkMessage(@"UNUSED");
+ANLogTrace(@"UNUSED");
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
             //FIX UTTEST -- needs unit test.  all uses of this delegate method.
 {
-ANLogMark();
+ANLogTrace(@"");
     return  @[ @(4) ];
 }
 
