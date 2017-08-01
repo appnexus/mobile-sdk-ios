@@ -40,14 +40,13 @@
 
 @property (nonatomic, readwrite, strong)  NSMutableArray            *ads;
 @property (nonatomic, readwrite, strong)  NSURL                     *noAdUrl;
-@property (nonatomic, readwrite, assign)  NSTimeInterval            totalLatencyStart;
+@property (nonatomic, readwrite, assign)  NSTimeInterval             totalLatencyStart;
 
 @property (nonatomic, readwrite, strong)  NSArray                   *impressionUrls;
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView      *standardAdView;
 
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController  *mediationController;
-                            //FIX UT why does this need to be cleared -- do we use it here the same as in adfetcher the first?
 
 
 
@@ -70,12 +69,12 @@
 
 
 - (void)clearMediationController {
-                    //FIX -- needed for why exactly?
     /*
      Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher. The controller maintains a weak reference to the
      ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still
      displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
+                //FIX  we know where it lives on, but why (or why not)?
     self.mediationController.adFetcher = nil;
     self.mediationController = nil;
 }
@@ -95,7 +94,8 @@ ANLogMark();
                                                     delegate:self];
 
     self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-                //FIX -- review this location
+                //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
+                //FIX -- clear if connection turns out not to be successful?
 
 
     if (!self.connection) {
@@ -134,6 +134,7 @@ ANLogMark();
         self.noAdUrl = [NSURL URLWithString:response.noAdUrlString];
     }
     self.ads = response.ads;
+                //FIX -- return ads array instead of impressionURLs? NO inline with each handler...
 
     [self continueWaterfall];
 }
@@ -149,6 +150,7 @@ ANLogMark();
 }
 
 - (void)sendDelegateFinishedResponse:(ANAdFetcherResponse *)response
+                //FIX -- collapse into procesFinalResponse
 {
     ANLogMark();
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
@@ -157,6 +159,10 @@ ANLogMark();
 }
 
 
+//NB  continueWaterfall is co-functional the ad handler methods.
+//    The loop of the waterfall lifecycle is managed by methods calling one another
+//      until a valid ad object is found OR when the waterfall runs out.
+//
 - (void)continueWaterfall
 {
 ANLogMark();
@@ -176,6 +182,8 @@ ANLogMark();
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
+
+    //FIX -- return ad blob here?  proactive?  once for everyone?  target can ignore as appropriate...
     
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
@@ -225,7 +233,7 @@ ANLogMark();
 
 // Video ad.
 //
--(void) handleCSMVideoAd:(id) videoAd {
+-(void) handleCSMVideoAd:(ANCSMVideoAd *) videoAd {
     if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
         ANLogError(@"FAILED to create ANVideoAdProcessor object.");
     }
@@ -243,8 +251,8 @@ ANLogMark();
     CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
 
     if (!CGRectContainsRect(requestedRect, receivedRect)) {
-        ANLogInfo(@"adsize_too_big %d%d%d%d", (int)receivedRect.size.width, (int)receivedRect.size.height,
-                  (int)requestedRect.size.width, (int)requestedRect.size.height);
+        ANLogInfo(@"adsize_too_big %d%d%d%d",   (int)receivedRect.size.width,  (int)receivedRect.size.height,
+                                                (int)requestedRect.size.width, (int)requestedRect.size.height );
     }
 
     CGSize sizeOfCreative = (    (receivedSize.width > 0)

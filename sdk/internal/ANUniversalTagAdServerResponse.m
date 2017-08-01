@@ -126,8 +126,9 @@ ANLogMark();
         NSArray *adsArray = [[self class] adsArrayFromTag:firstTag];
         if (adsArray)
         {
-            // NB  Though adObject is parsed in multiple ways, we ASSUME only one --and exaclty one-- will be successful.
+            // NB  Though adObject is parsed in multiple ways, we ASSUME only one parse --and exaclty one parse-- will be successful.
             //     The same is true within the clause for each Content Source type.
+                                                        //FIX -- refactor so each pass continues upon first known success.
             //
             for (id adObject in adsArray)
             {

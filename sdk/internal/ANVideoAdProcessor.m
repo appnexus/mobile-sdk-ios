@@ -31,8 +31,9 @@
 
 @implementation ANVideoAdProcessor
 
-- (instancetype)initWithDelegate:(id<ANVideoAdProcessorDelegate>)delegate withAdVideoContent:(id) videoAdContent{
-    
+- (instancetype)initWithDelegate:(id<ANVideoAdProcessorDelegate>)delegate withAdVideoContent:(id) videoAdContent
+                                                                                        //FIX -- one init method per ad format?
+{
     if (self = [self init]) {
         self.delegate = delegate;
         

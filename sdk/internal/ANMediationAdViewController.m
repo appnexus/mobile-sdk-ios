@@ -29,19 +29,19 @@
 
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 
-@property (nonatomic, readwrite, strong) id<ANCustomAdapter> currentAdapter;
-@property (nonatomic, readwrite, assign) BOOL hasSucceeded;
-@property (nonatomic, readwrite, assign) BOOL hasFailed;
-@property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
-@property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> adViewDelegate;
-@property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
-@property (nonatomic, readwrite, strong) NSDictionary *pitbullAdForDelayedCapture;
+@property (nonatomic, readwrite, strong)  id<ANCustomAdapter>                currentAdapter;
+@property (nonatomic, readwrite, assign)  BOOL                               hasSucceeded;
+@property (nonatomic, readwrite, assign)  BOOL                               hasFailed;
+@property (nonatomic, readwrite, assign)  BOOL                               timeoutCanceled;
+@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
+@property (nonatomic, readwrite, strong)  ANMediatedAd                      *mediatedAd;
+@property (nonatomic, readwrite, strong)  NSDictionary                      *pitbullAdForDelayedCapture;
 
 // variables for measuring latency.
-@property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
-@property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
+@property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStart;
+@property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStop;
 
-@property (nonatomic, readwrite, assign) BOOL isRegisteredForPitbullScreenCaptureNotifications;
+@property (nonatomic, readwrite, assign)  BOOL  isRegisteredForPitbullScreenCaptureNotifications;
 
 @end
 

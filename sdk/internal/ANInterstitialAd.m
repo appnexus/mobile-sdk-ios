@@ -58,7 +58,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 @implementation ANInterstitialAd
 
-#pragma mark Initialization
+#pragma mark - Initialization
 
 - (void)initialize {
     [super initialize];
@@ -68,7 +68,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
     _opaque = YES;
 
-    self.allowedAdSizes = [self getDefaultAllowedAdSizes];
+    self.allowedAdSizes = [self getDefaultAllowedAdSizes];  //FIX  refactor
 
 }
 
@@ -180,7 +180,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     [self fireImpressionUrls];
 }
 
-- (NSMutableSet *)getDefaultAllowedAdSizes
+- (NSMutableSet *)getDefaultAllowedAdSizes   //FIX refactor?
 {
 ANLogMark();
     NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
@@ -286,6 +286,8 @@ ANLogMark();
 
 #pragma mark - ANInterstitialAdViewControllerDelegate
 
+//FIX -- need proper use of strongSelf below.
+
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
     [self adWillClose];
     __weak ANInterstitialAd *weakAd = self;
@@ -355,7 +357,7 @@ ANLogMark();
     return  @[ @(1), @(3) ];
 }
 
-- (ANEntryPointType) entryPointType  {
+- (ANEntryPointType) entryPointType  {    //FIX  redundant?  just use isKindOfClass: ?
     return  ANEntryPointTypeInterstitialAd;
 }
 

@@ -1394,6 +1394,38 @@
 			path = MoPubSDK;
 			sourceTree = "<group>";
 		};
+		4FE7CE781F2FD6A100A5044A /* universalTag */ = {
+			isa = PBXGroup;
+			children = (
+				609732C41E42E9860061EC0A /* ANUniversalAdFetcher.h */,
+				609732C51E42E9860061EC0A /* ANUniversalAdFetcher.m */,
+				609732C61E42E9860061EC0A /* ANUniversalTagAdServerResponse.h */,
+				609732C71E42E9860061EC0A /* ANUniversalTagAdServerResponse.m */,
+				609732C81E42E9860061EC0A /* ANUniversalTagRequestBuilder.h */,
+				609732C91E42E9860061EC0A /* ANUniversalTagRequestBuilder.m */,
+			);
+			name = universalTag;
+			sourceTree = "<group>";
+		};
+		4FE7CE791F2FD70C00A5044A /* adHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				8AD618B91981C11F00AC0780 /* ANMediatedAd.h */,
+				8AD618BA1981C11F00AC0780 /* ANMediatedAd.m */,
+				609732B51E42E90C0061EC0A /* ANCSMVideoAd.h */,
+				609732B61E42E90C0061EC0A /* ANCSMVideoAd.m */,
+				609732CC1E42E9860061EC0A /* ANRTBVideoAd.h */,
+				609732CD1E42E9860061EC0A /* ANRTBVideoAd.m */,
+				609732BF1E42E9670061EC0A /* ANSSMStandardAd.h */,
+				609732C01E42E9670061EC0A /* ANSSMStandardAd.m */,
+				609732BA1E42E95C0061EC0A /* ANSSMVideoAd.h */,
+				609732BB1E42E95C0061EC0A /* ANSSMVideoAd.m */,
+				8AF5A87D1ACC60D50089C529 /* ANStandardAd.h */,
+				8AF5A87E1ACC60D50089C529 /* ANStandardAd.m */,
+			);
+			name = adHandlers;
+			sourceTree = "<group>";
+		};
 		60359EB91E1EA12C0017EF56 /* AdMarvel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1915,8 +1947,6 @@
 				8AD618AD1981C11F00AC0780 /* ANBrowserViewController.m */,
 				8AD618AE1981C11F00AC0780 /* ANClickOverlayView.h */,
 				8AD618AF1981C11F00AC0780 /* ANClickOverlayView.m */,
-				609732B51E42E90C0061EC0A /* ANCSMVideoAd.h */,
-				609732B61E42E90C0061EC0A /* ANCSMVideoAd.m */,
 				8AD618B01981C11F00AC0780 /* ANGlobal.h */,
 				8AD618B11981C11F00AC0780 /* ANGlobal.m */,
 				8AD618B21981C11F00AC0780 /* ANInterstitialAd.m */,
@@ -1926,8 +1956,6 @@
 				8AD618B61981C11F00AC0780 /* ANLogging.h */,
 				8AD618B71981C11F00AC0780 /* ANLogging.m */,
 				8AD618B81981C11F00AC0780 /* ANLogManager.m */,
-				8AD618B91981C11F00AC0780 /* ANMediatedAd.h */,
-				8AD618BA1981C11F00AC0780 /* ANMediatedAd.m */,
 				8AD618BB1981C11F00AC0780 /* ANMediationAdViewController.h */,
 				8AD618BC1981C11F00AC0780 /* ANMediationAdViewController.m */,
 				8AD618BD1981C11F00AC0780 /* ANMediationContainerView.h */,
@@ -1942,23 +1970,11 @@
 				8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */,
 				8AD618C61981C11F00AC0780 /* ANReachability.h */,
 				8AD618C71981C11F00AC0780 /* ANReachability.m */,
-				609732CC1E42E9860061EC0A /* ANRTBVideoAd.h */,
-				609732CD1E42E9860061EC0A /* ANRTBVideoAd.m */,
-				609732BF1E42E9670061EC0A /* ANSSMStandardAd.h */,
-				609732C01E42E9670061EC0A /* ANSSMStandardAd.m */,
-				609732BA1E42E95C0061EC0A /* ANSSMVideoAd.h */,
-				609732BB1E42E95C0061EC0A /* ANSSMVideoAd.m */,
-				8AF5A87D1ACC60D50089C529 /* ANStandardAd.h */,
-				8AF5A87E1ACC60D50089C529 /* ANStandardAd.m */,
+				4FE7CE791F2FD70C00A5044A /* adHandlers */,
 				8ABF77571D08CE420068B535 /* ANStoreProductViewController.h */,
 				8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */,
 				8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */,
-				609732C41E42E9860061EC0A /* ANUniversalAdFetcher.h */,
-				609732C51E42E9860061EC0A /* ANUniversalAdFetcher.m */,
-				609732C61E42E9860061EC0A /* ANUniversalTagAdServerResponse.h */,
-				609732C71E42E9860061EC0A /* ANUniversalTagAdServerResponse.m */,
-				609732C81E42E9860061EC0A /* ANUniversalTagRequestBuilder.h */,
-				609732C91E42E9860061EC0A /* ANUniversalTagRequestBuilder.m */,
+				4FE7CE781F2FD6A100A5044A /* universalTag */,
 				609732CA1E42E9860061EC0A /* ANVideoAdProcessor.h */,
 				609732CB1E42E9860061EC0A /* ANVideoAdProcessor.m */,
 			);

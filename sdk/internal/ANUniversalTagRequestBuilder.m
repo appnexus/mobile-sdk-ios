@@ -131,6 +131,9 @@ ANLogMark();
 
 // ASSUME  customKeywordsMap is a superset of customKeywords.
 //
+// RETURN:  An NSArray pointer to NSMutableArray of NSSet values.
+                        //FIX -- okay?
+//
 - (NSArray *)keywords
 {
     NSDictionary  *customKeywordsMap  = [self.adFetcherDelegate customKeywordsMap];

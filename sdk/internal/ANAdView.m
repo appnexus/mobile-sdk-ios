@@ -132,7 +132,7 @@ ANLogMark();
 }
 
 
-    /* FIX toss   -or-  need this still?
+    /* FIX adapt to UT
 - (void)loadAdFromHtml:(NSString *)html
                  width:(int)width height:(int)height {
                                                     //FIX UT iupdfate?
@@ -427,7 +427,7 @@ ANLogMark();
                 */
 
 - (NSString *)adTypeForMRAID    {
-            //FIX UT consolidate return values as a function of entryPointType?
+            //FIX UT consolidate return values as a function of entryPointType?  or isKindOfClass: ...
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return @"";
 }
