@@ -21,6 +21,6 @@
 @property (nonatomic, readwrite, strong) NSString *height;
 @property (nonatomic, readwrite, strong) NSString *width;
 
-@property (nonatomic, readwrite, strong) NSArray<NSString *> *impressionUrls; // Array of impression url strings
+@property (nonatomic, readwrite, strong) NSArray<NSString *> *impressionUrls;
 
 @end

@@ -231,7 +231,7 @@ ANLogMark();
                                     @"width"  : @(adSize.width),
                                     @"height" : @(adSize.height)
                                 };
-                    //FIX UTTEST
+                    //FIX refactor?
 
     NSMutableArray  *sizesObjectArray  = [[NSMutableArray alloc] init];
 
@@ -246,13 +246,13 @@ ANLogMark();
     }
 
     tagDict[@"sizes"] = sizesObjectArray;
-                    //FIX UTTEST
+                    //FIX refactor?
 
     // tag.allow_smaller_sizes indicates whether tag.primary_size is the maximum size requested (allowSmallerSizes=YES),
     // or whether tag.primary_size is the exact size requested (allowSmallerSizes=NO).
     //
     tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
-                    //FIX UTTEST
+                    //FIX refactor?
 
 
     //

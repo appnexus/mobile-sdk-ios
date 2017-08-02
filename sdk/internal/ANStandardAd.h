@@ -24,7 +24,7 @@
 
 @property (nonatomic, readwrite, assign, getter=isMraid) BOOL mraid;
 
-@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionUrls; // Array of impression url strings
+@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionUrls;
 
 
 @end

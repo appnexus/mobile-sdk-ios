@@ -264,8 +264,6 @@ ANLogMark();
     }
 
     //
-    [super universalAdFetcher:fetcher didFinishRequestWithResponse:response];
-    
     NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                         response.adObject,  kANInterstitialAdViewKey,
                                                         [NSDate date],      kANInterstitialAdViewDateLoadedKey,
@@ -292,13 +290,19 @@ ANLogMark();
 
 //FIX -- need proper use of strongSelf below.
 
-- (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller {
+- (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller
+{
     [self adWillClose];
-    __weak ANInterstitialAd *weakAd = self;
-    [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        ANInterstitialAd *ad = weakAd;
-        ad.controller = nil;
-        [ad adDidClose];
+
+    __weak ANInterstitialAd *weakSelf = self;
+
+    [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:
+     ^{
+        __strong ANInterstitialAd  *strongSelf  = weakSelf;
+        if (!strongSelf)  { return; }
+
+        strongSelf.controller = nil;
+        [strongSelf adDidClose];
     }];
 }
 
@@ -306,16 +310,21 @@ ANLogMark();
     return self.closeDelay;
 }
 
-- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange {
+- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange
+{
     __weak ANInterstitialAd *weakSelf = self;
-    UIViewController *presentingViewController = self.controller.presentingViewController;
-    [presentingViewController dismissViewControllerAnimated:NO
-                                                 completion:^{
-                                                     ANInterstitialAd *strongSelf = weakSelf;
-                                                     [presentingViewController presentViewController:strongSelf.controller
-                                                                                            animated:NO
-                                                                                          completion:nil];
-                                                 }];
+
+    [self.controller.presentingViewController
+                        dismissViewControllerAnimated: NO
+                                           completion: ^{
+                                             __strong ANInterstitialAd *strongSelf = weakSelf;
+                                             if (!strongSelf)  { return; }
+
+                                             [strongSelf.controller.presentingViewController presentViewController: strongSelf.controller
+                                                                                                          animated: NO
+                                                                                                        completion: nil];
+                                           }
+     ];
 }
 
 
@@ -355,7 +364,6 @@ ANLogMark();
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
-                        //FIX UTTEST -- needs unit test.  all uses of this delegate method.
 {
     ANLogMark();
     return  @[ @(1), @(3) ];

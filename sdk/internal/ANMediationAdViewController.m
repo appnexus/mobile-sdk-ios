@@ -45,7 +45,7 @@
 
 @end
 
-            /* FIX -- tross
+            /* FIX -- update
 @interface ANAdFetcher ()
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 @end

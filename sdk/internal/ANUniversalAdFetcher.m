@@ -33,22 +33,17 @@
 
 @interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate>
 
-@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>  delegate;
+@property (nonatomic, readwrite, strong)  NSURLConnection  *connection;
+@property (nonatomic, readwrite, strong)  NSMutableData    *data;
 
-@property (nonatomic, readwrite, strong)  NSURLConnection           *connection;
-@property (nonatomic, readwrite, strong)  NSMutableData             *data;
-
-@property (nonatomic, readwrite, strong)  NSMutableArray            *ads;
-@property (nonatomic, readwrite, strong)  NSURL                     *noAdUrl;
-@property (nonatomic, readwrite, assign)  NSTimeInterval             totalLatencyStart;
-
-//@property (nonatomic, readwrite, strong)  NSArray                   *impressionUrls;
-
-@property (nonatomic, readwrite, strong)  ANMRAIDContainerView      *standardAdView;
-
-@property (nonatomic, readwrite, strong)  ANMediationAdViewController  *mediationController;
+@property (nonatomic, readwrite, strong)  NSMutableArray   *ads;
+@property (nonatomic, readwrite, strong)  NSURL            *noAdUrl;
+@property (nonatomic, readwrite, assign)  NSTimeInterval    totalLatencyStart;
 
 
+@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   delegate;
+@property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *standardAdView;
+@property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
 
 @end
 
@@ -143,15 +138,11 @@ ANLogMark();
     [self processFinalResponse:response];
 }
 
-- (void)processFinalResponse:(ANAdFetcherResponse *)response {
-    self.ads = nil;
-    [self sendDelegateFinishedResponse:response];
-}
-
-- (void)sendDelegateFinishedResponse:(ANAdFetcherResponse *)response
-                //FIX -- collapse into procesFinalResponse
+- (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
-    ANLogMark();
+ANLogMark();
+    self.ads = nil;
+
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
     }
@@ -187,12 +178,12 @@ ANLogMark();
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
 
-    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)])
+    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:adResponse:)])
+                        //FIX -- generates false positive with noAdUrl.
     {
-        ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObjectResponse:nextAd];
-        [self.delegate universalAdFetcher:self didFinishRequestWithResponse:fetcherResponse];
+      ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObjectResponse:nextAd];
+      [self.delegate universalAdFetcher:self adResponse:fetcherResponse];
     }
-
 
     if ([nextAd isKindOfClass:[ANRTBVideoAd class]]) {
         [self handleRTBVideoAd:nextAd];
@@ -268,16 +259,6 @@ ANLogMark();
         self.standardAdView.loadingDelegate = nil;
     }
 
-                        /* FIX - toss
-    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:impressionUrls:)])
-    {
-        [self.delegate universalAdFetcher:self impressionUrls:standardAd.impressionUrls];
-            //FIX x -- need a (deep) copy?
-            //FIX x race condition if standardAd is destroyed?
-            //FIX  incorporate int o adObject.
-    }
-                                    */
-
     self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
                                                                 HTML:standardAd.content
                                                       webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
@@ -290,14 +271,6 @@ ANLogMark();
 
 - (void)handleMediatedAd:(ANMediatedAd *)mediatedAd
 {
-                /* FIX -- toss
-    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:impressionUrls:)])
-    {
-        [self.delegate universalAdFetcher:self impressionUrls:mediatedAd.impressionUrls];
-        //FIX  incorporate int o adObject.
-    }
-                        */
-
     self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
                                                                withFetcher:self
                                                             adViewDelegate:self.delegate];

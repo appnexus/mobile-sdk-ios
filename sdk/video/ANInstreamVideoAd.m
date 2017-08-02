@@ -408,7 +408,6 @@ ANLogTrace(@"UNUSED");
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
-            //FIX UTTEST -- needs unit test.  all uses of this delegate method.
 {
 ANLogTrace(@"");
     return  @[ @(4) ];

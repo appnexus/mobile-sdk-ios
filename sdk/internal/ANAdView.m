@@ -15,7 +15,6 @@
 
 #import "ANAdView.h"
 
-//#import "ANAdFetcher.h"     //FIX UT -- deprecated TOSS
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -153,25 +152,15 @@ ANLogMark();
 - (void) fireImpressionUrls
 {
 ANLogMark();
-    if (!self.adObjectResponse) {
-        ANLogWarn(@"adObjectResponse is UNDEFINED.");
-                //FIX -- teset me s-- should not ever be UNDEFINED...
-        return;
-    }
-
-
-    //
     NSArray<NSString *>  *impressionUrls  = nil;
 
     if ([self.adObjectResponse respondsToSelector:@selector(impressionUrls)]) {
         impressionUrls = [self.adObjectResponse performSelector:@selector(impressionUrls)];
-                    //FIX -- test me
     }
 
     if (!impressionUrls || self.impressionUrlsHaveBeenFired) {
         return;
     }
-ANLogMarkMessage(@"FIRED...");
 
 
     //
@@ -181,13 +170,14 @@ ANLogMarkMessage(@"FIRED...");
     dispatch_async(backgroundQueue, ^{
         for (NSString *urlString in impressionUrls)
         {
-            ANLogMarkMessage(@"urlString=%@", urlString);   //DEBUG
             NSURLSessionDataTask  *dataTask =
                 [[NSURLSession sharedSession] dataTaskWithURL: [NSURL URLWithString:urlString]
                                             completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                                                 ANLogMarkMessage(@"\n\tdata=%@ \n\tresponse=%@ \n\terror=%@", data, response, error);   //DEBUG
                                             }];
             [dataTask resume];
+
+            ANLogMarkMessage(@"FIRED TARGET urlString=%@", urlString);   //DEBUG
         }
     });
 
@@ -343,13 +333,10 @@ ANLogMarkMessage(@"FIRED...");
 
 
 
-//---------------------------------------------------------- -o--
 #pragma mark - ANUniversalAdFetcherDelegate.
 
-//--------------------- -o-
-- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
-                                                        //FIX -- also test for isSuccessful?
+- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+                 adResponse: (ANAdFetcherResponse *)response
 {
 ANLogMark();
     if (response.adObjectResponse) {
@@ -357,17 +344,8 @@ ANLogMark();
     }
 }
 
-        /* FIX toss
-- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher impressionUrls:(NSArray<NSString *> *)impressionUrls
-{
-    self.impressionUrls = impressionUrls;
-ANLogMarkMessage(@"%@", self.impressionUrls);
-}
-                */
 
 
-
-//---------------------------------------------------------- -o--
 #pragma mark - ANAdViewInternalDelegate
 
 - (void)adWasClicked {
