@@ -40,6 +40,8 @@
 
 @property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywordsMap;
 
+@property (nonatomic, readwrite, strong)   id  adObjectResponse;
+
 @end
 
 
@@ -151,17 +153,33 @@ ANLogMark();
 - (void) fireImpressionUrls
 {
 ANLogMark();
-    if (!self.impressionUrls || self.impressionUrlsHaveBeenFired) {
+    if (!self.adObjectResponse) {
+        ANLogWarn(@"adObjectResponse is UNDEFINED.");
+                //FIX -- teset me s-- should not ever be UNDEFINED...
+        return;
+    }
+
+
+    //
+    NSArray<NSString *>  *impressionUrls  = nil;
+
+    if ([self.adObjectResponse respondsToSelector:@selector(impressionUrls)]) {
+        impressionUrls = [self.adObjectResponse performSelector:@selector(impressionUrls)];
+                    //FIX -- test me
+    }
+
+    if (!impressionUrls || self.impressionUrlsHaveBeenFired) {
         return;
     }
 ANLogMarkMessage(@"FIRED...");
+
 
     //
     NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire impressionUrls.", __PRETTY_FUNCTION__];
     dispatch_queue_t   backgroundQueue      = dispatch_queue_create([backgroundQueueName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
 
     dispatch_async(backgroundQueue, ^{
-        for (NSString *urlString in self.impressionUrls)
+        for (NSString *urlString in impressionUrls)
         {
             ANLogMarkMessage(@"urlString=%@", urlString);   //DEBUG
             NSURLSessionDataTask  *dataTask =
@@ -331,17 +349,21 @@ ANLogMarkMessage(@"FIRED...");
 //--------------------- -o-
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+                                                        //FIX -- also test for isSuccessful?
 {
-ANLogMarkMessage(@"UNUSED.");
-
+ANLogMark();
+    if (response.adObjectResponse) {
+        self.adObjectResponse = response.adObjectResponse;
+    }
 }
 
+        /* FIX toss
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher impressionUrls:(NSArray<NSString *> *)impressionUrls
 {
     self.impressionUrls = impressionUrls;
 ANLogMarkMessage(@"%@", self.impressionUrls);
 }
-
+                */
 
 
 

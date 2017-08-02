@@ -42,7 +42,7 @@
 @property (nonatomic, readwrite, strong)  NSURL                     *noAdUrl;
 @property (nonatomic, readwrite, assign)  NSTimeInterval             totalLatencyStart;
 
-@property (nonatomic, readwrite, strong)  NSArray                   *impressionUrls;
+//@property (nonatomic, readwrite, strong)  NSArray                   *impressionUrls;
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView      *standardAdView;
 
@@ -134,7 +134,6 @@ ANLogMark();
         self.noAdUrl = [NSURL URLWithString:response.noAdUrlString];
     }
     self.ads = response.ads;
-                //FIX -- return ads array instead of impressionURLs? NO inline with each handler...
 
     [self continueWaterfall];
 }
@@ -183,10 +182,17 @@ ANLogMark();
         return;
     }
 
-    //FIX -- return ad blob here?  proactive?  once for everyone?  target can ignore as appropriate...
-    
+
+    //
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
+
+    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)])
+    {
+        ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObjectResponse:nextAd];
+        [self.delegate universalAdFetcher:self didFinishRequestWithResponse:fetcherResponse];
+    }
+
 
     if ([nextAd isKindOfClass:[ANRTBVideoAd class]]) {
         [self handleRTBVideoAd:nextAd];
@@ -262,6 +268,7 @@ ANLogMark();
         self.standardAdView.loadingDelegate = nil;
     }
 
+                        /* FIX - toss
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:impressionUrls:)])
     {
         [self.delegate universalAdFetcher:self impressionUrls:standardAd.impressionUrls];
@@ -269,6 +276,7 @@ ANLogMark();
             //FIX x race condition if standardAd is destroyed?
             //FIX  incorporate int o adObject.
     }
+                                    */
 
     self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
                                                                 HTML:standardAd.content
@@ -282,11 +290,13 @@ ANLogMark();
 
 - (void)handleMediatedAd:(ANMediatedAd *)mediatedAd
 {
+                /* FIX -- toss
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:impressionUrls:)])
     {
         [self.delegate universalAdFetcher:self impressionUrls:mediatedAd.impressionUrls];
         //FIX  incorporate int o adObject.
     }
+                        */
 
     self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
                                                                withFetcher:self

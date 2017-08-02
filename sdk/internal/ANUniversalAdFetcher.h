@@ -51,9 +51,10 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
-
+            /* FIX -- toss
 - (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
              impressionUrls: (NSArray<NSString *> *)impressionUrls;
+                        */
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;

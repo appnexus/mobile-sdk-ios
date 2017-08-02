@@ -250,33 +250,38 @@ ANLogMark();
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
 ANLogMark();
-    NSError *error;
-    
-    if ([response isSuccessful]) {
-        UIView *contentView = response.adObject;
-        
-        if ([contentView isKindOfClass:[UIView class]]) {
-            self.contentView = contentView;
-            [self adDidReceiveAd];
 
-            if ([self an_isViewable])  {
-                [self fireImpressionUrls];
-            }
-
-        } else {
-            NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")};
-            error = [NSError errorWithDomain:AN_ERROR_DOMAIN
-                                        code:ANAdResponseNonViewResponse
-                                    userInfo:errorInfo];
-        }
-    }
-    else {
-        error = response.error;
-    }
-    
-    if (error) {
+    if (!response.isSuccessful) {
         self.contentView = nil;
-        [self adRequestFailedWithError:error];
+        [self adRequestFailedWithError:response.error];
+        return;
+    }
+
+    //
+    [super universalAdFetcher:fetcher didFinishRequestWithResponse:response];
+
+    UIView  *contentView  = response.adObject;
+
+    if ([contentView isKindOfClass:[UIView class]]) {
+        self.contentView = contentView;
+        [self adDidReceiveAd];
+
+        if ([self an_isViewable])  {
+            [self fireImpressionUrls];
+        }
+
+    } else {
+        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.",
+                                                                                 @"Error: We did not get a viewable object as a response for a banner ad request.")
+                                    };
+
+        NSError  *error = [NSError errorWithDomain: AN_ERROR_DOMAIN
+                                              code: ANAdResponseNonViewResponse
+                                          userInfo: errorInfo];
+
+        self.contentView = nil;
+        [self adRequestFailedWithError:response.error];
+
     }
 }
 

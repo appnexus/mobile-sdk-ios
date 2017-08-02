@@ -23,9 +23,13 @@
 
 @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
 
-@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionUrls;
-@property (nonatomic, readwrite)          BOOL                  impressionUrlsHaveBeenFired;
+//@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionUrls;  //FIX toss
+@property (nonatomic, readonly, strong)   id     adObjectResponse;
+@property (nonatomic, readwrite)          BOOL   impressionUrlsHaveBeenFired;
 
+
+- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+     didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 
 - (void) fireImpressionUrls;
 

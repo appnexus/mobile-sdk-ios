@@ -258,23 +258,27 @@ ANLogMark();
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
 ANLogMark();
-    if ([response isSuccessful]) {
-        NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                     response.adObject, kANInterstitialAdViewKey,
-                                                     [NSDate date], kANInterstitialAdViewDateLoadedKey,
-                                                     nil];
-        // cannot insert nil objects
-        if (response.auctionID) {
-            adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
-        }
-        [self.precachedAdObjects addObject:adViewWithDateLoaded];
-        ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
-        
-        [self adDidReceiveAd];
-    }
-    else {
+    if (!response.isSuccessful) {
         [self adRequestFailedWithError:response.error];
+        return;
     }
+
+    //
+    [super universalAdFetcher:fetcher didFinishRequestWithResponse:response];
+    
+    NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                        response.adObject,  kANInterstitialAdViewKey,
+                                                        [NSDate date],      kANInterstitialAdViewDateLoadedKey,
+                                                        nil
+                                                 ];
+    // cannot insert nil objects
+    if (response.auctionID) {
+        adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
+    }
+    [self.precachedAdObjects addObject:adViewWithDateLoaded];
+    ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
+    
+    [self adDidReceiveAd];
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
