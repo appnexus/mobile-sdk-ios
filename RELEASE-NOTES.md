@@ -1,3 +1,14 @@
+## 3.5
+
+### Bug Fixes and Updates
+
++ Instream video is only supported in iOS 9 and above 
+
+### Mediated SDKs
+
++   AdColony SDK        v3.1.1
+
+
 ## 3.4
 
 ### Bug Fixes and Updates
