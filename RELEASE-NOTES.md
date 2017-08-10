@@ -1,8 +1,15 @@
+## 3.5.1
+
+### Bug Fixes and Updates
+
++ Removed files related to AdColony Native Mediation. It is no longer supported.
+
 ## 3.5
 
 ### Bug Fixes and Updates
 
-+ Instream video is only supported in iOS 9 and above 
++ Instream video is only supported in iOS 9 and above
++ MS-3041 - Allow to configure app access rights in SDK
 
 ### Mediated SDKs
 
