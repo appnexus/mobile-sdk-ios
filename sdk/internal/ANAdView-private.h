@@ -14,18 +14,12 @@
  */
 
 
-#import "ANAdProtocol.h"
-#import "ANUniversalAdFetcher.h"
 
+@interface ANAdView ()
 
-
-
-@interface ANAdView : UIView <ANAdProtocol>
-
-@property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
-
-
-- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-                 adResponse: (ANAdFetcherResponse *)response;
+- (void) fireTrackers: (NSArray<NSString *> *)trackerURLs;
 
 @end
+
+
+

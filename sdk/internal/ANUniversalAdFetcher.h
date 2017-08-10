@@ -30,8 +30,6 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 
 @interface ANUniversalAdFetcher : NSObject
 
-@property (nonatomic, readonly, strong)  id  adObjectHandler;
-
 
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
 - (void)stopAdLoad;

@@ -144,7 +144,6 @@ ANLogMark();
 ANLogMark();
     self.ads = nil;
 
-    response.adObjectHandler = self.adObjectHandler;
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
     }
@@ -359,7 +358,7 @@ ANLogMark();
 {
     ANLogMark();
     if (self.standardAdView.webViewController == controller) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView andAdObjectHandler:self.adObjectHandler];
         [self processFinalResponse:response];
     }
 }
@@ -373,7 +372,7 @@ ANLogMark();
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             ANLogMark();
-            ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo];
+            ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo andAdObjectHandler:self.adObjectHandler];
             [self processFinalResponse:adFetcherResponse];
         });
     });
@@ -418,7 +417,7 @@ ANLogMark();
 
     //
     if (reason == ANAdResponseSuccessful) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
 
         response.auctionID = auctionID;
         [self processFinalResponse:response];

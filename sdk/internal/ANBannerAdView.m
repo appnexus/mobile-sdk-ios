@@ -33,6 +33,8 @@
 
 @property (nonatomic, readwrite, strong)  UIView    *contentView;
 @property (nonatomic, readwrite, strong)  NSNumber  *transitionInProgress;
+@property (nonatomic, readwrite, strong)  id         adObjectHandler;
+@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;  //XXXTBD  pull from ad object handler superclass.
 
 @end
 
@@ -255,13 +257,19 @@ ANLogMark();
     if ([response isSuccessful]) {
         UIView *contentView = response.adObject;
 
+        self.adObjectHandler = response.adObjectHandler;
+
+        if ([self.adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
+            self.impressionURLs = [self.adObjectHandler performSelector:@selector(impressionUrls)];
+                    //FIX -- these should be clearly stored in the parent class of all ad object handlers.   they need not be fetched each time, thus duplicating those properties here.
+        }
+
         if ([contentView isKindOfClass:[UIView class]]) {
             self.contentView = contentView;
             [self adDidReceiveAd];
 
             if ([self an_isViewable])  {
-                [self fireTrackers:nil];
-                        //FIX -- from where shall we get them?
+                [self fireTrackers:self.impressionURLs];
             }
         }
         else {
@@ -330,8 +338,7 @@ ANLogMark();
 - (void)didMoveToWindow
 {
 ANLogMark();
-    [self fireTrackers:nil];
-            //FIX -- from where shall we get them?
+    [self fireTrackers:self.impressionURLs];
 }
 
 

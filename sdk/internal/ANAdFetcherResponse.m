@@ -23,7 +23,7 @@
 
 @property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
 @property (nonatomic, readwrite, strong) id adObject;
-//@property (nonatomic, readwrite, strong) id adObjectHandler;
+@property (nonatomic, readwrite, strong) id adObjectHandler;
 @property (nonatomic, readwrite, strong) NSError *error;
 
 @end
@@ -42,26 +42,23 @@
     return self;
 }
 
-- (instancetype)initAdResponseSuccessWithAdObject:(id)adObject
-                                    //FIX -- rename: initAdResponseSuccessWithAdObjectContent: ?
-                                    //FIX -- ...and with class method.
+- (instancetype)initAdResponseSuccessWithAdObject: (id)adObject
+                               andAdObjectHandler: (id)adObjectHandler
 {
     self = [super init];
     if (self) {
         _successful = YES;
         _adObject = adObject;
-    }
-    return self;
-}
-
-- (instancetype)initAdResponseSuccessWithAdObjectHandler:(id)adObjectHandler {
-    self = [super init];
-    if (self) {
-        _successful = YES;
         _adObjectHandler = adObjectHandler;
     }
     return self;
 }
+
+- (instancetype)initAdResponseSuccessWithAdObject:(id)adObject
+{
+    return  [self initAdResponseSuccessWithAdObject:adObject andAdObjectHandler:nil];
+}
+
 
 
 
@@ -71,16 +68,18 @@
     return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
 }
 
-+ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject
++ (ANAdFetcherResponse *)responseWithAdObject: (id)adObject
+                           andAdObjectHandler: (id)adObjectHandler
 {
 ANLogMark();
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject];
+    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
+                                                       andAdObjectHandler: adObjectHandler];
 }
 
-+ (ANAdFetcherResponse *)responseWithAdObjectHandler:(id)adObjectHandler
++ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject
 {
-    ANLogMark();
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObjectHandler:adObjectHandler];
+    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
+                                                       andAdObjectHandler: nil];
 }
 
 
