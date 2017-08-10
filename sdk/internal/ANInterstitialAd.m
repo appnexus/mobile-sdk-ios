@@ -39,6 +39,7 @@ static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 #define kANInterstitialAdSize1024x1024 CGSizeMake(1024,1024)
 
 NSString *const  kANInterstitialAdViewKey             = @"kANInterstitialAdViewKey";
+NSString *const  kANInterstitialAdObjectHandlerKey    = @"kANInterstitialAdObjectHandlerKey";
 NSString *const  kANInterstitialAdViewDateLoadedKey   = @"kANInterstitialAdViewDateLoadedKey";
 NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewAuctionInfoKey";
 
@@ -102,8 +103,9 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (void)displayAdFromViewController:(UIViewController *)controller
 {
-    id         adToShow   = nil;
-    NSString  *auctionID  = nil;
+    id         adToShow         = nil;
+    id         adObjectHandler  = nil;
+    NSString  *auctionID        = nil;
     
     self.controller.orientationProperties = nil;
     self.controller.useCustomClose = NO;
@@ -116,18 +118,20 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     while ([self.precachedAdObjects count] > 0) {
         // Pull the first ad off
         NSDictionary *adDict = self.precachedAdObjects[0];
-        
+
         // Check to see if ad has expired
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
         if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < kANInterstitialAdTimeout) {
             // If ad is still valid, save a reference to it. We'll use it later
-            adToShow = adDict[kANInterstitialAdViewKey];
-            auctionID = adDict[kANInterstitialAdViewAuctionInfoKey];
+            adToShow         = adDict[kANInterstitialAdViewKey];
+            adObjectHandler  = adDict[kANInterstitialAdObjectHandlerKey];
+            auctionID        = adDict[kANInterstitialAdViewAuctionInfoKey];
+
             [self.precachedAdObjects removeObjectAtIndex:0];
             break;
         }
-        
+
         // This ad is now stale, so remove it from our cached ads.
         [self.precachedAdObjects removeObjectAtIndex:0];
     }
@@ -177,7 +181,15 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         return;
     }
 
-    [self fireImpressionUrls];
+
+    //
+    NSArray<NSString *>  *impressionURLs  = nil;
+
+    if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
+      impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
+    }
+
+    [self fireTrackers:impressionURLs];
 }
 
 - (NSMutableSet *)getDefaultAllowedAdSizes   //FIX refactor?
@@ -265,8 +277,9 @@ ANLogMark();
 
     //
     NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                        response.adObject,  kANInterstitialAdViewKey,
-                                                        [NSDate date],      kANInterstitialAdViewDateLoadedKey,
+                                                        response.adObject,        kANInterstitialAdViewKey,
+                                                        response.adObjectHandler, kANInterstitialAdObjectHandlerKey,
+                                                        [NSDate date],            kANInterstitialAdViewDateLoadedKey,
                                                         nil
                                                  ];
     // cannot insert nil objects

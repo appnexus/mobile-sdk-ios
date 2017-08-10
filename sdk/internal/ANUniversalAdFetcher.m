@@ -39,6 +39,7 @@
 @property (nonatomic, readwrite, strong)  NSMutableArray   *ads;
 @property (nonatomic, readwrite, strong)  NSURL            *noAdUrl;
 @property (nonatomic, readwrite, assign)  NSTimeInterval    totalLatencyStart;
+@property (nonatomic, readwrite, strong)  id                adObjectHandler;
 
 
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   delegate;
@@ -143,6 +144,7 @@ ANLogMark();
 ANLogMark();
     self.ads = nil;
 
+    response.adObjectHandler = self.adObjectHandler;
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
     }
@@ -178,12 +180,8 @@ ANLogMark();
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
 
-    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:adResponse:)])
-                        //FIX -- generates false positive with noAdUrl.
-    {
-      ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObjectResponse:nextAd];
-      [self.delegate universalAdFetcher:self adResponse:fetcherResponse];
-    }
+    self.adObjectHandler = nextAd;
+
 
     if ([nextAd isKindOfClass:[ANRTBVideoAd class]]) {
         [self handleRTBVideoAd:nextAd];

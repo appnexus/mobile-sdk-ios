@@ -260,7 +260,8 @@ ANLogMark();
             [self adDidReceiveAd];
 
             if ([self an_isViewable])  {
-                [self fireImpressionUrls];
+                [self fireTrackers:nil];
+                        //FIX -- from where shall we get them?
             }
         }
         else {
@@ -329,9 +330,8 @@ ANLogMark();
 - (void)didMoveToWindow
 {
 ANLogMark();
-    if ([self an_isViewable])  {
-        [self fireImpressionUrls];
-    }
+    [self fireTrackers:nil];
+            //FIX -- from where shall we get them?
 }
 
 

@@ -23,7 +23,7 @@
 
 @property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
 @property (nonatomic, readwrite, strong) id adObject;
-@property (nonatomic, readwrite, strong) id adObjectResponse;
+//@property (nonatomic, readwrite, strong) id adObjectHandler;
 @property (nonatomic, readwrite, strong) NSError *error;
 
 @end
@@ -54,11 +54,11 @@
     return self;
 }
 
-- (instancetype)initAdResponseSuccessWithAdObjectResponse:(id)adObjectResponse {
+- (instancetype)initAdResponseSuccessWithAdObjectHandler:(id)adObjectHandler {
     self = [super init];
     if (self) {
         _successful = YES;
-        _adObjectResponse = adObjectResponse;
+        _adObjectHandler = adObjectHandler;
     }
     return self;
 }
@@ -77,10 +77,10 @@ ANLogMark();
     return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject];
 }
 
-+ (ANAdFetcherResponse *)responseWithAdObjectResponse:(id)adObjectResponse
++ (ANAdFetcherResponse *)responseWithAdObjectHandler:(id)adObjectHandler
 {
     ANLogMark();
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObjectResponse:adObjectResponse];
+    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObjectHandler:adObjectHandler];
 }
 
 
