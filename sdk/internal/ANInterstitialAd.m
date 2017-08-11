@@ -301,8 +301,6 @@ ANLogMark();
 
 #pragma mark - ANInterstitialAdViewControllerDelegate
 
-//FIX -- need proper use of strongSelf below.
-
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller
 {
     [self adWillClose];
