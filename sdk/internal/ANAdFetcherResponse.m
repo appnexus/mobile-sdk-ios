@@ -54,12 +54,6 @@
     return self;
 }
 
-- (instancetype)initAdResponseSuccessWithAdObject:(id)adObject
-{
-    return  [self initAdResponseSuccessWithAdObject:adObject andAdObjectHandler:nil];
-}
-
-
 
 
 #pragma mark - Class methods.
