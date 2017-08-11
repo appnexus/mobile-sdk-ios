@@ -23,7 +23,7 @@
 
 @property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
 @property (nonatomic, readwrite, strong) id adObject;
-@property (nonatomic, readwrite, strong) id adObjectResponse;
+@property (nonatomic, readwrite, strong) id adObjectHandler;
 @property (nonatomic, readwrite, strong) NSError *error;
 
 @end
@@ -42,23 +42,14 @@
     return self;
 }
 
-- (instancetype)initAdResponseSuccessWithAdObject:(id)adObject
-                                    //FIX -- rename: initAdResponseSuccessWithAdObjectContent: ?
-                                    //FIX -- ...and with class method.
+- (instancetype)initAdResponseSuccessWithAdObject: (id)adObject
+                               andAdObjectHandler: (id)adObjectHandler
 {
     self = [super init];
     if (self) {
         _successful = YES;
         _adObject = adObject;
-    }
-    return self;
-}
-
-- (instancetype)initAdResponseSuccessWithAdObjectResponse:(id)adObjectResponse {
-    self = [super init];
-    if (self) {
-        _successful = YES;
-        _adObjectResponse = adObjectResponse;
+        _adObjectHandler = adObjectHandler;
     }
     return self;
 }
@@ -71,16 +62,12 @@
     return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
 }
 
-+ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject
++ (ANAdFetcherResponse *)responseWithAdObject: (id)adObject
+                           andAdObjectHandler: (id)adObjectHandler
 {
 ANLogMark();
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject];
-}
-
-+ (ANAdFetcherResponse *)responseWithAdObjectResponse:(id)adObjectResponse
-{
-    ANLogMark();
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObjectResponse:adObjectResponse];
+    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
+                                                       andAdObjectHandler: adObjectHandler];
 }
 
 

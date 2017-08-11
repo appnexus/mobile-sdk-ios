@@ -26,7 +26,10 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 
 @protocol ANUniversalAdFetcherDelegate;
 
+
+
 @interface ANUniversalAdFetcher : NSObject
+
 
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
 - (void)stopAdLoad;
@@ -38,7 +41,6 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject
            auctionID:(NSString *)auctionID;
-
 
 @end
 

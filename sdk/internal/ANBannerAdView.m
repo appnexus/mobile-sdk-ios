@@ -34,6 +34,8 @@
 @property (nonatomic, readwrite, strong)  UIView    *contentView;
 @property (nonatomic, readwrite, strong)  NSNumber  *transitionInProgress;
 
+@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
+
 @end
 
 
@@ -253,14 +255,19 @@ ANLogMark();
     NSError *error;
 
     if ([response isSuccessful]) {
-        UIView *contentView = response.adObject;
+        UIView *contentView      = response.adObject;
+        id      adObjectHandler  = response.adObjectHandler;
+
+        if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
+            self.impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
+        }
 
         if ([contentView isKindOfClass:[UIView class]]) {
             self.contentView = contentView;
             [self adDidReceiveAd];
 
             if ([self an_isViewable])  {
-                [self fireImpressionUrls];
+                [self fireTrackers:self.impressionURLs];
             }
         }
         else {
@@ -329,9 +336,7 @@ ANLogMark();
 - (void)didMoveToWindow
 {
 ANLogMark();
-    if ([self an_isViewable])  {
-        [self fireImpressionUrls];
-    }
+    [self fireTrackers:self.impressionURLs];
 }
 
 

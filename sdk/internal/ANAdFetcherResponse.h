@@ -21,8 +21,8 @@
 @interface ANAdFetcherResponse : NSObject
 
 @property (nonatomic, readonly, assign, getter=isSuccessful) BOOL successful;
-@property (nonatomic, readonly, strong) id adObject;
-@property (nonatomic, readonly, strong) id adObjectResponse;
+@property (nonatomic, readonly, strong) id  adObject;
+@property (nonatomic, readonly, strong) id  adObjectHandler;
 @property (nonatomic, readonly, strong) NSError *error;
 
 @property (nonatomic, readwrite, strong) NSString *auctionID;
@@ -30,14 +30,15 @@
 
 //
 + (ANAdFetcherResponse *)responseWithError:(NSError *)error;
-+ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject;
-+ (ANAdFetcherResponse *)responseWithAdObjectResponse:(id)adObjectResponse;
+
++ (ANAdFetcherResponse *)responseWithAdObject: (id)adObject
+                           andAdObjectHandler: (id)adObjectHandler;
 
 //
 - (instancetype)initAdResponseFailWithError:(NSError *)error;
 
-- (instancetype)initAdResponseSuccessWithAdObject:(id)adObject;
-- (instancetype)initAdResponseSuccessWithAdObjectResponse:(id)adObjectResponse;
+- (instancetype)initAdResponseSuccessWithAdObject: (id)adObject
+                               andAdObjectHandler: (id)adObjectHandler;
 
 
 @end

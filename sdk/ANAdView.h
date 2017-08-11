@@ -13,6 +13,7 @@
  limitations under the License.
  */
 
+
 #import "ANAdProtocol.h"
 #import "ANUniversalAdFetcher.h"
 
@@ -23,13 +24,11 @@
 
 @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
 
-@property (nonatomic, readonly, strong)   id     adObjectResponse;
-@property (nonatomic, readwrite)          BOOL   impressionUrlsHaveBeenFired;
-
 
 - (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
                  adResponse: (ANAdFetcherResponse *)response;
 
-- (void) fireImpressionUrls;
+- (void) fireTrackers: (NSArray<NSString *> *)trackerURLs;
+
 
 @end

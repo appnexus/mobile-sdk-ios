@@ -15,6 +15,7 @@
 
 #import "ANAdView.h"
 
+
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -39,7 +40,7 @@
 
 @property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywordsMap;
 
-@property (nonatomic, readwrite, strong)   id  adObjectResponse;
+
 
 @end
 
@@ -95,8 +96,6 @@
     __customKeywords                         = [[NSMutableDictionary alloc] init];
     __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
     __landingPageLoadsInBackground           = YES;
-
-    _impressionUrlsHaveBeenFired = NO;
 }
 
 - (void)dealloc
@@ -149,18 +148,10 @@ ANLogMark();
 
 #pragma mark - Support for subclasses.
 
-- (void) fireImpressionUrls
+- (void) fireTrackers: (NSArray<NSString *> *)trackerURLs
 {
 ANLogMark();
-    NSArray<NSString *>  *impressionUrls  = nil;
-
-    if ([self.adObjectResponse respondsToSelector:@selector(impressionUrls)]) {
-        impressionUrls = [self.adObjectResponse performSelector:@selector(impressionUrls)];
-    }
-
-    if (!impressionUrls || self.impressionUrlsHaveBeenFired) {
-        return;
-    }
+    if (!trackerURLs)  { return; }
 
 
     //
@@ -168,7 +159,7 @@ ANLogMark();
     dispatch_queue_t   backgroundQueue      = dispatch_queue_create([backgroundQueueName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
 
     dispatch_async(backgroundQueue, ^{
-        for (NSString *urlString in impressionUrls)
+        for (NSString *urlString in trackerURLs)
         {
             NSURLSessionDataTask  *dataTask =
                 [[NSURLSession sharedSession] dataTaskWithURL: [NSURL URLWithString:urlString]
@@ -180,8 +171,6 @@ ANLogMark();
             ANLogMarkMessage(@"FIRED TARGET urlString=%@", urlString);   //DEBUG
         }
     });
-
-    self.impressionUrlsHaveBeenFired = YES;
 }
 
 
@@ -330,19 +319,6 @@ ANLogMark();
     return __customKeywords;
 }
 
-
-
-
-#pragma mark - ANUniversalAdFetcherDelegate.
-
-- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-                 adResponse: (ANAdFetcherResponse *)response
-{
-ANLogMark();
-    if (response.adObjectResponse) {
-        self.adObjectResponse = response.adObjectResponse;
-    }
-}
 
 
 

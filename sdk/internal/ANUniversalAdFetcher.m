@@ -39,6 +39,7 @@
 @property (nonatomic, readwrite, strong)  NSMutableArray   *ads;
 @property (nonatomic, readwrite, strong)  NSURL            *noAdUrl;
 @property (nonatomic, readwrite, assign)  NSTimeInterval    totalLatencyStart;
+@property (nonatomic, readwrite, strong)  id                adObjectHandler;
 
 
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   delegate;
@@ -178,12 +179,8 @@ ANLogMark();
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
 
-    if ([self.delegate respondsToSelector:@selector(universalAdFetcher:adResponse:)])
-                        //FIX -- generates false positive with noAdUrl.
-    {
-      ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObjectResponse:nextAd];
-      [self.delegate universalAdFetcher:self adResponse:fetcherResponse];
-    }
+    self.adObjectHandler = nextAd;
+
 
     if ([nextAd isKindOfClass:[ANRTBVideoAd class]]) {
         [self handleRTBVideoAd:nextAd];
@@ -361,7 +358,7 @@ ANLogMark();
 {
     ANLogMark();
     if (self.standardAdView.webViewController == controller) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView andAdObjectHandler:self.adObjectHandler];
         [self processFinalResponse:response];
     }
 }
@@ -375,7 +372,7 @@ ANLogMark();
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             ANLogMark();
-            ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo];
+            ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo andAdObjectHandler:self.adObjectHandler];
             [self processFinalResponse:adFetcherResponse];
         });
     });
@@ -420,7 +417,7 @@ ANLogMark();
 
     //
     if (reason == ANAdResponseSuccessful) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
 
         response.auctionID = auctionID;
         [self processFinalResponse:response];
