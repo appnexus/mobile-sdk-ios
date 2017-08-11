@@ -14,7 +14,6 @@
  */
 
 #import "ANAdView.h"
-#import "ANAdView-private.h"
 
 
 @protocol ANBannerAdViewDelegate;

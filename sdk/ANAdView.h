@@ -28,4 +28,7 @@
 - (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
                  adResponse: (ANAdFetcherResponse *)response;
 
+- (void) fireTrackers: (NSArray<NSString *> *)trackerURLs;
+
+
 @end

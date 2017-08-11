@@ -76,11 +76,5 @@ ANLogMark();
                                                        andAdObjectHandler: adObjectHandler];
 }
 
-+ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject
-{
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
-                                                       andAdObjectHandler: nil];
-}
-
 
 @end

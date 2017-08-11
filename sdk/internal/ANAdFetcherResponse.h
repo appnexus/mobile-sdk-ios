@@ -33,15 +33,12 @@
 
 + (ANAdFetcherResponse *)responseWithAdObject: (id)adObject
                            andAdObjectHandler: (id)adObjectHandler;
-+ (ANAdFetcherResponse *)responseWithAdObject: (id)adObject;
 
 //
 - (instancetype)initAdResponseFailWithError:(NSError *)error;
 
 - (instancetype)initAdResponseSuccessWithAdObject: (id)adObject
                                andAdObjectHandler: (id)adObjectHandler;
-
-- (instancetype)initAdResponseSuccessWithAdObject: (id)adObject;
 
 
 @end

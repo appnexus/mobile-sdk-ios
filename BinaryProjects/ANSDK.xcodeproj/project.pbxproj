@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4F1B9E291E5CDABE002FF0B4 /* ANInstreamVideoAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */; };
-		4F81F2801F3D0A8A000529FD /* ANAdView-private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F81F27F1F3D0A8A000529FD /* ANAdView-private.h */; };
 		4F824CF61D909E1000AFC7EA /* LICENSE-MOPUB in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */; };
 		4F824CF71D909E1000AFC7EA /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CBA1D909E1000AFC7EA /* MPAdBrowserController.xib */; };
 		4F824CF81D909E1000AFC7EA /* MPCloseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CC11D909E1000AFC7EA /* MPCloseBtn.png */; };
@@ -692,7 +691,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4F81F27F1F3D0A8A000529FD /* ANAdView-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdView-private.h"; sourceTree = "<group>"; };
 		4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LICENSE-MOPUB"; sourceTree = "<group>"; };
 		4F824CB61D909E1000AFC7EA /* MoPub-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoPub-Bridging-Header.h"; sourceTree = "<group>"; };
 		4F824CB71D909E1000AFC7EA /* MoPub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoPub.h; sourceTree = "<group>"; };
@@ -1930,7 +1928,6 @@
 		8AD6189D1981C11F00AC0780 /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				4F81F27F1F3D0A8A000529FD /* ANAdView-private.h */,
 				8A02D6F81D6CE946006831A3 /* config */,
 				8AC65F361A40DE63006BCF39 /* MRAID */,
 				8AD6189E1981C11F00AC0780 /* ANAdFetcher.h */,
@@ -2394,7 +2391,6 @@
 				8A9AEDC71A1BF88200C58BDA /* NSString+ANCategory.h in Headers */,
 				8A9AEDC81A1BF88200C58BDA /* NSTimer+ANCategory.h in Headers */,
 				8A9AEDC91A1BF88200C58BDA /* UIView+ANCategory.h in Headers */,
-				4F81F2801F3D0A8A000529FD /* ANAdView-private.h in Headers */,
 				8A9AEDE61A1BF88300C58BDA /* UIView+ANNativeAdCategory.h in Headers */,
 				8A9AEDCA1A1BF88200C58BDA /* UIWebView+ANCategory.h in Headers */,
 			);

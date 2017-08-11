@@ -298,7 +298,7 @@ ANLogMark();
 {
 ANLogMark();
     if (self.standardAdView.webViewController == controller) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView andAdObjectHandler:nil];
         [self processFinalResponse:response];
     }
 }
@@ -434,7 +434,7 @@ ANLogMark();
         if ([resultCBString length] > 0) {
             [self fireAndIgnoreResultCB:resultURL];
         }
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject];
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:nil];
         response.auctionID = auctionID;
         [self processFinalResponse:response];
     } else {

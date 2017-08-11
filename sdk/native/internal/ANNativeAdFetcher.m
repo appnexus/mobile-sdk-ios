@@ -152,7 +152,8 @@
 
 - (void)finishRequestWithSuccessfulAdObject:(id)adObject {
     self.loading = NO;
-    ANAdFetcherResponse *response = [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject];
+    ANAdFetcherResponse *response = [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject andAdObjectHandler:nil];
+                //FIX -- should be pass in object handler, in what form and from where?
     [self processFinalResponse:response];
 }
 
