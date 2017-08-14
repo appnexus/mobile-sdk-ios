@@ -105,6 +105,26 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     return [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:data];
 }
 
+- (instancetype)initWithContent:(NSString *)htmlContent
+                          width:(NSInteger)width
+                         height:(NSInteger)height
+                                        //FIX test me.  is this /mob specific?  musta ll the data appaer in the query string?
+{
+    self = [super init];
+    if (!self)  { return nil; }
+
+    ANStandardAd  *standardAd  = [[ANStandardAd alloc] init];
+    if (!standardAd)  { return nil; }
+
+    standardAd.width    = [NSString stringWithFormat:@"%ld", (long)width];
+    standardAd.height   = [NSString stringWithFormat:@"%ld", (long)height];
+    standardAd.content  = htmlContent;
+
+    [self.ads addObject:standardAd];
+
+    return self;
+}
+
 
 
 #pragma mark - Universal Tag V2 Support

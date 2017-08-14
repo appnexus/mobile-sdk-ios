@@ -16,7 +16,6 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "ANUniversalTagRequestBuilder.h"
-#import "ANUniversalTagAdServerResponse.h"
 
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"

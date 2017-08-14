@@ -24,6 +24,10 @@
 
 - (instancetype)initWithAdServerData:(NSData *)data;
 
+- (instancetype)initWithContent: (NSString *)htmlContent
+                          width: (NSInteger)width
+                         height: (NSInteger)height;
+
 @property (nonatomic, readonly, strong) NSMutableArray *ads;
 @property (nonatomic, readonly, strong) NSString *noAdUrlString;
 

@@ -14,8 +14,11 @@
  */
 
 #import <Foundation/Foundation.h>
+
 #import "ANAdFetcher.h"
 #import "ANVideoAdProcessor.h"
+#import "ANUniversalTagAdServerResponse.h"
+
 
 
 
@@ -34,6 +37,8 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
 - (void)stopAdLoad;
 - (void) requestAd;
+
+- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 

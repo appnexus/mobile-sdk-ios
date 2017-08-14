@@ -139,16 +139,15 @@ ANLogMark();
 }
 
 
-    /* FIX adapt to UT
-- (void)loadAdFromHtml:(NSString *)html
-                 width:(int)width height:(int)height {
-                                                    //FIX UT iupdfate?
-    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithContent:html
-                                                                         width:width
-                                                                        height:height];
-    [self.adFetcher processAdResponse:response];
+- (void)loadAdFromHtml: (NSString *)html
+                 width: (int)width
+                height: (int)height
+{
+    ANUniversalTagAdServerResponse  *response  = [[ANUniversalTagAdServerResponse alloc] initWithContent: html
+                                                                                                   width: width
+                                                                                                  height: height ];
+    [self.universalAdFetcher processAdServerResponse:response];
 }
-        */
 
 
 
