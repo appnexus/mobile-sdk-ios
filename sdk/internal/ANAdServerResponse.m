@@ -255,7 +255,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
                 }
             }
         }
-        mediatedAd.resultCB = [mediatedAdDict[kANAdServerResponseKeyResultCB] description];
+        mediatedAd.responseURL = [mediatedAdDict[kANAdServerResponseKeyResultCB] description];
         mediatedAd.auctionInfo = [mediatedAdDict[kANAdServerResponseKeyAuctionInfo] description];
         return mediatedAd;
     }

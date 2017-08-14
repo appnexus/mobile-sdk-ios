@@ -30,6 +30,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyTags = @"tags";
 static NSString *const kANUniversalTagAdServerResponseKeyTagNoAdUrl = @"no_ad_url";
 static NSString *const kANUniversalTagAdServerResponseKeyTagAds = @"ads";
 
+static NSString *const kANUniversalTagAdServerResponseKeyAdsContentSource = @"content_source";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsAdType = @"ad_type";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCSMObject = @"csm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
@@ -45,6 +46,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyBannerWidth = @"width";
 static NSString *const kANUniversalTagAdServerResponseKeyBannerHeight = @"height";
 static NSString *const kANUniversalTagAdServerResponseKeyBannerContent = @"content";
 
+static NSString *const kANUniversalTagAdServerResponseKeyNativeObject = @"native";
 
 // SSM
 static NSString *const kANUniversalTagAdServerResponseKeySSMHandlerUrl = @"url";
@@ -56,7 +58,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyHandler = @"handler";
 static NSString *const kANUniversalTagAdServerResponseKeyClass = @"class";
 static NSString *const kANUniversalTagAdServerResponseKeyId = @"id";
 static NSString *const kANUniversalTagAdServerResponseKeyParam = @"param";
-static NSString *const kANUniversalTagAdServerResponseKeyResultCB = @"response_url";
+static NSString *const kANUniversalTagAdServerResponseKeyResponseURL = @"response_url";
 static NSString *const kANUniversalTagAdServerResponseKeyType = @"type";
 static NSString *const kANUniversalTagAdServerResponseKeyWidth = @"width";
 static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
@@ -111,10 +113,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 - (void)processV2ResponseData:(NSData *)data
 {
-ANLogMark();
+    ANLogMark();
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
     ANLogMarkMessage(@"jsonResponse=%@", [jsonResponse description]);
-
+    
     if (jsonResponse) {
         NSArray *tags = [[self class] tagsFromJSONResponse:jsonResponse];
         NSDictionary *firstTag = [tags firstObject];
@@ -126,71 +128,89 @@ ANLogMark();
         NSArray *adsArray = [[self class] adsArrayFromTag:firstTag];
         if (adsArray)
         {
-            // NB  Though adObject is parsed in multiple ways, we ASSUME only one parse --and exaclty one parse-- will be successful.
-            //     The same is true within the clause for each Content Source type.
-                                                        //FIX -- refactor so each pass continues upon first known success.
-            //
+            
             for (id adObject in adsArray)
             {
+                
                 if (![adObject isKindOfClass:[NSDictionary class]]) {
                     continue;
                 }
-
-                NSDictionary *rtbObject = [[self class] rtbObjectFromAdObject:adObject];
-                if (rtbObject) {
-                    ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
-                    if (standardAd) {
-                        [self.ads addObject:standardAd];
-                    }
-                    ANRTBVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
-                    if (videoAd) {
-                        videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
-                        [self.ads addObject:videoAd];
-                        
+                NSString *contentSource = [adObject[kANUniversalTagAdServerResponseKeyAdsContentSource] description];
+                NSString *adType = [adObject[kANUniversalTagAdServerResponseKeyAdsAdType] description];
+                
+                if(!contentSource && !adType){
+                    ANLogError(@"Response from ad server in an unexpected format content_source/ad_type UNDEFINED.  (adObject=%@)", adObject);
+                    continue;
+                }
+                
+                
+                // RTB
+                if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject]){
+                    NSDictionary *rtbObject = [[self class] rtbObjectFromAdObject:adObject];
+                    if (rtbObject) {
+                        // RTB Banner / Interstitial
+                        if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]) {
+                            ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
+                            if (standardAd) {
+                                [self.ads addObject:standardAd];
+                            }
+                        }
+                        // RTB - Video
+                        else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]){
+                            ANRTBVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
+                            if (videoAd) {
+                                videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
+                                [self.ads addObject:videoAd];
+                                
+                            }
+                        }else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
+                            // FIX ME Need to handle RTB Native here
+                            
+                        }else{
+                            ANLogError(@"UNRECOGNIZED AD_TYPE in RTB.  (rtbObject=%@)", rtbObject);
+                        }
                     }
                 }
-
-                NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
-                if (csmObject)
-                {
-                    ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
-
-                    if (mediatedAd)
-                    {
-                        // Ignore non-supported CSM (e.g. web CSM, video CSM)
-                        //
-                        if (mediatedAd.className.length > 0) {
-                            [self.ads addObject:mediatedAd];
+                // CSM
+                else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsCSMObject]){
+                    if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject] || [adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
+                        NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
+                        if (csmObject)
+                        {
+                            ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
+                            if (mediatedAd)
+                            {
+                                if (mediatedAd.className.length > 0) {
+                                    [self.ads addObject:mediatedAd];
+                                }
+                            }
                         }
-
-                    // ASSUME anything other than a traditional mediated CSM adObject is a video mediated CSM adObject.
-                    // TBDQ -- How to be more specific?
-                    } else {
-                                                //FIX -- test me!
+                    } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]) {
                         ANCSMVideoAd *csmVideoAd = [[self class] videoCSMAdFromCSMObject:adObject withTagObject:firstTag];
                         if(csmVideoAd){
                             [self.ads addObject:csmVideoAd];
                         }
+                    }else{
+                        ANLogError(@"UNRECOGNIZED AD_TYPE in CSM.  (adObject=%@)", adObject);
                     }
                 }
-
-                NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
-                if (ssmObject) {
-                    ANSSMStandardAd *standardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
-                    if (standardAd) {
-                        [self.ads addObject:standardAd];
+                // SSM - Only Banner and Interstitial are supported in SSM
+                else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsSSMObject]){
+                    if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]){
+                        NSDictionary *ssmObject = [[self class] ssmObjectFromAdObject:adObject];
+                        if (ssmObject) {
+                            ANSSMStandardAd *ssmStandardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
+                            if (ssmStandardAd) {
+                                [self.ads addObject:ssmStandardAd];
+                            }
+                        }
+                    }else{
+                        ANLogError(@"UNRECOGNIZED AD_TYPE in SSM.  (adObject=%@)", adObject);
                     }
-                    ANSSMVideoAd *videoAd = [[self class] videoSSMAdFromSSMObject:ssmObject];
-                    if (videoAd) {
-                        videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
-                        [self.ads addObject:videoAd];
-                    }
-                }
-
-                if (!(rtbObject || csmObject || ssmObject))  {
+                }else{
                     ANLogError(@"UNRECOGNIZED adObject.  (adObject=%@)", adObject);
                 }
-
+                
             } //endfor -- adObject
         }
     }
@@ -208,6 +228,7 @@ ANLogMark();
     }
     return NO;
 }
+
 
 + (NSArray *)adsArrayFromTag:(NSDictionary *)tag {
     if ([tag[kANUniversalTagAdServerResponseKeyTagAds] isKindOfClass:[NSArray class]]) {
@@ -301,7 +322,7 @@ ANLogMark();
 
         if (mediatedAd)
         {
-            mediatedAd.resultCB        = [csmObject[kANUniversalTagAdServerResponseKeyResultCB] description];
+            mediatedAd.responseURL        = [csmObject[kANUniversalTagAdServerResponseKeyResponseURL] description];
             mediatedAd.impressionUrls  = [[self class] impressionUrlsFromContentSourceObject:csmObject];
 
             return  mediatedAd;
@@ -314,7 +335,7 @@ ANLogMark();
 +(ANCSMVideoAd *)videoCSMAdFromCSMObject:(id) csmObject withTagObject:(NSDictionary *)tagDictionary{
     NSMutableDictionary *newTagDictionary = [NSMutableDictionary dictionaryWithDictionary:tagDictionary];
     NSMutableDictionary *csmObjectDictionary = [NSMutableDictionary dictionaryWithDictionary:csmObject];
-    newTagDictionary[@"uuid"] = @"12345";
+    newTagDictionary[@"uuid"] = [NSString stringWithFormat:@"%@",  @(arc4random_uniform(65536))];
     newTagDictionary[@"ads"] = @[csmObjectDictionary];
     ANCSMVideoAd *videoAd = [[ANCSMVideoAd alloc] init];
     videoAd.adDictionary = newTagDictionary;
@@ -346,59 +367,6 @@ ANLogMark();
     return nil;
 }
 
-+ (ANSSMVideoAd *)videoSSMAdFromSSMObject:(NSDictionary *)ssmObject
-{
-    if ([ssmObject[kANUniversalTagAdServerResponseKeyVideoObject] isKindOfClass:[NSDictionary class]])
-    {
-        if ([ssmObject[kANUniversalTagAdServerResponseKeyHandler] isKindOfClass:[NSArray class]])
-        {
-            NSArray *handlerArray = (NSArray *)ssmObject[kANUniversalTagAdServerResponseKeyHandler];
-
-            if ([[handlerArray firstObject] isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *handlerDict = (NSDictionary *)[handlerArray firstObject];
-
-                ANSSMVideoAd *videoAd = [[ANSSMVideoAd alloc] init];
-                videoAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
-                videoAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
-                videoAd.errorUrls = [[self class] errorUrlsFromContentSourceObject:ssmObject];
-                videoAd.videoClickUrls = [[self class] videoClickUrlsFromContentSourceObject:ssmObject];
-
-                NSMutableDictionary *videoEventTrackers = [[NSMutableDictionary alloc] init];
-                NSArray *startTrackers = [[self class] videoStartUrlsFromContentSourceObject:ssmObject];
-                if (startTrackers) {
-                    videoEventTrackers[@(ANVideoEventStart)] = startTrackers;
-                }
-                NSArray *skipTrackers = [[self class] videoSkipUrlsFromContentSourceObject:ssmObject];
-                if (skipTrackers) {
-                    videoEventTrackers[@(ANVideoEventSkip)] = skipTrackers;
-                }
-                NSArray *firstQuartileTrackers = [[self class] videoFirstQuartileUrlsFromContentSourceObject:ssmObject];
-                if (firstQuartileTrackers) {
-                    videoEventTrackers[@(ANVideoEventQuartileFirst)] = firstQuartileTrackers;
-                }
-                NSArray *midpointTrackers = [[self class] videoMidpointUrlsFromContentSourceObject:ssmObject];
-                if (midpointTrackers) {
-                    videoEventTrackers[@(ANVideoEventQuartileMidPoint)] = midpointTrackers;
-                }
-                NSArray *thirdQuartileTrackers = [[self class] videoThirdQuartileUrlsFromContentSourceObject:ssmObject];
-                if (thirdQuartileTrackers) {
-                    videoEventTrackers[@(ANVideoEventQuartileThird)] = thirdQuartileTrackers;
-                }
-                NSArray *videoCompleteTrackers = [[self class] videoCompleteUrlsFromContentSourceObject:ssmObject];
-                if (videoCompleteTrackers) {
-                    videoEventTrackers[@(ANVideoEventQuartileComplete)] = videoCompleteTrackers;
-                }
-
-                videoAd.videoEventTrackers = [videoEventTrackers copy];
-                return videoAd;
-            }
-        }
-    }
-    return nil;
-}
-
-
-
 
 #pragma mark - Trackers
 
@@ -412,87 +380,11 @@ ANLogMark();
     return nil;
 }
 
-+ (NSDictionary *)videoEventsDictFromTrackerDict:(NSDictionary *)trackerDict {
-    if ([trackerDict[kANUniversalTagAdServerResponseKeyTrackersVideoEvents] isKindOfClass:[NSDictionary class]]) {
-        return trackerDict[kANUniversalTagAdServerResponseKeyTrackersVideoEvents];
-    }
-    return nil;
-}
 
 + (NSArray *)impressionUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
     NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
     if ([trackerDict[kANUniversalTagAdServerResponseKeyTrackersImpressionUrls] isKindOfClass:[NSArray class]]) {
         return trackerDict[kANUniversalTagAdServerResponseKeyTrackersImpressionUrls];
-    }
-    return nil;
-}
-
-+ (NSArray *)errorUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
-    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
-    if ([trackerDict[kANUniversalTagAdServerResponseKeyTrackersErrorUrls] isKindOfClass:[NSArray class]]) {
-        return trackerDict[kANUniversalTagAdServerResponseKeyTrackersErrorUrls];
-    }
-    return nil;
-}
-
-+ (NSArray *)videoClickUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
-    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
-    if ([trackerDict[kANUniversalTagAdServerResponseKeyTrackersVideoClickUrls] isKindOfClass:[NSArray class]]) {
-        return trackerDict[kANUniversalTagAdServerResponseKeyTrackersVideoClickUrls];
-    }
-    return nil;
-}
-
-+ (NSArray *)videoStartUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
-    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
-    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
-    if ([videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsStartUrls] isKindOfClass:[NSArray class]]) {
-        return videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsStartUrls];
-    }
-    return nil;
-}
-
-+ (NSArray *)videoSkipUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
-    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
-    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
-    if ([videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsSkipUrls] isKindOfClass:[NSArray class]]) {
-        return videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsSkipUrls];
-    }
-    return nil;
-}
-
-+ (NSArray *)videoFirstQuartileUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
-    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
-    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
-    if ([videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsFirstQuartileUrls] isKindOfClass:[NSArray class]]) {
-        return videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsFirstQuartileUrls];
-    }
-    return nil;
-}
-
-+ (NSArray *)videoMidpointUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
-    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
-    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
-    if ([videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsMidpointUrls] isKindOfClass:[NSArray class]]) {
-        return videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsMidpointUrls];
-    }
-    return nil;
-}
-
-+ (NSArray *)videoThirdQuartileUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
-    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
-    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
-    if ([videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsThirdQuartileUrls] isKindOfClass:[NSArray class]]) {
-        return videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsThirdQuartileUrls];
-    }
-    return nil;
-}
-
-+ (NSArray *)videoCompleteUrlsFromContentSourceObject:(NSDictionary *)contentSourceObject {
-    NSDictionary *trackerDict = [[self class] trackerDictFromContentSourceObject:contentSourceObject];
-    NSDictionary *videoEventsDict = [[self class] videoEventsDictFromTrackerDict:trackerDict];
-    if ([videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls] isKindOfClass:[NSArray class]]) {
-        return videoEventsDict[kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls];
     }
     return nil;
 }

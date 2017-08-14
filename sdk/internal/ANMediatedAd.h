@@ -22,7 +22,7 @@
 @property (nonatomic, readwrite, strong) NSString *width;
 @property (nonatomic, readwrite, strong) NSString *height;
 @property (nonatomic, readwrite, strong) NSString *adId;
-@property (nonatomic, readwrite, strong) NSString *resultCB;
+@property (nonatomic, readwrite, strong) NSString *responseURL;
 @property (nonatomic, readwrite, strong) NSString *auctionInfo;
 
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *impressionUrls;
