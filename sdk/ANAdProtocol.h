@@ -101,16 +101,17 @@
 
 /**
  Represents the width and height of the ad view.  
- This represents the Universal Tags (UT) field "primary_size".
+ This represents the Universal Tags (/ut/v2) field "primary_size".
 
  NOTE: 
    In order for ads to display correctly, you must verify that your AppNexus placement is a ``sizeless'' placement.  
    If you are seeing ads of a fixed size being squeezed into differently-sized views, you probably do not have a sizeless placement.
  */
-@property (nonatomic, readwrite, assign)  CGSize  adSize;
+@property (nonatomic, readwrite, assign)  CGSize  adSize   __attribute((deprecated));
+@property (nonatomic, readwrite, assign)  CGSize  maxAdSize;   //ALIAS of adSize.
 
 /**
- This represents the Universal Tags (UT) field "sizes".
+ This represents the Universal Tags (/ut/v2) field "sizes".
 
  The set of all allowed ad sizes for ANBannerAdView and ANInterstitialAd.
  The set should contain CGSize values wrapped as NSValue objects.
@@ -118,7 +119,7 @@
 @property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
 /**
- This represents the Universal Tags (UT) field "allow_smaller_sizes".
+ This represents the Universal Tags (/ut/v2) field "allow_smaller_sizes".
  */
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 

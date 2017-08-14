@@ -150,7 +150,14 @@ ANLogMark();
     self.allowSmallerSizes  = YES;
 }
 
-//FIX add to api -- setMaxSize: ??
+
+//TBD  Currently, adSize is superficially deprecated in the API.
+//     Proper deprecation of adSize means aliasing it to maxAdSize after making maxAdSize a full getter/setter.
+//
+- (void)setMaxAdSize: (CGSize)maxAdSize   //ALIAS
+{
+    [self setAdSize:maxAdSize];
+}
 
 // adSizes represents /ut/v2 sizes.
 //
