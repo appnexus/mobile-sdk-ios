@@ -42,9 +42,10 @@
 @implementation ANBannerAdView
 
 @synthesize  autoRefreshInterval  = __autoRefreshInterval;
-@synthesize  adSize               = __adSize;
 @synthesize  contentView          = _contentView;
 
+@synthesize  adSize               = __adSize;
+@synthesize  allowedAdSizes       = __allowedAdSizes;
 
 
 
@@ -154,9 +155,14 @@ ANLogMark();
 //TBD  Currently, adSize is superficially deprecated in the API.
 //     Proper deprecation of adSize means aliasing it to maxAdSize after making maxAdSize a full getter/setter.
 //
-- (void)setMaxAdSize: (CGSize)maxAdSize   //ALIAS
+- (void)setMaxAdSize: (CGSize)maxAdSize   //ALIAS for adSize.
 {
     [self setAdSize:maxAdSize];
+}
+
+- (NSArray<NSValue *> *) adSizes
+{
+    return  [self.allowedAdSizes allObjects];
 }
 
 // adSizes represents /ut/v2 sizes.
@@ -176,8 +182,16 @@ ANLogMark();
     }
 
     __adSize                = adSizeAsCGSize;
-    _adSizes                = adSizes;
+    __allowedAdSizes        = [NSMutableSet setWithArray:adSizes];
     self.allowSmallerSizes  = NO;
+}
+
+//TBD  Currently, adSizes is superficially deprecated in the API.
+//     Proper deprecation of adSizes means aliasing it to allowedAdSizes after making allowedAdSize a full getter/setter.
+//
+-(void) setAllowedAdSizes:(NSMutableSet<NSValue *> *)allowedAdSizes   //ALIAS for adSizes.
+{
+    self.adSizes = [allowedAdSizes allObjects];
 }
 
 

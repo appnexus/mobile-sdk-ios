@@ -183,55 +183,14 @@ ANLogMark();
 
     
     //
-    ANEntryPointType  entryPointType     = self.adFetcherDelegate.entryPointType;
-    CGSize            adSize             = self.adFetcherDelegate.adSize;
-    NSMutableSet<NSValue *>  *allowedAdSizes  = [self.adFetcherDelegate.allowedAdSizes mutableCopy];
-    BOOL              allowSmallerSizes  = NO;
-
-    if (nil == allowedAdSizes)  {
-        allowedAdSizes = [[NSMutableSet alloc] init];
-    }
-
-    switch (entryPointType)
-    {
-        case ANEntryPointTypeBannerAdView:
-            if (CGSizeEqualToSize(adSize, APPNEXUS_SIZE_UNDEFINED))
-            {
-                adSize = [self.adFetcherDelegate frameSize];
-                allowSmallerSizes = YES;
-            } else {
-                allowSmallerSizes = NO;
-            }
-
-            [allowedAdSizes addObject:[NSValue valueWithCGSize:adSize]];
-            break;
-
-
-        case ANEntryPointTypeInterstitialAd:
-            adSize = [self.adFetcherDelegate frameSize];
-            break;
-
-
-        default:
-            ANLogError(@"UNRECOGNIZED ANEntryPointType.  (%lu)", (unsigned long)entryPointType);
-                                //FIX UT -- handle all known cases...
-    }
-
-
-    for (id element in self.adFetcherDelegate.adAllowedMediaTypes)
-    {
-        if (1 != [element integerValue])  {
-            [allowedAdSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
-            break;
-        }
-    }
-
+    CGSize                    adSize             = self.adFetcherDelegate.adSize;
+    NSMutableSet<NSValue *>  *allowedAdSizes     = [self.adFetcherDelegate.allowedAdSizes mutableCopy];
+    BOOL                      allowSmallerSizes  = self.adFetcherDelegate.allowSmallerSizes;
 
     tagDict[@"primary_size"] = @{
                                     @"width"  : @(adSize.width),
                                     @"height" : @(adSize.height)
                                 };
-                    //FIX refactor?
 
     NSMutableArray  *sizesObjectArray  = [[NSMutableArray alloc] init];
 
@@ -246,16 +205,20 @@ ANLogMark();
     }
 
     tagDict[@"sizes"] = sizesObjectArray;
-                    //FIX refactor?
 
-    // tag.allow_smaller_sizes indicates whether tag.primary_size is the maximum size requested (allowSmallerSizes=YES),
-    // or whether tag.primary_size is the exact size requested (allowSmallerSizes=NO).
-    //
     tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
-                    //FIX refactor?
 
 
     //
+    for (id element in self.adFetcherDelegate.adAllowedMediaTypes)
+    {
+        if (1 != [element integerValue])  {
+            [allowedAdSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
+                                        //FIX should this be necessary?
+            break;
+        }
+    }
+
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
 
     //

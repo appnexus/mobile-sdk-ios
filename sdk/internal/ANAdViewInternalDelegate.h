@@ -46,7 +46,6 @@
 
 @optional
 - (CGSize)adSizeValue;
-- (CGSize) frameSize;
 
 
 @end

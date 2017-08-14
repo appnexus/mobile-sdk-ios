@@ -69,7 +69,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     _closeDelay = kANInterstitialDefaultCloseButtonDelay;
     _opaque = YES;
 
-    self.allowedAdSizes = [self getDefaultAllowedAdSizes];  //FIX  refactor
+    self.allowedAdSizes = [self getDefaultAllowedAdSizes];
 
 }
 
@@ -192,7 +192,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     [self fireTrackers:impressionURLs];
 }
 
-- (NSMutableSet *)getDefaultAllowedAdSizes   //FIX refactor?
+- (NSMutableSet *) getDefaultAllowedAdSizes
 {
 ANLogMark();
     NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
@@ -201,13 +201,17 @@ ANLogMark();
                                     [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
                                     [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
                                     [NSValue valueWithCGSize:kANInterstitialAdSize300x250]];
-    for (NSValue *sizeValue in possibleSizesArray) {
+
+    for (NSValue *sizeValue in possibleSizesArray)
+    {
         CGSize possibleSize = [sizeValue CGSizeValue];
         CGRect possibleSizeRect = CGRectMake(self.frame.origin.x, self.frame.origin.y, possibleSize.width, possibleSize.height);
         if (CGRectContainsRect(self.frame, possibleSizeRect)) {
             [defaultAllowedSizes addObject:sizeValue];
         }
     }
+
+    [defaultAllowedSizes addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
 
     return defaultAllowedSizes;
 }

@@ -80,12 +80,11 @@
     return self;
 }
 
+//NB  Any entry point that requires awakeFromNib must locally set the size parameters: adSize, adSizes, allowSmallerSizes.
+//
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self initialize];
-
-    __adSize = self.frame.size;
-        //FIX -- set properly in child ANBannerAdView...  need this for ANInterstitialAd?
 }
 
 - (void)initialize {
@@ -423,11 +422,6 @@ ANLogMark();
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return  ANEntryPointTypeUndefined;
 }
-
-- (CGSize) frameSize  {
-    return self.frame.size;
-}
-
 
 
 @end
