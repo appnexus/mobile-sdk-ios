@@ -15,7 +15,6 @@
 
 #import "ANBannerAdView.h"
 
-//#import "ANAdFetcher.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -48,6 +47,7 @@
 
 
 
+
 #pragma mark - Initialization
 
 - (void)initialize {
@@ -58,13 +58,12 @@
     // Defaults.
     //
     __autoRefreshInterval  = kANBannerDefaultAutoRefreshInterval;
-    __adSize               = APPNEXUS_SIZE_ZERO;
     _transitionDuration    = kAppNexusBannerAdTransitionDefaultDuration;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    __adSize = self.frame.size;
+    self.adSize = self.frame.size;
 }
 
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
@@ -136,25 +135,44 @@ ANLogMark();
 
 - (CGSize)adSize {
     ANLogDebug(@"adSize returned %@", NSStringFromCGSize(__adSize));
-    return __adSize;
+    return  __adSize;
 }
 
-- (void)setAdSize:(CGSize)adSize {
-    if (!CGSizeEqualToSize(adSize, __adSize)) {
-        ANLogDebug(@"Setting adSize to %@", NSStringFromCGSize(adSize));
-        __adSize = adSize;
-    }
+// adSize represents /ut/v2 primary_size.
+//
+- (void)setAdSize:(CGSize)adSize
+{
+    if (CGSizeEqualToSize(adSize, __adSize)) { return; }
+
+    ANLogDebug(@"Setting adSize to %@", NSStringFromCGSize(adSize));
+
+    self.adSizes = @[ [NSValue valueWithCGSize:adSize] ];
+    self.allowSmallerSizes  = YES;
 }
 
-- (void)setAdSizes:(NSArray<NSValue *> *)adSizes {
-    _adSizes = adSizes;
-    if ([adSizes firstObject]) {
-        self.adSize = [[adSizes firstObject] CGSizeValue];
+//FIX add to api -- setMaxSize: ??
+
+// adSizes represents /ut/v2 sizes.
+//
+- (void)setAdSizes:(NSArray<NSValue *> *)adSizes
+{
+    NSValue  *adSizeAsValue  = [adSizes firstObject];
+    if (!adSizeAsValue) {
+        ANLogError(@"adSizes array IS EMPTY.");
+        return;
     }
-    if ([adSizes count] > 1) {
-        self.allowedAdSizes = [[NSMutableSet<NSValue *> alloc] initWithArray:[adSizes subarrayWithRange:NSMakeRange(1, adSizes.count - 1)]];
+
+    CGSize  adSizeAsCGSize  = [adSizeAsValue CGSizeValue];
+    if ((adSizeAsCGSize.width <= 0) || (adSizeAsCGSize.height <= 0)) {
+        ANLogError(@"adSizes contains INVALID SIZE as initial value.  (%@)", NSStringFromCGSize(adSizeAsCGSize));
+        return;
     }
+
+    __adSize                = adSizeAsCGSize;
+    _adSizes                = adSizes;
+    self.allowSmallerSizes  = NO;
 }
+
 
 - (void)setAutoRefreshInterval:(NSTimeInterval)autoRefreshInterval {
     // if auto refresh is above the threshold (0), turn auto refresh on

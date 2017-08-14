@@ -33,7 +33,7 @@
 
 
 
-@interface ANAdView () <ANAdFetcherDelegate, ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
+@interface ANAdView () <ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, weak)    id<ANAdDelegate>        delegate;
 @property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>  appEventDelegate;
@@ -65,7 +65,7 @@
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 @synthesize  adSize                                 = __adSize;
 @synthesize  allowedAdSizes                         = __allowedAdSizes;
-
+@synthesize  allowSmallerSizes                      = __allowSmallerSizes;
 
 
 #pragma mark - Initialization
@@ -83,6 +83,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self initialize];
+
+    __adSize = self.frame.size;
+        //FIX -- set properly in child ANBannerAdView...  need this for ANInterstitialAd?
 }
 
 - (void)initialize {
@@ -96,6 +99,10 @@
     __customKeywords                         = [[NSMutableDictionary alloc] init];
     __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
     __landingPageLoadsInBackground           = YES;
+
+    __adSize             = APPNEXUS_SIZE_UNDEFINED;
+    __allowedAdSizes     = nil;
+    __allowSmallerSizes  = NO;
 }
 
 - (void)dealloc

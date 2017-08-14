@@ -32,7 +32,7 @@
 #define APPNEXUS_LEADERBOARD_SIZE	CGSizeMake(728, 90)
 #define APPNEXUS_WIDE_SKYSCRAPER_SIZE	CGSizeMake(160, 600)
 
-#define APPNEXUS_SIZE_ZERO              CGSizeZero
+#define APPNEXUS_SIZE_UNDEFINED         CGSizeMake(-1, -1)
 
 
 

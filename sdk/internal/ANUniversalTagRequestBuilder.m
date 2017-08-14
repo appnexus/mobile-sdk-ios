@@ -195,7 +195,7 @@ ANLogMark();
     switch (entryPointType)
     {
         case ANEntryPointTypeBannerAdView:
-            if (CGSizeEqualToSize(adSize, APPNEXUS_SIZE_ZERO))
+            if (CGSizeEqualToSize(adSize, APPNEXUS_SIZE_UNDEFINED))
             {
                 adSize = [self.adFetcherDelegate frameSize];
                 allowSmallerSizes = YES;
