@@ -379,7 +379,6 @@ ANLogMark();
                 */
 
 - (NSString *)adTypeForMRAID    {
-            //FIX UT consolidate return values as a function of entryPointType?  or isKindOfClass: ...
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return @"";
 }
@@ -387,11 +386,6 @@ ANLogMark();
 - (UIViewController *)displayController {
     ANLogDebug(@"%@ is abstract, should be implemented by subclass", NSStringFromSelector(_cmd));
     return nil;
-}
-
-- (ANEntryPointType) entryPointType {
-    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
-    return  ANEntryPointTypeUndefined;
 }
 
 

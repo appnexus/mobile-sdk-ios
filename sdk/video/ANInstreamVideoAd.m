@@ -413,17 +413,8 @@ ANLogTrace(@"UNUSED");
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
 ANLogTrace(@"");
-    return  @[ @(4) ];
+    return  @[ @(ANAllowedMediaTypeVideo) ];
 }
-
-- (ANEntryPointType) entryPointType  {
-    return  ANEntryPointTypeInstreamVideo;
-}
-
-
-
-
-
 
 
 

@@ -46,13 +46,12 @@
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
 
-typedef NS_ENUM(NSUInteger, ANEntryPointType) {
-    ANEntryPointTypeUndefined,
-    ANEntryPointTypeBannerAdView,
-    ANEntryPointTypeInterstitialAd,
-    ANEntryPointTypeInstreamVideo
+typedef NS_ENUM(NSUInteger, ANAllowedMediaTypes) {
+    ANAllowedMediaTypeBanner        = 1,
+    ANAllowedMediaTypeInterstitial  = 3,
+    ANAllowedMediaTypeVideo         = 4,
+    ANAllowedMediaTypeNative        = 12
 };
-
 
 
 #pragma mark - Banner AutoRefresh

@@ -23,7 +23,6 @@
 @implementation ANMediationContainerView
 
 - (instancetype)initWithMediatedView:(UIView *)view {
-ANLogMark();
     self = [super initWithFrame:view.frame];
     if (self) {
         [self addSubview:view];

@@ -120,7 +120,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (NSMutableSet *) getDefaultAllowedAdSizes
 {
-ANLogMark();
     NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
 
     NSArray *possibleSizesArray = @[[NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
@@ -387,13 +386,9 @@ ANLogMark();
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-    ANLogMark();
-    return  @[ @(1), @(3) ];
+    return  @[ @(ANAllowedMediaTypeBanner), @(ANAllowedMediaTypeInterstitial) ];
 }
 
-- (ANEntryPointType) entryPointType  {    //FIX  redundant?  just use isKindOfClass: ?
-    return  ANEntryPointTypeInterstitialAd;
-}
 
 
 

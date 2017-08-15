@@ -34,7 +34,6 @@
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
 - (NSString *)adTypeForMRAID;
-- (ANEntryPointType) entryPointType;
 - (NSArray<NSValue *> *)adAllowedMediaTypes;
 
 - (UIViewController *)displayController;
@@ -43,10 +42,6 @@
 
 - (void)adInteractionDidBegin;
 - (void)adInteractionDidEnd;
-
-@optional
-- (CGSize)adSizeValue;
-
 
 @end
 

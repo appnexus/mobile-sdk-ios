@@ -344,15 +344,9 @@ ANLogMark();
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-ANLogMark();
-    return  @[ @(1) ];
+    return  @[ @(ANAllowedMediaTypeBanner) ];
 }
 
-- (CGSize)adSizeValue
-{
-ANLogMark();
-    return  self.adSize;
-}
 
 - (UIViewController *)displayController {
     UIViewController *displayController = self.rootViewController;
@@ -362,10 +356,6 @@ ANLogMark();
     return displayController;
 }
 
-- (ANEntryPointType) entryPointType  {
-    return  ANEntryPointTypeBannerAdView;
-}
-
 
 
 
@@ -373,7 +363,6 @@ ANLogMark();
 
 - (void)didMoveToWindow
 {
-ANLogMark();
     [self fireTrackers:self.impressionURLs];
 }
 
