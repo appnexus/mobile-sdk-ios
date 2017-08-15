@@ -73,6 +73,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
     self.placementId = placementId;
 
+    [self setupSizeParametersAs1x1];
+
+
     //
     return self;
 }
