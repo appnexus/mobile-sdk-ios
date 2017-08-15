@@ -168,7 +168,7 @@ ANLogMark();
         ANLogWarn(@"response_no_ads");
         if (self.noAdUrl) {
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
-            [self fireAndIgnoreResultCB:self.noAdUrl];
+            [self fireTracker:self.noAdUrl];
         }
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
@@ -215,7 +215,7 @@ ANLogMark();
 
     if (notifyUrlString.length > 0) {
         ANLogDebug(@"(notify_url, %@)", notifyUrlString);
-        [self fireAndIgnoreResultCB:[NSURL URLWithString:notifyUrlString]];
+        [self fireTracker:[NSURL URLWithString:notifyUrlString]];
     }
 
     if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
@@ -403,16 +403,17 @@ ANLogMark();
 }
 
 
-- (void)fireResultCB:(NSString *)resultCBString
+- (void)fireResponseURL:(NSString *)responseURLString
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject
            auctionID:(NSString *)auctionID
 {
 ANLogMark();
-    NSURL *resultURL = [NSURL URLWithString:resultCBString];
+    NSURL *resultURL = [NSURL URLWithString:responseURLString];
 
-    if ([resultCBString length] > 0) {
-        [self fireAndIgnoreResultCB:resultURL];
+    if ([responseURLString length] > 0) {
+         ANLogDebug(@"(response_url, %@)", resultURL);
+        [self fireTracker:resultURL];
     }
 
     //
@@ -438,9 +439,9 @@ ANLogMark();
 }
 
 
-// just fire resultCB asnychronously and ignore result
+// just fire responseURL asnychronously and ignore result
 //
-- (void)fireAndIgnoreResultCB:(NSURL *)url
+- (void)fireTracker:(NSURL *)url
 {
     [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(url)
                                        queue:[NSOperationQueue mainQueue]

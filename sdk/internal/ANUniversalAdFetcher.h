@@ -37,7 +37,7 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 
-- (void)fireResultCB:(NSString *)resultCBString
+- (void)fireResponseURL:(NSString *)responseURLString
               reason:(ANAdResponseCode)reason
             adObject:(id)adObject
            auctionID:(NSString *)auctionID;

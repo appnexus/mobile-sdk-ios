@@ -225,7 +225,7 @@
     // use queue to force return
     [self runInBlock:^(void) {
         NSString *resultCBString = [self createResultCBRequest:
-                                    self.mediatedAd.resultCB reason:errorCode];
+                                    self.mediatedAd.responseURL reason:errorCode];
         // fireResulCB will clear the adapter if fetcher exists
         if (!self.delegate) {
             [self clearAdapter];

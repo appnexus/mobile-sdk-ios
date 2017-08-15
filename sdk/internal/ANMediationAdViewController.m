@@ -471,13 +471,13 @@ ANLogMark();
     // use queue to force return
     [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
-        NSString *resultCBString = [self createResultCBRequest:self.mediatedAd.resultCB reason:errorCode];
+        NSString *responseURLString = [self createResponseURLRequest:self.mediatedAd.responseURL reason:errorCode];
 
-        // fireResulCB will clear the adapter if fetcher exists
+        // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
         }
-        [fetcher fireResultCB:resultCBString reason:errorCode adObject:adObject auctionID:auctionID];
+        [fetcher fireResponseURL:responseURLString reason:errorCode adObject:adObject auctionID:auctionID];
     }];
 }
 
@@ -490,7 +490,7 @@ ANLogMark();
     });
 }
 
-- (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode
+- (NSString *)createResponseURLRequest:(NSString *)baseString reason:(int)reasonCode
                     //FIX are latency values correct when medaition adapter is invoked but failes or timesout?
 {
 ANLogMark();
@@ -499,11 +499,11 @@ ANLogMark();
     }
     
     // append reason code
-    NSString *resultCBString = [baseString an_stringByAppendingUrlParameter: @"reason"
+    NSString *responseURLString = [baseString an_stringByAppendingUrlParameter: @"reason"
                                                                       value: [NSString stringWithFormat:@"%d",reasonCode]];
     
     // append idfa
-    resultCBString = [resultCBString an_stringByAppendingUrlParameter: @"idfa"
+    responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"idfa"
                                                                 value: ANUDID()];
     
     // append latency measurements
@@ -511,16 +511,16 @@ ANLogMark();
     NSTimeInterval totalLatency  = [self getTotalLatency] * 1000; // secs to ms
     
     if (latency > 0) {
-        resultCBString = [resultCBString an_stringByAppendingUrlParameter: @"latency"
+        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"latency"
                                                                     value: [NSString stringWithFormat:@"%.0f", latency]];
     }
     if (totalLatency > 0) {
-        resultCBString = [resultCBString an_stringByAppendingUrlParameter: @"total_latency"
+        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"total_latency"
                                                                     value :[NSString stringWithFormat:@"%.0f", totalLatency]];
     }
 
-ANLogMarkMessage(@"resultCBString=%@", resultCBString);
-    return resultCBString;
+ANLogMarkMessage(@"responseURLString=%@", responseURLString);
+    return responseURLString;
 }
 
 
