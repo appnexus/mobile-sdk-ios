@@ -61,16 +61,25 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 #pragma mark - Initialization
 
-- (void)initialize {
+- (void)initialize
+{
     [super initialize];
-    _controller = [[ANInterstitialAdViewController alloc] init];
-    _controller.delegate = self;
-    _precachedAdObjects = [NSMutableArray array];
-    _closeDelay = kANInterstitialDefaultCloseButtonDelay;
-    _opaque = YES;
 
-    self.allowedAdSizes = [self getDefaultAllowedAdSizes];
+    _controller           = [[ANInterstitialAdViewController alloc] init];
+    _controller.delegate  = self;
+    _precachedAdObjects   = [NSMutableArray array];
+    _closeDelay           = kANInterstitialDefaultCloseButtonDelay;
+    _opaque               = YES;
 
+    [self setupSizeParameters];
+}
+
+
+- (void) awakeFromNib
+{
+    [super awakeFromNib];
+    [self initialize];
+    [self setupSizeParameters];
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -97,8 +106,81 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     self.controller.delegate = nil;
 }
 
+
+- (void) setupSizeParameters
+{
+    CGSize  containerSize  = self.frame.size;
+
+    self.allowedAdSizes = [self getDefaultAllowedAdSizes];
+    [self.allowedAdSizes addObject:[NSValue valueWithCGSize:containerSize]];
+
+    self.adSize = containerSize;
+    self.allowSmallerSizes = NO;
+}
+
+- (NSMutableSet *) getDefaultAllowedAdSizes
+{
+ANLogMark();
+    NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
+
+    NSArray *possibleSizesArray = @[[NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
+                                    [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
+                                    [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
+                                    [NSValue valueWithCGSize:kANInterstitialAdSize300x250]];
+
+    for (NSValue *sizeValue in possibleSizesArray)
+    {
+        CGSize possibleSize = [sizeValue CGSizeValue];
+        CGRect possibleSizeRect = CGRectMake(self.frame.origin.x, self.frame.origin.y, possibleSize.width, possibleSize.height);
+        if (CGRectContainsRect(self.frame, possibleSizeRect)) {
+            [defaultAllowedSizes addObject:sizeValue];
+        }
+    }
+
+    [defaultAllowedSizes addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
+
+    return defaultAllowedSizes;
+}
+
+
+
+
+#pragma mark - EntryPoint ad serving lifecycle.
+
 - (void)loadAd {
     [super loadAd];
+}
+
+- (BOOL)isReady {
+    // check the cache for a valid ad
+    while ([self.precachedAdObjects count] > 0) {
+        NSDictionary *adDict = self.precachedAdObjects[0];
+
+        // Check to see if the ad has expired
+        NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
+        NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
+        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < kANInterstitialAdTimeout) {
+            // Found a valid ad
+            id readyAd = adDict[kANInterstitialAdViewKey];
+            if ([readyAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+                // if it's a mediated ad, check if it is ready
+                if ([readyAd respondsToSelector:@selector(isReady)]) {
+                    return [readyAd isReady];
+                } else {
+                    ANLogWarn(@"CustomInterstitialAdapter should implement isReady function");
+                    return true;
+                }
+            } else {
+                // if it's a standard ad, we are ready to display
+                return true;
+            }
+        } else {
+            // Ad is stale, remove it
+            [self.precachedAdObjects removeObjectAtIndex:0];
+        }
+    }
+
+    return false;
 }
 
 - (void)displayAdFromViewController:(UIViewController *)controller
@@ -191,81 +273,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
     [self fireTrackers:impressionURLs];
 }
-
-- (NSMutableSet *) getDefaultAllowedAdSizes
-{
-ANLogMark();
-    NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
-    
-    NSArray *possibleSizesArray = @[[NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
-                                    [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
-                                    [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
-                                    [NSValue valueWithCGSize:kANInterstitialAdSize300x250]];
-
-    for (NSValue *sizeValue in possibleSizesArray)
-    {
-        CGSize possibleSize = [sizeValue CGSizeValue];
-        CGRect possibleSizeRect = CGRectMake(self.frame.origin.x, self.frame.origin.y, possibleSize.width, possibleSize.height);
-        if (CGRectContainsRect(self.frame, possibleSizeRect)) {
-            [defaultAllowedSizes addObject:sizeValue];
-        }
-    }
-
-    [defaultAllowedSizes addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
-
-    return defaultAllowedSizes;
-}
-
-- (BOOL)isReady {
-    // check the cache for a valid ad
-    while ([self.precachedAdObjects count] > 0) {
-        NSDictionary *adDict = self.precachedAdObjects[0];
-        
-        // Check to see if the ad has expired
-        NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
-        NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
-        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < kANInterstitialAdTimeout) {
-            // Found a valid ad
-            id readyAd = adDict[kANInterstitialAdViewKey];
-            if ([readyAd conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
-                // if it's a mediated ad, check if it is ready
-                if ([readyAd respondsToSelector:@selector(isReady)]) {
-                    return [readyAd isReady];
-                } else {
-                    ANLogWarn(@"CustomInterstitialAdapter should implement isReady function");
-                    return true;
-                }
-            } else {
-                // if it's a standard ad, we are ready to display
-                return true;
-            }
-        } else {
-            // Ad is stale, remove it
-            [self.precachedAdObjects removeObjectAtIndex:0];
-        }
-    }
-    
-    return false;
-}
-
-- (CGRect)frame {
-    // By definition, interstitials can only ever have the entire screen's bounds as its frame
-    CGRect screenBounds = ANPortraitScreenBounds();
-    if (UIInterfaceOrientationIsLandscape(self.controller.orientation)) {
-        return CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
-    }
-    return screenBounds;
-}
-
-- (void)setCloseDelay:(NSTimeInterval)closeDelay {
-    if (closeDelay > kANInterstitialMaximumCloseButtonDelay) {
-        ANLogWarn(@"Maximum allowed value for closeDelay is %.1f", kANInterstitialMaximumCloseButtonDelay);
-        closeDelay = kANInterstitialMaximumCloseButtonDelay;
-    }
-    
-    _closeDelay = closeDelay;
-}
-
 
 
 
@@ -386,6 +393,28 @@ ANLogMark();
 
 - (ANEntryPointType) entryPointType  {    //FIX  redundant?  just use isKindOfClass: ?
     return  ANEntryPointTypeInterstitialAd;
+}
+
+
+
+#pragma mark - Helper methods.
+
+- (CGRect)frame {
+    // By definition, interstitials can only ever have the entire screen's bounds as its frame
+    CGRect screenBounds = ANPortraitScreenBounds();
+    if (UIInterfaceOrientationIsLandscape(self.controller.orientation)) {
+        return CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
+    }
+    return screenBounds;
+}
+
+- (void)setCloseDelay:(NSTimeInterval)closeDelay {
+    if (closeDelay > kANInterstitialMaximumCloseButtonDelay) {
+        ANLogWarn(@"Maximum allowed value for closeDelay is %.1f", kANInterstitialMaximumCloseButtonDelay);
+        closeDelay = kANInterstitialMaximumCloseButtonDelay;
+    }
+
+    _closeDelay = closeDelay;
 }
 
 

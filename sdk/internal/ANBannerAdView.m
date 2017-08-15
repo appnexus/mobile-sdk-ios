@@ -139,7 +139,7 @@ ANLogMark();
     return  __adSize;
 }
 
-// adSize represents /ut/v2 primary_size.
+// adSize represents /ut/v2 "primary_size".
 //
 - (void)setAdSize:(CGSize)adSize
 {
@@ -165,7 +165,7 @@ ANLogMark();
     return  [self.allowedAdSizes allObjects];
 }
 
-// adSizes represents /ut/v2 sizes.
+// adSizes represents /ut/v2 "sizes".
 //
 - (void)setAdSizes:(NSArray<NSValue *> *)adSizes
 {

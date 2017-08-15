@@ -115,6 +115,8 @@
 
  The set of all allowed ad sizes for ANBannerAdView and ANInterstitialAd.
  The set should contain CGSize values wrapped as NSValue objects.
+ 
+ NB  We use set (NSMutableSet) internally even though we return an array (NSArray) via the API.  
  */
 @property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
