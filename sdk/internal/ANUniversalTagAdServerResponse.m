@@ -233,29 +233,37 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 + (NSArray *)adsArrayFromTag:(NSDictionary *)tag {
     if ([tag[kANUniversalTagAdServerResponseKeyTagAds] isKindOfClass:[NSArray class]]) {
         return tag[kANUniversalTagAdServerResponseKeyTagAds];
+    }else{
+        ANLogError(@"Response from ad server in an unexpected format no ads array found in tag: %@", tag);
+        return nil;
     }
-    return nil;
 }
 
 + (NSDictionary *)rtbObjectFromAdObject:(NSDictionary *)adObject {
     if ([adObject[kANUniversalTagAdServerResponseKeyAdsRTBObject] isKindOfClass:[NSDictionary class]]) {
         return adObject[kANUniversalTagAdServerResponseKeyAdsRTBObject];
+    }else{
+        ANLogError(@"Response from ad server in an unexpected format. Expected RTB in adObject: %@", adObject);
+        return nil;
     }
-    return nil;
 }
 
 + (NSDictionary *)csmObjectFromAdObject:(NSDictionary *)adObject {
     if ([adObject[kANUniversalTagAdServerResponseKeyAdsCSMObject] isKindOfClass:[NSDictionary class]]) {
         return adObject[kANUniversalTagAdServerResponseKeyAdsCSMObject];
+    }else{
+        ANLogError(@"Response from ad server in an unexpected format. Expected CSM in adObject: %@", adObject);
+        return nil;
     }
-    return nil;
 }
 
 + (NSDictionary *)ssmObjectFromAdObject:(NSDictionary *)adObject {
     if ([adObject[kANUniversalTagAdServerResponseKeyAdsSSMObject] isKindOfClass:[NSDictionary class]]) {
         return adObject[kANUniversalTagAdServerResponseKeyAdsSSMObject];
+    }else{
+        ANLogError(@"Response from ad server in an unexpected format. Expected SSM in rtbObject: %@", adObject);
+        return nil;
     }
-    return nil;
 }
 
 + (ANStandardAd *)standardAdFromRTBObject:(NSDictionary *)rtbObject {
@@ -271,8 +279,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
             return nil;
         }
         return standardAd;
+    }else{
+        ANLogError(@"Response from ad server in an unexpected format. Expected RTB Banner in rtbObject: %@", rtbObject);
+        return nil;
     }
-    return nil;
 }
 
 + (ANRTBVideoAd *)videoAdFromRTBObject:(NSDictionary *)rtbObject {
@@ -282,8 +292,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         videoAd.content = [video[kANUniversalTagAdServerResponseKeyVideoContent] description];
         videoAd.assetURL = [video[kANUniversalTagAdServerResponseKeyVideoAssetURL] description];
         return videoAd;
+    }else{
+        ANLogError(@"Response from ad server in an unexpected format. Expected RTB Video in rtbObject: %@", rtbObject);
+        return nil;
     }
-    return nil;
 }
 
 
@@ -328,7 +340,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
             return  mediatedAd;
         }
     }
-
+    ANLogError(@"Response from ad server in an unexpected format. Expected CSM in csmObject: %@", csmObject);
     return nil;
 }
 
@@ -357,6 +369,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
                 ANSSMStandardAd *standardAd = [[ANSSMStandardAd alloc] init];
                 standardAd.urlString = handlerDict[kANUniversalTagAdServerResponseKeySSMHandlerUrl];
+                standardAd.responseURL        = [ssmObject[kANUniversalTagAdServerResponseKeyResponseURL] description];
                 standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
                 standardAd.width = [banner[kANUniversalTagAdServerResponseKeyBannerWidth] description];
                 standardAd.height = [banner[kANUniversalTagAdServerResponseKeyBannerHeight] description];
@@ -364,6 +377,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
             }
         }
     }
+    ANLogError(@"Response from ad server in an unexpected format. Unable to find SSM Banner in ssmObject: %@", ssmObject);
     return nil;
 }
 
