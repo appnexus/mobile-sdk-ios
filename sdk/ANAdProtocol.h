@@ -107,8 +107,7 @@
    In order for ads to display correctly, you must verify that your AppNexus placement is a ``sizeless'' placement.  
    If you are seeing ads of a fixed size being squeezed into differently-sized views, you probably do not have a sizeless placement.
  */
-@property (nonatomic, readwrite, assign)  CGSize  adSize   __attribute((deprecated));
-@property (nonatomic, readwrite, assign)  CGSize  maxAdSize;   //ALIAS of adSize.
+@property (nonatomic, readwrite, assign)  CGSize  adSize;
 
 /**
  This represents the Universal Tags (/ut/v2) field "sizes".

@@ -141,24 +141,31 @@ ANLogMark();
 
 // adSize represents /ut/v2 "primary_size".
 //
+// Following the lead from historical /mob request:
+//   1) adSize represents an exact size, unless...
+//   2) adSize is zero (CGSizeZero), it represents the maximum size and zero is replaced with the current size of the display.
+//
 - (void)setAdSize:(CGSize)adSize
 {
+    BOOL  allowSmallerSizes  = NO;
+
+    if (CGSizeEqualToSize(adSize, CGSizeZero)) {
+        adSize = self.frame.size;
+        allowSmallerSizes = YES;
+    }
+
     if (CGSizeEqualToSize(adSize, __adSize)) { return; }
 
-    ANLogDebug(@"Setting adSize to %@", NSStringFromCGSize(adSize));
-
+    //
     self.adSizes = @[ [NSValue valueWithCGSize:adSize] ];
-    self.allowSmallerSizes  = YES;
+    self.allowSmallerSizes = allowSmallerSizes;
+
+    ANLogDebug(@"Setting adSize to %@, %@ smaller sizes.",
+                   NSStringFromCGSize(adSize),
+                   self.allowSmallerSizes ? @"ALLOWING" : @"DISALLOWING"
+               );
 }
 
-
-//TBD  Currently, adSize is superficially deprecated in the API.
-//     Proper deprecation of adSize means aliasing it to maxAdSize after making maxAdSize a full getter/setter.
-//
-- (void)setMaxAdSize: (CGSize)maxAdSize   //ALIAS for adSize.
-{
-    [self setAdSize:maxAdSize];
-}
 
 - (NSArray<NSValue *> *) adSizes
 {
@@ -184,14 +191,6 @@ ANLogMark();
     __adSize                = adSizeAsCGSize;
     __allowedAdSizes        = [NSMutableSet setWithArray:adSizes];
     self.allowSmallerSizes  = NO;
-}
-
-//TBD  Currently, adSizes is superficially deprecated in the API.
-//     Proper deprecation of adSizes means aliasing it to allowedAdSizes after making allowedAdSize a full getter/setter.
-//
--(void) setAllowedAdSizes:(NSMutableSet<NSValue *> *)allowedAdSizes   //ALIAS for adSizes.
-{
-    self.adSizes = [allowedAdSizes allObjects];
 }
 
 

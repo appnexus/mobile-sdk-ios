@@ -101,7 +101,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  NOTE: This is no longer a useful object, but has become a getter/setter interface for adSize and allowAdSizes.
        Preserved during the adoption of Universal Tags to prevent changes to the existing API.
  */
-@property (nonatomic, readwrite, strong) NSArray<NSValue *> *adSizes __attribute((deprecated));
+@property (nonatomic, readwrite, strong) NSArray<NSValue *> *adSizes;
 
 
 /**
