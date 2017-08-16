@@ -182,13 +182,18 @@ ANLogMark();
         return;
     }
 
-    CGSize  adSizeAsCGSize  = [adSizeAsValue CGSizeValue];
-    if ((adSizeAsCGSize.width <= 0) || (adSizeAsCGSize.height <= 0)) {
-        ANLogError(@"adSizes contains INVALID SIZE as initial value.  (%@)", NSStringFromCGSize(adSizeAsCGSize));
-        return;
+    for (NSValue *valueElement in adSizes)
+    {
+        CGSize  sizeElement  = [valueElement CGSizeValue];
+
+        if ((sizeElement.width <= 0) || (sizeElement.height <= 0)) {
+            ANLogError(@"One or more elements of adSizes have a width or height LESS THAN ZERO. (%@)", adSizes);
+            return;
+        }
     }
 
-    __adSize                = adSizeAsCGSize;
+    //
+    __adSize                = [adSizeAsValue CGSizeValue];
     __allowedAdSizes        = [NSMutableSet setWithArray:adSizes];
     self.allowSmallerSizes  = NO;
 }

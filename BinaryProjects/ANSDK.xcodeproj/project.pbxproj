@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F1B9E291E5CDABE002FF0B4 /* ANInstreamVideoAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */; };
+		4F3D37B41F44B0B7008255C1 /* ANAdProtocolPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F3D37B31F44B0B7008255C1 /* ANAdProtocolPrivate.h */; };
 		4F824CF61D909E1000AFC7EA /* LICENSE-MOPUB in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */; };
 		4F824CF71D909E1000AFC7EA /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CBA1D909E1000AFC7EA /* MPAdBrowserController.xib */; };
 		4F824CF81D909E1000AFC7EA /* MPCloseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CC11D909E1000AFC7EA /* MPCloseBtn.png */; };
@@ -691,6 +692,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F3D37B31F44B0B7008255C1 /* ANAdProtocolPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocolPrivate.h; sourceTree = "<group>"; };
 		4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LICENSE-MOPUB"; sourceTree = "<group>"; };
 		4F824CB61D909E1000AFC7EA /* MoPub-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoPub-Bridging-Header.h"; sourceTree = "<group>"; };
 		4F824CB71D909E1000AFC7EA /* MoPub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoPub.h; sourceTree = "<group>"; };
@@ -1410,10 +1412,10 @@
 		4FE7CE791F2FD70C00A5044A /* adHandlers */ = {
 			isa = PBXGroup;
 			children = (
-				8AD618B91981C11F00AC0780 /* ANMediatedAd.h */,
-				8AD618BA1981C11F00AC0780 /* ANMediatedAd.m */,
 				609732B51E42E90C0061EC0A /* ANCSMVideoAd.h */,
 				609732B61E42E90C0061EC0A /* ANCSMVideoAd.m */,
+				8AD618B91981C11F00AC0780 /* ANMediatedAd.h */,
+				8AD618BA1981C11F00AC0780 /* ANMediatedAd.m */,
 				609732CC1E42E9860061EC0A /* ANRTBVideoAd.h */,
 				609732CD1E42E9860061EC0A /* ANRTBVideoAd.m */,
 				609732BF1E42E9670061EC0A /* ANSSMStandardAd.h */,
@@ -1928,12 +1930,15 @@
 		8AD6189D1981C11F00AC0780 /* internal */ = {
 			isa = PBXGroup;
 			children = (
+				4FE7CE791F2FD70C00A5044A /* adHandlers */,
 				8A02D6F81D6CE946006831A3 /* config */,
 				8AC65F361A40DE63006BCF39 /* MRAID */,
+				4FE7CE781F2FD6A100A5044A /* universalTag */,
 				8AD6189E1981C11F00AC0780 /* ANAdFetcher.h */,
 				8AD6189F1981C11F00AC0780 /* ANAdFetcher.m */,
 				8AF5A8791ACC60D50089C529 /* ANAdFetcherResponse.h */,
 				8AF5A87A1ACC60D50089C529 /* ANAdFetcherResponse.m */,
+				4F3D37B31F44B0B7008255C1 /* ANAdProtocolPrivate.h */,
 				8AF5A87B1ACC60D50089C529 /* ANAdServerResponse.h */,
 				8AF5A87C1ACC60D50089C529 /* ANAdServerResponse.m */,
 				8AD618A41981C11F00AC0780 /* ANAdView.m */,
@@ -1970,11 +1975,9 @@
 				8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */,
 				8AD618C61981C11F00AC0780 /* ANReachability.h */,
 				8AD618C71981C11F00AC0780 /* ANReachability.m */,
-				4FE7CE791F2FD70C00A5044A /* adHandlers */,
 				8ABF77571D08CE420068B535 /* ANStoreProductViewController.h */,
 				8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */,
 				8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */,
-				4FE7CE781F2FD6A100A5044A /* universalTag */,
 				609732CA1E42E9860061EC0A /* ANVideoAdProcessor.h */,
 				609732CB1E42E9860061EC0A /* ANVideoAdProcessor.m */,
 			);
@@ -2324,6 +2327,7 @@
 				8A9AEDCB1A1BF88200C58BDA /* ANAdFetcher.h in Headers */,
 				8AF5A87F1ACC60D50089C529 /* ANAdFetcherResponse.h in Headers */,
 				8A9AEDB21A1BE8C200C58BDA /* ANAdProtocol.h in Headers */,
+				4F3D37B41F44B0B7008255C1 /* ANAdProtocolPrivate.h in Headers */,
 				8AF5A8821ACC60D50089C529 /* ANAdServerResponse.h in Headers */,
 				8AE5E11E1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h in Headers */,
 				8A9AEDB31A1BE8C200C58BDA /* ANAdView.h in Headers */,

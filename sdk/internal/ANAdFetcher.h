@@ -15,6 +15,7 @@
 
 #import "ANAdFetcherResponse.h"
 #import "ANAdProtocol.h"
+#import "ANAdProtocolPrivate.h"
 #import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import "ANCustomAdapter.h"
@@ -62,7 +63,7 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 
 
 
-@protocol ANAdFetcherDelegate <ANAdProtocol, ANAdViewInternalDelegate>
+@protocol ANAdFetcherDelegate <ANAdProtocol, ANAdProtocolPrivate, ANAdViewInternalDelegate>
 
 @optional
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;

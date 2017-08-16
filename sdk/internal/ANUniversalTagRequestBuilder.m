@@ -211,15 +211,6 @@ ANLogMark();
 
 
     //
-    for (id element in self.adFetcherDelegate.adAllowedMediaTypes)
-    {
-        if (1 != [element integerValue])  {
-            [allowedAdSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
-                                        //FIX should this be necessary?
-            break;
-        }
-    }
-
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
 
     //

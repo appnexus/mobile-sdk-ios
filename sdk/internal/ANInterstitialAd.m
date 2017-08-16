@@ -144,6 +144,20 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 
 
+#pragma mark - Setters and getters.
+
+- (void)setCloseDelay:(NSTimeInterval)closeDelay {
+    if (closeDelay > kANInterstitialMaximumCloseButtonDelay) {
+        ANLogWarn(@"Maximum allowed value for closeDelay is %.1f", kANInterstitialMaximumCloseButtonDelay);
+        closeDelay = kANInterstitialMaximumCloseButtonDelay;
+    }
+
+    _closeDelay = closeDelay;
+}
+
+
+
+
 #pragma mark - EntryPoint ad serving lifecycle.
 
 - (void)loadAd {
@@ -401,15 +415,6 @@ ANLogMark();
         return CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
     }
     return screenBounds;
-}
-
-- (void)setCloseDelay:(NSTimeInterval)closeDelay {
-    if (closeDelay > kANInterstitialMaximumCloseButtonDelay) {
-        ANLogWarn(@"Maximum allowed value for closeDelay is %.1f", kANInterstitialMaximumCloseButtonDelay);
-        closeDelay = kANInterstitialMaximumCloseButtonDelay;
-    }
-
-    _closeDelay = closeDelay;
 }
 
 
