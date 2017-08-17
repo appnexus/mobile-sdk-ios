@@ -212,6 +212,8 @@
     // Fix - MRAID and ANJAM cases.
     
     
+    
+    
     self.ssmAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
                                                            HTML:self.ssmMediatedAd.content
                                                  webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
