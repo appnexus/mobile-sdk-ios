@@ -194,7 +194,10 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     id         adToShow         = nil;
     id         adObjectHandler  = nil;
     NSString  *auctionID        = nil;
-    
+
+    NSArray<NSString *>  *impressionURLs  = nil;
+
+
     self.controller.orientationProperties = nil;
     self.controller.useCustomClose = NO;
     
@@ -202,7 +205,11 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
         mraidContainerView.adViewDelegate = nil;
     }
-    
+
+
+    // Find first valid pre-cached ad, auctionID and meta data.
+    // Pull out impression URL trackers.
+    //
     while ([self.precachedAdObjects count] > 0) {
         // Pull the first ad off
         NSDictionary *adDict = self.precachedAdObjects[0];
@@ -224,6 +231,13 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self.precachedAdObjects removeObjectAtIndex:0];
     }
 
+    if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
+        impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
+    }
+
+
+    // Display the ad.
+    //
     if ([adToShow isKindOfClass:[UIView class]]) {
         if (!self.controller) {
             ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");
@@ -247,12 +261,21 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         if (!self.opaque && [self.controller respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
             self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
         }
+
+        //
+        [self fireTrackers:impressionURLs];
+
         [controller presentViewController:self.controller
                                  animated:YES
                                completion:nil];
 
-    } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
+    } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
+    {
+        [self fireTrackers:impressionURLs];
+        
         [adToShow presentFromViewController:controller];
+
+        //
         if (auctionID) {
             ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
             [controller.presentedViewController.view addSubview:logoView];
@@ -268,16 +291,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self adFailedToDisplay];
         return;
     }
-
-
-    //
-    NSArray<NSString *>  *impressionURLs  = nil;
-
-    if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
-      impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
-    }
-
-    [self fireTrackers:impressionURLs];
 }
 
 

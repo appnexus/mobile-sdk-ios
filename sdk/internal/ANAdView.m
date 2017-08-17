@@ -40,8 +40,6 @@
 
 @property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywordsMap;
 
-
-
 @end
 
 
@@ -100,6 +98,8 @@
     __customKeywords                         = [[NSMutableDictionary alloc] init];
     __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
     __landingPageLoadsInBackground           = YES;
+
+    _impressionTrackersFiredForCurrentContentView = NO;
 }
 
 - (void)dealloc
@@ -396,9 +396,12 @@ ANLogMark();
     ANLogMark();
     if (!trackerURLs)  { return; }
 
+    if (self.impressionTrackersFiredForCurrentContentView)  { return; }
+    self.impressionTrackersFiredForCurrentContentView = YES;
+
 
     //
-    NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire impressionUrls.", __PRETTY_FUNCTION__];
+    NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire tracker URLs.", __PRETTY_FUNCTION__];
     dispatch_queue_t   backgroundQueue      = dispatch_queue_create([backgroundQueueName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
 
     dispatch_async(backgroundQueue, ^{
@@ -411,7 +414,7 @@ ANLogMark();
                                         }];
             [dataTask resume];
 
-            ANLogMarkMessage(@"FIRED TARGET urlString=%@", urlString);   //DEBUG
+            ANLogMarkMessage(@"FIRE TRACKER urlString=%@", urlString);   //DEBUG
         }
     });
 }

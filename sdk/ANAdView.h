@@ -25,10 +25,14 @@
 
 @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
 
+@property (nonatomic)  BOOL  impressionTrackersFiredForCurrentContentView;
 
+
+//
 - (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
                  adResponse: (ANAdFetcherResponse *)response;
 
 - (void) fireTrackers: (NSArray<NSString *> *)trackerURLs;
+
 
 @end

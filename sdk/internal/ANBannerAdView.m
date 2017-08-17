@@ -320,6 +320,8 @@ ANLogMark();
 
     if (error) {
         self.contentView = nil;
+        self.impressionTrackersFiredForCurrentContentView = NO;
+        
         [self adRequestFailedWithError:error];
     }
 }
@@ -375,7 +377,9 @@ ANLogMark();
 
 - (void)didMoveToWindow
 {
-    [self fireTrackers:self.impressionURLs];
+    if (self.contentView) {
+        [self fireTrackers:self.impressionURLs];
+    }
 }
 
 
