@@ -199,25 +199,22 @@
     self.ssmMediatedAd.content = adContent;
     
     ANLogDebug(@"received an SSM ad");
-    
-    CGSize sizeOfCreative = CGSizeMake([self.ssmMediatedAd.width floatValue], [self.ssmMediatedAd.height floatValue]);
-    
+
     
     if (self.ssmAdView) {
         self.ssmAdView.loadingDelegate = nil;
     }
     
     
-    // Fix - Check if container size natches response size
-    // Fix - MRAID and ANJAM cases.
+    CGSize sizeofWebView = [self.adFetcher getWebViewSizeForCreativeWidth:self.ssmMediatedAd.width
+                                                         Height:self.ssmMediatedAd.height];
     
-    
-    
-    
-    self.ssmAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
+    self.ssmAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                            HTML:self.ssmMediatedAd.content
                                                  webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
     self.ssmAdView.loadingDelegate = self;
+    // Allow ANJAM events to always be passed to the ANAdView
+    self.ssmAdView.webViewController.adViewANJAMDelegate = self.adViewDelegate;
     
 }
 

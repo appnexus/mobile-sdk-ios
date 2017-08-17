@@ -245,26 +245,14 @@
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
     ANLogMark();
-    // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
-    CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
-    CGSize requestedSize = [self getAdSizeFromDelegate];
-    
-    CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
-    CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
-    
-    if (!CGRectContainsRect(requestedRect, receivedRect)) {
-        ANLogInfo(@"adsize_too_big %d%d%d%d",   (int)receivedRect.size.width,  (int)receivedRect.size.height,
-                  (int)requestedRect.size.width, (int)requestedRect.size.height );
-    }
-    
-    CGSize sizeOfCreative = (    (receivedSize.width > 0)
-                             && (receivedSize.height > 0)) ? receivedSize : requestedSize;
+    CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
+                                                         Height:standardAd.height];
     
     if (self.standardAdView) {
         self.standardAdView.loadingDelegate = nil;
     }
     
-    self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
+    self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                                 HTML:standardAd.content
                                                       webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
     self.standardAdView.loadingDelegate = self;
@@ -285,8 +273,8 @@
 - (void)handleSSMMediatedAd:(ANSSMStandardAd *)mediatedAd
 {
     self.ssmMediationController = [ANSSMMediationAdViewController initMediatedAd:mediatedAd
-                                                               withFetcher:self
-                                                            adViewDelegate:self.delegate];
+                                                                     withFetcher:self
+                                                                  adViewDelegate:self.delegate];
 }
 
 
@@ -463,6 +451,31 @@
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                
                            }];
+}
+
+
+// common for Banner / Interstitial RTB and SSM.
+
+-(CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
+                                 Height:(NSString *)height
+{
+    
+    // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
+    CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
+    CGSize requestedSize = [self getAdSizeFromDelegate];
+    
+    CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
+    CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
+    
+    if (!CGRectContainsRect(requestedRect, receivedRect)) {
+        ANLogInfo(@"adsize_too_big %d%d%d%d",   (int)receivedRect.size.width,  (int)receivedRect.size.height,
+                  (int)requestedRect.size.width, (int)requestedRect.size.height );
+    }
+    
+    CGSize sizeOfCreative = (    (receivedSize.width > 0)
+                             && (receivedSize.height > 0)) ? receivedSize : requestedSize;
+    
+    return sizeOfCreative;
 }
 
 
