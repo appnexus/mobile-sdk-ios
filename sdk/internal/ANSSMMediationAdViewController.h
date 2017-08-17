@@ -1,4 +1,4 @@
-/*   Copyright 2016 APPNEXUS INC
+/*   Copyright 2013 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,14 +15,22 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ANSSMStandardAd : NSObject
+#import "ANSSMStandardAd.h"
+#import "ANUniversalAdFetcher.h"
 
-@property (nonatomic, readwrite, strong) NSString *urlString;
-@property (nonatomic, readwrite, strong) NSString *content;
-@property (nonatomic, readwrite, strong) NSString *height;
-@property (nonatomic, readwrite, strong) NSString *width;
-@property (nonatomic, readwrite, strong) NSString *responseURL;
 
-@property (nonatomic, readwrite, strong) NSArray<NSString *> *impressionUrls;
+@interface ANSSMMediationAdViewController : NSObject
 
+
+- (void)startTimeout;
+- (void)clearAdapter;
+
++ (ANSSMMediationAdViewController *)initMediatedAd:(ANSSMStandardAd *)ssmMediatedAd
+                                    withFetcher:(ANUniversalAdFetcher *)fetcher
+                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate;
+
+@end
+
+@interface ANSSMMediationAdViewController ()
+@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
 @end

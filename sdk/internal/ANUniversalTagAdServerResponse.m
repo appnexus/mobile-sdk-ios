@@ -373,6 +373,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:ssmObject];
                 standardAd.width = [banner[kANUniversalTagAdServerResponseKeyBannerWidth] description];
                 standardAd.height = [banner[kANUniversalTagAdServerResponseKeyBannerHeight] description];
+                standardAd.content = nil;
                 return standardAd;
             }
         }
