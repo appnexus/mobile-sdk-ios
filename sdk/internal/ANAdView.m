@@ -63,9 +63,11 @@
 @synthesize  customKeywords                         = __customKeywords;
 @synthesize  customKeywordsMap                      = __customKeywordsMap;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
-@synthesize  adSize                                 = __adSize;
-@synthesize  allowedAdSizes                         = __allowedAdSizes;
+
+// ANAdProtocolPrivate properties.
+//
 @synthesize  allowSmallerSizes                      = __allowSmallerSizes;
+
 
 
 #pragma mark - Initialization
@@ -98,10 +100,6 @@
     __customKeywords                         = [[NSMutableDictionary alloc] init];
     __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
     __landingPageLoadsInBackground           = YES;
-
-    __adSize             = APPNEXUS_SIZE_UNDEFINED;
-    __allowedAdSizes     = nil;
-    __allowSmallerSizes  = NO;
 }
 
 - (void)dealloc
@@ -416,15 +414,6 @@ ANLogMark();
             ANLogMarkMessage(@"FIRED TARGET urlString=%@", urlString);   //DEBUG
         }
     });
-}
-
-- (void) setupSizeParametersAs1x1
-{
-    CGSize  size1x1  = CGSizeMake(1, 1);
-
-    self.adSize             = size1x1;
-    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:size1x1]];
-    self.allowSmallerSizes  = NO;
 }
 
 @end

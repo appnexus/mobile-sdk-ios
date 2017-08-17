@@ -184,28 +184,28 @@ ANLogMark();
 
     
     //
-    CGSize                    adSize             = self.adFetcherDelegate.adSize;
-    NSMutableSet<NSValue *>  *allowedAdSizes     = [self.adFetcherDelegate.allowedAdSizes mutableCopy];
+    CGSize                    primarySize        = [self.adFetcherDelegate internalDelegateUniversalTagPrimarySize];
+    NSMutableSet<NSValue *>  *sizes              = [[self.adFetcherDelegate internalDelegateUniversalTagSizes] mutableCopy];
     BOOL                      allowSmallerSizes  = self.adFetcherDelegate.allowSmallerSizes;
 
     tagDict[@"primary_size"] = @{
-                                    @"width"  : @(adSize.width),
-                                    @"height" : @(adSize.height)
+                                    @"width"  : @(primarySize.width),
+                                    @"height" : @(primarySize.height)
                                 };
 
-    NSMutableArray  *sizesObjectArray  = [[NSMutableArray alloc] init];
+    NSMutableArray  *sizesArray  = [[NSMutableArray alloc] init];
 
-    for (id sizeValue in allowedAdSizes) {
-        if ([sizeValue isKindOfClass:[NSValue class]]) {
-            CGSize  size  = [sizeValue CGSizeValue];
-            [sizesObjectArray addObject:@{
-                                             @"width"  : @(size.width),
-                                             @"height" : @(size.height)
-                                         } ];
+    for (id sizeElement in sizes) {
+        if ([sizeElement isKindOfClass:[NSValue class]]) {
+            CGSize  sizeValue  = [sizeElement CGSizeValue];
+            [sizesArray addObject:@{
+                                     @"width"  : @(sizeValue.width),
+                                     @"height" : @(sizeValue.height)
+                                   } ];
         }
     }
 
-    tagDict[@"sizes"] = sizesObjectArray;
+    tagDict[@"sizes"] = sizesArray;
 
     tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
 

@@ -103,16 +103,6 @@
 @property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords __attribute((deprecated));
 
 /**
- Represents the width and height of the ad view.  
- This represents the Universal Tags (/ut/v2) field "primary_size".
-
- NOTE: 
-   In order for ads to display correctly, you must verify that your AppNexus placement is a ``sizeless'' placement.  
-   If you are seeing ads of a fixed size being squeezed into differently-sized views, you probably do not have a sizeless placement.
- */
-@property (nonatomic, readwrite, assign)  CGSize  adSize;
-
-/**
  Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */

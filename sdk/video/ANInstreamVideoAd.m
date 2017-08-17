@@ -45,6 +45,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     @property (nonatomic)  BOOL  isVideoTagReady;
     @property (nonatomic)  BOOL  didVideoTagFail;
 
+    //
+    @property (nonatomic)          CGSize                    size1x1;
+    @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 @end
 
 
@@ -79,7 +82,15 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     //
     return self;
 }
-    
+
+- (void) setupSizeParametersAs1x1
+{
+    self.size1x1 = CGSizeMake(1, 1);
+
+    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:self.size1x1]];
+    self.allowSmallerSizes  = NO;
+}
+
 
 
 
@@ -414,6 +425,17 @@ ANLogTrace(@"UNUSED");
 {
 ANLogTrace(@"");
     return  @[ @(ANAllowedMediaTypeVideo) ];
+
+}
+
+- (CGSize) internalDelegateUniversalTagPrimarySize
+{
+    return  self.size1x1;
+}
+
+- (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes
+{
+    return  self.allowedAdSizes;
 }
 
 

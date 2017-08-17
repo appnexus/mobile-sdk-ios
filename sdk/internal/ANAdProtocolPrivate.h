@@ -31,16 +31,6 @@
 
 @required
 /**
- This represents the Universal Tags (/ut/v2) field "sizes".
-
- The set of all allowed ad sizes for ANBannerAdView and ANInterstitialAd.
- The set should contain CGSize values wrapped as NSValue objects.
- 
- NB  We use set (NSMutableSet) internally even though we return an array (NSArray) via the API.  
- */
-@property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
-
-/**
  This represents the Universal Tags (/ut/v2) field "allow_smaller_sizes".
  */
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;

@@ -31,6 +31,4 @@
 
 - (void) fireTrackers: (NSArray<NSString *> *)trackerURLs;
 
-- (void) setupSizeParametersAs1x1;
-
 @end

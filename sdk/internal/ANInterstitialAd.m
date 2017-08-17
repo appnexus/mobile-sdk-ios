@@ -52,6 +52,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 @property (nonatomic, readwrite, strong)  NSMutableArray                  *precachedAdObjects;
 @property (nonatomic, readwrite, assign)  CGRect                           frame;
 
+@property (nonatomic)  CGSize  containerSize;
+
 @end
 
 
@@ -71,14 +73,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     _closeDelay           = kANInterstitialDefaultCloseButtonDelay;
     _opaque               = YES;
 
-    [self setupSizeParameters];
-}
-
-
-- (void) awakeFromNib
-{
-    [super awakeFromNib];
-    [self initialize];
     [self setupSizeParameters];
 }
 
@@ -109,12 +103,11 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (void) setupSizeParameters
 {
-    CGSize  containerSize  = self.frame.size;
+    self.containerSize  = self.frame.size;
 
     self.allowedAdSizes = [self getDefaultAllowedAdSizes];
-    [self.allowedAdSizes addObject:[NSValue valueWithCGSize:containerSize]];
+    [self.allowedAdSizes addObject:[NSValue valueWithCGSize:self.containerSize]];
 
-    self.adSize = containerSize;
     self.allowSmallerSizes = NO;
 }
 
@@ -373,6 +366,16 @@ ANLogMark();
 
 - (UIViewController *)displayController {
     return self.controller;
+}
+
+- (CGSize) internalDelegateUniversalTagPrimarySize
+{
+    return  self.containerSize;
+}
+
+- (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes
+{
+    return  self.allowedAdSizes;
 }
 
 

@@ -96,10 +96,20 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 
 /**
+ Represents the width and height of the ad view.
+ This represents the Universal Tags (/ut/v2) field "primary_size".
+
+ NOTE:
+ In order for ads to display correctly, you must verify that your AppNexus placement is a ``sizeless'' placement.
+ If you are seeing ads of a fixed size being squeezed into differently-sized views, you probably do not have a sizeless placement.
+ */
+@property (nonatomic, readwrite, assign)  CGSize  adSize;
+
+/**
  The set of allowed ad sizes for the banner ad.
+ This represents the Universal Tags (/ut/v2) field "sizes".
+
  The set should contain CGSize values wrapped as NSValue objects.
- NOTE: This is no longer a useful object, but has become a getter/setter interface for adSize and allowAdSizes.
-       Preserved during the adoption of Universal Tags to prevent changes to the existing API.
  */
 @property (nonatomic, readwrite, strong) NSArray<NSValue *> *adSizes;
 

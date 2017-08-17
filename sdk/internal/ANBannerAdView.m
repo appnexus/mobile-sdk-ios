@@ -44,8 +44,8 @@
 @synthesize  autoRefreshInterval  = __autoRefreshInterval;
 @synthesize  contentView          = _contentView;
 
-@synthesize  adSize               = __adSize;
-@synthesize  allowedAdSizes       = __allowedAdSizes;
+@synthesize  adSize               = _adSize;
+@synthesize  allowSmallerSizes    = __allowSmallerSizes;
 
 
 
@@ -60,6 +60,10 @@
     //
     __autoRefreshInterval  = kANBannerDefaultAutoRefreshInterval;
     _transitionDuration    = kAppNexusBannerAdTransitionDefaultDuration;
+
+    _adSize                 = APPNEXUS_SIZE_UNDEFINED;
+    _adSizes                = nil;
+    __allowSmallerSizes     = NO;
 }
 
 - (void)awakeFromNib {
@@ -127,6 +131,11 @@
 - (void)loadAd
 {
 ANLogMark();
+    if (CGSizeEqualToSize(self.adSize, APPNEXUS_SIZE_UNDEFINED))  {
+        self.adSizes            = @[ [NSValue valueWithCGSize:self.frame.size] ];
+        self.allowSmallerSizes  = YES;
+    }
+
     [super loadAd];
 }
 
@@ -135,42 +144,27 @@ ANLogMark();
 #pragma mark - Getter and Setter methods
 
 - (CGSize)adSize {
-    ANLogDebug(@"adSize returned %@", NSStringFromCGSize(__adSize));
-    return  __adSize;
+    ANLogDebug(@"adSize returned %@", NSStringFromCGSize(_adSize));
+    return  _adSize;
 }
 
 // adSize represents /ut/v2 "primary_size".
 //
-// Following the lead from historical /mob request:
-//   1) adSize represents an exact size, unless...
-//   2) adSize is zero (CGSizeZero), it represents the maximum size and zero is replaced with the current size of the display.
-//
 - (void)setAdSize:(CGSize)adSize
 {
-    BOOL  allowSmallerSizes  = NO;
+    if (CGSizeEqualToSize(adSize, _adSize)) { return; }
 
-    if (CGSizeEqualToSize(adSize, CGSizeZero)) {
-        adSize = self.frame.size;
-        allowSmallerSizes = YES;
+    if ((adSize.width <= 0) || (adSize.height <= 0))  {
+        ANLogError(@"Width and height of adSize must both be GREATER THAN ZERO.  (%@)", NSStringFromCGSize(adSize));
+        return;
     }
-
-    if (CGSizeEqualToSize(adSize, __adSize)) { return; }
 
     //
     self.adSizes = @[ [NSValue valueWithCGSize:adSize] ];
-    self.allowSmallerSizes = allowSmallerSizes;
 
-    ANLogDebug(@"Setting adSize to %@, %@ smaller sizes.",
-                   NSStringFromCGSize(adSize),
-                   self.allowSmallerSizes ? @"ALLOWING" : @"DISALLOWING"
-               );
+    ANLogDebug(@"Setting adSize to %@, NO smaller sizes.", NSStringFromCGSize(adSize));
 }
 
-
-- (NSArray<NSValue *> *) adSizes
-{
-    return  [self.allowedAdSizes allObjects];
-}
 
 // adSizes represents /ut/v2 "sizes".
 //
@@ -193,8 +187,8 @@ ANLogMark();
     }
 
     //
-    __adSize                = [adSizeAsValue CGSizeValue];
-    __allowedAdSizes        = [NSMutableSet setWithArray:adSizes];
+    _adSize                 = [adSizeAsValue CGSizeValue];
+    _adSizes                = [adSizes copy];
     self.allowSmallerSizes  = NO;
 }
 
@@ -359,6 +353,19 @@ ANLogMark();
         displayController = [self an_parentViewController];
     }
     return displayController;
+}
+
+- (CGSize) internalDelegateUniversalTagPrimarySize
+{
+    return  self.adSize;
+}
+
+- (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes
+{
+    NSMutableSet<NSValue *>  *adSizesSet  = [[NSMutableSet alloc] init];
+    [adSizesSet addObjectsFromArray:self.adSizes];
+
+    return  adSizesSet;
 }
 
 
