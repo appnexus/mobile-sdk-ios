@@ -136,6 +136,8 @@ ANLogMark();
         self.allowSmallerSizes  = YES;
     }
 
+    self.impressionTrackersFiredForCurrentContentView = NO;
+
     [super loadAd];
 }
 
