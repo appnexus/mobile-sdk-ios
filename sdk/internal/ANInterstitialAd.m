@@ -52,7 +52,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 @property (nonatomic, readwrite, strong)  NSMutableArray                  *precachedAdObjects;
 @property (nonatomic, readwrite, assign)  CGRect                           frame;
 
-@property (nonatomic)  CGSize  primarySize;
+@property (nonatomic)  CGSize  containerSize;
 
 @end
 
@@ -73,7 +73,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     _closeDelay           = kANInterstitialDefaultCloseButtonDelay;
     _opaque               = YES;
 
-    [self setupSizeParameters];
+    self.allowedAdSizes = [self getDefaultAllowedAdSizes];
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -98,17 +98,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (void)dealloc {
     self.controller.delegate = nil;
-}
-
-
-- (void) setupSizeParameters
-{
-    self.primarySize  = self.frame.size;
-
-    self.allowedAdSizes = [self getDefaultAllowedAdSizes];
-    [self.allowedAdSizes addObject:[NSValue valueWithCGSize:self.primarySize]];
-
-    self.allowSmallerSizes = NO;
 }
 
 - (NSMutableSet *) getDefaultAllowedAdSizes
@@ -141,9 +130,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (void)setAllowedAdSizes:(NSMutableSet<NSValue *> *)allowedAdSizes
 {
-    NSValue  *adSizeAsValue  = [allowedAdSizes anyObject];
-                                //FIX should we allow always the first object to be the primarySize?
-    if (!adSizeAsValue) {
+    if (!allowedAdSizes || ([allowedAdSizes count] <= 0)) {
         ANLogError(@"adSizes array IS EMPTY.");
         return;
     }
@@ -159,10 +146,11 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     }
 
     //
-    self.primarySize = [adSizeAsValue CGSizeValue];
+    self.containerSize  = self.frame.size;
 
     _allowedAdSizes = [[[NSSet alloc] initWithSet:allowedAdSizes copyItems:YES] mutableCopy];
     [_allowedAdSizes addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
+    [_allowedAdSizes addObject:[NSValue valueWithCGSize:self.containerSize]];
 
     self.allowSmallerSizes = NO;
 }
@@ -411,7 +399,7 @@ ANLogMark();
 
 - (CGSize) internalDelegateUniversalTagPrimarySize
 {
-    return  self.primarySize;
+    return  self.containerSize;
 }
 
 - (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes
