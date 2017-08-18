@@ -83,7 +83,7 @@
 @property (nonatomic, readwrite, assign) NSTimeInterval closeDelay;
 
 /**
- This represents the Universal Tags (/ut/v2) field "sizes".
+ The set of allowed ad sizes for the interstitial ad.
  The set should contain CGSize values wrapped as NSValue objects.
  */
 @property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;

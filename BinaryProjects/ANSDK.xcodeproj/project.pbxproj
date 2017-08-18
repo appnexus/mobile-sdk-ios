@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F1B9E291E5CDABE002FF0B4 /* ANInstreamVideoAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */; };
-		4F3D37B41F44B0B7008255C1 /* ANAdProtocolPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F3D37B31F44B0B7008255C1 /* ANAdProtocolPrivate.h */; };
+		4F3D37B41F44B0B7008255C1 /* ANAdProtocolPublicAndPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F3D37B31F44B0B7008255C1 /* ANAdProtocolPublicAndPrivate.h */; };
 		4F824CF61D909E1000AFC7EA /* LICENSE-MOPUB in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */; };
 		4F824CF71D909E1000AFC7EA /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CBA1D909E1000AFC7EA /* MPAdBrowserController.xib */; };
 		4F824CF81D909E1000AFC7EA /* MPCloseBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CC11D909E1000AFC7EA /* MPCloseBtn.png */; };
@@ -692,7 +692,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4F3D37B31F44B0B7008255C1 /* ANAdProtocolPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocolPrivate.h; sourceTree = "<group>"; };
+		4F3D37B31F44B0B7008255C1 /* ANAdProtocolPublicAndPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocolPublicAndPrivate.h; sourceTree = "<group>"; };
 		4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LICENSE-MOPUB"; sourceTree = "<group>"; };
 		4F824CB61D909E1000AFC7EA /* MoPub-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoPub-Bridging-Header.h"; sourceTree = "<group>"; };
 		4F824CB71D909E1000AFC7EA /* MoPub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoPub.h; sourceTree = "<group>"; };
@@ -1938,7 +1938,7 @@
 				8AD6189F1981C11F00AC0780 /* ANAdFetcher.m */,
 				8AF5A8791ACC60D50089C529 /* ANAdFetcherResponse.h */,
 				8AF5A87A1ACC60D50089C529 /* ANAdFetcherResponse.m */,
-				4F3D37B31F44B0B7008255C1 /* ANAdProtocolPrivate.h */,
+				4F3D37B31F44B0B7008255C1 /* ANAdProtocolPublicAndPrivate.h */,
 				8AF5A87B1ACC60D50089C529 /* ANAdServerResponse.h */,
 				8AF5A87C1ACC60D50089C529 /* ANAdServerResponse.m */,
 				8AD618A41981C11F00AC0780 /* ANAdView.m */,
@@ -2327,7 +2327,7 @@
 				8A9AEDCB1A1BF88200C58BDA /* ANAdFetcher.h in Headers */,
 				8AF5A87F1ACC60D50089C529 /* ANAdFetcherResponse.h in Headers */,
 				8A9AEDB21A1BE8C200C58BDA /* ANAdProtocol.h in Headers */,
-				4F3D37B41F44B0B7008255C1 /* ANAdProtocolPrivate.h in Headers */,
+				4F3D37B41F44B0B7008255C1 /* ANAdProtocolPublicAndPrivate.h in Headers */,
 				8AF5A8821ACC60D50089C529 /* ANAdServerResponse.h in Headers */,
 				8AE5E11E1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h in Headers */,
 				8A9AEDB31A1BE8C200C58BDA /* ANAdView.h in Headers */,

@@ -188,7 +188,7 @@ ANLogMark();
 
     //
     _adSize                 = [adSizeAsValue CGSizeValue];
-    _adSizes                = [adSizes copy];
+    _adSizes                = [[NSArray alloc] initWithArray:adSizes copyItems:YES];
     self.allowSmallerSizes  = NO;
 }
 

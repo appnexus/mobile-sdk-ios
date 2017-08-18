@@ -14,14 +14,13 @@
  */
 
 
-#import "ANAdProtocol.h"
-#import "ANAdProtocolPrivate.h"
+#import "ANAdProtocolPublicAndPrivate.h"
 #import "ANUniversalAdFetcher.h"
 
 
 
 
-@interface ANAdView : UIView <ANAdProtocol, ANAdProtocolPrivate>
+@interface ANAdView : UIView <ANAdProtocolPublicAndPrivate>
 
 @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
 

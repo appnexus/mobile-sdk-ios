@@ -14,20 +14,16 @@
  */
 
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "ANAdProtocol.h"
 
-#import "ANAdConstants.h"
-
-@class ANLocation;
 
 
 
 /**
- ANAdProtocolPrivate extends ANAdProtocol with objects essential the lifecycle of ad entry points, 
+ ANAdProtocolPublicAndPrivate extends ANAdProtocol with objects essential the lifecycle of ad entry points,
    but which should not appear in the public facing API.
  */
-@protocol ANAdProtocolPrivate <NSObject>
+@protocol ANAdProtocolPublicAndPrivate <ANAdProtocol>
 
 @required
 /**

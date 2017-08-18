@@ -52,7 +52,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 @property (nonatomic, readwrite, strong)  NSMutableArray                  *precachedAdObjects;
 @property (nonatomic, readwrite, assign)  CGRect                           frame;
 
-@property (nonatomic)  CGSize  containerSize;
+@property (nonatomic)  CGSize  primarySize;
 
 @end
 
@@ -103,10 +103,10 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (void) setupSizeParameters
 {
-    self.containerSize  = self.frame.size;
+    self.primarySize  = self.frame.size;
 
     self.allowedAdSizes = [self getDefaultAllowedAdSizes];
-    [self.allowedAdSizes addObject:[NSValue valueWithCGSize:self.containerSize]];
+    [self.allowedAdSizes addObject:[NSValue valueWithCGSize:self.primarySize]];
 
     self.allowSmallerSizes = NO;
 }
@@ -138,6 +138,34 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 
 #pragma mark - Setters and getters.
+
+- (void)setAllowedAdSizes:(NSMutableSet<NSValue *> *)allowedAdSizes
+{
+    NSValue  *adSizeAsValue  = [allowedAdSizes anyObject];
+                                //FIX should we allow always the first object to be the primarySize?
+    if (!adSizeAsValue) {
+        ANLogError(@"adSizes array IS EMPTY.");
+        return;
+    }
+
+    for (NSValue *valueElement in allowedAdSizes)
+    {
+        CGSize  sizeElement  = [valueElement CGSizeValue];
+
+        if ((sizeElement.width <= 0) || (sizeElement.height <= 0)) {
+            ANLogError(@"One or more elements assigned to allowedAdSizes have a width or height LESS THAN ZERO. (%@)", allowedAdSizes);
+            return;
+        }
+    }
+
+    //
+    self.primarySize = [adSizeAsValue CGSizeValue];
+
+    _allowedAdSizes = [[[NSSet alloc] initWithSet:allowedAdSizes copyItems:YES] mutableCopy];
+    [_allowedAdSizes addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
+
+    self.allowSmallerSizes = NO;
+}
 
 - (void)setCloseDelay:(NSTimeInterval)closeDelay {
     if (closeDelay > kANInterstitialMaximumCloseButtonDelay) {
@@ -383,7 +411,7 @@ ANLogMark();
 
 - (CGSize) internalDelegateUniversalTagPrimarySize
 {
-    return  self.containerSize;
+    return  self.primarySize;
 }
 
 - (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes
