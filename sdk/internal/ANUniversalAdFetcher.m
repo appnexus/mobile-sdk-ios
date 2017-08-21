@@ -30,6 +30,12 @@
 
 
 
+NSString * const  ANInternalDelgateTagKeyPrimarySize         = @"ANInternalDelgateTagKeyPrimarySize";
+NSString * const  ANInternalDelegateTagKeySizes              = @"ANInternalDelgateTagKeySizes";
+NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelgateTagKeyAllowSmallerSizes";
+
+
+
 @interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate>
 
 @property (nonatomic, readwrite, strong)  NSURLConnection  *connection;

@@ -73,7 +73,9 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     _closeDelay           = kANInterstitialDefaultCloseButtonDelay;
     _opaque               = YES;
 
-    self.allowedAdSizes = [self getDefaultAllowedAdSizes];
+    self.containerSize      = self.frame.size;
+    self.allowedAdSizes     = [self getDefaultAllowedAdSizes];
+    self.allowSmallerSizes  = NO;
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -118,8 +120,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         }
     }
 
-    [defaultAllowedSizes addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
-
     return defaultAllowedSizes;
 }
 
@@ -145,14 +145,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         }
     }
 
-    //
-    self.containerSize  = self.frame.size;
-
     _allowedAdSizes = [[[NSSet alloc] initWithSet:allowedAdSizes copyItems:YES] mutableCopy];
-    [_allowedAdSizes addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
-    [_allowedAdSizes addObject:[NSValue valueWithCGSize:self.containerSize]];
-
-    self.allowSmallerSizes = NO;
 }
 
 - (void)setCloseDelay:(NSTimeInterval)closeDelay {
@@ -280,6 +273,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
         //
         [self fireTrackers:impressionURLs];
+        impressionURLs = nil;
 
         [controller presentViewController:self.controller
                                  animated:YES
@@ -288,6 +282,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
     {
         [self fireTrackers:impressionURLs];
+        impressionURLs = nil;
         
         [adToShow presentFromViewController:controller];
 
@@ -397,14 +392,23 @@ ANLogMark();
     return self.controller;
 }
 
-- (CGSize) internalDelegateUniversalTagPrimarySize
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
-    return  self.containerSize;
-}
+    self.containerSize  = self.frame.size;
 
-- (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes
-{
-    return  self.allowedAdSizes;
+    NSMutableSet<NSValue *>  *allowedAdSizesForSDK  = [[[NSSet alloc] initWithSet:self.allowedAdSizes copyItems:YES] mutableCopy];
+    [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
+    [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:self.containerSize]];
+
+    self.allowSmallerSizes = NO;
+
+    //
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.containerSize]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:allowedAdSizesForSDK                          forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                     forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
 }
 
 

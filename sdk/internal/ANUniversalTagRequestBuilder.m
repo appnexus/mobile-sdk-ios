@@ -18,10 +18,10 @@
 #import "ANLogging.h"
 #import "ANReachability.h"
 #import "ANUniversalAdFetcher.h"
+#import "ANAdViewInternalDelegate.h"
 
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-
 
 
 
@@ -184,9 +184,11 @@ ANLogMark();
 
     
     //
-    CGSize                    primarySize        = [self.adFetcherDelegate internalDelegateUniversalTagPrimarySize];
-    NSMutableSet<NSValue *>  *sizes              = [[self.adFetcherDelegate internalDelegateUniversalTagSizes] mutableCopy];
-    BOOL                      allowSmallerSizes  = self.adFetcherDelegate.allowSmallerSizes;
+    NSDictionary             *delegateReturnDictionary  = [self.adFetcherDelegate internalDelegateUniversalTagSizeParameters];
+
+    CGSize                    primarySize               = [[delegateReturnDictionary  objectForKey:ANInternalDelgateTagKeyPrimarySize] CGSizeValue];
+    NSMutableSet<NSValue *>  *sizes                     = [delegateReturnDictionary   objectForKey:ANInternalDelegateTagKeySizes];
+    BOOL                      allowSmallerSizes         = [[delegateReturnDictionary  objectForKey:ANInternalDelegateTagKeyAllowSmallerSizes] boolValue];
 
     tagDict[@"primary_size"] = @{
                                     @"width"  : @(primarySize.width),

@@ -24,12 +24,13 @@
 
 static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http://mediation.adnxs.com/ut/v2";
 
+extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
+extern NSString * const  ANInternalDelegateTagKeySizes;
+extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 
 
 @protocol ANUniversalAdFetcherDelegate;
-
-
 
 @interface ANUniversalAdFetcher : NSObject
 

@@ -44,10 +44,12 @@
 - (void)adInteractionDidEnd;
 
 @optional
-// The following delegate methods for size values used with ad entry points banner, interstitial and video.
+// Delegate method for size values used with ad entry points banner, interstitial and video.
 //
-- (CGSize) internalDelegateUniversalTagPrimarySize;
-- (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes;
+// NB  Represents lazy evaluation as a means to get most current value of primarySize (from self.containerSize).
+//     Also collects all three size parameters at once to avoid synchronization issues.
+//
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
 @end
 

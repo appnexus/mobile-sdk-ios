@@ -98,8 +98,6 @@
     __customKeywords                         = [[NSMutableDictionary alloc] init];
     __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
     __landingPageLoadsInBackground           = YES;
-
-    _impressionTrackersFiredForCurrentContentView = NO;
 }
 
 - (void)dealloc
@@ -395,9 +393,6 @@ ANLogMark();
 {
     ANLogMark();
     if (!trackerURLs)  { return; }
-
-    if (self.impressionTrackersFiredForCurrentContentView)  { return; }
-    self.impressionTrackersFiredForCurrentContentView = YES;
 
 
     //

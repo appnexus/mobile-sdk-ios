@@ -19,12 +19,9 @@
 
 
 
-
 @interface ANAdView : UIView <ANAdProtocolPublicAndPrivate>
 
 @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
-
-@property (nonatomic)  BOOL  impressionTrackersFiredForCurrentContentView;
 
 
 //

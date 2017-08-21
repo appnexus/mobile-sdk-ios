@@ -131,13 +131,12 @@
 - (void)loadAd
 {
 ANLogMark();
+                /*
     if (CGSizeEqualToSize(self.adSize, APPNEXUS_SIZE_UNDEFINED))  {
         self.adSizes            = @[ [NSValue valueWithCGSize:self.frame.size] ];
         self.allowSmallerSizes  = YES;
     }
-
-    self.impressionTrackersFiredForCurrentContentView = NO;
-
+            */
     [super loadAd];
 }
 
@@ -305,8 +304,9 @@ ANLogMark();
             self.contentView = contentView;
             [self adDidReceiveAd];
 
-            if ([self an_isViewable])  {
+            if (self.window)  {
                 [self fireTrackers:self.impressionURLs];
+                self.impressionURLs = nil;
             }
         }
         else {
@@ -322,8 +322,6 @@ ANLogMark();
 
     if (error) {
         self.contentView = nil;
-        self.impressionTrackersFiredForCurrentContentView = NO;
-        
         [self adRequestFailedWithError:error];
     }
 }
@@ -359,17 +357,24 @@ ANLogMark();
     return displayController;
 }
 
-- (CGSize) internalDelegateUniversalTagPrimarySize
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
-    return  self.adSize;
-}
+    CGSize  containerSize  = self.adSize;
 
-- (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes
-{
-    NSMutableSet<NSValue *>  *adSizesSet  = [[NSMutableSet alloc] init];
-    [adSizesSet addObjectsFromArray:self.adSizes];
+    if (CGSizeEqualToSize(self.adSize, APPNEXUS_SIZE_UNDEFINED))
+    {
+        containerSize           = self.frame.size;
+        self.adSizes            = @[ [NSValue valueWithCGSize:containerSize] ];
+        self.allowSmallerSizes  = YES;
+    }
 
-    return  adSizesSet;
+    //
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:containerSize]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.adSizes                             forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
 }
 
 
@@ -381,6 +386,7 @@ ANLogMark();
 {
     if (self.contentView) {
         [self fireTrackers:self.impressionURLs];
+        self.impressionURLs = nil;
     }
 }
 

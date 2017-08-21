@@ -428,14 +428,14 @@ ANLogTrace(@"");
 
 }
 
-- (CGSize) internalDelegateUniversalTagPrimarySize
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
-    return  self.size1x1;
-}
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
 
-- (NSMutableSet<NSValue *> *) internalDelegateUniversalTagSizes
-{
-    return  self.allowedAdSizes;
+    return  delegateReturnDictionary;
 }
 
 

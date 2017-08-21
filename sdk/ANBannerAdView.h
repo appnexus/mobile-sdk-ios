@@ -106,8 +106,6 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 /**
  The set of allowed ad sizes for the banner ad.
- This represents the Universal Tags (/ut/v2) field "sizes".
-
  The set should contain CGSize values wrapped as NSValue objects.
  */
 @property (nonatomic, readwrite, strong) NSArray<NSValue *> *adSizes;
