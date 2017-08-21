@@ -13,10 +13,10 @@
  limitations under the License.
  */
 
-#import "ANNativeImpressionTrackerInfo.h"
+#import "ANTrackerInfo.h"
 #import "NSTimer+ANCategory.h"
 
-@interface ANNativeImpressionTrackerInfo()
+@interface ANTrackerInfo()
 
 @property (nonatomic, readwrite, strong) NSURL *URL;
 @property (nonatomic, readwrite, strong) NSDate *dateCreated;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation ANNativeImpressionTrackerInfo
+@implementation ANTrackerInfo
 
 - (instancetype)initWithURL:(NSURL *)URL {
     if (!URL) {
@@ -40,10 +40,10 @@
 }
 
 - (void)createExpirationTimer {
-    __weak ANNativeImpressionTrackerInfo *weakSelf = self;
+    __weak ANTrackerInfo *weakSelf = self;
     self.expirationTimer = [NSTimer an_scheduledTimerWithTimeInterval:kANNativeImpressionTrackerExpirationInterval
                                                                 block:^{
-                                                                    ANNativeImpressionTrackerInfo *strongSelf = weakSelf;
+                                                                    ANTrackerInfo *strongSelf = weakSelf;
                                                                     strongSelf.expired = YES;
                                                                 }
                                                               repeats:NO];

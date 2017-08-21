@@ -17,7 +17,7 @@
 
 static NSTimeInterval const kANNativeImpressionTrackerExpirationInterval = 3600;
 
-@interface ANNativeImpressionTrackerInfo : NSObject
+@interface ANTrackerInfo : NSObject
 
 - (instancetype)initWithURL:(NSURL *)URL;
 

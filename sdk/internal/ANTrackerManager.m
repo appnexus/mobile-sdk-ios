@@ -13,15 +13,15 @@
  limitations under the License.
  */
 
-#import "ANNativeImpressionTrackerManager.h"
+#import "ANTrackerManager.h"
 #import "ANReachability.h"
-#import "ANNativeImpressionTrackerInfo.h"
+#import "ANTrackerInfo.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
 #import "NSTimer+ANCategory.h"
 
-@interface ANNativeImpressionTrackerManager ()
+@interface ANTrackerManager ()
 
 @property (nonatomic, readwrite, strong) NSMutableArray *trackerArray;
 @property (nonatomic, readwrite, strong) ANReachability *internetReachability;
@@ -32,24 +32,24 @@
 
 @end
 
-@implementation ANNativeImpressionTrackerManager
+@implementation ANTrackerManager
 
 + (instancetype)sharedManager {
-    static ANNativeImpressionTrackerManager *manager;
+    static ANTrackerManager *manager;
     static dispatch_once_t managerToken;
     dispatch_once(&managerToken, ^{
-        manager = [[ANNativeImpressionTrackerManager alloc] init];
+        manager = [[ANTrackerManager alloc] init];
     });
     return manager;
 }
 
 + (void)fireImpressionTrackerURLArray:(NSArray *)arrayWithURLs {
-    ANNativeImpressionTrackerManager *manager = [[self class] sharedManager];
+    ANTrackerManager *manager = [[self class] sharedManager];
     [manager fireImpressionTrackerURLArray:arrayWithURLs];
 }
 
 + (void)fireImpressionTrackerURL:(NSURL *)URL {
-    ANNativeImpressionTrackerManager *manager = [[self class] sharedManager];
+    ANTrackerManager *manager = [[self class] sharedManager];
     [manager fireImpressionTrackerURL:URL];
 }
 
@@ -66,11 +66,11 @@
     if (self.internetIsReachable) {
         ANLogDebug(@"Internet is reachable - Firing impression trackers %@", arrayWithURLs);
         [arrayWithURLs enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger idx, BOOL *stop) {
-            __weak ANNativeImpressionTrackerManager *weakSelf = self;
+            __weak ANTrackerManager *weakSelf = self;
             [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
                                                queue:[NSOperationQueue mainQueue]
                                    completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                                       ANNativeImpressionTrackerManager *strongSelf = weakSelf;
+                                       ANTrackerManager *strongSelf = weakSelf;
                                        if (connectionError) {
                                            ANLogDebug(@"Connection error - queing impression tracker for firing later %@", URL);
                                            [strongSelf queueImpressionTrackerURLForRetry:URL];
@@ -110,13 +110,13 @@
             [self.impressionTrackerRetryTimer invalidate];
         }
     }
-    __weak ANNativeImpressionTrackerManager *weakSelf = self;
-    [trackerArrayCopy enumerateObjectsUsingBlock:^(ANNativeImpressionTrackerInfo *info, NSUInteger idx, BOOL *stop) {
+    __weak ANTrackerManager *weakSelf = self;
+    [trackerArrayCopy enumerateObjectsUsingBlock:^(ANTrackerInfo *info, NSUInteger idx, BOOL *stop) {
         if (!info.isExpired) {
             [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(info.URL)
                                                queue:[NSOperationQueue mainQueue]
                                    completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                                       ANNativeImpressionTrackerManager *strongSelf = weakSelf;
+                                       ANTrackerManager *strongSelf = weakSelf;
                                        if (connectionError) {
                                            ANLogDebug(@"Connection error - queing impression tracker for firing later %@", info.URL);
                                            info.numberOfTimesFired += 1;
@@ -135,7 +135,7 @@
 }
 
 - (void)queueImpressionTrackerURLForRetry:(NSURL *)URL {
-    ANNativeImpressionTrackerInfo *trackerInfo = [[ANNativeImpressionTrackerInfo alloc] initWithURL:URL];
+    ANTrackerInfo *trackerInfo = [[ANTrackerInfo alloc] initWithURL:URL];
     @synchronized(self) {
         [self.trackerArray addObject:trackerInfo];
         [self scheduleRetryTimerIfNecessary];
@@ -144,10 +144,10 @@
 
 - (void)scheduleRetryTimerIfNecessary {
     if (![self.impressionTrackerRetryTimer an_isScheduled]) {
-        __weak ANNativeImpressionTrackerManager *weakSelf = self;
+        __weak ANTrackerManager *weakSelf = self;
         self.impressionTrackerRetryTimer = [NSTimer an_scheduledTimerWithTimeInterval:kANNativeImpressionTrackerManagerRetryInterval
                                                                                 block:^{
-                                                                                    ANNativeImpressionTrackerManager *strongSelf = weakSelf;
+                                                                                    ANTrackerManager *strongSelf = weakSelf;
                                                                                     [strongSelf retryImpressionTrackerFires];
                                                                                 }
                                                                               repeats:YES];

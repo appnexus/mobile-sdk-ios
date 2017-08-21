@@ -31,6 +31,8 @@
 		4F824D091D909E1000AFC7EA /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */; };
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
 		4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */; };
+		4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */; };
+		4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */; };
 		601BDD7B1E2FCA26002698D7 /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */; };
 		601BDD7C1E2FCA26002698D7 /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */; };
 		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
@@ -131,7 +133,6 @@
 		8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E871A44A62A003CE77A /* interstitial_flat_closebox@2x.png */; };
 		8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */; };
 		8A7FB9511B0527E800C90859 /* ANAdAdapterBaseChartboost.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A949AD21ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.h */; };
-		8A82FDF61A30F36C00A267A0 /* ANNativeImpressionTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */; };
 		8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A8DEFA21AD5C03D00742AD7 /* ANAdAdapterBaseInMobi.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AA5B4E51AA8B7F800522E1C /* ANAdAdapterBaseInMobi.h */; };
 		8A8DEFA31AD5C04700742AD7 /* ANAdAdapterBaseAdColony.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */; };
@@ -315,9 +316,6 @@
 		8AE7AD9E1A7AC4E5009E2F2F /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE7AD9D1A7AC4E5009E2F2F /* EventKitUI.framework */; };
 		8AE7AD9F1A7AC4F6009E2F2F /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7C5371A3B5CEF00AA5548 /* ANAdWebViewController.m */; };
 		8AF366BD19D492F30097019F /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
-		8AF3C19D1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3C19B1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m */; };
-		8AF3C19F1A3631460018FB6A /* ANNativeImpressionTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */; };
-		8AF3C1A01A3631490018FB6A /* ANNativeImpressionTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3C19B1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m */; };
 		8AF5A87F1ACC60D50089C529 /* ANAdFetcherResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AF5A8791ACC60D50089C529 /* ANAdFetcherResponse.h */; };
 		8AF5A8801ACC60D50089C529 /* ANAdFetcherResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5A87A1ACC60D50089C529 /* ANAdFetcherResponse.m */; };
 		8AF5A8811ACC60D50089C529 /* ANAdFetcherResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5A87A1ACC60D50089C529 /* ANAdFetcherResponse.m */; };
@@ -758,6 +756,10 @@
 		4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F824CF41D909E1000AFC7EA /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdColony.framework; path = "../../../../../../../../../../../../user/project/sprint/july/src/AdColony-iOS-SDK-3/AdColony.framework"; sourceTree = "<group>"; };
+		4FA566E71F4B94D3004652AB /* ANTrackerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerInfo.h; sourceTree = "<group>"; };
+		4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerInfo.m; sourceTree = "<group>"; };
+		4FA566E91F4B94D3004652AB /* ANTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerManager.h; sourceTree = "<group>"; };
+		4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManager.m; sourceTree = "<group>"; };
 		601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = ../RubiconSDK/RFMAdSDK.bundle; sourceTree = "<group>"; };
 		601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RFMAdSDK.framework; path = ../RubiconSDK/RFMAdSDK.framework; sourceTree = "<group>"; };
 		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -903,8 +905,6 @@
 		8A6D2E841A44A5D3003CE77A /* interstitial_flat_closebox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_flat_closebox@3x.png"; sourceTree = "<group>"; };
 		8A6D2E871A44A62A003CE77A /* interstitial_flat_closebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_flat_closebox@2x.png"; sourceTree = "<group>"; };
 		8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interstitial_flat_closebox.png; sourceTree = "<group>"; };
-		8A82FDF31A30F36B00A267A0 /* ANNativeImpressionTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeImpressionTrackerManager.h; sourceTree = "<group>"; };
-		8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeImpressionTrackerManager.m; sourceTree = "<group>"; };
 		8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdResponse+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A8DEF891AD58EC900742AD7 /* ANAdAdapterBaseAdColony+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAdColony+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdColony.h; sourceTree = "<group>"; };
@@ -1113,8 +1113,6 @@
 		8AE87A071BDAD044001053D2 /* IMSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMSdk.h; sourceTree = "<group>"; };
 		8AEA6BE71A0BEEF5009DB71B /* ANNativeAdTargetingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdTargetingProtocol.h; path = native/ANNativeAdTargetingProtocol.h; sourceTree = "<group>"; };
 		8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdDelegate.h; path = native/ANNativeAdDelegate.h; sourceTree = "<group>"; };
-		8AF3C19A1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeImpressionTrackerInfo.h; sourceTree = "<group>"; };
-		8AF3C19B1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeImpressionTrackerInfo.m; sourceTree = "<group>"; };
 		8AF5A8791ACC60D50089C529 /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
 		8AF5A87A1ACC60D50089C529 /* ANAdFetcherResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcherResponse.m; sourceTree = "<group>"; };
 		8AF5A87B1ACC60D50089C529 /* ANAdServerResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdServerResponse.h; sourceTree = "<group>"; };
@@ -1867,10 +1865,6 @@
 				8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */,
 				8AB876261A0994310022D9A5 /* ANNativeAdResponse.m */,
 				8AB876221A0994310022D9A5 /* ANNativeAdStarRating.m */,
-				8AF3C19A1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.h */,
-				8AF3C19B1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m */,
-				8A82FDF31A30F36B00A267A0 /* ANNativeImpressionTrackerManager.h */,
-				8A82FDF41A30F36B00A267A0 /* ANNativeImpressionTrackerManager.m */,
 				8AB8762B1A0994310022D9A5 /* ANNativeMediatedAdController.h */,
 				8AB8762C1A0994310022D9A5 /* ANNativeMediatedAdController.m */,
 				8AB8762E1A0994310022D9A5 /* ANNativeMediatedAdResponse.m */,
@@ -1930,6 +1924,10 @@
 		8AD6189D1981C11F00AC0780 /* internal */ = {
 			isa = PBXGroup;
 			children = (
+				4FA566E71F4B94D3004652AB /* ANTrackerInfo.h */,
+				4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */,
+				4FA566E91F4B94D3004652AB /* ANTrackerManager.h */,
+				4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */,
 				4FE7CE791F2FD70C00A5044A /* adHandlers */,
 				8A02D6F81D6CE946006831A3 /* config */,
 				8AC65F361A40DE63006BCF39 /* MRAID */,
@@ -3122,8 +3120,6 @@
 				8A9AEE091A1BF99D00C58BDA /* ANNativeAdRequestUrlBuilder.m in Sources */,
 				8A9AEE0A1A1BF99D00C58BDA /* ANNativeAdResponse.m in Sources */,
 				8A9AEE0B1A1BF99D00C58BDA /* ANNativeAdStarRating.m in Sources */,
-				8AF3C1A01A3631490018FB6A /* ANNativeImpressionTrackerInfo.m in Sources */,
-				8AF3C19F1A3631460018FB6A /* ANNativeImpressionTrackerManager.m in Sources */,
 				8A9AEE0D1A1BF99D00C58BDA /* ANNativeMediatedAdController.m in Sources */,
 				8A9AEE0E1A1BF99D00C58BDA /* ANNativeMediatedAdResponse.m in Sources */,
 				8A598F8D1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */,
@@ -3248,6 +3244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AD618CB1981C11F00AC0780 /* ANAdFetcher.m in Sources */,
+				4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */,
 				8AF5A8801ACC60D50089C529 /* ANAdFetcherResponse.m in Sources */,
 				8AF5A8831ACC60D50089C529 /* ANAdServerResponse.m in Sources */,
 				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
@@ -3264,6 +3261,7 @@
 				8AD618D61981C11F00AC0780 /* ANInterstitialAdViewController.m in Sources */,
 				8AD618D71981C11F00AC0780 /* ANLocation.m in Sources */,
 				8AD618D81981C11F00AC0780 /* ANLogging.m in Sources */,
+				4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */,
 				8AD618D91981C11F00AC0780 /* ANLogManager.m in Sources */,
 				8AD618DA1981C11F00AC0780 /* ANMediatedAd.m in Sources */,
 				8AD618DB1981C11F00AC0780 /* ANMediationAdViewController.m in Sources */,
@@ -3284,8 +3282,6 @@
 				8A6385E31A14336000280054 /* ANNativeAdRequestUrlBuilder.m in Sources */,
 				8A6385E41A14336000280054 /* ANNativeAdResponse.m in Sources */,
 				8A6385E11A14336000280054 /* ANNativeAdStarRating.m in Sources */,
-				8AF3C19D1A361CC30018FB6A /* ANNativeImpressionTrackerInfo.m in Sources */,
-				8A82FDF61A30F36C00A267A0 /* ANNativeImpressionTrackerManager.m in Sources */,
 				8A6385E61A14336000280054 /* ANNativeMediatedAdController.m in Sources */,
 				8A6385E71A14336000280054 /* ANNativeMediatedAdResponse.m in Sources */,
 				8A598F8C1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */,

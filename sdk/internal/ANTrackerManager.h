@@ -18,7 +18,7 @@
 static const NSUInteger kANNativeImpressionTrackerManagerMaximumNumberOfRetries = 3;
 static const NSTimeInterval kANNativeImpressionTrackerManagerRetryInterval = 300;
 
-@interface ANNativeImpressionTrackerManager : NSObject
+@interface ANTrackerManager : NSObject
 
 + (instancetype)sharedManager;
 + (void)fireImpressionTrackerURLArray:(NSArray *)arrayWithURLs;
