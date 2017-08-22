@@ -23,6 +23,7 @@
 #import "ANPBBuffer.h"
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
+#import "ANTrackerManager.h"
 
 
 
@@ -272,7 +273,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         }
 
         //
-        [self fireTrackers:impressionURLs];
+        [ANTrackerManager fireTrackerURLArray:impressionURLs];
         impressionURLs = nil;
 
         [controller presentViewController:self.controller
@@ -281,7 +282,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
     {
-        [self fireTrackers:impressionURLs];
+        [ANTrackerManager fireTrackerURLArray:impressionURLs];
         impressionURLs = nil;
         
         [adToShow presentFromViewController:controller];

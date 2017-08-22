@@ -19,7 +19,6 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANAdServerResponse.h"
 
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
@@ -384,35 +383,6 @@ ANLogMark();
     return nil;
 }
 
-
-
-
-#pragma mark - Support for subclasses.
-
-- (void) fireTrackers: (NSArray<NSString *> *)trackerURLs
-{
-    ANLogMark();
-    if (!trackerURLs)  { return; }
-
-
-    //
-    NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire tracker URLs.", __PRETTY_FUNCTION__];
-    dispatch_queue_t   backgroundQueue      = dispatch_queue_create([backgroundQueueName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
-
-    dispatch_async(backgroundQueue, ^{
-        for (NSString *urlString in trackerURLs)
-        {
-            NSURLSessionDataTask  *dataTask =
-            [[NSURLSession sharedSession] dataTaskWithURL: [NSURL URLWithString:urlString]
-                                        completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                            ANLogMarkMessage(@"\n\tdata=%@ \n\tresponse=%@ \n\terror=%@", data, response, error);   //DEBUG
-                                        }];
-            [dataTask resume];
-
-            ANLogMarkMessage(@"FIRE TRACKER urlString=%@", urlString);   //DEBUG
-        }
-    });
-}
 
 @end
 

@@ -16,18 +16,22 @@
 #import "ANTrackerInfo.h"
 #import "NSTimer+ANCategory.h"
 
+
+
 @interface ANTrackerInfo()
 
-@property (nonatomic, readwrite, strong) NSURL *URL;
+@property (nonatomic, readwrite, strong) NSString *URL;
 @property (nonatomic, readwrite, strong) NSDate *dateCreated;
 @property (nonatomic, readwrite, assign, getter=isExpired) BOOL expired;
 @property (nonatomic, readwrite, strong) NSTimer *expirationTimer;
 
 @end
 
+
+
 @implementation ANTrackerInfo
 
-- (instancetype)initWithURL:(NSURL *)URL {
+- (instancetype)initWithURL:(NSString *)URL {
     if (!URL) {
         return nil;
     }
@@ -41,7 +45,7 @@
 
 - (void)createExpirationTimer {
     __weak ANTrackerInfo *weakSelf = self;
-    self.expirationTimer = [NSTimer an_scheduledTimerWithTimeInterval:kANNativeImpressionTrackerExpirationInterval
+    self.expirationTimer = [NSTimer an_scheduledTimerWithTimeInterval:kANTrackerExpirationInterval
                                                                 block:^{
                                                                     ANTrackerInfo *strongSelf = weakSelf;
                                                                     strongSelf.expired = YES;

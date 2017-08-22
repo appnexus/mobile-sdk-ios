@@ -319,17 +319,20 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
             }];
             nativeAd.clickTrackers = [clickTrackURLs copy];
         }
-        if ([nativeAdDict[kANAdServerResponseKeyNativeImpTrackArray] isKindOfClass:[NSArray class]]) {
+
+        if ([nativeAdDict[kANAdServerResponseKeyNativeImpTrackArray] isKindOfClass:[NSArray class]])
+        {
             NSArray *impTrackerArray = nativeAdDict[kANAdServerResponseKeyNativeImpTrackArray];
             NSMutableArray *impTrackURLs = [[NSMutableArray alloc] initWithCapacity:impTrackerArray.count];
             [impTrackerArray enumerateObjectsUsingBlock:^(id impTrackerElement, NSUInteger idx, BOOL *stop) {
-                NSURL *impURL = [NSURL URLWithString:[impTrackerElement description]];
+                NSString *impURL = [impTrackerElement description];
                 if (impURL) {
                     [impTrackURLs addObject:impURL];
                 }
             }];
             nativeAd.impTrackers = [impTrackURLs copy];
         }
+
         if ([nativeAdDict[kANAdServerResponseKeyNativeCustomKeywordsDict] isKindOfClass:[NSDictionary class]]) {
             nativeAd.customElements = (NSDictionary *)nativeAdDict[kANAdServerResponseKeyNativeCustomKeywordsDict];
         }

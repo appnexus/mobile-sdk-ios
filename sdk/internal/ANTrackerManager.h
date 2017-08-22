@@ -15,13 +15,23 @@
 
 #import <Foundation/Foundation.h>
 
-static const NSUInteger kANNativeImpressionTrackerManagerMaximumNumberOfRetries = 3;
-static const NSTimeInterval kANNativeImpressionTrackerManagerRetryInterval = 300;
+
+static const  NSUInteger      kANTrackerManagerMaximumNumberOfRetries  = 3;
+static const  NSTimeInterval  kANTrackerManagerRetryInterval           = 300;
+
+
 
 @interface ANTrackerManager : NSObject
 
 + (instancetype)sharedManager;
-+ (void)fireImpressionTrackerURLArray:(NSArray *)arrayWithURLs;
-+ (void)fireImpressionTrackerURL:(NSURL *)URL;
+
++ (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs
+                  skipRetry: (BOOL)skipRetry;
++ (void)fireTrackerURLArray:(NSArray<NSString *> *)arrayWithURLs;
+
++ (void)fireTrackerURL: (NSString *)URL
+             skipRetry: (BOOL)skipRetry;
++ (void)fireTrackerURL:(NSString *)URL;
 
 @end
+

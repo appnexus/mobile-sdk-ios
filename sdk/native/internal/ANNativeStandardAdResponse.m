@@ -112,7 +112,7 @@
 
 - (void)fireImpTrackers {
     if (self.impTrackers) {
-        [ANTrackerManager fireImpressionTrackerURLArray:self.impTrackers];
+        [ANTrackerManager fireTrackerURLArray:self.impTrackers];
     }
 }
 

@@ -19,12 +19,12 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMRAIDContainerView.h"
+#import "ANTrackerManager.h"
 
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 #import "ANBannerAdView+ANContentViewTransitions.h"
 #import "ANAdView+PrivateMethods.h"
-
 
 
 
@@ -131,12 +131,6 @@
 - (void)loadAd
 {
 ANLogMark();
-                /*
-    if (CGSizeEqualToSize(self.adSize, APPNEXUS_SIZE_UNDEFINED))  {
-        self.adSizes            = @[ [NSValue valueWithCGSize:self.frame.size] ];
-        self.allowSmallerSizes  = YES;
-    }
-            */
     [super loadAd];
 }
 
@@ -305,7 +299,7 @@ ANLogMark();
             [self adDidReceiveAd];
 
             if (self.window)  {
-                [self fireTrackers:self.impressionURLs];
+                [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
                 self.impressionURLs = nil;
             }
         }
@@ -385,7 +379,7 @@ ANLogMark();
 - (void)didMoveToWindow
 {
     if (self.contentView) {
-        [self fireTrackers:self.impressionURLs];
+        [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
         self.impressionURLs = nil;
     }
 }
