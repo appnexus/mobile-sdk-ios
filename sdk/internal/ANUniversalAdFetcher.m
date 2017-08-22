@@ -28,6 +28,7 @@
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANSSMMediationAdViewController.h"
+#import "ANResponseURL.h"
 
 
 
@@ -407,17 +408,14 @@
 }
 
 
-- (void)fireResponseURL:(NSString *)responseURLString
+- (void)fireResponseURL:(ANResponseURL *)anResponseURL
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
               auctionID:(NSString *)auctionID
 {
-    ANLogMark();
-    NSURL *resultURL = [NSURL URLWithString:responseURLString];
-    
-    if ([responseURLString length] > 0) {
-        ANLogDebug(@"(response_url, %@)", resultURL);
-        [self fireTracker:resultURL];
+
+    if (anResponseURL) {
+        [anResponseURL performRequest];
     }
     
     if (reason == ANAdResponseSuccessful) {

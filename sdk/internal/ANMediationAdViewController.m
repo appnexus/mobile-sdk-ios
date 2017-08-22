@@ -471,13 +471,14 @@ ANLogMark();
     // use queue to force return
     [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
-        NSString *responseURLString = [self createResponseURLRequest:self.mediatedAd.responseURL reason:errorCode];
+
+        ANResponseURL *anResponseURL = [ANResponseURL initWithURL:self.mediatedAd.responseURL reasonCode:errorCode latency:[self getLatency] * 1000 totoalLatency:[self getTotalLatency] * 1000];
 
         // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
         }
-        [fetcher fireResponseURL:responseURLString reason:errorCode adObject:adObject auctionID:auctionID];
+        [fetcher fireResponseURL:anResponseURL reason:errorCode adObject:adObject auctionID:auctionID];
     }];
 }
 
@@ -489,40 +490,6 @@ ANLogMark();
         block();
     });
 }
-
-- (NSString *)createResponseURLRequest:(NSString *)baseString reason:(int)reasonCode
-                    //FIX are latency values correct when medaition adapter is invoked but failes or timesout?
-{
-ANLogMark();
-    if ([baseString length] < 1) {
-        return @"";
-    }
-    
-    // append reason code
-    NSString *responseURLString = [baseString an_stringByAppendingUrlParameter: @"reason"
-                                                                      value: [NSString stringWithFormat:@"%d",reasonCode]];
-    
-    // append idfa
-    responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"idfa"
-                                                                value: ANUDID()];
-    
-    // append latency measurements
-    NSTimeInterval latency       = [self getLatency] * 1000; // secs to ms
-    NSTimeInterval totalLatency  = [self getTotalLatency] * 1000; // secs to ms
-    
-    if (latency > 0) {
-        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"latency"
-                                                                    value: [NSString stringWithFormat:@"%.0f", latency]];
-    }
-    if (totalLatency > 0) {
-        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"total_latency"
-                                                                    value :[NSString stringWithFormat:@"%.0f", totalLatency]];
-    }
-
-ANLogMarkMessage(@"responseURLString=%@", responseURLString);
-    return responseURLString;
-}
-
 
 
 #pragma mark - Timeout handler              

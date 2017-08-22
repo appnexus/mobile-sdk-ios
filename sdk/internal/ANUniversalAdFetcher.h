@@ -16,6 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "ANAdFetcher.h"
 #import "ANVideoAdProcessor.h"
+#import "ANResponseURL.h"
 
 
 
@@ -40,7 +41,7 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
                                   Height:(NSString *)height;
 
 
-- (void)fireResponseURL:(NSString *)responseURLString
+- (void)fireResponseURL:(ANResponseURL *)anResponseURL
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
               auctionID:(NSString *)auctionID;
