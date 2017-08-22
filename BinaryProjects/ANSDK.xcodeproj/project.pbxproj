@@ -1924,10 +1924,6 @@
 		8AD6189D1981C11F00AC0780 /* internal */ = {
 			isa = PBXGroup;
 			children = (
-				4FA566E71F4B94D3004652AB /* ANTrackerInfo.h */,
-				4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */,
-				4FA566E91F4B94D3004652AB /* ANTrackerManager.h */,
-				4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */,
 				4FE7CE791F2FD70C00A5044A /* adHandlers */,
 				8A02D6F81D6CE946006831A3 /* config */,
 				8AC65F361A40DE63006BCF39 /* MRAID */,
@@ -1976,6 +1972,10 @@
 				8ABF77571D08CE420068B535 /* ANStoreProductViewController.h */,
 				8ABF77581D08CE420068B535 /* ANStoreProductViewController.m */,
 				8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */,
+				4FA566E71F4B94D3004652AB /* ANTrackerInfo.h */,
+				4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */,
+				4FA566E91F4B94D3004652AB /* ANTrackerManager.h */,
+				4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */,
 				609732CA1E42E9860061EC0A /* ANVideoAdProcessor.h */,
 				609732CB1E42E9860061EC0A /* ANVideoAdProcessor.m */,
 			);
@@ -3244,7 +3244,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AD618CB1981C11F00AC0780 /* ANAdFetcher.m in Sources */,
-				4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */,
 				8AF5A8801ACC60D50089C529 /* ANAdFetcherResponse.m in Sources */,
 				8AF5A8831ACC60D50089C529 /* ANAdServerResponse.m in Sources */,
 				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
@@ -3261,7 +3260,6 @@
 				8AD618D61981C11F00AC0780 /* ANInterstitialAdViewController.m in Sources */,
 				8AD618D71981C11F00AC0780 /* ANLocation.m in Sources */,
 				8AD618D81981C11F00AC0780 /* ANLogging.m in Sources */,
-				4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */,
 				8AD618D91981C11F00AC0780 /* ANLogManager.m in Sources */,
 				8AD618DA1981C11F00AC0780 /* ANMediatedAd.m in Sources */,
 				8AD618DB1981C11F00AC0780 /* ANMediationAdViewController.m in Sources */,
@@ -3297,6 +3295,8 @@
 				8AF5A8861ACC60D50089C529 /* ANStandardAd.m in Sources */,
 				8ABF77591D08CE420068B535 /* ANStoreProductViewController.m in Sources */,
 				8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */,
+				4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */,
+				4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */,
 				609732CF1E42E9860061EC0A /* ANUniversalAdFetcher.m in Sources */,
 				609732D21E42E9860061EC0A /* ANUniversalTagAdServerResponse.m in Sources */,
 				609732D51E42E9860061EC0A /* ANUniversalTagRequestBuilder.m in Sources */,
