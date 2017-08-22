@@ -67,37 +67,22 @@
 #pragma mark - Public methods.
 
 + (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs
-                  skipRetry: (BOOL)skipRetry
 {
-    [[self sharedManager] fireTrackerURLArray:arrayWithURLs skipRetry:skipRetry];
-}
-
-+ (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs
-{
-    [self fireTrackerURLArray:arrayWithURLs skipRetry:NO];
-}
-
-+ (void)fireTrackerURL: (NSString *)URL
-             skipRetry: (BOOL)skipRetry
-{
-    [[self sharedManager] fireTrackerURL:URL skipRetry:skipRetry];
+    [[self sharedManager] fireTrackerURLArray:arrayWithURLs];
 }
 
 + (void)fireTrackerURL: (NSString *)URL
 {
-    [self fireTrackerURL:URL skipRetry:NO];
+    [[self sharedManager] fireTrackerURL:URL];
 }
 
 
 #pragma mark - Private methods.
 
 - (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs
-                  skipRetry: (BOOL)skipRetry
 {
     if (!self.internetIsReachable)
     {
-        if (skipRetry)  { return; }
-
         ANLogDebug(@"Internet IS UNREACHABLE - queing trackers for firing later: %@", arrayWithURLs);
 
         [arrayWithURLs enumerateObjectsUsingBlock:^(NSString *URL, NSUInteger idx, BOOL *stop) {
@@ -119,8 +104,6 @@
                                          completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
                                             {
                                                 if (error) {
-                                                    if (skipRetry)  { return; }
-
                                                     ANLogDebug(@"Internet REACHABILITY ERROR - queing tracker for firing later: %@", URL);
 
                                                     ANTrackerManager  *strongSelf  = weakSelf;
@@ -137,10 +120,9 @@
 }
 
 - (void)fireTrackerURL: (NSString *)URL
-             skipRetry: (BOOL)skipRetry
 {
     if (URL) {
-        [self fireTrackerURLArray:@[URL] skipRetry:skipRetry];
+        [self fireTrackerURLArray:@[URL]];
     }
 }
 

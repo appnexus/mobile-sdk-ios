@@ -25,12 +25,7 @@ static const  NSTimeInterval  kANTrackerManagerRetryInterval           = 300;
 
 + (instancetype)sharedManager;
 
-+ (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs
-                  skipRetry: (BOOL)skipRetry;
 + (void)fireTrackerURLArray:(NSArray<NSString *> *)arrayWithURLs;
-
-+ (void)fireTrackerURL: (NSString *)URL
-             skipRetry: (BOOL)skipRetry;
 + (void)fireTrackerURL:(NSString *)URL;
 
 @end
