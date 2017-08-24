@@ -18,16 +18,17 @@
 #import "ANLogging.h"
 #import "ANReachability.h"
 #import "ANUniversalAdFetcher.h"
+#import "ANAdViewInternalDelegate.h"
 
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 
 
-
 @interface ANUniversalTagRequestBuilder()
 
 @property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adFetcherDelegate;
+                                                                    //FIX rename to entryPointDelegate?
 @property (nonatomic) NSString *baseURLString;
 
 @end
@@ -183,76 +184,32 @@ ANLogMark();
 
     
     //
-    ANEntryPointType  entryPointType     = self.adFetcherDelegate.entryPointType;
-    CGSize            adSize             = self.adFetcherDelegate.adSize;
-    NSMutableSet<NSValue *>  *allowedAdSizes  = [self.adFetcherDelegate.allowedAdSizes mutableCopy];
-    BOOL              allowSmallerSizes  = NO;
+    NSDictionary             *delegateReturnDictionary  = [self.adFetcherDelegate internalDelegateUniversalTagSizeParameters];
 
-    if (nil == allowedAdSizes)  {
-        allowedAdSizes = [[NSMutableSet alloc] init];
-    }
-
-    switch (entryPointType)
-    {
-        case ANEntryPointTypeBannerAdView:
-            if (CGSizeEqualToSize(adSize, APPNEXUS_SIZE_ZERO))
-            {
-                adSize = [self.adFetcherDelegate frameSize];
-                allowSmallerSizes = YES;
-            } else {
-                allowSmallerSizes = NO;
-            }
-
-            [allowedAdSizes addObject:[NSValue valueWithCGSize:adSize]];
-            break;
-
-
-        case ANEntryPointTypeInterstitialAd:
-            adSize = [self.adFetcherDelegate frameSize];
-            break;
-
-
-        default:
-            ANLogError(@"UNRECOGNIZED ANEntryPointType.  (%lu)", (unsigned long)entryPointType);
-                                //FIX UT -- handle all known cases...
-    }
-
-
-    for (id element in self.adFetcherDelegate.adAllowedMediaTypes)
-    {
-        if (1 != [element integerValue])  {
-            [allowedAdSizes addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
-            break;
-        }
-    }
-
+    CGSize                    primarySize               = [[delegateReturnDictionary  objectForKey:ANInternalDelgateTagKeyPrimarySize] CGSizeValue];
+    NSMutableSet<NSValue *>  *sizes                     = [delegateReturnDictionary   objectForKey:ANInternalDelegateTagKeySizes];
+    BOOL                      allowSmallerSizes         = [[delegateReturnDictionary  objectForKey:ANInternalDelegateTagKeyAllowSmallerSizes] boolValue];
 
     tagDict[@"primary_size"] = @{
-                                    @"width"  : @(adSize.width),
-                                    @"height" : @(adSize.height)
+                                    @"width"  : @(primarySize.width),
+                                    @"height" : @(primarySize.height)
                                 };
-                    //FIX refactor?
 
-    NSMutableArray  *sizesObjectArray  = [[NSMutableArray alloc] init];
+    NSMutableArray  *sizesArray  = [[NSMutableArray alloc] init];
 
-    for (id sizeValue in allowedAdSizes) {
-        if ([sizeValue isKindOfClass:[NSValue class]]) {
-            CGSize  size  = [sizeValue CGSizeValue];
-            [sizesObjectArray addObject:@{
-                                             @"width"  : @(size.width),
-                                             @"height" : @(size.height)
-                                         } ];
+    for (id sizeElement in sizes) {
+        if ([sizeElement isKindOfClass:[NSValue class]]) {
+            CGSize  sizeValue  = [sizeElement CGSizeValue];
+            [sizesArray addObject:@{
+                                     @"width"  : @(sizeValue.width),
+                                     @"height" : @(sizeValue.height)
+                                   } ];
         }
     }
 
-    tagDict[@"sizes"] = sizesObjectArray;
-                    //FIX refactor?
+    tagDict[@"sizes"] = sizesArray;
 
-    // tag.allow_smaller_sizes indicates whether tag.primary_size is the maximum size requested (allowSmallerSizes=YES),
-    // or whether tag.primary_size is the exact size requested (allowSmallerSizes=NO).
-    //
     tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
-                    //FIX refactor?
 
 
     //

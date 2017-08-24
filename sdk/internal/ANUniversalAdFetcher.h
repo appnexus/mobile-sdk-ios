@@ -14,19 +14,23 @@
  */
 
 #import <Foundation/Foundation.h>
+
 #import "ANAdFetcher.h"
 #import "ANVideoAdProcessor.h"
+#import "ANUniversalTagAdServerResponse.h"
+
 
 
 
 static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http://mediation.adnxs.com/ut/v2";
 
+extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
+extern NSString * const  ANInternalDelegateTagKeySizes;
+extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 
 
 @protocol ANUniversalAdFetcherDelegate;
-
-
 
 @interface ANUniversalAdFetcher : NSObject
 
@@ -34,6 +38,8 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
 - (void)stopAdLoad;
 - (void) requestAd;
+
+- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 

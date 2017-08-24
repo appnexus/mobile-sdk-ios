@@ -15,17 +15,16 @@
 
 #import "ANBannerAdView.h"
 
-//#import "ANAdFetcher.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMRAIDContainerView.h"
+#import "ANTrackerManager.h"
 
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 #import "ANBannerAdView+ANContentViewTransitions.h"
 #import "ANAdView+PrivateMethods.h"
-
 
 
 
@@ -43,8 +42,10 @@
 @implementation ANBannerAdView
 
 @synthesize  autoRefreshInterval  = __autoRefreshInterval;
-@synthesize  adSize               = __adSize;
 @synthesize  contentView          = _contentView;
+
+@synthesize  adSize               = _adSize;
+@synthesize  allowSmallerSizes    = __allowSmallerSizes;
 
 
 
@@ -58,13 +59,16 @@
     // Defaults.
     //
     __autoRefreshInterval  = kANBannerDefaultAutoRefreshInterval;
-    __adSize               = APPNEXUS_SIZE_ZERO;
     _transitionDuration    = kAppNexusBannerAdTransitionDefaultDuration;
+
+    _adSize                 = APPNEXUS_SIZE_UNDEFINED;
+    _adSizes                = nil;
+    __allowSmallerSizes     = NO;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    __adSize = self.frame.size;
+    self.adSize = self.frame.size;
 }
 
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
@@ -135,26 +139,54 @@ ANLogMark();
 #pragma mark - Getter and Setter methods
 
 - (CGSize)adSize {
-    ANLogDebug(@"adSize returned %@", NSStringFromCGSize(__adSize));
-    return __adSize;
+    ANLogDebug(@"adSize returned %@", NSStringFromCGSize(_adSize));
+    return  _adSize;
 }
 
-- (void)setAdSize:(CGSize)adSize {
-    if (!CGSizeEqualToSize(adSize, __adSize)) {
-        ANLogDebug(@"Setting adSize to %@", NSStringFromCGSize(adSize));
-        __adSize = adSize;
+// adSize represents /ut/v2 "primary_size".
+//
+- (void)setAdSize:(CGSize)adSize
+{
+    if (CGSizeEqualToSize(adSize, _adSize)) { return; }
+
+    if ((adSize.width <= 0) || (adSize.height <= 0))  {
+        ANLogError(@"Width and height of adSize must both be GREATER THAN ZERO.  (%@)", NSStringFromCGSize(adSize));
+        return;
     }
+
+    //
+    self.adSizes = @[ [NSValue valueWithCGSize:adSize] ];
+
+    ANLogDebug(@"Setting adSize to %@, NO smaller sizes.", NSStringFromCGSize(adSize));
 }
 
-- (void)setAdSizes:(NSArray<NSValue *> *)adSizes {
-    _adSizes = adSizes;
-    if ([adSizes firstObject]) {
-        self.adSize = [[adSizes firstObject] CGSizeValue];
+
+// adSizes represents /ut/v2 "sizes".
+//
+- (void)setAdSizes:(NSArray<NSValue *> *)adSizes
+{
+    NSValue  *adSizeAsValue  = [adSizes firstObject];
+    if (!adSizeAsValue) {
+        ANLogError(@"adSizes array IS EMPTY.");
+        return;
     }
-    if ([adSizes count] > 1) {
-        self.allowedAdSizes = [[NSMutableSet<NSValue *> alloc] initWithArray:[adSizes subarrayWithRange:NSMakeRange(1, adSizes.count - 1)]];
+
+    for (NSValue *valueElement in adSizes)
+    {
+        CGSize  sizeElement  = [valueElement CGSizeValue];
+
+        if ((sizeElement.width <= 0) || (sizeElement.height <= 0)) {
+            ANLogError(@"One or more elements of adSizes have a width or height LESS THAN ZERO. (%@)", adSizes);
+            return;
+        }
     }
+
+    //
+    _adSize                 = [adSizeAsValue CGSizeValue];
+    _adSizes                = [[NSArray alloc] initWithArray:adSizes copyItems:YES];
+    self.allowSmallerSizes  = NO;
 }
+
 
 - (void)setAutoRefreshInterval:(NSTimeInterval)autoRefreshInterval {
     // if auto refresh is above the threshold (0), turn auto refresh on
@@ -266,8 +298,9 @@ ANLogMark();
             self.contentView = contentView;
             [self adDidReceiveAd];
 
-            if ([self an_isViewable])  {
-                [self fireTrackers:self.impressionURLs];
+            if (self.window)  {
+                [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+                self.impressionURLs = nil;
             }
         }
         else {
@@ -306,15 +339,9 @@ ANLogMark();
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-ANLogMark();
-    return  @[ @(1) ];
+    return  @[ @(ANAllowedMediaTypeBanner) ];
 }
 
-- (CGSize)adSizeValue
-{
-ANLogMark();
-    return  self.adSize;
-}
 
 - (UIViewController *)displayController {
     UIViewController *displayController = self.rootViewController;
@@ -324,8 +351,24 @@ ANLogMark();
     return displayController;
 }
 
-- (ANEntryPointType) entryPointType  {
-    return  ANEntryPointTypeBannerAdView;
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    CGSize  containerSize  = self.adSize;
+
+    if (CGSizeEqualToSize(self.adSize, APPNEXUS_SIZE_UNDEFINED))
+    {
+        containerSize           = self.frame.size;
+        self.adSizes            = @[ [NSValue valueWithCGSize:containerSize] ];
+        self.allowSmallerSizes  = YES;
+    }
+
+    //
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:containerSize]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.adSizes                             forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
 }
 
 
@@ -335,8 +378,10 @@ ANLogMark();
 
 - (void)didMoveToWindow
 {
-ANLogMark();
-    [self fireTrackers:self.impressionURLs];
+    if (self.contentView) {
+        [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+        self.impressionURLs = nil;
+    }
 }
 
 

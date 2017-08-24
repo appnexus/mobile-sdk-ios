@@ -34,7 +34,6 @@
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
 - (NSString *)adTypeForMRAID;
-- (ANEntryPointType) entryPointType;
 - (NSArray<NSValue *> *)adAllowedMediaTypes;
 
 - (UIViewController *)displayController;
@@ -45,9 +44,12 @@
 - (void)adInteractionDidEnd;
 
 @optional
-- (CGSize)adSizeValue;
-- (CGSize) frameSize;
-
+// Delegate method for size values used with ad entry points banner, interstitial and video.
+//
+// NB  Represents lazy evaluation as a means to get most current value of primarySize (from self.containerSize).
+//     Also collects all three size parameters at once to avoid synchronization issues.
+//
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
 @end
 

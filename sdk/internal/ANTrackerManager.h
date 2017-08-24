@@ -1,4 +1,4 @@
-/*   Copyright 2015 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,13 +14,19 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdFetcher.h"
+
+
+static const  NSUInteger      kANTrackerManagerMaximumNumberOfRetries  = 3;
+static const  NSTimeInterval  kANTrackerManagerRetryInterval           = 300;
 
 
 
-@interface ANUniversalTagRequestBuilder : NSObject
+@interface ANTrackerManager : NSObject
 
-+ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
-                                      baseUrlString:(NSString *)baseUrlString;
++ (instancetype)sharedManager;
+
++ (void)fireTrackerURLArray:(NSArray<NSString *> *)arrayWithURLs;
++ (void)fireTrackerURL:(NSString *)URL;
 
 @end
+

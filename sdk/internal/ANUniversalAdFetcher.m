@@ -16,7 +16,6 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "ANUniversalTagRequestBuilder.h"
-#import "ANUniversalTagAdServerResponse.h"
 
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"
@@ -28,6 +27,12 @@
 #import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
+
+
+
+NSString * const  ANInternalDelgateTagKeyPrimarySize         = @"ANInternalDelgateTagKeyPrimarySize";
+NSString * const  ANInternalDelegateTagKeySizes              = @"ANInternalDelgateTagKeySizes";
+NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelgateTagKeyAllowSmallerSizes";
 
 
 

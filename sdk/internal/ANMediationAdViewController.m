@@ -154,7 +154,6 @@ ANLogMark();
                          errorCode:(ANAdResponseCode)errorCode
                          errorInfo:(NSString *)errorInfo
 {
-ANLogMark();
     if ([errorInfo length] > 0) {
         ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
@@ -175,7 +174,6 @@ ANLogMark();
 
 
 - (void)setAdapter:adapter {
-ANLogMark();
     self.currentAdapter = adapter;
 }
 
@@ -266,7 +264,6 @@ ANLogMark();
 #pragma mark - Invalid Networks
 
 + (NSMutableSet *)bannerInvalidNetworks {
-    ANLogMark();
     static dispatch_once_t bannerInvalidNetworksToken;
     static NSMutableSet *bannerInvalidNetworks;
     dispatch_once(&bannerInvalidNetworksToken, ^{
@@ -276,7 +273,6 @@ ANLogMark();
 }
 
 + (NSMutableSet *)interstitialInvalidNetworks {
-    ANLogMark();
     static dispatch_once_t interstitialInvalidNetworksToken;
     static NSMutableSet *interstitialInvalidNetworks;
     dispatch_once(&interstitialInvalidNetworksToken, ^{
@@ -286,13 +282,11 @@ ANLogMark();
 }
 
 + (void)addBannerInvalidNetwork:(NSString *)network {
-    ANLogMark();
     NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] bannerInvalidNetworks];
     [invalidNetworks addObject:network];
 }
 
 + (void)addInterstitialInvalidNetwork:(NSString *)network {
-    ANLogMark();
     NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] interstitialInvalidNetworks];
     [invalidNetworks addObject:network];
 }
@@ -604,7 +598,6 @@ ANLogMark();
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-ANLogMark();
     if (object == self.adViewDelegate) {
         NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
         if ([transitionInProgress boolValue] == NO) {
@@ -615,7 +608,6 @@ ANLogMark();
 }
 
 - (void)registerForPitbullScreenCaptureNotifications {
-ANLogMark();
     if (!self.isRegisteredForPitbullScreenCaptureNotifications) {
         NSObject *object = self.adViewDelegate;
         [object addObserver:self
@@ -627,7 +619,6 @@ ANLogMark();
 }
 
 - (void)unregisterFromPitbullScreenCaptureNotifications {
-ANLogMark();
     if (self.isRegisteredForPitbullScreenCaptureNotifications) {
         NSObject *object = self.adViewDelegate;
         @try {
@@ -640,7 +631,6 @@ ANLogMark();
 }
 
 - (void)dispatchPitbullScreenCapture {
-ANLogMark();
     if (self.pitbullAdForDelayedCapture) {
         [self.pitbullAdForDelayedCapture enumerateKeysAndObjectsUsingBlock:^(NSString *auctionID, UIView *view, BOOL *stop) {
             [ANPBBuffer captureImage:view

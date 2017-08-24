@@ -15,13 +15,13 @@
 
 #import <Foundation/Foundation.h>
 
-static NSTimeInterval const kANNativeImpressionTrackerExpirationInterval = 3600;
+static NSTimeInterval const kANTrackerExpirationInterval = 3600;
 
-@interface ANNativeImpressionTrackerInfo : NSObject
+@interface ANTrackerInfo : NSObject
 
-- (instancetype)initWithURL:(NSURL *)URL;
+- (instancetype)initWithURL:(NSString *)URL;
 
-@property (nonatomic, readonly, strong) NSURL *URL;
+@property (nonatomic, readonly, strong) NSString *URL;
 @property (nonatomic, readonly, strong) NSDate *dateCreated;
 @property (nonatomic, readonly, assign, getter=isExpired) BOOL expired;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfTimesFired;
