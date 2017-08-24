@@ -131,13 +131,16 @@
     NSArray *trackerArrayCopy;
 
     @synchronized(self) {
-        if (self.trackerArray.count > 0 && self.internetIsReachable) 
+        if ((self.trackerArray.count > 0) && self.internetIsReachable)
         {
             ANLogDebug(@"Internet back online - Firing trackers %@", self.trackerArray);
 
-            trackerArrayCopy = [self.trackerArray copy];
+            trackerArrayCopy = [[NSArray alloc] initWithArray:self.trackerArray copyItems:YES];
             [self.trackerArray removeAllObjects];
             [self.trackerRetryTimer invalidate];
+
+        } else {
+            return;
         }
     }
 

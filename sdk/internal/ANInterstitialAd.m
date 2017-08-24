@@ -74,7 +74,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     _closeDelay           = kANInterstitialDefaultCloseButtonDelay;
     _opaque               = YES;
 
-    self.containerSize      = self.frame.size;
+    self.containerSize      = APPNEXUS_SIZE_UNDEFINED;
     self.allowedAdSizes     = [self getDefaultAllowedAdSizes];
     self.allowSmallerSizes  = NO;
 }
