@@ -32,7 +32,7 @@
 #define APPNEXUS_LEADERBOARD_SIZE	CGSizeMake(728, 90)
 #define APPNEXUS_WIDE_SKYSCRAPER_SIZE	CGSizeMake(160, 600)
 
-#define APPNEXUS_SIZE_ZERO              CGSizeZero
+#define APPNEXUS_SIZE_UNDEFINED         CGSizeMake(-1, -1)
 
 
 
@@ -46,13 +46,12 @@
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
 
-typedef NS_ENUM(NSUInteger, ANEntryPointType) {
-    ANEntryPointTypeUndefined,
-    ANEntryPointTypeBannerAdView,
-    ANEntryPointTypeInterstitialAd,
-    ANEntryPointTypeInstreamVideo
+typedef NS_ENUM(NSUInteger, ANAllowedMediaTypes) {
+    ANAllowedMediaTypeBanner        = 1,
+    ANAllowedMediaTypeInterstitial  = 3,
+    ANAllowedMediaTypeVideo         = 4,
+    ANAllowedMediaTypeNative        = 12
 };
-
 
 
 #pragma mark - Banner AutoRefresh

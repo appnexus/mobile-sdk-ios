@@ -13,18 +13,22 @@
  limitations under the License.
  */
 
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 #import "ANAdConstants.h"
 
 @class ANLocation;
 
+
+
 /**
- ANAdProtocol defines the properties and methods that are common to
- *all* ad types.  It can be understood as a toolkit for implementing
- ad types (It's used in the implementation of both banners and
- interstitials by the SDK).  If you wanted to, you could implement
- your own ad type using this protocol.
+ ANAdProtocol defines the properties and methods that are common to *all* ad types.  
+ It can be understood as a toolkit for implementing ad types.
+ If you wanted to, you could implement your own ad type using this protocol.
+
+ Currently, it is used in the implementation of banner and interstitial ads and instream video.
  */
 @protocol ANAdProtocol <NSObject>
 
@@ -98,23 +102,6 @@
  */
 @property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords __attribute((deprecated));
 
-
-/**
- Represents the width and height of the ad view.  In order for ads
- to display correctly, you must verify that your AppNexus placement
- is a ``sizeless'' placement.  If you are seeing ads of a fixed size
- being squeezed into differently-sized views, you probably do not
- have a sizeless placement.
- */
-@property (nonatomic, readwrite, assign)  CGSize  adSize;
-
-/**
- The set of allowed ad sizes for ANBannerAdView and ANInterstitialAd.
- The set should contain CGSize values wrapped as NSValue objects.
- */
-@property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
-
-
 /**
  Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
@@ -173,6 +160,9 @@
 
 @end
 
+
+
+
 /**
  The definition of the `ANAdDelegate' protocol includes methods
  which can be implemented by either type of ad.  Though these
@@ -230,6 +220,9 @@
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
 
 @end
+
+
+
 
 /**
  Delegate to receive app events from the ad.

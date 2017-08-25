@@ -82,7 +82,6 @@ ANAdWebViewControllerLoadingDelegate>
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL
 {
-ANLogMark();
     CGSize initialSize = size;
     BOOL responsiveAd = NO;
     if (CGSizeEqualToSize(initialSize, CGSizeMake(1, 1))) {
@@ -775,7 +774,6 @@ ANLogMark();
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-ANLogMark();
     if (controller == self.webViewController) {
         // Attaching WKWebView to screen for an instant to allow it to fully load in the background
         // before the call to [ANAdDelegate adDidReceiveAd]

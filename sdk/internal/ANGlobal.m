@@ -28,7 +28,6 @@ NSString *const kANFirstLaunchKey = @"kANFirstLaunchKey";
 
 NSString *ANUserAgent()
 {
-ANLogMark();
     static NSString *userAgent = nil;
 	
     if (userAgent == nil)
@@ -39,7 +38,6 @@ ANLogMark();
 		[webview stopLoading];
     }
 
-ANLogMarkMessage(@"userAgent=%@", userAgent);
     return userAgent;
 }
 

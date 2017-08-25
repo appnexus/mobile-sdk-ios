@@ -45,6 +45,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     @property (nonatomic)  BOOL  isVideoTagReady;
     @property (nonatomic)  BOOL  didVideoTagFail;
 
+    //
+    @property (nonatomic)          CGSize                    size1x1;
+    @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 @end
 
 
@@ -73,10 +76,21 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
     self.placementId = placementId;
 
+    [self setupSizeParametersAs1x1];
+
+
     //
     return self;
 }
-    
+
+- (void) setupSizeParametersAs1x1
+{
+    self.size1x1 = CGSizeMake(1, 1);
+
+    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:self.size1x1]];
+    self.allowSmallerSizes  = NO;
+}
+
 
 
 
@@ -410,17 +424,19 @@ ANLogTrace(@"UNUSED");
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
 ANLogTrace(@"");
-    return  @[ @(4) ];
+    return  @[ @(ANAllowedMediaTypeVideo) ];
+
 }
 
-- (ANEntryPointType) entryPointType  {
-    return  ANEntryPointTypeInstreamVideo;
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
 }
-
-
-
-
-
 
 
 

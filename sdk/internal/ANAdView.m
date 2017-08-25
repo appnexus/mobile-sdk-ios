@@ -19,7 +19,6 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANAdServerResponse.h"
 
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
@@ -33,14 +32,12 @@
 
 
 
-@interface ANAdView () <ANAdFetcherDelegate, ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
+@interface ANAdView () <ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, weak)    id<ANAdDelegate>        delegate;
 @property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>  appEventDelegate;
 
 @property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywordsMap;
-
-
 
 @end
 
@@ -63,8 +60,10 @@
 @synthesize  customKeywords                         = __customKeywords;
 @synthesize  customKeywordsMap                      = __customKeywordsMap;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
-@synthesize  adSize                                 = __adSize;
-@synthesize  allowedAdSizes                         = __allowedAdSizes;
+
+// ANAdProtocolPrivate properties.
+//
+@synthesize  allowSmallerSizes                      = __allowSmallerSizes;
 
 
 
@@ -80,6 +79,8 @@
     return self;
 }
 
+//NB  Any entry point that requires awakeFromNib must locally set the size parameters: adSize, adSizes, allowSmallerSizes.
+//
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self initialize];
@@ -132,46 +133,16 @@ ANLogMark();
 }
 
 
-    /* FIX adapt to UT
-- (void)loadAdFromHtml:(NSString *)html
-                 width:(int)width height:(int)height {
-                                                    //FIX UT iupdfate?
-    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithContent:html
-                                                                         width:width
-                                                                        height:height];
-    [self.adFetcher processAdResponse:response];
-}
-        */
-
-
-
-
-#pragma mark - Support for subclasses.
-
-- (void) fireTrackers: (NSArray<NSString *> *)trackerURLs
+- (void)loadAdFromHtml: (NSString *)html
+                 width: (int)width
+                height: (int)height
 {
-ANLogMark();
-    if (!trackerURLs)  { return; }
-
-
-    //
-    NSString          *backgroundQueueName  = [NSString stringWithFormat:@"%s -- Fire impressionUrls.", __PRETTY_FUNCTION__];
-    dispatch_queue_t   backgroundQueue      = dispatch_queue_create([backgroundQueueName cStringUsingEncoding:NSASCIIStringEncoding], NULL);
-
-    dispatch_async(backgroundQueue, ^{
-        for (NSString *urlString in trackerURLs)
-        {
-            NSURLSessionDataTask  *dataTask =
-                [[NSURLSession sharedSession] dataTaskWithURL: [NSURL URLWithString:urlString]
-                                            completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                                ANLogMarkMessage(@"\n\tdata=%@ \n\tresponse=%@ \n\terror=%@", data, response, error);   //DEBUG
-                                            }];
-            [dataTask resume];
-
-            ANLogMarkMessage(@"FIRED TARGET urlString=%@", urlString);   //DEBUG
-        }
-    });
+    ANUniversalTagAdServerResponse  *response  = [[ANUniversalTagAdServerResponse alloc] initWithContent: html
+                                                                                                   width: width
+                                                                                                  height: height ];
+    [self.universalAdFetcher processAdServerResponse:response];
 }
+
 
 
 
@@ -403,7 +374,6 @@ ANLogMark();
                 */
 
 - (NSString *)adTypeForMRAID    {
-            //FIX UT consolidate return values as a function of entryPointType?  or isKindOfClass: ...
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return @"";
 }
@@ -412,16 +382,6 @@ ANLogMark();
     ANLogDebug(@"%@ is abstract, should be implemented by subclass", NSStringFromSelector(_cmd));
     return nil;
 }
-
-- (ANEntryPointType) entryPointType {
-    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
-    return  ANEntryPointTypeUndefined;
-}
-
-- (CGSize) frameSize  {
-    return self.frame.size;
-}
-
 
 
 @end

@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2013 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,15 +13,24 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
 
-static const NSUInteger kANNativeImpressionTrackerManagerMaximumNumberOfRetries = 3;
-static const NSTimeInterval kANNativeImpressionTrackerManagerRetryInterval = 300;
+#import "ANAdProtocol.h"
 
-@interface ANNativeImpressionTrackerManager : NSObject
 
-+ (instancetype)sharedManager;
-+ (void)fireImpressionTrackerURLArray:(NSArray *)arrayWithURLs;
-+ (void)fireImpressionTrackerURL:(NSURL *)URL;
+
+
+/**
+ ANAdProtocolPublicAndPrivate extends ANAdProtocol with objects essential the lifecycle of ad entry points,
+   but which should not appear in the public facing API.
+ */
+@protocol ANAdProtocolPublicAndPrivate <ANAdProtocol>
+
+@required
+/**
+ This represents the Universal Tags (/ut/v2) field "allow_smaller_sizes".
+ */
+@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
+
 
 @end
+

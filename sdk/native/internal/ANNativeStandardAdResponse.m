@@ -20,7 +20,7 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
-#import "ANNativeImpressionTrackerManager.h"
+#import "ANTrackerManager.h"
 
 @interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate>
 
@@ -112,7 +112,7 @@
 
 - (void)fireImpTrackers {
     if (self.impTrackers) {
-        [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:self.impTrackers];
+        [ANTrackerManager fireTrackerURLArray:self.impTrackers];
     }
 }
 

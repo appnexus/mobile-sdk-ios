@@ -23,6 +23,7 @@
 #import "ANPBBuffer.h"
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
+#import "ANTrackerManager.h"
 
 
 
@@ -52,6 +53,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 @property (nonatomic, readwrite, strong)  NSMutableArray                  *precachedAdObjects;
 @property (nonatomic, readwrite, assign)  CGRect                           frame;
 
+@property (nonatomic)  CGSize  containerSize;
+
 @end
 
 
@@ -61,16 +64,19 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 #pragma mark - Initialization
 
-- (void)initialize {
+- (void)initialize
+{
     [super initialize];
-    _controller = [[ANInterstitialAdViewController alloc] init];
-    _controller.delegate = self;
-    _precachedAdObjects = [NSMutableArray array];
-    _closeDelay = kANInterstitialDefaultCloseButtonDelay;
-    _opaque = YES;
 
-    self.allowedAdSizes = [self getDefaultAllowedAdSizes];  //FIX  refactor
+    _controller           = [[ANInterstitialAdViewController alloc] init];
+    _controller.delegate  = self;
+    _precachedAdObjects   = [NSMutableArray array];
+    _closeDelay           = kANInterstitialDefaultCloseButtonDelay;
+    _opaque               = YES;
 
+    self.containerSize      = APPNEXUS_SIZE_UNDEFINED;
+    self.allowedAdSizes     = [self getDefaultAllowedAdSizes];
+    self.allowSmallerSizes  = NO;
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -97,111 +103,17 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     self.controller.delegate = nil;
 }
 
-- (void)loadAd {
-    [super loadAd];
-}
-
-- (void)displayAdFromViewController:(UIViewController *)controller
+- (NSMutableSet *) getDefaultAllowedAdSizes
 {
-    id         adToShow         = nil;
-    id         adObjectHandler  = nil;
-    NSString  *auctionID        = nil;
-    
-    self.controller.orientationProperties = nil;
-    self.controller.useCustomClose = NO;
-    
-    if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
-        ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
-        mraidContainerView.adViewDelegate = nil;
-    }
-    
-    while ([self.precachedAdObjects count] > 0) {
-        // Pull the first ad off
-        NSDictionary *adDict = self.precachedAdObjects[0];
-
-        // Check to see if ad has expired
-        NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
-        NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
-        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < kANInterstitialAdTimeout) {
-            // If ad is still valid, save a reference to it. We'll use it later
-            adToShow         = adDict[kANInterstitialAdViewKey];
-            adObjectHandler  = adDict[kANInterstitialAdObjectHandlerKey];
-            auctionID        = adDict[kANInterstitialAdViewAuctionInfoKey];
-
-            [self.precachedAdObjects removeObjectAtIndex:0];
-            break;
-        }
-
-        // This ad is now stale, so remove it from our cached ads.
-        [self.precachedAdObjects removeObjectAtIndex:0];
-    }
-
-    if ([adToShow isKindOfClass:[UIView class]]) {
-        if (!self.controller) {
-            ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");
-            [self adFailedToDisplay];
-            return;
-        }
-        if ([adToShow isKindOfClass:[ANMRAIDContainerView class]]) {
-            ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)adToShow;
-            mraidContainerView.adViewDelegate = self;
-            mraidContainerView.embeddedInModalView = YES;
-        }
-        
-        self.controller.contentView = adToShow;
-        if (self.backgroundColor) {
-            self.controller.backgroundColor = self.backgroundColor;
-        }
-        self.controller.modalPresentationStyle = UIModalPresentationFullScreen;
-        if ([self.controller respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
-            self.controller.modalPresentationCapturesStatusBarAppearance = YES;
-        }
-        if (!self.opaque && [self.controller respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
-            self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        }
-        [controller presentViewController:self.controller
-                                 animated:YES
-                               completion:nil];
-
-    } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]) {
-        [adToShow presentFromViewController:controller];
-        if (auctionID) {
-            ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
-            [controller.presentedViewController.view addSubview:logoView];
-            [ANPBBuffer addAdditionalInfo:@{kANPBBufferAdWidthKey: @(CGRectGetWidth(controller.presentedViewController.view.frame)),
-                                            kANPBBufferAdHeightKey: @(CGRectGetHeight(controller.presentedViewController.view.frame))}
-                             forAuctionID:auctionID];
-            [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
-                               forAuctionID:auctionID];
-        }
-
-    } else {
-        ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
-        [self adFailedToDisplay];
-        return;
-    }
-
-
-    //
-    NSArray<NSString *>  *impressionURLs  = nil;
-
-    if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
-      impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
-    }
-
-    [self fireTrackers:impressionURLs];
-}
-
-- (NSMutableSet *)getDefaultAllowedAdSizes   //FIX refactor?
-{
-ANLogMark();
     NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
-    
+
     NSArray *possibleSizesArray = @[[NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
                                     [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
                                     [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
                                     [NSValue valueWithCGSize:kANInterstitialAdSize300x250]];
-    for (NSValue *sizeValue in possibleSizesArray) {
+
+    for (NSValue *sizeValue in possibleSizesArray)
+    {
         CGSize possibleSize = [sizeValue CGSizeValue];
         CGRect possibleSizeRect = CGRectMake(self.frame.origin.x, self.frame.origin.y, possibleSize.width, possibleSize.height);
         if (CGRectContainsRect(self.frame, possibleSizeRect)) {
@@ -212,11 +124,54 @@ ANLogMark();
     return defaultAllowedSizes;
 }
 
+
+
+
+#pragma mark - Setters and getters.
+
+- (void)setAllowedAdSizes:(NSMutableSet<NSValue *> *)allowedAdSizes
+{
+    if (!allowedAdSizes || ([allowedAdSizes count] <= 0)) {
+        ANLogError(@"adSizes array IS EMPTY.");
+        return;
+    }
+
+    for (NSValue *valueElement in allowedAdSizes)
+    {
+        CGSize  sizeElement  = [valueElement CGSizeValue];
+
+        if ((sizeElement.width <= 0) || (sizeElement.height <= 0)) {
+            ANLogError(@"One or more elements assigned to allowedAdSizes have a width or height LESS THAN ZERO. (%@)", allowedAdSizes);
+            return;
+        }
+    }
+
+    _allowedAdSizes = [[[NSSet alloc] initWithSet:allowedAdSizes copyItems:YES] mutableCopy];
+}
+
+- (void)setCloseDelay:(NSTimeInterval)closeDelay {
+    if (closeDelay > kANInterstitialMaximumCloseButtonDelay) {
+        ANLogWarn(@"Maximum allowed value for closeDelay is %.1f", kANInterstitialMaximumCloseButtonDelay);
+        closeDelay = kANInterstitialMaximumCloseButtonDelay;
+    }
+
+    _closeDelay = closeDelay;
+}
+
+
+
+
+#pragma mark - EntryPoint ad serving lifecycle.
+
+- (void)loadAd {
+    [super loadAd];
+}
+
 - (BOOL)isReady {
     // check the cache for a valid ad
     while ([self.precachedAdObjects count] > 0) {
         NSDictionary *adDict = self.precachedAdObjects[0];
-        
+
         // Check to see if the ad has expired
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
@@ -240,28 +195,115 @@ ANLogMark();
             [self.precachedAdObjects removeObjectAtIndex:0];
         }
     }
-    
+
     return false;
 }
 
-- (CGRect)frame {
-    // By definition, interstitials can only ever have the entire screen's bounds as its frame
-    CGRect screenBounds = ANPortraitScreenBounds();
-    if (UIInterfaceOrientationIsLandscape(self.controller.orientation)) {
-        return CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
-    }
-    return screenBounds;
-}
+- (void)displayAdFromViewController:(UIViewController *)controller
+{
+    id         adToShow         = nil;
+    id         adObjectHandler  = nil;
+    NSString  *auctionID        = nil;
 
-- (void)setCloseDelay:(NSTimeInterval)closeDelay {
-    if (closeDelay > kANInterstitialMaximumCloseButtonDelay) {
-        ANLogWarn(@"Maximum allowed value for closeDelay is %.1f", kANInterstitialMaximumCloseButtonDelay);
-        closeDelay = kANInterstitialMaximumCloseButtonDelay;
-    }
+    NSArray<NSString *>  *impressionURLs  = nil;
+
+
+    self.controller.orientationProperties = nil;
+    self.controller.useCustomClose = NO;
     
-    _closeDelay = closeDelay;
-}
+    if ([self.controller.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+        ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
+        mraidContainerView.adViewDelegate = nil;
+    }
 
+
+    // Find first valid pre-cached ad, auctionID and meta data.
+    // Pull out impression URL trackers.
+    //
+    while ([self.precachedAdObjects count] > 0) {
+        // Pull the first ad off
+        NSDictionary *adDict = self.precachedAdObjects[0];
+
+        // Check to see if ad has expired
+        NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
+        NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
+        if (timeIntervalSinceDateLoaded >= 0 && timeIntervalSinceDateLoaded < kANInterstitialAdTimeout) {
+            // If ad is still valid, save a reference to it. We'll use it later
+            adToShow         = adDict[kANInterstitialAdViewKey];
+            adObjectHandler  = adDict[kANInterstitialAdObjectHandlerKey];
+            auctionID        = adDict[kANInterstitialAdViewAuctionInfoKey];
+
+            [self.precachedAdObjects removeObjectAtIndex:0];
+            break;
+        }
+
+        // This ad is now stale, so remove it from our cached ads.
+        [self.precachedAdObjects removeObjectAtIndex:0];
+    }
+
+    if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
+        impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
+    }
+
+
+    // Display the ad.
+    //
+    if ([adToShow isKindOfClass:[UIView class]]) {
+        if (!self.controller) {
+            ANLogError(@"Could not present interstitial because of a nil interstitial controller. This happens because of ANSDK resources missing from the app bundle.");
+            [self adFailedToDisplay];
+            return;
+        }
+        if ([adToShow isKindOfClass:[ANMRAIDContainerView class]]) {
+            ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)adToShow;
+            mraidContainerView.adViewDelegate = self;
+            mraidContainerView.embeddedInModalView = YES;
+        }
+        
+        self.controller.contentView = adToShow;
+        if (self.backgroundColor) {
+            self.controller.backgroundColor = self.backgroundColor;
+        }
+        self.controller.modalPresentationStyle = UIModalPresentationFullScreen;
+        if ([self.controller respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
+            self.controller.modalPresentationCapturesStatusBarAppearance = YES;
+        }
+        if (!self.opaque && [self.controller respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+            self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        }
+
+        //
+        [ANTrackerManager fireTrackerURLArray:impressionURLs];
+        impressionURLs = nil;
+
+        [controller presentViewController:self.controller
+                                 animated:YES
+                               completion:nil];
+
+    } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
+    {
+        [ANTrackerManager fireTrackerURLArray:impressionURLs];
+        impressionURLs = nil;
+        
+        [adToShow presentFromViewController:controller];
+
+        //
+        if (auctionID) {
+            ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
+            [controller.presentedViewController.view addSubview:logoView];
+            [ANPBBuffer addAdditionalInfo:@{kANPBBufferAdWidthKey: @(CGRectGetWidth(controller.presentedViewController.view.frame)),
+                                            kANPBBufferAdHeightKey: @(CGRectGetHeight(controller.presentedViewController.view.frame))}
+                             forAuctionID:auctionID];
+            [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
+                               forAuctionID:auctionID];
+        }
+
+    } else {
+        ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
+        [self adFailedToDisplay];
+        return;
+    }
+}
 
 
 
@@ -351,6 +393,25 @@ ANLogMark();
     return self.controller;
 }
 
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    self.containerSize  = self.frame.size;
+
+    NSMutableSet<NSValue *>  *allowedAdSizesForSDK  = [[[NSSet alloc] initWithSet:self.allowedAdSizes copyItems:YES] mutableCopy];
+    [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
+    [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:self.containerSize]];
+
+    self.allowSmallerSizes = NO;
+
+    //
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.containerSize]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:allowedAdSizesForSDK                          forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                     forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
+}
+
 
 
 
@@ -376,12 +437,21 @@ ANLogMark();
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-    ANLogMark();
-    return  @[ @(1), @(3) ];
+    return  @[ @(ANAllowedMediaTypeBanner), @(ANAllowedMediaTypeInterstitial) ];
 }
 
-- (ANEntryPointType) entryPointType  {    //FIX  redundant?  just use isKindOfClass: ?
-    return  ANEntryPointTypeInterstitialAd;
+
+
+
+#pragma mark - Helper methods.
+
+- (CGRect)frame {
+    // By definition, interstitials can only ever have the entire screen's bounds as its frame
+    CGRect screenBounds = ANPortraitScreenBounds();
+    if (UIInterfaceOrientationIsLandscape(self.controller.orientation)) {
+        return CGRectMake(screenBounds.origin.y, screenBounds.origin.x, screenBounds.size.height, screenBounds.size.width);
+    }
+    return screenBounds;
 }
 
 

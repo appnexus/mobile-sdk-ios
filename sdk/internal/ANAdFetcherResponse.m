@@ -65,7 +65,6 @@
 + (ANAdFetcherResponse *)responseWithAdObject: (id)adObject
                            andAdObjectHandler: (id)adObjectHandler
 {
-ANLogMark();
     return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
                                                        andAdObjectHandler: adObjectHandler];
 }
