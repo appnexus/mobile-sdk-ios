@@ -45,11 +45,11 @@
 
 @end
 
-            /* FIX -- update
-@interface ANAdFetcher ()
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
-@end
-                    */
+/* FIX -- update
+ @interface ANAdFetcher ()
+ - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
+ @end
+ */
 
 
 
@@ -61,7 +61,7 @@
                                     withFetcher:(ANUniversalAdFetcher *)fetcher
                                  adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate
 {
-ANLogMark();
+    ANLogMark();
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
     controller.adFetcher = fetcher;
     controller.adViewDelegate = adViewDelegate;
@@ -74,7 +74,7 @@ ANLogMark();
 }
 
 - (BOOL)requestForAd:(ANMediatedAd *)ad {
-ANLogMark();
+    ANLogMark();
     // variables to pass into the failure handler if necessary
     NSString *className = nil;
     NSString *errorInfo = nil;
@@ -121,7 +121,7 @@ ANLogMark();
         
         // Grab the size of the ad - interstitials will ignore this value
         CGSize sizeOfCreative = CGSizeMake([ad.width floatValue], [ad.height floatValue]);
-
+        
         BOOL requestedSuccessfully = [self requestAd:sizeOfCreative
                                      serverParameter:ad.param
                                             adUnitId:ad.adId
@@ -179,7 +179,7 @@ ANLogMark();
 
 
 - (void)clearAdapter {
-ANLogMark();
+    ANLogMark();
     if (self.currentAdapter)
         self.currentAdapter.delegate = nil;
     self.currentAdapter = nil;
@@ -197,7 +197,7 @@ ANLogMark();
          adUnitId:(NSString *)idString
            adView:(id<ANUniversalAdFetcherDelegate>)adView
 {
-ANLogMark();
+    ANLogMark();
     // create targeting parameters object from adView properties
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
 #pragma clang diagnostic push
@@ -208,17 +208,17 @@ ANLogMark();
     targetingParameters.gender = adView.gender;
     targetingParameters.location = adView.location;
     targetingParameters.idforadvertising = ANUDID();
-
+    
     //
     if ([adView isKindOfClass:[ANBannerAdView class]]) {
         // make sure the container and protocol match
         if (    [[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
-             && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)])
+            && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)])
         {
             
             [self markLatencyStart];
             [self startTimeout];
-
+            
             ANBannerAdView *banner = (ANBannerAdView *)adView;
             id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
             [bannerAdapter requestBannerAdWithSize:size
@@ -230,11 +230,11 @@ ANLogMark();
         } else {
             ANLogError(@"instance_exception %@", @"CustomAdapterBanner");
         }
-
+        
     } else if ([adView isKindOfClass:[ANInterstitialAd class]]) {
         // make sure the container and protocol match
         if (    [[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]
-             && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)])
+            && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)])
         {
             
             [self markLatencyStart];
@@ -248,11 +248,11 @@ ANLogMark();
         } else {
             ANLogError(@"instance_exception %@", @"CustomAdapterInterstitial");
         }
-
+        
     } else {
         ANLogError(@"UNRECOGNIZED Entry Point classname.  (%@)", [adView class]);
     }
-
+    
     
     // executes iff request was unsuccessful
     return NO;
@@ -297,8 +297,8 @@ ANLogMark();
 #pragma mark - ANCustomAdapterBannerDelegate
 
 - (void)didLoadBannerAd:(UIView *)view {
-ANLogMark();
-	[self didReceiveAd:view];
+    ANLogMark();
+    [self didReceiveAd:view];
 }
 
 
@@ -306,8 +306,8 @@ ANLogMark();
 #pragma mark - ANCustomAdapterInterstitialDelegate
 
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter {
-ANLogMark();
-	[self didReceiveAd:adapter];
+    ANLogMark();
+    [self didReceiveAd:adapter];
 }
 
 
@@ -315,12 +315,12 @@ ANLogMark();
 #pragma mark - ANCustomAdapterDelegate
 
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
-ANLogMark();
+    ANLogMark();
     [self didFailToReceiveAd:errorCode];
 }
 
 - (void)adWasClicked {
-ANLogMark();
+    ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWasClicked];
@@ -328,7 +328,7 @@ ANLogMark();
 }
 
 - (void)willPresentAd {
-ANLogMark();
+    ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillPresent];
@@ -336,7 +336,7 @@ ANLogMark();
 }
 
 - (void)didPresentAd {
-ANLogMark();
+    ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adDidPresent];
@@ -344,7 +344,7 @@ ANLogMark();
 }
 
 - (void)willCloseAd {
-ANLogMark();
+    ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillClose];
@@ -352,7 +352,7 @@ ANLogMark();
 }
 
 - (void)didCloseAd {
-ANLogMark();
+    ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adDidClose];
@@ -360,7 +360,7 @@ ANLogMark();
 }
 
 - (void)willLeaveApplication {
-ANLogMark();
+    ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillLeaveApplication];
@@ -368,7 +368,7 @@ ANLogMark();
 }
 
 - (void)failedToDisplayAd {
-ANLogMark();
+    ANLogMark();
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
@@ -391,20 +391,20 @@ ANLogMark();
 
 - (void)didReceiveAd:(id)adObject
 {
-ANLogMark();
+    ANLogMark();
     if ([self checkIfHasResponded])  { return; }
-
+    
     if (!adObject) {
         [self didFailToReceiveAd:ANAdResponseInternalError];
         return;
     }
-
+    
     //
     self.hasSucceeded = YES;
     [self markLatencyStop];
     
     ANLogDebug(@"received an ad from the adapter");
-
+    
     if ([adObject isKindOfClass:[UIView class]]) {
         UIView *adView = (UIView *)adObject;
         ANMediationContainerView *containerView = [[ANMediationContainerView alloc] initWithMediatedView:adView];
@@ -430,7 +430,7 @@ ANLogMark();
     }
     
     [self finish:ANAdResponseSuccessful withAdObject:adObject auctionID:auctionID];
-
+    
     // if auctionInfo was present and had an auctionID,
     // screenshot the view. For banners, do it here
     if (auctionID && [adObject isKindOfClass:[UIView class]]) {
@@ -449,7 +449,7 @@ ANLogMark();
 }
 
 - (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
-ANLogMark();
+    ANLogMark();
     if ([self checkIfHasResponded]) return;
     [self markLatencyStop];
     self.hasFailed = YES;
@@ -461,13 +461,13 @@ ANLogMark();
   withAdObject: (id)adObject
      auctionID: (NSString *)auctionID
 {
-ANLogMark();
+    ANLogMark();
     // use queue to force return
     [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
-
-        ANTrackerInfo *trackerInfo = [[ANTrackerInfo alloc] initResponseTrackerWithURL:self.mediatedAd.responseURL reasonCode:errorCode latency:[self getLatency] * 1000 totoalLatency:[self getTotalLatency] * 1000];
-
+        
+        ANTrackerInfo *trackerInfo = [[ANTrackerInfo alloc] initResponseTrackerWithURL:self.mediatedAd.responseURL                                                                                                      reasonCode:errorCode                                                                                                                                            latency:[self getLatency] * 1000                                                                                                                                totalLatency:[self getTotalLatency] * 1000];
+        
         // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
@@ -478,7 +478,7 @@ ANLogMark();
 
 
 - (void)runInBlock:(void (^)())block {
-ANLogMark();
+    ANLogMark();
     // nothing keeps 'block' alive, so we don't have a retain cycle
     dispatch_async(dispatch_get_main_queue(), ^{
         block();
@@ -486,11 +486,11 @@ ANLogMark();
 }
 
 
-#pragma mark - Timeout handler              
-                        //FIX -- status of this?
+#pragma mark - Timeout handler
+//FIX -- status of this?
 
 - (void)startTimeout {
-ANLogMark();
+    ANLogMark();
     if (self.timeoutCanceled) return;
     __weak ANMediationAdViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
@@ -506,7 +506,7 @@ ANLogMark();
 }
 
 - (void)cancelTimeout {
-ANLogMark();
+    ANLogMark();
     self.timeoutCanceled = YES;
 }
 
@@ -519,7 +519,7 @@ ANLogMark();
  * from `requestAd` call.
  */
 - (void)markLatencyStart {
-ANLogMark();
+    ANLogMark();
     self.latencyStart = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -528,7 +528,7 @@ ANLogMark();
  * calls either of `onAdLoaded` or `onAdFailed`.
  */
 - (void)markLatencyStop {
-ANLogMark();
+    ANLogMark();
     self.latencyStop = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -536,7 +536,7 @@ ANLogMark();
  * The latency of the call to the mediated SDK.
  */
 - (NSTimeInterval)getLatency {
-ANLogMark();
+    ANLogMark();
     if ((self.latencyStart > 0) && (self.latencyStop > 0)) {
         return (self.latencyStop - self.latencyStart);
     }
@@ -548,7 +548,7 @@ ANLogMark();
  * The running total latency of the ad call.
  */
 - (NSTimeInterval)getTotalLatency {
-ANLogMark();
+    ANLogMark();
     if (self.adFetcher && (self.latencyStop > 0)) {
         return [self.adFetcher getTotalLatency:self.latencyStop];
     }
@@ -608,7 +608,7 @@ ANLogMark();
 }
 
 - (void)dealloc {
-ANLogMark();
+    ANLogMark();
     [self clearAdapter];
     [self unregisterFromPitbullScreenCaptureNotifications];
 }

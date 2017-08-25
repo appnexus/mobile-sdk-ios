@@ -60,7 +60,6 @@
                                        withFetcher:(ANUniversalAdFetcher *)fetcher
                                     adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate
 {
-    ANLogMark();
     ANSSMMediationAdViewController *controller = [[ANSSMMediationAdViewController alloc] init];
     controller.adFetcher = fetcher;
     controller.adViewDelegate = adViewDelegate;
@@ -75,18 +74,17 @@
 }
 
 - (BOOL)requestForAd:(ANSSMStandardAd *)ad {
-    ANLogMark();
     // variables to pass into the failure handler if necessary
     NSString *errorInfo = nil;
     ANAdResponseCode errorCode = ANDefaultCode;
     
-    do {
-        // check that the ad is non-nil
-        if ((!ad) || (!ad.urlString)) {
-            errorInfo = @"null mediated ad object";
-            errorCode = ANAdResponseUnableToFill;
-            break;
-        }
+    // check that the ad is non-nil
+    if ((!ad) || (!ad.urlString)) {
+        errorInfo = @"null mediated ad object";
+        errorCode = ANAdResponseUnableToFill;
+        [self handleFailure:errorCode errorInfo:errorInfo];
+        return NO;
+    }else{
         [self markLatencyStart];
         [self startTimeout];
         self.ssmMediatedAd = ad;
@@ -132,17 +130,9 @@
                                       }];
         
         [task resume];
-    } while (false);
-    
-    
-    if (errorCode != ANDefaultCode) {
-        [self handleFailure:errorCode errorInfo:errorInfo];
-        return NO;
+        return YES;
     }
     
-    // otherwise, no error yet
-    // wait for a the connection response.
-    return YES;
 }
 
 
@@ -150,7 +140,6 @@
 - (void)handleFailure:(ANAdResponseCode)errorCode
             errorInfo:(NSString *)errorInfo
 {
-    ANLogMark();
     if ([errorInfo length] > 0) {
         ANLogError(@"ssm_mediation_failure %@", errorInfo);
     }
@@ -162,7 +151,6 @@
 
 
 - (void)clearAdapter {
-    ANLogMark();
     self.hasSucceeded = NO;
     self.hasFailed = YES;
     self.adFetcher = nil;
@@ -186,7 +174,6 @@
 
 - (void)didReceiveAd:(NSString *)adContent
 {
-    ANLogMark();
     if ([self checkIfHasResponded])  { return; }
     
     if (!adContent || !(adContent.length>0)) {
@@ -199,7 +186,7 @@
     self.ssmMediatedAd.content = adContent;
     
     ANLogDebug(@"received an SSM ad");
-
+    
     
     if (self.ssmAdView) {
         self.ssmAdView.loadingDelegate = nil;
@@ -207,7 +194,7 @@
     
     
     CGSize sizeofWebView = [self.adFetcher getWebViewSizeForCreativeWidth:self.ssmMediatedAd.width
-                                                         Height:self.ssmMediatedAd.height];
+                                                                   andHeight:self.ssmMediatedAd.height];
     
     self.ssmAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                            HTML:self.ssmMediatedAd.content
@@ -219,7 +206,6 @@
 }
 
 - (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
-    ANLogMark();
     if ([self checkIfHasResponded]) return;
     [self markLatencyStop];
     self.hasFailed = YES;
@@ -230,12 +216,11 @@
 - (void)finish: (ANAdResponseCode)errorCode
   withAdObject: (id)adObject
 {
-    ANLogMark();
     // use queue to force return
     [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
-
-         ANTrackerInfo *trackerInfo = [[ANTrackerInfo alloc] initResponseTrackerWithURL:self.ssmMediatedAd.responseURL reasonCode:errorCode latency:[self getLatency] * 1000 totoalLatency:[self getTotalLatency] * 1000];
+        
+        ANTrackerInfo *trackerInfo = [[ANTrackerInfo alloc] initResponseTrackerWithURL:self.ssmMediatedAd.responseURL                                                  reasonCode:errorCode                                                                                                        latency:[self getLatency] * 1000                                                                                                    totalLatency:[self getTotalLatency] * 1000];
         // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
@@ -246,7 +231,6 @@
 
 
 - (void)runInBlock:(void (^)())block {
-    ANLogMark();
     // nothing keeps 'block' alive, so we don't have a retain cycle
     dispatch_async(dispatch_get_main_queue(), ^{
         block();
@@ -258,7 +242,6 @@
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-    ANLogMark();
     if (self.ssmAdView.webViewController == controller) {
         [self finish:ANAdResponseSuccessful withAdObject:self.ssmAdView];
     }
@@ -270,7 +253,6 @@
 //FIX -- status of this?
 
 - (void)startTimeout {
-    ANLogMark();
     if (self.timeoutCanceled) return;
     __weak ANSSMMediationAdViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
@@ -285,7 +267,6 @@
 }
 
 - (void)cancelTimeout {
-    ANLogMark();
     self.timeoutCanceled = YES;
 }
 
@@ -298,7 +279,6 @@
  * from `requestAd` call.
  */
 - (void)markLatencyStart {
-    ANLogMark();
     self.latencyStart = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -307,7 +287,6 @@
  * calls either of `onAdLoaded` or `onAdFailed`.
  */
 - (void)markLatencyStop {
-    ANLogMark();
     self.latencyStop = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -315,7 +294,6 @@
  * The latency of the call to the mediated SDK.
  */
 - (NSTimeInterval)getLatency {
-    ANLogMark();
     if ((self.latencyStart > 0) && (self.latencyStop > 0)) {
         return (self.latencyStop - self.latencyStart);
     }
@@ -327,7 +305,6 @@
  * The running total latency of the ad call.
  */
 - (NSTimeInterval)getTotalLatency {
-    ANLogMark();
     if (self.adFetcher && (self.latencyStop > 0)) {
         return [self.adFetcher getTotalLatency:self.latencyStop];
     }
@@ -337,7 +314,6 @@
 
 
 - (void)dealloc {
-    ANLogMark();
     [self clearAdapter];
 }
 

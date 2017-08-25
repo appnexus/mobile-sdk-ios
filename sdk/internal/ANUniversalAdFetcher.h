@@ -43,7 +43,7 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 - (CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
-                                  Height:(NSString *)height;
+                                  andHeight:(NSString *)height;
 
 
 - (void)fireResponseURL:(ANTrackerInfo *)anTrackerInfo

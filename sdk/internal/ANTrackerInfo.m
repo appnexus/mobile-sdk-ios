@@ -49,7 +49,7 @@
 - (instancetype)initResponseTrackerWithURL:(NSString *)URL
                     reasonCode:(int)reasonCode
                        latency:(NSTimeInterval)latency
-                 totoalLatency:(NSTimeInterval) totalLatency{
+                 totalLatency:(NSTimeInterval) totalLatency{
     if (!URL) {
         return nil;
     }

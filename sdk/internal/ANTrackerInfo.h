@@ -24,7 +24,7 @@ static NSTimeInterval const kANTrackerExpirationInterval = 3600;
 - (instancetype)initResponseTrackerWithURL:(NSString *)URL
                     reasonCode:(int)reasonCode
                        latency:(NSTimeInterval)latency
-                 totoalLatency:(NSTimeInterval) totalLatency;
+                 totalLatency:(NSTimeInterval) totalLatency;
 
 @property (nonatomic, readonly, strong) NSString *URL;
 @property (nonatomic, readonly, strong) NSDate *dateCreated;
