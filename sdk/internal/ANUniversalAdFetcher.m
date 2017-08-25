@@ -27,7 +27,9 @@
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANSSMMediationAdViewController.h"
-#import "ANResponseURL.h"
+#import "ANTrackerInfo.h"
+#import "ANTrackerManager.h"
+
 
 
 
@@ -413,14 +415,14 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 }
 
 
-- (void)fireResponseURL:(ANResponseURL *)anResponseURL
+- (void)fireResponseURL:(ANTrackerInfo *)anTrackerInfo
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
               auctionID:(NSString *)auctionID
 {
 
-    if (anResponseURL) {
-        [anResponseURL performRequest];
+    if (anTrackerInfo) {
+        [ANTrackerManager fireTrackerURL:anTrackerInfo.URL];
     }
     
     if (reason == ANAdResponseSuccessful) {

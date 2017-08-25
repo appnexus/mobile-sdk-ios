@@ -235,12 +235,12 @@
     [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
 
-        ANResponseURL *anResponseURL = [ANResponseURL initWithURL:self.ssmMediatedAd.responseURL reasonCode:errorCode latency:[self getLatency] * 1000 totoalLatency:[self getTotalLatency] * 1000];
+         ANTrackerInfo *trackerInfo = [[ANTrackerInfo alloc] initResponseTrackerWithURL:self.ssmMediatedAd.responseURL reasonCode:errorCode latency:[self getLatency] * 1000 totoalLatency:[self getTotalLatency] * 1000];
         // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
         }
-        [fetcher fireResponseURL:anResponseURL reason:errorCode adObject:adObject auctionID:nil];
+        [fetcher fireResponseURL:trackerInfo reason:errorCode adObject:adObject auctionID:nil];
     }];
 }
 

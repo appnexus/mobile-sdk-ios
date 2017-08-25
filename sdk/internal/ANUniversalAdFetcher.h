@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "ANAdFetcher.h"
 #import "ANVideoAdProcessor.h"
-#import "ANResponseURL.h"
+#import "ANTrackerInfo.h"
 #import "ANUniversalTagAdServerResponse.h"
 
 
@@ -46,7 +46,7 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
                                   Height:(NSString *)height;
 
 
-- (void)fireResponseURL:(ANResponseURL *)anResponseURL
+- (void)fireResponseURL:(ANTrackerInfo *)anTrackerInfo
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
               auctionID:(NSString *)auctionID;

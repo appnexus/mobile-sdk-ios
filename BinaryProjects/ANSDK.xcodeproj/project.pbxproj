@@ -10,9 +10,6 @@
 		0035C5AE1F4496FD00915E97 /* ANSSMMediationAdViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */; };
 		0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
 		0035C5B11F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
-		00E575281F4B37F700E8BC18 /* ANResponseURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E575261F4B37F700E8BC18 /* ANResponseURL.h */; };
-		00E575291F4B37F700E8BC18 /* ANResponseURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E575271F4B37F700E8BC18 /* ANResponseURL.m */; };
-		00E5752A1F4B37F700E8BC18 /* ANResponseURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E575271F4B37F700E8BC18 /* ANResponseURL.m */; };
 		4F1B9E291E5CDABE002FF0B4 /* ANInstreamVideoAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */; };
 		4F3D37B41F44B0B7008255C1 /* ANAdProtocolPublicAndPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F3D37B31F44B0B7008255C1 /* ANAdProtocolPublicAndPrivate.h */; };
 		4F824CF61D909E1000AFC7EA /* LICENSE-MOPUB in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */; };
@@ -698,8 +695,6 @@
 /* Begin PBXFileReference section */
 		0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSSMMediationAdViewController.h; sourceTree = "<group>"; };
 		0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMMediationAdViewController.m; sourceTree = "<group>"; };
-		00E575261F4B37F700E8BC18 /* ANResponseURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANResponseURL.h; sourceTree = "<group>"; };
-		00E575271F4B37F700E8BC18 /* ANResponseURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANResponseURL.m; sourceTree = "<group>"; };
 		4F3D37B31F44B0B7008255C1 /* ANAdProtocolPublicAndPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocolPublicAndPrivate.h; sourceTree = "<group>"; };
 		4F824CB51D909E1000AFC7EA /* LICENSE-MOPUB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LICENSE-MOPUB"; sourceTree = "<group>"; };
 		4F824CB61D909E1000AFC7EA /* MoPub-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoPub-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1979,8 +1974,6 @@
 				8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */,
 				8AD618C61981C11F00AC0780 /* ANReachability.h */,
 				8AD618C71981C11F00AC0780 /* ANReachability.m */,
-				00E575261F4B37F700E8BC18 /* ANResponseURL.h */,
-				00E575271F4B37F700E8BC18 /* ANResponseURL.m */,
 				0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */,
 				0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */,
 				8ABF77571D08CE420068B535 /* ANStoreProductViewController.h */,
@@ -2389,7 +2382,6 @@
 				8A9AEDDC1A1BF88200C58BDA /* ANPBBuffer.h in Headers */,
 				8A9AEDDD1A1BF88300C58BDA /* ANPBContainerView.h in Headers */,
 				8A9AEDDE1A1BF88300C58BDA /* ANReachability.h in Headers */,
-				00E575281F4B37F700E8BC18 /* ANResponseURL.h in Headers */,
 				609732DA1E42E9860061EC0A /* ANRTBVideoAd.h in Headers */,
 				8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */,
 				8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */,
@@ -3143,7 +3135,6 @@
 				8A9AEE001A1BF99D00C58BDA /* ANPBBuffer.m in Sources */,
 				8A9AEE011A1BF99D00C58BDA /* ANPBContainerView.m in Sources */,
 				8A9AEE021A1BF99D00C58BDA /* ANReachability.m in Sources */,
-				00E5752A1F4B37F700E8BC18 /* ANResponseURL.m in Sources */,
 				609732DC1E42E9860061EC0A /* ANRTBVideoAd.m in Sources */,
 				8A02D7091D6CE946006831A3 /* ANSDKSettings.m in Sources */,
 				0035C5B11F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */,
@@ -3306,7 +3297,6 @@
 				8AD618DF1981C11F00AC0780 /* ANPBContainerView.m in Sources */,
 				8ABC03D51C5AD5FD00D7C789 /* ANProxyViewController.m in Sources */,
 				8AD618E01981C11F00AC0780 /* ANReachability.m in Sources */,
-				00E575291F4B37F700E8BC18 /* ANResponseURL.m in Sources */,
 				609732DB1E42E9860061EC0A /* ANRTBVideoAd.m in Sources */,
 				8A02D7081D6CE946006831A3 /* ANSDKSettings.m in Sources */,
 				0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */,
