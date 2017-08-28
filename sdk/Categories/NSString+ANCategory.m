@@ -79,28 +79,6 @@
 }
 
 
-
-- (NSString *)an_responseByAppendingUrlParameter:(NSString *)name
-                                           value:(NSString *)value {
-    // don't append anything if either field is empty
-    if (([name length] < 1) || ([value length] < 1)) {
-        return self;
-    }
-    
-    NSMutableString *parameter = [NSMutableString stringWithFormat:@"%@=%@",
-                                  name, [value an_encodeAsURIComponent]];
-    
-    // add the proper prefix depending on the current string
-    if ([self rangeOfString:@"="].length != 0) {
-        [parameter insertString:@"&" atIndex:0];
-    } else if ([self rangeOfString:@"?"].location != ([self length] - 1)) {
-        [parameter insertString:@"?" atIndex:0];
-    } // otherwise, keep the string as it is
-    
-    return [self stringByAppendingString:parameter];
-}
-
-
 - (NSString *)an_responseTrackerReasonCode:(int)reasonCode
                                    latency:(NSTimeInterval)latency
                               totalLatency:(NSTimeInterval) totalLatency{
