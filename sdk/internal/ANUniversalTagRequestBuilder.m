@@ -338,10 +338,9 @@ ANLogMark();
 - (NSDictionary *)geo 
 {
     ANLocation  *location  = [self.adFetcherDelegate location];
-    NSString    *zipcode   = [self.adFetcherDelegate zipcode];
 
     //
-    if (!location && !zipcode)  {
+    if (!location)  {
         return nil;
     }
 
@@ -369,12 +368,6 @@ ANLogMark();
         
         geoDict[@"loc_age"] = @(ageInMilliseconds);
         geoDict[@"loc_precision"] = @((NSInteger)location.horizontalAccuracy);
-    }
-
-    //
-    if (zipcode) {
-            //TBD -- error check zipcode string -- must be location aware.
-        geoDict[@"zip"] = [zipcode copy];
     }
 
     //

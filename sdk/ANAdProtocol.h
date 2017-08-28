@@ -74,11 +74,6 @@
 @property (nonatomic, readwrite, strong) ANLocation *location;
 
 /**
- The user's zip code.
- */
-@property (nonatomic, readwrite, strong)  NSString  *zipcode;
-
-/**
  The reserve price is the minimum bid amount you'll accept to show
  an ad.  Use this with caution, as it can drastically reduce fill
  rates (i.e., you will make less money).

@@ -53,7 +53,6 @@
 @synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
 @synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
 @synthesize  location                               = __location;
-@synthesize  zipcode                                = __zipcode;
 @synthesize  reserve                                = __reserve;
 @synthesize  age                                    = __age;
 @synthesize  gender                                 = __gender;
@@ -253,11 +252,6 @@ ANLogMark();
 - (ANLocation *)location {
     ANLogDebug(@"location returned %@", __location);
     return __location;
-}
-
-- (NSString *) zipcode {
-    ANLogDebug(@"zipcode returned %@", __zipcode);
-    return __zipcode;
 }
 
 - (BOOL)shouldServePublicServiceAnnouncements {
