@@ -68,6 +68,13 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [self.connection cancel];
+//    [self.autoRefreshTimer invalidate];    //FIX -- where does timer live in UT?
+    [self clearMediationController];
+}
 
 - (void)clearMediationController {
     /*
@@ -135,6 +142,7 @@ ANLogMark();
     }
     self.ads = response.ads;
 
+    [self clearMediationController];
     [self continueWaterfall];
 }
 

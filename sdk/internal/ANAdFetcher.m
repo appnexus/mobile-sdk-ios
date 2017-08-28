@@ -189,7 +189,7 @@ ANLogMark();
 }
 
 - (void)clearMediationController {
-    /*
+        /*
      Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher. The controller maintains a weak reference to the 
      ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still 
      displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
