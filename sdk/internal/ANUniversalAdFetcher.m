@@ -75,7 +75,6 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
      ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still
      displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
-                //FIX  we know where it lives on, but why (or why not)?
     self.mediationController.adFetcher = nil;
     self.mediationController = nil;
 }
