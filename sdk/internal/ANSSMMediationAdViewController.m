@@ -96,7 +96,7 @@
         NSURLSessionDataTask *task = [[NSURLSession sharedSession]
                                       dataTaskWithRequest:request
                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          NSInteger statusCode = 0;
+                                          NSInteger statusCode = -1;
                                           
                                           if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                                               NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -107,7 +107,7 @@
                                           
                                           
                                           // Failure case
-                                          if (statusCode >= 400) {
+                                          if (statusCode >= 400 || statusCode == -1)  {
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   [self handleFailure:ANAdResponseNetworkError errorInfo:@"connection_failed"];
                                               });
@@ -140,9 +140,8 @@
 - (void)handleFailure:(ANAdResponseCode)errorCode
             errorInfo:(NSString *)errorInfo
 {
-    if ([errorInfo length] > 0) {
-        ANLogError(@"ssm_mediation_failure %@", errorInfo);
-    }
+    
+    ANLogError(@"ssm_mediation_failure %@", (nil == errorInfo) ? @"" : errorInfo);
     
     [self didFailToReceiveAd:errorCode];
 }
@@ -194,7 +193,7 @@
     
     
     CGSize sizeofWebView = [self.adFetcher getWebViewSizeForCreativeWidth:self.ssmMediatedAd.width
-                                                                   andHeight:self.ssmMediatedAd.height];
+                                                                andHeight:self.ssmMediatedAd.height];
     
     self.ssmAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                            HTML:self.ssmMediatedAd.content
@@ -220,12 +219,16 @@
     [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
         
-        ANTrackerInfo *trackerInfo = [[ANTrackerInfo alloc] initResponseTrackerWithURL:self.ssmMediatedAd.responseURL                                                  reasonCode:errorCode                                                                                                        latency:[self getLatency] * 1000                                                                                                    totalLatency:[self getTotalLatency] * 1000];
+        NSString *responseURL = [self.ssmMediatedAd.responseURL an_responseTrackerReasonCode: errorCode
+                                                                                     latency: [self getLatency] * 1000
+                                                                                totalLatency: [self getTotalLatency] * 1000
+                                 ];
+        
         // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
         }
-        [fetcher fireResponseURL:trackerInfo reason:errorCode adObject:adObject auctionID:nil];
+        [fetcher fireResponseURL:responseURL reason:errorCode adObject:adObject auctionID:nil];
     }];
 }
 

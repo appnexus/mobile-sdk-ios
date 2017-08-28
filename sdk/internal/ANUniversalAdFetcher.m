@@ -181,7 +181,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
         ANLogWarn(@"response_no_ads");
         if (self.noAdUrl) {
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
-            [self fireTracker:self.noAdUrl];
+            [ANTrackerManager fireTrackerURL:self.noAdUrl];
         }
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
@@ -231,7 +231,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
     
     if (notifyUrlString.length > 0) {
         ANLogDebug(@"(notify_url, %@)", notifyUrlString);
-        [self fireTracker:notifyUrlString];
+        [ANTrackerManager fireTrackerURL:notifyUrlString];
     }
     
     if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
@@ -254,7 +254,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 {
     ANLogMark();
     CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
-                                                         andHeight:standardAd.height];
+                                                      andHeight:standardAd.height];
     
     if (self.standardAdView) {
         self.standardAdView.loadingDelegate = nil;
@@ -415,14 +415,14 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 }
 
 
-- (void)fireResponseURL:(ANTrackerInfo *)anTrackerInfo
+- (void)fireResponseURL:(NSString *)urlString
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
               auctionID:(NSString *)auctionID
 {
-
-    if (anTrackerInfo) {
-        [ANTrackerManager fireTrackerURL:anTrackerInfo.URL];
+    
+    if (urlString) {
+        [ANTrackerManager fireTrackerURL:urlString];
     }
     
     if (reason == ANAdResponseSuccessful) {
@@ -447,18 +447,10 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 }
 
 
-// just fire responseURL asnychronously and ignore result
-//
-- (void)fireTracker:(NSString *)url
-{
-    [ANTrackerManager fireTrackerURL:url];
-}
-
-
 // common for Banner / Interstitial RTB and SSM.
 
 -(CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
-                                 andHeight:(NSString *)height
+                              andHeight:(NSString *)height
 {
     
     // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.

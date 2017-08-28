@@ -20,5 +20,8 @@
 - (NSDictionary *)an_queryComponents;
 - (NSString *)an_encodeAsURIComponent;
 - (NSString *)an_stringByAppendingUrlParameter:(NSString *)name value:(NSString*)value;
+- (NSString *)an_responseTrackerReasonCode:(int)reasonCode
+                                   latency:(NSTimeInterval)latency
+                              totalLatency:(NSTimeInterval) totalLatency;
 
 @end

@@ -46,42 +46,6 @@
     return self;
 }
 
-- (instancetype)initResponseTrackerWithURL:(NSString *)URL
-                    reasonCode:(int)reasonCode
-                       latency:(NSTimeInterval)latency
-                 totalLatency:(NSTimeInterval) totalLatency{
-    if (!URL) {
-        return nil;
-    }
-    if (self = [super init]) {
-        _dateCreated = [NSDate date];
-        [self createExpirationTimer];
-    }
-
-    
-    // append reason code
-    NSString *urlString = [URL an_stringByAppendingUrlParameter: @"reason"
-                                                              value: [NSString stringWithFormat:@"%d",reasonCode]];
-    
-    // append idfa
-    urlString = [urlString an_stringByAppendingUrlParameter: @"idfa"
-                                                      value: ANUDID()];
-    
-    if (latency > 0) {
-        urlString = [urlString an_stringByAppendingUrlParameter: @"latency"
-                                                          value: [NSString stringWithFormat:@"%.0f", latency]];
-    }
-    if (totalLatency > 0) {
-        urlString = [urlString an_stringByAppendingUrlParameter: @"total_latency"
-                                                         value :[NSString stringWithFormat:@"%.0f", totalLatency]];
-    }
-    
-    ANLogInfo(@"responseURLString=%@", urlString);
-
-    _URL = urlString;
-    return self;
-    
-}
 
 - (void)createExpirationTimer {
     __weak ANTrackerInfo *weakSelf = self;

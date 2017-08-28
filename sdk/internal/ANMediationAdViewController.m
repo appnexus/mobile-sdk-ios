@@ -466,13 +466,15 @@
     [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
         
-        ANTrackerInfo *trackerInfo = [[ANTrackerInfo alloc] initResponseTrackerWithURL:self.mediatedAd.responseURL                                                                                                      reasonCode:errorCode                                                                                                                                            latency:[self getLatency] * 1000                                                                                                                                totalLatency:[self getTotalLatency] * 1000];
+        NSString *responseURL = [self.mediatedAd.responseURL an_responseTrackerReasonCode:errorCode
+                                                                                  latency: ([self getLatency] * 1000)
+                                                                             totalLatency:([self getTotalLatency] * 1000)];
         
         // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
         }
-        [fetcher fireResponseURL:trackerInfo reason:errorCode adObject:adObject auctionID:auctionID];
+        [fetcher fireResponseURL:responseURL reason:errorCode adObject:adObject auctionID:auctionID];
     }];
 }
 

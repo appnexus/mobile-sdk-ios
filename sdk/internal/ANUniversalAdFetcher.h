@@ -43,10 +43,10 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 - (CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
-                                  andHeight:(NSString *)height;
+                               andHeight:(NSString *)height;
 
 
-- (void)fireResponseURL:(ANTrackerInfo *)anTrackerInfo
+- (void)fireResponseURL:(NSString *)urlString
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
               auctionID:(NSString *)auctionID;
