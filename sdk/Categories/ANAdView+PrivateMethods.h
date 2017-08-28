@@ -20,8 +20,6 @@
 
 @interface ANAdView (PrivateMethods) <ANAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
-
 - (void)initialize;
 - (void)loadAd;
 - (void)loadAdFromHtml:(NSString *)html
