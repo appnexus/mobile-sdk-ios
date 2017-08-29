@@ -14,6 +14,8 @@
  */
 
 #import "NSString+ANCategory.h"
+#import "ANGlobal.h"
+#import "ANLogging.h"
 
 @implementation NSString (ANCategory)
 
@@ -42,18 +44,18 @@
 
 - (NSString*)an_encodeAsURIComponent
 {
-	const char* p = [self UTF8String];
-	NSMutableString* result = [NSMutableString string];
-	
-	for (;*p ;p++) {
-		unsigned char c = *p;
-		if (('0' <= c && c <= '9') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || (c == '-' || c == '_')||c=='.') {
-			[result appendFormat:@"%c", c];
-		} else {
-			[result appendFormat:@"%%%02X", c];
-		}
-	}
-	return result;
+    const char* p = [self UTF8String];
+    NSMutableString* result = [NSMutableString string];
+    
+    for (;*p ;p++) {
+        unsigned char c = *p;
+        if (('0' <= c && c <= '9') || ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || (c == '-' || c == '_')||c=='.') {
+            [result appendFormat:@"%c", c];
+        } else {
+            [result appendFormat:@"%%%02X", c];
+        }
+    }
+    return result;
 }
 
 - (NSString *)an_stringByAppendingUrlParameter:(NSString *)name
@@ -64,7 +66,7 @@
     }
     
     NSMutableString *parameter = [NSMutableString stringWithFormat:@"%@=%@",
-                           name, [value an_encodeAsURIComponent]];
+                                  name, [value an_encodeAsURIComponent]];
     
     // add the proper prefix depending on the current string
     if ([self rangeOfString:@"="].length != 0) {
@@ -72,8 +74,36 @@
     } else if ([self rangeOfString:@"?"].location != ([self length] - 1)) {
         [parameter insertString:@"?" atIndex:0];
     } // otherwise, keep the string as it is
-	
+    
     return [self stringByAppendingString:parameter];
+}
+
+
+- (NSString *)an_responseTrackerReasonCode:(int)reasonCode
+                                   latency:(NSTimeInterval)latency
+                              totalLatency:(NSTimeInterval) totalLatency{
+    
+    
+    // append reason code
+    NSString *urlString = [self an_stringByAppendingUrlParameter: @"reason"
+                                                           value: [NSString stringWithFormat:@"%d",reasonCode]];
+    
+    // append idfa
+    urlString = [urlString an_stringByAppendingUrlParameter: @"idfa"
+                                                      value: ANUDID()];
+    
+    if (latency > 0) {
+        urlString = [urlString an_stringByAppendingUrlParameter: @"latency"
+                                                          value: [NSString stringWithFormat:@"%.0f", latency]];
+    }
+    if (totalLatency > 0) {
+        urlString = [urlString an_stringByAppendingUrlParameter: @"total_latency"
+                                                         value :[NSString stringWithFormat:@"%.0f", totalLatency]];
+    }
+    
+    ANLogInfo(@"responseURLString=%@", urlString);
+    
+    return urlString;
 }
 
 @end

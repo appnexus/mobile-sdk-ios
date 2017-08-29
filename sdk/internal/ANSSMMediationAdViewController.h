@@ -15,13 +15,22 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (ANCategory)
+#import "ANSSMStandardAd.h"
+#import "ANUniversalAdFetcher.h"
 
-- (NSDictionary *)an_queryComponents;
-- (NSString *)an_encodeAsURIComponent;
-- (NSString *)an_stringByAppendingUrlParameter:(NSString *)name value:(NSString*)value;
-- (NSString *)an_responseTrackerReasonCode:(int)reasonCode
-                                   latency:(NSTimeInterval)latency
-                              totalLatency:(NSTimeInterval) totalLatency;
 
+@interface ANSSMMediationAdViewController : NSObject
+
+
+- (void)startTimeout;
+- (void)clearAdapter;
+
++ (ANSSMMediationAdViewController *)initMediatedAd:(ANSSMStandardAd *)ssmMediatedAd
+                                    withFetcher:(ANUniversalAdFetcher *)fetcher
+                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate;
+
+@end
+
+@interface ANSSMMediationAdViewController ()
+@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
 @end

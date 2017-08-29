@@ -14,9 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-
 #import "ANAdFetcher.h"
 #import "ANVideoAdProcessor.h"
+#import "ANTrackerInfo.h"
 #import "ANUniversalTagAdServerResponse.h"
 
 
@@ -42,11 +42,14 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
+- (CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
+                               andHeight:(NSString *)height;
 
-- (void)fireResponseURL:(NSString *)responseURLString
-              reason:(ANAdResponseCode)reason
-            adObject:(id)adObject
-           auctionID:(NSString *)auctionID;
+
+- (void)fireResponseURL:(NSString *)urlString
+                 reason:(ANAdResponseCode)reason
+               adObject:(id)adObject
+              auctionID:(NSString *)auctionID;
 
 @end
 
