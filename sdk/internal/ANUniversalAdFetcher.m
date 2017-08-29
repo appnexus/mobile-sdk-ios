@@ -19,14 +19,18 @@
 
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"
+#import "ANSSMStandardAd.h"
 #import "ANVideoAdPlayer.h"
 #import "ANSDKSettings+PrivateMethods.h"
-
-#import "ANAdFetcher.h"
 
 #import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
+#import "ANSSMMediationAdViewController.h"
+#import "ANTrackerInfo.h"
+#import "ANTrackerManager.h"
+
+
 
 
 
@@ -42,7 +46,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 @property (nonatomic, readwrite, strong)  NSMutableData    *data;
 
 @property (nonatomic, readwrite, strong)  NSMutableArray   *ads;
-@property (nonatomic, readwrite, strong)  NSURL            *noAdUrl;
+@property (nonatomic, readwrite, strong)  NSString         *noAdUrl;
 @property (nonatomic, readwrite, assign)  NSTimeInterval    totalLatencyStart;
 @property (nonatomic, readwrite, strong)  id                adObjectHandler;
 
@@ -50,6 +54,8 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   delegate;
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *standardAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
+@property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
+
 
 @end
 
@@ -84,6 +90,8 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
      */
     self.mediationController.adFetcher = nil;
     self.mediationController = nil;
+    self.ssmMediationController.adFetcher = nil;
+    self.ssmMediationController = nil;
 }
 
 
@@ -93,18 +101,18 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)requestAd
 {
-ANLogMark();
+    ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
-
+    
     self.connection = [NSURLConnection connectionWithRequest:request
                                                     delegate:self];
-
+    
     self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-                //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
-                //FIX -- clear if connection turns out not to be successful?
-
-
+    //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
+    //FIX -- clear if connection turns out not to be successful?
+    
+    
     if (!self.connection) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
         [self processFinalResponse:response];
@@ -115,7 +123,7 @@ ANLogMark();
 
 - (void)stopAdLoad
 {
-ANLogMark();
+    ANLogMark();
     [self.connection cancel];
     self.connection = nil;
     self.data = nil;
@@ -128,9 +136,9 @@ ANLogMark();
 
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
 {
-ANLogMark();
+    ANLogMark();
     BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
-
+    
     if (!containsAds) {
         ANLogWarn(@"response_no_ads");
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
@@ -138,7 +146,7 @@ ANLogMark();
     }
     
     if (response.noAdUrlString) {
-        self.noAdUrl = [NSURL URLWithString:response.noAdUrlString];
+        self.noAdUrl = response.noAdUrlString;
     }
     self.ads = response.ads;
 
@@ -153,9 +161,9 @@ ANLogMark();
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
-ANLogMark();
+    ANLogMark();
     self.ads = nil;
-
+    
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
     }
@@ -168,7 +176,7 @@ ANLogMark();
 //
 - (void)continueWaterfall
 {
-ANLogMark();
+    ANLogMark();
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
         return;
@@ -180,32 +188,35 @@ ANLogMark();
         ANLogWarn(@"response_no_ads");
         if (self.noAdUrl) {
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
-            [self fireTracker:self.noAdUrl];
+            [ANTrackerManager fireTrackerURL:self.noAdUrl];
         }
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
-
-
+    
+    
     //
     id nextAd = [self.ads firstObject];
     [self.ads removeObjectAtIndex:0];
-
+    
     self.adObjectHandler = nextAd;
-
-
+    
+    
     if ([nextAd isKindOfClass:[ANRTBVideoAd class]]) {
         [self handleRTBVideoAd:nextAd];
-
+        
     } else if([nextAd isKindOfClass:[ANCSMVideoAd class]]){
         [self handleCSMVideoAd:nextAd];
-
+        
     } else if ( [nextAd isKindOfClass:[ANStandardAd class]] ) {
         [self handleStandardAd:nextAd];
-
+        
     } else if ( [nextAd isKindOfClass:[ANMediatedAd class]] ) {
-        [self handleMediatedAd:nextAd];
-
+        [self handleCSMSDKMediatedAd:nextAd];
+        
+    } else if ( [nextAd isKindOfClass:[ANSSMStandardAd class]] ) {
+        [self handleSSMMediatedAd:nextAd];
+        
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall.  (class=%@)", [nextAd class]);
     }
@@ -224,12 +235,12 @@ ANLogMark();
     }
     
     NSString *notifyUrlString = videoAd.notifyUrlString;
-
+    
     if (notifyUrlString.length > 0) {
         ANLogDebug(@"(notify_url, %@)", notifyUrlString);
-        [self fireTracker:[NSURL URLWithString:notifyUrlString]];
+        [ANTrackerManager fireTrackerURL:notifyUrlString];
     }
-
+    
     if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
         ANLogError(@"FAILED to create ANVideoAdProcessor object.");
     }
@@ -249,40 +260,36 @@ ANLogMark();
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
     ANLogMark();
-    // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
-    CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
-    CGSize requestedSize = [self getAdSizeFromDelegate];
-
-    CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
-    CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
-
-    if (!CGRectContainsRect(requestedRect, receivedRect)) {
-        ANLogInfo(@"adsize_too_big %d%d%d%d",   (int)receivedRect.size.width,  (int)receivedRect.size.height,
-                                                (int)requestedRect.size.width, (int)requestedRect.size.height );
-    }
-
-    CGSize sizeOfCreative = (    (receivedSize.width > 0)
-                              && (receivedSize.height > 0)) ? receivedSize : requestedSize;
-
+    CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
+                                                      andHeight:standardAd.height];
+    
     if (self.standardAdView) {
         self.standardAdView.loadingDelegate = nil;
     }
-
-    self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeOfCreative
+    
+    self.standardAdView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                                 HTML:standardAd.content
                                                       webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
     self.standardAdView.loadingDelegate = self;
     // Allow ANJAM events to always be passed to the ANAdView
     self.standardAdView.webViewController.adViewANJAMDelegate = self.delegate;
-
+    
 }
 
 
-- (void)handleMediatedAd:(ANMediatedAd *)mediatedAd
+- (void)handleCSMSDKMediatedAd:(ANMediatedAd *)mediatedAd
 {
     self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
                                                                withFetcher:self
                                                             adViewDelegate:self.delegate];
+}
+
+
+- (void)handleSSMMediatedAd:(ANSSMStandardAd *)mediatedAd
+{
+    self.ssmMediationController = [ANSSMMediationAdViewController initMediatedAd:mediatedAd
+                                                                     withFetcher:self
+                                                                  adViewDelegate:self.delegate];
 }
 
 
@@ -293,12 +300,12 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-ANLogMark();
+    ANLogMark();
     if (connection == self.connection) {
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             NSInteger status = [httpResponse statusCode];
-
+            
             if (status >= 400) {
                 [connection cancel];
                 NSError *statusError = ANError(@"connection_failed %ld", ANAdResponseNetworkError, (long)status);
@@ -306,10 +313,10 @@ ANLogMark();
                 return;
             }
         }
-
+        
         self.data = [NSMutableData data];
         ANLogDebug(@"Received response: %@", response);
-
+        
     } else {
         ANLogDebug(@"Received response from unknown");
     }
@@ -317,7 +324,7 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
 {
-ANLogMark();
+    ANLogMark();
     if (connection == self.connection) {
         [self.data appendData:d];
     }
@@ -325,7 +332,7 @@ ANLogMark();
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-ANLogMark();
+    ANLogMark();
     if (connection == self.connection)
     {
         NSString *responseString = [[NSString alloc] initWithData:self.data
@@ -333,7 +340,7 @@ ANLogMark();
         ANLogDebug(@"Response JSON %@", responseString);
         ANPostNotifications(kANAdFetcherDidReceiveResponseNotification, self,
                             @{kANAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-
+        
         //
         ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:self.data];
         [self processAdServerResponse:adResponse];
@@ -342,7 +349,7 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-ANLogMark();
+    ANLogMark();
     if (connection == self.connection) {
         NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
         ANLogError(@"%@", connectionError);
@@ -405,61 +412,70 @@ ANLogMark();
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime
 {
     NSTimeInterval  totalLatency  = -1;
-
+    
     if ((self.totalLatencyStart > 0) && (stopTime > 0)) {
         totalLatency = (stopTime - self.totalLatencyStart);
     }
-
+    
     //
     return  totalLatency;
 }
 
 
-- (void)fireResponseURL:(NSString *)responseURLString
-              reason:(ANAdResponseCode)reason
-            adObject:(id)adObject
-           auctionID:(NSString *)auctionID
+- (void)fireResponseURL:(NSString *)urlString
+                 reason:(ANAdResponseCode)reason
+               adObject:(id)adObject
+              auctionID:(NSString *)auctionID
 {
-ANLogMark();
-    NSURL *resultURL = [NSURL URLWithString:responseURLString];
-
-    if ([responseURLString length] > 0) {
-         ANLogDebug(@"(response_url, %@)", resultURL);
-        [self fireTracker:resultURL];
+    
+    if (urlString) {
+        [ANTrackerManager fireTrackerURL:urlString];
     }
-
-    //
+    
     if (reason == ANAdResponseSuccessful) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
-
+        
         response.auctionID = auctionID;
         [self processFinalResponse:response];
-
+        
     } else {
         ANLogError(@"FAILED with reason=%@.", @(reason));
-
+        
         // mediated ad failed. clear mediation controller
         [self clearMediationController];
-
+        
         // stop waterfall if delegate reference (adview) was lost
         if (!self.delegate) {
             return;
         }
-
+        
         [self continueWaterfall];
     }
 }
 
 
-// just fire responseURL asnychronously and ignore result
-//
-- (void)fireTracker:(NSURL *)url
-{
-    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(url)
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+// common for Banner / Interstitial RTB and SSM.
 
-                           }];
+-(CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
+                              andHeight:(NSString *)height
+{
+    
+    // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
+    CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
+    CGSize requestedSize = [self getAdSizeFromDelegate];
+    
+    CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
+    CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
+    
+    if (!CGRectContainsRect(requestedRect, receivedRect)) {
+        ANLogInfo(@"adsize_too_big %d%d%d%d",   (int)receivedRect.size.width,  (int)receivedRect.size.height,
+                  (int)requestedRect.size.width, (int)requestedRect.size.height );
+    }
+    
+    CGSize sizeOfCreative = (    (receivedSize.width > 0)
+                             && (receivedSize.height > 0)) ? receivedSize : requestedSize;
+    
+    return sizeOfCreative;
 }
 
 

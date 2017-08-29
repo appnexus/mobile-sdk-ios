@@ -14,9 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-
 #import "ANAdFetcher.h"
 #import "ANVideoAdProcessor.h"
+#import "ANTrackerInfo.h"
 #import "ANUniversalTagAdServerResponse.h"
 
 
@@ -42,6 +42,9 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
+- (CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
+                               andHeight:(NSString *)height;
+
 
 - (void)fireResponseURL:(NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
@@ -56,6 +59,7 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 // NB  ANUniversalAdFetcherDelegate is sufficient for instream video format.
 //
 @protocol  ANUniversalAdFetcherDelegate  <ANAdFetcherDelegate>
+                //FIX -- move elements from ANAdFetcherDelegate into here and ditch ANAdFetcherDelegate.
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
@@ -64,9 +68,6 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
-
-
-//FIX -- need custom keywords map.
 
 
 @end
