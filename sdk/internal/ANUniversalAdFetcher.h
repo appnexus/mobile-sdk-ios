@@ -44,9 +44,9 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 
 - (void)fireResponseURL:(NSString *)responseURLString
-              reason:(ANAdResponseCode)reason
-            adObject:(id)adObject
-           auctionID:(NSString *)auctionID;
+                 reason:(ANAdResponseCode)reason
+               adObject:(id)adObject
+              auctionID:(NSString *)auctionID;
 
 @end
 

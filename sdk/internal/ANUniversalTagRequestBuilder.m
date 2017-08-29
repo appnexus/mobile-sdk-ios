@@ -132,10 +132,9 @@ ANLogMark();
 
 // ASSUME  customKeywordsMap is a superset of customKeywords.
 //
-// RETURN:  An NSArray pointer to NSMutableArray of NSSet values.
-                        //FIX -- okay?
+// RETURN:  An NSArray pointer to NSDictionary of key/value pairs where each value object is an NSSet.
 //
-- (NSArray *)keywords
+- (NSArray<NSSet *> *)keywords
 {
     NSDictionary  *customKeywordsMap  = [self.adFetcherDelegate customKeywordsMap];
 
@@ -144,7 +143,7 @@ ANLogMark();
     }
 
     //
-    NSMutableArray  *kvSegmentsArray  = [[NSMutableArray alloc] init];
+    NSMutableArray<NSDictionary *>  *kvSegmentsArray  = [[NSMutableArray alloc] init];
 
     for (NSString *key in customKeywordsMap)
     {
@@ -155,10 +154,11 @@ ANLogMark();
         }
 
         NSSet  *setOfUniqueArrayValues  = [NSSet setWithArray:valueArray];
-        
-       
-        
-        [kvSegmentsArray addObject:@{ @"key":key, @"value":[setOfUniqueArrayValues allObjects] }];
+
+        [kvSegmentsArray addObject:@{
+                                        @"key"      : key,
+                                        @"value"    : [setOfUniqueArrayValues allObjects]
+                                    } ];
     }
 
     return [kvSegmentsArray copy];

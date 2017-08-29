@@ -230,6 +230,49 @@ ANLogMark();
     [self.customKeywordsMap removeAllObjects];
 }
 
+- (void) setCustomKeywords:(NSMutableDictionary *)customKeywords
+{
+    if (nil == customKeywords)  {
+        [self clearCustomKeywords];
+        return;
+    }
+
+    if ([customKeywords count] <= 0)  {
+        ANLogError(@"Attempt to assign an EMPTY DICTIONARY to customKeywords.");
+        return;
+    }
+
+    //
+    for (NSString *key in customKeywords)
+    {
+        id  valueObj  = [customKeywords valueForKey:key];
+
+        if ([valueObj isKindOfClass:[NSString class]])
+        {
+            NSString  *value  = (NSString *)valueObj;
+
+            if ([value length] <= 0)  {
+                ANLogWarn(@"SKIPPING NSString value with no length...");
+                continue;
+            }
+
+            [self addCustomKeywordWithKey:key value:value];
+
+        } else {
+            NSArray  *value  = (NSArray *)valueObj;
+
+            if ([value count] <= 0)  {
+                ANLogWarn(@"SKIPPING empty NSArray value...");
+                continue;
+            }
+
+            for (NSString *valueElement in value)  {
+                [self addCustomKeywordWithKey:key value:valueElement];
+            }
+        }
+    }
+}
+
 
 
 #pragma mark - Getter methods
@@ -354,7 +397,7 @@ ANLogMark();
 }
 
 
-        /* FIX toss --or-- adap[t to UT?
+        /* FIX put back
 - (void)adInteractionDidBegin {
     ANLogDebug(@"%@", NSStringFromSelector(_cmd));
     [self.adFetcher stopAd];

@@ -77,14 +77,11 @@ NSString *const  kANAdFetcherMediatedClassKey                          = @"kANAd
 {
     [self.connection cancel];
     self.loading = NO;
-    //FIX UT  -- shuld this simply call [self stopAd] to be consisternt in all cases?
 
     [self requestAd];
 }
 
 - (void)requestAdWithURL:(NSURL *)URL
-                            //x FIX UT -- also called by fireResultCB:reason:adObject:auctionID:
-                            //  separate URL invocation from URL constructdion...
 {
 ANLogMarkMessage(@"REMOVED FROM THE SDK.");
     [self.autoRefreshTimer invalidate];
@@ -92,7 +89,7 @@ ANLogMarkMessage(@"REMOVED FROM THE SDK.");
 
 
 
-                        /* fix --FIX -- toss
+                        /*
     if (!self.isLoading)
     {
         ANLogInfo(@"fetcher_start");
@@ -268,8 +265,7 @@ ANLogMark();
     CGRect receivedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width, receivedSize.height);
     CGRect requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, requestedSize.width, requestedSize.height);
 
-    //FIX DEBUG
-    if (nil == self.delegate) {     //FIX UT -- where should this delegate live?
+    if (nil == self.delegate) {
         CGFloat  offset  = 10;
         requestedRect = CGRectMake(CGPointZero.x, CGPointZero.y, receivedSize.width + offset, receivedSize.height + offset);
     }
