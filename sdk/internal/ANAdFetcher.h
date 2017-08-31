@@ -65,9 +65,22 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 @protocol ANAdFetcherDelegate <ANAdProtocolPublicAndPrivate, ANAdViewInternalDelegate>
 
 @optional
+
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
+
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
+
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
-- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
+
+
+// customKeywordsMap represents the data object standard for storing custom keywords.
+//
+// customKewordMapToStrings represents the old style of managing custom keywords
+//                          and is maintained as a simplified representation for use in
+//                          mediation adapters and elsewhere.
+//
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>    *customKeywordsMap;
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSString *>               *customKeywordsMapToStrings;
+
 
 @end

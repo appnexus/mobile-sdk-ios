@@ -42,7 +42,7 @@
     }
     
     GADExtras *extras = [[GADExtras alloc] init];
-    NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
+    NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywordsMapToStrings mutableCopy];
     if (!extrasDictionary) {
         extrasDictionary = [[NSMutableDictionary alloc] init];
     }

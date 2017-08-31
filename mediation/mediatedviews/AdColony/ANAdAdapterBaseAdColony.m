@@ -183,10 +183,10 @@ typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
             appOptions.userMetadata.userLongitude = [NSNumber numberWithFloat:targetingParameters.location.longitude];
         }
 
-        if ([targetingParameters.customKeywords count] > 0)
+        if ([targetingParameters.customKeywordsMapToStrings count] > 0)
         {
-            for (NSString *key in targetingParameters.customKeywords) {
-                NSString  *value  = [targetingParameters.customKeywords objectForKey:key];
+            for (NSString *key in targetingParameters.customKeywordsMapToStrings) {
+                NSString  *value  = [targetingParameters.customKeywordsMapToStrings objectForKey:key];
 
                 [appOptions.userMetadata setMetadataWithKey:key andStringValue:value];
             }

@@ -33,7 +33,7 @@
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    self.cbLocation = targetingParameters.customKeywords[kANAdAdapterBaseChartboostCBLocationKey];
+    self.cbLocation = targetingParameters.customKeywordsMapToStrings[kANAdAdapterBaseChartboostCBLocationKey];
     if (!self.cbLocation) {
         self.cbLocation = CBLocationDefault;
     }

@@ -51,7 +51,7 @@
     self.banner.delegate = self;
     [self.banner shouldAutoRefresh:NO];
     self.banner.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
-    self.banner.extras = targetingParameters.customKeywords;
+    self.banner.extras = targetingParameters.customKeywordsMapToStrings;
     [ANAdAdapterBaseInMobi setInMobiTargetingWithTargetingParameters:targetingParameters];
     [self.banner load];
 }

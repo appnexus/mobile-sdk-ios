@@ -57,8 +57,8 @@
         [self.interstitialAd setAge:birthYear];
     }
     
-    NSMutableDictionary *customKeywords = [[customEventRequest additionalParameters] mutableCopy];
-    [self.interstitialAd setCustomKeywords:customKeywords];
+    NSMutableDictionary *customKeywordsMapToStrings = [[customEventRequest additionalParameters] mutableCopy];
+    [self.interstitialAd setCustomKeywords:customKeywordsMapToStrings];
     
     [self.interstitialAd loadAd];
 }

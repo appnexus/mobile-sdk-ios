@@ -107,7 +107,7 @@ static NSString *kANAdAdapterBaseInMobiAppId = @"";
 
 + (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
     NSMutableArray *keywords = [[NSMutableArray alloc] init];
-    [targetingParameters.customKeywords enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+    [targetingParameters.customKeywordsMapToStrings enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
         [keywords addObject:value];
     }];
     return [keywords componentsJoinedByString:@","];

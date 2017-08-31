@@ -130,8 +130,6 @@ ANLogMark();
     return [requestDict copy];
 }
 
-// ASSUME  customKeywordsMap is a superset of customKeywords.
-//
 // RETURN:  An NSArray pointer to NSDictionary of key/value pairs where each value object is an NSSet.
 //
 - (NSArray<NSSet *> *)keywords

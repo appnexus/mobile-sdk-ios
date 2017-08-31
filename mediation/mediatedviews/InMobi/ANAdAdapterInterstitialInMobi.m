@@ -46,7 +46,7 @@
     }
     self.adInterstitial = [[IMInterstitial alloc] initWithPlacementId:[idString longLongValue]];
     self.adInterstitial.delegate = self;
-    self.adInterstitial.extras = targetingParameters.customKeywords;
+    self.adInterstitial.extras = targetingParameters.customKeywordsMapToStrings;
     self.adInterstitial.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
     [ANAdAdapterBaseInMobi setInMobiTargetingWithTargetingParameters:targetingParameters];
     [self.adInterstitial load];

@@ -35,7 +35,7 @@
         flurryTargeting.location = yahooLocation;
     }
     
-    NSMutableDictionary *keywords = [targetingParameters.customKeywords mutableCopy];
+    NSMutableDictionary *keywords = [targetingParameters.customKeywordsMapToStrings mutableCopy];
     if (!keywords) {
         keywords = [[NSMutableDictionary alloc] init];
     }

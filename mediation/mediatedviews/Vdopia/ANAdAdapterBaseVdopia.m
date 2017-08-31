@@ -41,9 +41,9 @@
                                       accuracy:targetingParameters.location.horizontalAccuracy];
     }
     
-    if (targetingParameters.customKeywords) {
+    if (targetingParameters.customKeywordsMapToStrings) {
         NSMutableArray *keywords = [[NSMutableArray alloc] init];
-        [targetingParameters.customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [targetingParameters.customKeywordsMapToStrings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             [keywords addObject:[obj description]];
         }];
         [LVDOAdRequest addKeyword:keywords];

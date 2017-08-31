@@ -66,8 +66,8 @@
         [self.bannerAdView setAge:birthYear];
     }
     
-    NSMutableDictionary *customKeywords = [[customEventRequest additionalParameters] mutableCopy];
-    [self.bannerAdView setCustomKeywords:customKeywords];
+    NSMutableDictionary *customKeywordsMapToStrings = [[customEventRequest additionalParameters] mutableCopy];
+    [self.bannerAdView setCustomKeywords:customKeywordsMapToStrings];
     
     [self.bannerAdView loadAd];
 }

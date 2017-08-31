@@ -73,7 +73,7 @@
         keywordDictionary[@"age"] = targetingParameters.age;
     }
     
-    [targetingParameters.customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [targetingParameters.customKeywordsMapToStrings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         keywordDictionary[key] = obj;
     }];
     

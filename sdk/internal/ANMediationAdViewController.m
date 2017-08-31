@@ -197,17 +197,14 @@
          adUnitId:(NSString *)idString
            adView:(id<ANUniversalAdFetcherDelegate>)adView
 {
-    ANLogMark();
-    // create targeting parameters object from adView properties
+ANLogMark();
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    targetingParameters.customKeywords = adView.customKeywords;
-#pragma clang diagnostic pop
-    targetingParameters.age = adView.age;
-    targetingParameters.gender = adView.gender;
-    targetingParameters.location = adView.location;
-    targetingParameters.idforadvertising = ANUDID();
+
+    targetingParameters.customKeywordsMapToStrings  = adView.customKeywordsMapToStrings;
+    targetingParameters.age                         = adView.age;
+    targetingParameters.gender                      = adView.gender;
+    targetingParameters.location                    = adView.location;
+    targetingParameters.idforadvertising            = ANUDID();
     
     //
     if ([adView isKindOfClass:[ANBannerAdView class]]) {

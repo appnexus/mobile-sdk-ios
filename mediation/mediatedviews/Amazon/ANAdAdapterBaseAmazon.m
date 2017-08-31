@@ -38,7 +38,7 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
 
 - (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters {
     AmazonAdOptions *options = [AmazonAdOptions options];
-    [targetingParameters.customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [targetingParameters.customKeywordsMapToStrings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [options setAdvancedOption:[obj description]
                             forKey:[key description]];
     }];

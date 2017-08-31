@@ -38,7 +38,7 @@
         [keywordArray addObject:[NSString stringWithFormat:@"m_age:%@", targetingParameters.age]];
     }
     
-    [targetingParameters.customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [targetingParameters.customKeywordsMapToStrings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [keywordArray addObject:[NSString stringWithFormat:@"%@:%@", key, obj]];
     }];
     

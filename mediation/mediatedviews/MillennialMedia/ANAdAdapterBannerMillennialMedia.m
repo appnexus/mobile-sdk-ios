@@ -48,7 +48,7 @@
     self.rootViewController = rootViewController;
     
     MMRequestInfo *requestInfo = [[MMRequestInfo alloc] init];
-    requestInfo.keywords = [[targetingParameters.customKeywords allValues] copy];
+    requestInfo.keywords = [[targetingParameters.customKeywordsMapToStrings allValues] copy];
     
     [self.inlineAd request:requestInfo];
 }

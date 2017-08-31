@@ -100,7 +100,7 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
     }
     self.nativeAd = [[IMNative alloc] initWithPlacementId:[adUnitId longLongValue]];
     self.nativeAd.delegate = self;
-    self.nativeAd.extras = targetingParameters.customKeywords;
+    self.nativeAd.extras = targetingParameters.customKeywordsMapToStrings;
     self.nativeAd.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
     [self.nativeAd load];
 }

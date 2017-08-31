@@ -276,26 +276,10 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
     }
 }
 
-- (NSString *)customKeywordsParameter {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    NSMutableDictionary *customKeywords = [self.adRequestDelegate customKeywords];
-#pragma clang diagnostic pop
+- (NSString *)customKeywordsParameter
+{
     NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap = [[self.adRequestDelegate customKeywordsMap] mutableCopy];
     
-    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        key = ANConvertToNSString(key);
-        value = ANConvertToNSString(value);
-        if (customKeywordsMap[key] == nil) {
-            customKeywordsMap[key] = [[NSMutableArray alloc] init];
-        }
-        if (![customKeywordsMap[key] containsObject:value]) {
-            NSMutableArray *valueArray = [customKeywordsMap[key] mutableCopy];
-            [valueArray addObject:value];
-            customKeywordsMap[key] = valueArray;
-        }
-    }];
-
     if ([customKeywordsMap count] < 1) {
         return @"";
     }

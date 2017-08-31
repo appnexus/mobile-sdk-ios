@@ -44,7 +44,7 @@
     }
     
     MMRequestInfo *requestInfo = [[MMRequestInfo alloc] init];
-    requestInfo.keywords = [[targetingParameters.customKeywords allValues] copy];
+    requestInfo.keywords = [[targetingParameters.customKeywordsMapToStrings allValues] copy];
     
     [self.interstitialAd load:requestInfo];
 }

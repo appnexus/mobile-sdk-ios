@@ -23,16 +23,22 @@
 @interface ANNativeAdRequest () <ANNativeAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
-@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
 
 @end
 
+
+
+
 @implementation ANNativeAdRequest
+
+@synthesize  customKeywordsMap                      = __customKeywordsMap;
+@synthesize  customKeywordsMapToStrings             = __customKeywordsMapToStrings;
+
 
 - (instancetype)init {
     if (self = [super init]) {
-        _customKeywords = [[NSMutableDictionary alloc] init];
-        _customKeywordsMap = [[NSMutableDictionary alloc] init];
+        self.customKeywordsMap           = [[NSMutableDictionary alloc] init];
+        self.customKeywordsMapToStrings  = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -165,7 +171,8 @@
 @synthesize location = _location;
 @synthesize reserve = _reserve;
 @synthesize age = _age;
-@synthesize customKeywords = _customKeywords;
+
+
 
 - (void)setLocationWithLatitude:(CGFloat)latitude
                       longitude:(CGFloat)longitude
@@ -189,16 +196,14 @@
                                               precision:precision];
 }
 
+
 - (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value {
+                          value:(NSString *)value
+{
     if (([key length] < 1) || !value) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords setValue:value forKey:key];
-#pragma clang diagnostic pop
+
     if(self.customKeywordsMap[key] != nil){
         NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
         if (![valueArray containsObject:value]) {
@@ -208,27 +213,52 @@
     } else {
         self.customKeywordsMap[key] = @[value];
     }
+
+    [self updateCustomKeywordsMapToStringsForKey:key];
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key {
+- (void) updateCustomKeywordsMapToStringsForKey:(NSString *)key
+{
+    NSArray   *mapValuesArray  = self.customKeywordsMap[key];
+    NSString  *mapValueString  = [mapValuesArray componentsJoinedByString:@" "];
+
+    self.customKeywordsMapToStrings[key] = mapValueString;
+}
+
+- (void)removeCustomKeywordWithKey:(NSString *)key
+{
     if (([key length] < 1)) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords removeObjectForKey:key];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeObjectForKey:key];
+
+    [self.customKeywordsMap          removeObjectForKey:key];
+    [self.customKeywordsMapToStrings removeObjectForKey:key];
 }
 
-- (void)clearCustomKeywords {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    [self.customKeywords removeAllObjects];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeAllObjects];
+- (void)clearCustomKeywords
+{
+    [self.customKeywordsMap          removeAllObjects];
+    [self.customKeywordsMapToStrings removeAllObjects];
 }
+
+// ASSUME  Each value within dictionaryOfStrings consists of a string that may or may not contain whitespace, but contains no other punctuation.
+//
+- (void) setCustomKeywordsFromDictionaryOfStrings:(NSDictionary<NSString *,NSString *> *)dictionaryOfStrings
+{
+    [self clearCustomKeywords];
+
+    [dictionaryOfStrings enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop)
+     {
+         NSArray  *stringValueElements  = [obj componentsSeparatedByString:@" "];
+
+         for (NSString *element in stringValueElements)
+         {
+             NSString  *elementTrimmed  = [element stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+             [self addCustomKeywordWithKey:key value:elementTrimmed];
+         }
+     } ];
+}
+
 
 - (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberId{
     inventoryCode = ANConvertToNSString(inventoryCode);
