@@ -111,11 +111,6 @@
  */
 - (void)clearCustomKeywords;
 
-/**
- * Reset custom keywords from a dictionary of strings.
- */
-- (void)setCustomKeywordsFromDictionaryOfStrings:(NSDictionary<NSString *, NSString *> *)dictionaryOfStrings;
-
 
 /*!
  * Set the inventory code and member id for the place that ads will be shown.

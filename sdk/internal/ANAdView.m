@@ -60,7 +60,7 @@
 @synthesize  customKeywordsMap                      = __customKeywordsMap;
 @synthesize  customKeywordsMapToStrings             = __customKeywordsMapToStrings;
 
-// ANAdProtocolPrivate properties.
+// ANAdProtocolPublicAndPrivate properties.
 //
 @synthesize  allowSmallerSizes                      = __allowSmallerSizes;
 
@@ -232,24 +232,6 @@ ANLogMark();
 {
     [self.customKeywordsMap          removeAllObjects];
     [self.customKeywordsMapToStrings removeAllObjects];
-}
-
-// ASSUME  Each value within dictionaryOfStrings consists of a string that may or may not contain whitespace, but contains no other punctuation.
-//
-- (void) setCustomKeywordsFromDictionaryOfStrings:(NSDictionary<NSString *,NSString *> *)dictionaryOfStrings
-{
-    [self clearCustomKeywords];
-
-    [dictionaryOfStrings enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop)
-     {
-         NSArray  *stringValueElements  = [obj componentsSeparatedByString:@" "];
-
-         for (NSString *element in stringValueElements)
-         {
-             NSString  *elementTrimmed  = [element stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-             [self addCustomKeywordWithKey:key value:elementTrimmed];
-         }
-     } ];
 }
 
 
