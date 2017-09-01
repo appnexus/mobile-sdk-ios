@@ -101,7 +101,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)requestAd
 {
-    ANLogMark();
+ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     
@@ -123,7 +123,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)stopAdLoad
 {
-    ANLogMark();
+ANLogMark();
     [self.connection cancel];
     self.connection = nil;
     self.data = nil;
@@ -136,7 +136,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
 {
-    ANLogMark();
+ANLogMark();
     BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
     
     if (!containsAds) {
@@ -161,7 +161,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
-    ANLogMark();
+ANLogMark();
     self.ads = nil;
     
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
@@ -176,7 +176,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 //
 - (void)continueWaterfall
 {
-    ANLogMark();
+ANLogMark();
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
         return;
@@ -259,7 +259,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
-    ANLogMark();
+ANLogMark();
     CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
                                                       andHeight:standardAd.height];
     
@@ -300,7 +300,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    ANLogMark();
+ANLogMark();
     if (connection == self.connection) {
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -324,7 +324,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
 {
-    ANLogMark();
+ANLogMark();
     if (connection == self.connection) {
         [self.data appendData:d];
     }
@@ -332,7 +332,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    ANLogMark();
+ANLogMark();
     if (connection == self.connection)
     {
         NSString *responseString = [[NSString alloc] initWithData:self.data
@@ -349,7 +349,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    ANLogMark();
+ANLogMark();
     if (connection == self.connection) {
         NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
         ANLogError(@"%@", connectionError);
@@ -375,7 +375,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-    ANLogMark();
+ANLogMark();
     if (self.standardAdView.webViewController == controller) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView andAdObjectHandler:self.adObjectHandler];
         [self processFinalResponse:response];
@@ -390,7 +390,6 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 - (void) videoAdProcessor:(ANVideoAdProcessor *)videoProcessor didFinishVideoProcessing: (ANVideoAdPlayer *)adVideo{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            ANLogMark();
             ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo andAdObjectHandler:self.adObjectHandler];
             [self processFinalResponse:adFetcherResponse];
         });

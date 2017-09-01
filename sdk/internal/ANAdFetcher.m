@@ -171,7 +171,6 @@ ANLogMarkMessage(@"[self.request HTTPBody]=%@", [self.request HTTPBody]);
 
 - (void)sendDelegateFinishedResponse:(ANAdFetcherResponse *)response
 {
-ANLogMark();
     if ([self.delegate respondsToSelector:@selector(adFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate adFetcher:self didFinishRequestWithResponse:response];
     }
@@ -201,7 +200,6 @@ ANLogMark();
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
-ANLogMark();
     [self sendDelegateFinishedResponse:response];
     [self startAutoRefreshTimer];
 }
@@ -225,7 +223,6 @@ ANLogMark();
 
 - (void)processAdResponse:(ANAdServerResponse *)response
 {
-ANLogMark();
     [self clearMediationController];
     
     BOOL responseAdsExist = response && response.containsAds;
@@ -257,7 +254,6 @@ ANLogMark();
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
-ANLogMark();
     // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.
     CGSize receivedSize = CGSizeMake([standardAd.width floatValue], [standardAd.height floatValue]);
     CGSize requestedSize = [self getAdSizeFromDelegate];
@@ -292,7 +288,6 @@ ANLogMark();
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-ANLogMark();
     if (self.standardAdView.webViewController == controller) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView andAdObjectHandler:nil];
         [self processFinalResponse:response];
@@ -312,7 +307,6 @@ ANLogMark();
 
 - (void)finishRequestWithErrorAndRefresh:(NSError *)error
 {
-ANLogMark();
     self.loading = NO;
     
     NSTimeInterval interval = [self getAutoRefreshFromDelegate];
@@ -341,7 +335,6 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-ANLogMark();
     if (connection == self.connection)
     {
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
@@ -372,7 +365,6 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
 {
-ANLogMark();
     if (connection == self.connection) {
         [self.data appendData:d];
 
@@ -384,7 +376,6 @@ ANLogMark();
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-ANLogMark();
     if (connection == self.connection) {
         ANAdServerResponse *adResponse = [ANAdServerResponse responseWithData:self.data];
         NSString *responseString = [[NSString alloc] initWithData:self.data
@@ -397,7 +388,6 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-ANLogMark();
     if (connection == self.connection) {
         NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
         ANLogError(@"%@", connectionError);
@@ -420,7 +410,6 @@ ANLogMark();
             adObject:(id)adObject
            auctionID:(NSString *)auctionID
 {
-ANLogMark();
     self.loading = NO;
     
     NSURL *resultURL = [NSURL URLWithString:resultCBString];
