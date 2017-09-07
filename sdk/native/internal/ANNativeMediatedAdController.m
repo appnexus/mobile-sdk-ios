@@ -182,11 +182,11 @@
 {
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
 
-    targetingParameters.customKeywordsMapToStrings  = self.adRequestDelegate.customKeywordsMapToStrings;
-    targetingParameters.age                         = self.adRequestDelegate.age;
-    targetingParameters.gender                      = self.adRequestDelegate.gender;
-    targetingParameters.location                    = self.adRequestDelegate.location;
-    targetingParameters.idforadvertising            = ANUDID();
+    targetingParameters.customKeywords    = self.adRequestDelegate.customKeywords;
+    targetingParameters.age               = self.adRequestDelegate.age;
+    targetingParameters.gender            = self.adRequestDelegate.gender;
+    targetingParameters.location          = self.adRequestDelegate.location;
+    targetingParameters.idforadvertising  = ANUDID();
 
     return targetingParameters;
 }

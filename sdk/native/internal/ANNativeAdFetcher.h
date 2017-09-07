@@ -36,8 +36,7 @@
 - (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
 
 
-@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>    *customKeywordsMap;
-@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSString *>               *customKeywordsMapToStrings;
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>    *customKeywords;
 
 
 @end

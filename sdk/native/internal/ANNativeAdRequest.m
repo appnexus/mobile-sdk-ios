@@ -31,14 +31,12 @@
 
 @implementation ANNativeAdRequest
 
-@synthesize  customKeywordsMap                      = __customKeywordsMap;
-@synthesize  customKeywordsMapToStrings             = __customKeywordsMapToStrings;
+@synthesize  customKeywords  = __customKeywords;
 
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.customKeywordsMap           = [[NSMutableDictionary alloc] init];
-        self.customKeywordsMapToStrings  = [[NSMutableDictionary alloc] init];
+        self.customKeywords = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -204,25 +202,15 @@
         return;
     }
 
-    if(self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+    if(self.customKeywords[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
             [valueArray addObject:value];
         }
-        self.customKeywordsMap[key] = [valueArray copy];
+        self.customKeywords[key] = [valueArray copy];
     } else {
-        self.customKeywordsMap[key] = @[value];
+        self.customKeywords[key] = @[value];
     }
-
-    [self updateCustomKeywordsMapToStringsForKey:key];
-}
-
-- (void) updateCustomKeywordsMapToStringsForKey:(NSString *)key
-{
-    NSArray   *mapValuesArray  = self.customKeywordsMap[key];
-    NSString  *mapValueString  = [mapValuesArray componentsJoinedByString:@" "];
-
-    self.customKeywordsMapToStrings[key] = mapValueString;
 }
 
 - (void)removeCustomKeywordWithKey:(NSString *)key
@@ -231,14 +219,12 @@
         return;
     }
 
-    [self.customKeywordsMap          removeObjectForKey:key];
-    [self.customKeywordsMapToStrings removeObjectForKey:key];
+    [self.customKeywords removeObjectForKey:key];
 }
 
 - (void)clearCustomKeywords
 {
-    [self.customKeywordsMap          removeAllObjects];
-    [self.customKeywordsMapToStrings removeAllObjects];
+    [self.customKeywords removeAllObjects];
 }
 
 

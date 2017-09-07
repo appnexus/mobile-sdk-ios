@@ -15,6 +15,7 @@
 
 #import "ANAdAdapterBannerMillennialMedia.h"
 #import "ANLogging.h"
+#import "ANGlobal.h"
 #import <MMAdSDK/MMAdSDK.h>
 
 @interface ANAdAdapterBannerMillennialMedia () <MMInlineDelegate>
@@ -48,8 +49,8 @@
     self.rootViewController = rootViewController;
     
     MMRequestInfo *requestInfo = [[MMRequestInfo alloc] init];
-    requestInfo.keywords = [[targetingParameters.customKeywordsMapToStrings allValues] copy];
-    
+    requestInfo.keywords = [[ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords] allValues];
+
     [self.inlineAd request:requestInfo];
 }
 

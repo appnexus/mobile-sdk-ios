@@ -278,14 +278,14 @@ static NSString *const kANNativeAdRequestUrlBuilderQueryStringSeparator = @"&";
 
 - (NSString *)customKeywordsParameter
 {
-    NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap = [[self.adRequestDelegate customKeywordsMap] mutableCopy];
+    NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywords = [[self.adRequestDelegate customKeywords] mutableCopy];
     
-    if ([customKeywordsMap count] < 1) {
+    if ([customKeywords count] < 1) {
         return @"";
     }
     
     NSMutableArray *param = [[NSMutableArray alloc] init];
-    [customKeywordsMap enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray<NSString *> *valueArray, BOOL *stop) {
+    [customKeywords enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray<NSString *> *valueArray, BOOL *stop) {
         if(![self stringInParameterList:key]){
             for (NSString *valueString in valueArray) {
                 [param addObject:[NSString stringWithFormat:@"%@=%@",key,

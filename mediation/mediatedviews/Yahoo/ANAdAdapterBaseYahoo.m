@@ -15,6 +15,8 @@
 
 #import "ANAdAdapterBaseYahoo+PrivateMethods.h"
 #import "Flurry.h"
+#import "ANGlobal.h"
+
 
 @implementation ANAdAdapterBaseYahoo
 
@@ -22,9 +24,12 @@
     [Flurry startSession:apiKey];
 }
 
-+ (FlurryAdTargeting *)adTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters {
++ (FlurryAdTargeting *)adTargetingWithTargetingParameters:(ANTargetingParameters *)targetingParameters
+{
     FlurryAdTargeting *flurryTargeting = [FlurryAdTargeting targeting];
     ANLocation *location = targetingParameters.location;
+
+
     if (location) {
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude);
         CLLocation *yahooLocation = [[CLLocation alloc] initWithCoordinate:coordinate
@@ -34,12 +39,11 @@
                                                                  timestamp:location.timestamp];
         flurryTargeting.location = yahooLocation;
     }
-    
-    NSMutableDictionary *keywords = [targetingParameters.customKeywordsMapToStrings mutableCopy];
-    if (!keywords) {
-        keywords = [[NSMutableDictionary alloc] init];
-    }
-    
+
+
+    //
+    NSMutableDictionary<NSString *, NSString *>  *keywords  = [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords];
+
     NSString *age = targetingParameters.age;
     if (age) {
         keywords[@"age"] = age;

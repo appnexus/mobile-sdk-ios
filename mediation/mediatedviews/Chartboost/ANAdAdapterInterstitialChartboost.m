@@ -17,6 +17,7 @@
 #import "ANAdAdapterBaseChartboost.h"
 #import "ANChartboostEventReceiver.h"
 #import "ANLogging.h"
+#import "ANGlobal.h"
 #import <Chartboost/Chartboost.h>
 
 @interface ANAdAdapterInterstitialChartboost () <ANChartboostInterstitialDelegate>
@@ -31,9 +32,13 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    self.cbLocation = targetingParameters.customKeywordsMapToStrings[kANAdAdapterBaseChartboostCBLocationKey];
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
+{
+    ANLogTrace(@"");
+
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords];
+    self.cbLocation = customKeywordsAsStrings[kANAdAdapterBaseChartboostCBLocationKey];
+
     if (!self.cbLocation) {
         self.cbLocation = CBLocationDefault;
     }

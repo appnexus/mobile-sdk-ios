@@ -16,6 +16,7 @@
 #import "ANAdAdapterBaseInMobi.h"
 
 #import "ANLogging.h"
+#import "ANGlobal.h"
 #import "ANAdConstants.h"
 #import "ANTargetingParameters.h"
 
@@ -105,11 +106,10 @@ static NSString *kANAdAdapterBaseInMobiAppId = @"";
     }
 }
 
-+ (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
-    NSMutableArray *keywords = [[NSMutableArray alloc] init];
-    [targetingParameters.customKeywordsMapToStrings enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
-        [keywords addObject:value];
-    }];
++ (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters
+{
+    NSArray<NSString *>  *keywords  = [[ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords] allValues];
+
     return [keywords componentsJoinedByString:@","];
 }
 

@@ -108,6 +108,12 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController);
 
 @interface ANGlobal : NSObject
 
-    + (void) openURL: (NSString *)urlString;
++ (void) openURL: (NSString *)urlString;
+
++ (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
+                                                                 withSeparatorString: (NSString *)separatorString;
+
++ (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings:(NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap;
+
 
 @end

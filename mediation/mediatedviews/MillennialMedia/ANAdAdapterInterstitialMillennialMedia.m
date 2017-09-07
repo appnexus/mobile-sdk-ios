@@ -15,6 +15,7 @@
 
 #import "ANAdAdapterInterstitialMillennialMedia.h"
 #import "ANLogging.h"
+#import "ANGlobal.h"
 #import <MMAdSDK/MMAdSDK.h>
 
 @interface ANAdAdapterInterstitialMillennialMedia () <MMInterstitialDelegate>
@@ -28,12 +29,16 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
+{
+    ANLogTrace(@"");
+
     if (!idString) {
         [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
         return;
     }
+
+
     [self configureMillennialSettingsWithTargetingParameters:targetingParameters];
     self.interstitialAd = [[MMInterstitialAd alloc] initWithPlacementId:idString];
     self.interstitialAd.delegate = self;
@@ -44,8 +49,8 @@
     }
     
     MMRequestInfo *requestInfo = [[MMRequestInfo alloc] init];
-    requestInfo.keywords = [[targetingParameters.customKeywordsMapToStrings allValues] copy];
-    
+    requestInfo.keywords = [[[ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords] allValues] copy];
+
     [self.interstitialAd load:requestInfo];
 }
 

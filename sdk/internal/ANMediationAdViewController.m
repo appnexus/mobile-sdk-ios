@@ -200,11 +200,11 @@ ANLogMark();
 ANLogMark();
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
 
-    targetingParameters.customKeywordsMapToStrings  = adView.customKeywordsMapToStrings;
-    targetingParameters.age                         = adView.age;
-    targetingParameters.gender                      = adView.gender;
-    targetingParameters.location                    = adView.location;
-    targetingParameters.idforadvertising            = ANUDID();
+    targetingParameters.customKeywords    = adView.customKeywords;
+    targetingParameters.age               = adView.age;
+    targetingParameters.gender            = adView.gender;
+    targetingParameters.location          = adView.location;
+    targetingParameters.idforadvertising  = ANUDID();
     
     //
     if ([adView isKindOfClass:[ANBannerAdView class]]) {

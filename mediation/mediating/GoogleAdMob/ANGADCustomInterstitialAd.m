@@ -29,9 +29,9 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)serverParameter label:(NSString *)serverLabel request:(GADCustomEventRequest *)customEventRequest
 {
-	self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:serverParameter];
+    self.interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:serverParameter];
     self.interstitialAd.delegate = self;
-	self.interstitialAd.shouldServePublicServiceAnnouncements = NO;
+    self.interstitialAd.shouldServePublicServiceAnnouncements = NO;
     
     if ([customEventRequest userHasLocation]) {
         ANLocation *loc = [ANLocation getLocationWithLatitude:[customEventRequest userLatitude]
@@ -57,8 +57,8 @@
         [self.interstitialAd setAge:birthYear];
     }
     
-    NSMutableDictionary *customKeywordsMapToStrings = [[customEventRequest additionalParameters] mutableCopy];
-    [self.interstitialAd setCustomKeywords:customKeywordsMapToStrings];
+    NSMutableDictionary *gAdCustomKeywords = [[customEventRequest additionalParameters] mutableCopy];
+    [self.interstitialAd setCustomKeywords:gAdCustomKeywords];
     
     [self.interstitialAd loadAd];
 }

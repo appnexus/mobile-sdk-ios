@@ -17,6 +17,7 @@
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
+#import "ANGlobal.h"
 
 #import "IMBanner.h"
 
@@ -51,7 +52,7 @@
     self.banner.delegate = self;
     [self.banner shouldAutoRefresh:NO];
     self.banner.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
-    self.banner.extras = targetingParameters.customKeywordsMapToStrings;
+    self.banner.extras = [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords];
     [ANAdAdapterBaseInMobi setInMobiTargetingWithTargetingParameters:targetingParameters];
     [self.banner load];
 }

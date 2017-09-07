@@ -56,9 +56,7 @@
 @synthesize  age                                    = __age;
 @synthesize  gender                                 = __gender;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
-
-@synthesize  customKeywordsMap                      = __customKeywordsMap;
-@synthesize  customKeywordsMapToStrings             = __customKeywordsMapToStrings;
+@synthesize  customKeywords                         = __customKeywords;
 
 // ANAdProtocolPublicAndPrivate properties.
 //
@@ -94,9 +92,7 @@
     __location                               = nil;
     __reserve                                = 0.0f;
     __landingPageLoadsInBackground           = YES;
-
-    __customKeywordsMap           = [[NSMutableDictionary alloc] init];
-    __customKeywordsMapToStrings  = [[NSMutableDictionary alloc] init];
+    __customKeywords                         = [[NSMutableDictionary alloc] init];
 }
 
 - (void)dealloc
@@ -190,6 +186,7 @@ ANLogMark();
                                               precision:precision];
 }
 
+
 - (void)addCustomKeywordWithKey:(NSString *)key
                           value:(NSString *)value
 {
@@ -197,25 +194,15 @@ ANLogMark();
         return;
     }
 
-    if(self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+    if(self.customKeywords[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
             [valueArray addObject:value];
         }
-        self.customKeywordsMap[key] = [valueArray copy];
+        self.customKeywords[key] = [valueArray copy];
     } else {
-        self.customKeywordsMap[key] = @[value];
+        self.customKeywords[key] = @[value];
     }
-
-    [self updateCustomKeywordsMapToStringsForKey:key];
-}
-
-- (void) updateCustomKeywordsMapToStringsForKey:(NSString *)key
-{
-    NSArray   *mapValuesArray  = self.customKeywordsMap[key];
-    NSString  *mapValueString  = [mapValuesArray componentsJoinedByString:@" "];
-
-    self.customKeywordsMapToStrings[key] = mapValueString;
 }
 
 - (void)removeCustomKeywordWithKey:(NSString *)key
@@ -224,14 +211,12 @@ ANLogMark();
         return;
     }
 
-    [self.customKeywordsMap          removeObjectForKey:key];
-    [self.customKeywordsMapToStrings removeObjectForKey:key];
+    [self.customKeywords removeObjectForKey:key];
 }
 
 - (void)clearCustomKeywords
 {
-    [self.customKeywordsMap          removeAllObjects];
-    [self.customKeywordsMapToStrings removeAllObjects];
+    [self.customKeywords removeAllObjects];
 }
 
 

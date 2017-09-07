@@ -21,6 +21,8 @@
 #import <AmazonAd/AmazonAdOptions.h>
 
 #import "ANLogging.h"
+#import "ANGlobal.h"
+
 
 static NSString *const kANAdAdapterBaseAmazonAgeKey = @"age";
 
@@ -38,7 +40,10 @@ static NSString *const kANAdAdapterBaseAmazonGenderFemaleValue = @"f";
 
 - (AmazonAdOptions *)adOptionsForTargetingParameters:(ANTargetingParameters *)targetingParameters {
     AmazonAdOptions *options = [AmazonAdOptions options];
-    [targetingParameters.customKeywordsMapToStrings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+
+    NSDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords];
+
+    [customKeywordsAsStrings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [options setAdvancedOption:[obj description]
                             forKey:[key description]];
     }];

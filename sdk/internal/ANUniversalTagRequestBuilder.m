@@ -134,18 +134,18 @@ ANLogMark();
 //
 - (NSArray<NSSet *> *)keywords
 {
-    NSDictionary  *customKeywordsMap  = [self.adFetcherDelegate customKeywordsMap];
+    NSDictionary  *customKeywords  = [self.adFetcherDelegate customKeywords];
 
-    if ([customKeywordsMap count] < 1) {
+    if ([customKeywords count] < 1) {
         return nil;
     }
 
     //
     NSMutableArray<NSDictionary *>  *kvSegmentsArray  = [[NSMutableArray alloc] init];
 
-    for (NSString *key in customKeywordsMap)
+    for (NSString *key in customKeywords)
     {
-        NSArray  *valueArray  = [customKeywordsMap objectForKey:key];
+        NSArray  *valueArray  = [customKeywords objectForKey:key];
         if ([valueArray count] < 1)  {
             ANLogWarn(@"DISCARDING key with empty value array.  (%@)", key);
             continue;

@@ -17,6 +17,7 @@
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
+#import "ANGlobal.h"
 
 #import "IMSdk.h"
 #import "IMNative.h"
@@ -80,28 +81,36 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 
 - (void)requestNativeAdWithServerParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)adUnitId
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
+{
+    ANLogTrace(@"");
+
     if (![ANAdAdapterBaseInMobi appId].length) {
         ANLogError(@"InMobi mediation failed. Call [ANAdAdapterBaseInMobi setInMobiAppID:@\"YOUR_PROPERTY_ID\"] to set the InMobi global App Id");
         [self.requestDelegate didFailToLoadNativeAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }
+
     if (!adUnitId.length) {
         ANLogError(@"Unable to load InMobi native ad due to empty ad unit id");
         [self.requestDelegate didFailToLoadNativeAd:ANAdResponseUnableToFill];
         return;
     }
+
+
+    //
     NSString *appId;
     if (adUnitId.length) {
         appId = adUnitId;
     } else {
         appId = [ANAdAdapterBaseInMobi appId];
     }
+
     self.nativeAd = [[IMNative alloc] initWithPlacementId:[adUnitId longLongValue]];
-    self.nativeAd.delegate = self;
-    self.nativeAd.extras = targetingParameters.customKeywordsMapToStrings;
-    self.nativeAd.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
+    self.nativeAd.delegate  = self;
+    self.nativeAd.extras    = [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords];
+    self.nativeAd.keywords  = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
+
     [self.nativeAd load];
 }
 

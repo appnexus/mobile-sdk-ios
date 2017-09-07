@@ -14,6 +14,7 @@
  */
 #import "ANAdAdapterBaseRubicon.h"
 #import "ANLogging.h"
+#import "ANGlobal.h"
 #import <CoreLocation/CoreLocation.h>
 #import <RFMAdSDK/RFMAdSDK.h>
 
@@ -54,9 +55,15 @@
 
 #pragma mark -private methods
 
--(void) setTargetingParameters :(ANTargetingParameters *) targetingParameters forRequest:(RFMAdRequest *) rfmAdRequest {
-    NSMutableDictionary *keywordDictionary = [[NSMutableDictionary alloc] init];
-    
+-(void) setTargetingParameters:(ANTargetingParameters *) targetingParameters forRequest:(RFMAdRequest *) rfmAdRequest
+{
+    //
+    NSMutableDictionary<NSString *, NSString *>  *keywordDictionary  = [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords];
+
+    if ([targetingParameters age]) {
+        keywordDictionary[@"age"] = targetingParameters.age;
+    }
+
     ANGender gender = targetingParameters.gender;
     switch (gender) {
         case ANGenderMale:
@@ -68,17 +75,11 @@
         default:
             break;
     }
-    
-    if ([targetingParameters age]) {
-        keywordDictionary[@"age"] = targetingParameters.age;
-    }
-    
-    [targetingParameters.customKeywordsMapToStrings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        keywordDictionary[key] = obj;
-    }];
-    
+
     [rfmAdRequest setTargetingInfo:keywordDictionary];
-    
+
+
+    //
     ANLocation *location = targetingParameters.location;
     if (location) {
         CLLocation *mpLoc = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)

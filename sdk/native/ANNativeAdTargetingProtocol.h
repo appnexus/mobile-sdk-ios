@@ -70,7 +70,7 @@
 @property (nonatomic, readwrite, assign) ANGender gender;
 
 
-@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSString *>  *customKeywordsMapToStrings;
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
 
 
 /*!

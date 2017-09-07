@@ -57,8 +57,8 @@
         [self.interstitial setLocation:anLoc];
     }
     
-    NSMutableDictionary *customKeywordsMapToStrings = [info mutableCopy];
-    [self.interstitial setCustomKeywords:customKeywordsMapToStrings];
+    NSMutableDictionary *customKeywordsFromInfo = [info mutableCopy];
+    [self.interstitial setCustomKeywords:customKeywordsFromInfo];
     
     [self.interstitial loadAd];
 }

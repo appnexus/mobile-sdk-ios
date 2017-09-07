@@ -14,6 +14,8 @@
  */
 
 #import "ANAdAdapterBaseDFP.h"
+#import "ANGlobal.h"
+
 
 @implementation ANAdAdapterBaseDFP
 
@@ -42,7 +44,8 @@
     }
     
     GADExtras *extras = [[GADExtras alloc] init];
-    NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywordsMapToStrings mutableCopy];
+
+    NSMutableDictionary *extrasDictionary = [[ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords] mutableCopy];
     if (!extrasDictionary) {
         extrasDictionary = [[NSMutableDictionary alloc] init];
     }
