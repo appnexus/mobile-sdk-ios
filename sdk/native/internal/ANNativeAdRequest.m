@@ -29,6 +29,8 @@
 
 @implementation ANNativeAdRequest
 
+#pragma mark - Lifecycle.
+
 - (instancetype)init {
     if (self = [super init]) {
         _customKeywords = [[NSMutableDictionary alloc] init];
@@ -61,6 +63,10 @@
     [self.adFetchers addObject:adFetcher];
 }
 
+
+
+#pragma mark - ANNativeAdFetcherDelegate.
+
 - (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
     NSError *error;
     
@@ -69,12 +75,19 @@
             ANNativeAdResponse *finalResponse = (ANNativeAdResponse *)response.adObject;
             
             __weak ANNativeAdRequest *weakSelf = self;
-            NSOperation *finish = [NSBlockOperation blockOperationWithBlock:^{
-                ANNativeAdRequest *strongSelf = weakSelf;
-                [strongSelf.delegate adRequest:strongSelf didReceiveResponse:finalResponse];
-                [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
-            }];
-            
+            NSOperation *finish = [NSBlockOperation blockOperationWithBlock:
+                                    ^{
+                                        __strong ANNativeAdRequest *strongSelf = weakSelf;
+
+                                        if (!strongSelf) {
+                                            ANLogError(@"FAILED to access strongSelf.");
+                                            return;
+                                        }
+
+                                        [strongSelf.delegate adRequest:strongSelf didReceiveResponse:finalResponse];
+                                        [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
+                                    } ];
+
             if (self.shouldLoadIconImage && [finalResponse respondsToSelector:@selector(setIconImage:)]) {
                 [self setImageForImageURL:finalResponse.iconImageURL
                                  onObject:finalResponse
@@ -157,6 +170,7 @@
 }
 
 #pragma mark - ANNativeAdTargetingProtocol
+                        //FIX -- genrealize across all entry points?
 
 @synthesize placementId = _placementId;
 @synthesize memberId = _memberId;

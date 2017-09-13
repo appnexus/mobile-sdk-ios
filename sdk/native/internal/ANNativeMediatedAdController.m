@@ -191,7 +191,7 @@
     return targetingParameters;
 }
 
-#pragma mark helper methods
+#pragma mark - helper methods
 
 - (BOOL)checkIfHasResponded {
     // we received a callback from mediation adaptor, cancel timeout
@@ -275,7 +275,7 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
     return resultCBString;
 }
 
-#pragma mark Timeout handler
+#pragma mark - Timeout handler
 
 - (void)startTimeout {
     if (self.timeoutCanceled) return;
@@ -295,7 +295,7 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
     self.timeoutCanceled = YES;
 }
 
-# pragma mark Latency Measurement
+# pragma mark - Latency Measurement
 
 /**
  * Should be called immediately after mediated SDK returns
@@ -335,7 +335,7 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
     return -1;
 }
 
-#pragma mark ANNativeCustomAdapterRequestDelegate
+#pragma mark - ANNativeCustomAdapterRequestDelegate
 
 - (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response {
     [self didReceiveAd:response];

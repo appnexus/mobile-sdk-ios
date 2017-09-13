@@ -131,6 +131,7 @@
 #pragma mark - Ad Server Response
 
 - (void)processAdServerResponse:(ANAdServerResponse *)response {
+                //FIX -- will this ever contain an entry other than self.nativeAd?  whether RTB or CSM?
     if (!response.containsAds) {
         [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
@@ -170,7 +171,7 @@
     }
 }
 
-# pragma mark - NSURLConnectionDataDelegate
+#pragma mark - NSURLConnectionDataDelegate
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     if (connection == self.connection) {
@@ -276,6 +277,7 @@
 }
 
 - (void)fireAndIgnoreResultCB:(NSURL *)url {
+                                //FIX -- uyse the new one.
     ANLogDebug(@"Firing resultCB with url %@", url);
     [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(url)
                                        queue:[NSOperationQueue mainQueue]

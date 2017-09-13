@@ -273,8 +273,10 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         }
 
         //
-        [ANTrackerManager fireTrackerURLArray:impressionURLs];
-        impressionURLs = nil;
+        @synchronized (self) {
+            [ANTrackerManager fireTrackerURLArray:impressionURLs];
+            impressionURLs = nil;
+        }
 
         [controller presentViewController:self.controller
                                  animated:YES
@@ -282,9 +284,11 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
     {
-        [ANTrackerManager fireTrackerURLArray:impressionURLs];
-        impressionURLs = nil;
-        
+        @synchronized (self) {
+            [ANTrackerManager fireTrackerURLArray:impressionURLs];
+            impressionURLs = nil;
+        }
+
         [adToShow presentFromViewController:controller];
 
         //
