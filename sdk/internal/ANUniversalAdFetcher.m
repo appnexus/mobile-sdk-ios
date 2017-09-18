@@ -33,10 +33,10 @@
 
 
 
-
 NSString * const  ANInternalDelgateTagKeyPrimarySize         = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * const  ANInternalDelegateTagKeySizes              = @"ANInternalDelgateTagKeySizes";
 NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelgateTagKeyAllowSmallerSizes";
+
 
 
 
@@ -51,11 +51,11 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 @property (nonatomic, readwrite, strong)  id                adObjectHandler;
 
 
-@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   delegate;
+@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>  delegate;
+
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *standardAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
-
 
 @end
 
@@ -66,26 +66,40 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 #pragma mark - Lifecycle.
 
-- (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate
+{
+ANLogMark();
     if (self = [self init]) {
-        self.delegate = delegate;
-        self.data = [NSMutableData data];
+        _delegate = delegate;
+        [self setup];
     }
     return self;
 }
 
+- (void)setup
+{
+ANLogMark();
+    _data = [NSMutableData data];
+    [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+}
+
 
 - (void)clearMediationController {
+ANLogMark();
     /*
      Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher. The controller maintains a weak reference to the
      ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still
      displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
-    //FIX  we know where it lives on, but why (or why not)?
     self.mediationController.adFetcher = nil;
     self.mediationController = nil;
     self.ssmMediationController.adFetcher = nil;
     self.ssmMediationController = nil;
+}
+
+- (void)dealloc {
+ANLogMark();
+    [self stopAdLoad];
 }
 
 
@@ -95,7 +109,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)requestAd
 {
-    ANLogMark();
+ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     
@@ -117,11 +131,12 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)stopAdLoad
 {
-    ANLogMark();
+ANLogMark();
     [self.connection cancel];
     self.connection = nil;
     self.data = nil;
     self.ads = nil;
+    [self clearMediationController];
 }
 
 
@@ -130,7 +145,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
 {
-    ANLogMark();
+ANLogMark();
     BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
     
     if (!containsAds) {
@@ -154,7 +169,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
-    ANLogMark();
+ANLogMark();
     self.ads = nil;
     
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
@@ -169,7 +184,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 //
 - (void)continueWaterfall
 {
-    ANLogMark();
+ANLogMark();
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
         return;
@@ -243,7 +258,8 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 // Video ad.
 //
--(void) handleCSMVideoAd:(ANCSMVideoAd *) videoAd {
+-(void) handleCSMVideoAd:(ANCSMVideoAd *) videoAd
+{
     if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
         ANLogError(@"FAILED to create ANVideoAdProcessor object.");
     }

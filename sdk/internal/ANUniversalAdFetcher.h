@@ -34,8 +34,8 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 @interface ANUniversalAdFetcher : NSObject
 
-
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
+
 - (void)stopAdLoad;
 - (void) requestAd;
 
@@ -58,7 +58,7 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 // NB  ANUniversalAdFetcherDelegate is sufficient for instream video format.
 //
-@protocol  ANUniversalAdFetcherDelegate  <ANAdFetcherDelegate>
+@protocol  ANUniversalAdFetcherDelegate <ANAdFetcherDelegate>
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
@@ -71,6 +71,4 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 //FIX -- need custom keywords map.
 
-
 @end
-

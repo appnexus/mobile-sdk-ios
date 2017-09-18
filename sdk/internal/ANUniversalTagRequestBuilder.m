@@ -338,7 +338,7 @@ ANLogMark();
 - (NSDictionary *)geo 
 {
     ANLocation  *location  = [self.adFetcherDelegate location];
-    NSString    *zipcode   = [self.adFetcherDelegate zipcode];
+    NSString    *zipcode   = @"90125";      //FIX -- to be removed in a future changeset...
 
     //
     if (!location && !zipcode)  {

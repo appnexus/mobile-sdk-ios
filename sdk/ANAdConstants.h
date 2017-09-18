@@ -45,32 +45,9 @@ typedef NS_ENUM(NSUInteger, ANNativeAdRegisterErrorCode) {
 
 typedef NS_ENUM(NSUInteger, ANNativeAdNetworkCode) {
     ANNativeAdNetworkCodeAppNexus = 0,
-    ANNativeAdNetworkCodeMoPub,
     ANNativeAdNetworkCodeFacebook,
     ANNativeAdNetworkCodeInMobi,
     ANNativeAdNetworkCodeYahoo,
-    ANNativeAdNetworkCodeCustom,
     ANNativeAdNetworkCodeAdMob
 };
 
-typedef NS_ENUM(NSUInteger, ANVideoEvent){
-                                //FIX -- no one uses this
-    ANVideoEventUnknown = 0,
-    ANVideoEventStart,
-    ANVideoEventQuartileFirst,
-    ANVideoEventQuartileMidPoint,
-    ANVideoEventQuartileThird,
-    ANVideoEventQuartileComplete,
-    ANVideoEventZoomRestore,
-    ANVideoEventZoomFullScreen,
-    ANVideoEventPlay,
-    ANVideoEventPause,
-    ANVideoEventResume,
-    ANVideoEventRewind,
-    ANVideoEventMute,
-    ANVideoEventUnMute,
-    ANVideoEventStop,
-    ANVideoEventCloseLinear,
-    ANVideoEventSkip,
-    ANVideoEventCreativeView
-};

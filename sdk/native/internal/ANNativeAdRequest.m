@@ -15,31 +15,77 @@
 
 #import "ANNativeAdRequest.h"
 #import "ANNativeMediatedAdResponse.h"
-#import "ANNativeAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANNativeAdImageCache.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
-@interface ANNativeAdRequest () <ANNativeAdFetcherDelegate>
+
+
+@interface ANNativeAdRequest() <ANUniversalAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
 @property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
 
+//
+@property (nonatomic)          CGSize                    size1x1;
+@property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
+
 @end
 
+
+
 @implementation ANNativeAdRequest
+
+#pragma mark - ANAdProtocolPublicAndPrivate Properties.
+
+// ANAdProtocol properties.
+//
+@synthesize  placementId                            = __placementId;
+@synthesize  memberId                               = __memberId;
+@synthesize  inventoryCode                          = __invCode;
+@synthesize  location                               = __location;
+@synthesize  reserve                                = __reserve;
+@synthesize  age                                    = __age;
+@synthesize  gender                                 = __gender;
+@synthesize  customKeywords                         = __customKeywords;
+@synthesize  customKeywordsMap                      = __customKeywordsMap;
+
+@synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;         
+@synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
+
+@synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
+
+// ANAdProtocolPrivate properties.
+//
+@synthesize  allowSmallerSizes                      = __allowSmallerSizes;
+
+
+
 
 #pragma mark - Lifecycle.
 
 - (instancetype)init {
+ANLogMark();
     if (self = [super init]) {
-        _customKeywords = [[NSMutableDictionary alloc] init];
-        _customKeywordsMap = [[NSMutableDictionary alloc] init];
+        __customKeywords = [[NSMutableDictionary alloc] init];
+        __customKeywordsMap = [[NSMutableDictionary alloc] init];
+
+        [self setupSizeParametersAs1x1];
     }
     return self;
 }
 
+- (void) setupSizeParametersAs1x1
+{
+    self.size1x1 = CGSizeMake(1, 1);
+
+    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:self.size1x1]];
+    self.allowSmallerSizes  = NO;
+}
+
 - (void)loadAd {
+ANLogMark();
     if (self.delegate) {
         [self createAdFetcher];
     } else {
@@ -48,26 +94,28 @@
 }
 
 - (NSMutableArray *)adFetchers {
+ANLogMark();
     if (!_adFetchers) _adFetchers = [[NSMutableArray alloc] init];
     return _adFetchers;
 }
 
 - (void)createAdFetcher {
-    ANNativeAdFetcher *adFetcher = [[ANNativeAdFetcher alloc] initWithDelegate:self];
+ANLogMark();
+    ANUniversalAdFetcher  *adFetcher  = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
     [self.adFetchers addObject:adFetcher];
-}
-
-- (void)createAdFetcherWithBaseUrlString:(NSString *)baseUrlString {
-    ANNativeAdFetcher *adFetcher = [[ANNativeAdFetcher alloc] initWithDelegate:self
-                                                                 baseUrlString:baseUrlString];
-    [self.adFetchers addObject:adFetcher];
+    [adFetcher requestAd];
 }
 
 
 
-#pragma mark - ANNativeAdFetcherDelegate.
 
-- (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
+#pragma mark - ANUniversalAdFetcherDelegate.
+
+- (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+    didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+                //FIX -- update for new fetcher [upon return.......]
+{
+ANLogMark();
     NSError *error;
     
     if (response.isSuccessful) {
@@ -169,32 +217,45 @@
     }
 }
 
-#pragma mark - ANNativeAdTargetingProtocol
-                        //FIX -- genrealize across all entry points?
 
-@synthesize placementId = _placementId;
-@synthesize memberId = _memberId;
-@synthesize inventoryCode = _inventoryCode;
-@synthesize gender = _gender;
-@synthesize location = _location;
-@synthesize reserve = _reserve;
-@synthesize age = _age;
-@synthesize customKeywords = _customKeywords;
 
-- (void)setLocationWithLatitude:(CGFloat)latitude
-                      longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp
-             horizontalAccuracy:(CGFloat)horizontalAccuracy {
+
+#pragma mark - ANAdPropertiesPublicAndPrivate Methods.
+
+- (void)setPlacementId:(NSString *)placementId {
+    placementId = ANConvertToNSString(placementId);
+    if ([placementId length] < 1) {
+        ANLogError(@"Could not set placementId to non-string value");
+        return;
+    }
+    if (placementId != __placementId) {
+        ANLogDebug(@"Setting placementId to %@", placementId);
+        __placementId = placementId;
+    }
+}
+
+- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
+    invCode = ANConvertToNSString(invCode);
+    if (invCode && invCode != __invCode) {
+        ANLogDebug(@"Setting inventory code to %@", invCode);
+        __invCode = invCode;
+    }
+    if (memberId > 0 && memberId != __memberId) {
+        ANLogDebug(@"Setting member id to %d", (int) memberId);
+        __memberId = memberId;
+    }
+}
+
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy];
 }
 
-- (void)setLocationWithLatitude:(CGFloat)latitude
-                      longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp
-             horizontalAccuracy:(CGFloat)horizontalAccuracy
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
@@ -244,16 +305,79 @@
     [self.customKeywordsMap removeAllObjects];
 }
 
-- (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberId{
-    inventoryCode = ANConvertToNSString(inventoryCode);
-    if (inventoryCode && inventoryCode != _inventoryCode) {
-        ANLogDebug(@"Setting inventory code to %@", inventoryCode);
-        _inventoryCode = inventoryCode;
-    }
-    if (memberId > 0 && memberId != _memberId) {
-        ANLogDebug(@"Setting member id to %d", (int) memberId);
-        _memberId = memberId;
-    }
+
+
+#pragma mark - Getter methods.
+
+- (NSString *)placementId {
+    ANLogDebug(@"placementId returned %@", __placementId);
+    return __placementId;
 }
+
+- (NSInteger )memberId {
+    ANLogDebug(@"memberId returned %d", (int)__memberId);
+    return __memberId;
+}
+
+- (NSString *)inventoryCode {
+    ANLogDebug(@"inventoryCode returned %@", __invCode);
+    return __invCode;
+}
+
+- (ANLocation *)location {
+    ANLogDebug(@"location returned %@", __location);
+    return __location;
+}
+
+- (BOOL)shouldServePublicServiceAnnouncements {
+    ANLogDebug(@"shouldServePublicServeAnnouncements returned %d", __shouldServePublicServiceAnnouncements);
+    return __shouldServePublicServiceAnnouncements;
+}
+
+- (BOOL)opensInNativeBrowser {
+    ANLogDebug(@"opensInNativeBrowser returned %d", __opensInNativeBrowser);
+    return __opensInNativeBrowser;
+}
+
+- (CGFloat)reserve {
+    ANLogDebug(@"reserve returned %f", __reserve);
+    return __reserve;
+}
+
+- (NSString *)age {
+    ANLogDebug(@"age returned %@", __age);
+    return __age;
+}
+
+- (ANGender)gender {
+    ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
+    return __gender;
+}
+
+- (NSMutableDictionary *)customKeywords {
+    ANLogDebug(@"customKeywords returned %@", __customKeywords);
+    return __customKeywords;
+}
+
+
+
+#pragma mark - ANAdViewInternalDelegate.
+
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+{
+    return  @[ @(ANAllowedMediaTypeNative) ];
+}
+
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
+}
+
+
 
 @end

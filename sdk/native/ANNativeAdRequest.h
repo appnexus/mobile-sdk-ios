@@ -13,12 +13,12 @@
  limitations under the License.
  */
 
-#import "ANLocation.h"
-#import "ANNativeAdTargetingProtocol.h"
 #import "ANNativeAdResponse.h"
+#import "ANAdProtocolPublicAndPrivate.h"
+#import "ANLocation.h"
+
 
 @protocol ANNativeAdRequestDelegate;
-
 /*!
  * An ANNativeAdRequest facilitates the loading of native ad assets from the server. Here is a sample workflow:
  *
@@ -43,7 +43,7 @@
  * @endcode
  *
  */
-@interface ANNativeAdRequest : NSObject <ANNativeAdTargetingProtocol>
+@interface ANNativeAdRequest : NSObject <ANAdProtocolPublicAndPrivate>
 
 /*!
  * If YES, an icon image will automatically be downloaded and included in the response.

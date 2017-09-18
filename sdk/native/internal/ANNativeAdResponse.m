@@ -14,6 +14,7 @@
  */
 
 #import "ANNativeAdResponse.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "UIView+ANNativeAdCategory.h"
 #import "ANGlobal.h"
