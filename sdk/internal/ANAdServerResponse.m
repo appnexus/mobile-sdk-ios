@@ -310,12 +310,9 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
         
         if ([nativeAdDict[kANAdServerResponseKeyNativeClickTrackArray] isKindOfClass:[NSArray class]]) {
             NSArray *clickTrackArray = nativeAdDict[kANAdServerResponseKeyNativeClickTrackArray];
-            NSMutableArray *clickTrackURLs = [[NSMutableArray alloc] initWithCapacity:clickTrackArray.count];
+            NSMutableArray<NSString *> *clickTrackURLs = [[NSMutableArray alloc] initWithCapacity:clickTrackArray.count];
             [clickTrackArray enumerateObjectsUsingBlock:^(id clickTrackElement, NSUInteger idx, BOOL *stop) {
-                NSURL *clickURL = [NSURL URLWithString:[clickTrackElement description]];
-                if (clickURL) {
-                    [clickTrackURLs addObject:clickURL];
-                }
+                [clickTrackURLs addObject:[clickTrackElement description]];
             }];
             nativeAd.clickTrackers = [clickTrackURLs copy];
         }
@@ -325,10 +322,7 @@ NSString *const kANAdFetcherAdResponseKey = @"kANAdFetcherAdResponseKey";
             NSArray *impTrackerArray = nativeAdDict[kANAdServerResponseKeyNativeImpTrackArray];
             NSMutableArray *impTrackURLs = [[NSMutableArray alloc] initWithCapacity:impTrackerArray.count];
             [impTrackerArray enumerateObjectsUsingBlock:^(id impTrackerElement, NSUInteger idx, BOOL *stop) {
-                NSString *impURL = [impTrackerElement description];
-                if (impURL) {
-                    [impTrackURLs addObject:impURL];
-                }
+                [impTrackURLs addObject:[impTrackerElement description]];
             }];
             nativeAd.impTrackers = [impTrackURLs copy];
         }

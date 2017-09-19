@@ -22,6 +22,7 @@
 #import "ANSSMStandardAd.h"
 #import "ANVideoAdPlayer.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "ANNativeStandardAdResponse.h"
 
 #import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
@@ -32,6 +33,10 @@
 
 
 
+NSString *const  kANUniversalAdFetcherWillRequestAdNotification                 = @"kANUniversalAdFetcherWillRequestAdNotification";
+NSString *const  kANUniversalAdFetcherAdRequestURLKey                           = @"kANUniversalAdFetcherAdRequestURLKey";
+NSString *const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassKey";  //FIX -- needed?  migrate from an{native,}adfetcher?
+NSString *const  kANUniversalAdFetcherMediatedClassKey                          = @"kANUniversalAdFetcherMediatedClassKey";   //FIX -- needed?  migrate from an{native,}adfetcher?
 
 NSString * const  ANInternalDelgateTagKeyPrimarySize         = @"ANInternalDelgateTagKeyPrimarySize";
 NSString * const  ANInternalDelegateTagKeySizes              = @"ANInternalDelgateTagKeySizes";
@@ -49,6 +54,8 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 @property (nonatomic, readwrite, strong)  NSString         *noAdUrl;
 @property (nonatomic, readwrite, assign)  NSTimeInterval    totalLatencyStart;
 @property (nonatomic, readwrite, strong)  id                adObjectHandler;
+
+@property (nonatomic, readwrite, assign)  BOOL              requestShouldBePosted;
 
 
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>  delegate;
@@ -112,7 +119,8 @@ ANLogMark();
 ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
-    
+
+    self.requestShouldBePosted = YES;
     self.connection = [NSURLConnection connectionWithRequest:request
                                                     delegate:self];
     
@@ -126,6 +134,12 @@ ANLogMark();
         [self processFinalResponse:response];
     } else {
         ANLogDebug(@"Starting request: %@", request);
+        if (self.requestShouldBePosted) {
+            ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
+                                @{kANUniversalAdFetcherAdRequestURLKey: urlString});
+            self.requestShouldBePosted = NO;
+        }
+
     }
 }
 
@@ -224,7 +238,10 @@ ANLogMark();
         
     } else if ( [nextAd isKindOfClass:[ANSSMStandardAd class]] ) {
         [self handleSSMMediatedAd:nextAd];
-        
+
+    } else if ( [nextAd isKindOfClass:[ANNativeStandardAdResponse class]] ) {
+        [self handleNativeStandardAd:nextAd];
+
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall.  (class=%@)", [nextAd class]);
     }
@@ -301,6 +318,12 @@ ANLogMark();
                                                                   adViewDelegate:self.delegate];
 }
 
+- (void)handleNativeStandardAd:(ANNativeStandardAdResponse *)nativeStandardAd
+{
+ANLogMark();
+    ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObject:nativeStandardAd andAdObjectHandler:nil];
+    [self processFinalResponse:fetcherResponse];
+}
 
 
 

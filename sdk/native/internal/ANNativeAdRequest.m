@@ -37,7 +37,7 @@
 
 @implementation ANNativeAdRequest
 
-#pragma mark - ANAdProtocolPublicAndPrivate Properties.
+#pragma mark - ANAdProtocolPublicAndPrivate properties.
 
 // ANAdProtocol properties.
 //
@@ -113,7 +113,6 @@ ANLogMark();
 
 - (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
-                //FIX -- update for new fetcher [upon return.......]
 {
 ANLogMark();
     NSError *error;
@@ -220,7 +219,7 @@ ANLogMark();
 
 
 
-#pragma mark - ANAdPropertiesPublicAndPrivate Methods.
+#pragma mark - ANAdPropertiesPublicAndPrivate methods.
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -377,7 +376,6 @@ ANLogMark();
 
     return  delegateReturnDictionary;
 }
-
 
 
 @end

@@ -151,16 +151,9 @@
     }
 }
 
-- (void)fireClickTrackers {
-                //FIX -- use ANTrackerManager
-    for (NSURL *URL in self.clickTrackers) {
-        ANLogDebug(@"Firing click tracker with URL %@", URL);
-        [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
-                                           queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                                   
-                               }];
-    }
+- (void)fireClickTrackers
+{
+    [ANTrackerManager fireTrackerURLArray:self.clickTrackers];
 }
 
 #pragma mark - Helper
