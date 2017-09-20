@@ -25,7 +25,7 @@
 
 + (NSSet *)bannerInvalidNetworks;
 + (NSSet *)interstitialInvalidNetworks;
-                //FIX -- native invalid networks?
+                //FIX -- remove code about invalid networks
 
 - (void)startTimeout;
 - (void)clearAdapter;

@@ -361,18 +361,17 @@ ANLogMark();
 }
 
 
-        /* FIX toss --or-- adap[t to UT?
 - (void)adInteractionDidBegin {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    [self.adFetcher stopAd];
+    ANLogDebug(@"");
+    [self.universalAdFetcher stopAdLoad];
 }
 
 - (void)adInteractionDidEnd {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    [self.adFetcher setupAutoRefreshTimerIfNecessary];
-    [self.adFetcher startAutoRefreshTimer];
+    ANLogDebug(@"");
+//    [self.universalAdFetcher setupAutoRefreshTimerIfNecessary];   //FIX -- implment!
+//    [self.universalAdFetcher startAutoRefreshTimer];              //FIX -- implement!
 }
-                */
+
 
 - (NSString *)adTypeForMRAID    {
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
