@@ -17,6 +17,7 @@
 #import "ANLogging.h"
 #import "ANUniversalTagRequestBuilder.h"
 
+#import "ANStandardAd.h"
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"
 #import "ANSSMStandardAd.h"
@@ -33,14 +34,17 @@
 
 
 
+NSString * const  ANInternalDelgateTagKeyPrimarySize         = @"ANInternalDelgateTagKeyPrimarySize";
+NSString * const  ANInternalDelegateTagKeySizes              = @"ANInternalDelgateTagKeySizes";
+NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelgateTagKeyAllowSmallerSizes";
+
 NSString *const  kANUniversalAdFetcherWillRequestAdNotification                 = @"kANUniversalAdFetcherWillRequestAdNotification";
 NSString *const  kANUniversalAdFetcherAdRequestURLKey                           = @"kANUniversalAdFetcherAdRequestURLKey";
 NSString *const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassKey";  //FIX -- needed?  migrate from an{native,}adfetcher?
 NSString *const  kANUniversalAdFetcherMediatedClassKey                          = @"kANUniversalAdFetcherMediatedClassKey";   //FIX -- needed?  migrate from an{native,}adfetcher?
 
-NSString * const  ANInternalDelgateTagKeyPrimarySize         = @"ANInternalDelgateTagKeyPrimarySize";
-NSString * const  ANInternalDelegateTagKeySizes              = @"ANInternalDelgateTagKeySizes";
-NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelgateTagKeyAllowSmallerSizes";
+NSString *const kANUniversalAdFetcherDidReceiveResponseNotification      = @"kANUniversalAdFetcherDidReceiveResponseNotification";
+NSString *const kANUniversalAdFetcherAdResponseKey                       = @"kANUniversalAdFetcherAdResponseKey";
 
 
 
@@ -370,8 +374,8 @@ ANLogMark();
         NSString *responseString = [[NSString alloc] initWithData:self.data
                                                          encoding:NSUTF8StringEncoding];
         ANLogDebug(@"Response JSON %@", responseString);
-        ANPostNotifications(kANAdFetcherDidReceiveResponseNotification, self,
-                            @{kANAdFetcherAdResponseKey: (responseString ? responseString : @"")});
+        ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, self,
+                            @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
         
         //
         ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:self.data];

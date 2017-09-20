@@ -15,9 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ANAdFetcher.h"
 #import "ANMediatedAd.h"
 #import "ANUniversalAdFetcher.h"
+#import "ANCustomAdapter.h" 
 
 
 

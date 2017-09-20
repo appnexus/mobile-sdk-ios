@@ -15,9 +15,11 @@
 
 #import "ANNativeMediatedAdController.h"
 #import "ANNativeCustomAdapter.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
-#import "ANAdFetcher.h"
+#import "ANGlobal.h"
+
 
 @interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
 
@@ -52,7 +54,7 @@
 
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
+             adRequestDelegate:(id<ANAdProtocolPublicAndPrivate>)adRequestDelegate {
     ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd:mediatedAd
                                                                                          withDelegate:delegate
                                                                                     adRequestDelegate:adRequestDelegate];
@@ -66,7 +68,7 @@
 
 - (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
+             adRequestDelegate:(id<ANAdProtocolPublicAndPrivate>)adRequestDelegate {
     self = [super init];
     if (self) {
         _delegate = delegate;
@@ -93,8 +95,8 @@
         ANLogDebug(@"instantiating_class %@", className);
         
         // notify that a mediated class name was received
-        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
-                            @{kANAdFetcherMediatedClassKey: className});
+        ANPostNotifications(kANUniversalAdFetcherWillInstantiateMediatedClassNotification, self,
+                            @{kANUniversalAdFetcherMediatedClassKey: className});
 
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);

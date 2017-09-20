@@ -17,6 +17,9 @@
 #import "ANPBBuffer.h"
 #import "ANLogging.h"
 #import "UIView+ANCategory.h"
+#import "ANGlobal.h"
+
+
 
 static CGFloat const kANPBContainerViewLogoWidth = 50.0f;
 static CGFloat const kANPBContainerViewLogoAlpha = 0.6f;

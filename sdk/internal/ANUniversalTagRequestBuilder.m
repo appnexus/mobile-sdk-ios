@@ -27,7 +27,7 @@
 
 @interface ANUniversalTagRequestBuilder()
 
-@property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adFetcherDelegate;
+@property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> adFetcherDelegate;
                                                                     //FIX rename to entryPointDelegate?
 @property (nonatomic) NSString *baseURLString;
 
@@ -38,7 +38,7 @@
 
 @implementation ANUniversalTagRequestBuilder
 
-+ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
++ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANUniversalAdFetcherDelegate>)adFetcherDelegate
                                       baseUrlString:(NSString *)baseUrlString
 {
     ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate:adFetcherDelegate
@@ -47,7 +47,7 @@
 }
 
 
-- (instancetype)initWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
+- (instancetype)initWithAdFetcherDelegate:(id<ANUniversalAdFetcherDelegate>)adFetcherDelegate
                             baseUrlString:(NSString *)baseUrlString {
     if (self = [super init]) {
         _adFetcherDelegate = adFetcherDelegate;

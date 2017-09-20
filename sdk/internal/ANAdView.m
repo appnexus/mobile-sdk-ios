@@ -17,6 +17,7 @@
 
 
 #import "ANUniversalAdFetcher.h"
+#import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 

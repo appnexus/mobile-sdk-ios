@@ -24,7 +24,7 @@
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 #import "ANTrackerManager.h"
-
+#import "ANCustomAdapter.h"
 
 
 

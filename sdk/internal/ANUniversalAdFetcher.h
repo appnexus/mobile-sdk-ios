@@ -14,11 +14,15 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdFetcher.h"
+
 #import "ANVideoAdProcessor.h"
 #import "ANTrackerInfo.h"
 #import "ANUniversalTagAdServerResponse.h"
-
+#import "ANAdFetcherResponse.h"
+#import "ANLocation.h"
+#import "ANAdConstants.h"
+#import "ANAdViewInternalDelegate.h"
+#import "ANAdProtocolPublicAndPrivate.h"
 
 
 
@@ -27,6 +31,15 @@ static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http:/
 extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
 extern NSString * const  ANInternalDelegateTagKeySizes;
 extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
+
+extern NSString *const  kANUniversalAdFetcherWillRequestAdNotification;
+extern NSString *const  kANUniversalAdFetcherAdRequestURLKey;
+extern NSString *const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification;
+extern NSString *const  kANUniversalAdFetcherMediatedClassKey;
+
+extern NSString *const kANUniversalAdFetcherDidReceiveResponseNotification;
+extern NSString *const kANUniversalAdFetcherAdResponseKey;
+
 
 
 
@@ -58,7 +71,7 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 // NB  ANUniversalAdFetcherDelegate is sufficient for instream video format.
 //
-@protocol  ANUniversalAdFetcherDelegate <ANAdFetcherDelegate>
+@protocol  ANUniversalAdFetcherDelegate <ANAdProtocolPublicAndPrivate, ANAdViewInternalDelegate>
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
@@ -67,6 +80,10 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
+
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
 
 
 //FIX -- need custom keywords map.

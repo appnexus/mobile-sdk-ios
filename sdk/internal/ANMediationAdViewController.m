@@ -13,7 +13,10 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
+
 #import "ANMediationAdViewController.h"
+#import "ANUniversalAdFetcher.h"        //FIX this neeeded only for extern constants... kANUniversalAdFetcherWillInstantiateMediatedClassNotification, ++
 
 #import "ANBannerAdView.h"
 #import "ANGlobal.h"
@@ -92,8 +95,8 @@
         className = ad.className;
         
         // notify that a mediated class name was received
-        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
-                            @{kANAdFetcherMediatedClassKey: className});
+        ANPostNotifications(kANUniversalAdFetcherWillInstantiateMediatedClassNotification, self,
+                            @{kANUniversalAdFetcherMediatedClassKey: className});
         
         ANLogDebug(@"instantiating_class %@", className);
         
