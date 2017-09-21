@@ -19,6 +19,9 @@
 #import "UIView+ANNativeAdCategory.h"
 #import "ANGlobal.h"
 
+
+
+
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord
 
 @interface ANNativeAdResponseGestureRecognizerRecord : NSObject
@@ -32,6 +35,9 @@
 
 @end
 
+
+
+
 #pragma mark - ANNativeAdResponse
 
 @interface ANNativeAdResponse ()
@@ -43,6 +49,10 @@
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
 
 @end
+
+
+
+
 
 @implementation ANNativeAdResponse
 
@@ -103,18 +113,20 @@
     return NO;
 }
 
-#pragma mark - Unregistration
-
 - (void)unregisterViewFromTracking {
     [self detachAllGestureRecognizers];
     [self.viewForTracking setAnNativeAdResponse:nil];
     self.viewForTracking = nil;
 }
 
+
+
+
 #pragma mark - Click handling
 
 - (void)attachGestureRecognizersToNativeView:(UIView *)nativeView
-                          withClickableViews:(NSArray *)clickableViews {
+                          withClickableViews:(NSArray *)clickableViews
+{
     if (clickableViews.count) {
         [clickableViews enumerateObjectsUsingBlock:^(id clickableView, NSUInteger idx, BOOL *stop) {
             if ([clickableView isKindOfClass:[UIView class]]) {
@@ -128,7 +140,8 @@
     }
 }
 
-- (void)attachGestureRecognizerToView:(UIView *)view {
+- (void)attachGestureRecognizerToView:(UIView *)view
+{
     view.userInteractionEnabled = YES;
     
     ANNativeAdResponseGestureRecognizerRecord *record = [[ANNativeAdResponseGestureRecognizerRecord alloc] init];
@@ -178,6 +191,9 @@
 - (void)dealloc {
     [self unregisterViewFromTracking];
 }
+
+
+
 
 # pragma mark - ANNativeAdDelegate
 
