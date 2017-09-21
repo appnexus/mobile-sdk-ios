@@ -18,12 +18,7 @@
 
 
 
-
-/**
- ANAdProtocolPublicAndPrivate extends ANAdProtocol with objects essential the lifecycle of ad entry points,
-   but which should not appear in the public facing API.
- */
-@protocol ANAdProtocolPublicAndPrivate <ANAdProtocol>
+@protocol ANAdProtocolPrivate
 
 @required
 /**
@@ -31,6 +26,23 @@
  */
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
-
 @end
 
+
+
+/**
+ ANAdProtocolPublicAndPrivate extends ANAdProtocol with objects essential the lifecycle of ad entry points,
+   but which should not appear in the public facing API.
+ */
+@protocol ANAdProtocolPublicAndPrivate <ANAdProtocol, ANAdProtocolPrivate>
+    //EMPTY
+@end
+
+
+@protocol ANNativeAdRequestProtocolPublicAndPrivate <ANNativeAdRequestProtocol, ANAdProtocolPrivate>
+    //EMPTY
+@end
+
+@protocol ANNativeAdResponseProtocolPublicAndPrivate <ANNativeAdResponseProtocol, ANAdProtocolPrivate>
+    //EMPTY
+@end

@@ -43,7 +43,7 @@
  * @endcode
  *
  */
-@interface ANNativeAdRequest : NSObject <ANAdProtocolPublicAndPrivate>
+@interface ANNativeAdRequest : NSObject <ANNativeAdRequestProtocolPublicAndPrivate>
 
 /*!
  * If YES, an icon image will automatically be downloaded and included in the response.
@@ -67,6 +67,9 @@
 - (void)loadAd;
 
 @end
+
+
+
 
 /*!
  * Defines the callbacks for each load of a ANNativeAdRequest instance.

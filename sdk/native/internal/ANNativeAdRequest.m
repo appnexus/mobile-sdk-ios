@@ -37,9 +37,9 @@
 
 @implementation ANNativeAdRequest
 
-#pragma mark - ANAdProtocolPublicAndPrivate properties.
+#pragma mark - ANNativeAdRequestProtocolPublicAndPrivate properties.
 
-// ANAdProtocol properties.
+// ANNativeAdRequestProtocol properties.
 //
 @synthesize  placementId                            = __placementId;
 @synthesize  memberId                               = __memberId;
@@ -51,12 +51,7 @@
 @synthesize  customKeywords                         = __customKeywords;
 @synthesize  customKeywordsMap                      = __customKeywordsMap;
 
-@synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;         
-@synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
-
-@synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
-
-// ANAdProtocolPrivate properties.
+// ANNativeAdRequestProtocolPublicAndPrivate properties.
 //
 @synthesize  allowSmallerSizes                      = __allowSmallerSizes;
 
@@ -219,7 +214,7 @@ ANLogMark();
 
 
 
-#pragma mark - ANAdPropertiesPublicAndPrivate methods.
+#pragma mark - ANNativeAdRequestPropertiesPublicAndPrivate methods.
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -328,16 +323,6 @@ ANLogMark();
     return __location;
 }
 
-- (BOOL)shouldServePublicServiceAnnouncements {
-    ANLogDebug(@"shouldServePublicServeAnnouncements returned %d", __shouldServePublicServiceAnnouncements);
-    return __shouldServePublicServiceAnnouncements;
-}
-
-- (BOOL)opensInNativeBrowser {
-    ANLogDebug(@"opensInNativeBrowser returned %d", __opensInNativeBrowser);
-    return __opensInNativeBrowser;
-}
-
 - (CGFloat)reserve {
     ANLogDebug(@"reserve returned %f", __reserve);
     return __reserve;
@@ -361,6 +346,73 @@ ANLogMark();
 
 
 #pragma mark - ANAdViewInternalDelegate.
+
+- (void)adDidReceiveAd
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (void)adRequestFailedWithError:(NSError *)error
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (void)adWasClicked
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (void)adWillPresent
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (void)adDidPresent
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (void)adWillClose
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (void)adDidClose
+{
+    ANLogTrace(@"UNUSED");
+}
+
+
+- (void)adWillLeaveApplication
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (NSString *)adTypeForMRAID
+{
+    return  @"native";
+}
+
+- (UIViewController *)displayController
+{
+    ANLogTrace(@"UNUSED");
+    return  nil;
+}
+
+- (void)adInteractionDidBegin
+{
+    ANLogTrace(@"UNUSED");
+}
+
+- (void)adInteractionDidEnd
+{
+    ANLogTrace(@"UNUSED");
+}
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {

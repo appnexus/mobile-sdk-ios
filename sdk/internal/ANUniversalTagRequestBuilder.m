@@ -216,8 +216,10 @@ ANLogMark();
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
 
     //
-    tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
-    
+    if ([self.adFetcherDelegate respondsToSelector:@selector(shouldServePublicServiceAnnouncements)]) {
+        tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
+    }
+
     //
     tagDict[@"require_asset_url"] = [NSNumber numberWithBool:0];
 

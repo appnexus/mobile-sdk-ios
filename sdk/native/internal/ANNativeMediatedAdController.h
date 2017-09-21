@@ -27,9 +27,9 @@
 // Designated initializer
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANAdProtocolPublicAndPrivate>)adRequestDelegate;
+             adRequestDelegate:(id<ANNativeAdRequestProtocolPublicAndPrivate>)adRequestDelegate;
 
-@property (nonatomic, readwrite, weak) id<ANAdProtocolPublicAndPrivate> adRequestDelegate;
+@property (nonatomic, readwrite, weak) id<ANNativeAdRequestProtocolPublicAndPrivate> adRequestDelegate;
 @property (nonatomic, readwrite, weak) id<ANNativeMediationAdControllerDelegate> delegate;
 
 @end

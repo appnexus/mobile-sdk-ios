@@ -53,7 +53,6 @@
 
 
 
-
 @implementation ANNativeAdResponse
 
 #pragma mark - Registration
