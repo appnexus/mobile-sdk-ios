@@ -28,7 +28,6 @@
 @interface ANUniversalTagRequestBuilder()
 
 @property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> adFetcherDelegate;
-                                                                    //FIX rename to entryPointDelegate?
 @property (nonatomic) NSString *baseURLString;
 
 @end

@@ -45,6 +45,7 @@ extern NSString *const kANUniversalAdFetcherAdResponseKey;
 
 @protocol ANUniversalAdFetcherDelegate;
 
+
 @interface ANUniversalAdFetcher : NSObject
 
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
@@ -69,23 +70,38 @@ extern NSString *const kANUniversalAdFetcherAdResponseKey;
 
 
 
-// NB  ANUniversalAdFetcherDelegate is sufficient for instream video format.
-//
-@protocol  ANUniversalAdFetcherDelegate <ANAdProtocol, ANAdViewInternalDelegate>
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
-
-- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-                 adResponse: (ANAdFetcherResponse *)response;
+@protocol  ANUniversalAdFetcherFoundationDelegate <ANAdProtocolFoundation>
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+- (NSArray<NSValue *> *)adAllowedMediaTypes;
+
+// NB  Represents lazy evaluation as a means to get most current value of primarySize (eg: from self.containerSize).
+//     In addition, this method combines collection of all three size parameters to avoid synchronization issues.
+//
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
 - (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
-
 
 //FIX -- need custom keywords map.
 
 @end
+
+
+// NB  ANUniversalAdFetcherDelegate is sufficient for instream video entry point.
+//
+@protocol  ANUniversalAdFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
+
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+@end
+
+
+@protocol  ANUniversalAdNativeFetcherDelegate <ANUniversalAdFetcherFoundationDelegate>   //ALIAS
+    //EMPTY
+@end
+

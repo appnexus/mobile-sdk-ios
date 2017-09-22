@@ -19,6 +19,9 @@
 
 
 
+// NB  Native does not use ANAdViewInternalDelegate, but instead has its own specific delegates for the request and response halves of Native entry point.
+//     See ANNativeAdRequestDelegate and ANNativeAdDelegate (for response).
+//
 @protocol ANAdViewInternalDelegate <NSObject>
 
 @required
@@ -34,7 +37,6 @@
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
 - (NSString *)adTypeForMRAID;
-- (NSArray<NSValue *> *)adAllowedMediaTypes;
 
 - (UIViewController *)displayController;
 - (BOOL)opensInNativeBrowser;
@@ -42,14 +44,6 @@
 
 - (void)adInteractionDidBegin;
 - (void)adInteractionDidEnd;
-
-@optional
-// Delegate method for size values used with ad entry points banner, interstitial and video.
-//
-// NB  Represents lazy evaluation as a means to get most current value of primarySize (from self.containerSize).
-//     Also collects all three size parameters at once to avoid synchronization issues.
-//
-- (NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
 @end
 

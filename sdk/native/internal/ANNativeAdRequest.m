@@ -22,7 +22,7 @@
 
 
 
-@interface ANNativeAdRequest() <ANUniversalAdFetcherDelegate>
+@interface ANNativeAdRequest() <ANUniversalAdNativeFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
 @property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
@@ -42,7 +42,7 @@
 
 @implementation ANNativeAdRequest
 
-#pragma mark - ANNativeAdTargetingProtocol properties.  (aka ANNativeAdRequestProtocol)
+#pragma mark - ANNativeAdTargetingProtocol properties.  (ALIAS ANNativeAdRequestProtocol)
 
 // ANNativeAdRequestProtocol properties.
 //
@@ -105,7 +105,7 @@ ANLogMark();
 
 
 
-#pragma mark - ANUniversalAdFetcherDelegate.
+#pragma mark - ANUniversalAdNativeFetcherDelegate.
 
 - (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
@@ -157,6 +157,29 @@ ANLogMark();
         [self.adFetchers removeObjectIdenticalTo:fetcher];
     }
 }
+
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+{
+    return  @[ @(ANAllowedMediaTypeNative) ];
+}
+
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
+}
+
+
+
+
+
+// NB  Some duplication between ANNativeAd* and the other entry points is inevitable because ANNativeAd* does not inherit from ANAdView.
+//
+#pragma mark - ANUniversalAdNativeFetcherDelegate helper methods.
 
 - (void)setImageForImageURL:(NSURL *)imageURL
                    onObject:(id)object
@@ -215,7 +238,31 @@ ANLogMark();
 
 
 
-#pragma mark - ANNativeAdTargetingProtocol methods.  (aka ANNativeAdRequestProtocol)
+#pragma mark - ANNativeAdTargetingProtocol methods.  (ALIAS ANNativeAdRequestProtocol)
+
+- (void)setPlacementId:(NSString *)placementId {
+    placementId = ANConvertToNSString(placementId);
+    if ([placementId length] < 1) {
+        ANLogError(@"Could not set placementId to non-string value");
+        return;
+    }
+    if (placementId != __placementId) {
+        ANLogDebug(@"Setting placementId to %@", placementId);
+        __placementId = placementId;
+    }
+}
+
+- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
+    invCode = ANConvertToNSString(invCode);
+    if (invCode && invCode != __invCode) {
+        ANLogDebug(@"Setting inventory code to %@", invCode);
+        __invCode = invCode;
+    }
+    if (memberId > 0 && memberId != __memberId) {
+        ANLogDebug(@"Setting member id to %d", (int) memberId);
+        __memberId = memberId;
+    }
+}
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
@@ -274,93 +321,6 @@ ANLogMark();
     [self.customKeywords removeAllObjects];
 #pragma clang diagnostic pop
     [self.customKeywordsMap removeAllObjects];
-}
-
-
-
-
-#pragma mark - ANAdViewInternalDelegate.
-
-- (void)adDidReceiveAd
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (void)adRequestFailedWithError:(NSError *)error
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (void)adWasClicked
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (void)adWillPresent
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidPresent
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (void)adWillClose
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidClose
-{
-    ANLogTrace(@"UNUSED");
-}
-
-
-- (void)adWillLeaveApplication
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (NSString *)adTypeForMRAID
-{
-    return  @"native";
-}
-
-- (UIViewController *)displayController
-{
-    ANLogTrace(@"UNUSED");
-    return  nil;
-}
-
-- (void)adInteractionDidBegin
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (void)adInteractionDidEnd
-{
-    ANLogTrace(@"UNUSED");
-}
-
-- (NSArray<NSValue *> *)adAllowedMediaTypes
-{
-    return  @[ @(ANAllowedMediaTypeNative) ];
-}
-
-- (NSDictionary *) internalDelegateUniversalTagSizeParameters
-{
-    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
-    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
-    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
-    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
-
-    return  delegateReturnDictionary;
 }
 
 

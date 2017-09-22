@@ -143,7 +143,7 @@ ANLogMark();
 
 
 
-#pragma mark - Setter methods
+#pragma mark - ANAdProtocol: Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -230,7 +230,7 @@ ANLogMark();
 
 
 
-#pragma mark - Getter methods
+#pragma mark - ANAdProtocol: Getter methods
 
 - (NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);

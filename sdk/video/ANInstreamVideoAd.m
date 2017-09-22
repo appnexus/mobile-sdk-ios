@@ -335,7 +335,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //---------------------------------------------------------- -o--
-#pragma mark - ANInstreamVideoAdUniversalFetcherDelegate.
+#pragma mark - ANUniversalAdFetcherDelegate.
 
 //--------------------- -o-
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
@@ -351,6 +351,23 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseBadFormat)];
         return;
     }
+}
+
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+{
+    ANLogTrace(@"");
+    return  @[ @(ANAllowedMediaTypeVideo) ];
+
+}
+
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
 }
 
 
@@ -425,130 +442,6 @@ ANLogTrace(@"UNUSED");
 - (void)adInteractionDidEnd
 {
 ANLogTrace(@"UNUSED");
-}
-
-- (NSArray<NSValue *> *)adAllowedMediaTypes
-{
-ANLogTrace(@"");
-    return  @[ @(ANAllowedMediaTypeVideo) ];
-
-}
-
-- (NSDictionary *) internalDelegateUniversalTagSizeParameters
-{
-    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
-    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
-    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
-    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
-
-    return  delegateReturnDictionary;
-}
-
-
-
-
-//---------------------------------------------------------- -o--
-#pragma mark - ANAdProtocol.
-
-/** Set the user's current location.  This allows ad buyers to do location targeting, which can increase spend.
- */
-- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
-    self.location = [ANLocation getLocationWithLatitude:latitude
-                                              longitude:longitude
-                                              timestamp:timestamp
-                                     horizontalAccuracy:horizontalAccuracy];
-}
-
-
-/** Set the user's current location rounded to the number of decimal places specified in "precision".
-    Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
- */
-- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
-                      precision:(NSInteger)precision {
-    self.location = [ANLocation getLocationWithLatitude:latitude
-                                              longitude:longitude
-                                              timestamp:timestamp
-                                     horizontalAccuracy:horizontalAccuracy
-                                              precision:precision];
-}
-
-
-
-/**
- These methods add and remove custom keywords to and from the
- customKeywords dictionary.
- */
-- (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value
-{
-    if (([key length] < 1) || !value) {
-        return;
-    }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords setValue:value forKey:key];
-#pragma clang diagnostic pop
-
-    if (self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
-        if (![valueArray containsObject:value]) {
-            [valueArray addObject:value];
-        }
-        self.customKeywordsMap[key] = [valueArray copy];
-    } else {
-        self.customKeywordsMap[key] = @[value];
-    }
-}
-
-
-- (void)removeCustomKeywordWithKey:(NSString *)key
-{
-    if (([key length] < 1)) {
-        return;
-    }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords removeObjectForKey:key];
-#pragma clang diagnostic pop
-
-    [self.customKeywordsMap removeObjectForKey:key];
-}
-
-
-- (void)clearCustomKeywords
-{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    [self.customKeywords removeAllObjects];
-#pragma clang diagnostic pop
-
-    [self.customKeywordsMap removeAllObjects];
-}
-
-
-/**
- Set the inventory code and member id for the place that ads will be shown.
- */
-@synthesize  memberId       = _memberId;
-@synthesize  inventoryCode  = _inventoryCode;
-
-- (void)setInventoryCode: (NSString *)inventoryCode
-                memberId: (NSInteger)memberID
-{
-    if (inventoryCode && (inventoryCode != _inventoryCode)) {
-        ANLogDebug(@"Setting inventory code to %@", inventoryCode);
-        _inventoryCode = inventoryCode;
-    }
-    if ( (memberID > 0) && (memberID != _memberId) ) {
-        ANLogDebug(@"Setting member id to %d", (int) memberID);
-        _memberId = memberID;
-    }
 }
 
 

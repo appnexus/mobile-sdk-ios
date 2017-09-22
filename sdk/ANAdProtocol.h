@@ -198,7 +198,7 @@
 
 // ALIAS ANNativeAdTargetingProtocol for preserve API elements and headers.  (For now...)
 //
-@protocol ANNativeAdTargetingProtocol <ANNativeAdRequestProtocol>
+@protocol ANNativeAdTargetingProtocol <ANNativeAdRequestProtocol>   //ALIAS
     //EMPTY
 @end
 
@@ -276,7 +276,8 @@
  Called when the ad has sent the app an event via the AppNexus
  Javascript API for Mobile
  */
-- (void)ad:(id<ANAdProtocol>)ad
-didReceiveAppEvent:(NSString *)name withData:(NSString *)data;
+- (void)          ad: (id<ANAdProtocol>)ad
+  didReceiveAppEvent: (NSString *)name
+            withData: (NSString *)data;
 
 @end

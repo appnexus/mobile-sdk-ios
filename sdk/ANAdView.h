@@ -23,9 +23,4 @@
 
 @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
 
-
-//
-- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-                 adResponse: (ANAdFetcherResponse *)response;
-
 @end
