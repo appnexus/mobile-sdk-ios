@@ -22,7 +22,7 @@
 #import "ANLocation.h"
 #import "ANAdConstants.h"
 #import "ANAdViewInternalDelegate.h"
-#import "ANAdProtocolPublicAndPrivate.h"
+#import "ANAdProtocol.h"
 
 
 
@@ -71,7 +71,7 @@ extern NSString *const kANUniversalAdFetcherAdResponseKey;
 
 // NB  ANUniversalAdFetcherDelegate is sufficient for instream video format.
 //
-@protocol  ANUniversalAdFetcherDelegate <ANAdProtocolPublicAndPrivate, ANAdViewInternalDelegate>
+@protocol  ANUniversalAdFetcherDelegate <ANAdProtocol, ANAdViewInternalDelegate>
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 

@@ -31,13 +31,18 @@
 @property (nonatomic)          CGSize                    size1x1;
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
+// NB  allowSmallerSizes defined together with properties that affect final UT Request values of
+//     primary_size and sizes.
+//
+@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
+
 @end
 
 
 
 @implementation ANNativeAdRequest
 
-#pragma mark - ANNativeAdRequestProtocolPublicAndPrivate properties.
+#pragma mark - ANNativeAdTargetingProtocol properties.  (aka ANNativeAdRequestProtocol)
 
 // ANNativeAdRequestProtocol properties.
 //
@@ -50,10 +55,6 @@
 @synthesize  gender                                 = __gender;
 @synthesize  customKeywords                         = __customKeywords;
 @synthesize  customKeywordsMap                      = __customKeywordsMap;
-
-// ANNativeAdRequestProtocolPublicAndPrivate properties.
-//
-@synthesize  allowSmallerSizes                      = __allowSmallerSizes;
 
 
 
@@ -214,31 +215,7 @@ ANLogMark();
 
 
 
-#pragma mark - ANNativeAdRequestPropertiesPublicAndPrivate methods.
-
-- (void)setPlacementId:(NSString *)placementId {
-    placementId = ANConvertToNSString(placementId);
-    if ([placementId length] < 1) {
-        ANLogError(@"Could not set placementId to non-string value");
-        return;
-    }
-    if (placementId != __placementId) {
-        ANLogDebug(@"Setting placementId to %@", placementId);
-        __placementId = placementId;
-    }
-}
-
-- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
-    invCode = ANConvertToNSString(invCode);
-    if (invCode && invCode != __invCode) {
-        ANLogDebug(@"Setting inventory code to %@", invCode);
-        __invCode = invCode;
-    }
-    if (memberId > 0 && memberId != __memberId) {
-        ANLogDebug(@"Setting member id to %d", (int) memberId);
-        __memberId = memberId;
-    }
-}
+#pragma mark - ANNativeAdTargetingProtocol methods.  (aka ANNativeAdRequestProtocol)
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
@@ -299,49 +276,6 @@ ANLogMark();
     [self.customKeywordsMap removeAllObjects];
 }
 
-
-
-#pragma mark - Getter methods.
-
-- (NSString *)placementId {
-    ANLogDebug(@"placementId returned %@", __placementId);
-    return __placementId;
-}
-
-- (NSInteger )memberId {
-    ANLogDebug(@"memberId returned %d", (int)__memberId);
-    return __memberId;
-}
-
-- (NSString *)inventoryCode {
-    ANLogDebug(@"inventoryCode returned %@", __invCode);
-    return __invCode;
-}
-
-- (ANLocation *)location {
-    ANLogDebug(@"location returned %@", __location);
-    return __location;
-}
-
-- (CGFloat)reserve {
-    ANLogDebug(@"reserve returned %f", __reserve);
-    return __reserve;
-}
-
-- (NSString *)age {
-    ANLogDebug(@"age returned %@", __age);
-    return __age;
-}
-
-- (ANGender)gender {
-    ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
-    return __gender;
-}
-
-- (NSMutableDictionary *)customKeywords {
-    ANLogDebug(@"customKeywords returned %@", __customKeywords);
-    return __customKeywords;
-}
 
 
 

@@ -14,8 +14,8 @@
  */
 
 #import "ANNativeAdResponse.h"
-#import "ANAdProtocolPublicAndPrivate.h"
-#import "ANLocation.h"
+#import "ANNativeAdTargetingProtocol.h"
+
 
 
 @protocol ANNativeAdRequestDelegate;
@@ -43,7 +43,7 @@
  * @endcode
  *
  */
-@interface ANNativeAdRequest : NSObject <ANNativeAdRequestProtocolPublicAndPrivate>
+@interface ANNativeAdRequest : NSObject <ANNativeAdTargetingProtocol>
 
 /*!
  * If YES, an icon image will automatically be downloaded and included in the response.

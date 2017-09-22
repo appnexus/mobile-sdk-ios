@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,17 +15,5 @@
 
 
 #import "ANAdProtocol.h"
-#import "ANUniversalAdFetcher.h"
 
 
-
-@interface ANAdView : UIView <ANAdProtocol>
-
-@property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
-
-
-//
-- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-                 adResponse: (ANAdFetcherResponse *)response;
-
-@end

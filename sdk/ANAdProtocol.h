@@ -18,6 +18,8 @@
 #import <UIKit/UIKit.h>
 
 #import "ANAdConstants.h"
+#import "ANLocation.h"
+
 
 @class ANLocation;
 
@@ -192,6 +194,14 @@
 @protocol ANNativeAdResponseProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser>
     //EMPTY
 @end
+
+
+// ALIAS ANNativeAdTargetingProtocol for preserve API elements and headers.  (For now...)
+//
+@protocol ANNativeAdTargetingProtocol <ANNativeAdRequestProtocol>
+    //EMPTY
+@end
+
 
 
 

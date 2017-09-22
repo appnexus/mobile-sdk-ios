@@ -62,10 +62,6 @@
 @synthesize  customKeywordsMap                      = __customKeywordsMap;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-// ANAdProtocolPrivate properties.
-//
-@synthesize  allowSmallerSizes                      = __allowSmallerSizes;
-
 
 
 #pragma mark - Initialization

@@ -35,6 +35,11 @@
 
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
 
+// NB  allowSmallerSizes defined together with properties that affect final UT Request values of
+//     primary_size and sizes.
+//
+@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
+
 @end
 
 
@@ -43,9 +48,9 @@
 
 @synthesize  autoRefreshInterval  = __autoRefreshInterval;
 @synthesize  contentView          = _contentView;
-
 @synthesize  adSize               = _adSize;
-@synthesize  allowSmallerSizes    = __allowSmallerSizes;
+
+
 
 
 
@@ -63,7 +68,7 @@
 
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
-    __allowSmallerSizes     = NO;
+    _allowSmallerSizes      = NO;
 }
 
 - (void)awakeFromNib {

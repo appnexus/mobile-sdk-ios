@@ -54,7 +54,7 @@
 
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdRequestProtocolPublicAndPrivate>)adRequestDelegate {
+             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
     ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd:mediatedAd
                                                                                          withDelegate:delegate
                                                                                     adRequestDelegate:adRequestDelegate];
@@ -68,7 +68,7 @@
 
 - (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdRequestProtocolPublicAndPrivate>)adRequestDelegate {
+             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
     self = [super init];
     if (self) {
         _delegate = delegate;
