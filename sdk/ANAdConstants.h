@@ -48,5 +48,6 @@ typedef NS_ENUM(NSUInteger, ANNativeAdNetworkCode) {
     ANNativeAdNetworkCodeFacebook,
     ANNativeAdNetworkCodeInMobi,
     ANNativeAdNetworkCodeYahoo,
+    ANNativeAdNetworkCodeCustom,
     ANNativeAdNetworkCodeAdMob
 };

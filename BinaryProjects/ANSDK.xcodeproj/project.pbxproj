@@ -1581,12 +1581,12 @@
 		8A35B87919FEAAE30016C81F /* native */ = {
 			isa = PBXGroup;
 			children = (
-				4F827A801F75533D003153AB /* ANNativeAdTargetingProtocol.h */,
 				8AB8761B1A0994310022D9A5 /* internal */,
 				8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */,
 				8A35B89619FEB5EC0016C81F /* ANNativeAdRequest.h */,
 				8A35B89919FEB8A40016C81F /* ANNativeAdResponse.h */,
 				8ABB766D1A004DBD00FEAD9D /* ANNativeAdStarRating.h */,
+				4F827A801F75533D003153AB /* ANNativeAdTargetingProtocol.h */,
 				8A35B8A219FEBEBD0016C81F /* ANNativeCustomAdapter.h */,
 				8AB8762D1A0994310022D9A5 /* ANNativeMediatedAdResponse.h */,
 			);
@@ -2317,7 +2317,6 @@
 				8A9AEDD81A1BF88200C58BDA /* ANMediationAdViewController.h in Headers */,
 				8A9AEDD91A1BF88200C58BDA /* ANMediationContainerView.h in Headers */,
 				8AC65F5F1A40DE74006BCF39 /* ANMRAIDCalendarManager.h in Headers */,
-				4F827A811F75533D003153AB /* ANNativeAdTargetingProtocol.h in Headers */,
 				8AC65F611A40DE74006BCF39 /* ANMRAIDContainerView.h in Headers */,
 				8AC65F631A40DE74006BCF39 /* ANMRAIDExpandProperties.h in Headers */,
 				8AC65F651A40DE74006BCF39 /* ANMRAIDExpandViewController.h in Headers */,
@@ -2333,6 +2332,7 @@
 				8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */,
 				8A9AEDBC1A1BE8CE00C58BDA /* ANNativeAdResponse.h in Headers */,
 				8A9AEDBD1A1BE8CE00C58BDA /* ANNativeAdStarRating.h in Headers */,
+				4F827A811F75533D003153AB /* ANNativeAdTargetingProtocol.h in Headers */,
 				8A9AEDBF1A1BE8CE00C58BDA /* ANNativeCustomAdapter.h in Headers */,
 				8A9AEDE51A1BF88300C58BDA /* ANNativeMediatedAdController.h in Headers */,
 				8A9AEDC01A1BE8CE00C58BDA /* ANNativeMediatedAdResponse.h in Headers */,
