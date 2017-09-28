@@ -15,16 +15,13 @@
 
 #import "ANAdAdapterBaseVdopia.h"
 #import "ANLogging.h"
-#import "ANGlobal.h"
-
 
 @implementation ANAdAdapterBaseVdopia
 
 @synthesize delegate = _delegate;
 
-+ (LVDOAdRequest *)adRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters
-{
-    ANLogTrace(@"");
++ (LVDOAdRequest *)adRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     LVDOAdRequest *adRequest = [LVDOAdRequest request];
     
     switch (targetingParameters.gender) {
@@ -43,12 +40,15 @@
                                      longitude:targetingParameters.location.longitude
                                       accuracy:targetingParameters.location.horizontalAccuracy];
     }
-
+    
     if (targetingParameters.customKeywords) {
-        NSArray<NSString *>  *keywords  = [[ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords] allValues];
+        NSMutableArray *keywords = [[NSMutableArray alloc] init];
+        [targetingParameters.customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            [keywords addObject:[obj description]];
+        }];
         [LVDOAdRequest addKeyword:keywords];
     }
-
+    
     return adRequest;
 }
 

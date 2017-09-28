@@ -27,7 +27,6 @@
 #import "ANAdAdapterBaseAdColony+PrivateMethods.h"
 
 #import "ANLogging.h"
-#import "ANGlobal.h"
 
 
 
@@ -184,13 +183,10 @@ typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
             appOptions.userMetadata.userLongitude = [NSNumber numberWithFloat:targetingParameters.location.longitude];
         }
 
-
-        NSDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords];
-
-        if ([customKeywordsAsStrings count] > 0)
+        if ([targetingParameters.customKeywords count] > 0)
         {
-            for (NSString *key in customKeywordsAsStrings) {
-                NSString  *value  = [customKeywordsAsStrings objectForKey:key];
+            for (NSString *key in targetingParameters.customKeywords) {
+                NSString  *value  = [targetingParameters.customKeywords objectForKey:key];
 
                 [appOptions.userMetadata setMetadataWithKey:key andStringValue:value];
             }

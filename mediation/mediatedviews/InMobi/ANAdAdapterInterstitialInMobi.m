@@ -17,7 +17,6 @@
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
-#import "ANGlobal.h"
 
 #import "IMInterstitial.h"
 
@@ -33,30 +32,23 @@
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters
-{
-    ANLogTrace(@"");
-    
+                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (![ANAdAdapterBaseInMobi appId].length) {
         ANLogError(@"InMobi mediation failed. Call [ANAdAdapterBaseInMobi setInMobiAppID:@\"YOUR_PROPERTY_ID\"] to set the InMobi global App Id");
         [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
         return;
     }
-
     if (!idString.length) {
         ANLogError(@"Unable to load InMobi interstitial due to empty ad unit id");
         [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
         return;
     }
-
-    //
     self.adInterstitial = [[IMInterstitial alloc] initWithPlacementId:[idString longLongValue]];
-
-    self.adInterstitial.delegate    = self;
-    self.adInterstitial.extras      = [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords];
-    self.adInterstitial.keywords    = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
+    self.adInterstitial.delegate = self;
+    self.adInterstitial.extras = targetingParameters.customKeywords;
+    self.adInterstitial.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
     [ANAdAdapterBaseInMobi setInMobiTargetingWithTargetingParameters:targetingParameters];
-
     [self.adInterstitial load];
 }
 
