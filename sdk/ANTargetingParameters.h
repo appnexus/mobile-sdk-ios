@@ -27,7 +27,7 @@
 /**
  Custom targeting keywords from the app.
  */
-@property (nonatomic, readwrite, strong) NSDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+@property (nonatomic, readwrite, strong) NSDictionary<NSString *, NSString *>  *customKeywords;
 
 @property (nonatomic, readwrite, strong) NSString *age;
 @property (nonatomic, readwrite, assign) ANGender gender;

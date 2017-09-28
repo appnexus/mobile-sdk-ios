@@ -210,8 +210,14 @@ ANLogMark();
     if (([key length] < 1)) {
         return;
     }
-
-    [self.customKeywords removeObjectForKey:key];
+    
+    //check if the key exist before calling remove
+    NSArray *keysArray = [self.customKeywords allKeys];
+    
+    if([keysArray containsObject:key]){
+        [self.customKeywords removeObjectForKey:key];
+    }
+    
 }
 
 - (void)clearCustomKeywords

@@ -14,14 +14,12 @@
  */
 
 #import "ANAdAdapterMoPubBase.h"
-#import "ANGlobal.h"
 
 @implementation ANAdAdapterMoPubBase
 
 @synthesize delegate;
 
-- (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters
-{
+- (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
     NSMutableArray *keywordArray = [[NSMutableArray alloc] init];
     
     ANGender gender = targetingParameters.gender;
@@ -39,11 +37,8 @@
     if ([targetingParameters age]) {
         [keywordArray addObject:[NSString stringWithFormat:@"m_age:%@", targetingParameters.age]];
     }
-
-    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  =
-                                                    [ANGlobal convertCustomKeywordsAsMapToStrings:targetingParameters.customKeywords withSeparatorString:@";"];
-
-    [customKeywordsAsStrings enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    
+    [targetingParameters.customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [keywordArray addObject:[NSString stringWithFormat:@"%@:%@", key, obj]];
     }];
     
