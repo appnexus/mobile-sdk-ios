@@ -288,10 +288,4 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     return  [keywordsMapToStrings mutableCopy];
 }
 
-+ (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings:(NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
-{
-    return  [[self class] convertCustomKeywordsAsMapToStrings:keywordsMap withSeparatorString:@","];
-}
-
-
 @end
