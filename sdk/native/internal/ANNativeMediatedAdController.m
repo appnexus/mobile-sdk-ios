@@ -181,8 +181,11 @@
 - (ANTargetingParameters *)targetingParameters
 {
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
+    
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  =
+    [ANGlobal convertCustomKeywordsAsMapToStrings:self.adRequestDelegate.customKeywords withSeparatorString:@","];
 
-    targetingParameters.customKeywords    = self.adRequestDelegate.customKeywords;
+    targetingParameters.customKeywords    = customKeywordsAsStrings;
     targetingParameters.age               = self.adRequestDelegate.age;
     targetingParameters.gender            = self.adRequestDelegate.gender;
     targetingParameters.location          = self.adRequestDelegate.location;

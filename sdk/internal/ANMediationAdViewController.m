@@ -201,7 +201,7 @@ ANLogMark();
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
     
     NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  =
-    [self convertCustomKeywordsAsMapToStrings:adView.customKeywords withSeparatorString:@","];
+    [ANGlobal convertCustomKeywordsAsMapToStrings:adView.customKeywords withSeparatorString:@","];
 
 
     targetingParameters.customKeywords    = customKeywordsAsStrings;
@@ -616,23 +616,5 @@ ANLogMark();
     [self unregisterFromPitbullScreenCaptureNotifications];
 }
 
-
-#pragma mark
-
-- (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
-                                                                 withSeparatorString: (NSString *)separatorString
-{
-    NSMutableDictionary<NSString *, NSString *>  *keywordsMapToStrings  = [[NSMutableDictionary alloc] init];
-    
-    for (NSString *key in keywordsMap)
-    {
-        NSArray   *mapValuesArray  = [keywordsMap objectForKey:key];
-        NSString  *mapValueString  = [mapValuesArray componentsJoinedByString:separatorString];
-        
-        [keywordsMapToStrings setObject:mapValueString forKey:key];
-    }
-    
-    return  [keywordsMapToStrings mutableCopy];
-}
 
 @end
