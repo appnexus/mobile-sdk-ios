@@ -70,8 +70,8 @@
         [self.adBannerView setLocation:anLoc];
     }
     
-    NSMutableDictionary *customKeywordsFromInfo = [info mutableCopy];
-    [self.adBannerView setCustomKeywords:customKeywordsFromInfo];
+    NSMutableDictionary *customKeywords = [info mutableCopy];
+    [self.adBannerView setCustomKeywords:customKeywords];
     
     self.adBannerView.delegate = self;
     [self.adBannerView loadAd];

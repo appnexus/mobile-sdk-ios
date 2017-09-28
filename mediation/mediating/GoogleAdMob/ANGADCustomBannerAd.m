@@ -40,7 +40,7 @@
     self.bannerAdView.rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     self.bannerAdView.delegate = self;
     self.bannerAdView.opensInNativeBrowser = YES;
-    self.bannerAdView.shouldServePublicServiceAnnouncements = NO;
+	self.bannerAdView.shouldServePublicServiceAnnouncements = NO;
     
     if ([customEventRequest userHasLocation]) {
         ANLocation *loc = [ANLocation getLocationWithLatitude:[customEventRequest userLatitude]
@@ -66,8 +66,8 @@
         [self.bannerAdView setAge:birthYear];
     }
     
-    NSMutableDictionary *gAdCustomKeywords = [[customEventRequest additionalParameters] mutableCopy];
-    [self.bannerAdView setCustomKeywords:gAdCustomKeywords];
+    NSMutableDictionary *customKeywords = [[customEventRequest additionalParameters] mutableCopy];
+    [self.bannerAdView setCustomKeywords:customKeywords];
     
     [self.bannerAdView loadAd];
 }
