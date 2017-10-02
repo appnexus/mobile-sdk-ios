@@ -22,7 +22,7 @@
 
 
 
-@interface ANNativeAdRequest() <ANUniversalAdNativeFetcherDelegate>
+@interface ANNativeAdRequest() <ANUniversalAdFetcherFoundationDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
 @property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
@@ -105,7 +105,7 @@ ANLogMark();
 
 
 
-#pragma mark - ANUniversalAdNativeFetcherDelegate.
+#pragma mark - ANUniversalAdFetcherFoundationDelegate.
 
 - (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
@@ -179,7 +179,7 @@ ANLogMark();
 
 // NB  Some duplication between ANNativeAd* and the other entry points is inevitable because ANNativeAd* does not inherit from ANAdView.
 //
-#pragma mark - ANUniversalAdNativeFetcherDelegate helper methods.
+#pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
 
 - (void)setImageForImageURL:(NSURL *)imageURL
                    onObject:(id)object

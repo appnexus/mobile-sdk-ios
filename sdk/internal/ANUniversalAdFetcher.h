@@ -93,8 +93,3 @@
 @protocol  ANUniversalAdInstreamVideoFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser>
     //EMPTY
 @end
-
-@protocol  ANUniversalAdNativeFetcherDelegate <ANUniversalAdFetcherFoundationDelegate>   //ALIAS
-    //EMPTY
-@end
-
