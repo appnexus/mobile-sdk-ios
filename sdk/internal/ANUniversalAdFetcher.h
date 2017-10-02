@@ -69,6 +69,8 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 
+- (NSTimeInterval)autoRefreshIntervalForUniversalAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
 
 @end
 

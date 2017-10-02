@@ -320,7 +320,7 @@ ANLogMark();
     }
 }
 
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
+- (NSTimeInterval)autoRefreshIntervalForUniversalAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return self.autoRefreshInterval;
 }
 
