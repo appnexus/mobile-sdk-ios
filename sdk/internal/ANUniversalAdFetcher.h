@@ -26,22 +26,6 @@
 
 
 
-static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http://mediation.adnxs.com/ut/v2";
-
-extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
-extern NSString * const  ANInternalDelegateTagKeySizes;
-extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
-
-extern NSString *const  kANUniversalAdFetcherWillRequestAdNotification;
-extern NSString *const  kANUniversalAdFetcherAdRequestURLKey;
-extern NSString *const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification;
-extern NSString *const  kANUniversalAdFetcherMediatedClassKey;
-
-extern NSString *const kANUniversalAdFetcherDidReceiveResponseNotification;
-extern NSString *const kANUniversalAdFetcherAdResponseKey;
-
-
-
 
 @protocol ANUniversalAdFetcherDelegate;
 

@@ -22,7 +22,20 @@
 
 
 
-NSString *const kANFirstLaunchKey = @"kANFirstLaunchKey";
+
+
+NSString * const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
+NSString * const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelgateTagKeySizes";
+NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes                      = @"ANInternalDelgateTagKeyAllowSmallerSizes";
+
+NSString * const  kANUniversalAdFetcherWillRequestAdNotification                 = @"kANUniversalAdFetcherWillRequestAdNotification";
+NSString * const  kANUniversalAdFetcherAdRequestURLKey                           = @"kANUniversalAdFetcherAdRequestURLKey";
+NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassKey";
+NSString * const  kANUniversalAdFetcherMediatedClassKey                          = @"kANUniversalAdFetcherMediatedClassKey";
+ 
+NSString * const  kANUniversalAdFetcherDidReceiveResponseNotification            = @"kANUniversalAdFetcherDidReceiveResponseNotification";
+NSString * const  kANUniversalAdFetcherAdResponseKey                             = @"kANUniversalAdFetcherAdResponseKey";
+
 
 
 
@@ -59,6 +72,9 @@ BOOL ANAdvertisingTrackingEnabled() {
     return [ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled;
 }
 
+
+NSString *const kANFirstLaunchKey = @"kANFirstLaunchKey";
+
 BOOL ANIsFirstLaunch()
 {
 	BOOL isFirstLaunch = ![[NSUserDefaults standardUserDefaults] boolForKey:kANFirstLaunchKey];
@@ -70,6 +86,7 @@ BOOL ANIsFirstLaunch()
     
     return isFirstLaunch;
 }
+
 
 NSString *ANUDID() {
     static NSString *udidComponent = @"";

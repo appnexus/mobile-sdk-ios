@@ -34,20 +34,6 @@
 
 
 
-NSString * const  ANInternalDelgateTagKeyPrimarySize         = @"ANInternalDelgateTagKeyPrimarySize";
-NSString * const  ANInternalDelegateTagKeySizes              = @"ANInternalDelgateTagKeySizes";
-NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelgateTagKeyAllowSmallerSizes";
-
-NSString *const  kANUniversalAdFetcherWillRequestAdNotification                 = @"kANUniversalAdFetcherWillRequestAdNotification";
-NSString *const  kANUniversalAdFetcherAdRequestURLKey                           = @"kANUniversalAdFetcherAdRequestURLKey";
-NSString *const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassKey";  //FIX -- needed?  migrate from an{native,}adfetcher?
-NSString *const  kANUniversalAdFetcherMediatedClassKey                          = @"kANUniversalAdFetcherMediatedClassKey";   //FIX -- needed?  migrate from an{native,}adfetcher?
-
-NSString *const kANUniversalAdFetcherDidReceiveResponseNotification      = @"kANUniversalAdFetcherDidReceiveResponseNotification";
-NSString *const kANUniversalAdFetcherAdResponseKey                       = @"kANUniversalAdFetcherAdResponseKey";
-
-
-
 
 @interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate>
 

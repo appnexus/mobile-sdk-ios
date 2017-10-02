@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 
 #import "ANMediationAdViewController.h"
-#import "ANUniversalAdFetcher.h"        //FIX this neeeded only for extern constants... kANUniversalAdFetcherWillInstantiateMediatedClassNotification, ++
+#import "ANAdConstants.h"
 
 #import "ANBannerAdView.h"
 #import "ANGlobal.h"
