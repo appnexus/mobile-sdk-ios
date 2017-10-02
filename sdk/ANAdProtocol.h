@@ -191,7 +191,7 @@
     //EMPTY
 @end
 
-@protocol ANNativeAdResponseProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser>
+@protocol ANNativeAdResponseProtocol <ANAdProtocolBrowser>
     //EMPTY
 @end
 

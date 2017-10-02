@@ -18,6 +18,7 @@
 #import "ANLogging.h"
 #import "UIView+ANNativeAdCategory.h"
 #import "ANGlobal.h"
+#import "ANAdProtocol.h"
 
 
 
@@ -41,7 +42,7 @@
 
 #pragma mark - ANNativeAdResponse
 
-@interface ANNativeAdResponse ()
+@interface ANNativeAdResponse()
 
 @property (nonatomic, readwrite, strong) UIView *viewForTracking;
 @property (nonatomic, readwrite, strong) NSMutableArray *gestureRecognizerRecords;
@@ -55,6 +56,11 @@
 
 
 @implementation ANNativeAdResponse
+
+@synthesize  opensInNativeBrowser           = _opensInNativeBrowser;
+@synthesize  landingPageLoadsInBackground   = _landingPageLoadsInBackground;
+
+
 
 #pragma mark - Registration
 
