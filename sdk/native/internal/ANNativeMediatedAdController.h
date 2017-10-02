@@ -14,7 +14,7 @@
  */
 
 #import "ANMediatedAd.h"
-#import "ANNativeAdTargetingProtocol.h"
+#import "ANAdProtocol.h"
 
 
 
@@ -27,9 +27,9 @@
 // Designated initializer
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate;
+             adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
 
-@property (nonatomic, readwrite, weak) id<ANNativeAdTargetingProtocol> adRequestDelegate;
+@property (nonatomic, readwrite, weak) id<ANNativeAdRequestProtocol> adRequestDelegate;
 @property (nonatomic, readwrite, weak) id<ANNativeMediationAdControllerDelegate> delegate;
 
 @end

@@ -42,7 +42,7 @@
 
 @implementation ANNativeAdRequest
 
-#pragma mark - ANNativeAdTargetingProtocol properties.  (ALIAS ANNativeAdRequestProtocol)
+#pragma mark - ANNativeAdRequestProtocol properties.
 
 // ANNativeAdRequestProtocol properties.
 //
@@ -238,7 +238,7 @@ ANLogMark();
 
 
 
-#pragma mark - ANNativeAdTargetingProtocol methods.  (ALIAS ANNativeAdRequestProtocol)
+#pragma mark - ANNativeAdRequestProtocol methods.
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);

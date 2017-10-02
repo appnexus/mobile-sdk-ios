@@ -25,6 +25,8 @@
 
 
 
+#pragma mark - ANAdProtocol partitions.
+
 /**
  ANAdProtocol defines the properties and methods that are common to *all* ad types.  
  It can be understood as a toolkit for implementing ad types.
@@ -181,6 +183,7 @@
 
 
 
+#pragma mark - ANAdProtocol entrypoint combinations.
 
 @protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
     //EMPTY
@@ -196,15 +199,9 @@
 @end
 
 
-// ALIAS ANNativeAdTargetingProtocol for preserve API elements and headers.  (For now...)
-//
-@protocol ANNativeAdTargetingProtocol <ANNativeAdRequestProtocol>   //ALIAS
-    //EMPTY
-@end
 
 
-
-
+#pragma mark - ANAdDelegate.
 
 /**
  The definition of the `ANAdDelegate' protocol includes methods
@@ -266,6 +263,8 @@
 
 
 
+
+#pragma mark - ANAppEventDelegate.
 
 /**
  Delegate to receive app events from the ad.
