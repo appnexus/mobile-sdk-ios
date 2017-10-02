@@ -217,6 +217,9 @@ ANLogMark();
     //
     if ([self.adFetcherDelegate respondsToSelector:@selector(shouldServePublicServiceAnnouncements)]) {
         tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
+    } else {
+        tagDict[@"disable_psa"] = [NSNumber numberWithBool:@(YES)];
+
     }
 
     //
