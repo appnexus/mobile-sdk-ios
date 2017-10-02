@@ -47,6 +47,8 @@
 
 @property (nonatomic, readwrite, assign)  BOOL              requestShouldBePosted;
 
+@property (nonatomic, readwrite, getter=isLoading)  BOOL    loading;
+
 
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>  delegate;
 
@@ -110,26 +112,31 @@ ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
 
-    self.requestShouldBePosted = YES;
-    self.connection = [NSURLConnection connectionWithRequest:request
-                                                    delegate:self];
-    
-    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-    //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
-    //FIX -- clear if connection turns out not to be successful?
-    
-    
-    if (!self.connection) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
-        [self processFinalResponse:response];
-    } else {
-        ANLogDebug(@"Starting request: %@", request);
-        if (self.requestShouldBePosted) {
-            ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
-                                @{kANUniversalAdFetcherAdRequestURLKey: urlString});
-            self.requestShouldBePosted = NO;
-        }
 
+    if (!self.isLoading) 
+    {
+        self.requestShouldBePosted = YES;
+        self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+        
+        self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+            //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
+            //FIX -- clear if connection turns out not to be successful?
+        
+        
+        if (!self.connection) {
+            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
+            [self processFinalResponse:response];
+        } else {
+            ANLogDebug(@"Starting request: %@", request);
+
+            self.loading = YES;
+
+            if (self.requestShouldBePosted) {
+                ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
+                                    @{kANUniversalAdFetcherAdRequestURLKey: urlString});
+                self.requestShouldBePosted = NO;
+            }
+        }
     }
 }
 
@@ -138,6 +145,7 @@ ANLogMark();
 ANLogMark();
     [self.connection cancel];
     self.connection = nil;
+    self.loading = NO;
     self.data = nil;
     self.ads = nil;
     [self clearMediationController];
@@ -166,7 +174,8 @@ ANLogMark();
     [self continueWaterfall];
 }
 
-- (void)finishRequestWithError:(NSError *)error {
+- (void)finishRequestWithError:(NSError *)error 
+{
     ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:error];
     [self processFinalResponse:response];
 }
@@ -175,6 +184,7 @@ ANLogMark();
 {
 ANLogMark();
     self.ads = nil;
+    self.loading = NO;
     
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
@@ -191,6 +201,7 @@ ANLogMark();
 ANLogMark();
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
+        self.loading = NO;
         return;
     }
     
@@ -330,8 +341,11 @@ ANLogMark();
             
             if (status >= 400) {
                 [connection cancel];
+
                 NSError *statusError = ANError(@"connection_failed %ld", ANAdResponseNetworkError, (long)status);
                 [self connection:connection didFailWithError:statusError];
+
+                self.loading = NO;
                 return;
             }
         }
@@ -468,6 +482,7 @@ ANLogMark();
         
         // stop waterfall if delegate reference (adview) was lost
         if (!self.delegate) {
+            self.loading = NO;
             return;
         }
         
@@ -477,7 +492,6 @@ ANLogMark();
 
 
 // common for Banner / Interstitial RTB and SSM.
-
 -(CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
                               andHeight:(NSString *)height
 {
