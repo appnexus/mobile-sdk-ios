@@ -49,11 +49,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     @property (nonatomic)          CGSize                    size1x1;
     @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
-    // NB  allowSmallerSizes defined together with properties that affect final UT Request values of
-    //     primary_size and sizes.
-    //
-    @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
-
 @end
 
 

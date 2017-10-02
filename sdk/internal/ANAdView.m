@@ -40,6 +40,7 @@
 
 @property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywordsMap;
 
+
 @end
 
 
@@ -61,6 +62,7 @@
 @synthesize  customKeywords                         = __customKeywords;
 @synthesize  customKeywordsMap                      = __customKeywordsMap;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
+
 
 
 

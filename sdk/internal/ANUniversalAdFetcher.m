@@ -45,8 +45,6 @@
 @property (nonatomic, readwrite, assign)  NSTimeInterval    totalLatencyStart;
 @property (nonatomic, readwrite, strong)  id                adObjectHandler;
 
-@property (nonatomic, readwrite, assign)  BOOL              requestShouldBePosted;
-
 @property (nonatomic, readwrite, getter=isLoading)  BOOL    loading;
 
 
@@ -115,7 +113,6 @@ ANLogMark();
 
     if (!self.isLoading) 
     {
-        self.requestShouldBePosted = YES;
         self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
         
         self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
@@ -131,11 +128,8 @@ ANLogMark();
 
             self.loading = YES;
 
-            if (self.requestShouldBePosted) {
-                ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
-                                    @{kANUniversalAdFetcherAdRequestURLKey: urlString});
-                self.requestShouldBePosted = NO;
-            }
+            ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
+                                @{kANUniversalAdFetcherAdRequestURLKey: urlString});
         }
     }
 }
