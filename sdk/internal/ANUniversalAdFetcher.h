@@ -46,7 +46,7 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
                                andHeight:(NSString *)height;
 
 
-- (void)fireResponseURL:(NSString *)urlString
+- (void)fireResponseURL:(NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
               auctionID:(NSString *)auctionID;
@@ -59,6 +59,7 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 // NB  ANUniversalAdFetcherDelegate is sufficient for instream video format.
 //
 @protocol  ANUniversalAdFetcherDelegate  <ANAdFetcherDelegate>
+                //FIX -- move elements from ANAdFetcherDelegate into here and ditch ANAdFetcherDelegate.
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
@@ -67,9 +68,6 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
-
-
-//FIX -- need custom keywords map.
 
 
 @end

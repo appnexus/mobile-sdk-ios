@@ -178,16 +178,19 @@
     ANLogInfo(@"mediation_finish");
 }
 
-- (ANTargetingParameters *)targetingParameters {
+- (ANTargetingParameters *)targetingParameters
+{
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    targetingParameters.customKeywords = self.adRequestDelegate.customKeywords;
-#pragma clang diagnostic pop
-    targetingParameters.age = self.adRequestDelegate.age;
-    targetingParameters.gender = self.adRequestDelegate.gender;
-    targetingParameters.location = self.adRequestDelegate.location;
-    targetingParameters.idforadvertising = ANUDID();
+    
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  =
+    [ANGlobal convertCustomKeywordsAsMapToStrings:self.adRequestDelegate.customKeywords withSeparatorString:@","];
+
+    targetingParameters.customKeywords    = customKeywordsAsStrings;
+    targetingParameters.age               = self.adRequestDelegate.age;
+    targetingParameters.gender            = self.adRequestDelegate.gender;
+    targetingParameters.location          = self.adRequestDelegate.location;
+    targetingParameters.idforadvertising  = ANUDID();
+
     return targetingParameters;
 }
 

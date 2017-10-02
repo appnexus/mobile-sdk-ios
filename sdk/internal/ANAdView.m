@@ -13,8 +13,9 @@
  limitations under the License.
  */
 
-#import "ANAdView.h"
+#import <Foundation/Foundation.h>
 
+#import "ANAdView.h"
 
 #import "ANUniversalAdFetcher.h"
 #import "ANGlobal.h"
@@ -37,8 +38,6 @@
 @property (nonatomic, readwrite, weak)    id<ANAdDelegate>        delegate;
 @property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>  appEventDelegate;
 
-@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywordsMap;
-
 @end
 
 
@@ -53,15 +52,13 @@
 @synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
 @synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
 @synthesize  location                               = __location;
-@synthesize  zipcode                                = __zipcode;
 @synthesize  reserve                                = __reserve;
 @synthesize  age                                    = __age;
 @synthesize  gender                                 = __gender;
-@synthesize  customKeywords                         = __customKeywords;
-@synthesize  customKeywordsMap                      = __customKeywordsMap;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
+@synthesize  customKeywords                         = __customKeywords;
 
-// ANAdProtocolPrivate properties.
+// ANAdProtocolPublicAndPrivate properties.
 //
 @synthesize  allowSmallerSizes                      = __allowSmallerSizes;
 
@@ -94,9 +91,8 @@
     __shouldServePublicServiceAnnouncements  = DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT;
     __location                               = nil;
     __reserve                                = 0.0f;
-    __customKeywords                         = [[NSMutableDictionary alloc] init];
-    __customKeywordsMap                      = [[NSMutableDictionary alloc] init];
     __landingPageLoadsInBackground           = YES;
+    __customKeywords                         = [[NSMutableDictionary alloc] init];
 }
 
 - (void)dealloc
@@ -190,46 +186,45 @@ ANLogMark();
                                               precision:precision];
 }
 
+
 - (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value {
+                          value:(NSString *)value
+{
     if (([key length] < 1) || !value) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords setValue:value forKey:key];
-#pragma clang diagnostic pop
-    if(self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+
+    if(self.customKeywords[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
             [valueArray addObject:value];
         }
-        self.customKeywordsMap[key] = [valueArray copy];
+        self.customKeywords[key] = [valueArray copy];
     } else {
-        self.customKeywordsMap[key] = @[value];
+        self.customKeywords[key] = @[value];
     }
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key {
+- (void)removeCustomKeywordWithKey:(NSString *)key
+{
     if (([key length] < 1)) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords removeObjectForKey:key];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeObjectForKey:key];
+    
+    //check if the key exist before calling remove
+    NSArray *keysArray = [self.customKeywords allKeys];
+    
+    if([keysArray containsObject:key]){
+        [self.customKeywords removeObjectForKey:key];
+    }
+    
 }
 
-- (void)clearCustomKeywords {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (void)clearCustomKeywords
+{
     [self.customKeywords removeAllObjects];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeAllObjects];
 }
+
 
 
 
@@ -255,11 +250,6 @@ ANLogMark();
     return __location;
 }
 
-- (NSString *) zipcode {
-    ANLogDebug(@"zipcode returned %@", __zipcode);
-    return __zipcode;
-}
-
 - (BOOL)shouldServePublicServiceAnnouncements {
     ANLogDebug(@"shouldServePublicServeAnnouncements returned %d", __shouldServePublicServiceAnnouncements);
     return __shouldServePublicServiceAnnouncements;
@@ -283,11 +273,6 @@ ANLogMark();
 - (ANGender)gender {
     ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
     return __gender;
-}
-
-- (NSMutableDictionary *)customKeywords {
-    ANLogDebug(@"customKeywords returned %@", __customKeywords);
-    return __customKeywords;
 }
 
 
@@ -360,7 +345,7 @@ ANLogMark();
 }
 
 
-        /* FIX toss --or-- adap[t to UT?
+        /* FIX put back
 - (void)adInteractionDidBegin {
     ANLogDebug(@"%@", NSStringFromSelector(_cmd));
     [self.adFetcher stopAd];

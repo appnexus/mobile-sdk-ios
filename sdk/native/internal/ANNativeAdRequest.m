@@ -23,16 +23,20 @@
 @interface ANNativeAdRequest () <ANNativeAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
-@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
 
 @end
 
+
+
+
 @implementation ANNativeAdRequest
+
+@synthesize  customKeywords  = __customKeywords;
+
 
 - (instancetype)init {
     if (self = [super init]) {
-        _customKeywords = [[NSMutableDictionary alloc] init];
-        _customKeywordsMap = [[NSMutableDictionary alloc] init];
+        self.customKeywords = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -165,7 +169,8 @@
 @synthesize location = _location;
 @synthesize reserve = _reserve;
 @synthesize age = _age;
-@synthesize customKeywords = _customKeywords;
+
+
 
 - (void)setLocationWithLatitude:(CGFloat)latitude
                       longitude:(CGFloat)longitude
@@ -189,46 +194,39 @@
                                               precision:precision];
 }
 
+
 - (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value {
+                          value:(NSString *)value
+{
     if (([key length] < 1) || !value) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords setValue:value forKey:key];
-#pragma clang diagnostic pop
-    if(self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+
+    if(self.customKeywords[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
             [valueArray addObject:value];
         }
-        self.customKeywordsMap[key] = [valueArray copy];
+        self.customKeywords[key] = [valueArray copy];
     } else {
-        self.customKeywordsMap[key] = @[value];
+        self.customKeywords[key] = @[value];
     }
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key {
+- (void)removeCustomKeywordWithKey:(NSString *)key
+{
     if (([key length] < 1)) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
+
     [self.customKeywords removeObjectForKey:key];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeObjectForKey:key];
 }
 
-- (void)clearCustomKeywords {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (void)clearCustomKeywords
+{
     [self.customKeywords removeAllObjects];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeAllObjects];
 }
+
 
 - (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberId{
     inventoryCode = ANConvertToNSString(inventoryCode);

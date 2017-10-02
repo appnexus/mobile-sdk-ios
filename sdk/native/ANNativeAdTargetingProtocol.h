@@ -20,6 +20,7 @@
  * Defines all the targeting parameters available on a native ad request.
  */
 @protocol ANNativeAdTargetingProtocol <NSObject>
+                //FIX -- split this into ANNativeTargetingParameters vs. ANNativeAdProtocol?  OR... share with the other endoints!
 
 /*!
  * An AppNexus placement ID, also known as an ad unit id.
@@ -68,11 +69,9 @@
  */
 @property (nonatomic, readwrite, assign) ANGender gender;
 
-/*!
- * Used to pass custom keywords across different mobile ad server and
- * SDK integrations.
- */
-@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords __attribute((deprecated));
+
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+
 
 /*!
  * Convenience method to set the user's current location.
@@ -95,24 +94,23 @@
              horizontalAccuracy:(CGFloat)hAccuracy
                       precision:(NSInteger)precision;
 
+
 /*!
- * Convenience method to add a custom keyword key, value pair to customKeywords.
- * @see customKeywords
+ * Convenience method to add a custom keyword key, value pair to custom keywords map.
  */
 - (void)addCustomKeywordWithKey:(NSString *)key
                           value:(NSString *)value;
 
 /*!
- * Convenience method to remove a custom keyword from customKeywords.
- * @see customKeywords
+ * Convenience method to remove a custom keyword from custom keywords map.
  */
 - (void)removeCustomKeywordWithKey:(NSString *)key;
 
 /*!
- * Convenience method to remove all the keywords from customKeywords.
- * @see customKeywords
+ * Convenience method to remove all the keywords from custom keywords map.
  */
 - (void)clearCustomKeywords;
+
 
 /*!
  * Set the inventory code and member id for the place that ads will be shown.

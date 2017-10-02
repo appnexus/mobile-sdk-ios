@@ -34,6 +34,9 @@
 @protocol ANNativeAdFetcherDelegate <ANNativeAdTargetingProtocol>
 
 - (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
-- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
+
+
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>    *customKeywords;
+
 
 @end

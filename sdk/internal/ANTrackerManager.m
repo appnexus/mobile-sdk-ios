@@ -121,7 +121,7 @@
 
 - (void)fireTrackerURL: (NSString *)URL
 {
-    if (URL) {
+    if ([URL length] > 0) {
         [self fireTrackerURLArray:@[URL]];
     }
 }

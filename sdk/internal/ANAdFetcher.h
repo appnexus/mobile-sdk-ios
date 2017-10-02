@@ -65,9 +65,15 @@ extern NSString *const kANAdFetcherMediatedClassKey;
 @protocol ANAdFetcherDelegate <ANAdProtocolPublicAndPrivate, ANAdViewInternalDelegate>
 
 @optional
+
 - (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
+
 - (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher;
+
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher;
-- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
+
+
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>    *customKeywords;
+
 
 @end
