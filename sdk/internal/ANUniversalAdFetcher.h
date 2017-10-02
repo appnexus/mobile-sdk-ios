@@ -54,6 +54,7 @@
 
 
 
+#pragma mark - ANUniversalAdFetcherDelegate partitions.
 
 @protocol  ANUniversalAdFetcherFoundationDelegate <ANAdProtocolFoundation>
 
@@ -84,6 +85,14 @@
 
 @end
 
+
+
+
+#pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
+
+@protocol  ANUniversalAdInstreamVideoFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser>
+    //EMPTY
+@end
 
 @protocol  ANUniversalAdNativeFetcherDelegate <ANUniversalAdFetcherFoundationDelegate>   //ALIAS
     //EMPTY

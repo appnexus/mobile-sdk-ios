@@ -27,7 +27,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //---------------------------------------------------------- -o--
-@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherDelegate>
+@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdInstreamVideoFetcherDelegate>
 
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
@@ -368,80 +368,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
 
     return  delegateReturnDictionary;
-}
-
-
-
-
-//---------------------------------------------------------- -o--
-#pragma mark - ANAdViewInternalDelegate.
-
-
-- (void)adDidReceiveAd
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adRequestFailedWithError:(NSError *)error
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adWasClicked
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adWillPresent
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidPresent
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adWillClose
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidClose
-{
-ANLogTrace(@"UNUSED");
-}
-
-
-- (void)adWillLeaveApplication
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (NSString *)adTypeForMRAID
-{
-    return  @"instreamVideo";   //XXX
-}
-
-- (UIViewController *)displayController
-{
-ANLogTrace(@"UNUSED");
-    return  nil;
-}
-
-- (void)adInteractionDidBegin
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adInteractionDidEnd
-{
-ANLogTrace(@"UNUSED");
 }
 
 
