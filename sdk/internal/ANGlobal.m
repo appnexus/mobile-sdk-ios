@@ -23,14 +23,13 @@
 
 
 
-
 NSString * const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
-NSString * const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelgateTagKeySizes";
-NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes                      = @"ANInternalDelgateTagKeyAllowSmallerSizes";
+NSString * const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
+NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes                      = @"ANInternalDelegateTagKeyAllowSmallerSizes";
 
 NSString * const  kANUniversalAdFetcherWillRequestAdNotification                 = @"kANUniversalAdFetcherWillRequestAdNotification";
 NSString * const  kANUniversalAdFetcherAdRequestURLKey                           = @"kANUniversalAdFetcherAdRequestURLKey";
-NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassKey";
+NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassNotification";
 NSString * const  kANUniversalAdFetcherMediatedClassKey                          = @"kANUniversalAdFetcherMediatedClassKey";
  
 NSString * const  kANUniversalAdFetcherDidReceiveResponseNotification            = @"kANUniversalAdFetcherDidReceiveResponseNotification";

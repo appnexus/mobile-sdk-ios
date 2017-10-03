@@ -86,7 +86,7 @@
 
 #pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
 
-@protocol  ANUniversalAdInstreamVideoFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser>
+@protocol  ANUniversalAdInstreamVideoFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
     //EMPTY
 @end
 
