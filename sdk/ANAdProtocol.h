@@ -99,6 +99,8 @@
                       precision:(NSInteger)precision;
 
 
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+
 /**
  * Add a custom keyword to the request URL for the ad.  
  * This is used to set custom targeting parameters within the AppNexus platform.  

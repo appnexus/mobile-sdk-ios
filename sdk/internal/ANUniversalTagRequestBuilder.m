@@ -13,6 +13,9 @@
  limitations under the License.
  */
 
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -20,8 +23,6 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANAdViewInternalDelegate.h"
 
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 
 
@@ -216,7 +217,7 @@ ANLogMark();
     if ([self.adFetcherDelegate respondsToSelector:@selector(shouldServePublicServiceAnnouncements)]) {
         tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
     } else {
-        tagDict[@"disable_psa"] = [NSNumber numberWithBool:@(YES)];
+        tagDict[@"disable_psa"] = [NSNumber numberWithBool:YES];
 
     }
 
