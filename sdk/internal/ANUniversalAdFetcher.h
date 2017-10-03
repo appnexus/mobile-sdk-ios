@@ -58,6 +58,8 @@
 
 @protocol  ANUniversalAdFetcherFoundationDelegate <ANAdProtocolFoundation>
 
+@required
+
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 
@@ -75,8 +77,15 @@
 //
 @protocol  ANUniversalAdFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
 
+@required
+
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
+
+@optional
+
+// NB  autoRefreshIntervalForAdFetcher: is required for ANBannerAdView, but is not used by any other entrypoint.
+//
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
 @end

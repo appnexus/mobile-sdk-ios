@@ -66,6 +66,7 @@
     if (self = [super init]) {
         _networkCode = ANNativeAdNetworkCodeAppNexus;
         _dateCreated = [NSDate date];
+        _impressionHasBeenTracked = NO;
     }
     return self;
 }
