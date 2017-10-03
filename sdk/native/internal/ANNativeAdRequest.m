@@ -22,21 +22,19 @@
 
 
 
+
 @interface ANNativeAdRequest() <ANUniversalAdFetcherFoundationDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
-@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
 
 //
 @property (nonatomic)          CGSize                    size1x1;
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
-// NB  allowSmallerSizes defined together with properties that affect final UT Request values of
-//     primary_size and sizes.
-//
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
 @end
+
 
 
 
@@ -46,16 +44,14 @@
 
 // ANNativeAdRequestProtocol properties.
 //
-@synthesize  placementId                            = __placementId;
-@synthesize  memberId                               = __memberId;
-@synthesize  inventoryCode                          = __invCode;
-@synthesize  location                               = __location;
-@synthesize  reserve                                = __reserve;
-@synthesize  age                                    = __age;
-@synthesize  gender                                 = __gender;
-@synthesize  customKeywords                         = __customKeywords;
-@synthesize  customKeywordsMap                      = __customKeywordsMap;
-
+@synthesize  placementId     = __placementId;
+@synthesize  memberId        = __memberId;
+@synthesize  inventoryCode   = __invCode;
+@synthesize  location        = __location;
+@synthesize  reserve         = __reserve;
+@synthesize  age             = __age;
+@synthesize  gender          = __gender;
+@synthesize  customKeywords  = __customKeywords;
 
 
 
@@ -64,8 +60,7 @@
 - (instancetype)init {
 ANLogMark();
     if (self = [super init]) {
-        __customKeywords = [[NSMutableDictionary alloc] init];
-        __customKeywordsMap = [[NSMutableDictionary alloc] init];
+        self.customKeywords = [[NSMutableDictionary alloc] init];
 
         [self setupSizeParametersAs1x1];
     }
@@ -237,7 +232,6 @@ ANLogMark();
 
 
 
-
 #pragma mark - ANNativeAdRequestProtocol methods.
 
 - (void)setPlacementId:(NSString *)placementId {
@@ -282,46 +276,39 @@ ANLogMark();
                                               precision:precision];
 }
 
+
 - (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value {
+                          value:(NSString *)value
+{
     if (([key length] < 1) || !value) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords setValue:value forKey:key];
-#pragma clang diagnostic pop
-    if(self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+
+    if(self.customKeywords[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
             [valueArray addObject:value];
         }
-        self.customKeywordsMap[key] = [valueArray copy];
+        self.customKeywords[key] = [valueArray copy];
     } else {
-        self.customKeywordsMap[key] = @[value];
+        self.customKeywords[key] = @[value];
     }
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key {
+- (void)removeCustomKeywordWithKey:(NSString *)key
+{
     if (([key length] < 1)) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
+
     [self.customKeywords removeObjectForKey:key];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeObjectForKey:key];
 }
 
-- (void)clearCustomKeywords {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (void)clearCustomKeywords
+{
     [self.customKeywords removeAllObjects];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeAllObjects];
 }
 
 
 @end
+

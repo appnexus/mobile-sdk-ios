@@ -134,7 +134,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 - (instancetype)initWithContent:(NSString *)htmlContent
                           width:(NSInteger)width
                          height:(NSInteger)height
-                                        //FIX test me.  is this /mob specific?  musta ll the data appaer in the query string?
 {
     self = [super init];
     if (!self)  { return nil; }
@@ -157,7 +156,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 - (void)processV2ResponseData:(NSData *)data
 {
-    ANLogMark();
+ANLogMark();
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
     ANLogMarkMessage(@"jsonResponse=%@", [jsonResponse description]);
     

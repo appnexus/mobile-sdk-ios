@@ -129,35 +129,33 @@ ANLogMark();
     return [requestDict copy];
 }
 
-// ASSUME  customKeywordsMap is a superset of customKeywords.
+// RETURN:  An NSArray pointer to NSDictionary of key/value pairs where each value object is an NSSet.
 //
-// RETURN:  An NSArray pointer to NSMutableArray of NSSet values.
-                        //FIX -- okay?
-//
-- (NSArray *)keywords
+- (NSArray<NSSet *> *)keywords
 {
-    NSDictionary  *customKeywordsMap  = [self.adFetcherDelegate customKeywordsMap];
+    NSDictionary  *customKeywords  = [self.adFetcherDelegate customKeywords];
 
-    if ([customKeywordsMap count] < 1) {
+    if ([customKeywords count] < 1) {
         return nil;
     }
 
     //
-    NSMutableArray  *kvSegmentsArray  = [[NSMutableArray alloc] init];
+    NSMutableArray<NSDictionary *>  *kvSegmentsArray  = [[NSMutableArray alloc] init];
 
-    for (NSString *key in customKeywordsMap)
+    for (NSString *key in customKeywords)
     {
-        NSArray  *valueArray  = [customKeywordsMap objectForKey:key];
+        NSArray  *valueArray  = [customKeywords objectForKey:key];
         if ([valueArray count] < 1)  {
             ANLogWarn(@"DISCARDING key with empty value array.  (%@)", key);
             continue;
         }
 
         NSSet  *setOfUniqueArrayValues  = [NSSet setWithArray:valueArray];
-        
-       
-        
-        [kvSegmentsArray addObject:@{ @"key":key, @"value":[setOfUniqueArrayValues allObjects] }];
+
+        [kvSegmentsArray addObject:@{
+                                        @"key"      : key,
+                                        @"value"    : [setOfUniqueArrayValues allObjects]
+                                    } ];
     }
 
     return [kvSegmentsArray copy];
@@ -342,10 +340,9 @@ ANLogMark();
 - (NSDictionary *)geo 
 {
     ANLocation  *location  = [self.adFetcherDelegate location];
-    NSString    *zipcode   = @"90125";      //FIX -- to be removed in a future changeset...
 
     //
-    if (!location && !zipcode)  {
+    if (!location)  {
         return nil;
     }
 
@@ -373,12 +370,6 @@ ANLogMark();
         
         geoDict[@"loc_age"] = @(ageInMilliseconds);
         geoDict[@"loc_precision"] = @((NSInteger)location.horizontalAccuracy);
-    }
-
-    //
-    if (zipcode) {
-            //TBD -- error check zipcode string -- must be location aware.
-        geoDict[@"zip"] = [zipcode copy];
     }
 
     //

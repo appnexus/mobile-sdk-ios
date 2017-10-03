@@ -283,4 +283,26 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
 }
 
 
+#pragma mark - Custom keywords.
+
+// See also [AdSettings -setCustomKeywordsAsMapInEntryPoint:].
+//
+// Use alias for default separator string of comma (,).
+//
++ (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
+                                                                 withSeparatorString: (NSString *)separatorString
+{
+    NSMutableDictionary<NSString *, NSString *>  *keywordsMapToStrings  = [[NSMutableDictionary alloc] init];
+
+    for (NSString *key in keywordsMap)
+    {
+        NSArray   *mapValuesArray  = [keywordsMap objectForKey:key];
+        NSString  *mapValueString  = [mapValuesArray componentsJoinedByString:separatorString];
+
+        [keywordsMapToStrings setObject:mapValueString forKey:key];
+    }
+
+    return  [keywordsMapToStrings mutableCopy];
+}
+
 @end

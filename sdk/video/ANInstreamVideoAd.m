@@ -366,5 +366,54 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 
+
+
+//---------------------------------------------------------- -o--
+#pragma mark - ANAdProtocol.
+
+/** Set the user's current location.  This allows ad buyers to do location targeting, which can increase spend.
+ */
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
+    self.location = [ANLocation getLocationWithLatitude:latitude
+                                              longitude:longitude
+                                              timestamp:timestamp
+                                     horizontalAccuracy:horizontalAccuracy];
+}
+
+/** Set the user's current location rounded to the number of decimal places specified in "precision".
+    Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
+ */
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      precision:(NSInteger)precision {
+    self.location = [ANLocation getLocationWithLatitude:latitude
+                                              longitude:longitude
+                                              timestamp:timestamp
+                                     horizontalAccuracy:horizontalAccuracy
+                                              precision:precision];
+}
+
+
+/**
+ Set the inventory code and member id for the place that ads will be shown.
+ */
+@synthesize  memberId       = _memberId;
+@synthesize  inventoryCode  = _inventoryCode;
+
+- (void)setInventoryCode: (NSString *)inventoryCode
+                memberId: (NSInteger)memberID
+{
+    if (inventoryCode && (inventoryCode != _inventoryCode)) {
+        ANLogDebug(@"Setting inventory code to %@", inventoryCode);
+        _inventoryCode = inventoryCode;
+    }
+    if ( (memberID > 0) && (memberID != _memberId) ) {
+        ANLogDebug(@"Setting member id to %d", (int) memberID);
+        _memberId = memberID;
+    }
+}
+
+
 @end
 

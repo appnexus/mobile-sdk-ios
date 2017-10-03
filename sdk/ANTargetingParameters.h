@@ -16,24 +16,31 @@
 #import "ANAdProtocol.h"
 #import "ANLocation.h"
 
+
+
 /**
  Define the object that is passed into each mediation adapter to retrieve
  additional targeting parameters from the app.
  */
 @interface ANTargetingParameters : NSObject
+
 /**
  Custom targeting keywords from the app.
  */
-@property (nonatomic, readwrite, strong) NSDictionary *customKeywords;
+@property (nonatomic, readwrite, strong) NSDictionary<NSString *, NSString *>  *customKeywords;
+
 @property (nonatomic, readwrite, strong) NSString *age;
 @property (nonatomic, readwrite, assign) ANGender gender;
+
 /**
- This may be nil if not specified by app.
+ location may be nil if not specified by app.
  */
 @property (nonatomic, readwrite, strong) ANLocation *location;
+
 /**
  The IDFA.
  */
 @property (nonatomic, readwrite, strong) NSString *idforadvertising;
+
 @end
 

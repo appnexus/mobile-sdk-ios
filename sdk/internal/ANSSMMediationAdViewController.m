@@ -101,8 +101,8 @@
                                           if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                                               NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                                               statusCode = [httpResponse statusCode];
-                                              ANLogMarkMessage(@"SSM httpResponse.allHeaderFields=%@", httpResponse.allHeaderFields);
-                                              ANLogMarkMessage(@"SSM response.expectedContentLength=%@", @(response.expectedContentLength)  );
+                                              ANLogDebug(@"SSM httpResponse.allHeaderFields=%@", httpResponse.allHeaderFields);
+                                              ANLogDebug(@"SSM response.expectedContentLength=%@", @(response.expectedContentLength)  );
                                           }
                                           
                                           

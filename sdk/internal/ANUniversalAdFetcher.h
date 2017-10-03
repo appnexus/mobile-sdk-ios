@@ -44,7 +44,7 @@
                                andHeight:(NSString *)height;
 
 
-- (void)fireResponseURL:(NSString *)urlString
+- (void)fireResponseURL:(NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
               auctionID:(NSString *)auctionID;
@@ -68,10 +68,6 @@
 //
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
-- (NSMutableDictionary<NSString *, NSArray<NSString *> *> *)customKeywordsMap;
-
-//FIX -- need custom keywords map.
-
 @end
 
 
@@ -93,3 +89,4 @@
 @protocol  ANUniversalAdInstreamVideoFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser>
     //EMPTY
 @end
+

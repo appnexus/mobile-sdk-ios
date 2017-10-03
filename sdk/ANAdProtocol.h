@@ -66,11 +66,6 @@
 @property (nonatomic, readwrite, strong) ANLocation *location;
 
 /**
- The user's zip code.
- */
-@property (nonatomic, readwrite, strong)  NSString  *zipcode;
-
-/**
  The reserve price is the minimum bid amount you'll accept to show
  an ad.  Use this with caution, as it can drastically reduce fill
  rates (i.e., you will make less money).
@@ -89,12 +84,6 @@
 @property (nonatomic, readwrite, assign) ANGender gender;
 
 /**
- Used to pass custom keywords across different mobile ad server and
- SDK integrations.
- */
-@property (nonatomic, readwrite, strong) NSMutableDictionary *customKeywords __attribute((deprecated));
-
-/**
  Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */
@@ -109,12 +98,11 @@
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision;
 
+
 /**
- * Add a custom keyword to the request URL for the ad.  This
- * is used to set custom targeting parameters within the
- * AppNexus platform.  You will be given the keys and values
- * to use by your AppNexus account representative or your ad
- * network.
+ * Add a custom keyword to the request URL for the ad.  
+ * This is used to set custom targeting parameters within the AppNexus platform.  
+ * You will be given the keys and values to use by your AppNexus account representative or your ad network.
  *
  * @param key   The key to add
  * @param value The value to add
@@ -134,6 +122,7 @@
  * Clear all custom keywords from the request URL.
  */
 - (void)clearCustomKeywords;
+
 
 /**
  Set the inventory code and member id for the place that ads will be shown.

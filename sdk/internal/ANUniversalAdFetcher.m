@@ -80,6 +80,14 @@ ANLogMark();
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 }
 
+- (void)dealloc {
+    [self stopAdLoad];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    [self.connection cancel];
+//    [self.autoRefreshTimer invalidate];    //FIX -- where does timer live in UT?
+    [self clearMediationController];
+}
 
 - (void)clearMediationController {
 ANLogMark();
@@ -92,11 +100,6 @@ ANLogMark();
     self.mediationController = nil;
     self.ssmMediationController.adFetcher = nil;
     self.ssmMediationController = nil;
-}
-
-- (void)dealloc {
-ANLogMark();
-    [self stopAdLoad];
 }
 
 
@@ -164,7 +167,8 @@ ANLogMark();
         self.noAdUrl = response.noAdUrlString;
     }
     self.ads = response.ads;
-    
+
+    [self clearMediationController];
     [self continueWaterfall];
 }
 
@@ -280,7 +284,7 @@ ANLogMark();
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
-    ANLogMark();
+ANLogMark();
     CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
                                                       andHeight:standardAd.height];
     
@@ -327,7 +331,7 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    ANLogMark();
+ANLogMark();
     if (connection == self.connection) {
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -354,7 +358,7 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
 {
-    ANLogMark();
+ANLogMark();
     if (connection == self.connection) {
         [self.data appendData:d];
     }
@@ -362,7 +366,7 @@ ANLogMark();
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    ANLogMark();
+ANLogMark();
     if (connection == self.connection)
     {
         NSString *responseString = [[NSString alloc] initWithData:self.data
@@ -379,7 +383,7 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    ANLogMark();
+ANLogMark();
     if (connection == self.connection) {
         NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
         ANLogError(@"%@", connectionError);
@@ -405,7 +409,7 @@ ANLogMark();
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-    ANLogMark();
+ANLogMark();
     if (self.standardAdView.webViewController == controller) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView andAdObjectHandler:self.adObjectHandler];
         [self processFinalResponse:response];
@@ -420,7 +424,6 @@ ANLogMark();
 - (void) videoAdProcessor:(ANVideoAdProcessor *)videoProcessor didFinishVideoProcessing: (ANVideoAdPlayer *)adVideo{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            ANLogMark();
             ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo andAdObjectHandler:self.adObjectHandler];
             [self processFinalResponse:adFetcherResponse];
         });
