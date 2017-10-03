@@ -18,6 +18,7 @@
 #import "ANAdView.h"
 
 #import "ANUniversalAdFetcher.h"
+#import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
@@ -57,10 +58,6 @@
 @synthesize  gender                                 = __gender;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 @synthesize  customKeywords                         = __customKeywords;
-
-// ANAdProtocolPublicAndPrivate properties.
-//
-@synthesize  allowSmallerSizes                      = __allowSmallerSizes;
 
 
 
@@ -142,7 +139,7 @@ ANLogMark();
 
 
 
-#pragma mark - Setter methods
+#pragma mark - ANAdProtocol: Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -227,8 +224,7 @@ ANLogMark();
 
 
 
-
-#pragma mark - Getter methods
+#pragma mark - ANAdProtocol: Getter methods
 
 - (NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
@@ -345,18 +341,17 @@ ANLogMark();
 }
 
 
-        /* FIX put back
 - (void)adInteractionDidBegin {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    [self.adFetcher stopAd];
+    ANLogDebug(@"");
+    [self.universalAdFetcher stopAdLoad];
 }
 
 - (void)adInteractionDidEnd {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    [self.adFetcher setupAutoRefreshTimerIfNecessary];
-    [self.adFetcher startAutoRefreshTimer];
+    ANLogDebug(@"");
+//    [self.universalAdFetcher setupAutoRefreshTimerIfNecessary];   //FIX -- implment!
+//    [self.universalAdFetcher startAutoRefreshTimer];              //FIX -- implement!
 }
-                */
+
 
 - (NSString *)adTypeForMRAID    {
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");

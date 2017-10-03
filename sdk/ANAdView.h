@@ -14,18 +14,16 @@
  */
 
 
-#import "ANAdProtocolPublicAndPrivate.h"
+#import "ANAdProtocol.h"
 #import "ANUniversalAdFetcher.h"
 
 
 
-@interface ANAdView : UIView <ANAdProtocolPublicAndPrivate>
+@interface ANAdView : UIView <ANAdProtocol>
 
 @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
 
+@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
-//
-- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-                 adResponse: (ANAdFetcherResponse *)response;
 
 @end

@@ -13,9 +13,8 @@
  limitations under the License.
  */
 
-#import "ANAdFetcher.h"
-
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 extern NSString *const kANPBBufferMediatedNetworkNameKey;
 extern NSString *const kANPBBufferMediatedNetworkPlacementIDKey;

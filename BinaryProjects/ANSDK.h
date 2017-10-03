@@ -26,6 +26,5 @@
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdResponse.h"
 #import "ANNativeAdStarRating.h"
-#import "ANNativeAdTargetingProtocol.h"
 #import "ANNativeCustomAdapter.h"
 #import "ANNativeMediatedAdResponse.h"

@@ -13,7 +13,10 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
+
 #import "ANMediationAdViewController.h"
+#import "ANAdConstants.h"
 
 #import "ANBannerAdView.h"
 #import "ANGlobal.h"
@@ -92,8 +95,8 @@ ANLogMark();
         className = ad.className;
         
         // notify that a mediated class name was received
-        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
-                            @{kANAdFetcherMediatedClassKey: className});
+        ANPostNotifications(kANUniversalAdFetcherWillInstantiateMediatedClassNotification, self,
+                            @{kANUniversalAdFetcherMediatedClassKey: className});
         
         ANLogDebug(@"instantiating_class %@", className);
         
@@ -180,15 +183,18 @@ ANLogMark();
 
 - (void)clearAdapter {
 ANLogMark();
-    if (self.currentAdapter)
+    if (self.currentAdapter) {
         self.currentAdapter.delegate = nil;
+    }
     self.currentAdapter = nil;
     self.hasSucceeded = NO;
     self.hasFailed = YES;
     self.adFetcher = nil;
     self.adViewDelegate = nil;
     self.mediatedAd = nil;
+
     [self cancelTimeout];
+
     ANLogInfo(@"mediation_finish");
 }
 
@@ -200,8 +206,8 @@ ANLogMark();
 ANLogMark();
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
     
-    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  =
-    [ANGlobal convertCustomKeywordsAsMapToStrings:adView.customKeywords withSeparatorString:@","];
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings: adView.customKeywords
+                                                                                                       withSeparatorString: @"," ];
 
 
     targetingParameters.customKeywords    = customKeywordsAsStrings;

@@ -14,28 +14,26 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdFetcher.h"
+
 #import "ANVideoAdProcessor.h"
 #import "ANTrackerInfo.h"
 #import "ANUniversalTagAdServerResponse.h"
+#import "ANAdFetcherResponse.h"
+#import "ANLocation.h"
+#import "ANAdConstants.h"
+#import "ANAdViewInternalDelegate.h"
+#import "ANAdProtocol.h"
 
-
-
-
-static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http://mediation.adnxs.com/ut/v2";
-
-extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
-extern NSString * const  ANInternalDelegateTagKeySizes;
-extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 
 
 @protocol ANUniversalAdFetcherDelegate;
 
+
 @interface ANUniversalAdFetcher : NSObject
 
-
 - (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
+
 - (void)stopAdLoad;
 - (void) requestAd;
 
@@ -56,21 +54,34 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 
 
-// NB  ANUniversalAdFetcherDelegate is sufficient for instream video format.
-//
-@protocol  ANUniversalAdFetcherDelegate  <ANAdFetcherDelegate>
-                //FIX -- move elements from ANAdFetcherDelegate into here and ditch ANAdFetcherDelegate.
+#pragma mark - ANUniversalAdFetcherDelegate partitions.
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
-
-- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-                 adResponse: (ANAdFetcherResponse *)response;
+@protocol  ANUniversalAdFetcherFoundationDelegate <ANAdProtocolFoundation>
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 
-- (NSTimeInterval)autoRefreshIntervalForUniversalAdFetcher:(ANUniversalAdFetcher *)fetcher;
+- (NSArray<NSValue *> *)adAllowedMediaTypes;
+
+// NB  Represents lazy evaluation as a means to get most current value of primarySize (eg: from self.containerSize).
+//     In addition, this method combines collection of all three size parameters to avoid synchronization issues.
+//
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters;
+
+@end
 
 
+// NB  ANUniversalAdFetcherDelegate is sufficient for instream video entry point.
+//
+@protocol  ANUniversalAdFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
+
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+@end
+
+@protocol  ANUniversalAdInstreamVideoFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser>
+    //EMPTY
 @end
 

@@ -31,7 +31,7 @@
 @property (nonatomic, readwrite, strong) NSString *mediaType;
 @property (nonatomic, readwrite, strong) NSString *fullText;
 
-@property (nonatomic, readwrite, strong) NSArray<NSURL *> *clickTrackers;
+@property (nonatomic, readwrite, strong) NSArray<NSString *> *clickTrackers;
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *impTrackers;
 @property (nonatomic, readwrite, strong) NSURL *clickURL;
 @property (nonatomic, readwrite, strong) NSURL *clickFallbackURL;

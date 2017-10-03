@@ -15,9 +15,11 @@
 
 #import "ANNativeMediatedAdController.h"
 #import "ANNativeCustomAdapter.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
-#import "ANAdFetcher.h"
+#import "ANGlobal.h"
+
 
 @interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
 
@@ -52,7 +54,7 @@
 
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
+             adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate {
     ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd:mediatedAd
                                                                                          withDelegate:delegate
                                                                                     adRequestDelegate:adRequestDelegate];
@@ -66,7 +68,7 @@
 
 - (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
+             adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate {
     self = [super init];
     if (self) {
         _delegate = delegate;
@@ -93,8 +95,8 @@
         ANLogDebug(@"instantiating_class %@", className);
         
         // notify that a mediated class name was received
-        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
-                            @{kANAdFetcherMediatedClassKey: className});
+        ANPostNotifications(kANUniversalAdFetcherWillInstantiateMediatedClassNotification, self,
+                            @{kANUniversalAdFetcherMediatedClassKey: className});
 
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);
@@ -182,8 +184,8 @@
 {
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
     
-    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  =
-    [ANGlobal convertCustomKeywordsAsMapToStrings:self.adRequestDelegate.customKeywords withSeparatorString:@","];
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings: self.adRequestDelegate.customKeywords
+                                                                                                       withSeparatorString: @"," ];
 
     targetingParameters.customKeywords    = customKeywordsAsStrings;
     targetingParameters.age               = self.adRequestDelegate.age;
@@ -194,7 +196,7 @@
     return targetingParameters;
 }
 
-#pragma mark helper methods
+#pragma mark - helper methods
 
 - (BOOL)checkIfHasResponded {
     // we received a callback from mediation adaptor, cancel timeout
@@ -278,7 +280,7 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
     return resultCBString;
 }
 
-#pragma mark Timeout handler
+#pragma mark - Timeout handler
 
 - (void)startTimeout {
     if (self.timeoutCanceled) return;
@@ -298,7 +300,7 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
     self.timeoutCanceled = YES;
 }
 
-# pragma mark Latency Measurement
+# pragma mark - Latency Measurement
 
 /**
  * Should be called immediately after mediated SDK returns
@@ -338,7 +340,7 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
     return -1;
 }
 
-#pragma mark ANNativeCustomAdapterRequestDelegate
+#pragma mark - ANNativeCustomAdapterRequestDelegate
 
 - (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response {
     [self didReceiveAd:response];

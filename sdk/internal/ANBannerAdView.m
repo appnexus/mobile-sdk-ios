@@ -43,9 +43,9 @@
 
 @synthesize  autoRefreshInterval  = __autoRefreshInterval;
 @synthesize  contentView          = _contentView;
-
 @synthesize  adSize               = _adSize;
-@synthesize  allowSmallerSizes    = __allowSmallerSizes;
+
+
 
 
 
@@ -63,7 +63,7 @@
 
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
-    __allowSmallerSizes     = NO;
+    self.allowSmallerSizes  = NO;
 }
 
 - (void)awakeFromNib {
@@ -298,12 +298,15 @@ ANLogMark();
             self.contentView = contentView;
             [self adDidReceiveAd];
 
-            if (self.window)  {
-                [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
-                self.impressionURLs = nil;
+            @synchronized (self)
+            {
+                if (self.window)  {
+                    [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+                    self.impressionURLs = nil;
+                }
             }
-        }
-        else {
+
+        } else {
             NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")};
             error = [NSError errorWithDomain:AN_ERROR_DOMAIN
                                         code:ANAdResponseNonViewResponse
@@ -320,7 +323,7 @@ ANLogMark();
     }
 }
 
-- (NSTimeInterval)autoRefreshIntervalForUniversalAdFetcher:(ANUniversalAdFetcher *)fetcher {
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return self.autoRefreshInterval;
 }
 
@@ -378,9 +381,12 @@ ANLogMark();
 
 - (void)didMoveToWindow
 {
-    if (self.contentView) {
-        [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
-        self.impressionURLs = nil;
+    @synchronized (self)
+    {
+        if (self.contentView) {
+            [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+            self.impressionURLs = nil;
+        }
     }
 }
 
