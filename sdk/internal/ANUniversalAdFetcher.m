@@ -126,6 +126,8 @@ ANLogMark();
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     
     [self.autoRefreshTimer invalidate];
+    [self markLatencyStart];
+    
     if (!self.isLoading)
     {
         self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
@@ -506,6 +508,14 @@ ANLogMark();
 #pragma mark - Helper methods.
 
 /**
+ * Mark the beginning of an ad request for latency recording
+ */
+- (void)markLatencyStart {
+    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+}
+
+
+/**
  * RETURN: success  time difference since ad request start
  *         error    -1
  */
@@ -577,6 +587,5 @@ ANLogMark();
     
     return sizeOfCreative;
 }
-
 
 @end
