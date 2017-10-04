@@ -57,6 +57,10 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 @implementation ANInstreamVideoAd
 
+@synthesize  customKeywords  = __customKeywords;
+
+
+
 #pragma mark - Lifecycle.
 
 //--------------------- -o-

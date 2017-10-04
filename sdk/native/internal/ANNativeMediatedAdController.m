@@ -52,12 +52,13 @@
     [invalidNetworks addObject:network];
 }
 
-+ (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
-                  withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate {
-    ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd:mediatedAd
-                                                                                         withDelegate:delegate
-                                                                                    adRequestDelegate:adRequestDelegate];
++ (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
+                  withDelegate: (id<ANNativeMediationAdControllerDelegate>)delegate
+             adRequestDelegate: (id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate
+{
+    ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd: mediatedAd
+                                                                                       withDelegate: delegate
+                                                                                  adRequestDelegate: adRequestDelegate];
     if ([controller initializeRequest]) {
         return controller;
     } else {
@@ -68,7 +69,7 @@
 
 - (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate {
+             adRequestDelegate:(id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate {
     self = [super init];
     if (self) {
         _delegate = delegate;

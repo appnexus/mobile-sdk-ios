@@ -70,6 +70,16 @@
 //
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
+
+// customKeywords is shared between the entrypoints and the fetcher.
+//
+// NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
+//       which is shared between fetcher and the mediation adapters.
+//     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
+//        TBDQ FIX -- Why is ANTargetingParameters.h public facing?
+//
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+
 @end
 
 
@@ -88,5 +98,13 @@
 //
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
+@end
+
+
+
+#pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
+
+@protocol  ANUniversalAdNativeFetcherDelegate  <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolFoundation>
+    //EMPTY
 @end
 
