@@ -27,7 +27,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //---------------------------------------------------------- -o--
-@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherDelegate>
+@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherFoundationDelegate, ANAdProtocol>
 
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
@@ -48,6 +48,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     //
     @property (nonatomic)          CGSize                    size1x1;
     @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
+
 @end
 
 
@@ -55,6 +56,10 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 //---------------------------------------------------------- -o--
 @implementation ANInstreamVideoAd
+
+@synthesize  customKeywords  = __customKeywords;
+
+
 
 #pragma mark - Lifecycle.
 
@@ -75,6 +80,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     self.opensInNativeBrowser = NO;
 
     self.placementId = placementId;
+    
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
 
     [self setupSizeParametersAs1x1];
 
@@ -106,7 +113,11 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
     self.loadDelegate = loadDelegate;
 
-    if (! [[ANUniversalAdFetcher alloc] initWithDelegate:self])  {
+    if(self.universalAdFetcher != nil){
+        
+        [self.universalAdFetcher requestAd];
+        
+    } else {
         ANLogError(@"FAILED TO FETCH video ad.");
         return  NO;
     }
@@ -329,7 +340,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //---------------------------------------------------------- -o--
-#pragma mark - ANInstreamVideoAdUniversalFetcherDelegate.
+#pragma mark - ANUniversalAdFetcherDelegate.
 
 //--------------------- -o-
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
@@ -347,83 +358,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     }
 }
 
-
-
-
-//---------------------------------------------------------- -o--
-#pragma mark - ANAdViewInternalDelegate.
-
-
-- (void)adDidReceiveAd
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adRequestFailedWithError:(NSError *)error
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adWasClicked
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adWillPresent
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidPresent
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adWillClose
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidClose
-{
-ANLogTrace(@"UNUSED");
-}
-
-
-- (void)adWillLeaveApplication
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (NSString *)adTypeForMRAID
-{
-    return  @"instreamVideo";   //XXX
-}
-
-- (UIViewController *)displayController
-{
-ANLogTrace(@"UNUSED");
-    return  nil;
-}
-
-- (void)adInteractionDidBegin
-{
-ANLogTrace(@"UNUSED");
-}
-
-- (void)adInteractionDidEnd
-{
-ANLogTrace(@"UNUSED");
-}
-
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-ANLogTrace(@"");
+    ANLogTrace(@"");
     return  @[ @(ANAllowedMediaTypeVideo) ];
 
 }

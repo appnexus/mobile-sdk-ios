@@ -14,28 +14,26 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdFetcher.h"
+
 #import "ANVideoAdProcessor.h"
 #import "ANTrackerInfo.h"
 #import "ANUniversalTagAdServerResponse.h"
+#import "ANAdFetcherResponse.h"
+#import "ANLocation.h"
+#import "ANAdConstants.h"
+#import "ANAdViewInternalDelegate.h"
+#import "ANAdProtocol.h"
 
-
-
-
-static NSString *const  kANUniversalAdFetcherDefaultRequestUrlString  = @"http://mediation.adnxs.com/ut/v2";
-
-extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
-extern NSString * const  ANInternalDelegateTagKeySizes;
-extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 
 
 @protocol ANUniversalAdFetcherDelegate;
 
+
 @interface ANUniversalAdFetcher : NSObject
 
+- (instancetype)initWithDelegate:(id)delegate;
 
-- (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
 - (void)stopAdLoad;
 - (void) requestAd;
 
@@ -56,19 +54,57 @@ extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
 
 
-// NB  ANUniversalAdFetcherDelegate is sufficient for instream video format.
-//
-@protocol  ANUniversalAdFetcherDelegate  <ANAdFetcherDelegate>
-                //FIX -- move elements from ANAdFetcherDelegate into here and ditch ANAdFetcherDelegate.
+#pragma mark - ANUniversalAdFetcherDelegate partitions.
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+@protocol  ANUniversalAdFetcherFoundationDelegate <ANAdProtocolFoundation>
 
-- (void) universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-                 adResponse: (ANAdFetcherResponse *)response;
+@required
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 
+- (NSArray<NSValue *> *)adAllowedMediaTypes;
 
+// NB  Represents lazy evaluation as a means to get most current value of primarySize (eg: from self.containerSize).
+//     In addition, this method combines collection of all three size parameters to avoid synchronization issues.
+//
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters;
+
+
+// customKeywords is shared between the entrypoints and the fetcher.
+//
+// NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
+//       which is shared between fetcher and the mediation adapters.
+//     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
+//        TBDQ FIX -- Why is ANTargetingParameters.h public facing?
+//
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+
+@end
+
+
+// NB  ANUniversalAdFetcherDelegate is sufficient for instream video entry point.
+//
+@protocol  ANUniversalAdFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
+
+@required
+
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+
+@optional
+
+// NB  autoRefreshIntervalForAdFetcher: is required for ANBannerAdView, but is not used by any other entrypoint.
+//
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+@end
+
+
+
+#pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
+
+@protocol  ANUniversalAdNativeFetcherDelegate  <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolFoundation>
+    //EMPTY
 @end
 

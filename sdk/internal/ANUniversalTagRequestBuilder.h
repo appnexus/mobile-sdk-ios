@@ -14,13 +14,13 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdFetcher.h"
 
+#import "ANUniversalAdFetcher.h"
 
 
 @interface ANUniversalTagRequestBuilder : NSObject
 
-+ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
++ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANUniversalAdFetcherDelegate>)adFetcherDelegate
                                       baseUrlString:(NSString *)baseUrlString;
 
 @end

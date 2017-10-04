@@ -54,6 +54,21 @@ typedef NS_ENUM(NSUInteger, ANAllowedMediaTypes) {
 };
 
 
+
+extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
+extern NSString * const  ANInternalDelegateTagKeySizes;
+extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
+
+extern NSString * const  kANUniversalAdFetcherWillRequestAdNotification;
+extern NSString * const  kANUniversalAdFetcherAdRequestURLKey;
+extern NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification;
+extern NSString * const  kANUniversalAdFetcherMediatedClassKey;
+
+extern NSString * const  kANUniversalAdFetcherDidReceiveResponseNotification;
+extern NSString * const  kANUniversalAdFetcherAdResponseKey;
+
+
+
 #pragma mark - Banner AutoRefresh
 
 // These constants control the default behavior of the ad view autorefresh (i.e.,
@@ -113,5 +128,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController);
 + (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
                                                                  withSeparatorString: (NSString *)separatorString;
 
++ (id) valueOfGetterProperty: (NSString *)stringOfGetterProperty
+                   forObject: (id)objectImplementingGetterProperty;
 
 @end

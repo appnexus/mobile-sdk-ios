@@ -18,6 +18,7 @@
 #import "ANAdView.h"
 
 #import "ANUniversalAdFetcher.h"
+#import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
@@ -57,10 +58,6 @@
 @synthesize  gender                                 = __gender;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 @synthesize  customKeywords                         = __customKeywords;
-
-// ANAdProtocolPublicAndPrivate properties.
-//
-@synthesize  allowSmallerSizes                      = __allowSmallerSizes;
 
 
 
@@ -142,7 +139,7 @@ ANLogMark();
 
 
 
-#pragma mark - Setter methods
+#pragma mark - ANAdProtocol: Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -227,8 +224,7 @@ ANLogMark();
 
 
 
-
-#pragma mark - Getter methods
+#pragma mark - ANAdProtocol: Getter methods
 
 - (NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
@@ -273,6 +269,35 @@ ANLogMark();
 - (ANGender)gender {
     ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
     return __gender;
+}
+
+
+
+
+#pragma mark - ANUniversalAdFetcherDelegate -- abstract methods.
+
+- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+}
+
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  nil;
+}
+
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  nil;
+}
+
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  CGSizeMake(-1, -1);
 }
 
 
@@ -345,18 +370,17 @@ ANLogMark();
 }
 
 
-        /* FIX put back
 - (void)adInteractionDidBegin {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    [self.adFetcher stopAd];
+    ANLogDebug(@"");
+    [self.universalAdFetcher stopAdLoad];
 }
 
 - (void)adInteractionDidEnd {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    [self.adFetcher setupAutoRefreshTimerIfNecessary];
-    [self.adFetcher startAutoRefreshTimer];
+    ANLogDebug(@"");
+//    [self.universalAdFetcher setupAutoRefreshTimerIfNecessary];   //FIX -- implment!
+//    [self.universalAdFetcher startAutoRefreshTimer];              //FIX -- implement!
 }
-                */
+
 
 - (NSString *)adTypeForMRAID    {
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");

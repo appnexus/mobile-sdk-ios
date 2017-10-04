@@ -24,7 +24,7 @@
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 #import "ANTrackerManager.h"
-
+#import "ANCustomAdapter.h"
 
 
 
@@ -241,9 +241,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self.precachedAdObjects removeObjectAtIndex:0];
     }
 
-    if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
-        impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
-    }
+    impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
 
 
     // Display the ad.
@@ -273,8 +271,10 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         }
 
         //
-        [ANTrackerManager fireTrackerURLArray:impressionURLs];
-        impressionURLs = nil;
+        @synchronized (self) {
+            [ANTrackerManager fireTrackerURLArray:impressionURLs];
+            impressionURLs = nil;
+        }
 
         [controller presentViewController:self.controller
                                  animated:YES
@@ -282,9 +282,11 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
     {
-        [ANTrackerManager fireTrackerURLArray:impressionURLs];
-        impressionURLs = nil;
-        
+        @synchronized (self) {
+            [ANTrackerManager fireTrackerURLArray:impressionURLs];
+            impressionURLs = nil;
+        }
+
         [adToShow presentFromViewController:controller];
 
         //

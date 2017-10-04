@@ -15,9 +15,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ANAdFetcher.h"
 #import "ANMediatedAd.h"
 #import "ANUniversalAdFetcher.h"
+#import "ANCustomAdapter.h" 
 
 
 
@@ -25,6 +25,7 @@
 
 + (NSSet *)bannerInvalidNetworks;
 + (NSSet *)interstitialInvalidNetworks;
+                //FIX -- remove code about invalid networks
 
 - (void)startTimeout;
 - (void)clearAdapter;

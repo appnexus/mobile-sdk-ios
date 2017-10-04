@@ -18,10 +18,14 @@
 #import <UIKit/UIKit.h>
 
 #import "ANAdConstants.h"
+#import "ANLocation.h"
+
 
 @class ANLocation;
 
 
+
+#pragma mark - ANAdProtocol partitions.
 
 /**
  ANAdProtocol defines the properties and methods that are common to *all* ad types.  
@@ -30,7 +34,7 @@
 
  Currently, it is used in the implementation of banner and interstitial ads and instream video.
  */
-@protocol ANAdProtocol <NSObject>
+@protocol ANAdProtocolFoundation <NSObject>
 
 @required
 /**
@@ -54,18 +58,6 @@
  an ad using inventory code.
  */
 @property (nonatomic, readonly, strong) NSString *inventoryCode;
-
-/**
- Determines whether the ad, when clicked, will open the device's
- native browser.
- */
-@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
-
-/**
- Whether the ad view should display PSAs if there are no ads
- available from the server.
- */
-@property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
 
 /**
  The user's location.  See ANLocation.h in this directory for
@@ -137,12 +129,26 @@
  */
 - (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberID;
 
+@end
+
+
+
+@protocol ANAdProtocolBrowser
+
+@required
+
+/**
+ Determines whether the ad, when clicked, will open the device's
+ native browser.
+ */
+@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
+
 /**
  Set whether the landing page should load in the background or in the foreground when an ad is clicked.
  If set to YES, when an ad is clicked the user is presented with an activity indicator view, and the in-app
  browser displays only after the landing page content has finished loading. If set to NO, the in-app
  browser displays immediately. The default is YES.
- 
+
  Has no effect if opensInNativeBrowser is set to YES.
  */
 @property (nonatomic, readwrite, assign) BOOL landingPageLoadsInBackground;
@@ -151,6 +157,40 @@
 
 
 
+
+@protocol ANAdProtocolPublicServiceAnnouncement
+
+@required
+
+/**
+ Whether the ad view should display PSAs if there are no ads
+ available from the server.
+ */
+@property (nonatomic, readwrite, assign) BOOL shouldServePublicServiceAnnouncements;
+
+@end
+
+
+
+#pragma mark - ANAdProtocol entrypoint combinations.
+
+@protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
+    //EMPTY
+@end
+
+
+@protocol ANNativeAdRequestProtocol <ANAdProtocolFoundation>
+    //EMPTY
+@end
+
+@protocol ANNativeAdResponseProtocol <ANAdProtocolBrowser>
+    //EMPTY
+@end
+
+
+
+
+#pragma mark - ANAdDelegate.
 
 /**
  The definition of the `ANAdDelegate' protocol includes methods
@@ -213,6 +253,8 @@
 
 
 
+#pragma mark - ANAppEventDelegate.
+
 /**
  Delegate to receive app events from the ad.
  */
@@ -222,7 +264,8 @@
  Called when the ad has sent the app an event via the AppNexus
  Javascript API for Mobile
  */
-- (void)ad:(id<ANAdProtocol>)ad
-didReceiveAppEvent:(NSString *)name withData:(NSString *)data;
+- (void)          ad: (id<ANAdProtocol>)ad
+  didReceiveAppEvent: (NSString *)name
+            withData: (NSString *)data;
 
 @end

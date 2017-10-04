@@ -81,6 +81,9 @@
 
 - (void)fireTrackerURLArray: (NSArray<NSString *> *)arrayWithURLs
 {
+    if (!arrayWithURLs || ([arrayWithURLs count] <= 0))  { return; }
+
+    //
     if (!self.internetIsReachable)
     {
         ANLogDebug(@"Internet IS UNREACHABLE - queing trackers for firing later: %@", arrayWithURLs);

@@ -13,6 +13,9 @@
  limitations under the License.
  */
 
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -20,15 +23,12 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANAdViewInternalDelegate.h"
 
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 
 
 @interface ANUniversalTagRequestBuilder()
 
-@property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adFetcherDelegate;
-                                                                    //FIX rename to entryPointDelegate?
+@property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> adFetcherDelegate;
 @property (nonatomic) NSString *baseURLString;
 
 @end
@@ -38,7 +38,7 @@
 
 @implementation ANUniversalTagRequestBuilder
 
-+ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
++ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANUniversalAdFetcherDelegate>)adFetcherDelegate
                                       baseUrlString:(NSString *)baseUrlString
 {
     ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate:adFetcherDelegate
@@ -47,7 +47,7 @@
 }
 
 
-- (instancetype)initWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
+- (instancetype)initWithAdFetcherDelegate:(id<ANUniversalAdFetcherDelegate>)adFetcherDelegate
                             baseUrlString:(NSString *)baseUrlString {
     if (self = [super init]) {
         _adFetcherDelegate = adFetcherDelegate;
@@ -214,8 +214,13 @@ ANLogMark();
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
 
     //
-    tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
-    
+    if ([self.adFetcherDelegate respondsToSelector:@selector(shouldServePublicServiceAnnouncements)]) {
+        tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
+    } else {
+        tagDict[@"disable_psa"] = [NSNumber numberWithBool:YES];
+
+    }
+
     //
     tagDict[@"require_asset_url"] = [NSNumber numberWithBool:0];
 

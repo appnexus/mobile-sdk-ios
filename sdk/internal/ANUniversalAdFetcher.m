@@ -17,11 +17,13 @@
 #import "ANLogging.h"
 #import "ANUniversalTagRequestBuilder.h"
 
+#import "ANStandardAd.h"
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"
 #import "ANSSMStandardAd.h"
 #import "ANVideoAdPlayer.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "ANNativeStandardAdResponse.h"
 
 #import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
@@ -30,13 +32,6 @@
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
 
-
-
-
-
-NSString * const  ANInternalDelgateTagKeyPrimarySize         = @"ANInternalDelgateTagKeyPrimarySize";
-NSString * const  ANInternalDelegateTagKeySizes              = @"ANInternalDelgateTagKeySizes";
-NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelgateTagKeyAllowSmallerSizes";
 
 
 
@@ -50,12 +45,14 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 @property (nonatomic, readwrite, assign)  NSTimeInterval    totalLatencyStart;
 @property (nonatomic, readwrite, strong)  id                adObjectHandler;
 
+@property (nonatomic, readwrite, getter=isLoading)  BOOL    loading;
 
-@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   delegate;
+
+@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>  delegate;
+
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *standardAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
-
 
 @end
 
@@ -66,15 +63,25 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 
 #pragma mark - Lifecycle.
 
-- (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate {
+- (instancetype)initWithDelegate:(id)delegate
+{
+ANLogMark();
     if (self = [self init]) {
-        self.delegate = delegate;
-        self.data = [NSMutableData data];
+        _delegate = delegate;
+        [self setup];
     }
     return self;
 }
 
+- (void)setup
+{
+ANLogMark();
+    _data = [NSMutableData data];
+    [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+}
+
 - (void)dealloc {
+    [self stopAdLoad];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [self.connection cancel];
@@ -83,6 +90,7 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 }
 
 - (void)clearMediationController {
+ANLogMark();
     /*
      Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher. The controller maintains a weak reference to the
      ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still
@@ -104,20 +112,28 @@ NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes  = @"ANInternalDelga
 ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
-    
-    self.connection = [NSURLConnection connectionWithRequest:request
-                                                    delegate:self];
-    
-    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-    //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
-    //FIX -- clear if connection turns out not to be successful?
-    
-    
-    if (!self.connection) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
-        [self processFinalResponse:response];
-    } else {
-        ANLogDebug(@"Starting request: %@", request);
+
+
+    if (!self.isLoading) 
+    {
+        self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+        
+        self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+            //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
+            //FIX -- clear if connection turns out not to be successful?
+        
+        
+        if (!self.connection) {
+            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
+            [self processFinalResponse:response];
+        } else {
+            ANLogDebug(@"Starting request: %@", request);
+
+            self.loading = YES;
+
+            ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
+                                @{kANUniversalAdFetcherAdRequestURLKey: urlString});
+        }
     }
 }
 
@@ -126,8 +142,10 @@ ANLogMark();
 ANLogMark();
     [self.connection cancel];
     self.connection = nil;
+    self.loading = NO;
     self.data = nil;
     self.ads = nil;
+    [self clearMediationController];
 }
 
 
@@ -154,7 +172,8 @@ ANLogMark();
     [self continueWaterfall];
 }
 
-- (void)finishRequestWithError:(NSError *)error {
+- (void)finishRequestWithError:(NSError *)error 
+{
     ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:error];
     [self processFinalResponse:response];
 }
@@ -163,6 +182,7 @@ ANLogMark();
 {
 ANLogMark();
     self.ads = nil;
+    self.loading = NO;
     
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
@@ -179,6 +199,7 @@ ANLogMark();
 ANLogMark();
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
+        self.loading = NO;
         return;
     }
     
@@ -216,7 +237,10 @@ ANLogMark();
         
     } else if ( [nextAd isKindOfClass:[ANSSMStandardAd class]] ) {
         [self handleSSMMediatedAd:nextAd];
-        
+
+    } else if ( [nextAd isKindOfClass:[ANNativeStandardAdResponse class]] ) {
+        [self handleNativeStandardAd:nextAd];
+
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall.  (class=%@)", [nextAd class]);
     }
@@ -250,7 +274,8 @@ ANLogMark();
 
 // Video ad.
 //
--(void) handleCSMVideoAd:(ANCSMVideoAd *) videoAd {
+-(void) handleCSMVideoAd:(ANCSMVideoAd *) videoAd
+{
     if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
         ANLogError(@"FAILED to create ANVideoAdProcessor object.");
     }
@@ -292,6 +317,12 @@ ANLogMark();
                                                                   adViewDelegate:self.delegate];
 }
 
+- (void)handleNativeStandardAd:(ANNativeStandardAdResponse *)nativeStandardAd
+{
+ANLogMark();
+    ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObject:nativeStandardAd andAdObjectHandler:nil];
+    [self processFinalResponse:fetcherResponse];
+}
 
 
 
@@ -308,8 +339,11 @@ ANLogMark();
             
             if (status >= 400) {
                 [connection cancel];
+
                 NSError *statusError = ANError(@"connection_failed %ld", ANAdResponseNetworkError, (long)status);
                 [self connection:connection didFailWithError:statusError];
+
+                self.loading = NO;
                 return;
             }
         }
@@ -338,8 +372,8 @@ ANLogMark();
         NSString *responseString = [[NSString alloc] initWithData:self.data
                                                          encoding:NSUTF8StringEncoding];
         ANLogDebug(@"Response JSON %@", responseString);
-        ANPostNotifications(kANAdFetcherDidReceiveResponseNotification, self,
-                            @{kANAdFetcherAdResponseKey: (responseString ? responseString : @"")});
+        ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, self,
+                            @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
         
         //
         ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:self.data];
@@ -445,6 +479,7 @@ ANLogMark();
         
         // stop waterfall if delegate reference (adview) was lost
         if (!self.delegate) {
+            self.loading = NO;
             return;
         }
         
@@ -454,7 +489,6 @@ ANLogMark();
 
 
 // common for Banner / Interstitial RTB and SSM.
-
 -(CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
                               andHeight:(NSString *)height
 {
