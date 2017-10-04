@@ -32,8 +32,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
 
-    @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
-
     @property (nonatomic, strong)  ANVideoAdPlayer  *adPlayer;
     @property (nonatomic, strong)  UIView           *adContainer;
 
