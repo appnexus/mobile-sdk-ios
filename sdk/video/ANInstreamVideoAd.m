@@ -32,6 +32,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
 
+    @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
+
     @property (nonatomic, strong)  ANVideoAdPlayer  *adPlayer;
     @property (nonatomic, strong)  UIView           *adContainer;
 
@@ -76,6 +78,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     self.opensInNativeBrowser = NO;
 
     self.placementId = placementId;
+    
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
 
     [self setupSizeParametersAs1x1];
 
@@ -107,7 +111,11 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
     self.loadDelegate = loadDelegate;
 
-    if (! [[ANUniversalAdFetcher alloc] initWithDelegate:self])  {
+    if(self.universalAdFetcher != nil){
+        
+        [self.universalAdFetcher requestAd];
+        
+    } else {
         ANLogError(@"FAILED TO FETCH video ad.");
         return  NO;
     }
