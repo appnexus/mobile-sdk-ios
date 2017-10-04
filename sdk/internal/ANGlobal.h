@@ -128,5 +128,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController);
 + (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
                                                                  withSeparatorString: (NSString *)separatorString;
 
++ (id) valueOfGetterProperty: (NSString *)stringOfGetterProperty
+                   forObject: (id)objectImplementingGetterProperty;
 
 @end

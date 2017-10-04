@@ -241,9 +241,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self.precachedAdObjects removeObjectAtIndex:0];
     }
 
-    if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
-        impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
-    }
+    impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
 
 
     // Display the ad.

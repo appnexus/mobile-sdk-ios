@@ -274,6 +274,35 @@ ANLogMark();
 
 
 
+#pragma mark - ANUniversalAdFetcherDelegate -- abstract methods.
+
+- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+}
+
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  nil;
+}
+
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  nil;
+}
+
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  CGSizeMake(-1, -1);
+}
+
+
+
+
 #pragma mark - ANAdViewInternalDelegate
 
 - (void)adWasClicked {

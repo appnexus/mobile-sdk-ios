@@ -32,7 +32,7 @@
 
 @interface ANUniversalAdFetcher : NSObject
 
-- (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
+- (instancetype)initWithDelegate:(id)delegate;
 
 - (void)stopAdLoad;
 - (void) requestAd;
