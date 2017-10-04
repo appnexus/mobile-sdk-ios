@@ -15,6 +15,7 @@
 
 #import "ANMediatedAd.h"
 #import "ANAdProtocol.h"
+#import "ANUniversalAdFetcher.h"
 
 
 
@@ -29,7 +30,7 @@
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
              adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
 
-@property (nonatomic, readwrite, weak) id<ANNativeAdRequestProtocol> adRequestDelegate;
+@property (nonatomic, readwrite, weak) id<ANUniversalAdNativeFetcherDelegate> adRequestDelegate;
 @property (nonatomic, readwrite, weak) id<ANNativeMediationAdControllerDelegate> delegate;
 
 @end
