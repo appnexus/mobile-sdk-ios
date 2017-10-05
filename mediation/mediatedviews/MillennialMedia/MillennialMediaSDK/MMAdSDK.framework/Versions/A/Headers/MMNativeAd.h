@@ -18,21 +18,32 @@ extern NSString* __nonnull const MMNativeAdTypeInline;
 /* An unknown native ad placement. */
 extern NSString* __nonnull const MMNativeAdTypeUnknown;
 
+typedef NS_ENUM(NSInteger, MMNativeComponentTypeID) {
+    MMNativeComponentTypeIDUnknown = -1,
+    MMNativeComponentTypeIDTitle = 100,
+    MMNativeComponentTypeIDBody = 101,
+    MMNativeComponentTypeIDIconImage = 102,
+    MMNativeComponentTypeIDMainImage = 103,
+    MMNativeComponentTypeIDCallToAction = 104,
+    MMNativeComponentTypeIDRating = 105,
+    MMNativeComponentTypeIDDisclaimer = 106
+};
+
 typedef NS_ENUM (NSInteger, MMNativeAdComponent) {
     /** The body text component of the ad. */
-    MMNativeAdComponentBody = 0,
+    MMNativeAdComponentBody = MMNativeComponentTypeIDBody,
     /** The call-to-action component of the ad. */
-    MMNativeAdComponentCallToActionButton,
+    MMNativeAdComponentCallToActionButton = MMNativeComponentTypeIDCallToAction,
     /** The disclaimer text component of the ad. */
-    MMNativeAdComponentDisclaimer,
+    MMNativeAdComponentDisclaimer = MMNativeComponentTypeIDDisclaimer,
     /** The icon image view component of the ad. */
-    MMNativeAdComponentIconImageView,
+    MMNativeAdComponentIconImageView = MMNativeComponentTypeIDIconImage,
     /** The main image view component of the ad. */
-    MMNativeAdComponentMainImageView,
+    MMNativeAdComponentMainImageView = MMNativeComponentTypeIDMainImage,
     /** The rating component of the ad. */
-    MMNativeAdComponentRating,
+    MMNativeAdComponentRating = MMNativeComponentTypeIDRating,
     /** The title text component of the ad. */
-    MMNativeAdComponentTitle
+    MMNativeAdComponentTitle = MMNativeComponentTypeIDTitle
 };
 
 @class MMRequestInfo;
@@ -118,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Initializes a native ad placement.
  *
  * @param placementId The identifier of the placement that is used by the server for selecting ad content.
- * @param type An NSString object which corresponds to a defined native type, for example, MMNativeAdTypeInline.
+ * @param nativeAdType An NSString object which corresponds to a defined native type, for example, MMNativeAdTypeInline.
  * @return The MMNativeAd object.
  */
 -(nullable instancetype)initWithPlacementId:(NSString*)placementId adType:(NSString*)nativeAdType;
@@ -162,6 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Load the current native ad into a pre-defined layout, loaded from the specified bundle.
+ * This method must be invoked from the main thread.
  *
  * Once a given ad is loaded into a layout, you should not access, display, or modify any of the views of the
  * native ad. Impression firing is also handled by the layout, which may have additional logic associated with it
@@ -290,10 +302,10 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * Returns nil if this component is not available.
  *
- * @param instanceId represents which mainImageView instance to retrieve, starting from 1
+ * @param instance represents which mainImageView instance to retrieve, starting from 1
  * @return The main imageView for the ad, or nil if there is no imageView available.
  */
--(nullable UIImageView *)mainImageView:(NSInteger)instanceId;
+-(nullable UIImageView *)mainImageView:(NSInteger)instance;
 
 /**
  * Descriptive text for the ad.
@@ -391,10 +403,10 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * Returns nil if this component is not available.
  *
- * @param instanceId represents which call-to-action button instance to retrieve, starting from 1
+ * @param instance represents which call-to-action button instance to retrieve, starting from 1
  * @return The call-to-action label for the ad, or nil if there is no call-to-action button available.
  */
--(nullable UIButton *)callToActionButton:(NSInteger)instanceId;
+-(nullable UIButton *)callToActionButton:(NSInteger)instance;
 
 /**
  * The rating label for the native ad.
@@ -424,10 +436,10 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * Returns nil if this component is not available.
  *
- * @param instanceId represents which rating instance to retrieve, starting from 1
+ * @param instance The instance to retrieve, indexed from 1.
  * @return The rating label for the ad, or nil if there is no rating label available.
  */
--(nullable UILabel *)rating:(NSInteger)instanceId;
+-(nullable UILabel *)rating:(NSInteger)instance;
 
 @end
 

@@ -30,8 +30,6 @@
 		4F824D091D909E1000AFC7EA /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */; };
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
 		4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */; };
-		601BDD7B1E2FCA26002698D7 /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */; };
-		601BDD7C1E2FCA26002698D7 /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */; };
 		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
 		60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */; };
 		60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */; };
@@ -759,8 +757,6 @@
 		4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F824CF41D909E1000AFC7EA /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MRAID.bundle; sourceTree = "<group>"; };
 		4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdColony.framework; path = "../../../../../../../../../../../../user/project/sprint/july/src/AdColony-iOS-SDK-3/AdColony.framework"; sourceTree = "<group>"; };
-		601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = ../RubiconSDK/RFMAdSDK.bundle; sourceTree = "<group>"; };
-		601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RFMAdSDK.framework; path = ../RubiconSDK/RFMAdSDK.framework; sourceTree = "<group>"; };
 		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelDelegate.h; sourceTree = "<group>"; };
 		60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAd.h; sourceTree = "<group>"; };
@@ -817,6 +813,11 @@
 		604C11491E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerRubicon.m; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBannerRubicon.m; sourceTree = "<group>"; };
 		604C114F1E26D912006D6C97 /* ANAdAdapterBaseRubicon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseRubicon.h; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBaseRubicon.h; sourceTree = "<group>"; };
 		604C11501E26D912006D6C97 /* ANAdAdapterBaseRubicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseRubicon.m; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBaseRubicon.m; sourceTree = "<group>"; };
+		607A21181F85829200BD8353 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		607A21191F8589D800BD8353 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MMAdSDK.framework; sourceTree = "<group>"; };
+		607A211A1F8589E900BD8353 /* LICENSE_Millenial_Media.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE_Millenial_Media.txt; path = "../../../../../../../../../../../Downloads/mm-ios-ad-sdk-6.6.0-20170915-1413/LICENSE_Millenial_Media.txt"; sourceTree = "<group>"; };
+		607A21291F85EB7C00BD8353 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RFMAdSDK.bundle; sourceTree = "<group>"; };
+		607A212A1F85EB7C00BD8353 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RFMAdSDK.framework; sourceTree = "<group>"; };
 		609732AE1E42E73D0061EC0A /* NSDictionary+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ANCategory.h"; sourceTree = "<group>"; };
 		609732AF1E42E73D0061EC0A /* NSDictionary+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ANCategory.m"; sourceTree = "<group>"; };
 		609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInstreamVideoAd.h; sourceTree = "<group>"; };
@@ -857,7 +858,6 @@
 		8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdColonyAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterNativeAdMob.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.h; sourceTree = "<group>"; };
 		8A201BFC1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeAdMob.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.m; sourceTree = "<group>"; };
-		8A2BD4001B66F6450000DB66 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MMAdSDK.framework; sourceTree = "<group>"; };
 		8A2F48211A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANOpenInExternalBrowserActivity.h; sourceTree = "<group>"; };
 		8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANOpenInExternalBrowserActivity.m; sourceTree = "<group>"; };
 		8A2F483C1A2E33B000B0EA05 /* compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = compass.png; sourceTree = "<group>"; };
@@ -871,7 +871,6 @@
 		8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANContentViewTransitions.h"; sourceTree = "<group>"; };
 		8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANContentViewTransitions.m"; sourceTree = "<group>"; };
 		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
-		8A4018191A95213200D56208 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		8A4B96A31ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialVdopia.h; sourceTree = "<group>"; };
 		8A4B96A41ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialVdopia.m; sourceTree = "<group>"; };
 		8A4B96A51ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerVdopia.h; sourceTree = "<group>"; };
@@ -918,7 +917,6 @@
 		8A944DDE19D5AF8C007AAAB0 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
 		8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-AMAZON.txt"; sourceTree = "<group>"; };
 		8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
-		8A944E0519D5AFBB007AAAB0 /* LICENSE-MILLENNIAL MEDIA.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "LICENSE-MILLENNIAL MEDIA.txt"; sourceTree = "<group>"; };
 		8A949AB81ADF12EA00D83DCE /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
 		8A949ACE1ADF131500D83DCE /* libANSDKChartboostAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKChartboostAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A949ACF1ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialChartboost.h; sourceTree = "<group>"; };
@@ -1196,7 +1194,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				601BDD7C1E2FCA26002698D7 /* RFMAdSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1499,7 +1496,7 @@
 		604C11471E26D37D006D6C97 /* Rubicon */ = {
 			isa = PBXGroup;
 			children = (
-				604C114B1E26D458006D6C97 /* RubiconSDK */,
+				607A21281F85EB7C00BD8353 /* RubiconSDK */,
 				604C11481E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.h */,
 				604C11491E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m */,
 				604C114F1E26D912006D6C97 /* ANAdAdapterBaseRubicon.h */,
@@ -1508,14 +1505,14 @@
 			name = Rubicon;
 			sourceTree = "<group>";
 		};
-		604C114B1E26D458006D6C97 /* RubiconSDK */ = {
+		607A21281F85EB7C00BD8353 /* RubiconSDK */ = {
 			isa = PBXGroup;
 			children = (
-				601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */,
-				601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */,
+				607A21291F85EB7C00BD8353 /* RFMAdSDK.bundle */,
+				607A212A1F85EB7C00BD8353 /* RFMAdSDK.framework */,
 			);
 			name = RubiconSDK;
-			path = ../mediation/mediatedviews/Rubicon/RFMAdSDK;
+			path = ../mediation/mediatedviews/Rubicon/RubiconSDK;
 			sourceTree = "<group>";
 		};
 		609732FB1E42EAFF0061EC0A /* video */ = {
@@ -1590,7 +1587,7 @@
 		8A4018181A95213200D56208 /* GoogleAdMobSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8A4018191A95213200D56208 /* GoogleMobileAds.framework */,
+				607A21181F85829200BD8353 /* GoogleMobileAds.framework */,
 			);
 			name = GoogleAdMobSDK;
 			path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK;
@@ -1645,8 +1642,8 @@
 		8A944E0419D5AFBB007AAAB0 /* MillennialMediaSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8A944E0519D5AFBB007AAAB0 /* LICENSE-MILLENNIAL MEDIA.txt */,
-				8A2BD4001B66F6450000DB66 /* MMAdSDK.framework */,
+				607A211A1F8589E900BD8353 /* LICENSE_Millenial_Media.txt */,
+				607A21191F8589D800BD8353 /* MMAdSDK.framework */,
 			);
 			name = MillennialMediaSDK;
 			path = ../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK;
@@ -2756,7 +2753,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
 					60359EAF1E1EA1180017EF56 = {
@@ -2824,7 +2821,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				601BDD7B1E2FCA26002698D7 /* RFMAdSDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4064,14 +4060,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -4112,14 +4114,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

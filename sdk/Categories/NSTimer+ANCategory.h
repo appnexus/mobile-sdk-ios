@@ -21,11 +21,11 @@
 - (void)an_scheduleNow;
 
 + (NSTimer *)an_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void (^)())block
+                                         block:(void (^)(void))block
                                        repeats:(BOOL)repeats;
 
 + (NSTimer *)an_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void (^)())block
+                                         block:(void (^)(void))block
                                        repeats:(BOOL)repeats
                                           mode:(NSRunLoopMode)mode;
 

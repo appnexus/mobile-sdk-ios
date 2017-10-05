@@ -10,6 +10,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString* __nonnull const MMAppSettingsCOPPAEnabled;
+extern NSString* __nonnull const MMAppSettingsCOPPADisabled;
+
 /**
  * The object used to configure persistent app-wide settings which are integral for SDK operation.
  */
@@ -24,13 +27,15 @@
 /**
  * Returns the current state of COPPA (Children's Online Privacy Protection Act) for the SDK.
  *
- * Returns `nil` if this value has not been explicitly set, or `"true"` or `"false"` based on the
- * value set in `setCoppaCompliance:`.
+ * Returns `nil` if this value has not been explicitly set, otherwise returns `MMAppSettingsCOPPAEnabled` or
+ * `MMAppSettingsCOPPADisabled`.
  */
 @property (nonatomic, readonly, nullable) NSString *coppa;
 
 /**
  * Set to `YES` to enforce COPPA (Children's Online Privacy Protection Act) restrictions on ads returned by the ad server.
+ *
+ * @param compliance Whether COPPA compliance is enforced.
 */
 - (void)setCoppaCompliance:(BOOL)compliance;
 

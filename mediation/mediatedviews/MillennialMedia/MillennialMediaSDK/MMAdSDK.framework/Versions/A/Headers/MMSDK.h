@@ -62,7 +62,7 @@ typedef NS_ENUM(NSUInteger, MMLogLevel) {
  *    userSettings.dob = dateOfBirth;
  *
  *    [[MMSDK sharedInstance] initializeWithSettings:appSettings withUserSettings:userSettings];
- * </pre></code>
+ * </code></pre>
  */
 @interface MMSDK : NSObject
 

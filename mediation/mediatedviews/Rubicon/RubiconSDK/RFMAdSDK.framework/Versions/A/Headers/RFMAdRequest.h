@@ -169,6 +169,9 @@
  */
 @property (nonatomic, strong) NSString *rfmAdTestAdId;
 
+/**
+ * Cue point position enumerator property, valid values include RFMCuePointPositionPreRoll, RFMCuePointPositionMidRoll, or RFMCuePointPositionPostRoll.
+ */
 @property (nonatomic, assign) RFMCuePointPosition cuePointPosition;
 
 #pragma mark - Deprecated

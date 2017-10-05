@@ -48,3 +48,15 @@
 #define GAD_ASSUME_NONNULL_BEGIN
 #define GAD_ASSUME_NONNULL_END
 #endif  // __has_feature(nullability)
+
+#if __has_attribute(objc_boxable)  // Available starting in Xcode 7.3.
+#define GAD_BOXABLE __attribute__((objc_boxable))
+#else
+#define GAD_BOXABLE
+#endif  // __has_attribute(objc_boxable)
+
+#if defined(NS_STRING_ENUM)  // Available starting in Xcode 8.0.
+#define GAD_STRING_ENUM NS_STRING_ENUM
+#else
+#define GAD_STRING_ENUM
+#endif

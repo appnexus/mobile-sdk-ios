@@ -81,6 +81,10 @@ extern void * const RFMCurrentProgressKVOContext;
 @interface RFMVideoAdSession : RFMAdSession
 
 @property (nonatomic, strong, readonly) id <RFMVideoAd> currentAd;
+
+/**
+ * Content mode, YES value indicates video content playback, NO value indicates video ad playback.
+ */
 @property (nonatomic, assign, getter=isContentMode, setter=setContentMode:) BOOL contentMode;
 
 

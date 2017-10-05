@@ -27,6 +27,9 @@ extern BOOL RFMVideoAdSessionAutomaticImpressionTrackingEnabled;
  */
 @interface RFMAdSession : NSObject
 
+/**
+ * Delegate weak property.
+ */
 @property (nonatomic, weak) id <RFMAdSessionDelegate> delegate;
 
 /**
