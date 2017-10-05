@@ -83,22 +83,10 @@ ANLogMark();
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 }
 
-- (void)autoRefreshTimerDidFire:(NSTimer *)timer
-{
-    [self.connection cancel];
-    self.loading = NO;
-    
-    [self requestAd];
- 
-}
-
 - (void)dealloc {
     [self stopAdLoad];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    [self.connection cancel];
-    [self.autoRefreshTimer invalidate];
-    [self clearMediationController];
 }
 
 - (void)clearMediationController {
@@ -125,7 +113,7 @@ ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     
-    [self.autoRefreshTimer invalidate];
+    [self stopAutoRefreshTimer];
     [self markLatencyStart];
     
     if (!self.isLoading)
@@ -154,8 +142,8 @@ ANLogMark();
 - (void)stopAdLoad
 {
 ANLogMark();
-    [self.autoRefreshTimer invalidate];
-    self.autoRefreshTimer = nil;
+   
+    [self stopAutoRefreshTimer];
     
     [self.connection cancel];
     self.connection = nil;
@@ -163,6 +151,11 @@ ANLogMark();
     self.data = nil;
     self.ads = nil;
     [self clearMediationController];
+}
+
+- (void) stopAutoRefreshTimer {
+    [self.autoRefreshTimer invalidate];
+    self.autoRefreshTimer = nil;
 }
 
 - (NSTimeInterval)getAutoRefreshFromDelegate {
@@ -210,7 +203,7 @@ ANLogMark();
     [self processFinalResponse:response];
 }
 
-- (void)startAutoRefreshTimer {
+- (void) startAutoRefreshTimer {
     if (!self.autoRefreshTimer) {
         ANLogDebug(@"fetcher_stopped");
     } else if ([self.autoRefreshTimer an_isScheduled]) {
@@ -219,6 +212,16 @@ ANLogMark();
         [self.autoRefreshTimer an_scheduleNow];
     }
 }
+
+- (void)autoRefreshTimerDidFire:(NSTimer *)timer
+{
+    [self.connection cancel];
+    self.loading = NO;
+    
+    [self requestAd];
+    
+}
+
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
@@ -234,11 +237,10 @@ ANLogMark();
 
 }
 
-- (void)setupAutoRefreshTimerIfNecessary
+- (void)restartAutoRefreshTimer
 {
     // stop old autoRefreshTimer
-    [self.autoRefreshTimer invalidate];
-    self.autoRefreshTimer = nil;
+    [self stopAutoRefreshTimer];
     
     // setup new autoRefreshTimer if refresh interval positive
     NSTimeInterval interval = [self getAutoRefreshFromDelegate];
@@ -413,7 +415,7 @@ ANLogMark();
         self.data = [NSMutableData data];
         ANLogDebug(@"Received response: %@", response);
         
-        [self setupAutoRefreshTimerIfNecessary];
+        [self restartAutoRefreshTimer];
 
         
     } else {
@@ -454,7 +456,7 @@ ANLogMark();
         ANLogError(@"%@", connectionError);
         
         self.loading = NO;
-        [self setupAutoRefreshTimerIfNecessary];
+        [self restartAutoRefreshTimer];
         
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:connectionError];
         [self processFinalResponse:response];
