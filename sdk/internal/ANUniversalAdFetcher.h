@@ -32,7 +32,7 @@
 
 @interface ANUniversalAdFetcher : NSObject
 
-- (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate;
+- (instancetype)initWithDelegate:(id)delegate;
 
 - (void)stopAdLoad;
 - (void) requestAd;
@@ -58,6 +58,8 @@
 
 @protocol  ANUniversalAdFetcherFoundationDelegate <ANAdProtocolFoundation>
 
+@required
+
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
 
@@ -68,6 +70,16 @@
 //
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
+
+// customKeywords is shared between the entrypoints and the fetcher.
+//
+// NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
+//       which is shared between fetcher and the mediation adapters.
+//     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
+//        TBDQ FIX -- Why is ANTargetingParameters.h public facing?
+//
+@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+
 @end
 
 
@@ -75,13 +87,22 @@
 //
 @protocol  ANUniversalAdFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
 
+@required
+
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
+
+@optional
+
+// NB  autoRefreshIntervalForAdFetcher: is required for ANBannerAdView, but is not used by any other entrypoint.
+//
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
 @end
 
-@protocol  ANUniversalAdInstreamVideoFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser>
+#pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
+
+@protocol  ANUniversalAdNativeFetcherDelegate  <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolFoundation>
     //EMPTY
 @end
 

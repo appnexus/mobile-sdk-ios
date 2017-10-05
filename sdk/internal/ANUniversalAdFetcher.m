@@ -66,7 +66,7 @@
 
 #pragma mark - Lifecycle.
 
-- (instancetype)initWithDelegate:(id<ANUniversalAdFetcherDelegate>)delegate
+- (instancetype)initWithDelegate:(id)delegate
 {
 ANLogMark();
     if (self = [self init]) {

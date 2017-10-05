@@ -23,14 +23,13 @@
 
 
 
-
 NSString * const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
-NSString * const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelgateTagKeySizes";
-NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes                      = @"ANInternalDelgateTagKeyAllowSmallerSizes";
+NSString * const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
+NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes                      = @"ANInternalDelegateTagKeyAllowSmallerSizes";
 
 NSString * const  kANUniversalAdFetcherWillRequestAdNotification                 = @"kANUniversalAdFetcherWillRequestAdNotification";
 NSString * const  kANUniversalAdFetcherAdRequestURLKey                           = @"kANUniversalAdFetcherAdRequestURLKey";
-NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassKey";
+NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassNotification";
 NSString * const  kANUniversalAdFetcherMediatedClassKey                          = @"kANUniversalAdFetcherMediatedClassKey";
  
 NSString * const  kANUniversalAdFetcherDidReceiveResponseNotification            = @"kANUniversalAdFetcherDidReceiveResponseNotification";
@@ -303,6 +302,24 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     }
 
     return  [keywordsMapToStrings mutableCopy];
+}
+
+
+// Use this method to test for the existence of a property, then return its value if it is implemented by the target object.
+// Should also work for methods that have no arguments.
+//
+// NB  Does not distinguish between a return value of nil and the case where the object does not respond to the getter selector.
+//
++ (id) valueOfGetterProperty: (NSString *)stringOfGetterProperty
+                   forObject: (id)objectImplementingGetterProperty
+{
+    SEL  getterMethod  = NSSelectorFromString(stringOfGetterProperty);
+
+    if ([objectImplementingGetterProperty respondsToSelector:getterMethod]) {
+        return  ((id (*)(id, SEL))[objectImplementingGetterProperty methodForSelector:getterMethod])(objectImplementingGetterProperty, getterMethod);
+    }
+
+    return  nil;
 }
 
 @end

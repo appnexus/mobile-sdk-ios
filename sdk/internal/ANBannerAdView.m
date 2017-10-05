@@ -290,9 +290,7 @@ ANLogMark();
         UIView *contentView      = response.adObject;
         id      adObjectHandler  = response.adObjectHandler;
 
-        if ([adObjectHandler respondsToSelector:@selector(impressionUrls)]) {
-            self.impressionURLs = [adObjectHandler performSelector:@selector(impressionUrls)];
-        }
+        self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
 
         if ([contentView isKindOfClass:[UIView class]]) {
             self.contentView = contentView;

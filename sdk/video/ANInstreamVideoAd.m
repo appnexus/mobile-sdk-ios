@@ -27,7 +27,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //---------------------------------------------------------- -o--
-@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdInstreamVideoFetcherDelegate>
+@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherFoundationDelegate, ANAdProtocol>
 
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
@@ -57,6 +57,10 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 @implementation ANInstreamVideoAd
 
+@synthesize  customKeywords  = __customKeywords;
+
+
+
 #pragma mark - Lifecycle.
 
 //--------------------- -o-
@@ -76,6 +80,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     self.opensInNativeBrowser = NO;
 
     self.placementId = placementId;
+    
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
 
     [self setupSizeParametersAs1x1];
 
@@ -107,7 +113,11 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
     self.loadDelegate = loadDelegate;
 
-    if (! [[ANUniversalAdFetcher alloc] initWithDelegate:self])  {
+    if(self.universalAdFetcher != nil){
+        
+        [self.universalAdFetcher requestAd];
+        
+    } else {
         ANLogError(@"FAILED TO FETCH video ad.");
         return  NO;
     }
