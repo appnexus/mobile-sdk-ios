@@ -37,6 +37,7 @@
     self.rootViewController = rootViewController;
     
     if (!_rfmAdView) {
+        
         self.rfmAdView = [RFMAdView createAdOfFrame:RFM_AD_FRAME_OF_SIZE(size.width,size.height)
                                    withPortraitCenter:RFM_AD_SET_CENTER(size.width/2,size.height/2)
                                    withLandscapeCenter:RFM_AD_SET_CENTER(size.width/2,size.height/2)

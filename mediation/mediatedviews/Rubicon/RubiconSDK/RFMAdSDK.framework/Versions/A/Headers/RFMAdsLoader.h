@@ -17,7 +17,14 @@
  */
 @interface RFMAdsLoader : NSObject
 
+/**
+ * Delegate weak property.
+ */
 @property (nonatomic, weak) id<RFMAdsLoaderDelegate> delegate;
+/**
+ * Cacheable property, YES value indicates disk cache will be used to store ad content, 
+ * NO indicates ad content will be loaded on demand.
+ */
 @property (nonatomic, assign, getter=isCacheable) BOOL cacheable;
 
 /**

@@ -40,7 +40,7 @@
 }
 
 + (NSTimer *)an_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void (^)())block
+                                         block:(void (^)(void))block
                                        repeats:(BOOL)repeats {
     return [self scheduledTimerWithTimeInterval:interval
                                          target:self
@@ -50,14 +50,14 @@
 }
 
 + (void)an_runBlockWithTimer:(NSTimer *)timer {
-    void (^block)() = timer.userInfo;
+    void (^block)(void) = timer.userInfo;
     if (block) {
         block();
     }
 }
 
 + (NSTimer *)an_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void (^)())block
+                                         block:(void (^)(void))block
                                        repeats:(BOOL)repeats
                                           mode:(NSRunLoopMode)mode {
     NSTimer *timer = [self timerWithTimeInterval:interval

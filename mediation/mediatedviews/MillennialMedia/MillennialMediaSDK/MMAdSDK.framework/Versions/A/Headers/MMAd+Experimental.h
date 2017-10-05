@@ -14,7 +14,6 @@
 @protocol MMXIncentiveDelegate <NSObject>
 @optional
 
-
 /*
  * Callback fired when an incentivized VAST ad's video 
  * is played all the way to completion.
@@ -25,8 +24,7 @@
 
 /*
  * General purpose callback for custom events.
- *
- * @param ad The ad placement for which the event was triggered.
+ * event was triggered.
  *
  * @param event Data object containing details of the event.
  */

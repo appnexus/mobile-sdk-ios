@@ -185,7 +185,7 @@ typedef NS_ENUM(NSInteger, MMInlineAdSize) {
 @interface MMInlineAd : MMAd
 
 /**
- * Initializes an inline placement.
+ * Initializes an inline placement. This method must be invoked from the main thread.
  *
  * @param placementId The ad's placement ID.
  * @param adSize The size of the banner to request.
@@ -193,7 +193,7 @@ typedef NS_ENUM(NSInteger, MMInlineAdSize) {
 -(nullable instancetype)initWithPlacementId:(NSString*)placementId adSize:(MMInlineAdSize)adSize;
 
 /**
- * Initializes an inline placement with an explicitly defined size.
+ * Initializes an inline placement with an explicitly defined size. This method must be invoked from the main thread.
  *
  * @param placementId The ad's placement ID.
  * @param freeformSize  The explicit size of the placement to request.

@@ -419,7 +419,7 @@
     }];
 }
 
-- (void)runInBlock:(void (^)())block {
+- (void)runInBlock:(void (^)(void))block {
     // nothing keeps 'block' alive, so we don't have a retain cycle
     dispatch_async(dispatch_get_main_queue(), ^{
         block();
