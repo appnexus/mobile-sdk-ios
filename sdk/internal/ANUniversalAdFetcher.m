@@ -113,7 +113,6 @@ ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     
-    [self stopAutoRefreshTimer];
     [self markLatencyStart];
     
     if (!self.isLoading)
@@ -215,8 +214,7 @@ ANLogMark();
 
 - (void)autoRefreshTimerDidFire:(NSTimer *)timer
 {
-    [self.connection cancel];
-    self.loading = NO;
+    [self stopAdLoad];
     
     [self requestAd];
     
