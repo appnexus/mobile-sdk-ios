@@ -32,12 +32,14 @@
 
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 
+@property (nonatomic, readwrite, strong)  ANMediatedAd                      *mediatedAd;
+
 @property (nonatomic, readwrite, strong)  id<ANCustomAdapter>                currentAdapter;
 @property (nonatomic, readwrite, assign)  BOOL                               hasSucceeded;
 @property (nonatomic, readwrite, assign)  BOOL                               hasFailed;
 @property (nonatomic, readwrite, assign)  BOOL                               timeoutCanceled;
+
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
-@property (nonatomic, readwrite, strong)  ANMediatedAd                      *mediatedAd;
 @property (nonatomic, readwrite, strong)  NSDictionary                      *pitbullAdForDelayedCapture;
 
 // variables for measuring latency.
@@ -142,8 +144,9 @@ ANLogMark();
     
     
     if (errorCode != ANDefaultCode) {
-        [self handleInstantiationFailure:className
-                               errorCode:errorCode errorInfo:errorInfo];
+        [self handleInstantiationFailure: className
+                               errorCode: errorCode
+                               errorInfo: errorInfo ];
         return NO;
     }
     
@@ -160,18 +163,7 @@ ANLogMark();
     if ([errorInfo length] > 0) {
         ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
-    if ([className length] > 0) {
-        if ([self.adViewDelegate isKindOfClass:[ANBannerAdView class]]) {
-            ANLogWarn(@"mediation_adding_invalid_for_media_type %@ %@", className, @"banner");
-            [[self class] addBannerInvalidNetwork:className];
-        } else if ([self.adViewDelegate isKindOfClass:[ANInterstitialAd class]]) {
-            ANLogWarn(@"mediation_adding_invalid_for_media_type %@ %@", className, @"interstitial");
-            [[self class] addInterstitialInvalidNetwork:className];
-        } else {
-            ANLogDebug(@"Instantiation failure for unknown ad view, could not add %@ to an invalid networks list", className);
-        }
-    }
-    
+
     [self didFailToReceiveAd:errorCode];
 }
 
@@ -220,7 +212,7 @@ ANLogMark();
     if ([adView isKindOfClass:[ANBannerAdView class]]) {
         // make sure the container and protocol match
         if (    [[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
-            && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)])
+             && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)])
         {
             
             [self markLatencyStart];
@@ -264,40 +256,6 @@ ANLogMark();
     // executes iff request was unsuccessful
     return NO;
 }
-
-
-
-
-#pragma mark - Invalid Networks
-
-+ (NSMutableSet *)bannerInvalidNetworks {
-    static dispatch_once_t bannerInvalidNetworksToken;
-    static NSMutableSet *bannerInvalidNetworks;
-    dispatch_once(&bannerInvalidNetworksToken, ^{
-        bannerInvalidNetworks = [[NSMutableSet alloc] init];
-    });
-    return bannerInvalidNetworks;
-}
-
-+ (NSMutableSet *)interstitialInvalidNetworks {
-    static dispatch_once_t interstitialInvalidNetworksToken;
-    static NSMutableSet *interstitialInvalidNetworks;
-    dispatch_once(&interstitialInvalidNetworksToken, ^{
-        interstitialInvalidNetworks = [[NSMutableSet alloc] init];
-    });
-    return interstitialInvalidNetworks;
-}
-
-+ (void)addBannerInvalidNetwork:(NSString *)network {
-    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] bannerInvalidNetworks];
-    [invalidNetworks addObject:network];
-}
-
-+ (void)addInterstitialInvalidNetwork:(NSString *)network {
-    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] interstitialInvalidNetworks];
-    [invalidNetworks addObject:network];
-}
-
 
 
 
@@ -493,6 +451,7 @@ ANLogMark();
         block();
     });
 }
+
 
 
 #pragma mark - Timeout handler

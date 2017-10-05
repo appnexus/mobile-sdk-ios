@@ -24,8 +24,7 @@ NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey = @"kANAdAdapterNat
 NSString *const kANAdAdapterNativeAdMobNativeContentKey = @"kANAdAdapterNativeAdMobNativeContentKey";
 NSString *const kANAdAdapterNativeAdMobAdTypeKey = @"kANAdAdapterNativeAdMobAdTypeKey";
 
-@interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate,
-GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
+@interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate, GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
 
 @property (nonatomic) GADAdLoader *nativeAdLoader;
 @property (nonatomic) ANProxyViewController *proxyViewController;

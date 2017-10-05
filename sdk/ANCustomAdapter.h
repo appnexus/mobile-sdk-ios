@@ -64,6 +64,7 @@
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters;
+
 - (void)presentFromViewController:(UIViewController *)viewController;
 - (BOOL)isReady;
 

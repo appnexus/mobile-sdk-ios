@@ -21,6 +21,7 @@
 #import "ANGlobal.h"
 
 
+
 @interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
 
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
@@ -36,21 +37,9 @@
 
 @end
 
+
+
 @implementation ANNativeMediatedAdController
-
-+ (NSMutableSet *)invalidNetworks {
-    static dispatch_once_t invalidNetworksToken;
-    static NSMutableSet *invalidNetworks;
-    dispatch_once(&invalidNetworksToken, ^{
-        invalidNetworks = [[NSMutableSet alloc] init];
-    });
-    return invalidNetworks;
-}
-
-+ (void)addInvalidNetwork:(NSString *)network {
-    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] invalidNetworks];
-    [invalidNetworks addObject:network];
-}
 
 + (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
                   withDelegate: (id<ANNativeMediationAdControllerDelegate>)delegate
@@ -69,7 +58,8 @@
 
 - (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                   withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate {
+             adRequestDelegate:(id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate
+{
     self = [super init];
     if (self) {
         _delegate = delegate;
@@ -155,15 +145,12 @@
 
 - (void)handleInstantiationFailure:(NSString *)className
                          errorCode:(ANAdResponseCode)errorCode
-                         errorInfo:(NSString *)errorInfo {
+                         errorInfo:(NSString *)errorInfo
+{
     if ([errorInfo length] > 0) {
         ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
-    if ([className length] > 0) {
-        ANLogWarn(@"mediation_adding_invalid %@", className);
-        [[self class] addInvalidNetwork:className];
-    }
-    
+
     [self didFailToReceiveAd:errorCode];
 }
 

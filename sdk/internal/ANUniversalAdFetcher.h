@@ -76,7 +76,6 @@
 // NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
 //       which is shared between fetcher and the mediation adapters.
 //     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
-//        TBDQ FIX -- Why is ANTargetingParameters.h public facing?
 //
 @property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
 
