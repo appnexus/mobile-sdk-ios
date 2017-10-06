@@ -100,8 +100,6 @@
 
 @end
 
-
-
 #pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
 
 @protocol  ANUniversalAdNativeFetcherDelegate  <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolFoundation>
