@@ -223,6 +223,11 @@ ANLogMark();
                         if (csmObject)
                         {
                             ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
+
+                            if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
+                                mediatedAd.isAdTypeNative = YES;
+                            }
+
                             if (mediatedAd)
                             {
                                 if (mediatedAd.className.length > 0) {

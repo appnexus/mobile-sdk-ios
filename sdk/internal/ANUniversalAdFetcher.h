@@ -28,11 +28,13 @@
 
 
 @protocol ANUniversalAdFetcherDelegate;
+@protocol ANUniversalAdNativeFetcherDelegate;
+
 
 
 @interface ANUniversalAdFetcher : NSObject
 
-- (instancetype)initWithDelegate:(id)delegate;
+- (instancetype)initWithDelegate: (id)delegate;
 
 - (void)stopAdLoad;
 - (void) requestAd;
@@ -82,6 +84,8 @@
 @end
 
 
+
+
 // NB  ANUniversalAdFetcherDelegate is sufficient for instream video entry point.
 //
 @protocol  ANUniversalAdFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
@@ -98,6 +102,7 @@
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
 @end
+
 
 
 

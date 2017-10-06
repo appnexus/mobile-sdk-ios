@@ -287,7 +287,7 @@ ANLogMark();
 - (void)adWasClicked {
 ANLogMark();
     if (self.hasFailed) return;
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         [self.adViewDelegate adWasClicked];
     }];
 }
@@ -295,7 +295,7 @@ ANLogMark();
 - (void)willPresentAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         [self.adViewDelegate adWillPresent];
     }];
 }
@@ -303,7 +303,7 @@ ANLogMark();
 - (void)didPresentAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         [self.adViewDelegate adDidPresent];
     }];
 }
@@ -311,7 +311,7 @@ ANLogMark();
 - (void)willCloseAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         [self.adViewDelegate adWillClose];
     }];
 }
@@ -319,7 +319,7 @@ ANLogMark();
 - (void)didCloseAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         [self.adViewDelegate adDidClose];
     }];
 }
@@ -327,7 +327,7 @@ ANLogMark();
 - (void)willLeaveApplication {
 ANLogMark();
     if (self.hasFailed) return;
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         [self.adViewDelegate adWillLeaveApplication];
     }];
 }
@@ -335,7 +335,7 @@ ANLogMark();
 - (void)failedToDisplayAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
             id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)self.adViewDelegate;
             [interstitialDelegate adFailedToDisplay];
@@ -428,7 +428,7 @@ ANLogMark();
 {
 ANLogMark();
     // use queue to force return
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
         
         NSString *responseURL = [self.mediatedAd.responseURL an_responseTrackerReasonCode:errorCode
@@ -441,15 +441,6 @@ ANLogMark();
         }
         [fetcher fireResponseURL:responseURL reason:errorCode adObject:adObject auctionID:auctionID];
     }];
-}
-
-
-- (void)runInBlock:(void (^)())block {
-ANLogMark();
-    // nothing keeps 'block' alive, so we don't have a retain cycle
-    dispatch_async(dispatch_get_main_queue(), ^{
-        block();
-    });
 }
 
 

@@ -214,24 +214,20 @@
     [self finish:errorCode withAdObject:nil];
 }
 
-- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject {
+- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject
+{
     // use queue to force return
-    [self runInBlock:^(void) {
-        NSString *resultCBString = [self createResultCBRequest:
-                                    self.mediatedAd.responseURL reason:errorCode];
+    [ANGlobal runInBlock:^(void) {
+        NSString *resultCBString = [self createResultCBRequest: self.mediatedAd.responseURL
+                                                        reason: errorCode ];
+
         // fireResulCB will clear the adapter if fetcher exists
         if (!self.delegate) {
             [self clearAdapter];
         }
+
         [self.delegate fireResultCB:resultCBString reason:errorCode adObject:adObject];
     }];
-}
-
-- (void)runInBlock:(void (^)())block {
-    // nothing keeps 'block' alive, so we don't have a retain cycle
-    dispatch_async(dispatch_get_main_queue(), ^{
-        block();
-    });
 }
 
 - (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {

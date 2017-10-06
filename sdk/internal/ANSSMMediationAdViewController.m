@@ -216,7 +216,7 @@
   withAdObject: (id)adObject
 {
     // use queue to force return
-    [self runInBlock:^(void) {
+    [ANGlobal runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
         
         NSString *responseURL = [self.ssmMediatedAd.responseURL an_responseTrackerReasonCode: errorCode
@@ -232,13 +232,6 @@
     }];
 }
 
-
-- (void)runInBlock:(void (^)())block {
-    // nothing keeps 'block' alive, so we don't have a retain cycle
-    dispatch_async(dispatch_get_main_queue(), ^{
-        block();
-    });
-}
 
 
 #pragma mark - ANAdWebViewControllerLoadingDelegate.

@@ -20,7 +20,10 @@
 
 @interface ANUniversalTagRequestBuilder : NSObject
 
-+ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANUniversalAdFetcherDelegate>)adFetcherDelegate
+// NB  Protocol type of adFetcherDelegate can be ANUniversalAdFetcherDelegate or ANUniversalAdNativeFetcherDelegate.
+//
+
++ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id)adFetcherDelegate
                                       baseUrlString:(NSString *)baseUrlString;
 
 @end

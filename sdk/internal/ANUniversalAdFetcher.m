@@ -28,6 +28,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
+#import "ANNativeMediatedAdController.h"
 #import "ANSSMMediationAdViewController.h"
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
@@ -35,7 +36,7 @@
 
 
 
-@interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate>
+@interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate>
 
 @property (nonatomic, readwrite, strong)  NSURLConnection  *connection;
 @property (nonatomic, readwrite, strong)  NSMutableData    *data;
@@ -48,10 +49,13 @@
 @property (nonatomic, readwrite, getter=isLoading)  BOOL    loading;
 
 
-@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>  delegate;
+// NB  Protocol type of delegate can be ANUniversalAdFetcherDelegate or ANUniversalAdNativeFetcherDelegate.
+//
+@property (nonatomic, readwrite, weak)    id  delegate;
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *standardAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
+@property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
 
 @end
@@ -63,7 +67,7 @@
 
 #pragma mark - Lifecycle.
 
-- (instancetype)initWithDelegate:(id)delegate
+- (instancetype)initWithDelegate: (id)delegate
 {
 ANLogMark();
     if (self = [self init]) {
@@ -98,6 +102,9 @@ ANLogMark();
      */
     self.mediationController.adFetcher = nil;
     self.mediationController = nil;
+    self.nativeMediationController = nil;
+//    self.nativeMediationController.adFetcher = nil;
+                //FIX -- equivalent of adFetcher for ANNativeMediatedAdController?
     self.ssmMediationController.adFetcher = nil;
     self.ssmMediationController = nil;
 }
@@ -304,9 +311,16 @@ ANLogMark();
 
 - (void)handleCSMSDKMediatedAd:(ANMediatedAd *)mediatedAd
 {
-    self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
-                                                               withFetcher:self
-                                                            adViewDelegate:self.delegate];
+    if (mediatedAd.isAdTypeNative)
+    {
+        self.nativeMediationController = [ANNativeMediatedAdController initMediatedAd: mediatedAd
+                                                                         withDelegate: self
+                                                                    adRequestDelegate: self.delegate ];
+    } else {
+        self.mediationController = [ANMediationAdViewController initMediatedAd: mediatedAd
+                                                                   withFetcher: self
+                                                                adViewDelegate: self.delegate];
+    }
 }
 
 
@@ -403,6 +417,19 @@ ANLogMark();
     }
     return CGSizeZero;
 }
+
+
+
+#pragma mark - ANNativeMediationAdControllerDelegate.
+
+- (void)fireResultCB:(NSString *)resultCBString
+              reason:(ANAdResponseCode)reason
+            adObject:(id)adObject
+{
+ANLogMark();
+    [self fireResponseURL:resultCBString reason:reason adObject:adObject auctionID:nil];
+}
+
 
 
 #pragma mark - ANAdWebViewControllerLoadingDelegate.

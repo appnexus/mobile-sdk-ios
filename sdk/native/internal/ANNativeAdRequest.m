@@ -23,7 +23,7 @@
 
 
 
-@interface ANNativeAdRequest() <ANUniversalAdFetcherFoundationDelegate>
+@interface ANNativeAdRequest() <ANUniversalAdNativeFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
 
@@ -100,7 +100,7 @@ ANLogMark();
 
 
 
-#pragma mark - ANUniversalAdFetcherFoundationDelegate.
+#pragma mark - ANUniversalAdNativeFetcherDelegate.
 
 - (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
@@ -167,7 +167,6 @@ ANLogMark();
 
     return  delegateReturnDictionary;
 }
-
 
 
 
