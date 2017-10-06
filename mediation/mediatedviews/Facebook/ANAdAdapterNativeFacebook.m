@@ -83,8 +83,7 @@
     response.iconImageURL = nativeAd.icon.url;
     response.mainImageURL = nativeAd.coverImage.url;
     response.callToAction = nativeAd.callToAction;
-    response.rating = [[ANNativeAdStarRating alloc] initWithValue:nativeAd.starRating.value
-                                                        scale:nativeAd.starRating.scale];
+    
     response.socialContext = nativeAd.socialContext;
     [self.requestDelegate didLoadNativeAd:response];
 }

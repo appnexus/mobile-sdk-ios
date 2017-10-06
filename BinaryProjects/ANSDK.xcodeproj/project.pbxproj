@@ -818,6 +818,11 @@
 		607A211A1F8589E900BD8353 /* LICENSE_Millenial_Media.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE_Millenial_Media.txt; path = "../../../../../../../../../../../Downloads/mm-ios-ad-sdk-6.6.0-20170915-1413/LICENSE_Millenial_Media.txt"; sourceTree = "<group>"; };
 		607A21291F85EB7C00BD8353 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RFMAdSDK.bundle; sourceTree = "<group>"; };
 		607A212A1F85EB7C00BD8353 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RFMAdSDK.framework; sourceTree = "<group>"; };
+		608E47351F86E6B7009BB148 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
+		608E47361F86E6B7009BB148 /* NOTICE_Amazon.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE_Amazon.txt; sourceTree = "<group>"; };
+		608E47371F86E6B7009BB148 /* README_Amazon.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_Amazon.md; sourceTree = "<group>"; };
+		608E47381F86E6B7009BB148 /* LICENSE_Amazon.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE_Amazon.txt; sourceTree = "<group>"; };
+		608E47491F86E7FB009BB148 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		609732AE1E42E73D0061EC0A /* NSDictionary+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ANCategory.h"; sourceTree = "<group>"; };
 		609732AF1E42E73D0061EC0A /* NSDictionary+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ANCategory.m"; sourceTree = "<group>"; };
 		609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANInstreamVideoAd.h; sourceTree = "<group>"; };
@@ -914,9 +919,6 @@
 		8A8E0FE61AD45170004C5C50 /* ANAdAdapterBaseInMobi+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseInMobi+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A8E0FE81AD451DC004C5C50 /* ANAdAdapterBaseAmazon+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAmazon+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A92F9EA1D05E1B500F689C7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		8A944DDE19D5AF8C007AAAB0 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
-		8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "NOTICE-AMAZON.txt"; sourceTree = "<group>"; };
-		8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		8A949AB81ADF12EA00D83DCE /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
 		8A949ACE1ADF131500D83DCE /* libANSDKChartboostAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKChartboostAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A949ACF1ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialChartboost.h; sourceTree = "<group>"; };
@@ -1624,8 +1626,10 @@
 		8A944DDD19D5AF8C007AAAB0 /* AmazonSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8A944DDE19D5AF8C007AAAB0 /* AmazonAd.framework */,
-				8A944DDF19D5AF8C007AAAB0 /* NOTICE-AMAZON.txt */,
+				608E47351F86E6B7009BB148 /* AmazonAd.framework */,
+				608E47381F86E6B7009BB148 /* LICENSE_Amazon.txt */,
+				608E47361F86E6B7009BB148 /* NOTICE_Amazon.txt */,
+				608E47371F86E6B7009BB148 /* README_Amazon.md */,
 			);
 			path = AmazonSDK;
 			sourceTree = "<group>";
@@ -1633,7 +1637,7 @@
 		8A944DE019D5AF94007AAAB0 /* FacebookSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8A944DE119D5AF94007AAAB0 /* FBAudienceNetwork.framework */,
+				608E47491F86E7FB009BB148 /* FBAudienceNetwork.framework */,
 			);
 			name = FacebookSDK;
 			path = ../mediation/mediatedviews/Facebook/FacebookSDK;

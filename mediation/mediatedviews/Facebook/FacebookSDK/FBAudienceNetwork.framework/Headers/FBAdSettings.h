@@ -110,6 +110,12 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  */
 @property (class, nonatomic, assign) FBAdTestAdType testAdType;
 
+
+/**
+ Generates bidder token that needs to be included in the server side bid request to Facebook endpoint.
+ */
+@property (class, nonatomic, copy, readonly) NSString *bidderToken;
+
 /**
  Returns test mode on/off.
  */
