@@ -16,11 +16,24 @@
 #import "ANAdAdapterNativeFacebook.h"
 #import "ANLogging.h"
 
+
+
+#if DEBUG >= 1
+static BOOL  useTestDeviceHash  = YES;
+#else
+static BOOL  useTestDeviceHash  = NO;
+#endif
+
+
+
 @interface ANAdAdapterNativeFacebook ()
 
 @property (nonatomic) FBNativeAd *fbNativeAd;
 
 @end
+
+
+
 
 @implementation ANAdAdapterNativeFacebook
 
@@ -28,13 +41,22 @@
 @synthesize nativeAdDelegate = _nativeAdDelegate;
 @synthesize expired = _expired;
 
-#pragma mark ANNativeCustomAdapter
+
+
+#pragma mark - ANNativeCustomAdapter
 
 - (void)requestNativeAdWithServerParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)adUnitId
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+                       targetingParameters:(ANTargetingParameters *)targetingParameters
+{
     self.fbNativeAd = [[FBNativeAd alloc] initWithPlacementID:adUnitId];
     self.fbNativeAd.delegate = self;
+
+    if (useTestDeviceHash) {
+        [FBAdSettings setLogLevel:FBAdLogLevelLog];
+        [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
+    }
+
     [self.fbNativeAd loadAd];
 }
 
@@ -64,6 +86,8 @@
     self.fbNativeAd = nil;
 }
 
+
+
 #pragma mark - FBNativeAdDelegate
 
 - (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error {
@@ -83,8 +107,8 @@
     response.iconImageURL = nativeAd.icon.url;
     response.mainImageURL = nativeAd.coverImage.url;
     response.callToAction = nativeAd.callToAction;
-    response.rating = [[ANNativeAdStarRating alloc] initWithValue:nativeAd.starRating.value
-                                                        scale:nativeAd.starRating.scale];
+    response.rating = [[ANNativeAdStarRating alloc] initWithValue: nativeAd.starRating.value
+                                                            scale: nativeAd.starRating.scale ];
     response.socialContext = nativeAd.socialContext;
     [self.requestDelegate didLoadNativeAd:response];
 }

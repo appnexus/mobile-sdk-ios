@@ -40,6 +40,7 @@
 @property (nonatomic, readwrite, assign)  BOOL                               timeoutCanceled;
 
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
+
 @property (nonatomic, readwrite, strong)  NSDictionary                      *pitbullAdForDelayedCapture;
 
 // variables for measuring latency.
