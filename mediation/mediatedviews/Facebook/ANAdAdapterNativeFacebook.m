@@ -19,7 +19,7 @@
 
 
 #if DEBUG >= 1
-static BOOL  useTestDeviceHash  = YES;
+static BOOL  useTestDeviceHash  = NO;
 #else
 static BOOL  useTestDeviceHash  = NO;
 #endif
