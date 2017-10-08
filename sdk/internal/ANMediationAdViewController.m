@@ -51,14 +51,6 @@
 
 @end
 
-/* FIX -- update
- @interface ANAdFetcher ()
- - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
- @end
- */
-
-
-
 @implementation ANMediationAdViewController
 
 #pragma mark - Lifecycle.
@@ -512,7 +504,6 @@ ANLogMark();
     if (self.adFetcher && (self.latencyStop > 0)) {
         return [self.adFetcher getTotalLatency:self.latencyStop];
     }
-    // return -1 if invalid.
     return -1;
 }
 

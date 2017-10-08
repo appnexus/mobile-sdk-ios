@@ -32,6 +32,7 @@
 #import "ANSSMMediationAdViewController.h"
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
+#import "NSTimer+ANCategory.h"
 
 
 
@@ -57,6 +58,8 @@
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
+
+@property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 
 @end
 
@@ -88,9 +91,6 @@ ANLogMark();
     [self stopAdLoad];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    [self.connection cancel];
-//    [self.autoRefreshTimer invalidate];    //FIX -- where does timer live in UT?
-    [self clearMediationController];
 }
 
 - (void)clearMediationController {
@@ -117,18 +117,19 @@ ANLogMark();
 
 - (void)requestAd
 {
-ANLogMark();
+    ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
-
-
-    if (!self.isLoading) 
+    
+    [self markLatencyStart];
+    
+    if (!self.isLoading)
     {
         self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
         
         self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-            //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
-            //FIX -- clear if connection turns out not to be successful?
+        //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
+        //FIX -- clear if connection turns out not to be successful?
         
         
         if (!self.connection) {
@@ -136,9 +137,9 @@ ANLogMark();
             [self processFinalResponse:response];
         } else {
             ANLogDebug(@"Starting request: %@", request);
-
+            
             self.loading = YES;
-
+            
             ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
                                 @{kANUniversalAdFetcherAdRequestURLKey: urlString});
         }
@@ -148,6 +149,9 @@ ANLogMark();
 - (void)stopAdLoad
 {
 ANLogMark();
+   
+    [self stopAutoRefreshTimer];
+    
     [self.connection cancel];
     self.connection = nil;
     self.loading = NO;
@@ -156,6 +160,17 @@ ANLogMark();
     [self clearMediationController];
 }
 
+- (void) stopAutoRefreshTimer {
+    [self.autoRefreshTimer invalidate];
+    self.autoRefreshTimer = nil;
+}
+
+- (NSTimeInterval)getAutoRefreshFromDelegate {
+    if ([self.delegate respondsToSelector:@selector(autoRefreshIntervalForAdFetcher:)]) {
+        return [self.delegate autoRefreshIntervalForAdFetcher:self];
+    }
+    return 0.0f;
+}
 
 
 #pragma mark - Ad Response
@@ -167,7 +182,7 @@ ANLogMark();
     
     if (!containsAds) {
         ANLogWarn(@"response_no_ads");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        [self finishRequestWithErrorAndRefresh:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
     
@@ -180,11 +195,39 @@ ANLogMark();
     [self continueWaterfall];
 }
 
-- (void)finishRequestWithError:(NSError *)error 
-{
+- (void)finishRequestWithErrorAndRefresh:(NSError *)error {
+    
+    self.loading = NO;
+    
+    NSTimeInterval interval = [self getAutoRefreshFromDelegate];
+    if (interval > 0.0) {
+        ANLogInfo(@"No ad received. Will request ad in %f seconds. Error: %@", interval, error.localizedDescription);
+    } else {
+        ANLogInfo(@"No ad received. Error: %@", error.localizedDescription);
+    }
+    
     ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:error];
     [self processFinalResponse:response];
 }
+
+- (void) startAutoRefreshTimer {
+    if (!self.autoRefreshTimer) {
+        ANLogDebug(@"fetcher_stopped");
+    } else if ([self.autoRefreshTimer an_isScheduled]) {
+        ANLogDebug(@"AutoRefresh timer already scheduled.");
+    } else {
+        [self.autoRefreshTimer an_scheduleNow];
+    }
+}
+
+- (void)autoRefreshTimerDidFire:(NSTimer *)timer
+{
+    [self stopAdLoad];
+    
+    [self requestAd];
+    
+}
+
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
@@ -194,6 +237,25 @@ ANLogMark();
     
     if ([self.delegate respondsToSelector:@selector(universalAdFetcher:didFinishRequestWithResponse:)]) {
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
+    }
+    
+    [self startAutoRefreshTimer];
+
+}
+
+- (void)restartAutoRefreshTimer
+{
+    // stop old autoRefreshTimer
+    [self stopAutoRefreshTimer];
+    
+    // setup new autoRefreshTimer if refresh interval positive
+    NSTimeInterval interval = [self getAutoRefreshFromDelegate];
+    if (interval > 0.0f) {
+        self.autoRefreshTimer = [NSTimer timerWithTimeInterval:interval
+                                                        target:self
+                                                      selector:@selector(autoRefreshTimerDidFire:)
+                                                      userInfo:nil
+                                                       repeats:NO];
     }
 }
 
@@ -219,7 +281,7 @@ ANLogMark();
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
             [ANTrackerManager fireTrackerURL:self.noAdUrl];
         }
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        [self finishRequestWithErrorAndRefresh:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
     
@@ -366,6 +428,9 @@ ANLogMark();
         self.data = [NSMutableData data];
         ANLogDebug(@"Received response: %@", response);
         
+        [self restartAutoRefreshTimer];
+
+        
     } else {
         ANLogDebug(@"Received response from unknown");
     }
@@ -402,6 +467,10 @@ ANLogMark();
     if (connection == self.connection) {
         NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
         ANLogError(@"%@", connectionError);
+        
+        self.loading = NO;
+        [self restartAutoRefreshTimer];
+        
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:connectionError];
         [self processFinalResponse:response];
     }
@@ -465,6 +534,14 @@ ANLogMark();
 
 
 #pragma mark - Helper methods.
+
+/**
+ * Mark the beginning of an ad request for latency recording
+ */
+- (void)markLatencyStart {
+    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+}
+
 
 /**
  * RETURN: success  time difference since ad request start
@@ -538,6 +615,5 @@ ANLogMark();
     
     return sizeOfCreative;
 }
-
 
 @end
