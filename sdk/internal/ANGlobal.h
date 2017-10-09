@@ -25,7 +25,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"3.5.1"
+#define AN_SDK_VERSION                  @"3.6"
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
 #define APPNEXUS_MEDIUM_RECT_SIZE	CGSizeMake(300, 250)
@@ -104,15 +104,15 @@ BOOL ANIsFirstLaunch(void);
 NSString *ANUDID(void);
 NSString *ANErrorString(NSString *key);
 NSError *ANError(NSString *key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);
-NSBundle *ANResourcesBundle();
+NSBundle *ANResourcesBundle(void);
 NSString *ANPathForANResource(NSString *name, NSString *type);
 NSString *ANConvertToNSString(id value);
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
-NSString *ANMRAIDBundlePath();
+NSString *ANMRAIDBundlePath(void);
 BOOL ANHasHttpPrefix(NSString *url);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
-CGRect ANPortraitScreenBounds();
+CGRect ANPortraitScreenBounds(void);
 NSURLRequest *ANBasicRequestWithURL(NSURL *URL);
 NSNumber *ANiTunesIDForURL(NSURL *URL);
 BOOL ANCanPresentFromViewController(UIViewController *viewController);

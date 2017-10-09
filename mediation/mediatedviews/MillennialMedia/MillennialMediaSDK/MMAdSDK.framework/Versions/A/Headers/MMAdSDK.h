@@ -17,5 +17,6 @@
 #import "MMInterstitialAd.h"
 #import "MMNativeAd.h"
 #import "MMSDKErrors.h"
+#import "MMCreativeInfo.h"
 
 #endif

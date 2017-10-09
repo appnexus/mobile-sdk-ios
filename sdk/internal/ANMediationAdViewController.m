@@ -438,6 +438,7 @@ ANLogMark();
 
 
 
+
 #pragma mark - Timeout handler
 //FIX -- status of this?
 
@@ -564,5 +565,5 @@ ANLogMark();
     [self unregisterFromPitbullScreenCaptureNotifications];
 }
 
-
 @end
+

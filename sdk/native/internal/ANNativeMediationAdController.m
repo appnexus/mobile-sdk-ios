@@ -227,7 +227,7 @@
         }
 
         [self.adFetcher fireResponseURL:resultCBString reason:errorCode adObject:adObject auctionID:nil];
-    }];
+    } ];
 }
 
 - (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {

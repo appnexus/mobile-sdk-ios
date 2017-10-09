@@ -316,8 +316,8 @@
     }
 }
 
-- (void)an_extractWidthConstraint:(NSLayoutConstraint **)widthConstraint
-                 heightConstraint:(NSLayoutConstraint **)heightConstraint {
+- (void)an_extractWidthConstraint:(NSLayoutConstraint * __autoreleasing *)widthConstraint
+                 heightConstraint:(NSLayoutConstraint * __autoreleasing *)heightConstraint {
     [self.constraints enumerateObjectsUsingBlock:^(NSLayoutConstraint *existingConstraint, NSUInteger idx, BOOL *stop) {
         BOOL constraintOnlyOnSelf = existingConstraint.firstItem == self && existingConstraint.secondAttribute == NSLayoutAttributeNotAnAttribute && existingConstraint.secondItem == nil;
         BOOL constraintIsWidthConstraint = existingConstraint.firstAttribute == NSLayoutAttributeWidth && constraintOnlyOnSelf;
