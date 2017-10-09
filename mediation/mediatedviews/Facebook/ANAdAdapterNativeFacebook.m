@@ -18,14 +18,6 @@
 
 
 
-#if DEBUG >= 1
-static BOOL  useTestDeviceHash  = NO;
-#else
-static BOOL  useTestDeviceHash  = NO;
-#endif
-
-
-
 @interface ANAdAdapterNativeFacebook ()
 
 @property (nonatomic) FBNativeAd *fbNativeAd;
@@ -51,11 +43,6 @@ static BOOL  useTestDeviceHash  = NO;
 {
     self.fbNativeAd = [[FBNativeAd alloc] initWithPlacementID:adUnitId];
     self.fbNativeAd.delegate = self;
-
-    if (useTestDeviceHash) {
-        [FBAdSettings setLogLevel:FBAdLogLevelLog];
-        [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-    }
 
     [self.fbNativeAd loadAd];
 }
@@ -100,7 +87,7 @@ static BOOL  useTestDeviceHash  = NO;
 }
 
 - (void)nativeAdDidLoad:(FBNativeAd *)nativeAd {
-    ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
+    ANNativeMediationAdResponse *response = [[ANNativeMediationAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeFacebook];
     response.title = nativeAd.title;
     response.body = nativeAd.body;

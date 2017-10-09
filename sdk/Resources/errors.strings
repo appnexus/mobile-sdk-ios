@@ -31,7 +31,7 @@
 "response_received_unknown"="Received response from unknown";
 "resultcb_ignore_error %@%@"="Received resultCB response %@ with error %@";
 
-"native_request_invalid_response"="Expected a ANNativeMediatedAdResponse.";
+"native_request_invalid_response"="Expected a ANNativeMediationAdResponse.";
 
 "native_invalid_view"="A valid view is required for native ad response registration.";
 "native_invalid_rvc"="A valid root view controller is required for native ad response registration.";

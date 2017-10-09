@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "ANNativeMediatedAdController.h"
+#import "ANNativeMediationAdController.h"
 #import "ANNativeCustomAdapter.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
@@ -22,7 +22,7 @@
 
 
 
-@interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
+@interface ANNativeMediationAdController () <ANNativeCustomAdapterRequestDelegate>
 
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
 
@@ -39,15 +39,15 @@
 
 
 
-@implementation ANNativeMediatedAdController
+@implementation ANNativeMediationAdController
 
 + (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
-                  withDelegate: (id<ANNativeMediationAdControllerDelegate>)delegate
+                   withFetcher: (ANUniversalAdFetcher *)adFetcher
              adRequestDelegate: (id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate
 {
-    ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd: mediatedAd
-                                                                                       withDelegate: delegate
-                                                                                  adRequestDelegate: adRequestDelegate];
+    ANNativeMediationAdController *controller = [[ANNativeMediationAdController alloc] initMediatedAd: mediatedAd
+                                                                                          withFetcher: adFetcher
+                                                                                    adRequestDelegate: adRequestDelegate];
     if ([controller initializeRequest]) {
         return controller;
     } else {
@@ -56,13 +56,13 @@
 
 }
 
-- (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
-                  withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate
+- (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
+                   withFetcher: (ANUniversalAdFetcher *)adFetcher
+             adRequestDelegate: (id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate
 {
     self = [super init];
     if (self) {
-        _delegate = delegate;
+        _adFetcher = adFetcher;
         _adRequestDelegate = adRequestDelegate;
         _mediatedAd = mediatedAd;
     }
@@ -222,11 +222,11 @@
                                                         reason: errorCode ];
 
         // fireResulCB will clear the adapter if fetcher exists
-        if (!self.delegate) {
+        if (!self.adFetcher) {
             [self clearAdapter];
         }
 
-        [self.delegate fireResultCB:resultCBString reason:errorCode adObject:adObject];
+        [self.adFetcher fireResponseURL:resultCBString reason:errorCode adObject:adObject auctionID:nil];
     }];
 }
 
@@ -268,12 +268,12 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
 
 - (void)startTimeout {
     if (self.timeoutCanceled) return;
-    __weak ANNativeMediatedAdController *weakSelf = self;
+    __weak ANNativeMediationAdController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  kAppNexusMediationNetworkTimeoutInterval
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-                       ANNativeMediatedAdController *strongSelf = weakSelf;
+                       ANNativeMediationAdController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(@"mediation_timeout");
                        [strongSelf didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
@@ -317,8 +317,8 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
  * The running total latency of the ad call.
  */
 - (NSTimeInterval)getTotalLatency {
-    if (self.delegate && (self.latencyStop > 0)) {
-        return [self.delegate getTotalLatency:self.latencyStop];
+    if (self.adFetcher && (self.latencyStop > 0)) {
+        return [self.adFetcher getTotalLatency:self.latencyStop];
     }
     // return -1 if invalid.
     return -1;
@@ -326,7 +326,7 @@ ANLogMarkMessage(@"resultCBString=%@", resultCBString);
 
 #pragma mark - ANNativeCustomAdapterRequestDelegate
 
-- (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response {
+- (void)didLoadNativeAd:(ANNativeMediationAdResponse *)response {
     [self didReceiveAd:response];
 }
 

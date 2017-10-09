@@ -56,12 +56,12 @@
 #pragma mark - Lifecycle.
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
-                                    withFetcher:(ANUniversalAdFetcher *)fetcher
+                                    withFetcher:(ANUniversalAdFetcher *)adFetcher
                                  adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate
 {
 ANLogMark();
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
-    controller.adFetcher = fetcher;
+    controller.adFetcher = adFetcher;
     controller.adViewDelegate = adViewDelegate;
     
     if ([controller requestForAd:mediatedAd]) {

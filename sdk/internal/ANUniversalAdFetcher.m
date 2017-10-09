@@ -28,7 +28,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
-#import "ANNativeMediatedAdController.h"
+#import "ANNativeMediationAdController.h"
 #import "ANSSMMediationAdViewController.h"
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
@@ -56,7 +56,7 @@
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *standardAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
-@property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
+@property (nonatomic, readwrite, strong)  ANNativeMediationAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
 
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
@@ -103,7 +103,7 @@ ANLogMark();
     self.mediationController.adFetcher = nil;
     self.mediationController = nil;
 
-    self.nativeMediationController.delegate = nil;
+    self.nativeMediationController.adFetcher = nil;
     self.nativeMediationController = nil;
 
     self.ssmMediationController.adFetcher = nil;
@@ -376,9 +376,9 @@ ANLogMark();
 {
     if (mediatedAd.isAdTypeNative)
     {
-        self.nativeMediationController = [ANNativeMediatedAdController initMediatedAd: mediatedAd
-                                                                         withDelegate: self
-                                                                    adRequestDelegate: self.delegate ];
+        self.nativeMediationController = [ANNativeMediationAdController initMediatedAd: mediatedAd
+                                                                           withFetcher: self
+                                                                     adRequestDelegate: self.delegate ];
     } else {
         self.mediationController = [ANMediationAdViewController initMediatedAd: mediatedAd
                                                                    withFetcher: self
@@ -486,18 +486,6 @@ ANLogMark();
         return [self.delegate requestedSizeForAdFetcher:self];
     }
     return CGSizeZero;
-}
-
-
-
-#pragma mark - ANNativeMediationAdControllerDelegate.
-
-- (void)fireResultCB:(NSString *)resultCBString
-              reason:(ANAdResponseCode)reason
-            adObject:(id)adObject
-{
-ANLogMark();
-    [self fireResponseURL:resultCBString reason:reason adObject:adObject auctionID:nil];
 }
 
 

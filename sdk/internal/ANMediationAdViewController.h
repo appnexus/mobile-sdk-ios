@@ -27,7 +27,7 @@
 - (void)clearAdapter;
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
-                                    withFetcher:(ANUniversalAdFetcher *)fetcher
+                                    withFetcher:(ANUniversalAdFetcher *)adFetcher
                                  adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate;
 
 @end

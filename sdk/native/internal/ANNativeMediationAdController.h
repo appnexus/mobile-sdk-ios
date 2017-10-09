@@ -24,14 +24,14 @@
 
 
 
-@interface ANNativeMediatedAdController : NSObject
+@interface ANNativeMediationAdController : NSObject
 
 // Designated initializer
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
-                  withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
+                   withFetcher:(ANUniversalAdFetcher *)adFetcher
              adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
 
-@property (nonatomic, readwrite, weak)  id<ANNativeMediationAdControllerDelegate>  delegate;
+@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
 @property (nonatomic, readwrite, weak)  id<ANUniversalAdNativeFetcherDelegate>     adRequestDelegate;
 
 @end
@@ -42,10 +42,6 @@
 @protocol ANNativeMediationAdControllerDelegate <NSObject>
 
 @required
-
-- (void)fireResultCB:(NSString *)resultCBString
-              reason:(ANAdResponseCode)reason
-            adObject:(id)adObject;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 

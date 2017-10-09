@@ -15,7 +15,7 @@
 
 #import "ANAdConstants.h"
 #import "ANTargetingParameters.h"
-#import "ANNativeMediatedAdResponse.h"
+#import "ANNativeMediationAdResponse.h"
 
 
 
@@ -91,7 +91,7 @@
 @protocol ANNativeCustomAdapterRequestDelegate <NSObject>
 
 @required
-- (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response;
+- (void)didLoadNativeAd:(ANNativeMediationAdResponse *)response;
 - (void)didFailToLoadNativeAd:(ANAdResponseCode)errorCode;
 
 @end
