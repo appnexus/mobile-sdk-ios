@@ -1,6 +1,6 @@
 ## 3.6
 
-### Bug fixes & Updates
+###Mediated SDKs
 +Updated the following mediation adaptors which were updated to support iOS 11
 
 + AdMobSDK                         v7.24.1
