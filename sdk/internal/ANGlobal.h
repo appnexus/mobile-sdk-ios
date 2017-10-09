@@ -131,7 +131,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController);
 + (id) valueOfGetterProperty: (NSString *)stringOfGetterProperty
                    forObject: (id)objectImplementingGetterProperty;
 
-+ (void)runInBlock:(void (^)())block;
++ (void)runInBlock:(void (^)(void))block;
 
 
 @end
