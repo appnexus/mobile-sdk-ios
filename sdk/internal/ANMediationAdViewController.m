@@ -479,7 +479,6 @@ ANLogMark();
 
 
 - (void)runInBlock:(void (^)())block {
-ANLogMark();
     // nothing keeps 'block' alive, so we don't have a retain cycle
     dispatch_async(dispatch_get_main_queue(), ^{
         block();
@@ -613,5 +612,5 @@ ANLogMark();
     [self unregisterFromPitbullScreenCaptureNotifications];
 }
 
-
 @end
+

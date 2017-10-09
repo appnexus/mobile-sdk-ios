@@ -140,6 +140,8 @@
 
 @property (assign, readonly) BOOL shouldPrecache;
 
+@property (nonatomic, weak, setter = setDelegate:) id<RFMRewardedVideoDelegate> delegate;
+
 /**
  * Create an instance of RFMRewardedVideo.
  *

@@ -1,3 +1,14 @@
+## 3.6
+
+###Mediated SDKs
++Updated the following mediation adaptors which were updated to support iOS 11
+
++ AdMobSDK                         v7.24.1
++ MillenialMediaSDK              v6.6.0
++ RubiconSDK                        v6.4.0
++ AmazonSDK                        v2.2.15.1
++ FacebookSDK                     v4.26.0
+
 ## 3.5.1
 
 ### Bug Fixes and Updates

@@ -134,7 +134,7 @@ typedef NS_ENUM(NSUInteger, AdColonyConfigurationState) {
                                                       sharedInstance.configurationState = AdColonyConfigurationStateInitialized;
                                                       ANLogTrace(@"AdColony version %@ is READY to serve ads.  \n\tzones=%@", [AdColony getSDKVersion], zones);
 
-                                                      for (void(^action)() in sharedInstance.completionActionArray) {
+                                                      for (void(^action)(void) in sharedInstance.completionActionArray) {
                                                           action();
                                                       }
                                                   }

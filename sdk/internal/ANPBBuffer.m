@@ -229,7 +229,7 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
         forAuctionID:(NSString *)auctionID
           afterDelay:(int64_t)delay {
     if (view && auctionID && ![ANPBBuffer containsImageForID:auctionID]) {
-        void (^takeScreenshot)() = ^() {
+        void (^takeScreenshot)(void) = ^() {
             UIView *strongView = view;
             if (strongView) {
                 UIImage *image = [ANPBBuffer captureView:strongView];

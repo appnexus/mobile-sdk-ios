@@ -37,8 +37,10 @@ typedef NS_OPTIONS(NSInteger, FBNativeAdsCachePolicy) {
     FBNativeAdsCachePolicyCoverImage = 1 << 2,
     /// Video is cached
     FBNativeAdsCachePolicyVideo = 1 << 3,
+    /// AdChoices icon is cached
+    FBNativeAdsCachePolicyAdChoices = 1 << 4,
     /// All content is cached
-    FBNativeAdsCachePolicyAll = FBNativeAdsCachePolicyCoverImage | FBNativeAdsCachePolicyIcon | FBNativeAdsCachePolicyVideo,
+    FBNativeAdsCachePolicyAll = FBNativeAdsCachePolicyCoverImage | FBNativeAdsCachePolicyIcon | FBNativeAdsCachePolicyVideo | FBNativeAdsCachePolicyAdChoices,
 };
 
 /**
@@ -156,6 +158,13 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
   of `FBNativeAdDelegate` if you would like to be notified as loading succeeds or fails.
  */
 - (void)loadAd;
+
+/**
+  Begins loading the FBNativeAd content from a bid payload attained through a server side bid.
+
+ - Parameter bidPayload: The payload of the ad bid. You can get your bid payload from Facebook bidder endpoint.
+ */
+- (void)loadAdWithBidPayload:(nonnull NSString *)bidPayload;
 
 /**
   Call isAdValid to check whether native ad is valid & internal consistent prior rendering using its properties. If

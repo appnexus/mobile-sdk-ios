@@ -8,6 +8,8 @@
 #ifndef MMAdSDK_Errors_h
 #define MMAdSDK_Errors_h
 
+#import <Foundation/Foundation.h>
+
 #pragma mark - Error codes
 
 extern NSString* __nonnull const MMSDKErrorDomain;
@@ -51,7 +53,7 @@ typedef NS_ENUM(NSInteger, MMSDKError) {
     /** An error was encountered during VAST parsing. */
     MMSDKErrorVASTParserFailure = -20,
     /** The client SDK being mediated to experienced an error. */
-    MMSDKErrorClientMediationError = 21,
+    MMSDKErrorClientMediationError = -21,
     /** SDK requests have been disabled for this application. Please contact your Account Manager to resolve the issue. */
     MMSDKErrorRequestsDisabled = -22,
     /** The video player wasn't expanded when collapse called. */
@@ -77,7 +79,13 @@ typedef NS_ENUM(NSInteger, MMSDKError) {
     /** A request abort was requested, but the request failed due to an error. */
     MMSDKErrorFailureDuringAbort = -33,
     /** A request abort was requested, but no request was in progress. */
-    MMSDKErrorNoRequestAbort = -34
+    MMSDKErrorNoRequestAbort = -34,
+    /** A bid request yielded an error instead. */
+    MMSDKErrorBidRequestFailure = -35,
+    /** An internal error indicating required information was missing. */
+    MMSDKErrorMissingInformation = -36,
+    /** No registered adpater for the requested ad type. */
+    MMSDKErrorMissingAdapter = -37,
 };
 
 #endif
