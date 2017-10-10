@@ -171,24 +171,6 @@
     }
 }
 
-- (void)testMoPub {
-    [self stubRequestWithResponse:@"mopub_mediated_response"];
-    [self.adRequest loadAd];
-    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
-    if (self.successfulAdCall) {
-        [self validateGenericAdResponse];
-        XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeMoPub);
-        XCTAssertNil(self.adResponse.iconImage);
-        XCTAssertNil(self.adResponse.mainImage);
-    } else {
-        XCTAssertNotNil(self.adRequestError);
-    }
-}
-
 - (void)testInvalidMediationAdapter {
     [self stubRequestWithResponse:@"custom_adapter_mediated_response"];
     [self.adRequest loadAd];

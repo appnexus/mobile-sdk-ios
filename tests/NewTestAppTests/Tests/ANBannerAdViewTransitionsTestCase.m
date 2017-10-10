@@ -16,7 +16,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "ANBannerAdView.h"
-#import "ANAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
 #import "XCTestCase+ANCategory.h"
 #import "XCTestCase+ANBannerAdView.h"
 #import "ANLogManager.h"

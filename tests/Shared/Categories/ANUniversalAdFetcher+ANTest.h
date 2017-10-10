@@ -13,14 +13,14 @@
  limitations under the License.
  */
 
-#import "ANAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANMRAIDContainerView.h"
 #import "ANStandardAd.h"
 
-static NSString *const kANAdFetcherFireResultCBRequestedNotification = @"ANAdFetcherFireResultCBRequested";
-static NSString *const kANAdFetcherFireResultCBRequestedReason = @"ANAdFetcherFireResultCBRequestedReason";
+static NSString *const  kANUniversalAdFetcherFireResultCBRequestedNotification  = @"kANUniversalAdFetcherFireResultCBRequestedNotification";
+static NSString *const  kANUniversalAdFetcherFireResultCBRequestedReason        = @"kANUniversalAdFetcherFireResultCBRequestedReason";
 
-@interface ANAdFetcher (ANTest)
+@interface ANUniversalAdFetcher (ANTest)
 
 @property (nonatomic, readwrite, strong) ANMRAIDContainerView *standardAdView;
 

@@ -61,7 +61,6 @@
 		60B6A1B71E732F8F00ED7DB8 /* ANUniversalTagRequestBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B6A1B61E732F8F00ED7DB8 /* ANUniversalTagRequestBuilderTests.m */; };
 		60B6A1D21E734E7D00ED7DB8 /* TestANUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B6A1D11E734E7D00ED7DB8 /* TestANUniversalFetcher.m */; };
 		8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */; };
-		8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FD19DB1E150090EBED /* ANAdFetcher+ANTest.m */; };
 		8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */; };
 		8A0AA45719DB2CB4005EC52C /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0119DB1E150090EBED /* ANAdWebViewController+ANTest.m */; };
 		8A0AA45819DB2CB4005EC52C /* ANBannerAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0319DB1E150090EBED /* ANBannerAdView+ANTest.m */; };
@@ -637,6 +636,8 @@
 		4F63B8A81D91901300E22FE0 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MRAID.bundle; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MRAID.bundle; sourceTree = "<group>"; };
 		4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachabilityTestCase.m; sourceTree = "<group>"; };
 		4F76263C1F8D416D00E0279D /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = "KIF--v3.6.0/KIF.xcodeproj"; sourceTree = "<group>"; };
+		4F985E671F8D58DB00C4B5B3 /* ANUniversalAdFetcher+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANUniversalAdFetcher+ANTest.h"; sourceTree = "<group>"; };
+		4F985E681F8D590E00C4B5B3 /* ANUniversalAdFetcher+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANUniversalAdFetcher+ANTest.m"; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -812,8 +813,6 @@
 		8AA009E319DB1D270090EBED /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AmazonAd.framework; path = ../mediation/mediatedviews/Amazon/AmazonSDK/AmazonAd.framework; sourceTree = "<group>"; };
 		8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = ../mediation/mediatedviews/Facebook/FacebookSDK/FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		8AA009EB19DB1D530090EBED /* libMoPubSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMoPubSDK.a; path = ../mediation/mediatedviews/MoPub/MoPubSDK/libMoPubSDK.a; sourceTree = "<group>"; };
-		8AA009FC19DB1E150090EBED /* ANAdFetcher+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdFetcher+ANTest.h"; sourceTree = "<group>"; };
-		8AA009FD19DB1E150090EBED /* ANAdFetcher+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANAdFetcher+ANTest.m"; sourceTree = "<group>"; };
 		8AA009FE19DB1E150090EBED /* ANAdView+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdView+ANTest.h"; sourceTree = "<group>"; };
 		8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANAdView+ANTest.m"; sourceTree = "<group>"; };
 		8AA00A0019DB1E150090EBED /* ANAdWebViewController+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdWebViewController+ANTest.h"; sourceTree = "<group>"; };
@@ -1514,8 +1513,6 @@
 				8AA00A2C19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.m */,
 				8A0EFA921B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.h */,
 				8A0EFA931B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m */,
-				8AA009FC19DB1E150090EBED /* ANAdFetcher+ANTest.h */,
-				8AA009FD19DB1E150090EBED /* ANAdFetcher+ANTest.m */,
 				8AA009FE19DB1E150090EBED /* ANAdView+ANTest.h */,
 				8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */,
 				8AA00A0019DB1E150090EBED /* ANAdWebViewController+ANTest.h */,
@@ -1532,6 +1529,8 @@
 				8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */,
 				8A33A5111A7C264D00F8ED5E /* ANTrackerManager+ANTest.h */,
 				8A33A5121A7C264D00F8ED5E /* ANTrackerManager+ANTest.m */,
+				4F985E671F8D58DB00C4B5B3 /* ANUniversalAdFetcher+ANTest.h */,
+				4F985E681F8D590E00C4B5B3 /* ANUniversalAdFetcher+ANTest.m */,
 				8AA00A0819DB1E150090EBED /* NSObject+Swizzling.h */,
 				8AA00A0919DB1E150090EBED /* NSObject+Swizzling.m */,
 				8AA00A0A19DB1E150090EBED /* XCTestCase+ANAdResponse.h */,
@@ -2362,7 +2361,6 @@
 				8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */,
 				8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
 				8A0AA47719DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
-				8A0AA45519DB2CB4005EC52C /* ANAdFetcher+ANTest.m in Sources */,
 				8A0AA46A19DB30A2005EC52C /* ANAdResponseTestCase.m in Sources */,
 				8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */,
 				8A0AA46B19DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m in Sources */,

@@ -15,7 +15,7 @@
 
 #import <XCTest/XCTest.h>
 #import "ANBannerAdView.h"
-#import "ANAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
 
 @interface XCTestCase (ANBannerAdView)
 
