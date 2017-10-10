@@ -50,7 +50,7 @@
 @property (nonatomic, readwrite, getter=isLoading)  BOOL    loading;
 
 
-// NB  Protocol type of delegate can be ANUniversalAdFetcherDelegate or ANUniversalAdNativeFetcherDelegate.
+// NB  Protocol type of delegate can be ANUniversalAdFetcherDelegate or ANUniversalNativeAdFetcherDelegate.
 //
 @property (nonatomic, readwrite, weak)    id  delegate;
 

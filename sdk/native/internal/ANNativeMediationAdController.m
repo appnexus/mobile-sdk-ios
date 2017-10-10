@@ -43,7 +43,7 @@
 
 + (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
                    withFetcher: (ANUniversalAdFetcher *)adFetcher
-             adRequestDelegate: (id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate
+             adRequestDelegate: (id<ANUniversalNativeAdFetcherDelegate>)adRequestDelegate
 {
     ANNativeMediationAdController *controller = [[ANNativeMediationAdController alloc] initMediatedAd: mediatedAd
                                                                                           withFetcher: adFetcher
@@ -58,7 +58,7 @@
 
 - (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
                    withFetcher: (ANUniversalAdFetcher *)adFetcher
-             adRequestDelegate: (id<ANUniversalAdNativeFetcherDelegate>)adRequestDelegate
+             adRequestDelegate: (id<ANUniversalNativeAdFetcherDelegate>)adRequestDelegate
 {
     self = [super init];
     if (self) {
@@ -218,50 +218,46 @@
 {
     // use queue to force return
     [ANGlobal runInBlock:^(void) {
-        NSString *resultCBString = [self createResultCBRequest: self.mediatedAd.responseURL
-                                                        reason: errorCode ];
+        NSString *responseURLString = [self createResponseURLRequest: self.mediatedAd.responseURL
+                                                              reason: errorCode ];
 
         // fireResulCB will clear the adapter if fetcher exists
         if (!self.adFetcher) {
             [self clearAdapter];
         }
 
-        [self.adFetcher fireResponseURL:resultCBString reason:errorCode adObject:adObject auctionID:nil];
+        [self.adFetcher fireResponseURL:responseURLString reason:errorCode adObject:adObject auctionID:nil];
     } ];
 }
 
-- (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {
+- (NSString *)createResponseURLRequest:(NSString *)baseString reason:(int)reasonCode {
     if ([baseString length] < 1) {
         return @"";
     }
     
     // append reason code
-    NSString *resultCBString = [baseString
-                                an_stringByAppendingUrlParameter:@"reason"
-                                value:[NSString stringWithFormat:@"%d",reasonCode]];
+    NSString *responseURLString = [baseString an_stringByAppendingUrlParameter: @"reason"
+                                                                         value: [NSString stringWithFormat:@"%d",reasonCode]];
     
     // append idfa
-    resultCBString = [resultCBString
-                      an_stringByAppendingUrlParameter:@"idfa"
-                      value:ANUDID()];
+    responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"idfa"
+                                                                      value: ANUDID()];
     
     // append latency measurements
     NSTimeInterval latency = [self getLatency] * 1000; // secs to ms
     NSTimeInterval totalLatency = [self getTotalLatency] * 1000; // secs to ms
     
     if (latency > 0) {
-        resultCBString = [resultCBString
-                          an_stringByAppendingUrlParameter:@"latency"
-                          value:[NSString stringWithFormat:@"%.0f", latency]];
+        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"latency"
+                                                                          value: [NSString stringWithFormat:@"%.0f", latency]];
     }
     if (totalLatency > 0) {
-        resultCBString = [resultCBString
-                          an_stringByAppendingUrlParameter:@"total_latency"
-                          value:[NSString stringWithFormat:@"%.0f", totalLatency]];
+        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"total_latency"
+                                                                          value: [NSString stringWithFormat:@"%.0f", totalLatency]];
     }
 
-ANLogMarkMessage(@"resultCBString=%@", resultCBString); 
-    return resultCBString;
+ANLogMarkMessage(@"responseURLString=%@", responseURLString);
+    return responseURLString;
 }
 
 #pragma mark - Timeout handler

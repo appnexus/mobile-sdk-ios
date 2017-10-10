@@ -38,7 +38,7 @@
 
 @implementation ANUniversalTagRequestBuilder
 
-// NB  Protocol type of adFetcherDelegate can be ANUniversalAdFetcherDelegate or ANUniversalAdNativeFetcherDelegate.
+// NB  Protocol type of adFetcherDelegate can be ANUniversalAdFetcherDelegate or ANUniversalNativeAdFetcherDelegate.
 //
 + (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id)adFetcherDelegate
                                       baseUrlString:(NSString *)baseUrlString

@@ -36,8 +36,6 @@
 		4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */; };
 		4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */; };
 		4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */; };
-		601BDD7B1E2FCA26002698D7 /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */; };
-		601BDD7C1E2FCA26002698D7 /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */; };
 		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
 		60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */; };
 		60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */; };
@@ -753,8 +751,6 @@
 		4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerInfo.m; sourceTree = "<group>"; };
 		4FA566E91F4B94D3004652AB /* ANTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerManager.h; sourceTree = "<group>"; };
 		4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManager.m; sourceTree = "<group>"; };
-		601BDD791E2FCA26002698D7 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = ../RubiconSDK/RFMAdSDK.bundle; sourceTree = "<group>"; };
-		601BDD7A1E2FCA26002698D7 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RFMAdSDK.framework; path = ../RubiconSDK/RFMAdSDK.framework; sourceTree = "<group>"; };
 		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelDelegate.h; sourceTree = "<group>"; };
 		60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAd.h; sourceTree = "<group>"; };

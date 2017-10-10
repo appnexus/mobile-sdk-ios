@@ -32,7 +32,7 @@
              adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
 
 @property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
-@property (nonatomic, readwrite, weak)  id<ANUniversalAdNativeFetcherDelegate>     adRequestDelegate;
+@property (nonatomic, readwrite, weak)  id<ANUniversalNativeAdFetcherDelegate>     adRequestDelegate;
 
 @end
 
