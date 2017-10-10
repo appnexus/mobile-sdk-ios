@@ -67,7 +67,9 @@
  @param block The block of code to be executed.
  @param returnValue The value to return from @c +[UIApplication openURL:].
  */
-- (void)waitForApplicationToOpenURLWithScheme:(NSString *)URLScheme whileExecutingBlock:(void (^)(void))block returning:(BOOL)returnValue;
+- (void)waitForApplicationToOpenURLWithScheme:(NSString *)URLScheme
+                          whileExecutingBlock:(void (^)(void))block
+returning:(BOOL)returnValue;
 
 /*!
  @abstract Captured a screenshot of the current screen and writes it to disk with an optional description.

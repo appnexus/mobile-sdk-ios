@@ -26,7 +26,7 @@
     return [self waitForNotificationName:name object:object whileExecutingBlock:block complete:nil];
 }
 
-- (NSNotification *)waitForNotificationName:(NSString *)name object:(id)object whileExecutingBlock:(void(^)(void))block complete:(void(^)())complete
+- (NSNotification *)waitForNotificationName:(NSString *)name object:(id)object whileExecutingBlock:(void(^)(void))block complete:(void(^)(void))complete
 {
     __block NSNotification *detectedNotification = nil;
     id observer = [[NSNotificationCenter defaultCenter] addObserverForName:name object:object queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -67,7 +67,10 @@
     [self waitForApplicationToOpenURL:nil whileExecutingBlock:block returning:returnValue];
 }
 
-- (void)waitForApplicationToOpenURLWithScheme:(NSString *)URLScheme whileExecutingBlock:(void (^)())block returning:(BOOL)returnValue {
+- (void)waitForApplicationToOpenURLWithScheme: (NSString *)URLScheme
+                          whileExecutingBlock: (void (^)(void))block
+                                    returning: (BOOL)returnValue
+{
     [self waitForApplicationToOpenURLMatchingBlock:^(NSURL *actualURL){
         if (URLScheme && ![URLScheme isEqualToString:actualURL.scheme]) {
             [self failWithError:[NSError KIFErrorWithFormat:@"Expected %@ to start with %@", actualURL.absoluteString, URLScheme] stopTest:YES];
@@ -84,7 +87,7 @@
     } whileExecutingBlock:block returning:returnValue];
 }
 
-- (void)waitForApplicationToOpenURLMatchingBlock:(void (^)(NSURL *actualURL))URLMatcherBlock whileExecutingBlock:(void (^)(void))block returning:(BOOL)returnValue
+- (void)waitForApplicationToOpenURLMatchingBlock:(void (^)(NSURL *actualURL))URLMatcherBlock whileExecutingBlock:(void (^)
 {
     [UIApplication startMockingOpenURLWithReturnValue:returnValue];
 
