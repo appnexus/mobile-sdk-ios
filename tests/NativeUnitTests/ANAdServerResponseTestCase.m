@@ -19,7 +19,7 @@
 #import "ANUniversalTagAdServerResponse.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANMediatedAd.h"
-#import "ANNativeMediatedAdResponse.h"
+#import "ANNativeMediationAdResponse.h"
 #import "ANNativeStandardAdResponse.h"
 
 
@@ -52,7 +52,7 @@
 
     XCTAssertTrue([response.ads count] > 0);
 
-    ANNativeMediatedAdResponse  *nativeAd  = [response.ads firstObject];
+    ANNativeMediationAdResponse  *nativeAd  = [response.ads firstObject];
 
     XCTAssertNotNil(nativeAd.rating);
     XCTAssertEqual(nativeAd.rating.scale, 5);
@@ -90,7 +90,7 @@
 
     XCTAssertTrue([response.ads count] > 0);
 
-    ANNativeMediatedAdResponse  *nativeAd  = [response.ads firstObject];
+    ANNativeMediationAdResponse  *nativeAd  = [response.ads firstObject];
     
     XCTAssertTrue(nativeAd.title);
     XCTAssertTrue(nativeAd.body);

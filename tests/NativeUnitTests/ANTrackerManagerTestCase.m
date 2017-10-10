@@ -14,22 +14,22 @@
  */
 
 #import <XCTest/XCTest.h>
-#import "ANNativeImpressionTrackerManager.h"
+#import "ANTrackerManager.h"
 #import "ANReachability+ANTest.h"
 #import "XCTestCase+ANCategory.h"
 
 #import "ANHTTPStubbingManager.h"
-#import "ANNativeImpressionTrackerManager+ANTest.h"
+#import "ANTrackerManager+ANTest.h"
 #import "NSTimer+ANCategory.h"
 
-@interface ANNativeImpressionTrackerManagerTestCase : XCTestCase
+@interface ANTrackerManagerTestCase : XCTestCase
 
-@property (nonatomic, readwrite, strong) NSURL *URL;
-@property (nonatomic, readwrite, assign) BOOL urlWasFired;
+@property (nonatomic, readwrite, strong)  NSString  *urlString;
+@property (nonatomic, readwrite, assign)  BOOL       urlWasFired;
 
 @end
 
-@implementation ANNativeImpressionTrackerManagerTestCase
+@implementation ANTrackerManagerTestCase
 
 - (void)setUp {
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
@@ -48,12 +48,13 @@
                                                  name:kANHTTPStubURLProtocolRequestDidLoadNotification
                                                object:nil];
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:YES];
-    self.URL = [NSURL URLWithString:@"https://acdn.adnxs.com/mobile/native_test/empty_response.json"];
-    [ANNativeImpressionTrackerManager fireImpressionTrackerURL:self.URL];
+
+    self.urlString = @"https://acdn.adnxs.com/mobile/native_test/empty_response.json";
+    [ANTrackerManager fireTrackerURL:self.urlString];
     [XCTestCase delayForTimeInterval:3.0];
     XCTAssertFalse(self.urlWasFired);
     
-    NSTimer *fireTimer = [ANNativeImpressionTrackerManager sharedManager].impressionTrackerRetryTimer;
+    NSTimer *fireTimer = [ANTrackerManager sharedManager].impressionTrackerRetryTimer;
     XCTAssertTrue(fireTimer.an_isScheduled);
     
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:NO];
@@ -65,7 +66,7 @@
 
 - (void)requestLoaded:(NSNotification *)notification {
     NSURLRequest *request = notification.userInfo[kANHTTPStubURLProtocolRequest];
-    if (self.URL && [request.URL isEqual:self.URL]) {
+    if ([[request.URL absoluteString] isEqual:self.urlString]) {
         self.urlWasFired = YES;
     }
 }
