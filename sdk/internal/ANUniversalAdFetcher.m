@@ -28,7 +28,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
-#import "ANNativeMediationAdController.h"
+#import "ANNativeMediatedAdController.h"
 #import "ANSSMMediationAdViewController.h"
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
@@ -56,7 +56,7 @@
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *standardAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
-@property (nonatomic, readwrite, strong)  ANNativeMediationAdController      *nativeMediationController;
+@property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
 
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
@@ -376,7 +376,7 @@ ANLogMark();
 {
     if (mediatedAd.isAdTypeNative)
     {
-        self.nativeMediationController = [ANNativeMediationAdController initMediatedAd: mediatedAd
+        self.nativeMediationController = [ANNativeMediatedAdController initMediatedAd: mediatedAd
                                                                            withFetcher: self
                                                                      adRequestDelegate: self.delegate ];
     } else {

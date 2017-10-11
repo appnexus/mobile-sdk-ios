@@ -27,4 +27,4 @@
 #import "ANNativeAdResponse.h"
 #import "ANNativeAdStarRating.h"
 #import "ANNativeCustomAdapter.h"
-#import "ANNativeMediationAdResponse.h"
+#import "ANNativeMediatedAdResponse.h"

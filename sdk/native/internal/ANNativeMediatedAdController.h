@@ -24,7 +24,7 @@
 
 
 
-@interface ANNativeMediationAdController : NSObject
+@interface ANNativeMediatedAdController : NSObject
 
 // Designated initializer
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd

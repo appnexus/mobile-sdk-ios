@@ -143,7 +143,7 @@ ANLogTrace(@"");
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeAppInstallAd:(GADNativeAppInstallAd *)nativeAppInstallAd {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.nativeAppInstallAd = nativeAppInstallAd;
-    ANNativeMediationAdResponse *response = [[ANNativeMediationAdResponse alloc] initWithCustomAdapter:self
+    ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeAdMob];
     nativeAppInstallAd.delegate = self;
     response.title = nativeAppInstallAd.headline;
@@ -162,7 +162,7 @@ ANLogTrace(@"");
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeContentAd:(GADNativeContentAd *)nativeContentAd {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.nativeContentAd = nativeContentAd;
-    ANNativeMediationAdResponse *response = [[ANNativeMediationAdResponse alloc] initWithCustomAdapter:self
+    ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeAdMob];
     nativeContentAd.delegate = self;
     response.title = nativeContentAd.headline;

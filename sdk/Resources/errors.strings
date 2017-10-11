@@ -29,7 +29,7 @@
 "no_ad_received_error %@"="No ad received. Error: %@";
 "response_received %@"="Received ad server response: %@";
 "response_received_unknown"="Received response from unknown";
-"native_request_invalid_response"="Expected a ANNativeMediationAdResponse.";
+"native_request_invalid_response"="Expected a ANNativeMediatedAdResponse.";
 "native_invalid_view"="A valid view is required for native ad response registration.";
 "native_invalid_rvc"="A valid root view controller is required for native ad response registration.";
 "native_expired_response"="The native response is expired, cannot use it for tracking";

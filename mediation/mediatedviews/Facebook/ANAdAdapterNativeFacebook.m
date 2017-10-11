@@ -87,7 +87,7 @@
 }
 
 - (void)nativeAdDidLoad:(FBNativeAd *)nativeAd {
-    ANNativeMediationAdResponse *response = [[ANNativeMediationAdResponse alloc] initWithCustomAdapter:self
+    ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeFacebook];
     response.title = nativeAd.title;
     response.body = nativeAd.body;

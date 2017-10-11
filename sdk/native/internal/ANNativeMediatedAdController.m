@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "ANNativeMediationAdController.h"
+#import "ANNativeMediatedAdController.h"
 #import "ANNativeCustomAdapter.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
@@ -22,7 +22,7 @@
 
 
 
-@interface ANNativeMediationAdController () <ANNativeCustomAdapterRequestDelegate>
+@interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
 
 @property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
 
@@ -39,13 +39,13 @@
 
 
 
-@implementation ANNativeMediationAdController
+@implementation ANNativeMediatedAdController
 
 + (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
                    withFetcher: (ANUniversalAdFetcher *)adFetcher
              adRequestDelegate: (id<ANUniversalNativeAdFetcherDelegate>)adRequestDelegate
 {
-    ANNativeMediationAdController *controller = [[ANNativeMediationAdController alloc] initMediatedAd: mediatedAd
+    ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd: mediatedAd
                                                                                           withFetcher: adFetcher
                                                                                     adRequestDelegate: adRequestDelegate];
     if ([controller initializeRequest]) {
@@ -264,12 +264,12 @@ ANLogMarkMessage(@"responseURLString=%@", responseURLString);
 
 - (void)startTimeout {
     if (self.timeoutCanceled) return;
-    __weak ANNativeMediationAdController *weakSelf = self;
+    __weak ANNativeMediatedAdController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  kAppNexusMediationNetworkTimeoutInterval
                                  * NSEC_PER_SEC),
                    dispatch_get_main_queue(), ^{
-                       ANNativeMediationAdController *strongSelf = weakSelf;
+                       ANNativeMediatedAdController *strongSelf = weakSelf;
                        if (!strongSelf || strongSelf.timeoutCanceled) return;
                        ANLogWarn(@"mediation_timeout");
                        [strongSelf didFailToReceiveAd:(ANAdResponseCode)ANAdResponseInternalError];
@@ -322,7 +322,7 @@ ANLogMarkMessage(@"responseURLString=%@", responseURLString);
 
 #pragma mark - ANNativeCustomAdapterRequestDelegate
 
-- (void)didLoadNativeAd:(ANNativeMediationAdResponse *)response {
+- (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response {
     [self didReceiveAd:response];
 }
 

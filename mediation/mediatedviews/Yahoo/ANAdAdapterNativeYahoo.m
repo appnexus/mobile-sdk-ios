@@ -15,7 +15,7 @@
 
 #import "ANAdAdapterNativeYahoo.h"
 #import "ANAdAdapterBaseYahoo+PrivateMethods.h"
-#import "ANNativeMediationAdResponse.h"
+#import "ANNativeMediatedAdResponse.h"
 #import "ANLogging.h"
 #import "FlurryAdNative.h"
 
@@ -74,7 +74,7 @@
 
 - (void)adNativeDidFetchAd:(FlurryAdNative *)nativeAd {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    ANNativeMediationAdResponse *response = [[ANNativeMediationAdResponse alloc] initWithCustomAdapter:self
+    ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeYahoo];
     NSMutableDictionary *customElements = [[NSMutableDictionary alloc] init];
     ANNativeAdStarRating *starRating = nil;

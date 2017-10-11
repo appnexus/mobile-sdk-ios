@@ -22,7 +22,7 @@
  * by a custom adapter.
  * @see ANNativeAdResponse for descriptions of all the properties.
  */
-@interface ANNativeMediationAdResponse : ANNativeAdResponse
+@interface ANNativeMediatedAdResponse : ANNativeAdResponse
 
 /*!
  * Designated initializer.

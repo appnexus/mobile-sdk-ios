@@ -13,21 +13,21 @@
  limitations under the License.
  */
 
-#import "ANNativeMediationAdResponse.h"
+#import "ANNativeMediatedAdResponse.h"
 #import "ANNativeCustomAdapter.h"
 #import "ANLogging.h"
 #import "ANGlobal.h"
 #import "UIView+ANNativeAdCategory.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
 
-@interface ANNativeMediationAdResponse () <ANNativeCustomAdapterAdDelegate>
+@interface ANNativeMediatedAdResponse () <ANNativeCustomAdapterAdDelegate>
 
 @property (nonatomic, readwrite, strong) id<ANNativeCustomAdapter> adapter;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
 
 @end
 
-@implementation ANNativeMediationAdResponse
+@implementation ANNativeMediatedAdResponse
 
 @synthesize title = _title;
 @synthesize body = _body;
