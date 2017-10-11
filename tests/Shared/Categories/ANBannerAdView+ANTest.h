@@ -14,13 +14,13 @@
  */
 
 #import "ANBannerAdView.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANAdFetcher.h"
 
-@interface ANBannerAdView (ANTest) <ANUniversalAdFetcherDelegate>
+@interface ANBannerAdView (ANTest) <ANAdFetcherDelegate>
 
 @property (nonatomic) UIView *contentView;
 @property (nonatomic) NSNumber *transitionInProgress;
 
-- (void)adFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
+- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
 
 @end
