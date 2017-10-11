@@ -18,83 +18,72 @@
 #import "XCTestCase+ANAdResponse.h"
 #import "XCTestCase+ANBannerAdView.h"
 #import "ANMediatedAd.h"
-//#import "ANAdRequestUrl.h"    //FIX -- toss
+#import "ANAdRequestUrl.h"
 #import "ANBannerAdView+ANTest.h"
-#import "ANStandardAd.h"
-
-
 
 @interface ANAdResponseTestCase : XCTestCase
 
 @end
-
-
 
 @implementation ANAdResponseTestCase
 
 #pragma mark - Local Tests
 
 - (void)testLocalSuccessfulMRAIDResponse {
-    ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMRAID];
+    ANAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMRAID];
 //    XCTAssert(response.isMraid == YES);
-
-    ANStandardAd  *standardAd  = response.ads[0];
-
-    XCTAssert([standardAd.type isEqualToString:@"banner"]);
-    XCTAssert([standardAd.height isEqualToString:@"50"]);
-    XCTAssert([standardAd.width isEqualToString:@"320"]);
-    XCTAssertNotNil(standardAd.content);
+    XCTAssert([response.standardAd.type isEqualToString:@"banner"]);
+    XCTAssert([response.standardAd.height isEqualToString:@"50"]);
+    XCTAssert([response.standardAd.width isEqualToString:@"320"]);
+    XCTAssertNotNil(response.standardAd.content);
 }
 
 - (void)testLocalSuccessfulMediationResponse {
-    ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMediation];
-    XCTAssert([response.ads count] == 4);
+    ANAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMediation];
+    XCTAssert([response.mediatedAds count] == 4);
     
-    ANMediatedAd *firstMediatedAd = [response.ads objectAtIndex:0];
+    ANMediatedAd *firstMediatedAd = [response.mediatedAds objectAtIndex:0];
     ANMediatedAd *expectedFirstMediatedAd = [[ANMediatedAd alloc] init];
     expectedFirstMediatedAd.width = @"320";
     expectedFirstMediatedAd.height = @"50";
     expectedFirstMediatedAd.adId = @"/6925/Shazam_iPhoneAPP/Standard_Banners/My_Tags";
     expectedFirstMediatedAd.className = @"ANAdAdapterBannerDFP";
     [self mediatedAd:firstMediatedAd equalToMediatedAd:expectedFirstMediatedAd];
-    XCTAssertNotNil(firstMediatedAd.responseURL);
+    XCTAssertNotNil(firstMediatedAd.resultCB);
     
-    ANMediatedAd *secondMediatedAd = [response.ads objectAtIndex:1];
+    ANMediatedAd *secondMediatedAd = [response.mediatedAds objectAtIndex:1];
     ANMediatedAd *expectedSecondMediatedAd = [[ANMediatedAd alloc] init];
     expectedSecondMediatedAd.width = @"320";
     expectedSecondMediatedAd.height = @"50";
     expectedSecondMediatedAd.className = @"ANAdAdapterBannerMillennialMedia";
     expectedSecondMediatedAd.adId = @"148502";
     [self mediatedAd:secondMediatedAd equalToMediatedAd:expectedSecondMediatedAd];
-    XCTAssertNotNil(secondMediatedAd.responseURL);
+    XCTAssertNotNil(secondMediatedAd.resultCB);
 
-    ANMediatedAd *thirdMediatedAd = [response.ads objectAtIndex:2];
+    ANMediatedAd *thirdMediatedAd = [response.mediatedAds objectAtIndex:2];
     ANMediatedAd *expectedThirdMediatedAd = [[ANMediatedAd alloc] init];
     expectedThirdMediatedAd.width = @"320";
     expectedThirdMediatedAd.height = @"50";
     expectedThirdMediatedAd.className = @"ANAdAdapterBannerAdMob";
     expectedThirdMediatedAd.adId = @"ca-app-pub-5668774179595841/1125462353";
     [self mediatedAd:thirdMediatedAd equalToMediatedAd:expectedThirdMediatedAd];
-    XCTAssertNotNil(thirdMediatedAd.responseURL);
+    XCTAssertNotNil(thirdMediatedAd.resultCB);
     
-    ANMediatedAd *fourthMediatedAd = [response.ads objectAtIndex:3];
+    ANMediatedAd *fourthMediatedAd = [response.mediatedAds objectAtIndex:3];
     ANMediatedAd *expectedFourthMediatedAd = [[ANMediatedAd alloc] init];
     expectedFourthMediatedAd.className = @"ANAdAdapterBanneriAd";
     [self mediatedAd:fourthMediatedAd equalToMediatedAd:expectedFourthMediatedAd];
-    XCTAssertNotNil(fourthMediatedAd.responseURL);
+    XCTAssertNotNil(fourthMediatedAd.resultCB);
 }
 
-        /* FIX -- need UT equivalent?
 - (NSURL *)sdkRequestURLForPlacementId:(NSString *)placementId
-                                adSize:(CGSize)adSize
-{
+                                adSize:(CGSize)adSize {
     ANBannerAdView *bav = [self bannerViewWithFrameSize:adSize];
     bav.placementId = placementId;
     bav.adSize = adSize;
     return [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:bav
                                                   baseUrlString:@"http://mediation.adnxs.com/mob?"];
 }
-                 */
 
 - (void)mediatedAd:(ANMediatedAd *)parsedMediatedAd equalToMediatedAd:(ANMediatedAd *)comparisonMediatedAd {
     XCTAssertEqualObjects(parsedMediatedAd.width, comparisonMediatedAd.width);

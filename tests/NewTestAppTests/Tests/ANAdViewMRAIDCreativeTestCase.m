@@ -17,12 +17,12 @@
 #import <XCTest/XCTest.h>
 #import "XCTestCase+ANBannerAdView.h"
 #import "XCTestCase+ANAdResponse.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 
 @interface ANAdViewMRAIDCreativeTestCase : XCTestCase
 
-@property (nonatomic, readwrite, strong) ANUniversalAdFetcher *adFetcher;
+@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 
 @end
 
@@ -30,17 +30,14 @@
 
 - (void)setUp {
     [super setUp];
-//    self.adFetcher = [[ANUniversalAdFetcher alloc] init];  //FIX  not
+    self.adFetcher = [[ANAdFetcher alloc] init];
 }
 
-- (void)testExample
-{
+- (void)testExample {
     ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
-    self.adFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:bannerAdView];
-
-    ANUniversalTagAdServerResponse *adServerResponse = [self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener];
-    [self.adFetcher handleStandardAd:adServerResponse.ads[0]];
-
+    self.adFetcher.delegate = bannerAdView;
+    ANAdServerResponse *adServerResponse = [self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener];
+    [self.adFetcher handleStandardAd:adServerResponse.standardAd];
     UIView *view = self.adFetcher.standardAdView;
     [bannerAdView setContentView:view];
 }

@@ -21,12 +21,12 @@
 #import "ANMediationAdViewController.h"
 #import "ANGlobal.h"
 #import "XCTestCase+ANCategory.h"
-#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 
 @interface ANMediationAdViewControllerTestCase : XCTestCase
 
-@property (nonatomic, readwrite, strong) ANUniversalAdFetcher *adFetcher;
+@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
 @property (nonatomic, readwrite, strong) ANBannerAdView *adView;
 
 @end
@@ -35,7 +35,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.adFetcher = [[ANUniversalAdFetcher alloc] init];
+    self.adFetcher = [[ANAdFetcher alloc] init];
     self.adView = [[ANBannerAdView alloc] init];
     [ANLogManager setANLogLevel:ANLogLevelAll];
 }
@@ -157,11 +157,11 @@
 #pragma mark - Helper Methods
 
 - (void)expectAdFetcherCallbackWithResponseCode:(ANAdResponseCode)code {
-    [self expectationForNotification:kANUniversalAdFetcherFireResultCBRequestedNotification
+    [self expectationForNotification:kANAdFetcherFireResultCBRequestedNotification
                               object:self.adFetcher
                              handler:^BOOL(NSNotification *notification) {
                                  NSDictionary *userInfo = notification.userInfo;
-                                 NSNumber *reason = userInfo[kANUniversalAdFetcherFireResultCBRequestedReason];
+                                 NSNumber *reason = userInfo[kANAdFetcherFireResultCBRequestedReason];
                                  if (reason && [reason integerValue] == code) {
                                      return YES;
                                  }
@@ -173,7 +173,7 @@
 - (void)validateAdFetcherCallbackWithResponseCode:(ANAdResponseCode)code
                                           timeout:(NSTimeInterval)timeout {
     __block BOOL receivedDesiredCallback = NO;
-    id observer = [[NSNotificationCenter defaultCenter] addObserverForName:kANUniversalAdFetcherFireResultCBRequestedNotification
+    id observer = [[NSNotificationCenter defaultCenter] addObserverForName:kANAdFetcherFireResultCBRequestedNotification
                                                                     object:self.adFetcher
                                                                      queue:[NSOperationQueue mainQueue]
                                                                 usingBlock:^(NSNotification *notification) {
@@ -181,7 +181,7 @@
                                                                     NSNumber *reason;
                                                                     if (!receivedDesiredCallback) {
                                                                         NSDictionary *userInfo = notification.userInfo;
-                                                                        reason = userInfo[kANUniversalAdFetcherFireResultCBRequestedReason];
+                                                                        reason = userInfo[kANAdFetcherFireResultCBRequestedReason];
                                                                         validCallback = reason && [reason integerValue] == code;
                                                                         receivedDesiredCallback = validCallback;
                                                                     }
