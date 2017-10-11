@@ -322,14 +322,4 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     return  nil;
 }
 
-
-// Nothing keeps 'block' alive, so we don't have a retain cycle.
-//
-+ (void)runInBlock:(void (^)(void))block {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        block();
-    });
-}
-
-
 @end

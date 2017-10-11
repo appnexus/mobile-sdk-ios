@@ -19,7 +19,6 @@
 #import "ANAdConstants.h"
 
 #import "ANBannerAdView.h"
-#import "ANGlobal.h"
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
@@ -27,6 +26,7 @@
 #import "NSString+ANCategory.h"
 #import "ANPBContainerView.h"
 #import "ANMediationContainerView.h"
+#import "NSObject+ANCategory.h"
 
 
 
@@ -280,7 +280,7 @@ ANLogMark();
 - (void)adWasClicked {
 ANLogMark();
     if (self.hasFailed) return;
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         [self.adViewDelegate adWasClicked];
     }];
 }
@@ -288,7 +288,7 @@ ANLogMark();
 - (void)willPresentAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         [self.adViewDelegate adWillPresent];
     }];
 }
@@ -296,7 +296,7 @@ ANLogMark();
 - (void)didPresentAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         [self.adViewDelegate adDidPresent];
     }];
 }
@@ -304,7 +304,7 @@ ANLogMark();
 - (void)willCloseAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         [self.adViewDelegate adWillClose];
     }];
 }
@@ -312,7 +312,7 @@ ANLogMark();
 - (void)didCloseAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         [self.adViewDelegate adDidClose];
     }];
 }
@@ -320,7 +320,7 @@ ANLogMark();
 - (void)willLeaveApplication {
 ANLogMark();
     if (self.hasFailed) return;
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         [self.adViewDelegate adWillLeaveApplication];
     }];
 }
@@ -328,7 +328,7 @@ ANLogMark();
 - (void)failedToDisplayAd {
 ANLogMark();
     if (self.hasFailed) return;
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
             id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)self.adViewDelegate;
             [interstitialDelegate adFailedToDisplay];
@@ -421,7 +421,7 @@ ANLogMark();
 {
 ANLogMark();
     // use queue to force return
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
         
         NSString *responseURL = [self.mediatedAd.responseURL an_responseTrackerReasonCode:errorCode

@@ -25,6 +25,7 @@
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "NSObject+ANCategory.h"
 
 
 @interface ANSSMMediationAdViewController () <ANAdWebViewControllerLoadingDelegate>
@@ -216,7 +217,7 @@
   withAdObject: (id)adObject
 {
     // use queue to force return
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
         
         NSString *responseURL = [self.ssmMediatedAd.responseURL an_responseTrackerReasonCode: errorCode

@@ -18,7 +18,7 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
-#import "ANGlobal.h"
+#import "NSObject+ANCategory.h"
 
 
 
@@ -217,7 +217,7 @@
 - (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject
 {
     // use queue to force return
-    [ANGlobal runInBlock:^(void) {
+    [self runInBlock:^(void) {
         NSString *responseURLString = [self createResponseURLRequest: self.mediatedAd.responseURL
                                                               reason: errorCode ];
 
