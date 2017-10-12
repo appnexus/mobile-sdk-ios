@@ -23,19 +23,20 @@
 
 @interface ANMediationAdViewController : NSObject
 
-+ (NSSet *)bannerInvalidNetworks;
-+ (NSSet *)interstitialInvalidNetworks;
-                //FIX -- remove code about invalid networks
-
 - (void)startTimeout;
 - (void)clearAdapter;
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
-                                    withFetcher:(ANUniversalAdFetcher *)fetcher
+                                    withFetcher:(ANUniversalAdFetcher *)adFetcher
                                  adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate;
 
 @end
 
+
+
+
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
+
 @property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
+
 @end

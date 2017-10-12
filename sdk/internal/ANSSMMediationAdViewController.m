@@ -25,6 +25,7 @@
 #import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "NSObject+ANCategory.h"
 
 
 @interface ANSSMMediationAdViewController () <ANAdWebViewControllerLoadingDelegate>
@@ -232,13 +233,6 @@
     }];
 }
 
-
-- (void)runInBlock:(void (^)())block {
-    // nothing keeps 'block' alive, so we don't have a retain cycle
-    dispatch_async(dispatch_get_main_queue(), ^{
-        block();
-    });
-}
 
 
 #pragma mark - ANAdWebViewControllerLoadingDelegate.

@@ -38,7 +38,9 @@
 
 @implementation ANUniversalTagRequestBuilder
 
-+ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id<ANUniversalAdFetcherDelegate>)adFetcherDelegate
+// NB  Protocol type of adFetcherDelegate can be ANUniversalAdFetcherDelegate or ANUniversalNativeAdFetcherDelegate.
+//
++ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id)adFetcherDelegate
                                       baseUrlString:(NSString *)baseUrlString
 {
     ANUniversalTagRequestBuilder *requestBuilder = [[ANUniversalTagRequestBuilder alloc] initWithAdFetcherDelegate:adFetcherDelegate
@@ -47,8 +49,9 @@
 }
 
 
-- (instancetype)initWithAdFetcherDelegate:(id<ANUniversalAdFetcherDelegate>)adFetcherDelegate
-                            baseUrlString:(NSString *)baseUrlString {
+- (instancetype)initWithAdFetcherDelegate:(id)adFetcherDelegate
+                            baseUrlString:(NSString *)baseUrlString
+{
     if (self = [super init]) {
         _adFetcherDelegate = adFetcherDelegate;
         _baseURLString = baseUrlString;

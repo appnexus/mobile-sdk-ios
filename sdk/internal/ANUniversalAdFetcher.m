@@ -28,6 +28,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
+#import "ANNativeMediatedAdController.h"
 #import "ANSSMMediationAdViewController.h"
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
@@ -36,7 +37,7 @@
 
 
 
-@interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate>
+@interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate>
 
 @property (nonatomic, readwrite, strong)  NSURLConnection  *connection;
 @property (nonatomic, readwrite, strong)  NSMutableData    *data;
@@ -49,10 +50,13 @@
 @property (nonatomic, readwrite, getter=isLoading)  BOOL    loading;
 
 
-@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>  delegate;
+// NB  Protocol type of delegate can be ANUniversalAdFetcherDelegate or ANUniversalNativeAdFetcherDelegate.
+//
+@property (nonatomic, readwrite, weak)    id  delegate;
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *standardAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
+@property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
 
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
@@ -66,7 +70,7 @@
 
 #pragma mark - Lifecycle.
 
-- (instancetype)initWithDelegate:(id)delegate
+- (instancetype)initWithDelegate: (id)delegate
 {
 ANLogMark();
     if (self = [self init]) {
@@ -92,12 +96,16 @@ ANLogMark();
 - (void)clearMediationController {
 ANLogMark();
     /*
-     Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher. The controller maintains a weak reference to the
-     ad fetcher delegate so that messages to the delegate can proceed uninterrupted. Currently, the controller will only live on if it is still
-     displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
+     * Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher.  The controller maintains a weak reference to the
+     * ad fetcher delegate so that messages to the delegate can proceed uninterrupted.  Currently, the controller will only live on if it is still
+     * displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
     self.mediationController.adFetcher = nil;
     self.mediationController = nil;
+
+    self.nativeMediationController.adFetcher = nil;
+    self.nativeMediationController = nil;
+
     self.ssmMediationController.adFetcher = nil;
     self.ssmMediationController = nil;
 }
@@ -366,9 +374,16 @@ ANLogMark();
 
 - (void)handleCSMSDKMediatedAd:(ANMediatedAd *)mediatedAd
 {
-    self.mediationController = [ANMediationAdViewController initMediatedAd:mediatedAd
-                                                               withFetcher:self
-                                                            adViewDelegate:self.delegate];
+    if (mediatedAd.isAdTypeNative)
+    {
+        self.nativeMediationController = [ANNativeMediatedAdController initMediatedAd: mediatedAd
+                                                                           withFetcher: self
+                                                                     adRequestDelegate: self.delegate ];
+    } else {
+        self.mediationController = [ANMediationAdViewController initMediatedAd: mediatedAd
+                                                                   withFetcher: self
+                                                                adViewDelegate: self.delegate];
+    }
 }
 
 
@@ -472,6 +487,7 @@ ANLogMark();
     }
     return CGSizeZero;
 }
+
 
 
 #pragma mark - ANAdWebViewControllerLoadingDelegate.
