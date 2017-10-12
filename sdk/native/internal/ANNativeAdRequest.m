@@ -58,7 +58,7 @@
 #pragma mark - Lifecycle.
 
 - (instancetype)init {
-ANLogMark();
+
     if (self = [super init]) {
         self.customKeywords = [[NSMutableDictionary alloc] init];
 
@@ -76,7 +76,7 @@ ANLogMark();
 }
 
 - (void)loadAd {
-ANLogMark();
+
     if (self.delegate) {
         [self createAdFetcher];
     } else {
@@ -85,13 +85,13 @@ ANLogMark();
 }
 
 - (NSMutableArray *)adFetchers {
-ANLogMark();
+
     if (!_adFetchers) _adFetchers = [[NSMutableArray alloc] init];
     return _adFetchers;
 }
 
 - (void)createAdFetcher {
-ANLogMark();
+
     ANUniversalAdFetcher  *adFetcher  = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
     [self.adFetchers addObject:adFetcher];
     [adFetcher requestAd];
@@ -105,7 +105,7 @@ ANLogMark();
 - (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
-ANLogMark();
+
     NSError *error;
     
     if (response.isSuccessful) {

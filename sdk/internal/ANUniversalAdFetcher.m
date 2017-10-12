@@ -72,7 +72,6 @@
 
 - (instancetype)initWithDelegate: (id)delegate
 {
-ANLogMark();
     if (self = [self init]) {
         _delegate = delegate;
         [self setup];
@@ -82,7 +81,6 @@ ANLogMark();
 
 - (void)setup
 {
-ANLogMark();
     _data = [NSMutableData data];
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 }
@@ -94,7 +92,6 @@ ANLogMark();
 }
 
 - (void)clearMediationController {
-ANLogMark();
     /*
      * Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher.  The controller maintains a weak reference to the
      * ad fetcher delegate so that messages to the delegate can proceed uninterrupted.  Currently, the controller will only live on if it is still
@@ -117,7 +114,6 @@ ANLogMark();
 
 - (void)requestAd
 {
-    ANLogMark();
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     
@@ -145,7 +141,6 @@ ANLogMark();
 
 - (void)stopAdLoad
 {
-ANLogMark();
    
     [self stopAutoRefreshTimer];
     
@@ -174,7 +169,6 @@ ANLogMark();
 
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
 {
-ANLogMark();
     BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
     
     if (!containsAds) {
@@ -228,7 +222,6 @@ ANLogMark();
 
 - (void)processFinalResponse:(ANAdFetcherResponse *)response
 {
-ANLogMark();
     self.ads = nil;
     self.loading = NO;
     
@@ -263,7 +256,6 @@ ANLogMark();
 //
 - (void)continueWaterfall
 {
-ANLogMark();
     // stop waterfall if delegate reference (adview) was lost
     if (!self.delegate) {
         self.loading = NO;
@@ -351,7 +343,6 @@ ANLogMark();
 
 - (void)handleStandardAd:(ANStandardAd *)standardAd
 {
-ANLogMark();
     CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
                                                       andHeight:standardAd.height];
     
@@ -393,7 +384,7 @@ ANLogMark();
 
 - (void)handleNativeStandardAd:(ANNativeStandardAdResponse *)nativeStandardAd
 {
-ANLogMark();
+
     ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObject:nativeStandardAd andAdObjectHandler:nil];
     [self processFinalResponse:fetcherResponse];
 }
@@ -405,7 +396,7 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-ANLogMark();
+
     if (connection == self.connection) {
         if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
@@ -435,7 +426,7 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
 {
-ANLogMark();
+
     if (connection == self.connection) {
         [self.data appendData:d];
     }
@@ -443,7 +434,7 @@ ANLogMark();
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-ANLogMark();
+
     if (connection == self.connection)
     {
         NSString *responseString = [[NSString alloc] initWithData:self.data
@@ -460,7 +451,7 @@ ANLogMark();
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-ANLogMark();
+
     if (connection == self.connection) {
         NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
         ANLogError(@"%@", connectionError);
@@ -491,7 +482,7 @@ ANLogMark();
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-ANLogMark();
+
     if (self.standardAdView.webViewController == controller) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView andAdObjectHandler:self.adObjectHandler];
         [self processFinalResponse:response];
