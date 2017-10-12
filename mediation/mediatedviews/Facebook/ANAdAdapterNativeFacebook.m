@@ -16,16 +16,11 @@
 #import "ANAdAdapterNativeFacebook.h"
 #import "ANLogging.h"
 
-
-
 @interface ANAdAdapterNativeFacebook ()
 
 @property (nonatomic) FBNativeAd *fbNativeAd;
 
 @end
-
-
-
 
 @implementation ANAdAdapterNativeFacebook
 
@@ -33,17 +28,13 @@
 @synthesize nativeAdDelegate = _nativeAdDelegate;
 @synthesize expired = _expired;
 
-
-
-#pragma mark - ANNativeCustomAdapter
+#pragma mark ANNativeCustomAdapter
 
 - (void)requestNativeAdWithServerParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)adUnitId
-                       targetingParameters:(ANTargetingParameters *)targetingParameters
-{
+                       targetingParameters:(ANTargetingParameters *)targetingParameters {
     self.fbNativeAd = [[FBNativeAd alloc] initWithPlacementID:adUnitId];
     self.fbNativeAd.delegate = self;
-
     [self.fbNativeAd loadAd];
 }
 
@@ -72,8 +63,6 @@
     [self.fbNativeAd unregisterView];
     self.fbNativeAd = nil;
 }
-
-
 
 #pragma mark - FBNativeAdDelegate
 
