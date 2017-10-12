@@ -128,9 +128,6 @@ ANLogMark();
         self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
         
         self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-        //FIX -- review this location, also assumes NSURLConnection returns immediately.  how exact must this be?  off by a few MS but consistent is okay?
-        //FIX -- clear if connection turns out not to be successful?
-        
         
         if (!self.connection) {
             ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];

@@ -41,6 +41,9 @@
 
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
 
+- (void) startAutoRefreshTimer;
+- (void) restartAutoRefreshTimer;
+
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 - (CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
                                andHeight:(NSString *)height;

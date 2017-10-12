@@ -377,8 +377,8 @@ ANLogMark();
 
 - (void)adInteractionDidEnd {
     ANLogDebug(@"");
-//    [self.universalAdFetcher setupAutoRefreshTimerIfNecessary];   //FIX -- implment!
-//    [self.universalAdFetcher startAutoRefreshTimer];              //FIX -- implement!
+    [self.universalAdFetcher restartAutoRefreshTimer];
+    [self.universalAdFetcher startAutoRefreshTimer];           
 }
 
 

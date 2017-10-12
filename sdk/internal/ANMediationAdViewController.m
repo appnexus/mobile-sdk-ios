@@ -440,7 +440,6 @@ ANLogMark();
 
 
 #pragma mark - Timeout handler
-//FIX -- status of this?
 
 - (void)startTimeout {
 ANLogMark();
