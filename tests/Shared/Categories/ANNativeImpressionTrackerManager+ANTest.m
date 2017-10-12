@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
-#import "ANNativeImpressionTrackerManager+ANTest.h"
+#import "ANTrackerManager+ANTest.h"
 
-@implementation ANNativeImpressionTrackerManager (ANTest)
+@implementation ANTrackerManager (ANTest)
 
 @dynamic impressionTrackerRetryTimer;
 

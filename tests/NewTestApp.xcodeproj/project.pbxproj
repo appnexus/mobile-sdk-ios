@@ -38,10 +38,10 @@
 		4F76461E1D957E4E00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4F7646211D95994B00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
 		4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
-		4F81C3831DE6332400623BD3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F81C3781DE6331900623BD3 /* libKIF.a */; };
-		4F81C3841DE6332D00623BD3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F81C3781DE6331900623BD3 /* libKIF.a */; };
-		4F81C3851DE6333600623BD3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F81C3781DE6331900623BD3 /* libKIF.a */; };
 		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4FD3627A1F8FCB200010567E /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD362751F8FCA3D0010567E /* KIF.framework */; };
+		4FD3627B1F8FCB300010567E /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD362751F8FCA3D0010567E /* KIF.framework */; };
+		4FD3627C1F8FCB370010567E /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD362751F8FCA3D0010567E /* KIF.framework */; };
 		4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67F961D760011009270E6 /* libz.1.2.5.tbd */; };
 		4FD67FA51D760019009270E6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3658519D4746E0097019F /* AudioToolbox.framework */; };
 		4FD67FA61D760020009270E6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3657F19D473B00097019F /* AVFoundation.framework */; };
@@ -291,44 +291,44 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4F81C3771DE6331900623BD3 /* PBXContainerItemProxy */ = {
+		4FD3626E1F8FCA3D0010567E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */;
+			containerPortal = 4FD362641F8FCA3D0010567E /* KIF.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = EABD46AA1857A0C700A5F081;
 			remoteInfo = KIF;
 		};
-		4F81C3791DE6331900623BD3 /* PBXContainerItemProxy */ = {
+		4FD362701F8FCA3D0010567E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */;
+			containerPortal = 4FD362641F8FCA3D0010567E /* KIF.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = EB60ECC1177F8C83005A041A;
 			remoteInfo = "Test Host";
 		};
-		4F81C37B1DE6331900623BD3 /* PBXContainerItemProxy */ = {
+		4FD362721F8FCA3D0010567E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */;
+			containerPortal = 4FD362641F8FCA3D0010567E /* KIF.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = EABD46CD1857A0F300A5F081;
 			remoteInfo = "KIF Tests";
 		};
-		4F81C37D1DE6331900623BD3 /* PBXContainerItemProxy */ = {
+		4FD362741F8FCA3D0010567E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */;
+			containerPortal = 4FD362641F8FCA3D0010567E /* KIF.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9CC9673B1AD4B1B600576D13;
 			remoteInfo = KIFFramework;
 		};
-		4F81C37F1DE6331900623BD3 /* PBXContainerItemProxy */ = {
+		4FD362761F8FCA3D0010567E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */;
+			containerPortal = 4FD362641F8FCA3D0010567E /* KIF.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FAB89FFC1CAC546900C6DFC1;
 			remoteInfo = KIFFrameworkConsumer;
 		};
-		4F81C3811DE6331900623BD3 /* PBXContainerItemProxy */ = {
+		4FD362781F8FCA3D0010567E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */;
+			containerPortal = 4FD362641F8FCA3D0010567E /* KIF.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FAB8A0141CAC546A00C6DFC1;
 			remoteInfo = KIFFrameworkConsumerTests;
@@ -638,8 +638,8 @@
 		4F63B8881D918FE200E22FE0 /* MPUnmutedBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MPUnmutedBtn@3x.png"; path = "../mediation/mediatedviews/MoPub/MoPubSDK/MPUnmutedBtn@3x.png"; sourceTree = "<group>"; };
 		4F63B8A81D91901300E22FE0 /* MRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MRAID.bundle; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MRAID.bundle; sourceTree = "<group>"; };
 		4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachabilityTestCase.m; sourceTree = "<group>"; };
-		4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = "KIF--v3.5.1/KIF.xcodeproj"; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
+		4FD362641F8FCA3D0010567E /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = "KIF-3.6.0/KIF.xcodeproj"; sourceTree = "<group>"; };
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4FD67FAA1D76003D009270E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -928,7 +928,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A9CBAE31C65300100558C95 /* IOKit.framework in Frameworks */,
-				4F81C3851DE6333600623BD3 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,6 +946,7 @@
 				8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */,
 				8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */,
 				4F142BA21D89E3B30079D3CE /* JavaScriptCore.framework in Frameworks */,
+				4FD3627B1F8FCB300010567E /* KIF.framework in Frameworks */,
 				60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */,
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
 				8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */,
@@ -987,7 +987,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AD011A81B2F656B001B0107 /* IOKit.framework in Frameworks */,
-				4F81C3841DE6332D00623BD3 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -999,6 +998,7 @@
 				8A9CBAF71C6530AB00558C95 /* CoreTelephony.framework in Frameworks */,
 				8A9CBAF11C65307E00558C95 /* EventKit.framework in Frameworks */,
 				8A9CBAF21C65307E00558C95 /* EventKitUI.framework in Frameworks */,
+				4FD3627C1F8FCB370010567E /* KIF.framework in Frameworks */,
 				8AA009A319DB16F30090EBED /* libANSDK.a in Frameworks */,
 				8A9CBAF31C65308D00558C95 /* MediaPlayer.framework in Frameworks */,
 				8A9CBAF41C65309500558C95 /* MessageUI.framework in Frameworks */,
@@ -1029,6 +1029,7 @@
 				8A9CBAD81C652ED400558C95 /* EventKit.framework in Frameworks */,
 				8A9CBAC41C652E7D00558C95 /* EventKitUI.framework in Frameworks */,
 				605EDBCB1D92F2050042DC0C /* Foundation.framework in Frameworks */,
+				4FD3627A1F8FCB200010567E /* KIF.framework in Frameworks */,
 				8AA00A4219DB2A3A0090EBED /* libANSDK.a in Frameworks */,
 				4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */,
 				8A9CBADB1C652EE900558C95 /* MediaPlayer.framework in Frameworks */,
@@ -1046,7 +1047,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AD011A91B2F657E001B0107 /* IOKit.framework in Frameworks */,
-				4F81C3831DE6332400623BD3 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1063,15 +1063,15 @@
 			name = ResourcesForMediatedSDKs;
 			sourceTree = "<group>";
 		};
-		4F81C36E1DE6331900623BD3 /* Products */ = {
+		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F81C37C1DE6331900623BD3 /* KIF Tests - XCTest.xctest */,
-				4F81C37E1DE6331900623BD3 /* KIF.framework */,
-				4F81C3801DE6331900623BD3 /* KIFFrameworkConsumer.app */,
-				4F81C3821DE6331900623BD3 /* KIFFrameworkConsumerTests.xctest */,
-				4F81C3781DE6331900623BD3 /* libKIF.a */,
-				4F81C37A1DE6331900623BD3 /* Test Host.app */,
+				4FD362731F8FCA3D0010567E /* KIF Tests - XCTest.xctest */,
+				4FD362751F8FCA3D0010567E /* KIF.framework */,
+				4FD362771F8FCA3D0010567E /* KIFFrameworkConsumer.app */,
+				4FD362791F8FCA3D0010567E /* KIFFrameworkConsumerTests.xctest */,
+				4FD3626F1F8FCA3D0010567E /* libKIF.a */,
+				4FD362711F8FCA3D0010567E /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1597,7 +1597,7 @@
 				60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */,
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
-				4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */,
+				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1882,8 +1882,8 @@
 					ProjectRef = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
 				},
 				{
-					ProductGroup = 4F81C36E1DE6331900623BD3 /* Products */;
-					ProjectRef = 4F81C36D1DE6331900623BD3 /* KIF.xcodeproj */;
+					ProductGroup = 4FD362651F8FCA3D0010567E /* Products */;
+					ProjectRef = 4FD362641F8FCA3D0010567E /* KIF.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1901,46 +1901,46 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4F81C3781DE6331900623BD3 /* libKIF.a */ = {
+		4FD3626F1F8FCA3D0010567E /* libKIF.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libKIF.a;
-			remoteRef = 4F81C3771DE6331900623BD3 /* PBXContainerItemProxy */;
+			remoteRef = 4FD3626E1F8FCA3D0010567E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4F81C37A1DE6331900623BD3 /* Test Host.app */ = {
+		4FD362711F8FCA3D0010567E /* Test Host.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "Test Host.app";
-			remoteRef = 4F81C3791DE6331900623BD3 /* PBXContainerItemProxy */;
+			remoteRef = 4FD362701F8FCA3D0010567E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4F81C37C1DE6331900623BD3 /* KIF Tests - XCTest.xctest */ = {
+		4FD362731F8FCA3D0010567E /* KIF Tests - XCTest.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "KIF Tests - XCTest.xctest";
-			remoteRef = 4F81C37B1DE6331900623BD3 /* PBXContainerItemProxy */;
+			remoteRef = 4FD362721F8FCA3D0010567E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4F81C37E1DE6331900623BD3 /* KIF.framework */ = {
+		4FD362751F8FCA3D0010567E /* KIF.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = KIF.framework;
-			remoteRef = 4F81C37D1DE6331900623BD3 /* PBXContainerItemProxy */;
+			remoteRef = 4FD362741F8FCA3D0010567E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4F81C3801DE6331900623BD3 /* KIFFrameworkConsumer.app */ = {
+		4FD362771F8FCA3D0010567E /* KIFFrameworkConsumer.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = KIFFrameworkConsumer.app;
-			remoteRef = 4F81C37F1DE6331900623BD3 /* PBXContainerItemProxy */;
+			remoteRef = 4FD362761F8FCA3D0010567E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4F81C3821DE6331900623BD3 /* KIFFrameworkConsumerTests.xctest */ = {
+		4FD362791F8FCA3D0010567E /* KIFFrameworkConsumerTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = KIFFrameworkConsumerTests.xctest;
-			remoteRef = 4F81C3811DE6331900623BD3 /* PBXContainerItemProxy */;
+			remoteRef = 4FD362781F8FCA3D0010567E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */ = {

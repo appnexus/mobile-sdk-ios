@@ -14,12 +14,12 @@
  */
 
 #import <XCTest/XCTest.h>
-#import "ANNativeImpressionTrackerManager.h"
+#import "ANTrackerManager.h"
 #import "ANReachability+ANTest.h"
 #import "XCTestCase+ANCategory.h"
 
 #import "ANHTTPStubbingManager.h"
-#import "ANNativeImpressionTrackerManager+ANTest.h"
+#import "ANTrackerManager+ANTest.h"
 #import "NSTimer+ANCategory.h"
 
 @interface ANNativeImpressionTrackerManagerTestCase : XCTestCase
@@ -49,11 +49,11 @@
                                                object:nil];
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:YES];
     self.URL = [NSURL URLWithString:@"https://acdn.adnxs.com/mobile/native_test/empty_response.json"];
-    [ANNativeImpressionTrackerManager fireImpressionTrackerURL:self.URL];
+    [ANTrackerManager fireImpressionTrackerURL:self.URL];
     [XCTestCase delayForTimeInterval:3.0];
     XCTAssertFalse(self.urlWasFired);
     
-    NSTimer *fireTimer = [ANNativeImpressionTrackerManager sharedManager].impressionTrackerRetryTimer;
+    NSTimer *fireTimer = [ANTrackerManager sharedManager].impressionTrackerRetryTimer;
     XCTAssertTrue(fireTimer.an_isScheduled);
     
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:NO];

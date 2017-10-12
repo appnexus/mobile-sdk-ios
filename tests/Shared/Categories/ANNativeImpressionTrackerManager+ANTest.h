@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
-#import "ANNativeImpressionTrackerManager.h"
+#import "ANTrackerManager.h"
 
-@interface ANNativeImpressionTrackerManager (ANTest)
+@interface ANTrackerManager (ANTest)
 
 @property (nonatomic, readwrite, strong) NSTimer *impressionTrackerRetryTimer;
 
