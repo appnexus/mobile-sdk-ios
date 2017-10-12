@@ -24,6 +24,7 @@
 @property (nonatomic, readwrite, strong) NSString *adId;
 @property (nonatomic, readwrite, strong) NSString *responseURL;
 @property (nonatomic, readwrite, strong) NSString *auctionInfo;
+@property (nonatomic, readwrite)         BOOL      isAdTypeNative;
 
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *impressionUrls;
 

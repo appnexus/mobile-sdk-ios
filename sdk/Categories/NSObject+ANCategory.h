@@ -1,4 +1,4 @@
-/*   Copyright 2015 APPNEXUS INC
+/*   Copyright 2013 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,15 +15,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ANUniversalAdFetcher.h"
+@interface NSObject(ANCategory)
 
-
-@interface ANUniversalTagRequestBuilder : NSObject
-
-// NB  Protocol type of adFetcherDelegate can be ANUniversalAdFetcherDelegate or ANUniversalNativeAdFetcherDelegate.
-//
-
-+ (NSURLRequest *)buildRequestWithAdFetcherDelegate:(id)adFetcherDelegate
-                                      baseUrlString:(NSString *)baseUrlString;
+- (void)runInBlock:(void (^)(void))block;
 
 @end
