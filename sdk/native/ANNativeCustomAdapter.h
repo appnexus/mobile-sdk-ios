@@ -17,13 +17,8 @@
 #import "ANTargetingParameters.h"
 #import "ANNativeMediatedAdResponse.h"
 
-
-
 @protocol ANNativeCustomAdapterRequestDelegate;
 @protocol ANNativeCustomAdapterAdDelegate;
-
-
-
 
 /*!
  * Defines a protocol by which an external native ad SDK can be mediated by AppNexus.
@@ -82,9 +77,6 @@
 
 @end
 
-
-
-
 /*!
  * Callbacks for when the native ad assets are being loaded.
  */
@@ -95,9 +87,6 @@
 - (void)didFailToLoadNativeAd:(ANAdResponseCode)errorCode;
 
 @end
-
-
-
 
 /*!
  * Callbacks for when the native view has been registered and is being tracked.
