@@ -40,7 +40,6 @@
 		4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
 		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4FD3627A1F8FCB200010567E /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD362751F8FCA3D0010567E /* KIF.framework */; };
-		4FD3627B1F8FCB300010567E /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD362751F8FCA3D0010567E /* KIF.framework */; };
 		4FD3627C1F8FCB370010567E /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD362751F8FCA3D0010567E /* KIF.framework */; };
 		4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67F961D760011009270E6 /* libz.1.2.5.tbd */; };
 		4FD67FA51D760019009270E6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3658519D4746E0097019F /* AudioToolbox.framework */; };
@@ -100,8 +99,8 @@
 		8A201C101C5960BC009EE62D /* ANGADNativeAppInstallAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C0E1C5960BC009EE62D /* ANGADNativeAppInstallAdView.m */; };
 		8A2BD4111B670E540000DB66 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4101B670E540000DB66 /* MMAdSDK.framework */; };
 		8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4121B670EAE0000DB66 /* libxml2.dylib */; };
-		8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */; };
-		8A33A5131A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */; };
+		8A33A5101A7C250500F8ED5E /* ANTrackerManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A50F1A7C250500F8ED5E /* ANTrackerManagerTestCase.m */; };
+		8A33A5131A7C264D00F8ED5E /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A5121A7C264D00F8ED5E /* ANTrackerManager+ANTest.m */; };
 		8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */; };
 		8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4018041A9500A300D56208 /* GoogleMobileAds.framework */; };
 		8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */; };
@@ -700,9 +699,9 @@
 		8A201C111C5960DA009EE62D /* ANGADNativeAppInstallAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADNativeAppInstallAdView.h; sourceTree = "<group>"; };
 		8A2BD4101B670E540000DB66 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMAdSDK.framework; path = ../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/MMAdSDK.framework; sourceTree = "<group>"; };
 		8A2BD4121B670EAE0000DB66 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeImpressionTrackerManagerTestCase.m; sourceTree = "<group>"; };
-		8A33A5111A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeImpressionTrackerManager+ANTest.h"; sourceTree = "<group>"; };
-		8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeImpressionTrackerManager+ANTest.m"; sourceTree = "<group>"; };
+		8A33A50F1A7C250500F8ED5E /* ANTrackerManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManagerTestCase.m; sourceTree = "<group>"; };
+		8A33A5111A7C264D00F8ED5E /* ANTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANTrackerManager+ANTest.h"; sourceTree = "<group>"; };
+		8A33A5121A7C264D00F8ED5E /* ANTrackerManager+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANTrackerManager+ANTest.m"; sourceTree = "<group>"; };
 		8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MediationAdaptersTestCase.m; path = MediationAdapterAppTests/MediationAdaptersTestCase.m; sourceTree = SOURCE_ROOT; };
 		8A4018041A9500A300D56208 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		8A4018071A95025C00D56208 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -946,7 +945,6 @@
 				8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */,
 				8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */,
 				4F142BA21D89E3B30079D3CE /* JavaScriptCore.framework in Frameworks */,
-				4FD3627B1F8FCB300010567E /* KIF.framework in Frameworks */,
 				60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */,
 				8AA009F019DB1DA50090EBED /* libANSDK.a in Frameworks */,
 				8A14827B1AD344E10046F1B9 /* libANSDKAdColonyAdapter.a in Frameworks */,
@@ -1218,7 +1216,7 @@
 				8A549EAF1A706BFE009F797A /* ANAdServerResponseTestCase.m */,
 				8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */,
 				8AE7AD8D1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m */,
-				8A33A50F1A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m */,
+				8A33A50F1A7C250500F8ED5E /* ANTrackerManagerTestCase.m */,
 			);
 			path = NativeUnitTests;
 			sourceTree = "<group>";
@@ -1532,10 +1530,10 @@
 				8AA00A0719DB1E150090EBED /* ANMediationAdViewController+ANTest.m */,
 				8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */,
 				8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */,
-				8A33A5111A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.h */,
-				8A33A5121A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m */,
 				8A764F021A7078F500C02A97 /* ANReachability+ANTest.h */,
 				8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */,
+				8A33A5111A7C264D00F8ED5E /* ANTrackerManager+ANTest.h */,
+				8A33A5121A7C264D00F8ED5E /* ANTrackerManager+ANTest.m */,
 				8AA00A0819DB1E150090EBED /* NSObject+Swizzling.h */,
 				8AA00A0919DB1E150090EBED /* NSObject+Swizzling.m */,
 				8AA00A0A19DB1E150090EBED /* XCTestCase+ANAdResponse.h */,
@@ -2260,9 +2258,9 @@
 				8A549EAE1A706BC7009F797A /* ANNativeAdRequestTestCase.m in Sources */,
 				8AE7AD8E1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m in Sources */,
 				8AE7AD951A7AAE81009E2F2F /* ANNativeAdView.m in Sources */,
-				8A33A5131A7C264D00F8ED5E /* ANNativeImpressionTrackerManager+ANTest.m in Sources */,
-				8A33A5101A7C250500F8ED5E /* ANNativeImpressionTrackerManagerTestCase.m in Sources */,
 				8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */,
+				8A33A5131A7C264D00F8ED5E /* ANTrackerManager+ANTest.m in Sources */,
+				8A33A5101A7C250500F8ED5E /* ANTrackerManagerTestCase.m in Sources */,
 				8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */,
 				4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */,
 			);

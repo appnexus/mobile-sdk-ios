@@ -24,8 +24,8 @@
 
 @interface ANNativeImpressionTrackerManagerTestCase : XCTestCase
 
-@property (nonatomic, readwrite, strong) NSURL *URL;
-@property (nonatomic, readwrite, assign) BOOL urlWasFired;
+@property (nonatomic, readwrite, strong)  NSString  *urlString;
+@property (nonatomic, readwrite, assign)  BOOL       urlWasFired;
 
 @end
 
@@ -48,8 +48,9 @@
                                                  name:kANHTTPStubURLProtocolRequestDidLoadNotification
                                                object:nil];
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:YES];
-    self.URL = [NSURL URLWithString:@"https://acdn.adnxs.com/mobile/native_test/empty_response.json"];
-    [ANTrackerManager fireImpressionTrackerURL:self.URL];
+
+    self.urlString = @"https://acdn.adnxs.com/mobile/native_test/empty_response.json";
+    [ANTrackerManager fireTrackerURL:self.urlString];
     [XCTestCase delayForTimeInterval:3.0];
     XCTAssertFalse(self.urlWasFired);
     
@@ -65,7 +66,7 @@
 
 - (void)requestLoaded:(NSNotification *)notification {
     NSURLRequest *request = notification.userInfo[kANHTTPStubURLProtocolRequest];
-    if (self.URL && [request.URL isEqual:self.URL]) {
+    if (self.urlString && [[request.URL absoluteString] isEqual:self.urlString]) {
         self.urlWasFired = YES;
     }
 }
