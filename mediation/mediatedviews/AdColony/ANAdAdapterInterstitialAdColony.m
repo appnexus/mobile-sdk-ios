@@ -182,7 +182,7 @@
     }];
 
     [self.interstitialAd setExpire:^{
-        ANLogDebug(@"Interstitial ad WILL EXPIRE in 5 seconds...");  //XXX
+        ANLogDebug(@"Interstitial ad WILL EXPIRE in 5 seconds...");
 
         __strong ANAdAdapterInterstitialAdColony  *strongSelf  = weakSelf;
         if (!strongSelf) {

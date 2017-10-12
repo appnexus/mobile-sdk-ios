@@ -61,7 +61,7 @@
 
 - (NSURLRequest *)request
 {
-ANLogMark();
+
     NSURL                *URL             = [NSURL URLWithString:self.baseURLString];
     NSMutableURLRequest  *mutableRequest  = [[NSMutableURLRequest alloc] initWithURL: URL
                                                                          cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
@@ -168,7 +168,7 @@ ANLogMark();
 
 - (NSDictionary *)tag:(NSMutableDictionary *) requestDict
 {
-ANLogMark();
+
     NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
 
     NSInteger placementId = [[self.adFetcherDelegate placementId] integerValue];

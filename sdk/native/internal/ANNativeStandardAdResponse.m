@@ -106,7 +106,7 @@
     NSInteger requiredAmountOfSimultaneousViewableEvents = lround(  kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
                                                                   / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
     self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
-ANLogMarkMessage(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
+    ANLogDebug(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
 
     self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
                                                                  block:^ {
@@ -119,7 +119,7 @@ ANLogMarkMessage(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttarget
 - (void)checkViewability {
     self.viewabilityValue = (self.viewabilityValue << 1 | [self.viewForTracking an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
     BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
-ANLogMarkMessage(@"\n\tviewabilityValue=%@  \n\tself.targetViewabilityValue=%@  \n\tisIABViewable=%@", @(self.viewabilityValue), @(self.targetViewabilityValue), @(isIABViewable));
+    ANLogDebug(@"\n\tviewabilityValue=%@  \n\tself.targetViewabilityValue=%@  \n\tisIABViewable=%@", @(self.viewabilityValue), @(self.targetViewabilityValue), @(isIABViewable));
 
     if (isIABViewable) {
         [self trackImpression];

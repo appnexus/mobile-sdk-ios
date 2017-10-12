@@ -130,7 +130,6 @@
 
 - (void)loadAd
 {
-ANLogMark();
     [super loadAd];
 }
 
@@ -283,7 +282,6 @@ ANLogMark();
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
-ANLogMark();
     NSError *error;
 
     if ([response isSuccessful]) {
