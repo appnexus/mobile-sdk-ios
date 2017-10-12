@@ -2237,6 +2237,8 @@
 				8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */,
 				609732AE1E42E73D0061EC0A /* NSDictionary+ANCategory.h */,
 				609732AF1E42E73D0061EC0A /* NSDictionary+ANCategory.m */,
+				608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */,
+				608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */,
 				ECE4EA96194B768A0069D934 /* NSString+ANCategory.h */,
 				ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */,
 				ECE4EA98194B768A0069D934 /* NSTimer+ANCategory.h */,
@@ -2245,8 +2247,6 @@
 				ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */,
 				ECE4EA9C194B768A0069D934 /* UIWebView+ANCategory.h */,
 				ECE4EA9D194B768A0069D934 /* UIWebView+ANCategory.m */,
-				608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */,
-				608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3234,7 +3234,6 @@
 				8AD618D81981C11F00AC0780 /* ANLogging.m in Sources */,
 				8AD618D91981C11F00AC0780 /* ANLogManager.m in Sources */,
 				8AD618DA1981C11F00AC0780 /* ANMediatedAd.m in Sources */,
-				608E477D1F8EAB84009BB148 /* NSObject+ANCategory.m in Sources */,
 				8AD618DB1981C11F00AC0780 /* ANMediationAdViewController.m in Sources */,
 				8AD618DC1981C11F00AC0780 /* ANMediationContainerView.m in Sources */,
 				8AC65F4C1A40DE63006BCF39 /* ANMRAIDCalendarManager.m in Sources */,
@@ -3275,6 +3274,7 @@
 				609733081E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */,
 				609732D81E42E9860061EC0A /* ANVideoAdProcessor.m in Sources */,
 				609732B11E42E73D0061EC0A /* NSDictionary+ANCategory.m in Sources */,
+				608E477D1F8EAB84009BB148 /* NSObject+ANCategory.m in Sources */,
 				ECE4EADA194B768A0069D934 /* NSString+ANCategory.m in Sources */,
 				ECE4EADB194B768A0069D934 /* NSTimer+ANCategory.m in Sources */,
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
