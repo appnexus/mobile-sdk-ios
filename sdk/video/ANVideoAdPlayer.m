@@ -166,7 +166,7 @@
 
     UIWindow *currentWindow = [UIApplication sharedApplication].keyWindow;
     //provide the width & height of the webview else the video wont be displayed ********
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,325,275) configuration:configuration];   //XXX
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,325,275) configuration:configuration];   
     self.webView.scrollView.scrollEnabled = false;
 
     ANLogInfo(@"width = %f, height = %f", self.webView.frame.size.width, self.webView.frame.size.height);
