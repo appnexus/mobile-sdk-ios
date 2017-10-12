@@ -476,7 +476,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     }
     
     if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsored] isKindOfClass:[NSString class]]) {
-        nativeAd.sponsored = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsored];
+        nativeAd.sponsoredBy = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsored];
     }
     
     

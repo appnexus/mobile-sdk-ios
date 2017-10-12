@@ -36,6 +36,6 @@
 @property (nonatomic, readwrite, strong) NSURL *clickURL;
 @property (nonatomic, readwrite, strong) NSURL *clickFallbackURL;
 
-@property (nonatomic, readwrite, strong) NSString *sponsored;
+@property (nonatomic, readwrite, strong) NSString *sponsoredBy;
 
 @end
