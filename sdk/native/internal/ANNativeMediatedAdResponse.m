@@ -80,30 +80,22 @@
 - (BOOL)registerAdapterWithNativeView:(UIView *)view
                    rootViewController:(UIViewController *)controller
                        clickableViews:(NSArray *)clickableViews
-                                error:(NSError **)error
-{
-    if ([self.adapter respondsToSelector:@selector(nativeAdDelegate)])
-    {
+                                error:(NSError **)error {
+    if ([self.adapter respondsToSelector:@selector(nativeAdDelegate)]) {
         self.adapter.nativeAdDelegate = self;
     } else {
         ANLogDebug(@"native_adapter_native_ad_delegate_missing");
     }
-
-    //
-    if ([self.adapter respondsToSelector:@selector(registerViewForImpressionTrackingAndClickHandling:withRootViewController:clickableViews:)])
-    {
-        [self.adapter registerViewForImpressionTrackingAndClickHandling: view
-                                                 withRootViewController: controller
-                                                         clickableViews: clickableViews];
+    if ([self.adapter respondsToSelector:@selector(registerViewForImpressionTrackingAndClickHandling:withRootViewController:clickableViews:)]) {
+        [self.adapter registerViewForImpressionTrackingAndClickHandling:view
+                                                 withRootViewController:controller
+                                                         clickableViews:clickableViews];
         return YES;
-
-    } else if (    [self.adapter respondsToSelector:@selector(registerViewForImpressionTracking:)]
-                && [self.adapter respondsToSelector:@selector(handleClickFromRootViewController:)] )
-    {
+    } else if ([self.adapter respondsToSelector:@selector(registerViewForImpressionTracking:)] && [self.adapter respondsToSelector:@selector(handleClickFromRootViewController:)]) {
         [self.adapter registerViewForImpressionTracking:view];
-        [self attachGestureRecognizersToNativeView:view withClickableViews:clickableViews];
+        [self attachGestureRecognizersToNativeView:view
+                                withClickableViews:clickableViews];
         return YES;
-
     } else {
         ANLogError(@"native_adapter_error");
         if (error) {
