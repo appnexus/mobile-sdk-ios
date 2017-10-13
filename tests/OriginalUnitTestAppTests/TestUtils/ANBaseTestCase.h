@@ -20,7 +20,7 @@
 #import "ANGlobal.h"
 #import "ANSDKSettings+PrivateMethods.h"
 
-#define TEST_URL [[ANSDKSettings sharedInstance].baseUrlConfig adRequestBaseUrl]
+
 
 @interface ANBaseTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
 

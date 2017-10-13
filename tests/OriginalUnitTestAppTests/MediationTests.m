@@ -14,12 +14,15 @@
  */
 
 #import "ANBaseTestCase.h"
-#import "ANAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANMediatedAd.h"
 #import "ANMRAIDContainerView.h"
 #import "ANMediationAdViewController.h"
 #import "ANSuccessfulBannerNeverCalled.h"
 #import "ANBrowserViewController.h"
+
+
+
 
 static NSString *const kANSuccessfulBanner = @"ANSuccessfulBanner";
 static NSString *const kANAdAdapterBannerDummy = @"ANAdAdapterBannerDummy";
@@ -29,9 +32,13 @@ static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
 static NSString *const kClassDoesNotExist = @"ClassDoesNotExist";
 static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeverCalled";
 
+
+
+
 @interface FetcherHelper : ANBannerAdView
+
 @property (nonatomic, assign) BOOL testComplete;
-@property (nonatomic, strong) ANAdFetcher *fetcher;
+@property (nonatomic, strong) ANUniversalAdFetcher *fetcher;
 @property (nonatomic, strong) id adapter;
 @property (nonatomic, strong) NSError *ANError;
 @property (nonatomic, strong) ANMRAIDContainerView *standardAdView;
@@ -42,13 +49,13 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
                    time:(NSTimeInterval)time;
 @end
 
-@interface FetcherHelper () <ANAdFetcherDelegate>
+@interface FetcherHelper () <ANUniversalAdFetcherDelegate>
 {
     NSUInteger __testNumber;
 }
 @end
 
-@interface ANAdFetcher ()
+@interface ANUniversalAdFetcher ()
 - (void)processResponseData:(NSData *)data;
 - (ANMediationAdViewController *)mediationController;
 - (ANMRAIDContainerView *)standardAdView;
@@ -299,6 +306,8 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 #pragma mark FetcherHelper
 
 @implementation FetcherHelper
+                    //FIX -- remove warnings?
+
 @synthesize testComplete = __testComplete;
 @synthesize fetcher = __fetcher;
 @synthesize adapter = __adapter;
@@ -319,9 +328,8 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
     __testNumber = testNumber;
     __testComplete = NO;
     
-    __fetcher = [ANAdFetcher new];
-    __fetcher.delegate = self;
-    [__fetcher requestAdWithURL:[NSURL URLWithString:TEST_URL]];
+    __fetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+    [__fetcher requestAd];
 }
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
@@ -338,9 +346,12 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
     return __testComplete;
 }
 
-#pragma mark ANAdFetcherDelegate
 
-- (void)adFetcher:(ANAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+
+
+#pragma mark - ANAdFetcherDelegate
+
+- (void)adFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
 	if (!__testComplete)
 	{
@@ -352,25 +363,25 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 			case 7:
 			{
 				self.adapter = [[fetcher mediationController] currentAdapter];
-				[fetcher requestAdWithURL:
-                 [NSURL URLWithString:[[[fetcher mediationController] mediatedAd] resultCB]]];
-			}
+                                //[fetcher requestAdWithURL:[NSURL URLWithString:[[[fetcher mediationController] mediatedAd] resultCB]]];
+                                        //FIX -- repair per intent
+                        }
 				break;
 			case 70:
 			{
-                // don't set adapter here, because we want to retain the adapter from case 7
-                self.standardAdView = [fetcher standardAdView];
+                                // don't set adapter here, because we want to retain the adapter from case 7
+                                self.standardAdView = [fetcher standardAdView];
 			}
 				break;
 			case 13:
 			{
 				self.adapter = [[fetcher mediationController] currentAdapter];
-                self.standardAdView = [fetcher standardAdView];
+                                self.standardAdView = [fetcher standardAdView];
 			}
 				break;
 			case 15:
 			{
-                self.ANError = [response error];
+                                self.ANError = [response error];
 			}
 				break;
 
@@ -392,24 +403,30 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 	}
 }
 
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANAdFetcher *)fetcher {
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher {
 	return 0.0;
 }
 
-- (CGSize)requestedSizeForAdFetcher:(ANAdFetcher *)fetcher {
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return CGSizeMake(320, 50);
 }
 
-- (void)adFetcher:(ANAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {};
+- (void)adFetcher:(ANUniversalAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {};
 
-#pragma mark ANBrowserViewControllerDelegate
+
+
+
+#pragma mark - ANBrowserViewControllerDelegate
 
 - (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller{};
 - (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller{};
 - (void)browserViewControllerWillLaunchExternalApplication{};
 - (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller{};
 
-#pragma mark ANAdViewInternalDelegate
+
+
+
+#pragma mark - ANAdViewInternalDelegate
 
 - (void)adWasClicked{};
 - (void)adWillPresent{};
@@ -424,7 +441,10 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
 - (void)adInteractionDidBegin{};
 - (void)adInteractionDidEnd{};
 
-#pragma mark ANMRAIDAdViewDelegate
+
+
+
+#pragma mark - ANMRAIDAdViewDelegate
 
 - (NSString *)adType{
     return nil;
@@ -441,6 +461,9 @@ static NSString *const kANSuccessfulBannerNeverCalled = @"ANSuccessfulBannerNeve
                 closePosition:(ANMRAIDCustomClosePosition)closePosition{};
 - (void)allowOrientationChange:(BOOL)allowOrientationChange
          withForcedOrientation:(ANMRAIDOrientation)orientation{};
+
+
+
 
 # pragma mark ANAppEventDelegate
 

@@ -40,7 +40,6 @@
 		4F7646211D95994B00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
 		4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
 		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
-		4FD3627C1F8FCB370010567E /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD362751F8FCA3D0010567E /* KIF.framework */; };
 		4FD67F971D760011009270E6 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67F961D760011009270E6 /* libz.1.2.5.tbd */; };
 		4FD67FA51D760019009270E6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3658519D4746E0097019F /* AudioToolbox.framework */; };
 		4FD67FA61D760020009270E6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3657F19D473B00097019F /* AVFoundation.framework */; };
@@ -996,7 +995,6 @@
 				8A9CBAF71C6530AB00558C95 /* CoreTelephony.framework in Frameworks */,
 				8A9CBAF11C65307E00558C95 /* EventKit.framework in Frameworks */,
 				8A9CBAF21C65307E00558C95 /* EventKitUI.framework in Frameworks */,
-				4FD3627C1F8FCB370010567E /* KIF.framework in Frameworks */,
 				8AA009A319DB16F30090EBED /* libANSDK.a in Frameworks */,
 				8A9CBAF31C65308D00558C95 /* MediaPlayer.framework in Frameworks */,
 				8A9CBAF41C65309500558C95 /* MessageUI.framework in Frameworks */,
