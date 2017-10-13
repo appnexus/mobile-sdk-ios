@@ -18,7 +18,7 @@
 #import "XCTestCase+ANAdResponse.h"
 #import "XCTestCase+ANBannerAdView.h"
 #import "ANMediatedAd.h"
-#import "ANAdRequestUrl.h"
+//#import "ANAdRequestUrl.h"   //FIX -- toss
 #import "ANBannerAdView+ANTest.h"
 
 @interface ANAdResponseTestCase : XCTestCase
@@ -30,7 +30,7 @@
 #pragma mark - Local Tests
 
 - (void)testLocalSuccessfulMRAIDResponse {
-    ANAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMRAID];
+    ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMRAID];
 //    XCTAssert(response.isMraid == YES);
     XCTAssert([response.standardAd.type isEqualToString:@"banner"]);
     XCTAssert([response.standardAd.height isEqualToString:@"50"]);
@@ -39,7 +39,7 @@
 }
 
 - (void)testLocalSuccessfulMediationResponse {
-    ANAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMediation];
+    ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMediation];
     XCTAssert([response.mediatedAds count] == 4);
     
     ANMediatedAd *firstMediatedAd = [response.mediatedAds objectAtIndex:0];

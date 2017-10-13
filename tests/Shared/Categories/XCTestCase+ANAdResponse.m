@@ -17,8 +17,8 @@
 
 @implementation XCTestCase (ANAdResponse)
 
-- (ANAdServerResponse *)responseWithJSONResource:(NSString *)JSONResource {
-    ANAdServerResponse *response = [ANAdServerResponse responseWithData:[self dataWithJSONResource:JSONResource]];
+- (ANUniversalTagAdServerResponse *)responseWithJSONResource:(NSString *)JSONResource {
+    ANUniversalTagAdServerResponse *response = [ANUniversalTagAdServerResponse responseWithData:[self dataWithJSONResource:JSONResource]];
     return response;
 }
 

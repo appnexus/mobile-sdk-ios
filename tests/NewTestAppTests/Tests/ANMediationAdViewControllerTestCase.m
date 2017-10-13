@@ -21,7 +21,7 @@
 #import "ANMediationAdViewController.h"
 #import "ANGlobal.h"
 #import "XCTestCase+ANCategory.h"
-#import "ANAdFetcher+ANTest.h"
+#import "ANUniversalAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 
 @interface ANMediationAdViewControllerTestCase : XCTestCase

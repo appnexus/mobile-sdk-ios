@@ -24,13 +24,13 @@
 
 
 
-@interface ANAdServerResponseTestCase : XCTestCase
+@interface ANUniversalTagAdServerResponseTestCase : XCTestCase
     //EMPTY
 @end
 
 
 
-@implementation ANAdServerResponseTestCase
+@implementation ANUniversalTagAdServerResponseTestCase
 
 - (void)testMediationResponse
 {

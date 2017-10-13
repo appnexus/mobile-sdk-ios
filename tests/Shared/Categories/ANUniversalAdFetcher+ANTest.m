@@ -13,12 +13,12 @@
  limitations under the License.
  */
 
-#import "ANAdFetcher+ANTest.h"
+#import "ANUniversalAdFetcher+ANTest.h"
 #import <objc/runtime.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
-@implementation ANAdFetcher (ANTest)
+@implementation ANUniversalAdFetcher (ANTest)
 #pragma clang diagnostic pop
 
 @dynamic standardAdView;
@@ -55,8 +55,8 @@
                    reason:(ANAdResponseCode)reason
                  adObject:(id)adObject
                 auctionID:(NSString *)auctionID {
-    NSDictionary *userInfo = @{kANAdFetcherFireResultCBRequestedReason:@(reason)};
-    [[NSNotificationCenter defaultCenter] postNotificationName:kANAdFetcherFireResultCBRequestedNotification
+    NSDictionary *userInfo = @{kANUniversalAdFetcherFireResultCBRequestedReason:@(reason)};
+    [[NSNotificationCenter defaultCenter] postNotificationName:kANUniversalAdFetcherFireResultCBRequestedNotification
                                                         object:self
                                                       userInfo:userInfo];
     [self test_fireResultCB:resultCBString
