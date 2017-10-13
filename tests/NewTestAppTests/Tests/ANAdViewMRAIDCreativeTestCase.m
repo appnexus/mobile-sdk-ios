@@ -30,14 +30,16 @@
 
 - (void)setUp {
     [super setUp];
-    self.adFetcher = [[ANAdFetcher alloc] init];
+    self.adFetcher = nil;
 }
 
 - (void)testExample {
     ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
-    self.adFetcher.delegate = bannerAdView;
+
+    self.adFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:bannerAdView];
+
     ANUniversalTagAdServerResponse *adServerResponse = [self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener];
-    [self.adFetcher handleStandardAd:adServerResponse.standardAd];
+    [self.adFetcher handleStandardAd:adServerResponse.ads[0]];
     UIView *view = self.adFetcher.standardAdView;
     [bannerAdView setContentView:view];
 }
