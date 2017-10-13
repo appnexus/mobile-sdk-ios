@@ -104,6 +104,16 @@
 @property (nonatomic, readonly, strong) NSDictionary *customElements;
 
 /*!
+ * The sponspored By text
+ */
+@property (nonatomic, readonly, strong) NSString *sponsoredBy;
+
+/*!
+ * description of full Text
+ */
+@property (nonatomic, readonly, strong) NSString *fullText;
+
+/*!
  * The network which supplied this native ad response.
  * @see ANNativeAdNetworkCode in ANAdConstants.h
  */

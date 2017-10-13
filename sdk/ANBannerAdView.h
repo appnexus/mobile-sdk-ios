@@ -15,10 +15,7 @@
 
 #import "ANAdView.h"
 
-
 @protocol ANBannerAdViewDelegate;
-
-
 
 typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionType) {
     ANBannerViewAdTransitionTypeNone = 0,
@@ -49,9 +46,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
     ANBannerViewAdAlignmentBottomRight
 };
 
-
-
-#pragma mark - Example implementation
+#pragma mark Example implementation
 
 /**
  This view displays banner ads.  A simple implementation that shows
@@ -71,8 +66,6 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  @endcode
  
  */
-
-
 @interface ANBannerAdView : ANAdView
 
 /**
@@ -94,22 +87,20 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 */
 @property (nonatomic, readwrite, weak) UIViewController *rootViewController;
 
-
 /**
- Represents the width and height of the ad view.  
- 
- NOTE:
-   In order for ads to display correctly, you must verify that your AppNexus placement is a ``sizeless'' placement.
-   If you are seeing ads of a fixed size being squeezed into differently-sized views, you probably do not have a sizeless placement.
+ Represents the width and height of the ad view.  In order for ads
+ to display correctly, you must verify that your AppNexus placement
+ is a ``sizeless'' placement.  If you are seeing ads of a fixed size
+ being squeezed into differently-sized views, you probably do not
+ have a sizeless placement.
  */
-@property (nonatomic, readwrite, assign)  CGSize  adSize;
+@property (nonatomic, readwrite, assign) CGSize adSize;
 
 /**
  The set of allowed ad sizes for the banner ad.
  The set should contain CGSize values wrapped as NSValue objects.
  */
 @property (nonatomic, readwrite, strong) NSArray<NSValue *> *adSizes;
-
 
 /**
  Autorefresh interval.  Default interval is 30.0; the minimum
@@ -153,10 +144,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 @property (nonatomic, readwrite, assign) BOOL shouldResizeAdToFitContainer;
 
-
-
-
-#pragma mark - Creating an ad view and loading an ad
+#pragma mark Creating an ad view and loading an ad
 
 /**
  You can use either of the initialization methods below.
@@ -187,10 +175,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
-
-
-
-#pragma mark - Loading an ad
+#pragma mark Loading an ad
 
 /**
  Loads a single ad into this ad view.  If autorefresh is not set to
@@ -201,10 +186,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 @end
 
-
-
-
-#pragma mark - ANBannerAdViewDelegate
+#pragma mark ANBannerAdViewDelegate
 
 /**
  See ANAdDelegate for common delegate methods.

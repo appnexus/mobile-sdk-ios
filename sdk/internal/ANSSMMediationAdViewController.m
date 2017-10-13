@@ -247,7 +247,6 @@
 
 
 #pragma mark - Timeout handler
-//FIX -- status of this?
 
 - (void)startTimeout {
     if (self.timeoutCanceled) return;

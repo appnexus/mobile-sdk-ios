@@ -256,7 +256,7 @@
                                                                           value: [NSString stringWithFormat:@"%.0f", totalLatency]];
     }
 
-ANLogMarkMessage(@"responseURLString=%@", responseURLString);
+ANLogDebug(@"responseURLString=%@", responseURLString);
     return responseURLString;
 }
 

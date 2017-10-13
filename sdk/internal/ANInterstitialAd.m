@@ -313,7 +313,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
-ANLogMark();
     if (!response.isSuccessful) {
         [self adRequestFailedWithError:response.error];
         return;

@@ -85,6 +85,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingDict = @"ra
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingValue = @"value";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingScale = @"scale";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeCustomKeywordsDict = @"custom";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeSponsoredBy = @"sponsored_by";
 
 
 // Trackers
@@ -156,9 +157,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 - (void)processV2ResponseData:(NSData *)data
 {
-ANLogMark();
+
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
-    ANLogMarkMessage(@"jsonResponse=%@", [jsonResponse description]);
+    ANLogDebug(@"jsonResponse=%@", [jsonResponse description]);
     
     if (jsonResponse) {
         NSArray *tags = [[self class] tagsFromJSONResponse:jsonResponse];
@@ -473,6 +474,12 @@ ANLogMark();
     if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeCallToAction] isKindOfClass:[NSString class]]) {
         nativeAd.callToAction = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeCallToAction];
     }
+    
+    if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsoredBy] isKindOfClass:[NSString class]]) {
+        nativeAd.sponsoredBy = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsoredBy];
+    }
+    
+    
 
     NSString *iconImageURLString = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeIconImageUrl] description];
     NSString *clickURLString = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeClickUrl] description];
