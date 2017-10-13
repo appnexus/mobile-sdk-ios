@@ -20,15 +20,12 @@
 #import "ANProxyViewController.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-
-
 NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey = @"kANAdAdapterNativeAdMobNativeAppInstallAdKey";
 NSString *const kANAdAdapterNativeAdMobNativeContentKey = @"kANAdAdapterNativeAdMobNativeContentKey";
 NSString *const kANAdAdapterNativeAdMobAdTypeKey = @"kANAdAdapterNativeAdMobAdTypeKey";
 
-
-
-@interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate, GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
+@interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate,
+GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
 
 @property (nonatomic) GADAdLoader *nativeAdLoader;
 @property (nonatomic) ANProxyViewController *proxyViewController;
@@ -36,8 +33,6 @@ NSString *const kANAdAdapterNativeAdMobAdTypeKey = @"kANAdAdapterNativeAdMobAdTy
 @property (nonatomic) GADNativeContentAd *nativeContentAd;
 
 @end
-
-
 
 @implementation ANAdAdapterNativeAdMob
 
@@ -48,8 +43,6 @@ NSString *const kANAdAdapterNativeAdMobAdTypeKey = @"kANAdAdapterNativeAdMobAdTy
 static BOOL nativeAppInstallAdsEnabled = NO;
 static BOOL nativeContentAdsEnabled = NO;
 
-
-
 + (void)enableNativeAppInstallAds {
     nativeAppInstallAdsEnabled = YES;
 }
@@ -57,9 +50,6 @@ static BOOL nativeContentAdsEnabled = NO;
 + (void)enableNativeContentAds {
     nativeContentAdsEnabled = YES;
 }
-
-
-
 
 #pragma mark - ANNativeCustomAdapter
 
@@ -95,16 +85,12 @@ static BOOL nativeContentAdsEnabled = NO;
 
 - (void)registerViewForImpressionTrackingAndClickHandling:(UIView *)view
                                    withRootViewController:(UIViewController *)rvc
-                                           clickableViews:(NSArray *)clickableViews
-{
-ANLogTrace(@"");
-
+                                           clickableViews:(NSArray *)clickableViews {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.proxyViewController.rootViewController = rvc;
     self.proxyViewController.adView = view;
-
     if (self.nativeAppInstallAd) {
-        if ([view isKindOfClass:[GADNativeAppInstallAdView class]])
-        {
+        if ([view isKindOfClass:[GADNativeAppInstallAdView class]]) {
             GADNativeAppInstallAdView *nativeAppInstallAdView = (GADNativeAppInstallAdView *)view;
             [nativeAppInstallAdView setNativeAppInstallAd:self.nativeAppInstallAd];
         } else {
@@ -112,10 +98,8 @@ ANLogTrace(@"");
         }
         return;
     }
-
     if (self.nativeContentAd) {
-        if ([view isKindOfClass:[GADNativeContentAdView class]])
-        {
+        if ([view isKindOfClass:[GADNativeContentAdView class]]) {
             GADNativeContentAdView *nativeContentAdView = (GADNativeContentAdView *)view;
             [nativeContentAdView setNativeContentAd:self.nativeContentAd];
         } else {
@@ -125,8 +109,6 @@ ANLogTrace(@"");
     }
 }
 
-
-
 #pragma mark - GADAdLoaderDelegate
 
 - (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(GADRequestError *)error {
@@ -135,8 +117,6 @@ ANLogTrace(@"");
     ANAdResponseCode code = [ANAdAdapterBaseDFP responseCodeFromRequestError:error];
     [self.requestDelegate didFailToLoadNativeAd:code];
 }
-
-
 
 #pragma mark - GADNativeAppInstallAdLoaderDelegate
 
@@ -174,8 +154,6 @@ ANLogTrace(@"");
                                 kANAdAdapterNativeAdMobAdTypeKey:@(ANAdAdapterNativeAdMobAdTypeContent)};
     [self.requestDelegate didLoadNativeAd:response];
 }
-
-
 
 #pragma mark - GADNativeAdDelegate
 
