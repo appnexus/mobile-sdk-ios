@@ -56,6 +56,8 @@
 @synthesize customElements = _customElements;
 @synthesize networkCode = _networkCode;
 @synthesize expired = _expired;
+@synthesize sponsoredBy = _sponsoredBy;
+@synthesize fullText = _fullText;
 
 
 

@@ -85,6 +85,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingDict = @"ra
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingValue = @"value";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingScale = @"scale";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeCustomKeywordsDict = @"custom";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeSponsoredBy = @"sponsored_by";
 
 
 // Trackers
@@ -473,6 +474,12 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeCallToAction] isKindOfClass:[NSString class]]) {
         nativeAd.callToAction = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeCallToAction];
     }
+    
+    if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsoredBy] isKindOfClass:[NSString class]]) {
+        nativeAd.sponsoredBy = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsoredBy];
+    }
+    
+    
 
     NSString *iconImageURLString = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeIconImageUrl] description];
     NSString *clickURLString = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeClickUrl] description];
