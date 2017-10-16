@@ -15,100 +15,69 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-
-#import "ANUniversalTagAdServerResponse.h"
+#import "ANAdServerResponse.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANMediatedAd.h"
-#import "ANNativeMediatedAdResponse.h"
-#import "ANNativeStandardAdResponse.h"
-
-
 
 @interface ANAdServerResponseTestCase : XCTestCase
-    //EMPTY
+
 @end
-
-
 
 @implementation ANAdServerResponseTestCase
 
-- (void)testMediationResponse
-{
-    ANUniversalTagAdServerResponse  *response  = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"SuccessfulMediationResponse"]];
-
-    XCTAssertTrue([response.ads count] > 0);
-    XCTAssertEqual([response.ads count], 4);
-
-    for (ANMediatedAd *mediatedAd in response.ads)
-    {
+- (void)testMediationResponse {
+    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"SuccessfulMediationResponse"]];
+    XCTAssertTrue(response.containsAds);
+    XCTAssertEqual(response.mediatedAds.count, 4);
+    for (ANMediatedAd *mediatedAd in response.mediatedAds) {
+        XCTAssertNotNil(mediatedAd.resultCB);
         XCTAssertNotNil(mediatedAd.className);
-        XCTAssertNotNil(mediatedAd.responseURL);
     }
+    XCTAssertNil(response.nativeAd);
 }
 
-- (void)testNativeResponse1
-{
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse1"]];
-
-    XCTAssertTrue([response.ads count] > 0);
-
-    ANNativeMediatedAdResponse  *nativeAd  = [response.ads firstObject];
-
-    XCTAssertNotNil(nativeAd.rating);
-    XCTAssertEqual(nativeAd.rating.scale, 5);
-    XCTAssertEqual(nativeAd.rating.value, 5.0);
-
-    XCTAssertNotNil(nativeAd.title);
-    XCTAssertNotNil(nativeAd.body);
-    XCTAssertNotNil(nativeAd.iconImageURL);
-    XCTAssertNotNil(nativeAd.mainImageURL);
+- (void)testNativeResponse1 {
+    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse1"]];
+    XCTAssertTrue(response.containsAds);
+    XCTAssertNotNil(response.nativeAd);
+    XCTAssertNotNil(response.nativeAd.rating);
+    XCTAssertEqual(response.nativeAd.rating.scale, 5);
+    XCTAssertEqual(response.nativeAd.rating.value, 5.0);
+    XCTAssertNotNil(response.nativeAd.title);
+    XCTAssertNotNil(response.nativeAd.body);
+    XCTAssertNotNil(response.nativeAd.iconImageURL);
+    XCTAssertNotNil(response.nativeAd.mainImageURL);
 }
-
-
-
 
 # pragma mark - Invalid JSON
 
 - (void)testNativeResponse2 {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse2"]];
-    XCTAssertTrue([response.ads count] <= 0);
+    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse2"]];
+    XCTAssertFalse(response.containsAds);
 }
 
 - (void)testNativeResponse3 {
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse3"]];
-    XCTAssertTrue([response.ads count] <= 0);
+    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse3"]];
+    XCTAssertFalse(response.containsAds);
 }
-
-
-
 
 # pragma mark - Rating a string, not a object (dict)
 
-- (void)testNativeResponse4
-{
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse4"]];
-
-    XCTAssertTrue([response.ads count] > 0);
-
-    ANNativeMediatedAdResponse  *nativeAd  = [response.ads firstObject];
-    
-    XCTAssertTrue(nativeAd.title);
-    XCTAssertTrue(nativeAd.body);
-    XCTAssertNil(nativeAd.rating);
+- (void)testNativeResponse4 {
+    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse4"]];
+    XCTAssertTrue(response.containsAds);
+    XCTAssertTrue(response.nativeAd.title);
+    XCTAssertTrue(response.nativeAd.body);
+    XCTAssertNil(response.nativeAd.rating);
 }
 
 #pragma mark - Invalid impression tracker array
 
-- (void)testNativeResponse5
-{
-    ANUniversalTagAdServerResponse *response = [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse5"]];
-
-    XCTAssertTrue([response.ads count] > 0);
-
-    ANNativeStandardAdResponse  *nativeStandardAd  = [response.ads firstObject];
-    
-    XCTAssertNotNil(nativeStandardAd.clickTrackers);
-    XCTAssertNil(nativeStandardAd.impTrackers);
+- (void)testNativeResponse5 {
+    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithAdServerData:[self dataWithJSONResource:@"nativeResponse5"]];
+    XCTAssertTrue(response.containsAds);
+    XCTAssertNotNil(response.nativeAd.clickTrackers);
+    XCTAssertNil(response.nativeAd.impTrackers);
 }
 
 @end

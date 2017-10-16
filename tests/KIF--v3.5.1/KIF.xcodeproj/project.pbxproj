@@ -543,6 +543,7 @@
 		AAB0725D139719AC008AF393 = {
 			isa = PBXGroup;
 			children = (
+				608E47471F86E710009BB148 /* Default-568h@2x.png */,
 				AAB0726A139719AC008AF393 /* Frameworks */,
 				EB60ECBC177F8C51005A041A /* KIF */,
 				9CC9673C1AD4B1B600576D13 /* KIF Framework */,
@@ -551,7 +552,6 @@
 				FAB8A0171CAC546A00C6DFC1 /* KIFFrameworkConsumerTests */,
 				AAB07269139719AC008AF393 /* Products */,
 				EB60ECC6177F8C83005A041A /* Test Host */,
-				608E47471F86E710009BB148 /* Default-568h@2x.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1154,8 +1154,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB8A00B1CAC546A00C6DFC1 /* Assets.xcassets in Resources */,
-				608E47481F86E710009BB148 /* Default-568h@2x.png in Resources */,
 				FAB8A0091CAC546A00C6DFC1 /* Main.storyboard in Resources */,
+				608E47481F86E710009BB148 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
