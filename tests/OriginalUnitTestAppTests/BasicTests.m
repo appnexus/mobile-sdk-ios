@@ -15,12 +15,19 @@
 
 #import "ANBaseTestCase.h"
 
+
+
 @interface BasicTests : ANBaseTestCase
 @end
+
+
+
 
 @implementation BasicTests
 
 float const BASIC_TIMEOUT = 10.0;
+
+
 
 - (void)clearTest {
     [super clearTest];
@@ -65,7 +72,10 @@ float const BASIC_TIMEOUT = 10.0;
     XCTAssertTrue([self waitForCompletion:BASIC_TIMEOUT], @"Test timed out");
 }
 
-#pragma mark Standard Tests
+
+
+
+#pragma mark -a Standard Tests
 
 - (void)testSuccessfulBannerDidLoad {
     [self stubWithBody:[ANTestResponses successfulBanner]];
@@ -128,7 +138,10 @@ float const BASIC_TIMEOUT = 10.0;
     [self clearTest];
 }
 
-#pragma mark Basic Mediation Tests
+
+
+
+#pragma mark - Basic Mediation Tests
 
 - (void)testSuccessfulMediationBannerDidLoad {
     [self stubWithBody:[ANTestResponses mediationSuccessfulBanner]];

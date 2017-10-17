@@ -58,6 +58,7 @@
 - (void)stubWithBody:(NSString *)body {
     ANURLConnectionStub *testURLStub = [[ANURLConnectionStub alloc] init];
     testURLStub.requestURLRegexPatternString = [@"FIX replace per intent" stringByAppendingString:@".*"];
+                                                    //FIX -- WAS: #define TEST_URL [[ANSDKSettings sharedInstance].baseUrlConfig adRequestBaseUrl]
     testURLStub.responseCode = 200;
     testURLStub.responseBody = body;
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:testURLStub];

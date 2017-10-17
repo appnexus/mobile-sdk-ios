@@ -16,11 +16,15 @@
 #import "ANTestResponses.h"
 #import "ANMediatedAd.h"
 
+
+
 NSString *const RESPONSE_TEMPLATE = @"{\"status\":\"%@\",\"ads\": %@,\"mediated\": %@}";
 NSString *const ADS_ARRAY_TEMPLATE = @"[{ \"type\": \"%@\", \"width\": %i, \"height\": %i, \"content\": \"%@\" }]";
 NSString *const MEDIATED_ARRAY_TEMPLATE = @"[{ \"handler\": [{\"type\":\"%@\",\"class\":\"%@\",\"param\":\"%@\",\"width\":\"%i\",\"height\":\"%i\",\"id\":\"%@\"}],\"result_cb\":\"%@\"}]";
 
 NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"param\":\"%@\",\"width\":\"%@\",\"height\":\"%@\",\"id\":\"%@\"}";
+
+
 
 @interface ANMediatedAd (TestResponses)
 @property (nonatomic, readwrite, strong) NSString *type;
@@ -28,9 +32,11 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
 + (ANMediatedAd *)dummy;
 @end
 
+
+
 @implementation ANTestResponses
 
-#pragma mark View-specific Convenience functions
+#pragma mark - View-specific Convenience functions
 
 + (NSString *)successfulBanner {
     return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"HelloWorld"];
@@ -118,7 +124,10 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
 
-#pragma mark Response Construction Convenience functions
+
+
+
+#pragma mark - Response Construction Convenience functions
 
 + (NSString *)createAdsResponse:(NSString *)type
                     withWidth:(int)width
@@ -173,8 +182,11 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     NSString *adsField = @"[]";
     return [ANTestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
 }
-            
-#pragma mark Base functions
+
+
+
+
+#pragma mark - Base functions
 
 + (NSString *)createResponseString:(NSString *)status
                            withAds:(NSString *)ads
@@ -246,6 +258,9 @@ NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"par
     return mediatedAdString;
 }
 @end
+
+
+
 
 @implementation ANMediatedAd (TestResponses)
 

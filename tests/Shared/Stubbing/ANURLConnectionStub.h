@@ -15,6 +15,9 @@
 
 #import <UIKit/UIKit.h>
 
+
+
+
 @interface ANURLConnectionStub : NSObject <NSCopying>
 
 @property (nonatomic, readwrite, strong) NSString *requestURLRegexPatternString;
@@ -23,15 +26,18 @@
 
 + (ANURLConnectionStub *)stubForStandardBannerWithAdSize:(CGSize)adSize
                                                  content:(NSString *)content;
+
 + (ANURLConnectionStub *)stubForStandardBannerWithAdSize:(CGSize)adSize
                                      contentFromResource:(NSString *)resource
                                                   ofType:(NSString *)type;
 
 + (ANURLConnectionStub *)stubForResource:(NSString *)resource
                                   ofType:(NSString *)type;
+
 + (ANURLConnectionStub *)stubForResource:(NSString *)resource
                                   ofType:(NSString *)type
         withRequestURLRegexPatternString:(NSString *)pattern;
+
 + (ANURLConnectionStub *)stubForResource:(NSString *)resource
                                   ofType:(NSString *)type
         withRequestURLRegexPatternString:(NSString *)pattern

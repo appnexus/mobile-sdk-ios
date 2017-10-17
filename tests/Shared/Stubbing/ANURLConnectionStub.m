@@ -17,6 +17,9 @@
 #import "ANGlobal.h"
 #import "ANSDKSettings+PrivateMethods.h"
 
+
+
+
 @implementation ANURLConnectionStub
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -49,6 +52,9 @@
     Response Body: %@",self.requestURLRegexPatternString, (long)self.responseCode, self.responseBody];
 
 }
+
+
+
 
 #pragma mark - Pre-Initialized Stubbers
 
