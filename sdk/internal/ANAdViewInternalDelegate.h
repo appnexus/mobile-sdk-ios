@@ -15,8 +15,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ANGlobal.h"
-
 
 
 // NB  Native does not use ANAdViewInternalDelegate, but instead has its own specific delegates for the request and response halves of Native entry point.
