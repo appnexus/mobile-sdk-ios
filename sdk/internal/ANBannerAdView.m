@@ -175,7 +175,7 @@
         CGSize  sizeElement  = [valueElement CGSizeValue];
 
         if ((sizeElement.width <= 0) || (sizeElement.height <= 0)) {
-            ANLogError(@"One or more elements of adSizes have a width or height LESS THAN ZERO. (%@)", adSizes);
+            ANLogError(@"One or more elements of adSizes have a width or height LESS THAN ONE (1). (%@)", adSizes);
             return;
         }
     }
@@ -327,6 +327,26 @@
     return self.adSize;
 }
 
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    CGSize  containerSize  = self.adSize;
+
+    if (CGSizeEqualToSize(self.adSize, APPNEXUS_SIZE_UNDEFINED))
+    {
+        containerSize           = self.frame.size;
+        self.adSizes            = @[ [NSValue valueWithCGSize:containerSize] ];
+        self.allowSmallerSizes  = YES;
+    }
+
+    //
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:containerSize]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.adSizes                             forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
+}
+
 
 
 
@@ -348,26 +368,6 @@
         displayController = [self an_parentViewController];
     }
     return displayController;
-}
-
-- (NSDictionary *) internalDelegateUniversalTagSizeParameters
-{
-    CGSize  containerSize  = self.adSize;
-
-    if (CGSizeEqualToSize(self.adSize, APPNEXUS_SIZE_UNDEFINED))
-    {
-        containerSize           = self.frame.size;
-        self.adSizes            = @[ [NSValue valueWithCGSize:containerSize] ];
-        self.allowSmallerSizes  = YES;
-    }
-
-    //
-    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
-    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:containerSize]  forKey:ANInternalDelgateTagKeyPrimarySize];
-    [delegateReturnDictionary setObject:self.adSizes                             forKey:ANInternalDelegateTagKeySizes];
-    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
-
-    return  delegateReturnDictionary;
 }
 
 
