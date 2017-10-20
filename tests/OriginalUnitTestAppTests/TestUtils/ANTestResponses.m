@@ -19,6 +19,7 @@
 
 
 #pragma mark - Response templates.
+                //fix -- FXI FIX -- removed unused templates...
 
 NSString *const RESPONSE_TEMPLATE = @"{\"status\":\"%@\",\"ads\": %@,\"mediated\": %@}";
 NSString *const ADS_ARRAY_TEMPLATE = @"[{ \"type\": \"%@\", \"width\": %i, \"height\": %i, \"content\": \"%@\" }]";
@@ -41,7 +42,7 @@ NSString *const  UT_BANNER_INTERSTITIAL_TEMPLATE = @""
                                 "\"media_type_id\": 0, "                                                                                //XXX
                                 "\"media_subtype_id\": 0, "                                                                             //XXX
                                 "\"rtb\": { "
-                                    "\"banner\": { \"content\": \"MOCK__content\", \"width\": 320, \"height\": 50 }, "                  //XXX
+                                    "\"banner\": { \"content\": \"%@\", \"width\": 320, \"height\": 50 }, "                             //XXX
                                     "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ] "
                                 "} "
                             "} ] "
@@ -60,8 +61,8 @@ NSString *const  UT_MEDIATED_TEMPLATE  = @""
                                   "\"csm\": { "
                                       "\"banner\": { \"content\": \"MOCK__content\", \"width\": 320, \"height\": 50 }, "
                                       "\"handler\": [ "
-                                          "{ \"param\": \"#{PARAM}\", \"class\": \"ANAdAdapterBannerRubicon\", \"width\": \"320\", \"height\": \"50\", \"type\": \"ios\", \"id\": \"MOCK__id\" }, "
-                                          "{ \"param\": \"#{PARAM}\", \"class\": \"com.appnexus.opensdk.mediatedviews.RubiconBannerAdView\", \"width\": \"320\", \"height\": \"50\", \"type\": \"android\", \"id\": \"MOCK__id\" } "
+                                          "{ \"param\": \"#{PARAM}\", \"class\": \"MOCK__class\", \"width\": \"320\", \"height\": \"50\", \"type\": \"ios\", \"id\": \"MOCK__id\" }, "
+                                          "{ \"param\": \"#{PARAM}\", \"class\": \"com.appnexus.opensdk.mediatedviews.MOCK__class\", \"width\": \"320\", \"height\": \"50\", \"type\": \"android\", \"id\": \"MOCK__id\" } "
                                       "], "
                                       "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ], "
                                       "\"response_url\": \"MOCK__response_url\" "
@@ -80,6 +81,8 @@ NSString *const  UT_MEDIATED_TEMPLATE  = @""
 - (NSString *)toJSON;
 + (ANMediatedAd *)dummy;
 @end
+
+
 
 @implementation ANMediatedAd (TestResponses)
 
@@ -113,6 +116,7 @@ NSString *_type;
 
 
 
+
 #pragma mark - ANTestResponse
 
 @implementation ANTestResponses
@@ -120,17 +124,18 @@ NSString *_type;
 #pragma mark View-specific Convenience functions
 
 + (NSString *)successfulBanner {
-//    return  UT_BANNER_INTERSTITIAL_TEMPLATE;
-    return  [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"HelloWorld"];   //FIX -- was
+    return  [NSString stringWithFormat:UT_BANNER_INTERSTITIAL_TEMPLATE, @"MOCK__content"];
+//    return  [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"HelloWorld"];   //FIX -- was
 }
 
 + (NSString *)blankContentBanner {
-    return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@""];
+    return  [NSString stringWithFormat:UT_BANNER_INTERSTITIAL_TEMPLATE, @""];
+//    return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@""];   //fix --FIX -- was
 }
 
 + (NSString *)mediationSuccessfulBanner {
     return  UT_MEDIATED_TEMPLATE;
-    return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner"];   //FIX -- was
+//    return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner"];   //FIX -- was
 }
 
 + (NSString *)mediationNoAdsBanner {

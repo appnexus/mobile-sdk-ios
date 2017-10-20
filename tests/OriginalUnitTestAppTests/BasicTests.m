@@ -86,7 +86,6 @@ LOGMARK();
 }
 
 - (void)testBannerBlankContentDidFail {
-            //FIX -- distinguish real fallure versus false positive failure...  (and for all below)
 LOGMARK();
     [self stubWithBody:[ANTestResponses blankContentBanner]];
     [self loadBannerAd];

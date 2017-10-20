@@ -72,7 +72,7 @@
 }
 
 - (BOOL)requestForAd:(ANMediatedAd *)ad {
-
+ANLogMark();
     // variables to pass into the failure handler if necessary
     NSString *className = nil;
     NSString *errorInfo = nil;
