@@ -19,7 +19,7 @@
 
 
 #define  LOGMARK()              NSLog(@"  LOGMARK  %s", __PRETTY_FUNCTION__)
-#define  LOGMARKM(format, ...)  NSLog(@"  LOGMARK  %s -- %@", __PRETTY_FUNCTION__, [NSStringWithFormat:format, ...])
+#define  LOGMARKM(format, ...)  NSLog(@"  LOGMARK  %s -- %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:format, ##__VA_ARGS__])
 
 
 

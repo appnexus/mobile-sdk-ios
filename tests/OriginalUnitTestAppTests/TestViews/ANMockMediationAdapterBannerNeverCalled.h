@@ -13,20 +13,10 @@
  limitations under the License.
  */
 
-#import "ANSuccessfulBanner.h"
+#import <Foundation/Foundation.h>
+#import "ANCustomAdapter.h"
 
-@implementation ANSuccessfulBanner
-@synthesize delegate;
-
-#pragma mark ANCustomAdapterBanner
-
-- (void)requestBannerAdWithSize:(CGSize)size
-             rootViewController:(UIViewController *)rootViewController
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
-{
-    [self.delegate didLoadBannerAd:[UIView new]];
-}
-
+@interface ANMockMediationAdapterBannerNeverCalled : NSObject <ANCustomAdapterBanner>
++ (void)setCalled:(BOOL)called;
++ (BOOL)getCalled;
 @end

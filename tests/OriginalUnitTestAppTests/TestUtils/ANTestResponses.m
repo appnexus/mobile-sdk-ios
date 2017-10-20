@@ -42,7 +42,7 @@ NSString *const  UT_BANNER_INTERSTITIAL_TEMPLATE = @""
                                 "\"media_type_id\": 0, "                                                                                //XXX
                                 "\"media_subtype_id\": 0, "                                                                             //XXX
                                 "\"rtb\": { "
-                                    "\"banner\": { \"content\": \"%@\", \"width\": 320, \"height\": 50 }, "                             //XXX
+                                "\"banner\": { \"content\": \"%@\", \"width\": 320, \"height\": 50 }, "                                 //XXX + content:?
                                     "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ] "
                                 "} "
                             "} ] "
@@ -55,14 +55,14 @@ NSString *const  UT_MEDIATED_TEMPLATE  = @""
                               "\"ads\": [ { "
                                   "\"content_source\": \"csm\", "
                                   "\"ad_type\": \"banner\", "
-                                  "\"media_type_id\": 0, "
-                                  "\"media_subtype_id\": 0, "
+                                  "\"media_type_id\": 0, "                                                                      //XXX
+                                  "\"media_subtype_id\": 0, "                                                                   //XXX
                                   "\"viewability\": { \"config\": \"MOCK__config\", }, "
                                   "\"csm\": { "
                                       "\"banner\": { \"content\": \"MOCK__content\", \"width\": 320, \"height\": 50 }, "
-                                      "\"handler\": [ "
-                                          "{ \"param\": \"#{PARAM}\", \"class\": \"MOCK__class\", \"width\": \"320\", \"height\": \"50\", \"type\": \"ios\", \"id\": \"MOCK__id\" }, "
-                                          "{ \"param\": \"#{PARAM}\", \"class\": \"com.appnexus.opensdk.mediatedviews.MOCK__class\", \"width\": \"320\", \"height\": \"50\", \"type\": \"android\", \"id\": \"MOCK__id\" } "
+                                      "\"handler\": [ "                                                                         //XXX + iOS class:?
+                                          "{ \"param\": \"#{PARAM}\", \"class\": \"%@\", \"width\": \"320\", \"height\": \"50\", \"type\": \"ios\", \"id\": \"MOCK__id\" }, "
+                                          "{ \"param\": \"#{PARAM}\", \"class\": \"com.appnexus.opensdk.mediatedviews.MOCK__androidClass\", \"width\": \"320\", \"height\": \"50\", \"type\": \"android\", \"id\": \"MOCK__id\" } "
                                       "], "
                                       "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ], "
                                       "\"response_url\": \"MOCK__response_url\" "
@@ -134,8 +134,8 @@ NSString *_type;
 }
 
 + (NSString *)mediationSuccessfulBanner {
-    return  UT_MEDIATED_TEMPLATE;
-//    return [ANTestResponses createMediatedBanner:@"ANSuccessfulBanner"];   //FIX -- was
+    return  [NSString stringWithFormat:UT_MEDIATED_TEMPLATE, @"ANMockMediationAdapterSuccessfulBanner"];
+//    return [ANTestResponses createMediatedBanner:@"ANMockMediationAdapterSuccessfulBanner"];   //FIX -- was
 }
 
 + (NSString *)mediationNoAdsBanner {
@@ -248,8 +248,7 @@ NSString *_type;
     NSMutableArray *mediatedAdsArray = [[NSMutableArray alloc] initWithObjects:mediatedAd, nil];
     NSString *handler = [ANTestResponses createHandlerObjectFromMediatedAds:mediatedAdsArray withResultCB:resultCB];
 
-    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:
-                               [[NSMutableArray alloc] initWithObjects:handler, nil]];
+    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:[[NSMutableArray alloc] initWithObjects:handler, nil]];
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
 

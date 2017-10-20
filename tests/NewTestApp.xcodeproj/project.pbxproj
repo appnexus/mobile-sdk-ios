@@ -176,8 +176,8 @@
 		8AA0099919DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097E19DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.m */; };
 		8AA0099A19DB16CD0090EBED /* ANLoadedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098019DB16CD0090EBED /* ANLoadedMultiple.m */; };
 		8AA0099B19DB16CD0090EBED /* ANLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098219DB16CD0090EBED /* ANLoadThenFail.m */; };
-		8AA0099C19DB16CD0090EBED /* ANSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098419DB16CD0090EBED /* ANSuccessfulBanner.m */; };
-		8AA0099D19DB16CD0090EBED /* ANSuccessfulBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098619DB16CD0090EBED /* ANSuccessfulBannerNeverCalled.m */; };
+		8AA0099C19DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098419DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m */; };
+		8AA0099D19DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098619DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m */; };
 		8AA0099E19DB16CD0090EBED /* ANTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098819DB16CD0090EBED /* ANTimeout.m */; };
 		8AA009A319DB16F30090EBED /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA0094019DB169B0090EBED /* libANSDK.a */; };
 		8AA009AC19DB18AE0090EBED /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */; };
@@ -791,10 +791,10 @@
 		8AA0098019DB16CD0090EBED /* ANLoadedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadedMultiple.m; sourceTree = "<group>"; };
 		8AA0098119DB16CD0090EBED /* ANLoadThenFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadThenFail.h; sourceTree = "<group>"; };
 		8AA0098219DB16CD0090EBED /* ANLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadThenFail.m; sourceTree = "<group>"; };
-		8AA0098319DB16CD0090EBED /* ANSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSuccessfulBanner.h; sourceTree = "<group>"; };
-		8AA0098419DB16CD0090EBED /* ANSuccessfulBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSuccessfulBanner.m; sourceTree = "<group>"; };
-		8AA0098519DB16CD0090EBED /* ANSuccessfulBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSuccessfulBannerNeverCalled.h; sourceTree = "<group>"; };
-		8AA0098619DB16CD0090EBED /* ANSuccessfulBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSuccessfulBannerNeverCalled.m; sourceTree = "<group>"; };
+		8AA0098319DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterSuccessfulBanner.h; sourceTree = "<group>"; };
+		8AA0098419DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterSuccessfulBanner.m; sourceTree = "<group>"; };
+		8AA0098519DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerNeverCalled.h; sourceTree = "<group>"; };
+		8AA0098619DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerNeverCalled.m; sourceTree = "<group>"; };
 		8AA0098719DB16CD0090EBED /* ANTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTimeout.h; sourceTree = "<group>"; };
 		8AA0098819DB16CD0090EBED /* ANTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTimeout.m; sourceTree = "<group>"; };
 		8AA009A619DB18AE0090EBED /* ANHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubbingManager.h; sourceTree = "<group>"; };
@@ -1077,12 +1077,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1366,25 +1366,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094019DB169B0090EBED /* libANSDK.a */,
 				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
-				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
-				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094019DB169B0090EBED /* libANSDK.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
+				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
 				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1457,10 +1457,10 @@
 				8AA0098019DB16CD0090EBED /* ANLoadedMultiple.m */,
 				8AA0098119DB16CD0090EBED /* ANLoadThenFail.h */,
 				8AA0098219DB16CD0090EBED /* ANLoadThenFail.m */,
-				8AA0098319DB16CD0090EBED /* ANSuccessfulBanner.h */,
-				8AA0098419DB16CD0090EBED /* ANSuccessfulBanner.m */,
-				8AA0098519DB16CD0090EBED /* ANSuccessfulBannerNeverCalled.h */,
-				8AA0098619DB16CD0090EBED /* ANSuccessfulBannerNeverCalled.m */,
+				8AA0098519DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.h */,
+				8AA0098619DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m */,
+				8AA0098319DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.h */,
+				8AA0098419DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m */,
 				8AA0098719DB16CD0090EBED /* ANTimeout.h */,
 				8AA0098819DB16CD0090EBED /* ANTimeout.m */,
 			);
@@ -1603,13 +1603,13 @@
 				8AA0095319DB16C50090EBED /* OriginalUnitTestApp */,
 				8AA0095E19DB16CD0090EBED /* OriginalUnitTestAppTests */,
 				8AD0182E199932F9007874BA /* Products */,
+				4F1CBB021F97F9510019840A /* Recovered References */,
 				4F6F83681D9195BE0007051E /* ResourcesForMediatedSDKs */,
 				8AA009A419DB18AE0090EBED /* Shared */,
 				60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */,
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
 				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
-				4F1CBB021F97F9510019840A /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2346,9 +2346,9 @@
 				8AA0099919DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				8AA0099A19DB16CD0090EBED /* ANLoadedMultiple.m in Sources */,
 				8AA0099B19DB16CD0090EBED /* ANLoadThenFail.m in Sources */,
+				8AA0099D19DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
+				8AA0099C19DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m in Sources */,
 				8AA0099019DB16CD0090EBED /* ANMRAIDTestResponses.m in Sources */,
-				8AA0099C19DB16CD0090EBED /* ANSuccessfulBanner.m in Sources */,
-				8AA0099D19DB16CD0090EBED /* ANSuccessfulBannerNeverCalled.m in Sources */,
 				8AA0099119DB16CD0090EBED /* ANTestResponses.m in Sources */,
 				8AA0099E19DB16CD0090EBED /* ANTimeout.m in Sources */,
 				8AA009AE19DB18AE0090EBED /* ANURLConnectionStub.m in Sources */,

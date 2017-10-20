@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
-#import "ANSuccessfulBannerNeverCalled.h"
+#import "ANMockMediationAdapterBannerNeverCalled.h"
 
-@implementation ANSuccessfulBannerNeverCalled
+@implementation ANMockMediationAdapterBannerNeverCalled
 @synthesize delegate;
 
 static BOOL wasCalled = NO;

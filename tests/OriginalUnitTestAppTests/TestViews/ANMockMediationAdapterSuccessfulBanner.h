@@ -16,7 +16,6 @@
 #import <Foundation/Foundation.h>
 #import "ANCustomAdapter.h"
 
-@interface ANSuccessfulBannerNeverCalled : NSObject <ANCustomAdapterBanner>
-+ (void)setCalled:(BOOL)called;
-+ (BOOL)getCalled;
+@interface ANMockMediationAdapterSuccessfulBanner : NSObject <ANCustomAdapterBanner>
+
 @end
