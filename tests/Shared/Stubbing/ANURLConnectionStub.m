@@ -32,7 +32,8 @@
 
 - (BOOL)isEqual:(ANURLConnectionStub *)object {
     BOOL sameRequestURLString = [self.requestURLRegexPatternString isEqualToString:object.requestURLRegexPatternString];
-    BOOL sameResponseCode = self.responseCode = object.responseCode;
+//    BOOL sameResponseCode = self.responseCode = object.responseCode;  //FIX -- unitentional?
+    BOOL sameResponseCode = (self.responseCode == object.responseCode);
     BOOL sameResponseBody = [self.responseBody isEqualToString:object.responseBody];
     return sameRequestURLString && sameResponseBody && sameResponseCode;
 }
@@ -73,7 +74,7 @@
 + (ANURLConnectionStub *)stubForStandardBannerWithAdSize:(CGSize)adSize
                                                  content:(NSString *)content {
     ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
-    stub.requestURLRegexPatternString = [[ANSDKSettings sharedInstance].baseUrlConfig adRequestBaseUrl];
+    stub.requestURLRegexPatternString = [[ANSDKSettings sharedInstance].baseUrlConfig utAdRequestBaseUrl];
     stub.responseCode = 200;
     stub.responseBody = [NSJSONSerialization dataWithJSONObject:[[self class] responseForStandardBannerWithAdSize:adSize
                                                                                                           content:content]

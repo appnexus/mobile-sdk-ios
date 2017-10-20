@@ -18,9 +18,15 @@
 #import "ANGlobal.h"
 #import "ANLogManager.h"
 
+
+
+
 @interface ANProdHTTPBaseUrlConfig : NSObject <ANBaseUrlConfig>
 
 @end
+
+
+
 
 @implementation ANProdHTTPBaseUrlConfig
 
@@ -37,9 +43,11 @@
     return @"http://mediation.adnxs.com/";
 }
 
+        /*FIX -- toss
 - (NSString *)adRequestBaseUrl {
     return @"http://mediation.adnxs.com/mob";
 }
+             */
 
 -(NSString *) utAdRequestBaseUrl {
     return @"http://mediation.adnxs.com/ut/v2";
@@ -79,9 +87,11 @@
     return @"https://mediation.adnxs.com/";
 }
 
+        /*FIX -- toss
 - (NSString *)adRequestBaseUrl {
     return @"https://mediation.adnxs.com/mob";
 }
+             */
 
 -(NSString *) utAdRequestBaseUrl {
     return @"https://mediation.adnxs.com/ut/v2";

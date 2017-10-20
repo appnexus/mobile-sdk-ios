@@ -19,9 +19,15 @@
 #import "ANHTTPStubURLProtocol.h"
 #import "ANHTTPStubbingManager.h"
 
+
+
+
 @interface ANBaseTestCase () 
 
 @end
+
+
+
 
 @implementation ANBaseTestCase
 
@@ -49,6 +55,7 @@
     _adWillLeaveApplicationCalled = NO;
     _adFailedToDisplayCalled = NO;
     UIViewController *presentingVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+                                            //FIX -- use same invocation of rootViewController here and below?
     if (presentingVC) {
         [self delay:1.0];
         [presentingVC dismissViewControllerAnimated:NO completion:nil];
@@ -57,8 +64,8 @@
 
 - (void)stubWithBody:(NSString *)body {
     ANURLConnectionStub *testURLStub = [[ANURLConnectionStub alloc] init];
-    testURLStub.requestURLRegexPatternString = [@"FIX replace per intent" stringByAppendingString:@".*"];
-                                                    //FIX -- WAS: #define TEST_URL [[ANSDKSettings sharedInstance].baseUrlConfig adRequestBaseUrl]
+    testURLStub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig utAdRequestBaseUrl] stringByAppendingString:@".*"];
+                    //FIX -- do stubs even work for UT?  all the query strings are the same...
     testURLStub.responseCode = 200;
     testURLStub.responseBody = body;
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:testURLStub];
@@ -71,6 +78,7 @@
 }
 
 - (void)stubResultCBResponses:(NSString *)body {
+            //FIX what happens in place of this for UT?  faux query string only used for medaition?
     ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
     anBaseURLStub.requestURLRegexPatternString = [NSString stringWithFormat:@"^%@.*", OK_RESULT_CB_URL];
     anBaseURLStub.responseCode = 200;
@@ -79,6 +87,7 @@
 }
 
 - (void)stubResultCBForErrorCode {
+                            //FIX what happens in place of this for UT?  faux query string only used for medaition?
     for (int i = 0; i < 6; i++) {
         NSString *resultCBURLString = [NSString stringWithFormat:@"^%@\\?reason=%i.*", OK_RESULT_CB_URL, i];
         ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
@@ -118,9 +127,11 @@
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
+                           //FIX -- encode faux placementID?
                    adSize:CGSizeMake(320, 50)];
     self.banner.rootViewController = [[UIApplication sharedApplication].delegate window].rootViewController;
     self.banner.autoRefreshInterval = 0.0;
+                //FIX -- do we need to test autorefresh?
     self.banner.delegate = self;
     [self.banner loadAd];
 }
@@ -136,7 +147,10 @@
     [self.interstitial displayAdFromViewController:controller];
 }
 
-#pragma mark ANAdDelegate
+
+
+
+#pragma mark - ANAdDelegate
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     NSLog(@"adDidReceiveAd callback called");

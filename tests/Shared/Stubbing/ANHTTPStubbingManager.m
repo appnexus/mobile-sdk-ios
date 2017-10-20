@@ -64,24 +64,26 @@
     }
 }
 
-- (ANURLConnectionStub *)stubForURLString:(NSString *)URLString {
-    NSString *requestURLString = URLString;
-    NSArray *stubArray = self.stubs;
-    __block ANURLConnectionStub *stubMatch = nil;
-    [stubArray enumerateObjectsUsingBlock:^(ANURLConnectionStub *stub, NSUInteger idx, BOOL *stop) {
-        NSString *stubRequestURLString = stub.requestURLRegexPatternString;
-        NSError *error;
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:stubRequestURLString
-                                                                               options:NSRegularExpressionDotMatchesLineSeparators
-                                                                                 error:&error];
-        if ([regex numberOfMatchesInString:requestURLString
-                                   options:0
-                                     range:NSMakeRange(0, [requestURLString length])]) {
-            stubMatch = stub;
-            *stop = YES;
-        }
-    }];
-    return stubMatch;
+- (ANURLConnectionStub *)stubForURLString:(NSString *)URLString
+{
+    __block ANURLConnectionStub  *stubMatch  = nil;
+
+    [self.stubs enumerateObjectsUsingBlock: ^(ANURLConnectionStub *stub, NSUInteger idx, BOOL *stop)
+                                            {
+                                                NSError *error;
+                                                NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: stub.requestURLRegexPatternString
+                                                                                                                       options: NSRegularExpressionDotMatchesLineSeparators
+                                                                                                                         error: &error];
+                                                if ([regex numberOfMatchesInString: URLString
+                                                                           options: 0
+                                                                             range: NSMakeRange(0, [URLString length])])
+                                                {
+                                                    stubMatch = stub;
+                                                    *stop = YES;
+                                                }
+                                            } ];
+
+    return  stubMatch;
 }
 
 @end

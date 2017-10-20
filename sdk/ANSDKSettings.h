@@ -15,6 +15,15 @@
 
 #import <Foundation/Foundation.h>
 
+
+
+
+#define  LOGMARK()              NSLog(@"  LOGMARK  %s", __PRETTY_FUNCTION__)
+#define  LOGMARKM(format, ...)  NSLog(@"  LOGMARK  %s -- %@", __PRETTY_FUNCTION__, [NSStringWithFormat:format, ...])
+
+
+
+
 @interface ANSDKSettings : NSObject
 
 + (instancetype)sharedInstance;

@@ -34,6 +34,7 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (BOOL)waitForDidPresentCalled {
+                //FIX -- abstrct spinwait for seconds with conditionsBlock (optinoally nil)?
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:BASIC_TIMEOUT];
     
     do {
@@ -57,15 +58,12 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)checkInterstitialDisplayed:(BOOL)displayed {
-    XCTAssertEqual((BOOL)!displayed, self.adFailedToDisplayCalled,
-                   @"Interstitial callback adFailedToDisplay should be %d", (BOOL)!displayed);
-    XCTAssertEqual(displayed, self.adWillPresentCalled,
-                   @"Interstitial callback adWillPresent should be %d", displayed);
+    XCTAssertEqual((BOOL)!displayed, self.adFailedToDisplayCalled, @"Interstitial callback adFailedToDisplay should be %d", (BOOL)!displayed);
+    XCTAssertEqual(displayed, self.adWillPresentCalled, @"Interstitial callback adWillPresent should be %d", displayed);
     if (displayed) {
         [self waitForDidPresentCalled];
     }
-    XCTAssertEqual(displayed, self.adDidPresentCalled,
-                   @"Interstitial callback adDidPresent should be %d", displayed);
+    XCTAssertEqual(displayed, self.adDidPresentCalled, @"Interstitial callback adDidPresent should be %d", displayed);
 }
 
 - (void)waitForLoad {
@@ -75,9 +73,10 @@ float const BASIC_TIMEOUT = 10.0;
 
 
 
-#pragma mark -a Standard Tests
+#pragma mark - Standard Tests
 
 - (void)testSuccessfulBannerDidLoad {
+LOGMARK();
     [self stubWithBody:[ANTestResponses successfulBanner]];
     [self loadBannerAd];
     [self waitForLoad];
@@ -87,6 +86,8 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)testBannerBlankContentDidFail {
+            //FIX -- distinguish real fallure versus false positive failure...  (and for all below)
+LOGMARK();
     [self stubWithBody:[ANTestResponses blankContentBanner]];
     [self loadBannerAd];
     [self waitForLoad];
@@ -96,6 +97,7 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)testBannerBlankResponseDidFail {
+LOGMARK();
     [self stubWithBody:@""];
     [self loadBannerAd];
     [self waitForLoad];
@@ -105,6 +107,7 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)testSuccessfulInterstitialDidLoad {
+LOGMARK();
     // response format for interstitials and banners is the same
     [self stubWithBody:[ANTestResponses successfulBanner]];
     [self fetchInterstitialAd];
@@ -117,6 +120,7 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)testInterstitialBlankContentDidFail {
+LOGMARK();
     [self stubWithBody:[ANTestResponses blankContentBanner]];
     [self fetchInterstitialAd];
     [self waitForLoad];
@@ -128,6 +132,7 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)testInterstitialBlankResponseDidFail {
+LOGMARK();
     [self stubWithBody:@""];
     [self fetchInterstitialAd];
     [self waitForLoad];

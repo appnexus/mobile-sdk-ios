@@ -16,27 +16,33 @@
 #import "ANHTTPStubURLProtocol.h"
 #import "ANHTTPStubbingManager.h"
 
+#import "ANSDKSettings.h"
 
 
-static NSString *const kANTestHTTPStubURLProtocolExceptionKey = @"ANTestHTTPStubURLProtocolException";
-NSString *const kANHTTPStubURLProtocolRequestDidLoadNotification = @"ANHTTPStubURLProtocolRequestDidLoad";
-NSString *const kANHTTPStubURLProtocolRequest = @"ANHTTPStubURLProtocolRequest";
+
+static NSString *const  kANTestHTTPStubURLProtocolExceptionKey              = @"kANTestHTTPStubURLProtocolExceptionKey";
+NSString *const         kANHTTPStubURLProtocolRequestDidLoadNotification    = @"kANHTTPStubURLProtocolRequestDidLoadNotification";
+NSString *const         kANHTTPStubURLProtocolRequest                       = @"kANHTTPStubURLProtocolRequest";
 
 
 
 @implementation ANHTTPStubURLProtocol
 
-+ (BOOL)canInitWithRequest:(NSURLRequest *)request {
++ (BOOL)canInitWithRequest:(NSURLRequest *)request
+{
     BOOL broadcastRequests = [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests;
+
     if (broadcastRequests && request) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kANHTTPStubURLProtocolRequestDidLoadNotification
                                                             object:nil
                                                           userInfo:@{kANHTTPStubURLProtocolRequest:request}];
     }
+
     BOOL isHttpOrHttps = [request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"];
     if (!isHttpOrHttps) {
         return NO;
     }
+
     BOOL ignoreUnstubbedRequests = [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests;
     if (ignoreUnstubbedRequests) {
         ANURLConnectionStub *stub = [[ANHTTPStubbingManager sharedStubbingManager] stubForURLString:request.URL.absoluteString];
@@ -55,15 +61,20 @@ NSString *const kANHTTPStubURLProtocolRequest = @"ANHTTPStubURLProtocolRequest";
 }
 
 - (void)startLoading {
-    id<NSURLProtocolClient> client = self.client;
-        ANURLConnectionStub *stub = [self stubForRequest];
+LOGMARK();
+    id<NSURLProtocolClient>   client    = self.client;
+    ANURLConnectionStub      *stub      = [self stubForRequest];
+    
     if (stub) {
         NSURLResponse *response = [self buildResponseForRequestUsingStub:stub];
         [client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+
         NSData *responseData = [self buildDataForRequestUsingStub:stub];
         [client URLProtocol:self didLoadData:responseData];
+
         [client URLProtocolDidFinishLoading:self];
         NSLog(@"Successfully loaded request from stub: %@", [self request]);
+        
     } else {
         NSLog(@"Could not load request successfully: %@", [self request]);
         NSLog(@"This can happen if the request was not stubbed, or if the stubs were removed before this request was completed (due to asynchronous request loading).");
