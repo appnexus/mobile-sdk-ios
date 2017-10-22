@@ -14,12 +14,15 @@
  */
 
 #import "ANMockMediationAdapterSuccessfulBanner.h"
-#import "ANSDKSettings.h"
+#import "ANTestGlobal.h"
+
+
 
 @implementation ANMockMediationAdapterSuccessfulBanner
 @synthesize delegate;
 
-#pragma mark ANCustomAdapterBanner
+
+#pragma mark - ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController

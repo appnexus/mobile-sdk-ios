@@ -1,4 +1,4 @@
-/*   Copyright 2016 APPNEXUS INC
+/*   Copyright 2017 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,17 +13,11 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "ANTestGlobal.h"
 
 
 
-@interface ANSDKSettings : NSObject
-
-+ (instancetype)sharedInstance;
-
-/**
- If YES, the SDK will make all requests in HTTPS. Default is NO.
- */
-@property (nonatomic) BOOL HTTPSEnabled;
-
+@implementation ANTestGlobal
+    //EMPTY
 @end
+

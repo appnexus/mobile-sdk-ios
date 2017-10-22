@@ -16,7 +16,7 @@
 #import "ANHTTPStubURLProtocol.h"
 #import "ANHTTPStubbingManager.h"
 
-#import "ANSDKSettings.h"
+#import "ANTestGlobal.h"
 
 
 

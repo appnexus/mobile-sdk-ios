@@ -47,6 +47,7 @@
 		4FD67FA91D76002B009270E6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482801AD346430046F1B9 /* CoreMedia.framework */; };
 		4FD67FAB1D76003D009270E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FD67FAA1D76003D009270E6 /* QuartzCore.framework */; };
 		4FD67FAC1D760043009270E6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14827D1AD346220046F1B9 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		4FEBAEFB1F9C353B0020ADFA /* ANTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FEBAEFA1F9C353A0020ADFA /* ANTestGlobal.m */; };
 		60359EF01E1EC34C0017EF56 /* libANSDKAdMarvelAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */; };
 		60359EF61E1EC4870017EF56 /* libAdMarvelSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */; };
 		60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF71E1EC5B70017EF56 /* Accounts.framework */; };
@@ -648,6 +649,8 @@
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4FD67FAA1D76003D009270E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4FEBAEEB1F9C353A0020ADFA /* ANTestGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANTestGlobal.h; sourceTree = "<group>"; };
+		4FEBAEFA1F9C353A0020ADFA /* ANTestGlobal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANTestGlobal.m; sourceTree = "<group>"; };
 		60359EF51E1EC4870017EF56 /* libAdMarvelSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdMarvelSDK.a; path = ../mediation/mediatedviews/AdMarvel/AdMarvelSDK/libAdMarvelSDK.a; sourceTree = "<group>"; };
 		60359EF71E1EC5B70017EF56 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -1474,6 +1477,8 @@
 				8AA00A1219DB1E150090EBED /* Resources */,
 				8AA00A1719DB1E150090EBED /* Responses */,
 				8AA009A519DB18AE0090EBED /* Stubbing */,
+				4FEBAEEB1F9C353A0020ADFA /* ANTestGlobal.h */,
+				4FEBAEFA1F9C353A0020ADFA /* ANTestGlobal.m */,
 				8AA009AF19DB18CC0090EBED /* Default-568h@2x.png */,
 			);
 			path = Shared;
@@ -2323,6 +2328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FEBAEFB1F9C353B0020ADFA /* ANTestGlobal.m in Sources */,
 				8AA0095A19DB16C50090EBED /* AppDelegate.m in Sources */,
 				8AA0095B19DB16C50090EBED /* main.m in Sources */,
 				8AA0095D19DB16C50090EBED /* ViewController.m in Sources */,

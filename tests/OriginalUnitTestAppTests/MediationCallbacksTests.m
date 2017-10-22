@@ -16,23 +16,33 @@
 #import "ANBaseTestCase.h"
 #import "ANTimeout.h"
 
-static NSString *const kANLoadedMultiple = @"ANLoadedMultiple";
-static NSString *const kANTimeout = @"ANTimeout";
-static NSString *const kANLoadThenFail = @"ANLoadThenFail";
-static NSString *const kANFailThenLoad = @"ANFailThenLoad";
-static NSString *const kANLoadAndHitOtherCallbacks = @"ANLoadAndHitOtherCallbacks";
-static NSString *const kANFailAndHitOtherCallbacks = @"ANFailAndHitOtherCallbacks";
-static NSString *const kANFailedMultiple = @"ANFailedMultiple";
-static NSString *const kClassDoesNotExist = @"ClassDoesNotExist";
+
+
+float const  CALLBACKS_TIMEOUT = 5.0;   // seconds
+
+static NSString *const  kANLoadedMultiple = @"ANLoadedMultiple";
+static NSString *const  kANTimeout = @"ANTimeout";
+static NSString *const  kANLoadThenFail = @"ANLoadThenFail";
+static NSString *const  kANFailThenLoad = @"ANFailThenLoad";
+static NSString *const  kANLoadAndHitOtherCallbacks = @"ANLoadAndHitOtherCallbacks";
+static NSString *const  kANFailAndHitOtherCallbacks = @"ANFailAndHitOtherCallbacks";
+static NSString *const  kANFailedMultiple = @"ANFailedMultiple";
+static NSString *const  kClassDoesNotExist = @"ClassDoesNotExist";
+
+
+
 
 @interface MediationCallbacksTests : ANBaseTestCase
+
 @property (nonatomic, readwrite, assign) BOOL adLoadedMultiple;
 @property (nonatomic, readwrite, assign) BOOL adFailedMultiple;
+
 @end
 
-@implementation MediationCallbacksTests
 
-float const CALLBACKS_TIMEOUT = 5.0;
+
+
+@implementation MediationCallbacksTests
 
 - (void)tearDown
 {
@@ -42,41 +52,44 @@ float const CALLBACKS_TIMEOUT = 5.0;
 }
 
 - (void)runBasicTest:(BOOL)didLoadValue
-            waitTime:(int)waitTime {
+            waitTime:(int)waitTime
+{
     [self loadBannerAd];
     [self waitForCompletion:waitTime];
     
-    XCTAssertEqual(didLoadValue, self.adDidLoadCalled,
-                   @"callback adDidLoad should be %d", didLoadValue);
-    XCTAssertEqual((BOOL)!didLoadValue, self.adFailedToLoadCalled,
-                   @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
+    XCTAssertEqual(didLoadValue, self.adDidLoadCalled, @"callback adDidLoad should be %d", didLoadValue);
+    XCTAssertEqual((BOOL)!didLoadValue, self.adFailedToLoadCalled, @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
+
     XCTAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
     XCTAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
 }
 
-- (void)checkCallbacks:(BOOL)called {
-    XCTAssertEqual(self.adWasClickedCalled, called,
-                   @"callback adWasClickCalled should be %d", called);
-    XCTAssertEqual(self.adWillPresentCalled, called,
-                   @"callback adWillPresentCalled should be %d", called);
-    XCTAssertEqual(self.adDidPresentCalled, called,
-                   @"callback adDidPresentCalled should be %d", called);
-    XCTAssertEqual(self.adWillCloseCalled, called,
-                   @"callback adWillCloseCalled should be %d", called);
-    XCTAssertEqual(self.adDidCloseCalled, called,
-                   @"callback adDidCloseCalled should be %d", called);
-    XCTAssertEqual(self.adWillLeaveApplicationCalled, called,
-                   @"callback adWillLeaveApplicationCalled should be %d", called);
+- (void)checkCallbacks:(BOOL)called
+{
+    XCTAssertEqual(self.adWasClickedCalled,             called, @"callback adWasClickCalled should be %d", called);
+    XCTAssertEqual(self.adWillPresentCalled,            called, @"callback adWillPresentCalled should be %d", called);
+    XCTAssertEqual(self.adDidPresentCalled,             called, @"callback adDidPresentCalled should be %d", called);
+    XCTAssertEqual(self.adWillCloseCalled,              called, @"callback adWillCloseCalled should be %d", called);
+    XCTAssertEqual(self.adDidCloseCalled,               called, @"callback adDidCloseCalled should be %d", called);
+    XCTAssertEqual(self.adWillLeaveApplicationCalled,   called, @"callback adWillLeaveApplicationCalled should be %d", called);
 }
 
-#pragma mark MediationCallback tests
+
+
+
+#pragma mark - MediationCallback tests
 
 - (void)test17
 {
     [ANTimeout setTimeout:CALLBACKS_TIMEOUT - 2];
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist firstResult:@""
-                                                      secondClass:kANTimeout secondResult:@""]];
+
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners: kClassDoesNotExist
+                                                      firstResult: @""
+                                                      secondClass: kANTimeout
+                                                     secondResult: @"" ]
+     ];
     [self stubResultCBResponses:@""];
+
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
     [self clearTest];
 }
@@ -141,7 +154,10 @@ float const CALLBACKS_TIMEOUT = 5.0;
     [self clearTest];
 }
 
-#pragma mark ANBannerAdViewDelegate
+
+
+
+#pragma mark - ANBannerAdViewDelegate
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     if (self.adDidLoadCalled) {

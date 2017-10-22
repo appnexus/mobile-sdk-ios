@@ -18,6 +18,7 @@
 #import "ANInterstitialAd.h"
 #import "ANTestResponses.h"
 #import "ANGlobal.h"
+#import "ANTestGlobal.h"
 #import "ANSDKSettings+PrivateMethods.h"
 
 

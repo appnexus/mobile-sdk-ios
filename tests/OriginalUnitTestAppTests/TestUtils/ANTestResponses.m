@@ -15,6 +15,7 @@
 
 #import "ANTestResponses.h"
 #import "ANMediatedAd.h"
+#import "ANTestGlobal.h"
 
 
 
@@ -165,29 +166,32 @@ NSString *_type;
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
 
-+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
-                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult {
++ (NSString *)mediationWaterfallBanners: (NSString *)firstClass
+                            firstResult: (NSString *)firstResult
+                            secondClass: (NSString *)secondClass
+                           secondResult: (NSString *)secondResult
+{
+LOGMARK();
     ANMediatedAd *firstAd = [ANMediatedAd dummy];
-    firstAd.className = firstClass;
-    NSString *firstHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
-                              [[NSMutableArray alloc] initWithObjects:firstAd, nil]
-                                                                    withResultCB:firstResult];
-    
     ANMediatedAd *secondAd = [ANMediatedAd dummy];
+
+    firstAd.className = firstClass;
     secondAd.className = secondClass;
-    NSString *secondHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
-                               [[NSMutableArray alloc] initWithObjects:secondAd, nil]
-                                                                     withResultCB:secondResult];
+
+    NSString *firstHandler = [ANTestResponses createHandlerObjectFromMediatedAds: [[NSMutableArray alloc] initWithObjects:firstAd, nil]
+                                                                    withResultCB: firstResult];
+
+    NSString *secondHandler = [ANTestResponses createHandlerObjectFromMediatedAds: [[NSMutableArray alloc] initWithObjects:secondAd, nil]
+                                                                     withResultCB: secondResult];
     
-    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:
-                               [[NSMutableArray alloc] initWithObjects:firstHandler,
-                                secondHandler, nil]];
+    NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:[[NSMutableArray alloc] initWithObjects:firstHandler, secondHandler, nil]];
+
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
 
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
                             secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult
-                             thirdClass:(NSString *)thirdClass thirdResult:(NSString *)thirdResult {
+                             thirdClass:(NSString *)thirdClass thirdResult:(NSString *)thirdResult {                 //FIX
     ANMediatedAd *firstAd = [ANMediatedAd dummy];
     firstAd.className = firstClass;
     NSString *firstHandler = [ANTestResponses createHandlerObjectFromMediatedAds:
@@ -221,7 +225,7 @@ NSString *_type;
                       withWidth: (int)width
                      withHeight: (int)height
                     withContent: (NSString *)content
-{
+{                 //FIX
     NSString *statusField = @"ok";
     NSString *adsField = [NSString stringWithFormat:ADS_ARRAY_TEMPLATE, type, width, height, content];
     NSString *mediatedField = @"[]";
@@ -258,7 +262,7 @@ NSString *_type;
                            withWidth:(int)width
                           withHeight:(int)height
                               withID:(NSString *)idString
-                        withResultCB:(NSString *)resultCB {
+                        withResultCB:(NSString *)resultCB {                 //FIX
     NSString *statusField = @"ok";
     NSString *adsField = @"[]";
     NSString *mediatedField = [NSString stringWithFormat:MEDIATED_ARRAY_TEMPLATE, type, className,
@@ -266,7 +270,17 @@ NSString *_type;
     return [ANTestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
 }
 
-+ (NSString *)createMediatedResponse:(NSString *)mediatedField {
++ (NSString *)createMediatedResponse:(NSString *)mediatedField
+{
+//    NSError *jsonError;
+//    NSData *objectData = [mediatedField dataUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:objectData
+//                                                         options:NSJSONReadingMutableContainers
+//                                                           error:&jsonError];
+                                    //FIX -- encaptulate?
+//LOGMARKM(@"mediatedField=%@", json);
+LOGMARKJSON(mediatedField);
+
     NSString *statusField = @"ok";
     NSString *adsField = @"[]";
     return [ANTestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
@@ -321,7 +335,9 @@ NSString *_type;
 }
 
 + (NSString *)createHandlerObjectFromMediatedAds:(NSMutableArray *)mediatedAds
-                                    withResultCB:(NSString *)resultCB {
+                                    withResultCB:(NSString *)resultCB
+{
+LOGMARK();
     NSString *mediatedAdString = @"{ \"handler\": [";
     while ([mediatedAds count] > 1) {
         ANMediatedAd *mediatedAd = [mediatedAds objectAtIndex:0];
