@@ -19,6 +19,7 @@
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner
+                        //FIX -- toss?  handled by OriginalUnitTestAppTests?
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController

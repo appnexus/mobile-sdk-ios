@@ -171,12 +171,12 @@
 		8AA0099319DB16CD0090EBED /* ANAdAdapterBannerNoAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097219DB16CD0090EBED /* ANAdAdapterBannerNoAds.m */; };
 		8AA0099419DB16CD0090EBED /* ANAdAdapterBannerRequestFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097419DB16CD0090EBED /* ANAdAdapterBannerRequestFail.m */; };
 		8AA0099519DB16CD0090EBED /* ANAdAdapterErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097619DB16CD0090EBED /* ANAdAdapterErrorCode.m */; };
-		8AA0099619DB16CD0090EBED /* ANFailAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097819DB16CD0090EBED /* ANFailAndHitOtherCallbacks.m */; };
-		8AA0099719DB16CD0090EBED /* ANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097A19DB16CD0090EBED /* ANFailedMultiple.m */; };
-		8AA0099819DB16CD0090EBED /* ANFailThenLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097C19DB16CD0090EBED /* ANFailThenLoad.m */; };
-		8AA0099919DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097E19DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.m */; };
+		8AA0099619DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097819DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.m */; };
+		8AA0099719DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097A19DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.m */; };
+		8AA0099819DB16CD0090EBED /* ANMockMediationAdapterFailThenLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097C19DB16CD0090EBED /* ANMockMediationAdapterFailThenLoad.m */; };
+		8AA0099919DB16CD0090EBED /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097E19DB16CD0090EBED /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
 		8AA0099A19DB16CD0090EBED /* ANMockMediationAdapterLoadedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098019DB16CD0090EBED /* ANMockMediationAdapterLoadedMultiple.m */; };
-		8AA0099B19DB16CD0090EBED /* ANLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098219DB16CD0090EBED /* ANLoadThenFail.m */; };
+		8AA0099B19DB16CD0090EBED /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098219DB16CD0090EBED /* ANMockMediationAdapterLoadThenFail.m */; };
 		8AA0099C19DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098419DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m */; };
 		8AA0099D19DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098619DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m */; };
 		8AA0099E19DB16CD0090EBED /* ANMockMediationAdapterTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0098819DB16CD0090EBED /* ANMockMediationAdapterTimeout.m */; };
@@ -782,18 +782,18 @@
 		8AA0097419DB16CD0090EBED /* ANAdAdapterBannerRequestFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerRequestFail.m; sourceTree = "<group>"; };
 		8AA0097519DB16CD0090EBED /* ANAdAdapterErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterErrorCode.h; sourceTree = "<group>"; };
 		8AA0097619DB16CD0090EBED /* ANAdAdapterErrorCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterErrorCode.m; sourceTree = "<group>"; };
-		8AA0097719DB16CD0090EBED /* ANFailAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailAndHitOtherCallbacks.h; sourceTree = "<group>"; };
-		8AA0097819DB16CD0090EBED /* ANFailAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailAndHitOtherCallbacks.m; sourceTree = "<group>"; };
-		8AA0097919DB16CD0090EBED /* ANFailedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailedMultiple.h; sourceTree = "<group>"; };
-		8AA0097A19DB16CD0090EBED /* ANFailedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailedMultiple.m; sourceTree = "<group>"; };
-		8AA0097B19DB16CD0090EBED /* ANFailThenLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailThenLoad.h; sourceTree = "<group>"; };
-		8AA0097C19DB16CD0090EBED /* ANFailThenLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailThenLoad.m; sourceTree = "<group>"; };
-		8AA0097D19DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
-		8AA0097E19DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
+		8AA0097719DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterFailAndHitOtherCallbacks.h; sourceTree = "<group>"; };
+		8AA0097819DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterFailAndHitOtherCallbacks.m; sourceTree = "<group>"; };
+		8AA0097919DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterANFailedMultiple.h; sourceTree = "<group>"; };
+		8AA0097A19DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterANFailedMultiple.m; sourceTree = "<group>"; };
+		8AA0097B19DB16CD0090EBED /* ANMockMediationAdapterFailThenLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterFailThenLoad.h; sourceTree = "<group>"; };
+		8AA0097C19DB16CD0090EBED /* ANMockMediationAdapterFailThenLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterFailThenLoad.m; sourceTree = "<group>"; };
+		8AA0097D19DB16CD0090EBED /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
+		8AA0097E19DB16CD0090EBED /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
 		8AA0097F19DB16CD0090EBED /* ANMockMediationAdapterLoadedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadedMultiple.h; sourceTree = "<group>"; };
 		8AA0098019DB16CD0090EBED /* ANMockMediationAdapterLoadedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadedMultiple.m; sourceTree = "<group>"; };
-		8AA0098119DB16CD0090EBED /* ANLoadThenFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadThenFail.h; sourceTree = "<group>"; };
-		8AA0098219DB16CD0090EBED /* ANLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadThenFail.m; sourceTree = "<group>"; };
+		8AA0098119DB16CD0090EBED /* ANMockMediationAdapterLoadThenFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadThenFail.h; sourceTree = "<group>"; };
+		8AA0098219DB16CD0090EBED /* ANMockMediationAdapterLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadThenFail.m; sourceTree = "<group>"; };
 		8AA0098319DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterSuccessfulBanner.h; sourceTree = "<group>"; };
 		8AA0098419DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterSuccessfulBanner.m; sourceTree = "<group>"; };
 		8AA0098519DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerNeverCalled.h; sourceTree = "<group>"; };
@@ -1448,20 +1448,20 @@
 				8AA0097419DB16CD0090EBED /* ANAdAdapterBannerRequestFail.m */,
 				8AA0097519DB16CD0090EBED /* ANAdAdapterErrorCode.h */,
 				8AA0097619DB16CD0090EBED /* ANAdAdapterErrorCode.m */,
-				8AA0097719DB16CD0090EBED /* ANFailAndHitOtherCallbacks.h */,
-				8AA0097819DB16CD0090EBED /* ANFailAndHitOtherCallbacks.m */,
-				8AA0097919DB16CD0090EBED /* ANFailedMultiple.h */,
-				8AA0097A19DB16CD0090EBED /* ANFailedMultiple.m */,
-				8AA0097B19DB16CD0090EBED /* ANFailThenLoad.h */,
-				8AA0097C19DB16CD0090EBED /* ANFailThenLoad.m */,
-				8AA0097D19DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.h */,
-				8AA0097E19DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.m */,
-				8AA0098119DB16CD0090EBED /* ANLoadThenFail.h */,
-				8AA0098219DB16CD0090EBED /* ANLoadThenFail.m */,
+				8AA0097919DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.h */,
+				8AA0097A19DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.m */,
 				8AA0098519DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.h */,
 				8AA0098619DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m */,
+				8AA0097719DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.h */,
+				8AA0097819DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.m */,
+				8AA0097B19DB16CD0090EBED /* ANMockMediationAdapterFailThenLoad.h */,
+				8AA0097C19DB16CD0090EBED /* ANMockMediationAdapterFailThenLoad.m */,
+				8AA0097D19DB16CD0090EBED /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */,
+				8AA0097E19DB16CD0090EBED /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */,
 				8AA0097F19DB16CD0090EBED /* ANMockMediationAdapterLoadedMultiple.h */,
 				8AA0098019DB16CD0090EBED /* ANMockMediationAdapterLoadedMultiple.m */,
+				8AA0098119DB16CD0090EBED /* ANMockMediationAdapterLoadThenFail.h */,
+				8AA0098219DB16CD0090EBED /* ANMockMediationAdapterLoadThenFail.m */,
 				8AA0098319DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.h */,
 				8AA0098419DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m */,
 				8AA0098719DB16CD0090EBED /* ANMockMediationAdapterTimeout.h */,
@@ -2344,15 +2344,15 @@
 				8AA0099419DB16CD0090EBED /* ANAdAdapterBannerRequestFail.m in Sources */,
 				8AA0099519DB16CD0090EBED /* ANAdAdapterErrorCode.m in Sources */,
 				8AA0098F19DB16CD0090EBED /* ANBaseTestCase.m in Sources */,
-				8AA0099619DB16CD0090EBED /* ANFailAndHitOtherCallbacks.m in Sources */,
-				8AA0099719DB16CD0090EBED /* ANFailedMultiple.m in Sources */,
-				8AA0099819DB16CD0090EBED /* ANFailThenLoad.m in Sources */,
 				8AA009AC19DB18AE0090EBED /* ANHTTPStubbingManager.m in Sources */,
 				8AA009AD19DB18AE0090EBED /* ANHTTPStubURLProtocol.m in Sources */,
-				8AA0099919DB16CD0090EBED /* ANLoadAndHitOtherCallbacks.m in Sources */,
-				8AA0099B19DB16CD0090EBED /* ANLoadThenFail.m in Sources */,
+				8AA0099719DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.m in Sources */,
 				8AA0099D19DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
+				8AA0099619DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.m in Sources */,
+				8AA0099819DB16CD0090EBED /* ANMockMediationAdapterFailThenLoad.m in Sources */,
+				8AA0099919DB16CD0090EBED /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */,
 				8AA0099A19DB16CD0090EBED /* ANMockMediationAdapterLoadedMultiple.m in Sources */,
+				8AA0099B19DB16CD0090EBED /* ANMockMediationAdapterLoadThenFail.m in Sources */,
 				8AA0099C19DB16CD0090EBED /* ANMockMediationAdapterSuccessfulBanner.m in Sources */,
 				8AA0099E19DB16CD0090EBED /* ANMockMediationAdapterTimeout.m in Sources */,
 				8AA0099019DB16CD0090EBED /* ANMRAIDTestResponses.m in Sources */,

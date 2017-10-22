@@ -29,7 +29,6 @@ static NSString *const kANAdAdapterBannerDummy                   = @"ANAdAdapter
 static NSString *const kANAdAdapterBannerNoAds                   = @"ANAdAdapterBannerNoAds";
 static NSString *const kANAdAdapterBannerRequestFail             = @"ANAdAdapterBannerRequestFail";
 static NSString *const kANAdAdapterErrorCode                     = @"ANAdAdapterErrorCode";
-static NSString *const kMediationAdapterClassDoesNotExist                        = @"MediationAdapterClassDoesNotExist";
 static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMediationAdapterBannerNeverCalled";
 
 
@@ -133,7 +132,7 @@ static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMedia
 
 - (void)runChecks:(int)testNumber adapter:(id)adapter
 {
-LOGMARKM(@"testNumber=%@", @(testNumber));
+TESTMARKM(@"testNumber=%@", @(testNumber));
     switch (testNumber)
     {
         case 1:

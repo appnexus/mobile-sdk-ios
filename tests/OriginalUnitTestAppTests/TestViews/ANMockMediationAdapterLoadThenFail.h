@@ -16,6 +16,6 @@
 #import <Foundation/Foundation.h>
 #import "ANCustomAdapter.h"
 
-@interface ANLoadThenFail : NSObject <ANCustomAdapterBanner>
+@interface ANMockMediationAdapterLoadThenFail : NSObject <ANCustomAdapterBanner>
 
 @end

@@ -13,12 +13,17 @@
  limitations under the License.
  */
 
-#import "ANLoadThenFail.h"
+#import "ANMockMediationAdapterFailAndHitOtherCallbacks.h"
+#import "ANTestGlobal.h"
 
-@implementation ANLoadThenFail
+
+
+@implementation ANMockMediationAdapterFailAndHitOtherCallbacks
+
 @synthesize delegate;
 
-#pragma mark ANCustomAdapterBanner
+
+#pragma mark - ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
@@ -26,8 +31,15 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
-    [self.delegate didLoadBannerAd:[UIView new]];
+    TESTMARKM(@"Fail via code ANAdResponseUnableToFill, then... click, (will/did) present ad, (will/did) close ad, (will) leave application.");
+
     [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+    [self.delegate adWasClicked];
+    [self.delegate willPresentAd];
+    [self.delegate didPresentAd];
+    [self.delegate willCloseAd];
+    [self.delegate didCloseAd];
+    [self.delegate willLeaveApplication];
 }
 
 @end

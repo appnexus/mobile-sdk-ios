@@ -76,7 +76,7 @@ float const BASIC_TIMEOUT = 10.0;
 #pragma mark - Standard Tests
 
 - (void)testSuccessfulBannerDidLoad {
-LOGMARK();
+TESTMARK();
     [self stubWithBody:[ANTestResponses successfulBanner]];
     [self loadBannerAd];
     [self waitForLoad];
@@ -86,7 +86,7 @@ LOGMARK();
 }
 
 - (void)testBannerBlankContentDidFail {
-LOGMARK();
+TESTMARK();
     [self stubWithBody:[ANTestResponses blankContentBanner]];
     [self loadBannerAd];
     [self waitForLoad];
@@ -96,7 +96,7 @@ LOGMARK();
 }
 
 - (void)testBannerBlankResponseDidFail {
-LOGMARK();
+TESTMARK();
     [self stubWithBody:@""];
     [self loadBannerAd];
     [self waitForLoad];
@@ -106,7 +106,7 @@ LOGMARK();
 }
 
 - (void)testSuccessfulInterstitialDidLoad {
-LOGMARK();
+TESTMARK();
     // response format for interstitials and banners is the same
     [self stubWithBody:[ANTestResponses successfulBanner]];
     [self fetchInterstitialAd];
@@ -119,7 +119,7 @@ LOGMARK();
 }
 
 - (void)testInterstitialBlankContentDidFail {
-LOGMARK();
+TESTMARK();
     [self stubWithBody:[ANTestResponses blankContentBanner]];
     [self fetchInterstitialAd];
     [self waitForLoad];
@@ -131,7 +131,7 @@ LOGMARK();
 }
 
 - (void)testInterstitialBlankResponseDidFail {
-LOGMARK();
+TESTMARK();
     [self stubWithBody:@""];
     [self fetchInterstitialAd];
     [self waitForLoad];
@@ -147,9 +147,10 @@ LOGMARK();
 
 #pragma mark - Basic Mediation Tests
 
-- (void)testSuccessfulMediationBannerDidLoad {
-    [self stubWithBody:[ANTestResponses mediationSuccessfulBanner]];
-    [self stubResultCBResponses:nil];
+- (void)testSuccessfulMediationBannerDidLoad
+{
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
+
     [self loadBannerAd];
     [self waitForLoad];
     

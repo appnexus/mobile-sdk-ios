@@ -158,11 +158,18 @@
     _testComplete = YES;
 }
 
+
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
     NSLog(@"ad:requestFailedWithError callback called");
     _adFailedToLoadCalled = YES;
     _testComplete = YES;
 }
+
+- (void)adFailedToDisplay:(ANInterstitialAd *)ad {
+    NSLog(@"adFailedToDisplay callback called");
+    _adFailedToDisplayCalled = YES;
+}
+
 
 - (void)adWasClicked:(id<ANAdProtocol>)ad {
     NSLog(@"adWasClicked callback called");
@@ -192,11 +199,6 @@
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
     NSLog(@"adWillLeaveApplication callback called");
     _adWillLeaveApplicationCalled = YES;
-}
-
-- (void)adFailedToDisplay:(ANInterstitialAd *)ad {
-    NSLog(@"adFailedToDisplay callback called");
-    _adFailedToDisplayCalled = YES;
 }
 
 @end

@@ -61,7 +61,7 @@ NSString *const         kANHTTPStubURLProtocolRequest                       = @"
 }
 
 - (void)startLoading {
-LOGMARK();
+TESTMARK();
     id<NSURLProtocolClient>   client    = self.client;
     ANURLConnectionStub      *stub      = [self stubForRequest];
     

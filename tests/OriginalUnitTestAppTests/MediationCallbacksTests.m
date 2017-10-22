@@ -20,17 +20,6 @@
 
 float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 
-//static NSString *const  kANLoadedMultiple                       = @"ANMockMediationAdapterLoadedMultiple";
-//static NSString *const  kANMockMediationAdapterTimeout          = @"ANMockMediationAdapterTimeout";
-static NSString *const  kANLoadThenFail                         = @"ANLoadThenFail";
-static NSString *const  kANFailThenLoad                         = @"ANFailThenLoad";
-static NSString *const  kANLoadAndHitOtherCallbacks             = @"ANLoadAndHitOtherCallbacks";
-static NSString *const  kANFailAndHitOtherCallbacks             = @"ANFailAndHitOtherCallbacks";
-static NSString *const  kANFailedMultiple                       = @"ANFailedMultiple";
-static NSString *const  kMediationAdapterClassDoesNotExist      = @"MediationAdapterClassDoesNotExist";
-            //fix -fix --FIX -- string duplicates variable?
-
-
 
 
 @interface MediationCallbacksTests : ANBaseTestCase
@@ -44,6 +33,9 @@ static NSString *const  kMediationAdapterClassDoesNotExist      = @"MediationAda
 
 
 @implementation MediationCallbacksTests
+                    //FIX -- rename so tests exeitutd after MediationTests?
+
+#pragma mark - Test lifecycle.
 
 - (void)tearDown
 {
@@ -51,30 +43,6 @@ static NSString *const  kMediationAdapterClassDoesNotExist      = @"MediationAda
     _adLoadedMultiple = NO;
     _adFailedMultiple = NO;
 }
-
-- (void)runBasicTest:(BOOL)didLoadValue
-            waitTime:(int)waitTime
-{
-    [self loadBannerAd];
-    [self waitForCompletion:waitTime];
-    
-    XCTAssertEqual(didLoadValue, self.adDidLoadCalled, @"callback adDidLoad should be %d", didLoadValue);
-    XCTAssertEqual((BOOL)!didLoadValue, self.adFailedToLoadCalled, @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
-
-    XCTAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
-    XCTAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
-}
-
-- (void)checkCallbacks:(BOOL)called
-{
-    XCTAssertEqual(self.adWasClickedCalled,             called, @"callback adWasClickCalled should be %d", called);
-    XCTAssertEqual(self.adWillPresentCalled,            called, @"callback adWillPresentCalled should be %d", called);
-    XCTAssertEqual(self.adDidPresentCalled,             called, @"callback adDidPresentCalled should be %d", called);
-    XCTAssertEqual(self.adWillCloseCalled,              called, @"callback adWillCloseCalled should be %d", called);
-    XCTAssertEqual(self.adDidCloseCalled,               called, @"callback adDidCloseCalled should be %d", called);
-    XCTAssertEqual(self.adWillLeaveApplicationCalled,   called, @"callback adWillLeaveApplicationCalled should be %d", called);
-}
-
 
 
 
@@ -98,55 +66,87 @@ static NSString *const  kMediationAdapterClassDoesNotExist      = @"MediationAda
 }
 
 - (void)test19Timeout
+                    //TBDFIX -- is this a useful test?
 {
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterTimeout" ]]];
     [ANMockMediationAdapterTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 2];
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANMockMediationAdapterTimeout"]];
-    [self stubResultCBResponses:@""];
+
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 
 - (void)test20LoadThenFail
+                    //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadThenFail]];
-    [self stubResultCBResponses:@""];
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadThenFail" ]]];
+
     [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 
 - (void)test21FailThenLoad
+                    //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailThenLoad]];
-    [self stubResultCBResponses:@""];
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailThenLoad" ]]];
+
     [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 
 - (void)test22LoadAndHitOtherCallbacks
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadAndHitOtherCallbacks]];
-    [self stubResultCBResponses:@""];
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadAndHitOtherCallbacks" ]]];
+
     [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self checkCallbacks:YES];
     [self clearTest];
 }
 
-// Will be fixed by HiccupFixesSep14 branch
-/*- (void)test23FailAndHitOtherCallbacks
+- (void)test23FailAndHitOtherCallbacks
+                    //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailAndHitOtherCallbacks]];
-    [self stubResultCBResponses:@""];
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailAndHitOtherCallbacks" ]]];
+
     [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self checkCallbacks:NO];
     [self clearTest];
-}*/
+}
 
 - (void)test24FailedMultiple
+                    //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailedMultiple]];
-    [self stubResultCBResponses:@""];
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailedMultiple" ]]];
+
     [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
+}
+
+
+
+
+#pragma mark - Test helper methods.
+
+- (void)runBasicTest:(BOOL)didLoadValue
+            waitTime:(int)waitTime
+{
+    [self loadBannerAd];
+    [self waitForCompletion:waitTime];
+
+    XCTAssertEqual(didLoadValue, self.adDidLoadCalled, @"callback adDidLoad should be %d", didLoadValue);
+    XCTAssertEqual((BOOL)!didLoadValue, self.adFailedToLoadCalled, @"callback adFailedToLoad should be %d", (BOOL)!didLoadValue);
+
+    XCTAssertFalse(self.adLoadedMultiple, @"adLoadedMultiple should never be true");
+    XCTAssertFalse(self.adFailedMultiple, @"adFailedMultiple should never be true");
+}
+
+- (void)checkCallbacks:(BOOL)called
+{
+    XCTAssertEqual(self.adWasClickedCalled,             called, @"callback adWasClickCalled should be %d", called);
+    XCTAssertEqual(self.adWillPresentCalled,            called, @"callback adWillPresentCalled should be %d", called);
+    XCTAssertEqual(self.adDidPresentCalled,             called, @"callback adDidPresentCalled should be %d", called);
+    XCTAssertEqual(self.adWillCloseCalled,              called, @"callback adWillCloseCalled should be %d", called);
+    XCTAssertEqual(self.adDidCloseCalled,               called, @"callback adDidCloseCalled should be %d", called);
+    XCTAssertEqual(self.adWillLeaveApplicationCalled,   called, @"callback adWillLeaveApplicationCalled should be %d", called);
 }
 
 

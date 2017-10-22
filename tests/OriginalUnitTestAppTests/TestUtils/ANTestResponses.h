@@ -24,7 +24,7 @@ static NSString *const OK_RESULT_CB_URL = @"http://result";
 
 + (NSString *)successfulBanner;
 + (NSString *)blankContentBanner;
-+ (NSString *)mediationSuccessfulBanner;
+//+ (NSString *)mediationSuccessfulBanner;
 + (NSString *)mediationNoAdsBanner;
 + (NSString *)mediationErrorCodeBanner:(int)code;
 

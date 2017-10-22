@@ -17,6 +17,12 @@
 
 
 
+#pragma mark - Constants.
+
+NSString * const  kMediationAdapterClassDoesNotExist  = @"MediationAdapterClassDoesNotExist";
+
+
+
 @implementation ANTestGlobal
     //EMPTY
 @end

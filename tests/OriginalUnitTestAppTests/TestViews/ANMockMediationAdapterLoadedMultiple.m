@@ -32,7 +32,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
-    LOGMARKM(@"Calling didLoadBannerAd three (3) times.");
+    TESTMARKM(@"Calling didLoadBannerAd three (3) times.");
 
     [self.delegate didLoadBannerAd:[UIView new]];
     [self.delegate didLoadBannerAd:[UIView new]];

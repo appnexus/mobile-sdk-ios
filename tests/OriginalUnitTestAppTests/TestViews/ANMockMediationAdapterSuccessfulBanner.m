@@ -30,7 +30,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
-LOGMARK();
+TESTMARK();
     [self.delegate didLoadBannerAd:[UIView new]];
 }
 
