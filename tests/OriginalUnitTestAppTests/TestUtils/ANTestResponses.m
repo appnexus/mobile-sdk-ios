@@ -1,5 +1,5 @@
 /*   Copyright 2013 APPNEXUS INC
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -34,53 +34,64 @@ NSString *const MEDIATED_ARRAY_TEMPLATE = @""
 
 NSString *const MEDIATED_AD_TEMPLATE = @"{\"type\":\"%@\",\"class\":\"%@\",\"param\":\"%@\",\"width\":\"%@\",\"height\":\"%@\",\"id\":\"%@\"}";
 
-NSString *const  UT_BANNER_INTERSTITIAL_TEMPLATE = @""
+
+//
+        //FIX -- better way to represent JSON string templates, possibly requiring preprocessing step.
+
+NSString *const  UT_TEMPLATE  = @""
                         "{ \"tags\": [ { "
                             "\"no_ad_url\": \"MOCK__no_ad_url\", "
-                            "\"ads\": [ { "
-                                "\"content_source\": \"rtb\", "
-                                "\"ad_type\": \"banner\", "
-                                "\"media_type_id\": 0, "                                                                                //XXX
-                                "\"media_subtype_id\": 0, "                                                                             //XXX
-                                "\"rtb\": { "
-                                "\"banner\": { \"content\": \"%@\", \"width\": 320, \"height\": 50 }, "                                 //XXX + content:?
-                                    "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ] "
-                                "} "
-                            "} ] "
+                            "\"ads\": [ "
+                                "%@"                                    //ad object(s)
+                            "] "
                         "} ] }"
                     ;
 
-NSString *const  UT_MEDIATED_TEMPLATE  = @""
-                        "{ \"tags\": [ { "
-                              "\"no_ad_url\": \"MOCK__no_ad_url\", "
-                              "\"ads\": [ { "
-                                  "\"content_source\": \"csm\", "
-                                  "\"ad_type\": \"banner\", "
-                                  "\"media_type_id\": 0, "                                                                      //XXX
-                                  "\"media_subtype_id\": 0, "                                                                   //XXX
-                                  "\"viewability\": { \"config\": \"MOCK__config\", }, "
-                                  "\"csm\": { "
-                                      "\"banner\": { \"content\": \"MOCK__content\", \"width\": 320, \"height\": 50 }, "
-                                      "\"handler\": [ "                                                                         //XXX + iOS class:?
-                                          "{ \"param\": \"#{PARAM}\", \"class\": \"%@\", \"width\": \"320\", \"height\": \"50\", \"type\": \"ios\", \"id\": \"MOCK__id\" }, "
-                                          "{ \"param\": \"#{PARAM}\", \"class\": \"com.appnexus.opensdk.mediatedviews.MOCK__androidClass\", \"width\": \"320\", \"height\": \"50\", \"type\": \"android\", \"id\": \"MOCK__id\" } "
-                                      "], "
-                                      "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ], "
-                                      "\"response_url\": \"MOCK__response_url\" "
-                                  "}  "
-                              "} ]  "
-                        "} ] } "
+NSString *const  UT_TEMPLATE_BANNER_INTERSTITIAL  = @""
+                        "{ "
+                            "\"content_source\": \"rtb\", "
+                            "\"ad_type\": \"banner\", "
+                            "\"media_type_id\": 0, "                                                                    //XXX
+                            "\"media_subtype_id\": 0, "                                                                 //XXX
+
+                            "\"rtb\": { "
+                                "\"banner\": { \"content\": \"%@\", \"width\": 320, \"height\": 50 }, "                 //XXX + content:?
+                                "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ] "
+                            "} "
+                        "} "
                     ;
 
+NSString *const  UT_TEMPLATE_CSM  = @""
+                        "{ "
+                            "\"content_source\": \"csm\", "
+                            "\"ad_type\": \"banner\", "
+                            "\"media_type_id\": 0, "                                                                    //XXX
+                            "\"media_subtype_id\": 0, "                                                                 //XXX
+                            "\"viewability\": { \"config\": \"MOCK__config\", }, "
+
+                            "\"csm\": { "
+                                "\"banner\": { \"content\": \"MOCK__content\", \"width\": 320, \"height\": 50 }, "
+                                "\"handler\": [ "                                                                       //XXX + iOS class:?
+                                    "{ \"param\": \"#{PARAM}\", \"class\": \"%@\", \"width\": \"320\", \"height\": \"50\", \"type\": \"ios\", \"id\": \"MOCK__id\" }, "
+                                    "{ \"param\": \"#{PARAM}\", \"class\": \"com.appnexus.opensdk.mediatedviews.MOCK__androidClass\", \"width\": \"320\", \"height\": \"50\", \"type\": \"android\", \"id\": \"MOCK__id\" } "
+                                "], "
+                                "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ], "
+                                "\"response_url\": \"MOCK__response_url\" "
+                            "} "
+                        "} "
+                    ;
 
 
 
 #pragma mark - ANMediatedAd (TestResponse)
 
 @interface ANMediatedAd (TestResponses)
+
 @property (nonatomic, readwrite, strong) NSString *type;
+
 - (NSString *)toJSON;
 + (ANMediatedAd *)dummy;
+
 @end
 
 
@@ -90,8 +101,7 @@ NSString *const  UT_MEDIATED_TEMPLATE  = @""
 NSString *_type;
 
 - (NSString *)toJSON {
-    return [NSString stringWithFormat:MEDIATED_AD_TEMPLATE, self.type, self.className,
-            self.param, self.width, self.height, self.adId];
+    return [NSString stringWithFormat:MEDIATED_AD_TEMPLATE, self.type, self.className, self.param, self.width, self.height, self.adId];
 }
 
 - (void)setType:(NSString *)type {
@@ -106,7 +116,7 @@ NSString *_type;
     ANMediatedAd *mediatedAd = [ANMediatedAd new];
     mediatedAd.type = @"ios";
     mediatedAd.param = @"";
-    mediatedAd.className = @"ClassName";
+    mediatedAd.className = @"MOCK__className";
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
     mediatedAd.adId = @"124";
@@ -124,18 +134,44 @@ NSString *_type;
 
 #pragma mark View-specific Convenience functions
 
-+ (NSString *)successfulBanner {
-    return  [NSString stringWithFormat:UT_BANNER_INTERSTITIAL_TEMPLATE, @"MOCK__content"];
++ (NSString *)successfulBanner
+{
+    NSString  *utResponse      = nil;
+    NSString  *bannerAdObject  = nil;
+
+    bannerAdObject = [NSString stringWithFormat:UT_TEMPLATE_BANNER_INTERSTITIAL, @"MOCK__content"];
+    utResponse = [NSString stringWithFormat:UT_TEMPLATE, bannerAdObject];
+
+    return  utResponse;
+
+//    return  [NSString stringWithFormat:UT_BANNER_INTERSTITIAL_TEMPLATE, @"MOCK__content"];
 //    return  [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"HelloWorld"];   //FIX -- was
 }
 
-+ (NSString *)blankContentBanner {
-    return  [NSString stringWithFormat:UT_BANNER_INTERSTITIAL_TEMPLATE, @""];
++ (NSString *)blankContentBanner
+        //FIX -- generalize with successfulBanner?
+{
+    NSString  *utResponse      = nil;
+    NSString  *bannerAdObject  = nil;
+
+    bannerAdObject = [NSString stringWithFormat:UT_TEMPLATE_BANNER_INTERSTITIAL, @""];
+    utResponse = [NSString stringWithFormat:UT_TEMPLATE, bannerAdObject];
+
+    return  utResponse;
+
+//    return  [NSString stringWithFormat:UT_BANNER_INTERSTITIAL_TEMPLATE, @""];
 //    return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@""];   //fix --FIX -- was
 }
 
-+ (NSString *)mediationSuccessfulBanner {
-    return  [NSString stringWithFormat:UT_MEDIATED_TEMPLATE, @"ANMockMediationAdapterSuccessfulBanner"];
++ (NSString *)mediationSuccessfulBanner
+                    //FIX -- use mediationWaterfallWithMockClassObjects:
+{
+    NSString  *csmAdObject  = [NSString stringWithFormat:UT_TEMPLATE_CSM, @"ANMockMediationAdapterSuccessfulBanner"];
+    NSString  *utResponse   = [NSString stringWithFormat:UT_TEMPLATE, csmAdObject];
+
+    return  utResponse;
+
+//    return  [NSString stringWithFormat:UT_MEDIATED_TEMPLATE, @"ANMockMediationAdapterSuccessfulBanner"];
 //    return [ANTestResponses createMediatedBanner:@"ANMockMediationAdapterSuccessfulBanner"];   //FIX -- was
 }
 
@@ -170,6 +206,7 @@ NSString *_type;
                             firstResult: (NSString *)firstResult
                             secondClass: (NSString *)secondClass
                            secondResult: (NSString *)secondResult
+                                //FIX -- refactor signature: result arguments are always emptystring
 {
 LOGMARK();
     ANMediatedAd *firstAd = [ANMediatedAd dummy];
@@ -180,13 +217,38 @@ LOGMARK();
 
     NSString *firstHandler = [ANTestResponses createHandlerObjectFromMediatedAds: [[NSMutableArray alloc] initWithObjects:firstAd, nil]
                                                                     withResultCB: firstResult];
+LOGMARKJSON(firstHandler);
 
     NSString *secondHandler = [ANTestResponses createHandlerObjectFromMediatedAds: [[NSMutableArray alloc] initWithObjects:secondAd, nil]
                                                                      withResultCB: secondResult];
-    
+LOGMARKJSON(secondHandler);
+
     NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:[[NSMutableArray alloc] initWithObjects:firstHandler, secondHandler, nil]];
+LOGMARKJSON(mediatedField);
 
     return [ANTestResponses createMediatedResponse:mediatedField];
+}
+
++ (NSString *)mediationWaterfallWithMockClassObjects:(NSArray<NSString *> *)arrayOfMockClassObjects
+{
+    NSString  *utResponse          = nil;
+    NSString  *listOfCSMAdObjects  = nil;
+
+    for (NSString *classObject in arrayOfMockClassObjects)
+    {
+        NSString  *csmAdObject  = [NSString stringWithFormat:UT_TEMPLATE_CSM, classObject];
+
+        if (!listOfCSMAdObjects) {
+            listOfCSMAdObjects = csmAdObject;
+        } else {
+            listOfCSMAdObjects = [NSString stringWithFormat:@"%@, %@", listOfCSMAdObjects, csmAdObject];
+        }
+    }
+
+    utResponse = [NSString stringWithFormat:UT_TEMPLATE, listOfCSMAdObjects];
+LOGMARKJSON(utResponse);
+
+    return  utResponse;
 }
 
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
@@ -272,13 +334,6 @@ LOGMARK();
 
 + (NSString *)createMediatedResponse:(NSString *)mediatedField
 {
-//    NSError *jsonError;
-//    NSData *objectData = [mediatedField dataUsingEncoding:NSUTF8StringEncoding];
-//    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:objectData
-//                                                         options:NSJSONReadingMutableContainers
-//                                                           error:&jsonError];
-                                    //FIX -- encaptulate?
-//LOGMARKM(@"mediatedField=%@", json);
 LOGMARKJSON(mediatedField);
 
     NSString *statusField = @"ok";

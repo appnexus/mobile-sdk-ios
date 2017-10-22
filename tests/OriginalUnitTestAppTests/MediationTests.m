@@ -24,13 +24,13 @@
 
 
 
-static NSString *const kANMockMediationAdapterSuccessfulBanner = @"ANMockMediationAdapterSuccessfulBanner";
-static NSString *const kANAdAdapterBannerDummy = @"ANAdAdapterBannerDummy";
-static NSString *const kANAdAdapterBannerNoAds = @"ANAdAdapterBannerNoAds";
-static NSString *const kANAdAdapterBannerRequestFail = @"ANAdAdapterBannerRequestFail";
-static NSString *const kANAdAdapterErrorCode = @"ANAdAdapterErrorCode";
-static NSString *const kClassDoesNotExist = @"ClassDoesNotExist";
-static NSString *const kANMockMediationAdapterBannerNeverCalled = @"ANMockMediationAdapterBannerNeverCalled";
+static NSString *const kANMockMediationAdapterSuccessfulBanner   = @"ANMockMediationAdapterSuccessfulBanner";
+static NSString *const kANAdAdapterBannerDummy                   = @"ANAdAdapterBannerDummy";
+static NSString *const kANAdAdapterBannerNoAds                   = @"ANAdAdapterBannerNoAds";
+static NSString *const kANAdAdapterBannerRequestFail             = @"ANAdAdapterBannerRequestFail";
+static NSString *const kANAdAdapterErrorCode                     = @"ANAdAdapterErrorCode";
+static NSString *const kMediationAdapterClassDoesNotExist                        = @"MediationAdapterClassDoesNotExist";
+static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMediationAdapterBannerNeverCalled";
 
 
 
@@ -215,9 +215,9 @@ LOGMARKM(@"testNumber=%@", @(testNumber));
     [self runBasicTest:1];
 }
 
-- (void)test2ResponseWhereClassDoesNotExist
+- (void)test2ResponseWhereMediationAdapterClassDoesNotExist
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kClassDoesNotExist]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kMediationAdapterClassDoesNotExist]];
     [self stubResultCBForErrorCode];
     [self runBasicTest:2];
 }
@@ -262,7 +262,7 @@ LOGMARKM(@"testNumber=%@", @(testNumber));
 
 - (void)test12SkipFirstSuccessfulSecond
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
                                                       secondClass:kANMockMediationAdapterSuccessfulBanner]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:12];
@@ -271,7 +271,7 @@ LOGMARKM(@"testNumber=%@", @(testNumber));
 // no longer applicable
 //- (void)test13FirstFailsIntoOverrideStd
 //{
-//    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+//    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
 //                                                      secondClass:kANMockMediationAdapterBannerNeverCalled]];
 //    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
 //    [self runBasicTest:13];
@@ -280,7 +280,7 @@ LOGMARKM(@"testNumber=%@", @(testNumber));
 // no longer applicable
 //- (void)test14FirstFailsIntoOverrideMediated
 //{
-//    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kClassDoesNotExist
+//    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
 //                                                      secondClass:kANMockMediationAdapterBannerNeverCalled]];
 //    [self stubResultCBResponses:[ANTestResponses mediationSuccessfulBanner]];
 //    [self runBasicTest:14];
@@ -288,18 +288,19 @@ LOGMARKM(@"testNumber=%@", @(testNumber));
 
 - (void)test15TestNoFill
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kClassDoesNotExist]];
-    [self stubResultCBResponses:[ANTestResponses createMediatedBanner:kClassDoesNotExist withID:@"" withResultCB:@""]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kMediationAdapterClassDoesNotExist]];
+    [self stubResultCBResponses:[ANTestResponses createMediatedBanner:kMediationAdapterClassDoesNotExist withID:@"" withResultCB:@""]];
     [self runBasicTest:15];
 }
 
 - (void)test16NoResultCB
 {
-    NSString *response = [ANTestResponses mediationWaterfallBanners:kClassDoesNotExist firstResult:@""
-                                   secondClass:kClassDoesNotExist secondResult:nil
+    NSString *response = [ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist firstResult:@""
+                                   secondClass:kMediationAdapterClassDoesNotExist secondResult:nil
                                     thirdClass:kANMockMediationAdapterSuccessfulBanner thirdResult:@""];
     [self stubWithBody:response];
     [self stubResultCBResponses:@""];
+    
     [self runBasicTest:16];
 }
 

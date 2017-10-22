@@ -16,6 +16,6 @@
 #import <Foundation/Foundation.h>
 #import "ANCustomAdapter.h"
 
-@interface ANTimeout : NSObject <ANCustomAdapterBanner>
+@interface ANMockMediationAdapterTimeout : NSObject <ANCustomAdapterBanner>
 + (void)setTimeout:(CGFloat)timeout;
 @end

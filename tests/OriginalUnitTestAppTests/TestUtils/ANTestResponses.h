@@ -15,7 +15,10 @@
 
 static NSString *const OK_RESULT_CB_URL = @"http://result";
 
+
+
 @interface ANTestResponses : NSObject
+            //FIX -- toss unused methods......
 
 // use these functions
 
@@ -27,19 +30,27 @@ static NSString *const OK_RESULT_CB_URL = @"http://result";
 
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass
                             secondClass:(NSString *)secondClass;
+
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
                             secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult;
+
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
                             secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult
                              thirdClass:(NSString *)thirdClass thirdResult:(NSString *)thirdResult;
 
 
++ (NSString *)mediationWaterfallWithMockClassObjects:(NSArray<NSString *> *)arrayOfMockClassObjects;
+
+
 + (NSString *)createMediatedBanner:(NSString *)className;
+
 + (NSString *)createMediatedBanner:(NSString *)className
                             withID:(NSString *)idString;
+
 + (NSString *)createMediatedBanner:(NSString *)className
                             withID:(NSString *)idString
                       withResultCB:(NSString *)resultCB;
+
 
 + (NSString *)createAdsResponse:(NSString *)type
                       withWidth:(int)width
@@ -53,6 +64,7 @@ static NSString *const OK_RESULT_CB_URL = @"http://result";
                           withHeight:(int)height
                               withID:(NSString *)idString
                         withResultCB:(NSString *)resultCB;
+
 
 // should not ever need to use these directly
 

@@ -13,13 +13,19 @@
  limitations under the License.
  */
 
-#import "ANTimeout.h"
+#import "ANMockMediationAdapterTimeout.h"
 #import "ANGlobal.h"
+#import "ANTestGlobal.h"
 
-@implementation ANTimeout
-@synthesize delegate;
+
 
 static CGFloat waitTime;
+
+
+
+@implementation ANMockMediationAdapterTimeout
+
+@synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner
 
@@ -29,14 +35,13 @@ static CGFloat waitTime;
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
-    NSLog(@"ANTimeout request");
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 (waitTime)
-                                 * NSEC_PER_SEC),
-                   dispatch_get_main_queue(), ^{
-                       NSLog(@"ANTimeout call loaded on %@", NSStringFromClass([self.delegate class]));
-                       [self.delegate didLoadBannerAd:[UIView new]];
-                   });
+    LOGMARKM(@"Mock request.");
+
+    dispatch_after( dispatch_time(DISPATCH_TIME_NOW, (waitTime) * NSEC_PER_SEC),
+                    dispatch_get_main_queue(), ^{
+                        NSLog(@"ANMockMediationAdapterTimeout call loaded on %@", NSStringFromClass([self.delegate class]));
+                        [self.delegate didLoadBannerAd:[UIView new]];
+                    } );
 }
 
 + (void)setTimeout:(CGFloat)timeout {

@@ -14,20 +14,20 @@
  */
 
 #import "ANBaseTestCase.h"
-#import "ANTimeout.h"
+#import "ANMockMediationAdapterTimeout.h"
 
 
 
 float const  CALLBACKS_TIMEOUT = 5.0;   // seconds
 
-static NSString *const  kANLoadedMultiple = @"ANLoadedMultiple";
-static NSString *const  kANTimeout = @"ANTimeout";
-static NSString *const  kANLoadThenFail = @"ANLoadThenFail";
-static NSString *const  kANFailThenLoad = @"ANFailThenLoad";
-static NSString *const  kANLoadAndHitOtherCallbacks = @"ANLoadAndHitOtherCallbacks";
-static NSString *const  kANFailAndHitOtherCallbacks = @"ANFailAndHitOtherCallbacks";
-static NSString *const  kANFailedMultiple = @"ANFailedMultiple";
-static NSString *const  kClassDoesNotExist = @"ClassDoesNotExist";
+static NSString *const  kANLoadedMultiple               = @"ANLoadedMultiple";
+static NSString *const  kANMockMediationAdapterTimeout                      = @"ANMockMediationAdapterTimeout";
+static NSString *const  kANLoadThenFail                 = @"ANLoadThenFail";
+static NSString *const  kANFailThenLoad                 = @"ANFailThenLoad";
+static NSString *const  kANLoadAndHitOtherCallbacks     = @"ANLoadAndHitOtherCallbacks";
+static NSString *const  kANFailAndHitOtherCallbacks     = @"ANFailAndHitOtherCallbacks";
+static NSString *const  kANFailedMultiple               = @"ANFailedMultiple";
+static NSString *const  kMediationAdapterClassDoesNotExist              = @"MediationAdapterClassDoesNotExist";
 
 
 
@@ -81,13 +81,17 @@ static NSString *const  kClassDoesNotExist = @"ClassDoesNotExist";
 
 - (void)test17
 {
-    [ANTimeout setTimeout:CALLBACKS_TIMEOUT - 2];
+    [ANMockMediationAdapterTimeout setTimeout:CALLBACKS_TIMEOUT - 2];
 
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners: kClassDoesNotExist
+                /*
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners: kMediationAdapterClassDoesNotExist
                                                       firstResult: @""
-                                                      secondClass: kANTimeout
+                                                      secondClass: kANMockMediationAdapterTimeout
                                                      secondResult: @"" ]
      ];
+                 */
+
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassObjects:@[ kMediationAdapterClassDoesNotExist, kANMockMediationAdapterTimeout ]] ];
     [self stubResultCBResponses:@""];
 
     [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
@@ -104,8 +108,8 @@ static NSString *const  kClassDoesNotExist = @"ClassDoesNotExist";
 
 - (void)test19Timeout
 {
-    [ANTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 2];
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANTimeout]];
+    [ANMockMediationAdapterTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 2];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:kANMockMediationAdapterTimeout]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + CALLBACKS_TIMEOUT];
     [self clearTest];
