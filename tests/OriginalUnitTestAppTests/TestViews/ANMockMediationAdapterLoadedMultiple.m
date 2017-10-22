@@ -13,12 +13,18 @@
  limitations under the License.
  */
 
-#import "ANLoadedMultiple.h"
+#import "ANMockMediationAdapterLoadedMultiple.h"
+#import "ANTestGlobal.h"
 
-@implementation ANLoadedMultiple
+
+
+
+@implementation ANMockMediationAdapterLoadedMultiple
+
 @synthesize delegate;
 
-#pragma mark ANCustomAdapterBanner
+
+#pragma mark - ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
@@ -26,6 +32,8 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
+    LOGMARKM(@"Calling didLoadBannerAd three (3) times.");
+
     [self.delegate didLoadBannerAd:[UIView new]];
     [self.delegate didLoadBannerAd:[UIView new]];
     [self.delegate didLoadBannerAd:[UIView new]];

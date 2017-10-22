@@ -164,7 +164,7 @@ NSString *_type;
 }
 
 + (NSString *)mediationSuccessfulBanner
-                    //FIX -- use mediationWaterfallWithMockClassObjects:
+                    //FIX -- use mediationWaterfallWithMockClassNames:
 {
     NSString  *csmAdObject  = [NSString stringWithFormat:UT_TEMPLATE_CSM, @"ANMockMediationAdapterSuccessfulBanner"];
     NSString  *utResponse   = [NSString stringWithFormat:UT_TEMPLATE, csmAdObject];
@@ -229,7 +229,7 @@ LOGMARKJSON(mediatedField);
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
 
-+ (NSString *)mediationWaterfallWithMockClassObjects:(NSArray<NSString *> *)arrayOfMockClassObjects
++ (NSString *)mediationWaterfallWithMockClassNames:(NSArray<NSString *> *)arrayOfMockClassObjects
 {
     NSString  *utResponse          = nil;
     NSString  *listOfCSMAdObjects  = nil;

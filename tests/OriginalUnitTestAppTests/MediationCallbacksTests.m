@@ -18,16 +18,17 @@
 
 
 
-float const  CALLBACKS_TIMEOUT = 5.0;   // seconds
+float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 
-static NSString *const  kANLoadedMultiple               = @"ANLoadedMultiple";
-static NSString *const  kANMockMediationAdapterTimeout                      = @"ANMockMediationAdapterTimeout";
-static NSString *const  kANLoadThenFail                 = @"ANLoadThenFail";
-static NSString *const  kANFailThenLoad                 = @"ANFailThenLoad";
-static NSString *const  kANLoadAndHitOtherCallbacks     = @"ANLoadAndHitOtherCallbacks";
-static NSString *const  kANFailAndHitOtherCallbacks     = @"ANFailAndHitOtherCallbacks";
-static NSString *const  kANFailedMultiple               = @"ANFailedMultiple";
-static NSString *const  kMediationAdapterClassDoesNotExist              = @"MediationAdapterClassDoesNotExist";
+//static NSString *const  kANLoadedMultiple                       = @"ANMockMediationAdapterLoadedMultiple";
+//static NSString *const  kANMockMediationAdapterTimeout          = @"ANMockMediationAdapterTimeout";
+static NSString *const  kANLoadThenFail                         = @"ANLoadThenFail";
+static NSString *const  kANFailThenLoad                         = @"ANFailThenLoad";
+static NSString *const  kANLoadAndHitOtherCallbacks             = @"ANLoadAndHitOtherCallbacks";
+static NSString *const  kANFailAndHitOtherCallbacks             = @"ANFailAndHitOtherCallbacks";
+static NSString *const  kANFailedMultiple                       = @"ANFailedMultiple";
+static NSString *const  kMediationAdapterClassDoesNotExist      = @"MediationAdapterClassDoesNotExist";
+            //fix -fix --FIX -- string duplicates variable?
 
 
 
@@ -81,37 +82,27 @@ static NSString *const  kMediationAdapterClassDoesNotExist              = @"Medi
 
 - (void)test17
 {
-    [ANMockMediationAdapterTimeout setTimeout:CALLBACKS_TIMEOUT - 2];
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kMediationAdapterClassDoesNotExist, @"ANMockMediationAdapterTimeout" ]] ];
+    [ANMockMediationAdapterTimeout setTimeout:MEDIATION_CALLBACKS_TESTS_TIMEOUT - 2];
 
-                /*
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners: kMediationAdapterClassDoesNotExist
-                                                      firstResult: @""
-                                                      secondClass: kANMockMediationAdapterTimeout
-                                                     secondResult: @"" ]
-     ];
-                 */
-
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassObjects:@[ kMediationAdapterClassDoesNotExist, kANMockMediationAdapterTimeout ]] ];
-    [self stubResultCBResponses:@""];
-
-    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 
 - (void)test18LoadedMultiple
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadedMultiple]];
-    [self stubResultCBResponses:@""];
-    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadedMultiple" ]]];
+
+    [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 
 - (void)test19Timeout
 {
     [ANMockMediationAdapterTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 2];
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANMockMediationAdapterTimeout]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANMockMediationAdapterTimeout"]];
     [self stubResultCBResponses:@""];
-    [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + CALLBACKS_TIMEOUT];
+    [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 
@@ -119,7 +110,7 @@ static NSString *const  kMediationAdapterClassDoesNotExist              = @"Medi
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadThenFail]];
     [self stubResultCBResponses:@""];
-    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 
@@ -127,7 +118,7 @@ static NSString *const  kMediationAdapterClassDoesNotExist              = @"Medi
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailThenLoad]];
     [self stubResultCBResponses:@""];
-    [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 
@@ -135,7 +126,7 @@ static NSString *const  kMediationAdapterClassDoesNotExist              = @"Medi
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANLoadAndHitOtherCallbacks]];
     [self stubResultCBResponses:@""];
-    [self runBasicTest:YES waitTime:CALLBACKS_TIMEOUT];
+    [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self checkCallbacks:YES];
     [self clearTest];
 }
@@ -145,7 +136,7 @@ static NSString *const  kMediationAdapterClassDoesNotExist              = @"Medi
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailAndHitOtherCallbacks]];
     [self stubResultCBResponses:@""];
-    [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self checkCallbacks:NO];
     [self clearTest];
 }*/
@@ -154,7 +145,7 @@ static NSString *const  kMediationAdapterClassDoesNotExist              = @"Medi
 {
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANFailedMultiple]];
     [self stubResultCBResponses:@""];
-    [self runBasicTest:NO waitTime:CALLBACKS_TIMEOUT];
+    [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
 }
 

@@ -39,7 +39,8 @@ static NSString *const OK_RESULT_CB_URL = @"http://result";
                              thirdClass:(NSString *)thirdClass thirdResult:(NSString *)thirdResult;
 
 
-+ (NSString *)mediationWaterfallWithMockClassObjects:(NSArray<NSString *> *)arrayOfMockClassObjects;
+
++ (NSString *)mediationWaterfallWithMockClassNames:(NSArray<NSString *> *)arrayOfMockClassObjects;
 
 
 + (NSString *)createMediatedBanner:(NSString *)className;
