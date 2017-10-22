@@ -86,14 +86,18 @@
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
 }
 
-- (void)stubResultCBForErrorCode {
-                            //FIX what happens in place of this for UT?  faux query string only used for medaition?
-    for (int i = 0; i < 6; i++) {
-        NSString *resultCBURLString = [NSString stringWithFormat:@"^%@\\?reason=%i.*", OK_RESULT_CB_URL, i];
-        ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
-        anBaseURLStub.requestURLRegexPatternString = resultCBURLString;
-        anBaseURLStub.responseCode = 200;
-        anBaseURLStub.responseBody = [ANTestResponses mediationErrorCodeBanner:i];
+- (void)stubResultCBForErrorCode
+                        //FIX what happens in place of this for UT?  faux query string only used for medaition?
+{
+    for (int i = 0; i < 6; i++)
+    {
+        NSString             *resultCBURLString  = [NSString stringWithFormat:@"^%@\\?reason=%i.*", OK_RESULT_CB_URL, i];
+        ANURLConnectionStub  *anBaseURLStub      = [[ANURLConnectionStub alloc] init];
+
+        anBaseURLStub.requestURLRegexPatternString  = resultCBURLString;
+        anBaseURLStub.responseCode                  = 200;
+        anBaseURLStub.responseBody                  = [ANTestResponses mediationErrorCodeBanner:i];
+
         [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
     }
 }

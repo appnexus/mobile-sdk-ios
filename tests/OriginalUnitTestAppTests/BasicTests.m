@@ -76,7 +76,7 @@ float const BASIC_TIMEOUT = 10.0;
 #pragma mark - Standard Tests
 
 - (void)testSuccessfulBannerDidLoad {
-TESTMARK();
+TESTTRACE();
     [self stubWithBody:[ANTestResponses successfulBanner]];
     [self loadBannerAd];
     [self waitForLoad];
@@ -86,7 +86,7 @@ TESTMARK();
 }
 
 - (void)testBannerBlankContentDidFail {
-TESTMARK();
+TESTTRACE();
     [self stubWithBody:[ANTestResponses blankContentBanner]];
     [self loadBannerAd];
     [self waitForLoad];
@@ -96,7 +96,7 @@ TESTMARK();
 }
 
 - (void)testBannerBlankResponseDidFail {
-TESTMARK();
+TESTTRACE();
     [self stubWithBody:@""];
     [self loadBannerAd];
     [self waitForLoad];
@@ -106,7 +106,7 @@ TESTMARK();
 }
 
 - (void)testSuccessfulInterstitialDidLoad {
-TESTMARK();
+TESTTRACE();
     // response format for interstitials and banners is the same
     [self stubWithBody:[ANTestResponses successfulBanner]];
     [self fetchInterstitialAd];
@@ -119,7 +119,7 @@ TESTMARK();
 }
 
 - (void)testInterstitialBlankContentDidFail {
-TESTMARK();
+TESTTRACE();
     [self stubWithBody:[ANTestResponses blankContentBanner]];
     [self fetchInterstitialAd];
     [self waitForLoad];
@@ -131,7 +131,7 @@ TESTMARK();
 }
 
 - (void)testInterstitialBlankResponseDidFail {
-TESTMARK();
+TESTTRACE();
     [self stubWithBody:@""];
     [self fetchInterstitialAd];
     [self waitForLoad];

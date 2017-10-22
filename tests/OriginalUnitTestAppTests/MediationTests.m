@@ -24,29 +24,66 @@
 
 
 
-static NSString *const kANMockMediationAdapterSuccessfulBanner   = @"ANMockMediationAdapterSuccessfulBanner";
+//static NSString *const kANMockMediationAdapterSuccessfulBanner   = @"ANMockMediationAdapterSuccessfulBanner";
 static NSString *const kANAdAdapterBannerDummy                   = @"ANAdAdapterBannerDummy";
 static NSString *const kANAdAdapterBannerNoAds                   = @"ANAdAdapterBannerNoAds";
 static NSString *const kANAdAdapterBannerRequestFail             = @"ANAdAdapterBannerRequestFail";
-static NSString *const kANAdAdapterErrorCode                     = @"ANAdAdapterErrorCode";
+//static NSString *const kANAdAdapterErrorCode                     = @"ANMockMediationAdapterErrorCode";
 static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMediationAdapterBannerNeverCalled";
 
 
 
 
+#pragma mark - ANUniversalAdFetcher local interface.
+
+@interface ANUniversalAdFetcher ()
+
+//- (void)processResponseData:(NSData *)data;
+- (void) processV2ResponseData:(NSData *)data;
+            //FIX -- need this?
+
+- (ANMediationAdViewController *)mediationController;
+
+- (ANMRAIDContainerView *)standardAdView;
+
+//- (NSMutableURLRequest *)successResultRequest;
+- (NSMutableURLRequest *)request;
+
+@end
+
+
+
+
+#pragma mark - ANMediationAdViewController local interface.
+
+@interface ANMediationAdViewController ()
+
+- (id)currentAdapter;
+
+- (ANMediatedAd *)mediatedAd;
+
+@end
+
+
+
+
+#pragma mark - FetcherHelper
+
 @interface FetcherHelper : ANBannerAdView
 
-@property (nonatomic, assign) BOOL testComplete;
-@property (nonatomic, strong) ANUniversalAdFetcher *fetcher;
-@property (nonatomic, strong) id adapter;
-@property (nonatomic, strong) NSError *ANError;
-@property (nonatomic, strong) ANMRAIDContainerView *standardAdView;
-//@property (nonatomic, strong) NSMutableURLRequest *successResultRequest;
-@property (nonatomic, strong) NSMutableURLRequest *request;
+@property (nonatomic, assign)  BOOL                      testComplete;
+@property (nonatomic, strong)  ANUniversalAdFetcher     *fetcher;
+@property (nonatomic, strong)  id                        adapter;
+@property (nonatomic, strong)  NSError                  *anError;
+@property (nonatomic, strong)  ANMRAIDContainerView     *standardAdView;
+
+//@property (nonatomic, strong)  NSMutableURLRequest      *successResultRequest;
+@property (nonatomic, strong)  NSMutableURLRequest      *request;
 
 - (id)runTestForAdapter:(int)testNumber
                    time:(NSTimeInterval)time;
 @end
+
 
 @interface FetcherHelper () <ANUniversalAdFetcherDelegate>
 {
@@ -54,163 +91,244 @@ static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMedia
 }
 @end
 
-@interface ANUniversalAdFetcher ()
-- (void)processResponseData:(NSData *)data;
-- (ANMediationAdViewController *)mediationController;
-- (ANMRAIDContainerView *)standardAdView;
-//- (NSMutableURLRequest *)successResultRequest;
-- (NSMutableURLRequest *)request;
+
+@implementation FetcherHelper
+                    //FIX -- remove warnings?
+
+@synthesize  testComplete        = __testComplete;
+@synthesize  fetcher             = __fetcher;
+@synthesize  adapter             = __adapter;
+@synthesize  standardAdView      = __standardAdView;
+@synthesize  anError             = __anError;
+//@synthesize  successResultRequest = __successResultRequest;
+@synthesize  request             = __request;
+        //FIX -- really need these?
+
+
+
+- (id)runTestForAdapter: (int)testNumber
+                   time: (NSTimeInterval)time
+{
+    [self runBasicTest:testNumber];
+
+    [self waitForCompletion:time];
+    return __adapter;
+}
+
+- (void)runBasicTest:(int)testNumber
+{
+    __testNumber    = testNumber;
+    __testComplete  = NO;
+
+    __fetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+    [__fetcher requestAd];
+}
+
+- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
+{
+    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
+
+    do {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
+        if ([timeoutDate timeIntervalSinceNow] < 0.0) {
+            break;
+        }
+    } while (!__testComplete);
+
+    return __testComplete;
+}
+
+
+
+
+#pragma mark - ANAdFetcherDelegate (for FetcherHelper)
+
+- (void)adFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+{
+TESTTRACEM(@"__testNumber=%@", @(__testNumber));
+    if (!__testComplete)
+    {
+        //        __successResultRequest = [__fetcher successResultRequest];
+        __request = [__fetcher request];
+
+        switch (__testNumber)
+        {
+            case 7:
+            {
+                self.adapter = [[fetcher mediationController] currentAdapter];
+
+//                [fetcher requestAdWithURL:[NSURL URLWithString:[[[fetcher mediationController] mediatedAd] resultCB]]];
+                                        //FIX -- repair per intent -- doesn't matter?
+                TESTTRACEM(@"FIX ERROR HERE?  WAS...  [fetcher requestAdWithURL:[NSURL URLWithString:[[[fetcher mediationController] mediatedAd] resultCB]]]");
+            }
+                break;
+            case 70:
+            {
+                // don't set adapter here, because we want to retain the adapter from case 7
+                self.standardAdView = [fetcher standardAdView];
+            }
+                break;
+            case 13:
+            {
+                self.adapter = [[fetcher mediationController] currentAdapter];
+                self.standardAdView = [fetcher standardAdView];
+            }
+                break;
+            case 15:
+            {
+                self.anError = [response error];
+            }
+                break;
+
+            default:
+            {
+                self.adapter = [[fetcher mediationController] currentAdapter];
+            }
+                break;
+        }
+
+        // test case 7 is a special two-part test, so we handle it specially
+        if (__testNumber != 7) {
+            NSLog(@"test complete");
+            __testComplete = YES;
+        } else {
+            // Change the test number to 70 to denote the "part 2" of this 2-step unit test
+            __testNumber = 70;
+        }
+    }
+}
+
+- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+    return 0.0;
+}
+
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+    return CGSizeMake(320, 50);
+}
+
+- (void)adFetcher:(ANUniversalAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL  {};
+
+
+
+
+#pragma mark - ANBrowserViewControllerDelegate (for FetcherHelper)
+
+- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller  {};
+- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller  {};
+- (void)browserViewControllerWillLaunchExternalApplication  {};
+- (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller  {};
+
+
+
+
+#pragma mark - ANAdViewInternalDelegate (for FetcherHelper)
+
+- (void)adWasClicked  {};
+- (void)adWillPresent  {};
+- (void)adDidPresent  {};
+- (void)adWillClose  {};
+- (void)adDidClose  {};
+- (void)adWillLeaveApplication  {};
+- (void)adFailedToDisplay  {};
+- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data  {};
+- (void)adDidReceiveAd  {};
+- (void)adRequestFailedWithError:(NSError *)error  {};
+- (void)adInteractionDidBegin  {};
+- (void)adInteractionDidEnd  {};
+
+
+
+
+#pragma mark - ANMRAIDAdViewDelegate (for FetcherHelper)
+
+- (NSString *)adType
+{
+    return nil;
+};
+
+- (UIViewController *)displayController
+{
+    return nil;
+};
+
+- (void)adShouldResetToDefault
+{
+    //EMPTY
+};
+
+- (void)adShouldExpandToFrame:(CGRect)frame closeButton:(UIButton *)closeButton
+{
+    //EMPTY
+};
+
+- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
+                  closeButton:(UIButton *)closeButton
+                closePosition:(ANMRAIDCustomClosePosition)closePosition
+{
+    //EMPTY
+};
+
+- (void)allowOrientationChange:(BOOL)allowOrientationChange
+         withForcedOrientation:(ANMRAIDOrientation)orientation
+{
+    //EMPTY
+};
+
+
+
+
+# pragma mark ANAppEventDelegate (for FetcherHelper)
+
+- (void)            ad: (id<ANAdProtocol>)ad
+    didReceiveAppEvent: (NSString *)name
+              withData: (NSString *)data
+{
+    //EMPTY
+};
+
 @end
 
-@interface ANMediationAdViewController ()
-- (id)currentAdapter;
-- (ANMediatedAd *)mediatedAd;
-@end
 
-#pragma mark MediationTests
+
+
+#pragma mark - MediationTests
 
 @interface MediationTests : ANBaseTestCase
+
 @property (nonatomic, strong) FetcherHelper *helper;
+
 @end
 
+
+
 @implementation MediationTests
+
 @synthesize helper = __helper;
+
+
+#pragma mark - Test lifecycle.
 
 - (void)setUp
 {
     [super setUp];
+
     self.helper = [FetcherHelper new];
+    [self.helper setAdSize:CGSizeMake(320, 50)];
 }
 
-- (void)clearTest {
-    [super clearTest];
-    [ANMockMediationAdapterBannerNeverCalled setCalled:NO];
-}
 
-- (void)runBasicTest:(int)testNumber {
-    id adapter = [self.helper runTestForAdapter:testNumber time:15.0];
-    
-    XCTAssertTrue([self.helper testComplete], @"Test timed out");
-    [self runChecks:testNumber adapter:adapter];
-    
-    [self clearTest];
-}
 
-- (void)checkErrorCode:(id)adapter expectedError:(ANAdResponseCode)error{
-    [self checkClass:kANAdAdapterErrorCode adapter:adapter];
-    [self checkLastRequest:error];
-}
-
-- (void)checkClass:(NSString *)className adapter:(id)adapter{
-    BOOL result;
-    Class adClass = NSClassFromString(className);
-    if (!adClass) {
-        result = NO;
-    }
-    else {
-        result = [adapter isMemberOfClass:adClass];
-    }
-    
-    XCTAssertTrue(result, @"Expected an adapter of class %@", className);
-}
-
-//- (void)checkSuccessResultCB:(int)code {
-//    NSString *resultCBString =[[self.helper successResultRequest].URL absoluteString];
-//    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
-//    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
-//}
-
-- (void)checkLastRequest:(int)code {
-    NSString *resultCBString =[[self.helper request].URL absoluteString];
-    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
-    XCTAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
-}
-
-- (void)checkSuccessfulBannerNeverCalled {
-    XCTAssertFalse([ANMockMediationAdapterBannerNeverCalled getCalled], @"Should never be called");
-}
-
-- (void)runChecks:(int)testNumber adapter:(id)adapter
-{
-TESTMARKM(@"testNumber=%@", @(testNumber));
-    switch (testNumber)
-    {
-        case 1:
-        {
-            [self checkClass:kANMockMediationAdapterSuccessfulBanner adapter:adapter];
-//            [self checkSuccessResultCB:ANAdResponseSuccessful];
-        }
-            break;
-            
-        case 2:
-        {
-            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
-        }
-            break;
-        case 3:
-        {
-            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
-        }
-            break;
-        case 4:
-        {
-            [self checkErrorCode:adapter expectedError:ANAdResponseNetworkError];
-        }
-            break;
-        case 6:
-        {
-            [self checkErrorCode:adapter expectedError:ANAdResponseUnableToFill];
-        }
-            break;
-        case 7:
-        {
-            [self checkClass:kANMockMediationAdapterSuccessfulBanner adapter:adapter];
-            XCTAssertNotNil(self.helper.standardAdView, @"Expected webView to be non-nil");
-        }
-            break;
-        case 11:
-        {
-            [self checkClass:kANMockMediationAdapterSuccessfulBanner adapter:adapter];
-        }
-            break;
-        case 12:
-        {
-            [self checkClass:kANMockMediationAdapterSuccessfulBanner adapter:adapter];
-        }
-            break;
-        case 13:
-        {
-            XCTAssertNil(adapter, @"Expected nil adapter");
-            XCTAssertNotNil(self.helper.standardAdView, @"Expected webView to be non-nil");
-        }
-            break;
-        case 14:
-        {
-            [self checkClass:kANMockMediationAdapterSuccessfulBanner adapter:adapter];
-        }
-            break;
-        case 15:
-        {
-            XCTAssertTrue([[self.helper ANError] code] == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
-        }
-            break;
-        case 16:
-        {
-            [self checkClass:kANMockMediationAdapterSuccessfulBanner adapter:adapter];
-        }
-            break;
-        default:
-            break;
-    }
-    [self checkSuccessfulBannerNeverCalled];
-}
-
-#pragma mark Basic Mediation Tests
+#pragma mark - Basic Mediation Tests
 
 - (void)test1ResponseWhereClassExists
 {
+                /*
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANMockMediationAdapterSuccessfulBanner]];
+                    */
+
+    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
     [self stubResultCBForErrorCode];
+
     [self runBasicTest:1];
 }
 
@@ -244,16 +362,18 @@ TESTMARKM(@"testNumber=%@", @(testNumber));
 
 - (void)test7TwoSuccessfulResponses
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANMockMediationAdapterSuccessfulBanner]];
+    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANMockMediationAdapterSuccessfulBanner"]];
     [self stubResultCBResponses:[ANTestResponses successfulBanner]];
     [self runBasicTest:7];
 }
 
-#pragma mark MediationWaterfall tests
+
+
+#pragma mark - MediationWaterfall tests
 
 - (void)test11FirstSuccessfulSkipSecond
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kANMockMediationAdapterSuccessfulBanner
+    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:@"ANMockMediationAdapterSuccessfulBanner"
                                                       secondClass:kANMockMediationAdapterBannerNeverCalled]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:11];
@@ -262,7 +382,7 @@ TESTMARKM(@"testNumber=%@", @(testNumber));
 - (void)test12SkipFirstSuccessfulSecond
 {
     [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
-                                                      secondClass:kANMockMediationAdapterSuccessfulBanner]];
+                                                      secondClass:@"ANMockMediationAdapterSuccessfulBanner"]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:12];
 }
@@ -296,180 +416,164 @@ TESTMARKM(@"testNumber=%@", @(testNumber));
 {
     NSString *response = [ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist firstResult:@""
                                    secondClass:kMediationAdapterClassDoesNotExist secondResult:nil
-                                    thirdClass:kANMockMediationAdapterSuccessfulBanner thirdResult:@""];
+                                    thirdClass:@"ANMockMediationAdapterSuccessfulBanner" thirdResult:@""];
     [self stubWithBody:response];
     [self stubResultCBResponses:@""];
     
     [self runBasicTest:16];
 }
 
-@end
 
-#pragma mark FetcherHelper
 
-@implementation FetcherHelper
-                    //FIX -- remove warnings?
 
-@synthesize testComplete = __testComplete;
-@synthesize fetcher = __fetcher;
-@synthesize adapter = __adapter;
-@synthesize standardAdView = __standardAdView;
-@synthesize ANError = __ANError;
-//@synthesize successResultRequest = __successResultRequest;
-@synthesize request = __request;
+#pragma mark - Helper methods.
 
-- (id)runTestForAdapter:(int)testNumber
-                   time:(NSTimeInterval)time {
-    [self runBasicTest:testNumber];
-    [self waitForCompletion:time];
-    return __adapter;
+- (void)clearTest {
+    [super clearTest];
+    [ANMockMediationAdapterBannerNeverCalled setCalled:NO];
 }
 
 - (void)runBasicTest:(int)testNumber
 {
-    __testNumber = testNumber;
-    __testComplete = NO;
-    
-    __fetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-    [__fetcher requestAd];
+    id adapter = [self.helper runTestForAdapter:testNumber time:15.0];
+//    id adapter = [self.helper runTestForAdapter:testNumber time:5.0];
+                                            //FIX -- externalize magic number
+
+    XCTAssertTrue([self.helper testComplete], @"Test timed out");
+    [self runChecks:testNumber adapter:adapter];
+                                //FIX -- is 2ppart test run fom here?  else where>...?
+
+    [self clearTest];
 }
 
-- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
+- (void)checkErrorCode:(id)adapter expectedError:(ANAdResponseCode)error
 {
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
-    
-    do {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
-        if ([timeoutDate timeIntervalSinceNow] < 0.0) {
-            break;
-        }
+    [self checkClass:@"ANMockMediationAdapterErrorCode" adapter:adapter];
+    [self checkLastRequest:error];
+}
+
+- (void)checkClass:(NSString *)className adapter:(id)adapter
+{
+    BOOL   result;
+    Class  adClass  = NSClassFromString(className);
+
+    if (!adClass) {
+        result = NO;
+    } else {
+        result = [adapter isMemberOfClass:adClass];
     }
-    while (!__testComplete);
-    return __testComplete;
+
+    XCTAssertTrue(result, @"Expected an adapter of class %@", className);
 }
 
+//- (void)checkSuccessResultCB:(int)code {
+//    NSString *resultCBString =[[self.helper successResultRequest].URL absoluteString];
+//    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
+//    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
+//}
+            //FIX -- toss?
 
-
-
-#pragma mark - ANAdFetcherDelegate
-
-- (void)adFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+- (void)checkLastRequest:(int)code
+                    //FIX -- final proof of need for OK_RESULT_CB_URL?  else toss.
 {
-	if (!__testComplete)
-	{
-//        __successResultRequest = [__fetcher successResultRequest];
-        __request = [__fetcher request];
-        
-		switch (__testNumber)
-		{
-			case 7:
-			{
-				self.adapter = [[fetcher mediationController] currentAdapter];
-                                //[fetcher requestAdWithURL:[NSURL URLWithString:[[[fetcher mediationController] mediatedAd] resultCB]]];
-                                        //FIX -- repair per intent
-                        }
-				break;
-			case 70:
-			{
-                                // don't set adapter here, because we want to retain the adapter from case 7
-                                self.standardAdView = [fetcher standardAdView];
-			}
-				break;
-			case 13:
-			{
-				self.adapter = [[fetcher mediationController] currentAdapter];
-                                self.standardAdView = [fetcher standardAdView];
-			}
-				break;
-			case 15:
-			{
-                                self.ANError = [response error];
-			}
-				break;
+    NSString  *resultCBString  = [[self.helper request].URL absoluteString];
+    NSString  *resultCBPrefix  = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
 
-			default:
-            {
-				self.adapter = [[fetcher mediationController] currentAdapter];
-            }
-				break;
-		}
+    XCTAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
+}
 
-        // test case 7 is a special two-part test, so we handle it specially
-        if (__testNumber != 7) {
-            NSLog(@"test complete");
-            __testComplete = YES;
-        } else {
-            // Change the test number to 70 to denote the "part 2" of this 2-step unit test
-            __testNumber = 70;
+- (void)checkSuccessfulBannerNeverCalled {
+    XCTAssertFalse([ANMockMediationAdapterBannerNeverCalled getCalled], @"Should never be called");
+}
+
+- (void)runChecks:(int)testNumber adapter:(id)adapter
+{
+TESTTRACEM(@"testNumber=%@", @(testNumber));
+
+    switch (testNumber)
+                                //FIX -- enumerated types for testNumber's...
+    {
+        case 1:
+        {
+            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
+            //            [self checkSuccessResultCB:ANAdResponseSuccessful];
         }
-	}
+            break;
+
+        case 2:
+        {
+            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
+        }
+            break;
+
+        case 3:
+        {
+            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
+        }
+            break;
+
+        case 4:
+        {
+            [self checkErrorCode:adapter expectedError:ANAdResponseNetworkError];
+        }
+            break;
+
+        case 6:
+        {
+            [self checkErrorCode:adapter expectedError:ANAdResponseUnableToFill];
+        }
+            break;
+
+        case 7:
+        {
+            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
+            XCTAssertNotNil(self.helper.standardAdView, @"Expected webView to be non-nil");
+        }
+            break;
+
+        case 11:
+        {
+            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
+        }
+            break;
+
+        case 12:
+        {
+            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
+        }
+            break;
+
+        case 13:
+        {
+            XCTAssertNil(adapter, @"Expected nil adapter");
+            XCTAssertNotNil(self.helper.standardAdView, @"Expected webView to be non-nil");
+        }
+            break;
+
+        case 14:
+        {
+            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
+        }
+            break;
+
+        case 15:
+        {
+            XCTAssertTrue([[self.helper anError] code] == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
+        }
+            break;
+
+        case 16:
+        {
+            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
+        }
+            break;
+
+        default:
+            break;
+    }
+
+    [self checkSuccessfulBannerNeverCalled];
 }
 
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher {
-	return 0.0;
-}
-
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
-    return CGSizeMake(320, 50);
-}
-
-- (void)adFetcher:(ANUniversalAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL {};
-
-
-
-
-#pragma mark - ANBrowserViewControllerDelegate
-
-- (void)browserViewControllerShouldDismiss:(ANBrowserViewController *)controller{};
-- (void)browserViewControllerShouldPresent:(ANBrowserViewController *)controller{};
-- (void)browserViewControllerWillLaunchExternalApplication{};
-- (void)browserViewControllerWillNotPresent:(ANBrowserViewController *)controller{};
-
-
-
-
-#pragma mark - ANAdViewInternalDelegate
-
-- (void)adWasClicked{};
-- (void)adWillPresent{};
-- (void)adDidPresent{};
-- (void)adWillClose{};
-- (void)adDidClose{};
-- (void)adWillLeaveApplication{};
-- (void)adFailedToDisplay{};
-- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data{};
-- (void)adDidReceiveAd{};
-- (void)adRequestFailedWithError:(NSError *)error{};
-- (void)adInteractionDidBegin{};
-- (void)adInteractionDidEnd{};
-
-
-
-
-#pragma mark - ANMRAIDAdViewDelegate
-
-- (NSString *)adType{
-    return nil;
-};
-
-- (UIViewController *)displayController{
-    return nil;
-};
-
-- (void)adShouldResetToDefault{};
-- (void)adShouldExpandToFrame:(CGRect)frame closeButton:(UIButton *)closeButton{};
-- (void)adShouldResizeToFrame:(CGRect)frame allowOffscreen:(BOOL)allowOffscreen
-                  closeButton:(UIButton *)closeButton
-                closePosition:(ANMRAIDCustomClosePosition)closePosition{};
-- (void)allowOrientationChange:(BOOL)allowOrientationChange
-         withForcedOrientation:(ANMRAIDOrientation)orientation{};
-
-
-
-
-# pragma mark ANAppEventDelegate
-
-- (void)ad:(id<ANAdProtocol>)ad
-didReceiveAppEvent:(NSString *)name withData:(NSString *)data{};
 
 @end

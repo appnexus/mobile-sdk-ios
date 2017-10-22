@@ -14,7 +14,7 @@
  */
 
 static NSString *const OK_RESULT_CB_URL = @"http://result";
-
+//FIX -- change to MOCK__result...
 
 
 @interface ANTestResponses : NSObject
@@ -31,8 +31,8 @@ static NSString *const OK_RESULT_CB_URL = @"http://result";
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass
                             secondClass:(NSString *)secondClass;
 
-+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
-                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult;
+//+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
+//                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult;
 
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
                             secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult

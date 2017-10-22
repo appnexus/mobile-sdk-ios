@@ -35,7 +35,7 @@ static CGFloat waitTime;
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
-    TESTMARKM(@"Mock request.");
+    TESTTRACEM(@"Mock request.");
 
     dispatch_after( dispatch_time(DISPATCH_TIME_NOW, (waitTime) * NSEC_PER_SEC),
                     dispatch_get_main_queue(), ^{

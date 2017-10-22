@@ -61,7 +61,7 @@ NSString *const         kANHTTPStubURLProtocolRequest                       = @"
 }
 
 - (void)startLoading {
-TESTMARK();
+TESTTRACE();
     id<NSURLProtocolClient>   client    = self.client;
     ANURLConnectionStub      *stub      = [self stubForRequest];
     
@@ -78,9 +78,11 @@ TESTMARK();
     } else {
         NSLog(@"Could not load request successfully: %@", [self request]);
         NSLog(@"This can happen if the request was not stubbed, or if the stubs were removed before this request was completed (due to asynchronous request loading).");
-        [client URLProtocol:self didFailWithError:[NSError errorWithDomain:kANTestHTTPStubURLProtocolExceptionKey
-                                                                      code:1
-                                                                  userInfo:nil]];
+        [client URLProtocol: self
+           didFailWithError: [NSError errorWithDomain: kANTestHTTPStubURLProtocolExceptionKey
+                                                 code: 1
+                                             userInfo: nil ]
+         ];
     }
 }
 

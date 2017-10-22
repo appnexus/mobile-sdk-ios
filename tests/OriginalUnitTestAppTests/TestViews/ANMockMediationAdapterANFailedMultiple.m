@@ -32,7 +32,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
-    TESTMARKM(@"Fail twice via code ANAdResponseUnableToFill, then load UIView.");
+    TESTTRACEM(@"Fail twice via code ANAdResponseUnableToFill, then load UIView.");
 
     [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
     [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];

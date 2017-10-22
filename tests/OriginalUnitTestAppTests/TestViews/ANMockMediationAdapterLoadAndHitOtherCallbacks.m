@@ -31,7 +31,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
-    TESTMARKM(@"Load UIView, then... click, (will/did) present ad, (will/did) close ad, (will) leave application.");
+    TESTTRACEM(@"Load UIView, then... click, (will/did) present ad, (will/did) close ad, (will) leave application.");
     
     [self.delegate didLoadBannerAd:[UIView new]];
     [self.delegate adWasClicked];

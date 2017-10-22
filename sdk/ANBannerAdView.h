@@ -17,6 +17,8 @@
 
 @protocol ANBannerAdViewDelegate;
 
+
+
 typedef NS_ENUM(NSUInteger, ANBannerViewAdTransitionType) {
     ANBannerViewAdTransitionTypeNone = 0,
     ANBannerViewAdTransitionTypeFade,
@@ -46,7 +48,10 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
     ANBannerViewAdAlignmentBottomRight
 };
 
-#pragma mark Example implementation
+
+
+
+#pragma mark - Example implementation
 
 /**
  This view displays banner ads.  A simple implementation that shows
@@ -66,6 +71,11 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  @endcode
  
  */
+
+
+
+#pragma mark - ANBannerAdView
+
 @interface ANBannerAdView : ANAdView
 
 /**
@@ -144,7 +154,9 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 @property (nonatomic, readwrite, assign) BOOL shouldResizeAdToFitContainer;
 
-#pragma mark Creating an ad view and loading an ad
+
+
+#pragma mark - Creating an ad view and loading an ad
 
 /**
  You can use either of the initialization methods below.
@@ -175,7 +187,10 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
 + (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
 
-#pragma mark Loading an ad
+
+
+
+#pragma mark - Loading an ad
 
 /**
  Loads a single ad into this ad view.  If autorefresh is not set to
@@ -186,7 +201,9 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 @end
 
-#pragma mark ANBannerAdViewDelegate
+
+
+#pragma mark - ANBannerAdViewDelegate
 
 /**
  See ANAdDelegate for common delegate methods.

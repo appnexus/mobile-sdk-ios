@@ -13,12 +13,17 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterErrorCode.h"
+#import "ANMockMediationAdapterErrorCode.h"
+#import "ANTestGlobal.h"
 
-@implementation ANAdAdapterErrorCode
+
+
+@implementation ANMockMediationAdapterErrorCode
+
 @synthesize delegate;
 
-#pragma mark ANCustomAdapterBanner
+
+#pragma mark - ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
@@ -26,6 +31,8 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
+    TESTTRACEM(@"idString=%@", idString);
+    
     self.errorId = idString;
     [self.delegate didLoadBannerAd:[UIView new]];
 }

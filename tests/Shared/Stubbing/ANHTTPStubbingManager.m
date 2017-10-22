@@ -15,7 +15,7 @@
 
 #import "ANHTTPStubbingManager.h"
 #import "ANHTTPStubURLProtocol.h"
-
+#import "ANTestGlobal.h"
 
 
 
@@ -66,6 +66,7 @@
 
 - (ANURLConnectionStub *)stubForURLString:(NSString *)URLString
 {
+TESTTRACEM(@"URLString=%@", URLString);
     __block ANURLConnectionStub  *stubMatch  = nil;
 
     [self.stubs enumerateObjectsUsingBlock: ^(ANURLConnectionStub *stub, NSUInteger idx, BOOL *stop)

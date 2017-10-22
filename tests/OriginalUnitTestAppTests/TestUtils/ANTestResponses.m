@@ -71,8 +71,8 @@ NSString *const  UT_TEMPLATE_CSM  = @""
 
                             "\"csm\": { "
                                 "\"banner\": { \"content\": \"MOCK__content\", \"width\": 320, \"height\": 50 }, "
-                                "\"handler\": [ "                                                                       //XXX + iOS class:?
-                                    "{ \"param\": \"#{PARAM}\", \"class\": \"%@\", \"width\": \"320\", \"height\": \"50\", \"type\": \"ios\", \"id\": \"MOCK__id\" }, "
+                                "\"handler\": [ "                                                                       //XXX + iOS class:?, iOS id:?
+                                    "{ \"param\": \"#{PARAM}\", \"class\": \"%@\", \"width\": \"320\", \"height\": \"50\", \"type\": \"ios\", \"id\": \"%@\" }, "
                                     "{ \"param\": \"#{PARAM}\", \"class\": \"com.appnexus.opensdk.mediatedviews.MOCK__androidClass\", \"width\": \"320\", \"height\": \"50\", \"type\": \"android\", \"id\": \"MOCK__id\" } "
                                 "], "
                                 "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ], "
@@ -120,6 +120,7 @@ NSString *_type;
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
     mediatedAd.adId = @"124";
+                //FIX -- better mock value?
     return mediatedAd;
 }
 
@@ -181,8 +182,9 @@ NSString *_type;
     return [ANTestResponses createMediatedBanner:@"ANAdAdapterBannerNoAds"];
 }
 
-+ (NSString *)mediationErrorCodeBanner:(int)code {
-    return [ANTestResponses createMediatedBanner:@"ANAdAdapterErrorCode" withID:[NSString stringWithFormat:@"%i", code]];
++ (NSString *)mediationErrorCodeBanner:(int)code
+{
+    return [ANTestResponses createMediatedBanner:@"ANMockMediationAdapterErrorCode" withID:[NSString stringWithFormat:@"%i", code]];
 }
 
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass secondClass:(NSString *)secondClass {
@@ -204,13 +206,14 @@ NSString *_type;
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
 
+            /* FIX -- toss
 + (NSString *)mediationWaterfallBanners: (NSString *)firstClass
                             firstResult: (NSString *)firstResult
                             secondClass: (NSString *)secondClass
                            secondResult: (NSString *)secondResult
                                 //FIX -- refactor signature: result arguments are always emptystring
 {
-TESTMARK();
+TESTTRACE();
     ANMediatedAd *firstAd = [ANMediatedAd dummy];
     ANMediatedAd *secondAd = [ANMediatedAd dummy];
 
@@ -219,17 +222,18 @@ TESTMARK();
 
     NSString *firstHandler = [ANTestResponses createHandlerObjectFromMediatedAds: [[NSMutableArray alloc] initWithObjects:firstAd, nil]
                                                                     withResultCB: firstResult];
-TESTMARKJSON(firstHandler);
+TESTTRACEJSON(firstHandler);
 
     NSString *secondHandler = [ANTestResponses createHandlerObjectFromMediatedAds: [[NSMutableArray alloc] initWithObjects:secondAd, nil]
                                                                      withResultCB: secondResult];
-TESTMARKJSON(secondHandler);
+TESTTRACEJSON(secondHandler);
 
     NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:[[NSMutableArray alloc] initWithObjects:firstHandler, secondHandler, nil]];
-TESTMARKJSON(mediatedField);
+TESTTRACEJSON(mediatedField);
 
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
+                             */
 
 + (NSString *)mediationWaterfallWithMockClassNames:(NSArray<NSString *> *)arrayOfMockClassObjects
 {
@@ -238,7 +242,8 @@ TESTMARKJSON(mediatedField);
 
     for (NSString *classObject in arrayOfMockClassObjects)
     {
-        NSString  *csmAdObject  = [NSString stringWithFormat:UT_TEMPLATE_CSM, classObject];
+        NSString  *csmAdObject  = [NSString stringWithFormat:UT_TEMPLATE_CSM, classObject, @"MOCK__id"];
+                            //FIX -- constant for MOCK__xyz strings?
 
         if (!listOfCSMAdObjects) {
             listOfCSMAdObjects = csmAdObject;
@@ -300,17 +305,29 @@ TESTMARKJSON(mediatedField);
 }
 
 + (NSString *)createMediatedBanner:(NSString *)className
-                            withID:(NSString *)idString {
-    return [ANTestResponses createMediatedBanner:className withID:idString withResultCB:OK_RESULT_CB_URL];
+                            withID:(NSString *)idString
+                //FIX -0 collapse all the methods?>
+{
+//    return [ANTestResponses createMediatedBanner:className withID:idString withResultCB:OK_RESULT_CB_URL];
+
+    NSString  *csmAdObject  = [NSString stringWithFormat:UT_TEMPLATE_CSM, className, idString];
+                    //FIX -- prefix idString with MOCK__?
+    NSString  *utResponse   = [NSString stringWithFormat:UT_TEMPLATE, csmAdObject];
+TESTTRACEJSON(utResponse);
+//TESTTRACEJSON(csmAdObject);
+
+    return  utResponse;
+
 }
 
-+ (NSString *)createMediatedBanner:(NSString *)className
-                            withID:(NSString *)idString
-                      withResultCB:(NSString *)resultCB
++ (NSString *)createMediatedBanner: (NSString *)className
+                            withID: (NSString *)idString
+                      withResultCB: (NSString *)resultCB
 {
-    ANMediatedAd *mediatedAd = [ANMediatedAd dummy];
-    mediatedAd.className = className;
-    mediatedAd.adId = idString;
+    ANMediatedAd  *mediatedAd  = [ANMediatedAd dummy];
+
+    mediatedAd.className  = className;
+    mediatedAd.adId       = idString;
     
     NSMutableArray *mediatedAdsArray = [[NSMutableArray alloc] initWithObjects:mediatedAd, nil];
     NSString *handler = [ANTestResponses createHandlerObjectFromMediatedAds:mediatedAdsArray withResultCB:resultCB];
@@ -335,7 +352,7 @@ TESTMARKJSON(mediatedField);
 
 + (NSString *)createMediatedResponse:(NSString *)mediatedField
 {
-TESTMARKJSON(mediatedField);
+TESTTRACEJSON(mediatedField);
 
     NSString *statusField = @"ok";
     NSString *adsField = @"[]";
@@ -393,7 +410,7 @@ TESTMARKJSON(mediatedField);
 + (NSString *)createHandlerObjectFromMediatedAds:(NSMutableArray *)mediatedAds
                                     withResultCB:(NSString *)resultCB
 {
-TESTMARK();
+TESTTRACE();
     NSString *mediatedAdString = @"{ \"handler\": [";
     while ([mediatedAds count] > 1) {
         ANMediatedAd *mediatedAd = [mediatedAds objectAtIndex:0];

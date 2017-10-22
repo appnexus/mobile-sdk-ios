@@ -31,7 +31,7 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
-    TESTMARKM(@"Fail with code ANAdResponseUnableToFill, then load UIView.");
+    TESTTRACEM(@"Fail with code ANAdResponseUnableToFill, then load UIView.");
     
     [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
     [self.delegate didLoadBannerAd:[UIView new]];

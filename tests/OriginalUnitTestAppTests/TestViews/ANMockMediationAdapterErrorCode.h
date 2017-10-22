@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "ANCustomAdapter.h"
 
-@interface ANAdAdapterErrorCode : NSObject <ANCustomAdapterBanner>
+@interface ANMockMediationAdapterErrorCode : NSObject <ANCustomAdapterBanner>
 
 @property (nonatomic, readwrite, strong) NSString *errorId;
 

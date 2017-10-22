@@ -25,18 +25,18 @@ extern NSString * const  kMediationAdapterClassDoesNotExist;
 
 #pragma mark - Simple diagnostics for tests.
 
-#define  TESTMARK()              NSLog(@"  TEST MARK  %s", __PRETTY_FUNCTION__)
-#define  TESTMARKM(format, ...)  NSLog(@"  TEST MARK  %s -- %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:format, ##__VA_ARGS__])
+#define  TESTTRACE()              NSLog(@"  TEST TRACE  %s", __PRETTY_FUNCTION__)
+#define  TESTTRACEM(format, ...)  NSLog(@"  TEST TRACE  %s -- %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:format, ##__VA_ARGS__])
                             //FIX -- change MARK->TRACE...
 
-#define  TESTMARKJSON(jsonString)                                                                                        \
+#define  TESTTRACEJSON(jsonString)                                                                                      \
             {                                                                                                           \
                 NSData        *objectData  = [jsonString dataUsingEncoding:NSUTF8StringEncoding];                       \
                 NSError       *error;                                                                                   \
                 NSDictionary  *json        = [NSJSONSerialization JSONObjectWithData: objectData                        \
                                                                              options: NSJSONReadingMutableContainers    \
                                                                                error: &error];                          \
-                TESTMARKM(@"\n\t%@=%@", @ #jsonString, json);                                                            \
+                TESTTRACEM(@"\n\t%@=%@", @ #jsonString, json);                                                          \
             }
 
 
