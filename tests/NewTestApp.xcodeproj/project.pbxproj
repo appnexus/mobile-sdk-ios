@@ -168,7 +168,7 @@
 		8AA0099019DB16CD0090EBED /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0096B19DB16CD0090EBED /* ANMRAIDTestResponses.m */; };
 		8AA0099119DB16CD0090EBED /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0096D19DB16CD0090EBED /* ANTestResponses.m */; };
 		8AA0099219DB16CD0090EBED /* ANMockMediationAdapterBannerDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097019DB16CD0090EBED /* ANMockMediationAdapterBannerDummy.m */; };
-		8AA0099319DB16CD0090EBED /* ANAdAdapterBannerNoAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097219DB16CD0090EBED /* ANAdAdapterBannerNoAds.m */; };
+		8AA0099319DB16CD0090EBED /* ANMockMediationAdapterBannerNoAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097219DB16CD0090EBED /* ANMockMediationAdapterBannerNoAds.m */; };
 		8AA0099419DB16CD0090EBED /* ANMockMediationAdapterBannerRequestFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097419DB16CD0090EBED /* ANMockMediationAdapterBannerRequestFail.m */; };
 		8AA0099519DB16CD0090EBED /* ANMockMediationAdapterErrorCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097619DB16CD0090EBED /* ANMockMediationAdapterErrorCode.m */; };
 		8AA0099619DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA0097819DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.m */; };
@@ -776,8 +776,8 @@
 		8AA0096D19DB16CD0090EBED /* ANTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestResponses.m; sourceTree = "<group>"; };
 		8AA0096F19DB16CD0090EBED /* ANMockMediationAdapterBannerDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerDummy.h; sourceTree = "<group>"; };
 		8AA0097019DB16CD0090EBED /* ANMockMediationAdapterBannerDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerDummy.m; sourceTree = "<group>"; };
-		8AA0097119DB16CD0090EBED /* ANAdAdapterBannerNoAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoAds.h; sourceTree = "<group>"; };
-		8AA0097219DB16CD0090EBED /* ANAdAdapterBannerNoAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoAds.m; sourceTree = "<group>"; };
+		8AA0097119DB16CD0090EBED /* ANMockMediationAdapterBannerNoAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerNoAds.h; sourceTree = "<group>"; };
+		8AA0097219DB16CD0090EBED /* ANMockMediationAdapterBannerNoAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerNoAds.m; sourceTree = "<group>"; };
 		8AA0097319DB16CD0090EBED /* ANMockMediationAdapterBannerRequestFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerRequestFail.h; sourceTree = "<group>"; };
 		8AA0097419DB16CD0090EBED /* ANMockMediationAdapterBannerRequestFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerRequestFail.m; sourceTree = "<group>"; };
 		8AA0097519DB16CD0090EBED /* ANMockMediationAdapterErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterErrorCode.h; sourceTree = "<group>"; };
@@ -1440,14 +1440,14 @@
 		8AA0096E19DB16CD0090EBED /* TestViews */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0097119DB16CD0090EBED /* ANAdAdapterBannerNoAds.h */,
-				8AA0097219DB16CD0090EBED /* ANAdAdapterBannerNoAds.m */,
 				8AA0097919DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.h */,
 				8AA0097A19DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.m */,
 				8AA0096F19DB16CD0090EBED /* ANMockMediationAdapterBannerDummy.h */,
 				8AA0097019DB16CD0090EBED /* ANMockMediationAdapterBannerDummy.m */,
 				8AA0098519DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.h */,
 				8AA0098619DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m */,
+				8AA0097119DB16CD0090EBED /* ANMockMediationAdapterBannerNoAds.h */,
+				8AA0097219DB16CD0090EBED /* ANMockMediationAdapterBannerNoAds.m */,
 				8AA0097319DB16CD0090EBED /* ANMockMediationAdapterBannerRequestFail.h */,
 				8AA0097419DB16CD0090EBED /* ANMockMediationAdapterBannerRequestFail.m */,
 				8AA0097519DB16CD0090EBED /* ANMockMediationAdapterErrorCode.h */,
@@ -2339,13 +2339,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AA0099319DB16CD0090EBED /* ANAdAdapterBannerNoAds.m in Sources */,
 				8AA0098F19DB16CD0090EBED /* ANBaseTestCase.m in Sources */,
 				8AA009AC19DB18AE0090EBED /* ANHTTPStubbingManager.m in Sources */,
 				8AA009AD19DB18AE0090EBED /* ANHTTPStubURLProtocol.m in Sources */,
 				8AA0099719DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.m in Sources */,
 				8AA0099219DB16CD0090EBED /* ANMockMediationAdapterBannerDummy.m in Sources */,
 				8AA0099D19DB16CD0090EBED /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
+				8AA0099319DB16CD0090EBED /* ANMockMediationAdapterBannerNoAds.m in Sources */,
 				8AA0099419DB16CD0090EBED /* ANMockMediationAdapterBannerRequestFail.m in Sources */,
 				8AA0099519DB16CD0090EBED /* ANMockMediationAdapterErrorCode.m in Sources */,
 				8AA0099619DB16CD0090EBED /* ANMockMediationAdapterFailAndHitOtherCallbacks.m in Sources */,

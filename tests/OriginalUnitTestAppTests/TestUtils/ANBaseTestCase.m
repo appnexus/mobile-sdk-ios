@@ -21,6 +21,9 @@
 
 
 
+#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
+
+
 
 @interface ANBaseTestCase () 
 
@@ -40,11 +43,15 @@
     [ANLogManager setANLogLevel:ANLogLevelAll];
 }
 
-- (void)clearTest {
+- (void)clearTest 
+{
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+
     _banner = nil;
     _interstitial = nil;
+
     _testComplete = NO;
+
     _adDidLoadCalled = NO;
     _adFailedToLoadCalled = NO;
     _adWasClickedCalled = NO;
@@ -54,8 +61,17 @@
     _adDidCloseCalled = NO;
     _adWillLeaveApplicationCalled = NO;
     _adFailedToDisplayCalled = NO;
-    UIViewController *presentingVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-                                            //FIX -- use same invocation of rootViewController here and below?
+
+    _customAdapterAdWasClicked = NO;
+    _customAdapterDidCloseAd = NO;
+    _customAdapterDidFailToLoadAd = NO;
+    _customAdapterDidPresentAd = NO;
+    _customAdapterWillCloseAd = NO;
+    _customAdapterWillLeaveApplication = NO;
+    _customAdapterWillPresentAd = NO;
+
+    UIViewController *presentingVC = ROOT_VIEW_CONTROLLER;
+
     if (presentingVC) {
         [self delay:1.0];
         [presentingVC dismissViewControllerAnimated:NO completion:nil];
@@ -137,11 +153,11 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
-                           //FIX -- encode faux placementID?
+                           //FIX -- encapsulate faux placementID?
                    adSize:CGSizeMake(320, 50)];
-    self.banner.rootViewController = [[UIApplication sharedApplication].delegate window].rootViewController;
+    self.banner.rootViewController = ROOT_VIEW_CONTROLLER;
     self.banner.autoRefreshInterval = 0.0;
-                //FIX -- do we need to test autorefresh?
+                //TBDFIX -- do we need to test autorefresh?
     self.banner.delegate = self;
     [self.banner loadAd];
 }
@@ -153,7 +169,7 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
 }
 
 - (void)showInterstitialAd {
-    UIViewController *controller = [[UIApplication sharedApplication] keyWindow].rootViewController;
+    UIViewController *controller = ROOT_VIEW_CONTROLLER;
     [self.interstitial displayAdFromViewController:controller];
 }
 
@@ -175,6 +191,15 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
         "\n\t\t adWillLeaveApplicationCalled  = %@"
         "\n\t\t adFailedToDisplayCalled       = %@"
         "\n"
+
+        "\n\t\t customAdapterAdWasClicked          = %@"
+        "\n\t\t customAdapterDidCloseAd            = %@"
+        "\n\t\t customAdapterDidFailToLoadAd       = %@"
+        "\n\t\t customAdapterDidPresentAd          = %@"
+        "\n\t\t customAdapterWillCloseAd           = %@"
+        "\n\t\t customAdapterWillLeaveApplication  = %@"
+        "\n\t\t customAdapterWillPresentAd         = %@"
+        "\n"
         ,
 
         self.banner, self.interstitial, 
@@ -185,7 +210,15 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
         @(self.adWillPresentCalled), @(self.adDidPresentCalled),
         @(self.adWillCloseCalled), @(self.adDidCloseCalled),
         @(self.adWillLeaveApplicationCalled),
-        @(self.adFailedToDisplayCalled)
+        @(self.adFailedToDisplayCalled),
+
+        @(self.customAdapterAdWasClicked),
+        @(self.customAdapterDidCloseAd),
+        @(self.customAdapterDidFailToLoadAd),
+        @(self.customAdapterDidPresentAd),
+        @(self.customAdapterWillCloseAd),
+        @(self.customAdapterWillLeaveApplication),
+        @(self.customAdapterWillPresentAd)
     );
 }
 
@@ -240,6 +273,45 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
     NSLog(@"adWillLeaveApplication callback called");
     _adWillLeaveApplicationCalled = YES;
+}
+
+
+
+#pragma mark - ANCustomAdapterDelegate.
+
+- (void)adWasClicked {
+    NSLog(@"customAdapterAdWasClicked callback called");
+    _customAdapterAdWasClicked = YES;
+}
+
+- (void)didCloseAd {
+    NSLog(@"customAdapterDidCloseAd callback called");
+    _customAdapterDidCloseAd = YES;
+}
+
+- (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
+    NSLog(@"customAdapterDidFailToLoadAd callback called  (errorCode=%@)", @(errorCode));
+    _customAdapterDidFailToLoadAd = YES;
+}
+
+- (void)didPresentAd {
+    NSLog(@"customAdapterDidPresentAd callback called");
+    _customAdapterDidPresentAd = YES;
+}
+
+- (void)willCloseAd {
+    NSLog(@"customAdapterWillCloseAd callback called");
+    _customAdapterWillCloseAd = YES;
+}
+
+- (void)willLeaveApplication {
+    NSLog(@"customAdapterWillLeaveApplication callback called");
+    _customAdapterWillLeaveApplication = YES;
+}
+
+- (void)willPresentAd {
+    NSLog(@"customAdapterWillPresentAd callback called");
+    _customAdapterWillPresentAd = YES;
 }
 
 @end

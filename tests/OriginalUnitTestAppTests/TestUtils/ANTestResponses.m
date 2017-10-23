@@ -179,7 +179,7 @@ NSString *_type;
                          */
 
 + (NSString *)mediationNoAdsBanner {
-    return [ANTestResponses createMediatedBanner:@"ANAdAdapterBannerNoAds"];
+    return [ANTestResponses createMediatedBanner:@"ANMockMediationAdapterBannerNoAds"];
 }
 
 + (NSString *)mediationErrorCodeBanner:(int)code

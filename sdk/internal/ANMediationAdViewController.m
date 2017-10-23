@@ -167,7 +167,6 @@ ANLogMark();
 
 
 - (void)clearAdapter {
-
     if (self.currentAdapter) {
         self.currentAdapter.delegate = nil;
     }
@@ -188,7 +187,6 @@ ANLogMark();
          adUnitId:(NSString *)idString
            adView:(id<ANUniversalAdFetcherDelegate>)adView
 {
-
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
     
     NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings: adView.customKeywords
@@ -255,7 +253,6 @@ ANLogMark();
 #pragma mark - ANCustomAdapterBannerDelegate
 
 - (void)didLoadBannerAd:(UIView *)view {
-
     [self didReceiveAd:view];
 }
 
@@ -264,7 +261,6 @@ ANLogMark();
 #pragma mark - ANCustomAdapterInterstitialDelegate
 
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter {
-
     [self didReceiveAd:adapter];
 }
 
@@ -273,12 +269,10 @@ ANLogMark();
 #pragma mark - ANCustomAdapterDelegate
 
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
-
     [self didFailToReceiveAd:errorCode];
 }
 
 - (void)adWasClicked {
-
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWasClicked];
@@ -286,7 +280,6 @@ ANLogMark();
 }
 
 - (void)willPresentAd {
-
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillPresent];
@@ -294,7 +287,6 @@ ANLogMark();
 }
 
 - (void)didPresentAd {
-
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adDidPresent];
@@ -302,7 +294,6 @@ ANLogMark();
 }
 
 - (void)willCloseAd {
-
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillClose];
@@ -310,7 +301,6 @@ ANLogMark();
 }
 
 - (void)didCloseAd {
-
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adDidClose];
@@ -318,7 +308,6 @@ ANLogMark();
 }
 
 - (void)willLeaveApplication {
-
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillLeaveApplication];
@@ -326,7 +315,6 @@ ANLogMark();
 }
 
 - (void)failedToDisplayAd {
-
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
@@ -349,7 +337,6 @@ ANLogMark();
 
 - (void)didReceiveAd:(id)adObject
 {
-
     if ([self checkIfHasResponded])  { return; }
     
     if (!adObject) {
@@ -458,7 +445,6 @@ ANLogMark();
 }
 
 - (void)cancelTimeout {
-
     self.timeoutCanceled = YES;
 }
 
@@ -471,7 +457,6 @@ ANLogMark();
  * from `requestAd` call.
  */
 - (void)markLatencyStart {
-
     self.latencyStart = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -480,7 +465,6 @@ ANLogMark();
  * calls either of `onAdLoaded` or `onAdFailed`.
  */
 - (void)markLatencyStop {
-
     self.latencyStop = [NSDate timeIntervalSinceReferenceDate];
 }
 

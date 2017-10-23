@@ -20,10 +20,11 @@
 #import "ANGlobal.h"
 #import "ANTestGlobal.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "ANCustomAdapter.h"
 
 
 
-@interface ANBaseTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
+@interface ANBaseTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANCustomAdapterDelegate>
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 @property (nonatomic, readwrite, strong) ANInterstitialAd *interstitial;
@@ -38,6 +39,16 @@
 @property (nonatomic, assign) BOOL adDidCloseCalled;
 @property (nonatomic, assign) BOOL adWillLeaveApplicationCalled;
 @property (nonatomic, assign) BOOL adFailedToDisplayCalled;
+
+@property (nonatomic, assign)  BOOL  customAdapterAdWasClicked;
+@property (nonatomic, assign)  BOOL  customAdapterDidCloseAd;
+@property (nonatomic, assign)  BOOL  customAdapterDidFailToLoadAd;
+@property (nonatomic, assign)  BOOL  customAdapterDidPresentAd;
+@property (nonatomic, assign)  BOOL  customAdapterWillCloseAd;
+@property (nonatomic, assign)  BOOL  customAdapterWillLeaveApplication;
+@property (nonatomic, assign)  BOOL  customAdapterWillPresentAd;
+
+
 
 - (void)clearTest;
 - (void)stubWithInitialMockResponse:(NSString *)body;

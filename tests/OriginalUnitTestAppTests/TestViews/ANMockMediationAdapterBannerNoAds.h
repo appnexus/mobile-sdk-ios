@@ -13,21 +13,9 @@
  limitations under the License.
  */
 
-#import "ANAdAdapterBannerNoAds.h"
+#import <Foundation/Foundation.h>
+#import "ANCustomAdapter.h"
 
-@implementation ANAdAdapterBannerNoAds
-@synthesize delegate;
-
-#pragma mark ANCustomAdapterBanner
-
-- (void)requestBannerAdWithSize:(CGSize)size
-             rootViewController:(UIViewController *)rootViewController
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
-{
-    // Fake a no fill response
-    [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
-}
+@interface ANMockMediationAdapterBannerNoAds : NSObject <ANCustomAdapterBanner>
 
 @end

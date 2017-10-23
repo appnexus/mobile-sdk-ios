@@ -25,14 +25,23 @@
 
 
 //static NSString *const kANMockMediationAdapterSuccessfulBanner   = @"ANMockMediationAdapterSuccessfulBanner";
-static NSString *const kANAdAdapterBannerDummy                   = @"ANMockMediationAdapterBannerDummy";
-static NSString *const kANAdAdapterBannerNoAds                   = @"ANAdAdapterBannerNoAds";
+//static NSString *const kANAdAdapterBannerDummy                   = @" ANMockMediationAdapterBannerDummy";
+//static NSString *const kANAdAdapterBannerNoAds                   = @"ANMockMediationAdapterBannerNoAds";
 //static NSString *const kANAdAdapterBannerRequestFail             = @"ANMockMediationAdapterBannerRequestFail";
 //static NSString *const kANAdAdapterErrorCode                     = @"ANMockMediationAdapterErrorCode";
 static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMediationAdapterBannerNeverCalled";
 
 
 float const  MEDIATION_TESTS_TIMEOUT  = 15.0;
+
+typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
+    ANMediationTestsSuccessfulBanner,
+    ANMediationTestsClassDoesNotExist,
+    ANmediationTestsBannerDummy,
+    ANMediationTestsBannerRequestFail,
+    ANMediationTestsBannerNoAds,
+    ANMediationTestsTwoSuccessfulResponses
+};
 
 
 
@@ -316,7 +325,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 @implementation MediationTests
 
-@synthesize bannerAdViewExtended = __bannerAdViewExtended;
+//@synthesize bannerAdViewExtended = __bannerAdViewExtended;
                     //FIX -- need this?
 
 
@@ -333,57 +342,43 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 
 #pragma mark - Basic Mediation Tests
+                            //TBDFIX -- are all these tests useful?  develop means to measure their nuances.
 
 - (void)test1ResponseWhereClassExists
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
-    [self runBasicTest:1];
-}
+    [self runBasicTest:ANMediationTestsSuccessfulBanner];
 
-//
-//FIX -- WRONG : /Users/dreeder/appnexus/project/code/MOBILE-SDK/app_mobile-sdk/apps/iOS/mobile-sdk-ios/tests/OriginalUnitTestAppTests/MediationTests.m:479: error: -[MediationTests test3ResponseWhereClassCannotInstantiate] : ((result) is true) failed - Expected an adapter of class ANMockMediationAdapterErrorCode
-//
+}
 
 - (void)test2ResponseWhereMediationAdapterClassDoesNotExist
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kMediationAdapterClassDoesNotExist ]]];
-    [self runBasicTest:2];
+    [self runBasicTest:ANMediationTestsClassDoesNotExist];
 }
 
 - (void)test3ResponseWhereClassCannotInstantiate
 {
-            /* FIX -- toss
-    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:kANAdAdapterBannerDummy]];
-    [self stubResultCBForErrorCode];
-                     */
-
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterBannerDummy" ]]];
-    [self runBasicTest:3];
+    [self runBasicTest:ANmediationTestsBannerDummy];
 }
 
 - (void)test4ResponseWhereClassInstantiatesAndDoesNotRequestAd
 {
-                    /* FIX -- toss
-    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:kANAdAdapterBannerRequestFail]];
-    [self stubResultCBForErrorCode];
-                             */
-
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterBannerRequestFail" ]]];
-    [self runBasicTest:4];
+    [self runBasicTest:ANMediationTestsBannerRequestFail];
 }
 
 - (void)test6AdWithNoFill
 {
-    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:kANAdAdapterBannerNoAds]];
-    [self stubResultCBForErrorCode];
-    [self runBasicTest:6];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterBannerNoAds" ]]];
+    [self runBasicTest:ANMediationTestsBannerNoAds];
 }
 
 - (void)test7TwoSuccessfulResponses
 {
-    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:@"ANMockMediationAdapterSuccessfulBanner"]];
-    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
-    [self runBasicTest:7];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
+    [self runBasicTest:ANMediationTestsTwoSuccessfulResponses];
 }
 
 
@@ -460,16 +455,109 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
     [self runChecks:testNumber adapter:adapter];
                                 //FIX -- is 2ppart test run fom here?  else where>...?
 
+    [self dumpTestStats];
+                //FIX -- are these never used?
     [self clearTest];
 }
 
-- (void)checkErrorCode:(id)adapter expectedError:(ANAdResponseCode)error
+- (void)runChecks: (int)testNumber
+          adapter: (id)adapter
 {
-    [self checkClass:@"ANMockMediationAdapterErrorCode" adapter:adapter];
-//    [self checkLastRequest:error];   //FIX -- toss
+TESTTRACEM(@"testNumber=%@  adapter=%@", @(testNumber), adapter);
+
+    switch (testNumber)
+    {
+        case ANMediationTestsSuccessfulBanner:
+        {
+            [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterSuccessfulBanner"];
+            break;
+        }
+
+        case ANMediationTestsClassDoesNotExist:
+        {
+            XCTAssertNil(adapter, @"Expected an adapter to be nil.");
+            break;
+        }
+
+        case ANmediationTestsBannerDummy:
+        {
+            XCTAssertNil(adapter, @"Expected an adapter to be nil.");
+            break;
+        }
+
+        case ANMediationTestsBannerRequestFail:
+        {
+            XCTAssertNil(adapter, @"Expected an adapter to be nil.");
+            break;
+        }
+
+        case ANMediationTestsBannerNoAds:
+        {
+            XCTAssertNil(adapter, @"Expected an adapter to be nil.");
+            break;
+        }
+
+        case ANMediationTestsTwoSuccessfulResponses:
+        {
+            [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterSuccessfulBanner"];
+            break;
+        }
+
+        case 11:
+        {
+            [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterSuccessfulBanner"];
+            break;
+        }
+
+        case 12:
+        {
+            [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterSuccessfulBanner"];
+            break;
+        }
+
+        case 13:
+        {
+            XCTAssertNil(adapter, @"Expected nil adapter");
+            XCTAssertNotNil(self.bannerAdViewExtended.standardAdView, @"Expected webView to be non-nil");
+            break;
+        }
+
+        case 14:
+        {
+            [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterSuccessfulBanner"];
+            break;
+        }
+
+        case 15:
+        {
+            XCTAssertTrue([[self.bannerAdViewExtended anError] code] == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
+            break;
+        }
+
+        case 16:
+        {
+            [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterSuccessfulBanner"];
+            break;
+        }
+
+        default:
+            break;
+    }
+
+    [self checkSuccessfulBannerNeverCalled];
 }
 
-- (void)checkClass:(NSString *)className adapter:(id)adapter
+        /* FIX -- toss, replace with sometihing?
+- (void)checkErrorCode:(id)adapter expectedError:(ANAdResponseCode)error
+{
+TESTTRACEM(@"adapter=%@", adapter);
+    [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterErrorCode"];
+//    [self checkLastRequest:error];   //FIX -- toss
+}
+                     */
+
+- (void)matchMediationAdapter: (id)adapter
+                  toClassName: (NSString *)className
 {
 TESTTRACE();
     BOOL   result;
@@ -489,115 +577,23 @@ TESTTRACE();
 //    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
 //    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
 //}
-            //FIX -- toss?
+//FIX -- toss?
 
-                            /* FIX -- toss olds choll
-- (void)checkLastRequest:(int)code
-                    //FIX -- final proof of need for OK_RESULT_CB_URL?  else toss.
-{
-TESTTRACE();
-    NSString  *resultCBString  = [[self.bannerAdViewExtended request].URL absoluteString];
-    NSString  *resultCBPrefix  = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
+/* FIX -- toss olds choll
+ - (void)checkLastRequest:(int)code
+ //FIX -- final proof of need for OK_RESULT_CB_URL?  else toss.
+ {
+ TESTTRACE();
+ NSString  *resultCBString  = [[self.bannerAdViewExtended request].URL absoluteString];
+ NSString  *resultCBPrefix  = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
 
-TESTTRACEM(@"FIX ERROR is this still defined?  resultCBString=%@", resultCBString);
-    XCTAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
-}
-                                         */
+ TESTTRACEM(@"FIX ERROR is this still defined?  resultCBString=%@", resultCBString);
+ XCTAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
+ }
+ */
 
 - (void)checkSuccessfulBannerNeverCalled {
     XCTAssertFalse([ANMockMediationAdapterBannerNeverCalled getCalled], @"Should never be called");
-}
-
-- (void)runChecks: (int)testNumber
-          adapter: (id)adapter
-{
-TESTTRACEM(@"testNumber=%@", @(testNumber));
-
-    switch (testNumber)
-                                //FIX -- enumerated types for testNumber's...
-    {
-        case 1:
-        {
-            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
-            //            [self checkSuccessResultCB:ANAdResponseSuccessful];
-            break;
-        }
-
-        case 2:
-        {
-            XCTAssertNil(adapter, @"Expected an adapter to be nil.");
-
-//            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
-            break;
-        }
-
-        case 3:
-        {
-            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
-            break;
-        }
-
-        case 4:
-        {
-            [self checkErrorCode:adapter expectedError:ANAdResponseNetworkError];
-            break;
-        }
-
-        case 6:
-        {
-            [self checkErrorCode:adapter expectedError:ANAdResponseUnableToFill];
-            break;
-        }
-
-        case 7:
-        {
-            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
-            XCTAssertNotNil(self.bannerAdViewExtended.standardAdView, @"Expected webView to be non-nil");
-            break;
-        }
-
-        case 11:
-        {
-            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
-            break;
-        }
-
-        case 12:
-        {
-            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
-            break;
-        }
-
-        case 13:
-        {
-            XCTAssertNil(adapter, @"Expected nil adapter");
-            XCTAssertNotNil(self.bannerAdViewExtended.standardAdView, @"Expected webView to be non-nil");
-            break;
-        }
-
-        case 14:
-        {
-            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
-            break;
-        }
-
-        case 15:
-        {
-            XCTAssertTrue([[self.bannerAdViewExtended anError] code] == ANAdResponseUnableToFill, @"Expected ANAdResponseUnableToFill error.");
-            break;
-        }
-
-        case 16:
-        {
-            [self checkClass:@"ANMockMediationAdapterSuccessfulBanner" adapter:adapter];
-            break;
-        }
-
-        default:
-            break;
-    }
-
-    [self checkSuccessfulBannerNeverCalled];
 }
 
 
