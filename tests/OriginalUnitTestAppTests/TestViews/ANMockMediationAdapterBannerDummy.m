@@ -13,9 +13,30 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "ANCustomAdapter.h"
+#import "ANMockMediationAdapterBannerDummy.h"
+#import "ANTestGlobal.h"
 
-@interface ANAdAdapterBannerRequestFail : NSObject <ANCustomAdapterBanner>
+
+
+@implementation ANMockMediationAdapterBannerDummy
+
+@synthesize delegate;
+
+#pragma mark - ANCustomAdapterBanner
+
+- (id)init
+{
+    return nil;
+}
+
+
+- (void)requestBannerAdWithSize:(CGSize)size
+             rootViewController:(UIViewController *)rootViewController
+                serverParameter:(NSString *)parameterString
+                       adUnitId:(NSString *)idString
+            targetingParameters:(ANTargetingParameters *)targetingParameters
+{
+    TESTTRACEM(@"Do nothing.");
+}
 
 @end
