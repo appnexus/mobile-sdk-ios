@@ -62,10 +62,13 @@
     }
 }
 
-- (void)stubWithBody:(NSString *)body {
+- (void)stubWithInitialMockResponse:(NSString *)body
+{
+TESTTRACE();
     ANURLConnectionStub *testURLStub = [[ANURLConnectionStub alloc] init];
+
     testURLStub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig utAdRequestBaseUrl] stringByAppendingString:@".*"];
-                    //FIX -- do stubs even work for UT?  all the query strings are the same...
+
     testURLStub.responseCode = 200;
     testURLStub.responseBody = body;
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:testURLStub];
@@ -74,6 +77,9 @@
     anBaseURLStub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig webViewBaseUrl] stringByAppendingString:@".*"];
     anBaseURLStub.responseCode = 200;
     anBaseURLStub.responseBody = @"";
+
+TESTTRACEM(@"testURLStub.requestURLRegexPatternString=%@", testURLStub.requestURLRegexPatternString);
+TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.requestURLRegexPatternString);
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
 }
 
@@ -151,6 +157,37 @@
     [self.interstitial displayAdFromViewController:controller];
 }
 
+- (void) dumpTestStats
+{
+    TESTTRACEM(@""
+        "\n\t\t banner        = %@"
+        "\n\t\t interstitial  = %@"
+        "\n\t\t testComplete  = %@"
+        "\n"
+
+        "\n\t\t adDidLoadCalled               = %@"
+        "\n\t\t adFailedToLoadCalled          = %@"
+        "\n\t\t adWasClickedCalled            = %@"
+        "\n\t\t adWillPresentCalled           = %@"
+        "\n\t\t adDidPresentCalled            = %@"
+        "\n\t\t adWillCloseCalled             = %@"
+        "\n\t\t adDidCloseCalled              = %@"
+        "\n\t\t adWillLeaveApplicationCalled  = %@"
+        "\n\t\t adFailedToDisplayCalled       = %@"
+        "\n"
+        ,
+
+        self.banner, self.interstitial, 
+        @(self.testComplete),
+
+        @(self.adDidLoadCalled), @(self.adFailedToLoadCalled),
+        @(self.adWasClickedCalled),
+        @(self.adWillPresentCalled), @(self.adDidPresentCalled),
+        @(self.adWillCloseCalled), @(self.adDidCloseCalled),
+        @(self.adWillLeaveApplicationCalled),
+        @(self.adFailedToDisplayCalled)
+    );
+}
 
 
 

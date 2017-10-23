@@ -1315,7 +1315,7 @@
 - (void)loadMRAIDBannerAtOrigin:(CGPoint)origin
                        withSize:(CGSize)size
                   usingStubBody:(NSString *)body {
-    [self stubWithBody:body];
+    [self stubWithInitialMockResponse:body];
     [self loadBannerAdAtOrigin:CGPointMake(origin.x, origin.y) withSize:CGSizeMake(size.width, size.height)];
     XCTAssertTrue([self waitForCompletion:MRAID_TESTS_TIMEOUT], @"Ad load timed out");
     XCTAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
@@ -1355,7 +1355,7 @@
 
 /*- (void)testLoadInterstitialAd {
     //[self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
-    [self stubWithBody:[ANMRAIDTestResponses basicMRAIDInterstitialWithSelectorName:NSStringFromSelector(_cmd)]];
+    [self stubWithInitialMockResponse:[ANMRAIDTestResponses basicMRAIDInterstitialWithSelectorName:NSStringFromSelector(_cmd)]];
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
     [self.interstitial loadAd];
     [self.interstitial setBackgroundColor:[UIColor redColor]];

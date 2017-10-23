@@ -50,7 +50,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 
 - (void)test17
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kMediationAdapterClassDoesNotExist, @"ANMockMediationAdapterTimeout" ]] ];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kMediationAdapterClassDoesNotExist, @"ANMockMediationAdapterTimeout" ]] ];
     [ANMockMediationAdapterTimeout setTimeout:MEDIATION_CALLBACKS_TESTS_TIMEOUT - 2];
 
     [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
@@ -59,7 +59,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 
 - (void)test18LoadedMultiple
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadedMultiple" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadedMultiple" ]]];
 
     [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
@@ -68,7 +68,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 - (void)test19Timeout
                     //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterTimeout" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterTimeout" ]]];
     [ANMockMediationAdapterTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 2];
 
     [self runBasicTest:NO waitTime:kAppNexusMediationNetworkTimeoutInterval + MEDIATION_CALLBACKS_TESTS_TIMEOUT];
@@ -78,7 +78,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 - (void)test20LoadThenFail
                     //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadThenFail" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadThenFail" ]]];
 
     [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
@@ -87,7 +87,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 - (void)test21FailThenLoad
                     //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailThenLoad" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailThenLoad" ]]];
 
     [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];
@@ -95,7 +95,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 
 - (void)test22LoadAndHitOtherCallbacks
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadAndHitOtherCallbacks" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadAndHitOtherCallbacks" ]]];
 
     [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self checkCallbacks:YES];
@@ -105,7 +105,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 - (void)test23FailAndHitOtherCallbacks
                     //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailAndHitOtherCallbacks" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailAndHitOtherCallbacks" ]]];
 
     [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self checkCallbacks:NO];
@@ -115,7 +115,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 - (void)test24FailedMultiple
                     //TBDFIX -- is this a useful test?
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailedMultiple" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailedMultiple" ]]];
 
     [self runBasicTest:NO waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];
     [self clearTest];

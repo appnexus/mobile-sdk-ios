@@ -77,7 +77,7 @@ float const BASIC_TEST_TIMEOUT = 10.0;
 
 - (void)testSuccessfulBannerDidLoad {
 TESTTRACE();
-    [self stubWithBody:[ANTestResponses successfulBanner]];
+    [self stubWithInitialMockResponse:[ANTestResponses successfulBanner]];
     [self loadBannerAd];
     [self waitForLoad];
     
@@ -87,7 +87,7 @@ TESTTRACE();
 
 - (void)testBannerBlankContentDidFail {
 TESTTRACE();
-    [self stubWithBody:[ANTestResponses blankContentBanner]];
+    [self stubWithInitialMockResponse:[ANTestResponses blankContentBanner]];
     [self loadBannerAd];
     [self waitForLoad];
     
@@ -97,7 +97,7 @@ TESTTRACE();
 
 - (void)testBannerBlankResponseDidFail {
 TESTTRACE();
-    [self stubWithBody:@""];
+    [self stubWithInitialMockResponse:@""];
     [self loadBannerAd];
     [self waitForLoad];
 
@@ -108,7 +108,7 @@ TESTTRACE();
 - (void)testSuccessfulInterstitialDidLoad {
 TESTTRACE();
     // response format for interstitials and banners is the same
-    [self stubWithBody:[ANTestResponses successfulBanner]];
+    [self stubWithInitialMockResponse:[ANTestResponses successfulBanner]];
     [self fetchInterstitialAd];
     [self waitForLoad];
 
@@ -120,7 +120,7 @@ TESTTRACE();
 
 - (void)testInterstitialBlankContentDidFail {
 TESTTRACE();
-    [self stubWithBody:[ANTestResponses blankContentBanner]];
+    [self stubWithInitialMockResponse:[ANTestResponses blankContentBanner]];
     [self fetchInterstitialAd];
     [self waitForLoad];
 
@@ -132,7 +132,7 @@ TESTTRACE();
 
 - (void)testInterstitialBlankResponseDidFail {
 TESTTRACE();
-    [self stubWithBody:@""];
+    [self stubWithInitialMockResponse:@""];
     [self fetchInterstitialAd];
     [self waitForLoad];
     
@@ -149,7 +149,7 @@ TESTTRACE();
 
 - (void)testSuccessfulMediationBannerDidLoad
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
 
     [self loadBannerAd];
     [self waitForLoad];

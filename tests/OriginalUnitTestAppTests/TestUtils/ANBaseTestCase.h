@@ -40,7 +40,7 @@
 @property (nonatomic, assign) BOOL adFailedToDisplayCalled;
 
 - (void)clearTest;
-- (void)stubWithBody:(NSString *)body;
+- (void)stubWithInitialMockResponse:(NSString *)body;
 - (void)stubResultCBResponses:(NSString *)body;
 - (void)stubResultCBForErrorCode;
 
@@ -50,5 +50,7 @@
 - (void)loadBannerAd;
 - (void)fetchInterstitialAd;
 - (void)showInterstitialAd;
+
+- (void) dumpTestStats;
 
 @end

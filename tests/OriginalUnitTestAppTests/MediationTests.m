@@ -336,7 +336,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 - (void)test1ResponseWhereClassExists
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
     [self runBasicTest:1];
 }
 
@@ -345,44 +345,43 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 //
 
 - (void)test2ResponseWhereMediationAdapterClassDoesNotExist
-                            //TBDFIX -- is this test useful?
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterErrorCode" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kMediationAdapterClassDoesNotExist ]]];
     [self runBasicTest:2];
 }
 
 - (void)test3ResponseWhereClassCannotInstantiate
 {
             /* FIX -- toss
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANAdAdapterBannerDummy]];
+    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:kANAdAdapterBannerDummy]];
     [self stubResultCBForErrorCode];
                      */
 
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterBannerDummy" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterBannerDummy" ]]];
     [self runBasicTest:3];
 }
 
 - (void)test4ResponseWhereClassInstantiatesAndDoesNotRequestAd
 {
                     /* FIX -- toss
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANAdAdapterBannerRequestFail]];
+    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:kANAdAdapterBannerRequestFail]];
     [self stubResultCBForErrorCode];
                              */
 
-    [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterBannerRequestFail" ]]];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterBannerRequestFail" ]]];
     [self runBasicTest:4];
 }
 
 - (void)test6AdWithNoFill
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kANAdAdapterBannerNoAds]];
+    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:kANAdAdapterBannerNoAds]];
     [self stubResultCBForErrorCode];
     [self runBasicTest:6];
 }
 
 - (void)test7TwoSuccessfulResponses
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:@"ANMockMediationAdapterSuccessfulBanner"]];
+    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:@"ANMockMediationAdapterSuccessfulBanner"]];
     [self stubResultCBResponses:[ANTestResponses successfulBanner]];
     [self runBasicTest:7];
 }
@@ -393,7 +392,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 - (void)test11FirstSuccessfulSkipSecond
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:@"ANMockMediationAdapterSuccessfulBanner"
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallBanners:@"ANMockMediationAdapterSuccessfulBanner"
                                                       secondClass:kANMockMediationAdapterBannerNeverCalled]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:11];
@@ -401,7 +400,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 - (void)test12SkipFirstSuccessfulSecond
 {
-    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
                                                       secondClass:@"ANMockMediationAdapterSuccessfulBanner"]];
     [self stubResultCBResponses:@""];
     [self runBasicTest:12];
@@ -410,7 +409,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 // no longer applicable
 //- (void)test13FirstFailsIntoOverrideStd
 //{
-//    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
+//    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
 //                                                      secondClass:kANMockMediationAdapterBannerNeverCalled]];
 //    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
 //    [self runBasicTest:13];
@@ -419,7 +418,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 // no longer applicable
 //- (void)test14FirstFailsIntoOverrideMediated
 //{
-//    [self stubWithBody:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
+//    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist
 //                                                      secondClass:kANMockMediationAdapterBannerNeverCalled]];
 //    [self stubResultCBResponses:[ANTestResponses mediationSuccessfulBanner]];
 //    [self runBasicTest:14];
@@ -427,7 +426,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 - (void)test15TestNoFill
 {
-    [self stubWithBody:[ANTestResponses createMediatedBanner:kMediationAdapterClassDoesNotExist]];
+    [self stubWithInitialMockResponse:[ANTestResponses createMediatedBanner:kMediationAdapterClassDoesNotExist]];
     [self stubResultCBResponses:[ANTestResponses createMediatedBanner:kMediationAdapterClassDoesNotExist withID:@"" withResultCB:@""]];
     [self runBasicTest:15];
 }
@@ -437,7 +436,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
     NSString *response = [ANTestResponses mediationWaterfallBanners:kMediationAdapterClassDoesNotExist firstResult:@""
                                    secondClass:kMediationAdapterClassDoesNotExist secondResult:nil
                                     thirdClass:@"ANMockMediationAdapterSuccessfulBanner" thirdResult:@""];
-    [self stubWithBody:response];
+    [self stubWithInitialMockResponse:response];
     [self stubResultCBResponses:@""];
     
     [self runBasicTest:16];
@@ -472,6 +471,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 - (void)checkClass:(NSString *)className adapter:(id)adapter
 {
+TESTTRACE();
     BOOL   result;
     Class  adClass  = NSClassFromString(className);
 
@@ -508,7 +508,8 @@ TESTTRACEM(@"FIX ERROR is this still defined?  resultCBString=%@", resultCBStrin
     XCTAssertFalse([ANMockMediationAdapterBannerNeverCalled getCalled], @"Should never be called");
 }
 
-- (void)runChecks:(int)testNumber adapter:(id)adapter
+- (void)runChecks: (int)testNumber
+          adapter: (id)adapter
 {
 TESTTRACEM(@"testNumber=%@", @(testNumber));
 
@@ -524,7 +525,9 @@ TESTTRACEM(@"testNumber=%@", @(testNumber));
 
         case 2:
         {
-            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
+            XCTAssertNil(adapter, @"Expected an adapter to be nil.");
+
+//            [self checkErrorCode:adapter expectedError:ANAdResponseMediatedSDKUnavailable];
             break;
         }
 
