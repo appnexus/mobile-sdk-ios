@@ -35,6 +35,8 @@ static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMedia
 
 
 #pragma mark - ANUniversalAdFetcher local interface.
+                //FIX -- verify all methods necesary, and those missing
+                //FIX -- aso wowith all other delegatesb elow.
 
 @interface ANUniversalAdFetcher ()
 
@@ -46,8 +48,10 @@ static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMedia
 
 - (ANMRAIDContainerView *)standardAdView;
 
+        /* FIX -- toss -- no longer exists
 //- (NSMutableURLRequest *)successResultRequest;
 - (NSMutableURLRequest *)request;
+                 */
 
 @end
 
@@ -100,10 +104,12 @@ static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMedia
 @synthesize  adapter             = __adapter;
 @synthesize  standardAdView      = __standardAdView;
 @synthesize  anError             = __anError;
+
+        /* FIX toss
 //@synthesize  successResultRequest = __successResultRequest;
 @synthesize  request             = __request;
         //FIX -- really need these?
-
+                     */
 
 
 - (id)runTestForAdapter: (int)testNumber
@@ -141,15 +147,18 @@ static NSString *const kANMockMediationAdapterBannerNeverCalled  = @"ANMockMedia
 
 
 
-#pragma mark - ANAdFetcherDelegate (for FetcherHelper)
+#pragma mark - ANUniversalAdFetcherDelegate (for FetcherHelper)
 
-- (void)adFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
+- (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
 TESTTRACEM(@"__testNumber=%@", @(__testNumber));
     if (!__testComplete)
     {
         //        __successResultRequest = [__fetcher successResultRequest];
-        __request = [__fetcher request];
+//        __request = [__fetcher requestAd];
+                        //FIX -- what is this, toss? please?
+//        [__fetcher requestAd];
+                        //FIX - why ever would we requestAd after receiving an ad?
 
         switch (__testNumber)
         {
@@ -205,8 +214,6 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return CGSizeMake(320, 50);
 }
-
-- (void)adFetcher:(ANUniversalAdFetcher *)fetcher adShouldOpenInBrowserWithURL:(NSURL *)URL  {};
 
 
 
@@ -277,7 +284,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 
 
-# pragma mark ANAppEventDelegate (for FetcherHelper)
+# pragma mark - ANAppEventDelegate (for FetcherHelper)
 
 - (void)            ad: (id<ANAdProtocol>)ad
     didReceiveAppEvent: (NSString *)name
@@ -285,6 +292,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 {
     //EMPTY
 };
+
 
 @end
 
@@ -324,10 +332,10 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 {
                 /*
     [self stubWithBody:[ANTestResponses createMediatedBanner:kANMockMediationAdapterSuccessfulBanner]];
+//    [self stubResultCBForErrorCode];
                     */
 
     [self stubWithBody:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterSuccessfulBanner" ]]];
-    [self stubResultCBForErrorCode];
 
     [self runBasicTest:1];
 }
@@ -476,9 +484,11 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 - (void)checkLastRequest:(int)code
                     //FIX -- final proof of need for OK_RESULT_CB_URL?  else toss.
 {
+TESTTRACE();
     NSString  *resultCBString  = [[self.helper request].URL absoluteString];
     NSString  *resultCBPrefix  = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
 
+TESTTRACEM(@"FIX ERROR is this still defined?  resultCBString=%@", resultCBString);
     XCTAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
 }
 

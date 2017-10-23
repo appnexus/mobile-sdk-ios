@@ -25,7 +25,7 @@
 
 @implementation BasicTests
 
-float const BASIC_TIMEOUT = 10.0;
+float const BASIC_TEST_TIMEOUT = 10.0;
 
 
 
@@ -35,7 +35,7 @@ float const BASIC_TIMEOUT = 10.0;
 
 - (BOOL)waitForDidPresentCalled {
                 //FIX -- abstrct spinwait for seconds with conditionsBlock (optinoally nil)?
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:BASIC_TIMEOUT];
+    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:BASIC_TEST_TIMEOUT];
     
     do {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
@@ -67,7 +67,7 @@ float const BASIC_TIMEOUT = 10.0;
 }
 
 - (void)waitForLoad {
-    XCTAssertTrue([self waitForCompletion:BASIC_TIMEOUT], @"Test timed out");
+    XCTAssertTrue([self waitForCompletion:BASIC_TEST_TIMEOUT], @"Test timed out");
 }
 
 

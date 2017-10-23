@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-static NSString *const OK_RESULT_CB_URL = @"http://result";
+static NSString *const OK_RESULT_CB_URL = @"http://MOCK__result";
 //FIX -- change to MOCK__result...
 
 
