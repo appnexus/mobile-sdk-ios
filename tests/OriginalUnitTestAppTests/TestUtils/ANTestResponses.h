@@ -13,81 +13,20 @@
  limitations under the License.
  */
 
-static NSString *const OK_RESULT_CB_URL = @"http://MOCK__result";
-
 
 @interface ANTestResponses : NSObject
-            //FIX -- toss unused methods......
-
-// use these functions
 
 + (NSString *)successfulBanner;
+
 + (NSString *)blankContentBanner;
-//+ (NSString *)mediationSuccessfulBanner;
-//+ (NSString *)mediationNoAdsBanner;
-+ (NSString *)mediationErrorCodeBanner:(int)code;
-
-//+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass
-//                            secondClass:(NSString *)secondClass;
-
-//+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
-//                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult;
-
-+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
-                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult
-                             thirdClass:(NSString *)thirdClass thirdResult:(NSString *)thirdResult;
-
-
-
-+ (NSString *)mediationWaterfallWithMockClassNames:(NSArray<NSString *> *)arrayOfMockClassObjects;
 
 + (NSString *) createResponseForBannerMediaTypeWithContent: (NSString *)content
                                                      width: (NSUInteger)width
                                                     height: (NSUInteger)height;
 
 
++ (NSString *)mediationWaterfallWithMockClassNames:(NSArray<NSString *> *)arrayOfMockClassObjects;
 
-//+ (NSString *)createMediatedBanner:(NSString *)className;
-//
-//+ (NSString *)createMediatedBanner:(NSString *)className
-//                            withID:(NSString *)idString;
-//
-//+ (NSString *)createMediatedBanner:(NSString *)className
-//                            withID:(NSString *)idString
-//                      withResultCB:(NSString *)resultCB;
-
-
-+ (NSString *)createAdsResponse:(NSString *)type
-                      withWidth:(int)width
-                     withHeight:(int)height
-                    withContent:(NSString *)content;
-
-+ (NSString *)createMediatedResponse:(NSString *)type
-                       withClassName:(NSString *)className
-                           withParam:(NSString *)param
-                           withWidth:(int)width
-                          withHeight:(int)height
-                              withID:(NSString *)idString
-                        withResultCB:(NSString *)resultCB;
-
-
-// should not ever need to use these directly
-
-+ (NSString *)createResponseString:(NSString *)status
-                           withAds:(NSString *)ads
-                      withMediated:(NSString *)mediated;
-
-+ (NSString *)createAdsString:(NSString *)type
-                    withWidth:(int)width
-                   withHeight:(int)height
-                  withContent:(NSString *)content;
-
-+ (NSString *)createMediatedString:(NSString *)type
-                     withClassName:(NSString *)className
-                         withParam:(NSString *)param
-                         withWidth:(int)width
-                        withHeight:(int)height
-                            withID:(NSString *)idString
-                      withResultCB:(NSString *)resultCB;
 
 @end
+

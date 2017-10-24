@@ -13,6 +13,8 @@
  limitations under the License.
  */
 
+#import <WebKit/WebKit.h>
+
 #import "ANBaseTestCase.h"
 #import "ANMRAIDTestResponses.h"
 #import "ANLogging.h"
@@ -20,7 +22,6 @@
 #import "ANGlobal.h"
 #import "ANMRAIDContainerView.h"
 #import "ANMRAIDUtil.h"
-#import <WebKit/WebKit.h>
 #import "XCTestCase+ANCategory.h"
 
 

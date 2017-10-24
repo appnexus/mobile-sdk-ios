@@ -21,6 +21,8 @@
 
 NSString * const  kFauxMediationAdapterClassDoesNotExist  = @"FauxMediationAdapterClassDoesNotExist";
 
+NSString * const  OK_RESULT_CB_URL  = @"http://MOCK__result";
+
 
 
 @implementation ANTestGlobal

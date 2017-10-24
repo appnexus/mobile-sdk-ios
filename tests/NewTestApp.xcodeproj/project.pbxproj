@@ -1411,8 +1411,8 @@
 		8AA0095E19DB16CD0090EBED /* OriginalUnitTestAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				8AA0096E19DB16CD0090EBED /* MockMediationAdapters */,
 				8AA0096719DB16CD0090EBED /* TestUtils */,
-				8AA0096E19DB16CD0090EBED /* TestViews */,
 				8AA0095F19DB16CD0090EBED /* BasicTests.m */,
 				8AA0096019DB16CD0090EBED /* InfoPlist.strings */,
 				8AA0096219DB16CD0090EBED /* MediationCallbacksTests.m */,
@@ -1437,7 +1437,7 @@
 			path = TestUtils;
 			sourceTree = "<group>";
 		};
-		8AA0096E19DB16CD0090EBED /* TestViews */ = {
+		8AA0096E19DB16CD0090EBED /* MockMediationAdapters */ = {
 			isa = PBXGroup;
 			children = (
 				8AA0097919DB16CD0090EBED /* ANMockMediationAdapterANFailedMultiple.h */,
@@ -1467,7 +1467,7 @@
 				8AA0098719DB16CD0090EBED /* ANMockMediationAdapterTimeout.h */,
 				8AA0098819DB16CD0090EBED /* ANMockMediationAdapterTimeout.m */,
 			);
-			path = TestViews;
+			path = MockMediationAdapters;
 			sourceTree = "<group>";
 		};
 		8AA009A419DB18AE0090EBED /* Shared */ = {

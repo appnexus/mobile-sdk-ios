@@ -18,7 +18,7 @@
 
 
 
-float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
+float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT  = 5.0;   // seconds
 
 
 
@@ -33,7 +33,6 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 
 
 @implementation MediationCallbacksTests
-                    //FIX -- rename so tests exeitutd after MediationTests?
 
 #pragma mark - Test lifecycle.
 
@@ -66,7 +65,6 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 }
 
 - (void)test19Timeout
-                    //TBDFIX -- is this a useful test?
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterTimeout" ]]];
     [ANMockMediationAdapterTimeout setTimeout:kAppNexusMediationNetworkTimeoutInterval + 2];
@@ -76,7 +74,6 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 }
 
 - (void)test20LoadThenFail
-                    //TBDFIX -- is this a useful test?
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterLoadThenFail" ]]];
 
@@ -85,7 +82,6 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 }
 
 - (void)test21FailThenLoad
-                    //TBDFIX -- is this a useful test?
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailThenLoad" ]]];
 
@@ -103,7 +99,6 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 }
 
 - (void)test23FailAndHitOtherCallbacks
-                    //TBDFIX -- is this a useful test?
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailAndHitOtherCallbacks" ]]];
 
@@ -113,7 +108,6 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 }
 
 - (void)test24FailedMultiple
-                    //TBDFIX -- is this a useful test?
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ @"ANMockMediationAdapterFailedMultiple" ]]];
 
@@ -160,6 +154,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
     }
     [super adDidReceiveAd:ad];
 }
+
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
     if (self.adFailedToLoadCalled) {
         self.adFailedMultiple = YES;
@@ -167,4 +162,6 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
     [super ad:ad requestFailedWithError:error];
 }
 
+
 @end
+

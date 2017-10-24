@@ -34,7 +34,6 @@ float const BASIC_TEST_TIMEOUT = 10.0;
 }
 
 - (BOOL)waitForDidPresentCalled {
-                //FIX -- abstrct spinwait for seconds with conditionsBlock (optinoally nil)?
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:BASIC_TEST_TIMEOUT];
     
     do {
@@ -42,8 +41,8 @@ float const BASIC_TEST_TIMEOUT = 10.0;
         if ([timeoutDate timeIntervalSinceNow] < 0.0) {
             break;
         }
-    }
-    while (!self.adDidPresentCalled);
+    } while (!self.adDidPresentCalled);
+
     return self.adDidPresentCalled;
 }
 
@@ -76,7 +75,6 @@ float const BASIC_TEST_TIMEOUT = 10.0;
 #pragma mark - Standard Tests
 
 - (void)testSuccessfulBannerDidLoad {
-TESTTRACE();
     [self stubWithInitialMockResponse:[ANTestResponses successfulBanner]];
     [self loadBannerAd];
     [self waitForLoad];
@@ -86,7 +84,6 @@ TESTTRACE();
 }
 
 - (void)testBannerBlankContentDidFail {
-TESTTRACE();
     [self stubWithInitialMockResponse:[ANTestResponses blankContentBanner]];
     [self loadBannerAd];
     [self waitForLoad];
@@ -96,7 +93,6 @@ TESTTRACE();
 }
 
 - (void)testBannerBlankResponseDidFail {
-TESTTRACE();
     [self stubWithInitialMockResponse:@""];
     [self loadBannerAd];
     [self waitForLoad];
@@ -106,7 +102,6 @@ TESTTRACE();
 }
 
 - (void)testSuccessfulInterstitialDidLoad {
-TESTTRACE();
     // response format for interstitials and banners is the same
     [self stubWithInitialMockResponse:[ANTestResponses successfulBanner]];
     [self fetchInterstitialAd];
@@ -119,7 +114,6 @@ TESTTRACE();
 }
 
 - (void)testInterstitialBlankContentDidFail {
-TESTTRACE();
     [self stubWithInitialMockResponse:[ANTestResponses blankContentBanner]];
     [self fetchInterstitialAd];
     [self waitForLoad];
@@ -131,7 +125,6 @@ TESTTRACE();
 }
 
 - (void)testInterstitialBlankResponseDidFail {
-TESTTRACE();
     [self stubWithInitialMockResponse:@""];
     [self fetchInterstitialAd];
     [self waitForLoad];

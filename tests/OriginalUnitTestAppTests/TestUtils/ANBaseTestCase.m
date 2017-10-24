@@ -62,14 +62,6 @@
     _adWillLeaveApplicationCalled = NO;
     _adFailedToDisplayCalled = NO;
 
-    _customAdapterAdWasClicked = NO;
-    _customAdapterDidCloseAd = NO;
-    _customAdapterDidFailToLoadAd = NO;
-    _customAdapterDidPresentAd = NO;
-    _customAdapterWillCloseAd = NO;
-    _customAdapterWillLeaveApplication = NO;
-    _customAdapterWillPresentAd = NO;
-
     UIViewController *presentingVC = ROOT_VIEW_CONTROLLER;
 
     if (presentingVC) {
@@ -80,7 +72,6 @@
 
 - (void)stubWithInitialMockResponse:(NSString *)body
 {
-TESTTRACE();
     ANURLConnectionStub *testURLStub = [[ANURLConnectionStub alloc] init];
 
     testURLStub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig utAdRequestBaseUrl] stringByAppendingString:@".*"];
@@ -99,33 +90,6 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
 }
 
-- (void)stubResultCBResponses:(NSString *)body {
-            //FIX what happens in place of this for UT?  faux query string only used for medaition?
-    ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
-    anBaseURLStub.requestURLRegexPatternString = [NSString stringWithFormat:@"^%@.*", OK_RESULT_CB_URL];
-    anBaseURLStub.responseCode = 200;
-    anBaseURLStub.responseBody = body;
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
-}
-
-            /* FIX -- toss
-- (void)stubResultCBForErrorCode
-                        //FIX what happens in place of this for UT?  faux query string only used for medaition?
-{
-    for (int i = 0; i < 6; i++)
-    {
-        NSString             *resultCBURLString  = [NSString stringWithFormat:@"^%@\\?reason=%i.*", OK_RESULT_CB_URL, i];
-        ANURLConnectionStub  *anBaseURLStub      = [[ANURLConnectionStub alloc] init];
-
-        anBaseURLStub.requestURLRegexPatternString  = resultCBURLString;
-        anBaseURLStub.responseCode                  = 200;
-        anBaseURLStub.responseBody                  = [ANTestResponses mediationErrorCodeBanner:i];
-
-        [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
-    }
-}
-                         */
-
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
     
@@ -134,8 +98,7 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
         if ([timeoutDate timeIntervalSinceNow] < 0.0) {
             break;
         }
-    }
-    while (!_testComplete);
+    } while (!_testComplete);
     return _testComplete;
 }
 
@@ -147,19 +110,16 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
         if ([timeoutDate timeIntervalSinceNow] < 0.0) {
             break;
         }
-    }
-    while (true);
+    } while (true);
 }
 
 - (void)loadBannerAd {
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
-                           //FIX -- encapsulate faux placementID?
                    adSize:CGSizeMake(320, 50)];
     self.banner.rootViewController = ROOT_VIEW_CONTROLLER;
     self.banner.autoRefreshInterval = 0.0;
-                //TBDFIX -- do we need to test autorefresh?
     self.banner.delegate = self;
     [self.banner loadAd];
 }
@@ -176,7 +136,6 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
 }
 
 - (void) dumpTestStats
-                //FIX -- delegates are never triggered, eh?
 {
     TESTTRACEM(@""
         "\n\t\t banner        = %@"
@@ -194,15 +153,6 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
         "\n\t\t adWillLeaveApplicationCalled  = %@"
         "\n\t\t adFailedToDisplayCalled       = %@"
         "\n"
-
-        "\n\t\t customAdapterAdWasClicked          = %@"
-        "\n\t\t customAdapterDidCloseAd            = %@"
-        "\n\t\t customAdapterDidFailToLoadAd       = %@"
-        "\n\t\t customAdapterDidPresentAd          = %@"
-        "\n\t\t customAdapterWillCloseAd           = %@"
-        "\n\t\t customAdapterWillLeaveApplication  = %@"
-        "\n\t\t customAdapterWillPresentAd         = %@"
-        "\n"
         "\n"
         ,
 
@@ -214,15 +164,7 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
         @(self.adWillPresentCalled), @(self.adDidPresentCalled),
         @(self.adWillCloseCalled), @(self.adDidCloseCalled),
         @(self.adWillLeaveApplicationCalled),
-        @(self.adFailedToDisplayCalled),
-
-        @(self.customAdapterAdWasClicked),
-        @(self.customAdapterDidCloseAd),
-        @(self.customAdapterDidFailToLoadAd),
-        @(self.customAdapterDidPresentAd),
-        @(self.customAdapterWillCloseAd),
-        @(self.customAdapterWillLeaveApplication),
-        @(self.customAdapterWillPresentAd)
+        @(self.adFailedToDisplayCalled)
     );
 }
 
@@ -279,43 +221,5 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
     _adWillLeaveApplicationCalled = YES;
 }
 
-
-
-#pragma mark - ANCustomAdapterDelegate.
-
-- (void)adWasClicked {
-    NSLog(@"customAdapterAdWasClicked callback called");
-    _customAdapterAdWasClicked = YES;
-}
-
-- (void)didCloseAd {
-    NSLog(@"customAdapterDidCloseAd callback called");
-    _customAdapterDidCloseAd = YES;
-}
-
-- (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
-    NSLog(@"customAdapterDidFailToLoadAd callback called  (errorCode=%@)", @(errorCode));
-    _customAdapterDidFailToLoadAd = YES;
-}
-
-- (void)didPresentAd {
-    NSLog(@"customAdapterDidPresentAd callback called");
-    _customAdapterDidPresentAd = YES;
-}
-
-- (void)willCloseAd {
-    NSLog(@"customAdapterWillCloseAd callback called");
-    _customAdapterWillCloseAd = YES;
-}
-
-- (void)willLeaveApplication {
-    NSLog(@"customAdapterWillLeaveApplication callback called");
-    _customAdapterWillLeaveApplication = YES;
-}
-
-- (void)willPresentAd {
-    NSLog(@"customAdapterWillPresentAd callback called");
-    _customAdapterWillPresentAd = YES;
-}
 
 @end

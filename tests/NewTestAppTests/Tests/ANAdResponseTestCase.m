@@ -19,7 +19,6 @@
 #import "XCTestCase+ANBannerAdView.h"
 #import "ANMediatedAd.h"
 #import "ANStandardAd.h"
-//#import "ANAdRequestUrl.h"   //FIX -- toss
 #import "ANBannerAdView+ANTest.h"
 
 @interface ANAdResponseTestCase : XCTestCase
@@ -78,17 +77,6 @@
     [self mediatedAd:fourthMediatedAd equalToMediatedAd:expectedFourthMediatedAd];
     XCTAssertNotNil(fourthMediatedAd.responseURL);
 }
-
-        /* FIX -- toss replace with UT request, if needed
-- (NSURL *)sdkRequestURLForPlacementId:(NSString *)placementId
-                                adSize:(CGSize)adSize {
-    ANBannerAdView *bav = [self bannerViewWithFrameSize:adSize];
-    bav.placementId = placementId;
-    bav.adSize = adSize;
-    return [ANAdRequestUrl buildRequestUrlWithAdFetcherDelegate:bav
-                                                  baseUrlString:@"http://mediation.adnxs.com/mob?"];
-}
-                 */
 
 - (void)mediatedAd:(ANMediatedAd *)parsedMediatedAd equalToMediatedAd:(ANMediatedAd *)comparisonMediatedAd {
     XCTAssertEqualObjects(parsedMediatedAd.width, comparisonMediatedAd.width);

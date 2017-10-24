@@ -32,7 +32,6 @@
 
 - (BOOL)isEqual:(ANURLConnectionStub *)object {
     BOOL sameRequestURLString = [self.requestURLRegexPatternString isEqualToString:object.requestURLRegexPatternString];
-//    BOOL sameResponseCode = self.responseCode = object.responseCode;  //FIX -- unitentional?
     BOOL sameResponseCode = (self.responseCode == object.responseCode);
     BOOL sameResponseBody = [self.responseBody isEqualToString:object.responseBody];
     return sameRequestURLString && sameResponseBody && sameResponseCode;

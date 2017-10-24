@@ -43,12 +43,6 @@
     return @"http://mediation.adnxs.com/";
 }
 
-        /*FIX -- toss
-- (NSString *)adRequestBaseUrl {
-    return @"http://mediation.adnxs.com/mob";
-}
-             */
-
 -(NSString *) utAdRequestBaseUrl {
     return @"http://mediation.adnxs.com/ut/v2";
 }
@@ -86,12 +80,6 @@
 - (NSString *)webViewBaseUrl {
     return @"https://mediation.adnxs.com/";
 }
-
-        /*FIX -- toss
-- (NSString *)adRequestBaseUrl {
-    return @"https://mediation.adnxs.com/mob";
-}
-             */
 
 -(NSString *) utAdRequestBaseUrl {
     return @"https://mediation.adnxs.com/ut/v2";

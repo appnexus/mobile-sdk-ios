@@ -20,6 +20,7 @@
 #pragma mark - Constants.
 
 extern NSString * const  kFauxMediationAdapterClassDoesNotExist;
+extern NSString * const  OK_RESULT_CB_URL;
 
 
 
@@ -27,7 +28,6 @@ extern NSString * const  kFauxMediationAdapterClassDoesNotExist;
 
 #define  TESTTRACE()              NSLog(@"  TEST TRACE  %s", __PRETTY_FUNCTION__)
 #define  TESTTRACEM(format, ...)  NSLog(@"  TEST TRACE  %s -- %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:format, ##__VA_ARGS__])
-                            //FIX -- change MARK->TRACE...
 
 #define  TESTTRACEJSON(jsonString)                                                                                      \
             {                                                                                                           \

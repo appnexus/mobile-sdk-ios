@@ -18,7 +18,6 @@
 @protocol ANBaseUrlConfig <NSObject>
 
 - (NSString *)webViewBaseUrl;
-//- (NSString *)adRequestBaseUrl;   //FIX -- toss
 - (NSString *)utAdRequestBaseUrl;
 - (NSURL *)videoWebViewUrl;
 @end

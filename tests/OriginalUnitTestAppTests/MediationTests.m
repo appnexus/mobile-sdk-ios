@@ -24,14 +24,6 @@
 
 
 
-//static NSString *const kANMockMediationAdapterSuccessfulBanner   = @"ANMockMediationAdapterSuccessfulBanner";
-//static NSString *const kANAdAdapterBannerDummy                   = @" ANMockMediationAdapterBannerDummy";
-//static NSString *const kANAdAdapterBannerNoAds                   = @"ANMockMediationAdapterBannerNoAds";
-//static NSString *const kANAdAdapterBannerRequestFail             = @"ANMockMediationAdapterBannerRequestFail";
-//static NSString *const kANAdAdapterErrorCode                     = @"ANMockMediationAdapterErrorCode";
-//static NSString *const kFauxMediationAdapterBannerNeverCalled  = @"ANMockMediationAdapterBannerNeverCalled";
-
-
 float const  MEDIATION_TESTS_TIMEOUT  = 15.0;
 
 typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
@@ -51,23 +43,12 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
 
 #pragma mark - ANUniversalAdFetcher local interface.
-                //FIX -- verify all methods necesary, and those missing
-                //FIX -- aso wowith all other delegatesb elow.
 
 @interface ANUniversalAdFetcher ()
-
-//- (void)processResponseData:(NSData *)data;
-//- (void) processV2ResponseData:(NSData *)data;
-            //FIX -- need this?
 
 - (ANMediationAdViewController *)mediationController;
 
 - (ANMRAIDContainerView *)standardAdView;
-
-        /* FIX -- toss -- no longer exists
-//- (NSMutableURLRequest *)successResultRequest;
-- (NSMutableURLRequest *)request;
-                 */
 
 @end
 
@@ -99,9 +80,6 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 @property (nonatomic, strong)  NSError                  *anError;
 @property (nonatomic, strong)  ANMRAIDContainerView     *standardAdView;
 
-//@property (nonatomic, strong)  NSMutableURLRequest      *successResultRequest;
-//@property (nonatomic, strong)  NSMutableURLRequest      *request;
-
 - (id)runTestForAdapter:(int)testNumber
                    time:(NSTimeInterval)time;
 @end
@@ -115,7 +93,6 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
 
 @implementation ANBannerAdViewExtended
-                    //FIX -- remove warnings?
 
 @synthesize  testComplete        = __testComplete;
 @synthesize  fetcher             = __fetcher;
@@ -123,11 +100,6 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 @synthesize  standardAdView      = __standardAdView;
 @synthesize  anError             = __anError;
 
-        /* FIX toss
-//@synthesize  successResultRequest = __successResultRequest;
-@synthesize  request             = __request;
-        //FIX -- really need these?
-                     */
 
 
 - (id)runTestForAdapter: (int)testNumber
@@ -169,68 +141,52 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
-TESTTRACEM(@"__testNumber=%@", @(__testNumber));
-    if (!__testComplete)
+    TESTTRACEM(@"__testNumber=%@", @(__testNumber));
+
+    if (__testComplete)  { return; }
+
+    //
+    switch (__testNumber)
     {
-                    /* FIX ------ ttoss
-        //        __successResultRequest = [__fetcher successResultRequest];
-//        __request = [__fetcher requestAd];
-                        //FIX -- what is this, toss? please?
-//        [__fetcher requestAd];
-                        //FIX - why ever would we requestAd after receiving an ad?
-                                 */
-
-
-        switch (__testNumber)
+        case ANMediationTestsTwoSuccessfulResponses_Part1:
         {
-            case ANMediationTestsTwoSuccessfulResponses_Part1:
-            {
-                self.adapter = [[fetcher mediationController] currentAdapter];
-                [fetcher requestAd];
+            self.adapter = [[fetcher mediationController] currentAdapter];
+            [fetcher requestAd];
 
-                break;
-            }
-
-            case ANMediationTestsTwoSuccessfulResponses_Part2:
-            {
-                // don't set adapter here, because we want to retain the adapter from case 7
-                self.standardAdView = [fetcher standardAdView];
-                break;
-            }
-
-                            /* FIX -- tossed MS-709
-            case 13:
-            {
-                self.adapter = [[fetcher mediationController] currentAdapter];
-                self.standardAdView = [fetcher standardAdView];
-                break;
-            }
-                                             */
-
-            case ANMediationTestsNoFill:
-            {
-                self.anError = [response error];
-                break;
-            }
-
-            default:
-            {
-                TESTTRACEM(@"UNMATCHED __testNumber.  (%@)", @(__testNumber));
-                self.adapter = [[fetcher mediationController] currentAdapter];
-                break;
-            }
+            break;
         }
 
-        // test case ANMediationTestsTwoSuccessfulResponses is a special two-part test, so we handle it specially.
-        //   Change the test number to ANMediationTestsTwoSuccessfulResponses_Part2 to denote the "part 2" of this 2-step unit test.
-        //
-        if (__testNumber != ANMediationTestsTwoSuccessfulResponses_Part1)
+        case ANMediationTestsTwoSuccessfulResponses_Part2:
         {
-            NSLog(@"test complete");
-            __testComplete = YES;
-        } else {
-            __testNumber = ANMediationTestsTwoSuccessfulResponses_Part2;
+            // don't set adapter here, because we want to retain the adapter from case 7
+            self.standardAdView = [fetcher standardAdView];
+            break;
         }
+
+        case ANMediationTestsNoFill:
+        {
+            self.anError = [response error];
+            break;
+        }
+
+        default:
+        {
+            TESTTRACEM(@"UNMATCHED __testNumber.  (%@)", @(__testNumber));
+
+            self.adapter = [[fetcher mediationController] currentAdapter];
+            break;
+        }
+    }
+
+    // test case ANMediationTestsTwoSuccessfulResponses is a special two-part test, so we handle it specially.
+    //   Change the test number to ANMediationTestsTwoSuccessfulResponses_Part2 to denote the "part 2" of this 2-step unit test.
+    //
+    if (__testNumber != ANMediationTestsTwoSuccessfulResponses_Part1)
+    {
+        NSLog(@"test complete");
+        __testComplete = YES;
+    } else {
+        __testNumber = ANMediationTestsTwoSuccessfulResponses_Part2;
     }
 }
 
@@ -350,8 +306,8 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 
 
+
 #pragma mark - Basic Mediation Tests
-                            //TBDFIX -- are all these tests useful?  develop means to measure their nuances.
 
 - (void)test1ResponseWhereClassExists
 {
@@ -406,27 +362,6 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
     [self runBasicTest:ANMediationTestsSkipFirstSuccessfulSecond];
 }
 
-
-                /* FIX -- toss
-// no longer applicable
-//- (void)test13FirstFailsIntoOverrideStd
-//{
-//    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallBanners:kFauxMediationAdapterClassDoesNotExist
-//                                                      secondClass:kFauxMediationAdapterBannerNeverCalled]];
-//    [self stubResultCBResponses:[ANTestResponses successfulBanner]];
-//    [self runBasicTest:13];
-//}
-
-// no longer applicable
-//- (void)test14FirstFailsIntoOverrideMediated
-//{
-//    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallBanners:kFauxMediationAdapterClassDoesNotExist
-//                                                      secondClass:kFauxMediationAdapterBannerNeverCalled]];
-//    [self stubResultCBResponses:[ANTestResponses mediationSuccessfulBanner]];
-//    [self runBasicTest:14];
-//}
-                             */
-
 - (void)test15NoFill
 {
     [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kFauxMediationAdapterClassDoesNotExist ]]];
@@ -435,14 +370,6 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
 - (void)test16TwoBadAdsThenOneGoodAd
 {
-                /* FIX toss
-    NSString *response = [ANTestResponses mediationWaterfallBanners:kFauxMediationAdapterClassDoesNotExist firstResult:@""
-                                   secondClass:kFauxMediationAdapterClassDoesNotExist secondResult:nil
-                                    thirdClass:@"ANMockMediationAdapterSuccessfulBanner" thirdResult:@""];
-    [self stubWithInitialMockResponse:response];
-    [self stubResultCBResponses:@""];
-                    */
-
     [self stubWithInitialMockResponse:
              [ANTestResponses mediationWaterfallWithMockClassNames:
                   @[ kFauxMediationAdapterClassDoesNotExist, kFauxMediationAdapterClassDoesNotExist, @"ANMockMediationAdapterSuccessfulBanner" ]
@@ -468,7 +395,6 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 
     XCTAssertTrue([self.bannerAdViewExtended testComplete], @"Test timed out");
     [self runChecks:testNumber adapter:adapter];
-                                //FIX -- is 2ppart test run fom here?  else where>...?
 
     [self clearTest];
 }
@@ -476,7 +402,7 @@ TESTTRACEM(@"__testNumber=%@", @(__testNumber));
 - (void)runChecks: (int)testNumber
           adapter: (id)adapter
 {
-TESTTRACEM(@"testNumber=%@  adapter=%@", @(testNumber), adapter);
+    TESTTRACEM(@"testNumber=%@  adapter=%@", @(testNumber), adapter);
 
     switch (testNumber)
     {
@@ -528,22 +454,6 @@ TESTTRACEM(@"testNumber=%@  adapter=%@", @(testNumber), adapter);
             break;
         }
 
-
-                        /* FIX -- not relevant!
-        case 13:
-        {
-            XCTAssertNil(adapter, @"Expected nil adapter");
-            XCTAssertNotNil(self.bannerAdViewExtended.standardAdView, @"Expected webView to be non-nil");
-            break;
-        }
-
-        case 14:
-        {
-            [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterSuccessfulBanner"];
-            break;
-        }
-                                     */
-
         case ANMediationTestsNoFill:
         {
             NSInteger  anErrorCode  = [[self.bannerAdViewExtended anError] code];
@@ -569,19 +479,9 @@ TESTTRACEM(@"testNumber=%@  adapter=%@", @(testNumber), adapter);
     [self checkSuccessfulBannerNeverCalled];
 }
 
-        /* FIX -- toss, replace with sometihing?
-- (void)checkErrorCode:(id)adapter expectedError:(ANAdResponseCode)error
-{
-TESTTRACEM(@"adapter=%@", adapter);
-    [self matchMediationAdapter:adapter toClassName:@"ANMockMediationAdapterErrorCode"];
-//    [self checkLastRequest:error];   //FIX -- toss
-}
-                     */
-
 - (void)matchMediationAdapter: (id)adapter
                   toClassName: (NSString *)className
 {
-TESTTRACE();
     BOOL   result;
     Class  adClass  = NSClassFromString(className);
 
@@ -593,34 +493,6 @@ TESTTRACE();
 
     XCTAssertTrue(result, @"Expected an adapter of class %@", className);
 }
-
-            /* FIX  no thanks.
-+ (void) matchMediationAdapter: (id)adapter
-                   toClassName: (NSString *)className
-{
-    [[[self alloc] init] matchMediationAdapter:adapter toClassName:className];
-}
-                     */
-
-//- (void)checkSuccessResultCB:(int)code {
-//    NSString *resultCBString =[[self.bannerAdViewExtended successResultRequest].URL absoluteString];
-//    NSString *resultCBPrefix = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
-//    STAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
-//}
-//FIX -- toss?
-
-/* FIX -- toss olds choll
- - (void)checkLastRequest:(int)code
- //FIX -- final proof of need for OK_RESULT_CB_URL?  else toss.
- {
- TESTTRACE();
- NSString  *resultCBString  = [[self.bannerAdViewExtended request].URL absoluteString];
- NSString  *resultCBPrefix  = [NSString stringWithFormat:@"%@?reason=%i", OK_RESULT_CB_URL, code];
-
- TESTTRACEM(@"FIX ERROR is this still defined?  resultCBString=%@", resultCBString);
- XCTAssertTrue([resultCBString hasPrefix:resultCBPrefix], @"ResultCB should match");
- }
- */
 
 - (void)checkSuccessfulBannerNeverCalled {
     XCTAssertFalse([ANMockMediationAdapterBannerNeverCalled getCalled], @"Should never be called");

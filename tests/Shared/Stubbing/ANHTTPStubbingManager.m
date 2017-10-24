@@ -66,7 +66,8 @@
 
 - (ANURLConnectionStub *)stubForURLString:(NSString *)URLString
 {
-TESTTRACEM(@"URLString=%@", URLString);
+    TESTTRACEM(@"URLString=%@", URLString);
+    
     __block ANURLConnectionStub  *stubMatch  = nil;
 
     [self.stubs enumerateObjectsUsingBlock: ^(ANURLConnectionStub *stub, NSUInteger idx, BOOL *stop)

@@ -24,11 +24,11 @@
 
 
 
-@interface ANBaseTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANCustomAdapterDelegate>
-            //FIX -- toss unused methods and properties...
+@interface ANBaseTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate>
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 @property (nonatomic, readwrite, strong) ANInterstitialAd *interstitial;
+
 @property (nonatomic, assign) BOOL testComplete;
 
 @property (nonatomic, assign) BOOL adDidLoadCalled;
@@ -41,20 +41,10 @@
 @property (nonatomic, assign) BOOL adWillLeaveApplicationCalled;
 @property (nonatomic, assign) BOOL adFailedToDisplayCalled;
 
-@property (nonatomic, assign)  BOOL  customAdapterAdWasClicked;
-@property (nonatomic, assign)  BOOL  customAdapterDidCloseAd;
-@property (nonatomic, assign)  BOOL  customAdapterDidFailToLoadAd;
-@property (nonatomic, assign)  BOOL  customAdapterDidPresentAd;
-@property (nonatomic, assign)  BOOL  customAdapterWillCloseAd;
-@property (nonatomic, assign)  BOOL  customAdapterWillLeaveApplication;
-@property (nonatomic, assign)  BOOL  customAdapterWillPresentAd;
-
 
 
 - (void)clearTest;
 - (void)stubWithInitialMockResponse:(NSString *)body;
-- (void)stubResultCBResponses:(NSString *)body;
-//- (void)stubResultCBForErrorCode;
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs;
 - (void)delay:(NSTimeInterval)seconds;
