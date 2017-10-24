@@ -19,7 +19,7 @@
 
 #pragma mark - Constants.
 
-extern NSString * const  kMediationAdapterClassDoesNotExist;
+extern NSString * const  kFauxMediationAdapterClassDoesNotExist;
 
 
 

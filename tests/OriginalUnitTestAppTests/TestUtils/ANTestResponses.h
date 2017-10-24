@@ -14,7 +14,6 @@
  */
 
 static NSString *const OK_RESULT_CB_URL = @"http://MOCK__result";
-//FIX -- change to MOCK__result...
 
 
 @interface ANTestResponses : NSObject
@@ -25,11 +24,11 @@ static NSString *const OK_RESULT_CB_URL = @"http://MOCK__result";
 + (NSString *)successfulBanner;
 + (NSString *)blankContentBanner;
 //+ (NSString *)mediationSuccessfulBanner;
-+ (NSString *)mediationNoAdsBanner;
+//+ (NSString *)mediationNoAdsBanner;
 + (NSString *)mediationErrorCodeBanner:(int)code;
 
-+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass
-                            secondClass:(NSString *)secondClass;
+//+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass
+//                            secondClass:(NSString *)secondClass;
 
 //+ (NSString *)mediationWaterfallBanners:(NSString *)firstClass firstResult:(NSString *)firstResult
 //                            secondClass:(NSString *)secondClass secondResult:(NSString *)secondResult;
@@ -43,14 +42,14 @@ static NSString *const OK_RESULT_CB_URL = @"http://MOCK__result";
 + (NSString *)mediationWaterfallWithMockClassNames:(NSArray<NSString *> *)arrayOfMockClassObjects;
 
 
-+ (NSString *)createMediatedBanner:(NSString *)className;
-
-+ (NSString *)createMediatedBanner:(NSString *)className
-                            withID:(NSString *)idString;
-
-+ (NSString *)createMediatedBanner:(NSString *)className
-                            withID:(NSString *)idString
-                      withResultCB:(NSString *)resultCB;
+//+ (NSString *)createMediatedBanner:(NSString *)className;
+//
+//+ (NSString *)createMediatedBanner:(NSString *)className
+//                            withID:(NSString *)idString;
+//
+//+ (NSString *)createMediatedBanner:(NSString *)className
+//                            withID:(NSString *)idString
+//                      withResultCB:(NSString *)resultCB;
 
 
 + (NSString *)createAdsResponse:(NSString *)type

@@ -14,13 +14,17 @@
  */
 
 #import "ANMockMediationAdapterBannerNeverCalled.h"
+#import "ANTestGlobal.h"
+
 
 @implementation ANMockMediationAdapterBannerNeverCalled
+
 @synthesize delegate;
 
 static BOOL wasCalled = NO;
 
-#pragma mark ANCustomAdapterBanner
+
+#pragma mark - ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
@@ -28,6 +32,8 @@ static BOOL wasCalled = NO;
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters
 {
+    TESTTRACEM(@"Call didLoadBannerAd: with UIView.");
+    
     wasCalled = YES;
     [self.delegate didLoadBannerAd:[UIView new]];
 }

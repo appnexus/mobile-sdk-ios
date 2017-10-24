@@ -178,15 +178,19 @@ NSString *_type;
 }
                          */
 
+        /* FIX ootoss
 + (NSString *)mediationNoAdsBanner {
     return [ANTestResponses createMediatedBanner:@"ANMockMediationAdapterBannerNoAds"];
 }
+                 */
 
 + (NSString *)mediationErrorCodeBanner:(int)code
 {
     return [ANTestResponses createMediatedBanner:@"ANMockMediationAdapterErrorCode" withID:[NSString stringWithFormat:@"%i", code]];
 }
 
+
+        /* FIX -- toss
 + (NSString *)mediationWaterfallBanners:(NSString *)firstClass secondClass:(NSString *)secondClass {
     ANMediatedAd *firstAd = [ANMediatedAd dummy];
     firstAd.className = firstClass;
@@ -205,6 +209,7 @@ NSString *_type;
                                 secondHandler, nil]];
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
+            */
 
             /* FIX -- toss
 + (NSString *)mediationWaterfallBanners: (NSString *)firstClass
@@ -300,9 +305,11 @@ TESTTRACEJSON(mediatedField);
     return [ANTestResponses createResponseString:statusField withAds:adsField withMediated:mediatedField];
 }
 
+            /* FIX -- toss
 + (NSString *)createMediatedBanner:(NSString *)className {
     return [ANTestResponses createMediatedBanner:className withID:@"" withResultCB:OK_RESULT_CB_URL];
 }
+                     */
 
 + (NSString *)createMediatedBanner:(NSString *)className
                             withID:(NSString *)idString
@@ -320,6 +327,7 @@ TESTTRACEJSON(utResponse);
 
 }
 
+            /* FIX toss
 + (NSString *)createMediatedBanner: (NSString *)className
                             withID: (NSString *)idString
                       withResultCB: (NSString *)resultCB
@@ -335,6 +343,7 @@ TESTTRACEJSON(utResponse);
     NSString *mediatedField = [ANTestResponses createMediatedArrayFromHandlers:[[NSMutableArray alloc] initWithObjects:handler, nil]];
     return [ANTestResponses createMediatedResponse:mediatedField];
 }
+                         */
 
 + (NSString *)createMediatedResponse:(NSString *)type
                        withClassName:(NSString *)className

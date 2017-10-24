@@ -50,7 +50,7 @@ float const  MEDIATION_CALLBACKS_TESTS_TIMEOUT = 5.0;   // seconds
 
 - (void)test17
 {
-    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kMediationAdapterClassDoesNotExist, @"ANMockMediationAdapterTimeout" ]] ];
+    [self stubWithInitialMockResponse:[ANTestResponses mediationWaterfallWithMockClassNames:@[ kFauxMediationAdapterClassDoesNotExist, @"ANMockMediationAdapterTimeout" ]] ];
     [ANMockMediationAdapterTimeout setTimeout:MEDIATION_CALLBACKS_TESTS_TIMEOUT - 2];
 
     [self runBasicTest:YES waitTime:MEDIATION_CALLBACKS_TESTS_TIMEOUT];

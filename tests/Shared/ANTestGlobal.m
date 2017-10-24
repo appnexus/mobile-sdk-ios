@@ -19,7 +19,7 @@
 
 #pragma mark - Constants.
 
-NSString * const  kMediationAdapterClassDoesNotExist  = @"MediationAdapterClassDoesNotExist";
+NSString * const  kFauxMediationAdapterClassDoesNotExist  = @"FauxMediationAdapterClassDoesNotExist";
 
 
 

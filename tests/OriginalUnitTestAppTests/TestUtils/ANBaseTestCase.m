@@ -108,6 +108,7 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
 }
 
+            /* FIX -- toss
 - (void)stubResultCBForErrorCode
                         //FIX what happens in place of this for UT?  faux query string only used for medaition?
 {
@@ -123,6 +124,7 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
         [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
     }
 }
+                         */
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
@@ -174,6 +176,7 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
 }
 
 - (void) dumpTestStats
+                //FIX -- delegates are never triggered, eh?
 {
     TESTTRACEM(@""
         "\n\t\t banner        = %@"
@@ -199,6 +202,7 @@ TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.reque
         "\n\t\t customAdapterWillCloseAd           = %@"
         "\n\t\t customAdapterWillLeaveApplication  = %@"
         "\n\t\t customAdapterWillPresentAd         = %@"
+        "\n"
         "\n"
         ,
 

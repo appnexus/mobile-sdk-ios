@@ -25,6 +25,7 @@
 
 
 @interface ANBaseTestCase : XCTestCase <ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANCustomAdapterDelegate>
+            //FIX -- toss unused methods and properties...
 
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
 @property (nonatomic, readwrite, strong) ANInterstitialAd *interstitial;
@@ -53,7 +54,7 @@
 - (void)clearTest;
 - (void)stubWithInitialMockResponse:(NSString *)body;
 - (void)stubResultCBResponses:(NSString *)body;
-- (void)stubResultCBForErrorCode;
+//- (void)stubResultCBForErrorCode;
 
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs;
 - (void)delay:(NSTimeInterval)seconds;
