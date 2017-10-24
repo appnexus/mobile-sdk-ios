@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import <EventKitUI/EventKitUI.h>
+#import <UIKit/UIKit.h>
 
 @protocol ANMRAIDCalendarManagerDelegate;
 

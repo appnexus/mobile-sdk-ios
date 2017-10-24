@@ -19,6 +19,12 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
+@protocol ANStorePictureCallbackProtocol
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+
+@end
+
 @implementation ANMRAIDUtil
 
 + (ANMRAIDCustomClosePosition)customClosePositionFromCustomClosePositionString:(NSString *)customClosePositionString {
@@ -45,17 +51,11 @@
 }
 
 + (BOOL)supportsTel {
-    static dispatch_once_t kSupportsTelToken;
-    static BOOL kSupportsTel;
-    dispatch_once(&kSupportsTelToken, ^{
-        kSupportsTel = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
-        ANLogDebug(@"%@ support tel:// protocol", (kSupportsTel ? @"Does" : @"Does not"));
-    });
-    return kSupportsTel;
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
 }
 
 + (BOOL)supportsCalendar {
-    return YES;
+    return NO;
 }
 
 + (BOOL)supportsInlineVideo {
@@ -63,7 +63,7 @@
 }
 
 + (BOOL)supportsStorePicture {
-    return YES;
+    return NO;
 }
 
 + (ANMRAIDAction)actionForCommand:(NSString *)command {
@@ -94,20 +94,13 @@
 + (void)storePictureWithUri:(NSString *)uri
        withCompletionTarget:(id)target
          completionSelector:(SEL)selector {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url = [NSURL URLWithString:uri];
-        NSData *data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:url]
-                                             returningResponse:nil
-                                                         error:nil];
-        if(data){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIImage *image = [[UIImage alloc] initWithData:data];
-                if (image) {
-                    UIImageWriteToSavedPhotosAlbum(image, target, selector, nil);
-                }
-            });
-        }
-    });
+    id<ANStorePictureCallbackProtocol> completionTarget = (id<ANStorePictureCallbackProtocol>)target;
+    [completionTarget image:nil
+   didFinishSavingWithError:[NSError errorWithDomain:NSCocoaErrorDomain
+                                                code:0
+                                            userInfo:@{NSLocalizedDescriptionKey:@"storePicture not supported"}]
+                contextInfo:NULL];
+
 }
 
 + (void)playVideoWithUri:(NSString *)uri
