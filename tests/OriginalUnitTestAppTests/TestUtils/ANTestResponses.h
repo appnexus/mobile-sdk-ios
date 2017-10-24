@@ -41,6 +41,11 @@ static NSString *const OK_RESULT_CB_URL = @"http://MOCK__result";
 
 + (NSString *)mediationWaterfallWithMockClassNames:(NSArray<NSString *> *)arrayOfMockClassObjects;
 
++ (NSString *) createResponseForBannerMediaTypeWithContent: (NSString *)content
+                                                     width: (NSUInteger)width
+                                                    height: (NSUInteger)height;
+
+
 
 //+ (NSString *)createMediatedBanner:(NSString *)className;
 //

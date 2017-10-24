@@ -55,7 +55,7 @@ NSString *const  UT_TEMPLATE_BANNER_INTERSTITIAL  = @""
                             "\"media_subtype_id\": 0, "                                                                 //XXX
 
                             "\"rtb\": { "
-                                "\"banner\": { \"content\": \"%@\", \"width\": 320, \"height\": 50 }, "                 //XXX + content:?
+                                "\"banner\": { \"content\": \"%@\", \"width\": %@, \"height\": %@ }, "                 //XXX + content:?, width:?, height:?
                                 "\"trackers\": [ { \"impression_urls\": [ \"MOCK__impression_url\" ], \"video_events\": {} } ] "
                             "} "
                         "} "
@@ -137,14 +137,17 @@ NSString *_type;
 
 + (NSString *)successfulBanner
 {
+    return  [self createResponseForBannerMediaTypeWithContent:@"MOCK__content" width:320 height:50];
+
+                /*
     NSString  *utResponse      = nil;
     NSString  *bannerAdObject  = nil;
 
-    bannerAdObject = [NSString stringWithFormat:UT_TEMPLATE_BANNER_INTERSTITIAL, @"MOCK__content"];
+    bannerAdObject = [NSString stringWithFormat:UT_TEMPLATE_BANNER_INTERSTITIAL, @"MOCK__content", @(320), @(50)];
     utResponse = [NSString stringWithFormat:UT_TEMPLATE, bannerAdObject];
 
     return  utResponse;
-
+                         */
 //    return  [NSString stringWithFormat:UT_BANNER_INTERSTITIAL_TEMPLATE, @"MOCK__content"];
 //    return  [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@"HelloWorld"];   //FIX -- was
 }
@@ -152,16 +155,32 @@ NSString *_type;
 + (NSString *)blankContentBanner
         //FIX -- generalize with successfulBanner?
 {
+    return  [self createResponseForBannerMediaTypeWithContent:@"" width:320 height:50];
+
+            /*
     NSString  *utResponse      = nil;
     NSString  *bannerAdObject  = nil;
 
-    bannerAdObject = [NSString stringWithFormat:UT_TEMPLATE_BANNER_INTERSTITIAL, @""];
+    bannerAdObject = [NSString stringWithFormat:UT_TEMPLATE_BANNER_INTERSTITIAL, @"", @(320), @(50)];
     utResponse = [NSString stringWithFormat:UT_TEMPLATE, bannerAdObject];
 
     return  utResponse;
-
+                     */
 //    return  [NSString stringWithFormat:UT_BANNER_INTERSTITIAL_TEMPLATE, @""];
 //    return [ANTestResponses createAdsResponse:@"banner" withWidth:320 withHeight:50 withContent:@""];   //fix --FIX -- was
+}
+
++ (NSString *) createResponseForBannerMediaTypeWithContent: (NSString *)content
+                                                     width: (NSUInteger)width
+                                                    height: (NSUInteger)height
+{
+    NSString  *utResponse      = nil;
+    NSString  *bannerAdObject  = nil;
+
+    bannerAdObject = [NSString stringWithFormat:UT_TEMPLATE_BANNER_INTERSTITIAL, content, @(width), @(height)];
+    utResponse = [NSString stringWithFormat:UT_TEMPLATE, bannerAdObject];
+
+    return  utResponse;
 }
 
             /* FIX -- toss
