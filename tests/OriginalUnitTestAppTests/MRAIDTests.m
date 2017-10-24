@@ -24,8 +24,14 @@
 #import "XCTestCase+ANCategory.h"
 
 
-#define MRAID_TESTS_TIMEOUT 10.0
-#define MRAID_TESTS_DEFAULT_DELAY 1.5
+
+#define  MRAID_TESTS_TIMEOUT        10.0
+#define  MRAID_TESTS_DEFAULT_DELAY  1.5
+
+
+
+
+#pragma mark - ANMRAIDContainerView (ANMRAIDTestsCategory)
 
 @interface ANMRAIDContainerView (ANMRAIDTestsCategory)
 
@@ -33,31 +39,55 @@
 
 @end
 
+
+
+
+#pragma mark - UIDevice (HackyWayToRotateTheDeviceForTestingPurposesBecauseAppleDeclaredSuchAMethodInTheirPrivateImplementationOfTheUIDeviceClass)
+
 @interface UIDevice (HackyWayToRotateTheDeviceForTestingPurposesBecauseAppleDeclaredSuchAMethodInTheirPrivateImplementationOfTheUIDeviceClass)
+
 -(void)setOrientation:(UIInterfaceOrientation)orientation animated:(BOOL)animated;
 -(void)setOrientation:(UIInterfaceOrientation)orientation;
+
 @end
+
+
+
+
+#pragma mark - ANMRAIDContainerView (PrivateMethods)
 
 @interface ANMRAIDContainerView (PrivateMethods)
+
 - (CGRect)currentPosition;
+
 @end
 
+
+
+
+#pragma mark - MRAIDTests
+
 @interface MRAIDTests : ANBaseTestCase
+
 @property (strong, nonatomic) id webView; // Could be WKWebView or UIWebView
 
 @property (strong, nonatomic) ANMRAIDContainerView *standardAdView;
 @end
 
+
+
 @implementation MRAIDTests
 
-#pragma mark Basic MRAID Banner Test
+#pragma mark - Basic MRAID Banner Test
 
 - (void)testSuccessfulBannerDidLoad {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     [self clearTest];
 }
 
-#pragma mark mraid.isViewable()
+
+
+#pragma mark - mraid.isViewable()
 
 - (void)testBasicViewability { // MS-453
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -72,7 +102,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.setOrientationProperties()
+
+
+#pragma mark - mraid.setOrientationProperties()
 
 - (void)testForceOrientationLandscapeFromPortrait { // MS-481
     XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Expected portrait orientation");
@@ -112,7 +144,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.expand()
+
+
+#pragma mark - mraid.expand()
 
 - (void)testExpandFromPortraitUpsideDown { // MS-510
     [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
@@ -127,7 +161,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.getScreenSize()
+
+
+#pragma mark - mraid.getScreenSize()
 
 - (void)testScreenSizePortraitOnLoad {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -176,7 +212,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.getMaxSize()
+
+
+#pragma mark - mraid.getMaxSize()
 
 - (void)testMaxSizePortraitOnLoad {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -245,7 +283,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.getCurrentPosition()
+
+
+#pragma mark - mraid.getCurrentPosition()
 
 - (void)testCurrentPositionPortraitSizeOnLoad {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -425,7 +465,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.getDefaultPosition()
+
+
+#pragma mark - mraid.getDefaultPosition()
 
 - (void)testDefaultPositionPortraitSizeOnLoad {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -742,7 +784,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.getState()
+
+
+#pragma mark - mraid.getState()
 
 - (void)testBasicStateChange {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -818,7 +862,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.resizeProperties
+
+
+#pragma mark - mraid.resizeProperties
 
 - (void)testBasicSetResizeProperties { // MS-525
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -919,7 +965,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.expandProperties
+
+
+#pragma mark - mraid.expandProperties
 
 - (void)testSetExpandPropertiesOnlySize {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -1023,7 +1071,9 @@
  [self clearTest];
  }*/
 
-#pragma mark mraid.addEventListener
+
+
+#pragma mark - mraid.addEventListener
 
 - (void)testOnReadyListener {
     [self addMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
@@ -1184,7 +1234,9 @@
     [self clearTest];
 }
 
-#pragma mark mraid.supports()
+
+
+#pragma mark - mraid.supports()
 
 - (void)testSupportSMS {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -1233,7 +1285,9 @@
     [self clearTest];
 }
 
-#pragma Test about: Loading
+
+
+#pragma mark - Test about: Loading
 
 - (void)testiFrameAboutProtocolLoading {
     [self loadMRAIDBannerAtOrigin:CGPointZero
@@ -1255,15 +1309,21 @@
     [self clearTest];
 }
 
-#pragma mark Helper Functions
 
-- (void)clearTest {
+
+#pragma mark - Helper Functions
+
+- (void)clearTest
+{
     self.webView = nil;
     self.standardAdView = nil;
+
     [self removeBannerFromSuperview];
+
     if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) {
         [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
     }
+
     [super clearTest];
 }
 
@@ -1298,10 +1358,11 @@
 
 - (void)loadBasicMRAIDBannerWithSelectorName:(NSString *)selector
                                     atOrigin:(CGPoint)origin
-                                    withSize:(CGSize)size {
-    [self loadMRAIDBannerAtOrigin:origin
-                         withSize:size
-                    usingStubBody:[ANMRAIDTestResponses basicMRAIDBannerWithSelectorName:selector]];
+                                    withSize:(CGSize)size
+{
+    [self loadMRAIDBannerAtOrigin: origin
+                         withSize: size
+                    usingStubBody: [ANMRAIDTestResponses basicMRAIDBannerWithSelectorName:selector]];
 }
 
 - (void)loadMRAIDListenerBannerWithSelectorName:(NSString *)selector
@@ -1314,17 +1375,24 @@
 
 - (void)loadMRAIDBannerAtOrigin:(CGPoint)origin
                        withSize:(CGSize)size
-                  usingStubBody:(NSString *)body {
+                  usingStubBody:(NSString *)body
+{
     [self stubWithInitialMockResponse:body];
     [self loadBannerAdAtOrigin:CGPointMake(origin.x, origin.y) withSize:CGSizeMake(size.width, size.height)];
+
     XCTAssertTrue([self waitForCompletion:MRAID_TESTS_TIMEOUT], @"Ad load timed out");
     XCTAssertTrue(self.adDidLoadCalled, @"Success callback should be called");
     XCTAssertFalse(self.adFailedToLoadCalled, @"Failure callback should not be called");
-    id containerView = [[self.banner subviews] firstObject];
+
+    id  containerView  = [[self.banner subviews] firstObject];
+
     XCTAssertTrue([containerView isKindOfClass:[ANMRAIDContainerView class]], @"Expected ANMRAIDContainerView as subview of BannerAdView");
-    self.standardAdView = (ANMRAIDContainerView *)containerView;
-    self.standardAdView.userInteractedWithContentView = YES;
-    ANAdWebViewController *webViewController = self.standardAdView.webViewController;
+
+    self.standardAdView                                 = (ANMRAIDContainerView *)containerView;
+    self.standardAdView.userInteractedWithContentView   = YES;
+
+    ANAdWebViewController  *webViewController  = self.standardAdView.webViewController;
+
     self.webView = webViewController.contentView;
 }
 
@@ -1391,7 +1459,9 @@
     [self delay:MRAID_TESTS_DEFAULT_DELAY];
 }
 
-# pragma mark MRAID Accessor Functions
+
+
+# pragma mark - MRAID Accessor Functions
 
 - (void)expand {
     [self mraidNativeCall:@"expand()" withDelay:MRAID_TESTS_DEFAULT_DELAY];
