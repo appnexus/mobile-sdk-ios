@@ -16,6 +16,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+
+
+#pragma mark - Constants
+
+
 #define AN_ERROR_DOMAIN @"com.appnexus.sdk"
 #define AN_ERROR_TABLE @"errors"
 
@@ -27,7 +32,9 @@
 #define APPNEXUS_LEADERBOARD_SIZE	CGSizeMake(728, 90)
 #define APPNEXUS_WIDE_SKYSCRAPER_SIZE	CGSizeMake(160, 600)
 
-#pragma mark Constants
+#define APPNEXUS_SIZE_UNDEFINED         CGSizeMake(-1, -1)
+
+
 
 #define kAppNexusRequestTimeoutInterval 30.0
 #define kAppNexusAnimationDuration 0.4f
@@ -38,7 +45,33 @@
 #define kAppNexusNativeAdCheckViewabilityForTrackingFrequency 0.25
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
-// Banner AutoRefresh
+#define kANAdSize1x1 CGSizeMake(1,1)
+
+
+typedef NS_ENUM(NSUInteger, ANAllowedMediaTypes) {
+    ANAllowedMediaTypeBanner        = 1,
+    ANAllowedMediaTypeInterstitial  = 3,
+    ANAllowedMediaTypeVideo         = 4,
+    ANAllowedMediaTypeNative        = 12
+};
+
+
+
+extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
+extern NSString * const  ANInternalDelegateTagKeySizes;
+extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
+
+extern NSString * const  kANUniversalAdFetcherWillRequestAdNotification;
+extern NSString * const  kANUniversalAdFetcherAdRequestURLKey;
+extern NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification;
+extern NSString * const  kANUniversalAdFetcherMediatedClassKey;
+
+extern NSString * const  kANUniversalAdFetcherDidReceiveResponseNotification;
+extern NSString * const  kANUniversalAdFetcherAdResponseKey;
+
+
+
+#pragma mark - Banner AutoRefresh
 
 // These constants control the default behavior of the ad view autorefresh (i.e.,
 // how often the view will fetch a new ad).  Ads will only autorefresh
@@ -63,6 +96,9 @@
 // Buffer Limit
 #define kANPBBufferLimit 10
 
+
+#pragma mark - Global functions.
+
 NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
@@ -84,8 +120,17 @@ NSNumber *ANiTunesIDForURL(NSURL *URL);
 BOOL ANCanPresentFromViewController(UIViewController *viewController);
 
 
+
+#pragma mark - Global class.
+
 @interface ANGlobal : NSObject
 
-    + (void) openURL: (NSString *)urlString;
++ (void) openURL: (NSString *)urlString;
+
++ (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
+                                                                 withSeparatorString: (NSString *)separatorString;
+
++ (id) valueOfGetterProperty: (NSString *)stringOfGetterProperty
+                   forObject: (id)objectImplementingGetterProperty;
 
 @end

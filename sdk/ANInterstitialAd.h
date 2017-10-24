@@ -15,6 +15,7 @@
 
 #import "ANAdView.h"
 
+
 @protocol ANInterstitialAdDelegate;
 
 /**
@@ -85,7 +86,7 @@
  The set of allowed ad sizes for the interstitial ad.
  The set should contain CGSize values wrapped as NSValue objects.
  */
-@property (nonatomic, readwrite, strong) NSMutableSet *allowedAdSizes;
+@property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
 /**
  Initialize the ad view, with required placement ID. Note that
@@ -95,6 +96,7 @@
  @returns void
  */
 - (instancetype)initWithPlacementId:(NSString *)placementId;
+
 /**
  Instead of requesting ads using placement id, alternatively, you can
  use the initialization method below to initialize an interstitial

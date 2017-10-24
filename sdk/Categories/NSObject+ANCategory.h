@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2013 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,11 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANNativeAdFetcher.h"
 
-@interface ANNativeAdRequestUrlBuilder : NSObject
+@interface NSObject(ANCategory)
 
-+ (NSURL *)requestUrlWithAdRequestDelegate:(id<ANNativeAdFetcherDelegate>)delegate
-                             baseUrlString:(NSString *)baseUrlString;
+- (void)runInBlock:(void (^)(void))block;
 
 @end

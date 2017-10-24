@@ -15,15 +15,24 @@
 
 #import "ANAdFetcherResponse.h"
 
+#import "ANLogging.h"
+
+
+
 @interface ANAdFetcherResponse ()
 
 @property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
 @property (nonatomic, readwrite, strong) id adObject;
+@property (nonatomic, readwrite, strong) id adObjectHandler;
 @property (nonatomic, readwrite, strong) NSError *error;
 
 @end
 
+
+
 @implementation ANAdFetcherResponse
+
+#pragma mark - Lifecycle.
 
 - (instancetype)initAdResponseFailWithError:(NSError *)error {
     self = [super init];
@@ -32,21 +41,33 @@
     }
     return self;
 }
-- (instancetype)initAdResponseSuccessWithAdObject:(id)adObject {
+
+- (instancetype)initAdResponseSuccessWithAdObject: (id)adObject
+                               andAdObjectHandler: (id)adObjectHandler
+{
     self = [super init];
     if (self) {
         _successful = YES;
         _adObject = adObject;
+        _adObjectHandler = adObjectHandler;
     }
     return self;
 }
+
+
+
+#pragma mark - Class methods.
 
 + (ANAdFetcherResponse *)responseWithError:(NSError *)error {
     return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
 }
 
-+ (ANAdFetcherResponse *)responseWithAdObject:(id)adObject {
-    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject:adObject];
++ (ANAdFetcherResponse *)responseWithAdObject: (id)adObject
+                           andAdObjectHandler: (id)adObjectHandler
+{
+    return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
+                                                       andAdObjectHandler: adObjectHandler];
 }
+
 
 @end

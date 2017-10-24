@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2013 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,17 +13,14 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "NSObject+ANCategory.h"
 
-static NSTimeInterval const kANNativeImpressionTrackerExpirationInterval = 3600;
+@implementation NSObject(ANCategory)
 
-@interface ANNativeImpressionTrackerInfo : NSObject
-
-- (instancetype)initWithURL:(NSURL *)URL;
-
-@property (nonatomic, readonly, strong) NSURL *URL;
-@property (nonatomic, readonly, strong) NSDate *dateCreated;
-@property (nonatomic, readonly, assign, getter=isExpired) BOOL expired;
-@property (nonatomic, readwrite, assign) NSUInteger numberOfTimesFired;
+- (void)runInBlock:(void (^)(void))block {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        block();
+    });
+}
 
 @end

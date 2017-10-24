@@ -15,8 +15,14 @@
 
 #import <UIKit/UIKit.h>
 
+
+
+// NB  Native does not use ANAdViewInternalDelegate, but instead has its own specific delegates for the request and response halves of Native entry point.
+//     See ANNativeAdRequestDelegate and ANNativeAdDelegate (for response).
+//
 @protocol ANAdViewInternalDelegate <NSObject>
 
+@required
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
 
@@ -28,7 +34,8 @@
 - (void)adWillLeaveApplication;
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data;
 
-- (NSString *)adType;
+- (NSString *)adTypeForMRAID;
+
 - (UIViewController *)displayController;
 - (BOOL)opensInNativeBrowser;
 - (BOOL)landingPageLoadsInBackground;
@@ -38,11 +45,15 @@
 
 @end
 
+
+
 @protocol ANBannerAdViewInternalDelegate <ANAdViewInternalDelegate>
 
 - (NSNumber *)transitionInProgress;
 
 @end
+
+
 
 @class ANMRAIDOrientationProperties;
 

@@ -1,4 +1,4 @@
-/*   Copyright 2013 APPNEXUS INC
+/*   Copyright 2014 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,13 +15,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (ANCategory)
 
-- (NSDictionary *)an_queryComponents;
-- (NSString *)an_encodeAsURIComponent;
-- (NSString *)an_stringByAppendingUrlParameter:(NSString *)name value:(NSString*)value;
-- (NSString *)an_responseTrackerReasonCode:(int)reasonCode
-                                   latency:(NSTimeInterval)latency
-                              totalLatency:(NSTimeInterval) totalLatency;
+static const  NSUInteger      kANTrackerManagerMaximumNumberOfRetries  = 3;
+static const  NSTimeInterval  kANTrackerManagerRetryInterval           = 300;
+
+
+
+@interface ANTrackerManager : NSObject
+
++ (instancetype)sharedManager;
+
++ (void)fireTrackerURLArray:(NSArray<NSString *> *)arrayWithURLs;
++ (void)fireTrackerURL:(NSString *)URL;
 
 @end
+

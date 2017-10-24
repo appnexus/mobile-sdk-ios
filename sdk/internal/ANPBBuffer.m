@@ -14,11 +14,8 @@
  */
 
 #import "ANPBBuffer.h"
-
 #import "ANGlobal.h"
 #import "NSString+ANCategory.h"
-
-#import <UIKit/UIKit.h>
 #import "ANLogging.h"
 
 @implementation ANPBBuffer

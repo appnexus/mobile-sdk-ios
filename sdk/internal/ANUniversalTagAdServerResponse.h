@@ -15,11 +15,18 @@
 
 #import <Foundation/Foundation.h>
 
+
+
+
 @interface ANUniversalTagAdServerResponse : NSObject
 
 + (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;
 
 - (instancetype)initWithAdServerData:(NSData *)data;
+
+- (instancetype)initWithContent: (NSString *)htmlContent
+                          width: (NSInteger)width
+                         height: (NSInteger)height;
 
 @property (nonatomic, readonly, strong) NSMutableArray *ads;
 @property (nonatomic, readonly, strong) NSString *noAdUrlString;

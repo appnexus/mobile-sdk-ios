@@ -18,9 +18,11 @@
 @interface ANSSMStandardAd : NSObject
 
 @property (nonatomic, readwrite, strong) NSString *urlString;
+@property (nonatomic, readwrite, strong) NSString *content;
 @property (nonatomic, readwrite, strong) NSString *height;
 @property (nonatomic, readwrite, strong) NSString *width;
+@property (nonatomic, readwrite, strong) NSString *responseURL;
 
-@property (nonatomic, readwrite, strong) NSArray *impressionUrls; // Array of impression url strings
+@property (nonatomic, readwrite, strong) NSArray<NSString *> *impressionUrls;
 
 @end

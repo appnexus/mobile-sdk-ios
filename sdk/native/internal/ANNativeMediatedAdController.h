@@ -13,32 +13,36 @@
  limitations under the License.
  */
 
-#import "ANNativeAdFetcher.h"
 #import "ANMediatedAd.h"
-#import "ANNativeAdTargetingProtocol.h"
+#import "ANAdProtocol.h"
+#import "ANUniversalAdFetcher.h"
+
+
 
 @protocol ANNativeMediationAdControllerDelegate;
 
-@interface ANNativeMediatedAdController : NSObject
 
-+ (NSSet *)invalidNetworks;
+
+
+@interface ANNativeMediatedAdController : NSObject
 
 // Designated initializer
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
-                  withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate;
+                   withFetcher:(ANUniversalAdFetcher *)adFetcher
+             adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
 
-@property (nonatomic, readwrite, weak) id<ANNativeAdTargetingProtocol> adRequestDelegate;
-@property (nonatomic, readwrite, weak) id<ANNativeMediationAdControllerDelegate> delegate;
+@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
+@property (nonatomic, readwrite, weak)  id<ANUniversalNativeAdFetcherDelegate>     adRequestDelegate;
 
 @end
+
+
+
 
 @protocol ANNativeMediationAdControllerDelegate <NSObject>
 
 @required
-- (void)fireResultCB:(NSString *)resultCBString
-              reason:(ANAdResponseCode)reason
-            adObject:(id)adObject;
+
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 
 @end

@@ -17,6 +17,8 @@
 #import "ANVideoAdPlayer.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
+#import "ANAdView+PrivateMethods.h"
+
 
 
 
@@ -27,7 +29,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //---------------------------------------------------------- -o--
-@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherDelegate>
+@interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherFoundationDelegate, ANAdProtocol>
 
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
     @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
@@ -45,6 +47,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     @property (nonatomic)  BOOL  isVideoTagReady;
     @property (nonatomic)  BOOL  didVideoTagFail;
 
+    //
+    @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
+
 @end
 
 
@@ -53,13 +58,15 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 @implementation ANInstreamVideoAd
 
+@synthesize  customKeywords  = __customKeywords;
+
+
+
 #pragma mark - Lifecycle.
 
 //--------------------- -o-
 - (id) initWithPlacementId: (NSString *)placementId 
 {
-ANLogMark();
-
     self = [super init];
     if (!self)  { return nil; }
 
@@ -74,11 +81,22 @@ ANLogMark();
     self.opensInNativeBrowser = NO;
 
     self.placementId = placementId;
+    
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+
+    [self setupSizeParametersAs1x1];
+
 
     //
     return self;
 }
-    
+
+- (void) setupSizeParametersAs1x1
+{
+    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:kANAdSize1x1]];
+    self.allowSmallerSizes  = NO;
+}
+
 
 
 
@@ -88,15 +106,17 @@ ANLogMark();
 //--------------------- -o-
 - (BOOL) loadAdWithDelegate: (id<ANInstreamVideoAdLoadDelegate>)loadDelegate;
 {
-    ANLogMark();
-
     if (! loadDelegate) {
         ANLogWarn(@"loadDelegate is UNDEFINED.  ANInstreamVideoAdLoadDelegate allows detection of when a video ad is successfully received and loaded.");
     }
 
     self.loadDelegate = loadDelegate;
 
-    if (! [[ANUniversalAdFetcher alloc] initWithDelegate:self])  {
+    if(self.universalAdFetcher != nil){
+        
+        [self.universalAdFetcher requestAd];
+        
+    } else {
         ANLogError(@"FAILED TO FETCH video ad.");
         return  NO;
     }
@@ -109,8 +129,6 @@ ANLogMark();
 - (void) playAdWithContainer: (UIView *)adContainer
                 withDelegate: (id<ANInstreamVideoAdPlayDelegate>)playDelegate;
 {
-ANLogMark();
-
     if (!playDelegate) {
         ANLogError(@"playDelegate is UNDEFINED.  ANInstreamVideoAdPlayDelegate allows the lifecycle of a video ad to be tracked, including when the video ad is completed.");
         return;
@@ -125,7 +143,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) removeAd
 {
-ANLogMark();
     if(self.adPlayer != nil){
         [self.adPlayer removePlayer];
         [self.adPlayer removeFromSuperview];
@@ -141,8 +158,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdReady
 {
-ANLogMark();
-
     self.isVideoTagReady = YES;
 
     if ([self.loadDelegate respondsToSelector:@selector(adDidReceiveAd:)]) {
@@ -154,7 +169,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdLoadFailed:(NSError *)error
 {
-ANLogMark();
     self.didVideoTagFail = YES;
 
     self.descriptionOfFailure  = nil;
@@ -172,8 +186,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdPlayFailed:(NSError *)error
 {
-ANLogMark();
-
     self.didVideoTagFail = YES;
 
     if ([self.playDelegate respondsToSelector:@selector(adDidComplete:withState:)])  {
@@ -187,7 +199,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdError:(NSError *)error
 {
-ANLogMark();
     self.descriptionOfFailure  = nil;
     self.failureNSError        = error;
 
@@ -200,8 +211,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdWillPresent:(ANVideoAdPlayer *)videoAd
 {
-ANLogMark();
-
     if ([self.playDelegate respondsToSelector:@selector(adWillPresent:)]) {
         [self.playDelegate adWillPresent:self];
     }
@@ -211,8 +220,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdDidPresent:(ANVideoAdPlayer *)videoAd
 {
-ANLogMark();
-
     if ([self.playDelegate respondsToSelector:@selector(adDidPresent:)]) {
         [self.playDelegate adDidPresent:self];
     }
@@ -222,8 +229,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdWillClose:(ANVideoAdPlayer *)videoAd
 {
-ANLogMark();
-
     if ([self.playDelegate respondsToSelector:@selector(adWillClose:)]) {
         [self.playDelegate adWillClose:self];
     }
@@ -233,8 +238,6 @@ ANLogMark();
 //--------------------- -o-
 - (void) videoAdDidClose:(ANVideoAdPlayer *)videoAd
 {
-ANLogMark();
-
     if ([self.playDelegate respondsToSelector:@selector(adDidClose:)]) {
         [self removeAd];
         [self.playDelegate adDidClose:self];
@@ -254,8 +257,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdImpressionListeners:(ANVideoAdPlayerTracker)tracker
 {
-//ANLogMark();
-
     switch (tracker) {
         case ANVideoAdPlayerTrackerFirstQuartile:
             if ([self.playDelegate respondsToSelector:@selector(adCompletedFirstQuartile:)]) {
@@ -287,8 +288,6 @@ ANLogMark();
 //--------------------- -o-
 -(void) videoAdEventListeners:(ANVideoAdPlayerEvent)eventTrackers
 {
-//ANLogMark();
-
     switch (eventTrackers) {
         case ANVideoAdPlayerEventSkip:
             self.didUserSkipAd = YES;
@@ -340,14 +339,12 @@ ANLogMark();
 
 
 //---------------------------------------------------------- -o--
-#pragma mark - ANInstreamVideoAdUniversalFetcherDelegate.
+#pragma mark - ANUniversalAdFetcherDelegate.
 
 //--------------------- -o-
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
-ANLogMark();
-    
     if ([response.adObject isKindOfClass:[ANVideoAdPlayer class]]) {
         
         self.adPlayer = (ANVideoAdPlayer *) response.adObject;
@@ -360,78 +357,21 @@ ANLogMark();
     }
 }
 
-
-
-
-//---------------------------------------------------------- -o--
-#pragma mark - ANAdViewInternalDelegate.
-
-
-- (void)adDidReceiveAd
+- (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-ANLogMarkMessage(@"UNUSED");
+    ANLogTrace(@"");
+    return  @[ @(ANAllowedMediaTypeVideo) ];
+
 }
 
-- (void)adRequestFailedWithError:(NSError *)error
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
-ANLogMarkMessage(@"UNUSED");
-}
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:kANAdSize1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
 
-- (void)adWasClicked
-{
-ANLogMarkMessage(@"UNUSED");
-}
-
-- (void)adWillPresent
-{
-ANLogMarkMessage(@"UNUSED");
-}
-
-- (void)adDidPresent
-{
-ANLogMarkMessage(@"UNUSED");
-}
-
-- (void)adWillClose
-{
-ANLogMarkMessage(@"UNUSED");
-}
-
-- (void)adDidClose
-{
-ANLogMarkMessage(@"UNUSED");
-}
-
-
-- (void)adWillLeaveApplication
-{
-ANLogMarkMessage(@"UNUSED");
-}
-
-- (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data
-{
-ANLogMarkMessage(@"UNUSED");
-}
-
-- (NSString *)adType
-{
-    return  @"instreamVideo";   //XXX
-}
-
-- (UIViewController *)displayController
-{
-ANLogMarkMessage(@"UNUSED");
-    return  nil;
-}
-
-- (void)adInteractionDidBegin
-{
-ANLogMarkMessage(@"UNUSED");
-}
-
-- (void)adInteractionDidEnd
-{
-ANLogMarkMessage(@"UNUSED");
+    return  delegateReturnDictionary;
 }
 
 
@@ -450,7 +390,6 @@ ANLogMarkMessage(@"UNUSED");
                                      horizontalAccuracy:horizontalAccuracy];
 }
 
-
 /** Set the user's current location rounded to the number of decimal places specified in "precision".
     Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
  */
@@ -462,69 +401,6 @@ ANLogMarkMessage(@"UNUSED");
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy
                                               precision:precision];
-}
-
-
-
-/**
- These methods add and remove custom keywords to and from the
- customKeywords dictionary.
- */
-- (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value
-{
-ANLogMark();
-
-    if (([key length] < 1) || !value) {
-        return;
-    }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords setValue:value forKey:key];
-#pragma clang diagnostic pop
-
-    if (self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
-        if (![valueArray containsObject:value]) {
-            [valueArray addObject:value];
-        }
-        self.customKeywordsMap[key] = [valueArray copy];
-    } else {
-        self.customKeywordsMap[key] = @[value];
-    }
-}
-
-
-- (void)removeCustomKeywordWithKey:(NSString *)key
-{
-ANLogMark();
-
-    if (([key length] < 1)) {
-        return;
-    }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords removeObjectForKey:key];
-#pragma clang diagnostic pop
-
-    [self.customKeywordsMap removeObjectForKey:key];
-}
-
-
-- (void)clearCustomKeywords
-{
-ANLogMark();
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    [self.customKeywords removeAllObjects];
-#pragma clang diagnostic pop
-
-    [self.customKeywordsMap removeAllObjects];
 }
 
 

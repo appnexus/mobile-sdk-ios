@@ -15,13 +15,15 @@
 
 #import <Foundation/Foundation.h>
 
-static const NSUInteger kANNativeImpressionTrackerManagerMaximumNumberOfRetries = 3;
-static const NSTimeInterval kANNativeImpressionTrackerManagerRetryInterval = 300;
+static NSTimeInterval const kANTrackerExpirationInterval = 3600;
 
-@interface ANNativeImpressionTrackerManager : NSObject
+@interface ANTrackerInfo : NSObject
 
-+ (instancetype)sharedManager;
-+ (void)fireImpressionTrackerURLArray:(NSArray *)arrayWithURLs;
-+ (void)fireImpressionTrackerURL:(NSURL *)URL;
+- (instancetype)initWithURL:(NSString *)URL;
+
+@property (nonatomic, readonly, strong) NSString *URL;
+@property (nonatomic, readonly, strong) NSDate *dateCreated;
+@property (nonatomic, readonly, assign, getter=isExpired) BOOL expired;
+@property (nonatomic, readwrite, assign) NSUInteger numberOfTimesFired;
 
 @end

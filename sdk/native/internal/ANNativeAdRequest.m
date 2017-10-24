@@ -15,29 +15,65 @@
 
 #import "ANNativeAdRequest.h"
 #import "ANNativeMediatedAdResponse.h"
-#import "ANNativeAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANNativeAdImageCache.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
-@interface ANNativeAdRequest () <ANNativeAdFetcherDelegate>
+
+
+
+@interface ANNativeAdRequest() <ANUniversalNativeAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
-@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
+
+//
+@property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
+
+@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
 @end
 
+
+
+
 @implementation ANNativeAdRequest
 
+#pragma mark - ANNativeAdRequestProtocol properties.
+
+// ANNativeAdRequestProtocol properties.
+//
+@synthesize  placementId     = __placementId;
+@synthesize  memberId        = __memberId;
+@synthesize  inventoryCode   = __invCode;
+@synthesize  location        = __location;
+@synthesize  reserve         = __reserve;
+@synthesize  age             = __age;
+@synthesize  gender          = __gender;
+@synthesize  customKeywords  = __customKeywords;
+
+
+
+#pragma mark - Lifecycle.
+
 - (instancetype)init {
+
     if (self = [super init]) {
-        _customKeywords = [[NSMutableDictionary alloc] init];
-        _customKeywordsMap = [[NSMutableDictionary alloc] init];
+        self.customKeywords = [[NSMutableDictionary alloc] init];
+
+        [self setupSizeParametersAs1x1];
     }
     return self;
 }
 
+- (void) setupSizeParametersAs1x1
+{
+    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:kANAdSize1x1]];
+    self.allowSmallerSizes  = NO;
+}
+
 - (void)loadAd {
+
     if (self.delegate) {
         [self createAdFetcher];
     } else {
@@ -46,22 +82,27 @@
 }
 
 - (NSMutableArray *)adFetchers {
+
     if (!_adFetchers) _adFetchers = [[NSMutableArray alloc] init];
     return _adFetchers;
 }
 
 - (void)createAdFetcher {
-    ANNativeAdFetcher *adFetcher = [[ANNativeAdFetcher alloc] initWithDelegate:self];
+
+    ANUniversalAdFetcher  *adFetcher  = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
     [self.adFetchers addObject:adFetcher];
+    [adFetcher requestAd];
 }
 
-- (void)createAdFetcherWithBaseUrlString:(NSString *)baseUrlString {
-    ANNativeAdFetcher *adFetcher = [[ANNativeAdFetcher alloc] initWithDelegate:self
-                                                                 baseUrlString:baseUrlString];
-    [self.adFetchers addObject:adFetcher];
-}
 
-- (void)adFetcher:(ANNativeAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response {
+
+
+#pragma mark - ANUniversalNativeAdFetcherDelegate.
+
+- (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+    didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+{
+
     NSError *error;
     
     if (response.isSuccessful) {
@@ -69,12 +110,19 @@
             ANNativeAdResponse *finalResponse = (ANNativeAdResponse *)response.adObject;
             
             __weak ANNativeAdRequest *weakSelf = self;
-            NSOperation *finish = [NSBlockOperation blockOperationWithBlock:^{
-                ANNativeAdRequest *strongSelf = weakSelf;
-                [strongSelf.delegate adRequest:strongSelf didReceiveResponse:finalResponse];
-                [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
-            }];
-            
+            NSOperation *finish = [NSBlockOperation blockOperationWithBlock:
+                                    ^{
+                                        __strong ANNativeAdRequest *strongSelf = weakSelf;
+
+                                        if (!strongSelf) {
+                                            ANLogError(@"FAILED to access strongSelf.");
+                                            return;
+                                        }
+
+                                        [strongSelf.delegate adRequest:strongSelf didReceiveResponse:finalResponse];
+                                        [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
+                                    } ];
+
             if (self.shouldLoadIconImage && [finalResponse respondsToSelector:@selector(setIconImage:)]) {
                 [self setImageForImageURL:finalResponse.iconImageURL
                                  onObject:finalResponse
@@ -101,6 +149,28 @@
         [self.adFetchers removeObjectIdenticalTo:fetcher];
     }
 }
+
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+{
+    return  @[ @(ANAllowedMediaTypeNative) ];
+}
+
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:kANAdSize1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
+    [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
+
+    return  delegateReturnDictionary;
+}
+
+
+
+
+// NB  Some duplication between ANNativeAd* and the other entry points is inevitable because ANNativeAd* does not inherit from ANAdView.
+//
+#pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
 
 - (void)setImageForImageURL:(NSURL *)imageURL
                    onObject:(id)object
@@ -156,31 +226,44 @@
     }
 }
 
-#pragma mark - ANNativeAdTargetingProtocol
 
-@synthesize placementId = _placementId;
-@synthesize memberId = _memberId;
-@synthesize inventoryCode = _inventoryCode;
-@synthesize gender = _gender;
-@synthesize location = _location;
-@synthesize reserve = _reserve;
-@synthesize age = _age;
-@synthesize customKeywords = _customKeywords;
 
-- (void)setLocationWithLatitude:(CGFloat)latitude
-                      longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp
-             horizontalAccuracy:(CGFloat)horizontalAccuracy {
+#pragma mark - ANNativeAdRequestProtocol methods.
+
+- (void)setPlacementId:(NSString *)placementId {
+    placementId = ANConvertToNSString(placementId);
+    if ([placementId length] < 1) {
+        ANLogError(@"Could not set placementId to non-string value");
+        return;
+    }
+    if (placementId != __placementId) {
+        ANLogDebug(@"Setting placementId to %@", placementId);
+        __placementId = placementId;
+    }
+}
+
+- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
+    invCode = ANConvertToNSString(invCode);
+    if (invCode && invCode != __invCode) {
+        ANLogDebug(@"Setting inventory code to %@", invCode);
+        __invCode = invCode;
+    }
+    if (memberId > 0 && memberId != __memberId) {
+        ANLogDebug(@"Setting member id to %d", (int) memberId);
+        __memberId = memberId;
+    }
+}
+
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
                                      horizontalAccuracy:horizontalAccuracy];
 }
 
-- (void)setLocationWithLatitude:(CGFloat)latitude
-                      longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp
-             horizontalAccuracy:(CGFloat)horizontalAccuracy
+- (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
@@ -189,57 +272,39 @@
                                               precision:precision];
 }
 
+
 - (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value {
+                          value:(NSString *)value
+{
     if (([key length] < 1) || !value) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords setValue:value forKey:key];
-#pragma clang diagnostic pop
-    if(self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+
+    if(self.customKeywords[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
             [valueArray addObject:value];
         }
-        self.customKeywordsMap[key] = [valueArray copy];
+        self.customKeywords[key] = [valueArray copy];
     } else {
-        self.customKeywordsMap[key] = @[value];
+        self.customKeywords[key] = @[value];
     }
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key {
+- (void)removeCustomKeywordWithKey:(NSString *)key
+{
     if (([key length] < 1)) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
+
     [self.customKeywords removeObjectForKey:key];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeObjectForKey:key];
 }
 
-- (void)clearCustomKeywords {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (void)clearCustomKeywords
+{
     [self.customKeywords removeAllObjects];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeAllObjects];
 }
 
-- (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberId{
-    inventoryCode = ANConvertToNSString(inventoryCode);
-    if (inventoryCode && inventoryCode != _inventoryCode) {
-        ANLogDebug(@"Setting inventory code to %@", inventoryCode);
-        _inventoryCode = inventoryCode;
-    }
-    if (memberId > 0 && memberId != _memberId) {
-        ANLogDebug(@"Setting member id to %d", (int) memberId);
-        _memberId = memberId;
-    }
-}
 
 @end
+

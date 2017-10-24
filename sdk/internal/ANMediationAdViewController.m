@@ -14,9 +14,9 @@
  */
 
 #import "ANMediationAdViewController.h"
+#import "ANAdConstants.h"
 
 #import "ANBannerAdView.h"
-#import "ANGlobal.h"
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
@@ -24,68 +24,42 @@
 #import "NSString+ANCategory.h"
 #import "ANPBContainerView.h"
 #import "ANMediationContainerView.h"
+#import "NSObject+ANCategory.h"
+
+
 
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
 
-@property (nonatomic, readwrite, strong) id<ANCustomAdapter> currentAdapter;
-@property (nonatomic, readwrite, assign) BOOL hasSucceeded;
-@property (nonatomic, readwrite, assign) BOOL hasFailed;
-@property (nonatomic, readwrite, assign) BOOL timeoutCanceled;
-@property (nonatomic, readwrite, weak) id<ANAdFetcherDelegate> adViewDelegate;
-@property (nonatomic, readwrite, strong) ANMediatedAd *mediatedAd;
-@property (nonatomic, readwrite, strong) NSDictionary *pitbullAdForDelayedCapture;
+@property (nonatomic, readwrite, strong)  ANMediatedAd                      *mediatedAd;
+
+@property (nonatomic, readwrite, strong)  id<ANCustomAdapter>                currentAdapter;
+@property (nonatomic, readwrite, assign)  BOOL                               hasSucceeded;
+@property (nonatomic, readwrite, assign)  BOOL                               hasFailed;
+@property (nonatomic, readwrite, assign)  BOOL                               timeoutCanceled;
+
+@property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
+
+@property (nonatomic, readwrite, strong)  NSDictionary                      *pitbullAdForDelayedCapture;
 
 // variables for measuring latency.
-@property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
-@property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
+@property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStart;
+@property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStop;
 
-@property (nonatomic, readwrite, assign) BOOL isRegisteredForPitbullScreenCaptureNotifications;
+@property (nonatomic, readwrite, assign)  BOOL  isRegisteredForPitbullScreenCaptureNotifications;
 
-@end
-
-@interface ANAdFetcher ()
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 @end
 
 @implementation ANMediationAdViewController
 
-#pragma mark - Invalid Networks
-
-+ (NSMutableSet *)bannerInvalidNetworks {
-    static dispatch_once_t bannerInvalidNetworksToken;
-    static NSMutableSet *bannerInvalidNetworks;
-    dispatch_once(&bannerInvalidNetworksToken, ^{
-        bannerInvalidNetworks = [[NSMutableSet alloc] init];
-    });
-    return bannerInvalidNetworks;
-}
-
-+ (NSMutableSet *)interstitialInvalidNetworks {
-    static dispatch_once_t interstitialInvalidNetworksToken;
-    static NSMutableSet *interstitialInvalidNetworks;
-    dispatch_once(&interstitialInvalidNetworksToken, ^{
-        interstitialInvalidNetworks = [[NSMutableSet alloc] init];
-    });
-    return interstitialInvalidNetworks;
-}
-
-+ (void)addBannerInvalidNetwork:(NSString *)network {
-    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] bannerInvalidNetworks];
-    [invalidNetworks addObject:network];
-}
-
-+ (void)addInterstitialInvalidNetwork:(NSString *)network {
-    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] interstitialInvalidNetworks];
-    [invalidNetworks addObject:network];
-}
-
-#pragma mark -
+#pragma mark - Lifecycle.
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
-                                    withFetcher:(ANAdFetcher *)fetcher
-                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate {
+                                    withFetcher:(ANUniversalAdFetcher *)adFetcher
+                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate
+{
+
     ANMediationAdViewController *controller = [[ANMediationAdViewController alloc] init];
-    controller.adFetcher = fetcher;
+    controller.adFetcher = adFetcher;
     controller.adViewDelegate = adViewDelegate;
     
     if ([controller requestForAd:mediatedAd]) {
@@ -96,6 +70,7 @@
 }
 
 - (BOOL)requestForAd:(ANMediatedAd *)ad {
+
     // variables to pass into the failure handler if necessary
     NSString *className = nil;
     NSString *errorInfo = nil;
@@ -113,8 +88,8 @@
         className = ad.className;
         
         // notify that a mediated class name was received
-        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
-                            @{kANAdFetcherMediatedClassKey: className});
+        ANPostNotifications(kANUniversalAdFetcherWillInstantiateMediatedClassNotification, self,
+                            @{kANUniversalAdFetcherMediatedClassKey: className});
         
         ANLogDebug(@"instantiating_class %@", className);
         
@@ -142,7 +117,7 @@
         
         // Grab the size of the ad - interstitials will ignore this value
         CGSize sizeOfCreative = CGSizeMake([ad.width floatValue], [ad.height floatValue]);
-
+        
         BOOL requestedSuccessfully = [self requestAd:sizeOfCreative
                                      serverParameter:ad.param
                                             adUnitId:ad.adId
@@ -160,8 +135,9 @@
     
     
     if (errorCode != ANDefaultCode) {
-        [self handleInstantiationFailure:className
-                               errorCode:errorCode errorInfo:errorInfo];
+        [self handleInstantiationFailure: className
+                               errorCode: errorCode
+                               errorInfo: errorInfo ];
         return NO;
     }
     
@@ -170,67 +146,69 @@
     return YES;
 }
 
+
 - (void)handleInstantiationFailure:(NSString *)className
                          errorCode:(ANAdResponseCode)errorCode
-                         errorInfo:(NSString *)errorInfo {
+                         errorInfo:(NSString *)errorInfo
+{
     if ([errorInfo length] > 0) {
         ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
-    if ([className length] > 0) {
-        if ([self.adViewDelegate isKindOfClass:[ANBannerAdView class]]) {
-            ANLogWarn(@"mediation_adding_invalid_for_media_type %@ %@", className, @"banner");
-            [[self class] addBannerInvalidNetwork:className];
-        } else if ([self.adViewDelegate isKindOfClass:[ANInterstitialAd class]]) {
-            ANLogWarn(@"mediation_adding_invalid_for_media_type %@ %@", className, @"interstitial");
-            [[self class] addInterstitialInvalidNetwork:className];
-        } else {
-            ANLogDebug(@"Instantiation failure for unknown ad view, could not add %@ to an invalid networks list", className);
-        }
-    }
-    
+
     [self didFailToReceiveAd:errorCode];
 }
+
 
 - (void)setAdapter:adapter {
     self.currentAdapter = adapter;
 }
 
+
 - (void)clearAdapter {
-    if (self.currentAdapter)
+
+    if (self.currentAdapter) {
         self.currentAdapter.delegate = nil;
+    }
     self.currentAdapter = nil;
     self.hasSucceeded = NO;
     self.hasFailed = YES;
     self.adFetcher = nil;
     self.adViewDelegate = nil;
     self.mediatedAd = nil;
+
     [self cancelTimeout];
+
     ANLogInfo(@"mediation_finish");
 }
 
 - (BOOL)requestAd:(CGSize)size
   serverParameter:(NSString *)parameterString
          adUnitId:(NSString *)idString
-           adView:(id<ANAdFetcherDelegate>)adView {
-    // create targeting parameters object from adView properties
+           adView:(id<ANUniversalAdFetcherDelegate>)adView
+{
+
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    targetingParameters.customKeywords = adView.customKeywords;
-#pragma clang diagnostic pop
-    targetingParameters.age = adView.age;
-    targetingParameters.gender = adView.gender;
-    targetingParameters.location = adView.location;
-    targetingParameters.idforadvertising = ANUDID();
     
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings: adView.customKeywords
+                                                                                                       withSeparatorString: @"," ];
+
+
+    targetingParameters.customKeywords    = customKeywordsAsStrings;
+    targetingParameters.age               = adView.age;
+    targetingParameters.gender            = adView.gender;
+    targetingParameters.location          = adView.location;
+    targetingParameters.idforadvertising  = ANUDID();
+    
+    //
     if ([adView isKindOfClass:[ANBannerAdView class]]) {
         // make sure the container and protocol match
-        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
-            && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)]) {
+        if (    [[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterBanner)]
+             && [self.currentAdapter respondsToSelector:@selector(requestBannerAdWithSize:rootViewController:serverParameter:adUnitId:targetingParameters:)])
+        {
             
             [self markLatencyStart];
             [self startTimeout];
-
+            
             ANBannerAdView *banner = (ANBannerAdView *)adView;
             id<ANCustomAdapterBanner> bannerAdapter = (id<ANCustomAdapterBanner>) self.currentAdapter;
             [bannerAdapter requestBannerAdWithSize:size
@@ -242,10 +220,12 @@
         } else {
             ANLogError(@"instance_exception %@", @"CustomAdapterBanner");
         }
+        
     } else if ([adView isKindOfClass:[ANInterstitialAd class]]) {
         // make sure the container and protocol match
-        if ([[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]
-            && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)]) {
+        if (    [[self.currentAdapter class] conformsToProtocol:@protocol(ANCustomAdapterInterstitial)]
+            && [self.currentAdapter respondsToSelector:@selector(requestInterstitialAdWithParameter:adUnitId:targetingParameters:)])
+        {
             
             [self markLatencyStart];
             [self startTimeout];
@@ -258,31 +238,45 @@
         } else {
             ANLogError(@"instance_exception %@", @"CustomAdapterInterstitial");
         }
+        
+    } else {
+        ANLogError(@"UNRECOGNIZED Entry Point classname.  (%@)", [adView class]);
     }
+    
     
     // executes iff request was unsuccessful
     return NO;
 }
 
-#pragma mark ANCustomAdapterBannerDelegate
+
+
+#pragma mark - ANCustomAdapterBannerDelegate
 
 - (void)didLoadBannerAd:(UIView *)view {
-	[self didReceiveAd:view];
+
+    [self didReceiveAd:view];
 }
 
-#pragma mark ANCustomAdapterInterstitialDelegate
+
+
+#pragma mark - ANCustomAdapterInterstitialDelegate
 
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter {
-	[self didReceiveAd:adapter];
+
+    [self didReceiveAd:adapter];
 }
 
-#pragma mark ANCustomAdapterDelegate
+
+
+#pragma mark - ANCustomAdapterDelegate
 
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode {
+
     [self didFailToReceiveAd:errorCode];
 }
 
 - (void)adWasClicked {
+
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWasClicked];
@@ -290,6 +284,7 @@
 }
 
 - (void)willPresentAd {
+
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillPresent];
@@ -297,6 +292,7 @@
 }
 
 - (void)didPresentAd {
+
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adDidPresent];
@@ -304,6 +300,7 @@
 }
 
 - (void)willCloseAd {
+
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillClose];
@@ -311,6 +308,7 @@
 }
 
 - (void)didCloseAd {
+
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adDidClose];
@@ -318,6 +316,7 @@
 }
 
 - (void)willLeaveApplication {
+
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         [self.adViewDelegate adWillLeaveApplication];
@@ -325,6 +324,7 @@
 }
 
 - (void)failedToDisplayAd {
+
     if (self.hasFailed) return;
     [self runInBlock:^(void) {
         if ([self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
@@ -334,7 +334,9 @@
     }];
 }
 
-#pragma mark helper methods
+
+
+#pragma mark - helper methods
 
 - (BOOL)checkIfHasResponded {
     // we received a callback from mediation adaptor, cancel timeout
@@ -343,17 +345,22 @@
     return (self.hasSucceeded || self.hasFailed);
 }
 
-- (void)didReceiveAd:(id)adObject {
-    if ([self checkIfHasResponded]) return;
+- (void)didReceiveAd:(id)adObject
+{
+
+    if ([self checkIfHasResponded])  { return; }
+    
     if (!adObject) {
         [self didFailToReceiveAd:ANAdResponseInternalError];
         return;
     }
+    
+    //
     self.hasSucceeded = YES;
     [self markLatencyStop];
     
     ANLogDebug(@"received an ad from the adapter");
-
+    
     if ([adObject isKindOfClass:[UIView class]]) {
         UIView *adView = (UIView *)adObject;
         ANMediationContainerView *containerView = [[ANMediationContainerView alloc] initWithMediatedView:adView];
@@ -379,7 +386,7 @@
     }
     
     [self finish:ANAdResponseSuccessful withAdObject:adObject auctionID:auctionID];
-
+    
     // if auctionInfo was present and had an auctionID,
     // screenshot the view. For banners, do it here
     if (auctionID && [adObject isKindOfClass:[UIView class]]) {
@@ -398,70 +405,42 @@
 }
 
 - (void)didFailToReceiveAd:(ANAdResponseCode)errorCode {
+
     if ([self checkIfHasResponded]) return;
     [self markLatencyStop];
     self.hasFailed = YES;
     [self finish:errorCode withAdObject:nil auctionID:nil];
 }
 
-- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject
-     auctionID:(NSString *)auctionID {
+
+- (void)finish: (ANAdResponseCode)errorCode
+  withAdObject: (id)adObject
+     auctionID: (NSString *)auctionID
+{
+
     // use queue to force return
     [self runInBlock:^(void) {
-        ANAdFetcher *fetcher = self.adFetcher;
-        NSString *resultCBString = [self createResultCBRequest:
-                                    self.mediatedAd.resultCB reason:errorCode];
-        // fireResulCB will clear the adapter if fetcher exists
+        ANUniversalAdFetcher *fetcher = self.adFetcher;
+        
+        NSString *responseURL = [self.mediatedAd.responseURL an_responseTrackerReasonCode:errorCode
+                                                                                  latency: ([self getLatency] * 1000)
+                                                                             totalLatency:([self getTotalLatency] * 1000)];
+        
+        // fireResponseURL will clear the adapter if fetcher exists
         if (!fetcher) {
             [self clearAdapter];
         }
-        [fetcher fireResultCB:resultCBString reason:errorCode adObject:adObject auctionID:auctionID];
+        [fetcher fireResponseURL:responseURL reason:errorCode adObject:adObject auctionID:auctionID];
     }];
 }
 
-- (void)runInBlock:(void (^)(void))block {
-    // nothing keeps 'block' alive, so we don't have a retain cycle
-    dispatch_async(dispatch_get_main_queue(), ^{
-        block();
-    });
-}
 
-- (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {
-    if ([baseString length] < 1) {
-        return @"";
-    }
-    
-    // append reason code
-    NSString *resultCBString = [baseString
-                                an_stringByAppendingUrlParameter:@"reason"
-                                value:[NSString stringWithFormat:@"%d",reasonCode]];
-    
-    // append idfa
-    resultCBString = [resultCBString
-                      an_stringByAppendingUrlParameter:@"idfa"
-                      value:ANUDID()];
-    
-    // append latency measurements
-    NSTimeInterval latency = [self getLatency] * 1000; // secs to ms
-    NSTimeInterval totalLatency = [self getTotalLatency] * 1000; // secs to ms
-    
-    if (latency > 0) {
-        resultCBString = [resultCBString
-                          an_stringByAppendingUrlParameter:@"latency"
-                          value:[NSString stringWithFormat:@"%.0f", latency]];
-    }
-    if (totalLatency > 0) {
-        resultCBString = [resultCBString
-                          an_stringByAppendingUrlParameter:@"total_latency"
-                          value:[NSString stringWithFormat:@"%.0f", totalLatency]];
-    }
-    
-    return resultCBString;
-}
 
-#pragma mark Timeout handler
+
+#pragma mark - Timeout handler
 
 - (void)startTimeout {
+
     if (self.timeoutCanceled) return;
     __weak ANMediationAdViewController *weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
@@ -477,16 +456,20 @@
 }
 
 - (void)cancelTimeout {
+
     self.timeoutCanceled = YES;
 }
 
-# pragma mark Latency Measurement
+
+
+# pragma mark - Latency Measurement
 
 /**
  * Should be called immediately after mediated SDK returns
  * from `requestAd` call.
  */
 - (void)markLatencyStart {
+
     self.latencyStart = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -495,6 +478,7 @@
  * calls either of `onAdLoaded` or `onAdFailed`.
  */
 - (void)markLatencyStop {
+
     self.latencyStop = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -502,6 +486,7 @@
  * The latency of the call to the mediated SDK.
  */
 - (NSTimeInterval)getLatency {
+
     if ((self.latencyStart > 0) && (self.latencyStop > 0)) {
         return (self.latencyStop - self.latencyStart);
     }
@@ -513,19 +498,22 @@
  * The running total latency of the ad call.
  */
 - (NSTimeInterval)getTotalLatency {
+
     if (self.adFetcher && (self.latencyStop > 0)) {
         return [self.adFetcher getTotalLatency:self.latencyStop];
     }
-    // return -1 if invalid.
     return -1;
 }
+
+
 
 #pragma mark - Pitbull Image Capture Transition Adjustments
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
-                       context:(void *)context {
+                       context:(void *)context
+{
     if (object == self.adViewDelegate) {
         NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
         if ([transitionInProgress boolValue] == NO) {
@@ -569,8 +557,10 @@
 }
 
 - (void)dealloc {
+
     [self clearAdapter];
     [self unregisterFromPitbullScreenCaptureNotifications];
 }
 
 @end
+

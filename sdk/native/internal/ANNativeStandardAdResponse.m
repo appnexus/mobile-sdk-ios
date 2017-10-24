@@ -20,7 +20,10 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
-#import "ANNativeImpressionTrackerManager.h"
+#import "ANTrackerManager.h"
+
+
+
 
 @interface ANNativeStandardAdResponse() <ANBrowserViewControllerDelegate>
 
@@ -36,6 +39,9 @@
 
 @end
 
+
+
+
 @implementation ANNativeStandardAdResponse
 
 @synthesize title = _title;
@@ -50,14 +56,29 @@
 @synthesize customElements = _customElements;
 @synthesize networkCode = _networkCode;
 @synthesize expired = _expired;
+@synthesize sponsoredBy = _sponsoredBy;
+@synthesize fullText = _fullText;
+
+
+
+
+#pragma mark - Lifecycle.
 
 - (instancetype)init {
     if (self = [super init]) {
         _networkCode = ANNativeAdNetworkCodeAppNexus;
         _dateCreated = [NSDate date];
+        _impressionHasBeenTracked = NO;
     }
     return self;
 }
+
+- (void)dealloc {
+    [self.viewabilityTimer invalidate];
+}
+
+
+
 
 #pragma mark - Registration
 
@@ -71,20 +92,24 @@
     return YES;
 }
 
-#pragma mark - Unregistration
-
 - (void)unregisterViewFromTracking {
     [super unregisterViewFromTracking];
     [self.viewabilityTimer invalidate];
 }
 
+
+
+
 #pragma mark - Impression Tracking
 
-- (void)setupViewabilityTracker {
+- (void)setupViewabilityTracker
+{
     __weak ANNativeStandardAdResponse *weakSelf = self;
-    NSInteger requiredAmountOfSimultaneousViewableEvents = lround(kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
+    NSInteger requiredAmountOfSimultaneousViewableEvents = lround(  kAppNexusNativeAdIABShouldBeViewableForTrackingDuration
                                                                   / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
     self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
+    ANLogDebug(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
+
     self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
                                                                  block:^ {
                                                                      ANNativeStandardAdResponse *strongSelf = weakSelf;
@@ -96,6 +121,8 @@
 - (void)checkViewability {
     self.viewabilityValue = (self.viewabilityValue << 1 | [self.viewForTracking an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
     BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
+    ANLogDebug(@"\n\tviewabilityValue=%@  \n\tself.targetViewabilityValue=%@  \n\tisIABViewable=%@", @(self.viewabilityValue), @(self.targetViewabilityValue), @(isIABViewable));
+
     if (isIABViewable) {
         [self trackImpression];
     }
@@ -112,9 +139,12 @@
 
 - (void)fireImpTrackers {
     if (self.impTrackers) {
-        [ANNativeImpressionTrackerManager fireImpressionTrackerURLArray:self.impTrackers];
+        [ANTrackerManager fireTrackerURLArray:self.impTrackers];
     }
 }
+
+
+
 
 #pragma mark - Click handling
 
@@ -132,8 +162,10 @@
     }
 }
 
-- (BOOL)openIntendedBrowserWithURL:(NSURL *)URL {
-    if (!self.opensInNativeBrowser && (ANHasHttpPrefix(URL.absoluteString) || ANiTunesIDForURL(URL))) {
+- (BOOL)openIntendedBrowserWithURL:(NSURL *)URL
+{
+    if (!self.opensInNativeBrowser && (ANHasHttpPrefix(URL.absoluteString) || ANiTunesIDForURL(URL)))
+    {
         if (!self.inAppBrowser) {
             self.inAppBrowser = [[ANBrowserViewController alloc] initWithURL:URL
                                                                     delegate:self
@@ -142,31 +174,24 @@
             self.inAppBrowser.url = URL;
         }
         return YES;
+
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         [self willLeaveApplication];
-        [[UIApplication sharedApplication] openURL:URL];
+        [[UIApplication sharedApplication] openURL:URL options:[[NSDictionary alloc] init] completionHandler:nil];
         return YES;
+
     } else {
         return NO;
     }
 }
 
-- (void)fireClickTrackers {
-    for (NSURL *URL in self.clickTrackers) {
-        ANLogDebug(@"Firing click tracker with URL %@", URL);
-        [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
-                                           queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                                   
-                               }];
-    }
+- (void)fireClickTrackers
+{
+    [ANTrackerManager fireTrackerURLArray:self.clickTrackers];
 }
 
-#pragma mark - Helper
 
-- (void)dealloc {
-    [self.viewabilityTimer invalidate];
-}
+
 
 #pragma mark - ANBrowserViewControllerDelegate
 

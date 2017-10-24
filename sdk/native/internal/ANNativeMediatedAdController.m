@@ -15,9 +15,12 @@
 
 #import "ANNativeMediatedAdController.h"
 #import "ANNativeCustomAdapter.h"
+#import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
-#import "ANAdFetcher.h"
+#import "NSObject+ANCategory.h"
+
+
 
 @interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
 
@@ -34,28 +37,17 @@
 
 @end
 
+
+
 @implementation ANNativeMediatedAdController
 
-+ (NSMutableSet *)invalidNetworks {
-    static dispatch_once_t invalidNetworksToken;
-    static NSMutableSet *invalidNetworks;
-    dispatch_once(&invalidNetworksToken, ^{
-        invalidNetworks = [[NSMutableSet alloc] init];
-    });
-    return invalidNetworks;
-}
-
-+ (void)addInvalidNetwork:(NSString *)network {
-    NSMutableSet *invalidNetworks = (NSMutableSet *)[[self class] invalidNetworks];
-    [invalidNetworks addObject:network];
-}
-
-+ (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
-                  withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
-    ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd:mediatedAd
-                                                                                         withDelegate:delegate
-                                                                                    adRequestDelegate:adRequestDelegate];
++ (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
+                   withFetcher: (ANUniversalAdFetcher *)adFetcher
+             adRequestDelegate: (id<ANUniversalNativeAdFetcherDelegate>)adRequestDelegate
+{
+    ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd: mediatedAd
+                                                                                          withFetcher: adFetcher
+                                                                                    adRequestDelegate: adRequestDelegate];
     if ([controller initializeRequest]) {
         return controller;
     } else {
@@ -64,12 +56,13 @@
 
 }
 
-- (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
-                  withDelegate:(id<ANNativeMediationAdControllerDelegate>)delegate
-             adRequestDelegate:(id<ANNativeAdTargetingProtocol>)adRequestDelegate {
+- (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
+                   withFetcher: (ANUniversalAdFetcher *)adFetcher
+             adRequestDelegate: (id<ANUniversalNativeAdFetcherDelegate>)adRequestDelegate
+{
     self = [super init];
     if (self) {
-        _delegate = delegate;
+        _adFetcher = adFetcher;
         _adRequestDelegate = adRequestDelegate;
         _mediatedAd = mediatedAd;
     }
@@ -93,8 +86,8 @@
         ANLogDebug(@"instantiating_class %@", className);
         
         // notify that a mediated class name was received
-        ANPostNotifications(kANAdFetcherWillInstantiateMediatedClassNotification, self,
-                            @{kANAdFetcherMediatedClassKey: className});
+        ANPostNotifications(kANUniversalAdFetcherWillInstantiateMediatedClassNotification, self,
+                            @{kANUniversalAdFetcherMediatedClassKey: className});
 
         // check to see if an instance of this class exists
         Class adClass = NSClassFromString(className);
@@ -152,15 +145,12 @@
 
 - (void)handleInstantiationFailure:(NSString *)className
                          errorCode:(ANAdResponseCode)errorCode
-                         errorInfo:(NSString *)errorInfo {
+                         errorInfo:(NSString *)errorInfo
+{
     if ([errorInfo length] > 0) {
         ANLogError(@"mediation_instantiation_failure %@", errorInfo);
     }
-    if ([className length] > 0) {
-        ANLogWarn(@"mediation_adding_invalid %@", className);
-        [[self class] addInvalidNetwork:className];
-    }
-    
+
     [self didFailToReceiveAd:errorCode];
 }
 
@@ -178,20 +168,23 @@
     ANLogInfo(@"mediation_finish");
 }
 
-- (ANTargetingParameters *)targetingParameters {
+- (ANTargetingParameters *)targetingParameters
+{
     ANTargetingParameters *targetingParameters = [[ANTargetingParameters alloc] init];
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    targetingParameters.customKeywords = self.adRequestDelegate.customKeywords;
-#pragma clang diagnostic pop
-    targetingParameters.age = self.adRequestDelegate.age;
-    targetingParameters.gender = self.adRequestDelegate.gender;
-    targetingParameters.location = self.adRequestDelegate.location;
-    targetingParameters.idforadvertising = ANUDID();
+    
+    NSMutableDictionary<NSString *, NSString *>  *customKeywordsAsStrings  = [ANGlobal convertCustomKeywordsAsMapToStrings: self.adRequestDelegate.customKeywords
+                                                                                                       withSeparatorString: @"," ];
+
+    targetingParameters.customKeywords    = customKeywordsAsStrings;
+    targetingParameters.age               = self.adRequestDelegate.age;
+    targetingParameters.gender            = self.adRequestDelegate.gender;
+    targetingParameters.location          = self.adRequestDelegate.location;
+    targetingParameters.idforadvertising  = ANUDID();
+
     return targetingParameters;
 }
 
-#pragma mark helper methods
+#pragma mark - helper methods
 
 - (BOOL)checkIfHasResponded {
     // we received a callback from mediation adaptor, cancel timeout
@@ -221,60 +214,53 @@
     [self finish:errorCode withAdObject:nil];
 }
 
-- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject {
+- (void)finish:(ANAdResponseCode)errorCode withAdObject:(id)adObject
+{
     // use queue to force return
     [self runInBlock:^(void) {
-        NSString *resultCBString = [self createResultCBRequest:
-                                    self.mediatedAd.resultCB reason:errorCode];
+        NSString *responseURLString = [self createResponseURLRequest: self.mediatedAd.responseURL
+                                                              reason: errorCode ];
+
         // fireResulCB will clear the adapter if fetcher exists
-        if (!self.delegate) {
+        if (!self.adFetcher) {
             [self clearAdapter];
         }
-        [self.delegate fireResultCB:resultCBString reason:errorCode adObject:adObject];
-    }];
+
+        [self.adFetcher fireResponseURL:responseURLString reason:errorCode adObject:adObject auctionID:nil];
+    } ];
 }
 
-- (void)runInBlock:(void (^)(void))block {
-    // nothing keeps 'block' alive, so we don't have a retain cycle
-    dispatch_async(dispatch_get_main_queue(), ^{
-        block();
-    });
-}
-
-- (NSString *)createResultCBRequest:(NSString *)baseString reason:(int)reasonCode {
+- (NSString *)createResponseURLRequest:(NSString *)baseString reason:(int)reasonCode {
     if ([baseString length] < 1) {
         return @"";
     }
     
     // append reason code
-    NSString *resultCBString = [baseString
-                                an_stringByAppendingUrlParameter:@"reason"
-                                value:[NSString stringWithFormat:@"%d",reasonCode]];
+    NSString *responseURLString = [baseString an_stringByAppendingUrlParameter: @"reason"
+                                                                         value: [NSString stringWithFormat:@"%d",reasonCode]];
     
     // append idfa
-    resultCBString = [resultCBString
-                      an_stringByAppendingUrlParameter:@"idfa"
-                      value:ANUDID()];
+    responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"idfa"
+                                                                      value: ANUDID()];
     
     // append latency measurements
     NSTimeInterval latency = [self getLatency] * 1000; // secs to ms
     NSTimeInterval totalLatency = [self getTotalLatency] * 1000; // secs to ms
     
     if (latency > 0) {
-        resultCBString = [resultCBString
-                          an_stringByAppendingUrlParameter:@"latency"
-                          value:[NSString stringWithFormat:@"%.0f", latency]];
+        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"latency"
+                                                                          value: [NSString stringWithFormat:@"%.0f", latency]];
     }
     if (totalLatency > 0) {
-        resultCBString = [resultCBString
-                          an_stringByAppendingUrlParameter:@"total_latency"
-                          value:[NSString stringWithFormat:@"%.0f", totalLatency]];
+        responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"total_latency"
+                                                                          value: [NSString stringWithFormat:@"%.0f", totalLatency]];
     }
-    
-    return resultCBString;
+
+ANLogDebug(@"responseURLString=%@", responseURLString);
+    return responseURLString;
 }
 
-#pragma mark Timeout handler
+#pragma mark - Timeout handler
 
 - (void)startTimeout {
     if (self.timeoutCanceled) return;
@@ -294,7 +280,7 @@
     self.timeoutCanceled = YES;
 }
 
-# pragma mark Latency Measurement
+# pragma mark - Latency Measurement
 
 /**
  * Should be called immediately after mediated SDK returns
@@ -327,14 +313,14 @@
  * The running total latency of the ad call.
  */
 - (NSTimeInterval)getTotalLatency {
-    if (self.delegate && (self.latencyStop > 0)) {
-        return [self.delegate getTotalLatency:self.latencyStop];
+    if (self.adFetcher && (self.latencyStop > 0)) {
+        return [self.adFetcher getTotalLatency:self.latencyStop];
     }
     // return -1 if invalid.
     return -1;
 }
 
-#pragma mark ANNativeCustomAdapterRequestDelegate
+#pragma mark - ANNativeCustomAdapterRequestDelegate
 
 - (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response {
     [self didReceiveAd:response];

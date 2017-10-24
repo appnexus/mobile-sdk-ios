@@ -13,43 +13,56 @@
  limitations under the License.
  */
 
+#import <Foundation/Foundation.h>
+
 #import "ANAdView.h"
 
-#import "ANAdFetcher.h"
+#import "ANUniversalAdFetcher.h"
+#import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANAdServerResponse.h"
 
 #import "UIView+ANCategory.h"
 #import "UIWebView+ANCategory.h"
 
-#define DEFAULT_PSAS NO
+#import "ANBannerAdView.h"
 
-@interface ANAdView () <ANAdFetcherDelegate, ANAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
-@property (nonatomic, readwrite, weak) id<ANAdDelegate> delegate;
-@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
-@property (nonatomic, readwrite, strong) NSMutableDictionary<NSString *, NSArray<NSString *> *> *customKeywordsMap;
+
+#define  DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT  NO
+
+
+
+
+@interface ANAdView () <ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
+
+@property (nonatomic, readwrite, weak)    id<ANAdDelegate>        delegate;
+@property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>  appEventDelegate;
+@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
 @end
 
-@implementation ANAdView
-// ANAdProtocol properties
-@synthesize placementId = __placementId;
-@synthesize memberId = __memberId;
-@synthesize inventoryCode = __invCode;
-@synthesize opensInNativeBrowser = __opensInNativeBrowser;
-@synthesize shouldServePublicServiceAnnouncements = __shouldServePublicServiceAnnouncements;
-@synthesize location = __location;
-@synthesize reserve = __reserve;
-@synthesize age = __age;
-@synthesize gender = __gender;
-@synthesize customKeywords = __customKeywords;
-@synthesize customKeywordsMap = __customKeywordsMap;
-@synthesize landingPageLoadsInBackground = __landingPageLoadsInBackground;
 
-#pragma mark Initialization
+
+@implementation ANAdView
+
+// ANAdProtocol properties.
+//
+@synthesize  placementId                            = __placementId;
+@synthesize  memberId                               = __memberId;
+@synthesize  inventoryCode                          = __invCode;
+@synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
+@synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
+@synthesize  location                               = __location;
+@synthesize  reserve                                = __reserve;
+@synthesize  age                                    = __age;
+@synthesize  gender                                 = __gender;
+@synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
+@synthesize  customKeywords                         = __customKeywords;
+
+
+
+#pragma mark - Initialization
 
 - (instancetype)init {
     self = [super init];
@@ -61,6 +74,8 @@
     return self;
 }
 
+//NB  Any entry point that requires awakeFromNib must locally set the size parameters: adSize, adSizes, allowSmallerSizes.
+//
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self initialize];
@@ -68,53 +83,64 @@
 
 - (void)initialize {
     self.clipsToBounds = YES;
-    self.adFetcher = [[ANAdFetcher alloc] init];
-    self.adFetcher.delegate = self;
-    
-    __shouldServePublicServiceAnnouncements = DEFAULT_PSAS;
-    __location = nil;
-    __reserve = 0.0f;
-    __customKeywords = [[NSMutableDictionary alloc] init];
-    __customKeywordsMap = [[NSMutableDictionary alloc] init];
-    __landingPageLoadsInBackground = YES;
+
+    self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
+
+    __shouldServePublicServiceAnnouncements  = DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT;
+    __location                               = nil;
+    __reserve                                = 0.0f;
+    __landingPageLoadsInBackground           = YES;
+    __customKeywords                         = [[NSMutableDictionary alloc] init];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    self.adFetcher.delegate = nil;
-    [self.adFetcher stopAd]; // MUST be called. stopAd invalidates the autoRefresh timer, which is retaining the adFetcher as well.
+    [self.universalAdFetcher stopAdLoad];
 }
 
-- (void)loadAd {
-    NSString *errorString;
-    BOOL placementIdValid = [self.placementId length] >= 1;
-    BOOL inventoryCodeValid = ([self memberId] >=1 ) && [self inventoryCode];
+
+- (void)loadAd
+{
+
+    BOOL  placementIdValid    = [self.placementId length] >= 1;
+    BOOL  inventoryCodeValid  = ([self memberId] >=1 ) && [self inventoryCode];
+
     if (!placementIdValid && !inventoryCodeValid) {
-        errorString = ANErrorString(@"no_placement_id");
-    }
-    
-    if (errorString) {
+        NSString      *errorString  = ANErrorString(@"no_placement_id");
+        NSDictionary  *errorInfo    = @{NSLocalizedDescriptionKey: errorString};
+        NSError       *error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+
         ANLogError(@"%@", errorString);
-        NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: errorString};
-        NSError *error = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
         [self adRequestFailedWithError:error];
         return;
     }
-    
-    [self.adFetcher stopAd];
-    [self.adFetcher requestAd];
+
+    [self.universalAdFetcher stopAdLoad];
+    [self.universalAdFetcher requestAd];
+
+    if (! self.universalAdFetcher)  {
+        ANLogError(@"FAILED TO FETCH ad via UT.");
+    }
 }
 
-- (void)loadAdFromHtml:(NSString *)html
-                 width:(int)width height:(int)height {
-    ANAdServerResponse *response = [[ANAdServerResponse alloc] initWithContent:html
-                                                                         width:width
-                                                                        height:height];
-    [self.adFetcher processAdResponse:response];
+
+- (void)loadAdFromHtml: (NSString *)html
+                 width: (int)width
+                height: (int)height
+{
+    ANUniversalTagAdServerResponse  *response  = [[ANUniversalTagAdServerResponse alloc] initWithContent: html
+                                                                                                   width: width
+                                                                                                  height: height ];
+    [self.universalAdFetcher processAdServerResponse:response];
 }
 
-#pragma mark Setter methods
+
+
+
+#pragma mark - ANAdProtocol: Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
@@ -158,48 +184,48 @@
                                               precision:precision];
 }
 
+
 - (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value {
+                          value:(NSString *)value
+{
     if (([key length] < 1) || !value) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords setValue:value forKey:key];
-#pragma clang diagnostic pop
-    if(self.customKeywordsMap[key] != nil){
-        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywordsMap[key] mutableCopy];
+
+    if(self.customKeywords[key] != nil){
+        NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
             [valueArray addObject:value];
         }
-        self.customKeywordsMap[key] = [valueArray copy];
+        self.customKeywords[key] = [valueArray copy];
     } else {
-        self.customKeywordsMap[key] = @[value];
+        self.customKeywords[key] = @[value];
     }
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key {
+- (void)removeCustomKeywordWithKey:(NSString *)key
+{
     if (([key length] < 1)) {
         return;
     }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    // ANTargetingParameters still depends on this value
-    [self.customKeywords removeObjectForKey:key];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeObjectForKey:key];
+    
+    //check if the key exist before calling remove
+    NSArray *keysArray = [self.customKeywords allKeys];
+    
+    if([keysArray containsObject:key]){
+        [self.customKeywords removeObjectForKey:key];
+    }
+    
 }
 
-- (void)clearCustomKeywords {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (void)clearCustomKeywords
+{
     [self.customKeywords removeAllObjects];
-#pragma clang diagnostic pop
-    [self.customKeywordsMap removeAllObjects];
 }
 
-#pragma mark Getter methods
+
+
+#pragma mark - ANAdProtocol: Getter methods
 
 - (NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
@@ -246,80 +272,119 @@
     return __gender;
 }
 
-- (NSMutableDictionary *)customKeywords {
-    ANLogDebug(@"customKeywords returned %@", __customKeywords);
-    return __customKeywords;
+
+
+
+#pragma mark - ANUniversalAdFetcherDelegate -- abstract methods.
+
+- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
+     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
 }
 
-#pragma mark ANAdViewInternalDelegate
+- (NSArray<NSValue *> *)adAllowedMediaTypes
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  nil;
+}
+
+- (NSDictionary *) internalDelegateUniversalTagSizeParameters
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  nil;
+}
+
+- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher
+{
+    ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  CGSizeMake(-1, -1);
+}
+
+
+
+
+#pragma mark - ANAdViewInternalDelegate
 
 - (void)adWasClicked {
+
     if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {
         [self.delegate adWasClicked:self];
     }
 }
 
 - (void)adWillPresent {
+
     if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
         [self.delegate adWillPresent:self];
     }
 }
 
 - (void)adDidPresent {
+
     if ([self.delegate respondsToSelector:@selector(adDidPresent:)]) {
         [self.delegate adDidPresent:self];
     }
 }
 
 - (void)adWillClose {
+
     if ([self.delegate respondsToSelector:@selector(adWillClose:)]) {
         [self.delegate adWillClose:self];
     }
 }
 
 - (void)adDidClose {
+
     if ([self.delegate respondsToSelector:@selector(adDidClose:)]) {
         [self.delegate adDidClose:self];
     }
 }
 
 - (void)adWillLeaveApplication {
+
     if ([self.delegate respondsToSelector:@selector(adWillLeaveApplication:)]) {
         [self.delegate adWillLeaveApplication:self];
     }
 }
 
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data {
+
     if ([self.appEventDelegate respondsToSelector:@selector(ad:didReceiveAppEvent:withData:)]) {
         [self.appEventDelegate ad:self didReceiveAppEvent:name withData:data];
     }
 }
 
-- (void)adDidReceiveAd {
+- (void)adDidReceiveAd
+{
+
     if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
         [self.delegate adDidReceiveAd:self];
     }
 }
 
 - (void)adRequestFailedWithError:(NSError *)error {
+
     if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
     }
 }
 
+
 - (void)adInteractionDidBegin {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    [self.adFetcher stopAd];
+    ANLogDebug(@"");
+    [self.universalAdFetcher stopAdLoad];
 }
 
 - (void)adInteractionDidEnd {
-    ANLogDebug(@"%@", NSStringFromSelector(_cmd));
-    [self.adFetcher setupAutoRefreshTimerIfNecessary];
-    [self.adFetcher startAutoRefreshTimer];
+    ANLogDebug(@"");
+    [self.universalAdFetcher restartAutoRefreshTimer];
+    [self.universalAdFetcher startAutoRefreshTimer];           
 }
 
-- (NSString *)adType {
-    ANLogDebug(@"%@ is abstract, should be implemented by subclass", NSStringFromSelector(_cmd));
+
+- (NSString *)adTypeForMRAID    {
+    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return @"";
 }
 
@@ -328,4 +393,6 @@
     return nil;
 }
 
+
 @end
+

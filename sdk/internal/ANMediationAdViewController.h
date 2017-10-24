@@ -13,25 +13,30 @@
  limitations under the License.
  */
 
-#import "ANAdFetcher.h"
-#import "ANMediatedAd.h"
-
 #import <Foundation/Foundation.h>
 
-@interface ANMediationAdViewController : NSObject
+#import "ANMediatedAd.h"
+#import "ANUniversalAdFetcher.h"
+#import "ANCustomAdapter.h" 
 
-+ (NSSet *)bannerInvalidNetworks;
-+ (NSSet *)interstitialInvalidNetworks;
+
+
+@interface ANMediationAdViewController : NSObject
 
 - (void)startTimeout;
 - (void)clearAdapter;
 
 + (ANMediationAdViewController *)initMediatedAd:(ANMediatedAd *)mediatedAd
-                                    withFetcher:(ANAdFetcher *)fetcher
-                                 adViewDelegate:(id<ANAdFetcherDelegate>)adViewDelegate;
+                                    withFetcher:(ANUniversalAdFetcher *)adFetcher
+                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate;
 
 @end
 
+
+
+
 @interface ANMediationAdViewController () <ANCustomAdapterBannerDelegate, ANCustomAdapterInterstitialDelegate>
-@property (nonatomic, readwrite, weak) ANAdFetcher *adFetcher;
+
+@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
+
 @end

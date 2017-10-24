@@ -14,13 +14,12 @@
  */
 
 #import "ANAdView.h"
+#import "ANAdViewInternalDelegate.h"
 
-@protocol ANAdFetcherDelegate;
-@class ANAdFetcher;
 
 @interface ANAdView (PrivateMethods) <ANAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong) ANAdFetcher *adFetcher;
+@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
 - (void)initialize;
 - (void)loadAd;

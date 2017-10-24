@@ -46,9 +46,6 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 
 @optional
 
-//- (void) videoAdPlaying;                      //TBD
-//- (void) videoAdPlayFailed:(NSError *)error;  //TBD
-
 - (void) videoAdError:(NSError *)error;
 
 

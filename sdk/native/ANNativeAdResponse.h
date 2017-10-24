@@ -14,9 +14,11 @@
  */
 
 #import <UIKit/UIKit.h>
+
 #import "ANNativeAdDelegate.h"
 #import "ANNativeAdStarRating.h"
 #import "ANAdConstants.h"
+#import "ANAdProtocol.h"
 
 /*!
  * Contains native ad assets as well as defines the process by which a native view can be registered for impression
@@ -46,7 +48,7 @@
  * }
  *
  */
-@interface ANNativeAdResponse : NSObject
+@interface ANNativeAdResponse : NSObject  <ANNativeAdResponseProtocol>
 
 #pragma mark - Native Ad Elements
 
@@ -102,6 +104,16 @@
 @property (nonatomic, readonly, strong) NSDictionary *customElements;
 
 /*!
+ * The sponspored By text
+ */
+@property (nonatomic, readonly, strong) NSString *sponsoredBy;
+
+/*!
+ * description of full Text
+ */
+@property (nonatomic, readonly, strong) NSString *fullText;
+
+/*!
  * The network which supplied this native ad response.
  * @see ANNativeAdNetworkCode in ANAdConstants.h
  */
@@ -121,23 +133,6 @@
  * @see ANNativeAdDelegate
  */
 @property (nonatomic, readwrite, weak) id<ANNativeAdDelegate> delegate;
-
-/*!
- * Determines whether the ad, when clicked, will open the device's native browser. 
- * @note This setting only affects responses with the network code AppNexus.
- */
-@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
-
-/*!
- * Whether the landing page should load in the background or in the foreground when an ad is clicked.
- * If set to YES, when an ad is clicked the user is presented with an activity indicator view, and the in-app
- * browser displays only after the landing page content has finished loading. If set to NO, the in-app
- * browser displays immediately. The default is YES.
- *
- * Has no effect if opensInNativeBrowser is set to YES. 
- * @note This setting only affects responses with the network code AppNexus.
- */
-@property (nonatomic, readwrite, assign) BOOL landingPageLoadsInBackground;
 
 /*!
  * Should be called when the native view has been populated with the ad elements and will be displayed.

@@ -15,11 +15,22 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ANAdFetcher.h"
+#import "ANSSMStandardAd.h"
+#import "ANUniversalAdFetcher.h"
 
-@interface ANAdRequestUrl : NSObject
 
-+ (NSURL *)buildRequestUrlWithAdFetcherDelegate:(id<ANAdFetcherDelegate>)adFetcherDelegate
-                                  baseUrlString:(NSString *)baseUrlString;
+@interface ANSSMMediationAdViewController : NSObject
 
+
+- (void)startTimeout;
+- (void)clearAdapter;
+
++ (ANSSMMediationAdViewController *)initMediatedAd:(ANSSMStandardAd *)ssmMediatedAd
+                                    withFetcher:(ANUniversalAdFetcher *)fetcher
+                                 adViewDelegate:(id<ANUniversalAdFetcherDelegate>)adViewDelegate;
+
+@end
+
+@interface ANSSMMediationAdViewController ()
+@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
 @end
