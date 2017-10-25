@@ -45,6 +45,8 @@
 #define kAppNexusNativeAdCheckViewabilityForTrackingFrequency 0.25
 #define kAppNexusNativeAdIABShouldBeViewableForTrackingDuration 1.0
 
+#define kANAdSize1x1 CGSizeMake(1,1)
+
 
 typedef NS_ENUM(NSUInteger, ANAllowedMediaTypes) {
     ANAllowedMediaTypeBanner        = 1,

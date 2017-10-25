@@ -38,6 +38,7 @@
 
 @property (nonatomic, readwrite, weak)    id<ANAdDelegate>        delegate;
 @property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>  appEventDelegate;
+@property (nonatomic, readwrite)          BOOL                    allowSmallerSizes;
 
 @end
 

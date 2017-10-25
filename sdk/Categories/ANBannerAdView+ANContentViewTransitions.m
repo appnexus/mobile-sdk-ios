@@ -139,8 +139,18 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
 
 - (void)constrainContentView {
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView an_constrainWithFrameSize];
-    [self alignContentView];
+    if(CGSizeEqualToSize([self adSize], CGSizeMake(1, 1))){
+        
+        [self.contentView an_constrainToSizeOfSuperview];
+        [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                 yAttribute:NSLayoutAttributeTop];
+        
+    }else {
+        
+        [self.contentView an_constrainWithFrameSize];
+        [self alignContentView];
+        
+    }
 }
 
 + (NSString *)CATransitionSubtypeFromANTransitionDirection:(ANBannerViewAdTransitionDirection)transitionDirection

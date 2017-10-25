@@ -558,7 +558,6 @@
 				AAB07269139719AC008AF393 /* Products */,
 				EB60ECC6177F8C83005A041A /* Test Host */,
 				608E47471F86E710009BB148 /* Default-568h@2x.png */,
-				4F1674551F90227700F04A63 /* Default-568h@2x.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1167,7 +1166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB8A00B1CAC546A00C6DFC1 /* Assets.xcassets in Resources */,
-				4F1674561F90227700F04A63 /* Default-568h@2x.png in Resources */,
 				608E47481F86E710009BB148 /* Default-568h@2x.png in Resources */,
 				FAB8A0091CAC546A00C6DFC1 /* Main.storyboard in Resources */,
 			);

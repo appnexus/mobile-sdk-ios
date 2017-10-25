@@ -28,7 +28,6 @@
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
 
 //
-@property (nonatomic)          CGSize                    size1x1;
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
@@ -69,9 +68,7 @@
 
 - (void) setupSizeParametersAs1x1
 {
-    self.size1x1 = CGSizeMake(1, 1);
-
-    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:self.size1x1]];
+    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:kANAdSize1x1]];
     self.allowSmallerSizes  = NO;
 }
 
@@ -161,7 +158,7 @@
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
     NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
-    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:kANAdSize1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
     [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
 

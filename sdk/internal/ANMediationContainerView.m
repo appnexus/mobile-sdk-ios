@@ -16,8 +16,6 @@
 #import "ANMediationContainerView.h"
 #import "UIView+ANCategory.h"
 
-#import "ANLogging.h"
-
 
 
 @implementation ANMediationContainerView

@@ -23,7 +23,4 @@
 
 @property (nonatomic, readwrite, strong) ANUniversalAdFetcher  *universalAdFetcher;
 
-@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
-
-
 @end

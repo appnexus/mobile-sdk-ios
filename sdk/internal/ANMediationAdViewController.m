@@ -72,6 +72,7 @@
 }
 
 - (BOOL)requestForAd:(ANMediatedAd *)ad {
+
     // variables to pass into the failure handler if necessary
     NSString *className = nil;
     NSString *errorInfo = nil;
@@ -444,6 +445,7 @@
 }
 
 - (void)cancelTimeout {
+
     self.timeoutCanceled = YES;
 }
 
@@ -456,6 +458,7 @@
  * from `requestAd` call.
  */
 - (void)markLatencyStart {
+
     self.latencyStart = [NSDate timeIntervalSinceReferenceDate];
 }
 
@@ -464,6 +467,7 @@
  * calls either of `onAdLoaded` or `onAdFailed`.
  */
 - (void)markLatencyStop {
+
     self.latencyStop = [NSDate timeIntervalSinceReferenceDate];
 }
 

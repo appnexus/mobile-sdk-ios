@@ -19,6 +19,8 @@
 
 @interface ANAdView (PrivateMethods) <ANAdViewInternalDelegate>
 
+@property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
+
 - (void)initialize;
 - (void)loadAd;
 - (void)loadAdFromHtml:(NSString *)html

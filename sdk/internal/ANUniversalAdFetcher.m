@@ -117,6 +117,7 @@
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     
+
     [self markLatencyStart];
     
     if (!self.isLoading)
@@ -133,8 +134,10 @@
             
             self.loading = YES;
             
+            NSString *requestContent = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
+            
             ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
-                                @{kANUniversalAdFetcherAdRequestURLKey: urlString});
+                                @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
         }
     }
 }
@@ -163,6 +166,7 @@
     }
     return 0.0f;
 }
+
 
 
 #pragma mark - Ad Response

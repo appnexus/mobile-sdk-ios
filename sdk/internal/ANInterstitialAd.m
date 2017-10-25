@@ -33,7 +33,6 @@ static NSTimeInterval const kANInterstitialAdTimeout = 270.0;
 // List of allowed ad sizes for interstitials.  These must fit in the
 // maximum size of the view, which in this case, will be the size of
 // the window.
-#define kANInterstitialAdSize1x1 CGSizeMake(1,1)
 #define kANInterstitialAdSize300x250 CGSizeMake(300,250)
 #define kANInterstitialAdSize320x480 CGSizeMake(320,480)
 #define kANInterstitialAdSize900x500 CGSizeMake(900,500)
@@ -399,7 +398,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     self.containerSize  = self.frame.size;
 
     NSMutableSet<NSValue *>  *allowedAdSizesForSDK  = [[[NSSet alloc] initWithSet:self.allowedAdSizes copyItems:YES] mutableCopy];
-    [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:kANInterstitialAdSize1x1]];
+    [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:kANAdSize1x1]];
     [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:self.containerSize]];
 
     self.allowSmallerSizes = NO;

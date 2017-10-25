@@ -17,6 +17,8 @@
 #import "ANVideoAdPlayer.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
+#import "ANAdView+PrivateMethods.h"
+
 
 
 
@@ -46,7 +48,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     @property (nonatomic)  BOOL  didVideoTagFail;
 
     //
-    @property (nonatomic)          CGSize                    size1x1;
     @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
 @end
@@ -92,9 +93,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 - (void) setupSizeParametersAs1x1
 {
-    self.size1x1 = CGSizeMake(1, 1);
-
-    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:self.size1x1]];
+    self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:kANAdSize1x1]];
     self.allowSmallerSizes  = NO;
 }
 
@@ -368,7 +367,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
     NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
-    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.size1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
+    [delegateReturnDictionary setObject:[NSValue valueWithCGSize:kANAdSize1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
     [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
 
