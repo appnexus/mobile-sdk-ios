@@ -1268,7 +1268,7 @@
 - (void)testSupportCal {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     BOOL isSupported = [self supports:@"calendar"];
-    XCTAssertTrue(isSupported, @"Expected calendar support");
+    XCTAssertFalse(isSupported, @"Calendar support NOT expected.");
     [self clearTest];
 }
 
@@ -1282,7 +1282,7 @@
 - (void)testSupportStorePicture {
     [self loadBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
     BOOL isSupported = [self supports:@"storePicture"];
-    XCTAssertTrue(isSupported, @"Expected store picture support");
+    XCTAssertFalse(isSupported, @"Store support NOT expected.");
     [self clearTest];
 }
 

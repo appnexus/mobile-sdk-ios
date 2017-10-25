@@ -19,7 +19,7 @@
 		3ADD25CC71BF27D675768787 /* UIView-Debugging.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ADD26484C6C438B71DC15C5 /* UIView-Debugging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4A48107B19708CAB0003A32E /* ExistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A48107A19708CAB0003A32E /* ExistTests.m */; };
 		4D2FD4EE1AF5936700E61192 /* UIView-Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD2160096BE41C780FBD95 /* UIView-Debugging.m */; };
-		4F1674561F90227700F04A63 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F1674551F90227700F04A63 /* Default-568h@2x.png */; };
+		4FE59AC01FA106A70069B903 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB60ECD6177F8C84005A041A /* Default-568h@2x.png */; };
 		5A62B0AC1BB2043B00A3F480 /* AccessibilityIdentifierPullToRefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B0AB1BB2043B00A3F480 /* AccessibilityIdentifierPullToRefreshTests.m */; };
 		5A62B0AE1BB205CA00A3F480 /* PullToRefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B0AD1BB205CA00A3F480 /* PullToRefreshTests.m */; };
 		5C877DD01B057E13006A3AC6 /* KIFUITestActor-IdentifierTests.h in Headers */ = {isa = PBXBuildFile; fileRef = EB1A44D31A0C3268004A3F61 /* KIFUITestActor-IdentifierTests.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -285,7 +285,6 @@
 		3ADD2160096BE41C780FBD95 /* UIView-Debugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView-Debugging.m"; sourceTree = "<group>"; };
 		3ADD26484C6C438B71DC15C5 /* UIView-Debugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView-Debugging.h"; sourceTree = "<group>"; };
 		4A48107A19708CAB0003A32E /* ExistTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExistTests.m; sourceTree = "<group>"; };
-		4F1674551F90227700F04A63 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5A62B0AB1BB2043B00A3F480 /* AccessibilityIdentifierPullToRefreshTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessibilityIdentifierPullToRefreshTests.m; sourceTree = "<group>"; };
 		5A62B0AD1BB205CA00A3F480 /* PullToRefreshTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTests.m; sourceTree = "<group>"; };
 		5F6A1B371C191F9600F20F22 /* UIApplicationKIFAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIApplicationKIFAdditionsTests.m; sourceTree = "<group>"; };
@@ -557,7 +556,6 @@
 				FAB8A0171CAC546A00C6DFC1 /* KIFFrameworkConsumerTests */,
 				AAB07269139719AC008AF393 /* Products */,
 				EB60ECC6177F8C83005A041A /* Test Host */,
-				608E47471F86E710009BB148 /* Default-568h@2x.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1166,7 +1164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB8A00B1CAC546A00C6DFC1 /* Assets.xcassets in Resources */,
-				608E47481F86E710009BB148 /* Default-568h@2x.png in Resources */,
+				4FE59AC01FA106A70069B903 /* Default-568h@2x.png in Resources */,
 				FAB8A0091CAC546A00C6DFC1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
