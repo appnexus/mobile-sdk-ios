@@ -58,7 +58,9 @@
     }
     
     NSMutableDictionary *customKeywords = [[customEventRequest additionalParameters] mutableCopy];
-    [self.interstitialAd setCustomKeywords:customKeywords];
+    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.interstitialAd addCustomKeywordWithKey:key value:obj];
+    } ];
     
     [self.interstitialAd loadAd];
 }
