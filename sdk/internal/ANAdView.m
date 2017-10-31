@@ -18,7 +18,6 @@
 #import "ANAdView.h"
 #import "ANAdView+PrivateMethods.h"
 
-#import "ANUniversalAdFetcher.h"
 #import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
