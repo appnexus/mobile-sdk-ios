@@ -67,8 +67,10 @@
     }
     
     NSMutableDictionary *customKeywords = [[customEventRequest additionalParameters] mutableCopy];
-    [self.bannerAdView setCustomKeywords:customKeywords];
-    
+    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.bannerAdView addCustomKeywordWithKey:key value:obj];
+    } ];
+
     [self.bannerAdView loadAd];
 }
 
