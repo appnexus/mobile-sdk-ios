@@ -16,8 +16,8 @@
 #import <Foundation/Foundation.h>
 
 #import "ANAdView.h"
+#import "ANAdView+PrivateMethods.h"
 
-#import "ANUniversalAdFetcher.h"
 #import "ANAdViewInternalDelegate.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -38,6 +38,9 @@
 
 @property (nonatomic, readwrite, weak)    id<ANAdDelegate>        delegate;
 @property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>  appEventDelegate;
+
+@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *universalAdFetcher;
+
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
 @end
