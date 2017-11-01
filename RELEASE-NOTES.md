@@ -1,4 +1,13 @@
 
+## 4.0.1
+
+### Bug Fixes
+
++ Resolve CocoaPods build issues. 
+
+
+
+
 ## 4.0
 
 ### New Features
