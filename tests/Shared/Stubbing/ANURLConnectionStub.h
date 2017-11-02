@@ -20,7 +20,7 @@
 
 @interface ANURLConnectionStub : NSObject <NSCopying>
 
-@property (nonatomic, readwrite, strong) NSString *requestURLRegexPatternString;
+@property (nonatomic, readwrite, strong) NSString *requestURL;
 @property (nonatomic, readwrite, assign) NSInteger responseCode;
 @property (nonatomic, readwrite, strong) id responseBody; //can be nsstring or nsdata
 
@@ -36,11 +36,11 @@
 
 + (ANURLConnectionStub *)stubForResource:(NSString *)resource
                                   ofType:(NSString *)type
-        withRequestURLRegexPatternString:(NSString *)pattern;
+        withRequestURL:(NSString *)pattern;
 
 + (ANURLConnectionStub *)stubForResource:(NSString *)resource
                                   ofType:(NSString *)type
-        withRequestURLRegexPatternString:(NSString *)pattern
+        withRequestURL:(NSString *)pattern
                                 inBundle:(NSBundle *)bundle;
 
 + (ANURLConnectionStub *)stubForMraidFile;

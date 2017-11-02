@@ -373,7 +373,7 @@
 - (void)stubMillennialMediaBanner {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterBannerMillennialMedia";
-    mediatedAd.adId = @"139629";
+    mediatedAd.adId = @"240186";
     mediatedAd.width = @"320";
     mediatedAd.height = @"50";
     [self stubMediatedAd:mediatedAd];
@@ -382,7 +382,7 @@
 - (void)stubMillennialMediaInterstitial {
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialMillennialMedia";
-    mediatedAd.adId = @"139629";
+    mediatedAd.adId = @"240187";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -924,20 +924,12 @@ So close the app & test the next ad type
                                             options:NSLiteralSearch
                                               range:NSMakeRange(0, [mutableBaseResponse length])];
     ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
-    stub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
+    stub.requestURL = @"http://mediation.adnxs.com/ut/v2";
     stub.responseCode = 200;
     stub.responseBody = [mutableBaseResponse copy];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:stub];
-    [self stubResultCBResponse];
-}
-
-- (void)stubResultCBResponse {
-    ANURLConnectionStub *resultCBStub = [[ANURLConnectionStub alloc] init];
-    resultCBStub.requestURLRegexPatternString = @"http://nym1.mobile.adnxs.com/mediation.*";
-    resultCBStub.responseCode = 200;
-    resultCBStub.responseBody = @"";
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:resultCBStub];
+    
 }
 
 - (ANBannerAdView *)bannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
@@ -954,7 +946,11 @@ So close the app & test the next ad type
                                                                   adSize:CGSizeMake(adSize.width, adSize.height)];
     bannerAdView.rootViewController = self;
     bannerAdView.backgroundColor = [UIColor blackColor];
+    
     [self.view addSubview:bannerAdView];
+    bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
+    [bannerAdView an_constrainWithSize:CGSizeMake(320, 50)];
+    [bannerAdView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX yAttribute:NSLayoutAttributeCenterY];
     [bannerAdView loadAd];
     bannerAdView.delegate = delegate;
     bannerAdView.autoRefreshInterval = 0;

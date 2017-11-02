@@ -73,7 +73,7 @@
     [self.stubs enumerateObjectsUsingBlock: ^(ANURLConnectionStub *stub, NSUInteger idx, BOOL *stop)
                                             {
                                                 NSError *error;
-                                                NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: stub.requestURLRegexPatternString
+                                                NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern: stub.requestURL
                                                                                                                        options: NSRegularExpressionDotMatchesLineSeparators
                                                                                                                          error: &error];
                                                 if ([regex numberOfMatchesInString: URLString
