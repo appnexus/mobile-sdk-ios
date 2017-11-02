@@ -1,3 +1,33 @@
+
+## 4.0.1
+
+### Bug Fixes
+
++ Resolve CocoaPods build issues. 
+
+
+
+
+## 4.0
+
+### New Features
+
++ MS-2964 -- Replace usage of /mob with /ut in SDK
+
+### Bug Fixes 
+
++ MS-1891 -- Address Facebook SDK star rating deprecation
++ MS-2862 -- Support newly added standard fields on the native creative object
++ MS-2915 -- Send SDK version on /ut requests
++ MS-2931 -- Product Request: Allow device permissions on iOS to be disabled
++ MS-3077 -- Add better support for rotation on iOS
++ MS-3078 -- Add support for loading 1x1 creatives in a banner
+
++ GitHub Issue #13 -- Stop using EKEventStore 
+
+
+
+
 ## 3.6
 
 ###Mediated SDKs
