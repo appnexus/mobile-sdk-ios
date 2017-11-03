@@ -240,6 +240,19 @@ static NSString *const kTestUUID = @"0000-000-000-00";
     [self waitForExpectationsWithTimeout:20.0 handler:nil];
 }
 
-
+- (void)testRequestContentType {
+    
+    NSString *urlString = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    
+    TestANUniversalFetcher *adFetcher = [[TestANUniversalFetcher alloc] initWithPlacementId:@"1281482"];
+    
+    NSURLRequest *request = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    
+    NSString *contentType =  [request valueForHTTPHeaderField:@"content-type"];
+    XCTAssertNotNil(contentType);
+    XCTAssertEqualObjects(@"application/json", contentType);
+    
+    
+}
 
 @end
