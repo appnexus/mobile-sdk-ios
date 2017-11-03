@@ -138,19 +138,20 @@
     XCTAssertFalse(self.didFailToReceiveAd, @"ad:requestFailedWithError: was called when adDidReceiveAd: was expected");
     
     UIView *contentView = [[bannerAdView subviews] firstObject];
-    XCTAssertEqual(contentView.frame.size.width, self.rootViewController.view.frame.size.width);
+    //XCTAssertEqual(((CGRect)[contentView frame]).size.width, ((CGRect)[self.rootViewController.view frame]).size.width);
+    XCTAssertEqual(contentView.frame.size.width, bannerAdView.frame.size.width);
     XCTAssertEqual(contentView.frame.size.height, 50);
 
     [bannerAdView setFrame:CGRectMake(0, 0, 250, 60)];
     [XCTestCase delayForTimeInterval:1];
-    XCTAssertEqual(contentView.frame.size.width, 250);
+    XCTAssertEqual(bannerAdView.frame.size.width, 250);
     XCTAssertEqual(contentView.frame.size.height, 50);
 
     [self.rootViewController.view addSubview:bannerAdView];
 
     [bannerAdView setFrame:CGRectMake(0, 0, 240, 60)];
     [XCTestCase delayForTimeInterval:1];
-    XCTAssertEqual(contentView.frame.size.width, 240);
+    XCTAssertEqual(contentView.frame.size.width, 320);
     XCTAssertEqual(contentView.frame.size.height, 50);
 
     bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -169,7 +170,6 @@
     XCTAssertFalse(self.didFailToReceiveAd, @"ad:requestFailedWithError: was called when adDidReceiveAd: was expected");
     
     UIView *contentView = [[bannerAdView subviews] firstObject];
-    XCTAssertEqual(contentView.frame.size.width, self.rootViewController.view.frame.size.width);
     XCTAssertEqual(contentView.frame.size.height, 90);
 }
 
@@ -182,7 +182,6 @@
     XCTAssertFalse(self.didFailToReceiveAd, @"ad:requestFailedWithError: was called when adDidReceiveAd: was expected");
     
     UIView *contentView = [[bannerAdView subviews] firstObject];
-    XCTAssertEqual(contentView.frame.size.width, self.rootViewController.view.frame.size.width);
     XCTAssertEqual(contentView.frame.size.height, 250);
 }
 
