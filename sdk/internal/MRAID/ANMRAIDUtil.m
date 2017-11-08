@@ -15,7 +15,6 @@
 
 #import "ANMRAIDUtil.h"
 #import <MessageUI/MFMessageComposeViewController.h>
-#import <MediaPlayer/MediaPlayer.h>
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
@@ -103,7 +102,7 @@
 
 }
 
-+ (void)playVideoWithUri:(NSString *)uri
+/*+ (void)playVideoWithUri:(NSString *)uri
   fromRootViewController:(UIViewController *)rootViewController
     withCompletionTarget:(id)target
       completionSelector:(SEL)selector {
@@ -123,6 +122,25 @@
                                              selector:selector
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:moviePlayerViewController.moviePlayer];
+}*/
+
++ (void)playVideoWithUri:(NSString *)uri
+  fromRootViewController:(UIViewController *)rootViewController
+    withCompletionTarget:(id)target
+      completionSelector:(SEL)selector {
+    NSURL *url = [NSURL URLWithString:uri];
+    
+    AVPlayerViewController *moviePlayerViewController = [[AVPlayerViewController alloc] init];
+    moviePlayerViewController.player = [AVPlayer playerWithURL:url];
+    moviePlayerViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    moviePlayerViewController.view.frame = rootViewController.view.frame;
+    [rootViewController presentViewController:moviePlayerViewController animated:YES completion:nil];
+    [moviePlayerViewController.player play];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:target
+                                             selector:selector
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:moviePlayerViewController.player];
 }
 
 + (ANMRAIDOrientation)orientationFromForceOrientationString:(NSString *)orientationString {

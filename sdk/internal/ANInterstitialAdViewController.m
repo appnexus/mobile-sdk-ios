@@ -82,7 +82,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.originalHiddenState = [UIApplication sharedApplication].statusBarHidden;
-    [self setStatusBarHidden:YES];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -97,7 +97,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self setStatusBarHidden:self.originalHiddenState];
     [self.progressTimer invalidate];
 }
 
@@ -179,8 +178,8 @@
     return YES;
 }
 
-- (void)setStatusBarHidden:(BOOL)hidden {
-    [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationNone];
+-(UIStatusBarAnimation) preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationNone;
 }
 
 - (BOOL)shouldAutorotate {

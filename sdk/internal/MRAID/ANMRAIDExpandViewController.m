@@ -170,8 +170,7 @@
     [super viewWillAppear:animated];
     if (![self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
         self.originalStatusBarHiddenState = [UIApplication sharedApplication].statusBarHidden;
-        [[UIApplication sharedApplication] setStatusBarHidden:YES
-                                                withAnimation:UIStatusBarAnimationNone];
+        
     }
 }
 
@@ -185,10 +184,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (![self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-        [[UIApplication sharedApplication] setStatusBarHidden:self.originalStatusBarHiddenState
-                                                withAnimation:UIStatusBarAnimationNone];
-    }
+   
 }
 
 - (BOOL)prefersStatusBarHidden {
