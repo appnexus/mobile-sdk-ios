@@ -335,7 +335,7 @@
         exec = [NSString stringWithFormat:exec_template, self.vastURL];
         [_webView evaluateJavaScript:exec completionHandler:nil];
     }else if([self.jsonContent length] > 0){
-        NSString * mediationJsonString = [NSString stringWithFormat:@"processMediationAd('%@')",[self.jsonContent stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSString * mediationJsonString = [NSString stringWithFormat:@"processMediationAd('%@')",[self.jsonContent stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
         [self.webView evaluateJavaScript:mediationJsonString completionHandler:nil];
     }
     ANLogInfo(@"web page loading completed");
