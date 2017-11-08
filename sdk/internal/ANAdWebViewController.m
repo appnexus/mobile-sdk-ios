@@ -229,18 +229,22 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     self.legacyWebView = webView;
     self.contentView = webView;
     __weak UIWebView *weakWebView = webView;
-    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               UIWebView *strongWebView = weakWebView;
-                               if (strongWebView) {
-                                   NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                   if (html.length) {
-                                       NSString *htmlWithScripts = [[self class] prependScriptsToHTML:html];
-                                       [strongWebView loadHTMLString:htmlWithScripts baseURL:baseURL];
-                                   }
-                               }
-                           }];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:ANBasicRequestWithURL(URL) completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        UIWebView *strongWebView = weakWebView;
+        if (strongWebView) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                if (html.length) {
+                    NSString *htmlWithScripts = [[self class] prependScriptsToHTML:html];
+                    [strongWebView loadHTMLString:htmlWithScripts baseURL:baseURL];
+                }
+            });
+            
+            
+        }
+    }] resume];
 }
 
 - (void)loadLegacyWebViewWithSize:(CGSize)size
@@ -299,17 +303,21 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     self.modernWebView = webView;
     self.contentView = webView;
     __weak WKWebView *weakWebView = webView;
-    [NSURLConnection sendAsynchronousRequest:ANBasicRequestWithURL(URL)
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               WKWebView *strongWebView = weakWebView;
-                               if (strongWebView) {
-                                   NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                   if (html.length) {
-                                       [strongWebView loadHTMLString:html baseURL:baseURL];
-                                   }
-                               }
-                           }];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:ANBasicRequestWithURL(URL) completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        WKWebView *strongWebView = weakWebView;
+        if (strongWebView) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                if (html.length) {
+                    [strongWebView loadHTMLString:html baseURL:baseURL];
+                }
+            });
+            
+            
+        }
+    }] resume];
 }
 
 - (void)loadModernWebViewWithSize:(CGSize)size
@@ -341,13 +349,13 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     // video always loads in full-screen.
     // See: https://bugs.webkit.org/show_bug.cgi?id=147512
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        configuration.mediaPlaybackRequiresUserAction = NO;
+        configuration.requiresUserActionForMediaPlayback = NO;
     } else {
         if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)] &&
             [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
-            configuration.mediaPlaybackRequiresUserAction = NO;
+            configuration.requiresUserActionForMediaPlayback = NO;
         } else {
-            configuration.mediaPlaybackRequiresUserAction = YES;
+            configuration.requiresUserActionForMediaPlayback = YES;
         }
     }
     
@@ -405,7 +413,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         return NO;
     }
 
-    ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByRemovingPercentEncoding]);
 
     if ([scheme isEqualToString:@"appnexuspb"]) {
         [self.pitbullDelegate handlePitbullURL:URL];
@@ -477,7 +485,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         return;
     }
     
-    ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByRemovingPercentEncoding]);
     
     if ([URLScheme isEqualToString:@"appnexuspb"]) {
         [self.pitbullDelegate handlePitbullURL:URL];
@@ -874,7 +882,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 #pragma mark - ANWebConsole
 
 - (void)printConsoleLogWithURL:(NSURL *)URL {
-    NSString *decodedString = [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *decodedString = [[URL absoluteString] stringByRemovingPercentEncoding];
     ANLogDebug(@"%@", decodedString);
 }
 
