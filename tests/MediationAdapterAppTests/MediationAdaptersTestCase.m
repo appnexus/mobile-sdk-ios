@@ -144,8 +144,8 @@
 
     [bannerAdView setFrame:CGRectMake(0, 0, 250, 60)];
     [XCTestCase delayForTimeInterval:1];
-    XCTAssertEqual(contentView.frame.size.width, 320);
-    XCTAssertEqual(contentView.frame.size.height, 50);
+    XCTAssertEqual(bannerAdView.frame.size.width, 250);
+    XCTAssertEqual(bannerAdView.frame.size.height, 60);
 
     [self.rootViewController.view addSubview:bannerAdView];
 
