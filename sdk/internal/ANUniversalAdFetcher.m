@@ -79,7 +79,6 @@
 
 - (void)setup
 {
-    //_data = [NSMutableData data];
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 }
 

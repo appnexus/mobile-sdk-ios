@@ -425,7 +425,7 @@ ANLogTrace(@"UNUSED.");
 #pragma mark - ANWebConsole
 
 - (void)printConsoleLogWithURL:(NSURL *)URL {
-    NSString *decodedString = [[URL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *decodedString = [[URL absoluteString] stringByRemovingPercentEncoding];
     ANLogDebug(@"%@", decodedString);
 }
 
