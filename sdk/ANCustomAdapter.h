@@ -18,14 +18,9 @@
 
 
 
-@protocol ANCustomAdapterBannerDelegate;
-@protocol ANCustomAdapterInterstitialDelegate;
-
-
 
 
 @protocol ANCustomAdapterDelegate <NSObject>
-
 - (void)didFailToLoadAd:(ANAdResponseCode)errorCode;
 - (void)adWasClicked;
 - (void)willPresentAd;
@@ -33,22 +28,21 @@
 - (void)willCloseAd;
 - (void)didCloseAd;
 - (void)willLeaveApplication;
-
 @end
+
 
 
 
 @protocol ANCustomAdapter <NSObject>
-
 @property (nonatomic, readwrite, weak) id<ANCustomAdapterDelegate> delegate;
-
 @end
 
 
 
-@protocol ANCustomAdapterBanner <ANCustomAdapter>
 
-@property (nonatomic, readwrite, weak) id<ANCustomAdapterBannerDelegate, ANCustomAdapterDelegate> delegate;
+@protocol ANCustomAdapterBannerDelegate;
+
+@protocol ANCustomAdapterBanner <ANCustomAdapter>
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
@@ -56,38 +50,38 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters;
 
+@property (nonatomic, readwrite, weak) id<ANCustomAdapterBannerDelegate, ANCustomAdapterDelegate> delegate;
+
 @end
 
 
 
-@protocol ANCustomAdapterInterstitial <ANCustomAdapter>
 
-@property (nonatomic, readwrite, weak) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
+@protocol ANCustomAdapterInterstitialDelegate;
+
+@protocol ANCustomAdapterInterstitial <ANCustomAdapter>
 
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters;
-
 - (void)presentFromViewController:(UIViewController *)viewController;
-
 - (BOOL)isReady;
 
+@property (nonatomic, readwrite, weak) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
+
 @end
+
 
 
 
 @protocol ANCustomAdapterBannerDelegate <ANCustomAdapterDelegate>
-
 - (void)didLoadBannerAd:(UIView *)view;
-
 @end
 
 
 
+
 @protocol ANCustomAdapterInterstitialDelegate <ANCustomAdapterDelegate>
-
 - (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter;
-
 - (void)failedToDisplayAd;
-
 @end
