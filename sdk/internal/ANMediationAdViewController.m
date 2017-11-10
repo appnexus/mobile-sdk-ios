@@ -13,8 +13,6 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-
 #import "ANMediationAdViewController.h"
 #import "ANAdConstants.h"
 

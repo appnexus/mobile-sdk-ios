@@ -19,7 +19,6 @@
 @synthesize delegate;
 
 #pragma mark ANCustomAdapterBanner
-                        //TBDFIX -- toss?  handled by OriginalUnitTestAppTests?
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
