@@ -102,28 +102,6 @@
 
 }
 
-/*+ (void)playVideoWithUri:(NSString *)uri
-  fromRootViewController:(UIViewController *)rootViewController
-    withCompletionTarget:(id)target
-      completionSelector:(SEL)selector {
-    NSURL *url = [NSURL URLWithString:uri];
-    
-    MPMoviePlayerViewController *moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    moviePlayerViewController.moviePlayer.fullscreen = YES;
-    moviePlayerViewController.moviePlayer.shouldAutoplay = YES;
-    moviePlayerViewController.moviePlayer.movieSourceType = MPMovieSourceTypeUnknown;
-    moviePlayerViewController.moviePlayer.view.frame = rootViewController.view.frame;
-    moviePlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-    [moviePlayerViewController.moviePlayer prepareToPlay];
-    [rootViewController presentMoviePlayerViewControllerAnimated:moviePlayerViewController];
-    [moviePlayerViewController.moviePlayer play];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:target
-                                             selector:selector
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:moviePlayerViewController.moviePlayer];
-}*/
-
 + (void)playVideoWithUri:(NSString *)uri
   fromRootViewController:(UIViewController *)rootViewController
     withCompletionTarget:(id)target
