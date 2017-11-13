@@ -33,9 +33,9 @@
             
             if(range.location != NSNotFound)
             {
-                [parameters setValue:[[parameter substringFromIndex:range.location+range.length] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding] forKey:[[parameter substringToIndex:range.location] stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+                [parameters setValue:[[parameter substringFromIndex:range.location+range.length] stringByRemovingPercentEncoding] forKey:[[parameter substringToIndex:range.location] stringByRemovingPercentEncoding]];
             }
-            else [parameters setValue:@"" forKey:[parameter stringByReplacingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
+            else [parameters setValue:@"" forKey:[parameter stringByRemovingPercentEncoding]];
         }
     }
     

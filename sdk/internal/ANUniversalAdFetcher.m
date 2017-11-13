@@ -37,10 +37,8 @@
 
 
 
-@interface ANUniversalAdFetcher () <NSURLConnectionDataDelegate, ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate>
+@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate>
 
-@property (nonatomic, readwrite, strong)  NSURLConnection  *connection;
-@property (nonatomic, readwrite, strong)  NSMutableData    *data;
 
 @property (nonatomic, readwrite, strong)  NSMutableArray   *ads;
 @property (nonatomic, readwrite, strong)  NSString         *noAdUrl;
@@ -81,14 +79,13 @@
 
 - (void)setup
 {
-    _data = [NSMutableData data];
     [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 }
 
 - (void)dealloc {
     [self stopAdLoad];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
 }
 
 - (void)clearMediationController {
@@ -99,10 +96,10 @@
      */
     self.mediationController.adFetcher = nil;
     self.mediationController = nil;
-
+    
     self.nativeMediationController.adFetcher = nil;
     self.nativeMediationController = nil;
-
+    
     self.ssmMediationController.adFetcher = nil;
     self.ssmMediationController = nil;
 }
@@ -117,40 +114,59 @@
     NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
     
-
+    
     [self markLatencyStart];
     
     if (!self.isLoading)
     {
-        self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession]
+                                      dataTaskWithRequest:request
+                                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          NSInteger statusCode = -1;
+                                          [self restartAutoRefreshTimer];
+                                          if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                              statusCode = [httpResponse statusCode];
+                                              
+                                          }
+                                          
+                                          if (statusCode >= 400 || statusCode == -1)  {
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  NSError *sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
+                                                  ANLogError(@"%@", sessionError);
+                                                  self.loading = NO;
+                                                  ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
+                                                  [self processFinalResponse:response];
+                                              });
+                                              
+                                          }else{
+                                              
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  NSString *responseString = [[NSString alloc] initWithData:data
+                                                                                                   encoding:NSUTF8StringEncoding];
+                                                  ANLogDebug(@"Response JSON %@", responseString);
+                                                  ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, self,
+                                                                      @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
+                                                  
+                                                  ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:data];
+                                                  [self processAdServerResponse:adResponse];
+                                                  
+                                              });
+                                              
+                                          }
+                                          
+                                      }];
         
-        self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-        
-        if (!self.connection) {
-            ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:ANError(@"bad_url_connection", ANAdResponseBadURLConnection)];
-            [self processFinalResponse:response];
-        } else {
-            ANLogDebug(@"Starting request: %@", request);
-            
-            self.loading = YES;
-            
-            NSString *requestContent = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
-            
-            ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
-                                @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
-        }
+        [task resume];
     }
 }
 
 - (void)stopAdLoad
 {
-   
+    
     [self stopAutoRefreshTimer];
     
-    [self.connection cancel];
-    self.connection = nil;
     self.loading = NO;
-    self.data = nil;
     self.ads = nil;
     [self clearMediationController];
 }
@@ -185,7 +201,7 @@
         self.noAdUrl = response.noAdUrlString;
     }
     self.ads = response.ads;
-
+    
     [self clearMediationController];
     [self continueWaterfall];
 }
@@ -234,7 +250,7 @@
     }
     
     [self startAutoRefreshTimer];
-
+    
 }
 
 - (void)restartAutoRefreshTimer
@@ -300,10 +316,10 @@
         
     } else if ( [nextAd isKindOfClass:[ANSSMStandardAd class]] ) {
         [self handleSSMMediatedAd:nextAd];
-
+        
     } else if ( [nextAd isKindOfClass:[ANNativeStandardAdResponse class]] ) {
         [self handleNativeStandardAd:nextAd];
-
+        
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall.  (class=%@)", [nextAd class]);
     }
@@ -369,8 +385,8 @@
     if (mediatedAd.isAdTypeNative)
     {
         self.nativeMediationController = [ANNativeMediatedAdController initMediatedAd: mediatedAd
-                                                                           withFetcher: self
-                                                                     adRequestDelegate: self.delegate ];
+                                                                          withFetcher: self
+                                                                    adRequestDelegate: self.delegate ];
     } else {
         self.mediationController = [ANMediationAdViewController initMediatedAd: mediatedAd
                                                                    withFetcher: self
@@ -388,87 +404,10 @@
 
 - (void)handleNativeStandardAd:(ANNativeStandardAdResponse *)nativeStandardAd
 {
-
+    
     ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObject:nativeStandardAd andAdObjectHandler:nil];
     [self processFinalResponse:fetcherResponse];
 }
-
-
-
-
-#pragma mark - NSURLConnectionDataDelegate
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-
-    if (connection == self.connection) {
-        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-            NSInteger status = [httpResponse statusCode];
-            
-            if (status >= 400) {
-                [connection cancel];
-
-                NSError *statusError = ANError(@"connection_failed %ld", ANAdResponseNetworkError, (long)status);
-                [self connection:connection didFailWithError:statusError];
-
-                self.loading = NO;
-                return;
-            }
-        }
-        
-        self.data = [NSMutableData data];
-        ANLogDebug(@"Received response: %@", response);
-        
-        [self restartAutoRefreshTimer];
-
-        
-    } else {
-        ANLogDebug(@"Received response from unknown");
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d
-{
-
-    if (connection == self.connection) {
-        [self.data appendData:d];
-    }
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-
-    if (connection == self.connection)
-    {
-        NSString *responseString = [[NSString alloc] initWithData:self.data
-                                                         encoding:NSUTF8StringEncoding];
-        ANLogDebug(@"Response JSON %@", responseString);
-        ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, self,
-                            @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-        
-        //
-        ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:self.data];
-        [self processAdServerResponse:adResponse];
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-
-    if (connection == self.connection) {
-        NSError *connectionError = ANError(@"ad_request_failed %@%@", ANAdResponseNetworkError, connection, [error localizedDescription]);
-        ANLogError(@"%@", connectionError);
-        
-        self.loading = NO;
-        [self restartAutoRefreshTimer];
-        
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:connectionError];
-        [self processFinalResponse:response];
-    }
-}
-
-
 
 
 #pragma mark - ANUniversalAdFetcherDelegate.
@@ -486,7 +425,7 @@
 
 - (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
 {
-
+    
     if (self.standardAdView.webViewController == controller) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:self.standardAdView andAdObjectHandler:self.adObjectHandler];
         [self processFinalResponse:response];

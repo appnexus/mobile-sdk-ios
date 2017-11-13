@@ -176,6 +176,7 @@
                    onObject:(id)object
                  forKeyPath:(NSString *)keyPath
     withCompletionOperation:(NSOperation *)operation {
+    
     NSOperation *dependentOperation = [self setImageForImageURL:imageURL
                                                        onObject:object
                                                      forKeyPath:keyPath];
@@ -196,33 +197,45 @@
               forKeyPath:keyPath];
         return nil;
     } else {
-        __block NSData *imageData;
         NSOperation *loadImageData = [NSBlockOperation blockOperationWithBlock:^{
-            NSURLRequest *request = [NSURLRequest requestWithURL:imageURL 
+            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+            NSURLRequest *request = [NSURLRequest requestWithURL:imageURL
                                                      cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                  timeoutInterval:kAppNexusNativeAdImageDownloadTimeoutInterval];
-            NSError *error;
-            imageData = [NSURLConnection sendSynchronousRequest:request
-                                              returningResponse:nil
-                                                          error:&error];
-            if (error) {
-                ANLogError(@"Error downloading image: %@", error);
-            }
+            
+            NSURLSessionDataTask *task = [[NSURLSession sharedSession]
+                                          dataTaskWithRequest:request
+                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              NSInteger statusCode = -1;
+                                              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                                  statusCode = [httpResponse statusCode];
+                                                  
+                                              }
+                                              
+                                              if (statusCode >= 400 || statusCode == -1)  {
+                                                  ANLogError(@"Error downloading image: %@", error);
+                                                  
+                                              }else{
+                                                  UIImage *image = [UIImage imageWithData:data];
+                                                  if (image) {
+                                                      [ANNativeAdImageCache setImage:image
+                                                                              forKey:imageURL];
+                                                      [object setValue:image
+                                                            forKeyPath:keyPath];
+                                                  }
+                                              }
+                                              dispatch_semaphore_signal(semaphore);
+                                              
+                                          }];
+            
+            [task resume];
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            
         }];
-        NSOperation *makeImage = [NSBlockOperation blockOperationWithBlock:^{
-            UIImage *image = [UIImage imageWithData:imageData];
-            if (image) {
-                [ANNativeAdImageCache setImage:image
-                                        forKey:imageURL];
-                [object setValue:image
-                      forKeyPath:keyPath];
-            }
-        }];
-        [makeImage addDependency:loadImageData];
-        [[NSOperationQueue mainQueue] addOperation:makeImage];
-        NSOperationQueue *loadImageDataQueue = [[NSOperationQueue alloc] init];
-        [loadImageDataQueue addOperation:loadImageData];
-        return makeImage;
+        
+        [[NSOperationQueue mainQueue] addOperation:loadImageData];
+        return loadImageData;
     }
 }
 
