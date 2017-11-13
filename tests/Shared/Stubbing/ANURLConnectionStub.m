@@ -24,14 +24,14 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     ANURLConnectionStub *newStub = [[ANURLConnectionStub alloc] init];
-    newStub.requestURLRegexPatternString = self.requestURLRegexPatternString;
+    newStub.requestURL = self.requestURL;
     newStub.responseCode = self.responseCode;
     newStub.responseBody = self.responseBody;
     return newStub;
 }
 
 - (BOOL)isEqual:(ANURLConnectionStub *)object {
-    BOOL sameRequestURLString = [self.requestURLRegexPatternString isEqualToString:object.requestURLRegexPatternString];
+    BOOL sameRequestURLString = [self.requestURL isEqualToString:object.requestURL];
     BOOL sameResponseCode = (self.responseCode == object.responseCode);
     BOOL sameResponseBody = [self.responseBody isEqualToString:object.responseBody];
     return sameRequestURLString && sameResponseBody && sameResponseCode;
@@ -39,7 +39,7 @@
 
 - (NSUInteger)hash {
     NSMutableString *description = [[NSMutableString alloc] init];
-    [description appendString:self.requestURLRegexPatternString];
+    [description appendString:self.requestURL];
     [description appendString:[NSString stringWithFormat:@"%ld", (long)self.responseCode]];
     [description appendString:self.responseBody];
     return [description hash];
@@ -49,7 +49,7 @@
     return [NSString stringWithFormat:@"NSURLConnectionStub: \n\
     Request URL Pattern: %@,\n\
     Response Code: %ld,\n\
-    Response Body: %@",self.requestURLRegexPatternString, (long)self.responseCode, self.responseBody];
+    Response Body: %@",self.requestURL, (long)self.responseCode, self.responseBody];
 
 }
 
@@ -73,7 +73,7 @@
 + (ANURLConnectionStub *)stubForStandardBannerWithAdSize:(CGSize)adSize
                                                  content:(NSString *)content {
     ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
-    stub.requestURLRegexPatternString = [[ANSDKSettings sharedInstance].baseUrlConfig utAdRequestBaseUrl];
+    stub.requestURL = [[ANSDKSettings sharedInstance].baseUrlConfig utAdRequestBaseUrl];
     stub.responseCode = 200;
     stub.responseBody = [NSJSONSerialization dataWithJSONObject:[[self class] responseForStandardBannerWithAdSize:adSize
                                                                                                           content:content]
@@ -84,7 +84,7 @@
 
 + (ANURLConnectionStub *)stubForMraidFile {
     ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
-    stub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig webViewBaseUrl] stringByAppendingString:@"mraid.js"];
+    stub.requestURL = [[[ANSDKSettings sharedInstance].baseUrlConfig webViewBaseUrl] stringByAppendingString:@"mraid.js"];
     stub.responseBody = @"";
     stub.responseCode = 200;
     return stub;
@@ -94,26 +94,26 @@
                                   ofType:(NSString *)type {
     return [ANURLConnectionStub stubForResource:resource
                                          ofType:type
-               withRequestURLRegexPatternString:resource
+               withRequestURL:resource
                                        inBundle:[NSBundle mainBundle]];
 }
 
 + (ANURLConnectionStub *)stubForResource:(NSString *)resource
                                   ofType:(NSString *)type
-        withRequestURLRegexPatternString:(NSString *)pattern {
+        withRequestURL:(NSString *)pattern {
     return [ANURLConnectionStub stubForResource:resource
                                          ofType:type
-               withRequestURLRegexPatternString:pattern
+               withRequestURL:pattern
                                        inBundle:[NSBundle mainBundle]];
 }
 
 + (ANURLConnectionStub *)stubForResource:(NSString *)resource
                                   ofType:(NSString *)type
-        withRequestURLRegexPatternString:(NSString *)pattern
+        withRequestURL:(NSString *)pattern
                                 inBundle:(NSBundle *)bundle {
     ANURLConnectionStub *stub = [[ANURLConnectionStub alloc] init];
     stub.responseCode = 200;
-    stub.requestURLRegexPatternString = pattern;
+    stub.requestURL = pattern;
     stub.responseBody = [NSData dataWithContentsOfFile:[bundle pathForResource:resource
                                                                         ofType:type]];
     return stub;

@@ -388,6 +388,13 @@
 			remoteGlobalIDString = 8AD0182C199932F9007874BA;
 			remoteInfo = NewTestApp;
 		};
+		60D510841FAB954E002C6A09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4FD362641F8FCA3D0010567E /* KIF.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9CC9673A1AD4B1B600576D13;
+			remoteInfo = KIFFramework;
+		};
 		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
@@ -1080,12 +1087,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1369,25 +1376,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
-				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0094019DB169B0090EBED /* libANSDK.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
 				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
 				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
+				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1756,6 +1763,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				60D510851FAB954E002C6A09 /* PBXTargetDependency */,
 				8A9F94DA19D1C37700AB739F /* PBXTargetDependency */,
 			);
 			name = MediationAdapterAppTests;
@@ -2444,6 +2452,11 @@
 			isa = PBXTargetDependency;
 			target = 8AD0182C199932F9007874BA /* NewTestApp */;
 			targetProxy = 60B6A1B91E732F8F00ED7DB8 /* PBXContainerItemProxy */;
+		};
+		60D510851FAB954E002C6A09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KIFFramework;
+			targetProxy = 60D510841FAB954E002C6A09 /* PBXContainerItemProxy */;
 		};
 		8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
