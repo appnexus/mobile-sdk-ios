@@ -119,11 +119,17 @@
     
     if (!self.isLoading)
     {
+        NSString *requestContent = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
+        
+        ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
+                            @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
+        
         NSURLSessionDataTask *task = [[NSURLSession sharedSession]
                                       dataTaskWithRequest:request
                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                           NSInteger statusCode = -1;
                                           [self restartAutoRefreshTimer];
+                                          
                                           if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                                               NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                                               statusCode = [httpResponse statusCode];
@@ -147,7 +153,7 @@
                                                   ANLogDebug(@"Response JSON %@", responseString);
                                                   ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, self,
                                                                       @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-                                                  
+                                                  self.loading = YES;
                                                   ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:data];
                                                   [self processAdServerResponse:adResponse];
                                                   
