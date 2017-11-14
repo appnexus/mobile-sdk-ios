@@ -34,7 +34,6 @@ WKNavigationDelegate, WKUIDelegate>
 @property (nonatomic, readwrite, strong) UIWebView *legacyWebView;
 
 @property (nonatomic, readwrite, strong) UIBarButtonItem *refreshIndicatorItem;
-@property (nonatomic, readwrite, strong) UIPopoverController *activityPopover;
 @property (nonatomic, readwrite, strong) SKStoreProductViewController *iTunesStoreController;
 
 @property (nonatomic, readwrite, assign, getter=isPresented) BOOL presented;
@@ -83,7 +82,7 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (void)initializeWebView {
     if ([WKWebView class]) {
-        self.modernWebView = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame
+        self.modernWebView = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].bounds
                                                 configuration:[ANBrowserViewController defaultWebViewConfiguration]];
         self.modernWebView.navigationDelegate = self;
         self.modernWebView.UIDelegate = self;
@@ -353,16 +352,19 @@ WKNavigationDelegate, WKUIDelegate>
         NSArray *appActivities = @[[[ANOpenInExternalBrowserActivity alloc] init]];
         UIActivityViewController *share = [[UIActivityViewController alloc] initWithActivityItems:@[webViewURL]
                                                                             applicationActivities:appActivities];
+        
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-            self.activityPopover = [[UIPopoverController alloc] initWithContentViewController:share];
-            [self.activityPopover presentPopoverFromBarButtonItem:self.openInButton
-                                         permittedArrowDirections:UIPopoverArrowDirectionAny
-                                                         animated:YES];
-        } else {
-            [self presentViewController:share
+            
+            UIPopoverPresentationController *popController = [share popoverPresentationController];
+            popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+            popController.barButtonItem = self.openInButton;
+            
+            
+        }
+        [self presentViewController:share
                                animated:YES
                              completion:nil];
-        }
+        
     }
 }
 
@@ -437,10 +439,6 @@ WKNavigationDelegate, WKUIDelegate>
     if (self.presentingViewController) {
         controllerForDismissingModalView = self.presentingViewController;
     }
-    
-    if (self.activityPopover.popoverVisible) {
-        [self.activityPopover dismissPopoverAnimated:NO];
-    }
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
@@ -494,9 +492,9 @@ WKNavigationDelegate, WKUIDelegate>
     // See: https://bugs.webkit.org/show_bug.cgi?id=147512
     if ([[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)] &&
         [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
-        configuration.mediaPlaybackRequiresUserAction = NO;
+        configuration.requiresUserActionForMediaPlayback = NO;
     } else {
-        configuration.mediaPlaybackRequiresUserAction = YES;
+        configuration.requiresUserActionForMediaPlayback = YES;
     }
     
     return configuration;

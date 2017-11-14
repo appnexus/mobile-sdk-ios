@@ -15,7 +15,6 @@
 
 #import "ANMRAIDUtil.h"
 #import <MessageUI/MFMessageComposeViewController.h>
-#import <MediaPlayer/MediaPlayer.h>
 #import "ANGlobal.h"
 #import "ANLogging.h"
 
@@ -109,20 +108,17 @@
       completionSelector:(SEL)selector {
     NSURL *url = [NSURL URLWithString:uri];
     
-    MPMoviePlayerViewController *moviePlayerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    moviePlayerViewController.moviePlayer.fullscreen = YES;
-    moviePlayerViewController.moviePlayer.shouldAutoplay = YES;
-    moviePlayerViewController.moviePlayer.movieSourceType = MPMovieSourceTypeUnknown;
-    moviePlayerViewController.moviePlayer.view.frame = rootViewController.view.frame;
-    moviePlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-    [moviePlayerViewController.moviePlayer prepareToPlay];
-    [rootViewController presentMoviePlayerViewControllerAnimated:moviePlayerViewController];
-    [moviePlayerViewController.moviePlayer play];
+    AVPlayerViewController *moviePlayerViewController = [[AVPlayerViewController alloc] init];
+    moviePlayerViewController.player = [AVPlayer playerWithURL:url];
+    moviePlayerViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    moviePlayerViewController.view.frame = rootViewController.view.frame;
+    [rootViewController presentViewController:moviePlayerViewController animated:YES completion:nil];
+    [moviePlayerViewController.player play];
     
     [[NSNotificationCenter defaultCenter] addObserver:target
                                              selector:selector
-                                                 name:MPMoviePlayerPlaybackDidFinishNotification
-                                               object:moviePlayerViewController.moviePlayer];
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:moviePlayerViewController.player];
 }
 
 + (ANMRAIDOrientation)orientationFromForceOrientationString:(NSString *)orientationString {
