@@ -119,11 +119,24 @@
     
     if (!self.isLoading)
     {
+        NSString *requestContent = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
+        
+        ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
+                            @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
+        
+        ANUniversalAdFetcher *__weak weakSelf = self;
+    
         NSURLSessionDataTask *task = [[NSURLSession sharedSession]
                                       dataTaskWithRequest:request
                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          ANUniversalAdFetcher *__strong strongSelf = weakSelf;
+                                          
+                                          if(!strongSelf){
+                                              return;
+                                          }
                                           NSInteger statusCode = -1;
-                                          [self restartAutoRefreshTimer];
+                                          [strongSelf restartAutoRefreshTimer];
+                                          
                                           if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                                               NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                                               statusCode = [httpResponse statusCode];
@@ -131,25 +144,26 @@
                                           }
                                           
                                           if (statusCode >= 400 || statusCode == -1)  {
+                                              strongSelf.loading = NO;
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   NSError *sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
                                                   ANLogError(@"%@", sessionError);
-                                                  self.loading = NO;
+                                                  
                                                   ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-                                                  [self processFinalResponse:response];
+                                                  [strongSelf processFinalResponse:response];
                                               });
                                               
                                           }else{
-                                              
+                                              strongSelf.loading  = YES;
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   NSString *responseString = [[NSString alloc] initWithData:data
                                                                                                    encoding:NSUTF8StringEncoding];
                                                   ANLogDebug(@"Response JSON %@", responseString);
-                                                  ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, self,
+                                                  ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
                                                                       @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
                                                   
                                                   ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:data];
-                                                  [self processAdServerResponse:adResponse];
+                                                  [strongSelf processAdServerResponse:adResponse];
                                                   
                                               });
                                               
