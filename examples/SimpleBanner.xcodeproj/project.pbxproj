@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6083C4161FBCA3DA00DED744 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6083C4151FBCA3D900DED744 /* AVKit.framework */; };
 		8A3EDB491D0873A200957227 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3EDB481D0873A200957227 /* WebKit.framework */; };
-		8A3EDB5A1D0873B200957227 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3EDB591D0873B200957227 /* EventKitUI.framework */; };
-		8A3EDB5B1D0873CD00957227 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7FB19706AFC002CAD63 /* EventKit.framework */; };
 		8AED80CD19DDA81C002F5D9F /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AED80AC19DDA7C6002F5D9F /* ANSDKResources.bundle */; };
 		8AED80CE19DDA89D002F5D9F /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AED80AA19DDA7C6002F5D9F /* libANSDK.a */; };
 		FF2FD7AD19706A5D002CAD63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7AC19706A5D002CAD63 /* Foundation.framework */; };
@@ -201,6 +200,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6083C4151FBCA3D900DED744 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		8A3EDB481D0873A200957227 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		8A3EDB591D0873B200957227 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		8AED809B19DDA7C6002F5D9F /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
@@ -246,14 +246,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6083C4161FBCA3DA00DED744 /* AVKit.framework in Frameworks */,
 				FF2FD7F219706AD2002CAD63 /* AdSupport.framework in Frameworks */,
 				FF2FD7F419706AD9002CAD63 /* AudioToolbox.framework in Frameworks */,
 				FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */,
 				FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */,
 				FF2FD7AF19706A5D002CAD63 /* CoreGraphics.framework in Frameworks */,
 				FF2FD7FA19706AF6002CAD63 /* CoreTelephony.framework in Frameworks */,
-				8A3EDB5B1D0873CD00957227 /* EventKit.framework in Frameworks */,
-				8A3EDB5A1D0873B200957227 /* EventKitUI.framework in Frameworks */,
 				FF2FD7AD19706A5D002CAD63 /* Foundation.framework in Frameworks */,
 				8AED80CE19DDA89D002F5D9F /* libANSDK.a in Frameworks */,
 				FF2FD80019706B18002CAD63 /* MediaPlayer.framework in Frameworks */,
@@ -286,25 +285,25 @@
 		8AED809C19DDA7C6002F5D9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AED80AC19DDA7C6002F5D9F /* ANSDKResources.bundle */,
-				8AB3BC881B98A82D00CB4BA3 /* AppNexusSDK.framework */,
-				8AED80B819DDA7C6002F5D9F /* libANAdapterForGoogleAdMobSDK.a */,
-				8AED80BA19DDA7C6002F5D9F /* libANAdapterForMoPubSDK.a */,
 				8AED80AA19DDA7C6002F5D9F /* libANSDK.a */,
-				8AB3BC801B98A82D00CB4BA3 /* libANSDKAdColonyAdapter.a */,
-				8A4A99641E3FB1F000956FDE /* libANSDKAdMarvelAdapter.a */,
-				8AED80BC19DDA7C6002F5D9F /* libANSDKAmazonAdapter.a */,
-				8AB3BC841B98A82D00CB4BA3 /* libANSDKChartboostAdapter.a */,
-				8AED80B619DDA7C6002F5D9F /* libANSDKFacebookAdapter.a */,
+				8AED80AC19DDA7C6002F5D9F /* ANSDKResources.bundle */,
 				8AED80AE19DDA7C6002F5D9F /* libANSDKGoogleAdMobAdapter.a */,
-				8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */,
 				8AED80B219DDA7C6002F5D9F /* libANSDKMillennialMediaAdapter.a */,
 				8AED80B419DDA7C6002F5D9F /* libANSDKMoPubAdapter.a */,
-				8A4A99661E3FB1F000956FDE /* libANSDKRubiconAdapter.a */,
-				8A4A99621E3FB1F000956FDE /* libANSDKSmartAdAdapter.a */,
+				8AED80B619DDA7C6002F5D9F /* libANSDKFacebookAdapter.a */,
+				8AED80BC19DDA7C6002F5D9F /* libANSDKAmazonAdapter.a */,
+				8AB3BC7C1B98A82D00CB4BA3 /* libANSDKInMobiAdapter.a */,
 				8AB3BC7E1B98A82D00CB4BA3 /* libANSDKVdopiaAdapter.a */,
+				8AB3BC801B98A82D00CB4BA3 /* libANSDKAdColonyAdapter.a */,
 				8AB3BC821B98A82D00CB4BA3 /* libANSDKVungleAdapter.a */,
+				8AB3BC841B98A82D00CB4BA3 /* libANSDKChartboostAdapter.a */,
 				8AB3BC861B98A82D00CB4BA3 /* libANSDKYahooAdapter.a */,
+				8AED80B819DDA7C6002F5D9F /* libANAdapterForGoogleAdMobSDK.a */,
+				8AED80BA19DDA7C6002F5D9F /* libANAdapterForMoPubSDK.a */,
+				8AB3BC881B98A82D00CB4BA3 /* AppNexusSDK.framework */,
+				8A4A99621E3FB1F000956FDE /* libANSDKSmartAdAdapter.a */,
+				8A4A99641E3FB1F000956FDE /* libANSDKAdMarvelAdapter.a */,
+				8A4A99661E3FB1F000956FDE /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -332,6 +331,7 @@
 		FF2FD7AB19706A5D002CAD63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6083C4151FBCA3D900DED744 /* AVKit.framework */,
 				FF2FD7F119706AD2002CAD63 /* AdSupport.framework */,
 				FF2FD7F319706AD9002CAD63 /* AudioToolbox.framework */,
 				FF2FD7F519706ADE002CAD63 /* AVFoundation.framework */,
@@ -451,6 +451,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
+					FF2FD7A819706A5D002CAD63 = {
+						DevelopmentTeam = HR94J6TSB3;
+					};
 					FF2FD7CC19706A5D002CAD63 = {
 						TestTargetID = FF2FD7A819706A5D002CAD63;
 					};
@@ -793,6 +796,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleBanner/SimpleBanner-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -813,6 +817,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleBanner/SimpleBanner-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
