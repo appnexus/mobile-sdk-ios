@@ -52,6 +52,8 @@
 		607A21001F85541900BD8353 /* ANTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */; };
 		607A21131F85554F00BD8353 /* ANTrackerInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FA566E71F4B94D3004652AB /* ANTrackerInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		607A21141F85557E00BD8353 /* ANAdFetcherResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6083C47F1FBCD47400DED744 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6083C47E1FBCD47400DED744 /* AVKit.framework */; };
+		6083C4811FBCD53000DED744 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6083C4801FBCD53000DED744 /* AVFoundation.framework */; };
 		608E477D1F8EAB84009BB148 /* NSObject+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */; };
 		609732B01E42E73D0061EC0A /* NSDictionary+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732AE1E42E73D0061EC0A /* NSDictionary+ANCategory.h */; };
 		609732B11E42E73D0061EC0A /* NSDictionary+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732AF1E42E73D0061EC0A /* NSDictionary+ANCategory.m */; };
@@ -309,7 +311,6 @@
 		8AE2D86F19CC9B7300001B70 /* ANMoPubMediationBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D86C19CC9B7300001B70 /* ANMoPubMediationBanner.m */; };
 		8AE2D87019CC9B7300001B70 /* ANMoPubMediationInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D86E19CC9B7300001B70 /* ANMoPubMediationInterstitial.m */; };
 		8AE5E11E1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AE5E11C1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8AE7AD9E1A7AC4E5009E2F2F /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE7AD9D1A7AC4E5009E2F2F /* EventKitUI.framework */; };
 		8AE7AD9F1A7AC4F6009E2F2F /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7C5371A3B5CEF00AA5548 /* ANAdWebViewController.m */; };
 		8AF366BD19D492F30097019F /* ANSDKResources.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8AF5A8851ACC60D50089C529 /* ANStandardAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AF5A87D1ACC60D50089C529 /* ANStandardAd.h */; };
@@ -318,7 +319,6 @@
 		8AF9F08D19DA131F00758111 /* ANAdAdapterBaseAmazon.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AD5155719D216E6002E53D6 /* ANAdAdapterBaseAmazon.h */; };
 		8AFC045F1A2E74AC00BEA485 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC045E1A2E74AC00BEA485 /* UIKit.framework */; };
 		8AFC04611A2E74C800BEA485 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04601A2E74C800BEA485 /* CoreGraphics.framework */; };
-		8AFC04631A2E74F500BEA485 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04621A2E74F500BEA485 /* EventKit.framework */; };
 		8AFC04651A2E751200BEA485 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04641A2E751200BEA485 /* CoreTelephony.framework */; };
 		8AFC04671A2E752E00BEA485 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04661A2E752E00BEA485 /* SystemConfiguration.framework */; };
 		8AFC046B1A2E757900BEA485 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC046A1A2E757900BEA485 /* QuartzCore.framework */; };
@@ -813,6 +813,8 @@
 		607A211A1F8589E900BD8353 /* LICENSE_Millenial_Media.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE_Millenial_Media.txt; path = "../../../../../../../../../../../Downloads/mm-ios-ad-sdk-6.6.0-20170915-1413/LICENSE_Millenial_Media.txt"; sourceTree = "<group>"; };
 		607A21291F85EB7C00BD8353 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RFMAdSDK.bundle; sourceTree = "<group>"; };
 		607A212A1F85EB7C00BD8353 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RFMAdSDK.framework; sourceTree = "<group>"; };
+		6083C47E1FBCD47400DED744 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		6083C4801FBCD53000DED744 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		608E47351F86E6B7009BB148 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
 		608E47361F86E6B7009BB148 /* NOTICE_Amazon.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE_Amazon.txt; sourceTree = "<group>"; };
 		608E47371F86E6B7009BB148 /* README_Amazon.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_Amazon.md; sourceTree = "<group>"; };
@@ -1274,11 +1276,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6083C4811FBCD53000DED744 /* AVFoundation.framework in Frameworks */,
+				6083C47F1FBCD47400DED744 /* AVKit.framework in Frameworks */,
 				8AFC046F1A2E75AE00BEA485 /* AdSupport.framework in Frameworks */,
 				8AFC04611A2E74C800BEA485 /* CoreGraphics.framework in Frameworks */,
 				8AFC04651A2E751200BEA485 /* CoreTelephony.framework in Frameworks */,
-				8AFC04631A2E74F500BEA485 /* EventKit.framework in Frameworks */,
-				8AE7AD9E1A7AC4E5009E2F2F /* EventKitUI.framework in Frameworks */,
 				8AFC046D1A2E75A300BEA485 /* MediaPlayer.framework in Frameworks */,
 				8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */,
 				8AFC046B1A2E757900BEA485 /* QuartzCore.framework in Frameworks */,
@@ -2112,6 +2114,8 @@
 		8AE5E11F1A2FDCDB00FDE858 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6083C4801FBCD53000DED744 /* AVFoundation.framework */,
+				6083C47E1FBCD47400DED744 /* AVKit.framework */,
 				8AFC046E1A2E75AE00BEA485 /* AdSupport.framework */,
 				8AFC04681A2E754700BEA485 /* CoreFoundation.framework */,
 				8AFC04601A2E74C800BEA485 /* CoreGraphics.framework */,
