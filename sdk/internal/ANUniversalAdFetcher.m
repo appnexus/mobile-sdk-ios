@@ -124,16 +124,12 @@
         ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
                             @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
         
-        __weak ANUniversalAdFetcher *weakSelf = self;
-        /*self.postDismissingOperation = [NSBlockOperation blockOperationWithBlock:^{
-            ANBrowserViewController *strongSelf = weakSelf;
-            [strongSelf rootViewControllerShouldPresentViewController:controllerToPresent];
-        }];*/
-        
+        ANUniversalAdFetcher *__weak weakSelf = self;
+    
         NSURLSessionDataTask *task = [[NSURLSession sharedSession]
                                       dataTaskWithRequest:request
                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          ANUniversalAdFetcher *strongSelf = weakSelf;
+                                          ANUniversalAdFetcher *__strong strongSelf = weakSelf;
                                           
                                           if(!strongSelf){
                                               return;
