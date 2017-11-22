@@ -30,9 +30,7 @@
 - (void)testHostname
 {
     NSString  *hostNameString  = @"appnexus.com";
-    //NSString  *localhostName  = @"localhost";
 
-    //
     ANReachability  *hostname  = [ANReachability reachabilityWithHostName:hostNameString];
     XCTAssertNotNil(hostname);
 
@@ -60,7 +58,6 @@
 
     ANReachability  *appNexusIPAddress  = [ANReachability reachabilityWithAddress:&socketAddress];
     XCTAssertNotNil(appNexusIPAddress);
-
     XCTAssertTrue([appNexusIPAddress currentReachabilityStatus]);
 }
 

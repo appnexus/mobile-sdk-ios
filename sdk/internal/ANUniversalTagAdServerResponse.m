@@ -214,7 +214,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                                 [self.ads addObject:nativeAd];
                             }
                         }else{
-                            ANLogError(@"UNRECOGNIZED AD_TYPE in RTB.  (rtbObject=%@)", rtbObject);
+                            ANLogError(@"UNRECOGNIZED AD_TYPE in RTB.  (adType=%@  rtbObject=%@)", adType, rtbObject);
                         }
                     }
                 }
@@ -318,14 +318,18 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     }
 }
 
-+ (ANStandardAd *)standardAdFromRTBObject:(NSDictionary *)rtbObject {
-    if ([rtbObject[kANUniversalTagAdServerResponseKeyBannerObject] isKindOfClass:[NSDictionary class]]) {
++ (ANStandardAd *)standardAdFromRTBObject:(NSDictionary *)rtbObject
+{
+    if ([rtbObject[kANUniversalTagAdServerResponseKeyBannerObject] isKindOfClass:[NSDictionary class]])
+    {
         NSDictionary *banner = rtbObject[kANUniversalTagAdServerResponseKeyBannerObject];
         ANStandardAd *standardAd = [[ANStandardAd alloc] init];
+
         standardAd.width = [banner[kANUniversalTagAdServerResponseKeyBannerWidth] description];
         standardAd.height = [banner[kANUniversalTagAdServerResponseKeyBannerHeight] description];
         standardAd.content = [banner[kANUniversalTagAdServerResponseKeyBannerContent] description];
         standardAd.impressionUrls = [[self class] impressionUrlsFromContentSourceObject:rtbObject];
+
         if (!standardAd.content || [standardAd.content length] == 0) {
             ANLogError(@"blank_ad");
             return nil;

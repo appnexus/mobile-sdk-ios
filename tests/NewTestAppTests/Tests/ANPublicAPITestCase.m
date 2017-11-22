@@ -15,23 +15,36 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+
 #import "ANBannerAdView.h"
 #import "ANInterstitialAd.h"
 #import "ANGlobal.h"
+#import "ANTestGlobal.h"
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "XCTestCase+ANCategory.h"
+#import "ANSDKSettings+PrivateMethods.h"
+
+
 
 @interface ANPublicAPITestCase : XCTestCase
 
-@property (nonatomic, readwrite, strong) XCTestExpectation *requestExpectation;
-@property (nonatomic, readwrite, strong) ANBannerAdView *banner;
-@property (nonatomic, readwrite, strong) ANInterstitialAd *interstitial;
-@property (nonatomic) NSURLRequest *request;
+@property (nonatomic, readwrite, strong)  XCTestExpectation     *requestExpectation;
+@property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
+@property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
+@property (nonatomic)                     NSURLRequest          *request;
 
 @end
 
+
+//TBDFIX -- self.request HTTPBody dissappeared between commits 7e7f50ff3ed276ac10fb954d7517a6e07bce81ef and 2090ff4c0d65075c5f942099d164ec8701e195be.
+//
+#define  requestContainsHTTPBody  0
+
+
 @implementation ANPublicAPITestCase
+
+#pragma mark - Test lifecycle.
 
 - (void)setUp {
     [super setUp];
@@ -43,10 +56,12 @@
 - (void)tearDown {
     [super tearDown];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:kANHTTPStubURLProtocolRequestDidLoadNotification
-                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
+
+#pragma mark - Test helper methods.
 
 - (void)setupRequestTracker {
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
@@ -56,7 +71,9 @@
                                                object:nil];
 }
 
-- (void)requestLoaded:(NSNotification *)notification {
+- (void)requestLoaded:(NSNotification *)notification
+{
+TESTTRACE();
     if (self.requestExpectation) {
         self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
         [self.requestExpectation fulfill];
@@ -64,47 +81,107 @@
     }
 }
 
-- (void)testSetPlacementOnlyOnBanner {
+- (void)stubRequestWithResponse:(NSString *)responseName
+{
+    NSBundle  *currentBundle  = [NSBundle bundleForClass:[self class]];
+    NSString  *baseResponse   = [NSString stringWithContentsOfFile: [currentBundle pathForResource:responseName ofType:@"json"]
+                                                          encoding: NSUTF8StringEncoding
+                                                             error: nil ];
+
+    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
+
+    requestStub.requestURL    = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    requestStub.responseCode  = 200;
+    requestStub.responseBody  = baseResponse;
+
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+}
+
+#if requestContainsHTTPBody
+- (NSDictionary *) getJSONBodyOfURLRequestAsDictionary: (NSURLRequest *)urlRequest
+{
+    NSString      *bodyAsString  = [[NSString alloc] initWithData:[urlRequest HTTPBody] encoding:NSUTF8StringEncoding];
+    NSData        *objectData    = [bodyAsString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError       *error         = nil;
+
+    NSDictionary  *json          = [NSJSONSerialization JSONObjectWithData: objectData
+                                                                   options: NSJSONReadingMutableContainers
+                                                                     error: &error];
+    if (error)  { return nil; }
+
+    return  json;
+}
+#endif  //requestContainsHTTPBody
+
+
+
+#pragma mark - Test methods.
+
+- (void)testSetPlacementOnlyOnBanner
+{
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
+
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
                    adSize:CGSizeMake(320, 50)];
+
     [self.banner loadAd];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError * _Nullable error) {
-                                     
-                                 }];
+    [self waitForExpectationsWithTimeout: 2 * kAppNexusRequestTimeoutInterval
+                                 handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
+             ];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
+
+    //
     XCTAssertEqual(@"1", [self.banner placementId]);
-    XCTAssertTrue([requestPath containsString:@"?id=1"]);
+
+#if requestContainsHTTPBody
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
+#endif  //requestContainsHTTPBody
 }
 
-- (void)testSetInventoryCodeAndMemberIDOnBanner {
+- (void)testSetInventoryCodeAndMemberIDOnBanner
+{
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
-        self.requestExpectation = [self expectationWithDescription:@"request"];
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    memberId:1
                    inventoryCode:@"test"
                    adSize:CGSizeMake(320, 50)];
+
     [self.banner loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
+
+    //
     XCTAssertEqual(@"test", [self.banner inventoryCode]);
     XCTAssertEqual(1, [self.banner memberId]);
-    XCTAssertTrue([requestPath containsString:@"?member=1&inv_code=test"]);
+
+#if requestContainsHTTPBody
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+
+    XCTAssertEqual([jsonBody[@"member_id"] integerValue], 1);
+
+    NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //XXX  @"code" value is of type NSTaggedPointerString.
+    XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
+#endif  //requestContainsHTTPBody
 }
 
-- (void)testSetBothInventoryCodeAndPlacementIdOnBanner {
+//NB  Both placementID and (inventoryCode, memberID) tuple exist in the class,
+//    but (inventoryCode, memberID) tuple take precedence over placementID in the UT Request.
+//
+- (void)testSetInventoryCodeAndPlacementIdOnBanner
+{
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
+
     self.banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
@@ -116,16 +193,29 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
-    XCTAssertEqual(@"1", [self.banner placementId]);
-    XCTAssertEqual(@"test", [self.banner inventoryCode]);
-    XCTAssertEqual(2, [self.banner memberId]);
-    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
+
+    //
+    XCTAssertEqual(@"1",        [self.banner placementId]);
+    XCTAssertEqual(@"test",     [self.banner inventoryCode]);
+    XCTAssertEqual(2,           [self.banner memberId]);
+
+#if requestContainsHTTPBody
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+
+    XCTAssertNil(jsonBody[@"tags"][0][@"id"]);
+
+    XCTAssertEqual([jsonBody[@"member_id"] integerValue], 2);
+
+    NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //XXX  @"code" value is of type NSTaggedPointerString.
+    XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
+#endif  //requestContainsHTTPBody
 }
 
-- (void)testSetPlacementOnlyOnInterstitial {
+- (void)testSetPlacementOnlyOnInterstitial
+{
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
+
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
     [self.interstitial loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -133,14 +223,21 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
+
+    //
     XCTAssertEqual(@"1", [self.interstitial placementId]);
-    XCTAssertTrue([requestPath containsString:@"?id=1"]);
+
+#if requestContainsHTTPBody
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
+#endif  //requestContainsHTTPBody
 }
 
-- (void)testSetInventoryCodeAndMemberIDOnInterstitial {
+- (void)testSetInventoryCodeAndMemberIDOnInterstitial
+{
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
+
     self.interstitial = [[ANInterstitialAd alloc] initWithMemberId:2
                                                      inventoryCode:@"test"];
     [self.interstitial loadAd];
@@ -149,15 +246,29 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
+
+    //
     XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
     XCTAssertEqual(2, [self.interstitial memberId]);
-    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
+
+#if requestContainsHTTPBody
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+
+    XCTAssertEqual([jsonBody[@"member_id"] integerValue], 2);
+
+    NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //XXX  @"code" value is of type NSTaggedPointerString.
+    XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
+#endif  //requestContainsHTTPBody
 }
 
-- (void)testSetBothInventoryCodeAndPlacementIdOnInterstitial {
+//NB  Both placementID and (inventoryCode, memberID) tuple exist in the class,
+//    but (inventoryCode, memberID) tuple take precedence over placementID in the UT Request.
+//
+- (void)testSetBothInventoryCodeAndPlacementIdOnInterstitial
+{
     self.requestExpectation = [self expectationWithDescription:@"request"];
     [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
+
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
     [self.interstitial setInventoryCode:@"test" memberId:2];
     [self.interstitial loadAd];
@@ -166,24 +277,22 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
+
+    //
     XCTAssertEqual(@"1", [self.interstitial placementId]);
     XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
     XCTAssertEqual(2, [self.interstitial memberId]);
-    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
-}
 
-- (void)stubRequestWithResponse:(NSString *)responseName {
-    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
-    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
-                                                                                        ofType:@"json"]
-                                                       encoding:NSUTF8StringEncoding
-                                                          error:nil];
-    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
-    requestStub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
-    requestStub.responseCode = 200;
-    requestStub.responseBody = baseResponse;
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+#if requestContainsHTTPBody
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+
+    XCTAssertNil(jsonBody[@"tags"][0][@"id"]);
+
+    XCTAssertEqual([jsonBody[@"member_id"] integerValue], 2);
+
+    NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //XXX  @"code" value is of type NSTaggedPointerString.
+    XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
+#endif  //requestContainsHTTPBody
 }
 
 

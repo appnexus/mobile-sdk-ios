@@ -35,6 +35,7 @@
 
 - (void)testExample {
     ANBannerAdView *bannerAdView = [self bannerViewWithFrameSize:CGSizeMake(300, 250)];
+    [bannerAdView setAdSize:CGSizeMake(320, 50)];
 
     self.adFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:bannerAdView];
 

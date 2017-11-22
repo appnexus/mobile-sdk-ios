@@ -74,19 +74,18 @@
 {
     ANURLConnectionStub *testURLStub = [[ANURLConnectionStub alloc] init];
 
-    testURLStub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig utAdRequestBaseUrl] stringByAppendingString:@".*"];
-
+    testURLStub.requestURL   = [[[ANSDKSettings sharedInstance].baseUrlConfig utAdRequestBaseUrl] stringByAppendingString:@".*"];
     testURLStub.responseCode = 200;
     testURLStub.responseBody = body;
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:testURLStub];
     
     ANURLConnectionStub *anBaseURLStub = [[ANURLConnectionStub alloc] init];
-    anBaseURLStub.requestURLRegexPatternString = [[[ANSDKSettings sharedInstance].baseUrlConfig webViewBaseUrl] stringByAppendingString:@".*"];
+    anBaseURLStub.requestURL   = [[[ANSDKSettings sharedInstance].baseUrlConfig webViewBaseUrl] stringByAppendingString:@".*"];
     anBaseURLStub.responseCode = 200;
     anBaseURLStub.responseBody = @"";
 
-TESTTRACEM(@"testURLStub.requestURLRegexPatternString=%@", testURLStub.requestURLRegexPatternString);
-TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.requestURLRegexPatternString);
+TESTTRACEM(@"testURLStub.requestURLRegexPatternString=%@", testURLStub.requestURL);
+TESTTRACEM(@"anBaseURLStub.requestURLRegexPatternString=%@", anBaseURLStub.requestURL);
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:anBaseURLStub];
 }
 

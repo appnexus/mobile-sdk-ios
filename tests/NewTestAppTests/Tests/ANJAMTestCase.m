@@ -15,6 +15,7 @@
 
 #import <KIF/KIF.h>
 #import <AdSupport/AdSupport.h>
+
 #import "ANBannerAdView.h"
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
@@ -23,7 +24,11 @@
 #import "ANANJAMImplementation.h"
 #import "ANBrowserViewController.h"
 #import "ANGlobal.h"
+#import "ANTestGlobal.h"
+#import "ANSDKSettings+PrivateMethods.h"
 #import "ANLogging.h"
+
+
 
 @interface ANJAMTestCase : KIFTestCase <ANAppEventDelegate, ANBannerAdViewDelegate, UIWebViewDelegate>
 @property (nonatomic, strong) ANBannerAdView *adView;
@@ -37,7 +42,11 @@
 @property (nonatomic, strong) UIWebView *recordEventDelegateView;
 @end
 
+
+
 @implementation ANJAMTestCase
+
+#pragma mark - Test lifecycle.
 
 - (void)setUp {
     [super setUp];
@@ -65,6 +74,10 @@
                                                                                                                completion:nil];
 }
 
+
+
+#pragma mark - Test methods.
+
 - (void)testANJAMDeviceIDResponse {
     [self stubRequestWithResponse:@"ANJAMDeviceIdResponse"];
     self.deviceIdExpectation = [self expectationWithDescription:@"Waiting for app event to be received."];
@@ -88,7 +101,7 @@
     [self.adView loadAd];
     [tester waitForTimeInterval:3.0];
     [tester tapViewWithAccessibilityLabel:@"AdView"];
-    [self waitForExpectationsWithTimeout:2.0
+    [self waitForExpectationsWithTimeout:10.0
                                  handler:nil];
     XCTAssertTrue([[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController
                    isKindOfClass:[ANBrowserViewController class]]);
@@ -155,49 +168,69 @@
     }
 }
 
-- (void)ad:(id<ANAdProtocol>)ad didReceiveAppEvent:(NSString *)name withData:(NSString *)data {
+
+
+#pragma mark - Stubbing
+
+- (void)stubRequestWithResponse:(NSString *)responseName {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile: [currentBundle pathForResource:responseName
+                                                                                         ofType:@"json" ]
+                                                       encoding: NSUTF8StringEncoding
+                                                          error: nil ];
+
+    ANURLConnectionStub  *requestStub  = [[ANURLConnectionStub alloc] init];
+
+    requestStub.requestURL    = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    requestStub.responseCode  = 200;
+    requestStub.responseBody  = baseResponse;
+
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+}
+
+
+
+#pragma mark - ANAppEventDelegate.
+
+- (void)            ad: (id<ANAdProtocol>)ad
+    didReceiveAppEvent: (NSString *)name
+              withData: (NSString *)data
+{
+TESTTRACE();
     if ([name isEqualToString:@"idfa"]) {
         XCTAssertNotNil(data);
         NSString *advertisingIdentifier = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
         XCTAssertEqualObjects(data, advertisingIdentifier);
         [self.deviceIdExpectation fulfill];
+
     } else if ([name isEqualToString:@"SomeEvent"]) {
         XCTAssertNotNil(data);
         XCTAssertEqualObjects(data, @"TheEventData");
         [self.dispatchAppEventExpectation fulfill];
-    }else if ([name isEqualToString:@"DeepLinkYes"]) {
+
+    } else if ([name isEqualToString:@"DeepLinkYes"]) {
         XCTAssertNotNil(data);
         XCTAssertEqualObjects(data, @"true");
         [self.mayDeepLinkExpectation fulfill];
-    }else if ([name isEqualToString:@"DeepLinkNo"]) {
+
+    } else if ([name isEqualToString:@"DeepLinkNo"]) {
         XCTAssertNotNil(data);
         XCTAssertEqualObjects(data, @"false");
         [self.mayDeepLinkExpectation fulfill];
     }
 }
 
-#pragma mark - Stubbing
 
-- (void)stubRequestWithResponse:(NSString *)responseName {
-    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
-    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
-                                                                                        ofType:@"json"]
-                                                       encoding:NSUTF8StringEncoding
-                                                          error:nil];
-    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
-    requestStub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
-    requestStub.responseCode = 200;
-    requestStub.responseBody = baseResponse;
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
-}
 
 #pragma mark - ANBannerAdViewDelegate
 
 - (void)adDidPresent:(id<ANAdProtocol>)ad {
+TESTTRACE();
     [self.internalBrowserExpectation fulfill];
 }
 
 - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad{
+TESTTRACE();
     [self.externalBrowserExpectation fulfill];
 }
 

@@ -15,12 +15,14 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 @interface ANStandardAd : NSObject
 
 @property (nonatomic, readwrite, strong) NSString *content;
+
 @property (nonatomic, readwrite, strong) NSString *height;
 @property (nonatomic, readwrite, strong) NSString *width;
-@property (nonatomic, readwrite, strong) NSString *type;
 
 @property (nonatomic, readwrite, assign, getter=isMraid) BOOL mraid;
 

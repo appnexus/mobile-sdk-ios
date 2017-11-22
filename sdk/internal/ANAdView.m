@@ -309,49 +309,42 @@
 #pragma mark - ANAdViewInternalDelegate
 
 - (void)adWasClicked {
-
     if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {
         [self.delegate adWasClicked:self];
     }
 }
 
 - (void)adWillPresent {
-
     if ([self.delegate respondsToSelector:@selector(adWillPresent:)]) {
         [self.delegate adWillPresent:self];
     }
 }
 
 - (void)adDidPresent {
-
     if ([self.delegate respondsToSelector:@selector(adDidPresent:)]) {
         [self.delegate adDidPresent:self];
     }
 }
 
 - (void)adWillClose {
-
     if ([self.delegate respondsToSelector:@selector(adWillClose:)]) {
         [self.delegate adWillClose:self];
     }
 }
 
 - (void)adDidClose {
-
     if ([self.delegate respondsToSelector:@selector(adDidClose:)]) {
         [self.delegate adDidClose:self];
     }
 }
 
 - (void)adWillLeaveApplication {
-
     if ([self.delegate respondsToSelector:@selector(adWillLeaveApplication:)]) {
         [self.delegate adWillLeaveApplication:self];
     }
 }
 
 - (void)adDidReceiveAppEvent:(NSString *)name withData:(NSString *)data {
-
     if ([self.appEventDelegate respondsToSelector:@selector(ad:didReceiveAppEvent:withData:)]) {
         [self.appEventDelegate ad:self didReceiveAppEvent:name withData:data];
     }
@@ -359,14 +352,12 @@
 
 - (void)adDidReceiveAd
 {
-
     if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
         [self.delegate adDidReceiveAd:self];
     }
 }
 
 - (void)adRequestFailedWithError:(NSError *)error {
-
     if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];
     }

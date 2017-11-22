@@ -17,8 +17,8 @@
 #import "ANMRAIDContainerView.h"
 #import "ANStandardAd.h"
 
-static NSString *const kANUniversalAdFetcherFireResultCBRequestedNotification  = @"kANUniversalAdFetcherFireResultCBRequestedNotification";
-static NSString *const kANUniversalAdFetcherFireResultCBRequestedReason        = @"kANUniversalAdFetcherFireResultCBRequestedReason";
+static NSString *const kANUniversalAdFetcherFireResponseURLRequestedNotification  = @"kANUniversalAdFetcherFireResponseURLRequestedNotification";
+static NSString *const kANUniversalAdFetcherFireResponseURLRequestedReason        = @"kANUniversalAdFetcherFireResponseURLRequestedReason";
 
 @interface ANUniversalAdFetcher (ANTest)
 

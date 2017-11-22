@@ -13,8 +13,12 @@
  limitations under the License.
  */
 
-#import "ANUniversalAdFetcher+ANTest.h"
 #import <objc/runtime.h>
+
+#import "ANUniversalAdFetcher+ANTest.h"
+#import "ANTestGlobal.h"
+
+
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
@@ -23,15 +27,22 @@
 
 @dynamic standardAdView;
 
-+ (void)load {
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        [[self class] exchangeOriginalSelector:@selector(fireResultCB:reason:adObject:auctionID:)
-                                  withSelector:@selector(test_fireResultCB:reason:adObject:auctionID:)];
-    }];
+
++ (void)load
+{
+TESTTRACE();
+    NSBlockOperation  *operation  = [NSBlockOperation blockOperationWithBlock:
+            ^{
+                [[self class] exchangeOriginalSelector:@selector(fireResponseURL:reason:adObject:auctionID:)
+                                          withSelector:@selector(test_fireResponseURL:reason:adObject:auctionID:)];
+            } ];
+
     [operation start];
 }
 
-+ (void)exchangeOriginalSelector:(SEL)originalSelector withSelector:(SEL)swizzledSelector {
++ (void)exchangeOriginalSelector: (SEL)originalSelector
+                    withSelector: (SEL)swizzledSelector
+{
     Class class = [self class];
     
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
@@ -51,18 +62,21 @@
     }
 }
 
-- (void)test_fireResultCB:(NSString *)resultCBString
-                   reason:(ANAdResponseCode)reason
-                 adObject:(id)adObject
-                auctionID:(NSString *)auctionID {
-    NSDictionary *userInfo = @{kANUniversalAdFetcherFireResultCBRequestedReason:@(reason)};
-    [[NSNotificationCenter defaultCenter] postNotificationName:kANUniversalAdFetcherFireResultCBRequestedNotification
+- (void)test_fireResponseURL: (NSString *)resultCBString
+                      reason: (ANAdResponseCode)reason
+                    adObject: (id)adObject
+                   auctionID: (NSString *)auctionID
+{
+TESTTRACE();
+    NSDictionary  *userInfo  = @{kANUniversalAdFetcherFireResponseURLRequestedReason:@(reason)};
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kANUniversalAdFetcherFireResponseURLRequestedNotification
                                                         object:self
                                                       userInfo:userInfo];
-    [self test_fireResultCB:resultCBString
-                     reason:reason
-                   adObject:adObject
-                  auctionID:auctionID];
+    [self test_fireResponseURL: resultCBString
+                        reason: reason
+                      adObject: adObject
+                     auctionID: auctionID];
 }
 
 @end

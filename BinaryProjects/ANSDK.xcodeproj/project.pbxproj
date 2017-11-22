@@ -1276,9 +1276,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AFC046F1A2E75AE00BEA485 /* AdSupport.framework in Frameworks */,
 				6083C4811FBCD53000DED744 /* AVFoundation.framework in Frameworks */,
 				6083C47F1FBCD47400DED744 /* AVKit.framework in Frameworks */,
-				8AFC046F1A2E75AE00BEA485 /* AdSupport.framework in Frameworks */,
 				8AFC04611A2E74C800BEA485 /* CoreGraphics.framework in Frameworks */,
 				8AFC04651A2E751200BEA485 /* CoreTelephony.framework in Frameworks */,
 				8AFC046D1A2E75A300BEA485 /* MediaPlayer.framework in Frameworks */,
@@ -2114,9 +2114,9 @@
 		8AE5E11F1A2FDCDB00FDE858 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8AFC046E1A2E75AE00BEA485 /* AdSupport.framework */,
 				6083C4801FBCD53000DED744 /* AVFoundation.framework */,
 				6083C47E1FBCD47400DED744 /* AVKit.framework */,
-				8AFC046E1A2E75AE00BEA485 /* AdSupport.framework */,
 				8AFC04681A2E754700BEA485 /* CoreFoundation.framework */,
 				8AFC04601A2E74C800BEA485 /* CoreGraphics.framework */,
 				8AFC04641A2E751200BEA485 /* CoreTelephony.framework */,

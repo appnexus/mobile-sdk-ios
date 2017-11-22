@@ -15,21 +15,27 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+
 #import "ANBannerAdView.h"
 #import "ANLogManager.h"
 #import "XCTestCase+ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
 #import "ANGlobal.h"
+#import "ANTestGlobal.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANUniversalAdFetcher+ANTest.h"
 #import "ANBannerAdView+ANTest.h"
 
+
+
 @interface ANMediationAdViewControllerTestCase : XCTestCase
 
-@property (nonatomic, readwrite, strong) ANUniversalAdFetcher *adFetcher;
-@property (nonatomic, readwrite, strong) ANBannerAdView *adView;
+@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *adFetcher;
+@property (nonatomic, readwrite, strong)  ANBannerAdView        *adView;
 
 @end
+
+
 
 @implementation ANMediationAdViewControllerTestCase
 
@@ -39,6 +45,8 @@
     self.adView = [[ANBannerAdView alloc] init];
     [ANLogManager setANLogLevel:ANLogLevelAll];
 }
+
+
 
 #pragma mark - Invalid Adapters
 
@@ -76,6 +84,9 @@
                                                                            adViewDelegate:self.adView];
     XCTAssertNil(controller);
 }
+
+
+
 
 # pragma mark - Valid Adapters
 
@@ -154,41 +165,55 @@
                                             timeout:0.5];
 }
 
+
+
+
 #pragma mark - Helper Methods
 
-- (void)expectAdFetcherCallbackWithResponseCode:(ANAdResponseCode)code {
-    [self expectationForNotification:kANUniversalAdFetcherFireResultCBRequestedNotification
-                              object:self.adFetcher
-                             handler:^BOOL(NSNotification *notification) {
-                                 NSDictionary *userInfo = notification.userInfo;
-                                 NSNumber *reason = userInfo[kANUniversalAdFetcherFireResultCBRequestedReason];
-                                 if (reason && [reason integerValue] == code) {
-                                     return YES;
-                                 }
-                                 return NO;
-                             }];
+- (void)expectAdFetcherCallbackWithResponseCode:(ANAdResponseCode)code
+{
+TESTTRACE();
+    [self expectationForNotification: kANUniversalAdFetcherFireResponseURLRequestedNotification
+                              object: self.adFetcher
+                             handler: ^BOOL(NSNotification *notification)
+                                 {
+                                     NSDictionary   *userInfo   = notification.userInfo;
+                                     NSNumber       *reason     = userInfo[kANUniversalAdFetcherFireResponseURLRequestedReason];
+
+                                     if (reason && ([reason integerValue] == code))  { return YES; }
+                                     return NO;
+                                 } ];
 }
 
 // Assert that AdFetcher receives ANAdResponse code exactly once, and that no other code is ever received.
-- (void)validateAdFetcherCallbackWithResponseCode:(ANAdResponseCode)code
-                                          timeout:(NSTimeInterval)timeout {
-    __block BOOL receivedDesiredCallback = NO;
-    id observer = [[NSNotificationCenter defaultCenter] addObserverForName:kANUniversalAdFetcherFireResultCBRequestedNotification
-                                                                    object:self.adFetcher
-                                                                     queue:[NSOperationQueue mainQueue]
-                                                                usingBlock:^(NSNotification *notification) {
-                                                                    BOOL validCallback = NO;
-                                                                    NSNumber *reason;
-                                                                    if (!receivedDesiredCallback) {
-                                                                        NSDictionary *userInfo = notification.userInfo;
-                                                                        reason = userInfo[kANUniversalAdFetcherFireResultCBRequestedReason];
-                                                                        validCallback = reason && [reason integerValue] == code;
-                                                                        receivedDesiredCallback = validCallback;
-                                                                    }
-                                                                    XCTAssert(validCallback, @"Received invalid ad fetcher callback with reason: %@", reason);
-                                                                }];
+//
+- (void)validateAdFetcherCallbackWithResponseCode: (ANAdResponseCode)code
+                                          timeout: (NSTimeInterval)timeout
+{
+TESTTRACE();
+    __block BOOL  receivedDesiredCallback  = NO;
+
+    id  observer  = [[NSNotificationCenter defaultCenter] addObserverForName: kANUniversalAdFetcherFireResponseURLRequestedNotification
+                                                                      object: self.adFetcher
+                                                                       queue: [NSOperationQueue mainQueue]
+                                                                  usingBlock: ^(NSNotification *notification)
+                                                                     {
+                                                                        BOOL        validCallback  = NO;
+                                                                        NSNumber   *reason;
+
+                                                                         if (!receivedDesiredCallback) {
+                                                                            NSDictionary  *userInfo  = notification.userInfo;
+
+                                                                            reason                      = userInfo[kANUniversalAdFetcherFireResponseURLRequestedReason];
+                                                                            validCallback               = reason && ([reason integerValue] == code);
+                                                                            receivedDesiredCallback     = validCallback;
+                                                                        }
+
+                                                                        XCTAssert(validCallback, @"Received invalid ad fetcher callback with reason: %@", reason);
+                                                                    } ];
     [XCTestCase delayForTimeInterval:timeout];
     XCTAssert(receivedDesiredCallback);
+
     [[NSNotificationCenter defaultCenter] removeObserver:observer];
 }
 

@@ -21,26 +21,41 @@
 #import "ANStandardAd.h"
 #import "ANBannerAdView+ANTest.h"
 
-@interface ANAdResponseTestCase : XCTestCase
+
+
+
+@interface ANUniversalTagAdServerResponse ()
+
++ (ANStandardAd *)standardAdFromRTBObject:(NSDictionary *)rtbObject;
 
 @end
+
+
+
+@interface ANAdResponseTestCase : XCTestCase
+    //EMPTY
+@end
+
+
 
 @implementation ANAdResponseTestCase
 
 #pragma mark - Local Tests
 
-- (void)testLocalSuccessfulMRAIDResponse {
-    ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMRAID];
-//    XCTAssert(response.isMraid == YES);
-    ANStandardAd  *standardAd  = response.ads[0];
+- (void)testLocalSuccessfulMRAIDResponse
+{
+    ANUniversalTagAdServerResponse  *response    = [self responseWithJSONResource:kANAdResponseSuccessfulMRAID];
+    ANStandardAd                    *standardAd  = [response.ads firstObject];
 
-    XCTAssert([standardAd.type isEqualToString:@"banner"]);
+    XCTAssert(standardAd.mraid == YES);
     XCTAssert([standardAd.height isEqualToString:@"50"]);
     XCTAssert([standardAd.width isEqualToString:@"320"]);
+
     XCTAssertNotNil(standardAd.content);
 }
 
-- (void)testLocalSuccessfulMediationResponse {
+- (void)testLocalSuccessfulMediationResponse
+{
     ANUniversalTagAdServerResponse *response = [self responseWithJSONResource:kANAdResponseSuccessfulMediation];
     XCTAssert([response.ads count] == 4);
     
@@ -78,11 +93,17 @@
     XCTAssertNotNil(fourthMediatedAd.responseURL);
 }
 
-- (void)mediatedAd:(ANMediatedAd *)parsedMediatedAd equalToMediatedAd:(ANMediatedAd *)comparisonMediatedAd {
+
+
+#pragma mark - Helper methods.
+
+- (void)mediatedAd:(ANMediatedAd *)parsedMediatedAd equalToMediatedAd:(ANMediatedAd *)comparisonMediatedAd
+{
     XCTAssertEqualObjects(parsedMediatedAd.width, comparisonMediatedAd.width);
     XCTAssertEqualObjects(parsedMediatedAd.height, comparisonMediatedAd.height);
     XCTAssertEqualObjects(parsedMediatedAd.className, comparisonMediatedAd.className);
     XCTAssertEqualObjects(parsedMediatedAd.adId, comparisonMediatedAd.adId);
 }
+
 
 @end
