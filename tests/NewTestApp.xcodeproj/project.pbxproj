@@ -55,6 +55,8 @@
 		6035A0281E23FE1E0017EF56 /* libSmartAdServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */; };
 		6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A0291E23FE3F0017EF56 /* sas.bundle */; };
 		6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */; };
+		6042CB4D1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
+		6042CB5C1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
 		604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
@@ -665,6 +667,9 @@
 		60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSmartAdServer.a; path = ../mediation/mediatedviews/SmartAd/SmartAdSDK/libSmartAdServer.a; sourceTree = "<group>"; };
 		6035A0291E23FE3F0017EF56 /* sas.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = sas.bundle; path = ../mediation/mediatedviews/SmartAd/SmartAdSDK/sas.bundle; sourceTree = "<group>"; };
+		6042CB4B1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
+		6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
+		6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
 		605EDBC41D92E9A00042DC0C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurry.a; sourceTree = "<group>"; };
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
@@ -1092,12 +1097,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1383,25 +1388,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
-				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0094019DB169B0090EBED /* libANSDK.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
 				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
 				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
+				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1507,6 +1512,7 @@
 				8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */,
 				8AA009AA19DB18AE0090EBED /* ANURLConnectionStub.h */,
 				8AA009AB19DB18AE0090EBED /* ANURLConnectionStub.m */,
+				6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
 			);
 			path = Stubbing;
 			sourceTree = "<group>";
@@ -1576,6 +1582,8 @@
 				8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */,
 				8AA00A1019DB1E150090EBED /* XCTestCase+ANMediatedAd.h */,
 				8AA00A1119DB1E150090EBED /* XCTestCase+ANMediatedAd.m */,
+				6042CB4B1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.h */,
+				6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2401,6 +2409,7 @@
 				8A0AA49019DB3453005EC52C /* ANAdAdapterBannerNetworkError.m in Sources */,
 				8A0AA49119DB3453005EC52C /* ANAdAdapterBannerNoDelegate.m in Sources */,
 				8A0AA49219DB3453005EC52C /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
+				6042CB4D1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8A0AA49319DB3453005EC52C /* ANAdAdapterBannerSuccessful.m in Sources */,
 				8A0AA49419DB3453005EC52C /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */,
 				8A0AA49519DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
@@ -2422,6 +2431,7 @@
 				8A0AA46D19DB30A2005EC52C /* ANLocationTestCase.m in Sources */,
 				8AA00A5519DB2BF40090EBED /* ANMediationAdViewController+ANTest.m in Sources */,
 				8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */,
+				6042CB5C1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */,
 				8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8A6520AB1E67738A0011EFB3 /* ANPBContainerViewTestCase.m in Sources */,

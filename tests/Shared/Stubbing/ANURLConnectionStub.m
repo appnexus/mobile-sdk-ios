@@ -16,9 +16,7 @@
 #import "ANURLConnectionStub.h"
 #import "ANGlobal.h"
 #import "ANSDKSettings+PrivateMethods.h"
-
-
-
+#import "ANHTTPStubURLProtocol.h"
 
 @implementation ANURLConnectionStub
 
@@ -139,6 +137,51 @@
     adElement[@"height"] = [@(adSize.height) description];
     adElement[@"content"] = content;
     return [adElement copy];
+}
+
++ (void)setEnabled:(BOOL)enable forSessionConfiguration:(NSURLSessionConfiguration*)sessionConfig
+{
+    // Runtime check to make sure the API is available on this version
+    if (   [sessionConfig respondsToSelector:@selector(protocolClasses)]
+        && [sessionConfig respondsToSelector:@selector(setProtocolClasses:)])
+    {
+        NSMutableArray * urlProtocolClasses = [NSMutableArray arrayWithArray:sessionConfig.protocolClasses];
+        Class protoCls = ANHTTPStubURLProtocol.class;
+        if (enable && ![urlProtocolClasses containsObject:protoCls])
+        {
+            [urlProtocolClasses insertObject:protoCls atIndex:0];
+        }
+        else if (!enable && [urlProtocolClasses containsObject:protoCls])
+        {
+            [urlProtocolClasses removeObject:protoCls];
+        }
+        sessionConfig.protocolClasses = urlProtocolClasses;
+    }
+    else
+    {
+        NSLog(@"[ANURLConnectionStub] %@ is only available when running on iOS7+/OSX9+. "
+              @"Use conditions like 'if ([NSURLSessionConfiguration class])' to only call "
+              @"this method if the user is running iOS7+/OSX9+.", NSStringFromSelector(_cmd));
+    }
+}
+
++ (BOOL)isEnabledForSessionConfiguration:(NSURLSessionConfiguration *)sessionConfig
+{
+    // Runtime check to make sure the API is available on this version
+    if (   [sessionConfig respondsToSelector:@selector(protocolClasses)]
+        && [sessionConfig respondsToSelector:@selector(setProtocolClasses:)])
+    {
+        NSMutableArray * urlProtocolClasses = [NSMutableArray arrayWithArray:sessionConfig.protocolClasses];
+        Class protoCls = ANHTTPStubURLProtocol.class;
+        return [urlProtocolClasses containsObject:protoCls];
+    }
+    else
+    {
+        NSLog(@"[ANURLConnectionStub] %@ is only available when running on iOS7+/OSX9+. "
+              @"Use conditions like 'if ([NSURLSessionConfiguration class])' to only call "
+              @"this method if the user is running iOS7+/OSX9+.", NSStringFromSelector(_cmd));
+        return NO;
+    }
 }
 
 @end
