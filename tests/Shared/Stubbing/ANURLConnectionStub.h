@@ -45,4 +45,34 @@
 
 + (ANURLConnectionStub *)stubForMraidFile;
 
+/**
+ *  Enable or disable the stubs on a given `NSURLSessionConfiguration`.
+ *
+ *  @param enabled If `YES`, enables the stubs for this `NSURLSessionConfiguration`.
+ *                 If `NO`, disable the stubs and let all the requests hit the real world
+ *  @param sessionConfig The NSURLSessionConfiguration on which to enabled/disable the stubs
+ *
+ *  @note OHHTTPStubs are enabled by default on newly created `defaultSessionConfiguration`
+ *        and `ephemeralSessionConfiguration`, so there is no need to call this method with
+ *        `YES` for stubs to work. You generally only use this if you want to disable
+ *        `OHTTPStubs` per `NSURLSession` by calling it before building the `NSURLSession`
+ *        with the `NSURLSessionConfiguration`.
+ *
+ *  @note Important: As usual according to the way `NSURLSessionConfiguration` works, you
+ *        MUST set this property BEFORE creating the `NSURLSession`. Once the `NSURLSession`
+ *        object is created, they use a deep copy of the `NSURLSessionConfiguration` object
+ *        used to create them, so changing the configuration later does not affect already
+ *        created sessions.
+ */
++ (void)setEnabled:(BOOL)enabled forSessionConfiguration:(NSURLSessionConfiguration *)sessionConfig;
+
+/**
+ *  Whether stubs are enabled or disabled on a given `NSURLSessionConfiguration`
+ *
+ *  @param sessionConfig The NSURLSessionConfiguration on which to enable/disable the stubs
+ *
+ *  @return If `YES` the stubs are enabled for sessionConfig. If `NO` then the stubs are disabled
+ */
++ (BOOL)isEnabledForSessionConfiguration:(NSURLSessionConfiguration *)sessionConfig;
+
 @end

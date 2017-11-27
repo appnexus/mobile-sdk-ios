@@ -24,8 +24,7 @@
 #import "ANHTTPStubbingManager.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANSDKSettings+PrivateMethods.h"
-
-
+#import "NSURLRequest+HTTPBodyTesting.h"
 
 @interface ANPublicAPITestCase : XCTestCase
 
@@ -35,11 +34,6 @@
 @property (nonatomic)                     NSURLRequest          *request;
 
 @end
-
-
-//TBDFIX -- self.request HTTPBody dissappeared between commits 7e7f50ff3ed276ac10fb954d7517a6e07bce81ef and 2090ff4c0d65075c5f942099d164ec8701e195be.
-//
-#define  requestContainsHTTPBody  0
 
 
 @implementation ANPublicAPITestCase
@@ -97,10 +91,9 @@ TESTTRACE();
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
 }
 
-#if requestContainsHTTPBody
 - (NSDictionary *) getJSONBodyOfURLRequestAsDictionary: (NSURLRequest *)urlRequest
 {
-    NSString      *bodyAsString  = [[NSString alloc] initWithData:[urlRequest HTTPBody] encoding:NSUTF8StringEncoding];
+    NSString      *bodyAsString  = [[NSString alloc] initWithData:[urlRequest ANHTTPStubs_HTTPBody] encoding:NSUTF8StringEncoding];
     NSData        *objectData    = [bodyAsString dataUsingEncoding:NSUTF8StringEncoding];
     NSError       *error         = nil;
 
@@ -111,8 +104,6 @@ TESTTRACE();
 
     return  json;
 }
-#endif  //requestContainsHTTPBody
-
 
 
 #pragma mark - Test methods.
@@ -136,10 +127,8 @@ TESTTRACE();
     //
     XCTAssertEqual(@"1", [self.banner placementId]);
 
-#if requestContainsHTTPBody
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
     XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
-#endif  //requestContainsHTTPBody
 }
 
 - (void)testSetInventoryCodeAndMemberIDOnBanner
@@ -164,14 +153,12 @@ TESTTRACE();
     XCTAssertEqual(@"test", [self.banner inventoryCode]);
     XCTAssertEqual(1, [self.banner memberId]);
 
-#if requestContainsHTTPBody
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
 
     XCTAssertEqual([jsonBody[@"member_id"] integerValue], 1);
 
     NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //XXX  @"code" value is of type NSTaggedPointerString.
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
-#endif  //requestContainsHTTPBody
 }
 
 //NB  Both placementID and (inventoryCode, memberID) tuple exist in the class,
@@ -199,7 +186,6 @@ TESTTRACE();
     XCTAssertEqual(@"test",     [self.banner inventoryCode]);
     XCTAssertEqual(2,           [self.banner memberId]);
 
-#if requestContainsHTTPBody
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
 
     XCTAssertNil(jsonBody[@"tags"][0][@"id"]);
@@ -208,7 +194,6 @@ TESTTRACE();
 
     NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //XXX  @"code" value is of type NSTaggedPointerString.
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
-#endif  //requestContainsHTTPBody
 }
 
 - (void)testSetPlacementOnlyOnInterstitial
@@ -227,10 +212,8 @@ TESTTRACE();
     //
     XCTAssertEqual(@"1", [self.interstitial placementId]);
 
-#if requestContainsHTTPBody
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
     XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
-#endif  //requestContainsHTTPBody
 }
 
 - (void)testSetInventoryCodeAndMemberIDOnInterstitial
@@ -251,14 +234,12 @@ TESTTRACE();
     XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
     XCTAssertEqual(2, [self.interstitial memberId]);
 
-#if requestContainsHTTPBody
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
 
     XCTAssertEqual([jsonBody[@"member_id"] integerValue], 2);
 
     NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //XXX  @"code" value is of type NSTaggedPointerString.
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
-#endif  //requestContainsHTTPBody
 }
 
 //NB  Both placementID and (inventoryCode, memberID) tuple exist in the class,
@@ -283,7 +264,6 @@ TESTTRACE();
     XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
     XCTAssertEqual(2, [self.interstitial memberId]);
 
-#if requestContainsHTTPBody
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
 
     XCTAssertNil(jsonBody[@"tags"][0][@"id"]);
@@ -292,8 +272,6 @@ TESTTRACE();
 
     NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //XXX  @"code" value is of type NSTaggedPointerString.
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
-#endif  //requestContainsHTTPBody
 }
-
 
 @end
