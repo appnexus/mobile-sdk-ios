@@ -1,3 +1,13 @@
+## 4.1
+
+### Updates
++ AppNexusSDK will now support iOS 9.0 & above only
+
+### Bug Fixes
++ MS-3085 -- Update SDK to respect safe area on iPhone X/iOS 11
++ MS-2985 -- `NSURLConnection` has deprecated methods that are currently in use by the AppNexus SDK
++ MS-2983 -- `MPMoviePlayerViewController` has been deprecated as per iOS 9 but is being used in ANMRAIDUtil
+
 
 ## 4.0.1
 
