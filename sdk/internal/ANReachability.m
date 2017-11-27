@@ -103,11 +103,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 + (instancetype)reachabilityWithHostName:(NSString *)hostName
 {
-    struct hostent  *hostEntry  = gethostbyname([hostName cStringUsingEncoding:NSASCIIStringEncoding]);
-
-    if (!hostEntry)  { return nil; }
-
-    //
     ANReachability* returnValue = [[self alloc] init];
 
     if (returnValue != NULL)
@@ -125,12 +120,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 + (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress
 {
-    unsigned int     ipAddr     = ntohl(hostAddress->sin_addr.s_addr);
-    struct hostent  *addrEntry  = gethostbyaddr((void *)& ipAddr, hostAddress->sin_len, hostAddress->sin_family);
-
-    if (!addrEntry)  { return nil; }
-
-    //
     ANReachability* returnValue = [[self alloc] init];
     
     if (returnValue != NULL)
