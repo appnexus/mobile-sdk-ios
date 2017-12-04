@@ -13,6 +13,8 @@
  limitations under the License.
  */
 
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
+
 #import "AppDelegate.h"
 #import "ANLogManager.h"
 #import "ANHTTPStubbingManager.h"
@@ -23,10 +25,17 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     [ANLogManager setANLogLevel:ANLogLevelAll];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+
+#if DEBUG >= 1
+    [FBAdSettings setLogLevel:FBAdLogLevelLog];
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
+#endif
+
     return YES;
 }
 

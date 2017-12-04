@@ -17,6 +17,6 @@
 
 @implementation ANTrackerManager (ANTest)
 
-@dynamic impressionTrackerRetryTimer;
+@dynamic trackerRetryTimer;
 
 @end

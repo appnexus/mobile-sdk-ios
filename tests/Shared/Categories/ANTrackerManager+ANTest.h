@@ -17,6 +17,6 @@
 
 @interface ANTrackerManager (ANTest)
 
-@property (nonatomic, readwrite, strong) NSTimer *impressionTrackerRetryTimer;
+@property (nonatomic, readwrite, strong) NSTimer *trackerRetryTimer;
 
 @end

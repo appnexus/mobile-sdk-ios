@@ -389,6 +389,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     mediatedAd.height     = [handlerDict[kANUniversalTagAdServerResponseKeyHeight] description];
                     mediatedAd.adId       = [handlerDict[kANUniversalTagAdServerResponseKeyId] description];
                     break;
+                    
+                } else {
+                    ANLogError(@"UNRECOGNIZED CSM type.  (%@)", type);
                 }
             }
         } //endfor -- handlerObject

@@ -10,7 +10,7 @@
 
 #import <arpa/inet.h>
 
-#import "ANReachability.h"
+#import "ANReachability+ANTest.h"
 
 
 
@@ -19,12 +19,13 @@
     //EMPTY
 @end
 
-
-
 @implementation ANReachabilityTestCase
 
 - (void)setUp     { [super setUp]; }
-- (void)tearDown  { [super tearDown]; }
+- (void)tearDown  {
+    [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:NO];
+    [super tearDown];
+}
 
 
 - (void)testHostname
@@ -36,7 +37,6 @@
 
     XCTAssertTrue([hostname currentReachabilityStatus]);
 }
-
 
 - (void) testAppNexusIPAddress
 {
@@ -55,11 +55,14 @@
     socketAddress.sin_len           = sizeof(socketAddress);
     socketAddress.sin_family        = AF_INET;
     socketAddress.sin_addr.s_addr   = htonl(hostNumber.s_addr);
-
+    [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:NO];
     ANReachability  *appNexusIPAddress  = [ANReachability reachabilityWithAddress:&socketAddress];
     XCTAssertNotNil(appNexusIPAddress);
     XCTAssertTrue([appNexusIPAddress currentReachabilityStatus]);
+    
+    [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:YES];
+    XCTAssertFalse([appNexusIPAddress currentReachabilityStatus]);
+    
 }
-
 
 @end

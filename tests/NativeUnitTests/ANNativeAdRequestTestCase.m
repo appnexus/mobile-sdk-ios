@@ -15,10 +15,18 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "ANNativeAdRequest+ANBaseUrlOverride.h"
+
+#import "ANNativeAdRequest.h"
 #import "ANGlobal.h"
+#import "ANTestGlobal.h"
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
+#import "XCTestCase+ANCategory.h"
+#import "ANSDKSettings+PrivateMethods.h"
+#import "NSURLRequest+HTTPBodyTesting.h"
+#import "ANLogManager.h"
+
+
 
 @interface ANNativeAdRequestTestCase : XCTestCase <ANNativeAdRequestDelegate>
 
@@ -32,29 +40,37 @@
 
 @end
 
+
+
 @implementation ANNativeAdRequestTestCase
+
+#pragma mark - Test lifecycle.
 
 - (void)setUp {
     [super setUp];
+    [ANLogManager setANLogLevel:ANLogLevelAll];
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
-    [self stubResultCBResponse];
     [self setupRequestTracker];
 }
 
 - (void)tearDown {
     [super tearDown];
+
     self.adRequest = nil;
     self.delegateCallbackExpectation = nil;
     self.successfulAdCall = NO;
     self.adResponse = nil;
     self.adRequestError = nil;
+
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
 }
 
 - (void)setupRequestTracker {
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = YES;
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(requestLoaded:)
                                                  name:kANHTTPStubURLProtocolRequestDidLoadNotification
@@ -62,13 +78,23 @@
 }
 
 - (void)requestLoaded:(NSNotification *)notification {
-    self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
-    [self.requestExpectation fulfill];
+    TESTTRACE();
+    if (self.requestExpectation) {
+        self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
+        [self.requestExpectation fulfill];
+        self.requestExpectation = nil;
+    }
 }
 
 
-- (void)testSetPlacementIdOnlyOnNative {
+
+#pragma mark - Test methods.
+        //TBDFIX -- Should test elements in outgoing UT Request via self.request.
+
+- (void)testSetPlacementIdOnlyOnNative
+{
     [self stubRequestWithResponse:@"appnexus_standard_response"];
+    //self.requestExpectation = [self expectationWithDescription:@"request"];
     [self.adRequest setPlacementId:@"1"];
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
@@ -77,9 +103,11 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
+
     XCTAssertEqual(@"1", [self.adRequest placementId]);
-    XCTAssertTrue([requestPath containsString:@"?id=1"]);
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
 }
 
 - (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
@@ -92,10 +120,15 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
+
     XCTAssertEqual(2, [self.adRequest memberId]);
     XCTAssertEqual(@"test", [self.adRequest inventoryCode]);
-    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
+
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertNil(jsonBody[@"tags"][0][@"id"]);
+    XCTAssertEqual([jsonBody[@"member_id"] integerValue], 2);
+    NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //@"code" value is of type NSTaggedPointerString.
+    XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnNative {
@@ -109,12 +142,19 @@
                                      
                                  }];
     self.requestExpectation = nil;
-    NSString *requestPath = [[self.request URL] absoluteString];
+
     XCTAssertEqual(2, [self.adRequest memberId]);
     XCTAssertEqual(@"test", [self.adRequest inventoryCode]);
     XCTAssertEqual(@"1", [self.adRequest placementId]);
-    XCTAssertTrue([requestPath containsString:@"?member=2&inv_code=test"]);
-    XCTAssertTrue(![requestPath containsString:@"?id=1"]);
+
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    
+    XCTAssertNil(jsonBody[@"tags"][0][@"id"]); // When both member_id/inventorycode and PlacementID exist, then placement_id is ignored in the request
+    
+    XCTAssertEqual([jsonBody[@"member_id"] integerValue], 2);
+    
+    NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //@"code" value is of type NSTaggedPointerString.
+    XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
 }
 
 - (void)testAppNexusWithMainImageLoad {
@@ -126,7 +166,8 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    [self validateGenericAdResponse];
+    [self validateGenericNativeAdObject];
+
     XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
     XCTAssertNil(self.adResponse.iconImage);
     self.adResponse.mainImageURL ? XCTAssertNotNil(self.adResponse.mainImage) : XCTAssertNil(self.adResponse.mainImage);
@@ -142,7 +183,7 @@
                                      
                                  }];
     if (self.successfulAdCall) {
-        [self validateGenericAdResponse];
+        [self validateGenericNativeAdObject];
         XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
         XCTAssertNil(self.adResponse.iconImage);
         XCTAssertNil(self.adResponse.mainImage);
@@ -161,7 +202,7 @@
                                      
                                  }];
     if (self.successfulAdCall) {
-        [self validateGenericAdResponse];
+        [self validateGenericNativeAdObject];
         XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
         self.adResponse.iconImageURL ? XCTAssertNotNil(self.adResponse.iconImage) : XCTAssertNil(self.adResponse.iconImage);
         self.adResponse.iconImageURL ? XCTAssertTrue([self.adResponse.iconImage isKindOfClass:[UIImage class]]) : nil;
@@ -192,7 +233,7 @@
                                      
                                  }];
     if (self.successfulAdCall) {
-        [self validateGenericAdResponse];
+        [self validateGenericNativeAdObject];
         XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
         XCTAssertNil(self.adResponse.iconImage);
         XCTAssertNil(self.adResponse.mainImage);
@@ -222,23 +263,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
-    [self validateGenericAdResponse];
-    XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
-    XCTAssertNil(self.adResponse.iconImage);
-    self.adResponse.mainImageURL ? XCTAssertNotNil(self.adResponse.mainImage) : XCTAssertNil(self.adResponse.mainImage);
-    self.adResponse.mainImageURL ? XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]) : nil;
-}
-
-- (void)testCustomAdapterFailToNativeAd {
-    [self stubRequestWithResponse:@"custom_adapter_to_native_ad"];
-    [self.adRequest loadAd];
-    self.adRequest.shouldLoadMainImage = YES;
-    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
-    [self validateGenericAdResponse];
+    [self validateGenericNativeAdObject];
     XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
     XCTAssertNil(self.adResponse.iconImage);
     self.adResponse.mainImageURL ? XCTAssertNotNil(self.adResponse.mainImage) : XCTAssertNil(self.adResponse.mainImage);
@@ -281,7 +306,11 @@
     XCTAssertNotNil(self.adRequestError);
 }
 
-- (void)validateGenericAdResponse {
+
+
+#pragma mark - Helper methods.
+
+- (void)validateGenericNativeAdObject {
     XCTAssertNotNil(self.adResponse);
     if (self.adResponse.title) {
         XCTAssert([self.adResponse.title isKindOfClass:[NSString class]]);
@@ -309,19 +338,27 @@
     }
 }
 
+
+
 #pragma mark - ANNativeAdRequestDelegate
 
-- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {
+- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
+{
+TESTTRACE();
     self.adResponse = response;
     self.successfulAdCall = YES;
     [self.delegateCallbackExpectation fulfill];
 }
 
-- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error {
+- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error
+{
+TESTTRACE();
     self.adRequestError = error;
     self.successfulAdCall = NO;
     [self.delegateCallbackExpectation fulfill];
 }
+
+
 
 # pragma mark - Ad Server Response Stubbing
 
@@ -332,18 +369,25 @@
                                                  encoding:NSUTF8StringEncoding
                                                     error:nil];
     ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
-    requestStub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
-    requestStub.responseCode = 200;
-    requestStub.responseBody = baseResponse;
+    requestStub.requestURL      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    requestStub.responseCode    = 200;
+    requestStub.responseBody    = baseResponse;
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
 }
 
-- (void)stubResultCBResponse {
-    ANURLConnectionStub *resultCBStub = [[ANURLConnectionStub alloc] init];
-    resultCBStub.requestURLRegexPatternString = @"http://nym1.mobile.adnxs.com/mediation.*";
-    resultCBStub.responseCode = 200;
-    resultCBStub.responseBody = @"";
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:resultCBStub];
+- (NSDictionary *) getJSONBodyOfURLRequestAsDictionary: (NSURLRequest *)urlRequest
+{
+    NSString      *bodyAsString  = [[NSString alloc] initWithData:[urlRequest ANHTTPStubs_HTTPBody] encoding:NSUTF8StringEncoding];
+    NSData        *objectData    = [bodyAsString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError       *error         = nil;
+    
+    NSDictionary  *json          = [NSJSONSerialization JSONObjectWithData: objectData
+                                                                   options: NSJSONReadingMutableContainers
+                                                                     error: &error];
+    if (error)  { return nil; }
+    
+    return  json;
 }
+
 
 @end

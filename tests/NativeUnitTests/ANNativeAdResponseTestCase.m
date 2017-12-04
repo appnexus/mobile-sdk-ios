@@ -16,21 +16,25 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import <KIF/KIF.h>
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 #import "ANNativeAdRequest.h"
 #import "ANGlobal.h"
+#import "ANTestGlobal.h"
 #import "ANNativeAdView.h"
 #import "ANLogManager.h"
 
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
 #import "XCTestCase+ANCategory.h"
 
 #import "ANNativeStandardAdResponse.h"
 #import "ANAdAdapterNativeAdMob.h"
 #import "ANGADNativeAppInstallAdView.h"
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
+
+
 
 @interface ANNativeAdResponseTestCase : KIFTestCase <ANNativeAdRequestDelegate, ANNativeAdDelegate>
 
@@ -56,7 +60,11 @@
 
 @end
 
+
+
 @implementation ANNativeAdResponseTestCase
+
+#pragma mark - Test lifecycle.
 
 - (void)setUp {
     [super setUp];
@@ -64,7 +72,6 @@
     self.adRequest = [[ANNativeAdRequest alloc] init];
     self.adRequest.delegate = self;
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
-    [self stubResultCBResponse];
 }
 
 - (void)tearDown {
@@ -94,6 +101,8 @@
     self.receivedCallbackAdWillLeaveApplication = NO;
 }
 
+
+
 #pragma mark - Tests
 
 - (void)testAppNexusWithIconImageLoad {
@@ -105,6 +114,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
+
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
@@ -122,16 +132,15 @@
     [self assertPendingClickTrackerCount:1];
     
     [tester waitForTimeInterval:2.0];
-    
     [self assertPendingImpressionTrackerCount:0];
     [self assertPendingClickTrackerCount:1];
-    
     [self clickOnAd];
+
     [tester waitForTimeInterval:2.0];
     [self assertPresentCallbacksReceived];
     [self assertPendingClickTrackerCount:0];
-    
     [self closeInAppBrowser];
+
     [tester waitForTimeInterval:3.0];
     [self assertCloseCallbacksReceived];
 }
@@ -146,6 +155,7 @@
                                  handler:^(NSError *error) {
                                      
                                  }];
+
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
@@ -158,12 +168,12 @@
     [self addNativeViewToViewHierarchy];
     
     [tester waitForTimeInterval:2.0];
-    
     [self clickOnAd];
+
     [tester waitForTimeInterval:2.0];
     [self assertPresentCallbacksReceived];
-    
     [self forceDismissPresentedController];
+
     [tester waitForTimeInterval:3.0];
 }
 
@@ -291,16 +301,16 @@
     [self assertPendingClickTrackerCount:4];
 
     [tester waitForTimeInterval:2.0];
-    
     [self assertPendingImpressionTrackerCount:0];
     [self assertPendingClickTrackerCount:4];
-    
     [self clickOnAd];
+
     [tester waitForTimeInterval:2.0];
     [self assertPresentCallbacksReceived];
     [self assertPendingClickTrackerCount:0];
-
+    
     [self closeInAppBrowser];
+
     [tester waitForTimeInterval:3.0];
     [self assertCloseCallbacksReceived];
 }
@@ -336,10 +346,10 @@
     self.adResponse = nil;
     
     //-----//
-    
+
+
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [self stubRequestWithResponse:@"facebook_mediated_response"];
-    [self stubResultCBResponse];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -353,7 +363,10 @@
     [self registerNativeView];
     
     [tester waitForTimeInterval:3.0];
-    
+
+    /* These cases are not possible to be executed because click triggers opening of SAFARI browser and there is no way to come back using KIF or XCTest since it is launched external to the app.
+        Plus there is a cascading effect of other test cases failing because of we are not back in the app. Mediation adapter test have hidden this behind a flag #define kANMediationAdaptersUITesting 1
+                 
     if ([[UIScreen mainScreen] respondsToSelector:@selector(coordinateSpace)]) {
         [self clickOnAd];
         [tester waitForTimeInterval:2.0];
@@ -362,12 +375,12 @@
         [self forceDismissPresentedController];
         [tester waitForTimeInterval:3.0];
     }
-    
+                 */
+
     //-----//
 
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [self stubRequestWithResponse:@"appnexus_standard_response"];
-    [self stubResultCBResponse];
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -410,51 +423,21 @@
     
     [tester waitForTimeInterval:2.0];
     
-    [self assertPendingImpressionTrackerCount:0];
     [self assertPendingClickTrackerCount:1];
     
     [self clickOnAd];
     // click_url_fallback will be triggered after click_url fails
     [tester waitForTimeInterval:2.0];
     [self assertPresentCallbacksReceived];
-    [self assertPendingClickTrackerCount:0];
-    
+
     [self closeInAppBrowser];
     [tester waitForTimeInterval:3.0];
     [self assertCloseCallbacksReceived];
 }
 
-#pragma mark - Mediation Tests
 
-- (void)testMoPubWithIconImageLoad {
-//    [self stubRequestWithResponse:@"mopub_mediated_response"];
-//    [self.adRequest loadAd];
-//    self.adRequest.shouldLoadIconImage = YES;
-//    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-//    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-//                                 handler:^(NSError *error) {
-//                                     
-//                                 }];
-//    XCTAssertTrue(self.successfulAdCall);
-//    XCTAssertNil(self.adRequestError);
-//    
-//    [self iconImageShouldBePresentInResponse:YES];
-//    [self mainImageShouldBePresentInResponse:NO];
-//    
-//    [self createBasicNativeView];
-//    [self populateNativeViewWithResponse];
-//    [self registerNativeView];
-//    [self addNativeViewToViewHierarchy];
-//
-//    [tester waitForTimeInterval:2.0];
-//    
-//    [self clickOnAd];
-//    [tester waitForTimeInterval:2.0];
-//    [self assertPresentCallbacksReceived];
-//    
-//    [self forceDismissPresentedController];
-//    [tester waitForTimeInterval:3.0];
-}
+
+#pragma mark - Mediation Tests
 
 - (void)testFacebookWithIconImageLoad {
     [self stubRequestWithResponse:@"facebook_mediated_response"];
@@ -481,14 +464,17 @@
     
     [tester waitForTimeInterval:2.0];
 
+    /*These cases are not possible to be executed because click triggers opening of SAFARI browser and there is no way to come back using KIF or XCTest since it is launched external to the app.
+       Plus there is a cascading effect of other test cases failing because of we are not back in the app. Mediation adapter test have hidden this behind a flag #define kANMediationAdaptersUITesting 1
     if ([[UIScreen mainScreen] respondsToSelector:@selector(coordinateSpace)]) {
         [self clickOnAd];
         [tester waitForTimeInterval:2.0];
         [self assertPresentCallbacksReceived];
         
-        [self forceDismissPresentedController];
+        [self forceDismissPresentedController2];
         [tester waitForTimeInterval:3.0];
     }
+             */
 }
 
 - (void)testAdMobWithIconImageLoad {
@@ -520,42 +506,49 @@
     XCTAssertTrue([self.installAdView.nativeAppInstallAd isKindOfClass:[GADNativeAppInstallAd class]]);
 }
 
+
+
 #pragma mark - ANNativeAdRequestDelegate
 
-- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response {
+- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
+{
+TESTTRACE();
     self.adResponse = response;
     self.successfulAdCall = YES;
     [self.delegateCallbackExpectation fulfill];
 }
 
-- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error {
+- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error
+{
+TESTTRACE();
     self.adRequestError = error;
     self.successfulAdCall = NO;
     [self.delegateCallbackExpectation fulfill];
 }
 
+
+
 # pragma mark - Ad Server Response Stubbing
 
-- (void)stubRequestWithResponse:(NSString *)responseName {
+- (void)stubRequestWithResponse:(NSString *)responseName
+{
     NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
-    NSString *baseResponse = [NSString stringWithContentsOfFile:[currentBundle pathForResource:responseName
-                                                                                        ofType:@"json"]
-                                                       encoding:NSUTF8StringEncoding
-                                                          error:nil];
+
+    NSString *baseResponse = [NSString stringWithContentsOfFile: [currentBundle pathForResource:responseName ofType:@"json"]
+                                                       encoding: NSUTF8StringEncoding
+                                                          error: nil ];
+
     ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
-    requestStub.requestURLRegexPatternString = @"http://mediation.adnxs.com/mob\\?.*";
-    requestStub.responseCode = 200;
-    requestStub.responseBody = baseResponse;
+
+
+    requestStub.requestURL      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    requestStub.responseCode    = 200;
+    requestStub.responseBody    = baseResponse;
+
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
 }
 
-- (void)stubResultCBResponse {
-    ANURLConnectionStub *resultCBStub = [[ANURLConnectionStub alloc] init];
-    resultCBStub.requestURLRegexPatternString = @"http://nym1.mobile.adnxs.com/mediation.*";
-    resultCBStub.responseCode = 200;
-    resultCBStub.responseBody = @"";
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:resultCBStub];
-}
+
 
 #pragma mark - ANAdDelegate
 
@@ -588,8 +581,8 @@
 - (void)requestLoaded:(NSNotification *)notification {
     NSURLRequest *request = notification.userInfo[kANHTTPStubURLProtocolRequest];
     __block NSInteger indexToRemove = -1;
-    [self.impressionTrackers enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger idx, BOOL *stop) {
-        if ([request.URL isEqual:URL]) {
+    [self.impressionTrackers enumerateObjectsUsingBlock:^(NSString *URL, NSUInteger idx, BOOL *stop) {
+        if ([request.URL.absoluteString isEqualToString:URL]) {
             indexToRemove = (NSInteger)idx;
             *stop = YES;
         }
@@ -598,8 +591,8 @@
         [self.impressionTrackers removeObjectAtIndex:indexToRemove];
         return;
     }
-    [self.clickTrackers enumerateObjectsUsingBlock:^(NSURL *URL, NSUInteger idx, BOOL *stop) {
-        if ([request.URL isEqual:URL]) {
+    [self.clickTrackers enumerateObjectsUsingBlock:^(NSString *URL, NSUInteger idx, BOOL *stop) {
+        if ([request.URL.absoluteString isEqualToString:URL]) {
             indexToRemove = (NSInteger)idx;
             *stop = YES;
         }
@@ -673,7 +666,8 @@
     XCTAssertNil(registerError);
 }
 
-- (void)assertPendingImpressionTrackerCount:(NSInteger)numImpTrackers {
+- (void)assertPendingImpressionTrackerCount:(NSInteger)numImpTrackers
+{
     XCTAssertEqual(self.impressionTrackers.count, numImpTrackers);
 }
 

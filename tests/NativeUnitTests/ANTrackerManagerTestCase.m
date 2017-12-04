@@ -22,14 +22,14 @@
 #import "ANTrackerManager+ANTest.h"
 #import "NSTimer+ANCategory.h"
 
-@interface ANNativeImpressionTrackerManagerTestCase : XCTestCase
+@interface ANTrackerManagerTestCase : XCTestCase
 
 @property (nonatomic, readwrite, strong)  NSString  *urlString;
 @property (nonatomic, readwrite, assign)  BOOL       urlWasFired;
 
 @end
 
-@implementation ANNativeImpressionTrackerManagerTestCase
+@implementation ANTrackerManagerTestCase
 
 - (void)setUp {
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
@@ -54,9 +54,9 @@
     [XCTestCase delayForTimeInterval:3.0];
     XCTAssertFalse(self.urlWasFired);
     
-    NSTimer *fireTimer = [ANTrackerManager sharedManager].impressionTrackerRetryTimer;
+    NSTimer *fireTimer = [ANTrackerManager sharedManager].trackerRetryTimer;
     XCTAssertTrue(fireTimer.an_isScheduled);
-    
+
     [ANReachability toggleNonReachableNetworkStatusSimulationEnabled:NO];
     fireTimer.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
 
