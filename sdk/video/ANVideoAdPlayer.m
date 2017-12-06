@@ -31,7 +31,8 @@
     @property (nonatomic, strong)             NSString                 *vastContent;
     @property (nonatomic, strong)             NSString                 *vastURL;
     @property  (nonatomic, strong)            NSString                 *jsonContent;
-
+    @property (nonatomic, strong)             NSString                 *creativeTag;
+    @property (nonatomic, assign)             int videoDuration;
     @property (nonatomic, readonly)  BOOL  opensInNativeBrowser;
     @property (nonatomic, readonly)  BOOL  landingPageLoadsInBackground;
 
@@ -54,6 +55,8 @@
                                             selector:@selector(resumeAdVideo)
                                                 name:UIApplicationDidBecomeActiveNotification
                                               object:nil];
+    _creativeTag = @"";
+    _videoDuration = 0;
     return self;
 }
 
@@ -144,6 +147,14 @@
     [self.webView evaluateJavaScript:exec completionHandler:nil];
 }
 
+- (int) getVideoAdDuration {
+   
+    return self.videoDuration;
+}
+- (NSString *) getCreativeTag {
+    return self.creativeTag;
+}
+
 
 
 #pragma mark - Helper methods.
@@ -191,40 +202,56 @@
 
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSString *data = (NSString*)message.body;
-    ANLogInfo(@"Parsed value %@",data);
+    
+    NSDictionary *messageDictionary = (NSDictionary *)message.body;
+    NSString *eventName = @"";
+    NSDictionary *paramsDictionary;
+    if(messageDictionary.count > 0){
+        eventName = [messageDictionary objectForKey:@"event"];
+        paramsDictionary = [messageDictionary objectForKey:@"params"];
+    }
+    
+    ANLogInfo(@"Parsed value %@",eventName);
 
-    if ([data isEqualToString:@"video-complete"]) {
+    if ([eventName isEqualToString:@"video-complete"]) {
         ANLogInfo(@"video-complete");
         if ([self.delegate respondsToSelector:@selector(videoAdImpressionListeners:)]) {
             [self.delegate videoAdImpressionListeners:ANVideoAdPlayerTrackerFourthQuartile];
         }
 
-    } else if ([data isEqualToString:@"adReady"]) {
+    } else if ([eventName isEqualToString:@"adReady"]) {
         ANLogInfo(@"adReady");
+        if(paramsDictionary.count > 0){
+            self.creativeTag = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
+            NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
+            //convert ms to seconds
+            if(duration > 0){
+                self.videoDuration = [duration intValue]/1000;
+            }
+        }
         if ([self.delegate respondsToSelector:@selector(videoAdReady)]) {
             [self.delegate videoAdReady];
         }
 
-    }else if ([data isEqualToString:@"video-first-quartile"]) {
+    }else if ([eventName isEqualToString:@"video-first-quartile"]) {
         ANLogInfo(@"video-first-quartile");
         if ([self.delegate respondsToSelector:@selector(videoAdImpressionListeners:)]) {
             [self.delegate videoAdImpressionListeners:ANVideoAdPlayerTrackerFirstQuartile];
         }
-    }else if ([data isEqualToString:@"video-mid"]) {
+    }else if ([eventName isEqualToString:@"video-mid"]) {
         ANLogInfo(@"video-mid");
         if ([self.delegate respondsToSelector:@selector(videoAdImpressionListeners:)]) {
             [self.delegate videoAdImpressionListeners:ANVideoAdPlayerTrackerMidQuartile];
         }
 
-    }else if ([data isEqualToString:@"video-third-quartile"]) {
+    }else if ([eventName isEqualToString:@"video-third-quartile"]) {
         ANLogInfo(@"video-third-quartile");
         if ([self.delegate respondsToSelector:@selector(videoAdImpressionListeners:)]) {
             [self.delegate videoAdImpressionListeners:ANVideoAdPlayerTrackerThirdQuartile];
         }
     }
 
-    else if ([data isEqualToString:@"video-skip"]) {
+    else if ([eventName isEqualToString:@"video-skip"]) {
         ANLogInfo(@"video-skip");
         if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
             [self.webView removeFromSuperview];
@@ -232,21 +259,21 @@
         }
     }
 
-    else if([data isEqualToString:@"video-fullscreen"] || [data isEqualToString:@"video-fullscreen-enter"]){
+    else if([eventName isEqualToString:@"video-fullscreen"] || [eventName isEqualToString:@"video-fullscreen-enter"]){
         ANLogInfo(@"video-fullscreen");
         if ([self.delegate respondsToSelector:@selector(videoAdPlayerFullScreenEntered:)]) {
             [self.delegate videoAdPlayerFullScreenEntered:self];
 
         }
     }
-    else if([data isEqualToString:@"video-fullscreen-exit"]){
+    else if([eventName isEqualToString:@"video-fullscreen-exit"]){
         ANLogInfo(@"video-fullscreen-exit");
         if ([self.delegate respondsToSelector:@selector(videoAdPlayerFullScreenExited:)]) {
             [self.delegate videoAdPlayerFullScreenExited:self];
 
         }
     }
-    else if([data isEqualToString:@"video-error"] || [data isEqualToString:@"Timed-out"]){
+    else if([eventName isEqualToString:@"video-error"] || [eventName isEqualToString:@"Timed-out"]){
         
         //we need to remove the webview to makesure we dont get any other response from the loaded index.html page
         [self removePlayer];
@@ -256,13 +283,13 @@
             [self.delegate videoAdLoadFailed:error];
         }
     }
-    else if([data isEqualToString:@"audio-mute"]){
+    else if([eventName isEqualToString:@"audio-mute"]){
         ANLogInfo(@"video player mute");
         if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
             [self.delegate videoAdEventListeners:ANVideoAdPlayerEventMuteOn];
         }
     }
-    else if ([data isEqualToString:@"audio-unmute"]){
+    else if ([eventName isEqualToString:@"audio-unmute"]){
         ANLogInfo(@"video player unmute");
         if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
             [self.delegate videoAdEventListeners:ANVideoAdPlayerEventMuteOff];
