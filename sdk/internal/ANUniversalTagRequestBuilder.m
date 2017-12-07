@@ -28,7 +28,7 @@
 
 @interface ANUniversalTagRequestBuilder()
 
-@property (nonatomic, readwrite, weak) id<ANUniversalAdFetcherDelegate> adFetcherDelegate;
+@property (nonatomic, readwrite, weak) id<ANUniversalRequestTagBuilderDelegate> adFetcherDelegate;
 @property (nonatomic) NSString *baseURLString;
 
 @end
@@ -139,6 +139,7 @@
 //
 - (NSArray<NSSet *> *)keywords
 {
+    
     NSDictionary  *customKeywords  = [self.adFetcherDelegate customKeywords];
 
     if ([customKeywords count] < 1) {
@@ -174,8 +175,7 @@
     NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
 
     NSInteger placementId = [[self.adFetcherDelegate placementId] integerValue];
-
-    //
+    
     NSString *invCode = [self.adFetcherDelegate inventoryCode];
     NSInteger memberId = [self.adFetcherDelegate memberId];
     if(invCode && memberId>0){
@@ -228,12 +228,21 @@
 
     //
     tagDict[@"require_asset_url"] = [NSNumber numberWithBool:0];
+    
+    NSDictionary *video = [self video];
+    if(video){
+        
+            tagDict[@"video"] = video;
+    }
+    
 
     //
     CGFloat  reservePrice  = [self.adFetcherDelegate reserve];
     if (reservePrice > 0)  {
         tagDict[@"reserve"] = @(reservePrice);
     }
+    
+    
 
 
     //
@@ -242,6 +251,7 @@
 
 - (NSDictionary *)user {
     NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
+    
     
     NSInteger ageValue = [[self.adFetcherDelegate age] integerValue]; // Invalid value for hyphenated age
     if (ageValue > 0) {
@@ -382,15 +392,7 @@
     return [geoDict copy];
 }
 
-+ (NSNumberFormatter *)precisionNumberFormatter {
-    static dispatch_once_t precisionNumberFormatterToken;
-    static NSNumberFormatter *precisionNumberFormatter;
-    dispatch_once(&precisionNumberFormatterToken, ^{
-        precisionNumberFormatter = [[NSNumberFormatter alloc] init];
-        precisionNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
-    });
-    return precisionNumberFormatter;
-}
+
 
 - (NSDictionary *)app {
     NSString *appId = [[NSBundle mainBundle] infoDictionary][@"CFBundleIdentifier"];
@@ -401,11 +403,42 @@
     }
 }
 
+-(NSDictionary *) video {
+    NSMutableDictionary *videoDict = [[NSMutableDictionary alloc] init];
+    if([self.adFetcherDelegate respondsToSelector:@selector(minDuration)]){
+        NSUInteger minDurationValue = [self.adFetcherDelegate minDuration];
+        if (minDurationValue > 0) {
+            videoDict[@"minduration"] = @(minDurationValue);
+        }
+    }
+    if([self.adFetcherDelegate respondsToSelector:@selector(maxDuration)]){
+        NSUInteger maxDurationValue = [self.adFetcherDelegate maxDuration];
+        if (maxDurationValue > 0) {
+            videoDict[@"maxduration"] = @(maxDurationValue);
+        }
+    }
+    
+    if([videoDict count] > 0)
+        return videoDict;
+    else
+        return nil;
+}
+
 - (NSDictionary *)sdk {
     return  @{
                   @"source" : @"ansdk",
                   @"version" : AN_SDK_VERSION
             };
+}
+
++ (NSNumberFormatter *)precisionNumberFormatter {
+    static dispatch_once_t precisionNumberFormatterToken;
+    static NSNumberFormatter *precisionNumberFormatter;
+    dispatch_once(&precisionNumberFormatterToken, ^{
+        precisionNumberFormatter = [[NSNumberFormatter alloc] init];
+        precisionNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+    });
+    return precisionNumberFormatter;
 }
 
 @end

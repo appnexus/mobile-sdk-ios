@@ -79,7 +79,7 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 
 
 //---------------------------------------------------------- -o--
-@interface ANInstreamVideoAd : ANAdView
+@interface ANInstreamVideoAd : ANAdView <ANVideoAdProtocol>
 
     // Public properties.
     //

@@ -86,10 +86,7 @@
 
 @end
 
-
-
-
-// NB  ANUniversalAdFetcherDelegate is sufficient for instream video entry point.
+// NB  ANUniversalAdFetcherDelegate is sufficient for Banner, Interstitial entry point.
 //
 @protocol  ANUniversalAdFetcherDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate>
 
@@ -103,6 +100,15 @@
 // NB  autoRefreshIntervalForAdFetcher: is required for ANBannerAdView, but is not used by any other entrypoint.
 //
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+@end
+
+// Note  ANUniversalRequestTagBuilderDelegate is the consolidated list of all protocols defined & used at multiple entry points.
+// this protocol is used only by the tagBuilder so any protocol newly defined must be included in this protocol to be
+// available for constucting the ut post body object
+//
+
+@protocol  ANUniversalRequestTagBuilderDelegate <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdViewInternalDelegate, ANVideoAdProtocol>
 
 @end
 

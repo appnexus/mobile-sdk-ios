@@ -49,6 +49,7 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
 {    
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
     TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:@"9924001"];
+     
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
     XCTestExpectation       *expectation    = [self expectationWithDescription:@"Dummy expectation"];
 
@@ -92,8 +93,12 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
         XCTAssertEqual([size[@"height"] integerValue], 1);
 
         NSArray *allowedMediaTypes = tag[@"allowed_media_types"];
+        
+        
         XCTAssertNotNil(allowedMediaTypes);
+        XCTAssertEqual((ANAllowedMediaTypes)allowedMediaTypes[0],ANAllowedMediaTypeBanner);
 
+        
         NSNumber *disablePSA = tag[@"disable_psa"];
         XCTAssertNotNil(disablePSA);
         XCTAssertEqual([disablePSA integerValue], 1);
@@ -149,6 +154,58 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
         [expectation fulfill];
     });
 
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+
+- (void)testUTRequestForDuration
+{
+    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:@"9924001"];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:@"Dummy expectation"];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                       
+                       NSArray *tags = jsonDict[@"tags"];
+                       
+                       XCTAssertNotNil(tags);
+                       // Tags
+                       XCTAssertEqual(tags.count, 1);
+                       NSDictionary *tag = [tags firstObject];
+                       
+                       
+                       NSDictionary *video = tag[@"video"];
+                       XCTAssertNotNil(video);
+                       XCTAssertEqual(video.count, 2);
+                       XCTAssertNotNil(video[@"minduration"]);
+                       XCTAssertNotNil(video[@"maxduration"]);
+                       
+                       XCTAssertEqual([video[@"minduration"] integerValue], 5);
+                       XCTAssertEqual([video[@"maxduration"] integerValue], 180);
+                       
+                        NSArray *allowedMediaTypes = tag[@"allowed_media_types"];
+                        XCTAssertNotNil(allowedMediaTypes);
+                       
+                       int allowedMediaTypesValue = [[NSString stringWithFormat:@"%@",(NSValue *)allowedMediaTypes[0]] intValue];
+                       XCTAssertEqual(allowedMediaTypesValue ,(ANAllowedMediaTypes)ANAllowedMediaTypeVideo);
+                       
+                       [expectation fulfill];
+                   });
+    
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
 

@@ -25,12 +25,14 @@
 #import "XCTestCase+ANCategory.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
+#import "ANInstreamVideoAd.h"
 
-@interface ANPublicAPITestCase : XCTestCase
+@interface ANPublicAPITestCase : XCTestCase <ANInstreamVideoAdLoadDelegate>
 
 @property (nonatomic, readwrite, strong)  XCTestExpectation     *requestExpectation;
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
+@property (nonatomic, readwrite, strong)  ANInstreamVideoAd      *video;
 @property (nonatomic)                     NSURLRequest          *request;
 
 @end
@@ -50,6 +52,8 @@
 - (void)tearDown {
     [super tearDown];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    self.request = nil;
+    self.requestExpectation = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -129,6 +133,74 @@ TESTTRACE();
 
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
     XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
+}
+
+-(void) testSetDurationOnVideo {
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    self.video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
+    [self.video setMinDuration:10];
+    [self.video setMaxDuration:100];
+    
+    [self.video loadAdWithDelegate:self];
+    
+    [self waitForExpectationsWithTimeout: 5 * kAppNexusRequestTimeoutInterval
+                                 handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
+     ];
+    self.requestExpectation = nil;
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertNotNil(jsonBody[@"tags"][0][@"video"]);
+    
+}
+
+-(void) testSetNoDurationForVideo {
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    self.video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
+    
+    [self.video loadAdWithDelegate:self];
+    
+    [self waitForExpectationsWithTimeout: 5 * kAppNexusRequestTimeoutInterval
+                                 handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
+     ];
+    self.requestExpectation = nil;
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertNil(jsonBody[@"tags"][0][@"video"]);
+    
+}
+
+-(void) testSetMaxOnlyDurationForVideo {
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    self.video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
+    [self.video setMaxDuration:100];
+    [self.video loadAdWithDelegate:self];
+    
+    [self waitForExpectationsWithTimeout: 5 * kAppNexusRequestTimeoutInterval
+                                 handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
+     ];
+    self.requestExpectation = nil;
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertNotNil(jsonBody[@"tags"][0][@"video"]);
+    XCTAssertEqual([jsonBody[@"tags"][0][@"video"][@"maxduration"] intValue], 100);
+    
+}
+
+-(void) testSetMinOnlyDurationForVideo {
+    self.requestExpectation = [self expectationWithDescription:@"request"];
+    self.video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
+    [self.video setMinDuration:10];
+    [self.video loadAdWithDelegate:self];
+    
+    [self waitForExpectationsWithTimeout: 5 * kAppNexusRequestTimeoutInterval
+                                 handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
+     ];
+    self.requestExpectation = nil;
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertNotNil(jsonBody[@"tags"][0][@"video"]);
+    XCTAssertEqual([jsonBody[@"tags"][0][@"video"][@"minduration"] intValue], 10);
+    
 }
 
 - (void)testSetInventoryCodeAndMemberIDOnBanner

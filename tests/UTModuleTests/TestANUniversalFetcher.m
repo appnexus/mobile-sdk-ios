@@ -36,6 +36,21 @@
     return  @[ @(ANAllowedMediaTypeVideo) ];   //XXX
 }
 
+
+- (int)minDuration
+{
+    ANLogTrace(@"");
+    return  5;   //XXX
+}
+- (int)maxDuration
+{
+    ANLogTrace(@"");
+    return  180;   //XXX
+}
+
+
+
+
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
     NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
