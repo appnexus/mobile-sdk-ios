@@ -32,7 +32,7 @@
     @property (nonatomic, strong)             NSString                 *vastURL;
     @property  (nonatomic, strong)            NSString                 *jsonContent;
     @property (nonatomic, strong)             NSString                 *creativeTag;
-    @property (nonatomic, assign)             int videoDuration;
+    @property (nonatomic, assign)             NSUInteger                videoDuration;
     @property (nonatomic, readonly)  BOOL  opensInNativeBrowser;
     @property (nonatomic, readonly)  BOOL  landingPageLoadsInBackground;
 
@@ -147,8 +147,7 @@
     [self.webView evaluateJavaScript:exec completionHandler:nil];
 }
 
-- (int) getVideoAdDuration {
-   
+- (NSUInteger) getAdDuration {
     return self.videoDuration;
 }
 - (NSString *) getCreativeTag {
@@ -224,9 +223,8 @@
         if(paramsDictionary.count > 0){
             self.creativeTag = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
             NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
-            //convert ms to seconds
             if(duration > 0){
-                self.videoDuration = [duration intValue]/1000;
+                self.videoDuration = [duration intValue];
             }
         }
         if ([self.delegate respondsToSelector:@selector(videoAdReady)]) {
