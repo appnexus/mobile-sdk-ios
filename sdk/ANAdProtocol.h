@@ -170,6 +170,20 @@
 
 @end
 
+@protocol ANAdProtocolVideo
+
+/**
+ minimum duration for the creative.
+ */
+@property (nonatomic, readwrite, assign) NSUInteger minDuration;
+
+/**
+ maximum duration of the fetched creative.
+ */
+@property (nonatomic, readwrite, assign) NSUInteger maxDuration;
+
+@end
+
 
 
 #pragma mark - ANAdProtocol entrypoint combinations.
@@ -188,7 +202,9 @@
 @end
 
 
-
+@protocol ANVideoAdProtocol <ANAdProtocol, ANAdProtocolVideo>
+//EMPTY
+@end
 
 #pragma mark - ANAdDelegate.
 

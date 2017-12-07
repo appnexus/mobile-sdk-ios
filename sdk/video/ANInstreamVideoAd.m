@@ -60,6 +60,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 @synthesize  customKeywords  = __customKeywords;
 
+@synthesize minDuration = __minDuration;
+
+@synthesize maxDuration = __maxDuration;
 
 
 #pragma mark - Lifecycle.
@@ -422,7 +425,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         _memberId = memberID;
     }
 }
-
 
 @end
 
