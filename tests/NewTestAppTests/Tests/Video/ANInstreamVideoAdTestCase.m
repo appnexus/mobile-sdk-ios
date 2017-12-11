@@ -77,6 +77,7 @@
      
         XCTAssertNotNil(vastcreativeTag);
         XCTAssertNotEqual(vastcreativeTag, @"");
+        XCTAssertNotNil(vastcreativeTag);
         XCTAssertEqual(vastcreativeTag, @"http://sampletag.com");
         [expectation fulfill];
     });
@@ -96,6 +97,8 @@
         NSString *creativeTag = [self.instreamVideoAd getCreativeTag];
         XCTAssertNotNil(self.instreamVideoAd);
         XCTAssertNotEqual(creativeTag, @"");
+        XCTAssertNotNil(creativeTag);
+        
         XCTAssertEqual(creativeTag, @"http://sampletag.com");
         
         [expectation fulfill];
