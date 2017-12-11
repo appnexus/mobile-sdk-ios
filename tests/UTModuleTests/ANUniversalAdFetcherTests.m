@@ -13,7 +13,7 @@
 
 static NSString *const kTestUUID = @"0000-000-000-00";
 
-@interface ANUniversalAdFetcherTests : XCTestCase<ANUniversalVideoAdFetcherDelegate>
+@interface ANUniversalAdFetcherTests : XCTestCase<ANUniversalRequestTagBuilderDelegate>
 
     @property (nonatomic, strong) ANUniversalAdFetcher *universalAdFetcher;
     @property (nonatomic) BOOL callbackInvoked;
