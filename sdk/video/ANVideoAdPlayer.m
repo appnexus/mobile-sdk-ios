@@ -33,6 +33,7 @@
     @property  (nonatomic, strong)            NSString                 *jsonContent;
     @property (nonatomic, strong)             NSString                 *creativeTag;
     @property (nonatomic, assign)             NSUInteger                videoDuration;
+    @property (nonatomic, strong)             NSString                  *vastCreativeURL;
     @property (nonatomic, readonly)  BOOL  opensInNativeBrowser;
     @property (nonatomic, readonly)  BOOL  landingPageLoadsInBackground;
 
@@ -154,6 +155,10 @@
     return self.creativeTag;
 }
 
+- (NSString *) getVASTCreativeURL {
+    return self.vastCreativeURL;
+}
+
 
 
 #pragma mark - Helper methods.
@@ -223,6 +228,7 @@
         if(paramsDictionary.count > 0){
             self.creativeTag = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
             NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
+            self.vastCreativeURL = (NSString *)[paramsDictionary objectForKey:@"vastCreativeUrl"];
             if(duration > 0){
                 self.videoDuration = [duration intValue];
             }

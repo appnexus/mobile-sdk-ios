@@ -110,6 +110,7 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 
     - (NSUInteger) getAdDuration;
     - (NSString *) getCreativeTag;
+    - (NSString *) getVastCreativeURL;
 
 @end
 

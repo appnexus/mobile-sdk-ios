@@ -85,6 +85,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 
 - (NSUInteger) getAdDuration;
 - (NSString *) getCreativeTag;
+- (NSString *) getVASTCreativeURL;
 
 
 @end

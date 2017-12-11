@@ -17,10 +17,10 @@
 
 
 #import <XCTest/XCTest.h>
-#import "ANVideoAdPlayer.h"
+#import "ANVideoAdPlayer+Test.h"
 #import "ANGlobal.h"
 
-@interface ANInstreamVideoAdTestCase : XCTestCase <ANVideoAdPlayerDelegate>
+@interface ANInstreamVideoAdTestCase : XCTestCase
     @property (nonatomic, readwrite, strong) ANVideoAdPlayer *videoPlayer;
     @property (nonatomic, strong) NSString *vastContent;
     @property (nonatomic) BOOL callbackInvoked;
@@ -30,19 +30,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.callbackInvoked = NO;
     self.videoPlayer = [[ANVideoAdPlayer alloc] init];
-    self.videoPlayer.delegate = self;
-    
-    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
-    
-    self.vastContent = [NSString stringWithContentsOfFile: [currentBundle pathForResource:@"vast_content" ofType:@"txt"]
-                                                       encoding: NSUTF8StringEncoding
-                                                          error: nil ];
-    
-    [self.videoPlayer loadAdWithVastContent:self.vastContent];
-    
-    NSLog(@"%@", self.vastContent);
     
 }
 
@@ -52,45 +40,29 @@
 }
 
 - (void)testAdDuration {
-    XCTAssert([self waitForCompletion:10.0], @"Testing to see what happens here...");
-    if(self.callbackInvoked){
-        NSLog(@"reached here");
-        
-        
-        /*XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
-                       ^{
-                           NSUInteger duration = [self.videoPlayer getAdDuration];
-                           XCTAssertNotEqual(duration, 0);
-                           [expectation fulfill];
-                       });
-        [self waitForExpectationsWithTimeout:20.0 handler:nil];*/
-    }
     
+    self.videoPlayer.videoDuration = 10;
     
+    XCTAssertNotNil(self.videoPlayer);
+    
+    XCTAssertEqual(self.videoPlayer.videoDuration, 10);
     
 }
 
-- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
+-(void) testVastCreativeURL {
+    self.videoPlayer.vastCreativeURL = @"http://sampletag.com";
     
-    do {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
-        if([timeoutDate timeIntervalSinceNow] < 0.0)
-            break;
-    } while (!self.callbackInvoked);
+    XCTAssertNotNil(self.videoPlayer);
     
-    return self.callbackInvoked;
+    XCTAssertEqual(self.videoPlayer.vastCreativeURL, @"http://sampletag.com");
 }
 
-- (void)videoAdLoadFailed:(NSError *)error {
-    NSLog(@"video adfailed delegate returned");
-}
-
-- (void)videoAdReady {
-    self.callbackInvoked = YES;
-    NSLog(@"delegate returned");
+-(void) testCreativeTag {
+    self.videoPlayer.creativeTag = @"http://sampletag.com";
+    
+    XCTAssertNotNil(self.videoPlayer);
+    
+    XCTAssertEqual(self.videoPlayer.vastCreativeURL, @"http://sampletag.com");
 }
 
 @end

@@ -69,6 +69,7 @@
 		604E65F91FDA18A40088D977 /* ANVideoPlayerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604E65EA1FDA18A30088D977 /* ANVideoPlayerTestCase.m */; };
 		604E65FA1FDA18A40088D977 /* ANInstreamVideoAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */; };
 		604E660E1FDA5FFB0088D977 /* vast_content.txt in Resources */ = {isa = PBXBuildFile; fileRef = 604E660D1FDA5FFB0088D977 /* vast_content.txt */; };
+		604E66111FDB19C40088D977 /* ANVideoAdPlayer+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 604E66101FDB19C40088D977 /* ANVideoAdPlayer+Test.m */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
 		605EDBCB1D92F2050042DC0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBCA1D92F2050042DC0C /* Foundation.framework */; };
@@ -684,6 +685,8 @@
 		604E65EA1FDA18A30088D977 /* ANVideoPlayerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerTestCase.m; sourceTree = "<group>"; };
 		604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInstreamVideoAdTestCase.m; sourceTree = "<group>"; };
 		604E660D1FDA5FFB0088D977 /* vast_content.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vast_content.txt; sourceTree = "<group>"; };
+		604E660F1FDB19C40088D977 /* ANVideoAdPlayer+Test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANVideoAdPlayer+Test.h"; sourceTree = "<group>"; };
+		604E66101FDB19C40088D977 /* ANVideoAdPlayer+Test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANVideoAdPlayer+Test.m"; sourceTree = "<group>"; };
 		605EDBC41D92E9A00042DC0C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurry.a; sourceTree = "<group>"; };
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
@@ -1146,6 +1149,8 @@
 				604E660D1FDA5FFB0088D977 /* vast_content.txt */,
 				604E65EA1FDA18A30088D977 /* ANVideoPlayerTestCase.m */,
 				604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */,
+				604E660F1FDB19C40088D977 /* ANVideoAdPlayer+Test.h */,
+				604E66101FDB19C40088D977 /* ANVideoAdPlayer+Test.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -2438,6 +2443,7 @@
 				604E65F91FDA18A40088D977 /* ANVideoPlayerTestCase.m in Sources */,
 				008E9A6C1FD0E03400EF5C4D /* ANReachability+ANTest.m in Sources */,
 				8A0AA48E19DB3453005EC52C /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
+				604E66111FDB19C40088D977 /* ANVideoAdPlayer+Test.m in Sources */,
 				8A0AA48F19DB3453005EC52C /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
 				8A0AA49019DB3453005EC52C /* ANAdAdapterBannerNetworkError.m in Sources */,
 				8A0AA49119DB3453005EC52C /* ANAdAdapterBannerNoDelegate.m in Sources */,

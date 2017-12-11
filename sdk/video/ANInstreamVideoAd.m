@@ -161,6 +161,10 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return [self.adPlayer getCreativeTag];
 }
 
+- (NSString *) getVastCreativeURL {
+    return [self.adPlayer getVASTCreativeURL];
+}
+
 
 
 //---------------------------------------------------------- -o--
