@@ -20,6 +20,8 @@
 static NSString *const   kTestUUID              = @"0000-000-000-00";
 static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
 
+static NSString  *videoPlacementID  = @"9924001";
+
 
 
 @interface ANUniversalTagRequestBuilderTests : XCTestCase
@@ -48,7 +50,7 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
 - (void)testUTRequest
 {    
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:@"9924001"];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
      
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
     XCTestExpectation       *expectation    = [self expectationWithDescription:@"Dummy expectation"];
@@ -83,7 +85,7 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
         NSDictionary *tag = [tags firstObject];
 
         NSInteger placementId = [tag[@"id"] integerValue];
-        XCTAssertEqual(placementId, 9924001);
+        XCTAssertEqual(placementId, [videoPlacementID integerValue]);
 
         NSArray *sizes = tag[@"sizes"];
         XCTAssertNotNil(sizes);
@@ -96,7 +98,7 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
         
         
         XCTAssertNotNil(allowedMediaTypes);
-        XCTAssertEqual((ANAllowedMediaTypes)allowedMediaTypes[0],ANAllowedMediaTypeBanner);
+        XCTAssertEqual((ANAllowedMediaTypes)[allowedMediaTypes[0] integerValue], ANAllowedMediaTypeVideo);
 
         
         NSNumber *disablePSA = tag[@"disable_psa"];
@@ -161,7 +163,7 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
 - (void)testUTRequestForDuration
 {
     NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:@"9924001"];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
     XCTestExpectation       *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
@@ -213,7 +215,7 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
 {
     
     NSString                *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    TestANUniversalFetcher  *adFetcher  = [[TestANUniversalFetcher alloc] initWithPlacementId:@"9924001"];
+    TestANUniversalFetcher  *adFetcher  = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
 
     [adFetcher addCustomKeywordWithKey:@"state" value:@"NY"];
     
@@ -261,7 +263,7 @@ static NSTimeInterval    UTMODULETESTS_TIMEOUT  = 20.0;
 - (void)testUTRequestWithMultipleCustomKeywordsValues
 {    
     NSString                *urlString = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    TestANUniversalFetcher  *adFetcher = [[TestANUniversalFetcher alloc] initWithPlacementId:@"9924001"];
+    TestANUniversalFetcher  *adFetcher = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
     
     [adFetcher addCustomKeywordWithKey:@"state" value:@"NY"];
     [adFetcher addCustomKeywordWithKey:@"state" value:@"NJ"];
