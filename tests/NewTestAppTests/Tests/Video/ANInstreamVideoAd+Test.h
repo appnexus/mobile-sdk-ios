@@ -15,28 +15,12 @@
  *    limitations under the License.
  */
 
-
+#import <Foundation/Foundation.h>
+#import "ANInstreamVideoAd.h"
 #import "ANVideoAdPlayer+Test.h"
+@interface ANInstreamVideoAd(Test)
 
-@implementation ANVideoAdPlayer(Test)
+@property (nonatomic, strong) ANVideoAdPlayer * adPlayer;
 
-@dynamic vastCreativeURL;
-@dynamic creativeTag;
-@dynamic videoDuration;
-
-
-
-
--(void)createInstreamVideoWithDuration{
-    self.videoDuration = 10;
-}
-
-
--(void)createInstreamVideoWithCreativeTag{
-    self.creativeTag =  @"http://sampletag.com";
-}
-
--(void)createInstreamVideoWithVastCreativeURL{
-    self.vastCreativeURL =  @"http://sampletag.com";
-  }
+-(void)createInstreamVideoAdPlayer;
 @end

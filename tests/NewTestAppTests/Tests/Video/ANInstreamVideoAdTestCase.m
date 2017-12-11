@@ -17,12 +17,14 @@
 
 
 #import <XCTest/XCTest.h>
-#import "ANVideoAdPlayer+Test.h"
 #import "ANGlobal.h"
+#import "ANInstreamVideoAd.h"
+#import "ANVideoAdPlayer.h"
+#import "ANInstreamVideoAd+Test.h"
 
 @interface ANInstreamVideoAdTestCase : XCTestCase
-    @property (nonatomic, readwrite, strong) ANVideoAdPlayer *videoPlayer;
-    @property (nonatomic, strong) NSString *vastContent;
+@property (nonatomic, readwrite, strong) ANInstreamVideoAd *instreamVideoAd;
+@property (nonatomic, strong) NSString *vastContent;
     @property (nonatomic) BOOL callbackInvoked;
 @end
 
@@ -30,8 +32,15 @@
 
 - (void)setUp {
     [super setUp];
-    self.videoPlayer = [[ANVideoAdPlayer alloc] init];
+
     
+    
+    self.instreamVideoAd = [[ANInstreamVideoAd alloc] init];
+    self.instreamVideoAd.adPlayer = [[ANVideoAdPlayer alloc] init];
+    self.instreamVideoAd.adPlayer.videoDuration = 10;
+    self.instreamVideoAd.adPlayer.creativeTag = @"http://sampletag.com";
+    self.instreamVideoAd.adPlayer.vastCreativeURL = @"http://sampletag.com";
+  
 }
 
 - (void)tearDown {
@@ -39,30 +48,93 @@
     [super tearDown];
 }
 
+
 - (void)testAdDuration {
+
     
-    self.videoPlayer.videoDuration = 10;
+    NSLog(@"reached here");
+    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
-    XCTAssertNotNil(self.videoPlayer);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSUInteger duration = [self.instreamVideoAd getAdDuration];
+        XCTAssertNotNil(self.instreamVideoAd);
+        XCTAssertNotEqual(duration, 0);
+        XCTAssertEqual(duration, 10);
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+
     
-    XCTAssertEqual(self.videoPlayer.videoDuration, 10);
-    
+
+
+
+
 }
 
+
+
 -(void) testVastCreativeURL {
-    self.videoPlayer.vastCreativeURL = @"http://sampletag.com";
     
-    XCTAssertNotNil(self.videoPlayer);
     
-    XCTAssertEqual(self.videoPlayer.vastCreativeURL, @"http://sampletag.com");
+    NSLog(@"reached here");
+    
+    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSString *vastcreativeTag = [self.instreamVideoAd getVastCreativeURL];
+        XCTAssertNotNil(self.instreamVideoAd);
+     
+        XCTAssertNotNil(vastcreativeTag);
+        XCTAssertNotEqual(vastcreativeTag, @"");
+        XCTAssertEqual(vastcreativeTag, @"http://sampletag.com");
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+    
 }
 
 -(void) testCreativeTag {
-    self.videoPlayer.creativeTag = @"http://sampletag.com";
     
-    XCTAssertNotNil(self.videoPlayer);
+    NSLog(@"reached here");
     
-    XCTAssertEqual(self.videoPlayer.vastCreativeURL, @"http://sampletag.com");
+    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSString *creativeTag = [self.instreamVideoAd getCreativeTag];
+        XCTAssertNotNil(self.instreamVideoAd);
+        XCTAssertNotEqual(creativeTag, @"");
+        XCTAssertEqual(creativeTag, @"http://sampletag.com");
+        
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+  
+
 }
 
+
+- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
+    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
+
+    do {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
+        if([timeoutDate timeIntervalSinceNow] < 0.0)
+
+            break;
+    } while (!self.callbackInvoked);
+
+    return self.callbackInvoked;
+}
+
+
+
+
+
 @end
+
+
+

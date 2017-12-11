@@ -16,27 +16,13 @@
  */
 
 
-#import "ANVideoAdPlayer+Test.h"
+#import "ANInstreamVideoAd+Test.h"
 
-@implementation ANVideoAdPlayer(Test)
+@implementation ANInstreamVideoAd(Test)
 
-@dynamic vastCreativeURL;
-@dynamic creativeTag;
-@dynamic videoDuration;
-
-
-
-
--(void)createInstreamVideoWithDuration{
-    self.videoDuration = 10;
+//@dynamic videoPlayer;
+-(void)createInstreamVideoAdPlayer{
+    
+    self.adPlayer = [[ANVideoAdPlayer alloc] init];
 }
-
-
--(void)createInstreamVideoWithCreativeTag{
-    self.creativeTag =  @"http://sampletag.com";
-}
-
--(void)createInstreamVideoWithVastCreativeURL{
-    self.vastCreativeURL =  @"http://sampletag.com";
-  }
 @end
