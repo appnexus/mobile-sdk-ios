@@ -58,6 +58,7 @@
                                               object:nil];
     _creativeTag = @"";
     _videoDuration = 0;
+    _vastCreativeURL = @"";
     return self;
 }
 

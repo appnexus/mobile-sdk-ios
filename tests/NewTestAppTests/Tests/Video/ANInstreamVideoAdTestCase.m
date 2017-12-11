@@ -23,8 +23,7 @@
 #import "ANInstreamVideoAd+Test.h"
 
 @interface ANInstreamVideoAdTestCase : XCTestCase
-@property (nonatomic, readwrite, strong) ANInstreamVideoAd *instreamVideoAd;
-@property (nonatomic, strong) NSString *vastContent;
+    @property (nonatomic, readwrite, strong) ANInstreamVideoAd *instreamVideoAd;
     @property (nonatomic) BOOL callbackInvoked;
 @end
 
@@ -32,26 +31,20 @@
 
 - (void)setUp {
     [super setUp];
-
     
-    
-    self.instreamVideoAd = [[ANInstreamVideoAd alloc] init];
-    self.instreamVideoAd.adPlayer = [[ANVideoAdPlayer alloc] init];
-    self.instreamVideoAd.adPlayer.videoDuration = 10;
-    self.instreamVideoAd.adPlayer.creativeTag = @"http://sampletag.com";
-    self.instreamVideoAd.adPlayer.vastCreativeURL = @"http://sampletag.com";
   
 }
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+    self.instreamVideoAd = nil;
 }
 
 
 - (void)testAdDuration {
 
-    
+    [self initializeInstreamVideoWithAllProperties];
     NSLog(@"reached here");
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
@@ -65,18 +58,13 @@
     });
     [self waitForExpectationsWithTimeout:10 handler:nil];
 
-    
-
-
-
-
 }
 
 
 
 -(void) testVastCreativeURL {
     
-    
+    [self initializeInstreamVideoWithAllProperties];
     NSLog(@"reached here");
     
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
@@ -98,6 +86,7 @@
 
 -(void) testCreativeTag {
     
+    [self initializeInstreamVideoWithAllProperties];
     NSLog(@"reached here");
     
     XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
@@ -131,7 +120,18 @@
 }
 
 
+-(void) initializeInstreamVideoWithAllProperties {
+    self.instreamVideoAd = [[ANInstreamVideoAd alloc] init];
+    self.instreamVideoAd.adPlayer = [[ANVideoAdPlayer alloc] init];
+    self.instreamVideoAd.adPlayer.videoDuration = 10;
+    self.instreamVideoAd.adPlayer.creativeTag = @"http://sampletag.com";
+    self.instreamVideoAd.adPlayer.vastCreativeURL = @"http://sampletag.com";
+}
 
+-(void) initializeInstreamVideoWithNoProperties {
+    self.instreamVideoAd = [[ANInstreamVideoAd alloc] init];
+    self.instreamVideoAd.adPlayer = [[ANVideoAdPlayer alloc] init];
+}
 
 
 @end
