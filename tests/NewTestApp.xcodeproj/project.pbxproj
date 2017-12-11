@@ -66,9 +66,7 @@
 		6042CB5C1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
 		604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */; };
 		604E65DF1FD86FC00088D977 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1CBB121F97F9550019840A /* libKIF.a */; };
-		604E65F91FDA18A40088D977 /* ANVideoPlayerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604E65EA1FDA18A30088D977 /* ANVideoPlayerTestCase.m */; };
 		604E65FA1FDA18A40088D977 /* ANInstreamVideoAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */; };
-		604E660E1FDA5FFB0088D977 /* vast_content.txt in Resources */ = {isa = PBXBuildFile; fileRef = 604E660D1FDA5FFB0088D977 /* vast_content.txt */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
 		605EDBCB1D92F2050042DC0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBCA1D92F2050042DC0C /* Foundation.framework */; };
@@ -685,9 +683,7 @@
 		6042CB4B1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
 		6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
 		6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
-		604E65EA1FDA18A30088D977 /* ANVideoPlayerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerTestCase.m; sourceTree = "<group>"; };
 		604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInstreamVideoAdTestCase.m; sourceTree = "<group>"; };
-		604E660D1FDA5FFB0088D977 /* vast_content.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vast_content.txt; sourceTree = "<group>"; };
 		605EDBC41D92E9A00042DC0C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurry.a; sourceTree = "<group>"; };
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
@@ -1151,8 +1147,6 @@
 		604E65E91FDA18A30088D977 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				604E660D1FDA5FFB0088D977 /* vast_content.txt */,
-				604E65EA1FDA18A30088D977 /* ANVideoPlayerTestCase.m */,
 				604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */,
 				FC1565F91FDF1873004B0B78 /* ANInstreamVideoAd+Test.h */,
 				FC1565F71FDF1872004B0B78 /* ANInstreamVideoAd+Test.m */,
@@ -2317,7 +2311,6 @@
 				8AA00A4B19DB2A9A0090EBED /* GreyWhiteCat@2x.jpg in Resources */,
 				4F76461B1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */,
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
-				604E660E1FDA5FFB0088D977 /* vast_content.txt in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
 			);
@@ -2447,7 +2440,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604E65F91FDA18A40088D977 /* ANVideoPlayerTestCase.m in Sources */,
 				008E9A6C1FD0E03400EF5C4D /* ANReachability+ANTest.m in Sources */,
 				8A0AA48E19DB3453005EC52C /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
 				8A0AA48F19DB3453005EC52C /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
