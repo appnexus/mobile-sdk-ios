@@ -45,17 +45,16 @@
 
     [self initializeInstreamVideoWithAllProperties];
     NSLog(@"reached here");
-    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        NSUInteger duration = [self.instreamVideoAd getAdDuration];
+    
+    
+       
         XCTAssertNotNil(self.instreamVideoAd);
+        NSUInteger duration = [self.instreamVideoAd getAdDuration];
         XCTAssertNotEqual(duration, 0);
         XCTAssertEqual(duration, 10);
-        [expectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+        
+    
 
 }
 
@@ -66,21 +65,19 @@
     [self initializeInstreamVideoWithAllProperties];
     NSLog(@"reached here");
     
-    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    
         
-        NSString *vastcreativeTag = [self.instreamVideoAd getVastCreativeURL];
         XCTAssertNotNil(self.instreamVideoAd);
-     
+        NSString *vastcreativeTag = [self.instreamVideoAd getVastCreativeURL];
         XCTAssertNotNil(vastcreativeTag);
         XCTAssertNotEqual(vastcreativeTag.length, 0);
         XCTAssertNotNil(vastcreativeTag);
         XCTAssertEqual(vastcreativeTag, @"http://sampletag.com");
-        [expectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+        
+    
     
 }
 
@@ -89,19 +86,18 @@
     [self initializeInstreamVideoWithAllProperties];
     NSLog(@"reached here");
     
-    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    
         
-        NSString *creativeTag = [self.instreamVideoAd getCreativeTag];
         XCTAssertNotNil(self.instreamVideoAd);
+        NSString *creativeTag = [self.instreamVideoAd getCreativeTag];
         XCTAssertNotEqual(creativeTag.length, 0);
         XCTAssertNotNil(creativeTag);
         XCTAssertEqual(creativeTag, @"http://sampletag.com");
         
-        [expectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+        
+    
   
 
 }
@@ -111,17 +107,15 @@
     
     [self initializeInstreamVideoWithNoProperties];
     
-    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    
         
         NSUInteger duration = [self.instreamVideoAd getAdDuration];
         XCTAssertNotNil(self.instreamVideoAd);
         XCTAssertEqual(duration, 0);
         
-        [expectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+        
     
     
 }
@@ -130,18 +124,18 @@
     
     [self initializeInstreamVideoWithNoProperties];
     
-    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    
         
         NSString *vastcreativeTag = [self.instreamVideoAd getVastCreativeURL];
        
         XCTAssertNotNil(self.instreamVideoAd);
         XCTAssertEqual(vastcreativeTag.length, 0);
         
-        [expectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:20 handler:nil];
+        
+    
+   
     
     
 }
@@ -150,32 +144,20 @@
     
     [self initializeInstreamVideoWithNoProperties];
     
-    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    
         
         NSString *creativeTag = [self.instreamVideoAd getCreativeTag];
         XCTAssertNotNil(self.instreamVideoAd);
         XCTAssertEqual(creativeTag.length, 0);
-        [expectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:20 handler:nil];
+        
+    
+   
     
     
 }
 
-- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
-
-    do {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
-        if([timeoutDate timeIntervalSinceNow] < 0.0)
-
-            break;
-    } while (!self.callbackInvoked);
-
-    return self.callbackInvoked;
-}
 
 
 
