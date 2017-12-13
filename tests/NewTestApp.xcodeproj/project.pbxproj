@@ -1147,9 +1147,9 @@
 		604E65E91FDA18A30088D977 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */,
 				FC1565F91FDF1873004B0B78 /* ANInstreamVideoAd+Test.h */,
 				FC1565F71FDF1872004B0B78 /* ANInstreamVideoAd+Test.m */,
+				604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */,
 				FC1565F81FDF1873004B0B78 /* ANVideoAdPlayer+Test.h */,
 				FC1565FA1FDF1873004B0B78 /* ANVideoAdPlayer+Test.m */,
 			);
@@ -1179,7 +1179,6 @@
 		8A0AA46219DB30A2005EC52C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				604E65E91FDA18A30088D977 /* Video */,
 				8A0AA46319DB30A2005EC52C /* ANAdResponseTestCase.m */,
 				8A0AA46419DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m */,
 				8A0AA46519DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m */,
@@ -1191,6 +1190,7 @@
 				F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */,
 				4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
+				604E65E91FDA18A30088D977 /* Video */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1655,7 +1655,9 @@
 		8AD01824199932F9007874BA = {
 			isa = PBXGroup;
 			children = (
+				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
+				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
 				8A549E9A1A706BA6009F797A /* NativeUnitTests */,
@@ -1669,8 +1671,6 @@
 				8AA009A419DB18AE0090EBED /* Shared */,
 				60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */,
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
-				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
-				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
