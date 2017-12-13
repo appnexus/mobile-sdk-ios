@@ -18,9 +18,10 @@
 #import <Foundation/Foundation.h>
 #import "ANInstreamVideoAd.h"
 #import "ANVideoAdPlayer+Test.h"
+
 @interface ANInstreamVideoAd(Test)
 
-@property (nonatomic, strong) ANVideoAdPlayer * adPlayer;
+    @property (nonatomic, strong) ANVideoAdPlayer * adPlayer;
 
 -(void)createInstreamVideoAdPlayer;
 @end

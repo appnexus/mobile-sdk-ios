@@ -20,7 +20,6 @@
 
 @implementation ANInstreamVideoAd(Test)
 
-//@dynamic videoPlayer;
 -(void)createInstreamVideoAdPlayer{
     
     self.adPlayer = [[ANVideoAdPlayer alloc] init];

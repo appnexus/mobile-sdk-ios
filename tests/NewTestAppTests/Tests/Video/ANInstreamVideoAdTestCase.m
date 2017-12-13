@@ -23,8 +23,9 @@
 #import "ANInstreamVideoAd+Test.h"
 
 @interface ANInstreamVideoAdTestCase : XCTestCase
+
     @property (nonatomic, readwrite, strong) ANInstreamVideoAd *instreamVideoAd;
-    @property (nonatomic) BOOL callbackInvoked;
+
 @end
 
 @implementation ANInstreamVideoAdTestCase
