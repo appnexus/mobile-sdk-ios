@@ -153,6 +153,18 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     }
 }
 
+-(NSUInteger) getAdDuration {
+    return [self.adPlayer getAdDuration];
+}
+
+- (NSString *) getCreativeTag{
+    return [self.adPlayer getCreativeTag];
+}
+
+- (NSString *) getVastCreativeURL {
+    return [self.adPlayer getVASTCreativeURL];
+}
+
 
 
 //---------------------------------------------------------- -o--

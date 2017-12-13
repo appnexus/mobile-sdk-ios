@@ -66,6 +66,7 @@
 		6042CB5C1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
 		604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */; };
 		604E65DF1FD86FC00088D977 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1CBB121F97F9550019840A /* libKIF.a */; };
+		604E65FA1FDA18A40088D977 /* ANInstreamVideoAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
 		605EDBCB1D92F2050042DC0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBCA1D92F2050042DC0C /* Foundation.framework */; };
@@ -298,6 +299,10 @@
 		F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */; };
 		F50D81681BFCDC77008D74DB /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009AB19DB18AE0090EBED /* ANURLConnectionStub.m */; };
 		F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */; };
+		FC1565FB1FDF1874004B0B78 /* ANInstreamVideoAd+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1565F71FDF1872004B0B78 /* ANInstreamVideoAd+Test.m */; };
+		FC1565FC1FDF1874004B0B78 /* ANVideoAdPlayer+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1565FA1FDF1873004B0B78 /* ANVideoAdPlayer+Test.m */; };
+		FC1565FF1FDF188D004B0B78 /* ANInstreamVideoAd+Test.h in Sources */ = {isa = PBXBuildFile; fileRef = FC1565F91FDF1873004B0B78 /* ANInstreamVideoAd+Test.h */; };
+		FC1566001FDF188D004B0B78 /* ANVideoAdPlayer+Test.h in Sources */ = {isa = PBXBuildFile; fileRef = FC1565F81FDF1873004B0B78 /* ANVideoAdPlayer+Test.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -678,6 +683,7 @@
 		6042CB4B1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
 		6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
 		6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
+		604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANInstreamVideoAdTestCase.m; sourceTree = "<group>"; };
 		605EDBC41D92E9A00042DC0C /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurry.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurry.a; sourceTree = "<group>"; };
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
@@ -944,6 +950,10 @@
 		EF532BAB1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMMayDeepLinkResponseNo.json; sourceTree = "<group>"; };
 		EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANJAMRecordEventResponse.json; sourceTree = "<group>"; };
 		F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPublicAPITestCase.m; sourceTree = "<group>"; };
+		FC1565F71FDF1872004B0B78 /* ANInstreamVideoAd+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANInstreamVideoAd+Test.m"; sourceTree = "<group>"; };
+		FC1565F81FDF1873004B0B78 /* ANVideoAdPlayer+Test.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "ANVideoAdPlayer+Test.h"; sourceTree = "<group>"; };
+		FC1565F91FDF1873004B0B78 /* ANInstreamVideoAd+Test.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "ANInstreamVideoAd+Test.h"; sourceTree = "<group>"; };
+		FC1565FA1FDF1873004B0B78 /* ANVideoAdPlayer+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVideoAdPlayer+Test.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1134,6 +1144,18 @@
 			name = Rubicon;
 			sourceTree = "<group>";
 		};
+		604E65E91FDA18A30088D977 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				FC1565F91FDF1873004B0B78 /* ANInstreamVideoAd+Test.h */,
+				FC1565F71FDF1872004B0B78 /* ANInstreamVideoAd+Test.m */,
+				604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */,
+				FC1565F81FDF1873004B0B78 /* ANVideoAdPlayer+Test.h */,
+				FC1565FA1FDF1873004B0B78 /* ANVideoAdPlayer+Test.m */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1168,6 +1190,7 @@
 				F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */,
 				4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
+				604E65E91FDA18A30088D977 /* Video */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1632,7 +1655,9 @@
 		8AD01824199932F9007874BA = {
 			isa = PBXGroup;
 			children = (
+				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
+				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
 				8A549E9A1A706BA6009F797A /* NativeUnitTests */,
@@ -1646,8 +1671,6 @@
 				8AA009A419DB18AE0090EBED /* Shared */,
 				60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */,
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
-				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
-				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2423,6 +2446,7 @@
 				8A0AA49019DB3453005EC52C /* ANAdAdapterBannerNetworkError.m in Sources */,
 				8A0AA49119DB3453005EC52C /* ANAdAdapterBannerNoDelegate.m in Sources */,
 				8A0AA49219DB3453005EC52C /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
+				FC1565FB1FDF1874004B0B78 /* ANInstreamVideoAd+Test.m in Sources */,
 				6042CB4D1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8A0AA49319DB3453005EC52C /* ANAdAdapterBannerSuccessful.m in Sources */,
 				8A0AA49419DB3453005EC52C /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */,
@@ -2430,6 +2454,7 @@
 				8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */,
 				8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
 				8A0AA47719DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
+				FC1566001FDF188D004B0B78 /* ANVideoAdPlayer+Test.h in Sources */,
 				8A0AA46A19DB30A2005EC52C /* ANAdResponseTestCase.m in Sources */,
 				8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */,
 				8A0AA46B19DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
@@ -2440,10 +2465,12 @@
 				F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */,
 				F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */,
 				8A0AA45919DB2CB4005EC52C /* ANInterstitialAd+ANTest.m in Sources */,
+				604E65FA1FDA18A40088D977 /* ANInstreamVideoAdTestCase.m in Sources */,
 				8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */,
 				8A0AA47919DB314C005EC52C /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				8A0AA46D19DB30A2005EC52C /* ANLocationTestCase.m in Sources */,
 				8AA00A5519DB2BF40090EBED /* ANMediationAdViewController+ANTest.m in Sources */,
+				FC1565FF1FDF188D004B0B78 /* ANInstreamVideoAd+Test.h in Sources */,
 				8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */,
 				6042CB5C1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */,
@@ -2452,6 +2479,7 @@
 				F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */,
 				4F72677D1E5F823E006A3468 /* ANReachabilityTestCase.m in Sources */,
 				8A0AA45519DB2CB4005EC52C /* ANUniversalAdFetcher+ANTest.m in Sources */,
+				FC1565FC1FDF1874004B0B78 /* ANVideoAdPlayer+Test.m in Sources */,
 				F50D81681BFCDC77008D74DB /* ANURLConnectionStub.m in Sources */,
 				8A0AA45A19DB2CB4005EC52C /* NSObject+Swizzling.m in Sources */,
 				8A0AA47019DB30A2005EC52C /* UIViewConstraintsTestCase.m in Sources */,
@@ -3049,9 +3077,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
-					"-ObjC",
 					"-framework",
 					IOKit,
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3073,9 +3101,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
-					"-ObjC",
 					"-framework",
 					IOKit,
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
