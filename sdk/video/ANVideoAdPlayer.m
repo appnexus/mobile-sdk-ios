@@ -210,7 +210,7 @@
     
     NSDictionary *messageDictionary = (NSDictionary *)message.body;
     NSString *eventName = @"";
-    NSDictionary *paramsDictionary;
+    NSDictionary *paramsDictionary = [NSDictionary new];
     if(messageDictionary.count > 0){
         eventName = [messageDictionary objectForKey:@"event"];
         paramsDictionary = [messageDictionary objectForKey:@"params"];
