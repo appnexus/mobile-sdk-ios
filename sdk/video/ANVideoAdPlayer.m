@@ -34,6 +34,7 @@
     @property (nonatomic, strong)             NSString                 *creativeTag;
     @property (nonatomic, assign)             NSUInteger                videoDuration;
     @property (nonatomic, strong)             NSString                  *vastCreativeURL;
+    @property (nonatomic, strong)             NSString                  *vastCreativeXML;
     @property (nonatomic, readonly)  BOOL  opensInNativeBrowser;
     @property (nonatomic, readonly)  BOOL  landingPageLoadsInBackground;
 
@@ -59,6 +60,7 @@
     _creativeTag = @"";
     _videoDuration = 0;
     _vastCreativeURL = @"";
+    _vastCreativeXML = @"";
     return self;
 }
 
@@ -160,6 +162,10 @@
     return self.vastCreativeURL;
 }
 
+- (NSString *) getVASTCreativeXML {
+    return self.vastCreativeXML;
+}
+
 
 
 #pragma mark - Helper methods.
@@ -208,12 +214,20 @@
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     
-    NSDictionary *messageDictionary = (NSDictionary *)message.body;
+    if(message == nil)
+        return;
     NSString *eventName = @"";
     NSDictionary *paramsDictionary = [NSDictionary new];
-    if(messageDictionary.count > 0){
-        eventName = [messageDictionary objectForKey:@"event"];
-        paramsDictionary = [messageDictionary objectForKey:@"params"];
+    
+    if([message.body isKindOfClass:[NSString class]]){
+        eventName = (NSString *)message.body;
+    }
+    else if([message.body isKindOfClass:[NSDictionary class]]){
+        NSDictionary *messageDictionary = (NSDictionary *)message.body;
+        if(messageDictionary.count > 0){
+            eventName = [messageDictionary objectForKey:@"event"];
+            paramsDictionary = [messageDictionary objectForKey:@"params"];
+        }
     }
     
     ANLogInfo(@"Parsed value %@",eventName);
@@ -230,6 +244,7 @@
             self.creativeTag = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
             NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
             self.vastCreativeURL = (NSString *)[paramsDictionary objectForKey:@"vastCreativeUrl"];
+            self.vastCreativeXML = (NSString *)[paramsDictionary objectForKey:@"vastXML"];
             if(duration > 0){
                 self.videoDuration = [duration intValue];
             }

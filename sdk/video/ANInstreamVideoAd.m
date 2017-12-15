@@ -165,6 +165,10 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return [self.adPlayer getVASTCreativeURL];
 }
 
+- (NSString *) getVastCreativeXML {
+    return [self.adPlayer getVASTCreativeXML];
+}
+
 
 
 //---------------------------------------------------------- -o--

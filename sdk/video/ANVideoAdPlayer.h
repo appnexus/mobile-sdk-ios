@@ -43,13 +43,9 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 -(void) videoAdReady;
 -(void) videoAdLoadFailed:(NSError *)error;
 
-
-
 @optional
 
 - (void) videoAdError:(NSError *)error;
-
-
 - (void) videoAdWillPresent: (ANVideoAdPlayer *)videoAd;
 - (void) videoAdDidPresent:  (ANVideoAdPlayer *)videoAd;
 - (void) videoAdWillClose:   (ANVideoAdPlayer *)videoAd;
@@ -86,7 +82,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 - (NSUInteger) getAdDuration;
 - (NSString *) getCreativeTag;
 - (NSString *) getVASTCreativeURL;
-
+- (NSString *) getVASTCreativeXML;
 
 @end
 

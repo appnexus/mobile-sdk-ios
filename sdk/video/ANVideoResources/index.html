@@ -191,7 +191,11 @@
                 APNVideo_AstMediationManager.selectAd(adId, jsonObject, options, onSelectAdForASTResponse);
             } catch (e) {
                 console.log('Issue loading video into document :' + e.message);
-                sendBackMessage("video-error");
+                var nativeParams = {
+                    "event": "video-error",
+                    "params": {}
+                };
+                sendBackMessage(nativeParams);
             }
         }
         
@@ -204,8 +208,11 @@
             if (content) {
                 createVastPlayerWithContent(content);
             } else {
-                sendBackMessage("video-error");
-                return;
+                var nativeParams = {
+                    "event": "video-error",
+                    "params": {}
+                };
+                sendBackMessage(nativeParams);
             }
         }
         
