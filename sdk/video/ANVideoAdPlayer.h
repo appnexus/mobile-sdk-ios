@@ -15,9 +15,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>
-
-
+#import "WKWebView+ANCategory.h"
 
 typedef NS_ENUM(NSUInteger, ANVideoAdPlayerTracker) {
     ANVideoAdPlayerTrackerFirstQuartile,
@@ -83,6 +81,8 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 - (NSString *) getCreativeTag;
 - (NSString *) getVASTCreativeURL;
 - (NSString *) getVASTCreativeXML;
+
+-(NSUInteger) fetchPlayHeadTimeForVideo;
 
 @end
 

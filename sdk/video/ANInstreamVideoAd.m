@@ -169,6 +169,10 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return [self.adPlayer getVASTCreativeXML];
 }
 
+- (NSUInteger) fetchPlayHeadTimeOfVideo {
+    return [self.adPlayer fetchPlayHeadTimeForVideo];
+}
+
 
 
 //---------------------------------------------------------- -o--

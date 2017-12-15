@@ -21,9 +21,6 @@
 #import "ANAdConstants.h"
 #import "ANSDKSettings+PrivateMethods.h"
 
-
-
-
 @interface ANVideoAdPlayer ()<ANBrowserViewControllerDelegate>
 
     @property (strong,nonatomic)              WKWebView                *webView;
@@ -164,6 +161,12 @@
 
 - (NSString *) getVASTCreativeXML {
     return self.vastCreativeXML;
+}
+
+-(NSUInteger) fetchPlayHeadTimeForVideo {
+    NSString *exec_template = @"getCurrentPlayHeadTime();";
+    NSString *returnString = [_webView stringByEvaluatingJavaScriptFromString:exec_template];
+    return [returnString integerValue];
 }
 
 
@@ -375,12 +378,12 @@
     if([self.vastContent length] > 0){
         NSString *exec_template = @"createVastPlayerWithContent('%@');";
         exec = [NSString stringWithFormat:exec_template, self.vastContent];
-        [_webView evaluateJavaScript:exec completionHandler:nil];
+        [self.webView evaluateJavaScript:exec completionHandler:nil];
 
     }else if([self.vastURL length] > 0){
         NSString *exec_template = @"createVastPlayerWithURL('%@');";
         exec = [NSString stringWithFormat:exec_template, self.vastURL];
-        [_webView evaluateJavaScript:exec completionHandler:nil];
+        [self.webView evaluateJavaScript:exec completionHandler:nil];
     }else if([self.jsonContent length] > 0){
         NSString * mediationJsonString = [NSString stringWithFormat:@"processMediationAd('%@')",[self.jsonContent stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
         [self.webView evaluateJavaScript:mediationJsonString completionHandler:nil];

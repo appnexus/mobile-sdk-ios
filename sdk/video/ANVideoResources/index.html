@@ -179,6 +179,12 @@
             
         }
         
+        function getCurrentPlayHeadTime() {
+            var targetId = "video-content";
+            var playHeadTime = APNVideo_MobileVastPlayer.getCurrentPlayHeadTime(targetId);
+            return playHeadTime;
+        }
+        
         function processMediationAd(tag) {
             try {
                 console.log(" callSelectAd - invoked");
