@@ -23,7 +23,8 @@
 @dynamic vastCreativeURL;
 @dynamic creativeTag;
 @dynamic videoDuration;
-
+@dynamic vastCreativeXML;
+//@dynamic playHeadTimeForVideo;
 
 
 
@@ -39,4 +40,16 @@
 -(void)createInstreamVideoWithVastCreativeURL{
     self.vastCreativeURL =  @"http://sampletag.com";
   }
+
+-(void)createInstreamVideoWithVASTCreativeXML;
+{
+    self.vastCreativeXML =  @"http://sampletag.com";
+}
+
+-(NSUInteger) fetchPlayHeadTimeForVideo{
+    return 10;
+}
+
+
+
 @end
