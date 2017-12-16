@@ -1089,8 +1089,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604E65DF1FD86FC00088D977 /* libKIF.a in Frameworks */,
 				8AD011A91B2F657E001B0107 /* IOKit.framework in Frameworks */,
+				604E65DF1FD86FC00088D977 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1118,12 +1118,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1179,6 +1179,7 @@
 		8A0AA46219DB30A2005EC52C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				604E65E91FDA18A30088D977 /* Video */,
 				8A0AA46319DB30A2005EC52C /* ANAdResponseTestCase.m */,
 				8A0AA46419DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m */,
 				8A0AA46519DB30A2005EC52C /* ANBannerAdViewTransitionsTestCase.m */,
@@ -1190,7 +1191,6 @@
 				F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */,
 				4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
-				604E65E91FDA18A30088D977 /* Video */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1281,9 +1281,9 @@
 			isa = PBXGroup;
 			children = (
 				8A549E9B1A706BA6009F797A /* Supporting Files */,
-				8A549EAF1A706BFE009F797A /* ANNativeStandardAdResponseTestCase.m */,
 				8A549EAD1A706BC7009F797A /* ANNativeAdRequestTestCase.m */,
 				8AE7AD8D1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m */,
+				8A549EAF1A706BFE009F797A /* ANNativeStandardAdResponseTestCase.m */,
 				8A33A50F1A7C250500F8ED5E /* ANTrackerManagerTestCase.m */,
 			);
 			path = NativeUnitTests;
@@ -1422,25 +1422,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094019DB169B0090EBED /* libANSDK.a */,
 				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
-				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
-				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094019DB169B0090EBED /* libANSDK.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
+				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
 				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1544,9 +1544,9 @@
 				8AA009A719DB18AE0090EBED /* ANHTTPStubbingManager.m */,
 				8AA009A819DB18AE0090EBED /* ANHTTPStubURLProtocol.h */,
 				8AA009A919DB18AE0090EBED /* ANHTTPStubURLProtocol.m */,
+				6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
 				8AA009AA19DB18AE0090EBED /* ANURLConnectionStub.h */,
 				8AA009AB19DB18AE0090EBED /* ANURLConnectionStub.m */,
-				6042CB5B1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
 			);
 			path = Stubbing;
 			sourceTree = "<group>";
@@ -1608,6 +1608,8 @@
 				8AA009FD19DB1E150090EBED /* ANUniversalAdFetcher+ANTest.m */,
 				8AA00A0819DB1E150090EBED /* NSObject+Swizzling.h */,
 				8AA00A0919DB1E150090EBED /* NSObject+Swizzling.m */,
+				6042CB4B1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.h */,
+				6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */,
 				8AA00A0A19DB1E150090EBED /* XCTestCase+ANAdResponse.h */,
 				8AA00A0B19DB1E150090EBED /* XCTestCase+ANAdResponse.m */,
 				8AA00A0C19DB1E150090EBED /* XCTestCase+ANBannerAdView.h */,
@@ -1616,8 +1618,6 @@
 				8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */,
 				8AA00A1019DB1E150090EBED /* XCTestCase+ANMediatedAd.h */,
 				8AA00A1119DB1E150090EBED /* XCTestCase+ANMediatedAd.m */,
-				6042CB4B1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.h */,
-				6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1655,9 +1655,7 @@
 		8AD01824199932F9007874BA = {
 			isa = PBXGroup;
 			children = (
-				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
-				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
 				8A549E9A1A706BA6009F797A /* NativeUnitTests */,
@@ -1671,6 +1669,8 @@
 				8AA009A419DB18AE0090EBED /* Shared */,
 				60B6A1B51E732F8F00ED7DB8 /* UTModuleTests */,
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
+				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
+				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2333,19 +2333,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00010AEA1FD0C9CB007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8A549EB41A706C7D009F797A /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
-				8A549EB01A706BFE009F797A /* ANNativeStandardAdResponseTestCase.m in Sources */,
 				8A201C101C5960BC009EE62D /* ANGADNativeAppInstallAdView.m in Sources */,
 				8ABC03BE1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */,
 				8A549EB31A706C71009F797A /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8A549EAE1A706BC7009F797A /* ANNativeAdRequestTestCase.m in Sources */,
 				8AE7AD8E1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m in Sources */,
 				8AE7AD951A7AAE81009E2F2F /* ANNativeAdView.m in Sources */,
+				8A549EB01A706BFE009F797A /* ANNativeStandardAdResponseTestCase.m in Sources */,
 				8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */,
 				8A33A5131A7C264D00F8ED5E /* ANTrackerManager+ANTest.m in Sources */,
 				8A33A5101A7C250500F8ED5E /* ANTrackerManagerTestCase.m in Sources */,
 				8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */,
+				00010AEA1FD0C9CB007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2354,7 +2354,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00010ADB1FD0C991007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8AB5324819F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m in Sources */,
 				8AA00A2D19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.m in Sources */,
 				8A0EFA941B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m in Sources */,
@@ -2369,6 +2368,7 @@
 				8AA009C519DB1B200090EBED /* AppDelegate.m in Sources */,
 				8AA009CA19DB1B200090EBED /* main.m in Sources */,
 				8AA00A3219DB204A0090EBED /* NSObject+Swizzling.m in Sources */,
+				00010ADB1FD0C991007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2376,10 +2376,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00010AE91FD0C9A2007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8AB5326B19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
 				8A8458741A699CF90014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */,
+				00010AE91FD0C9A2007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8AA00A3719DB21FA0090EBED /* XCTestCase+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2440,21 +2440,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				008E9A6C1FD0E03400EF5C4D /* ANReachability+ANTest.m in Sources */,
 				8A0AA48E19DB3453005EC52C /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
 				8A0AA48F19DB3453005EC52C /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
 				8A0AA49019DB3453005EC52C /* ANAdAdapterBannerNetworkError.m in Sources */,
 				8A0AA49119DB3453005EC52C /* ANAdAdapterBannerNoDelegate.m in Sources */,
 				8A0AA49219DB3453005EC52C /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
-				FC1565FB1FDF1874004B0B78 /* ANInstreamVideoAd+Test.m in Sources */,
-				6042CB4D1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8A0AA49319DB3453005EC52C /* ANAdAdapterBannerSuccessful.m in Sources */,
 				8A0AA49419DB3453005EC52C /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */,
 				8A0AA49519DB3453005EC52C /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
 				8A0AA49619DB3453005EC52C /* ANAdAdapterBannerUnableToFill.m in Sources */,
 				8A0AA49719DB3453005EC52C /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
 				8A0AA47719DB314C005EC52C /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
-				FC1566001FDF188D004B0B78 /* ANVideoAdPlayer+Test.h in Sources */,
 				8A0AA46A19DB30A2005EC52C /* ANAdResponseTestCase.m in Sources */,
 				8A0AA45619DB2CB4005EC52C /* ANAdView+ANTest.m in Sources */,
 				8A0AA46B19DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
@@ -2464,24 +2460,28 @@
 				8A0AA47819DB314C005EC52C /* ANFailedMultiple.m in Sources */,
 				F50D81661BFCDC77008D74DB /* ANHTTPStubbingManager.m in Sources */,
 				F50D81671BFCDC77008D74DB /* ANHTTPStubURLProtocol.m in Sources */,
-				8A0AA45919DB2CB4005EC52C /* ANInterstitialAd+ANTest.m in Sources */,
+				FC1565FF1FDF188D004B0B78 /* ANInstreamVideoAd+Test.h in Sources */,
+				FC1565FB1FDF1874004B0B78 /* ANInstreamVideoAd+Test.m in Sources */,
 				604E65FA1FDA18A40088D977 /* ANInstreamVideoAdTestCase.m in Sources */,
+				8A0AA45919DB2CB4005EC52C /* ANInterstitialAd+ANTest.m in Sources */,
 				8A75A9A51C56BE43008FB1AB /* ANJAMTestCase.m in Sources */,
 				8A0AA47919DB314C005EC52C /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				8A0AA46D19DB30A2005EC52C /* ANLocationTestCase.m in Sources */,
 				8AA00A5519DB2BF40090EBED /* ANMediationAdViewController+ANTest.m in Sources */,
-				FC1565FF1FDF188D004B0B78 /* ANInstreamVideoAd+Test.h in Sources */,
 				8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */,
-				6042CB5C1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */,
 				8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8A6520AB1E67738A0011EFB3 /* ANPBContainerViewTestCase.m in Sources */,
 				F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */,
+				008E9A6C1FD0E03400EF5C4D /* ANReachability+ANTest.m in Sources */,
 				4F72677D1E5F823E006A3468 /* ANReachabilityTestCase.m in Sources */,
 				8A0AA45519DB2CB4005EC52C /* ANUniversalAdFetcher+ANTest.m in Sources */,
-				FC1565FC1FDF1874004B0B78 /* ANVideoAdPlayer+Test.m in Sources */,
+				6042CB5C1FC62E80007D0CC8 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				F50D81681BFCDC77008D74DB /* ANURLConnectionStub.m in Sources */,
+				FC1566001FDF188D004B0B78 /* ANVideoAdPlayer+Test.h in Sources */,
+				FC1565FC1FDF1874004B0B78 /* ANVideoAdPlayer+Test.m in Sources */,
 				8A0AA45A19DB2CB4005EC52C /* NSObject+Swizzling.m in Sources */,
+				6042CB4D1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8A0AA47019DB30A2005EC52C /* UIViewConstraintsTestCase.m in Sources */,
 				8AA00A4F19DB2B160090EBED /* XCTestCase+ANAdResponse.m in Sources */,
 				8AA00A5019DB2B160090EBED /* XCTestCase+ANBannerAdView.m in Sources */,
