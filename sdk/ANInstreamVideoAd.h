@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 @protocol  ANInstreamVideoAdPlayDelegate <NSObject>
 
     @required
+
     - (void) adDidComplete:  (id<ANAdProtocol>)ad
                  withState:  (ANInstreamVideoPlaybackStateType)state;
 
@@ -72,6 +73,8 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
     - (void)adDidPresent:(id<ANAdProtocol>)ad;
 
     - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
+
+    - (void) adPlayStarted : (id<ANAdProtocol>)ad;
 
 @end
 

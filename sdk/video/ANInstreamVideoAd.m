@@ -46,6 +46,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     @property (nonatomic)  BOOL  isAdMuted;
     @property (nonatomic)  BOOL  isVideoTagReady;
     @property (nonatomic)  BOOL  didVideoTagFail;
+    @property (nonatomic)  BOOL  isAdPlaying;
 
     //
     @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
@@ -74,6 +75,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     if (!self)  { return nil; }
 
     //
+    self.isAdPlaying      = NO;
     self.didUserSkipAd    = NO;
     self.didUserClickAd   = NO;
     self.isAdMuted        = NO;
@@ -312,6 +314,12 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 -(void) videoAdEventListeners:(ANVideoAdPlayerEvent)eventTrackers
 {
     switch (eventTrackers) {
+        case ANVideoAdPlayerEventPlay:
+            self.isAdPlaying = YES;
+            if ([self.playDelegate respondsToSelector:@selector(adPlayStarted:)])  {
+                    [self.playDelegate adPlayStarted:self];
+            }
+            break;
         case ANVideoAdPlayerEventSkip:
             self.didUserSkipAd = YES;
 
@@ -359,8 +367,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 
-
-
 //---------------------------------------------------------- -o--
 #pragma mark - ANUniversalAdFetcherDelegate.
 
@@ -384,7 +390,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 {
     ANLogTrace(@"");
     return  @[ @(ANAllowedMediaTypeVideo) ];
-
+    
 }
 
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
@@ -393,7 +399,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     [delegateReturnDictionary setObject:[NSValue valueWithCGSize:kANAdSize1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
     [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
-
+    
     return  delegateReturnDictionary;
 }
 
@@ -414,7 +420,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 /** Set the user's current location rounded to the number of decimal places specified in "precision".
-    Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
+ Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
  */
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
@@ -445,6 +451,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         _memberId = memberID;
     }
 }
+
+
 
 @end
 

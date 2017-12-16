@@ -256,7 +256,13 @@
             [self.delegate videoAdReady];
         }
 
-    }else if ([eventName isEqualToString:@"video-first-quartile"]) {
+    } else if ([eventName isEqualToString:@"videoStart"]) {
+        ANLogInfo(@"%@", eventName);
+        if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
+            [self.delegate videoAdEventListeners:ANVideoAdPlayerEventPlay];
+        }
+        
+    } else if ([eventName isEqualToString:@"video-first-quartile"]) {
         ANLogInfo(@"video-first-quartile");
         if ([self.delegate respondsToSelector:@selector(videoAdImpressionListeners:)]) {
             [self.delegate videoAdImpressionListeners:ANVideoAdPlayerTrackerFirstQuartile];

@@ -26,6 +26,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerTracker) {
 };
 
 typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
+    ANVideoAdPlayerEventPlay,
     ANVideoAdPlayerEventClick,
     ANVideoAdPlayerEventSkip,
     ANVideoAdPlayerEventMuteOff,
