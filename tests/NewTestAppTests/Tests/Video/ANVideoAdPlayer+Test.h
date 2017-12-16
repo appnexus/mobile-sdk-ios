@@ -23,10 +23,12 @@
     @property (nonatomic, strong) NSString * vastCreativeURL;
     @property (nonatomic, strong) NSString * creativeTag;
     @property (nonatomic, assign) NSUInteger videoDuration;
+    @property (nonatomic, strong) NSString *vastCreativeXML;
+
 
 -(void)createInstreamVideoWithDuration;
 -(void)createInstreamVideoWithVastCreativeURL;
 -(void)createInstreamVideoWithCreativeTag;
-
-
+-(void)createInstreamVideoWithVASTCreativeXML;
+-(NSUInteger) fetchPlayHeadTimeForVideo;
 @end
