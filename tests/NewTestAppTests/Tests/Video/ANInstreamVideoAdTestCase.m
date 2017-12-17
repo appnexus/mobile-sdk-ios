@@ -57,7 +57,7 @@
         [self initializeInstreamVideoWithAllProperties];
         NSLog(@"reached here");
         XCTAssertNotNil(self.instreamVideoAd);
-        NSString *vastcreativeTag = [self.instreamVideoAd getVastCreativeURL];
+        NSString *vastcreativeTag = [self.instreamVideoAd getVastURL];
         XCTAssertNotNil(vastcreativeTag);
         XCTAssertNotEqual(vastcreativeTag.length, 0);
         XCTAssertNotNil(vastcreativeTag);
@@ -70,7 +70,7 @@
     [self initializeInstreamVideoWithAllProperties];
     NSLog(@"reached here");
     XCTAssertNotNil(self.instreamVideoAd);
-    NSString *vastcreativeXMLTag = [self.instreamVideoAd getVastCreativeXML];
+    NSString *vastcreativeXMLTag = [self.instreamVideoAd getVastXML];
     XCTAssertNotNil(vastcreativeXMLTag);
     XCTAssertNotEqual(vastcreativeXMLTag.length, 0);
     XCTAssertNotNil(vastcreativeXMLTag);
@@ -82,7 +82,7 @@
         [self initializeInstreamVideoWithAllProperties];
         NSLog(@"reached here");
         XCTAssertNotNil(self.instreamVideoAd);
-        NSString *creativeTag = [self.instreamVideoAd getCreativeTag];
+        NSString *creativeTag = [self.instreamVideoAd getCreativeURL];
         XCTAssertNotEqual(creativeTag.length, 0);
         XCTAssertNotNil(creativeTag);
         XCTAssertEqual(creativeTag, @"http://sampletag.com");
@@ -99,7 +99,7 @@
 -(void) testVastCreativeValuesNotSet {
         [self initializeInstreamVideoWithNoProperties];
         XCTAssertNotNil(self.instreamVideoAd);
-        NSString *vastcreativeTag = [self.instreamVideoAd getVastCreativeURL];
+        NSString *vastcreativeTag = [self.instreamVideoAd getVastURL];
         XCTAssertEqual(vastcreativeTag.length, 0);
 }
 
@@ -108,14 +108,14 @@
     
         [self initializeInstreamVideoWithNoProperties];
         XCTAssertNotNil(self.instreamVideoAd);
-        NSString *creativeTag = [self.instreamVideoAd getCreativeTag];
+        NSString *creativeTag = [self.instreamVideoAd getCreativeURL];
         XCTAssertEqual(creativeTag.length, 0);
 }
 
 -(void) testVastCreativeXMLValuesNotSet {
     [self initializeInstreamVideoWithNoProperties];
     XCTAssertNotNil(self.instreamVideoAd);
-    NSString *vastcreativeXMLTag = [self.instreamVideoAd getVastCreativeXML];
+    NSString *vastcreativeXMLTag = [self.instreamVideoAd getVastXML];
     XCTAssertEqual(vastcreativeXMLTag.length, 0);
 }
 
@@ -123,7 +123,7 @@
 -(void) testPlayHeadTimeForVideoSet {
     [self initializeInstreamVideoWithNoProperties];
     XCTAssertNotNil(self.instreamVideoAd);
-    NSUInteger duration = [self.instreamVideoAd fetchPlayHeadTimeOfVideo];
+    NSUInteger duration = [self.instreamVideoAd getAdPlayElapsedTime];
     XCTAssertNotEqual(duration, 0);
 }
 
@@ -133,9 +133,9 @@
     self.instreamVideoAd = [[ANInstreamVideoAd alloc] init];
     self.instreamVideoAd.adPlayer = [[ANVideoAdPlayer alloc] init];
     self.instreamVideoAd.adPlayer.videoDuration = 10;
-    self.instreamVideoAd.adPlayer.creativeTag = @"http://sampletag.com";
-    self.instreamVideoAd.adPlayer.vastCreativeURL = @"http://sampletag.com";
-    self.instreamVideoAd.adPlayer.vastCreativeXML = @"http://sampletag.com";
+    self.instreamVideoAd.adPlayer.creativeURL = @"http://sampletag.com";
+    self.instreamVideoAd.adPlayer.vastURLContent = @"http://sampletag.com";
+    self.instreamVideoAd.adPlayer.vastXMLContent = @"http://sampletag.com";
     
 }
 

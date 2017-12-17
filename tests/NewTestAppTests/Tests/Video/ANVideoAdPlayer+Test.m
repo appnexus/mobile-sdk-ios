@@ -20,10 +20,10 @@
 
 @implementation ANVideoAdPlayer(Test)
 
-@dynamic vastCreativeURL;
-@dynamic creativeTag;
+@dynamic vastURLContent;
+@dynamic creativeURL;
 @dynamic videoDuration;
-@dynamic vastCreativeXML;
+@dynamic vastXMLContent;
 //@dynamic playHeadTimeForVideo;
 
 
@@ -34,19 +34,19 @@
 
 
 -(void)createInstreamVideoWithCreativeTag{
-    self.creativeTag =  @"http://sampletag.com";
+    self.creativeURL =  @"http://sampletag.com";
 }
 
 -(void)createInstreamVideoWithVastCreativeURL{
-    self.vastCreativeURL =  @"http://sampletag.com";
+    self.vastURLContent =  @"http://sampletag.com";
   }
 
 -(void)createInstreamVideoWithVASTCreativeXML;
 {
-    self.vastCreativeXML =  @"http://sampletag.com";
+    self.vastXMLContent =  @"http://sampletag.com";
 }
 
--(NSUInteger) fetchPlayHeadTimeForVideo{
+-(NSUInteger) getAdPlayElapsedTime{
     return 10;
 }
 

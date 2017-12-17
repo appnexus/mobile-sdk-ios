@@ -20,15 +20,15 @@
 
 @interface ANVideoAdPlayer(Test)
 
-    @property (nonatomic, strong) NSString * vastCreativeURL;
-    @property (nonatomic, strong) NSString * creativeTag;
-    @property (nonatomic, assign) NSUInteger videoDuration;
-    @property (nonatomic, strong) NSString *vastCreativeXML;
-
+    @property (nonatomic, strong)             NSString                 *creativeURL;
+    @property (nonatomic, assign)             NSUInteger                videoDuration;
+    @property (nonatomic, strong)             NSString                  *vastURLContent;
+    @property (nonatomic, strong)             NSString                  *vastXMLContent;
+    
 
 -(void)createInstreamVideoWithDuration;
 -(void)createInstreamVideoWithVastCreativeURL;
 -(void)createInstreamVideoWithCreativeTag;
 -(void)createInstreamVideoWithVASTCreativeXML;
--(NSUInteger) fetchPlayHeadTimeForVideo;
+-(NSUInteger) getAdPlayElapsedTime;
 @end
