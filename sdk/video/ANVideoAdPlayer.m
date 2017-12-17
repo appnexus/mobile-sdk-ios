@@ -28,10 +28,10 @@
     @property (nonatomic, strong)             NSString                 *vastContent;
     @property (nonatomic, strong)             NSString                 *vastURL;
     @property  (nonatomic, strong)            NSString                 *jsonContent;
-    @property (nonatomic, strong)             NSString                 *creativeTag;
+    @property (nonatomic, strong)             NSString                 *creativeURL;
     @property (nonatomic, assign)             NSUInteger                videoDuration;
-    @property (nonatomic, strong)             NSString                  *vastCreativeURL;
-    @property (nonatomic, strong)             NSString                  *vastCreativeXML;
+    @property (nonatomic, strong)             NSString                  *vastURLContent;
+    @property (nonatomic, strong)             NSString                  *vastXMLContent;
     @property (nonatomic, readonly)  BOOL  opensInNativeBrowser;
     @property (nonatomic, readonly)  BOOL  landingPageLoadsInBackground;
 
@@ -54,10 +54,10 @@
                                             selector:@selector(resumeAdVideo)
                                                 name:UIApplicationDidBecomeActiveNotification
                                               object:nil];
-    _creativeTag = @"";
+    _creativeURL = @"";
     _videoDuration = 0;
-    _vastCreativeURL = @"";
-    _vastCreativeXML = @"";
+    _vastURLContent = @"";
+    _vastXMLContent = @"";
     return self;
 }
 
@@ -151,19 +151,19 @@
 - (NSUInteger) getAdDuration {
     return self.videoDuration;
 }
-- (NSString *) getCreativeTag {
-    return self.creativeTag;
+- (NSString *) getCreativeURL {
+    return self.creativeURL;
 }
 
-- (NSString *) getVASTCreativeURL {
-    return self.vastCreativeURL;
+- (NSString *) getVASTURL {
+    return self.vastURLContent;
 }
 
-- (NSString *) getVASTCreativeXML {
-    return self.vastCreativeXML;
+- (NSString *) getVASTXML {
+    return self.vastXMLContent;
 }
 
--(NSUInteger) fetchPlayHeadTimeForVideo {
+-(NSUInteger) getAdPlayElapsedTime {
     NSString *exec_template = @"getCurrentPlayHeadTime();";
     NSString *returnString = [_webView stringByEvaluatingJavaScriptFromString:exec_template];
     return [returnString integerValue];
@@ -244,10 +244,10 @@
     } else if ([eventName isEqualToString:@"adReady"]) {
         ANLogInfo(@"adReady");
         if(paramsDictionary.count > 0){
-            self.creativeTag = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
+            self.creativeURL = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
             NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
-            self.vastCreativeURL = (NSString *)[paramsDictionary objectForKey:@"vastCreativeUrl"];
-            self.vastCreativeXML = (NSString *)[paramsDictionary objectForKey:@"vastXML"];
+            self.vastURLContent = (NSString *)[paramsDictionary objectForKey:@"vastCreativeUrl"];
+            self.vastXMLContent = (NSString *)[paramsDictionary objectForKey:@"vastXML"];
             if(duration > 0){
                 self.videoDuration = [duration intValue];
             }

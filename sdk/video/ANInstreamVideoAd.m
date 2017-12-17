@@ -159,20 +159,20 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return [self.adPlayer getAdDuration];
 }
 
-- (NSString *) getCreativeTag{
-    return [self.adPlayer getCreativeTag];
+- (NSString *) getCreativeURL{
+    return [self.adPlayer getCreativeURL];
 }
 
-- (NSString *) getVastCreativeURL {
-    return [self.adPlayer getVASTCreativeURL];
+- (NSString *) getVastURL {
+    return [self.adPlayer getVASTURL];
 }
 
-- (NSString *) getVastCreativeXML {
-    return [self.adPlayer getVASTCreativeXML];
+- (NSString *) getVastXML {
+    return [self.adPlayer getVASTXML];
 }
 
-- (NSUInteger) fetchPlayHeadTimeOfVideo {
-    return [self.adPlayer fetchPlayHeadTimeForVideo];
+- (NSUInteger) getAdPlayElapsedTime {
+    return [self.adPlayer getAdPlayElapsedTime];
 }
 
 

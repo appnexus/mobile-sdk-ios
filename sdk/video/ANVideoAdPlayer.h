@@ -79,11 +79,11 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 -(void) removePlayer;
 
 - (NSUInteger) getAdDuration;
-- (NSString *) getCreativeTag;
-- (NSString *) getVASTCreativeURL;
-- (NSString *) getVASTCreativeXML;
+- (NSString *) getCreativeURL;
+- (NSString *) getVASTURL;
+- (NSString *) getVASTXML;
 
--(NSUInteger) fetchPlayHeadTimeForVideo;
+-(NSUInteger) getAdPlayElapsedTime;
 
 @end
 
