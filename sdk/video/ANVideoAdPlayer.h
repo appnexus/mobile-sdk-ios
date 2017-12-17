@@ -15,9 +15,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>
-
-
+#import "WKWebView+ANCategory.h"
 
 typedef NS_ENUM(NSUInteger, ANVideoAdPlayerTracker) {
     ANVideoAdPlayerTrackerFirstQuartile,
@@ -28,6 +26,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerTracker) {
 };
 
 typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
+    ANVideoAdPlayerEventPlay,
     ANVideoAdPlayerEventClick,
     ANVideoAdPlayerEventSkip,
     ANVideoAdPlayerEventMuteOff,
@@ -43,13 +42,9 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 -(void) videoAdReady;
 -(void) videoAdLoadFailed:(NSError *)error;
 
-
-
 @optional
 
 - (void) videoAdError:(NSError *)error;
-
-
 - (void) videoAdWillPresent: (ANVideoAdPlayer *)videoAd;
 - (void) videoAdDidPresent:  (ANVideoAdPlayer *)videoAd;
 - (void) videoAdWillClose:   (ANVideoAdPlayer *)videoAd;
@@ -84,9 +79,11 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 -(void) removePlayer;
 
 - (NSUInteger) getAdDuration;
-- (NSString *) getCreativeTag;
-- (NSString *) getVASTCreativeURL;
+- (NSString *) getCreativeURL;
+- (NSString *) getVASTURL;
+- (NSString *) getVASTXML;
 
+-(NSUInteger) getAdPlayElapsedTime;
 
 @end
 

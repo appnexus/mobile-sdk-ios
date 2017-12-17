@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 @protocol  ANInstreamVideoAdPlayDelegate <NSObject>
 
     @required
+
     - (void) adDidComplete:  (id<ANAdProtocol>)ad
                  withState:  (ANInstreamVideoPlaybackStateType)state;
 
@@ -72,6 +73,8 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
     - (void)adDidPresent:(id<ANAdProtocol>)ad;
 
     - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
+
+    - (void) adPlayStarted : (id<ANAdProtocol>)ad;
 
 @end
 
@@ -109,8 +112,11 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
     - (void) removeAd;
 
     - (NSUInteger) getAdDuration;
-    - (NSString *) getCreativeTag;
-    - (NSString *) getVastCreativeURL;
+    - (NSString *) getCreativeURL;
+    - (NSString *) getVastURL;
+    - (NSString *) getVastXML;
+
+    - (NSUInteger) getAdPlayElapsedTime;
 
 @end
 

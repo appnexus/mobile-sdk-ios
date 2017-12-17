@@ -21,9 +21,6 @@
 #import "ANAdConstants.h"
 #import "ANSDKSettings+PrivateMethods.h"
 
-
-
-
 @interface ANVideoAdPlayer ()<ANBrowserViewControllerDelegate>
 
     @property (strong,nonatomic)              WKWebView                *webView;
@@ -31,9 +28,10 @@
     @property (nonatomic, strong)             NSString                 *vastContent;
     @property (nonatomic, strong)             NSString                 *vastURL;
     @property  (nonatomic, strong)            NSString                 *jsonContent;
-    @property (nonatomic, strong)             NSString                 *creativeTag;
+    @property (nonatomic, strong)             NSString                 *creativeURL;
     @property (nonatomic, assign)             NSUInteger                videoDuration;
-    @property (nonatomic, strong)             NSString                  *vastCreativeURL;
+    @property (nonatomic, strong)             NSString                  *vastURLContent;
+    @property (nonatomic, strong)             NSString                  *vastXMLContent;
     @property (nonatomic, readonly)  BOOL  opensInNativeBrowser;
     @property (nonatomic, readonly)  BOOL  landingPageLoadsInBackground;
 
@@ -56,9 +54,10 @@
                                             selector:@selector(resumeAdVideo)
                                                 name:UIApplicationDidBecomeActiveNotification
                                               object:nil];
-    _creativeTag = @"";
+    _creativeURL = @"";
     _videoDuration = 0;
-    _vastCreativeURL = @"";
+    _vastURLContent = @"";
+    _vastXMLContent = @"";
     return self;
 }
 
@@ -152,12 +151,22 @@
 - (NSUInteger) getAdDuration {
     return self.videoDuration;
 }
-- (NSString *) getCreativeTag {
-    return self.creativeTag;
+- (NSString *) getCreativeURL {
+    return self.creativeURL;
 }
 
-- (NSString *) getVASTCreativeURL {
-    return self.vastCreativeURL;
+- (NSString *) getVASTURL {
+    return self.vastURLContent;
+}
+
+- (NSString *) getVASTXML {
+    return self.vastXMLContent;
+}
+
+-(NSUInteger) getAdPlayElapsedTime {
+    NSString *exec_template = @"getCurrentPlayHeadTime();";
+    NSString *returnString = [_webView stringByEvaluatingJavaScriptFromString:exec_template];
+    return [returnString integerValue];
 }
 
 
@@ -208,12 +217,20 @@
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     
-    NSDictionary *messageDictionary = (NSDictionary *)message.body;
+    if(message == nil)
+        return;
     NSString *eventName = @"";
     NSDictionary *paramsDictionary = [NSDictionary new];
-    if(messageDictionary.count > 0){
-        eventName = [messageDictionary objectForKey:@"event"];
-        paramsDictionary = [messageDictionary objectForKey:@"params"];
+    
+    if([message.body isKindOfClass:[NSString class]]){
+        eventName = (NSString *)message.body;
+    }
+    else if([message.body isKindOfClass:[NSDictionary class]]){
+        NSDictionary *messageDictionary = (NSDictionary *)message.body;
+        if(messageDictionary.count > 0){
+            eventName = [messageDictionary objectForKey:@"event"];
+            paramsDictionary = [messageDictionary objectForKey:@"params"];
+        }
     }
     
     ANLogInfo(@"Parsed value %@",eventName);
@@ -227,9 +244,10 @@
     } else if ([eventName isEqualToString:@"adReady"]) {
         ANLogInfo(@"adReady");
         if(paramsDictionary.count > 0){
-            self.creativeTag = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
+            self.creativeURL = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
             NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
-            self.vastCreativeURL = (NSString *)[paramsDictionary objectForKey:@"vastCreativeUrl"];
+            self.vastURLContent = (NSString *)[paramsDictionary objectForKey:@"vastCreativeUrl"];
+            self.vastXMLContent = (NSString *)[paramsDictionary objectForKey:@"vastXML"];
             if(duration > 0){
                 self.videoDuration = [duration intValue];
             }
@@ -238,7 +256,13 @@
             [self.delegate videoAdReady];
         }
 
-    }else if ([eventName isEqualToString:@"video-first-quartile"]) {
+    } else if ([eventName isEqualToString:@"videoStart"]) {
+        ANLogInfo(@"%@", eventName);
+        if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
+            [self.delegate videoAdEventListeners:ANVideoAdPlayerEventPlay];
+        }
+        
+    } else if ([eventName isEqualToString:@"video-first-quartile"]) {
         ANLogInfo(@"video-first-quartile");
         if ([self.delegate respondsToSelector:@selector(videoAdImpressionListeners:)]) {
             [self.delegate videoAdImpressionListeners:ANVideoAdPlayerTrackerFirstQuartile];
@@ -360,12 +384,12 @@
     if([self.vastContent length] > 0){
         NSString *exec_template = @"createVastPlayerWithContent('%@');";
         exec = [NSString stringWithFormat:exec_template, self.vastContent];
-        [_webView evaluateJavaScript:exec completionHandler:nil];
+        [self.webView evaluateJavaScript:exec completionHandler:nil];
 
     }else if([self.vastURL length] > 0){
         NSString *exec_template = @"createVastPlayerWithURL('%@');";
         exec = [NSString stringWithFormat:exec_template, self.vastURL];
-        [_webView evaluateJavaScript:exec completionHandler:nil];
+        [self.webView evaluateJavaScript:exec completionHandler:nil];
     }else if([self.jsonContent length] > 0){
         NSString * mediationJsonString = [NSString stringWithFormat:@"processMediationAd('%@')",[self.jsonContent stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
         [self.webView evaluateJavaScript:mediationJsonString completionHandler:nil];
