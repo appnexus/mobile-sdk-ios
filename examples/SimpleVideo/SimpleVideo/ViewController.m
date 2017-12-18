@@ -122,17 +122,6 @@ NSString *const placementId = @"9924001";
 -(void) setupContentPlayer {
     NSURL *contentURL = [NSURL URLWithString:videoContent];
     self.videoContentPlayer = [AVPlayer playerWithURL:contentURL];
-//    [self.videoContentPlayer seekToTime:kCMTimeZero];
-//    [self.videoView setPlayer:self.videoContentPlayer];
-
-
-    //    [self.videoContentPlayer seekToTime:kCMTimeZero];
-    //    AVPlayerView* avpView = [[AVPlayerView alloc] init];
-    //    [avpView setPlayer:self.videoContentPlayer];
-    //    [self.videoView addSubview:avpView];
-    //    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.videoContentPlayer];
-    //    playerLayer.frame = self.videoView.frame;
-    
     self.videoContentPlayer = [AVPlayer playerWithURL:contentURL];
     AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.videoContentPlayer];
     playerLayer.frame = self.videoView.bounds;
