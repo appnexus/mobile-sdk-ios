@@ -1147,9 +1147,9 @@
 		604E65E91FDA18A30088D977 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */,
 				FC1565F91FDF1873004B0B78 /* ANInstreamVideoAd+Test.h */,
 				FC1565F71FDF1872004B0B78 /* ANInstreamVideoAd+Test.m */,
+				604E65EB1FDA18A30088D977 /* ANInstreamVideoAdTestCase.m */,
 				FC1565F81FDF1873004B0B78 /* ANVideoAdPlayer+Test.h */,
 				FC1565FA1FDF1873004B0B78 /* ANVideoAdPlayer+Test.m */,
 			);

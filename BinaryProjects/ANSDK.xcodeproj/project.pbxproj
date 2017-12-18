@@ -2369,7 +2369,6 @@
 				609732C11E42E9670061EC0A /* ANSSMStandardAd.h in Headers */,
 				609732BC1E42E95C0061EC0A /* ANSSMVideoAd.h in Headers */,
 				8AF5A8851ACC60D50089C529 /* ANStandardAd.h in Headers */,
-				602E0E271FE46818002C0F1C /* WKWebView+ANCategory.h in Headers */,
 				8A9AEDB91A1BE8C200C58BDA /* ANTargetingParameters.h in Headers */,
 				607A21131F85554F00BD8353 /* ANTrackerInfo.h in Headers */,
 				609732CE1E42E9860061EC0A /* ANUniversalAdFetcher.h in Headers */,
@@ -2384,6 +2383,7 @@
 				8A9AEDC91A1BF88200C58BDA /* UIView+ANCategory.h in Headers */,
 				8A9AEDE61A1BF88300C58BDA /* UIView+ANNativeAdCategory.h in Headers */,
 				8A9AEDCA1A1BF88200C58BDA /* UIWebView+ANCategory.h in Headers */,
+				602E0E271FE46818002C0F1C /* WKWebView+ANCategory.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3071,7 +3071,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				602E0E261FE467EE002C0F1C /* WKWebView+ANCategory.m in Sources */,
 				607A20FE1F85540800BD8353 /* ANAdFetcherResponse.m in Sources */,
 				8A9AEDF01A1BF99D00C58BDA /* ANAdView.m in Sources */,
 				8AE7AD9F1A7AC4F6009E2F2F /* ANAdWebViewController.m in Sources */,
@@ -3133,6 +3132,7 @@
 				8A9AEDEB1A1BF99D00C58BDA /* UIView+ANCategory.m in Sources */,
 				8A9AEE0F1A1BF99D00C58BDA /* UIView+ANNativeAdCategory.m in Sources */,
 				8A9AEDEC1A1BF99D00C58BDA /* UIWebView+ANCategory.m in Sources */,
+				602E0E261FE467EE002C0F1C /* WKWebView+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3231,12 +3231,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */,
 				4F131E8C1F71CCE50019FDAC /* ANAdFetcherResponse.m in Sources */,
 				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
 				8AC7C5391A3B5CEF00AA5548 /* ANAdWebViewController.m in Sources */,
 				8AD618D01981C11F00AC0780 /* ANANJAMImplementation.m in Sources */,
-				602E0E241FE46571002C0F1C /* WKWebView+ANCategory.m in Sources */,
 				8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
 				8AD618D11981C11F00AC0780 /* ANBannerAdView.m in Sources */,
 				8AD618D21981C11F00AC0780 /* ANBrowserViewController.m in Sources */,
@@ -3296,6 +3294,8 @@
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
 				8A6385E91A14336000280054 /* UIView+ANNativeAdCategory.m in Sources */,
 				ECE4EADD194B768A0069D934 /* UIWebView+ANCategory.m in Sources */,
+				602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */,
+				602E0E241FE46571002C0F1C /* WKWebView+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
