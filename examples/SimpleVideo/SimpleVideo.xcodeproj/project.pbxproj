@@ -15,7 +15,6 @@
 		60846A1B1E43C676005D46BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60846A191E43C676005D46BC /* Main.storyboard */; };
 		60846A1D1E43C676005D46BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60846A1C1E43C676005D46BC /* Assets.xcassets */; };
 		60846A201E43C676005D46BC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60846A1E1E43C676005D46BC /* LaunchScreen.storyboard */; };
-		60846A8E1E48E19B005D46BC /* AVPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A8D1E48E19B005D46BC /* AVPlayerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,8 +193,6 @@
 		60846A1F1E43C676005D46BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60846A211E43C676005D46BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60846A261E43C676005D46BC /* SimpleVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		60846A8C1E48E19B005D46BC /* AVPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVPlayerView.h; sourceTree = "<group>"; };
-		60846A8D1E48E19B005D46BC /* AVPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVPlayerView.m; sourceTree = "<group>"; };
 		60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -243,8 +240,6 @@
 				60846A131E43C676005D46BC /* AppDelegate.h */,
 				60846A141E43C676005D46BC /* AppDelegate.m */,
 				60846A1C1E43C676005D46BC /* Assets.xcassets */,
-				60846A8C1E48E19B005D46BC /* AVPlayerView.h */,
-				60846A8D1E48E19B005D46BC /* AVPlayerView.m */,
 				60846A211E43C676005D46BC /* Info.plist */,
 				60846A1E1E43C676005D46BC /* LaunchScreen.storyboard */,
 				60846A191E43C676005D46BC /* Main.storyboard */,
@@ -265,25 +260,25 @@
 		60AB324D1E52163C00429ED7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				60AB32651E52163C00429ED7 /* ANSDKResources.bundle */,
-				60AB32811E52163C00429ED7 /* AppNexusSDK.framework */,
-				60AB327D1E52163C00429ED7 /* libANAdapterForGoogleAdMobSDK.a */,
-				60AB327F1E52163C00429ED7 /* libANAdapterForMoPubSDK.a */,
 				60AB32631E52163C00429ED7 /* libANSDK.a */,
-				60AB32751E52163C00429ED7 /* libANSDKAdColonyAdapter.a */,
-				60AB32851E52163C00429ED7 /* libANSDKAdMarvelAdapter.a */,
-				60AB326F1E52163C00429ED7 /* libANSDKAmazonAdapter.a */,
-				60AB32791E52163C00429ED7 /* libANSDKChartboostAdapter.a */,
-				60AB326D1E52163C00429ED7 /* libANSDKFacebookAdapter.a */,
+				60AB32651E52163C00429ED7 /* ANSDKResources.bundle */,
 				60AB32671E52163C00429ED7 /* libANSDKGoogleAdMobAdapter.a */,
-				60AB32711E52163C00429ED7 /* libANSDKInMobiAdapter.a */,
 				60AB32691E52163C00429ED7 /* libANSDKMillennialMediaAdapter.a */,
 				60AB326B1E52163C00429ED7 /* libANSDKMoPubAdapter.a */,
-				60AB32871E52163C00429ED7 /* libANSDKRubiconAdapter.a */,
-				60AB32831E52163C00429ED7 /* libANSDKSmartAdAdapter.a */,
+				60AB326D1E52163C00429ED7 /* libANSDKFacebookAdapter.a */,
+				60AB326F1E52163C00429ED7 /* libANSDKAmazonAdapter.a */,
+				60AB32711E52163C00429ED7 /* libANSDKInMobiAdapter.a */,
 				60AB32731E52163C00429ED7 /* libANSDKVdopiaAdapter.a */,
+				60AB32751E52163C00429ED7 /* libANSDKAdColonyAdapter.a */,
 				60AB32771E52163C00429ED7 /* libANSDKVungleAdapter.a */,
+				60AB32791E52163C00429ED7 /* libANSDKChartboostAdapter.a */,
 				60AB327B1E52163C00429ED7 /* libANSDKYahooAdapter.a */,
+				60AB327D1E52163C00429ED7 /* libANAdapterForGoogleAdMobSDK.a */,
+				60AB327F1E52163C00429ED7 /* libANAdapterForMoPubSDK.a */,
+				60AB32811E52163C00429ED7 /* AppNexusSDK.framework */,
+				60AB32831E52163C00429ED7 /* libANSDKSmartAdAdapter.a */,
+				60AB32851E52163C00429ED7 /* libANSDKAdMarvelAdapter.a */,
+				60AB32871E52163C00429ED7 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -536,7 +531,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60846A151E43C676005D46BC /* AppDelegate.m in Sources */,
-				60846A8E1E48E19B005D46BC /* AVPlayerView.m in Sources */,
 				60846A121E43C676005D46BC /* main.m in Sources */,
 				60846A181E43C676005D46BC /* ViewController.m in Sources */,
 			);

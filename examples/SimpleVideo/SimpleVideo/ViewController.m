@@ -14,8 +14,7 @@
  */
 
 #import "ViewController.h"
-#import "AVPlayerView.h"
-
+#import <AVFoundation/AVFoundation.h>
 
 @import AVFoundation;
 
@@ -27,8 +26,7 @@ NSString *const placementId = @"9924001";
 
 @interface ViewController ()<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate>
 
-@property(nonatomic, weak) IBOutlet AVPlayerView *videoView;
-
+@property(nonatomic, weak) IBOutlet UIView *videoView;
 
 @property (weak, nonatomic) IBOutlet UITextView *logTextView;
 
@@ -55,16 +53,11 @@ NSString *const placementId = @"9924001";
     [super viewDidLoad];
     
     self.playButton.layer.zPosition = MAXFLOAT;
-    
     self.isvideoAdAvailable = false;
-    
     [ANLogManager setANLogLevel:ANLogLevelAll];
-    
     [[ANSDKSettings sharedInstance] setHTTPSEnabled:false];
-    
     // Fix iPhone issue of log text starting in the middle of the UITextView
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
     self.portraitVideoViewFrame = self.videoView.frame;
     
     
@@ -73,8 +66,8 @@ NSString *const placementId = @"9924001";
         [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
         [self viewDidEnterLandscape];
     }
-    [self setupContentPlayer];
     
+    [self setupContentPlayer];
     self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placementId];
     [self.videoAd loadAdWithDelegate:self];
     self.videoAd.opensInNativeBrowser = false;
@@ -122,11 +115,12 @@ NSString *const placementId = @"9924001";
 -(void) setupContentPlayer {
     NSURL *contentURL = [NSURL URLWithString:videoContent];
     self.videoContentPlayer = [AVPlayer playerWithURL:contentURL];
-    [self.videoContentPlayer seekToTime:kCMTimeZero];
-    [self.videoView setPlayer:self.videoContentPlayer];
-    
+    self.videoContentPlayer = [AVPlayer playerWithURL:contentURL];
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.videoContentPlayer];
+    playerLayer.frame = self.videoView.bounds;
+    [self.videoView.layer addSublayer:playerLayer];
+    [self.videoView setNeedsLayout];
     self.videoView.translatesAutoresizingMaskIntoConstraints = YES;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.videoContentPlayer.currentItem];
 
 }
@@ -135,15 +129,12 @@ NSString *const placementId = @"9924001";
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     self.fullscreenVideoFrame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
-    
     [self.videoView setFrame:self.fullscreenVideoFrame];
     
 }
 
 - (void)viewDidEnterPortrait {
-    
     [self.videoView setFrame:self.portraitVideoViewFrame];
-    
 }
 
 #pragma mark Utility methods
@@ -167,6 +158,13 @@ NSString *const placementId = @"9924001";
     }
 }
 
+-(void)getAdPlayElapsedTime{
+    
+    // To get AdPlayElapsedTime
+    NSUInteger getAdPlayElapsedTime = [self.videoAd getAdPlayElapsedTime];
+    [self logMessage:[NSString stringWithFormat:@"AdPlayElapsedTime : %lu",(unsigned long)getAdPlayElapsedTime]];
+    
+}
 #pragma mark - ANInstreamVideoAdDelegate.
 
 //----------------------------- -o-
@@ -174,6 +172,24 @@ NSString *const placementId = @"9924001";
 {
     [self logMessage:@"adDidReceiveAd"];
     
+    // To get AdDuration
+    NSUInteger getAdDuration = [self.videoAd getAdDuration];
+    [self logMessage:[NSString stringWithFormat:@"AdDuration : %lu",(unsigned long)getAdDuration]];
+    
+    // To get CreativeURL
+    NSString* getCreativeURL = [self.videoAd getCreativeURL];
+    [self logMessage:[NSString stringWithFormat:@"CreativeURL : %@",getCreativeURL]];
+    
+    // To get VastURL
+    NSString* getVastURL = [self.videoAd getVastURL];
+    [self logMessage:[NSString stringWithFormat:@"VastURL : %@",getVastURL]];
+    
+    // To get VastXML
+    NSString* getVastXML = [self.videoAd getVastXML];
+    [self logMessage:[NSString stringWithFormat:@"VastXML : %@",getVastXML]];
+    
+    // To get AdPlayElapsedTime
+    [self getAdPlayElapsedTime];
     self.isvideoAdAvailable = true;
 
     
@@ -183,13 +199,14 @@ NSString *const placementId = @"9924001";
     requestFailedWithError: (NSError *)error
 {
     [self logMessage:@"adRequestFailedWithError"];
-    self.isvideoAdAvailable = false;
+     self.isvideoAdAvailable = false;
 }
 
 //----------------------------- -o-
 - (void) adCompletedFirstQuartile:(id<ANAdProtocol>)ad
 {
     [self logMessage:@"adCompletedFirstQuartile"];
+    [self getAdPlayElapsedTime];
 }
 
 
@@ -197,13 +214,23 @@ NSString *const placementId = @"9924001";
 - (void) adCompletedMidQuartile:(id<ANAdProtocol>)ad
 {
     [self logMessage:@"adCompletedMidQuartile"];
+    [self getAdPlayElapsedTime];
 }
+
+-(void) adPlayStarted:(id<ANAdProtocol>)ad{
+    
+    [self logMessage:@"adPlayStarted"];
+    [self getAdPlayElapsedTime];
+
+}
+
 
 
 //----------------------------- -o-
 - (void) adCompletedThirdQuartile:(id<ANAdProtocol>)ad
 {
     [self logMessage:@"adCompletedThirdQuartile"];
+    [self getAdPlayElapsedTime];
 }
 
 
@@ -219,10 +246,8 @@ NSString *const placementId = @"9924001";
 {
     if(muteStatus == YES){
         [self logMessage:@"adMuteOn"];
-       
     } else {
         [self logMessage:@"adMuteOff"];
-        
     }
     
 }
@@ -235,12 +260,10 @@ NSString *const placementId = @"9924001";
         [self logMessage:@"adplaybackFailedWithError"];
     }else if(state == ANInstreamVideoPlaybackStateCompleted){
         [self logMessage:@"adPlayCompleted"];
+        [self getAdPlayElapsedTime];
     }
-    
     self.isvideoAdAvailable = false;
-    
     [self.videoContentPlayer play];
-    
     
 }
 
