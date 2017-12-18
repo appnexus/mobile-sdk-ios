@@ -196,7 +196,7 @@ NSString *const placementId = @"9924001";
     [self logMessage:[NSString stringWithFormat:@"VastXML : %@",getVastXML]];
     
     
-    // To get AdDuration
+    // To get AdPlayElapsedTime
     NSUInteger getAdPlayElapsedTime = [self.videoAd getAdPlayElapsedTime];
     [self logMessage:[NSString stringWithFormat:@"AdPlayElapsedTime : %lu",(unsigned long)getAdPlayElapsedTime]];
     
