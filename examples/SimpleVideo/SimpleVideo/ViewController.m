@@ -197,9 +197,8 @@ NSString *const placementId = @"9924001";
     
     
     // To get AdPlayElapsedTime
-    NSUInteger getAdPlayElapsedTime = [self.videoAd getAdPlayElapsedTime];
-    [self logMessage:[NSString stringWithFormat:@"AdPlayElapsedTime : %lu",(unsigned long)getAdPlayElapsedTime]];
-    
+    [self getAdPlayElapsedTime];
+
     
     self.isvideoAdAvailable = true;
 
@@ -217,6 +216,8 @@ NSString *const placementId = @"9924001";
 - (void) adCompletedFirstQuartile:(id<ANAdProtocol>)ad
 {
     [self logMessage:@"adCompletedFirstQuartile"];
+    
+    [self getAdPlayElapsedTime];
 }
 
 
@@ -224,17 +225,32 @@ NSString *const placementId = @"9924001";
 - (void) adCompletedMidQuartile:(id<ANAdProtocol>)ad
 {
     [self logMessage:@"adCompletedMidQuartile"];
+    
+    [self getAdPlayElapsedTime];
 }
 
 -(void) adPlayStarted:(id<ANAdProtocol>)ad{
     
     [self logMessage:@"adPlayStarted"];
+    
+    [self getAdPlayElapsedTime];
 
 }
+
+-(void)getAdPlayElapsedTime{
+    
+    // To get AdPlayElapsedTime
+    NSUInteger getAdPlayElapsedTime = [self.videoAd getAdPlayElapsedTime];
+    [self logMessage:[NSString stringWithFormat:@"AdPlayElapsedTime : %lu",(unsigned long)getAdPlayElapsedTime]];
+    
+}
+
 //----------------------------- -o-
 - (void) adCompletedThirdQuartile:(id<ANAdProtocol>)ad
 {
     [self logMessage:@"adCompletedThirdQuartile"];
+    
+    [self getAdPlayElapsedTime];
 }
 
 
@@ -266,7 +282,9 @@ NSString *const placementId = @"9924001";
         [self logMessage:@"adplaybackFailedWithError"];
     }else if(state == ANInstreamVideoPlaybackStateCompleted){
         [self logMessage:@"adPlayCompleted"];
+        [self getAdPlayElapsedTime];
     }
+    
     
     self.isvideoAdAvailable = false;
     
