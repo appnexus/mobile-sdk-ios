@@ -122,8 +122,22 @@ NSString *const placementId = @"9924001";
 -(void) setupContentPlayer {
     NSURL *contentURL = [NSURL URLWithString:videoContent];
     self.videoContentPlayer = [AVPlayer playerWithURL:contentURL];
-    [self.videoContentPlayer seekToTime:kCMTimeZero];
-    [self.videoView setPlayer:self.videoContentPlayer];
+//    [self.videoContentPlayer seekToTime:kCMTimeZero];
+//    [self.videoView setPlayer:self.videoContentPlayer];
+
+
+    //    [self.videoContentPlayer seekToTime:kCMTimeZero];
+    //    AVPlayerView* avpView = [[AVPlayerView alloc] init];
+    //    [avpView setPlayer:self.videoContentPlayer];
+    //    [self.videoView addSubview:avpView];
+    //    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.videoContentPlayer];
+    //    playerLayer.frame = self.videoView.frame;
+    
+    self.videoContentPlayer = [AVPlayer playerWithURL:contentURL];
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.videoContentPlayer];
+    playerLayer.frame = self.videoView.bounds;
+    [self.videoView.layer addSublayer:playerLayer];
+    [self.videoView setNeedsLayout];
     
     self.videoView.translatesAutoresizingMaskIntoConstraints = YES;
     
@@ -174,6 +188,30 @@ NSString *const placementId = @"9924001";
 {
     [self logMessage:@"adDidReceiveAd"];
     
+    // To get AdDuration
+    NSUInteger getAdDuration = [self.videoAd getAdDuration];
+    [self logMessage:[NSString stringWithFormat:@"AdDuration : %lu",(unsigned long)getAdDuration]];
+    
+    // To get CreativeURL
+    NSString* getCreativeURL = [self.videoAd getCreativeURL];
+    [self logMessage:[NSString stringWithFormat:@"CreativeURL : %@",getCreativeURL]];
+    
+    
+    // To get VastURL
+    NSString* getVastURL = [self.videoAd getVastURL];
+    [self logMessage:[NSString stringWithFormat:@"VastURL : %@",getVastURL]];
+    
+    
+    // To get VastXML
+    NSString* getVastXML = [self.videoAd getVastXML];
+    [self logMessage:[NSString stringWithFormat:@"VastXML : %@",getVastXML]];
+    
+    
+    // To get AdDuration
+    NSUInteger getAdPlayElapsedTime = [self.videoAd getAdPlayElapsedTime];
+    [self logMessage:[NSString stringWithFormat:@"AdPlayElapsedTime : %lu",(unsigned long)getAdPlayElapsedTime]];
+    
+    
     self.isvideoAdAvailable = true;
 
     
@@ -199,7 +237,11 @@ NSString *const placementId = @"9924001";
     [self logMessage:@"adCompletedMidQuartile"];
 }
 
+-(void) adPlayStarted:(id<ANAdProtocol>)ad{
+    
+    [self logMessage:@"adPlayStarted"];
 
+}
 //----------------------------- -o-
 - (void) adCompletedThirdQuartile:(id<ANAdProtocol>)ad
 {
