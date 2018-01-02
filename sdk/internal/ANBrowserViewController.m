@@ -214,7 +214,7 @@ WKNavigationDelegate, WKUIDelegate>
         } else {
             [self.legacyWebView stopLoading];
         }
-        [[UIApplication sharedApplication] openURL:URL];
+        [ANGlobal openURL:[URL absoluteString]];
     } else {
         ANLogWarn(@"opening_url_failed %@", URL);
         if (!self.receivedInitialRequest) {
@@ -528,7 +528,7 @@ WKNavigationDelegate, WKUIDelegate>
         NSURL *url = error.userInfo[NSURLErrorFailingURLErrorKey];
         ANLogError(@"In-app browser attempted to load URL which is not compliant with App Transport Security.\
                    Opening the URL in the native browser. URL: %@", url);
-        [[UIApplication sharedApplication] openURL:url];
+        [ANGlobal openURL:[url absoluteString]];
     }
     [self updateLoadingStateForFinishLoad];
 }
@@ -550,7 +550,7 @@ WKNavigationDelegate, WKUIDelegate>
    forNavigationAction:(WKNavigationAction *)navigationAction
         windowFeatures:(WKWindowFeatures *)windowFeatures {
     if (navigationAction.targetFrame == nil) {
-        [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+        [ANGlobal openURL:[navigationAction.request.URL absoluteString]];
     }
     
     return nil;

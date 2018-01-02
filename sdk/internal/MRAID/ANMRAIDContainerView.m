@@ -557,7 +557,7 @@ ANAdWebViewControllerLoadingDelegate>
     }
     else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         [self.adViewDelegate adWillLeaveApplication];
-        [[UIApplication sharedApplication] openURL:URL];
+        [ANGlobal openURL:[URL absoluteString]];
     } else {
         ANLogWarn(@"opening_url_failed %@", URL);
     }
