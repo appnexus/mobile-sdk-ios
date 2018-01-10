@@ -396,6 +396,7 @@ ANAdWebViewControllerLoadingDelegate>
     if (self.embeddedInModalView && [self.adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
         id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)self.adViewDelegate;
         [interstitialDelegate adShouldClose];
+        
     } else {
         [UIView animateWithDuration:kAppNexusAnimationDuration
                          animations:^{
@@ -603,6 +604,9 @@ ANAdWebViewControllerLoadingDelegate>
     if (!self.embeddedInModalView && !self.isExpanded) {
         [self.adViewDelegate adWillClose];
     }
+    if(self.shouldDismissOnClick){
+    [controller dismissViewControllerAnimated:NO completion:nil];
+    }
     self.resizeManager.resizeView.hidden = NO;
 }
 
@@ -626,6 +630,7 @@ ANAdWebViewControllerLoadingDelegate>
 - (void)didPresentBrowserViewController:(ANBrowserViewController *)controller {
     if (!self.embeddedInModalView && !self.isExpanded) {
         [self.adViewDelegate adDidPresent];
+        
     }
 }
 

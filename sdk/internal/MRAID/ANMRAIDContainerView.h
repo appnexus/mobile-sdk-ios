@@ -24,6 +24,8 @@
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL;
 
+
+
 @property (nonatomic, readonly, assign) CGSize size;
 @property (nonatomic, readonly, assign, getter=isResponsiveAd) BOOL responsiveAd;
 
@@ -32,6 +34,7 @@
 
 @property (nonatomic, readwrite, weak) id<ANAdViewInternalDelegate> adViewDelegate;
 @property (nonatomic, readwrite, assign) BOOL embeddedInModalView;
+@property (nonatomic , readwrite , assign) BOOL shouldDismissOnClick;
 
 
 @end

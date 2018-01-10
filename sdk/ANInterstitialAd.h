@@ -88,6 +88,14 @@
  */
 @property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
+
+/**
+ The set of setDismissOnClick for the interstitial ad dismiss
+ the interstitial ad view when the user clicks the ad
+ */
+@property (nonatomic, readwrite, assign) BOOL dismissOnClick;
+
+
 /**
  Initialize the ad view, with required placement ID. Note that
  you'll need to get a placement ID from your AppNexus representative
@@ -127,6 +135,7 @@
  check isReady first to make sure there's an ad to show.
 */
 - (void)displayAdFromViewController:(UIViewController *)controller;
+
 
 @end
 

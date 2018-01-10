@@ -52,6 +52,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 @property (nonatomic, readwrite, strong)  NSMutableArray                  *precachedAdObjects;
 @property (nonatomic, readwrite, assign)  CGRect                           frame;
 
+
 @property (nonatomic)  CGSize  containerSize;
 
 @end
@@ -198,6 +199,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     return false;
 }
 
+
+
 - (void)displayAdFromViewController:(UIViewController *)controller
 {
     id         adToShow         = nil;
@@ -255,6 +258,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)adToShow;
             mraidContainerView.adViewDelegate = self;
             mraidContainerView.embeddedInModalView = YES;
+            mraidContainerView.shouldDismissOnClick = self.dismissOnClick;
         }
         
         self.controller.contentView = adToShow;
@@ -278,6 +282,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [controller presentViewController:self.controller
                                  animated:YES
                                completion:nil];
+        
+        
 
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
     {
