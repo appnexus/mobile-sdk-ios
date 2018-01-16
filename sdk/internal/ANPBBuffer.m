@@ -189,8 +189,7 @@ int64_t const kANPBBufferPBCaptureDelay = 1; // delay in seconds
         
         // clear buffer
         [ANPBBuffer resetBuffer];
-        
-        [[UIApplication sharedApplication] openURL:appURL];
+        [ANGlobal openURL:[appURL absoluteString]];
     }
 }
 
