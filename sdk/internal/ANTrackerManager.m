@@ -138,7 +138,7 @@
         {
             ANLogDebug(@"Internet back online - Firing trackers %@", self.trackerArray);
 
-            trackerArrayCopy = [[NSArray alloc] initWithArray:self.trackerArray copyItems:YES];
+            trackerArrayCopy = [[NSArray alloc] initWithArray:self.trackerArray];
             [self.trackerArray removeAllObjects];
             [self.trackerRetryTimer invalidate];
 
