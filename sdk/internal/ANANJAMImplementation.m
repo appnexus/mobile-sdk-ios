@@ -111,7 +111,7 @@ NSString *const kANKeyCaller = @"caller";
         && [[UIApplication sharedApplication] canOpenURL:url]) {
         //added as the test case was failing due to unavailability of a delegate.
         [controller.adViewANJAMDelegate adWillLeaveApplication];
-        [[UIApplication sharedApplication] openURL:url];
+        [ANGlobal openURL:[url absoluteString]];
     }
 }
 

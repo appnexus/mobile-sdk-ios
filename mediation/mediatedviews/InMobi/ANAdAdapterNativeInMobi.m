@@ -17,7 +17,7 @@
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
-
+#import "ANGlobal.h"
 #import "IMSdk.h"
 #import "IMNative.h"
 
@@ -123,7 +123,7 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
         NSURL *landingPageURL = [NSURL URLWithString:landingPageURLString];
         if (landingPageURL) {
             [self.nativeAdDelegate willLeaveApplication];
-            [[UIApplication sharedApplication] openURL:landingPageURL];
+            [ANGlobal openURL:[landingPageURL absoluteString]];
         }
     } else {
         ANLogDebug(@"InMobi ad was clicked, but adapter was unable to find landing url –– Ignoring request to handle click.");

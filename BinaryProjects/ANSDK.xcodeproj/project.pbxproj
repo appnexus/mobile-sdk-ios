@@ -38,6 +38,7 @@
 		4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */; };
 		4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */; };
 		4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */; };
+		602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
 		602E0E241FE46571002C0F1C /* WKWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */; };
 		602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */; };
 		602E0E261FE467EE002C0F1C /* WKWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */; };
@@ -3110,6 +3111,7 @@
 				8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */,
 				8A9AEE001A1BF99D00C58BDA /* ANPBBuffer.m in Sources */,
 				8A9AEE011A1BF99D00C58BDA /* ANPBContainerView.m in Sources */,
+				602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */,
 				8A9AEE021A1BF99D00C58BDA /* ANReachability.m in Sources */,
 				609732DC1E42E9860061EC0A /* ANRTBVideoAd.m in Sources */,
 				8A02D7091D6CE946006831A3 /* ANSDKSettings.m in Sources */,

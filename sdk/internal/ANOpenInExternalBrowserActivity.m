@@ -53,7 +53,7 @@
 }
 
 - (void)performActivity {
-    [[UIApplication sharedApplication] openURL:self.URLToOpen];
+    [ANGlobal openURL:[self.URLToOpen absoluteString]];
     [self activityDidFinish:YES];
 }
 

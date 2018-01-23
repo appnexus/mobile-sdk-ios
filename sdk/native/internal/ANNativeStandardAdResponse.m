@@ -177,7 +177,7 @@
 
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         [self willLeaveApplication];
-        [[UIApplication sharedApplication] openURL:URL options:[[NSDictionary alloc] init] completionHandler:nil];
+        [ANGlobal openURL:[URL absoluteString]];
         return YES;
 
     } else {
