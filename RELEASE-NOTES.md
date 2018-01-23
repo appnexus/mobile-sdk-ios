@@ -1,3 +1,13 @@
+## 4.3
+### Updates
++ MS-3142 - App crashing on iOS 9 when tapping on Native Ad
++ MS-3060 -  Mobile SDK: Close Interstitial when it is clicked
++ MS-3087 - iOS Pre-Roll Placement Video Completion Tracker Not Firing Consistently
++ VID-3227 - Pre-roll video serving mid-roll
++ MS-3101 - Update Rechability Code
++ MS-3170 - SDK Crash
+
+
 ## 4.2
 ### Updates
 + MS-3097 -- Instream Video new API's to provide info on the video creatives loaded & playing
