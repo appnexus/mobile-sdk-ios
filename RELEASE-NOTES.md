@@ -5,7 +5,7 @@
 + MS-3087 - theChive iOS Pre-Roll Placement Video Completion Tracker Not Firing Consistently
 + VID-3227 - Pre-roll video serving mid-roll in theChive iOS App
 + MS-3101 - [Mobile SDK][iOS][Internal] Update Rechability Code
-+ MS-3170 - [iOS SDK] SDK Cras
++ MS-3170 - [iOS SDK] SDK Crash
 
 
 ## 4.2
