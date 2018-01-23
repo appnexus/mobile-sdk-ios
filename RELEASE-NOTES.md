@@ -1,3 +1,12 @@
+## 4.3
+### Updates
++ MS-3142 - App crashing on iOS 9 when tapping on Native Ad
++ MS-3060 - [iOS] Mobile SDK: Close Interstitial when it is clicked
++ MS-3087 - theChive iOS Pre-Roll Placement Video Completion Tracker Not Firing Consistently
++ VID-3227 - Pre-roll video serving mid-roll in theChive iOS App
++ MS-3101 - [Mobile SDK][iOS][Internal] Update Rechability Code
++ MS-3170 - [iOS SDK] SDK Cras
+
 
 ## 4.2
 ### Updates
