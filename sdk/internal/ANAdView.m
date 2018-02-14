@@ -61,8 +61,7 @@
 @synthesize  gender                                 = __gender;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 @synthesize  customKeywords                         = __customKeywords;
-
-
+@synthesize  creativeId                             = __creativeId;
 
 #pragma mark - Initialization
 
@@ -85,9 +84,9 @@
 
 - (void)initialize {
     self.clipsToBounds = YES;
-
+    
     self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-
+    
     __shouldServePublicServiceAnnouncements  = DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT;
     __location                               = nil;
     __reserve                                = 0.0f;
@@ -97,32 +96,32 @@
 
 - (void)dealloc
 {
-
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
     [self.universalAdFetcher stopAdLoad];
 }
 
 
 - (void)loadAd
 {
-
+    
     BOOL  placementIdValid    = [self.placementId length] >= 1;
     BOOL  inventoryCodeValid  = ([self memberId] >=1 ) && [self inventoryCode];
-
+    
     if (!placementIdValid && !inventoryCodeValid) {
         NSString      *errorString  = ANErrorString(@"no_placement_id");
         NSDictionary  *errorInfo    = @{NSLocalizedDescriptionKey: errorString};
         NSError       *error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
-
+        
         ANLogError(@"%@", errorString);
         [self adRequestFailedWithError:error];
         return;
     }
-
+    
     [self.universalAdFetcher stopAdLoad];
     [self.universalAdFetcher requestAd];
-
+    
     if (! self.universalAdFetcher)  {
         ANLogError(@"FAILED TO FETCH ad via UT.");
     }
@@ -140,6 +139,17 @@
 }
 
 
+- (void)setCreativeId:(NSString *)creativeId {
+    creativeId = ANConvertToNSString(creativeId);
+    if ([creativeId length] < 1) {
+        ANLogError(@"Could not set creativeId to non-string value");
+        return;
+    }
+    if (creativeId != __creativeId) {
+        ANLogDebug(@"Setting creativeId to %@", creativeId);
+        __creativeId = creativeId;
+    }
+}
 
 
 #pragma mark - ANAdProtocol: Setter methods
@@ -156,6 +166,7 @@
     }
 }
 
+
 - (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
     invCode = ANConvertToNSString(invCode);
     if (invCode && invCode != __invCode) {
@@ -167,6 +178,8 @@
         __memberId = memberId;
     }
 }
+
+
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
                       timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
@@ -193,7 +206,7 @@
     if (([key length] < 1) || !value) {
         return;
     }
-
+    
     if(self.customKeywords[key] != nil){
         NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
@@ -274,6 +287,10 @@
     return __gender;
 }
 
+- (NSString *)creativeId {
+    ANLogDebug(@"Creative Id returned %@", __creativeId);
+    return __creativeId;
+}
 
 
 
@@ -363,7 +380,6 @@
     }
 }
 
-
 - (void)adInteractionDidBegin {
     ANLogDebug(@"");
     [self.universalAdFetcher stopAdLoad];
@@ -372,7 +388,7 @@
 - (void)adInteractionDidEnd {
     ANLogDebug(@"");
     [self.universalAdFetcher restartAutoRefreshTimer];
-    [self.universalAdFetcher startAutoRefreshTimer];           
+    [self.universalAdFetcher startAutoRefreshTimer];
 }
 
 

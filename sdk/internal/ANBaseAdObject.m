@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2018 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,12 +13,8 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
 #import "ANBaseAdObject.h"
 
-@interface ANRTBVideoAd : ANBaseAdObject
-
-    @property (nonatomic, readwrite) NSString *assetURL;
-    @property (nonatomic, readwrite) NSString *notifyUrlString;
+@implementation ANBaseAdObject
 
 @end

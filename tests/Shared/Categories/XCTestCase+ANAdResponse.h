@@ -20,6 +20,16 @@ static NSString *const kANAdResponseSuccessfulMRAID = @"SuccessfulMRAIDResponse"
 static NSString *const kANAdResponseSuccessfulMediation = @"SuccessfulMediationResponse";
 static NSString *const kANAdResponseSuccessfulMRAIDListener = @"SuccessfulMRAIDListenerResponse";
 
+
+static NSString *const kANAdSuccessfulNativeStandardAdResponse = @"SuccessfulNativeStandardAdResponse";
+static NSString *const kANAdSuccessfulANRTBVideoAdResponse = @"SuccessfulANRTBVideoAdResponse";
+static NSString *const kStandardAdFromRTBObjectResponse = @"SuccessfulStandardAdFromRTBObjectResponse";
+
+static NSString *const kANAdSuccessfulNativeStandardAdWithoutCreativeIdResponse = @"SuccessfulNativeStandardAdWithoutCreativeIdResponse";
+static NSString *const kANAdSuccessfulANRTBVideoAdWithoutCreativeIdResponse = @"SuccessfulANRTBVideoAdWithoutCreativeIdResponse";
+static NSString *const kStandardAdFromRTBObjectWithoutCreativeIdResponse = @"SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse";
+
+
 @interface XCTestCase (ANAdResponse)
 
 - (ANUniversalTagAdServerResponse *)responseWithJSONResource:(NSString *)JSONResource;

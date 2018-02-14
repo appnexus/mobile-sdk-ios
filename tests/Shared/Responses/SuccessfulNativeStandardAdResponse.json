@@ -1,0 +1,63 @@
+{
+    "version": "0.0.1",
+    "tags": [
+             {
+             "tag_id": 4019246,
+             "auction_id": "4162416051567287576",
+             "nobid": false,
+             "no_ad_url": "http://sin1-mobile.adnxs.com/it?e=wqT_3QLRBqBRAwAAAwDWAAUBCIK9jNQFEJi6tYiH6_fhORi5lOnaxcL7wh0qNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfByMK6o9QE4vgdAvgdIAFAAWL6MC2AAaJFAeACAAQGSAQNVU0SYAQGgAQGoAQGwAQC4AQDAAQDIAQLQAQDYAQDgAQDwAQCKAjl1ZignYScsIDkzMDA1LCAxNTE4NTQyNDY2KTt1ZigncicsIDQ3NzcyNTYwLDIeAPQIAZIC-QEhYlRYLXp3aUp3ZjhDRUpEbjR4WVlBQ0MtakFzd0FEZ0FRQVJJdmdkUXJxajFBVmdBWUlFSGFBQndHSGpVVjRBQlFvZ0JEcEFCQVpnQkFhQUJBYWdCQTdBQkFMa0JLWXVJZ3dBQThEX0JBU21MaUlNQUFQQV95UUVGeGQ0V3M2M1VQOWtCQUFBQUFBQUE4RF9nQVFEMUFRQUFBQUNZQWdDZ0FnQzFBZ0FBQUFDOUFnQUFBQURBQWdESUFnRGdBZ0RvQWdENEFnQ0FBd0dRQXdDWUF3R29BNG5CX3dLNkF4SnhkV0Z1ZEdsc1pTTlRTVTR4T2pNMU5Eay6aAjkhaVF5TEVRaUou_ADwRnZvd0xJQVFvQURvU2NYVmhiblJwYkdValUwbE9NVG96TlRRNdgC6AfgAsfTAeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwAQTwzG5leHVzLXNkay1hcHAvaWQ3MzY4Njk4MzOAAwGIAwGQAwCYAxegAwGqAwDAA6wCyAMA0gMoCAASJGIzOWI3N2Y3LTQ3NmMtNDMyYS05MWJjLWM3NzA0YWU2MDc3MNgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YymAQAogQJMTAuMTQuOC43qASzkgGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEEnF1YW50aWxlI1NJTjE6MzU0OdoEAggA4AQA8ASQ5-MWggUJNzMNuyCIBQGYBQCgBf8RARQBwAUAyQVJ0xTwP9IFCQkJDFwAANgFAeAFAfAFAfoFBAgAEACQBgGYBgA.&s=a33d02f77af0764870a166404f7ca1291f3e0fa0&referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833",
+             "timeout_ms": 10000,
+             "ad_profile_id": 27079,
+             "ads": [
+                     {
+                     "content_source": "rtb",
+                     "ad_type": "native",
+                     "buyer_member_id": 958,
+                     "creative_id": 47772560,
+                     "media_type_id": 12,
+                     "media_subtype_id": 65,
+                     "client_initiated_ad_counting": true,
+                     "rtb": {
+                     "native": {
+                     "status": "ok",
+                     "version": 1,
+                     "ads": [],
+                     "mediated": [],
+                     "native": [
+                                {
+                                "type": "in-feed-standard",
+                                "title": "AppNexus",
+                                "description": "This is a Test Native Ad from AppNexus",
+                                "full_text": "This is a Test Native Ad from your AppNexus Team.",
+                                "icon_img_url": "http://vcdn.adnxs.com/p/creative-image/2f/3d/a4/8d/2f3da48d-f786-4361-ab03-e9c0c6e941e4.png",
+                                "main_media": [
+                                               {
+                                               "label": "default",
+                                               "width": 870,
+                                               "height": 201,
+                                               "url": "http://vcdn.adnxs.com/p/creative-image/d0/4a/de/2d/d04ade2d-52dd-4b84-9aa9-6eaef24f0eda.png"
+                                               }
+                                               ],
+                                "cta": "Install",
+                                "sponsored_by": "AppNexus",
+                                "click_trackers": [
+                                                   "http://sin1-mobile.adnxs.com/click?AAAAAAAA8D8AAAAAAADwPwAAAAAAAAAAAAAAAAAA8D8AAAAAAADwPxhdDXFY38M5OUpaWxTuhR2CHoNaAAAAAC5UPQC-AwAAvgMAAAIAAACQ89gCPsYCAAAAAABVU0QAVVNEAAEAAQARIAAAAAABAAQCAAAAAAAA9BO-owAAAAA./cnd=%21iQyLEQiJwf8CEJDn4xYYvowLIAQoADoScXVhbnRpbGUjU0lOMTozNTQ5/bn=70690/referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833/"
+                                                   ],
+                                "impression_trackers": [
+                                                        "http://sin1-mobile.adnxs.com/it?e=wqT_3QLcBqBcAwAAAwDWAAUBCIK9jNQFEJi6tYiH6_fhORi5lOnaxcL7wh0qNgkAAAECCPA_EQEHEAAA8D8ZCQkIAAAhCQkI8D8pEQkAMQkJqAAAMK6o9QE4vgdAvgdIAlCQ5-MWWL6MC2AAaJFAeKKoBIABAYoBA1VTRJIFBvBOmAEBoAEBqAEBsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI5dWYoJ2EnLCA5MzAwNSwgMTUxODU0MjQ2Nik7dWYoJ3InLCA0Nzc3MjU2MDYeAPQIAZIC-QEhYlRYLXp3aUp3ZjhDRUpEbjR4WVlBQ0MtakFzd0FEZ0FRQVJJdmdkUXJxajFBVmdBWUlFSGFBQndHSGpVVjRBQlFvZ0JEcEFCQVpnQkFhQUJBYWdCQTdBQkFMa0JLWXVJZ3dBQThEX0JBU21MaUlNQUFQQV95UUVGeGQ0V3M2M1VQOWtCQUFBQUFBQUE4RF9nQVFEMUFRQUFBQUNZQWdDZ0FnQzFBZ0FBQUFDOUFnQUFBQURBQWdESUFnRGdBZ0RvQWdENEFnQ0FBd0dRQXdDWUF3R29BNG5CX3dLNkF4SnhkV0Z1ZEdsc1pTTlRTVTR4T2pNMU5Eay6aAjkhaVF5TEVRaUou_ADwRnZvd0xJQVFvQURvU2NYVmhiblJwYkdValUwbE9NVG96TlRRNdgC6AfgAsfTAeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwAQTwzG5leHVzLXNkay1hcHAvaWQ3MzY4Njk4MzOAAwGIAwGQAwCYAxegAwGqAwDAA5AcyAMA0gMoCAASJGIzOWI3N2Y3LTQ3NmMtNDMyYS05MWJjLWM3NzA0YWU2MDc3MNgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YymAQAogQJMTAuMTQuOC43qASzkgGyBA4IABABGAAgACgAMAA4ArgEAMAEAMgEANIEEnF1YW50aWxlI1NJTjE6MzU0OdoEAggA4AQA8ASQ5-MWggUJNzMNuyCIBQGYBQCgBf8RARQBwAUAyQVJ3hTwP9IFCQkJDFwAANgFAeAFAfAFAfoFBAgAEACQBgGYBgA.&s=0eb78cd6b5e516c3eac0fd9b5c477cdf07902089&referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833"
+                                                        ],
+                                "rating": {
+                                "value": 4.13,
+                                "scale": 5
+                                },
+                                "click_url": "http://secure.adnxs.com/seg?add=8101412&redir=https://play.google.com/store/apps/details?id=com.appnexus.opensdkapp",
+                                "click_fallback_url": "http://www.appnexus.com"
+                                }
+                                ]
+                     }
+                     }
+                     }
+                     ]
+             }
+             ]
+}

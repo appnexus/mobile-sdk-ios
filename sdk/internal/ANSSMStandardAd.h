@@ -14,15 +14,12 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ANBaseAdObject.h"
 
-@interface ANSSMStandardAd : NSObject
+@interface ANSSMStandardAd : ANBaseAdObject
 
 @property (nonatomic, readwrite, strong) NSString *urlString;
-@property (nonatomic, readwrite, strong) NSString *content;
-@property (nonatomic, readwrite, strong) NSString *height;
-@property (nonatomic, readwrite, strong) NSString *width;
 @property (nonatomic, readwrite, strong) NSString *responseURL;
 
-@property (nonatomic, readwrite, strong) NSArray<NSString *> *impressionUrls;
 
 @end

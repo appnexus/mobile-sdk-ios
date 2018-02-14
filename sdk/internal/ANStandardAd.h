@@ -14,19 +14,16 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ANBaseAdObject.h"
 
 
 
-@interface ANStandardAd : NSObject
+@interface ANStandardAd : ANBaseAdObject
 
-@property (nonatomic, readwrite, strong) NSString *content;
 
-@property (nonatomic, readwrite, strong) NSString *height;
-@property (nonatomic, readwrite, strong) NSString *width;
 
 @property (nonatomic, readwrite, assign, getter=isMraid) BOOL mraid;
 
-@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionUrls;
 
 
 @end

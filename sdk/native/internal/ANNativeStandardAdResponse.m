@@ -58,6 +58,7 @@
 @synthesize expired = _expired;
 @synthesize sponsoredBy = _sponsoredBy;
 @synthesize fullText = _fullText;
+@synthesize creativeId = _creativeId;
 
 
 
@@ -109,7 +110,7 @@
                                                                   / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1;
     self.targetViewabilityValue = lround(pow(2, requiredAmountOfSimultaneousViewableEvents) - 1);
     ANLogDebug(@"\n\trequiredAmountOfSimultaneousViewableEvents=%@  \n\ttargetViewabilityValue=%@", @(requiredAmountOfSimultaneousViewableEvents), @(self.targetViewabilityValue));
-
+    
     self.viewabilityTimer = [NSTimer an_scheduledTimerWithTimeInterval:kAppNexusNativeAdCheckViewabilityForTrackingFrequency
                                                                  block:^ {
                                                                      ANNativeStandardAdResponse *strongSelf = weakSelf;
@@ -122,7 +123,7 @@
     self.viewabilityValue = (self.viewabilityValue << 1 | [self.viewForTracking an_isAtLeastHalfViewable]) & self.targetViewabilityValue;
     BOOL isIABViewable = (self.viewabilityValue == self.targetViewabilityValue);
     ANLogDebug(@"\n\tviewabilityValue=%@  \n\tself.targetViewabilityValue=%@  \n\tisIABViewable=%@", @(self.viewabilityValue), @(self.targetViewabilityValue), @(isIABViewable));
-
+    
     if (isIABViewable) {
         [self trackImpression];
     }
@@ -174,12 +175,12 @@
             self.inAppBrowser.url = URL;
         }
         return YES;
-
+        
     } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
         [self willLeaveApplication];
         [ANGlobal openURL:[URL absoluteString]];
         return YES;
-
+        
     } else {
         return NO;
     }
@@ -221,3 +222,4 @@
 }
 
 @end
+

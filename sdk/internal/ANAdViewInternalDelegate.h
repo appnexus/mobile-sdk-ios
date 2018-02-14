@@ -22,6 +22,7 @@
 //
 @protocol ANAdViewInternalDelegate <NSObject>
 
+
 @required
 - (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
@@ -42,6 +43,7 @@
 
 - (void)adInteractionDidBegin;
 - (void)adInteractionDidEnd;
+
 
 @end
 
@@ -65,3 +67,4 @@
 - (void)adShouldUseCustomClose:(BOOL)useCustomClose;
 
 @end
+

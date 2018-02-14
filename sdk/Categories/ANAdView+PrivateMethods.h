@@ -31,4 +31,6 @@
                  width:(int)width
                 height:(int)height;
 
+- (void)setCreativeId:(NSString *)creativeId;
+
 @end

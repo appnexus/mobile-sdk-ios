@@ -31,25 +31,25 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 @interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherFoundationDelegate, ANAdProtocol>
 
-    @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
-    @property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
+@property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
+@property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
 
-    @property (nonatomic, strong)  ANVideoAdPlayer  *adPlayer;
-    @property (nonatomic, strong)  UIView           *adContainer;
+@property (nonatomic, strong)  ANVideoAdPlayer  *adPlayer;
+@property (nonatomic, strong)  UIView           *adContainer;
 
-    //
-    @property (strong, nonatomic, readwrite)  NSString  *descriptionOfFailure;
-    @property (strong, nonatomic, readwrite)  NSError   *failureNSError;
+//
+@property (strong, nonatomic, readwrite)  NSString  *descriptionOfFailure;
+@property (strong, nonatomic, readwrite)  NSError   *failureNSError;
 
-    @property (nonatomic)  BOOL  didUserSkipAd;
-    @property (nonatomic)  BOOL  didUserClickAd;
-    @property (nonatomic)  BOOL  isAdMuted;
-    @property (nonatomic)  BOOL  isVideoTagReady;
-    @property (nonatomic)  BOOL  didVideoTagFail;
-    @property (nonatomic)  BOOL  isAdPlaying;
+@property (nonatomic)  BOOL  didUserSkipAd;
+@property (nonatomic)  BOOL  didUserClickAd;
+@property (nonatomic)  BOOL  isAdMuted;
+@property (nonatomic)  BOOL  isVideoTagReady;
+@property (nonatomic)  BOOL  didVideoTagFail;
+@property (nonatomic)  BOOL  isAdPlaying;
 
-    //
-    @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
+//
+@property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
 @end
 
@@ -69,11 +69,11 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 #pragma mark - Lifecycle.
 
 //--------------------- -o-
-- (id) initWithPlacementId: (NSString *)placementId 
+- (id) initWithPlacementId: (NSString *)placementId
 {
     self = [super init];
     if (!self)  { return nil; }
-
+    
     //
     self.isAdPlaying      = NO;
     self.didUserSkipAd    = NO;
@@ -81,17 +81,18 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     self.isAdMuted        = NO;
     self.isVideoTagReady  = NO;
     self.didVideoTagFail  = NO;
-
+    
     self.landingPageLoadsInBackground = YES;
     self.opensInNativeBrowser = NO;
-
+    
     self.placementId = placementId;
     
+    
     self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-
+    
     [self setupSizeParametersAs1x1];
-
-
+    
+    
     //
     return self;
 }
@@ -114,9 +115,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     if (! loadDelegate) {
         ANLogWarn(@"loadDelegate is UNDEFINED.  ANInstreamVideoAdLoadDelegate allows detection of when a video ad is successfully received and loaded.");
     }
-
+    
     self.loadDelegate = loadDelegate;
-
+    
     if(self.universalAdFetcher != nil){
         
         [self.universalAdFetcher requestAd];
@@ -125,7 +126,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         ANLogError(@"FAILED TO FETCH video ad.");
         return  NO;
     }
-
+    
     return  YES;
 }
 
@@ -138,9 +139,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         ANLogError(@"playDelegate is UNDEFINED.  ANInstreamVideoAdPlayDelegate allows the lifecycle of a video ad to be tracked, including when the video ad is completed.");
         return;
     }
-
+    
     self.playDelegate = playDelegate;
-
+    
     [self.adPlayer playAdWithContainer:adContainer];
 }
 
@@ -184,7 +185,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 -(void) videoAdReady
 {
     self.isVideoTagReady = YES;
-
+    
     if ([self.loadDelegate respondsToSelector:@selector(adDidReceiveAd:)]) {
         [self.loadDelegate adDidReceiveAd:self];
     }
@@ -195,13 +196,13 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 -(void) videoAdLoadFailed:(NSError *)error
 {
     self.didVideoTagFail = YES;
-
+    
     self.descriptionOfFailure  = nil;
     self.failureNSError        = error;
-
+    
     ANLogError(@"Delegate indicates FAILURE.");
     [self removeAd];
-
+    
     if ([self.loadDelegate respondsToSelector:@selector(ad:requestFailedWithError:)]) {
         [self.loadDelegate ad:self requestFailedWithError:self.failureNSError];
     }
@@ -212,11 +213,11 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 -(void) videoAdPlayFailed:(NSError *)error
 {
     self.didVideoTagFail = YES;
-
+    
     if ([self.playDelegate respondsToSelector:@selector(adDidComplete:withState:)])  {
         [self.playDelegate adDidComplete:self withState:ANInstreamVideoPlaybackStateError];
     }
-
+    
     [self removeAd];
 }
 
@@ -226,7 +227,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 {
     self.descriptionOfFailure  = nil;
     self.failureNSError        = error;
-
+    
     if ([self.playDelegate respondsToSelector:@selector(adDidComplete:withState:)]) {
         [self.playDelegate adDidComplete:self withState:ANInstreamVideoPlaybackStateError];
     }
@@ -317,20 +318,20 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         case ANVideoAdPlayerEventPlay:
             self.isAdPlaying = YES;
             if ([self.playDelegate respondsToSelector:@selector(adPlayStarted:)])  {
-                    [self.playDelegate adPlayStarted:self];
+                [self.playDelegate adPlayStarted:self];
             }
             break;
         case ANVideoAdPlayerEventSkip:
             self.didUserSkipAd = YES;
-
+            
             if([self.playDelegate respondsToSelector:@selector(adDidComplete:withState:)]){
                 [self.playDelegate adDidComplete:self withState:ANInstreamVideoPlaybackStateSkipped];
             }
             break;
-
+            
         case ANVideoAdPlayerEventClick:
             self.didUserClickAd = YES;
-
+            
             if ([self.playDelegate respondsToSelector:@selector(adWasClicked:)])  {
                 [self.playDelegate adWasClicked:self];
             }
@@ -375,10 +376,17 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
     if ([response.adObject isKindOfClass:[ANVideoAdPlayer class]]) {
-        
         self.adPlayer = (ANVideoAdPlayer *) response.adObject;
         self.adPlayer.delegate = self;
+        
+        NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:response.adObjectHandler];
+        if(creativeId){
+               [self setCreativeId:creativeId];
+        }
+        
         [self videoAdReady];
+        
+        
         
     }else if(!response.isSuccessful && (response.adObject == nil)){
         [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseBadFormat)];

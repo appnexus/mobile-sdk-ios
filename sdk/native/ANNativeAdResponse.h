@@ -98,7 +98,7 @@
 @property (nonatomic, readonly, strong) NSURL *iconImageURL;
 
 /*!
- * Contains any non-standard elements. This would include any custom assets requested from 
+ * Contains any non-standard elements. This would include any custom assets requested from
  * third-party networks as specified in the third-party system.
  */
 @property (nonatomic, readonly, strong) NSDictionary *customElements;
@@ -107,6 +107,13 @@
  * The sponspored By text
  */
 @property (nonatomic, readonly, strong) NSString *sponsoredBy;
+
+
+/*!
+ * An AppNexus creativeID for the current creative that is displayed
+ */
+@property (nonatomic, readonly, strong) NSString *creativeId;
+
 
 /*!
  * description of full Text
@@ -136,7 +143,7 @@
 
 /*!
  * Should be called when the native view has been populated with the ad elements and will be displayed.
- * Clicks will be handled automatically. If the view is already registered with another ANNativeAdResponse, 
+ * Clicks will be handled automatically. If the view is already registered with another ANNativeAdResponse,
  * it will be automatically detached from that response before being attached to this response.
  *
  * @param view The view which is populated with the native ad elements. Must not be nil.
@@ -151,3 +158,4 @@
                           error:(NSError **)error;
 
 @end
+

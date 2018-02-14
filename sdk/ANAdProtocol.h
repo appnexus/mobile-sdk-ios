@@ -28,13 +28,14 @@
 #pragma mark - ANAdProtocol partitions.
 
 /**
- ANAdProtocol defines the properties and methods that are common to *all* ad types.  
+ ANAdProtocol defines the properties and methods that are common to *all* ad types.
  It can be understood as a toolkit for implementing ad types.
  If you wanted to, you could implement your own ad type using this protocol.
-
+ 
  Currently, it is used in the implementation of banner and interstitial ads and instream video.
  */
 @protocol ANAdProtocolFoundation <NSObject>
+
 
 @required
 /**
@@ -52,7 +53,7 @@
 @property (nonatomic, readonly, assign) NSInteger memberId;
 
 /**
- An inventory code for a placement to represent a place where ads can 
+ An inventory code for a placement to represent a place where ads can
  be shown. In the presence of both placement and inventory code, AppNexus
  SDK favors inventory code over placement id. A member ID is required to request
  an ad using inventory code.
@@ -84,6 +85,12 @@
 @property (nonatomic, readwrite, assign) ANGender gender;
 
 /**
+ An AppNexus creativeID for the current creative that is displayed
+ */
+@property (nonatomic, readonly, strong) NSString *creativeId;
+
+
+/**
  Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */
@@ -100,8 +107,8 @@
 
 
 /**
- * Add a custom keyword to the request URL for the ad.  
- * This is used to set custom targeting parameters within the AppNexus platform.  
+ * Add a custom keyword to the request URL for the ad.
+ * This is used to set custom targeting parameters within the AppNexus platform.
  * You will be given the keys and values to use by your AppNexus account representative or your ad network.
  *
  * @param key   The key to add
@@ -129,6 +136,9 @@
  */
 - (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberID;
 
+
+
+
 @end
 
 
@@ -148,7 +158,7 @@
  If set to YES, when an ad is clicked the user is presented with an activity indicator view, and the in-app
  browser displays only after the landing page content has finished loading. If set to NO, the in-app
  browser displays immediately. The default is YES.
-
+ 
  Has no effect if opensInNativeBrowser is set to YES.
  */
 @property (nonatomic, readwrite, assign) BOOL landingPageLoadsInBackground;
@@ -189,16 +199,18 @@
 #pragma mark - ANAdProtocol entrypoint combinations.
 
 @protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
-    //EMPTY
+//EMPTY
+
+
 @end
 
 
 @protocol ANNativeAdRequestProtocol <ANAdProtocolFoundation>
-    //EMPTY
+//EMPTY
 @end
 
 @protocol ANNativeAdResponseProtocol <ANAdProtocolBrowser>
-    //EMPTY
+//EMPTY
 @end
 
 
@@ -217,6 +229,7 @@
  */
 @protocol ANAdDelegate <NSObject>
 
+
 @optional
 /**
  Sent when the ad content has been successfully retrieved from the
@@ -228,6 +241,8 @@
  Sent when the ad request to the server has failed.
  */
 - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error;
+
+
 
 /**
  Sent when the ad is clicked by the user.
@@ -285,3 +300,4 @@
             withData: (NSString *)data;
 
 @end
+

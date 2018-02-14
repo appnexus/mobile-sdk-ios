@@ -14,12 +14,12 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ANBaseAdObject.h"
 
-@interface ANSSMVideoAd : NSObject
+@interface ANSSMVideoAd : ANBaseAdObject
 
 @property (nonatomic, readwrite, strong) NSString *urlString;
 @property (nonatomic, readwrite, strong) NSString *notifyUrlString;
-@property (nonatomic, readwrite, strong) NSArray<NSString *> *impressionUrls;
 
 @property (nonatomic, readwrite, strong) NSDictionary *videoEventTrackers;
 @property (nonatomic, readwrite, strong) NSArray *errorUrls;

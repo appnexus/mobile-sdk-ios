@@ -54,6 +54,7 @@
                adObject:(id)adObject
               auctionID:(NSString *)auctionID;
 
+
 @end
 
 
@@ -116,6 +117,6 @@
 #pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
 
 @protocol  ANUniversalNativeAdFetcherDelegate  <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolFoundation>
-    //EMPTY
+//EMPTY
 @end
 

@@ -304,6 +304,13 @@
 		FC1565FF1FDF188D004B0B78 /* ANInstreamVideoAd+Test.h in Sources */ = {isa = PBXBuildFile; fileRef = FC1565F91FDF1873004B0B78 /* ANInstreamVideoAd+Test.h */; };
 		FC1566001FDF188D004B0B78 /* ANVideoAdPlayer+Test.h in Sources */ = {isa = PBXBuildFile; fileRef = FC1565F81FDF1873004B0B78 /* ANVideoAdPlayer+Test.h */; };
 		FC172E501FFFDA6700CE50C8 /* ANInterstitialAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = FC172E4F1FFFDA6700CE50C8 /* ANInterstitialAdTestCase.m */; };
+		FC3E602220336A3600D5E1EF /* SuccessfulNativeStandardAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FC3E600F203368F200D5E1EF /* SuccessfulNativeStandardAdWithoutCreativeIdResponse.json */; };
+		FC3E602320336A3D00D5E1EF /* SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FC3E601D203368F200D5E1EF /* SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse.json */; };
+		FC3E602420336A4000D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
+		FCF67EBF20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */; };
+		FCF67EC020335D190055E7F6 /* SuccessfulNativeStandardAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCF67EAD20335A220055E7F6 /* SuccessfulNativeStandardAdResponse.json */; };
+		FCF67EC120335D990055E7F6 /* SuccessfulANRTBVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */; };
+		FCF67EC220335D9D0055E7F6 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCF67EBB20335A220055E7F6 /* SuccessfulStandardAdFromRTBObjectResponse.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -956,6 +963,12 @@
 		FC1565F91FDF1873004B0B78 /* ANInstreamVideoAd+Test.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "ANInstreamVideoAd+Test.h"; sourceTree = "<group>"; };
 		FC1565FA1FDF1873004B0B78 /* ANVideoAdPlayer+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVideoAdPlayer+Test.m"; sourceTree = "<group>"; };
 		FC172E4F1FFFDA6700CE50C8 /* ANInterstitialAdTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANInterstitialAdTestCase.m; sourceTree = "<group>"; };
+		FC3E600F203368F200D5E1EF /* SuccessfulNativeStandardAdWithoutCreativeIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulNativeStandardAdWithoutCreativeIdResponse.json; sourceTree = "<group>"; };
+		FC3E601D203368F200D5E1EF /* SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse.json; sourceTree = "<group>"; };
+		FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json; sourceTree = "<group>"; };
+		FCF67EAD20335A220055E7F6 /* SuccessfulNativeStandardAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulNativeStandardAdResponse.json; sourceTree = "<group>"; };
+		FCF67EBB20335A220055E7F6 /* SuccessfulStandardAdFromRTBObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulStandardAdFromRTBObjectResponse.json; sourceTree = "<group>"; };
+		FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulANRTBVideoAdResponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1649,6 +1662,12 @@
 				EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */,
 				8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */,
 				8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */,
+				FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */,
+				FCF67EAD20335A220055E7F6 /* SuccessfulNativeStandardAdResponse.json */,
+				FCF67EBB20335A220055E7F6 /* SuccessfulStandardAdFromRTBObjectResponse.json */,
+				FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
+				FC3E600F203368F200D5E1EF /* SuccessfulNativeStandardAdWithoutCreativeIdResponse.json */,
+				FC3E601D203368F200D5E1EF /* SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse.json */,
 				8AA00A2119DB1E150090EBED /* SuccessfulMRAIDListenerResponse.json */,
 				8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */,
 			);
@@ -2300,6 +2319,7 @@
 				8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */,
 				8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */,
 				4F76461A1D957E4A00B15742 /* MPAdBrowserController.xib in Resources */,
+				FCF67EBF20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
 				8ACB37EB1B98C66F0027E90B /* NewTestAppLaunch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2308,16 +2328,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC3E602220336A3600D5E1EF /* SuccessfulNativeStandardAdWithoutCreativeIdResponse.json in Resources */,
 				8A75A9AE1C56C0A1008FB1AB /* ANJAMDeviceIdResponse.json in Resources */,
 				8A75A9AF1C56C0A4008FB1AB /* ANJAMDispatchAppEventResponse.json in Resources */,
 				EF532BA71C5A47A100AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */,
+				FC3E602420336A4000D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
 				EF532BA81C5A47A400AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */,
 				EF532BAA1C5A535600AF0C05 /* ANJAMMayDeepLinkResponse.json in Resources */,
 				EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */,
+				FCF67EC020335D190055E7F6 /* SuccessfulNativeStandardAdResponse.json in Resources */,
 				EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */,
 				F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */,
+				FC3E602320336A3D00D5E1EF /* SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse.json in Resources */,
+				FCF67EC220335D9D0055E7F6 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
 				8AA00A4819DB2A9A0090EBED /* dogSelfie.jpg in Resources */,
 				8AA00A4919DB2A9A0090EBED /* dogSelfie@2x.jpg in Resources */,
+				FCF67EC120335D990055E7F6 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
 				8AA00A4A19DB2A9A0090EBED /* GreyWhiteCat.jpg in Resources */,
 				8AA00A4B19DB2A9A0090EBED /* GreyWhiteCat@2x.jpg in Resources */,
 				4F76461B1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */,

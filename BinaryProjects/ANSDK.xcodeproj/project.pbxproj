@@ -354,6 +354,9 @@
 		ECE4EB16194B78280069D934 /* ANLocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA92194B768A0069D934 /* ANLocation.h */; };
 		ECE4EB17194B78280069D934 /* ANLogManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA93194B768A0069D934 /* ANLogManager.h */; };
 		ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */; };
+		FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */; };
+		FCC5DA602034AD3A003DC7B2 /* ANBaseAdObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */; };
+		FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1164,6 +1167,8 @@
 		ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECE4EAD9194B768A0069D934 /* sdkjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sdkjs.js; sourceTree = "<group>"; };
+		FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBaseAdObject.m; sourceTree = "<group>"; };
+		FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBaseAdObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1403,6 +1408,8 @@
 		4FE7CE791F2FD70C00A5044A /* adHandlers */ = {
 			isa = PBXGroup;
 			children = (
+				FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */,
+				FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */,
 				609732B51E42E90C0061EC0A /* ANCSMVideoAd.h */,
 				609732B61E42E90C0061EC0A /* ANCSMVideoAd.m */,
 				8AD618B91981C11F00AC0780 /* ANMediatedAd.h */,
@@ -2331,6 +2338,7 @@
 				8A9AEDD41A1BF88200C58BDA /* ANGlobal.h in Headers */,
 				609732B41E42E7910061EC0A /* ANInstreamVideoAd.h in Headers */,
 				8A9AEDB61A1BE8C200C58BDA /* ANInterstitialAd.h in Headers */,
+				FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */,
 				8A9AEDD51A1BF88200C58BDA /* ANInterstitialAdViewController.h in Headers */,
 				8A9AEDB71A1BE8C200C58BDA /* ANLocation.h in Headers */,
 				8A9AEDD61A1BF88200C58BDA /* ANLogging.h in Headers */,
@@ -3121,6 +3129,7 @@
 				8AF5A8871ACC60D50089C529 /* ANStandardAd.m in Sources */,
 				8A9BBE021D09C4E1001FF571 /* ANStoreProductViewController.m in Sources */,
 				8A9AEE031A1BF99D00C58BDA /* ANTargetingParameters.m in Sources */,
+				FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */,
 				607A21001F85541900BD8353 /* ANTrackerInfo.m in Sources */,
 				607A20FF1F85540E00BD8353 /* ANTrackerManager.m in Sources */,
 				609732D01E42E9860061EC0A /* ANUniversalAdFetcher.m in Sources */,
@@ -3294,6 +3303,7 @@
 				ECE4EADA194B768A0069D934 /* NSString+ANCategory.m in Sources */,
 				ECE4EADB194B768A0069D934 /* NSTimer+ANCategory.m in Sources */,
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
+				FCC5DA602034AD3A003DC7B2 /* ANBaseAdObject.m in Sources */,
 				8A6385E91A14336000280054 /* UIView+ANNativeAdCategory.m in Sources */,
 				ECE4EADD194B768A0069D934 /* UIWebView+ANCategory.m in Sources */,
 				602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */,

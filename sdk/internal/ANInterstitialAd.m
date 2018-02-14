@@ -46,13 +46,12 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 
 
+
 @interface ANInterstitialAd () <ANInterstitialAdViewControllerDelegate, ANInterstitialAdViewInternalDelegate>
 
 @property (nonatomic, readwrite, strong)  ANInterstitialAdViewController  *controller;
 @property (nonatomic, readwrite, strong)  NSMutableArray                  *precachedAdObjects;
 @property (nonatomic, readwrite, assign)  CGRect                           frame;
-
-
 @property (nonatomic)  CGSize  containerSize;
 
 @end
@@ -67,26 +66,25 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (void)initialize
 {
     [super initialize];
-
+    
     _controller           = [[ANInterstitialAdViewController alloc] init];
     _controller.delegate  = self;
     _precachedAdObjects   = [NSMutableArray array];
     _closeDelay           = kANInterstitialDefaultCloseButtonDelay;
     _opaque               = YES;
-
     self.containerSize      = APPNEXUS_SIZE_UNDEFINED;
     self.allowedAdSizes     = [self getDefaultAllowedAdSizes];
     self.allowSmallerSizes  = NO;
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
-	self = [super init];
-	
-	if (self != nil) {
-		self.placementId = placementId;
-	}
-	
-	return self;
+    self = [super init];
+    
+    if (self != nil) {
+        self.placementId = placementId;
+    }
+    
+    return self;
 }
 
 - (instancetype)initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode {
@@ -106,12 +104,12 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (NSMutableSet *) getDefaultAllowedAdSizes
 {
     NSMutableSet *defaultAllowedSizes = [NSMutableSet set];
-
+    
     NSArray *possibleSizesArray = @[[NSValue valueWithCGSize:kANInterstitialAdSize1024x1024],
                                     [NSValue valueWithCGSize:kANInterstitialAdSize900x500],
                                     [NSValue valueWithCGSize:kANInterstitialAdSize320x480],
                                     [NSValue valueWithCGSize:kANInterstitialAdSize300x250]];
-
+    
     for (NSValue *sizeValue in possibleSizesArray)
     {
         CGSize possibleSize = [sizeValue CGSizeValue];
@@ -120,7 +118,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             [defaultAllowedSizes addObject:sizeValue];
         }
     }
-
+    
     return defaultAllowedSizes;
 }
 
@@ -135,17 +133,17 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         ANLogError(@"adSizes array IS EMPTY.");
         return;
     }
-
+    
     for (NSValue *valueElement in allowedAdSizes)
     {
         CGSize  sizeElement  = [valueElement CGSizeValue];
-
+        
         if ((sizeElement.width <= 0) || (sizeElement.height <= 0)) {
             ANLogError(@"One or more elements assigned to allowedAdSizes have a width or height LESS THAN ZERO. (%@)", allowedAdSizes);
             return;
         }
     }
-
+    
     _allowedAdSizes = [[[NSSet alloc] initWithSet:allowedAdSizes copyItems:YES] mutableCopy];
 }
 
@@ -154,7 +152,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         ANLogWarn(@"Maximum allowed value for closeDelay is %.1f", kANInterstitialMaximumCloseButtonDelay);
         closeDelay = kANInterstitialMaximumCloseButtonDelay;
     }
-
+    
     _closeDelay = closeDelay;
 }
 
@@ -171,7 +169,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     // check the cache for a valid ad
     while ([self.precachedAdObjects count] > 0) {
         NSDictionary *adDict = self.precachedAdObjects[0];
-
+        
         // Check to see if the ad has expired
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
@@ -195,7 +193,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             [self.precachedAdObjects removeObjectAtIndex:0];
         }
     }
-
+    
     return false;
 }
 
@@ -206,10 +204,10 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     id         adToShow         = nil;
     id         adObjectHandler  = nil;
     NSString  *auctionID        = nil;
-
+    
     NSArray<NSString *>  *impressionURLs  = nil;
-
-
+    
+    
     self.controller.orientationProperties = nil;
     self.controller.useCustomClose = NO;
     
@@ -217,15 +215,15 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         ANMRAIDContainerView *mraidContainerView = (ANMRAIDContainerView *)self.controller.contentView;
         mraidContainerView.adViewDelegate = nil;
     }
-
-
+    
+    
     // Find first valid pre-cached ad, auctionID and meta data.
     // Pull out impression URL trackers.
     //
     while ([self.precachedAdObjects count] > 0) {
         // Pull the first ad off
         NSDictionary *adDict = self.precachedAdObjects[0];
-
+        
         // Check to see if ad has expired
         NSDate *dateLoaded = adDict[kANInterstitialAdViewDateLoadedKey];
         NSTimeInterval timeIntervalSinceDateLoaded = [dateLoaded timeIntervalSinceNow] * -1;
@@ -234,18 +232,19 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             adToShow         = adDict[kANInterstitialAdViewKey];
             adObjectHandler  = adDict[kANInterstitialAdObjectHandlerKey];
             auctionID        = adDict[kANInterstitialAdViewAuctionInfoKey];
-
+            
             [self.precachedAdObjects removeObjectAtIndex:0];
             break;
         }
-
+        
         // This ad is now stale, so remove it from our cached ads.
         [self.precachedAdObjects removeObjectAtIndex:0];
     }
-
+    
     impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
-
-
+    
+    
+    
     // Display the ad.
     //
     if ([adToShow isKindOfClass:[UIView class]]) {
@@ -272,28 +271,28 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         if (!self.opaque && [self.controller respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
             self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
         }
-
+        
         //
         @synchronized (self) {
             [ANTrackerManager fireTrackerURLArray:impressionURLs];
             impressionURLs = nil;
         }
-
+        
         [controller presentViewController:self.controller
                                  animated:YES
                                completion:nil];
         
         
-
+        
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
     {
         @synchronized (self) {
             [ANTrackerManager fireTrackerURLArray:impressionURLs];
             impressionURLs = nil;
         }
-
+        
         [adToShow presentFromViewController:controller];
-
+        
         //
         if (auctionID) {
             ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
@@ -304,7 +303,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
                                forAuctionID:auctionID];
         }
-
+        
     } else {
         ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
         [self adFailedToDisplay];
@@ -322,22 +321,31 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self adRequestFailedWithError:response.error];
         return;
     }
-
-    //
+    NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:response.adObjectHandler];
+    if(creativeId){
+         [self setCreativeId:creativeId];
+    }
+    
     NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                        response.adObject,        kANInterstitialAdViewKey,
-                                                        response.adObjectHandler, kANInterstitialAdObjectHandlerKey,
-                                                        [NSDate date],            kANInterstitialAdViewDateLoadedKey,
-                                                        nil
+                                                 response.adObject,        kANInterstitialAdViewKey,
+                                                 response.adObjectHandler, kANInterstitialAdObjectHandlerKey,
+                                                 [NSDate date],            kANInterstitialAdViewDateLoadedKey,
+                                                 nil
                                                  ];
     // cannot insert nil objects
     if (response.auctionID) {
         adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
     }
+    
+    
+    
+
+    
     [self.precachedAdObjects addObject:adViewWithDateLoaded];
     ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
     
     [self adDidReceiveAd];
+  
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
@@ -352,17 +360,17 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller
 {
     [self adWillClose];
-
+    
     __weak ANInterstitialAd *weakSelf = self;
-
+    
     [self.controller.presentingViewController dismissViewControllerAnimated:YES completion:
      ^{
-        __strong ANInterstitialAd  *strongSelf  = weakSelf;
-        if (!strongSelf)  { return; }
-
-        strongSelf.controller = nil;
-        [strongSelf adDidClose];
-    }];
+         __strong ANInterstitialAd  *strongSelf  = weakSelf;
+         if (!strongSelf)  { return; }
+         
+         strongSelf.controller = nil;
+         [strongSelf adDidClose];
+     }];
 }
 
 - (NSTimeInterval)closeDelayForController {
@@ -372,17 +380,17 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange
 {
     __weak ANInterstitialAd *weakSelf = self;
-
+    
     [self.controller.presentingViewController
-                        dismissViewControllerAnimated: NO
-                                           completion: ^{
-                                             __strong ANInterstitialAd *strongSelf = weakSelf;
-                                             if (!strongSelf)  { return; }
-
-                                             [strongSelf.controller.presentingViewController presentViewController: strongSelf.controller
-                                                                                                          animated: NO
-                                                                                                        completion: nil];
-                                           }
+     dismissViewControllerAnimated: NO
+     completion: ^{
+         __strong ANInterstitialAd *strongSelf = weakSelf;
+         if (!strongSelf)  { return; }
+         
+         [strongSelf.controller.presentingViewController presentViewController: strongSelf.controller
+                                                                      animated: NO
+                                                                    completion: nil];
+     }
      ];
 }
 
@@ -402,19 +410,19 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
     self.containerSize  = self.frame.size;
-
+    
     NSMutableSet<NSValue *>  *allowedAdSizesForSDK  = [[[NSSet alloc] initWithSet:self.allowedAdSizes copyItems:YES] mutableCopy];
     [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:kANAdSize1x1]];
     [allowedAdSizesForSDK addObject:[NSValue valueWithCGSize:self.containerSize]];
-
+    
     self.allowSmallerSizes = NO;
-
+    
     //
     NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
     [delegateReturnDictionary setObject:[NSValue valueWithCGSize:self.containerSize]  forKey:ANInternalDelgateTagKeyPrimarySize];
     [delegateReturnDictionary setObject:allowedAdSizesForSDK                          forKey:ANInternalDelegateTagKeySizes];
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                     forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
-
+    
     return  delegateReturnDictionary;
 }
 
@@ -462,3 +470,4 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
 
 
 @end
+

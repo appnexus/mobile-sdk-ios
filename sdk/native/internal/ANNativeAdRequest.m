@@ -57,10 +57,10 @@
 #pragma mark - Lifecycle.
 
 - (instancetype)init {
-
+    
     if (self = [super init]) {
         self.customKeywords = [[NSMutableDictionary alloc] init];
-
+        
         [self setupSizeParametersAs1x1];
     }
     return self;
@@ -70,10 +70,11 @@
 {
     self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:kANAdSize1x1]];
     self.allowSmallerSizes  = NO;
+    
 }
 
 - (void)loadAd {
-
+    
     if (self.delegate) {
         [self createAdFetcher];
     } else {
@@ -82,17 +83,18 @@
 }
 
 - (NSMutableArray *)adFetchers {
-
+    
     if (!_adFetchers) _adFetchers = [[NSMutableArray alloc] init];
     return _adFetchers;
 }
 
 - (void)createAdFetcher {
-
+    
     ANUniversalAdFetcher  *adFetcher  = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
     [self.adFetchers addObject:adFetcher];
     [adFetcher requestAd];
 }
+
 
 
 
@@ -102,27 +104,28 @@
 - (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
-
+    
     NSError *error;
     
     if (response.isSuccessful) {
+        
         if ([response.adObject isKindOfClass:[ANNativeAdResponse class]]) {
             ANNativeAdResponse *finalResponse = (ANNativeAdResponse *)response.adObject;
             
             __weak ANNativeAdRequest *weakSelf = self;
             NSOperation *finish = [NSBlockOperation blockOperationWithBlock:
-                                    ^{
-                                        __strong ANNativeAdRequest *strongSelf = weakSelf;
-
-                                        if (!strongSelf) {
-                                            ANLogError(@"FAILED to access strongSelf.");
-                                            return;
-                                        }
-
-                                        [strongSelf.delegate adRequest:strongSelf didReceiveResponse:finalResponse];
-                                        [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
-                                    } ];
-
+                                   ^{
+                                       __strong ANNativeAdRequest *strongSelf = weakSelf;
+                                       
+                                       if (!strongSelf) {
+                                           ANLogError(@"FAILED to access strongSelf.");
+                                           return;
+                                       }
+                                       [strongSelf.delegate adRequest:strongSelf didReceiveResponse:finalResponse];
+                                       
+                                       [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
+                                   } ];
+            
             if (self.shouldLoadIconImage && [finalResponse respondsToSelector:@selector(setIconImage:)]) {
                 [self setImageForImageURL:finalResponse.iconImageURL
                                  onObject:finalResponse
@@ -161,7 +164,7 @@
     [delegateReturnDictionary setObject:[NSValue valueWithCGSize:kANAdSize1x1]  forKey:ANInternalDelgateTagKeyPrimarySize];
     [delegateReturnDictionary setObject:self.allowedAdSizes                     forKey:ANInternalDelegateTagKeySizes];
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)               forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
-
+    
     return  delegateReturnDictionary;
 }
 
@@ -292,7 +295,7 @@
     if (([key length] < 1) || !value) {
         return;
     }
-
+    
     if(self.customKeywords[key] != nil){
         NSMutableArray *valueArray = (NSMutableArray *)[self.customKeywords[key] mutableCopy];
         if (![valueArray containsObject:value]) {
@@ -309,7 +312,7 @@
     if (([key length] < 1)) {
         return;
     }
-
+    
     [self.customKeywords removeObjectForKey:key];
 }
 

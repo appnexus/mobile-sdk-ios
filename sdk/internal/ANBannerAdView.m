@@ -52,14 +52,14 @@
 
 - (void)initialize {
     [super initialize];
-	
+    
     self.autoresizingMask = UIViewAutoresizingNone;
     
     // Defaults.
     //
     __autoRefreshInterval  = kANBannerDefaultAutoRefreshInterval;
     _transitionDuration    = kAppNexusBannerAdTransitionDefaultDuration;
-
+    
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
     self.allowSmallerSizes  = NO;
@@ -127,6 +127,7 @@
     return self;
 }
 
+
 - (void)loadAd
 {
     [super loadAd];
@@ -146,15 +147,15 @@
 - (void)setAdSize:(CGSize)adSize
 {
     if (CGSizeEqualToSize(adSize, _adSize)) { return; }
-
+    
     if ((adSize.width <= 0) || (adSize.height <= 0))  {
         ANLogError(@"Width and height of adSize must both be GREATER THAN ZERO.  (%@)", NSStringFromCGSize(adSize));
         return;
     }
-
+    
     //
     self.adSizes = @[ [NSValue valueWithCGSize:adSize] ];
-
+    
     ANLogDebug(@"Setting adSize to %@, NO smaller sizes.", NSStringFromCGSize(adSize));
 }
 
@@ -168,17 +169,17 @@
         ANLogError(@"adSizes array IS EMPTY.");
         return;
     }
-
+    
     for (NSValue *valueElement in adSizes)
     {
         CGSize  sizeElement  = [valueElement CGSizeValue];
-
+        
         if ((sizeElement.width <= 0) || (sizeElement.height <= 0)) {
             ANLogError(@"One or more elements of adSizes have a width or height LESS THAN ONE (1). (%@)", adSizes);
             return;
         }
     }
-
+    
     //
     _adSize                 = [adSizeAsValue CGSizeValue];
     _adSizes                = [[NSArray alloc] initWithArray:adSizes copyItems:YES];
@@ -203,8 +204,8 @@
         ANLogDebug(@"New autoRefresh interval set. Making ad request.");
         [self.universalAdFetcher requestAd];
     } else {
-		ANLogDebug(@"Turning auto refresh off");
-		__autoRefreshInterval = autoRefreshInterval;
+        ANLogDebug(@"Turning auto refresh off");
+        __autoRefreshInterval = autoRefreshInterval;
     }
 }
 
@@ -225,10 +226,10 @@
             [webView an_removeDocumentPadding];
             [webView an_setMediaProperties];
         }
-
+        
         UIView *oldContentView = _contentView;
         _contentView = newContentView;
-
+        
         if ([newContentView isKindOfClass:[ANMRAIDContainerView class]]) {
             ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)newContentView;
             standardAdView.adViewDelegate = self;
@@ -282,17 +283,25 @@
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
     NSError *error;
-
+    
     if ([response isSuccessful]) {
         UIView *contentView      = response.adObject;
         id      adObjectHandler  = response.adObjectHandler;
-
+        
         self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
-
+        
+        
+        
+        NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:adObjectHandler];
+        
+        if(creativeId){
+             [self setCreativeId:creativeId];
+        }
+        
         if ([contentView isKindOfClass:[UIView class]]) {
             self.contentView = contentView;
             [self adDidReceiveAd];
-
+            
             @synchronized (self)
             {
                 if (self.window)  {
@@ -300,7 +309,7 @@
                     self.impressionURLs = nil;
                 }
             }
-
+            
         } else {
             NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")};
             error = [NSError errorWithDomain:AN_ERROR_DOMAIN
@@ -311,7 +320,8 @@
     else {
         error = response.error;
     }
-
+    
+    
     if (error) {
         self.contentView = nil;
         [self adRequestFailedWithError:error];
@@ -329,20 +339,20 @@
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
     CGSize  containerSize  = self.adSize;
-
+    
     if (CGSizeEqualToSize(self.adSize, APPNEXUS_SIZE_UNDEFINED))
     {
         containerSize           = self.frame.size;
         self.adSizes            = @[ [NSValue valueWithCGSize:containerSize] ];
         self.allowSmallerSizes  = YES;
     }
-
+    
     //
     NSMutableDictionary  *delegateReturnDictionary  = [[NSMutableDictionary alloc] init];
     [delegateReturnDictionary setObject:[NSValue valueWithCGSize:containerSize]  forKey:ANInternalDelgateTagKeyPrimarySize];
     [delegateReturnDictionary setObject:self.adSizes                             forKey:ANInternalDelegateTagKeySizes];
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
-
+    
     return  delegateReturnDictionary;
 }
 
@@ -387,3 +397,4 @@
 
 
 @end
+

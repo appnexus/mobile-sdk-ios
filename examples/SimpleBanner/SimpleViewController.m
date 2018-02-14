@@ -81,6 +81,9 @@
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     NSLog(@"Ad did receive ad");
+    NSLog(@"Creative Id %@",ad.creativeId);
+    
+    
 }
 
 

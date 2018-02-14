@@ -27,7 +27,7 @@
 @property (nonatomic, readwrite, strong) NSURL *iconImageURL;
 @property (nonatomic, readwrite, strong) NSString *socialContext;
 @property (nonatomic, readwrite, strong) NSDictionary *customElements;
-
+@property (nonatomic, readwrite, assign) NSString *creativeId;
 @property (nonatomic, readwrite, strong) NSString *mediaType;
 @property (nonatomic, readwrite, strong) NSString *fullText;
 
