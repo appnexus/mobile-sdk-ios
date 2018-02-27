@@ -298,7 +298,9 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                           baseURL:(NSURL *)baseURL {
     WKWebView *webView = [[self class] defaultModernWebViewWithSize:size
                                                       configuration:self.configuration];
-    webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    if (@available(iOS 11.0, *)) {
+        webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } 
     webView.navigationDelegate = self;
     webView.UIDelegate = self;
     self.modernWebView = webView;
