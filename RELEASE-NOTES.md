@@ -1,3 +1,11 @@
+## 4.4
+### Updates
++ MS-2132 - The in-app browser localisations added for different localisations(French, German, Spanish, Swedish and Danish)
++ MS-3096 - Ability to get Creative ID in the SDK from response
++ MS-3187 - iPhone X : WKWebView scrollView gets undesired insets fixed
+
+
+
 ## 4.3
 ### Updates
 + MS-3142 - App crashing on iOS 9 when tapping on Native Ad
