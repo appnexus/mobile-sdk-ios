@@ -85,12 +85,6 @@
 @property (nonatomic, readwrite, assign) ANGender gender;
 
 /**
- An AppNexus creativeID for the current creative that is displayed
- */
-@property (nonatomic, readonly, strong) NSString *creativeId;
-
-
-/**
  Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */
@@ -199,7 +193,11 @@
 #pragma mark - ANAdProtocol entrypoint combinations.
 
 @protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
-//EMPTY
+/**
+ An AppNexus creativeID for the current creative that is displayed
+ */
+// CreativeId should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid creativeID being accessed through ANNativeAdRequest.
+@property (nonatomic, readonly, strong) NSString *creativeId;
 
 
 @end

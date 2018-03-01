@@ -112,6 +112,7 @@
         if ([response.adObject isKindOfClass:[ANNativeAdResponse class]]) {
             ANNativeAdResponse *finalResponse = (ANNativeAdResponse *)response.adObject;
             
+            
             __weak ANNativeAdRequest *weakSelf = self;
             NSOperation *finish = [NSBlockOperation blockOperationWithBlock:
                                    ^{
@@ -125,6 +126,12 @@
                                        
                                        [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
                                    } ];
+            
+            
+            if(finalResponse.creativeId == nil){
+                NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:response.adObjectHandler];
+                [self setCreativeId:creativeId onObject:finalResponse forKeyPath:@"creativeId"];
+              }
             
             if (self.shouldLoadIconImage && [finalResponse respondsToSelector:@selector(setIconImage:)]) {
                 [self setImageForImageURL:finalResponse.iconImageURL
@@ -187,6 +194,13 @@
         [operation addDependency:dependentOperation];
     }
 }
+
+- (void)setCreativeId:(NSString *)creativeId
+             onObject:(id)object forKeyPath:(NSString *)keyPath
+{
+    [object setValue:creativeId forKeyPath:keyPath];
+}
+
 
 - (NSOperation *)setImageForImageURL:(NSURL *)imageURL
                             onObject:(id)object
