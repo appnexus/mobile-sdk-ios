@@ -139,6 +139,12 @@
 }
 
 
+
+
+
+
+#pragma mark - ANAdProtocol: Setter methods
+
 - (void)setCreativeId:(NSString *)creativeId {
     creativeId = ANConvertToNSString(creativeId);
     if ([creativeId length] < 1) {
@@ -151,8 +157,6 @@
     }
 }
 
-
-#pragma mark - ANAdProtocol: Setter methods
 
 - (void)setPlacementId:(NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
