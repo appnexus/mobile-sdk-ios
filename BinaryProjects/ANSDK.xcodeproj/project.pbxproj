@@ -2298,8 +2298,8 @@
 				ECE4EACD194B768A0069D934 /* anjam.js */,
 				8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */,
 				ECE4EACE194B768A0069D934 /* errors.strings */,
-				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 				FC210A422007D8F4002A9F0E /* Localizable.strings */,
+				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3443,10 +3443,10 @@
 			children = (
 				FC210A362007D5EB002A9F0E /* Base */,
 				FCAE131B2023CB9A00A946B1 /* de */,
-				FCAE13202023CBFE00A946B1 /* es */,
-				FCAE13252023CC1100A946B1 /* zh-Hans */,
-				FCAE132A2023CD2300A946B1 /* fr */,
 				FC83AEEF2025101A009A394D /* en */,
+				FCAE13202023CBFE00A946B1 /* es */,
+				FCAE132A2023CD2300A946B1 /* fr */,
+				FCAE13252023CC1100A946B1 /* zh-Hans */,
 			);
 			name = ANBrowserViewController.xib;
 			sourceTree = "<group>";
@@ -3456,10 +3456,10 @@
 			children = (
 				FC210A372007D5EB002A9F0E /* Base */,
 				FCAE131C2023CB9A00A946B1 /* de */,
-				FCAE13212023CBFE00A946B1 /* es */,
-				FCAE13262023CC1100A946B1 /* zh-Hans */,
-				FCAE132B2023CD3700A946B1 /* fr */,
 				FC83AEF12025101F009A394D /* en */,
+				FCAE13212023CBFE00A946B1 /* es */,
+				FCAE132B2023CD3700A946B1 /* fr */,
+				FCAE13262023CC1100A946B1 /* zh-Hans */,
 			);
 			name = ANBrowserViewController_SizeClasses.xib;
 			sourceTree = "<group>";
@@ -3469,10 +3469,10 @@
 			children = (
 				FC210A432007D8F7002A9F0E /* Base */,
 				FCAE131E2023CB9B00A946B1 /* de */,
-				FCAE13232023CBFF00A946B1 /* es */,
-				FCAE13282023CC1200A946B1 /* zh-Hans */,
-				FCAE13292023CC7000A946B1 /* fr */,
 				FC83AEF220251024009A394D /* en */,
+				FCAE13232023CBFF00A946B1 /* es */,
+				FCAE13292023CC7000A946B1 /* fr */,
+				FCAE13282023CC1200A946B1 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
