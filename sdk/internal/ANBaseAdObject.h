@@ -18,11 +18,11 @@
 @interface ANBaseAdObject : NSObject
 
 
-@property (nonatomic, readwrite, strong) NSString *content;
-@property (nonatomic, readwrite, strong) NSString *height;
-@property (nonatomic, readwrite, strong) NSString *width;
-@property (nonatomic, readwrite, assign) NSString *creativeId;
-@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionUrls;
+@property (nonatomic, readwrite, copy) NSString *content;
+@property (nonatomic, readwrite, copy) NSString *height;
+@property (nonatomic, readwrite, copy) NSString *width;
+@property (nonatomic, readwrite, copy) NSString *creativeId;
+@property (nonatomic, readwrite, copy)  NSArray<NSString *>  *impressionUrls;
 
 
 @end
