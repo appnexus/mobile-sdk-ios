@@ -489,6 +489,7 @@
                                  }];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
+    XCTAssertEqualObjects(self.adResponse.creativeId, @"123456");
     
     [self iconImageShouldBePresentInResponse:YES];
     [self mainImageShouldBePresentInResponse:NO];
