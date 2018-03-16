@@ -1,3 +1,7 @@
+## 4.4.1
+### Bug Fixes
++ MS-3197 - Fixed a crash in Creative Id changeset
+
 ## 4.4
 ### Updates
 + MS-2132 - The in-app browser localisations added for different localisations(French, German, Spanish, Swedish and Danish)
@@ -35,7 +39,7 @@
 
 ### Bug Fixes
 
-+ Resolve CocoaPods build issues. 
++ Resolve CocoaPods build issues.
 
 
 
@@ -46,7 +50,7 @@
 
 + MS-2964 -- Replace usage of /mob with /ut in SDK
 
-### Bug Fixes 
+### Bug Fixes
 
 + MS-1891 -- Address Facebook SDK star rating deprecation
 + MS-2862 -- Support newly added standard fields on the native creative object
@@ -55,7 +59,7 @@
 + MS-3077 -- Add better support for rotation on iOS
 + MS-3078 -- Add support for loading 1x1 creatives in a banner
 
-+ GitHub Issue #13 -- Stop using EKEventStore 
++ GitHub Issue #13 -- Stop using EKEventStore
 
 
 
