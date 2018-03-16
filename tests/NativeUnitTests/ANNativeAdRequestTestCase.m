@@ -187,6 +187,7 @@
         XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
         XCTAssertNil(self.adResponse.iconImage);
         XCTAssertNil(self.adResponse.mainImage);
+        XCTAssertEqualObjects(self.adResponse.creativeId, @"111");
     } else {
         XCTAssertNotNil(self.adRequestError);
     }
@@ -266,6 +267,7 @@
     [self validateGenericNativeAdObject];
     XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
     XCTAssertNil(self.adResponse.iconImage);
+    XCTAssertEqualObjects(self.adResponse.creativeId, @"125");
     self.adResponse.mainImageURL ? XCTAssertNotNil(self.adResponse.mainImage) : XCTAssertNil(self.adResponse.mainImage);
     self.adResponse.mainImageURL ? XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]) : nil;
 }
@@ -335,6 +337,9 @@
     }
     if (self.adResponse.customElements) {
         XCTAssert([self.adResponse.customElements isKindOfClass:[NSDictionary class]]);
+    }
+    if (self.adResponse.creativeId) {
+        XCTAssert([self.adResponse.creativeId isKindOfClass:[NSString class]]);
     }
 }
 

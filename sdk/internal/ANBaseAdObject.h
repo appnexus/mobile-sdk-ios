@@ -21,7 +21,7 @@
 @property (nonatomic, readwrite, strong) NSString *content;
 @property (nonatomic, readwrite, strong) NSString *height;
 @property (nonatomic, readwrite, strong) NSString *width;
-@property (nonatomic, readwrite, assign) NSString *creativeId;
+@property (nonatomic, readwrite, strong) NSString *creativeId;
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionUrls;
 
 

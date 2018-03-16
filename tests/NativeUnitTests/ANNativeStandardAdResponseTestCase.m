@@ -55,6 +55,7 @@
     XCTAssertNotNil(nativeAd.body);
     XCTAssertNotNil(nativeAd.iconImageURL);
     XCTAssertNotNil(nativeAd.mainImageURL);
+    XCTAssertEqualObjects(nativeAd.creativeId, @"108");
 }
 
 # pragma mark - Invalid JSON
