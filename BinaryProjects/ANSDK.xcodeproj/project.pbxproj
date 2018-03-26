@@ -354,7 +354,6 @@
 		ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */; };
 		FC210A2E2007D529002A9F0E /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
 		FC210A312007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
-		FC210A402007D8F4002A9F0E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC210A422007D8F4002A9F0E /* Localizable.strings */; };
 		FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */; };
 		FCC5DA602034AD3A003DC7B2 /* ANBaseAdObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */; };
 		FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */; };
@@ -1168,20 +1167,14 @@
 		ECE4EAD9194B768A0069D934 /* sdkjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sdkjs.js; sourceTree = "<group>"; };
 		FC210A362007D5EB002A9F0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController.xib; sourceTree = "<group>"; };
 		FC210A372007D5EB002A9F0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
-		FC210A432007D8F7002A9F0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FC83AEEF2025101A009A394D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ANBrowserViewController.strings; sourceTree = "<group>"; };
 		FC83AEF12025101F009A394D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ANBrowserViewController_SizeClasses.strings; sourceTree = "<group>"; };
-		FC83AEF220251024009A394D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FCAE131B2023CB9A00A946B1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ANBrowserViewController.strings; sourceTree = "<group>"; };
 		FCAE131C2023CB9A00A946B1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ANBrowserViewController_SizeClasses.strings; sourceTree = "<group>"; };
-		FCAE131E2023CB9B00A946B1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FCAE13202023CBFE00A946B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ANBrowserViewController.strings; sourceTree = "<group>"; };
 		FCAE13212023CBFE00A946B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ANBrowserViewController_SizeClasses.strings; sourceTree = "<group>"; };
-		FCAE13232023CBFF00A946B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FCAE13252023CC1100A946B1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ANBrowserViewController.strings"; sourceTree = "<group>"; };
 		FCAE13262023CC1100A946B1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ANBrowserViewController_SizeClasses.strings"; sourceTree = "<group>"; };
-		FCAE13282023CC1200A946B1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		FCAE13292023CC7000A946B1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FCAE132A2023CD2300A946B1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ANBrowserViewController.strings; sourceTree = "<group>"; };
 		FCAE132B2023CD3700A946B1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ANBrowserViewController_SizeClasses.strings; sourceTree = "<group>"; };
 		FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBaseAdObject.m; sourceTree = "<group>"; };
@@ -2298,7 +2291,6 @@
 				ECE4EACD194B768A0069D934 /* anjam.js */,
 				8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */,
 				ECE4EACE194B768A0069D934 /* errors.strings */,
-				FC210A422007D8F4002A9F0E /* Localizable.strings */,
 				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 			);
 			path = Resources;
@@ -3024,7 +3016,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
-				FC210A402007D8F4002A9F0E /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3462,19 +3453,6 @@
 				FCAE13262023CC1100A946B1 /* zh-Hans */,
 			);
 			name = ANBrowserViewController_SizeClasses.xib;
-			sourceTree = "<group>";
-		};
-		FC210A422007D8F4002A9F0E /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FC210A432007D8F7002A9F0E /* Base */,
-				FCAE131E2023CB9B00A946B1 /* de */,
-				FC83AEF220251024009A394D /* en */,
-				FCAE13232023CBFF00A946B1 /* es */,
-				FCAE13292023CC7000A946B1 /* fr */,
-				FCAE13282023CC1200A946B1 /* zh-Hans */,
-			);
-			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
