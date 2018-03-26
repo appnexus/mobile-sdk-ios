@@ -1,3 +1,8 @@
+## 4.4.2
+### Bug Fixes
++ MS-3200 - Fixed ANLocalizations overriding parent app localizations
+
+
 ## 4.4.1
 ### Bug Fixes
 + MS-3197 - Fixed a crash in Creative Id changeset
