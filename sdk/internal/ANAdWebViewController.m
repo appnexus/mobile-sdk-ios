@@ -654,7 +654,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     //
     if ([URLScheme isEqualToString:@"file"])
     {
-        NSString  *filePathContainsThisString  = @"/ANSDKResources.bundle/vastVideo.html";
+        NSString  *filePathContainsThisString  = @"/vastVideo.html";
 
         if ([[URL absoluteString] rangeOfString:filePathContainsThisString].location == NSNotFound) {
             return;

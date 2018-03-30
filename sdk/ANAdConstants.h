@@ -53,3 +53,12 @@ typedef NS_ENUM(NSUInteger, ANNativeAdNetworkCode) {
     ANNativeAdNetworkCodeCustom,
     ANNativeAdNetworkCodeAdMob
 };
+
+typedef NS_ENUM(NSUInteger, ANAdType) {
+    ANAdTypeUnknown  = 0,
+    ANAdTypeBanner   = 1,
+    ANAdTypeVideo    = 2,
+    ANAdTypeNative   = 3
+};
+
+

@@ -20,7 +20,6 @@
 #import "ANAdConstants.h"
 #import "ANLocation.h"
 
-#import "ANGlobal.h"
 
 @class ANLocation;
 

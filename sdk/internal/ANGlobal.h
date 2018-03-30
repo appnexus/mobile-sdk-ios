@@ -16,6 +16,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "ANAdConstants.h"
+
 
 
 #pragma mark - Constants
@@ -53,13 +55,6 @@ typedef NS_ENUM(NSUInteger, ANAllowedMediaType) {
     ANAllowedMediaTypeInterstitial  = 3,
     ANAllowedMediaTypeVideo         = 4,
     ANAllowedMediaTypeNative        = 12
-};
-
-typedef NS_ENUM(NSUInteger, ANAdType) {
-    ANAdTypeUnknown  = 0,
-    ANAdTypeBanner   = 1,
-    ANAdTypeVideo    = 2,
-    ANAdTypeNative   = 3
 };
 
 typedef NS_ENUM(NSUInteger, ANVideoAdSubtype) {
