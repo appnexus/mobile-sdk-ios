@@ -20,6 +20,7 @@
 #import "ANAdConstants.h"
 #import "ANLocation.h"
 
+#import "ANGlobal.h"
 
 @class ANLocation;
 
@@ -35,7 +36,6 @@
  Currently, it is used in the implementation of banner and interstitial ads and instream video.
  */
 @protocol ANAdProtocolFoundation <NSObject>
-
 
 @required
 /**
@@ -85,6 +85,13 @@
 @property (nonatomic, readwrite, assign) ANGender gender;
 
 /**
+ Report the Ad Type of the returned ad object.
+ Not available until load is complete and successful.
+ */
+@property (nonatomic, readwrite)  ANAdType  adType;
+
+
+/**
  Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */
@@ -130,10 +137,7 @@
  */
 - (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberID;
 
-
-
-
-@end
+@end   //ANAdProtocolFoundation
 
 
 
@@ -157,7 +161,7 @@
  */
 @property (nonatomic, readwrite, assign) BOOL landingPageLoadsInBackground;
 
-@end
+@end   //ANAdProtocolBrowser
 
 
 
@@ -186,13 +190,14 @@
  */
 @property (nonatomic, readwrite, assign) NSUInteger maxDuration;
 
-@end
+@end   //ANAdProtocolPublicServiceAnnouncement
 
 
 
 #pragma mark - ANAdProtocol entrypoint combinations.
 
 @protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
+
 /**
  An AppNexus creativeID for the current creative that is displayed
  */

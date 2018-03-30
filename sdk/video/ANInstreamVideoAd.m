@@ -411,6 +411,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return  delegateReturnDictionary;
 }
 
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+    return  ANVideoAdSubtypeInstream;
+}
 
 
 

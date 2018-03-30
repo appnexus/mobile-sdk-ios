@@ -105,7 +105,7 @@ static NSString  *videoPlacementID  = @"9924001";
         
         
         XCTAssertNotNil(allowedMediaTypes);
-        XCTAssertEqual((ANAllowedMediaTypes)[allowedMediaTypes[0] integerValue], ANAllowedMediaTypeVideo);
+        XCTAssertEqual((ANAllowedMediaType)[allowedMediaTypes[0] integerValue], ANAllowedMediaTypeVideo);
 
         
         NSNumber *disablePSA = tag[@"disable_psa"];
@@ -210,7 +210,7 @@ static NSString  *videoPlacementID  = @"9924001";
                         XCTAssertNotNil(allowedMediaTypes);
                        
                        int allowedMediaTypesValue = [[NSString stringWithFormat:@"%@",(NSValue *)allowedMediaTypes[0]] intValue];
-                       XCTAssertEqual(allowedMediaTypesValue ,(ANAllowedMediaTypes)ANAllowedMediaTypeVideo);
+                       XCTAssertEqual(allowedMediaTypesValue ,(ANAllowedMediaType)ANAllowedMediaTypeVideo);
                        
                        [expectation fulfill];
                    });

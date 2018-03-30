@@ -49,9 +49,9 @@
 
 -(NSURL *) videoWebViewUrl {
     if(ANLogManager.getANLogLevel > ANLogLevelDebug){
-        return [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+        return [ANResourcesBundle() URLForResource:@"vastVideo" withExtension:@"html"];
     }else{
-        NSURL* url = [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+        NSURL* url = [ANResourcesBundle() URLForResource:@"vastVideo" withExtension:@"html"];
         NSString *URLString = [url absoluteString];
         NSString *debugQueryString = @"?ast_debug=true";
         NSString *URLwithDebugQueryString = [URLString stringByAppendingString: debugQueryString];
@@ -87,9 +87,9 @@
 
 -(NSURL *) videoWebViewUrl {
     if(ANLogManager.getANLogLevel > ANLogLevelDebug){
-        return [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+        return [ANResourcesBundle() URLForResource:@"vastVideo" withExtension:@"html"];
     }else{
-        NSURL* url = [ANResourcesBundle() URLForResource:@"index" withExtension:@"html"];
+        NSURL* url = [ANResourcesBundle() URLForResource:@"vastVideo" withExtension:@"html"];
         NSString *URLString = [url absoluteString];
         NSString *debugQueryString = @"?ast_debug=true";
         NSString *URLwithDebugQueryString = [URLString stringByAppendingString: debugQueryString];

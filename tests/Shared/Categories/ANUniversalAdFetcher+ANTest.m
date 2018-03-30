@@ -25,7 +25,7 @@
 @implementation ANUniversalAdFetcher (ANTest)
 #pragma clang diagnostic pop
 
-@dynamic standardAdView;
+@dynamic adView;
 
 
 + (void)load

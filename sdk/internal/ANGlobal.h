@@ -48,11 +48,24 @@
 #define kANAdSize1x1 CGSizeMake(1,1)
 
 
-typedef NS_ENUM(NSUInteger, ANAllowedMediaTypes) {
+typedef NS_ENUM(NSUInteger, ANAllowedMediaType) {
     ANAllowedMediaTypeBanner        = 1,
     ANAllowedMediaTypeInterstitial  = 3,
     ANAllowedMediaTypeVideo         = 4,
     ANAllowedMediaTypeNative        = 12
+};
+
+typedef NS_ENUM(NSUInteger, ANAdType) {
+    ANAdTypeUnknown  = 0,
+    ANAdTypeBanner   = 1,
+    ANAdTypeVideo    = 2,
+    ANAdTypeNative   = 3
+};
+
+typedef NS_ENUM(NSUInteger, ANVideoAdSubtype) {
+    ANVideoAdSubtypeUnknown = 0,
+    ANVideoAdSubtypeInstream,
+    ANVideoAdSubtypeBannerVideo
 };
 
 
@@ -132,5 +145,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController);
 
 + (id) valueOfGetterProperty: (NSString *)stringOfGetterProperty
                    forObject: (id)objectImplementingGetterProperty;
+
++ (ANAdType) adTypeStringToEnum:(NSString *)adTypeString;
 
 @end

@@ -27,8 +27,11 @@
 #import "ANClickOverlayView.h"
 #import "ANPBBuffer.h"
 #import "ANANJAMImplementation.h"
+#import "ANInterstitialAdViewController.h"
 
-typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction) {
+
+typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
+{
     ANMRAIDContainerViewAdInteractionExpandedOrResized = 1 << 0,
     ANMRAIDContainerViewAdInteractionVideo = 1 << 1,
     ANMRAIDContainerViewAdInteractionBrowser = 1 << 2,
@@ -36,20 +39,33 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction) {
     ANMRAIDContainerViewAdInteractionPicture = 1 << 4
 };
 
-@interface ANMRAIDContainerView () <ANAdWebViewControllerMRAIDDelegate, ANMRAIDResizeViewManagerDelegate,
-ANMRAIDCalendarManagerDelegate, ANAdWebViewControllerBrowserDelegate, ANMRAIDExpandViewControllerDelegate,
-ANBrowserViewControllerDelegate, ANAdWebViewControllerPitbullDelegate, ANAdWebViewControllerANJAMDelegate,
-ANAdWebViewControllerLoadingDelegate>
+
+
+
+@interface ANMRAIDContainerView() <   ANBrowserViewControllerDelegate,
+
+                                      ANAdWebViewControllerANJAMDelegate,
+                                      ANAdWebViewControllerBrowserDelegate, 
+                                      ANAdWebViewControllerLoadingDelegate,
+                                      ANAdWebViewControllerMRAIDDelegate, 
+                                      ANAdWebViewControllerPitbullDelegate,
+                                      ANAdWebViewControllerVideoDelegate,
+                                      ANMRAIDCalendarManagerDelegate, 
+                                      ANMRAIDExpandViewControllerDelegate,
+                                      ANMRAIDResizeViewManagerDelegate
+                                  >
 
 @property (nonatomic, readwrite, assign) CGSize size;
 @property (nonatomic, readwrite, strong) NSURL *baseURL;
 
-@property (nonatomic, readwrite, strong) ANAdWebViewController *webViewController;
-@property (nonatomic, readwrite, strong) ANMRAIDResizeViewManager *resizeManager;
-@property (nonatomic, readwrite, strong) ANMRAIDCalendarManager *calendarManager;
-@property (nonatomic, readwrite, strong) ANBrowserViewController *browserViewController;
-@property (nonatomic, readwrite, strong) ANMRAIDExpandViewController *expandController;
-@property (nonatomic, readwrite, strong) ANMRAIDOrientationProperties *orientationProperties;
+@property (nonatomic, readwrite, strong) ANAdWebViewController          *webViewController;
+@property (nonatomic, readwrite, strong) ANBrowserViewController        *browserViewController;
+@property (nonatomic, readwrite, strong) ANMRAIDCalendarManager         *calendarManager;
+@property (nonatomic, readwrite, strong) ANMRAIDExpandViewController    *expandController;
+@property (nonatomic, readwrite, strong) ANMRAIDOrientationProperties   *orientationProperties;
+@property (nonatomic, readwrite, strong) ANMRAIDResizeViewManager       *resizeManager;
+
+@property (nonatomic, readwrite, strong)  ANInterstitialAdViewController  *VASTVideofullScreenController;
 
 @property (nonatomic, readwrite, assign) BOOL useCustomClose;
 @property (nonatomic, readwrite, strong) UIButton *customCloseRegion;
@@ -62,13 +78,16 @@ ANAdWebViewControllerLoadingDelegate>
 @property (nonatomic, readwrite, assign) BOOL adInteractionInProgress;
 @property (nonatomic, readwrite, assign) NSUInteger adInteractionValue;
 
-@property (nonatomic, readonly, assign, getter=isExpanded) BOOL expanded;
-@property (nonatomic, readonly, assign, getter=isResized) BOOL resized;
+@property (nonatomic, readwrite)                            BOOL  isBannerVideo;
+@property (nonatomic, readonly, assign, getter=isExpanded)  BOOL  expanded;
+@property (nonatomic, readonly, assign, getter=isResized)   BOOL  resized;
+@property (nonatomic, readwrite)                            BOOL  isFullscreen;
+
 
 @property (nonatomic, readwrite, assign) CGRect lastKnownDefaultPosition;
 @property (nonatomic, readwrite, assign) CGRect lastKnownCurrentPosition;
 
-@property (nonatomic, readwrite, strong) ANAdWebViewController *expandWebViewController;
+@property (nonatomic, readwrite, strong)  ANAdWebViewController  *expandWebViewController;
 
 @property (nonatomic, readwrite, assign) BOOL userInteractedWithContentView;
 
@@ -76,60 +95,139 @@ ANAdWebViewControllerLoadingDelegate>
 
 @end
 
+
+
+
 @implementation ANMRAIDContainerView
 
-- (instancetype)initWithSize:(CGSize)size
-                        HTML:(NSString *)html
-              webViewBaseURL:(NSURL *)baseURL {
-    CGSize initialSize = size;
-    BOOL responsiveAd = NO;
+#pragma mark - Lifecycle.
+
+- (instancetype) initWithSize:(CGSize)size
+{
+    CGSize   initialSize    = size;
+    BOOL     responsiveAd   = NO;
+
     if (CGSizeEqualToSize(initialSize, CGSizeMake(1, 1))) {
         responsiveAd = YES;
         initialSize = ANPortraitScreenBounds().size;
     }
-    CGRect initialRect = CGRectMake(0, 0, initialSize.width, initialSize.height);
-    
-    if (self = [super initWithFrame:initialRect]) {
-        _size = size;
-        _baseURL = baseURL;
-        _responsiveAd = responsiveAd;
-        
-        _lastKnownCurrentPosition = initialRect;
-        _lastKnownDefaultPosition = initialRect;
-        
-        self.webViewController = [[ANAdWebViewController alloc] initWithSize:initialSize
-                                                                        HTML:html
-                                                              webViewBaseURL:baseURL];
 
-        self.webViewController.mraidDelegate = self;
-        self.webViewController.browserDelegate = self;
-        self.webViewController.pitbullDelegate = self;
-        self.webViewController.anjamDelegate = self;
-        self.webViewController.loadingDelegate = self;
-                
-        self.backgroundColor = [UIColor clearColor];
-    }
+    CGRect  initialRect  = CGRectMake(0, 0, initialSize.width, initialSize.height);
+
+    self = [super initWithFrame:initialRect];
+    if (!self)  { return nil; }
+
+    //
+    _size = size;
+    _responsiveAd = responsiveAd;
+
+    _lastKnownCurrentPosition = initialRect;
+    _lastKnownDefaultPosition = initialRect;
+
+    _isBannerVideo = NO;
+
+    self.backgroundColor = [UIColor clearColor];
+
+    self.isFullscreen                       = NO;
+    
     return self;
 }
 
-- (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate {
-    _adViewDelegate = adViewDelegate;
-    self.webViewController.adViewDelegate = adViewDelegate;
-    self.webViewController.adViewANJAMDelegate = adViewDelegate;
-    self.expandWebViewController.adViewDelegate = adViewDelegate;
-    self.expandWebViewController.adViewANJAMDelegate = adViewDelegate;
-    if ([adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)]) {
-        id<ANInterstitialAdViewInternalDelegate> interstitialDelegate = (id<ANInterstitialAdViewInternalDelegate>)adViewDelegate;
+- (instancetype)initWithSize:(CGSize)size
+                        HTML:(NSString *)html
+              webViewBaseURL:(NSURL *)baseURL
+{
+    self = [self initWithSize:size];
+
+    if (self) {
+        _baseURL = baseURL;
+
+        self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
+                                                                        HTML: html
+                                                              webViewBaseURL: baseURL];
+
+        self.webViewController.anjamDelegate    = self;
+        self.webViewController.browserDelegate  = self;
+        self.webViewController.loadingDelegate  = self;
+        self.webViewController.mraidDelegate    = self;
+        self.webViewController.pitbullDelegate  = self;
+    }
+
+    return self;
+}
+
+- (instancetype)initWithSize: (CGSize)size
+                    videoXML: (NSString *)videoXML
+{
+    self = [self initWithSize:size];
+
+    if (!self)  { return nil; }
+
+    self.webViewController = [[ANAdWebViewController alloc] initWithSize: _lastKnownCurrentPosition.size
+                                                                videoXML: videoXML ];
+
+    self.webViewController.anjamDelegate    = self;
+    self.webViewController.browserDelegate  = self;
+    self.webViewController.loadingDelegate  = self;
+    self.webViewController.mraidDelegate    = self;
+    self.webViewController.pitbullDelegate  = self;
+
+    self.webViewController.videoDelegate    = self;
+    self.isBannerVideo = YES;
+
+    return self;
+}
+
+#pragma mark - Getters/setters.
+
+- (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate
+{
+    _adViewDelegate                                     = adViewDelegate;
+    self.webViewController.adViewDelegate               = adViewDelegate;
+    self.webViewController.adViewANJAMDelegate          = adViewDelegate;
+    self.expandWebViewController.adViewDelegate         = adViewDelegate;
+    self.expandWebViewController.adViewANJAMDelegate    = adViewDelegate;
+
+    if ([adViewDelegate conformsToProtocol:@protocol(ANInterstitialAdViewInternalDelegate)])
+    {
+        id<ANInterstitialAdViewInternalDelegate>  interstitialDelegate  = (id<ANInterstitialAdViewInternalDelegate>)adViewDelegate;
+
         [interstitialDelegate adShouldSetOrientationProperties:self.orientationProperties];
         [interstitialDelegate adShouldUseCustomClose:self.useCustomClose];
+
         if (self.useCustomClose) {
             [self addSupplementaryCustomCloseRegion];
         }
     }
 }
 
+- (void)setAdInteractionInProgress:(BOOL)adInteractionInProgress {
+    BOOL oldValue = _adInteractionInProgress;
+    _adInteractionInProgress = adInteractionInProgress;
+    BOOL newValue = _adInteractionInProgress;
+    if (oldValue != newValue) {
+        if (_adInteractionInProgress) {
+            [self.adViewDelegate adInteractionDidBegin];
+        } else {
+            [self.adViewDelegate adInteractionDidEnd];
+        }
+    }
+}
+
+#pragma mark - Helper methods.
+
 - (UIViewController *)displayController {
-    UIViewController *presentingVC = self.isExpanded ? self.expandController : [self.adViewDelegate displayController];
+    
+    UIViewController *presentingVC = nil;
+    
+    if(self.isExpanded){
+        presentingVC = self.expandController;
+    } else if(self.isFullscreen){
+        presentingVC = self.VASTVideofullScreenController;
+    } else {
+        presentingVC = [self.adViewDelegate displayController];
+    }
+    
     if (ANCanPresentFromViewController(presentingVC)) {
         return presentingVC;
     }
@@ -146,18 +244,6 @@ ANAdWebViewControllerLoadingDelegate>
     self.adInteractionInProgress = self.adInteractionValue != 0;
 }
 
-- (void)setAdInteractionInProgress:(BOOL)adInteractionInProgress {
-    BOOL oldValue = _adInteractionInProgress;
-    _adInteractionInProgress = adInteractionInProgress;
-    BOOL newValue = _adInteractionInProgress;
-    if (oldValue != newValue) {
-        if (_adInteractionInProgress) {
-            [self.adViewDelegate adInteractionDidBegin];
-        } else {
-            [self.adViewDelegate adInteractionDidEnd];
-        }
-    }
-}
 
 #pragma mark - User Interaction Testing
 
@@ -170,7 +256,251 @@ ANAdWebViewControllerLoadingDelegate>
     return viewThatWasHit;
 }
 
-#pragma mark - ANNewAdWebViewControllerMRAIDDelegate
+
+#pragma mark - ANBrowserViewControllerDelegate
+
+- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller
+{
+    return [self displayController];
+}
+
+- (void) browserViewController: (ANBrowserViewController *)controller
+              browserIsLoading: (BOOL)isLoading
+{
+    if ([self.adViewDelegate landingPageLoadsInBackground]) {
+        if (!controller.completedInitialLoad) {
+            isLoading ? [self showClickOverlay] : [self hideClickOverlay];
+        } else {
+            [self hideClickOverlay];
+        }
+    }
+}
+
+- (void) browserViewController: (ANBrowserViewController *)controller
+      couldNotHandleInitialURL: (NSURL *)url
+{
+    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionBrowser];
+}
+
+- (void)handleBrowserLoadingForMRAIDStateChange
+{
+    [self.browserViewController stopLoading];
+    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionBrowser];
+}
+
+- (void)willPresentBrowserViewController:(ANBrowserViewController *)controller
+{
+    if (!self.embeddedInModalView && !self.isExpanded) {
+        [self.adViewDelegate adWillPresent];
+    }
+    self.resizeManager.resizeView.hidden = YES;
+    [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionBrowser];
+}
+
+- (void)didPresentBrowserViewController:(ANBrowserViewController *)controller
+{
+    if (!self.embeddedInModalView && !self.isExpanded) {
+        [self.adViewDelegate adDidPresent];
+
+        
+    }
+}
+
+- (void)willDismissBrowserViewController:(ANBrowserViewController *)controller
+{
+    if (!self.embeddedInModalView && !self.isExpanded)
+    {
+        [self.adViewDelegate adWillClose];
+    }
+
+    if (self.shouldDismissOnClick) {
+        [controller dismissViewControllerAnimated:NO completion:nil];
+    }
+
+    self.resizeManager.resizeView.hidden = NO;
+}
+
+- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller
+{
+    self.browserViewController = nil;
+
+    if (!self.embeddedInModalView && !self.isExpanded) {
+        [self.adViewDelegate adDidClose];
+    }
+
+    [self hideClickOverlay];
+    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionBrowser];
+}
+
+- (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller {
+    [self.adViewDelegate adWillLeaveApplication];
+}
+
+# pragma mark - Click overlay
+
+- (void)showClickOverlay {
+    if (!self.clickOverlay.superview) {
+        self.clickOverlay = [ANClickOverlayView addOverlayToView:[self viewToDisplayClickOverlay]];
+        self.clickOverlay.alpha = 0.0;
+    }
+
+    if (!CGAffineTransformIsIdentity(self.transform)) {
+        // In the case that ANMRAIDContainerView is magnified it is necessary to invert this magnification for the click overlay
+        self.clickOverlay.transform = CGAffineTransformInvert(self.transform);
+    }
+
+    self.clickOverlay.hidden = NO;
+
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         self.clickOverlay.alpha = 1.0;
+                     }];
+}
+
+- (UIView *)viewToDisplayClickOverlay {
+    if (self.isExpanded) {
+        return self.expandController.view;
+    } else if(self.isFullscreen){
+        return self.VASTVideofullScreenController.view;
+    }
+    else if (self.isResized) {
+        return self.resizeManager.resizeView;
+    } else {
+        return self;
+    }
+}
+
+- (void)hideClickOverlay {
+    if ([self.clickOverlay superview]) {
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             self.clickOverlay.alpha = 0.0;
+                         } completion:^(BOOL finished) {
+                             self.clickOverlay.hidden = YES;
+                         }];
+    }
+}
+
+
+
+
+#pragma mark - ANWebViewControllerANJAMDelegate
+
+- (void) handleANJAMURL:(NSURL *)URL
+{
+    [ANANJAMImplementation handleURL:URL withWebViewController:self.webViewController];
+}
+
+
+
+
+#pragma mark - ANWebViewControllerBrowserDelegate
+
+- (void)openDefaultBrowserWithURL:(NSURL *)URL
+{
+    if (!self.adViewDelegate) {
+        ANLogDebug(@"Ignoring attempt to trigger browser on ad while not attached to a view.");
+        return;
+    }
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to trigger browser as no hit was registered on the ad");
+        return;
+    }
+
+    [self.adViewDelegate adWasClicked];
+
+    if (![self.adViewDelegate opensInNativeBrowser]) {
+        [self openInAppBrowserWithURL:URL];
+    }
+    else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+        [self.adViewDelegate adWillLeaveApplication];
+        [ANGlobal openURL:[URL absoluteString]];
+    } else {
+        ANLogWarn(@"opening_url_failed %@", URL);
+    }
+}
+
+- (void)openInAppBrowserWithURL:(NSURL *)URL {
+    if (!self.userInteractedWithContentView) {
+        ANLogDebug(@"Ignoring attempt to trigger browser as no hit was registered on the ad");
+        return;
+    }
+
+    [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionBrowser];
+    if (!self.browserViewController) {
+        self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL
+                                                                         delegate:self
+                                                         delayPresentationForLoad:[self.adViewDelegate landingPageLoadsInBackground]];
+        if (!self.browserViewController) {
+            ANLogError(@"Browser controller did not instantiate correctly.");
+            return;
+        }
+    } else {
+        self.browserViewController.url = URL;
+    }
+}
+
+#pragma mark - ANAdWebViewControllerLoadingDelegate
+
+- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
+{
+    if (controller == self.webViewController)
+    {
+        // Attaching WKWebView to screen for an instant to allow it to fully load in the background
+        //   before the call to [ANAdDelegate adDidReceiveAd].
+        //
+        // NB  For banner video, this step has already occured in [ANAdViewWebController initWithSize:videoXML:].
+        //
+        if (! self.isBannerVideo) {
+            self.webViewController.contentView.hidden = YES;
+            [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
+                                                               atIndex:0];
+        }
+
+        __weak ANMRAIDContainerView  *weakSelf  = self;
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.15 * NSEC_PER_SEC), dispatch_get_main_queue(),
+        ^{
+            __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
+            if (!strongSelf)  {
+                ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+                return;
+            }
+
+            UIView  *contentView  = strongSelf.webViewController.contentView;
+
+            contentView.translatesAutoresizingMaskIntoConstraints = NO;
+
+            [strongSelf addSubview:contentView];
+            strongSelf.webViewController.contentView.hidden = NO;
+
+            [contentView an_constrainToSizeOfSuperview];
+            [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                yAttribute:NSLayoutAttributeTop];
+
+            [strongSelf.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
+        });
+    }
+}
+
+- (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
+{
+    if ([self.loadingDelegate respondsToSelector:@selector(immediatelyRestartAutoRefreshTimerFromWebViewController:)]) {
+        [self.loadingDelegate immediatelyRestartAutoRefreshTimerFromWebViewController:controller];
+    }
+}
+
+- (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
+{
+    if ([self.loadingDelegate respondsToSelector:@selector(stopAutoRefreshTimerFromWebViewController:)]) {
+        [self.loadingDelegate stopAutoRefreshTimerFromWebViewController:controller];
+    }
+}
+
+
+
+
+#pragma mark - ANAdWebViewControllerMRAIDDelegate
 
 - (CGRect)defaultPosition {
     if (self.window) {
@@ -210,7 +540,13 @@ ANAdWebViewControllerLoadingDelegate>
 }
 
 - (BOOL)isViewable {
-    return self.expandWebViewController ? [self.expandWebViewController.contentView an_isViewable] : [self.webViewController.contentView an_isViewable];
+    if (self.isBannerVideo) {
+        return  [self.webViewController.contentView an_isAtLeastHalfViewable];
+
+    } else {
+        return  self.expandWebViewController    ? [self.expandWebViewController.contentView an_isViewable]
+                                                : [self.webViewController.contentView an_isViewable];
+    }
 }
 
 - (void)adShouldExpandWithExpandProperties:(ANMRAIDExpandProperties *)expandProperties {
@@ -238,17 +574,19 @@ ANAdWebViewControllerLoadingDelegate>
 
     BOOL presentWithAnimation = NO;
     
-    if (expandProperties.URL.absoluteString.length) {
+    if (expandProperties.URL.absoluteString.length)
+    {
         ANAdWebViewControllerConfiguration *customConfig = [[ANAdWebViewControllerConfiguration alloc] init];
+
         customConfig.scrollingEnabled = YES;
         customConfig.navigationTriggersDefaultBrowser = NO;
         customConfig.initialMRAIDState = ANMRAIDStateExpanded;
-        customConfig.calloutsEnabled = YES;
         customConfig.userSelectionEnabled = YES;
-        self.expandWebViewController = [[ANAdWebViewController alloc] initWithSize:[ANMRAIDUtil screenSize]
-                                                                               URL:expandProperties.URL
-                                                                    webViewBaseURL:self.baseURL
-                                                                     configuration:customConfig];
+
+        self.expandWebViewController = [[ANAdWebViewController alloc] initWithSize: [ANMRAIDUtil screenSize]
+                                                                               URL: expandProperties.URL
+                                                                    webViewBaseURL: self.baseURL
+                                                                     configuration: customConfig];
         self.expandWebViewController.mraidDelegate = self;
         self.expandWebViewController.browserDelegate = self;
         self.expandWebViewController.pitbullDelegate = self;
@@ -265,12 +603,14 @@ ANAdWebViewControllerLoadingDelegate>
         [self adShouldSetOrientationProperties:self.orientationProperties];
     }
     self.expandController.delegate = self;
-    [presentingController presentViewController:self.expandController
-                                       animated:presentWithAnimation
-                                     completion:^{
-                                         [self.adViewDelegate adDidPresent];
-                                         [self.webViewController adDidFinishExpand];
-                                     }];
+
+    [presentingController presentViewController: self.expandController
+                                       animated: presentWithAnimation
+                                     completion: ^{
+                                             [self.adViewDelegate adDidPresent];
+                                             [self.webViewController adDidFinishExpand];
+                                         }
+     ];
 }
 
 - (void)adShouldSetOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties {
@@ -296,17 +636,21 @@ ANAdWebViewControllerLoadingDelegate>
     }
 }
 
-- (void)addSupplementaryCustomCloseRegion {
+- (void)addSupplementaryCustomCloseRegion
+{
     self.customCloseRegion = [UIButton buttonWithType:UIButtonTypeCustom];
     self.customCloseRegion.translatesAutoresizingMaskIntoConstraints = NO;
+
     [self insertSubview:self.customCloseRegion
            aboveSubview:self.webViewController.contentView];
+
     [self.customCloseRegion an_constrainWithSize:CGSizeMake(50.0, 50.0)];
     [self.customCloseRegion an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
                                                    yAttribute:NSLayoutAttributeTop];
-    [self.customCloseRegion addTarget:self
-                               action:@selector(closeInterstitial:)
-                     forControlEvents:UIControlEventTouchUpInside];
+
+    [self.customCloseRegion addTarget: self
+                               action: @selector(closeInterstitial:)
+                     forControlEvents: UIControlEventTouchUpInside];
 }
 
 - (void)closeInterstitial:(id)sender {
@@ -432,7 +776,10 @@ ANAdWebViewControllerLoadingDelegate>
                   completionSelector:@selector(image:didFinishSavingWithError:contextInfo:)];
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+- (void)                image: (UIImage *)image
+     didFinishSavingWithError: (NSError *)error
+                  contextInfo: (void *)contextInfo
+{
     if (error) {
         [self.webViewController adDidFailPhotoSaveWithErrorString:error.localizedDescription];
         [self.expandWebViewController adDidFailPhotoSaveWithErrorString:error.localizedDescription];
@@ -464,10 +811,6 @@ ANAdWebViewControllerLoadingDelegate>
     [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionVideo];
 }
 
-- (void)didMoveToWindow {
-    [self.resizeManager didMoveAnchorViewToWindow];
-}
-
 - (BOOL)isExpanded {
     return self.expandController.presentingViewController ? YES : NO;
 }
@@ -476,219 +819,15 @@ ANAdWebViewControllerLoadingDelegate>
     return self.resizeManager.isResized;
 }
 
-#pragma mark - ANCalendarManagerDelegate
 
-- (UIViewController *)rootViewControllerForPresentationForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
-    return [self displayController];
+
+
+#pragma mark - UIView observer methods.
+
+- (void)didMoveToWindow {
+    [self.resizeManager didMoveAnchorViewToWindow];
 }
 
-- (void)willDismissCalendarEditForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
-    if (!self.embeddedInModalView && !self.isExpanded) {
-        [self.adViewDelegate adWillClose];
-    }
-    self.resizeManager.resizeView.hidden = NO;
-}
-
-- (void)didDismissCalendarEditForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
-    if (!self.embeddedInModalView && !self.isExpanded) {
-        [self.adViewDelegate adDidClose];
-    }
-    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionCalendar];
-}
-
-- (void)willPresentCalendarEditForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
-    if (!self.embeddedInModalView && !self.isExpanded) {
-        [self.adViewDelegate adWillPresent];
-    }
-    self.resizeManager.resizeView.hidden = YES;
-}
-
-- (void)didPresentCalendarEditForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
-    if (!self.embeddedInModalView && !self.isExpanded) {
-        [self.adViewDelegate adDidPresent];
-    }
-}
-
-- (void)calendarManager:(ANMRAIDCalendarManager *)calendarManager calendarEditFailedWithErrorString:(NSString *)errorString {
-    [self.webViewController adDidFailCalendarEditWithErrorString:errorString];
-    [self.expandWebViewController adDidFailPhotoSaveWithErrorString:errorString];
-    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionCalendar];
-}
-
-#pragma mark - ANResizeViewManagerDelegate
-
-- (void)resizeViewClosedByResizeViewManager:(ANMRAIDResizeViewManager *)manager {
-    [self adShouldResetToDefault];
-}
-
-#pragma mark - ANMRAIDExpandViewControllerDelegate
-
-- (void)closeButtonWasTappedOnExpandViewController:(ANMRAIDExpandViewController *)controller {
-    [self adShouldResetToDefault];
-}
-
-- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange {
-    __weak ANMRAIDContainerView *weakSelf = self;
-    UIViewController *presentingViewController = self.expandController.presentingViewController;
-    [presentingViewController dismissViewControllerAnimated:NO
-                                                 completion:^{
-                                                     ANMRAIDContainerView *strongSelf = weakSelf;
-                                                     [presentingViewController presentViewController:strongSelf.expandController
-                                                                                            animated:NO
-                                                                                          completion:nil];
-                                                 }];
-}
-
-#pragma mark - ANWebViewControllerBrowserDelegate
-
-- (void)openDefaultBrowserWithURL:(NSURL *)URL {
-    if (!self.adViewDelegate) {
-        ANLogDebug(@"Ignoring attempt to trigger browser on ad while not attached to a view.");
-        return;
-    }
-    if (!self.userInteractedWithContentView) {
-        ANLogDebug(@"Ignoring attempt to trigger browser as no hit was registered on the ad");
-        return;
-    }
-    
-    [self.adViewDelegate adWasClicked];
-    
-    if (![self.adViewDelegate opensInNativeBrowser]) {
-        [self openInAppBrowserWithURL:URL];
-    }
-    else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
-        [self.adViewDelegate adWillLeaveApplication];
-        [ANGlobal openURL:[URL absoluteString]];
-    } else {
-        ANLogWarn(@"opening_url_failed %@", URL);
-    }
-}
-
-- (void)openInAppBrowserWithURL:(NSURL *)URL {
-    if (!self.userInteractedWithContentView) {
-        ANLogDebug(@"Ignoring attempt to trigger browser as no hit was registered on the ad");
-        return;
-    }
-    
-    [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionBrowser];
-    if (!self.browserViewController) {
-        self.browserViewController = [[ANBrowserViewController alloc] initWithURL:URL
-                                                                         delegate:self
-                                                         delayPresentationForLoad:[self.adViewDelegate landingPageLoadsInBackground]];
-        if (!self.browserViewController) {
-            ANLogError(@"Browser controller did not instantiate correctly.");
-            return;
-        }
-    } else {
-        self.browserViewController.url = URL;
-    }
-}
-
-#pragma mark - ANBrowserViewControllerDelegate
-
-- (UIViewController *)rootViewControllerForDisplayingBrowserViewController:(ANBrowserViewController *)controller {
-    return [self displayController];
-}
-
-- (void)browserViewController:(ANBrowserViewController *)controller browserIsLoading:(BOOL)isLoading {
-    if ([self.adViewDelegate landingPageLoadsInBackground]) {
-        if (!controller.completedInitialLoad) {
-            isLoading ? [self showClickOverlay] : [self hideClickOverlay];
-        } else {
-            [self hideClickOverlay];
-        }
-    }
-}
-
-- (void)willDismissBrowserViewController:(ANBrowserViewController *)controller {
-    if (!self.embeddedInModalView && !self.isExpanded) {
-        [self.adViewDelegate adWillClose];
-    }
-    if(self.shouldDismissOnClick){
-    [controller dismissViewControllerAnimated:NO completion:nil];
-    }
-    self.resizeManager.resizeView.hidden = NO;
-}
-
-- (void)didDismissBrowserViewController:(ANBrowserViewController *)controller {
-    self.browserViewController = nil;
-    if (!self.embeddedInModalView && !self.isExpanded) {
-        [self.adViewDelegate adDidClose];
-    }
-    [self hideClickOverlay];
-    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionBrowser];
-}
-
-- (void)willPresentBrowserViewController:(ANBrowserViewController *)controller {
-    if (!self.embeddedInModalView && !self.isExpanded) {
-        [self.adViewDelegate adWillPresent];
-    }
-    self.resizeManager.resizeView.hidden = YES;
-    [self adInteractionBeganWithInteraction:ANMRAIDContainerViewAdInteractionBrowser];
-}
-
-- (void)didPresentBrowserViewController:(ANBrowserViewController *)controller {
-    if (!self.embeddedInModalView && !self.isExpanded) {
-        [self.adViewDelegate adDidPresent];
-        
-    }
-}
-
-- (void)willLeaveApplicationFromBrowserViewController:(ANBrowserViewController *)controller {
-    [self.adViewDelegate adWillLeaveApplication];
-}
-
-- (void)handleBrowserLoadingForMRAIDStateChange {
-    [self.browserViewController stopLoading];
-    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionBrowser];
-}
-
-- (void)browserViewController:(ANBrowserViewController *)controller
-     couldNotHandleInitialURL:(NSURL *)url {
-    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionBrowser];
-}
-
-# pragma mark - Click overlay
-
-- (UIView *)viewToDisplayClickOverlay {
-    if (self.isExpanded) {
-        return self.expandController.view;
-    } else if (self.isResized) {
-        return self.resizeManager.resizeView;
-    } else {
-        return self;
-    }
-}
-
-- (void)showClickOverlay {
-    if (!self.clickOverlay.superview) {
-        self.clickOverlay = [ANClickOverlayView addOverlayToView:[self viewToDisplayClickOverlay]];
-        self.clickOverlay.alpha = 0.0;
-    }
-    
-    if (!CGAffineTransformIsIdentity(self.transform)) {
-        // In the case that ANMRAIDContainerView is magnified it is necessary to invert this magnification for the click overlay
-        self.clickOverlay.transform = CGAffineTransformInvert(self.transform);
-    }
-
-    self.clickOverlay.hidden = NO;
-    
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         self.clickOverlay.alpha = 1.0;
-                     }];
-}
-
-- (void)hideClickOverlay {
-    if ([self.clickOverlay superview]) {
-        [UIView animateWithDuration:0.5
-                         animations:^{
-                             self.clickOverlay.alpha = 0.0;
-                         } completion:^(BOOL finished) {
-                             self.clickOverlay.hidden = YES;
-                         }];
-    }
-}
 
 #pragma mark - ANWebViewControllerPitbullDelegate
 
@@ -767,33 +906,146 @@ ANAdWebViewControllerLoadingDelegate>
     return _pitbullCaptureURLQueue;
 }
 
-#pragma mark - ANWebViewControllerANJAMDelegate
 
-- (void)handleANJAMURL:(NSURL *)URL {
-    [ANANJAMImplementation handleURL:URL
-               withWebViewController:self.webViewController];
+
+
+#pragma mark - ANMRAIDCalendarManagerDelegate
+
+- (UIViewController *)rootViewControllerForPresentationForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
+    return [self displayController];
 }
 
-#pragma mark - ANAdWebViewControllerLoadingDelegate
+- (void)willDismissCalendarEditForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
+    if (!self.embeddedInModalView && !self.isExpanded) {
+        [self.adViewDelegate adWillClose];
+    }
+    self.resizeManager.resizeView.hidden = NO;
+}
 
-- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller {
-    if (controller == self.webViewController) {
-        // Attaching WKWebView to screen for an instant to allow it to fully load in the background
-        // before the call to [ANAdDelegate adDidReceiveAd]
-        self.webViewController.contentView.hidden = YES;
-        [[UIApplication sharedApplication].keyWindow insertSubview:self.webViewController.contentView
-                                                           atIndex:0];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.15 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            UIView *contentView = self.webViewController.contentView;
-            contentView.translatesAutoresizingMaskIntoConstraints = NO;
-            [self addSubview:contentView];
-            self.webViewController.contentView.hidden = NO;
-            [contentView an_constrainToSizeOfSuperview];
-            [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                                yAttribute:NSLayoutAttributeTop];
-            [self.loadingDelegate didCompleteFirstLoadFromWebViewController:controller];
-        });
+- (void)didDismissCalendarEditForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
+    if (!self.embeddedInModalView && !self.isExpanded) {
+        [self.adViewDelegate adDidClose];
+    }
+    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionCalendar];
+}
+
+- (void)willPresentCalendarEditForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
+    if (!self.embeddedInModalView && !self.isExpanded) {
+        [self.adViewDelegate adWillPresent];
+    }
+    self.resizeManager.resizeView.hidden = YES;
+}
+
+- (void)didPresentCalendarEditForCalendarManager:(ANMRAIDCalendarManager *)calendarManager {
+    if (!self.embeddedInModalView && !self.isExpanded) {
+        [self.adViewDelegate adDidPresent];
     }
 }
+
+- (void)calendarManager:(ANMRAIDCalendarManager *)calendarManager calendarEditFailedWithErrorString:(NSString *)errorString {
+    [self.webViewController adDidFailCalendarEditWithErrorString:errorString];
+    [self.expandWebViewController adDidFailPhotoSaveWithErrorString:errorString];
+    [self adInteractionEndedForInteraction:ANMRAIDContainerViewAdInteractionCalendar];
+}
+
+
+
+
+#pragma mark - ANMRAIDExpandViewControllerDelegate
+
+- (void)closeButtonWasTappedOnExpandViewController:(ANMRAIDExpandViewController *)controller {
+    [self adShouldResetToDefault];
+}
+
+- (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange
+{
+    __weak ANMRAIDContainerView     *weakSelf                   = self;
+    UIViewController                *presentingViewController   = self.expandController.presentingViewController;
+
+    [presentingViewController dismissViewControllerAnimated: NO
+                                                 completion: ^{
+                                                     ANMRAIDContainerView  *strongSelf  = weakSelf;
+                                                     if (!strongSelf)  {
+                                                         ANLogError(@"COULD NOT ACQUIRE strongSelf.");
+                                                         return;
+                                                     }
+
+                                                     [presentingViewController presentViewController: strongSelf.expandController
+                                                                                            animated: NO
+                                                                                          completion: nil];
+                                                 } ];
+}
+
+
+#pragma mark - ANMRAIDResizeViewManagerDelegate
+
+- (void)resizeViewClosedByResizeViewManager:(ANMRAIDResizeViewManager *)manager {
+    [self adShouldResetToDefault];
+}
+
+
+#pragma mark - ANAdWebViewControllerVideoDelegate.
+
+// NB  self.webViewController embeds its contentView into self.contentViewContainer.
+//     VAST fullscreen option is implemented by changing the frame size of self.contentViewContainer.
+//
+- (void)videoAdReady
+{
+    [self didCompleteFirstLoadFromWebViewController:self.webViewController];
+}
+
+- (void)videoAdLoadFailed:(NSError *)error
+{
+    if ([self.adViewDelegate respondsToSelector:@selector(adRequestFailedWithError:)]) {
+        [self.adViewDelegate adRequestFailedWithError:error];
+    }
+}
+
+- (void) videoAdError:(NSError *)error
+{
+    NSString  *errorString  = [NSString stringWithFormat:@"NSError: code=%@ domain=%@ userInfo=%@", @(error.code), error.domain, error.userInfo];
+    ANLogError(@"%@", errorString);
+}
+
+- (void) videoAdPlayerFullScreenEntered: (ANAdWebViewController *)videoAd
+{
+    UIViewController *presentingController = [self displayController];
+    if (!presentingController) {
+        ANLogDebug(@"Ignoring call to mraid.expand() - no root view controller to present from");
+        return;
+    }
+    self.VASTVideofullScreenController           = [[ANInterstitialAdViewController alloc] init];
+    self.VASTVideofullScreenController.needCloseButton = false;
+    self.VASTVideofullScreenController.contentView = videoAd.contentView;
+    if (self.backgroundColor) {
+        self.VASTVideofullScreenController.backgroundColor = self.backgroundColor;
+    }
+    
+    [presentingController presentViewController: self.VASTVideofullScreenController
+                                       animated: NO
+                                     completion:nil
+     ];
+    
+    self.isFullscreen = YES;
+    
+}
+
+- (void) videoAdPlayerFullScreenExited: (ANAdWebViewController *)videoAd
+{
+    UIView  *contentView  = videoAd.contentView;
+                       
+    contentView.translatesAutoresizingMaskIntoConstraints = NO;
+                       
+    [self addSubview:contentView];
+    
+    [contentView an_constrainToSizeOfSuperview];
+    [contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
+                                                           yAttribute:NSLayoutAttributeTop];
+    
+    [self.VASTVideofullScreenController.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+    self.VASTVideofullScreenController = nil;
+    self.isFullscreen = NO;
+}
+
 
 @end

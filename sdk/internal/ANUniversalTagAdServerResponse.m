@@ -14,6 +14,7 @@
  */
 
 #import "ANUniversalTagAdServerResponse.h"
+#import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
 #import "ANSSMStandardAd.h"
@@ -42,14 +43,20 @@ static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsRTBObject = @"rtb";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsNotifyUrl = @"notify_url";
 
+
+// Video
 static NSString *const kANUniversalTagAdServerResponseKeyVideoObject = @"video";
 static NSString *const kANUniversalTagAdServerResponseKeyVideoContent = @"content";
 static NSString *const kANUniversalTagAdServerResponseKeyVideoAssetURL = @"asset_url";
+static NSString *const kANUniversalTagAdServerResponseKeyVideoPlayerWidth = @"player_width";
+static NSString *const kANUniversalTagAdServerResponseKeyVideoPlayerHeight = @"player_height";
 
+// Banner
 static NSString *const kANUniversalTagAdServerResponseKeyBannerObject = @"banner";
 static NSString *const kANUniversalTagAdServerResponseKeyBannerWidth = @"width";
 static NSString *const kANUniversalTagAdServerResponseKeyBannerHeight = @"height";
 static NSString *const kANUniversalTagAdServerResponseKeyBannerContent = @"content";
+
 static NSString *const kANUniversalTagAdServerResponseMraidJSFilename = @"mraid.js";
 
 // SSM
@@ -160,7 +167,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 - (void)processV2ResponseData:(NSData *)data
 {
-    
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
     ANLogDebug(@"jsonResponse=%@", [jsonResponse description]);
     
@@ -184,9 +190,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 }
                 NSString *contentSource = [adObject[kANUniversalTagAdServerResponseKeyAdsContentSource] description];
                 NSString *adType = [adObject[kANUniversalTagAdServerResponseKeyAdsAdType] description];
-                
+
                 NSString *creativeId  = @"";
-                
                 if(adObject[kANUniversalTagAdServerResponseKeyAdsCreativeId] != nil)
                 {
                     creativeId  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsCreativeId]];
@@ -200,8 +205,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 
                 
                 // RTB
-                if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject]){
-                    NSDictionary *rtbObject = [[self class] rtbObjectFromAdObject:adObject];
+                if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
+                {
+                    NSDictionary  *rtbObject  = [[self class] rtbObjectFromAdObject:adObject];
+
                     if (rtbObject) {
                         // RTB Banner / Interstitial
                         if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]) {
@@ -210,27 +217,30 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                                 standardAd.creativeId = creativeId;
                                 [self.ads addObject:standardAd];
                             }
-                        }
+
                         // RTB - Video
-                        else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]){
+                        } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]){
                             ANRTBVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
                             if (videoAd) {
                                 videoAd.creativeId = creativeId;
                                 videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
+
                                 [self.ads addObject:videoAd];
-                                
                             }
-                        }else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
+
+                        } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
                             ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
                             if (nativeAd) {
                                 nativeAd.creativeId = creativeId;
                                 [self.ads addObject:nativeAd];
                             }
-                        }else{
+
+                        } else {
                             ANLogError(@"UNRECOGNIZED AD_TYPE in RTB.  (adType=%@  rtbObject=%@)", adType, rtbObject);
                         }
                     }
                 }
+
                 // CSM
                 else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsCSMObject]){
                     if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject] || [adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
@@ -260,6 +270,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         ANLogError(@"UNRECOGNIZED AD_TYPE in CSM.  (adObject=%@)", adObject);
                     }
                 }
+
                 // SSM - Only Banner and Interstitial are supported in SSM
                 else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsSSMObject]){
                     if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]){
@@ -278,6 +289,16 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     ANLogError(@"UNRECOGNIZED adObject.  (adObject=%@)", adObject);
                 }
                 
+
+                // Store general attributes of UT Response into select ad objects.
+                //
+                id  lastAdsObject  = [self.ads lastObject];
+
+                if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
+                    ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
+                    baseAdObject.adType = [adType copy];
+                }
+
             } //endfor -- adObject
         }
     }
@@ -362,17 +383,23 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     }
 }
 
-+ (ANRTBVideoAd *)videoAdFromRTBObject:(NSDictionary *)rtbObject {
-    if ([rtbObject[kANUniversalTagAdServerResponseKeyVideoObject] isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *video = rtbObject[kANUniversalTagAdServerResponseKeyVideoObject];
-        ANRTBVideoAd *videoAd = [[ANRTBVideoAd alloc] init];
-        videoAd.content = [video[kANUniversalTagAdServerResponseKeyVideoContent] description];
-        videoAd.assetURL = [video[kANUniversalTagAdServerResponseKeyVideoAssetURL] description];
-        return videoAd;
-    }else{
-        ANLogError(@"Response from ad server in an unexpected format. Expected RTB Video in rtbObject: %@", rtbObject);
++ (ANRTBVideoAd *)videoAdFromRTBObject:(NSDictionary *)rtbObject
+{
+    if (! [rtbObject[kANUniversalTagAdServerResponseKeyVideoObject] isKindOfClass:[NSDictionary class]])
+    {
+        ANLogError(@"Response from ad server in an unexpected format.  Expected RTB Video in rtbObject: %@", rtbObject);
         return nil;
     }
+
+    NSDictionary  *videoAdObjectDictionary  = rtbObject[kANUniversalTagAdServerResponseKeyVideoObject];
+    ANRTBVideoAd  *videoAd                  = [[ANRTBVideoAd alloc] init];
+
+    videoAd.content   = [videoAdObjectDictionary[kANUniversalTagAdServerResponseKeyVideoContent] description];
+    videoAd.assetURL  = [videoAdObjectDictionary[kANUniversalTagAdServerResponseKeyVideoAssetURL] description];
+    videoAd.width     = [videoAdObjectDictionary[kANUniversalTagAdServerResponseKeyVideoPlayerWidth] description];
+    videoAd.height    = [videoAdObjectDictionary[kANUniversalTagAdServerResponseKeyVideoPlayerHeight ] description];
+
+    return videoAd;
 }
 
 
@@ -486,7 +513,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         ANNativeStandardAdResponse *nativeAd = [[ANNativeStandardAdResponse alloc] init];
         
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMediaType] isKindOfClass:[NSString class]]) {
-            nativeAd.mediaType = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMediaType];
+            nativeAd.adObjectMediaType = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMediaType];
         }
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeTitle] isKindOfClass:[NSString class]]) {
             nativeAd.title = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeTitle];

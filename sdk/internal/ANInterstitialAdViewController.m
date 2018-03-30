@@ -43,6 +43,7 @@
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:ANResourcesBundle()];
     self.originalHiddenState = NO;
     self.orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    self.needCloseButton = YES;
     return self;
 }
 
@@ -60,7 +61,9 @@
         [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
                                                  yAttribute:NSLayoutAttributeCenterY];
     }
-    [self setupCloseButtonImageWithCustomClose:self.useCustomClose];
+    if(self.needCloseButton){
+        [self setupCloseButtonImageWithCustomClose:self.useCustomClose];
+    }
 }
 
 - (void)setupCloseButtonImageWithCustomClose:(BOOL)useCustomClose {
@@ -87,17 +90,21 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.viewed && ([self.delegate closeDelayForController] > 0.0)) {
-        [self startCountdownTimer];
-        self.viewed = YES;
-    } else {
-        [self stopCountdownTimer];
+    if(self.needCloseButton){
+        if (!self.viewed && ([self.delegate closeDelayForController] > 0.0)) {
+            [self startCountdownTimer];
+            self.viewed = YES;
+        } else {
+            [self stopCountdownTimer];
+        }
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.progressTimer invalidate];
+    if(self.needCloseButton){
+        [self.progressTimer invalidate];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -143,6 +150,11 @@
         [self.view insertSubview:_contentView
                     belowSubview:self.progressView];
         _contentView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        if(self.needCloseButton == NO){
+            self.responsiveAd = YES;
+        }
+        
         if ([_contentView isKindOfClass:[ANMRAIDContainerView class]]) {
             if (((ANMRAIDContainerView *) _contentView).isResponsiveAd) {
                 self.responsiveAd = YES;

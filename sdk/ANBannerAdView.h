@@ -14,6 +14,7 @@
  */
 
 #import "ANAdView.h"
+#import "ANGlobal.h"
 
 @protocol ANBannerAdViewDelegate;
 
@@ -156,6 +157,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 
 
+
 #pragma mark - Creating an ad view and loading an ad
 
 /**
@@ -197,7 +199,8 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  0, this will also start a timer to refresh the banner
  automatically.
  */
-- (void)loadAd;
+- (void) loadAd;
+
 
 @end
 

@@ -36,9 +36,9 @@
 
 @interface ANAdView () <ANUniversalAdFetcherDelegate, ANAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, weak)    id<ANAdDelegate>        delegate;
-@property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>  appEventDelegate;
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *universalAdFetcher;
+@property (nonatomic, readwrite, weak)    id<ANAdDelegate>         delegate;
+@property (nonatomic, readwrite, weak)    id<ANAppEventDelegate>   appEventDelegate;
+@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher    *universalAdFetcher;
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
@@ -62,6 +62,7 @@
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 @synthesize  customKeywords                         = __customKeywords;
 @synthesize  creativeId                             = __creativeId;
+@synthesize  adType                                 = __adType;
 
 #pragma mark - Initialization
 
@@ -92,20 +93,17 @@
     __reserve                                = 0.0f;
     __landingPageLoadsInBackground           = YES;
     __customKeywords                         = [[NSMutableDictionary alloc] init];
-}
+    }
 
 - (void)dealloc
 {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
     [self.universalAdFetcher stopAdLoad];
 }
 
 
 - (void)loadAd
 {
-    
     BOOL  placementIdValid    = [self.placementId length] >= 1;
     BOOL  inventoryCodeValid  = ([self memberId] >=1 ) && [self inventoryCode];
     
@@ -154,6 +152,15 @@
     if (creativeId != __creativeId) {
         ANLogDebug(@"Setting creativeId to %@", creativeId);
         __creativeId = creativeId;
+    }
+}
+
+
+- (void)setAdType:(ANAdType)adType
+{
+    if (adType != __adType) {
+        ANLogDebug(@"Setting adType to %@", @(adType));
+        __adType = adType;
     }
 }
 
@@ -324,6 +331,12 @@
     return  CGSizeMake(-1, -1);
 }
 
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher
+{
+    ANLogWarn(@"ABSTRACT METHOD -- Implement in each entrypoint.");
+    return  ANVideoAdSubtypeUnknown;
+}
+
 
 
 
@@ -384,25 +397,31 @@
     }
 }
 
-- (void)adInteractionDidBegin {
+- (void)adInteractionDidBegin
+{
     ANLogDebug(@"");
     [self.universalAdFetcher stopAdLoad];
 }
 
-- (void)adInteractionDidEnd {
+- (void)adInteractionDidEnd
+{
     ANLogDebug(@"");
-    [self.universalAdFetcher restartAutoRefreshTimer];
-    [self.universalAdFetcher startAutoRefreshTimer];
+
+    if (ANAdTypeVideo != self.adType) {
+        [self.universalAdFetcher restartAutoRefreshTimer];
+        [self.universalAdFetcher startAutoRefreshTimer];
+    }
 }
 
-
-- (NSString *)adTypeForMRAID    {
+- (NSString *)adTypeForMRAID
+{
     ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return @"";
 }
 
-- (UIViewController *)displayController {
-    ANLogDebug(@"%@ is abstract, should be implemented by subclass", NSStringFromSelector(_cmd));
+- (UIViewController *)displayController
+{
+    ANLogDebug(@"ABSTRACT METHOD.  MUST be implemented by subclass.");
     return nil;
 }
 

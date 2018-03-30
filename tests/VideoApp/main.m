@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2017 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,15 +13,11 @@
  limitations under the License.
  */
 
-#import "ANBannerAdView.h"
-#import "ANUniversalAdFetcher.h"
+#import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
-@interface ANBannerAdView (ANTest) <ANUniversalAdFetcherDelegate>
-
-@property (nonatomic) UIView *contentView;
-@property (nonatomic) NSNumber *transitionInProgress;
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *universalAdFetcher;
-
-- (void)adFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response;
-
-@end
+int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}

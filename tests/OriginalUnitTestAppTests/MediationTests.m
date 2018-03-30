@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
 
 - (ANMediationAdViewController *)mediationController;
 
-- (ANMRAIDContainerView *)standardAdView;
+- (ANMRAIDContainerView *)adView;
 
 @end
 
@@ -159,7 +159,7 @@ typedef NS_ENUM(NSUInteger, ANMediationTestsType) {
         case ANMediationTestsTwoSuccessfulResponses_Part2:
         {
             // don't set adapter here, because we want to retain the adapter from case 7
-            self.standardAdView = [fetcher standardAdView];
+            self.standardAdView = [fetcher adView];
             break;
         }
 

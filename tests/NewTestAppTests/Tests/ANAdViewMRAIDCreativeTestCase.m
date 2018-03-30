@@ -41,7 +41,7 @@
 
     ANUniversalTagAdServerResponse *adServerResponse = [self responseWithJSONResource:kANAdResponseSuccessfulMRAIDListener];
     [self.adFetcher handleStandardAd:adServerResponse.ads[0]];
-    UIView *view = self.adFetcher.standardAdView;
+    UIView *view = self.adFetcher.adView;
     [bannerAdView setContentView:view];
 }
 

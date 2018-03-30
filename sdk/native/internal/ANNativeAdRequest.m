@@ -27,7 +27,6 @@
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
 
-//
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;

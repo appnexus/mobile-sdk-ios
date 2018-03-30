@@ -23,6 +23,7 @@
 #import "ANAdConstants.h"
 #import "ANAdViewInternalDelegate.h"
 #import "ANAdProtocol.h"
+#import "ANGlobal.h"
 
 
 
@@ -43,6 +44,7 @@
 
 - (void) startAutoRefreshTimer;
 - (void) restartAutoRefreshTimer;
+- (void) stopAutoRefreshTimer;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 - (CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
@@ -98,9 +100,11 @@
 
 @optional
 
-// NB  autoRefreshIntervalForAdFetcher: is required for ANBannerAdView, but is not used by any other entrypoint.
+// NB  autoRefreshIntervalForAdFetcher: and videoAdTypeForAdFetcher: are required for ANBannerAdView,
+//       but are not used by any other entrypoint.
 //
-- (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+- (NSTimeInterval) autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 
 @end
 

@@ -382,12 +382,12 @@
 {
     NSString *exec = @"";
     if([self.vastContent length] > 0){
-        NSString *exec_template = @"createVastPlayerWithContent('%@');";
+        NSString *exec_template = @"createVastPlayerWithContent('%@','INSTREAM_VIDEO');";
         exec = [NSString stringWithFormat:exec_template, self.vastContent];
         [self.webView evaluateJavaScript:exec completionHandler:nil];
 
     }else if([self.vastURL length] > 0){
-        NSString *exec_template = @"createVastPlayerWithURL('%@');";
+        NSString *exec_template = @"createVastPlayerWithURL('%@','INSTREAM_VIDEO');";
         exec = [NSString stringWithFormat:exec_template, self.vastURL];
         [self.webView evaluateJavaScript:exec completionHandler:nil];
     }else if([self.jsonContent length] > 0){

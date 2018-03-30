@@ -14,9 +14,14 @@
  */
 
 #import <UIKit/UIKit.h>
+
 #import "ANAdWebViewController.h"
 
+
+
 @protocol ANAdViewInternalDelegate;
+
+
 
 @interface ANMRAIDContainerView : UIView
 
@@ -24,17 +29,20 @@
                         HTML:(NSString *)html
               webViewBaseURL:(NSURL *)baseURL;
 
+- (instancetype) initWithSize: (CGSize)size
+                     videoXML: (NSString *)videoXML;
 
 
-@property (nonatomic, readonly, assign) CGSize size;
-@property (nonatomic, readonly, assign, getter=isResponsiveAd) BOOL responsiveAd;
+@property (nonatomic, readonly, assign)                         CGSize  size;
+@property (nonatomic, readonly, assign, getter=isResponsiveAd)  BOOL    responsiveAd;
+@property (nonatomic, readonly)                                 BOOL    isBannerVideo;
 
-@property (nonatomic, readonly, strong) ANAdWebViewController *webViewController;
-@property (nonatomic, readwrite, weak) id<ANAdWebViewControllerLoadingDelegate> loadingDelegate;
+@property (nonatomic, readonly, strong)     ANAdWebViewController                       *webViewController;
 
-@property (nonatomic, readwrite, weak) id<ANAdViewInternalDelegate> adViewDelegate;
-@property (nonatomic, readwrite, assign) BOOL embeddedInModalView;
-@property (nonatomic , readwrite , assign) BOOL shouldDismissOnClick;
+@property (nonatomic, readwrite, weak)      id<ANAdWebViewControllerLoadingDelegate>     loadingDelegate;
+@property (nonatomic, readwrite, weak)      id<ANAdViewInternalDelegate>                 adViewDelegate;
 
+@property (nonatomic, readwrite, assign)    BOOL  embeddedInModalView;
+@property (nonatomic , readwrite, assign)   BOOL  shouldDismissOnClick;
 
 @end

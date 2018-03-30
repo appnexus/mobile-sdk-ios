@@ -322,4 +322,31 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     return  nil;
 }
 
++ (ANAdType) adTypeStringToEnum:(NSString *)adTypeString
+{
+    NSString  *adTypeStringVerified  = ANConvertToNSString(adTypeString);
+
+    if ([adTypeStringVerified length] < 1) {
+        ANLogError(@"Could not resolve string from adTypeString.");
+        return  ANAdTypeUnknown;
+    }
+
+    //
+    NSString  *adTypeStringLowercase  = [adTypeString lowercaseString];
+
+    if ([adTypeStringLowercase compare:@"banner"] == NSOrderedSame) {
+        return  ANAdTypeBanner;
+
+    } else if ([adTypeStringLowercase compare:@"video"] == NSOrderedSame) {
+        return  ANAdTypeVideo;
+
+    } else if ([adTypeStringLowercase compare:@"native"] == NSOrderedSame) {
+        return  ANAdTypeNative;
+    }
+
+    ANLogError(@"UNRECOGNIZED adTypeString.  (%@)", adTypeString);
+    return  ANAdTypeUnknown;
+}
+
+
 @end

@@ -14,11 +14,10 @@
  */
 
 #import "ANBannerAdView.h"
+#import "ANMRAIDContainerView.h"
 
 #import "ANUniversalAdFetcher.h"
-#import "ANGlobal.h"
 #import "ANLogging.h"
-#import "ANMRAIDContainerView.h"
 #import "ANTrackerManager.h"
 
 #import "UIView+ANCategory.h"
@@ -26,14 +25,21 @@
 #import "ANBannerAdView+ANContentViewTransitions.h"
 #import "ANAdView+PrivateMethods.h"
 
+#import "ANStandardAd.h"
+#import "ANRTBVideoAd.h"
+#import "ANMediationContainerView.h"
+#import "ANMediatedAd.h"
+
+
 
 
 @interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong)  UIView    *contentView;
-@property (nonatomic, readwrite, strong)  NSNumber  *transitionInProgress;
+@property (nonatomic, readwrite, strong)  UIView            *contentView;
 
-@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
+@property (nonatomic, readwrite, strong)  NSNumber              *transitionInProgress;
+
+@property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionURLs;
 
 @end
 
@@ -48,7 +54,7 @@
 
 
 
-#pragma mark - Initialization
+#pragma mark - Lifecycle.
 
 - (void)initialize {
     [super initialize];
@@ -57,9 +63,9 @@
     
     // Defaults.
     //
-    __autoRefreshInterval  = kANBannerDefaultAutoRefreshInterval;
-    _transitionDuration    = kAppNexusBannerAdTransitionDefaultDuration;
-    
+    __autoRefreshInterval   = kANBannerDefaultAutoRefreshInterval;
+    _transitionDuration     = kAppNexusBannerAdTransitionDefaultDuration;
+
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
     self.allowSmallerSizes  = NO;
@@ -83,7 +89,8 @@
     
     if (self != nil) {
         [self initialize];
-        self.backgroundColor = [UIColor clearColor];
+
+        self.backgroundColor  = [UIColor clearColor];
     }
     
     return self;
@@ -127,11 +134,11 @@
     return self;
 }
 
-
-- (void)loadAd
+- (void) loadAd
 {
     [super loadAd];
 }
+
 
 
 
@@ -187,11 +194,15 @@
 }
 
 
-- (void)setAutoRefreshInterval:(NSTimeInterval)autoRefreshInterval {
-    // if auto refresh is above the threshold (0), turn auto refresh on
-    if (autoRefreshInterval > kANBannerAutoRefreshThreshold) {
-        // minimum allowed value for auto refresh is (15).
-        if (autoRefreshInterval < kANBannerMinimumAutoRefreshInterval) {
+// if auto refresh is above the threshold (0), turn auto refresh on
+// minimum allowed value for auto refresh is (15).
+//
+- (void)setAutoRefreshInterval:(NSTimeInterval)autoRefreshInterval
+{
+    if (autoRefreshInterval > kANBannerAutoRefreshThreshold)
+    {
+        if (autoRefreshInterval < kANBannerMinimumAutoRefreshInterval)
+        {
             __autoRefreshInterval = kANBannerMinimumAutoRefreshInterval;
             ANLogWarn(@"setAutoRefreshInterval called with value %f, AutoRefresh interval set to minimum allowed value %f", autoRefreshInterval, kANBannerMinimumAutoRefreshInterval);
         } else {
@@ -203,6 +214,7 @@
         
         ANLogDebug(@"New autoRefresh interval set. Making ad request.");
         [self.universalAdFetcher requestAd];
+
     } else {
         ANLogDebug(@"Turning auto refresh off");
         __autoRefreshInterval = autoRefreshInterval;
@@ -216,11 +228,13 @@
 
 
 
+
 #pragma mark - Transitions
 
-- (void)setContentView:(UIView *)newContentView {
-    if (newContentView != _contentView) {
-        
+- (void)setContentView:(UIView *)newContentView
+{
+    if (newContentView != _contentView)
+    {
         if ([newContentView isKindOfClass:[UIWebView class]]) {
             UIWebView *webView = (UIWebView *)newContentView;
             [webView an_removeDocumentPadding];
@@ -231,13 +245,13 @@
         _contentView = newContentView;
         
         if ([newContentView isKindOfClass:[ANMRAIDContainerView class]]) {
-            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)newContentView;
-            standardAdView.adViewDelegate = self;
+            ANMRAIDContainerView *adView = (ANMRAIDContainerView *)newContentView;
+            adView.adViewDelegate = self;
         }
         
         if ([oldContentView isKindOfClass:[ANMRAIDContainerView class]]) {
-            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)oldContentView;
-            standardAdView.adViewDelegate = nil;
+            ANMRAIDContainerView *adView = (ANMRAIDContainerView *)oldContentView;
+            adView.adViewDelegate = nil;
         }
         
         [self performTransitionFromContentView:oldContentView
@@ -245,13 +259,18 @@
     }
 }
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     [super layoutSubviews];
-    if (self.shouldResizeAdToFitContainer && [self.contentView isKindOfClass:[ANMRAIDContainerView class]]) {
+
+    if (self.shouldResizeAdToFitContainer && [self.contentView isKindOfClass:[ANMRAIDContainerView class]])
+    {
         ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
-        CGFloat horizontalScaleFactor = self.frame.size.width / [standardAdView an_originalFrame].size.width;
-        CGFloat verticalScaleFactor = self.frame.size.height / [standardAdView an_originalFrame].size.height;
-        CGFloat scaleFactor = horizontalScaleFactor < verticalScaleFactor ? horizontalScaleFactor : verticalScaleFactor;
+
+        CGFloat  horizontalScaleFactor   = self.frame.size.width / [standardAdView an_originalFrame].size.width;
+        CGFloat  verticalScaleFactor     = self.frame.size.height / [standardAdView an_originalFrame].size.height;
+        CGFloat  scaleFactor             = horizontalScaleFactor < verticalScaleFactor ? horizontalScaleFactor : verticalScaleFactor;
+
         CGAffineTransform transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
         standardAdView.transform = transform;
     }
@@ -261,6 +280,7 @@
     if (!_transitionInProgress) _transitionInProgress = @(NO);
     return _transitionInProgress;
 }
+
 
 
 
@@ -279,45 +299,53 @@
 
 #pragma mark - ANUniversalAdFetcherDelegate
 
-
 - (void)universalAdFetcher:(ANUniversalAdFetcher *)fetcher didFinishRequestWithResponse:(ANAdFetcherResponse *)response
 {
     NSError *error;
     
-    if ([response isSuccessful]) {
+    if ([response isSuccessful]) 
+    {
         UIView *contentView      = response.adObject;
         id      adObjectHandler  = response.adObjectHandler;
         
-        self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
         
-        
-        
-        NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:adObjectHandler];
-        
-        if(creativeId){
+        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:adObjectHandler];
+        if (creativeId) {
              [self setCreativeId:creativeId];
         }
-        
-        if ([contentView isKindOfClass:[UIView class]]) {
+
+        NSString  *adTypeString =  (NSString *) [ANGlobal valueOfGetterProperty:@"adType" forObject:adObjectHandler];
+        if (adTypeString) {
+            [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
+        }
+
+
+        if ([contentView isKindOfClass:[UIView class]]) 
+        {
             self.contentView = contentView;
             [self adDidReceiveAd];
             
-            @synchronized (self)
-            {
-                if (self.window)  {
-                    [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
-                    self.impressionURLs = nil;
+            if (! [adObjectHandler isKindOfClass:[ANRTBVideoAd class]]) {
+                self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
+
+                @synchronized (self)
+                {
+                    if (self.window)  {
+                        [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
+                        self.impressionURLs = nil;
+                    }
                 }
             }
-            
+
+
         } else {
             NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")};
             error = [NSError errorWithDomain:AN_ERROR_DOMAIN
                                         code:ANAdResponseNonViewResponse
                                     userInfo:errorInfo];
         }
-    }
-    else {
+
+    } else {
         error = response.error;
     }
     
@@ -328,12 +356,17 @@
     }
 }
 
+
 - (NSTimeInterval)autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return self.autoRefreshInterval;
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return self.adSize;
+}
+
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
+    return  ANVideoAdSubtypeBannerVideo;
 }
 
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
@@ -367,15 +400,18 @@
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-    return  @[ @(ANAllowedMediaTypeBanner) ];
+    return  @[ @(ANAllowedMediaTypeBanner), @(ANAllowedMediaTypeVideo) ];
 }
 
 
-- (UIViewController *)displayController {
+- (UIViewController *)displayController
+{
     UIViewController *displayController = self.rootViewController;
+
     if (!displayController) {
         displayController = [self an_parentViewController];
     }
+
     return displayController;
 }
 

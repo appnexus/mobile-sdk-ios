@@ -14,21 +14,49 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
+
 #import "ANAdViewInternalDelegate.h"
 #import "ANMRAIDUtil.h"
 
+
+
+
+@class ANAdWebViewControllerConfiguration;
 @class ANMRAIDExpandProperties;
 @class ANMRAIDResizeProperties;
 @class ANMRAIDOrientationProperties;
-@class ANAdWebViewControllerConfiguration;
+
+@protocol ANAdWebViewControllerANJAMDelegate;
+@protocol ANAdWebViewControllerBrowserDelegate;
+@protocol ANAdWebViewControllerLoadingDelegate;
 @protocol ANAdWebViewControllerMRAIDDelegate;
 @protocol ANAdWebViewControllerPitbullDelegate;
-@protocol ANAdWebViewControllerBrowserDelegate;
-@protocol ANAdWebViewControllerANJAMDelegate;
-@protocol ANAdWebViewControllerLoadingDelegate;
+@protocol ANAdWebViewControllerVideoDelegate;
+
+
 
 @interface ANAdWebViewController : NSObject
 
+@property (nonatomic, readonly, assign)  BOOL         isMRAID;
+@property (nonatomic, readonly, strong)  UIView      *contentView;
+@property (nonatomic, readonly, assign)  BOOL         completedFirstLoad;
+
+@property (nonatomic, readonly, strong)  ANAdWebViewControllerConfiguration  *configuration;
+
+@property (nonatomic, readwrite, weak)  id<ANAdViewInternalDelegate>  adViewANJAMDelegate;
+@property (nonatomic, readwrite, weak)  id<ANAdViewInternalDelegate>  adViewDelegate;
+
+@property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerANJAMDelegate>      anjamDelegate;
+@property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerBrowserDelegate>    browserDelegate;
+@property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerLoadingDelegate>    loadingDelegate;
+@property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerMRAIDDelegate>      mraidDelegate;
+@property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerPitbullDelegate>    pitbullDelegate;
+@property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerVideoDelegate>      videoDelegate;
+
+@property (nonatomic, readwrite, assign)  NSTimeInterval  checkViewableTimeInterval;
+
+
 - (instancetype)initWithSize:(CGSize)size
                          URL:(NSURL *)URL
               webViewBaseURL:(NSURL *)baseURL;
@@ -47,21 +75,9 @@
               webViewBaseURL:(NSURL *)baseURL
                configuration:(ANAdWebViewControllerConfiguration *)configuration;
 
-@property (nonatomic, readonly, assign) BOOL isMRAID;
-@property (nonatomic, readonly, strong) UIView *contentView;
-@property (nonatomic, readonly, assign) BOOL completedFirstLoad;
-@property (nonatomic, readonly, strong) ANAdWebViewControllerConfiguration *configuration;
+- (instancetype) initWithSize: (CGSize)size
+                     videoXML: (NSString *)videoXML;
 
-@property (nonatomic, readwrite, weak) id<ANAdViewInternalDelegate> adViewDelegate;
-@property (nonatomic, readwrite, weak) id<ANAdViewInternalDelegate> adViewANJAMDelegate;
-
-@property (nonatomic, readwrite, weak) id<ANAdWebViewControllerLoadingDelegate> loadingDelegate;
-@property (nonatomic, readwrite, weak) id<ANAdWebViewControllerBrowserDelegate> browserDelegate;
-@property (nonatomic, readwrite, weak) id<ANAdWebViewControllerPitbullDelegate> pitbullDelegate;
-@property (nonatomic, readwrite, weak) id<ANAdWebViewControllerANJAMDelegate> anjamDelegate;
-@property (nonatomic, readwrite, weak) id<ANAdWebViewControllerMRAIDDelegate> mraidDelegate;
-
-@property (nonatomic, readwrite, assign) NSTimeInterval checkViewableTimeInterval;
 
 - (void)adDidFinishExpand;
 - (void)adDidFinishResize:(BOOL)success
@@ -74,23 +90,31 @@
 
 - (void)fireJavaScript:(NSString *)javascript;
 
+
 @end
+
+
+
 
 @interface ANAdWebViewControllerConfiguration : NSObject <NSCopying>
 
-@property (nonatomic, readwrite, assign) BOOL scrollingEnabled;
-@property (nonatomic, readwrite, assign) BOOL navigationTriggersDefaultBrowser;
-@property (nonatomic, readwrite, assign) ANMRAIDState initialMRAIDState;
-@property (nonatomic, readwrite, assign) BOOL calloutsEnabled;
-@property (nonatomic, readwrite, assign) BOOL userSelectionEnabled;
+@property (nonatomic, readwrite, assign)  BOOL          scrollingEnabled;
+@property (nonatomic, readwrite, assign)  BOOL          navigationTriggersDefaultBrowser;
+@property (nonatomic, readwrite, assign)  ANMRAIDState  initialMRAIDState;
+@property (nonatomic, readwrite, assign)  BOOL          userSelectionEnabled;
 
 @end
 
-@protocol ANAdWebViewControllerLoadingDelegate <NSObject>
 
-- (void)didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller;
+
+#pragma mark - Protocol definitions.
+
+@protocol ANAdWebViewControllerANJAMDelegate <NSObject>
+
+- (void)handleANJAMURL:(NSURL *)URL;
 
 @end
+
 
 @protocol ANAdWebViewControllerBrowserDelegate <NSObject>
 
@@ -99,17 +123,21 @@
 
 @end
 
-@protocol ANAdWebViewControllerPitbullDelegate <NSObject>
 
-- (void)handlePitbullURL:(NSURL *)URL;
+// NB  This delegate is used unconventionally as a means to call back through two class compositions:
+//     ANAdWebViewController calls ANMRAIDContainerView calls ANUniversalAdFetcher.
+//
+@protocol ANAdWebViewControllerLoadingDelegate <NSObject>
+
+@required
+- (void) didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller;
+
+@optional
+- (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;
+- (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller;
 
 @end
 
-@protocol ANAdWebViewControllerANJAMDelegate <NSObject>
-
-- (void)handleANJAMURL:(NSURL *)URL;
-
-@end
 
 @protocol ANAdWebViewControllerMRAIDDelegate <NSObject>
 
@@ -128,3 +156,24 @@
 - (void)adShouldPlayVideoWithUri:(NSString *)uri;
 
 @end
+
+
+@protocol ANAdWebViewControllerPitbullDelegate <NSObject>
+
+- (void)handlePitbullURL:(NSURL *)URL;
+
+@end
+
+
+@protocol ANAdWebViewControllerVideoDelegate <NSObject>
+
+-(void) videoAdReady;
+-(void) videoAdLoadFailed:(NSError *)error;
+- (void) videoAdError:(NSError *)error;
+
+- (void) videoAdPlayerFullScreenEntered: (ANAdWebViewController *)videoAd;
+- (void) videoAdPlayerFullScreenExited: (ANAdWebViewController *)videoAd;
+
+
+@end
+

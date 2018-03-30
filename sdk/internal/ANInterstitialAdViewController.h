@@ -30,6 +30,7 @@
 
 @property (nonatomic, readwrite, strong) ANMRAIDOrientationProperties *orientationProperties;
 @property (nonatomic, readwrite, assign) BOOL useCustomClose;
+@property (nonatomic, readwrite, assign) BOOL needCloseButton;
 
 - (IBAction)closeAction:(id)sender;
 - (void)stopCountdownTimer;
@@ -38,8 +39,12 @@
 
 @protocol ANInterstitialAdViewControllerDelegate <NSObject>
 
+@required
 - (void)interstitialAdViewControllerShouldDismiss:(ANInterstitialAdViewController *)controller;
-- (NSTimeInterval)closeDelayForController;
 - (void)dismissAndPresentAgainForPreferredInterfaceOrientationChange;
+
+@optional
+- (NSTimeInterval)closeDelayForController;
+
 
 @end
