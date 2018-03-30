@@ -1,3 +1,10 @@
+
+## 4.5
+### New Features
++ Banner Video
+
+
+
 ## 4.4.2
 ### Bug Fixes
 + MS-3200 - Fixed ANLocalizations overriding parent app localizations

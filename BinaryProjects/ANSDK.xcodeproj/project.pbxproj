@@ -2282,7 +2282,6 @@
 				609733001E42EAFF0061EC0A /* ASTMediationManager.js */,
 				ECE4EACE194B768A0069D934 /* errors.strings */,
 				60F6AC1C2051C50C0022560D /* Info.plist */,
-				FC210A422007D8F4002A9F0E /* Localizable.strings */,
 				60AB32891E521FE500429ED7 /* MobileVastPlayer.js */,
 				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 				4F403A6D2043C8CF00EF75A2 /* vastVideo.html */,
@@ -3009,7 +3008,6 @@
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
 				60F6AC1D2051C50C0022560D /* Info.plist in Resources */,
-				FC210A402007D8F4002A9F0E /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
