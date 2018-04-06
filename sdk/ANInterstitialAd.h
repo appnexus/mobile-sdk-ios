@@ -136,6 +136,13 @@
 */
 - (void)displayAdFromViewController:(UIViewController *)controller;
 
+/**
+ Instead of displaying an interstitial to the user using displayAdFromViewController, alternatively, you can use the
+ method below which will auto-dismiss the ad after the delay seconds.
+ */
+
+- (void)displayAdFromViewController:(UIViewController *)controller autoDismissDelay:(NSTimeInterval)delay;
+
 
 @end
 

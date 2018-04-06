@@ -31,6 +31,8 @@
 @property (nonatomic, readwrite, strong) ANMRAIDOrientationProperties *orientationProperties;
 @property (nonatomic, readwrite, assign) BOOL useCustomClose;
 @property (nonatomic, readwrite, assign) BOOL needCloseButton;
+@property (nonatomic, readwrite, assign)  NSTimeInterval     autoDismissAdDelay;
+
 
 - (IBAction)closeAction:(id)sender;
 - (void)stopCountdownTimer;

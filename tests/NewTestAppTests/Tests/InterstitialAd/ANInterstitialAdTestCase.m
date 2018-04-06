@@ -17,11 +17,20 @@
 
 #import <XCTest/XCTest.h>
 #import "ANInterstitialAd.h"
+#import "ANInterstitialAd+ANTest.h"
+#import "ANHTTPStubbingManager.h"
+#import "ANSDKSettings+PrivateMethods.h"
+#import "XCTestCase+ANAdResponse.h"
 
+#define  ROOT_VIEW_CONTROLLER  [UIApplication sharedApplication].keyWindow.rootViewController;
+#define kAppNexusRequestTimeoutInterval 30.0
 
-@interface ANInterstitialAdTestCase : XCTestCase
+@interface ANInterstitialAdTestCase : XCTestCase <ANInterstitialAdDelegate>
 @property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
-
+@property (nonatomic, strong) XCTestExpectation *loadAdSuccesfulException;
+@property (nonatomic, strong) XCTestExpectation *closeAdSuccesfulException;
+@property (nonatomic, readwrite)  BOOL  enableAutoDismissDelay;
+@property (nonatomic, readwrite)  BOOL  didAdClose;
 @end
 
 @implementation ANInterstitialAdTestCase
@@ -35,22 +44,33 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
     self.interstitial = nil;
+    
+}
 
+-(void) setupInterstitialAd{
+    [self clearSetupInterstitialAd];
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
+    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1281482"];
+    self.interstitial.delegate = self;
+}
+
+
+- (void)clearSetupInterstitialAd {
+    self.interstitial = nil;
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
 }
 
 - (void)testANInterstitialWithTrue
 {
-    
     [self initializeANInterstitialTrue];
     XCTAssertEqual(@"1", [self.interstitial placementId]);
     XCTAssertTrue(self.interstitial.dismissOnClick);
-    
 }
 
 
 - (void)testANInterstitialAdWithWithFalse
 {
-    
     [self initializeANInterstitialFalse];
     XCTAssertEqual(@"1", [self.interstitial placementId]);
     XCTAssertFalse(self.interstitial.dismissOnClick);
@@ -60,12 +80,11 @@
 
 - (void)testANInterstitialAdWithDefault
 {
-    
     [self initializeANInterstitialDefault];
     XCTAssertEqual(@"1", [self.interstitial placementId]);
     XCTAssertFalse(self.interstitial.dismissOnClick);
-    
 }
+
 
 -(void) initializeANInterstitialDefault {
     self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
@@ -81,6 +100,83 @@
     self.interstitial.dismissOnClick = true;
 }
 
+- (void)testANInterstitialWithAutoDismissAdDelay
+{
+    self.enableAutoDismissDelay = true;
+    [self setupInterstitialAd];
+    [self stubRequestWithResponse:@"SuccessfulStandardAdFromRTBObjectResponse"];
+    [self.interstitial loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+
+                                 }];
+    XCTAssertEqual(10, self.interstitial.controller.autoDismissAdDelay);
+    self.closeAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidClose to be received"];
+   
+    [self waitForExpectationsWithTimeout:10 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertTrue(self.didAdClose);
+
+}
+
+- (void)testANInterstitialWithoutAutoDismissAdDelay
+{
+    self.enableAutoDismissDelay = false;
+    [self setupInterstitialAd];
+    [self stubRequestWithResponse:@"SuccessfulStandardAdFromRTBObjectResponse"];
+    [self.interstitial loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqual(-1, self.interstitial.controller.autoDismissAdDelay);
+}
+
+#pragma mark - Stubbing
+
+- (void) stubRequestWithResponse:(NSString *)responseName {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile: [currentBundle pathForResource:responseName
+                                                                                         ofType:@"json" ]
+                                                       encoding: NSUTF8StringEncoding
+                                                          error: nil ];
+    
+    ANURLConnectionStub  *requestStub  = [[ANURLConnectionStub alloc] init];
+    
+    requestStub.requestURL    = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    requestStub.responseCode  = 200;
+    requestStub.responseBody  = baseResponse;
+    
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
+}
+
+#pragma mark - ANAdDelegate
+
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
+    UIViewController *controller = ROOT_VIEW_CONTROLLER;
+   
+    if(self.enableAutoDismissDelay){
+        [self.interstitial displayAdFromViewController:controller autoDismissDelay:10];
+    }else{
+        [self.interstitial displayAdFromViewController:controller];
+    }
+       [self.loadAdSuccesfulException fulfill];
+}
+
+-(void)adDidClose:(id<ANAdProtocol>)ad{
+      self.didAdClose = true;
+      [self.closeAdSuccesfulException fulfill];
+}
+
+
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
+    [self.loadAdSuccesfulException fulfill];
+    
+}
 
 
 @end

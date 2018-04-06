@@ -18,5 +18,6 @@
 @implementation ANInterstitialAd (ANTest)
 
 @dynamic precachedAdObjects;
+@dynamic controller;
 
 @end

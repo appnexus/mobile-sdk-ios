@@ -197,10 +197,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     return false;
 }
 
-
-
-- (void)displayAdFromViewController:(UIViewController *)controller
-{
+- (void)displayAdFromViewController:(UIViewController *)controller autoDismissDelay:(NSTimeInterval)delay{
+    
     id         adToShow         = nil;
     id         adObjectHandler  = nil;
     NSString  *auctionID        = nil;
@@ -261,6 +259,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         }
         
         self.controller.contentView = adToShow;
+        self.controller.autoDismissAdDelay = delay;
+        
         if (self.backgroundColor) {
             self.controller.backgroundColor = self.backgroundColor;
         }
@@ -272,7 +272,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
         }
         
-        //
+        
         @synchronized (self) {
             [ANTrackerManager fireTrackerURLArray:impressionURLs];
             impressionURLs = nil;
@@ -290,10 +290,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             [ANTrackerManager fireTrackerURLArray:impressionURLs];
             impressionURLs = nil;
         }
-        
         [adToShow presentFromViewController:controller];
         
-        //
         if (auctionID) {
             ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
             [controller.presentedViewController.view addSubview:logoView];
@@ -309,8 +307,12 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self adFailedToDisplay];
         return;
     }
+    
 }
 
+- (void)displayAdFromViewController:(UIViewController *)controller{
+    [self displayAdFromViewController:controller autoDismissDelay:-1];
+}
 
 
 #pragma mark - ANUniversalAdFetcherDelegate
@@ -323,7 +325,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     }
     NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:response.adObjectHandler];
     if(creativeId){
-         [self setCreativeId:creativeId];
+        [self setCreativeId:creativeId];
     }
     
     NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -339,21 +341,18 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     
     
     
-
+    
     
     [self.precachedAdObjects addObject:adViewWithDateLoaded];
     ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
     
     [self adDidReceiveAd];
-  
+    
 }
 
 - (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher {
     return self.frame.size;
 }
-
-
-
 
 #pragma mark - ANInterstitialAdViewControllerDelegate
 

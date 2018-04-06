@@ -14,7 +14,6 @@
  */
 
 #import "ANInterstitialAdViewController.h"
-
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "UIView+ANCategory.h"
@@ -91,12 +90,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if(self.needCloseButton){
-        if (!self.viewed && ([self.delegate closeDelayForController] > 0.0)) {
-            [self startCountdownTimer];
-            self.viewed = YES;
-        } else {
-            [self stopCountdownTimer];
-        }
+            if (!self.viewed && (([self.delegate closeDelayForController] > 0.0) || (self.autoDismissAdDelay>-1)) ) {
+                [self startCountdownTimer];
+                self.viewed = YES;
+            } else {
+                self.closeButton.hidden = NO;
+                [self stopCountdownTimer];
+            }
     }
 }
 
@@ -120,24 +120,40 @@
 }
 
 - (void)stopCountdownTimer {
-	[self.progressTimer invalidate];
-    self.progressView.hidden = YES;
-    self.closeButton.hidden = NO;
+     self.progressView.hidden = YES;
+    [self.progressTimer invalidate];
+    
 }
+
+
 
 - (void)progressTimerDidFire:(NSTimer *)timer {
-	NSDate *timeNow = [NSDate date];
-	NSTimeInterval timeShown = [timeNow timeIntervalSinceDate:self.timerStartDate];
-    NSTimeInterval closeDelay = [self.delegate closeDelayForController];
-	[self.progressView setProgress:(timeShown / closeDelay)];
     
-	if (timeShown >= closeDelay && self.closeButton.hidden == YES) {
-        [self stopCountdownTimer];
-	}
+    
+    NSDate *timeNow = [NSDate date];
+    NSTimeInterval timeShown = [timeNow timeIntervalSinceDate:self.timerStartDate];
+    NSTimeInterval closeButtonDelay = [self.delegate closeDelayForController];
+    if(self.autoDismissAdDelay > -1){
+       [self.progressView setProgress:(timeShown / self.autoDismissAdDelay)];
+        if (timeShown >= self.autoDismissAdDelay) {
+            [self dismissAd];
+            [self stopCountdownTimer];
+        }
+        if (timeShown >= closeButtonDelay && self.closeButton.hidden == YES) {
+            self.closeButton.hidden = NO;
+        }
+    }else{
+        [self.progressView setProgress:(timeShown / closeButtonDelay)];
+        if (timeShown >= closeButtonDelay && self.closeButton.hidden == YES) {
+            self.closeButton.hidden = NO;
+            [self stopCountdownTimer];
+        }
+    }
+    
+    
 }
-
 - (void)setContentView:(UIView *)contentView {
-	if (contentView != _contentView) {
+    if (contentView != _contentView) {
         if ([_contentView isKindOfClass:[UIWebView class]]) {
             UIWebView *webView = (UIWebView *)_contentView;
             [webView stopLoading];
@@ -178,12 +194,13 @@
     self.view.backgroundColor = _backgroundColor;
 }
 
-- (IBAction)closeAction:(id)sender {
-    if ([self.progressTimer an_isScheduled]) {
-        return;
-    }
+- (void)dismissAd {
     self.dismissing = YES;
-	[self.delegate interstitialAdViewControllerShouldDismiss:self];
+    [self.delegate interstitialAdViewControllerShouldDismiss:self];
+}
+
+- (IBAction)closeAction:(id)sender {
+    [self dismissAd];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -201,113 +218,113 @@
 #if __IPHONE_9_0
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
 #else
-- (NSUInteger)supportedInterfaceOrientations {
+    - (NSUInteger)supportedInterfaceOrientations {
 #endif
-    if (self.orientationProperties) {
-        if (self.orientationProperties.allowOrientationChange) {
+        if (self.orientationProperties) {
+            if (self.orientationProperties.allowOrientationChange) {
+                return UIInterfaceOrientationMaskAll;
+            } else {
+                switch (self.orientationProperties.forceOrientation) {
+                    case ANMRAIDOrientationPortrait:
+                        return UIInterfaceOrientationMaskPortrait;
+                    case ANMRAIDOrientationLandscape:
+                        return UIInterfaceOrientationMaskLandscape;
+                    default:
+                        return UIInterfaceOrientationMaskAll;
+                }
+            }
+        }
+        
+        if (self.responsiveAd) {
             return UIInterfaceOrientationMaskAll;
-        } else {
+        }
+        
+        switch (self.orientation) {
+            case UIInterfaceOrientationLandscapeLeft:
+                return UIInterfaceOrientationMaskLandscapeLeft;
+            case UIInterfaceOrientationLandscapeRight:
+                return UIInterfaceOrientationMaskLandscapeRight;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                return UIInterfaceOrientationMaskPortraitUpsideDown;
+            default:
+                return UIInterfaceOrientationMaskPortrait;
+        }
+    }
+    
+    - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+        if (self.orientationProperties) {
             switch (self.orientationProperties.forceOrientation) {
                 case ANMRAIDOrientationPortrait:
-                    return UIInterfaceOrientationMaskPortrait;
+                    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+                        return UIInterfaceOrientationPortraitUpsideDown;
+                    }
+                    return UIInterfaceOrientationPortrait;
                 case ANMRAIDOrientationLandscape:
-                    return UIInterfaceOrientationMaskLandscape;
+                    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
+                        return UIInterfaceOrientationLandscapeRight;
+                    }
+                    return UIInterfaceOrientationLandscapeLeft;
                 default:
-                    return UIInterfaceOrientationMaskAll;
+                    break;
+            }
+        }
+        return self.orientation;
+    }
+    
+    - (void)viewWillLayoutSubviews {
+        CGFloat buttonDistanceToSuperview;
+        if ([self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
+            CGSize statusBarFrameSize = [[UIApplication sharedApplication] statusBarFrame].size;
+            buttonDistanceToSuperview = statusBarFrameSize.height;
+            if (statusBarFrameSize.height > statusBarFrameSize.width) {
+                buttonDistanceToSuperview = statusBarFrameSize.width;
+            }
+        } else {
+            buttonDistanceToSuperview = 0;
+        }
+        
+        self.buttonTopToSuperviewConstraint.constant = buttonDistanceToSuperview;
+        
+        if (!self.isDismissing) {
+            CGRect normalizedContentViewFrame = CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame));
+            if (!CGRectContainsRect(self.view.frame, normalizedContentViewFrame)) {
+                CGRect rotatedNormalizedContentViewFrame = CGRectMake(0, 0, CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame));
+                if (CGRectContainsRect(self.view.frame, rotatedNormalizedContentViewFrame)) {
+                    [self.contentView an_constrainWithSize:CGSizeMake(CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame))];
+                }
             }
         }
     }
     
-    if (self.responsiveAd) {
-        return UIInterfaceOrientationMaskAll;
-    }
-
-    switch (self.orientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            return UIInterfaceOrientationMaskLandscapeLeft;
-        case UIInterfaceOrientationLandscapeRight:
-            return UIInterfaceOrientationMaskLandscapeRight;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            return UIInterfaceOrientationMaskPortraitUpsideDown;
-        default:
-            return UIInterfaceOrientationMaskPortrait;
-    }
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    if (self.orientationProperties) {
-        switch (self.orientationProperties.forceOrientation) {
-            case ANMRAIDOrientationPortrait:
-                if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-                    return UIInterfaceOrientationPortraitUpsideDown;
-                }
-                return UIInterfaceOrientationPortrait;
-            case ANMRAIDOrientationLandscape:
-                if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
-                    return UIInterfaceOrientationLandscapeRight;
-                }
-                return UIInterfaceOrientationLandscapeLeft;
-            default:
-                break;
+    - (void)setUseCustomClose:(BOOL)useCustomClose {
+        if (_useCustomClose != useCustomClose) {
+            _useCustomClose = useCustomClose;
+            [self setupCloseButtonImageWithCustomClose:useCustomClose];
         }
     }
-    return self.orientation;
-}
-
-- (void)viewWillLayoutSubviews {
-    CGFloat buttonDistanceToSuperview;
-    if ([self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
-        CGSize statusBarFrameSize = [[UIApplication sharedApplication] statusBarFrame].size;
-        buttonDistanceToSuperview = statusBarFrameSize.height;
-        if (statusBarFrameSize.height > statusBarFrameSize.width) {
-            buttonDistanceToSuperview = statusBarFrameSize.width;
-        }
-    } else {
-        buttonDistanceToSuperview = 0;
-    }
     
-    self.buttonTopToSuperviewConstraint.constant = buttonDistanceToSuperview;
-    
-    if (!self.isDismissing) {
-        CGRect normalizedContentViewFrame = CGRectMake(0, 0, CGRectGetWidth(self.contentView.frame), CGRectGetHeight(self.contentView.frame));
-        if (!CGRectContainsRect(self.view.frame, normalizedContentViewFrame)) {
-            CGRect rotatedNormalizedContentViewFrame = CGRectMake(0, 0, CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame));
-            if (CGRectContainsRect(self.view.frame, rotatedNormalizedContentViewFrame)) {
-                [self.contentView an_constrainWithSize:CGSizeMake(CGRectGetHeight(self.contentView.frame), CGRectGetWidth(self.contentView.frame))];
+    - (void)setOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties {
+        _orientationProperties = orientationProperties;
+        if ([self.view an_isViewable]) {
+            if (orientationProperties.allowOrientationChange && orientationProperties.forceOrientation == ANMRAIDOrientationNone) {
+                [UIViewController attemptRotationToDeviceOrientation];
+            } else if ([UIApplication sharedApplication].statusBarOrientation != [self preferredInterfaceOrientationForPresentation]) {
+                [self.delegate dismissAndPresentAgainForPreferredInterfaceOrientationChange];
             }
         }
     }
-}
-
-- (void)setUseCustomClose:(BOOL)useCustomClose {
-    if (_useCustomClose != useCustomClose) {
-        _useCustomClose = useCustomClose;
-        [self setupCloseButtonImageWithCustomClose:useCustomClose];
-    }
-}
-
-- (void)setOrientationProperties:(ANMRAIDOrientationProperties *)orientationProperties {
-    _orientationProperties = orientationProperties;
-    if ([self.view an_isViewable]) {
-        if (orientationProperties.allowOrientationChange && orientationProperties.forceOrientation == ANMRAIDOrientationNone) {
-            [UIViewController attemptRotationToDeviceOrientation];
-        } else if ([UIApplication sharedApplication].statusBarOrientation != [self preferredInterfaceOrientationForPresentation]) {
-            [self.delegate dismissAndPresentAgainForPreferredInterfaceOrientationChange];
+    
+    // Allow WKWebView to present WKActionSheet
+    - (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+        if (self.presentedViewController) {
+            [self.presentedViewController presentViewController:viewControllerToPresent
+                                                       animated:flag
+                                                     completion:completion];
+        } else {
+            [super presentViewController:viewControllerToPresent
+                                animated:flag
+                              completion:completion];
         }
     }
-}
- 
-// Allow WKWebView to present WKActionSheet
-- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
-    if (self.presentedViewController) {
-        [self.presentedViewController presentViewController:viewControllerToPresent
-                                                   animated:flag
-                                                 completion:completion];
-    } else {
-        [super presentViewController:viewControllerToPresent
-                            animated:flag
-                          completion:completion];
-    }
-}
-
-@end
+    
+    @end
