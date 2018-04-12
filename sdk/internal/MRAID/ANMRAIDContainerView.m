@@ -549,6 +549,16 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     }
 }
 
+- (CGFloat)exposedPercent{
+    return self.expandWebViewController    ? [self.expandWebViewController.contentView an_exposedPercentage]
+                                           : [self.webViewController.contentView an_exposedPercentage];
+    
+}
+- (CGRect)visibleRect{
+    return self.expandWebViewController    ? [self.expandWebViewController.contentView an_visibleRectangle]
+                                           : [self.webViewController.contentView an_visibleRectangle];
+}
+
 - (void)adShouldExpandWithExpandProperties:(ANMRAIDExpandProperties *)expandProperties {
     UIViewController *presentingController = [self displayController];
     if (!presentingController) {

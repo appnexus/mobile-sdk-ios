@@ -1220,6 +1220,63 @@
     [self clearTest];
 }
 
+- (void)testExposureChangeEventDefaultSizeAndPosition {
+    [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
+                                         atOrigin:CGPointZero
+                                         withSize:CGSizeMake(320.0f, 50.0f)];
+   
+    [self addBannerAsSubview];
+    NSString *actualExposedPer = [self evaluateJavascript:@"testExposedPercentage"];
+    XCTAssertTrue([actualExposedPer isEqualToString:@"100"], @"expected exposed percentage::100 but actual::%@",actualExposedPer);
+    
+    NSString *actualVisibleRectX = [self evaluateJavascript:@"testVisibleRectangleX"];
+    XCTAssertTrue([actualVisibleRectX isEqualToString:@"0"], @"expected visibleRectX::0 but actual::%@",actualVisibleRectX);
+    
+    
+    NSString *actualVisibleRectY = [self evaluateJavascript:@"testVisibleRectangleY"];
+    XCTAssertTrue([actualVisibleRectY isEqualToString:@"0"], @"expected visibleRectY ::0 but actual::%@",actualVisibleRectY);
+    
+    
+    NSString *actualVisibleRectWidth = [self evaluateJavascript:@"testVisibleRectangleWidth"];
+    XCTAssertTrue([actualVisibleRectWidth isEqualToString:@"320"], @"expected visibleRectWidth::320 but actual::%@",actualVisibleRectWidth);
+    
+    
+    NSString *actualVisibleRectHeight = [self evaluateJavascript:@"testVisibleRectangleHeight"];
+    XCTAssertTrue([actualVisibleRectHeight isEqualToString:@"50"], @"expected visibleRectHeight::50 but actual::%@",actualVisibleRectHeight);
+    [self clearTest];
+}
+
+- (void)testExposureChangeEventMovedToBottomOfSubView {
+    [self loadMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
+                                         atOrigin:CGPointZero
+                                         withSize:CGSizeMake(320.0f, 50.0f)];
+   
+    
+    [self addBannerAsSubview];
+    [self moveBannerSubviewToOrigin:CGPointMake(1000.0f, 1000.0f)];
+    
+    
+    NSString *actualExposedPer = [self evaluateJavascript:@"testExposedPercentage"];
+    XCTAssertTrue([actualExposedPer isEqualToString:@"0"], @"expected exposed percentage::0 but actual::%@",actualExposedPer);
+    
+    NSString *actualVisibleRectX = [self evaluateJavascript:@"testVisibleRectangleX"];
+    XCTAssertTrue([actualVisibleRectX isEqualToString:@"invisible"], @"expected visibleRectX::invisible but actual::%@",actualVisibleRectX);
+    
+    
+    NSString *actualVisibleRectY = [self evaluateJavascript:@"testVisibleRectangleY"];
+    XCTAssertTrue([actualVisibleRectY isEqualToString:@"invisible"], @"expected visibleRectY ::invisible but actual::%@",actualVisibleRectY);
+    
+    
+    NSString *actualVisibleRectWidth = [self evaluateJavascript:@"testVisibleRectangleWidth"];
+    XCTAssertTrue([actualVisibleRectWidth isEqualToString:@"invisible"], @"expected visibleRectWidth::invisible but actual::%@",actualVisibleRectWidth);
+    
+    
+    NSString *actualVisibleRectHeight = [self evaluateJavascript:@"testVisibleRectangleHeight"];
+    XCTAssertTrue([actualVisibleRectHeight isEqualToString:@"invisible"], @"expected visibleRectHeight::invisible but actual::%@",actualVisibleRectHeight);
+    
+    [self clearTest];
+}
+
 - (void)testRemoveEventListener {
     [self addMRAIDListenerBannerWithSelectorName:NSStringFromSelector(_cmd)
                                         atOrigin:CGPointZero

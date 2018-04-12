@@ -63,6 +63,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 @property (nonatomic, readwrite, assign)  CGRect  defaultPosition;
 @property (nonatomic, readwrite, assign)  CGRect  currentPosition;
+@property (nonatomic, readwrite, assign)  CGFloat  lastKnownExposedPercentage;
+@property (nonatomic, readwrite, assign)  CGRect  lastKnownVisibleRect;
 
 @property (nonatomic, readwrite, assign)  BOOL  rapidTimerSet;
 
@@ -1004,6 +1006,16 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         } else {
             [self fireJavaScript:[ANMRAIDJavascriptUtil isViewable:self.isViewable]];
         }
+    }
+    
+    CGFloat updatedExposedPercentage = [self.mraidDelegate exposedPercent]; // updatedExposedPercentage from MRAID Delegate
+    CGRect updatedVisibleRectangle = [self.mraidDelegate visibleRect]; // updatedVisibleRectangle from MRAID Delegate
+
+    // Send exposureChange Event only when there is an update from the previous.
+    if(self.lastKnownExposedPercentage != updatedExposedPercentage || !CGRectEqualToRect(self.lastKnownVisibleRect,updatedVisibleRectangle)){
+        self.lastKnownExposedPercentage = updatedExposedPercentage;
+        self.lastKnownVisibleRect = updatedVisibleRectangle;
+        [self fireJavaScript:[ANMRAIDJavascriptUtil exposureChangeExposedPercentage:self.lastKnownExposedPercentage visibleRectangle:self.lastKnownVisibleRect]];
     }
 }
 

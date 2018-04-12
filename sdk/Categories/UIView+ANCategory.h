@@ -27,6 +27,8 @@
 
 - (BOOL)an_isViewable;
 - (BOOL)an_isAtLeastHalfViewable;
+- (CGFloat)an_exposedPercentage;
+- (CGRect)an_visibleRectangle;
 
 - (UIViewController *)an_parentViewController;
 

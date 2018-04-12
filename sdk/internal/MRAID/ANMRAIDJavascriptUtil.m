@@ -89,4 +89,23 @@
     return @"window.mraid.getState()";
 }
 
+
+// Occulusion Rectangle is always null we donot support OcculusionRetangle Calculation.
++ (NSString *)exposureChangeExposedPercentage:(CGFloat)exposedPercentage
+                             visibleRectangle:(CGRect)visibleRect {
+    if(exposedPercentage <=0 ){
+        // If exposure percentage is 0 then send visibleRectangle as null.
+        NSString *exposureVal = [NSString stringWithFormat:@"{\"exposedPercentage\":0.0,\"visibleRectangle\":null,\"occlusionRectangles\":null}"];
+        return [NSString stringWithFormat:@"window.mraid.util.exposureChangeEvent(%@);",exposureVal];
+    }else{
+        int offsetX = (visibleRect.origin.x > 0) ? floorf(visibleRect.origin.x + 0.5f) : ceilf(visibleRect.origin.x - 0.5f);
+        int offsetY = (visibleRect.origin.y > 0) ? floorf(visibleRect.origin.y + 0.5f) : ceilf(visibleRect.origin.y - 0.5f);
+        int width = floorf(visibleRect.size.width + 0.5f);
+        int height = floorf(visibleRect.size.height + 0.5f);
+        
+        NSString *exposureVal = [NSString stringWithFormat:@"{\"exposedPercentage\":%.01f,\"visibleRectangle\":{\"x\":%i,\"y\":%i,\"width\":%i,\"height\":%i},\"occlusionRectangles\":null}",exposedPercentage,offsetX,offsetY,width,height];
+        return [NSString stringWithFormat:@"window.mraid.util.exposureChangeEvent(%@);",exposureVal];
+    }
+}
+
 @end

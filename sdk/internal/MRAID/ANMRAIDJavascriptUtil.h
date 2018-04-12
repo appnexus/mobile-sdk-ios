@@ -32,5 +32,7 @@
           isSupported:(BOOL)supported;
 
 + (NSString *)getState;
++ (NSString *)exposureChangeExposedPercentage:(CGFloat)exposedPercentage
+                                 visibleRectangle:(CGRect)visibleRect;
 
 @end

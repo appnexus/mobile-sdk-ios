@@ -144,6 +144,8 @@
 - (CGRect)defaultPosition;
 - (CGRect)currentPosition;
 - (BOOL)isViewable;
+- (CGRect)visibleRect;
+- (CGFloat)exposedPercent;
 
 - (void)adShouldExpandWithExpandProperties:(ANMRAIDExpandProperties *)expandProperties;
 - (void)adShouldAttemptResizeWithResizeProperties:(ANMRAIDResizeProperties *)resizeProperties;

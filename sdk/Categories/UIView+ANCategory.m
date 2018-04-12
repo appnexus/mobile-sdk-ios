@@ -129,6 +129,47 @@
     return intersectionArea >= 0.5 * selfArea;
 }
 
+- (CGFloat)an_exposedPercentage{
+    CGFloat exposedPrecentage = 0;
+    if(self.an_isViewable){
+        CGRect normalizedSelfRect = [self convertRect:self.bounds toView:nil];
+        CGRect intersection = CGRectIntersection(UIScreen.mainScreen.bounds, normalizedSelfRect);
+        CGFloat intersectionArea = intersection.size.width  * intersection.size.height;
+        int totalArea = normalizedSelfRect.size.width *normalizedSelfRect.size.height;
+        exposedPrecentage  = (intersectionArea * 100)/(totalArea);
+    }
+    return exposedPrecentage;
+}
+
+- (CGRect)an_visibleRectangle{
+    CGRect visibleRectangle =  CGRectMake(0,0,0,0);
+    if(self.an_isViewable){
+        CGRect normalizedSelfRect = [self convertRect:self.bounds toView:nil];
+        CGRect intersection = CGRectIntersection(UIScreen.mainScreen.bounds, normalizedSelfRect);
+        CGFloat visibleRectangleX = 0.0;
+        CGFloat visibleRectangleY = 0.0;
+        
+        if(normalizedSelfRect.origin.x < 0 )
+        {
+            // The view is partly hidden from the left.(The view has scrolled out to the left and part of it is outside of screen bounds)
+            visibleRectangleX =  -1 * normalizedSelfRect.origin.x;
+        }else if( (normalizedSelfRect.origin.x + normalizedSelfRect.size.width) > UIScreen.mainScreen.bounds.size.width){
+            // Starting X of the View + its width is greater than the screen Width.
+            // The view extends into the right of the screen and only partially visible.(The view has scrolled out to the right and part of it is outside of screen bounds)
+            visibleRectangleX =  0;
+        }else if(normalizedSelfRect.origin.y < 0){
+            // The view has scrolled up
+            visibleRectangleY =  -1 * normalizedSelfRect.origin.y;
+        }else  if((normalizedSelfRect.origin.y + normalizedSelfRect.size.height) > UIScreen.mainScreen.bounds.size.height){
+            // Starting Y of the View + its height is greater than the screen height.
+            // The view has scrolled down
+            visibleRectangleY = 0;
+        }
+        visibleRectangle = CGRectMake(visibleRectangleX, visibleRectangleY, intersection.size.width, intersection.size.height);
+    }
+    return visibleRectangle;
+}
+
 - (UIViewController *)an_parentViewController {
     UIResponder *responder = self;
     
