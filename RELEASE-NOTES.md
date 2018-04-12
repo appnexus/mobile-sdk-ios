@@ -1,3 +1,7 @@
+## 4.6
+### New Features
++ MS-2113 -- Support autocollapse of interstitials
++ MS-3178 -- Implement exposureChange event
 
 ## 4.5
 ### New Features
