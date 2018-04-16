@@ -117,6 +117,10 @@
     return sdkSettings;
 }
 
+- (void)warmUp {
+    ANUserAgent();
+}
+
 - (id<ANBaseUrlConfig>)baseUrlConfig {
     if (!_baseUrlConfig) {
         if (self.HTTPSEnabled) {
