@@ -153,6 +153,10 @@
     [self adWasClicked];
     [self fireClickTrackers];
     
+    if (self.clickHandling == NativeAdClickHandlingTrackingOnly) {
+        return;
+    }
+    
     BOOL successfullyOpenedBrowserWithClickURL = [self openIntendedBrowserWithURL:self.clickURL];
     if (!successfullyOpenedBrowserWithClickURL) {
         ANLogDebug(@"Could not open click URL: %@", self.clickURL);
