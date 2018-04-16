@@ -21,6 +21,7 @@
 
 + (instancetype)sharedInstance;
 
+- (void)warmUp;
 /**
  If YES, the SDK will make all requests in HTTPS. Default is NO.
  */
