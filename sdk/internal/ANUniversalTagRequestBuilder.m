@@ -22,7 +22,7 @@
 #import "ANReachability.h"
 #import "ANUniversalAdFetcher.h"
 #import "ANAdViewInternalDelegate.h"
-
+#import "ANGDPRSettings.h"
 
 
 
@@ -96,7 +96,6 @@
 {
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
 
-    //
     NSDictionary *tags = [self tag:requestDict];
     if (tags) {
         requestDict[@"tags"] = @[tags];
@@ -130,8 +129,12 @@
 
     requestDict[@"supply_type"] = @"mobile_app";
 
+    NSDictionary *gdprConsent = [self getGDPRConsentObject];
+    if (gdprConsent) {
+        requestDict[@"gdpr_consent"] = gdprConsent;
+    }
 
-    //
+    
     return [requestDict copy];
 }
 
@@ -393,7 +396,6 @@
 }
 
 
-
 - (NSDictionary *)app {
     NSString *appId = [[NSBundle mainBundle] infoDictionary][@"CFBundleIdentifier"];
     if (appId) {
@@ -402,6 +404,7 @@
         return nil;
     }
 }
+
 
 -(NSDictionary *) video {
     NSMutableDictionary *videoDict = [[NSMutableDictionary alloc] init];
@@ -429,6 +432,22 @@
                   @"source" : @"ansdk",
                   @"version" : AN_SDK_VERSION
             };
+}
+
+- (NSDictionary *)getGDPRConsentObject {
+    
+    NSString *gdprConsent = [ANGDPRSettings getConsentString];
+    NSString *gdprRequired = [ANGDPRSettings getConsentRequired];
+ 
+    if(gdprRequired != nil){
+        NSNumber *gdprRequiredBool = ([gdprRequired isEqualToString:@"1"])?[NSNumber numberWithBool:YES]:[NSNumber numberWithBool:NO];
+        return @{
+                 @"consent_required" : gdprRequiredBool,
+                 @"consent_string" : gdprConsent
+                 };
+    }else{
+        return nil;
+    }
 }
 
 + (NSNumberFormatter *)precisionNumberFormatter {

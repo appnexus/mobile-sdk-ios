@@ -239,10 +239,6 @@
     NSString *responseURLString = [baseString an_stringByAppendingUrlParameter: @"reason"
                                                                          value: [NSString stringWithFormat:@"%d",reasonCode]];
     
-    // append idfa
-    responseURLString = [responseURLString an_stringByAppendingUrlParameter: @"idfa"
-                                                                      value: ANUDID()];
-    
     // append latency measurements
     NSTimeInterval latency = [self getLatency] * 1000; // secs to ms
     NSTimeInterval totalLatency = [self getTotalLatency] * 1000; // secs to ms

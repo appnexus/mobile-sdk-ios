@@ -88,10 +88,6 @@
     NSString *urlString = [self an_stringByAppendingUrlParameter: @"reason"
                                                            value: [NSString stringWithFormat:@"%d",reasonCode]];
     
-    // append idfa
-    urlString = [urlString an_stringByAppendingUrlParameter: @"idfa"
-                                                      value: ANUDID()];
-    
     if (latency > 0) {
         urlString = [urlString an_stringByAppendingUrlParameter: @"latency"
                                                           value: [NSString stringWithFormat:@"%.0f", latency]];
