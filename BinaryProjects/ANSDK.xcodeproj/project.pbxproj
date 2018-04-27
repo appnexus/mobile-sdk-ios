@@ -665,12 +665,12 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				0E9E0D262090E59B00A871BF /* ANGDPRSettings.h in Copy Files */,
 				8A9AED201A1BAD2700C58BDA /* ANAdConstants.h in Copy Files */,
 				ECE4EB11194B78280069D934 /* ANAdProtocol.h in Copy Files */,
 				ECE4EB12194B78280069D934 /* ANAdView.h in Copy Files */,
 				ECE4EB13194B78280069D934 /* ANBannerAdView.h in Copy Files */,
 				ECE4EB14194B78280069D934 /* ANCustomAdapter.h in Copy Files */,
+				0E9E0D262090E59B00A871BF /* ANGDPRSettings.h in Copy Files */,
 				4F1B9E291E5CDABE002FF0B4 /* ANInstreamVideoAd.h in Copy Files */,
 				ECE4EB15194B78280069D934 /* ANInterstitialAd.h in Copy Files */,
 				ECE4EB16194B78280069D934 /* ANLocation.h in Copy Files */,
@@ -1575,8 +1575,8 @@
 		8A02D6F81D6CE946006831A3 /* config */ = {
 			isa = PBXGroup;
 			children = (
-				0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */,
 				8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */,
+				0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */,
 				8A02D6FE1D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h */,
 				8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */,
 			);
@@ -2243,12 +2243,12 @@
 				ECE4EA8E194B768A0069D934 /* ANAdView.h */,
 				ECE4EA8F194B768A0069D934 /* ANBannerAdView.h */,
 				ECE4EA90194B768A0069D934 /* ANCustomAdapter.h */,
+				0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */,
 				609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */,
 				ECE4EA91194B768A0069D934 /* ANInterstitialAd.h */,
 				ECE4EA92194B768A0069D934 /* ANLocation.h */,
 				ECE4EA93194B768A0069D934 /* ANLogManager.h */,
 				8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */,
-				0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */,
 				ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */,
 			);
 			name = ANSDK;
@@ -2348,6 +2348,7 @@
 				8A9AEDD31A1BF88200C58BDA /* ANClickOverlayView.h in Headers */,
 				609732B71E42E90C0061EC0A /* ANCSMVideoAd.h in Headers */,
 				8A9AEDB51A1BE8C200C58BDA /* ANCustomAdapter.h in Headers */,
+				0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */,
 				8A9AEDD41A1BF88200C58BDA /* ANGlobal.h in Headers */,
 				609732B41E42E7910061EC0A /* ANInstreamVideoAd.h in Headers */,
 				8A9AEDB61A1BE8C200C58BDA /* ANInterstitialAd.h in Headers */,
@@ -2387,7 +2388,6 @@
 				8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */,
 				8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */,
 				0035C5AE1F4496FD00915E97 /* ANSSMMediationAdViewController.h in Headers */,
-				0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */,
 				609732C11E42E9670061EC0A /* ANSSMStandardAd.h in Headers */,
 				609732BC1E42E95C0061EC0A /* ANSSMVideoAd.h in Headers */,
 				8AF5A8851ACC60D50089C529 /* ANStandardAd.h in Headers */,
@@ -3107,6 +3107,7 @@
 				8A9AEDF41A1BF99D00C58BDA /* ANBrowserViewController.m in Sources */,
 				8A9AEDF51A1BF99D00C58BDA /* ANClickOverlayView.m in Sources */,
 				609732B91E42E90C0061EC0A /* ANCSMVideoAd.m in Sources */,
+				0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */,
 				8A9AEDF61A1BF99D00C58BDA /* ANGlobal.m in Sources */,
 				609733061E42EAFF0061EC0A /* ANInstreamVideoAd.m in Sources */,
 				8A9AEDF71A1BF99D00C58BDA /* ANInterstitialAd.m in Sources */,
@@ -3158,7 +3159,6 @@
 				8A9AEDE91A1BF99D00C58BDA /* NSString+ANCategory.m in Sources */,
 				8A9AEDEA1A1BF99D00C58BDA /* NSTimer+ANCategory.m in Sources */,
 				8A9AEDEB1A1BF99D00C58BDA /* UIView+ANCategory.m in Sources */,
-				0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */,
 				8A9AEE0F1A1BF99D00C58BDA /* UIView+ANNativeAdCategory.m in Sources */,
 				8A9AEDEC1A1BF99D00C58BDA /* UIWebView+ANCategory.m in Sources */,
 				602E0E261FE467EE002C0F1C /* WKWebView+ANCategory.m in Sources */,
@@ -3270,6 +3270,7 @@
 				8AD618D21981C11F00AC0780 /* ANBrowserViewController.m in Sources */,
 				8AD618D31981C11F00AC0780 /* ANClickOverlayView.m in Sources */,
 				609732B81E42E90C0061EC0A /* ANCSMVideoAd.m in Sources */,
+				0E35D4AD2088F67E000A6C27 /* ANGDPRSettings.m in Sources */,
 				8AD618D41981C11F00AC0780 /* ANGlobal.m in Sources */,
 				609733051E42EAFF0061EC0A /* ANInstreamVideoAd.m in Sources */,
 				8AD618D51981C11F00AC0780 /* ANInterstitialAd.m in Sources */,
@@ -3307,7 +3308,6 @@
 				0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */,
 				609732C21E42E9670061EC0A /* ANSSMStandardAd.m in Sources */,
 				609732BD1E42E95C0061EC0A /* ANSSMVideoAd.m in Sources */,
-				0E35D4AD2088F67E000A6C27 /* ANGDPRSettings.m in Sources */,
 				8AF5A8861ACC60D50089C529 /* ANStandardAd.m in Sources */,
 				8ABF77591D08CE420068B535 /* ANStoreProductViewController.m in Sources */,
 				8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */,
