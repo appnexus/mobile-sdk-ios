@@ -55,23 +55,25 @@ static NSString  *videoPlacementID  = @"9924001";
 #pragma mark - UT Tests.
 
 - (void)testUTRequest
-{    
-    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
-     
-    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
-    XCTestExpectation       *expectation    = [self expectationWithDescription:@"Dummy expectation"];
+{
+    NSString                *urlString        = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher        = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    dispatch_queue_t         backgroundQueue  = dispatch_queue_create("QUEUE FOR testUTRequest.",  DISPATCH_QUEUE_SERIAL);
 
+    XCTestExpectation  *expectation  = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+    //
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), backgroundQueue,
     ^{
-        NSError *error;
+        NSURLRequest  *request  = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
 
-       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
-                                                        options:kNilOptions
-                                                          error:&error];
+        NSError  *error;
+        id        jsonObject  = [NSJSONSerialization JSONObjectWithData: request.HTTPBody
+                                                                options: kNilOptions
+                                                                  error: &error];
         TESTTRACEM(@"jsonObject=%@", jsonObject);
 
+        // JSON foundation.
         XCTAssertNil(error);
         XCTAssertNotNil(jsonObject);
         XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
@@ -161,9 +163,11 @@ static NSString  *videoPlacementID  = @"9924001";
         NSString *idfa = deviceId[@"idfa"];
         XCTAssertEqualObjects(idfa, ANUDID());
 
+        //
         [expectation fulfill];
     });
 
+    //
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
 

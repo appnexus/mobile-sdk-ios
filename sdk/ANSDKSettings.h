@@ -21,6 +21,9 @@
 
 + (instancetype)sharedInstance;
 
+- (void) optionalSDKInitialization;
+
+
 /**
  If YES, the SDK will make all requests in HTTPS. Default is NO.
  */

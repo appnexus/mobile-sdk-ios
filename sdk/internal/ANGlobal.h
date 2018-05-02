@@ -14,7 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 #import "ANAdConstants.h"
 
@@ -107,7 +107,6 @@ extern NSString * const  kANUniversalAdFetcherAdResponseKey;
 
 #pragma mark - Global functions.
 
-NSString *ANUserAgent(void);
 NSString *ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
 BOOL ANIsFirstLaunch(void);
@@ -142,5 +141,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController);
                    forObject: (id)objectImplementingGetterProperty;
 
 + (ANAdType) adTypeStringToEnum:(NSString *)adTypeString;
+
++ (NSString *) getUserAgent;
 
 @end

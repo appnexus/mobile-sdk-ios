@@ -15,13 +15,22 @@
 
 #import "AppDelegate.h"
 
+#import "ANTestGlobal.h"
+#import "ANGlobal.h"
+
+
+
 @interface AppDelegate ()
 
 @end
 
+
+
 @implementation AppDelegate
             
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [ANGlobal getUserAgent];
     return YES;
 }
 

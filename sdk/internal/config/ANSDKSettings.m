@@ -22,10 +22,8 @@
 
 
 @interface ANProdHTTPBaseUrlConfig : NSObject <ANBaseUrlConfig>
-
+    //EMPTY
 @end
-
-
 
 
 @implementation ANProdHTTPBaseUrlConfig
@@ -62,9 +60,13 @@
 
 @end
 
-@interface ANProdHTTPSBaseUrlConfig : NSObject <ANBaseUrlConfig>
 
+
+
+@interface ANProdHTTPSBaseUrlConfig : NSObject <ANBaseUrlConfig>
+    //EMPTY
 @end
+
 
 @implementation ANProdHTTPSBaseUrlConfig
 
@@ -100,11 +102,15 @@
 
 @end
 
+
+
+
 @interface ANSDKSettings()
 
 @property (nonatomic) id<ANBaseUrlConfig> baseUrlConfig;
 
 @end
+
 
 @implementation ANSDKSettings
 
@@ -128,5 +134,16 @@
         return _baseUrlConfig;
     }
 }
+
+// In general, MobileSDK does not require initialization.
+// However, MobileSDK does maintain state, some of which can be initialized early in the app lifecycle in order to save cycles later.
+//
+// Optionally call this method early in the app lifecycle.  For example in [AppDelegate application:didFinishLaunchingWithOptions:].
+//
+- (void) optionalSDKInitialization
+{
+    [ANGlobal getUserAgent];
+}
+
 
 @end

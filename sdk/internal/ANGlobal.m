@@ -13,13 +13,13 @@
  limitations under the License.
  */
 
-#import "ANGlobal.h"
-
-#import "ANLogging.h"
 
 #import <sys/utsname.h>
 #import <AdSupport/AdSupport.h>
 
+#import "ANGlobal.h"
+
+#import "ANLogging.h"
 
 
 
@@ -37,21 +37,6 @@ NSString * const  kANUniversalAdFetcherAdResponseKey                            
 
 
 
-
-NSString *ANUserAgent()
-{
-    static NSString *userAgent = nil;
-	
-    if (userAgent == nil)
-    {
-        UIWebView *webview = [[UIWebView alloc] init];
-        userAgent = [[webview stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"] copy];
-		webview.delegate = nil;
-		[webview stopLoading];
-    }
-
-    return userAgent;
-}
 
 NSString *ANDeviceModel()
 {
@@ -245,7 +230,7 @@ NSURLRequest *ANBasicRequestWithURL(NSURL *URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:kAppNexusRequestTimeoutInterval];
-    [request setValue:ANUserAgent() forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"User-Agent"];
     return [request copy];
 }
 
@@ -268,6 +253,9 @@ NSNumber *ANiTunesIDForURL(NSURL *URL) {
 BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     return viewController.view.window != nil ? YES : NO;
 }
+
+
+
 
 @implementation ANGlobal
 
@@ -348,5 +336,49 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     return  ANAdTypeUnknown;
 }
 
+
+//
++ (NSString *)getUserAgent
+{
+    static NSString  *userAgent               = nil;
+    static BOOL       userAgentQueryIsActive  = NO;
+
+
+    if (!userAgent) {
+        if (!userAgentQueryIsActive)
+        {
+            @synchronized (self) {
+                userAgentQueryIsActive = YES;
+            }
+
+            dispatch_async(dispatch_get_main_queue(),
+            ^{
+                WKWebView  *webViewForUserAgent  = [[WKWebView alloc] init];
+                UIWindow   *currentWindow        = [UIApplication sharedApplication].keyWindow;
+
+                [webViewForUserAgent setHidden:YES];
+                [currentWindow addSubview:webViewForUserAgent];
+
+                [webViewForUserAgent evaluateJavaScript: @"navigator.userAgent"
+                                      completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
+                                      {
+                                          ANLogMarkMessage(@"userAgentString=%@", userAgentString);
+                                          userAgent = userAgentString;
+
+                                          [webViewForUserAgent stopLoading];
+                                          [webViewForUserAgent removeFromSuperview];
+
+                                          @synchronized (self) {
+                                              userAgentQueryIsActive = NO;
+                                          }
+                                      } ];
+            });
+        }
+    }
+
+    //
+    ANLogMarkMessage(@"userAgent=%@", userAgent);
+    return userAgent;
+}
 
 @end
