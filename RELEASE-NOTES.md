@@ -1,3 +1,8 @@
+## 4.7
+### New Features and Bug Fixes
++ MS-3227 -- GDPR support for SDK
++ MS-3193  -- [iOS SDK] crash
+
 ## 4.6
 ### New Features
 + MS-2113 -- Support autocollapse of interstitials
