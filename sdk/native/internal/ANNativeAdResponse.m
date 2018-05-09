@@ -58,8 +58,14 @@
 
 @synthesize  opensInNativeBrowser           = _opensInNativeBrowser;
 @synthesize  landingPageLoadsInBackground   = _landingPageLoadsInBackground;
+@synthesize  clickHandling                  = _clickHandling;
 
-
+- (instancetype)init {
+    if (self = [super init]) {
+        _clickHandling = NativeAdClickHandlingFull;
+    }
+    return self;
+}
 
 #pragma mark - Registration
 

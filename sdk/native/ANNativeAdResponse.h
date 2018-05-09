@@ -20,6 +20,11 @@
 #import "ANAdConstants.h"
 #import "ANAdProtocol.h"
 
+typedef enum {
+    NativeAdClickHandlingFull,
+    NativeAdClickHandlingTrackingOnly
+} NativeAdClickHandling;
+
 /*!
  * Contains native ad assets as well as defines the process by which a native view can be registered for impression
  * tracking and click handling.
@@ -140,6 +145,12 @@
  * @see ANNativeAdDelegate
  */
 @property (nonatomic, readwrite, weak) id<ANNativeAdDelegate> delegate;
+
+
+/*!
+ * clickHandling sepcifies how clicks should handled, either full handling or only tracking in which case opening the ad should be handled by the client
+ */
+@property (nonatomic, readwrite, assign) NativeAdClickHandling clickHandling;
 
 /*!
  * Should be called when the native view has been populated with the ad elements and will be displayed.
