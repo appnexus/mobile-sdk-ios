@@ -18,8 +18,9 @@
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
 #import "ANGlobal.h"
-#import "IMSdk.h"
-#import "IMNative.h"
+#import <InMobiSDK/IMSdk.h>
+#import <InMobiSDK/IMNative.h>
+
 
 static NSInteger const kANAdAdapterNativeInMobiRatingScaleDefault = 5;
 static NSString *const kANAdAdapterNativeInMobiImageURLKey = @"url";
@@ -28,7 +29,6 @@ static NSString *const kANAdAdapterNativeInMobiImageURLKey = @"url";
 
 @property (nonatomic, readwrite, strong) IMNative *nativeAd;
 @property (nonatomic, readwrite, strong) NSDictionary *nativeContent;
-@property (nonatomic, readwrite, weak) UIView *boundView;
 
 @end
 
@@ -107,34 +107,18 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 
 - (void)registerViewForImpressionTracking:(UIView *)view {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    [IMNative bindNative:self.nativeAd
-                  toView:view];
-    self.boundView = view;
     self.expired = YES;
 }
 
 - (void)handleClickFromRootViewController:(UIViewController *)rvc {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    id landingPageURLValue = self.nativeContent[kANAdAdapterNativeInMobiLandingURLKey];
-    if ([landingPageURLValue isKindOfClass:[NSString class]]) {
-        NSString *landingPageURLString = (NSString *)landingPageURLValue;
-        [self.nativeAdDelegate adWasClicked];
-        [self.nativeAd reportAdClick:nil];
-        NSURL *landingPageURL = [NSURL URLWithString:landingPageURLString];
-        if (landingPageURL) {
-            [self.nativeAdDelegate willLeaveApplication];
-            [ANGlobal openURL:[landingPageURL absoluteString]];
-        }
-    } else {
-        ANLogDebug(@"InMobi ad was clicked, but adapter was unable to find landing url –– Ignoring request to handle click.");
-    }
+    [self.nativeAdDelegate adWasClicked];
+    [self.nativeAdDelegate willLeaveApplication];
+    [self.nativeAd reportAdClickAndOpenLandingPage];
 }
 
 - (void)unregisterViewFromTracking {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if (self.boundView) {
-        [IMNative unBindView:self.boundView];
-    }
     self.nativeAd.delegate = nil;
     self.nativeAd = nil;
 }
@@ -143,18 +127,24 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 
 - (void)nativeDidFinishLoading:(IMNative *)native {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    NSDictionary *nativeContent = [[self class] nativeContentFromContentString:native.adContent];
-    if (!nativeContent) {
+    if(native.isReady){
+        NSDictionary *nativeContent = [[self class] nativeContentFromContentString:native.customAdContent];
+        if (!nativeContent) {
+            return;
+        }
+        self.nativeContent = nativeContent;
+        ANNativeMediatedAdResponse *adResponse = [self nativeAdResponseFromNativeContent:nativeContent];
+        adResponse.customElements = nativeContent;
+        if (!adResponse) {
+            [self.requestDelegate didFailToLoadNativeAd:ANAdResponseInternalError];
+            return;
+        }
+        
+        
+        [self.requestDelegate didLoadNativeAd:adResponse];
+    }else{
         [self.requestDelegate didFailToLoadNativeAd:ANAdResponseInternalError];
-        return;
     }
-    self.nativeContent = nativeContent;
-    ANNativeMediatedAdResponse *adResponse = [self nativeAdResponseFromNativeContent:nativeContent];
-    if (!adResponse) {
-        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseInternalError];
-        return;
-    }
-    [self.requestDelegate didLoadNativeAd:adResponse];
 }
 
 - (void)native:(IMNative*)native didFailToLoadWithError:(IMRequestStatus *)error {
@@ -176,7 +166,7 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 - (void)nativeWillDismissScreen:(IMNative *)native {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.nativeAdDelegate willCloseAd];
-
+    
 }
 
 - (void)nativeDidDismissScreen:(IMNative *)native {
@@ -188,6 +178,26 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.nativeAdDelegate willLeaveApplication];
 }
+
+- (void)native:(IMNative *)native didInteractWithParams:(NSDictionary *)params {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
+
+- (void)nativeAdImpressed:(IMNative *)native {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
+
+- (void)nativeDidFinishPlayingMedia:(IMNative *)native {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
+
+- (void)userDidSkipPlayingMediaFromNative:(IMNative *)native {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
 
 #pragma mark - Helper
 
@@ -206,24 +216,24 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 - (ANNativeMediatedAdResponse *)nativeAdResponseFromNativeContent:(NSDictionary *)nativeContent {
     ANNativeMediatedAdResponse *adResponse = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                            networkCode:ANNativeAdNetworkCodeInMobi];
-    adResponse.customElements = nativeContent;
+   
     
-    id titleValue = nativeContent[kANAdAdapterNativeInMobiTitleKey];
+    id titleValue = [self.nativeAd adTitle];
     if ([titleValue isKindOfClass:[NSString class]]) {
         adResponse.title = (NSString *)titleValue;
     }
     
-    id bodyValue = nativeContent[kANAdAdapterNativeInMobiDescriptionKey];
+    id bodyValue = [self.nativeAd adDescription];
     if ([bodyValue isKindOfClass:[NSString class]]) {
         adResponse.body = (NSString *)bodyValue;
     }
     
-    id ctaValue = [nativeContent valueForKey:kANAdAdapterNativeInMobiCTAKey];
+    id ctaValue = [self.nativeAd adCtaText];
     if ([ctaValue isKindOfClass:[NSString class]]) {
         adResponse.callToAction = (NSString *)ctaValue;
     }
     
-    id iconValue = nativeContent[kANAdAdapterNativeInMobiIconKey];
+    id iconValue = [self.nativeAd adIcon];
     if ([iconValue isKindOfClass:[NSDictionary class]]) {
         NSDictionary *imageDict = (NSDictionary *)iconValue;
         id imageUrlValue = imageDict[kANAdAdapterNativeInMobiImageURLKey];
@@ -247,7 +257,7 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
         adResponse.rating = [[ANNativeAdStarRating alloc] initWithValue:[rating floatValue]
                                                                   scale:kANAdAdapterNativeInMobiRatingScaleDefault];
     }
-
+    
     return adResponse;
 }
 

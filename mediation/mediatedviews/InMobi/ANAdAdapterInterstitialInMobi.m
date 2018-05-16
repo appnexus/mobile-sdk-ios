@@ -18,7 +18,7 @@
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
 
-#import "IMInterstitial.h"
+#import <InMobiSDK/IMInterstitial.h>
 
 @interface ANAdAdapterInterstitialInMobi () <IMInterstitialDelegate>
 

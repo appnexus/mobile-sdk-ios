@@ -10,6 +10,7 @@
 		0035C5AE1F4496FD00915E97 /* ANSSMMediationAdViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */; };
 		0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
 		0035C5B11F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
+		0E889BC5208FDB8600B7AC0A /* InMobiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E889BBB208FD6AC00B7AC0A /* InMobiSDK.framework */; };
 		0E35D4AD2088F67E000A6C27 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
 		0E9E0D262090E59B00A871BF /* ANGDPRSettings.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; };
 		0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -693,6 +694,7 @@
 /* Begin PBXFileReference section */
 		0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSSMMediationAdViewController.h; sourceTree = "<group>"; };
 		0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMMediationAdViewController.m; sourceTree = "<group>"; };
+		0E889BBB208FD6AC00B7AC0A /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = InMobiSDK.framework; sourceTree = "<group>"; };
 		0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANGDPRSettings.h; sourceTree = "<group>"; };
 		0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGDPRSettings.m; sourceTree = "<group>"; };
 		4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
@@ -898,7 +900,6 @@
 		8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKVdopiaAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4B96BA1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseVdopia.h; sourceTree = "<group>"; };
 		8A4B96BB1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseVdopia.m; sourceTree = "<group>"; };
-		8A4EF0C91CF3854E002C2DF1 /* libInMobi-5.3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libInMobi-5.3.1.a"; sourceTree = "<group>"; };
 		8A4EF4581CF3B1CA002C2DF1 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
 		8A4EF4591CF3B1CA002C2DF1 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
 		8A4EF45A1CF3B1CA002C2DF1 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
@@ -1109,16 +1110,6 @@
 		8AE2D86E19CC9B7300001B70 /* ANMoPubMediationInterstitial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANMoPubMediationInterstitial.m; path = ../mediation/mediating/MoPub/ANMoPubMediationInterstitial.m; sourceTree = "<group>"; };
 		8AE5E11C1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdView+PrivateMethods.h"; sourceTree = "<group>"; };
 		8AE7AD9D1A7AC4E5009E2F2F /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
-		8AE879FE1BDAD044001053D2 /* IMBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBanner.h; sourceTree = "<group>"; };
-		8AE879FF1BDAD044001053D2 /* IMBannerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMBannerDelegate.h; sourceTree = "<group>"; };
-		8AE87A001BDAD044001053D2 /* IMCommonConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMCommonConstants.h; sourceTree = "<group>"; };
-		8AE87A011BDAD044001053D2 /* IMCustomNative.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMCustomNative.h; sourceTree = "<group>"; };
-		8AE87A021BDAD044001053D2 /* IMInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMInterstitial.h; sourceTree = "<group>"; };
-		8AE87A031BDAD044001053D2 /* IMInterstitialDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMInterstitialDelegate.h; sourceTree = "<group>"; };
-		8AE87A041BDAD044001053D2 /* IMNative.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMNative.h; sourceTree = "<group>"; };
-		8AE87A051BDAD044001053D2 /* IMNativeDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMNativeDelegate.h; sourceTree = "<group>"; };
-		8AE87A061BDAD044001053D2 /* IMRequestStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMRequestStatus.h; sourceTree = "<group>"; };
-		8AE87A071BDAD044001053D2 /* IMSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMSdk.h; sourceTree = "<group>"; };
 		8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdDelegate.h; path = native/ANNativeAdDelegate.h; sourceTree = "<group>"; };
 		8AF5A87D1ACC60D50089C529 /* ANStandardAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANStandardAd.h; sourceTree = "<group>"; };
 		8AF5A87E1ACC60D50089C529 /* ANStandardAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANStandardAd.m; sourceTree = "<group>"; };
@@ -1325,6 +1316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */,
+				0E889BC5208FDB8600B7AC0A /* InMobiSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2157,17 +2149,7 @@
 		8AE879FD1BDAD044001053D2 /* InMobiSDK */ = {
 			isa = PBXGroup;
 			children = (
-				8AE879FE1BDAD044001053D2 /* IMBanner.h */,
-				8AE879FF1BDAD044001053D2 /* IMBannerDelegate.h */,
-				8AE87A001BDAD044001053D2 /* IMCommonConstants.h */,
-				8AE87A011BDAD044001053D2 /* IMCustomNative.h */,
-				8AE87A021BDAD044001053D2 /* IMInterstitial.h */,
-				8AE87A031BDAD044001053D2 /* IMInterstitialDelegate.h */,
-				8AE87A041BDAD044001053D2 /* IMNative.h */,
-				8AE87A051BDAD044001053D2 /* IMNativeDelegate.h */,
-				8AE87A061BDAD044001053D2 /* IMRequestStatus.h */,
-				8AE87A071BDAD044001053D2 /* IMSdk.h */,
-				8A4EF0C91CF3854E002C2DF1 /* libInMobi-5.3.1.a */,
+				0E889BBB208FD6AC00B7AC0A /* InMobiSDK.framework */,
 			);
 			path = InMobiSDK;
 			sourceTree = "<group>";
@@ -3822,7 +3804,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3840,7 +3822,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK";
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

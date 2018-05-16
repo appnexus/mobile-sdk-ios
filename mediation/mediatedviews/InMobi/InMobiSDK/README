@@ -1,0 +1,15 @@
+===================================
+InMobi Monetization SDK 7.x for iOS
+===================================
+
+This is the InMobi Monetization SDK 7.x for iOS
+
+Requirements:
+- An InMobi account ID and placement ID.
+- Xcode 9.0 or later.
+- Runtime of iOS 8.0 or later.
+
+The full changelog can be found in the CHANGELOG file.
+
+The latest documentation and code samples are available at:
+https://support.inmobi.com/monetize

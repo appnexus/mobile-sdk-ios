@@ -101,4 +101,7 @@
 - (void)didCloseAd;
 - (void)willLeaveApplication;
 
+@optional
+-(void)didInteractWithParams;
+
 @end
