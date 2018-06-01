@@ -302,7 +302,6 @@
 
 - (void) startAutoRefreshTimer
 {
-ANLogMark();
     if (!self.autoRefreshTimer) {
         ANLogDebug(@"fetcher_stopped");
     } else if ([self.autoRefreshTimer an_isScheduled]) {
@@ -316,7 +315,6 @@ ANLogMark();
 //
 - (void)restartAutoRefreshTimer
 {
-ANLogMark();
     // stop old autoRefreshTimer
     [self stopAutoRefreshTimer];
 
@@ -334,7 +332,6 @@ ANLogMark();
 
 - (void) stopAutoRefreshTimer
 {
-ANLogMark();
     [self.autoRefreshTimer invalidate];
     self.autoRefreshTimer = nil;
 }

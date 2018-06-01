@@ -391,6 +391,13 @@
     }
 }
 
+- (void)adDidReceiveAd:(id)adObject
+{
+    if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
+        [self.delegate adDidReceiveAd:adObject];
+    }
+}
+
 - (void)adRequestFailedWithError:(NSError *)error {
     if ([self.delegate respondsToSelector:@selector(ad: requestFailedWithError:)]) {
         [self.delegate ad:self requestFailedWithError:error];

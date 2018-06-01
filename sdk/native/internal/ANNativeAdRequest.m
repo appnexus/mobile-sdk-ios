@@ -51,6 +51,9 @@
 @synthesize  gender          = __gender;
 @synthesize  customKeywords  = __customKeywords;
 
+@synthesize  adType          = __adType;
+
+
 
 
 #pragma mark - Lifecycle.

@@ -78,7 +78,6 @@
 }
 
 - (void)requestLoaded:(NSNotification *)notification {
-    TESTTRACE();
     if (self.requestExpectation) {
         self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
         [self.requestExpectation fulfill];

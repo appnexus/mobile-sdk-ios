@@ -16,6 +16,10 @@
 #import "ANHTTPStubbingManager.h"
 #import "ANHTTPStubURLProtocol.h"
 #import "ANTestGlobal.h"
+#import "ANSDKSettings.h"
+
+#import "NSURLRequest+HTTPBodyTesting.h"
+
 
 
 
@@ -66,8 +70,6 @@
 
 - (ANURLConnectionStub *)stubForURLString:(NSString *)URLString
 {
-    TESTTRACEM(@"URLString=%@", URLString);
-    
     __block ANURLConnectionStub  *stubMatch  = nil;
 
     [self.stubs enumerateObjectsUsingBlock: ^(ANURLConnectionStub *stub, NSUInteger idx, BOOL *stop)
@@ -84,8 +86,29 @@
                                                     *stop = YES;
                                                 }
                                             } ];
-
     return  stubMatch;
 }
+
+
+
+
+#pragma mark - Helper class methods.
+
++ (NSDictionary *) jsonBodyOfURLRequestAsDictionary: (NSURLRequest *)urlRequest
+{
+    TESTTRACE();
+
+    NSString      *bodyAsString  = [[NSString alloc] initWithData:[urlRequest ANHTTPStubs_HTTPBody] encoding:NSUTF8StringEncoding];
+    NSData        *objectData    = [bodyAsString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError       *error         = nil;
+
+    NSDictionary  *json          = [NSJSONSerialization JSONObjectWithData: objectData
+                                                                   options: NSJSONReadingMutableContainers
+                                                                     error: &error];
+    if (error)  { return nil; }
+
+    return  json;
+}
+
 
 @end

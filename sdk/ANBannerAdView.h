@@ -14,6 +14,7 @@
  */
 
 #import "ANAdView.h"
+#import "ANNativeAdRequest.h"
 
 @protocol ANBannerAdViewDelegate;
 
@@ -54,22 +55,83 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 #pragma mark - Example implementation
 
 /**
- This view displays banner ads.  A simple implementation that shows
- a 300x50 ad is:
+ This view displays ads from placements that return banner, video and/or native ads.
+ Note the implementation requires delaying the point where the ad is displayed,
+   because native ads are displayed with ANNativeAdResponse and because the type of ad must be
+   tested after load in order to determine the proper means for display.
 
  @code
-  CGSize size = CGSizeMake(300, 50);
- 
-  // Create the banner ad view and add it as a subview
-  ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:@"1326299" adSize:size];
-  banner.rootViewController = self;
-  [self.view addSubview:banner];
+    ANBannerAdView  *banner  = nil;
 
-  // Load an ad!
-  [banner loadAd];
-  [banner release]; // Only required for non-ARC projects
+    - (void) loadMultiFormatAd
+    {
+        CGSize  size      = CGSizeMake(300, 250);  // NOTE  Setting size is necessary only for fetching banner and video ad objects.
+                                                   //       This field is ignored when the placement returns a native ad object.
+        CGRect  someRect  = CGRectMake(...);
+
+        // Create the banner ad view here, but wait until the delegate fires before displaying.
+        //
+        ANBannerAdView  *banner  = [ANBannerAdView adViewWithFrame:someRect placementId:@"<YOUR_PLACEMENT_ID>" adSize:size];
+        banner.rootViewController = self;
+
+        // Load an ad!
+        [banner loadAd];
+    }
+
+    // Display all multi-format ads in success method from ANBannerAdViewDelegate.
+    //
+    - (void) adDidReceiveAd:(id)adObject
+    {
+        if ([adObject isKindOfClass:[ANNativeAdResponse class]])
+        {
+            ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)ad;
+            MyNativeView        *nativeView        = [[MyNativeView alloc] init];
+
+            nativeView.title.text            = nativeAdResponse.title;
+            nativeView.text.text             = nativeAdResponse.body;
+            nativeView.iconImageView.image   = nativeAdResponse.iconImage;
+            nativeView.mainImageView.image   = nativeAdResponse.mainImage;
+
+            [nativeView.callToActionButton setTitle:response.callToAction forState:UIControlStateNormal];
+
+            nativeAdResponse.delegate = self;
+
+            [nativeAdResponse registerViewForTracking: nativeView
+                              withRootViewController: self
+                                      clickableViews: @[nativeView.callToActionButton, nativeView.mainImageView]
+                                               error: nil
+              ];
+
+            [self.view addSubview:nativeView];
+
+        } else {
+            [self.view addSubview:banner];
+        }
+    }
  @endcode
- 
+
+
+ If this view will be displaying placements that include only banner and/or video ads,
+   then display can be (optimistically) handled without using ANBannerAdViewDelegate:
+
+ @code
+    - (void) loadMultiFormatAdThatDoesNotIncludeNative
+    {
+        CGSize size = CGSizeMake(300, 250);
+
+        // Create the banner ad view and add it as a subview.
+        //
+        ANBannerAdView  *banner  = [ANBannerAdView adViewWithFrame:rect placementId:@"13572468" adSize:size];
+        banner.rootViewController = self;
+
+        [self.view addSubview:banner];
+
+        // Load an ad!
+        // NOTE  Upon loadAd failure, the view impression simply remains blank.
+        //
+        [banner loadAd];
+    }
+ @endcode
  */
 
 
@@ -79,14 +141,13 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 @interface ANBannerAdView : ANAdView
 
 /**
- Delegate object that receives notifications from this
- ANBannerAdView.
+ Delegate object that receives notifications from this ANBannerAdView.  Equivalent to ANAdDelegate.
+ Overloaded as the delegate for ANNativeAdResponse object which is a perfect subset of ANAdDelegate.
  */
 @property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
 
 /**
- Delegate object that receives custom app event notifications from this
- ANBannerAdView.
+ Delegate object that receives custom app event notifications from this ANBannerAdView.
  */
 @property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
 
@@ -202,6 +263,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 
 @end
+
 
 
 

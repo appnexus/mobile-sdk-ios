@@ -107,6 +107,7 @@
 
 - (void)testAppNexusWithIconImageLoad {
     [self stubRequestWithResponse:@"appnexus_standard_response"];
+
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
@@ -529,6 +530,7 @@ TESTTRACE();
 
 
 
+
 # pragma mark - Ad Server Response Stubbing
 
 - (void)stubRequestWithResponse:(NSString *)responseName
@@ -548,6 +550,7 @@ TESTTRACE();
 
     [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
 }
+
 
 
 

@@ -22,6 +22,8 @@
 //
 @protocol ANAdViewInternalDelegate <NSObject>
 
+@optional
+- (void)adDidReceiveAd:(id)adObject;
 
 @required
 - (void)adDidReceiveAd;

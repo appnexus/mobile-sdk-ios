@@ -21,6 +21,25 @@
 
 @interface ANHTTPStubbingManager : NSObject
 
+/**
+ If set to YES, then unstubbed requests will be ignored by this class and handled by the system.
+ If set to NO (default), then unstubbed requests will result in didFailToLoad errors.
+
+ Default is NO.
+ */
+@property (nonatomic) BOOL ignoreUnstubbedRequests;
+
+/**
+ If set to YES, then all requests which trigger canInitWithRequest: will be broadcast
+ as kANHTTPStubURLProtocolRequestDidLoadNotification notifications. The request will be in the user info,
+ as the value of the kANHTTPStubURLProtocolRequest key.
+
+ Default is NO.
+ */
+@property (nonatomic) BOOL broadcastRequests;
+
+
+
 + (ANHTTPStubbingManager *)sharedStubbingManager;
 
 - (void)enable;
@@ -32,21 +51,7 @@
 
 - (ANURLConnectionStub *)stubForURLString:(NSString *)URLString;
 
-/**
- If set to YES, then unstubbed requests will be ignored by this class and handled by the system.
- If set to NO (default), then unstubbed requests will result in didFailToLoad errors.
- 
- Default is NO.
- */
-@property (nonatomic) BOOL ignoreUnstubbedRequests;
-
-/**
- If set to YES, then all requests which trigger canInitWithRequest: will be broadcast
- as kANHTTPStubURLProtocolRequestDidLoadNotification notifications. The request will be in the user info,
- as the value of the kANHTTPStubURLProtocolRequest key.
- 
- Default is NO.
- */
-@property (nonatomic) BOOL broadcastRequests;
+//
++ (NSDictionary *) jsonBodyOfURLRequestAsDictionary: (NSURLRequest *)urlRequest;
 
 @end

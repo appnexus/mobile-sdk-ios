@@ -21,14 +21,14 @@
  * Defines all the callbacks for a native view registered
  * with an ANNativeAdResponse.
  */
-@protocol ANNativeAdDelegate <NSObject>   // ALIAS  ANNativeAdResponseDelegate
+@protocol ANNativeAdDelegate <NSObject>   // This is the ANNativeAd Response Delegate.
 
 @optional
 
 /*!
  * Sent when the native view is clicked by the user.
  */
-- (void)adWasClicked:(ANNativeAdResponse *)response;
+- (void)adWasClicked:(id)response;
 
 /*!
  * Sent when the native view was clicked, and the click through
@@ -38,30 +38,30 @@
  * native browser instead, then [ANNativeAdResponse opensInNativeBrowser]
  * should be set to YES.
  */
-- (void)adWillPresent:(ANNativeAdResponse *)response;
+- (void)adWillPresent:(id)response;
 
 /*!
  * Sent when the in-app browser has finished presenting and taken
  * control from your application.
  */
-- (void)adDidPresent:(ANNativeAdResponse *)response;
+- (void)adDidPresent:(id)response;
 
 /*!
  * Sent when the in-app browser will close and before
  * control has been returned to your application.
  */
-- (void)adWillClose:(ANNativeAdResponse *)response;
+- (void)adWillClose:(id)response;
 
 /*!
  * Sent when the in-app browser has closed and control
  * has been returned to your application.
  */
-- (void)adDidClose:(ANNativeAdResponse *)response;
+- (void)adDidClose:(id)response;
 
 /*!
  * Sent when the ad is about to leave the app; this can happen if you
  * have [ANNativeAdResponse opensInNativeBrowser] set to YES.
  */
-- (void)adWillLeaveApplication:(ANNativeAdResponse *)response;
+- (void)adWillLeaveApplication:(id)response;
 
 @end

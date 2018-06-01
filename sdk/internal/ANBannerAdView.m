@@ -30,16 +30,20 @@
 #import "ANMediationContainerView.h"
 #import "ANMediatedAd.h"
 
+#import "ANNativeAdRequest.h"
+#import "ANNativeStandardAdResponse.h"
+#import "ANNativeAdImageCache.h"
+
 
 
 
 @interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
 
-@property (nonatomic, readwrite, strong)  UIView            *contentView;
+@property (nonatomic, readwrite, strong)  UIView  *contentView;
 
-@property (nonatomic, readwrite, strong)  NSNumber              *transitionInProgress;
+@property (nonatomic, readwrite, strong)  NSNumber  *transitionInProgress;
 
-@property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionURLs;
+@property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
 
 @end
 
@@ -305,8 +309,11 @@
     
     if ([response isSuccessful]) 
     {
-        UIView *contentView      = response.adObject;
-        id      adObjectHandler  = response.adObjectHandler;
+        id  adObject         = response.adObject;
+        id  adObjectHandler  = response.adObjectHandler;
+
+        self.contentView = nil;
+        self.impressionURLs = nil;
         
         
         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:adObjectHandler];
@@ -314,18 +321,19 @@
              [self setCreativeId:creativeId];
         }
 
-        NSString  *adTypeString =  (NSString *) [ANGlobal valueOfGetterProperty:@"adType" forObject:adObjectHandler];
+        NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:@"adType" forObject:adObjectHandler];
         if (adTypeString) {
             [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
         }
 
 
-        if ([contentView isKindOfClass:[UIView class]]) 
+        if ([adObject isKindOfClass:[UIView class]])
         {
-            self.contentView = contentView;
+            self.contentView = adObject;
             [self adDidReceiveAd];
             
-            if (! [adObjectHandler isKindOfClass:[ANRTBVideoAd class]]) {
+            if (! [adObjectHandler isKindOfClass:[ANRTBVideoAd class]])
+            {
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
 
                 @synchronized (self)
@@ -337,9 +345,58 @@
                 }
             }
 
+        } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
+            ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
+
+            self.creativeId  = nativeAdResponse.creativeId;
+            self.adType      = ANAdTypeNative;
+
+            nativeAdResponse.opensInNativeBrowser         = self.opensInNativeBrowser;
+            nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
+
+            //
+            __weak ANBannerAdView  *weakSelf  = self;
+            NSOperation *finish = [NSBlockOperation blockOperationWithBlock:
+                                   ^{
+                                       __strong ANBannerAdView  *strongSelf  = weakSelf;
+
+                                       if (!strongSelf) {
+                                           ANLogError(@"FAILED to access strongSelf.");
+                                           return;
+                                       }
+
+                                       [strongSelf adDidReceiveAd:nativeAdResponse];
+                                   } ];
+
+
+
+            if ([nativeAdResponse respondsToSelector:@selector(setIconImage:)])
+            {
+                [self setImageForImageURL: nativeAdResponse.iconImageURL
+                                 onObject: nativeAdResponse
+                               forKeyPath: @"iconImage"
+                  withCompletionOperation: finish];
+            }
+
+            if ([nativeAdResponse respondsToSelector:@selector(setMainImage:)])
+            {
+                [self setImageForImageURL: nativeAdResponse.mainImageURL
+                                 onObject: nativeAdResponse
+                               forKeyPath: @"mainImage"
+                  withCompletionOperation: finish];
+            }
+
+            [[NSOperationQueue mainQueue] addOperation:finish];
 
         } else {
-            NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: NSLocalizedString(@"Requested a banner ad but received a non-view object as response.", @"Error: We did not get a viewable object as a response for a banner ad request.")};
+            NSString  *unrecognizedResponseErrorMessage  = [NSString stringWithFormat:@"UNRECOGNIZED ad response.  (%@)", [adObject class]];
+
+            NSDictionary  *errorInfo  = @{NSLocalizedDescriptionKey: NSLocalizedString(
+                                                                         unrecognizedResponseErrorMessage,
+                                                                         @"Error: UNKNOWN ad object returned as response to multi-format ad request."
+                                                                       )
+                                        };
+
             error = [NSError errorWithDomain:AN_ERROR_DOMAIN
                                         code:ANAdResponseNonViewResponse
                                     userInfo:errorInfo];
@@ -348,8 +405,8 @@
     } else {
         error = response.error;
     }
-    
-    
+
+
     if (error) {
         self.contentView = nil;
         [self adRequestFailedWithError:error];
@@ -392,6 +449,82 @@
 
 
 
+#pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
+
+- (void)setImageForImageURL:(NSURL *)imageURL
+                   onObject:(id)object
+                 forKeyPath:(NSString *)keyPath
+    withCompletionOperation:(NSOperation *)operation {
+
+    NSOperation *dependentOperation = [self setImageForImageURL:imageURL
+                                                       onObject:object
+                                                     forKeyPath:keyPath];
+    if (dependentOperation) {
+        [operation addDependency:dependentOperation];
+    }
+}
+
+
+- (NSOperation *)setImageForImageURL: (NSURL *)imageURL
+                            onObject: (id)object
+                          forKeyPath: (NSString *)keyPath
+{
+    if (!imageURL) {
+        return nil;
+    }
+
+    UIImage *cachedImage = [ANNativeAdImageCache imageForKey:imageURL];
+
+    if (cachedImage) {
+        [object setValue:cachedImage forKeyPath:keyPath];
+        return nil;
+
+    } else {
+        NSOperation *loadImageData = [NSBlockOperation blockOperationWithBlock:^{
+            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+            NSURLRequest *request = [NSURLRequest requestWithURL:imageURL
+                                                     cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                 timeoutInterval:kAppNexusNativeAdImageDownloadTimeoutInterval];
+
+            NSURLSessionDataTask *task = [[NSURLSession sharedSession]
+                                          dataTaskWithRequest:request
+                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              NSInteger statusCode = -1;
+                                              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                                  statusCode = [httpResponse statusCode];
+
+                                              }
+
+                                              if (statusCode >= 400 || statusCode == -1)  {
+                                                  ANLogError(@"Error downloading image: %@", error);
+
+                                              }else{
+                                                  UIImage *image = [UIImage imageWithData:data];
+                                                  if (image) {
+                                                      [ANNativeAdImageCache setImage:image
+                                                                              forKey:imageURL];
+                                                      [object setValue:image
+                                                            forKeyPath:keyPath];
+                                                  }
+                                              }
+                                              dispatch_semaphore_signal(semaphore);
+
+                                          }];
+
+            [task resume];
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+        }];
+
+        [[NSOperationQueue mainQueue] addOperation:loadImageData];
+        return loadImageData;
+    }
+}
+
+
+
+
 #pragma mark - ANAdViewInternalDelegate
 
 - (NSString *) adTypeForMRAID  {
@@ -400,7 +533,7 @@
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-    return  @[ @(ANAllowedMediaTypeBanner), @(ANAllowedMediaTypeVideo) ];
+    return  @[ @(ANAllowedMediaTypeBanner), @(ANAllowedMediaTypeVideo), @(ANAllowedMediaTypeNative) ];
 }
 
 

@@ -220,6 +220,9 @@
 //EMPTY
 @end
 
+
+
+
 #pragma mark - ANAdDelegate.
 
 /**
@@ -237,29 +240,29 @@
  Sent when the ad content has been successfully retrieved from the
  server.
  */
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad;
+- (void)adDidReceiveAd:(id)ad;
 
 /**
  Sent when the ad request to the server has failed.
  */
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error;
+- (void)ad:(id)ad requestFailedWithError:(NSError *)error;
 
 
 
 /**
  Sent when the ad is clicked by the user.
  */
-- (void)adWasClicked:(id<ANAdProtocol>)ad;
+- (void)adWasClicked:(id)ad;
 
 /**
  Sent when the ad view is about to close.
  */
-- (void)adWillClose:(id<ANAdProtocol>)ad;
+- (void)adWillClose:(id)ad;
 
 /**
  Sent when the ad view has finished closing.
  */
-- (void)adDidClose:(id<ANAdProtocol>)ad;
+- (void)adDidClose:(id)ad;
 
 /**
  Sent when the ad is clicked, and the SDK is about to open inside
@@ -267,19 +270,19 @@
  open the native browser instead, set `opensInNativeBrowser' to
  true.
  */
-- (void)adWillPresent:(id<ANAdProtocol>)ad;
+- (void)adWillPresent:(id)ad;
 
 /**
  Sent when the ad has finished being viewed using the in-SDK
  browser.
  */
-- (void)adDidPresent:(id<ANAdProtocol>)ad;
+- (void)adDidPresent:(id)ad;
 
 /**
  Sent when the ad is about to leave the app; this can happen if you
  have `opensInNativeBrowser' set to true, for example.
  */
-- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
+- (void)adWillLeaveApplication:(id)ad;
 
 @end
 
