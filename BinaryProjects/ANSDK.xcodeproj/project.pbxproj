@@ -10,7 +10,6 @@
 		0035C5AE1F4496FD00915E97 /* ANSSMMediationAdViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */; };
 		0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
 		0035C5B11F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
-		0E889BC5208FDB8600B7AC0A /* InMobiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E889BBB208FD6AC00B7AC0A /* InMobiSDK.framework */; };
 		0E35D4AD2088F67E000A6C27 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
 		0E9E0D262090E59B00A871BF /* ANGDPRSettings.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; };
 		0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -694,9 +693,9 @@
 /* Begin PBXFileReference section */
 		0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSSMMediationAdViewController.h; sourceTree = "<group>"; };
 		0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMMediationAdViewController.m; sourceTree = "<group>"; };
-		0E889BBB208FD6AC00B7AC0A /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = InMobiSDK.framework; sourceTree = "<group>"; };
 		0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANGDPRSettings.h; sourceTree = "<group>"; };
 		0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGDPRSettings.m; sourceTree = "<group>"; };
+		0E889BBB208FD6AC00B7AC0A /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = InMobiSDK.framework; sourceTree = "<group>"; };
 		4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
 		4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcherResponse.m; sourceTree = "<group>"; };
 		4F403A6D2043C8CF00EF75A2 /* vastVideo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = vastVideo.html; sourceTree = "<group>"; };
@@ -1316,7 +1315,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */,
-				0E889BC5208FDB8600B7AC0A /* InMobiSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,8 @@
 		00010AE91FD0C9A2007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
 		00010AEA1FD0C9CB007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
 		008E9A6C1FD0E03400EF5C4D /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */; };
+		0E720C1C20BF3F9700D948F8 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9CBAC31C652E7D00558C95 /* EventKitUI.framework */; };
+		0E720C3220BF483000D948F8 /* InMobiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E720C3020BF482C00D948F8 /* InMobiSDK.framework */; };
 		4F142BA21D89E3B30079D3CE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */; };
 		4F23AEA11D909F330058F4B8 /* libANSDKMoPubAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */; };
 		4F3D75661FBBAC3E00985038 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FD97AA1FB3748C005FDCCE /* AVKit.framework */; };
@@ -132,7 +134,6 @@
 		8A3C13CB19EF2F1700CB1502 /* MediationAdaptersTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C13B119EF2CB000CB1502 /* MediationAdaptersTestCase.m */; };
 		8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4018041A9500A300D56208 /* GoogleMobileAds.framework */; };
 		8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */; };
-		8A4EF0D81CF3856D002C2DF1 /* libInMobi-5.3.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */; };
 		8A4EF0DB1CF3880B002C2DF1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4EF0D91CF38790002C2DF1 /* libc++.tbd */; };
 		8A4EF4671CF3B1E3002C2DF1 /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = 8A4EF4601CF3B1E3002C2DF1 /* __vungle.db */; };
 		8A4EF4681CF3B1E3002C2DF1 /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4EF4611CF3B1E3002C2DF1 /* vg_close.png */; };
@@ -712,6 +713,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E720C3020BF482C00D948F8 /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InMobiSDK.framework; path = ../mediation/mediatedviews/InMobi/InMobiSDK/InMobiSDK.framework; sourceTree = "<group>"; };
 		4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		4F41F5301D8AFECF00DC37D4 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		4F5A4C921FDF0499007C2C3D /* OutstreamVideoAdClassObjectFromUTResponseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OutstreamVideoAdClassObjectFromUTResponseTests.m; sourceTree = "<group>"; };
@@ -828,7 +830,6 @@
 		8A4018041A9500A300D56208 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		8A4018071A95025C00D56208 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		8A40180A1A95028700D56208 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libInMobi-5.3.1.a"; path = "../mediation/mediatedviews/InMobi/InMobiSDK/libInMobi-5.3.1.a"; sourceTree = "<group>"; };
 		8A4EF0D91CF38790002C2DF1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8A4EF4601CF3B1E3002C2DF1 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
 		8A4EF4611CF3B1E3002C2DF1 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
@@ -1097,6 +1098,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E720C1C20BF3F9700D948F8 /* EventKitUI.framework in Frameworks */,
 				60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */,
 				8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */,
 				8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */,
@@ -1129,7 +1131,6 @@
 				8A4EF0DB1CF3880B002C2DF1 /* libc++.tbd in Frameworks */,
 				605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */,
 				605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */,
-				8A4EF0D81CF3856D002C2DF1 /* libInMobi-5.3.1.a in Frameworks */,
 				8AF8413D1CF75A0200F97FA9 /* libLWSDK.a in Frameworks */,
 				8AA009EC19DB1D530090EBED /* libMoPubSDK.a in Frameworks */,
 				6035A0281E23FE1E0017EF56 /* libSmartAdServer.a in Frameworks */,
@@ -1140,6 +1141,7 @@
 				8AE76EB61E3C1B5500A3107F /* RFMAdSDK.framework in Frameworks */,
 				4F41F5311D8AFECF00DC37D4 /* SafariServices.framework in Frameworks */,
 				8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */,
+				0E720C3220BF483000D948F8 /* InMobiSDK.framework in Frameworks */,
 				8A4EF46D1CF3B1E3002C2DF1 /* VungleSDK.framework in Frameworks */,
 				8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */,
 			);
@@ -1267,12 +1269,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1488,6 +1490,7 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E720C3020BF482C00D948F8 /* InMobiSDK.framework */,
 				8A4EF45F1CF3B1E3002C2DF1 /* Resources */,
 				60359EF71E1EC5B70017EF56 /* Accounts.framework */,
 				8A14826F1AD344B70046F1B9 /* AdColony.framework */,
@@ -1518,7 +1521,6 @@
 				605EDBC41D92E9A00042DC0C /* libFlurry.a */,
 				605EDBC81D92E9B10042DC0C /* libFlurryAds.a */,
 				605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */,
-				8A4EF0D71CF3856D002C2DF1 /* libInMobi-5.3.1.a */,
 				8AF8413C1CF75A0200F97FA9 /* libLWSDK.a */,
 				8AA009EB19DB1D530090EBED /* libMoPubSDK.a */,
 				6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */,
@@ -1573,25 +1575,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
-				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0094019DB169B0090EBED /* libANSDK.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
 				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
 				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
+				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3130,7 +3132,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MediationFramework",
+				);
 				GCC_PREFIX_HEADER = MediationAdapterApp/MediationAdapterPrefixHeader.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3153,7 +3158,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MediationFramework",
+				);
 				GCC_PREFIX_HEADER = MediationAdapterApp/MediationAdapterPrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MediationAdapterApp/Info.plist;
@@ -3319,6 +3327,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3395,6 +3404,7 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
