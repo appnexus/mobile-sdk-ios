@@ -50,6 +50,7 @@
 @synthesize  age             = __age;
 @synthesize  gender          = __gender;
 @synthesize  customKeywords  = __customKeywords;
+@synthesize  externalUid     = __externalUid;
 
 @synthesize  adType          = __adType;
 

@@ -63,6 +63,7 @@
 @synthesize  customKeywords                         = __customKeywords;
 @synthesize  creativeId                             = __creativeId;
 @synthesize  adType                                 = __adType;
+@synthesize  externalUid                             = __externalUid;
 
 #pragma mark - Initialization
 
@@ -303,9 +304,13 @@
     return __creativeId;
 }
 
+-(NSString *)externalUid {
+    ANLogDebug(@"ExternalUid returned %@", __externalUid);
+    return __externalUid;
+}
 
 
-#pragma mark - ANUniversalAdFetcherDelegate -- abstract methods.
+#pragma mark - ANUniversalAdFetcherDelegate  -- abstract methods.
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
      didFinishRequestWithResponse: (ANAdFetcherResponse *)response

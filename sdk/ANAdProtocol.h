@@ -84,6 +84,11 @@
 @property (nonatomic, readwrite, assign) ANGender gender;
 
 /**
+ Specifies a string that corresponds to an external user ID for  user
+ */
+@property (nonatomic, readwrite, strong) NSString *externalUid;
+
+/**
  Report the Ad Type of the returned ad object.
  Not available until load is complete and successful.
  */

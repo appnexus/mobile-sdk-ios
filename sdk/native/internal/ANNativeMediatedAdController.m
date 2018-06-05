@@ -178,6 +178,7 @@
     targetingParameters.customKeywords    = customKeywordsAsStrings;
     targetingParameters.age               = self.adRequestDelegate.age;
     targetingParameters.gender            = self.adRequestDelegate.gender;
+    targetingParameters.externalUid       = self.adRequestDelegate.externalUid;
     targetingParameters.location          = self.adRequestDelegate.location;
     targetingParameters.idforadvertising  = ANUDID();
 

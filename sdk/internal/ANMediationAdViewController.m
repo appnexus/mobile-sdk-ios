@@ -193,6 +193,7 @@
 
     targetingParameters.customKeywords    = customKeywordsAsStrings;
     targetingParameters.age               = adView.age;
+    targetingParameters.externalUid       = adView.externalUid;
     targetingParameters.gender            = adView.gender;
     targetingParameters.location          = adView.location;
     targetingParameters.idforadvertising  = ANUDID();

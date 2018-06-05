@@ -118,6 +118,10 @@ static NSString  *videoPlacementID  = @"9924001";
         NSNumber *gender = user[@"gender"];
         XCTAssertNotNil(gender);
 
+        // externalUid
+        NSString *externalUid = user[@"external_uid"];
+        XCTAssertNotNil(externalUid);
+        XCTAssertEqualObjects(externalUid, @"AppNexus");
         NSString * deviceLanguage = [[NSLocale preferredLanguages] firstObject];
         NSString *language = user[@"language"];
         XCTAssertEqualObjects(language, deviceLanguage);
@@ -196,11 +200,17 @@ static NSString  *videoPlacementID  = @"9924001";
                        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
                        
                        NSArray *tags = jsonDict[@"tags"];
+                       NSDictionary *user = jsonDict[@"user"];
                        
                        XCTAssertNotNil(tags);
                        // Tags
                        XCTAssertEqual(tags.count, 1);
                        NSDictionary *tag = [tags firstObject];
+                       
+                       // externalUid
+                       NSString *externalUid = user[@"external_uid"];
+                       XCTAssertNotNil(externalUid);
+                       XCTAssertEqualObjects(externalUid, @"AppNexus");
                        
                        
                        NSDictionary *video = tag[@"video"];

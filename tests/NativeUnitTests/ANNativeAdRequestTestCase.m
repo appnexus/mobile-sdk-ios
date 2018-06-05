@@ -95,6 +95,8 @@
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     //self.requestExpectation = [self expectationWithDescription:@"request"];
     [self.adRequest setPlacementId:@"1"];
+    [self.adRequest setExternalUid:@"AppNexus"];
+    
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -107,11 +109,18 @@
     
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
     XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
+    // externalUid Test
+    NSDictionary *user = jsonBody[@"user"];
+    NSString *externalUid = user[@"external_uid"];
+    XCTAssertNotNil(externalUid);
+    XCTAssertEqualObjects(externalUid, @"AppNexus");
+    
 }
 
 - (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
+    [self.adRequest setExternalUid:@"AppNexus"];
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -128,12 +137,20 @@
     XCTAssertEqual([jsonBody[@"member_id"] integerValue], 2);
     NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //@"code" value is of type NSTaggedPointerString.
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
+    // externalUid Test
+    NSDictionary *user = jsonBody[@"user"];
+    NSString *externalUid = user[@"external_uid"];
+    XCTAssertNotNil(externalUid);
+    XCTAssertEqualObjects(externalUid, @"AppNexus");
+
 }
 
 - (void)testSetBothInventoryCodeAndPlacementIdOnNative {
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
     [self.adRequest setPlacementId:@"1"];
+    [self.adRequest setExternalUid:@"AppNexus"];
+
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
@@ -154,6 +171,11 @@
     
     NSString  *codeValue  = jsonBody[@"tags"][0][@"code"];   //@"code" value is of type NSTaggedPointerString.
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
+    // externalUid Test
+    NSDictionary *user = jsonBody[@"user"];
+    NSString *externalUid = user[@"external_uid"];
+    XCTAssertNotNil(externalUid);
+    XCTAssertEqualObjects(externalUid, @"AppNexus");
 }
 
 - (void)testAppNexusWithMainImageLoad {

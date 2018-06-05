@@ -31,7 +31,7 @@
 
 @property (nonatomic, readwrite, strong) NSString *age;
 @property (nonatomic, readwrite, assign) ANGender gender;
-
+@property (nonatomic, readwrite, strong) NSString *externalUid;
 /**
  location may be nil if not specified by app.
  */

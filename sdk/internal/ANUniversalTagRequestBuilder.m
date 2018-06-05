@@ -61,31 +61,32 @@
 
 - (NSURLRequest *)request
 {
-
+    
     NSURL                *URL             = [NSURL URLWithString:self.baseURLString];
     NSMutableURLRequest  *mutableRequest  = [[NSMutableURLRequest alloc] initWithURL: URL
                                                                          cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
                                                                      timeoutInterval: kAppNexusRequestTimeoutInterval];
 
+
     [mutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"User-Agent"];
     //needs to be set explicity else will default to "application/x-www-form-urlencoded"
     [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [mutableRequest setHTTPMethod:@"POST"];
-
+    
     NSError       *error       = nil;
     NSDictionary  *jsonObject  = [self requestBody];
     NSData        *postData    = [NSJSONSerialization dataWithJSONObject: jsonObject
                                                                  options: kNilOptions
                                                                    error: &error];
-
+    
     if (!error) {
         NSString *jsonString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
         ANLogDebug(@"Post JSON: %@", jsonString);
         ANLogDebug(@"[self requestBody] = %@", jsonObject);   //DEBUG
-
+        
         [mutableRequest setHTTPBody:postData];
         return [mutableRequest copy];
-
+        
     } else {
         ANLogError(@"Error formulating Universal Tag request: %@", error);
         return nil;
@@ -95,45 +96,45 @@
 - (NSDictionary *)requestBody
 {
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
-
+    
     NSDictionary *tags = [self tag:requestDict];
     if (tags) {
         requestDict[@"tags"] = @[tags];
     }
-
+    
     NSDictionary *user = [self user];
     if (user) {
         requestDict[@"user"] = user;
     }
-
+    
     NSDictionary *device = [self device];
     if (device) {
         requestDict[@"device"] = device;
     }
-
+    
     NSDictionary *app = [self app];
     if (app) {
         requestDict[@"app"] = app;
     }
-
+    
     NSArray *keywords = [self keywords];
     if (keywords) {
         requestDict[@"keywords"] = keywords;
     }
-
+    
     NSDictionary  *sdk  = [self sdk];
     if (sdk) {
         requestDict[@"sdk"] = sdk;
     }
     requestDict[@"sdkver"] = AN_SDK_VERSION;  //LEGACY.  Replaced by sdk object.
-
+    
     requestDict[@"supply_type"] = @"mobile_app";
-
+    
     NSDictionary *gdprConsent = [self getGDPRConsentObject];
     if (gdprConsent) {
         requestDict[@"gdpr_consent"] = gdprConsent;
     }
-
+    
     
     return [requestDict copy];
 }
@@ -144,14 +145,14 @@
 {
     
     NSDictionary  *customKeywords  = [self.adFetcherDelegate customKeywords];
-
+    
     if ([customKeywords count] < 1) {
         return nil;
     }
-
+    
     //
     NSMutableArray<NSDictionary *>  *kvSegmentsArray  = [[NSMutableArray alloc] init];
-
+    
     for (NSString *key in customKeywords)
     {
         NSArray  *valueArray  = [customKeywords objectForKey:key];
@@ -159,24 +160,24 @@
             ANLogWarn(@"DISCARDING key with empty value array.  (%@)", key);
             continue;
         }
-
+        
         NSSet  *setOfUniqueArrayValues  = [NSSet setWithArray:valueArray];
-
+        
         [kvSegmentsArray addObject:@{
-                                        @"key"      : key,
-                                        @"value"    : [setOfUniqueArrayValues allObjects]
-                                    } ];
+                                     @"key"      : key,
+                                     @"value"    : [setOfUniqueArrayValues allObjects]
+                                     } ];
     }
-
+    
     return [kvSegmentsArray copy];
 }
 
 
 - (NSDictionary *)tag:(NSMutableDictionary *) requestDict
 {
-
+    
     NSMutableDictionary *tagDict = [[NSMutableDictionary alloc] init];
-
+    
     NSInteger placementId = [[self.adFetcherDelegate placementId] integerValue];
     
     NSString *invCode = [self.adFetcherDelegate inventoryCode];
@@ -187,58 +188,58 @@
     }else {
         tagDict[@"id"] = @(placementId);
     }
-
+    
     
     //
     NSDictionary             *delegateReturnDictionary  = [self.adFetcherDelegate internalDelegateUniversalTagSizeParameters];
-
+    
     CGSize                    primarySize               = [[delegateReturnDictionary  objectForKey:ANInternalDelgateTagKeyPrimarySize] CGSizeValue];
     NSMutableSet<NSValue *>  *sizes                     = [delegateReturnDictionary   objectForKey:ANInternalDelegateTagKeySizes];
     BOOL                      allowSmallerSizes         = [[delegateReturnDictionary  objectForKey:ANInternalDelegateTagKeyAllowSmallerSizes] boolValue];
-
+    
     tagDict[@"primary_size"] = @{
-                                    @"width"  : @(primarySize.width),
-                                    @"height" : @(primarySize.height)
-                                };
-
+                                 @"width"  : @(primarySize.width),
+                                 @"height" : @(primarySize.height)
+                                 };
+    
     NSMutableArray  *sizesArray  = [[NSMutableArray alloc] init];
-
+    
     for (id sizeElement in sizes) {
         if ([sizeElement isKindOfClass:[NSValue class]]) {
             CGSize  sizeValue  = [sizeElement CGSizeValue];
             [sizesArray addObject:@{
-                                     @"width"  : @(sizeValue.width),
-                                     @"height" : @(sizeValue.height)
-                                   } ];
+                                    @"width"  : @(sizeValue.width),
+                                    @"height" : @(sizeValue.height)
+                                    } ];
         }
     }
-
+    
     tagDict[@"sizes"] = sizesArray;
-
+    
     tagDict[@"allow_smaller_sizes"] = [NSNumber numberWithBool:allowSmallerSizes];
-
-
+    
+    
     //
     tagDict[@"allowed_media_types"] = [self.adFetcherDelegate adAllowedMediaTypes];
-
+    
     //
     if ([self.adFetcherDelegate respondsToSelector:@selector(shouldServePublicServiceAnnouncements)]) {
         tagDict[@"disable_psa"] = [NSNumber numberWithBool:![self.adFetcherDelegate shouldServePublicServiceAnnouncements]];
     } else {
         tagDict[@"disable_psa"] = [NSNumber numberWithBool:YES];
-
+        
     }
-
+    
     //
     tagDict[@"require_asset_url"] = [NSNumber numberWithBool:0];
     
     NSDictionary *video = [self video];
     if(video){
         
-            tagDict[@"video"] = video;
+        tagDict[@"video"] = video;
     }
     
-
+    
     //
     CGFloat  reservePrice  = [self.adFetcherDelegate reserve];
     if (reservePrice > 0)  {
@@ -246,8 +247,8 @@
     }
     
     
-
-
+    
+    
     //
     return [tagDict copy];
 }
@@ -279,6 +280,13 @@
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {
         userDict[@"language"] = language;
+    }
+    
+    
+    
+    NSString *externalUid = [self.adFetcherDelegate externalUid];
+    if (externalUid) {
+        userDict[@"external_uid"] = externalUid;
     }
     
     return [userDict copy];
@@ -359,14 +367,14 @@
 - (NSDictionary *)geo 
 {
     ANLocation  *location  = [self.adFetcherDelegate location];
-
+    
     //
     if (!location)  {
         return nil;
     }
-
+    
     NSMutableDictionary  *geoDict  = [[NSMutableDictionary alloc] init];
-
+    
     //
     if (location) {
         CGFloat latitude = location.latitude;
@@ -390,7 +398,7 @@
         geoDict[@"loc_age"] = @(ageInMilliseconds);
         geoDict[@"loc_precision"] = @((NSInteger)location.horizontalAccuracy);
     }
-
+    
     //
     return [geoDict copy];
 }
@@ -429,16 +437,16 @@
 
 - (NSDictionary *)sdk {
     return  @{
-                  @"source" : @"ansdk",
-                  @"version" : AN_SDK_VERSION
-            };
+              @"source" : @"ansdk",
+              @"version" : AN_SDK_VERSION
+              };
 }
 
 - (NSDictionary *)getGDPRConsentObject {
     
     NSString *gdprConsent = [ANGDPRSettings getConsentString];
     NSString *gdprRequired = [ANGDPRSettings getConsentRequired];
- 
+    
     if(gdprRequired != nil){
         NSNumber *gdprRequiredBool = ([gdprRequired isEqualToString:@"1"])?[NSNumber numberWithBool:YES]:[NSNumber numberWithBool:NO];
         return @{
