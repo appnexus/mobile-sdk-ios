@@ -201,6 +201,8 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 - (void) loadAd;
 
 
+@property (nonatomic, assign, readonly) CGSize loadedAdSize;
+
 @end
 
 

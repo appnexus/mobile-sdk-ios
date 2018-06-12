@@ -181,15 +181,13 @@
     
     NSString *invCode = [self.adFetcherDelegate inventoryCode];
     NSInteger memberId = [self.adFetcherDelegate memberId];
-    if(invCode && memberId>0){
+    if (invCode && memberId > 0) {
         tagDict[@"code"] = invCode;
         requestDict[@"member_id"] = @(memberId);
-    }else {
+    } else {
         tagDict[@"id"] = @(placementId);
     }
 
-    
-    //
     NSDictionary             *delegateReturnDictionary  = [self.adFetcherDelegate internalDelegateUniversalTagSizeParameters];
 
     CGSize                    primarySize               = [[delegateReturnDictionary  objectForKey:ANInternalDelgateTagKeyPrimarySize] CGSizeValue];

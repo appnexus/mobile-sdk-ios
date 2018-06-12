@@ -29,4 +29,9 @@
  */
 @property (nonatomic) BOOL HTTPSEnabled;
 
+/**
+ Special ad sizes for which the content view should be constrained to the container view.
+ */
+@property (nonatomic, copy) NSArray<NSValue *> *sizesThatShouldConstrainToSuperview;
+
 @end
