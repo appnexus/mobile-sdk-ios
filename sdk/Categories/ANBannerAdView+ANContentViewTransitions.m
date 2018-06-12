@@ -14,6 +14,7 @@
  */
 
 #import "ANBannerAdView+ANContentViewTransitions.h"
+#import "ANSDKSettings.h"
 
 static NSString *const kANContentViewTransitionsOldContentViewTransitionKey = @"AppNexusOldContentViewTransition";
 static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"AppNexusNewContentViewTransition";
@@ -139,7 +140,10 @@ static NSString *const kANContentViewTransitionsNewContentViewTransitionKey = @"
 
 - (void)constrainContentView {
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    if(CGSizeEqualToSize([self adSize], CGSizeMake(1, 1))){
+    
+    BOOL shouldConstrainToSuperview = [ANSDKSettings.sharedInstance.sizesThatShouldConstrainToSuperview containsObject:[NSValue valueWithCGSize:self.contentView.bounds.size]];
+    
+    if(CGSizeEqualToSize([self adSize], CGSizeMake(1, 1)) || shouldConstrainToSuperview){
         
         [self.contentView an_constrainToSizeOfSuperview];
         [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft

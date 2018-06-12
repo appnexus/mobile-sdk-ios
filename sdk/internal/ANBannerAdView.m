@@ -41,6 +41,8 @@
 
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionURLs;
 
+@property (nonatomic, readwrite, assign) CGSize loadedAdSize;
+
 @end
 
 
@@ -68,6 +70,7 @@
 
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
+    _loadedAdSize           = APPNEXUS_SIZE_UNDEFINED;
     self.allowSmallerSizes  = NO;
 }
 
@@ -322,6 +325,13 @@
 
         if ([contentView isKindOfClass:[UIView class]]) 
         {
+            if ([contentView conformsToProtocol:@protocol(ANAdContainer)]) {
+                id <ANAdContainer> adContainer = (id <ANAdContainer>)contentView;
+                self.loadedAdSize = adContainer.size;
+            } else {
+                self.loadedAdSize = self.adSize;
+            }
+            
             self.contentView = contentView;
             [self adDidReceiveAd];
             

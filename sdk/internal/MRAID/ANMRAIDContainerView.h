@@ -21,9 +21,12 @@
 
 @protocol ANAdViewInternalDelegate;
 
+@protocol ANAdContainer
+- (CGSize)size;
+@end
 
 
-@interface ANMRAIDContainerView : UIView
+@interface ANMRAIDContainerView : UIView <ANAdContainer>
 
 - (instancetype)initWithSize:(CGSize)size
                         HTML:(NSString *)html
