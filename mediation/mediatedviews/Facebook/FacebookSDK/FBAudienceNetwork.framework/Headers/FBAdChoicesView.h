@@ -47,20 +47,20 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  */
 @property (nonatomic, assign, readonly, getter=isExpandable) BOOL expandable;
 
-/*
+/**
   The native ad that provides AdChoices info, such as the image url, and click url. Setting this updates the nativeAd.
  */
 @property (nonatomic, weak, readwrite, nullable) FBNativeAd *nativeAd;
 
-/*
+/**
   Affects background mask rendering. Setting this property updates the rendering.
  */
 @property (nonatomic, assign, readwrite) UIRectCorner corner;
 
-/*
+/**
   The view controller to present the ad choices info from. If nil, the top view controller is used.
  */
-@property (nonatomic, weak, readwrite, null_resettable) UIViewController *viewController;
+@property (nonatomic, weak, readwrite, null_resettable) UIViewController *rootViewController;
 
 /**
   Initialize this view with a given native ad. Configuration is pulled from the native ad.
@@ -98,8 +98,10 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
   Using the superview, this updates the frame of this view, positioning the icon in the corner specified. UIRectCornerAllCorners not supported.
 
  - Parameter corner: The corner to display this view from.
+ - Parameter insets: Insets to take into account when positioning the view. Only respective insets are applied to corners.
  */
 - (void)updateFrameFromSuperview:(UIRectCorner)corner;
+- (void)updateFrameFromSuperview:(UIRectCorner)corner insets:(UIEdgeInsets)insets;
 
 @end
 

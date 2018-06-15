@@ -56,12 +56,12 @@ FB_CLASS_EXPORT
  - Parameter nativeAd: The native ad to use to create this view.
  - Parameter type: The type of this native ad template. For more information, consult FBNativeAdViewType.
  */
-+ (nonnull instancetype)nativeAdViewWithNativeAd:(nonnull FBNativeAd *)nativeAd withType:(FBNativeAdViewType)type;
++ (instancetype)nativeAdViewWithNativeAd:(FBNativeAd *)nativeAd withType:(FBNativeAdViewType)type;
 
 /**
   A view controller that is used to present modal content. If nil, the view searches for a view controller.
  */
-@property (nonatomic, weak, nullable) UIViewController *viewController;
+@property (nonatomic, weak, nullable) UIViewController *rootViewController;
 
 /**
   This is a method to create a native ad template using the given placement id and type.
@@ -69,7 +69,7 @@ FB_CLASS_EXPORT
  - Parameter type: The type of this native ad template. For more information, consult FBNativeAdViewType.
  - Parameter attributes: The attributes to render this native ad template with.
  */
-+ (nonnull instancetype)nativeAdViewWithNativeAd:(nonnull FBNativeAd *)nativeAd withType:(FBNativeAdViewType)type withAttributes:(nonnull FBNativeAdViewAttributes *)attributes;
++ (instancetype)nativeAdViewWithNativeAd:(FBNativeAd *)nativeAd withType:(FBNativeAdViewType)type withAttributes:(FBNativeAdViewAttributes *)attributes;
 
 @end
 
@@ -81,7 +81,7 @@ FB_CLASS_EXPORT
 /**
   This is a method to create native ad view attributes with a dictionary
  */
-- (nonnull instancetype)initWithDictionary:(nonnull NSDictionary *) dict NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDictionary:(NSDictionary *) dict NS_DESIGNATED_INITIALIZER;
 
 /**
   Background color of the native ad view.
@@ -129,7 +129,7 @@ FB_CLASS_EXPORT
 
  - Parameter type: The type for this layout.
  */
-+ (nonnull instancetype)defaultAttributesForType:(FBNativeAdViewType)type;
++ (instancetype)defaultAttributesForType:(FBNativeAdViewType)type;
 
 @end
 

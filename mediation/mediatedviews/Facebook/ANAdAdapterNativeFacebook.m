@@ -99,4 +99,8 @@
     [self.nativeAdDelegate didCloseAd];
 }
 
+- (void)nativeAdWillLogImpression:(FBNativeAd *)nativeAd {
+    ANLogDebug(@"Facebook Native ad impression is being captured.");
+}
+
 @end

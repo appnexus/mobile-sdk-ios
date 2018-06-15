@@ -74,4 +74,9 @@
     [self.delegate willCloseAd];
 }
 
+- (void)interstitialAdWillLogImpression:(FBInterstitialAd *)interstitialAd {
+    ANLogDebug(@"The user sees the add Facebook interstitialAd");
+    // Use this function as indication for a user's impression on the ad.
+}
+
 @end

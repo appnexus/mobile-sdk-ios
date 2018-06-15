@@ -45,7 +45,7 @@ typedef NS_OPTIONS(NSInteger, FBNativeAdsCachePolicy) {
 
 /**
  The FBNativeAd represents ad metadata to allow you to construct custom ad views.
-  See the NativeAdSample in the sample apps section of the Audience Network framework.
+  See the AdUnitsSample in the sample apps section of the Audience Network framework.
  */
 FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @interface FBNativeAd : NSObject
@@ -53,7 +53,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
   Typed access to the id of the ad placement.
  */
-@property (nonatomic, copy, readonly, nonnull) NSString *placementID;
+@property (nonatomic, copy, readonly) NSString *placementID;
 /**
   Typed access to the ad star rating. See `FBAdStarRating` for details.
  */
@@ -164,7 +164,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 
  - Parameter bidPayload: The payload of the ad bid. You can get your bid payload from Facebook bidder endpoint.
  */
-- (void)loadAdWithBidPayload:(nonnull NSString *)bidPayload;
+- (void)loadAdWithBidPayload:(NSString *)bidPayload;
 
 /**
   Call isAdValid to check whether native ad is valid & internal consistent prior rendering using its properties. If
@@ -230,7 +230,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 FB_EXPORT struct FBAdStarRating {
     /// The value of the star rating, X in X/5
     CGFloat value;
-    // The total possible star rating, Y in 4/Y
+    /// The total possible star rating, Y in 4/Y
     NSInteger scale;
 } FBAdStarRating;
 
@@ -243,7 +243,7 @@ FB_CLASS_EXPORT
 /**
   Typed access to the image url.
  */
-@property (nonatomic, copy, readonly, nonnull) NSURL *url;
+@property (nonatomic, copy, readonly) NSURL *url;
 /**
   Typed access to the image width.
  */
@@ -287,12 +287,12 @@ FB_CLASS_EXPORT FB_DEPRECATED
 /**
   The color drawn for filled-in stars. Defaults to yellow.
  */
-@property (strong, nonatomic, nonnull) UIColor *primaryColor FB_DEPRECATED;
+@property (strong, nonatomic) UIColor *primaryColor FB_DEPRECATED;
 
 /**
   The color drawn for empty stars. Defaults to gray.
  */
-@property (strong, nonatomic, nonnull) UIColor *secondaryColor FB_DEPRECATED;
+@property (strong, nonatomic) UIColor *secondaryColor FB_DEPRECATED;
 
 /**
   Initializes a star rating view with a given frame and star rating.

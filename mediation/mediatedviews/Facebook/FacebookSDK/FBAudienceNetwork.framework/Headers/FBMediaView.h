@@ -46,12 +46,12 @@ FB_CLASS_EXPORT
 /**
   the native ad, can be set again to reuse this view.
  */
-@property (nonatomic, strong, nonnull) FBNativeAd *nativeAd;
+@property (nonatomic, strong) FBNativeAd *nativeAd;
 
 /**
  A custom FBMediaViewVideoRenderer instance, used to override the default user experience of video ads.
  */
-@property (nonatomic, strong, nonnull) FBMediaViewVideoRenderer *videoRenderer;
+@property (nonatomic, strong) FBMediaViewVideoRenderer *videoRenderer;
 
 /**
   The current volume of the media view, ranging from 0.0 through 1.0.

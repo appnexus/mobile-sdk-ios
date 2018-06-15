@@ -85,4 +85,7 @@
     [self.delegate didCloseAd];
 }
 
+- (void)adViewWillLogImpression:(FBAdView *)adView {
+    ANLogDebug(@"Facebook Banner ad impression is being captured.");
+}
 @end
