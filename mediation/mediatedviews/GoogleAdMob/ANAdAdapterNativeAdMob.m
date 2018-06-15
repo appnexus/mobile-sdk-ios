@@ -66,7 +66,8 @@ static BOOL nativeContentAdsEnabled = NO;
     NSMutableArray *adTypes = [[NSMutableArray alloc] init];
     if (nativeAppInstallAdsEnabled) {
         [adTypes addObject:kGADAdLoaderAdTypeNativeAppInstall];
-    } else if (nativeContentAdsEnabled) {
+    }
+    if (nativeContentAdsEnabled) {
         [adTypes addObject:kGADAdLoaderAdTypeNativeContent];
     }
     if (adTypes.count == 0) {
