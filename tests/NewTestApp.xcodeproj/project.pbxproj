@@ -1107,7 +1107,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E720C1C20BF3F9700D948F8 /* EventKitUI.framework in Frameworks */,
 				60359EF81E1EC5B70017EF56 /* Accounts.framework in Frameworks */,
 				8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */,
 				8AA009E419DB1D270090EBED /* AmazonAd.framework in Frameworks */,
@@ -1117,8 +1116,10 @@
 				8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */,
 				8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */,
 				0E720C1C20BF3F9700D948F8 /* EventKitUI.framework in Frameworks */,
+				0E720C1C20BF3F9700D948F8 /* EventKitUI.framework in Frameworks */,
 				8AA009E619DB1D320090EBED /* FBAudienceNetwork.framework in Frameworks */,
 				8A4018051A9500A300D56208 /* GoogleMobileAds.framework in Frameworks */,
+				0E720C3220BF483000D948F8 /* InMobiSDK.framework in Frameworks */,
 				0E720C3220BF483000D948F8 /* InMobiSDK.framework in Frameworks */,
 				8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */,
 				4F142BA21D89E3B30079D3CE /* JavaScriptCore.framework in Frameworks */,
@@ -1152,7 +1153,6 @@
 				8AE76EB61E3C1B5500A3107F /* RFMAdSDK.framework in Frameworks */,
 				4F41F5311D8AFECF00DC37D4 /* SafariServices.framework in Frameworks */,
 				8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */,
-				0E720C3220BF483000D948F8 /* InMobiSDK.framework in Frameworks */,
 				8A4EF46D1CF3B1E3002C2DF1 /* VungleSDK.framework in Frameworks */,
 				8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */,
 			);
@@ -1280,12 +1280,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1506,7 +1506,6 @@
 		8A65BE8A19A4FCDF00A72571 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0E720C3020BF482C00D948F8 /* InMobiSDK.framework */,
 				8A4EF45F1CF3B1E3002C2DF1 /* Resources */,
 				60359EF71E1EC5B70017EF56 /* Accounts.framework */,
 				8A14826F1AD344B70046F1B9 /* AdColony.framework */,
@@ -1528,6 +1527,7 @@
 				8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */,
 				605EDBCA1D92F2050042DC0C /* Foundation.framework */,
 				8A4018041A9500A300D56208 /* GoogleMobileAds.framework */,
+				0E720C3020BF482C00D948F8 /* InMobiSDK.framework */,
 				0E720C3020BF482C00D948F8 /* InMobiSDK.framework */,
 				8AD011A61B2F652B001B0107 /* IOKit.framework */,
 				4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */,
@@ -1592,25 +1592,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094019DB169B0090EBED /* libANSDK.a */,
 				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
-				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
-				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094019DB169B0090EBED /* libANSDK.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
+				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
 				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
