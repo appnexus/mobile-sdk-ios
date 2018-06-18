@@ -56,8 +56,59 @@
 
 @implementation ANNativeAdResponse
 
+@synthesize  clickThroughAction             = _clickThroughAction;
 @synthesize  opensInNativeBrowser           = _opensInNativeBrowser;
 @synthesize  landingPageLoadsInBackground   = _landingPageLoadsInBackground;
+
+
+
+#pragma mark - Lifecycle.
+
+- (instancetype) init
+{
+    self = [super init];
+    if (!self)  { return nil; }
+
+    //
+    self.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
+
+    return  self;
+}
+
+
+
+#pragma mark - Getters/setters.
+
+// NOTE  Manually settting opensInNativeBrowser forces
+//       changes to landingPageLoadsInBackground and clickThroughAction.
+//
+- (void)setOpensInNativeBrowser:(BOOL)opensInNativeBrowser
+{
+    _opensInNativeBrowser = opensInNativeBrowser;
+
+    if (_opensInNativeBrowser) {
+        _clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
+    } else {
+        _clickThroughAction = ANClickThroughActionOpenSDKBrowser;
+    }
+}
+
+// Force changes to opensInNativeBrowser, as appropriate.
+//
+- (void)setClickThroughAction:(ANClickThroughAction)clickThroughAction
+{
+    _clickThroughAction = clickThroughAction;
+
+    switch (_clickThroughAction) {
+        case ANClickThroughActionOpenDeviceBrowser:
+            _opensInNativeBrowser = YES;
+            break;
+
+        default:
+            _opensInNativeBrowser = NO;
+    }
+}
+
 
 
 
@@ -205,6 +256,13 @@
 - (void)adWasClicked {
     if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {
         [self.delegate adWasClicked:self];
+    }
+}
+
+- (void)adWasClickedWithURL:(NSString *)clickURLString fallbackURL:(NSString *)clickFallbackURLString
+{
+    if ([self.delegate respondsToSelector:@selector(adWasClicked:withURL:fallbackURL:)]) {
+        [self.delegate adWasClicked:self withURL:clickURLString fallbackURL:clickFallbackURLString];
     }
 }
 

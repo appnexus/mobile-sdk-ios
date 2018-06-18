@@ -64,7 +64,7 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
          withStatus: (BOOL)muteStatus;
 
     - (void)adWasClicked:(id<ANAdProtocol>)ad;
-
+    - (void)adWasClicked:(id<ANAdProtocol>)ad withURL:(NSString *)urlString;
 
     - (void)adWillClose:(id<ANAdProtocol>)ad;
     - (void)adDidClose:(id<ANAdProtocol>)ad;

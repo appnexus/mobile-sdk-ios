@@ -93,6 +93,9 @@
  */
 @protocol ANNativeCustomAdapterAdDelegate <NSObject>
 
+@optional
+-(void)didInteractWithParams;
+
 @required
 - (void)adWasClicked;
 - (void)willPresentAd;
@@ -100,8 +103,5 @@
 - (void)willCloseAd;
 - (void)didCloseAd;
 - (void)willLeaveApplication;
-
-@optional
--(void)didInteractWithParams;
 
 @end

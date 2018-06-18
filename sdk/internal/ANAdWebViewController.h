@@ -89,6 +89,7 @@
 - (void)adDidFailPhotoSaveWithErrorString:(NSString *)errorString;
 
 - (void)fireJavaScript:(NSString *)javascript;
+- (void)updateViewability:(BOOL)isViewable;
 
 
 @end

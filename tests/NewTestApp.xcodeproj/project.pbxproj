@@ -57,7 +57,13 @@
 		4F76461E1D957E4E00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4F7646211D95994B00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
 		4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
+		4F7D0FB520D06F6E00EF0379 /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7D0FB420D06F6E00EF0379 /* UIApplication+ANTest.m */; };
+		4F7D0FC620D07C0D00EF0379 /* ClickThroughActionBasicBannerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F7D0FC520D07C0C00EF0379 /* ClickThroughActionBasicBannerResponse.json */; };
+		4F7D0FC720D07C2800EF0379 /* ClickThroughActionBasicBannerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F7D0FC520D07C0C00EF0379 /* ClickThroughActionBasicBannerResponse.json */; };
+		4F7D0FD820D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */; };
+		4F7D0FD920D090FC00EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */; };
 		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4FBF18B220D054A7005BA94B /* ClickThroughActionTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBF18B120D054A7005BA94B /* ClickThroughActionTestCase.m */; };
 		4FC282D21FDE7B31009ED64E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
 		4FC282E01FDE7B39009ED64E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3657F19D473B00097019F /* AVFoundation.framework */; };
 		4FC282E11FDE7B3E009ED64E /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FD97AA1FB3748C005FDCCE /* AVKit.framework */; };
@@ -759,9 +765,14 @@
 		4F71C6BA1FDE78DA00BC43D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachabilityTestCase.m; sourceTree = "<group>"; };
 		4F7332731FC3551800A206A2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4F7D0FA620D06F6E00EF0379 /* UIApplication+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+ANTest.h"; sourceTree = "<group>"; };
+		4F7D0FB420D06F6E00EF0379 /* UIApplication+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+ANTest.m"; sourceTree = "<group>"; };
+		4F7D0FC520D07C0C00EF0379 /* ClickThroughActionBasicBannerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClickThroughActionBasicBannerResponse.json; sourceTree = "<group>"; };
+		4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClickThroughActionBasicOutstreamVideoResponse.json; sourceTree = "<group>"; };
 		4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
+		4FBF18B120D054A7005BA94B /* ClickThroughActionTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClickThroughActionTestCase.m; sourceTree = "<group>"; };
 		4FD362641F8FCA3D0010567E /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = "KIF-3.6.0/KIF.xcodeproj"; sourceTree = "<group>"; };
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1354,6 +1365,7 @@
 				8A6520AA1E67738A0011EFB3 /* ANPBContainerViewTestCase.m */,
 				F50D81411BFC4945008D74DB /* ANPublicAPITestCase.m */,
 				4F72677C1E5F823E006A3468 /* ANReachabilityTestCase.m */,
+				4FBF18B120D054A7005BA94B /* ClickThroughActionTestCase.m */,
 				8A0AA46919DB30A2005EC52C /* UIViewConstraintsTestCase.m */,
 			);
 			path = Tests;
@@ -1780,6 +1792,8 @@
 				8AA00A0919DB1E150090EBED /* NSObject+Swizzling.m */,
 				6042CB4B1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.h */,
 				6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */,
+				4F7D0FA620D06F6E00EF0379 /* UIApplication+ANTest.h */,
+				4F7D0FB420D06F6E00EF0379 /* UIApplication+ANTest.m */,
 				8AA00A0A19DB1E150090EBED /* XCTestCase+ANAdResponse.h */,
 				8AA00A0B19DB1E150090EBED /* XCTestCase+ANAdResponse.m */,
 				8AA00A0C19DB1E150090EBED /* XCTestCase+ANBannerAdView.h */,
@@ -1816,6 +1830,8 @@
 				EF532BAD1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json */,
 				FCF95D9B2060511A00FB93F9 /* BannerMediationFailRTBVideoSuccess.json */,
 				8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */,
+				4F7D0FC520D07C0C00EF0379 /* ClickThroughActionBasicBannerResponse.json */,
+				4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */,
 				FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */,
 				FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
 				8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */,
@@ -2556,6 +2572,8 @@
 				EF532B981C592D0A00AF0C05 /* ANJAMExternalBrowserResponse.json in Resources */,
 				EF532B991C592D0A00AF0C05 /* ANJAMInternalBrowserResponse.json in Resources */,
 				8AA00A4319DB2A410090EBED /* ANSDKResources.bundle in Resources */,
+				4F7D0FC620D07C0D00EF0379 /* ClickThroughActionBasicBannerResponse.json in Resources */,
+				4F7D0FD820D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json in Resources */,
 				8AD0DBFD19CA40AE00170BCB /* Default-568h@2x.png in Resources */,
 				8A742A8E19CB2E4700D2AE6F /* Main.storyboard in Resources */,
 				4F76461A1D957E4A00B15742 /* MPAdBrowserController.xib in Resources */,
@@ -2576,6 +2594,8 @@
 				EF532BAC1C5A5B9F00AF0C05 /* ANJAMMayDeepLinkResponseNo.json in Resources */,
 				EF532BAE1C5A5F2000AF0C05 /* ANJAMRecordEventResponse.json in Resources */,
 				F50D81761BFCE0F8008D74DB /* appnexus_standard_response.json in Resources */,
+				4F7D0FC720D07C2800EF0379 /* ClickThroughActionBasicBannerResponse.json in Resources */,
+				4F7D0FD920D090FC00EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json in Resources */,
 				8AA00A4819DB2A9A0090EBED /* dogSelfie.jpg in Resources */,
 				8AA00A4919DB2A9A0090EBED /* dogSelfie@2x.jpg in Resources */,
 				8AA00A4A19DB2A9A0090EBED /* GreyWhiteCat.jpg in Resources */,
@@ -2742,6 +2762,7 @@
 				8AD01839199932F9007874BA /* ANNewTestAppViewController.m in Sources */,
 				8AD01836199932F9007874BA /* AppDelegate.m in Sources */,
 				8AD01833199932F9007874BA /* main.m in Sources */,
+				4F7D0FB520D06F6E00EF0379 /* UIApplication+ANTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2790,6 +2811,7 @@
 				F50D81681BFCDC77008D74DB /* ANURLConnectionStub.m in Sources */,
 				FC1566001FDF188D004B0B78 /* ANVideoAdPlayer+Test.h in Sources */,
 				FC1565FC1FDF1874004B0B78 /* ANVideoAdPlayer+Test.m in Sources */,
+				4FBF18B220D054A7005BA94B /* ClickThroughActionTestCase.m in Sources */,
 				8A0AA45A19DB2CB4005EC52C /* NSObject+Swizzling.m in Sources */,
 				6042CB4D1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				8A0AA47019DB30A2005EC52C /* UIViewConstraintsTestCase.m in Sources */,

@@ -18,7 +18,13 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANUniversalAdFetcher.h"
 
+
+
+
 static NSString *const kTestUUID = @"0000-000-000-00";
+
+
+
 
 @interface ANUniversalAdFetcherTests : XCTestCase<ANUniversalRequestTagBuilderDelegate>
 
@@ -27,7 +33,27 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 
 @end
 
+
+
+
 @implementation ANUniversalAdFetcherTests
+
+@synthesize age;
+@synthesize location;
+@synthesize inventoryCode;
+@synthesize reserve;
+@synthesize placementId;
+@synthesize gender;
+@synthesize shouldServePublicServiceAnnouncements;
+@synthesize landingPageLoadsInBackground;
+@synthesize opensInNativeBrowser;
+@synthesize memberId;
+@synthesize customKeywords;
+@synthesize externalUid;
+
+
+
+#pragma mark - Test lifecycle.
 
 - (void)setUp {
     [super setUp];
@@ -40,6 +66,10 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 - (void)tearDown {
     [super tearDown];
 }
+
+
+
+#pragma mark - Test methods.
 
 - (void)testRequestAd {
     
@@ -62,13 +92,9 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 }
 
 
-@synthesize age;
 
-@synthesize location;
 
-@synthesize inventoryCode;
-
-@synthesize reserve;
+#pragma mark - For ANUniversalRequestTagBuilderDelegate.
 
 - (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value {
     
@@ -170,18 +196,5 @@ static NSString *const kTestUUID = @"0000-000-000-00";
     return CGSizeMake(320, 50);
 }
 
-@synthesize placementId;
-
-@synthesize gender;
-
-@synthesize shouldServePublicServiceAnnouncements;
-
-@synthesize landingPageLoadsInBackground;
-
-@synthesize opensInNativeBrowser;
-
-@synthesize memberId;
-
-@synthesize customKeywords;
 
 @end

@@ -33,9 +33,8 @@
        // file for an example)
        self.inter.delegate = self;
 
-       // If the user clicks, open a native browser.  You can toggle
-       // this.
-       self.inter.opensInNativeBrowser = true;
+       // When the user clicks, use the following to open the default browser on the device.
+       self.inter.clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
 
        // Fetch an ad in the background.  In order to show this ad,
        // you'll need to implement `adDidReceiveAd' (see below).

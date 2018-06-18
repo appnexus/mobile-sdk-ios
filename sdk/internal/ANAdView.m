@@ -53,17 +53,22 @@
 @synthesize  placementId                            = __placementId;
 @synthesize  memberId                               = __memberId;
 @synthesize  inventoryCode                          = __invCode;
-@synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
+
 @synthesize  shouldServePublicServiceAnnouncements  = __shouldServePublicServiceAnnouncements;
 @synthesize  location                               = __location;
+
 @synthesize  reserve                                = __reserve;
 @synthesize  age                                    = __age;
 @synthesize  gender                                 = __gender;
-@synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 @synthesize  customKeywords                         = __customKeywords;
+
 @synthesize  creativeId                             = __creativeId;
 @synthesize  adType                                 = __adType;
-@synthesize  externalUid                             = __externalUid;
+@synthesize  externalUid                            = __externalUid;
+
+@synthesize  clickThroughAction                     = __clickThroughAction;
+@synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
+@synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
 #pragma mark - Initialization
 
@@ -92,8 +97,10 @@
     __shouldServePublicServiceAnnouncements  = DEFAULT_PUBLIC_SERVICE_ANNOUNCEMENT;
     __location                               = nil;
     __reserve                                = 0.0f;
-    __landingPageLoadsInBackground           = YES;
     __customKeywords                         = [[NSMutableDictionary alloc] init];
+
+    __clickThroughAction                     = ANClickThroughActionOpenSDKBrowser;
+    __landingPageLoadsInBackground           = YES;
     }
 
 - (void)dealloc
@@ -251,6 +258,37 @@
 }
 
 
+// NOTE  Manually settting opensInNativeBrowser forces
+//       changes to landingPageLoadsInBackground and clickThroughAction.
+//
+- (void)setOpensInNativeBrowser:(BOOL)opensInNativeBrowser
+{
+    __opensInNativeBrowser = opensInNativeBrowser;
+
+    if (__opensInNativeBrowser) {
+        __clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
+    } else {
+        __clickThroughAction = ANClickThroughActionOpenSDKBrowser;
+    }
+}
+
+// Force changes to opensInNativeBrowser, as appropriate.
+//
+- (void)setClickThroughAction:(ANClickThroughAction)clickThroughAction
+{
+    __clickThroughAction = clickThroughAction;
+
+    switch (__clickThroughAction) {
+        case ANClickThroughActionOpenDeviceBrowser:
+            __opensInNativeBrowser = YES;
+            break;
+
+        default:
+            __opensInNativeBrowser = NO;
+    }
+}
+
+
 
 #pragma mark - ANAdProtocol: Getter methods
 
@@ -284,6 +322,16 @@
     return __opensInNativeBrowser;
 }
 
+- (BOOL)landingPageLoadsInBackground {
+    ANLogDebug(@"landingPageLoadsInBackground returned %d", __landingPageLoadsInBackground);
+    return __landingPageLoadsInBackground;
+}
+
+- (ANClickThroughAction)clickThroughAction {
+    ANLogDebug(@"clickThroughAction returned %lu", (unsigned long)__clickThroughAction);
+    return __clickThroughAction;
+}
+
 - (CGFloat)reserve {
     ANLogDebug(@"reserve returned %f", __reserve);
     return __reserve;
@@ -308,6 +356,8 @@
     ANLogDebug(@"ExternalUid returned %@", __externalUid);
     return __externalUid;
 }
+
+
 
 
 #pragma mark - ANUniversalAdFetcherDelegate  -- abstract methods.
@@ -350,6 +400,12 @@
 - (void)adWasClicked {
     if ([self.delegate respondsToSelector:@selector(adWasClicked:)]) {
         [self.delegate adWasClicked:self];
+    }
+}
+
+- (void)adWasClickedWithURL:(NSString *)urlString {
+    if ([self.delegate respondsToSelector:@selector(adWasClicked:withURL:)]) {
+        [self.delegate adWasClicked:self withURL:urlString];
     }
 }
 

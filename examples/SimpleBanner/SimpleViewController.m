@@ -19,10 +19,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import "ANLocation.h"
 
+
+
 @interface SimpleViewController () <ANBannerAdViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, readwrite, strong) CLLocationManager *locationManager;
 @property (nonatomic, readwrite, strong) ANBannerAdView *banner;
+@property (nonatomic, readwrite, strong) NSString *clickThroughURL;
+
 
 @end
 
@@ -34,7 +38,7 @@
     
     int adWidth  = 300;
     int adHeight = 250;
-    NSString *adID = @"1326299";
+    NSString *adID = @"1281482";
     
     // We want to center our ad on the screen.
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -47,8 +51,10 @@
     
     // Make a banner ad view.
     ANBannerAdView *banner = [ANBannerAdView adViewWithFrame:rect placementId:adID adSize:size];
+    banner.externalUid = @"123e4567e89b12da456426655440000";
     banner.rootViewController = self;
     banner.delegate = self;
+    banner.clickThroughAction = ANClickThroughActionReturnURL;
     [self.view addSubview:banner];
     
     // Since this example is for testing, we'll turn on PSAs and verbose logging.
@@ -79,23 +85,26 @@
                                             horizontalAccuracy:location.horizontalAccuracy];
 }
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
+- (void)adDidReceiveAd:(id)ad {
     NSLog(@"Ad did receive ad");
-    NSLog(@"Creative Id %@",ad.creativeId);
-    
-    
 }
 
 
-- (void)adDidClose:(id<ANAdProtocol>)ad {
+- (void)adDidClose:(id)ad {
     NSLog(@"Ad did close");
 }
 
-- (void)adWasClicked:(id<ANAdProtocol>)ad {
+- (void)adWasClicked:(id)ad {
     NSLog(@"Ad was clicked");
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
+- (void)adWasClicked:(id)ad withURLString:(NSString *)urlString
+{
+    NSLog(@"ClickThroughURL=%@", urlString);
+}
+
+
+- (void)ad:(id)ad requestFailedWithError:(NSError *)error {
     NSLog(@"Ad failed to load: %@", error);
 }
 

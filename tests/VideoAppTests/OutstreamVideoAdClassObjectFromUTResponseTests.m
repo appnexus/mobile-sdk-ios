@@ -42,6 +42,10 @@ static NSTimeInterval    waitTimeInSeconds          = 30.0; //10.0;
 
 @implementation OutstreamVideoAdClassObjectFromUTResponseTests
 
+@synthesize  externalUid;
+
+
+
 #pragma mark - Test lifecycle.
 
 - (void)setUp

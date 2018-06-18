@@ -61,4 +61,8 @@ typedef NS_ENUM(NSUInteger, ANAdType) {
     ANAdTypeNative   = 3
 };
 
-
+typedef NS_ENUM(NSUInteger, ANClickThroughAction) {
+    ANClickThroughActionReturnURL,
+    ANClickThroughActionOpenDeviceBrowser,
+    ANClickThroughActionOpenSDKBrowser
+};

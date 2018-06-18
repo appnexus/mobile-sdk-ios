@@ -15,7 +15,11 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
+
 #import "WKWebView+ANCategory.h"
+#import "ANAdConstants.h"
+
+
 
 typedef NS_ENUM(NSUInteger, ANVideoAdPlayerTracker) {
     ANVideoAdPlayerTrackerFirstQuartile,
@@ -27,7 +31,6 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerTracker) {
 
 typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
     ANVideoAdPlayerEventPlay,
-    ANVideoAdPlayerEventClick,
     ANVideoAdPlayerEventSkip,
     ANVideoAdPlayerEventMuteOff,
     ANVideoAdPlayerEventMuteOn
@@ -54,9 +57,12 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 
 - (void) videoAdImpressionListeners:(ANVideoAdPlayerTracker) tracker;
 - (void) videoAdEventListeners:(ANVideoAdPlayerEvent) eventTrackers;
+- (void) videoAdWasClicked;
+- (void) videoAdWasClickedWithURL:(NSString *)urlString;
 
+- (ANClickThroughAction) videoAdPlayerClickThroughAction;
+- (BOOL) videoAdPlayerOpensInNativeBrowser  __attribute__((deprecated("Use property videoAdPlayerClickThroughAction instead.")));
 - (BOOL) videoAdPlayerLandingPageLoadsInBackground;
-- (BOOL) videoAdPlayerOpensInNativeBrowser;
 
 - (void) videoAdPlayerFullScreenEntered: (ANVideoAdPlayer *)videoAd;
 - (void) videoAdPlayerFullScreenExited: (ANVideoAdPlayer *)videoAd;

@@ -14,6 +14,7 @@
  */
 
 #import "TestANUniversalFetcher.h"
+#import "ANSDKSettings.h"
 
 @implementation TestANUniversalFetcher
 

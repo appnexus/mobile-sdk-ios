@@ -27,13 +27,15 @@
     @property (nonatomic, readwrite, strong)  ANBrowserViewController  *browserViewController;
     @property (nonatomic, strong)             NSString                 *vastContent;
     @property (nonatomic, strong)             NSString                 *vastURL;
-    @property  (nonatomic, strong)            NSString                 *jsonContent;
+    @property (nonatomic, strong)             NSString                 *jsonContent;
     @property (nonatomic, strong)             NSString                 *creativeURL;
     @property (nonatomic, assign)             NSUInteger                videoDuration;
-    @property (nonatomic, strong)             NSString                  *vastURLContent;
-    @property (nonatomic, strong)             NSString                  *vastXMLContent;
-    @property (nonatomic, readonly)  BOOL  opensInNativeBrowser;
-    @property (nonatomic, readonly)  BOOL  landingPageLoadsInBackground;
+    @property (nonatomic, strong)             NSString                 *vastURLContent;
+    @property (nonatomic, strong)             NSString                 *vastXMLContent;
+
+    @property (nonatomic, readonly)  ANClickThroughAction   clickThroughAction;
+    @property (nonatomic, readonly)  BOOL                   opensInNativeBrowser;
+    @property (nonatomic, readonly)  BOOL                   landingPageLoadsInBackground;
 
 @end
 
@@ -99,6 +101,19 @@
 
     return  returnVal;
 }
+
+- (ANClickThroughAction) clickThroughAction
+{
+    ANClickThroughAction  returnVal  = NO;
+
+    if ([self.delegate respondsToSelector:@selector(videoAdPlayerClickThroughAction)])  {
+        returnVal = [self.delegate videoAdPlayerClickThroughAction];
+    }
+
+    return  returnVal;
+}
+
+
 
 
 #pragma mark - Public methods.
@@ -334,42 +349,62 @@
             forNavigationAction: (nonnull WKNavigationAction *)navigationAction
                  windowFeatures: (nonnull WKWindowFeatures *)windowFeatures
 {
-        if (!navigationAction.targetFrame.isMainFrame)
-        {
-            NSString *urlString = [[navigationAction.request URL] absoluteString];
-            
-            if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
-                [self.delegate videoAdEventListeners:ANVideoAdPlayerEventClick];
+    if (navigationAction.targetFrame.isMainFrame)  { return nil; }
+
+    //
+    NSString *urlString = [[navigationAction.request URL] absoluteString];
+
+
+    if (ANClickThroughActionReturnURL != self.clickThroughAction) {
+        if ([self.delegate respondsToSelector:@selector(videoAdWasClicked)]) {
+            [self.delegate videoAdWasClicked];
+        }
+    }
+
+    switch (self.clickThroughAction) {
+        case ANClickThroughActionReturnURL:
+            [self resumeAdVideo];
+
+            if ([self.delegate respondsToSelector:@selector(videoAdWasClickedWithURL:)]) {
+                [self.delegate videoAdWasClickedWithURL:urlString];
             }
 
-            if (self.opensInNativeBrowser)
-            {
-                if (self.delegate && [self.delegate respondsToSelector:@selector(videoAdWillLeaveApplication:)])  {
-                    [self.delegate videoAdWillLeaveApplication:self];
-                }
+            ANLogMarkMessage(@"ClickThroughURL=%@", urlString);
+            break;
 
-                [ANGlobal openURL:urlString];
+        case ANClickThroughActionOpenDeviceBrowser:
+            if ([self.delegate respondsToSelector:@selector(videoAdWillLeaveApplication:)])  {
+                [self.delegate videoAdWillLeaveApplication:self];
+            }
+
+            [ANGlobal openURL:urlString];
+            break;
+
+        case ANClickThroughActionOpenSDKBrowser:
+            if (!self.browserViewController) {
+                self.browserViewController = [[ANBrowserViewController alloc] initWithURL: [NSURL URLWithString:urlString]
+                                                                                 delegate: self
+                                                                 delayPresentationForLoad: self.landingPageLoadsInBackground ];
+
+                if (!self.browserViewController) {
+                    if([self.delegate respondsToSelector:@selector(videoAdError:)]){
+                        NSError *error = ANError(@"ANBrowserViewController initialization FAILED.", ANAdResponseInternalError);
+                        [self.delegate videoAdError:error];
+                    }
+                }
 
             } else {
-                if (!self.browserViewController) {
-                    self.browserViewController = [[ANBrowserViewController alloc] initWithURL: [NSURL URLWithString:urlString]
-                                                                                     delegate: self
-                                                                     delayPresentationForLoad: self.landingPageLoadsInBackground ];
-
-                    if (!self.browserViewController) {
-                        if([self.delegate respondsToSelector:@selector(videoAdError:)]){
-                            NSError *error = ANError(@"ANBrowserViewController initialization FAILED.", ANAdResponseInternalError);
-                            [self.delegate videoAdError:error];
-                        }
-                    }
-
-                } else {
-                    [self.browserViewController setUrl:[NSURL URLWithString:urlString]];
-                }
+                [self.browserViewController setUrl:[NSURL URLWithString:urlString]];
             }
-        }
-    
-        return nil;
+
+            break;
+
+        default:
+            ANLogError(@"UNKNOWN ANClickThroughAction.  (%lu)", (unsigned long)self.clickThroughAction);
+    }
+
+    //
+    return nil;
 }
 
     

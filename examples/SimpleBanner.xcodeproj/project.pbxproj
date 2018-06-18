@@ -18,7 +18,6 @@
 		FF2FD7B919706A5D002CAD63 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2FD7B819706A5D002CAD63 /* main.m */; };
 		FF2FD7BD19706A5D002CAD63 /* SimpleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2FD7BC19706A5D002CAD63 /* SimpleAppDelegate.m */; };
 		FF2FD7C019706A5D002CAD63 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF2FD7BE19706A5D002CAD63 /* Main_iPhone.storyboard */; };
-		FF2FD7C319706A5D002CAD63 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF2FD7C119706A5D002CAD63 /* Main_iPad.storyboard */; };
 		FF2FD7C619706A5D002CAD63 /* SimpleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2FD7C519706A5D002CAD63 /* SimpleViewController.m */; };
 		FF2FD7C819706A5D002CAD63 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF2FD7C719706A5D002CAD63 /* Images.xcassets */; };
 		FF2FD7CF19706A5D002CAD63 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7CE19706A5D002CAD63 /* XCTest.framework */; };
@@ -215,7 +214,6 @@
 		FF2FD7BB19706A5D002CAD63 /* SimpleAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAppDelegate.h; sourceTree = "<group>"; };
 		FF2FD7BC19706A5D002CAD63 /* SimpleAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleAppDelegate.m; sourceTree = "<group>"; };
 		FF2FD7BF19706A5D002CAD63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		FF2FD7C219706A5D002CAD63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		FF2FD7C419706A5D002CAD63 /* SimpleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleViewController.h; sourceTree = "<group>"; };
 		FF2FD7C519706A5D002CAD63 /* SimpleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleViewController.m; sourceTree = "<group>"; };
 		FF2FD7C719706A5D002CAD63 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -362,7 +360,6 @@
 			children = (
 				FF2FD7B319706A5D002CAD63 /* Supporting Files */,
 				FF2FD7C719706A5D002CAD63 /* Images.xcassets */,
-				FF2FD7C119706A5D002CAD63 /* Main_iPad.storyboard */,
 				FF2FD7BE19706A5D002CAD63 /* Main_iPhone.storyboard */,
 				FF2FD7BB19706A5D002CAD63 /* SimpleAppDelegate.h */,
 				FF2FD7BC19706A5D002CAD63 /* SimpleAppDelegate.m */,
@@ -628,7 +625,6 @@
 				8AED80CD19DDA81C002F5D9F /* ANSDKResources.bundle in Resources */,
 				FF2FD7C819706A5D002CAD63 /* Images.xcassets in Resources */,
 				FF2FD7B719706A5D002CAD63 /* InfoPlist.strings in Resources */,
-				FF2FD7C319706A5D002CAD63 /* Main_iPad.storyboard in Resources */,
 				FF2FD7C019706A5D002CAD63 /* Main_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,14 +695,6 @@
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
-		FF2FD7C119706A5D002CAD63 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FF2FD7C219706A5D002CAD63 /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
 		FF2FD7D719706A5E002CAD63 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -751,7 +739,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -784,7 +772,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -804,6 +792,7 @@
 					"$(PROJECT_DIR)/../sdk/**",
 				);
 				INFOPLIST_FILE = "SimpleBanner/SimpleBanner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "AN.${PRODUCT_NAME:rfc1034identifier}";
@@ -825,6 +814,7 @@
 					"$(PROJECT_DIR)/../sdk/**",
 				);
 				INFOPLIST_FILE = "SimpleBanner/SimpleBanner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "AN.${PRODUCT_NAME:rfc1034identifier}";

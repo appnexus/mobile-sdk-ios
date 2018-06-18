@@ -351,7 +351,7 @@
             self.creativeId  = nativeAdResponse.creativeId;
             self.adType      = ANAdTypeNative;
 
-            nativeAdResponse.opensInNativeBrowser         = self.opensInNativeBrowser;
+            nativeAdResponse.clickThroughAction           = self.clickThroughAction;
             nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
 
             //

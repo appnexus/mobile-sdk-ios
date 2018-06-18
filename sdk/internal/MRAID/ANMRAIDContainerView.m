@@ -407,16 +407,36 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
         return;
     }
 
-    [self.adViewDelegate adWasClicked];
-
-    if (![self.adViewDelegate opensInNativeBrowser]) {
-        [self openInAppBrowserWithURL:URL];
+    if (ANClickThroughActionReturnURL != [self.adViewDelegate clickThroughAction]) {
+        [self.adViewDelegate adWasClicked];
     }
-    else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
-        [self.adViewDelegate adWillLeaveApplication];
-        [ANGlobal openURL:[URL absoluteString]];
-    } else {
-        ANLogWarn(@"opening_url_failed %@", URL);
+
+    switch ([self.adViewDelegate clickThroughAction])
+    {
+        case ANClickThroughActionReturnURL:
+            [self.webViewController updateViewability:[self isViewable]];
+            [self.adViewDelegate adWasClickedWithURL:[URL absoluteString]];
+
+            ANLogMarkMessage(@"ClickThroughURL=%@", URL);
+            break;
+
+        case ANClickThroughActionOpenDeviceBrowser:
+            if ([[UIApplication sharedApplication] canOpenURL:URL]) {
+                [self.adViewDelegate adWillLeaveApplication];
+                [ANGlobal openURL:[URL absoluteString]];
+
+            } else {
+                ANLogWarn(@"opening_url_failed %@", URL);
+            }
+
+            break;
+
+        case ANClickThroughActionOpenSDKBrowser:
+            [self openInAppBrowserWithURL:URL];
+            break;
+
+        default:
+            ANLogError(@"UNKNOWN ANClickThroughAction.  (%lu)", (unsigned long)[self.adViewDelegate clickThroughAction]);
     }
 }
 

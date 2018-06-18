@@ -149,42 +149,78 @@
 
 #pragma mark - Click handling
 
-- (void)handleClick {
-    [self adWasClicked];
+- (void)handleClick
+{
     [self fireClickTrackers];
-    
-    BOOL successfullyOpenedBrowserWithClickURL = [self openIntendedBrowserWithURL:self.clickURL];
-    if (!successfullyOpenedBrowserWithClickURL) {
-        ANLogDebug(@"Could not open click URL: %@", self.clickURL);
-        BOOL successfullyOpenedBrowserWithFallbackURL = [self openIntendedBrowserWithURL:self.clickFallbackURL];
-        if (!successfullyOpenedBrowserWithFallbackURL) {
-            ANLogError(@"Could not open click fallback URL: %@", self.clickFallbackURL);
-        }
+
+    //
+    if (ANClickThroughActionReturnURL == self.clickThroughAction)
+    {
+        [self adWasClickedWithURL:[self.clickURL absoluteString] fallbackURL:[self.clickFallbackURL absoluteString]];
+        
+        ANLogMarkMessage(@"ClickThroughURL=%@", self.clickURL);
+        ANLogMarkMessage(@"ClickThroughFallbackURL=%@", self.clickFallbackURL);
+        return;
     }
+
+    //
+    [self adWasClicked];
+
+    if ([self openIntendedBrowserWithURL:self.clickURL])  { return; }
+    ANLogDebug(@"Could not open click URL: %@", self.clickURL);
+
+    if ([self openIntendedBrowserWithURL:self.clickFallbackURL])  { return; }
+    ANLogError(@"Could not open click fallback URL: %@", self.clickFallbackURL);
 }
 
 - (BOOL)openIntendedBrowserWithURL:(NSURL *)URL
 {
-    if (!self.opensInNativeBrowser && (ANHasHttpPrefix(URL.absoluteString) || ANiTunesIDForURL(URL)))
+    switch (self.clickThroughAction)
     {
-        if (!self.inAppBrowser) {
-            self.inAppBrowser = [[ANBrowserViewController alloc] initWithURL:URL
-                                                                    delegate:self
-                                                    delayPresentationForLoad:self.landingPageLoadsInBackground];
-        } else {
-            self.inAppBrowser.url = URL;
-        }
-        return YES;
-        
-    } else if ([[UIApplication sharedApplication] canOpenURL:URL]) {
-        [self willLeaveApplication];
-        [ANGlobal openURL:[URL absoluteString]];
-        return YES;
-        
-    } else {
-        return NO;
+        case ANClickThroughActionOpenSDKBrowser:
+            // Try to use device browser even if SDK browser was requested in cases
+            //   where the structure of the URL cannot be handled by the SDK browser.
+            //
+            if (!ANHasHttpPrefix(URL.absoluteString) && !ANiTunesIDForURL(URL))
+            {
+                return  [self openURLWithExternalBrowser:URL];
+            }
+
+            if (!self.inAppBrowser) {
+                self.inAppBrowser = [[ANBrowserViewController alloc] initWithURL: URL
+                                                                        delegate: self
+                                                        delayPresentationForLoad: self.landingPageLoadsInBackground ];
+            } else {
+                self.inAppBrowser.url = URL;
+            }
+
+            return  YES;
+            break;
+
+        case ANClickThroughActionOpenDeviceBrowser:
+            return  [self openURLWithExternalBrowser:URL];
+            break;
+
+        case ANClickThroughActionReturnURL:
+            //NB -- This case handled by calling method.
+            /*NOT REACHED*/
+
+        default:
+            ANLogError(@"UNKNOWN ANClickThroughAction.  (%lu)", (unsigned long)self.clickThroughAction);
+            return  NO;
     }
 }
+
+- (BOOL) openURLWithExternalBrowser:(NSURL *)url
+{
+    if (![[UIApplication sharedApplication] canOpenURL:url])  { return NO; }
+
+    [self willLeaveApplication];
+    [ANGlobal openURL:[url absoluteString]];
+
+    return  YES;
+}
+
 
 - (void)fireClickTrackers
 {

@@ -31,12 +31,17 @@
 - (void)adWasClicked:(id)response;
 
 /*!
+ * Sent when the native view returns the click-through URL and click-through fallback URL
+ *   to the user instead of opening it in a browser.
+ */
+- (void)adWasClicked:(id)response withURL:(NSString *)clickURLString fallbackURL:(NSString *)clickFallbackURLString;
+
+/*!
  * Sent when the native view was clicked, and the click through
  * destination is about to open in the in-app browser.
  *
  * @note If it is preferred that the destination open in the
- * native browser instead, then [ANNativeAdResponse opensInNativeBrowser]
- * should be set to YES.
+ * native browser instead, then set clickThroughAction to ANClickThroughActionOpenDeviceBrowser.
  */
 - (void)adWillPresent:(id)response;
 
@@ -59,8 +64,9 @@
 - (void)adDidClose:(id)response;
 
 /*!
- * Sent when the ad is about to leave the app; this can happen if you
- * have [ANNativeAdResponse opensInNativeBrowser] set to YES.
+ * Sent when the ad is about to leave the app.
+ * This will happen in a number of cases, including when
+ *   clickThroughAction is set to ANClickThroughActionOpenDeviceBrowser.
  */
 - (void)adWillLeaveApplication:(id)response;
 

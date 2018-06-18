@@ -24,8 +24,7 @@
 @synthesize delegate;
 @synthesize bannerAdView;
 
-#pragma mark -
-#pragma mark GADCustomEventBanner
+#pragma mark - GADCustomEventBanner
 
 - (void)requestBannerAd:(GADAdSize)adSize
               parameter:(NSString *)serverParameter
@@ -39,8 +38,8 @@
     
     self.bannerAdView.rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     self.bannerAdView.delegate = self;
-    self.bannerAdView.opensInNativeBrowser = YES;
-	self.bannerAdView.shouldServePublicServiceAnnouncements = NO;
+    self.bannerAdView.clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
+    self.bannerAdView.shouldServePublicServiceAnnouncements = NO;
     
     if ([customEventRequest userHasLocation]) {
         ANLocation *loc = [ANLocation getLocationWithLatitude:[customEventRequest userLatitude]

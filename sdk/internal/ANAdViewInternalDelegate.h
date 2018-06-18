@@ -15,15 +15,22 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ANAdConstants.h"
 
 
-// NB  Native does not use ANAdViewInternalDelegate, but instead has its own specific delegates for the request and response halves of Native entry point.
+
+// NB  Native does not use ANAdViewInternalDelegate, but instead has its own specific delegates for the
+//       request and response halves of Native entry point.
 //     See ANNativeAdRequestDelegate and ANNativeAdDelegate (for response).
 //
 @protocol ANAdViewInternalDelegate <NSObject>
 
 @optional
+- (ANClickThroughAction)clickThroughAction;
+
+- (void)adWasClickedWithURL:(NSString *)urlString;
 - (void)adDidReceiveAd:(id)adObject;
+
 
 @required
 - (void)adDidReceiveAd;
@@ -40,7 +47,6 @@
 - (NSString *)adTypeForMRAID;
 
 - (UIViewController *)displayController;
-- (BOOL)opensInNativeBrowser;
 - (BOOL)landingPageLoadsInBackground;
 
 - (void)adInteractionDidBegin;

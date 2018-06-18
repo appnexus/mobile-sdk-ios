@@ -147,21 +147,36 @@
 
 @protocol ANAdProtocolBrowser
 
-@required
+/**
+ Determines what action to take when the user clicks on an ad:
+     . Open the click-through URL in the SDK browser;
+     . Open the click-through URL in the external device browser;
+     . Return the URL to the calling environment without opening any browser.
+
+ Cases that open a browser will notify the caller via the delegate method adWasClicked.
+ The case that returns the URL will notify via adWasClickedWithURL:(NSString *)urlString .
+ When the urlString is returned it is ASSUMED that the caller will handle it appropriately,
+   displaying its content to the user.
+
+
+ Supercedes use of opensInNativeBrowser.
+ */
+@property (nonatomic, readwrite)  ANClickThroughAction  clickThroughAction;
+
 
 /**
- Determines whether the ad, when clicked, will open the device's
- native browser.
+ Determines whether the ad, when clicked, will open the device's native browser.
  */
-@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser;
+@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser  __attribute__((deprecated("Use enumerated type ANClickThroughAction instead.")));
+
 
 /**
  Set whether the landing page should load in the background or in the foreground when an ad is clicked.
  If set to YES, when an ad is clicked the user is presented with an activity indicator view, and the in-app
  browser displays only after the landing page content has finished loading. If set to NO, the in-app
  browser displays immediately. The default is YES.
- 
- Has no effect if opensInNativeBrowser is set to YES.
+
+ Only used when clickThroughAction is set to ANClickThroughActionOpenSDKBrowser.
  */
 @property (nonatomic, readwrite, assign) BOOL landingPageLoadsInBackground;
 
@@ -260,6 +275,11 @@
 - (void)adWasClicked:(id)ad;
 
 /**
+ Sent when the ad is clicked and the click-through URL is returned to the caller instead of being opened in a browser.
+ */
+- (void)adWasClicked:(id)ad withURL:(NSString *)urlString;
+
+/**
  Sent when the ad view is about to close.
  */
 - (void)adWillClose:(id)ad;
@@ -270,10 +290,9 @@
 - (void)adDidClose:(id)ad;
 
 /**
- Sent when the ad is clicked, and the SDK is about to open inside
- the in-SDK browser (a WebView).  If you would prefer that ad clicks
- open the native browser instead, set `opensInNativeBrowser' to
- true.
+ Sent when the ad is clicked, and the SDK is about to open inside the in-SDK browser (a WebView).
+ If you would prefer that ad clicks open the native browser instead,
+   set clickThroughAction to ANClickThroughActionOpenDeviceBrowser.
  */
 - (void)adWillPresent:(id)ad;
 
@@ -284,8 +303,9 @@
 - (void)adDidPresent:(id)ad;
 
 /**
- Sent when the ad is about to leave the app; this can happen if you
- have `opensInNativeBrowser' set to true, for example.
+ Sent when the ad is about to leave the app.
+ This will happen in a number of cases, including when
+   clickThroughAction is set to ANClickThroughActionOpenDeviceBrowser.
  */
 - (void)adWillLeaveApplication:(id)ad;
 

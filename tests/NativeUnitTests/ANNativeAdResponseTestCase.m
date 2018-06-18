@@ -39,7 +39,10 @@
 @interface ANNativeAdResponseTestCase : KIFTestCase <ANNativeAdRequestDelegate, ANNativeAdDelegate>
 
 @property (nonatomic, readwrite, strong) ANNativeAdRequest *adRequest;
+
 @property (nonatomic, readwrite, strong) XCTestExpectation *delegateCallbackExpectation;
+@property (nonatomic, readwrite, strong) XCTestExpectation *clickThroughWithURLExpectation;
+
 @property (nonatomic, readwrite, assign) BOOL successfulAdCall;
 @property (nonatomic, readwrite, strong) ANNativeAdResponse *adResponse;
 @property (nonatomic, readwrite, strong) NSError *adRequestError;
@@ -52,11 +55,16 @@
 @property (nonatomic, readwrite, strong) UIViewController *rootViewController;
 
 @property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWasClicked;
+@property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWasClickedWithURL;
 @property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWillPresent;
 @property (nonatomic, readwrite, assign) BOOL receivedCallbackAdDidPresent;
 @property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWillClose;
 @property (nonatomic, readwrite, assign) BOOL receivedCallbackAdDidClose;
 @property (nonatomic, readwrite, assign) BOOL receivedCallbackAdWillLeaveApplication;
+
+@property (nonatomic)          BOOL      nativeAdResponseShouldReturnClickThroughURL;
+@property (nonatomic, strong)  NSString  *clickThroughURL;
+@property (nonatomic, strong)  NSString  *clickThroughFallbackURL;
 
 @end
 
@@ -94,12 +102,18 @@
     self.rootViewController = nil;
     
     self.receivedCallbackAdWasClicked = NO;
+    self.receivedCallbackAdWasClickedWithURL = NO;
+    self.nativeAdResponseShouldReturnClickThroughURL = NO;
+    self.clickThroughURL = nil;
+    self.clickThroughFallbackURL = nil;
+
     self.receivedCallbackAdWillPresent = NO;
     self.receivedCallbackAdDidPresent = NO;
     self.receivedCallbackAdWillClose = NO;
     self.receivedCallbackAdDidClose = NO;
     self.receivedCallbackAdWillLeaveApplication = NO;
 }
+
 
 
 
@@ -436,6 +450,48 @@
     [self assertCloseCallbacksReceived];
 }
 
+- (void) testAppNexusWithClickThroughActionReturnURL
+{
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+
+    self.nativeAdResponseShouldReturnClickThroughURL = YES;
+
+    self.adRequest.shouldLoadIconImage = YES;
+    [self.adRequest loadAd];
+
+    //
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+
+    XCTAssertTrue(self.successfulAdCall);
+    XCTAssertNil(self.adRequestError);
+
+    //
+    [self createBasicNativeView];
+    [self populateNativeViewWithResponse];
+    [self registerNativeView];
+    [self addNativeViewToViewHierarchy];
+
+    [tester waitForTimeInterval:2.0];
+
+    //
+    self.clickThroughWithURLExpectation = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+
+    [self clickOnAd];
+
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+
+    //
+    XCTAssertTrue(self.receivedCallbackAdWasClickedWithURL);
+    XCTAssertFalse(self.receivedCallbackAdWasClicked);
+    XCTAssertTrue([self.clickThroughURL length] > 0);
+
+    if (self.clickThroughFallbackURL) {
+        XCTAssertTrue([self.clickThroughFallbackURL length] > 0);
+    }
+}
+
+
 
 
 #pragma mark - Mediation Tests
@@ -510,11 +566,16 @@
 
 
 
+
 #pragma mark - ANNativeAdRequestDelegate
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
 TESTTRACE();
+    if (self.nativeAdResponseShouldReturnClickThroughURL) {
+        response.clickThroughAction = ANClickThroughActionReturnURL;
+    }
+
     self.adResponse = response;
     self.successfulAdCall = YES;
     [self.delegateCallbackExpectation fulfill];
@@ -556,29 +617,44 @@ TESTTRACE();
 
 #pragma mark - ANAdDelegate
 
-- (void)adWasClicked:(ANNativeAdResponse *)response {
+- (void)adWasClicked:(id)response
+{
+TESTTRACE();
     self.receivedCallbackAdWasClicked = YES;
 }
 
-- (void)adWillPresent:(ANNativeAdResponse *)response {
+- (void)adWasClicked:(id)response withURL:(NSString *)clickURLString fallbackURL:(NSString *)clickFallbackURLString
+{
+TESTTRACE();
+    [self.clickThroughWithURLExpectation fulfill];
+    self.receivedCallbackAdWasClickedWithURL = YES;
+
+    self.clickThroughURL = clickURLString;
+    self.clickThroughFallbackURL = clickFallbackURLString;
+}
+
+- (void)adWillPresent:(id)response {
     self.receivedCallbackAdWillPresent = YES;
 }
 
-- (void)adDidPresent:(ANNativeAdResponse *)response {
+- (void)adDidPresent:(id)response {
     self.receivedCallbackAdDidPresent = YES;
 }
 
-- (void)adWillClose:(ANNativeAdResponse *)response {
+- (void)adWillClose:(id)response {
     self.receivedCallbackAdWillClose = YES;
 }
 
-- (void)adDidClose:(ANNativeAdResponse *)response {
+- (void)adDidClose:(id)response {
     self.receivedCallbackAdDidClose = YES;
 }
 
-- (void)adWillLeaveApplication:(ANNativeAdResponse *)response {
+- (void)adWillLeaveApplication:(id)response {
     self.receivedCallbackAdWillLeaveApplication = YES;
 }
+
+
+
 
 #pragma mark - Helper
 
