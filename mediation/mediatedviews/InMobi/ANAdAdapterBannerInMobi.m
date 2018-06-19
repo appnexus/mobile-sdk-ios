@@ -17,7 +17,6 @@
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
-#import <InMobiSDK/IMBanner.h>
 
 @interface ANAdAdapterBannerInMobi () <IMBannerDelegate>
 

@@ -15,6 +15,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import <InMobiSDK/IMSdk.h>
+#import <InMobiSDK/IMRequestStatus.h>
+
+
+
 /**
  The InMobi app ID should be set before ads are loaded. All invocations of the InMobi mediation adapters
  will fail to return an ad if the ID is not set.

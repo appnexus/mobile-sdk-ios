@@ -18,8 +18,7 @@
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
 #import "ANGlobal.h"
-#import <InMobiSDK/IMSdk.h>
-#import <InMobiSDK/IMNative.h>
+
 
 
 static NSInteger const kANAdAdapterNativeInMobiRatingScaleDefault = 5;

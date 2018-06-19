@@ -13,7 +13,12 @@
  limitations under the License.
  */
 
+#import <InMobiSDK/IMSdk.h>
+#import <InMobiSDK/IMNative.h>
+
 #import "ANNativeCustomAdapter.h"
+
+
 
 @interface ANAdAdapterNativeInMobi : NSObject <ANNativeCustomAdapter>
 

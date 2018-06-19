@@ -13,7 +13,11 @@
  limitations under the License.
  */
 
+#import <InMobiSDK/IMInterstitial.h>
+
 #import "ANCustomAdapter.h"
+
+
 
 @interface ANAdAdapterInterstitialInMobi : NSObject <ANCustomAdapterInterstitial>
 

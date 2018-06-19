@@ -13,7 +13,11 @@
  limitations under the License.
  */
 
+#import <InMobiSDK/IMBanner.h>
+
 #import "ANCustomAdapter.h"
+
+
 
 @interface ANAdAdapterBannerInMobi : NSObject <ANCustomAdapterBanner>
 

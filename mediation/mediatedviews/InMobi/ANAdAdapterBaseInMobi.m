@@ -18,8 +18,6 @@
 #import "ANLogging.h"
 #import "ANAdConstants.h"
 #import "ANTargetingParameters.h"
-#import <InMobiSDK/IMSdk.h>
-#import <InMobiSDK/IMRequestStatus.h>
 
 
 @implementation ANAdAdapterBaseInMobi
