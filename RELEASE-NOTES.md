@@ -1,12 +1,34 @@
+
+## 4.8
+### New Features
++ MS-3083 -- Native for Banner Ad View
++ MS-3115 -- Function to set external user id in the SDK for user syncing
++ MS-3279 -- Expose click through url for banner, native, interstitial & video
+
+### Bug Fixes
++ MS-3186 -- Incorrect logic in AdMob mediation code - iOS - native
+
+### Mediation Partner Updates
++ MS-3257 -- Update Facebook Audience Network SDK to latest version
++ MS-3075 -- Update inMobi client side adapter to support latest inMobi SDK
+
+### Versions of Updated Mediation SDK.
++ InMobi                7.1.1
++ FacebookSDK           4.28.1
+
+
+
 ## 4.7.1
 ### New Features and Bug Fixes
 + MS-3227 -- GDPR support for SDK
 + MS-3193  -- [iOS SDK] crash
 
+
 ## 4.6
 ### New Features
 + MS-2113 -- Support autocollapse of interstitials
 + MS-3178 -- Implement exposureChange event
+
 
 ## 4.5
 ### New Features

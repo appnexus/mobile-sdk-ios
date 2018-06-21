@@ -14,7 +14,7 @@ To file an issue or request an enhancement please visit the AppNexus Customer Su
 Easily include the AppNexus SDK in your Podfile:
 
 ```
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 target 'MyAmazingApp' do
   pod 'AppNexusSDK'

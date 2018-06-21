@@ -25,6 +25,7 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "NSURLRequest+HTTPBodyTesting.h"
 #import "ANLogManager.h"
+#import "ANNativeAdResponse.h"
 
 
 
@@ -43,6 +44,8 @@
 
 
 @implementation ANNativeAdRequestTestCase
+
+
 
 #pragma mark - Test lifecycle.
 
