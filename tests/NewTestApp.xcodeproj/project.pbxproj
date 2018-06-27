@@ -10,6 +10,8 @@
 		00010ADB1FD0C991007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
 		00010AE91FD0C9A2007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
 		00010AEA1FD0C9CB007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
+		00478B4D20D8691B00436D14 /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 00478B4C20D8691B00436D14 /* OMID_TestResponse.json */; };
+		00478B5120D877EB00436D14 /* ANOMIDBannerHTMLTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 00478B4F20D877EB00436D14 /* ANOMIDBannerHTMLTest.m */; };
 		008E9A6C1FD0E03400EF5C4D /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */; };
 		0E720C1C20BF3F9700D948F8 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9CBAC31C652E7D00558C95 /* EventKitUI.framework */; };
 		0E720C3220BF483000D948F8 /* InMobiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E720C3020BF482C00D948F8 /* InMobiSDK.framework */; };
@@ -723,6 +725,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00478B4C20D8691B00436D14 /* OMID_TestResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = OMID_TestResponse.json; sourceTree = "<group>"; };
+		00478B4F20D877EB00436D14 /* ANOMIDBannerHTMLTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDBannerHTMLTest.m; sourceTree = "<group>"; };
 		0E720C3020BF482C00D948F8 /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InMobiSDK.framework; path = ../mediation/mediatedviews/InMobi/InMobiSDK/InMobiSDK.framework; sourceTree = "<group>"; };
 		4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		4F1D056720A4C44400B80D88 /* ANBannerNativeTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ANBannerNativeTestCase.m; path = BannerNative/ANBannerNativeTestCase.m; sourceTree = "<group>"; };
@@ -1242,6 +1246,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00478B4E20D8695400436D14 /* OMIDViewabilityTests */ = {
+			isa = PBXGroup;
+			children = (
+				00478B4F20D877EB00436D14 /* ANOMIDBannerHTMLTest.m */,
+			);
+			path = OMIDViewabilityTests;
+			sourceTree = "<group>";
+		};
 		4F1CBB021F97F9510019840A /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -1353,6 +1365,7 @@
 			isa = PBXGroup;
 			children = (
 				FC172E411FFFDA3000CE50C8 /* InterstitialAd */,
+				00478B4E20D8695400436D14 /* OMIDViewabilityTests */,
 				604E65E91FDA18A30088D977 /* Video */,
 				8A0AA46319DB30A2005EC52C /* ANAdResponseTestCase.m */,
 				8A0AA46419DB30A2005EC52C /* ANAdViewMRAIDCreativeTestCase.m */,
@@ -1539,7 +1552,6 @@
 				8AA009E519DB1D320090EBED /* FBAudienceNetwork.framework */,
 				605EDBCA1D92F2050042DC0C /* Foundation.framework */,
 				8A4018041A9500A300D56208 /* GoogleMobileAds.framework */,
-				0E720C3020BF482C00D948F8 /* InMobiSDK.framework */,
 				0E720C3020BF482C00D948F8 /* InMobiSDK.framework */,
 				8AD011A61B2F652B001B0107 /* IOKit.framework */,
 				4F142BA11D89E3B30079D3CE /* JavaScriptCore.framework */,
@@ -1832,6 +1844,7 @@
 				8A7AE40F19DF2A610037DDC8 /* BaseMediationSingleNetworkResponse.json */,
 				4F7D0FC520D07C0C00EF0379 /* ClickThroughActionBasicBannerResponse.json */,
 				4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */,
+				00478B4C20D8691B00436D14 /* OMID_TestResponse.json */,
 				FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */,
 				FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
 				8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */,
@@ -2601,6 +2614,7 @@
 				8AA00A4A19DB2A9A0090EBED /* GreyWhiteCat.jpg in Resources */,
 				8AA00A4B19DB2A9A0090EBED /* GreyWhiteCat@2x.jpg in Resources */,
 				4F76461B1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */,
+				00478B4D20D8691B00436D14 /* OMID_TestResponse.json in Resources */,
 				FCF67EC120335D990055E7F6 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
 				FC3E602420336A4000D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
@@ -2802,6 +2816,7 @@
 				8A0AA46E19DB30A2005EC52C /* ANMediationAdViewControllerTestCase.m in Sources */,
 				8A65209B1E6773770011EFB3 /* ANMediationContainerViewTestCase.m in Sources */,
 				8A8458721A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
+				00478B5120D877EB00436D14 /* ANOMIDBannerHTMLTest.m in Sources */,
 				8A6520AB1E67738A0011EFB3 /* ANPBContainerViewTestCase.m in Sources */,
 				F50D81421BFC4945008D74DB /* ANPublicAPITestCase.m in Sources */,
 				008E9A6C1FD0E03400EF5C4D /* ANReachability+ANTest.m in Sources */,

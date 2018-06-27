@@ -36,6 +36,8 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANAdConstants.h"
 
+#import "ANOMIDImplementation.h"
+
 
 
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
@@ -174,8 +176,13 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     {
         NSString  *htmlToLoad  = html;
 
+        // This injects OMID JS to the HTML
+        // NOTE this is intentionally kept above prependViewport if moved below it causes the tag to shrink.
+        htmlToLoad = [[ANOMIDImplementation sharedInstance] prependOMIDJSToHTML:html];
+        
+        
         if (!_configuration.scrollingEnabled) {
-            htmlToLoad = [[self class] prependViewportToHTML:html];
+            htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
         }
 
         [self loadModernWebViewWithSize: size
@@ -255,6 +262,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (void) deallocActions
 {
+    [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.omidAdSession];
     [self stopWebViewLoadForDealloc];
     [self.viewabilityTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -854,6 +862,9 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         if (self.isMRAID) {
             [self finishMRAIDLoad];
         }
+        
+        
+        self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforHTMLBannerWebView:self.modernWebView];
     }
 }
 

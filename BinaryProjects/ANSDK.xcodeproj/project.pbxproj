@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00217C6420E3D858008AD71A /* OMSDK-iOS-v1-Appnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00217C5820E3D858008AD71A /* OMSDK-iOS-v1-Appnexus.a */; };
+		00217C6520E3D8B6008AD71A /* OMSDK-iOS-v1-Appnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00217C5820E3D858008AD71A /* OMSDK-iOS-v1-Appnexus.a */; };
 		0035C5AE1F4496FD00915E97 /* ANSSMMediationAdViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */; };
 		0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
 		0035C5B11F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
+		00D6B04820D1BC9B007A3439 /* ANOMIDImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */; };
+		00D6B04A20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */; };
+		00D6B04B20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */; };
 		0E35D4AD2088F67E000A6C27 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
 		0E9E0D262090E59B00A871BF /* ANGDPRSettings.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; };
 		0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,7 +45,6 @@
 		4F824D081D909E1000AFC7EA /* MPUnmutedBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF21D909E1000AFC7EA /* MPUnmutedBtn@2x.png */; };
 		4F824D091D909E1000AFC7EA /* MPUnmutedBtn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF31D909E1000AFC7EA /* MPUnmutedBtn@3x.png */; };
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
-		4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */; };
 		4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */; };
 		4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */; };
 		602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
@@ -691,8 +695,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00217C5820E3D858008AD71A /* OMSDK-iOS-v1-Appnexus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "OMSDK-iOS-v1-Appnexus.a"; sourceTree = "<group>"; };
+		00217C5920E3D858008AD71A /* OMIDAdSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDAdSession.h; sourceTree = "<group>"; };
+		00217C5A20E3D858008AD71A /* OMIDSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDSDK.h; sourceTree = "<group>"; };
+		00217C5B20E3D858008AD71A /* OMIDVASTProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDVASTProperties.h; sourceTree = "<group>"; };
+		00217C5C20E3D858008AD71A /* OMIDVideoEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDVideoEvents.h; sourceTree = "<group>"; };
+		00217C5D20E3D858008AD71A /* OMIDAdSessionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDAdSessionConfiguration.h; sourceTree = "<group>"; };
+		00217C5E20E3D858008AD71A /* OMIDImports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDImports.h; sourceTree = "<group>"; };
+		00217C5F20E3D858008AD71A /* OMIDAdSessionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDAdSessionContext.h; sourceTree = "<group>"; };
+		00217C6020E3D858008AD71A /* OMIDScriptInjector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDScriptInjector.h; sourceTree = "<group>"; };
+		00217C6120E3D858008AD71A /* OMIDAdEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDAdEvents.h; sourceTree = "<group>"; };
+		00217C6220E3D858008AD71A /* OMIDVerificationScriptResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDVerificationScriptResource.h; sourceTree = "<group>"; };
+		00217C6320E3D858008AD71A /* OMIDPartner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDPartner.h; sourceTree = "<group>"; };
 		0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSSMMediationAdViewController.h; sourceTree = "<group>"; };
 		0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMMediationAdViewController.m; sourceTree = "<group>"; };
+		00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANOMIDImplementation.h; sourceTree = "<group>"; };
+		00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDImplementation.m; sourceTree = "<group>"; };
 		0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANGDPRSettings.h; sourceTree = "<group>"; };
 		0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGDPRSettings.m; sourceTree = "<group>"; };
 		0E889BBB208FD6AC00B7AC0A /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = InMobiSDK.framework; sourceTree = "<group>"; };
@@ -1302,6 +1320,7 @@
 				8AFC04651A2E751200BEA485 /* CoreTelephony.framework in Frameworks */,
 				8AFC046D1A2E75A300BEA485 /* MediaPlayer.framework in Frameworks */,
 				8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */,
+				00217C6520E3D8B6008AD71A /* OMSDK-iOS-v1-Appnexus.a in Frameworks */,
 				8AFC046B1A2E757900BEA485 /* QuartzCore.framework in Frameworks */,
 				8AFC04731A2E78E400BEA485 /* StoreKit.framework in Frameworks */,
 				8AFC04671A2E752E00BEA485 /* SystemConfiguration.framework in Frameworks */,
@@ -1314,7 +1333,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F9CA29B1F1FEA6D000E7824 /* AdColony.framework in Frameworks */,
+				00217C6420E3D858008AD71A /* OMSDK-iOS-v1-Appnexus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1328,6 +1347,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00217C5720E3D858008AD71A /* OMSDK_Appnexus-Library */ = {
+			isa = PBXGroup;
+			children = (
+				00217C6120E3D858008AD71A /* OMIDAdEvents.h */,
+				00217C5920E3D858008AD71A /* OMIDAdSession.h */,
+				00217C5D20E3D858008AD71A /* OMIDAdSessionConfiguration.h */,
+				00217C5F20E3D858008AD71A /* OMIDAdSessionContext.h */,
+				00217C5E20E3D858008AD71A /* OMIDImports.h */,
+				00217C6320E3D858008AD71A /* OMIDPartner.h */,
+				00217C6020E3D858008AD71A /* OMIDScriptInjector.h */,
+				00217C5A20E3D858008AD71A /* OMIDSDK.h */,
+				00217C5B20E3D858008AD71A /* OMIDVASTProperties.h */,
+				00217C6220E3D858008AD71A /* OMIDVerificationScriptResource.h */,
+				00217C5C20E3D858008AD71A /* OMIDVideoEvents.h */,
+				00217C5820E3D858008AD71A /* OMSDK-iOS-v1-Appnexus.a */,
+			);
+			path = "OMSDK_Appnexus-Library";
+			sourceTree = "<group>";
+		};
+		00D6B04320D1BAB9007A3439 /* Viewability */ = {
+			isa = PBXGroup;
+			children = (
+				00217C5720E3D858008AD71A /* OMSDK_Appnexus-Library */,
+				00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */,
+				00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */,
+			);
+			path = Viewability;
+			sourceTree = "<group>";
+		};
 		4F824CB31D909E1000AFC7EA /* MoPubSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2218,6 +2266,7 @@
 				8A35B87919FEAAE30016C81F /* native */,
 				ECE4EACA194B768A0069D934 /* Resources */,
 				609732FB1E42EAFF0061EC0A /* video */,
+				00D6B04320D1BAB9007A3439 /* Viewability */,
 				8ABB76691A00385C00FEAD9D /* ANAdConstants.h */,
 				ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */,
 				ECE4EA8E194B768A0069D934 /* ANAdView.h */,
@@ -2359,6 +2408,7 @@
 				8A9AEDE51A1BF88300C58BDA /* ANNativeMediatedAdController.h in Headers */,
 				8A9AEDC01A1BE8CE00C58BDA /* ANNativeMediatedAdResponse.h in Headers */,
 				8A598F8B1A1EA061009BA879 /* ANNativeStandardAdResponse.h in Headers */,
+				00D6B04820D1BC9B007A3439 /* ANOMIDImplementation.h in Headers */,
 				8A2F48241A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h in Headers */,
 				8A9AEDDC1A1BF88200C58BDA /* ANPBBuffer.h in Headers */,
 				8A9AEDDD1A1BF88300C58BDA /* ANPBContainerView.h in Headers */,
@@ -3115,6 +3165,7 @@
 				8A9AEE0D1A1BF99D00C58BDA /* ANNativeMediatedAdController.m in Sources */,
 				8A9AEE0E1A1BF99D00C58BDA /* ANNativeMediatedAdResponse.m in Sources */,
 				8A598F8D1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */,
+				00D6B04B20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */,
 				8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */,
 				8A9AEE001A1BF99D00C58BDA /* ANPBBuffer.m in Sources */,
 				8A9AEE011A1BF99D00C58BDA /* ANPBContainerView.m in Sources */,
@@ -3278,6 +3329,7 @@
 				8A6385E61A14336000280054 /* ANNativeMediatedAdController.m in Sources */,
 				8A6385E71A14336000280054 /* ANNativeMediatedAdResponse.m in Sources */,
 				8A598F8C1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */,
+				00D6B04A20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */,
 				8A2F48251A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */,
 				8AD618DE1981C11F00AC0780 /* ANPBBuffer.m in Sources */,
 				8AD618DF1981C11F00AC0780 /* ANPBContainerView.m in Sources */,

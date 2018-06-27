@@ -18,6 +18,7 @@
 
 #import "ANAdViewInternalDelegate.h"
 #import "ANMRAIDUtil.h"
+#import "OMIDAdSession.h"
 
 
 
@@ -41,6 +42,7 @@
 @property (nonatomic, readonly, assign)  BOOL         isMRAID;
 @property (nonatomic, readonly, strong)  UIView      *contentView;
 @property (nonatomic, readonly, assign)  BOOL         completedFirstLoad;
+@property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
 
 @property (nonatomic, readonly, strong)  ANAdWebViewControllerConfiguration  *configuration;
 

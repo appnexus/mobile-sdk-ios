@@ -33,6 +33,7 @@
 #import "ANNativeAdRequest.h"
 #import "ANNativeStandardAdResponse.h"
 #import "ANNativeAdImageCache.h"
+#import "ANOMIDImplementation.h"
 
 
 
@@ -73,6 +74,8 @@
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
     self.allowSmallerSizes  = NO;
+    
+    [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
 
 - (void)awakeFromNib {
@@ -332,7 +335,7 @@
             self.contentView = adObject;
             [self adDidReceiveAd];
             
-            if (! [adObjectHandler isKindOfClass:[ANRTBVideoAd class]])
+            if ([self adType] == ANAdTypeBanner)
             {
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
 
@@ -341,6 +344,13 @@
                     if (self.window)  {
                         [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
                         self.impressionURLs = nil;
+                        
+                        // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
+                        if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
+                        {
+                            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
+                            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                        }
                     }
                 }
             }
@@ -557,9 +567,16 @@
 {
     @synchronized (self)
     {
-        if (self.contentView) {
+        if (self.contentView  && ( [self adType] == ANAdTypeBanner)) {
             [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
             self.impressionURLs = nil;
+            
+            // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
+            if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
+            {
+                ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
+                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+            }
         }
     }
 }

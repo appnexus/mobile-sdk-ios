@@ -25,6 +25,7 @@
 #import "ANMRAIDContainerView.h"
 #import "ANTrackerManager.h"
 #import "ANCustomAdapter.h"
+#import "ANOMIDImplementation.h"
 
 
 
@@ -75,6 +76,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     self.containerSize      = APPNEXUS_SIZE_UNDEFINED;
     self.allowedAdSizes     = [self getDefaultAllowedAdSizes];
     self.allowSmallerSizes  = NO;
+    [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
 
 - (instancetype)initWithPlacementId:(NSString *)placementId {
@@ -276,6 +278,13 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         @synchronized (self) {
             [ANTrackerManager fireTrackerURLArray:impressionURLs];
             impressionURLs = nil;
+            
+            // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
+            if([adToShow isKindOfClass:[ANMRAIDContainerView class]])
+            {
+                ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)adToShow;
+                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+            }
         }
         
         [controller presentViewController:self.controller
