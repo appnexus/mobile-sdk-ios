@@ -1,4 +1,10 @@
 
+## 4.9
+### New Features
++ MS-3234 -- Open Measurement SDK Support for HTML Banner Ads
+
+
+
 ## 4.8
 ### New Features
 + MS-3083 -- Native for Banner Ad View
