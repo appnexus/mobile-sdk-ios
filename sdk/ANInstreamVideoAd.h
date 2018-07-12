@@ -74,7 +74,7 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 
     - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
 
-    - (void) adPlayStarted : (id<ANAdProtocol>)ad;
+    - (void) adPlayStarted:(id<ANAdProtocol>)ad;
 
 @end
 
@@ -103,6 +103,7 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
     // Lifecycle methods.
     //
     - (instancetype) initWithPlacementId: (NSString *)placementId;
+    - (instancetype) initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode;
 
     - (BOOL) loadAdWithDelegate: (id<ANInstreamVideoAdLoadDelegate>)loadDelegate;
 

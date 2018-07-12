@@ -65,6 +65,8 @@
 		4F7D0FD820D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */; };
 		4F7D0FD920D090FC00EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */; };
 		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4FA8AEB120F41E8100697C5B /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8AEA320F41E8100697C5B /* SuccessfulInstreamVideoAdResponse.json */; };
+		4FA8AEB220F41E9D00697C5B /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FA8AEA320F41E8100697C5B /* SuccessfulInstreamVideoAdResponse.json */; };
 		4FBF18B220D054A7005BA94B /* ClickThroughActionTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBF18B120D054A7005BA94B /* ClickThroughActionTestCase.m */; };
 		4FC282D21FDE7B31009ED64E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3659319D479130097019F /* AdSupport.framework */; };
 		4FC282E01FDE7B39009ED64E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF3657F19D473B00097019F /* AVFoundation.framework */; };
@@ -776,6 +778,7 @@
 		4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
+		4FA8AEA320F41E8100697C5B /* SuccessfulInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulInstreamVideoAdResponse.json; sourceTree = "<group>"; };
 		4FBF18B120D054A7005BA94B /* ClickThroughActionTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClickThroughActionTestCase.m; sourceTree = "<group>"; };
 		4FD362641F8FCA3D0010567E /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = "KIF-3.6.0/KIF.xcodeproj"; sourceTree = "<group>"; };
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
@@ -1847,6 +1850,7 @@
 				00478B4C20D8691B00436D14 /* OMID_TestResponse.json */,
 				FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */,
 				FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
+				4FA8AEA320F41E8100697C5B /* SuccessfulInstreamVideoAdResponse.json */,
 				8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */,
 				8AA00A2119DB1E150090EBED /* SuccessfulMRAIDListenerResponse.json */,
 				8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */,
@@ -2592,6 +2596,7 @@
 				4F76461A1D957E4A00B15742 /* MPAdBrowserController.xib in Resources */,
 				8ACB37EB1B98C66F0027E90B /* NewTestAppLaunch.xib in Resources */,
 				FCF67EBF20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
+				4FA8AEB120F41E8100697C5B /* SuccessfulInstreamVideoAdResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2617,6 +2622,7 @@
 				00478B4D20D8691B00436D14 /* OMID_TestResponse.json in Resources */,
 				FCF67EC120335D990055E7F6 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
 				FC3E602420336A4000D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
+				4FA8AEB220F41E9D00697C5B /* SuccessfulInstreamVideoAdResponse.json in Resources */,
 				8AA00A4C19DB2AA60090EBED /* SuccessfulMediationResponse.json in Resources */,
 				8AA00A4D19DB2AA60090EBED /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				8AA00A4E19DB2AA60090EBED /* SuccessfulMRAIDResponse.json in Resources */,
