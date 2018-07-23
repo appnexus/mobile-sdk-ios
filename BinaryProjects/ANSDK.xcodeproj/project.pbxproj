@@ -60,7 +60,6 @@
 		4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */; };
 		602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
 		602E0E241FE46571002C0F1C /* WKWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */; };
-		602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */; };
 		602E0E261FE467EE002C0F1C /* WKWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */; };
 		602E0E271FE46818002C0F1C /* WKWebView+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
@@ -3379,7 +3378,6 @@
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
 				8A6385E91A14336000280054 /* UIView+ANNativeAdCategory.m in Sources */,
 				ECE4EADD194B768A0069D934 /* UIWebView+ANCategory.m in Sources */,
-				602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */,
 				602E0E241FE46571002C0F1C /* WKWebView+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
