@@ -55,7 +55,7 @@
 @synthesize  autoRefreshInterval  = __autoRefreshInterval;
 @synthesize  contentView          = _contentView;
 @synthesize  adSize               = _adSize;
-
+@synthesize  loadedAdSize         = _loadedAdSize;
 
 
 
@@ -70,7 +70,7 @@
     //
     __autoRefreshInterval   = kANBannerDefaultAutoRefreshInterval;
     _transitionDuration     = kAppNexusBannerAdTransitionDefaultDuration;
-
+    _loadedAdSize           = APPNEXUS_SIZE_UNDEFINED;
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
     self.allowSmallerSizes  = NO;
@@ -329,14 +329,26 @@
             [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
         }
 
+        
 
         if ([adObject isKindOfClass:[UIView class]])
         {
             self.contentView = adObject;
-            [self adDidReceiveAd];
+            NSString *width = (NSString *) [ANGlobal valueOfGetterProperty:@"width" forObject:adObjectHandler];
+            NSString *height = (NSString *) [ANGlobal valueOfGetterProperty:@"height" forObject:adObjectHandler];
             
+            if(width && height){
+                CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
+                _loadedAdSize = receivedSize;
+            }else {
+                _loadedAdSize = self.adSize;
+                }
+            
+            [self adDidReceiveAd];
+          
             if ([self adType] == ANAdTypeBanner)
             {
+                
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
 
                 @synchronized (self)

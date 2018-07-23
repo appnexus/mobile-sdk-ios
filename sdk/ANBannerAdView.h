@@ -168,6 +168,11 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 @property (nonatomic, readwrite, assign) CGSize adSize;
 
 /**
+ Return the loaded Ad Size.
+ */
+@property (nonatomic, readonly) CGSize loadedAdSize;
+
+/**
  The set of allowed ad sizes for the banner ad.
  The set should contain CGSize values wrapped as NSValue objects.
  */
