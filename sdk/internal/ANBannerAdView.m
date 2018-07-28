@@ -329,8 +329,7 @@
             [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
         }
 
-        
-
+        //
         if ([adObject isKindOfClass:[UIView class]])
         {
             self.contentView = adObject;
@@ -377,38 +376,7 @@
             nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
 
             //
-            __weak ANBannerAdView  *weakSelf  = self;
-            NSOperation *finish = [NSBlockOperation blockOperationWithBlock:
-                                   ^{
-                                       __strong ANBannerAdView  *strongSelf  = weakSelf;
-
-                                       if (!strongSelf) {
-                                           ANLogError(@"FAILED to access strongSelf.");
-                                           return;
-                                       }
-
-                                       [strongSelf adDidReceiveAd:nativeAdResponse];
-                                   } ];
-
-
-
-            if ([nativeAdResponse respondsToSelector:@selector(setIconImage:)])
-            {
-                [self setImageForImageURL: nativeAdResponse.iconImageURL
-                                 onObject: nativeAdResponse
-                               forKeyPath: @"iconImage"
-                  withCompletionOperation: finish];
-            }
-
-            if ([nativeAdResponse respondsToSelector:@selector(setMainImage:)])
-            {
-                [self setImageForImageURL: nativeAdResponse.mainImageURL
-                                 onObject: nativeAdResponse
-                               forKeyPath: @"mainImage"
-                  withCompletionOperation: finish];
-            }
-
-            [[NSOperationQueue mainQueue] addOperation:finish];
+            [self adDidReceiveAd:nativeAdResponse];
 
         } else {
             NSString  *unrecognizedResponseErrorMessage  = [NSString stringWithFormat:@"UNRECOGNIZED ad response.  (%@)", [adObject class]];
@@ -466,82 +434,6 @@
     [delegateReturnDictionary setObject:@(self.allowSmallerSizes)                forKey:ANInternalDelegateTagKeyAllowSmallerSizes];
     
     return  delegateReturnDictionary;
-}
-
-
-
-
-#pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
-
-- (void)setImageForImageURL:(NSURL *)imageURL
-                   onObject:(id)object
-                 forKeyPath:(NSString *)keyPath
-    withCompletionOperation:(NSOperation *)operation {
-
-    NSOperation *dependentOperation = [self setImageForImageURL:imageURL
-                                                       onObject:object
-                                                     forKeyPath:keyPath];
-    if (dependentOperation) {
-        [operation addDependency:dependentOperation];
-    }
-}
-
-
-- (NSOperation *)setImageForImageURL: (NSURL *)imageURL
-                            onObject: (id)object
-                          forKeyPath: (NSString *)keyPath
-{
-    if (!imageURL) {
-        return nil;
-    }
-
-    UIImage *cachedImage = [ANNativeAdImageCache imageForKey:imageURL];
-
-    if (cachedImage) {
-        [object setValue:cachedImage forKeyPath:keyPath];
-        return nil;
-
-    } else {
-        NSOperation *loadImageData = [NSBlockOperation blockOperationWithBlock:^{
-            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-            NSURLRequest *request = [NSURLRequest requestWithURL:imageURL
-                                                     cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                 timeoutInterval:kAppNexusNativeAdImageDownloadTimeoutInterval];
-
-            NSURLSessionDataTask *task = [[NSURLSession sharedSession]
-                                          dataTaskWithRequest:request
-                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              NSInteger statusCode = -1;
-                                              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                                                  statusCode = [httpResponse statusCode];
-
-                                              }
-
-                                              if (statusCode >= 400 || statusCode == -1)  {
-                                                  ANLogError(@"Error downloading image: %@", error);
-
-                                              }else{
-                                                  UIImage *image = [UIImage imageWithData:data];
-                                                  if (image) {
-                                                      [ANNativeAdImageCache setImage:image
-                                                                              forKey:imageURL];
-                                                      [object setValue:image
-                                                            forKeyPath:keyPath];
-                                                  }
-                                              }
-                                              dispatch_semaphore_signal(semaphore);
-
-                                          }];
-
-            [task resume];
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-        }];
-
-        [[NSOperationQueue mainQueue] addOperation:loadImageData];
-        return loadImageData;
-    }
 }
 
 

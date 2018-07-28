@@ -130,6 +130,9 @@
     XCTAssertNotNil(self.nativeAd.mainImageURL);
     XCTAssertNotNil(self.nativeAd.iconImageURL);
 
+    XCTAssertNil(self.nativeAd.mainImage);
+    XCTAssertNil(self.nativeAd.iconImage);
+
     XCTAssertNotNil(self.multiFormatAd.universalAdFetcher.autoRefreshTimer);
 }
 
