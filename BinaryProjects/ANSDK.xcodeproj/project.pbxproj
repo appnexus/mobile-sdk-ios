@@ -115,9 +115,6 @@
 		609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */; };
 		609733141E42EB0B0061EC0A /* ASTMediationManager.js in Resources */ = {isa = PBXBuildFile; fileRef = 609733001E42EAFF0061EC0A /* ASTMediationManager.js */; };
 		60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */ = {isa = PBXBuildFile; fileRef = 60AB32891E521FE500429ED7 /* MobileVastPlayer.js */; };
-		60F6AC1D2051C50C0022560D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60F6AC1C2051C50C0022560D /* Info.plist */; };
-		60F6AC1E2051C50C0022560D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60F6AC1C2051C50C0022560D /* Info.plist */; };
-		60F6AC1F2051C50C0022560D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60F6AC1C2051C50C0022560D /* Info.plist */; };
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
 		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
@@ -2938,7 +2935,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ADA36201A82A8D700AF65AA /* ANSDKResources.bundle in Resources */,
-				60F6AC1F2051C50C0022560D /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3048,7 +3044,6 @@
 				8A4FF3A11A2F72D00000E4CC /* compass@2x.png in Resources */,
 				8A6CD9271A96B2FD0060BCF4 /* compass@3x.png in Resources */,
 				ECE4EB06194B76960069D934 /* errors.strings in Resources */,
-				60F6AC1E2051C50C0022560D /* Info.plist in Resources */,
 				ECE4EB09194B76960069D934 /* interstitial_closebox.png in Resources */,
 				ECE4EB0A194B76960069D934 /* interstitial_closebox@2x.png in Resources */,
 				8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */,
@@ -3069,7 +3064,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
-				60F6AC1D2051C50C0022560D /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
