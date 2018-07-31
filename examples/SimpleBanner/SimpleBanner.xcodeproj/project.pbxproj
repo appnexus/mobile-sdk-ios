@@ -244,16 +244,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EB23739210931E700A9C1BD /* libANSDK.a in Frameworks */,
-				0EB23738210931CC00A9C1BD /* CoreLocation.framework in Frameworks */,
 				FF2FD7F219706AD2002CAD63 /* AdSupport.framework in Frameworks */,
 				FF2FD7F419706AD9002CAD63 /* AudioToolbox.framework in Frameworks */,
 				FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */,
 				6083C4161FBCA3DA00DED744 /* AVKit.framework in Frameworks */,
 				FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */,
 				FF2FD7AF19706A5D002CAD63 /* CoreGraphics.framework in Frameworks */,
+				0EB23738210931CC00A9C1BD /* CoreLocation.framework in Frameworks */,
 				FF2FD7FA19706AF6002CAD63 /* CoreTelephony.framework in Frameworks */,
 				FF2FD7AD19706A5D002CAD63 /* Foundation.framework in Frameworks */,
+				0EB23739210931E700A9C1BD /* libANSDK.a in Frameworks */,
 				FF2FD80019706B18002CAD63 /* MediaPlayer.framework in Frameworks */,
 				FF2FD80219706B28002CAD63 /* MessageUI.framework in Frameworks */,
 				FF2FD80419706B30002CAD63 /* MobileCoreServices.framework in Frameworks */,
@@ -284,25 +284,25 @@
 		0EB236FC2109312A00A9C1BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0EB237122109312B00A9C1BD /* libANSDK.a */,
 				0EB237142109312B00A9C1BD /* ANSDKResources.bundle */,
-				0EB237162109312B00A9C1BD /* libANSDKGoogleAdMobAdapter.a */,
-				0EB237182109312B00A9C1BD /* libANSDKMillennialMediaAdapter.a */,
-				0EB2371A2109312B00A9C1BD /* libANSDKMoPubAdapter.a */,
-				0EB2371C2109312B00A9C1BD /* libANSDKFacebookAdapter.a */,
-				0EB2371E2109312B00A9C1BD /* libANSDKAmazonAdapter.a */,
-				0EB237202109312B00A9C1BD /* libANSDKInMobiAdapter.a */,
-				0EB237222109312B00A9C1BD /* libANSDKVdopiaAdapter.a */,
-				0EB237242109312B00A9C1BD /* libANSDKAdColonyAdapter.a */,
-				0EB237262109312B00A9C1BD /* libANSDKVungleAdapter.a */,
-				0EB237282109312B00A9C1BD /* libANSDKChartboostAdapter.a */,
-				0EB2372A2109312B00A9C1BD /* libANSDKYahooAdapter.a */,
+				0EB237302109312B00A9C1BD /* AppNexusSDK.framework */,
 				0EB2372C2109312B00A9C1BD /* libANAdapterForGoogleAdMobSDK.a */,
 				0EB2372E2109312B00A9C1BD /* libANAdapterForMoPubSDK.a */,
-				0EB237302109312B00A9C1BD /* AppNexusSDK.framework */,
-				0EB237322109312B00A9C1BD /* libANSDKSmartAdAdapter.a */,
+				0EB237122109312B00A9C1BD /* libANSDK.a */,
+				0EB237242109312B00A9C1BD /* libANSDKAdColonyAdapter.a */,
 				0EB237342109312B00A9C1BD /* libANSDKAdMarvelAdapter.a */,
+				0EB2371E2109312B00A9C1BD /* libANSDKAmazonAdapter.a */,
+				0EB237282109312B00A9C1BD /* libANSDKChartboostAdapter.a */,
+				0EB2371C2109312B00A9C1BD /* libANSDKFacebookAdapter.a */,
+				0EB237162109312B00A9C1BD /* libANSDKGoogleAdMobAdapter.a */,
+				0EB237202109312B00A9C1BD /* libANSDKInMobiAdapter.a */,
+				0EB237182109312B00A9C1BD /* libANSDKMillennialMediaAdapter.a */,
+				0EB2371A2109312B00A9C1BD /* libANSDKMoPubAdapter.a */,
 				0EB237362109312B00A9C1BD /* libANSDKRubiconAdapter.a */,
+				0EB237322109312B00A9C1BD /* libANSDKSmartAdAdapter.a */,
+				0EB237222109312B00A9C1BD /* libANSDKVdopiaAdapter.a */,
+				0EB237262109312B00A9C1BD /* libANSDKVungleAdapter.a */,
+				0EB2372A2109312B00A9C1BD /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -310,11 +310,11 @@
 		FF2FD7A019706A5D002CAD63 = {
 			isa = PBXGroup;
 			children = (
-				0EB236FB2109312A00A9C1BD /* ANSDK.xcodeproj */,
 				FF2FD7AB19706A5D002CAD63 /* Frameworks */,
 				FF2FD7AA19706A5D002CAD63 /* Products */,
 				FF2FD7B219706A5D002CAD63 /* SimpleBanner */,
 				FF2FD7D419706A5E002CAD63 /* SimpleBannerTests */,
+				0EB236FB2109312A00A9C1BD /* ANSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -330,13 +330,13 @@
 		FF2FD7AB19706A5D002CAD63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0EB23737210931CC00A9C1BD /* CoreLocation.framework */,
 				FF2FD7F119706AD2002CAD63 /* AdSupport.framework */,
 				FF2FD7F319706AD9002CAD63 /* AudioToolbox.framework */,
 				FF2FD7F519706ADE002CAD63 /* AVFoundation.framework */,
 				6083C4151FBCA3D900DED744 /* AVKit.framework */,
 				FF2FD7F719706AE7002CAD63 /* CFNetwork.framework */,
 				FF2FD7AE19706A5D002CAD63 /* CoreGraphics.framework */,
+				0EB23737210931CC00A9C1BD /* CoreLocation.framework */,
 				FF2FD7F919706AF5002CAD63 /* CoreTelephony.framework */,
 				FF2FD7FB19706AFC002CAD63 /* EventKit.framework */,
 				8A3EDB591D0873B200957227 /* EventKitUI.framework */,
