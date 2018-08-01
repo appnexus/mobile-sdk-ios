@@ -27,7 +27,7 @@
                                 "type": "ios",
                                 "class": "ANAdAdapterNativeAdMob",
                                 "param": "#{PARAM}",
-                                "id": "ca-app-pub-3940256099942544/3986624511"
+                                "id": "/6499/example/native"
                             },
                             {
                                 "type": "android",

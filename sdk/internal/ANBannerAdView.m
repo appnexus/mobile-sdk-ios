@@ -56,8 +56,8 @@
 @synthesize  contentView          = _contentView;
 @synthesize  adSize               = _adSize;
 @synthesize  loadedAdSize         = _loadedAdSize;
-
-
+@synthesize  shouldAllowVideoDemand     = _shouldAllowVideoDemand;
+@synthesize  shouldAllowNativeDemand    = _shouldAllowNativeDemand;
 
 #pragma mark - Lifecycle.
 
@@ -73,6 +73,8 @@
     _loadedAdSize           = APPNEXUS_SIZE_UNDEFINED;
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
+    _shouldAllowNativeDemand      = NO;
+    _shouldAllowVideoDemand       = NO;
     self.allowSmallerSizes  = NO;
     
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
@@ -447,7 +449,15 @@
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-    return  @[ @(ANAllowedMediaTypeBanner), @(ANAllowedMediaTypeVideo), @(ANAllowedMediaTypeNative) ];
+    NSMutableArray *mediaTypes  = [[NSMutableArray alloc] init];
+    [mediaTypes addObject:@(ANAllowedMediaTypeBanner)];
+    if(_shouldAllowNativeDemand){
+        [mediaTypes addObject:@(ANAllowedMediaTypeNative)];
+    }
+    if(_shouldAllowVideoDemand){
+        [mediaTypes addObject:@(ANAllowedMediaTypeVideo)];
+    }
+    return  [mediaTypes copy];
 }
 
 
