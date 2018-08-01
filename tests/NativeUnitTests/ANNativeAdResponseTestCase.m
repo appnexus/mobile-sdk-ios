@@ -33,6 +33,7 @@
 #import "ANNativeStandardAdResponse.h"
 #import "ANAdAdapterNativeAdMob.h"
 #import "ANGADNativeAppInstallAdView.h"
+#import "ANNativeMediatedAdResponse+PrivateMethods.h"
 
 
 
@@ -565,6 +566,38 @@
 }
 
 
+- (void)testCustomDummyAdapterSuccesful {
+    [self stubRequestWithResponse:@"custom_dummy_mediated_response"];
+
+    self.adRequest.shouldLoadIconImage = false;
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertTrue(self.successfulAdCall);
+    XCTAssertNil(self.adRequestError);
+    
+    [self createBasicNativeView];
+    [self populateNativeViewWithResponse];
+    
+    // Setup impression recording objects
+    [self setupURLDidLoadTracker];
+    
+    XCTAssertTrue([self.adResponse isKindOfClass:[ANNativeMediatedAdResponse class]]);
+    ANNativeMediatedAdResponse *medidatedAdResponse = (ANNativeMediatedAdResponse *)self.adResponse;
+    self.impressionTrackers = [medidatedAdResponse.impTrackers mutableCopy];
+    
+    
+    [self assertPendingImpressionTrackerCount:1];
+    
+    // Calling registerNativeView on the Dummy Adapter will make impression trackers to be fired immediately
+    [self registerNativeView];
+    
+    [tester waitForTimeInterval:2.0];
+    [self assertPendingImpressionTrackerCount:0];
+}
 
 
 #pragma mark - ANNativeAdRequestDelegate

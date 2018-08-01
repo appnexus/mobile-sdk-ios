@@ -153,4 +153,10 @@ errorDescription:(NSError *)errorDescription {
     [self.nativeAdDelegate adWasClicked];
 }
 
+
+- (void) adNativeDidLogImpression:(FlurryAdNative*) nativeAd{
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate adDidLogImpression];
+}
+
 @end

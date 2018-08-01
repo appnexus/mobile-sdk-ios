@@ -179,4 +179,9 @@ static BOOL nativeContentAdsEnabled = NO;
     [self.nativeAdDelegate willLeaveApplication];
 }
 
+- (void)nativeAdDidRecordImpression:(GADNativeAd *)nativeAd{
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate adDidLogImpression];
+}
+
 @end

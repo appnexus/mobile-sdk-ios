@@ -1,0 +1,55 @@
+{
+    "version": "0.0.1",
+    "tags": [
+             {
+             "tag_id": 2,
+             "auction_id": "2315613218175277884",
+             "nobid": false,
+             "no_ad_url": "MOCK__no_ad_url",
+             "timeout_ms": 10000,
+             "ad_profile_id": 739021,
+             "ads": [
+                     {
+                     "content_source": "csm",
+                     "ad_type": "native",
+                     "buyer_member_id": 958,
+                     "creative_id": 123,
+                     "media_type_id": 12,
+                     "media_subtype_id": 65,
+                     "client_initiated_ad_counting": true,
+                     "viewability": {
+                     "config": "MOCK__viewability__config"
+                     },
+                     "csm": {
+                     "timeout_ms": 500,
+                     "handler": [
+                                 {
+                                 "type": "ios",
+                                 "class": "ANNativeCustomDummyAdapterSuccesful",
+                                 "param": "#{PARAM}",
+                                 "id": "1234"
+                                 },
+                                 {
+                                 "type": "android",
+                                 "class": "ANNativeCustomDummyAdapterSuccesful",
+                                 "param": "#{PARAM}",
+                                 "id": "1234"
+                                 }
+                                 ],
+                     "trackers": [
+                                  {
+                                  "impression_urls": [
+                                                      "https://acdn.adnxs.com/mobile/native_custom_test/trackImpression"
+                                                      ],
+                                  "video_events": {}
+                                  }
+                                  ],
+                     "request_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_req?info=LwAAAAMABQEFAQjmo5zYBRC8tqXUwL6tkSAYvgchzF1LyAc9iz8on-OqGTBaOAA.&s=e03e599b14d3b699fff2302d756cd3b5c38d14fc",
+                     "response_url": "http://nym1-mobile.adnxs.com/mediation/v2/log_resp?info=LwAAAAMABQEFAQjmo5zYBRC8tqXUwL6tkSAYvgchzF1LyAc9iz8on-OqGTBaOAA.&s=e03e599b14d3b699fff2302d756cd3b5c38d14fc"
+                     }
+                     }
+                     ]
+             }
+             ]
+}
+
