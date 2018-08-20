@@ -30,9 +30,6 @@
 @interface ANPublicAPITestCase : XCTestCase <ANInstreamVideoAdLoadDelegate>
 
 @property (nonatomic, readwrite, strong)  XCTestExpectation     *requestExpectation;
-@property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
-@property (nonatomic, readwrite, strong)  ANInterstitialAd      *interstitial;
-@property (nonatomic, readwrite, strong)  ANInstreamVideoAd      *video;
 @property (nonatomic)                     NSURLRequest          *request;
 
 @end
@@ -51,7 +48,9 @@
 
 - (void)tearDown {
     [super tearDown];
+    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [[ANHTTPStubbingManager sharedStubbingManager] disable];
     self.request = nil;
     self.requestExpectation = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -74,26 +73,14 @@
 TESTTRACE();
     if (self.requestExpectation) {
         self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
-        [self.requestExpectation fulfill];
-        self.requestExpectation = nil;
+        if([self.request.URL.absoluteString compare:@"http://mediation.adnxs.com/ut/v2" ] == NSOrderedSame){
+            [self.requestExpectation fulfill];
+            self.requestExpectation = nil;
+            [[ANHTTPStubbingManager sharedStubbingManager] disable];
+        }
     }
 }
 
-- (void)stubRequestWithResponse:(NSString *)responseName
-{
-    NSBundle  *currentBundle  = [NSBundle bundleForClass:[self class]];
-    NSString  *baseResponse   = [NSString stringWithContentsOfFile: [currentBundle pathForResource:responseName ofType:@"json"]
-                                                          encoding: NSUTF8StringEncoding
-                                                             error: nil ];
-
-    ANURLConnectionStub *requestStub = [[ANURLConnectionStub alloc] init];
-
-    requestStub.requestURL    = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    requestStub.responseCode  = 200;
-    requestStub.responseBody  = baseResponse;
-
-    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
-}
 
 - (NSDictionary *) getJSONBodyOfURLRequestAsDictionary: (NSURLRequest *)urlRequest
 {
@@ -104,7 +91,10 @@ TESTTRACE();
     NSDictionary  *json          = [NSJSONSerialization JSONObjectWithData: objectData
                                                                    options: NSJSONReadingMutableContainers
                                                                      error: &error];
-    if (error)  { return nil; }
+    if (error)  {
+        return nil;
+        
+    }
 
     return  json;
 }
@@ -114,22 +104,21 @@ TESTTRACE();
 
 - (void)testSetPlacementOnlyOnBanner
 {
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
 
-    self.banner = [[ANBannerAdView alloc]
+    ANBannerAdView *banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
                    adSize:CGSizeMake(320, 50)];
 
-    [self.banner loadAd];
+    [banner loadAd];
     [self waitForExpectationsWithTimeout: 2 * kAppNexusRequestTimeoutInterval
                                  handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
              ];
     self.requestExpectation = nil;
 
     //
-    XCTAssertEqual(@"1", [self.banner placementId]);
+    XCTAssertEqual(@"1", [banner placementId]);
 
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
     XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
@@ -137,11 +126,11 @@ TESTTRACE();
 
 -(void) testSetDurationOnVideo {
     self.requestExpectation = [self expectationWithDescription:@"request"];
-    self.video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
-    [self.video setMinDuration:10];
-    [self.video setMaxDuration:100];
+    ANInstreamVideoAd *video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
+    [video setMinDuration:10];
+    [video setMaxDuration:100];
     
-    [self.video loadAdWithDelegate:self];
+    [video loadAdWithDelegate:self];
     
     [self waitForExpectationsWithTimeout: 5 * kAppNexusRequestTimeoutInterval
                                  handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
@@ -155,9 +144,9 @@ TESTTRACE();
 
 -(void) testSetNoDurationForVideo {
     self.requestExpectation = [self expectationWithDescription:@"request"];
-    self.video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
+    ANInstreamVideoAd *video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
     
-    [self.video loadAdWithDelegate:self];
+    [video loadAdWithDelegate:self];
     
     [self waitForExpectationsWithTimeout: 5 * kAppNexusRequestTimeoutInterval
                                  handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
@@ -171,9 +160,9 @@ TESTTRACE();
 
 -(void) testSetMaxOnlyDurationForVideo {
     self.requestExpectation = [self expectationWithDescription:@"request"];
-    self.video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
-    [self.video setMaxDuration:100];
-    [self.video loadAdWithDelegate:self];
+    ANInstreamVideoAd *video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
+    [video setMaxDuration:100];
+    [video loadAdWithDelegate:self];
     
     [self waitForExpectationsWithTimeout: 5 * kAppNexusRequestTimeoutInterval
                                  handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
@@ -188,9 +177,9 @@ TESTTRACE();
 
 -(void) testSetMinOnlyDurationForVideo {
     self.requestExpectation = [self expectationWithDescription:@"request"];
-    self.video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
-    [self.video setMinDuration:10];
-    [self.video loadAdWithDelegate:self];
+    ANInstreamVideoAd *video = [[ANInstreamVideoAd alloc] initWithPlacementId:@"12345"];
+    [video setMinDuration:10];
+    [video loadAdWithDelegate:self];
     
     [self waitForExpectationsWithTimeout: 5 * kAppNexusRequestTimeoutInterval
                                  handler: ^(NSError * _Nullable error) { /*EMPTY*/ }
@@ -205,16 +194,15 @@ TESTTRACE();
 
 - (void)testSetInventoryCodeAndMemberIDOnBanner
 {
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
 
-    self.banner = [[ANBannerAdView alloc]
+    ANBannerAdView *banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    memberId:1
                    inventoryCode:@"test"
                    adSize:CGSizeMake(320, 50)];
 
-    [self.banner loadAd];
+    [banner loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
@@ -222,8 +210,8 @@ TESTTRACE();
     self.requestExpectation = nil;
 
     //
-    XCTAssertEqual(@"test", [self.banner inventoryCode]);
-    XCTAssertEqual(1, [self.banner memberId]);
+    XCTAssertEqual(@"test", [banner inventoryCode]);
+    XCTAssertEqual(1, [banner memberId]);
 
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
 
@@ -238,15 +226,14 @@ TESTTRACE();
 //
 - (void)testSetInventoryCodeAndPlacementIdOnBanner
 {
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
 
-    self.banner = [[ANBannerAdView alloc]
+    ANBannerAdView *banner = [[ANBannerAdView alloc]
                    initWithFrame:CGRectMake(0, 0, 320, 50)
                    placementId:@"1"
                    adSize:CGSizeMake(320, 50)];
-    [self.banner setInventoryCode:@"test" memberId:2];
-    [self.banner loadAd];
+    [banner setInventoryCode:@"test" memberId:2];
+    [banner loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
@@ -254,9 +241,9 @@ TESTTRACE();
     self.requestExpectation = nil;
 
     //
-    XCTAssertEqual(@"1",        [self.banner placementId]);
-    XCTAssertEqual(@"test",     [self.banner inventoryCode]);
-    XCTAssertEqual(2,           [self.banner memberId]);
+    XCTAssertEqual(@"1",        [banner placementId]);
+    XCTAssertEqual(@"test",     [banner inventoryCode]);
+    XCTAssertEqual(2,           [banner memberId]);
 
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
 
@@ -270,11 +257,10 @@ TESTTRACE();
 
 - (void)testSetPlacementOnlyOnInterstitial
 {
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
 
-    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
-    [self.interstitial loadAd];
+    ANInterstitialAd *interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [interstitial loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
@@ -282,7 +268,7 @@ TESTTRACE();
     self.requestExpectation = nil;
 
     //
-    XCTAssertEqual(@"1", [self.interstitial placementId]);
+    XCTAssertEqual(@"1", [interstitial placementId]);
 
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
     XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
@@ -290,12 +276,11 @@ TESTTRACE();
 
 - (void)testSetInventoryCodeAndMemberIDOnInterstitial
 {
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
     self.requestExpectation = [self expectationWithDescription:@"request"];
 
-    self.interstitial = [[ANInterstitialAd alloc] initWithMemberId:2
+    ANInterstitialAd *interstitial = [[ANInterstitialAd alloc] initWithMemberId:2
                                                      inventoryCode:@"test"];
-    [self.interstitial loadAd];
+    [interstitial loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
@@ -303,8 +288,8 @@ TESTTRACE();
     self.requestExpectation = nil;
 
     //
-    XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
-    XCTAssertEqual(2, [self.interstitial memberId]);
+    XCTAssertEqual(@"test", [interstitial inventoryCode]);
+    XCTAssertEqual(2, [interstitial memberId]);
 
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
 
@@ -320,11 +305,10 @@ TESTTRACE();
 - (void)testSetBothInventoryCodeAndPlacementIdOnInterstitial
 {
     self.requestExpectation = [self expectationWithDescription:@"request"];
-    [self stubRequestWithResponse:@"SuccessfulMRAIDResponse"];
 
-    self.interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
-    [self.interstitial setInventoryCode:@"test" memberId:2];
-    [self.interstitial loadAd];
+    ANInterstitialAd *interstitial = [[ANInterstitialAd alloc] initWithPlacementId:@"1"];
+    [interstitial setInventoryCode:@"test" memberId:2];
+    [interstitial loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError * _Nullable error) {
                                      
@@ -332,9 +316,9 @@ TESTTRACE();
     self.requestExpectation = nil;
 
     //
-    XCTAssertEqual(@"1", [self.interstitial placementId]);
-    XCTAssertEqual(@"test", [self.interstitial inventoryCode]);
-    XCTAssertEqual(2, [self.interstitial memberId]);
+    XCTAssertEqual(@"1", [interstitial placementId]);
+    XCTAssertEqual(@"test", [interstitial inventoryCode]);
+    XCTAssertEqual(2, [interstitial memberId]);
 
     NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
 

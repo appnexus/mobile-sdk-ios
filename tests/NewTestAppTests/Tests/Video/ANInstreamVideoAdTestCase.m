@@ -72,11 +72,13 @@ static NSString   *inventoryCode    = @"trucksmash";
 - (void)tearDown
 {
     [super tearDown];
-
+    [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [[ANHTTPStubbingManager sharedStubbingManager] disable];
 
     self.instreamVideoAd = nil;
     self.expectationLoadVideoAd = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

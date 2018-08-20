@@ -94,9 +94,7 @@
     self.nativeAdView = nil;
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     [ANHTTPStubbingManager sharedStubbingManager].broadcastRequests = NO;
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:kANHTTPStubURLProtocolRequestDidLoadNotification
-                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.impressionTrackers = nil;
     self.clickTrackers = nil;
     
@@ -538,6 +536,7 @@
 - (void)testAdMobWithIconImageLoad {
     [self stubRequestWithResponse:@"adMob_mediated_response"];
     [ANAdAdapterNativeAdMob enableNativeAppInstallAds];
+    [ANAdAdapterNativeAdMob enableNativeContentAds];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];

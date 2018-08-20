@@ -26,6 +26,7 @@
 #import "ANGlobal.h"
 #import "XCTestCase+ANCategory.h"
 #import "UIView+ANCategory.h"
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 #if kANMediationAdaptersUITesting
 @interface MediationAdaptersTestCase : KIFTestCase <ANBannerAdViewDelegate>
@@ -65,6 +66,7 @@
     self.adDidPresent = NO;
     self.adWillClose = NO;
     self.adDidClose = NO;
+    self.adResponseExpectation = nil;
     if (self.rootViewController.presentedViewController) {
         [self.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
     }
@@ -72,38 +74,38 @@
 
 #pragma mark - Successful Banners
 
-- (void)testMillennialSuccessfulBanner {
-    ANBannerAdView *bannerAdView = [self.rootViewController loadMillennialMediaBannerWithDelegate:self];
-    [self.rootViewController.view addSubview:bannerAdView];
-    
-    self.adResponseExpectation = [self expectationWithDescription:@"ad received/failed response"];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
-    XCTAssertFalse(self.didFailToReceiveAd, @"ad:requestFailedWithError: was called when adDidReceiveAd: was expected");
-    
-#if kANMediationAdaptersUITesting
-    // New MMAdSDK test ad triggers the external browser, making it impossible to test for callbacks
-//    bannerAdView.accessibilityLabel = @"banner";
-//    [tester tapViewWithAccessibilityLabel:@"banner"];
-//    [tester waitForTimeInterval:3.0];
-//    XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
-//    XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
-//    XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
-//    [tester waitForTimeInterval:2.0];
-//    CGRect screenBounds = [UIScreen mainScreen].bounds;
-//    [tester tapScreenAtPoint:CGPointMake(screenBounds.size.width - 25, screenBounds.size.height - 25)];
-//    if (screenBounds.size.height > 1136) {
-//        CGFloat x = (screenBounds.size.width - 640) / 2 + 640 - 10;
-//        CGFloat y = (screenBounds.size.height - 1136) / 2 + 10;
-//        [tester tapScreenAtPoint:CGPointMake(x,y)];
-//    } else {
-//        [tester tapScreenAtPoint:CGPointMake(screenBounds.size.width - 10, 10)];
-//    }
-//    [tester waitForTimeInterval:3.0];
-//    XCTAssertTrue(self.adWillClose, @"expected adWillClose callback");
-//    XCTAssertTrue(self.adDidClose, @"expected adDidClose callback");
-//    [tester waitForTimeInterval:2.0];
-#endif
-}
+//- (void)testMillennialSuccessfulBanner {
+//    ANBannerAdView *bannerAdView = [self.rootViewController loadMillennialMediaBannerWithDelegate:self];
+//    [self.rootViewController.view addSubview:bannerAdView];
+//
+//    self.adResponseExpectation = [self expectationWithDescription:@"ad received/failed response"];
+//    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+//    XCTAssertFalse(self.didFailToReceiveAd, @"ad:requestFailedWithError: was called when adDidReceiveAd: was expected");
+//
+//#if kANMediationAdaptersUITesting
+//     New MMAdSDK test ad triggers the external browser, making it impossible to test for callbacks
+//        bannerAdView.accessibilityLabel = @"banner";
+//        [tester tapViewWithAccessibilityLabel:@"banner"];
+//        [tester waitForTimeInterval:3.0];
+//        XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
+//        XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
+//        XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
+//        [tester waitForTimeInterval:2.0];
+//        CGRect screenBounds = [UIScreen mainScreen].bounds;
+//        [tester tapScreenAtPoint:CGPointMake(screenBounds.size.width - 25, screenBounds.size.height - 25)];
+//        if (screenBounds.size.height > 1136) {
+//            CGFloat x = (screenBounds.size.width - 640) / 2 + 640 - 10;
+//            CGFloat y = (screenBounds.size.height - 1136) / 2 + 10;
+//            [tester tapScreenAtPoint:CGPointMake(x,y)];
+//        } else {
+//            [tester tapScreenAtPoint:CGPointMake(screenBounds.size.width - 10, 10)];
+//        }
+//        [tester waitForTimeInterval:3.0];
+//        XCTAssertTrue(self.adWillClose, @"expected adWillClose callback");
+//        XCTAssertTrue(self.adDidClose, @"expected adDidClose callback");
+//        [tester waitForTimeInterval:2.0];
+//#endif
+//}
 
 - (void)testFacebookSuccessfulBanner {
     ANBannerAdView *bannerAdView = [self.rootViewController loadFacebookBannerWithDelegate:self];
@@ -141,19 +143,19 @@
     //XCTAssertEqual(((CGRect)[contentView frame]).size.width, ((CGRect)[self.rootViewController.view frame]).size.width);
     XCTAssertEqual(contentView.frame.size.width, bannerAdView.frame.size.width);
     XCTAssertEqual(contentView.frame.size.height, 50);
-
+    
     [bannerAdView setFrame:CGRectMake(0, 0, 250, 60)];
     [XCTestCase delayForTimeInterval:1];
     XCTAssertEqual(bannerAdView.frame.size.width, 250);
     XCTAssertEqual(bannerAdView.frame.size.height, 60);
-
+    
     [self.rootViewController.view addSubview:bannerAdView];
-
+    
     [bannerAdView setFrame:CGRectMake(0, 0, 240, 60)];
     [XCTestCase delayForTimeInterval:1];
     XCTAssertEqual(contentView.frame.size.width, 320);
     XCTAssertEqual(contentView.frame.size.height, 50);
-
+    
     bannerAdView.translatesAutoresizingMaskIntoConstraints = NO;
     [bannerAdView an_constrainWithSize:CGSizeMake(200, 100)];
     [XCTestCase delayForTimeInterval:1];
@@ -162,6 +164,14 @@
 }
 
 - (void)testFacebookSuccessfulBannerHeight90 {
+    NSLog(@"isTestMode1: %d",[FBAdSettings isTestMode]);
+    NSString *testDeviceKey = [FBAdSettings testDeviceHash];
+    if (testDeviceKey) {
+        [FBAdSettings setLogLevel:FBAdLogLevelLog];
+        [FBAdSettings addTestDevice:testDeviceKey];
+    }
+    
+    
     ANBannerAdView *bannerAdView = [self.rootViewController loadFacebookBannerWithDelegate:self
                                                                                     adSize:CGSizeMake(1, 90)];
     [bannerAdView setFrame:CGRectMake(0, 0, self.rootViewController.view.frame.size.width, 90)];
@@ -174,8 +184,8 @@
 }
 
 - (void)testFacebookSuccessfulBannerHeight250 {
-    ANBannerAdView *bannerAdView = [self.rootViewController loadFacebookBannerWithDelegate:self
-                                                                                    adSize:CGSizeMake(1, 250)];
+    ANBannerAdView *bannerAdView = [self.rootViewController loadFacebook250BannerWithDelegate:self
+                                                                                       adSize:CGSizeMake(320, 250)];
     [bannerAdView setFrame:CGRectMake(0, 0, self.rootViewController.view.frame.size.width, 250)];
     self.adResponseExpectation = [self expectationWithDescription:@"ad received/failed response"];
     [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
@@ -251,24 +261,24 @@
 #endif
 }
 
-- (void)testAmazonSuccessfulBanner {
-    ANBannerAdView *bannerAdView = [self.rootViewController loadAmazonBannerWithDelegate:self];
-    [self.rootViewController.view addSubview:bannerAdView];
-    
-    self.adResponseExpectation = [self expectationWithDescription:@"ad received/failed response"];
-    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
-    XCTAssertFalse(self.didFailToReceiveAd, @"ad:requestFailedWithError: was called when adDidReceiveAd: was expected");
-    
-#if kANMediationAdaptersUITesting
-    bannerAdView.accessibilityLabel = @"banner";
-    //[tester tapViewWithAccessibilityLabel:@"banner"];
-    //[tester waitForTimeInterval:3.0];
-    //XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
-    //XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
-    //XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
-    //[tester waitForTimeInterval:3.0];
-#endif
-}
+//- (void)testAmazonSuccessfulBanner {
+//    ANBannerAdView *bannerAdView = [self.rootViewController loadAmazonBannerWithDelegate:self];
+//    [self.rootViewController.view addSubview:bannerAdView];
+//
+//    self.adResponseExpectation = [self expectationWithDescription:@"ad received/failed response"];
+//    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+//    XCTAssertFalse(self.didFailToReceiveAd, @"ad:requestFailedWithError: was called when adDidReceiveAd: was expected");
+//
+//#if kANMediationAdaptersUITesting
+//    bannerAdView.accessibilityLabel = @"banner";
+//    //[tester tapViewWithAccessibilityLabel:@"banner"];
+//    //[tester waitForTimeInterval:3.0];
+//    //XCTAssertTrue(self.adWasClicked, @"expected adWasClicked callback");
+//    //XCTAssertTrue(self.adWillPresent, @"expected adWillPresent callback");
+//    //XCTAssertTrue(self.adDidPresent, @"expected adDidPresent callback");
+//    //[tester waitForTimeInterval:3.0];
+//#endif
+//}
 
 #pragma mark - Failed Banners
 

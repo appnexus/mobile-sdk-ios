@@ -78,6 +78,7 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [self.bannerAdView removeFromSuperview];
     self.bannerAdView.delegate = nil;
     self.bannerAdView.appEventDelegate = nil;
