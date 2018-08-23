@@ -1649,8 +1649,8 @@
 		0E3977FB212B3DDA00DDAD6D /* NewTestAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				0E3977FC212B3DDA00DDAD6D /* Tests */,
 				0E397810212B3DDA00DDAD6D /* Banner Adapters */,
+				0E3977FC212B3DDA00DDAD6D /* Tests */,
 				0E39782B212B3DDA00DDAD6D /* Info.plist */,
 			);
 			path = NewTestAppTests;
@@ -1659,19 +1659,19 @@
 		0E3977FC212B3DDA00DDAD6D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				0E3978AA212B54EB00DDAD6D /* ANPBContainerViewTestCase.m */,
 				0E3978AB212B54EB00DDAD6D /* BannerAd */,
-				0E3977FD212B3DDA00DDAD6D /* Video */,
-				0E397803212B3DDA00DDAD6D /* ANContainerViewTestCase.m */,
-				0E397804212B3DDA00DDAD6D /* ANBannerAdViewTransitionsTestCase.m */,
-				0E397805212B3DDA00DDAD6D /* ANReachabilityTestCase.m */,
-				0E397806212B3DDA00DDAD6D /* ANLocationTestCase.m */,
-				0E397807212B3DDA00DDAD6D /* OMIDViewabilityTests */,
-				0E397809212B3DDA00DDAD6D /* ANPublicAPITestCase.m */,
-				0E39780A212B3DDA00DDAD6D /* ANMediationAdViewControllerTestCase.m */,
 				0E39780B212B3DDA00DDAD6D /* InterstitialAd */,
-				0E39780D212B3DDA00DDAD6D /* ANAdViewMRAIDCreativeTestCase.m */,
+				0E397807212B3DDA00DDAD6D /* OMIDViewabilityTests */,
+				0E3977FD212B3DDA00DDAD6D /* Video */,
 				0E39780E212B3DDA00DDAD6D /* ANAdResponseTestCase.m */,
+				0E39780D212B3DDA00DDAD6D /* ANAdViewMRAIDCreativeTestCase.m */,
+				0E397804212B3DDA00DDAD6D /* ANBannerAdViewTransitionsTestCase.m */,
+				0E397803212B3DDA00DDAD6D /* ANContainerViewTestCase.m */,
+				0E397806212B3DDA00DDAD6D /* ANLocationTestCase.m */,
+				0E39780A212B3DDA00DDAD6D /* ANMediationAdViewControllerTestCase.m */,
+				0E3978AA212B54EB00DDAD6D /* ANPBContainerViewTestCase.m */,
+				0E397809212B3DDA00DDAD6D /* ANPublicAPITestCase.m */,
+				0E397805212B3DDA00DDAD6D /* ANReachabilityTestCase.m */,
 				0E39780F212B3DDA00DDAD6D /* UIViewConstraintsTestCase.m */,
 			);
 			path = Tests;
@@ -1680,11 +1680,11 @@
 		0E3977FD212B3DDA00DDAD6D /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				0E397801212B3DDA00DDAD6D /* ANInstreamVideoAd+Test.h */,
 				0E3977FE212B3DDA00DDAD6D /* ANInstreamVideoAd+Test.m */,
+				0E397802212B3DDA00DDAD6D /* ANInstreamVideoAdTestCase.m */,
 				0E3977FF212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.h */,
 				0E397800212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.m */,
-				0E397801212B3DDA00DDAD6D /* ANInstreamVideoAd+Test.h */,
-				0E397802212B3DDA00DDAD6D /* ANInstreamVideoAdTestCase.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -1708,32 +1708,32 @@
 		0E397810212B3DDA00DDAD6D /* Banner Adapters */ = {
 			isa = PBXGroup;
 			children = (
+				0E397827212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleFailureCallbacks.h */,
+				0E39781B212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleFailureCallbacks.m */,
 				0E397811212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleSuccessCallbacks.h */,
-				0E397812212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessful.h */,
-				0E397813212B3DDA00DDAD6D /* ANFailedMultiple.m */,
+				0E397821212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleSuccessCallbacks.m */,
+				0E397829212B3DDA00DDAD6D /* ANAdAdapterBannerNetworkError.h */,
+				0E39781C212B3DDA00DDAD6D /* ANAdAdapterBannerNetworkError.m */,
+				0E39781E212B3DDA00DDAD6D /* ANAdAdapterBannerNoDelegate.h */,
 				0E397814212B3DDA00DDAD6D /* ANAdAdapterBannerNoDelegate.m */,
 				0E397815212B3DDA00DDAD6D /* ANAdAdapterBannerNoRequestMethod.h */,
-				0E397816212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillThenSuccessful.h */,
-				0E397817212B3DDA00DDAD6D /* ANAdAdapterBannerTimeoutThenSuccessful.h */,
-				0E397818212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessfulThenUnableToFill.h */,
-				0E397819212B3DDA00DDAD6D /* ANLoadAndHitOtherCallbacks.h */,
-				0E39781A212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */,
-				0E39781B212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleFailureCallbacks.m */,
-				0E39781C212B3DDA00DDAD6D /* ANAdAdapterBannerNetworkError.m */,
-				0E39781D212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFill.h */,
-				0E39781E212B3DDA00DDAD6D /* ANAdAdapterBannerNoDelegate.h */,
-				0E39781F212B3DDA00DDAD6D /* ANFailedMultiple.h */,
-				0E397820212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessful.m */,
-				0E397821212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleSuccessCallbacks.m */,
-				0E397822212B3DDA00DDAD6D /* ANAdAdapterBannerTimeoutThenSuccessful.m */,
-				0E397823212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */,
-				0E397824212B3DDA00DDAD6D /* ANLoadAndHitOtherCallbacks.m */,
-				0E397825212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillThenSuccessful.m */,
 				0E397826212B3DDA00DDAD6D /* ANAdAdapterBannerNoRequestMethod.m */,
-				0E397827212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleFailureCallbacks.h */,
-				0E397828212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */,
-				0E397829212B3DDA00DDAD6D /* ANAdAdapterBannerNetworkError.h */,
+				0E397812212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessful.h */,
+				0E397820212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessful.m */,
+				0E397818212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessfulThenUnableToFill.h */,
+				0E397823212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */,
+				0E397817212B3DDA00DDAD6D /* ANAdAdapterBannerTimeoutThenSuccessful.h */,
+				0E397822212B3DDA00DDAD6D /* ANAdAdapterBannerTimeoutThenSuccessful.m */,
+				0E39781D212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFill.h */,
 				0E39782A212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFill.m */,
+				0E397816212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillThenSuccessful.h */,
+				0E397825212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillThenSuccessful.m */,
+				0E397828212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */,
+				0E39781A212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */,
+				0E39781F212B3DDA00DDAD6D /* ANFailedMultiple.h */,
+				0E397813212B3DDA00DDAD6D /* ANFailedMultiple.m */,
+				0E397819212B3DDA00DDAD6D /* ANLoadAndHitOtherCallbacks.h */,
+				0E397824212B3DDA00DDAD6D /* ANLoadAndHitOtherCallbacks.m */,
 			);
 			path = "Banner Adapters";
 			sourceTree = "<group>";
@@ -1741,23 +1741,23 @@
 		0E397852212B47A000DDAD6D /* NativeUnitTest */ = {
 			isa = PBXGroup;
 			children = (
-				0E397853212B47A000DDAD6D /* ANNativeAdRequestTestCase.m */,
-				0E397854212B47A000DDAD6D /* ANNativeAdView.xib */,
 				0E397855212B47A000DDAD6D /* Native Responses */,
-				0E39786E212B47A000DDAD6D /* ANGADNativeAppInstallAdView.h */,
 				0E3978A5212B4BB800DDAD6D /* NativeAdapters */,
 				0E39786F212B47A000DDAD6D /* ANBannerNativeTestCase.m */,
-				0E397870212B47A000DDAD6D /* ANNativeAdView.h */,
-				0E397871212B47A000DDAD6D /* ANNativeStandardAdResponseTestCase.m */,
-				0E397872212B47A000DDAD6D /* ANGADNativeAppInstallAdView.xib */,
-				0E397873212B47A000DDAD6D /* ANTrackerManagerTestCase.m */,
-				0E397874212B47A000DDAD6D /* ANGADNativeContentAdView.h */,
+				0E39786E212B47A000DDAD6D /* ANGADNativeAppInstallAdView.h */,
 				0E397875212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m */,
-				0E397876212B47A000DDAD6D /* ANNativeAdView.m */,
-				0E397877212B47A000DDAD6D /* ANGADNativeContentAdView.xib */,
-				0E397878212B47A000DDAD6D /* Info.plist */,
+				0E397872212B47A000DDAD6D /* ANGADNativeAppInstallAdView.xib */,
+				0E397874212B47A000DDAD6D /* ANGADNativeContentAdView.h */,
 				0E397879212B47A000DDAD6D /* ANGADNativeContentAdView.m */,
+				0E397877212B47A000DDAD6D /* ANGADNativeContentAdView.xib */,
+				0E397853212B47A000DDAD6D /* ANNativeAdRequestTestCase.m */,
+				0E397870212B47A000DDAD6D /* ANNativeAdView.h */,
+				0E397876212B47A000DDAD6D /* ANNativeAdView.m */,
+				0E397854212B47A000DDAD6D /* ANNativeAdView.xib */,
 				0E39787A212B47A000DDAD6D /* ANNativeAdViewMainImage.xib */,
+				0E397871212B47A000DDAD6D /* ANNativeStandardAdResponseTestCase.m */,
+				0E397873212B47A000DDAD6D /* ANTrackerManagerTestCase.m */,
+				0E397878212B47A000DDAD6D /* Info.plist */,
 			);
 			path = NativeUnitTest;
 			sourceTree = "<group>";
@@ -1765,30 +1765,30 @@
 		0E397855212B47A000DDAD6D /* Native Responses */ = {
 			isa = PBXGroup;
 			children = (
-				0E397856212B47A000DDAD6D /* nativeResponse4.json */,
-				0E397857212B47A000DDAD6D /* appnexus_multiple_main_media.json */,
-				0E397858212B47A000DDAD6D /* facebook_mediated_response.json */,
-				0E397859212B47A000DDAD6D /* mopub_mediated_response.json */,
-				0E39785A212B47A000DDAD6D /* empty_response.json */,
-				0E39785B212B47A000DDAD6D /* custom_dummy_mediated_response.json */,
-				0E39785C212B47A000DDAD6D /* nativeResponse5.json */,
 				0E39785D212B47A000DDAD6D /* appnexus_click_fallback_example.json */,
-				0E39785E212B47A000DDAD6D /* empty_mediated_ad_response.json */,
-				0E39785F212B47A000DDAD6D /* nativeResponse2.json */,
-				0E397860212B47A000DDAD6D /* custom_adapter_to_standard_response.json */,
-				0E397861212B47A000DDAD6D /* nativeResponse3.json */,
-				0E397862212B47A000DDAD6D /* custom_adapter_mediated_response.json */,
-				0E397863212B47A000DDAD6D /* custom_adapter_invalid_type.json */,
-				0E397864212B47A000DDAD6D /* nativeResponse1.json */,
-				0E397865212B47A000DDAD6D /* appnexus_standard_response.json */,
-				0E397866212B47A000DDAD6D /* no_ads_ok_response.json */,
-				0E397867212B47A000DDAD6D /* bannerNative_basic_native.json */,
+				0E397857212B47A000DDAD6D /* appnexus_multiple_main_media.json */,
 				0E397868212B47A000DDAD6D /* appnexus_multiple_main_media_default.json */,
 				0E397869212B47A000DDAD6D /* appnexus_multiple_trackers.json */,
-				0E39786A212B47A000DDAD6D /* bannerNative_native_mediation.json */,
-				0E39786B212B47A000DDAD6D /* bannerNative_basic_banner.json */,
-				0E39786C212B47A000DDAD6D /* custom_adapter_fb_mediated_response.json */,
+				0E397865212B47A000DDAD6D /* appnexus_standard_response.json */,
 				0E39786D212B47A000DDAD6D /* appnexus_standard_response_store_url.json */,
+				0E39786B212B47A000DDAD6D /* bannerNative_basic_banner.json */,
+				0E397867212B47A000DDAD6D /* bannerNative_basic_native.json */,
+				0E39786A212B47A000DDAD6D /* bannerNative_native_mediation.json */,
+				0E39786C212B47A000DDAD6D /* custom_adapter_fb_mediated_response.json */,
+				0E397863212B47A000DDAD6D /* custom_adapter_invalid_type.json */,
+				0E397862212B47A000DDAD6D /* custom_adapter_mediated_response.json */,
+				0E397860212B47A000DDAD6D /* custom_adapter_to_standard_response.json */,
+				0E39785B212B47A000DDAD6D /* custom_dummy_mediated_response.json */,
+				0E39785E212B47A000DDAD6D /* empty_mediated_ad_response.json */,
+				0E39785A212B47A000DDAD6D /* empty_response.json */,
+				0E397858212B47A000DDAD6D /* facebook_mediated_response.json */,
+				0E397859212B47A000DDAD6D /* mopub_mediated_response.json */,
+				0E397864212B47A000DDAD6D /* nativeResponse1.json */,
+				0E39785F212B47A000DDAD6D /* nativeResponse2.json */,
+				0E397861212B47A000DDAD6D /* nativeResponse3.json */,
+				0E397856212B47A000DDAD6D /* nativeResponse4.json */,
+				0E39785C212B47A000DDAD6D /* nativeResponse5.json */,
+				0E397866212B47A000DDAD6D /* no_ads_ok_response.json */,
 			);
 			path = "Native Responses";
 			sourceTree = "<group>";
@@ -1891,12 +1891,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2092,25 +2092,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094019DB169B0090EBED /* libANSDK.a */,
 				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
-				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
-				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094019DB169B0090EBED /* libANSDK.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
+				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
 				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2264,24 +2264,24 @@
 		8AD01824199932F9007874BA = {
 			isa = PBXGroup;
 			children = (
-				0E397852212B47A000DDAD6D /* NativeUnitTest */,
-				0E3977FB212B3DDA00DDAD6D /* NewTestAppTests */,
 				8A65BE8A19A4FCDF00A72571 /* Frameworks */,
 				8AA009B719DB1B1F0090EBED /* MediationAdapterApp */,
 				8AA009DE19DB1CEC0090EBED /* MediationAdapterAppTests */,
+				0E397852212B47A000DDAD6D /* NativeUnitTest */,
 				8A549E9A1A706BA6009F797A /* NativeUnitTests */,
 				0EFA6DF320EBFCC700A081AD /* NewTestAppKIFUnitTests */,
+				0E3977FB212B3DDA00DDAD6D /* NewTestAppTests */,
+				0E28D82720EAACB200EC2CB2 /* OriginalUnitTestAppTests */,
 				8AD0182E199932F9007874BA /* Products */,
 				4F1CBB021F97F9510019840A /* Recovered References */,
 				4F6F83681D9195BE0007051E /* ResourcesForMediatedSDKs */,
 				8AA009A419DB18AE0090EBED /* Shared */,
 				46C07C0D21262DE000B99BDD /* UITestApp */,
 				46C07C272126301600B99BDD /* UITests */,
-				0E28D82720EAACB200EC2CB2 /* OriginalUnitTestAppTests */,
 				0E3CA9CA20E6D79400358480 /* UnitTestApp */,
 				0E28D8DC20EAC72600EC2CB2 /* UTModuleTests */,
-				0E3CAA2320E6DBF700358480 /* VideoTests */,
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
+				0E3CAA2320E6DBF700358480 /* VideoTests */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
 				4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */,
 				4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */,
@@ -2295,14 +2295,14 @@
 			children = (
 				8A9F94C019D1C37700AB739F /* KIFUnitTestApp.app */,
 				8A9F94D819D1C37700AB739F /* MediationAdapterAppTests.xctest */,
+				0E28D93720EACDB300EC2CB2 /* NativeUnitTest.xctest */,
 				8A549E991A706BA6009F797A /* NativeUnitTests.xctest */,
 				0EFA6DF220EBFCC700A081AD /* NewTestAppKIFUnitTests.xctest */,
+				0E28D87D20EAC5E100EC2CB2 /* NewTestAppTests.xctest */,
+				0E28D82620EAACB200EC2CB2 /* OriginalUnitTestAppTests.xctest */,
 				46C07C0B21262DA000B99BDD /* UITestApp.app */,
 				46C07C262126301600B99BDD /* UITests.xctest */,
 				0E3CA9C920E6D79400358480 /* UnitTestApp.app */,
-				0E28D93720EACDB300EC2CB2 /* NativeUnitTest.xctest */,
-				0E28D87D20EAC5E100EC2CB2 /* NewTestAppTests.xctest */,
-				0E28D82620EAACB200EC2CB2 /* OriginalUnitTestAppTests.xctest */,
 				0E28D8DB20EAC72600EC2CB2 /* UTModuleTests.xctest */,
 				0E3CAA2220E6DBF700358480 /* VideoTests.xctest */,
 			);
@@ -2862,7 +2862,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E3978AF212B551000DDAD6D /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
 				0E28D8F020EAC9B900EC2CB2 /* ANJAMDeviceIdResponse.json in Resources */,
 				0E28D8F120EAC9BD00EC2CB2 /* ANJAMDispatchAppEventResponse.json in Resources */,
 				0E28D8F220EAC9C200EC2CB2 /* ANJAMExternalBrowserResponse.json in Resources */,
@@ -2877,13 +2876,14 @@
 				0E28D90920EACA4800EC2CB2 /* dogSelfie@2x.jpg in Resources */,
 				0E28D90A20EACAAD00EC2CB2 /* GreyWhiteCat.jpg in Resources */,
 				0E28D90B20EACAAF00EC2CB2 /* GreyWhiteCat@2x.jpg in Resources */,
+				0E397851212B3DDA00DDAD6D /* Info.plist in Resources */,
 				0E28D90D20EACAEF00EC2CB2 /* MPAdBrowserController.xib in Resources */,
 				0E28D8FD20EAC9FA00EC2CB2 /* OMID_TestResponse.json in Resources */,
+				0E3978AF212B551000DDAD6D /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
 				0E28D8FF20EAC9FE00EC2CB2 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
 				0E28D90020EACA0400EC2CB2 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
 				46B509462118D20800B52D31 /* SuccessfulInstreamVideoAdResponse.json in Resources */,
 				0E28D90120EACA0900EC2CB2 /* SuccessfulMediationResponse.json in Resources */,
-				0E397851212B3DDA00DDAD6D /* Info.plist in Resources */,
 				0E28D90220EACA0E00EC2CB2 /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				0E28D90320EACA1300EC2CB2 /* SuccessfulMRAIDResponse.json in Resources */,
 				0E28D90420EACA1700EC2CB2 /* SuccessfulNativeStandardAdResponse.json in Resources */,
@@ -2905,35 +2905,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E28D98D20EACEC800EC2CB2 /* adMob_mediated_response.json in Resources */,
-				0E39788F212B47A000DDAD6D /* appnexus_multiple_main_media_default.json in Resources */,
-				0E39788B212B47A000DDAD6D /* nativeResponse1.json in Resources */,
-				0E397891212B47A000DDAD6D /* bannerNative_native_mediation.json in Resources */,
-				0E39789B212B47A000DDAD6D /* ANGADNativeContentAdView.xib in Resources */,
-				0E39787F212B47A000DDAD6D /* facebook_mediated_response.json in Resources */,
-				0E397883212B47A000DDAD6D /* nativeResponse5.json in Resources */,
-				0E39788A212B47A000DDAD6D /* custom_adapter_invalid_type.json in Resources */,
-				0E39788E212B47A000DDAD6D /* bannerNative_basic_native.json in Resources */,
-				0E397894212B47A000DDAD6D /* appnexus_standard_response_store_url.json in Resources */,
-				0E397890212B47A000DDAD6D /* appnexus_multiple_trackers.json in Resources */,
-				0E39789C212B47A000DDAD6D /* Info.plist in Resources */,
-				0E39787D212B47A000DDAD6D /* nativeResponse4.json in Resources */,
-				0E397886212B47A000DDAD6D /* nativeResponse2.json in Resources */,
-				0E397892212B47A000DDAD6D /* bannerNative_basic_banner.json in Resources */,
-				0E397885212B47A000DDAD6D /* empty_mediated_ad_response.json in Resources */,
-				0E397889212B47A000DDAD6D /* custom_adapter_mediated_response.json in Resources */,
-				0E397893212B47A000DDAD6D /* custom_adapter_fb_mediated_response.json in Resources */,
-				0E397884212B47A000DDAD6D /* appnexus_click_fallback_example.json in Resources */,
-				0E397881212B47A000DDAD6D /* empty_response.json in Resources */,
-				0E397888212B47A000DDAD6D /* nativeResponse3.json in Resources */,
-				0E39787C212B47A000DDAD6D /* ANNativeAdView.xib in Resources */,
-				0E28D98B20EACE4F00EC2CB2 /* MPAdBrowserController.xib in Resources */,
-				0E397880212B47A000DDAD6D /* mopub_mediated_response.json in Resources */,
-				0E397887212B47A000DDAD6D /* custom_adapter_to_standard_response.json in Resources */,
-				0E39788C212B47A000DDAD6D /* appnexus_standard_response.json in Resources */,
-				0E39788D212B47A000DDAD6D /* no_ads_ok_response.json in Resources */,
-				0E39789E212B47A000DDAD6D /* ANNativeAdViewMainImage.xib in Resources */,
 				0E397897212B47A000DDAD6D /* ANGADNativeAppInstallAdView.xib in Resources */,
+				0E39789B212B47A000DDAD6D /* ANGADNativeContentAdView.xib in Resources */,
+				0E39787C212B47A000DDAD6D /* ANNativeAdView.xib in Resources */,
+				0E39789E212B47A000DDAD6D /* ANNativeAdViewMainImage.xib in Resources */,
+				0E397884212B47A000DDAD6D /* appnexus_click_fallback_example.json in Resources */,
 				0E39787E212B47A000DDAD6D /* appnexus_multiple_main_media.json in Resources */,
+				0E39788F212B47A000DDAD6D /* appnexus_multiple_main_media_default.json in Resources */,
+				0E397890212B47A000DDAD6D /* appnexus_multiple_trackers.json in Resources */,
+				0E39788C212B47A000DDAD6D /* appnexus_standard_response.json in Resources */,
+				0E397894212B47A000DDAD6D /* appnexus_standard_response_store_url.json in Resources */,
+				0E397892212B47A000DDAD6D /* bannerNative_basic_banner.json in Resources */,
+				0E39788E212B47A000DDAD6D /* bannerNative_basic_native.json in Resources */,
+				0E397891212B47A000DDAD6D /* bannerNative_native_mediation.json in Resources */,
+				0E397893212B47A000DDAD6D /* custom_adapter_fb_mediated_response.json in Resources */,
+				0E39788A212B47A000DDAD6D /* custom_adapter_invalid_type.json in Resources */,
+				0E397889212B47A000DDAD6D /* custom_adapter_mediated_response.json in Resources */,
+				0E397887212B47A000DDAD6D /* custom_adapter_to_standard_response.json in Resources */,
+				0E397885212B47A000DDAD6D /* empty_mediated_ad_response.json in Resources */,
+				0E397881212B47A000DDAD6D /* empty_response.json in Resources */,
+				0E39787F212B47A000DDAD6D /* facebook_mediated_response.json in Resources */,
+				0E39789C212B47A000DDAD6D /* Info.plist in Resources */,
+				0E397880212B47A000DDAD6D /* mopub_mediated_response.json in Resources */,
+				0E28D98B20EACE4F00EC2CB2 /* MPAdBrowserController.xib in Resources */,
+				0E39788B212B47A000DDAD6D /* nativeResponse1.json in Resources */,
+				0E397886212B47A000DDAD6D /* nativeResponse2.json in Resources */,
+				0E397888212B47A000DDAD6D /* nativeResponse3.json in Resources */,
+				0E39787D212B47A000DDAD6D /* nativeResponse4.json in Resources */,
+				0E397883212B47A000DDAD6D /* nativeResponse5.json in Resources */,
+				0E39788D212B47A000DDAD6D /* no_ads_ok_response.json in Resources */,
 				0E28D98C20EACE6D00EC2CB2 /* SuccessfulMediationResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3007,10 +3007,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E3977F8212B39F200DDAD6D /* LaunchScreen.xib in Resources */,
-				0E3977F7212B39EE00DDAD6D /* Main.storyboard in Resources */,
 				46C07C0021262DA000B99BDD /* ANSDKResources.bundle in Resources */,
 				46C07C0321262DA000B99BDD /* Assets.xcassets in Resources */,
+				0E3977F8212B39F200DDAD6D /* LaunchScreen.xib in Resources */,
+				0E3977F7212B39EE00DDAD6D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3154,50 +3154,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E39783D212B3DDA00DDAD6D /* ANOMIDBannerHTMLTest.m in Sources */,
-				0E397843212B3DDA00DDAD6D /* UIViewConstraintsTestCase.m in Sources */,
+				0E397847212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
+				0E39784A212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
+				0E397848212B3DDA00DDAD6D /* ANAdAdapterBannerNetworkError.m in Sources */,
+				0E397845212B3DDA00DDAD6D /* ANAdAdapterBannerNoDelegate.m in Sources */,
+				0E39784F212B3DDA00DDAD6D /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
+				0E397849212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessful.m in Sources */,
+				0E39784C212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */,
+				0E39784B212B3DDA00DDAD6D /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
 				0E397850212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFill.m in Sources */,
-				0E397846212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
 				0E39784E212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
-				0E397844212B3DDA00DDAD6D /* ANFailedMultiple.m in Sources */,
+				0E397846212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
 				0E397842212B3DDA00DDAD6D /* ANAdResponseTestCase.m in Sources */,
 				0E28D90F20EACB6200EC2CB2 /* ANAdView+ANTest.m in Sources */,
 				0E397841212B3DDA00DDAD6D /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
 				0E28D91020EACB6700EC2CB2 /* ANAdWebViewController+ANTest.m in Sources */,
+				0E3978AE212B54EB00DDAD6D /* ANBannerAdTestCase.m in Sources */,
 				0E28D91120EACB6C00EC2CB2 /* ANBannerAdView+ANTest.m in Sources */,
-				0E397849212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessful.m in Sources */,
-				0E397838212B3DDA00DDAD6D /* ANInstreamVideoAdTestCase.m in Sources */,
-				0E39783F212B3DDA00DDAD6D /* ANMediationAdViewControllerTestCase.m in Sources */,
+				0E39783A212B3DDA00DDAD6D /* ANBannerAdViewTransitionsTestCase.m in Sources */,
+				0E397839212B3DDA00DDAD6D /* ANContainerViewTestCase.m in Sources */,
+				0E397844212B3DDA00DDAD6D /* ANFailedMultiple.m in Sources */,
 				0E28D91E20EACB9F00EC2CB2 /* ANHTTPStubbingManager.m in Sources */,
 				0E28D91F20EACBA300EC2CB2 /* ANHTTPStubURLProtocol.m in Sources */,
-				0E397840212B3DDA00DDAD6D /* ANInterstitialAdTestCase.m in Sources */,
+				0E397836212B3DDA00DDAD6D /* ANInstreamVideoAd+Test.m in Sources */,
+				0E397838212B3DDA00DDAD6D /* ANInstreamVideoAdTestCase.m in Sources */,
 				0E28D91220EACB7000EC2CB2 /* ANInterstitialAd+ANTest.m in Sources */,
-				0E39784A212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
-				0E39784F212B3DDA00DDAD6D /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
-				0E397847212B3DDA00DDAD6D /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
-				0E397845212B3DDA00DDAD6D /* ANAdAdapterBannerNoDelegate.m in Sources */,
+				0E397840212B3DDA00DDAD6D /* ANInterstitialAdTestCase.m in Sources */,
+				0E39784D212B3DDA00DDAD6D /* ANLoadAndHitOtherCallbacks.m in Sources */,
+				0E39783C212B3DDA00DDAD6D /* ANLocationTestCase.m in Sources */,
 				0E28D91320EACB7300EC2CB2 /* ANMediationAdViewController+ANTest.m in Sources */,
-				0E39783E212B3DDA00DDAD6D /* ANPublicAPITestCase.m in Sources */,
-				0E397837212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.m in Sources */,
+				0E39783F212B3DDA00DDAD6D /* ANMediationAdViewControllerTestCase.m in Sources */,
 				0E28D91420EACB7700EC2CB2 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
-				0E3978AE212B54EB00DDAD6D /* ANBannerAdTestCase.m in Sources */,
-				0E39784B212B3DDA00DDAD6D /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
+				0E39783D212B3DDA00DDAD6D /* ANOMIDBannerHTMLTest.m in Sources */,
+				0E3978AD212B54EB00DDAD6D /* ANPBContainerViewTestCase.m in Sources */,
+				0E39783E212B3DDA00DDAD6D /* ANPublicAPITestCase.m in Sources */,
 				0E28D91520EACB7A00EC2CB2 /* ANReachability+ANTest.m in Sources */,
-				0E397839212B3DDA00DDAD6D /* ANContainerViewTestCase.m in Sources */,
+				0E39783B212B3DDA00DDAD6D /* ANReachabilityTestCase.m in Sources */,
 				0E28D91620EACB8000EC2CB2 /* ANUniversalAdFetcher+ANTest.m in Sources */,
 				0E28D92020EACBA600EC2CB2 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
-				0E39783C212B3DDA00DDAD6D /* ANLocationTestCase.m in Sources */,
-				0E397836212B3DDA00DDAD6D /* ANInstreamVideoAd+Test.m in Sources */,
-				0E39784C212B3DDA00DDAD6D /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */,
 				0E28D92120EACBA800EC2CB2 /* ANURLConnectionStub.m in Sources */,
+				0E397837212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.m in Sources */,
 				0E28D91720EACB8400EC2CB2 /* NSObject+Swizzling.m in Sources */,
-				0E39783B212B3DDA00DDAD6D /* ANReachabilityTestCase.m in Sources */,
-				0E3978AD212B54EB00DDAD6D /* ANPBContainerViewTestCase.m in Sources */,
-				0E39783A212B3DDA00DDAD6D /* ANBannerAdViewTransitionsTestCase.m in Sources */,
-				0E397848212B3DDA00DDAD6D /* ANAdAdapterBannerNetworkError.m in Sources */,
 				0E28D91820EACB8700EC2CB2 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				0E397843212B3DDA00DDAD6D /* UIViewConstraintsTestCase.m in Sources */,
 				0E28D91A20EACB9100EC2CB2 /* XCTestCase+ANAdResponse.m in Sources */,
-				0E39784D212B3DDA00DDAD6D /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				0E28D91B20EACB9400EC2CB2 /* XCTestCase+ANBannerAdView.m in Sources */,
 				0E28D91C20EACB9700EC2CB2 /* XCTestCase+ANCategory.m in Sources */,
 				0E28D91D20EACB9B00EC2CB2 /* XCTestCase+ANMediatedAd.m in Sources */,
@@ -3219,20 +3219,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E28D99020EACEF600EC2CB2 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
-				0E39789A212B47A000DDAD6D /* ANNativeAdView.m in Sources */,
-				0E28D99A20EACFB500EC2CB2 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
-				0E28D99920EACFAA00EC2CB2 /* ANReachability+ANTest.m in Sources */,
-				0E397896212B47A000DDAD6D /* ANNativeStandardAdResponseTestCase.m in Sources */,
-				0E39789D212B47A000DDAD6D /* ANGADNativeContentAdView.m in Sources */,
-				0E397899212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m in Sources */,
-				0E28D99820EACFA700EC2CB2 /* ANTrackerManager+ANTest.m in Sources */,
 				0E397895212B47A000DDAD6D /* ANBannerNativeTestCase.m in Sources */,
-				0E28D99720EACF9B00EC2CB2 /* NSObject+Swizzling.m in Sources */,
-				0E3978A9212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.m in Sources */,
-				0E28D99520EACF8F00EC2CB2 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
-				0E397898212B47A000DDAD6D /* ANTrackerManagerTestCase.m in Sources */,
-				0E28D99320EACF6D00EC2CB2 /* XCTestCase+ANCategory.m in Sources */,
+				0E397899212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m in Sources */,
+				0E39789D212B47A000DDAD6D /* ANGADNativeContentAdView.m in Sources */,
+				0E28D99A20EACFB500EC2CB2 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				0E39787B212B47A000DDAD6D /* ANNativeAdRequestTestCase.m in Sources */,
+				0E39789A212B47A000DDAD6D /* ANNativeAdView.m in Sources */,
+				0E3978A9212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.m in Sources */,
+				0E397896212B47A000DDAD6D /* ANNativeStandardAdResponseTestCase.m in Sources */,
+				0E28D99920EACFAA00EC2CB2 /* ANReachability+ANTest.m in Sources */,
+				0E28D99820EACFA700EC2CB2 /* ANTrackerManager+ANTest.m in Sources */,
+				0E397898212B47A000DDAD6D /* ANTrackerManagerTestCase.m in Sources */,
+				0E28D99720EACF9B00EC2CB2 /* NSObject+Swizzling.m in Sources */,
+				0E28D99520EACF8F00EC2CB2 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				0E28D99320EACF6D00EC2CB2 /* XCTestCase+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3318,8 +3318,8 @@
 				8A549EB31A706C71009F797A /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8AE7AD8E1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m in Sources */,
 				8AE7AD951A7AAE81009E2F2F /* ANNativeAdView.m in Sources */,
-				8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */,
 				0E3978A8212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.m in Sources */,
+				8A764F041A7078F500C02A97 /* ANReachability+ANTest.m in Sources */,
 				8A33A5131A7C264D00F8ED5E /* ANTrackerManager+ANTest.m in Sources */,
 				8A764F0E1A70798A00C02A97 /* NSObject+Swizzling.m in Sources */,
 				00010AEA1FD0C9CB007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
@@ -3639,7 +3639,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OriginalUnitTestAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UniversalOriginalUnitTestAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3666,7 +3666,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OriginalUnitTestAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UniversalOriginalUnitTestAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3692,7 +3692,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NewTestAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.NewTestAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3719,7 +3719,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NewTestAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.NewTestAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3745,7 +3745,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = UTModuleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UniversalUTModuleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3772,7 +3772,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = UTModuleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UniversalUTModuleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3798,7 +3798,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NativeUnitTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.NativeUnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3825,7 +3825,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NativeUnitTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.NativeUnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3904,7 +3904,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = VideoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UniversalVideoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3931,7 +3931,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = VideoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UniversalVideoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3958,7 +3958,7 @@
 				DEVELOPMENT_TEAM = HR94J6TSB3;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NewTestAppKIFUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.NewTestAppKIFUnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3986,7 +3986,7 @@
 				DEVELOPMENT_TEAM = HR94J6TSB3;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NewTestAppKIFUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.NewTestAppKIFUnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4064,7 +4064,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = UITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4090,7 +4090,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = UITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4109,7 +4109,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = NativeUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4124,7 +4124,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = NativeUnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4192,7 +4192,7 @@
 					"KIF_XCTEST=1",
 				);
 				INFOPLIST_FILE = MediationAdapterAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
@@ -4209,7 +4209,7 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "KIF_XCTEST=1";
 				INFOPLIST_FILE = MediationAdapterAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "corp.appnexus.$(PRODUCT_NAME:rfc1034identifier)";
@@ -4292,6 +4292,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -4362,6 +4363,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

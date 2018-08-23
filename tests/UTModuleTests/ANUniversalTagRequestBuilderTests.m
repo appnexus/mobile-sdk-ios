@@ -511,12 +511,12 @@ static NSString  *videoPlacementID  = @"9924001";
             NSString *key = keyword[@"key"];
             NSArray *value = keyword[@"value"];
             if ([key isEqualToString:@"state"]){
-                NSArray *valueArray = @[@"NJ",@"NY"];
-                XCTAssertEqualObjects(value, valueArray);
+                XCTAssertTrue( [value containsObject: @"NJ"] );
+                XCTAssertTrue( [value containsObject: @"NY"] );
             }
             if ([key isEqualToString:@"county"]) {
-                NSArray *valueArray = @[@"essex",@"morris"];
-                XCTAssertEqualObjects(value, valueArray);
+                XCTAssertTrue( [value containsObject: @"essex"] );
+                XCTAssertTrue( [value containsObject: @"morris"] );
             }
         }
         
