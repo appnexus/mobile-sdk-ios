@@ -14,9 +14,13 @@
  */
 
 #import "ViewController.h"
+#import "ANBannerAdView.h"
+#import "ANSDKSettings.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface ViewController ()
 
+@interface ViewController ()< CLLocationManagerDelegate>
+@property (nonatomic, readwrite, strong) CLLocationManager *locationManager;
 @end
 
 @implementation ViewController
@@ -24,6 +28,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideStatusBar];
+
+}
+- (void)viewDidAppear:(BOOL)animated{
+    [self locationSetup]; // If you want to pass location...
+}
+
+- (void)locationSetup {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+        [self.locationManager requestWhenInUseAuthorization];
+    
+    [self.locationManager startUpdatingLocation];
+
+}
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    CLLocation* location = [locations lastObject];
+    NSLog(@"NewLocation %f %f", location.coordinate.latitude, location.coordinate.longitude);
 }
 
 - (void)hideStatusBar {

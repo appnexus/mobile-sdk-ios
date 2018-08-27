@@ -120,6 +120,7 @@
     static ANSDKSettings *sdkSettings;
     dispatch_once(&sdkSettingsToken, ^{
         sdkSettings = [[ANSDKSettings alloc] init];
+        sdkSettings.locationEnabledForCreative =  YES;
     });
     return sdkSettings;
 }

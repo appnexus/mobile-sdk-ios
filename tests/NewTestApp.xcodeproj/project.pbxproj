@@ -292,6 +292,8 @@
 		0E3CAA4420E6DE1600358480 /* SuccessfulOutstreamVideoErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ECDF40720C9CEDA0072BAE8 /* SuccessfulOutstreamVideoErrorResponse.json */; };
 		0E5D6D0D20EFF6C200C98D1E /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0119DB1E150090EBED /* ANAdWebViewController+ANTest.m */; };
 		0E5D6D0E20EFF99400C98D1E /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */; };
+		0E6AE593212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E6AE588212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json */; };
+		0E6AE594212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E6AE588212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json */; };
 		0E720C1C20BF3F9700D948F8 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9CBAC31C652E7D00558C95 /* EventKitUI.framework */; };
 		0E720C3220BF483000D948F8 /* InMobiSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E720C3020BF482C00D948F8 /* InMobiSDK.framework */; };
 		0EFA6DFE20EBFCDD00A081AD /* ClickThroughActionTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFA6DFC20EBFCDD00A081AD /* ClickThroughActionTestCase.m */; };
@@ -1107,6 +1109,7 @@
 		0E3CAA2C20E6DC2900358480 /* ANBannerVideoAutoRefreshAdViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerVideoAutoRefreshAdViewTestCase.m; sourceTree = "<group>"; };
 		0E3CAA2D20E6DC2900358480 /* OutstreamVideoAdClassObjectFromUTResponseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutstreamVideoAdClassObjectFromUTResponseTests.m; sourceTree = "<group>"; };
 		0E3CAA2E20E6DC2A00358480 /* ANBannerAdViewVideoTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewVideoTestCase.m; sourceTree = "<group>"; };
+		0E6AE588212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulLocationCreativeForBannerAdResponse.json; sourceTree = "<group>"; };
 		0E70D7F320F66E3600A7668D /* SuccessfulAllowMagicSizeBannerObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulAllowMagicSizeBannerObjectResponse.json; sourceTree = "<group>"; };
 		0E720C3020BF482C00D948F8 /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InMobiSDK.framework; path = ../mediation/mediatedviews/InMobi/InMobiSDK/InMobiSDK.framework; sourceTree = "<group>"; };
 		0ECDF40720C9CEDA0072BAE8 /* SuccessfulOutstreamVideoErrorResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulOutstreamVideoErrorResponse.json; sourceTree = "<group>"; };
@@ -2244,6 +2247,7 @@
 				4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */,
 				00478B4C20D8691B00436D14 /* OMID_TestResponse.json */,
 				0E70D7F320F66E3600A7668D /* SuccessfulAllowMagicSizeBannerObjectResponse.json */,
+				0E6AE588212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json */,
 				FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */,
 				FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
 				46B5093B2118D1FA00B52D31 /* SuccessfulInstreamVideoAdResponse.json */,
@@ -2889,6 +2893,7 @@
 				0E28D90420EACA1700EC2CB2 /* SuccessfulNativeStandardAdResponse.json in Resources */,
 				0E28D90520EACA1C00EC2CB2 /* SuccessfulNativeStandardAdWithoutCreativeIdResponse.json in Resources */,
 				0E28D90620EACA2600EC2CB2 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
+				0E6AE594212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
 				0E28D90720EACA2C00EC2CB2 /* SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2969,6 +2974,7 @@
 				0E28DA0520EAD89500EC2CB2 /* MPUnmutedBtn.png in Resources */,
 				0E28DA0620EAD89500EC2CB2 /* MPUnmutedBtn@2x.png in Resources */,
 				0E28DA0720EAD89500EC2CB2 /* MPUnmutedBtn@3x.png in Resources */,
+				0E6AE593212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
 				0E28D8FE20EAC9FD00EC2CB2 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
 				0E01EC5720F3A6C70024CE9A /* TestsStoryboard.storyboard in Resources */,
 			);
