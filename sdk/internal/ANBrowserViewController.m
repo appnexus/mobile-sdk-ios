@@ -266,6 +266,7 @@ WKNavigationDelegate, WKUIDelegate>
                                         yAttribute:NSLayoutAttributeTop];
 }
 
+
 - (void)setupToolbar {
     if (![self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)]) {
         UIImage *backArrow = [UIImage imageWithContentsOfFile:ANPathForANResource(@"UIButtonBarArrowLeft", @"png")];
@@ -277,8 +278,10 @@ WKNavigationDelegate, WKUIDelegate>
         self.forwardButton.tintColor = [UIColor whiteColor];
         self.openInButton.tintColor = [UIColor whiteColor];
         self.refreshButton.tintColor = nil;
-        self.doneButton.tintColor = nil;
+        self.okButton.tintColor = nil;
     }
+    // Setting OK button Localized String
+    self.okButton.title = NSLocalizedString(@"OK", @"LabelForInAppBrowserReturnButton");
 }
 
 - (void)refreshButtons {
