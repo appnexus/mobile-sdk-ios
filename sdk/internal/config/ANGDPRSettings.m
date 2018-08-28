@@ -18,8 +18,8 @@
 
 NSString * const  ANGDPR_ConsentString = @"ANGDPR_ConsentString";
 NSString * const  ANGDPR_ConsentRequired = @"ANGDPR_ConsentRequired";
-NSString * const  IABConsent_ConsentString = @"IABConsent_ConsentString";
-NSString * const  IABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
+NSString * const  ANIABConsent_ConsentString = @"IABConsent_ConsentString";
+NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 
 @interface ANGDPRSettings()
 
@@ -73,7 +73,7 @@ NSString * const  IABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     
     NSString* consentString = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_ConsentString];
     if(consentString == nil){
-        consentString = [[NSUserDefaults standardUserDefaults] objectForKey:IABConsent_ConsentString];
+        consentString = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABConsent_ConsentString];
     }
     return consentString? consentString: @"";
 }
@@ -86,7 +86,7 @@ NSString * const  IABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
     
     NSString* subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_ConsentRequired];
     if(subjectToGdprValue == nil){
-        subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:IABConsent_SubjectToGDPR];
+        subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:ANIABConsent_SubjectToGDPR];
     }
     if([subjectToGdprValue isEqualToString:@"1"] || [subjectToGdprValue isEqualToString:@"0"]){
         return subjectToGdprValue;
