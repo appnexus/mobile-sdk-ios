@@ -1,3 +1,11 @@
+## 4.11
+###  New Features and Bug Fixes 
++ MS-3401: Added an API for enabling/disabling the location access to the creative.
++ MS-3518: Updated the AppNexus GDPR constants to avoid namespace collisions with other SDKs implementing GDPR.
++ MS-3323: Updated SDK Localization for In-app browser's "OK" Button.
++ MS-3462: Fixed video completion tracker not firing consistently.
++ MS-3406: Updated the Mobile Vast Player.
+
 ## 4.10
 ###  New Features and Bug Fixes
 + MS-3181 -- Allow ANInstreamVideoAd to be initialized with inventoryCode and memberId.
