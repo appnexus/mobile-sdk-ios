@@ -2247,10 +2247,10 @@
 				4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */,
 				00478B4C20D8691B00436D14 /* OMID_TestResponse.json */,
 				0E70D7F320F66E3600A7668D /* SuccessfulAllowMagicSizeBannerObjectResponse.json */,
-				0E6AE588212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json */,
 				FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */,
 				FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
 				46B5093B2118D1FA00B52D31 /* SuccessfulInstreamVideoAdResponse.json */,
+				0E6AE588212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json */,
 				8AA00A2019DB1E150090EBED /* SuccessfulMediationResponse.json */,
 				8AA00A2119DB1E150090EBED /* SuccessfulMRAIDListenerResponse.json */,
 				8AA00A2219DB1E150090EBED /* SuccessfulMRAIDResponse.json */,
@@ -2887,13 +2887,13 @@
 				0E28D8FF20EAC9FE00EC2CB2 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
 				0E28D90020EACA0400EC2CB2 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
 				46B509462118D20800B52D31 /* SuccessfulInstreamVideoAdResponse.json in Resources */,
+				0E6AE594212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
 				0E28D90120EACA0900EC2CB2 /* SuccessfulMediationResponse.json in Resources */,
 				0E28D90220EACA0E00EC2CB2 /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				0E28D90320EACA1300EC2CB2 /* SuccessfulMRAIDResponse.json in Resources */,
 				0E28D90420EACA1700EC2CB2 /* SuccessfulNativeStandardAdResponse.json in Resources */,
 				0E28D90520EACA1C00EC2CB2 /* SuccessfulNativeStandardAdWithoutCreativeIdResponse.json in Resources */,
 				0E28D90620EACA2600EC2CB2 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
-				0E6AE594212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
 				0E28D90720EACA2C00EC2CB2 /* SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2974,8 +2974,8 @@
 				0E28DA0520EAD89500EC2CB2 /* MPUnmutedBtn.png in Resources */,
 				0E28DA0620EAD89500EC2CB2 /* MPUnmutedBtn@2x.png in Resources */,
 				0E28DA0720EAD89500EC2CB2 /* MPUnmutedBtn@3x.png in Resources */,
-				0E6AE593212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
 				0E28D8FE20EAC9FD00EC2CB2 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
+				0E6AE593212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
 				0E01EC5720F3A6C70024CE9A /* TestsStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
