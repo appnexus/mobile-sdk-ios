@@ -33,6 +33,11 @@
     static ANOMIDImplementation *omidAppnexusImplementation;
     dispatch_once(&omidAppnexusToken, ^{
         omidAppnexusImplementation = [[ANOMIDImplementation alloc] init];
+
+        if (omidAppnexusImplementation.omidJSString != nil) {
+            omidAppnexusImplementation.omidJSString = nil;
+        }
+
         [omidAppnexusImplementation fetchOMIDJS];
     });
     return omidAppnexusImplementation;
@@ -46,18 +51,18 @@
                                                                error:&error];
         
         // This Creates / updates a partner for each new activation of OMID SDK
-        _partner = [[OMIDAppnexusPartner alloc] initWithName:AN_OMIDSDK_PARTNER_NAME
-                                               versionString:AN_SDK_VERSION];
+        self.partner = [[OMIDAppnexusPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
+                                                   versionString: AN_SDK_VERSION];
     }
     
     // IF partener is nil create partner
-    if(!_partner){
-        _partner = [[OMIDAppnexusPartner alloc] initWithName:AN_OMIDSDK_PARTNER_NAME
-                                               versionString:AN_SDK_VERSION];
+    if(!self.partner){
+        self.partner = [[OMIDAppnexusPartner alloc] initWithName: AN_OMIDSDK_PARTNER_NAME
+                                                   versionString: AN_SDK_VERSION];
     }
     
     // If OMID JS is empty fetch OMIDJS.
-    if(!_omidJSString){
+    if(!self.omidJSString){
         [self fetchOMIDJS];
     }
     
@@ -69,9 +74,10 @@
     // the custom reference ID may not be relevant to your integration in which case you may pass an
     // empty string.
     NSString *customRefId = @"";
-    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:_partner
-                                                                                          webView: webView
-                                                                        customReferenceIdentifier:customRefId error:&ctxError];
+    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:  self.partner
+                                                                                          webView:  webView
+                                                                        customReferenceIdentifier:  customRefId
+                                                                                            error: &ctxError];
     
     //Note that it is important that the videoEventsOwner parameter should be set to OMIDNoneOwner for display formats. Setting to anything else will cause the mediaType parameter passed to verification scripts to be set to video.
     NSError *cfgError;
@@ -126,28 +132,62 @@
 
 - (void) fetchOMIDJS
 {
-    NSURL *url = [NSURL URLWithString:@"https://acdn.adnxs.com/mobile/omsdk/v1/omsdk.js"];
-    ANOMIDImplementation *__weak weakSelf = self;
-    NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url
-                                                                 completionHandler:^(NSData *data, NSURLResponse
-                                                                                     *response, NSError *error) {
-                                                                     if (error || weakSelf == nil) {
-                                                                         return;
-                                                                     }
-                                                                     weakSelf.omidJSString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                                 }];
+    NSURL                           *url        = [NSURL URLWithString:@"https://acdn.adnxs.com/mobile/omsdk/v1/omsdk.js"];
+
+    __weak ANOMIDImplementation     *weakSelf   = self;
+
+    NSURLSessionDataTask            *dataTask   =
+            [[NSURLSession sharedSession] dataTaskWithURL: url
+                                        completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
+                                            {
+                                                if (error) {
+                                                    ANLogError(@"fetchOMIDJS FAILED.  NSError: userInfo=%@  code=%@  domain=%@", error.userInfo, @(error.code), error.domain);
+                                                    return;
+                                                }
+
+                                                __strong ANOMIDImplementation  *strongSelf  = weakSelf;
+                                                if (!strongSelf) {
+                                                    ANLogError(@"FAILED to acquire strongSelf.");
+                                                    return;
+                                                }
+
+                                                @synchronized (self) {
+                                                    strongSelf.omidJSString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                }
+                                             }];
     [dataTask resume];
 }
 
 
-- (NSString *)prependOMIDJSToHTML:(NSString *)html
+- (NSString *)prependOMIDJSToHTML:(NSString *)htmlOriginal
 {
-    NSError *error;
-    NSString  *htmlString  = html;
-    htmlString = [OMIDAppnexusScriptInjector injectScriptContent:_omidJSString
-                                                        intoHTML:html error:&error];
-    
-    return htmlString;
+    NSString  *htmlInjected   = nil;
+    NSString  *scriptContent  = nil;
+    NSError   *error;
+
+    @synchronized (self) {
+        scriptContent  = self.omidJSString;
+
+        if (!scriptContent) {
+            ANLogWarn(@"scriptContent is nil.  Returning ORIGINAL html input.");
+            return  htmlOriginal;
+        }
+    }
+
+    //
+    htmlInjected = [OMIDAppnexusScriptInjector injectScriptContent:  scriptContent
+                                                          intoHTML:  htmlOriginal
+                                                             error: &error];
+
+    if (error) {
+        ANLogWarn(@"OMIDAppnexusScriptInjector FAILED.  Returning ORIGINAL html input.");
+        ANLogWarn(@"NSError: userInfo=%@  code=%@  domain=%@", error.userInfo, @(error.code), error.domain);
+
+        return  htmlOriginal;
+    }
+
+    //
+    return htmlInjected;
     
 }
 

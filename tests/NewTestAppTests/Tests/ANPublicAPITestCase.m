@@ -330,4 +330,13 @@ TESTTRACE();
     XCTAssertEqual([codeValue isEqualToString:@"test"], YES);
 }
 
+
+
+
+#pragma mark - ANInstreamVideoAdLoadDelegate
+
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
+    /*EMPTY*/
+}
+
 @end

@@ -204,7 +204,6 @@
 		0E39784E212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397825212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
 		0E39784F212B3DDA00DDAD6D /* ANAdAdapterBannerNoRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397826212B3DDA00DDAD6D /* ANAdAdapterBannerNoRequestMethod.m */; };
 		0E397850212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E39782A212B3DDA00DDAD6D /* ANAdAdapterBannerUnableToFill.m */; };
-		0E397851212B3DDA00DDAD6D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E39782B212B3DDA00DDAD6D /* Info.plist */; };
 		0E39787B212B47A000DDAD6D /* ANNativeAdRequestTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397853212B47A000DDAD6D /* ANNativeAdRequestTestCase.m */; };
 		0E39787C212B47A000DDAD6D /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E397854212B47A000DDAD6D /* ANNativeAdView.xib */; };
 		0E39787D212B47A000DDAD6D /* nativeResponse4.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E397856212B47A000DDAD6D /* nativeResponse4.json */; };
@@ -237,7 +236,6 @@
 		0E397899212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397875212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m */; };
 		0E39789A212B47A000DDAD6D /* ANNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397876212B47A000DDAD6D /* ANNativeAdView.m */; };
 		0E39789B212B47A000DDAD6D /* ANGADNativeContentAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E397877212B47A000DDAD6D /* ANGADNativeContentAdView.xib */; };
-		0E39789C212B47A000DDAD6D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E397878212B47A000DDAD6D /* Info.plist */; };
 		0E39789D212B47A000DDAD6D /* ANGADNativeContentAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397879212B47A000DDAD6D /* ANGADNativeContentAdView.m */; };
 		0E39789E212B47A000DDAD6D /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E39787A212B47A000DDAD6D /* ANNativeAdViewMainImage.xib */; };
 		0E3978A1212B49AE00DDAD6D /* custom_dummy_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E39785B212B47A000DDAD6D /* custom_dummy_mediated_response.json */; };
@@ -2880,7 +2878,6 @@
 				0E28D90920EACA4800EC2CB2 /* dogSelfie@2x.jpg in Resources */,
 				0E28D90A20EACAAD00EC2CB2 /* GreyWhiteCat.jpg in Resources */,
 				0E28D90B20EACAAF00EC2CB2 /* GreyWhiteCat@2x.jpg in Resources */,
-				0E397851212B3DDA00DDAD6D /* Info.plist in Resources */,
 				0E28D90D20EACAEF00EC2CB2 /* MPAdBrowserController.xib in Resources */,
 				0E28D8FD20EAC9FA00EC2CB2 /* OMID_TestResponse.json in Resources */,
 				0E3978AF212B551000DDAD6D /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
@@ -2930,7 +2927,6 @@
 				0E397885212B47A000DDAD6D /* empty_mediated_ad_response.json in Resources */,
 				0E397881212B47A000DDAD6D /* empty_response.json in Resources */,
 				0E39787F212B47A000DDAD6D /* facebook_mediated_response.json in Resources */,
-				0E39789C212B47A000DDAD6D /* Info.plist in Resources */,
 				0E397880212B47A000DDAD6D /* mopub_mediated_response.json in Resources */,
 				0E28D98B20EACE4F00EC2CB2 /* MPAdBrowserController.xib in Resources */,
 				0E39788B212B47A000DDAD6D /* nativeResponse1.json in Resources */,
@@ -4283,6 +4279,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../sdk/**",
 					"$(PROJECT_DIR)/../mediation/**",
+					"$(PROJECT_DIR)/Shared/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -4354,6 +4351,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/../sdk/**",
 					"$(PROJECT_DIR)/../mediation/**",
+					"$(PROJECT_DIR)/Shared/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
