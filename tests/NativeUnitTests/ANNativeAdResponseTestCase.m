@@ -812,7 +812,7 @@ TESTTRACE();
 }
 
 - (void)closeInAppBrowser {
-    [tester tapViewWithAccessibilityLabel:@"Done"];
+    [tester tapViewWithAccessibilityLabel:@"OK"];
 }
 
 - (void)forceDismissPresentedController {
