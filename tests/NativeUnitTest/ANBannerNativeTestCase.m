@@ -275,7 +275,8 @@
 - (void)testCreativeIdIsStoredInBannerAdViewObject
 {
     TESTTRACE();
-
+    [self stubRequestWithResponse:@"bannerNative_basic_native"];
+    
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"4019246"];
     self.multiFormatAd.delegate = self;
     self.multiFormatAd.shouldAllowNativeDemand = true;
@@ -294,7 +295,8 @@
 - (void)testBrowserSettingsArePassedToNativeAdObject
 {
     TESTTRACE();
-
+    [self stubRequestWithResponse:@"bannerNative_basic_native"];
+    
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"4019246"];
     self.multiFormatAd.delegate = self;
     self.multiFormatAd.shouldAllowNativeDemand = true;

@@ -20,21 +20,17 @@
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANRTBVideoAd.h"
 #import "ANAdView+PrivateMethods.h"
-
+#import "ANHTTPStubbingManager.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
 static NSString         *outstreamVideoPlacementID  = @"12534678";
-static NSTimeInterval    waitTimeInSeconds          = 30.0; //10.0;
-
-
-
 
 @interface OutstreamVideoAdClassObjectFromUTResponseTests : XCTestCase<ANUniversalRequestTagBuilderDelegate, ANVideoAdPlayerDelegate>
 
 @property (nonatomic, strong)  ANUniversalAdFetcher  *universalAdFetcher;
-@property (nonatomic)          BOOL                   waitHasEnded;
-
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 @property (nonatomic)          BOOL                      allowSmallerSizes;
+@property (nonatomic, strong) XCTestExpectation *loadAdSuccesfulException;
 
 @end
 
@@ -52,10 +48,15 @@ static NSTimeInterval    waitTimeInSeconds          = 30.0; //10.0;
 {
     [super setUp];
     [ANLogManager setANLogLevel:ANLogLevelAll];
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
+    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
 }
 
 - (void)tearDown {
     [super tearDown];
+    self.loadAdSuccesfulException = nil;
+    [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
+    [[ANHTTPStubbingManager sharedStubbingManager] disable];
 }
 
 
@@ -75,43 +76,42 @@ static NSTimeInterval    waitTimeInSeconds          = 30.0; //10.0;
 
     [self setupSizeParametersAs1x1];
     self.placementId = outstreamVideoPlacementID;
-
+    [self stubRequestWithResponse:@"SuccessfulOutstreamVideoResponse"];
     self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
     [self.universalAdFetcher requestAd];
 
-
-    self.waitHasEnded = NO;
-    BOOL  isRequestCompleted  = [self waitForCompletion:waitTimeInSeconds];
-    XCTAssert(isRequestCompleted, @"WAITING for [ANUniversalAdFetcher requestAd] to complete...");
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for didFinishRequestWithResponse to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
 }
 
 - (void)verifyRTBVideoAdObject:(id)adObject
 {
     XCTAssert([adObject isKindOfClass:[ANRTBVideoAd class]]);
-
     ANRTBVideoAd  *rtbVideoAd  = (ANRTBVideoAd *)adObject;
-
     XCTAssertNotNil(rtbVideoAd.content);
     XCTAssertNotNil(rtbVideoAd.notifyUrlString);
 }
 
+#pragma mark - Stubbing
 
-
-#pragma mark - Test helpers.
-
-- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs
-{
-    NSDate  *timeoutDate  = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
-
-    do {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
-        if ([timeoutDate timeIntervalSinceNow] < 0.0)  { break; }
-    } while (!self.waitHasEnded);
-
-    return  self.waitHasEnded;
+- (void) stubRequestWithResponse:(NSString *)responseName {
+    NSBundle *currentBundle = [NSBundle bundleForClass:[self class]];
+    NSString *baseResponse = [NSString stringWithContentsOfFile: [currentBundle pathForResource:responseName
+                                                                                         ofType:@"json" ]
+                                                       encoding: NSUTF8StringEncoding
+                                                          error: nil ];
+    
+    ANURLConnectionStub  *requestStub  = [[ANURLConnectionStub alloc] init];
+    
+    requestStub.requestURL    = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    requestStub.responseCode  = 200;
+    requestStub.responseBody  = baseResponse;
+    
+    [[ANHTTPStubbingManager sharedStubbingManager] addStub:requestStub];
 }
-
-
 
 #pragma mark - ANVideoAdPlayerDelegate.
 
@@ -132,8 +132,7 @@ static NSTimeInterval    waitTimeInSeconds          = 30.0; //10.0;
 {
     TESTTRACE();
 
-    self.waitHasEnded = YES;
-
+    [self.loadAdSuccesfulException fulfill];
     [self verifyRTBVideoAdObject:response.adObjectHandler];
 }
 
