@@ -1,3 +1,8 @@
+## 4.11.1
+###  New Features and Bug Fixes 
++ MS-3527: Attempt to prevent crash in OMIDAppnexusScriptInjector by error checking all MobileSDK inputs and by serializing global properties shared between threads. 
++ MS-3461: Update logic to center video display when video player is expanded to fill the full screen of the device.
+ 
 ## 4.11
 ###  New Features and Bug Fixes 
 + MS-3401: Added an API for enabling/disabling the location access to the creative.
