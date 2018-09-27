@@ -23,6 +23,8 @@
 - (ANBannerAdView *)loadFacebookBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANBannerAdView *)loadFacebookBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
                                             adSize:(CGSize)adSize;
+- (ANBannerAdView *)loadFacebook250BannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
+                                            adSize:(CGSize)adSize;
 - (ANInterstitialAd *)loadFacebookInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
 - (ANBannerAdView *)loadAmazonBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;

@@ -14,10 +14,11 @@
  */
 
 #define kANAdWebViewControllerWebKitEnabled 1
+#define AN_USER_DENIED_LOCATION_PERMISSION 1
 
 #if kANAdWebViewControllerWebKitEnabled
 #import <WebKit/WebKit.h>
-#endif 
+#endif
 
 #import "ANAdWebViewController.h"
 #import "ANGlobal.h"
@@ -93,10 +94,10 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         } else {
             _configuration = [[ANAdWebViewControllerConfiguration alloc] init];
         }
-
+        
         _checkViewableTimeInterval = kAppNexusMRAIDCheckViewableFrequency;
         _checkViewableRunLoopMode = NSDefaultRunLoopMode;
-
+        
         _appIsInBackground = NO;
     }
     return self;
@@ -111,7 +112,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                webViewBaseURL:baseURL
                 configuration:nil];
     return self;
-
+    
 }
 
 - (instancetype)initWithSize:(CGSize)size
@@ -121,7 +122,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 {
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
-
+    
     //
 #if kANAdWebViewControllerWebKitEnabled
     if ([WKWebView class])
@@ -136,7 +137,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                                     URL: URL
                                 baseURL: baseURL];
     }
-
+    
     //
     return self;
 }
@@ -159,23 +160,23 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 {
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
-
+    
     //
     NSRange      mraidJSRange   = [html rangeOfString:kANWebViewControllerMraidJSFilename];
     NSURL       *base           = baseURL;
-
+    
     _isMRAID = (mraidJSRange.location != NSNotFound);
-
+    
     if (!base) {
         base = [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]];
     }
-
-
+    
+    
 #if kANAdWebViewControllerWebKitEnabled
     if ([WKWebView class])
     {
         NSString  *htmlToLoad  = html;
-
+        
         // This injects OMID JS to the HTML
         // NOTE this is intentionally kept above prependViewport if moved below it causes the tag to shrink.
         htmlToLoad = [[ANOMIDImplementation sharedInstance] prependOMIDJSToHTML:html];
@@ -184,7 +185,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         if (!_configuration.scrollingEnabled) {
             htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
         }
-
+        
         [self loadModernWebViewWithSize: size
                                    HTML: htmlToLoad
                                 baseURL: base];
@@ -192,12 +193,12 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 #endif
     {
         NSString *htmlWithScripts = [[self class] prependScriptsToHTML:html];
-
+        
         [self loadLegacyWebViewWithSize: size
                                    HTML: htmlWithScripts
                                 baseURL: base];
     }
-
+    
     //
     return self;
 }
@@ -209,48 +210,48 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     ANLogError(@"Banner Video requires use of WKWebView.")
     return  nil;
 #endif
-
-
+    
+    
     self = [self initWithConfiguration:nil];
     if (!self)  { return nil; }
-
+    
     self.configuration.scrollingEnabled = NO;
-
-
+    
+    
     //
     _videoXML = videoXML;
     [self handleMRAIDURL:[NSURL URLWithString:@"mraid://enable"]];
-
-
+    
+    
     //
     WKWebView  *webView  = [[self class] defaultModernWebViewWithSize:size configuration:self.configuration];
-
+    
     [webView.configuration.userContentController addScriptMessageHandler:self name:@"observe"];
     webView.configuration.allowsInlineMediaPlayback = YES;
     [webView.configuration.userContentController addScriptMessageHandler:self name:@"interOp"];
-
+    
     webView.backgroundColor = [UIColor blackColor];
-
+    
     [webView setNavigationDelegate:self];
     [webView setUIDelegate:self];
-
-
+    
+    
     _modernWebView  = webView;
     _contentView    = webView;
-
-
+    
+    
     // Load, then enable WKWebView in active window.
     //
     NSURL           *url      = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
     NSURLRequest    *request  = [NSURLRequest requestWithURL:url];
-
+    
     [_modernWebView loadRequest:request];
-
+    
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:_modernWebView];
     [_modernWebView setHidden:true];
-
-
+    
+    
     //
     return  self;
 }
@@ -287,11 +288,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if (!mraidPath) {
         return @"";
     }
-
+    
     NSBundle    *mraidBundle    = [[NSBundle alloc] initWithPath:mraidPath];
     NSData      *data           = [NSData dataWithContentsOfFile:[mraidBundle pathForResource:@"mraid" ofType:@"js"]];
     NSString    *mraidString    = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
+    
     return  mraidString;
 }
 
@@ -302,14 +303,14 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if (!sdkjsPath || !anjamPath) {
         return @"";
     }
-
+    
     NSData      *sdkjsData  = [NSData dataWithContentsOfFile:sdkjsPath];
     NSData      *anjamData  = [NSData dataWithContentsOfFile:anjamPath];
     NSString    *sdkjs      = [[NSString alloc] initWithData:sdkjsData encoding:NSUTF8StringEncoding];
     NSString    *anjam      = [[NSString alloc] initWithData:anjamData encoding:NSUTF8StringEncoding];
-
+    
     NSString  *anjamString  = [NSString stringWithFormat:@"%@ %@", sdkjs, anjam];
-
+    
     return  anjamString;
 }
 
@@ -396,18 +397,18 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 {
     WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)
                                             configuration:[[self class] defaultWebViewConfigurationWithConfiguration:configuration]];
-
+    
     webView.backgroundColor = [UIColor clearColor];
     webView.opaque = NO;
-
+    
     if (@available(iOS 11.0, *)) {
         webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
-
+    
     if (configuration.scrollingEnabled) {
         webView.scrollView.scrollEnabled = YES;
         webView.scrollView.bounces = YES;
-
+        
     } else {
         webView.scrollView.scrollEnabled = NO;
         webView.scrollView.bounces = NO;
@@ -430,35 +431,35 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (void)loadModernWebViewWithSize:(CGSize)size
                               URL:(NSURL *)URL
-                          baseURL:(NSURL *)baseURL 
+                          baseURL:(NSURL *)baseURL
 {
     WKWebView *webView = [[self class] defaultModernWebViewWithSize:size configuration:self.configuration];
-
+    
     webView.navigationDelegate = self;
     webView.UIDelegate = self;
-
+    
     self.modernWebView = webView;
     self.contentView = webView;
-
+    
     __weak WKWebView  *weakWebView  = webView;
     
     [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL(URL)
                                      completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
-                                        {
-                                            __strong WKWebView  *strongWebView  = weakWebView;
-                                            if (!strongWebView)  {
-                                                ANLogError(@"COULD NOT ACQUIRE strongWebView.");
-                                                return;
-                                            }
-
-                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                                NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-                                                if (html.length) {
-                                                    [strongWebView loadHTMLString:html baseURL:baseURL];
-                                                }
-                                            });
-                                        }
+      {
+          __strong WKWebView  *strongWebView  = weakWebView;
+          if (!strongWebView)  {
+              ANLogError(@"COULD NOT ACQUIRE strongWebView.");
+              return;
+          }
+          
+          dispatch_async(dispatch_get_main_queue(), ^{
+              NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+              
+              if (html.length) {
+                  [strongWebView loadHTMLString:html baseURL:baseURL];
+              }
+          });
+      }
       ] resume];
 }
 
@@ -468,13 +469,13 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 {
     WKWebView *webView = [[self class] defaultModernWebViewWithSize: size
                                                       configuration: self.configuration];
-
+    
     webView.navigationDelegate  = self;
     webView.UIDelegate          = self;
-
+    
     [webView loadHTMLString:html
                     baseURL:baseURL];
-
+    
     self.modernWebView  = webView;
     self.contentView    = webView;
 }
@@ -483,13 +484,13 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 {
     static dispatch_once_t   processPoolToken;
     static WKProcessPool    *anSdkProcessPool;
-
+    
     dispatch_once(&processPoolToken, ^{
         anSdkProcessPool = [[WKProcessPool alloc] init];
     });
-
+    
     WKWebViewConfiguration  *configuration  = [[WKWebViewConfiguration alloc] init];
-
+    
     configuration.processPool                   = anSdkProcessPool;
     configuration.allowsInlineMediaPlayback     = YES;
     
@@ -499,10 +500,10 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     // See: https://bugs.webkit.org/show_bug.cgi?id=147512
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
         configuration.requiresUserActionForMediaPlayback = NO;
-
+        
     } else {
         if (    [[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)]
-             && [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}] )
+            && [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}] )
         {
             configuration.requiresUserActionForMediaPlayback = NO;
         } else {
@@ -518,29 +519,56 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     WKUserScript *mraidScript = [[WKUserScript alloc] initWithSource: [[self class] mraidJS]
                                                        injectionTime: WKUserScriptInjectionTimeAtDocumentStart
                                                     forMainFrameOnly: YES];
-
+    
     WKUserScript *anjamScript = [[WKUserScript alloc] initWithSource: [[self class] anjamJS]
                                                        injectionTime: WKUserScriptInjectionTimeAtDocumentStart
                                                     forMainFrameOnly: YES];
-
+    
     WKUserScript *paddingScript = [[WKUserScript alloc] initWithSource: paddingJS
                                                          injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
                                                       forMainFrameOnly: YES];
-
+    
     if (!webViewControllerConfig.userSelectionEnabled)
     {
         NSString *userSelectionSuppressionJS = @"document.documentElement.style.webkitUserSelect='none';";
-
+        
         WKUserScript *userSelectionSuppressionScript = [[WKUserScript alloc] initWithSource: userSelectionSuppressionJS
                                                                               injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
                                                                            forMainFrameOnly: NO];
         [controller addUserScript:userSelectionSuppressionScript];
     }
+    
+    if(!ANSDKSettings.sharedInstance.locationEnabledForCreative){
+        //The Geolocation method watchPosition() method is used to register a handler function that will be called automatically each time the position of the device changes.
+        NSString *execWatchPosition =  [NSString stringWithFormat:@"navigator.geolocation.watchPosition = function(success, error, options) {};"];
+        //The Geolocation.getCurrentPosition() method is used to get the current position of the device.
+        NSString *execCurrentPosition = [NSString stringWithFormat:@"navigator.geolocation.getCurrentPosition('', function(){});"];
 
+        // Pass user denied the request for Geolocation to Creative
+        // USER_DENIED_LOCATION_PERMISSION is 1 which shows, The acquisition of the geolocation information failed because the page didn't have the permission to do it.
+        NSString *execCurrentPositionDenied =  [NSString stringWithFormat:@"navigator.geolocation.getCurrentPosition = function(success, error){ error({ error: { code: %d } });};",AN_USER_DENIED_LOCATION_PERMISSION];;
+
+       
+        
+        WKUserScript *execWatchPositionScript = [[WKUserScript alloc] initWithSource: execWatchPosition
+                                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                                    forMainFrameOnly: NO];
+        
+        WKUserScript *execCurrentPositionScript = [[WKUserScript alloc] initWithSource: execCurrentPosition
+                                                                         injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                                      forMainFrameOnly: NO];
+        WKUserScript *execCurrentPositionDeniedScript = [[WKUserScript alloc] initWithSource: execCurrentPositionDenied
+                                                                               injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                                            forMainFrameOnly: NO];
+        [controller addUserScript:execCurrentPositionScript];
+        [controller addUserScript:execWatchPositionScript];
+        [controller addUserScript:execCurrentPositionDeniedScript];
+
+    }
+    
     [controller addUserScript:anjamScript];
     [controller addUserScript:mraidScript];
     [controller addUserScript:paddingScript];
-
     return configuration;
 }
 
@@ -568,14 +596,14 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         [self printConsoleLogWithURL:URL];
         return NO;
     }
-
+    
     ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByRemovingPercentEncoding]);
-
+    
     if ([scheme isEqualToString:@"appnexuspb"]) {
         [self.pitbullDelegate handlePitbullURL:URL];
         return NO;
     }
-
+    
     if (self.completedFirstLoad) {
         if (ANHasHttpPrefix(scheme)) {
             if (self.isMRAID) {
@@ -611,10 +639,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     return YES;
 }
-
-
-
-
 
 #pragma mark - WKNavigationDelegate
 
@@ -659,21 +683,21 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
-
+    
     // For security reasons, test for fragment of path to vastVideo.html.
     //
     if ([URLScheme isEqualToString:@"file"])
     {
         NSString  *filePathContainsThisString  = @"/vastVideo.html";
-
+        
         if ([[URL absoluteString] rangeOfString:filePathContainsThisString].location == NSNotFound) {
             return;
         }
-
+        
         decisionHandler(WKNavigationActionPolicyAllow);
         return;
     }
-
+    
     if (self.completedFirstLoad) {
         if (ANHasHttpPrefix(URLScheme)) {
             if (self.isMRAID) {
@@ -744,7 +768,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if (navigationAction.targetFrame == nil) {
         [self.browserDelegate openDefaultBrowserWithURL:navigationAction.request.URL];
     }
-
+    
     return nil;
 }
 
@@ -759,77 +783,77 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
        didReceiveScriptMessage: (WKScriptMessage *)message
 {
     if (!message)  { return; }
-
+    
     NSString        *eventName          = @"";
     NSDictionary    *paramsDictionary   = [NSDictionary new];
-
+    
     if ([message.body isKindOfClass:[NSString class]])
     {
         eventName = (NSString *)message.body;
-
+        
     } else if ([message.body isKindOfClass:[NSDictionary class]]) {
         NSDictionary  *messageDictionary  = (NSDictionary *)message.body;
-
+        
         if (messageDictionary.count > 0) {
             eventName           = [messageDictionary objectForKey:@"event"];
             paramsDictionary    = [messageDictionary objectForKey:@"params"];
         }
     }
-
+    
     ANLogInfo(@"Event: %@", eventName);
-
+    
     if ([eventName isEqualToString:@"adReady"])
     {
         if ([self.videoDelegate respondsToSelector:@selector(videoAdReady)]) {
             [self.videoDelegate videoAdReady];
         }
-
+        
     } else if ([eventName isEqualToString:@"videoStart"] || [eventName isEqualToString:@"videoRewind"]) {
         [self.viewabilityTimer fire];
-
+        
         if ([self.mraidDelegate respondsToSelector:@selector(isViewable)]) {
             [self updateViewability:[self.mraidDelegate isViewable]];
         }
-
-
+        
+        
     } else if([eventName isEqualToString:@"video-fullscreen-enter"]) {
         if ([self.videoDelegate respondsToSelector:@selector(videoAdPlayerFullScreenEntered:)]) {
             [self.videoDelegate videoAdPlayerFullScreenEntered:self];
-
+            
         }
-
+        
     } else if([eventName isEqualToString:@"video-fullscreen-exit"]) {
         if ([self.videoDelegate respondsToSelector:@selector(videoAdPlayerFullScreenExited:)]) {
             [self.videoDelegate videoAdPlayerFullScreenExited:self];
         }
-
-
+        
+        
     } else if([eventName isEqualToString:@"video-error"] || [eventName isEqualToString:@"Timed-out"]) {
         //we need to remove the webview to makesure we dont get any other response from the loaded index.html page
         [self deallocActions];
-
+        
         if([self.videoDelegate respondsToSelector:@selector(videoAdError:)]){
             NSError *error = ANError(@"Timeout reached while parsing VAST", ANAdResponseInternalError);
             [self.videoDelegate videoAdError:error];
         }
-
+        
         if ([self.loadingDelegate respondsToSelector:@selector(immediatelyRestartAutoRefreshTimerFromWebViewController:)]) {
             [self.loadingDelegate immediatelyRestartAutoRefreshTimerFromWebViewController:self];
         }
-
-
+        
+        
     } else if (      ([self.videoXML length] > 0)
-                && (      [eventName isEqualToString:@"video-first-quartile"]
-                       || [eventName isEqualToString:@"video-mid"]
-                       || [eventName isEqualToString:@"video-third-quartile"]
-                       || [eventName isEqualToString:@"video-complete"]
-                       || [eventName isEqualToString:@"audio-mute"]
-                       || [eventName isEqualToString:@"audio-unmute"]
+               && (      [eventName isEqualToString:@"video-first-quartile"]
+                   || [eventName isEqualToString:@"video-mid"]
+                   || [eventName isEqualToString:@"video-third-quartile"]
+                   || [eventName isEqualToString:@"video-complete"]
+                   || [eventName isEqualToString:@"audio-mute"]
+                   || [eventName isEqualToString:@"audio-unmute"]
                    )
                )
     {
-            //EMPTY -- Silently ignore spurious VAST playback errors that might scare a client-dev into thinking something is wrong...
-
+        //EMPTY -- Silently ignore spurious VAST playback errors that might scare a client-dev into thinking something is wrong...
+        
     } else {
         ANLogError(@"UNRECOGNIZED video event.  (%@)", eventName);
     }
@@ -857,7 +881,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                 [self.loadingDelegate didCompleteFirstLoadFromWebViewController:self];
             }
         }
-
+        
         //
         if (self.isMRAID) {
             [self finishMRAIDLoad];
@@ -883,7 +907,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     [self updateWebViewOnOrientation];
     [self updateWebViewOnPositionAndViewabilityStatus];
-
+    
     if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized)
     {
         [self setupRapidTimerForCheckingPositionAndViewability];
@@ -891,7 +915,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     } else {
         [self setupTimerForCheckingPositionAndViewability];
     }
-
+    
     [self setupApplicationBackgroundNotifications];
     [self setupOrientationChangeNotification];
     
@@ -907,19 +931,19 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                                              selector:@selector(handleApplicationDidEnterBackground:)
                                                  name:UIApplicationDidEnterBackgroundNotification
                                                object:[UIApplication sharedApplication]];
-
+    
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(handleApplicationDidBecomeActive:)
                                                 name:UIApplicationDidBecomeActiveNotification
                                               object:nil];
-
+    
 }
 
 - (void)handleApplicationDidEnterBackground:(NSNotification *)notification
 {
     self.viewable = NO;
     self.appIsInBackground = YES;
-
+    
     if (self.videoDelegate) {
         [self updateViewability:NO];
     } else {
@@ -1007,11 +1031,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     }
     
     BOOL isCurrentlyViewable = (!self.appIsInBackground && [self.mraidDelegate isViewable]);
-
+    
     if (self.isViewable != isCurrentlyViewable) {
         ANLogDebug(@"Viewablity change: %d", isCurrentlyViewable);
         self.viewable = isCurrentlyViewable;
-
+        
         if (self.videoDelegate) {
             [self updateViewability:self.isViewable];
         } else {
@@ -1021,7 +1045,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     CGFloat updatedExposedPercentage = [self.mraidDelegate exposedPercent]; // updatedExposedPercentage from MRAID Delegate
     CGRect updatedVisibleRectangle = [self.mraidDelegate visibleRect]; // updatedVisibleRectangle from MRAID Delegate
-
+    
     // Send exposureChange Event only when there is an update from the previous.
     if(self.lastKnownExposedPercentage != updatedExposedPercentage || !CGRectEqualToRect(self.lastKnownVisibleRect,updatedVisibleRectangle)){
         self.lastKnownExposedPercentage = updatedExposedPercentage;
@@ -1052,26 +1076,26 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if (self.modernWebView)
     {
         [self.modernWebView stopLoading];
-
+        
         [self.modernWebView setNavigationDelegate:nil];
         [self.modernWebView setUIDelegate:nil];
-
+        
         [self.modernWebView removeFromSuperview];
         self.modernWebView = nil;
-
+        
     } else
 #endif
     {
         [self.legacyWebView loadHTMLString:@"" baseURL:nil];
         [self.legacyWebView stopLoading];
-
+        
         self.legacyWebView.delegate = nil;
-
+        
         [self.legacyWebView an_removeSubviews];
         [self.legacyWebView removeFromSuperview];
         self.legacyWebView = nil;
     }
-
+    
     self.contentView = nil;
 }
 
@@ -1250,12 +1274,12 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 
 #pragma mark - Banner Video.
-        
+
 - (void) processVideoViewDidFinishLoad
 {
     NSString  *execTemplate    = @"createVastPlayerWithContent('%@', 'BANNER');";
     NSString  *exec            = [NSString stringWithFormat:execTemplate, self.videoXML];
-
+    
     [self.modernWebView evaluateJavaScript:exec completionHandler:nil];
 }
 

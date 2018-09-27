@@ -1,9 +1,23 @@
+## 4.11
+###  New Features and Bug Fixes 
++ MS-3401: Added an API for enabling/disabling the location access to the creative.
++ MS-3518: Updated the AppNexus GDPR constants to avoid namespace collisions with other SDKs implementing GDPR.
++ MS-3323: Updated SDK Localization for In-app browser's "OK" Button.
++ MS-3462: Fixed video completion tracker not firing consistently.
++ MS-3406: Updated the Mobile Vast Player.
+
+## 4.10
+###  New Features and Bug Fixes
++ MS-3181 -- Allow ANInstreamVideoAd to be initialized with inventoryCode and memberId.
++ MS-3409 -- Repair SDK build errors highlighted by Xcode 10beta4.
++ MS-3324 -- Allow designation of arbitrary sizes to trigger full view constraints on banner ad instances.
++ MS-3427 -- Update Banner Native such that mainImage and iconImage are never downloaded automatically.
++ MS-3199 -- Add impression count API for Mediated Native creatives
++ MS-3444 -- Add API to restrict allowed media types for Banner Ad
 
 ## 4.9
 ### New Features
 + MS-3234 -- Open Measurement SDK Support for HTML Banner Ads
-
-
 
 ## 4.8
 ### New Features

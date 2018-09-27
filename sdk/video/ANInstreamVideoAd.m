@@ -59,17 +59,17 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 @implementation ANInstreamVideoAd
 
-@synthesize  customKeywords  = __customKeywords;
+@synthesize  customKeywords     = __customKeywords;
 
-@synthesize minDuration = __minDuration;
+@synthesize  minDuration        = __minDuration;
+@synthesize  maxDuration        = __maxDuration;
 
-@synthesize maxDuration = __maxDuration;
 
 
 #pragma mark - Lifecycle.
 
 //--------------------- -o-
-- (id) initWithPlacementId: (NSString *)placementId
+- (instancetype) initFoundation
 {
     self = [super init];
     if (!self)  { return nil; }
@@ -85,16 +85,34 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     self.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
     self.landingPageLoadsInBackground = YES;
     
-    self.placementId = placementId;
-    
-    
     self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
     
     [self setupSizeParametersAs1x1];
-    
-    
+
     //
     return self;
+}
+
+- (instancetype) initWithPlacementId: (NSString *)placementId
+{
+    self = [self initFoundation];
+    if (!self)  { return nil; }
+
+    //
+    self.placementId = placementId;
+
+    return  self;
+}
+
+- (instancetype) initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode
+{
+    self = [self initFoundation];
+    if (!self)  { return nil; }
+
+    //
+    [self setInventoryCode:inventoryCode memberId:memberId];
+
+    return  self;
 }
 
 - (void) setupSizeParametersAs1x1

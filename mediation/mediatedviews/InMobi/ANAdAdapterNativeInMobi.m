@@ -185,6 +185,7 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 
 - (void)nativeAdImpressed:(IMNative *)native {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    [self.nativeAdDelegate adDidLogImpression];
 }
 
 

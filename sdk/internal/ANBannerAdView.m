@@ -55,9 +55,9 @@
 @synthesize  autoRefreshInterval  = __autoRefreshInterval;
 @synthesize  contentView          = _contentView;
 @synthesize  adSize               = _adSize;
-
-
-
+@synthesize  loadedAdSize         = _loadedAdSize;
+@synthesize  shouldAllowVideoDemand     = _shouldAllowVideoDemand;
+@synthesize  shouldAllowNativeDemand    = _shouldAllowNativeDemand;
 
 #pragma mark - Lifecycle.
 
@@ -70,9 +70,11 @@
     //
     __autoRefreshInterval   = kANBannerDefaultAutoRefreshInterval;
     _transitionDuration     = kAppNexusBannerAdTransitionDefaultDuration;
-
+    _loadedAdSize           = APPNEXUS_SIZE_UNDEFINED;
     _adSize                 = APPNEXUS_SIZE_UNDEFINED;
     _adSizes                = nil;
+    _shouldAllowNativeDemand      = NO;
+    _shouldAllowVideoDemand       = NO;
     self.allowSmallerSizes  = NO;
     
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
@@ -329,14 +331,25 @@
             [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
         }
 
-
+        //
         if ([adObject isKindOfClass:[UIView class]])
         {
             self.contentView = adObject;
-            [self adDidReceiveAd];
+            NSString *width = (NSString *) [ANGlobal valueOfGetterProperty:@"width" forObject:adObjectHandler];
+            NSString *height = (NSString *) [ANGlobal valueOfGetterProperty:@"height" forObject:adObjectHandler];
             
+            if(width && height){
+                CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
+                _loadedAdSize = receivedSize;
+            }else {
+                _loadedAdSize = self.adSize;
+                }
+            
+            [self adDidReceiveAd];
+          
             if ([self adType] == ANAdTypeBanner)
             {
+                
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
 
                 @synchronized (self)
@@ -365,38 +378,7 @@
             nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
 
             //
-            __weak ANBannerAdView  *weakSelf  = self;
-            NSOperation *finish = [NSBlockOperation blockOperationWithBlock:
-                                   ^{
-                                       __strong ANBannerAdView  *strongSelf  = weakSelf;
-
-                                       if (!strongSelf) {
-                                           ANLogError(@"FAILED to access strongSelf.");
-                                           return;
-                                       }
-
-                                       [strongSelf adDidReceiveAd:nativeAdResponse];
-                                   } ];
-
-
-
-            if ([nativeAdResponse respondsToSelector:@selector(setIconImage:)])
-            {
-                [self setImageForImageURL: nativeAdResponse.iconImageURL
-                                 onObject: nativeAdResponse
-                               forKeyPath: @"iconImage"
-                  withCompletionOperation: finish];
-            }
-
-            if ([nativeAdResponse respondsToSelector:@selector(setMainImage:)])
-            {
-                [self setImageForImageURL: nativeAdResponse.mainImageURL
-                                 onObject: nativeAdResponse
-                               forKeyPath: @"mainImage"
-                  withCompletionOperation: finish];
-            }
-
-            [[NSOperationQueue mainQueue] addOperation:finish];
+            [self adDidReceiveAd:nativeAdResponse];
 
         } else {
             NSString  *unrecognizedResponseErrorMessage  = [NSString stringWithFormat:@"UNRECOGNIZED ad response.  (%@)", [adObject class]];
@@ -459,82 +441,6 @@
 
 
 
-#pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
-
-- (void)setImageForImageURL:(NSURL *)imageURL
-                   onObject:(id)object
-                 forKeyPath:(NSString *)keyPath
-    withCompletionOperation:(NSOperation *)operation {
-
-    NSOperation *dependentOperation = [self setImageForImageURL:imageURL
-                                                       onObject:object
-                                                     forKeyPath:keyPath];
-    if (dependentOperation) {
-        [operation addDependency:dependentOperation];
-    }
-}
-
-
-- (NSOperation *)setImageForImageURL: (NSURL *)imageURL
-                            onObject: (id)object
-                          forKeyPath: (NSString *)keyPath
-{
-    if (!imageURL) {
-        return nil;
-    }
-
-    UIImage *cachedImage = [ANNativeAdImageCache imageForKey:imageURL];
-
-    if (cachedImage) {
-        [object setValue:cachedImage forKeyPath:keyPath];
-        return nil;
-
-    } else {
-        NSOperation *loadImageData = [NSBlockOperation blockOperationWithBlock:^{
-            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-            NSURLRequest *request = [NSURLRequest requestWithURL:imageURL
-                                                     cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                 timeoutInterval:kAppNexusNativeAdImageDownloadTimeoutInterval];
-
-            NSURLSessionDataTask *task = [[NSURLSession sharedSession]
-                                          dataTaskWithRequest:request
-                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              NSInteger statusCode = -1;
-                                              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                                                  statusCode = [httpResponse statusCode];
-
-                                              }
-
-                                              if (statusCode >= 400 || statusCode == -1)  {
-                                                  ANLogError(@"Error downloading image: %@", error);
-
-                                              }else{
-                                                  UIImage *image = [UIImage imageWithData:data];
-                                                  if (image) {
-                                                      [ANNativeAdImageCache setImage:image
-                                                                              forKey:imageURL];
-                                                      [object setValue:image
-                                                            forKeyPath:keyPath];
-                                                  }
-                                              }
-                                              dispatch_semaphore_signal(semaphore);
-
-                                          }];
-
-            [task resume];
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-        }];
-
-        [[NSOperationQueue mainQueue] addOperation:loadImageData];
-        return loadImageData;
-    }
-}
-
-
-
-
 #pragma mark - ANAdViewInternalDelegate
 
 - (NSString *) adTypeForMRAID  {
@@ -543,7 +449,15 @@
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
-    return  @[ @(ANAllowedMediaTypeBanner), @(ANAllowedMediaTypeVideo), @(ANAllowedMediaTypeNative) ];
+    NSMutableArray *mediaTypes  = [[NSMutableArray alloc] init];
+    [mediaTypes addObject:@(ANAllowedMediaTypeBanner)];
+    if(_shouldAllowNativeDemand){
+        [mediaTypes addObject:@(ANAllowedMediaTypeNative)];
+    }
+    if(_shouldAllowVideoDemand){
+        [mediaTypes addObject:@(ANAllowedMediaTypeVideo)];
+    }
+    return  [mediaTypes copy];
 }
 
 

@@ -168,6 +168,11 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 @property (nonatomic, readwrite, assign) CGSize adSize;
 
 /**
+ Return the loaded Ad Size.
+ */
+@property (nonatomic, readonly) CGSize loadedAdSize;
+
+/**
  The set of allowed ad sizes for the banner ad.
  The set should contain CGSize values wrapped as NSValue objects.
  */
@@ -215,7 +220,15 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  */
 @property (nonatomic, readwrite, assign) BOOL shouldResizeAdToFitContainer;
 
+/**
+ * Sets whether or not Video Ads(AppNexus Media Type:4) can serve on this Ad object.
+ */
+@property (nonatomic, readwrite) BOOL shouldAllowVideoDemand;
 
+/**
+ * Sets whether or not Native Ads(AppNexus Media Type:12) can serve on this Ad object.
+*/
+@property (nonatomic, readwrite) BOOL shouldAllowNativeDemand;
 
 
 #pragma mark - Creating an ad view and loading an ad

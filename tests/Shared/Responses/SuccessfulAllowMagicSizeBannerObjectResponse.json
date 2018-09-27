@@ -1,0 +1,39 @@
+{
+    "version": "0.0.1",
+    "tags": [
+        {
+            "tag_id": 13653381,
+            "auction_id": "3896076326959767960",
+            "nobid": false,
+            "no_ad_url": "http://sin1-mobile.adnxs.com/it?e=wqT_3QLnAqBnAQAAAwDWAAUBCKHuo9oFEJjD-_HumOmINhimipyyiYbklSAqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfCoMIWrwQY4vgdAvgdIAFAAWABgAGgAeACAAQCYAQCgAQCoAQGwAQC4AQHAAQDIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YymAQAqAQAsgQOCAAQARgAIAAoADAAOAK4BADABADIBADaBAIIAOAEAfAEAPoEEgkAAABAluRCQAHWYMACml7AggUbY29tLmFwcG5leHVzLkFwcE4BCUxTREtBcHCIBQGYBQCgBQDABQDJBQnmEPA_0gUJAUkFAWDYBQDgBQDwBQD6BQQIABAAkAYAmAYAuAYA&s=84778aafd4a73ab3b620d1c094d0b3bd1c180af7&test=1",
+            "timeout_ms": 10000,
+            "ad_profile_id": 0,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "banner",
+                    "buyer_member_id": 958,
+                    "creative_id": 106954775,
+                    "media_type_id": 1,
+                    "media_subtype_id": 1,
+                    "client_initiated_ad_counting": true,
+                    "rtb": {
+                        "banner": {
+                            "content": "<!-- Creative 106954775 served by Member 958 via AppNexus --><html><body style=\"margin-left: 0%; margin-right: 0%; margin-top: 0%; margin-bottom: 0%\"><script type=\"text/javascript\">document.write('<script src=\\\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\\\">\\n<\\/script>\\n<script src=\\\"mraid.js\\\"><\\/script>\\n<!-- Dummy Background used to control the size of the Banner !-->\\n<body onclick=\\\"clickThrough();\\\">\\n<div id=\\\"background\\\">\\n\\t<style>\\n\\t\\t#background {\\n\\t\\t\\tbackground-color: #FF8700;\\n\\t\\t\\twidth: 100%;\\n\\t\\t\\theight: 100%;\\n\\t\\t\\tposition: fixed;\\n\\t\\t\\tz-index: -1;\\n\\t\\t\\topacity: 0;\\n\\t\\t\\tmargin: auto;\\n\\t\\t\\tcursor: pointer;\\n\\t\\t}\\n\\t</style>\\n\\t<div id=\\\"wrapper\\\">\\n\\t\\t<style>\\n\\t\\t\\t#wrapper {\\n\\t\\t\\t\\tmargin: 0;\\n\\t\\t\\t\\tposition: absolute;\\n\\t\\t\\t\\ttop: 50%;\\n\\t\\t\\t\\tleft: 50%;\\n\\t\\t\\t\\t-ms-transform: translate(-50%, -50%);\\n\\t\\t\\t\\ttransform: translate(-50%, -50%);\\n\\t\\t\\t\\topacity: 0;\\n\\t\\t\\t}\\n\\t\\t</style>\\n\\t\\t<div id=\\\"content\\\">\\n\\t\\t\\t<style>\\n\\t\\t\\t\\t#content {\\n\\t\\t\\t\\t\\tborder: \\'1px\\';\\n\\t\\t\\t\\t\\ttext-align: center;\\n\\t\\t\\t\\t\\tcolor: white;\\n\\t\\t\\t\\t\\tfont-size: \\'15px\\';\\n\\t\\t\\t\\t\\topacity: 1;\\n\\t\\t\\t\\t\\tpadding: \\'2px\\';\\n\\t\\t\\t\\t}\\n\\t\\t\\t</style>\\n\\t\\t</div>\\n\\t\\t<!-- Dummy div to show the Width and Height in the Ad!-->\\n\\t\\t<div id=\\\"size\\\">\\n\\t\\t\\t<style>\\n\\t\\t\\t\\t#size {\\n\\t\\t\\t\\t\\tborder: \\'1px\\';\\n\\t\\t\\t\\t\\ttext-align: center;\\n\\t\\t\\t\\t\\tcolor: white;\\n\\t\\t\\t\\t\\tfont-size: \\'15px\\';\\n\\t\\t\\t\\t\\topacity: 1;\\n\\t\\t\\t\\t\\tpadding: \\'2px\\';\\n\\t\\t\\t\\t}\\n\\t\\t\\t</style>\\n\\t\\t</div>\\n\\t</div>\\n</div>\\n</body>\\n<script>\\n\\tvar dur = 500;\\n\\n\\t$(document).ready(function() {\\n\\t\\tvar width = getWidth();\\n\\t\\tvar height = getHeight();\\n\\t\\t$(\\\"#background\\\")\\n\\t\\t.animate({\\n\\t\\t\\twidth: width,\\n\\t\\t\\theight: height,\\n\\t\\t\\topacity: 1\\n\\t\\t}, 200, function() {\\n\\t\\t\\tvar contentDiv = document.getElementById(\\\"content\\\");\\n\\t\\t\\tcontentDiv.innerHTML = getContent();\\n\\n\\t\\t\\tvar sizeDiv = document.getElementById(\\\"size\\\");\\n\\t\\t\\tsizeDiv.innerHTML = \\'Size = \\' + width + \\' x \\' + height;\\n\\n\\t\\t\\t$(\\\"#wrapper\\\").animate({\\n\\t\\t\\t\\topacity: 1\\n\\t\\t\\t});\\n\\t\\t});\\n\\t})\\n\\n\\n\\tfunction getWidth() {\\n\\t\\t\\treturn 320;\\n\\t}\\n\\n\\tfunction getHeight() {\\n\\t\\t\\treturn 250;\\n\\t}\\n\\n\\tfunction getContent() {\\n\\t\\t\\treturn \\\"AllowMagic Size test Creative 320x250\\\";\\n\\t}\\n\\n\\tfunction clickThrough() {\\n      mraid.open(\\'http://sin1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJjhPu7GpBE2JgVHljCQKyAh90hbAAAAAIVV0AC-AwAAvgMAAAAAAAAXAGAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEA1AsHYQAAAAA./bn=0/test=1/clickenc=https%3A%2F%2Fwww.apple.in%2Fhttps://wiki.appnexus.com/display/sdk/Welcome\\');\\n\\t}\\n<\\/script>\\n');</script></body></html><div name=\"anxv\" lnttag=\"v;tv=view7-1h;st=2;d=10x10;vc=iab;vid_ccr=1;cid=1;tag_id=13653381;cb=http%3A%2F%2Fsin1-mobile.adnxs.com%2Fvevent%3Fe%3DwqT_3QLqAqBqAQAAAwDWAAUBCKHuo9oFEJjD-_HumOmINhimipyyiYbklSAqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfCrMIWrwQY4vgdAvgdIAFCXgIAzWABgAGgAeACAAQCYAQqgAQqoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YymAQAqAQAsgQOCAAQARgAIAAoADAAOAK4BADABADIBADaBAIIAeAEAfAEAPoEEgkAAABAluRCQAHZYMACml7AggUbY29tLmFwcG5leHVzLkFwcE4BCUxTREtBcHCIBQGYBQCgBQDABQDJBQnpEPA_0gUJAUkFAWDYBQDgBQDwBQD6BQQIABAAkAYAmAYAuAYA%26s%3D55080ff3b509d75fbeb1b8f02d12b4e920ca187a%26test%3D1;ts=1531508513;cet=0;cecb=\" width=\"0\" height=\"0\" style=\"display: block; margin: 0; padding: 0; height: 0; width: 0;\"><script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/s/136/trk.js\"></script></div>",
+                            "width": 10,
+                            "height": 10
+                        },
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://sin1-mobile.adnxs.com/it?e=wqT_3QLqAqBqAQAAAwDWAAUBCKHuo9oFEJjD-_HumOmINhimipyyiYbklSAqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfCrMIWrwQY4vgdAvgdIAFCXgIAzWABgAGgAeACAAQCYAQqgAQqoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA6wCyAMA2AMA4AMA6AMC-AMAgAQAkgQGL3V0L3YymAQAqAQAsgQOCAAQARgAIAAoADAAOAK4BADABADIBADaBAIIAeAEAfAEAPoEEgkAAABAluRCQAHZYMACml7AggUbY29tLmFwcG5leHVzLkFwcE4BCUxTREtBcHCIBQGYBQCgBQDABQDJBQnpEPA_0gUJAUkFAWDYBQDgBQDwBQD6BQQIABAAkAYAmAYAuAYA&s=55080ff3b509d75fbeb1b8f02d12b4e920ca187a&test=1"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

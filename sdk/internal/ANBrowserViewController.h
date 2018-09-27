@@ -22,7 +22,7 @@
 @property (nonatomic, readwrite, weak) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *forwardButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *backButton;
-@property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *doneButton;
+@property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *okButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *openInButton;
 @property (nonatomic, readwrite, strong) IBOutlet UIBarButtonItem *refreshButton;
 @property (nonatomic, readwrite, weak) IBOutlet UIView *webViewContainerView;

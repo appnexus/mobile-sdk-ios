@@ -13,17 +13,20 @@
  limitations under the License.
  */
 
-#import "ANNativeMediatedAdResponse.h"
+#import "ANNativeMediatedAdResponse+PrivateMethods.h"
 #import "ANNativeCustomAdapter.h"
 #import "ANLogging.h"
 #import "ANGlobal.h"
 #import "UIView+ANNativeAdCategory.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
+#import "ANTrackerManager.h"
 
 @interface ANNativeMediatedAdResponse () <ANNativeCustomAdapterAdDelegate>
 
 @property (nonatomic, readwrite, strong) id<ANNativeCustomAdapter> adapter;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
+@property (nonatomic, readwrite, strong) NSArray<NSString *> *impTrackers;
+@property (nonatomic, readwrite) BOOL impressionsHaveBeenTracked;
 
 @end
 
@@ -61,6 +64,7 @@
         _adapter = adapter;
         _networkCode = networkCode;
         _adapter.nativeAdDelegate = self;
+        _impressionsHaveBeenTracked = NO;
     }
     return self;
 }
@@ -120,6 +124,23 @@
     if ([self.adapter respondsToSelector:@selector(handleClickFromRootViewController:)]) {
         [self.adapter handleClickFromRootViewController:self.rootViewController];
     }
+}
+
+#pragma mark - Impression Tracking
+- (void)fireImpTrackers {
+    @synchronized (self)
+    {
+        if (self.impTrackers && !self.impressionsHaveBeenTracked) {
+            [ANTrackerManager fireTrackerURLArray:self.impTrackers];
+        }
+        self.impressionsHaveBeenTracked = YES;
+    }
+}
+
+# pragma mark - ANNativeCustomAdapterAdDelegate
+// Only need to handling adWillLogImpression rest all is handle in the base class ANNativeAdResponse.m
+- (void)adDidLogImpression {
+    [self fireImpTrackers];
 }
 
 @end

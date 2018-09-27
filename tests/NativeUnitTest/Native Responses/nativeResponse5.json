@@ -1,0 +1,61 @@
+{
+    "version": "0.0.1",
+
+    "tags": [
+        {
+            "tag_id": 0,
+            "auction_id": "1234567890",
+            "nobid": false,
+            "no_ad_url": "MOCK__no_ad_url",
+            "timeout_ms": 10000,
+            "ad_profile_id": 0,
+
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 444433322,
+                    "creative_id": 108,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "client_initiated_ad_counting": true,
+
+                    "rtb": {
+                        "native": {
+                            "status": "ok",
+                            "version": 1,
+                            "ads": [],
+                            "mediated": [],
+                            "native":[  
+                               {  
+                                  "title":"AppNexusSDKApp",
+                                  "description":"Showcases the AppNexus mobile SDK and all its features. Works with placements generated under a publisher in the AppNexus Console.",
+                                  "cta":"Install Now!",
+                                  "icon_img_url":"https://acdn.adnxs.com/mobile/native_test/icon_image_100_100.png",
+                                  "main_media":[  
+                                     {  
+                                        "url":"https://acdn.adnxs.com/mobile/native_test/main_image_640_334.png",
+                                        "width":300,
+                                        "height":250,
+                                        "label":"default"
+                                     }
+                                  ],
+                                  "rating":{  
+                                     "value":5.0,
+                                     "scale":5
+                                  },
+                                  "click_url":"https://itunes.apple.com/us/app/appnexussdkapp/id736869833?mt=8",
+                                  "click_trackers":[  
+
+                                  ],
+                                  "impression_trackers":""
+                               }
+                            ]
+                        }
+                    }
+
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,69 @@
+{
+    "version": "0.0.1",
+
+    "tags": [
+        {
+            "tag_id": 1,
+            "auction_id": "912973590033541886",
+            "nobid": false,
+            "no_ad_url": "MOCK__no_ad_url",
+            "timeout_ms": 10000,
+            "ad_profile_id": 27079,
+
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 958,
+                    "creative_id": 47772560,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "MOCK__viewability__config",
+                    },
+                    "rtb": {
+                        "native": {
+                            "status": "ok",
+                            "version": 1,
+                            "ads": [],
+                            "mediated": [],
+                            "native": [
+                                {
+                                    "type": "in-feed-standard",
+                                    "title": "AppNexus",
+                                    "description": "This is a Test Native Ad from AppNexus",
+                                    "full_text": "This is a Test Native Ad from your AppNexus Team.",
+                                    "icon_img_url": "http://vcdn.adnxs.com/p/creative-image/2f/3d/a4/8d/2f3da48d-f786-4361-ab03-e9c0c6e941e4.png",
+                                    "main_media": [
+                                        {
+                                            "label": "default",
+                                            "width": 870,
+                                            "height": 201,
+                                            "url": "http://vcdn.adnxs.com/p/creative-image/d0/4a/de/2d/d04ade2d-52dd-4b84-9aa9-6eaef24f0eda.png"
+                                        }
+                                    ],
+                                    "cta": "Install",
+                                    "sponsored_by": "AppNexus",
+                                    "click_trackers": [
+                                        "MOCK__click_tracker1"
+                                    ],
+                                    "impression_trackers": [
+                                        "MOCK__imprssion_tracker1"
+                                    ],
+                                    "rating": {
+                                        "value": 4.13,
+                                        "scale": 5
+                                    },
+                                    "click_url": "http://secure.adnxs.com/seg?add=8101412&redir=fb://page/170232353033960",
+                                    "click_fallback_url": "http://www.appnexus.com"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
+

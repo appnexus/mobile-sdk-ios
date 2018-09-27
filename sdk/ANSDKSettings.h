@@ -25,6 +25,18 @@
  */
 @property (nonatomic) BOOL HTTPSEnabled;
 
+/**
+ Special ad sizes for which the content view should be constrained to the container view.
+ */
+@property (nonatomic, copy) NSArray<NSValue *> *sizesThatShouldConstrainToSuperview;
+
+/**
+ * Set false to block Location popup asked by Creative, Also notify creative that User denied the request for location.
+ * Set True continue the default behaviour.
+ * locationEnabledForCreative is turned on by default.
+ */
+@property (nonatomic) BOOL locationEnabledForCreative;
+
 
 + (instancetype)sharedInstance;
 

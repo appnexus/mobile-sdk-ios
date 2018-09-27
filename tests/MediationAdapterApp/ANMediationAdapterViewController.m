@@ -175,6 +175,22 @@
                              adSize:adSize];
 }
 
+- (ANBannerAdView *)loadFacebook250BannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
+                                            adSize:(CGSize)adSize {
+    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
+    mediatedAd.className = @"ANAdAdapterBannerFacebook";
+    mediatedAd.adId = @"2038077109846299_2043932985927378";
+    mediatedAd.width = [NSString stringWithFormat:@"%ld", (long)adSize.width];
+    mediatedAd.height = [NSString stringWithFormat:@"%ld", (long)adSize.height];
+    [FBAdSettings setLogLevel:FBAdLogLevelLog];
+    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
+    [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
+    [self stubMediatedAd:mediatedAd];
+    return [self bannerWithDelegate:delegate
+                          frameSize:adSize
+                             adSize:adSize];
+}
+
 - (ANInterstitialAd *)loadFacebookInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
     [self stubFacebookInterstitial];
     [FBAdSettings setLogLevel:FBAdLogLevelLog];

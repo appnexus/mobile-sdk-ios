@@ -28,6 +28,7 @@
 		00D6B04B20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */; };
 		0E35D4AD2088F67E000A6C27 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
 		0E9E0D262090E59B00A871BF /* ANGDPRSettings.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; };
+		0E9F613620FFDCD7009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E9F613420FFDC3B009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h */; };
 		0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
 		4F131E8C1F71CCE50019FDAC /* ANAdFetcherResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */; };
@@ -114,9 +115,6 @@
 		609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */; };
 		609733141E42EB0B0061EC0A /* ASTMediationManager.js in Resources */ = {isa = PBXBuildFile; fileRef = 609733001E42EAFF0061EC0A /* ASTMediationManager.js */; };
 		60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */ = {isa = PBXBuildFile; fileRef = 60AB32891E521FE500429ED7 /* MobileVastPlayer.js */; };
-		60F6AC1D2051C50C0022560D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60F6AC1C2051C50C0022560D /* Info.plist */; };
-		60F6AC1E2051C50C0022560D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60F6AC1C2051C50C0022560D /* Info.plist */; };
-		60F6AC1F2051C50C0022560D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60F6AC1C2051C50C0022560D /* Info.plist */; };
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
 		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
@@ -723,7 +721,10 @@
 		00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDImplementation.m; sourceTree = "<group>"; };
 		0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANGDPRSettings.h; sourceTree = "<group>"; };
 		0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGDPRSettings.m; sourceTree = "<group>"; };
+		0E6D9AB220D1A943001FA1FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController.xib; sourceTree = "<group>"; };
+		0E6D9AB320D1A943001FA1FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
 		0E889BBB208FD6AC00B7AC0A /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = InMobiSDK.framework; sourceTree = "<group>"; };
+		0E9F613420FFDC3B009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeMediatedAdResponse+PrivateMethods.h"; sourceTree = "<group>"; };
 		4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
 		4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcherResponse.m; sourceTree = "<group>"; };
 		4F403A6D2043C8CF00EF75A2 /* vastVideo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = vastVideo.html; sourceTree = "<group>"; };
@@ -1190,18 +1191,6 @@
 		ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECE4EAD9194B768A0069D934 /* sdkjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sdkjs.js; sourceTree = "<group>"; };
-		FC210A362007D5EB002A9F0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController.xib; sourceTree = "<group>"; };
-		FC210A372007D5EB002A9F0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController_SizeClasses.xib; sourceTree = "<group>"; };
-		FC83AEEF2025101A009A394D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ANBrowserViewController.strings; sourceTree = "<group>"; };
-		FC83AEF12025101F009A394D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ANBrowserViewController_SizeClasses.strings; sourceTree = "<group>"; };
-		FCAE131B2023CB9A00A946B1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ANBrowserViewController.strings; sourceTree = "<group>"; };
-		FCAE131C2023CB9A00A946B1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ANBrowserViewController_SizeClasses.strings; sourceTree = "<group>"; };
-		FCAE13202023CBFE00A946B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ANBrowserViewController.strings; sourceTree = "<group>"; };
-		FCAE13212023CBFE00A946B1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ANBrowserViewController_SizeClasses.strings; sourceTree = "<group>"; };
-		FCAE13252023CC1100A946B1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ANBrowserViewController.strings"; sourceTree = "<group>"; };
-		FCAE13262023CC1100A946B1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ANBrowserViewController_SizeClasses.strings"; sourceTree = "<group>"; };
-		FCAE132A2023CD2300A946B1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ANBrowserViewController.strings; sourceTree = "<group>"; };
-		FCAE132B2023CD3700A946B1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ANBrowserViewController_SizeClasses.strings; sourceTree = "<group>"; };
 		FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBaseAdObject.m; sourceTree = "<group>"; };
 		FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBaseAdObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1919,6 +1908,7 @@
 				8AB876221A0994310022D9A5 /* ANNativeAdStarRating.m */,
 				8AB8762B1A0994310022D9A5 /* ANNativeMediatedAdController.h */,
 				8AB8762C1A0994310022D9A5 /* ANNativeMediatedAdController.m */,
+				0E9F613420FFDC3B009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h */,
 				8AB8762E1A0994310022D9A5 /* ANNativeMediatedAdResponse.m */,
 				8A598F881A1EA061009BA879 /* ANNativeStandardAdResponse.h */,
 				8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */,
@@ -2416,6 +2406,7 @@
 				8A9AEDBD1A1BE8CE00C58BDA /* ANNativeAdStarRating.h in Headers */,
 				8A9AEDBF1A1BE8CE00C58BDA /* ANNativeCustomAdapter.h in Headers */,
 				8A9AEDE51A1BF88300C58BDA /* ANNativeMediatedAdController.h in Headers */,
+				0E9F613620FFDCD7009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h in Headers */,
 				8A9AEDC01A1BE8CE00C58BDA /* ANNativeMediatedAdResponse.h in Headers */,
 				8A598F8B1A1EA061009BA879 /* ANNativeStandardAdResponse.h in Headers */,
 				00D6B04820D1BC9B007A3439 /* ANOMIDImplementation.h in Headers */,
@@ -2854,11 +2845,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				fr,
 				Base,
-				de,
-				es,
-				"zh-Hans",
 			);
 			mainGroup = EC3E5CD31843C6D50070315E;
 			productRefGroup = EC3E5CDD1843C6D50070315E /* Products */;
@@ -2937,7 +2924,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8ADA36201A82A8D700AF65AA /* ANSDKResources.bundle in Resources */,
-				60F6AC1F2051C50C0022560D /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3047,7 +3033,6 @@
 				8A4FF3A11A2F72D00000E4CC /* compass@2x.png in Resources */,
 				8A6CD9271A96B2FD0060BCF4 /* compass@3x.png in Resources */,
 				ECE4EB06194B76960069D934 /* errors.strings in Resources */,
-				60F6AC1E2051C50C0022560D /* Info.plist in Resources */,
 				ECE4EB09194B76960069D934 /* interstitial_closebox.png in Resources */,
 				ECE4EB0A194B76960069D934 /* interstitial_closebox@2x.png in Resources */,
 				8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */,
@@ -3068,7 +3053,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */,
-				60F6AC1D2051C50C0022560D /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3488,12 +3472,7 @@
 		FC210A302007D529002A9F0E /* ANBrowserViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FC210A362007D5EB002A9F0E /* Base */,
-				FCAE131B2023CB9A00A946B1 /* de */,
-				FC83AEEF2025101A009A394D /* en */,
-				FCAE13202023CBFE00A946B1 /* es */,
-				FCAE132A2023CD2300A946B1 /* fr */,
-				FCAE13252023CC1100A946B1 /* zh-Hans */,
+				0E6D9AB220D1A943001FA1FA /* Base */,
 			);
 			name = ANBrowserViewController.xib;
 			sourceTree = "<group>";
@@ -3501,12 +3480,7 @@
 		FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FC210A372007D5EB002A9F0E /* Base */,
-				FCAE131C2023CB9A00A946B1 /* de */,
-				FC83AEF12025101F009A394D /* en */,
-				FCAE13212023CBFE00A946B1 /* es */,
-				FCAE132B2023CD3700A946B1 /* fr */,
-				FCAE13262023CC1100A946B1 /* zh-Hans */,
+				0E6D9AB320D1A943001FA1FA /* Base */,
 			);
 			name = ANBrowserViewController_SizeClasses.xib;
 			sourceTree = "<group>";

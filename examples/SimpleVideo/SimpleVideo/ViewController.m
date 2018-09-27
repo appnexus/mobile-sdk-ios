@@ -20,9 +20,12 @@
 
 #import <AppNexusSDK/AppNexusSDK.h>
 
-NSString *const  videoContent  = @"https://acdn.adnxs.com/mobile/video_test/content/Scenario.mp4";
 
+
+NSString *const  videoContent  = @"https://acdn.adnxs.com/mobile/video_test/content/Scenario.mp4";
 NSString *const placementId = @"9924001";
+
+
 
 @interface ViewController ()<ANInstreamVideoAdLoadDelegate, ANInstreamVideoAdPlayDelegate>
 
@@ -44,8 +47,9 @@ NSString *const placementId = @"9924001";
 
 @property (nonatomic, assign) BOOL isvideoAdAvailable;
 
-
 @end
+
+
 
 @implementation ViewController
 
@@ -68,10 +72,11 @@ NSString *const placementId = @"9924001";
     }
     
     [self setupContentPlayer];
-    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placementId];
+//    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placementId];
+    self.videoAd = [[ANInstreamVideoAd alloc] initWithMemberId:958 inventoryCode:@"trucksmash"];
     [self.videoAd loadAdWithDelegate:self];
-    self.videoAd.opensInNativeBrowser = false;
-    
+    self.videoAd.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
+
 }
 
 - (void)didReceiveMemoryWarning {

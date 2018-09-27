@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,8 +13,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ANBrowserViewController">
             <connections>
                 <outlet property="backButton" destination="17" id="27"/>
-                <outlet property="doneButton" destination="18" id="28"/>
                 <outlet property="forwardButton" destination="19" id="29"/>
+                <outlet property="okButton" destination="18" id="4m0-M3-COp"/>
                 <outlet property="openInButton" destination="11" id="30"/>
                 <outlet property="refreshButton" destination="F1H-By-jAw" id="aD7-uQ-Cbc"/>
                 <outlet property="toolbar" destination="10" id="v9v-RU-Bmh"/>
@@ -81,7 +81,7 @@
                         <barButtonItem title="OK" style="done" id="18">
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="Done"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="OK"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="closeAction:" destination="-1" id="33"/>
