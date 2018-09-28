@@ -343,39 +343,29 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     static NSString  *userAgent               = nil;
     static BOOL       userAgentQueryIsActive  = NO;
 
-
     if (!userAgent) {
         if (!userAgentQueryIsActive)
         {
             @synchronized (self) {
                 userAgentQueryIsActive = YES;
             }
+            
+            WKWebView  *webViewForUserAgent  = [[WKWebView alloc] init];
+            UIWindow   *currentWindow        = [UIApplication sharedApplication].keyWindow;
 
-            dispatch_async(dispatch_get_main_queue(),
-            ^{
-                WKWebView  *webViewForUserAgent  = [[WKWebView alloc] init];
-                UIWindow   *currentWindow        = [UIApplication sharedApplication].keyWindow;
+            [webViewForUserAgent setHidden:YES];
+            [currentWindow addSubview:webViewForUserAgent];
 
-                [webViewForUserAgent setHidden:YES];
-                [currentWindow addSubview:webViewForUserAgent];
+            NSString *script = @"navigator.userAgent";
+            userAgent = [webViewForUserAgent stringByEvaluatingJavaScriptFromString:script];
+            [webViewForUserAgent stopLoading];
+            [webViewForUserAgent removeFromSuperview];
 
-                [webViewForUserAgent evaluateJavaScript: @"navigator.userAgent"
-                                      completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
-                                      {
-                                          ANLogMarkMessage(@"userAgentString=%@", userAgentString);
-                                          userAgent = userAgentString;
-
-                                          [webViewForUserAgent stopLoading];
-                                          [webViewForUserAgent removeFromSuperview];
-
-                                          @synchronized (self) {
-                                              userAgentQueryIsActive = NO;
-                                          }
-                                      } ];
-            });
+            @synchronized (self) {
+                userAgentQueryIsActive = NO;
+            }
         }
     }
-
     //
     ANLogMarkMessage(@"userAgent=%@", userAgent);
     return userAgent;
