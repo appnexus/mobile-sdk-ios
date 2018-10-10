@@ -13,6 +13,24 @@
 #define kSASRefreshIntervalOff		(-1)
 #define kSASRefreshIntervalMiminum	20
 
+/**
+ Informations needed to configure the parallax effect manually.
+ */
+
+@interface SASParallaxInfos : NSObject
+
+/**
+ Initializes and returns a SASParallaxInfos object for a given SASBannerView.
+ 
+ @param topOrigin The vertical origin of the parallax viewport relative to UIScreen. The viewport represents the whole area where the parallax should be displayed. For example, if you don't want to include status and the navigation bars, the top origin should be 64pts.
+ @param height The height of the parallax viewport relative to UIScreen.
+ 
+ @return an initialized instance of SASParallaxInfos.
+ */
+- (nonnull instancetype)initWithViewportTopOrigin:(CGFloat)topOrigin viewportHeight:(CGFloat)height;
+
+@end
+
 
 /** The SASBannerView class provides a wrapper view that displays an ad banner to the user.
  
@@ -38,24 +56,39 @@
 /// @name Ad banner view properties
 ///-----------------------------------
 
-/** Whether the ad banner should expand from the top to the bottom.
+/**
+ Whether the ad banner should expand from the top to the bottom.
  
- On a banner placement, "expand" formats can be loaded. 
- This will cause the view to resize itself in an animated way. If you place your banner at the top of your view, set this property to YES, if you place it at the bottom, set it to NO.
+ On a banner placement, "expand" formats can be loaded. This will cause the view to resize itself in an animated
+ way. If you place your banner at the top of your view, set this property to YES, if you place it at the bottom, set it to NO.
  
  */
 
 @property (nonatomic, assign) BOOL expandsFromTop;
 
 /**
- * Starts or stops the auto refresh of ads on this SASBannerView by setting
- * the refresh interval in seconds. The refresh interval cannot be less than
- * kSASRefreshIntervalMiminum (20 seconds)
- * By default, the refresh interval is set to kSASRefreshIntervalOff.
- *
+ Starts or stops the auto refresh of ads on this SASBannerView by setting the refresh interval in seconds. The
+ refresh interval cannot be less than kSASRefreshIntervalMiminum (20 seconds)
+ 
+ By default, the refresh interval is set to kSASRefreshIntervalOff.
+ 
  */
 
 @property (nonatomic, assign) NSInteger refreshInterval;
+
+
+/** Sets informations that will be used for the parallax effect.
+ 
+ In most cases, the banner view will automatically get any information needed to allow the parallax effect to
+ work properly. However in some complex integrations, the banner might compute these informations improperly.
+ In this case, you can provide an object with the relevant informations.
+ 
+ If you set a value here, parallax will not be handled automatically by the SDK anymore. Set this value to nil
+ to get back to automatic.
+ 
+ */
+
+@property (nonatomic, retain, nullable) SASParallaxInfos *parallaxInfos;
 
 
 ///-----------------------------------
