@@ -47,7 +47,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _internetReachability = [ANReachability reachabilityForInternetConnection];
+        _internetReachability = [ANReachability sharedReachabilityForInternetConnection];
     }
     return self;
 }

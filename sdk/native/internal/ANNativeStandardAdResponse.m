@@ -50,6 +50,7 @@
 @synthesize rating = _rating;
 @synthesize mainImage = _mainImage;
 @synthesize mainImageURL = _mainImageURL;
+@synthesize mainImageSize = _mainImageSize;
 @synthesize iconImage = _iconImage;
 @synthesize iconImageURL = _iconImageURL;
 @synthesize socialContext = _socialContext;

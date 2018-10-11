@@ -93,6 +93,11 @@
 @property (nonatomic, readonly, strong) NSURL *mainImageURL;
 
 /*!
+ * The main image size
+ */
+@property (nonatomic, readonly, assign) CGSize mainImageSize;
+
+/*!
  * A URL which loads the ad icon image.
  */
 @property (nonatomic, readonly, strong) NSURL *iconImageURL;

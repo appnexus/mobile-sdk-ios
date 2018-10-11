@@ -554,6 +554,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     if ([labelValue isEqualToString:kANUniversalTagAdServerResponseKeyNativeMainMediaDefaultLabel]) {
                         NSString *mainImageURLString = [[mainImageData objectForKey:kANUniversalTagAdServerResponseKeyNativeMainMediaURL] description];
                         nativeAd.mainImageURL = [NSURL URLWithString:mainImageURLString];
+                        
+                        CGFloat width = [(mainImageData[@"width"] ?: @0) floatValue];
+                        CGFloat height = [(mainImageData[@"height"] ?: @0) floatValue];
+                        nativeAd.mainImageSize = CGSizeMake(width, height);
                         *stop = YES;
                     }
                 }

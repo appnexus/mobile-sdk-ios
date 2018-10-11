@@ -23,6 +23,7 @@
 @property (nonatomic, readwrite, strong) ANNativeAdStarRating *rating;
 @property (nonatomic, readwrite, strong) UIImage *mainImage;
 @property (nonatomic, readwrite, strong) NSURL *mainImageURL;
+@property (nonatomic, readwrite, assign) CGSize mainImageSize;
 @property (nonatomic, readwrite, strong) UIImage *iconImage;
 @property (nonatomic, readwrite, strong) NSURL *iconImageURL;
 @property (nonatomic, readwrite, strong) NSString *socialContext;

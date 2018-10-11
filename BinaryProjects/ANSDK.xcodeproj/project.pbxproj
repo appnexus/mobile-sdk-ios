@@ -346,6 +346,9 @@
 		8AFC046F1A2E75AE00BEA485 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC046E1A2E75AE00BEA485 /* AdSupport.framework */; };
 		8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04701A2E760800BEA485 /* MessageUI.framework */; };
 		8AFC04731A2E78E400BEA485 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04721A2E78E400BEA485 /* StoreKit.framework */; };
+		9EEE4E50214FD2100056C5DD /* ANCarrierObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */; };
+		9EEE4E51214FD2100056C5DD /* ANCarrierObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */; };
+		9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */; };
 		ECE4EADA194B768A0069D934 /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */; };
 		ECE4EADB194B768A0069D934 /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA99194B768A0069D934 /* NSTimer+ANCategory.m */; };
 		ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */; };
@@ -1164,6 +1167,8 @@
 		8AFC046E1A2E75AE00BEA485 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8AFC04701A2E760800BEA485 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8AFC04721A2E78E400BEA485 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANCarrierObserver.h; sourceTree = "<group>"; };
+		9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANCarrierObserver.m; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC48177B1845046A0066BBFE /* ANSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ANSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
@@ -1456,6 +1461,8 @@
 				609732C71E42E9860061EC0A /* ANUniversalTagAdServerResponse.m */,
 				609732C81E42E9860061EC0A /* ANUniversalTagRequestBuilder.h */,
 				609732C91E42E9860061EC0A /* ANUniversalTagRequestBuilder.m */,
+				9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */,
+				9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */,
 			);
 			name = universalTag;
 			sourceTree = "<group>";
@@ -2418,6 +2425,7 @@
 				609732DA1E42E9860061EC0A /* ANRTBVideoAd.h in Headers */,
 				8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */,
 				8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */,
+				9EEE4E50214FD2100056C5DD /* ANCarrierObserver.h in Headers */,
 				8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */,
 				0035C5AE1F4496FD00915E97 /* ANSSMMediationAdViewController.h in Headers */,
 				609732C11E42E9670061EC0A /* ANSSMStandardAd.h in Headers */,
@@ -3144,6 +3152,7 @@
 				8A9AEDF51A1BF99D00C58BDA /* ANClickOverlayView.m in Sources */,
 				609732B91E42E90C0061EC0A /* ANCSMVideoAd.m in Sources */,
 				0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */,
+				9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
 				8A9AEDF61A1BF99D00C58BDA /* ANGlobal.m in Sources */,
 				609733061E42EAFF0061EC0A /* ANInstreamVideoAd.m in Sources */,
 				8A9AEDF71A1BF99D00C58BDA /* ANInterstitialAd.m in Sources */,
@@ -3351,6 +3360,7 @@
 				8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */,
 				4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */,
 				4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */,
+				9EEE4E51214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
 				609732CF1E42E9860061EC0A /* ANUniversalAdFetcher.m in Sources */,
 				609732D21E42E9860061EC0A /* ANUniversalTagAdServerResponse.m in Sources */,
 				609732D51E42E9860061EC0A /* ANUniversalTagRequestBuilder.m in Sources */,
