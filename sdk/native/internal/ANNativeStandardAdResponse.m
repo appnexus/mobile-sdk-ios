@@ -60,7 +60,7 @@
 @synthesize sponsoredBy = _sponsoredBy;
 @synthesize fullText = _fullText;
 @synthesize creativeId = _creativeId;
-
+@synthesize additionalDescription = _additionalDescription;
 
 
 

@@ -31,6 +31,7 @@
 @property (nonatomic, readwrite, strong) NSString *creativeId;
 @property (nonatomic, readwrite, strong) NSString *adObjectMediaType;
 @property (nonatomic, readwrite, strong) NSString *fullText;
+@property (nonatomic, readwrite, strong) NSString *additionalDescription;
 
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *clickTrackers;
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *impTrackers;

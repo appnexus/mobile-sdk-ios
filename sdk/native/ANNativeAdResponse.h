@@ -124,6 +124,11 @@
  * description of full Text
  */
 @property (nonatomic, readonly, strong) NSString *fullText;
+    
+/*!
+ * Additional description of the ad
+ */
+@property (nonatomic, readwrite, strong) NSString *additionalDescription;
 
 /*!
  * The network which supplied this native ad response.
