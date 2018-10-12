@@ -514,7 +514,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         ANNativeStandardAdResponse *nativeAd = [[ANNativeStandardAdResponse alloc] init];
         
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeAdditionalDescription] isKindOfClass:[NSString class]]) {
-            nativeAd.adObjectMediaType = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeAdditionalDescription];
+            nativeAd.additionalDescription = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeAdditionalDescription] copy];
         }
         
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMediaType] isKindOfClass:[NSString class]]) {
