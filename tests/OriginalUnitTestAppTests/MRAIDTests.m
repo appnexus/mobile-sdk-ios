@@ -149,16 +149,40 @@
 
 #pragma mark - mraid.expand()
 
-- (void)testExpandFromPortraitUpsideDown { // MS-510
-    [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
-    [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
-    [self expand];
-    XCTAssertFalse([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Did not expect portrait right side up orientation");
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
-    
-    [self close];
-    XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
+-(BOOL)isSupportPortraitUpsideDown {
+    BOOL ishasPortraitUpsideDown = YES;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+        // with notch: 44.0 on iPhone X, XS, XS Max, XR on iOS 12+. and >0.0 on iOS 11
+        // without notch: 20.0 on iPhone 8 on iOS 12+.  will be 0 on iOS 11
+        if (mainWindow.safeAreaInsets.top > 20.0 || (mainWindow.safeAreaInsets.top > 0.0 && mainWindow.safeAreaInsets.top != 20.0)) {
+            ishasPortraitUpsideDown = NO;
+        }
+        int deviceHeight  = (int)[[UIScreen mainScreen] nativeBounds].size.height;
+        if (deviceHeight ==  2208) {
+            ishasPortraitUpsideDown = NO;
+        }
+        
+    }
+    return ishasPortraitUpsideDown;
+}
 
+- (void)testExpandFromPortraitUpsideDown { // MS-510
+    
+    if ([self isSupportPortraitUpsideDown]) {
+        //testExpandFromPortraitUpsideDown can't run for iPhone X
+        // Apps are now designed to accommodate the notch and adjacent tabs on the iPhone X display and would not work with the phone upside-down.
+        [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
+        [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
+        [self expand];
+        XCTAssertFalse([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortrait, @"Did not expect portrait right side up orientation");
+        XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
+        
+        [self close];
+        XCTAssertTrue([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationPortraitUpsideDown, @"Expected portrait upside down orientation");
+    }
+    
+    
     [self clearTest];
 }
 
@@ -270,7 +294,14 @@
     }
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected landscape max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
     
-    [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
+    if (![self isSupportPortraitUpsideDown]) {
+        [self rotateDeviceToOrientation:UIInterfaceOrientationPortraitUpsideDown];
+        // Apps are now designed to accommodate the notch and adjacent tabs on the iPhone X display and would not work with the phone upside-down.
+    }else {
+        [self rotateDeviceToOrientation:UIInterfaceOrientationPortrait];
+    }
+    
+    
     maxSize = [self getMaxSize];
     width = maxSize.x;
     height = maxSize.y;

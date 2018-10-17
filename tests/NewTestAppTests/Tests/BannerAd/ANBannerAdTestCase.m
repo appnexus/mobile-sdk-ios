@@ -41,7 +41,7 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
- 
+    
     [[ANHTTPStubbingManager sharedStubbingManager] disable];
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
     
@@ -53,7 +53,7 @@
     self.banner = nil;
     [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
-   
+    
     self.loadAdSuccesfulException = nil;
     
 }
@@ -71,7 +71,7 @@
 }
 
 - (void)testBannerAllowMagicSize {
-  
+    
     self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 430)];
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
     
@@ -84,10 +84,10 @@
     ANSDKSettings.sharedInstance.sizesThatShouldConstrainToSuperview  = sizes;
     CGSize size = CGSizeMake(adWidth, adHeight);
     [self setupBannerWithPlacement:@"13653381" withFrame:rect andSize:size];
-
+    
     [self.bannerSuperView addSubview:self.banner];
-
-
+    
+    
     [self stubRequestWithResponse:@"SuccessfulAllowMagicSizeBannerObjectResponse"];
     [self.banner loadAd];
     
@@ -106,15 +106,14 @@
     
 }
 
-
 -(void)testBannerAdLocationPopupBlocked{
- 
+    
     ANSDKSettings.sharedInstance.HTTPSEnabled = YES;
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self stubRequestWithResponse:@"SuccessfulLocationCreativeForBannerAdResponse"];
-
+    
     self.locationEnabledForCreative = NO;
     ANSDKSettings.sharedInstance.locationEnabledForCreative = NO;
     
@@ -137,13 +136,8 @@
     
     
     [self waitForTimeInterval:8];
-    if(self.locationEnabledForCreative){
-        if ([CLLocationManager locationServicesEnabled]){
-            XCTAssertTrue([self isLocationPopupExist]);
-        }
-    }else{
-        XCTAssertFalse([self isLocationPopupExist]);
-    }
+    
+    XCTAssertFalse([self isLocationPopupExist]);
     
     
     XCTAssertEqual(self.banner.adSize.width, 300);
@@ -158,14 +152,14 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self stubRequestWithResponse:@"SuccessfulLocationCreativeForBannerAdResponse"];
-
+    
     
     self.banner = nil;
     self.locationEnabledForCreative = YES;
     
-   
+    
     ANSDKSettings.sharedInstance.locationEnabledForCreative = YES;
-
+    
     self.banner = [[ANBannerAdView alloc] initWithFrame: CGRectMake(50 , 50 , 300,250)
                                             placementId: @"1"
                                                  adSize: CGSizeMake(300 , 250)];
@@ -186,10 +180,8 @@
                                  }];
     
     [self waitForTimeInterval:8];
-    if(self.locationEnabledForCreative){
-        if ([CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-            XCTAssertTrue([self isLocationPopupExist]);
-        }
+    if (self.locationEnabledForCreative && [CLLocationManager locationServicesEnabled] && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied && [CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined){
+        XCTAssertTrue([self isLocationPopupExist]);
     }else{
         XCTAssertFalse([self isLocationPopupExist]);
     }
@@ -198,11 +190,11 @@
     XCTAssertEqual(self.banner.adType, ANAdTypeBanner);
     XCTAssertEqualObjects(self.banner.creativeId, @"106794309");
     [UIApplication sharedApplication].keyWindow.rootViewController  = copyRootViewController;
-
+    
 }
 
 -(BOOL)isLocationPopupExist {
-  
+    
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     UIViewController *rootViewController = window.rootViewController;
     
@@ -248,7 +240,7 @@
 
 - (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
     [self.loadAdSuccesfulException fulfill];
-
+    
 }
 
 
