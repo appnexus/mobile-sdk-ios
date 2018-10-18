@@ -13,9 +13,6 @@
  limitations under the License.
  */
 
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -23,8 +20,7 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANAdViewInternalDelegate.h"
 #import "ANGDPRSettings.h"
-
-
+#import "ANCarrierObserver.h"
 
 @interface ANUniversalTagRequestBuilder()
 
@@ -312,14 +308,21 @@
         deviceDict[@"model"] = deviceModel;
     }
     
-    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier *carrier = [netinfo subscriberCellularProvider];
-    
-    if (carrier.carrierName.length > 0) {
-        deviceDict[@"carrier"] = carrier.carrierName;
+    ANCarrierObserver *carrierObserver = ANCarrierObserver.shared;
+    ANCarrierMeta *carrierMeta = carrierObserver.carrierMeta;
+    if (carrierMeta.name.length > 0) {
+        deviceDict[@"carrier"] = carrierMeta.name;
     }
     
-    ANReachability *reachability = [ANReachability reachabilityForInternetConnection];
+    if (carrierMeta.countryCode.length > 0) {
+        deviceDict[@"mcc"] = @([carrierMeta.countryCode integerValue]);
+    }
+    
+    if (carrierMeta.networkCode.length > 0) {
+        deviceDict[@"mnc"] = @([carrierMeta.networkCode integerValue]);
+    }
+    
+    ANReachability *reachability = [ANReachability sharedReachabilityForInternetConnection];
     ANNetworkStatus status = [reachability currentReachabilityStatus];
     NSUInteger connectionType = 0;
     switch (status) {
@@ -334,13 +337,6 @@
             break;
     }
     deviceDict[@"connectiontype"] = @(connectionType);
-    
-    if (carrier.mobileCountryCode.length > 0) {
-        deviceDict[@"mcc"] = @([carrier.mobileCountryCode integerValue]);
-    }
-    if (carrier.mobileNetworkCode.length > 0) {
-        deviceDict[@"mnc"] = @([carrier.mobileNetworkCode integerValue]);
-    }
     
     deviceDict[@"limit_ad_tracking"] = [NSNumber numberWithBool:!ANAdvertisingTrackingEnabled()];
     
