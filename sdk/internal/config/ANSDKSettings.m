@@ -17,8 +17,8 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANGlobal.h"
 #import "ANLogManager.h"
-
-
+#import "ANCarrierObserver.h"
+#import "ANReachability.h"
 
 
 @interface ANProdHTTPBaseUrlConfig : NSObject <ANBaseUrlConfig>
@@ -145,6 +145,8 @@
 - (void) optionalSDKInitialization
 {
     [ANGlobal getUserAgent];
+    [[ANReachability sharedReachabilityForInternetConnection] start];
+    [ANCarrierObserver shared];
 }
 
 

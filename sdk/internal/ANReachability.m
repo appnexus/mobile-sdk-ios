@@ -140,6 +140,14 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return returnValue;
 }
 
++ (instancetype)sharedReachabilityForInternetConnection {
+    static ANReachability *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [self reachabilityForInternetConnection];
+    });
+    return sharedInstance;
+}
 
 + (instancetype)reachabilityForInternetConnection
 {
@@ -159,7 +167,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark - Start and stop notifier
 
-- (BOOL)startNotifier
+- (BOOL)start
 {
     BOOL returnValue = NO;
     SCNetworkReachabilityContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};

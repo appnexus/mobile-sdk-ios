@@ -78,18 +78,13 @@ extern NSString *kANReachabilityChangedNotification;
 /*!
  * Checks whether the default route is available. Should be used by applications that do not connect to a particular host.
  */
-+ (instancetype)reachabilityForInternetConnection;
++ (instancetype)sharedReachabilityForInternetConnection;
 
+- (BOOL)start;
 
 #pragma mark reachabilityForLocalWiFi
 //reachabilityForLocalWiFi has been removed from the sample.  See ReadMe.md for more information.
 //+ (instancetype)reachabilityForLocalWiFi;
-
-/*!
- * Start listening for reachability notifications on the current run loop.
- */
-- (BOOL)startNotifier;
-- (void)stopNotifier;
 
 - (ANNetworkStatus)currentReachabilityStatus;
 

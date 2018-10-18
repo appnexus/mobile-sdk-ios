@@ -96,6 +96,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingValue = @"v
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingScale = @"scale";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeCustomKeywordsDict = @"custom";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeSponsoredBy = @"sponsored_by";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeAdditionalDescription = @"desc2";
 
 
 // Trackers
@@ -512,6 +513,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     if([nativeRTBObject isKindOfClass:[NSDictionary class]]){
         ANNativeStandardAdResponse *nativeAd = [[ANNativeStandardAdResponse alloc] init];
         
+        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeAdditionalDescription] isKindOfClass:[NSString class]]) {
+            nativeAd.additionalDescription = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeAdditionalDescription] copy];
+        }
+        
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMediaType] isKindOfClass:[NSString class]]) {
             nativeAd.adObjectMediaType = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMediaType];
         }
@@ -554,6 +559,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     if ([labelValue isEqualToString:kANUniversalTagAdServerResponseKeyNativeMainMediaDefaultLabel]) {
                         NSString *mainImageURLString = [[mainImageData objectForKey:kANUniversalTagAdServerResponseKeyNativeMainMediaURL] description];
                         nativeAd.mainImageURL = [NSURL URLWithString:mainImageURLString];
+                        
+                        CGFloat width = [(mainImageData[@"width"] ?: @0) floatValue];
+                        CGFloat height = [(mainImageData[@"height"] ?: @0) floatValue];
+                        nativeAd.mainImageSize = CGSizeMake(width, height);
                         *stop = YES;
                     }
                 }
