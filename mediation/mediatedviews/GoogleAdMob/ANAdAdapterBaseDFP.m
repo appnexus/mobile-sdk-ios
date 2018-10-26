@@ -34,6 +34,15 @@
             break;
     }
     
+    NSString *content_url = targetingParameters.customKeywords[@"content_url"];
+    if ( content_url && ([content_url length] > 0) )
+    {
+        request.contentURL = content_url;
+        NSMutableDictionary *dicRemoveContentURL = [targetingParameters.customKeywords mutableCopy];
+        [dicRemoveContentURL removeObjectForKey:@"content_url"];
+        targetingParameters.customKeywords = dicRemoveContentURL;
+    }
+    
     ANLocation *location = targetingParameters.location;
     if (location) {
         [request setLocationWithLatitude:location.latitude

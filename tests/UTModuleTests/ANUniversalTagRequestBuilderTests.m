@@ -139,7 +139,7 @@ static NSString  *videoPlacementID  = @"9924001";
         NSNumber *connectionType = device[@"connectiontype"];
         XCTAssertNotNil(connectionType);
 
-        ANReachability *reachability = [ANReachability reachabilityForInternetConnection];
+        ANReachability *reachability = [ANReachability sharedReachabilityForInternetConnection];
         ANNetworkStatus status = [reachability currentReachabilityStatus];
         switch (status) {
             case ANNetworkStatusReachableViaWiFi:
@@ -539,6 +539,48 @@ static NSString  *videoPlacementID  = @"9924001";
     XCTAssertEqualObjects(@"application/json", contentType);
     
     
+}
+
+- (void)testUTRequestWithContentURLCustomKeywordsValue
+{
+    
+    NSString                *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher  = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    
+    [adFetcher addCustomKeywordWithKey:@"content_url" value:@"http://www.appnexus.com"];
+    
+    NSURLRequest        *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    XCTestExpectation   *expectation    = [self expectationWithDescription:@"Dummy expectation"];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSError *error;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                        options:kNilOptions
+                                                          error:&error];
+        TESTTRACEM(@"jsonObject=%@", jsonObject);
+        
+        XCTAssertNil(error);
+        XCTAssertNotNil(jsonObject);
+        XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+        NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+        NSArray *keywords = jsonDict[@"keywords"];
+
+        XCTAssertNotNil(keywords);
+        
+        for (NSDictionary *keyword in keywords) {
+            XCTAssertNotNil(keyword[@"key"]);
+            NSString *key = keyword[@"key"];
+            NSArray *value = keyword[@"value"];
+            if ([key isEqualToString:@"content_url"]) {
+                XCTAssertEqualObjects(value, @[@"http://www.appnexus.com"]);
+            }
+        }
+        
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
 
 @end
