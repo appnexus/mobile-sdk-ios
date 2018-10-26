@@ -3,7 +3,7 @@
 //  SASAdView.h
 //  SmartAdServer
 //
-//  Created by Cl??mence Laurent on 20/07/12.
+//  Created by Clémence Laurent on 20/07/12.
 //  Copyright (c) 2012 Smart AdServer. All rights reserved.
 //
 
@@ -12,8 +12,8 @@
 #import "SASAdViewDelegate.h"
 
 #define kSASSDKName							@"SDKiOS"
-#define kSASSDKVersion						@"6.6"
-#define kSASSDKRev                          @"64663237363936663730313632333933653534363138623331303139626335616536333730663562"
+#define kSASSDKVersion						@"6.10"
+#define kSASSDKRev                          @"323338"
 
 #define kSASCloseLinearMessage				@"closeLinear"
 
@@ -46,6 +46,8 @@ typedef NS_ENUM(NSInteger, SASLoader) {
  */
 
 @class SASRequestManager, SASLoaderView, SASMRAIDBridge, SASAdViewController;
+@protocol SASBidderAdapterProtocol;
+
 @interface SASAdView : UIView
 
 
@@ -66,7 +68,7 @@ typedef NS_ENUM(NSInteger, SASLoader) {
 
 /** The modal parent view controller is used to present the modal view controller following the ad's click.
  
- It must not be nil otherwise most post click interaction will not be able to work properly (post click modal, StoreKit, ???).
+ It must not be nil otherwise most post click interaction will not be able to work properly (post click modal, StoreKit, …).
  
  @warning *Important*: The modal parent view controller is not retained by the SASAdView, so you need to set it to nil before it is released.
  
@@ -108,6 +110,13 @@ typedef NS_ENUM(NSInteger, SASLoader) {
 
 @property (nonatomic, readonly) unsigned long lastCallTimestamp;
 
+
+/** Whether the ad is displayed using a web view for the rendering.
+ 
+ */
+
+@property (assign, readonly) BOOL webViewRendering;
+
 ///-----------------------------------
 /// @name Global Settings
 ///-----------------------------------
@@ -137,7 +146,7 @@ typedef NS_ENUM(NSInteger, SASLoader) {
 + (void)setBaseURL:(nonnull NSString *)baseURL;
 
 
-/** Specifies the device's location. This object incorporates the geographical coordinates and altitude of the device???s location along with values indicating
+/** Specifies the device's location. This object incorporates the geographical coordinates and altitude of the device’s location along with values indicating
  the accuracy of the measurements and when those measurements were made.
  
  Use this method if you want to provide geo-targeted advertisement.
@@ -227,6 +236,8 @@ typedef NS_ENUM(NSInteger, SASLoader) {
  This transient session ID is used only for insertion capping/linking. It will not be shared with any other apps and will be
  automatically reset frequently.
  
+ @warning This method will have no effect if custom identifier is enabled.
+ 
  */
 
 + (void)setTransientSessionIDEnabled:(BOOL)transientIDEnabled;
@@ -237,10 +248,36 @@ typedef NS_ENUM(NSInteger, SASLoader) {
  Calling this method will cause the UDID to be hashed by the SDK when requesting an advertisement.
  
  @warning By hashing the UDID, Smart AdServer will not get the original value, so it can prevent from interfacing with other partners and applications.
+ @warning This method will have no effect if custom identifier is enabled.
  
  */
 
 + (void)enableIdentifierHashing;
+
+
+/** Disables the hashed mode for the UDID in the ad requests.
+ 
+ @warning This method will have no effect if custom identifier is enabled.
+ 
+ */
+
++ (void)disableIdentifierHashing;
+
+
+/** Enables the custom identifier for the UDID in the ad requests.
+ 
+ Calling this method will cause the UDID to be replaced by the custom identifier you provided when requesting an advertisement.
+ 
+*/
+
++ (void)enableCustomIdentifierWithID:(nonnull NSString *)customID;
+
+
+/** Disables the custom identifier for the UDID in the ad requests.
+ 
+ */
+
++ (void)disableCustomIdentifier;
 
 
 /** Handle custom URLs for LivePreview.
@@ -332,20 +369,62 @@ typedef NS_ENUM(NSInteger, SASLoader) {
  
  @param formatId The format ID in the Smart AdServer manage interface.
  @param pageId The page ID in the Smart AdServer manage interface.
- @param isMaster The master flag. If this is YES, the a Page view will be counted. This should have the YES value for the first ad on the page, 
+ @param isMaster The master flag. If this is YES, the a Page view will be counted. This should have the YES value for the first ad on the page,
  and NO for the others (if you have more than one ad on the same page).
  @param target If you specified targets in the Smart AdServer manage interface, you can specify it here to target your advertisement.
- @param timeout The time given to the ad view to download the ad data. After this time, the ad download will fail,  
+ @param timeout The time given to the ad view to download the ad data. After this time, the ad download will fail,
  call [SASAdViewDelegate adView:didFailToLoadWithError:], and be dismissed if not unlimited. A negative value will disable the timeout.
  
  */
 
 - (void)loadFormatId:(NSInteger)formatId
-			  pageId:(nonnull NSString *)pageId
-			  master:(BOOL)isMaster
-			  target:(nullable NSString *)target
-			 timeout:(float)timeout;
+              pageId:(nonnull NSString *)pageId
+              master:(BOOL)isMaster
+              target:(nullable NSString *)target
+             timeout:(float)timeout;
 
+
+/** Fetches an ad from Smart AdServer and create in-app bidding competition.
+ 
+ Call this method after initializing your SASAdView object to load the appropriate SASAd object from the server.
+ 
+ @param formatId The format ID in the Smart AdServer manage interface.
+ @param pageId The page ID in the Smart AdServer manage interface.
+ @param isMaster The master flag. If this is YES, the a Page view will be counted. This should have the YES value for the first ad on the page,
+ and NO for the others (if you have more than one ad on the same page).
+ @param target If you specified targets in the Smart AdServer manage interface, you can specify it here to target your advertisement.
+ @param bidderAdapter The bidder adapter created from the result of the in-app bidding competition.
+ 
+ */
+
+- (void)loadFormatId:(NSInteger)formatId
+              pageId:(nonnull NSString *)pageId
+              master:(BOOL)isMaster
+              target:(nullable NSString *)target
+       bidderAdapter:(nullable id <SASBidderAdapterProtocol>)bidderAdapter;
+
+
+/** Fetches an ad from Smart AdServer and create in-app bidding competition.
+ 
+ Call this method after initializing your SASAdView object to load the appropriate SASAd object from the server.
+ 
+ @param formatId The format ID in the Smart AdServer manage interface.
+ @param pageId The page ID in the Smart AdServer manage interface.
+ @param isMaster The master flag. If this is YES, the a Page view will be counted. This should have the YES value for the first ad on the page,
+ and NO for the others (if you have more than one ad on the same page).
+ @param target If you specified targets in the Smart AdServer manage interface, you can specify it here to target your advertisement.
+ @param timeout The time given to the ad view to download the ad data. After this time, the ad download will fail,
+ call [SASAdViewDelegate adView:didFailToLoadWithError:], and be dismissed if not unlimited. A negative value will disable the timeout.
+ @param bidderAdapter The bidder adapter created from the result of the in-app bidding competition.
+ 
+ */
+
+- (void)loadFormatId:(NSInteger)formatId
+              pageId:(nonnull NSString *)pageId
+              master:(BOOL)isMaster
+              target:(nullable NSString *)target
+             timeout:(float)timeout
+       bidderAdapter:(nullable id <SASBidderAdapterProtocol>)bidderAdapter;
 
 /* Updates the ad data.
  

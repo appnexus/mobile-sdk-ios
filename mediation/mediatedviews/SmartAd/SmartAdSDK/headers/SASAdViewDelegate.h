@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "SASVideoEvent.h"
 
 
@@ -318,9 +319,9 @@
  Implement this method if you want to be able to modify the frame of the sticked view, for example if your UINavigationBar disappears at some point of the scroll, etc...
  
  @param adView the sending adView.
- @param stickView the view instance that is stuck/unstuck to the UIWindow
+ @param stickyView the view instance that is stuck/unstuck to the UIWindow
  @param stuck true if the view is stuck, false if the view is not stuck anymore
- @param frame the frame of the stickyView.
+ @param stickyFrame the frame of the stickyView.
  @warning This method is not only called the first time an ad creative is expanded, but also when the user rotates the device.
  
  */
@@ -416,5 +417,50 @@
  */
 
 - (void)adView:(nonnull SASAdView *)adView didCollectReward:(nonnull SASReward *)reward;
+
+
+/** Notifies the delegate that the ad view will start playing native video.
+ 
+ Implement this method if you want to know when an ad view starts playing native video (e.g. from a native video).
+ This is useful if you want to track on your side the AVPlayer behaviour.
+ 
+ @param adView The SASAdView instance which is going to play the video.
+ @param player The AVPlayer instance responsible for playing the video.
+ @param playerLayer A CALayer inheriting instance. AVPlayerLayer class for standard native videos. CALayer class for 360° native videos.
+ @param containingView The UIView which is going to contain the video layer.
+ 
+ @warning Interacting with the AVPlayer instance can lead to unexpected behaviour. This method will only be triggered by native video creatives, not by HTML based creatives.
+ 
+ */
+
+- (void)adView:(nonnull SASAdView *)adView willPlayVideoWithAVPlayer:(nonnull AVPlayer *)player withPlayerLayer:(nonnull CALayer *)playerLayer withContainingView:(nonnull UIView *)containingView;
+
+
+/** Notifies the delegate that the layer rendering the current native video ad did change to a new CALayer instance and/or a new container view.
+ 
+ This method will be called for Video-Read ads when they enter fullscreen.
+ 
+ Implement this method if you want to know when a playing native video ad changes its rendering layer or its hierarchical parent.
+ This is useful if you want to track the viewability of the video ad.
+ 
+ @param adView The SASAdView instance which is going to play the video.
+ @param player The AVPlayer instance responsible for playing the video.
+ @param playerLayer A CALayer inheriting instance where the video is rendered. AVPlayerLayer class for standard native videos. CALayer class for 360° native videos.
+ @param containingView The UIView which is going to contain the video layer.
+ 
+ @warning Interacting with the AVPlayer instance can lead to unexpected behaviour. This method will only be triggered by native video creatives, not by HTML based creatives.
+ 
+ */
+
+- (void)adView:(nonnull SASAdView *)adView withAVPlayer:(nonnull AVPlayer *)player didSwitchToPlayerLayer:(nonnull CALayer *)playerLayer withContainingView:(nonnull UIView *)containingView;
+
+
+/** Notifies the delegate that the end card creative from the current video ad has been loaded and displayed.
+ 
+ @param adView An ad view object informing the delegate about the end card creative being loaded.
+ 
+ */
+
+- (void)adViewDidLoadEndCard:(nonnull SASAdView *)adView;
 
 @end

@@ -43,6 +43,9 @@ typedef void(^SASNativeRequestCompletionBlock)(SASNativeAd * _Nullable ad, NSErr
 /**
  Request a native ad from Smart AdServer.
  
+ @warning You can request only one ad at the same time. If you try to request another ad before the call to
+ the completion block, it will fail with an error.
+ 
  @param completionBlock The block that will be called when the ad request is finished.
  */
 - (void)requestAd:(nonnull SASNativeRequestCompletionBlock)completionBlock;
