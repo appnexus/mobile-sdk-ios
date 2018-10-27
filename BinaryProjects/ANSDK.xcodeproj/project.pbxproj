@@ -1455,14 +1455,14 @@
 		4FE7CE781F2FD6A100A5044A /* universalTag */ = {
 			isa = PBXGroup;
 			children = (
+				9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */,
+				9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */,
 				609732C41E42E9860061EC0A /* ANUniversalAdFetcher.h */,
 				609732C51E42E9860061EC0A /* ANUniversalAdFetcher.m */,
 				609732C61E42E9860061EC0A /* ANUniversalTagAdServerResponse.h */,
 				609732C71E42E9860061EC0A /* ANUniversalTagAdServerResponse.m */,
 				609732C81E42E9860061EC0A /* ANUniversalTagRequestBuilder.h */,
 				609732C91E42E9860061EC0A /* ANUniversalTagRequestBuilder.m */,
-				9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */,
-				9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */,
 			);
 			name = universalTag;
 			sourceTree = "<group>";
@@ -2382,6 +2382,7 @@
 				FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */,
 				8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */,
 				8A9AEDD21A1BF88200C58BDA /* ANBrowserViewController.h in Headers */,
+				9EEE4E50214FD2100056C5DD /* ANCarrierObserver.h in Headers */,
 				8A9AEDD31A1BF88200C58BDA /* ANClickOverlayView.h in Headers */,
 				609732B71E42E90C0061EC0A /* ANCSMVideoAd.h in Headers */,
 				8A9AEDB51A1BE8C200C58BDA /* ANCustomAdapter.h in Headers */,
@@ -2425,7 +2426,6 @@
 				609732DA1E42E9860061EC0A /* ANRTBVideoAd.h in Headers */,
 				8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */,
 				8A02D7071D6CE946006831A3 /* ANSDKSettings+PrivateMethods.h in Headers */,
-				9EEE4E50214FD2100056C5DD /* ANCarrierObserver.h in Headers */,
 				8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */,
 				0035C5AE1F4496FD00915E97 /* ANSSMMediationAdViewController.h in Headers */,
 				609732C11E42E9670061EC0A /* ANSSMStandardAd.h in Headers */,
@@ -3149,10 +3149,10 @@
 				8A9AEDF31A1BF99D00C58BDA /* ANBannerAdView.m in Sources */,
 				FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */,
 				8A9AEDF41A1BF99D00C58BDA /* ANBrowserViewController.m in Sources */,
+				9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
 				8A9AEDF51A1BF99D00C58BDA /* ANClickOverlayView.m in Sources */,
 				609732B91E42E90C0061EC0A /* ANCSMVideoAd.m in Sources */,
 				0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */,
-				9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
 				8A9AEDF61A1BF99D00C58BDA /* ANGlobal.m in Sources */,
 				609733061E42EAFF0061EC0A /* ANInstreamVideoAd.m in Sources */,
 				8A9AEDF71A1BF99D00C58BDA /* ANInterstitialAd.m in Sources */,
@@ -3314,6 +3314,7 @@
 				8AD618D11981C11F00AC0780 /* ANBannerAdView.m in Sources */,
 				FCC5DA602034AD3A003DC7B2 /* ANBaseAdObject.m in Sources */,
 				8AD618D21981C11F00AC0780 /* ANBrowserViewController.m in Sources */,
+				9EEE4E51214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
 				8AD618D31981C11F00AC0780 /* ANClickOverlayView.m in Sources */,
 				609732B81E42E90C0061EC0A /* ANCSMVideoAd.m in Sources */,
 				0E35D4AD2088F67E000A6C27 /* ANGDPRSettings.m in Sources */,
@@ -3360,7 +3361,6 @@
 				8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */,
 				4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */,
 				4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */,
-				9EEE4E51214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
 				609732CF1E42E9860061EC0A /* ANUniversalAdFetcher.m in Sources */,
 				609732D21E42E9860061EC0A /* ANUniversalTagAdServerResponse.m in Sources */,
 				609732D51E42E9860061EC0A /* ANUniversalTagRequestBuilder.m in Sources */,
