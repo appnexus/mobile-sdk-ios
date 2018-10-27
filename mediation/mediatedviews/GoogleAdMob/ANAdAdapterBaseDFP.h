@@ -13,12 +13,18 @@
  limitations under the License.
  */
 
-#import "ANTargetingParameters.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
+
+#import "ANTargetingParameters.h"
+#import "ANLogging.h"
+
+
 
 @interface ANAdAdapterBaseDFP : NSObject
 
 + (GADRequest *)googleAdRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
++ (DFPRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
+
 + (ANAdResponseCode)responseCodeFromRequestError:(GADRequestError *)error;
 
 @end

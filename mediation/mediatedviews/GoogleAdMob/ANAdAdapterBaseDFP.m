@@ -15,41 +15,55 @@
 
 #import "ANAdAdapterBaseDFP.h"
 
+
+
 @implementation ANAdAdapterBaseDFP
 
 + (GADRequest *)googleAdRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
     GADRequest *request = [GADRequest request];
-    
+    return  [[self class] completeAdRequest:request fromTargetingParameters:targetingParameters];
+}
+
++ (DFPRequest *)dfpRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters
+{
+    DFPRequest  *dfpRequest  = [DFPRequest request];
+    return  (DFPRequest *)[[self class] completeAdRequest:dfpRequest fromTargetingParameters:targetingParameters];
+}
+
++ (GADRequest *)completeAdRequest: (GADRequest *)gadRequest
+          fromTargetingParameters: (ANTargetingParameters *)targetingParameters
+{
     ANGender gender = targetingParameters.gender;
     switch (gender) {
         case ANGenderMale:
-            request.gender = kGADGenderMale;
+            gadRequest.gender = kGADGenderMale;
             break;
         case ANGenderFemale:
-            request.gender = kGADGenderFemale;
+            gadRequest.gender = kGADGenderFemale;
             break;
         case ANGenderUnknown:
-            request.gender = kGADGenderUnknown;
+            gadRequest.gender = kGADGenderUnknown;
         default:
             break;
     }
-    
+
     NSString *content_url = targetingParameters.customKeywords[@"content_url"];
-    if ( content_url && ([content_url length] > 0) )
+    if ([content_url length] > 0)
     {
-        request.contentURL = content_url;
-        NSMutableDictionary *dicRemoveContentURL = [targetingParameters.customKeywords mutableCopy];
-        [dicRemoveContentURL removeObjectForKey:@"content_url"];
-        targetingParameters.customKeywords = dicRemoveContentURL;
+        gadRequest.contentURL = content_url;
+
+        NSMutableDictionary *dictWithoutContentUrl = [targetingParameters.customKeywords mutableCopy];
+        [dictWithoutContentUrl removeObjectForKey:@"content_url"];
+        targetingParameters.customKeywords = dictWithoutContentUrl;
     }
-    
+
     ANLocation *location = targetingParameters.location;
     if (location) {
-        [request setLocationWithLatitude:location.latitude
+        [gadRequest setLocationWithLatitude:location.latitude
                                longitude:location.longitude
                                 accuracy:location.horizontalAccuracy];
     }
-    
+
     GADExtras *extras = [[GADExtras alloc] init];
     NSMutableDictionary *extrasDictionary = [targetingParameters.customKeywords mutableCopy];
     if (!extrasDictionary) {
@@ -60,10 +74,11 @@
         [extrasDictionary setValue:age forKey:@"Age"];
     }
     extras.additionalParameters = extrasDictionary;
-    [request registerAdNetworkExtras:extras];
-    
-    return request;
+    [gadRequest registerAdNetworkExtras:extras];
+
+    return gadRequest;
 }
+
 
 + (ANAdResponseCode)responseCodeFromRequestError:(GADRequestError *)error {
     ANAdResponseCode code = ANAdResponseInternalError;

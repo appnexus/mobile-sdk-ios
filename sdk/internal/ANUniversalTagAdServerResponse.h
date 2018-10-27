@@ -17,7 +17,6 @@
 
 
 
-
 @interface ANUniversalTagAdServerResponse : NSObject
 
 + (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;

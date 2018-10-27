@@ -17,30 +17,49 @@
 #import "ANAdAdapterBaseDFP.h"
 #import "ANLogging.h"
 
-@interface ANAdAdapterBannerDFP ()
-@property (nonatomic, readwrite, strong) DFPBannerView *dfpBanner;
-@end
+
+
+static NSString *const kANAdAdapterBannerDFPANHB = @"anhb";
+static NSString *const kANAdAdapterBannerDFPSecondPrice = @"second_price";
+
 
 
 /**
- * Server side overridable
+ * Local object to handle server side parameters.
  */
+
 @interface DFPBannerServerSideParameters : NSObject
-@property(nonatomic, readwrite) BOOL isSwipable;
-@property(nonatomic, readwrite) BOOL isSmartBanner;
+@property (nonatomic, readwrite)          BOOL       isSwipable;
+@property (nonatomic, readwrite)          BOOL       isSmartBanner;
+@property (nonatomic, readwrite, strong)  NSString  *secondPrice;
 @end
+
 @implementation DFPBannerServerSideParameters
 @synthesize isSwipable;
 @synthesize isSmartBanner;
+@synthesize secondPrice;
+@end
+
+
+
+
+@interface ANAdAdapterBannerDFP ()
+
+@property (nonatomic, readwrite, strong)  DFPBannerView  *dfpBanner;
+@property (nonatomic, readwrite, strong)  DFPRequest     *dfpRequest;
+
+@property (nonatomic, readwrite)          BOOL            secondPriceIsHigher;
+
 @end
 
 
 
 @implementation ANAdAdapterBannerDFP
+
 @synthesize delegate;
 
 
-#pragma mark ANCustomAdapterBanner
+#pragma mark - ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
@@ -50,8 +69,8 @@
 {
     ANLogDebug(@"Requesting DFP banner with size: %0.1fx%0.1f", size.width, size.height);
     
-    DFPBannerServerSideParameters *ssparam = [self parseServerSide:parameterString];
-	GADAdSize gadAdSize;
+    DFPBannerServerSideParameters  *ssparam    = [self parseServerSide:parameterString];
+    GADAdSize                       gadAdSize;
     
     // Allow server side to enable Smart Banners for this placement
     if (ssparam.isSmartBanner) {
@@ -65,43 +84,75 @@
     } else {
         gadAdSize = GADAdSizeFromCGSize(size);
     }
-    
-	GADRequest* request = [self createRequestFromTargetingParameters:targetingParameters];
+
+
+    //
+    self.dfpRequest  = [ANAdAdapterBaseDFP dfpRequestFromTargetingParameters:targetingParameters ];
+
+    if (ssparam.secondPrice) {
+        //NB  round() is required because [@"0.01" floatValue] approximates 1 as 0.99... which, in turn, becomes an integer of 0.
+        //
+        CGFloat     secondPriceAsNumber    = round([ssparam.secondPrice floatValue] * 100.0);
+
+        if (secondPriceAsNumber >= 0) {
+            NSString  *secondPriceAsToken  = [NSString stringWithFormat:@"%@_%@", kANAdAdapterBannerDFPANHB, @(secondPriceAsNumber)];
+            self.dfpRequest.customTargeting = @{ kANAdAdapterBannerDFPANHB : secondPriceAsToken };
+        }
+    }
+
+
+    //
     self.dfpBanner = [[DFPBannerView alloc] initWithAdSize:gadAdSize];
-	self.dfpBanner.adUnitID = idString;
+    self.dfpBanner.adUnitID = idString;
     self.dfpBanner.rootViewController = rootViewController;
     self.dfpBanner.delegate = self;
-	[self.dfpBanner loadRequest:request];
-}
 
-- (GADRequest *)createRequestFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
-    return [ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters];
+    self.secondPriceIsHigher = NO;
+    self.dfpBanner.appEventDelegate = self;
+
+
+    //
+    [self.dfpBanner loadRequest:self.dfpRequest];
 }
 
 - (DFPBannerServerSideParameters*) parseServerSide:(NSString*) serverSideParameters
 {
     DFPBannerServerSideParameters *p = [DFPBannerServerSideParameters new];
     NSError *jsonParsingError = nil;
+
     if (serverSideParameters == nil || [ serverSideParameters length] == 0) {
         return p;
     }
 
-    NSData* data = [serverSideParameters dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
+    NSData          *data           = [serverSideParameters dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary    *jsonResponse   = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonParsingError];
     
-    if (jsonParsingError == nil && jsonResponse != nil) {
-        p.isSwipable = [[jsonResponse valueForKey:@"swipeable"] boolValue];
-        p.isSmartBanner = [[jsonResponse valueForKey:@"smartbanner"] boolValue];
+    if (jsonParsingError == nil && jsonResponse != nil)
+    {
+        p.isSwipable        = [[jsonResponse valueForKey:@"swipeable"] boolValue];
+        p.isSmartBanner     = [[jsonResponse valueForKey:@"smartbanner"] boolValue];
+        p.secondPrice       = [jsonResponse valueForKey:kANAdAdapterBannerDFPSecondPrice];
     }
+
     return p;
 }
 
-#pragma mark GADBannerViewDelegate
+
+
+
+#pragma mark - GADBannerViewDelegate
 
 - (void)adViewDidReceiveAd:(DFPBannerView *)view
 {
     ANLogDebug(@"DFP banner did load");
-	[self.delegate didLoadBannerAd:view];
+
+    @synchronized (self) {
+        if (self.secondPriceIsHigher) {
+            [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+        } else {
+            [self.delegate didLoadBannerAd:view];
+        }
+    }
 }
 
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error
@@ -179,5 +230,25 @@
 	self.dfpBanner.delegate = nil;
 	self.dfpBanner = nil;
 }
+
+
+
+
+#pragma mark - GADAppEventDelegate
+
+- (void)        adView: (DFPBannerView *)banner
+    didReceiveAppEvent: (NSString *)name
+              withInfo: (NSString *)info
+{
+    ANLogDebug(@"name=%@  info=%@", name, info);
+
+    if (! ([name isEqualToString:@"nobid"] && [info isEqualToString:@"true"]) )  { return; }
+
+    @synchronized (self) {
+        self.secondPriceIsHigher = YES;
+        ANLogInfo(@"DFP responds with \"no bid\" because Second Price (%@) is higher.", self.dfpRequest.customTargeting[kANAdAdapterBannerDFPANHB]);
+    }
+}
+
 
 @end

@@ -13,9 +13,11 @@
  limitations under the License.
  */
 
-#import "ANCustomAdapter.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface ANAdAdapterBannerDFP : NSObject <ANCustomAdapterBanner, GADBannerViewDelegate>
+#import "ANCustomAdapter.h"
+
+
+@interface ANAdAdapterBannerDFP : NSObject <ANCustomAdapterBanner, GADBannerViewDelegate, GADAppEventDelegate>
 
 @end

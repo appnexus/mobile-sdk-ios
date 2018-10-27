@@ -73,6 +73,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyType = @"type";
 static NSString *const kANUniversalTagAdServerResponseKeyWidth = @"width";
 static NSString *const kANUniversalTagAdServerResponseKeyHeight = @"height";
 
+static NSString *const kANUniversalTagAdServerResponseKeySecondPrice = @"second_price";
+static NSString *const kANUniversalTagAdServerResponseKeyOptimized = @"optimized";
+
 // Native
 static NSString *const kANUniversalTagAdServerResponseKeyNativeObject = @"native";
 
@@ -432,6 +435,32 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     mediatedAd.width      = [handlerDict[kANUniversalTagAdServerResponseKeyWidth] description];
                     mediatedAd.height     = [handlerDict[kANUniversalTagAdServerResponseKeyHeight] description];
                     mediatedAd.adId       = [handlerDict[kANUniversalTagAdServerResponseKeyId] description];
+
+                    ANLogDebug(@"adId = %@", mediatedAd.adId);
+
+                    //NB  mediatedAd.secondPrice = nil when Second Price auction is not being used.
+                    //    Otherwise, this value contains the value of the Second Price in fractional units, represented as a string.
+                    //    (Eg: US$ one dollar and fifty cents == @"1.50")
+                    //
+                    NSString  *secondPrice  = [handlerDict[kANUniversalTagAdServerResponseKeySecondPrice] description];
+
+                    if ([secondPrice length] > 0)
+                    {
+                        NSMutableDictionary  *paramDict  = [[[self class]
+                                                                 jsonResponseFromData:[mediatedAd.param dataUsingEncoding:NSASCIIStringEncoding]
+                                                             ] mutableCopy ];
+
+                        if (paramDict[kANUniversalTagAdServerResponseKeyOptimized])
+                        {
+                            [paramDict setObject:secondPrice forKey:kANUniversalTagAdServerResponseKeySecondPrice];
+
+                            if ([NSJSONSerialization isValidJSONObject:paramDict]) {
+                                NSData  *jsonData  = [NSJSONSerialization dataWithJSONObject:paramDict options:0 error:nil];
+                                mediatedAd.param = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                            }
+                        }
+                    }
+
                     break;
                     
                 } else {
@@ -442,7 +471,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         
         if (mediatedAd)
         {
-            mediatedAd.responseURL        = [csmObject[kANUniversalTagAdServerResponseKeyResponseURL] description];
+            mediatedAd.responseURL     = [csmObject[kANUniversalTagAdServerResponseKeyResponseURL] description];
             mediatedAd.impressionUrls  = [[self class] impressionUrlsFromContentSourceObject:csmObject];
             
             return  mediatedAd;

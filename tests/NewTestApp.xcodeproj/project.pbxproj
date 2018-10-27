@@ -373,6 +373,9 @@
 		4F76461D1D957E4D00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
 		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
+		4FD20388217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD2037D217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m */; };
+		4FD2038D217A837100F13B75 /* SecondPriceForDFPSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FD2038B217A837100F13B75 /* SecondPriceForDFPSuccess.json */; };
+		4FD2038E217A837100F13B75 /* SecondPriceForDFPParamIsUnset.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FD2038C217A837100F13B75 /* SecondPriceForDFPParamIsUnset.json */; };
 		4FD2F16F1FBCBBA800648DF5 /* KIF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F1CBB181F97F9550019840A /* KIF.framework */; };
 		4FD69EF620B6051A00293915 /* bannerNative_basic_native.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FD69EE820B6051A00293915 /* bannerNative_basic_native.json */; };
 		60359EF01E1EC34C0017EF56 /* libANSDKAdMarvelAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */; };
@@ -1158,6 +1161,9 @@
 		4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
+		4FD2037D217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSecondPriceDFPTestCase.m; sourceTree = "<group>"; };
+		4FD2038B217A837100F13B75 /* SecondPriceForDFPSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPSuccess.json; sourceTree = "<group>"; };
+		4FD2038C217A837100F13B75 /* SecondPriceForDFPParamIsUnset.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPParamIsUnset.json; sourceTree = "<group>"; };
 		4FD362641F8FCA3D0010567E /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = "KIF-3.6.0/KIF.xcodeproj"; sourceTree = "<group>"; };
 		4FD67F961D760011009270E6 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		4FD67FA71D760026009270E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1673,6 +1679,7 @@
 				0E3978AA212B54EB00DDAD6D /* ANPBContainerViewTestCase.m */,
 				0E397809212B3DDA00DDAD6D /* ANPublicAPITestCase.m */,
 				0E397805212B3DDA00DDAD6D /* ANReachabilityTestCase.m */,
+				4FD2037D217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m */,
 				0E39780F212B3DDA00DDAD6D /* UIViewConstraintsTestCase.m */,
 			);
 			path = Tests;
@@ -1892,12 +1899,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2093,25 +2100,25 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094019DB169B0090EBED /* libANSDK.a */,
 				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
-				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
-				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094019DB169B0090EBED /* libANSDK.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
+				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
 				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2244,6 +2251,8 @@
 				4F7D0FC520D07C0C00EF0379 /* ClickThroughActionBasicBannerResponse.json */,
 				4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */,
 				00478B4C20D8691B00436D14 /* OMID_TestResponse.json */,
+				4FD2038C217A837100F13B75 /* SecondPriceForDFPParamIsUnset.json */,
+				4FD2038B217A837100F13B75 /* SecondPriceForDFPSuccess.json */,
 				0E70D7F320F66E3600A7668D /* SuccessfulAllowMagicSizeBannerObjectResponse.json */,
 				FCF67EBC20335A220055E7F6 /* SuccessfulANRTBVideoAdResponse.json */,
 				FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
@@ -2880,6 +2889,8 @@
 				0E28D90B20EACAAF00EC2CB2 /* GreyWhiteCat@2x.jpg in Resources */,
 				0E28D90D20EACAEF00EC2CB2 /* MPAdBrowserController.xib in Resources */,
 				0E28D8FD20EAC9FA00EC2CB2 /* OMID_TestResponse.json in Resources */,
+				4FD2038E217A837100F13B75 /* SecondPriceForDFPParamIsUnset.json in Resources */,
+				4FD2038D217A837100F13B75 /* SecondPriceForDFPSuccess.json in Resources */,
 				0E3978AF212B551000DDAD6D /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
 				0E28D8FF20EAC9FE00EC2CB2 /* SuccessfulANRTBVideoAdResponse.json in Resources */,
 				0E28D90020EACA0400EC2CB2 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
@@ -3192,6 +3203,7 @@
 				0E39783E212B3DDA00DDAD6D /* ANPublicAPITestCase.m in Sources */,
 				0E28D91520EACB7A00EC2CB2 /* ANReachability+ANTest.m in Sources */,
 				0E39783B212B3DDA00DDAD6D /* ANReachabilityTestCase.m in Sources */,
+				4FD20388217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m in Sources */,
 				0E28D91620EACB8000EC2CB2 /* ANUniversalAdFetcher+ANTest.m in Sources */,
 				0E28D92020EACBA600EC2CB2 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				0E28D92120EACBA800EC2CB2 /* ANURLConnectionStub.m in Sources */,

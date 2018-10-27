@@ -16,6 +16,7 @@
 #import "XCTestCase+ANCategory.h"
 #import "ANUniversalTagAdServerResponse.h"
 
+
 static NSString *const kANAdResponseSuccessfulMRAID = @"SuccessfulMRAIDResponse";
 static NSString *const kANAdResponseSuccessfulMediation = @"SuccessfulMediationResponse";
 static NSString *const kANAdResponseSuccessfulMRAIDListener = @"SuccessfulMRAIDListenerResponse";
@@ -28,6 +29,10 @@ static NSString *const kStandardAdFromRTBObjectResponse = @"SuccessfulStandardAd
 static NSString *const kANAdSuccessfulNativeStandardAdWithoutCreativeIdResponse = @"SuccessfulNativeStandardAdWithoutCreativeIdResponse";
 static NSString *const kANAdSuccessfulANRTBVideoAdWithoutCreativeIdResponse = @"SuccessfulANRTBVideoAdWithoutCreativeIdResponse";
 static NSString *const kStandardAdFromRTBObjectWithoutCreativeIdResponse = @"SuccessfulStandardAdFromRTBObjectWithoutCreativeIdResponse";
+
+static NSString *const kSecondPriceForDFPSuccess = @"SecondPriceForDFPSuccess";
+static NSString *const kSecondPriceForDFPParamIsUnset = @"SecondPriceForDFPParamIsUnset";
+
 
 
 @interface XCTestCase (ANAdResponse)
