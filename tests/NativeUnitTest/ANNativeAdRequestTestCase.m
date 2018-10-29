@@ -197,8 +197,25 @@
 
     XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
     XCTAssertNil(self.adResponse.iconImage);
+    XCTAssertEqual(self.adResponse.mainImageSize.width, 300);
+    XCTAssertEqual(self.adResponse.mainImageSize.height, 250);
     self.adResponse.mainImageURL ? XCTAssertNotNil(self.adResponse.mainImage) : XCTAssertNil(self.adResponse.mainImage);
     self.adResponse.mainImageURL ? XCTAssertTrue([self.adResponse.mainImage isKindOfClass:[UIImage class]]) : nil;
+}
+
+- (void)testAppNexusWithAdditionalDescription {
+    [self stubRequestWithResponse:@"appnexus_mainimage_standard_response"];
+    [self.adRequest loadAd];
+    self.adRequest.shouldLoadMainImage = YES;
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    [self validateGenericNativeAdObject];
+    
+    XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
+    XCTAssertNotNil(self.adResponse.additionalDescription);
 }
 
 - (void)testFacebook {
