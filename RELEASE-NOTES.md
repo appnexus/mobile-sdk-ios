@@ -1,3 +1,12 @@
+## 4.12
+###  New Features and Bug Fixes 
++ MS-3606: Updated Smart Adapter to v6.10
++ MS-3495: Updated Google Play Ad Adapter (AdMob & DFP) to v7.35.1
++ MS-3633: Added new APIs that expose additional description (`desc2`) and main image size for Native Ads
++ MS-3439: Added the option to send content_url string in Google Mediation requests, use key: `content_url`
++ MS-3583: Ability to pass second_price value to Google DFP Banner Ads. Beta release - please contact your Account Manager for more information about this feature.
+Known Issue: Rubicon Mediation Adapter compatibility issues with iOS 12.0 - to be fixed in a future release.
+
 ## 4.11.1
 ###  New Features and Bug Fixes 
 + MS-3527: Attempt to prevent crash in OMIDAppnexusScriptInjector by error checking all MobileSDK inputs and by serializing global properties shared between threads. 
