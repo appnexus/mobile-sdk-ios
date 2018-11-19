@@ -26,6 +26,11 @@
 @property (nonatomic) BOOL HTTPSEnabled;
 
 /**
+ If YES, the SDK will allow to support Open-Measurement for viewability and verification measurement for ads served. Default is YES.
+ */
+@property (nonatomic) BOOL enableOpenMeasurement;
+
+/**
  Special ad sizes for which the content view should be constrained to the container view.
  */
 @property (nonatomic, copy) NSArray<NSValue *> *sizesThatShouldConstrainToSuperview;

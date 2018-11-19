@@ -283,7 +283,9 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             if([adToShow isKindOfClass:[ANMRAIDContainerView class]])
             {
                 ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)adToShow;
-                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                if(standardAdView.webViewController.omidAdSession){
+                    [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                }
             }
         }
         

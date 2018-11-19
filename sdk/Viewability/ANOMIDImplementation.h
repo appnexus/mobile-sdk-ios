@@ -18,8 +18,8 @@
 
 #pragma mark - Constants
 
-#define AN_OMIDSDK_PARTNER_NAME             @"Appnexus"
-#define AN_OMIDSDKAPIVersionString             @"{\"v\":\"1.1.3\",\"a\":\"1\"}"
+#define AN_OMIDSDK_PARTNER_NAME             @"appnexus.com-omios"
+#define AN_OMIDSDKAPIVersionString             @"{\"v\":\"1.2.5\",\"a\":\"1\"}"
 
 #pragma mark - Global class.
 
@@ -29,7 +29,7 @@
 + (instancetype)sharedInstance;
 - (void) activateOMIDandCreatePartner;
 - (NSString *)prependOMIDJSToHTML:(NSString *)html;
-- (OMIDAppnexusAdSession*) createOMIDAdSessionforHTMLBannerWebView: webView;
+- (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView: webView isVideoAd:(BOOL)videoAd;
 - (void) stopOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
 - (void)fireOMIDImpressionOccuredEvent:(OMIDAppnexusAdSession*) omidAdSession;
 

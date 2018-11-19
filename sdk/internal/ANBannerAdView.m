@@ -362,7 +362,9 @@
                         if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
                         {
                             ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
-                            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                            if(standardAdView.webViewController.omidAdSession != nil){
+                                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                            }
                         }
                     }
                 }
@@ -489,7 +491,9 @@
             if([self.contentView isKindOfClass:[ANMRAIDContainerView class]])
             {
                 ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)self.contentView;
-                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                if(standardAdView.webViewController.omidAdSession != nil){
+                    [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
+                }
             }
         }
     }

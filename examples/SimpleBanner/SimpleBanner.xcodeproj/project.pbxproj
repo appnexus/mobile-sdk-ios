@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E0045D521779022002498C9 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB237302109312B00A9C1BD /* AppNexusSDK.framework */; };
 		0EB23738210931CC00A9C1BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB23737210931CC00A9C1BD /* CoreLocation.framework */; };
 		0EB23739210931E700A9C1BD /* libANSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB237122109312B00A9C1BD /* libANSDK.a */; };
+		0EEE97F121767462007DADE6 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0EB237142109312B00A9C1BD /* ANSDKResources.bundle */; };
 		6083C4161FBCA3DA00DED744 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6083C4151FBCA3D900DED744 /* AVKit.framework */; };
 		8A3EDB491D0873A200957227 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3EDB481D0873A200957227 /* WebKit.framework */; };
 		FF2FD7AD19706A5D002CAD63 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF2FD7AC19706A5D002CAD63 /* Foundation.framework */; };
@@ -244,6 +246,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E0045D521779022002498C9 /* AppNexusSDK.framework in Frameworks */,
 				FF2FD7F219706AD2002CAD63 /* AdSupport.framework in Frameworks */,
 				FF2FD7F419706AD9002CAD63 /* AudioToolbox.framework in Frameworks */,
 				FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */,
@@ -284,25 +287,25 @@
 		0EB236FC2109312A00A9C1BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0EB237142109312B00A9C1BD /* ANSDKResources.bundle */,
-				0EB237302109312B00A9C1BD /* AppNexusSDK.framework */,
-				0EB2372C2109312B00A9C1BD /* libANAdapterForGoogleAdMobSDK.a */,
-				0EB2372E2109312B00A9C1BD /* libANAdapterForMoPubSDK.a */,
 				0EB237122109312B00A9C1BD /* libANSDK.a */,
-				0EB237242109312B00A9C1BD /* libANSDKAdColonyAdapter.a */,
-				0EB237342109312B00A9C1BD /* libANSDKAdMarvelAdapter.a */,
-				0EB2371E2109312B00A9C1BD /* libANSDKAmazonAdapter.a */,
-				0EB237282109312B00A9C1BD /* libANSDKChartboostAdapter.a */,
-				0EB2371C2109312B00A9C1BD /* libANSDKFacebookAdapter.a */,
+				0EB237142109312B00A9C1BD /* ANSDKResources.bundle */,
 				0EB237162109312B00A9C1BD /* libANSDKGoogleAdMobAdapter.a */,
-				0EB237202109312B00A9C1BD /* libANSDKInMobiAdapter.a */,
 				0EB237182109312B00A9C1BD /* libANSDKMillennialMediaAdapter.a */,
 				0EB2371A2109312B00A9C1BD /* libANSDKMoPubAdapter.a */,
-				0EB237362109312B00A9C1BD /* libANSDKRubiconAdapter.a */,
-				0EB237322109312B00A9C1BD /* libANSDKSmartAdAdapter.a */,
+				0EB2371C2109312B00A9C1BD /* libANSDKFacebookAdapter.a */,
+				0EB2371E2109312B00A9C1BD /* libANSDKAmazonAdapter.a */,
+				0EB237202109312B00A9C1BD /* libANSDKInMobiAdapter.a */,
 				0EB237222109312B00A9C1BD /* libANSDKVdopiaAdapter.a */,
+				0EB237242109312B00A9C1BD /* libANSDKAdColonyAdapter.a */,
 				0EB237262109312B00A9C1BD /* libANSDKVungleAdapter.a */,
+				0EB237282109312B00A9C1BD /* libANSDKChartboostAdapter.a */,
 				0EB2372A2109312B00A9C1BD /* libANSDKYahooAdapter.a */,
+				0EB2372C2109312B00A9C1BD /* libANAdapterForGoogleAdMobSDK.a */,
+				0EB2372E2109312B00A9C1BD /* libANAdapterForMoPubSDK.a */,
+				0EB237302109312B00A9C1BD /* AppNexusSDK.framework */,
+				0EB237322109312B00A9C1BD /* libANSDKSmartAdAdapter.a */,
+				0EB237342109312B00A9C1BD /* libANSDKAdMarvelAdapter.a */,
+				0EB237362109312B00A9C1BD /* libANSDKRubiconAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				FF2FD7C819706A5D002CAD63 /* Images.xcassets in Resources */,
 				FF2FD7B719706A5D002CAD63 /* InfoPlist.strings in Resources */,
 				FF2FD7C019706A5D002CAD63 /* Main_iPhone.storyboard in Resources */,
+				0EEE97F121767462007DADE6 /* ANSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

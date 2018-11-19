@@ -20,6 +20,7 @@
 #import "UIView+ANCategory.h"
 #import "ANAdConstants.h"
 #import "ANSDKSettings+PrivateMethods.h"
+#import "ANOMIDImplementation.h"
 
 static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 
@@ -75,7 +76,8 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
         [self.webView setNavigationDelegate:nil];
         [self.webView setUIDelegate:nil];
         [self.webView removeFromSuperview];
-      
+        [self stopOMIDAdSession];
+        
         // Delay is added to allow completion tracker to be fired successfully.
         // Setting up webView to nil immediately without adding any delay can cause failure of tracker
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kANWebviewNilDelayInSeconds * NSEC_PER_SEC));
@@ -84,7 +86,12 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
                 self.webView = nil;
             }
         });
-        
+    }
+}
+
+- (void)stopOMIDAdSession {
+    if(self.omidAdSession != nil){
+        [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.omidAdSession];
     }
 }
 
@@ -130,6 +137,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 #pragma mark - Public methods.
 
 -(void) loadAdWithVastContent:(NSString *) vastContent{
+        
     self.vastContent = vastContent;
     [self createVideoPlayer];
 }
@@ -203,7 +211,6 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 {
     NSURL *url = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];//Creating a WKWebViewConfiguration object so a controller can be added to it.
     
     WKUserContentController *controller = [[WKUserContentController alloc] init];//Creating the WKUserContentController.
@@ -215,6 +222,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     //configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
     [configuration.userContentController addScriptMessageHandler:self name:@"interOp"];
     
+ 
     UIWindow *currentWindow = [UIApplication sharedApplication].keyWindow;
     //provide the width & height of the webview else the video wont be displayed ********
     self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,325,275) configuration:configuration];
@@ -226,6 +234,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     [self.webView setUIDelegate:self];
     self.webView.opaque = false;
     self.webView.backgroundColor = [UIColor blackColor];
+    
     
     [self.webView loadRequest:request];//Load up webView with the url and add it to the view.
     
@@ -263,12 +272,14 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     
     if ([eventName isEqualToString:@"video-complete"]) {
         ANLogInfo(@"video-complete");
+        [self stopOMIDAdSession];
         if ([self.delegate respondsToSelector:@selector(videoAdImpressionListeners:)]) {
             [self.delegate videoAdImpressionListeners:ANVideoAdPlayerTrackerFourthQuartile];
         }
         
     } else if ([eventName isEqualToString:@"adReady"]) {
         ANLogInfo(@"adReady");
+        self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:true];
         if(paramsDictionary.count > 0){
             self.creativeURL = (NSString *)[paramsDictionary objectForKey:@"creativeUrl"];
             NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
@@ -308,6 +319,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     
     else if ([eventName isEqualToString:@"video-skip"]) {
         ANLogInfo(@"video-skip");
+        [self stopOMIDAdSession];
         if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
             [self.webView removeFromSuperview];
             [self.delegate videoAdEventListeners:ANVideoAdPlayerEventSkip];
@@ -428,8 +440,15 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 {
     NSString *exec = @"";
     if([self.vastContent length] > 0){
-        NSString *exec_template = @"createVastPlayerWithContent('%@','INSTREAM_VIDEO');";
-        exec = [NSString stringWithFormat:exec_template, self.vastContent];
+
+        NSDictionary *partner = @{ @"name" : AN_OMIDSDK_PARTNER_NAME , @"version" : AN_SDK_VERSION};
+        NSError * err;
+        NSData * jsonData = [NSJSONSerialization dataWithJSONObject:partner options:0 error:&err];
+        NSString * OMIDPartner = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+        NSString *exec_template = @"createVastPlayerWithContent('%@','INSTREAM_VIDEO','%@');";
+        exec = [NSString stringWithFormat:exec_template, self.vastContent,OMIDPartner];
+
         [self.webView evaluateJavaScript:exec completionHandler:nil];
         
     }else if([self.vastURL length] > 0){

@@ -141,6 +141,25 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     }
     return self;
 }
+- (instancetype)initWitXMLContent:(NSString *)vastContent
+                            width:(NSInteger)width
+                           height:(NSInteger)height
+{
+    self = [super init];
+    if (!self)  { return nil; }
+    
+    ANRTBVideoAd  *rtbVideoAd  = [[ANRTBVideoAd alloc] init];
+    if (!rtbVideoAd)  { return nil; }
+    
+    rtbVideoAd.width    = [NSString stringWithFormat:@"%ld", (long)width];
+    rtbVideoAd.height   = [NSString stringWithFormat:@"%ld", (long)height];
+    rtbVideoAd.content  = vastContent;
+    
+    [self.ads addObject:rtbVideoAd];
+    
+    return self;
+}
+
 
 + (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data {
     return [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:data];

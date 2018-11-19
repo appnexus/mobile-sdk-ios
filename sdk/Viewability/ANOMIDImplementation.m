@@ -16,6 +16,10 @@
 #import "ANOMIDImplementation.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
+#import "ANSDKSettings.h"
+
+static NSString *const kANOMIDSDKJSFilename = @"omsdk";
+
 
 @interface ANOMIDImplementation()
 
@@ -45,6 +49,9 @@
 
 - (void) activateOMIDandCreatePartner
 {
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return;
+    
     if(!OMIDAppnexusSDK.sharedInstance.isActive){
         NSError *error;
         [[OMIDAppnexusSDK sharedInstance] activateWithOMIDAPIVersion:OMIDSDKAPIVersionString
@@ -68,24 +75,34 @@
     
 }
 
-- (OMIDAppnexusAdSession*) createOMIDAdSessionforHTMLBannerWebView: webView
+- (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView: webView isVideoAd:(BOOL)videoAd
 {
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return nil;
+    
     NSError *ctxError;
     // the custom reference ID may not be relevant to your integration in which case you may pass an
     // empty string.
     NSString *customRefId = @"";
+
     OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:  self.partner
                                                                                           webView:  webView
                                                                         customReferenceIdentifier:  customRefId
                                                                                             error: &ctxError];
     
+
     //Note that it is important that the videoEventsOwner parameter should be set to OMIDNoneOwner for display formats. Setting to anything else will cause the mediaType parameter passed to verification scripts to be set to video.
     NSError *cfgError;
     OMIDAppnexusAdSessionConfiguration *config;
     
+    OMIDOwner impressionOwner = (videoAd) ? OMIDJavaScriptOwner : OMIDNativeOwner;
+    OMIDOwner videoEventsOwner = (videoAd) ? OMIDJavaScriptOwner : OMIDNoneOwner;
+    
     config = [[OMIDAppnexusAdSessionConfiguration alloc]
-              initWithImpressionOwner:OMIDNativeOwner videoEventsOwner:OMIDNoneOwner
-              isolateVerificationScripts:NO error:&cfgError];
+              initWithImpressionOwner:impressionOwner videoEventsOwner:videoEventsOwner
+              isolateVerificationScripts:NO  error:&cfgError];
+    
+   
     
     OMIDAppnexusAdSession *omidAdSession = [[OMIDAppnexusAdSession alloc] initWithConfiguration:config
                                                                                adSessionContext:context error:nil];
@@ -102,6 +119,9 @@
 
 -(void) stopOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession
 {
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return;
+    
     if(omidAdSession){
         [omidAdSession finish];
         omidAdSession = nil;
@@ -110,6 +130,9 @@
 
 
 - (void)fireOMIDImpressionOccuredEvent:(OMIDAppnexusAdSession*) omidAdSession {
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return;
+
     if(omidAdSession != nil){
         NSError *adEvtsError;
         OMIDAppnexusAdEvents *adEvents = [[OMIDAppnexusAdEvents alloc] initWithAdSession:omidAdSession error:&adEvtsError];
@@ -122,6 +145,9 @@
 // This might be required for Interstitials Ads
 - (void)addFriendlyObstruction:(UIView *) view
                toOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession{
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return;
+
     if(omidAdSession != nil){
         [omidAdSession addFriendlyObstruction:view];
     }
@@ -132,35 +158,24 @@
 
 - (void) fetchOMIDJS
 {
-    NSURL                           *url        = [NSURL URLWithString:@"https://acdn.adnxs.com/mobile/omsdk/v1/omsdk.js"];
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return;
 
-    __weak ANOMIDImplementation     *weakSelf   = self;
-
-    NSURLSessionDataTask            *dataTask   =
-            [[NSURLSession sharedSession] dataTaskWithURL: url
-                                        completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
-                                            {
-                                                if (error) {
-                                                    ANLogError(@"fetchOMIDJS FAILED.  NSError: userInfo=%@  code=%@  domain=%@", error.userInfo, @(error.code), error.domain);
-                                                    return;
-                                                }
-
-                                                __strong ANOMIDImplementation  *strongSelf  = weakSelf;
-                                                if (!strongSelf) {
-                                                    ANLogError(@"FAILED to acquire strongSelf.");
-                                                    return;
-                                                }
-
-                                                @synchronized (self) {
-                                                    strongSelf.omidJSString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                                }
-                                             }];
-    [dataTask resume];
+    NSString *omSdkJSPath = ANPathForANResource(kANOMIDSDKJSFilename, @"js");
+    if (!omSdkJSPath) {
+        return;
+    }
+    NSData      *omSdkJsData  = [NSData dataWithContentsOfFile:omSdkJSPath];
+    self.omidJSString      = [[NSString alloc] initWithData:omSdkJsData encoding:NSUTF8StringEncoding];
+    
 }
 
 
 - (NSString *)prependOMIDJSToHTML:(NSString *)htmlOriginal
 {
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return htmlOriginal;
+
     NSString  *htmlInjected   = nil;
     NSString  *scriptContent  = nil;
     NSError   *error;

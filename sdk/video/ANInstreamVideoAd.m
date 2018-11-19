@@ -18,9 +18,7 @@
 #import "ANUniversalAdFetcher.h"
 #import "ANLogging.h"
 #import "ANAdView+PrivateMethods.h"
-
-
-
+#import "ANOMIDImplementation.h"
 
 //---------------------------------------------------------- -o--
 NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
@@ -88,8 +86,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     self.universalAdFetcher = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
     
     [self setupSizeParametersAs1x1];
-
-    //
+    [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
+    
     return self;
 }
 
@@ -207,7 +205,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         [self.loadDelegate adDidReceiveAd:self];
     }
 }
-
 
 -(void) videoAdLoadFailed:(NSError *)error
 {
@@ -398,10 +395,9 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         if(creativeId){
                [self setCreativeId:creativeId];
         }
-        
+
         [self videoAdReady];
-        
-        
+
         
     }else if(!response.isSuccessful && (response.adObject == nil)){
         [self videoAdLoadFailed:ANError(@"video_adfetch_failed", ANAdResponseBadFormat)];

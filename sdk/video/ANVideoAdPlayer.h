@@ -18,6 +18,7 @@
 
 #import "WKWebView+ANCategory.h"
 #import "ANAdConstants.h"
+#import "OMIDAdSession.h"
 
 
 
@@ -39,6 +40,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 
 
 @class  ANVideoAdPlayer;
+
 
 @protocol ANVideoAdPlayerDelegate <NSObject>
 
@@ -67,6 +69,7 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 - (void) videoAdPlayerFullScreenEntered: (ANVideoAdPlayer *)videoAd;
 - (void) videoAdPlayerFullScreenExited: (ANVideoAdPlayer *)videoAd;
 
+
 @end
 
 
@@ -75,6 +78,8 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 @interface ANVideoAdPlayer : UIView<WKScriptMessageHandler,WKNavigationDelegate, WKUIDelegate>
 
 @property (strong, nonatomic) id <ANVideoAdPlayerDelegate> delegate;
+
+@property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
 
 -(void) loadAdWithVastContent:(NSString *) vastContent;
 -(void) loadAdWithVastUrl:(NSString *) vastUrl;

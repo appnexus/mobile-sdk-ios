@@ -9,7 +9,7 @@
 
 /// API Note: this value must be copied into the ad SDK's binary. It cannot be an extern defined in
 /// the OMID library.
-#define OMIDSDKAPIVersionString @"{\"v\":\"1.1.3\",\"a\":\"1\"}"
+#define OMIDSDKAPIVersionString @"{\"v\":\"1.2.5\",\"a\":\"1\"}"
 
 /*!
  * @discussion This application level class will be called by all integration partners to ensure OM SDK has been activated before calling any other API methods.

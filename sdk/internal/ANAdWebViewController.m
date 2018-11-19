@@ -58,6 +58,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 @property (nonatomic, readwrite, weak)      WKWebView   *modernWebView;
 #endif
 
+
 @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
 @property (nonatomic, readwrite, assign)  BOOL  completedFirstLoad;
 
@@ -176,11 +177,10 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if ([WKWebView class])
     {
         NSString  *htmlToLoad  = html;
-        
+      
         // This injects OMID JS to the HTML
         // NOTE this is intentionally kept above prependViewport if moved below it causes the tag to shrink.
         htmlToLoad = [[ANOMIDImplementation sharedInstance] prependOMIDJSToHTML:html];
-        
         
         if (!_configuration.scrollingEnabled) {
             htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
@@ -210,7 +210,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     ANLogError(@"Banner Video requires use of WKWebView.")
     return  nil;
 #endif
-    
     
     self = [self initWithConfiguration:nil];
     if (!self)  { return nil; }
@@ -244,9 +243,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     //
     NSURL           *url      = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
     NSURLRequest    *request  = [NSURLRequest requestWithURL:url];
-    
     [_modernWebView loadRequest:request];
+
     
+
+
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:_modernWebView];
     [_modernWebView setHidden:true];
@@ -256,6 +257,12 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     return  self;
 }
 
+- (void)stopOMIDAdSession {
+    if(self.omidAdSession != nil){
+        [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.omidAdSession];
+    }
+}
+
 - (void) dealloc
 {
     [self deallocActions];
@@ -263,7 +270,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (void) deallocActions
 {
-    [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.omidAdSession];
+    [self stopOMIDAdSession];
     [self stopWebViewLoadForDealloc];
     [self.viewabilityTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -804,6 +811,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     if ([eventName isEqualToString:@"adReady"])
     {
+        // For VideoAds's wait unitll adReady to create AdSession if not the adsession will run in limited access mode.
+        self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.modernWebView isVideoAd:true];
         if ([self.videoDelegate respondsToSelector:@selector(videoAdReady)]) {
             [self.videoDelegate videoAdReady];
         }
@@ -842,11 +851,14 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         }
         
         
-    } else if (      ([self.videoXML length] > 0)
+    }else if([eventName isEqualToString:@"video-complete"]) {
+        
+        [self stopOMIDAdSession];
+        
+    }else if (      ([self.videoXML length] > 0)
                && (      [eventName isEqualToString:@"video-first-quartile"]
                    || [eventName isEqualToString:@"video-mid"]
                    || [eventName isEqualToString:@"video-third-quartile"]
-                   || [eventName isEqualToString:@"video-complete"]
                    || [eventName isEqualToString:@"audio-mute"]
                    || [eventName isEqualToString:@"audio-unmute"]
                    )
@@ -886,9 +898,10 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         if (self.isMRAID) {
             [self finishMRAIDLoad];
         }
-        
-        
-        self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforHTMLBannerWebView:self.modernWebView];
+        if(!([self.videoXML length] > 0)){
+             self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.modernWebView isVideoAd:false];
+        }
+       
     }
 }
 
@@ -1276,9 +1289,15 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 #pragma mark - Banner Video.
 
 - (void) processVideoViewDidFinishLoad
-{
-    NSString  *execTemplate    = @"createVastPlayerWithContent('%@', 'BANNER');";
-    NSString  *exec            = [NSString stringWithFormat:execTemplate, self.videoXML];
+{   
+    
+    NSDictionary *partner = @{ @"name" : AN_OMIDSDK_PARTNER_NAME , @"version" : AN_SDK_VERSION};
+    NSError * err;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:partner options:0 error:&err];
+    NSString * OMIDPartner = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+    NSString  *execTemplate    = @"createVastPlayerWithContent('%@', 'BANNER', '%@');";
+    NSString  *exec            = [NSString stringWithFormat:execTemplate, self.videoXML,OMIDPartner];
     
     [self.modernWebView evaluateJavaScript:exec completionHandler:nil];
 }

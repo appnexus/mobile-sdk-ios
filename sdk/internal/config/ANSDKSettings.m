@@ -121,6 +121,7 @@
     dispatch_once(&sdkSettingsToken, ^{
         sdkSettings = [[ANSDKSettings alloc] init];
         sdkSettings.locationEnabledForCreative =  YES;
+        sdkSettings.enableOpenMeasurement = YES;
     });
     return sdkSettings;
 }

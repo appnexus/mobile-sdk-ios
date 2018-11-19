@@ -144,7 +144,12 @@
     [self.universalAdFetcher processAdServerResponse:response];
 }
 
-
+- (void)loadAdFromVast: (NSString *)xml width: (int)width
+                height: (int)height
+{
+    ANUniversalTagAdServerResponse  *response  = [[ANUniversalTagAdServerResponse alloc] initWitXMLContent:xml width:width height:height];
+    [self.universalAdFetcher processAdServerResponse:response];
+}
 
 
 

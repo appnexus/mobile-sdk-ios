@@ -27,6 +27,10 @@
                           width: (NSInteger)width
                          height: (NSInteger)height;
 
+- (instancetype)initWitXMLContent:(NSString *)vastContent
+                            width:(NSInteger)width
+                           height:(NSInteger)height;
+
 @property (nonatomic, readonly, strong) NSMutableArray *ads;
 @property (nonatomic, readonly, strong) NSString *noAdUrlString;
 
