@@ -10,6 +10,8 @@
 		00010ADB1FD0C991007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
 		00010AE91FD0C9A2007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
 		00010AEA1FD0C9CB007368D3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
+		00E4392B21A4D4D400DBDB8D /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB25B0B21A36ECA00C26EC7 /* GoogleMobileAds.framework */; };
+		00E4393621A4D4E500DBDB8D /* libGoogleMobileAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB25B0D21A36EE500C26EC7 /* libGoogleMobileAds.a */; };
 		0E01EC5720F3A6C70024CE9A /* TestsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E01EC4D20F3A6C70024CE9A /* TestsStoryboard.storyboard */; };
 		0E01EC5820F3A6C70024CE9A /* TestsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E01EC4D20F3A6C70024CE9A /* TestsStoryboard.storyboard */; };
 		0E01EC5D20F3CEF00024CE9A /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7D0FB420D06F6E00EF0379 /* UIApplication+ANTest.m */; };
@@ -1384,6 +1386,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00E4393621A4D4E500DBDB8D /* libGoogleMobileAds.a in Frameworks */,
+				00E4392B21A4D4D400DBDB8D /* GoogleMobileAds.framework in Frameworks */,
 				0E28D9A420EAD1BB00EC2CB2 /* Accounts.framework in Frameworks */,
 				0E28D9A520EAD1C700EC2CB2 /* AdColony.framework in Frameworks */,
 				0E3CAA0920E6DA9D00358480 /* AdSupport.framework in Frameworks */,
