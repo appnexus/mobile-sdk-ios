@@ -1328,12 +1328,12 @@
 				8AFC04651A2E751200BEA485 /* CoreTelephony.framework in Frameworks */,
 				8AFC046D1A2E75A300BEA485 /* MediaPlayer.framework in Frameworks */,
 				8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */,
+				0EEE97F521768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a in Frameworks */,
 				8AFC046B1A2E757900BEA485 /* QuartzCore.framework in Frameworks */,
 				8AFC04731A2E78E400BEA485 /* StoreKit.framework in Frameworks */,
 				8AFC04671A2E752E00BEA485 /* SystemConfiguration.framework in Frameworks */,
 				8AFC045F1A2E74AC00BEA485 /* UIKit.framework in Frameworks */,
 				8A92F9EB1D05E1B500F689C7 /* WebKit.framework in Frameworks */,
-				0EEE97F521768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1358,7 +1358,6 @@
 		0030D6E220E5414D003B7C1D /* OMAppnexusSDK */ = {
 			isa = PBXGroup;
 			children = (
-				0EEE97F321768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a */,
 				0030D6EC20E5414D003B7C1D /* OMIDAdEvents.h */,
 				0030D6E320E5414D003B7C1D /* OMIDAdSession.h */,
 				0030D6E720E5414D003B7C1D /* OMIDAdSessionConfiguration.h */,
@@ -1370,6 +1369,7 @@
 				0030D6E520E5414D003B7C1D /* OMIDVASTProperties.h */,
 				0030D6ED20E5414D003B7C1D /* OMIDVerificationScriptResource.h */,
 				0030D6E620E5414D003B7C1D /* OMIDVideoEvents.h */,
+				0EEE97F321768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a */,
 			);
 			path = OMAppnexusSDK;
 			sourceTree = "<group>";
@@ -2349,8 +2349,8 @@
 				ECE4EACE194B768A0069D934 /* errors.strings */,
 				60F6AC1C2051C50C0022560D /* Info.plist */,
 				60AB32891E521FE500429ED7 /* MobileVastPlayer.js */,
-				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 				0EEE97DA21764ACD007DADE6 /* omsdk.js */,
+				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
 				4F403A6D2043C8CF00EF75A2 /* vastVideo.html */,
 			);
 			path = Resources;
@@ -3069,10 +3069,10 @@
 				8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */,
 				8A6D2E8D1A44A751003CE77A /* interstitial_flat_closebox@3x.png in Resources */,
 				60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
+				0EEE97DB21764ACD007DADE6 /* omsdk.js in Resources */,
 				ECE4EB10194B76960069D934 /* sdkjs.js in Resources */,
 				ECE4EB0B194B76960069D934 /* UIButtonBarArrowLeft.png in Resources */,
 				ECE4EB0C194B76960069D934 /* UIButtonBarArrowLeft@2x.png in Resources */,
-				0EEE97DB21764ACD007DADE6 /* omsdk.js in Resources */,
 				ECE4EB0D194B76960069D934 /* UIButtonBarArrowRight.png in Resources */,
 				ECE4EB0E194B76960069D934 /* UIButtonBarArrowRight@2x.png in Resources */,
 				4F403A6E2043C91100EF75A2 /* vastVideo.html in Resources */,
