@@ -30,8 +30,8 @@
 		0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
 		0EEE97DB21764ACD007DADE6 /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE97DA21764ACD007DADE6 /* omsdk.js */; };
-		0EEE97F421768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEE97F321768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a */; };
-		0EEE97F521768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEE97F321768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a */; };
+		0EEE97F421768358007DADE6 /* libOMSDKAppnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEE97F321768358007DADE6 /* libOMSDKAppnexus.a */; };
+		0EEE97F521768358007DADE6 /* libOMSDKAppnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEE97F321768358007DADE6 /* libOMSDKAppnexus.a */; };
 		4F131E8C1F71CCE50019FDAC /* ANAdFetcherResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */; };
 		4F1B9E291E5CDABE002FF0B4 /* ANInstreamVideoAd.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 609732B31E42E7910061EC0A /* ANInstreamVideoAd.h */; };
 		4F403A6E2043C91100EF75A2 /* vastVideo.html in Resources */ = {isa = PBXBuildFile; fileRef = 4F403A6D2043C8CF00EF75A2 /* vastVideo.html */; };
@@ -732,7 +732,7 @@
 		0E9F613420FFDC3B009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeMediatedAdResponse+PrivateMethods.h"; sourceTree = "<group>"; };
 		0EB25B0021A36EB100C26EC7 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		0EEE97DA21764ACD007DADE6 /* omsdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = omsdk.js; sourceTree = "<group>"; };
-		0EEE97F321768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "OMSDK-iOS-v1-Appnexus.a"; sourceTree = "<group>"; };
+		0EEE97F321768358007DADE6 /* libOMSDKAppnexus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOMSDKAppnexus.a; sourceTree = "<group>"; };
 		4F131E8A1F71CCE50019FDAC /* ANAdFetcherResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdFetcherResponse.h; sourceTree = "<group>"; };
 		4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdFetcherResponse.m; sourceTree = "<group>"; };
 		4F403A6D2043C8CF00EF75A2 /* vastVideo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = vastVideo.html; sourceTree = "<group>"; };
@@ -1328,12 +1328,12 @@
 				8AFC04651A2E751200BEA485 /* CoreTelephony.framework in Frameworks */,
 				8AFC046D1A2E75A300BEA485 /* MediaPlayer.framework in Frameworks */,
 				8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */,
-				0EEE97F521768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a in Frameworks */,
 				8AFC046B1A2E757900BEA485 /* QuartzCore.framework in Frameworks */,
 				8AFC04731A2E78E400BEA485 /* StoreKit.framework in Frameworks */,
 				8AFC04671A2E752E00BEA485 /* SystemConfiguration.framework in Frameworks */,
 				8AFC045F1A2E74AC00BEA485 /* UIKit.framework in Frameworks */,
 				8A92F9EB1D05E1B500F689C7 /* WebKit.framework in Frameworks */,
+				0EEE97F521768358007DADE6 /* libOMSDKAppnexus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1341,7 +1341,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EEE97F421768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a in Frameworks */,
+				0EEE97F421768358007DADE6 /* libOMSDKAppnexus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1358,6 +1358,7 @@
 		0030D6E220E5414D003B7C1D /* OMAppnexusSDK */ = {
 			isa = PBXGroup;
 			children = (
+				0EEE97F321768358007DADE6 /* libOMSDKAppnexus.a */,
 				0030D6EC20E5414D003B7C1D /* OMIDAdEvents.h */,
 				0030D6E320E5414D003B7C1D /* OMIDAdSession.h */,
 				0030D6E720E5414D003B7C1D /* OMIDAdSessionConfiguration.h */,
@@ -1369,7 +1370,6 @@
 				0030D6E520E5414D003B7C1D /* OMIDVASTProperties.h */,
 				0030D6ED20E5414D003B7C1D /* OMIDVerificationScriptResource.h */,
 				0030D6E620E5414D003B7C1D /* OMIDVideoEvents.h */,
-				0EEE97F321768358007DADE6 /* OMSDK-iOS-v1-Appnexus.a */,
 			);
 			path = OMAppnexusSDK;
 			sourceTree = "<group>";
