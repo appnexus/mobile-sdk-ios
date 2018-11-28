@@ -1326,6 +1326,7 @@
 				4F7332821FC35BBD00A206A2 /* AVKit.framework in Frameworks */,
 				8AFC04611A2E74C800BEA485 /* CoreGraphics.framework in Frameworks */,
 				8AFC04651A2E751200BEA485 /* CoreTelephony.framework in Frameworks */,
+				0EEE97F521768358007DADE6 /* libOMSDKAppnexus.a in Frameworks */,
 				8AFC046D1A2E75A300BEA485 /* MediaPlayer.framework in Frameworks */,
 				8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */,
 				8AFC046B1A2E757900BEA485 /* QuartzCore.framework in Frameworks */,
@@ -1333,7 +1334,6 @@
 				8AFC04671A2E752E00BEA485 /* SystemConfiguration.framework in Frameworks */,
 				8AFC045F1A2E74AC00BEA485 /* UIKit.framework in Frameworks */,
 				8A92F9EB1D05E1B500F689C7 /* WebKit.framework in Frameworks */,
-				0EEE97F521768358007DADE6 /* libOMSDKAppnexus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
