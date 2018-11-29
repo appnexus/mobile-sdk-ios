@@ -29,7 +29,6 @@
 #import "ANGADNativeAppInstallAdView.h"
 #import "ANGADNativeContentAdView.h"
 #import "ANAdAdapterNativeAdMob.h"
-#import "ANAdAdapterBaseRubicon.h"
 #import "UIView+ANCategory.h"
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
@@ -49,7 +48,6 @@
 
 + (NSArray *)networks {
     return @[@"AdMobNative",
-             @"RubiconBanner",
              @"SmartAdBanner",
              @"SmartAdInterstitial",
              @"AdMarvelBanner",
@@ -130,22 +128,6 @@
     self.gadInstallView = nil;
 }
 
-#pragma mark -Rubicon
-
-- (ANBannerAdView *)loadRubiconBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate{
-    [self stubRubiconBanner];
-    return [self bannerWithDelegate:delegate];
-}
-
-- (void)stubRubiconBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    [ANAdAdapterBaseRubicon setRubiconPublisherID:@"111008"];
-    mediatedAd.className = @"ANAdAdapterBannerRubicon";
-    mediatedAd.adId = @"{\\\"adId\\\":\\\"01573C50497A0130031B123139244773\\\",\\\"pubId\\\":\\\"111008\\\",\\\"serverName\\\":\\\"https://mrp.rubiconproject.com/\\\"}";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    [self stubMediatedAd:mediatedAd];
-}
 
 #pragma mark - Facebook
 

@@ -135,7 +135,6 @@
 		0E28D9B820EAD27D00EC2CB2 /* libANSDKInMobiAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */; };
 		0E28D9B920EAD28100EC2CB2 /* libANSDKMillennialMediaAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */; };
 		0E28D9BA20EAD28400EC2CB2 /* libANSDKMoPubAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */; };
-		0E28D9BB20EAD28800EC2CB2 /* libANSDKRubiconAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */; };
 		0E28D9BC20EAD28B00EC2CB2 /* libANSDKSmartAdAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */; };
 		0E28D9BD20EAD28F00EC2CB2 /* libANSDKVdopiaAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */; };
 		0E28D9BE20EAD29200EC2CB2 /* libANSDKVungleAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */; };
@@ -150,7 +149,6 @@
 		0E28D9C920EAD3B700EC2CB2 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E28D9C820EAD3B700EC2CB2 /* libxml2.tbd */; };
 		0E28D9CB20EAD3C500EC2CB2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E28D9CA20EAD3C500EC2CB2 /* libz.tbd */; };
 		0E28D9CC20EAD3D100EC2CB2 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4101B670E540000DB66 /* MMAdSDK.framework */; };
-		0E28D9CD20EAD3E100EC2CB2 /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE76EB51E3C1B5500A3107F /* RFMAdSDK.framework */; };
 		0E28D9CE20EAD3EA00EC2CB2 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F41F5301D8AFECF00DC37D4 /* SafariServices.framework */; };
 		0E28D9CF20EAD3FD00EC2CB2 /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A4EF4661CF3B1E3002C2DF1 /* VungleSDK.framework */; };
 		0E28D9D020EAD47100EC2CB2 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6042CB4C1FC62D1B007D0CC8 /* NSURLRequest+HTTPBodyTesting.m */; };
@@ -327,7 +325,6 @@
 		46C07BCF21262DA000B99BDD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF71E1EC5B70017EF56 /* Accounts.framework */; };
 		46C07BD221262DA000B99BDD /* libLWSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF8413C1CF75A0200F97FA9 /* libLWSDK.a */; };
 		46C07BD321262DA000B99BDD /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4101B670E540000DB66 /* MMAdSDK.framework */; };
-		46C07BD521262DA000B99BDD /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE76EB51E3C1B5500A3107F /* RFMAdSDK.framework */; };
 		46C07BD821262DA000B99BDD /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9CBADA1C652EE900558C95 /* MediaPlayer.framework */; };
 		46C07BDB21262DA000B99BDD /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60359EF91E1EC5F50017EF56 /* AssetsLibrary.framework */; };
 		46C07BDC21262DA000B99BDD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB387F719DB1245006F9E15 /* UIKit.framework */; };
@@ -389,7 +386,6 @@
 		6035A0281E23FE1E0017EF56 /* libSmartAdServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A0271E23FE1E0017EF56 /* libSmartAdServer.a */; };
 		6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A0291E23FE3F0017EF56 /* sas.bundle */; };
 		6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */; };
-		604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
 		8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */; };
@@ -475,8 +471,6 @@
 		8AD052ED1A80333800EE0182 /* appnexus_multiple_main_media_default.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */; };
 		8AD052EF1A80461200EE0182 /* appnexus_multiple_trackers.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */; };
 		8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */; };
-		8AE76EB61E3C1B5500A3107F /* RFMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE76EB51E3C1B5500A3107F /* RFMAdSDK.framework */; };
-		8AE76EB81E3C1B8000A3107F /* RFMAdSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8AE76EB71E3C1B7500A3107F /* RFMAdSDK.bundle */; };
 		8AE7AD6D1A7AA4CD009E2F2F /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */; };
 		8AE7AD7C1A7AA53B009E2F2F /* custom_adapter_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD7B1A7AA53B009E2F2F /* custom_adapter_mediated_response.json */; };
 		8AE7AD7E1A7AA556009E2F2F /* empty_mediated_ad_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8AE7AD7D1A7AA556009E2F2F /* empty_mediated_ad_response.json */; };
@@ -632,13 +626,6 @@
 			remoteGlobalIDString = 60359EAF1E1EA1180017EF56;
 			remoteInfo = ANSDKAdMarvelAdapter;
 		};
-		0E28D9F320EAD82C00EC2CB2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 604C112C1E26BE4B006D6C97;
-			remoteInfo = ANSDKRubiconAdapter;
-		};
 		0E3CAA2720E6DBF800358480 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AD01825199932F9007874BA /* Project object */;
@@ -750,20 +737,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 60359FEF1E23FCB50017EF56;
 			remoteInfo = ANSDKSmartAdAdapter;
-		};
-		604C11541E26E0D3006D6C97 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 604C112C1E26BE4B006D6C97;
-			remoteInfo = ANSDKRubiconAdapter;
-		};
-		604C115E1E26E0D3006D6C97 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AF3654C19D472A60097019F /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 604C112D1E26BE4B006D6C97;
-			remoteInfo = ANSDKRubiconAdapter;
 		};
 		8A1482761AD344B70046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1306,8 +1279,6 @@
 		8AD052EC1A80333800EE0182 /* appnexus_multiple_main_media_default.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_main_media_default.json; sourceTree = "<group>"; };
 		8AD052EE1A80461200EE0182 /* appnexus_multiple_trackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_multiple_trackers.json; sourceTree = "<group>"; };
 		8AE3999E1A42105B00C0D7B1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		8AE76EB51E3C1B5500A3107F /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RFMAdSDK.framework; path = ../mediation/mediatedviews/Rubicon/RubiconSDK/RFMAdSDK.framework; sourceTree = "<group>"; };
-		8AE76EB71E3C1B7500A3107F /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RFMAdSDK.bundle; path = ../mediation/mediatedviews/Rubicon/RubiconSDK/RFMAdSDK.bundle; sourceTree = "<group>"; };
 		8AE7AD6C1A7AA4CD009E2F2F /* appnexus_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response.json; sourceTree = "<group>"; };
 		8AE7AD7B1A7AA53B009E2F2F /* custom_adapter_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_mediated_response.json; sourceTree = "<group>"; };
 		8AE7AD7D1A7AA556009E2F2F /* empty_mediated_ad_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = empty_mediated_ad_response.json; sourceTree = "<group>"; };
@@ -1418,7 +1389,6 @@
 				0E28D9B820EAD27D00EC2CB2 /* libANSDKInMobiAdapter.a in Frameworks */,
 				0E28D9B920EAD28100EC2CB2 /* libANSDKMillennialMediaAdapter.a in Frameworks */,
 				0E28D9BA20EAD28400EC2CB2 /* libANSDKMoPubAdapter.a in Frameworks */,
-				0E28D9BB20EAD28800EC2CB2 /* libANSDKRubiconAdapter.a in Frameworks */,
 				0E28D9BC20EAD28B00EC2CB2 /* libANSDKSmartAdAdapter.a in Frameworks */,
 				0E28D9BD20EAD28F00EC2CB2 /* libANSDKVdopiaAdapter.a in Frameworks */,
 				0E28D9BE20EAD29200EC2CB2 /* libANSDKVungleAdapter.a in Frameworks */,
@@ -1438,7 +1408,6 @@
 				0E3CAA1820E6DB0300358480 /* MessageUI.framework in Frameworks */,
 				0E28D9CC20EAD3D100EC2CB2 /* MMAdSDK.framework in Frameworks */,
 				0E3CAA1920E6DB0A00358480 /* QuartzCore.framework in Frameworks */,
-				0E28D9CD20EAD3E100EC2CB2 /* RFMAdSDK.framework in Frameworks */,
 				0E28D9CE20EAD3EA00EC2CB2 /* SafariServices.framework in Frameworks */,
 				0E3CAA1A20E6DB0F00358480 /* Social.framework in Frameworks */,
 				0E3CAA1B20E6DB1400358480 /* StoreKit.framework in Frameworks */,
@@ -1492,7 +1461,6 @@
 				46C07BE021262DA000B99BDD /* MessageUI.framework in Frameworks */,
 				46C07BD321262DA000B99BDD /* MMAdSDK.framework in Frameworks */,
 				46C07BDF21262DA000B99BDD /* QuartzCore.framework in Frameworks */,
-				46C07BD521262DA000B99BDD /* RFMAdSDK.framework in Frameworks */,
 				46C07BB021262DA000B99BDD /* SafariServices.framework in Frameworks */,
 				46C07BAF21262DA000B99BDD /* Social.framework in Frameworks */,
 				46C07BDE21262DA000B99BDD /* StoreKit.framework in Frameworks */,
@@ -1549,7 +1517,6 @@
 				8AA5B4F01AA90C3E00522E1C /* libANSDKInMobiAdapter.a in Frameworks */,
 				8AA009F419DB1DA50090EBED /* libANSDKMillennialMediaAdapter.a in Frameworks */,
 				4F23AEA11D909F330058F4B8 /* libANSDKMoPubAdapter.a in Frameworks */,
-				604C11671E26E0DF006D6C97 /* libANSDKRubiconAdapter.a in Frameworks */,
 				6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */,
 				8A4B96D81ACDEFBC00FFEB2A /* libANSDKVdopiaAdapter.a in Frameworks */,
 				8AD7C4E61AD3214B0049C997 /* libANSDKVungleAdapter.a in Frameworks */,
@@ -1565,7 +1532,6 @@
 				8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */,
 				8AA5B4F91AA90CED00522E1C /* libz.dylib in Frameworks */,
 				8A2BD4111B670E540000DB66 /* MMAdSDK.framework in Frameworks */,
-				8AE76EB61E3C1B5500A3107F /* RFMAdSDK.framework in Frameworks */,
 				4F41F5311D8AFECF00DC37D4 /* SafariServices.framework in Frameworks */,
 				8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */,
 				8A4EF46D1CF3B1E3002C2DF1 /* VungleSDK.framework in Frameworks */,
@@ -1898,7 +1864,6 @@
 			isa = PBXGroup;
 			children = (
 				8A7F4CBD19DB395D003ECC5C /* MoPub */,
-				604C116E1E26E1D6006D6C97 /* Rubicon */,
 				6035A02B1E23FE610017EF56 /* SmartAd */,
 			);
 			name = ResourcesForMediatedSDKs;
@@ -1907,12 +1872,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1923,14 +1888,6 @@
 				6035A0291E23FE3F0017EF56 /* sas.bundle */,
 			);
 			name = SmartAd;
-			sourceTree = "<group>";
-		};
-		604C116E1E26E1D6006D6C97 /* Rubicon */ = {
-			isa = PBXGroup;
-			children = (
-				8AE76EB71E3C1B7500A3107F /* RFMAdSDK.bundle */,
-			);
-			name = Rubicon;
 			sourceTree = "<group>";
 		};
 		8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */ = {
@@ -2066,7 +2023,6 @@
 				8A9CBAD21C652E9B00558C95 /* MessageUI.framework */,
 				8A2BD4101B670E540000DB66 /* MMAdSDK.framework */,
 				4FD67FAA1D76003D009270E6 /* QuartzCore.framework */,
-				8AE76EB51E3C1B5500A3107F /* RFMAdSDK.framework */,
 				4F41F5301D8AFECF00DC37D4 /* SafariServices.framework */,
 				8A14827D1AD346220046F1B9 /* Social.framework */,
 				8A40180A1A95028700D56208 /* StoreKit.framework */,
@@ -2109,25 +2065,24 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
-				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0094019DB169B0090EBED /* libANSDK.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
 				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
 				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
+				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2415,7 +2370,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				0E28D9F420EAD82C00EC2CB2 /* PBXTargetDependency */,
 				0E28D9F220EAD82800EC2CB2 /* PBXTargetDependency */,
 				0E28D9F020EAD82500EC2CB2 /* PBXTargetDependency */,
 				0E28D9EE20EAD82200EC2CB2 /* PBXTargetDependency */,
@@ -2539,7 +2493,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				604C11551E26E0D3006D6C97 /* PBXTargetDependency */,
 				6035A0141E23FDFD0017EF56 /* PBXTargetDependency */,
 				60359EF21E1EC38C0017EF56 /* PBXTargetDependency */,
 				8A4B96CE1ACDEE1600FFEB2A /* PBXTargetDependency */,
@@ -2744,13 +2697,6 @@
 			fileType = archive.ar;
 			path = libANSDKSmartAdAdapter.a;
 			remoteRef = 6035A01D1E23FDFD0017EF56 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		604C115F1E26E0D3006D6C97 /* libANSDKRubiconAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKRubiconAdapter.a;
-			remoteRef = 604C115E1E26E0D3006D6C97 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */ = {
@@ -3119,7 +3065,6 @@
 				4F63B89A1D918FE200E22FE0 /* MPUnmutedBtn@3x.png in Resources */,
 				4F63B8A91D91901300E22FE0 /* MRAID.bundle in Resources */,
 				8AF841441CF75A1600F97FA9 /* mraid.txt in Resources */,
-				8AE76EB81E3C1B8000A3107F /* RFMAdSDK.bundle in Resources */,
 				6035A02A1E23FE3F0017EF56 /* sas.bundle in Resources */,
 				8AF841451CF75A1600F97FA9 /* vdopiaCrossButton.png in Resources */,
 				8A4EF4681CF3B1E3002C2DF1 /* vg_close.png in Resources */,
@@ -3484,11 +3429,6 @@
 			name = ANSDKAdMarvelAdapter;
 			targetProxy = 0E28D9F120EAD82800EC2CB2 /* PBXContainerItemProxy */;
 		};
-		0E28D9F420EAD82C00EC2CB2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ANSDKRubiconAdapter;
-			targetProxy = 0E28D9F320EAD82C00EC2CB2 /* PBXContainerItemProxy */;
-		};
 		0E3CAA2820E6DBF800358480 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0E3CA9C820E6D79400358480 /* UnitTestApp */;
@@ -3523,11 +3463,6 @@
 			isa = PBXTargetDependency;
 			name = ANSDKSmartAdAdapter;
 			targetProxy = 6035A0131E23FDFD0017EF56 /* PBXContainerItemProxy */;
-		};
-		604C11551E26E0D3006D6C97 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ANSDKRubiconAdapter;
-			targetProxy = 604C11541E26E0D3006D6C97 /* PBXContainerItemProxy */;
 		};
 		8A4B96CC1ACDEE0B00FFEB2A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3661,6 +3596,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OriginalUnitTestAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3688,6 +3633,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = OriginalUnitTestAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3714,6 +3669,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NewTestAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3741,6 +3706,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NewTestAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3767,6 +3742,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = UTModuleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3794,6 +3779,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = UTModuleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3820,6 +3815,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NativeUnitTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3847,6 +3852,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NativeUnitTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3882,7 +3897,6 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3920,7 +3934,6 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -3948,6 +3961,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = VideoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -3975,6 +3998,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = VideoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -4002,6 +4035,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NewTestAppKIFUnitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -4030,6 +4073,16 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = NewTestAppKIFUnitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -4057,6 +4110,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = X9C48RNUJC;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "UITestApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -4084,6 +4147,16 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = X9C48RNUJC;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "UITestApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -4108,6 +4181,16 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = UITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -4144,6 +4227,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = UITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -4341,7 +4434,6 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4421,7 +4513,6 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;

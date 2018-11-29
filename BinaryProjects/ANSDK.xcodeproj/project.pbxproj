@@ -73,9 +73,6 @@
 		604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */; };
 		604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */; };
 		604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */; };
-		604C114A1E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C11491E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m */; };
-		604C11511E26D912006D6C97 /* ANAdAdapterBaseRubicon.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C11501E26D912006D6C97 /* ANAdAdapterBaseRubicon.m */; };
-		604C116B1E26E17B006D6C97 /* ANAdAdapterBaseRubicon.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 604C114F1E26D912006D6C97 /* ANAdAdapterBaseRubicon.h */; };
 		607A20FE1F85540800BD8353 /* ANAdFetcherResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F131E8B1F71CCE50019FDAC /* ANAdFetcherResponse.m */; };
 		607A20FF1F85540E00BD8353 /* ANTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */; };
 		607A21001F85541900BD8353 /* ANTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */; };
@@ -394,13 +391,6 @@
 			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
 			remoteInfo = ANSDK;
 		};
-		604C11411E26C883006D6C97 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
-			remoteInfo = ANSDK;
-		};
 		8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
@@ -524,16 +514,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		604C112B1E26BE4B006D6C97 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				604C116B1E26E17B006D6C97 /* ANAdAdapterBaseRubicon.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,15 +840,8 @@
 		604C10FC1E24261F006D6C97 /* ANAdAdapterSmartAdBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterSmartAdBase.h; sourceTree = "<group>"; };
 		604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterSmartAdBase.m; sourceTree = "<group>"; };
 		604C10FF1E242E9B006D6C97 /* ANAdAdapterSmartAdBase+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterSmartAdBase+PrivateMethods.h"; sourceTree = "<group>"; };
-		604C112D1E26BE4B006D6C97 /* libANSDKRubiconAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKRubiconAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		604C11481E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerRubicon.h; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBannerRubicon.h; sourceTree = "<group>"; };
-		604C11491E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerRubicon.m; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBannerRubicon.m; sourceTree = "<group>"; };
-		604C114F1E26D912006D6C97 /* ANAdAdapterBaseRubicon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseRubicon.h; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBaseRubicon.h; sourceTree = "<group>"; };
-		604C11501E26D912006D6C97 /* ANAdAdapterBaseRubicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseRubicon.m; path = ../mediation/mediatedviews/Rubicon/ANAdAdapterBaseRubicon.m; sourceTree = "<group>"; };
 		607A21191F8589D800BD8353 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MMAdSDK.framework; sourceTree = "<group>"; };
 		607A211A1F8589E900BD8353 /* LICENSE_Millenial_Media.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE_Millenial_Media.txt; path = "../../../../../../../../../../../Downloads/mm-ios-ad-sdk-6.6.0-20170915-1413/LICENSE_Millenial_Media.txt"; sourceTree = "<group>"; };
-		607A21291F85EB7C00BD8353 /* RFMAdSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RFMAdSDK.bundle; sourceTree = "<group>"; };
-		607A212A1F85EB7C00BD8353 /* RFMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RFMAdSDK.framework; sourceTree = "<group>"; };
 		608E47351F86E6B7009BB148 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
 		608E47361F86E6B7009BB148 /* NOTICE_Amazon.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE_Amazon.txt; sourceTree = "<group>"; };
 		608E47371F86E6B7009BB148 /* README_Amazon.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_Amazon.md; sourceTree = "<group>"; };
@@ -1213,13 +1186,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		60359FEC1E23FCB50017EF56 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		604C112A1E26BE4B006D6C97 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1602,28 +1568,6 @@
 				6035A00B1E23FCCB0017EF56 /* SASVideoEvent.h */,
 			);
 			path = headers;
-			sourceTree = "<group>";
-		};
-		604C11471E26D37D006D6C97 /* Rubicon */ = {
-			isa = PBXGroup;
-			children = (
-				607A21281F85EB7C00BD8353 /* RubiconSDK */,
-				604C11481E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.h */,
-				604C11491E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m */,
-				604C114F1E26D912006D6C97 /* ANAdAdapterBaseRubicon.h */,
-				604C11501E26D912006D6C97 /* ANAdAdapterBaseRubicon.m */,
-			);
-			name = Rubicon;
-			sourceTree = "<group>";
-		};
-		607A21281F85EB7C00BD8353 /* RubiconSDK */ = {
-			isa = PBXGroup;
-			children = (
-				607A21291F85EB7C00BD8353 /* RFMAdSDK.bundle */,
-				607A212A1F85EB7C00BD8353 /* RFMAdSDK.framework */,
-			);
-			name = RubiconSDK;
-			path = ../mediation/mediatedviews/Rubicon/RubiconSDK;
 			sourceTree = "<group>";
 		};
 		609732FB1E42EAFF0061EC0A /* video */ = {
@@ -2189,7 +2133,6 @@
 				8AA5B4B61AA8B48E00522E1C /* InMobi */,
 				8AE2D7CD19CC889000001B70 /* Millennial Media */,
 				8AE2D7A019CC885600001B70 /* MoPub */,
-				604C11471E26D37D006D6C97 /* Rubicon */,
 				60359FF81E23FCCB0017EF56 /* SmartAd */,
 				8A4B96961ACD997500FFEB2A /* Vdopia */,
 				8AD7C4C51AD2FA0E0049C997 /* Vungle */,
@@ -2277,7 +2220,6 @@
 				8AA5B4C41AA8B4A500522E1C /* libANSDKInMobiAdapter.a */,
 				8AE2D73319CC879900001B70 /* libANSDKMillennialMediaAdapter.a */,
 				8AE2D76419CC87B200001B70 /* libANSDKMoPubAdapter.a */,
-				604C112D1E26BE4B006D6C97 /* libANSDKRubiconAdapter.a */,
 				60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */,
 				8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */,
 				8AD7C4D81AD2FABA0049C997 /* libANSDKVungleAdapter.a */,
@@ -2519,25 +2461,6 @@
 			name = ANSDKSmartAdAdapter;
 			productName = ANSDKSmartAdAdapter;
 			productReference = 60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		604C112C1E26BE4B006D6C97 /* ANSDKRubiconAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 604C11351E26BE4B006D6C97 /* Build configuration list for PBXNativeTarget "ANSDKRubiconAdapter" */;
-			buildPhases = (
-				604C11291E26BE4B006D6C97 /* Sources */,
-				604C112A1E26BE4B006D6C97 /* Frameworks */,
-				604C112B1E26BE4B006D6C97 /* CopyFiles */,
-				604C116A1E26E10D006D6C97 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				604C11421E26C883006D6C97 /* PBXTargetDependency */,
-			);
-			name = ANSDKRubiconAdapter;
-			productName = ANSDKRubiconAdapter;
-			productReference = 604C112D1E26BE4B006D6C97 /* libANSDKRubiconAdapter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8A1482491AD337320046F1B9 /* ANSDKAdColonyAdapter */ = {
@@ -2860,10 +2783,6 @@
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
 					};
-					604C112C1E26BE4B006D6C97 = {
-						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
-					};
 					8A9AED8B1A1BE84F00C58BDA = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -2900,7 +2819,6 @@
 				8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */,
 				60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */,
 				60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */,
-				604C112C1E26BE4B006D6C97 /* ANSDKRubiconAdapter */,
 			);
 		};
 /* End PBXProject section */
@@ -2911,13 +2829,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6035A02C1E2401020017EF56 /* sas.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		604C116A1E26E10D006D6C97 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3107,15 +3018,6 @@
 				604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */,
 				604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
 				604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		604C11291E26BE4B006D6C97 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				604C114A1E26D3F6006D6C97 /* ANAdAdapterBannerRubicon.m in Sources */,
-				604C11511E26D912006D6C97 /* ANAdAdapterBaseRubicon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3420,11 +3322,6 @@
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
 			targetProxy = 6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */;
 		};
-		604C11421E26C883006D6C97 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 604C11411E26C883006D6C97 /* PBXContainerItemProxy */;
-		};
 		8A14824A1AD337320046F1B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
@@ -3617,52 +3514,6 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		604C11331E26BE4B006D6C97 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK/**";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		604C11341E26BE4B006D6C97 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Rubicon/RubiconSDK/**";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4381,15 +4232,6 @@
 			buildConfigurations = (
 				60359FF61E23FCB50017EF56 /* Debug */,
 				60359FF71E23FCB50017EF56 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		604C11351E26BE4B006D6C97 /* Build configuration list for PBXNativeTarget "ANSDKRubiconAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				604C11331E26BE4B006D6C97 /* Debug */,
-				604C11341E26BE4B006D6C97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
