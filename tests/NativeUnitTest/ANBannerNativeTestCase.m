@@ -347,15 +347,23 @@
         self.foundStandardAdResponseObject = YES;
         [self.expectationResponse fulfill];
     }
+}
 
-    if ([ad isKindOfClass:[ANNativeStandardAdResponse class]]) {
-        self.nativeAd = (ANNativeAdResponse *)ad;
+- (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance
+{
+    TESTTRACE();
+
+    XCTAssertNotNil(loadInstance);
+    XCTAssertNotNil(responseInstance);
+
+    if ([responseInstance isKindOfClass:[ANNativeStandardAdResponse class]]) {
+        self.nativeAd = (ANNativeAdResponse *)responseInstance;
         self.foundNativeStandardAdResponseObject = YES;
         [self.expectationResponse fulfill];
     }
 
-    if ([ad isKindOfClass:[ANNativeMediatedAdResponse class]]) {
-        self.nativeAd = (ANNativeAdResponse *)ad;
+    if ([responseInstance isKindOfClass:[ANNativeMediatedAdResponse class]]) {
+        self.nativeAd = (ANNativeAdResponse *)responseInstance;
         self.foundNativeMediatedAdResponseObject = YES;
         [self.expectationResponse fulfill];
     }

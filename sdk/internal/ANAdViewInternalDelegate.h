@@ -16,6 +16,7 @@
 #import <UIKit/UIKit.h>
 
 #import "ANAdConstants.h"
+#import "ANAdProtocol.h"
 
 
 
@@ -30,10 +31,9 @@
 
 - (void)adWasClickedWithURL:(NSString *)urlString;
 - (void)adDidReceiveAd:(id)adObject;
-
+- (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance;
 
 @required
-- (void)adDidReceiveAd;
 - (void)adRequestFailedWithError:(NSError *)error;
 
 - (void)adWasClicked;

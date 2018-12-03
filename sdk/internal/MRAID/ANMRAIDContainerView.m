@@ -467,7 +467,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     if (controller == self.webViewController)
     {
         // Attaching WKWebView to screen for an instant to allow it to fully load in the background
-        //   before the call to [ANAdDelegate adDidReceiveAd].
+        //   before the call to [ANAdDelegate adDidReceiveAd:self].
         //
         // NB  For banner video, this step has already occured in [ANAdViewWebController initWithSize:videoXML:].
         //

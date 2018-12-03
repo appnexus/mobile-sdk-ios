@@ -27,17 +27,15 @@
        // Make an interstitial ad.
        self.inter = [[ANInterstitialAd alloc] initWithPlacementId:@"1326299"];
 
-       // We set ourselves as the delegate so we can respond to the
-       // required `adDidReceiveAd' message of the
-       // `ANInterstitialAdDelegate' protocol (see the bottom of this
-       // file for an example)
+       // We set ourselves as the delegate so we can respond to the `adDidReceiveAd:' message of the
+       // `ANInterstitialAdDelegate' protocol.  (See the bottom of this file for an example.)
        self.inter.delegate = self;
 
        // When the user clicks, use the following to open the default browser on the device.
        self.inter.clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
 
        // Fetch an ad in the background.  In order to show this ad,
-       // you'll need to implement `adDidReceiveAd' (see below).
+       // you'll need to implement `adDidReceiveAd:' (see below).
        [self.inter loadAd];
  @endcode
  
@@ -121,7 +119,7 @@
  it to the user.  For example:
  
  @code
-     - (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+     - (void)adDidReceiveAd:(id)ad
      {
           if (self.inter.isReady) {
               [self.inter displayAdFromViewController:self];
@@ -129,7 +127,7 @@
      }
  @endcode
  
- Technically, you don't need to implement adDidReceiveAd in order to
+ Technically, you don't need to implement adDidReceiveAd: in order to
  display the ad; it's used here for convenience. Note that you should
  check isReady first to make sure there's an ad to show.
 */

@@ -76,14 +76,14 @@
     self.interstitial = nil;
 }
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+- (void)adDidReceiveAd:(id)ad
 {
     ANLogDebug(@"Did load %@", NSStringFromClass([ANInterstitialAd class]));
     if (self.delegate)
         [self.delegate interstitialCustomEvent:self didLoadAd:self.interstitial];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+- (void)ad:(id)ad requestFailedWithError:(NSError *)error
 {
     ANLogDebug(@"Did fail to load %@", NSStringFromClass([ANInterstitialAd class]));
     if (self.delegate)
@@ -98,23 +98,23 @@
     }
 }
 
-- (void)adWillPresent:(id<ANAdProtocol>)ad {
+- (void)adWillPresent:(id)ad {
     [self.delegate interstitialCustomEventWillAppear:self];
 }
 
-- (void)adDidPresent:(id<ANAdProtocol>)ad {
+- (void)adDidPresent:(id)ad {
     [self.delegate interstitialCustomEventDidAppear:self];
 }
 
-- (void)adWillClose:(id<ANAdProtocol>)ad {
+- (void)adWillClose:(id)ad {
     [self.delegate interstitialCustomEventWillDisappear:self];
 }
 
-- (void)adDidClose:(id<ANAdProtocol>)ad {
+- (void)adDidClose:(id)ad {
     [self.delegate interstitialCustomEventDidDisappear:self];
 }
 
-- (void)adWasClicked:(id<ANAdProtocol>)ad {
+- (void)adWasClicked:(id)ad {
     [self.delegate interstitialCustomEventDidReceiveTapEvent:self];
 }
 

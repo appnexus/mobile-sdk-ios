@@ -75,33 +75,33 @@
 
 #pragma mark ANAdViewDelegate
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+- (void)adDidReceiveAd:(id)ad
 {
     [self.delegate customEventBanner:self didReceiveAd:(ANBannerAdView *)ad];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+- (void)ad:(id)ad requestFailedWithError:(NSError *)error
 {
     [self.delegate customEventBanner:self didFailAd:error];
 }
 
-- (void)adWasClicked:(id<ANAdProtocol>)ad {
+- (void)adWasClicked:(id)ad {
     [self.delegate customEventBannerWasClicked:self];
 }
 
-- (void)adWillPresent:(id<ANAdProtocol>)ad {
+- (void)adWillPresent:(id)ad {
     [self.delegate customEventBannerWillPresentModal:self];
 }
 
-- (void)adWillClose:(id<ANAdProtocol>)ad {
+- (void)adWillClose:(id)ad {
     [self.delegate customEventBannerWillDismissModal:self];
 }
 
-- (void)adDidClose:(id<ANAdProtocol>)ad {
+- (void)adDidClose:(id)ad {
     [self.delegate customEventBannerDidDismissModal:self];
 }
 
-- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+- (void)adWillLeaveApplication:(id)ad {
     [self.delegate customEventBannerWillLeaveApplication:self];
 }
 

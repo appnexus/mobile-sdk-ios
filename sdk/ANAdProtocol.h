@@ -246,21 +246,23 @@
 #pragma mark - ANAdDelegate.
 
 /**
- The definition of the `ANAdDelegate' protocol includes methods
- which can be implemented by either type of ad.  Though these
- methods are listed here as optional, specific ad types may require
- them.  For example, interstitial ads require that `adDidReceiveAd'
- be implemented.
+ The definition of the `ANAdDelegate' protocol includes methods which can be implemented by either type of ad.
+ Though these methods are listed here as optional, specific ad types may require them.
+ For example, interstitial ads require that `adDidReceiveAd:' be implemented.
  */
 @protocol ANAdDelegate <NSObject>
 
 
 @optional
 /**
- Sent when the ad content has been successfully retrieved from the
- server.
+ Sent when the ad content has been successfully retrieved from the server.
+   adDidReceiveAd:          used with Banner, Interstitial and Instream Video.
+   ad:didReceivNativeAd:    used to receive ANNativeAdReponse when that is returned from an ANBannerAdView request.
  */
 - (void)adDidReceiveAd:(id)ad;
+
+- (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance;
+
 
 /**
  Sent when the ad request to the server has failed.

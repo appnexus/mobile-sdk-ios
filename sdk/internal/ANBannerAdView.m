@@ -354,8 +354,8 @@
                 _loadedAdSize = self.adSize;
                 }
             
-            [self adDidReceiveAd];
-          
+            [self adDidReceiveAd:self];
+
             if ([self adType] == ANAdTypeBanner)
             {
                 
@@ -389,7 +389,7 @@
             nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
 
             //
-            [self adDidReceiveAd:nativeAdResponse];
+            [self ad:self didReceiveNativeAd:nativeAdResponse];
 
         } else {
             NSString  *unrecognizedResponseErrorMessage  = [NSString stringWithFormat:@"UNRECOGNIZED ad response.  (%@)", [adObject class]];

@@ -487,17 +487,17 @@
     }
 }
 
-- (void)adDidReceiveAd
-{
-    if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
-        [self.delegate adDidReceiveAd:self];
-    }
-}
-
 - (void)adDidReceiveAd:(id)adObject
 {
     if ([self.delegate respondsToSelector:@selector(adDidReceiveAd:)]) {
         [self.delegate adDidReceiveAd:adObject];
+    }
+}
+
+- (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance
+{
+    if ([self.delegate respondsToSelector:@selector(ad:didReceiveNativeAd:)]) {
+        [self.delegate ad:loadInstance didReceiveNativeAd:responseInstance];
     }
 }
 

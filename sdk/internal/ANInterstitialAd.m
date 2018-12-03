@@ -357,7 +357,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     [self.precachedAdObjects addObject:adViewWithDateLoaded];
     ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
     
-    [self adDidReceiveAd];
+    [self adDidReceiveAd:self];
     
 }
 

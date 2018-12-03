@@ -34,7 +34,9 @@
  * Sent when the native view returns the click-through URL and click-through fallback URL
  *   to the user instead of opening it in a browser.
  */
-- (void)adWasClicked:(id)response withURL:(NSString *)clickURLString fallbackURL:(NSString *)clickFallbackURLString;
+- (void)adWasClicked: (id)response
+             withURL: (NSString *)clickURLString
+         fallbackURL: (NSString *)clickFallbackURLString;
 
 /*!
  * Sent when the native view was clicked, and the click through

@@ -68,12 +68,12 @@
 #pragma mark -
 #pragma mark ANAdDelegate
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+- (void)adDidReceiveAd:(id)ad
 {
 	[self.delegate customEventInterstitialDidReceiveAd:self];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+- (void)ad:(id)ad requestFailedWithError:(NSError *)error
 {
     [self.delegate customEventInterstitial:self didFailAd:error];
 }
@@ -97,7 +97,7 @@
     [self.delegate customEventInterstitialDidDismiss:self];
 }
 
-- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+- (void)adWillLeaveApplication:(id)ad {
     [self.delegate customEventInterstitialWillLeaveApplication:self];
 }
 

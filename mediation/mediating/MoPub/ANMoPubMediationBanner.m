@@ -79,29 +79,29 @@
     [self.adBannerView loadAd];
 }
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+- (void)adDidReceiveAd:(id)ad
 {
     ANLogDebug(@"Did load %@", NSStringFromClass([ANBannerAdView class]));
     if (self.delegate)
         [self.delegate bannerCustomEvent:self didLoadAd:self.adBannerView];
 }
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+- (void)ad:(id)ad requestFailedWithError:(NSError *)error
 {
     ANLogDebug(@"Did fail to load %@", NSStringFromClass([ANBannerAdView class]));
     if (self.delegate)
         [self.delegate bannerCustomEvent:self didFailToLoadAdWithError:error];
 }
 
-- (void)adWillPresent:(id<ANAdProtocol>)ad {
+- (void)adWillPresent:(id)ad {
     [self.delegate bannerCustomEventWillBeginAction:self];
 }
 
-- (void)adDidClose:(id<ANAdProtocol>)ad {
+- (void)adDidClose:(id)ad {
     [self.delegate bannerCustomEventDidFinishAction:self];
 }
 
-- (void)adWillLeaveApplication:(id<ANAdProtocol>)ad {
+- (void)adWillLeaveApplication:(id)ad {
     [self.delegate bannerCustomEventWillLeaveApplication:self];
 }
 

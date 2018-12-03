@@ -263,7 +263,9 @@ NSString * const  kANNativeElementObject                                   = @"E
 - (void)adWasClickedWithURL:(NSString *)clickURLString fallbackURL:(NSString *)clickFallbackURLString
 {
     if ([self.delegate respondsToSelector:@selector(adWasClicked:withURL:fallbackURL:)]) {
-        [self.delegate adWasClicked:self withURL:clickURLString fallbackURL:clickFallbackURLString];
+        [self.delegate adWasClicked: self
+                            withURL: clickURLString
+                        fallbackURL: clickFallbackURLString];
     }
 }
 
