@@ -110,27 +110,61 @@
     [self.universalAdFetcher stopAdLoad];
 }
 
-
-- (void)loadAd
+- (BOOL) errorCheckConfiguration
 {
+    NSString      *errorString  = nil;
+    NSDictionary  *errorInfo    = nil;
+    NSError       *error        = nil;
+
+
+    //
     BOOL  placementIdValid    = [self.placementId length] >= 1;
     BOOL  inventoryCodeValid  = ([self memberId] >=1 ) && [self inventoryCode];
-    
+
+
     if (!placementIdValid && !inventoryCodeValid) {
         NSString      *errorString  = ANErrorString(@"no_placement_id");
         NSDictionary  *errorInfo    = @{NSLocalizedDescriptionKey: errorString};
         NSError       *error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
-        
+
+        errorString  = ANErrorString(@"no_placement_id");
+        errorInfo    = @{NSLocalizedDescriptionKey: errorString};
+        error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+    }
+
+    if ([self isKindOfClass:[ANBannerAdView class]])
+    {
+        ANBannerAdView  *bav  = (ANBannerAdView *)self;
+
+        if (!bav.adSizes) {
+            errorString  = ANErrorString(@"adSizes_undefined");
+            errorInfo    = @{NSLocalizedDescriptionKey: errorString};
+            error        = [NSError errorWithDomain:AN_ERROR_DOMAIN code:ANAdResponseInvalidRequest userInfo:errorInfo];
+        }
+    }
+
+
+    //
+    if (error) {
         ANLogError(@"%@", errorString);
         [self adRequestFailedWithError:error];
-        return;
+
+        return  NO;
     }
-    
+
+    return  YES;
+}
+
+- (void)loadAd
+{
+    if (! [self errorCheckConfiguration])  { return; }
+
+    //
     [self.universalAdFetcher stopAdLoad];
     [self.universalAdFetcher requestAd];
     
     if (! self.universalAdFetcher)  {
-        ANLogError(@"FAILED TO FETCH ad via UT.");
+        ANLogError(@"Fetcher is unallocated.  FAILED TO FETCH ad via UT.");
     }
 }
 

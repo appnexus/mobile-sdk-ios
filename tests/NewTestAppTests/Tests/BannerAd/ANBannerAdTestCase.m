@@ -14,26 +14,43 @@
  */
 
 #import <XCTest/XCTest.h>
+#import <CoreLocation/CoreLocation.h>
+
 #import "ANHTTPStubbingManager.h"
 #import "ANBannerAdView+ANTest.h"
 #import "ANSDKSettings+PrivateMethods.h"
-#import <CoreLocation/CoreLocation.h>
+#import "ANTestGlobal.h"
+
+
 
 @interface ANBannerAdTestCase : XCTestCase<ANBannerAdViewDelegate>
+
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *banner;
 @property (nonatomic, readwrite, strong)  UIView        *bannerSuperView;
-@property (nonatomic, strong) XCTestExpectation *loadAdSuccesfulException;
+
+@property (nonatomic, readwrite)  BOOL  receiveAdSuccess;
+@property (nonatomic, readwrite)  BOOL  receiveAdFailure;
+
+@property (nonatomic, strong) XCTestExpectation *loadAdResponseReceivedExpectation;
+@property (nonatomic, strong) XCTestExpectation *loadAdResponseFailedExpectation;
 
 @property (nonatomic, readwrite)  BOOL  locationEnabledForCreative;
+
 @end
 
 @implementation ANBannerAdTestCase
+
+#pragma mark - Test lifecycle.
 
 - (void)setUp {
     [super setUp];
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+
     self.banner = nil;
+
+    self.receiveAdSuccess = NO;
+    self.receiveAdFailure = NO;
     
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
@@ -54,7 +71,7 @@
     [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO
                                                                                                                completion:nil];
     
-    self.loadAdSuccesfulException = nil;
+    self.loadAdResponseReceivedExpectation = nil;
     
 }
 
@@ -68,6 +85,61 @@
     self.banner.accessibilityLabel = @"AdView";
     self.banner.autoRefreshInterval = 0;
     self.banner.delegate = self;
+}
+
+
+
+
+#pragma mark - Test methods.
+
+- (void)testIncorrectWidth
+{
+    self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 430)];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
+
+    CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
+    int adWidth  = 0;
+    int adHeight = 10;
+    NSArray *sizes = [NSArray arrayWithObjects:
+                      [NSValue valueWithCGSize:CGSizeMake(adWidth, adHeight)],
+                      nil];
+    ANSDKSettings.sharedInstance.sizesThatShouldConstrainToSuperview  = sizes;
+    CGSize size = CGSizeMake(adWidth, adHeight);
+    [self setupBannerWithPlacement:@"13653381" withFrame:rect andSize:size];
+
+    [self.bannerSuperView addSubview:self.banner];
+
+
+    [self stubRequestWithResponse:@"SuccessfulAllowMagicSizeBannerObjectResponse"];
+    [self.banner loadAd];
+
+    XCTAssertTrue(self.receiveAdFailure);
+    XCTAssertFalse(self.receiveAdSuccess);
+}
+
+- (void)testIncorrectHeight
+{
+    self.bannerSuperView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , 320, 430)];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.bannerSuperView];
+
+    CGRect rect = CGRectMake(0, 0, self.bannerSuperView.frame.size.width, self.bannerSuperView.frame.size.height);
+    int adWidth  = 10;
+    int adHeight = -42;
+    NSArray *sizes = [NSArray arrayWithObjects:
+                      [NSValue valueWithCGSize:CGSizeMake(adWidth, adHeight)],
+                      nil];
+    ANSDKSettings.sharedInstance.sizesThatShouldConstrainToSuperview  = sizes;
+    CGSize size = CGSizeMake(adWidth, adHeight);
+    [self setupBannerWithPlacement:@"13653381" withFrame:rect andSize:size];
+
+    [self.bannerSuperView addSubview:self.banner];
+
+
+    [self stubRequestWithResponse:@"SuccessfulAllowMagicSizeBannerObjectResponse"];
+    [self.banner loadAd];
+
+    XCTAssertTrue(self.receiveAdFailure);
+    XCTAssertFalse(self.receiveAdSuccess);
 }
 
 - (void)testBannerAllowMagicSize {
@@ -91,7 +163,7 @@
     [self stubRequestWithResponse:@"SuccessfulAllowMagicSizeBannerObjectResponse"];
     [self.banner loadAd];
     
-    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
@@ -128,7 +200,7 @@
     UIViewController *copyRootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
     
-    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:5 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
@@ -173,7 +245,7 @@
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
     
     
-    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    self.loadAdResponseReceivedExpectation = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
     [self waitForExpectationsWithTimeout:10 * kAppNexusRequestTimeoutInterval
                                  handler:^(NSError *error) {
                                      
@@ -204,6 +276,9 @@
     }
     return NO;
 }
+
+
+
 
 #pragma mark - Stubbing
 
@@ -236,16 +311,25 @@
     [self waitForExpectationsWithTimeout:delay + 1 handler:nil];
 }
 
+
+
+
 #pragma mark - ANAdDelegate
 
-- (void)adDidReceiveAd:(id<ANAdProtocol>)ad {
-    [self.loadAdSuccesfulException fulfill];
-    
+- (void)adDidReceiveAd:(id<ANAdProtocol>)ad
+{
+    [self.loadAdResponseReceivedExpectation fulfill];
+    self.receiveAdSuccess = YES;
 }
 
 
-- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error {
-    [self.loadAdSuccesfulException fulfill];
+- (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error
+{
+    TESTTRACEM(@"error.info=%@", error.userInfo);
+
+    [self.loadAdResponseReceivedExpectation fulfill];
+    [self.loadAdResponseFailedExpectation fulfill];
+    self.receiveAdFailure = YES;
 }
 
 @end

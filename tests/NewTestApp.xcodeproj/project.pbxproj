@@ -1822,12 +1822,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1984,24 +1984,24 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094019DB169B0090EBED /* libANSDK.a */,
 				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
-				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
-				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
 				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
 				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094019DB169B0090EBED /* libANSDK.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
+				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
+				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2795,7 +2795,6 @@
 				0E39789B212B47A000DDAD6D /* ANGADNativeContentAdView.xib in Resources */,
 				0E39787C212B47A000DDAD6D /* ANNativeAdView.xib in Resources */,
 				0E39789E212B47A000DDAD6D /* ANNativeAdViewMainImage.xib in Resources */,
-				0E8C853B21B1881C003C2E00 /* nativeResponse1.json in Resources */,
 				0EE76E5C21A6021400B3635E /* appnexus_multiple_trackers.json in Resources */,
 				0E07067E2193672600C77167 /* appnexus_standard_response.json in Resources */,
 				0E07068A2193672600C77167 /* bannerNative_basic_banner.json in Resources */,
@@ -2811,8 +2810,9 @@
 				0E0706642193672600C77167 /* mopub_mediated_response.json in Resources */,
 				0E28D98B20EACE4F00EC2CB2 /* MPAdBrowserController.xib in Resources */,
 				0E0706662193672600C77167 /* native_videoResponse.json in Resources */,
-				0E010E3221A478A900A2D542 /* nativeResponseWithoutImpTrackers.json in Resources */,
+				0E8C853B21B1881C003C2E00 /* nativeResponse1.json in Resources */,
 				0E8C853921B1881C003C2E00 /* nativeResponse2.json in Resources */,
+				0E010E3221A478A900A2D542 /* nativeResponseWithoutImpTrackers.json in Resources */,
 				0E0706802193672600C77167 /* no_ads_ok_response.json in Resources */,
 				0E28D98C20EACE6D00EC2CB2 /* SuccessfulMediationResponse.json in Resources */,
 			);
@@ -2911,14 +2911,12 @@
 				8ABC03CE1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */,
 				8AE7AD921A7AAE33009E2F2F /* ANNativeAdView.xib in Resources */,
 				8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */,
-				0E8C853821B1881C003C2E00 /* nativeResponse2.json in Resources */,
 				0EE76E5B21A6021400B3635E /* appnexus_multiple_trackers.json in Resources */,
 				0E07067D2193672600C77167 /* appnexus_standard_response.json in Resources */,
 				0E0706892193672600C77167 /* bannerNative_basic_banner.json in Resources */,
 				0E0706872193672600C77167 /* bannerNative_native_mediation.json in Resources */,
 				0E07068B2193672600C77167 /* custom_adapter_fb_mediated_response.json in Resources */,
 				0E0706792193672600C77167 /* custom_adapter_invalid_type.json in Resources */,
-				0E8C853A21B1881C003C2E00 /* nativeResponse1.json in Resources */,
 				0E0706772193672600C77167 /* custom_adapter_mediated_response.json in Resources */,
 				0E0706732193672600C77167 /* custom_adapter_to_standard_response.json in Resources */,
 				0E0706692193672600C77167 /* custom_dummy_mediated_response.json in Resources */,
@@ -2928,6 +2926,8 @@
 				0E0706632193672600C77167 /* mopub_mediated_response.json in Resources */,
 				4F76461D1D957E4D00B15742 /* MPAdBrowserController.xib in Resources */,
 				0E0706652193672600C77167 /* native_videoResponse.json in Resources */,
+				0E8C853A21B1881C003C2E00 /* nativeResponse1.json in Resources */,
+				0E8C853821B1881C003C2E00 /* nativeResponse2.json in Resources */,
 				0E07067F2193672600C77167 /* no_ads_ok_response.json in Resources */,
 				8A549EC01A706DA5009F797A /* SuccessfulMediationResponse.json in Resources */,
 			);

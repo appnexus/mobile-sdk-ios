@@ -1,4 +1,5 @@
 // Keys should contain same arguments as values
+"adSizes_undefined"="adSize or adSizes is UNDEFINED.";
 "fetcher_stopped"="AdFetcher stopped";
 "no_placement_id"="E104: No placement ID set. onAdRequestFailed will not be called";
 "already_expanded"="Cannot load a new ad while the current ad is expanded. onAdRequestFailed will not be called";

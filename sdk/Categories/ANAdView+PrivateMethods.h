@@ -26,6 +26,8 @@
 @property (nonatomic, readwrite)  BOOL  allowSmallerSizes;
 
 - (void)initialize;
+- (BOOL)errorCheckConfiguration;
+
 - (void)loadAd;
 - (void)loadAdFromHtml:(NSString *)html
                  width:(int)width

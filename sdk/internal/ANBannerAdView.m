@@ -224,6 +224,9 @@
             __autoRefreshInterval = autoRefreshInterval;
             ANLogDebug(@"AutoRefresh interval set to %f seconds", __autoRefreshInterval);
         }
+
+        //
+        if (! [self errorCheckConfiguration])  { return; }
         
         [self.universalAdFetcher stopAdLoad];
         
