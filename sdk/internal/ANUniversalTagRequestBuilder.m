@@ -62,8 +62,8 @@
     NSMutableURLRequest  *mutableRequest  = [[NSMutableURLRequest alloc] initWithURL: URL
                                                                          cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
                                                                      timeoutInterval: kAppNexusRequestTimeoutInterval];
-
-
+    
+    
     [mutableRequest setValue:[ANGlobal getUserAgent] forHTTPHeaderField:@"User-Agent"];
     //needs to be set explicity else will default to "application/x-www-form-urlencoded"
     [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -122,6 +122,7 @@
     if (sdk) {
         requestDict[@"sdk"] = sdk;
     }
+    
     requestDict[@"sdkver"] = AN_SDK_VERSION;  //LEGACY.  Replaced by sdk object.
     
     requestDict[@"supply_type"] = @"mobile_app";
@@ -134,6 +135,24 @@
     
     return [requestDict copy];
 }
+
+- (NSDictionary *)nativeRendererRequest {
+    
+    if ([self.adFetcherDelegate respondsToSelector:@selector(nativeAdRendererId)]) {
+        
+        NSInteger rendererId = [self.adFetcherDelegate nativeAdRendererId];
+        NSArray *adAllowedMediaTypes = [self.adFetcherDelegate adAllowedMediaTypes];
+        if (rendererId != 0  && [adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]) {
+            return @{
+                     @"renderer_id": [NSNumber numberWithInteger:rendererId]
+                    };
+        }
+    }
+    return nil;
+    
+}
+
+
 
 // RETURN:  An NSArray pointer to NSDictionary of key/value pairs where each value object is an NSSet.
 //
@@ -228,6 +247,11 @@
     
     //
     tagDict[@"require_asset_url"] = [NSNumber numberWithBool:0];
+    
+    NSDictionary  *nativeRendererRequest  = [self nativeRendererRequest];
+    if (nativeRendererRequest) {
+        tagDict[@"native"] = nativeRendererRequest;
+    }
     
     NSDictionary *video = [self video];
     if(video){

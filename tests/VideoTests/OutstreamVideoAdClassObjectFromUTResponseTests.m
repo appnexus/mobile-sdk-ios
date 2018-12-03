@@ -82,9 +82,7 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
 
     self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for didFinishRequestWithResponse to be received"];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
 }
 
 - (void)verifyRTBVideoAdObject:(id)adObject

@@ -125,9 +125,7 @@
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
 
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
@@ -160,15 +158,13 @@
 }
 
 - (void)testAppNexusWithIconAndMainImageLoad {
-    [self stubRequestWithResponse:@"appnexus_standard_response_store_url"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.adRequest.shouldLoadMainImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
 
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
@@ -192,14 +188,12 @@
 }
 
 - (void)testAppNexusWithIconImageLoadToStoreUrl {
-    [self stubRequestWithResponse:@"appnexus_standard_response_store_url"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
@@ -221,83 +215,13 @@
     [tester waitForTimeInterval:3.0];
 }
 
-- (void)testAppNexusWithMultipleMainMedia {
-    [self stubRequestWithResponse:@"appnexus_multiple_main_media"];
-    [self.adRequest loadAd];
-    self.adRequest.shouldLoadIconImage = YES;
-    self.adRequest.shouldLoadMainImage = YES;
-    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
-    XCTAssertTrue(self.successfulAdCall);
-    XCTAssertNil(self.adRequestError);
-    
-    [self iconImageShouldBePresentInResponse:YES];
-    [self mainImageShouldBePresentInResponse:YES];
-    
-    XCTAssertTrue([self.adResponse.mainImageURL.absoluteString containsString:@"acdn.adnxs.com/mobile"]);
-
-    [self createMainImageNativeView];
-    [self populateNativeViewWithResponse];
-    [self registerNativeView];
-    [self addNativeViewToViewHierarchy];
-    
-    [tester waitForTimeInterval:2.0];
-    
-    [self clickOnAd];
-    [tester waitForTimeInterval:2.0];
-    [self assertPresentCallbacksReceived];
-    
-    [self closeInAppBrowser];
-    [tester waitForTimeInterval:3.0];
-    [self assertCloseCallbacksReceived];
-}
-
-- (void)testAppNexusWithMultipleMainMediaDefault {
-    [self stubRequestWithResponse:@"appnexus_multiple_main_media_default"];
-    [self.adRequest loadAd];
-    self.adRequest.shouldLoadIconImage = YES;
-    self.adRequest.shouldLoadMainImage = YES;
-    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
-    XCTAssertTrue(self.successfulAdCall);
-    XCTAssertNil(self.adRequestError);
-
-    [self iconImageShouldBePresentInResponse:YES];
-    [self mainImageShouldBePresentInResponse:YES];
-    
-    XCTAssertTrue([self.adResponse.mainImageURL.absoluteString containsString:@"acdn.adnxs.com/mobile"]);
-    
-    [self createMainImageNativeView];
-    [self populateNativeViewWithResponse];
-    [self registerNativeView];
-    [self addNativeViewToViewHierarchy];
-    
-    [tester waitForTimeInterval:2.0];
-    
-    [self clickOnAd];
-    [tester waitForTimeInterval:2.0];
-    [self assertPresentCallbacksReceived];
-    
-    [self closeInAppBrowser];
-    [tester waitForTimeInterval:3.0];
-    [self assertCloseCallbacksReceived];
-}
-
 - (void)testAppNexusWithMultipleTrackers {
     [self stubRequestWithResponse:@"appnexus_multiple_trackers"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
@@ -336,9 +260,7 @@
     self.adRequest.shouldLoadMainImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
@@ -367,9 +289,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
@@ -398,9 +318,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
 
@@ -411,14 +329,12 @@
 }
 
 - (void)testAppNexusClickFallbackBehavior {
-    [self stubRequestWithResponse:@"appnexus_click_fallback_example"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
@@ -504,9 +420,7 @@
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     
@@ -541,9 +455,7 @@
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     XCTAssertEqualObjects(self.adResponse.creativeId, @"123456");
@@ -572,9 +484,7 @@
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertTrue(self.successfulAdCall);
     XCTAssertNil(self.adRequestError);
     

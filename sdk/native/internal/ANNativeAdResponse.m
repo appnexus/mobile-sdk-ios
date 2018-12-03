@@ -20,6 +20,7 @@
 #import "ANAdProtocol.h"
 
 
+NSString * const  kANNativeElementObject                                   = @"ELEMENT";
 
 
 #pragma mark - ANNativeAdResponseGestureRecognizerRecord

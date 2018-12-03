@@ -70,6 +70,7 @@
 @synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
+
 #pragma mark - Initialization
 
 - (instancetype)init {
@@ -362,9 +363,6 @@
     return __externalUid;
 }
 
-
-
-
 #pragma mark - ANUniversalAdFetcherDelegate  -- abstract methods.
 
 - (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
@@ -379,6 +377,11 @@
     return  nil;
 }
 
+- (NSInteger)nativeAdRendererId
+{
+    ANLogDebug(@"ABSTRACT METHOD -- Implement in Banner and Native entrypoint");
+    return 0;
+}
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters
 {
     ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");

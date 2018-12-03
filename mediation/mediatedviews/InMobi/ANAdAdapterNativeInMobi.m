@@ -17,7 +17,7 @@
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
 #import "ANLogging.h"
-#import "ANGlobal.h"
+#import "ANNativeAdResponse.h"
 
 
 
@@ -257,7 +257,8 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
         adResponse.rating = [[ANNativeAdStarRating alloc] initWithValue:[rating floatValue]
                                                                   scale:kANAdAdapterNativeInMobiRatingScaleDefault];
     }
-    
+    adResponse.customElements = @{ kANNativeElementObject : nativeContent};
+
     return adResponse;
 }
 

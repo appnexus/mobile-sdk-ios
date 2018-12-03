@@ -16,12 +16,10 @@
 #import "ANAdAdapterNativeAdMob.h"
 #import "ANAdAdapterBaseDFP.h"
 #import "ANLogging.h"
-#import "ANGlobal.h"
+#import "ANNativeAdResponse.h"
 #import "ANProxyViewController.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey = @"kANAdAdapterNativeAdMobNativeAppInstallAdKey";
-NSString *const kANAdAdapterNativeAdMobNativeContentKey = @"kANAdAdapterNativeAdMobNativeContentKey";
 NSString *const kANAdAdapterNativeAdMobAdTypeKey = @"kANAdAdapterNativeAdMobAdTypeKey";
 
 @interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate,
@@ -134,8 +132,7 @@ static BOOL nativeContentAdsEnabled = NO;
     response.callToAction = nativeAppInstallAd.callToAction;
     response.rating = [[ANNativeAdStarRating alloc] initWithValue:[nativeAppInstallAd.starRating floatValue]
                                                             scale:5.0];
-    response.socialContext = nativeAppInstallAd.store;
-    response.customElements = @{kANAdAdapterNativeAdMobNativeAppInstallAdKey:nativeAppInstallAd,
+    response.customElements = @{kANNativeElementObject:nativeAppInstallAd,
                                 kANAdAdapterNativeAdMobAdTypeKey:@(ANAdAdapterNativeAdMobAdTypeInstall)};
     [self.requestDelegate didLoadNativeAd:response];
 }
@@ -151,7 +148,7 @@ static BOOL nativeContentAdsEnabled = NO;
     response.iconImageURL = nativeContentAd.logo.imageURL;
     response.mainImageURL = ((GADNativeAdImage *)[nativeContentAd.images firstObject]).imageURL;
     response.callToAction = nativeContentAd.callToAction;
-    response.customElements = @{kANAdAdapterNativeAdMobNativeContentKey:nativeContentAd,
+    response.customElements = @{kANNativeElementObject:nativeContentAd,
                                 kANAdAdapterNativeAdMobAdTypeKey:@(ANAdAdapterNativeAdMobAdTypeContent)};
     [self.requestDelegate didLoadNativeAd:response];
 }

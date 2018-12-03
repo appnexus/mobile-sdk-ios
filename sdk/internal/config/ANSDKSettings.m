@@ -43,7 +43,7 @@
 }
 
 -(NSString *) utAdRequestBaseUrl {
-    return @"http://mediation.adnxs.com/ut/v2";
+    return @"http://mediation.adnxs.com/ut/v3";
 }
 
 -(NSURL *) videoWebViewUrl {
@@ -85,7 +85,7 @@
 }
 
 -(NSString *) utAdRequestBaseUrl {
-    return @"https://mediation.adnxs.com/ut/v2";
+    return @"https://mediation.adnxs.com/ut/v3";
 }
 
 -(NSURL *) videoWebViewUrl {

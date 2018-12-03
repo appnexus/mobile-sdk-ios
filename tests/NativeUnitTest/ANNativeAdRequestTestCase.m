@@ -123,6 +123,42 @@
     
 }
 
+- (void)testNativeRendererId
+{
+    [self stubRequestWithResponse:@"native_videoResponse"];
+    [self.adRequest setPlacementId:@"1"];
+    [self.adRequest setRendererId:127];
+    
+    self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self.adRequest loadAd];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    self.requestExpectation = nil;
+    
+    XCTAssertEqual(@"1", [self.adRequest placementId]);
+    
+    NSDictionary  *jsonBody  = [self getJSONBodyOfURLRequestAsDictionary:self.request];
+    XCTAssertEqual([jsonBody[@"tags"][0][@"id"] integerValue], 1);
+    // renderer_id Test
+    XCTAssertEqual([jsonBody[@"tags"][0][@"native"][@"renderer_id"] integerValue], 127);
+}
+
+- (void)testNativeVideoObject {
+    [self stubRequestWithResponse:@"native_videoResponse"];
+    [self.adRequest loadAd];
+    self.adRequest.shouldLoadMainImage = YES;
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:nil];
+    [self validateGenericNativeAdObject];
+    
+    XCTAssertNotNil(self.adResponse.iconImageURL);
+    XCTAssertNotNil(self.adResponse.vastXML);
+    XCTAssertNotNil(self.adResponse.privacyLink);
+    XCTAssertGreaterThan(self.adResponse.iconImageSize.width, 0);
+    XCTAssertGreaterThan(self.adResponse.iconImageSize.height, 0);
+}
+
 - (void)testSetInventoryCodeAndMemberIdOnlyOnNative {
     [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest setInventoryCode:@"test" memberId:2];
@@ -130,9 +166,7 @@
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError * _Nullable error) {
-                                     
-                                 }];
+                                 handler:nil];
     self.requestExpectation = nil;
 
     XCTAssertEqual(2, [self.adRequest memberId]);
@@ -160,9 +194,7 @@
     self.requestExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError * _Nullable error) {
-                                     
-                                 }];
+                                 handler:nil];
     self.requestExpectation = nil;
 
     XCTAssertEqual(2, [self.adRequest memberId]);
@@ -190,9 +222,7 @@
     self.adRequest.shouldLoadMainImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     [self validateGenericNativeAdObject];
 
     XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
@@ -204,14 +234,12 @@
 }
 
 - (void)testAppNexusWithAdditionalDescription {
-    [self stubRequestWithResponse:@"appnexus_mainimage_standard_response"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     [self.adRequest loadAd];
     self.adRequest.shouldLoadMainImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     [self validateGenericNativeAdObject];
     
     XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
@@ -223,9 +251,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     if (self.successfulAdCall) {
         [self validateGenericNativeAdObject];
         XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
@@ -243,9 +269,7 @@
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     if (self.successfulAdCall) {
         [self validateGenericNativeAdObject];
         XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
@@ -262,9 +286,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertFalse(self.successfulAdCall);
     XCTAssertNotNil(self.adRequestError);
 }
@@ -274,9 +296,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     if (self.successfulAdCall) {
         [self validateGenericNativeAdObject];
         XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeFacebook);
@@ -292,9 +312,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertFalse(self.successfulAdCall);
     XCTAssertNotNil(self.adRequestError);
 }
@@ -305,9 +323,7 @@
     self.adRequest.shouldLoadMainImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     [self validateGenericNativeAdObject];
     XCTAssertEqual(self.adResponse.networkCode, ANNativeAdNetworkCodeAppNexus);
     XCTAssertNil(self.adResponse.iconImage);
@@ -321,9 +337,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertFalse(self.successfulAdCall);
     XCTAssertNotNil(self.adRequestError);
 }
@@ -333,9 +347,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertFalse(self.successfulAdCall);
     XCTAssertNotNil(self.adRequestError);
 }
@@ -345,9 +357,7 @@
     [self.adRequest loadAd];
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
-                                 handler:^(NSError *error) {
-                                     
-                                 }];
+                                 handler:nil];
     XCTAssertFalse(self.successfulAdCall);
     XCTAssertNotNil(self.adRequestError);
 }
@@ -369,9 +379,6 @@
     }
     if (self.adResponse.rating) {
         XCTAssert([self.adResponse.rating isKindOfClass:[ANNativeAdStarRating class]]);
-    }
-    if (self.adResponse.socialContext) {
-        XCTAssert([self.adResponse.socialContext isKindOfClass:[NSString class]]);
     }
     if (self.adResponse.mainImageURL) {
         XCTAssert([self.adResponse.mainImageURL isKindOfClass:[NSURL class]]);

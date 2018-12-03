@@ -15,6 +15,7 @@
 
 #import "ANAdAdapterNativeFacebook.h"
 #import "ANLogging.h"
+#import "ANNativeAdResponse.h"
 
 @interface ANAdAdapterNativeFacebook ()
 
@@ -83,8 +84,8 @@
     response.iconImageURL = nativeAd.icon.url;
     response.mainImageURL = nativeAd.coverImage.url;
     response.callToAction = nativeAd.callToAction;
-    
-    response.socialContext = nativeAd.socialContext;
+    response.customElements = @{ kANNativeElementObject : nativeAd};
+
     [self.requestDelegate didLoadNativeAd:response];
 }
 

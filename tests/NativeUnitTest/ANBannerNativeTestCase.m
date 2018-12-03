@@ -140,7 +140,7 @@
     TESTTRACE();
 
     self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
-    self.multiFormatAd.shouldAllowVideoDemand =  true;
+    self.multiFormatAd.shouldAllowVideoDemand = YES;
     XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 2);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeVideo)]);
@@ -153,7 +153,7 @@
     TESTTRACE();
 
     self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
-    self.multiFormatAd.shouldAllowNativeDemand =  true;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
     XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 2);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
@@ -165,8 +165,8 @@
     TESTTRACE();
 
     self.multiFormatAd = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
-    self.multiFormatAd.shouldAllowNativeDemand =  true;
-    self.multiFormatAd.shouldAllowVideoDemand =  true;
+    self.multiFormatAd.shouldAllowVideoDemand = YES;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
     XCTAssertEqual(self.multiFormatAd.adAllowedMediaTypes.count , 3);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeBanner)]);
     XCTAssertTrue([self.multiFormatAd.adAllowedMediaTypes containsObject:@(ANAllowedMediaTypeNative)]);
@@ -190,11 +190,11 @@
 {
     TESTTRACE();
 
-    [self stubRequestWithResponse:@"bannerNative_basic_native"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
 
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
     self.multiFormatAd.delegate = self;
-    self.multiFormatAd.shouldAllowNativeDemand = true;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
 
     self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -218,7 +218,7 @@
 
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"2"];
     self.multiFormatAd.delegate = self;
-    self.multiFormatAd.shouldAllowNativeDemand = true;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
 
     self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -231,6 +231,25 @@
     [self checkTypeURLsAndRefreshTimer];
 }
 
+- (void)testReceiveBannerNativeVideoUsingRendererIdObject
+{
+    TESTTRACE();
+    
+    [self stubRequestWithResponse:@"native_videoResponse"];
+    
+    self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"2"];
+    self.multiFormatAd.delegate = self;
+    [self.multiFormatAd setAllowNativeDemand:YES withRendererId:127];
+    [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
+    
+    self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    self.expectationResponse = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [self.multiFormatAd loadAd];
+    [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest*2 handler:nil];
+    XCTAssertEqual(self.multiFormatAd.nativeAdRendererId, 127);
+  
+}
 
 - (void)testAdTypeValueAcrossRefreshToDifferentMediaType
 {
@@ -256,7 +275,7 @@
     // Load Native ad.
     //
     [[ANHTTPStubbingManager sharedStubbingManager] removeAllStubs];
-    [self stubRequestWithResponse:@"bannerNative_basic_native"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
 
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"1"];
     self.multiFormatAd.delegate = self;
@@ -275,11 +294,11 @@
 - (void)testCreativeIdIsStoredInBannerAdViewObject
 {
     TESTTRACE();
-    [self stubRequestWithResponse:@"bannerNative_basic_native"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"4019246"];
     self.multiFormatAd.delegate = self;
-    self.multiFormatAd.shouldAllowNativeDemand = true;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
 
     self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -295,11 +314,11 @@
 - (void)testBrowserSettingsArePassedToNativeAdObject
 {
     TESTTRACE();
-    [self stubRequestWithResponse:@"bannerNative_basic_native"];
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
     
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"4019246"];
     self.multiFormatAd.delegate = self;
-    self.multiFormatAd.shouldAllowNativeDemand = true;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
 
     self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];

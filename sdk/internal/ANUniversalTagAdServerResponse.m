@@ -14,7 +14,7 @@
  */
 
 #import "ANUniversalTagAdServerResponse.h"
-#import "ANGlobal.h"
+#import "ANNativeAdResponse.h"
 #import "ANLogging.h"
 #import "ANMediatedAd.h"
 #import "ANSSMStandardAd.h"
@@ -81,25 +81,27 @@ static NSString *const kANUniversalTagAdServerResponseKeyNativeObject = @"native
 
 static NSString *const kANUniversalTagAdServerResponseKeyNativeMediaType = @"type";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeTitle = @"title";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeDescription = @"description";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeFullText = @"full_text";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeContext = @"context";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeIconImageUrl = @"icon_img_url";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeMainMedia = @"main_media";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeMainMediaLabel = @"label";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeMainMediaDefaultLabel = @"default";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeMainMediaURL = @"url";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeCallToAction = @"cta";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeDescription = @"desc";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeMainMedia = @"main_img";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeIcon = @"icon";
+
+static NSString *const kANUniversalTagAdServerResponseKeyNativeURL = @"url";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeCallToAction = @"ctatext";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeClickTrackArray = @"click_trackers";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeImpTrackArray = @"impression_trackers";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeLink = @"link";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeClickUrl = @"click_url";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeClickFallbackUrl = @"click_url_fallback";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeClickFallbackUrl = @"fallback_url";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingDict = @"rating";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingValue = @"value";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingScale = @"scale";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeCustomKeywordsDict = @"custom";
-static NSString *const kANUniversalTagAdServerResponseKeyNativeSponsoredBy = @"sponsored_by";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeSponsoredBy = @"sponsored";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeAdditionalDescription = @"desc2";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeVideo = @"video";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeVideoContent = @"content";
+static NSString *const kANUniversalTagAdServerResponseKeyNativePrivacyLink = @"privacy_link";
+
 
 
 // Trackers
@@ -137,7 +139,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 - (instancetype)initWithAdServerData:(NSData *)data {
     self = [super init];
     if (self) {
-        [self processV2ResponseData:data];
+        [self processResponseData:data];
     }
     return self;
 }
@@ -184,11 +186,9 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     return self;
 }
 
+#pragma mark - Universal Tag Support
 
-
-#pragma mark - Universal Tag V2 Support
-
-- (void)processV2ResponseData:(NSData *)data
+- (void)processResponseData:(NSData *)data
 {
     NSDictionary *jsonResponse = [[self class] jsonResponseFromData:data];
     ANLogDebug(@"jsonResponse=%@", [jsonResponse description]);
@@ -538,6 +538,16 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     return nil;
 }
 
++ (NSDictionary *)nativeJson:(NSDictionary *)nativeRTBObject {
+    
+    NSMutableDictionary *nativeAd = [nativeRTBObject mutableCopy];
+    [nativeAd removeObjectForKey:@"impression_trackers"];
+    [nativeAd removeObjectForKey:@"link"];
+    [nativeAd removeObjectForKey:@"javascript_trackers"];
+    NSDictionary *nativeJSON = @{ kANNativeElementObject : [nativeAd copy]};
+    return nativeJSON;
+}
+
 + (ANNativeStandardAdResponse *)nativeAdFromRTBObject:(NSDictionary *)nativeObject
 {
     if (!nativeObject) {
@@ -549,22 +559,22 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         ANLogDebug(@"Response from ad server in an unexpected format. Unable to find RTB native in nativeObject: %@", nativeObject);
         return nil;
     }
-    NSDictionary *nativeContentFromRTBObject = nativeObject[kANUniversalTagAdServerResponseKeyNativeObject];
+    NSDictionary *nativeRTBObject = nativeObject[kANUniversalTagAdServerResponseKeyNativeObject];
     
-    if(nativeContentFromRTBObject == nil){
-        ANLogDebug(@"Response from ad server in an unexpected format. Unable to find RTB native in nativeContentFromRTBObject: %@", nativeContentFromRTBObject);
+    if(nativeRTBObject == nil){
+        ANLogDebug(@"Response from ad server in an unexpected format. Unable to find RTB native in nativeContentFromRTBObject: %@", nativeRTBObject);
         return nil;
     }
     
-    NSDictionary *nativeRTBObject = [nativeContentFromRTBObject[kANUniversalTagAdServerResponseKeyNativeObject] firstObject];
-    
     if([nativeRTBObject isKindOfClass:[NSDictionary class]]){
         ANNativeStandardAdResponse *nativeAd = [[ANNativeStandardAdResponse alloc] init];
-        
+        NSDictionary *nativeJson  =  [self nativeJson:nativeRTBObject];
+        if(nativeJson){
+            nativeAd.customElements = nativeJson;
+        }
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeAdditionalDescription] isKindOfClass:[NSString class]]) {
             nativeAd.additionalDescription = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeAdditionalDescription] copy];
         }
-        
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMediaType] isKindOfClass:[NSString class]]) {
             nativeAd.adObjectMediaType = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMediaType];
         }
@@ -574,84 +584,65 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeDescription] isKindOfClass:[NSString class]]) {
             nativeAd.body = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeDescription];
         }
-        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeFullText] isKindOfClass:[NSString class]]) {
-            nativeAd.fullText = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeFullText];
-        }
-        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeContext] isKindOfClass:[NSString class]]) {
-            nativeAd.socialContext = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeContext];
-        }
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeCallToAction] isKindOfClass:[NSString class]]) {
             nativeAd.callToAction = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeCallToAction];
         }
-        
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsoredBy] isKindOfClass:[NSString class]]) {
             nativeAd.sponsoredBy = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeSponsoredBy];
         }
         
         
-        
-        NSString *iconImageURLString = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeIconImageUrl] description];
-        NSString *clickURLString = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeClickUrl] description];
-        NSString *clickURLFallbackString = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeClickFallbackUrl] description];
-        
-        nativeAd.iconImageURL = [NSURL URLWithString:iconImageURLString];
-        nativeAd.clickURL = [NSURL URLWithString:clickURLString];
-        nativeAd.clickFallbackURL = [NSURL URLWithString:clickURLFallbackString];
-        
-        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMainMedia] isKindOfClass:[NSArray class]]) {
-            NSArray *mainMedia = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMainMedia];
-            [mainMedia enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                if ([obj isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *mainImageData = obj;
-                    NSString *labelValue = [mainImageData[kANUniversalTagAdServerResponseKeyNativeMainMediaLabel] description];
-                    if ([labelValue isEqualToString:kANUniversalTagAdServerResponseKeyNativeMainMediaDefaultLabel]) {
-                        NSString *mainImageURLString = [[mainImageData objectForKey:kANUniversalTagAdServerResponseKeyNativeMainMediaURL] description];
-                        nativeAd.mainImageURL = [NSURL URLWithString:mainImageURLString];
-                        
-                        CGFloat width = [(mainImageData[@"width"] ?: @0) floatValue];
-                        CGFloat height = [(mainImageData[@"height"] ?: @0) floatValue];
-                        nativeAd.mainImageSize = CGSizeMake(width, height);
-                        *stop = YES;
-                    }
-                }
-            }];
+        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeLink] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *nativeRTBObjectLink = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeLink];
+            if ([nativeRTBObjectLink[kANUniversalTagAdServerResponseKeyNativeURL] isKindOfClass:[NSString class]]) {
+                NSString *clickURLString = [nativeRTBObjectLink[kANUniversalTagAdServerResponseKeyNativeURL] description];
+                nativeAd.clickURL = [NSURL URLWithString:clickURLString];
+
+            }
+            if ([nativeRTBObjectLink[kANUniversalTagAdServerResponseKeyNativeClickFallbackUrl] isKindOfClass:[NSString class]]) {
+                NSString *clickURLFallbackString = [nativeRTBObjectLink[kANUniversalTagAdServerResponseKeyNativeClickFallbackUrl] description];
+                nativeAd.clickFallbackURL = [NSURL URLWithString:clickURLFallbackString];
+            }
+            if ([nativeRTBObjectLink[kANUniversalTagAdServerResponseKeyNativeClickTrackArray] isKindOfClass:[NSArray class]]) {
+                nativeAd.clickTrackers = [NSArray arrayWithArray:nativeRTBObjectLink[kANUniversalTagAdServerResponseKeyNativeClickTrackArray]];
+            }
         }
         
-        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeClickTrackArray] isKindOfClass:[NSArray class]]) {
-            NSArray *clickTrackArray = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeClickTrackArray];
-            NSMutableArray *clickTrackURLs = [[NSMutableArray alloc] initWithCapacity:clickTrackArray.count];
-            [clickTrackArray enumerateObjectsUsingBlock:^(id clickTrackElement, NSUInteger idx, BOOL *stop) {
-                [clickTrackURLs addObject:[clickTrackElement description]];
-            }];
-            nativeAd.clickTrackers = [clickTrackURLs copy];
+        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeIcon] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *iconImageData = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeIcon];
+            nativeAd.iconImageURL = [[self class]  imageURLString:iconImageData];
+            nativeAd.iconImageSize = [[self class]  imageSize:iconImageData];
+        }
+        
+        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMainMedia] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *mainImageData = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeMainMedia];
+            nativeAd.mainImageURL = [[self class]  imageURLString:mainImageData];
+            nativeAd.mainImageSize = [[self class]  imageSize:mainImageData];
         }
         
         if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeImpTrackArray] isKindOfClass:[NSArray class]])
         {
-            NSArray *impTrackerArray = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeImpTrackArray];
-            NSMutableArray *impTrackURLs = [[NSMutableArray alloc] initWithCapacity:impTrackerArray.count];
-            [impTrackerArray enumerateObjectsUsingBlock:^(id impTrackerElement, NSUInteger idx, BOOL *stop) {
-                [impTrackURLs addObject:[impTrackerElement description]];
-            }];
-            nativeAd.impTrackers = [impTrackURLs copy];
+            nativeAd.impTrackers = [NSArray arrayWithArray:nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeImpTrackArray]];
+
+        }
+        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeRatingDict] isKindOfClass:[NSString class]]) {
+            NSString *rating = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeRatingDict] description];
+            // Rating->Scale is removed from ut/v3 and  -1 is outside the range of any normal value for scale.
+            // Rating->Scale will be removed in future if not used by Mediation Adapters
+            NSNumber *ratingScale = @(-1);
+            nativeAd.rating = [[ANNativeAdStarRating alloc] initWithValue:[rating floatValue]
+                                                                    scale:[ratingScale integerValue]];
         }
         
-        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeCustomKeywordsDict] isKindOfClass:[NSDictionary class]]) {
-            nativeAd.customElements = (NSDictionary *)nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeCustomKeywordsDict];
+        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeVideo] isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *videoContent = nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeVideo];
+            if ([videoContent[kANUniversalTagAdServerResponseKeyNativeVideoContent] isKindOfClass:[NSString class]]) {
+                nativeAd.vastXML = [videoContent[kANUniversalTagAdServerResponseKeyNativeVideoContent] copy];
+            }
         }
-        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeRatingDict] isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *rating = (NSDictionary *)nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeRatingDict];
-            NSNumber *ratingScale = @(0);
-            NSNumber *ratingValue = @(0);
-            
-            if ([rating[kANUniversalTagAdServerResponseKeyNativeRatingScale] isKindOfClass:[NSNumber class]]) {
-                ratingScale = rating[kANUniversalTagAdServerResponseKeyNativeRatingScale];
-            }
-            if ([rating[kANUniversalTagAdServerResponseKeyNativeRatingValue] isKindOfClass:[NSNumber class]]) {
-                ratingValue = rating[kANUniversalTagAdServerResponseKeyNativeRatingValue];
-            }
-            nativeAd.rating = [[ANNativeAdStarRating alloc] initWithValue:[ratingValue floatValue]
-                                                                    scale:[ratingScale integerValue]];
+        
+        if ([nativeRTBObject[kANUniversalTagAdServerResponseKeyNativePrivacyLink] isKindOfClass:[NSString class]]) {
+            nativeAd.privacyLink = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativePrivacyLink] copy];
         }
         
         return nativeAd;
@@ -662,6 +653,17 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     }
 }
 
++(CGSize) imageSize:(NSDictionary *)nativeAdImageData  {
+    CGFloat width = [(nativeAdImageData[@"width"] ?: @0) floatValue];
+    CGFloat height = [(nativeAdImageData[@"height"] ?: @0) floatValue];
+    return CGSizeMake(width, height);
+}
+
++(NSURL *) imageURLString:(NSDictionary *)nativeAdImageData  {
+    NSString *imageURLString = [[nativeAdImageData objectForKey:kANUniversalTagAdServerResponseKeyNativeURL] description];
+    return [NSURL URLWithString:imageURLString];
+    
+}
 
 
 

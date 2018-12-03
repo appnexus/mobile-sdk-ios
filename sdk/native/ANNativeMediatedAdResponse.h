@@ -41,7 +41,6 @@
 @property (nonatomic, readwrite, strong) NSURL *mainImageURL;
 @property (nonatomic, readwrite, strong) UIImage *iconImage;
 @property (nonatomic, readwrite, strong) NSURL *iconImageURL;
-@property (nonatomic, readwrite, strong) NSString *socialContext;
 @property (nonatomic, readwrite, strong) NSDictionary *customElements;
 
 /*!

@@ -61,6 +61,15 @@
  */
 @property (nonatomic, readwrite, weak) id<ANNativeAdRequestDelegate> delegate;
 
+
+/**
+ *  rendererId :  Native Assembly renderer_id that is associated with the placement.
+ *  If rendererId is not set, the default is zero (0).
+ *  A value of zero indicates that renderer_id will not be sent in the UT Request.
+ */
+@property (nonatomic, readwrite)  NSInteger  rendererId;
+
+
 /*!
  * Requests a set of native ad assets. This method may be called multiple times simultaneously. The delegate will
  * be notified once for each call to this method.

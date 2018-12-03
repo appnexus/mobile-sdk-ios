@@ -40,7 +40,6 @@
 @synthesize mainImageURL = _mainImageURL;
 @synthesize iconImage = _iconImage;
 @synthesize iconImageURL = _iconImageURL;
-@synthesize socialContext = _socialContext;
 @synthesize customElements = _customElements;
 @synthesize expired = _expired;
 @synthesize networkCode = _networkCode;

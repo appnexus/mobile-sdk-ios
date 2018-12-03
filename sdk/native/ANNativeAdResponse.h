@@ -20,6 +20,9 @@
 #import "ANAdConstants.h"
 #import "ANAdProtocol.h"
 
+extern NSString * const  kANNativeElementObject;
+
+
 /*!
  * Contains native ad assets as well as defines the process by which a native view can be registered for impression
  * tracking and click handling.
@@ -73,14 +76,14 @@
 @property (nonatomic, readonly, strong) ANNativeAdStarRating *rating;
 
 /*!
- * The social context of the ad, for example, "Available on the AppStore".
- */
-@property (nonatomic, readonly, strong) NSString *socialContext;
-
-/*!
  * The ad icon image.
  */
 @property (nonatomic, readonly, strong) UIImage *iconImage;
+
+/*!
+ * The icon image size
+ */
+@property (nonatomic, readonly, assign) CGSize iconImageSize;
 
 /*!
  * The ad main image, also known as a cover image.
@@ -102,11 +105,13 @@
  */
 @property (nonatomic, readonly, strong) NSURL *iconImageURL;
 
+
 /*!
  * Contains any non-standard elements. This would include any custom assets requested from
  * third-party networks as specified in the third-party system.
  */
 @property (nonatomic, readonly, strong) NSDictionary *customElements;
+
 
 /*!
  * The sponspored By text
@@ -120,11 +125,6 @@
 @property (nonatomic, readonly, strong) NSString *creativeId;
 
 
-/*!
- * description of full Text
- */
-@property (nonatomic, readonly, strong) NSString *fullText;
-    
 /*!
  * Additional description of the ad
  */
@@ -141,6 +141,16 @@
  * since receiving it. NO if the response is still valid.
  */
 @property (nonatomic, readonly, assign, getter=hasExpired) BOOL expired;
+
+/*!
+ * vastXML can be used to play Video.
+ */
+@property (nonatomic, readwrite, strong) NSString *vastXML;
+
+/*!
+ * privacy Link of the ad
+ */
+@property (nonatomic, readwrite, strong) NSString *privacyLink;
 
 
 #pragma mark - Native View Registration

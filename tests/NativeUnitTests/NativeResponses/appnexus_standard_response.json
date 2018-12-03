@@ -13,6 +13,7 @@
                     "content_source": "rtb",
                     "ad_type": "native",
                     "buyer_member_id": 958,
+                    "creative_id": 111796070,
                     "media_type_id": 12,
                     "media_subtype_id": 65,
                     "client_initiated_ad_counting": true,
@@ -29,7 +30,7 @@
                             "icon": {
                                 "url": "http://vcdn.adnxs.com/p/creative-image/17/3d/33/81/173d3381-9364-4b4a-8303-da65cae1c6f0.png",
                                 "width": 600,
-                                "height": 600
+                                "height": 500
                             },
                             "main_img": {
                                 "url": "http://vcdn.adnxs.com/p/creative-image/64/3a/13/fc/643a13fc-290d-40a2-b1f8-e8a8161234e5.png",

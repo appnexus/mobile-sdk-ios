@@ -18,6 +18,7 @@
 #import "ANNativeMediatedAdResponse.h"
 #import "ANLogging.h"
 #import "FlurryAdNative.h"
+#import "ANNativeAdResponse.h"
 
 @interface ANAdAdapterNativeYahoo () <FlurryAdNativeDelegate>
 
@@ -76,6 +77,7 @@
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeYahoo];
+   
     NSMutableDictionary *customElements = [[NSMutableDictionary alloc] init];
     ANNativeAdStarRating *starRating = nil;
     BOOL showRating = NO;
@@ -103,7 +105,8 @@
     if (showRating && starRating != nil) {
         response.rating = starRating;
     }
-    
+    customElements[kANNativeElementObject] = nativeAd;
+
     response.customElements = [customElements copy];
     [self.requestDelegate didLoadNativeAd:response];
 }

@@ -13,6 +13,7 @@
                     "content_source": "rtb",
                     "ad_type": "native",
                     "buyer_member_id": 958,
+                    "creative_id": 111796070,
                     "media_type_id": 12,
                     "media_subtype_id": 65,
                     "client_initiated_ad_counting": true,
@@ -39,11 +40,16 @@
                             "link": {
                                 "url": "http://www.appnexus.com",
                                 "click_trackers": [
-                                    "http://sin1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG9efH2vz0sVNSaARb5ciybRuOFbAAAAAAVDygC-AwAAvgMAAAAAAABm36kGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEA4w1dzQAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/"
+                                    "http://sin1-mobile.adnxs.com/click?AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG9efH2vz0sVNSaARb5ciybRuOFbAAAAAAVDygC-AwAAvgMAAAAAAABm36kGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQMAAAAAAAEA4w1dzQAAAAA./bcr=AAAAAAAAAAA=/bn=0/test=1/",
+                                    "https://acdn.adnxs.com/mobile/native_test/trackClick",
+                                    "https://acdn.adnxs.com/mobile/native_test/trackClick2",
+                                    "https://acdn.adnxs.com/mobile/native_test/trackClick3"
                                 ]
                             },
                             "impression_trackers": [
-                                "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL-AqB-AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYrAIg-gEwADgCuAQAwAQAyAQA2gQCCAHgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQkMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.&s=4491c8b157a293238e5008f105efafd2a681cef2"
+                                "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL-AqB-AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYrAIg-gEwADgCuAQAwAQAyAQA2gQCCAHgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQkMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.&s=4491c8b157a293238e5008f105efafd2a681cef2",
+                                 "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL-AqB-AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYrAIg-gEwADgCuAQAwAQAyAQA2gQCCAHgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQkMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.&s=4491c8b157a293238e5008f105efafd2a681cef2",
+                                  "http://sin1-mobile.adnxs.com/it?test=1&e=wqT_3QL-AqB-AQAAAwDWAAUBCNHxht8FEO-88ev39fOlFRi1zICs5JfXxSYqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfDwMIWGqQY4vgdAvgdIAFDmvqc1WABgAGgAeACAAQCKAQCYAQGgAQGoAQGwAQC4AQHAAQPIAQDQAQDYAQDgAQHwAQDYAgDgAgCAAwCIAwGQAwCYAxegAwCqAwDAA-CoAcgDANgDAOADAOgDAvgDAIAEAJIEBi91dC92M5gEAKgEALIEDggAEAEYrAIg-gEwADgCuAQAwAQAyAQA2gQCCAHgBAHwBAD6BBIJAAAAQJbkQkARAAAAwAKaXsCCBRtjb20uYXBwbmV4dXMuQXBwTmV4dXNTREtBcHCIBQGYBQCgBQDABQDJBQAAAAAAAPA_0gUJCQkMqAAA2AUA4AUA8AUA-gUECAAQAJAGAJgGALgGAMEGAAAAAAAAAADIBgDQBgA.&s=4491c8b157a293238e5008f105efafd2a681cef2"
                             ],
                             "id": 111796070,
                             "desc2": "Additional Desc2"

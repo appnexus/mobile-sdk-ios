@@ -73,7 +73,7 @@
 TESTTRACE();
     if (self.requestExpectation) {
         self.request = notification.userInfo[kANHTTPStubURLProtocolRequest];
-        if([self.request.URL.absoluteString compare:@"http://mediation.adnxs.com/ut/v2" ] == NSOrderedSame){
+        if([self.request.URL.absoluteString compare:@"http://mediation.adnxs.com/ut/v3" ] == NSOrderedSame){
             [self.requestExpectation fulfill];
             self.requestExpectation = nil;
             [[ANHTTPStubbingManager sharedStubbingManager] disable];

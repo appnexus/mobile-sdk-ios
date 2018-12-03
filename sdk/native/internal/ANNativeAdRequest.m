@@ -53,6 +53,7 @@
 @synthesize  externalUid     = __externalUid;
 
 @synthesize  adType          = __adType;
+@synthesize  rendererId      = _rendererId;
 
 
 
@@ -73,6 +74,8 @@
 {
     self.allowedAdSizes     = [NSMutableSet setWithObject:[NSValue valueWithCGSize:kANAdSize1x1]];
     self.allowSmallerSizes  = NO;
+    _rendererId             = 0;
+
     
 }
 
@@ -166,6 +169,10 @@
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
     return  @[ @(ANAllowedMediaTypeNative) ];
+}
+
+-(NSInteger) nativeAdRendererId{
+    return _rendererId;
 }
 
 - (NSDictionary *) internalDelegateUniversalTagSizeParameters

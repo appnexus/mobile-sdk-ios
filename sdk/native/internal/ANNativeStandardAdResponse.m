@@ -53,15 +53,15 @@
 @synthesize mainImageSize = _mainImageSize;
 @synthesize iconImage = _iconImage;
 @synthesize iconImageURL = _iconImageURL;
-@synthesize socialContext = _socialContext;
 @synthesize customElements = _customElements;
+@synthesize iconImageSize = _iconImageSize;
 @synthesize networkCode = _networkCode;
 @synthesize expired = _expired;
 @synthesize sponsoredBy = _sponsoredBy;
-@synthesize fullText = _fullText;
 @synthesize creativeId = _creativeId;
 @synthesize additionalDescription = _additionalDescription;
-
+@synthesize vastXML = _vastXML;
+@synthesize privacyLink = _privacyLink;
 
 
 #pragma mark - Lifecycle.

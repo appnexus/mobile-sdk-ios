@@ -46,6 +46,9 @@
 
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
 
+@property (nonatomic, readwrite) NSInteger nativeAdRendererId;
+
+
 @end
 
 
@@ -56,8 +59,10 @@
 @synthesize  contentView          = _contentView;
 @synthesize  adSize               = _adSize;
 @synthesize  loadedAdSize         = _loadedAdSize;
-@synthesize  shouldAllowVideoDemand     = _shouldAllowVideoDemand;
-@synthesize  shouldAllowNativeDemand    = _shouldAllowNativeDemand;
+@synthesize  shouldAllowVideoDemand   = _shouldAllowVideoDemand;
+@synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
+@synthesize  nativeAdRendererId           = _nativeAdRendererId;
+
 
 #pragma mark - Lifecycle.
 
@@ -75,6 +80,7 @@
     _adSizes                = nil;
     _shouldAllowNativeDemand      = NO;
     _shouldAllowVideoDemand       = NO;
+    _nativeAdRendererId          = 0;
     self.allowSmallerSizes  = NO;
     
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
@@ -158,7 +164,7 @@
     return  _adSize;
 }
 
-// adSize represents /ut/v2 "primary_size".
+// adSize represents Universal Tag "primary_size".
 //
 - (void)setAdSize:(CGSize)adSize
 {
@@ -176,7 +182,7 @@
 }
 
 
-// adSizes represents /ut/v2 "sizes".
+// adSizes represents Universal Tag "sizes".
 //
 - (void)setAdSizes:(NSArray<NSValue *> *)adSizes
 {
@@ -449,6 +455,11 @@
     return @"inline";
 }
 
+- (void)setAllowNativeDemand:(BOOL)nativeDemand withRendererId:(NSInteger)rendererId{
+        _shouldAllowNativeDemand = nativeDemand;
+        _nativeAdRendererId = rendererId;
+}
+
 - (NSArray<NSValue *> *)adAllowedMediaTypes
 {
     NSMutableArray *mediaTypes  = [[NSMutableArray alloc] init];
@@ -462,6 +473,9 @@
     return  [mediaTypes copy];
 }
 
+-(NSInteger) nativeAdRendererId{
+    return _nativeAdRendererId;
+}
 
 - (UIViewController *)displayController
 {
