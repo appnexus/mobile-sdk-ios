@@ -1,3 +1,15 @@
+## 5.0
+### New Features
++ Universal Tags version 3, including support for Native ad objects
++ Support for Native Video
++ Open Measurement SDK support for video ads (MS-3388)
++ New delegate method allowing ANBannerAdView object to be paired with ANNativeAdResponse object upon successful load of native ad (MS-3596)
+### Mediation partner upgrades/changes
++ Upgrade GoodleAds SDK v7.35.1
++ Remove support for Rubicon SDK (MS-3682)
+### Bug Fixes
++ Prevent crashes by preventing ANBannerAdView from loading when width or height are improperly configured (MS-3685)
+
 ## 4.12
 ###  New Features and Bug Fixes 
 + MS-3606: Updated Smart Adapter to v6.10
