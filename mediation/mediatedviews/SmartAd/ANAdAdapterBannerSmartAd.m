@@ -18,13 +18,13 @@
 
 @interface ANAdAdapterBannerSmartAd ()
     
-    @property (nonatomic, strong) SASBannerView *adView;
+@property (nonatomic, strong) SASBannerView *bannerView;
 
 @end
 
 @implementation ANAdAdapterBannerSmartAd
-    
-    @synthesize delegate;
+
+@synthesize delegate;
     
 - (void)requestBannerAdWithSize:(CGSize)size
              rootViewController:(UIViewController *)rootViewController
@@ -32,65 +32,53 @@
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
     
-    NSDictionary * adUnitDictionary = [self parseAdUnitParameters:idString];
-    NSString *targetString;
-    if(targetingParameters != nil){
-        targetString = [super keywordsFromTargetingParameters:targetingParameters];
+    SASAdPlacement *placement = [self parseAdUnitParameters:idString targetingParameters:targetingParameters];
+    
+    if (placement != nil) {
+        
+        // Banner view initialization & configuration
+        self.bannerView = [[SASBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+        self.bannerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.bannerView.delegate = self;
+        self.bannerView.modalParentViewController = rootViewController;
+        
+        // Banner view loading
+        [self.bannerView loadWithPlacement:placement];
+        
+    } else {
+        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
     }
     
-    if(adUnitDictionary[SMARTAD_SITEID] == nil || [adUnitDictionary[SMARTAD_SITEID] isEqualToString:@""]){
-        ANLogTrace(@"SmartAd mediation failed. siteId not provided in the adUnit dictionary");
-        [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
-        return;
-    }else {
-        NSString *pageId = adUnitDictionary[SMARTAD_PAGEID];
-        NSString *formatIdString = adUnitDictionary[SMARTAD_FORMATID];
-        self.adView = [[SASBannerView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height) loader:NO];
-        self.adView.delegate = self;
-        self.adView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.adView.modalParentViewController = rootViewController;
-        if(formatIdString != nil && ![formatIdString isEqualToString:@""]){
-            [self.adView loadFormatId:[formatIdString integerValue] pageId:pageId master:TRUE target:targetString];
-        }else {
-            ANLogTrace(@"SmartAd mediation failed. FormatId not provided in the adUnit dictionary");
-            [self.delegate didFailToLoadAd:ANAdResponseMediatedSDKUnavailable];
-            return;
-        }
-    }
 }
 
 - (void)dealloc {
-    self.adView.delegate = nil;
+    self.bannerView.delegate = nil;
 }
     
 #pragma mark - SASAdView delegate
     
-- (void)adViewDidLoad:(SASAdView *)adView {
+- (void)bannerViewDidLoad:(SASBannerView *)bannerView {
     ANLogTrace(@"");
-     [self.delegate didLoadBannerAd:adView];
+     [self.delegate didLoadBannerAd:bannerView];
 }
     
-    
-- (void)adView:(SASAdView *)adView didFailToLoadWithError:(NSError *)error {
+- (void)bannerView:(SASBannerView *)bannerView didFailToLoadWithError:(NSError *)error {
     ANLogTrace(@"");
     [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
 }
     
-    
-- (void)adViewWillExpand:(SASAdView *)adView {
+- (void)bannerViewWillExpand:(SASBannerView *)bannerView {
     ANLogTrace(@"");
 }
     
-    
-- (void)adView:(SASAdView *)adView didCloseExpandWithFrame:(CGRect)frame {
+- (void)bannerView:(SASAdView *)bannerView didCloseExpandWithFrame:(CGRect)frame {
     ANLogTrace(@"");
 }
     
--(BOOL)adView:(SASAdView *)adView shouldHandleURL:(NSURL *)URL {
+-(BOOL)bannerView:(SASAdView *)bannerView shouldHandleURL:(NSURL *)URL {
     ANLogTrace(@"");
     [self.delegate adWasClicked];
     return YES;
 }
-
     
 @end

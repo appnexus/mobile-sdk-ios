@@ -69,7 +69,6 @@
 		60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */; };
 		60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */; };
 		60359EFD1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */; };
-		6035A02C1E2401020017EF56 /* sas.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6035A00D1E23FCCB0017EF56 /* sas.bundle */; };
 		604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */; };
 		604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */; };
 		604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */; };
@@ -814,25 +813,6 @@
 		60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdMarvel.m; sourceTree = "<group>"; };
 		60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterAdMarvelBase+PrivateMethods.h"; sourceTree = "<group>"; };
 		60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKSmartAdAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		60359FFB1E23FCCB0017EF56 /* SASAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAd.h; sourceTree = "<group>"; };
-		60359FFC1E23FCCB0017EF56 /* SASAdChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdChoicesView.h; sourceTree = "<group>"; };
-		60359FFD1E23FCCB0017EF56 /* SASAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdView.h; sourceTree = "<group>"; };
-		60359FFE1E23FCCB0017EF56 /* SASAdViewContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdViewContainerCell.h; sourceTree = "<group>"; };
-		60359FFF1E23FCCB0017EF56 /* SASAdViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASAdViewDelegate.h; sourceTree = "<group>"; };
-		6035A0001E23FCCB0017EF56 /* SASBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASBannerView.h; sourceTree = "<group>"; };
-		6035A0011E23FCCB0017EF56 /* SASInterstitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASInterstitialView.h; sourceTree = "<group>"; };
-		6035A0021E23FCCB0017EF56 /* SASMediationAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASMediationAd.h; sourceTree = "<group>"; };
-		6035A0031E23FCCB0017EF56 /* SASNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAd.h; sourceTree = "<group>"; };
-		6035A0041E23FCCB0017EF56 /* SASNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdDelegate.h; sourceTree = "<group>"; };
-		6035A0051E23FCCB0017EF56 /* SASNativeAdImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdImage.h; sourceTree = "<group>"; };
-		6035A0061E23FCCB0017EF56 /* SASNativeAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdManager.h; sourceTree = "<group>"; };
-		6035A0071E23FCCB0017EF56 /* SASNativeAdMediaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdMediaView.h; sourceTree = "<group>"; };
-		6035A0081E23FCCB0017EF56 /* SASNativeAdMediaViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdMediaViewDelegate.h; sourceTree = "<group>"; };
-		6035A0091E23FCCB0017EF56 /* SASNativeAdPlacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASNativeAdPlacement.h; sourceTree = "<group>"; };
-		6035A00A1E23FCCB0017EF56 /* SASReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASReward.h; sourceTree = "<group>"; };
-		6035A00B1E23FCCB0017EF56 /* SASVideoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SASVideoEvent.h; sourceTree = "<group>"; };
-		6035A00C1E23FCCB0017EF56 /* libSmartAdServer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSmartAdServer.a; sourceTree = "<group>"; };
-		6035A00D1E23FCCB0017EF56 /* sas.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = sas.bundle; sourceTree = "<group>"; };
 		604C10F61E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSmartAd.h; sourceTree = "<group>"; };
 		604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSmartAd.m; sourceTree = "<group>"; };
 		604C10F91E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialSmartAd.h; sourceTree = "<group>"; };
@@ -1143,6 +1123,8 @@
 		8AFC046E1A2E75AE00BEA485 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		8AFC04701A2E760800BEA485 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8AFC04721A2E78E400BEA485 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		977EA5EB21C24B4D008204CB /* SCSCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SCSCoreKit.framework; sourceTree = "<group>"; };
+		97E73CEE21BFDFEF00D93AA0 /* SASDisplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SASDisplayKit.framework; sourceTree = "<group>"; };
 		9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANCarrierObserver.h; sourceTree = "<group>"; };
 		9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANCarrierObserver.m; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1539,35 +1521,10 @@
 		60359FF91E23FCCB0017EF56 /* SmartAdSDK */ = {
 			isa = PBXGroup;
 			children = (
-				60359FFA1E23FCCB0017EF56 /* headers */,
-				6035A00C1E23FCCB0017EF56 /* libSmartAdServer.a */,
-				6035A00D1E23FCCB0017EF56 /* sas.bundle */,
+				977EA5EB21C24B4D008204CB /* SCSCoreKit.framework */,
+				97E73CEE21BFDFEF00D93AA0 /* SASDisplayKit.framework */,
 			);
 			path = SmartAdSDK;
-			sourceTree = "<group>";
-		};
-		60359FFA1E23FCCB0017EF56 /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				60359FFB1E23FCCB0017EF56 /* SASAd.h */,
-				60359FFC1E23FCCB0017EF56 /* SASAdChoicesView.h */,
-				60359FFD1E23FCCB0017EF56 /* SASAdView.h */,
-				60359FFE1E23FCCB0017EF56 /* SASAdViewContainerCell.h */,
-				60359FFF1E23FCCB0017EF56 /* SASAdViewDelegate.h */,
-				6035A0001E23FCCB0017EF56 /* SASBannerView.h */,
-				6035A0011E23FCCB0017EF56 /* SASInterstitialView.h */,
-				6035A0021E23FCCB0017EF56 /* SASMediationAd.h */,
-				6035A0031E23FCCB0017EF56 /* SASNativeAd.h */,
-				6035A0041E23FCCB0017EF56 /* SASNativeAdDelegate.h */,
-				6035A0051E23FCCB0017EF56 /* SASNativeAdImage.h */,
-				6035A0061E23FCCB0017EF56 /* SASNativeAdManager.h */,
-				6035A0071E23FCCB0017EF56 /* SASNativeAdMediaView.h */,
-				6035A0081E23FCCB0017EF56 /* SASNativeAdMediaViewDelegate.h */,
-				6035A0091E23FCCB0017EF56 /* SASNativeAdPlacement.h */,
-				6035A00A1E23FCCB0017EF56 /* SASReward.h */,
-				6035A00B1E23FCCB0017EF56 /* SASVideoEvent.h */,
-			);
-			path = headers;
 			sourceTree = "<group>";
 		};
 		609732FB1E42EAFF0061EC0A /* video */ = {
@@ -2828,7 +2785,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6035A02C1E2401020017EF56 /* sas.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3482,14 +3438,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
-				);
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3506,14 +3459,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
-				);
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK";
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
