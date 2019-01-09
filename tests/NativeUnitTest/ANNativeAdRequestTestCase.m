@@ -27,17 +27,23 @@
 #import "ANLogManager.h"
 #import "ANNativeAdResponse.h"
 
+#import "ANNativeAdRequest+ANTest.h"
+
+
 
 
 @interface ANNativeAdRequestTestCase : XCTestCase <ANNativeAdRequestDelegate>
 
-@property (nonatomic, readwrite, strong) ANNativeAdRequest *adRequest;
-@property (nonatomic, readwrite, strong) XCTestExpectation *requestExpectation;
-@property (nonatomic, readwrite, strong) XCTestExpectation *delegateCallbackExpectation;
-@property (nonatomic, readwrite, assign) BOOL successfulAdCall;
-@property (nonatomic, readwrite, strong) ANNativeAdResponse *adResponse;
-@property (nonatomic, readwrite, strong) NSError *adRequestError;
-@property (nonatomic) NSURLRequest *request;
+@property (nonatomic, readwrite, strong)  ANNativeAdRequest     *adRequest;
+@property (nonatomic, readwrite, strong)  ANNativeAdResponse    *adResponse;
+
+@property (nonatomic)                     NSURLRequest  *request;
+@property (nonatomic, readwrite, strong)  NSError       *adRequestError;
+
+@property (nonatomic, readwrite, strong)  XCTestExpectation  *requestExpectation;
+@property (nonatomic, readwrite, strong)  XCTestExpectation  *delegateCallbackExpectation;
+
+@property (nonatomic, readwrite, assign)  BOOL  successfulAdCall;
 
 @end
 
@@ -57,6 +63,7 @@
     [[ANHTTPStubbingManager sharedStubbingManager] enable];
     [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
     [self setupRequestTracker];
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:NO];
 }
 
 - (void)tearDown {
@@ -362,6 +369,33 @@
     XCTAssertNotNil(self.adRequestError);
 }
 
+- (void)testBackgroundLoadVersusForegroundNotification
+{
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+
+    self.adRequest.shouldLoadMainImage = YES;
+    self.adRequest.shouldLoadIconImage = YES;
+
+    [self.adRequest getIncrementCountEnabledOrIfSet:YES thenValue:YES];
+    [self.adRequest incrementCountOfMethodInvocationInBackgroundOrReset:YES];
+
+    //
+    self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+
+    [self.adRequest loadAd];
+
+    [self waitForExpectationsWithTimeout: (kAppNexusNativeAdImageDownloadTimeoutInterval * 2) + 2
+                                 handler: nil ];
+
+
+    //
+    XCTAssertTrue(self.successfulAdCall);
+
+    XCTAssertNotNil(self.adResponse.mainImage);
+    XCTAssertNotNil(self.adResponse.iconImage);
+}
+
+
 
 
 #pragma mark - Helper methods.
@@ -396,11 +430,22 @@
 
 
 
+
 #pragma mark - ANNativeAdRequestDelegate
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
 TESTTRACE();
+
+    if ([request getIncrementCountEnabledOrIfSet:NO thenValue:NO])
+    {
+        // Expecting increment value of two (in ANNativeAdRequest(ANTest), plus once more incremented here.
+        //
+        XCTAssertTrue(3 == [request incrementCountOfMethodInvocationInBackgroundOrReset:NO]);
+    }
+
+
+    //
     self.adResponse = response;
     self.successfulAdCall = YES;
     [self.delegateCallbackExpectation fulfill];
@@ -413,6 +458,7 @@ TESTTRACE();
     self.successfulAdCall = NO;
     [self.delegateCallbackExpectation fulfill];
 }
+
 
 
 

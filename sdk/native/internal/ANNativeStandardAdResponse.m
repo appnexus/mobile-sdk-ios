@@ -159,8 +159,8 @@
     {
         [self adWasClickedWithURL:[self.clickURL absoluteString] fallbackURL:[self.clickFallbackURL absoluteString]];
         
-        ANLogMarkMessage(@"ClickThroughURL=%@", self.clickURL);
-        ANLogMarkMessage(@"ClickThroughFallbackURL=%@", self.clickFallbackURL);
+        ANLogDebug(@"ClickThroughURL=%@", self.clickURL);
+        ANLogDebug(@"ClickThroughFallbackURL=%@", self.clickFallbackURL);
         return;
     }
 

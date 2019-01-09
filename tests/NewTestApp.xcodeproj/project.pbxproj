@@ -380,6 +380,9 @@
 		4F76461C1D957E4C00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4F76461D1D957E4D00B15742 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4F7646321D95999E00B15742 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */; };
+		4F831C8E21CAE48F003BD53B /* ANNativeAdRequest+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F831C8221CAE48E003BD53B /* ANNativeAdRequest+ANTest.m */; };
+		4F831C8F21CAE48F003BD53B /* ANNativeAdRequest+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F831C8221CAE48E003BD53B /* ANNativeAdRequest+ANTest.m */; };
+		4F831C9021CAE48F003BD53B /* ANNativeAdRequest+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F831C8221CAE48E003BD53B /* ANNativeAdRequest+ANTest.m */; };
 		4F9D96481D91FEED0027E915 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */; };
 		4FD20388217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FD2037D217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m */; };
 		4FD2038D217A837100F13B75 /* SecondPriceForDFPSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 4FD2038B217A837100F13B75 /* SecondPriceForDFPSuccess.json */; };
@@ -1114,6 +1117,8 @@
 		4F7D0FB420D06F6E00EF0379 /* UIApplication+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+ANTest.m"; sourceTree = "<group>"; };
 		4F7D0FC520D07C0C00EF0379 /* ClickThroughActionBasicBannerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClickThroughActionBasicBannerResponse.json; sourceTree = "<group>"; };
 		4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClickThroughActionBasicOutstreamVideoResponse.json; sourceTree = "<group>"; };
+		4F831C8221CAE48E003BD53B /* ANNativeAdRequest+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANTest.m"; sourceTree = "<group>"; };
+		4F831C8D21CAE48F003BD53B /* ANNativeAdRequest+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANTest.h"; sourceTree = "<group>"; };
 		4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
@@ -2083,6 +2088,8 @@
 				8AA00A0719DB1E150090EBED /* ANMediationAdViewController+ANTest.m */,
 				8A8458701A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.h */,
 				8A8458711A6998F40014F291 /* ANNativeAdRequest+ANBaseUrlOverride.m */,
+				4F831C8D21CAE48F003BD53B /* ANNativeAdRequest+ANTest.h */,
+				4F831C8221CAE48E003BD53B /* ANNativeAdRequest+ANTest.m */,
 				8A764F021A7078F500C02A97 /* ANReachability+ANTest.h */,
 				8A764F031A7078F500C02A97 /* ANReachability+ANTest.m */,
 				8A33A5111A7C264D00F8ED5E /* ANTrackerManager+ANTest.h */,
@@ -3121,6 +3128,7 @@
 				0E28D9D420EAD4DB00EC2CB2 /* ANHTTPStubbingManager.m in Sources */,
 				0E28D99220EACF5900EC2CB2 /* ANHTTPStubURLProtocol.m in Sources */,
 				0E28D9D320EAD4B800EC2CB2 /* ANMediationAdapterViewController.m in Sources */,
+				4F831C8F21CAE48F003BD53B /* ANNativeAdRequest+ANTest.m in Sources */,
 				0E28D87720EAAFB000EC2CB2 /* ANTestGlobal.m in Sources */,
 				0E28D99120EACF3E00EC2CB2 /* ANURLConnectionStub.m in Sources */,
 				0E3CA9CD20E6D79400358480 /* AppDelegate.m in Sources */,
@@ -3168,6 +3176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F831C9021CAE48F003BD53B /* ANNativeAdRequest+ANTest.m in Sources */,
 				46C07C1721262EEF00B99BDD /* AppDelegate.m in Sources */,
 				46C07BAB21262DA000B99BDD /* main.m in Sources */,
 				46C07C2121262F7700B99BDD /* ViewController.m in Sources */,
@@ -3214,6 +3223,7 @@
 				8AA009F819DB1DE60090EBED /* ANHTTPStubbingManager.m in Sources */,
 				8AA009F919DB1DE60090EBED /* ANHTTPStubURLProtocol.m in Sources */,
 				8AA009C419DB1B200090EBED /* ANMediationAdapterViewController.m in Sources */,
+				4F831C8E21CAE48F003BD53B /* ANNativeAdRequest+ANTest.m in Sources */,
 				8AA3DA0A1AAA0D9D00255F94 /* ANNativeAdView.m in Sources */,
 				8AA009FA19DB1DE60090EBED /* ANURLConnectionStub.m in Sources */,
 				8AA009C519DB1B200090EBED /* AppDelegate.m in Sources */,

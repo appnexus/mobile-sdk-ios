@@ -22,7 +22,6 @@
 
 
 
-
 @interface ANNativeAdRequest() <ANUniversalNativeAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
@@ -110,60 +109,79 @@
 - (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
     didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
-    
-    NSError *error;
-    
-    if (response.isSuccessful) {
-        
-        if ([response.adObject isKindOfClass:[ANNativeAdResponse class]]) {
-            ANNativeAdResponse *finalResponse = (ANNativeAdResponse *)response.adObject;
-            
-            
-            __weak ANNativeAdRequest *weakSelf = self;
-            NSOperation *finish = [NSBlockOperation blockOperationWithBlock:
-                                   ^{
-                                       __strong ANNativeAdRequest *strongSelf = weakSelf;
-                                       
-                                       if (!strongSelf) {
-                                           ANLogError(@"FAILED to access strongSelf.");
-                                           return;
-                                       }
-                                       [strongSelf.delegate adRequest:strongSelf didReceiveResponse:finalResponse];
-                                       
-                                       [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
-                                   } ];
-            
-            
-            if(finalResponse.creativeId == nil){
-                NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:response.adObjectHandler];
-                [self setCreativeId:creativeId onObject:finalResponse forKeyPath:@"creativeId"];
-              }
-            
-            if (self.shouldLoadIconImage && [finalResponse respondsToSelector:@selector(setIconImage:)]) {
-                [self setImageForImageURL:finalResponse.iconImageURL
-                                 onObject:finalResponse
-                               forKeyPath:@"iconImage"
-                  withCompletionOperation:finish];
-            }
-            if (self.shouldLoadMainImage && [finalResponse respondsToSelector:@selector(setMainImage:)]) {
-                [self setImageForImageURL:finalResponse.mainImageURL
-                                 onObject:finalResponse
-                               forKeyPath:@"mainImage"
-                  withCompletionOperation:finish];
-            }
-            
-            [[NSOperationQueue mainQueue] addOperation:finish];
-        } else {
-            error = ANError(@"native_request_invalid_response", ANAdResponseBadFormat);
-        }
-    } else {
+    NSError  *error  = nil;
+
+    if (!response.isSuccessful) {
         error = response.error;
+
+    } else if (! [response.adObject isKindOfClass:[ANNativeAdResponse class]]) {
+        error = ANError(@"native_request_invalid_response", ANAdResponseBadFormat);
     }
-    
+
     if (error) {
         [self.delegate adRequest:self didFailToLoadWithError:error];
         [self.adFetchers removeObjectIdenticalTo:fetcher];
+        return;
     }
+
+
+    //
+    __weak ANNativeAdRequest  *weakSelf        = self;
+    ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
+
+    //
+    if (nativeResponse.creativeId == nil) {
+        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:response.adObjectHandler];
+        [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:@"creativeId"];
+    }
+
+    //
+    dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
+
+    dispatch_async(backgroundQueue,
+    ^{
+        __strong ANNativeAdRequest  *strongSelf  = weakSelf;
+
+        if (!strongSelf) {
+           ANLogError(@"FAILED to access strongSelf.");
+           return;
+        }
+
+        //
+        dispatch_semaphore_t  semaphoreMainImage  = nil;
+        dispatch_semaphore_t  semaphoreIconImage  = nil;
+
+        if (self.shouldLoadMainImage && [nativeResponse respondsToSelector:@selector(setMainImage:)])
+        {
+            semaphoreMainImage = [self setImageInBackgroundForImageURL: nativeResponse.mainImageURL
+                                                              onObject: nativeResponse
+                                                            forKeyPath: @"mainImage" ];
+        }
+
+        if (self.shouldLoadIconImage && [nativeResponse respondsToSelector:@selector(setIconImage:)])
+        {
+            semaphoreIconImage = [self setImageInBackgroundForImageURL: nativeResponse.iconImageURL
+                                                              onObject: nativeResponse
+                                                            forKeyPath: @"iconImage" ];
+        }
+
+
+        if (semaphoreMainImage)  {
+            dispatch_semaphore_wait(semaphoreMainImage, DISPATCH_TIME_FOREVER);
+        }
+
+        if (semaphoreIconImage)  {
+            dispatch_semaphore_wait(semaphoreIconImage, DISPATCH_TIME_FOREVER);
+        }
+
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            ANLogDebug(@"...END NSURL sessions.");
+
+            [strongSelf.delegate adRequest:strongSelf didReceiveResponse:nativeResponse];
+            [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
+        });
+    });
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
@@ -192,19 +210,6 @@
 //
 #pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
 
-- (void)setImageForImageURL:(NSURL *)imageURL
-                   onObject:(id)object
-                 forKeyPath:(NSString *)keyPath
-    withCompletionOperation:(NSOperation *)operation {
-    
-    NSOperation *dependentOperation = [self setImageForImageURL:imageURL
-                                                       onObject:object
-                                                     forKeyPath:keyPath];
-    if (dependentOperation) {
-        [operation addDependency:dependentOperation];
-    }
-}
-
 - (void)setCreativeId:(NSString *)creativeId
              onObject:(id)object forKeyPath:(NSString *)keyPath
 {
@@ -212,59 +217,67 @@
 }
 
 
-- (NSOperation *)setImageForImageURL:(NSURL *)imageURL
-                            onObject:(id)object
-                          forKeyPath:(NSString *)keyPath {
-    if (!imageURL) {
-        return nil;
-    }
+// RETURN:  dispatch_semaphore_t    For first time image requests.
+//          nil                     When image is cached  -OR-  if imageURL is undefined.
+//
+// If semaphore is defined, call dispatch_semaphore_wait(semaphor, DISPATCH_TIME_FOREVER) to wait for this background task
+//   before continuing in the calling method.
+// Wait period is limited by NSURLRequest with timeoutInterval of kAppNexusNativeAdImageDownloadTimeoutInterval.
+//
+- (dispatch_semaphore_t) setImageInBackgroundForImageURL: (NSURL *)imageURL
+                                                onObject: (id)object
+                                              forKeyPath: (NSString *)keyPath
+{
+    if (!imageURL)  { return nil; }
+
     UIImage *cachedImage = [ANNativeAdImageCache imageForKey:imageURL];
+
     if (cachedImage) {
-        [object setValue:cachedImage
-              forKeyPath:keyPath];
-        return nil;
-    } else {
-        NSOperation *loadImageData = [NSBlockOperation blockOperationWithBlock:^{
-            dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-            NSURLRequest *request = [NSURLRequest requestWithURL:imageURL
-                                                     cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                 timeoutInterval:kAppNexusNativeAdImageDownloadTimeoutInterval];
-            
-            NSURLSessionDataTask *task = [[NSURLSession sharedSession]
-                                          dataTaskWithRequest:request
-                                          completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              NSInteger statusCode = -1;
+        [object setValue:cachedImage forKeyPath:keyPath];
+        return  nil;
+    }
+
+    //
+    dispatch_semaphore_t  semaphore  = dispatch_semaphore_create(0);
+
+    NSURLRequest  *request  = [NSURLRequest requestWithURL: imageURL
+                                               cachePolicy: NSURLRequestReloadIgnoringLocalCacheData
+                                           timeoutInterval: kAppNexusNativeAdImageDownloadTimeoutInterval];
+
+    NSURLSessionDataTask  *task  =
+        [[NSURLSession sharedSession] dataTaskWithRequest: request
+                                        completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error)
+                                        {
+                                              ANLogDebug(@"BEGIN NSURL session...");
+
+                                              NSInteger  statusCode  = -1;
+
                                               if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                                  NSHTTPURLResponse  *httpResponse  = (NSHTTPURLResponse *)response;
                                                   statusCode = [httpResponse statusCode];
-                                                  
                                               }
-                                              
-                                              if (statusCode >= 400 || statusCode == -1)  {
+
+                                              if ((statusCode >= 400) || (statusCode == -1))  {
                                                   ANLogError(@"Error downloading image: %@", error);
-                                                  
-                                              }else{
-                                                  UIImage *image = [UIImage imageWithData:data];
+
+                                              } else {
+                                                  UIImage  *image  = [UIImage imageWithData:data];
+
                                                   if (image) {
-                                                      [ANNativeAdImageCache setImage:image
-                                                                              forKey:imageURL];
-                                                      [object setValue:image
-                                                            forKeyPath:keyPath];
+                                                      [ANNativeAdImageCache setImage:image forKey:imageURL];
+                                                      [object setValue:image forKeyPath:keyPath];
                                                   }
                                               }
+
                                               dispatch_semaphore_signal(semaphore);
-                                              
-                                          }];
-            
-            [task resume];
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            
-        }];
-        
-        [[NSOperationQueue mainQueue] addOperation:loadImageData];
-        return loadImageData;
-    }
+                                          }
+         ];
+    [task resume];
+
+    //
+    return  semaphore;
 }
+
 
 
 

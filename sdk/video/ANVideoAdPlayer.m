@@ -392,7 +392,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
                 [self.delegate videoAdWasClickedWithURL:urlString];
             }
             
-            ANLogMarkMessage(@"ClickThroughURL=%@", urlString);
+            ANLogDebug(@"ClickThroughURL=%@", urlString);
             break;
             
         case ANClickThroughActionOpenDeviceBrowser:

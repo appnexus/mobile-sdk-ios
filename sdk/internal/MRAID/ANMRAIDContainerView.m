@@ -417,7 +417,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
             [self.webViewController updateViewability:[self isViewable]];
             [self.adViewDelegate adWasClickedWithURL:[URL absoluteString]];
 
-            ANLogMarkMessage(@"ClickThroughURL=%@", URL);
+            ANLogDebug(@"ClickThroughURL=%@", URL);
             break;
 
         case ANClickThroughActionOpenDeviceBrowser:

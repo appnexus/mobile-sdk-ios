@@ -362,7 +362,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
                 [webViewForUserAgent evaluateJavaScript: @"navigator.userAgent"
                                       completionHandler: ^(id __nullable userAgentString, NSError * __nullable error)
                                       {
-                                          ANLogMarkMessage(@"userAgentString=%@", userAgentString);
+                                          ANLogDebug(@"userAgentString=%@", userAgentString);
                                           userAgent = userAgentString;
 
                                           [webViewForUserAgent stopLoading];
@@ -377,7 +377,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     }
 
     //
-    ANLogMarkMessage(@"userAgent=%@", userAgent);
+    ANLogDebug(@"userAgent=%@", userAgent);
     return userAgent;
 }
 
