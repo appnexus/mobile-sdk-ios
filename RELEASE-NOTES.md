@@ -1,3 +1,7 @@
+## 5.0.1
+### Bug Fix
++ Allow ANNativeAdRequest to download image assets in background (MS-3714)
+
 ## 5.0
 ### New Features
 + Universal Tags version 3, including support for Native ad objects
