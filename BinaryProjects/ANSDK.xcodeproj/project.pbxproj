@@ -819,7 +819,6 @@
 		604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialSmartAd.m; sourceTree = "<group>"; };
 		604C10FC1E24261F006D6C97 /* ANAdAdapterSmartAdBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterSmartAdBase.h; sourceTree = "<group>"; };
 		604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterSmartAdBase.m; sourceTree = "<group>"; };
-		604C10FF1E242E9B006D6C97 /* ANAdAdapterSmartAdBase+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterSmartAdBase+PrivateMethods.h"; sourceTree = "<group>"; };
 		607A21191F8589D800BD8353 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MMAdSDK.framework; sourceTree = "<group>"; };
 		607A211A1F8589E900BD8353 /* LICENSE_Millenial_Media.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE_Millenial_Media.txt; path = "../../../../../../../../../../../Downloads/mm-ios-ad-sdk-6.6.0-20170915-1413/LICENSE_Millenial_Media.txt"; sourceTree = "<group>"; };
 		608E47351F86E6B7009BB148 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonAd.framework; sourceTree = "<group>"; };
@@ -1510,7 +1509,6 @@
 				604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */,
 				604C10F91E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.h */,
 				604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */,
-				604C10FF1E242E9B006D6C97 /* ANAdAdapterSmartAdBase+PrivateMethods.h */,
 				604C10FC1E24261F006D6C97 /* ANAdAdapterSmartAdBase.h */,
 				604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */,
 			);

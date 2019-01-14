@@ -14,7 +14,6 @@
  */
 #import "ANAdAdapterInterstitialSmartAd.h"
 #import "ANLogging.h"
-#import "ANAdAdapterSmartAdBase+PrivateMethods.h"
 
 @interface ANAdAdapterInterstitialSmartAd ()
     

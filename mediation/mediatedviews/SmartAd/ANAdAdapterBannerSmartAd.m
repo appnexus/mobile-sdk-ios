@@ -14,7 +14,6 @@
  */
 #import "ANAdAdapterBannerSmartAd.h"
 #import "ANLogging.h"
-#import "ANAdAdapterSmartAdBase+PrivateMethods.h"
 
 @interface ANAdAdapterBannerSmartAd ()
     
