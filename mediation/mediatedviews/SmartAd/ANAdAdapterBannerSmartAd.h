@@ -13,9 +13,9 @@
  limitations under the License.
  */
 #import "ANCustomAdapter.h"
-#import "SASBannerView.h"
+#import <SASDisplayKit/SASDisplayKit.h>
 #import "ANAdAdapterSmartAdBase.h"
 
-@interface ANAdAdapterBannerSmartAd :  ANAdAdapterSmartAdBase <ANCustomAdapterBanner, SASAdViewDelegate>
+@interface ANAdAdapterBannerSmartAd :  ANAdAdapterSmartAdBase <ANCustomAdapterBanner, SASBannerViewDelegate>
 
 @end
