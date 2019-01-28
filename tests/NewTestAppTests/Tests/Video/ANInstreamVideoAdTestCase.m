@@ -121,6 +121,24 @@ static NSString   *inventoryCode    = @"trucksmash";
 }
 
 
+
+- (void)testCustomKeywordsAdded
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    [instreamVideoAd addCustomKeywordWithKey:@"force_creative_id" value:@"123456789"];
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    XCTAssertEqualObjects(self.jsonRequestBody[@"keywords"][0][@"key"], @"force_creative_id");
+    XCTAssertEqualObjects(self.jsonRequestBody[@"keywords"][0][@"value"][0], @"123456789");
+
+    XCTAssertEqual(instreamVideoAd.placementId, placementID);
+}
+
+
 - (void)testAdDuration {
         [self initializeInstreamVideoWithAllProperties];
         NSLog(@"reached here");
