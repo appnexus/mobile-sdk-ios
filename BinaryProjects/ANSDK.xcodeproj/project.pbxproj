@@ -1519,8 +1519,8 @@
 		60359FF91E23FCCB0017EF56 /* SmartAdSDK */ = {
 			isa = PBXGroup;
 			children = (
-				977EA5EB21C24B4D008204CB /* SCSCoreKit.framework */,
 				97E73CEE21BFDFEF00D93AA0 /* SASDisplayKit.framework */,
+				977EA5EB21C24B4D008204CB /* SCSCoreKit.framework */,
 			);
 			path = SmartAdSDK;
 			sourceTree = "<group>";

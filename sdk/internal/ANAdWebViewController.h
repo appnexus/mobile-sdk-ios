@@ -105,6 +105,7 @@
 @property (nonatomic, readwrite, assign)  BOOL          navigationTriggersDefaultBrowser;
 @property (nonatomic, readwrite, assign)  ANMRAIDState  initialMRAIDState;
 @property (nonatomic, readwrite, assign)  BOOL          userSelectionEnabled;
+@property (nonatomic, readwrite, assign)  BOOL          isVASTVideoAd;
 
 @end
 
