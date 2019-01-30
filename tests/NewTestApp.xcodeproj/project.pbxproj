@@ -234,12 +234,10 @@
 		0E39787C212B47A000DDAD6D /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E397854212B47A000DDAD6D /* ANNativeAdView.xib */; };
 		0E397895212B47A000DDAD6D /* ANBannerNativeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E39786F212B47A000DDAD6D /* ANBannerNativeTestCase.m */; };
 		0E397896212B47A000DDAD6D /* ANNativeStandardAdResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397871212B47A000DDAD6D /* ANNativeStandardAdResponseTestCase.m */; };
-		0E397897212B47A000DDAD6D /* ANGADNativeAppInstallAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E397872212B47A000DDAD6D /* ANGADNativeAppInstallAdView.xib */; };
+		0E397897212B47A000DDAD6D /* ANGADUnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E397872212B47A000DDAD6D /* ANGADUnifiedNativeAdView.xib */; };
 		0E397898212B47A000DDAD6D /* ANTrackerManagerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397873212B47A000DDAD6D /* ANTrackerManagerTestCase.m */; };
-		0E397899212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397875212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m */; };
+		0E397899212B47A000DDAD6D /* ANGADUnifiedNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397875212B47A000DDAD6D /* ANGADUnifiedNativeAdView.m */; };
 		0E39789A212B47A000DDAD6D /* ANNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397876212B47A000DDAD6D /* ANNativeAdView.m */; };
-		0E39789B212B47A000DDAD6D /* ANGADNativeContentAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E397877212B47A000DDAD6D /* ANGADNativeContentAdView.xib */; };
-		0E39789D212B47A000DDAD6D /* ANGADNativeContentAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E397879212B47A000DDAD6D /* ANGADNativeContentAdView.m */; };
 		0E39789E212B47A000DDAD6D /* ANNativeAdViewMainImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E39787A212B47A000DDAD6D /* ANNativeAdViewMainImage.xib */; };
 		0E3978A8212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3978A7212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.m */; };
 		0E3978A9212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3978A7212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.m */; };
@@ -401,10 +399,10 @@
 		8A14827C1AD346030046F1B9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE3999E1A42105B00C0D7B1 /* WebKit.framework */; };
 		8A14827E1AD346220046F1B9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14827D1AD346220046F1B9 /* Social.framework */; };
 		8A1482811AD346430046F1B9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1482801AD346430046F1B9 /* CoreMedia.framework */; };
-		8A201BFF1C596072009EE62D /* ANGADNativeAppInstallAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A201BFE1C596072009EE62D /* ANGADNativeAppInstallAdView.xib */; };
-		8A201C001C596072009EE62D /* ANGADNativeAppInstallAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A201BFE1C596072009EE62D /* ANGADNativeAppInstallAdView.xib */; };
-		8A201C0F1C5960BC009EE62D /* ANGADNativeAppInstallAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C0E1C5960BC009EE62D /* ANGADNativeAppInstallAdView.m */; };
-		8A201C101C5960BC009EE62D /* ANGADNativeAppInstallAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C0E1C5960BC009EE62D /* ANGADNativeAppInstallAdView.m */; };
+		8A201BFF1C596072009EE62D /* ANGADUnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A201BFE1C596072009EE62D /* ANGADUnifiedNativeAdView.xib */; };
+		8A201C001C596072009EE62D /* ANGADUnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A201BFE1C596072009EE62D /* ANGADUnifiedNativeAdView.xib */; };
+		8A201C0F1C5960BC009EE62D /* ANGADUnifiedNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C0E1C5960BC009EE62D /* ANGADUnifiedNativeAdView.m */; };
+		8A201C101C5960BC009EE62D /* ANGADUnifiedNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A201C0E1C5960BC009EE62D /* ANGADUnifiedNativeAdView.m */; };
 		8A2BD4111B670E540000DB66 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4101B670E540000DB66 /* MMAdSDK.framework */; };
 		8A2BD4131B670EAE0000DB66 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2BD4121B670EAE0000DB66 /* libxml2.dylib */; };
 		8A33A5131A7C264D00F8ED5E /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A33A5121A7C264D00F8ED5E /* ANTrackerManager+ANTest.m */; };
@@ -460,10 +458,6 @@
 		8AB078651AFA9A7600889AA4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A5D27BC199A9DAB00F2A516 /* CoreMotion.framework */; };
 		8AB5324819F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */; };
 		8AB5326B19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */; };
-		8ABC03BD1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03BC1C5AC7C400D7C789 /* ANGADNativeContentAdView.m */; };
-		8ABC03BE1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03BC1C5AC7C400D7C789 /* ANGADNativeContentAdView.m */; };
-		8ABC03CD1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ABC03CC1C5AC82200D7C789 /* ANGADNativeContentAdView.xib */; };
-		8ABC03CE1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ABC03CC1C5AC82200D7C789 /* ANGADNativeContentAdView.xib */; };
 		8AD011A71B2F652B001B0107 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD011A61B2F652B001B0107 /* IOKit.framework */; };
 		8AD011A81B2F656B001B0107 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD011A61B2F652B001B0107 /* IOKit.framework */; };
 		8AD011B01B2F6C54001B0107 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD011AF1B2F6C54001B0107 /* libsqlite3.dylib */; };
@@ -1067,18 +1061,15 @@
 		0E39782B212B3DDA00DDAD6D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E397853212B47A000DDAD6D /* ANNativeAdRequestTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdRequestTestCase.m; sourceTree = "<group>"; };
 		0E397854212B47A000DDAD6D /* ANNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdView.xib; sourceTree = "<group>"; };
-		0E39786E212B47A000DDAD6D /* ANGADNativeAppInstallAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADNativeAppInstallAdView.h; sourceTree = "<group>"; };
+		0E39786E212B47A000DDAD6D /* ANGADUnifiedNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADUnifiedNativeAdView.h; sourceTree = "<group>"; };
 		0E39786F212B47A000DDAD6D /* ANBannerNativeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerNativeTestCase.m; sourceTree = "<group>"; };
 		0E397870212B47A000DDAD6D /* ANNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeAdView.h; sourceTree = "<group>"; };
 		0E397871212B47A000DDAD6D /* ANNativeStandardAdResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeStandardAdResponseTestCase.m; sourceTree = "<group>"; };
-		0E397872212B47A000DDAD6D /* ANGADNativeAppInstallAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANGADNativeAppInstallAdView.xib; sourceTree = "<group>"; };
+		0E397872212B47A000DDAD6D /* ANGADUnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANGADUnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		0E397873212B47A000DDAD6D /* ANTrackerManagerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManagerTestCase.m; sourceTree = "<group>"; };
-		0E397874212B47A000DDAD6D /* ANGADNativeContentAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADNativeContentAdView.h; sourceTree = "<group>"; };
-		0E397875212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADNativeAppInstallAdView.m; sourceTree = "<group>"; };
+		0E397875212B47A000DDAD6D /* ANGADUnifiedNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADUnifiedNativeAdView.m; sourceTree = "<group>"; };
 		0E397876212B47A000DDAD6D /* ANNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeAdView.m; sourceTree = "<group>"; };
-		0E397877212B47A000DDAD6D /* ANGADNativeContentAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANGADNativeContentAdView.xib; sourceTree = "<group>"; };
 		0E397878212B47A000DDAD6D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E397879212B47A000DDAD6D /* ANGADNativeContentAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADNativeContentAdView.m; sourceTree = "<group>"; };
 		0E39787A212B47A000DDAD6D /* ANNativeAdViewMainImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANNativeAdViewMainImage.xib; sourceTree = "<group>"; };
 		0E3978A6212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANNativeCustomDummyAdapterSuccesful.h; sourceTree = "<group>"; };
 		0E3978A7212B4BB900DDAD6D /* ANNativeCustomDummyAdapterSuccesful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeCustomDummyAdapterSuccesful.m; sourceTree = "<group>"; };
@@ -1183,9 +1174,9 @@
 		8A14826F1AD344B70046F1B9 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdColony.framework; path = ../mediation/mediatedviews/AdColony/AdColonySDK/AdColony.framework; sourceTree = "<group>"; };
 		8A14827D1AD346220046F1B9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		8A1482801AD346430046F1B9 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		8A201BFE1C596072009EE62D /* ANGADNativeAppInstallAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANGADNativeAppInstallAdView.xib; sourceTree = "<group>"; };
-		8A201C0E1C5960BC009EE62D /* ANGADNativeAppInstallAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADNativeAppInstallAdView.m; sourceTree = "<group>"; };
-		8A201C111C5960DA009EE62D /* ANGADNativeAppInstallAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADNativeAppInstallAdView.h; sourceTree = "<group>"; };
+		8A201BFE1C596072009EE62D /* ANGADUnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANGADUnifiedNativeAdView.xib; sourceTree = "<group>"; };
+		8A201C0E1C5960BC009EE62D /* ANGADUnifiedNativeAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADUnifiedNativeAdView.m; sourceTree = "<group>"; };
+		8A201C111C5960DA009EE62D /* ANGADUnifiedNativeAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADUnifiedNativeAdView.h; sourceTree = "<group>"; };
 		8A2BD4101B670E540000DB66 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMAdSDK.framework; path = ../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/MMAdSDK.framework; sourceTree = "<group>"; };
 		8A2BD4121B670EAE0000DB66 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		8A33A5111A7C264D00F8ED5E /* ANTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANTrackerManager+ANTest.h"; sourceTree = "<group>"; };
@@ -1278,9 +1269,6 @@
 		8AB5324719F01FD700CA4427 /* ANAdAdapterBannerAdMob+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBannerAdMob+ANTest.m"; sourceTree = "<group>"; };
 		8AB5326919F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBannerMoPub+ANTest.h"; sourceTree = "<group>"; };
 		8AB5326A19F0503E00CA4427 /* ANAdAdapterBannerMoPub+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBannerMoPub+ANTest.m"; sourceTree = "<group>"; };
-		8ABC03BB1C5AC7C400D7C789 /* ANGADNativeContentAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANGADNativeContentAdView.h; sourceTree = "<group>"; };
-		8ABC03BC1C5AC7C400D7C789 /* ANGADNativeContentAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGADNativeContentAdView.m; sourceTree = "<group>"; };
-		8ABC03CC1C5AC82200D7C789 /* ANGADNativeContentAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANGADNativeContentAdView.xib; sourceTree = "<group>"; };
 		8AD011A61B2F652B001B0107 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		8AD011AF1B2F6C54001B0107 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8AE3999E1A42105B00C0D7B1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -1751,12 +1739,9 @@
 				0E3978A5212B4BB800DDAD6D /* NativeAdapters */,
 				0E0706432193672600C77167 /* NativeResponses */,
 				0E39786F212B47A000DDAD6D /* ANBannerNativeTestCase.m */,
-				0E39786E212B47A000DDAD6D /* ANGADNativeAppInstallAdView.h */,
-				0E397875212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m */,
-				0E397872212B47A000DDAD6D /* ANGADNativeAppInstallAdView.xib */,
-				0E397874212B47A000DDAD6D /* ANGADNativeContentAdView.h */,
-				0E397879212B47A000DDAD6D /* ANGADNativeContentAdView.m */,
-				0E397877212B47A000DDAD6D /* ANGADNativeContentAdView.xib */,
+				0E39786E212B47A000DDAD6D /* ANGADUnifiedNativeAdView.h */,
+				0E397875212B47A000DDAD6D /* ANGADUnifiedNativeAdView.m */,
+				0E397872212B47A000DDAD6D /* ANGADUnifiedNativeAdView.xib */,
 				0E397853212B47A000DDAD6D /* ANNativeAdRequestTestCase.m */,
 				0E397870212B47A000DDAD6D /* ANNativeAdView.h */,
 				0E397876212B47A000DDAD6D /* ANNativeAdView.m */,
@@ -1921,12 +1906,9 @@
 		8A549E9B1A706BA6009F797A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8A201C111C5960DA009EE62D /* ANGADNativeAppInstallAdView.h */,
-				8A201C0E1C5960BC009EE62D /* ANGADNativeAppInstallAdView.m */,
-				8A201BFE1C596072009EE62D /* ANGADNativeAppInstallAdView.xib */,
-				8ABC03BB1C5AC7C400D7C789 /* ANGADNativeContentAdView.h */,
-				8ABC03BC1C5AC7C400D7C789 /* ANGADNativeContentAdView.m */,
-				8ABC03CC1C5AC82200D7C789 /* ANGADNativeContentAdView.xib */,
+				8A201C111C5960DA009EE62D /* ANGADUnifiedNativeAdView.h */,
+				8A201C0E1C5960BC009EE62D /* ANGADUnifiedNativeAdView.m */,
+				8A201BFE1C596072009EE62D /* ANGADUnifiedNativeAdView.xib */,
 				8AE7AD931A7AAE81009E2F2F /* ANNativeAdView.h */,
 				8AE7AD941A7AAE81009E2F2F /* ANNativeAdView.m */,
 				8AE7AD911A7AAE33009E2F2F /* ANNativeAdView.xib */,
@@ -2840,8 +2822,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E28D98D20EACEC800EC2CB2 /* adMob_mediated_response.json in Resources */,
-				0E397897212B47A000DDAD6D /* ANGADNativeAppInstallAdView.xib in Resources */,
-				0E39789B212B47A000DDAD6D /* ANGADNativeContentAdView.xib in Resources */,
+				0E397897212B47A000DDAD6D /* ANGADUnifiedNativeAdView.xib in Resources */,
 				0E39787C212B47A000DDAD6D /* ANNativeAdView.xib in Resources */,
 				0E39789E212B47A000DDAD6D /* ANNativeAdViewMainImage.xib in Resources */,
 				0EE76E5C21A6021400B3635E /* appnexus_multiple_trackers.json in Resources */,
@@ -2956,8 +2937,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */,
-				8A201C001C596072009EE62D /* ANGADNativeAppInstallAdView.xib in Resources */,
-				8ABC03CE1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */,
+				8A201C001C596072009EE62D /* ANGADUnifiedNativeAdView.xib in Resources */,
 				8AE7AD921A7AAE33009E2F2F /* ANNativeAdView.xib in Resources */,
 				8A9BF1441A7FE3B800C0D227 /* ANNativeAdViewMainImage.xib in Resources */,
 				0EE76E5B21A6021400B3635E /* appnexus_multiple_trackers.json in Resources */,
@@ -2987,8 +2967,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A4EF4671CF3B1E3002C2DF1 /* __vungle.db in Resources */,
-				8A201BFF1C596072009EE62D /* ANGADNativeAppInstallAdView.xib in Resources */,
-				8ABC03CD1C5AC82200D7C789 /* ANGADNativeContentAdView.xib in Resources */,
+				8A201BFF1C596072009EE62D /* ANGADUnifiedNativeAdView.xib in Resources */,
 				8AA3DA121AAA0DAD00255F94 /* ANNativeAdView.xib in Resources */,
 				8AA3DA131AAA0DAD00255F94 /* ANNativeAdViewMainImage.xib in Resources */,
 				8A8458881A69A34C0014F291 /* ANSDKResources.bundle in Resources */,
@@ -3142,8 +3121,7 @@
 			files = (
 				0E28D99020EACEF600EC2CB2 /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
 				0E397895212B47A000DDAD6D /* ANBannerNativeTestCase.m in Sources */,
-				0E397899212B47A000DDAD6D /* ANGADNativeAppInstallAdView.m in Sources */,
-				0E39789D212B47A000DDAD6D /* ANGADNativeContentAdView.m in Sources */,
+				0E397899212B47A000DDAD6D /* ANGADUnifiedNativeAdView.m in Sources */,
 				0E28D99A20EACFB500EC2CB2 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				0E39787B212B47A000DDAD6D /* ANNativeAdRequestTestCase.m in Sources */,
 				0E39789A212B47A000DDAD6D /* ANNativeAdView.m in Sources */,
@@ -3237,8 +3215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A549EB41A706C7D009F797A /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
-				8A201C101C5960BC009EE62D /* ANGADNativeAppInstallAdView.m in Sources */,
-				8ABC03BE1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */,
+				8A201C101C5960BC009EE62D /* ANGADUnifiedNativeAdView.m in Sources */,
 				8A549EB31A706C71009F797A /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
 				8AE7AD8E1A7AABB4009E2F2F /* ANNativeAdResponseTestCase.m in Sources */,
 				8AE7AD951A7AAE81009E2F2F /* ANNativeAdView.m in Sources */,
@@ -3259,8 +3236,7 @@
 				8AA00A2D19DB1FC20090EBED /* ANAdAdapterBaseAmazon+ANTest.m in Sources */,
 				8A0EFA941B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m in Sources */,
 				8AA00A3919DB22410090EBED /* ANAdView+ANTest.m in Sources */,
-				8A201C0F1C5960BC009EE62D /* ANGADNativeAppInstallAdView.m in Sources */,
-				8ABC03BD1C5AC7C400D7C789 /* ANGADNativeContentAdView.m in Sources */,
+				8A201C0F1C5960BC009EE62D /* ANGADUnifiedNativeAdView.m in Sources */,
 				8AA009F819DB1DE60090EBED /* ANHTTPStubbingManager.m in Sources */,
 				8AA009F919DB1DE60090EBED /* ANHTTPStubURLProtocol.m in Sources */,
 				8AA009C419DB1B200090EBED /* ANMediationAdapterViewController.m in Sources */,

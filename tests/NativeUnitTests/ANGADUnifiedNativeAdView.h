@@ -15,6 +15,6 @@
 
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface ANGADNativeAppInstallAdView : GADNativeAppInstallAdView
+@interface ANGADUnifiedNativeAdView : GADUnifiedNativeAdView
 
 @end

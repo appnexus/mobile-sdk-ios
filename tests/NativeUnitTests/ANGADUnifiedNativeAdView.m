@@ -13,8 +13,8 @@
  limitations under the License.
  */
 
-#import "ANGADNativeAppInstallAdView.h"
+#import "ANGADUnifiedNativeAdView.h"
 
-@implementation ANGADNativeAppInstallAdView
+@implementation ANGADUnifiedNativeAdView
 
 @end

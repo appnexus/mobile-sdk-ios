@@ -20,15 +20,11 @@
 #import "ANProxyViewController.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-NSString *const kANAdAdapterNativeAdMobAdTypeKey = @"kANAdAdapterNativeAdMobAdTypeKey";
-
-@interface ANAdAdapterNativeAdMob () <GADNativeAppInstallAdLoaderDelegate,
-GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
+@interface ANAdAdapterNativeAdMob () <GADUnifiedNativeAdLoaderDelegate, GADUnifiedNativeAdDelegate>
 
 @property (nonatomic) GADAdLoader *nativeAdLoader;
 @property (nonatomic) ANProxyViewController *proxyViewController;
-@property (nonatomic) GADNativeAppInstallAd *nativeAppInstallAd;
-@property (nonatomic) GADNativeContentAd *nativeContentAd;
+@property (nonatomic) GADUnifiedNativeAd *nativeAd;
 
 @end
 
@@ -38,16 +34,6 @@ GADNativeContentAdLoaderDelegate, GADNativeAdDelegate>
 @synthesize nativeAdDelegate = _nativeAdDelegate;
 @synthesize expired = _expired;
 
-static BOOL nativeAppInstallAdsEnabled = NO;
-static BOOL nativeContentAdsEnabled = NO;
-
-+ (void)enableNativeAppInstallAds {
-    nativeAppInstallAdsEnabled = YES;
-}
-
-+ (void)enableNativeContentAds {
-    nativeContentAdsEnabled = YES;
-}
 
 #pragma mark - ANNativeCustomAdapter
 
@@ -61,22 +47,12 @@ static BOOL nativeContentAdsEnabled = NO;
 - (void)requestNativeAdWithServerParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)adUnitId
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
-    NSMutableArray *adTypes = [[NSMutableArray alloc] init];
-    if (nativeAppInstallAdsEnabled) {
-        [adTypes addObject:kGADAdLoaderAdTypeNativeAppInstall];
-    }
-    if (nativeContentAdsEnabled) {
-        [adTypes addObject:kGADAdLoaderAdTypeNativeContent];
-    }
-    if (adTypes.count == 0) {
-        ANLogDebug(@"No AdMob Native Ad types enabled –– did you forget to call [ANAdAdapterNativeAdMob enableNativeAppInstallAds] or [ANAdAdapterNativeAdMob enableNativeContentAds]?");
-        [self.requestDelegate didFailToLoadNativeAd:ANAdResponseMediatedSDKUnavailable];
-        return;
-    }
+
+
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.nativeAdLoader = [[GADAdLoader alloc] initWithAdUnitID:adUnitId
                                              rootViewController:(UIViewController *)self.proxyViewController
-                                                        adTypes:[adTypes copy]
+                                                        adTypes:@[kGADAdLoaderAdTypeUnifiedNative]
                                                         options:@[]];
     self.nativeAdLoader.delegate = self;
     [self.nativeAdLoader loadRequest:[ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters]];
@@ -88,21 +64,12 @@ static BOOL nativeContentAdsEnabled = NO;
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.proxyViewController.rootViewController = rvc;
     self.proxyViewController.adView = view;
-    if (self.nativeAppInstallAd) {
-        if ([view isKindOfClass:[GADNativeAppInstallAdView class]]) {
-            GADNativeAppInstallAdView *nativeAppInstallAdView = (GADNativeAppInstallAdView *)view;
-            [nativeAppInstallAdView setNativeAppInstallAd:self.nativeAppInstallAd];
+    if (self.nativeAd) {
+        if ([view isKindOfClass:[GADUnifiedNativeAdView class]]) {
+            GADUnifiedNativeAdView *nativeContentAdView = (GADUnifiedNativeAdView *)view;
+            [nativeContentAdView setNativeAd:self.nativeAd];
         } else {
-            ANLogError(@"Could not register native ad view––expected a view which is a subclass of GADNativeAppInstallAdView");
-        }
-        return;
-    }
-    if (self.nativeContentAd) {
-        if ([view isKindOfClass:[GADNativeContentAdView class]]) {
-            GADNativeContentAdView *nativeContentAdView = (GADNativeContentAdView *)view;
-            [nativeContentAdView setNativeContentAd:self.nativeContentAd];
-        } else {
-            ANLogError(@"Could not register native ad view––expected a view which is a subclass of GADNativeContentAdView");
+            ANLogError(@"Could not register native ad view––expected a view which is a subclass of GADUnifiedNativeAdView");
         }
         return;
     }
@@ -119,37 +86,21 @@ static BOOL nativeContentAdsEnabled = NO;
 
 #pragma mark - GADNativeAppInstallAdLoaderDelegate
 
-- (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeAppInstallAd:(GADNativeAppInstallAd *)nativeAppInstallAd {
+- (void)adLoader:(GADAdLoader *)adLoader didReceiveUnifiedNativeAd:(GADUnifiedNativeAd *)nativeAd
+{
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    self.nativeAppInstallAd = nativeAppInstallAd;
+    self.nativeAd = nativeAd;
     ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeAdMob];
-    nativeAppInstallAd.delegate = self;
-    response.title = nativeAppInstallAd.headline;
-    response.body = nativeAppInstallAd.body;
-    response.iconImageURL = nativeAppInstallAd.icon.imageURL;
-    response.mainImageURL = ((GADNativeAdImage *)[nativeAppInstallAd.images firstObject]).imageURL;
-    response.callToAction = nativeAppInstallAd.callToAction;
-    response.rating = [[ANNativeAdStarRating alloc] initWithValue:[nativeAppInstallAd.starRating floatValue]
+    nativeAd.delegate = self;
+    response.title = nativeAd.headline;
+    response.body = nativeAd.body;
+    response.iconImageURL = nativeAd.icon.imageURL;
+    response.mainImageURL = ((GADNativeAdImage *)[nativeAd.images firstObject]).imageURL;
+    response.callToAction = nativeAd.callToAction;
+    response.rating = [[ANNativeAdStarRating alloc] initWithValue:[nativeAd.starRating floatValue]
                                                             scale:5.0];
-    response.customElements = @{kANNativeElementObject:nativeAppInstallAd,
-                                kANAdAdapterNativeAdMobAdTypeKey:@(ANAdAdapterNativeAdMobAdTypeInstall)};
-    [self.requestDelegate didLoadNativeAd:response];
-}
-
-- (void)adLoader:(GADAdLoader *)adLoader didReceiveNativeContentAd:(GADNativeContentAd *)nativeContentAd {
-    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    self.nativeContentAd = nativeContentAd;
-    ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
-                                                                                         networkCode:ANNativeAdNetworkCodeAdMob];
-    nativeContentAd.delegate = self;
-    response.title = nativeContentAd.headline;
-    response.body = nativeContentAd.body;
-    response.iconImageURL = nativeContentAd.logo.imageURL;
-    response.mainImageURL = ((GADNativeAdImage *)[nativeContentAd.images firstObject]).imageURL;
-    response.callToAction = nativeContentAd.callToAction;
-    response.customElements = @{kANNativeElementObject:nativeContentAd,
-                                kANAdAdapterNativeAdMobAdTypeKey:@(ANAdAdapterNativeAdMobAdTypeContent)};
+    response.customElements = @{kANNativeElementObject:nativeAd};
     [self.requestDelegate didLoadNativeAd:response];
 }
 
