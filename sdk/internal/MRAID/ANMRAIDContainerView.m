@@ -526,7 +526,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     if (self.window) {
         CGRect absoluteContentViewFrame = [self convertRect:self.bounds toView:nil];
         CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
-        position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
         if (!CGAffineTransformIsIdentity(self.transform)) {
             // In the case of a magnified webview, need to pass the non-magnified size to the webview
             position.size = [self an_originalFrame].size;
@@ -547,7 +546,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     if (contentView) {
         CGRect absoluteContentViewFrame = [contentView convertRect:contentView.bounds toView:nil];
         CGRect position = ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(absoluteContentViewFrame);
-        position.origin.y -= ([ANMRAIDUtil screenSize].height - [ANMRAIDUtil maxSize].height);
         if (!CGAffineTransformIsIdentity(self.transform)) {
             // In the case of a magnified webview, need to pass the non-magnified size to the webview
             position.size = [contentView an_originalFrame].size;

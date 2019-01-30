@@ -130,13 +130,17 @@
     return ANMRAIDOrientationNone;
 }
 
-+ (CGSize)maxSize {
-    return [[self class] screenSize];
-}
-
 + (CGSize)screenSize {
     BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
     CGSize screenSize = ANPortraitScreenBounds().size;
+    int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
+    int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
+    return CGSizeMake(orientedWidth, orientedHeight);
+}
+
++ (CGSize)maxSizeSafeArea {
+    BOOL orientationIsPortrait = UIInterfaceOrientationIsPortrait([[UIApplication sharedApplication] statusBarOrientation]);
+    CGSize screenSize = ANPortraitScreenBoundsApplyingSafeAreaInsets().size;
     int orientedWidth = orientationIsPortrait ? screenSize.width : screenSize.height;
     int orientedHeight = orientationIsPortrait ? screenSize.height : screenSize.width;
     return CGSizeMake(orientedWidth, orientedHeight);

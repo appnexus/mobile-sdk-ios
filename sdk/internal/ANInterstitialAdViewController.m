@@ -178,13 +178,11 @@
         }
         
         if (self.responsiveAd) {
-            [_contentView an_constrainToSizeOfSuperview];
-            [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                                 yAttribute:NSLayoutAttributeTop];
+            [_contentView an_constrainToSizeOfSuperviewApplyingSafeAreaLayoutGuide];
+            [_contentView an_alignToSuperviewApplyingSafeAreaLayoutGuideWithXAttribute:NSLayoutAttributeLeft yAttribute:NSLayoutAttributeTop offsetX:0 offsetY:0];
         } else {
             [_contentView an_constrainWithFrameSize];
-            [_contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeCenterX
-                                                 yAttribute:NSLayoutAttributeCenterY];
+            [_contentView an_alignToSuperviewApplyingSafeAreaLayoutGuideWithXAttribute:NSLayoutAttributeCenterX yAttribute:NSLayoutAttributeCenterY offsetX:0 offsetY:0];
         }
     }
 }

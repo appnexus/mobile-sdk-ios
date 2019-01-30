@@ -226,6 +226,37 @@ CGRect ANPortraitScreenBounds() {
     return screenBounds;
 }
 
+CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+    if (@available(iOS 11.0, *)) {
+        CGFloat topPadding = window.safeAreaInsets.top;
+        CGFloat bottomPadding = window.safeAreaInsets.bottom;
+        CGFloat leftPadding = window.safeAreaInsets.left;
+        CGFloat rightPadding = window.safeAreaInsets.right;
+        screenBounds = CGRectMake(leftPadding, topPadding, screenBounds.size.width - (leftPadding + rightPadding), screenBounds.size.height - (topPadding + bottomPadding));
+    }
+    if ([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait) {
+        if (!CGPointEqualToPoint(screenBounds.origin, CGPointZero) || screenBounds.size.width > screenBounds.size.height) {
+            // need to orient screen bounds
+            switch ([UIApplication sharedApplication].statusBarOrientation) {
+                case UIInterfaceOrientationLandscapeLeft:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationLandscapeRight:
+                    return CGRectMake(0, 0, screenBounds.size.height, screenBounds.size.width);
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    return CGRectMake(0, 0, screenBounds.size.width, screenBounds.size.height);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    return screenBounds;
+}
+
 NSURLRequest *ANBasicRequestWithURL(NSURL *URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData

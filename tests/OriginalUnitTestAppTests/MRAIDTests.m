@@ -246,7 +246,7 @@
     CGPoint maxSize = [self getMaxSize];
     CGFloat width = maxSize.x;
     CGFloat height = maxSize.y;
-    CGRect screenBounds = ANPortraitScreenBounds();
+    CGRect screenBounds = ANPortraitScreenBoundsApplyingSafeAreaInsets();
     CGFloat expectedWidth = screenBounds.size.width;
     CGFloat expectedHeight = screenBounds.size.height;
     
@@ -265,7 +265,7 @@
     CGPoint maxSize = [self getMaxSize];
     CGFloat width = maxSize.x;
     CGFloat height = maxSize.y;
-    CGRect screenBounds = ANPortraitScreenBounds();
+    CGRect screenBounds = ANPortraitScreenBoundsApplyingSafeAreaInsets();
     CGFloat expectedWidth = screenBounds.size.height;
     CGFloat expectedHeight = screenBounds.size.width;
 
@@ -285,7 +285,7 @@
     CGPoint maxSize = [self getMaxSize];
     CGFloat width = maxSize.x;
     CGFloat height = maxSize.y;
-    CGRect screenBounds = ANPortraitScreenBounds();
+    CGRect screenBounds = ANPortraitScreenBoundsApplyingSafeAreaInsets();
     CGFloat expectedWidth = screenBounds.size.height;
     CGFloat expectedHeight = screenBounds.size.width;
     
@@ -305,6 +305,7 @@
     maxSize = [self getMaxSize];
     width = maxSize.x;
     height = maxSize.y;
+    screenBounds = ANPortraitScreenBoundsApplyingSafeAreaInsets();
     expectedWidth = screenBounds.size.width;
     expectedHeight = screenBounds.size.height;
     if (![UIApplication sharedApplication].statusBarHidden) {
@@ -380,8 +381,13 @@
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd) atOrigin:CGPointMake(0.0f, 50.0f) withSize:CGSizeMake(320.0f, 50.0f)];
     [self expand];
     CGRect currentPosition = [self getCurrentPosition];
+    UIWindow *window = UIApplication.sharedApplication.keyWindow;
+    CGFloat topPadding = 0.0f;
+    if (@available(iOS 11.0, *)) {
+        topPadding = window.safeAreaInsets.top;
+    }
     CGFloat expectedOriginX = 0.0f;
-    CGFloat expectedOriginY = 0.0f;
+    CGFloat expectedOriginY = topPadding;
 
     CGFloat originX = currentPosition.origin.x;
     CGFloat originY = currentPosition.origin.y;

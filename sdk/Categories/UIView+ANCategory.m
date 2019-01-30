@@ -284,6 +284,47 @@
     [self.superview addConstraints:@[widthConstraint, heightConstraint]];
 }
 
+- (void)an_constrainToSizeOfSuperviewApplyingSafeAreaLayoutGuide {
+    [self an_removeSizeConstraintToSuperview];
+    [self an_removeSizeConstraint];
+    NSLayoutConstraint *widthConstraint;
+    NSLayoutConstraint *heightConstraint;
+    if (@available(iOS 11.0, *)) {
+        widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:self.superview.safeAreaLayoutGuide
+                                                       attribute:NSLayoutAttributeWidth
+                                                      multiplier:1
+                                                        constant:0];
+        heightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.superview.safeAreaLayoutGuide
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0];
+    }
+    else
+    {
+        widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:self.superview
+                                                       attribute:NSLayoutAttributeWidth
+                                                      multiplier:1
+                                                        constant:0];
+        heightConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self.superview
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1
+                                                         constant:0];
+    }
+    [self.superview addConstraints:@[widthConstraint, heightConstraint]];
+}
+
 - (void)an_alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
                                yAttribute:(NSLayoutAttribute)yAttribute {
     [self an_alignToSuperviewWithXAttribute:xAttribute
@@ -312,6 +353,47 @@
                                                                    attribute:yAttribute
                                                                   multiplier:1
                                                                     constant:offsetY];
+    [self.superview addConstraints:@[xConstraint, yConstraint]];
+}
+
+- (void)an_alignToSuperviewApplyingSafeAreaLayoutGuideWithXAttribute:(NSLayoutAttribute)xAttribute
+                                       yAttribute:(NSLayoutAttribute)yAttribute
+                                          offsetX:(CGFloat)offsetX
+                                          offsetY:(CGFloat)offsetY {
+    [self an_removeAlignmentConstraintsToSuperview];
+    NSLayoutConstraint *  yConstraint;
+    NSLayoutConstraint *xConstraint;
+    if (@available(iOS 11.0, *)) {
+        yConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                   attribute:yAttribute
+                                                   relatedBy:NSLayoutRelationEqual
+                                                      toItem:self.superview.safeAreaLayoutGuide
+                                                   attribute:yAttribute
+                                                  multiplier:1
+                                                    constant:offsetY];
+        xConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                   attribute:xAttribute
+                                                   relatedBy:NSLayoutRelationEqual
+                                                      toItem:self.superview.safeAreaLayoutGuide
+                                                   attribute:xAttribute
+                                                  multiplier:1
+                                                    constant:offsetX];
+    }
+    else
+    {    yConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                    attribute:yAttribute
+                                                    relatedBy:NSLayoutRelationEqual
+                                                       toItem:self.superview
+                                                    attribute:yAttribute
+                                                   multiplier:1
+                                                     constant:offsetY];
+        xConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                   attribute:xAttribute
+                                                   relatedBy:NSLayoutRelationEqual
+                                                      toItem:self.superview
+                                                   attribute:xAttribute
+                                                  multiplier:1
+                                                    constant:offsetX];}
     [self.superview addConstraints:@[xConstraint, yConstraint]];
 }
 

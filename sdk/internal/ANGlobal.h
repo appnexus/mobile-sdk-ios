@@ -124,6 +124,7 @@ BOOL ANHasHttpPrefix(NSString *url);
 void ANSetNotificationsEnabled(BOOL enabled);
 void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
 CGRect ANPortraitScreenBounds(void);
+CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
 NSURLRequest *ANBasicRequestWithURL(NSURL *URL);
 NSNumber *ANiTunesIDForURL(NSURL *URL);
 BOOL ANCanPresentFromViewController(UIViewController *viewController);

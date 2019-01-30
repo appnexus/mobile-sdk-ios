@@ -1079,7 +1079,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (void)updateWebViewOnOrientation {
     [self fireJavaScript:[ANMRAIDJavascriptUtil screenSize:[ANMRAIDUtil screenSize]]];
-    [self fireJavaScript:[ANMRAIDJavascriptUtil maxSize:[ANMRAIDUtil maxSize]]];
+    [self fireJavaScript:[ANMRAIDJavascriptUtil maxSize:[ANMRAIDUtil maxSizeSafeArea]]];
 }
 
 - (void)fireJavaScript:(NSString *)javascript {

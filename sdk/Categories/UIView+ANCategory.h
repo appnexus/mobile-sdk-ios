@@ -43,6 +43,7 @@
                  heightConstraint:(NSLayoutConstraint **)heightConstraint;
 
 - (void)an_constrainToSizeOfSuperview;
+- (void)an_constrainToSizeOfSuperviewApplyingSafeAreaLayoutGuide;
 - (void)an_removeSizeConstraintToSuperview;
 
 - (void)an_alignToSuperviewWithXAttribute:(NSLayoutAttribute)xAttribute
@@ -51,6 +52,10 @@
                                yAttribute:(NSLayoutAttribute)yAttribute
                                   offsetX:(CGFloat)offsetX
                                   offsetY:(CGFloat)offsetY;
+- (void)an_alignToSuperviewApplyingSafeAreaLayoutGuideWithXAttribute:(NSLayoutAttribute)xAttribute
+                                       yAttribute:(NSLayoutAttribute)yAttribute
+                                          offsetX:(CGFloat)offsetX
+                                          offsetY:(CGFloat)offsetY;
 - (void)an_removeAlignmentConstraintsToSuperview;
 
 @end
