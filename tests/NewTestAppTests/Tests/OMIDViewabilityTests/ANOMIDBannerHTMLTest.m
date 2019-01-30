@@ -119,7 +119,8 @@
 
 
 
-
+// NOTE: if this test case is failing, then probably some popup(like location permission) is obstructing the BannerAd. Close the pop-up(Hit Allow) and re-run the test again.
+// as a possible improvement we need to do the above step programatically.
 - (void)testOMIDGeometry
 {
     [self stubRequestWithResponse:@"OMID_TestResponse"];

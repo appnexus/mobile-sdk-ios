@@ -28,7 +28,7 @@
 
 + (instancetype)sharedInstance;
 - (void) activateOMIDandCreatePartner;
-- (NSString *)prependOMIDJSToHTML:(NSString *)html;
+- (NSString *)getOMIDJS;
 - (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView: webView isVideoAd:(BOOL)videoAd;
 - (void) stopOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
 - (void)fireOMIDImpressionOccuredEvent:(OMIDAppnexusAdSession*) omidAdSession;

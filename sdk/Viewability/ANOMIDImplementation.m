@@ -171,38 +171,21 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
 }
 
 
-- (NSString *)prependOMIDJSToHTML:(NSString *)htmlOriginal
+- (NSString *)getOMIDJS
 {
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
-        return htmlOriginal;
-
-    NSString  *htmlInjected   = nil;
+        return @"";
+    
     NSString  *scriptContent  = nil;
-    NSError   *error;
-
+    
     @synchronized (self) {
         scriptContent  = self.omidJSString;
-
         if (!scriptContent) {
-            ANLogWarn(@"scriptContent is nil.  Returning ORIGINAL html input.");
-            return  htmlOriginal;
+            ANLogWarn(@"scriptContent is nil");
+            scriptContent=  @"";
         }
     }
-
-    //
-    htmlInjected = [OMIDAppnexusScriptInjector injectScriptContent:  scriptContent
-                                                          intoHTML:  htmlOriginal
-                                                             error: &error];
-
-    if (error) {
-        ANLogWarn(@"OMIDAppnexusScriptInjector FAILED.  Returning ORIGINAL html input.");
-        ANLogWarn(@"NSError: userInfo=%@  code=%@  domain=%@", error.userInfo, @(error.code), error.domain);
-
-        return  htmlOriginal;
-    }
-
-    //
-    return htmlInjected;
+    return scriptContent;
     
 }
 

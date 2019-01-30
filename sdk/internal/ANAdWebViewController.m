@@ -180,7 +180,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
       
         // This injects OMID JS to the HTML
         // NOTE this is intentionally kept above prependViewport if moved below it causes the tag to shrink.
-        htmlToLoad = [[ANOMIDImplementation sharedInstance] prependOMIDJSToHTML:html];
+        // This causes MS-3707, we are instead using WKUserScript to attach OMID JS to WKWebview.
+        //htmlToLoad = [[ANOMIDImplementation sharedInstance] prependOMIDJSToHTML:html];
         
         if (!_configuration.scrollingEnabled) {
             htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
@@ -215,7 +216,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if (!self)  { return nil; }
     
     self.configuration.scrollingEnabled = NO;
-    
+    self.configuration.isVASTVideoAd = YES;
     
     //
     _videoXML = videoXML;
@@ -571,6 +572,15 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         [controller addUserScript:execWatchPositionScript];
         [controller addUserScript:execCurrentPositionDeniedScript];
 
+    }
+
+    // Attach  OMID JS script to WKWebview for HTML Banner Ad's
+    // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.
+    if(!webViewControllerConfig.isVASTVideoAd){
+        WKUserScript *omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
+                                                          injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                       forMainFrameOnly: YES];
+        [controller addUserScript:omidScript];
     }
     
     [controller addUserScript:anjamScript];
@@ -1324,6 +1334,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         _navigationTriggersDefaultBrowser = YES;
         _initialMRAIDState = ANMRAIDStateDefault;
         _userSelectionEnabled = NO;
+        _isVASTVideoAd = NO;
     }
     return self;
 }
@@ -1334,14 +1345,15 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     configurationCopy.navigationTriggersDefaultBrowser = self.navigationTriggersDefaultBrowser;
     configurationCopy.initialMRAIDState = self.initialMRAIDState;
     configurationCopy.userSelectionEnabled = self.userSelectionEnabled;
+    configurationCopy.isVASTVideoAd = self.isVASTVideoAd;
     return configurationCopy;
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"(scrollingEnabled: %d, navigationTriggersDefaultBrowser: %d, \
-            initialMRAIDState: %lu, userSelectionEnabled: %d", self.scrollingEnabled,
+            initialMRAIDState: %lu, userSelectionEnabled: %d, isBannerVideo: %d", self.scrollingEnabled,
             self.navigationTriggersDefaultBrowser, (long unsigned)self.initialMRAIDState,
-            self.userSelectionEnabled];
+            self.userSelectionEnabled, self.isVASTVideoAd];
 }
 
 @end   //ANAdWebViewControllerConfiguration
