@@ -1,3 +1,16 @@
+## 5.1
+### New Features
++ Support for Carthage using script : carthageAppNexusSDK.sh
+
+### Mediation partner SDK upgrades/changes
++ Updated Google AdMob adapter to support GADUnifiedNativeAd and GADMediaView requirements
++ Upgraded Smart Server SDK v7.0    
+
+### Bug Fixes
++ MS-3695: Refactored loadAd and setAutoRefreshInterval: to provide a single code-path for requesting an ad.
++ MS-3707: Fixed bug in how Open Measurement JavaScript is injected into creative html content.
++ MS-3598,MS-3599: Fixed MRAID and Video Ads to respect Safe Area on Top notch devices when running in FullScreen/Expanded mode.
+
 ## 5.0.1
 ### Bug Fix
 + Allow ANNativeAdRequest to download image assets in background (MS-3714)
