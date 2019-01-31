@@ -1,3 +1,11 @@
+## 5.1.1
+### Mediation partner SDK upgrades/changes
++ Upgraded Smart Server SDK v7.0.2
++ Made SmartAdAdapter Podspec to be dependent on Smart-Display-SDK Pods
+
+Known issue: Apps integrating Smart Adapter from Code/Binary need to remove i386 and x86_64 architectures in order to be able to push to appstore. Cocoapods integration will work as-is.
+
+
 ## 5.1
 ### New Features
 + Support for Carthage using script : carthageAppNexusSDK.sh
