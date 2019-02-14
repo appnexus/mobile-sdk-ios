@@ -42,6 +42,11 @@
  */
 @property (nonatomic) BOOL locationEnabledForCreative;
 
+/**
+ If provided, the SDK will use it instead of one fetched from a WebView
+ */
+@property (nonatomic, readwrite, strong) NSString *customUserAgent;
+
 
 + (instancetype)sharedInstance;
 
