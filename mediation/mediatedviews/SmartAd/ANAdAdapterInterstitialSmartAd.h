@@ -13,9 +13,9 @@
  limitations under the License.
  */
 #import "ANCustomAdapter.h"
-#import "SASInterstitialView.h"
+#import <SASDisplayKit/SASDisplayKit.h>
 #import "ANAdAdapterSmartAdBase.h"
 
-@interface ANAdAdapterInterstitialSmartAd : ANAdAdapterSmartAdBase < ANCustomAdapterInterstitial,SASAdViewDelegate >
+@interface ANAdAdapterInterstitialSmartAd : ANAdAdapterSmartAdBase < ANCustomAdapterInterstitial,SASInterstitialManagerDelegate >
 
 @end

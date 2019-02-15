@@ -26,8 +26,7 @@
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
 #import "ANAdAdapterBaseYahoo.h"
-#import "ANGADNativeAppInstallAdView.h"
-#import "ANGADNativeContentAdView.h"
+#import "ANGADUnifiedNativeAdView.h"
 #import "ANAdAdapterNativeAdMob.h"
 #import "UIView+ANCategory.h"
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
@@ -40,8 +39,7 @@
 @property (nonatomic) ANNativeAdRequest *nativeAdRequest;
 @property (nonatomic) ANNativeAdResponse *nativeAdResponse;
 @property (nonatomic) ANNativeAdView *nativeAdView;
-@property (nonatomic) ANGADNativeAppInstallAdView *gadInstallView;
-@property (nonatomic) ANGADNativeContentAdView *gadContentView;
+@property (nonatomic) ANGADUnifiedNativeAdView *gadUnifiedNativeAdView;
 @end
 
 @implementation ANMediationAdapterViewController
@@ -122,10 +120,8 @@
     [self.nativeAdView removeFromSuperview];
     self.nativeAdView = nil;
     self.nativeAdResponse = nil;
-    [self.gadInstallView removeFromSuperview];
-    [self.gadContentView removeFromSuperview];
-    self.gadContentView = nil;
-    self.gadInstallView = nil;
+    [self.gadUnifiedNativeAdView removeFromSuperview];
+    self.gadUnifiedNativeAdView = nil;
 }
 
 
@@ -398,8 +394,8 @@
 
 - (ANNativeAdRequest *)loadAdMobNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
     [self stubAdMobNative];
-    [ANAdAdapterNativeAdMob enableNativeAppInstallAds];
-    [ANAdAdapterNativeAdMob enableNativeContentAds];
+   // [ANAdAdapterNativeAdMob enableNativeAppInstallAds];
+   // [ANAdAdapterNativeAdMob enableNativeContentAds];
     ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
     nativeAdRequest.shouldLoadIconImage = YES;
     nativeAdRequest.shouldLoadMainImage = YES;
@@ -771,27 +767,12 @@ So close the app & test the next ad type
     switch (self.nativeAdResponse.networkCode) {
         case ANNativeAdNetworkCodeAdMob: {
             UINib *adNib;
-            ANAdAdapterNativeAdMobAdType type = [self.nativeAdResponse.customElements[kANAdAdapterNativeAdMobAdTypeKey] integerValue];
-            switch (type) {
-                case ANAdAdapterNativeAdMobAdTypeInstall: {
-                    adNib = [UINib nibWithNibName:@"ANGADNativeAppInstallAdView"
+                    adNib = [UINib nibWithNibName:@"ANGADUnifiedNativeAdView"
                                            bundle:[NSBundle bundleForClass:[self class]]];
                     NSArray *array = [adNib instantiateWithOwner:self
                                                          options:nil];
-                    self.gadInstallView = [array firstObject];
+                    self.gadUnifiedNativeAdView = [array firstObject];
                     break;
-                }
-                case ANAdAdapterNativeAdMobAdTypeContent: {
-                    adNib = [UINib nibWithNibName:@"ANGADNativeContentAdView"
-                                           bundle:[NSBundle bundleForClass:[self class]]];
-                    NSArray *array = [adNib instantiateWithOwner:self
-                                                         options:nil];
-                    self.gadContentView = [array firstObject];
-                    break;
-                }
-                default:
-                    break;
-            }
             return;
         }
         default: {
@@ -808,19 +789,12 @@ So close the app & test the next ad type
 - (void)populateNativeViewWithResponse {
     switch (self.nativeAdResponse.networkCode) {
         case ANNativeAdNetworkCodeAdMob: {
-            if (self.gadInstallView) {
-                ((UIImageView *)self.gadInstallView.iconView).image = self.nativeAdResponse.iconImage;
-                ((UIImageView *)self.gadInstallView.imageView).image = self.nativeAdResponse.mainImage;
-                ((UILabel *)self.gadInstallView.headlineView).text = self.nativeAdResponse.title;
-                ((UILabel *)self.gadInstallView.bodyView).text = self.nativeAdResponse.body;
-                [((UIButton *)self.gadInstallView.callToActionView) setTitle:self.nativeAdResponse.callToAction
-                                                                    forState:UIControlStateNormal];
-            } else if (self.gadContentView) {
-                ((UIImageView *)self.gadContentView.logoView).image = self.nativeAdResponse.iconImage;
-                ((UIImageView *)self.gadContentView.imageView).image = self.nativeAdResponse.mainImage;
-                ((UILabel *)self.gadContentView.headlineView).text = self.nativeAdResponse.title;
-                ((UILabel *)self.gadContentView.bodyView).text = self.nativeAdResponse.body;
-                [((UIButton *)self.gadContentView.callToActionView) setTitle:self.nativeAdResponse.callToAction
+            if (self.gadUnifiedNativeAdView) {
+                ((UIImageView *)self.gadUnifiedNativeAdView.iconView).image = self.nativeAdResponse.iconImage;
+                ((UIImageView *)self.gadUnifiedNativeAdView.imageView).image = self.nativeAdResponse.mainImage;
+                ((UILabel *)self.gadUnifiedNativeAdView.headlineView).text = self.nativeAdResponse.title;
+                ((UILabel *)self.gadUnifiedNativeAdView.bodyView).text = self.nativeAdResponse.body;
+                [((UIButton *)self.gadUnifiedNativeAdView.callToActionView) setTitle:self.nativeAdResponse.callToAction
                                                                     forState:UIControlStateNormal];
             }
             return;
@@ -844,13 +818,8 @@ So close the app & test the next ad type
     self.nativeAdResponse.delegate = self;
     switch (self.nativeAdResponse.networkCode) {
         case ANNativeAdNetworkCodeAdMob:
-            if (self.gadInstallView) {
-                [self.nativeAdResponse registerViewForTracking:self.gadInstallView
-                                        withRootViewController:rvc
-                                                clickableViews:nil
-                                                         error:&registerError];
-            } else if (self.gadContentView) {
-                [self.nativeAdResponse registerViewForTracking:self.gadContentView
+            if (self.gadUnifiedNativeAdView) {
+                [self.nativeAdResponse registerViewForTracking:self.gadUnifiedNativeAdView
                                         withRootViewController:rvc
                                                 clickableViews:nil
                                                          error:&registerError];
@@ -869,10 +838,8 @@ So close the app & test the next ad type
     switch (self.nativeAdResponse.networkCode) {
         case ANNativeAdNetworkCodeAdMob: {
             UIView *nativeAdView;
-            if (self.gadInstallView) {
-                nativeAdView = self.gadInstallView;
-            } else if (self.gadContentView) {
-                nativeAdView = self.gadContentView;
+            if (self.gadUnifiedNativeAdView) {
+                nativeAdView = self.gadUnifiedNativeAdView;
             }
             nativeAdView.translatesAutoresizingMaskIntoConstraints = NO;
             [nativeAdView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[nativeAdView(==320)]"

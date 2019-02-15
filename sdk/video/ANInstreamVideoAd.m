@@ -57,8 +57,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 @implementation ANInstreamVideoAd
 
-@synthesize  customKeywords     = __customKeywords;
-
 @synthesize  minDuration        = __minDuration;
 @synthesize  maxDuration        = __maxDuration;
 

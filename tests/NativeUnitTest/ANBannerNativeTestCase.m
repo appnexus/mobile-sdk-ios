@@ -212,8 +212,6 @@
     TESTTRACE();
 
     [self stubRequestWithResponse:@"bannerNative_native_mediation"];
-    [ANAdAdapterNativeAdMob enableNativeAppInstallAds];
-    [ANAdAdapterNativeAdMob enableNativeContentAds];
 
 
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"2"];

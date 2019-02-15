@@ -1,3 +1,24 @@
+## 5.1.1
+### Mediation partner SDK upgrades/changes
++ Upgraded Smart Server SDK v7.0.2
++ Made SmartAdAdapter Podspec to be dependent on Smart-Display-SDK Pods
+
+Known issue: Apps integrating Smart Adapter from Code/Binary need to remove i386 and x86_64 architectures in order to be able to push to appstore. Cocoapods integration will work as-is.
+
+
+## 5.1
+### New Features
++ Support for Carthage using script : carthageAppNexusSDK.sh
+
+### Mediation partner SDK upgrades/changes
++ Updated Google AdMob adapter to support GADUnifiedNativeAd and GADMediaView requirements
++ Upgraded Smart Server SDK v7.0    
+
+### Bug Fixes
++ MS-3695: Refactored loadAd and setAutoRefreshInterval: to provide a single code-path for requesting an ad.
++ MS-3707: Fixed bug in how Open Measurement JavaScript is injected into creative html content.
++ MS-3598,MS-3599: Fixed MRAID and Video Ads to respect Safe Area on Top notch devices when running in FullScreen/Expanded mode.
+
 ## 5.0.1
 ### Bug Fix
 + Allow ANNativeAdRequest to download image assets in background (MS-3714)

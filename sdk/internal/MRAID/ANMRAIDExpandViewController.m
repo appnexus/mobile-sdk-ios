@@ -60,8 +60,7 @@
           forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeButton];
     [closeButton an_constrainWithSize:CGSizeMake(kANMRAIDExpandViewControllerCloseRegionWidth, kANMRAIDExpandViewControllerCloseRegionHeight)];
-    [closeButton an_alignToSuperviewWithXAttribute:NSLayoutAttributeRight
-                                     yAttribute:NSLayoutAttributeTop];
+    [closeButton an_alignToSuperviewApplyingSafeAreaLayoutGuideWithXAttribute:NSLayoutAttributeRight yAttribute:NSLayoutAttributeTop offsetX:0 offsetY:0];
     if (!self.expandProperties.useCustomClose) {
         BOOL atLeastiOS7 = [self respondsToSelector:@selector(modalPresentationCapturesStatusBarAppearance)];
         NSString *closeboxImageName = @"interstitial_flat_closebox";
@@ -102,9 +101,7 @@
         }
         [self.contentView an_constrainWithSize:CGSizeMake(expandedWidth, expandedHeight)];
     }
-    
-    [self.contentView an_alignToSuperviewWithXAttribute:NSLayoutAttributeLeft
-                                             yAttribute:NSLayoutAttributeTop];
+    [self.contentView an_alignToSuperviewApplyingSafeAreaLayoutGuideWithXAttribute:NSLayoutAttributeLeft yAttribute:NSLayoutAttributeTop offsetX:0 offsetY:0];
 }
 
 - (UIView *)detachContentView {

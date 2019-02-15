@@ -15,19 +15,10 @@
 
 #import "ANNativeCustomAdapter.h"
 
-extern NSString *const kANAdAdapterNativeAdMobNativeAppInstallAdKey;
-extern NSString *const kANAdAdapterNativeAdMobNativeContentKey;
-extern NSString *const kANAdAdapterNativeAdMobAdTypeKey;
-
-typedef NS_ENUM(NSInteger, ANAdAdapterNativeAdMobAdType) {
-    ANAdAdapterNativeAdMobAdTypeUnknown = 0,
-    ANAdAdapterNativeAdMobAdTypeInstall,
-    ANAdAdapterNativeAdMobAdTypeContent
-};
+extern NSString *const kANAdAdapterNativeAdMobAdKey;
 
 @interface ANAdAdapterNativeAdMob : NSObject <ANNativeCustomAdapter>
 
-+ (void)enableNativeAppInstallAds;
-+ (void)enableNativeContentAds;
+
 
 @end

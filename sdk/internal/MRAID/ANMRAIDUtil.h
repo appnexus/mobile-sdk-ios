@@ -64,8 +64,8 @@ typedef NS_ENUM(NSUInteger, ANMRAIDAction) {
 + (BOOL)supportsInlineVideo;
 + (BOOL)supportsStorePicture;
 
-+ (CGSize)maxSize;
 + (CGSize)screenSize;
++ (CGSize)maxSizeSafeArea;
 
 + (void)playVideoWithUri:(NSString *)uri
   fromRootViewController:(UIViewController *)rootViewController

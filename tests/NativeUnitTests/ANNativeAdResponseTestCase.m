@@ -32,7 +32,7 @@
 
 #import "ANNativeStandardAdResponse.h"
 #import "ANAdAdapterNativeAdMob.h"
-#import "ANGADNativeAppInstallAdView.h"
+#import "ANGADUnifiedNativeAdView.h"
 #import "ANNativeMediatedAdResponse+PrivateMethods.h"
 
 
@@ -48,7 +48,7 @@
 @property (nonatomic, readwrite, strong) ANNativeAdResponse *adResponse;
 @property (nonatomic, readwrite, strong) NSError *adRequestError;
 @property (nonatomic, readwrite, strong) ANNativeAdView *nativeAdView;
-@property (nonatomic, readwrite, strong) ANGADNativeAppInstallAdView *installAdView;
+@property (nonatomic, readwrite, strong) ANGADUnifiedNativeAdView *unifedNativeAdView;
 
 @property (nonatomic, readwrite, strong) NSMutableArray *impressionTrackers;
 @property (nonatomic, readwrite, strong) NSMutableArray *clickTrackers;
@@ -449,8 +449,8 @@
 
 - (void)testAdMobWithIconImageLoad {
     [self stubRequestWithResponse:@"adMob_mediated_response"];
-    [ANAdAdapterNativeAdMob enableNativeAppInstallAds];
-    [ANAdAdapterNativeAdMob enableNativeContentAds];
+//    [ANAdAdapterNativeAdMob enableNativeAppInstallAds];
+//    [ANAdAdapterNativeAdMob enableNativeContentAds];
     self.adRequest.shouldLoadIconImage = YES;
     self.delegateCallbackExpectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     [self.adRequest loadAd];
@@ -463,17 +463,17 @@
     [self iconImageShouldBePresentInResponse:YES];
     [self mainImageShouldBePresentInResponse:NO];
     
-    [self createGADInstallNativeView];
+    [self createGADUnifiedNativeView];
     NSError *registerError;
     UIViewController *rvc = [UIApplication sharedApplication].keyWindow.rootViewController;
     self.adResponse.delegate = self;
-    [self.adResponse registerViewForTracking:self.installAdView
+    [self.adResponse registerViewForTracking:self.unifedNativeAdView
                       withRootViewController:rvc
                               clickableViews:@[]
                                        error:&registerError];
     XCTAssertNil(registerError);
-    XCTAssertNotNil(self.installAdView.nativeAppInstallAd);
-    XCTAssertTrue([self.installAdView.nativeAppInstallAd isKindOfClass:[GADNativeAppInstallAd class]]);
+    XCTAssertNotNil(self.unifedNativeAdView.nativeAd);
+    XCTAssertTrue([self.unifedNativeAdView.nativeAd isKindOfClass:[GADUnifiedNativeAd class]]);
 }
 
 
@@ -656,10 +656,10 @@ TESTTRACE();
     self.nativeAdView = [array firstObject];
 }
 
-- (void)createGADInstallNativeView {
-    UINib *adNib = [UINib nibWithNibName:@"ANGADNativeAppInstallAdView" bundle:[NSBundle bundleForClass:[self class]]];
+- (void)createGADUnifiedNativeView {
+    UINib *adNib = [UINib nibWithNibName:@"ANGADUnifiedNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
     NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    self.installAdView = [array firstObject];
+    self.unifedNativeAdView = [array firstObject];
 }
 
 - (void)createMainImageNativeView {

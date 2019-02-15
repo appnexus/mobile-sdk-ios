@@ -46,8 +46,9 @@
 
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
 
-@property (nonatomic, readwrite) NSInteger nativeAdRendererId;
+@property (nonatomic, readwrite)          NSInteger  nativeAdRendererId;
 
+@property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
 
 @end
 
@@ -82,6 +83,7 @@
     _shouldAllowVideoDemand       = NO;
     _nativeAdRendererId          = 0;
     self.allowSmallerSizes  = NO;
+    self.loadAdHasBeenInvoked = NO;
     
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
@@ -151,6 +153,7 @@
 
 - (void) loadAd
 {
+    self.loadAdHasBeenInvoked = YES;
     [super loadAd];
 }
 
@@ -209,33 +212,32 @@
 }
 
 
-// if auto refresh is above the threshold (0), turn auto refresh on
-// minimum allowed value for auto refresh is (15).
+// If auto refresh interval is above zero (0), enable auto refresh,
+// though never with a refresh interval value below kANBannerMinimumAutoRefreshInterval.
 //
 - (void)setAutoRefreshInterval:(NSTimeInterval)autoRefreshInterval
 {
-    if (autoRefreshInterval > kANBannerAutoRefreshThreshold)
-    {
-        if (autoRefreshInterval < kANBannerMinimumAutoRefreshInterval)
-        {
-            __autoRefreshInterval = kANBannerMinimumAutoRefreshInterval;
-            ANLogWarn(@"setAutoRefreshInterval called with value %f, AutoRefresh interval set to minimum allowed value %f", autoRefreshInterval, kANBannerMinimumAutoRefreshInterval);
-        } else {
-            __autoRefreshInterval = autoRefreshInterval;
-            ANLogDebug(@"AutoRefresh interval set to %f seconds", __autoRefreshInterval);
-        }
-
-        //
-        if (! [self errorCheckConfiguration])  { return; }
-        
-        [self.universalAdFetcher stopAdLoad];
-        
-        ANLogDebug(@"New autoRefresh interval set. Making ad request.");
-        [self.universalAdFetcher requestAd];
-
-    } else {
+    if (autoRefreshInterval <= kANBannerAutoRefreshThreshold) {
+        __autoRefreshInterval = kANBannerAutoRefreshThreshold;
         ANLogDebug(@"Turning auto refresh off");
+
+        return;
+    }
+
+    if (autoRefreshInterval < kANBannerMinimumAutoRefreshInterval)
+    {
+        __autoRefreshInterval = kANBannerMinimumAutoRefreshInterval;
+        ANLogWarn(@"setAutoRefreshInterval called with value %f, autoRefreshInterval set to minimum allowed value %f.",
+                      autoRefreshInterval, kANBannerMinimumAutoRefreshInterval );
+    } else {
         __autoRefreshInterval = autoRefreshInterval;
+        ANLogDebug(@"AutoRefresh interval set to %f seconds", __autoRefreshInterval);
+    }
+
+
+    //
+    if (self.loadAdHasBeenInvoked) {
+        [self loadAd];
     }
 }
 

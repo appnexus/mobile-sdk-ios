@@ -13,19 +13,17 @@
  limitations under the License.
  */
 #import "ANAdAdapterSmartAdBase.h"
-#import "SASAdView.h"
-
-
-
 
 @implementation ANAdAdapterSmartAdBase
 
 @synthesize delegate;
 
-- (void) setSmartAdSiteId:(NSInteger)siteId{
-    
-    [SASAdView setSiteID:siteId baseURL:SMARTAD_BASEURL];
-    
+- (void)configureSmartDisplaySDKWithSiteId:(NSInteger)siteId {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // The configure method should never be called more than once
+        [[SASConfiguration sharedInstance] configureWithSiteId:siteId baseURL:SMARTAD_BASEURL];
+    });
 }
 
 - (NSString *)keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters {
@@ -33,12 +31,7 @@
     if(targetingParameters.location != nil){
         ANLocation *location = targetingParameters.location;
         if (location) {
-            CLLocation *mpLoc = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                                                              altitude:0
-                                                    horizontalAccuracy:location.horizontalAccuracy
-                                                      verticalAccuracy:0
-                                                             timestamp:location.timestamp];
-            [SASAdView setLocation:mpLoc];
+            [[SASConfiguration sharedInstance] setManualLocation:CLLocationCoordinate2DMake(location.latitude, location.longitude)];
             
         }
     }
@@ -47,19 +40,45 @@
 
 #pragma mark - PrivateMethods
 
--(NSDictionary *) parseAdUnitParameters:(NSString *) adUnitString{
+- (SASAdPlacement *)parseAdUnitParameters:(NSString *)adUnitString targetingParameters:(ANTargetingParameters *)targetingParameters {
     
-    if(adUnitString != nil || ![adUnitString isEqualToString:@""]){
-        NSData *data = [adUnitString dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *adUnitDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        if(adUnitDictionary != nil){
-            NSInteger siteId = [adUnitDictionary[SMARTAD_SITEID] integerValue];
-            [self setSmartAdSiteId:siteId];
-        }
-        return adUnitDictionary;
+    if (adUnitString == nil || [adUnitString isEqualToString:@""]) {
+        // No ad unit string, cannot create a placement
+        return nil;
     }
-    return nil;
+    
+    // Ad unit string is converted in JSON
+    NSData *data = [adUnitString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *adUnitDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    // Parsing Smart IDs from the Ad unit JSON
+    NSInteger siteId = [adUnitDictionary[SMARTAD_SITEID] integerValue];
+    NSString *pageIdString = adUnitDictionary[SMARTAD_PAGEID];
+    NSInteger formatId = [adUnitDictionary[SMARTAD_FORMATID] integerValue];
+    NSString *targetString;
+    if (targetingParameters != nil) {
+        targetString = [self keywordsFromTargetingParameters:targetingParameters];
+    }
+    
+    if (siteId <= 0 || formatId <= 0 || pageIdString == nil || [pageIdString isEqualToString:@""]) {
+        // No valid Smart IDs found in the ad unit string
+        return nil;
+    }
+    
+    // Setting the SiteID if necessary
+    [self configureSmartDisplaySDKWithSiteId:siteId];
+    
+    // Creating a placement
+    SASAdPlacement *placement;
+    if ([pageIdString integerValue] > 0) {
+        placement = [SASAdPlacement adPlacementWithSiteId:siteId pageId:[pageIdString integerValue] formatId:formatId keywordTargeting:targetString];
+    } else {
+        placement = [SASAdPlacement adPlacementWithSiteId:siteId pageName:pageIdString formatId:formatId keywordTargeting:targetString];
+    }
+    
+    return placement;
 }
+
 
 
 @end

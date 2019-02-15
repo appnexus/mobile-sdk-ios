@@ -15,6 +15,7 @@
 
 #import "ANCustomAdapter.h"
 #import <CoreLocation/CoreLocation.h>
+#import <SASDisplayKit/SASDisplayKit.h>
 
 #define SMARTAD_BASEURL		@"https://mobile.smartadserver.com"
 #define SMARTAD_SITEID        @"site_id"
@@ -23,6 +24,6 @@
 
 @interface ANAdAdapterSmartAdBase : NSObject <ANCustomAdapter>
 
-- (NSString *) keywordsFromTargetingParameters:(ANTargetingParameters *)targetingParameters;
+- (SASAdPlacement *)parseAdUnitParameters:(NSString *)adUnitString targetingParameters:(ANTargetingParameters *)targetingParameters;
 
 @end
