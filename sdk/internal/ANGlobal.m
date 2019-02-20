@@ -21,6 +21,8 @@
 
 #import "ANLogging.h"
 
+#import "ANSDKSettings.h"
+
 
 
 NSString * const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
@@ -374,6 +376,12 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     static NSString  *userAgent               = nil;
     static BOOL       userAgentQueryIsActive  = NO;
 
+    // Return customUserAgent if provided
+    NSString *customUserAgent = ANSDKSettings.sharedInstance.customUserAgent;
+    if (customUserAgent) {
+        ANLogDebug(@"userAgent=%@", customUserAgent);
+        return customUserAgent;
+    }
 
     if (!userAgent) {
         if (!userAgentQueryIsActive)
