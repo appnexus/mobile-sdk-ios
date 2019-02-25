@@ -378,7 +378,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
 
     // Return customUserAgent if provided
     NSString *customUserAgent = ANSDKSettings.sharedInstance.customUserAgent;
-    if (customUserAgent) {
+    if(customUserAgent && customUserAgent.length != 0){
         ANLogDebug(@"userAgent=%@", customUserAgent);
         return customUserAgent;
     }

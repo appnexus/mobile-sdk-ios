@@ -288,6 +288,8 @@
 		0E3CAA4220E6DE0600358480 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FC3E601E203368F200D5E1EF /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
 		0E3CAA4320E6DE1100358480 /* SuccessfulOutstreamBannerVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FCF95D97206050DF00FB93F9 /* SuccessfulOutstreamBannerVideoResponse.json */; };
 		0E3CAA4420E6DE1600358480 /* SuccessfulOutstreamVideoErrorResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ECDF40720C9CEDA0072BAE8 /* SuccessfulOutstreamVideoErrorResponse.json */; };
+		0E50CC0122205E6F00E4AB2C /* ANSDKSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E50CC0022205E6F00E4AB2C /* ANSDKSettingsTestCase.m */; };
+		0E50CC0E2220616400E4AB2C /* ANGlobal+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E50CC0D2220616400E4AB2C /* ANGlobal+Test.m */; };
 		0E5D6D0D20EFF6C200C98D1E /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA00A0119DB1E150090EBED /* ANAdWebViewController+ANTest.m */; };
 		0E5D6D0E20EFF99400C98D1E /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA009FF19DB1E150090EBED /* ANAdView+ANTest.m */; };
 		0E6AE593212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E6AE588212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json */; };
@@ -1091,6 +1093,9 @@
 		0E3CAA2C20E6DC2900358480 /* ANBannerVideoAutoRefreshAdViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerVideoAutoRefreshAdViewTestCase.m; sourceTree = "<group>"; };
 		0E3CAA2D20E6DC2900358480 /* OutstreamVideoAdClassObjectFromUTResponseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutstreamVideoAdClassObjectFromUTResponseTests.m; sourceTree = "<group>"; };
 		0E3CAA2E20E6DC2A00358480 /* ANBannerAdViewVideoTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewVideoTestCase.m; sourceTree = "<group>"; };
+		0E50CC0022205E6F00E4AB2C /* ANSDKSettingsTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANSDKSettingsTestCase.m; sourceTree = "<group>"; };
+		0E50CC0C2220616400E4AB2C /* ANGlobal+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANGlobal+Test.h"; sourceTree = "<group>"; };
+		0E50CC0D2220616400E4AB2C /* ANGlobal+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANGlobal+Test.m"; sourceTree = "<group>"; };
 		0E6AE588212D9C5C000D2D38 /* SuccessfulLocationCreativeForBannerAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulLocationCreativeForBannerAdResponse.json; sourceTree = "<group>"; };
 		0E70D7F320F66E3600A7668D /* SuccessfulAllowMagicSizeBannerObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulAllowMagicSizeBannerObjectResponse.json; sourceTree = "<group>"; };
 		0E720C3020BF482C00D948F8 /* InMobiSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InMobiSDK.framework; path = ../mediation/mediatedviews/InMobi/InMobiSDK/InMobiSDK.framework; sourceTree = "<group>"; };
@@ -1660,6 +1665,7 @@
 				0E39780E212B3DDA00DDAD6D /* ANAdResponseTestCase.m */,
 				0E39780D212B3DDA00DDAD6D /* ANAdViewMRAIDCreativeTestCase.m */,
 				0E397804212B3DDA00DDAD6D /* ANBannerAdViewTransitionsTestCase.m */,
+				0E50CC0022205E6F00E4AB2C /* ANSDKSettingsTestCase.m */,
 				0E397803212B3DDA00DDAD6D /* ANContainerViewTestCase.m */,
 				0E397806212B3DDA00DDAD6D /* ANLocationTestCase.m */,
 				0E39780A212B3DDA00DDAD6D /* ANMediationAdViewControllerTestCase.m */,
@@ -1851,12 +1857,12 @@
 		4FD362651F8FCA3D0010567E /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				4F1CBB121F97F9550019840A /* libKIF.a */,
+				4F1CBB141F97F9550019840A /* Test Host.app */,
 				4F1CBB161F97F9550019840A /* KIF Tests - XCTest.xctest */,
 				4F1CBB181F97F9550019840A /* KIF.framework */,
 				4F1CBB1A1F97F9550019840A /* KIFFrameworkConsumer.app */,
 				4F1CBB1C1F97F9550019840A /* KIFFrameworkConsumerTests.xctest */,
-				4F1CBB121F97F9550019840A /* libKIF.a */,
-				4F1CBB141F97F9550019840A /* Test Host.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2011,24 +2017,24 @@
 		8AA0093219DB169B0090EBED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
-				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
-				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
-				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
 				8AA0094019DB169B0090EBED /* libANSDK.a */,
-				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
-				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
-				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
-				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
-				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0094219DB169B0090EBED /* ANSDKResources.bundle */,
 				8AA0094419DB169B0090EBED /* libANSDKGoogleAdMobAdapter.a */,
-				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8AA0094819DB169B0090EBED /* libANSDKMillennialMediaAdapter.a */,
 				8AA0094A19DB169B0090EBED /* libANSDKMoPubAdapter.a */,
-				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				8AA0094C19DB169B0090EBED /* libANSDKFacebookAdapter.a */,
+				8AA0095219DB169B0090EBED /* libANSDKAmazonAdapter.a */,
+				8AA5B4EF1AA90C3E00522E1C /* libANSDKInMobiAdapter.a */,
 				8A4B96C51ACDEDE300FFEB2A /* libANSDKVdopiaAdapter.a */,
+				8A1482771AD344B70046F1B9 /* libANSDKAdColonyAdapter.a */,
 				8AD7C4E51AD3214B0049C997 /* libANSDKVungleAdapter.a */,
+				8A949AE41ADF23C500D83DCE /* libANSDKChartboostAdapter.a */,
 				8A9687341B4351E900D9399B /* libANSDKYahooAdapter.a */,
+				8AA0094E19DB169B0090EBED /* libANAdapterForGoogleAdMobSDK.a */,
+				8AA0095019DB169B0090EBED /* libANAdapterForMoPubSDK.a */,
+				8A84E4121A2516E000C60EAB /* AppNexusSDK.framework */,
+				6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */,
+				60359EE71E1EC2F00017EF56 /* libANSDKAdMarvelAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2132,6 +2138,8 @@
 				8AA00A0F19DB1E150090EBED /* XCTestCase+ANCategory.m */,
 				8AA00A1019DB1E150090EBED /* XCTestCase+ANMediatedAd.h */,
 				8AA00A1119DB1E150090EBED /* XCTestCase+ANMediatedAd.m */,
+				0E50CC0C2220616400E4AB2C /* ANGlobal+Test.h */,
+				0E50CC0D2220616400E4AB2C /* ANGlobal+Test.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3068,6 +3076,7 @@
 				0E397842212B3DDA00DDAD6D /* ANAdResponseTestCase.m in Sources */,
 				0E28D90F20EACB6200EC2CB2 /* ANAdView+ANTest.m in Sources */,
 				0E397841212B3DDA00DDAD6D /* ANAdViewMRAIDCreativeTestCase.m in Sources */,
+				0E50CC0E2220616400E4AB2C /* ANGlobal+Test.m in Sources */,
 				0E28D91020EACB6700EC2CB2 /* ANAdWebViewController+ANTest.m in Sources */,
 				0E3978AE212B54EB00DDAD6D /* ANBannerAdTestCase.m in Sources */,
 				0E28D91120EACB6C00EC2CB2 /* ANBannerAdView+ANTest.m in Sources */,
@@ -3095,6 +3104,7 @@
 				0E28D92020EACBA600EC2CB2 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				0E28D92120EACBA800EC2CB2 /* ANURLConnectionStub.m in Sources */,
 				0E397837212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.m in Sources */,
+				0E50CC0122205E6F00E4AB2C /* ANSDKSettingsTestCase.m in Sources */,
 				0E28D91720EACB8400EC2CB2 /* NSObject+Swizzling.m in Sources */,
 				0E28D91820EACB8700EC2CB2 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				0E397843212B3DDA00DDAD6D /* UIViewConstraintsTestCase.m in Sources */,
