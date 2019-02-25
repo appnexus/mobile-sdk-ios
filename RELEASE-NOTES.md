@@ -1,3 +1,7 @@
+## 5.1.2
+### New Features
++  Added new API for setting Custom User Agent.
+
 ## 5.1.1
 ### Mediation partner SDK upgrades/changes
 + Upgraded Smart Server SDK v7.0.2
