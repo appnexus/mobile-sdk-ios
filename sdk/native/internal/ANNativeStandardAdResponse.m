@@ -21,6 +21,7 @@
 #import "NSTimer+ANCategory.h"
 #import "UIView+ANCategory.h"
 #import "ANTrackerManager.h"
+#import "ANOMIDImplementation.h"
 
 
 
@@ -140,8 +141,14 @@
 }
 
 - (void)fireImpTrackers {
-    if (self.impTrackers) {
-        [ANTrackerManager fireTrackerURLArray:self.impTrackers];
+    @synchronized (self)
+    {
+        if (self.impTrackers) {
+            [ANTrackerManager fireTrackerURLArray:self.impTrackers];
+        }
+        if(self.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
+        }
     }
 }
 

@@ -20,6 +20,7 @@
 #import "UIView+ANNativeAdCategory.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANTrackerManager.h"
+#import "ANOMIDImplementation.h"
 
 @interface ANNativeMediatedAdResponse () <ANNativeCustomAdapterAdDelegate>
 
@@ -131,6 +132,9 @@
     {
         if (self.impTrackers && !self.impressionsHaveBeenTracked) {
             [ANTrackerManager fireTrackerURLArray:self.impTrackers];
+        }
+        if(self.omidAdSession != nil){
+            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
         }
         self.impressionsHaveBeenTracked = YES;
     }

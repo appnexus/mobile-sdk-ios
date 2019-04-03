@@ -1,0 +1,143 @@
+{
+    "tags": [{
+        "no_ad_url": "MOCK__no_ad_url_1",
+        "ads": [{
+            "content_source": "csm",
+            "ad_type": "banner",
+            "media_type_id": 0,
+            "media_subtype_id": 0,
+            "viewability": {
+                "config": "MOCK__config_1",
+            },
+            "csm": {
+                "banner": {
+                    "content": "MOCK__content_1",
+                    "width": 320,
+                    "height": 50
+                },
+                "handler": [{
+                    "param": "#{PARAM}",
+                    "class": "ANAdAdapterBannerDFP",
+                    "width": "320",
+                    "height": "50",
+                    "type": "ios",
+                    "id": "/6925/Shazam_iPhoneAPP/Standard_Banners/My_Tags"
+                }, {
+                    "param": "#{PARAM}",
+                    "class": "com.appnexus.opensdk.mediatedviews.MOCK__androidClass_1",
+                    "width": "320",
+                    "height": "50",
+                    "type": "android",
+                    "id": "MOCK__id_1b"
+                }],
+                "trackers": [{
+                    "impression_urls": [ "MOCK__impression_url_1" ],
+                    "video_events": {}
+                }],
+                "response_url": "MOCK__response_url_1"
+            }
+        }, {
+            "content_source": "csm",
+            "ad_type": "banner",
+            "media_type_id": 0,
+            "media_subtype_id": 0,
+            "viewability": {
+                "config": "MOCK__config_2",
+            },
+            "csm": {
+                "banner": {
+                    "content": "MOCK__content_2",
+                    "width": 320,
+                    "height": 50
+                },
+                "handler": [{
+                    "param": "#{PARAM}",
+                    "class": "ANAdAdapterBannerMillennialMedia",
+                    "width": "320",
+                    "height": "50",
+                    "type": "ios",
+                    "id": "148502"
+                }, {
+                    "param": "#{PARAM}",
+                    "class": "com.appnexus.opensdk.mediatedviews.MOCK__androidClass_2",
+                    "width": "320",
+                    "height": "50",
+                    "type": "android",
+                    "id": "MOCK__id_2b"
+                }],
+                "trackers": [{
+                    "impression_urls": [ "MOCK__impression_url_2" ],
+                    "video_events": {}
+                }],
+                "response_url": "MOCK__response_url_2"
+            }
+        }, {
+            "content_source": "csm",
+            "ad_type": "banner",
+            "media_type_id": 0,
+            "media_subtype_id": 0,
+            "viewability": {
+                "config": "MOCK__config_3",
+            },
+            "csm": {
+                "banner": {
+                    "content": "MOCK__content_3",
+                    "width": 320,
+                    "height": 50
+                },
+                "handler": [{
+                    "param": "#{PARAM}",
+                    "class": "ANAdAdapterBannerAdMob",
+                    "width": "320",
+                    "height": "50",
+                    "type": "ios",
+                    "id": "ca-app-pub-5668774179595841/1125462353"
+                }, {
+                    "param": "#{PARAM}",
+                    "class": "com.appnexus.opensdk.mediatedviews.MOCK__androidClass_3",
+                    "width": "320",
+                    "height": "50",
+                    "type": "android",
+                    "id": "MOCK__id_3b"
+                }],
+                "trackers": [{
+                    "impression_urls": [ "MOCK__impression_url_3" ],
+                    "video_events": {}
+                }],
+                "response_url": "MOCK__response_url_3"
+            }
+        }, {
+            "content_source": "csm",
+            "ad_type": "banner",
+            "media_type_id": 0,
+            "media_subtype_id": 0,
+            "viewability": {
+                "config": "MOCK__config_4",
+            },
+            "csm": {
+                "banner": {
+                    "content": "MOCK__content_4",
+                    "width": 320,
+                    "height": 50
+                },
+                "handler": [{
+                    "param": "#{PARAM}",
+                    "class": "ANAdAdapterBanneriAd",
+                    "type": "ios"
+                }, {
+                    "param": "#{PARAM}",
+                    "class": "com.appnexus.opensdk.mediatedviews.MOCK__androidClass_4",
+                    "width": "320",
+                    "height": "50",
+                    "type": "android",
+                    "id": "MOCK__id_4b"
+                }],
+                "trackers": [{
+                    "impression_urls": [ "MOCK__impression_url_4" ],
+                    "video_events": {}
+                }],
+                "response_url": "MOCK__response_url_4"
+            }
+        }]
+    }]
+}

@@ -18,7 +18,8 @@
 #import "UIView+ANNativeAdCategory.h"
 #import "ANGlobal.h"
 #import "ANAdProtocol.h"
-
+#import "ANOMIDImplementation.h"
+#import "ANVerificationScriptResource.h"
 
 NSString * const  kANNativeElementObject                                   = @"ELEMENT";
 
@@ -49,6 +50,8 @@ NSString * const  kANNativeElementObject                                   = @"E
 @property (nonatomic, readwrite, weak) UIViewController *rootViewController;
 @property (nonatomic, readwrite, assign, getter=hasExpired) BOOL expired;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
+@property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
+@property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 
 @end
 
@@ -60,7 +63,6 @@ NSString * const  kANNativeElementObject                                   = @"E
 @synthesize  clickThroughAction             = _clickThroughAction;
 @synthesize  opensInNativeBrowser           = _opensInNativeBrowser;
 @synthesize  landingPageLoadsInBackground   = _landingPageLoadsInBackground;
-
 
 
 #pragma mark - Lifecycle.
@@ -156,6 +158,7 @@ NSString * const  kANNativeElementObject                                   = @"E
         [view setAnNativeAdResponse:self];
         self.rootViewController = controller;
         self.expired = YES;
+        [self registerOMID];
         return YES;
     }
     
@@ -174,6 +177,19 @@ NSString * const  kANNativeElementObject                                   = @"E
     [self detachAllGestureRecognizers];
     [self.viewForTracking setAnNativeAdResponse:nil];
     self.viewForTracking = nil;
+    if(self.omidAdSession != nil){
+        [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.omidAdSession];
+    }
+}
+
+
+- (void)registerOMID{
+    NSMutableArray *scripts = [NSMutableArray new];
+    NSURL *url = [NSURL URLWithString:self.verificationScriptResource.url];
+    NSString *vendorKey = self.verificationScriptResource.vendorKey;
+    NSString *params = self.verificationScriptResource.params;
+    [scripts addObject:[[OMIDAppnexusVerificationScriptResource alloc] initWithURL:url vendorKey:vendorKey  parameters:params]];
+    self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforNative:self.viewForTracking withScript:scripts];
 }
 
 

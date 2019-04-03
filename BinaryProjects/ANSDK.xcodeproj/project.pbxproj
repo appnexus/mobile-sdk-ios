@@ -343,6 +343,9 @@
 		8AFC046F1A2E75AE00BEA485 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC046E1A2E75AE00BEA485 /* AdSupport.framework */; };
 		8AFC04711A2E760800BEA485 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04701A2E760800BEA485 /* MessageUI.framework */; };
 		8AFC04731A2E78E400BEA485 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFC04721A2E78E400BEA485 /* StoreKit.framework */; };
+		972025CE222FD90E00C13454 /* ANVerificationScriptResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 97EC51EB2229782B00B740DF /* ANVerificationScriptResource.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		97EC51EE2229782B00B740DF /* ANVerificationScriptResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC51EC2229782B00B740DF /* ANVerificationScriptResource.m */; };
+		97EC51EF2229782B00B740DF /* ANVerificationScriptResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC51EC2229782B00B740DF /* ANVerificationScriptResource.m */; };
 		9EEE4E50214FD2100056C5DD /* ANCarrierObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */; };
 		9EEE4E51214FD2100056C5DD /* ANCarrierObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */; };
 		9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */; };
@@ -851,7 +854,6 @@
 		609732FD1E42EAFF0061EC0A /* ANVideoAdPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANVideoAdPlayer.h; sourceTree = "<group>"; };
 		609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoAdPlayer.m; sourceTree = "<group>"; };
 		609733001E42EAFF0061EC0A /* ASTMediationManager.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ASTMediationManager.js; sourceTree = "<group>"; };
-		609733021E42EAFF0061EC0A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60AB32891E521FE500429ED7 /* MobileVastPlayer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MobileVastPlayer.js; sourceTree = "<group>"; };
 		60F6AC1C2051C50C0022560D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
@@ -1124,6 +1126,8 @@
 		8AFC04721A2E78E400BEA485 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		977EA5EB21C24B4D008204CB /* SCSCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SCSCoreKit.framework; sourceTree = "<group>"; };
 		97E73CEE21BFDFEF00D93AA0 /* SASDisplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SASDisplayKit.framework; sourceTree = "<group>"; };
+		97EC51EB2229782B00B740DF /* ANVerificationScriptResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANVerificationScriptResource.h; sourceTree = "<group>"; };
+		97EC51EC2229782B00B740DF /* ANVerificationScriptResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVerificationScriptResource.m; sourceTree = "<group>"; };
 		9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANCarrierObserver.h; sourceTree = "<group>"; };
 		9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANCarrierObserver.m; sourceTree = "<group>"; };
 		EC3E5CDC1843C6D50070315E /* libANSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1578,7 +1582,6 @@
 				8ABB766D1A004DBD00FEAD9D /* ANNativeAdStarRating.h */,
 				8A35B8A219FEBEBD0016C81F /* ANNativeCustomAdapter.h */,
 				8AB8762D1A0994310022D9A5 /* ANNativeMediatedAdResponse.h */,
-				609733021E42EAFF0061EC0A /* Info.plist */,
 			);
 			name = native;
 			sourceTree = "<group>";
@@ -1841,6 +1844,8 @@
 				8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */,
 				8A6514701A12DB31003F1047 /* UIView+ANNativeAdCategory.h */,
 				8A6514711A12DB31003F1047 /* UIView+ANNativeAdCategory.m */,
+				97EC51EB2229782B00B740DF /* ANVerificationScriptResource.h */,
+				97EC51EC2229782B00B740DF /* ANVerificationScriptResource.m */,
 			);
 			name = internal;
 			path = native/internal;
@@ -2321,6 +2326,7 @@
 				8AC65F651A40DE74006BCF39 /* ANMRAIDExpandViewController.h in Headers */,
 				8AC65F671A40DE74006BCF39 /* ANMRAIDJavascriptUtil.h in Headers */,
 				8AC65F691A40DE74006BCF39 /* ANMRAIDOrientationProperties.h in Headers */,
+				972025CE222FD90E00C13454 /* ANVerificationScriptResource.h in Headers */,
 				8AC65F6B1A40DE74006BCF39 /* ANMRAIDResizeProperties.h in Headers */,
 				8AC65F6D1A40DE74006BCF39 /* ANMRAIDResizeView.h in Headers */,
 				8AC65F6F1A40DE74006BCF39 /* ANMRAIDResizeViewManager.h in Headers */,
@@ -3019,6 +3025,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97EC51EF2229782B00B740DF /* ANVerificationScriptResource.m in Sources */,
 				607A20FE1F85540800BD8353 /* ANAdFetcherResponse.m in Sources */,
 				8A9AEDF01A1BF99D00C58BDA /* ANAdView.m in Sources */,
 				8AE7AD9F1A7AC4F6009E2F2F /* ANAdWebViewController.m in Sources */,
@@ -3188,6 +3195,7 @@
 				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
 				8AC7C5391A3B5CEF00AA5548 /* ANAdWebViewController.m in Sources */,
 				8AD618D01981C11F00AC0780 /* ANANJAMImplementation.m in Sources */,
+				97EC51EE2229782B00B740DF /* ANVerificationScriptResource.m in Sources */,
 				8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
 				8AD618D11981C11F00AC0780 /* ANBannerAdView.m in Sources */,
 				FCC5DA602034AD3A003DC7B2 /* ANBaseAdObject.m in Sources */,

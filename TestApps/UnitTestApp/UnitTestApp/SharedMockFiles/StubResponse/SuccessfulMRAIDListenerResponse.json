@@ -1,0 +1,43 @@
+{
+    "version": "0.0.1",
+
+    "tags": [
+        {
+            "tag_id": 0,
+            "auction_id": "1234567890",
+            "nobid": false,
+            "no_ad_url": "MOCK__no_ad_url",
+            "timeout_ms": 10000,
+            "ad_profile_id": 10000,
+
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "banner",
+                    "buyer_member_id": 444433322,
+                    "creative_id": 108,
+                    "media_type_id": 1,
+                    "media_subtype_id": 1,
+                    "client_initiated_ad_counting": true,
+
+                    "rtb": {
+                        "banner": {
+                            "content":"<script src=\"mraid.js\"></script><script></script>var testWidth=0; var testHeight=0; var testState='none'; var testReadyDidFire=false; var testIsViewable = false; var testErrorMessage = ''; var testErrorAction = ''; mraid.addEventListener('ready', onReady); function onReady() {var dp = mraid.getDefaultPosition(); testWidth=dp.width; testHeight=dp.height; testReadyDidFire=true;}; mraid.addEventListener('sizeChange', onSizeChange); function onSizeChange(width, height) {testWidth=width;testHeight=height}; mraid.addEventListener('stateChange', onStateChange); function onStateChange(state) {testState=state}; mraid.addEventListener('viewableChange', isViewable); function isViewable(v) {testIsViewable=v}; mraid.addEventListener('error', onError); function onError(message, action) {testErrorMessage=message; testErrorAction=action;};<script>document.write('<div style=\"background-color:#EF8200;height:1000px;width:1000px;></div>');</script>",
+                            "width": 320,
+                            "height": 50
+                        },
+
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "MOCK__impression_urls"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

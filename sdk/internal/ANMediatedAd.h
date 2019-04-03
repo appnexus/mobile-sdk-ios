@@ -15,6 +15,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ANBaseAdObject.h"
+#import "ANVerificationScriptResource.h"
 
 @interface ANMediatedAd : ANBaseAdObject
 
@@ -24,6 +25,6 @@
 @property (nonatomic, readwrite, strong) NSString *responseURL;
 @property (nonatomic, readwrite, strong) NSString *auctionInfo;
 @property (nonatomic, readwrite)         BOOL      isAdTypeNative;
-
+@property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
 
 @end

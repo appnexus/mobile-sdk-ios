@@ -19,7 +19,7 @@
 #import "ANNativeAdImageCache.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-
+#import "ANOMIDImplementation.h"
 
 
 @interface ANNativeAdRequest() <ANUniversalNativeAdFetcherDelegate>
@@ -65,6 +65,7 @@
         self.customKeywords = [[NSMutableDictionary alloc] init];
         
         [self setupSizeParametersAs1x1];
+        [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
     }
     return self;
 }

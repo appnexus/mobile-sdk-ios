@@ -133,7 +133,7 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
         }
         self.nativeContent = nativeContent;
         ANNativeMediatedAdResponse *adResponse = [self nativeAdResponseFromNativeContent:nativeContent];
-        adResponse.customElements = nativeContent;
+        adResponse.customElements = @{ kANNativeElementObject : self.nativeAd};
         if (!adResponse) {
             [self.requestDelegate didFailToLoadNativeAd:ANAdResponseInternalError];
             return;
@@ -257,8 +257,6 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
         adResponse.rating = [[ANNativeAdStarRating alloc] initWithValue:[rating floatValue]
                                                                   scale:kANAdAdapterNativeInMobiRatingScaleDefault];
     }
-    adResponse.customElements = @{ kANNativeElementObject : nativeContent};
-
     return adResponse;
 }
 

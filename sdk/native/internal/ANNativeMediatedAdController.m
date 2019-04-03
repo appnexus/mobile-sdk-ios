@@ -20,7 +20,7 @@
 #import "NSString+ANCategory.h"
 #import "NSObject+ANCategory.h"
 #import "ANNativeMediatedAdResponse+PrivateMethods.h"
-
+#import "ANNativeAdResponse+PrivateMethods.h"
 
 @interface ANNativeMediatedAdController () <ANNativeCustomAdapterRequestDelegate>
 
@@ -322,6 +322,7 @@ ANLogDebug(@"responseURLString=%@", responseURLString);
 - (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response {
     // Add the AppNexusImpression trackers into the mediated response.
     response.impTrackers= [self.mediatedAd.impressionUrls copy];
+    response.verificationScriptResource  = self.mediatedAd.verificationScriptResource;
     [self didReceiveAd:response];
 }
 

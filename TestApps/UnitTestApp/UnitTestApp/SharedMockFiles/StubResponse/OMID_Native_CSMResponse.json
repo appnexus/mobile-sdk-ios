@@ -1,0 +1,55 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "tag_id": 15378891,
+            "auction_id": "4720168425251126252",
+            "nobid": false,
+            "no_ad_url": "http://sin1-mobile.adnxs.com/it?referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833&e=wqT_3QKlB6ClAwAAAwDWAAUBCKLyreQFEOz37tjJhdrAQRiK9rXIxs6lnlIqNgkAAAkCABEJBwgAABkRCQAhEQkAKREJADERCfB7MMvTqgc4vgdAvgdIAFAAWKfIYGAAaJFAeACAAQGKAQCSAQNVU0SYAQGgAQGoAQawAQC4AQDAAQDIAQLQAQDYAQDgAQDwAQCKAjt1ZignYScsIDQ3NDE4NCwgMTU1MjY0NDM4Nik7dWYoJ3InLCAxNDkxNzY5NDIsIDE1NRUf8I2SAvUBIUJqN0NaQWo0dzZrTkVPNkVrVWNZQUNDbnlHQXdBRGdBUUFOSXZnZFF5OU9xQjFnQVlPSUhhQUJ3SW5qb0Y0QUJKb2dCNkJlUUFRR1lBUUdnQVFHb0FRT3dBUUM1QWN1NU1MSlRWSklfd1FITHVUQ3lVMVNTUDhrQkZQYjYyc0dqX0RfWkFRQUFBAQNYUEFfNEFFQTlRR1pvcEk4bUFJQW9BTF8BAQxEN1VDASMIQUwwCQjwRE1BQ0FNZ0NBT0FDQU9nQ0FQZ0NBSUFEQVpnREFhZ0QtTU9wRGJvRENWTkpUakU2TXpVNE9lQUQxZ2cumgJhIWloQ29fQTb4AKhwOGhnSUFNb0FERjdGSzVINFhxRVB6b0pVMGxPTVRvek5UZzVRTllJU1FBBYsBsABVEQwMQUFBVx0MiNgC6AfgAsfTAeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwAQQkbmV4dXMtc2RrLQER8LppZDczNjg2OTgzM4ADAYgDAZADAJgDF6ADAaoDAMADrALIAwHSAygIABIkMmFiMGQ2YjAtZjU1Ni00ZjU0LWIzNjctZTRjMTkwNmUzODFm2AP5o3rgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAsxMC4xNC4xMi4xNagE9-sBsgQOCAAQARgAIAAoADAAOAK4BADABADIBADSBA05NTgjU0lOMTozNTg52gQCCADgBADwBO6EkUeCBQk3EbggiAUBmAUAoAX_EQEUAcAFAMkFSfkU8D_SBQkJCQx4AADYBQHgBQHwBdyKBfoFBAgAEACQBgGYBgC4BgDBBgklJPC_yAYA2gYWChAJEBkBGBAAGADgBgw.&s=137ca53bfaecf7f3e9aa35069fd96d35c8de48e5",
+            "timeout_ms": 10000,
+            "ad_profile_id": 27079,
+            "ads": [
+                {
+                    "content_source": "csm",
+                    "ad_type": "native",
+                    "buyer_member_id": 958,
+                    "creative_id": 149176942,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "brand_category_id": 25,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/s/160/trk.js#v;vk=appnexus.com-omid;tv=native1-18h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;ab=10;cid=1;tag_id=15378891;cb=http%3A%2F%2Fsin1-mobile.adnxs.com%2Fvevent%3Freferrer%3Ditunes.apple.com%252Fus%252Fapp%252Fappnexus-sdk-app%252Fid736869833%26e%3DwqT_3QK9COg9BAAAAwDWAAUBCKLyreQFEOz37tjJhdrAQRiK9rXIxs6lnlIqNgn5wmSqYFSSPxH5wmSqYFSSPxkAAAkCACERGwApEQkAMQkZqAAAMMvTqgc4vgdAvgdIAlDuhJFHWKfIYGAAaJFAeOGjBYABAYoBA1VTRJIFBvA-mAEBoAEBqAEGsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI7dWYoJ2EnLCA0NzQxODQsIDE1NTI2NDQzODYpBRw0cicsIDE0OTE3Njk0MiwyHwDwjZIC9QEhQmo3Q1pBajR3NmtORU82RWtVY1lBQ0NueUdBd0FEZ0FRQU5JdmdkUXk5T3FCMWdBWU9JSGFBQndJbmpvRjRBQkpvZ0I2QmVRQVFHWUFRR2dBUUdvQVFPd0FRQzVBY3U1TUxKVFZKSV93UUhMdVRDeVUxU1NQOGtCRlBiNjJzR2pfRF9aQVFBQUEBA1hQQV80QUVBOVFHWm9wSThtQUlBb0FMXwEBDEQ3VUMBIwhBTDAJCPBETUFDQU1nQ0FPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRC1NT3BEYm9EQ1ZOSlRqRTZNelU0T2VBRDFnZy6aAmEhaWhDb19BNvgAqHA4aGdJQU1vQURGN0ZLNUg0WHFFUHpvSlUwbE9NVG96TlRnNVFOWUlTUUEFiwGwAFURDAxBQUFXHQyI2ALoB-ACx9MB6gI0aXR1bmVzLmFwcGxlLmNvbS91cy9hcHABBCRuZXh1cy1zZGstARFgaWQ3MzY4Njk4MzPyAhAKBkFEVl9JRBIGNCXdHPICEQoGQ1BHARM4Bzc1NDUxNzbyAhEKBUNQARNkCDI3OTQzNDE28gITCg9DVVNUT01fTU9ERUwBHhQA8gIaChYyFgAgTEVBRl9OQU1FAR0IHgoaNh0ACEFTVAE-8LdJRklFRBIAgAMBiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwHSAygIABIkMmFiMGQ2YjAtZjU1Ni00ZjU0LWIzNjctZTRjMTkwNmUzODFm2AP5o3rgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAsxMC4xNC4xMi4xNagE9-sBsgQOCAAQARgAIAAoADAAOAK4BADABADIBADSBA05NTgjU0lOMTozNTg52gQCCAHgBADwBO6EkUeCBQk3MUggiAUBmAUAoAX_EQEUAcAFAMkFaZEU8D_SBQkJCQx4AADYBQHgBQHwBdyKBfoFBAgAEACQBgGYBgC4BgDBBgklJPA_yAYA2gYWChAJEBkBGBAAGADgBgw.%26s%3D1441abda1cd0730bbd68495c6c276653804e2f28;ts=1552644386;cet=0;cecb=\"></script>"
+                    },
+                    "csm": {
+                        "timeout_ms": 500,
+                        "handler": [
+                            {
+                                "type": "android",
+                                "class": "com.appnexus.opensdk.mediatednativead.InMobiNativeAd",
+                                "id": "1554248310953",
+                                "param": "#{PARAM}"
+                            },
+                            {
+                                "type": "ios",
+                                "class": "ANAdAdapterNativeInMobi",
+                                "id": "1554248310953",
+                                "param": "#{PARAM}"
+                            }
+                        ],
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "http://sin1-mobile.adnxs.com/it?referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833&e=wqT_3QKuB-iuAwAAAwDWAAUBCKLyreQFEOz37tjJhdrAQRiK9rXIxs6lnlIqNgn5wmSqYFSSPxH5wmSqYFSSPxkAAAkCACERGwApEQkAMQkZqAAAMMvTqgc4vgdAvgdIAlDuhJFHWKfIYGAAaJFAeOGjBYABAYoBA1VTRJIFBvA-mAEBoAEBqAEGsAEAuAEAwAEEyAEC0AEA2AEA4AEA8AEAigI7dWYoJ2EnLCA0NzQxODQsIDE1NTI2NDQzODYpBRw0cicsIDE0OTE3Njk0MiwyHwDwjZIC9QEhQmo3Q1pBajR3NmtORU82RWtVY1lBQ0NueUdBd0FEZ0FRQU5JdmdkUXk5T3FCMWdBWU9JSGFBQndJbmpvRjRBQkpvZ0I2QmVRQVFHWUFRR2dBUUdvQVFPd0FRQzVBY3U1TUxKVFZKSV93UUhMdVRDeVUxU1NQOGtCRlBiNjJzR2pfRF9aQVFBQUEBA1hQQV80QUVBOVFHWm9wSThtQUlBb0FMXwEBDEQ3VUMBIwhBTDAJCPBETUFDQU1nQ0FPQUNBT2dDQVBnQ0FJQURBWmdEQWFnRC1NT3BEYm9EQ1ZOSlRqRTZNelU0T2VBRDFnZy6aAmEhaWhDb19BNvgAqHA4aGdJQU1vQURGN0ZLNUg0WHFFUHpvSlUwbE9NVG96TlRnNVFOWUlTUUEFiwGwAFURDAxBQUFXHQyI2ALoB-ACx9MB6gI0aXR1bmVzLmFwcGxlLmNvbS91cy9hcHABBCRuZXh1cy1zZGstARHwumlkNzM2ODY5ODMzgAMBiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwHSAygIABIkMmFiMGQ2YjAtZjU1Ni00ZjU0LWIzNjctZTRjMTkwNmUzODFm2AP5o3rgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAsxMC4xNC4xMi4xNagE9-sBsgQOCAAQARgAIAAoADAAOAK4BADABADIBADSBA05NTgjU0lOMTozNTg52gQCCAHgBADwBO6EkUeCBQkVuSCIBQGYBQCgBf8RARQBwAUAyQVpAhTwP9IFCQkJDHgAANgFAeAFAfAF3IoF-gUECAAQAJAGAZgGALgGAMEGCSUo8D_IBgDaBhYKEAA6AQAYEAAYAOAGDA..&s=110aae4dcb7099c8d57448918f81a5de2bc94190"
+                                ],
+                                "video_events": {}
+                            }
+                        ],
+                        "request_url": "http://sin1-mobile.adnxs.com/mediation/v2/log_req?info=LwAAAAMABQEFAQii8q3kBRDs9-7YyYXawEEYvgch-cJkqmBUkj8o7oSRRzA7OAA.&s=5938a634c532e37ffa24986477f1280a85cf4d90",
+                        "response_url": "http://sin1-mobile.adnxs.com/mediation/v2/log_resp?info=LwAAAAMABQEFAQii8q3kBRDs9-7YyYXawEEYvgch-cJkqmBUkj8o7oSRRzA7OAA.&s=5938a634c532e37ffa24986477f1280a85cf4d90"
+                    }
+                }
+            ]
+        }
+    ]
+}

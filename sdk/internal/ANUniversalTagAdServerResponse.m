@@ -24,7 +24,7 @@
 #import "ANStandardAd.h"
 #import "ANAdConstants.h"
 #import "ANNativeStandardAdResponse.h"
-
+#import "ANNativeAdResponse+PrivateMethods.h"
 
 
 
@@ -43,6 +43,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsRTBObject = @"rtb";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsNotifyUrl = @"notify_url";
 
+// viewability
+static NSString *const kANUniversalTagAdServerResponseKeyViewabilityObject = @"viewability";
 
 // Video
 static NSString *const kANUniversalTagAdServerResponseKeyVideoObject = @"video";
@@ -250,11 +252,16 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
                                 [self.ads addObject:videoAd];
                             }
-
+                        // RTB - Native
                         } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
                             ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
                             if (nativeAd) {
                                 nativeAd.creativeId = creativeId;
+                                // Parsing viewability object to create measurement resources for OMID Native integration
+                                ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
+                                if (verificationScriptResource) {
+                                    nativeAd.verificationScriptResource = verificationScriptResource;
+                                }
                                 [self.ads addObject:nativeAd];
                             }
 
@@ -268,16 +275,17 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 else if([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsCSMObject]){
                     if([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject] || [adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]){
                         NSDictionary *csmObject = [[self class] csmObjectFromAdObject:adObject];
-                        if (csmObject)
-                        {
+                        if (csmObject) {
                             ANMediatedAd *mediatedAd = [[self class] mediatedAdFromCSMObject:csmObject];
-                            
-                            if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
-                                mediatedAd.isAdTypeNative = YES;
-                            }
-                            
-                            if (mediatedAd)
-                            {
+                            if (mediatedAd) {
+                                if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
+                                    mediatedAd.isAdTypeNative = YES;
+                                    // Parsing viewability object to create measurement resources for OMID Native integration
+                                    ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
+                                    if (verificationScriptResource) {
+                                        mediatedAd.verificationScriptResource = verificationScriptResource;
+                                    }
+                                }
                                 mediatedAd.creativeId = creativeId;
                                 if (mediatedAd.className.length > 0) {
                                     [self.ads addObject:mediatedAd];
@@ -347,6 +355,18 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
         return tag[kANUniversalTagAdServerResponseKeyTagAds];
     }else{
         ANLogError(@"Response from ad server in an unexpected format no ads array found in tag: %@", tag);
+        return nil;
+    }
+}
+
++ (ANVerificationScriptResource *)anVerificationScriptFromAdObject:(NSDictionary *)adObject {
+    if ([adObject[kANUniversalTagAdServerResponseKeyViewabilityObject] isKindOfClass:[NSDictionary class]]) {
+        NSDictionary  *viewabilityObject  = adObject[kANUniversalTagAdServerResponseKeyViewabilityObject];
+        ANVerificationScriptResource *verificationScriptResource = [[ANVerificationScriptResource alloc] init];
+        [verificationScriptResource anVerificationScriptResource:viewabilityObject];
+        return verificationScriptResource;
+    }else{
+        ANLogError(@"Response from ad server in an unexpected format. Expected Viewability in adObject: %@", adObject);
         return nil;
     }
 }

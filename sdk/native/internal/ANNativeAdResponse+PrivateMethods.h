@@ -14,11 +14,16 @@
  */
 
 #import "ANNativeAdResponse.h"
+#import "OMIDAdSession.h"
+#import "ANVerificationScriptResource.h"
 
 @interface ANNativeAdResponse (PrivateMethods)
 
 @property (nonatomic, readonly, weak) UIViewController *rootViewController;
 @property (nonatomic, readonly, strong) UIView *viewForTracking;
+@property (nonatomic, readonly, strong) OMIDAppnexusAdSession *omidAdSession;
+@property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
+
 
 #pragma mark - Registration
 

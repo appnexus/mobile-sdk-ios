@@ -14,6 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 #import "OMIDImports.h"
 
 #pragma mark - Constants
@@ -29,7 +30,8 @@
 + (instancetype)sharedInstance;
 - (void) activateOMIDandCreatePartner;
 - (NSString *)getOMIDJS;
-- (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView: webView isVideoAd:(BOOL)videoAd;
+- (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView:(WKWebView *)webView isVideoAd:(BOOL)videoAd;
+- (OMIDAppnexusAdSession*) createOMIDAdSessionforNative:(UIView *)view withScript:(NSMutableArray *)scripts;
 - (void) stopOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession;
 - (void)fireOMIDImpressionOccuredEvent:(OMIDAppnexusAdSession*) omidAdSession;
 

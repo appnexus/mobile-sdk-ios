@@ -1,0 +1,73 @@
+ {
+     "version": "0.0.1",
+     "tags": [{
+         "tag_id": 13981426,
+         "auction_id": "320061905651522722",
+         "nobid": false,
+         "no_ad_url": "MOCK__no_ad_url",
+         "timeout_ms": 10000,
+         "ad_profile_id": 27079,
+         "ads": [{
+             "content_source": "csm",
+             "ad_type": "banner",
+             "buyer_member_id": 958,
+             "creative_id": 116333882,
+             "media_type_id": 1,
+             "media_subtype_id": 1,
+             "client_initiated_ad_counting": false,
+             "viewability": {
+                 "config": "MOCK__viewability_config"
+             },
+             "csm": {
+                 "banner": {
+                     "content": "MOCK__csm_banner_content",
+                     "width": 300,
+                     "height": 250
+                 },
+                 "timeout_ms": 500,
+                 "handler": [{
+                     "param": "#{PARAM}",
+                     "second_price": "5.01",
+                     "height": "250",
+                     "width": "300",
+                     "id": "/19968336/second-price-dfp-ad-unit",
+                     "type": "ios",
+                     "class": "ANAdAdapterBannerDFP"
+                 }, {
+                     "param": "#{PARAM}",
+                     "second_price": "5.01",
+                     "height": "250",
+                     "width": "300",
+                     "id": "/19968336/second-price-dfp-ad-unit",
+                     "type": "android",
+                     "class": "com.appnexus.opensdk.mediatedviews.DFPBanner"
+                 }],
+                 "trackers": [{
+                     "impression_urls": ["MOCK__csm__impression_url1"],
+                     "video_events": {}
+                 }],
+                 "request_url": "MOCK__request_url",
+                 "response_url": "MOCK__response_url",
+             }
+         }, {
+             "content_source": "rtb",
+             "ad_type": "banner",
+             "buyer_member_id": 958,
+             "creative_id": 119646582,
+             "media_type_id": 1,
+             "media_subtype_id": 1,
+             "client_initiated_ad_counting": true,
+             "rtb": {
+                 "banner": {
+                     "content": "MOCK__rtb_banner_content",
+                     "width": 300,
+                     "height": 250
+                 },
+                 "trackers": [{
+                     "impression_urls": ["MOCK__rtb_impression_url1"],
+                     "video_events": {}
+                 }]
+             }
+         }]
+     }]
+ }

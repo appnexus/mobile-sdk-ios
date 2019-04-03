@@ -1,0 +1,79 @@
+{
+    "version": "3.0.0",
+    "tags": [
+        {
+            "tag_id": 14362403,
+            "auction_id": "1432920679616588836",
+            "nobid": false,
+            "no_ad_url": "http://sin1-mobile.adnxs.com/it?referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833&e=wqT_3QLIB6DIAwAAAwDWAAUBCNycy98FEKTY7p7CuLDxExi1zICs5JfXxSYqNgkAAAkCABEJBywAABkAAABA4XqEPyEREgApEQkAMREb8Hswo87sBji-B0C-B0gAUABY9-I_YABokUB4AIABAYoBAJIBA1VTRJgBAaABAagBAbABALgBAcABAMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMTEwNzYxNywgMTU0MjYzOTE5Nik7dWYoJ3InLCAxMjMwMTcxNzksIDE1GR_wkJIC9QEhZERxMkFRaldsNTRNRU51djFEb1lBQ0QzNGo4d0FEZ0FRQVJJdmdkUW84N3NCbGdBWUtVRmFBQndFbmpPaEFHQUFSS0lBYzZFQVpBQkFaZ0JBYUFCQWFnQkE3QUJBTGtCa2U4SzhPRjZoRF9CQVpIdkN2RGhlb1FfeVFFN3VlM085X2J4UDlrQkFBQUEBAyQ4RF9nQVFEMUFRAQ4sQ1lBZ0NnQWdDMUFnBRAAOQkI8EpEQUFnRElBZ0RnQWdEb0FnRDRBZ0NBQXdHUUF3Q1lBd0dvQTlhWG5neTZBd2xUU1U0eE9qTTFOVFBnQTlVQpoCYSF0eEJyQmdqV2wd-KA5LUlfSUFRb0FERjdGSzVINFhxRVB6b0pVMGxPTVRvek5UVXpRTlVCUwWcGEFBQVBBX1URDAxBQUFXHQyI2ALoB-ACx9MB6gI0aXR1bmVzLmFwcGxlLmNvbS91cy9hcHABBCRuZXh1cy1zZGstARHw_GlkNzM2ODY5ODMzgAMBiAMBkAMAmAMXoAMBqgMAwAOsAsgDANIDKAgAEiRlZTFjNjkzYy0xOGY2LTQ3MTUtODIyMi0yYTExYWJkMGQ0ZjfSAygIChIkMmU1N2Y0N2QtZWFiMi00NGU1LWJkMjEtZmQyNDdlZTQwY2E42AP5o3rgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAsxMC4xNC4xMi41MagE7poSsgQOCAAQARgAIAAoADAAOAK4BADABADIBADSBA05NTgjU0lOMTozNTUz2gQCCADgBAHwBNuv1Dr6BBIJAAAAQJbkQkARAAAAwAKaXsCCBQk3MzYJ-CCIBQGYBQCgBf8RARQBwAUAyQVpQxDwP9IFCQFABQGU2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGAAAAAAAA8L_IBgA.&s=a8dbc46411548dcfefdc8802516f5bbcf30a61d1",
+            "timeout_ms": 10000,
+            "ad_profile_id": 27079,
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "native",
+                    "buyer_member_id": 958,
+                    "creative_id": 123017179,
+                    "media_type_id": 12,
+                    "media_subtype_id": 65,
+                    "renderer_url": "http://fakeurl.adnxs.com",
+                    "renderer_id": 127,
+                    "client_initiated_ad_counting": true,
+                    "viewability": {
+                        "config": "<script type=\"text/javascript\" async=\"true\" src=\"http://cdn.adnxs.com/v/s/146/trk.js#v;tv=native1-18h;dom_id=%native_dom_id%;st=2;d=1x1;vc=iab;vid_ccr=1;ab=35;cid=1;tag_id=14362403;cb=http%3A%2F%2Fsin1-mobile.adnxs.com%2Fvevent%3Freferrer%3Ditunes.apple.com%252Fus%252Fapp%252Fappnexus-sdk-app%252Fid736869833%26e%3DwqT_3QLhCPA8YQQAAAMA1gAFAQjcnMvfBRCk2O6ewriw8RMYtcyArOSX18UmKjYJexSuR-F6hD8RexSuR-F6hD8ZAAAAQAESACERGwApEQkAMREboDCjzuwGOL4HQL4HSAJQ26_UOlj34j9gAGiRQHjLpAWAAQGKAQNVU0SSBQbw8JgBAaABAagBAbABALgBAcABBMgBAtABANgBAOABAPABAIoCPHVmKCdhJywgMTEwNzYxNywgMTU0MjYzOTE5Nik7dWYoJ3InLCAxMjMwMTcxNzksIDE1NDI2MzkxOTYpO5IC9QEhZERxMkFRaldsNTRNRU51djFEb1lBQ0QzNGo4d0FEZ0FRQVJJdmdkUW84N3NCbGdBWUtVRmFBQndFbmpPaEFHQUFSS0lBYzZFQVpBQkFaZ0JBYUFCQWFnQkE3QUJBTGtCa2U4SzhPRjZoRF9CQVpIdkN2RGhlb1FfeVFFN3VlM085X2J4UDlrQkFBQUEBBCQ4RF9nQVFEMUFRAQ4sQ1lBZ0NnQWdDMUFnBRAAOQkI8ExEQUFnRElBZ0RnQWdEb0FnRDRBZ0NBQXdHUUF3Q1lBd0dvQTlhWG5neTZBd2xUU1U0eE9qTTFOVFBnQTlVQpoCYSF0eEJyQmdqV2w1NBX4oDktSV9JQVFvQURGN0ZLNUg0WHFFUHpvSlUwbE9NVG96TlRVelFOVUJTBZwYQUFBUEFfVREMDEFBQVcdDIjYAugH4ALH0wHqAjRpdHVuZXMuYXBwbGUuY29tL3VzL2FwcAEEJG5leHVzLXNkay0BEWBpZDczNjg2OTgzM_ICEQoGQURWX0lEEgcxKd4FFAhDUEcFFBgzMzQxNzQ2ARQIBUNQARNkCDI1NjYwMzc08gITCg9DVVNUT01fTU9ERUwBHhQA8gIaChYyFgAgTEVBRl9OQU1FAR0IHgoaNh0ACEFTVAE-8PhJRklFRBIAgAMBiAMBkAMAmAMXoAMBqgMAwAPgqAHIAwDSAygIABIkZWUxYzY5M2MtMThmNi00NzE1LTgyMjItMmExMWFiZDBkNGY30gMoCAoSJDJlNTdmNDdkLWVhYjItNDRlNS1iZDIxLWZkMjQ3ZWU0MGNhONgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQLMTAuMTQuMTIuNTGoBO6aErIEDggAEAEYACAAKAAwADgCuAQAwAQAyAQA0gQNOTU4I1NJTjE6MzU1M9oEAggB4AQB8ATbr9Q6-gQSCQAAAECW5EJAEQAAAMACml7AggUJNzMtiSCIBQGYBQCgBf8RARgBwAUAyQUABQEU8D_SBQkJBQugAAAA2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGAAAAAAAA8D_IBgA.%26s%3D78b74a7b70b194fca3bd6bdd93cdf3f1a2c6231b;ts=1542639196;cet=0;cecb=\"></script>"
+                    },
+                    "rtb": {
+                        "native": {
+                            "title": "CatsTitle2",
+                            "desc": "Hi Welcome to Cats world",
+                            "sponsored": "Appnexus Mobile SDK",
+                            "ctatext": "clickhere",
+                            "rating": "9",
+                            "icon": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/fe/11/65/cb/fe1165cb-a0bf-4860-b9a9-d97990f250c3.png",
+                                "width": 144,
+                                "height": 160,
+                                "prevent_crop": false
+                            },
+                            "main_img": {
+                                "url": "http://vcdn.adnxs.com/p/creative-image/40/c3/f0/78/40c3f078-d2da-4350-802a-cca04a96fc4f.jpg",
+                                "width": 960,
+                                "height": 585,
+                                "prevent_crop": false
+                            },
+                            "link": {
+                                "url": "https://www.appnexus.com",
+                                "fallback_url": "https://www.xander.com",
+                                "click_trackers": [
+                                    "http://mobile.devnxs.com/track/test",
+                                    "http://mobile.devnxs.com/track/test2",
+                                    "http://sin1-mobile.adnxs.com/click?exSuR-F6hD97FK5H4XqEPwAAAEDheoQ_exSuR-F6hD97FK5H4XqEPySs2yPEweITNSaARb5ciyZczvJbAAAAACMn2wC-AwAAvgMAAAIAAADbF1UHd_EPAAAAAABVU0QAVVNEAAEAAQARIAAAAAABAQMCAAAAAAAAESJOegAAAAA./bcr=AAAAAAAA8D8=/cnd=%21txBrBgjWl54MENuv1DoY9-I_IAQoADF7FK5H4XqEPzoJU0lOMTozNTUzQNUBSQAAAAAAAPA_UQAAAAAAAAAAWQAAAAAAAAAA/cca=OTU4I1NJTjE6MzU1Mw==/bn=86603/referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833/"
+                                ]
+                            },
+                            "impression_trackers": [
+                                "http://mobile.devnxs.net/tack/img",
+                                "http://mobile.devnxs.net/tack/img2",
+                                "http://sin1-mobile.adnxs.com/it?referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833&e=wqT_3QLRB_A80QMAAAMA1gAFAQjcnMvfBRCk2O6ewriw8RMYtcyArOSX18UmKjYJexSuR-F6hD8RexSuR-F6hD8ZAAAAQAESACERGwApEQkAMREboDCjzuwGOL4HQL4HSAJQ26_UOlj34j9gAGiRQHjLpAWAAQGKAQNVU0SSBQbw8JgBAaABAagBAbABALgBAcABA8gBAtABANgBAOABAPABAIoCPHVmKCdhJywgMTEwNzYxNywgMTU0MjYzOTE5Nik7dWYoJ3InLCAxMjMwMTcxNzksIDE1NDI2MzkxOTYpO5IC9QEhZERxMkFRaldsNTRNRU51djFEb1lBQ0QzNGo4d0FEZ0FRQVJJdmdkUW84N3NCbGdBWUtVRmFBQndFbmpPaEFHQUFSS0lBYzZFQVpBQkFaZ0JBYUFCQWFnQkE3QUJBTGtCa2U4SzhPRjZoRF9CQVpIdkN2RGhlb1FfeVFFN3VlM085X2J4UDlrQkFBQUEBBCQ4RF9nQVFEMUFRAQ4sQ1lBZ0NnQWdDMUFnBRAAOQkI8ExEQUFnRElBZ0RnQWdEb0FnRDRBZ0NBQXdHUUF3Q1lBd0dvQTlhWG5neTZBd2xUU1U0eE9qTTFOVFBnQTlVQpoCYSF0eEJyQmdqV2w1NBX4oDktSV9JQVFvQURGN0ZLNUg0WHFFUHpvSlUwbE9NVG96TlRVelFOVUJTBZwYQUFBUEFfVREMDEFBQVcdDIjYAugH4ALH0wHqAjRpdHVuZXMuYXBwbGUuY29tL3VzL2FwcAEEJG5leHVzLXNkay0BEfD8aWQ3MzY4Njk4MzOAAwGIAwGQAwCYAxegAwGqAwDAA-CoAcgDANIDKAgAEiRlZTFjNjkzYy0xOGY2LTQ3MTUtODIyMi0yYTExYWJkMGQ0ZjfSAygIChIkMmU1N2Y0N2QtZWFiMi00NGU1LWJkMjEtZmQyNDdlZTQwY2E42AP5o3rgAwDoAwL4AwCABACSBAYvdXQvdjOYBACiBAsxMC4xNC4xMi41MagE7poSsgQOCAAQARgAIAAoADAAOAK4BADABADIBADSBA05NTgjU0lOMTozNTUz2gQCCAHgBAHwBNuv1Dr6BBIJAAAAQJbkQkARAAAAwAKaXsCCBQk3Mw35IIgFAZgFAKAF_xEBGAHABQDJBQAFARTwP9IFCQkFC6AAAADYBQHgBQHwBQH6BQQIABAAkAYBmAYAuAYAwQYAAAAAAADwP8gGAA..&s=4b99414ad67e03a623801a2f6e22ab882bf1795e",
+                                "http://sin1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlczvJbAAAAABEkrNsjxMHiExlczvJbAAAAACDbr9Q6KAAwvgc4vgdAvpEySKSDiwFQo87sBlgBYgItLWgBcAF4AIABAIgBAJABAJgBAKABAKgB26_UOg..&s=9cb7d37933384cd8635bc79e8af5925fb7ea78c1&event_type=1"
+                            ],
+                            "javascript_trackers": "<script src=\"http://mobile.devnxs.net/tack/pixel.js\"></script><script src=\"http://mobile.devnxs.net/tack/pixel2.js\"></script>",
+                            "id": 123017179,
+                            "displayurl": "http://www.appnexus.com",
+                            "likes": "2000",
+                            "downloads": "50000",
+                            "price": "2",
+                            "saleprice": "3",
+                            "phone": "1234567890",
+                            "address": "No 7, Dubai kuruku theru, Dubai Main road, Dubai",
+                            "desc2": "This is Second Body text. I think its Desc2",
+                            "video": {
+                                "content": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><VAST version=\"2.0\"><Ad id=\"123017179\"><InLine><AdSystem>adnxs</AdSystem><AdTitle><![CDATA[iPad.mp4]]></AdTitle><Error><![CDATA[http://sin1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlczvJbAAAAABEkrNsjxMHiExlczvJbAAAAACDbr9Q6KAAwvgc4vgdAvpEySKSDiwFQo87sBlgBYgItLWgBcAF4AIABAIgBAJABAJgBAKABAKgBo6m3Hw..&s=a960ffdbd0a9dd62425a93ff0656d6d74ef294c9&event_type=4&error_code=[ERRORCODE]]]></Error><Impression id=\"adnxs\"><![CDATA[http://mobile.adnxs.com/nop]]></Impression><Creatives><Creative id=\"18652\" AdID=\"123017179\"><Linear><Duration>00:00:28</Duration><TrackingEvents><Tracking event=\"start\"><![CDATA[http://sin1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlczvJbAAAAABEkrNsjxMHiExlczvJbAAAAACDbr9Q6KAAwvgc4vgdAvpEySKSDiwFQo87sBlgBYgItLWgBcAF4AIABAIgBAJABAJgBAKABAKgBo6m3Hw..&s=a960ffdbd0a9dd62425a93ff0656d6d74ef294c9&event_type=2]]></Tracking><Tracking event=\"skip\"><![CDATA[http://sin1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlczvJbAAAAABEkrNsjxMHiExlczvJbAAAAACDbr9Q6KAAwvgc4vgdAvpEySKSDiwFQo87sBlgBYgItLWgBcAF4AIABAIgBAJABAJgBAKABAKgBo6m3Hw..&s=a960ffdbd0a9dd62425a93ff0656d6d74ef294c9&event_type=3]]></Tracking><Tracking event=\"firstQuartile\"><![CDATA[http://sin1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlczvJbAAAAABEkrNsjxMHiExlczvJbAAAAACDbr9Q6KAAwvgc4vgdAvpEySKSDiwFQo87sBlgBYgItLWgBcAF4AIABAIgBAJABAJgBAKABAKgBo6m3Hw..&s=a960ffdbd0a9dd62425a93ff0656d6d74ef294c9&event_type=5]]></Tracking><Tracking event=\"midpoint\"><![CDATA[http://sin1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlczvJbAAAAABEkrNsjxMHiExlczvJbAAAAACDbr9Q6KAAwvgc4vgdAvpEySKSDiwFQo87sBlgBYgItLWgBcAF4AIABAIgBAJABAJgBAKABAKgBo6m3Hw..&s=a960ffdbd0a9dd62425a93ff0656d6d74ef294c9&event_type=6]]></Tracking><Tracking event=\"thirdQuartile\"><![CDATA[http://sin1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlczvJbAAAAABEkrNsjxMHiExlczvJbAAAAACDbr9Q6KAAwvgc4vgdAvpEySKSDiwFQo87sBlgBYgItLWgBcAF4AIABAIgBAJABAJgBAKABAKgBo6m3Hw..&s=a960ffdbd0a9dd62425a93ff0656d6d74ef294c9&event_type=7]]></Tracking><Tracking event=\"complete\"><![CDATA[http://sin1-mobile.adnxs.com/vast_track/v2?info=YQAAAAMArgAFAQlczvJbAAAAABEkrNsjxMHiExlczvJbAAAAACDbr9Q6KAAwvgc4vgdAvpEySKSDiwFQo87sBlgBYgItLWgBcAF4AIABAIgBAJABAJgBAKABAKgBo6m3Hw..&s=a960ffdbd0a9dd62425a93ff0656d6d74ef294c9&event_type=8]]></Tracking></TrackingEvents><VideoClicks><ClickThrough><![CDATA[http://www.appnexus.com]]></ClickThrough><ClickTracking id=\"adnxs\"><![CDATA[http://sin1-mobile.adnxs.com/click?exSuR-F6hD97FK5H4XqEPwAAAEDheoQ_exSuR-F6hD97FK5H4XqEPySs2yPEweITNSaARb5ciyZczvJbAAAAACMn2wC-AwAAvgMAAAIAAADbF1UHd_EPAAAAAABVU0QAVVNEAAEAAQARIAAAAAABAQMCAAAAAAAAESJOegAAAAA./bcr=AAAAAAAA8D8=/cnd=%21txBrBgjWl54MENuv1DoY9-I_IAQoADF7FK5H4XqEPzoJU0lOMTozNTUzQNUBSQAAAAAAAPA_UQAAAAAAAAAAWQAAAAAAAAAA/cca=OTU4I1NJTjE6MzU1Mw==/bn=86603/referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833/]]></ClickTracking></VideoClicks><MediaFiles><MediaFile id=\"264279\" delivery=\"progressive\" type=\"video/mp4\" width=\"768\" height=\"432\" scalable=\"true\" bitrate=\"1700\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_768_432_1700k.mp4]]></MediaFile><MediaFile id=\"264280\" delivery=\"progressive\" type=\"video/webm\" width=\"1280\" height=\"720\" scalable=\"true\" bitrate=\"600\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_1280_720_600k.webm]]></MediaFile><MediaFile id=\"264281\" delivery=\"progressive\" type=\"video/webm\" width=\"1280\" height=\"720\" scalable=\"true\" bitrate=\"2000\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_1280_720_2000k.webm]]></MediaFile><MediaFile id=\"264282\" delivery=\"progressive\" type=\"video/webm\" width=\"768\" height=\"432\" scalable=\"true\" bitrate=\"1500\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_768_432_1500k.webm]]></MediaFile><MediaFile id=\"264283\" delivery=\"progressive\" type=\"video/webm\" width=\"768\" height=\"432\" scalable=\"true\" bitrate=\"500\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_768_432_500k.webm]]></MediaFile><MediaFile id=\"264284\" delivery=\"progressive\" type=\"video/mp4\" width=\"1280\" height=\"720\" scalable=\"true\" bitrate=\"500\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_1280_720_500k.mp4]]></MediaFile><MediaFile id=\"264285\" delivery=\"progressive\" type=\"video/mp4\" width=\"1280\" height=\"720\" scalable=\"true\" bitrate=\"2500\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_1280_720_2500k.mp4]]></MediaFile><MediaFile id=\"264286\" delivery=\"progressive\" type=\"video/mp4\" width=\"1280\" height=\"720\" scalable=\"true\" bitrate=\"1100\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_1280_720_1100k.mp4]]></MediaFile><MediaFile id=\"264287\" delivery=\"progressive\" type=\"video/mp4\" width=\"768\" height=\"432\" scalable=\"true\" bitrate=\"500\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_768_432_500k.mp4]]></MediaFile><MediaFile id=\"264288\" delivery=\"progressive\" type=\"video/x-flv\" width=\"768\" height=\"432\" scalable=\"true\" bitrate=\"1100\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_768_432_1100k.flv]]></MediaFile><MediaFile id=\"264289\" delivery=\"progressive\" type=\"video/x-flv\" width=\"768\" height=\"432\" scalable=\"true\" bitrate=\"500\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_768_432_500k.flv]]></MediaFile><MediaFile id=\"264290\" delivery=\"progressive\" type=\"video/mp4\" width=\"768\" height=\"432\" scalable=\"true\" bitrate=\"1100\" maintainAspectRatio=\"true\"><![CDATA[http://vcdn.adnxs.com/p/creative-video/56/05/85/a5/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2/560585a5-017e-4bd2-b0cd-1dfcb9b3a3e2_768_432_1100k.mp4]]></MediaFile></MediaFiles></Linear></Creative></Creatives></InLine></Ad></VAST>"
+                            },
+                            "privacy_link": "https://www.appnexus.com/platform-privacy-policy"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

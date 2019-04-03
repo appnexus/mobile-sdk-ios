@@ -75,7 +75,7 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
     
 }
 
-- (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView: webView isVideoAd:(BOOL)videoAd
+- (OMIDAppnexusAdSession*) createOMIDAdSessionforWebView:(WKWebView *)webView isVideoAd:(BOOL)videoAd
 {
     if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
         return nil;
@@ -89,33 +89,48 @@ static NSString *const kANOMIDSDKJSFilename = @"omsdk";
                                                                                           webView:  webView
                                                                         customReferenceIdentifier:  customRefId
                                                                                             error: &ctxError];
-    
-
-    //Note that it is important that the videoEventsOwner parameter should be set to OMIDNoneOwner for display formats. Setting to anything else will cause the mediaType parameter passed to verification scripts to be set to video.
-    NSError *cfgError;
-    OMIDAppnexusAdSessionConfiguration *config;
-    
     OMIDOwner impressionOwner = (videoAd) ? OMIDJavaScriptOwner : OMIDNativeOwner;
     OMIDOwner videoEventsOwner = (videoAd) ? OMIDJavaScriptOwner : OMIDNoneOwner;
+
+    return [self initialseOMIDAdSessionForView:webView withSessionContext:context andImpressionOwner:impressionOwner andVideoEventsOwner:videoEventsOwner];
+}
+
+
+- (OMIDAppnexusAdSession*) createOMIDAdSessionforNative:(UIView *)view withScript:(NSMutableArray *)scripts
+{
+    if(!ANSDKSettings.sharedInstance.enableOpenMeasurement)
+        return nil;    
     
-    config = [[OMIDAppnexusAdSessionConfiguration alloc]
-              initWithImpressionOwner:impressionOwner videoEventsOwner:videoEventsOwner
-              isolateVerificationScripts:NO  error:&cfgError];
+    NSError *ctxError;    
+    OMIDAppnexusAdSessionContext *context = [[OMIDAppnexusAdSessionContext alloc] initWithPartner:  self.partner
+                                                                                          script:   self.getOMIDJS
+                                                                                        resources:scripts
+                                                                        customReferenceIdentifier: nil
+                                                                                            error: &ctxError];
     
-   
-    
+    return [self initialseOMIDAdSessionForView:view withSessionContext:context andImpressionOwner:OMIDNativeOwner andVideoEventsOwner:OMIDNoneOwner];
+}
+
+
+-(OMIDAppnexusAdSession*) initialseOMIDAdSessionForView:(id)view withSessionContext:(OMIDAppnexusAdSessionContext*)context andImpressionOwner:(OMIDOwner)impressionOwner andVideoEventsOwner:(OMIDOwner)videoEventsOwner
+{
+    //Note that it is important that the videoEventsOwner parameter should be set to OMIDNoneOwner for display formats. Setting to anything else will cause the mediaType parameter passed to verification scripts to be set to video.
+    NSError *cfgError;
+    OMIDAppnexusAdSessionConfiguration *config = [[OMIDAppnexusAdSessionConfiguration alloc]
+                                                  initWithImpressionOwner:impressionOwner videoEventsOwner:videoEventsOwner
+                                                  isolateVerificationScripts:NO error:&cfgError];
+    // Create the session
+    NSError *sessError;
     OMIDAppnexusAdSession *omidAdSession = [[OMIDAppnexusAdSession alloc] initWithConfiguration:config
-                                                                               adSessionContext:context error:nil];
+                                                                               adSessionContext:context error:&sessError];
     
     // Set the view on which to track viewability
-    omidAdSession.mainAdView = webView;
+    omidAdSession.mainAdView = view;
     
     // Start session
     [omidAdSession start];
     return omidAdSession;
 }
-
-
 
 -(void) stopOMIDAdSession:(OMIDAppnexusAdSession*) omidAdSession
 {
