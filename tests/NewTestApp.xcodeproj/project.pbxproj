@@ -394,6 +394,7 @@
 		6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
+		60D39E252266CD790029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E242266CD790029F741 /* ANVideoPlayerSettingsTestCase.m */; };
 		8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */; };
 		8A0EFA941B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA931B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m */; };
 		8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14826F1AD344B70046F1B9 /* AdColony.framework */; };
@@ -1109,7 +1110,6 @@
 		0EFA6DF620EBFCC700A081AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EFA6DFC20EBFCDD00A081AD /* ClickThroughActionTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickThroughActionTestCase.m; sourceTree = "<group>"; };
 		0EFA6DFD20EBFCDD00A081AD /* ANJAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANJAMTestCase.m; sourceTree = "<group>"; };
-		0EFA6E9020EC01B000A081AD /* MediationAdapterApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MediationAdapterApp copy-Info.plist"; path = "/Users/abhishek.sharma/Documents/AppNexusCode/iOS/app_mobile-sdk/apps/iOS/mobile-sdk-ios/tests/MediationAdapterApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		46B5093B2118D1FA00B52D31 /* SuccessfulInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulInstreamVideoAdResponse.json; sourceTree = "<group>"; };
 		46C07C0B21262DA000B99BDD /* UITestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UITestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46C07C1321262EEF00B99BDD /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1149,8 +1149,6 @@
 		4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClickThroughActionBasicOutstreamVideoResponse.json; sourceTree = "<group>"; };
 		4F831C8221CAE48E003BD53B /* ANNativeAdRequest+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANTest.m"; sourceTree = "<group>"; };
 		4F831C8D21CAE48F003BD53B /* ANNativeAdRequest+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANTest.h"; sourceTree = "<group>"; };
-		4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
-		4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		4FD2037D217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSecondPriceDFPTestCase.m; sourceTree = "<group>"; };
 		4FD2038B217A837100F13B75 /* SecondPriceForDFPSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPSuccess.json; sourceTree = "<group>"; };
@@ -1172,6 +1170,7 @@
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
 		605EDBCA1D92F2050042DC0C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		60D39E242266CD790029F741 /* ANVideoPlayerSettingsTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettingsTestCase.m; sourceTree = "<group>"; };
 		60FD97AA1FB3748C005FDCCE /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adMob_mediated_response.json; sourceTree = "<group>"; };
 		8A0EFA921B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseYahoo+ANTest.h"; sourceTree = "<group>"; };
@@ -1686,6 +1685,7 @@
 				0E397802212B3DDA00DDAD6D /* ANInstreamVideoAdTestCase.m */,
 				0E3977FF212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.h */,
 				0E397800212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.m */,
+				60D39E242266CD790029F741 /* ANVideoPlayerSettingsTestCase.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -2214,10 +2214,7 @@
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
 				0E3CAA2320E6DBF700358480 /* VideoTests */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
-				4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */,
-				4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */,
 				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
-				0EFA6E9020EC01B000A081AD /* MediationAdapterApp copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2517,11 +2514,12 @@
 					};
 					0E3CA9C820E6D79400358480 = {
 						CreatedOnToolsVersion = 9.3;
-						DevelopmentTeam = X9C48RNUJC;
+						DevelopmentTeam = HR94J6TSB3;
 						ProvisioningStyle = Automatic;
 					};
 					0E3CAA2120E6DBF700358480 = {
 						CreatedOnToolsVersion = 9.3;
+						DevelopmentTeam = HR94J6TSB3;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0E3CA9C820E6D79400358480;
 					};
@@ -3105,6 +3103,7 @@
 				0E28D92120EACBA800EC2CB2 /* ANURLConnectionStub.m in Sources */,
 				0E397837212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.m in Sources */,
 				0E50CC0122205E6F00E4AB2C /* ANSDKSettingsTestCase.m in Sources */,
+				60D39E252266CD790029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */,
 				0E28D91720EACB8400EC2CB2 /* NSObject+Swizzling.m in Sources */,
 				0E28D91820EACB8700EC2CB2 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				0E397843212B3DDA00DDAD6D /* UIViewConstraintsTestCase.m in Sources */,
@@ -3910,7 +3909,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = X9C48RNUJC;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
@@ -3957,7 +3956,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = X9C48RNUJC;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
@@ -4003,6 +4002,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
@@ -4050,6 +4050,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
