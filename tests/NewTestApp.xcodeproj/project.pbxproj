@@ -394,7 +394,6 @@
 		6035A02E1E2417280017EF56 /* libANSDKSmartAdAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6035A01E1E23FDFD0017EF56 /* libANSDKSmartAdAdapter.a */; };
 		605EDBC61D92E9A00042DC0C /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC41D92E9A00042DC0C /* libFlurry.a */; };
 		605EDBC91D92E9B10042DC0C /* libFlurryAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605EDBC81D92E9B10042DC0C /* libFlurryAds.a */; };
-		60D39E252266CD790029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E242266CD790029F741 /* ANVideoPlayerSettingsTestCase.m */; };
 		8A06F3A51C64002700AE0617 /* adMob_mediated_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */; };
 		8A0EFA941B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA931B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.m */; };
 		8A1482701AD344B70046F1B9 /* AdColony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A14826F1AD344B70046F1B9 /* AdColony.framework */; };
@@ -1170,7 +1169,6 @@
 		605EDBC51D92E9A00042DC0C /* libFlurryWatch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryWatch.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/libFlurryWatch.a; sourceTree = "<group>"; };
 		605EDBC81D92E9B10042DC0C /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFlurryAds.a; path = ../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/libFlurryAds.a; sourceTree = "<group>"; };
 		605EDBCA1D92F2050042DC0C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		60D39E242266CD790029F741 /* ANVideoPlayerSettingsTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettingsTestCase.m; sourceTree = "<group>"; };
 		60FD97AA1FB3748C005FDCCE /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		8A06F3961C63FE9000AE0617 /* adMob_mediated_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = adMob_mediated_response.json; sourceTree = "<group>"; };
 		8A0EFA921B4369A500196294 /* ANAdAdapterBaseYahoo+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseYahoo+ANTest.h"; sourceTree = "<group>"; };
@@ -1685,7 +1683,6 @@
 				0E397802212B3DDA00DDAD6D /* ANInstreamVideoAdTestCase.m */,
 				0E3977FF212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.h */,
 				0E397800212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.m */,
-				60D39E242266CD790029F741 /* ANVideoPlayerSettingsTestCase.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -3103,7 +3100,6 @@
 				0E28D92120EACBA800EC2CB2 /* ANURLConnectionStub.m in Sources */,
 				0E397837212B3DDA00DDAD6D /* ANVideoAdPlayer+Test.m in Sources */,
 				0E50CC0122205E6F00E4AB2C /* ANSDKSettingsTestCase.m in Sources */,
-				60D39E252266CD790029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */,
 				0E28D91720EACB8400EC2CB2 /* NSObject+Swizzling.m in Sources */,
 				0E28D91820EACB8700EC2CB2 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				0E397843212B3DDA00DDAD6D /* UIViewConstraintsTestCase.m in Sources */,

@@ -75,10 +75,8 @@ NSString * const  ANVideoOptions = @"videoOptions";
         publisherOptions[ANAdText] = @"";
         clickthruOptions[ANSeparator] = @"";
     }
+    clickthruOptions[ANEnabled] =  [NSNumber numberWithBool:self.showClickThruControl];
     
-    if(!self.showClickThruControl){
-        clickthruOptions[ANEnabled] =  [NSNumber numberWithBool:self.showClickThruControl];
-    }
     if(self.clickThruText != nil && self.showClickThruControl){
         clickthruOptions[ANText] =  self.clickThruText;
     }
