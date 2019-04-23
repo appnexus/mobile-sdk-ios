@@ -111,7 +111,7 @@ NSString * const  ANVideoOptions = @"videoOptions";
 
 
 -(NSString *) fetchInStreamVideoSettings{
-    
+    [self.optionsDictionary setValue:ANInstreamVideo forKey:ANEntry];
     return [self videoPlayerOptions];
 }
 
