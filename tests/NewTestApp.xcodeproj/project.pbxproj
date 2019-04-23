@@ -1109,6 +1109,7 @@
 		0EFA6DF620EBFCC700A081AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EFA6DFC20EBFCDD00A081AD /* ClickThroughActionTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClickThroughActionTestCase.m; sourceTree = "<group>"; };
 		0EFA6DFD20EBFCDD00A081AD /* ANJAMTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANJAMTestCase.m; sourceTree = "<group>"; };
+		0EFA6E9020EC01B000A081AD /* MediationAdapterApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MediationAdapterApp copy-Info.plist"; path = "/Users/abhishek.sharma/Documents/AppNexusCode/iOS/app_mobile-sdk/apps/iOS/mobile-sdk-ios/tests/MediationAdapterApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		46B5093B2118D1FA00B52D31 /* SuccessfulInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulInstreamVideoAdResponse.json; sourceTree = "<group>"; };
 		46C07C0B21262DA000B99BDD /* UITestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UITestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46C07C1321262EEF00B99BDD /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1148,6 +1149,8 @@
 		4F7D0FCA20D090F300EF0379 /* ClickThroughActionBasicOutstreamVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ClickThroughActionBasicOutstreamVideoResponse.json; sourceTree = "<group>"; };
 		4F831C8221CAE48E003BD53B /* ANNativeAdRequest+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANTest.m"; sourceTree = "<group>"; };
 		4F831C8D21CAE48F003BD53B /* ANNativeAdRequest+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANTest.h"; sourceTree = "<group>"; };
+		4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
+		4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ANSDKResources.bundle; path = ../BinaryProjects/out/AppNexusSDK/AppNexusSDK.framework/ANSDKResources.bundle; sourceTree = "<group>"; };
 		4F9D96471D91FEED0027E915 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = ../mediation/mediatedviews/MoPub/MoPubSDK/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		4FD2037D217A7A5C00F13B75 /* ANSecondPriceDFPTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSecondPriceDFPTestCase.m; sourceTree = "<group>"; };
 		4FD2038B217A837100F13B75 /* SecondPriceForDFPSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPSuccess.json; sourceTree = "<group>"; };
@@ -2211,7 +2214,10 @@
 				8A4B96CF1ACDEE4F00FFEB2A /* VdopiaResources */,
 				0E3CAA2320E6DBF700358480 /* VideoTests */,
 				8AF3654C19D472A60097019F /* ANSDK.xcodeproj */,
+				4F9496681FE4CEA400A05057 /* ANSDKResources.bundle */,
+				4F9496771FE4CF9C00A05057 /* ANSDKResources.bundle */,
 				4FD362641F8FCA3D0010567E /* KIF.xcodeproj */,
+				0EFA6E9020EC01B000A081AD /* MediationAdapterApp copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2511,12 +2517,11 @@
 					};
 					0E3CA9C820E6D79400358480 = {
 						CreatedOnToolsVersion = 9.3;
-						DevelopmentTeam = HR94J6TSB3;
+						DevelopmentTeam = X9C48RNUJC;
 						ProvisioningStyle = Automatic;
 					};
 					0E3CAA2120E6DBF700358480 = {
 						CreatedOnToolsVersion = 9.3;
-						DevelopmentTeam = HR94J6TSB3;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0E3CA9C820E6D79400358480;
 					};
@@ -3905,7 +3910,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DEVELOPMENT_TEAM = X9C48RNUJC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
@@ -3952,7 +3957,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DEVELOPMENT_TEAM = X9C48RNUJC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
@@ -3998,7 +4003,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
@@ -4046,7 +4050,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Amazon/AmazonSDK",
