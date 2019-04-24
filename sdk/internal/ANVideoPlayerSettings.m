@@ -37,6 +37,9 @@ NSString * const  ANAllowFullScreen = @"allowFullscreen";
 NSString * const  ANShowFullScreen = @"showFullScreenButton";
 NSString * const  ANDisableTopBar = @"disableTopBar";
 NSString * const  ANVideoOptions = @"videoOptions";
+NSString * const  ANInitialAudio = @"initialAudio";
+NSString * const  ANOn = @"on";
+NSString * const  ANOff = @"off";
 
 @interface ANVideoPlayerSettings()
 
@@ -53,6 +56,7 @@ NSString * const  ANVideoOptions = @"videoOptions";
         videoSettings = [[ANVideoPlayerSettings alloc] init];
         videoSettings.showClickThruControl = YES;
         videoSettings.showFullScreenControl = YES;
+        videoSettings.initalAudio = SoundOff;
         videoSettings.optionsDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *partner = @{ ANName : AN_OMIDSDK_PARTNER_NAME , ANVersion : AN_SDK_VERSION};
         [videoSettings.optionsDictionary setObject:partner forKey:ANPartner];
@@ -94,6 +98,12 @@ NSString * const  ANVideoOptions = @"videoOptions";
     if([self.optionsDictionary[ANEntry] isEqualToString:ANBanner]){
         publisherOptions[ANAllowFullScreen] = [NSNumber numberWithBool:self.showFullScreenControl];
         publisherOptions[ANShowFullScreen] = [NSNumber numberWithBool:self.showFullScreenControl];
+    }
+    
+    if(self.initalAudio == SoundOn){
+        publisherOptions[ANInitialAudio] = ANOn;
+    }else {
+        publisherOptions[ANInitialAudio] = ANOff;
     }
     
     if(!self.showTopBar){

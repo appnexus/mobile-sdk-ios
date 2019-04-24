@@ -17,6 +17,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, ANInitialAudioSetting) {
+    SoundOn,
+    SoundOff
+};
+
 /*
  The video player for the AdUnit (Instream & Outstream) can be configured by the publisher
  The available options that the publishers can change are the
@@ -44,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Show or hide the volume control on the player
 @property (nonatomic,assign) BOOL showVolumeControl;
+
+//Decide how the ad video sound starts initally (sound on or off). By default its off for instream and on for outstream
+@property (nonatomic,assign) ANInitialAudioSetting initalAudio;
 
 //Show or hide fullscreen control on the player
 @property (nonatomic,assign) BOOL showFullScreenControl;
