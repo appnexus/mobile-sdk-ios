@@ -270,7 +270,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 - (void) deallocActions
 {
-    [self stopOMIDAdSession];
     [self stopWebViewLoadForDealloc];
     [self.viewabilityTimer invalidate];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
