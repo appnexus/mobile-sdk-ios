@@ -14,9 +14,50 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "ANBannerAdView.h"
+#import "ANInterstitialAd.h"
+#import "ANMediatedAd.h"
 
 @interface ViewController : UIViewController
 
+
+- (ANBannerAdView *)loadFacebookBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANBannerAdView *)loadFacebookBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
+                                            adSize:(CGSize)adSize;
+- (ANBannerAdView *)loadFacebook250BannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
+                                               adSize:(CGSize)adSize;
+- (ANInterstitialAd *)loadFacebookInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (ANBannerAdView *)loadAmazonBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadAmazonInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (ANBannerAdView *)loadAdMobBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadAdMobInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (ANBannerAdView *)loadDFPBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadDFPInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (ANBannerAdView *)loadInMobiBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadInMobiInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (ANBannerAdView *)loadMillennialMediaBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadMillennialMediaInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (ANBannerAdView *)loadMoPubBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadMoPubInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (ANBannerAdView *)loadSmartAdBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *)loadSmartAdInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (ANBannerAdView *)loadAdMarvelBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
+- (ANInterstitialAd *) loadAdMarvelInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
+
+- (void)stubMediatedAd:(ANMediatedAd *)mediatedAd;
+- (ANBannerAdView *)bannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
+                             frameSize:(CGSize)frameSize
+                                adSize:(CGSize)adSize;
+
+- (ANBannerAdView *)loadAdMobBannerResizeWithDelegate:(id<ANBannerAdViewDelegate>)delegate shouldResize:(BOOL)resize;
 
 @end
 

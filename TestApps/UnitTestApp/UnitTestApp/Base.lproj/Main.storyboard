@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -19,6 +23,49 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-796" y="175"/>
+        </scene>
+        <!--Mediation Adapter View Controller-->
+        <scene sceneID="MFi-ff-6MD">
+            <objects>
+                <viewController id="rsk-x2-NFY" customClass="ANMediationAdapterViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1NU-dt-yN1"/>
+                        <viewControllerLayoutGuide type="bottom" id="rMm-UI-cfZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9L3-Bv-4C5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="w0z-6G-25J">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YgH-1h-ZCX">
+                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="rsk-x2-NFY" id="TUM-XY-ltq"/>
+                                    <outlet property="delegate" destination="rsk-x2-NFY" id="S3E-QU-xBd"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="YgH-1h-ZCX" secondAttribute="trailing" id="CZv-wL-ndf"/>
+                            <constraint firstAttribute="centerX" secondItem="w0z-6G-25J" secondAttribute="centerX" id="EV8-SU-uit"/>
+                            <constraint firstItem="rMm-UI-cfZ" firstAttribute="top" secondItem="YgH-1h-ZCX" secondAttribute="bottom" id="N53-EL-ZdN"/>
+                            <constraint firstAttribute="centerY" secondItem="w0z-6G-25J" secondAttribute="centerY" id="YYJ-Lh-WlT"/>
+                            <constraint firstItem="YgH-1h-ZCX" firstAttribute="leading" secondItem="9L3-Bv-4C5" secondAttribute="leading" id="ZOv-TS-6Mw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="41g-q2-UJI"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="w0z-6G-25J" id="BUT-u4-8Iy"/>
+                        <outlet property="pickerView" destination="YgH-1h-ZCX" id="Oml-mL-JjF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gq7-Ek-3cw" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="97" y="134"/>
         </scene>
     </scenes>
 </document>
