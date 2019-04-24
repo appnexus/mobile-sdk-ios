@@ -45,7 +45,11 @@
     self.adView = [[ANBannerAdView alloc] init];
     [ANLogManager setANLogLevel:ANLogLevelAll];
 }
-
+-(void)tearDown{
+    self.adView = nil;
+    self.adFetcher = nil;
+    [super tearDown];    
+}
 
 
 #pragma mark - Invalid Adapters
