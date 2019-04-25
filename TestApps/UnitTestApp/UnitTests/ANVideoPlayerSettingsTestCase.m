@@ -108,4 +108,23 @@
     XCTAssertFalse(isFullScreen);
 }
 
+-(void) testInitialAudioSettings {
+    NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchBannerSettings];
+    NSData *data = [videoSettings dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    XCTAssertNil(json[@"videoOptions"][@"initialAudio"]);
+}
+
+-(void) testInitialAudioOnSettings {
+    [[ANVideoPlayerSettings sharedInstance] setInitalAudio:SoundOn];
+    NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchBannerSettings];
+    NSData *data = [videoSettings dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    XCTAssertNotNil(json[@"videoOptions"][@"initialAudio"]);
+    
+    XCTAssertEqualObjects(json[@"videoOptions"][@"initialAudio"],@"on");
+}
+
+
+
 @end
