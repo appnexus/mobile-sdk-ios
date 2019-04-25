@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, ANInitialAudioSetting) {
  */
 @interface ANVideoPlayerSettings : NSObject
 
-//Show or Hide the ClickThru control on the video player
+//Show or Hide the ClickThru control on the video player. Default is YES, setting it to NO will make the entire video clickable.
 @property (nonatomic,assign) BOOL showClickThruControl;
 
 //Change the clickThru text on the video player

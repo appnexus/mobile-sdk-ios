@@ -18,6 +18,7 @@
 #import <XCTest/XCTest.h>
 #import "ANVideoPlayerSettings.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
+#import "ANGlobal.h"
 
 @interface ANVideoPlayerSettingsTestCase : XCTestCase
 
@@ -45,7 +46,7 @@
     
     NSDictionary *omidOptions = json[@"partner"];
     XCTAssertEqualObjects(omidOptions[@"name"], @"appnexus.com-omios");
-    XCTAssertEqualObjects(omidOptions[@"version"], @"5.2");
+    XCTAssertEqualObjects(omidOptions[@"version"], AN_SDK_VERSION);
     
 }
 
@@ -109,6 +110,7 @@
 }
 
 -(void) testInitialAudioSettings {
+    [[ANVideoPlayerSettings sharedInstance] setInitalAudio:None];
     NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchBannerSettings];
     NSData *data = [videoSettings dataUsingEncoding:NSUTF8StringEncoding];
     id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
