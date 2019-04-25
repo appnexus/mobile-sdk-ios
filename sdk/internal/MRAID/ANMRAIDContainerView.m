@@ -28,7 +28,7 @@
 #import "ANPBBuffer.h"
 #import "ANANJAMImplementation.h"
 #import "ANInterstitialAdViewController.h"
-#import "ANOMIDImplementation.h"
+
 
 typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 {
@@ -178,32 +178,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     return self;
 }
 
-- (void) willMoveToSuperview: (UIView *)newSuperview
-{
-    // UIView already added to superview.
-    if (newSuperview != nil)  {
-        return;
-    }
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    
-    // UIView was removed from superview
-    if (!self.webViewController)  {
-        // Can not access webViewController
-        return;
-    }
-    [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.webViewController.omidAdSession];
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        dispatch_semaphore_signal(sema);
-    });
-    
-    while (dispatch_semaphore_wait(sema, DISPATCH_TIME_NOW)) {
-        [[NSRunLoop currentRunLoop]
-         runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0]];
-    }
-    [super willMoveToSuperview:newSuperview];
-}
 #pragma mark - Getters/setters.
 
 - (void)setAdViewDelegate:(id<ANAdViewInternalDelegate>)adViewDelegate
