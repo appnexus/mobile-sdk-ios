@@ -50,10 +50,10 @@ typedef NS_ENUM(NSUInteger, ANInitialAudioSetting) {
 //Show or hide the volume control on the player
 @property (nonatomic,assign) BOOL showVolumeControl;
 
-//Decide how the ad video sound starts initally (sound on or off). By default its off for instream and on for outstream
+//Decide how the ad video sound starts initally (sound on or off). By default its on for InstreamVideo and off for Banner Video
 @property (nonatomic,assign) ANInitialAudioSetting initalAudio;
 
-//Show or hide fullscreen control on the player
+//Show or hide fullscreen control on the player. This is applicable only for Banner Video
 @property (nonatomic,assign) BOOL showFullScreenControl;
 
 //Show or hide the top bar that has (ClickThru & Skip control)
