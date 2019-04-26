@@ -524,13 +524,6 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 - (void)didDismissBrowserViewController:(ANBrowserViewController *)controller
 {
     self.browserViewController = nil;
-    
-    if ([self.delegate respondsToSelector:@selector(videoAdDidClose:)]) {
-        [self.delegate videoAdDidClose:self];
-    }
-    
-    
-    //
     [self resumeAdVideo];
 }
 
