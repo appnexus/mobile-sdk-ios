@@ -251,6 +251,7 @@
 		0EEFE1F8220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1F7220098BD002B5F5F /* ANMockMediationAdapterLoadThenFail.m */; };
 		0EEFE1FB220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
 		0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */; };
+		60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */; };
 		9781D6532225385E0083FFF4 /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE10922005555002B5F5F /* native_videoResponse.json */; };
 		9792384C22412E49007433C0 /* ANVerificationScriptResource+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9792384B22412E49007433C0 /* ANVerificationScriptResource+ANTest.m */; };
 		979EA146223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 979EA145223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m */; };
@@ -786,6 +787,7 @@
 		0EEFE1F9220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
 		0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
 		0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_TestResponse.json; sourceTree = "<group>"; };
+		60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettingsTestCase.m; sourceTree = "<group>"; };
 		9792384A22412E49007433C0 /* ANVerificationScriptResource+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANVerificationScriptResource+ANTest.h"; sourceTree = "<group>"; };
 		9792384B22412E49007433C0 /* ANVerificationScriptResource+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANVerificationScriptResource+ANTest.m"; sourceTree = "<group>"; };
 		979EA145223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVerificationScriptResourceTestCase.m; sourceTree = "<group>"; };
@@ -1100,6 +1102,7 @@
 		0EC17C5021F72EA300F0F6AF /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */,
 				0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */,
 				0E8C981C21FF3987005D1F0E /* ANReachabilityTestCase.m */,
 				0E8C981E21FF400D005D1F0E /* ANUniversalAdFetcherTests.m */,
@@ -1748,6 +1751,7 @@
 				0E8C97C021FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */,
 				0E8C97AE21FF32EC005D1F0E /* ANUniversalAdFetcher+ANTest.m in Sources */,
 				0E8C97AB21FF32EC005D1F0E /* XCTestCase+ANBannerAdView.m in Sources */,
+				60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */,
 				0EEFE14422005951002B5F5F /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

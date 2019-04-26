@@ -21,6 +21,8 @@
 #import "ANAdConstants.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANOMIDImplementation.h"
+#import "ANVideoPlayerSettings.h"
+#import "ANVideoPlayerSettings+ANCategory.h"
 
 static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 
@@ -440,21 +442,16 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 {
     NSString *exec = @"";
     if([self.vastContent length] > 0){
+        
+        NSString *videoOptions = [[ANVideoPlayerSettings sharedInstance] fetchInStreamVideoSettings];
 
-        NSDictionary *partner = @{ @"name" : AN_OMIDSDK_PARTNER_NAME , @"version" : AN_SDK_VERSION};
-        NSError * err;
-        NSData * jsonData = [NSJSONSerialization dataWithJSONObject:partner options:0 error:&err];
-        NSString * OMIDPartner = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-
-        NSString *exec_template = @"createVastPlayerWithContent('%@','INSTREAM_VIDEO','%@');";
-        exec = [NSString stringWithFormat:exec_template, self.vastContent,OMIDPartner];
+        NSString *exec_template = @"createVastPlayerWithContent('%@','%@');";
+        exec = [NSString stringWithFormat:exec_template, self.vastContent,videoOptions];
 
         [self.webView evaluateJavaScript:exec completionHandler:nil];
         
     }else if([self.vastURL length] > 0){
-        NSString *exec_template = @"createVastPlayerWithURL('%@','INSTREAM_VIDEO');";
-        exec = [NSString stringWithFormat:exec_template, self.vastURL];
-        [self.webView evaluateJavaScript:exec completionHandler:nil];
+        ANLogInfo(@"Not implemented");
     }else if([self.jsonContent length] > 0){
         NSString * mediationJsonString = [NSString stringWithFormat:@"processMediationAd('%@')",[self.jsonContent stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
         [self.webView evaluateJavaScript:mediationJsonString completionHandler:nil];

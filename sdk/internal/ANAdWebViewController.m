@@ -39,7 +39,7 @@
 
 #import "ANOMIDImplementation.h"
 
-
+#import "ANVideoPlayerSettings+ANCategory.h"
 
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
@@ -1299,15 +1299,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 #pragma mark - Banner Video.
 
 - (void) processVideoViewDidFinishLoad
-{   
+{
+    NSString *videoOptions = [[ANVideoPlayerSettings sharedInstance] fetchBannerSettings];
     
-    NSDictionary *partner = @{ @"name" : AN_OMIDSDK_PARTNER_NAME , @"version" : AN_SDK_VERSION};
-    NSError * err;
-    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:partner options:0 error:&err];
-    NSString * OMIDPartner = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-
-    NSString  *execTemplate    = @"createVastPlayerWithContent('%@', 'BANNER', '%@');";
-    NSString  *exec            = [NSString stringWithFormat:execTemplate, self.videoXML,OMIDPartner];
+    NSString *exec_template = @"createVastPlayerWithContent('%@','%@');";
+    NSString *exec = [NSString stringWithFormat:exec_template, self.videoXML,videoOptions];
     
     [self.modernWebView evaluateJavaScript:exec completionHandler:nil];
 }
