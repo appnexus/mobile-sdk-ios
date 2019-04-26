@@ -260,6 +260,8 @@
 		979EA16C223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */; };
 		979EA16D223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */; };
 		979EA171223BC364009B79B7 /* ANOMIDNativeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 979EA170223BC364009B79B7 /* ANOMIDNativeTestCase.m */; };
+		97B13D73226F0C0100EAA266 /* libANAdapterForGoogleAdMobSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEFE0F72200547A002B5F5F /* libANAdapterForGoogleAdMobSDK.a */; };
+		97B13D75226F0C1D00EAA266 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B13D74226F0C1C00EAA266 /* GoogleMobileAds.framework */; };
 		97B3C8EF223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */; };
 		97B3C8F0223FA311005B2DB8 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */; };
 /* End PBXBuildFile section */
@@ -524,6 +526,13 @@
 			remoteGlobalIDString = 8AE2D6A119CC874B00001B70;
 			remoteInfo = ANSDKGoogleAdMobAdapter;
 		};
+		97B13D71226F0BE600EAA266 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EEFE0C72200547A002B5F5F /* ANSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AE2D84519CC9A6F00001B70;
+			remoteInfo = ANAdapterForGoogleAdMobSDK;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -773,7 +782,6 @@
 		0EEFE1B722008C14002B5F5F /* ANMockMediationAdapterTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterTimeout.h; sourceTree = "<group>"; };
 		0EEFE1B922008C29002B5F5F /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
 		0EEFE1BA22008C29002B5F5F /* ANMRAIDTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDTestResponses.m; sourceTree = "<group>"; };
-
 		0EEFE1E7220096A9002B5F5F /* SuccessfulMRAIDListenerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMRAIDListenerResponse.json; sourceTree = "<group>"; };
 		0EEFE1E92200975A002B5F5F /* bannerNative_native_mediation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bannerNative_native_mediation.json; sourceTree = "<group>"; };
 		0EEFE1EB2200976D002B5F5F /* bannerNative_basic_banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bannerNative_basic_banner.json; sourceTree = "<group>"; };
@@ -794,6 +802,7 @@
 		979EA168223BB575009B79B7 /* OMID_Native_CSMResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_CSMResponse.json; sourceTree = "<group>"; };
 		979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_RTBResponse.json; sourceTree = "<group>"; };
 		979EA170223BC364009B79B7 /* ANOMIDNativeTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDNativeTestCase.m; sourceTree = "<group>"; };
+		97B13D74226F0C1C00EAA266 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionConfiguration+ANProtocols.m"; sourceTree = "<group>"; };
 		97B3C8EC223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+ANProtocols.h"; sourceTree = "<group>"; };
 		97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
@@ -853,7 +862,6 @@
 				0ED159E52236B54900D56022 /* JavaScriptCore.framework in Frameworks */,
 				0ED159E32236B54100D56022 /* CoreMotion.framework in Frameworks */,
 				0ED159E12236B53B00D56022 /* CoreMedia.framework in Frameworks */,
-				0E2C24932236B07F006038E1 /* libGoogleMobileAds.a in Frameworks */,
 				0E8C981A21FF36F6005D1F0E /* Accounts.framework in Frameworks */,
 				0ED159DF2236B53000D56022 /* AssetsLibrary.framework in Frameworks */,
 				0E2C24912236B075006038E1 /* GoogleMobileAds.framework in Frameworks */,
@@ -871,7 +879,6 @@
 				0E56C70921F8AF3B00ADE6E1 /* PassKit.framework in Frameworks */,
 				0E56C70521F8AF3200ADE6E1 /* MessageUI.framework in Frameworks */,
 				0E56C70321F8AF2D00ADE6E1 /* GameKit.framework in Frameworks */,
-
 				0E56C6FF21F8AF2200ADE6E1 /* Foundation.framework in Frameworks */,
 				0E56C6FD21F8AF1E00ADE6E1 /* CoreTelephony.framework in Frameworks */,
 				0E56C6FB21F8AF1900ADE6E1 /* CoreLocation.framework in Frameworks */,
@@ -942,7 +949,6 @@
 				0ED159DE2236B53000D56022 /* AssetsLibrary.framework */,
 				0ED159DC2236B52C00D56022 /* EventKitUI.framework */,
 				0ED159DA2236B52800D56022 /* EventKit.framework */,
-				0E2C24922236B07F006038E1 /* libGoogleMobileAds.a */,
 				0E2C24902236B075006038E1 /* GoogleMobileAds.framework */,
 				0E8C981921FF36F6005D1F0E /* Accounts.framework */,
 				0E8C97D321FF34AB005D1F0E /* AppNexusSDK.framework */,
@@ -1319,15 +1325,6 @@
 				0EEFE10822005532002B5F5F /* StubResponse */,
 			);
 			path = SharedMockFiles;
-			sourceTree = "<group>";
-		};
-		0EEFE1D822008D82002B5F5F /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				0EEFE1DB22008DD0002B5F5F /* libGoogleMobileAds.a */,
-				0EEFE1D922008DB8002B5F5F /* GoogleMobileAds.framework */,
-			);
-			path = Framework;
 			sourceTree = "<group>";
 		};
 		9792385E22413481007433C0 /* SDKValidationURL */ = {
@@ -1914,6 +1911,11 @@
 			name = ANSDKGoogleAdMobAdapter;
 			targetProxy = 0EEFE1CB22008CF9002B5F5F /* PBXContainerItemProxy */;
 		};
+		97B13D72226F0BE600EAA266 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ANAdapterForGoogleAdMobSDK;
+			targetProxy = 97B13D71226F0BE600EAA266 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2007,7 +2009,6 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vdopia/VdopiaSDK",
@@ -2015,7 +2016,6 @@
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/SmartAd/SmartAdSDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries",
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -2090,7 +2090,6 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vdopia/VdopiaSDK",
@@ -2098,7 +2097,6 @@
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/SmartAd/SmartAdSDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -2141,7 +2139,6 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vdopia/VdopiaSDK/**",
@@ -2189,7 +2186,6 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vdopia/VdopiaSDK/**",
@@ -2210,6 +2206,16 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vungle/VungleSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../sdk/**",
@@ -2235,6 +2241,16 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Chartboost/ChartboostSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Amazon/AmazonSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Facebook/FacebookSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vungle/VungleSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdColony/AdColonySDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../sdk/**",
@@ -2273,7 +2289,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.FunctionalTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2300,7 +2316,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.FunctionalTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

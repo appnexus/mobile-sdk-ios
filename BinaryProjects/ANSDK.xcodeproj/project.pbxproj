@@ -712,7 +712,6 @@
 		0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMMediationAdViewController.m; sourceTree = "<group>"; };
 		00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANOMIDImplementation.h; sourceTree = "<group>"; };
 		00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDImplementation.m; sourceTree = "<group>"; };
-		0E296DBE21A3669800769FC0 /* libGoogleMobileAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleMobileAds.a; sourceTree = "<group>"; };
 		0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANGDPRSettings.h; sourceTree = "<group>"; };
 		0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGDPRSettings.m; sourceTree = "<group>"; };
 		0E6D9AB220D1A943001FA1FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController.xib; sourceTree = "<group>"; };
@@ -1346,14 +1345,6 @@
 			path = Viewability;
 			sourceTree = "<group>";
 		};
-		0E296DBD21A3669800769FC0 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				0E296DBE21A3669800769FC0 /* libGoogleMobileAds.a */,
-			);
-			path = Libraries;
-			sourceTree = "<group>";
-		};
 		0EB25AFF21A36EB100C26EC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1601,7 +1592,6 @@
 			isa = PBXGroup;
 			children = (
 				0EB25AFF21A36EB100C26EC7 /* Frameworks */,
-				0E296DBD21A3669800769FC0 /* Libraries */,
 			);
 			name = GoogleAdMobSDK;
 			path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK;
@@ -3821,7 +3811,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKGoogleAdMobAdapter;
 				SKIP_INSTALL = YES;
@@ -3838,7 +3828,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKGoogleAdMobAdapter;
 				SKIP_INSTALL = YES;
@@ -3944,9 +3934,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANAdapterForGoogleAdMobSDK;
 				SKIP_INSTALL = YES;
@@ -3962,9 +3951,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANAdapterForGoogleAdMobSDK;
 				SKIP_INSTALL = YES;

@@ -2,7 +2,7 @@
 //  GADNativeAdViewAdOptions.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2016 Google Inc. All rights reserved.
+//  Copyright 2016 Google LLC. All rights reserved.
 //
 
 #import <GoogleMobileAds/GADAdLoader.h>
@@ -19,7 +19,6 @@ typedef NS_ENUM(NSInteger, GADAdChoicesPosition) {
 };
 
 /// Ad loader options for configuring the view of native ads.
-GAD_SUBCLASSING_RESTRICTED
 @interface GADNativeAdViewAdOptions : GADAdLoaderOptions
 
 /// Indicates preferred location of AdChoices icon. Default is GADAdChoicesPositionTopRightCorner.

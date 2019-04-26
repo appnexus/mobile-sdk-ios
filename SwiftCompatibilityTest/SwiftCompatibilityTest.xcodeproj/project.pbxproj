@@ -1232,7 +1232,6 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-					"$(PROJECT_DIR)/../../mobile-sdk-ios/mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTest;
@@ -1276,7 +1275,6 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-					"$(PROJECT_DIR)/../../mobile-sdk-ios/mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1318,7 +1316,6 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-					"$(PROJECT_DIR)/../../mobile-sdk-ios/mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
@@ -1358,7 +1355,6 @@
 					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
 					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-					"$(PROJECT_DIR)/../../mobile-sdk-ios/mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";

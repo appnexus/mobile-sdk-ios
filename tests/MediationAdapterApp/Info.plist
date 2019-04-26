@@ -52,5 +52,7 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+    <key>GADIsAdManagerApp</key>
+    <true/>
 </dict>
 </plist>

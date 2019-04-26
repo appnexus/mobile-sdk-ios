@@ -2,13 +2,12 @@
 //  GADVideoController.h
 //  Google Mobile Ads SDK
 //
-//  Copyright (c) 2016 Google Inc. All rights reserved.
+//  Copyright 2016 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// content of the ad rendered by the Google Mobile Ads SDK. You don't need to create an instance of
 /// this class. When the ad rendered by the Google Mobile Ads SDK loads video content, you may be
 /// able to get an instance of this class from the rendered ad object.
-GAD_SUBCLASSING_RESTRICTED
 @interface GADVideoController : NSObject
 
 /// Delegate for receiving video notifications.
@@ -33,17 +31,26 @@ GAD_SUBCLASSING_RESTRICTED
 /// Pause the video. Doesn't do anything if the video is already paused.
 - (void)pause;
 
-/// Returns a Boolean indicating if the receiver has video content.
-- (BOOL)hasVideoContent;
+/// Stops the video and displays the video's first frame. Call -play to resume playback at the start
+/// of the video. Contact your account manager to enable this feature.
+- (void)stop;
 
-/// Returns the video's aspect ratio (width/height) or 0 if no video is present.
-- (double)aspectRatio;
-
-/// Indicates if video custom controls (i.e. play/pause/mute/unmute) are enabled.
+/// Indicates whether video custom controls (i.e. play/pause/mute/unmute) are enabled.
 - (BOOL)customControlsEnabled;
 
-/// Indicates if video click to expand behavior is enabled.
+/// Indicates whether video click to expand behavior is enabled.
 - (BOOL)clickToExpandEnabled;
+
+#pragma mark - Deprecated
+
+/// Returns a Boolean indicating if the receiver has video content.
+- (BOOL)hasVideoContent GAD_DEPRECATED_MSG_ATTRIBUTE(
+    "Use the hasVideoContent property from GADUnifiedNativeAd's mediaContent instead.");
+
+/// Returns the video's aspect ratio (width/height) or 0 if no video is present.
+- (double)aspectRatio GAD_DEPRECATED_MSG_ATTRIBUTE(
+    "Use the aspectRatio property from GADUnifiedNativeAd's mediaContent instead.");
+
 @end
 
 NS_ASSUME_NONNULL_END

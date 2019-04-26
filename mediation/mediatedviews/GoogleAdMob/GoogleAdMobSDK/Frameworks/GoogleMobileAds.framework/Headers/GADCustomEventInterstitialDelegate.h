@@ -2,11 +2,10 @@
 //  GADCustomEventInterstitialDelegate.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2012 Google Inc. All rights reserved.
+//  Copyright 2012 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// (several seconds) after the SDK called the requestInterstitialAdWithParameter: method of your
 /// custom event, the mediation SDK will consider the request timed out, and move on to the next ad
 /// network.
-@protocol GADCustomEventInterstitialDelegate<NSObject>
+@protocol GADCustomEventInterstitialDelegate <NSObject>
 
 /// Your Custom Event object must call this when it receives or creates an interstitial ad.
 - (void)customEventInterstitialDidReceiveAd:(id<GADCustomEventInterstitial>)customEvent;
