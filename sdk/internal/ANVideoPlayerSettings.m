@@ -56,7 +56,7 @@ NSString * const  ANOff = @"off";
         videoSettings = [[ANVideoPlayerSettings alloc] init];
         videoSettings.showClickThruControl = YES;
         videoSettings.showFullScreenControl = YES;
-        videoSettings.initalAudio = None;
+        videoSettings.initalAudio = Default;
         videoSettings.optionsDictionary = [[NSMutableDictionary alloc] init];
         NSDictionary *partner = @{ ANName : AN_OMIDSDK_PARTNER_NAME , ANVersion : AN_SDK_VERSION};
         [videoSettings.optionsDictionary setObject:partner forKey:ANPartner];
@@ -100,11 +100,15 @@ NSString * const  ANOff = @"off";
         publisherOptions[ANShowFullScreen] = [NSNumber numberWithBool:self.showFullScreenControl];
     }
     
-    if(self.initalAudio != None){
+    if(self.initalAudio != Default){
         if(self.initalAudio == SoundOn){
             publisherOptions[ANInitialAudio] = ANOn;
         }else {
             publisherOptions[ANInitialAudio] = ANOff;
+        }
+    }else {
+        if(publisherOptions[ANInitialAudio]){
+            publisherOptions[ANInitialAudio] = nil;
         }
     }
     

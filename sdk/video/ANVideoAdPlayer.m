@@ -451,7 +451,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
         [self.webView evaluateJavaScript:exec completionHandler:nil];
         
     }else if([self.vastURL length] > 0){
-        NSLog(@"Not implemented");
+        ANLogInfo(@"Not implemented");
     }else if([self.jsonContent length] > 0){
         NSString * mediationJsonString = [NSString stringWithFormat:@"processMediationAd('%@')",[self.jsonContent stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]]];
         [self.webView evaluateJavaScript:mediationJsonString completionHandler:nil];

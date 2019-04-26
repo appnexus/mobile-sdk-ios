@@ -19,6 +19,7 @@
 #import "ANVideoPlayerSettings.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
 #import "ANGlobal.h"
+#import "ANOMIDImplementation.h"
 
 @interface ANVideoPlayerSettingsTestCase : XCTestCase
 
@@ -45,7 +46,7 @@
     XCTAssertEqualObjects(json[@"entryPoint"], @"INSTREAM_VIDEO");
     
     NSDictionary *omidOptions = json[@"partner"];
-    XCTAssertEqualObjects(omidOptions[@"name"], @"appnexus.com-omios");
+    XCTAssertEqualObjects(omidOptions[@"name"], AN_OMIDSDK_PARTNER_NAME);
     XCTAssertEqualObjects(omidOptions[@"version"], AN_SDK_VERSION);
     
 }
@@ -88,6 +89,15 @@
     
 }
 
+-(void) testVideoPlayerVolumeControlTrue {
+    [[ANVideoPlayerSettings sharedInstance] setShowVolumeControl:YES];
+    NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchInStreamVideoSettings];
+    NSData *data = [videoSettings dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    XCTAssertNil(json[@"videoOptions"][@"showMute"]);
+    XCTAssertNil(json[@"videoOptions"][@"showVolume"]);
+}
+
 -(void) testInstreamFullScreenSettings {
     [[ANVideoPlayerSettings sharedInstance] setShowFullScreenControl:NO];
     NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchInStreamVideoSettings];
@@ -110,7 +120,7 @@
 }
 
 -(void) testInitialAudioSettings {
-    [[ANVideoPlayerSettings sharedInstance] setInitalAudio:None];
+    [[ANVideoPlayerSettings sharedInstance] setInitalAudio:Default];
     NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchBannerSettings];
     NSData *data = [videoSettings dataUsingEncoding:NSUTF8StringEncoding];
     id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
