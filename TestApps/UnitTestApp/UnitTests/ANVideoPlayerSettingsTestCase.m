@@ -73,6 +73,7 @@
     NSDictionary *learnMoreOptions = json[@"videoOptions"][@"learnMore"];
     
     XCTAssertTrue(learnMoreOptions[@"enabled"]);
+    XCTAssertTrue([learnMoreOptions[@"enabled"] boolValue]);
     XCTAssertEqualObjects(learnMoreOptions[@"text"],@"SampleText");
     
 }
