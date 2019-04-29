@@ -1,3 +1,16 @@
+
+## 5.3
+### New Features
++ MS-3789: Ability to customize Video Player Options
+
+### Mediation partner upgrades/changes
++ MS-3803: Upgraded Google AdMob adapter  SDK v7.43.0
+
+### Improvement/Bug Fixes
++ MS-3774: Improved Open Measurement Event(Session Finish)  for BannerAds
++ MS-3712: Resize BannerAd API for Mediation ads
++ MS-3808: Removed videoAdDidClose method to prevent Video Player removal (Github #22)
+
 ## 5.2
 ### New Features
 + MS-3720: Open Measurement SDK support for Native Ads

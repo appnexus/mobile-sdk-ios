@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
 		0E2C248A2236AE4D006038E1 /* MediationBannerAdResizeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2C24892236AE4D006038E1 /* MediationBannerAdResizeTestCase.m */; };
 		0E2C24912236B075006038E1 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2C24902236B075006038E1 /* GoogleMobileAds.framework */; };
-		0E2C24932236B07F006038E1 /* libGoogleMobileAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2C24922236B07F006038E1 /* libGoogleMobileAds.a */; };
 		0E4701602237A30B005CFFAC /* BannerAdResizeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E47015E2237A30B005CFFAC /* BannerAdResizeTestCase.m */; };
 		0E4701622237A31C005CFFAC /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E4701612237A31C005CFFAC /* SuccessfulRTBShouldResizeAdToFitContainer.json */; };
 		0E47017F2237B35B005CFFAC /* ANBannerAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971B21FF32EB005D1F0E /* ANBannerAdView+ANTest.m */; };
@@ -25,7 +23,6 @@
 		0E4701C62237D44D005CFFAC /* SASDisplayKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A752236C62200D56022 /* SASDisplayKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E4701C72237D450005CFFAC /* SCSCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A742236C62200D56022 /* SCSCoreKit.framework */; };
 		0E4701C82237D450005CFFAC /* SCSCoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A742236C62200D56022 /* SCSCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0E375C772255F95B004C88A6 /* ANSDKSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E375C762255F95B004C88A6 /* ANSDKSettingsTestCase.m */; };
 		0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6EE21F8AEF300ADE6E1 /* CoreGraphics.framework */; };
 		0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6F021F8AEF800ADE6E1 /* AdSupport.framework */; };
 		0E56C6F321F8AF0300ADE6E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6F221F8AF0300ADE6E1 /* AudioToolbox.framework */; };
@@ -139,7 +136,6 @@
 		0ED15A1A2236BEA200D56022 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A192236BEA200D56022 /* CoreAudioKit.framework */; };
 		0ED15A1C2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED15A1B2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json */; };
 		0ED15A1D2236C03400D56022 /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0ED15A1B2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json */; };
-		0ED15A1E2236C17E00D56022 /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971821FF32EB005D1F0E /* ANUniversalAdFetcher+ANTest.m */; };
 		0ED15A4C2236C3B000D56022 /* libANAdapterForGoogleAdMobSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEFE0F72200547A002B5F5F /* libANAdapterForGoogleAdMobSDK.a */; };
 		0ED15A4D2236C3B000D56022 /* libANAdapterForMoPubSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEFE0F92200547A002B5F5F /* libANAdapterForMoPubSDK.a */; };
 		0ED15A4E2236C3B000D56022 /* libANSDKAdColonyAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEFE0EF2200547A002B5F5F /* libANSDKAdColonyAdapter.a */; };
@@ -260,8 +256,6 @@
 		979EA16C223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */; };
 		979EA16D223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */; };
 		979EA171223BC364009B79B7 /* ANOMIDNativeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 979EA170223BC364009B79B7 /* ANOMIDNativeTestCase.m */; };
-		97B13D73226F0C0100EAA266 /* libANAdapterForGoogleAdMobSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEFE0F72200547A002B5F5F /* libANAdapterForGoogleAdMobSDK.a */; };
-		97B13D75226F0C1D00EAA266 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B13D74226F0C1C00EAA266 /* GoogleMobileAds.framework */; };
 		97B3C8EF223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */; };
 		97B3C8F0223FA311005B2DB8 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */; };
 /* End PBXBuildFile section */
@@ -526,13 +520,6 @@
 			remoteGlobalIDString = 8AE2D6A119CC874B00001B70;
 			remoteInfo = ANSDKGoogleAdMobAdapter;
 		};
-		97B13D71226F0BE600EAA266 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0EEFE0C72200547A002B5F5F /* ANSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8AE2D84519CC9A6F00001B70;
-			remoteInfo = ANAdapterForGoogleAdMobSDK;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -553,7 +540,6 @@
 /* Begin PBXFileReference section */
 		0E2C24892236AE4D006038E1 /* MediationBannerAdResizeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationBannerAdResizeTestCase.m; sourceTree = "<group>"; };
 		0E2C24902236B075006038E1 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
-		0E2C24922236B07F006038E1 /* libGoogleMobileAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleMobileAds.a; path = ../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/libGoogleMobileAds.a; sourceTree = "<group>"; };
 		0E47015E2237A30B005CFFAC /* BannerAdResizeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerAdResizeTestCase.m; sourceTree = "<group>"; };
 		0E4701612237A31C005CFFAC /* SuccessfulRTBShouldResizeAdToFitContainer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulRTBShouldResizeAdToFitContainer.json; sourceTree = "<group>"; };
 		0E4701892237B440005CFFAC /* ViewController+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+ANTest.h"; sourceTree = "<group>"; };
@@ -568,7 +554,6 @@
 		0E4701A82237B442005CFFAC /* ANAdAdapterBaseYahoo+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBaseYahoo+ANTest.m"; sourceTree = "<group>"; };
 		0E4701A92237B443005CFFAC /* ANAdAdapterBannerMoPub+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBannerMoPub+ANTest.h"; sourceTree = "<group>"; };
 		0E4701AB2237B443005CFFAC /* ViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+ANTest.m"; sourceTree = "<group>"; };
-		0E375C762255F95B004C88A6 /* ANSDKSettingsTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANSDKSettingsTestCase.m; sourceTree = "<group>"; };
 		0E56C6EE21F8AEF300ADE6E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0E56C6F021F8AEF800ADE6E1 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		0E56C6F221F8AF0300ADE6E1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -673,7 +658,6 @@
 		0EC17C5D21F72EC500F0F6AF /* FunctionalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunctionalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC17C5F21F72EC500F0F6AF /* FunctionalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunctionalTests.m; sourceTree = "<group>"; };
 		0EC17C6121F72EC500F0F6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-
 		0ED159D42236B35A00D56022 /* ANAdAdapterBannerAdMob+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBannerAdMob+ANTest.m"; sourceTree = "<group>"; };
 		0ED159D52236B35A00D56022 /* ANAdAdapterBannerAdMob+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBannerAdMob+ANTest.h"; sourceTree = "<group>"; };
 		0ED159DA2236B52800D56022 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -802,7 +786,6 @@
 		979EA168223BB575009B79B7 /* OMID_Native_CSMResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_CSMResponse.json; sourceTree = "<group>"; };
 		979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_RTBResponse.json; sourceTree = "<group>"; };
 		979EA170223BC364009B79B7 /* ANOMIDNativeTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDNativeTestCase.m; sourceTree = "<group>"; };
-		97B13D74226F0C1C00EAA266 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionConfiguration+ANProtocols.m"; sourceTree = "<group>"; };
 		97B3C8EC223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+ANProtocols.h"; sourceTree = "<group>"; };
 		97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
@@ -883,7 +866,6 @@
 				0E56C6FD21F8AF1E00ADE6E1 /* CoreTelephony.framework in Frameworks */,
 				0E56C6FB21F8AF1900ADE6E1 /* CoreLocation.framework in Frameworks */,
 				0E56C6F921F8AF1100ADE6E1 /* CFNetwork.framework in Frameworks */,
-
 				0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1095,7 +1077,6 @@
 				0ED15A612236C5AA00D56022 /* ANGADUnifiedNativeAdView.h */,
 				0ED15A622236C5AB00D56022 /* ANGADUnifiedNativeAdView.m */,
 				0ED15A632236C5AB00D56022 /* ANGADUnifiedNativeAdView.xib */,
-
 				0EC17C3B21F72D1700F0F6AF /* Main.storyboard */,
 				0EC17C3E21F72D1900F0F6AF /* Assets.xcassets */,
 				0EC17C4021F72D1900F0F6AF /* LaunchScreen.storyboard */,
@@ -1677,7 +1658,6 @@
 				0E4701BB2237B443005CFFAC /* ANAdAdapterBannerMoPub+ANTest.m in Sources */,
 				0E8C97CB21FF32EC005D1F0E /* ANAdWebViewController+ANTest.m in Sources */,
 				0E8C97C221FF32EC005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
-				0ED15A1E2236C17E00D56022 /* ANUniversalAdFetcher+ANTest.m in Sources */,
 				0EEFE15322005AC9002B5F5F /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
 				0EEFE15422005AD1002B5F5F /* ANTestResponses.m in Sources */,
 				0E4701B52237B443005CFFAC /* ANVideoAdPlayer+Test.m in Sources */,
@@ -1910,11 +1890,6 @@
 			isa = PBXTargetDependency;
 			name = ANSDKGoogleAdMobAdapter;
 			targetProxy = 0EEFE1CB22008CF9002B5F5F /* PBXContainerItemProxy */;
-		};
-		97B13D72226F0BE600EAA266 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ANAdapterForGoogleAdMobSDK;
-			targetProxy = 97B13D71226F0BE600EAA266 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
