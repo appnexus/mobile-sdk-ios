@@ -28,6 +28,7 @@
 #import "ANPBBuffer.h"
 #import "ANANJAMImplementation.h"
 #import "ANInterstitialAdViewController.h"
+#import "ANOMIDImplementation.h"
 
 
 typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
@@ -92,6 +93,8 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 @property (nonatomic, readwrite, assign) BOOL userInteractedWithContentView;
 
 @property (nonatomic, readwrite, assign) BOOL responsiveAd;
+
+@property (nonatomic, readwrite, strong) dispatch_semaphore_t semaphore;
 
 @end
 
@@ -177,6 +180,40 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
     return self;
 }
+
+
+
+- (void) willMoveToSuperview: (UIView *)newSuperview
+{
+    [super willMoveToSuperview:newSuperview];
+
+    // UIView already added to superview.
+    if (newSuperview != nil)  {
+        return;
+    }
+    // UIView was removed from superview
+    if (!self.webViewController.omidAdSession)  {
+        // omidAdSession is nil
+        return;
+    }
+    self.semaphore = dispatch_semaphore_create(0);
+
+    [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.webViewController.omidAdSession];
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        dispatch_semaphore_signal(self.semaphore);
+    });
+    dispatch_semaphore_wait(self.semaphore, popTime);
+}
+
+- (void)dealloc
+{
+    if(self.semaphore){
+        self.semaphore = nil;
+    }
+}
+
 
 #pragma mark - Getters/setters.
 

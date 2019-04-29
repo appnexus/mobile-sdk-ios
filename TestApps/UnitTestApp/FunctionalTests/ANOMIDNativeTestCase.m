@@ -80,7 +80,7 @@
     XCTAssertTrue([self.requestData containsString:@"partnerName"]);
     XCTAssertTrue([self.requestData containsString:@"appnexus.com-omios"]);
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
-    XCTAssertTrue([self.requestData containsString:@"5.1.2"]);
+    XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
 }
 
@@ -94,7 +94,7 @@
     XCTAssertTrue([self.requestData containsString:@"partnerName"]);
     XCTAssertTrue([self.requestData containsString:@"appnexus.com-omios"]);
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
-    XCTAssertTrue([self.requestData containsString:@"5.1.2"]);
+    XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
     [self.adResponse unregisterViewFromTracking];
     [XCTestCase delayForTimeInterval:5];

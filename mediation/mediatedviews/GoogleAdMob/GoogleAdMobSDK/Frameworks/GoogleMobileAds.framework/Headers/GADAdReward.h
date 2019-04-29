@@ -2,17 +2,15 @@
 //  GADAdReward.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2015 Google Inc. All rights reserved.
+//  Copyright 2015 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /// Reward information for GADRewardBasedVideoAd ads.
-GAD_SUBCLASSING_RESTRICTED
 @interface GADAdReward : NSObject
 
 /// Type of the reward.

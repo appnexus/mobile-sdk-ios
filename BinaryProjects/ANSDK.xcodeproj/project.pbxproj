@@ -113,6 +113,12 @@
 		609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */; };
 		609733141E42EB0B0061EC0A /* ASTMediationManager.js in Resources */ = {isa = PBXBuildFile; fileRef = 609733001E42EAFF0061EC0A /* ASTMediationManager.js */; };
 		60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */ = {isa = PBXBuildFile; fileRef = 60AB32891E521FE500429ED7 /* MobileVastPlayer.js */; };
+		60D39E112256EE430029F741 /* optionsparser.js in Resources */ = {isa = PBXBuildFile; fileRef = 60D39E0F2256EE420029F741 /* optionsparser.js */; };
+		60D39E1522570FE20029F741 /* ANVideoPlayerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		60D39E1622570FE20029F741 /* ANVideoPlayerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */; };
+		60D39E1722570FE20029F741 /* ANVideoPlayerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */; };
+		60D39E2822679DF80029F741 /* ANVideoPlayerSettings.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */; };
+		60D39E2922679E480029F741 /* ANVideoPlayerSettings+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D39E26226798D50029F741 /* ANVideoPlayerSettings+ANCategory.h */; };
 		8A02D6EB1D6CDFF9006831A3 /* ANSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */; };
 		8A02D6EE1D6CE014006831A3 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6F91D6CE946006831A3 /* ANBaseUrlConfig.h */; };
@@ -681,6 +687,7 @@
 				8A9AED271A1BAD7700C58BDA /* ANNativeCustomAdapter.h in Copy Files */,
 				8A9AED281A1BAD7700C58BDA /* ANNativeMediatedAdResponse.h in Copy Files */,
 				8AF366BD19D492F30097019F /* ANSDKResources.bundle in Copy Files */,
+				60D39E2822679DF80029F741 /* ANVideoPlayerSettings.h in Copy Files */,
 				8AB178B91D95D7F400E59CDF /* ANSDKSettings.h in Copy Files */,
 				ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */,
 			);
@@ -705,7 +712,6 @@
 		0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMMediationAdViewController.m; sourceTree = "<group>"; };
 		00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANOMIDImplementation.h; sourceTree = "<group>"; };
 		00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDImplementation.m; sourceTree = "<group>"; };
-		0E296DBE21A3669800769FC0 /* libGoogleMobileAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleMobileAds.a; sourceTree = "<group>"; };
 		0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANGDPRSettings.h; sourceTree = "<group>"; };
 		0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANGDPRSettings.m; sourceTree = "<group>"; };
 		0E6D9AB220D1A943001FA1FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ANBrowserViewController.xib; sourceTree = "<group>"; };
@@ -855,6 +861,10 @@
 		609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoAdPlayer.m; sourceTree = "<group>"; };
 		609733001E42EAFF0061EC0A /* ASTMediationManager.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ASTMediationManager.js; sourceTree = "<group>"; };
 		60AB32891E521FE500429ED7 /* MobileVastPlayer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MobileVastPlayer.js; sourceTree = "<group>"; };
+		60D39E0F2256EE420029F741 /* optionsparser.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = optionsparser.js; sourceTree = "<group>"; };
+		60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANVideoPlayerSettings.h; sourceTree = "<group>"; };
+		60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettings.m; sourceTree = "<group>"; };
+		60D39E26226798D50029F741 /* ANVideoPlayerSettings+ANCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANVideoPlayerSettings+ANCategory.h"; sourceTree = "<group>"; };
 		60F6AC1C2051C50C0022560D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDK.h; sourceTree = "<group>"; };
 		8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSDKSettings.h; sourceTree = "<group>"; };
@@ -1335,14 +1345,6 @@
 			path = Viewability;
 			sourceTree = "<group>";
 		};
-		0E296DBD21A3669800769FC0 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				0E296DBE21A3669800769FC0 /* libGoogleMobileAds.a */,
-			);
-			path = Libraries;
-			sourceTree = "<group>";
-		};
 		0EB25AFF21A36EB100C26EC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1590,7 +1592,6 @@
 			isa = PBXGroup;
 			children = (
 				0EB25AFF21A36EB100C26EC7 /* Frameworks */,
-				0E296DBD21A3669800769FC0 /* Libraries */,
 			);
 			name = GoogleAdMobSDK;
 			path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK;
@@ -1949,6 +1950,7 @@
 				4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */,
 				609732CA1E42E9860061EC0A /* ANVideoAdProcessor.h */,
 				609732CB1E42E9860061EC0A /* ANVideoAdProcessor.m */,
+				60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -2209,6 +2211,7 @@
 				ECE4EA93194B768A0069D934 /* ANLogManager.h */,
 				8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */,
 				ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */,
+				60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */,
 			);
 			name = ANSDK;
 			path = ../sdk;
@@ -2234,6 +2237,7 @@
 				ECE4EA9D194B768A0069D934 /* UIWebView+ANCategory.m */,
 				602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */,
 				602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */,
+				60D39E26226798D50029F741 /* ANVideoPlayerSettings+ANCategory.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2253,6 +2257,7 @@
 				60AB32891E521FE500429ED7 /* MobileVastPlayer.js */,
 				0EEE97DA21764ACD007DADE6 /* omsdk.js */,
 				ECE4EAD9194B768A0069D934 /* sdkjs.js */,
+				60D39E0F2256EE420029F741 /* optionsparser.js */,
 				4F403A6D2043C8CF00EF75A2 /* vastVideo.html */,
 			);
 			path = Resources;
@@ -2304,6 +2309,7 @@
 				8A9AEDB41A1BE8C200C58BDA /* ANBannerAdView.h in Headers */,
 				FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */,
 				8A02D7001D6CE946006831A3 /* ANBaseUrlConfig.h in Headers */,
+				60D39E1522570FE20029F741 /* ANVideoPlayerSettings.h in Headers */,
 				8A9AEDD21A1BF88200C58BDA /* ANBrowserViewController.h in Headers */,
 				9EEE4E50214FD2100056C5DD /* ANCarrierObserver.h in Headers */,
 				8A9AEDD31A1BF88200C58BDA /* ANClickOverlayView.h in Headers */,
@@ -2360,6 +2366,7 @@
 				609732CE1E42E9860061EC0A /* ANUniversalAdFetcher.h in Headers */,
 				609732D11E42E9860061EC0A /* ANUniversalTagAdServerResponse.h in Headers */,
 				609732D41E42E9860061EC0A /* ANUniversalTagRequestBuilder.h in Headers */,
+				60D39E2922679E480029F741 /* ANVideoPlayerSettings+ANCategory.h in Headers */,
 				609733071E42EAFF0061EC0A /* ANVideoAdPlayer.h in Headers */,
 				609732D71E42E9860061EC0A /* ANVideoAdProcessor.h in Headers */,
 				8A9AED911A1BE84F00C58BDA /* AppNexusSDK.h in Headers */,
@@ -2936,6 +2943,7 @@
 				ECE4EB06194B76960069D934 /* errors.strings in Resources */,
 				ECE4EB09194B76960069D934 /* interstitial_closebox.png in Resources */,
 				ECE4EB0A194B76960069D934 /* interstitial_closebox@2x.png in Resources */,
+				60D39E112256EE430029F741 /* optionsparser.js in Resources */,
 				8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */,
 				8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */,
 				8A6D2E8D1A44A751003CE77A /* interstitial_flat_closebox@3x.png in Resources */,
@@ -3071,6 +3079,7 @@
 				8A9AEE011A1BF99D00C58BDA /* ANPBContainerView.m in Sources */,
 				602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */,
 				8A9AEE021A1BF99D00C58BDA /* ANReachability.m in Sources */,
+				60D39E1722570FE20029F741 /* ANVideoPlayerSettings.m in Sources */,
 				609732DC1E42E9860061EC0A /* ANRTBVideoAd.m in Sources */,
 				8A02D7091D6CE946006831A3 /* ANSDKSettings.m in Sources */,
 				0035C5B11F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */,
@@ -3258,6 +3267,7 @@
 				ECE4EADB194B768A0069D934 /* NSTimer+ANCategory.m in Sources */,
 				ECE4EADC194B768A0069D934 /* UIView+ANCategory.m in Sources */,
 				8A6385E91A14336000280054 /* UIView+ANNativeAdCategory.m in Sources */,
+				60D39E1622570FE20029F741 /* ANVideoPlayerSettings.m in Sources */,
 				ECE4EADD194B768A0069D934 /* UIWebView+ANCategory.m in Sources */,
 				602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */,
 				602E0E241FE46571002C0F1C /* WKWebView+ANCategory.m in Sources */,
@@ -3801,7 +3811,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKGoogleAdMobAdapter;
 				SKIP_INSTALL = YES;
@@ -3818,7 +3828,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKGoogleAdMobAdapter;
 				SKIP_INSTALL = YES;
@@ -3924,9 +3934,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANAdapterForGoogleAdMobSDK;
 				SKIP_INSTALL = YES;
@@ -3942,9 +3951,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries/**",
 				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Libraries";
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANAdapterForGoogleAdMobSDK;
 				SKIP_INSTALL = YES;

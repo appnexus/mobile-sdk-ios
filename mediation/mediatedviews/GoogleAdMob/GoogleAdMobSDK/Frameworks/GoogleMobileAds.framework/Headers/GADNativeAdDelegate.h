@@ -2,11 +2,10 @@
 //  GADNativeAdDelegate.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2015 Google Inc. All rights reserved.
+//  Copyright 2015 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 @class GADNativeAd;
@@ -14,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// Identifies native ad assets.
-@protocol GADNativeAdDelegate<NSObject>
+@protocol GADNativeAdDelegate <NSObject>
 
 @optional
 
