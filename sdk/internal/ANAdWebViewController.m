@@ -13,12 +13,9 @@
  limitations under the License.
  */
 
-#define kANAdWebViewControllerWebKitEnabled 1
 #define AN_USER_DENIED_LOCATION_PERMISSION 1
 
-#if kANAdWebViewControllerWebKitEnabled
 #import <WebKit/WebKit.h>
-#endif
 
 #import "ANAdWebViewController.h"
 #import "ANGlobal.h"
@@ -45,21 +42,13 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 
 
-#if kANAdWebViewControllerWebKitEnabled
-@interface ANAdWebViewController () <UIWebViewDelegate, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
-#else
-@interface ANAdWebViewController () <UIWebViewDelegate>
-#endif
+@interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
 
 @property (nonatomic, readwrite, strong)    UIView      *contentView;
-@property (nonatomic, readwrite, weak)      UIWebView   *legacyWebView;
 
-#if kANAdWebViewControllerWebKitEnabled
 @property (nonatomic, readwrite, weak)      WKWebView   *modernWebView;
-#endif
 
-
-@property (nonatomic, readwrite, assign)  BOOL  isMRAID;
+    @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
 @property (nonatomic, readwrite, assign)  BOOL  completedFirstLoad;
 
 @property (nonatomic, readwrite, strong)                        NSTimer     *viewabilityTimer;
@@ -80,9 +69,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
 
 @end
-
-
-
 
 @implementation ANAdWebViewController
 
@@ -124,22 +110,13 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
     
-    //
-#if kANAdWebViewControllerWebKitEnabled
     if ([WKWebView class])
     {
         [self loadModernWebViewWithSize: size
                                     URL: URL
                                 baseURL: baseURL];
-    } else
-#endif
-    {
-        [self loadLegacyWebViewWithSize: size
-                                    URL: URL
-                                baseURL: baseURL];
     }
     
-    //
     return self;
 }
 
@@ -172,46 +149,21 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         base = [NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]];
     }
     
-    
-#if kANAdWebViewControllerWebKitEnabled
-    if ([WKWebView class])
-    {
-        NSString  *htmlToLoad  = html;
+    NSString  *htmlToLoad  = html;
       
-        // This injects OMID JS to the HTML
-        // NOTE this is intentionally kept above prependViewport if moved below it causes the tag to shrink.
-        // This causes MS-3707, we are instead using WKUserScript to attach OMID JS to WKWebview.
-        //htmlToLoad = [[ANOMIDImplementation sharedInstance] prependOMIDJSToHTML:html];
+    if (!_configuration.scrollingEnabled) {
+        htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
+    }
         
-        if (!_configuration.scrollingEnabled) {
-            htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
-        }
-        
-        [self loadModernWebViewWithSize: size
+    [self loadModernWebViewWithSize: size
                                    HTML: htmlToLoad
                                 baseURL: base];
-    } else
-#endif
-    {
-        NSString *htmlWithScripts = [[self class] prependScriptsToHTML:html];
-        
-        [self loadLegacyWebViewWithSize: size
-                                   HTML: htmlWithScripts
-                                baseURL: base];
-    }
-    
-    //
     return self;
 }
 
 - (instancetype) initWithSize: (CGSize)size
                      videoXML: (NSString *)videoXML;
 {
-#if !defined(kANAdWebViewControllerWebKitEnabled)
-    ANLogError(@"Banner Video requires use of WKWebView.")
-    return  nil;
-#endif
-    
     self = [self initWithConfiguration:nil];
     if (!self)  { return nil; }
     
@@ -277,9 +229,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
-
-
 #pragma mark - Scripts
 
 + (NSString *)mraidHTML {
@@ -331,74 +280,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     return [NSString stringWithFormat:@"%@%@%@", [[self class] anjamHTML], [[self class] mraidHTML], html];
 }
 
-
-
-
-#pragma mark - UIWebView
-
-+ (UIWebView *)defaultLegacyWebViewWithSize:(CGSize)size
-                              configuration:(ANAdWebViewControllerConfiguration *)configuration {
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    webView.backgroundColor = [UIColor clearColor];
-    webView.opaque = NO;
-    if (configuration.scrollingEnabled) {
-        webView.scrollView.scrollEnabled = YES;
-        webView.scrollView.bounces = YES;
-        webView.scalesPageToFit = YES;
-    } else {
-        webView.scrollView.scrollEnabled = NO;
-        webView.scrollView.bounces = NO;
-        webView.scalesPageToFit = NO;
-    }
-    [webView an_setMediaProperties];
-    return webView;
-}
-
-- (void)loadLegacyWebViewWithSize:(CGSize)size
-                              URL:(NSURL *)URL
-                          baseURL:(NSURL *)baseURL {
-    UIWebView *webView = [[self class] defaultLegacyWebViewWithSize:size
-                                                      configuration:self.configuration];
-    webView.delegate = self;
-    self.legacyWebView = webView;
-    self.contentView = webView;
-    __weak UIWebView *weakWebView = webView;
-    
-    [[[NSURLSession sharedSession] dataTaskWithRequest:ANBasicRequestWithURL(URL) completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        UIWebView *strongWebView = weakWebView;
-        if (strongWebView) {
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                if (html.length) {
-                    NSString *htmlWithScripts = [[self class] prependScriptsToHTML:html];
-                    [strongWebView loadHTMLString:htmlWithScripts baseURL:baseURL];
-                }
-            });
-            
-            
-        }
-    }] resume];
-}
-
-- (void)loadLegacyWebViewWithSize:(CGSize)size
-                             HTML:(NSString *)html
-                          baseURL:(NSURL *)baseURL {
-    UIWebView *webView = [[self class] defaultLegacyWebViewWithSize:size
-                                                      configuration:self.configuration];
-    webView.delegate = self;
-    [webView loadHTMLString:html
-                    baseURL:baseURL];
-    self.legacyWebView = webView;
-    self.contentView = webView;
-}
-
-
-
-
 #pragma mark - WKWebView
 
-#if kANAdWebViewControllerWebKitEnabled
 
 + (WKWebView *)defaultModernWebViewWithSize:(CGSize)size
                               configuration:(ANAdWebViewControllerConfiguration *)configuration
@@ -589,72 +472,10 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     return configuration;
 }
 
-#endif  //kANAdWebViewControllerWebKitEnabled
 
-
-
-
-# pragma mark - UIWebViewDelegate
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [webView an_removeDocumentPadding];
-    [self processWebViewDidFinishLoad];
-}
-
-- (BOOL)                webView: (UIWebView *)webView
-     shouldStartLoadWithRequest: (NSURLRequest *)request
-                 navigationType: (UIWebViewNavigationType)navigationType
-{
-    NSURL *URL = [request URL];
-    NSURL *mainDocumentURL = [request mainDocumentURL];
-    NSString *scheme = [URL scheme];
-    
-    if ([scheme isEqualToString:@"anwebconsole"]) {
-        [self printConsoleLogWithURL:URL];
-        return NO;
-    }
-    
-    ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByRemovingPercentEncoding]);
-    
-    if (self.completedFirstLoad) {
-        if (ANHasHttpPrefix(scheme)) {
-            if (self.isMRAID) {
-                if ([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] && self.configuration.navigationTriggersDefaultBrowser) {
-                    [self.browserDelegate openDefaultBrowserWithURL:URL];
-                    return NO;
-                }
-            } else {
-                if (([[mainDocumentURL absoluteString] isEqualToString:[URL absoluteString]] || navigationType == UIWebViewNavigationTypeLinkClicked)
-                    && self.configuration.navigationTriggersDefaultBrowser) {
-                    [self.browserDelegate openDefaultBrowserWithURL:URL];
-                    return NO;
-                }
-            }
-        } else if ([scheme isEqualToString:@"mraid"]) {
-            [self handleMRAIDURL:URL];
-            return NO;
-        } else if ([scheme isEqualToString:@"anjam"]) {
-            [self.anjamDelegate handleANJAMURL:URL];
-            return NO;
-        } else if ([scheme isEqualToString:@"about"]) {
-            return NO;
-        } else {
-            if (self.configuration.navigationTriggersDefaultBrowser) {
-                [self.browserDelegate openDefaultBrowserWithURL:URL];
-                return NO;
-            }
-        }
-    } else if ([scheme isEqualToString:@"mraid"] && [[URL host] isEqualToString:@"enable"]) {
-        [self handleMRAIDURL:URL];
-        return NO;
-    }
-    
-    return YES;
-}
 
 #pragma mark - WKNavigationDelegate
 
-#if kANAdWebViewControllerWebKitEnabled
 
 -(void) webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
 {
@@ -777,11 +598,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     return nil;
 }
-
-#endif  //kANAdWebViewControllerWebKitEnabled
-
-
-
 
 #pragma mark - WKScriptMessageHandler.
 
@@ -1072,19 +888,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 }
 
 - (void)fireJavaScript:(NSString *)javascript {
-#if kANAdWebViewControllerWebKitEnabled
-    if (self.modernWebView) {
         [self.modernWebView evaluateJavaScript:javascript completionHandler:nil];
-    } else
-#endif
-    {
-        [self.legacyWebView stringByEvaluatingJavaScriptFromString:javascript];
-    }
 }
 
 - (void)stopWebViewLoadForDealloc
 {
-#if kANAdWebViewControllerWebKitEnabled
     if (self.modernWebView)
     {
         [self.modernWebView stopLoading];
@@ -1095,19 +903,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         [self.modernWebView removeFromSuperview];
         self.modernWebView = nil;
         
-    } else
-#endif
-    {
-        [self.legacyWebView loadHTMLString:@"" baseURL:nil];
-        [self.legacyWebView stopLoading];
-        
-        self.legacyWebView.delegate = nil;
-        
-        [self.legacyWebView an_removeSubviews];
-        [self.legacyWebView removeFromSuperview];
-        self.legacyWebView = nil;
     }
-    
     self.contentView = nil;
 }
 
