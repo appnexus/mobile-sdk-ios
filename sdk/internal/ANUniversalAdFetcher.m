@@ -551,7 +551,6 @@
 - (void)fireResponseURL:(NSString *)urlString
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
-              auctionID:(NSString *)auctionID
 {
     
     if (urlString) {
@@ -561,7 +560,6 @@
     if (reason == ANAdResponseSuccessful) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
         
-        response.auctionID = auctionID;
         [self processFinalResponse:response];
         
     } else {

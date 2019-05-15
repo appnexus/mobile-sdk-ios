@@ -20,8 +20,6 @@
 #import "ANInterstitialAdViewController.h"
 #import "ANLogging.h"
 #import "ANAdView+PrivateMethods.h"
-#import "ANPBBuffer.h"
-#import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 #import "ANTrackerManager.h"
 #import "ANCustomAdapter.h"
@@ -203,7 +201,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     
     id         adToShow         = nil;
     id         adObjectHandler  = nil;
-    NSString  *auctionID        = nil;
     
     NSArray<NSString *>  *impressionURLs  = nil;
     
@@ -217,7 +214,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     }
     
     
-    // Find first valid pre-cached ad, auctionID and meta data.
+    // Find first valid pre-cached ad and meta data.
     // Pull out impression URL trackers.
     //
     while ([self.precachedAdObjects count] > 0) {
@@ -231,7 +228,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
             // If ad is still valid, save a reference to it. We'll use it later
             adToShow         = adDict[kANInterstitialAdViewKey];
             adObjectHandler  = adDict[kANInterstitialAdObjectHandlerKey];
-            auctionID        = adDict[kANInterstitialAdViewAuctionInfoKey];
             
             [self.precachedAdObjects removeObjectAtIndex:0];
             break;
@@ -303,16 +299,6 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         }
         [adToShow presentFromViewController:controller];
         
-        if (auctionID) {
-            ANPBContainerView *logoView = [[ANPBContainerView alloc] initWithLogo];
-            [controller.presentedViewController.view addSubview:logoView];
-            [ANPBBuffer addAdditionalInfo:@{kANPBBufferAdWidthKey: @(CGRectGetWidth(controller.presentedViewController.view.frame)),
-                                            kANPBBufferAdHeightKey: @(CGRectGetHeight(controller.presentedViewController.view.frame))}
-                             forAuctionID:auctionID];
-            [ANPBBuffer captureDelayedImage:controller.presentedViewController.view
-                               forAuctionID:auctionID];
-        }
-        
     } else {
         ANLogError(@"Display ad called, but no valid ad to show. Please load another interstitial ad.");
         [self adFailedToDisplay];
@@ -345,15 +331,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
                                                  [NSDate date],            kANInterstitialAdViewDateLoadedKey,
                                                  nil
                                                  ];
-    // cannot insert nil objects
-    if (response.auctionID) {
-        adViewWithDateLoaded[kANInterstitialAdViewAuctionInfoKey] = response.auctionID;
-    }
-    
-    
-    
-    
-    
+
     [self.precachedAdObjects addObject:adViewWithDateLoaded];
     ANLogDebug(@"Stored ad %@ in precached ad views", adViewWithDateLoaded);
     

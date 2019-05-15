@@ -105,9 +105,6 @@ extern NSString * const  kANUniversalAdFetcherAdResponseKey;
 #define kANSDKResourcesBundleName @"ANSDKResources"
 
 
-// Buffer Limit
-#define kANPBBufferLimit 10
-
 #pragma mark - Global functions.
 
 NSString *ANDeviceModel(void);

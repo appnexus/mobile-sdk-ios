@@ -53,8 +53,7 @@
 
 - (void)fireResponseURL:(NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
-               adObject:(id)adObject
-              auctionID:(NSString *)auctionID;
+               adObject:(id)adObject;
 
 
 @end

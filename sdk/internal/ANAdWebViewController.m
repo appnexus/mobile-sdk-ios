@@ -616,11 +616,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByRemovingPercentEncoding]);
     
-    if ([scheme isEqualToString:@"appnexuspb"]) {
-        [self.pitbullDelegate handlePitbullURL:URL];
-        return NO;
-    }
-    
     if (self.completedFirstLoad) {
         if (ANHasHttpPrefix(scheme)) {
             if (self.isMRAID) {
@@ -694,12 +689,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     }
     
     ANLogDebug(@"Loading URL: %@", [[URL absoluteString] stringByRemovingPercentEncoding]);
-    
-    if ([URLScheme isEqualToString:@"appnexuspb"]) {
-        [self.pitbullDelegate handlePitbullURL:URL];
-        decisionHandler(WKNavigationActionPolicyCancel);
-        return;
-    }
     
     // For security reasons, test for fragment of path to vastVideo.html.
     //
