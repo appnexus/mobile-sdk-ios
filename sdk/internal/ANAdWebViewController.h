@@ -32,7 +32,6 @@
 @protocol ANAdWebViewControllerBrowserDelegate;
 @protocol ANAdWebViewControllerLoadingDelegate;
 @protocol ANAdWebViewControllerMRAIDDelegate;
-@protocol ANAdWebViewControllerPitbullDelegate;
 @protocol ANAdWebViewControllerVideoDelegate;
 
 
@@ -53,7 +52,6 @@
 @property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerBrowserDelegate>    browserDelegate;
 @property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerLoadingDelegate>    loadingDelegate;
 @property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerMRAIDDelegate>      mraidDelegate;
-@property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerPitbullDelegate>    pitbullDelegate;
 @property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerVideoDelegate>      videoDelegate;
 
 @property (nonatomic, readwrite, assign)  NSTimeInterval  checkViewableTimeInterval;
@@ -160,13 +158,6 @@
 - (void)adShouldOpenCalendarWithCalendarDict:(NSDictionary *)calendarDict;
 - (void)adShouldSavePictureWithUri:(NSString *)uri;
 - (void)adShouldPlayVideoWithUri:(NSString *)uri;
-
-@end
-
-
-@protocol ANAdWebViewControllerPitbullDelegate <NSObject>
-
-- (void)handlePitbullURL:(NSURL *)URL;
 
 @end
 

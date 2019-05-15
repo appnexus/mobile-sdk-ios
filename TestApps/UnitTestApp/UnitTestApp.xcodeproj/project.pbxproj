@@ -19,9 +19,7 @@
 		0E4701C12237B443005CFFAC /* ANAdAdapterBaseYahoo+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4701A82237B442005CFFAC /* ANAdAdapterBaseYahoo+ANTest.m */; };
 		0E4701C22237B443005CFFAC /* ViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4701AB2237B443005CFFAC /* ViewController+ANTest.m */; };
 		0E4701C42237CDC9005CFFAC /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971321FF32EB005D1F0E /* ANTrackerManager+ANTest.m */; };
-		0E4701C52237D44D005CFFAC /* SASDisplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A752236C62200D56022 /* SASDisplayKit.framework */; };
 		0E4701C62237D44D005CFFAC /* SASDisplayKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A752236C62200D56022 /* SASDisplayKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0E4701C72237D450005CFFAC /* SCSCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A742236C62200D56022 /* SCSCoreKit.framework */; };
 		0E4701C82237D450005CFFAC /* SCSCoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A742236C62200D56022 /* SCSCoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6EE21F8AEF300ADE6E1 /* CoreGraphics.framework */; };
 		0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6F021F8AEF800ADE6E1 /* AdSupport.framework */; };
@@ -104,7 +102,6 @@
 		0E8C982921FF4141005D1F0E /* ANAdResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C982821FF4141005D1F0E /* ANAdResponseTestCase.m */; };
 		0E8C982B21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C982A21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m */; };
 		0E8C982D21FF4192005D1F0E /* UIViewConstraintsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C982C21FF4191005D1F0E /* UIViewConstraintsTestCase.m */; };
-		0E8C982F21FF419D005D1F0E /* ANPBContainerViewTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C982E21FF419D005D1F0E /* ANPBContainerViewTestCase.m */; };
 		0E8C983121FF41A8005D1F0E /* ANBannerAdViewTransitionsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983021FF41A8005D1F0E /* ANBannerAdViewTransitionsTestCase.m */; };
 		0E8C983321FF41B2005D1F0E /* ANMediationAdViewControllerTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983221FF41B1005D1F0E /* ANMediationAdViewControllerTestCase.m */; };
 		0E8C983521FF41C4005D1F0E /* MediationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983421FF41C4005D1F0E /* MediationTests.m */; };
@@ -208,7 +205,6 @@
 		0EEFE184220075B0002B5F5F /* ANInterstitialAdTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE183220075B0002B5F5F /* ANInterstitialAdTestCase.m */; };
 		0EEFE186220075C7002B5F5F /* BasicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE185220075C6002B5F5F /* BasicTests.m */; };
 		0EEFE1882200762B002B5F5F /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983A21FF42C9005D1F0E /* ANBaseTestCase.m */; };
-		0EEFE18922007653002B5F5F /* ANInstreamVideoAd+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1672200721F002B5F5F /* ANInstreamVideoAd+Test.m */; };
 		0EEFE18A22007654002B5F5F /* ANInstreamVideoAd+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1672200721F002B5F5F /* ANInstreamVideoAd+Test.m */; };
 		0EEFE18B22007696002B5F5F /* ANTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972E21FF32EB005D1F0E /* ANTestGlobal.m */; };
 		0EEFE18C220078B8002B5F5F /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE17F220074D1002B5F5F /* SuccessfulStandardAdFromRTBObjectResponse.json */; };
@@ -630,7 +626,6 @@
 		0E8C982821FF4141005D1F0E /* ANAdResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseTestCase.m; sourceTree = "<group>"; };
 		0E8C982A21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeStandardAdResponseTestCase.m; sourceTree = "<group>"; };
 		0E8C982C21FF4191005D1F0E /* UIViewConstraintsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewConstraintsTestCase.m; sourceTree = "<group>"; };
-		0E8C982E21FF419D005D1F0E /* ANPBContainerViewTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANPBContainerViewTestCase.m; sourceTree = "<group>"; };
 		0E8C983021FF41A8005D1F0E /* ANBannerAdViewTransitionsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerAdViewTransitionsTestCase.m; sourceTree = "<group>"; };
 		0E8C983221FF41B1005D1F0E /* ANMediationAdViewControllerTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMediationAdViewControllerTestCase.m; sourceTree = "<group>"; };
 		0E8C983421FF41C4005D1F0E /* MediationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationTests.m; sourceTree = "<group>"; };
@@ -812,7 +807,6 @@
 				0ED15A672236C5D300D56022 /* FBAudienceNetwork.framework in Frameworks */,
 				0ED15A5B2236C4B800D56022 /* InMobiSDK.framework in Frameworks */,
 				0ED15A4C2236C3B000D56022 /* libANAdapterForGoogleAdMobSDK.a in Frameworks */,
-				0E4701C72237D450005CFFAC /* SCSCoreKit.framework in Frameworks */,
 				0ED15A4D2236C3B000D56022 /* libANAdapterForMoPubSDK.a in Frameworks */,
 				0ED15A4E2236C3B000D56022 /* libANSDKAdColonyAdapter.a in Frameworks */,
 				0ED15A4F2236C3B000D56022 /* libANSDKAdMarvelAdapter.a in Frameworks */,
@@ -851,7 +845,6 @@
 				0ED159DD2236B52C00D56022 /* EventKitUI.framework in Frameworks */,
 				0ED159DB2236B52800D56022 /* EventKit.framework in Frameworks */,
 				0EEFE1002200547F002B5F5F /* libANSDK.a in Frameworks */,
-				0E4701C52237D44D005CFFAC /* SASDisplayKit.framework in Frameworks */,
 				0EEFE1D722008D60002B5F5F /* libANSDKGoogleAdMobAdapter.a in Frameworks */,
 				0EEFE10122005481002B5F5F /* AppNexusSDK.framework in Frameworks */,
 				0E56C6F521F8AF0A00ADE6E1 /* AVFoundation.framework in Frameworks */,
@@ -1098,7 +1091,6 @@
 				0E8C982821FF4141005D1F0E /* ANAdResponseTestCase.m */,
 				0E8C982A21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m */,
 				0E8C982C21FF4191005D1F0E /* UIViewConstraintsTestCase.m */,
-				0E8C982E21FF419D005D1F0E /* ANPBContainerViewTestCase.m */,
 				0E8C983021FF41A8005D1F0E /* ANBannerAdViewTransitionsTestCase.m */,
 				0E8C983221FF41B1005D1F0E /* ANMediationAdViewControllerTestCase.m */,
 				0E8C983421FF41C4005D1F0E /* MediationTests.m */,
@@ -1399,7 +1391,7 @@
 		0EC17C2A21F72D1700F0F6AF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
 					0EC17C3121F72D1700F0F6AF = {
@@ -1663,7 +1655,6 @@
 				0E4701B52237B443005CFFAC /* ANVideoAdPlayer+Test.m in Sources */,
 				0ED15A642236C5AB00D56022 /* ANGADUnifiedNativeAdView.m in Sources */,
 				0EC17C4521F72D1900F0F6AF /* main.m in Sources */,
-				0EEFE18922007653002B5F5F /* ANInstreamVideoAd+Test.m in Sources */,
 				0EEFE176220073F0002B5F5F /* ANURLConnectionStub.m in Sources */,
 				0EEFE175220073F0002B5F5F /* ANHTTPStubbingManager.m in Sources */,
 				0E8C97A721FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
@@ -1715,7 +1706,6 @@
 				0EEFE11E2200581D002B5F5F /* ANAdAdapterBannerSuccessful.m in Sources */,
 				0E8C981D21FF3987005D1F0E /* ANReachabilityTestCase.m in Sources */,
 				0EEFE18B22007696002B5F5F /* ANTestGlobal.m in Sources */,
-				0E8C982F21FF419D005D1F0E /* ANPBContainerViewTestCase.m in Sources */,
 				0E8C97A821FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				0E8C983521FF41C4005D1F0E /* MediationTests.m in Sources */,
 				0E8C979F21FF32EC005D1F0E /* ANHTTPStubURLProtocol.m in Sources */,

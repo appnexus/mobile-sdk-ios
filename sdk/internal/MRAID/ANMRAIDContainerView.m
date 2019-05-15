@@ -25,7 +25,6 @@
 #import "ANLogging.h"
 #import "ANBrowserViewController.h"
 #import "ANClickOverlayView.h"
-#import "ANPBBuffer.h"
 #import "ANANJAMImplementation.h"
 #import "ANInterstitialAdViewController.h"
 #import "ANOMIDImplementation.h"
@@ -49,7 +48,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                                       ANAdWebViewControllerBrowserDelegate, 
                                       ANAdWebViewControllerLoadingDelegate,
                                       ANAdWebViewControllerMRAIDDelegate, 
-                                      ANAdWebViewControllerPitbullDelegate,
                                       ANAdWebViewControllerVideoDelegate,
                                       ANMRAIDCalendarManagerDelegate, 
                                       ANMRAIDExpandViewControllerDelegate,
@@ -72,9 +70,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 @property (nonatomic, readwrite, strong) UIButton *customCloseRegion;
 
 @property (nonatomic, readwrite, strong) ANClickOverlayView *clickOverlay;
-
-@property (nonatomic, readwrite, strong) NSMutableArray *pitbullCaptureURLQueue;
-@property (nonatomic, readwrite, assign) BOOL isRegisteredForPitbullScreenCaptureNotifications;
 
 @property (nonatomic, readwrite, assign) BOOL adInteractionInProgress;
 @property (nonatomic, readwrite, assign) NSUInteger adInteractionValue;
@@ -153,7 +148,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
         self.webViewController.browserDelegate  = self;
         self.webViewController.loadingDelegate  = self;
         self.webViewController.mraidDelegate    = self;
-        self.webViewController.pitbullDelegate  = self;
     }
 
     return self;
@@ -173,7 +167,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     self.webViewController.browserDelegate  = self;
     self.webViewController.loadingDelegate  = self;
     self.webViewController.mraidDelegate    = self;
-    self.webViewController.pitbullDelegate  = self;
 
     self.webViewController.videoDelegate    = self;
     self.isBannerVideo = YES;
@@ -654,7 +647,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                                                                      configuration: customConfig];
         self.expandWebViewController.mraidDelegate = self;
         self.expandWebViewController.browserDelegate = self;
-        self.expandWebViewController.pitbullDelegate = self;
         self.expandWebViewController.anjamDelegate = self;
         self.expandWebViewController.adViewDelegate = self.adViewDelegate;
 
@@ -892,86 +884,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 - (void)didMoveToWindow {
     [self.resizeManager didMoveAnchorViewToWindow];
 }
-
-
-#pragma mark - ANWebViewControllerPitbullDelegate
-
-- (void)handlePitbullURL:(NSURL *)URL {
-    if ([URL.host isEqualToString:@"capture"]) {
-        BOOL transitionInProgress = NO;
-        if ([self.adViewDelegate conformsToProtocol:@protocol(ANBannerAdViewInternalDelegate)]) {
-            id<ANBannerAdViewInternalDelegate> bannerDelegate = (id<ANBannerAdViewInternalDelegate>)self.adViewDelegate;
-            transitionInProgress = [[bannerDelegate transitionInProgress] boolValue];
-        }
-        if (transitionInProgress) {
-            if (![self.pitbullCaptureURLQueue count]) {
-                [self registerForPitbullScreenCaptureNotifications];
-            }
-            [self.pitbullCaptureURLQueue addObject:URL];
-            return;
-        }
-    } else if ([URL.host isEqualToString:@"web"]) {
-        [self dispatchPitbullScreenCaptureCalls];
-        [self unregisterFromPitbullScreenCaptureNotifications];
-    }
-
-    [ANPBBuffer handleUrl:URL forView:self.webViewController.contentView];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    if (object == self.adViewDelegate) {
-        NSNumber *transitionInProgress = change[NSKeyValueChangeNewKey];
-        if ([transitionInProgress boolValue] == NO) {
-            [self unregisterFromPitbullScreenCaptureNotifications];
-            [self dispatchPitbullScreenCaptureCalls];
-        }
-    }
-}
-
-- (void)registerForPitbullScreenCaptureNotifications {
-    if (!self.isRegisteredForPitbullScreenCaptureNotifications) {
-        if ([self.adViewDelegate conformsToProtocol:@protocol(ANBannerAdViewInternalDelegate)]) {
-            NSObject *object = (id<ANBannerAdViewInternalDelegate>)self.adViewDelegate;
-            [object addObserver:self
-                     forKeyPath:@"transitionInProgress"
-                        options:NSKeyValueObservingOptionNew
-                        context:nil];
-            self.isRegisteredForPitbullScreenCaptureNotifications = YES;
-        } else {
-            ANLogDebug(@"Attempt to register for pitbull screen capture notifications on an ad view which does not conform to ANBannerAdViewInternalDelegate");
-        }
-    }
-}
-
-- (void)unregisterFromPitbullScreenCaptureNotifications {
-    NSObject *bannerObject = self.adViewDelegate;
-    if (self.isRegisteredForPitbullScreenCaptureNotifications) {
-        @try {
-            [bannerObject removeObserver:self
-                              forKeyPath:@"transitionInProgress"];
-        }
-        @catch (NSException * __unused exception) {}
-        self.isRegisteredForPitbullScreenCaptureNotifications = NO;
-    }
-}
-
-- (void)dispatchPitbullScreenCaptureCalls {
-    for (NSURL *URL in self.pitbullCaptureURLQueue) {
-        UIView *view = self.webViewController.contentView;
-        [ANPBBuffer handleUrl:URL forView:view];
-    }
-    self.pitbullCaptureURLQueue = nil;
-}
-
-- (NSMutableArray *)pitbullCaptureURLQueue {
-    if (!_pitbullCaptureURLQueue) _pitbullCaptureURLQueue = [[NSMutableArray alloc] initWithCapacity:5];
-    return _pitbullCaptureURLQueue;
-}
-
-
 
 
 #pragma mark - ANMRAIDCalendarManagerDelegate
