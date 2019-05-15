@@ -24,11 +24,11 @@
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANNativeStandardAdResponse.h"
 
-#import "ANMRAIDContainerView.h"
+//#import "ANMRAIDContainerView.h"
 #import "ANMediatedAd.h"
-#import "ANMediationAdViewController.h"
+//#import "ANMediationAdViewController.h"
 #import "ANNativeMediatedAdController.h"
-#import "ANSSMMediationAdViewController.h"
+//#import "ANSSMMediationAdViewController.h"
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
@@ -36,7 +36,7 @@
 
 
 
-@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate>
+@interface ANUniversalAdFetcher () <ANNativeMediationAdControllerDelegate>
 
 
 @property (nonatomic, readwrite, strong)  NSMutableArray   *ads;
@@ -51,10 +51,10 @@
 //
 @property (nonatomic, readwrite, weak)    id  delegate;
 
-@property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *adView;
-@property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
+//@property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *adView;
+//@property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
-@property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
+//@property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
 
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 
@@ -93,14 +93,14 @@
      * ad fetcher delegate so that messages to the delegate can proceed uninterrupted.  Currently, the controller will only live on if it is still
      * displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
-    self.mediationController.adFetcher = nil;
-    self.mediationController = nil;
+//    self.mediationController.adFetcher = nil;
+//    self.mediationController = nil;
     
     self.nativeMediationController.adFetcher = nil;
     self.nativeMediationController = nil;
     
-    self.ssmMediationController.adFetcher = nil;
-    self.ssmMediationController = nil;
+//    self.ssmMediationController.adFetcher = nil;
+//    self.ssmMediationController = nil;
 }
 
 
@@ -230,12 +230,12 @@
         [self.delegate universalAdFetcher:self didFinishRequestWithResponse:response];
     }
 
-    if ([response.adObject isKindOfClass:[ANMRAIDContainerView class]]) {
-        if (((ANMRAIDContainerView *)response.adObject).isBannerVideo) {
-            [self stopAutoRefreshTimer];
-            return;
-        }
-    }
+//    if ([response.adObject isKindOfClass:[ANMRAIDContainerView class]]) {
+//        if (((ANMRAIDContainerView *)response.adObject).isBannerVideo) {
+//            [self stopAutoRefreshTimer];
+//            return;
+//        }
+//    }
 
     [self startAutoRefreshTimer];
 }
@@ -378,20 +378,20 @@
     if (ANVideoAdSubtypeBannerVideo == videoAdType)
     {
         CGSize  sizeOfWebView  = [self getWebViewSizeForCreativeWidth:videoAd.width andHeight:videoAd.height];
-
-        self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeOfWebView
-                                                        videoXML: videoAd.content ];
-
-        self.adView.loadingDelegate = self;
-        // Allow ANJAM events to always be passed to the ANAdView
-        self.adView.webViewController.adViewANJAMDelegate = self.delegate;
+//
+//        self.adView = [[ANMRAIDContainerView alloc] initWithSize: sizeOfWebView
+//                                                        videoXML: videoAd.content ];
+//
+//        self.adView.loadingDelegate = self;
+//        // Allow ANJAM events to always be passed to the ANAdView
+//        self.adView.webViewController.adViewANJAMDelegate = self.delegate;
 
     } else {
-        if (! [[ANVideoAdProcessor alloc] initWithDelegate: self
-                                        withAdVideoContent: videoAd ] )
-        {
-            ANLogError(@"FAILED to create ANVideoAdProcessor object.");
-        }
+//        if (! [[ANVideoAdProcessor alloc] initWithDelegate: self
+//                                        withAdVideoContent: videoAd ] )
+//        {
+//            ANLogError(@"FAILED to create ANVideoAdProcessor object.");
+//        }
     }
 }
 
@@ -401,9 +401,9 @@
 //
 -(void) handleCSMVideoAd:(ANCSMVideoAd *) videoAd
 {
-    if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
-        ANLogError(@"FAILED to create ANVideoAdProcessor object.");
-    }
+//    if (! [[ANVideoAdProcessor alloc] initWithDelegate:self withAdVideoContent:videoAd])  {
+//        ANLogError(@"FAILED to create ANVideoAdProcessor object.");
+//    }
 }
 
 
@@ -411,17 +411,17 @@
 {
     CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
                                                       andHeight:standardAd.height];
-    
-    if (self.adView) {
-        self.adView.loadingDelegate = nil;
-    }
-    
-    self.adView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
-                                                        HTML:standardAd.content
-                                              webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
-    self.adView.loadingDelegate = self;
-    // Allow ANJAM events to always be passed to the ANAdView
-    self.adView.webViewController.adViewANJAMDelegate = self.delegate;
+//
+//    if (self.adView) {
+//        self.adView.loadingDelegate = nil;
+//    }
+//
+//    self.adView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
+//                                                        HTML:standardAd.content
+//                                              webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
+//    self.adView.loadingDelegate = self;
+//    // Allow ANJAM events to always be passed to the ANAdView
+//    self.adView.webViewController.adViewANJAMDelegate = self.delegate;
     
 }
 
@@ -433,19 +433,20 @@
         self.nativeMediationController = [ANNativeMediatedAdController initMediatedAd: mediatedAd
                                                                           withFetcher: self
                                                                     adRequestDelegate: self.delegate ];
-    } else {
-        self.mediationController = [ANMediationAdViewController initMediatedAd: mediatedAd
-                                                                   withFetcher: self
-                                                                adViewDelegate: self.delegate];
     }
+//    } else {
+//        self.mediationController = [ANMediationAdViewController initMediatedAd: mediatedAd
+//                                                                   withFetcher: self
+//                                                                adViewDelegate: self.delegate];
+//    }
 }
 
 
 - (void)handleSSMMediatedAd:(ANSSMStandardAd *)mediatedAd
 {
-    self.ssmMediationController = [ANSSMMediationAdViewController initMediatedAd:mediatedAd
-                                                                     withFetcher:self
-                                                                  adViewDelegate:self.delegate];
+//    self.ssmMediationController = [ANSSMMediationAdViewController initMediatedAd:mediatedAd
+//                                                                     withFetcher:self
+//                                                                  adViewDelegate:self.delegate];
 }
 
 - (void)handleNativeStandardAd:(ANNativeStandardAdResponse *)nativeStandardAd
@@ -472,52 +473,52 @@
 
 #pragma mark - ANAdWebViewControllerLoadingDelegate.
 
-- (void) didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
-{
-    ANAdFetcherResponse  *fetcherResponse  = nil;
-
-    if (self.adView.webViewController == controller)
-    {
-        fetcherResponse = [ANAdFetcherResponse responseWithAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
-
-    } else {
-        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
-        fetcherResponse = [ANAdFetcherResponse responseWithError:error];
-    }
-
-    [self processFinalResponse:fetcherResponse];
-}
-
-- (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
-{
-    [self autoRefreshTimerDidFire:nil];
-
-}
-
-- (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
-{
-    [self stopAutoRefreshTimer];
-}
+//- (void) didCompleteFirstLoadFromWebViewController:(ANAdWebViewController *)controller
+//{
+//    ANAdFetcherResponse  *fetcherResponse  = nil;
+//
+//    if (self.adView.webViewController == controller)
+//    {
+//        fetcherResponse = [ANAdFetcherResponse responseWithAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
+//
+//    } else {
+//        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
+//        fetcherResponse = [ANAdFetcherResponse responseWithError:error];
+//    }
+//
+//    [self processFinalResponse:fetcherResponse];
+//}
+//
+//- (void) immediatelyRestartAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
+//{
+//    [self autoRefreshTimerDidFire:nil];
+//
+//}
+//
+//- (void) stopAutoRefreshTimerFromWebViewController:(ANAdWebViewController *)controller
+//{
+//    [self stopAutoRefreshTimer];
+//}
 
 
 
 
 #pragma mark - ANVideoAdProcessor delegate
-
-- (void) videoAdProcessor:(ANVideoAdProcessor *)videoProcessor didFinishVideoProcessing: (ANVideoAdPlayer *)adVideo
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo andAdObjectHandler:self.adObjectHandler];
-            [self processFinalResponse:adFetcherResponse];
-        });
-    });
-}
-
-- (void) videoAdProcessor:(ANVideoAdProcessor *)videoProcessor didFailVideoProcessing: (NSError *)error
-{
-    [self continueWaterfall];
-}
+//
+//- (void) videoAdProcessor:(ANVideoAdProcessor *)videoProcessor didFinishVideoProcessing: (ANVideoAdPlayer *)adVideo
+//{
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            ANAdFetcherResponse *adFetcherResponse = [ANAdFetcherResponse responseWithAdObject:adVideo andAdObjectHandler:self.adObjectHandler];
+//            [self processFinalResponse:adFetcherResponse];
+//        });
+//    });
+//}
+//
+//- (void) videoAdProcessor:(ANVideoAdProcessor *)videoProcessor didFailVideoProcessing: (NSError *)error
+//{
+//    [self continueWaterfall];
+//}
 
 
 

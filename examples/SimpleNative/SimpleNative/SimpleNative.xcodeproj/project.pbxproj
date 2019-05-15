@@ -13,7 +13,6 @@
 		001DAD022214A10200D0D5B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001DAD012214A10200D0D5B6 /* Assets.xcassets */; };
 		001DAD052214A10200D0D5B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 001DAD032214A10200D0D5B6 /* LaunchScreen.storyboard */; };
 		001DAD082214A10200D0D5B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 001DAD072214A10200D0D5B6 /* main.m */; };
-		001DAD482214A14600D0D5B6 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 001DAD422214A11400D0D5B6 /* AppNexusSDK.framework */; };
 		001DAD512214A5C800D0D5B6 /* ANNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 001DAD4F2214A5C800D0D5B6 /* ANNativeAdView.m */; };
 		002FDDEA2214AD1B00EDBAA3 /* ANNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 002FDDD72214AD1B00EDBAA3 /* ANNativeAdView.xib */; };
 /* End PBXBuildFile section */
@@ -145,6 +144,20 @@
 			remoteGlobalIDString = 60359EB01E1EA1180017EF56;
 			remoteInfo = ANSDKAdMarvelAdapter;
 		};
+		F5731B3C228B589F0012B134 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 001DAD0E2214A11400D0D5B6 /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5731AFD228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
+		};
+		F5731BC3228C9AAB0012B134 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 001DAD0E2214A11400D0D5B6 /* ANSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F5731AFC228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -169,7 +182,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				001DAD482214A14600D0D5B6 /* AppNexusSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,24 +228,25 @@
 		001DAD0F2214A11400D0D5B6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				001DAD262214A11400D0D5B6 /* ANSDKResources.bundle */,
-				001DAD422214A11400D0D5B6 /* AppNexusSDK.framework */,
-				001DAD3E2214A11400D0D5B6 /* libANAdapterForGoogleAdMobSDK.a */,
-				001DAD402214A11400D0D5B6 /* libANAdapterForMoPubSDK.a */,
 				001DAD242214A11400D0D5B6 /* libANSDK.a */,
-				001DAD362214A11400D0D5B6 /* libANSDKAdColonyAdapter.a */,
-				001DAD462214A11400D0D5B6 /* libANSDKAdMarvelAdapter.a */,
-				001DAD302214A11400D0D5B6 /* libANSDKAmazonAdapter.a */,
-				001DAD3A2214A11400D0D5B6 /* libANSDKChartboostAdapter.a */,
-				001DAD2E2214A11400D0D5B6 /* libANSDKFacebookAdapter.a */,
+				001DAD262214A11400D0D5B6 /* ANSDKResources.bundle */,
 				001DAD282214A11400D0D5B6 /* libANSDKGoogleAdMobAdapter.a */,
-				001DAD322214A11400D0D5B6 /* libANSDKInMobiAdapter.a */,
 				001DAD2A2214A11400D0D5B6 /* libANSDKMillennialMediaAdapter.a */,
 				001DAD2C2214A11400D0D5B6 /* libANSDKMoPubAdapter.a */,
-				001DAD442214A11400D0D5B6 /* libANSDKSmartAdAdapter.a */,
+				001DAD2E2214A11400D0D5B6 /* libANSDKFacebookAdapter.a */,
+				001DAD302214A11400D0D5B6 /* libANSDKAmazonAdapter.a */,
+				001DAD322214A11400D0D5B6 /* libANSDKInMobiAdapter.a */,
 				001DAD342214A11400D0D5B6 /* libANSDKVdopiaAdapter.a */,
+				001DAD362214A11400D0D5B6 /* libANSDKAdColonyAdapter.a */,
 				001DAD382214A11400D0D5B6 /* libANSDKVungleAdapter.a */,
+				001DAD3A2214A11400D0D5B6 /* libANSDKChartboostAdapter.a */,
 				001DAD3C2214A11400D0D5B6 /* libANSDKYahooAdapter.a */,
+				001DAD3E2214A11400D0D5B6 /* libANAdapterForGoogleAdMobSDK.a */,
+				001DAD402214A11400D0D5B6 /* libANAdapterForMoPubSDK.a */,
+				001DAD422214A11400D0D5B6 /* AppNexusSDK.framework */,
+				001DAD442214A11400D0D5B6 /* libANSDKSmartAdAdapter.a */,
+				001DAD462214A11400D0D5B6 /* libANSDKAdMarvelAdapter.a */,
+				F5731B3D228B589F0012B134 /* AppNexusNativeSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,6 +272,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F5731BC4228C9AAB0012B134 /* PBXTargetDependency */,
 			);
 			name = SimpleNative;
 			productName = SimpleNative;
@@ -430,6 +444,13 @@
 			remoteRef = 001DAD452214A11400D0D5B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F5731B3D228B589F0012B134 /* AppNexusNativeSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeSDK.framework;
+			remoteRef = F5731B3C228B589F0012B134 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -459,6 +480,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F5731BC4228C9AAB0012B134 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AppNexusNativeSDK;
+			targetProxy = F5731BC3228C9AAB0012B134 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		001DACFE2214A10200D0D5B6 /* Main.storyboard */ = {
