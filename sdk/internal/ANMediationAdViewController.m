@@ -37,8 +37,6 @@
 
 @property (nonatomic, readwrite, weak)    id<ANUniversalAdFetcherDelegate>   adViewDelegate;
 
-@property (nonatomic, readwrite, strong)  NSDictionary                      *pitbullAdForDelayedCapture;
-
 // variables for measuring latency.
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStart;
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStop;
