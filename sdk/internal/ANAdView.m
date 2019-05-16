@@ -23,7 +23,6 @@
 #import "ANLogging.h"
 
 #import "UIView+ANCategory.h"
-#import "UIWebView+ANCategory.h"
 
 #import "ANBannerAdView.h"
 

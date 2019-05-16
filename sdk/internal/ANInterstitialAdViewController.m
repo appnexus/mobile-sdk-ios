@@ -17,7 +17,6 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "UIView+ANCategory.h"
-#import "UIWebView+ANCategory.h"
 #import "ANMRAIDOrientationProperties.h"
 #import "NSTimer+ANCategory.h"
 #import "ANMRAIDContainerView.h"

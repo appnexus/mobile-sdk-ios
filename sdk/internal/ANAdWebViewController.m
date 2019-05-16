@@ -28,7 +28,6 @@
 
 #import "NSString+ANCategory.h"
 #import "NSTimer+ANCategory.h"
-#import "UIWebView+ANCategory.h"
 #import "UIView+ANCategory.h"
 
 #import "ANSDKSettings+PrivateMethods.h"

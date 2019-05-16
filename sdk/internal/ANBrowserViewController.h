@@ -17,7 +17,7 @@
 
 @protocol ANBrowserViewControllerDelegate;
 
-@interface ANBrowserViewController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate>
+@interface ANBrowserViewController : UIViewController <UIActionSheetDelegate>
 
 @property (nonatomic, readwrite, weak) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, readwrite, weak) IBOutlet UIBarButtonItem *forwardButton;
