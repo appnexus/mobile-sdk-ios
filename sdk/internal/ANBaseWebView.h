@@ -7,11 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import <WebKit/WebKit.h>
 
 @interface ANBaseWebView : NSObject
+    
+   
+    
+    - (void)createWebView:(CGSize)size
+                             URL:(NSURL *)URL
+                  webViewBaseURL:(NSURL *)baseURL;
+    
+    - (void)createWebView:(CGSize)size
+                           HTML:(NSString *)html
+                        baseURL:(NSURL *)baseURL;
+    
+    - (void)createWebView:(CGSize)size;
 
 @end
-
-NS_ASSUME_NONNULL_END

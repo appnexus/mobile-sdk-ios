@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#define AN_USER_DENIED_LOCATION_PERMISSION 1
+
 
 #import <WebKit/WebKit.h>
 
@@ -36,6 +36,7 @@
 #import "ANOMIDImplementation.h"
 
 #import "ANVideoPlayerSettings+ANCategory.h"
+#import "ANBaseWebView+PrivateMethods.h"
 
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
@@ -45,9 +46,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 @property (nonatomic, readwrite, strong)    UIView      *contentView;
 
-@property (nonatomic, readwrite, weak)      WKWebView   *modernWebView;
-
-    @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
+@property (nonatomic, readwrite, assign)  BOOL  isMRAID;
 @property (nonatomic, readwrite, assign)  BOOL  completedFirstLoad;
 
 @property (nonatomic, readwrite, strong)                        NSTimer     *viewabilityTimer;
@@ -70,7 +69,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 @end
 
 @implementation ANAdWebViewController
-
+    
 - (instancetype)initWithConfiguration:(ANAdWebViewControllerConfiguration *)configuration
 {
     if (self = [super init])
@@ -108,13 +107,9 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 {
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
+    [self createWebView:size URL:URL webViewBaseURL:baseURL];
+    [[self class] addControllerConfiguration:self.configuration for:self.baseWebView];
     
-    if ([WKWebView class])
-    {
-        [self loadModernWebViewWithSize: size
-                                    URL: URL
-                                baseURL: baseURL];
-    }
     
     return self;
 }
@@ -153,10 +148,14 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if (!_configuration.scrollingEnabled) {
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
-        
-    [self loadModernWebViewWithSize: size
-                                   HTML: htmlToLoad
-                                baseURL: base];
+    
+    [self createWebView:size HTML:htmlToLoad baseURL:base];
+    
+    
+    [self configureWebView:configuration];
+    //[self loadModernWebViewWithSize: size
+    //                               HTML: htmlToLoad
+    //                            baseURL: base];
     return self;
 }
 
@@ -174,39 +173,39 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     [self handleMRAIDURL:[NSURL URLWithString:@"mraid://enable"]];
     
     
-    //
-    WKWebView  *webView  = [[self class] defaultModernWebViewWithSize:size configuration:self.configuration];
+    [self createWebView:size];
     
-    [webView.configuration.userContentController addScriptMessageHandler:self name:@"observe"];
-    webView.configuration.allowsInlineMediaPlayback = YES;
-    [webView.configuration.userContentController addScriptMessageHandler:self name:@"interOp"];
-    
-    webView.backgroundColor = [UIColor blackColor];
-    
-    [webView setNavigationDelegate:self];
-    [webView setUIDelegate:self];
-    
-    
-    _modernWebView  = webView;
-    _contentView    = webView;
+    [self configureWebView:self.configuration];
     
     
     // Load, then enable WKWebView in active window.
     //
     NSURL           *url      = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
     NSURLRequest    *request  = [NSURLRequest requestWithURL:url];
-    [_modernWebView loadRequest:request];
-
-    
-
+    [self.baseWebView loadRequest:request];
 
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
-    [currentWindow addSubview:_modernWebView];
-    [_modernWebView setHidden:true];
-    
+    [currentWindow addSubview:self.baseWebView];
+    [self.baseWebView setHidden:true];
     
     //
     return  self;
+}
+    
+-(void) configureWebView:(ANAdWebViewControllerConfiguration *) configuration {
+    [[self class] addControllerConfiguration:configuration for:self.baseWebView];
+        
+        if(configuration.isVASTVideoAd){
+            [self.baseWebView.configuration.userContentController addScriptMessageHandler:self name:@"observe"];
+            self.baseWebView.configuration.allowsInlineMediaPlayback = YES;
+            [self.baseWebView.configuration.userContentController addScriptMessageHandler:self name:@"interOp"];
+        
+            self.baseWebView.backgroundColor = [UIColor blackColor];
+        }
+        [self.baseWebView setNavigationDelegate:self];
+        [self.baseWebView setUIDelegate:self];
+    
+    self.contentView = self.baseWebView;
 }
 
 - (void)stopOMIDAdSession {
@@ -282,20 +281,129 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 #pragma mark - WKWebView
 
 
-+ (WKWebView *)defaultModernWebViewWithSize:(CGSize)size
-                              configuration:(ANAdWebViewControllerConfiguration *)configuration
-{
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)
-                                            configuration:[[self class] defaultWebViewConfigurationWithConfiguration:configuration]];
+//+ (WKWebView *)defaultModernWebViewWithSize:(CGSize)size
+//                              configuration:(ANAdWebViewControllerConfiguration *)configuration
+//{
+//    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)
+//                                            configuration:[[self class] defaultWebViewConfigurationWithConfiguration:configuration]];
+//
+//    webView.backgroundColor = [UIColor clearColor];
+//    webView.opaque = NO;
+//
+//    if (@available(iOS 11.0, *)) {
+//        webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    }
+//
+//    if (configuration.scrollingEnabled) {
+//        webView.scrollView.scrollEnabled = YES;
+//        webView.scrollView.bounces = YES;
+//
+//    } else {
+//        webView.scrollView.scrollEnabled = NO;
+//        webView.scrollView.bounces = NO;
+//
+//        [[NSNotificationCenter defaultCenter] removeObserver:webView
+//                                                        name:UIKeyboardWillChangeFrameNotification
+//                                                      object:nil];
+//        [[NSNotificationCenter defaultCenter] removeObserver:webView
+//                                                        name:UIKeyboardDidChangeFrameNotification
+//                                                      object:nil];
+//        [[NSNotificationCenter defaultCenter] removeObserver:webView
+//                                                        name:UIKeyboardWillShowNotification
+//                                                      object:nil];
+//        [[NSNotificationCenter defaultCenter] removeObserver:webView
+//                                                        name:UIKeyboardWillHideNotification
+//                                                      object:nil];
+//    }
+//    return webView;
+//}
+
+//- (void)loadModernWebViewWithSize:(CGSize)size
+//                              URL:(NSURL *)URL
+//                          baseURL:(NSURL *)baseURL
+//{
+//    WKWebView *webView = [[self class] defaultModernWebViewWithSize:size configuration:self.configuration];
+//
+//    webView.navigationDelegate = self;
+//    webView.UIDelegate = self;
+//
+//    self.modernWebView = webView;
+//    self.contentView = webView;
+//
+//    __weak WKWebView  *weakWebView  = webView;
+//
+//    [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL(URL)
+//                                     completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+//      {
+//          __strong WKWebView  *strongWebView  = weakWebView;
+//          if (!strongWebView)  {
+//              ANLogError(@"COULD NOT ACQUIRE strongWebView.");
+//              return;
+//          }
+//
+//          dispatch_async(dispatch_get_main_queue(), ^{
+//              NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//
+//              if (html.length) {
+//                  [strongWebView loadHTMLString:html baseURL:baseURL];
+//              }
+//          });
+//      }
+//      ] resume];
+//}
+
+//- (void)loadModernWebViewWithSize:(CGSize)size
+//                             HTML:(NSString *)html
+//                          baseURL:(NSURL *)baseURL
+//{
+//    WKWebView *webView = [[self class] defaultModernWebViewWithSize: size
+//                                                      configuration: self.configuration];
+//
+//    webView.navigationDelegate  = self;
+//    webView.UIDelegate          = self;
+//
+//    [webView loadHTMLString:html
+//                    baseURL:baseURL];
+//
+//    self.modernWebView  = webView;
+//    self.contentView    = webView;
+//}
     
-    webView.backgroundColor = [UIColor clearColor];
-    webView.opaque = NO;
++ (void) addControllerConfiguration:(ANAdWebViewControllerConfiguration *)webViewControllerConfig for:(WKWebView *)webView {
     
-    if (@available(iOS 11.0, *)) {
-        webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    WKUserContentController  *controller  = webView.configuration.userContentController;
+    
+    WKUserScript *mraidScript = [[WKUserScript alloc] initWithSource: [[self class] mraidJS]
+                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                    forMainFrameOnly: YES];
+    
+    WKUserScript *anjamScript = [[WKUserScript alloc] initWithSource: [[self class] anjamJS]
+                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                    forMainFrameOnly: YES];
+    
+    if (!webViewControllerConfig.userSelectionEnabled)
+    {
+        NSString *userSelectionSuppressionJS = @"document.documentElement.style.webkitUserSelect='none';";
+        
+        WKUserScript *userSelectionSuppressionScript = [[WKUserScript alloc] initWithSource: userSelectionSuppressionJS
+                                                                              injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
+                                                                           forMainFrameOnly: NO];
+        [controller addUserScript:userSelectionSuppressionScript];
     }
     
-    if (configuration.scrollingEnabled) {
+    // Attach  OMID JS script to WKWebview for HTML Banner Ad's
+    // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.
+    if(!webViewControllerConfig.isVASTVideoAd){
+        WKUserScript *omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
+                                                          injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                       forMainFrameOnly: YES];
+        [controller addUserScript:omidScript];
+    }
+    
+    [controller addUserScript:anjamScript];
+    [controller addUserScript:mraidScript];
+    
+    if (webViewControllerConfig.scrollingEnabled) {
         webView.scrollView.scrollEnabled = YES;
         webView.scrollView.bounces = YES;
         
@@ -316,160 +424,108 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                                                         name:UIKeyboardWillHideNotification
                                                       object:nil];
     }
-    return webView;
 }
 
-- (void)loadModernWebViewWithSize:(CGSize)size
-                              URL:(NSURL *)URL
-                          baseURL:(NSURL *)baseURL
-{
-    WKWebView *webView = [[self class] defaultModernWebViewWithSize:size configuration:self.configuration];
-    
-    webView.navigationDelegate = self;
-    webView.UIDelegate = self;
-    
-    self.modernWebView = webView;
-    self.contentView = webView;
-    
-    __weak WKWebView  *weakWebView  = webView;
-    
-    [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL(URL)
-                                     completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
-      {
-          __strong WKWebView  *strongWebView  = weakWebView;
-          if (!strongWebView)  {
-              ANLogError(@"COULD NOT ACQUIRE strongWebView.");
-              return;
-          }
-          
-          dispatch_async(dispatch_get_main_queue(), ^{
-              NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-              
-              if (html.length) {
-                  [strongWebView loadHTMLString:html baseURL:baseURL];
-              }
-          });
-      }
-      ] resume];
-}
-
-- (void)loadModernWebViewWithSize:(CGSize)size
-                             HTML:(NSString *)html
-                          baseURL:(NSURL *)baseURL
-{
-    WKWebView *webView = [[self class] defaultModernWebViewWithSize: size
-                                                      configuration: self.configuration];
-    
-    webView.navigationDelegate  = self;
-    webView.UIDelegate          = self;
-    
-    [webView loadHTMLString:html
-                    baseURL:baseURL];
-    
-    self.modernWebView  = webView;
-    self.contentView    = webView;
-}
-
-+ (WKWebViewConfiguration *)defaultWebViewConfigurationWithConfiguration:(ANAdWebViewControllerConfiguration *)webViewControllerConfig
-{
-    static dispatch_once_t   processPoolToken;
-    static WKProcessPool    *anSdkProcessPool;
-    
-    dispatch_once(&processPoolToken, ^{
-        anSdkProcessPool = [[WKProcessPool alloc] init];
-    });
-    
-    WKWebViewConfiguration  *configuration  = [[WKWebViewConfiguration alloc] init];
-    
-    configuration.processPool                   = anSdkProcessPool;
-    configuration.allowsInlineMediaPlayback     = YES;
-    
-    // configuration.allowsInlineMediaPlayback = YES is not respected
-    // on iPhone on WebKit versions shipped with iOS 9 and below, the
-    // video always loads in full-screen.
-    // See: https://bugs.webkit.org/show_bug.cgi?id=147512
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        configuration.requiresUserActionForMediaPlayback = NO;
-        
-    } else {
-        if (    [[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)]
-            && [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}] )
-        {
-            configuration.requiresUserActionForMediaPlayback = NO;
-        } else {
-            configuration.requiresUserActionForMediaPlayback = YES;
-        }
-    }
-    
-    WKUserContentController  *controller  = [[WKUserContentController alloc] init];
-    configuration.userContentController = controller;
-    
-    NSString *paddingJS = @"document.body.style.margin='0';document.body.style.padding = '0'";
-    
-    WKUserScript *mraidScript = [[WKUserScript alloc] initWithSource: [[self class] mraidJS]
-                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                    forMainFrameOnly: YES];
-    
-    WKUserScript *anjamScript = [[WKUserScript alloc] initWithSource: [[self class] anjamJS]
-                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                    forMainFrameOnly: YES];
-    
-    WKUserScript *paddingScript = [[WKUserScript alloc] initWithSource: paddingJS
-                                                         injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
-                                                      forMainFrameOnly: YES];
-    
-    if (!webViewControllerConfig.userSelectionEnabled)
-    {
-        NSString *userSelectionSuppressionJS = @"document.documentElement.style.webkitUserSelect='none';";
-        
-        WKUserScript *userSelectionSuppressionScript = [[WKUserScript alloc] initWithSource: userSelectionSuppressionJS
-                                                                              injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
-                                                                           forMainFrameOnly: NO];
-        [controller addUserScript:userSelectionSuppressionScript];
-    }
-    
-    if(!ANSDKSettings.sharedInstance.locationEnabledForCreative){
-        //The Geolocation method watchPosition() method is used to register a handler function that will be called automatically each time the position of the device changes.
-        NSString *execWatchPosition =  [NSString stringWithFormat:@"navigator.geolocation.watchPosition = function(success, error, options) {};"];
-        //The Geolocation.getCurrentPosition() method is used to get the current position of the device.
-        NSString *execCurrentPosition = [NSString stringWithFormat:@"navigator.geolocation.getCurrentPosition('', function(){});"];
-
-        // Pass user denied the request for Geolocation to Creative
-        // USER_DENIED_LOCATION_PERMISSION is 1 which shows, The acquisition of the geolocation information failed because the page didn't have the permission to do it.
-        NSString *execCurrentPositionDenied =  [NSString stringWithFormat:@"navigator.geolocation.getCurrentPosition = function(success, error){ error({ error: { code: %d } });};",AN_USER_DENIED_LOCATION_PERMISSION];;
-
-       
-        
-        WKUserScript *execWatchPositionScript = [[WKUserScript alloc] initWithSource: execWatchPosition
-                                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                                    forMainFrameOnly: NO];
-        
-        WKUserScript *execCurrentPositionScript = [[WKUserScript alloc] initWithSource: execCurrentPosition
-                                                                         injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                                      forMainFrameOnly: NO];
-        WKUserScript *execCurrentPositionDeniedScript = [[WKUserScript alloc] initWithSource: execCurrentPositionDenied
-                                                                               injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                                            forMainFrameOnly: NO];
-        [controller addUserScript:execCurrentPositionScript];
-        [controller addUserScript:execWatchPositionScript];
-        [controller addUserScript:execCurrentPositionDeniedScript];
-
-    }
-
-    // Attach  OMID JS script to WKWebview for HTML Banner Ad's
-    // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.
-    if(!webViewControllerConfig.isVASTVideoAd){
-        WKUserScript *omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
-                                                          injectionTime: WKUserScriptInjectionTimeAtDocumentStart
-                                                       forMainFrameOnly: YES];
-        [controller addUserScript:omidScript];
-    }
-    
-    [controller addUserScript:anjamScript];
-    [controller addUserScript:mraidScript];
-    [controller addUserScript:paddingScript];
-    return configuration;
-}
+//+ (WKWebViewConfiguration *)defaultWebViewConfigurationWithConfiguration:(ANAdWebViewControllerConfiguration *)webViewControllerConfig
+//{
+//    static dispatch_once_t   processPoolToken;
+//    static WKProcessPool    *anSdkProcessPool;
+//
+//    dispatch_once(&processPoolToken, ^{
+//        anSdkProcessPool = [[WKProcessPool alloc] init];
+//    });
+//
+//    WKWebViewConfiguration  *configuration  = [[WKWebViewConfiguration alloc] init];
+//
+//    configuration.processPool                   = anSdkProcessPool;
+//    configuration.allowsInlineMediaPlayback     = YES;
+//
+//    // configuration.allowsInlineMediaPlayback = YES is not respected
+//    // on iPhone on WebKit versions shipped with iOS 9 and below, the
+//    // video always loads in full-screen.
+//    // See: https://bugs.webkit.org/show_bug.cgi?id=147512
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+//        configuration.requiresUserActionForMediaPlayback = NO;
+//
+//    } else {
+//        if (    [[NSProcessInfo processInfo] respondsToSelector:@selector(isOperatingSystemAtLeastVersion:)]
+//            && [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}] )
+//        {
+//            configuration.requiresUserActionForMediaPlayback = NO;
+//        } else {
+//            configuration.requiresUserActionForMediaPlayback = YES;
+//        }
+//    }
+//
+//    WKUserContentController  *controller  = [[WKUserContentController alloc] init];
+//    configuration.userContentController = controller;
+//
+//    NSString *paddingJS = @"document.body.style.margin='0';document.body.style.padding = '0'";
+//
+//    WKUserScript *mraidScript = [[WKUserScript alloc] initWithSource: [[self class] mraidJS]
+//                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+//                                                    forMainFrameOnly: YES];
+//
+//    WKUserScript *anjamScript = [[WKUserScript alloc] initWithSource: [[self class] anjamJS]
+//                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+//                                                    forMainFrameOnly: YES];
+//
+//    WKUserScript *paddingScript = [[WKUserScript alloc] initWithSource: paddingJS
+//                                                         injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
+//                                                      forMainFrameOnly: YES];
+//
+//    if (!webViewControllerConfig.userSelectionEnabled)
+//    {
+//        NSString *userSelectionSuppressionJS = @"document.documentElement.style.webkitUserSelect='none';";
+//
+//        WKUserScript *userSelectionSuppressionScript = [[WKUserScript alloc] initWithSource: userSelectionSuppressionJS
+//                                                                              injectionTime: WKUserScriptInjectionTimeAtDocumentEnd
+//                                                                           forMainFrameOnly: NO];
+//        [controller addUserScript:userSelectionSuppressionScript];
+//    }
+//
+//    if(!ANSDKSettings.sharedInstance.locationEnabledForCreative){
+//        //The Geolocation method watchPosition() method is used to register a handler function that will be called automatically each time the position of the device changes.
+//        NSString *execWatchPosition =  [NSString stringWithFormat:@"navigator.geolocation.watchPosition = function(success, error, options) {};"];
+//        //The Geolocation.getCurrentPosition() method is used to get the current position of the device.
+//        NSString *execCurrentPosition = [NSString stringWithFormat:@"navigator.geolocation.getCurrentPosition('', function(){});"];
+//
+//        // Pass user denied the request for Geolocation to Creative
+//        // USER_DENIED_LOCATION_PERMISSION is 1 which shows, The acquisition of the geolocation information failed because the page didn't have the permission to do it.
+//        NSString *execCurrentPositionDenied =  [NSString stringWithFormat:@"navigator.geolocation.getCurrentPosition = function(success, error){ error({ error: { code: %d } });};",AN_USER_DENIED_LOCATION_PERMISSION];;
+//
+//
+//
+//        WKUserScript *execWatchPositionScript = [[WKUserScript alloc] initWithSource: execWatchPosition
+//                                                                       injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+//                                                                    forMainFrameOnly: NO];
+//
+//        WKUserScript *execCurrentPositionScript = [[WKUserScript alloc] initWithSource: execCurrentPosition
+//                                                                         injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+//                                                                      forMainFrameOnly: NO];
+//        WKUserScript *execCurrentPositionDeniedScript = [[WKUserScript alloc] initWithSource: execCurrentPositionDenied
+//                                                                               injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+//                                                                            forMainFrameOnly: NO];
+//        [controller addUserScript:execCurrentPositionScript];
+//        [controller addUserScript:execWatchPositionScript];
+//        [controller addUserScript:execCurrentPositionDeniedScript];
+//
+//    }
+//
+//    // Attach  OMID JS script to WKWebview for HTML Banner Ad's
+//    // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.
+//    if(!webViewControllerConfig.isVASTVideoAd){
+//        WKUserScript *omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
+//                                                          injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+//                                                       forMainFrameOnly: YES];
+//        [controller addUserScript:omidScript];
+//    }
+//
+//    [controller addUserScript:anjamScript];
+//    [controller addUserScript:mraidScript];
+//    [controller addUserScript:paddingScript];
+//    return configuration;
+//}
 
 
 
@@ -626,7 +682,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if ([eventName isEqualToString:@"adReady"])
     {
         // For VideoAds's wait unitll adReady to create AdSession if not the adsession will run in limited access mode.
-        self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.modernWebView isVideoAd:true];
+        self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.baseWebView isVideoAd:true];
         if ([self.videoDelegate respondsToSelector:@selector(videoAdReady)]) {
             [self.videoDelegate videoAdReady];
         }
@@ -685,9 +741,6 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     }
 }
 
-
-
-
 # pragma mark - MRAID
 
 - (void)processWebViewDidFinishLoad
@@ -713,7 +766,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
             [self finishMRAIDLoad];
         }
         if(!([self.videoXML length] > 0)){
-             self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.modernWebView isVideoAd:false];
+             self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.baseWebView isVideoAd:false];
         }
        
     }
@@ -887,20 +940,20 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 }
 
 - (void)fireJavaScript:(NSString *)javascript {
-        [self.modernWebView evaluateJavaScript:javascript completionHandler:nil];
+        [self.baseWebView evaluateJavaScript:javascript completionHandler:nil];
 }
 
 - (void)stopWebViewLoadForDealloc
 {
-    if (self.modernWebView)
+    if (self.baseWebView)
     {
-        [self.modernWebView stopLoading];
+        [self.baseWebView stopLoading];
         
-        [self.modernWebView setNavigationDelegate:nil];
-        [self.modernWebView setUIDelegate:nil];
+        [self.baseWebView setNavigationDelegate:nil];
+        [self.baseWebView setUIDelegate:nil];
         
-        [self.modernWebView removeFromSuperview];
-        self.modernWebView = nil;
+        [self.baseWebView removeFromSuperview];
+        self.baseWebView = nil;
         
     }
     self.contentView = nil;
@@ -1089,13 +1142,13 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     NSString *exec_template = @"createVastPlayerWithContent('%@','%@');";
     NSString *exec = [NSString stringWithFormat:exec_template, self.videoXML,videoOptions];
     
-    [self.modernWebView evaluateJavaScript:exec completionHandler:nil];
+    [self.baseWebView evaluateJavaScript:exec completionHandler:nil];
 }
 
 - (void) updateViewability:(BOOL)isViewable
 {
     NSString  *exec  = [NSString stringWithFormat:@"viewabilityUpdate('%@');", isViewable ? @"true" : @"false"];
-    [self.modernWebView evaluateJavaScript:exec completionHandler:nil];
+    [self.baseWebView evaluateJavaScript:exec completionHandler:nil];
 }
 
 
