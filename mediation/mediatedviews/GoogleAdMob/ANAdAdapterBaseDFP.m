@@ -33,19 +33,6 @@
 + (GADRequest *)completeAdRequest: (GADRequest *)gadRequest
           fromTargetingParameters: (ANTargetingParameters *)targetingParameters
 {
-    ANGender gender = targetingParameters.gender;
-    switch (gender) {
-        case ANGenderMale:
-            gadRequest.gender = kGADGenderMale;
-            break;
-        case ANGenderFemale:
-            gadRequest.gender = kGADGenderFemale;
-            break;
-        case ANGenderUnknown:
-            gadRequest.gender = kGADGenderUnknown;
-        default:
-            break;
-    }
 
     NSString *content_url = targetingParameters.customKeywords[@"content_url"];
     if ([content_url length] > 0)
