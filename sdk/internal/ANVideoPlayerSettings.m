@@ -40,6 +40,10 @@ NSString * const  ANVideoOptions = @"videoOptions";
 NSString * const  ANInitialAudio = @"initialAudio";
 NSString * const  ANOn = @"on";
 NSString * const  ANOff = @"off";
+NSString * const  ANSkip = @"skippable";
+NSString * const  ANSkipDescription = @"skipText";
+NSString * const  ANSkipLabelName = @"skipButtonText";
+NSString * const  ANSkipOffset = @"videoOffset";
 
 @interface ANVideoPlayerSettings()
 
@@ -64,6 +68,8 @@ NSString * const  ANOff = @"off";
         videoSettings.showAdText = YES;
         videoSettings.showVolumeControl = YES;
         videoSettings.showTopBar = YES;
+        videoSettings.showSkip = YES;
+        videoSettings.skipOffset = 5;
         
     });
     return videoSettings;
@@ -88,6 +94,17 @@ NSString * const  ANOff = @"off";
     
     if(clickthruOptions.count > 0){
         publisherOptions[ANLearnMore] = clickthruOptions;
+    }
+
+    if([self.optionsDictionary[ANEntry] isEqualToString:ANInstreamVideo]){
+         NSMutableDictionary *skipOptions = [[NSMutableDictionary alloc] init];
+        if(self.showSkip){
+            skipOptions[ANSkipDescription] = self.skipDescription;
+            skipOptions[ANSkipLabelName] = self.skipLabelName;
+            skipOptions[ANSkipOffset] = [NSNumber numberWithInteger:self.skipOffset];
+        }
+        skipOptions[ANEnabled] = [NSNumber numberWithBool:self.showSkip];
+        publisherOptions[ANSkip] = skipOptions;
     }
     
     if(!self.showVolumeControl){
