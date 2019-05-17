@@ -406,8 +406,6 @@
 		F5731B54228C8D3A0012B134 /* ANNativeMediatedAdResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AB8762D1A0994310022D9A5 /* ANNativeMediatedAdResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5731B55228C8DD10012B134 /* ANCarrierObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */; };
 		F5731B56228C8DD50012B134 /* ANCarrierObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */; };
-		F5731B57228C8DD80012B134 /* ANUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732C41E42E9860061EC0A /* ANUniversalAdFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5731B58228C8DDF0012B134 /* ANUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732C51E42E9860061EC0A /* ANUniversalAdFetcher.m */; };
 		F5731B59228C8DE20012B134 /* ANUniversalTagAdServerResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732C61E42E9860061EC0A /* ANUniversalTagAdServerResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5731B5A228C8DE90012B134 /* ANUniversalTagAdServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732C71E42E9860061EC0A /* ANUniversalTagAdServerResponse.m */; };
 		F5731B5B228C8DEC0012B134 /* ANUniversalTagRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732C81E42E9860061EC0A /* ANUniversalTagRequestBuilder.h */; };
@@ -459,6 +457,12 @@
 		F5731BC1228C9A240012B134 /* ANSDKSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5731BC2228C9A4C0012B134 /* ANGDPRSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5731BC5228C9B4D0012B134 /* AppNexusNativeSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731AFF228B43570012B134 /* AppNexusNativeSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5731BCB228DD8E60012B134 /* ANNativeUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */; };
+		F5731BCD228DD90B0012B134 /* ANNativeUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */; };
+		F5731BCE228F07F30012B134 /* ANNativeUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */; };
+		F5731BCF228F07FC0012B134 /* ANNativeUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */; };
+		F5731BD0228F0BB40012B134 /* ANUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732C51E42E9860061EC0A /* ANUniversalAdFetcher.m */; };
+		F5731BD1228F0BB70012B134 /* ANUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732C41E42E9860061EC0A /* ANUniversalAdFetcher.h */; };
 		FC210A2E2007D529002A9F0E /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
 		FC210A312007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
 		FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */; };
@@ -1253,6 +1257,8 @@
 		F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppNexusNativeSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5731AFF228B43570012B134 /* AppNexusNativeSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppNexusNativeSDK.h; sourceTree = "<group>"; };
 		F5731B00228B43570012B134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANNativeUniversalAdFetcher.m; sourceTree = "<group>"; };
+		F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANNativeUniversalAdFetcher.h; sourceTree = "<group>"; };
 		FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBaseAdObject.m; sourceTree = "<group>"; };
 		FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBaseAdObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1528,6 +1534,8 @@
 				609732C71E42E9860061EC0A /* ANUniversalTagAdServerResponse.m */,
 				609732C81E42E9860061EC0A /* ANUniversalTagRequestBuilder.h */,
 				609732C91E42E9860061EC0A /* ANUniversalTagRequestBuilder.m */,
+				F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */,
+				F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */,
 			);
 			name = universalTag;
 			sourceTree = "<group>";
@@ -2428,6 +2436,7 @@
 				8A9AEDD61A1BF88200C58BDA /* ANLogging.h in Headers */,
 				8A9AEDB81A1BE8C200C58BDA /* ANLogManager.h in Headers */,
 				8A9AEDD71A1BF88200C58BDA /* ANMediatedAd.h in Headers */,
+				F5731BCE228F07F30012B134 /* ANNativeUniversalAdFetcher.h in Headers */,
 				8A9AEDD81A1BF88200C58BDA /* ANMediationAdViewController.h in Headers */,
 				8A9AEDD91A1BF88200C58BDA /* ANMediationContainerView.h in Headers */,
 				8AC65F5F1A40DE74006BCF39 /* ANMRAIDCalendarManager.h in Headers */,
@@ -2503,6 +2512,7 @@
 				F5731B6D228C8E470012B134 /* ANSDKSettings+PrivateMethods.h in Headers */,
 				F5731B6F228C8F680012B134 /* ANTargetingParameters.h in Headers */,
 				F5731B55228C8DD10012B134 /* ANCarrierObserver.h in Headers */,
+				F5731BD1228F0BB70012B134 /* ANUniversalAdFetcher.h in Headers */,
 				F5731BBE228C99BC0012B134 /* ANAdProtocol.h in Headers */,
 				F5731BC5228C9B4D0012B134 /* AppNexusNativeSDK.h in Headers */,
 				F5731B4F228C8D1A0012B134 /* ANNativeAdDelegate.h in Headers */,
@@ -2510,7 +2520,6 @@
 				F5731B67228C8E230012B134 /* ANSSMVideoAd.h in Headers */,
 				F5731B4B228C8D050012B134 /* UIView+ANNativeAdCategory.h in Headers */,
 				F5731B51228C8D290012B134 /* ANNativeAdResponse.h in Headers */,
-				F5731B57228C8DD80012B134 /* ANUniversalAdFetcher.h in Headers */,
 				F5731B7B228C94850012B134 /* ANReachability.h in Headers */,
 				F5731B63228C8E150012B134 /* ANRTBVideoAd.h in Headers */,
 				F5731B53228C8D350012B134 /* ANNativeCustomAdapter.h in Headers */,
@@ -2526,6 +2535,7 @@
 				F5731B5F228C8DFE0012B134 /* ANCSMVideoAd.h in Headers */,
 				F5731B6B228C8E3E0012B134 /* ANBaseUrlConfig.h in Headers */,
 				F5731B50228C8D230012B134 /* ANNativeAdRequest.h in Headers */,
+				F5731BCD228DD90B0012B134 /* ANNativeUniversalAdFetcher.h in Headers */,
 				F5731B3F228C8CA80012B134 /* ANNativeAdImageCache.h in Headers */,
 				F5731B45228C8CDF0012B134 /* ANNativeMediatedAdController.h in Headers */,
 				F5731B5B228C8DEC0012B134 /* ANUniversalTagRequestBuilder.h in Headers */,
@@ -3252,6 +3262,7 @@
 				8AC65F6C1A40DE74006BCF39 /* ANMRAIDResizeProperties.m in Sources */,
 				8AC65F6E1A40DE74006BCF39 /* ANMRAIDResizeView.m in Sources */,
 				8AC65F701A40DE74006BCF39 /* ANMRAIDResizeViewManager.m in Sources */,
+				F5731BCF228F07FC0012B134 /* ANNativeUniversalAdFetcher.m in Sources */,
 				8AC65F721A40DE74006BCF39 /* ANMRAIDUtil.m in Sources */,
 				8A9AEE061A1BF99D00C58BDA /* ANNativeAdImageCache.m in Sources */,
 				8A9AEE071A1BF99D00C58BDA /* ANNativeAdRequest.m in Sources */,
@@ -3481,6 +3492,7 @@
 				F5731B73228C900B0012B134 /* ANLocation.m in Sources */,
 				0099B484228CA0F6004E80AB /* UIView+ANCategory.m in Sources */,
 				F5731B82228C94CC0012B134 /* ANBrowserViewController.m in Sources */,
+				F5731BD0228F0BB40012B134 /* ANUniversalAdFetcher.m in Sources */,
 				F5731B43228C8CCC0012B134 /* ANNativeAdResponse.m in Sources */,
 				F5731B70228C8F820012B134 /* ANTargetingParameters.m in Sources */,
 				F5731B5E228C8DFA0012B134 /* ANBaseAdObject.m in Sources */,
@@ -3489,7 +3501,6 @@
 				F5731B7E228C94990012B134 /* ANTrackerManager.m in Sources */,
 				F5731B77228C902D0012B134 /* ANLogging.m in Sources */,
 				0099B486228CA191004E80AB /* NSTimer+ANCategory.m in Sources */,
-				F5731B58228C8DDF0012B134 /* ANUniversalAdFetcher.m in Sources */,
 				F5731B6C228C8E430012B134 /* ANGDPRSettings.m in Sources */,
 				F5731B64228C8E190012B134 /* ANRTBVideoAd.m in Sources */,
 				F5731B68228C8E260012B134 /* ANSSMVideoAd.m in Sources */,
@@ -3498,6 +3509,7 @@
 				F5731B48228C8CF80012B134 /* ANNativeMediatedAdResponse.m in Sources */,
 				F5731B7C228C948C0012B134 /* ANReachability.m in Sources */,
 				F5731B87228C951D0012B134 /* ANOMIDImplementation.m in Sources */,
+				F5731BCB228DD8E60012B134 /* ANNativeUniversalAdFetcher.m in Sources */,
 				F5731B56228C8DD50012B134 /* ANCarrierObserver.m in Sources */,
 				F5731B62228C8E110012B134 /* ANMediatedAd.m in Sources */,
 				F5731B84228C94EE0012B134 /* ANOpenInExternalBrowserActivity.m in Sources */,

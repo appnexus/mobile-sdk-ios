@@ -15,16 +15,16 @@
 
 #import "ANNativeAdRequest.h"
 #import "ANNativeMediatedAdResponse.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANNativeUniversalAdFetcher.h"
 #import "ANNativeAdImageCache.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANOMIDImplementation.h"
 
 
-@interface ANNativeAdRequest() <ANUniversalNativeAdFetcherDelegate>
+@interface ANNativeAdRequest() <ANNativeUniversalAdFetcherDelegate>
 
-@property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
+@property (nonatomic, readwrite, strong) ANNativeUniversalAdFetcher *adFetcher;
 
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
@@ -88,17 +88,13 @@
     }
 }
 
-- (NSMutableArray *)adFetchers {
-    
-    if (!_adFetchers) _adFetchers = [[NSMutableArray alloc] init];
-    return _adFetchers;
-}
 
 - (void)createAdFetcher {
-    
-    ANUniversalAdFetcher  *adFetcher  = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-    [self.adFetchers addObject:adFetcher];
-    [adFetcher requestAd];
+    if (self.adFetcher != nil) {
+        [self.adFetcher cancelRequest];
+    }
+    self.adFetcher  = [[ANNativeUniversalAdFetcher alloc] initWithDelegate:self];
+    [self.adFetcher requestAd];
 }
 
 
@@ -107,8 +103,7 @@
 
 #pragma mark - ANUniversalNativeAdFetcherDelegate.
 
-- (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-    didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+- (void) didFinishRequestWithResponse: (ANAdFetcherResponse *)response
 {
     NSError  *error  = nil;
 
@@ -121,7 +116,6 @@
 
     if (error) {
         [self.delegate adRequest:self didFailToLoadWithError:error];
-        [self.adFetchers removeObjectIdenticalTo:fetcher];
         return;
     }
 
@@ -180,7 +174,6 @@
             ANLogDebug(@"...END NSURL sessions.");
 
             [strongSelf.delegate adRequest:strongSelf didReceiveResponse:nativeResponse];
-            [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
         });
     });
 }
