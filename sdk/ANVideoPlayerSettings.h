@@ -60,6 +60,18 @@ typedef NS_ENUM(NSUInteger, ANInitialAudioSetting) {
 //Show or hide the top bar that has (ClickThru & Skip control)
 @property (nonatomic,assign) BOOL showTopBar;
 
+//Show or hide the Skip control on the player
+@property (nonatomic,assign) BOOL showSkip;
+
+//Change the skip description on the video player
+@property (nonatomic,assign) NSString *skipDescription;
+
+//Change the skip label name on the video player
+@property (nonatomic,assign) NSString *skipLabelName;
+
+//Configure the skip offset on the video player
+@property (nonatomic, assign) NSInteger skipOffset;
+
 + (instancetype)sharedInstance;
 
 

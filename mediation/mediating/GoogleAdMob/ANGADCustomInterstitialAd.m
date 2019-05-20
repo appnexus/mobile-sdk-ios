@@ -41,22 +41,6 @@
         [self.interstitialAd setLocation:loc];
     }
     
-    GADGender gadGender = [customEventRequest userGender];
-    ANGender anGender = ANGenderUnknown;
-    if (gadGender != kGADGenderUnknown) {
-        if (gadGender == kGADGenderMale) anGender = ANGenderMale;
-        else if (gadGender == kGADGenderFemale) anGender = ANGenderFemale;
-    }
-    [self.interstitialAd setGender:anGender];
-    
-    NSDate *userBirthday = [customEventRequest userBirthday];
-    if (userBirthday) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy"];
-        NSString *birthYear = [dateFormatter stringFromDate:userBirthday];
-        [self.interstitialAd setAge:birthYear];
-    }
-    
     NSMutableDictionary *customKeywords = [[customEventRequest additionalParameters] mutableCopy];
     [customKeywords enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         [self.interstitialAd addCustomKeywordWithKey:key value:obj];

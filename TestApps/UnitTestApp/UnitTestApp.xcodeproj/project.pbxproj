@@ -254,6 +254,7 @@
 		979EA171223BC364009B79B7 /* ANOMIDNativeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 979EA170223BC364009B79B7 /* ANOMIDNativeTestCase.m */; };
 		97B3C8EF223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */; };
 		97B3C8F0223FA311005B2DB8 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */; };
+		97E3447B2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -785,6 +786,7 @@
 		97B3C8EC223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+ANProtocols.h"; sourceTree = "<group>"; };
 		97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
 		97B3C8EE223FA311005B2DB8 /* SDKValidationURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKValidationURLProtocol.h; sourceTree = "<group>"; };
+		97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettingsDefaultTestCase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1083,6 +1085,7 @@
 			isa = PBXGroup;
 			children = (
 				60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */,
+				97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */,
 				0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */,
 				0E8C981C21FF3987005D1F0E /* ANReachabilityTestCase.m */,
 				0E8C981E21FF400D005D1F0E /* ANUniversalAdFetcherTests.m */,
@@ -1681,6 +1684,7 @@
 				0E8C982B21FF417C005D1F0E /* ANNativeStandardAdResponseTestCase.m in Sources */,
 				0E8C982121FF4025005D1F0E /* ANContainerViewTestCase.m in Sources */,
 				979EA146223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m in Sources */,
+				97E3447B2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m in Sources */,
 				0E8C97A521FF32EC005D1F0E /* ANTrackerManager+ANTest.m in Sources */,
 				0EEFE11B2200580D002B5F5F /* ANAdAdapterBannerNetworkError.m in Sources */,
 				0E8C983321FF41B2005D1F0E /* ANMediationAdViewControllerTestCase.m in Sources */,

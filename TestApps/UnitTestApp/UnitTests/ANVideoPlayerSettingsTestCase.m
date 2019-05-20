@@ -138,6 +138,40 @@
     XCTAssertEqualObjects(json[@"videoOptions"][@"initialAudio"],@"on");
 }
 
+-(void) testInstreamSkipSettingsTrue {
+    [[ANVideoPlayerSettings sharedInstance] setShowSkip:YES];
+    [[ANVideoPlayerSettings sharedInstance] setSkipDescription:@"Video Skip Demo"];
+    [[ANVideoPlayerSettings sharedInstance] setSkipLabelName:@"Test"];
+    [[ANVideoPlayerSettings sharedInstance] setSkipOffset:2];
+    NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchInStreamVideoSettings];
+    NSData *data = [videoSettings dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSDictionary *skippableOptions = json[@"videoOptions"][@"skippable"];    
+    XCTAssertTrue([skippableOptions[@"enabled"] boolValue]);
+    XCTAssertEqualObjects(skippableOptions[@"skipText"],@"Video Skip Demo");
+    XCTAssertEqualObjects(skippableOptions[@"skipButtonText"],@"Test");
+    XCTAssertEqualObjects(skippableOptions[@"videoOffset"],[NSNumber numberWithInteger:2]);
+    
+}
 
+-(void) testInstreamSkipSettingsFalse {
+    [[ANVideoPlayerSettings sharedInstance] setShowSkip:NO];
+    NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchInStreamVideoSettings];
+    NSData *data = [videoSettings dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSDictionary *skippableOptions = json[@"videoOptions"][@"skippable"];
+    XCTAssertFalse([skippableOptions[@"enabled"] boolValue]);
+    
+}
+
+
+-(void) testOutstreamSkipSettings {
+    [[ANVideoPlayerSettings sharedInstance] setShowSkip:NO];
+    NSString *videoSettings = [[ANVideoPlayerSettings sharedInstance] fetchBannerSettings];
+    NSData *data = [videoSettings dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    XCTAssertNil(json[@"videoOptions"][@"skippable"]);
+    
+}
 
 @end
