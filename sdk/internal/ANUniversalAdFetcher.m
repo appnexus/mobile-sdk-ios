@@ -411,9 +411,11 @@
 {
     CGSize sizeofWebView = [self getWebViewSizeForCreativeWidth:standardAd.width
                                                       andHeight:standardAd.height];
+    
     if (self.adView) {
         self.adView.loadingDelegate = nil;
     }
+    
     self.adView = [[ANMRAIDContainerView alloc] initWithSize:sizeofWebView
                                                         HTML:standardAd.content
                                               webViewBaseURL:[NSURL URLWithString:[[[ANSDKSettings sharedInstance] baseUrlConfig] webViewBaseUrl]]];
