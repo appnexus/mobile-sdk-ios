@@ -461,8 +461,6 @@
 		F5731BCD228DD90B0012B134 /* ANNativeUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */; };
 		F5731BCE228F07F30012B134 /* ANNativeUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */; };
 		F5731BCF228F07FC0012B134 /* ANNativeUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */; };
-		F5731BD0228F0BB40012B134 /* ANUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732C51E42E9860061EC0A /* ANUniversalAdFetcher.m */; };
-		F5731BD1228F0BB70012B134 /* ANUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732C41E42E9860061EC0A /* ANUniversalAdFetcher.h */; };
 		FC210A2E2007D529002A9F0E /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
 		FC210A312007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
 		FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */; };
@@ -2512,7 +2510,6 @@
 				F5731B6D228C8E470012B134 /* ANSDKSettings+PrivateMethods.h in Headers */,
 				F5731B6F228C8F680012B134 /* ANTargetingParameters.h in Headers */,
 				F5731B55228C8DD10012B134 /* ANCarrierObserver.h in Headers */,
-				F5731BD1228F0BB70012B134 /* ANUniversalAdFetcher.h in Headers */,
 				F5731BBE228C99BC0012B134 /* ANAdProtocol.h in Headers */,
 				F5731BC5228C9B4D0012B134 /* AppNexusNativeSDK.h in Headers */,
 				F5731B4F228C8D1A0012B134 /* ANNativeAdDelegate.h in Headers */,
@@ -3492,7 +3489,6 @@
 				F5731B73228C900B0012B134 /* ANLocation.m in Sources */,
 				0099B484228CA0F6004E80AB /* UIView+ANCategory.m in Sources */,
 				F5731B82228C94CC0012B134 /* ANBrowserViewController.m in Sources */,
-				F5731BD0228F0BB40012B134 /* ANUniversalAdFetcher.m in Sources */,
 				F5731B43228C8CCC0012B134 /* ANNativeAdResponse.m in Sources */,
 				F5731B70228C8F820012B134 /* ANTargetingParameters.m in Sources */,
 				F5731B5E228C8DFA0012B134 /* ANBaseAdObject.m in Sources */,
