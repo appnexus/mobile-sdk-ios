@@ -68,25 +68,43 @@
         [self.nativeContainer removeFromSuperview];
     }
     if (response.networkCode == ANNativeAdNetworkCodeAdMob) {
-        self.nativeContainer = [[GADUnifiedNativeAdView alloc] initWithFrame:CGRectMake(0, 150, 300, 400)];
-        // TODO: display admob native ad programmatically
+        UINib *adNib = [UINib nibWithNibName:@"UnifiedNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
+        NSArray *array = [adNib instantiateWithOwner:self options:nil];
+        self.nativeContainer = [array firstObject];
+        
+        ((UILabel *)((GADUnifiedNativeAdView*)self.nativeContainer).headlineView).text = response.title;
+
+        ((UILabel *)((GADUnifiedNativeAdView*)self.nativeContainer).bodyView).text = response.body;
+
+
+        [((UIButton *)((GADUnifiedNativeAdView*)self.nativeContainer).callToActionView) setTitle:response.callToAction
+                                                     forState:UIControlStateNormal];
+
+        ((UIImageView *)((GADUnifiedNativeAdView*)self.nativeContainer).iconView).image = response.iconImage;
+        // Main Image is automatically added by GoogleSDK in the MediaView
+
+        ((UILabel *)((GADUnifiedNativeAdView*)self.nativeContainer).advertiserView).text = response.sponsoredBy;
+        [response registerViewForTracking:self.nativeContainer withRootViewController:self clickableViews:@[((GADUnifiedNativeAdView*)self.nativeContainer).callToActionView] error:nil];
+        self.nativeContainer.frame = CGRectMake(0, 150, self.screenWidth, 300);
+        [self.view addSubview:self.nativeContainer];
     } else {
-        self.nativeContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 150, 300, 400)];
+        self.nativeContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 150, self.screenWidth, 400)];
         UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
         icon.image = response.iconImage;
         [self.nativeContainer addSubview:icon];
-        UITextView *title = [[UITextView alloc] initWithFrame:CGRectMake(50, 0, 300, 50)];
+        UITextView *title = [[UITextView alloc] initWithFrame:CGRectMake(50, 0, self.screenWidth -50, 50)];
         [title setFont:[UIFont systemFontOfSize:18]];
         title.text = response.title;
         [self.nativeContainer addSubview:title];
-        UIImageView *mainImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 50, 300, 250)];
+        CGFloat width = response.mainImageSize.width * 250 / response.mainImageSize.height;
+        UIImageView *mainImage = [[UIImageView alloc] initWithFrame:CGRectMake((self.screenWidth - width)/2, 50, width, 250)];
         mainImage.image = response.mainImage;
         [self.nativeContainer addSubview:mainImage];
-        UITextView *body = [[UITextView alloc] initWithFrame:CGRectMake(0, 300, 300, 80)];
+        UITextView *body = [[UITextView alloc] initWithFrame:CGRectMake(0, 300, self.screenWidth, 80)];
         body.text = response.body;
         [body setFont:[UIFont systemFontOfSize:15]];
         [self.nativeContainer addSubview:body];
-        UIButton *callToAction = [[UIButton alloc] initWithFrame:CGRectMake(0, 380, 300, 20)];
+        UIButton *callToAction = [[UIButton alloc] initWithFrame:CGRectMake(0, 380, self.screenWidth, 20)];
         [callToAction setTitle:response.callToAction forState:UIControlStateNormal];
         [callToAction setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [self.nativeContainer addSubview:callToAction];
@@ -99,5 +117,4 @@
 {
     NSLog(@"Native ad request failed: %@", error);
 }
-
 @end

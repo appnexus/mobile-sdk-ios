@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		07B2A106F2383E7A208A18FB /* libPods-SimpleNativeOnly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E378831AA3A06721BE4F6615 /* libPods-SimpleNativeOnly.a */; };
 		F52F82EF229338CC00F4578C /* libANSDKGoogleAdMobAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5731C26229304B90012B134 /* libANSDKGoogleAdMobAdapter.a */; };
+		F52F830D22934B5C00F4578C /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F52F830C22934B5C00F4578C /* UnifiedNativeAdView.xib */; };
 		F5731BF72293044C0012B134 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BF62293044C0012B134 /* AppDelegate.m */; };
 		F5731BFA2293044C0012B134 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BF92293044C0012B134 /* ViewController.m */; };
 		F5731BFD2293044C0012B134 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5731BFB2293044C0012B134 /* Main.storyboard */; };
@@ -178,6 +179,7 @@
 		63AF2110FA8D9F371DC37AE0 /* Pods-SimpleNativeOnly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleNativeOnly.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleNativeOnly/Pods-SimpleNativeOnly.release.xcconfig"; sourceTree = "<group>"; };
 		8A98561AFFE35C130F94E708 /* Pods-SimpleNativeOnly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleNativeOnly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleNativeOnly/Pods-SimpleNativeOnly.debug.xcconfig"; sourceTree = "<group>"; };
 		E378831AA3A06721BE4F6615 /* libPods-SimpleNativeOnly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleNativeOnly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F52F830C22934B5C00F4578C /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		F5731BF22293044C0012B134 /* SimpleNativeOnly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleNativeOnly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5731BF52293044C0012B134 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F5731BF62293044C0012B134 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -245,13 +247,14 @@
 			children = (
 				F5731BF52293044C0012B134 /* AppDelegate.h */,
 				F5731BF62293044C0012B134 /* AppDelegate.m */,
+				F5731BFB2293044C0012B134 /* Main.storyboard */,
 				F5731BF82293044C0012B134 /* ViewController.h */,
 				F5731BF92293044C0012B134 /* ViewController.m */,
-				F5731BFB2293044C0012B134 /* Main.storyboard */,
 				F5731BFE2293044D0012B134 /* Assets.xcassets */,
 				F5731C002293044D0012B134 /* LaunchScreen.storyboard */,
 				F5731C032293044D0012B134 /* Info.plist */,
 				F5731C042293044D0012B134 /* main.m */,
+				F52F830C22934B5C00F4578C /* UnifiedNativeAdView.xib */,
 			);
 			path = SimpleNativeOnly;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				F5731C022293044D0012B134 /* LaunchScreen.storyboard in Resources */,
 				F5731BFF2293044D0012B134 /* Assets.xcassets in Resources */,
 				F5731BFD2293044C0012B134 /* Main.storyboard in Resources */,
+				F52F830D22934B5C00F4578C /* UnifiedNativeAdView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
