@@ -1270,7 +1270,6 @@
 		F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANNativeUniversalAdFetcher.m; sourceTree = "<group>"; };
 		F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANNativeUniversalAdFetcher.h; sourceTree = "<group>"; };
 		F5731C7522930D070012B134 /* AppNexusNativeResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppNexusNativeResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5731C7622930D070012B134 /* ANSDKResources copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ANSDKResources copy-Info.plist"; path = "/Users/wzhang/Documents/Appnexus/Dev_Resources/repos/app_mobile-sdk-ios/BinaryProjects/ANSDKResources copy-Info.plist"; sourceTree = "<absolute>"; };
 		FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBaseAdObject.m; sourceTree = "<group>"; };
 		FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBaseAdObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2283,7 +2282,6 @@
 				EC3E5CDD1843C6D50070315E /* Products */,
 				8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */,
 				8A3AC2751DCA4DF1005D4E46 /* Info.plist */,
-				F5731C7622930D070012B134 /* ANSDKResources copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -4575,7 +4573,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ANSDKResources copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4593,7 +4591,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				INFOPLIST_FILE = "ANSDKResources copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
