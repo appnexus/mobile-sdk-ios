@@ -13,8 +13,6 @@
  limitations under the License.
  */
 
-#import <WebKit/WebKit.h>
-
 #import "ANAdWebViewController.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
