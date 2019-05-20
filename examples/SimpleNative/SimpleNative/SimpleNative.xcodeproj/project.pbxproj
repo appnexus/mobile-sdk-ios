@@ -151,12 +151,12 @@
 			remoteGlobalIDString = F5731AFD228B43570012B134;
 			remoteInfo = AppNexusNativeSDK;
 		};
-		F5731BC3228C9AAB0012B134 /* PBXContainerItemProxy */ = {
+		F5731BE6229302540012B134 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 001DAD0E2214A11400D0D5B6 /* ANSDK.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = F5731AFC228B43570012B134;
-			remoteInfo = AppNexusNativeSDK;
+			remoteGlobalIDString = 8A9AED8B1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -272,7 +272,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				F5731BC4228C9AAB0012B134 /* PBXTargetDependency */,
+				F5731BE7229302540012B134 /* PBXTargetDependency */,
 			);
 			name = SimpleNative;
 			productName = SimpleNative;
@@ -482,10 +482,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F5731BC4228C9AAB0012B134 /* PBXTargetDependency */ = {
+		F5731BE7229302540012B134 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = AppNexusNativeSDK;
-			targetProxy = F5731BC3228C9AAB0012B134 /* PBXContainerItemProxy */;
+			name = AppNexusSDK;
+			targetProxy = F5731BE6229302540012B134 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
