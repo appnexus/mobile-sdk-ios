@@ -381,6 +381,12 @@
 		ECE4EB16194B78280069D934 /* ANLocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA92194B768A0069D934 /* ANLocation.h */; };
 		ECE4EB17194B78280069D934 /* ANLogManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA93194B768A0069D934 /* ANLogManager.h */; };
 		ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */; };
+		F52F82EB2293362600F4578C /* NSObject+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */; };
+		F52F82EC2293362900F4578C /* NSObject+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */; };
+		F52F82ED2293367700F4578C /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */; };
+		F52F82EE2293367A00F4578C /* NSString+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA96194B768A0069D934 /* NSString+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F52F82F1229338F100F4578C /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
+		F52F82F2229338FC00F4578C /* ANProxyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F5731B0B228B57590012B134 /* libOMSDKAppnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEE97F321768358007DADE6 /* libOMSDKAppnexus.a */; };
 		F5731B3F228C8CA80012B134 /* ANNativeAdImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AB876201A0994310022D9A5 /* ANNativeAdImageCache.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F5731B40228C8CB40012B134 /* ANNativeAdImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876211A0994310022D9A5 /* ANNativeAdImageCache.m */; };
@@ -2562,9 +2568,12 @@
 				F5731B86228C95140012B134 /* ANOMIDImplementation.h in Headers */,
 				F5731B78228C90310012B134 /* ANLogging.h in Headers */,
 				F5731B69228C8E2A0012B134 /* ANStandardAd.h in Headers */,
+				F52F82EB2293362600F4578C /* NSObject+ANCategory.h in Headers */,
 				F5731B47228C8CF20012B134 /* ANNativeMediatedAdResponse+PrivateMethods.h in Headers */,
+				F52F82F2229338FC00F4578C /* ANProxyViewController.h in Headers */,
 				F5731BC2228C9A4C0012B134 /* ANGDPRSettings.h in Headers */,
 				F5731B42228C8CC30012B134 /* ANNativeAdResponse+PrivateMethods.h in Headers */,
+				F52F82EE2293367A00F4578C /* NSString+ANCategory.h in Headers */,
 				F5731B61228C8E0A0012B134 /* ANMediatedAd.h in Headers */,
 				F5731B65228C8E1D0012B134 /* ANSSMStandardAd.h in Headers */,
 				0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */,
@@ -3550,6 +3559,7 @@
 				F5731B77228C902D0012B134 /* ANLogging.m in Sources */,
 				0099B486228CA191004E80AB /* NSTimer+ANCategory.m in Sources */,
 				F5731B6C228C8E430012B134 /* ANGDPRSettings.m in Sources */,
+				F52F82F1229338F100F4578C /* ANProxyViewController.m in Sources */,
 				F5731B64228C8E190012B134 /* ANRTBVideoAd.m in Sources */,
 				F5731B68228C8E260012B134 /* ANSSMVideoAd.m in Sources */,
 				F5731B5C228C8DEF0012B134 /* ANUniversalTagRequestBuilder.m in Sources */,
@@ -3560,8 +3570,10 @@
 				F5731BCB228DD8E60012B134 /* ANNativeUniversalAdFetcher.m in Sources */,
 				F5731B56228C8DD50012B134 /* ANCarrierObserver.m in Sources */,
 				F5731B62228C8E110012B134 /* ANMediatedAd.m in Sources */,
+				F52F82EC2293362900F4578C /* NSObject+ANCategory.m in Sources */,
 				F5731B84228C94EE0012B134 /* ANOpenInExternalBrowserActivity.m in Sources */,
 				F5731B7F228C94AB0012B134 /* ANTrackerInfo.m in Sources */,
+				F52F82ED2293367700F4578C /* NSString+ANCategory.m in Sources */,
 				F5731B4E228C8D170012B134 /* ANVerificationScriptResource.m in Sources */,
 				F5731B60228C8E050012B134 /* ANCSMVideoAd.m in Sources */,
 				F5731B66228C8E200012B134 /* ANSSMStandardAd.m in Sources */,

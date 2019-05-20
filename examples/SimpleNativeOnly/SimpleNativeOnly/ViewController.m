@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <AppNexusNativeSDK/AppNexusNativeSDK.h>
+#import <GoogleMobileAds/GADMobileAds.h>
 
 
 @interface ViewController () <ANNativeAdRequestDelegate>
@@ -18,12 +19,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     // Do any additional setup after loading the view.
     ANSDKSettings.sharedInstance.HTTPSEnabled=YES;
     [ANLogManager setANLogLevel:ANLogLevelAll];
     
     self.nativeAdRequest= [[ANNativeAdRequest alloc] init];
-    self.nativeAdRequest.placementId = @"13255429";
+    self.nativeAdRequest.placementId = @"9505207";
     self.nativeAdRequest.gender = ANGenderMale;
     self.nativeAdRequest.shouldLoadIconImage = YES;
     self.nativeAdRequest.shouldLoadMainImage = YES;
