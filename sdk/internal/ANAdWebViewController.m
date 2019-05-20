@@ -32,9 +32,8 @@
 #import "ANAdConstants.h"
 
 #import "ANOMIDImplementation.h"
-
+#import "ANWebView.h"
 #import "ANVideoPlayerSettings+ANCategory.h"
-#import "ANBaseWebView+PrivateMethods.h"
 
 NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
@@ -43,7 +42,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 @interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
 
 @property (nonatomic, readwrite, strong)    UIView      *contentView;
-
+@property (nonatomic, readwrite, strong)    ANWebView      *webView;
 @property (nonatomic, readwrite, assign)  BOOL  isMRAID;
 @property (nonatomic, readwrite, assign)  BOOL  completedFirstLoad;
 
@@ -105,7 +104,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 {
     self = [self initWithConfiguration:configuration];
     if (!self)  { return nil; }
-    [self createWebView:size URL:URL baseURL:baseURL];
+    
+    _webView = [[ANWebView alloc]initWithSize:(CGSize)size
+                                   URL:(NSURL *)URL
+                               baseURL:(NSURL *)baseURL];
+   // [self createWebView:size URL:URL baseURL:baseURL];
     [[self class] addControllerConfiguration:self.configuration for:self.webView];
     
     return self;
@@ -145,8 +148,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     if (!_configuration.scrollingEnabled) {
         htmlToLoad = [[self class] prependViewportToHTML:htmlToLoad];
     }
-    
-    [self createWebView:size HTML:htmlToLoad baseURL:base];
+    _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
+    //[self createWebView:size HTML:htmlToLoad baseURL:base];
     [self configureWebView:configuration];
     return self;
 }
@@ -164,8 +167,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     _videoXML = videoXML;
     [self handleMRAIDURL:[NSURL URLWithString:@"mraid://enable"]];
     
-    
-    [self createVideoWebView:size];
+    _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl]];
+    //[self createVideoWebView:size];
     
     [self configureWebView:self.configuration];
     
@@ -179,7 +182,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
 -(void) configureWebView:(ANAdWebViewControllerConfiguration *) configuration {
     [self addControllerConfiguration:configuration for:self.webView];
-        
+    
         if(configuration.isVASTVideoAd){
             [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"observe"];
             self.webView.configuration.allowsInlineMediaPlayback = YES;

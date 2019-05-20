@@ -16,7 +16,6 @@
 #import "ANAdViewInternalDelegate.h"
 #import "ANMRAIDUtil.h"
 #import "OMIDAdSession.h"
-#import "ANBaseWebView.h"
 
 @class ANAdWebViewControllerConfiguration;
 @class ANMRAIDExpandProperties;
@@ -31,7 +30,7 @@
 
 
 
-@interface ANAdWebViewController : ANBaseWebView
+@interface ANAdWebViewController : NSObject
 
 @property (nonatomic, readonly, assign)  BOOL         isMRAID;
 @property (nonatomic, readonly, strong)  UIView      *contentView;

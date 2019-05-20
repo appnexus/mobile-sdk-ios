@@ -60,10 +60,9 @@
 		4F824D0A1D909E1000AFC7EA /* MRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4F824CF41D909E1000AFC7EA /* MRAID.bundle */; };
 		4FA566EB1F4B94D3004652AB /* ANTrackerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */; };
 		4FA566EC1F4B94D3004652AB /* ANTrackerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */; };
-		60183FCB228D0F4B00CFDE33 /* ANBaseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60183FCA228D0F4B00CFDE33 /* ANBaseWebView.m */; };
-		60183FCD228E709600CFDE33 /* ANBaseWebView+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 60183FCC228E5C5D00CFDE33 /* ANBaseWebView+PrivateMethods.h */; };
-		60183FCE228E709C00CFDE33 /* ANBaseWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60183FC9228D0F4B00CFDE33 /* ANBaseWebView.h */; };
-		60183FCF228E70D400CFDE33 /* ANBaseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60183FCA228D0F4B00CFDE33 /* ANBaseWebView.m */; };
+		60183FD422933E9500CFDE33 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60183FD322933E9500CFDE33 /* ANWebView.m */; };
+		60183FD52293482700CFDE33 /* ANWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60183FD222933E9500CFDE33 /* ANWebView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		60183FD622934AB500CFDE33 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60183FD322933E9500CFDE33 /* ANWebView.m */; };
 		602ADF6720178BAF00BEF101 /* ANProxyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC03D31C5AD3E100D7C789 /* ANProxyViewController.m */; };
 		602E0E241FE46571002C0F1C /* WKWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */; };
 		602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */; };
@@ -790,9 +789,8 @@
 		4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerInfo.m; sourceTree = "<group>"; };
 		4FA566E91F4B94D3004652AB /* ANTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerManager.h; sourceTree = "<group>"; };
 		4FA566EA1F4B94D3004652AB /* ANTrackerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerManager.m; sourceTree = "<group>"; };
-		60183FC9228D0F4B00CFDE33 /* ANBaseWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBaseWebView.h; sourceTree = "<group>"; };
-		60183FCA228D0F4B00CFDE33 /* ANBaseWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBaseWebView.m; sourceTree = "<group>"; };
-		60183FCC228E5C5D00CFDE33 /* ANBaseWebView+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANBaseWebView+PrivateMethods.h"; sourceTree = "<group>"; };
+		60183FD222933E9500CFDE33 /* ANWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANWebView.h; sourceTree = "<group>"; };
+		60183FD322933E9500CFDE33 /* ANWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebView+ANCategory.h"; sourceTree = "<group>"; };
 		602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+ANCategory.m"; sourceTree = "<group>"; };
 		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1903,8 +1901,8 @@
 				8AC7C5371A3B5CEF00AA5548 /* ANAdWebViewController.m */,
 				8AD618A81981C11F00AC0780 /* ANANJAMImplementation.h */,
 				8AD618A91981C11F00AC0780 /* ANANJAMImplementation.m */,
-				60183FC9228D0F4B00CFDE33 /* ANBaseWebView.h */,
-				60183FCA228D0F4B00CFDE33 /* ANBaseWebView.m */,
+				60183FD222933E9500CFDE33 /* ANWebView.h */,
+				60183FD322933E9500CFDE33 /* ANWebView.m */,
 				8AD618AA1981C11F00AC0780 /* ANBannerAdView.m */,
 				8AD618AC1981C11F00AC0780 /* ANBrowserViewController.h */,
 				8AD618AD1981C11F00AC0780 /* ANBrowserViewController.m */,
@@ -2226,7 +2224,6 @@
 				602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */,
 				602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */,
 				60D39E26226798D50029F741 /* ANVideoPlayerSettings+ANCategory.h */,
-				60183FCC228E5C5D00CFDE33 /* ANBaseWebView+PrivateMethods.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2316,6 +2313,7 @@
 				8A9AEDD81A1BF88200C58BDA /* ANMediationAdViewController.h in Headers */,
 				8A9AEDD91A1BF88200C58BDA /* ANMediationContainerView.h in Headers */,
 				8AC65F5F1A40DE74006BCF39 /* ANMRAIDCalendarManager.h in Headers */,
+				60183FD52293482700CFDE33 /* ANWebView.h in Headers */,
 				8AC65F611A40DE74006BCF39 /* ANMRAIDContainerView.h in Headers */,
 				8AC65F631A40DE74006BCF39 /* ANMRAIDExpandProperties.h in Headers */,
 				8AC65F651A40DE74006BCF39 /* ANMRAIDExpandViewController.h in Headers */,
@@ -2367,9 +2365,7 @@
 				0030D6F420E5414D003B7C1D /* OMIDImports.h in Headers */,
 				0030D6FB20E5414D003B7C1D /* OMIDPartner.h in Headers */,
 				0030D6F620E5414D003B7C1D /* OMIDScriptInjector.h in Headers */,
-				60183FCE228E709C00CFDE33 /* ANBaseWebView.h in Headers */,
 				0030D6F020E5414D003B7C1D /* OMIDSDK.h in Headers */,
-				60183FCD228E709600CFDE33 /* ANBaseWebView+PrivateMethods.h in Headers */,
 				0030D6F120E5414D003B7C1D /* OMIDVASTProperties.h in Headers */,
 				0030D6FA20E5414D003B7C1D /* OMIDVerificationScriptResource.h in Headers */,
 				0030D6F220E5414D003B7C1D /* OMIDVideoEvents.h in Headers */,
@@ -3026,7 +3022,6 @@
 				8A9AEDF01A1BF99D00C58BDA /* ANAdView.m in Sources */,
 				8AE7AD9F1A7AC4F6009E2F2F /* ANAdWebViewController.m in Sources */,
 				8A9AEDF21A1BF99D00C58BDA /* ANANJAMImplementation.m in Sources */,
-				60183FCF228E70D400CFDE33 /* ANBaseWebView.m in Sources */,
 				8A9AEDE81A1BF99D00C58BDA /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
 				8A9AEDF31A1BF99D00C58BDA /* ANBannerAdView.m in Sources */,
 				FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */,
@@ -3083,6 +3078,7 @@
 				609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */,
 				609732D91E42E9860061EC0A /* ANVideoAdProcessor.m in Sources */,
 				609732B21E42E73D0061EC0A /* NSDictionary+ANCategory.m in Sources */,
+				60183FD622934AB500CFDE33 /* ANWebView.m in Sources */,
 				8A9AEDE91A1BF99D00C58BDA /* NSString+ANCategory.m in Sources */,
 				8A9AEDEA1A1BF99D00C58BDA /* NSTimer+ANCategory.m in Sources */,
 				8A9AEDEB1A1BF99D00C58BDA /* UIView+ANCategory.m in Sources */,
@@ -3187,7 +3183,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F131E8C1F71CCE50019FDAC /* ANAdFetcherResponse.m in Sources */,
-				60183FCB228D0F4B00CFDE33 /* ANBaseWebView.m in Sources */,
 				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
 				8AC7C5391A3B5CEF00AA5548 /* ANAdWebViewController.m in Sources */,
 				8AD618D01981C11F00AC0780 /* ANANJAMImplementation.m in Sources */,
@@ -3206,6 +3201,7 @@
 				8AD618D61981C11F00AC0780 /* ANInterstitialAdViewController.m in Sources */,
 				8AD618D71981C11F00AC0780 /* ANLocation.m in Sources */,
 				8AD618D81981C11F00AC0780 /* ANLogging.m in Sources */,
+				60183FD422933E9500CFDE33 /* ANWebView.m in Sources */,
 				8AD618D91981C11F00AC0780 /* ANLogManager.m in Sources */,
 				8AD618DA1981C11F00AC0780 /* ANMediatedAd.m in Sources */,
 				8AD618DB1981C11F00AC0780 /* ANMediationAdViewController.m in Sources */,

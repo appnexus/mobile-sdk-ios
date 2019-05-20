@@ -1,108 +1,89 @@
-//
-//  ANBaseWebView.m
-//  ANSDK
-//
-//  Created by Punnaghai Puviarasu on 5/15/19.
-//  Copyright © 2019 AppNexus. All rights reserved.
-//
+/*   Copyright 2014 APPNEXUS INC
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 #define AN_USER_DENIED_LOCATION_PERMISSION 1
 
-#import "ANBaseWebView.h"
-#import "ANLogging.h"
+#import "ANWebView.h"
+#import "ANSDKSettings.h"
 #import "ANGlobal.h"
-#import "ANBaseWebView+PrivateMethods.h"
-#import "ANSDKSettings+PrivateMethods.h"
+#import "ANLogging.h"
 
-
-@interface ANBaseWebView()
-    @property (nonatomic, readwrite, strong)  WKWebView  *webView;
-@end
-
-@implementation ANBaseWebView
-
-@synthesize webView = _webView;
- 
-#pragma mark - Initialization
+@implementation ANWebView
     
-- (instancetype)init {
-    self = [super init];
-    
-    return self;
-}
-    
-- (void)createWebView:(CGSize)size {
-    self.webView = [[self class] defaultWebViewWithSize:size];
-}
-
-- (void)createWebView:(CGSize)size
-                       URL:(NSURL *)URL
-            baseURL:(NSURL *)baseURL{
-    
-    [self createWebView:size];
-    
-    
-    __weak WKWebView  *weakWebView  = self.webView;
-    
-    [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL(URL)
-                                     completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
-      {
-          __strong WKWebView  *strongWebView  = weakWebView;
-          if (!strongWebView)  {
-              ANLogError(@"COULD NOT ACQUIRE strongWebView.");
-              return;
-          }
-          
-          dispatch_async(dispatch_get_main_queue(), ^{
-              NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-              
-              if (html.length) {
-                  [strongWebView loadHTMLString:html baseURL:baseURL];
-              }
-          });
-      }
-      ] resume];
-    
-}
-
-- (void)createWebView:(CGSize)size
-                      HTML:(NSString *)html
-                   baseURL:(NSURL *)baseURL
-    {
-        [self createWebView:size];
+    -(instancetype) initWithSize:(CGSize)size {
         
-        [self.webView loadHTMLString:html
-                        baseURL:baseURL];
-        
-        
-        
-    }
-    
-    - (void)createVideoWebView:(CGSize)size {
-        [self createWebView:size];
-        
-        NSURL           *url      = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
-        NSURLRequest    *request  = [NSURLRequest requestWithURL:url];
-        [self.webView loadRequest:request];
-        
-    }
-    
-    + (WKWebView *)defaultWebViewWithSize:(CGSize)size
-    {
         WKWebViewConfiguration *configuration = [[self class] setDefaultWebViewConfiguration];
-        WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)
-                                                configuration:configuration];
-       
         
-        webView.backgroundColor = [UIColor clearColor];
-        webView.opaque = NO;
+        self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height) configuration:configuration];
+        
+        self.backgroundColor = [UIColor clearColor];
+        self.opaque = NO;
         
         if (@available(iOS 11.0, *)) {
-            webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         
-        return webView;
+        return self;
+        
+        
     }
+    
+    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL baseURL:(NSURL *)baseURL  {
+        
+        self = [self initWithSize:size];
+        
+        __weak WKWebView  *weakWebView  = self;
+        
+        [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL(URL)
+                                         completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+          {
+              __strong WKWebView  *strongWebView  = weakWebView;
+              if (!strongWebView)  {
+                  ANLogError(@"COULD NOT ACQUIRE strongWebView.");
+                  return;
+              }
+              
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                  
+                  if (html.length) {
+                      [strongWebView loadHTMLString:html baseURL:baseURL];
+                  }
+              });
+          }
+          ] resume];
+        
+        return self;
+        
+    }
+    
+    -(instancetype) initWithSize:(CGSize)size content:(NSString *)htmlContent baseURL:(NSURL *)baseURL{
+        self = [self initWithSize:size];
+        
+        [self loadHTMLString:htmlContent baseURL:baseURL];
+        return self;
+    }
+    
+    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL{
+        self = [self initWithSize:size];
+        NSURLRequest    *request  = [NSURLRequest requestWithURL:URL];
+        [self loadRequest:request];
+        
+        return self;
+    }
+    
     
     + (WKWebViewConfiguration *)setDefaultWebViewConfiguration
     {
@@ -175,4 +156,27 @@
         return configuration;
     }
     
+    - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script {
+        __block NSString *resultString = nil;
+        __block BOOL finished = NO;
+        
+        [self evaluateJavaScript:script completionHandler:^(id result, NSError *error) {
+            if (error == nil) {
+                if (result != nil) {
+                    resultString = [NSString stringWithFormat:@"%@", result];
+                }
+            } else {
+                NSLog(@"evaluateJavaScript error : %@", error.localizedDescription);
+            }
+            finished = YES;
+        }];
+        
+        while (!finished)
+        {
+            [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+        }
+        
+        return resultString;
+    }
+
 @end
