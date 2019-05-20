@@ -11,17 +11,17 @@
 #import "ANBaseWebView.h"
 #import "ANLogging.h"
 #import "ANGlobal.h"
-#import "ANSDKSettings.h"
 #import "ANBaseWebView+PrivateMethods.h"
+#import "ANSDKSettings+PrivateMethods.h"
 
 
 @interface ANBaseWebView()
-    @property (nonatomic, readwrite, strong)  WKWebView  *baseWebView;
+    @property (nonatomic, readwrite, strong)  WKWebView  *webView;
 @end
 
 @implementation ANBaseWebView
 
-@synthesize baseWebView = _baseWebView;
+@synthesize webView = _webView;
  
 #pragma mark - Initialization
     
@@ -30,15 +30,19 @@
     
     return self;
 }
+    
+- (void)createWebView:(CGSize)size {
+    self.webView = [[self class] defaultWebViewWithSize:size];
+}
 
 - (void)createWebView:(CGSize)size
                        URL:(NSURL *)URL
-            webViewBaseURL:(NSURL *)baseURL{
+            baseURL:(NSURL *)baseURL{
     
-    self.baseWebView = [[self class] defaultWebViewWithSize:size];
+    [self createWebView:size];
     
     
-    __weak WKWebView  *weakWebView  = self.baseWebView;
+    __weak WKWebView  *weakWebView  = self.webView;
     
     [[[NSURLSession sharedSession] dataTaskWithRequest: ANBasicRequestWithURL(URL)
                                      completionHandler: ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
@@ -65,19 +69,22 @@
                       HTML:(NSString *)html
                    baseURL:(NSURL *)baseURL
     {
-        WKWebView *webView = [[self class] defaultWebViewWithSize: size];
+        [self createWebView:size];
         
-        self.baseWebView = webView;
-        
-        [self.baseWebView loadHTMLString:html
+        [self.webView loadHTMLString:html
                         baseURL:baseURL];
         
         
         
     }
     
-    - (void)createWebView:(CGSize)size{
-        self.baseWebView = [[self class] defaultWebViewWithSize: size];
+    - (void)createVideoWebView:(CGSize)size {
+        [self createWebView:size];
+        
+        NSURL           *url      = [[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl];
+        NSURLRequest    *request  = [NSURLRequest requestWithURL:url];
+        [self.webView loadRequest:request];
+        
     }
     
     + (WKWebView *)defaultWebViewWithSize:(CGSize)size

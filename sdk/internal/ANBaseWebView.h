@@ -11,16 +11,17 @@
 
 @interface ANBaseWebView : NSObject
     
-   
+
+- (void)createWebView:(CGSize)size;
     
-    - (void)createWebView:(CGSize)size
-                             URL:(NSURL *)URL
-                  webViewBaseURL:(NSURL *)baseURL;
+- (void)createWebView:(CGSize)size
+                    URL:(NSURL *)URL
+                    baseURL:(NSURL *)baseURL;
     
-    - (void)createWebView:(CGSize)size
-                           HTML:(NSString *)html
-                        baseURL:(NSURL *)baseURL;
+- (void)createWebView:(CGSize)size
+                    HTML:(NSString *)html
+                    baseURL:(NSURL *)baseURL;
     
-    - (void)createWebView:(CGSize)size;
+- (void)createVideoWebView:(CGSize)size;
 
 @end

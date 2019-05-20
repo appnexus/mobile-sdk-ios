@@ -10,6 +10,6 @@
 
 @interface ANBaseWebView (PrivateMethods)
     
-    @property (nonatomic, readwrite, strong)  WKWebView  *baseWebView;
+    @property (nonatomic, readwrite, strong)  WKWebView  *webView;
     
 @end
