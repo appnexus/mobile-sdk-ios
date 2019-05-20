@@ -14,8 +14,8 @@
  */
 
 #import "ViewController.h"
-#import <AppNexusNativeSDK/ANNativeAdRequest.h>
-#import <AppNexusNativeSDK/AppNexusNativeSDK.h>
+#import <AppNexusSDK/AppNexusSDK.h>
+#import <AppNexusSDK/ANNativeAdRequest.h>
 #import "ANNativeAdView.h"
 
 @interface ViewController () <ANNativeAdRequestDelegate,ANNativeAdDelegate>
