@@ -121,6 +121,9 @@ NSBundle *ANResourcesBundle() {
     dispatch_once(&resBundleToken, ^{
         globalInstance = [[ANGlobal alloc] init];
         NSString *resBundlePath = [[NSBundle bundleForClass:[globalInstance class]] pathForResource:kANSDKResourcesBundleName ofType:@"bundle"];
+        if (!resBundlePath) {
+            resBundlePath = [[NSBundle bundleForClass:[globalInstance class]] pathForResource:kANNativeSDKResourcesBundleName ofType:@"bundle"];
+        }
         resBundle = resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle bundleForClass:[globalInstance class]];
     });
     return resBundle;

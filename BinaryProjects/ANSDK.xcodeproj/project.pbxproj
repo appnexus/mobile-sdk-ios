@@ -461,6 +461,11 @@
 		F5731BCD228DD90B0012B134 /* ANNativeUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */; };
 		F5731BCE228F07F30012B134 /* ANNativeUniversalAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */; };
 		F5731BCF228F07FC0012B134 /* ANNativeUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */; };
+		F5731C7722930D780012B134 /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
+		F5731C7822930D7B0012B134 /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
+		F5731C7922930D7F0012B134 /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE97DA21764ACD007DADE6 /* omsdk.js */; };
+		F5731C7A22930D860012B134 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACE194B768A0069D934 /* errors.strings */; };
+		F5731C7D22930E260012B134 /* AppNexusNativeResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F5731C7522930D070012B134 /* AppNexusNativeResources.bundle */; };
 		FC210A2E2007D529002A9F0E /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
 		FC210A312007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
 		FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */; };
@@ -587,6 +592,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = EC48177A1845046A0066BBFE;
 			remoteInfo = ANSDKResources;
+		};
+		F5731C7B22930D9A0012B134 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5731C4E22930D070012B134;
+			remoteInfo = AppNexusNativeResources;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1257,6 +1269,8 @@
 		F5731B00228B43570012B134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANNativeUniversalAdFetcher.m; sourceTree = "<group>"; };
 		F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANNativeUniversalAdFetcher.h; sourceTree = "<group>"; };
+		F5731C7522930D070012B134 /* AppNexusNativeResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppNexusNativeResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5731C7622930D070012B134 /* ANSDKResources copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ANSDKResources copy-Info.plist"; path = "/Users/wzhang/Documents/Appnexus/Dev_Resources/repos/app_mobile-sdk-ios/BinaryProjects/ANSDKResources copy-Info.plist"; sourceTree = "<absolute>"; };
 		FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBaseAdObject.m; sourceTree = "<group>"; };
 		FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANBaseAdObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1407,6 +1421,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5731B0B228B57590012B134 /* libOMSDKAppnexus.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5731C5022930D070012B134 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2262,6 +2283,7 @@
 				EC3E5CDD1843C6D50070315E /* Products */,
 				8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */,
 				8A3AC2751DCA4DF1005D4E46 /* Info.plist */,
+				F5731C7622930D070012B134 /* ANSDKResources copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2287,6 +2309,7 @@
 				8AD7C4D81AD2FABA0049C997 /* libANSDKVungleAdapter.a */,
 				8A96871A1B43314E00D9399B /* libANSDKYahooAdapter.a */,
 				F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */,
+				F5731C7522930D070012B134 /* AppNexusNativeResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2907,11 +2930,29 @@
 			buildRules = (
 			);
 			dependencies = (
+				F5731C7C22930D9A0012B134 /* PBXTargetDependency */,
 			);
 			name = AppNexusNativeSDK;
 			productName = AppNexusNativeSDK;
 			productReference = F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		F5731C4E22930D070012B134 /* AppNexusNativeResources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5731C7222930D070012B134 /* Build configuration list for PBXNativeTarget "AppNexusNativeResources" */;
+			buildPhases = (
+				F5731C4F22930D070012B134 /* Sources */,
+				F5731C5022930D070012B134 /* Frameworks */,
+				F5731C5122930D070012B134 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppNexusNativeResources;
+			productName = ANSDKResources;
+			productReference = F5731C7522930D070012B134 /* AppNexusNativeResources.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -2974,6 +3015,7 @@
 				60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */,
 				60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */,
 				F5731AFC228B43570012B134 /* AppNexusNativeSDK */,
+				F5731C4E22930D070012B134 /* AppNexusNativeResources */,
 			);
 		};
 /* End PBXProject section */
@@ -3157,6 +3199,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5731C7D22930E260012B134 /* AppNexusNativeResources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5731C5122930D070012B134 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5731C7822930D7B0012B134 /* ANBrowserViewController_SizeClasses.xib in Resources */,
+				F5731C7722930D780012B134 /* ANBrowserViewController.xib in Resources */,
+				F5731C7922930D7F0012B134 /* omsdk.js in Resources */,
+				F5731C7A22930D860012B134 /* errors.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3520,6 +3574,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F5731C4F22930D070012B134 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3607,6 +3668,11 @@
 			isa = PBXTargetDependency;
 			target = EC48177A1845046A0066BBFE /* ANSDKResources */;
 			targetProxy = EC4817941845049D0066BBFE /* PBXContainerItemProxy */;
+		};
+		F5731C7C22930D9A0012B134 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5731C4E22930D070012B134 /* AppNexusNativeResources */;
+			targetProxy = F5731C7B22930D9A0012B134 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4498,6 +4564,45 @@
 			};
 			name = Release;
 		};
+		F5731C7322930D070012B134 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ANSDKResources copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SYMROOT = build;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		F5731C7422930D070012B134 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "ANSDKResources copy-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SYMROOT = build;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4677,6 +4782,15 @@
 			buildConfigurations = (
 				F5731B02228B43570012B134 /* Debug */,
 				F5731B03228B43570012B134 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5731C7222930D070012B134 /* Build configuration list for PBXNativeTarget "AppNexusNativeResources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5731C7322930D070012B134 /* Debug */,
+				F5731C7422930D070012B134 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
