@@ -106,8 +106,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     _webView = [[ANWebView alloc]initWithSize:(CGSize)size
                                    URL:(NSURL *)URL
                                baseURL:(NSURL *)baseURL];
-   // [self createWebView:size URL:URL baseURL:baseURL];
-    [[self class] addControllerConfiguration:self.configuration for:self.webView];
+    [self loadWebViewWithUserScripts];
     
     return self;
 }
@@ -148,7 +147,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     }
     _webView = [[ANWebView alloc] initWithSize:size content:htmlToLoad baseURL:base];
     //[self createWebView:size HTML:htmlToLoad baseURL:base];
-    [self configureWebView:configuration];
+    [self loadWebViewWithUserScripts];
     return self;
 }
 
@@ -166,9 +165,8 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     [self handleMRAIDURL:[NSURL URLWithString:@"mraid://enable"]];
     
     _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl]];
-    //[self createVideoWebView:size];
     
-    [self configureWebView:self.configuration];
+    [self loadWebViewWithUserScripts];
     
     UIWindow  *currentWindow  = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:self.webView];
@@ -178,21 +176,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     return  self;
 }
     
--(void) configureWebView:(ANAdWebViewControllerConfiguration *) configuration {
-    [self addControllerConfiguration:configuration for:self.webView];
-    
-        if(configuration.isVASTVideoAd){
-            [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"observe"];
-            self.webView.configuration.allowsInlineMediaPlayback = YES;
-            [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"interOp"];
-        
-            self.webView.backgroundColor = [UIColor blackColor];
-        }
-        [self.webView setNavigationDelegate:self];
-        [self.webView setUIDelegate:self];
-    
-    self.contentView = self.webView;
-}
+
 
 - (void)stopOMIDAdSession {
     if(self.omidAdSession != nil){
@@ -264,11 +248,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     return [NSString stringWithFormat:@"%@%@%@", [[self class] anjamHTML], [[self class] mraidHTML], html];
 }
 
-#pragma mark - WKWebView
+#pragma mark - configure WKWebView
+ 
+-(void) loadWebViewWithUserScripts {
     
-- (void) addControllerConfiguration:(ANAdWebViewControllerConfiguration *)webViewControllerConfig for:(WKWebView *)webView {
-    
-    WKUserContentController  *controller  = webView.configuration.userContentController;
+    WKUserContentController  *controller  = self.webView.configuration.userContentController;
     
     WKUserScript *mraidScript = [[WKUserScript alloc] initWithSource: [[self class] mraidJS]
                                                        injectionTime: WKUserScriptInjectionTimeAtDocumentStart
@@ -278,7 +262,10 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                                                        injectionTime: WKUserScriptInjectionTimeAtDocumentStart
                                                     forMainFrameOnly: YES];
     
-    if (!webViewControllerConfig.userSelectionEnabled)
+    [controller addUserScript:anjamScript];
+    [controller addUserScript:mraidScript];
+    
+    if (!self.configuration.userSelectionEnabled)
     {
         NSString *userSelectionSuppressionJS = @"document.documentElement.style.webkitUserSelect='none';";
         
@@ -290,37 +277,45 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     // Attach  OMID JS script to WKWebview for HTML Banner Ad's
     // This is used inplace of [OMIDScriptInjector injectScriptContent] because it scrambles the creative HTML. See MS-3707 for more details.
-    if(!webViewControllerConfig.isVASTVideoAd){
+    if(!self.configuration.isVASTVideoAd){
         WKUserScript *omidScript = [[WKUserScript alloc] initWithSource: [[ANOMIDImplementation sharedInstance] getOMIDJS]
                                                           injectionTime: WKUserScriptInjectionTimeAtDocumentStart
                                                        forMainFrameOnly: YES];
         [controller addUserScript:omidScript];
     }
     
-    [controller addUserScript:anjamScript];
-    [controller addUserScript:mraidScript];
-    
-    if (webViewControllerConfig.scrollingEnabled) {
-        webView.scrollView.scrollEnabled = YES;
-        webView.scrollView.bounces = YES;
+    if (self.configuration.scrollingEnabled) {
+        self.webView.scrollView.scrollEnabled = YES;
+        self.webView.scrollView.bounces = YES;
         
     } else {
-        webView.scrollView.scrollEnabled = NO;
-        webView.scrollView.bounces = NO;
+        self.webView.scrollView.scrollEnabled = NO;
+        self.webView.scrollView.bounces = NO;
         
-        [[NSNotificationCenter defaultCenter] removeObserver:webView
+        [[NSNotificationCenter defaultCenter] removeObserver:self.webView
                                                         name:UIKeyboardWillChangeFrameNotification
                                                       object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:webView
+        [[NSNotificationCenter defaultCenter] removeObserver:self.webView
                                                         name:UIKeyboardDidChangeFrameNotification
                                                       object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:webView
+        [[NSNotificationCenter defaultCenter] removeObserver:self.webView
                                                         name:UIKeyboardWillShowNotification
                                                       object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:webView
+        [[NSNotificationCenter defaultCenter] removeObserver:self.webView
                                                         name:UIKeyboardWillHideNotification
                                                       object:nil];
     }
+    if(self.configuration.isVASTVideoAd){
+        [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"observe"];
+        self.webView.configuration.allowsInlineMediaPlayback = YES;
+        [self.webView.configuration.userContentController addScriptMessageHandler:self name:@"interOp"];
+        
+        self.webView.backgroundColor = [UIColor blackColor];
+    }
+    [self.webView setNavigationDelegate:self];
+    [self.webView setUIDelegate:self];
+    
+    self.contentView = self.webView;
 }
 
 #pragma mark - WKNavigationDelegate
