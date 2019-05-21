@@ -21,7 +21,6 @@
 #import "ANTrackerManager.h"
 
 #import "UIView+ANCategory.h"
-#import "UIWebView+ANCategory.h"
 #import "ANBannerAdView+ANContentViewTransitions.h"
 #import "ANAdView+PrivateMethods.h"
 
@@ -255,12 +254,6 @@
 {
     if (newContentView != _contentView)
     {
-        if ([newContentView isKindOfClass:[UIWebView class]]) {
-            UIWebView *webView = (UIWebView *)newContentView;
-            [webView an_removeDocumentPadding];
-            [webView an_setMediaProperties];
-        }
-        
         UIView *oldContentView = _contentView;
         _contentView = newContentView;
         
