@@ -21,6 +21,7 @@
 		0035C5AE1F4496FD00915E97 /* ANSSMMediationAdViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */; };
 		0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
 		0035C5B11F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
+		005AF7682294999A009A3F32 /* ANNativeUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */; };
 		0099B483228CA0EB004E80AB /* UIView+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA9A194B768A0069D934 /* UIView+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0099B484228CA0F6004E80AB /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */; };
 		0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA98194B768A0069D934 /* NSTimer+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -3460,6 +3461,7 @@
 				8AD618CE1981C11F00AC0780 /* ANAdView.m in Sources */,
 				8AC7C5391A3B5CEF00AA5548 /* ANAdWebViewController.m in Sources */,
 				8AD618D01981C11F00AC0780 /* ANANJAMImplementation.m in Sources */,
+				005AF7682294999A009A3F32 /* ANNativeUniversalAdFetcher.m in Sources */,
 				97EC51EE2229782B00B740DF /* ANVerificationScriptResource.m in Sources */,
 				8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */,
 				8AD618D11981C11F00AC0780 /* ANBannerAdView.m in Sources */,
