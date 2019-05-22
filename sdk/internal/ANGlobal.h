@@ -103,7 +103,6 @@ extern NSString * const  kANUniversalAdFetcherAdResponseKey;
 #define kANInterstitialMaximumCloseButtonDelay 10.0
 
 #define kANSDKResourcesBundleName @"ANSDKResources"
-#define kANNativeSDKResourcesBundleName @"AppNexusNativeResources"
 
 // Buffer Limit
 #define kANPBBufferLimit 10
