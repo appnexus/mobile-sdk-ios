@@ -22,6 +22,13 @@
 		0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
 		0035C5B11F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */; };
 		005AF7682294999A009A3F32 /* ANNativeUniversalAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */; };
+		006F6B9A2295F70E003D2DF0 /* ANBaseAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F6B992295F70E003D2DF0 /* ANBaseAdFetcher.m */; };
+		006F6B9B2295F70E003D2DF0 /* ANBaseAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F6B992295F70E003D2DF0 /* ANBaseAdFetcher.m */; };
+		006F6B9C2295F70E003D2DF0 /* ANBaseAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 006F6B992295F70E003D2DF0 /* ANBaseAdFetcher.m */; };
+		006F6B9E2295F72A003D2DF0 /* ANBaseAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 006F6B9D2295F72A003D2DF0 /* ANBaseAdFetcher.h */; };
+		006F6B9F2295F72A003D2DF0 /* ANBaseAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 006F6B9D2295F72A003D2DF0 /* ANBaseAdFetcher.h */; };
+		006F6BA02295FFCD003D2DF0 /* ANWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60183FD222933E9500CFDE33 /* ANWebView.h */; };
+		006F6BA12295FFD0003D2DF0 /* ANWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60183FD322933E9500CFDE33 /* ANWebView.m */; };
 		0099B483228CA0EB004E80AB /* UIView+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA9A194B768A0069D934 /* UIView+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0099B484228CA0F6004E80AB /* UIView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA9B194B768A0069D934 /* UIView+ANCategory.m */; };
 		0099B485228CA18C004E80AB /* NSTimer+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = ECE4EA98194B768A0069D934 /* NSTimer+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -799,6 +806,8 @@
 		0030D6EE20E5414D003B7C1D /* OMIDPartner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDPartner.h; sourceTree = "<group>"; };
 		0035C5AD1F4496FD00915E97 /* ANSSMMediationAdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANSSMMediationAdViewController.h; sourceTree = "<group>"; };
 		0035C5AF1F44971100915E97 /* ANSSMMediationAdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSSMMediationAdViewController.m; sourceTree = "<group>"; };
+		006F6B992295F70E003D2DF0 /* ANBaseAdFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseAdFetcher.m; sourceTree = "<group>"; };
+		006F6B9D2295F72A003D2DF0 /* ANBaseAdFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseAdFetcher.h; sourceTree = "<group>"; };
 		00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANOMIDImplementation.h; sourceTree = "<group>"; };
 		00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDImplementation.m; sourceTree = "<group>"; };
 		0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANGDPRSettings.h; sourceTree = "<group>"; };
@@ -1535,6 +1544,8 @@
 				609732C91E42E9860061EC0A /* ANUniversalTagRequestBuilder.m */,
 				F5731BCA228DD8E60012B134 /* ANNativeUniversalAdFetcher.m */,
 				F5731BCC228DD90B0012B134 /* ANNativeUniversalAdFetcher.h */,
+				006F6B9D2295F72A003D2DF0 /* ANBaseAdFetcher.h */,
+				006F6B992295F70E003D2DF0 /* ANBaseAdFetcher.m */,
 			);
 			name = universalTag;
 			sourceTree = "<group>";
@@ -2491,6 +2502,7 @@
 				0030D6F120E5414D003B7C1D /* OMIDVASTProperties.h in Headers */,
 				0030D6FA20E5414D003B7C1D /* OMIDVerificationScriptResource.h in Headers */,
 				0030D6F220E5414D003B7C1D /* OMIDVideoEvents.h in Headers */,
+				006F6B9E2295F72A003D2DF0 /* ANBaseAdFetcher.h in Headers */,
 				8A9AEDC91A1BF88200C58BDA /* UIView+ANCategory.h in Headers */,
 				8A9AEDE61A1BF88300C58BDA /* UIView+ANNativeAdCategory.h in Headers */,
 				602E0E271FE46818002C0F1C /* WKWebView+ANCategory.h in Headers */,
@@ -2524,6 +2536,7 @@
 				F5731B75228C90240012B134 /* ANLogManager.h in Headers */,
 				F5731BB7228C99350012B134 /* ANAdConstants.h in Headers */,
 				F5731B7A228C94720012B134 /* ANAdFetcherResponse.h in Headers */,
+				006F6BA02295FFCD003D2DF0 /* ANWebView.h in Headers */,
 				F5731B5F228C8DFE0012B134 /* ANCSMVideoAd.h in Headers */,
 				F5731B6B228C8E3E0012B134 /* ANBaseUrlConfig.h in Headers */,
 				F5731B50228C8D230012B134 /* ANNativeAdRequest.h in Headers */,
@@ -2540,6 +2553,7 @@
 				F5731B47228C8CF20012B134 /* ANNativeMediatedAdResponse+PrivateMethods.h in Headers */,
 				F52F82F2229338FC00F4578C /* ANProxyViewController.h in Headers */,
 				F5731BC2228C9A4C0012B134 /* ANGDPRSettings.h in Headers */,
+				006F6B9F2295F72A003D2DF0 /* ANBaseAdFetcher.h in Headers */,
 				F5731B42228C8CC30012B134 /* ANNativeAdResponse+PrivateMethods.h in Headers */,
 				F52F82EE2293367A00F4578C /* NSString+ANCategory.h in Headers */,
 				F5731B61228C8E0A0012B134 /* ANMediatedAd.h in Headers */,
@@ -3283,6 +3297,7 @@
 				8AF5A8871ACC60D50089C529 /* ANStandardAd.m in Sources */,
 				8A9BBE021D09C4E1001FF571 /* ANStoreProductViewController.m in Sources */,
 				8A9AEE031A1BF99D00C58BDA /* ANTargetingParameters.m in Sources */,
+				006F6B9B2295F70E003D2DF0 /* ANBaseAdFetcher.m in Sources */,
 				607A21001F85541900BD8353 /* ANTrackerInfo.m in Sources */,
 				607A20FF1F85540E00BD8353 /* ANTrackerManager.m in Sources */,
 				609732D01E42E9860061EC0A /* ANUniversalAdFetcher.m in Sources */,
@@ -3446,6 +3461,7 @@
 				0035C5B01F44971100915E97 /* ANSSMMediationAdViewController.m in Sources */,
 				609732C21E42E9670061EC0A /* ANSSMStandardAd.m in Sources */,
 				609732BD1E42E95C0061EC0A /* ANSSMVideoAd.m in Sources */,
+				006F6B9A2295F70E003D2DF0 /* ANBaseAdFetcher.m in Sources */,
 				8AF5A8861ACC60D50089C529 /* ANStandardAd.m in Sources */,
 				8ABF77591D08CE420068B535 /* ANStoreProductViewController.m in Sources */,
 				8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */,
@@ -3499,6 +3515,7 @@
 				F5731B6C228C8E430012B134 /* ANGDPRSettings.m in Sources */,
 				F52F82F1229338F100F4578C /* ANProxyViewController.m in Sources */,
 				F5731B64228C8E190012B134 /* ANRTBVideoAd.m in Sources */,
+				006F6BA12295FFD0003D2DF0 /* ANWebView.m in Sources */,
 				F5731B68228C8E260012B134 /* ANSSMVideoAd.m in Sources */,
 				F5731B5C228C8DEF0012B134 /* ANUniversalTagRequestBuilder.m in Sources */,
 				F5731B4C228C8D0C0012B134 /* UIView+ANNativeAdCategory.m in Sources */,
@@ -3517,6 +3534,7 @@
 				F5731B66228C8E200012B134 /* ANSSMStandardAd.m in Sources */,
 				F5731B40228C8CB40012B134 /* ANNativeAdImageCache.m in Sources */,
 				F5731B71228C8FD20012B134 /* ANGlobal.m in Sources */,
+				006F6B9C2295F70E003D2DF0 /* ANBaseAdFetcher.m in Sources */,
 				F5731B44228C8CD10012B134 /* ANNativeAdStarRating.m in Sources */,
 				F5731B46228C8CE40012B134 /* ANNativeMediatedAdController.m in Sources */,
 			);

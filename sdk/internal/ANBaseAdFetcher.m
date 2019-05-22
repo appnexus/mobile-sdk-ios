@@ -1,0 +1,180 @@
+/*   Copyright 2019 APPNEXUS INC
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+#import "ANBaseAdFetcher.h"
+#import "ANUniversalTagRequestBuilder.h"
+#import "ANSDKSettings+PrivateMethods.h"
+#import "ANLogging.h"
+
+#import "ANStandardAd.h"
+#import "ANRTBVideoAd.h"
+#import "ANCSMVideoAd.h"
+#import "ANSSMStandardAd.h"
+#import "ANNativeStandardAdResponse.h"
+#import "ANMediatedAd.h"
+#import "ANNativeMediatedAdController.h"
+#import "ANTrackerInfo.h"
+#import "ANTrackerManager.h"
+#import "NSTimer+ANCategory.h"
+
+@interface ANBaseAdFetcher()
+@property (nonatomic, readwrite, weak)    id                                delegate;
+@property (nonatomic, readwrite, assign)  NSTimeInterval                    totalLatencyStart;
+@property (nonatomic, readwrite, getter=isLoading)  BOOL                    loading;
+@property (nonatomic, readwrite, strong)  id                                adObjectHandler;
+@end
+
+@implementation ANBaseAdFetcher
+
+//- (instancetype)initWithDelegate:(id)delegate{
+//    if (self = [self init]) {
+//        _delegate = delegate;
+//        [self setup];
+//    }
+//    return self;
+//}
+
+- (void)setup{
+    // TODO: add setup code
+}
+
+- (void)requestAd
+{
+    NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
+    
+    
+    [self markLatencyStart];
+    
+    if (!self.isLoading)
+    {
+        NSString *requestContent = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
+        
+        ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
+                            @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
+        
+        ANBaseAdFetcher *__weak weakSelf = self;
+        
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession]
+                                      dataTaskWithRequest:request
+                                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          ANBaseAdFetcher *__strong strongSelf = weakSelf;
+                                          
+                                          if(!strongSelf){
+                                              return;
+                                          }
+                                          NSInteger statusCode = -1;
+                                          
+                                          if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                              statusCode = [httpResponse statusCode];
+                                              
+                                          }
+                                          
+                                          if (statusCode >= 400 || statusCode == -1)  {
+                                              strongSelf.loading = NO;
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  NSError *sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
+                                                  ANLogError(@"%@", sessionError);
+                                                  
+                                                  ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
+                                                  [strongSelf processFinalResponse:response];
+                                              });
+                                              
+                                          }else{
+                                              strongSelf.loading  = YES;
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  NSString *responseString = [[NSString alloc] initWithData:data
+                                                                                                   encoding:NSUTF8StringEncoding];
+                                                  ANLogDebug(@"Response JSON %@", responseString);
+                                                  ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
+                                                                      @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
+                                                  
+                                                  ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:data];
+                                                  [strongSelf processAdServerResponse:adResponse];
+                                                  
+                                              });
+                                              
+                                          }
+                                          
+                                      }];
+        
+        [task resume];
+    }
+}
+
+- (void)cancelRequest{
+    
+}
+
+
+/**
+ * Mark the beginning of an ad request for latency recording
+ */
+- (void)markLatencyStart {
+    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
+}
+
+/**
+ * RETURN: success  time difference since ad request start
+ *         error    -1
+ */
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime
+{
+    NSTimeInterval  totalLatency  = -1;
+    
+    if ((self.totalLatencyStart > 0) && (stopTime > 0)) {
+        totalLatency = (stopTime - self.totalLatencyStart);
+    }
+    
+    //
+    return  totalLatency;
+}
+
+
+
+#pragma mark - Ad handlers.
+
+- (void)fireResponseURL:(NSString *)urlString
+                 reason:(ANAdResponseCode)reason
+               adObject:(id)adObject
+{
+    
+    if (urlString) {
+        [ANTrackerManager fireTrackerURL:urlString];
+    }
+    
+    if (reason == ANAdResponseSuccessful) {
+        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
+        [self processFinalResponse:response];
+        
+    } else {
+        ANLogError(@"FAILED with reason=%@.", @(reason));
+        
+        // mediated ad failed. clear mediation controller
+        [self clearMediationController];
+        
+        // stop waterfall if delegate reference (adview) was lost
+        if (!self.delegate) {
+            self.loading = NO;
+            return;
+        }
+        
+        [self continueWaterfall];
+    }
+}
+
+
+@end

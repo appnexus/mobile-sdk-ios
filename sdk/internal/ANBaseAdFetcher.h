@@ -14,23 +14,29 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANBaseAdFetcher.h"
 #import "ANNativeAdResponse.h"
 #import "ANAdFetcherResponse.h"
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
+#import "ANUniversalTagAdServerResponse.h"
 
-@interface ANNativeUniversalAdFetcher : ANBaseAdFetcher
+@interface ANBaseAdFetcher : NSObject
 
--(instancetype) initWithDelegate:(id)delegate;
+-(void)requestAd;
+-(void)cancelRequest;
 
-@end
+- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
+- (void)fireResponseURL:(NSString *)responseURLString
+                 reason:(ANAdResponseCode)reason
+               adObject:(id)adObject;
 
-#pragma mark - ANUniversalAdFetcherDelegate partitions.
+- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
 
-@protocol ANNativeUniversalAdFetcherDelegate <ANAdProtocolFoundation>
+- (void)processFinalResponse:(ANAdFetcherResponse *)response;
 
-@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
--(void)didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
+- (void)clearMediationController;
+
+- (void)continueWaterfall;
+
 
 @end
