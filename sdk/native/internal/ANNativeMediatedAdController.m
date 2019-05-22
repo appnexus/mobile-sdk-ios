@@ -227,7 +227,7 @@
             [self clearAdapter];
         }
 
-        [self.adFetcher fireResponseURL:responseURLString reason:errorCode adObject:adObject auctionID:nil];
+        [self.adFetcher fireResponseURL:responseURLString reason:errorCode adObject:adObject];
     } ];
 }
 

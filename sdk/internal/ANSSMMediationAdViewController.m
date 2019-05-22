@@ -20,9 +20,7 @@
 #import "ANInterstitialAd.h"
 #import "ANLogging.h"
 #import "ANSSMStandardAd.h"
-#import "ANPBBuffer.h"
 #import "NSString+ANCategory.h"
-#import "ANPBContainerView.h"
 #import "ANMRAIDContainerView.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "NSObject+ANCategory.h"
@@ -229,7 +227,7 @@
         if (!fetcher) {
             [self clearAdapter];
         }
-        [fetcher fireResponseURL:responseURL reason:errorCode adObject:adObject auctionID:nil];
+        [fetcher fireResponseURL:responseURL reason:errorCode adObject:adObject];
     }];
 }
 

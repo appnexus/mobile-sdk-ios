@@ -17,7 +17,7 @@
 #import "ANMediationContainerView.h"
 #import "XCTestCase+ANCategory.h"
 #import "UIView+ANCategory.h"
-#import "ANPBContainerView.h"
+
 static NSTimeInterval const kUIViewConstraintsTestCaseFrameRefreshDelay = 0.05;
 
 @interface ANContainerViewTestCase : XCTestCase
@@ -60,30 +60,5 @@ static NSTimeInterval const kUIViewConstraintsTestCaseFrameRefreshDelay = 0.05;
     XCTAssertEqual(containerView.frame.size.width, 200);
     XCTAssertEqual(containerView.frame.size.height, 250);
 }
-
-- (void)testANPBDynamicWidthContainerView {
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 250)];
-    ANPBContainerView *containerView = [[ANPBContainerView alloc] initWithContentView:contentView];
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rootViewController.view addSubview:containerView];
-    containerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [containerView an_constrainWithFrameSize];
-    [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
-    XCTAssertEqual(containerView.frame.size.width, rootViewController.view.frame.size.width);
-    XCTAssertEqual(containerView.frame.size.height, 250);
-}
-
-- (void)testANPBStaticWidthContainerView {
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 250)];
-    ANPBContainerView *containerView = [[ANPBContainerView alloc] initWithContentView:contentView];
-    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    [rootViewController.view addSubview:containerView];
-    containerView.translatesAutoresizingMaskIntoConstraints = NO;
-    [containerView an_constrainWithFrameSize];
-    [XCTestCase delayForTimeInterval:kUIViewConstraintsTestCaseFrameRefreshDelay];
-    XCTAssertEqual(containerView.frame.size.width, 200);
-    XCTAssertEqual(containerView.frame.size.height, 250);
-}
-
 
 @end

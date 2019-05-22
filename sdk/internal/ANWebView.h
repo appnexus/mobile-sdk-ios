@@ -13,11 +13,21 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
-@interface ANPBContainerView : UIView
-
-- (instancetype)initWithContentView:(UIView *)contentView; // For banners
-- (instancetype)initWithLogo; // For interstitials
-
+@interface ANWebView : WKWebView
+    
+    -(instancetype) initWithSize:(CGSize)size
+                             URL:(NSURL *)URL
+                         baseURL:(NSURL *)baseURL ;
+    
+    -(instancetype) initWithSize:(CGSize)size
+                             content:(NSString *)htmlContent
+                         baseURL:(NSURL *)baseURL;
+    
+    -(instancetype) initWithSize:(CGSize)size URL:(NSURL *)URL;
+    
+    - (NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
+    
+    
 @end
