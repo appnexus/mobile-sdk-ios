@@ -44,13 +44,6 @@
     return self;
 }
 
-- (void)setup{
-    // TODO: add setup code
-}
-
-
-
-
 - (void)clearMediationController {
     /*
      * Ad fetcher gets cleared, in the event the mediation controller lives beyond the ad fetcher.  The controller maintains a weak reference to the

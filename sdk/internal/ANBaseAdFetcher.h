@@ -28,6 +28,7 @@
 @property (nonatomic, readwrite, getter=isLoading)  BOOL                    loading;
 @property (nonatomic, readwrite, strong)  id                                adObjectHandler;
 
+-(void)setup;
 -(void)requestAd;
 -(void)cancelRequest;
 

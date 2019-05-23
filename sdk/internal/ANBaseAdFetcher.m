@@ -38,16 +38,8 @@
 
 @implementation ANBaseAdFetcher
 
-//- (instancetype)initWithDelegate:(id)delegate{
-//    if (self = [self init]) {
-//        _delegate = delegate;
-//        [self setup];
-//    }
-//    return self;
-//}
-
 - (void)setup{
-    // TODO: add setup code
+      [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 }
 
 - (void)requestAd
