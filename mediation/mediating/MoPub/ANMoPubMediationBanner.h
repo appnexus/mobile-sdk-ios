@@ -14,7 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "MPBannerCustomEvent.h"
+#import <MoPubSDKFramework/MoPub.h>
 #import "ANBannerAdView.h"
 
 @interface ANMoPubMediationBanner : MPBannerCustomEvent <ANBannerAdViewDelegate>

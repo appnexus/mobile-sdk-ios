@@ -27,6 +27,24 @@
 - (void)requestInterstitialAdWithParameter:(NSString *)parameterString
                                   adUnitId:(NSString *)idString
                        targetingParameters:(ANTargetingParameters *)targetingParameters {
+    if ([MoPub sharedInstance].isSdkInitialized)
+    {
+        [self initialseInterstitialAdWithParameter:parameterString adUnitId:idString targetingParameters:targetingParameters];
+    }
+    else
+    {
+        MPMoPubConfiguration * sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization: idString];
+        [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+               [self initialseInterstitialAdWithParameter:parameterString adUnitId:idString targetingParameters:targetingParameters];
+            });
+        }];
+    }
+}
+
+- (void) initialseInterstitialAdWithParameter:(NSString *)parameterString
+                                     adUnitId:(NSString *)idString
+                          targetingParameters:(ANTargetingParameters *)targetingParameters {
     self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:idString];
     self.interstitialAd.location = [self locationFromTargetingParameters:targetingParameters];
     self.interstitialAd.keywords = [self keywordsFromTargetingParameters:targetingParameters];

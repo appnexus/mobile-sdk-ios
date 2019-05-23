@@ -158,7 +158,6 @@
 		0ED15A6D2236C5F400D56022 /* AmazonAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A6C2236C5F300D56022 /* AmazonAd.framework */; };
 		0ED15A6F2236C5FD00D56022 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A6E2236C5FD00D56022 /* Chartboost.framework */; };
 		0ED15A712236C60B00D56022 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A702236C60B00D56022 /* MMAdSDK.framework */; };
-		0ED15A732236C61400D56022 /* libMoPubSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A722236C61400D56022 /* libMoPubSDK.a */; };
 		0ED15A762236C62200D56022 /* SCSCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A742236C62200D56022 /* SCSCoreKit.framework */; };
 		0ED15A772236C62200D56022 /* SASDisplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A752236C62200D56022 /* SASDisplayKit.framework */; };
 		0ED15A792236C64600D56022 /* libLWSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A782236C64500D56022 /* libLWSDK.a */; };
@@ -252,6 +251,9 @@
 		979EA16C223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */; };
 		979EA16D223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */; };
 		979EA171223BC364009B79B7 /* ANOMIDNativeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 979EA170223BC364009B79B7 /* ANOMIDNativeTestCase.m */; };
+		97A590B0228EA57B00D1C75C /* MoPubSDKFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A590A9228EA1AE00D1C75C /* MoPubSDKFramework.framework */; };
+		97A590C6228EAB3000D1C75C /* MoPubSDKFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A590A9228EA1AE00D1C75C /* MoPubSDKFramework.framework */; };
+		97A590C7228EAB3000D1C75C /* MoPubSDKFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97A590A9228EA1AE00D1C75C /* MoPubSDKFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97B3C8EF223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */; };
 		97B3C8F0223FA311005B2DB8 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */; };
 		97E3447B2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */; };
@@ -528,6 +530,7 @@
 			files = (
 				0E4701C82237D450005CFFAC /* SCSCoreKit.framework in Embed Frameworks */,
 				0E4701C62237D44D005CFFAC /* SASDisplayKit.framework in Embed Frameworks */,
+				97A590C7228EAB3000D1C75C /* MoPubSDKFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,7 +687,6 @@
 		0ED15A6C2236C5F300D56022 /* AmazonAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AmazonAd.framework; path = ../../mediation/mediatedviews/Amazon/AmazonSDK/AmazonAd.framework; sourceTree = "<group>"; };
 		0ED15A6E2236C5FD00D56022 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Chartboost.framework; path = ../../mediation/mediatedviews/Chartboost/ChartboostSDK/Chartboost.framework; sourceTree = "<group>"; };
 		0ED15A702236C60B00D56022 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMAdSDK.framework; path = ../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/MMAdSDK.framework; sourceTree = "<group>"; };
-		0ED15A722236C61400D56022 /* libMoPubSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMoPubSDK.a; path = ../../mediation/mediatedviews/MoPub/MoPubSDK/libMoPubSDK.a; sourceTree = "<group>"; };
 		0ED15A742236C62200D56022 /* SCSCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SCSCoreKit.framework; path = ../../mediation/mediatedviews/SmartAd/SmartAdSDK/SCSCoreKit.framework; sourceTree = "<group>"; };
 		0ED15A752236C62200D56022 /* SASDisplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SASDisplayKit.framework; path = ../../mediation/mediatedviews/SmartAd/SmartAdSDK/SASDisplayKit.framework; sourceTree = "<group>"; };
 		0ED15A782236C64500D56022 /* libLWSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLWSDK.a; path = ../../mediation/mediatedviews/Vdopia/VdopiaSDK/libLWSDK.a; sourceTree = "<group>"; };
@@ -782,6 +784,7 @@
 		979EA168223BB575009B79B7 /* OMID_Native_CSMResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_CSMResponse.json; sourceTree = "<group>"; };
 		979EA169223BB575009B79B7 /* OMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_RTBResponse.json; sourceTree = "<group>"; };
 		979EA170223BC364009B79B7 /* ANOMIDNativeTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANOMIDNativeTestCase.m; sourceTree = "<group>"; };
+		97A590A9228EA1AE00D1C75C /* MoPubSDKFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MoPubSDKFramework.framework; path = ../../mediation/mediatedviews/MoPub/MoPubSDK/MoPubSDKFramework.framework; sourceTree = "<group>"; };
 		97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionConfiguration+ANProtocols.m"; sourceTree = "<group>"; };
 		97B3C8EC223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+ANProtocols.h"; sourceTree = "<group>"; };
 		97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
@@ -800,7 +803,6 @@
 				0ED15A792236C64600D56022 /* libLWSDK.a in Frameworks */,
 				0ED15A762236C62200D56022 /* SCSCoreKit.framework in Frameworks */,
 				0ED15A772236C62200D56022 /* SASDisplayKit.framework in Frameworks */,
-				0ED15A732236C61400D56022 /* libMoPubSDK.a in Frameworks */,
 				0ED15A712236C60B00D56022 /* MMAdSDK.framework in Frameworks */,
 				0ED15A6F2236C5FD00D56022 /* Chartboost.framework in Frameworks */,
 				0ED15A6D2236C5F400D56022 /* AmazonAd.framework in Frameworks */,
@@ -838,6 +840,7 @@
 				0ED159EB2236B56100D56022 /* libxml2.tbd in Frameworks */,
 				0ED159E92236B55B00D56022 /* libsqlite3.tbd in Frameworks */,
 				0ED159E72236B55400D56022 /* libc++.tbd in Frameworks */,
+				97A590B0228EA57B00D1C75C /* MoPubSDKFramework.framework in Frameworks */,
 				0ED159E52236B54900D56022 /* JavaScriptCore.framework in Frameworks */,
 				0ED159E32236B54100D56022 /* CoreMotion.framework in Frameworks */,
 				0ED159E12236B53B00D56022 /* CoreMedia.framework in Frameworks */,
@@ -859,6 +862,7 @@
 				0E56C70321F8AF2D00ADE6E1 /* GameKit.framework in Frameworks */,
 				0E56C6FF21F8AF2200ADE6E1 /* Foundation.framework in Frameworks */,
 				0E56C6FD21F8AF1E00ADE6E1 /* CoreTelephony.framework in Frameworks */,
+				97A590C6228EAB3000D1C75C /* MoPubSDKFramework.framework in Frameworks */,
 				0E56C6FB21F8AF1900ADE6E1 /* CoreLocation.framework in Frameworks */,
 				0E56C6F921F8AF1100ADE6E1 /* CFNetwork.framework in Frameworks */,
 				0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */,
@@ -898,13 +902,13 @@
 		0E56C6ED21F8AEF200ADE6E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				97A590A9228EA1AE00D1C75C /* MoPubSDKFramework.framework */,
 				0ED15A7E2236C66E00D56022 /* libFlurryAds.a */,
 				0ED15A7C2236C65A00D56022 /* libFlurry.a */,
 				0ED15A7A2236C64E00D56022 /* VungleSDK.framework */,
 				0ED15A782236C64500D56022 /* libLWSDK.a */,
 				0ED15A752236C62200D56022 /* SASDisplayKit.framework */,
 				0ED15A742236C62200D56022 /* SCSCoreKit.framework */,
-				0ED15A722236C61400D56022 /* libMoPubSDK.a */,
 				0ED15A702236C60B00D56022 /* MMAdSDK.framework */,
 				0ED15A6E2236C5FD00D56022 /* Chartboost.framework */,
 				0ED15A6C2236C5F300D56022 /* AmazonAd.framework */,
@@ -2092,6 +2096,7 @@
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Amazon/AmazonSDK/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/SmartAd/SmartAdSDK/**",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2111,7 +2116,6 @@
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vdopia/VdopiaSDK/**",
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdMarvel/AdMarvelSDK/**",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -2139,6 +2143,7 @@
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Amazon/AmazonSDK/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/SmartAd/SmartAdSDK/**",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2158,7 +2163,6 @@
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/Flurry/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vdopia/VdopiaSDK/**",
-					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdMarvel/AdMarvelSDK/**",
 				);
 				ONLY_ACTIVE_ARCH = YES;
@@ -2184,6 +2188,7 @@
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vungle/VungleSDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2196,6 +2201,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vdopia/VdopiaSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/SmartAd/SmartAdSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2219,6 +2232,7 @@
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vungle/VungleSDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdColony/AdColonySDK",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/MoPub/MoPubSDK",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2231,6 +2245,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Vdopia/VdopiaSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/SmartAd/SmartAdSDK",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
