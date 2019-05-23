@@ -22,6 +22,12 @@
 
 @interface ANBaseAdFetcher : NSObject
 
+@property (nonatomic, readwrite, strong)  NSMutableArray                    *ads;
+@property (nonatomic, readwrite, strong)  NSString                          *noAdUrl;
+@property (nonatomic, readwrite, weak)    id                                delegate;
+@property (nonatomic, readwrite, getter=isLoading)  BOOL                    loading;
+@property (nonatomic, readwrite, strong)  id                                adObjectHandler;
+
 -(void)requestAd;
 -(void)cancelRequest;
 
@@ -37,6 +43,8 @@
 - (void)clearMediationController;
 
 - (void)continueWaterfall;
+
+- (void)finishRequestWithError:(NSError *)error;
 
 
 @end

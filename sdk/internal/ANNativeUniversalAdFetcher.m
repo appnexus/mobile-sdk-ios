@@ -30,19 +30,15 @@
 #import "NSTimer+ANCategory.h"
 
 @interface ANNativeUniversalAdFetcher()
-@property (nonatomic, readwrite, strong)  NSMutableArray                    *ads;
-@property (nonatomic, readwrite, strong)  NSString                          *noAdUrl;
-@property (nonatomic, readwrite, weak)    id                                delegate;
-@property (nonatomic, readwrite, getter=isLoading)  BOOL                    loading;
+
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
-@property (nonatomic, readwrite, strong)  id                                adObjectHandler;
 @end
 
 @implementation ANNativeUniversalAdFetcher
 
 - (instancetype)initWithDelegate:(id)delegate{
     if (self = [self init]) {
-        _delegate = delegate;
+        self.delegate = delegate;
         [self setup];
     }
     return self;
@@ -74,25 +70,6 @@
 
 
 #pragma mark - UT ad response processing methods
-- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
-{
-    BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
-    
-    if (!containsAds) {
-        ANLogWarn(@"response_no_ads");
-        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
-        return;
-    }
-    
-    if (response.noAdUrlString) {
-        self.noAdUrl = response.noAdUrlString;
-    }
-    self.ads = response.ads;
-    
-    [self clearMediationController];
-    [self continueWaterfall];
-}
-
 - (void)finishRequestWithError:(NSError *)error
 {
     self.loading = NO;

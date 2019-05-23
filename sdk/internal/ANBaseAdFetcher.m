@@ -30,10 +30,10 @@
 #import "NSTimer+ANCategory.h"
 
 @interface ANBaseAdFetcher()
-@property (nonatomic, readwrite, weak)    id                                delegate;
+
+
 @property (nonatomic, readwrite, assign)  NSTimeInterval                    totalLatencyStart;
-@property (nonatomic, readwrite, getter=isLoading)  BOOL                    loading;
-@property (nonatomic, readwrite, strong)  id                                adObjectHandler;
+
 @end
 
 @implementation ANBaseAdFetcher
@@ -117,6 +117,26 @@
 
 - (void)cancelRequest{
     
+}
+
+#pragma mark - UT ad response processing methods
+- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
+{
+    BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
+    
+    if (!containsAds) {
+        ANLogWarn(@"response_no_ads");
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        return;
+    }
+    
+    if (response.noAdUrlString) {
+        self.noAdUrl = response.noAdUrlString;
+    }
+    self.ads = response.ads;
+    
+    [self clearMediationController];
+    [self continueWaterfall];
 }
 
 
