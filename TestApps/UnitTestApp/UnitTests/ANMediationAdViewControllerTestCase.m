@@ -16,7 +16,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-#import "ANBannerAdView.h"
+#import "ANBannerAdView+ANTest.h"
 #import "ANLogManager.h"
 #import "XCTestCase+ANMediatedAd.h"
 #import "ANMediationAdViewController.h"
@@ -30,7 +30,6 @@
 
 @interface ANMediationAdViewControllerTestCase : XCTestCase
 
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *adFetcher;
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *adView;
 
 @end
@@ -41,13 +40,13 @@
 
 - (void)setUp {
     [super setUp];
-    self.adFetcher = [[ANUniversalAdFetcher alloc] init];
+  //  self.adFetcher = [[ANUniversalAdFetcher alloc] init];
     self.adView = [[ANBannerAdView alloc] init];
     [ANLogManager setANLogLevel:ANLogLevelAll];
 }
 -(void)tearDown{
     self.adView = nil;
-    self.adFetcher = nil;
+   // self.adFetcher = nil;
     [super tearDown];    
 }
 
@@ -56,35 +55,35 @@
 
 - (void)testNilMediatedAd {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:nil
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNil(controller, @"Did not expect a controller passing in a nil mediated ad");
 }
 
 - (void)testMediatedAdWithFakeClass {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdWithFakeClass]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNil(controller, @"Did not expect a controller for an invalid class");
 }
 
 - (void)testInterstitialMediatedAdWithBannerAdViewDelegate {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self facebookInterstitialMediatedAd]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNil(controller, @"Did not expect a controller for a class of the wrong adapter type");
 }
 
 - (void)testMediatedAdWithNoDelegate {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdWithNoDelegateInClass]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNil(controller);
 }
 
 - (void)testMediatedAdWithNoRequestMethod {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdWithNoRequestMethodInClass]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNil(controller);
 }
@@ -96,7 +95,7 @@
 
 - (void)testMediatedAdUnableToFill {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdUnableToFill]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self expectAdFetcherCallbackWithResponseCode:ANAdResponseUnableToFill];
@@ -106,7 +105,7 @@
 
 - (void)testMediatedAdNetworkError {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdNetworkError]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self expectAdFetcherCallbackWithResponseCode:ANAdResponseNetworkError];
@@ -116,7 +115,7 @@
 
 - (void)testMediatedAdSuccessful {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdSuccessful]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self expectAdFetcherCallbackWithResponseCode:ANAdResponseSuccessful];
@@ -126,7 +125,7 @@
 
 - (void)testMediatedAdTimeoutThenSuccessful {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdTimeout]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self validateAdFetcherCallbackWithResponseCode:ANAdResponseInternalError
@@ -135,7 +134,7 @@
 
 - (void)testMediatedAdUnableToFillThenSuccessful {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdUnableToFillThenSuccessful]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self validateAdFetcherCallbackWithResponseCode:ANAdResponseUnableToFill
@@ -144,7 +143,7 @@
 
 - (void)testMediatedAdSuccessfulThenUnableToFill {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdSuccessfulThenUnableToFill]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self validateAdFetcherCallbackWithResponseCode:ANAdResponseSuccessful
@@ -153,7 +152,7 @@
 
 - (void)testMediatedAdMultipleSuccessCallbacks {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdMultipleSuccessCallbacks]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self validateAdFetcherCallbackWithResponseCode:ANAdResponseSuccessful
@@ -162,7 +161,7 @@
 
 - (void)testMediatedAdMultipleFailureCallbacks {
     ANMediationAdViewController *controller = [ANMediationAdViewController initMediatedAd:[self mediatedAdMultipleFailureCallbacks]
-                                                                              withFetcher:self.adFetcher
+                                                                              withFetcher:self.adView.universalAdFetcher
                                                                            adViewDelegate:self.adView];
     XCTAssertNotNil(controller);
     [self validateAdFetcherCallbackWithResponseCode:ANAdResponseNetworkError
@@ -178,7 +177,7 @@
 {
 TESTTRACE();
     [self expectationForNotification: kANUniversalAdFetcherFireResponseURLRequestedNotification
-                              object: self.adFetcher
+                              object: self.adView.universalAdFetcher
                              handler: ^BOOL(NSNotification *notification)
                                  {
                                      NSDictionary   *userInfo   = notification.userInfo;
@@ -198,7 +197,7 @@ TESTTRACE();
     __block BOOL  receivedDesiredCallback  = NO;
 
     id  observer  = [[NSNotificationCenter defaultCenter] addObserverForName: kANUniversalAdFetcherFireResponseURLRequestedNotification
-                                                                      object: self.adFetcher
+                                                                      object: self.adView.universalAdFetcher
                                                                        queue: [NSOperationQueue mainQueue]
                                                                   usingBlock: ^(NSNotification *notification)
                                                                      {
