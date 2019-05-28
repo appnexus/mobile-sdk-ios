@@ -32,7 +32,7 @@
     [ANLogManager setANLogLevel:ANLogLevelAll];
    
     self.nativeAdRequest= [[ANNativeAdRequest alloc] init];
-    self.nativeAdRequest.placementId = @"13255429";
+    self.nativeAdRequest.placementId = @"14361525";
     self.nativeAdRequest.gender = ANGenderMale;
     self.nativeAdRequest.shouldLoadIconImage = YES;
     self.nativeAdRequest.shouldLoadMainImage = YES;

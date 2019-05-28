@@ -24,7 +24,7 @@
 #import "ANAdViewInternalDelegate.h"
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
-#import "ANBaseAdFetcher.h"
+#import "ANAdFetcherBase.h"
 
 
 
@@ -34,7 +34,7 @@
 
 
 
-@interface ANUniversalAdFetcher : ANBaseAdFetcher
+@interface ANUniversalAdFetcher : ANAdFetcherBase
 
 - (instancetype)initWithDelegate: (id)delegate;
 

@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "ANBaseAdFetcher.h"
+#import "ANAdFetcherBase.h"
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANLogging.h"
@@ -29,14 +29,14 @@
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
 
-@interface ANBaseAdFetcher()
+@interface ANAdFetcherBase()
 
 
 @property (nonatomic, readwrite, assign)  NSTimeInterval                    totalLatencyStart;
 
 @end
 
-@implementation ANBaseAdFetcher
+@implementation ANAdFetcherBase
 
 - (void)setup{
       [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
@@ -57,12 +57,12 @@
         ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
                             @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
         
-        ANBaseAdFetcher *__weak weakSelf = self;
+        ANAdFetcherBase *__weak weakSelf = self;
         
         NSURLSessionDataTask *task = [[NSURLSession sharedSession]
                                       dataTaskWithRequest:request
                                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          ANBaseAdFetcher *__strong strongSelf = weakSelf;
+                                          ANAdFetcherBase *__strong strongSelf = weakSelf;
                                           
                                           if(!strongSelf){
                                               return;

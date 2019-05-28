@@ -14,13 +14,13 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANBaseAdFetcher.h"
+#import "ANAdFetcherBase.h"
 #import "ANNativeAdResponse.h"
 #import "ANAdFetcherResponse.h"
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
 
-@interface ANNativeUniversalAdFetcher : ANBaseAdFetcher
+@interface ANNativeAdFetcher : ANAdFetcherBase
 
 -(instancetype) initWithDelegate:(id)delegate;
 

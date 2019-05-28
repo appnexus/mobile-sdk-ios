@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "ANNativeUniversalAdFetcher.h"
+#import "ANNativeAdFetcher.h"
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANLogging.h"
@@ -29,12 +29,12 @@
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
 
-@interface ANNativeUniversalAdFetcher()
+@interface ANNativeAdFetcher()
 
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @end
 
-@implementation ANNativeUniversalAdFetcher
+@implementation ANNativeAdFetcher
 
 - (instancetype)initWithDelegate:(id)delegate{
     if (self = [self init]) {

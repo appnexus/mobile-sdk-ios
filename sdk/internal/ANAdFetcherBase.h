@@ -20,7 +20,7 @@
 #import "ANGlobal.h"
 #import "ANUniversalTagAdServerResponse.h"
 
-@interface ANBaseAdFetcher : NSObject
+@interface ANAdFetcherBase : NSObject
 
 @property (nonatomic, readwrite, strong)  NSMutableArray                    *ads;
 @property (nonatomic, readwrite, strong)  NSString                          *noAdUrl;

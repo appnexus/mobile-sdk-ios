@@ -15,7 +15,7 @@
 
 #import "ANNativeAdRequest.h"
 #import "ANNativeMediatedAdResponse.h"
-#import "ANNativeUniversalAdFetcher.h"
+#import "ANNativeAdFetcher.h"
 #import "ANNativeAdImageCache.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
@@ -24,7 +24,7 @@
 
 @interface ANNativeAdRequest() <ANNativeUniversalAdFetcherDelegate>
 
-@property (nonatomic, readwrite, strong) ANNativeUniversalAdFetcher *adFetcher;
+@property (nonatomic, readwrite, strong) ANNativeAdFetcher *adFetcher;
 
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
@@ -93,7 +93,7 @@
     if (self.adFetcher != nil) {
         [self.adFetcher cancelRequest];
     }
-    self.adFetcher  = [[ANNativeUniversalAdFetcher alloc] initWithDelegate:self];
+    self.adFetcher  = [[ANNativeAdFetcher alloc] initWithDelegate:self];
     [self.adFetcher requestAd];
 }
 
