@@ -45,6 +45,8 @@
 
 - (void)continueWaterfall;
 
+- (void)restartAutoRefreshTimer;
+
 - (void)finishRequestWithError:(NSError *)error;
 
 

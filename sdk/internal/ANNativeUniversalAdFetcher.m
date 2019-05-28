@@ -123,6 +123,11 @@
     }
 }
 
+- (void)restartAutoRefreshTimer
+{
+    // Implemented only by ANUniversalAdFetcher
+}
+
 #pragma mark - Ad handlers.
 
 - (void)handleCSMSDKMediatedAd:(ANMediatedAd *)mediatedAd

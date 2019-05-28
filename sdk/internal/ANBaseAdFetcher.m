@@ -68,6 +68,7 @@
                                               return;
                                           }
                                           NSInteger statusCode = -1;
+                                          [strongSelf restartAutoRefreshTimer];
                                           
                                           if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                                               NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;

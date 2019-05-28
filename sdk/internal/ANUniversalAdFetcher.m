@@ -102,7 +102,7 @@
 
 #pragma mark - Ad Response
 
-- (void)finishRequestWithErrorAndRefresh:(NSError *)error
+- (void)finishRequestWithError:(NSError *)error
 {
     self.loading = NO;
     
@@ -156,7 +156,7 @@
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
             [ANTrackerManager fireTrackerURL:self.noAdUrl];
         }
-        [self finishRequestWithErrorAndRefresh:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
     
