@@ -759,7 +759,7 @@
 		0EEFE1AE220089FB002B5F5F /* MediationCallbacksTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediationCallbacksTests.m; sourceTree = "<group>"; };
 		0EEFE1B022008A0A002B5F5F /* ANSecondPriceDFPTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSecondPriceDFPTestCase.m; sourceTree = "<group>"; };
 		0EEFE1B222008A11002B5F5F /* ANBannerNativeTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBannerNativeTestCase.m; sourceTree = "<group>"; };
-		0EEFE1B422008A1A002B5F5F /* MRAIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAIDTests.m; sourceTree = "<group>"; };
+		0EEFE1B422008A1A002B5F5F /* MRAIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 3; lastKnownFileType = sourcecode.c.objc; path = MRAIDTests.m; sourceTree = "<group>"; };
 		0EEFE1B622008C14002B5F5F /* ANMockMediationAdapterTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterTimeout.m; sourceTree = "<group>"; };
 		0EEFE1B722008C14002B5F5F /* ANMockMediationAdapterTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterTimeout.h; sourceTree = "<group>"; };
 		0EEFE1B922008C29002B5F5F /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };

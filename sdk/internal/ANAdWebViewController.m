@@ -76,7 +76,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
         }
         
         _checkViewableTimeInterval = kAppNexusMRAIDCheckViewableFrequency;
-        _checkViewableRunLoopMode = NSDefaultRunLoopMode;
+        _checkViewableRunLoopMode = NSRunLoopCommonModes;
         
         _appIsInBackground = NO;
     }
