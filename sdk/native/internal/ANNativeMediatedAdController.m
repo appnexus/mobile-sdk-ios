@@ -15,7 +15,7 @@
 
 #import "ANNativeMediatedAdController.h"
 #import "ANNativeCustomAdapter.h"
-#import "ANNativeUniversalAdFetcher.h"
+#import "ANNativeAdFetcher.h"
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
 #import "NSObject+ANCategory.h"
@@ -42,7 +42,7 @@
 @implementation ANNativeMediatedAdController
 
 + (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
-                   withFetcher: (ANNativeUniversalAdFetcher *)adFetcher
+                   withFetcher: (ANNativeAdFetcher *)adFetcher
              adRequestDelegate: (id<ANNativeUniversalAdFetcherDelegate>)adRequestDelegate
 {
     ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd: mediatedAd
@@ -57,7 +57,7 @@
 }
 
 - (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
-                   withFetcher: (ANNativeUniversalAdFetcher *)adFetcher
+                   withFetcher: (ANNativeAdFetcher *)adFetcher
              adRequestDelegate: (id<ANNativeUniversalAdFetcherDelegate>)adRequestDelegate
 {
     self = [super init];

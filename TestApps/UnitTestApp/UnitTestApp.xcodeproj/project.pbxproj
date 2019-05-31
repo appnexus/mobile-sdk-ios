@@ -258,6 +258,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		006F6BAA22974831003D2DF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EEFE0C72200547A002B5F5F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5731AFD228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
+		};
 		0EC17C5421F72EA300F0F6AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0EC17C2A21F72D1700F0F6AF /* Project object */;
@@ -1154,6 +1161,7 @@
 				0EEFE0FB2200547A002B5F5F /* AppNexusSDK.framework */,
 				0EEFE0FD2200547A002B5F5F /* libANSDKSmartAdAdapter.a */,
 				0EEFE0FF2200547A002B5F5F /* libANSDKAdMarvelAdapter.a */,
+				006F6BAB22974831003D2DF0 /* AppNexusNativeSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1437,6 +1445,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		006F6BAB22974831003D2DF0 /* AppNexusNativeSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeSDK.framework;
+			remoteRef = 006F6BAA22974831003D2DF0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		0EEFE0DD2200547A002B5F5F /* libANSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2081,7 +2096,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X9C48RNUJC;
+				DEVELOPMENT_TEAM = HCG8WLCL35;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK/**",
@@ -2128,7 +2143,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X9C48RNUJC;
+				DEVELOPMENT_TEAM = HCG8WLCL35;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK/**",
