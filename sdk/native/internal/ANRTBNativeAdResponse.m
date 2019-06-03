@@ -1,4 +1,4 @@
-/*   Copyright 2016 APPNEXUS INC
+/*   Copyright 2018-2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,12 +13,10 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "ANRTBNativeAdResponse.h"
 
-@protocol ANBaseUrlConfig <NSObject>
 
-- (NSString *)webViewBaseUrl;
-- (NSString *)utAdRequestBaseUrl;
-- (NSURL *)videoWebViewUrl;
-- (NSURL *)nativeRenderingUrl;
+@implementation ANRTBNativeAdResponse
+
 @end
+

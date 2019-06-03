@@ -33,16 +33,16 @@ class ANBannerNativeAdViewTests: XCTestCase, ANBannerAdViewDelegate {
     
     func testRTBBannerNative() {
     
-        let adObject = AdObject(adType: "Banner", accessibilityIdentifier: "testRTBBannerNative", placement: "14757580")
+        let adObject = AdObject(adType: "Banner", accessibilityIdentifier: PlacementTestConstants.BannerNativeAd.testRTBBannerNative, placement: "14757580")
         
-        let bannerAdObject  =  BannerAdObject(isVideo: false, isNative: true, height: "250", width: "300", autoRefreshInterval: 60, adObject: adObject)
+        let bannerAdObject  =  BannerAdObject(isVideo: false, isNative: true, enableNativeRendering : false , height: "250", width: "300", autoRefreshInterval: 60, adObject: adObject)
         
         
         let bannerAdObjectString =  AdObjectModel.encodeBannerObject(adObject: bannerAdObject)
 
         
         let app = XCUIApplication()
-        app.launchArguments.append("testRTBBannerNative")
+        app.launchArguments.append(PlacementTestConstants.BannerNativeAd.testRTBBannerNative)
         app.launchArguments.append(bannerAdObjectString)
         app.launch()
         
@@ -77,11 +77,37 @@ class ANBannerNativeAdViewTests: XCTestCase, ANBannerAdViewDelegate {
         
         let nativeClickButton = app.buttons["ANNativeAdViewCallToAction"]
         XCTAssertEqual(nativeClickButton.exists, true)
-        XCGlobal.screenshotWithTitle(title: "testRTBBannerNative")
+        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.BannerNativeAd.testRTBBannerNative)
         wait(2)
     }
     
 
+    
+    func testRTBBannerNativeRendering() {
+        
+        let adObject = AdObject(adType: "Banner", accessibilityIdentifier: PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering, placement: "15740033")
+        
+        let bannerAdObject  =  BannerAdObject(isVideo: false, isNative: true, enableNativeRendering : true , height: "250", width: "300", autoRefreshInterval: 60, adObject: adObject)
+        
+        
+        let bannerAdObjectString =  AdObjectModel.encodeBannerObject(adObject: bannerAdObject)
+        
+        
+        let app = XCUIApplication()
+        app.launchArguments.append(PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering)
+        app.launchArguments.append(bannerAdObjectString)
+        app.launch()
+        
+        
+        // Asserts Ad Elemnts once ad Did Receive
+        let webViewsQuery = app.webViews.element(boundBy: 0)
+        wait(for: webViewsQuery, timeout: 30)
+        XCUIScreen.main.screenshot()
+        XCTAssertEqual(webViewsQuery.frame.size.height, 250)
+        XCTAssertEqual(webViewsQuery.frame.size.width, 300)
+        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering)
+        wait(2)
+    }
  
 }
 

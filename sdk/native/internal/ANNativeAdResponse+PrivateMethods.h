@@ -23,6 +23,8 @@
 @property (nonatomic, readonly, strong) UIView *viewForTracking;
 @property (nonatomic, readonly, strong) OMIDAppnexusAdSession *omidAdSession;
 @property (nonatomic, readwrite, strong) ANVerificationScriptResource *verificationScriptResource;
+@property (nonatomic, readonly, strong) NSString *nativeRenderingUrl;
+@property (nonatomic, readonly, strong) NSString *nativeRenderingObject;
 
 
 #pragma mark - Registration

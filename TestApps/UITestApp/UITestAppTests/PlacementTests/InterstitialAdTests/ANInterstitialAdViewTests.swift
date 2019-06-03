@@ -34,14 +34,14 @@ class ANInterstitialAdViewTests: XCTestCase {
     func testRTBInterstitial() {
        
         
-        let adObject = AdObject(adType: "Interstitial", accessibilityIdentifier: "testRTBInterstitial", placement: "14757583")
+        let adObject = AdObject(adType: "Interstitial", accessibilityIdentifier: PlacementTestConstants.InterstitialAd.testRTBInterstitial, placement: "14757583")
 
         let interstitialAdObject =  InterstitialAdObject(closeDelay: 5, adObject: adObject)
         
         let interstitialAdObjectString =  AdObjectModel.encodeInterstitialObject(adObject: interstitialAdObject)
 
         let app = XCUIApplication()
-        app.launchArguments.append("testRTBInterstitial")
+        app.launchArguments.append(PlacementTestConstants.InterstitialAd.testRTBInterstitial)
         app.launchArguments.append(interstitialAdObjectString)
         app.launch()
         
@@ -52,7 +52,7 @@ class ANInterstitialAdViewTests: XCTestCase {
 
         wait(for: interstitialAd, timeout: 10)
 
-        XCGlobal.screenshotWithTitle(title: "testRTBInterstitial")
+        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.InterstitialAd.testRTBInterstitial)
 
         XCTAssertEqual(interstitialAd.exists, true)
         wait(10)

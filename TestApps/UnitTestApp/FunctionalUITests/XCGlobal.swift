@@ -1,4 +1,4 @@
-/*   Copyright 2016 APPNEXUS INC
+/*   Copyright 2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,12 +13,16 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
+import XCTest
 
-@protocol ANBaseUrlConfig <NSObject>
-
-- (NSString *)webViewBaseUrl;
-- (NSString *)utAdRequestBaseUrl;
-- (NSURL *)videoWebViewUrl;
-- (NSURL *)nativeRenderingUrl;
-@end
+class XCGlobal {
+    class func screenshotWithTitle (title: String) {
+        XCTContext.runActivity(named: title) { (activity) in
+            let screenshot = XCUIScreen.main.screenshot()
+            let attachment = XCTAttachment(screenshot: screenshot)
+            attachment.lifetime = .keepAlways
+            activity.add(attachment)
+        }
+    }
+}

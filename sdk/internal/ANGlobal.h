@@ -128,6 +128,9 @@ NSNumber *ANiTunesIDForURL(NSURL *URL);
 BOOL ANCanPresentFromViewController(UIViewController *viewController);
 
 
+static NSString *const kANCreativeId= @"creativeId";
+static NSString *const kANImpressionUrls = @"impressionUrls";
+
 
 #pragma mark - Global class.
 

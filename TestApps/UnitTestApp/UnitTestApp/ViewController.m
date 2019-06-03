@@ -35,7 +35,7 @@
 #import "ANAdAdapterNativeAdMob.h"
 #import "UIView+ANCategory.h"
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
-
+@class UITestViewController;
 
 @interface ViewController ()< CLLocationManagerDelegate , ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate, ANNativeAdDelegate>
 @property (nonatomic, readwrite, strong) CLLocationManager *locationManager;
@@ -60,7 +60,18 @@
     
 }
 - (void)viewDidAppear:(BOOL)animated{
-    [self locationSetup]; // If you want to pass location...
+    NSArray *processList = [[NSProcessInfo processInfo] arguments];
+    if([processList containsObject:@"FunctionalUITest"]){
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FunctionalUITest" bundle:nil];
+        UIViewController *uiTestVC =
+        [storyboard instantiateViewControllerWithIdentifier:@"BannerAdFunctionalViewController"];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uiTestVC];
+        [self presentViewController:navController animated:YES completion:nil];
+    }else{
+        [self locationSetup]; // If you want to pass location...
+    }
+    
 }
 
 - (void)locationSetup {

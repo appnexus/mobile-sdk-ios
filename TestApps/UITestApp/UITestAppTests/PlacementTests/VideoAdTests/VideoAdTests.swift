@@ -34,14 +34,14 @@ class VideoAdTests: XCTestCase {
     }
     func testVastVideoAd(){
         
-        let adObject = AdObject(adType: "Video", accessibilityIdentifier: "testRTBVideo", placement: "14757590")
+        let adObject = AdObject(adType: "Video", accessibilityIdentifier: PlacementTestConstants.VideoAd.testRTBVideo, placement: "14757590")
         
         let videoAdObject = VideoAdObject(isVideo: false , adObject: adObject)
 
         let videoAdObjectString =  AdObjectModel.encodeVideoObject(adObject: videoAdObject)
 
         let app = XCUIApplication()
-        app.launchArguments.append("testRTBVideo")
+        app.launchArguments.append(PlacementTestConstants.VideoAd.testRTBVideo)
         app.launchArguments.append(videoAdObjectString)
         app.launch()
         
@@ -73,7 +73,7 @@ class VideoAdTests: XCTestCase {
        
         let skipText = webViewsQuery.staticTexts["SKIP"]
         XCTAssertEqual(skipText.exists, true)
-        XCGlobal.screenshotWithTitle(title: "testRTBVideo")
+        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.VideoAd.testRTBVideo)
         wait(2)
         
     }
@@ -81,14 +81,14 @@ class VideoAdTests: XCTestCase {
     
     func testVPAIDVideoAd(){
       
-        let adObject = AdObject(adType: "Video", accessibilityIdentifier: "testVPAIDVideoAd", placement: "14768519")
+        let adObject = AdObject(adType: "Video", accessibilityIdentifier: PlacementTestConstants.VideoAd.testVPAIDVideoAd, placement: "14768519")
         let videoAdObject = VideoAdObject(isVideo: false , adObject: adObject)
      
         let videoAdObjectString =  AdObjectModel.encodeVideoObject(adObject: videoAdObject)
 
         
         let app = XCUIApplication()
-        app.launchArguments.append("testVPAIDVideoAd")
+        app.launchArguments.append(PlacementTestConstants.VideoAd.testVPAIDVideoAd)
         app.launchArguments.append(videoAdObjectString)
         app.launch()
         
@@ -140,7 +140,7 @@ class VideoAdTests: XCTestCase {
         XCTAssertEqual(unmuteButton.exists, true)
         unmuteButton.tap()
      
-        XCGlobal.screenshotWithTitle(title: "testVPAIDVideoAd")
+        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.VideoAd.testVPAIDVideoAd)
         wait(2)
         
         

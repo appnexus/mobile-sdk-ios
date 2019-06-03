@@ -1,4 +1,4 @@
-/*   Copyright 2016 APPNEXUS INC
+/*   Copyright 2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,12 +13,17 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
 
-@protocol ANBaseUrlConfig <NSObject>
+import Foundation
 
-- (NSString *)webViewBaseUrl;
-- (NSString *)utAdRequestBaseUrl;
-- (NSURL *)videoWebViewUrl;
-- (NSURL *)nativeRenderingUrl;
-@end
+
+struct FunctionalTestConstants {
+    static let functionalTest : String = "FunctionalUITest"
+
+    struct BannerNativeAd {
+        static let testBannerNativeRenderingSize : String = "testBannerNativeRenderingSize"
+        static let testBannerNativeRenderingClickThrough: String = "testBannerNativeRenderingClickThrough"
+    }
+  
+}
+

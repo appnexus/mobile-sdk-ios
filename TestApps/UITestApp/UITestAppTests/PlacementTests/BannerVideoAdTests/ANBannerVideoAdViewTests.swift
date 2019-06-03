@@ -38,15 +38,15 @@ class ANBannerVideoAdViewTests: XCTestCase, ANBannerAdViewDelegate {
 
 
         
-        let adObject = AdObject(adType: "Banner", accessibilityIdentifier: "testVPAIDBannerVideo", placement: "14768519")
+        let adObject = AdObject(adType: "Banner", accessibilityIdentifier: PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo, placement: "14768519")
         
-        let bannerAdObject  =  BannerAdObject(isVideo: true, isNative: false, height: "250", width: "300", autoRefreshInterval: 60, adObject: adObject)
+        let bannerAdObject  =  BannerAdObject(isVideo: true, isNative: false, enableNativeRendering : nil  ,height: "250", width: "300", autoRefreshInterval: 60, adObject: adObject)
         
         let bannerAdObjectString =  AdObjectModel.encodeBannerObject(adObject: bannerAdObject)
         
         
         let app = XCUIApplication()
-        app.launchArguments.append("testVPAIDBannerVideo")
+        app.launchArguments.append(PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo)
         app.launchArguments.append(bannerAdObjectString)
         app.launch()
         
@@ -108,21 +108,21 @@ class ANBannerVideoAdViewTests: XCTestCase, ANBannerAdViewDelegate {
         XCTAssertEqual(nonFullscreenButton.exists, true)
         nonFullscreenButton.tap()
         print(webViewsQuery.debugDescription)
-        XCGlobal.screenshotWithTitle(title: "testVPAIDBannerVideo")
+        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo)
         wait(2)
     }
     
     func testBannerVideo() {
         
 
-        let adObject = AdObject(adType: "Banner", accessibilityIdentifier: "testBannerVideo", placement: "14757590")
+        let adObject = AdObject(adType: "Banner", accessibilityIdentifier: PlacementTestConstants.BannerVideoAd.testBannerVideo, placement: "14757590")
         
-        let bannerAdObject  =  BannerAdObject(isVideo: true, isNative: false, height: "250", width: "300", autoRefreshInterval: 0, adObject: adObject)
+        let bannerAdObject  =  BannerAdObject(isVideo: true, isNative: false, enableNativeRendering : nil , height: "250", width: "300", autoRefreshInterval: 0, adObject: adObject)
         
         let bannerAdObjectString =  AdObjectModel.encodeBannerObject(adObject: bannerAdObject)
                 
         let app = XCUIApplication()
-        app.launchArguments.append("testBannerVideo")
+        app.launchArguments.append(PlacementTestConstants.BannerVideoAd.testBannerVideo)
         app.launchArguments.append(bannerAdObjectString)
         app.launch()
         
@@ -170,7 +170,7 @@ class ANBannerVideoAdViewTests: XCTestCase, ANBannerAdViewDelegate {
 
         let adLearnMoreStaticText = webViewsQuery.staticTexts["Ad - Learn More"]
         XCTAssertEqual(adLearnMoreStaticText.exists, true)
-        XCGlobal.screenshotWithTitle(title: "testBannerVideo")
+        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.BannerVideoAd.testBannerVideo)
         wait(2)
     }
 }

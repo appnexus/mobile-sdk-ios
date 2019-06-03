@@ -32,14 +32,14 @@ class ANNativeAdViewTests: XCTestCase {
     
     func testRTBNative() {
         
-        let adObject = AdObject(adType: "Native", accessibilityIdentifier: "testRTBNative", placement: "14757580")
+        let adObject = AdObject(adType: "Native", accessibilityIdentifier: PlacementTestConstants.NativeAd.testRTBNative, placement: "14757580")
         let nativeAdObject =  NativeAdObject(shouldLoadIconImage: true, shouldLoadMainImage: true, adObject: adObject)
         
         
         let nativeAdObjectString =  AdObjectModel.encodeNativeObject(adObject: nativeAdObject)
 
         let app = XCUIApplication()
-        app.launchArguments.append("testRTBNative")
+        app.launchArguments.append(PlacementTestConstants.NativeAd.testRTBNative)
         app.launchArguments.append(nativeAdObjectString)
         app.launch()
         
@@ -75,7 +75,7 @@ class ANNativeAdViewTests: XCTestCase {
         XCTAssertEqual(nativeClickButton.exists, true)
         nativeClickButton.tap()
         app/*@START_MENU_TOKEN@*/.toolbars["Toolbar"]/*[[".otherElements[\"In App Browser\"].toolbars[\"Toolbar\"]",".toolbars[\"Toolbar\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons["OK"].tap()
-        XCGlobal.screenshotWithTitle(title: "testRTBNative")
+        XCGlobal.screenshotWithTitle(title: PlacementTestConstants.NativeAd.testRTBNative)
         wait(2)
     }
     
