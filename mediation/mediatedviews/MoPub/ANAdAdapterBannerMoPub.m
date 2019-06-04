@@ -31,6 +31,26 @@
                 serverParameter:(NSString *)parameterString
                        adUnitId:(NSString *)idString
             targetingParameters:(ANTargetingParameters *)targetingParameters {
+    if ([MoPub sharedInstance].isSdkInitialized)
+    {
+        [self initialseBannerAdWithSize:size rootViewController:rootViewController serverParameter:parameterString adUnitId:idString targetingParameters:targetingParameters];
+    }
+    else
+    {
+        MPMoPubConfiguration * sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization: idString];
+        [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self initialseBannerAdWithSize:size rootViewController:rootViewController serverParameter:parameterString adUnitId:idString targetingParameters:targetingParameters];
+            });
+        }];
+    }
+}
+
+- (void) initialseBannerAdWithSize:(CGSize)size
+                rootViewController:(UIViewController *)rootViewController
+                   serverParameter:(NSString *)parameterString
+                          adUnitId:(NSString *)idString
+               targetingParameters:(ANTargetingParameters *)targetingParameters {
     self.adView = [[MPAdView alloc] initWithAdUnitId:idString
                                                 size:size];
     self.adView.delegate = self;

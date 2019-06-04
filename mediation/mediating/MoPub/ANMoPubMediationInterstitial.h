@@ -14,7 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "MPInterstitialCustomEvent.h"
+#import <MoPubSDKFramework/MoPub.h>
 #import "ANInterstitialAd.h"
 
 @interface ANMoPubMediationInterstitial : MPInterstitialCustomEvent <ANInterstitialAdDelegate>

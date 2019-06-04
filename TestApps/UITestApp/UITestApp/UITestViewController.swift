@@ -18,7 +18,7 @@ import UIKit
 import AppNexusSDK
 
 class UITestViewController: UIViewController {
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,35 +27,35 @@ class UITestViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        let placementTestStoryboard =  UIStoryboard(name: "PlacementTest", bundle: nil)
-        
-        if ProcessInfo.processInfo.arguments.contains("testRTBBanner320x50") || ProcessInfo.processInfo.arguments.contains("testRTBBanner300x250") {
-            let bannerAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "BannerAdViewController") as! BannerAdViewController
-            self.navigationController?.pushViewController(bannerAdViewController, animated: true)
-        }
-        else if ProcessInfo.processInfo.arguments.contains("testRTBBannerNative") {
-            let bannerNativeAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "BannerNativeAdViewController") as! BannerNativeAdViewController
-            self.navigationController?.pushViewController(bannerNativeAdViewController, animated: true)
-        }
-        else if ProcessInfo.processInfo.arguments.contains("testBannerVideo") || ProcessInfo.processInfo.arguments.contains("testVPAIDBannerVideo") {
-            let bannerVideoAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "BannerVideoAdViewController") as! BannerVideoAdViewController
-            self.navigationController?.pushViewController(bannerVideoAdViewController, animated: true)
-        }
-        else if ProcessInfo.processInfo.arguments.contains("testRTBInterstitial") {
-            let interstitialAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "InterstitialAdViewController") as! InterstitialAdViewController
-            self.navigationController?.pushViewController(interstitialAdViewController, animated: true)
-        }
-        else  if ProcessInfo.processInfo.arguments.contains("testRTBNative") {
-            let nativeAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "NativeAdViewController") as! NativeAdViewController
-            self.navigationController?.pushViewController(nativeAdViewController, animated: true)
-        }
-        else if ProcessInfo.processInfo.arguments.contains("testRTBVideo") || ProcessInfo.processInfo.arguments.contains("testVPAIDVideoAd"){
-            let videoAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "VideoAdViewController") as! VideoAdViewController
-            self.navigationController?.pushViewController(videoAdViewController, animated: true)
+
+            let placementTestStoryboard =  UIStoryboard(name: PlacementTestConstants.PlacementTest, bundle: nil)
+            if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerAd.testRTBBanner320x50) || ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerAd.testRTBBanner300x250) {
+                let bannerAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "BannerAdViewController") as! BannerAdViewController
+                self.navigationController?.pushViewController(bannerAdViewController, animated: true)
+            }
+            else if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerNativeAd.testRTBBannerNative) || ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering){
+                let bannerNativeAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "BannerNativeAdViewController") as! BannerNativeAdViewController
+                self.navigationController?.pushViewController(bannerNativeAdViewController, animated: true)
+            }
+            else if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerVideoAd.testBannerVideo) || ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo) {
+                let bannerVideoAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "BannerVideoAdViewController") as! BannerVideoAdViewController
+                self.navigationController?.pushViewController(bannerVideoAdViewController, animated: true)
+            }
+            else if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.InterstitialAd.testRTBInterstitial) {
+                let interstitialAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "InterstitialAdViewController") as! InterstitialAdViewController
+                self.navigationController?.pushViewController(interstitialAdViewController, animated: true)
+            }
+            else  if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.NativeAd.testRTBNative) {
+                let nativeAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "NativeAdViewController") as! NativeAdViewController
+                self.navigationController?.pushViewController(nativeAdViewController, animated: true)
+            }
+            else if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.VideoAd.testRTBVideo) || ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.VideoAd.testVPAIDVideoAd){
+                let videoAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "VideoAdViewController") as! VideoAdViewController
+                self.navigationController?.pushViewController(videoAdViewController, animated: true)
+                
+            }
             
-        }
-        
-        
+            
     }
+    
 }

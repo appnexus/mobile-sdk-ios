@@ -33,8 +33,8 @@
 TESTTRACE();
     NSBlockOperation  *operation  = [NSBlockOperation blockOperationWithBlock:
             ^{
-                [[self class] exchangeOriginalSelector:@selector(fireResponseURL:reason:adObject:auctionID:)
-                                          withSelector:@selector(test_fireResponseURL:reason:adObject:auctionID:)];
+                [[self class] exchangeOriginalSelector:@selector(fireResponseURL:reason:adObject:)
+                                          withSelector:@selector(test_fireResponseURL:reason:adObject:)];
             } ];
 
     [operation start];
@@ -65,7 +65,6 @@ TESTTRACE();
 - (void)test_fireResponseURL: (NSString *)resultCBString
                       reason: (ANAdResponseCode)reason
                     adObject: (id)adObject
-                   auctionID: (NSString *)auctionID
 {
 TESTTRACE();
     NSDictionary  *userInfo  = @{kANUniversalAdFetcherFireResponseURLRequestedReason:@(reason)};
@@ -75,8 +74,7 @@ TESTTRACE();
                                                       userInfo:userInfo];
     [self test_fireResponseURL: resultCBString
                         reason: reason
-                      adObject: adObject
-                     auctionID: auctionID];
+                      adObject: adObject];
 }
 
 @end

@@ -389,7 +389,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
         self.adPlayer = (ANVideoAdPlayer *) response.adObject;
         self.adPlayer.delegate = self;
         
-        NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:response.adObjectHandler];
+        NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
         if(creativeId){
                [self setCreativeId:creativeId];
         }

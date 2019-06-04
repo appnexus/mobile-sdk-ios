@@ -17,6 +17,6 @@
 
 @implementation ANAdWebViewController (ANTest)
 
-@dynamic completedFirstLoad;
+@dynamic completedFirstLoad, lastKnownVisibleRect, lastKnownExposedPercentage;
 
 @end

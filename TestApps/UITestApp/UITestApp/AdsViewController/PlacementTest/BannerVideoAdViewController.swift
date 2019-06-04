@@ -28,12 +28,12 @@ class BannerVideoAdViewController: UIViewController  , ANBannerAdViewDelegate {
     }
     
     func BannerVideoAd(){
-        if ProcessInfo.processInfo.arguments.contains("testBannerVideo") {
-            adKey = "testBannerVideo"
+        if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerVideoAd.testBannerVideo) {
+            adKey = PlacementTestConstants.BannerVideoAd.testBannerVideo
             RTBBannerVideo()
         }
-        if ProcessInfo.processInfo.arguments.contains("testVPAIDBannerVideo") {
-            adKey = "testVPAIDBannerVideo"
+        if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo) {
+            adKey = PlacementTestConstants.BannerVideoAd.testVPAIDBannerVideo
             RTBBannerVideo()
         }
     }

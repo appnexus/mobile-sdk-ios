@@ -21,7 +21,6 @@
 #import "ANTrackerManager.h"
 
 #import "UIView+ANCategory.h"
-#import "UIWebView+ANCategory.h"
 #import "ANBannerAdView+ANContentViewTransitions.h"
 #import "ANAdView+PrivateMethods.h"
 
@@ -34,8 +33,13 @@
 #import "ANNativeStandardAdResponse.h"
 #import "ANNativeAdImageCache.h"
 #import "ANOMIDImplementation.h"
+#import "ANNativeAdResponse+PrivateMethods.h"
+#import "ANNativeRenderingViewController.h"
 
-
+static NSString *const kANAdType = @"adType";
+static NSString *const kANBannerWidth = @"width";
+static NSString *const kANBannerHeight = @"height";
+static NSString *const kANInline = @"inline";
 
 
 @interface ANBannerAdView () <ANBannerAdViewInternalDelegate>
@@ -47,6 +51,8 @@
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>  *impressionURLs;
 
 @property (nonatomic, readwrite)          NSInteger  nativeAdRendererId;
+
+@property (nonatomic, strong)             ANNativeAdResponse  *nativeAdResponse;
 
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
 
@@ -63,7 +69,7 @@
 @synthesize  shouldAllowVideoDemand   = _shouldAllowVideoDemand;
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
-
+@synthesize  enableNativeRendering           = _enableNativeRendering;
 
 #pragma mark - Lifecycle.
 
@@ -84,7 +90,8 @@
     _nativeAdRendererId          = 0;
     self.allowSmallerSizes  = NO;
     self.loadAdHasBeenInvoked = NO;
-    
+    self.enableNativeRendering = NO;
+
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
 
@@ -161,6 +168,7 @@
 
 
 #pragma mark - Getter and Setter methods
+
 
 - (CGSize)adSize {
     ANLogDebug(@"adSize returned %@", NSStringFromCGSize(_adSize));
@@ -255,12 +263,6 @@
 {
     if (newContentView != _contentView)
     {
-        if ([newContentView isKindOfClass:[UIWebView class]]) {
-            UIWebView *webView = (UIWebView *)newContentView;
-            [webView an_removeDocumentPadding];
-            [webView an_setMediaProperties];
-        }
-        
         UIView *oldContentView = _contentView;
         _contentView = newContentView;
         
@@ -271,6 +273,16 @@
         
         if ([oldContentView isKindOfClass:[ANMRAIDContainerView class]]) {
             ANMRAIDContainerView *adView = (ANMRAIDContainerView *)oldContentView;
+            adView.adViewDelegate = nil;
+        }
+        
+        if ([newContentView isKindOfClass:[ANNativeRenderingViewController class]]) {
+            ANNativeRenderingViewController *adView = (ANNativeRenderingViewController *)newContentView;
+            adView.adViewDelegate = self;
+        }
+        
+        if ([oldContentView isKindOfClass:[ANNativeRenderingViewController class]]) {
+            ANNativeRenderingViewController *adView = (ANNativeRenderingViewController *)oldContentView;
             adView.adViewDelegate = nil;
         }
         
@@ -328,37 +340,43 @@
         self.impressionURLs = nil;
         
         
-        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:adObjectHandler];
+        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
         if (creativeId) {
              [self setCreativeId:creativeId];
         }
 
-        NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:@"adType" forObject:adObjectHandler];
+        NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];
         if (adTypeString) {
             [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
         }
 
-        //
         if ([adObject isKindOfClass:[UIView class]])
         {
+          
             self.contentView = adObject;
-            NSString *width = (NSString *) [ANGlobal valueOfGetterProperty:@"width" forObject:adObjectHandler];
-            NSString *height = (NSString *) [ANGlobal valueOfGetterProperty:@"height" forObject:adObjectHandler];
-            
+            NSString *width = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerWidth forObject:adObjectHandler];
+            NSString *height = (NSString *) [ANGlobal valueOfGetterProperty:kANBannerHeight forObject:adObjectHandler];
+
             if(width && height){
                 CGSize receivedSize = CGSizeMake([width floatValue], [height floatValue]);
                 _loadedAdSize = receivedSize;
             }else {
                 _loadedAdSize = self.adSize;
                 }
-            
+            if([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]){
+                NSError             *registerError;
+                self.nativeAdResponse  = (ANNativeAdResponse *)response.adObjectHandler;
+                [self.nativeAdResponse registerViewForTracking: self.contentView
+                                        withRootViewController: self.displayController
+                                                clickableViews: @[]
+                                                         error: &registerError];
+            }
             [self adDidReceiveAd:self];
 
-            if ([self adType] == ANAdTypeBanner)
+            if ([self adType] == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
                 
-                self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:@"impressionUrls" forObject:adObjectHandler];
-
+                self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
                 @synchronized (self)
                 {
                     if (self.window)  {
@@ -453,12 +471,14 @@
 #pragma mark - ANAdViewInternalDelegate
 
 - (NSString *) adTypeForMRAID  {
-    return @"inline";
+    return kANInline;
 }
 
-- (void)setAllowNativeDemand:(BOOL)nativeDemand withRendererId:(NSInteger)rendererId{
-        _shouldAllowNativeDemand = nativeDemand;
-        _nativeAdRendererId = rendererId;
+- (void)setAllowNativeDemand: (BOOL)nativeDemand
+              withRendererId: (NSInteger)rendererId
+{
+    _nativeAdRendererId = rendererId;
+    _shouldAllowNativeDemand = nativeDemand;
 }
 
 - (NSArray<NSValue *> *)adAllowedMediaTypes
@@ -476,6 +496,10 @@
 
 -(NSInteger) nativeAdRendererId{
     return _nativeAdRendererId;
+}
+
+-(BOOL) enableNativeRendering{
+    return _enableNativeRendering;
 }
 
 - (UIViewController *)displayController
@@ -513,7 +537,6 @@
         }
     }
 }
-
 
 @end
 

@@ -27,7 +27,6 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 
 
-
 static NSString *const kANUniversalTagAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kANUniversalTagAdServerResponseKeyTags = @"tags";
 
@@ -37,6 +36,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyTagAds = @"ads";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsContentSource = @"content_source";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsAdType = @"ad_type";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCreativeId = @"creative_id";
+static NSString *const kANUniversalTagAdServerResponseKeyAdsRendererUrl = @"renderer_url";
 
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCSMObject = @"csm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
@@ -92,6 +92,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyNativeCallToAction = @"
 static NSString *const kANUniversalTagAdServerResponseKeyNativeClickTrackArray = @"click_trackers";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeImpTrackArray = @"impression_trackers";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeLink = @"link";
+static NSString *const kANUniversalTagAdServerResponseKeyNativeJavascriptTrackers = @"javascript_trackers";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeClickUrl = @"click_url";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeClickFallbackUrl = @"fallback_url";
 static NSString *const kANUniversalTagAdServerResponseKeyNativeRatingDict = @"rating";
@@ -221,7 +222,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 {
                     creativeId  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsCreativeId]];
                 }
-                
                 if(!contentSource && !adType){
                     ANLogError(@"Response from ad server in an unexpected format content_source/ad_type UNDEFINED.  (adObject=%@)", adObject);
                     continue;
@@ -257,6 +257,16 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                             ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
                             if (nativeAd) {
                                 nativeAd.creativeId = creativeId;
+                                if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
+                                {
+                                NSString * nativeRenderingUrl  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl]];
+                                NSString *nativeRenderingElements  =  [[self class] nativeRenderingJSON:rtbObject];
+                                 if(nativeRenderingUrl && nativeRenderingElements){
+                                    nativeAd.nativeRenderingObject =nativeRenderingElements;
+                                    nativeAd.nativeRenderingUrl = nativeRenderingUrl;
+                                 }
+                                }
+
                                 // Parsing viewability object to create measurement resources for OMID Native integration
                                 ANVerificationScriptResource *verificationScriptResource = [[self class] anVerificationScriptFromAdObject:adObject];
                                 if (verificationScriptResource) {
@@ -561,11 +571,23 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 + (NSDictionary *)nativeJson:(NSDictionary *)nativeRTBObject {
     
     NSMutableDictionary *nativeAd = [nativeRTBObject mutableCopy];
-    [nativeAd removeObjectForKey:@"impression_trackers"];
-    [nativeAd removeObjectForKey:@"link"];
-    [nativeAd removeObjectForKey:@"javascript_trackers"];
+    [nativeAd removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeImpTrackArray];
+    [nativeAd removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeLink];
+    [nativeAd removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeJavascriptTrackers];
     NSDictionary *nativeJSON = @{ kANNativeElementObject : [nativeAd copy]};
     return nativeJSON;
+}
+
++ (NSString *)nativeRenderingJSON:(NSDictionary *)nativeRTBObject {
+
+    NSMutableDictionary *nativeAd = [nativeRTBObject[kANUniversalTagAdServerResponseKeyNativeObject] mutableCopy];
+    [nativeAd removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeImpTrackArray];
+    [nativeAd removeObjectForKey:kANUniversalTagAdServerResponseKeyNativeJavascriptTrackers];
+    NSData  *utResponseJSONData  = [NSJSONSerialization dataWithJSONObject:nativeAd
+                                                                   options: NSJSONWritingPrettyPrinted
+                                                                     error: nil ];
+    NSString  *utResponseJSONString  = [[NSString alloc] initWithData:utResponseJSONData encoding:NSASCIIStringEncoding];
+    return utResponseJSONString;
 }
 
 + (ANNativeStandardAdResponse *)nativeAdFromRTBObject:(NSDictionary *)nativeObject
@@ -588,6 +610,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     
     if([nativeRTBObject isKindOfClass:[NSDictionary class]]){
         ANNativeStandardAdResponse *nativeAd = [[ANNativeStandardAdResponse alloc] init];
+
         NSDictionary *nativeJson  =  [self nativeJson:nativeRTBObject];
         if(nativeJson){
             nativeAd.customElements = nativeJson;
@@ -674,8 +697,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 }
 
 +(CGSize) imageSize:(NSDictionary *)nativeAdImageData  {
-    CGFloat width = [(nativeAdImageData[@"width"] ?: @0) floatValue];
-    CGFloat height = [(nativeAdImageData[@"height"] ?: @0) floatValue];
+    CGFloat width = [(nativeAdImageData[kANUniversalTagAdServerResponseKeyBannerWidth] ?: @0) floatValue];
+    CGFloat height = [(nativeAdImageData[kANUniversalTagAdServerResponseKeyBannerHeight] ?: @0) floatValue];
     return CGSizeMake(width, height);
 }
 

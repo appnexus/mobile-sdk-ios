@@ -38,6 +38,8 @@
 @property (nonatomic, readwrite, strong) NSString *sponsoredBy;
 @property (nonatomic, readwrite, strong) NSString *vastXML;
 @property (nonatomic, readwrite, strong) NSString *privacyLink;
+@property (nonatomic, readwrite, strong) NSString *nativeRenderingUrl;
+@property (nonatomic, readwrite, strong) NSString *nativeRenderingObject;
 
 
 @end

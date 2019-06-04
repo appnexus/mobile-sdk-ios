@@ -63,6 +63,8 @@
 @synthesize additionalDescription = _additionalDescription;
 @synthesize vastXML = _vastXML;
 @synthesize privacyLink = _privacyLink;
+@synthesize nativeRenderingUrl = _nativeRenderingUrl;
+@synthesize nativeRenderingObject = _nativeRenderingObject;
 
 
 #pragma mark - Lifecycle.

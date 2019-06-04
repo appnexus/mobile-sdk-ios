@@ -36,8 +36,8 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate, ANNa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Native Ad"
-        if ProcessInfo.processInfo.arguments.contains("testRTBNative") {
-            adKey = "testRTBNative"
+        if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.NativeAd.testRTBNative) {
+            adKey = PlacementTestConstants.NativeAd.testRTBNative
             initialiseNative()
         }
         // Do any additional setup after loading the view.

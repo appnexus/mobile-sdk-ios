@@ -24,7 +24,7 @@ class BannerAdViewController: UIViewController , ANBannerAdViewDelegate {
         super.viewDidLoad()
         self.title = "Banner Ad"
         
-        if ProcessInfo.processInfo.arguments.contains("testRTBBanner320x50") || ProcessInfo.processInfo.arguments.contains("testRTBBanner300x250") {
+        if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerAd.testRTBBanner300x250) || ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerAd.testRTBBanner320x50) {
             initialiseRTBBanner()
             
         }

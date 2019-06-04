@@ -24,7 +24,7 @@
 #import "ANMRAIDUtil.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANHTTPStubbingManager.h"
-
+#import "ANAdWebViewController+ANTest.h"
 
 #define  MRAID_TESTS_TIMEOUT        10.0
 #define  MRAID_TESTS_DEFAULT_DELAY  1.5
@@ -1417,7 +1417,78 @@
     [self clearTest];
 }
 
+#pragma mark - mraid.exposureChange()
 
+- (void)testExposureChangeOnLoad {
+   
+   CGRect screenBounds = ANPortraitScreenBounds();
+   CGFloat expectedHeight = screenBounds.size.height;
+   CGFloat expectedOriginX = screenBounds.size.width/2 - 160;
+   CGFloat expectedOriginY = expectedHeight/5;
+   
+   [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd) atOrigin:CGPointMake(expectedOriginX, expectedOriginY) withSize:CGSizeMake(320.0f, 50.0f)];
+   
+   [XCTestCase delayForTimeInterval:1];
+   ANAdWebViewController  *webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 100);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 50)));
+   
+   expectedOriginY = expectedHeight/2;
+   [self updatePositionOfBanner:expectedOriginY];
+   [XCTestCase delayForTimeInterval:1];
+   webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 100);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 50)));
+   
+   expectedOriginY = expectedHeight - 50;
+   [self updatePositionOfBanner:expectedOriginY];
+   [XCTestCase delayForTimeInterval:1];
+   webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 100);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 50)));
+   
+   expectedOriginY = expectedHeight - 40;
+   [self updatePositionOfBanner:expectedOriginY];
+   [XCTestCase delayForTimeInterval:1];
+   webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 80);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 40)));
+   
+   expectedOriginY = expectedHeight - 30;
+   [self updatePositionOfBanner:expectedOriginY];
+   [XCTestCase delayForTimeInterval:1];
+   webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 60);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 30)));
+   
+   expectedOriginY = expectedHeight - 20;
+   [self updatePositionOfBanner:expectedOriginY];
+   [XCTestCase delayForTimeInterval:1];
+   webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 40);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 20)));
+   
+   expectedOriginY = expectedHeight - 10;
+   [self updatePositionOfBanner:expectedOriginY];
+   [XCTestCase delayForTimeInterval:1];
+   webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 20);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 10)));
+   
+   expectedOriginY = expectedHeight;
+   [self updatePositionOfBanner:expectedOriginY];
+   [XCTestCase delayForTimeInterval:1];
+   webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 0);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 0, 0)));
+   
+   expectedOriginY = expectedHeight/5;
+   [self updatePositionOfBanner:expectedOriginY];
+   [XCTestCase delayForTimeInterval:1];
+   webViewController  = self.standardAdView.webViewController;
+   XCTAssertTrue(webViewController.lastKnownExposedPercentage == 100);
+   XCTAssertTrue(CGRectEqualToRect(webViewController.lastKnownVisibleRect, CGRectMake(0, 0, 320, 50)));
+}
 
 #pragma mark - Helper Functions
 
@@ -1567,7 +1638,14 @@
     [self delay:MRAID_TESTS_DEFAULT_DELAY];
 }
 
-
+-(void) updatePositionOfBanner:(CGFloat) originY
+{
+   CGRect screenBounds = ANPortraitScreenBounds();
+   CGFloat originX = screenBounds.size.width/2 - 160;
+   CGRect frame = self.banner.frame;
+   frame.origin = CGPointMake(originX, originY);
+   self.banner.frame = frame;
+}
 
 # pragma mark - MRAID Accessor Functions
 

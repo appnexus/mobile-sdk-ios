@@ -63,12 +63,12 @@
 - (void)an_removeSubviewsWithException:(UIView *)exception {
     for (UIView *view in self.subviews) {
         if (view != exception) {
-            if ([view isKindOfClass:[UIWebView class]]) {
-                UIWebView *webView = (UIWebView *)view;
+            if ([view isKindOfClass:[WKWebView class]]) {
+                WKWebView *webView = (WKWebView *)view;
                 [webView stopLoading];
-                [webView setDelegate:nil];
+                [webView setNavigationDelegate:nil];
+                [webView setUIDelegate:nil];
             }
-            
             [view an_removeSubviews];
             [view removeFromSuperview];
         }

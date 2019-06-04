@@ -132,8 +132,8 @@
 
     //
     if (nativeResponse.creativeId == nil) {
-        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:@"creativeId" forObject:response.adObjectHandler];
-        [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:@"creativeId"];
+        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
+        [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:kANCreativeId];
     }
 
     //

@@ -25,8 +25,6 @@
 @property (nonatomic, readonly, strong) id  adObjectHandler;
 @property (nonatomic, readonly, strong) NSError *error;
 
-@property (nonatomic, readwrite, strong) NSString *auctionID;
-
 
 //
 + (ANAdFetcherResponse *)responseWithError:(NSError *)error;

@@ -22,8 +22,8 @@ class InterstitialAdViewController: UIViewController , ANInterstitialAdDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Interstitial Ad"
-        if ProcessInfo.processInfo.arguments.contains("testRTBInterstitial") {
-            adKey = "testRTBInterstitial"
+        if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.InterstitialAd.testRTBInterstitial) {
+            adKey = PlacementTestConstants.InterstitialAd.testRTBInterstitial
             initialiseInterstitial()
         }
         // Do any additional setup after loading the view.

@@ -46,15 +46,31 @@
     return @"http://mediation.adnxs.com/ut/v3";
 }
 
--(NSURL *) videoWebViewUrl {
-    if(ANLogManager.getANLogLevel > ANLogLevelDebug){
-        return [ANResourcesBundle() URLForResource:@"vastVideo" withExtension:@"html"];
-    }else{
-        NSURL* url = [ANResourcesBundle() URLForResource:@"vastVideo" withExtension:@"html"];
-        NSString *URLString = [url absoluteString];
-        NSString *debugQueryString = @"?ast_debug=true";
-        NSString *URLwithDebugQueryString = [URLString stringByAppendingString: debugQueryString];
-        NSURL *debugURL = [NSURL URLWithString:URLwithDebugQueryString];
+- (NSURL *) videoWebViewUrl
+{
+    return  [self urlForResourceWithBasename:@"vastVideo" andExtension:@"html"];
+}
+
+- (NSURL *) nativeRenderingUrl
+{
+    return  [self urlForResourceWithBasename:@"nativeRenderer" andExtension:@"html"];
+}
+
+#pragma mark - Helper methods.
+
+- (NSURL *) urlForResourceWithBasename:(NSString *)basename andExtension:(NSString *)extension
+{
+    if (ANLogManager.getANLogLevel > ANLogLevelDebug)
+    {
+        return [ANResourcesBundle() URLForResource:basename withExtension:extension];
+        
+    } else {
+        NSURL       *url                        = [ANResourcesBundle() URLForResource:basename withExtension:extension];
+        NSString    *URLString                  = [url absoluteString];
+        NSString    *debugQueryString           = @"?ast_debug=true";
+        NSString    *URLwithDebugQueryString    = [URLString stringByAppendingString: debugQueryString];
+        NSURL       *debugURL                   = [NSURL URLWithString:URLwithDebugQueryString];
+        
         return debugURL;
     }
 }
@@ -88,19 +104,35 @@
     return @"https://mediation.adnxs.com/ut/v3";
 }
 
--(NSURL *) videoWebViewUrl {
-    if(ANLogManager.getANLogLevel > ANLogLevelDebug){
-        return [ANResourcesBundle() URLForResource:@"vastVideo" withExtension:@"html"];
-    }else{
-        NSURL* url = [ANResourcesBundle() URLForResource:@"vastVideo" withExtension:@"html"];
-        NSString *URLString = [url absoluteString];
-        NSString *debugQueryString = @"?ast_debug=true";
-        NSString *URLwithDebugQueryString = [URLString stringByAppendingString: debugQueryString];
-        NSURL *debugURL = [NSURL URLWithString:URLwithDebugQueryString];
+- (NSURL *) videoWebViewUrl
+{
+    return  [self urlForResourceWithBasename:@"vastVideo" andExtension:@"html"];
+}
+
+- (NSURL *) nativeRenderingUrl
+{
+    return  [self urlForResourceWithBasename:@"nativeRenderer" andExtension:@"html"];
+}
+
+
+#pragma mark - Helper methods.
+
+- (NSURL *) urlForResourceWithBasename:(NSString *)basename andExtension:(NSString *)extension
+{
+    if (ANLogManager.getANLogLevel > ANLogLevelDebug)
+    {
+        return [ANResourcesBundle() URLForResource:basename withExtension:extension];
+        
+    } else {
+        NSURL       *url                        = [ANResourcesBundle() URLForResource:basename withExtension:extension];
+        NSString    *URLString                  = [url absoluteString];
+        NSString    *debugQueryString           = @"?ast_debug=true";
+        NSString    *URLwithDebugQueryString    = [URLString stringByAppendingString: debugQueryString];
+        NSURL       *debugURL                   = [NSURL URLWithString:URLwithDebugQueryString];
+        
         return debugURL;
     }
 }
-
 @end
 
 

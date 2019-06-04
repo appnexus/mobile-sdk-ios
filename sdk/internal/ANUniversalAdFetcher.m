@@ -32,11 +32,10 @@
 #import "ANTrackerInfo.h"
 #import "ANTrackerManager.h"
 #import "NSTimer+ANCategory.h"
+#import "ANNativeRenderingViewController.h"
+#import "ANRTBNativeAdResponse.h"
 
-
-
-
-@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate>
+@interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate , ANNativeRenderingViewControllerLoadingDelegate>
 
 
 @property (nonatomic, readwrite, strong)  NSMutableArray   *ads;
@@ -52,6 +51,7 @@
 @property (nonatomic, readwrite, weak)    id  delegate;
 
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *adView;
+@property (nonatomic, readwrite, strong)  ANNativeRenderingViewController       *nativeAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
 @property (nonatomic, readwrite, strong)  ANNativeMediatedAdController      *nativeMediationController;
 @property (nonatomic, readwrite, strong)  ANSSMMediationAdViewController    *ssmMediationController;
@@ -288,7 +288,7 @@
         [self handleSSMMediatedAd:nextAd];
         
     } else if ( [nextAd isKindOfClass:[ANNativeStandardAdResponse class]] ) {
-        [self handleNativeStandardAd:nextAd];
+        [self handleNativeAd:nextAd];
         
     } else {
         ANLogError(@"Implementation error: Unknown ad in ads waterfall.  (class=%@)", [nextAd class]);
@@ -448,13 +448,67 @@
                                                                   adViewDelegate:self.delegate];
 }
 
-- (void)handleNativeStandardAd:(ANNativeStandardAdResponse *)nativeStandardAd
+- (void)handleNativeAd:(ANNativeStandardAdResponse *)nativeAd
 {
     
-    ANAdFetcherResponse  *fetcherResponse  = [ANAdFetcherResponse responseWithAdObject:nativeStandardAd andAdObjectHandler:nil];
-    [self processFinalResponse:fetcherResponse];
+
+    BOOL enableNativeRendering = NO;
+    if ([self.delegate respondsToSelector:@selector(enableNativeRendering)]) {
+        enableNativeRendering = [self.delegate enableNativeRendering];
+        if (([nativeAd.nativeRenderingUrl length] > 0) && enableNativeRendering){
+            ANRTBNativeAdResponse *rtnNativeAdResponse = [[ANRTBNativeAdResponse alloc] init];
+            rtnNativeAdResponse.nativeAdResponse = nativeAd ;
+            [self renderNativeAd:rtnNativeAdResponse];
+            return;
+        }
+    }
+    // Traditional native ad instance.
+    [self traditionalNativeAd:nativeAd];
+ 
 }
 
+-(void)traditionalNativeAd:(ANNativeStandardAdResponse *)nativeAd{
+    ANAdFetcherResponse  *fetcherResponse = [ANAdFetcherResponse responseWithAdObject:nativeAd andAdObjectHandler:nil];
+    [self processFinalResponse:fetcherResponse];
+
+}
+
+-(void) renderNativeAd:(ANBaseAdObject *)nativeRenderingElement {
+    
+    CGSize sizeofWebView = [self getAdSizeFromDelegate];
+    
+    
+    if (self.nativeAdView) {
+        self.nativeAdView = nil;
+    }
+    
+    self.nativeAdView = [[ANNativeRenderingViewController alloc] initWithSize:sizeofWebView BaseObject:nativeRenderingElement];
+     self.nativeAdView.loadingDelegate = self;
+}
+
+
+- (void) didFailToLoadNativeWebViewController{
+    if ([self.adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]) {
+        ANNativeStandardAdResponse *nativeStandardAdResponse = (ANNativeStandardAdResponse *)self.adObjectHandler;
+        [self traditionalNativeAd:nativeStandardAdResponse];
+    }else{
+        NSError  *error  = ANError(@"ANAdWebViewController is UNDEFINED.", ANAdResponseInternalError);
+        ANAdFetcherResponse  *fetcherResponse = [ANAdFetcherResponse responseWithError:error];
+        [self processFinalResponse:fetcherResponse];
+    }
+}
+
+- (void) didCompleteFirstLoadFromNativeWebViewController:(ANNativeRenderingViewController *)controller{
+    ANAdFetcherResponse  *fetcherResponse  = nil;
+
+    if (self.nativeAdView == controller)
+    {
+        fetcherResponse = [ANAdFetcherResponse responseWithAdObject:controller andAdObjectHandler:self.adObjectHandler];
+        [self processFinalResponse:fetcherResponse];
+    } else {
+        [self didFailToLoadNativeWebViewController];
+    }
+}
 
 
 #pragma mark - ANUniversalAdFetcherDelegate.
@@ -551,7 +605,6 @@
 - (void)fireResponseURL:(NSString *)urlString
                  reason:(ANAdResponseCode)reason
                adObject:(id)adObject
-              auctionID:(NSString *)auctionID
 {
     
     if (urlString) {
@@ -561,7 +614,6 @@
     if (reason == ANAdResponseSuccessful) {
         ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
         
-        response.auctionID = auctionID;
         [self processFinalResponse:response];
         
     } else {

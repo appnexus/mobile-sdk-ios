@@ -53,6 +53,8 @@
 		0EFB730821DE268100C0C136 /* PlacementTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EFB730621DE268100C0C136 /* PlacementTest.storyboard */; };
 		0EFB732621DE410B00C0C136 /* VideoAdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB732521DE410B00C0C136 /* VideoAdTests.swift */; };
 		0EFB732821DE415900C0C136 /* ANBannerAdViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB731F21DE40E300C0C136 /* ANBannerAdViewTests.swift */; };
+		0EFEC7BF227B1E6400711498 /* TestCaseConstent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFEC7BE227B1E6400711498 /* TestCaseConstent.swift */; };
+		0EFEC7C0227B1E6400711498 /* TestCaseConstent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFEC7BE227B1E6400711498 /* TestCaseConstent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +285,7 @@
 		0EFB730721DE268100C0C136 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PlacementTest.storyboard; sourceTree = "<group>"; };
 		0EFB731F21DE40E300C0C136 /* ANBannerAdViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANBannerAdViewTests.swift; sourceTree = "<group>"; };
 		0EFB732521DE410B00C0C136 /* VideoAdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAdTests.swift; sourceTree = "<group>"; };
+		0EFEC7BE227B1E6400711498 /* TestCaseConstent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseConstent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +358,7 @@
 			children = (
 				0EE6375C21DA716D00E784F2 /* AppDelegate.swift */,
 				0EC4BFD721EE6DE100A2E9C7 /* AdObjectModel.swift */,
+				0EFEC7BE227B1E6400711498 /* TestCaseConstent.swift */,
 			);
 			path = GlobalClasses;
 			sourceTree = "<group>";
@@ -584,7 +588,7 @@
 			attributes = {
 				CLASSPREFIX = "";
 				DefaultBuildSystemTypeForWorkspace = Original;
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
@@ -795,6 +799,7 @@
 				0EFB72EE21DE20E700C0C136 /* BannerNativeAdViewController.swift in Sources */,
 				0EFB72EB21DE20E700C0C136 /* VideoAdViewController.swift in Sources */,
 				0EE6375D21DA716D00E784F2 /* AppDelegate.swift in Sources */,
+				0EFEC7BF227B1E6400711498 /* TestCaseConstent.swift in Sources */,
 				0EFB72ED21DE20E700C0C136 /* BannerVideoAdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -806,6 +811,7 @@
 				0E87D4B621DF794B0096E866 /* ANInterstitialAdViewTests.swift in Sources */,
 				0EFB732621DE410B00C0C136 /* VideoAdTests.swift in Sources */,
 				0EC4BFD921EE6DE100A2E9C7 /* AdObjectModel.swift in Sources */,
+				0EFEC7C0227B1E6400711498 /* TestCaseConstent.swift in Sources */,
 				0E87D4B821DF82510096E866 /* ANBannerVideoAdViewTests.swift in Sources */,
 				0E87D3B521DF5C140096E866 /* ANBannerNativeAdViewTests.swift in Sources */,
 				0E56C8E121F9E8F900ADE6E1 /* XCGlobal.swift in Sources */,

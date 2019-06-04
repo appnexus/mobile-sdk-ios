@@ -17,7 +17,6 @@
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "UIView+ANCategory.h"
-#import "UIWebView+ANCategory.h"
 #import "ANMRAIDOrientationProperties.h"
 #import "NSTimer+ANCategory.h"
 #import "ANMRAIDContainerView.h"
@@ -154,10 +153,11 @@
 }
 - (void)setContentView:(UIView *)contentView {
     if (contentView != _contentView) {
-        if ([_contentView isKindOfClass:[UIWebView class]]) {
-            UIWebView *webView = (UIWebView *)_contentView;
+        if ([_contentView isKindOfClass:[WKWebView class]]) {
+            WKWebView *webView = (WKWebView *)_contentView;
             [webView stopLoading];
-            [webView setDelegate:nil];
+            [webView setNavigationDelegate:nil];
+            [webView setUIDelegate:nil];
         }
         
         [_contentView removeFromSuperview];

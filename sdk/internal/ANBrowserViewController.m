@@ -15,11 +15,9 @@
 
 #import "ANBrowserViewController.h"
 #import "ANStoreProductViewController.h"
-#import <WebKit/WebKit.h>
-
+#import "ANWebView.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
-#import "UIWebView+ANCategory.h"
 #import "UIView+ANCategory.h"
 #import "ANOpenInExternalBrowserActivity.h"
 
@@ -29,9 +27,7 @@
 WKNavigationDelegate, WKUIDelegate>
 @property (nonatomic, readwrite, assign) BOOL completedInitialLoad;
 @property (nonatomic, readwrite, assign, getter=isLoading) BOOL loading;
-
-@property (nonatomic, readwrite, strong) WKWebView *modernWebView;
-@property (nonatomic, readwrite, strong) UIWebView *legacyWebView;
+@property (nonatomic, strong) ANWebView *webView;
 
 @property (nonatomic, readwrite, strong) UIBarButtonItem *refreshIndicatorItem;
 @property (nonatomic, readwrite, strong) SKStoreProductViewController *iTunesStoreController;
@@ -69,29 +65,17 @@ WKNavigationDelegate, WKUIDelegate>
         _url = url;
         _delegate = delegate;
         _delayPresentationForLoad = shouldDelayPresentation;
+        
         [self initializeWebView];
-        NSURLRequest *request = ANBasicRequestWithURL(url);
-        if (self.modernWebView) {
-            [self.modernWebView loadRequest:request];
-        } else {
-            [self.legacyWebView loadRequest:request];
-        }
     }
     return self;
 }
 
-- (void)initializeWebView {
-    if ([WKWebView class]) {
-        self.modernWebView = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].bounds
-                                                configuration:[ANBrowserViewController defaultWebViewConfiguration]];
-        self.modernWebView.navigationDelegate = self;
-        self.modernWebView.UIDelegate = self;
-    } else {
-        self.legacyWebView = [[UIWebView alloc] init];
-        self.legacyWebView.delegate = self;
-        self.legacyWebView.scalesPageToFit = YES;
-        [self.legacyWebView an_setMediaProperties];
-    }
+    - (void)initializeWebView {
+        _webView = [[ANWebView alloc] initWithSize:[UIScreen mainScreen].bounds.size URL:_url];
+        _webView.navigationDelegate = self;
+        _webView.UIDelegate = self;
+
 }
 
 - (void)setUrl:(NSURL *)url {
@@ -99,11 +83,6 @@ WKNavigationDelegate, WKUIDelegate>
         _url = url;
         [self resetBrowser];
         [self initializeWebView];
-        if (self.modernWebView) {
-            [self.modernWebView loadRequest:ANBasicRequestWithURL(url)];
-        } else {
-            [self.legacyWebView loadRequest:ANBasicRequestWithURL(url)];
-        }
     } else {
         ANLogWarn(@"In-app browser ignoring request to load - request is already loading");
     }
@@ -120,9 +99,8 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (void)dealloc {
     [self resetBrowser];
-    self.legacyWebView.delegate = nil;
-    self.modernWebView.navigationDelegate = nil;
-    self.modernWebView.UIDelegate = nil;
+    self.webView.navigationDelegate = nil;
+    self.webView.UIDelegate = nil;
     self.iTunesStoreController.delegate = nil;
 }
 
@@ -130,15 +108,12 @@ WKNavigationDelegate, WKUIDelegate>
     self.completedInitialLoad = NO;
     self.loading = NO;
     self.receivedInitialRequest = NO;
-    self.legacyWebView = nil;
-    self.modernWebView = nil;
+    self.webView = nil;
 }
 
 - (void)stopLoading {
-    if (self.modernWebView) {
-        [self.modernWebView stopLoading];
-    } else {
-        [self.legacyWebView stopLoading];
+    if(self.webView){
+        [self.webView stopLoading];
     }
     [self updateLoadingStateForFinishLoad];
 }
@@ -154,10 +129,8 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (void)updateLoadingStateForStartLoad {
     BOOL oldValue = self.loading;
-    if (self.modernWebView) {
-        self.loading = self.modernWebView.loading;
-    } else {
-        self.loading = self.legacyWebView.loading;
+    if(self.webView){
+        self.loading = self.webView.loading;
     }
     [self loadingStateDidChangeFromOldValue:oldValue toNewValue:self.loading];
     [self refreshToolbarActivityIndicator];
@@ -166,16 +139,8 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (void)updateLoadingStateForFinishLoad {
     BOOL oldValue = self.loading;
-    if (self.modernWebView) {
-        self.loading = self.modernWebView.loading;
-    } else {
-        self.loading = self.legacyWebView.loading;
-        if (self.loading) {
-            NSString *readyState = [self.legacyWebView stringByEvaluatingJavaScriptFromString:@"document.readyState"];
-            if ([readyState isEqualToString:@"complete"]) {
-                self.loading = NO;
-            }
-        }
+    if(self.webView){
+        self.loading = self.webView.loading;
     }
     [self loadingStateDidChangeFromOldValue:oldValue toNewValue:self.loading];
     [self refreshToolbarActivityIndicator];
@@ -190,10 +155,8 @@ WKNavigationDelegate, WKUIDelegate>
     ANLogDebug(@"Opening URL: %@", URL);
     
     if (iTunesId) {
-        if (self.modernWebView) {
-            [self.modernWebView stopLoading];
-        } else {
-            [self.legacyWebView stopLoading];
+        if(self.webView){
+            [self.webView stopLoading];
         }
         [self loadAndPresentStoreControllerWithiTunesId:iTunesId];
     } else if (ANHasHttpPrefix([URL scheme])) {
@@ -209,10 +172,8 @@ WKNavigationDelegate, WKUIDelegate>
             [self.delegate willLeaveApplicationFromBrowserViewController:self];
         }
         ANLogDebug(@"%@ | Opening URL in external application: %@", NSStringFromSelector(_cmd), URL);
-        if (self.modernWebView) {
-            [self.modernWebView stopLoading];
-        } else {
-            [self.legacyWebView stopLoading];
+        if(self.webView){
+            [self.webView stopLoading];
         }
         [ANGlobal openURL:[URL absoluteString]];
     } else {
@@ -254,10 +215,8 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (void)addWebViewToContainerView {
     UIView *contentView;
-    if (self.modernWebView) {
-        contentView = self.modernWebView;
-    } else {
-        contentView = self.legacyWebView;
+    if (self.webView) {
+        contentView = self.webView;
     }
     [self.webViewContainerView addSubview:contentView];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -285,12 +244,9 @@ WKNavigationDelegate, WKUIDelegate>
 }
 
 - (void)refreshButtons {
-    if (self.modernWebView) {
-        self.backButton.enabled = self.modernWebView.canGoBack;
-        self.forwardButton.enabled = self.modernWebView.canGoForward;
-    } else {
-        self.backButton.enabled = self.legacyWebView.canGoBack;
-        self.forwardButton.enabled = self.legacyWebView.canGoForward;
+    if (self.webView) {
+        self.backButton.enabled = self.webView.canGoBack;
+        self.forwardButton.enabled = self.webView.canGoForward;
     }
 }
 
@@ -329,27 +285,21 @@ WKNavigationDelegate, WKUIDelegate>
 }
 
 - (IBAction)forwardAction:(id)sender {
-    if (self.modernWebView) {
-        [self.modernWebView goForward];
-    } else {
-        [self.legacyWebView goForward];
+    if (self.webView) {
+        [self.webView goForward];
     }
 }
 
 - (IBAction)backAction:(id)sender {
-    if (self.modernWebView) {
-        [self.modernWebView goBack];
-    } else {
-        [self.legacyWebView goBack];
+    if (self.webView) {
+        [self.webView goBack];
     }
 }
 
 - (IBAction)openInAction:(id)sender {
     NSURL *webViewURL;
-    if (self.modernWebView) {
-        webViewURL = self.modernWebView.URL;
-    } else {
-        webViewURL = self.legacyWebView.request.URL;
+    if (self.webView) {
+        webViewURL = self.webView.URL;
     }
     if (webViewURL.absoluteString.length) {
         NSArray *appActivities = @[[[ANOpenInExternalBrowserActivity alloc] init]];
@@ -372,10 +322,8 @@ WKNavigationDelegate, WKUIDelegate>
 }
 
 - (IBAction)refresh:(id)sender {
-    if (self.modernWebView) {
-        [self.modernWebView reload];
-    } else {
-        [self.legacyWebView reload];
+    if (self.webView) {
+        [self.webView reload];
     }
 }
 
@@ -557,31 +505,6 @@ WKNavigationDelegate, WKUIDelegate>
     }
     
     return nil;
-}
-
-#pragma mark - UIWebViewDelegate
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    return [self shouldStartLoadWithRequest:request];
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    [self updateLoadingStateForStartLoad];
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    ANLogWarn(@"In-app browser received error: %@", error);
-    [self updateLoadingStateForFinishLoad];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [self updateLoadingStateForFinishLoad];
-    if (!self.completedInitialLoad) {
-        self.completedInitialLoad = YES;
-        if (!self.presented) {
-            [self rootViewControllerShouldPresentBrowserViewController];
-        }
-    }
 }
 
 #pragma mark - SKStoreProductViewController
