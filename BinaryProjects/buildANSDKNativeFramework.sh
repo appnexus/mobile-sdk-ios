@@ -31,6 +31,7 @@ buildDevice $SCHEMENAME
 rm -rf "$OUTDIR"/Intermediates
 rm -rf "$BUILDDIR"
 rm -rf "$LOGDIR"
+rm -rf "$OUTDIR"/"$SCHEMENAME.framework.dSYM"
 mv "$OUTDIR" "$OD_DEVICE"
 
 ### simulator
@@ -40,6 +41,7 @@ buildSim $SCHEMENAME
 rm -rf "$OUTDIR"/Intermediates
 rm -rf "$BUILDDIR"
 rm -rf "$LOGDIR"
+rm -rf "$OUTDIR"/"$SCHEMENAME.framework.dSYM"
 mv "$OUTDIR" "$OD_SIMULATOR"
 
 ### combine
