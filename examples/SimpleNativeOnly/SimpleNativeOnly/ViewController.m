@@ -11,11 +11,13 @@
 #import <GoogleMobileAds/GADMobileAds.h>
 
 
-@interface ViewController () <ANNativeAdRequestDelegate>
+@interface ViewController () <ANNativeAdRequestDelegate, UIPickerViewDelegate,UIPickerViewDataSource>
 @property (nonatomic,readwrite,strong) ANNativeAdRequest *nativeAdRequest;
+@property UIView *adHolder;
 @property UIView *nativeContainer;
 @property CGFloat screenWidth;
 @property CGFloat screenHeight;
+@property NSArray *testNames;
 @end
 
 @implementation ViewController
@@ -27,20 +29,18 @@
     self.screenWidth = screenSize.width;
     self.screenHeight = screenSize.height;
     // Do any additional setup after loading the view.
-    ANSDKSettings.sharedInstance.HTTPSEnabled=YES;
+    ANSDKSettings.sharedInstance.HTTPSEnabled=NO;
     [ANLogManager setANLogLevel:ANLogLevelAll];
-    UIView *buttonHolder = [[UIView alloc] initWithFrame:CGRectMake(0, 100, self.screenWidth, 50)];
-    UIButton *rtbButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.screenWidth/2, 50)];
-    [rtbButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [rtbButton setTitle:@"RTB ad" forState:UIControlStateNormal];
-    [rtbButton addTarget:self action:@selector(rtbPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIButton *admobButton = [[UIButton alloc] initWithFrame:CGRectMake(self.screenWidth/2, 0, self.screenWidth/2, 50)];
-    [admobButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [admobButton setTitle:@"AdMob ad" forState:UIControlStateNormal];
-    [admobButton addTarget:self action:@selector(admobPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonHolder addSubview:rtbButton];
-    [buttonHolder addSubview:admobButton];
-    [self.view addSubview:buttonHolder];
+    self.adHolder = [[UIView alloc] initWithFrame:CGRectMake(0, 50, self.screenWidth, self.screenHeight-150)];
+    [self.view addSubview:self.adHolder];
+    UIPickerView *testPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, self.screenHeight-100, self.screenWidth, 100)];
+    testPicker.delegate = self;
+    testPicker.dataSource = self;
+    [self.view addSubview:testPicker];
+    self.testNames = @[@"Empty",
+                       @"RTB only response",
+                       @"CSM fails then RTB ad",
+                       @"CSM passes do not show RTB ad"];
     self.nativeAdRequest = [[ANNativeAdRequest alloc] init];
     self.nativeAdRequest.gender = ANGenderMale;
     self.nativeAdRequest.shouldLoadIconImage = YES;
@@ -48,25 +48,50 @@
     self.nativeAdRequest.delegate = self;
 }
 
-- (void)rtbPressed:(id)sender
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    NSLog(@"RTB pressed");
-    self.nativeAdRequest.placementId = @"13255429";
-    [self.nativeAdRequest loadAd];
+    return 1;
 }
 
-- (void)admobPressed:(id)sender
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    NSLog(@"Admob pressed");
-    self.nativeAdRequest.placementId = @"9505207";
-    [self.nativeAdRequest loadAd];
+    return self.testNames.count;
 }
 
-- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    
+    return self.testNames[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if (self.nativeContainer != nil) {
         [self.nativeContainer removeFromSuperview];
     }
+    switch (row) {
+        case 0:
+            // do nothing
+            break;
+        case 1:
+            self.nativeAdRequest.placementId = @"16170363";
+            [self.nativeAdRequest loadAd];
+            break;
+        case 2:
+            self.nativeAdRequest.placementId = @"16173152";
+            [self.nativeAdRequest loadAd];
+            break;
+        case 3:
+            self.nativeAdRequest.placementId = @"16173161";
+            [self.nativeAdRequest loadAd];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
+{
     if (response.networkCode == ANNativeAdNetworkCodeAdMob) {
         UINib *adNib = [UINib nibWithNibName:@"UnifiedNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
         NSArray *array = [adNib instantiateWithOwner:self options:nil];
@@ -86,7 +111,7 @@
         ((UILabel *)((GADUnifiedNativeAdView*)self.nativeContainer).advertiserView).text = response.sponsoredBy;
         [response registerViewForTracking:self.nativeContainer withRootViewController:self clickableViews:@[((GADUnifiedNativeAdView*)self.nativeContainer).callToActionView] error:nil];
         self.nativeContainer.frame = CGRectMake(0, 150, self.screenWidth, 300);
-        [self.view addSubview:self.nativeContainer];
+        [self.adHolder addSubview:self.nativeContainer];
     } else {
         self.nativeContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 150, self.screenWidth, 400)];
         UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
@@ -108,7 +133,7 @@
         [callToAction setTitle:response.callToAction forState:UIControlStateNormal];
         [callToAction setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [self.nativeContainer addSubview:callToAction];
-        [self.view addSubview:self.nativeContainer];
+        [self.adHolder addSubview:self.nativeContainer];
         [response registerViewForTracking:self.nativeContainer withRootViewController:self clickableViews:@[callToAction] error:nil];
     }
 }
