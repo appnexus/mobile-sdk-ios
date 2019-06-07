@@ -40,7 +40,10 @@
     self.testNames = @[@"Empty",
                        @"RTB only response",
                        @"CSM fails then RTB ad",
-                       @"CSM passes do not show RTB ad"];
+                       @"CSM passes do not show RTB ad",
+                       @"Two CSMs first fails seconds shows",
+                       @"Two CSMs both fails no ad",
+                       @"Two CSMs first shows do not mediate second"];
     self.nativeAdRequest = [[ANNativeAdRequest alloc] init];
     self.nativeAdRequest.gender = ANGenderMale;
     self.nativeAdRequest.shouldLoadIconImage = YES;
@@ -83,6 +86,18 @@
             break;
         case 3:
             self.nativeAdRequest.placementId = @"16173161";
+            [self.nativeAdRequest loadAd];
+            break;
+        case 4:
+            self.nativeAdRequest.placementId = @"16187339";
+            [self.nativeAdRequest loadAd];
+            break;
+        case 5:
+            self.nativeAdRequest.placementId = @"16187341";
+            [self.nativeAdRequest loadAd];
+            break;
+        case 6:
+            self.nativeAdRequest.placementId = @"16187345";
             [self.nativeAdRequest loadAd];
             break;
         default:
@@ -140,6 +155,10 @@
 
 - (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error
 {
-    NSLog(@"Native ad request failed: %@", error);
+   self.nativeContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 150, self.screenWidth, 400)];
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.screenWidth, 400)];
+    textView.text = [NSString stringWithFormat:@"No ad because of %@", error];
+    [self.nativeContainer addSubview:textView];
+    [self.adHolder addSubview:self.nativeContainer];
 }
 @end
