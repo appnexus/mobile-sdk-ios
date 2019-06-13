@@ -30,6 +30,9 @@
 #import "ANOMIDImplementation.h"
 
 
+static CGFloat const kANOMIDSessionFinishDelay = 0.08f;
+
+
 typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 {
     ANMRAIDContainerViewAdInteractionExpandedOrResized = 1 << 0,
@@ -88,8 +91,6 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 @property (nonatomic, readwrite, assign) BOOL userInteractedWithContentView;
 
 @property (nonatomic, readwrite, assign) BOOL responsiveAd;
-
-@property (nonatomic, readwrite, strong) dispatch_semaphore_t semaphore;
 
 @end
 
@@ -175,38 +176,18 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 }
 
 
-
-- (void) willMoveToSuperview: (UIView *)newSuperview
-{
-    [super willMoveToSuperview:newSuperview];
-
-    // UIView already added to superview.
-    if (newSuperview != nil)  {
-        return;
-    }
-    // UIView was removed from superview
-    if (!self.webViewController.omidAdSession)  {
-        // omidAdSession is nil
-        return;
-    }
-    self.semaphore = dispatch_semaphore_create(0);
-
-    [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.webViewController.omidAdSession];
+-(void) willMoveToSuperview:(UIView *)newSuperview {
     
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.3 * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        dispatch_semaphore_signal(self.semaphore);
-    });
-    dispatch_semaphore_wait(self.semaphore, popTime);
-}
-
-- (void)dealloc
-{
-    if(self.semaphore){
-        self.semaphore = nil;
+    if(self.webViewController.omidAdSession && !newSuperview){
+        [[ANOMIDImplementation sharedInstance] stopOMIDAdSession:self.webViewController.omidAdSession];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (kANOMIDSessionFinishDelay * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+            [super willMoveToSuperview:newSuperview];
+        });
+    }else{
+        [super willMoveToSuperview:newSuperview];
     }
 }
-
 
 #pragma mark - Getters/setters.
 

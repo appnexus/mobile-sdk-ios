@@ -1,3 +1,15 @@
+## 5.4
+### New Features
++ MS-3730: Support Rendering for Banner Native ads
+
+### Mediation partner upgrades/changes
++ MS-3495: Upgraded Mopub framework to v5.6.0
+
+### Improvements/Bug Fixes
++ MS-3873: Improved ExposureChange on scroll
++ MS-3194: Removed UIWebView support
++ MS-3798: Added new API to enable publishers to configure skip options for video player
++ Improved Open Measurement Event(Session Finish) for RTB ads
 
 ## 5.3
 ### New Features

@@ -20,4 +20,5 @@
 - (NSString *)webViewBaseUrl;
 - (NSString *)utAdRequestBaseUrl;
 - (NSURL *)videoWebViewUrl;
+- (NSURL *)nativeRenderingUrl;
 @end

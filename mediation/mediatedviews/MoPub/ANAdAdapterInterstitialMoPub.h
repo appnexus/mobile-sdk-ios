@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
+#import <MoPubSDKFramework/MoPub.h>
 #import "ANAdAdapterMoPubBase.h"
 #import "ANCustomAdapter.h"
-#import "MPInterstitialAdController.h"
 
 @interface ANAdAdapterInterstitialMoPub : ANAdAdapterMoPubBase <ANCustomAdapterInterstitial, MPInterstitialAdControllerDelegate>
 

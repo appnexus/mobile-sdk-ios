@@ -27,12 +27,12 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate , 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Video Ad"
-        if ProcessInfo.processInfo.arguments.contains("testRTBVideo") {
-            adKey = "testRTBVideo"
+        if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.VideoAd.testRTBVideo) {
+            adKey = PlacementTestConstants.VideoAd.testRTBVideo
             initialiseVideoAd()
            }
-        if ProcessInfo.processInfo.arguments.contains("testVPAIDVideoAd") {
-            adKey = "testVPAIDVideoAd"
+        if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.VideoAd.testVPAIDVideoAd) {
+            adKey = PlacementTestConstants.VideoAd.testVPAIDVideoAd
             initialiseVideoAd()
         }
         // Do any additional setup after loading the view.

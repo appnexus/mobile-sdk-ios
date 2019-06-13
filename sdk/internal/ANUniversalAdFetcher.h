@@ -28,7 +28,6 @@
 
 
 
-
 @protocol ANUniversalAdFetcherDelegate;
 //@protocol ANUniversalNativeAdFetcherDelegate;
 
@@ -74,7 +73,6 @@
 //   nativeRendererId is sufficient for ANBannerAdView and ANNativeAdRequest entry point.
 -(NSInteger) nativeAdRendererId;
 
-
 // customKeywords is shared between the entrypoints and the fetcher.
 //
 // NB  This definition of customKeywords should not be confused with the public facing ANTargetingParameters.customKeywords
@@ -101,6 +99,13 @@
 //
 - (NSTimeInterval) autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
 - (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+
+
+//   If enableNativeRendering is not set, the default is false.
+//   A value of false Indicates that NativeRendering is disabled
+//   enableNativeRendering is sufficient to BannerAd entry point.
+-(BOOL) enableNativeRendering;
+
 
 @end
 

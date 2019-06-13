@@ -34,36 +34,37 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
     var adHeight: CGFloat = 50
     var banner = ANBannerAdView()
     var adKey  : String = ""
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Banner Native Ad"
         viewNative.isHidden = true
-        if ProcessInfo.processInfo.arguments.contains("testRTBBannerNative") {
-            adKey = "testRTBBannerNative"
+        if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerNativeAd.testRTBBannerNative) || ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering) {
+            adKey = PlacementTestConstants.BannerNativeAd.testRTBBannerNative
             loadBannerNativeAd()
         }
+        
     }
     
     func loadBannerNativeAd() {
-    
+        
         let bannerAdObject : BannerAdObject! = AdObjectModel.decodeBannerObject()
         if bannerAdObject != nil {
             
-                var width : CGFloat   = 1
-                var height : CGFloat  = 1
-                
-                if let widthValue = bannerAdObject?.width {
-                    let widthValueInt : Int = Int(widthValue)!
-                    width = CGFloat(widthValueInt)
-                }
-                
-                if let heightValue = bannerAdObject?.height{
-                    let heightValueInt : Int = Int(heightValue)!
-                    height = CGFloat(heightValueInt)
-                }
-                
+            var width : CGFloat   = 1
+            var height : CGFloat  = 1
+            
+            if let widthValue = bannerAdObject?.width {
+                let widthValueInt : Int = Int(widthValue)!
+                width = CGFloat(widthValueInt)
+            }
+            
+            if let heightValue = bannerAdObject?.height{
+                let heightValueInt : Int = Int(heightValue)!
+                height = CGFloat(heightValueInt)
+            }
+            
             
             
             let screenRect:CGRect = UIScreen.main.bounds
@@ -79,7 +80,14 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
             banner?.rootViewController = self
             banner?.autoRefreshInterval = 60
             banner?.delegate = self
-            banner?.shouldAllowNativeDemand = bannerAdObject!.isNative
+            if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering)  {
+                guard let enableNativeRendering = bannerAdObject.enableNativeRendering else {  print("enableNativeRendering not found");   return  }
+                banner?.enableNativeRendering = enableNativeRendering
+                banner?.shouldAllowNativeDemand = bannerAdObject!.isNative
+            }else{
+                banner?.shouldAllowNativeDemand = bannerAdObject!.isNative
+                
+            }
             banner?.clickThroughAction = ANClickThroughAction.openDeviceBrowser
             // Since this example is for testing, we'll turn on PSAs and verbose logging.
             banner?.shouldServePublicServiceAnnouncements = true
@@ -92,6 +100,11 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
     }
     
     func adDidReceiveAd(_ ad: Any?) {
+        activityIndicator.stopAnimating()
+
+        if (ad is ANBannerAdView) {
+            self.view.addSubview(banner)
+        }
         
     }
     

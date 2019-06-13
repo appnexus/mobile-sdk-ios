@@ -409,7 +409,11 @@
     ANLogError(@"ABSTRACT METHOD -- Implement in each entrypoint.");
     return  nil;
 }
-
+- (BOOL)enableNativeRendering
+{
+    ANLogDebug(@"ABSTRACT METHOD -- Implement in Banner entrypoint");
+    return NO;
+}
 - (NSInteger)nativeAdRendererId
 {
     ANLogDebug(@"ABSTRACT METHOD -- Implement in Banner and Native entrypoint");

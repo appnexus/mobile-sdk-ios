@@ -18,5 +18,7 @@
 @interface ANAdWebViewController (ANTest)
 
 @property (nonatomic, readwrite, assign) BOOL completedFirstLoad;
+@property (nonatomic, readwrite, assign)  CGFloat  lastKnownExposedPercentage;
+@property (nonatomic, readwrite, assign)  CGRect  lastKnownVisibleRect;
 
 @end
