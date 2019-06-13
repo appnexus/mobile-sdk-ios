@@ -383,6 +383,8 @@
 		ECE4EB16194B78280069D934 /* ANLocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA92194B768A0069D934 /* ANLocation.h */; };
 		ECE4EB17194B78280069D934 /* ANLogManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA93194B768A0069D934 /* ANLogManager.h */; };
 		ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */; };
+		F52B044122AECD6B00985B62 /* NSObject+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */; };
+		F52B044222AECD6F00985B62 /* NSObject+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */; };
 		F52F82EB2293362600F4578C /* NSObject+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */; };
 		F52F82EC2293362900F4578C /* NSObject+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */; };
 		F52F82ED2293367700F4578C /* NSString+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA97194B768A0069D934 /* NSString+ANCategory.m */; };
@@ -2454,6 +2456,7 @@
 				8AC65F691A40DE74006BCF39 /* ANMRAIDOrientationProperties.h in Headers */,
 				972025CE222FD90E00C13454 /* ANVerificationScriptResource.h in Headers */,
 				8AC65F6B1A40DE74006BCF39 /* ANMRAIDResizeProperties.h in Headers */,
+				F52B044122AECD6B00985B62 /* NSObject+ANCategory.h in Headers */,
 				8AC65F6D1A40DE74006BCF39 /* ANMRAIDResizeView.h in Headers */,
 				8AC65F6F1A40DE74006BCF39 /* ANMRAIDResizeViewManager.h in Headers */,
 				8AC65F711A40DE74006BCF39 /* ANMRAIDUtil.h in Headers */,
@@ -3253,6 +3256,7 @@
 				FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */,
 				8A9AEDF41A1BF99D00C58BDA /* ANBrowserViewController.m in Sources */,
 				9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */,
+				F52B044222AECD6F00985B62 /* NSObject+ANCategory.m in Sources */,
 				8A9AEDF51A1BF99D00C58BDA /* ANClickOverlayView.m in Sources */,
 				609732B91E42E90C0061EC0A /* ANCSMVideoAd.m in Sources */,
 				0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */,
