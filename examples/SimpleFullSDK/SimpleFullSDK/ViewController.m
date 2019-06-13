@@ -10,7 +10,13 @@
 #import <AppNexusSDK/AppNexusSDK.h>
 #import <GoogleMobileAds/GADMobileAds.h>
 
-@interface ViewController () <ANNativeAdRequestDelegate,ANBannerAdViewDelegate,ANInterstitialAdDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface ViewController () <ANNativeAdRequestDelegate,
+                                ANBannerAdViewDelegate,
+                                ANInterstitialAdDelegate,
+                                ANInstreamVideoAdLoadDelegate,
+                                ANInstreamVideoAdPlayDelegate,
+                                UIPickerViewDelegate,
+                                UIPickerViewDataSource>
 @property UIView *adHolder;
 @property CGFloat screenWidth;
 @property CGFloat screenHeight;
@@ -18,6 +24,7 @@
 // To hold references
 @property ANNativeAdRequest* nativeAdRequest;
 @property ANInterstitialAd *intersititial;
+@property ANInstreamVideoAd *videoAd;
 @end
 
 @implementation ViewController
@@ -55,7 +62,13 @@
                        @"InterstitialCSMPassesWithRTBResponse",
                        @"InterstitialTwoCSMFirstFailsSecondShows",
                        @"InterstitialTwoCSMsBothFailNoAd",
-                       @"InterstitialTwoCSMsFirstShowsDoNotMediateSecond"];
+                       @"InterstitialTwoCSMsFirstShowsDoNotMediateSecond",
+                       @"VideoRTBResponseOnly",
+                       @"VideoCSMFailsThenRTBResponse",
+                       @"VideoCSMPassesWithRTBResponse",
+                       @"VideoTwoCSMFirstFailsSecondShows",
+                       @"VideoTwoCSMsBothFailNoAd",
+                       @"VideoTwoCSMsFirstShowsDoNotMediateSecond"];
     [ANLogManager setANLogLevel:ANLogLevelDebug];
 }
 
@@ -150,6 +163,24 @@
             break;
         case 18:
             [self loadInterstitialWithPlacementId:@"16216966"];
+            break;
+        case 19:
+            [self loadVideoWithPlacementId:@"16233195"];
+            break;
+        case 20:
+            [self loadVideoWithPlacementId:@"16233494"];
+            break;
+        case 21:
+            [self loadVideoWithPlacementId:@"16233498"];
+            break;
+        case 22:
+            [self loadVideoWithPlacementId:@"16233499"];
+            break;
+        case 23:
+            [self loadVideoWithPlacementId:@"16233504"];
+            break;
+        case 24:
+            [self loadVideoWithPlacementId:@"16233507"];
             break;
     }
 }
@@ -252,28 +283,30 @@
 - (void)adDidReceiveAd:(id)ad {
     if([[ad class] isEqual:[ANBannerAdView class]]){
         NSLog(@"Banner placement %@ did receive ad",((ANBannerAdView *)ad).placementId);
-    } else {
+    } else if ([[ad class] isEqual:[ANInterstitialAd class]]){
         [((ANInterstitialAd *)ad) displayAdFromViewController:self];
+    } else if ([[ad class] isEqual:[ANInstreamVideoAd class]]){
+        [((ANInstreamVideoAd *)ad) playAdWithContainer:self.adHolder withDelegate:self];
     }
 }
 
 
 - (void)adDidClose:(id)ad {
-    NSLog(@"Banner placement %@ did close",((ANBannerAdView *)ad).placementId);
+    NSLog(@"Ad did close");
 }
 
 - (void)adWasClicked:(id)ad {
-    NSLog(@"Banner placement %@ was clicked",((ANBannerAdView *)ad).placementId);
+    NSLog(@"Ad was clicked");
 }
 
 - (void)adWasClicked:(id)ad withURLString:(NSString *)urlString
 {
-    NSLog(@"Banner placement %@ was clicked with url: %@",((ANBannerAdView *)ad).placementId, urlString);
+    NSLog(@"Ad was clicked with url: %@", urlString);
 }
 
 
 - (void)ad:(id)ad requestFailedWithError:(NSError *)error {
-    NSLog(@"Banner placement %@ failed to load because of %@",((ANBannerAdView *)ad).placementId, error);
+    NSLog(@"Ad failed to load because of %@", error);
 }
 
 #pragma mark Intersitital Code Section
@@ -283,5 +316,32 @@
     self.intersititial.closeDelay = 0;
     self.intersititial.delegate = self;
     [self.intersititial loadAd];
+}
+
+#pragma mark Video Code Section
+-(void) loadVideoWithPlacementId: (NSString *) placementID
+{
+    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    [self.videoAd loadAdWithDelegate:self];
+}
+
+- (void)adCompletedMidQuartile:(id<ANAdProtocol>)ad
+{
+    NSLog(@"Video ad completed mid quartile");
+}
+
+- (void)adCompletedFirstQuartile:(id<ANAdProtocol>)ad
+{
+    NSLog(@"Video ad completed first quartile");
+}
+
+- (void)adCompletedThirdQuartile:(id<ANAdProtocol>)ad
+{
+    NSLog(@"Video ad completed third quartile");
+}
+
+- (void)adDidComplete:(id<ANAdProtocol>)ad withState:(ANInstreamVideoPlaybackStateType)state
+{
+    NSLog(@"Video ad completed.");
 }
 @end
