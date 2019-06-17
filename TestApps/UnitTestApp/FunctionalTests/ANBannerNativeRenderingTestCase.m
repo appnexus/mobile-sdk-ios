@@ -44,6 +44,7 @@
 
 @property (nonatomic, readwrite, weak)  XCTestExpectation  *expectationRequest;
 @property (nonatomic, readwrite, weak)  XCTestExpectation  *expectationResponse;
+@property (nonatomic, readwrite, weak)  XCTestExpectation *expectationForOmidSessionFinish;
 
 @property (nonatomic, readwrite)          NSTimeInterval  timeoutForImpbusRequest;
 
@@ -414,9 +415,9 @@
 
     self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     self.expectationResponse = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
-    
     [self.multiFormatAd loadAd];
-    [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest*2 handler:nil];
+    [self waitForExpectations:@[self.expectationRequest, self.expectationResponse] timeout:10];
+
     // Delay added to allow OMID Event to fire
     [XCTestCase delayForTimeInterval:10];
     XCTAssertTrue([self.requestData containsString:@"OmidSupported"]);
@@ -427,10 +428,10 @@
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
+    self.expectationForOmidSessionFinish = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
     [self.multiFormatAd removeFromSuperview];
     self.multiFormatAd = nil;
-    [XCTestCase delayForTimeInterval:5];
-    XCTAssertTrue([self.requestData containsString:@"sessionFinish"]);
+    [self waitForExpectations:@[self.expectationForOmidSessionFinish] timeout:30];
 }
 
 
@@ -518,6 +519,9 @@
 # pragma mark - Intercept HTTP Request Callback
 
 - (void)didReceiveIABResponse:(NSString *)response {
+    if ([response containsString:@"sessionFinish"] && self.expectationForOmidSessionFinish) {
+        [self.expectationForOmidSessionFinish fulfill];
+    }
     [self.requestData appendString:response];
 }
 
