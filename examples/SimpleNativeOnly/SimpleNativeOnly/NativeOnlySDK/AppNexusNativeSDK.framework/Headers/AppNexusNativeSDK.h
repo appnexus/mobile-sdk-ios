@@ -20,7 +20,6 @@ FOUNDATION_EXPORT const unsigned char AppNexusNativeSDKVersionString[];
 #import <AppNexusNativeSDK/ANAdProtocol.h>
 #import <AppNexusNativeSDK/ANLocation.h>
 #import <AppNexusNativeSDK/ANLogManager.h>
-#import <AppNexusNativeSDK/ANLogging.h>
 #import <AppNexusNativeSDK/ANTargetingParameters.h>
 #import <AppNexusNativeSDK/ANSDKSettings.h>
 

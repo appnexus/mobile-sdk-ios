@@ -3,7 +3,8 @@
 
 **/out
 **/Products
-
+**/out_device
+**/out_simulator
 ########################################################################################
 # macOS.gitignore
 # https://github.com/github/gitignore/blob/master/Global/macOS.gitignore

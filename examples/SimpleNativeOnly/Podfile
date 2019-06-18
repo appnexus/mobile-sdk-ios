@@ -6,6 +6,6 @@ target 'SimpleNativeOnly' do
   # use_frameworks!
 
   # Pods for SimpleNativeOnly
-  pod 'Google-Mobile-Ads-SDK'
+  pod 'FBAudienceNetwork', '5.3.1'
 
 end

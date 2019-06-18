@@ -7,179 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07B2A106F2383E7A208A18FB /* libPods-SimpleNativeOnly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E378831AA3A06721BE4F6615 /* libPods-SimpleNativeOnly.a */; };
-		F52F82EF229338CC00F4578C /* libANSDKGoogleAdMobAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5731C26229304B90012B134 /* libANSDKGoogleAdMobAdapter.a */; };
-		F52F830D22934B5C00F4578C /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F52F830C22934B5C00F4578C /* UnifiedNativeAdView.xib */; };
 		F5731BF72293044C0012B134 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BF62293044C0012B134 /* AppDelegate.m */; };
 		F5731BFA2293044C0012B134 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BF92293044C0012B134 /* ViewController.m */; };
 		F5731BFD2293044C0012B134 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5731BFB2293044C0012B134 /* Main.storyboard */; };
 		F5731BFF2293044D0012B134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5731BFE2293044D0012B134 /* Assets.xcassets */; };
 		F5731C022293044D0012B134 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5731C002293044D0012B134 /* LaunchScreen.storyboard */; };
 		F5731C052293044D0012B134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731C042293044D0012B134 /* main.m */; };
+		F586714A22B93432005DFF0F /* ANAdAdapterNativeFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = F586714822B93432005DFF0F /* ANAdAdapterNativeFacebook.m */; };
+		F586715722B937B3005DFF0F /* libPods-SimpleNativeOnly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F586715622B937B3005DFF0F /* libPods-SimpleNativeOnly.a */; };
+		F586715822B938DD005DFF0F /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F586714B22B9345E005DFF0F /* AppNexusNativeSDK.framework */; };
+		F586715922B938DD005DFF0F /* AppNexusNativeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F586714B22B9345E005DFF0F /* AppNexusNativeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		F5731C21229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC3E5CDC1843C6D50070315E;
-			remoteInfo = ANSDK;
+/* Begin PBXCopyFilesBuildPhase section */
+		F58670EA22B8424B005DFF0F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F586715922B938DD005DFF0F /* AppNexusNativeSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F5731C23229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC48177B1845046A0066BBFE;
-			remoteInfo = ANSDKResources;
-		};
-		F5731C25229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D6D119CC874B00001B70;
-			remoteInfo = ANSDKGoogleAdMobAdapter;
-		};
-		F5731C27229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D73319CC879900001B70;
-			remoteInfo = ANSDKMillennialMediaAdapter;
-		};
-		F5731C29229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D76419CC87B200001B70;
-			remoteInfo = ANSDKMoPubAdapter;
-		};
-		F5731C2B229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D79519CC87CC00001B70;
-			remoteInfo = ANSDKFacebookAdapter;
-		};
-		F5731C2D229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AD5154019D214CA002E53D6;
-			remoteInfo = ANSDKAmazonAdapter;
-		};
-		F5731C2F229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AA5B4C41AA8B4A500522E1C;
-			remoteInfo = ANSDKInMobiAdapter;
-		};
-		F5731C31229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A4B96B51ACD9A4C00FFEB2A;
-			remoteInfo = ANSDKVdopiaAdapter;
-		};
-		F5731C33229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A1482571AD337320046F1B9;
-			remoteInfo = ANSDKAdColonyAdapter;
-		};
-		F5731C35229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AD7C4D81AD2FABA0049C997;
-			remoteInfo = ANSDKVungleAdapter;
-		};
-		F5731C37229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A949ACE1ADF131500D83DCE;
-			remoteInfo = ANSDKChartboostAdapter;
-		};
-		F5731C39229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A96871A1B43314E00D9399B;
-			remoteInfo = ANSDKYahooAdapter;
-		};
-		F5731C3B229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D85319CC9A6F00001B70;
-			remoteInfo = ANAdapterForGoogleAdMobSDK;
-		};
-		F5731C3D229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D86119CC9B0F00001B70;
-			remoteInfo = ANAdapterForMoPubSDK;
-		};
-		F5731C3F229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
-			remoteInfo = AppNexusSDK;
-		};
-		F5731C41229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 60359FEF1E23FCB50017EF56;
-			remoteInfo = ANSDKSmartAdAdapter;
-		};
-		F5731C43229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 60359EB01E1EA1180017EF56;
-			remoteInfo = ANSDKAdMarvelAdapter;
-		};
-		F5731C45229304B90012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F5731AFD228B43570012B134;
-			remoteInfo = AppNexusNativeSDK;
-		};
-		F5731C47229304C50012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F5731AFC228B43570012B134;
-			remoteInfo = AppNexusNativeSDK;
-		};
-		F5731C9622932DF50012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F5731C7522930D070012B134;
-			remoteInfo = AppNexusNativeResources;
-		};
-		F5731C9822932DFB0012B134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8AE2D6A119CC874B00001B70;
-			remoteInfo = ANSDKGoogleAdMobAdapter;
-		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		63AF2110FA8D9F371DC37AE0 /* Pods-SimpleNativeOnly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleNativeOnly.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleNativeOnly/Pods-SimpleNativeOnly.release.xcconfig"; sourceTree = "<group>"; };
 		8A98561AFFE35C130F94E708 /* Pods-SimpleNativeOnly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleNativeOnly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleNativeOnly/Pods-SimpleNativeOnly.debug.xcconfig"; sourceTree = "<group>"; };
-		E378831AA3A06721BE4F6615 /* libPods-SimpleNativeOnly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleNativeOnly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F52F830C22934B5C00F4578C /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		F5731BF22293044C0012B134 /* SimpleNativeOnly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleNativeOnly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5731BF52293044C0012B134 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F5731BF62293044C0012B134 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -190,7 +46,10 @@
 		F5731C012293044D0012B134 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5731C032293044D0012B134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5731C042293044D0012B134 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F5731C0B229304B90012B134 /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
+		F586714822B93432005DFF0F /* ANAdAdapterNativeFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeFacebook.m; sourceTree = "<group>"; };
+		F586714922B93432005DFF0F /* ANAdAdapterNativeFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeFacebook.h; sourceTree = "<group>"; };
+		F586714B22B9345E005DFF0F /* AppNexusNativeSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppNexusNativeSDK.framework; sourceTree = "<group>"; };
+		F586715622B937B3005DFF0F /* libPods-SimpleNativeOnly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-SimpleNativeOnly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,8 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F52F82EF229338CC00F4578C /* libANSDKGoogleAdMobAdapter.a in Frameworks */,
-				07B2A106F2383E7A208A18FB /* libPods-SimpleNativeOnly.a in Frameworks */,
+				F586715822B938DD005DFF0F /* AppNexusNativeSDK.framework in Frameworks */,
+				F586715722B937B3005DFF0F /* libPods-SimpleNativeOnly.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +77,7 @@
 		7FC2E355A1C92726051700A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E378831AA3A06721BE4F6615 /* libPods-SimpleNativeOnly.a */,
+				F586715622B937B3005DFF0F /* libPods-SimpleNativeOnly.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -228,7 +87,6 @@
 			children = (
 				F5731BF42293044C0012B134 /* SimpleNativeOnly */,
 				F5731BF32293044C0012B134 /* Products */,
-				F5731C0B229304B90012B134 /* ANSDK.xcodeproj */,
 				63FB7E04B10FE8C363A4F2C1 /* Pods */,
 				7FC2E355A1C92726051700A6 /* Frameworks */,
 			);
@@ -254,36 +112,19 @@
 				F5731C002293044D0012B134 /* LaunchScreen.storyboard */,
 				F5731C032293044D0012B134 /* Info.plist */,
 				F5731C042293044D0012B134 /* main.m */,
-				F52F830C22934B5C00F4578C /* UnifiedNativeAdView.xib */,
+				F586714722B93432005DFF0F /* NativeOnlySDK */,
 			);
 			path = SimpleNativeOnly;
 			sourceTree = "<group>";
 		};
-		F5731C0C229304B90012B134 /* Products */ = {
+		F586714722B93432005DFF0F /* NativeOnlySDK */ = {
 			isa = PBXGroup;
 			children = (
-				F5731C22229304B90012B134 /* libANSDK.a */,
-				F5731C24229304B90012B134 /* ANSDKResources.bundle */,
-				F5731C26229304B90012B134 /* libANSDKGoogleAdMobAdapter.a */,
-				F5731C28229304B90012B134 /* libANSDKMillennialMediaAdapter.a */,
-				F5731C2A229304B90012B134 /* libANSDKMoPubAdapter.a */,
-				F5731C2C229304B90012B134 /* libANSDKFacebookAdapter.a */,
-				F5731C2E229304B90012B134 /* libANSDKAmazonAdapter.a */,
-				F5731C30229304B90012B134 /* libANSDKInMobiAdapter.a */,
-				F5731C32229304B90012B134 /* libANSDKVdopiaAdapter.a */,
-				F5731C34229304B90012B134 /* libANSDKAdColonyAdapter.a */,
-				F5731C36229304B90012B134 /* libANSDKVungleAdapter.a */,
-				F5731C38229304B90012B134 /* libANSDKChartboostAdapter.a */,
-				F5731C3A229304B90012B134 /* libANSDKYahooAdapter.a */,
-				F5731C3C229304B90012B134 /* libANAdapterForGoogleAdMobSDK.a */,
-				F5731C3E229304B90012B134 /* libANAdapterForMoPubSDK.a */,
-				F5731C40229304B90012B134 /* AppNexusSDK.framework */,
-				F5731C42229304B90012B134 /* libANSDKSmartAdAdapter.a */,
-				F5731C44229304B90012B134 /* libANSDKAdMarvelAdapter.a */,
-				F5731C46229304B90012B134 /* AppNexusNativeSDK.framework */,
-				F5731C9722932DF50012B134 /* AppNexusNativeResources.bundle */,
+				F586714B22B9345E005DFF0F /* AppNexusNativeSDK.framework */,
+				F586714822B93432005DFF0F /* ANAdAdapterNativeFacebook.m */,
+				F586714922B93432005DFF0F /* ANAdAdapterNativeFacebook.h */,
 			);
-			name = Products;
+			path = NativeOnlySDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,12 +138,11 @@
 				F5731BEE2293044C0012B134 /* Sources */,
 				F5731BEF2293044C0012B134 /* Frameworks */,
 				F5731BF02293044C0012B134 /* Resources */,
+				F58670EA22B8424B005DFF0F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				F5731C9922932DFB0012B134 /* PBXTargetDependency */,
-				F5731C48229304C50012B134 /* PBXTargetDependency */,
 			);
 			name = SimpleNativeOnly;
 			productName = SimpleNativeOnly;
@@ -334,161 +174,12 @@
 			mainGroup = F5731BE92293044C0012B134;
 			productRefGroup = F5731BF32293044C0012B134 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F5731C0C229304B90012B134 /* Products */;
-					ProjectRef = F5731C0B229304B90012B134 /* ANSDK.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				F5731BF12293044C0012B134 /* SimpleNativeOnly */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		F5731C22229304B90012B134 /* libANSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDK.a;
-			remoteRef = F5731C21229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C24229304B90012B134 /* ANSDKResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ANSDKResources.bundle;
-			remoteRef = F5731C23229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C26229304B90012B134 /* libANSDKGoogleAdMobAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKGoogleAdMobAdapter.a;
-			remoteRef = F5731C25229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C28229304B90012B134 /* libANSDKMillennialMediaAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKMillennialMediaAdapter.a;
-			remoteRef = F5731C27229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C2A229304B90012B134 /* libANSDKMoPubAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKMoPubAdapter.a;
-			remoteRef = F5731C29229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C2C229304B90012B134 /* libANSDKFacebookAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKFacebookAdapter.a;
-			remoteRef = F5731C2B229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C2E229304B90012B134 /* libANSDKAmazonAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKAmazonAdapter.a;
-			remoteRef = F5731C2D229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C30229304B90012B134 /* libANSDKInMobiAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKInMobiAdapter.a;
-			remoteRef = F5731C2F229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C32229304B90012B134 /* libANSDKVdopiaAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKVdopiaAdapter.a;
-			remoteRef = F5731C31229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C34229304B90012B134 /* libANSDKAdColonyAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKAdColonyAdapter.a;
-			remoteRef = F5731C33229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C36229304B90012B134 /* libANSDKVungleAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKVungleAdapter.a;
-			remoteRef = F5731C35229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C38229304B90012B134 /* libANSDKChartboostAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKChartboostAdapter.a;
-			remoteRef = F5731C37229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C3A229304B90012B134 /* libANSDKYahooAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKYahooAdapter.a;
-			remoteRef = F5731C39229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C3C229304B90012B134 /* libANAdapterForGoogleAdMobSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANAdapterForGoogleAdMobSDK.a;
-			remoteRef = F5731C3B229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C3E229304B90012B134 /* libANAdapterForMoPubSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANAdapterForMoPubSDK.a;
-			remoteRef = F5731C3D229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C40229304B90012B134 /* AppNexusSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AppNexusSDK.framework;
-			remoteRef = F5731C3F229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C42229304B90012B134 /* libANSDKSmartAdAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKSmartAdAdapter.a;
-			remoteRef = F5731C41229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C44229304B90012B134 /* libANSDKAdMarvelAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKAdMarvelAdapter.a;
-			remoteRef = F5731C43229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C46229304B90012B134 /* AppNexusNativeSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AppNexusNativeSDK.framework;
-			remoteRef = F5731C45229304B90012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F5731C9722932DF50012B134 /* AppNexusNativeResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AppNexusNativeResources.bundle;
-			remoteRef = F5731C9622932DF50012B134 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F5731BF02293044C0012B134 /* Resources */ = {
@@ -498,7 +189,6 @@
 				F5731C022293044D0012B134 /* LaunchScreen.storyboard in Resources */,
 				F5731BFF2293044D0012B134 /* Assets.xcassets in Resources */,
 				F5731BFD2293044C0012B134 /* Main.storyboard in Resources */,
-				F52F830D22934B5C00F4578C /* UnifiedNativeAdView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F586714A22B93432005DFF0F /* ANAdAdapterNativeFacebook.m in Sources */,
 				F5731BFA2293044C0012B134 /* ViewController.m in Sources */,
 				F5731C052293044D0012B134 /* main.m in Sources */,
 				F5731BF72293044C0012B134 /* AppDelegate.m in Sources */,
@@ -541,19 +232,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F5731C48229304C50012B134 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AppNexusNativeSDK;
-			targetProxy = F5731C47229304C50012B134 /* PBXContainerItemProxy */;
-		};
-		F5731C9922932DFB0012B134 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ANSDKGoogleAdMobAdapter;
-			targetProxy = F5731C9822932DFB0012B134 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F5731BFB2293044C0012B134 /* Main.storyboard */ = {
@@ -694,12 +372,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/FBAudienceNetwork/Static\"",
+					"$(PROJECT_DIR)/SimpleNativeOnly/NativeOnlySDK",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Google-Mobile-Ads-SDK\"",
-					"\"${PODS_ROOT}/Headers/Public/GoogleUtilities\"",
-					"\"${PODS_ROOT}/Headers/Public/nanopb\"",
 				);
 				INFOPLIST_FILE = SimpleNativeOnly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -708,51 +388,6 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-l\"GoogleUtilities\"",
-					"-l\"c++\"",
-					"-l\"nanopb\"",
-					"-l\"sqlite3\"",
-					"-l\"z\"",
-					"-framework",
-					"\"AVFoundation\"",
-					"-framework",
-					"\"AudioToolbox\"",
-					"-framework",
-					"\"CFNetwork\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"CoreMedia\"",
-					"-framework",
-					"\"CoreTelephony\"",
-					"-framework",
-					"\"CoreVideo\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleMobileAds\"",
-					"-framework",
-					"\"MediaPlayer\"",
-					"-framework",
-					"\"MessageUI\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"StoreKit\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-weak_framework",
-					"\"AdSupport\"",
-					"-weak_framework",
-					"\"JavaScriptCore\"",
-					"-weak_framework",
-					"\"SafariServices\"",
-					"-weak_framework",
-					"\"WebKit\"",
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.SimpleNativeOnly;
@@ -768,12 +403,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/FBAudienceNetwork/Static\"",
+					"$(PROJECT_DIR)/SimpleNativeOnly/NativeOnlySDK",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Google-Mobile-Ads-SDK\"",
-					"\"${PODS_ROOT}/Headers/Public/GoogleUtilities\"",
-					"\"${PODS_ROOT}/Headers/Public/nanopb\"",
 				);
 				INFOPLIST_FILE = SimpleNativeOnly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -782,51 +419,6 @@
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-l\"GoogleUtilities\"",
-					"-l\"c++\"",
-					"-l\"nanopb\"",
-					"-l\"sqlite3\"",
-					"-l\"z\"",
-					"-framework",
-					"\"AVFoundation\"",
-					"-framework",
-					"\"AudioToolbox\"",
-					"-framework",
-					"\"CFNetwork\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"CoreMedia\"",
-					"-framework",
-					"\"CoreTelephony\"",
-					"-framework",
-					"\"CoreVideo\"",
-					"-framework",
-					"\"GoogleAppMeasurement\"",
-					"-framework",
-					"\"GoogleMobileAds\"",
-					"-framework",
-					"\"MediaPlayer\"",
-					"-framework",
-					"\"MessageUI\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"StoreKit\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-weak_framework",
-					"\"AdSupport\"",
-					"-weak_framework",
-					"\"JavaScriptCore\"",
-					"-weak_framework",
-					"\"SafariServices\"",
-					"-weak_framework",
-					"\"WebKit\"",
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.appnexus.SimpleNativeOnly;
