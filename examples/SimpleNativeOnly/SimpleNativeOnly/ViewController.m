@@ -13,6 +13,7 @@
 @interface ViewController () <ANNativeAdRequestDelegate, UIPickerViewDelegate,UIPickerViewDataSource>
 @property (nonatomic,readwrite,strong) ANNativeAdRequest *nativeAdRequest;
 @property UIView *adHolder;
+@property ANNativeAdResponse *reponse;
 @property CGFloat screenWidth;
 @property CGFloat screenHeight;
 @property NSArray *testNames;
@@ -95,6 +96,7 @@
 
 - (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response
 {
+    self.reponse = response; // keep a reference for views to be clickable
     if (response.networkCode == ANNativeAdNetworkCodeFacebook) {
         FBNativeAd *nativeAd = (FBNativeAd *) response.customElements[kANNativeElementObject];
         UIView *nativeContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 150, self.screenWidth, 400)];
