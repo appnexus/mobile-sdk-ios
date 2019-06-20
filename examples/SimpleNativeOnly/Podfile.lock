@@ -1,16 +1,34 @@
 PODS:
+  - AppNexusNativeFacebookAdapter (5.4):
+    - AppNexusNativeFacebookAdapter/AppNexusNativeSDK (= 5.4)
+    - AppNexusNativeFacebookAdapter/Facebook (= 5.4)
+  - AppNexusNativeFacebookAdapter/AppNexusNativeSDK (5.4):
+    - AppNexusNativeSDK
+  - AppNexusNativeFacebookAdapter/Facebook (5.4):
+    - FBAudienceNetwork (= 5.3.1)
+  - AppNexusNativeSDK (5.4)
   - FBAudienceNetwork (5.3.1)
 
 DEPENDENCIES:
+  - AppNexusNativeFacebookAdapter (from `../../PodSpecs/AppNexusNativeFacebookAdapter.podspec`)
+  - AppNexusNativeSDK (from `../../PodSpecs/AppNexusNativeSDK.podspec`)
   - FBAudienceNetwork (= 5.3.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - FBAudienceNetwork
 
+EXTERNAL SOURCES:
+  AppNexusNativeFacebookAdapter:
+    :path: "../../PodSpecs/AppNexusNativeFacebookAdapter.podspec"
+  AppNexusNativeSDK:
+    :path: "../../PodSpecs/AppNexusNativeSDK.podspec"
+
 SPEC CHECKSUMS:
+  AppNexusNativeFacebookAdapter: 935c0f0d0eb2d3a456855822ab3375f507797dad
+  AppNexusNativeSDK: 4563a16a63211ff616e59172e100eaf66e274c8b
   FBAudienceNetwork: 3bb585c4d0c0459d4945db3c7898d93bd076e154
 
-PODFILE CHECKSUM: 80183acf5cc5ccc8f291ccdfaa44636e7a2b72b7
+PODFILE CHECKSUM: 3c34171981524e22110243ff3b0316e233721e23
 
 COCOAPODS: 1.5.3

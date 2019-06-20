@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <AppNexusNativeSDK/AppNexusNativeSDK.h>
+@import AppNexusNativeSDK;
 @import FBAudienceNetwork;
 
 @interface ViewController () <ANNativeAdRequestDelegate, UIPickerViewDelegate,UIPickerViewDataSource>

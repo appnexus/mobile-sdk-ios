@@ -13,10 +13,7 @@
 		F5731BFF2293044D0012B134 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5731BFE2293044D0012B134 /* Assets.xcassets */; };
 		F5731C022293044D0012B134 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5731C002293044D0012B134 /* LaunchScreen.storyboard */; };
 		F5731C052293044D0012B134 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731C042293044D0012B134 /* main.m */; };
-		F586714A22B93432005DFF0F /* ANAdAdapterNativeFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = F586714822B93432005DFF0F /* ANAdAdapterNativeFacebook.m */; };
 		F586715722B937B3005DFF0F /* libPods-SimpleNativeOnly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F586715622B937B3005DFF0F /* libPods-SimpleNativeOnly.a */; };
-		F586715822B938DD005DFF0F /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F586714B22B9345E005DFF0F /* AppNexusNativeSDK.framework */; };
-		F586715922B938DD005DFF0F /* AppNexusNativeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F586714B22B9345E005DFF0F /* AppNexusNativeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,7 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F586715922B938DD005DFF0F /* AppNexusNativeSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,9 +42,6 @@
 		F5731C012293044D0012B134 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5731C032293044D0012B134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5731C042293044D0012B134 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F586714822B93432005DFF0F /* ANAdAdapterNativeFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeFacebook.m; sourceTree = "<group>"; };
-		F586714922B93432005DFF0F /* ANAdAdapterNativeFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeFacebook.h; sourceTree = "<group>"; };
-		F586714B22B9345E005DFF0F /* AppNexusNativeSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppNexusNativeSDK.framework; sourceTree = "<group>"; };
 		F586715622B937B3005DFF0F /* libPods-SimpleNativeOnly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-SimpleNativeOnly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -57,7 +50,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F586715822B938DD005DFF0F /* AppNexusNativeSDK.framework in Frameworks */,
 				F586715722B937B3005DFF0F /* libPods-SimpleNativeOnly.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,19 +104,8 @@
 				F5731C002293044D0012B134 /* LaunchScreen.storyboard */,
 				F5731C032293044D0012B134 /* Info.plist */,
 				F5731C042293044D0012B134 /* main.m */,
-				F586714722B93432005DFF0F /* NativeOnlySDK */,
 			);
 			path = SimpleNativeOnly;
-			sourceTree = "<group>";
-		};
-		F586714722B93432005DFF0F /* NativeOnlySDK */ = {
-			isa = PBXGroup;
-			children = (
-				F586714B22B9345E005DFF0F /* AppNexusNativeSDK.framework */,
-				F586714822B93432005DFF0F /* ANAdAdapterNativeFacebook.m */,
-				F586714922B93432005DFF0F /* ANAdAdapterNativeFacebook.h */,
-			);
-			path = NativeOnlySDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +120,7 @@
 				F5731BEF2293044C0012B134 /* Frameworks */,
 				F5731BF02293044C0012B134 /* Resources */,
 				F58670EA22B8424B005DFF0F /* Embed Frameworks */,
+				542224A0E2867E88FB136E1E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,6 +177,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		542224A0E2867E88FB136E1E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SimpleNativeOnly/Pods-SimpleNativeOnly-frameworks.sh",
+				"${PODS_ROOT}/../../../PodSpecs/NativeOnlyProduct/AppNexusNativeSDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppNexusNativeSDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SimpleNativeOnly/Pods-SimpleNativeOnly-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F22069A19035DB7FFD4F95D3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -224,7 +228,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F586714A22B93432005DFF0F /* ANAdAdapterNativeFacebook.m in Sources */,
 				F5731BFA2293044C0012B134 /* ViewController.m in Sources */,
 				F5731C052293044D0012B134 /* main.m in Sources */,
 				F5731BF72293044C0012B134 /* AppDelegate.m in Sources */,

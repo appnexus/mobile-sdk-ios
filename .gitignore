@@ -1,6 +1,6 @@
 ####
 # Binary build product files
-
+*.framework
 **/out
 **/Products
 **/out_device

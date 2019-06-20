@@ -7,5 +7,7 @@ target 'SimpleNativeOnly' do
 
   # Pods for SimpleNativeOnly
   pod 'FBAudienceNetwork', '5.3.1'
+  pod 'AppNexusNativeSDK', :path => '../../PodSpecs/AppNexusNativeSDK.podspec'
+  pod 'AppNexusNativeFacebookAdapter', :path => '../../PodSpecs/AppNexusNativeFacebookAdapter.podspec'
 
 end
