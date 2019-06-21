@@ -368,6 +368,9 @@
 		ECE4EB16194B78280069D934 /* ANLocation.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA92194B768A0069D934 /* ANLocation.h */; };
 		ECE4EB17194B78280069D934 /* ANLogManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA93194B768A0069D934 /* ANLogManager.h */; };
 		ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */; };
+		F526DBDB22BD2C7B000D105A /* ANAdAdapterNativeFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A35B8AB19FEC9640016C81F /* ANAdAdapterNativeFacebook.m */; };
+		F526DBDC22BD2E5B000D105A /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 608E47491F86E7FB009BB148 /* FBAudienceNetwork.framework */; };
+		F526DBDD22BD2EA0000D105A /* ANAdAdapterNativeFacebook.h in Sources */ = {isa = PBXBuildFile; fileRef = 8A35B8AA19FEC9640016C81F /* ANAdAdapterNativeFacebook.h */; };
 		F52B044122AECD6B00985B62 /* NSObject+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */; };
 		F52B044222AECD6F00985B62 /* NSObject+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */; };
 		F52F82EB2293362600F4578C /* NSObject+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */; };
@@ -587,6 +590,13 @@
 			remoteGlobalIDString = EC48177A1845046A0066BBFE;
 			remoteInfo = ANSDKResources;
 		};
+		F526DBD722BD27A2000D105A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5731AFC228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -777,6 +787,15 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F526DBCC22BD2754000D105A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -916,7 +935,6 @@
 		8A35B8A219FEBEBD0016C81F /* ANNativeCustomAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeCustomAdapter.h; path = native/ANNativeCustomAdapter.h; sourceTree = "<group>"; };
 		8A35B8AA19FEC9640016C81F /* ANAdAdapterNativeFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterNativeFacebook.h; path = ../mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.h; sourceTree = "<group>"; };
 		8A35B8AB19FEC9640016C81F /* ANAdAdapterNativeFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeFacebook.m; path = ../mediation/mediatedviews/Facebook/ANAdAdapterNativeFacebook.m; sourceTree = "<group>"; };
-		8A3AC2751DCA4DF1005D4E46 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANContentViewTransitions.h"; sourceTree = "<group>"; };
 		8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANContentViewTransitions.m"; sourceTree = "<group>"; };
 		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
@@ -1195,6 +1213,7 @@
 		ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UIButtonBarArrowRight.png; sourceTree = "<group>"; };
 		ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECE4EAD9194B768A0069D934 /* sdkjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sdkjs.js; sourceTree = "<group>"; };
+		F526DBCE22BD2754000D105A /* libANSDKNativeFacebookAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKNativeFacebookAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppNexusNativeSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5731AFF228B43570012B134 /* AppNexusNativeSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppNexusNativeSDK.h; sourceTree = "<group>"; };
 		F5731B00228B43570012B134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1342,6 +1361,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F526DBCB22BD2754000D105A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F526DBDC22BD2E5B000D105A /* FBAudienceNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2157,7 +2184,6 @@
 				8AE2D87319CC9D7400001B70 /* Mediating AppNexus */,
 				EC3E5CDD1843C6D50070315E /* Products */,
 				8A02D6EA1D6CDFF9006831A3 /* ANSDK.h */,
-				8A3AC2751DCA4DF1005D4E46 /* Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2183,6 +2209,7 @@
 				8AD7C4D81AD2FABA0049C997 /* libANSDKVungleAdapter.a */,
 				8A96871A1B43314E00D9399B /* libANSDKYahooAdapter.a */,
 				F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */,
+				F526DBCE22BD2754000D105A /* libANSDKNativeFacebookAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2796,6 +2823,24 @@
 			productReference = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
+		F526DBCD22BD2754000D105A /* ANSDKNativeFacebookAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F526DBD622BD2754000D105A /* Build configuration list for PBXNativeTarget "ANSDKNativeFacebookAdapter" */;
+			buildPhases = (
+				F526DBCA22BD2754000D105A /* Sources */,
+				F526DBCB22BD2754000D105A /* Frameworks */,
+				F526DBCC22BD2754000D105A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F526DBD822BD27A2000D105A /* PBXTargetDependency */,
+			);
+			name = ANSDKNativeFacebookAdapter;
+			productName = ANSDKNativeFacebookAdapter;
+			productReference = F526DBCE22BD2754000D105A /* libANSDKNativeFacebookAdapter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		F5731AFC228B43570012B134 /* AppNexusNativeSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5731B04228B43570012B134 /* Build configuration list for PBXNativeTarget "AppNexusNativeSDK" */;
@@ -2834,6 +2879,11 @@
 					};
 					8A9AED8B1A1BE84F00C58BDA = {
 						CreatedOnToolsVersion = 6.1;
+					};
+					F526DBCD22BD2754000D105A = {
+						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = HR94J6TSB3;
+						ProvisioningStyle = Automatic;
 					};
 					F5731AFC228B43570012B134 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -2875,6 +2925,7 @@
 				60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */,
 				60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */,
 				F5731AFC228B43570012B134 /* AppNexusNativeSDK */,
+				F526DBCD22BD2754000D105A /* ANSDKNativeFacebookAdapter */,
 			);
 		};
 /* End PBXProject section */
@@ -3365,6 +3416,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F526DBCA22BD2754000D105A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F526DBDD22BD2EA0000D105A /* ANAdAdapterNativeFacebook.h in Sources */,
+				F526DBDB22BD2C7B000D105A /* ANAdAdapterNativeFacebook.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5731AF9228B43570012B134 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3501,6 +3561,11 @@
 			isa = PBXTargetDependency;
 			target = EC48177A1845046A0066BBFE /* ANSDKResources */;
 			targetProxy = EC4817941845049D0066BBFE /* PBXContainerItemProxy */;
+		};
+		F526DBD822BD27A2000D105A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5731AFC228B43570012B134 /* AppNexusNativeSDK */;
+			targetProxy = F526DBD722BD27A2000D105A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4312,6 +4377,68 @@
 			};
 			name = Release;
 		};
+		F526DBD422BD2754000D105A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"$(TARGET_NAME)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F526DBD522BD2754000D105A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Facebook/FacebookSDK";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(TARGET_NAME)";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		F5731B02228B43570012B134 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4562,6 +4689,15 @@
 			buildConfigurations = (
 				EC4817861845046A0066BBFE /* Debug */,
 				EC4817871845046A0066BBFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F526DBD622BD2754000D105A /* Build configuration list for PBXNativeTarget "ANSDKNativeFacebookAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F526DBD422BD2754000D105A /* Debug */,
+				F526DBD522BD2754000D105A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

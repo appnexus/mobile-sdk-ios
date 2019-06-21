@@ -56,6 +56,7 @@
             [view removeFromSuperview];
         }
     }
+    self.reponse = nil;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView

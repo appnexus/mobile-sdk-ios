@@ -13,7 +13,11 @@
  limitations under the License.
  */
 
+#if TARGET_NAME == ANSDKNativeFacebookAdapter
+#import <AppNexusNativeSDK/ANNativeCustomAdapter.h>
+#else
 #import "ANNativeCustomAdapter.h"
+#endif
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 @interface ANAdAdapterNativeFacebook : NSObject <ANNativeCustomAdapter, FBNativeAdDelegate>
