@@ -50,7 +50,6 @@
      * ad fetcher delegate so that messages to the delegate can proceed uninterrupted.  Currently, the controller will only live on if it is still
      * displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
-    self.nativeMediationController.adFetcher = nil;
     self.nativeMediationController = nil;
 
 }

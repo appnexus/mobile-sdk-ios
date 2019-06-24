@@ -35,6 +35,9 @@
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
 
+@property (nonatomic, readwrite, weak)  ANNativeAdFetcher  *adFetcher;
+@property (nonatomic, readwrite, weak)  id<ANNativeAdFetcherDelegate>     adRequestDelegate;
+
 @end
 
 

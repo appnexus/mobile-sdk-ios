@@ -30,10 +30,6 @@
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
                    withFetcher:(ANNativeAdFetcher *)adFetcher
              adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
-
-@property (nonatomic, readwrite, weak)  ANNativeAdFetcher  *adFetcher;
-@property (nonatomic, readwrite, weak)  id<ANNativeAdFetcherDelegate>     adRequestDelegate;
-
 @end
 
 
