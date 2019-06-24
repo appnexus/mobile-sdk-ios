@@ -22,7 +22,7 @@
 #import "ANOMIDImplementation.h"
 
 
-@interface ANNativeAdRequest() <ANNativeUniversalAdFetcherDelegate>
+@interface ANNativeAdRequest() <ANNativeAdFetcherDelegate>
 
 @property (nonatomic, readwrite, strong) ANNativeAdFetcher *adFetcher;
 

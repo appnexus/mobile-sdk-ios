@@ -43,7 +43,7 @@
 
 + (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
                    withFetcher: (ANNativeAdFetcher *)adFetcher
-             adRequestDelegate: (id<ANNativeUniversalAdFetcherDelegate>)adRequestDelegate
+             adRequestDelegate: (id<ANNativeAdFetcherDelegate>)adRequestDelegate
 {
     ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd: mediatedAd
                                                                                           withFetcher: adFetcher
@@ -58,7 +58,7 @@
 
 - (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
                    withFetcher: (ANNativeAdFetcher *)adFetcher
-             adRequestDelegate: (id<ANNativeUniversalAdFetcherDelegate>)adRequestDelegate
+             adRequestDelegate: (id<ANNativeAdFetcherDelegate>)adRequestDelegate
 {
     self = [super init];
     if (self) {

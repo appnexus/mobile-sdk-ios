@@ -28,7 +28,7 @@
 
 #pragma mark - ANUniversalAdFetcherDelegate partitions.
 
-@protocol ANNativeUniversalAdFetcherDelegate <ANAdProtocolFoundation>
+@protocol ANNativeAdFetcherDelegate <ANAdProtocolFoundation>
 
 @property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
 -(void)didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
