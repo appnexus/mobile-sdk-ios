@@ -14,13 +14,6 @@
  */
 
 #import "ANAdAdapterNativeFacebook.h"
-#if TARGET_NAME == ANSDKNativeFacebookAdapter
-#import <AppNexusNativeSDK/ANLogging.h>
-#import <AppNexusNativeSDK/ANNativeAdResponse.h>
-#else
-#import "ANLogging.h"
-#import "ANNativeAdResponse.h"
-#endif
 
 @interface ANAdAdapterNativeFacebook ()
 

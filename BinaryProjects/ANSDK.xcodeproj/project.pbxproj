@@ -4325,6 +4325,7 @@
 				DSTROOT = /tmp/ANSDK.dst;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "";
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../sdk/Viewability/OMAppnexusSDK",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
