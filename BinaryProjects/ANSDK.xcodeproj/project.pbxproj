@@ -1214,6 +1214,7 @@
 		ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UIButtonBarArrowRight@2x.png"; sourceTree = "<group>"; };
 		ECE4EAD9194B768A0069D934 /* sdkjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sdkjs.js; sourceTree = "<group>"; };
 		F526DBCE22BD2754000D105A /* libANSDKNativeFacebookAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKNativeFacebookAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F526DC7F22C2A84E000D105A /* ANAdFetcherBase+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdFetcherBase+PrivateMethods.h"; sourceTree = "<group>"; };
 		F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppNexusNativeSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5731AFF228B43570012B134 /* AppNexusNativeSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppNexusNativeSDK.h; sourceTree = "<group>"; };
 		F5731B00228B43570012B134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1442,6 +1443,7 @@
 				F5731BCC228DD90B0012B134 /* ANNativeAdFetcher.h */,
 				006F6B9D2295F72A003D2DF0 /* ANAdFetcherBase.h */,
 				006F6B992295F70E003D2DF0 /* ANAdFetcherBase.m */,
+				F526DC7F22C2A84E000D105A /* ANAdFetcherBase+PrivateMethods.h */,
 			);
 			name = universalTag;
 			sourceTree = "<group>";

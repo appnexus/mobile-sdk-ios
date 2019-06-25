@@ -14,7 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdFetcherBase.h"
+#import "ANAdFetcherBase+PrivateMethods.h"
 #import "ANNativeAdResponse.h"
 #import "ANAdFetcherResponse.h"
 #import "ANAdProtocol.h"

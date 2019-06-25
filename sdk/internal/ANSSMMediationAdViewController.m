@@ -42,7 +42,6 @@
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStart;
 @property (nonatomic, readwrite, assign)  NSTimeInterval  latencyStop;
 
-
 @end
 
 @interface ANUniversalAdFetcher ()

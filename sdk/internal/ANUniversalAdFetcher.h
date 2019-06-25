@@ -24,7 +24,7 @@
 #import "ANAdViewInternalDelegate.h"
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
-#import "ANAdFetcherBase.h"
+#import "ANAdFetcherBase+PrivateMethods.h"
 
 
 

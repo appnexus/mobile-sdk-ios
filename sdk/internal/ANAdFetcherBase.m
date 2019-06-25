@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "ANAdFetcherBase.h"
+#import "ANAdFetcherBase+PrivateMethods.h"
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANLogging.h"

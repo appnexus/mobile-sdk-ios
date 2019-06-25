@@ -39,15 +39,5 @@
 
 - (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
 
-- (void)processFinalResponse:(ANAdFetcherResponse *)response;
-
-- (void)clearMediationController;
-
-- (void)continueWaterfall;
-
-- (void)restartAutoRefreshTimer;
-
-- (void)finishRequestWithError:(NSError *)error;
-
 
 @end
