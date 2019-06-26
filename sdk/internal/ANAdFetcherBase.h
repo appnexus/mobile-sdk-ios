@@ -14,10 +14,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANNativeAdResponse.h"
 #import "ANAdFetcherResponse.h"
 #import "ANAdProtocol.h"
-#import "ANGlobal.h"
 #import "ANUniversalTagAdServerResponse.h"
 
 @interface ANAdFetcherBase : NSObject

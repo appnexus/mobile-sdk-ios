@@ -17,7 +17,7 @@
 #import "ANUniversalTagRequestBuilder.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANLogging.h"
-
+#import "ANGlobal.h"
 #import "ANStandardAd.h"
 #import "ANRTBVideoAd.h"
 #import "ANCSMVideoAd.h"

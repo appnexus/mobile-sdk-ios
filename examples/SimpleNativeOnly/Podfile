@@ -7,5 +7,4 @@ target 'SimpleNativeOnly' do
 
   # Pods for SimpleNativeOnly
   pod 'FBAudienceNetwork'
-  pod 'AppNexusNativeSDK', :git => 'https://github.com/anwzhang/TestANCocoaPods.git'
 end
