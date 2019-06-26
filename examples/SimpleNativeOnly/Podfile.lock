@@ -1,9 +1,11 @@
 PODS:
+  - AppNexusNativeSDK (5.4)
   - FBAudienceNetwork (5.4.0):
     - FBSDKCoreKit/Basics
   - FBSDKCoreKit/Basics (5.0.2)
 
 DEPENDENCIES:
+  - AppNexusNativeSDK (from `https://github.com/anwzhang/TestANCocoaPods.git`)
   - FBAudienceNetwork
 
 SPEC REPOS:
@@ -11,10 +13,20 @@ SPEC REPOS:
     - FBAudienceNetwork
     - FBSDKCoreKit
 
+EXTERNAL SOURCES:
+  AppNexusNativeSDK:
+    :git: https://github.com/anwzhang/TestANCocoaPods.git
+
+CHECKOUT OPTIONS:
+  AppNexusNativeSDK:
+    :commit: b6bdf9863ff6bf5f230d04fbc993ed365ee262c0
+    :git: https://github.com/anwzhang/TestANCocoaPods.git
+
 SPEC CHECKSUMS:
+  AppNexusNativeSDK: 182f8dedf3d8845f6ca34c0555b5e44ceaf751ab
   FBAudienceNetwork: c1514860ed6d9ba9f97350f3fbb3ac49556f5e43
   FBSDKCoreKit: 3e41c402eb64ea7799c71833ff9e5690f27b9c42
 
-PODFILE CHECKSUM: 61ac1a50e60db6647da02436306d9e95add98ec3
+PODFILE CHECKSUM: cbf48b8999b83b56955c2a4c54bb5f1338192696
 
 COCOAPODS: 1.7.2
