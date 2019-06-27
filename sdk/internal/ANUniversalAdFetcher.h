@@ -29,9 +29,6 @@
 
 
 @protocol ANUniversalAdFetcherDelegate;
-//@protocol ANUniversalNativeAdFetcherDelegate;
-
-
 
 @interface ANUniversalAdFetcher : ANAdFetcherBase
 

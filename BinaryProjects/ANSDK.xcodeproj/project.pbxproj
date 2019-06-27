@@ -369,7 +369,6 @@
 		ECE4EB17194B78280069D934 /* ANLogManager.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA93194B768A0069D934 /* ANLogManager.h */; };
 		ECE4EB18194B78280069D934 /* ANTargetingParameters.h in Copy Files */ = {isa = PBXBuildFile; fileRef = ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */; };
 		F526DBDB22BD2C7B000D105A /* ANAdAdapterNativeFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A35B8AB19FEC9640016C81F /* ANAdAdapterNativeFacebook.m */; };
-		F526DBDC22BD2E5B000D105A /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 608E47491F86E7FB009BB148 /* FBAudienceNetwork.framework */; };
 		F526DBDD22BD2EA0000D105A /* ANAdAdapterNativeFacebook.h in Sources */ = {isa = PBXBuildFile; fileRef = 8A35B8AA19FEC9640016C81F /* ANAdAdapterNativeFacebook.h */; };
 		F52B044122AECD6B00985B62 /* NSObject+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */; };
 		F52B044222AECD6F00985B62 /* NSObject+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */; };
@@ -383,6 +382,9 @@
 		F52F83152295DCA500F4578C /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
 		F52F83162295DCA500F4578C /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACE194B768A0069D934 /* errors.strings */; };
 		F52F83172295DCA500F4578C /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE97DA21764ACD007DADE6 /* omsdk.js */; };
+		F54C5E8922C552E7000709B3 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F54C5E8722C552E7000709B3 /* FBAudienceNetwork.framework */; };
+		F54C5E8A22C552E7000709B3 /* LICENSE-FACEBOOK.txt in Resources */ = {isa = PBXBuildFile; fileRef = F54C5E8822C552E7000709B3 /* LICENSE-FACEBOOK.txt */; };
+		F54C5E8B22C55303000709B3 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F54C5E8722C552E7000709B3 /* FBAudienceNetwork.framework */; };
 		F5731B0B228B57590012B134 /* libOMSDKAppnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEE97F321768358007DADE6 /* libOMSDKAppnexus.a */; };
 		F5731B3F228C8CA80012B134 /* ANNativeAdImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AB876201A0994310022D9A5 /* ANNativeAdImageCache.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F5731B40228C8CB40012B134 /* ANNativeAdImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB876211A0994310022D9A5 /* ANNativeAdImageCache.m */; };
@@ -881,7 +883,6 @@
 		608E47361F86E6B7009BB148 /* NOTICE_Amazon.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE_Amazon.txt; sourceTree = "<group>"; };
 		608E47371F86E6B7009BB148 /* README_Amazon.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_Amazon.md; sourceTree = "<group>"; };
 		608E47381F86E6B7009BB148 /* LICENSE_Amazon.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE_Amazon.txt; sourceTree = "<group>"; };
-		608E47491F86E7FB009BB148 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+ANCategory.h"; sourceTree = "<group>"; };
 		608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ANCategory.m"; sourceTree = "<group>"; };
 		609732AE1E42E73D0061EC0A /* NSDictionary+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ANCategory.h"; sourceTree = "<group>"; };
@@ -1215,6 +1216,8 @@
 		ECE4EAD9194B768A0069D934 /* sdkjs.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sdkjs.js; sourceTree = "<group>"; };
 		F526DBCE22BD2754000D105A /* libANSDKNativeFacebookAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKNativeFacebookAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F526DC7F22C2A84E000D105A /* ANAdFetcherBase+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdFetcherBase+PrivateMethods.h"; sourceTree = "<group>"; };
+		F54C5E8722C552E7000709B3 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		F54C5E8822C552E7000709B3 /* LICENSE-FACEBOOK.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LICENSE-FACEBOOK.txt"; sourceTree = "<group>"; };
 		F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppNexusNativeSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5731AFF228B43570012B134 /* AppNexusNativeSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppNexusNativeSDK.h; sourceTree = "<group>"; };
 		F5731B00228B43570012B134 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1313,6 +1316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F54C5E8922C552E7000709B3 /* FBAudienceNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1369,7 +1373,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F526DBDC22BD2E5B000D105A /* FBAudienceNetwork.framework in Frameworks */,
+				F54C5E8B22C55303000709B3 /* FBAudienceNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1643,15 +1647,6 @@
 				608E47371F86E6B7009BB148 /* README_Amazon.md */,
 			);
 			path = AmazonSDK;
-			sourceTree = "<group>";
-		};
-		8A944DE019D5AF94007AAAB0 /* FacebookSDK */ = {
-			isa = PBXGroup;
-			children = (
-				608E47491F86E7FB009BB148 /* FBAudienceNetwork.framework */,
-			);
-			name = FacebookSDK;
-			path = ../mediation/mediatedviews/Facebook/FacebookSDK;
 			sourceTree = "<group>";
 		};
 		8A944E0419D5AFBB007AAAB0 /* MillennialMediaSDK */ = {
@@ -1992,7 +1987,7 @@
 		8AE2D6A019CC871800001B70 /* Facebook Audience Network */ = {
 			isa = PBXGroup;
 			children = (
-				8A944DE019D5AF94007AAAB0 /* FacebookSDK */,
+				F54C5E8622C552E7000709B3 /* FacebookSDK */,
 				8AE2D79619CC880D00001B70 /* ANAdAdapterBannerFacebook.h */,
 				8AE2D79719CC880D00001B70 /* ANAdAdapterBannerFacebook.m */,
 				8AE2D79819CC880D00001B70 /* ANAdAdapterInterstitialFacebook.h */,
@@ -2313,6 +2308,16 @@
 				ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		F54C5E8622C552E7000709B3 /* FacebookSDK */ = {
+			isa = PBXGroup;
+			children = (
+				F54C5E8722C552E7000709B3 /* FBAudienceNetwork.framework */,
+				F54C5E8822C552E7000709B3 /* LICENSE-FACEBOOK.txt */,
+			);
+			name = FacebookSDK;
+			path = ../mediation/mediatedviews/Facebook/FacebookSDK;
 			sourceTree = "<group>";
 		};
 		F5731AFE228B43570012B134 /* AppNexusNativeSDK */ = {
@@ -3022,6 +3027,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F54C5E8A22C552E7000709B3 /* LICENSE-FACEBOOK.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

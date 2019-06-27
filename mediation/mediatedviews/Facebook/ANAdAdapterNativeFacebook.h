@@ -13,7 +13,11 @@
  limitations under the License.
  */
 
+#if __has_include(<AppNexusNativeSDK/AppNexusNativeSDK.h>)
 #import <AppNexusNativeSDK/AppNexusNativeSDK.h>
+#else
+#import <AppNexusSDK/AppNexusSDK.h>)
+#endif
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 @interface ANAdAdapterNativeFacebook : NSObject <ANNativeCustomAdapter, FBNativeAdDelegate>
