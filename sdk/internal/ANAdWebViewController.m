@@ -60,7 +60,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 @property (nonatomic, readwrite, strong)  NSString  *videoXML;
 @property (nonatomic, readwrite)          BOOL       appIsInBackground;
-
+@property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 @end
 
 @implementation ANAdWebViewController
@@ -470,6 +470,9 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     
     if ([eventName isEqualToString:@"adReady"])
     {
+        if(paramsDictionary.count > 0){
+            self.videoAdOrientation = [ANGlobal parseVideoOrientation:[paramsDictionary objectForKey:kANAspectRatio]];
+        }
         // For VideoAds's wait unitll adReady to create AdSession if not the adsession will run in limited access mode.
         self.omidAdSession = [[ANOMIDImplementation sharedInstance] createOMIDAdSessionforWebView:self.webView isVideoAd:true];
         if ([self.videoDelegate respondsToSelector:@selector(videoAdReady)]) {
@@ -939,6 +942,7 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
     NSString  *exec  = [NSString stringWithFormat:@"viewabilityUpdate('%@');", isViewable ? @"true" : @"false"];
     [self.webView evaluateJavaScript:exec completionHandler:nil];
 }
+
 
 
 @end   //ANAdWebViewController

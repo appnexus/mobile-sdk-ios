@@ -49,6 +49,7 @@
 @property (nonatomic, readwrite, weak)  id<ANAdWebViewControllerVideoDelegate>      videoDelegate;
 
 @property (nonatomic, readwrite, assign)  NSTimeInterval  checkViewableTimeInterval;
+@property (nonatomic, readonly, assign)  ANVideoOrientation  videoAdOrientation;
 
 
 - (instancetype)initWithSize:(CGSize)size

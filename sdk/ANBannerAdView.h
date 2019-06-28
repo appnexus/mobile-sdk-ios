@@ -138,7 +138,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 #pragma mark - ANBannerAdView
 
-@interface ANBannerAdView : ANAdView
+@interface ANBannerAdView : ANAdView <ANVideoAdProtocol>
 
 /**
  Delegate object that receives notifications from this ANBannerAdView.  Equivalent to ANAdDelegate.

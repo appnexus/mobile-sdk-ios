@@ -116,6 +116,9 @@
 //   enableNativeRendering is sufficient to BannerAd entry point.
 -(BOOL) enableNativeRendering;
 
+//   Set the Orientation of the Video rendered to BannerAdView taken from  ANAdWebViewController
+//   setVideoAdOrientation is sufficient to BannerAd entry point.
+-(void)setVideoAdOrientation:(ANVideoOrientation)videoOrientation;
 
 @end
 

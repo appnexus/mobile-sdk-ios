@@ -47,6 +47,9 @@
 		0E56C71521F8AF5600ADE6E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C71421F8AF5600ADE6E1 /* UIKit.framework */; };
 		0E56C71721F8AF5A00ADE6E1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C71621F8AF5A00ADE6E1 /* WebKit.framework */; };
 		0E56C83521F8B2A900ADE6E1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C83321F8B2A300ADE6E1 /* XCTest.framework */; };
+		0E7BC1B9229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BC1B7229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json */; };
+		0E7BC1BA229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BC1B7229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json */; };
+		0E7BC1BC229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BC1BB229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json */; };
 		0E8C93F721FF2DEC005D1F0E /* ANLocationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */; };
 		0E8C973021FF32EC005D1F0E /* dogSelfie@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0E8C96E421FF32EB005D1F0E /* dogSelfie@2x.jpg */; };
 		0E8C973321FF32EC005D1F0E /* GreyWhiteCat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0E8C96E521FF32EB005D1F0E /* GreyWhiteCat.jpg */; };
@@ -613,6 +616,8 @@
 		0E56C71421F8AF5600ADE6E1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0E56C71621F8AF5A00ADE6E1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0E56C83321F8B2A300ADE6E1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		0E7BC1B7229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulVerticalVideoAdResponse.json; sourceTree = "<group>"; };
+		0E7BC1BB229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulSquareInstreamVideoAdResponse.json; sourceTree = "<group>"; };
 		0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLocationTestCase.m; sourceTree = "<group>"; };
 		0E8C96E421FF32EB005D1F0E /* dogSelfie@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dogSelfie@2x.jpg"; sourceTree = "<group>"; };
 		0E8C96E521FF32EB005D1F0E /* GreyWhiteCat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GreyWhiteCat.jpg; sourceTree = "<group>"; };
@@ -1294,6 +1299,8 @@
 				0EEFE1792200746D002B5F5F /* SuccessfulMRAIDResponse.json */,
 				0EEFE10D2200556B002B5F5F /* appnexus_standard_response.json */,
 				0EEFE17D220074BA002B5F5F /* SuccessfulANRTBVideoAdResponse.json */,
+				0E7BC1B7229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json */,
+				0E7BC1BB229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json */,
 			);
 			name = StubResponse;
 			path = UnitTestApp/SharedMockFiles/StubResponse;
@@ -1710,6 +1717,7 @@
 				0EC17C4221F72D1900F0F6AF /* LaunchScreen.storyboard in Resources */,
 				0ED15A1C2236BFC000D56022 /* BaseMediationSingleNetworkResponse.json in Resources */,
 				0ED15A652236C5AB00D56022 /* ANGADUnifiedNativeAdView.xib in Resources */,
+				0E7BC1B9229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json in Resources */,
 				0EEFE1E4220092DD002B5F5F /* ANSDKResources.bundle in Resources */,
 				0EC17C3F21F72D1900F0F6AF /* Assets.xcassets in Resources */,
 				0EC17C3D21F72D1700F0F6AF /* Main.storyboard in Resources */,
@@ -1756,6 +1764,7 @@
 				0EEFE1A9220082F9002B5F5F /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
 				0E8C979721FF32EC005D1F0E /* Default-568h@2x.png in Resources */,
 				0EEFE1EA2200975A002B5F5F /* bannerNative_native_mediation.json in Resources */,
+				0E7BC1BC229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */,
 				0EEFE19D22008159002B5F5F /* custom_adapter_to_standard_response.json in Resources */,
 				0E1D14B522784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
 				0E4B79212282E9510085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */,
@@ -1764,6 +1773,7 @@
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0EEFE1A52200820F002B5F5F /* SuccessfulOutstreamBannerVideoResponse.json in Resources */,
 				0EEFE1E8220096A9002B5F5F /* SuccessfulMRAIDListenerResponse.json in Resources */,
+				0E7BC1BA229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json in Resources */,
 				0EEFE1F022009802002B5F5F /* SecondPriceForDFPSuccess.json in Resources */,
 				979EA16B223BB575009B79B7 /* OMID_Native_CSMResponse.json in Resources */,
 				0EEFE1A1220081B3002B5F5F /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,

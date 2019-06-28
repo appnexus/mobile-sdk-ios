@@ -69,6 +69,39 @@
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
 }
 
+-(void) setupBannerNativeAd{
+    [self clearSetupBannerVideoAd];
+    
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
+    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    
+    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)
+                                            placementId:@"9887537"
+                                                 adSize:CGSizeMake(320, 480)];
+    self.banner.accessibilityLabel = @"AdView";
+    self.banner.autoRefreshInterval = 0;
+    self.banner.delegate = self;
+    self.banner.shouldAllowNativeDemand =  YES;
+    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+}
+
+-(void) setupBannerAd{
+    [self clearSetupBannerVideoAd];
+    
+    [[ANHTTPStubbingManager sharedStubbingManager] enable];
+    [ANHTTPStubbingManager sharedStubbingManager].ignoreUnstubbedRequests = YES;
+    
+    self.banner = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)
+                                            placementId:@"9887537"
+                                                 adSize:CGSizeMake(320, 480)];
+    self.banner.accessibilityLabel = @"AdView";
+    self.banner.autoRefreshInterval = 0;
+    self.banner.delegate = self;
+    self.banner.rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.banner];
+}
+
 #pragma mark - Test methods.
 
 
@@ -162,6 +195,93 @@
     XCTAssert([self.banner.universalAdFetcher.adObjectHandler isKindOfClass:[ANRTBVideoAd class]]);
     XCTAssert(![self.banner.universalAdFetcher.adObjectHandler isKindOfClass:[ANCSMVideoAd class]]);
 }
+
+
+
+- (void) testBannerVideoVerticalOrientation
+{
+    [self setupBannerVideoAd];
+    [self stubRequestWithResponse:@"SuccessfulVerticalVideoAdResponse"];
+    [self.banner loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqual(self.banner.adType , ANAdTypeVideo);
+    XCTAssertEqual(self.banner.getVideoOrientation, ANPortraint);
+}
+
+
+- (void) testBannerVideoLandscapeOrientation
+{
+    [self setupBannerVideoAd];
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+    [self.banner loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqual(self.banner.adType , ANAdTypeVideo);
+    XCTAssertEqual(self.banner.getVideoOrientation, ANLandscape);
+}
+
+
+- (void) testBannerVideoSquareOrientation
+{
+    [self setupBannerVideoAd];
+    [self stubRequestWithResponse:@"SuccessfulSquareInstreamVideoAdResponse"];
+    [self.banner loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqual(self.banner.adType , ANAdTypeVideo);
+    XCTAssertEqual(self.banner.getVideoOrientation, ANSquare);
+}
+
+
+- (void) testBannerVideoUnkownOrientation
+{
+    [self setupBannerVideoAd];
+    [self stubRequestWithResponse:@"SuccessfulStandardAdFromRTBObjectResponse"];
+    [self.banner loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqual(self.banner.getVideoOrientation, ANUnknown);
+}
+
+- (void) testBannerNativeUnkownOrientation
+{
+    [self setupBannerNativeAd];
+    [self stubRequestWithResponse:@"SuccessfulStandardAdFromRTBObjectResponse"];
+    [self.banner loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqual(self.banner.getVideoOrientation, ANUnknown);
+}
+
+- (void) testBannerUnkownOrientation
+{
+    [self setupBannerAd];
+    [self stubRequestWithResponse:@"SuccessfulStandardAdFromRTBObjectResponse"];
+    [self.banner loadAd];
+    self.loadAdSuccesfulException = [self expectationWithDescription:@"Waiting for adDidReceiveAd to be received"];
+    [self waitForExpectationsWithTimeout:2 * kAppNexusRequestTimeoutInterval
+                                 handler:^(NSError *error) {
+                                     
+                                 }];
+    XCTAssertEqual(self.banner.getVideoOrientation, ANUnknown);
+}
+
 
 
 
