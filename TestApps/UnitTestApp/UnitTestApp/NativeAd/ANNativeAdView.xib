@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ANNativeAdView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="246" translatesAutoresizingMaskIntoConstraints="NO" id="5xo-pU-eFI">
+                    <rect key="frame" x="66" y="8" width="246" height="20"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" misplaced="YES" text="Body" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="246" translatesAutoresizingMaskIntoConstraints="NO" id="FlW-ww-EkW">
+                    <rect key="frame" x="66" y="36" width="246" height="109"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sponsored" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHJ-Qh-hEO">
+                    <rect key="frame" x="251" y="177" width="61" height="15"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aZg-z5-UEO">
+                    <rect key="frame" x="8" y="15" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="59i-To-1J9"/>
+                        <constraint firstAttribute="width" secondItem="aZg-z5-UEO" secondAttribute="height" multiplier="1:1" id="a3Y-F0-ivk"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQE-fA-USD">
+                    <rect key="frame" x="109" y="145" width="103" height="32"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <state key="normal" title="Call To Action">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityLabel" value="ANNativeAdViewCallToAction"/>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="aZg-z5-UEO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" constant="7" id="1Mt-bw-Mpw"/>
+                <constraint firstAttribute="bottomMargin" secondItem="zHJ-Qh-hEO" secondAttribute="bottom" id="2OA-8J-Erg"/>
+                <constraint firstAttribute="centerX" secondItem="FQE-fA-USD" secondAttribute="centerX" id="3oi-JS-SuU"/>
+                <constraint firstItem="FQE-fA-USD" firstAttribute="top" secondItem="FlW-ww-EkW" secondAttribute="bottom" id="CRZ-c9-ZRt"/>
+                <constraint firstAttribute="trailingMargin" secondItem="FlW-ww-EkW" secondAttribute="trailing" id="I1Y-Wg-kes"/>
+                <constraint firstItem="5xo-pU-eFI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="IIa-So-4B2"/>
+                <constraint firstItem="5xo-pU-eFI" firstAttribute="leading" secondItem="aZg-z5-UEO" secondAttribute="trailing" constant="8" symbolic="YES" id="MfJ-Lg-4Db"/>
+                <constraint firstItem="aZg-z5-UEO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="NfJ-dQ-3fM"/>
+                <constraint firstAttribute="trailingMargin" secondItem="zHJ-Qh-hEO" secondAttribute="trailing" id="arK-yy-fx2"/>
+                <constraint firstItem="FlW-ww-EkW" firstAttribute="leading" secondItem="5xo-pU-eFI" secondAttribute="leading" id="buz-65-WIA"/>
+                <constraint firstAttribute="trailingMargin" secondItem="5xo-pU-eFI" secondAttribute="trailing" id="onZ-H3-DrB"/>
+                <constraint firstItem="FlW-ww-EkW" firstAttribute="top" secondItem="5xo-pU-eFI" secondAttribute="bottom" constant="8" symbolic="YES" id="xqw-13-JdH"/>
+                <constraint firstItem="zHJ-Qh-hEO" firstAttribute="top" secondItem="FQE-fA-USD" secondAttribute="bottom" id="zvM-gJ-Fas"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="bodyLabel" destination="FlW-ww-EkW" id="RnP-Ur-bi8"/>
+                <outlet property="callToActionButton" destination="FQE-fA-USD" id="iAK-8S-sjS"/>
+                <outlet property="iconImageView" destination="aZg-z5-UEO" id="xnR-fh-8gK"/>
+                <outlet property="titleLabel" destination="5xo-pU-eFI" id="TBb-Xi-W0I"/>
+            </connections>
+        </view>
+    </objects>
+</document>
