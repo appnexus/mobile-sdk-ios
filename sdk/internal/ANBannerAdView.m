@@ -56,6 +56,7 @@ static NSString *const kANInline = @"inline";
 
 @property (nonatomic, readwrite)          BOOL  loadAdHasBeenInvoked;
 
+@property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 @end
 
 
@@ -88,6 +89,7 @@ static NSString *const kANInline = @"inline";
     _shouldAllowNativeDemand      = NO;
     _shouldAllowVideoDemand       = NO;
     _nativeAdRendererId          = 0;
+    _videoAdOrientation     = ANUnknown;    
     self.allowSmallerSizes  = NO;
     self.loadAdHasBeenInvoked = NO;
     self.enableNativeRendering = NO;
@@ -169,6 +171,13 @@ static NSString *const kANInline = @"inline";
 
 #pragma mark - Getter and Setter methods
 
+-(void)setVideoAdOrientation:(ANVideoOrientation)videoOrientation{
+    _videoAdOrientation = videoOrientation;
+}
+
+- (ANVideoOrientation) getVideoOrientation {
+    return _videoAdOrientation;
+}
 
 - (CGSize)adSize {
     ANLogDebug(@"adSize returned %@", NSStringFromCGSize(_adSize));
@@ -338,7 +347,6 @@ static NSString *const kANInline = @"inline";
 
         self.contentView = nil;
         self.impressionURLs = nil;
-        
         
         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
         if (creativeId) {

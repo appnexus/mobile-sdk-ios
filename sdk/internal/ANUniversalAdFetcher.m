@@ -425,6 +425,11 @@
 
     if (self.adView.webViewController == controller)
     {
+        if (controller.videoAdOrientation) {
+            if ([self.delegate respondsToSelector:@selector(setVideoAdOrientation:)]) {
+                [self.delegate setVideoAdOrientation:controller.videoAdOrientation];
+            }
+        }      
         fetcherResponse = [ANAdFetcherResponse responseWithAdObject:self.adView andAdObjectHandler:self.adObjectHandler];
 
     } else {

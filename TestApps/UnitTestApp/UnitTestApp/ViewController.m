@@ -22,15 +22,10 @@
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANLogManager.h"
-#import "ANAdAdapterBaseAdMarvel.h"
 #import "ANAdAdapterBaseAmazon.h"
 #import "ANAdAdapterBaseInMobi.h"
-#import "ANAdAdapterBaseAdColony.h"
-#import "ANAdAdapterBaseVungle.h"
-#import "ANAdAdapterBaseChartboost.h"
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
-#import "ANAdAdapterBaseYahoo.h"
 #import "ANGADUnifiedNativeAdView.h"
 #import "ANAdAdapterNativeAdMob.h"
 #import "UIView+ANCategory.h"
@@ -262,39 +257,6 @@
     [self stubMediatedAd:mediatedAd];
 }
 
-#pragma mark - AdMarvel
-
-- (ANBannerAdView *)loadAdMarvelBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate{
-    [ANAdAdapterBaseAdMarvel setSiteId:@"1355"];
-    [ANAdAdapterBaseAdMarvel setPartnerId:@"1dd21b33bd603c95"];
-    [self stubAdMarvelBanner];
-    return [self bannerWithDelegate:delegate];
-}
-
-- (ANInterstitialAd *) loadAdMarvelInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate{
-    [ANAdAdapterBaseAdMarvel setSiteId:@"1194"];
-    [ANAdAdapterBaseAdMarvel setPartnerId:@"1dd21b33bd603c95"];
-    [self stubAdMarvelInterstitial];
-    return [self interstitialWithDelegate:delegate];
-}
-
-
-- (void)stubAdMarvelBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerAdMarvel";
-    mediatedAd.adId = @"123";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubAdMarvelInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialAdMarvel";
-    mediatedAd.adId = @"123";
-    [self stubMediatedAd:mediatedAd];
-}
-
 #pragma mark - Amazon
 
 - (ANBannerAdView *)loadAmazonBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
@@ -320,24 +282,6 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialAmazon";
     mediatedAd.adId = @"123";
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - Vungle
-
--  (ANInterstitialAd *)loadVungleInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    static dispatch_once_t vungleToken;
-    dispatch_once(&vungleToken, ^{
-        //        [ANAdAdapterBaseVungle setVungleAppId:@"736869833"];
-        [ANAdAdapterBaseVungle setVungleAppId:@"564e524966de3d461300001d"];
-    });
-    [self stubVungleInterstitial];
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubVungleInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialVungle";
     [self stubMediatedAd:mediatedAd];
 }
 
@@ -548,156 +492,6 @@ NSString * const  kInMobiPlacementDefaultNativeContent1_2017February21  = @"1486
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterNativeInMobi";
     mediatedAd.adId = kInMobiPlacementDefaultNativeContent1_2017February21;
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - Yahoo
-
-- (ANBannerAdView *)loadYahooBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    [self stubYahooBanner];
-    static dispatch_once_t yahooNativeToken;
-    dispatch_once(&yahooNativeToken, ^{
-        [ANAdAdapterBaseYahoo setFlurryAPIKey:@"DC3DMYBNXF8G4X47SFQC"];
-    });
-    return [self bannerWithDelegate:delegate];
-}
-
-- (ANInterstitialAd *)loadYahooInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubYahooInterstitial];
-    static dispatch_once_t yahooNativeToken;
-    dispatch_once(&yahooNativeToken, ^{
-        [ANAdAdapterBaseYahoo setFlurryAPIKey:@"DC3DMYBNXF8G4X47SFQC"];
-    });
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (ANNativeAdRequest *)loadYahooNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
-    [self stubYahooNative];
-    static dispatch_once_t yahooNativeToken;
-    dispatch_once(&yahooNativeToken, ^{
-        [ANAdAdapterBaseYahoo setFlurryAPIKey:@"DC3DMYBNXF8G4X47SFQC"];
-    });
-    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
-    nativeAdRequest.shouldLoadIconImage = YES;
-    nativeAdRequest.shouldLoadMainImage = YES;
-    return nativeAdRequest;
-}
-
-- (void)stubYahooBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerYahoo";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    mediatedAd.adId = @"iOS Banner";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubYahooInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialYahoo";
-    mediatedAd.adId = @"iOS Interstitial";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubYahooNative {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterNativeYahoo";
-    mediatedAd.adId = @"iOS Test Ad Slot";
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - Vdopia
-
-- (ANBannerAdView *)loadVdopiaBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    [self stubVdopiaBanner];
-    return [self bannerWithDelegate:delegate];
-}
-
-- (ANInterstitialAd *)loadVdopiaInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubVdopiaInterstitial];
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubVdopiaBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerVdopia";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    mediatedAd.adId = @"AX123";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubVdopiaInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialVdopia";
-    mediatedAd.adId = @"AX123";
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - AdColony
-
-/************
- AdColony Native & Interstital cannot be tested at the same instance of the app because of single instance initialization of configuring the appID/Zone Id
- So close the app & test the next ad type
- *************/
-
-- (ANInterstitialAd *)loadAdColonyInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubAdColonyInterstitial];
-    static dispatch_once_t startToken;
-    dispatch_once(&startToken, ^{
-        [ANAdAdapterBaseAdColony configureWithAppID:@"appe1ba2960e786424bb5"
-                                            zoneIDs:@[@"vzcc692652bbe74d4e92"]];
-    });
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubAdColonyInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialAdColony";
-    mediatedAd.adId = @"vzcc692652bbe74d4e92";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (ANNativeAdRequest *)loadAdColonyNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
-    [self stubAdColonyNative];
-    static dispatch_once_t startToken;
-    dispatch_once(&startToken, ^{
-        [ANAdAdapterBaseAdColony configureWithAppID:@"app2086517932ad4b608a"
-                                            zoneIDs:@[@"vz7c0765ee52af4d67b9"]];
-    });
-    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
-    nativeAdRequest.shouldLoadIconImage = YES;
-    nativeAdRequest.shouldLoadMainImage = YES;
-    return nativeAdRequest;
-}
-
-- (void)stubAdColonyNative {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterNativeAdColony";
-    mediatedAd.adId = @"vz7c0765ee52af4d67b9";
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - Chartboost
-
-- (ANInterstitialAd *)loadChartboostInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubChartboostInterstitial];
-    static dispatch_once_t startToken;
-    dispatch_once(&startToken, ^{
-        [ANAdAdapterBaseChartboost startWithAppId:@"552d680204b01658a177f467"
-                                     appSignature:@"8051c2d6e6178ad46448e54460c255f04cfc50e0"];
-    });
-    ANInterstitialAd *interstitialAd = [[ANInterstitialAd alloc] initWithPlacementId:@"2054679"];
-    interstitialAd.delegate = delegate;
-    [interstitialAd addCustomKeywordWithKey:kANAdAdapterBaseChartboostCBLocationKey
-                                      value:CBLocationHomeScreen];
-    [interstitialAd loadAd];
-    return interstitialAd;
-}
-
-- (void)stubChartboostInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialChartboost";
     [self stubMediatedAd:mediatedAd];
 }
 

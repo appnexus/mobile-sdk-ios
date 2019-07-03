@@ -15,7 +15,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
-
 #import "WKWebView+ANCategory.h"
 #import "ANAdConstants.h"
 #import "OMIDAdSession.h"
@@ -93,8 +92,13 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 - (NSString *) getCreativeURL;
 - (NSString *) getVASTURL;
 - (NSString *) getVASTXML;
-
--(NSUInteger) getAdPlayElapsedTime;
+- (NSUInteger) getAdPlayElapsedTime;
+/**
+ * Get the Orientation of the Video rendered using the BannerAdView
+ *
+ * @return Default VideoOrientation value ANUnknown, which indicates that aspectRatio can't be retrieved for the video.
+ */
+- (ANVideoOrientation) getVideoAdOrientation;
 
 @end
 

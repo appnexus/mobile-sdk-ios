@@ -420,4 +420,11 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     return userAgent;
 }
 
+#pragma mark - Get Video Orientation Method
+
++ (ANVideoOrientation) parseVideoOrientation:(NSString *)aspectRatio {
+    double aspectRatioValue = [aspectRatio doubleValue];
+    return aspectRatio == 0? ANUnknown : (aspectRatioValue == 1)? ANSquare : (aspectRatioValue > 1)? ANLandscape : ANPortraint;
+}
+
 @end

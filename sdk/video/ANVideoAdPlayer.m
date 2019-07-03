@@ -37,6 +37,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 @property (nonatomic, assign)             NSUInteger                videoDuration;
 @property (nonatomic, strong)             NSString                 *vastURLContent;
 @property (nonatomic, strong)             NSString                 *vastXMLContent;
+@property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
 @property (nonatomic, readonly)  ANClickThroughAction   clickThroughAction;
 @property (nonatomic, readonly)  BOOL                   opensInNativeBrowser;
@@ -65,6 +66,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     _videoDuration = 0;
     _vastURLContent = @"";
     _vastXMLContent = @"";
+    _videoAdOrientation     = ANUnknown;
     return self;
 }
 
@@ -133,7 +135,9 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     return  returnVal;
 }
 
-
+- (ANVideoOrientation) getVideoAdOrientation {
+    return _videoAdOrientation;
+}
 
 
 #pragma mark - Public methods.
@@ -287,6 +291,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
             NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
             self.vastURLContent = (NSString *)[paramsDictionary objectForKey:@"vastCreativeUrl"];
             self.vastXMLContent = (NSString *)[paramsDictionary objectForKey:@"vastXML"];
+            self.videoAdOrientation = [ANGlobal parseVideoOrientation:[paramsDictionary objectForKey:kANAspectRatio]];
             if(duration > 0){
                 self.videoDuration = [duration intValue];
             }
@@ -539,7 +544,5 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     NSString *decodedString = [[URL absoluteString] stringByRemovingPercentEncoding];
     ANLogDebug(@"%@", decodedString);
 }
-
-
 @end
 

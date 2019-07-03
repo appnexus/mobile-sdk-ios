@@ -65,10 +65,6 @@
 		602E0E251FE467A8002C0F1C /* WKWebView+ANCategory.h in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */; };
 		602E0E261FE467EE002C0F1C /* WKWebView+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */; };
 		602E0E271FE46818002C0F1C /* WKWebView+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */; };
-		60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */; };
-		60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */ = {isa = PBXBuildFile; fileRef = 60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */; };
-		60359EFD1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */; };
 		604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */; };
 		604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FA1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m */; };
 		604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 604C10FD1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m */; };
@@ -126,9 +122,6 @@
 		8A02D7081D6CE946006831A3 /* ANSDKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */; };
 		8A02D7091D6CE946006831A3 /* ANSDKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */; };
 		8A0AF2EF1B30946200E62975 /* ANAdAdapterBaseDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */; };
-		8A0EFA8B1B4356F600196294 /* ANAdAdapterBaseYahoo.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A9687211B433A3300D9399B /* ANAdAdapterBaseYahoo.h */; };
-		8A0EFA8E1B4357E900196294 /* ANAdAdapterBannerYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA8D1B4357E900196294 /* ANAdAdapterBannerYahoo.m */; };
-		8A0EFA911B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EFA901B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m */; };
 		8A201BFD1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A201BFC1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m */; };
 		8A2F48241A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A2F48211A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A2F48251A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
@@ -137,9 +130,6 @@
 		8A3B378119D623C300CE24A5 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8A3EC16E19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */; };
 		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
-		8A4B96B71ACD9A6E00FFEB2A /* ANAdAdapterBannerVdopia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B96A61ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.m */; };
-		8A4B96B91ACD9A6E00FFEB2A /* ANAdAdapterInterstitialVdopia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B96A41ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.m */; };
-		8A4B96BC1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4B96BB1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m */; };
 		8A4FF3A11A2F72D00000E4CC /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A01A2F72D00000E4CC /* compass@2x.png */; };
 		8A4FF3A41A2F8ACC0000E4CC /* an_arrow_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */; };
 		8A4FF3A71A2F8AFE0000E4CC /* an_arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */; };
@@ -162,20 +152,10 @@
 		8A6D2E8D1A44A751003CE77A /* interstitial_flat_closebox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E841A44A5D3003CE77A /* interstitial_flat_closebox@3x.png */; };
 		8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E871A44A62A003CE77A /* interstitial_flat_closebox@2x.png */; };
 		8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */; };
-		8A7FB9511B0527E800C90859 /* ANAdAdapterBaseChartboost.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A949AD21ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.h */; };
 		8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A8DEFA21AD5C03D00742AD7 /* ANAdAdapterBaseInMobi.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AA5B4E51AA8B7F800522E1C /* ANAdAdapterBaseInMobi.h */; };
-		8A8DEFA31AD5C04700742AD7 /* ANAdAdapterBaseAdColony.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */; };
-		8A8DEFA41AD5C05300742AD7 /* ANAdAdapterBaseVungle.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AD7C4DC1AD2FF070049C997 /* ANAdAdapterBaseVungle.h */; };
-		8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */; };
-		8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */; };
 		8A92F9EB1D05E1B500F689C7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A92F9EA1D05E1B500F689C7 /* WebKit.framework */; };
-		8A949AD11ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD01ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m */; };
-		8A949AD41ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD31ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m */; };
-		8A949AD91ADF1F3B00D83DCE /* ANChartboostEventReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A949AD81ADF1F3B00D83DCE /* ANChartboostEventReceiver.m */; };
 		8A9686DD1B4327EB00D9399B /* ANAdAdapterNativeInMobi.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AA5B4E11AA8B74E00522E1C /* ANAdAdapterNativeInMobi.h */; };
-		8A96871D1B4331FD00D9399B /* ANAdAdapterNativeYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A96871C1B4331FD00D9399B /* ANAdAdapterNativeYahoo.m */; };
-		8A9687231B433A3300D9399B /* ANAdAdapterBaseYahoo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A9687221B433A3300D9399B /* ANAdAdapterBaseYahoo.m */; };
 		8A9AED201A1BAD2700C58BDA /* ANAdConstants.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; };
 		8A9AED221A1BAD7700C58BDA /* ANNativeAdDelegate.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */; };
 		8A9AED231A1BAD7700C58BDA /* ANNativeAdRequest.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 8A35B89619FEB5EC0016C81F /* ANNativeAdRequest.h */; };
@@ -306,8 +286,6 @@
 		8AD618E11981C11F00AC0780 /* ANTargetingParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */; };
 		8AD618E31981C19100AC0780 /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD618991981C10700AC0780 /* appnexus_logo_icon.png */; };
 		8AD618E41981C19500AC0780 /* appnexus_logo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */; };
-		8AD7C4DB1AD2FB430049C997 /* ANAdAdapterInterstitialVungle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7C4DA1AD2FB430049C997 /* ANAdAdapterInterstitialVungle.m */; };
-		8AD7C4DE1AD2FF070049C997 /* ANAdAdapterBaseVungle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD7C4DD1AD2FF070049C997 /* ANAdAdapterBaseVungle.m */; };
 		8ADA36201A82A8D700AF65AA /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* ANSDKResources.bundle */; };
 		8AE2D79C19CC881D00001B70 /* ANAdAdapterBannerFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D79719CC880D00001B70 /* ANAdAdapterBannerFacebook.m */; };
 		8AE2D79D19CC881D00001B70 /* ANAdAdapterInterstitialFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE2D79919CC880D00001B70 /* ANAdAdapterInterstitialFacebook.m */; };
@@ -473,42 +451,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		60359ECD1E1EA13B0017EF56 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
-			remoteInfo = ANSDK;
-		};
 		6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
-			remoteInfo = ANSDK;
-		};
-		8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
-			remoteInfo = ANSDK;
-		};
-		8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
-			remoteInfo = ANSDK;
-		};
-		8A949ABC1ADF131500D83DCE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
-			remoteInfo = ANSDK;
-		};
-		8A9687051B43314E00D9399B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
 			proxyType = 1;
@@ -530,13 +473,6 @@
 			remoteInfo = ANSDK;
 		};
 		8AD5153419D214CA002E53D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC3E5CDB1843C6D50070315E;
-			remoteInfo = ANSDK;
-		};
-		8AD7C4CC1AD2FABA0049C997 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
 			proxyType = 1;
@@ -602,15 +538,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		60359EAE1E1EA1180017EF56 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		60359FED1E23FCB50017EF56 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -618,49 +545,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A1482521AD337320046F1B9 /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				8A8DEFA31AD5C04700742AD7 /* ANAdAdapterBaseAdColony.h in Copy Files */,
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A4B96B01ACD9A4C00FFEB2A /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A949AC21ADF131500D83DCE /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				8A7FB9511B0527E800C90859 /* ANAdAdapterBaseChartboost.h in Copy Files */,
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A9687131B43314E00D9399B /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				8A0EFA8B1B4356F600196294 /* ANAdAdapterBaseYahoo.h in Copy Files */,
-			);
-			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8AA5B4BF1AA8B4A500522E1C /* Copy Files */ = {
@@ -682,17 +566,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				8AF9F08D19DA131F00758111 /* ANAdAdapterBaseAmazon.h in Copy Files */,
-			);
-			name = "Copy Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AD7C4D31AD2FABA0049C997 /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				8A8DEFA41AD5C05300742AD7 /* ANAdAdapterBaseVungle.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -837,7 +710,6 @@
 		4F403A6D2043C8CF00EF75A2 /* vastVideo.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = vastVideo.html; sourceTree = "<group>"; };
 		4F5B80571FBBAA3E0026F8B3 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		4F7332851FC35D5A00A206A2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdColony.framework; path = "../../../../../../../../../../../../user/project/sprint/july/src/AdColony-iOS-SDK-3/AdColony.framework"; sourceTree = "<group>"; };
 		4FA566E71F4B94D3004652AB /* ANTrackerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerInfo.h; sourceTree = "<group>"; };
 		4FA566E81F4B94D3004652AB /* ANTrackerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTrackerInfo.m; sourceTree = "<group>"; };
 		4FA566E91F4B94D3004652AB /* ANTrackerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTrackerManager.h; sourceTree = "<group>"; };
@@ -846,30 +718,6 @@
 		60183FD322933E9500CFDE33 /* ANWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANWebView.m; sourceTree = "<group>"; };
 		602E0E221FE46571002C0F1C /* WKWebView+ANCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebView+ANCategory.h"; sourceTree = "<group>"; };
 		602E0E231FE46571002C0F1C /* WKWebView+ANCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+ANCategory.m"; sourceTree = "<group>"; };
-		60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdMarvelAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelDelegate.h; sourceTree = "<group>"; };
-		60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAd.h; sourceTree = "<group>"; };
-		60359EBD1E1EA12C0017EF56 /* AdMarvelNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelNativeAdDelegate.h; sourceTree = "<group>"; };
-		60359EBE1E1EA12C0017EF56 /* AdMarvelReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelReward.h; sourceTree = "<group>"; };
-		60359EBF1E1EA12C0017EF56 /* AdMarvelRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelRewardDelegate.h; sourceTree = "<group>"; };
-		60359EC01E1EA12C0017EF56 /* AdMarvelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMarvelView.h; sourceTree = "<group>"; };
-		60359EC11E1EA12C0017EF56 /* libAdMarvelSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdMarvelSDK.a; sourceTree = "<group>"; };
-		60359EC31E1EA12C0017EF56 /* OMWCustomBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomBanner.h; sourceTree = "<group>"; };
-		60359EC41E1EA12C0017EF56 /* OMWCustomBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomBannerDelegate.h; sourceTree = "<group>"; };
-		60359EC51E1EA12C0017EF56 /* OMWCustomInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomInterstitial.h; sourceTree = "<group>"; };
-		60359EC61E1EA12C0017EF56 /* OMWCustomInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomInterstitialDelegate.h; sourceTree = "<group>"; };
-		60359EC71E1EA12C0017EF56 /* OMWCustomNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNative.h; sourceTree = "<group>"; };
-		60359EC81E1EA12C0017EF56 /* OMWCustomNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNativeAd.h; sourceTree = "<group>"; };
-		60359EC91E1EA12C0017EF56 /* OMWCustomNativeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomNativeDelegate.h; sourceTree = "<group>"; };
-		60359ECA1E1EA12C0017EF56 /* OMWCustomReward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomReward.h; sourceTree = "<group>"; };
-		60359ECB1E1EA12C0017EF56 /* OMWCustomRewardDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMWCustomRewardDelegate.h; sourceTree = "<group>"; };
-		60359ECF1E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerAdMarvel.h; sourceTree = "<group>"; };
-		60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerAdMarvel.m; sourceTree = "<group>"; };
-		60359ED21E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdMarvel.h; sourceTree = "<group>"; };
-		60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdMarvel.m; sourceTree = "<group>"; };
-		60359ED51E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdMarvel.h; sourceTree = "<group>"; };
-		60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdMarvel.m; sourceTree = "<group>"; };
-		60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterAdMarvelBase+PrivateMethods.h"; sourceTree = "<group>"; };
 		60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKSmartAdAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		604C10F61E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSmartAd.h; sourceTree = "<group>"; };
 		604C10F71E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSmartAd.m; sourceTree = "<group>"; };
@@ -921,11 +769,6 @@
 		8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANSDKSettings.m; sourceTree = "<group>"; };
 		8A0AF2ED1B30946200E62975 /* ANAdAdapterBaseDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBaseDFP.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.h; sourceTree = "<group>"; };
 		8A0AF2EE1B30946200E62975 /* ANAdAdapterBaseDFP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBaseDFP.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBaseDFP.m; sourceTree = "<group>"; };
-		8A0EFA8C1B4357E900196294 /* ANAdAdapterBannerYahoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerYahoo.h; sourceTree = "<group>"; };
-		8A0EFA8D1B4357E900196294 /* ANAdAdapterBannerYahoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerYahoo.m; sourceTree = "<group>"; };
-		8A0EFA8F1B4357FB00196294 /* ANAdAdapterInterstitialYahoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialYahoo.h; sourceTree = "<group>"; };
-		8A0EFA901B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialYahoo.m; sourceTree = "<group>"; };
-		8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKAdColonyAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A201BFB1C5937E5009EE62D /* ANAdAdapterNativeAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterNativeAdMob.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.h; sourceTree = "<group>"; };
 		8A201BFC1C5937E5009EE62D /* ANAdAdapterNativeAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterNativeAdMob.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.m; sourceTree = "<group>"; };
 		8A2F48211A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANOpenInExternalBrowserActivity.h; sourceTree = "<group>"; };
@@ -939,20 +782,6 @@
 		8A3EC16C19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANContentViewTransitions.h"; sourceTree = "<group>"; };
 		8A3EC16D19B8FD9A0049CD29 /* ANBannerAdView+ANContentViewTransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANContentViewTransitions.m"; sourceTree = "<group>"; };
 		8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ANMRAID.bundle; sourceTree = "<group>"; };
-		8A4B96A31ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialVdopia.h; sourceTree = "<group>"; };
-		8A4B96A41ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialVdopia.m; sourceTree = "<group>"; };
-		8A4B96A51ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerVdopia.h; sourceTree = "<group>"; };
-		8A4B96A61ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerVdopia.m; sourceTree = "<group>"; };
-		8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKVdopiaAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A4B96BA1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseVdopia.h; sourceTree = "<group>"; };
-		8A4B96BB1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseVdopia.m; sourceTree = "<group>"; };
-		8A4EF4581CF3B1CA002C2DF1 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
-		8A4EF4591CF3B1CA002C2DF1 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
-		8A4EF45A1CF3B1CA002C2DF1 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
-		8A4EF45B1CF3B1CA002C2DF1 /* vg_mute_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_off.png; sourceTree = "<group>"; };
-		8A4EF45C1CF3B1CA002C2DF1 /* vg_mute_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_on.png; sourceTree = "<group>"; };
-		8A4EF45D1CF3B1CA002C2DF1 /* vg_privacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_privacy.png; sourceTree = "<group>"; };
-		8A4EF45E1CF3B1CA002C2DF1 /* VungleSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VungleSDK.framework; sourceTree = "<group>"; };
 		8A4FF3A01A2F72D00000E4CC /* compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@2x.png"; sourceTree = "<group>"; };
 		8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_left@3x.png"; sourceTree = "<group>"; };
 		8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "an_arrow_left@2x.png"; sourceTree = "<group>"; };
@@ -964,59 +793,14 @@
 		8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANNativeStandardAdResponse.m; sourceTree = "<group>"; };
 		8A6514701A12DB31003F1047 /* UIView+ANNativeAdCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ANNativeAdCategory.h"; sourceTree = "<group>"; };
 		8A6514711A12DB31003F1047 /* UIView+ANNativeAdCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ANNativeAdCategory.m"; sourceTree = "<group>"; };
-		8A67FE961B7068C700E2B326 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
-		8A67FE971B7068D100E2B326 /* libFlurryAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAds.a; sourceTree = "<group>"; };
 		8A6CD9261A96B2FD0060BCF4 /* compass@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass@3x.png"; sourceTree = "<group>"; };
 		8A6D2E841A44A5D3003CE77A /* interstitial_flat_closebox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_flat_closebox@3x.png"; sourceTree = "<group>"; };
 		8A6D2E871A44A62A003CE77A /* interstitial_flat_closebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interstitial_flat_closebox@2x.png"; sourceTree = "<group>"; };
 		8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = interstitial_flat_closebox.png; sourceTree = "<group>"; };
 		8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdResponse+PrivateMethods.h"; sourceTree = "<group>"; };
-		8A8DEF891AD58EC900742AD7 /* ANAdAdapterBaseAdColony+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAdColony+PrivateMethods.h"; sourceTree = "<group>"; };
-		8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseAdColony.h; sourceTree = "<group>"; };
-		8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseAdColony.m; sourceTree = "<group>"; };
-		8A8E0FDC1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialAdColony.h; sourceTree = "<group>"; };
-		8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialAdColony.m; sourceTree = "<group>"; };
 		8A8E0FE61AD45170004C5C50 /* ANAdAdapterBaseInMobi+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseInMobi+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A8E0FE81AD451DC004C5C50 /* ANAdAdapterBaseAmazon+PrivateMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseAmazon+PrivateMethods.h"; sourceTree = "<group>"; };
 		8A92F9EA1D05E1B500F689C7 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		8A949AB81ADF12EA00D83DCE /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
-		8A949ACE1ADF131500D83DCE /* libANSDKChartboostAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKChartboostAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A949ACF1ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialChartboost.h; sourceTree = "<group>"; };
-		8A949AD01ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialChartboost.m; sourceTree = "<group>"; };
-		8A949AD21ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseChartboost.h; sourceTree = "<group>"; };
-		8A949AD31ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseChartboost.m; sourceTree = "<group>"; };
-		8A949AD61ADF1EA200D83DCE /* Chartboost.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chartboost.pch; sourceTree = "<group>"; };
-		8A949AD71ADF1F3B00D83DCE /* ANChartboostEventReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANChartboostEventReceiver.h; sourceTree = "<group>"; };
-		8A949AD81ADF1F3B00D83DCE /* ANChartboostEventReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANChartboostEventReceiver.m; sourceTree = "<group>"; };
-		8A9686E81B43310F00D9399B /* FlurryAdBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdBanner.h; sourceTree = "<group>"; };
-		8A9686E91B43310F00D9399B /* FlurryAdBannerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdBannerDelegate.h; sourceTree = "<group>"; };
-		8A9686EB1B43310F00D9399B /* FlurryAdInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdInterstitial.h; sourceTree = "<group>"; };
-		8A9686EC1B43310F00D9399B /* FlurryAdInterstitialDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdInterstitialDelegate.h; sourceTree = "<group>"; };
-		8A9686EE1B43310F00D9399B /* FlurryAdNative.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdNative.h; sourceTree = "<group>"; };
-		8A9686EF1B43310F00D9399B /* FlurryAdNativeAsset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdNativeAsset.h; sourceTree = "<group>"; };
-		8A9686F01B43310F00D9399B /* FlurryAdNativeDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdNativeDelegate.h; sourceTree = "<group>"; };
-		8A9686F11B43310F00D9399B /* FlurryAdNativeStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdNativeStyle.h; sourceTree = "<group>"; };
-		8A9686F41B43310F00D9399B /* FlurryAdError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdError.h; sourceTree = "<group>"; };
-		8A9686F51B43310F00D9399B /* FlurryAdTargeting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdTargeting.h; sourceTree = "<group>"; };
-		8A9686F71B43310F00D9399B /* FlurryAdDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAdDelegate.h; sourceTree = "<group>"; };
-		8A9686F81B43310F00D9399B /* FlurryAds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryAds.h; sourceTree = "<group>"; };
-		8A9686FA1B43310F00D9399B /* Avro-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Avro-LICENSE.txt"; sourceTree = "<group>"; };
-		8A9686FB1B43310F00D9399B /* Flurry Analytics Terms of Service.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Flurry Analytics Terms of Service.pdf"; sourceTree = "<group>"; };
-		8A9686FC1B43310F00D9399B /* Flurry for Advertisers TOS.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Flurry for Advertisers TOS.pdf"; sourceTree = "<group>"; };
-		8A9686FD1B43310F00D9399B /* Flurry for Publishers TOS.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Flurry for Publishers TOS.pdf"; sourceTree = "<group>"; };
-		8A9686FE1B43310F00D9399B /* Flurry RTB Marketplace TOS.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Flurry RTB Marketplace TOS.pdf"; sourceTree = "<group>"; };
-		8A9686FF1B43310F00D9399B /* Flurry-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Flurry-LICENSE.txt"; sourceTree = "<group>"; };
-		8A9687001B43310F00D9399B /* Hogan.js-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Hogan.js-LICENSE.txt"; sourceTree = "<group>"; };
-		8A9687011B43310F00D9399B /* Jansson-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Jansson-LICENSE.txt"; sourceTree = "<group>"; };
-		8A9687021B43310F00D9399B /* PLCrashReporter-LICENSE.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "PLCrashReporter-LICENSE.rtf"; sourceTree = "<group>"; };
-		8A96871A1B43314E00D9399B /* libANSDKYahooAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKYahooAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A96871B1B4331FD00D9399B /* ANAdAdapterNativeYahoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterNativeYahoo.h; sourceTree = "<group>"; };
-		8A96871C1B4331FD00D9399B /* ANAdAdapterNativeYahoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterNativeYahoo.m; sourceTree = "<group>"; };
-		8A9687211B433A3300D9399B /* ANAdAdapterBaseYahoo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseYahoo.h; sourceTree = "<group>"; };
-		8A9687221B433A3300D9399B /* ANAdAdapterBaseYahoo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseYahoo.m; sourceTree = "<group>"; };
-		8A9687241B434EC600D9399B /* ANAdAdapterBaseYahoo+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBaseYahoo+PrivateMethods.h"; sourceTree = "<group>"; };
-		8A9687281B43509400D9399B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		8A9687291B43509400D9399B /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
 		8A9AED8C1A1BE84F00C58BDA /* AppNexusSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppNexusSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9AED8F1A1BE84F00C58BDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A9AED901A1BE84F00C58BDA /* AppNexusSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppNexusSDK.h; sourceTree = "<group>"; };
@@ -1103,11 +887,6 @@
 		8AD618C61981C11F00AC0780 /* ANReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANReachability.h; sourceTree = "<group>"; };
 		8AD618C71981C11F00AC0780 /* ANReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANReachability.m; sourceTree = "<group>"; };
 		8AD618C81981C11F00AC0780 /* ANTargetingParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTargetingParameters.m; sourceTree = "<group>"; };
-		8AD7C4D81AD2FABA0049C997 /* libANSDKVungleAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKVungleAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8AD7C4D91AD2FB430049C997 /* ANAdAdapterInterstitialVungle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterInterstitialVungle.h; sourceTree = "<group>"; };
-		8AD7C4DA1AD2FB430049C997 /* ANAdAdapterInterstitialVungle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterInterstitialVungle.m; sourceTree = "<group>"; };
-		8AD7C4DC1AD2FF070049C997 /* ANAdAdapterBaseVungle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBaseVungle.h; sourceTree = "<group>"; };
-		8AD7C4DD1AD2FF070049C997 /* ANAdAdapterBaseVungle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBaseVungle.m; sourceTree = "<group>"; };
 		8AE2D6D119CC874B00001B70 /* libANSDKGoogleAdMobAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKGoogleAdMobAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE2D73319CC879900001B70 /* libANSDKMillennialMediaAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKMillennialMediaAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AE2D76419CC87B200001B70 /* libANSDKMoPubAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libANSDKMoPubAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1128,10 +907,6 @@
 		8AE2D7D119CC88A000001B70 /* ANAdAdapterInterstitialMillennialMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialMillennialMedia.m; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterInterstitialMillennialMedia.m; sourceTree = "<group>"; };
 		8AE2D7D219CC88A000001B70 /* ANAdAdapterMillennialMediaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterMillennialMediaBase.h; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterMillennialMediaBase.h; sourceTree = "<group>"; };
 		8AE2D7D319CC88A000001B70 /* ANAdAdapterMillennialMediaBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterMillennialMediaBase.m; path = ../mediation/mediatedviews/MillennialMedia/ANAdAdapterMillennialMediaBase.m; sourceTree = "<group>"; };
-		8AE2D7DE19CC88EF00001B70 /* ANAdAdapterBanneriAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBanneriAd.h; path = ../mediation/mediatedviews/iAd/ANAdAdapterBanneriAd.h; sourceTree = "<group>"; };
-		8AE2D7DF19CC88EF00001B70 /* ANAdAdapterBanneriAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBanneriAd.m; path = ../mediation/mediatedviews/iAd/ANAdAdapterBanneriAd.m; sourceTree = "<group>"; };
-		8AE2D7E019CC88EF00001B70 /* ANAdAdapterInterstitialiAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterInterstitialiAd.h; path = ../mediation/mediatedviews/iAd/ANAdAdapterInterstitialiAd.h; sourceTree = "<group>"; };
-		8AE2D7E119CC88EF00001B70 /* ANAdAdapterInterstitialiAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterInterstitialiAd.m; path = ../mediation/mediatedviews/iAd/ANAdAdapterInterstitialiAd.m; sourceTree = "<group>"; };
 		8AE2D7E719CC891B00001B70 /* ANAdAdapterBannerAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerAdMob.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBannerAdMob.h; sourceTree = "<group>"; };
 		8AE2D7E819CC891B00001B70 /* ANAdAdapterBannerAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ANAdAdapterBannerAdMob.m; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBannerAdMob.m; sourceTree = "<group>"; };
 		8AE2D7E919CC891B00001B70 /* ANAdAdapterBannerDFP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANAdAdapterBannerDFP.h; path = ../mediation/mediatedviews/GoogleAdMob/ANAdAdapterBannerDFP.h; sourceTree = "<group>"; };
@@ -1155,17 +930,6 @@
 		8AEA6BE91A0BF43E009DB71B /* ANNativeAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANNativeAdDelegate.h; path = native/ANNativeAdDelegate.h; sourceTree = "<group>"; };
 		8AF5A87D1ACC60D50089C529 /* ANStandardAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANStandardAd.h; sourceTree = "<group>"; };
 		8AF5A87E1ACC60D50089C529 /* ANStandardAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANStandardAd.m; sourceTree = "<group>"; };
-		8AF841311CF759EB00F97FA9 /* close_button_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button_normal.png; sourceTree = "<group>"; };
-		8AF841321CF759EB00F97FA9 /* close_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button_pressed.png; sourceTree = "<group>"; };
-		8AF841331CF759EB00F97FA9 /* libLWSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLWSDK.a; sourceTree = "<group>"; };
-		8AF841341CF759EB00F97FA9 /* LVDOAdRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdRequest.h; sourceTree = "<group>"; };
-		8AF841351CF759EB00F97FA9 /* LVDOAdRequestError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdRequestError.h; sourceTree = "<group>"; };
-		8AF841361CF759EB00F97FA9 /* LVDOAdSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdSize.h; sourceTree = "<group>"; };
-		8AF841371CF759EB00F97FA9 /* LVDOAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdView.h; sourceTree = "<group>"; };
-		8AF841381CF759EB00F97FA9 /* LVDOAdViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOAdViewDelegate.h; sourceTree = "<group>"; };
-		8AF841391CF759EB00F97FA9 /* LVDOInterstitialView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LVDOInterstitialView.h; sourceTree = "<group>"; };
-		8AF8413A1CF759EB00F97FA9 /* mraid.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = mraid.txt; sourceTree = "<group>"; };
-		8AF8413B1CF759EB00F97FA9 /* vdopiaCrossButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vdopiaCrossButton.png; sourceTree = "<group>"; };
 		8AFC045E1A2E74AC00BEA485 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8AFC04601A2E74C800BEA485 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8AFC04621A2E74F500BEA485 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -1228,42 +992,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		60359EAD1E1EA1180017EF56 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		60359FEC1E23FCB50017EF56 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A1482511AD337320046F1B9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A4B96AF1ACD9A4C00FFEB2A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A949AC01ADF131500D83DCE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A9687121B43314E00D9399B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1278,13 +1007,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8AD5153819D214CA002E53D6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AD7C4D21AD2FABA0049C997 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1473,53 +1195,6 @@
 			name = adHandlers;
 			sourceTree = "<group>";
 		};
-		60359EB91E1EA12C0017EF56 /* AdMarvel */ = {
-			isa = PBXGroup;
-			children = (
-				60359EBA1E1EA12C0017EF56 /* AdMarvelSDK */,
-				60359EFC1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h */,
-				60359ECF1E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.h */,
-				60359ED01E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m */,
-				60359ED51E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.h */,
-				60359ED61E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m */,
-				60359ED21E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.h */,
-				60359ED31E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m */,
-			);
-			name = AdMarvel;
-			path = ../mediation/mediatedviews/AdMarvel;
-			sourceTree = "<group>";
-		};
-		60359EBA1E1EA12C0017EF56 /* AdMarvelSDK */ = {
-			isa = PBXGroup;
-			children = (
-				60359EC21E1EA12C0017EF56 /* SDKConnectorHeaders */,
-				60359EBB1E1EA12C0017EF56 /* AdMarvelDelegate.h */,
-				60359EBC1E1EA12C0017EF56 /* AdMarvelNativeAd.h */,
-				60359EBD1E1EA12C0017EF56 /* AdMarvelNativeAdDelegate.h */,
-				60359EBE1E1EA12C0017EF56 /* AdMarvelReward.h */,
-				60359EBF1E1EA12C0017EF56 /* AdMarvelRewardDelegate.h */,
-				60359EC01E1EA12C0017EF56 /* AdMarvelView.h */,
-				60359EC11E1EA12C0017EF56 /* libAdMarvelSDK.a */,
-			);
-			path = AdMarvelSDK;
-			sourceTree = "<group>";
-		};
-		60359EC21E1EA12C0017EF56 /* SDKConnectorHeaders */ = {
-			isa = PBXGroup;
-			children = (
-				60359EC31E1EA12C0017EF56 /* OMWCustomBanner.h */,
-				60359EC41E1EA12C0017EF56 /* OMWCustomBannerDelegate.h */,
-				60359EC51E1EA12C0017EF56 /* OMWCustomInterstitial.h */,
-				60359EC61E1EA12C0017EF56 /* OMWCustomInterstitialDelegate.h */,
-				60359EC71E1EA12C0017EF56 /* OMWCustomNative.h */,
-				60359EC81E1EA12C0017EF56 /* OMWCustomNativeAd.h */,
-				60359EC91E1EA12C0017EF56 /* OMWCustomNativeDelegate.h */,
-				60359ECA1E1EA12C0017EF56 /* OMWCustomReward.h */,
-				60359ECB1E1EA12C0017EF56 /* OMWCustomRewardDelegate.h */,
-			);
-			path = SDKConnectorHeaders;
-			sourceTree = "<group>";
-		};
 		60359FF81E23FCCB0017EF56 /* SmartAd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1565,28 +1240,6 @@
 			path = config;
 			sourceTree = "<group>";
 		};
-		8A1482461AD3371C0046F1B9 /* AdColony */ = {
-			isa = PBXGroup;
-			children = (
-				8A1482471AD3371C0046F1B9 /* AdColonySDK */,
-				8A8DEF891AD58EC900742AD7 /* ANAdAdapterBaseAdColony+PrivateMethods.h */,
-				8A8E0FDA1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.h */,
-				8A8E0FDB1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m */,
-				8A8E0FDC1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.h */,
-				8A8E0FDD1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m */,
-			);
-			name = AdColony;
-			path = ../mediation/mediatedviews/AdColony;
-			sourceTree = "<group>";
-		};
-		8A1482471AD3371C0046F1B9 /* AdColonySDK */ = {
-			isa = PBXGroup;
-			children = (
-				4F9CA29A1F1FEA6D000E7824 /* AdColony.framework */,
-			);
-			path = AdColonySDK;
-			sourceTree = "<group>";
-		};
 		8A35B87919FEAAE30016C81F /* native */ = {
 			isa = PBXGroup;
 			children = (
@@ -1610,34 +1263,6 @@
 			path = ../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK;
 			sourceTree = "<group>";
 		};
-		8A4B96961ACD997500FFEB2A /* Vdopia */ = {
-			isa = PBXGroup;
-			children = (
-				8AF841301CF759EB00F97FA9 /* VdopiaSDK */,
-				8A4B96A51ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.h */,
-				8A4B96A61ACD99D200FFEB2A /* ANAdAdapterBannerVdopia.m */,
-				8A4B96BA1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.h */,
-				8A4B96BB1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m */,
-				8A4B96A31ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.h */,
-				8A4B96A41ACD99C100FFEB2A /* ANAdAdapterInterstitialVdopia.m */,
-			);
-			name = Vdopia;
-			path = ../mediation/mediatedviews/Vdopia;
-			sourceTree = "<group>";
-		};
-		8A4EF4571CF3B1CA002C2DF1 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8A4EF4581CF3B1CA002C2DF1 /* __vungle.db */,
-				8A4EF4591CF3B1CA002C2DF1 /* vg_close.png */,
-				8A4EF45A1CF3B1CA002C2DF1 /* vg_cta.png */,
-				8A4EF45B1CF3B1CA002C2DF1 /* vg_mute_off.png */,
-				8A4EF45C1CF3B1CA002C2DF1 /* vg_mute_on.png */,
-				8A4EF45D1CF3B1CA002C2DF1 /* vg_privacy.png */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		8A944DDD19D5AF8C007AAAB0 /* AmazonSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1657,144 +1282,6 @@
 			);
 			name = MillennialMediaSDK;
 			path = ../mediation/mediatedviews/MillennialMedia/MillennialMediaSDK;
-			sourceTree = "<group>";
-		};
-		8A949AB51ADF12EA00D83DCE /* Chartboost */ = {
-			isa = PBXGroup;
-			children = (
-				8A949AB61ADF12EA00D83DCE /* ChartboostSDK */,
-				8A949AD21ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.h */,
-				8A949AD31ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m */,
-				8A949ACF1ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.h */,
-				8A949AD01ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m */,
-				8A949AD71ADF1F3B00D83DCE /* ANChartboostEventReceiver.h */,
-				8A949AD81ADF1F3B00D83DCE /* ANChartboostEventReceiver.m */,
-				8A949AD61ADF1EA200D83DCE /* Chartboost.pch */,
-			);
-			name = Chartboost;
-			path = ../mediation/mediatedviews/Chartboost;
-			sourceTree = "<group>";
-		};
-		8A949AB61ADF12EA00D83DCE /* ChartboostSDK */ = {
-			isa = PBXGroup;
-			children = (
-				8A949AB81ADF12EA00D83DCE /* Chartboost.framework */,
-			);
-			path = ChartboostSDK;
-			sourceTree = "<group>";
-		};
-		8A9686E41B43310F00D9399B /* Yahoo */ = {
-			isa = PBXGroup;
-			children = (
-				8A9686E51B43310F00D9399B /* YahooSDK */,
-				8A0EFA8C1B4357E900196294 /* ANAdAdapterBannerYahoo.h */,
-				8A0EFA8D1B4357E900196294 /* ANAdAdapterBannerYahoo.m */,
-				8A9687241B434EC600D9399B /* ANAdAdapterBaseYahoo+PrivateMethods.h */,
-				8A9687211B433A3300D9399B /* ANAdAdapterBaseYahoo.h */,
-				8A9687221B433A3300D9399B /* ANAdAdapterBaseYahoo.m */,
-				8A0EFA8F1B4357FB00196294 /* ANAdAdapterInterstitialYahoo.h */,
-				8A0EFA901B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m */,
-				8A96871B1B4331FD00D9399B /* ANAdAdapterNativeYahoo.h */,
-				8A96871C1B4331FD00D9399B /* ANAdAdapterNativeYahoo.m */,
-			);
-			name = Yahoo;
-			path = ../mediation/mediatedviews/Yahoo;
-			sourceTree = "<group>";
-		};
-		8A9686E51B43310F00D9399B /* YahooSDK */ = {
-			isa = PBXGroup;
-			children = (
-				8A9687271B43509400D9399B /* Flurry */,
-				8A9686E61B43310F00D9399B /* FlurryAds */,
-				8A9686F91B43310F00D9399B /* Licenses */,
-			);
-			path = YahooSDK;
-			sourceTree = "<group>";
-		};
-		8A9686E61B43310F00D9399B /* FlurryAds */ = {
-			isa = PBXGroup;
-			children = (
-				8A9686E71B43310F00D9399B /* FlurryAdBanner */,
-				8A9686EA1B43310F00D9399B /* FlurryAdInterstitial */,
-				8A9686ED1B43310F00D9399B /* FlurryAdNative */,
-				8A9686F31B43310F00D9399B /* Shared */,
-				8A9686F61B43310F00D9399B /* StaticAPI */,
-				8A67FE971B7068D100E2B326 /* libFlurryAds.a */,
-			);
-			path = FlurryAds;
-			sourceTree = "<group>";
-		};
-		8A9686E71B43310F00D9399B /* FlurryAdBanner */ = {
-			isa = PBXGroup;
-			children = (
-				8A9686E81B43310F00D9399B /* FlurryAdBanner.h */,
-				8A9686E91B43310F00D9399B /* FlurryAdBannerDelegate.h */,
-			);
-			path = FlurryAdBanner;
-			sourceTree = "<group>";
-		};
-		8A9686EA1B43310F00D9399B /* FlurryAdInterstitial */ = {
-			isa = PBXGroup;
-			children = (
-				8A9686EB1B43310F00D9399B /* FlurryAdInterstitial.h */,
-				8A9686EC1B43310F00D9399B /* FlurryAdInterstitialDelegate.h */,
-			);
-			path = FlurryAdInterstitial;
-			sourceTree = "<group>";
-		};
-		8A9686ED1B43310F00D9399B /* FlurryAdNative */ = {
-			isa = PBXGroup;
-			children = (
-				8A9686EE1B43310F00D9399B /* FlurryAdNative.h */,
-				8A9686EF1B43310F00D9399B /* FlurryAdNativeAsset.h */,
-				8A9686F01B43310F00D9399B /* FlurryAdNativeDelegate.h */,
-				8A9686F11B43310F00D9399B /* FlurryAdNativeStyle.h */,
-			);
-			path = FlurryAdNative;
-			sourceTree = "<group>";
-		};
-		8A9686F31B43310F00D9399B /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				8A9686F41B43310F00D9399B /* FlurryAdError.h */,
-				8A9686F51B43310F00D9399B /* FlurryAdTargeting.h */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		8A9686F61B43310F00D9399B /* StaticAPI */ = {
-			isa = PBXGroup;
-			children = (
-				8A9686F71B43310F00D9399B /* FlurryAdDelegate.h */,
-				8A9686F81B43310F00D9399B /* FlurryAds.h */,
-			);
-			path = StaticAPI;
-			sourceTree = "<group>";
-		};
-		8A9686F91B43310F00D9399B /* Licenses */ = {
-			isa = PBXGroup;
-			children = (
-				8A9686FA1B43310F00D9399B /* Avro-LICENSE.txt */,
-				8A9686FB1B43310F00D9399B /* Flurry Analytics Terms of Service.pdf */,
-				8A9686FC1B43310F00D9399B /* Flurry for Advertisers TOS.pdf */,
-				8A9686FD1B43310F00D9399B /* Flurry for Publishers TOS.pdf */,
-				8A9686FE1B43310F00D9399B /* Flurry RTB Marketplace TOS.pdf */,
-				8A9686FF1B43310F00D9399B /* Flurry-LICENSE.txt */,
-				8A9687001B43310F00D9399B /* Hogan.js-LICENSE.txt */,
-				8A9687011B43310F00D9399B /* Jansson-LICENSE.txt */,
-				8A9687021B43310F00D9399B /* PLCrashReporter-LICENSE.rtf */,
-			);
-			path = Licenses;
-			sourceTree = "<group>";
-		};
-		8A9687271B43509400D9399B /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				8A9687281B43509400D9399B /* Flurry.h */,
-				8A9687291B43509400D9399B /* FlurryWatch.h */,
-				8A67FE961B7068C700E2B326 /* libFlurry.a */,
-			);
-			path = Flurry;
 			sourceTree = "<group>";
 		};
 		8A9AED8D1A1BE84F00C58BDA /* AppNexusSDK */ = {
@@ -1962,28 +1449,6 @@
 			path = internal;
 			sourceTree = "<group>";
 		};
-		8AD7C4C51AD2FA0E0049C997 /* Vungle */ = {
-			isa = PBXGroup;
-			children = (
-				8AD7C4C61AD2FA0E0049C997 /* VungleSDK */,
-				8AD7C4DC1AD2FF070049C997 /* ANAdAdapterBaseVungle.h */,
-				8AD7C4DD1AD2FF070049C997 /* ANAdAdapterBaseVungle.m */,
-				8AD7C4D91AD2FB430049C997 /* ANAdAdapterInterstitialVungle.h */,
-				8AD7C4DA1AD2FB430049C997 /* ANAdAdapterInterstitialVungle.m */,
-			);
-			name = Vungle;
-			path = ../mediation/mediatedviews/Vungle;
-			sourceTree = "<group>";
-		};
-		8AD7C4C61AD2FA0E0049C997 /* VungleSDK */ = {
-			isa = PBXGroup;
-			children = (
-				8A4EF4571CF3B1CA002C2DF1 /* Resources */,
-				8A4EF45E1CF3B1CA002C2DF1 /* VungleSDK.framework */,
-			);
-			path = VungleSDK;
-			sourceTree = "<group>";
-		};
 		8AE2D6A019CC871800001B70 /* Facebook Audience Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -2025,17 +1490,6 @@
 				8AE2D7D319CC88A000001B70 /* ANAdAdapterMillennialMediaBase.m */,
 			);
 			name = "Millennial Media";
-			sourceTree = "<group>";
-		};
-		8AE2D7DD19CC88C900001B70 /* iAd */ = {
-			isa = PBXGroup;
-			children = (
-				8AE2D7DE19CC88EF00001B70 /* ANAdAdapterBanneriAd.h */,
-				8AE2D7DF19CC88EF00001B70 /* ANAdAdapterBanneriAd.m */,
-				8AE2D7E019CC88EF00001B70 /* ANAdAdapterInterstitialiAd.h */,
-				8AE2D7E119CC88EF00001B70 /* ANAdAdapterInterstitialiAd.m */,
-			);
-			name = iAd;
 			sourceTree = "<group>";
 		};
 		8AE2D7E619CC88FB00001B70 /* Google AdMob */ = {
@@ -2092,20 +1546,13 @@
 		8AE2D87419CC9D9B00001B70 /* Mediated By AppNexus */ = {
 			isa = PBXGroup;
 			children = (
-				8A1482461AD3371C0046F1B9 /* AdColony */,
-				60359EB91E1EA12C0017EF56 /* AdMarvel */,
 				8AD5155119D216E6002E53D6 /* Amazon */,
-				8A949AB51ADF12EA00D83DCE /* Chartboost */,
 				8AE2D6A019CC871800001B70 /* Facebook Audience Network */,
 				8AE2D7E619CC88FB00001B70 /* Google AdMob */,
-				8AE2D7DD19CC88C900001B70 /* iAd */,
 				8AA5B4B61AA8B48E00522E1C /* InMobi */,
 				8AE2D7CD19CC889000001B70 /* Millennial Media */,
 				8AE2D7A019CC885600001B70 /* MoPub */,
 				60359FF81E23FCCB0017EF56 /* SmartAd */,
-				8A4B96961ACD997500FFEB2A /* Vdopia */,
-				8AD7C4C51AD2FA0E0049C997 /* Vungle */,
-				8A9686E41B43310F00D9399B /* Yahoo */,
 			);
 			name = "Mediated By AppNexus";
 			sourceTree = "<group>";
@@ -2144,24 +1591,6 @@
 			path = InMobiSDK;
 			sourceTree = "<group>";
 		};
-		8AF841301CF759EB00F97FA9 /* VdopiaSDK */ = {
-			isa = PBXGroup;
-			children = (
-				8AF841311CF759EB00F97FA9 /* close_button_normal.png */,
-				8AF841321CF759EB00F97FA9 /* close_button_pressed.png */,
-				8AF841331CF759EB00F97FA9 /* libLWSDK.a */,
-				8AF841341CF759EB00F97FA9 /* LVDOAdRequest.h */,
-				8AF841351CF759EB00F97FA9 /* LVDOAdRequestError.h */,
-				8AF841361CF759EB00F97FA9 /* LVDOAdSize.h */,
-				8AF841371CF759EB00F97FA9 /* LVDOAdView.h */,
-				8AF841381CF759EB00F97FA9 /* LVDOAdViewDelegate.h */,
-				8AF841391CF759EB00F97FA9 /* LVDOInterstitialView.h */,
-				8AF8413A1CF759EB00F97FA9 /* mraid.txt */,
-				8AF8413B1CF759EB00F97FA9 /* vdopiaCrossButton.png */,
-			);
-			path = VdopiaSDK;
-			sourceTree = "<group>";
-		};
 		9702AF50228EA08200F79ED8 /* MoPubSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2192,19 +1621,13 @@
 				8AE2D85319CC9A6F00001B70 /* libANAdapterForGoogleAdMobSDK.a */,
 				8AE2D86119CC9B0F00001B70 /* libANAdapterForMoPubSDK.a */,
 				EC3E5CDC1843C6D50070315E /* libANSDK.a */,
-				8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */,
-				60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */,
 				8AD5154019D214CA002E53D6 /* libANSDKAmazonAdapter.a */,
-				8A949ACE1ADF131500D83DCE /* libANSDKChartboostAdapter.a */,
 				8AE2D79519CC87CC00001B70 /* libANSDKFacebookAdapter.a */,
 				8AE2D6D119CC874B00001B70 /* libANSDKGoogleAdMobAdapter.a */,
 				8AA5B4C41AA8B4A500522E1C /* libANSDKInMobiAdapter.a */,
 				8AE2D73319CC879900001B70 /* libANSDKMillennialMediaAdapter.a */,
 				8AE2D76419CC87B200001B70 /* libANSDKMoPubAdapter.a */,
 				60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */,
-				8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */,
-				8AD7C4D81AD2FABA0049C997 /* libANSDKVungleAdapter.a */,
-				8A96871A1B43314E00D9399B /* libANSDKYahooAdapter.a */,
 				F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */,
 				F526DBCE22BD2754000D105A /* libANSDKNativeFacebookAdapter.a */,
 			);
@@ -2336,7 +1759,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60359EFD1E201D650017EF56 /* ANAdAdapterAdMarvelBase+PrivateMethods.h in Headers */,
 				8A9AEDB11A1BE8C200C58BDA /* ANAdConstants.h in Headers */,
 				607A21141F85557E00BD8353 /* ANAdFetcherResponse.h in Headers */,
 				8A9AEDB21A1BE8C200C58BDA /* ANAdProtocol.h in Headers */,
@@ -2491,24 +1913,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */;
-			buildPhases = (
-				60359EAC1E1EA1180017EF56 /* Sources */,
-				60359EAD1E1EA1180017EF56 /* Frameworks */,
-				60359EAE1E1EA1180017EF56 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				60359ECE1E1EA13B0017EF56 /* PBXTargetDependency */,
-			);
-			name = ANSDKAdMarvelAdapter;
-			productName = ANSDKAdMarvelAdapter;
-			productReference = 60359EB01E1EA1180017EF56 /* libANSDKAdMarvelAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60359FF51E23FCB50017EF56 /* Build configuration list for PBXNativeTarget "ANSDKSmartAdAdapter" */;
@@ -2526,82 +1930,6 @@
 			name = ANSDKSmartAdAdapter;
 			productName = ANSDKSmartAdAdapter;
 			productReference = 60359FEF1E23FCB50017EF56 /* libANSDKSmartAdAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		8A1482491AD337320046F1B9 /* ANSDKAdColonyAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8A1482541AD337320046F1B9 /* Build configuration list for PBXNativeTarget "ANSDKAdColonyAdapter" */;
-			buildPhases = (
-				8A14824C1AD337320046F1B9 /* Sources */,
-				8A1482511AD337320046F1B9 /* Frameworks */,
-				8A1482521AD337320046F1B9 /* Copy Files */,
-				8A1482531AD337320046F1B9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8A14824A1AD337320046F1B9 /* PBXTargetDependency */,
-			);
-			name = ANSDKAdColonyAdapter;
-			productName = AppNexusSDK;
-			productReference = 8A1482571AD337320046F1B9 /* libANSDKAdColonyAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		8A4B96A71ACD9A4C00FFEB2A /* ANSDKVdopiaAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8A4B96B21ACD9A4C00FFEB2A /* Build configuration list for PBXNativeTarget "ANSDKVdopiaAdapter" */;
-			buildPhases = (
-				8A4B96AA1ACD9A4C00FFEB2A /* Sources */,
-				8A4B96AF1ACD9A4C00FFEB2A /* Frameworks */,
-				8A4B96B01ACD9A4C00FFEB2A /* Copy Files */,
-				8A4B96B11ACD9A4C00FFEB2A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8A4B96A81ACD9A4C00FFEB2A /* PBXTargetDependency */,
-			);
-			name = ANSDKVdopiaAdapter;
-			productName = AppNexusSDK;
-			productReference = 8A4B96B51ACD9A4C00FFEB2A /* libANSDKVdopiaAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		8A949ABA1ADF131500D83DCE /* ANSDKChartboostAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8A949ACB1ADF131500D83DCE /* Build configuration list for PBXNativeTarget "ANSDKChartboostAdapter" */;
-			buildPhases = (
-				8A949ABD1ADF131500D83DCE /* Sources */,
-				8A949AC01ADF131500D83DCE /* Frameworks */,
-				8A949AC21ADF131500D83DCE /* Copy Files */,
-				8A949AC41ADF131500D83DCE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8A949ABB1ADF131500D83DCE /* PBXTargetDependency */,
-			);
-			name = ANSDKChartboostAdapter;
-			productName = AppNexusSDK;
-			productReference = 8A949ACE1ADF131500D83DCE /* libANSDKChartboostAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		8A9687031B43314E00D9399B /* ANSDKYahooAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8A9687171B43314E00D9399B /* Build configuration list for PBXNativeTarget "ANSDKYahooAdapter" */;
-			buildPhases = (
-				8A9687061B43314E00D9399B /* Sources */,
-				8A9687121B43314E00D9399B /* Frameworks */,
-				8A9687131B43314E00D9399B /* Copy Files */,
-				8A9687161B43314E00D9399B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8A9687041B43314E00D9399B /* PBXTargetDependency */,
-			);
-			name = ANSDKYahooAdapter;
-			productName = AppNexusSDK;
-			productReference = 8A96871A1B43314E00D9399B /* libANSDKYahooAdapter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */ = {
@@ -2659,25 +1987,6 @@
 			name = ANSDKAmazonAdapter;
 			productName = AppNexusSDK;
 			productReference = 8AD5154019D214CA002E53D6 /* libANSDKAmazonAdapter.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		8AD7C4CA1AD2FABA0049C997 /* ANSDKVungleAdapter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8AD7C4D51AD2FABA0049C997 /* Build configuration list for PBXNativeTarget "ANSDKVungleAdapter" */;
-			buildPhases = (
-				8AD7C4CD1AD2FABA0049C997 /* Sources */,
-				8AD7C4D21AD2FABA0049C997 /* Frameworks */,
-				8AD7C4D31AD2FABA0049C997 /* Copy Files */,
-				8AD7C4D41AD2FABA0049C997 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8AD7C4CB1AD2FABA0049C997 /* PBXTargetDependency */,
-			);
-			name = ANSDKVungleAdapter;
-			productName = AppNexusSDK;
-			productReference = 8AD7C4D81AD2FABA0049C997 /* libANSDKVungleAdapter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8AE2D6A119CC874B00001B70 /* ANSDKGoogleAdMobAdapter */ = {
@@ -2876,10 +2185,6 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
-					60359EAF1E1EA1180017EF56 = {
-						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
-					};
 					60359FEE1E23FCB50017EF56 = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
@@ -2921,16 +2226,10 @@
 				8AE2D76519CC87CC00001B70 /* ANSDKFacebookAdapter */,
 				8AD5153219D214CA002E53D6 /* ANSDKAmazonAdapter */,
 				8AA5B4B71AA8B4A500522E1C /* ANSDKInMobiAdapter */,
-				8A4B96A71ACD9A4C00FFEB2A /* ANSDKVdopiaAdapter */,
-				8A1482491AD337320046F1B9 /* ANSDKAdColonyAdapter */,
-				8AD7C4CA1AD2FABA0049C997 /* ANSDKVungleAdapter */,
-				8A949ABA1ADF131500D83DCE /* ANSDKChartboostAdapter */,
-				8A9687031B43314E00D9399B /* ANSDKYahooAdapter */,
 				8AE2D84519CC9A6F00001B70 /* ANAdapterForGoogleAdMobSDK */,
 				8AE2D85519CC9B0F00001B70 /* ANAdapterForMoPubSDK */,
 				8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */,
 				60359FEE1E23FCB50017EF56 /* ANSDKSmartAdAdapter */,
-				60359EAF1E1EA1180017EF56 /* ANSDKAdMarvelAdapter */,
 				F5731AFC228B43570012B134 /* AppNexusNativeSDK */,
 				F526DBCD22BD2754000D105A /* ANSDKNativeFacebookAdapter */,
 			);
@@ -2939,34 +2238,6 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		6035A02D1E2402FC0017EF56 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A1482531AD337320046F1B9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A4B96B11ACD9A4C00FFEB2A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A949AC41ADF131500D83DCE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A9687161B43314E00D9399B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2989,13 +2260,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8AD5153C19D214CA002E53D6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AD7C4D41AD2FABA0049C997 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3107,16 +2371,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		60359EAC1E1EA1180017EF56 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				60359ED11E1EA4690017EF56 /* ANAdAdapterBannerAdMarvel.m in Sources */,
-				60359ED71E1EA6F70017EF56 /* ANAdAdapterBaseAdMarvel.m in Sources */,
-				60359ED41E1EA4820017EF56 /* ANAdAdapterInterstitialAdMarvel.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		60359FEB1E23FCB50017EF56 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3124,46 +2378,6 @@
 				604C10F81E241CF0006D6C97 /* ANAdAdapterBannerSmartAd.m in Sources */,
 				604C10FB1E241E46006D6C97 /* ANAdAdapterInterstitialSmartAd.m in Sources */,
 				604C10FE1E24261F006D6C97 /* ANAdAdapterSmartAdBase.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A14824C1AD337320046F1B9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A8E0FDE1AD432B7004C5C50 /* ANAdAdapterBaseAdColony.m in Sources */,
-				8A8E0FDF1AD432B7004C5C50 /* ANAdAdapterInterstitialAdColony.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A4B96AA1ACD9A4C00FFEB2A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A4B96B71ACD9A6E00FFEB2A /* ANAdAdapterBannerVdopia.m in Sources */,
-				8A4B96BC1ACDB8C400FFEB2A /* ANAdAdapterBaseVdopia.m in Sources */,
-				8A4B96B91ACD9A6E00FFEB2A /* ANAdAdapterInterstitialVdopia.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A949ABD1ADF131500D83DCE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A949AD41ADF1D8B00D83DCE /* ANAdAdapterBaseChartboost.m in Sources */,
-				8A949AD11ADF13D500D83DCE /* ANAdAdapterInterstitialChartboost.m in Sources */,
-				8A949AD91ADF1F3B00D83DCE /* ANChartboostEventReceiver.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8A9687061B43314E00D9399B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A0EFA8E1B4357E900196294 /* ANAdAdapterBannerYahoo.m in Sources */,
-				8A9687231B433A3300D9399B /* ANAdAdapterBaseYahoo.m in Sources */,
-				8A0EFA911B4357FB00196294 /* ANAdAdapterInterstitialYahoo.m in Sources */,
-				8A96871D1B4331FD00D9399B /* ANAdAdapterNativeYahoo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3264,15 +2478,6 @@
 				8AD5155D19D216E6002E53D6 /* ANAdAdapterBannerAmazon.m in Sources */,
 				8AD5155E19D216E6002E53D6 /* ANAdAdapterBaseAmazon.m in Sources */,
 				8AD5155F19D216E6002E53D6 /* ANAdAdapterInterstitialAmazon.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8AD7C4CD1AD2FABA0049C997 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8AD7C4DE1AD2FF070049C997 /* ANAdAdapterBaseVungle.m in Sources */,
-				8AD7C4DB1AD2FB430049C997 /* ANAdAdapterInterstitialVungle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3485,35 +2690,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		60359ECE1E1EA13B0017EF56 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 60359ECD1E1EA13B0017EF56 /* PBXContainerItemProxy */;
-		};
 		6035A0101E23FDA80017EF56 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
 			targetProxy = 6035A00F1E23FDA80017EF56 /* PBXContainerItemProxy */;
-		};
-		8A14824A1AD337320046F1B9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 8A14824B1AD337320046F1B9 /* PBXContainerItemProxy */;
-		};
-		8A4B96A81ACD9A4C00FFEB2A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 8A4B96A91ACD9A4C00FFEB2A /* PBXContainerItemProxy */;
-		};
-		8A949ABB1ADF131500D83DCE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 8A949ABC1ADF131500D83DCE /* PBXContainerItemProxy */;
-		};
-		8A9687041B43314E00D9399B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 8A9687051B43314E00D9399B /* PBXContainerItemProxy */;
 		};
 		8A9AEDAE1A1BE8AA00C58BDA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3529,11 +2709,6 @@
 			isa = PBXTargetDependency;
 			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
 			targetProxy = 8AD5153419D214CA002E53D6 /* PBXContainerItemProxy */;
-		};
-		8AD7C4CB1AD2FABA0049C997 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC3E5CDB1843C6D50070315E /* ANSDK */;
-			targetProxy = 8AD7C4CC1AD2FABA0049C997 /* PBXContainerItemProxy */;
 		};
 		8AE2D7F819CC897000001B70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3597,60 +2772,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		60359EB61E1EA1180017EF56 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-				);
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		60359EB71E1EA1180017EF56 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		60359FF61E23FCB50017EF56 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3689,155 +2810,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		8A1482551AD337320046F1B9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKAdColonyAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		8A1482561AD337320046F1B9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/AdColony/AdColonySDK";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKAdColonyAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		8A4B96B31ACD9A4C00FFEB2A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
-				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKVdopiaAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		8A4B96B41ACD9A4C00FFEB2A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
-				);
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKVdopiaAdapter;
-			};
-			name = Release;
-		};
-		8A949ACC1ADF131500D83DCE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = ../mediation/mediatedviews/Chartboost/Chartboost.pch;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKChartboostAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		8A949ACD1ADF131500D83DCE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Chartboost/ChartboostSDK";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = ../mediation/mediatedviews/Chartboost/Chartboost.pch;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKChartboostAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		8A9687181B43314E00D9399B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKYahooAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		8A9687191B43314E00D9399B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds/**",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKYahooAdapter;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -3969,40 +2941,6 @@
 				GCC_PREFIX_HEADER = ../mediation/mediatedviews/Amazon/Amazon.pch;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ANSDKAmazonAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		8AD7C4D61AD2FABA0049C997 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKVungleAdapter;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		8AD7C4D71AD2FABA0049C997 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/ANSDK.dst;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../mediation/mediatedviews/Vungle/VungleSDK/**";
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-				);
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = ANSDKVungleAdapter;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -4531,56 +3469,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		60359EB81E1EA1180017EF56 /* Build configuration list for PBXNativeTarget "ANSDKAdMarvelAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				60359EB61E1EA1180017EF56 /* Debug */,
-				60359EB71E1EA1180017EF56 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		60359FF51E23FCB50017EF56 /* Build configuration list for PBXNativeTarget "ANSDKSmartAdAdapter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				60359FF61E23FCB50017EF56 /* Debug */,
 				60359FF71E23FCB50017EF56 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8A1482541AD337320046F1B9 /* Build configuration list for PBXNativeTarget "ANSDKAdColonyAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8A1482551AD337320046F1B9 /* Debug */,
-				8A1482561AD337320046F1B9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8A4B96B21ACD9A4C00FFEB2A /* Build configuration list for PBXNativeTarget "ANSDKVdopiaAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8A4B96B31ACD9A4C00FFEB2A /* Debug */,
-				8A4B96B41ACD9A4C00FFEB2A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8A949ACB1ADF131500D83DCE /* Build configuration list for PBXNativeTarget "ANSDKChartboostAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8A949ACC1ADF131500D83DCE /* Debug */,
-				8A949ACD1ADF131500D83DCE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8A9687171B43314E00D9399B /* Build configuration list for PBXNativeTarget "ANSDKYahooAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8A9687181B43314E00D9399B /* Debug */,
-				8A9687191B43314E00D9399B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4608,15 +3501,6 @@
 			buildConfigurations = (
 				8AD5153E19D214CA002E53D6 /* Debug */,
 				8AD5153F19D214CA002E53D6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8AD7C4D51AD2FABA0049C997 /* Build configuration list for PBXNativeTarget "ANSDKVungleAdapter" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8AD7C4D61AD2FABA0049C997 /* Debug */,
-				8AD7C4D71AD2FABA0049C997 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

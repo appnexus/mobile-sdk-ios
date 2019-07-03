@@ -237,7 +237,12 @@
 
 
 @protocol ANVideoAdProtocol <ANAdProtocol, ANAdProtocolVideo>
-//EMPTY
+/**
+ * Get the Orientation of the Video rendered using the BannerAdView
+ *
+ * @return Default VideoOrientation value ANUnknown, which indicates that aspectRatio can't be retrieved for the video.
+ */
+- (ANVideoOrientation) getVideoOrientation;
 @end
 
 

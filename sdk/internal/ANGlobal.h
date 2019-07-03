@@ -130,6 +130,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController);
 
 static NSString *const kANCreativeId= @"creativeId";
 static NSString *const kANImpressionUrls = @"impressionUrls";
+static NSString *const kANAspectRatio = @"aspectRatio";
 
 
 #pragma mark - Global class.
@@ -147,5 +148,7 @@ static NSString *const kANImpressionUrls = @"impressionUrls";
 + (ANAdType) adTypeStringToEnum:(NSString *)adTypeString;
 
 + (NSString *) getUserAgent;
+
++ (ANVideoOrientation) parseVideoOrientation:(NSString *)aspectRatio;
 
 @end
