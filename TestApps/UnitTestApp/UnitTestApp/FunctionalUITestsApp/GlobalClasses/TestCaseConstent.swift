@@ -19,10 +19,17 @@ import Foundation
 
 struct FunctionalTestConstants {
     static let functionalTest : String = "FunctionalUITest"
+    static let functionalTestClickThru : String = "FunctionalUITestClickThru"
 
     struct BannerNativeAd {
         static let testBannerNativeRenderingSize : String = "testBannerNativeRenderingSize"
         static let testBannerNativeRenderingClickThrough: String = "testBannerNativeRenderingClickThrough"
+        static let testClickThruSettingsWithOpenSDKBrowserUITest: String = "testClickThruSettingsWithOpenSDKBrowserUITest"
+    }
+    struct BannerAdClickthru {
+        static let testClickThruSettingsWithOpenSDKBrowserUITest: String = "testClickThruSettingsWithOpenSDKBrowserUITest"
+        static let testClickThruSettingsWithOpenDeviceBrowserUITest: String = "testClickThruSettingsWithOpenDeviceBrowserUITest"
+        static let testClickThruSettingsWithReturnURLUITest: String = "testClickThruSettingsWithReturnURLUITest"
     }
   
 }

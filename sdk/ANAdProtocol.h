@@ -157,18 +157,8 @@
  The case that returns the URL will notify via adWasClickedWithURL:(NSString *)urlString .
  When the urlString is returned it is ASSUMED that the caller will handle it appropriately,
    displaying its content to the user.
-
-
- Supercedes use of opensInNativeBrowser.
  */
 @property (nonatomic, readwrite)  ANClickThroughAction  clickThroughAction;
-
-
-/**
- Determines whether the ad, when clicked, will open the device's native browser.
- */
-@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser  __attribute__((deprecated("Use enumerated type ANClickThroughAction instead.")));
-
 
 /**
  Set whether the landing page should load in the background or in the foreground when an ad is clicked.

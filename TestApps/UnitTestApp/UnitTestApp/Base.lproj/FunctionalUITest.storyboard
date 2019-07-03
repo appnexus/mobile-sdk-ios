@@ -13,7 +13,7 @@
         <!--Banner Ad Functional View Controller-->
         <scene sceneID="5Pc-0Z-3pd">
             <objects>
-                <viewController storyboardIdentifier="BannerAdFunctionalViewController" id="CXn-eh-q8l" customClass="BannerAdFunctionalViewController" customModule="UITestApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BannerAdFunctionalViewController" id="CXn-eh-q8l" customClass="BannerAdFunctionalViewController" customModule="UnitTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j46-b9-IS3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ar2-DI-7xC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1745" y="27"/>
+            <point key="canvasLocation" x="1701" y="21"/>
+        </scene>
+        <!--Banner Ad Click Thru View Controller-->
+        <scene sceneID="vsg-n3-wTG">
+            <objects>
+                <viewController storyboardIdentifier="BannerAdClickThruViewController" id="Ybj-1s-LVQ" customClass="BannerAdClickThruViewController" customModule="UnitTestApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wIZ-Sg-WIH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Msc-1w-Ewq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cZx-fK-hO7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2359" y="21"/>
         </scene>
     </scenes>
 </document>

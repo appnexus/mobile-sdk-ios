@@ -62,7 +62,6 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 - (void) videoAdWasClickedWithURL:(NSString *)urlString;
 
 - (ANClickThroughAction) videoAdPlayerClickThroughAction;
-- (BOOL) videoAdPlayerOpensInNativeBrowser  __attribute__((deprecated("Use property videoAdPlayerClickThroughAction instead.")));
 - (BOOL) videoAdPlayerLandingPageLoadsInBackground;
 
 - (void) videoAdPlayerFullScreenEntered: (ANVideoAdPlayer *)videoAd;

@@ -40,7 +40,6 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 @property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
 @property (nonatomic, readonly)  ANClickThroughAction   clickThroughAction;
-@property (nonatomic, readonly)  BOOL                   opensInNativeBrowser;
 @property (nonatomic, readonly)  BOOL                   landingPageLoadsInBackground;
 
 @end
@@ -111,17 +110,6 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     }
     
     return returnVal;
-}
-
-- (BOOL) opensInNativeBrowser
-{
-    BOOL  returnVal  = NO;
-    
-    if ([self.delegate respondsToSelector:@selector(videoAdPlayerOpensInNativeBrowser)])  {
-        returnVal = [self.delegate videoAdPlayerOpensInNativeBrowser];
-    }
-    
-    return  returnVal;
 }
 
 - (ANClickThroughAction) clickThroughAction

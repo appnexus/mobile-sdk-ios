@@ -96,7 +96,6 @@
 		0E8C97BC21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972521FF32EB005D1F0E /* ANAdView+ANTest.m */; };
 		0E8C97BD21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972521FF32EB005D1F0E /* ANAdView+ANTest.m */; };
 		0E8C97BE21FF32EC005D1F0E /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972521FF32EB005D1F0E /* ANAdView+ANTest.m */; };
-		0E8C97BF21FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972621FF32EB005D1F0E /* UIApplication+ANTest.m */; };
 		0E8C97C021FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972621FF32EB005D1F0E /* UIApplication+ANTest.m */; };
 		0E8C97C121FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972621FF32EB005D1F0E /* UIApplication+ANTest.m */; };
 		0E8C97C221FF32EC005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972721FF32EB005D1F0E /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
@@ -258,6 +257,8 @@
 		0EEFE1FB220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
 		0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */; };
 		60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */; };
+		973D2C1722C631B8008195C9 /* ANClickThroughTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D2C1622C631B8008195C9 /* ANClickThroughTestCase.swift */; };
+		973D2C1922C634A2008195C9 /* BannerAdClickThruViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D2C1822C634A2008195C9 /* BannerAdClickThruViewController.swift */; };
 		9781D6532225385E0083FFF4 /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE10922005555002B5F5F /* native_videoResponse.json */; };
 		9792384C22412E49007433C0 /* ANVerificationScriptResource+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9792384B22412E49007433C0 /* ANVerificationScriptResource+ANTest.m */; };
 		979EA146223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 979EA145223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m */; };
@@ -732,6 +733,8 @@
 		0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
 		0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_TestResponse.json; sourceTree = "<group>"; };
 		60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettingsTestCase.m; sourceTree = "<group>"; };
+		973D2C1622C631B8008195C9 /* ANClickThroughTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANClickThroughTestCase.swift; sourceTree = "<group>"; };
+		973D2C1822C634A2008195C9 /* BannerAdClickThruViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdClickThruViewController.swift; sourceTree = "<group>"; };
 		9792384A22412E49007433C0 /* ANVerificationScriptResource+ANTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ANVerificationScriptResource+ANTest.h"; sourceTree = "<group>"; };
 		9792384B22412E49007433C0 /* ANVerificationScriptResource+ANTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ANVerificationScriptResource+ANTest.m"; sourceTree = "<group>"; };
 		979EA145223BA485009B79B7 /* ANVerificationScriptResourceTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVerificationScriptResourceTestCase.m; sourceTree = "<group>"; };
@@ -1096,6 +1099,7 @@
 			children = (
 				0EEAF623229BC8BD0008CAC9 /* FunctionalUITests.swift */,
 				0EEAF63E229BCBD50008CAC9 /* ANBannerNativeRenderingUITestCase.swift */,
+				973D2C1622C631B8008195C9 /* ANClickThroughTestCase.swift */,
 				0EEAF640229BCC150008CAC9 /* XCGlobal.swift */,
 				0EEAF625229BC8BD0008CAC9 /* Info.plist */,
 			);
@@ -1127,6 +1131,7 @@
 			isa = PBXGroup;
 			children = (
 				0EEAF636229BCB840008CAC9 /* BannerAdFunctionalViewController.swift */,
+				973D2C1822C634A2008195C9 /* BannerAdClickThruViewController.swift */,
 			);
 			path = AdsViewController;
 			sourceTree = "<group>";
@@ -1636,6 +1641,7 @@
 				0E4701B42237B443005CFFAC /* ANInstreamVideoAd+Test.m in Sources */,
 				0EC17C3A21F72D1700F0F6AF /* ViewController.m in Sources */,
 				0E4701C22237B443005CFFAC /* ViewController+ANTest.m in Sources */,
+				973D2C1922C634A2008195C9 /* BannerAdClickThruViewController.swift in Sources */,
 				0E4701B12237B443005CFFAC /* ANAdAdapterBaseAmazon+ANTest.m in Sources */,
 				0EEFE177220073F0002B5F5F /* ANHTTPStubURLProtocol.m in Sources */,
 				0EEAF639229BCB840008CAC9 /* TestCaseConstent.swift in Sources */,
@@ -1661,7 +1667,6 @@
 				0E4701C42237CDC9005CFFAC /* ANTrackerManager+ANTest.m in Sources */,
 				0EEAF637229BCB840008CAC9 /* UITestViewController.swift in Sources */,
 				0EEFE15B22005C9F002B5F5F /* TestANUniversalFetcher.m in Sources */,
-				0E8C97BF21FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1794,6 +1799,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EEAF624229BC8BD0008CAC9 /* FunctionalUITests.swift in Sources */,
+				973D2C1722C631B8008195C9 /* ANClickThroughTestCase.swift in Sources */,
 				0EEAF63F229BCBD60008CAC9 /* ANBannerNativeRenderingUITestCase.swift in Sources */,
 				0EEAF641229BCC150008CAC9 /* XCGlobal.swift in Sources */,
 				0EEAF643229BCC2E0008CAC9 /* TestCaseConstent.swift in Sources */,

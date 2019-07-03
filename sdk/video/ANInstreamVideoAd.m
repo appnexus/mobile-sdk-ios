@@ -367,11 +367,6 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     }
 }
 
-
-- (BOOL) videoAdPlayerOpensInNativeBrowser  {
-    return  self.opensInNativeBrowser;
-}
-
 - (BOOL) videoAdPlayerLandingPageLoadsInBackground  {
     return  self.landingPageLoadsInBackground;
 }

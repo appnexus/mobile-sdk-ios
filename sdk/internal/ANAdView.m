@@ -66,7 +66,6 @@
 @synthesize  externalUid                            = __externalUid;
 
 @synthesize  clickThroughAction                     = __clickThroughAction;
-@synthesize  opensInNativeBrowser                   = __opensInNativeBrowser;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
 
@@ -296,35 +295,9 @@
     [self.customKeywords removeAllObjects];
 }
 
-
-// NOTE  Manually settting opensInNativeBrowser forces
-//       changes to landingPageLoadsInBackground and clickThroughAction.
-//
-- (void)setOpensInNativeBrowser:(BOOL)opensInNativeBrowser
-{
-    __opensInNativeBrowser = opensInNativeBrowser;
-
-    if (__opensInNativeBrowser) {
-        __clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
-    } else {
-        __clickThroughAction = ANClickThroughActionOpenSDKBrowser;
-    }
-}
-
-// Force changes to opensInNativeBrowser, as appropriate.
-//
 - (void)setClickThroughAction:(ANClickThroughAction)clickThroughAction
 {
     __clickThroughAction = clickThroughAction;
-
-    switch (__clickThroughAction) {
-        case ANClickThroughActionOpenDeviceBrowser:
-            __opensInNativeBrowser = YES;
-            break;
-
-        default:
-            __opensInNativeBrowser = NO;
-    }
 }
 
 
@@ -354,11 +327,6 @@
 - (BOOL)shouldServePublicServiceAnnouncements {
     ANLogDebug(@"shouldServePublicServeAnnouncements returned %d", __shouldServePublicServiceAnnouncements);
     return __shouldServePublicServiceAnnouncements;
-}
-
-- (BOOL)opensInNativeBrowser {
-    ANLogDebug(@"opensInNativeBrowser returned %d", __opensInNativeBrowser);
-    return __opensInNativeBrowser;
 }
 
 - (BOOL)landingPageLoadsInBackground {
