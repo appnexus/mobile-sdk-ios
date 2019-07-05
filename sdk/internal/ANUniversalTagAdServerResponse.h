@@ -19,19 +19,19 @@
 
 @interface ANUniversalTagAdServerResponse : NSObject
 
-+ (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data;
++ (nullable ANUniversalTagAdServerResponse *)responseWithData:(nullable NSData *)data;
 
-- (instancetype)initWithAdServerData:(NSData *)data;
+- (nullable instancetype)initWithAdServerData:(nullable NSData *)data;
 
-- (instancetype)initWithContent: (NSString *)htmlContent
+- (nullable instancetype)initWithContent: (nonnull NSString *)htmlContent
                           width: (NSInteger)width
                          height: (NSInteger)height;
 
-- (instancetype)initWitXMLContent:(NSString *)vastContent
+- (nullable instancetype)initWitXMLContent:(nonnull NSString *)vastContent
                             width:(NSInteger)width
                            height:(NSInteger)height;
 
-@property (nonatomic, readonly, strong) NSMutableArray *ads;
-@property (nonatomic, readonly, strong) NSString *noAdUrlString;
+@property (nonatomic, readonly, strong, nullable) NSMutableArray *ads;
+@property (nonatomic, readonly, strong, nullable) NSString *noAdUrlString;
 
 @end

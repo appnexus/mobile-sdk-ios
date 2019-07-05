@@ -62,10 +62,10 @@ static NSString *const kANAdAdapterBannerDFPSecondPrice = @"second_price";
 #pragma mark - ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
-             rootViewController:(UIViewController *)rootViewController
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
+             rootViewController:(nullable UIViewController *)rootViewController
+                serverParameter:(nullable NSString *)parameterString
+                       adUnitId:(nullable NSString *)idString
+            targetingParameters:(nullable ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting DFP banner with size: %0.1fx%0.1f", size.width, size.height);
     

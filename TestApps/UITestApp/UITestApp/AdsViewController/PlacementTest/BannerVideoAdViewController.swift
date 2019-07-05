@@ -42,43 +42,44 @@ class BannerVideoAdViewController: UIViewController  , ANBannerAdViewDelegate {
         
         let bannerAdObject : BannerAdObject! = AdObjectModel.decodeBannerObject()
         if bannerAdObject != nil {
-            
-            var width : CGFloat   = 1
-            var height : CGFloat  = 1
-            
-            if let widthValue = bannerAdObject?.width {
-                let widthValueInt : Int = Int(widthValue)!
-                width = CGFloat(widthValueInt)
+            if let placement = bannerAdObject?.adObject.placement{
+                var width : CGFloat   = 1
+                var height : CGFloat  = 1
+                
+                if let widthValue = bannerAdObject?.width {
+                    let widthValueInt : Int = Int(widthValue)!
+                    width = CGFloat(widthValueInt)
+                }
+                
+                if let heightValue = bannerAdObject?.height {
+                    let heightValueInt : Int = Int(heightValue)!
+                    height = CGFloat(heightValueInt)
+                }
+                
+                
+                let centerX = self.view.frame.size.width/2
+                let centerY = self.view.frame.size.height/2
+                let size = CGSize(width: 1, height: 1)
+                banner = ANBannerAdView(frame: CGRect(x: centerX-width/2, y: centerY-height/2, width: width, height: height), placementId: placement)
+                banner.adSize = size
+                banner.delegate=self
+                banner.accessibilityIdentifier = bannerAdObject?.adObject.accessibilityIdentifier
+                banner.shouldAllowVideoDemand = bannerAdObject!.isVideo
+                banner.landingPageLoadsInBackground = false;
+                banner.clickThroughAction = ANClickThroughAction.openSDKBrowser;
+                banner.loadAd()
             }
-            
-            if let heightValue = bannerAdObject?.height {
-                let heightValueInt : Int = Int(heightValue)!
-                height = CGFloat(heightValueInt)
-            }
-            
-            
-            let centerX = self.view.frame.size.width/2
-            let centerY = self.view.frame.size.height/2
-            let size = CGSize(width: 1, height: 1)
-            banner = ANBannerAdView(frame: CGRect(x: centerX-width/2, y: centerY-height/2, width: width, height: height), placementId: bannerAdObject?.adObject.placement)
-            banner.adSize = size
-            banner.delegate=self
-            banner.accessibilityIdentifier = bannerAdObject?.adObject.accessibilityIdentifier
-            banner.shouldAllowVideoDemand = bannerAdObject!.isVideo
-            banner.landingPageLoadsInBackground = false;
-            banner.clickThroughAction = ANClickThroughAction.openSDKBrowser;
-            banner.loadAd()
         }
         
     }
     
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         if (ad is ANBannerAdView) {
             self.view.addSubview(banner)
         }
     }
     
-    func ad(_ ad: Any!, requestFailedWithError error: Error!) {
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
         print("requestFailedWithError \(String(describing: error))")
         BannerVideoAd()
     }

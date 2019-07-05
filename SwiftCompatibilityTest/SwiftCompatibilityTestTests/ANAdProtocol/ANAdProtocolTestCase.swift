@@ -171,9 +171,15 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         expectationResponse = expectation(description: "\(#function)")
         banner.loadAd()
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
-        if let dic = jsonRequestBody["user"] as? [String : Any],let id = dic["age"] as? Int
+        if let dic = jsonRequestBody["user"] as? [String : Any],let age = dic["age"] as? Int
         {
-            XCTAssertTrue(Int(banner.age) == id)
+            if let banner_Age = banner.age{
+                XCTAssertTrue(Int(banner_Age) == age)
+            }
+            else{
+                XCTAssertTrue(false)
+            }
+            
         }
     }
     
@@ -307,7 +313,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
     }
     
     // MARK: - ANAdDelegate
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         XCTAssertNotNil(ad)
         if (ad is ANBannerAdView) {
             expectationResponse?.fulfill()
@@ -315,7 +321,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
 
     }
     
-    func ad(_ loadInstance: Any!, didReceiveNativeAd responseInstance: Any!) {
+    func ad(_ loadInstance: Any, didReceiveNativeAd responseInstance: Any) {
         XCTAssertNotNil(loadInstance)
         XCTAssertNotNil(responseInstance)
         if (responseInstance is ANNativeStandardAdResponse) {
@@ -328,7 +334,7 @@ class ANAdProtocolTestCase: XCTestCase, ANBannerAdViewDelegate {
         }
     }
     
-    func ad(_ ad: Any!, requestFailedWithError error: Error!) {
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
         expectationResponse?.fulfill()
         XCTAssertTrue(false)
     }

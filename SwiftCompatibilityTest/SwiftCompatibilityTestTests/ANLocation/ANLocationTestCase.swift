@@ -311,12 +311,12 @@ class ANLocationTestCase: XCTestCase, ANBannerAdViewDelegate {
     }
     
     // MARK: - ANAdDelegate
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         loadAdSuccesfulException?.fulfill()
         XCTAssertNotNil(ad)
     }
     
-    func ad(_ ad: Any!, requestFailedWithError error: Error!) {
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
         loadAdSuccesfulException?.fulfill()
         XCTAssertTrue(false)
     }

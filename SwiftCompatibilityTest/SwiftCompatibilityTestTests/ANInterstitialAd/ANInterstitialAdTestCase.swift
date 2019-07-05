@@ -178,18 +178,19 @@ class ANInterstitialAdTestCase: XCTestCase, ANInterstitialAdDelegate {
     }
     
     // MARK: - ANAdDelegate
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         XCTAssertNotNil(ad)
        
         if loadAdSuccesfulException != nil
         {
-           let controller = UIApplication.shared.keyWindow?.rootViewController
-            if enableAutoDismissDelay {
-                interstitial.display(from: controller, autoDismissDelay: 5)
-            } else {
-                interstitial.display(from: controller)
-            }
+            if let controller = UIApplication.shared.keyWindow?.rootViewController {
+                if enableAutoDismissDelay {
+                    interstitial.display(from: controller, autoDismissDelay: 5)
+                } else {
+                    interstitial.display(from: controller)
+                }
             loadAdSuccesfulException.fulfill()
+            }
         }
         if loadIsReadyException != nil {
             isReady = true
@@ -197,22 +198,23 @@ class ANInterstitialAdTestCase: XCTestCase, ANInterstitialAdDelegate {
         }
         if loadAdSuccesCloseDelay != nil
         {
-            let controller = UIApplication.shared.keyWindow?.rootViewController
-            interstitial.display(from: controller, autoDismissDelay: 6)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, execute: {
-                self.loadAdSuccesCloseDelay.fulfill()
-            })
+            if let controller = UIApplication.shared.keyWindow?.rootViewController {
+                interstitial.display(from: controller, autoDismissDelay: 6)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, execute: {
+                    self.loadAdSuccesCloseDelay.fulfill()
+                })
+            }
         }
 
     }
-    func adDidClose(_ ad: Any!) {
+    func adDidClose(_ ad: Any) {
         didAdClose = true
         if closeAdSuccesfulException != nil
         {
           closeAdSuccesfulException.fulfill()
         }
     }
-    func ad(_ ad: Any!, requestFailedWithError error: Error!) {
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
        
         if loadIsReadyException != nil {
              isReady = false

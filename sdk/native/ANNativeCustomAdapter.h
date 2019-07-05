@@ -29,11 +29,11 @@
 /*!
  * Allows the AppNexus SDK to be notified of a successful or failed request load.
  */
-@property (nonatomic, readwrite, weak) id<ANNativeCustomAdapterRequestDelegate> requestDelegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANNativeCustomAdapterRequestDelegate> requestDelegate;
 /*!
  * Allows the AppNexus SDK to be notified of actions performed on the native view.
  */
-@property (nonatomic, readwrite, weak) id<ANNativeCustomAdapterAdDelegate> nativeAdDelegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANNativeCustomAdapterAdDelegate> nativeAdDelegate;
 
 /*!
  * @return YES if the response is no longer valid, for example, if too much time has elapsed
@@ -44,17 +44,17 @@
 /*! 
  * Will be called by the AppNexus SDK when a mediated native ad request should be initiated.
  */
-- (void)requestNativeAdWithServerParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)adUnitId
-                       targetingParameters:(ANTargetingParameters *)targetingParameters;
+- (void)requestNativeAdWithServerParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)adUnitId
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters;
 
 @optional
 /*!
  * Should be implemented if the mediated SDK handles both impression tracking and click tracking automatically.
  */
-- (void)registerViewForImpressionTrackingAndClickHandling:(UIView *)view
-                                   withRootViewController:(UIViewController *)rvc
-                                           clickableViews:(NSArray *)clickableViews;
+- (void)registerViewForImpressionTrackingAndClickHandling:(nonnull UIView *)view
+                                   withRootViewController:(nonnull UIViewController *)rvc
+                                           clickableViews:(nullable NSArray *)clickableViews;
 
 /*!
  * Should be implemented if the mediated SDK handles only impression tracking automatically, and needs to
@@ -62,13 +62,13 @@
  *
  * @note handleClickFromRootViewController: should be implemented as well.
  */
-- (void)registerViewForImpressionTracking:(UIView *)view;
+- (void)registerViewForImpressionTracking:(nonnull UIView *)view;
 
 /*!
  * Should notify the mediated SDK that a click was registered, and that a click-through should be
  * action should be performed.
  */
-- (void)handleClickFromRootViewController:(UIViewController *)rvc;
+- (void)handleClickFromRootViewController:(nonnull UIViewController *)rvc;
 
 /*!
  * Should notify the mediated SDK that the native view should no longer be tracked.
@@ -83,7 +83,7 @@
 @protocol ANNativeCustomAdapterRequestDelegate <NSObject>
 
 @required
-- (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response;
+- (void)didLoadNativeAd:(nonnull ANNativeMediatedAdResponse *)response;
 - (void)didFailToLoadNativeAd:(ANAdResponseCode)errorCode;
 
 @end

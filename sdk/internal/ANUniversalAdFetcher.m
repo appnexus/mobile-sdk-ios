@@ -54,7 +54,7 @@
 
 #pragma mark - Lifecycle.
 
-- (instancetype)initWithDelegate: (id)delegate
+- (nonnull instancetype)initWithDelegate: (nonnull id)delegate
 {
     if (self = [self init]) {
         self.delegate = delegate;
@@ -456,7 +456,7 @@
 
 #pragma mark - ANVideoAdProcessor delegate
 
-- (void) videoAdProcessor:(ANVideoAdProcessor *)videoProcessor didFinishVideoProcessing: (ANVideoAdPlayer *)adVideo
+- (void) videoAdProcessor:(nonnull ANVideoAdProcessor *)videoProcessor didFinishVideoProcessing: (nonnull ANVideoAdPlayer *)adVideo
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -466,7 +466,7 @@
     });
 }
 
-- (void) videoAdProcessor:(ANVideoAdProcessor *)videoProcessor didFailVideoProcessing: (NSError *)error
+- (void) videoAdProcessor:(nonnull ANVideoAdProcessor *)videoAdProcessor didFailVideoProcessing: (nonnull NSError *)error
 {
     [self continueWaterfall];
 }
@@ -475,8 +475,8 @@
 
 #pragma mark - Helper methods.
 // common for Banner / Interstitial RTB and SSM.
--(CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
-                              andHeight:(NSString *)height
+- (CGSize)getWebViewSizeForCreativeWidth:(nonnull NSString *)width
+                               andHeight:(nonnull NSString *)height
 {
     
     // Compare the size of the received impression with what the requested ad size is. If the two are different, send the ad delegate a message.

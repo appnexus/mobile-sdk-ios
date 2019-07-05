@@ -130,24 +130,24 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 
 #pragma mark - Public methods.
 
--(void) loadAdWithVastContent:(NSString *) vastContent{
+-(void) loadAdWithVastContent:(nonnull NSString *) vastContent{
         
     self.vastContent = vastContent;
     [self createVideoPlayer];
 }
 
--(void) loadAdWithVastUrl:(NSString *) vastUrl {
+-(void) loadAdWithVastUrl:(nonnull NSString *) vastUrl {
     self.vastURL = vastUrl;
     [self createVideoPlayer];
 }
 
--(void) loadAdWithJSONContent:(NSString *) jsonContent{
+-(void) loadAdWithJSONContent:(nonnull NSString *) jsonContent{
     self.jsonContent = jsonContent;
     [self createVideoPlayer];
 }
 
 
--(void)playAdWithContainer:(UIView *) containerView
+-(void)playAdWithContainer:(nonnull UIView *) containerView
 {
     if (!containerView)
     {
@@ -179,15 +179,15 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 - (NSUInteger) getAdDuration {
     return self.videoDuration;
 }
-- (NSString *) getCreativeURL {
+- (nullable NSString *) getCreativeURL {
     return self.creativeURL;
 }
 
-- (NSString *) getVASTURL {
+- (nullable NSString *) getVASTURL {
     return self.vastURLContent;
 }
 
-- (NSString *) getVASTXML {
+- (nullable NSString *) getVASTXML {
     return self.vastXMLContent;
 }
 

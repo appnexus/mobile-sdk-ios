@@ -53,7 +53,7 @@ NSString * const  ANSkipOffset = @"videoOffset";
 
 @implementation ANVideoPlayerSettings
 
-+ (instancetype)sharedInstance {
++ (nonnull instancetype)sharedInstance {
     static dispatch_once_t sdkSettingsToken;
     static ANVideoPlayerSettings *videoSettings;
     dispatch_once(&sdkSettingsToken, ^{

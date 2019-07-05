@@ -26,9 +26,9 @@
 
 @synthesize delegate;
 
-- (void)requestInterstitialAdWithParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+- (void)requestInterstitialAdWithParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)idString
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     self.fbInterstitialAd = [[FBInterstitialAd alloc] initWithPlacementID:idString];
     self.fbInterstitialAd.delegate = self;
     [self.fbInterstitialAd loadAd];

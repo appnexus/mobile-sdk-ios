@@ -26,6 +26,7 @@ FOUNDATION_EXPORT const unsigned char AppNexusSDKVersionString[];
 #import <AppNexusSDK/ANInterstitialAd.h>
 #import <AppNexusSDK/ANLocation.h>
 #import <AppNexusSDK/ANLogManager.h>
+#import <AppNexusSDK/ANLogging.h>
 #import <AppNexusSDK/ANTargetingParameters.h>
 #import <AppNexusSDK/ANSDKSettings.h>
 #import <AppNexusSDK/ANVideoPlayerSettings.h>

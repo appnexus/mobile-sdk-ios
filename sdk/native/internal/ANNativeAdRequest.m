@@ -103,7 +103,7 @@
 
 #pragma mark - ANUniversalNativeAdFetcherDelegate.
 
-- (void) didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+-(void)didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response
 {
     NSError  *error  = nil;
 
@@ -277,7 +277,7 @@
 
 #pragma mark - ANNativeAdRequestProtocol methods.
 
-- (void)setPlacementId:(NSString *)placementId {
+- (void)setPlacementId:(nullable NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
     if ([placementId length] < 1) {
         ANLogError(@"Could not set placementId to non-string value");
@@ -289,7 +289,7 @@
     }
 }
 
-- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
+- (void)setInventoryCode:(nullable NSString *)invCode memberId:(NSInteger) memberId{
     invCode = ANConvertToNSString(invCode);
     if (invCode && invCode != __invCode) {
         ANLogDebug(@"Setting inventory code to %@", invCode);
@@ -302,7 +302,7 @@
 }
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
@@ -310,7 +310,7 @@
 }
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
@@ -320,8 +320,8 @@
 }
 
 
-- (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value
+- (void)addCustomKeywordWithKey:(nonnull NSString *)key
+                          value:(nonnull NSString *)value
 {
     if (([key length] < 1) || !value) {
         return;
@@ -338,7 +338,7 @@
     }
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key
+- (void)removeCustomKeywordWithKey:(nonnull NSString *)key
 {
     if (([key length] < 1)) {
         return;

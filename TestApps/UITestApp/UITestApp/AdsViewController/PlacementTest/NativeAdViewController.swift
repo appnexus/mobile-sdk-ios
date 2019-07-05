@@ -58,7 +58,7 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate, ANNa
     }
 
     // MARK: ANNativeAdRequestDelegate
-    func adRequest(_ request: ANNativeAdRequest!, didReceive response: ANNativeAdResponse!) {
+    func adRequest(_ request: ANNativeAdRequest, didReceive response: ANNativeAdResponse) {
         activityIndicator.stopAnimating()
         viewNative.alpha = 1
         viewNative.isHidden = false
@@ -77,7 +77,7 @@ class NativeAdViewController: UIViewController , ANNativeAdRequestDelegate, ANNa
         }
     }
     
-    func adRequest(_ request: ANNativeAdRequest!, didFailToLoadWithError error: Error!) {
+    func adRequest(_ request: ANNativeAdRequest, didFailToLoadWithError error: Error) {
         print("requestFailedWithError \(String(describing: error))")
     }
 

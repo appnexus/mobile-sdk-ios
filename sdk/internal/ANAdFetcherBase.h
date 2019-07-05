@@ -20,22 +20,22 @@
 
 @interface ANAdFetcherBase : NSObject
 
-@property (nonatomic, readwrite, strong)  NSMutableArray                    *ads;
-@property (nonatomic, readwrite, strong)  NSString                          *noAdUrl;
-@property (nonatomic, readwrite, weak)    id                              delegate;
+@property (nonatomic, readwrite, strong, nullable)  NSMutableArray                    *ads;
+@property (nonatomic, readwrite, strong, nullable)  NSString                          *noAdUrl;
+@property (nonatomic, readwrite, weak, nullable)    id                              delegate;
 @property (nonatomic, readwrite, getter=isLoading)  BOOL                    loading;
-@property (nonatomic, readwrite, strong)  id                                adObjectHandler;
+@property (nonatomic, readwrite, strong, nullable)  id                                adObjectHandler;
 
 -(void)setup;
 -(void)requestAd;
 -(void)cancelRequest;
 
 - (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
-- (void)fireResponseURL:(NSString *)responseURLString
+- (void)fireResponseURL:(nullable NSString *)responseURLString
                  reason:(ANAdResponseCode)reason
-               adObject:(id)adObject;
+               adObject:(nonnull id)adObject;
 
-- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
+- (void)processAdServerResponse:(nonnull ANUniversalTagAdServerResponse *)response;
 
 
 @end

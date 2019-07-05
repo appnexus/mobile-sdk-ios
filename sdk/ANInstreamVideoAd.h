@@ -39,10 +39,10 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 @protocol  ANInstreamVideoAdLoadDelegate <NSObject>
 
     @required
-    - (void)adDidReceiveAd:(id<ANAdProtocol>)ad;
+    - (void)adDidReceiveAd:(nonnull id<ANAdProtocol>)ad;
 
     @optional
-    - (void)ad:(id<ANAdProtocol>)ad requestFailedWithError:(NSError *)error;
+    - (void)ad:(nonnull id<ANAdProtocol>)ad requestFailedWithError:(nonnull NSError *)error;
 
 @end
 
@@ -51,30 +51,30 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 
     @required
 
-    - (void) adDidComplete:  (id<ANAdProtocol>)ad
+    - (void) adDidComplete:  (nonnull id<ANAdProtocol>)ad
                  withState:  (ANInstreamVideoPlaybackStateType)state;
 
     @optional
-    - (void) adCompletedFirstQuartile:  (id<ANAdProtocol>)ad;
-    - (void) adCompletedMidQuartile:    (id<ANAdProtocol>)ad;
-    - (void) adCompletedThirdQuartile:  (id<ANAdProtocol>)ad;
+    - (void) adCompletedFirstQuartile:  (nonnull id<ANAdProtocol>)ad;
+    - (void) adCompletedMidQuartile:    (nonnull id<ANAdProtocol>)ad;
+    - (void) adCompletedThirdQuartile:  (nonnull id<ANAdProtocol>)ad;
 
 
-    - (void) adMute: (id<ANAdProtocol>)ad
+    - (void) adMute: (nonnull id<ANAdProtocol>)ad
          withStatus: (BOOL)muteStatus;
 
-    - (void)adWasClicked:(id<ANAdProtocol>)ad;
-    - (void)adWasClicked:(id<ANAdProtocol>)ad withURL:(NSString *)urlString;
+    - (void)adWasClicked:(nonnull id<ANAdProtocol>)ad;
+    - (void)adWasClicked:(nonnull id<ANAdProtocol>)ad withURL:(nonnull NSString *)urlString;
 
-    - (void)adWillClose:(id<ANAdProtocol>)ad;
-    - (void)adDidClose:(id<ANAdProtocol>)ad;
+    - (void)adWillClose:(nonnull id<ANAdProtocol>)ad;
+    - (void)adDidClose:(nonnull id<ANAdProtocol>)ad;
 
-    - (void)adWillPresent:(id<ANAdProtocol>)ad;
-    - (void)adDidPresent:(id<ANAdProtocol>)ad;
+    - (void)adWillPresent:(nonnull id<ANAdProtocol>)ad;
+    - (void)adDidPresent:(nonnull id<ANAdProtocol>)ad;
 
-    - (void)adWillLeaveApplication:(id<ANAdProtocol>)ad;
+    - (void)adWillLeaveApplication:(nonnull id<ANAdProtocol>)ad;
 
-    - (void) adPlayStarted:(id<ANAdProtocol>)ad;
+    - (void) adPlayStarted:(nonnull id<ANAdProtocol>)ad;
 
 @end
 
@@ -86,12 +86,12 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 
     // Public properties.
     //
-    @property  (weak, nonatomic, readonly)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
-    @property  (weak, nonatomic, readonly)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
+    @property  (weak, nonatomic, readonly, nullable)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
+    @property  (weak, nonatomic, readonly, nullable)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
 
     //
-    @property (strong, nonatomic, readonly)  NSString  *descriptionOfFailure;
-    @property (strong, nonatomic, readonly)  NSError   *failureNSError;
+    @property (strong, nonatomic, readonly, nullable)  NSString  *descriptionOfFailure;
+    @property (strong, nonatomic, readonly, nullable)  NSError   *failureNSError;
 
     @property (nonatomic, readonly)  BOOL  didUserSkipAd;
     @property (nonatomic, readonly)  BOOL  didUserClickAd;
@@ -102,20 +102,20 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 
     // Lifecycle methods.
     //
-    - (instancetype) initWithPlacementId: (NSString *)placementId;
-    - (instancetype) initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode;
+    - (nonnull instancetype) initWithPlacementId: (nonnull NSString *)placementId;
+    - (nonnull instancetype) initWithMemberId:(NSInteger)memberId inventoryCode:(nonnull NSString *)inventoryCode;
 
-    - (BOOL) loadAdWithDelegate: (id<ANInstreamVideoAdLoadDelegate>)loadDelegate;
+    - (BOOL) loadAdWithDelegate: (nullable id<ANInstreamVideoAdLoadDelegate>)loadDelegate;
 
-    - (void) playAdWithContainer: (UIView *)adContainer
-                    withDelegate: (id<ANInstreamVideoAdPlayDelegate>)playDelegate;
+    - (void) playAdWithContainer: (nonnull UIView *)adContainer
+                    withDelegate: (nullable id<ANInstreamVideoAdPlayDelegate>)playDelegate;
 
     - (void) removeAd;
 
     - (NSUInteger) getAdDuration;
-    - (NSString *) getCreativeURL;
-    - (NSString *) getVastURL;
-    - (NSString *) getVastXML;
+    - (nullable NSString *) getCreativeURL;
+    - (nullable NSString *) getVastURL;
+    - (nullable NSString *) getVastXML;
 
     - (NSUInteger) getAdPlayElapsedTime;
 

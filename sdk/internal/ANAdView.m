@@ -211,7 +211,7 @@
 }
 
 
-- (void)setPlacementId:(NSString *)placementId {
+- (void)setPlacementId:(nullable NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
     if ([placementId length] < 1) {
         ANLogError(@"Could not set placementId to non-string value");
@@ -224,7 +224,7 @@
 }
 
 
-- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
+- (void)setInventoryCode:(nullable NSString *)invCode memberId:(NSInteger) memberId{
     invCode = ANConvertToNSString(invCode);
     if (invCode && invCode != __invCode) {
         ANLogDebug(@"Setting inventory code to %@", invCode);
@@ -239,7 +239,7 @@
 
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
@@ -247,7 +247,7 @@
 }
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
@@ -257,8 +257,8 @@
 }
 
 
-- (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value
+- (void)addCustomKeywordWithKey:(nonnull NSString *)key
+                          value:(nonnull NSString *)value
 {
     if (([key length] < 1) || !value) {
         return;
@@ -275,7 +275,7 @@
     }
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key
+- (void)removeCustomKeywordWithKey:(nonnull NSString *)key
 {
     if (([key length] < 1)) {
         return;
@@ -300,11 +300,9 @@
     __clickThroughAction = clickThroughAction;
 }
 
-
-
 #pragma mark - ANAdProtocol: Getter methods
 
-- (NSString *)placementId {
+- (nullable NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
     return __placementId;
 }
@@ -314,12 +312,12 @@
     return __memberId;
 }
 
-- (NSString *)inventoryCode {
+- (nullable NSString *)inventoryCode {
     ANLogDebug(@"inventoryCode returned %@", __invCode);
     return __invCode;
 }
 
-- (ANLocation *)location {
+- (nullable ANLocation *)location {
     ANLogDebug(@"location returned %@", __location);
     return __location;
 }
@@ -344,7 +342,7 @@
     return __reserve;
 }
 
-- (NSString *)age {
+- (nullable NSString *)age {
     ANLogDebug(@"age returned %@", __age);
     return __age;
 }
@@ -354,12 +352,12 @@
     return __gender;
 }
 
-- (NSString *)creativeId {
+- (nullable NSString *)creativeId {
     ANLogDebug(@"Creative Id returned %@", __creativeId);
     return __creativeId;
 }
 
--(NSString *)externalUid {
+-(nullable NSString *)externalUid {
     ANLogDebug(@"ExternalUid returned %@", __externalUid);
     return __externalUid;
 }

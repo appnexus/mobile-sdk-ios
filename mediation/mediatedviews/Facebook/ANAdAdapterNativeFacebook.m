@@ -29,17 +29,17 @@
 
 #pragma mark ANNativeCustomAdapter
 
-- (void)requestNativeAdWithServerParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)adUnitId
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+- (void)requestNativeAdWithServerParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)adUnitId
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     self.fbNativeAd = [[FBNativeAd alloc] initWithPlacementID:adUnitId];
     self.fbNativeAd.delegate = self;
     [self.fbNativeAd loadAd];
 }
 
-- (void)registerViewForImpressionTrackingAndClickHandling:(UIView *)view
-                                   withRootViewController:(UIViewController *)rvc
-                                           clickableViews:(NSArray *)clickableViews {
+- (void)registerViewForImpressionTrackingAndClickHandling:(nonnull UIView *)view
+                                   withRootViewController:(nonnull UIViewController *)rvc
+                                           clickableViews:(nullable NSArray *)clickableViews {
     ANLogDebug(@"Not supporting registering views through this API, please get the FBNativeAd object from reponse's native elements and use FB's original API.");
 }
 

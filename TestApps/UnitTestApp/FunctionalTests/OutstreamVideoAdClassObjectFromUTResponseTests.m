@@ -230,7 +230,6 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     return  NO;
 }
 
-
 @synthesize age;
 @synthesize placementId;
 @synthesize memberId;

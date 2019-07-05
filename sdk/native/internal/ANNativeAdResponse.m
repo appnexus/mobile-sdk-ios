@@ -77,8 +77,6 @@ NSString * const  kANNativeElementObject                                   = @"E
     return  self;
 }
 
-
-
 #pragma mark - Getters/setters.
 
 - (void)setClickThroughAction:(ANClickThroughAction)clickThroughAction
@@ -86,15 +84,12 @@ NSString * const  kANNativeElementObject                                   = @"E
     _clickThroughAction = clickThroughAction;
 }
 
-
-
-
 #pragma mark - Registration
 
-- (BOOL)registerViewForTracking:(UIView *)view
-         withRootViewController:(UIViewController *)controller
-                 clickableViews:(NSArray *)clickableViews
-                          error:(NSError **)error {
+- (BOOL)registerViewForTracking:(nonnull UIView *)view
+         withRootViewController:(nonnull UIViewController *)controller
+                 clickableViews:(nullable NSArray *)clickableViews
+                          error:(NSError *__nullable*__nullable)error {
     if (!view) {
         ANLogError(@"native_invalid_view");
         if (error) {

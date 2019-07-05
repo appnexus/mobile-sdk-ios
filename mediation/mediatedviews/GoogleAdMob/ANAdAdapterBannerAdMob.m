@@ -42,10 +42,10 @@
 #pragma mark ANCustomAdapterBanner
 
 - (void)requestBannerAdWithSize:(CGSize)size
-             rootViewController:(UIViewController *)rootViewController
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters
+             rootViewController:(nullable UIViewController *)rootViewController
+                serverParameter:(nullable NSString *)parameterString
+                       adUnitId:(nullable NSString *)idString
+            targetingParameters:(nullable ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting AdMob banner with size: %fx%f", size.width, size.height);
 	GADAdSize gadAdSize;

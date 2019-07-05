@@ -33,7 +33,7 @@
  The time when the user was in this location.  If nil, defaults to
  the current time.
  */
-@property (nonatomic, readwrite, strong) NSDate *timestamp;
+@property (nonatomic, readwrite, strong, nullable) NSDate *timestamp;
 
 /**
  Determines the size of one side of the ``rectangle'' inside which
@@ -56,9 +56,9 @@
  Returns nil if invalid location data is passed in (see
  the property definitions above for what constitutes invalid data).
  */
-+ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
++ (nullable ANLocation *)getLocationWithLatitude:(CGFloat)latitude
                               longitude:(CGFloat)longitude
-                              timestamp:(NSDate *)timestamp
+                              timestamp:(nullable NSDate *)timestamp
                      horizontalAccuracy:(CGFloat)horizontalAccuracy;
 
 /**
@@ -74,9 +74,9 @@
  
  ** Greater than 6, the latitude & longitude values will be rounded to 6 decimal places.
  */
-+ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
++ (nullable ANLocation *)getLocationWithLatitude:(CGFloat)latitude
                               longitude:(CGFloat)longitude
-                              timestamp:(NSDate *)timestamp
+                              timestamp:(nullable NSDate *)timestamp
                      horizontalAccuracy:(CGFloat)horizontalAccuracy
                               precision:(NSInteger)precision;
 

@@ -24,7 +24,7 @@
 
 @interface ANNativeMediatedAdResponse () <ANNativeCustomAdapterAdDelegate>
 
-@property (nonatomic, readwrite, strong) id<ANNativeCustomAdapter> adapter;
+@property (nonatomic, readwrite, strong, nullable) id<ANNativeCustomAdapter> adapter;
 @property (nonatomic, readwrite, assign) ANNativeAdNetworkCode networkCode;
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *impTrackers;
 @property (nonatomic, readwrite) BOOL impressionsHaveBeenTracked;
@@ -55,7 +55,7 @@
     return _expired;
 }
 
-- (instancetype)initWithCustomAdapter:(id<ANNativeCustomAdapter>)adapter
+- (nullable instancetype)initWithCustomAdapter:(nullable id<ANNativeCustomAdapter>)adapter
                           networkCode:(ANNativeAdNetworkCode)networkCode {
     if (!adapter) {
         return nil;

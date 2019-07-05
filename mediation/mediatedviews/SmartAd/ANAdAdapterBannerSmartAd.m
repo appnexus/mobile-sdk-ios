@@ -26,10 +26,10 @@
 @synthesize delegate;
     
 - (void)requestBannerAdWithSize:(CGSize)size
-             rootViewController:(UIViewController *)rootViewController
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters {
+             rootViewController:(nullable UIViewController *)rootViewController
+                serverParameter:(nullable NSString *)parameterString
+                       adUnitId:(nullable NSString *)idString
+            targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     
     SASAdPlacement *placement = [self parseAdUnitParameters:idString targetingParameters:targetingParameters];
     

@@ -77,9 +77,9 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
 
 # pragma mark - ANNativeCustomAdapter
 
-- (void)requestNativeAdWithServerParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)adUnitId
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+- (void)requestNativeAdWithServerParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)adUnitId
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (![ANAdAdapterBaseInMobi appId].length) {
         ANLogError(@"InMobi mediation failed. Call [ANAdAdapterBaseInMobi setInMobiAppID:@\"YOUR_PROPERTY_ID\"] to set the InMobi global App Id");
@@ -104,12 +104,12 @@ static NSString *kANAdAdapterNativeInMobiLandingURLKey = @"landingURL";
     [self.nativeAd load];
 }
 
-- (void)registerViewForImpressionTracking:(UIView *)view {
+- (void)registerViewForImpressionTracking:(nonnull UIView *)view {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.expired = YES;
 }
 
-- (void)handleClickFromRootViewController:(UIViewController *)rvc {
+- (void)handleClickFromRootViewController:(nonnull UIViewController *)rvc {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     [self.nativeAdDelegate adWasClicked];
     [self.nativeAdDelegate willLeaveApplication];

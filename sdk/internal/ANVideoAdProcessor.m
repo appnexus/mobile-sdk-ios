@@ -28,7 +28,7 @@
 
 @implementation ANVideoAdProcessor
 
-- (instancetype)initWithDelegate:(id<ANVideoAdProcessorDelegate>)delegate withAdVideoContent:(id) videoAdContent{
+- (nonnull instancetype)initWithDelegate:(nonnull id<ANVideoAdProcessorDelegate>)delegate withAdVideoContent:(nonnull id) videoAdContent{
     
     
     if (self = [self init]) {
@@ -91,7 +91,7 @@
     
     
 }
--(void) videoAdLoadFailed:(NSError *)error{
+-(void) videoAdLoadFailed:(nonnull NSError *)error{
     
     [self.adPlayer setDelegate:nil];
     

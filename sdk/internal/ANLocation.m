@@ -27,10 +27,10 @@ static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
 
 @implementation ANLocation
 
-+ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
-                              longitude:(CGFloat)longitude
-                              timestamp:(NSDate *)timestamp
-                     horizontalAccuracy:(CGFloat)horizontalAccuracy {
++ (nullable ANLocation *)getLocationWithLatitude:(CGFloat)latitude
+                                       longitude:(CGFloat)longitude
+                                       timestamp:(nullable NSDate *)timestamp
+                              horizontalAccuracy:(CGFloat)horizontalAccuracy {
     return [ANLocation getLocationWithLatitude:latitude
                                      longitude:longitude
                                      timestamp:timestamp
@@ -38,11 +38,11 @@ static NSInteger const kANLocationDefaultHorizontalAccuracy = 100;
                                      precision:-1];
 }
 
-+ (ANLocation *)getLocationWithLatitude:(CGFloat)latitude
-                              longitude:(CGFloat)longitude
-                              timestamp:(NSDate *)timestamp
-                     horizontalAccuracy:(CGFloat)horizontalAccuracy
-                              precision:(NSInteger)precision {
++ (nullable ANLocation *)getLocationWithLatitude:(CGFloat)latitude
+                                       longitude:(CGFloat)longitude
+                                       timestamp:(nullable NSDate *)timestamp
+                              horizontalAccuracy:(CGFloat)horizontalAccuracy
+                                       precision:(NSInteger)precision {
     BOOL invalidLatitude = latitude < -90 || latitude > 90;
     BOOL invalidLongitude = longitude < -180 || longitude > 180;
     BOOL invalidHorizontalAccuracy = horizontalAccuracy < 0;

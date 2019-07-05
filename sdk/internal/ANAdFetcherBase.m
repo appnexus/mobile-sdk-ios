@@ -113,7 +113,7 @@
 }
 
 #pragma mark - UT ad response processing methods
-- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
+- (void)processAdServerResponse:(nonnull ANUniversalTagAdServerResponse *)response
 {
     BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
     
@@ -160,9 +160,9 @@
 
 #pragma mark - Ad handlers.
 
-- (void)fireResponseURL:(NSString *)urlString
+- (void)fireResponseURL:(nullable NSString *)urlString
                  reason:(ANAdResponseCode)reason
-               adObject:(id)adObject
+               adObject:(nonnull id)adObject
 {
     
     if (urlString) {

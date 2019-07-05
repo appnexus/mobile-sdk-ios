@@ -322,7 +322,7 @@ ANLogDebug(@"responseURLString=%@", responseURLString);
 
 #pragma mark - ANNativeCustomAdapterRequestDelegate
 
-- (void)didLoadNativeAd:(ANNativeMediatedAdResponse *)response {
+- (void)didLoadNativeAd:(nonnull ANNativeMediatedAdResponse *)response {
     // Add the AppNexusImpression trackers into the mediated response.
     response.impTrackers= [self.mediatedAd.impressionUrls copy];
     response.verificationScriptResource  = self.mediatedAd.verificationScriptResource;

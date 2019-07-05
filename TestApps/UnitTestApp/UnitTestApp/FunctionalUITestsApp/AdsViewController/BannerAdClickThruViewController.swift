@@ -73,16 +73,16 @@ class BannerAdClickThruViewController: UIViewController , ANBannerAdViewDelegate
         
     }
     
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         if (ad is ANBannerAdView) {
             self.view.addSubview(banner)
         }
     }
-    func adWasClicked(_ ad: Any!) {
+    func adWasClicked(_ ad: Any) {
         print("adWasClicked")
     }
-    func adWasClicked(_ ad: Any!, withURL urlString: String!) {
-        let alert = UIAlertController(title: "UITest", message: urlString ??   "", preferredStyle: UIAlertController.Style.alert)
+    func adWasClicked(_ ad: Any, withURL urlString: String) {
+        let alert = UIAlertController(title: "UITest", message: urlString , preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }

@@ -36,7 +36,7 @@
 
 @implementation ANNativeAdFetcher
 
-- (instancetype)initWithDelegate:(id)delegate{
+-(nonnull instancetype) initWithDelegate:(nonnull id)delegate{
     if (self = [self init]) {
         self.delegate = delegate;
         [self setup];

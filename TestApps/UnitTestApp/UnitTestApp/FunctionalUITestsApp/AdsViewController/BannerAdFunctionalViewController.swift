@@ -71,7 +71,7 @@ class BannerAdFunctionalViewController: UIViewController , ANBannerAdViewDelegat
         
     }
     
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         if (ad is ANBannerAdView) {
             self.view.addSubview(banner)
         }

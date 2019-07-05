@@ -44,9 +44,9 @@
     return self;
 }
 
-- (void)requestNativeAdWithServerParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)adUnitId
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+- (void)requestNativeAdWithServerParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)adUnitId
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
 
 
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -58,9 +58,9 @@
     [self.nativeAdLoader loadRequest:[ANAdAdapterBaseDFP googleAdRequestFromTargetingParameters:targetingParameters]];
 }
 
-- (void)registerViewForImpressionTrackingAndClickHandling:(UIView *)view
-                                   withRootViewController:(UIViewController *)rvc
-                                           clickableViews:(NSArray *)clickableViews {
+- (void)registerViewForImpressionTrackingAndClickHandling:(nonnull UIView *)view
+                                   withRootViewController:(nonnull UIViewController *)rvc
+                                           clickableViews:(nullable NSArray *)clickableViews {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     self.proxyViewController.rootViewController = rvc;
     self.proxyViewController.adView = view;

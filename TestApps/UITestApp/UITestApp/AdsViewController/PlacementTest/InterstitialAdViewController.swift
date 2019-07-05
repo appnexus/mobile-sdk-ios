@@ -34,23 +34,24 @@ class InterstitialAdViewController: UIViewController , ANInterstitialAdDelegate 
         let interstitialAdObject : InterstitialAdObject! = AdObjectModel.decodeInterstitialObject()
       
         if interstitialAdObject != nil {
-            
-            let interstistial = ANInterstitialAd(placementId: interstitialAdObject?.adObject.placement)
-            interstistial?.delegate = self as ANInterstitialAdDelegate
-            interstistial?.closeDelay = TimeInterval((interstitialAdObject?.closeDelay)!)
+            if let placement = interstitialAdObject?.adObject.placement{
+            let interstistial = ANInterstitialAd(placementId:placement)
+            interstistial.delegate = self as ANInterstitialAdDelegate
+            interstistial.closeDelay = TimeInterval((interstitialAdObject?.closeDelay)!)
             // Since this example is for testing, we'll turn on PSAs and verbose logging.
-            interstistial?.shouldServePublicServiceAnnouncements = true
+            interstistial.shouldServePublicServiceAnnouncements = true
             
             // Load an ad.
-            interstistial?.load()
-            self.interstistial = interstistial!
+            interstistial.load()
+            self.interstistial = interstistial
+            }
         }
     }
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         interstistial.display(from: self)
     }
     
-    func ad(_ ad: Any!, requestFailedWithError error: Error!) {
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
         print("requestFailedWithError \(String(describing: error))")
     }
 }

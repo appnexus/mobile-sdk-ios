@@ -22,7 +22,7 @@
 
 @interface ANNativeAdFetcher : ANAdFetcherBase
 
--(instancetype) initWithDelegate:(id)delegate;
+-(nonnull instancetype) initWithDelegate:(nonnull id)delegate;
 
 @end
 
@@ -30,7 +30,7 @@
 
 @protocol ANNativeAdFetcherDelegate <ANAdProtocolFoundation>
 
-@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
--(void)didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
+@property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+-(void)didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response;
 
 @end

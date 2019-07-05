@@ -34,7 +34,7 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
 /**
  * Set the GDPR consent string in the SDK
  */
-+ (void) setConsentString:(NSString *)consentString{
++ (void) setConsentString:(nonnull NSString *)consentString{
     [[NSUserDefaults standardUserDefaults] setObject:consentString forKey:ANGDPR_ConsentString];
 }
 
@@ -69,7 +69,7 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
  * Get the GDPR consent string in the SDK.
  * Check for ANGDPR_ConsentString And IABConsent_ConsentString and return if present else return @""
  */
-+ (NSString *) getConsentString{
++ (nonnull NSString *) getConsentString{
     
     NSString* consentString = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_ConsentString];
     if(consentString == nil){
@@ -82,7 +82,7 @@ NSString * const  ANIABConsent_SubjectToGDPR = @"IABConsent_SubjectToGDPR";
  * Get the GDPR consent required in the SDK
  * Check for ANGDPR_ConsentRequired And IABConsent_SubjectToGDPR  and return if present else return nil
  */
-+ (NSString *) getConsentRequired{
++ (nullable NSString *) getConsentRequired{
     
     NSString* subjectToGdprValue = [[NSUserDefaults standardUserDefaults] objectForKey:ANGDPR_ConsentRequired];
     if(subjectToGdprValue == nil){

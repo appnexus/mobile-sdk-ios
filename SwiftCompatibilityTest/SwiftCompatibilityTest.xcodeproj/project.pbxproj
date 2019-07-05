@@ -8,16 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0E4874E221403C6600A9FBF0 /* ANSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 97B06BCB2140330200234B9A /* ANSDKResources.bundle */; };
-		971E8D4A21469A0000B66AE8 /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E892142C5B8008B1E21 /* UIApplication+ANTest.m */; };
-		971E8D4B21469A0A00B66AE8 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E872142C5B8008B1E21 /* NSURLRequest+HTTPBodyTesting.m */; };
-		971E8D4C21469A1200B66AE8 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E852142C5B8008B1E21 /* NSObject+Swizzling.m */; };
-		971E8D4D21469A3400B66AE8 /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E732142C5B8008B1E21 /* ANAdView+ANTest.m */; };
-		971E8D552146ADA800B66AE8 /* ANBannerAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E772142C5B8008B1E21 /* ANBannerAdView+ANTest.m */; };
-		971E8D562146ADAF00B66AE8 /* ANInterstitialAd+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E792142C5B8008B1E21 /* ANInterstitialAd+ANTest.m */; };
-		971E8D572146ADCE00B66AE8 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E7F2142C5B8008B1E21 /* ANReachability+ANTest.m */; };
-		971E8D582146ADD800B66AE8 /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E812142C5B8008B1E21 /* ANTrackerManager+ANTest.m */; };
-		971E8D592146ADDF00B66AE8 /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E832142C5B8008B1E21 /* ANUniversalAdFetcher+ANTest.m */; };
-		971E8D5B2146BEAC00B66AE8 /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0EBC2142C5B8008B1E21 /* ANURLConnectionStub.m */; };
 		971E8D5F2146C0C600B66AE8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B06B942140309E00234B9A /* ViewController.swift */; };
 		972BE9592226C9400032E57E /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 972BE9482226C9400032E57E /* native_videoResponse.json */; };
 		97355D2F21620BB200AF423B /* ANAdProtocolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97355D2E21620BB200AF423B /* ANAdProtocolTestCase.swift */; };
@@ -25,6 +15,88 @@
 		976C41AA214FE225006DEBA2 /* ANNativeAdRequestTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976C41A9214FE225006DEBA2 /* ANNativeAdRequestTestCase.swift */; };
 		97717642215B855F00985C39 /* ANLocationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97717641215B855F00985C39 /* ANLocationTestCase.swift */; };
 		97717645215B9B9700985C39 /* ANGDPRSettingsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97717644215B9B9700985C39 /* ANGDPRSettingsTestCase.swift */; };
+		9782040C22CCF6C3000544FE /* ANMockMediationAdapterBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782037B22CCF6C2000544FE /* ANMockMediationAdapterBannerNeverCalled.m */; };
+		9782040D22CCF6C3000544FE /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782037F22CCF6C2000544FE /* ANBaseTestCase.m */; };
+		9782040E22CCF6C3000544FE /* XCTestCase+ANMediatedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782038022CCF6C2000544FE /* XCTestCase+ANMediatedAd.m */; };
+		9782040F22CCF6C3000544FE /* TestANUniversalFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782038222CCF6C2000544FE /* TestANUniversalFetcher.m */; };
+		9782041022CCF6C3000544FE /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782038422CCF6C2000544FE /* ANTestResponses.m */; };
+		9782041122CCF6C3000544FE /* ANFailedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782038822CCF6C2000544FE /* ANFailedMultiple.m */; };
+		9782041222CCF6C3000544FE /* ANAdAdapterBannerNoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782038922CCF6C2000544FE /* ANAdAdapterBannerNoDelegate.m */; };
+		9782041322CCF6C3000544FE /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782038F22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */; };
+		9782041422CCF6C3000544FE /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039022CCF6C2000544FE /* ANAdAdapterBannerMultipleFailureCallbacks.m */; };
+		9782041522CCF6C3000544FE /* ANAdAdapterBannerNetworkError.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039122CCF6C2000544FE /* ANAdAdapterBannerNetworkError.m */; };
+		9782041622CCF6C3000544FE /* ANAdAdapterBannerSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039522CCF6C2000544FE /* ANAdAdapterBannerSuccessful.m */; };
+		9782041722CCF6C3000544FE /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039622CCF6C2000544FE /* ANAdAdapterBannerMultipleSuccessCallbacks.m */; };
+		9782041822CCF6C3000544FE /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039722CCF6C2000544FE /* ANAdAdapterBannerTimeoutThenSuccessful.m */; };
+		9782041922CCF6C3000544FE /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039822CCF6C2000544FE /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */; };
+		9782041A22CCF6C3000544FE /* ANLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039922CCF6C2000544FE /* ANLoadAndHitOtherCallbacks.m */; };
+		9782041B22CCF6C3000544FE /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039A22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillThenSuccessful.m */; };
+		9782041C22CCF6C3000544FE /* ANAdAdapterBannerNoRequestMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039B22CCF6C2000544FE /* ANAdAdapterBannerNoRequestMethod.m */; };
+		9782041D22CCF6C3000544FE /* ANAdAdapterBannerUnableToFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782039F22CCF6C2000544FE /* ANAdAdapterBannerUnableToFill.m */; };
+		9782041E22CCF6C3000544FE /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203AC22CCF6C2000544FE /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
+		9782041F22CCF6C3000544FE /* SuccessfulInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203AD22CCF6C2000544FE /* SuccessfulInstreamVideoAdResponse.json */; };
+		9782042022CCF6C3000544FE /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203AE22CCF6C2000544FE /* SuccessfulAllowMagicSizeBannerObjectResponse.json */; };
+		9782042122CCF6C3000544FE /* SuccessfulMRAIDResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203AF22CCF6C2000544FE /* SuccessfulMRAIDResponse.json */; };
+		9782042222CCF6C3000544FE /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B022CCF6C2000544FE /* SuccessfulLocationCreativeForBannerAdResponse.json */; };
+		9782042322CCF6C3000544FE /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B122CCF6C2000544FE /* native_videoResponse.json */; };
+		9782042422CCF6C3000544FE /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B222CCF6C2000544FE /* OMID_TestResponse.json */; };
+		9782042522CCF6C3000544FE /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B322CCF6C2000544FE /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */; };
+		9782042622CCF6C3000544FE /* OMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B422CCF6C2000544FE /* OMID_Native_RTBResponse.json */; };
+		9782042722CCF6C3000544FE /* SecondPriceForDFPParamIsUnset.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B522CCF6C2000544FE /* SecondPriceForDFPParamIsUnset.json */; };
+		9782042822CCF6C3000544FE /* SuccessfulOutstreamBannerVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B622CCF6C2000544FE /* SuccessfulOutstreamBannerVideoResponse.json */; };
+		9782042922CCF6C3000544FE /* custom_adapter_to_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B722CCF6C2000544FE /* custom_adapter_to_standard_response.json */; };
+		9782042A22CCF6C3000544FE /* SuccessfulMRAIDListenerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B822CCF6C2000544FE /* SuccessfulMRAIDListenerResponse.json */; };
+		9782042B22CCF6C3000544FE /* appnexus_bannerNative_rendering.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203B922CCF6C2000544FE /* appnexus_bannerNative_rendering.json */; };
+		9782042C22CCF6C3000544FE /* OMID_Native_CSMResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203BA22CCF6C2000544FE /* OMID_Native_CSMResponse.json */; };
+		9782042D22CCF6C3000544FE /* SuccessfulMediationResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203BB22CCF6C2000544FE /* SuccessfulMediationResponse.json */; };
+		9782042E22CCF6C3000544FE /* SuccessfulANRTBVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203BC22CCF6C2000544FE /* SuccessfulANRTBVideoAdResponse.json */; };
+		9782042F22CCF6C3000544FE /* SuccessfulOutstreamVideoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203BD22CCF6C2000544FE /* SuccessfulOutstreamVideoResponse.json */; };
+		9782043022CCF6C3000544FE /* appnexus_bannerNative_renderingInvalidURL.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203BE22CCF6C2000544FE /* appnexus_bannerNative_renderingInvalidURL.json */; };
+		9782043122CCF6C3000544FE /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203BF22CCF6C2000544FE /* SuccessfulRTBShouldResizeAdToFitContainer.json */; };
+		9782043222CCF6C3000544FE /* BaseMediationSingleNetworkResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C022CCF6C2000544FE /* BaseMediationSingleNetworkResponse.json */; };
+		9782043322CCF6C3000544FE /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C122CCF6C2000544FE /* appnexus_standard_response.json */; };
+		9782043422CCF6C3000544FE /* SuccessfulVerticalVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C222CCF6C2000544FE /* SuccessfulVerticalVideoAdResponse.json */; };
+		9782043522CCF6C3000544FE /* bannerNative_native_mediation.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C322CCF6C2000544FE /* bannerNative_native_mediation.json */; };
+		9782043622CCF6C3000544FE /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C422CCF6C2000544FE /* SuccessfulSquareInstreamVideoAdResponse.json */; };
+		9782043722CCF6C3000544FE /* SecondPriceForDFPSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C522CCF6C2000544FE /* SecondPriceForDFPSuccess.json */; };
+		9782043822CCF6C3000544FE /* bannerNative_basic_banner.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C622CCF6C2000544FE /* bannerNative_basic_banner.json */; };
+		9782043922CCF6C3000544FE /* nativeResponseWithoutImpTrackers.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C722CCF6C2000544FE /* nativeResponseWithoutImpTrackers.json */; };
+		9782043A22CCF6C3000544FE /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C822CCF6C2000544FE /* SuccessfulStandardAdFromRTBObjectResponse.json */; };
+		9782043B22CCF6C3000544FE /* BannerMediationFailRTBVideoSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203C922CCF6C2000544FE /* BannerMediationFailRTBVideoSuccess.json */; };
+		9782043C22CCF6C3000544FE /* SuccessfulNativeStandardAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 978203CA22CCF6C2000544FE /* SuccessfulNativeStandardAdResponse.json */; };
+		9782043D22CCF6C3000544FE /* dogSelfie@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 978203CC22CCF6C2000544FE /* dogSelfie@2x.jpg */; };
+		9782043E22CCF6C3000544FE /* GreyWhiteCat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 978203CD22CCF6C2000544FE /* GreyWhiteCat.jpg */; };
+		9782043F22CCF6C3000544FE /* GreyWhiteCat@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 978203CE22CCF6C2000544FE /* GreyWhiteCat@2x.jpg */; };
+		9782044022CCF6C3000544FE /* dogSelfie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 978203CF22CCF6C2000544FE /* dogSelfie.jpg */; };
+		9782044122CCF6C3000544FE /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203D322CCF6C2000544FE /* SDKValidationURLProtocol.m */; };
+		9782044222CCF6C3000544FE /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203D422CCF6C2000544FE /* NSURLSessionConfiguration+ANProtocols.m */; };
+		9782044322CCF6C3000544FE /* ANMRAIDTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203D722CCF6C2000544FE /* ANMRAIDTestResponses.m */; };
+		9782044422CCF6C3000544FE /* ANMockMediationAdapterLoadThenFail.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203D922CCF6C2000544FE /* ANMockMediationAdapterLoadThenFail.m */; };
+		9782044522CCF6C3000544FE /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203DA22CCF6C2000544FE /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
+		9782044622CCF6C3000544FE /* ANMockMediationAdapterTimeout.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203DF22CCF6C2000544FE /* ANMockMediationAdapterTimeout.m */; };
+		9782044722CCF6C3000544FE /* ANMockMediationAdapterSuccessfulBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203E022CCF6C2000544FE /* ANMockMediationAdapterSuccessfulBanner.m */; };
+		9782044822CCF6C3000544FE /* ANMockMediationAdapterLoadedMultiple.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203E222CCF6C2000544FE /* ANMockMediationAdapterLoadedMultiple.m */; };
+		9782044922CCF6C3000544FE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 978203E322CCF6C2000544FE /* Default-568h@2x.png */; };
+		9782044A22CCF6C3000544FE /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203E722CCF6C2000544FE /* ANHTTPStubbingManager.m */; };
+		9782044B22CCF6C3000544FE /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203E822CCF6C2000544FE /* ANURLConnectionStub.m */; };
+		9782044C22CCF6C3000544FE /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203E922CCF6C2000544FE /* ANHTTPStubURLProtocol.m */; };
+		9782044D22CCF6C3000544FE /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203EA22CCF6C2000544FE /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
+		9782044E22CCF6C3000544FE /* ANTrackerManager+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203EE22CCF6C2000544FE /* ANTrackerManager+ANTest.m */; };
+		9782044F22CCF6C3000544FE /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203EF22CCF6C2000544FE /* NSURLRequest+HTTPBodyTesting.m */; };
+		9782045022CCF6C3000544FE /* XCTestCase+ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203F022CCF6C2000544FE /* XCTestCase+ANBannerAdView.m */; };
+		9782045122CCF6C3000544FE /* ANUniversalAdFetcher+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203F322CCF6C2000544FE /* ANUniversalAdFetcher+ANTest.m */; };
+		9782045222CCF6C3000544FE /* XCTestCase+ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203F422CCF6C2000544FE /* XCTestCase+ANAdResponse.m */; };
+		9782045322CCF6C3000544FE /* ANBannerAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203F722CCF6C2000544FE /* ANBannerAdView+ANTest.m */; };
+		9782045422CCF6C3000544FE /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 978203FF22CCF6C2000544FE /* XCTestCase+ANCategory.m */; };
+		9782045522CCF6C3000544FE /* ANInterstitialAd+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040022CCF6C2000544FE /* ANInterstitialAd+ANTest.m */; };
+		9782045622CCF6C3000544FE /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040122CCF6C2000544FE /* ANAdView+ANTest.m */; };
+		9782045722CCF6C3000544FE /* UIApplication+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040222CCF6C2000544FE /* UIApplication+ANTest.m */; };
+		9782045822CCF6C3000544FE /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040322CCF6C2000544FE /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
+		9782045922CCF6C3000544FE /* ANVerificationScriptResource+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040522CCF6C2000544FE /* ANVerificationScriptResource+ANTest.m */; };
+		9782045A22CCF6C3000544FE /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040822CCF6C2000544FE /* ANReachability+ANTest.m */; };
+		9782045B22CCF6C3000544FE /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040922CCF6C2000544FE /* NSObject+Swizzling.m */; };
+		9782045C22CCF6C3000544FE /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040A22CCF6C2000544FE /* ANAdWebViewController+ANTest.m */; };
+		9782045D22CCF6C3000544FE /* ANTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9782040B22CCF6C2000544FE /* ANTestGlobal.m */; };
 		978CF4D2215A57090031EA8F /* ANSDKSettingsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978CF4D1215A57090031EA8F /* ANSDKSettingsTestCase.swift */; };
 		979082C821BE99E900E6F5FF /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B06BE72140330200234B9A /* AppNexusSDK.framework */; };
 		979082C921BE99E900E6F5FF /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 97B06BE72140330200234B9A /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -47,24 +119,6 @@
 		97EC9619214A79750007681A /* ANInstreamVideoAdTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC9618214A79750007681A /* ANInstreamVideoAdTestCase.swift */; };
 		97EC9628214A7A580007681A /* ANInstreamVideoAd+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC961A214A7A560007681A /* ANInstreamVideoAd+Test.m */; };
 		97EC9629214A7A580007681A /* ANVideoAdPlayer+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC9625214A7A560007681A /* ANVideoAdPlayer+Test.m */; };
-		97EF0EC22142C5B8008B1E21 /* ANAdView+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E732142C5B8008B1E21 /* ANAdView+ANTest.m */; };
-		97EF0EC32142C5B8008B1E21 /* ANAdWebViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E752142C5B8008B1E21 /* ANAdWebViewController+ANTest.m */; };
-		97EF0EC62142C5B8008B1E21 /* ANMediationAdViewController+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E7B2142C5B8008B1E21 /* ANMediationAdViewController+ANTest.m */; };
-		97EF0EC72142C5B8008B1E21 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E7D2142C5B8008B1E21 /* ANNativeAdRequest+ANBaseUrlOverride.m */; };
-		97EF0ECB2142C5B8008B1E21 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E852142C5B8008B1E21 /* NSObject+Swizzling.m */; };
-		97EF0ECC2142C5B8008B1E21 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E872142C5B8008B1E21 /* NSURLRequest+HTTPBodyTesting.m */; };
-		97EF0ECE2142C5B8008B1E21 /* XCTestCase+ANAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E8B2142C5B8008B1E21 /* XCTestCase+ANAdResponse.m */; };
-		97EF0ECF2142C5B8008B1E21 /* XCTestCase+ANBannerAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E8D2142C5B8008B1E21 /* XCTestCase+ANBannerAdView.m */; };
-		97EF0ED02142C5B8008B1E21 /* XCTestCase+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E8F2142C5B8008B1E21 /* XCTestCase+ANCategory.m */; };
-		97EF0ED22142C5B8008B1E21 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97EF0E922142C5B8008B1E21 /* Default-568h@2x.png */; };
-		97EF0ED32142C5B8008B1E21 /* dogSelfie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97EF0E942142C5B8008B1E21 /* dogSelfie.jpg */; };
-		97EF0ED42142C5B8008B1E21 /* dogSelfie@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97EF0E952142C5B8008B1E21 /* dogSelfie@2x.jpg */; };
-		97EF0ED52142C5B8008B1E21 /* GreyWhiteCat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97EF0E962142C5B8008B1E21 /* GreyWhiteCat.jpg */; };
-		97EF0ED62142C5B8008B1E21 /* GreyWhiteCat@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97EF0E972142C5B8008B1E21 /* GreyWhiteCat@2x.jpg */; };
-		97EF0EF32142C5B8008B1E21 /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0EB72142C5B8008B1E21 /* ANHTTPStubbingManager.m */; };
-		97EF0EF42142C5B8008B1E21 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0EB92142C5B8008B1E21 /* ANHTTPStubURLProtocol.m */; };
-		97EF0EF52142C5B8008B1E21 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0EBA2142C5B8008B1E21 /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
-		97EF0EF92142C6EF008B1E21 /* ANTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0E682142C5B8008B1E21 /* ANTestGlobal.m */; };
 		97EF0F062142D3A1008B1E21 /* ANInterstitialAdTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EF0F052142D3A1008B1E21 /* ANInterstitialAdTestCase.swift */; };
 		97FFF2BF214034C7008599A4 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF2BE214034C7008599A4 /* Accounts.framework */; };
 		97FFF2C3214034DF008599A4 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF2C2214034DF008599A4 /* AdSupport.framework */; };
@@ -80,7 +134,6 @@
 		97FFF2DD21403552008599A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF2DC21403552008599A4 /* Foundation.framework */; };
 		97FFF2E32140357A008599A4 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF2E22140357A008599A4 /* JavaScriptCore.framework */; };
 		97FFF2F8214035F7008599A4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF2F7214035F7008599A4 /* libc++.tbd */; };
-		97FFF2FE2140363C008599A4 /* libLWSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF2FD2140363C008599A4 /* libLWSDK.a */; };
 		97FFF30421403679008599A4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF30321403679008599A4 /* libsqlite3.tbd */; };
 		97FFF30621403685008599A4 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF30521403685008599A4 /* libxml2.tbd */; };
 		97FFF30821403691008599A4 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 97FFF30721403691008599A4 /* libz.1.2.5.tbd */; };
@@ -167,41 +220,6 @@
 			remoteGlobalIDString = 8AA5B4C41AA8B4A500522E1C;
 			remoteInfo = ANSDKInMobiAdapter;
 		};
-		97B06BD82140330200234B9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97B06BB22140330200234B9A /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A4B96B51ACD9A4C00FFEB2A;
-			remoteInfo = ANSDKVdopiaAdapter;
-		};
-		97B06BDA2140330200234B9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97B06BB22140330200234B9A /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A1482571AD337320046F1B9;
-			remoteInfo = ANSDKAdColonyAdapter;
-		};
-		97B06BDC2140330200234B9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97B06BB22140330200234B9A /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AD7C4D81AD2FABA0049C997;
-			remoteInfo = ANSDKVungleAdapter;
-		};
-		97B06BDE2140330200234B9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97B06BB22140330200234B9A /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A949ACE1ADF131500D83DCE;
-			remoteInfo = ANSDKChartboostAdapter;
-		};
-		97B06BE02140330200234B9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97B06BB22140330200234B9A /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A96871A1B43314E00D9399B;
-			remoteInfo = ANSDKYahooAdapter;
-		};
 		97B06BE22140330200234B9A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97B06BB22140330200234B9A /* ANSDK.xcodeproj */;
@@ -229,13 +247,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 60359FEF1E23FCB50017EF56;
 			remoteInfo = ANSDKSmartAdAdapter;
-		};
-		97B06BEA2140330200234B9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97B06BB22140330200234B9A /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 60359EB01E1EA1180017EF56;
-			remoteInfo = ANSDKAdMarvelAdapter;
 		};
 		97FFF32321403728008599A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -267,6 +278,133 @@
 		976C41A9214FE225006DEBA2 /* ANNativeAdRequestTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANNativeAdRequestTestCase.swift; sourceTree = "<group>"; };
 		97717641215B855F00985C39 /* ANLocationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANLocationTestCase.swift; sourceTree = "<group>"; };
 		97717644215B9B9700985C39 /* ANGDPRSettingsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANGDPRSettingsTestCase.swift; sourceTree = "<group>"; };
+		9782037B22CCF6C2000544FE /* ANMockMediationAdapterBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerNeverCalled.m; sourceTree = "<group>"; };
+		9782037C22CCF6C2000544FE /* XCTestCase+ANMediatedAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANMediatedAd.h"; sourceTree = "<group>"; };
+		9782037D22CCF6C2000544FE /* TestANUniversalFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestANUniversalFetcher.h; sourceTree = "<group>"; };
+		9782037E22CCF6C2000544FE /* ANTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestResponses.h; sourceTree = "<group>"; };
+		9782037F22CCF6C2000544FE /* ANBaseTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANBaseTestCase.m; sourceTree = "<group>"; };
+		9782038022CCF6C2000544FE /* XCTestCase+ANMediatedAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANMediatedAd.m"; sourceTree = "<group>"; };
+		9782038122CCF6C2000544FE /* ANMockMediationAdapterBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerNeverCalled.h; sourceTree = "<group>"; };
+		9782038222CCF6C2000544FE /* TestANUniversalFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestANUniversalFetcher.m; sourceTree = "<group>"; };
+		9782038322CCF6C2000544FE /* ANBaseTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBaseTestCase.h; sourceTree = "<group>"; };
+		9782038422CCF6C2000544FE /* ANTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestResponses.m; sourceTree = "<group>"; };
+		9782038622CCF6C2000544FE /* ANAdAdapterBannerMultipleSuccessCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMultipleSuccessCallbacks.h; sourceTree = "<group>"; };
+		9782038722CCF6C2000544FE /* ANAdAdapterBannerSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSuccessful.h; sourceTree = "<group>"; };
+		9782038822CCF6C2000544FE /* ANFailedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANFailedMultiple.m; sourceTree = "<group>"; };
+		9782038922CCF6C2000544FE /* ANAdAdapterBannerNoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoDelegate.m; sourceTree = "<group>"; };
+		9782038A22CCF6C2000544FE /* ANAdAdapterBannerNoRequestMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoRequestMethod.h; sourceTree = "<group>"; };
+		9782038B22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFillThenSuccessful.h; sourceTree = "<group>"; };
+		9782038C22CCF6C2000544FE /* ANAdAdapterBannerTimeoutThenSuccessful.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerTimeoutThenSuccessful.h; sourceTree = "<group>"; };
+		9782038D22CCF6C2000544FE /* ANAdAdapterBannerSuccessfulThenUnableToFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerSuccessfulThenUnableToFill.h; sourceTree = "<group>"; };
+		9782038E22CCF6C2000544FE /* ANLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
+		9782038F22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m; sourceTree = "<group>"; };
+		9782039022CCF6C2000544FE /* ANAdAdapterBannerMultipleFailureCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMultipleFailureCallbacks.m; sourceTree = "<group>"; };
+		9782039122CCF6C2000544FE /* ANAdAdapterBannerNetworkError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNetworkError.m; sourceTree = "<group>"; };
+		9782039222CCF6C2000544FE /* ANAdAdapterBannerUnableToFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFill.h; sourceTree = "<group>"; };
+		9782039322CCF6C2000544FE /* ANAdAdapterBannerNoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNoDelegate.h; sourceTree = "<group>"; };
+		9782039422CCF6C2000544FE /* ANFailedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANFailedMultiple.h; sourceTree = "<group>"; };
+		9782039522CCF6C2000544FE /* ANAdAdapterBannerSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSuccessful.m; sourceTree = "<group>"; };
+		9782039622CCF6C2000544FE /* ANAdAdapterBannerMultipleSuccessCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerMultipleSuccessCallbacks.m; sourceTree = "<group>"; };
+		9782039722CCF6C2000544FE /* ANAdAdapterBannerTimeoutThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerTimeoutThenSuccessful.m; sourceTree = "<group>"; };
+		9782039822CCF6C2000544FE /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerSuccessfulThenUnableToFill.m; sourceTree = "<group>"; };
+		9782039922CCF6C2000544FE /* ANLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
+		9782039A22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillThenSuccessful.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFillThenSuccessful.m; sourceTree = "<group>"; };
+		9782039B22CCF6C2000544FE /* ANAdAdapterBannerNoRequestMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerNoRequestMethod.m; sourceTree = "<group>"; };
+		9782039C22CCF6C2000544FE /* ANAdAdapterBannerMultipleFailureCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerMultipleFailureCallbacks.h; sourceTree = "<group>"; };
+		9782039D22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h; sourceTree = "<group>"; };
+		9782039E22CCF6C2000544FE /* ANAdAdapterBannerNetworkError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdAdapterBannerNetworkError.h; sourceTree = "<group>"; };
+		9782039F22CCF6C2000544FE /* ANAdAdapterBannerUnableToFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANAdAdapterBannerUnableToFill.m; sourceTree = "<group>"; };
+		978203AC22CCF6C2000544FE /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json; sourceTree = "<group>"; };
+		978203AD22CCF6C2000544FE /* SuccessfulInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulInstreamVideoAdResponse.json; sourceTree = "<group>"; };
+		978203AE22CCF6C2000544FE /* SuccessfulAllowMagicSizeBannerObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulAllowMagicSizeBannerObjectResponse.json; sourceTree = "<group>"; };
+		978203AF22CCF6C2000544FE /* SuccessfulMRAIDResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMRAIDResponse.json; sourceTree = "<group>"; };
+		978203B022CCF6C2000544FE /* SuccessfulLocationCreativeForBannerAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulLocationCreativeForBannerAdResponse.json; sourceTree = "<group>"; };
+		978203B122CCF6C2000544FE /* native_videoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = native_videoResponse.json; sourceTree = "<group>"; };
+		978203B222CCF6C2000544FE /* OMID_TestResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_TestResponse.json; sourceTree = "<group>"; };
+		978203B322CCF6C2000544FE /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAsssemblyRendererOMID_Native_RTBResponse.json; sourceTree = "<group>"; };
+		978203B422CCF6C2000544FE /* OMID_Native_RTBResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_RTBResponse.json; sourceTree = "<group>"; };
+		978203B522CCF6C2000544FE /* SecondPriceForDFPParamIsUnset.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPParamIsUnset.json; sourceTree = "<group>"; };
+		978203B622CCF6C2000544FE /* SuccessfulOutstreamBannerVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulOutstreamBannerVideoResponse.json; sourceTree = "<group>"; };
+		978203B722CCF6C2000544FE /* custom_adapter_to_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = custom_adapter_to_standard_response.json; sourceTree = "<group>"; };
+		978203B822CCF6C2000544FE /* SuccessfulMRAIDListenerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMRAIDListenerResponse.json; sourceTree = "<group>"; };
+		978203B922CCF6C2000544FE /* appnexus_bannerNative_rendering.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_rendering.json; sourceTree = "<group>"; };
+		978203BA22CCF6C2000544FE /* OMID_Native_CSMResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = OMID_Native_CSMResponse.json; sourceTree = "<group>"; };
+		978203BB22CCF6C2000544FE /* SuccessfulMediationResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulMediationResponse.json; sourceTree = "<group>"; };
+		978203BC22CCF6C2000544FE /* SuccessfulANRTBVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulANRTBVideoAdResponse.json; sourceTree = "<group>"; };
+		978203BD22CCF6C2000544FE /* SuccessfulOutstreamVideoResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulOutstreamVideoResponse.json; sourceTree = "<group>"; };
+		978203BE22CCF6C2000544FE /* appnexus_bannerNative_renderingInvalidURL.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_renderingInvalidURL.json; sourceTree = "<group>"; };
+		978203BF22CCF6C2000544FE /* SuccessfulRTBShouldResizeAdToFitContainer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulRTBShouldResizeAdToFitContainer.json; sourceTree = "<group>"; };
+		978203C022CCF6C2000544FE /* BaseMediationSingleNetworkResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BaseMediationSingleNetworkResponse.json; sourceTree = "<group>"; };
+		978203C122CCF6C2000544FE /* appnexus_standard_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_standard_response.json; sourceTree = "<group>"; };
+		978203C222CCF6C2000544FE /* SuccessfulVerticalVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulVerticalVideoAdResponse.json; sourceTree = "<group>"; };
+		978203C322CCF6C2000544FE /* bannerNative_native_mediation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bannerNative_native_mediation.json; sourceTree = "<group>"; };
+		978203C422CCF6C2000544FE /* SuccessfulSquareInstreamVideoAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulSquareInstreamVideoAdResponse.json; sourceTree = "<group>"; };
+		978203C522CCF6C2000544FE /* SecondPriceForDFPSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SecondPriceForDFPSuccess.json; sourceTree = "<group>"; };
+		978203C622CCF6C2000544FE /* bannerNative_basic_banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bannerNative_basic_banner.json; sourceTree = "<group>"; };
+		978203C722CCF6C2000544FE /* nativeResponseWithoutImpTrackers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nativeResponseWithoutImpTrackers.json; sourceTree = "<group>"; };
+		978203C822CCF6C2000544FE /* SuccessfulStandardAdFromRTBObjectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulStandardAdFromRTBObjectResponse.json; sourceTree = "<group>"; };
+		978203C922CCF6C2000544FE /* BannerMediationFailRTBVideoSuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BannerMediationFailRTBVideoSuccess.json; sourceTree = "<group>"; };
+		978203CA22CCF6C2000544FE /* SuccessfulNativeStandardAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SuccessfulNativeStandardAdResponse.json; sourceTree = "<group>"; };
+		978203CC22CCF6C2000544FE /* dogSelfie@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dogSelfie@2x.jpg"; sourceTree = "<group>"; };
+		978203CD22CCF6C2000544FE /* GreyWhiteCat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GreyWhiteCat.jpg; sourceTree = "<group>"; };
+		978203CE22CCF6C2000544FE /* GreyWhiteCat@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "GreyWhiteCat@2x.jpg"; sourceTree = "<group>"; };
+		978203CF22CCF6C2000544FE /* dogSelfie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dogSelfie.jpg; sourceTree = "<group>"; };
+		978203D122CCF6C2000544FE /* SDKValidationURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKValidationURLProtocol.h; sourceTree = "<group>"; };
+		978203D222CCF6C2000544FE /* NSURLSessionConfiguration+ANProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+ANProtocols.h"; sourceTree = "<group>"; };
+		978203D322CCF6C2000544FE /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
+		978203D422CCF6C2000544FE /* NSURLSessionConfiguration+ANProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionConfiguration+ANProtocols.m"; sourceTree = "<group>"; };
+		978203D522CCF6C2000544FE /* ANTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestGlobal.h; sourceTree = "<group>"; };
+		978203D722CCF6C2000544FE /* ANMRAIDTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMRAIDTestResponses.m; sourceTree = "<group>"; };
+		978203D822CCF6C2000544FE /* ANMockMediationAdapterTimeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterTimeout.h; sourceTree = "<group>"; };
+		978203D922CCF6C2000544FE /* ANMockMediationAdapterLoadThenFail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadThenFail.m; sourceTree = "<group>"; };
+		978203DA22CCF6C2000544FE /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.m; sourceTree = "<group>"; };
+		978203DB22CCF6C2000544FE /* ANMockMediationAdapterSuccessfulBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterSuccessfulBanner.h; sourceTree = "<group>"; };
+		978203DC22CCF6C2000544FE /* ANMockMediationAdapterLoadedMultiple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadedMultiple.h; sourceTree = "<group>"; };
+		978203DD22CCF6C2000544FE /* ANMRAIDTestResponses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMRAIDTestResponses.h; sourceTree = "<group>"; };
+		978203DE22CCF6C2000544FE /* ANMockMediationAdapterLoadThenFail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadThenFail.h; sourceTree = "<group>"; };
+		978203DF22CCF6C2000544FE /* ANMockMediationAdapterTimeout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterTimeout.m; sourceTree = "<group>"; };
+		978203E022CCF6C2000544FE /* ANMockMediationAdapterSuccessfulBanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterSuccessfulBanner.m; sourceTree = "<group>"; };
+		978203E122CCF6C2000544FE /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterLoadAndHitOtherCallbacks.h; sourceTree = "<group>"; };
+		978203E222CCF6C2000544FE /* ANMockMediationAdapterLoadedMultiple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterLoadedMultiple.m; sourceTree = "<group>"; };
+		978203E322CCF6C2000544FE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		978203E522CCF6C2000544FE /* ANURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANURLConnectionStub.h; sourceTree = "<group>"; };
+		978203E622CCF6C2000544FE /* ANHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubURLProtocol.h; sourceTree = "<group>"; };
+		978203E722CCF6C2000544FE /* ANHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubbingManager.m; sourceTree = "<group>"; };
+		978203E822CCF6C2000544FE /* ANURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANURLConnectionStub.m; sourceTree = "<group>"; };
+		978203E922CCF6C2000544FE /* ANHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubURLProtocol.m; sourceTree = "<group>"; };
+		978203EA22CCF6C2000544FE /* ANURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
+		978203EB22CCF6C2000544FE /* ANHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubbingManager.h; sourceTree = "<group>"; };
+		978203ED22CCF6C2000544FE /* XCTestCase+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANCategory.h"; sourceTree = "<group>"; };
+		978203EE22CCF6C2000544FE /* ANTrackerManager+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANTrackerManager+ANTest.m"; sourceTree = "<group>"; };
+		978203EF22CCF6C2000544FE /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
+		978203F022CCF6C2000544FE /* XCTestCase+ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANBannerAdView.m"; sourceTree = "<group>"; };
+		978203F122CCF6C2000544FE /* ANAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdView+ANTest.h"; sourceTree = "<group>"; };
+		978203F222CCF6C2000544FE /* ANInterstitialAd+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANInterstitialAd+ANTest.h"; sourceTree = "<group>"; };
+		978203F322CCF6C2000544FE /* ANUniversalAdFetcher+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANUniversalAdFetcher+ANTest.m"; sourceTree = "<group>"; };
+		978203F422CCF6C2000544FE /* XCTestCase+ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANAdResponse.m"; sourceTree = "<group>"; };
+		978203F522CCF6C2000544FE /* ANVerificationScriptResource+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANVerificationScriptResource+ANTest.h"; sourceTree = "<group>"; };
+		978203F622CCF6C2000544FE /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
+		978203F722CCF6C2000544FE /* ANBannerAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANTest.m"; sourceTree = "<group>"; };
+		978203F822CCF6C2000544FE /* UIApplication+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+ANTest.h"; sourceTree = "<group>"; };
+		978203F922CCF6C2000544FE /* ANAdWebViewController+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdWebViewController+ANTest.h"; sourceTree = "<group>"; };
+		978203FA22CCF6C2000544FE /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzling.h"; sourceTree = "<group>"; };
+		978203FB22CCF6C2000544FE /* ANReachability+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANReachability+ANTest.h"; sourceTree = "<group>"; };
+		978203FC22CCF6C2000544FE /* XCTestCase+ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANBannerAdView.h"; sourceTree = "<group>"; };
+		978203FD22CCF6C2000544FE /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
+		978203FE22CCF6C2000544FE /* ANTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANTrackerManager+ANTest.h"; sourceTree = "<group>"; };
+		978203FF22CCF6C2000544FE /* XCTestCase+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANCategory.m"; sourceTree = "<group>"; };
+		9782040022CCF6C2000544FE /* ANInterstitialAd+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANInterstitialAd+ANTest.m"; sourceTree = "<group>"; };
+		9782040122CCF6C2000544FE /* ANAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdView+ANTest.m"; sourceTree = "<group>"; };
+		9782040222CCF6C2000544FE /* UIApplication+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+ANTest.m"; sourceTree = "<group>"; };
+		9782040322CCF6C2000544FE /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
+		9782040422CCF6C2000544FE /* ANBannerAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANTest.h"; sourceTree = "<group>"; };
+		9782040522CCF6C2000544FE /* ANVerificationScriptResource+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVerificationScriptResource+ANTest.m"; sourceTree = "<group>"; };
+		9782040622CCF6C2000544FE /* XCTestCase+ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANAdResponse.h"; sourceTree = "<group>"; };
+		9782040722CCF6C2000544FE /* ANUniversalAdFetcher+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANUniversalAdFetcher+ANTest.h"; sourceTree = "<group>"; };
+		9782040822CCF6C2000544FE /* ANReachability+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANReachability+ANTest.m"; sourceTree = "<group>"; };
+		9782040922CCF6C2000544FE /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
+		9782040A22CCF6C2000544FE /* ANAdWebViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdWebViewController+ANTest.m"; sourceTree = "<group>"; };
+		9782040B22CCF6C2000544FE /* ANTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestGlobal.m; sourceTree = "<group>"; };
 		978CF4D1215A57090031EA8F /* ANSDKSettingsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANSDKSettingsTestCase.swift; sourceTree = "<group>"; };
 		979082CD21BE9A3700E6F5FF /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		979082CF21BE9A4B00E6F5FF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -297,52 +435,6 @@
 		97EC9625214A7A560007681A /* ANVideoAdPlayer+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANVideoAdPlayer+Test.m"; sourceTree = "<group>"; };
 		97EC9626214A7A560007681A /* ANInstreamVideoAd+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANInstreamVideoAd+Test.h"; sourceTree = "<group>"; };
 		97EC9627214A7A570007681A /* ANVideoAdPlayer+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANVideoAdPlayer+Test.h"; sourceTree = "<group>"; };
-		97EF0E672142C5B8008B1E21 /* ANTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANTestGlobal.h; sourceTree = "<group>"; };
-		97EF0E682142C5B8008B1E21 /* ANTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestGlobal.m; sourceTree = "<group>"; };
-		97EF0E722142C5B8008B1E21 /* ANAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdView+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E732142C5B8008B1E21 /* ANAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdView+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E742142C5B8008B1E21 /* ANAdWebViewController+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdWebViewController+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E752142C5B8008B1E21 /* ANAdWebViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdWebViewController+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E762142C5B8008B1E21 /* ANBannerAdView+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANBannerAdView+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E772142C5B8008B1E21 /* ANBannerAdView+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANBannerAdView+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E782142C5B8008B1E21 /* ANInterstitialAd+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANInterstitialAd+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E792142C5B8008B1E21 /* ANInterstitialAd+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANInterstitialAd+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E7A2142C5B8008B1E21 /* ANMediationAdViewController+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANMediationAdViewController+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E7B2142C5B8008B1E21 /* ANMediationAdViewController+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANMediationAdViewController+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E7C2142C5B8008B1E21 /* ANNativeAdRequest+ANBaseUrlOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANNativeAdRequest+ANBaseUrlOverride.h"; sourceTree = "<group>"; };
-		97EF0E7D2142C5B8008B1E21 /* ANNativeAdRequest+ANBaseUrlOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANNativeAdRequest+ANBaseUrlOverride.m"; sourceTree = "<group>"; };
-		97EF0E7E2142C5B8008B1E21 /* ANReachability+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANReachability+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E7F2142C5B8008B1E21 /* ANReachability+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANReachability+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E802142C5B8008B1E21 /* ANTrackerManager+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANTrackerManager+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E812142C5B8008B1E21 /* ANTrackerManager+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANTrackerManager+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E822142C5B8008B1E21 /* ANUniversalAdFetcher+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANUniversalAdFetcher+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E832142C5B8008B1E21 /* ANUniversalAdFetcher+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANUniversalAdFetcher+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E842142C5B8008B1E21 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzling.h"; sourceTree = "<group>"; };
-		97EF0E852142C5B8008B1E21 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
-		97EF0E862142C5B8008B1E21 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
-		97EF0E872142C5B8008B1E21 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
-		97EF0E882142C5B8008B1E21 /* UIApplication+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+ANTest.h"; sourceTree = "<group>"; };
-		97EF0E892142C5B8008B1E21 /* UIApplication+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+ANTest.m"; sourceTree = "<group>"; };
-		97EF0E8A2142C5B8008B1E21 /* XCTestCase+ANAdResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANAdResponse.h"; sourceTree = "<group>"; };
-		97EF0E8B2142C5B8008B1E21 /* XCTestCase+ANAdResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANAdResponse.m"; sourceTree = "<group>"; };
-		97EF0E8C2142C5B8008B1E21 /* XCTestCase+ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANBannerAdView.h"; sourceTree = "<group>"; };
-		97EF0E8D2142C5B8008B1E21 /* XCTestCase+ANBannerAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANBannerAdView.m"; sourceTree = "<group>"; };
-		97EF0E8E2142C5B8008B1E21 /* XCTestCase+ANCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANCategory.h"; sourceTree = "<group>"; };
-		97EF0E8F2142C5B8008B1E21 /* XCTestCase+ANCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANCategory.m"; sourceTree = "<group>"; };
-		97EF0E902142C5B8008B1E21 /* XCTestCase+ANMediatedAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+ANMediatedAd.h"; sourceTree = "<group>"; };
-		97EF0E912142C5B8008B1E21 /* XCTestCase+ANMediatedAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+ANMediatedAd.m"; sourceTree = "<group>"; };
-		97EF0E922142C5B8008B1E21 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		97EF0E942142C5B8008B1E21 /* dogSelfie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dogSelfie.jpg; sourceTree = "<group>"; };
-		97EF0E952142C5B8008B1E21 /* dogSelfie@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dogSelfie@2x.jpg"; sourceTree = "<group>"; };
-		97EF0E962142C5B8008B1E21 /* GreyWhiteCat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GreyWhiteCat.jpg; sourceTree = "<group>"; };
-		97EF0E972142C5B8008B1E21 /* GreyWhiteCat@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "GreyWhiteCat@2x.jpg"; sourceTree = "<group>"; };
-		97EF0EB62142C5B8008B1E21 /* ANHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubbingManager.h; sourceTree = "<group>"; };
-		97EF0EB72142C5B8008B1E21 /* ANHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubbingManager.m; sourceTree = "<group>"; };
-		97EF0EB82142C5B8008B1E21 /* ANHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANHTTPStubURLProtocol.h; sourceTree = "<group>"; };
-		97EF0EB92142C5B8008B1E21 /* ANHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANHTTPStubURLProtocol.m; sourceTree = "<group>"; };
-		97EF0EBA2142C5B8008B1E21 /* ANURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
-		97EF0EBB2142C5B8008B1E21 /* ANURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANURLConnectionStub.h; sourceTree = "<group>"; };
-		97EF0EBC2142C5B8008B1E21 /* ANURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANURLConnectionStub.m; sourceTree = "<group>"; };
 		97EF0F052142D3A1008B1E21 /* ANInterstitialAdTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANInterstitialAdTestCase.swift; sourceTree = "<group>"; };
 		97F9DEBA21CD429100AF75A1 /* SwiftCompatibilityTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftCompatibilityTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		97FFF2BE214034C7008599A4 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -411,7 +503,6 @@
 				97FFF30821403691008599A4 /* libz.1.2.5.tbd in Frameworks */,
 				97FFF30621403685008599A4 /* libxml2.tbd in Frameworks */,
 				97FFF30421403679008599A4 /* libsqlite3.tbd in Frameworks */,
-				97FFF2FE2140363C008599A4 /* libLWSDK.a in Frameworks */,
 				97FFF2F8214035F7008599A4 /* libc++.tbd in Frameworks */,
 				979082C821BE99E900E6F5FF /* AppNexusSDK.framework in Frameworks */,
 				97FFF2E32140357A008599A4 /* JavaScriptCore.framework in Frameworks */,
@@ -488,14 +579,222 @@
 			path = ANGDPRSettings;
 			sourceTree = "<group>";
 		};
+		9782037922CCF6C2000544FE /* UnitMockFiles */ = {
+			isa = PBXGroup;
+			children = (
+				9782037A22CCF6C2000544FE /* UnitTestShared */,
+				9782038522CCF6C2000544FE /* BannerAdapter */,
+			);
+			name = UnitMockFiles;
+			path = ../TestApps/UnitTestApp/UnitTestApp/UnitMockFiles;
+			sourceTree = "<group>";
+		};
+		9782037A22CCF6C2000544FE /* UnitTestShared */ = {
+			isa = PBXGroup;
+			children = (
+				9782037B22CCF6C2000544FE /* ANMockMediationAdapterBannerNeverCalled.m */,
+				9782037C22CCF6C2000544FE /* XCTestCase+ANMediatedAd.h */,
+				9782037D22CCF6C2000544FE /* TestANUniversalFetcher.h */,
+				9782037E22CCF6C2000544FE /* ANTestResponses.h */,
+				9782037F22CCF6C2000544FE /* ANBaseTestCase.m */,
+				9782038022CCF6C2000544FE /* XCTestCase+ANMediatedAd.m */,
+				9782038122CCF6C2000544FE /* ANMockMediationAdapterBannerNeverCalled.h */,
+				9782038222CCF6C2000544FE /* TestANUniversalFetcher.m */,
+				9782038322CCF6C2000544FE /* ANBaseTestCase.h */,
+				9782038422CCF6C2000544FE /* ANTestResponses.m */,
+			);
+			path = UnitTestShared;
+			sourceTree = "<group>";
+		};
+		9782038522CCF6C2000544FE /* BannerAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				9782038622CCF6C2000544FE /* ANAdAdapterBannerMultipleSuccessCallbacks.h */,
+				9782038722CCF6C2000544FE /* ANAdAdapterBannerSuccessful.h */,
+				9782038822CCF6C2000544FE /* ANFailedMultiple.m */,
+				9782038922CCF6C2000544FE /* ANAdAdapterBannerNoDelegate.m */,
+				9782038A22CCF6C2000544FE /* ANAdAdapterBannerNoRequestMethod.h */,
+				9782038B22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillThenSuccessful.h */,
+				9782038C22CCF6C2000544FE /* ANAdAdapterBannerTimeoutThenSuccessful.h */,
+				9782038D22CCF6C2000544FE /* ANAdAdapterBannerSuccessfulThenUnableToFill.h */,
+				9782038E22CCF6C2000544FE /* ANLoadAndHitOtherCallbacks.h */,
+				9782038F22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m */,
+				9782039022CCF6C2000544FE /* ANAdAdapterBannerMultipleFailureCallbacks.m */,
+				9782039122CCF6C2000544FE /* ANAdAdapterBannerNetworkError.m */,
+				9782039222CCF6C2000544FE /* ANAdAdapterBannerUnableToFill.h */,
+				9782039322CCF6C2000544FE /* ANAdAdapterBannerNoDelegate.h */,
+				9782039422CCF6C2000544FE /* ANFailedMultiple.h */,
+				9782039522CCF6C2000544FE /* ANAdAdapterBannerSuccessful.m */,
+				9782039622CCF6C2000544FE /* ANAdAdapterBannerMultipleSuccessCallbacks.m */,
+				9782039722CCF6C2000544FE /* ANAdAdapterBannerTimeoutThenSuccessful.m */,
+				9782039822CCF6C2000544FE /* ANAdAdapterBannerSuccessfulThenUnableToFill.m */,
+				9782039922CCF6C2000544FE /* ANLoadAndHitOtherCallbacks.m */,
+				9782039A22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillThenSuccessful.m */,
+				9782039B22CCF6C2000544FE /* ANAdAdapterBannerNoRequestMethod.m */,
+				9782039C22CCF6C2000544FE /* ANAdAdapterBannerMultipleFailureCallbacks.h */,
+				9782039D22CCF6C2000544FE /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.h */,
+				9782039E22CCF6C2000544FE /* ANAdAdapterBannerNetworkError.h */,
+				9782039F22CCF6C2000544FE /* ANAdAdapterBannerUnableToFill.m */,
+			);
+			path = BannerAdapter;
+			sourceTree = "<group>";
+		};
+		978203AA22CCF6C2000544FE /* SharedMockFiles */ = {
+			isa = PBXGroup;
+			children = (
+				978203AB22CCF6C2000544FE /* StubResponse */,
+				978203CB22CCF6C2000544FE /* Resources */,
+				978203D022CCF6C2000544FE /* SDKValidationURL */,
+				978203D522CCF6C2000544FE /* ANTestGlobal.h */,
+				978203D622CCF6C2000544FE /* MockMediationAdapters */,
+				978203E322CCF6C2000544FE /* Default-568h@2x.png */,
+				978203E422CCF6C2000544FE /* Stubbing */,
+				978203EC22CCF6C2000544FE /* Categories */,
+				9782040B22CCF6C2000544FE /* ANTestGlobal.m */,
+			);
+			name = SharedMockFiles;
+			path = ../TestApps/UnitTestApp/UnitTestApp/SharedMockFiles;
+			sourceTree = "<group>";
+		};
+		978203AB22CCF6C2000544FE /* StubResponse */ = {
+			isa = PBXGroup;
+			children = (
+				978203AC22CCF6C2000544FE /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */,
+				978203AD22CCF6C2000544FE /* SuccessfulInstreamVideoAdResponse.json */,
+				978203AE22CCF6C2000544FE /* SuccessfulAllowMagicSizeBannerObjectResponse.json */,
+				978203AF22CCF6C2000544FE /* SuccessfulMRAIDResponse.json */,
+				978203B022CCF6C2000544FE /* SuccessfulLocationCreativeForBannerAdResponse.json */,
+				978203B122CCF6C2000544FE /* native_videoResponse.json */,
+				978203B222CCF6C2000544FE /* OMID_TestResponse.json */,
+				978203B322CCF6C2000544FE /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */,
+				978203B422CCF6C2000544FE /* OMID_Native_RTBResponse.json */,
+				978203B522CCF6C2000544FE /* SecondPriceForDFPParamIsUnset.json */,
+				978203B622CCF6C2000544FE /* SuccessfulOutstreamBannerVideoResponse.json */,
+				978203B722CCF6C2000544FE /* custom_adapter_to_standard_response.json */,
+				978203B822CCF6C2000544FE /* SuccessfulMRAIDListenerResponse.json */,
+				978203B922CCF6C2000544FE /* appnexus_bannerNative_rendering.json */,
+				978203BA22CCF6C2000544FE /* OMID_Native_CSMResponse.json */,
+				978203BB22CCF6C2000544FE /* SuccessfulMediationResponse.json */,
+				978203BC22CCF6C2000544FE /* SuccessfulANRTBVideoAdResponse.json */,
+				978203BD22CCF6C2000544FE /* SuccessfulOutstreamVideoResponse.json */,
+				978203BE22CCF6C2000544FE /* appnexus_bannerNative_renderingInvalidURL.json */,
+				978203BF22CCF6C2000544FE /* SuccessfulRTBShouldResizeAdToFitContainer.json */,
+				978203C022CCF6C2000544FE /* BaseMediationSingleNetworkResponse.json */,
+				978203C122CCF6C2000544FE /* appnexus_standard_response.json */,
+				978203C222CCF6C2000544FE /* SuccessfulVerticalVideoAdResponse.json */,
+				978203C322CCF6C2000544FE /* bannerNative_native_mediation.json */,
+				978203C422CCF6C2000544FE /* SuccessfulSquareInstreamVideoAdResponse.json */,
+				978203C522CCF6C2000544FE /* SecondPriceForDFPSuccess.json */,
+				978203C622CCF6C2000544FE /* bannerNative_basic_banner.json */,
+				978203C722CCF6C2000544FE /* nativeResponseWithoutImpTrackers.json */,
+				978203C822CCF6C2000544FE /* SuccessfulStandardAdFromRTBObjectResponse.json */,
+				978203C922CCF6C2000544FE /* BannerMediationFailRTBVideoSuccess.json */,
+				978203CA22CCF6C2000544FE /* SuccessfulNativeStandardAdResponse.json */,
+			);
+			path = StubResponse;
+			sourceTree = "<group>";
+		};
+		978203CB22CCF6C2000544FE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				978203CC22CCF6C2000544FE /* dogSelfie@2x.jpg */,
+				978203CD22CCF6C2000544FE /* GreyWhiteCat.jpg */,
+				978203CE22CCF6C2000544FE /* GreyWhiteCat@2x.jpg */,
+				978203CF22CCF6C2000544FE /* dogSelfie.jpg */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		978203D022CCF6C2000544FE /* SDKValidationURL */ = {
+			isa = PBXGroup;
+			children = (
+				978203D122CCF6C2000544FE /* SDKValidationURLProtocol.h */,
+				978203D222CCF6C2000544FE /* NSURLSessionConfiguration+ANProtocols.h */,
+				978203D322CCF6C2000544FE /* SDKValidationURLProtocol.m */,
+				978203D422CCF6C2000544FE /* NSURLSessionConfiguration+ANProtocols.m */,
+			);
+			path = SDKValidationURL;
+			sourceTree = "<group>";
+		};
+		978203D622CCF6C2000544FE /* MockMediationAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				978203D722CCF6C2000544FE /* ANMRAIDTestResponses.m */,
+				978203D822CCF6C2000544FE /* ANMockMediationAdapterTimeout.h */,
+				978203D922CCF6C2000544FE /* ANMockMediationAdapterLoadThenFail.m */,
+				978203DA22CCF6C2000544FE /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */,
+				978203DB22CCF6C2000544FE /* ANMockMediationAdapterSuccessfulBanner.h */,
+				978203DC22CCF6C2000544FE /* ANMockMediationAdapterLoadedMultiple.h */,
+				978203DD22CCF6C2000544FE /* ANMRAIDTestResponses.h */,
+				978203DE22CCF6C2000544FE /* ANMockMediationAdapterLoadThenFail.h */,
+				978203DF22CCF6C2000544FE /* ANMockMediationAdapterTimeout.m */,
+				978203E022CCF6C2000544FE /* ANMockMediationAdapterSuccessfulBanner.m */,
+				978203E122CCF6C2000544FE /* ANMockMediationAdapterLoadAndHitOtherCallbacks.h */,
+				978203E222CCF6C2000544FE /* ANMockMediationAdapterLoadedMultiple.m */,
+			);
+			path = MockMediationAdapters;
+			sourceTree = "<group>";
+		};
+		978203E422CCF6C2000544FE /* Stubbing */ = {
+			isa = PBXGroup;
+			children = (
+				978203E522CCF6C2000544FE /* ANURLConnectionStub.h */,
+				978203E622CCF6C2000544FE /* ANHTTPStubURLProtocol.h */,
+				978203E722CCF6C2000544FE /* ANHTTPStubbingManager.m */,
+				978203E822CCF6C2000544FE /* ANURLConnectionStub.m */,
+				978203E922CCF6C2000544FE /* ANHTTPStubURLProtocol.m */,
+				978203EA22CCF6C2000544FE /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
+				978203EB22CCF6C2000544FE /* ANHTTPStubbingManager.h */,
+			);
+			path = Stubbing;
+			sourceTree = "<group>";
+		};
+		978203EC22CCF6C2000544FE /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				978203ED22CCF6C2000544FE /* XCTestCase+ANCategory.h */,
+				978203EE22CCF6C2000544FE /* ANTrackerManager+ANTest.m */,
+				978203EF22CCF6C2000544FE /* NSURLRequest+HTTPBodyTesting.m */,
+				978203F022CCF6C2000544FE /* XCTestCase+ANBannerAdView.m */,
+				978203F122CCF6C2000544FE /* ANAdView+ANTest.h */,
+				978203F222CCF6C2000544FE /* ANInterstitialAd+ANTest.h */,
+				978203F322CCF6C2000544FE /* ANUniversalAdFetcher+ANTest.m */,
+				978203F422CCF6C2000544FE /* XCTestCase+ANAdResponse.m */,
+				978203F522CCF6C2000544FE /* ANVerificationScriptResource+ANTest.h */,
+				978203F622CCF6C2000544FE /* ANNativeAdRequest+ANBaseUrlOverride.h */,
+				978203F722CCF6C2000544FE /* ANBannerAdView+ANTest.m */,
+				978203F822CCF6C2000544FE /* UIApplication+ANTest.h */,
+				978203F922CCF6C2000544FE /* ANAdWebViewController+ANTest.h */,
+				978203FA22CCF6C2000544FE /* NSObject+Swizzling.h */,
+				978203FB22CCF6C2000544FE /* ANReachability+ANTest.h */,
+				978203FC22CCF6C2000544FE /* XCTestCase+ANBannerAdView.h */,
+				978203FD22CCF6C2000544FE /* NSURLRequest+HTTPBodyTesting.h */,
+				978203FE22CCF6C2000544FE /* ANTrackerManager+ANTest.h */,
+				978203FF22CCF6C2000544FE /* XCTestCase+ANCategory.m */,
+				9782040022CCF6C2000544FE /* ANInterstitialAd+ANTest.m */,
+				9782040122CCF6C2000544FE /* ANAdView+ANTest.m */,
+				9782040222CCF6C2000544FE /* UIApplication+ANTest.m */,
+				9782040322CCF6C2000544FE /* ANNativeAdRequest+ANBaseUrlOverride.m */,
+				9782040422CCF6C2000544FE /* ANBannerAdView+ANTest.h */,
+				9782040522CCF6C2000544FE /* ANVerificationScriptResource+ANTest.m */,
+				9782040622CCF6C2000544FE /* XCTestCase+ANAdResponse.h */,
+				9782040722CCF6C2000544FE /* ANUniversalAdFetcher+ANTest.h */,
+				9782040822CCF6C2000544FE /* ANReachability+ANTest.m */,
+				9782040922CCF6C2000544FE /* NSObject+Swizzling.m */,
+				9782040A22CCF6C2000544FE /* ANAdWebViewController+ANTest.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		97B06B862140309E00234B9A = {
 			isa = PBXGroup;
 			children = (
 				97F9DEBA21CD429100AF75A1 /* SwiftCompatibilityTest-Bridging-Header.h */,
 				97B06B912140309E00234B9A /* SwiftCompatibilityTest */,
 				97B06BA62140309F00234B9A /* SwiftCompatibilityTestTests */,
-				97EF0E662142C5B8008B1E21 /* Shared */,
 				97B06B902140309E00234B9A /* Products */,
+				978203AA22CCF6C2000544FE /* SharedMockFiles */,
+				9782037922CCF6C2000544FE /* UnitMockFiles */,
 				97B06BB22140330200234B9A /* ANSDK.xcodeproj */,
 				97FFF2AA214034C7008599A4 /* Frameworks */,
 			);
@@ -551,16 +850,10 @@
 				97B06BD32140330200234B9A /* libANSDKFacebookAdapter.a */,
 				97B06BD52140330200234B9A /* libANSDKAmazonAdapter.a */,
 				97B06BD72140330200234B9A /* libANSDKInMobiAdapter.a */,
-				97B06BD92140330200234B9A /* libANSDKVdopiaAdapter.a */,
-				97B06BDB2140330200234B9A /* libANSDKAdColonyAdapter.a */,
-				97B06BDD2140330200234B9A /* libANSDKVungleAdapter.a */,
-				97B06BDF2140330200234B9A /* libANSDKChartboostAdapter.a */,
-				97B06BE12140330200234B9A /* libANSDKYahooAdapter.a */,
 				97B06BE32140330200234B9A /* libANAdapterForGoogleAdMobSDK.a */,
 				97B06BE52140330200234B9A /* libANAdapterForMoPubSDK.a */,
 				97B06BE72140330200234B9A /* AppNexusSDK.framework */,
 				97B06BE92140330200234B9A /* libANSDKSmartAdAdapter.a */,
-				97B06BEB2140330200234B9A /* libANSDKAdMarvelAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -605,84 +898,6 @@
 				97EC9618214A79750007681A /* ANInstreamVideoAdTestCase.swift */,
 			);
 			path = ANInstreamVideoAd;
-			sourceTree = "<group>";
-		};
-		97EF0E662142C5B8008B1E21 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				97EF0E672142C5B8008B1E21 /* ANTestGlobal.h */,
-				97EF0E682142C5B8008B1E21 /* ANTestGlobal.m */,
-				97EF0E692142C5B8008B1E21 /* Categories */,
-				97EF0E922142C5B8008B1E21 /* Default-568h@2x.png */,
-				97EF0E932142C5B8008B1E21 /* Resources */,
-				97EF0EB52142C5B8008B1E21 /* Stubbing */,
-			);
-			name = Shared;
-			path = ../tests/Shared;
-			sourceTree = "<group>";
-		};
-		97EF0E692142C5B8008B1E21 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				97EF0E722142C5B8008B1E21 /* ANAdView+ANTest.h */,
-				97EF0E732142C5B8008B1E21 /* ANAdView+ANTest.m */,
-				97EF0E742142C5B8008B1E21 /* ANAdWebViewController+ANTest.h */,
-				97EF0E752142C5B8008B1E21 /* ANAdWebViewController+ANTest.m */,
-				97EF0E762142C5B8008B1E21 /* ANBannerAdView+ANTest.h */,
-				97EF0E772142C5B8008B1E21 /* ANBannerAdView+ANTest.m */,
-				97EF0E782142C5B8008B1E21 /* ANInterstitialAd+ANTest.h */,
-				97EF0E792142C5B8008B1E21 /* ANInterstitialAd+ANTest.m */,
-				97EF0E7A2142C5B8008B1E21 /* ANMediationAdViewController+ANTest.h */,
-				97EF0E7B2142C5B8008B1E21 /* ANMediationAdViewController+ANTest.m */,
-				97EF0E7C2142C5B8008B1E21 /* ANNativeAdRequest+ANBaseUrlOverride.h */,
-				97EF0E7D2142C5B8008B1E21 /* ANNativeAdRequest+ANBaseUrlOverride.m */,
-				97EF0E7E2142C5B8008B1E21 /* ANReachability+ANTest.h */,
-				97EF0E7F2142C5B8008B1E21 /* ANReachability+ANTest.m */,
-				97EF0E802142C5B8008B1E21 /* ANTrackerManager+ANTest.h */,
-				97EF0E812142C5B8008B1E21 /* ANTrackerManager+ANTest.m */,
-				97EF0E822142C5B8008B1E21 /* ANUniversalAdFetcher+ANTest.h */,
-				97EF0E832142C5B8008B1E21 /* ANUniversalAdFetcher+ANTest.m */,
-				97EF0E842142C5B8008B1E21 /* NSObject+Swizzling.h */,
-				97EF0E852142C5B8008B1E21 /* NSObject+Swizzling.m */,
-				97EF0E862142C5B8008B1E21 /* NSURLRequest+HTTPBodyTesting.h */,
-				97EF0E872142C5B8008B1E21 /* NSURLRequest+HTTPBodyTesting.m */,
-				97EF0E882142C5B8008B1E21 /* UIApplication+ANTest.h */,
-				97EF0E892142C5B8008B1E21 /* UIApplication+ANTest.m */,
-				97EF0E8A2142C5B8008B1E21 /* XCTestCase+ANAdResponse.h */,
-				97EF0E8B2142C5B8008B1E21 /* XCTestCase+ANAdResponse.m */,
-				97EF0E8C2142C5B8008B1E21 /* XCTestCase+ANBannerAdView.h */,
-				97EF0E8D2142C5B8008B1E21 /* XCTestCase+ANBannerAdView.m */,
-				97EF0E8E2142C5B8008B1E21 /* XCTestCase+ANCategory.h */,
-				97EF0E8F2142C5B8008B1E21 /* XCTestCase+ANCategory.m */,
-				97EF0E902142C5B8008B1E21 /* XCTestCase+ANMediatedAd.h */,
-				97EF0E912142C5B8008B1E21 /* XCTestCase+ANMediatedAd.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		97EF0E932142C5B8008B1E21 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				97EF0E942142C5B8008B1E21 /* dogSelfie.jpg */,
-				97EF0E952142C5B8008B1E21 /* dogSelfie@2x.jpg */,
-				97EF0E962142C5B8008B1E21 /* GreyWhiteCat.jpg */,
-				97EF0E972142C5B8008B1E21 /* GreyWhiteCat@2x.jpg */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		97EF0EB52142C5B8008B1E21 /* Stubbing */ = {
-			isa = PBXGroup;
-			children = (
-				97EF0EB62142C5B8008B1E21 /* ANHTTPStubbingManager.h */,
-				97EF0EB72142C5B8008B1E21 /* ANHTTPStubbingManager.m */,
-				97EF0EB82142C5B8008B1E21 /* ANHTTPStubURLProtocol.h */,
-				97EF0EB92142C5B8008B1E21 /* ANHTTPStubURLProtocol.m */,
-				97EF0EBA2142C5B8008B1E21 /* ANURLConnectionStub+NSURLSessionConfiguration.m */,
-				97EF0EBB2142C5B8008B1E21 /* ANURLConnectionStub.h */,
-				97EF0EBC2142C5B8008B1E21 /* ANURLConnectionStub.m */,
-			);
-			path = Stubbing;
 			sourceTree = "<group>";
 		};
 		97EF0F022142D347008B1E21 /* ANInterstitialAd */ = {
@@ -892,41 +1107,6 @@
 			remoteRef = 97B06BD62140330200234B9A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		97B06BD92140330200234B9A /* libANSDKVdopiaAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKVdopiaAdapter.a;
-			remoteRef = 97B06BD82140330200234B9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		97B06BDB2140330200234B9A /* libANSDKAdColonyAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKAdColonyAdapter.a;
-			remoteRef = 97B06BDA2140330200234B9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		97B06BDD2140330200234B9A /* libANSDKVungleAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKVungleAdapter.a;
-			remoteRef = 97B06BDC2140330200234B9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		97B06BDF2140330200234B9A /* libANSDKChartboostAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKChartboostAdapter.a;
-			remoteRef = 97B06BDE2140330200234B9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		97B06BE12140330200234B9A /* libANSDKYahooAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKYahooAdapter.a;
-			remoteRef = 97B06BE02140330200234B9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		97B06BE32140330200234B9A /* libANAdapterForGoogleAdMobSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -955,13 +1135,6 @@
 			remoteRef = 97B06BE82140330200234B9A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		97B06BEB2140330200234B9A /* libANSDKAdMarvelAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKAdMarvelAdapter.a;
-			remoteRef = 97B06BEA2140330200234B9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -980,18 +1153,49 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9782043F22CCF6C3000544FE /* GreyWhiteCat@2x.jpg in Resources */,
+				9782042622CCF6C3000544FE /* OMID_Native_RTBResponse.json in Resources */,
+				9782042122CCF6C3000544FE /* SuccessfulMRAIDResponse.json in Resources */,
 				97BB4137222405A5002B4EE5 /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
-				97EF0ED32142C5B8008B1E21 /* dogSelfie.jpg in Resources */,
+				9782042922CCF6C3000544FE /* custom_adapter_to_standard_response.json in Resources */,
+				9782042E22CCF6C3000544FE /* SuccessfulANRTBVideoAdResponse.json in Resources */,
+				9782043322CCF6C3000544FE /* appnexus_standard_response.json in Resources */,
+				9782042022CCF6C3000544FE /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
+				9782042A22CCF6C3000544FE /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				97BB41072223FAF0002B4EE5 /* bannerNative_basic_banner.json in Resources */,
-				97EF0ED22142C5B8008B1E21 /* Default-568h@2x.png in Resources */,
+				9782043222CCF6C3000544FE /* BaseMediationSingleNetworkResponse.json in Resources */,
+				9782044022CCF6C3000544FE /* dogSelfie.jpg in Resources */,
+				9782043922CCF6C3000544FE /* nativeResponseWithoutImpTrackers.json in Resources */,
+				9782042B22CCF6C3000544FE /* appnexus_bannerNative_rendering.json in Resources */,
+				9782043E22CCF6C3000544FE /* GreyWhiteCat.jpg in Resources */,
+				9782042D22CCF6C3000544FE /* SuccessfulMediationResponse.json in Resources */,
+				9782043D22CCF6C3000544FE /* dogSelfie@2x.jpg in Resources */,
+				9782043522CCF6C3000544FE /* bannerNative_native_mediation.json in Resources */,
+				9782042222CCF6C3000544FE /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
+				9782043122CCF6C3000544FE /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */,
 				97BB41062223FAF0002B4EE5 /* appnexus_standard_response.json in Resources */,
+				9782043722CCF6C3000544FE /* SecondPriceForDFPSuccess.json in Resources */,
+				9782043422CCF6C3000544FE /* SuccessfulVerticalVideoAdResponse.json in Resources */,
+				9782041E22CCF6C3000544FE /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
+				9782043022CCF6C3000544FE /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
+				9782042822CCF6C3000544FE /* SuccessfulOutstreamBannerVideoResponse.json in Resources */,
+				9782042522CCF6C3000544FE /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */,
+				9782044922CCF6C3000544FE /* Default-568h@2x.png in Resources */,
+				9782043C22CCF6C3000544FE /* SuccessfulNativeStandardAdResponse.json in Resources */,
 				972BE9592226C9400032E57E /* native_videoResponse.json in Resources */,
+				9782042722CCF6C3000544FE /* SecondPriceForDFPParamIsUnset.json in Resources */,
+				9782042F22CCF6C3000544FE /* SuccessfulOutstreamVideoResponse.json in Resources */,
+				9782043A22CCF6C3000544FE /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
 				97BB412A2223FAF1002B4EE5 /* SuccessfulInstreamVideoAdResponse.json in Resources */,
-				97EF0ED62142C5B8008B1E21 /* GreyWhiteCat@2x.jpg in Resources */,
-				97EF0ED42142C5B8008B1E21 /* dogSelfie@2x.jpg in Resources */,
+				9782042422CCF6C3000544FE /* OMID_TestResponse.json in Resources */,
 				97BB412B2223FAF1002B4EE5 /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
 				97BB41272223FAF1002B4EE5 /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
-				97EF0ED52142C5B8008B1E21 /* GreyWhiteCat.jpg in Resources */,
+				9782041F22CCF6C3000544FE /* SuccessfulInstreamVideoAdResponse.json in Resources */,
+				9782042C22CCF6C3000544FE /* OMID_Native_CSMResponse.json in Resources */,
+				9782043822CCF6C3000544FE /* bannerNative_basic_banner.json in Resources */,
+				9782042322CCF6C3000544FE /* native_videoResponse.json in Resources */,
+				9782043622CCF6C3000544FE /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */,
+				9782043B22CCF6C3000544FE /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1002,13 +1206,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97EF0EF92142C6EF008B1E21 /* ANTestGlobal.m in Sources */,
-				971E8D4B21469A0A00B66AE8 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				97B06B932140309E00234B9A /* AppDelegate.swift in Sources */,
-				971E8D4D21469A3400B66AE8 /* ANAdView+ANTest.m in Sources */,
 				971E8D5F2146C0C600B66AE8 /* ViewController.swift in Sources */,
-				971E8D4C21469A1200B66AE8 /* NSObject+Swizzling.m in Sources */,
-				971E8D4A21469A0000B66AE8 /* UIApplication+ANTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1016,34 +1215,62 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9782045122CCF6C3000544FE /* ANUniversalAdFetcher+ANTest.m in Sources */,
+				9782045922CCF6C3000544FE /* ANVerificationScriptResource+ANTest.m in Sources */,
+				9782044B22CCF6C3000544FE /* ANURLConnectionStub.m in Sources */,
 				976304CD2141165900ACA477 /* ANBannerAdTestCase.swift in Sources */,
+				9782044C22CCF6C3000544FE /* ANHTTPStubURLProtocol.m in Sources */,
+				9782044222CCF6C3000544FE /* NSURLSessionConfiguration+ANProtocols.m in Sources */,
+				9782045822CCF6C3000544FE /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
+				9782045622CCF6C3000544FE /* ANAdView+ANTest.m in Sources */,
+				9782044422CCF6C3000544FE /* ANMockMediationAdapterLoadThenFail.m in Sources */,
+				9782045C22CCF6C3000544FE /* ANAdWebViewController+ANTest.m in Sources */,
+				9782045022CCF6C3000544FE /* XCTestCase+ANBannerAdView.m in Sources */,
+				9782041122CCF6C3000544FE /* ANFailedMultiple.m in Sources */,
 				97EF0F062142D3A1008B1E21 /* ANInterstitialAdTestCase.swift in Sources */,
-				971E8D592146ADDF00B66AE8 /* ANUniversalAdFetcher+ANTest.m in Sources */,
-				971E8D562146ADAF00B66AE8 /* ANInterstitialAd+ANTest.m in Sources */,
+				9782041A22CCF6C3000544FE /* ANLoadAndHitOtherCallbacks.m in Sources */,
+				9782044822CCF6C3000544FE /* ANMockMediationAdapterLoadedMultiple.m in Sources */,
 				97EC9629214A7A580007681A /* ANVideoAdPlayer+Test.m in Sources */,
+				9782041B22CCF6C3000544FE /* ANAdAdapterBannerUnableToFillThenSuccessful.m in Sources */,
 				97EC9619214A79750007681A /* ANInstreamVideoAdTestCase.swift in Sources */,
-				97EF0EC62142C5B8008B1E21 /* ANMediationAdViewController+ANTest.m in Sources */,
-				971E8D582146ADD800B66AE8 /* ANTrackerManager+ANTest.m in Sources */,
+				9782041822CCF6C3000544FE /* ANAdAdapterBannerTimeoutThenSuccessful.m in Sources */,
 				97717645215B9B9700985C39 /* ANGDPRSettingsTestCase.swift in Sources */,
-				97EF0ECB2142C5B8008B1E21 /* NSObject+Swizzling.m in Sources */,
+				9782040E22CCF6C3000544FE /* XCTestCase+ANMediatedAd.m in Sources */,
+				9782044322CCF6C3000544FE /* ANMRAIDTestResponses.m in Sources */,
+				9782041C22CCF6C3000544FE /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
+				9782041322CCF6C3000544FE /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
+				9782044122CCF6C3000544FE /* SDKValidationURLProtocol.m in Sources */,
 				97717642215B855F00985C39 /* ANLocationTestCase.swift in Sources */,
-				971E8D5B2146BEAC00B66AE8 /* ANURLConnectionStub.m in Sources */,
-				97EF0EC32142C5B8008B1E21 /* ANAdWebViewController+ANTest.m in Sources */,
-				97EF0ECF2142C5B8008B1E21 /* XCTestCase+ANBannerAdView.m in Sources */,
-				97EF0ECE2142C5B8008B1E21 /* XCTestCase+ANAdResponse.m in Sources */,
-				97EF0ECC2142C5B8008B1E21 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				9782045222CCF6C3000544FE /* XCTestCase+ANAdResponse.m in Sources */,
+				9782040D22CCF6C3000544FE /* ANBaseTestCase.m in Sources */,
+				9782045722CCF6C3000544FE /* UIApplication+ANTest.m in Sources */,
+				9782044522CCF6C3000544FE /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */,
 				978CF4D2215A57090031EA8F /* ANSDKSettingsTestCase.swift in Sources */,
+				9782044F22CCF6C3000544FE /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				9782041422CCF6C3000544FE /* ANAdAdapterBannerMultipleFailureCallbacks.m in Sources */,
+				9782045D22CCF6C3000544FE /* ANTestGlobal.m in Sources */,
+				9782041922CCF6C3000544FE /* ANAdAdapterBannerSuccessfulThenUnableToFill.m in Sources */,
+				9782045B22CCF6C3000544FE /* NSObject+Swizzling.m in Sources */,
+				9782041722CCF6C3000544FE /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
 				976C41AA214FE225006DEBA2 /* ANNativeAdRequestTestCase.swift in Sources */,
+				9782041022CCF6C3000544FE /* ANTestResponses.m in Sources */,
 				97EC9628214A7A580007681A /* ANInstreamVideoAd+Test.m in Sources */,
-				971E8D572146ADCE00B66AE8 /* ANReachability+ANTest.m in Sources */,
-				97EF0EC72142C5B8008B1E21 /* ANNativeAdRequest+ANBaseUrlOverride.m in Sources */,
-				971E8D552146ADA800B66AE8 /* ANBannerAdView+ANTest.m in Sources */,
-				97EF0EF52142C5B8008B1E21 /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				9782041222CCF6C3000544FE /* ANAdAdapterBannerNoDelegate.m in Sources */,
+				9782044622CCF6C3000544FE /* ANMockMediationAdapterTimeout.m in Sources */,
+				9782045422CCF6C3000544FE /* XCTestCase+ANCategory.m in Sources */,
+				9782044A22CCF6C3000544FE /* ANHTTPStubbingManager.m in Sources */,
+				9782041522CCF6C3000544FE /* ANAdAdapterBannerNetworkError.m in Sources */,
+				9782045522CCF6C3000544FE /* ANInterstitialAd+ANTest.m in Sources */,
+				9782045322CCF6C3000544FE /* ANBannerAdView+ANTest.m in Sources */,
+				9782040C22CCF6C3000544FE /* ANMockMediationAdapterBannerNeverCalled.m in Sources */,
 				97355D2F21620BB200AF423B /* ANAdProtocolTestCase.swift in Sources */,
-				97EF0EC22142C5B8008B1E21 /* ANAdView+ANTest.m in Sources */,
-				97EF0EF32142C5B8008B1E21 /* ANHTTPStubbingManager.m in Sources */,
-				97EF0EF42142C5B8008B1E21 /* ANHTTPStubURLProtocol.m in Sources */,
-				97EF0ED02142C5B8008B1E21 /* XCTestCase+ANCategory.m in Sources */,
+				9782040F22CCF6C3000544FE /* TestANUniversalFetcher.m in Sources */,
+				9782041622CCF6C3000544FE /* ANAdAdapterBannerSuccessful.m in Sources */,
+				9782044D22CCF6C3000544FE /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				9782045A22CCF6C3000544FE /* ANReachability+ANTest.m in Sources */,
+				9782041D22CCF6C3000544FE /* ANAdAdapterBannerUnableToFill.m in Sources */,
+				9782044E22CCF6C3000544FE /* ANTrackerManager+ANTest.m in Sources */,
+				9782044722CCF6C3000544FE /* ANMockMediationAdapterSuccessfulBanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1216,8 +1443,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../sdk/**",
-					"\"$(SRCROOT)/Shared\"/**",
-					"\"$(SRCROOT)/Shared/Categories\"/**",
+					"\"$(SRCROOT)/../TestApps/UnitTestApp/UnitTestApp/SharedMockFiles\"",
+					"\"$(SRCROOT)/../TestApps/UnitTestApp/UnitTestApp/UnitMockFiles\"",
 				);
 				INFOPLIST_FILE = SwiftCompatibilityTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1225,15 +1452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTest;
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
@@ -1259,8 +1478,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../sdk/**",
-					"\"$(SRCROOT)/Shared\"/**",
-					"\"$(SRCROOT)/Shared/Categories\"/**",
+					"\"$(SRCROOT)/../TestApps/UnitTestApp/UnitTestApp/SharedMockFiles\"",
+					"\"$(SRCROOT)/../TestApps/UnitTestApp/UnitTestApp/UnitMockFiles\"",
 				);
 				INFOPLIST_FILE = SwiftCompatibilityTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1268,15 +1487,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTest;
@@ -1302,6 +1513,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../sdk/**",
 					"$(inherited)",
+					"\"$(SRCROOT)/../TestApps/UnitTestApp/UnitTestApp/SharedMockFiles\"",
+					"\"$(SRCROOT)/../TestApps/UnitTestApp/UnitTestApp/UnitMockFiles\"",
 				);
 				INFOPLIST_FILE = SwiftCompatibilityTestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1309,15 +1522,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1341,6 +1546,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../sdk/**",
 					"$(inherited)",
+					"\"$(SRCROOT)/../TestApps/UnitTestApp/UnitTestApp/SharedMockFiles\"",
+					"\"$(SRCROOT)/../TestApps/UnitTestApp/UnitTestApp/UnitMockFiles\"",
 				);
 				INFOPLIST_FILE = SwiftCompatibilityTestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1348,15 +1555,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../mediation/mediatedviews/AdMarvel/AdMarvelSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/SmartAd/SmartAdSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/Flurry",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Yahoo/YahooSDK/FlurryAds",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/Vdopia/VdopiaSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/InMobi/InMobiSDK",
-					"$(PROJECT_DIR)/../mediation/mediatedviews/MoPub/MoPubSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test234dsaf.Test.SwiftCompatibilityTestTests;
 				PRODUCT_MODULE_NAME = "$(PROJECT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

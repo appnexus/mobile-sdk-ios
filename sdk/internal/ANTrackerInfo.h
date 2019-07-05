@@ -19,10 +19,10 @@ static NSTimeInterval const kANTrackerExpirationInterval = 3600;
 
 @interface ANTrackerInfo : NSObject
 
-- (instancetype)initWithURL:(NSString *)URL;
+- (nullable instancetype)initWithURL:(nullable NSString *)URL;
 
-@property (nonatomic, readonly, strong) NSString *URL;
-@property (nonatomic, readonly, strong) NSDate *dateCreated;
+@property (nonatomic, readonly, strong, nullable) NSString *URL;
+@property (nonatomic, readonly, strong, nullable) NSDate *dateCreated;
 @property (nonatomic, readonly, assign, getter=isExpired) BOOL expired;
 @property (nonatomic, readwrite, assign) NSUInteger numberOfTimesFired;
 

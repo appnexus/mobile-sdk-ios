@@ -28,15 +28,15 @@
 /*!
  * Sent when the native view is clicked by the user.
  */
-- (void)adWasClicked:(id)response;
+- (void)adWasClicked:(nonnull id)response;
 
 /*!
  * Sent when the native view returns the click-through URL and click-through fallback URL
  *   to the user instead of opening it in a browser.
  */
-- (void)adWasClicked: (id)response
-             withURL: (NSString *)clickURLString
-         fallbackURL: (NSString *)clickFallbackURLString;
+- (void)adWasClicked: (nonnull id)response
+             withURL: (nonnull NSString *)clickURLString
+         fallbackURL: (nonnull NSString *)clickFallbackURLString;
 
 /*!
  * Sent when the native view was clicked, and the click through
@@ -45,31 +45,31 @@
  * @note If it is preferred that the destination open in the
  * native browser instead, then set clickThroughAction to ANClickThroughActionOpenDeviceBrowser.
  */
-- (void)adWillPresent:(id)response;
+- (void)adWillPresent:(nonnull id)response;
 
 /*!
  * Sent when the in-app browser has finished presenting and taken
  * control from your application.
  */
-- (void)adDidPresent:(id)response;
+- (void)adDidPresent:(nonnull id)response;
 
 /*!
  * Sent when the in-app browser will close and before
  * control has been returned to your application.
  */
-- (void)adWillClose:(id)response;
+- (void)adWillClose:(nonnull id)response;
 
 /*!
  * Sent when the in-app browser has closed and control
  * has been returned to your application.
  */
-- (void)adDidClose:(id)response;
+- (void)adDidClose:(nonnull id)response;
 
 /*!
  * Sent when the ad is about to leave the app.
  * This will happen in a number of cases, including when
  *   clickThroughAction is set to ANClickThroughActionOpenDeviceBrowser.
  */
-- (void)adWillLeaveApplication:(id)response;
+- (void)adWillLeaveApplication:(nonnull id)response;
 
 @end

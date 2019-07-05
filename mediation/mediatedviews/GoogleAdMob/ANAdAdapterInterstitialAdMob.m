@@ -28,9 +28,9 @@
 
 #pragma mark ANCustomAdapterInterstitial
 
-- (void)requestInterstitialAdWithParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters
+- (void)requestInterstitialAdWithParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)idString
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters
 {
     ANLogDebug(@"Requesting AdMob interstitial");
 	self.interstitialAd = [[GADInterstitial alloc] initWithAdUnitID:idString];

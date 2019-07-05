@@ -34,7 +34,7 @@
 
 
 @protocol ANCustomAdapter <NSObject>
-@property (nonatomic, readwrite, weak) id<ANCustomAdapterDelegate> delegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANCustomAdapterDelegate> delegate;
 @end
 
 
@@ -45,12 +45,12 @@
 @protocol ANCustomAdapterBanner <ANCustomAdapter>
 
 - (void)requestBannerAdWithSize:(CGSize)size
-             rootViewController:(UIViewController *)rootViewController
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters;
+             rootViewController:(nullable UIViewController *)rootViewController
+                serverParameter:(nullable NSString *)parameterString
+                       adUnitId:(nullable NSString *)idString
+            targetingParameters:(nullable ANTargetingParameters *)targetingParameters;
 
-@property (nonatomic, readwrite, weak) id<ANCustomAdapterBannerDelegate, ANCustomAdapterDelegate> delegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANCustomAdapterBannerDelegate, ANCustomAdapterDelegate> delegate;
 
 @end
 
@@ -61,13 +61,13 @@
 
 @protocol ANCustomAdapterInterstitial <ANCustomAdapter>
 
-- (void)requestInterstitialAdWithParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters;
-- (void)presentFromViewController:(UIViewController *)viewController;
+- (void)requestInterstitialAdWithParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)idString
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters;
+- (void)presentFromViewController:(nullable UIViewController *)viewController;
 - (BOOL)isReady;
 
-@property (nonatomic, readwrite, weak) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANCustomAdapterInterstitialDelegate, ANCustomAdapterDelegate> delegate;
 
 @end
 
@@ -75,13 +75,13 @@
 
 
 @protocol ANCustomAdapterBannerDelegate <ANCustomAdapterDelegate>
-- (void)didLoadBannerAd:(UIView *)view;
+- (void)didLoadBannerAd:(nullable UIView *)view;
 @end
 
 
 
 
 @protocol ANCustomAdapterInterstitialDelegate <ANCustomAdapterDelegate>
-- (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter;
+- (void)didLoadInterstitialAd:(nullable id<ANCustomAdapterInterstitial>)adapter;
 - (void)failedToDisplayAd;
 @end

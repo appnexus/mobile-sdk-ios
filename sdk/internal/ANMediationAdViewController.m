@@ -245,7 +245,7 @@
 
 #pragma mark - ANCustomAdapterBannerDelegate
 
-- (void)didLoadBannerAd:(UIView *)view {
+- (void)didLoadBannerAd:(nullable UIView *)view {
     [self didReceiveAd:view];
 }
 
@@ -253,7 +253,7 @@
 
 #pragma mark - ANCustomAdapterInterstitialDelegate
 
-- (void)didLoadInterstitialAd:(id<ANCustomAdapterInterstitial>)adapter {
+- (void)didLoadInterstitialAd:(nullable id<ANCustomAdapterInterstitial>)adapter {
     [self didReceiveAd:adapter];
 }
 

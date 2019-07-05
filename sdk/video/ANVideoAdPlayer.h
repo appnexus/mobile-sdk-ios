@@ -44,28 +44,28 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 @protocol ANVideoAdPlayerDelegate <NSObject>
 
 -(void) videoAdReady;
--(void) videoAdLoadFailed:(NSError *)error;
+-(void) videoAdLoadFailed:(nonnull NSError *)error;
 
 @optional
 
-- (void) videoAdError:(NSError *)error;
-- (void) videoAdWillPresent: (ANVideoAdPlayer *)videoAd;
-- (void) videoAdDidPresent:  (ANVideoAdPlayer *)videoAd;
-- (void) videoAdWillClose:   (ANVideoAdPlayer *)videoAd;
-- (void) videoAdDidClose:    (ANVideoAdPlayer *)videoAd;
+- (void) videoAdError:(nonnull NSError *)error;
+- (void) videoAdWillPresent: (nonnull ANVideoAdPlayer *)videoAd;
+- (void) videoAdDidPresent:  (nonnull ANVideoAdPlayer *)videoAd;
+- (void) videoAdWillClose:   (nonnull ANVideoAdPlayer *)videoAd;
+- (void) videoAdDidClose:    (nonnull ANVideoAdPlayer *)videoAd;
 
-- (void) videoAdWillLeaveApplication: (ANVideoAdPlayer *)videoAd;
+- (void) videoAdWillLeaveApplication: (nonnull ANVideoAdPlayer *)videoAd;
 
 - (void) videoAdImpressionListeners:(ANVideoAdPlayerTracker) tracker;
 - (void) videoAdEventListeners:(ANVideoAdPlayerEvent) eventTrackers;
 - (void) videoAdWasClicked;
-- (void) videoAdWasClickedWithURL:(NSString *)urlString;
+- (void) videoAdWasClickedWithURL:(nonnull NSString *)urlString;
 
 - (ANClickThroughAction) videoAdPlayerClickThroughAction;
 - (BOOL) videoAdPlayerLandingPageLoadsInBackground;
 
-- (void) videoAdPlayerFullScreenEntered: (ANVideoAdPlayer *)videoAd;
-- (void) videoAdPlayerFullScreenExited: (ANVideoAdPlayer *)videoAd;
+- (void) videoAdPlayerFullScreenEntered: (nonnull ANVideoAdPlayer *)videoAd;
+- (void) videoAdPlayerFullScreenExited: (nonnull ANVideoAdPlayer *)videoAd;
 
 
 @end
@@ -75,22 +75,22 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 
 @interface ANVideoAdPlayer : UIView<WKScriptMessageHandler,WKNavigationDelegate, WKUIDelegate>
 
-@property (strong, nonatomic) id <ANVideoAdPlayerDelegate> delegate;
+@property (strong, nonatomic, nullable) id <ANVideoAdPlayerDelegate> delegate;
 
-@property (nonatomic, readwrite, strong) OMIDAppnexusAdSession *omidAdSession;
+@property (nonatomic, readwrite, strong, nonnull) OMIDAppnexusAdSession *omidAdSession;
 
--(void) loadAdWithVastContent:(NSString *) vastContent;
--(void) loadAdWithVastUrl:(NSString *) vastUrl;
--(void) loadAdWithJSONContent:(NSString *) jsonContent;
+-(void) loadAdWithVastContent:(nonnull NSString *) vastContent;
+-(void) loadAdWithVastUrl:(nonnull NSString *) vastUrl;
+-(void) loadAdWithJSONContent:(nonnull NSString *) jsonContent;
 
--(void)playAdWithContainer:(UIView *) containerView;
+-(void)playAdWithContainer:(nonnull UIView *) containerView;
 
 -(void) removePlayer;
 
 - (NSUInteger) getAdDuration;
-- (NSString *) getCreativeURL;
-- (NSString *) getVASTURL;
-- (NSString *) getVASTXML;
+- (nullable NSString *) getCreativeURL;
+- (nullable NSString *) getVASTURL;
+- (nullable NSString *) getVASTXML;
 - (NSUInteger) getAdPlayElapsedTime;
 /**
  * Get the Orientation of the Video rendered using the BannerAdView

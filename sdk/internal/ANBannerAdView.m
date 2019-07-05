@@ -102,11 +102,11 @@ static NSString *const kANInline = @"inline";
     self.adSize = self.frame.size;
 }
 
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId {
++ (nonnull ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(nonnull NSString *)placementId {
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:frame.size];
 }
 
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
++ (nonnull ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(nonnull NSString *)placementId adSize:(CGSize)size{
     return [[[self class] alloc] initWithFrame:frame placementId:placementId adSize:size];
 }
 
@@ -122,7 +122,7 @@ static NSString *const kANInline = @"inline";
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId {
+- (nonnull instancetype)initWithFrame:(CGRect)frame placementId:(nonnull NSString *)placementId {
     self = [self initWithFrame:frame];
     
     if (self != nil) {
@@ -132,7 +132,7 @@ static NSString *const kANInline = @"inline";
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size {
+- (nonnull instancetype)initWithFrame:(CGRect)frame placementId:(nonnull NSString *)placementId adSize:(CGSize)size {
     self = [self initWithFrame:frame placementId:placementId];
     
     if (self != nil) {
@@ -142,7 +142,7 @@ static NSString *const kANInline = @"inline";
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode {
+- (nonnull instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(nonnull NSString *)inventoryCode {
     self = [self initWithFrame:frame];
     if (self != nil) {
         [self setInventoryCode:inventoryCode memberId:memberId];
@@ -152,7 +152,7 @@ static NSString *const kANInline = @"inline";
     
 }
 
-- (instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode adSize:(CGSize)size{
+- (nonnull instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(nonnull NSString *)inventoryCode adSize:(CGSize)size{
     self = [self initWithFrame:frame memberId:memberId inventoryCode:inventoryCode];
     if (self != nil) {
         self.adSize = size;
@@ -204,7 +204,7 @@ static NSString *const kANInline = @"inline";
 
 // adSizes represents Universal Tag "sizes".
 //
-- (void)setAdSizes:(NSArray<NSValue *> *)adSizes
+- (void)setAdSizes:(nonnull NSArray<NSValue *> *)adSizes
 {
     NSValue  *adSizeAsValue  = [adSizes firstObject];
     if (!adSizeAsValue) {
