@@ -15,7 +15,7 @@
 
 #import "ANNativeMediatedAdController.h"
 #import "ANNativeCustomAdapter.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANNativeAdFetcher.h"
 #import "ANLogging.h"
 #import "NSString+ANCategory.h"
 #import "NSObject+ANCategory.h"
@@ -35,6 +35,9 @@
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStart;
 @property (nonatomic, readwrite, assign) NSTimeInterval latencyStop;
 
+@property (nonatomic, readwrite, weak)  ANNativeAdFetcher  *adFetcher;
+@property (nonatomic, readwrite, weak)  id<ANNativeAdFetcherDelegate>     adRequestDelegate;
+
 @end
 
 
@@ -42,8 +45,8 @@
 @implementation ANNativeMediatedAdController
 
 + (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
-                   withFetcher: (ANUniversalAdFetcher *)adFetcher
-             adRequestDelegate: (id<ANUniversalNativeAdFetcherDelegate>)adRequestDelegate
+                   withFetcher: (ANNativeAdFetcher *)adFetcher
+             adRequestDelegate: (id<ANNativeAdFetcherDelegate>)adRequestDelegate
 {
     ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd: mediatedAd
                                                                                           withFetcher: adFetcher
@@ -57,8 +60,8 @@
 }
 
 - (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
-                   withFetcher: (ANUniversalAdFetcher *)adFetcher
-             adRequestDelegate: (id<ANUniversalNativeAdFetcherDelegate>)adRequestDelegate
+                   withFetcher: (ANNativeAdFetcher *)adFetcher
+             adRequestDelegate: (id<ANNativeAdFetcherDelegate>)adRequestDelegate
 {
     self = [super init];
     if (self) {

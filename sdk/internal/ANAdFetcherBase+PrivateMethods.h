@@ -1,4 +1,5 @@
-/*   Copyright 2014 APPNEXUS INC
+
+/*   Copyright 2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -12,14 +13,17 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#import "ANAdFetcherBase.h"
 
-#if __has_include(<AppNexusNativeSDK/AppNexusNativeSDK.h>)
-#import <AppNexusNativeSDK/AppNexusNativeSDK.h>
-#else
-#import "ANNativeCustomAdapter.h"
-#endif
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
+@interface ANAdFetcherBase (PrivateMethods)
 
-@interface ANAdAdapterNativeFacebook : NSObject <ANNativeCustomAdapter, FBNativeAdDelegate>
+- (void)processFinalResponse:(ANAdFetcherResponse *)response;
 
+- (void)clearMediationController;
+
+- (void)continueWaterfall;
+
+- (void)finishRequestWithError:(NSError *)error;
+
+- (void)restartAutoRefreshTimer;
 @end

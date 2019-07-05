@@ -24,36 +24,23 @@
 #import "ANAdViewInternalDelegate.h"
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
+#import "ANAdFetcherBase+PrivateMethods.h"
 
 
 
 @protocol ANUniversalAdFetcherDelegate;
-@protocol ANUniversalNativeAdFetcherDelegate;
 
-
-
-@interface ANUniversalAdFetcher : NSObject
+@interface ANUniversalAdFetcher : ANAdFetcherBase
 
 - (instancetype)initWithDelegate: (id)delegate;
 
 - (void)stopAdLoad;
-- (void) requestAd;
-
-- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
-
 - (void) startAutoRefreshTimer;
 - (void) restartAutoRefreshTimer;
 - (void) stopAutoRefreshTimer;
 
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
 - (CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
                                andHeight:(NSString *)height;
-
-
-- (void)fireResponseURL:(NSString *)responseURLString
-                 reason:(ANAdResponseCode)reason
-               adObject:(id)adObject;
-
 
 @end
 
@@ -131,10 +118,4 @@
 
 @end
 
-
-#pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
-
-@protocol  ANUniversalNativeAdFetcherDelegate  <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolFoundation>
-//EMPTY
-@end
 

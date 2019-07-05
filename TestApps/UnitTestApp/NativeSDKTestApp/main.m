@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -12,14 +12,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+#import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
-#if __has_include(<AppNexusNativeSDK/AppNexusNativeSDK.h>)
-#import <AppNexusNativeSDK/AppNexusNativeSDK.h>
-#else
-#import "ANNativeCustomAdapter.h"
-#endif
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
-
-@interface ANAdAdapterNativeFacebook : NSObject <ANNativeCustomAdapter, FBNativeAdDelegate>
-
-@end
+int main(int argc, char * argv[]) {
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}

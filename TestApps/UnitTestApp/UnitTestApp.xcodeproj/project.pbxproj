@@ -126,6 +126,21 @@
 		0E8C983B21FF42C9005D1F0E /* ANBaseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983A21FF42C9005D1F0E /* ANBaseTestCase.m */; };
 		0E8C983E21FF42E0005D1F0E /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983D21FF42E0005D1F0E /* ANTestResponses.m */; };
 		0E8C984121FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983F21FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m */; };
+		0EB24C1322CBD242008E927F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1222CBD242008E927F /* AppDelegate.m */; };
+		0EB24C1622CBD242008E927F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1522CBD242008E927F /* ViewController.m */; };
+		0EB24C1922CBD242008E927F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C1722CBD242008E927F /* Main.storyboard */; };
+		0EB24C1B22CBD243008E927F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C1A22CBD243008E927F /* Assets.xcassets */; };
+		0EB24C1E22CBD243008E927F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C1C22CBD243008E927F /* LaunchScreen.storyboard */; };
+		0EB24C2122CBD243008E927F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C2022CBD243008E927F /* main.m */; };
+		0EB24C4F22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C4D22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m */; };
+		0EB24C5122CBD568008E927F /* appnexus_mock_mediation_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C5022CBD568008E927F /* appnexus_mock_mediation_response.json */; };
+		0EB24C5322CBD5CB008E927F /* NativeSDKTestAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C5222CBD5CB008E927F /* NativeSDKTestAppTests.m */; };
+		0EB24C5522CBD770008E927F /* ANHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970C21FF32EB005D1F0E /* ANHTTPStubbingManager.m */; };
+		0EB24C5622CBD770008E927F /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970D21FF32EB005D1F0E /* ANURLConnectionStub.m */; };
+		0EB24C5722CBD770008E927F /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970E21FF32EB005D1F0E /* ANHTTPStubURLProtocol.m */; };
+		0EB24C5822CBD770008E927F /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C970F21FF32EB005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m */; };
+		0EB24C5922CBD77B008E927F /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972C21FF32EB005D1F0E /* NSObject+Swizzling.m */; };
+		0EB24C5A22CBD792008E927F /* appnexus_standard_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE10D2200556B002B5F5F /* appnexus_standard_response.json */; };
 		0EC17C3721F72D1700F0F6AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17C3621F72D1700F0F6AF /* AppDelegate.m */; };
 		0EC17C3A21F72D1700F0F6AF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17C3921F72D1700F0F6AF /* ViewController.m */; };
 		0EC17C3D21F72D1700F0F6AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EC17C3B21F72D1700F0F6AF /* Main.storyboard */; };
@@ -276,6 +291,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		006F6BAA22974831003D2DF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EEFE0C72200547A002B5F5F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5731AFD228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
+		};
+		0EB24C2722CBD243008E927F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EC17C2A21F72D1700F0F6AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0EB24C0E22CBD242008E927F;
+			remoteInfo = NativeSDKTestApp;
+		};
+		0EB24C3322CBD243008E927F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EEFE0C72200547A002B5F5F /* ANSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F526DBCE22BD2754000D105A;
+			remoteInfo = ANSDKNativeFacebookAdapter;
+		};
 		0EC17C5421F72EA300F0F6AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0EC17C2A21F72D1700F0F6AF /* Project object */;
@@ -598,6 +634,22 @@
 		0E8C983D21FF42E0005D1F0E /* ANTestResponses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANTestResponses.m; sourceTree = "<group>"; };
 		0E8C983F21FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterBannerNeverCalled.m; sourceTree = "<group>"; };
 		0E8C984021FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterBannerNeverCalled.h; sourceTree = "<group>"; };
+		0EB24C0F22CBD242008E927F /* NativeSDKTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeSDKTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EB24C1122CBD242008E927F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0EB24C1222CBD242008E927F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0EB24C1422CBD242008E927F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		0EB24C1522CBD242008E927F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0EB24C1822CBD242008E927F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0EB24C1A22CBD243008E927F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0EB24C1D22CBD243008E927F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0EB24C1F22CBD243008E927F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EB24C2022CBD243008E927F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0EB24C2622CBD243008E927F /* NativeSDKTestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeSDKTestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0EB24C2C22CBD243008E927F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0EB24C4D22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANMockMediationAdapterSuccessfulNative.m; sourceTree = "<group>"; };
+		0EB24C4E22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANMockMediationAdapterSuccessfulNative.h; sourceTree = "<group>"; };
+		0EB24C5022CBD568008E927F /* appnexus_mock_mediation_response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_mock_mediation_response.json; sourceTree = "<group>"; };
+		0EB24C5222CBD5CB008E927F /* NativeSDKTestAppTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeSDKTestAppTests.m; sourceTree = "<group>"; };
 		0EC17C3221F72D1700F0F6AF /* UnitTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EC17C3521F72D1700F0F6AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0EC17C3621F72D1700F0F6AF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -750,6 +802,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0EB24C0C22CBD242008E927F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0EB24C2322CBD243008E927F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EC17C2F21F72D1700F0F6AF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -982,6 +1048,8 @@
 		0E8C982421FF408F005D1F0E /* UnitTestShared */ = {
 			isa = PBXGroup;
 			children = (
+				0EB24C4E22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.h */,
+				0EB24C4D22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m */,
 				0E8C984021FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.h */,
 				0E8C983F21FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m */,
 				0E8C983C21FF42E0005D1F0E /* ANTestResponses.h */,
@@ -996,6 +1064,31 @@
 			path = UnitTestShared;
 			sourceTree = "<group>";
 		};
+		0EB24C1022CBD242008E927F /* NativeSDKTestApp */ = {
+			isa = PBXGroup;
+			children = (
+				0EB24C1122CBD242008E927F /* AppDelegate.h */,
+				0EB24C1222CBD242008E927F /* AppDelegate.m */,
+				0EB24C1422CBD242008E927F /* ViewController.h */,
+				0EB24C1522CBD242008E927F /* ViewController.m */,
+				0EB24C1722CBD242008E927F /* Main.storyboard */,
+				0EB24C1A22CBD243008E927F /* Assets.xcassets */,
+				0EB24C1C22CBD243008E927F /* LaunchScreen.storyboard */,
+				0EB24C1F22CBD243008E927F /* Info.plist */,
+				0EB24C2022CBD243008E927F /* main.m */,
+			);
+			path = NativeSDKTestApp;
+			sourceTree = "<group>";
+		};
+		0EB24C2922CBD243008E927F /* NativeSDKTestAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				0EB24C5222CBD5CB008E927F /* NativeSDKTestAppTests.m */,
+				0EB24C2C22CBD243008E927F /* Info.plist */,
+			);
+			path = NativeSDKTestAppTests;
+			sourceTree = "<group>";
+		};
 		0EC17C2921F72D1700F0F6AF = {
 			isa = PBXGroup;
 			children = (
@@ -1003,6 +1096,8 @@
 				0EC17C3421F72D1700F0F6AF /* UnitTestApp */,
 				0EC17C5E21F72EC500F0F6AF /* FunctionalTests */,
 				0EEAF622229BC8BD0008CAC9 /* FunctionalUITests */,
+				0EB24C1022CBD242008E927F /* NativeSDKTestApp */,
+				0EB24C2922CBD243008E927F /* NativeSDKTestAppTests */,
 				0EC17C3321F72D1700F0F6AF /* Products */,
 				0E56C6ED21F8AEF200ADE6E1 /* Frameworks */,
 				0EEFE0C72200547A002B5F5F /* ANSDK.xcodeproj */,
@@ -1016,6 +1111,8 @@
 				0EC17C4F21F72EA300F0F6AF /* UnitTests.xctest */,
 				0EC17C5D21F72EC500F0F6AF /* FunctionalTests.xctest */,
 				0EEAF621229BC8BD0008CAC9 /* FunctionalUITests.xctest */,
+				0EB24C0F22CBD242008E927F /* NativeSDKTestApp.app */,
+				0EB24C2622CBD243008E927F /* NativeSDKTestAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1151,6 +1248,8 @@
 				0EEFE0F92200547A002B5F5F /* libANAdapterForMoPubSDK.a */,
 				0EEFE0FB2200547A002B5F5F /* AppNexusSDK.framework */,
 				0EEFE0FD2200547A002B5F5F /* libANSDKSmartAdAdapter.a */,
+				006F6BAB22974831003D2DF0 /* AppNexusNativeSDK.framework */,
+				0EB24C3422CBD243008E927F /* libANSDKNativeFacebookAdapter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1158,6 +1257,7 @@
 		0EEFE10822005532002B5F5F /* StubResponse */ = {
 			isa = PBXGroup;
 			children = (
+				0EB24C5022CBD568008E927F /* appnexus_mock_mediation_response.json */,
 				0E1D14B222784C9500343050 /* appnexus_bannerNative_rendering.json */,
 				0E1D14B322784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json */,
 				979EA168223BB575009B79B7 /* OMID_Native_CSMResponse.json */,
@@ -1317,6 +1417,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0EB24C0E22CBD242008E927F /* NativeSDKTestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0EB24C3522CBD243008E927F /* Build configuration list for PBXNativeTarget "NativeSDKTestApp" */;
+			buildPhases = (
+				0EB24C0B22CBD242008E927F /* Sources */,
+				0EB24C0C22CBD242008E927F /* Frameworks */,
+				0EB24C0D22CBD242008E927F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NativeSDKTestApp;
+			productName = NativeSDKTestApp;
+			productReference = 0EB24C0F22CBD242008E927F /* NativeSDKTestApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0EB24C2522CBD243008E927F /* NativeSDKTestAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0EB24C3622CBD243008E927F /* Build configuration list for PBXNativeTarget "NativeSDKTestAppTests" */;
+			buildPhases = (
+				0EB24C2222CBD243008E927F /* Sources */,
+				0EB24C2322CBD243008E927F /* Frameworks */,
+				0EB24C2422CBD243008E927F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0EB24C2822CBD243008E927F /* PBXTargetDependency */,
+			);
+			name = NativeSDKTestAppTests;
+			productName = NativeSDKTestAppTests;
+			productReference = 0EB24C2622CBD243008E927F /* NativeSDKTestAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0EC17C3121F72D1700F0F6AF /* UnitTestApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EC17C4821F72D1900F0F6AF /* Build configuration list for PBXNativeTarget "UnitTestApp" */;
@@ -1412,6 +1547,13 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AppNexus;
 				TargetAttributes = {
+					0EB24C0E22CBD242008E927F = {
+						CreatedOnToolsVersion = 10.2;
+					};
+					0EB24C2522CBD243008E927F = {
+						CreatedOnToolsVersion = 10.2;
+						TestTargetID = 0EB24C0E22CBD242008E927F;
+					};
 					0EC17C3121F72D1700F0F6AF = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
@@ -1453,11 +1595,27 @@
 				0EC17C4E21F72EA300F0F6AF /* UnitTests */,
 				0EC17C5C21F72EC500F0F6AF /* FunctionalTests */,
 				0EEAF620229BC8BD0008CAC9 /* FunctionalUITests */,
+				0EB24C0E22CBD242008E927F /* NativeSDKTestApp */,
+				0EB24C2522CBD243008E927F /* NativeSDKTestAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		006F6BAB22974831003D2DF0 /* AppNexusNativeSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AppNexusNativeSDK.framework;
+			remoteRef = 006F6BAA22974831003D2DF0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0EB24C3422CBD243008E927F /* libANSDKNativeFacebookAdapter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libANSDKNativeFacebookAdapter.a;
+			remoteRef = 0EB24C3322CBD243008E927F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		0EEFE0DD2200547A002B5F5F /* libANSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1545,6 +1703,25 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0EB24C0D22CBD242008E927F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EB24C1E22CBD243008E927F /* LaunchScreen.storyboard in Resources */,
+				0EB24C1B22CBD243008E927F /* Assets.xcassets in Resources */,
+				0EB24C1922CBD242008E927F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0EB24C2422CBD243008E927F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EB24C5122CBD568008E927F /* appnexus_mock_mediation_response.json in Resources */,
+				0EB24C5A22CBD792008E927F /* appnexus_standard_response.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EC17C3021F72D1700F0F6AF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1634,6 +1811,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0EB24C0B22CBD242008E927F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EB24C1622CBD242008E927F /* ViewController.m in Sources */,
+				0EB24C2122CBD243008E927F /* main.m in Sources */,
+				0EB24C1322CBD242008E927F /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0EB24C2222CBD243008E927F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0EB24C5622CBD770008E927F /* ANURLConnectionStub.m in Sources */,
+				0EB24C4F22CBD54B008E927F /* ANMockMediationAdapterSuccessfulNative.m in Sources */,
+				0EB24C5522CBD770008E927F /* ANHTTPStubbingManager.m in Sources */,
+				0EB24C5922CBD77B008E927F /* NSObject+Swizzling.m in Sources */,
+				0EB24C5322CBD5CB008E927F /* NativeSDKTestAppTests.m in Sources */,
+				0EB24C5722CBD770008E927F /* ANHTTPStubURLProtocol.m in Sources */,
+				0EB24C5822CBD770008E927F /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0EC17C2E21F72D1700F0F6AF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1810,6 +2011,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0EB24C2822CBD243008E927F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0EB24C0E22CBD242008E927F /* NativeSDKTestApp */;
+			targetProxy = 0EB24C2722CBD243008E927F /* PBXContainerItemProxy */;
+		};
 		0EC17C5521F72EA300F0F6AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0EC17C3121F72D1700F0F6AF /* UnitTestApp */;
@@ -1888,6 +2094,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0EB24C1722CBD242008E927F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0EB24C1822CBD242008E927F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0EB24C1C22CBD243008E927F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0EB24C1D22CBD243008E927F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		0EC17C3B21F72D1700F0F6AF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1915,6 +2137,94 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0EB24C2D22CBD243008E927F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = NativeSDKTestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.NativeSDKTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0EB24C2E22CBD243008E927F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = NativeSDKTestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.NativeSDKTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		0EB24C2F22CBD243008E927F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob",
+					"$(PROJECT_DIR)/../../sdk",
+					"$(PROJECT_DIR)/../../mediation",
+					"$(PROJECT_DIR)/UnitTestApp/FunctionalMockFiles",
+					"\"$(SRCROOT)/../../sdk/internal/config\"",
+				);
+				INFOPLIST_FILE = NativeSDKTestAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.NativeSDKTestAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NativeSDKTestApp.app/NativeSDKTestApp";
+			};
+			name = Debug;
+		};
+		0EB24C3022CBD243008E927F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob",
+					"$(PROJECT_DIR)/../../sdk",
+					"$(PROJECT_DIR)/../../mediation",
+					"$(PROJECT_DIR)/UnitTestApp/FunctionalMockFiles",
+					"\"$(SRCROOT)/../../sdk/internal/config\"",
+				);
+				INFOPLIST_FILE = NativeSDKTestAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xandr.NativeSDKTestAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NativeSDKTestApp.app/NativeSDKTestApp";
+			};
+			name = Release;
+		};
 		0EC17C4621F72D1900F0F6AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2090,7 +2400,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X9C48RNUJC;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK/**",
@@ -2141,7 +2451,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X9C48RNUJC;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/GoogleAdMob/GoogleAdMobSDK/Frameworks/**",
 					"$(PROJECT_DIR)/../../mediation/mediatedviews/InMobi/InMobiSDK/**",
@@ -2377,6 +2687,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0EB24C3522CBD243008E927F /* Build configuration list for PBXNativeTarget "NativeSDKTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0EB24C2D22CBD243008E927F /* Debug */,
+				0EB24C2E22CBD243008E927F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0EB24C3622CBD243008E927F /* Build configuration list for PBXNativeTarget "NativeSDKTestAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0EB24C2F22CBD243008E927F /* Debug */,
+				0EB24C3022CBD243008E927F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0EC17C2D21F72D1700F0F6AF /* Build configuration list for PBXProject "UnitTestApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

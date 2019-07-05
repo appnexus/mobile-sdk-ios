@@ -14,8 +14,6 @@
  */
 
 #import "ANAdAdapterNativeFacebook.h"
-#import "ANLogging.h"
-#import "ANNativeAdResponse.h"
 
 @interface ANAdAdapterNativeFacebook ()
 
@@ -42,14 +40,7 @@
 - (void)registerViewForImpressionTrackingAndClickHandling:(UIView *)view
                                    withRootViewController:(UIViewController *)rvc
                                            clickableViews:(NSArray *)clickableViews {
-    if (clickableViews.count) {
-        [self.fbNativeAd registerViewForInteraction:view
-                                 withViewController:rvc
-                                 withClickableViews:clickableViews];
-    } else {
-        [self.fbNativeAd registerViewForInteraction:view
-                                 withViewController:rvc];
-    }
+    ANLogDebug(@"Not supporting registering views through this API, please get the FBNativeAd object from reponse's native elements and use FB's original API.");
 }
 
 - (void)dealloc {
@@ -79,11 +70,6 @@
 - (void)nativeAdDidLoad:(FBNativeAd *)nativeAd {
     ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
                                                                                          networkCode:ANNativeAdNetworkCodeFacebook];
-    response.title = nativeAd.title;
-    response.body = nativeAd.body;
-    response.iconImageURL = nativeAd.icon.url;
-    response.mainImageURL = nativeAd.coverImage.url;
-    response.callToAction = nativeAd.callToAction;
     response.customElements = @{ kANNativeElementObject : nativeAd};
 
     [self.requestDelegate didLoadNativeAd:response];

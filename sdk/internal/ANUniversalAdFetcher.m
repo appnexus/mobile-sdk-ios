@@ -37,19 +37,6 @@
 
 @interface ANUniversalAdFetcher () <ANVideoAdProcessorDelegate, ANAdWebViewControllerLoadingDelegate, ANNativeMediationAdControllerDelegate , ANNativeRenderingViewControllerLoadingDelegate>
 
-
-@property (nonatomic, readwrite, strong)  NSMutableArray   *ads;
-@property (nonatomic, readwrite, strong)  NSString         *noAdUrl;
-@property (nonatomic, readwrite, assign)  NSTimeInterval    totalLatencyStart;
-@property (nonatomic, readwrite, strong)  id                adObjectHandler;
-
-@property (nonatomic, readwrite, getter=isLoading)  BOOL    loading;
-
-
-// NB  Protocol type of delegate can be ANUniversalAdFetcherDelegate or ANUniversalNativeAdFetcherDelegate.
-//
-@property (nonatomic, readwrite, weak)    id  delegate;
-
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView              *adView;
 @property (nonatomic, readwrite, strong)  ANNativeRenderingViewController       *nativeAdView;
 @property (nonatomic, readwrite, strong)  ANMediationAdViewController       *mediationController;
@@ -70,21 +57,15 @@
 - (instancetype)initWithDelegate: (id)delegate
 {
     if (self = [self init]) {
-        _delegate = delegate;
+        self.delegate = delegate;
         [self setup];
     }
     return self;
 }
 
-- (void)setup
-{
-    [NSHTTPCookieStorage sharedHTTPCookieStorage].cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
-}
-
 - (void)dealloc {
     [self stopAdLoad];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
 }
 
 - (void)clearMediationController {
@@ -93,13 +74,10 @@
      * ad fetcher delegate so that messages to the delegate can proceed uninterrupted.  Currently, the controller will only live on if it is still
      * displaying inside a banner ad view (in which case it will live on until the individual ad is destroyed).
      */
-    self.mediationController.adFetcher = nil;
     self.mediationController = nil;
     
-    self.nativeMediationController.adFetcher = nil;
     self.nativeMediationController = nil;
     
-    self.ssmMediationController.adFetcher = nil;
     self.ssmMediationController = nil;
 }
 
@@ -107,72 +85,6 @@
 
 
 #pragma mark - Ad Request
-
-- (void)requestAd
-{
-    NSString      *urlString  = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
-    NSURLRequest  *request    = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:self.delegate baseUrlString:urlString];
-    
-    
-    [self markLatencyStart];
-    
-    if (!self.isLoading)
-    {
-        NSString *requestContent = [NSString stringWithFormat:@"%@ /n %@", urlString,[[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding] ];
-        
-        ANPostNotifications(kANUniversalAdFetcherWillRequestAdNotification, self,
-                            @{kANUniversalAdFetcherAdRequestURLKey: requestContent});
-        
-        ANUniversalAdFetcher *__weak weakSelf = self;
-    
-        NSURLSessionDataTask *task = [[NSURLSession sharedSession]
-                                      dataTaskWithRequest:request
-                                      completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          ANUniversalAdFetcher *__strong strongSelf = weakSelf;
-                                          
-                                          if(!strongSelf){
-                                              return;
-                                          }
-                                          NSInteger statusCode = -1;
-                                          [strongSelf restartAutoRefreshTimer];
-                                          
-                                          if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-                                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                                              statusCode = [httpResponse statusCode];
-                                              
-                                          }
-                                          
-                                          if (statusCode >= 400 || statusCode == -1)  {
-                                              strongSelf.loading = NO;
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  NSError *sessionError = ANError(@"ad_request_failed %@", ANAdResponseNetworkError, error.localizedDescription);
-                                                  ANLogError(@"%@", sessionError);
-                                                  
-                                                  ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithError:sessionError];
-                                                  [strongSelf processFinalResponse:response];
-                                              });
-                                              
-                                          }else{
-                                              strongSelf.loading  = YES;
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  NSString *responseString = [[NSString alloc] initWithData:data
-                                                                                                   encoding:NSUTF8StringEncoding];
-                                                  ANLogDebug(@"Response JSON %@", responseString);
-                                                  ANPostNotifications(kANUniversalAdFetcherDidReceiveResponseNotification, strongSelf,
-                                                                      @{kANUniversalAdFetcherAdResponseKey: (responseString ? responseString : @"")});
-                                                  
-                                                  ANUniversalTagAdServerResponse *adResponse = [ANUniversalTagAdServerResponse responseWithData:data];
-                                                  [strongSelf processAdServerResponse:adResponse];
-                                                  
-                                              });
-                                              
-                                          }
-                                          
-                                      }];
-        
-        [task resume];
-    }
-}
 
 - (void)stopAdLoad
 {
@@ -187,26 +99,7 @@
 
 #pragma mark - Ad Response
 
-- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response
-{
-    BOOL containsAds = (response.ads != nil) && (response.ads.count > 0);
-    
-    if (!containsAds) {
-        ANLogWarn(@"response_no_ads");
-        [self finishRequestWithErrorAndRefresh:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
-        return;
-    }
-    
-    if (response.noAdUrlString) {
-        self.noAdUrl = response.noAdUrlString;
-    }
-    self.ads = response.ads;
-    
-    [self clearMediationController];
-    [self continueWaterfall];
-}
-
-- (void)finishRequestWithErrorAndRefresh:(NSError *)error
+- (void)finishRequestWithError:(NSError *)error
 {
     self.loading = NO;
     
@@ -260,7 +153,7 @@
             ANLogDebug(@"(no_ad_url, %@)", self.noAdUrl);
             [ANTrackerManager fireTrackerURL:self.noAdUrl];
         }
-        [self finishRequestWithErrorAndRefresh:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
+        [self finishRequestWithError:ANError(@"response_no_ads", ANAdResponseUnableToFill)];
         return;
     }
     
@@ -581,63 +474,6 @@
 
 
 #pragma mark - Helper methods.
-
-/**
- * Mark the beginning of an ad request for latency recording
- */
-- (void)markLatencyStart {
-    self.totalLatencyStart = [NSDate timeIntervalSinceReferenceDate];
-}
-
-
-/**
- * RETURN: success  time difference since ad request start
- *         error    -1
- */
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime
-{
-    NSTimeInterval  totalLatency  = -1;
-    
-    if ((self.totalLatencyStart > 0) && (stopTime > 0)) {
-        totalLatency = (stopTime - self.totalLatencyStart);
-    }
-    
-    //
-    return  totalLatency;
-}
-
-
-- (void)fireResponseURL:(NSString *)urlString
-                 reason:(ANAdResponseCode)reason
-               adObject:(id)adObject
-{
-    
-    if (urlString) {
-        [ANTrackerManager fireTrackerURL:urlString];
-    }
-    
-    if (reason == ANAdResponseSuccessful) {
-        ANAdFetcherResponse *response = [ANAdFetcherResponse responseWithAdObject:adObject andAdObjectHandler:self.adObjectHandler];
-        
-        [self processFinalResponse:response];
-        
-    } else {
-        ANLogError(@"FAILED with reason=%@.", @(reason));
-        
-        // mediated ad failed. clear mediation controller
-        [self clearMediationController];
-        
-        // stop waterfall if delegate reference (adview) was lost
-        if (!self.delegate) {
-            self.loading = NO;
-            return;
-        }
-        
-        [self continueWaterfall];
-    }
-}
-
-
 // common for Banner / Interstitial RTB and SSM.
 -(CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
                               andHeight:(NSString *)height

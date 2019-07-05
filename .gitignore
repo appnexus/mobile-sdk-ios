@@ -1,9 +1,10 @@
 ####
 # Binary build product files
-
+*.framework
 **/out
 **/Products
-
+**/out_device
+**/out_simulator
 ########################################################################################
 # macOS.gitignore
 # https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
@@ -132,3 +133,6 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+xcshareddata
+Pods

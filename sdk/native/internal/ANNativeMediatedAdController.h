@@ -15,7 +15,7 @@
 
 #import "ANMediatedAd.h"
 #import "ANAdProtocol.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANNativeAdFetcher.h"
 
 
 
@@ -28,12 +28,8 @@
 
 // Designated initializer
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
-                   withFetcher:(ANUniversalAdFetcher *)adFetcher
+                   withFetcher:(ANNativeAdFetcher *)adFetcher
              adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
-
-@property (nonatomic, readwrite, weak)  ANUniversalAdFetcher  *adFetcher;
-@property (nonatomic, readwrite, weak)  id<ANUniversalNativeAdFetcherDelegate>     adRequestDelegate;
-
 @end
 
 

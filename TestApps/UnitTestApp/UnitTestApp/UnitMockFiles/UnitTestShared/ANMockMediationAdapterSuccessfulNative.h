@@ -1,4 +1,4 @@
-/*   Copyright 2014 APPNEXUS INC
+/*   Copyright 2013 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,13 +13,9 @@
  limitations under the License.
  */
 
-#if __has_include(<AppNexusNativeSDK/AppNexusNativeSDK.h>)
+#import <Foundation/Foundation.h>
 #import <AppNexusNativeSDK/AppNexusNativeSDK.h>
-#else
-#import "ANNativeCustomAdapter.h"
-#endif
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
-@interface ANAdAdapterNativeFacebook : NSObject <ANNativeCustomAdapter, FBNativeAdDelegate>
+@interface ANMockMediationAdapterSuccessfulNative : NSObject <ANNativeCustomAdapter>
 
 @end

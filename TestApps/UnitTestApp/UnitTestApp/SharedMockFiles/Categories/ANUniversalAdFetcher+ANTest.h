@@ -23,7 +23,6 @@ static NSString *const kANUniversalAdFetcherFireResponseURLRequestedReason      
 @interface ANUniversalAdFetcher (ANTest)
 
 @property (nonatomic, readwrite, strong) ANMRAIDContainerView *adView;
-@property (nonatomic, readwrite, strong)  id                adObjectHandler;
 @property (nonatomic, readwrite, strong) NSTimer *autoRefreshTimer;
 
 

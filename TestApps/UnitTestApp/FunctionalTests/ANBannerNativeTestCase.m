@@ -36,7 +36,6 @@
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *multiFormatAd;
 @property (nonatomic, readwrite, strong)  ANNativeAdResponse    *nativeAd;
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView  *standardAd;
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *adFetcher;
 
 @property (nonatomic, readwrite, weak)  XCTestExpectation  *expectationRequest;
 @property (nonatomic, readwrite, weak)  XCTestExpectation  *expectationResponse;
@@ -93,7 +92,6 @@
     self.multiFormatAd = nil;
     self.nativeAd = nil;
     self.standardAd = nil;
-    self.adFetcher = nil;
     
     self.expectationRequest = nil;
     self.expectationResponse = nil;
