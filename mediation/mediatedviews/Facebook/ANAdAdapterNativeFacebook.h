@@ -17,6 +17,8 @@
 #import <AppNexusNativeSDK/AppNexusNativeSDK.h>
 #else
 #import "ANNativeCustomAdapter.h"
+#import "ANLogging.h"
+#import "ANNativeAdResponse.h"
 #endif
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
