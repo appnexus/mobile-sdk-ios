@@ -30,7 +30,7 @@ if [ $BITCODE == true ]; then
     echo "Bitcode enabled"
 fi
 
-schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter ANSDKVdopiaAdapter ANSDKVungleAdapter ANSDKAdColonyAdapter ANSDKChartboostAdapter ANSDKYahooAdapter ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK ANSDKSmartAdAdapter ANSDKAdMarvelAdapter )
+schemes=( ANSDK ANSDKGoogleAdMobAdapter ANSDKFacebookAdapter ANSDKMillennialMediaAdapter ANSDKMoPubAdapter ANSDKAmazonAdapter ANSDKInMobiAdapter  ANAdapterForGoogleAdMobSDK ANAdapterForMoPubSDK ANSDKSmartAdAdapter )
 
 rm -fr "$OUTDIR" > /dev/null 2>&1
 rm -fr "$OD_DEVICE" > /dev/null 2>&1

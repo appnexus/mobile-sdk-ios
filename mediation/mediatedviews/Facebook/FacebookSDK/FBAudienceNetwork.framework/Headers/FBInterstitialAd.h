@@ -20,6 +20,7 @@
 #import <StoreKit/StoreKit.h>
 
 #import <FBAudienceNetwork/FBAdDefines.h>
+#import <FBAudienceNetwork/FBAdExtraHint.h>
 #import <FBAudienceNetwork/FBAdView.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -41,11 +42,15 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
   the delegate
  */
 @property (nonatomic, weak, nullable) id<FBInterstitialAdDelegate> delegate;
+/**
+ FBAdExtraHint to provide extra info
+ */
+@property (nonatomic, strong, nullable) FBAdExtraHint *extraHint;
 
 /**
   This is a method to initialize an FBInterstitialAd matching the given placement id.
 
- - Parameter placementID: The id of the ad placement. You can create your placement id from Facebook developers page.
+ @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
  */
 - (instancetype)initWithPlacementID:(NSString *)placementID NS_DESIGNATED_INITIALIZER;
 
@@ -73,14 +78,14 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  You can implement `adViewDidLoad:` and `adView:didFailWithError:` methods
  of `FBAdViewDelegate` if you would like to be notified as loading succeeds or fails.
 
- - Parameter bidPayload: The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
+ @param bidPayload The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
  */
 - (void)loadAdWithBidPayload:(NSString *)bidPayload;
 
 /**
   Presents the interstitial ad modally from the specified view controller.
 
- - Parameter rootViewController: The view controller that will be used to present the interstitial ad.
+ @param rootViewController The view controller that will be used to present the interstitial ad.
 
 
  You can implement `interstitialAdDidClick:`, `interstitialAdWillClose:` and `interstitialAdWillClose`
@@ -103,7 +108,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
   Sent after an ad in the FBInterstitialAd object is clicked. The appropriate app store view or
  app browser will be launched.
 
- - Parameter interstitialAd: An FBInterstitialAd object sending the message.
+ @param interstitialAd An FBInterstitialAd object sending the message.
  */
 - (void)interstitialAdDidClick:(FBInterstitialAd *)interstitialAd;
 
@@ -111,36 +116,36 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
   Sent after an FBInterstitialAd object has been dismissed from the screen, returning control
  to your application.
 
- - Parameter interstitialAd: An FBInterstitialAd object sending the message.
+ @param interstitialAd An FBInterstitialAd object sending the message.
  */
 - (void)interstitialAdDidClose:(FBInterstitialAd *)interstitialAd;
 
 /**
   Sent immediately before an FBInterstitialAd object will be dismissed from the screen.
 
- - Parameter interstitialAd: An FBInterstitialAd object sending the message.
+ @param interstitialAd An FBInterstitialAd object sending the message.
  */
 - (void)interstitialAdWillClose:(FBInterstitialAd *)interstitialAd;
 
 /**
   Sent when an FBInterstitialAd successfully loads an ad.
 
- - Parameter interstitialAd: An FBInterstitialAd object sending the message.
+ @param interstitialAd An FBInterstitialAd object sending the message.
  */
 - (void)interstitialAdDidLoad:(FBInterstitialAd *)interstitialAd;
 
 /**
   Sent when an FBInterstitialAd failes to load an ad.
 
- - Parameter interstitialAd: An FBInterstitialAd object sending the message.
- - Parameter error: An error object containing details of the error.
+ @param interstitialAd An FBInterstitialAd object sending the message.
+ @param error An error object containing details of the error.
  */
 - (void)interstitialAd:(FBInterstitialAd *)interstitialAd didFailWithError:(NSError *)error;
 
 /**
   Sent immediately before the impression of an FBInterstitialAd object will be logged.
 
- - Parameter interstitialAd: An FBInterstitialAd object sending the message.
+ @param interstitialAd An FBInterstitialAd object sending the message.
  */
 - (void)interstitialAdWillLogImpression:(FBInterstitialAd *)interstitialAd;
 
