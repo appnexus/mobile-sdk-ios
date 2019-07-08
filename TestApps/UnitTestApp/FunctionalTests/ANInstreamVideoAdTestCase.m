@@ -28,7 +28,6 @@
 #import "ANVideoAdPlayer.h"
 
 
-
 static NSString   *placementID      = @"12534678";
 static NSInteger   memberID         = 958;
 static NSString   *inventoryCode    = @"trucksmash";
@@ -217,8 +216,56 @@ static NSString   *inventoryCode    = @"trucksmash";
     XCTAssertNotEqual(duration, 0);
 }
 
+- (void)testVerticalVideoOrientation
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    
+    [self stubRequestWithResponse:@"SuccessfulVerticalVideoAdResponse"];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    
+    //
+    XCTAssertEqual(instreamVideoAd.getVideoOrientation, ANPortraint);
+    
+}
 
 
+- (void)testLandscapeVideoOrientation
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    
+    [self stubRequestWithResponse:@"SuccessfulInstreamVideoAdResponse"];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    
+    //
+    XCTAssertEqual(instreamVideoAd.getVideoOrientation, ANLandscape);
+    
+}
+
+
+
+- (void)testSquareVideoOrientation
+{
+    ANInstreamVideoAd  *instreamVideoAd  = [[ANInstreamVideoAd alloc] initWithPlacementId:placementID];
+    
+    [self stubRequestWithResponse:@"SuccessfulSquareInstreamVideoAdResponse"];
+    
+    [instreamVideoAd loadAdWithDelegate:self];
+    
+    self.expectationLoadVideoAd = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    [self waitForExpectationsWithTimeout:kAppNexusRequestTimeoutInterval handler:nil];
+    
+    //
+    XCTAssertEqual(instreamVideoAd.getVideoOrientation, ANSquare);
+    
+}
 
 #pragma mark - Helper methods.
 

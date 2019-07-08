@@ -20,6 +20,7 @@
 #import <UIKit/UIKit.h>
 
 #import <FBAudienceNetwork/FBAdDefines.h>
+#import <FBAudienceNetwork/FBAdExtraHint.h>
 #import <FBAudienceNetwork/FBAdSize.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -35,13 +36,26 @@ FB_CLASS_EXPORT
 /**
   This is a method to initialize an FBAdView matching the given placement id.
 
- - Parameter placementID: The id of the ad placement. You can create your placement id from Facebook developers page.
- - Parameter adSize: The size of the ad; for example, kFBAdSizeHeight50Banner or kFBAdSizeHeight90Banner.
- - Parameter viewController: The view controller that will be used to present the ad and the app store view.
+ @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
+ @param adSize The size of the ad; for example, kFBAdSizeHeight50Banner or kFBAdSizeHeight90Banner.
+ @param rootViewController The view controller that will be used to present the ad and the app store view.
  */
 - (instancetype)initWithPlacementID:(NSString *)placementID
                              adSize:(FBAdSize)adSize
                  rootViewController:(nullable UIViewController *)rootViewController NS_DESIGNATED_INITIALIZER;
+
+/**
+ This is a method to initialize an FBAdView matching the given placement id with a given bidding payload.
+
+ @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
+ @param bidPayload The bid payload sent from the server.
+ @param rootViewController The view controller that will be used to present the ad and the app store view.
+ @param error An out value that returns any error encountered during init.
+ */
+- (nullable instancetype)initWithPlacementID:(NSString *)placementID
+                                  bidPayload:(NSString *)bidPayload
+                          rootViewController:(nullable UIViewController *)rootViewController
+                                       error:(NSError * __autoreleasing *) error;
 
 /**
   Begins loading the FBAdView content.
@@ -59,23 +73,14 @@ FB_CLASS_EXPORT
  You can implement `adViewDidLoad:` and `adView:didFailWithError:` methods
  of `FBAdViewDelegate` if you would like to be notified as loading succeeds or fails.
 
- - Parameter bidPayload: The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
+ @param bidPayload The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
  */
 - (void)loadAdWithBidPayload:(NSString *)bidPayload;
 
 /**
-  This is a method to disable auto refresh for the FBAdView instance
-
-
- By default, we read the refresh interval from the placement setting in your Facebook
- developers page. Once you call this method, the auto refresh will be disabled for this FBAdView
- instance, and you cannot re-enable the refresh for this instance. A new created FBAdView will still
- use the default behavior.
-
- This method is designed for ad network mediation. We still recommend you to set the placement
- refresh interval as 'None' if you're using one of the ad network mediation.
+  There is no reason to call this method anymore. Autorefresh is disabled by default.
  */
-- (void)disableAutoRefresh;
+- (void)disableAutoRefresh FB_DEPRECATED;
 
 /**
   Typed access to the id of the ad placement.
@@ -86,9 +91,17 @@ FB_CLASS_EXPORT
  */
 @property (nonatomic, weak, readonly, nullable) UIViewController *rootViewController;
 /**
+ Call isAdValid to check whether ad is valid
+ */
+@property (nonatomic, getter=isAdValid, readonly) BOOL adValid;
+/**
   the delegate
  */
 @property (nonatomic, weak, nullable) id<FBAdViewDelegate> delegate;
+/**
+  FBAdExtraHint to provide extra info
+ */
+@property (nonatomic, strong, nullable) FBAdExtraHint *extraHint;
 
 @end
 
@@ -104,7 +117,7 @@ FB_CLASS_EXPORT
 /**
   Sent after an ad has been clicked by the person.
 
- - Parameter adView: An FBAdView object sending the message.
+ @param adView An FBAdView object sending the message.
  */
 - (void)adViewDidClick:(FBAdView *)adView;
 /**
@@ -112,27 +125,27 @@ FB_CLASS_EXPORT
  interaction with the modal view and dismiss it, this message will be sent, returning control
  to the application.
 
- - Parameter adView: An FBAdView object sending the message.
+ @param adView An FBAdView object sending the message.
  */
 - (void)adViewDidFinishHandlingClick:(FBAdView *)adView;
 /**
   Sent when an ad has been successfully loaded.
 
- - Parameter adView: An FBAdView object sending the message.
+ @param adView An FBAdView object sending the message.
  */
 - (void)adViewDidLoad:(FBAdView *)adView;
 /**
   Sent after an FBAdView fails to load the ad.
 
- - Parameter adView: An FBAdView object sending the message.
- - Parameter error: An error object containing details of the error.
+ @param adView An FBAdView object sending the message.
+ @param error An error object containing details of the error.
  */
 - (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error;
 
 /**
   Sent immediately before the impression of an FBAdView object will be logged.
 
- - Parameter adView: An FBAdView object sending the message.
+ @param adView An FBAdView object sending the message.
  */
 - (void)adViewWillLogImpression:(FBAdView *)adView;
 
@@ -140,7 +153,7 @@ FB_CLASS_EXPORT
   Asks the delegate for a view controller to present modal content, such as the in-app
  browser that can appear when an ad is clicked.
 
- - Returns: A view controller that is used to present modal content.
+ @return A view controller that is used to present modal content.
  */
 @property (nonatomic, readonly, strong) UIViewController *viewControllerForPresentingModalView;
 

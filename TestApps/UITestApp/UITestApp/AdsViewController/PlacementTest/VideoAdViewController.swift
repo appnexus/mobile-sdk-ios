@@ -42,26 +42,27 @@ class VideoAdViewController: UIViewController , ANInstreamVideoAdLoadDelegate , 
     func initialiseVideoAd()  {
         let videoAdObject : VideoAdObject! = AdObjectModel.decodeVideoObject()
         if videoAdObject != nil {
-
-            self.videoAd = ANInstreamVideoAd(placementId: videoAdObject?.adObject.placement)
-            self.videoAd.clickThroughAction = ANClickThroughAction.returnURL
-            setupContentPlayer()
-            self.videoContentPlayer.pause()
-            self.videoAd.load(with: self)
+            if let placement = videoAdObject?.adObject.placement{
+                self.videoAd = ANInstreamVideoAd(placementId: placement)
+                self.videoAd.clickThroughAction = ANClickThroughAction.returnURL
+                setupContentPlayer()
+                self.videoContentPlayer.pause()
+                self.videoAd.load(with: self)
+            }
         }
     }
     
-    func adDidReceiveAd(_ ad: ANAdProtocol!) {
+    func adDidReceiveAd(_ ad: ANAdProtocol) {
         videoContentPlayer.pause()
         videoAd.center = self.view.center
-        videoAd.play(withContainer: self.view, with: self as? ANInstreamVideoAdPlayDelegate)
+        videoAd.play(withContainer: self.view, with: self)
     }
     
-    func adDidComplete(_ ad: ANAdProtocol!, with state: ANInstreamVideoPlaybackStateType) {
+    func adDidComplete(_ ad: ANAdProtocol, with state: ANInstreamVideoPlaybackStateType) {
         
     }
     
-    func ad(_ ad: ANAdProtocol!, requestFailedWithError error: Error!) {
+    func ad(_ ad: ANAdProtocol, requestFailedWithError error: Error) {
         
         let alertController = UIAlertController(title: "Alert", message: error.localizedDescription, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .destructive) { (action:UIAlertAction) in

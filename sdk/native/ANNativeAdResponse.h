@@ -20,7 +20,7 @@
 #import "ANAdConstants.h"
 #import "ANAdProtocol.h"
 
-extern NSString * const  kANNativeElementObject;
+extern NSString * __nonnull const  kANNativeElementObject;
 
 
 /*!
@@ -58,27 +58,27 @@ extern NSString * const  kANNativeElementObject;
 /*!
  * The ad title.
  */
-@property (nonatomic, readonly, strong) NSString *title;
+@property (nonatomic, readonly, strong, nullable) NSString *title;
 
 /*!
  * The ad body, also known as the ad text or description.
  */
-@property (nonatomic, readonly, strong) NSString *body;
+@property (nonatomic, readonly, strong, nullable) NSString *body;
 
 /*!
  * The call to action text, for example, "Install Now!"
  */
-@property (nonatomic, readonly, strong) NSString *callToAction;
+@property (nonatomic, readonly, strong, nullable) NSString *callToAction;
 
 /*!
  * The star rating of the ad, generally reserved for an app install ad.
  */
-@property (nonatomic, readonly, strong) ANNativeAdStarRating *rating;
+@property (nonatomic, readonly, strong, nullable) ANNativeAdStarRating *rating;
 
 /*!
  * The ad icon image.
  */
-@property (nonatomic, readonly, strong) UIImage *iconImage;
+@property (nonatomic, readonly, strong, nullable) UIImage *iconImage;
 
 /*!
  * The icon image size
@@ -88,12 +88,12 @@ extern NSString * const  kANNativeElementObject;
 /*!
  * The ad main image, also known as a cover image.
  */
-@property (nonatomic, readonly, strong) UIImage *mainImage;
+@property (nonatomic, readonly, strong, nullable) UIImage *mainImage;
 
 /*!
  * A URL which loads the ad main image.
  */
-@property (nonatomic, readonly, strong) NSURL *mainImageURL;
+@property (nonatomic, readonly, strong, nullable) NSURL *mainImageURL;
 
 /*!
  * The main image size
@@ -103,32 +103,32 @@ extern NSString * const  kANNativeElementObject;
 /*!
  * A URL which loads the ad icon image.
  */
-@property (nonatomic, readonly, strong) NSURL *iconImageURL;
+@property (nonatomic, readonly, strong, nullable) NSURL *iconImageURL;
 
 
 /*!
  * Contains any non-standard elements. This would include any custom assets requested from
  * third-party networks as specified in the third-party system.
  */
-@property (nonatomic, readonly, strong) NSDictionary *customElements;
+@property (nonatomic, readonly, strong, nullable) NSDictionary *customElements;
 
 
 /*!
  * The sponspored By text
  */
-@property (nonatomic, readonly, strong) NSString *sponsoredBy;
+@property (nonatomic, readonly, strong, nullable) NSString *sponsoredBy;
 
 
 /*!
  * An AppNexus creativeID for the current creative that is displayed
  */
-@property (nonatomic, readonly, strong) NSString *creativeId;
+@property (nonatomic, readonly, strong, nullable) NSString *creativeId;
 
 
 /*!
  * Additional description of the ad
  */
-@property (nonatomic, readwrite, strong) NSString *additionalDescription;
+@property (nonatomic, readwrite, strong, nullable) NSString *additionalDescription;
 
 /*!
  * The network which supplied this native ad response.
@@ -145,12 +145,12 @@ extern NSString * const  kANNativeElementObject;
 /*!
  * vastXML can be used to play Video.
  */
-@property (nonatomic, readwrite, strong) NSString *vastXML;
+@property (nonatomic, readwrite, strong, nullable) NSString *vastXML;
 
 /*!
  * privacy Link of the ad
  */
-@property (nonatomic, readwrite, strong) NSString *privacyLink;
+@property (nonatomic, readwrite, strong, nullable) NSString *privacyLink;
 
 
 #pragma mark - Native View Registration
@@ -159,7 +159,7 @@ extern NSString * const  kANNativeElementObject;
  * Delegate object that receives callbacks for a native view which has been registered.
  * @see ANNativeAdDelegate
  */
-@property (nonatomic, readwrite, weak) id<ANNativeAdDelegate> delegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANNativeAdDelegate> delegate;
 
 /*!
  * Should be called when the native view has been populated with the ad elements and will be displayed.
@@ -172,10 +172,10 @@ extern NSString * const  kANNativeElementObject;
  * @note The response holds a strong reference to the registered view.
  * @see ANNativeAdRegisterErrorCode in ANAdConstants.h for possible error code values.
  */
-- (BOOL)registerViewForTracking:(UIView *)view
-         withRootViewController:(UIViewController *)rvc
-                 clickableViews:(NSArray *)views
-                          error:(NSError **)error;
+- (BOOL)registerViewForTracking:(nonnull UIView *)view
+         withRootViewController:(nonnull UIViewController *)rvc
+                 clickableViews:(nullable NSArray *)views
+                          error:(NSError *__nullable*__nullable)error;
 
 @end
 

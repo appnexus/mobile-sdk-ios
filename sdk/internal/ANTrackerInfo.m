@@ -23,8 +23,8 @@
 
 @interface ANTrackerInfo()
 
-@property (nonatomic, readwrite, strong) NSString *URL;
-@property (nonatomic, readwrite, strong) NSDate *dateCreated;
+@property (nonatomic, readwrite, strong, nullable) NSString *URL;
+@property (nonatomic, readwrite, strong, nullable) NSDate *dateCreated;
 @property (nonatomic, readwrite, assign, getter=isExpired) BOOL expired;
 @property (nonatomic, readwrite, strong) NSTimer *expirationTimer;
 
@@ -34,7 +34,7 @@
 
 @implementation ANTrackerInfo
 
-- (instancetype)initWithURL:(NSString *)URL {
+- (nullable instancetype)initWithURL:(nullable NSString *)URL {
     if (!URL) {
         return nil;
     }

@@ -30,22 +30,22 @@
  * @param adapter The mediation adapter which provided the native assets for this response.
  * @param networkCode The network code for the mediated adapter.
  */
-- (instancetype)initWithCustomAdapter:(id<ANNativeCustomAdapter>)adapter
+- (nullable instancetype)initWithCustomAdapter:(nullable id<ANNativeCustomAdapter>)adapter
                           networkCode:(ANNativeAdNetworkCode)networkCode;
 
-@property (nonatomic, readwrite, strong) NSString *title;
-@property (nonatomic, readwrite, strong) NSString *body;
-@property (nonatomic, readwrite, strong) NSString *callToAction;
-@property (nonatomic, readwrite, strong) ANNativeAdStarRating *rating;
-@property (nonatomic, readwrite, strong) UIImage *mainImage;
-@property (nonatomic, readwrite, strong) NSURL *mainImageURL;
-@property (nonatomic, readwrite, strong) UIImage *iconImage;
-@property (nonatomic, readwrite, strong) NSURL *iconImageURL;
-@property (nonatomic, readwrite, strong) NSDictionary *customElements;
+@property (nonatomic, readwrite, strong, nullable) NSString *title;
+@property (nonatomic, readwrite, strong, nullable) NSString *body;
+@property (nonatomic, readwrite, strong, nullable) NSString *callToAction;
+@property (nonatomic, readwrite, strong, nullable) ANNativeAdStarRating *rating;
+@property (nonatomic, readwrite, strong, nullable) UIImage *mainImage;
+@property (nonatomic, readwrite, strong, nullable) NSURL *mainImageURL;
+@property (nonatomic, readwrite, strong, nullable) UIImage *iconImage;
+@property (nonatomic, readwrite, strong, nullable) NSURL *iconImageURL;
+@property (nonatomic, readwrite, strong, nullable) NSDictionary *customElements;
 
 /*!
  * The mediation adapter which provided the native assets for this response.
  */
-@property (nonatomic, readonly, strong) id<ANNativeCustomAdapter> adapter;
+@property (nonatomic, readonly, strong, nullable) id<ANNativeCustomAdapter> adapter;
 
 @end

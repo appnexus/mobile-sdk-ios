@@ -20,13 +20,13 @@
 @interface ANGDPRSettings : NSObject
 
 
-+ (void) setConsentString:(NSString *)consentString;
++ (void) setConsentString:(nonnull NSString *)consentString;
 
 + (void) setConsentRequired:(BOOL)consentRequired;
 
-+ (NSString *) getConsentString;
++ (nonnull NSString *) getConsentString;
 
-+ (NSString *) getConsentRequired;
++ (nullable NSString *) getConsentRequired;
 
 + (void) reset;
 @end

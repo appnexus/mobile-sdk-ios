@@ -90,7 +90,9 @@ typedef NS_ENUM(NSInteger, FBAdTestAdType) {
     /// carousel ad with square image and app install CTA option
     FBAdTestAdType_Carousel_Img_Square_App_Install,
     /// carousel ad with square image and link CTA option
-    FBAdTestAdType_Carousel_Img_Square_Link
+    FBAdTestAdType_Carousel_Img_Square_Link,
+    /// carousel ad with square video and link CTA option
+    FBAdTestAdType_Carousel_Vid_Square_Link
 };
 
 @protocol FBAdLoggingDelegate;
@@ -126,6 +128,11 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @property (class, nonatomic, copy, readonly) NSString *bidderToken;
 
 /**
+ Generates routing token needed for requests routing in reverse-proxy, since we don't have cookies in app environments.
+ */
+@property (class, nonatomic, copy, readonly) NSString *routingToken;
+
+/**
  Returns test mode on/off.
  */
 + (BOOL)isTestMode;
@@ -138,7 +145,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
   Adds a test device.
 
- - Parameter deviceHash: The id of the device to use test mode, can be obtained from debug log or testDeviceHash
+ @param deviceHash The id of the device to use test mode, can be obtained from debug log or testDeviceHash
 
 
 
@@ -150,7 +157,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
   Add a collection of test devices. See `+addTestDevices:` for details.
 
- - Parameter devicesHash: The array of the device id to use test mode, can be obtained from debug log or testDeviceHash
+ @param devicesHash The array of the device id to use test mode, can be obtained from debug log or testDeviceHash
  */
 + (void)addTestDevices:(FB_NSArrayOf(NSString *)*)devicesHash;
 
@@ -162,14 +169,14 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
   Clears the added test device
 
- - Parameter deviceHash: The id of the device using test mode, can be obtained from debug log or testDeviceHash
+ @param deviceHash The id of the device using test mode, can be obtained from debug log or testDeviceHash
  */
 + (void)clearTestDevice:(NSString *)deviceHash;
 
 /**
   Configures the ad control for treatment as child-directed.
 
- - Parameter isChildDirected: Indicates whether you would like your ad control to be treated as child-directed
+ @param isChildDirected Indicates whether you would like your ad control to be treated as child-directed
 
  Note that you may have other legal obligations under the Children's Online Privacy Protection Act (COPPA).
  Please review the FTC's guidance and consult with your own legal counsel.
@@ -179,7 +186,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
   If an ad provided service is mediating Audience Network in their sdk, it is required to set the name of the mediation service
 
- - Parameter service: Representing the name of the mediation that is mediation Audience Network
+ @param service Representing the name of the mediation that is mediation Audience Network
  */
 + (void)setMediationService:(NSString *)service;
 

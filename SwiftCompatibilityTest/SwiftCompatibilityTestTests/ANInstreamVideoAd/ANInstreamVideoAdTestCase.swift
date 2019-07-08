@@ -202,11 +202,10 @@ class ANInstreamVideoAdTestCase: XCTestCase, ANInstreamVideoAdLoadDelegate {
     }
     
     // MARK: - ANInstreamVideoAdLoadDelegate.
-    func adDidReceiveAd(_ ad: ANAdProtocol!) {
+    func adDidReceiveAd(_ ad: ANAdProtocol) {
         expectationLoadVideoAd.fulfill()
     }
-     func ad(_ ad: Any!, requestFailedWithError error: Error!)
-     {
+    func ad(_ ad: ANAdProtocol, requestFailedWithError error: Error) {
         print(error.localizedDescription)
     }
 }

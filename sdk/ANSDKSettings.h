@@ -33,7 +33,7 @@
 /**
  Special ad sizes for which the content view should be constrained to the container view.
  */
-@property (nonatomic, copy) NSArray<NSValue *> *sizesThatShouldConstrainToSuperview;
+@property (nonatomic, copy, nullable) NSArray<NSValue *> *sizesThatShouldConstrainToSuperview;
 
 /**
  * Set false to block Location popup asked by Creative, Also notify creative that User denied the request for location.
@@ -45,10 +45,10 @@
 /**
  If provided, the SDK will use it instead of one fetched from a WebView
  */
-@property (nonatomic, readwrite, strong) NSString *customUserAgent;
+@property (nonatomic, readwrite, strong, nullable) NSString *customUserAgent;
 
 
-+ (instancetype)sharedInstance;
++ (nonnull instancetype)sharedInstance;
 
 - (void) optionalSDKInitialization;
 

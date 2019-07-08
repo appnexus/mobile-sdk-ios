@@ -368,7 +368,7 @@ class ANBannerAdTestCase: XCTestCase, ANBannerAdViewDelegate {
     }
     
     // MARK: - ANAdDelegate
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         XCTAssertNotNil(ad)
         if (ad is ANBannerAdView) {
             standardAd = ad as? ANMRAIDContainerView
@@ -377,7 +377,7 @@ class ANBannerAdTestCase: XCTestCase, ANBannerAdViewDelegate {
         }
     }
     
-    func ad(_ loadInstance: Any!, didReceiveNativeAd responseInstance: Any!) {
+    func ad(_ loadInstance: Any, didReceiveNativeAd responseInstance: Any) {
         XCTAssertNotNil(loadInstance)
         XCTAssertNotNil(responseInstance)
         if (responseInstance is ANNativeStandardAdResponse) {
@@ -392,7 +392,7 @@ class ANBannerAdTestCase: XCTestCase, ANBannerAdViewDelegate {
         }
     }
     
-     func ad(_ ad: Any!, requestFailedWithError error: Error!) {
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
         expectationResponse?.fulfill()
         XCTAssertTrue(false)
     }

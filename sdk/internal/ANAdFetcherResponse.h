@@ -21,22 +21,22 @@
 @interface ANAdFetcherResponse : NSObject
 
 @property (nonatomic, readonly, assign, getter=isSuccessful) BOOL successful;
-@property (nonatomic, readonly, strong) id  adObject;
-@property (nonatomic, readonly, strong) id  adObjectHandler;
-@property (nonatomic, readonly, strong) NSError *error;
+@property (nonatomic, readonly, strong, nonnull) id  adObject;
+@property (nonatomic, readonly, strong, nullable) id  adObjectHandler;
+@property (nonatomic, readonly, strong, nullable) NSError *error;
 
 
 //
-+ (ANAdFetcherResponse *)responseWithError:(NSError *)error;
++ (nonnull ANAdFetcherResponse *)responseWithError:(nonnull NSError *)error;
 
-+ (ANAdFetcherResponse *)responseWithAdObject: (id)adObject
-                           andAdObjectHandler: (id)adObjectHandler;
++ (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
+                           andAdObjectHandler: (nullable id)adObjectHandler;
 
 //
-- (instancetype)initAdResponseFailWithError:(NSError *)error;
+- (nonnull instancetype)initAdResponseFailWithError:(nonnull NSError *)error;
 
-- (instancetype)initAdResponseSuccessWithAdObject: (id)adObject
-                               andAdObjectHandler: (id)adObjectHandler;
+- (nonnull instancetype)initAdResponseSuccessWithAdObject: (nonnull id)adObject
+                               andAdObjectHandler: (nullable id)adObjectHandler;
 
 
 @end

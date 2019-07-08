@@ -15,7 +15,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, ANInitialAudioSetting) {
     SoundOn,
@@ -40,13 +39,13 @@ typedef NS_ENUM(NSUInteger, ANInitialAudioSetting) {
 @property (nonatomic,assign) BOOL showClickThruControl;
 
 //Change the clickThru text on the video player
-@property (nonatomic, strong) NSString *clickThruText;
+@property (nonatomic, strong, nullable) NSString *clickThruText;
 
 //Show or hide the "Ad" text next to the ClickThru control
 @property (nonatomic,assign) BOOL showAdText;
 
 //Change the ad text on the video player
-@property (nonatomic, strong) NSString *adText;
+@property (nonatomic, strong, nullable) NSString *adText;
 
 //Show or hide the volume control on the player
 @property (nonatomic,assign) BOOL showVolumeControl;
@@ -64,17 +63,16 @@ typedef NS_ENUM(NSUInteger, ANInitialAudioSetting) {
 @property (nonatomic,assign) BOOL showSkip;
 
 //Change the skip description on the video player
-@property (nonatomic,assign) NSString *skipDescription;
+@property (nonatomic,assign, nullable) NSString *skipDescription;
 
 //Change the skip label name on the video player
-@property (nonatomic,assign) NSString *skipLabelName;
+@property (nonatomic,assign, nullable) NSString *skipLabelName;
 
 //Configure the skip offset on the video player
 @property (nonatomic, assign) NSInteger skipOffset;
 
-+ (instancetype)sharedInstance;
++ (nonnull instancetype)sharedInstance;
 
 
 @end
 
-NS_ASSUME_NONNULL_END

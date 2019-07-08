@@ -43,7 +43,7 @@
  implementations of banner and interstitial ad views, we associate
  each ad view with a placement ID.
  */
-@property (nonatomic, readwrite, strong) NSString *placementId;
+@property (nonatomic, readwrite, strong, nullable) NSString *placementId;
 
 /**
  An AppNexus member ID. A member ID is a numeric ID that's associated
@@ -57,13 +57,13 @@
  SDK favors inventory code over placement id. A member ID is required to request
  an ad using inventory code.
  */
-@property (nonatomic, readonly, strong) NSString *inventoryCode;
+@property (nonatomic, readonly, strong, nullable) NSString *inventoryCode;
 
 /**
  The user's location.  See ANLocation.h in this directory for
  details.
  */
-@property (nonatomic, readwrite, strong) ANLocation *location;
+@property (nonatomic, readwrite, strong, nullable) ANLocation *location;
 
 /**
  The reserve price is the minimum bid amount you'll accept to show
@@ -76,7 +76,7 @@
  The user's age.  This can contain a numeric age, a birth year, or a
  hyphenated age range.  For example, "56", "1974", or "25-35".
  */
-@property (nonatomic, readwrite, strong) NSString *age;
+@property (nonatomic, readwrite, strong, nullable) NSString *age;
 
 /**
  The user's gender.  See the ANGender enumeration in ANAdConstants.h for details.
@@ -86,7 +86,7 @@
 /**
  Specifies a string that corresponds to an external user ID for  user
  */
-@property (nonatomic, readwrite, strong) NSString *externalUid;
+@property (nonatomic, readwrite, strong, nullable) NSString *externalUid;
 
 /**
  Report the Ad Type of the returned ad object.
@@ -100,14 +100,14 @@
  targeting, which can increase spend.
  */
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy;
 
 /**
  Set the user's current location rounded to the number of decimal places specified in "precision".
  Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
  */
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision;
 
 
@@ -119,7 +119,7 @@
  * @param key   The key to add
  * @param value The value to add
  */
-- (void)addCustomKeywordWithKey:(NSString *)key value:(NSString *)value;
+- (void)addCustomKeywordWithKey:(nonnull NSString *)key value:(nonnull NSString *)value;
 
 /**
  * Remove a custom keyword from the request URL for the ad.
@@ -128,7 +128,7 @@
  *
  * @param key The key to remove
  */
-- (void)removeCustomKeywordWithKey:(NSString *)key;
+- (void)removeCustomKeywordWithKey:(nonnull NSString *)key;
 
 /**
  * Clear all custom keywords from the request URL.
@@ -139,7 +139,7 @@
 /**
  Set the inventory code and member id for the place that ads will be shown.
  */
-- (void)setInventoryCode:(NSString *)inventoryCode memberId:(NSInteger)memberID;
+- (void)setInventoryCode:(nullable NSString *)inventoryCode memberId:(NSInteger)memberID;
 
 @end   //ANAdProtocolFoundation
 
@@ -157,18 +157,8 @@
  The case that returns the URL will notify via adWasClickedWithURL:(NSString *)urlString .
  When the urlString is returned it is ASSUMED that the caller will handle it appropriately,
    displaying its content to the user.
-
-
- Supercedes use of opensInNativeBrowser.
  */
 @property (nonatomic, readwrite)  ANClickThroughAction  clickThroughAction;
-
-
-/**
- Determines whether the ad, when clicked, will open the device's native browser.
- */
-@property (nonatomic, readwrite, assign) BOOL opensInNativeBrowser  __attribute__((deprecated("Use enumerated type ANClickThroughAction instead.")));
-
 
 /**
  Set whether the landing page should load in the background or in the foreground when an ad is clicked.
@@ -221,7 +211,7 @@
  An AppNexus creativeID for the current creative that is displayed
  */
 // CreativeId should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid creativeID being accessed through ANNativeAdRequest.
-@property (nonatomic, readonly, strong) NSString *creativeId;
+@property (nonatomic, readonly, strong, nullable) NSString *creativeId;
 
 
 @end
@@ -237,7 +227,12 @@
 
 
 @protocol ANVideoAdProtocol <ANAdProtocol, ANAdProtocolVideo>
-//EMPTY
+/**
+ * Get the Orientation of the Video rendered using the BannerAdView
+ *
+ * @return Default VideoOrientation value ANUnknown, which indicates that aspectRatio can't be retrieved for the video.
+ */
+- (ANVideoOrientation) getVideoOrientation;
 @end
 
 
@@ -259,57 +254,57 @@
    adDidReceiveAd:          used with Banner, Interstitial and Instream Video.
    ad:didReceivNativeAd:    used to receive ANNativeAdReponse when that is returned from an ANBannerAdView request.
  */
-- (void)adDidReceiveAd:(id)ad;
+- (void)adDidReceiveAd:(nonnull id)ad;
 
-- (void)ad:(id)loadInstance didReceiveNativeAd:(id)responseInstance;
+- (void)ad:(nonnull id)loadInstance didReceiveNativeAd:(nonnull id)responseInstance;
 
 
 /**
  Sent when the ad request to the server has failed.
  */
-- (void)ad:(id)ad requestFailedWithError:(NSError *)error;
+- (void)ad:(nonnull id)ad requestFailedWithError:(nonnull NSError *)error;
 
 
 
 /**
  Sent when the ad is clicked by the user.
  */
-- (void)adWasClicked:(id)ad;
+- (void)adWasClicked:(nonnull id)ad;
 
 /**
  Sent when the ad is clicked and the click-through URL is returned to the caller instead of being opened in a browser.
  */
-- (void)adWasClicked:(id)ad withURL:(NSString *)urlString;
+- (void)adWasClicked:(nonnull id)ad withURL:(nonnull NSString *)urlString;
 
 /**
  Sent when the ad view is about to close.
  */
-- (void)adWillClose:(id)ad;
+- (void)adWillClose:(nonnull id)ad;
 
 /**
  Sent when the ad view has finished closing.
  */
-- (void)adDidClose:(id)ad;
+- (void)adDidClose:(nonnull id)ad;
 
 /**
  Sent when the ad is clicked, and the SDK is about to open inside the in-SDK browser (a WebView).
  If you would prefer that ad clicks open the native browser instead,
    set clickThroughAction to ANClickThroughActionOpenDeviceBrowser.
  */
-- (void)adWillPresent:(id)ad;
+- (void)adWillPresent:(nonnull id)ad;
 
 /**
  Sent when the ad has finished being viewed using the in-SDK
  browser.
  */
-- (void)adDidPresent:(id)ad;
+- (void)adDidPresent:(nonnull id)ad;
 
 /**
  Sent when the ad is about to leave the app.
  This will happen in a number of cases, including when
    clickThroughAction is set to ANClickThroughActionOpenDeviceBrowser.
  */
-- (void)adWillLeaveApplication:(id)ad;
+- (void)adWillLeaveApplication:(nonnull id)ad;
 
 @end
 
@@ -327,9 +322,9 @@
  Called when the ad has sent the app an event via the AppNexus
  Javascript API for Mobile
  */
-- (void)          ad: (id<ANAdProtocol>)ad
-  didReceiveAppEvent: (NSString *)name
-            withData: (NSString *)data;
+- (void)          ad: (nonnull id<ANAdProtocol>)ad
+  didReceiveAppEvent: (nonnull NSString *)name
+            withData: (nonnull NSString *)data;
 
 @end
 

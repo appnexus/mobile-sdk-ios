@@ -24,14 +24,14 @@
 
 @interface ANVideoAdProcessor : NSObject<ANVideoAdPlayerDelegate>
 
-- (instancetype)initWithDelegate:(id<ANVideoAdProcessorDelegate>)delegate withAdVideoContent:(id) videoAdContent;
+- (nonnull instancetype)initWithDelegate:(nonnull id<ANVideoAdProcessorDelegate>)delegate withAdVideoContent:(nonnull id) videoAdContent;
 
 @end
 
 
 @protocol  ANVideoAdProcessorDelegate<NSObject>
 
-    - (void) videoAdProcessor:(ANVideoAdProcessor *)videoAdProcessor didFinishVideoProcessing: (ANVideoAdPlayer *)adVideoPlayer;
-    - (void) videoAdProcessor:(ANVideoAdProcessor *)videoAdProcessor didFailVideoProcessing: (NSError *)error;
+    - (void) videoAdProcessor:(nonnull ANVideoAdProcessor *)videoAdProcessor didFinishVideoProcessing: (nonnull ANVideoAdPlayer *)adVideoPlayer;
+    - (void) videoAdProcessor:(nonnull ANVideoAdProcessor *)videoAdProcessor didFailVideoProcessing: (nonnull NSError *)error;
 
 @end

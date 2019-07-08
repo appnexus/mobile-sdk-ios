@@ -59,7 +59,7 @@
 /*!
  * The delegate which is notified of a successful or failed request. This should be set before calling [ANNativeAdRequest loadAd].
  */
-@property (nonatomic, readwrite, weak) id<ANNativeAdRequestDelegate> delegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANNativeAdRequestDelegate> delegate;
 
 
 /**
@@ -96,12 +96,12 @@
  * @note If errors are encountered in resource retrieval, this method will still be called. However, the
  * [ANNativeAdResponse iconImage] or [ANNativeAdResponse mainImage] properties may be nil.
  */
-- (void)adRequest:(ANNativeAdRequest *)request didReceiveResponse:(ANNativeAdResponse *)response;
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didReceiveResponse:(nonnull ANNativeAdResponse *)response;
 
 /*!
  * Called when a native ad request was unsuccessful.
  * @see ANAdResponseCode in ANAdConstants.h for possible error code values.
  */
-- (void)adRequest:(ANNativeAdRequest *)request didFailToLoadWithError:(NSError *)error;
+- (void)adRequest:(nonnull ANNativeAdRequest *)request didFailToLoadWithError:(nonnull NSError *)error;
 
 @end

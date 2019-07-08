@@ -51,7 +51,7 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
         
         let bannerAdObject : BannerAdObject! = AdObjectModel.decodeBannerObject()
         if bannerAdObject != nil {
-            
+          if let placement = bannerAdObject?.adObject.placement{
             var width : CGFloat   = 1
             var height : CGFloat  = 1
             
@@ -76,30 +76,31 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
             let size = CGSize(width: 1, height: 1)
             
             // Make a banner ad view
-            let banner = ANBannerAdView(frame: rect, placementId: bannerAdObject?.adObject.placement , adSize: size)
-            banner?.rootViewController = self
-            banner?.autoRefreshInterval = 60
-            banner?.delegate = self
+            let banner = ANBannerAdView(frame: rect, placementId: placement , adSize: size)
+            banner.rootViewController = self
+            banner.autoRefreshInterval = 60
+            banner.delegate = self
             if ProcessInfo.processInfo.arguments.contains(PlacementTestConstants.BannerNativeAd.testRTBBannerNativeRendering)  {
                 guard let enableNativeRendering = bannerAdObject.enableNativeRendering else {  print("enableNativeRendering not found");   return  }
-                banner?.enableNativeRendering = enableNativeRendering
-                banner?.shouldAllowNativeDemand = bannerAdObject!.isNative
+                banner.enableNativeRendering = enableNativeRendering
+                banner.shouldAllowNativeDemand = bannerAdObject!.isNative
             }else{
-                banner?.shouldAllowNativeDemand = bannerAdObject!.isNative
+                banner.shouldAllowNativeDemand = bannerAdObject!.isNative
                 
             }
-            banner?.clickThroughAction = ANClickThroughAction.openDeviceBrowser
+            banner.clickThroughAction = ANClickThroughAction.openDeviceBrowser
             // Since this example is for testing, we'll turn on PSAs and verbose logging.
-            banner?.shouldServePublicServiceAnnouncements = true
+            banner.shouldServePublicServiceAnnouncements = true
             ANLogManager.setANLogLevel(ANLogLevel.debug)
             
             // Load an ad.
-            banner?.loadAd()
-            self.banner = banner!
+            banner.loadAd()
+            self.banner = banner
+          }
         }
     }
     
-    func adDidReceiveAd(_ ad: Any?) {
+    func adDidReceiveAd(_ ad: Any) {
         activityIndicator.stopAnimating()
 
         if (ad is ANBannerAdView) {
@@ -108,7 +109,7 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
         
     }
     
-    func ad(_ loadInstance: Any!, didReceiveNativeAd responseInstance: Any!) {
+    func ad(_ loadInstance: Any, didReceiveNativeAd responseInstance: Any) {
         viewNative.isHidden = false
         activityIndicator.stopAnimating()
         viewNative.alpha = 1
@@ -117,8 +118,12 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
         self.titleLabel.text = nativeAdResponse.title
         self.bodyLabel.text = nativeAdResponse.body
         self.sponsoredLabel.text = nativeAdResponse.sponsoredBy
-        self.iconImageView.downloaded(from : nativeAdResponse.iconImageURL )
-        self.mainImageView.downloaded(from : nativeAdResponse.mainImageURL )
+        if let iconImageURL = nativeAdResponse.iconImageURL{
+         self.iconImageView.downloaded(from : iconImageURL )
+        }
+        if let mainImageURL = nativeAdResponse.mainImageURL{
+         self.mainImageView.downloaded(from : mainImageURL )
+        }
         callToActionButton.setTitle(nativeAdResponse.callToAction, for: .normal)
         do {
             try nativeAdResponse.registerView(forTracking: self.viewNative, withRootViewController: self, clickableViews: [callToActionButton])
@@ -127,7 +132,7 @@ class BannerNativeAdViewController: UIViewController  , ANBannerAdViewDelegate {
         }
     }
     
-    func ad(_ ad: Any!, requestFailedWithError error: Error!) {
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
         print("requestFailedWithError \(String(describing: error))")
     }
     

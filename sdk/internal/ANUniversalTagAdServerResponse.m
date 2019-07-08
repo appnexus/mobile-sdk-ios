@@ -127,8 +127,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 @interface ANUniversalTagAdServerResponse ()
 
-@property (nonatomic, readwrite, strong) NSMutableArray *ads;
-@property (nonatomic, readwrite, strong) NSString *noAdUrlString;
+@property (nonatomic, readwrite, strong, nullable) NSMutableArray *ads;
+@property (nonatomic, readwrite, strong, nullable) NSString *noAdUrlString;
 
 @end
 
@@ -139,16 +139,16 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 #pragma mark - Lifecycle.
 
-- (instancetype)initWithAdServerData:(NSData *)data {
+- (nullable instancetype)initWithAdServerData:(nullable NSData *)data {
     self = [super init];
     if (self) {
         [self processResponseData:data];
     }
     return self;
 }
-- (instancetype)initWitXMLContent:(NSString *)vastContent
-                            width:(NSInteger)width
-                           height:(NSInteger)height
+- (nullable instancetype)initWitXMLContent:(nonnull NSString *)vastContent
+                                    width:(NSInteger)width
+                                   height:(NSInteger)height
 {
     self = [super init];
     if (!self)  { return nil; }
@@ -166,13 +166,13 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 }
 
 
-+ (ANUniversalTagAdServerResponse *)responseWithData:(NSData *)data {
++ (nullable ANUniversalTagAdServerResponse *)responseWithData:(nullable NSData *)data; {
     return [[ANUniversalTagAdServerResponse alloc] initWithAdServerData:data];
 }
 
-- (instancetype)initWithContent:(NSString *)htmlContent
-                          width:(NSInteger)width
-                         height:(NSInteger)height
+- (nullable instancetype)initWithContent: (nonnull NSString *)htmlContent
+                                  width: (NSInteger)width
+                                 height: (NSInteger)height
 {
     self = [super init];
     if (!self)  { return nil; }
@@ -736,7 +736,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
 #pragma mark - Helper Methods
 
-- (NSMutableArray *)ads {
+- (nullable NSMutableArray *)ads {
     if (!_ads) _ads = [[NSMutableArray alloc] init];
     return _ads;
 }

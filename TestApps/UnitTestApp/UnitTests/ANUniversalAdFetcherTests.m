@@ -46,7 +46,6 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 @synthesize gender;
 @synthesize shouldServePublicServiceAnnouncements;
 @synthesize landingPageLoadsInBackground;
-@synthesize opensInNativeBrowser;
 @synthesize memberId;
 @synthesize customKeywords;
 @synthesize externalUid;
@@ -185,10 +184,6 @@ static NSString *const kTestUUID = @"0000-000-000-00";
 }
 
 - (BOOL)landingPageLoadsInBackground {
-    return YES;
-}
-
-- (BOOL)opensInNativeBrowser {
     return YES;
 }
 

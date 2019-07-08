@@ -23,9 +23,9 @@
 
 @implementation ANAdAdapterInterstitialAmazon
 
-- (void)requestInterstitialAdWithParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+- (void)requestInterstitialAdWithParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)idString
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     ANLogDebug(@"Requesting Amazon interstitial");
     AmazonAdInterstitial *amazonInterstitial = [AmazonAdInterstitial amazonAdInterstitial];
     amazonInterstitial.delegate = self;

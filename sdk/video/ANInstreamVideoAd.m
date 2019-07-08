@@ -29,15 +29,15 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 //---------------------------------------------------------- -o--
 @interface  ANInstreamVideoAd()  <ANVideoAdPlayerDelegate, ANUniversalAdFetcherFoundationDelegate, ANAdProtocol>
 
-@property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
-@property  (weak, nonatomic, readwrite)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
+@property  (weak, nonatomic, readwrite, nullable)  id<ANInstreamVideoAdLoadDelegate>  loadDelegate;
+@property  (weak, nonatomic, readwrite, nullable)  id<ANInstreamVideoAdPlayDelegate>  playDelegate;
 
 @property (nonatomic, strong)  ANVideoAdPlayer  *adPlayer;
 @property (nonatomic, strong)  UIView           *adContainer;
 
 //
-@property (strong, nonatomic, readwrite)  NSString  *descriptionOfFailure;
-@property (strong, nonatomic, readwrite)  NSError   *failureNSError;
+@property (strong, nonatomic, readwrite, nullable)  NSString  *descriptionOfFailure;
+@property (strong, nonatomic, readwrite, nullable)  NSError   *failureNSError;
 
 @property (nonatomic)  BOOL  didUserSkipAd;
 @property (nonatomic)  BOOL  didUserClickAd;
@@ -89,7 +89,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return self;
 }
 
-- (instancetype) initWithPlacementId: (NSString *)placementId
+- (nonnull instancetype) initWithPlacementId: (nonnull NSString *)placementId
 {
     self = [self initFoundation];
     if (!self)  { return nil; }
@@ -100,7 +100,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return  self;
 }
 
-- (instancetype) initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode
+- (nonnull instancetype) initWithMemberId:(NSInteger)memberId inventoryCode:(nonnull NSString *)inventoryCode
 {
     self = [self initFoundation];
     if (!self)  { return nil; }
@@ -124,7 +124,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 #pragma mark - Instance methods.
 
 //--------------------- -o-
-- (BOOL) loadAdWithDelegate: (id<ANInstreamVideoAdLoadDelegate>)loadDelegate;
+- (BOOL) loadAdWithDelegate: (nullable id<ANInstreamVideoAdLoadDelegate>)loadDelegate;
 {
     if (! loadDelegate) {
         ANLogWarn(@"loadDelegate is UNDEFINED.  ANInstreamVideoAdLoadDelegate allows detection of when a video ad is successfully received and loaded.");
@@ -146,8 +146,8 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //--------------------- -o-
-- (void) playAdWithContainer: (UIView *)adContainer
-                withDelegate: (id<ANInstreamVideoAdPlayDelegate>)playDelegate;
+- (void) playAdWithContainer: (nonnull UIView *)adContainer
+                withDelegate: (nullable id<ANInstreamVideoAdPlayDelegate>)playDelegate;
 {
     if (!playDelegate) {
         ANLogError(@"playDelegate is UNDEFINED.  ANInstreamVideoAdPlayDelegate allows the lifecycle of a video ad to be tracked, including when the video ad is completed.");
@@ -174,16 +174,20 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     return [self.adPlayer getAdDuration];
 }
 
-- (NSString *) getCreativeURL{
+- (nullable NSString *) getCreativeURL{
     return [self.adPlayer getCreativeURL];
 }
 
-- (NSString *) getVastURL {
+- (nullable NSString *) getVastURL {
     return [self.adPlayer getVASTURL];
 }
 
-- (NSString *) getVastXML {
+- (nullable NSString *) getVastXML {
     return [self.adPlayer getVASTXML];
+}
+
+- (ANVideoOrientation) getVideoOrientation {
+    return [self.adPlayer getVideoAdOrientation];
 }
 
 - (NSUInteger) getAdPlayElapsedTime {
@@ -204,7 +208,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     }
 }
 
--(void) videoAdLoadFailed:(NSError *)error
+-(void) videoAdLoadFailed:(nonnull NSError *)error
 {
     self.didVideoTagFail = YES;
     
@@ -230,7 +234,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     [self removeAd];
 }
 
-- (void) videoAdError:(NSError *)error
+- (void) videoAdError:(nonnull NSError *)error
 {
     self.descriptionOfFailure  = nil;
     self.failureNSError        = error;
@@ -241,14 +245,14 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 
-- (void) videoAdWillPresent:(ANVideoAdPlayer *)videoAd
+- (void) videoAdWillPresent:(nonnull ANVideoAdPlayer *)videoAd
 {
     if ([self.playDelegate respondsToSelector:@selector(adWillPresent:)]) {
         [self.playDelegate adWillPresent:self];
     }
 }
 
-- (void) videoAdDidPresent:(ANVideoAdPlayer *)videoAd
+- (void) videoAdDidPresent:(nonnull ANVideoAdPlayer *)videoAd
 {
     if ([self.playDelegate respondsToSelector:@selector(adDidPresent:)]) {
         [self.playDelegate adDidPresent:self];
@@ -256,14 +260,14 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 
-- (void) videoAdWillClose:(ANVideoAdPlayer *)videoAd
+- (void) videoAdWillClose:(nonnull ANVideoAdPlayer *)videoAd
 {
     if ([self.playDelegate respondsToSelector:@selector(adWillClose:)]) {
         [self.playDelegate adWillClose:self];
     }
 }
 
-- (void) videoAdDidClose:(ANVideoAdPlayer *)videoAd
+- (void) videoAdDidClose:(nonnull ANVideoAdPlayer *)videoAd
 {
     if ([self.playDelegate respondsToSelector:@selector(adDidClose:)]) {
         [self removeAd];
@@ -272,7 +276,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 }
 
 
-- (void) videoAdWillLeaveApplication:(ANVideoAdPlayer *)videoAd
+- (void) videoAdWillLeaveApplication:(nonnull ANVideoAdPlayer *)videoAd
 {
     if ([self.playDelegate respondsToSelector:@selector(adWillLeaveApplication:)])  {
         [self.playDelegate adWillLeaveApplication:self];
@@ -355,17 +359,12 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     }
 }
 
-- (void) videoAdWasClickedWithURL:(NSString *)urlString {
+- (void) videoAdWasClickedWithURL:(nonnull NSString *)urlString {
     self.didUserClickAd = YES;
 
     if ([self.playDelegate respondsToSelector:@selector(adWasClicked:withURL:)])  {
         [self.playDelegate adWasClicked:self withURL:urlString];
     }
-}
-
-
-- (BOOL) videoAdPlayerOpensInNativeBrowser  {
-    return  self.opensInNativeBrowser;
 }
 
 - (BOOL) videoAdPlayerLandingPageLoadsInBackground  {
@@ -432,7 +431,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 /** Set the user's current location.  This allows ad buyers to do location targeting, which can increase spend.
  */
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
@@ -443,7 +442,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
  Valid values are between 0 and 6 inclusive. If the precision is -1, no rounding will occur.
  */
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
@@ -459,7 +458,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 @synthesize  memberId       = _memberId;
 @synthesize  inventoryCode  = _inventoryCode;
 
-- (void)setInventoryCode: (NSString *)inventoryCode
+- (void)setInventoryCode: (nullable NSString *)inventoryCode
                 memberId: (NSInteger)memberID
 {
     if (inventoryCode && (inventoryCode != _inventoryCode)) {

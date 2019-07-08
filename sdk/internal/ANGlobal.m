@@ -25,22 +25,22 @@
 
 
 
-NSString * const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
-NSString * const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
-NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes                      = @"ANInternalDelegateTagKeyAllowSmallerSizes";
+NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize                             = @"ANInternalDelgateTagKeyPrimarySize";
+NSString * __nonnull const  ANInternalDelegateTagKeySizes                                  = @"ANInternalDelegateTagKeySizes";
+NSString * __nonnull const  ANInternalDelegateTagKeyAllowSmallerSizes                      = @"ANInternalDelegateTagKeyAllowSmallerSizes";
 
-NSString * const  kANUniversalAdFetcherWillRequestAdNotification                 = @"kANUniversalAdFetcherWillRequestAdNotification";
-NSString * const  kANUniversalAdFetcherAdRequestURLKey                           = @"kANUniversalAdFetcherAdRequestURLKey";
-NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassNotification";
-NSString * const  kANUniversalAdFetcherMediatedClassKey                          = @"kANUniversalAdFetcherMediatedClassKey";
+NSString * __nonnull const  kANUniversalAdFetcherWillRequestAdNotification                 = @"kANUniversalAdFetcherWillRequestAdNotification";
+NSString * __nonnull const  kANUniversalAdFetcherAdRequestURLKey                           = @"kANUniversalAdFetcherAdRequestURLKey";
+NSString * __nonnull const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification  = @"kANUniversalAdFetcherWillInstantiateMediatedClassNotification";
+NSString * __nonnull const  kANUniversalAdFetcherMediatedClassKey                          = @"kANUniversalAdFetcherMediatedClassKey";
  
-NSString * const  kANUniversalAdFetcherDidReceiveResponseNotification            = @"kANUniversalAdFetcherDidReceiveResponseNotification";
-NSString * const  kANUniversalAdFetcherAdResponseKey                             = @"kANUniversalAdFetcherAdResponseKey";
+NSString * __nonnull const  kANUniversalAdFetcherDidReceiveResponseNotification            = @"kANUniversalAdFetcherDidReceiveResponseNotification";
+NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey                             = @"kANUniversalAdFetcherAdResponseKey";
 
 
 
 
-NSString *ANDeviceModel()
+NSString *__nonnull ANDeviceModel()
 {
     struct utsname systemInfo;
     uname(&systemInfo);
@@ -59,7 +59,7 @@ BOOL ANAdvertisingTrackingEnabled() {
 }
 
 
-NSString *const kANFirstLaunchKey = @"kANFirstLaunchKey";
+NSString * __nonnull const kANFirstLaunchKey = @"kANFirstLaunchKey";
 
 BOOL ANIsFirstLaunch()
 {
@@ -74,7 +74,7 @@ BOOL ANIsFirstLaunch()
 }
 
 
-NSString *ANUDID() {
+NSString *__nonnull ANUDID() {
     static NSString *udidComponent = @"";
     
     if ([udidComponent isEqualToString:@""]) {
@@ -91,11 +91,11 @@ NSString *ANUDID() {
     return udidComponent;
 }
 
-NSString *ANErrorString(NSString *key) {
+NSString *__nonnull ANErrorString( NSString * __nonnull key) {
     return NSLocalizedStringFromTableInBundle(key, AN_ERROR_TABLE, ANResourcesBundle(), @"");
 }
 
-NSError *ANError(NSString *key, NSInteger code, ...) {
+NSError *__nonnull ANError(NSString *__nonnull key, NSInteger code, ...) {
     NSDictionary *errorInfo = nil;
     va_list args;
     va_start(args, code);
@@ -114,7 +114,7 @@ NSError *ANError(NSString *key, NSInteger code, ...) {
                            userInfo:errorInfo];
 }
 
-NSBundle *ANResourcesBundle() {
+NSBundle *__nonnull ANResourcesBundle() {
     static dispatch_once_t resBundleToken;
     static NSBundle *resBundle;
     static ANGlobal *globalInstance;
@@ -126,7 +126,7 @@ NSBundle *ANResourcesBundle() {
     return resBundle;
 }
 
-NSString *ANPathForANResource(NSString *name, NSString *type) {
+NSString *__nullable ANPathForANResource(NSString *__nullable name, NSString *__nullable type) {
     NSString *path = [ANResourcesBundle() pathForResource:name ofType:type];
     if (!path) {
         ANLogError(@"Could not find resource %@.%@. Please make sure that %@.bundle or all the resources in sdk/resources are included in your app target's \"Copy Bundle Resources\".", name, type, kANSDKResourcesBundleName);
@@ -134,7 +134,7 @@ NSString *ANPathForANResource(NSString *name, NSString *type) {
     return path;
 }
 
-NSString *ANConvertToNSString(id value) {
+NSString *__nullable ANConvertToNSString(id __nullable value) {
     if ([value isKindOfClass:[NSString class]]) return value;
     if ([value respondsToSelector:@selector(stringValue)]) {
         return [value stringValue];
@@ -178,7 +178,7 @@ CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rec
     return adjustedRect;
 }
 
-NSString *ANMRAIDBundlePath() {
+NSString *__nullable ANMRAIDBundlePath() {
     NSString *mraidPath = ANPathForANResource(@"ANMRAID", @"bundle");
     if (!mraidPath) {
         ANLogError(@"Could not find ANMRAID.bundle. Please make sure that %@.bundle or the ANMRAID.bundle resource in sdk/resources is included in your app target's \"Copy Bundle Resources\".", kANSDKResourcesBundleName);
@@ -187,7 +187,7 @@ NSString *ANMRAIDBundlePath() {
     return mraidPath;
 }
 
-BOOL ANHasHttpPrefix(NSString *url) {
+BOOL ANHasHttpPrefix(NSString * __nonnull url) {
     return ([url hasPrefix:@"http"] || [url hasPrefix:@"https"]);
 }
 
@@ -197,7 +197,7 @@ void ANSetNotificationsEnabled(BOOL enabled) {
     notificationsEnabled = enabled;
 }
 
-void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo) {
+void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDictionary * __nullable userInfo) {
     if (notificationsEnabled) {
         [[NSNotificationCenter defaultCenter] postNotificationName:name
                                                             object:object
@@ -259,7 +259,7 @@ CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets() {
     return screenBounds;
 }
 
-NSURLRequest *ANBasicRequestWithURL(NSURL *URL) {
+NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:kAppNexusRequestTimeoutInterval];
@@ -267,7 +267,7 @@ NSURLRequest *ANBasicRequestWithURL(NSURL *URL) {
     return [request copy];
 }
 
-NSNumber *ANiTunesIDForURL(NSURL *URL) {
+NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL) {
     if ([URL.host isEqualToString:@"itunes.apple.com"]) {
         NSRegularExpression *idPattern = [[NSRegularExpression alloc] initWithPattern:@"id(\\d+)"
                                                                               options:0
@@ -283,7 +283,7 @@ NSNumber *ANiTunesIDForURL(NSURL *URL) {
     return nil;
 }
 
-BOOL ANCanPresentFromViewController(UIViewController *viewController) {
+BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController) {
     return viewController.view.window != nil ? YES : NO;
 }
 
@@ -292,7 +292,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
 
 @implementation ANGlobal
 
-+ (void) openURL: (NSString *)urlString
++ (void) openURL: (nonnull NSString *)urlString
 {
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)])
     {
@@ -309,8 +309,8 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
 //
 // Use alias for default separator string of comma (,).
 //
-+ (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
-                                                                 withSeparatorString: (NSString *)separatorString
++ (NSMutableDictionary<NSString *, NSString *> * __nonnull)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> * __nonnull)keywordsMap
+                                                                           withSeparatorString: (nonnull NSString *)separatorString
 {
     NSMutableDictionary<NSString *, NSString *>  *keywordsMapToStrings  = [[NSMutableDictionary alloc] init];
 
@@ -331,8 +331,8 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
 //
 // NB  Does not distinguish between a return value of nil and the case where the object does not respond to the getter selector.
 //
-+ (id) valueOfGetterProperty: (NSString *)stringOfGetterProperty
-                   forObject: (id)objectImplementingGetterProperty
++ (nullable id) valueOfGetterProperty: (nonnull NSString *)stringOfGetterProperty
+                            forObject: (nonnull id)objectImplementingGetterProperty
 {
     SEL  getterMethod  = NSSelectorFromString(stringOfGetterProperty);
 
@@ -343,7 +343,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     return  nil;
 }
 
-+ (ANAdType) adTypeStringToEnum:(NSString *)adTypeString
++ (ANAdType) adTypeStringToEnum:(nonnull NSString *)adTypeString
 {
     NSString  *adTypeStringVerified  = ANConvertToNSString(adTypeString);
 
@@ -371,7 +371,7 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
 
 
 //
-+ (NSString *)getUserAgent
++ (nonnull NSString *) getUserAgent
 {
     static NSString  *userAgent               = nil;
     static BOOL       userAgentQueryIsActive  = NO;
@@ -418,6 +418,13 @@ BOOL ANCanPresentFromViewController(UIViewController *viewController) {
     //
     ANLogDebug(@"userAgent=%@", userAgent);
     return userAgent;
+}
+
+#pragma mark - Get Video Orientation Method
+
++ (ANVideoOrientation) parseVideoOrientation:(NSString *)aspectRatio {
+    double aspectRatioValue = [aspectRatio doubleValue];
+    return aspectRatio == 0? ANUnknown : (aspectRatioValue == 1)? ANSquare : (aspectRatioValue > 1)? ANLandscape : ANPortraint;
 }
 
 @end

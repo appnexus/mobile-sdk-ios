@@ -26,9 +26,9 @@
 
 #pragma mark ANCustomAdapterInterstitial
 
-- (void)requestInterstitialAdWithParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+- (void)requestInterstitialAdWithParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)idString
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     if (!idString) {
         [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];

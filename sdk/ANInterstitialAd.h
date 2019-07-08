@@ -42,13 +42,13 @@
  */
 @interface ANInterstitialAd : ANAdView
 
-@property (nonatomic, readwrite, weak) id<ANInterstitialAdDelegate> delegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANInterstitialAdDelegate> delegate;
 
 /**
  Delegate object that receives custom app event notifications from this
  ANInterstitialAd.
  */
-@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANAppEventDelegate> appEventDelegate;
 
 /**
  The ad view's background color. If the color is fully or partially transparent,
@@ -56,7 +56,7 @@
  
  @note: Transparent interstitial backgrounds are supported only on iOS 8 and above.
  */
-@property (nonatomic, readwrite, strong) UIColor *backgroundColor;
+@property (nonatomic, readwrite, strong, nullable) UIColor *backgroundColor;
 
 /**
  Set to NO if the background color is fully or partially transparent. Default is YES.
@@ -83,7 +83,7 @@
  The set of allowed ad sizes for the interstitial ad.
  The set should contain CGSize values wrapped as NSValue objects.
  */
-@property (nonatomic, readwrite, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
+@property (nonatomic, readwrite, strong, nullable)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
 
 /**
@@ -100,14 +100,14 @@
  @param placementId the placement ID given from AN
  @returns void
  */
-- (instancetype)initWithPlacementId:(NSString *)placementId;
+- (nonnull instancetype)initWithPlacementId:(nonnull NSString *)placementId;
 
 /**
  Instead of requesting ads using placement id, alternatively, you can
  use the initialization method below to initialize an interstitial
  using member id and inventory code.
  */
-- (instancetype)initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode;
+- (nonnull instancetype)initWithMemberId:(NSInteger)memberId inventoryCode:(nonnull NSString *)inventoryCode;
 
 /**
  Actually loads the ad into your ad view.
@@ -131,14 +131,14 @@
  display the ad; it's used here for convenience. Note that you should
  check isReady first to make sure there's an ad to show.
 */
-- (void)displayAdFromViewController:(UIViewController *)controller;
+- (void)displayAdFromViewController:(nonnull UIViewController *)controller;
 
 /**
  Instead of displaying an interstitial to the user using displayAdFromViewController, alternatively, you can use the
  method below which will auto-dismiss the ad after the delay seconds.
  */
 
-- (void)displayAdFromViewController:(UIViewController *)controller autoDismissDelay:(NSTimeInterval)delay;
+- (void)displayAdFromViewController:(nonnull UIViewController *)controller autoDismissDelay:(NSTimeInterval)delay;
 
 
 @end
@@ -160,5 +160,5 @@
  }
  @endcode
  */
-- (void)adFailedToDisplay:(ANInterstitialAd *)ad;
+- (void)adFailedToDisplay:(nonnull ANInterstitialAd *)ad;
 @end

@@ -20,7 +20,7 @@ import AppNexusSDK
 
 class ViewController: UIViewController, ANBannerAdViewDelegate {
     
-    @IBOutlet weak var banner = ANBannerAdView()
+    @IBOutlet var banner:ANBannerAdView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,23 +34,28 @@ class ViewController: UIViewController, ANBannerAdViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        banner?.adSize = CGSize(width: 300, height: 250)
-        banner?.placementId = "13844648"
-        banner?.gender = .female
-        banner?.age = "18 - 24"
-        banner?.rootViewController = self;
-        banner?.delegate = self
-        banner?.loadAd()
+        banner = ANBannerAdView(frame: CGRect(x: 0, y: 0, width: 300, height: 250))
+        banner.adSize = CGSize(width: 300, height: 250)
+        banner.placementId = "12345"
+        banner.gender = .female
+        banner.age = "18 - 24"
+        banner.rootViewController = self;
+        banner.delegate = self
+        banner.loadAd()
         
     }
     
     //delegate methods
-    func adDidReceiveAd(_ ad: Any!) {
+    func adDidReceiveAd(_ ad: Any) {
         print("adDidReceiveAd");
     }
-    func ad(_ ad: Any!, requestFailedWithError error: Error!) {
+    func ad(_ ad: Any, requestFailedWithError error: Error) {
         print("Ad requestFailedWithError");
         
+    }
+    
+    func adWasClicked(_ ad: Any, withURL urlString: String) {
+        print(ad)
     }
 
 }

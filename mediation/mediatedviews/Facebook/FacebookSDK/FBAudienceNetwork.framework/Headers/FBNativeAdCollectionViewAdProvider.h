@@ -20,6 +20,7 @@
 #import <UIKit/UIKit.h>
 
 #import <FBAudienceNetwork/FBAdDefines.h>
+#import <FBAudienceNetwork/FBAdExtraHint.h>
 #import <FBAudienceNetwork/FBNativeAd.h>
 #import <FBAudienceNetwork/FBNativeAdsManager.h>
 
@@ -37,45 +38,50 @@ FB_CLASS_EXPORT
 @property (nonatomic, weak, nullable) id<FBNativeAdDelegate> delegate;
 
 /**
+ FBAdExtraHint to provide extra info
+ */
+@property (nonatomic, strong, nullable) FBAdExtraHint *extraHint;
+
+/**
   Create a FBNativeAdCollectionViewAdProvider.
 
- - Parameter manager: The FBNativeAdsManager which is consumed by this class.
+ @param manager The FBNativeAdsManager which is consumed by this class.
  */
 - (instancetype)initWithManager:(FBNativeAdsManager *)manager NS_DESIGNATED_INITIALIZER;
 
 /**
   Retrieve a native ad for an indexPath, will return the same ad for a given indexPath until the native ads manager is refreshed. This method is intended for usage with a collection view and specifically the caller is recommended to wait until  collectionView:cellForRowAtIndexPath: to ensure getting the best native ad for the given collection cell.
 
- - Parameter collectionView: The collectionView where native ad will be used
- - Parameter indexPath: The indexPath to use as a key for this native ad
- - Returns: A FBNativeAd which is loaded and ready to be used.
+ @param collectionView The collectionView where native ad will be used
+ @param indexPath The indexPath to use as a key for this native ad
+ @return A FBNativeAd which is loaded and ready to be used.
  */
 - (FBNativeAd *)collectionView:(UICollectionView *)collectionView nativeAdForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
   Support for evenly distributed native ads within a collection view. Computes whether this cell is an ad or not.
 
- - Parameter indexPath: The indexPath of the cell within the collection view
- - Parameter stride: The frequency that native ads are to appear within the collection view
- - Returns: Boolean indicating whether the cell at the path is an ad
+ @param indexPath The indexPath of the cell within the collection view
+ @param stride The frequency that native ads are to appear within the collection view
+ @return Boolean indicating whether the cell at the path is an ad
  */
 - (BOOL)isAdCellAtIndexPath:(NSIndexPath *)indexPath forStride:(NSUInteger)stride;
 
 /**
   Support for evenly distributed native ads within a collection view. Adjusts a non-ad cell indexPath to the indexPath it would be in a collection with no ads.
 
- - Parameter indexPath: The indexPath to of the non-ad cell
- - Parameter stride: The frequency that native ads are to appear within the collection view
- - Returns: An indexPath adjusted to what it would be in a collection view with no ads
+ @param indexPath The indexPath to of the non-ad cell
+ @param stride The frequency that native ads are to appear within the collection view
+ @return An indexPath adjusted to what it would be in a collection view with no ads
  */
-- (NSIndexPath *)adjustNonAdCellIndexPath:(NSIndexPath *)indexPath forStride:(NSUInteger)stride;
+- (nullable NSIndexPath *)adjustNonAdCellIndexPath:(NSIndexPath *)indexPath forStride:(NSUInteger)stride;
 
 /**
   Support for evenly distributed native ads within a collection view. Adjusts the total count of cells within the collection view to account for the ad cells.
 
- - Parameter count: The count of cells in the collection view not including ads
- - Parameter stride: The frequency that native ads are to appear within the collection view
- - Returns: The total count of cells within the collection view including both ad and non-ad cells
+ @param count The count of cells in the collection view not including ads
+ @param stride The frequency that native ads are to appear within the collection view
+ @return The total count of cells within the collection view including both ad and non-ad cells
  */
 - (NSUInteger)adjustCount:(NSUInteger)count forStride:(NSUInteger)stride;
 

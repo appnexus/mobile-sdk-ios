@@ -27,20 +27,20 @@
 /**
  Custom targeting keywords from the app.
  */
-@property (nonatomic, readwrite, strong) NSDictionary<NSString *, NSString *>  *customKeywords;
+@property (nonatomic, readwrite, strong, nullable) NSDictionary<NSString *, NSString *>  *customKeywords;
 
-@property (nonatomic, readwrite, strong) NSString *age;
+@property (nonatomic, readwrite, strong, nullable) NSString *age;
 @property (nonatomic, readwrite, assign) ANGender gender;
-@property (nonatomic, readwrite, strong) NSString *externalUid;
+@property (nonatomic, readwrite, strong, nullable) NSString *externalUid;
 /**
  location may be nil if not specified by app.
  */
-@property (nonatomic, readwrite, strong) ANLocation *location;
+@property (nonatomic, readwrite, strong, nullable) ANLocation *location;
 
 /**
  The IDFA.
  */
-@property (nonatomic, readwrite, strong) NSString *idforadvertising;
+@property (nonatomic, readwrite, strong, nullable) NSString *idforadvertising;
 
 @end
 

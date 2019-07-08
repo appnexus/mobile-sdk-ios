@@ -22,9 +22,9 @@
 @interface ANAdFetcherResponse ()
 
 @property (nonatomic, readwrite, assign, getter=isSuccessful) BOOL successful;
-@property (nonatomic, readwrite, strong) id adObject;
-@property (nonatomic, readwrite, strong) id adObjectHandler;
-@property (nonatomic, readwrite, strong) NSError *error;
+@property (nonatomic, readwrite, strong, nonnull) id adObject;
+@property (nonatomic, readwrite, strong, nullable) id adObjectHandler;
+@property (nonatomic, readwrite, strong, nullable) NSError *error;
 
 @end
 
@@ -34,7 +34,7 @@
 
 #pragma mark - Lifecycle.
 
-- (instancetype)initAdResponseFailWithError:(NSError *)error {
+- (nonnull instancetype)initAdResponseFailWithError:(nonnull NSError *)error {
     self = [super init];
     if (self) {
         _error = error;
@@ -42,8 +42,8 @@
     return self;
 }
 
-- (instancetype)initAdResponseSuccessWithAdObject: (id)adObject
-                               andAdObjectHandler: (id)adObjectHandler
+- (nonnull instancetype)initAdResponseSuccessWithAdObject: (nonnull id)adObject
+                                       andAdObjectHandler: (nullable id)adObjectHandler
 {
     self = [super init];
     if (self) {
@@ -58,12 +58,12 @@
 
 #pragma mark - Class methods.
 
-+ (ANAdFetcherResponse *)responseWithError:(NSError *)error {
++ (nonnull ANAdFetcherResponse *)responseWithError:(nonnull NSError *)error {
     return [[ANAdFetcherResponse alloc] initAdResponseFailWithError:error];
 }
 
-+ (ANAdFetcherResponse *)responseWithAdObject: (id)adObject
-                           andAdObjectHandler: (id)adObjectHandler
++ (nonnull ANAdFetcherResponse *)responseWithAdObject: (nonnull id)adObject
+                           andAdObjectHandler: (nullable id)adObjectHandler
 {
     return [[ANAdFetcherResponse alloc] initAdResponseSuccessWithAdObject: adObject
                                                        andAdObjectHandler: adObjectHandler];

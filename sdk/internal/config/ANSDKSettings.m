@@ -29,7 +29,7 @@
 
 @implementation ANProdHTTPBaseUrlConfig
 
-+ (instancetype)sharedInstance {
++ (nonnull instancetype)sharedInstance {
     static dispatch_once_t onceToken;
     static ANProdHTTPBaseUrlConfig *config;
     dispatch_once(&onceToken, ^{

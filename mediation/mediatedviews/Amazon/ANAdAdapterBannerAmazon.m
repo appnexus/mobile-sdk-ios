@@ -30,10 +30,10 @@
 @synthesize delegate = _delegate;
 
 - (void)requestBannerAdWithSize:(CGSize)size
-             rootViewController:(UIViewController *)rootViewController
-                serverParameter:(NSString *)parameterString
-                       adUnitId:(NSString *)idString
-            targetingParameters:(ANTargetingParameters *)targetingParameters {
+             rootViewController:(nullable UIViewController *)rootViewController
+                serverParameter:(nullable NSString *)parameterString
+                       adUnitId:(nullable NSString *)idString
+            targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     ANLogDebug(@"Requesting Amazon banner with size: %@", NSStringFromCGSize(size));
     AmazonAdView *adView = [AmazonAdView amazonAdViewWithAdSize:size];
     adView.delegate = self;

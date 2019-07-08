@@ -14,7 +14,6 @@
  */
 
 #import "ANURLConnectionStub.h"
-#import "ANGlobal.h"
 #import "ANSDKSettings+PrivateMethods.h"
 #import "ANHTTPStubURLProtocol.h"
 

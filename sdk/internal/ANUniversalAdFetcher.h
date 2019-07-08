@@ -24,36 +24,23 @@
 #import "ANAdViewInternalDelegate.h"
 #import "ANAdProtocol.h"
 #import "ANGlobal.h"
+#import "ANAdFetcherBase+PrivateMethods.h"
 
 
 
 @protocol ANUniversalAdFetcherDelegate;
-@protocol ANUniversalNativeAdFetcherDelegate;
 
+@interface ANUniversalAdFetcher : ANAdFetcherBase
 
-
-@interface ANUniversalAdFetcher : NSObject
-
-- (instancetype)initWithDelegate: (id)delegate;
+- (nonnull instancetype)initWithDelegate: (nonnull id)delegate;
 
 - (void)stopAdLoad;
-- (void) requestAd;
-
-- (void)processAdServerResponse:(ANUniversalTagAdServerResponse *)response;
-
 - (void) startAutoRefreshTimer;
 - (void) restartAutoRefreshTimer;
 - (void) stopAutoRefreshTimer;
 
-- (NSTimeInterval)getTotalLatency:(NSTimeInterval)stopTime;
-- (CGSize)getWebViewSizeForCreativeWidth:(NSString *)width
-                               andHeight:(NSString *)height;
-
-
-- (void)fireResponseURL:(NSString *)responseURLString
-                 reason:(ANAdResponseCode)reason
-               adObject:(id)adObject;
-
+- (CGSize)getWebViewSizeForCreativeWidth:(nonnull NSString *)width
+                               andHeight:(nonnull NSString *)height;
 
 @end
 
@@ -66,15 +53,15 @@
 
 @required
 
-- (void)       universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-     didFinishRequestWithResponse: (ANAdFetcherResponse *)response;
+- (void)       universalAdFetcher: (nonnull ANUniversalAdFetcher *)fetcher
+     didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response;
 
-- (NSArray<NSValue *> *)adAllowedMediaTypes;
+- (nonnull NSArray<NSValue *> *)adAllowedMediaTypes;
 
 // NB  Represents lazy evaluation as a means to get most current value of primarySize (eg: from self.containerSize).
 //     In addition, this method combines collection of all three size parameters to avoid synchronization issues.
 //
-- (NSDictionary *) internalDelegateUniversalTagSizeParameters;
+- (nonnull NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
 
 
@@ -89,7 +76,7 @@
 //       which is shared between fetcher and the mediation adapters.
 //     The version here is a dictionary of arrays of strings, the public facing version is simply a dictionary of strings.
 //
-@property (nonatomic, readwrite, strong)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
+@property (nonatomic, readwrite, strong, nullable)  NSMutableDictionary<NSString *, NSArray<NSString *> *>  *customKeywords;
 
 @end
 
@@ -99,7 +86,7 @@
 
 @required
 
-- (CGSize)requestedSizeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+- (CGSize)requestedSizeForAdFetcher:(nonnull ANUniversalAdFetcher *)fetcher;
 
 
 @optional
@@ -107,8 +94,8 @@
 // NB  autoRefreshIntervalForAdFetcher: and videoAdTypeForAdFetcher: are required for ANBannerAdView,
 //       but are not used by any other entrypoint.
 //
-- (NSTimeInterval) autoRefreshIntervalForAdFetcher:(ANUniversalAdFetcher *)fetcher;
-- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(ANUniversalAdFetcher *)fetcher;
+- (NSTimeInterval) autoRefreshIntervalForAdFetcher:(nonnull ANUniversalAdFetcher *)fetcher;
+- (ANVideoAdSubtype) videoAdTypeForAdFetcher:(nonnull ANUniversalAdFetcher *)fetcher;
 
 
 //   If enableNativeRendering is not set, the default is false.
@@ -116,6 +103,9 @@
 //   enableNativeRendering is sufficient to BannerAd entry point.
 -(BOOL) enableNativeRendering;
 
+//   Set the Orientation of the Video rendered to BannerAdView taken from  ANAdWebViewController
+//   setVideoAdOrientation is sufficient to BannerAd entry point.
+-(void)setVideoAdOrientation:(ANVideoOrientation)videoOrientation;
 
 @end
 
@@ -128,10 +118,4 @@
 
 @end
 
-
-#pragma mark - ANUniversalAdFetcherDelegate entrypoint combinations.
-
-@protocol  ANUniversalNativeAdFetcherDelegate  <ANUniversalAdFetcherFoundationDelegate, ANAdProtocolFoundation>
-//EMPTY
-@end
 

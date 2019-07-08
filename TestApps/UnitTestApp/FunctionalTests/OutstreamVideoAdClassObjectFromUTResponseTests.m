@@ -230,18 +230,12 @@ static NSString         *outstreamVideoPlacementID  = @"12534678";
     return  NO;
 }
 
-- (BOOL)opensInNativeBrowser {
-    return  NO;
-}
-
-
 @synthesize age;
 @synthesize placementId;
 @synthesize memberId;
 @synthesize maxDuration;
 @synthesize customKeywords;
 @synthesize gender;
-@synthesize opensInNativeBrowser;
 @synthesize location;
 @synthesize reserve;
 @synthesize shouldServePublicServiceAnnouncements;

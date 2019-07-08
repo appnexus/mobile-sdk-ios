@@ -22,7 +22,6 @@
 #pragma clang diagnostic pop
 
 @dynamic placementId;
-@dynamic opensInNativeBrowser;
 @dynamic shouldServePublicServiceAnnouncements;
 @dynamic location;
 @dynamic reserve;

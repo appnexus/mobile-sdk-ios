@@ -37,9 +37,9 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 @property (nonatomic, assign)             NSUInteger                videoDuration;
 @property (nonatomic, strong)             NSString                 *vastURLContent;
 @property (nonatomic, strong)             NSString                 *vastXMLContent;
+@property (nonatomic, readwrite, assign)  ANVideoOrientation  videoAdOrientation;
 
 @property (nonatomic, readonly)  ANClickThroughAction   clickThroughAction;
-@property (nonatomic, readonly)  BOOL                   opensInNativeBrowser;
 @property (nonatomic, readonly)  BOOL                   landingPageLoadsInBackground;
 
 @end
@@ -65,6 +65,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     _videoDuration = 0;
     _vastURLContent = @"";
     _vastXMLContent = @"";
+    _videoAdOrientation     = ANUnknown;
     return self;
 }
 
@@ -111,17 +112,6 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     return returnVal;
 }
 
-- (BOOL) opensInNativeBrowser
-{
-    BOOL  returnVal  = NO;
-    
-    if ([self.delegate respondsToSelector:@selector(videoAdPlayerOpensInNativeBrowser)])  {
-        returnVal = [self.delegate videoAdPlayerOpensInNativeBrowser];
-    }
-    
-    return  returnVal;
-}
-
 - (ANClickThroughAction) clickThroughAction
 {
     ANClickThroughAction  returnVal  = NO;
@@ -133,29 +123,31 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     return  returnVal;
 }
 
-
+- (ANVideoOrientation) getVideoAdOrientation {
+    return _videoAdOrientation;
+}
 
 
 #pragma mark - Public methods.
 
--(void) loadAdWithVastContent:(NSString *) vastContent{
+-(void) loadAdWithVastContent:(nonnull NSString *) vastContent{
         
     self.vastContent = vastContent;
     [self createVideoPlayer];
 }
 
--(void) loadAdWithVastUrl:(NSString *) vastUrl {
+-(void) loadAdWithVastUrl:(nonnull NSString *) vastUrl {
     self.vastURL = vastUrl;
     [self createVideoPlayer];
 }
 
--(void) loadAdWithJSONContent:(NSString *) jsonContent{
+-(void) loadAdWithJSONContent:(nonnull NSString *) jsonContent{
     self.jsonContent = jsonContent;
     [self createVideoPlayer];
 }
 
 
--(void)playAdWithContainer:(UIView *) containerView
+-(void)playAdWithContainer:(nonnull UIView *) containerView
 {
     if (!containerView)
     {
@@ -187,15 +179,15 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 - (NSUInteger) getAdDuration {
     return self.videoDuration;
 }
-- (NSString *) getCreativeURL {
+- (nullable NSString *) getCreativeURL {
     return self.creativeURL;
 }
 
-- (NSString *) getVASTURL {
+- (nullable NSString *) getVASTURL {
     return self.vastURLContent;
 }
 
-- (NSString *) getVASTXML {
+- (nullable NSString *) getVASTXML {
     return self.vastXMLContent;
 }
 
@@ -287,6 +279,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
             NSNumber *duration = [paramsDictionary objectForKey:@"duration"];
             self.vastURLContent = (NSString *)[paramsDictionary objectForKey:@"vastCreativeUrl"];
             self.vastXMLContent = (NSString *)[paramsDictionary objectForKey:@"vastXML"];
+            self.videoAdOrientation = [ANGlobal parseVideoOrientation:[paramsDictionary objectForKey:kANAspectRatio]];
             if(duration > 0){
                 self.videoDuration = [duration intValue];
             }
@@ -539,7 +532,5 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     NSString *decodedString = [[URL absoluteString] stringByRemovingPercentEncoding];
     ANLogDebug(@"%@", decodedString);
 }
-
-
 @end
 

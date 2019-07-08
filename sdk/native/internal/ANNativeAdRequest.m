@@ -15,16 +15,16 @@
 
 #import "ANNativeAdRequest.h"
 #import "ANNativeMediatedAdResponse.h"
-#import "ANUniversalAdFetcher.h"
+#import "ANNativeAdFetcher.h"
 #import "ANNativeAdImageCache.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "ANOMIDImplementation.h"
 
 
-@interface ANNativeAdRequest() <ANUniversalNativeAdFetcherDelegate>
+@interface ANNativeAdRequest() <ANNativeAdFetcherDelegate>
 
-@property (nonatomic, readwrite, strong) NSMutableArray *adFetchers;
+@property (nonatomic, readwrite, strong) ANNativeAdFetcher *adFetcher;
 
 @property (nonatomic, strong)  NSMutableSet<NSValue *>  *allowedAdSizes;
 
@@ -88,17 +88,13 @@
     }
 }
 
-- (NSMutableArray *)adFetchers {
-    
-    if (!_adFetchers) _adFetchers = [[NSMutableArray alloc] init];
-    return _adFetchers;
-}
 
 - (void)createAdFetcher {
-    
-    ANUniversalAdFetcher  *adFetcher  = [[ANUniversalAdFetcher alloc] initWithDelegate:self];
-    [self.adFetchers addObject:adFetcher];
-    [adFetcher requestAd];
+    if (self.adFetcher != nil) {
+        [self.adFetcher cancelRequest];
+    }
+    self.adFetcher  = [[ANNativeAdFetcher alloc] initWithDelegate:self];
+    [self.adFetcher requestAd];
 }
 
 
@@ -107,8 +103,7 @@
 
 #pragma mark - ANUniversalNativeAdFetcherDelegate.
 
-- (void)      universalAdFetcher: (ANUniversalAdFetcher *)fetcher
-    didFinishRequestWithResponse: (ANAdFetcherResponse *)response
+-(void)didFinishRequestWithResponse: (nonnull ANAdFetcherResponse *)response
 {
     NSError  *error  = nil;
 
@@ -121,7 +116,6 @@
 
     if (error) {
         [self.delegate adRequest:self didFailToLoadWithError:error];
-        [self.adFetchers removeObjectIdenticalTo:fetcher];
         return;
     }
 
@@ -180,7 +174,6 @@
             ANLogDebug(@"...END NSURL sessions.");
 
             [strongSelf.delegate adRequest:strongSelf didReceiveResponse:nativeResponse];
-            [strongSelf.adFetchers removeObjectIdenticalTo:fetcher];
         });
     });
 }
@@ -284,7 +277,7 @@
 
 #pragma mark - ANNativeAdRequestProtocol methods.
 
-- (void)setPlacementId:(NSString *)placementId {
+- (void)setPlacementId:(nullable NSString *)placementId {
     placementId = ANConvertToNSString(placementId);
     if ([placementId length] < 1) {
         ANLogError(@"Could not set placementId to non-string value");
@@ -296,7 +289,7 @@
     }
 }
 
-- (void)setInventoryCode:(NSString *)invCode memberId:(NSInteger) memberId{
+- (void)setInventoryCode:(nullable NSString *)invCode memberId:(NSInteger) memberId{
     invCode = ANConvertToNSString(invCode);
     if (invCode && invCode != __invCode) {
         ANLogDebug(@"Setting inventory code to %@", invCode);
@@ -309,7 +302,7 @@
 }
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
                                               timestamp:timestamp
@@ -317,7 +310,7 @@
 }
 
 - (void)setLocationWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
-                      timestamp:(NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
+                      timestamp:(nullable NSDate *)timestamp horizontalAccuracy:(CGFloat)horizontalAccuracy
                       precision:(NSInteger)precision {
     self.location = [ANLocation getLocationWithLatitude:latitude
                                               longitude:longitude
@@ -327,8 +320,8 @@
 }
 
 
-- (void)addCustomKeywordWithKey:(NSString *)key
-                          value:(NSString *)value
+- (void)addCustomKeywordWithKey:(nonnull NSString *)key
+                          value:(nonnull NSString *)value
 {
     if (([key length] < 1) || !value) {
         return;
@@ -345,7 +338,7 @@
     }
 }
 
-- (void)removeCustomKeywordWithKey:(NSString *)key
+- (void)removeCustomKeywordWithKey:(nonnull NSString *)key
 {
     if (([key length] < 1)) {
         return;

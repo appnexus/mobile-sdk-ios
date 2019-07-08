@@ -24,9 +24,9 @@
 
 @implementation ANAdAdapterInterstitialMoPub
 
-- (void)requestInterstitialAdWithParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+- (void)requestInterstitialAdWithParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)idString
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     if ([MoPub sharedInstance].isSdkInitialized)
     {
         [self initialseInterstitialAdWithParameter:parameterString adUnitId:idString targetingParameters:targetingParameters];

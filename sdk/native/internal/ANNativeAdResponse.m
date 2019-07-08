@@ -61,7 +61,6 @@ NSString * const  kANNativeElementObject                                   = @"E
 @implementation ANNativeAdResponse
 
 @synthesize  clickThroughAction             = _clickThroughAction;
-@synthesize  opensInNativeBrowser           = _opensInNativeBrowser;
 @synthesize  landingPageLoadsInBackground   = _landingPageLoadsInBackground;
 
 
@@ -78,49 +77,19 @@ NSString * const  kANNativeElementObject                                   = @"E
     return  self;
 }
 
-
-
 #pragma mark - Getters/setters.
 
-// NOTE  Manually settting opensInNativeBrowser forces
-//       changes to landingPageLoadsInBackground and clickThroughAction.
-//
-- (void)setOpensInNativeBrowser:(BOOL)opensInNativeBrowser
-{
-    _opensInNativeBrowser = opensInNativeBrowser;
-
-    if (_opensInNativeBrowser) {
-        _clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
-    } else {
-        _clickThroughAction = ANClickThroughActionOpenSDKBrowser;
-    }
-}
-
-// Force changes to opensInNativeBrowser, as appropriate.
-//
 - (void)setClickThroughAction:(ANClickThroughAction)clickThroughAction
 {
     _clickThroughAction = clickThroughAction;
-
-    switch (_clickThroughAction) {
-        case ANClickThroughActionOpenDeviceBrowser:
-            _opensInNativeBrowser = YES;
-            break;
-
-        default:
-            _opensInNativeBrowser = NO;
-    }
 }
-
-
-
 
 #pragma mark - Registration
 
-- (BOOL)registerViewForTracking:(UIView *)view
-         withRootViewController:(UIViewController *)controller
-                 clickableViews:(NSArray *)clickableViews
-                          error:(NSError **)error {
+- (BOOL)registerViewForTracking:(nonnull UIView *)view
+         withRootViewController:(nonnull UIViewController *)controller
+                 clickableViews:(nullable NSArray *)clickableViews
+                          error:(NSError *__nullable*__nullable)error {
     if (!view) {
         ANLogError(@"native_invalid_view");
         if (error) {

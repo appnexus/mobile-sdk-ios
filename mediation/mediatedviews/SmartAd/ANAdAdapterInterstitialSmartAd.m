@@ -27,9 +27,9 @@
     
 @synthesize delegate;
 
-- (void)requestInterstitialAdWithParameter:(NSString *)parameterString
-                                  adUnitId:(NSString *)idString
-                       targetingParameters:(ANTargetingParameters *)targetingParameters {
+- (void)requestInterstitialAdWithParameter:(nullable NSString *)parameterString
+                                  adUnitId:(nullable NSString *)idString
+                       targetingParameters:(nullable ANTargetingParameters *)targetingParameters {
     
     SASAdPlacement *placement = [self parseAdUnitParameters:idString targetingParameters:targetingParameters];
     

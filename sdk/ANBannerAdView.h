@@ -138,25 +138,25 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
 
 #pragma mark - ANBannerAdView
 
-@interface ANBannerAdView : ANAdView
+@interface ANBannerAdView : ANAdView <ANVideoAdProtocol>
 
 /**
  Delegate object that receives notifications from this ANBannerAdView.  Equivalent to ANAdDelegate.
  Overloaded as the delegate for ANNativeAdResponse object which is a perfect subset of ANAdDelegate.
  */
-@property (nonatomic, readwrite, weak) id<ANBannerAdViewDelegate> delegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANBannerAdViewDelegate> delegate;
 
 /**
  Delegate object that receives custom app event notifications from this ANBannerAdView.
  */
-@property (nonatomic, readwrite, weak) id<ANAppEventDelegate> appEventDelegate;
+@property (nonatomic, readwrite, weak, nullable) id<ANAppEventDelegate> appEventDelegate;
 
 /**
  Required reference to the root view controller.  Used as shown in
  the example above to set the banner ad view's controller to your
  own view controller implementation.
 */
-@property (nonatomic, readwrite, weak) UIViewController *rootViewController;
+@property (nonatomic, readwrite, weak, nullable) UIViewController *rootViewController;
 
 /**
  Represents the width and height of the ad view.  In order for ads
@@ -176,7 +176,7 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  The set of allowed ad sizes for the banner ad.
  The set should contain CGSize values wrapped as NSValue objects.
  */
-@property (nonatomic, readwrite, strong) NSArray<NSValue *> *adSizes;
+@property (nonatomic, readwrite, strong, nonnull) NSArray<NSValue *> *adSizes;
 
 /**
  Autorefresh interval.  Default interval is 30.0; the minimum
@@ -268,24 +268,24 @@ typedef NS_ENUM(NSUInteger, ANBannerViewAdAlignment) {
  so you may want to use that instead, unless you prefer to manage
  this manually.
  */
-- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId;
-- (instancetype)initWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
+- (nonnull instancetype)initWithFrame:(CGRect)frame placementId:(nonnull NSString *)placementId;
+- (nonnull instancetype)initWithFrame:(CGRect)frame placementId:(nonnull NSString *)placementId adSize:(CGSize)size;
 
 /**
  Instead of requesting ads using placement id, alternatively, you can 
  use either of the initialization methods below to initialize a banner
  using member id and inventory code.
  */
-- (instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode;
-- (instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode adSize:(CGSize)size;
+- (nonnull instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(nonnull NSString *)inventoryCode;
+- (nonnull instancetype)initWithFrame:(CGRect)frame memberId:(NSInteger)memberId inventoryCode:(nonnull NSString *)inventoryCode adSize:(CGSize)size;
 
 /**
  Initializes an ad view.  These are autoreleased constructors of the
  above initializers that will handle the frame initialization for
  you.  (For usage, see the example at the top of this file).
  */
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId;
-+ (ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(NSString *)placementId adSize:(CGSize)size;
++ (nonnull ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(nonnull NSString *)placementId;
++ (nonnull ANBannerAdView *)adViewWithFrame:(CGRect)frame placementId:(nonnull NSString *)placementId adSize:(CGSize)size;
 
 
 

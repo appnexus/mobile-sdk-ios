@@ -36,17 +36,17 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
   Method to create a FBNativeAdTableViewCellProvider.
 
- - Parameter manager: The naitve ad manager consumed by this provider
- - Parameter type: The type of this native ad template. For more information, consult FBNativeAdViewType.
+ @param manager The naitve ad manager consumed by this provider
+ @param type The type of this native ad template. For more information, consult FBNativeAdViewType.
  */
 - (instancetype)initWithManager:(FBNativeAdsManager *)manager forType:(FBNativeAdViewType)type;
 
 /**
   Method to create a FBNativeAdTableViewCellProvider.
 
- - Parameter manager: The naitve ad manager consumed by this provider
- - Parameter type: The type of this native ad template. For more information, consult FBNativeAdViewType.
- - Parameter attributes: The layout of this native ad template. For more information, consult FBNativeAdViewLayout.
+ @param manager The naitve ad manager consumed by this provider
+ @param type The type of this native ad template. For more information, consult FBNativeAdViewType.
+ @param attributes The layout of this native ad template. For more information, consult FBNativeAdViewLayout.
  */
 - (instancetype)initWithManager:(FBNativeAdsManager *)manager forType:(FBNativeAdViewType)type forAttributes:(FBNativeAdViewAttributes *)attributes NS_DESIGNATED_INITIALIZER;
 

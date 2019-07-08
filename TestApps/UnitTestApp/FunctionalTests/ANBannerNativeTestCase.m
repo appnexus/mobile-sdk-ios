@@ -36,7 +36,6 @@
 @property (nonatomic, readwrite, strong)  ANBannerAdView        *multiFormatAd;
 @property (nonatomic, readwrite, strong)  ANNativeAdResponse    *nativeAd;
 @property (nonatomic, readwrite, strong)  ANMRAIDContainerView  *standardAd;
-@property (nonatomic, readwrite, strong)  ANUniversalAdFetcher  *adFetcher;
 
 @property (nonatomic, readwrite, weak)  XCTestExpectation  *expectationRequest;
 @property (nonatomic, readwrite, weak)  XCTestExpectation  *expectationResponse;
@@ -93,7 +92,6 @@
     self.multiFormatAd = nil;
     self.nativeAd = nil;
     self.standardAd = nil;
-    self.adFetcher = nil;
     
     self.expectationRequest = nil;
     self.expectationResponse = nil;
@@ -310,7 +308,7 @@
     XCTAssertEqual(self.multiFormatAd.creativeId, self.nativeAd.creativeId);
 }
 
-- (void)testBrowserSettingsArePassedToNativeAdObject
+- (void)testClickThruSettingsWithOpenSDKBrowser
 {
     TESTTRACE();
     [self stubRequestWithResponse:@"appnexus_standard_response"];
@@ -318,6 +316,7 @@
     self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"4019246"];
     self.multiFormatAd.delegate = self;
     self.multiFormatAd.shouldAllowNativeDemand = YES;
+    self.multiFormatAd.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
     [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
 
     self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
@@ -326,8 +325,47 @@
     [self.multiFormatAd loadAd];
     [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest handler:nil];
 
-    XCTAssertEqual(self.multiFormatAd.opensInNativeBrowser, self.nativeAd.opensInNativeBrowser);
-    XCTAssertEqual(self.multiFormatAd.landingPageLoadsInBackground, self.nativeAd.landingPageLoadsInBackground);
+    XCTAssertEqual(self.nativeAd.clickThroughAction, ANClickThroughActionOpenSDKBrowser);
+}
+
+- (void)testClickThruSettingsWithOpenDeviceBrowser
+{
+    TESTTRACE();
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    
+    self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"4019246"];
+    self.multiFormatAd.delegate = self;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
+    self.multiFormatAd.clickThroughAction = ANClickThroughActionOpenDeviceBrowser;
+    [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
+    
+    self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    self.expectationResponse = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [self.multiFormatAd loadAd];
+    [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest handler:nil];
+    
+    XCTAssertEqual(self.nativeAd.clickThroughAction, ANClickThroughActionOpenDeviceBrowser);
+}
+
+- (void)testClickThruSettingsWithReturnURL
+{
+    TESTTRACE();
+    [self stubRequestWithResponse:@"appnexus_standard_response"];
+    
+    self.multiFormatAd  = [[ANBannerAdView alloc] initWithFrame:CGRectMake(0, 0, 300, 250) placementId:@"4019246"];
+    self.multiFormatAd.delegate = self;
+    self.multiFormatAd.shouldAllowNativeDemand = YES;
+    self.multiFormatAd.clickThroughAction = ANClickThroughActionReturnURL;
+    [self.multiFormatAd setAdSize:CGSizeMake(300, 250)];
+    
+    self.expectationRequest = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    self.expectationResponse = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    [self.multiFormatAd loadAd];
+    [self waitForExpectationsWithTimeout:self.timeoutForImpbusRequest handler:nil];
+    
+    XCTAssertEqual(self.nativeAd.clickThroughAction, ANClickThroughActionReturnURL);
 }
 
 

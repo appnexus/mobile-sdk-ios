@@ -66,3 +66,13 @@ typedef NS_ENUM(NSUInteger, ANClickThroughAction) {
     ANClickThroughActionOpenDeviceBrowser,
     ANClickThroughActionOpenSDKBrowser
 };
+
+/*
+ * VideoOrientation maps to the orientation of the Video being rendered
+ * */
+typedef NS_ENUM(NSUInteger, ANVideoOrientation) {
+    ANUnknown,
+    ANPortraint,
+    ANLandscape,
+    ANSquare    
+};

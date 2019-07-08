@@ -131,13 +131,13 @@ class ANNativeAdRequestTestCase: XCTestCase, ANNativeAdRequestDelegate {
     }
     
     // MARK: - ANNativeAdRequestDelegate
-    func adRequest(_ request: ANNativeAdRequest!, didReceive response: ANNativeAdResponse!) {
+    func adRequest(_ request: ANNativeAdRequest, didReceive response: ANNativeAdResponse) {
         adResponse = response
         successfulAdCall = true
         delegateCallbackExpectation?.fulfill()
     }
     
-    func adRequest(_ request: ANNativeAdRequest!, didFailToLoadWithError error: Error!) {
+    func adRequest(_ request: ANNativeAdRequest, didFailToLoadWithError error: Error) {
         adRequestError = error
         successfulAdCall = false
         delegateCallbackExpectation?.fulfill()

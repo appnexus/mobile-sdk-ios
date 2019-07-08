@@ -27,7 +27,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"5.4"
+#define AN_SDK_VERSION                  @"5.5"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -66,17 +66,17 @@ typedef NS_ENUM(NSUInteger, ANVideoAdSubtype) {
 
 
 
-extern NSString * const  ANInternalDelgateTagKeyPrimarySize;
-extern NSString * const  ANInternalDelegateTagKeySizes;
-extern NSString * const  ANInternalDelegateTagKeyAllowSmallerSizes;
+extern NSString * __nonnull const  ANInternalDelgateTagKeyPrimarySize;
+extern NSString * __nonnull const  ANInternalDelegateTagKeySizes;
+extern NSString * __nonnull const  ANInternalDelegateTagKeyAllowSmallerSizes;
 
-extern NSString * const  kANUniversalAdFetcherWillRequestAdNotification;
-extern NSString * const  kANUniversalAdFetcherAdRequestURLKey;
-extern NSString * const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification;
-extern NSString * const  kANUniversalAdFetcherMediatedClassKey;
+extern NSString * __nonnull const  kANUniversalAdFetcherWillRequestAdNotification;
+extern NSString * __nonnull const  kANUniversalAdFetcherAdRequestURLKey;
+extern NSString * __nonnull const  kANUniversalAdFetcherWillInstantiateMediatedClassNotification;
+extern NSString * __nonnull const  kANUniversalAdFetcherMediatedClassKey;
 
-extern NSString * const  kANUniversalAdFetcherDidReceiveResponseNotification;
-extern NSString * const  kANUniversalAdFetcherAdResponseKey;
+extern NSString * __nonnull const  kANUniversalAdFetcherDidReceiveResponseNotification;
+extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;
 
 
 
@@ -107,45 +107,48 @@ extern NSString * const  kANUniversalAdFetcherAdResponseKey;
 
 #pragma mark - Global functions.
 
-NSString *ANDeviceModel(void);
+NSString *__nonnull ANDeviceModel(void);
 BOOL ANAdvertisingTrackingEnabled(void);
 BOOL ANIsFirstLaunch(void);
-NSString *ANUDID(void);
-NSString *ANErrorString(NSString *key);
-NSError *ANError(NSString *key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);
-NSBundle *ANResourcesBundle(void);
-NSString *ANPathForANResource(NSString *name, NSString *type);
-NSString *ANConvertToNSString(id value);
+NSString *__nonnull ANUDID(void);
+NSString *__nonnull ANErrorString( NSString * __nonnull key);
+NSError *__nonnull ANError(NSString *__nonnull key, NSInteger code, ...) NS_FORMAT_FUNCTION(1,3);
+NSBundle *__nonnull ANResourcesBundle(void);
+NSString *__nullable ANPathForANResource(NSString *__nullable name, NSString *__nullable type);
+NSString *__nullable ANConvertToNSString(id __nullable value);
 CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rect);
-NSString *ANMRAIDBundlePath(void);
-BOOL ANHasHttpPrefix(NSString *url);
+NSString *__nullable ANMRAIDBundlePath(void);
+BOOL ANHasHttpPrefix(NSString  * __nonnull url);
 void ANSetNotificationsEnabled(BOOL enabled);
-void ANPostNotifications(NSString *name, id object, NSDictionary *userInfo);
+void ANPostNotifications(NSString * __nonnull name, id __nullable object, NSDictionary * __nullable userInfo);
 CGRect ANPortraitScreenBounds(void);
 CGRect ANPortraitScreenBoundsApplyingSafeAreaInsets(void);
-NSURLRequest *ANBasicRequestWithURL(NSURL *URL);
-NSNumber *ANiTunesIDForURL(NSURL *URL);
-BOOL ANCanPresentFromViewController(UIViewController *viewController);
+NSURLRequest * __nonnull ANBasicRequestWithURL(NSURL * __nonnull URL);
+NSNumber * __nullable ANiTunesIDForURL(NSURL * __nonnull URL);
+BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController);
 
 
-static NSString *const kANCreativeId= @"creativeId";
-static NSString *const kANImpressionUrls = @"impressionUrls";
+static NSString * __nonnull const kANCreativeId= @"creativeId";
+static NSString * __nonnull const kANImpressionUrls = @"impressionUrls";
+static NSString * __nonnull const kANAspectRatio = @"aspectRatio";
 
 
 #pragma mark - Global class.
 
 @interface ANGlobal : NSObject
 
-+ (void) openURL: (NSString *)urlString;
++ (void) openURL: (nonnull NSString *)urlString;
 
-+ (NSMutableDictionary<NSString *, NSString *> *)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> *)keywordsMap
-                                                                 withSeparatorString: (NSString *)separatorString;
++ (NSMutableDictionary<NSString *, NSString *> * __nonnull)convertCustomKeywordsAsMapToStrings: (NSDictionary<NSString *, NSArray<NSString *> *> * __nonnull)keywordsMap
+                                                                 withSeparatorString: (nonnull NSString *)separatorString;
 
-+ (id) valueOfGetterProperty: (NSString *)stringOfGetterProperty
-                   forObject: (id)objectImplementingGetterProperty;
++ (nullable id) valueOfGetterProperty: (nonnull NSString *)stringOfGetterProperty
+                   forObject: (nonnull id)objectImplementingGetterProperty;
 
-+ (ANAdType) adTypeStringToEnum:(NSString *)adTypeString;
++ (ANAdType) adTypeStringToEnum:(nonnull NSString *)adTypeString;
 
-+ (NSString *) getUserAgent;
++ (nonnull NSString *) getUserAgent;
+
++ (ANVideoOrientation) parseVideoOrientation:(nullable NSString *)aspectRatio;
 
 @end

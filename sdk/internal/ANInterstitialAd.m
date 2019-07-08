@@ -77,7 +77,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     [[ANOMIDImplementation sharedInstance] activateOMIDandCreatePartner];
 }
 
-- (instancetype)initWithPlacementId:(NSString *)placementId {
+- (nonnull instancetype)initWithPlacementId:(nonnull NSString *)placementId {
     self = [super init];
     
     if (self != nil) {
@@ -87,7 +87,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     return self;
 }
 
-- (instancetype)initWithMemberId:(NSInteger)memberId inventoryCode:(NSString *)inventoryCode {
+- (nonnull instancetype)initWithMemberId:(NSInteger)memberId inventoryCode:(nonnull NSString *)inventoryCode {
     self = [super init];
     
     if (self != nil) {
@@ -197,7 +197,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     return false;
 }
 
-- (void)displayAdFromViewController:(UIViewController *)controller autoDismissDelay:(NSTimeInterval)delay{
+- (void)displayAdFromViewController:(nonnull UIViewController *)controller autoDismissDelay:(NSTimeInterval)delay{
     
     id         adToShow         = nil;
     id         adObjectHandler  = nil;
@@ -307,7 +307,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     
 }
 
-- (void)displayAdFromViewController:(UIViewController *)controller{
+- (void)displayAdFromViewController:(nonnull UIViewController *)controller{
     [self displayAdFromViewController:controller autoDismissDelay:-1];
 }
 
