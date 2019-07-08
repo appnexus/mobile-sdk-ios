@@ -10,6 +10,8 @@
 		0E1D14B022784C0900343050 /* ANBannerNativeRenderingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1D14AF22784C0900343050 /* ANBannerNativeRenderingTestCase.m */; };
 		0E1D14B422784C9500343050 /* appnexus_bannerNative_rendering.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E1D14B222784C9500343050 /* appnexus_bannerNative_rendering.json */; };
 		0E1D14B522784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E1D14B322784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json */; };
+		0E22083922D39CDD00654567 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A662236C5D300D56022 /* FBAudienceNetwork.framework */; };
+		0E22083A22D39CDD00654567 /* FBAudienceNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED15A662236C5D300D56022 /* FBAudienceNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E2C248A2236AE4D006038E1 /* MediationBannerAdResizeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2C24892236AE4D006038E1 /* MediationBannerAdResizeTestCase.m */; };
 		0E2C24912236B075006038E1 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E2C24902236B075006038E1 /* GoogleMobileAds.framework */; };
 		0E4701602237A30B005CFFAC /* BannerAdResizeTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E47015E2237A30B005CFFAC /* BannerAdResizeTestCase.m */; };
@@ -513,6 +515,7 @@
 				0E4701C82237D450005CFFAC /* SCSCoreKit.framework in Embed Frameworks */,
 				0E4701C62237D44D005CFFAC /* SASDisplayKit.framework in Embed Frameworks */,
 				0EEAF645229BD0080008CAC9 /* AppNexusSDK.framework in Embed Frameworks */,
+				0E22083A22D39CDD00654567 /* FBAudienceNetwork.framework in Embed Frameworks */,
 				97A590C7228EAB3000D1C75C /* MoPubSDKFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -827,6 +830,7 @@
 				0ED15A672236C5D300D56022 /* FBAudienceNetwork.framework in Frameworks */,
 				0ED15A5B2236C4B800D56022 /* InMobiSDK.framework in Frameworks */,
 				0ED15A4C2236C3B000D56022 /* libANAdapterForGoogleAdMobSDK.a in Frameworks */,
+				0E22083922D39CDD00654567 /* FBAudienceNetwork.framework in Frameworks */,
 				0ED15A4D2236C3B000D56022 /* libANAdapterForMoPubSDK.a in Frameworks */,
 				0ED15A502236C3B000D56022 /* libANSDKAmazonAdapter.a in Frameworks */,
 				0ED15A522236C3B000D56022 /* libANSDKFacebookAdapter.a in Frameworks */,

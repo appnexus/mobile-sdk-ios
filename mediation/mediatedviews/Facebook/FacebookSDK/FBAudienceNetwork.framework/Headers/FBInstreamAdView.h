@@ -19,6 +19,7 @@
 #import <UIKit/UIKit.h>
 
 #import <FBAudienceNetwork/FBAdDefines.h>
+#import <FBAudienceNetwork/FBAdExtraHint.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,10 +51,15 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @property (nonatomic, copy, readonly) NSString *placementID;
 
 /**
+ FBAdExtraHint to provide extra info
+ */
+@property (nonatomic, strong, nullable) FBAdExtraHint *extraHint;
+
+/**
  Initializes and returns a newly allocated FBInstreamAdView object with the
  given placement id.
 
- - Parameter placementID: The id of the ad placement. You can create your placement id from Facebook developers page.
+ @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
  */
 - (nullable instancetype)initWithPlacementID:(NSString *)placementID NS_DESIGNATED_INITIALIZER;
 
@@ -72,7 +78,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  You can implement `adViewDidLoad:` and `adView:didFailWithError:` methods
  of `FBInstreamAdViewDelegate` to be notified when loading succeeds or fails.
 
- - Parameter bidPayload: The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
+ @param bidPayload The payload of the ad bid. You can get your bid id from Facebook bidder endpoint.
  */
 - (void)loadAdWithBidPayload:(NSString *)bidPayload;
 
@@ -80,7 +86,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  Begins ad playback.  This method should only be called after an `adViewDidLoad:` call
  has been received.
 
- - Parameter rootViewController: The view controller that will be used to modally
+ @param rootViewController The view controller that will be used to modally
    present additional view controllers, to render the ad's landing page for example.
  */
 - (BOOL)showAdFromRootViewController:(nullable UIViewController *)rootViewController;
@@ -96,7 +102,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
  Sent when an FBInstreamAdView instance successfully loads an ad.
 
- - Parameter adView: The FBInstreamAdView object sending the message.
+ @param adView The FBInstreamAdView object sending the message.
  */
 - (void)adViewDidLoad:(FBInstreamAdView *)adView;
 
@@ -105,7 +111,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  deallocated. This method is mutually exclusive to `adView:didFailWithError:`, and
  it is impossible for both methods to be received for a single ad session.
 
- - Parameter adView: The FBInstreamAdView object sending the message.
+ @param adView The FBInstreamAdView object sending the message.
  */
 - (void)adViewDidEnd:(FBInstreamAdView *)adView;
 
@@ -115,8 +121,8 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  `loadAd` (if they ad fails to load) or after `showAdFromRootViewController:`
  (if the ad has a playback failure).
 
- - Parameter adView: The FBInstreamAdView object sending the message.
- - Parameter error: An NSError object containing details of the error.
+ @param adView The FBInstreamAdView object sending the message.
+ @param error An NSError object containing details of the error.
  */
 - (void)adView:(FBInstreamAdView *)adView didFailWithError:(NSError *)error;
 
@@ -126,14 +132,14 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
  Sent when the user has touched the click-through interface element. The ad's
  landing page will be shown.
 
- - Parameter adView: The FBInstreamAdView object sending the message.
+ @param adView The FBInstreamAdView object sending the message.
  */
 - (void)adViewDidClick:(FBInstreamAdView *)adView;
 
 /**
  Sent immediately before the impression of an FBInstreamAdView object will be logged.
 
- - Parameter adView: The FBInstreamAdView object sending the message.
+ @param adView The FBInstreamAdView object sending the message.
  */
 - (void)adViewWillLogImpression:(FBInstreamAdView *)adView;
 

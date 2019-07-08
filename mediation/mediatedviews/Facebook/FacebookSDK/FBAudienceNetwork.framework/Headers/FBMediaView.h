@@ -20,6 +20,7 @@
 
 #import <FBAudienceNetwork/FBAdDefines.h>
 #import <FBAudienceNetwork/FBMediaViewVideoRenderer.h>
+#import <FBAudienceNetwork/UIView+FBNativeAdViewTag.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,35 +39,30 @@ FB_CLASS_EXPORT
 @property (nonatomic, weak, nullable) id<FBMediaViewDelegate> delegate;
 
 /**
-  This is a method to create a media view using the given native ad.
- - Parameter nativeAd: The native ad to load media content from.
- */
-- (instancetype)initWithNativeAd:(FBNativeAd *)nativeAd;
-
-/**
-  the native ad, can be set again to reuse this view.
- */
-@property (nonatomic, strong) FBNativeAd *nativeAd;
-
-/**
  A custom FBMediaViewVideoRenderer instance, used to override the default user experience of video ads.
+ The video renderer can only be set prior to registering the mediaView to a nativeAd
  */
 @property (nonatomic, strong) FBMediaViewVideoRenderer *videoRenderer;
 
 /**
   The current volume of the media view, ranging from 0.0 through 1.0.
  */
-@property (nonatomic, assign, readonly) float volume FB_DEPRECATED;
+@property (nonatomic, assign, readonly) float volume;
 
 /**
-  Enables or disables autoplay for some types of media. Defaults to YES.
+  Shows if the video will autoplay or not
  */
-@property (nonatomic, assign, getter=isAutoplayEnabled) BOOL autoplayEnabled;
+@property (nonatomic, readonly, getter=isAutoplayEnabled) BOOL autoplayEnabled;
 
 /**
  The aspect ratio of the media view visual content. Returns a positive CGFloat, or 0.0 if no ad is currently loaded.
  */
 @property (nonatomic, assign, readonly) CGFloat aspectRatio;
+
+/**
+ The tag for media view. It always returns FBNativeAdViewTagMedia.
+ */
+@property (nonatomic, assign, readonly) FBNativeAdViewTag nativeAdViewTag;
 
 /**
  Changes the width of the FBMediaView's frame based on the current height, respecting aspectRatio.
@@ -77,9 +73,6 @@ FB_CLASS_EXPORT
  Changes the height of the FBMediaView's frame based on the current width, respecting aspectRatio.
  */
 - (void)applyNaturalHeight;
-
-// Setting autoplayEnabled in the SDK is deprecated. Migrate to using server-side control when available.
-- (void)setAutoplayEnabled:(BOOL)autoplayEnabled FB_DEPRECATED;
 
 @end
 
@@ -93,50 +86,50 @@ FB_CLASS_EXPORT
 /**
   Sent when an FBMediaView has been successfully loaded.
 
- - Parameter mediaView: An FBMediaView object sending the message.
+ @param mediaView An FBMediaView object sending the message.
  */
 - (void)mediaViewDidLoad:(FBMediaView *)mediaView;
 
 /**
   Sent just before an FBMediaView will enter the fullscreen layout.
 
- - Parameter mediaView: An FBMediaView object sending the message.
+ @param mediaView An FBMediaView object sending the message.
  */
 - (void)mediaViewWillEnterFullscreen:(FBMediaView *)mediaView;
 
 /**
   Sent after an FBMediaView has exited the fullscreen layout.
 
- - Parameter mediaView: An FBMediaView object sending the message.
+ @param mediaView An FBMediaView object sending the message.
  */
 - (void)mediaViewDidExitFullscreen:(FBMediaView *)mediaView;
 
 /**
   Sent when an FBMediaView has changed the playback volume of a video ad.
 
- - Parameter mediaView: An FBMediaView object sending the message.
- - Parameter volume: The current ad video volume (after the volume change).
+ @param mediaView An FBMediaView object sending the message.
+ @param volume The current ad video volume (after the volume change).
  */
 - (void)mediaView:(FBMediaView *)mediaView videoVolumeDidChange:(float)volume;
 
 /**
   Sent after a video ad in an FBMediaView enters a paused state.
 
- - Parameter mediaView: An FBMediaView object sending the message.
+ @param mediaView An FBMediaView object sending the message.
  */
 - (void)mediaViewVideoDidPause:(FBMediaView *)mediaView;
 
 /**
   Sent after a video ad in an FBMediaView enters a playing state.
 
- - Parameter mediaView: An FBMediaView object sending the message.
+ @param mediaView An FBMediaView object sending the message.
  */
 - (void)mediaViewVideoDidPlay:(FBMediaView *)mediaView;
 
 /**
   Sent when a video ad in an FBMediaView reaches the end of playback.
 
- - Parameter mediaView: An FBMediaView object sending the message.
+ @param mediaView An FBMediaView object sending the message.
  */
 - (void)mediaViewVideoDidComplete:(FBMediaView *)mediaView;
 

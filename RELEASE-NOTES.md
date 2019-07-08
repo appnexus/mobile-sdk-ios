@@ -1,3 +1,21 @@
+## 5.5
+### New Features
++ MS-3778: Added new API to get Video Orientation for BannerVideo and Video Ads
+
+### Mediation partner upgrades/changes
++  Upgraded Facebook framework to v5.4.0
++  Removed support for following mediation Adaptor 
+    + AdColony SDK
+    + AdMarvel SDK
+    + Chartboost SDK
+    + Vdopia SDK 
+    + Vungle SDK 
+    + Yahoo SDK
+
+### Improvements/Bug Fixes
++ MS-3902: Removed deprecated APIs
++ MS-3311: Improved Objective-C API Declarations for Swift compatibility.
+
 ## 5.4
 ### New Features
 + MS-3730: Support Rendering for Banner Native ads
