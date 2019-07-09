@@ -1,9 +1,8 @@
-## 5.5
+## 5.5.1
 ### New Features
 + MS-3778: Added new API to get Video Orientation for BannerVideo and Video Ads
 
 ### Mediation partner upgrades/changes
-+  Upgraded Facebook framework to v5.4.0
 +  Removed support for following mediation Adaptor 
     + AdColony SDK
     + AdMarvel SDK
