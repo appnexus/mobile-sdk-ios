@@ -1,4 +1,4 @@
-## 5.5
+## 5.5.1
 ### New Features
 + MS-3778: Added new API to get Video Orientation for BannerVideo and Video Ads
 
