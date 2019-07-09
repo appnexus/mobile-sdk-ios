@@ -19,7 +19,6 @@
 #import <UIKit/UIKit.h>
 
 #import <FBAudienceNetwork/FBAdDefines.h>
-#import <FBAudienceNetwork/FBAdExtraHint.h>
 #import <FBAudienceNetwork/FBNativeAd.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -39,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
   When the FBNativeAdsManager has reached a failure while attempting to load a batch of ads this message will be sent to the application.
- @param error An NSError object with information about the failure.
+ - Parameter error: An NSError object with information about the failure.
  */
 - (void)nativeAdsFailedToLoadWithError:(NSError *)error;
 
@@ -72,15 +71,10 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 @property (nonatomic, assign, getter=isValid, readonly) BOOL valid;
 
 /**
- FBAdExtraHint to provide extra info
- */
-@property (nonatomic, strong, nullable) FBAdExtraHint *extraHint;
-
-/**
   Initialize the native ads manager.
 
- @param placementID The id of the ad placement. You can create your placement id from Facebook developers page.
- @param numAdsRequested The number of ads you would like the native ads manager to retrieve.
+ - Parameter placementID: The id of the ad placement. You can create your placement id from Facebook developers page.
+ - Parameter numAdsRequested: The number of ads you would like the native ads manager to retrieve.
  */
 - (instancetype)initWithPlacementID:(NSString *)placementID
                  forNumAdsRequested:(NSUInteger)numAdsRequested NS_DESIGNATED_INITIALIZER;
@@ -99,7 +93,7 @@ FB_CLASS_EXPORT FB_SUBCLASSING_RESTRICTED
 /**
   Retrieve the next native ad to be used from the batch. It is highly recommended that the caller wait until immediately before rendering the ad content to call this method to ensure the best ad for the given context is used. If more than uniqueNativeAdCount ads are requested cloned ads will be returned. Periodically the native ads manager will refresh and new ads will be returned.
 
- @return A FBNativeAd which is loaded and ready to be used.
+ - Returns: A FBNativeAd which is loaded and ready to be used.
  */
 @property (nonatomic, readonly, strong, nullable) FBNativeAd *nextNativeAd;
 
