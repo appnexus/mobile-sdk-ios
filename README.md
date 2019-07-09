@@ -1,7 +1,7 @@
 Appnexus iOS SDK
 =====================
 
-```sh
+```
 The next version of MobileSDK, v6.0 introduces changes intended to make the SDK lightweight, minimizing its 
 footprint on disk and in memory. This version includes the following changes, but otherwise introduces 
 no new functionality
