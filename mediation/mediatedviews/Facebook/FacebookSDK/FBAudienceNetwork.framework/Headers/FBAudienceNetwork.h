@@ -1,4 +1,3 @@
-
 // Copyright 2004-present Facebook. All Rights Reserved.
 //
 // You are hereby granted a non-exclusive, worldwide, royalty-free license to use,
@@ -21,12 +20,8 @@
 
 #import <FBAudienceNetwork/FBAdChoicesView.h>
 #import <FBAudienceNetwork/FBAdDefines.h>
-#import <FBAudienceNetwork/FBAdExtraHint.h>
-#import <FBAudienceNetwork/FBAdIconView.h>
-#import <FBAudienceNetwork/FBAdOptionsView.h>
 #import <FBAudienceNetwork/FBAdSettings.h>
 #import <FBAudienceNetwork/FBAdView.h>
-#import <FBAudienceNetwork/FBAudienceNetworkAds.h>
 #import <FBAudienceNetwork/FBInstreamAdView.h>
 #import <FBAudienceNetwork/FBInterstitialAd.h>
 #import <FBAudienceNetwork/FBMediaView.h>
@@ -39,12 +34,9 @@
 #import <FBAudienceNetwork/FBNativeAdTableViewCellProvider.h>
 #import <FBAudienceNetwork/FBNativeAdView.h>
 #import <FBAudienceNetwork/FBNativeAdsManager.h>
-#import <FBAudienceNetwork/FBNativeBannerAd.h>
-#import <FBAudienceNetwork/FBNativeBannerAdView.h>
 #import <FBAudienceNetwork/FBRewardedVideoAd.h>
-#import <FBAudienceNetwork/UIView+FBNativeAdViewTag.h>
 
 // NOTE: Any changes should also be made to the module.modulemap
 // to ensure comptability with Swift apps using Cocoapods
 
-#define FB_AD_SDK_VERSION @"5.4.0"
+#define FB_AD_SDK_VERSION @"4.28.1"
