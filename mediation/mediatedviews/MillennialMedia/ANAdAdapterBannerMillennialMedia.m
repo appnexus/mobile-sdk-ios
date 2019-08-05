@@ -14,8 +14,15 @@
  */
 
 #import "ANAdAdapterBannerMillennialMedia.h"
-#import "ANLogging.h"
 #import <MMAdSDK/MMAdSDK.h>
+
+
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
+#import "ANLogging.h"
+#endif
+
 
 @interface ANAdAdapterBannerMillennialMedia () <MMInlineDelegate>
 

@@ -12,9 +12,15 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-#import "ANCustomAdapter.h"
 #import <SASDisplayKit/SASDisplayKit.h>
 #import "ANAdAdapterSmartAdBase.h"
+
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
+#import "ANCustomAdapter.h"
+#import "ANLogging.h"
+#endif
 
 @interface ANAdAdapterInterstitialSmartAd : ANAdAdapterSmartAdBase < ANCustomAdapterInterstitial,SASInterstitialManagerDelegate >
 

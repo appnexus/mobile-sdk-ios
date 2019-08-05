@@ -13,7 +13,12 @@
  limitations under the License.
  */
 
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANCustomAdapter.h"
+#import "ANLogging.h"
+#endif
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface ANAdAdapterInterstitialDFP : NSObject <ANCustomAdapterInterstitial, GADInterstitialDelegate>

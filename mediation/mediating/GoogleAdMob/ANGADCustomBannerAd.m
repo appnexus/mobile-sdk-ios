@@ -14,7 +14,6 @@
  */
 
 #import "ANGADCustomBannerAd.h"
-#import "ANLocation.h"
 
 @interface ANGADCustomBannerAd ()
 @property (nonatomic, readwrite, strong) ANBannerAdView *bannerAdView;

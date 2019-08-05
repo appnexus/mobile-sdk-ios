@@ -15,10 +15,12 @@
 
 #import "ANAdAdapterNativeAdMob.h"
 #import "ANAdAdapterBaseDFP.h"
-#import "ANLogging.h"
-#import "ANNativeAdResponse.h"
-#import "ANProxyViewController.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
+#import "ANProxyViewController.h"
+#endif
 
 @interface ANAdAdapterNativeAdMob () <GADUnifiedNativeAdLoaderDelegate, GADUnifiedNativeAdDelegate>
 

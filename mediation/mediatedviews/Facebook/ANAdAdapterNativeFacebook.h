@@ -15,11 +15,14 @@
 
 #if __has_include(<AppNexusNativeSDK/AppNexusNativeSDK.h>)
 #import <AppNexusNativeSDK/AppNexusNativeSDK.h>
+#elif __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
 #else
 #import "ANNativeCustomAdapter.h"
 #import "ANLogging.h"
 #import "ANNativeAdResponse.h"
 #endif
+
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 @interface ANAdAdapterNativeFacebook : NSObject <ANNativeCustomAdapter, FBNativeAdDelegate>

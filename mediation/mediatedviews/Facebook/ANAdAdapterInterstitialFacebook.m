@@ -14,7 +14,6 @@
  */
 
 #import "ANAdAdapterInterstitialFacebook.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialFacebook ()
 

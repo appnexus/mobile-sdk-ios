@@ -14,13 +14,10 @@
  */
 
 #import "ANAdAdapterBaseAmazon.h"
-
 #import <AmazonAd/AmazonAdOptions.h>
 #import <AmazonAd/AmazonAdRegistration.h>
 #import <AmazonAd/AmazonAdError.h>
 #import <AmazonAd/AmazonAdOptions.h>
-
-#import "ANLogging.h"
 
 static NSString *const kANAdAdapterBaseAmazonAgeKey = @"age";
 

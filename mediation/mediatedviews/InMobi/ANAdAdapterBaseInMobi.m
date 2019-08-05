@@ -15,9 +15,15 @@
 
 #import "ANAdAdapterBaseInMobi.h"
 
+
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANLogging.h"
 #import "ANAdConstants.h"
 #import "ANTargetingParameters.h"
+#endif
+
 
 
 @implementation ANAdAdapterBaseInMobi

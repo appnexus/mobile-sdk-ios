@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterInterstitialAdMob.h"
 #import "ANAdAdapterBaseDFP.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialAdMob ()
 

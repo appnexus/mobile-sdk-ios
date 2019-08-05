@@ -17,7 +17,6 @@
 #import <AmazonAd/AmazonAdError.h>
 #import "ANAdAdapterBannerAmazon.h"
 #import "ANAdAdapterBaseAmazon+PrivateMethods.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterBannerAmazon ()
 @property (nonatomic, weak) UIViewController *rootViewController;

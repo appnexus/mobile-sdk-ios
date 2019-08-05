@@ -15,8 +15,12 @@
 
 #import <InMobiSDK/IMBanner.h>
 
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANCustomAdapter.h"
-
+#import "ANLogging.h"
+#endif
 
 
 @interface ANAdAdapterBannerInMobi : NSObject <ANCustomAdapterBanner>
