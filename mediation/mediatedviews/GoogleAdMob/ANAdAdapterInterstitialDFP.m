@@ -15,7 +15,6 @@
 
 #import "ANAdAdapterInterstitialDFP.h"
 #import "ANAdAdapterBaseDFP.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialDFP ()
 

@@ -13,7 +13,12 @@
  limitations under the License.
  */
 
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANCustomAdapter.h"
+#import "ANLogging.h"
+#endif
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
 @interface ANAdAdapterInterstitialFacebook : NSObject <ANCustomAdapterInterstitial, FBInterstitialAdDelegate>

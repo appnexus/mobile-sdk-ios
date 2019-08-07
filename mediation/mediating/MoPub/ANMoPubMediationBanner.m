@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
-#import "ANLogging.h"
+
 #import "ANMoPubMediationBanner.h"
-#import "ANLocation.h"
+
 
 @interface ANMoPubMediationBanner ()
 

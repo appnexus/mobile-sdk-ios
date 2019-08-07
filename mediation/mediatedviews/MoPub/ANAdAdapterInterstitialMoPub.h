@@ -13,9 +13,21 @@
  limitations under the License.
  */
 
+
+#if __has_include(<MoPubSDKFramework/MoPub.h>)
 #import <MoPubSDKFramework/MoPub.h>
+#elif __has_include(<MoPub/MoPub.h>)
+#import <MoPub/MoPub.h>
+#else
+#import "MoPub.h"
+#endif
 #import "ANAdAdapterMoPubBase.h"
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANCustomAdapter.h"
+#import "ANLogging.h"
+#endif
 
 @interface ANAdAdapterInterstitialMoPub : ANAdAdapterMoPubBase <ANCustomAdapterInterstitial, MPInterstitialAdControllerDelegate>
 

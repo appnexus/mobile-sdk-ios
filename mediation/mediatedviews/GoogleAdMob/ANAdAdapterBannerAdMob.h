@@ -13,7 +13,11 @@
  limitations under the License.
  */
 
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANCustomAdapter.h"
+#endif
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface ANAdAdapterBannerAdMob : NSObject <ANCustomAdapterBanner, GADBannerViewDelegate>

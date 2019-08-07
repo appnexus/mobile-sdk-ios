@@ -12,7 +12,14 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANCustomAdapter.h"
+#import "ANLogging.h"
+#endif
+
 #import <SASDisplayKit/SASDisplayKit.h>
 #import "ANAdAdapterSmartAdBase.h"
 

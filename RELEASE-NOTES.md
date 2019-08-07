@@ -1,3 +1,31 @@
+## 6.0-Beta
+
+**Note: This is a beta release of the AppNexus SDK, and will be open for feedback/comments for at least the next 14 days**
+
+### New Features
+
++ SDK-Lite(6.0-Beta) bring in changes to directory structure. Some notable changes include:
+    * BinaryProjects/ANSDK.xcodeproject has been renamed and moved to sdk/AppNexusSDK.xcodeproject
+    * Mediation Adapter targets have been removed from AppNexusSDK.xcodeproject
+    * ANSDK target has been removed from AppNexusSDK.xcodeproject
+   
+   
++ Mediation adapters are now available only via source or CocoaPods.
+This will enable publishers to select the mediation networks they need for their inventory strategies
+   
++ Third Party Mediation Network Libraries have been removed from code. Publishers integrating mediation via source need to include the libraries themself
+A list of supported versions of third-party mediation networks is available in the public documentation
+https://wiki.appnexus.com/display/sdk/Mediate+with+iOS+SDK+v6.0
+                     
+ + If you are currently using Static Library version of AppNexus SDK(libANSDK.a) / Mediation adapter please follow Migration Steps found here
+https://wiki.appnexus.com/display/sdk/iOS+v6.0+SDK+Migration+and+Integration#iOSv6.0SDKMigrationandIntegration-migrate-to-6.0
+                          
+                               
+                                    
+**Note: Cocoapods integration remains the same from v5.x --> 6.X so it has not been included as a part of Beta release. But will be available as a part of final release**
+
+
+
 ## 5.5.1
 ### New Features
 + MS-3778: Added new API to get Video Orientation for BannerVideo and Video Ads

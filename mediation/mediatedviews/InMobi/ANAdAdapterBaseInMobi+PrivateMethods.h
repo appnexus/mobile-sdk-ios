@@ -14,7 +14,13 @@
  */
 
 #import "ANAdAdapterBaseInMobi.h"
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANAdConstants.h"
+#endif
+
+
 
 @class ANTargetingParameters;
 @class IMRequestStatus;

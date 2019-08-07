@@ -1,6 +1,5 @@
 ####
 # Binary build product files
-*.framework
 **/out
 **/Products
 **/out_device
@@ -134,5 +133,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-xcshareddata
+# xcshareddata
 Pods

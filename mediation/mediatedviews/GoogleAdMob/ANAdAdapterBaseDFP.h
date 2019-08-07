@@ -15,8 +15,14 @@
 
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
+
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/ANTargetingParameters.h>
+#else
 #import "ANTargetingParameters.h"
 #import "ANLogging.h"
+#endif
+
 
 
 
