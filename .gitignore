@@ -12,6 +12,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
+.IDEWorkspaceChecks.plist
 
 # Icon must end with two \r
 Icon
