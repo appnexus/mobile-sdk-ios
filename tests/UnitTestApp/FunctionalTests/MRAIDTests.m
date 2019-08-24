@@ -259,6 +259,35 @@
 
 
 #pragma mark - mraid.getMaxSize()
+-(CGFloat )eliminatePortraitSafeAreaInsets :(CGFloat)expectedHeight {
+   if (@available(iOS 11.0, *)) {
+      UIWindow *window = UIApplication.sharedApplication.keyWindow;
+      CGFloat topPadding = window.safeAreaInsets.top;
+      CGFloat bottomPadding = window.safeAreaInsets.bottom;
+
+      expectedHeight -= (topPadding + bottomPadding);
+   }
+   return expectedHeight;
+}
+
+-(CGFloat )eliminateLandscapeSafeAreaInsets :(CGFloat)expectedHeight {
+   if (@available(iOS 11.0, *)) {
+      UIWindow *window = UIApplication.sharedApplication.keyWindow;
+      CGFloat leftPadding = window.safeAreaInsets.left;
+      CGFloat rightPadding = window.safeAreaInsets.right;
+      expectedHeight -= (leftPadding + rightPadding);
+   }
+   return expectedHeight;
+}
+-(CGFloat )originYWithSafeAreaInsets :(CGFloat)originY {
+   if (@available(iOS 11.0, *)) {
+      UIWindow *window = UIApplication.sharedApplication.keyWindow;
+      CGFloat topPadding = window.safeAreaInsets.top;
+      originY += topPadding;
+   }
+   return originY;
+}
+
 
 - (void)testMaxSizePortraitOnLoad {
     [self addBasicMRAIDBannerWithSelectorName:NSStringFromSelector(_cmd)];
@@ -267,9 +296,9 @@
     CGFloat height = maxSize.y;
     CGRect screenBounds = ANPortraitScreenBounds();
     CGFloat expectedWidth = screenBounds.size.width;
-    CGFloat expectedHeight = screenBounds.size.height;
-    
-    if (![UIApplication sharedApplication].statusBarHidden) {
+    CGFloat expectedHeight = [self eliminatePortraitSafeAreaInsets:screenBounds.size.height];
+
+   if (![UIApplication sharedApplication].statusBarHidden) {
         expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.height;
     }
     XCTAssertTrue(expectedWidth == width && expectedHeight == height, @"Expected portrait max size %f x %f, received %f x %f", expectedWidth, expectedHeight, width, height);
@@ -285,8 +314,8 @@
     CGFloat width = maxSize.x;
     CGFloat height = maxSize.y;
     CGRect screenBounds = ANPortraitScreenBounds();
-    CGFloat expectedWidth = screenBounds.size.height;
-    CGFloat expectedHeight = screenBounds.size.width;
+    CGFloat expectedWidth = [self eliminateLandscapeSafeAreaInsets:screenBounds.size.height];
+    CGFloat expectedHeight = [self eliminatePortraitSafeAreaInsets:screenBounds.size.width];
 
     if (![UIApplication sharedApplication].statusBarHidden) {
         expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.width;
@@ -305,9 +334,9 @@
     CGFloat width = maxSize.x;
     CGFloat height = maxSize.y;
     CGRect screenBounds = ANPortraitScreenBounds();
-    CGFloat expectedWidth = screenBounds.size.height;
-    CGFloat expectedHeight = screenBounds.size.width;
-    
+    CGFloat expectedWidth = [self eliminateLandscapeSafeAreaInsets:screenBounds.size.height];
+    CGFloat expectedHeight = [self eliminatePortraitSafeAreaInsets:screenBounds.size.width];
+
     if (![UIApplication sharedApplication].statusBarHidden) {
         expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.width;
     }
@@ -324,8 +353,9 @@
     maxSize = [self getMaxSize];
     width = maxSize.x;
     height = maxSize.y;
-    expectedWidth = screenBounds.size.width;
-    expectedHeight = screenBounds.size.height;
+    expectedWidth = [self eliminateLandscapeSafeAreaInsets:screenBounds.size.width];
+    expectedHeight = [self eliminatePortraitSafeAreaInsets:screenBounds.size.height];
+
     if (![UIApplication sharedApplication].statusBarHidden) {
         expectedHeight -= [UIApplication sharedApplication].statusBarFrame.size.height;
     }
@@ -400,7 +430,7 @@
     [self expand];
     CGRect currentPosition = [self getCurrentPosition];
     CGFloat expectedOriginX = 0.0f;
-    CGFloat expectedOriginY = 0.0f;
+    CGFloat expectedOriginY = [self originYWithSafeAreaInsets:0.0f];
 
     CGFloat originX = currentPosition.origin.x;
     CGFloat originY = currentPosition.origin.y;
