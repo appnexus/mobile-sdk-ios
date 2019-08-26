@@ -70,7 +70,7 @@ DESC
   
    s.subspec 'MoPubAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'mopub-ios-sdk', '5.7.1'
+    subspec.dependency 'mopub-ios-sdk', '5.8.0'
     subspec.source_files         = "mediation/mediatedviews/MoPub/*.{h,m}"
     subspec.public_header_files  = "mediation/mediatedviews/MoPub/ANAdAdapterMoPubBase.h"
   end
@@ -85,7 +85,7 @@ DESC
  
     s.subspec 'MoPubCustomEventAdapter' do |subspec|
     subspec.dependency 'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'mopub-ios-sdk', '5.7.1'
+    subspec.dependency 'mopub-ios-sdk', '5.8.0'
     subspec.source_files          = "mediation/mediating/MoPub/*.{h,m}"
     subspec.public_header_files  = "mediation/mediating/MoPub/*.h"
   end

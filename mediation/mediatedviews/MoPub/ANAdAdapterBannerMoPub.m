@@ -51,13 +51,12 @@
                    serverParameter:(NSString *)parameterString
                           adUnitId:(NSString *)idString
                targetingParameters:(ANTargetingParameters *)targetingParameters {
-    self.adView = [[MPAdView alloc] initWithAdUnitId:idString
-                                                size:size];
+    self.adView = [[MPAdView alloc] initWithAdUnitId:idString];
     self.adView.delegate = self;
     self.adView.location = [self locationFromTargetingParameters:targetingParameters];
     self.adView.keywords = [self keywordsFromTargetingParameters:targetingParameters];
     self.rootViewController = rootViewController;
-    [self.adView loadAd];
+    [self.adView loadAdWithMaxAdSize:size];
 }
 
 - (void)dealloc {
@@ -70,11 +69,16 @@
     return self.rootViewController;
 }
 
-- (void)adViewDidLoadAd:(MPAdView *)view {
-    [self.delegate didLoadBannerAd:view];
+- (void)adViewDidLoadAd:(MPAdView *)view adSize:(CGSize)adSize{
+    self.adView.frame = ({
+        CGRect frame = self.adView.frame;
+        frame.size.height = adSize.height;
+        frame;
+    });
+    [self.delegate didLoadBannerAd:self.adView];
 }
 
-- (void)adViewDidFailToLoadAd:(MPAdView *)view {
+- (void)adView:(MPAdView *)view didFailToLoadAdWithError:(NSError *)error{
     [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
 }
 

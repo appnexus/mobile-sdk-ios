@@ -22,7 +22,6 @@
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANLogManager.h"
-#import "ANAdAdapterBaseAmazon.h"
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
@@ -119,12 +118,6 @@
              @"FacebookBanner",
              @"FacebookInterstitial",
              @"FacebookNative",
-             @"MoPubBanner",
-             @"MoPubInterstitial",
-             @"AmazonBanner",
-             @"AmazonInterstitial",
-             @"MillennialMediaBanner",
-             @"MillennialMediaInterstitial",
              @"AdMobBanner",
              @"AdMobInterstitial",
              @"DFPBanner",
@@ -261,94 +254,6 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialSmartAd";
     mediatedAd.adId = @"{\\\"site_id\\\":\\\"54522\\\",\\\"page_id\\\":\\\"401554\\\",\\\"format_id\\\":\\\"14514\\\"}";
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - Amazon
-
-- (ANBannerAdView *)loadAmazonBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    [self stubAmazonBanner];
-    return [self bannerWithDelegate:delegate];
-}
-
--  (ANInterstitialAd *)loadAmazonInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubAmazonInterstitial];
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubAmazonBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerAmazon";
-    mediatedAd.adId = @"123";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubAmazonInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialAmazon";
-    mediatedAd.adId = @"123";
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - MoPub
-
-- (ANBannerAdView *)loadMoPubBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    [self stubMoPubBanner];
-    return [self bannerWithDelegate:delegate];
-    //return [self bannerWithDelegate:delegate frameSize:CGSizeMake(300,250) adSize:CGSizeMake(300, 250)]; // MRAID
-}
-
-- (ANInterstitialAd *)loadMoPubInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubMoPubInterstitial];
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubMoPubBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerMoPub";
-    mediatedAd.adId = @"b735fe4e98b0449da95917215cb32268";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    /*mediatedAd.adId = @"3d10bc157e724dfdb060347ae9884d64"; // MRAID
-     mediatedAd.width = @"300";
-     mediatedAd.height = @"250";*/
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubMoPubInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialMoPub";
-    mediatedAd.adId = @"783ac4a38cc44144b3f62b9b89ca85b4";
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - Millennial Media
-
-- (ANBannerAdView *)loadMillennialMediaBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    [self stubMillennialMediaBanner];
-    return [self bannerWithDelegate:delegate];
-}
-
-- (ANInterstitialAd *)loadMillennialMediaInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubMillennialMediaInterstitial];
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubMillennialMediaBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerMillennialMedia";
-    mediatedAd.adId = @"240186";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubMillennialMediaInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialMillennialMedia";
-    mediatedAd.adId = @"240187";
     [self stubMediatedAd:mediatedAd];
 }
 
