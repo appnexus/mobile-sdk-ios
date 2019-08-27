@@ -9,8 +9,4 @@
 #import <GoogleMobileAds/GADMobileAds.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 typedef NSString *GADAdMetadataKey NS_STRING_ENUM;
-
-NS_ASSUME_NONNULL_END

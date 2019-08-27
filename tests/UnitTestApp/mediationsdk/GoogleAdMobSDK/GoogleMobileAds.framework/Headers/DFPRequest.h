@@ -24,9 +24,4 @@ GAD_EXTERN const id _Nonnull kDFPSimulatorID;
 /// Key-value pairs used for custom targeting.
 @property(nonatomic, copy, nullable) NSDictionary *customTargeting;
 
-/// This API is deprecated and has no effect. Use an instance of GADCorrelator with DFPInterstitial
-/// or DFPBannerView objects to correlate requests.
-+ (void)updateCorrelator GAD_DEPRECATED_MSG_ATTRIBUTE(
-    "Set GADCorrelator objects on your ads instead. This method no longer affects ad correlation.");
-
 @end

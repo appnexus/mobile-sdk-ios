@@ -6,21 +6,8 @@
 //
 
 #import <GoogleMobileAds/GADAdLoader.h>
+#import <GoogleMobileAds/GADMediaAspectRatio.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
-
-/// Media aspect ratio.
-typedef NS_ENUM(NSInteger, GADMediaAspectRatio) {
-  /// Unknown media aspect ratio.
-  GADMediaAspectRatioUnknown = 0,
-  /// Any media aspect ratio.
-  GADMediaAspectRatioAny = 1,
-  /// Landscape media aspect ratio.
-  GADMediaAspectRatioLandscape = 2,
-  /// Portrait media aspect ratio.
-  GADMediaAspectRatioPortrait = 3,
-  /// Close to square media aspect ratio. This is not a strict 1:1 aspect ratio.
-  GADMediaAspectRatioSquare = 4
-};
 
 /// Ad loader options for native ad media settings.
 @interface GADNativeAdMediaAdLoaderOptions : GADAdLoaderOptions

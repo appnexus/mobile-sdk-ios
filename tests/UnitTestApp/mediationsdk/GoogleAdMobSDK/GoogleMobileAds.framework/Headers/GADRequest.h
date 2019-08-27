@@ -70,8 +70,8 @@ typedef NS_ENUM(NSInteger, GADGender) {
 /// such as @"Sports Scores" or @"Football". Set this property to nil to clear the keywords.
 @property(nonatomic, copy, nullable) NSArray *keywords;
 
-/// URL string for a webpage whose content matches the app content. This webpage content is used for
-/// targeting purposes.
+/// URL string for a webpage whose content matches the app's primary content. This webpage content
+/// is used for targeting and brand safety purposes.
 @property(nonatomic, copy, nullable) NSString *contentURL;
 
 #pragma mark Request Agent Information

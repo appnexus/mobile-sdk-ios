@@ -11,8 +11,6 @@
 @class GADBannerView;
 @class GADInterstitial;
 
-NS_ASSUME_NONNULL_BEGIN
-
 /// Implement your app event within these methods. The delegate will be notified when the SDK
 /// receives an app event message from the ad.
 @protocol GADAppEventDelegate <NSObject>
@@ -20,15 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /// Called when the banner receives an app event.
-- (void)adView:(GADBannerView *)banner
-    didReceiveAppEvent:(NSString *)name
+- (void)adView:(nonnull GADBannerView *)banner
+    didReceiveAppEvent:(nonnull NSString *)name
               withInfo:(nullable NSString *)info;
 
 /// Called when the interstitial receives an app event.
-- (void)interstitial:(GADInterstitial *)interstitial
-    didReceiveAppEvent:(NSString *)name
+- (void)interstitial:(nonnull GADInterstitial *)interstitial
+    didReceiveAppEvent:(nonnull NSString *)name
               withInfo:(nullable NSString *)info;
 
 @end
-
-NS_ASSUME_NONNULL_END
