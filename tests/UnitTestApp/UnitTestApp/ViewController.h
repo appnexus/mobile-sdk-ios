@@ -34,9 +34,6 @@
 - (ANBannerAdView *)loadDFPBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *)loadDFPInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
-- (ANBannerAdView *)loadSmartAdBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
-- (ANInterstitialAd *)loadSmartAdInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
-
 - (ANBannerAdView *)loadAdMarvelBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate;
 - (ANInterstitialAd *) loadAdMarvelInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate;
 
