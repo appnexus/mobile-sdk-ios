@@ -14,7 +14,6 @@
  */
 
 #import "ANAdAdapterInterstitialMoPub.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterInterstitialMoPub ()
 

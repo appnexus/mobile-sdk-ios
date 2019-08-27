@@ -14,7 +14,12 @@
  */
 
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANInterstitialAd.h"
+#import "ANLocation.h"
+#endif
 
 @interface ANGADCustomInterstitialAd : NSObject <GADCustomEventInterstitial, ANInterstitialAdDelegate>
 

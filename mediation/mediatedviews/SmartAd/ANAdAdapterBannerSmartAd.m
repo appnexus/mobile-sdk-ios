@@ -13,7 +13,6 @@
  limitations under the License.
  */
 #import "ANAdAdapterBannerSmartAd.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterBannerSmartAd ()
     

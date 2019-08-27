@@ -16,13 +16,13 @@
 #import "ANAdAdapterInterstitialInMobi.h"
 #import "ANAdAdapterBaseInMobi.h"
 #import "ANAdAdapterBaseInMobi+PrivateMethods.h"
-#import "ANLogging.h"
 
 
 
 @interface ANAdAdapterInterstitialInMobi () <IMInterstitialDelegate>
 
 @property (nonatomic, strong) IMInterstitial *adInterstitial;
+@property (nonatomic) BOOL isInterstitialReady;
 
 @end
 
@@ -50,21 +50,16 @@
     self.adInterstitial.keywords = [ANAdAdapterBaseInMobi keywordsFromTargetingParameters:targetingParameters];
     [ANAdAdapterBaseInMobi setInMobiTargetingWithTargetingParameters:targetingParameters];
     [self.adInterstitial load];
+    self.isInterstitialReady = false;
 }
 
 - (BOOL)isReady {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    return [self.adInterstitial isReady];
+    return self.isInterstitialReady;
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    if (![self isReady]) {
-        ANLogDebug(@"InMobi interstitial was unavailable");
-        [self.delegate failedToDisplayAd];
-        return;
-    }
-    
     [self.adInterstitial showFromViewController:viewController];
 }
 
@@ -76,13 +71,20 @@
 
 - (void)interstitialDidFinishLoading:(IMInterstitial*)interstitial {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    self.isInterstitialReady = true;
     [self.delegate didLoadInterstitialAd:self];
 }
 
 - (void)interstitial:(IMInterstitial*)interstitial didFailToLoadWithError:(IMRequestStatus*)error  {
     ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     ANLogDebug(@"Received InMobi Error: %@", error);
+    self.isInterstitialReady = false;
     [self.delegate didFailToLoadAd:[ANAdAdapterBaseInMobi responseCodeFromInMobiRequestStatus:error]];
+}
+
+- (void)interstitialDidReceiveAd:(IMInterstitial *)interstitial {
+    ANLogTrace(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    // Do nothing
 }
 
 - (void)interstitialWillPresent:(IMInterstitial*)interstitial {

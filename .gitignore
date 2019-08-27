@@ -1,6 +1,5 @@
 ####
 # Binary build product files
-*.framework
 **/out
 **/Products
 **/out_device
@@ -13,6 +12,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
+.IDEWorkspaceChecks.plist
 
 # Icon must end with two \r
 Icon
@@ -134,5 +134,5 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-xcshareddata
+# xcshareddata
 Pods

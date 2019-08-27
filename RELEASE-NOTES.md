@@ -1,9 +1,67 @@
+## 6.0
+
+At Xandr we listen to our users' feedback to help us develop the products that provide the best solutions for their needs. Based on that feedback, we are proud to announce the release of v6.0, a major upgrade to our iOS Mobile SDK.
+
+### BREAKING CHANGES
+**Some changes made in v6.0 are breaking and may require existing users who wish to upgrade from previous versions to follow our [migration guide.](https://wiki.appnexus.com/display/sdk/iOS+v6.0+SDK+Migration+and+Integration#iOSv6.0SDKMigrationandIntegration-migrate-to-6.)**
+
+### New Features
+#### Change to the directory structure. Notable changes include:
+- BinaryProjects/ANSDK.xcodeproject has been renamed and moved to sdk/AppNexusSDK.xcodeproject.
+- Mediation Adapter targets have been removed from AppNexusSDK.xcodeproject.
+- ANSDK target has been removed from AppNexusSDK.xcodeproject.
+
+#### Mediation adapters are now available only via our source or CocoaPods.
+This will enable publishers to select the mediation networks they need for their inventory strategies
+
+#### Third party mediation network libraries have been removed from code. Publishers integrating mediation via source will need to include the libraries themselves.
+A list of supported versions of [third-party mediation networks](https://wiki.appnexus.com/display/sdk/Mediate+with+iOS+SDK+v6.0) is available in our public documentation
+
+### Upgrades
+#### Mediation partner upgrades
+- Mopub SDK v5.8.0
+- InMobi SDK v7.3.1
+- Google AdMob SDK v7.48.0
+- Smart Server SDK v7.1.1
+
+**Warning:**
+If you are currently using a static library version of AppNexus SDK(libANSDK.a) or a mediation adapter please follow our [migration guide](https://wiki.appnexus.com/display/sdk/iOS+v6.0+SDK+Migration+and+Integration#iOSv6.0SDKMigrationandIntegration-migrate-to-6.0).
+
+
+## 6.0-Beta
+
+**Note: This is a beta release of the AppNexus SDK, and will be open for feedback/comments for at least the next 14 days**
+
+### New Features
+
++ SDK-Lite(6.0-Beta) bring in changes to directory structure. Some notable changes include:
+    * BinaryProjects/ANSDK.xcodeproject has been renamed and moved to sdk/AppNexusSDK.xcodeproject
+    * Mediation Adapter targets have been removed from AppNexusSDK.xcodeproject
+    * ANSDK target has been removed from AppNexusSDK.xcodeproject
+   
+   
++ Mediation adapters are now available only via source or CocoaPods.
+This will enable publishers to select the mediation networks they need for their inventory strategies
+   
++ Third Party Mediation Network Libraries have been removed from code. Publishers integrating mediation via source need to include the libraries themself
+A list of supported versions of third-party mediation networks is available in the public documentation
+https://wiki.appnexus.com/display/sdk/Mediate+with+iOS+SDK+v6.0
+                     
+ + If you are currently using Static Library version of AppNexus SDK(libANSDK.a) / Mediation adapter please follow Migration Steps found here
+https://wiki.appnexus.com/display/sdk/iOS+v6.0+SDK+Migration+and+Integration#iOSv6.0SDKMigrationandIntegration-migrate-to-6.0
+                          
+                               
+                                    
+**Note: Cocoapods integration remains the same from v5.x --> 6.X so it has not been included as a part of Beta release. But will be available as a part of final release**
+
+
+
 ## 5.5.1
 ### New Features
 + MS-3778: Added new API to get Video Orientation for BannerVideo and Video Ads
 
 ### Mediation partner upgrades/changes
-+  Removed support for following mediation Adaptor 
++  Removed support for following mediation Adapter 
     + AdColony SDK
     + AdMarvel SDK
     + Chartboost SDK
@@ -231,7 +289,7 @@ Known Issue: Rubicon Mediation Adapter compatibility issues with iOS 12.0 - to b
 ## 3.6
 
 ###Mediated SDKs
-+Updated the following mediation adaptors which were updated to support iOS 11
++Updated the following mediation adapters which were updated to support iOS 11
 
 + AdMobSDK                         v7.24.1
 + MillenialMediaSDK              v6.6.0

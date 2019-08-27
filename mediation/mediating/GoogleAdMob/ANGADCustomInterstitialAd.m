@@ -14,7 +14,6 @@
  */
 
 #import "ANGADCustomInterstitialAd.h"
-#import "ANLocation.h"
 
 @interface ANGADCustomInterstitialAd ()
 @property (nonatomic, readwrite, strong) ANInterstitialAd *interstitialAd;

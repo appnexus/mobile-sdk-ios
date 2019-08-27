@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		607E3BF01E7860E900C76D57 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60AB32811E52163C00429ED7 /* AppNexusSDK.framework */; };
-		607E3BF11E7860E900C76D57 /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 60AB32811E52163C00429ED7 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E747CA922DE133900CDD1BC /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E747CA622DE131100CDD1BC /* AppNexusSDK.framework */; };
+		0E747CAA22DE133900CDD1BC /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E747CA622DE131100CDD1BC /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60846A121E43C676005D46BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A111E43C676005D46BC /* main.m */; };
 		60846A151E43C676005D46BC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A141E43C676005D46BC /* AppDelegate.m */; };
 		60846A181E43C676005D46BC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60846A171E43C676005D46BC /* ViewController.m */; };
@@ -18,9 +18,30 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		607E3BF21E7860E900C76D57 /* PBXContainerItemProxy */ = {
+		0E747CA322DE131100CDD1BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
+			containerPortal = 0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EC48177B1845046A0066BBFE;
+			remoteInfo = AppNexusSDKResources;
+		};
+		0E747CA522DE131100CDD1BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
+		0E747CA722DE131100CDD1BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5731AFD228B43570012B134;
+			remoteInfo = AppNexusNativeSDK;
+		};
+		0E747CAB22DE133900CDD1BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8A9AED8B1A1BE84F00C58BDA;
 			remoteInfo = AppNexusSDK;
@@ -32,139 +53,6 @@
 			remoteGlobalIDString = 60846A0C1E43C676005D46BC;
 			remoteInfo = SimpleVideo;
 		};
-		60AB32621E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC3E5CDC1843C6D50070315E;
-			remoteInfo = ANSDK;
-		};
-		60AB32641E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC48177B1845046A0066BBFE;
-			remoteInfo = ANSDKResources;
-		};
-		60AB32661E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D6D119CC874B00001B70;
-			remoteInfo = ANSDKGoogleAdMobAdapter;
-		};
-		60AB32681E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D73319CC879900001B70;
-			remoteInfo = ANSDKMillennialMediaAdapter;
-		};
-		60AB326A1E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D76419CC87B200001B70;
-			remoteInfo = ANSDKMoPubAdapter;
-		};
-		60AB326C1E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D79519CC87CC00001B70;
-			remoteInfo = ANSDKFacebookAdapter;
-		};
-		60AB326E1E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AD5154019D214CA002E53D6;
-			remoteInfo = ANSDKAmazonAdapter;
-		};
-		60AB32701E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AA5B4C41AA8B4A500522E1C;
-			remoteInfo = ANSDKInMobiAdapter;
-		};
-		60AB32721E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A4B96B51ACD9A4C00FFEB2A;
-			remoteInfo = ANSDKVdopiaAdapter;
-		};
-		60AB32741E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A1482571AD337320046F1B9;
-			remoteInfo = ANSDKAdColonyAdapter;
-		};
-		60AB32761E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AD7C4D81AD2FABA0049C997;
-			remoteInfo = ANSDKVungleAdapter;
-		};
-		60AB32781E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A949ACE1ADF131500D83DCE;
-			remoteInfo = ANSDKChartboostAdapter;
-		};
-		60AB327A1E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A96871A1B43314E00D9399B;
-			remoteInfo = ANSDKYahooAdapter;
-		};
-		60AB327C1E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D85319CC9A6F00001B70;
-			remoteInfo = ANAdapterForGoogleAdMobSDK;
-		};
-		60AB327E1E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8AE2D86119CC9B0F00001B70;
-			remoteInfo = ANAdapterForMoPubSDK;
-		};
-		60AB32801E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8A9AED8C1A1BE84F00C58BDA;
-			remoteInfo = AppNexusSDK;
-		};
-		60AB32821E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 60359FEF1E23FCB50017EF56;
-			remoteInfo = ANSDKSmartAdAdapter;
-		};
-		60AB32841E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 60359EB01E1EA1180017EF56;
-			remoteInfo = ANSDKAdMarvelAdapter;
-		};
-		60AB32861E52163C00429ED7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 604C112D1E26BE4B006D6C97;
-			remoteInfo = ANSDKRubiconAdapter;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -174,7 +62,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				607E3BF11E7860E900C76D57 /* AppNexusSDK.framework in Embed Frameworks */,
+				0E747CAA22DE133900CDD1BC /* AppNexusSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +70,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
 		60846A0D1E43C676005D46BC /* SimpleVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60846A111E43C676005D46BC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		60846A131E43C676005D46BC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -193,7 +82,6 @@
 		60846A1F1E43C676005D46BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60846A211E43C676005D46BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60846A261E43C676005D46BC /* SimpleVideoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleVideoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ANSDK.xcodeproj; path = ../../BinaryProjects/ANSDK.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607E3BF01E7860E900C76D57 /* AppNexusSDK.framework in Frameworks */,
+				0E747CA922DE133900CDD1BC /* AppNexusSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,12 +103,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E747C9E22DE131100CDD1BC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E747CA422DE131100CDD1BC /* AppNexusSDKResources.bundle */,
+				0E747CA622DE131100CDD1BC /* AppNexusSDK.framework */,
+				0E747CA822DE131100CDD1BC /* AppNexusNativeSDK.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		60846A041E43C676005D46BC = {
 			isa = PBXGroup;
 			children = (
+				0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */,
 				60846A0E1E43C676005D46BC /* Products */,
 				60846A0F1E43C676005D46BC /* SimpleVideo */,
-				60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -257,32 +155,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		60AB324D1E52163C00429ED7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				60AB32651E52163C00429ED7 /* ANSDKResources.bundle */,
-				60AB32811E52163C00429ED7 /* AppNexusSDK.framework */,
-				60AB327D1E52163C00429ED7 /* libANAdapterForGoogleAdMobSDK.a */,
-				60AB327F1E52163C00429ED7 /* libANAdapterForMoPubSDK.a */,
-				60AB32631E52163C00429ED7 /* libANSDK.a */,
-				60AB32751E52163C00429ED7 /* libANSDKAdColonyAdapter.a */,
-				60AB32851E52163C00429ED7 /* libANSDKAdMarvelAdapter.a */,
-				60AB326F1E52163C00429ED7 /* libANSDKAmazonAdapter.a */,
-				60AB32791E52163C00429ED7 /* libANSDKChartboostAdapter.a */,
-				60AB326D1E52163C00429ED7 /* libANSDKFacebookAdapter.a */,
-				60AB32671E52163C00429ED7 /* libANSDKGoogleAdMobAdapter.a */,
-				60AB32711E52163C00429ED7 /* libANSDKInMobiAdapter.a */,
-				60AB32691E52163C00429ED7 /* libANSDKMillennialMediaAdapter.a */,
-				60AB326B1E52163C00429ED7 /* libANSDKMoPubAdapter.a */,
-				60AB32871E52163C00429ED7 /* libANSDKRubiconAdapter.a */,
-				60AB32831E52163C00429ED7 /* libANSDKSmartAdAdapter.a */,
-				60AB32731E52163C00429ED7 /* libANSDKVdopiaAdapter.a */,
-				60AB32771E52163C00429ED7 /* libANSDKVungleAdapter.a */,
-				60AB327B1E52163C00429ED7 /* libANSDKYahooAdapter.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -298,7 +170,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				607E3BF31E7860E900C76D57 /* PBXTargetDependency */,
+				0E747CAC22DE133900CDD1BC /* PBXTargetDependency */,
 			);
 			name = SimpleVideo;
 			productName = SimpleVideo;
@@ -349,6 +221,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -357,8 +230,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 60AB324D1E52163C00429ED7 /* Products */;
-					ProjectRef = 60AB324C1E52163C00429ED7 /* ANSDK.xcodeproj */;
+					ProductGroup = 0E747C9E22DE131100CDD1BC /* Products */;
+					ProjectRef = 0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -370,137 +243,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		60AB32631E52163C00429ED7 /* libANSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDK.a;
-			remoteRef = 60AB32621E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32651E52163C00429ED7 /* ANSDKResources.bundle */ = {
+		0E747CA422DE131100CDD1BC /* AppNexusSDKResources.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = ANSDKResources.bundle;
-			remoteRef = 60AB32641E52163C00429ED7 /* PBXContainerItemProxy */;
+			path = AppNexusSDKResources.bundle;
+			remoteRef = 0E747CA322DE131100CDD1BC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		60AB32671E52163C00429ED7 /* libANSDKGoogleAdMobAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKGoogleAdMobAdapter.a;
-			remoteRef = 60AB32661E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32691E52163C00429ED7 /* libANSDKMillennialMediaAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKMillennialMediaAdapter.a;
-			remoteRef = 60AB32681E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB326B1E52163C00429ED7 /* libANSDKMoPubAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKMoPubAdapter.a;
-			remoteRef = 60AB326A1E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB326D1E52163C00429ED7 /* libANSDKFacebookAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKFacebookAdapter.a;
-			remoteRef = 60AB326C1E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB326F1E52163C00429ED7 /* libANSDKAmazonAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKAmazonAdapter.a;
-			remoteRef = 60AB326E1E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32711E52163C00429ED7 /* libANSDKInMobiAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKInMobiAdapter.a;
-			remoteRef = 60AB32701E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32731E52163C00429ED7 /* libANSDKVdopiaAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKVdopiaAdapter.a;
-			remoteRef = 60AB32721E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32751E52163C00429ED7 /* libANSDKAdColonyAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKAdColonyAdapter.a;
-			remoteRef = 60AB32741E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32771E52163C00429ED7 /* libANSDKVungleAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKVungleAdapter.a;
-			remoteRef = 60AB32761E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32791E52163C00429ED7 /* libANSDKChartboostAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKChartboostAdapter.a;
-			remoteRef = 60AB32781E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB327B1E52163C00429ED7 /* libANSDKYahooAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKYahooAdapter.a;
-			remoteRef = 60AB327A1E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB327D1E52163C00429ED7 /* libANAdapterForGoogleAdMobSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANAdapterForGoogleAdMobSDK.a;
-			remoteRef = 60AB327C1E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB327F1E52163C00429ED7 /* libANAdapterForMoPubSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANAdapterForMoPubSDK.a;
-			remoteRef = 60AB327E1E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32811E52163C00429ED7 /* AppNexusSDK.framework */ = {
+		0E747CA622DE131100CDD1BC /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AppNexusSDK.framework;
-			remoteRef = 60AB32801E52163C00429ED7 /* PBXContainerItemProxy */;
+			remoteRef = 0E747CA522DE131100CDD1BC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		60AB32831E52163C00429ED7 /* libANSDKSmartAdAdapter.a */ = {
+		0E747CA822DE131100CDD1BC /* AppNexusNativeSDK.framework */ = {
 			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKSmartAdAdapter.a;
-			remoteRef = 60AB32821E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32851E52163C00429ED7 /* libANSDKAdMarvelAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKAdMarvelAdapter.a;
-			remoteRef = 60AB32841E52163C00429ED7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		60AB32871E52163C00429ED7 /* libANSDKRubiconAdapter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libANSDKRubiconAdapter.a;
-			remoteRef = 60AB32861E52163C00429ED7 /* PBXContainerItemProxy */;
+			fileType = wrapper.framework;
+			path = AppNexusNativeSDK.framework;
+			remoteRef = 0E747CA722DE131100CDD1BC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -546,10 +307,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		607E3BF31E7860E900C76D57 /* PBXTargetDependency */ = {
+		0E747CAC22DE133900CDD1BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AppNexusSDK;
-			targetProxy = 607E3BF21E7860E900C76D57 /* PBXContainerItemProxy */;
+			targetProxy = 0E747CAB22DE133900CDD1BC /* PBXContainerItemProxy */;
 		};
 		60846A281E43C676005D46BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -671,6 +432,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles\"/**";
 				INFOPLIST_FILE = SimpleVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -684,6 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles\"/**";
 				INFOPLIST_FILE = SimpleVideo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

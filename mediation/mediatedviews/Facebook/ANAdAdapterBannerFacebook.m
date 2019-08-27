@@ -14,7 +14,6 @@
  */
 
 #import "ANAdAdapterBannerFacebook.h"
-#import "ANLogging.h"
 
 @interface ANAdAdapterBannerFacebook()
 

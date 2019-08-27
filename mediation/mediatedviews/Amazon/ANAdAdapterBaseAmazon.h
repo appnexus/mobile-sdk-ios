@@ -13,8 +13,13 @@
  limitations under the License.
  */
 
-#import "ANCustomAdapter.h"
 
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
+#import "ANCustomAdapter.h"
+#import "ANLogging.h"
+#endif
 /**
  The Amazon app key should be set before ads are loaded. All invocations of the Amazon mediation adapters
  will fail to return an ad if the key is not set.

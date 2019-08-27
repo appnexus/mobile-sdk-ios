@@ -15,8 +15,6 @@
 
 #import "ANMoPubMediationInterstitial.h"
 
-#import "ANLogging.h"
-#import "ANLocation.h"
 
 @interface ANMoPubMediationInterstitial ()
 

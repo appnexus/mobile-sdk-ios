@@ -13,7 +13,15 @@
  limitations under the License.
  */
 
+
+#if __has_include(<AppNexusSDK/AppNexusSDK.h>)
+#import <AppNexusSDK/AppNexusSDK.h>
+#else
 #import "ANNativeCustomAdapter.h"
+#import "ANLogging.h"
+#import "ANNativeAdResponse.h"
+#import "ANProxyViewController.h"
+#endif
 
 extern NSString *const kANAdAdapterNativeAdMobAdKey;
 
