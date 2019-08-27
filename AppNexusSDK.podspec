@@ -53,7 +53,7 @@ DESC
 
   s.subspec 'InMobiAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'InMobiSDK', '7.2.9'
+    subspec.dependency 'InMobiSDK', '7.3.1'
     subspec.source_files         = "mediation/mediatedviews/InMobi/*.{h,m}"
     subspec.public_header_files  = "mediation/mediatedviews/InMobi/ANAdAdapterBaseInMobi.h","mediation/mediatedviews/InMobi/ANAdAdapterNativeInMobi.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/InMobiSDK/**' }

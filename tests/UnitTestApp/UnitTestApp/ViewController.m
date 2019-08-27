@@ -22,7 +22,6 @@
 #import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "ANLogManager.h"
-#import "ANAdAdapterBaseInMobi.h"
 #import "ANNativeAdRequest.h"
 #import "ANNativeAdView.h"
 #import "ANGADUnifiedNativeAdView.h"
@@ -123,9 +122,6 @@
              @"DFPBanner",
              @"DFPSmartBanner",
              @"DFPInterstitial",
-             @"InMobiBanner",
-             @"InMobiInterstitial",
-             @"InMobiNative",
              @"DoesNotExistBanner",
              @"DoesNotExistInterstitial"];
 }
@@ -350,60 +346,6 @@
     ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
     mediatedAd.className = @"ANAdAdapterInterstitialDFP";
     mediatedAd.adId = @"/6499/example/interstitial";
-    [self stubMediatedAd:mediatedAd];
-}
-
-#pragma mark - InMobi
-
-NSString * const  kInMobiAccountId_2017February21                       = @"5e780dfd2c84482e882c311319c3c987";
-NSString * const  kInMobiPlacementDefaultNativeContent1_2017February21  = @"1486240123565";
-
-
-- (ANBannerAdView *)loadInMobiBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    [self stubInMobiBanner];
-    //    [ANAdAdapterBaseInMobi setInMobiAppID:@"0c4a211baa254c3ab8bfb7dee681a666"];
-    [ANAdAdapterBaseInMobi setInMobiAppID:@"4028cb8b2c3a0b45012c406824e800ba"];   //from Ads Demo in v5.3.1
-    return [self bannerWithDelegate:delegate];
-}
-
-- (ANInterstitialAd *)loadInMobiInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubInMobiInterstitial];
-    //    [ANAdAdapterBaseInMobi setInMobiAppID:@"0c4a211baa254c3ab8bfb7dee681a666"];
-    [ANAdAdapterBaseInMobi setInMobiAppID:@"4028cb8b2c3a0b45012c406824e800ba"];   //from Ads Demo in v5.3.1
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubInMobiBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerInMobi";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    //    mediatedAd.adId = @"1431977778764702";
-    mediatedAd.adId = @"1447912324502";   //from Ads Demo in v5.3.1
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubInMobiInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialInMobi";
-    //    mediatedAd.adId = @"1431977778766816";
-    mediatedAd.adId = @"1446377525790";   //from Ads Demo in v5.3.1
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (ANNativeAdRequest *)loadInMobiNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
-    [self stubInMobiNative];
-    [ANAdAdapterBaseInMobi setInMobiAppID:@"4028cb8b2c3a0b45012c406824e800ba"];   //from Ads Demo in v5.3.1
-    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
-    nativeAdRequest.shouldLoadIconImage = YES;
-    nativeAdRequest.shouldLoadMainImage = YES;
-    return nativeAdRequest;
-}
-
-- (void)stubInMobiNative {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterNativeInMobi";
-    mediatedAd.adId = kInMobiPlacementDefaultNativeContent1_2017February21;
     [self stubMediatedAd:mediatedAd];
 }
 
