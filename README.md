@@ -2,15 +2,8 @@ Appnexus iOS SDK
 =====================
 
 ```
-The next version of MobileSDK, v6.0 introduces changes intended to make the SDK lightweight, minimizing its 
-footprint on disk and in memory. This version includes the following changes, but otherwise introduces 
-no new functionality
-
-- The SDK itself is now built only as a dynamic framework.
-- To streamline mediation adapter upgrades, we are removing mediation adapter libraries.
-- Mediation adapters can now be included only via source code or Cocoapods
-  1. This benefits the publisher to choose the mediation networks needed.
-  2. The supported version of third-party mediation network will be provided in the documentation on our wiki
+MobileSDK v6.0 will be a breaking change and requires existing users who wish to upgrade from previous versions to follow our release notes for details
+https://github.com/appnexus/mobile-sdk-ios/releases/tag/6.0
 ```
 
 See the documentation on our wiki here: http://wiki.appnexus.com/x/dhAtAw
