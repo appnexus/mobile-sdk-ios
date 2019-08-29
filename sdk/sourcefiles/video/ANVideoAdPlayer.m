@@ -55,12 +55,6 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 {
     self = [super init];
     if (!self)  { return nil; }
-    
-    //
-    [[NSNotificationCenter defaultCenter]addObserver:self
-                                            selector:@selector(resumeAdVideo)
-                                                name:UIApplicationDidBecomeActiveNotification
-                                              object:nil];
     _creativeURL = @"";
     _videoDuration = 0;
     _vastURLContent = @"";
@@ -71,6 +65,23 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 
 - (void) dealloc
 {
+    [self deregisterObserver];
+}
+
+-(void) registerObserver{
+    [self deregisterObserver];
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(resumeAdVideo)
+                                                name:UIApplicationDidBecomeActiveNotification
+                                              object:nil];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(pauseAdVideo)
+                                                name:UIApplicationWillResignActiveNotification
+                                              object:nil];
+}
+
+-(void) deregisterObserver{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -243,6 +254,11 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
     [self.webView evaluateJavaScript:exec completionHandler:nil];
 }
 
+-(void)pauseAdVideo{
+    NSString *exec = @"pauseAd();";
+    [self.webView evaluateJavaScript:exec completionHandler:nil];
+}
+
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     
@@ -290,6 +306,7 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
         
     } else if ([eventName isEqualToString:@"videoStart"]) {
         ANLogInfo(@"%@", eventName);
+        [self registerObserver];
         if ([self.delegate respondsToSelector:@selector(videoAdEventListeners:)]) {
             [self.delegate videoAdEventListeners:ANVideoAdPlayerEventPlay];
         }

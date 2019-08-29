@@ -103,13 +103,24 @@
             }
         }
         
+        function playVideoAd(targetId){
+            resizePlayer();
+            APNVideo_MobileVastPlayer.sendPlay(targetId);
+        }
         
         function playAd() {
             console.log(":: sendPlay");
             
             var targetId = "video-content";
-            resizePlayer();
-            APNVideo_MobileVastPlayer.sendPlay(targetId);
+            playVideoAd(targetId);
+            var refreshIntervalId  = window.setInterval(function(){
+                                                        var isPlaying = APNVideo_MobileVastPlayer.getIsVideoPlaying(targetId);
+                                                        if(!isPlaying){
+                                                            playVideoAd(targetId);
+                                                        }else{
+                                                            window.clearInterval(refreshIntervalId);
+                                                        }
+                                                      }, 300);
         }
         
         function pauseAd() {
