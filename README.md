@@ -1,8 +1,10 @@
 Appnexus iOS SDK
 =====================
 
-**MobileSDK v6.0 will be a breaking change and requires existing users who wish to upgrade from previous versions to follow our release notes for details
-https://github.com/appnexus/mobile-sdk-ios/releases/tag/6.0**
+```
+MobileSDK v6.0 will be a breaking change and requires existing users who wish to upgrade from previous versions 
+to follow our release notes for details https://github.com/appnexus/mobile-sdk-ios/releases/tag/6.0
+```
 
 
 See the documentation on our wiki here: http://wiki.appnexus.com/x/dhAtAw
