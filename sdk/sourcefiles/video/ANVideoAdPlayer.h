@@ -84,7 +84,8 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 -(void) loadAdWithJSONContent:(nonnull NSString *) jsonContent;
 
 -(void)playAdWithContainer:(nonnull UIView *) containerView;
-
+-(void) pauseAdVideo;
+-(void) resumeAdVideo;
 -(void) removePlayer;
 
 - (NSUInteger) getAdDuration;
