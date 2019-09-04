@@ -143,14 +143,11 @@
 }
 
 - (void)fireImpTrackers {
-    @synchronized (self)
-    {
-        if (self.impTrackers) {
-            [ANTrackerManager fireTrackerURLArray:self.impTrackers];
-        }
-        if(self.omidAdSession != nil){
-            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
-        }
+    if (self.impTrackers) {
+        [ANTrackerManager fireTrackerURLArray:self.impTrackers];
+    }
+    if(self.omidAdSession != nil){
+        [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
     }
 }
 

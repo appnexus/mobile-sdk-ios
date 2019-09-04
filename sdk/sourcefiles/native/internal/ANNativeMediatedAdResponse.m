@@ -128,16 +128,13 @@
 
 #pragma mark - Impression Tracking
 - (void)fireImpTrackers {
-    @synchronized (self)
-    {
-        if (self.impTrackers && !self.impressionsHaveBeenTracked) {
-            [ANTrackerManager fireTrackerURLArray:self.impTrackers];
-        }
-        if(self.omidAdSession != nil){
-            [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
-        }
-        self.impressionsHaveBeenTracked = YES;
+    if (self.impTrackers && !self.impressionsHaveBeenTracked) {
+        [ANTrackerManager fireTrackerURLArray:self.impTrackers];
     }
+    if(self.omidAdSession != nil){
+        [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:self.omidAdSession];
+    }
+    self.impressionsHaveBeenTracked = YES;
 }
 
 # pragma mark - ANNativeCustomAdapterAdDelegate
