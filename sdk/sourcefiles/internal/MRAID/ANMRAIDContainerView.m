@@ -490,7 +490,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
         __weak ANMRAIDContainerView  *weakSelf  = self;
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.15 * NSEC_PER_SEC), dispatch_get_main_queue(),
+        dispatch_async(dispatch_get_main_queue(),
         ^{
             __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
             if (!strongSelf)  {
