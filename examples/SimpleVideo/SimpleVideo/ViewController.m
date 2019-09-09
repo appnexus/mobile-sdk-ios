@@ -23,7 +23,7 @@
 
 
 NSString *const  videoContent  = @"https://acdn.adnxs.com/mobile/video_test/content/Scenario.mp4";
-NSString *const placementId = @"9924001";
+NSString *const placementId = @"15215010";
 
 
 
@@ -59,7 +59,7 @@ NSString *const placementId = @"9924001";
     self.playButton.layer.zPosition = MAXFLOAT;
     self.isvideoAdAvailable = false;
     [ANLogManager setANLogLevel:ANLogLevelAll];
-    [[ANSDKSettings sharedInstance] setHTTPSEnabled:false];
+    [[ANSDKSettings sharedInstance] setHTTPSEnabled:true];
     // Fix iPhone issue of log text starting in the middle of the UITextView
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.portraitVideoViewFrame = self.videoView.frame;
@@ -72,8 +72,7 @@ NSString *const placementId = @"9924001";
     }
     
     [self setupContentPlayer];
-//    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placementId];
-    self.videoAd = [[ANInstreamVideoAd alloc] initWithMemberId:958 inventoryCode:@"trucksmash"];
+    self.videoAd = [[ANInstreamVideoAd alloc] initWithPlacementId:placementId];
     [self.videoAd loadAdWithDelegate:self];
     self.videoAd.clickThroughAction = ANClickThroughActionOpenSDKBrowser;
 
