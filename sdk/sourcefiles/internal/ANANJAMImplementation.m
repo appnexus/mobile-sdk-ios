@@ -94,9 +94,7 @@ NSString *const kANKeyCaller = @"caller";
         // success, do nothing
         return;
     } else {
-        NSDictionary *paramsList = @{
-                                     kANKeyCaller: kANCallDeepLink,
-                                     };
+        NSDictionary *paramsList = @{kANKeyCaller: kANCallDeepLink};
         [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
     }
 }
