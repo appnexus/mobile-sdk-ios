@@ -1,4 +1,4 @@
-/*   Copyright 2016 APPNEXUS INC
+/*   Copyright 2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 #import <AdSupport/AdSupport.h>
 #import <XCTest/XCTest.h>
 #import "ANBannerAdView.h"
-//#import "ANURLConnectionStub.h"
 #import "ANHTTPStubbingManager.h"
 #import "XCTestCase+ANCategory.h"
 #import "ANMRAIDContainerView.h"
