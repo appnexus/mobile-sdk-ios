@@ -102,8 +102,6 @@ extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;
 #define kANInterstitialDefaultCloseButtonDelay 10.0
 #define kANInterstitialMaximumCloseButtonDelay 10.0
 
-#define kANSDKResourcesBundleName @"AppNexusSDKResources"
-
 
 #pragma mark - Global functions.
 

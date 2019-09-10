@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E14222122F99B9A006C597A /* ANResourceValidationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E14221F22F99B9A006C597A /* ANResourceValidationTestCase.m */; };
+		0E14222322F99BA8006C597A /* ANResourceValidationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */; };
 		0E1D14B022784C0900343050 /* ANBannerNativeRenderingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1D14AF22784C0900343050 /* ANBannerNativeRenderingTestCase.m */; };
 		0E1D14B422784C9500343050 /* appnexus_bannerNative_rendering.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E1D14B222784C9500343050 /* appnexus_bannerNative_rendering.json */; };
 		0E1D14B522784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E1D14B322784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json */; };
@@ -271,13 +273,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0E6B7ACB22D889C0005D069E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EC48177A1845046A0066BBFE;
-			remoteInfo = AppNexusSDKResources;
-		};
 		0E6B7E4A22D8DE49005D069E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */;
@@ -305,13 +300,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0EC17C3121F72D1700F0F6AF;
 			remoteInfo = UnitTestApp;
-		};
-		0ECF333B22D798DB007DB185 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC48177B1845046A0066BBFE;
-			remoteInfo = AppNexusSDKResources;
 		};
 		0ECF333D22D798DB007DB185 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -362,6 +350,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E14221F22F99B9A006C597A /* ANResourceValidationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANResourceValidationTestCase.m; sourceTree = "<group>"; };
+		0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANResourceValidationTestCase.m; sourceTree = "<group>"; };
 		0E1D14AF22784C0900343050 /* ANBannerNativeRenderingTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANBannerNativeRenderingTestCase.m; sourceTree = "<group>"; };
 		0E1D14B222784C9500343050 /* appnexus_bannerNative_rendering.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_rendering.json; sourceTree = "<group>"; };
 		0E1D14B322784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = appnexus_bannerNative_renderingInvalidURL.json; sourceTree = "<group>"; };
@@ -988,6 +978,7 @@
 			isa = PBXGroup;
 			children = (
 				0EB24C5222CBD5CB008E927F /* NativeSDKTestAppTests.m */,
+				0E14221F22F99B9A006C597A /* ANResourceValidationTestCase.m */,
 				0EB24C2C22CBD243008E927F /* Info.plist */,
 			);
 			path = NativeSDKTestAppTests;
@@ -1047,6 +1038,7 @@
 		0EC17C5021F72EA300F0F6AF /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */,
 				60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */,
 				97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */,
 				0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */,
@@ -1100,7 +1092,6 @@
 		0ECF333622D798DB007DB185 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0ECF333C22D798DB007DB185 /* AppNexusSDKResources.bundle */,
 				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
 				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
 			);
@@ -1356,7 +1347,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				0E6B7ACC22D889C0005D069E /* PBXTargetDependency */,
 				0E6B7E4B22D8DE49005D069E /* PBXTargetDependency */,
 			);
 			name = UnitTestApp;
@@ -1484,13 +1474,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		0ECF333C22D798DB007DB185 /* AppNexusSDKResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AppNexusSDKResources.bundle;
-			remoteRef = 0ECF333B22D798DB007DB185 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1636,6 +1619,7 @@
 				0EB24C5322CBD5CB008E927F /* NativeSDKTestAppTests.m in Sources */,
 				0EB24C5722CBD770008E927F /* ANHTTPStubURLProtocol.m in Sources */,
 				0EB24C5822CBD770008E927F /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				0E14222122F99B9A006C597A /* ANResourceValidationTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1729,6 +1713,7 @@
 				0EEFE14822005951002B5F5F /* ANAdAdapterBannerUnableToFillWithSubsequentCallbacks.m in Sources */,
 				0EEFE14A22005951002B5F5F /* ANFailedMultiple.m in Sources */,
 				0E8C97B121FF32EC005D1F0E /* XCTestCase+ANAdResponse.m in Sources */,
+				0E14222322F99BA8006C597A /* ANResourceValidationTestCase.m in Sources */,
 				0E8C97C021FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */,
 				0E6612C322CA736300DDC5CD /* ANNativeAdView.m in Sources */,
 				0E8C97AE21FF32EC005D1F0E /* ANUniversalAdFetcher+ANTest.m in Sources */,
@@ -1812,11 +1797,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0E6B7ACC22D889C0005D069E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AppNexusSDKResources;
-			targetProxy = 0E6B7ACB22D889C0005D069E /* PBXContainerItemProxy */;
-		};
 		0E6B7E4B22D8DE49005D069E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = AppNexusSDK;

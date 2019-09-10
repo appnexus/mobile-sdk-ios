@@ -32,19 +32,64 @@
 		0099B486228CA191004E80AB /* NSTimer+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = ECE4EA99194B768A0069D934 /* NSTimer+ANCategory.m */; };
 		00D6B04820D1BC9B007A3439 /* ANOMIDImplementation.h in Headers */ = {isa = PBXBuildFile; fileRef = 00D6B04720D1BC9B007A3439 /* ANOMIDImplementation.h */; };
 		00D6B04B20D1BCAF007A3439 /* ANOMIDImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D6B04920D1BCAF007A3439 /* ANOMIDImplementation.m */; };
+		0E1421E922F99AC9006C597A /* an_arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A61A2F8AFE0000E4CC /* an_arrow_left.png */; };
+		0E1421EA22F99AC9006C597A /* an_arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */; };
+		0E1421EB22F99AC9006C597A /* an_arrow_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */; };
+		0E1421EC22F99AC9006C597A /* an_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AC1A2F8CE50000E4CC /* an_arrow_right.png */; };
+		0E1421ED22F99AC9006C597A /* an_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AB1A2F8CE50000E4CC /* an_arrow_right@2x.png */; };
+		0E1421EE22F99AC9006C597A /* an_arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A91A2F8CC10000E4CC /* an_arrow_right@3x.png */; };
+		0E1421EF22F99AC9006C597A /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD618991981C10700AC0780 /* appnexus_logo_icon.png */; };
+		0E1421F022F99AC9006C597A /* appnexus_logo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */; };
+		0E1421F122F99AC9006C597A /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F483C1A2E33B000B0EA05 /* compass.png */; };
+		0E1421F222F99AC9006C597A /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A01A2F72D00000E4CC /* compass@2x.png */; };
+		0E1421F322F99AC9006C597A /* compass@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6CD9261A96B2FD0060BCF4 /* compass@3x.png */; };
+		0E1421F422F99AC9006C597A /* interstitial_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD2194B768A0069D934 /* interstitial_closebox.png */; };
+		0E1421F522F99AC9006C597A /* interstitial_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD3194B768A0069D934 /* interstitial_closebox@2x.png */; };
+		0E1421F622F99AC9006C597A /* interstitial_flat_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */; };
+		0E1421F722F99AC9006C597A /* interstitial_flat_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E871A44A62A003CE77A /* interstitial_flat_closebox@2x.png */; };
+		0E1421F822F99AC9006C597A /* interstitial_flat_closebox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E841A44A5D3003CE77A /* interstitial_flat_closebox@3x.png */; };
+		0E1421F922F99AC9006C597A /* UIButtonBarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD4194B768A0069D934 /* UIButtonBarArrowLeft.png */; };
+		0E1421FA22F99AC9006C597A /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD5194B768A0069D934 /* UIButtonBarArrowLeft@2x.png */; };
+		0E1421FB22F99AC9006C597A /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */; };
+		0E1421FC22F99AC9006C597A /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */; };
+		0E1421FD22F99ACA006C597A /* an_arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A61A2F8AFE0000E4CC /* an_arrow_left.png */; };
+		0E1421FE22F99ACA006C597A /* an_arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */; };
+		0E1421FF22F99ACA006C597A /* an_arrow_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */; };
+		0E14220022F99ACA006C597A /* an_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AC1A2F8CE50000E4CC /* an_arrow_right.png */; };
+		0E14220122F99ACA006C597A /* an_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AB1A2F8CE50000E4CC /* an_arrow_right@2x.png */; };
+		0E14220222F99ACA006C597A /* an_arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A91A2F8CC10000E4CC /* an_arrow_right@3x.png */; };
+		0E14220322F99ACA006C597A /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD618991981C10700AC0780 /* appnexus_logo_icon.png */; };
+		0E14220422F99ACA006C597A /* appnexus_logo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */; };
+		0E14220522F99ACA006C597A /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F483C1A2E33B000B0EA05 /* compass.png */; };
+		0E14220622F99ACA006C597A /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A01A2F72D00000E4CC /* compass@2x.png */; };
+		0E14220722F99ACA006C597A /* compass@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6CD9261A96B2FD0060BCF4 /* compass@3x.png */; };
+		0E14220D22F99ACA006C597A /* UIButtonBarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD4194B768A0069D934 /* UIButtonBarArrowLeft.png */; };
+		0E14220E22F99ACA006C597A /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD5194B768A0069D934 /* UIButtonBarArrowLeft@2x.png */; };
+		0E14220F22F99ACA006C597A /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */; };
+		0E14221022F99ACA006C597A /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */; };
+		0E14221122F99AD4006C597A /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
+		0E14221222F99AD6006C597A /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
+		0E14221322F99AE2006C597A /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACC194B768A0069D934 /* ANInterstitialAdViewController.xib */; };
+		0E14221422F99AE7006C597A /* anjam.js in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACD194B768A0069D934 /* anjam.js */; };
+		0E14221522F99AE9006C597A /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
+		0E14221622F99AEC006C597A /* ASTMediationManager.js in Resources */ = {isa = PBXBuildFile; fileRef = 609733001E42EAFF0061EC0A /* ASTMediationManager.js */; };
+		0E14221722F99AEE006C597A /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACE194B768A0069D934 /* errors.strings */; };
+		0E14221822F99AF3006C597A /* MobileVastPlayer.js in Resources */ = {isa = PBXBuildFile; fileRef = 60AB32891E521FE500429ED7 /* MobileVastPlayer.js */; };
+		0E14221922F99AFB006C597A /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE97DA21764ACD007DADE6 /* omsdk.js */; };
+		0E14221A22F99AFD006C597A /* sdkjs.js in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD9194B768A0069D934 /* sdkjs.js */; };
+		0E14221B22F99AFF006C597A /* optionsparser.js in Resources */ = {isa = PBXBuildFile; fileRef = 60D39E0F2256EE420029F741 /* optionsparser.js */; };
+		0E14221C22F99B02006C597A /* vastVideo.html in Resources */ = {isa = PBXBuildFile; fileRef = 4F403A6D2043C8CF00EF75A2 /* vastVideo.html */; };
+		0E14221D22F99B04006C597A /* nativeRenderer.html in Resources */ = {isa = PBXBuildFile; fileRef = 0E291F3622A075A300C9A851 /* nativeRenderer.html */; };
 		0E290E4422844DEC00468327 /* ANRTBNativeAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E290E4122844DEC00468327 /* ANRTBNativeAdResponse.m */; };
 		0E290E4522844DEC00468327 /* ANRTBNativeAdResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E290E4222844DEC00468327 /* ANRTBNativeAdResponse.h */; };
-		0E291F3722A075A300C9A851 /* nativeRenderer.html in Resources */ = {isa = PBXBuildFile; fileRef = 0E291F3622A075A300C9A851 /* nativeRenderer.html */; };
 		0E7BC1CC229FC727002F41FF /* ANNativeRenderingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7BC1C9229FC71D002F41FF /* ANNativeRenderingViewController.m */; };
 		0E9F613620FFDCD7009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E9F613420FFDC3B009AECD8 /* ANNativeMediatedAdResponse+PrivateMethods.h */; };
 		0EBE633A208F765E0008F4CC /* ANGDPRSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E35D4A92088F652000A6C27 /* ANGDPRSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0ECF336322D79A62007DB185 /* AppNexusNativeSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ECF335D22D79A61007DB185 /* AppNexusNativeSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0ECF336622D79A62007DB185 /* AppNexusSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ECF336022D79A62007DB185 /* AppNexusSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0ED85345208A94F200A5FFA0 /* ANGDPRSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35D4AC2088F67E000A6C27 /* ANGDPRSettings.m */; };
-		0EEE97DB21764ACD007DADE6 /* omsdk.js in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE97DA21764ACD007DADE6 /* omsdk.js */; };
 		0EEE97F521768358007DADE6 /* libOMSDKAppnexus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EEE97F321768358007DADE6 /* libOMSDKAppnexus.a */; };
 		0EF636D322D7726000D3320F /* ANProxyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F403A6E2043C91100EF75A2 /* vastVideo.html in Resources */ = {isa = PBXBuildFile; fileRef = 4F403A6D2043C8CF00EF75A2 /* vastVideo.html */; };
 		4F7332821FC35BBD00A206A2 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F5B80571FBBAA3E0026F8B3 /* AVKit.framework */; };
 		4F7332861FC35D5A00A206A2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7332851FC35D5A00A206A2 /* AVFoundation.framework */; };
 		60183FD52293482700CFDE33 /* ANWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60183FD222933E9500CFDE33 /* ANWebView.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -79,9 +124,6 @@
 		609733061E42EAFF0061EC0A /* ANInstreamVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FC1E42EAFF0061EC0A /* ANInstreamVideoAd.m */; };
 		609733071E42EAFF0061EC0A /* ANVideoAdPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 609732FD1E42EAFF0061EC0A /* ANVideoAdPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 609732FE1E42EAFF0061EC0A /* ANVideoAdPlayer.m */; };
-		609733141E42EB0B0061EC0A /* ASTMediationManager.js in Resources */ = {isa = PBXBuildFile; fileRef = 609733001E42EAFF0061EC0A /* ASTMediationManager.js */; };
-		60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */ = {isa = PBXBuildFile; fileRef = 60AB32891E521FE500429ED7 /* MobileVastPlayer.js */; };
-		60D39E112256EE430029F741 /* optionsparser.js in Resources */ = {isa = PBXBuildFile; fileRef = 60D39E0F2256EE420029F741 /* optionsparser.js */; };
 		60D39E1522570FE20029F741 /* ANVideoPlayerSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60D39E1722570FE20029F741 /* ANVideoPlayerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E1422570FE20029F741 /* ANVideoPlayerSettings.m */; };
 		60D39E2922679E480029F741 /* ANVideoPlayerSettings+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D39E26226798D50029F741 /* ANVideoPlayerSettings+ANCategory.h */; };
@@ -91,21 +133,8 @@
 		8A02D7091D6CE946006831A3 /* ANSDKSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A02D6FF1D6CE946006831A3 /* ANSDKSettings.m */; };
 		8A2F48241A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A2F48211A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A2F48261A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2F48221A2E255600B0EA05 /* ANOpenInExternalBrowserActivity.m */; };
-		8A2F483D1A2E33B000B0EA05 /* compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A2F483C1A2E33B000B0EA05 /* compass.png */; };
-		8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8A3EC16F19B8FDC70049CD29 /* ANMRAID.bundle */; };
-		8A4FF3A11A2F72D00000E4CC /* compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A01A2F72D00000E4CC /* compass@2x.png */; };
-		8A4FF3A41A2F8ACC0000E4CC /* an_arrow_left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A31A2F8ACC0000E4CC /* an_arrow_left@3x.png */; };
-		8A4FF3A71A2F8AFE0000E4CC /* an_arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A51A2F8AFE0000E4CC /* an_arrow_left@2x.png */; };
-		8A4FF3A81A2F8AFE0000E4CC /* an_arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A61A2F8AFE0000E4CC /* an_arrow_left.png */; };
-		8A4FF3AA1A2F8CC10000E4CC /* an_arrow_right@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3A91A2F8CC10000E4CC /* an_arrow_right@3x.png */; };
-		8A4FF3AD1A2F8CE50000E4CC /* an_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AB1A2F8CE50000E4CC /* an_arrow_right@2x.png */; };
-		8A4FF3AE1A2F8CE50000E4CC /* an_arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A4FF3AC1A2F8CE50000E4CC /* an_arrow_right.png */; };
 		8A598F8B1A1EA061009BA879 /* ANNativeStandardAdResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A598F881A1EA061009BA879 /* ANNativeStandardAdResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A598F8D1A1EA061009BA879 /* ANNativeStandardAdResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A598F891A1EA061009BA879 /* ANNativeStandardAdResponse.m */; };
-		8A6CD9271A96B2FD0060BCF4 /* compass@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6CD9261A96B2FD0060BCF4 /* compass@3x.png */; };
-		8A6D2E8D1A44A751003CE77A /* interstitial_flat_closebox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E841A44A5D3003CE77A /* interstitial_flat_closebox@3x.png */; };
-		8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E871A44A62A003CE77A /* interstitial_flat_closebox@2x.png */; };
-		8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A6D2E881A44A62A003CE77A /* interstitial_flat_closebox.png */; };
 		8A84E42E1A25350800C60EAB /* ANNativeAdResponse+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A84E42A1A2534F300C60EAB /* ANNativeAdResponse+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8A92F9EB1D05E1B500F689C7 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A92F9EA1D05E1B500F689C7 /* WebKit.framework */; };
 		8A9AEDB11A1BE8C200C58BDA /* ANAdConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ABB76691A00385C00FEAD9D /* ANAdConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -189,9 +218,6 @@
 		8AC65F701A40DE74006BCF39 /* ANMRAIDResizeViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F481A40DE63006BCF39 /* ANMRAIDResizeViewManager.m */; };
 		8AC65F711A40DE74006BCF39 /* ANMRAIDUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AC65F491A40DE63006BCF39 /* ANMRAIDUtil.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8AC65F721A40DE74006BCF39 /* ANMRAIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC65F4A1A40DE63006BCF39 /* ANMRAIDUtil.m */; };
-		8AD618E31981C19100AC0780 /* appnexus_logo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD618991981C10700AC0780 /* appnexus_logo_icon.png */; };
-		8AD618E41981C19500AC0780 /* appnexus_logo_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6189A1981C10700AC0780 /* appnexus_logo_icon@2x.png */; };
-		8ADA36201A82A8D700AF65AA /* AppNexusSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EC48177B1845046A0066BBFE /* AppNexusSDKResources.bundle */; };
 		8AE5E11E1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AE5E11C1A2FDC7700FDE858 /* ANAdView+PrivateMethods.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8AE7AD9F1A7AC4F6009E2F2F /* ANAdWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC7C5371A3B5CEF00AA5548 /* ANAdWebViewController.m */; };
 		8AF5A8851ACC60D50089C529 /* ANStandardAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AF5A87D1ACC60D50089C529 /* ANStandardAd.h */; };
@@ -209,16 +235,6 @@
 		97EC51EF2229782B00B740DF /* ANVerificationScriptResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EC51EC2229782B00B740DF /* ANVerificationScriptResource.m */; };
 		9EEE4E50214FD2100056C5DD /* ANCarrierObserver.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */; };
 		9EEE4E52214FD2100056C5DD /* ANCarrierObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */; };
-		ECE4EB04194B76960069D934 /* ANInterstitialAdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACC194B768A0069D934 /* ANInterstitialAdViewController.xib */; };
-		ECE4EB05194B76960069D934 /* anjam.js in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACD194B768A0069D934 /* anjam.js */; };
-		ECE4EB06194B76960069D934 /* errors.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EACE194B768A0069D934 /* errors.strings */; };
-		ECE4EB09194B76960069D934 /* interstitial_closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD2194B768A0069D934 /* interstitial_closebox.png */; };
-		ECE4EB0A194B76960069D934 /* interstitial_closebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD3194B768A0069D934 /* interstitial_closebox@2x.png */; };
-		ECE4EB0B194B76960069D934 /* UIButtonBarArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD4194B768A0069D934 /* UIButtonBarArrowLeft.png */; };
-		ECE4EB0C194B76960069D934 /* UIButtonBarArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD5194B768A0069D934 /* UIButtonBarArrowLeft@2x.png */; };
-		ECE4EB0D194B76960069D934 /* UIButtonBarArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD6194B768A0069D934 /* UIButtonBarArrowRight.png */; };
-		ECE4EB0E194B76960069D934 /* UIButtonBarArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD7194B768A0069D934 /* UIButtonBarArrowRight@2x.png */; };
-		ECE4EB10194B76960069D934 /* sdkjs.js in Resources */ = {isa = PBXBuildFile; fileRef = ECE4EAD9194B768A0069D934 /* sdkjs.js */; };
 		F52B044122AECD6B00985B62 /* NSObject+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */; };
 		F52B044222AECD6F00985B62 /* NSObject+ANCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 608E477C1F8EAB84009BB148 /* NSObject+ANCategory.m */; };
 		F52F82EB2293362600F4578C /* NSObject+ANCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 608E477B1F8EAB84009BB148 /* NSObject+ANCategory.h */; };
@@ -310,21 +326,9 @@
 		F5731BCD228DD90B0012B134 /* ANNativeAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731BCC228DD90B0012B134 /* ANNativeAdFetcher.h */; };
 		F5731BCE228F07F30012B134 /* ANNativeAdFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = F5731BCC228DD90B0012B134 /* ANNativeAdFetcher.h */; };
 		F5731BCF228F07FC0012B134 /* ANNativeAdFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = F5731BCA228DD8E60012B134 /* ANNativeAdFetcher.m */; };
-		FC210A2E2007D529002A9F0E /* ANBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A302007D529002A9F0E /* ANBrowserViewController.xib */; };
-		FC210A312007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC210A332007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib */; };
 		FCC5DA5F2034AD35003DC7B2 /* ANBaseAdObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC5DA5C2034ABFB003DC7B2 /* ANBaseAdObject.m */; };
 		FCC5DA612034AD3E003DC7B2 /* ANBaseAdObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FCC5DA5D2034ABFC003DC7B2 /* ANBaseAdObject.h */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		8A9AEDAD1A1BE8AA00C58BDA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC3E5CD41843C6D50070315E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC48177A1845046A0066BBFE;
-			remoteInfo = ANSDKResources;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0030D6E320E5414D003B7C1D /* OMIDAdSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMIDAdSession.h; sourceTree = "<group>"; };
@@ -525,7 +529,6 @@
 		97EC51EC2229782B00B740DF /* ANVerificationScriptResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVerificationScriptResource.m; sourceTree = "<group>"; };
 		9EEE4E4E214FD2100056C5DD /* ANCarrierObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ANCarrierObserver.h; sourceTree = "<group>"; };
 		9EEE4E4F214FD2100056C5DD /* ANCarrierObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANCarrierObserver.m; sourceTree = "<group>"; };
-		EC48177B1845046A0066BBFE /* AppNexusSDKResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppNexusSDKResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECE4EA8D194B768A0069D934 /* ANAdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdProtocol.h; sourceTree = "<group>"; };
 		ECE4EA8E194B768A0069D934 /* ANAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANAdView.h; sourceTree = "<group>"; };
 		ECE4EA8F194B768A0069D934 /* ANBannerAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANBannerAdView.h; sourceTree = "<group>"; };
@@ -576,13 +579,6 @@
 				8AFC04671A2E752E00BEA485 /* SystemConfiguration.framework in Frameworks */,
 				8AFC045F1A2E74AC00BEA485 /* UIKit.framework in Frameworks */,
 				8A92F9EB1D05E1B500F689C7 /* WebKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EC4817781845046A0066BBFE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,7 +901,6 @@
 		EC3E5CDD1843C6D50070315E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EC48177B1845046A0066BBFE /* AppNexusSDKResources.bundle */,
 				8A9AED8C1A1BE84F00C58BDA /* AppNexusSDK.framework */,
 				F5731AFD228B43570012B134 /* AppNexusNativeSDK.framework */,
 			);
@@ -1157,29 +1152,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				8A9AEDAE1A1BE8AA00C58BDA /* PBXTargetDependency */,
 			);
 			name = AppNexusSDK;
 			productName = AppNexusSDK;
 			productReference = 8A9AED8C1A1BE84F00C58BDA /* AppNexusSDK.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		EC48177A1845046A0066BBFE /* AppNexusSDKResources */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EC4817851845046A0066BBFE /* Build configuration list for PBXNativeTarget "AppNexusSDKResources" */;
-			buildPhases = (
-				EC4817771845046A0066BBFE /* Sources */,
-				EC4817781845046A0066BBFE /* Frameworks */,
-				EC4817791845046A0066BBFE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AppNexusSDKResources;
-			productName = ANSDKResources;
-			productReference = EC48177B1845046A0066BBFE /* AppNexusSDKResources.bundle */;
-			productType = "com.apple.product-type.bundle";
 		};
 		F5731AFC228B43570012B134 /* AppNexusNativeSDK */ = {
 			isa = PBXNativeTarget;
@@ -1232,7 +1209,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EC48177A1845046A0066BBFE /* AppNexusSDKResources */,
 				8A9AED8B1A1BE84F00C58BDA /* AppNexusSDK */,
 				F5731AFC228B43570012B134 /* AppNexusNativeSDK */,
 			);
@@ -1244,47 +1220,39 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8ADA36201A82A8D700AF65AA /* AppNexusSDKResources.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EC4817791845046A0066BBFE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A4FF3A81A2F8AFE0000E4CC /* an_arrow_left.png in Resources */,
-				8A4FF3A71A2F8AFE0000E4CC /* an_arrow_left@2x.png in Resources */,
-				8A4FF3A41A2F8ACC0000E4CC /* an_arrow_left@3x.png in Resources */,
-				8A4FF3AE1A2F8CE50000E4CC /* an_arrow_right.png in Resources */,
-				8A4FF3AD1A2F8CE50000E4CC /* an_arrow_right@2x.png in Resources */,
-				8A4FF3AA1A2F8CC10000E4CC /* an_arrow_right@3x.png in Resources */,
-				FC210A2E2007D529002A9F0E /* ANBrowserViewController.xib in Resources */,
-				FC210A312007D52C002A9F0E /* ANBrowserViewController_SizeClasses.xib in Resources */,
-				ECE4EB04194B76960069D934 /* ANInterstitialAdViewController.xib in Resources */,
-				ECE4EB05194B76960069D934 /* anjam.js in Resources */,
-				8A3EC17019B8FDCA0049CD29 /* ANMRAID.bundle in Resources */,
-				8AD618E31981C19100AC0780 /* appnexus_logo_icon.png in Resources */,
-				8AD618E41981C19500AC0780 /* appnexus_logo_icon@2x.png in Resources */,
-				609733141E42EB0B0061EC0A /* ASTMediationManager.js in Resources */,
-				8A2F483D1A2E33B000B0EA05 /* compass.png in Resources */,
-				8A4FF3A11A2F72D00000E4CC /* compass@2x.png in Resources */,
-				8A6CD9271A96B2FD0060BCF4 /* compass@3x.png in Resources */,
-				ECE4EB06194B76960069D934 /* errors.strings in Resources */,
-				ECE4EB09194B76960069D934 /* interstitial_closebox.png in Resources */,
-				ECE4EB0A194B76960069D934 /* interstitial_closebox@2x.png in Resources */,
-				60D39E112256EE430029F741 /* optionsparser.js in Resources */,
-				8A6D2E8F1A44A751003CE77A /* interstitial_flat_closebox.png in Resources */,
-				0E291F3722A075A300C9A851 /* nativeRenderer.html in Resources */,
-				8A6D2E8E1A44A751003CE77A /* interstitial_flat_closebox@2x.png in Resources */,
-				8A6D2E8D1A44A751003CE77A /* interstitial_flat_closebox@3x.png in Resources */,
-				60AB328B1E521FE500429ED7 /* MobileVastPlayer.js in Resources */,
-				0EEE97DB21764ACD007DADE6 /* omsdk.js in Resources */,
-				ECE4EB10194B76960069D934 /* sdkjs.js in Resources */,
-				ECE4EB0B194B76960069D934 /* UIButtonBarArrowLeft.png in Resources */,
-				ECE4EB0C194B76960069D934 /* UIButtonBarArrowLeft@2x.png in Resources */,
-				ECE4EB0D194B76960069D934 /* UIButtonBarArrowRight.png in Resources */,
-				ECE4EB0E194B76960069D934 /* UIButtonBarArrowRight@2x.png in Resources */,
-				4F403A6E2043C91100EF75A2 /* vastVideo.html in Resources */,
+				0E1421EA22F99AC9006C597A /* an_arrow_left@2x.png in Resources */,
+				0E1421FC22F99AC9006C597A /* UIButtonBarArrowRight@2x.png in Resources */,
+				0E1421FB22F99AC9006C597A /* UIButtonBarArrowRight.png in Resources */,
+				0E14221922F99AFB006C597A /* omsdk.js in Resources */,
+				0E14221522F99AE9006C597A /* ANMRAID.bundle in Resources */,
+				0E1421F522F99AC9006C597A /* interstitial_closebox@2x.png in Resources */,
+				0E14221C22F99B02006C597A /* vastVideo.html in Resources */,
+				0E1421E922F99AC9006C597A /* an_arrow_left.png in Resources */,
+				0E1421F922F99AC9006C597A /* UIButtonBarArrowLeft.png in Resources */,
+				0E1421F022F99AC9006C597A /* appnexus_logo_icon@2x.png in Resources */,
+				0E1421F322F99AC9006C597A /* compass@3x.png in Resources */,
+				0E14221A22F99AFD006C597A /* sdkjs.js in Resources */,
+				0E14221822F99AF3006C597A /* MobileVastPlayer.js in Resources */,
+				0E14221222F99AD6006C597A /* ANBrowserViewController_SizeClasses.xib in Resources */,
+				0E1421EB22F99AC9006C597A /* an_arrow_left@3x.png in Resources */,
+				0E14221422F99AE7006C597A /* anjam.js in Resources */,
+				0E1421EE22F99AC9006C597A /* an_arrow_right@3x.png in Resources */,
+				0E1421EF22F99AC9006C597A /* appnexus_logo_icon.png in Resources */,
+				0E1421ED22F99AC9006C597A /* an_arrow_right@2x.png in Resources */,
+				0E14221722F99AEE006C597A /* errors.strings in Resources */,
+				0E1421F122F99AC9006C597A /* compass.png in Resources */,
+				0E14221D22F99B04006C597A /* nativeRenderer.html in Resources */,
+				0E14221622F99AEC006C597A /* ASTMediationManager.js in Resources */,
+				0E1421EC22F99AC9006C597A /* an_arrow_right.png in Resources */,
+				0E14221B22F99AFF006C597A /* optionsparser.js in Resources */,
+				0E14221322F99AE2006C597A /* ANInterstitialAdViewController.xib in Resources */,
+				0E1421F622F99AC9006C597A /* interstitial_flat_closebox.png in Resources */,
+				0E1421FA22F99AC9006C597A /* UIButtonBarArrowLeft@2x.png in Resources */,
+				0E14221122F99AD4006C597A /* ANBrowserViewController.xib in Resources */,
+				0E1421F722F99AC9006C597A /* interstitial_flat_closebox@2x.png in Resources */,
+				0E1421F822F99AC9006C597A /* interstitial_flat_closebox@3x.png in Resources */,
+				0E1421F422F99AC9006C597A /* interstitial_closebox.png in Resources */,
+				0E1421F222F99AC9006C597A /* compass@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,9 +1261,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				F52F83142295DCA500F4578C /* ANBrowserViewController.xib in Resources */,
+				0E1421FD22F99ACA006C597A /* an_arrow_left.png in Resources */,
+				0E14220422F99ACA006C597A /* appnexus_logo_icon@2x.png in Resources */,
+				0E14220622F99ACA006C597A /* compass@2x.png in Resources */,
+				0E14220322F99ACA006C597A /* appnexus_logo_icon.png in Resources */,
+				0E14220E22F99ACA006C597A /* UIButtonBarArrowLeft@2x.png in Resources */,
+				0E1421FE22F99ACA006C597A /* an_arrow_left@2x.png in Resources */,
+				0E14220222F99ACA006C597A /* an_arrow_right@3x.png in Resources */,
+				0E14220022F99ACA006C597A /* an_arrow_right.png in Resources */,
+				0E14220D22F99ACA006C597A /* UIButtonBarArrowLeft.png in Resources */,
+				0E14220F22F99ACA006C597A /* UIButtonBarArrowRight.png in Resources */,
 				F52F83152295DCA500F4578C /* ANBrowserViewController_SizeClasses.xib in Resources */,
+				0E14220722F99ACA006C597A /* compass@3x.png in Resources */,
+				0E14221022F99ACA006C597A /* UIButtonBarArrowRight@2x.png in Resources */,
 				F52F83162295DCA500F4578C /* errors.strings in Resources */,
+				0E14220122F99ACA006C597A /* an_arrow_right@2x.png in Resources */,
 				F52F83172295DCA500F4578C /* omsdk.js in Resources */,
+				0E1421FF22F99ACA006C597A /* an_arrow_left@3x.png in Resources */,
+				0E14220522F99ACA006C597A /* compass.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1381,13 +1364,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC4817771845046A0066BBFE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F5731AF9228B43570012B134 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1438,14 +1414,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		8A9AEDAE1A1BE8AA00C58BDA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC48177A1845046A0066BBFE /* AppNexusSDKResources */;
-			targetProxy = 8A9AEDAD1A1BE8AA00C58BDA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FC210A302007D529002A9F0E /* ANBrowserViewController.xib */ = {
@@ -1644,43 +1612,6 @@
 			};
 			name = Release;
 		};
-		EC4817861845046A0066BBFE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "$(PROJECT_DIR)/sourcefiles/Resources/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		EC4817871845046A0066BBFE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				INFOPLIST_FILE = "$(PROJECT_DIR)/sourcefiles/Resources/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
 		F5731B02228B43570012B134 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1778,15 +1709,6 @@
 			buildConfigurations = (
 				EC3E5CFD1843C6D60070315E /* Debug */,
 				EC3E5CFE1843C6D60070315E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EC4817851845046A0066BBFE /* Build configuration list for PBXNativeTarget "AppNexusSDKResources" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EC4817861845046A0066BBFE /* Debug */,
-				EC4817871845046A0066BBFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
