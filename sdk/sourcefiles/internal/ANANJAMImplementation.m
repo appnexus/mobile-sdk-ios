@@ -129,7 +129,6 @@ NSString *const kANKeyCaller = @"caller";
     
     NSURL *url = [NSURL URLWithString:urlParam];
     WKWebView *recordEventWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    //UIWebView *recordEventWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     ANRecordEventDelegate *recordEventDelegate = [ANRecordEventDelegate new];
     recordEventWebView.recordEventDelegate = recordEventDelegate;
     recordEventWebView.navigationDelegate = recordEventDelegate;
