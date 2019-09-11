@@ -256,7 +256,6 @@
 		0EEFE1FB220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FA220098C9002B5F5F /* ANMockMediationAdapterLoadAndHitOtherCallbacks.m */; };
 		0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE1FC22009CDB002B5F5F /* OMID_TestResponse.json */; };
 		60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */; };
-		60F8A7FE23280A630030D53D /* ANJAMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F8A7FC23280A630030D53D /* ANJAMTestCase.m */; };
 		60F8A7FF23280BF10030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
 		60F8A80023280C2A0030D53D /* ANReachability+ANTest.h in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C971F21FF32EB005D1F0E /* ANReachability+ANTest.h */; };
 		60F8A80C23280EC10030D53D /* ANJAMDispatchAppEventResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 60F8A80523280EC10030D53D /* ANJAMDispatchAppEventResponse.json */; };
@@ -273,6 +272,7 @@
 		60F8A81723280EC10030D53D /* ANJAMInternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 60F8A80A23280EC10030D53D /* ANJAMInternalBrowserResponse.json */; };
 		60F8A81823280EC10030D53D /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 60F8A80B23280EC10030D53D /* ANJAMExternalBrowserResponse.json */; };
 		60F8A81923280EC10030D53D /* ANJAMExternalBrowserResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 60F8A80B23280EC10030D53D /* ANJAMExternalBrowserResponse.json */; };
+		60F8A81D23293A900030D53D /* ANJAMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F8A7FC23280A630030D53D /* ANJAMTestCase.m */; };
 		973D2C1722C631B8008195C9 /* ANClickThroughTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D2C1622C631B8008195C9 /* ANClickThroughTestCase.swift */; };
 		973D2C1922C634A2008195C9 /* BannerAdClickThruViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D2C1822C634A2008195C9 /* BannerAdClickThruViewController.swift */; };
 		9781D6532225385E0083FFF4 /* native_videoResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EEFE10922005555002B5F5F /* native_videoResponse.json */; };
@@ -1063,7 +1063,6 @@
 			isa = PBXGroup;
 			children = (
 				0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */,
-				60F8A7FC23280A630030D53D /* ANJAMTestCase.m */,
 				60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */,
 				97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */,
 				0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */,
@@ -1087,6 +1086,7 @@
 		0EC17C5E21F72EC500F0F6AF /* FunctionalTests */ = {
 			isa = PBXGroup;
 			children = (
+				60F8A7FC23280A630030D53D /* ANJAMTestCase.m */,
 				0E47015E2237A30B005CFFAC /* BannerAdResizeTestCase.m */,
 				0E2C24892236AE4D006038E1 /* MediationBannerAdResizeTestCase.m */,
 				0EEFE1B022008A0A002B5F5F /* ANSecondPriceDFPTestCase.m */,
@@ -1750,7 +1750,6 @@
 				0EEFE14622005951002B5F5F /* ANLoadAndHitOtherCallbacks.m in Sources */,
 				0EEFE11E2200581D002B5F5F /* ANAdAdapterBannerSuccessful.m in Sources */,
 				0E8C981D21FF3987005D1F0E /* ANReachabilityTestCase.m in Sources */,
-				60F8A7FE23280A630030D53D /* ANJAMTestCase.m in Sources */,
 				0EEFE18B22007696002B5F5F /* ANTestGlobal.m in Sources */,
 				0E8C97A821FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				0E8C983521FF41C4005D1F0E /* MediationTests.m in Sources */,
@@ -1788,6 +1787,7 @@
 				0EEFE1642200717E002B5F5F /* ANPublicAPITestCase.m in Sources */,
 				0E1D14B022784C0900343050 /* ANBannerNativeRenderingTestCase.m in Sources */,
 				0E8C97D021FF32EC005D1F0E /* ANTestGlobal.m in Sources */,
+				60F8A81D23293A900030D53D /* ANJAMTestCase.m in Sources */,
 				0E44C40122D7388100DF68D0 /* XCTestCase+ANBannerAdView.m in Sources */,
 				0EEFE19A22008124002B5F5F /* ANNativeAdRequest+ANTest.m in Sources */,
 				0EEFE16D2200721F002B5F5F /* ANVideoAdPlayer+Test.m in Sources */,
