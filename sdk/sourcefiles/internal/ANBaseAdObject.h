@@ -25,6 +25,6 @@
 
 @property (nonatomic, readwrite, strong)  NSString              *adType;
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionUrls;
-@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *anSingleUnifiedObject;
+@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *unifiedObject;
 
 @end

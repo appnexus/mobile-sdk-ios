@@ -36,4 +36,6 @@
 - (void)loadAdFromVast: (NSString *)xml width: (int)width
                 height: (int)height;
 
+- (void)setUnifiedObject:(ANSingleUnifiedObject *)unifiedObject;
+
 @end

@@ -348,9 +348,9 @@ static NSString *const kANInline = @"inline";
         self.contentView = nil;
         self.impressionURLs = nil;
         
-        ANSingleUnifiedObject  *anSingleUnifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:adObjectHandler];
-        if (anSingleUnifiedObject) {
-            [self setAnSingleUnifiedObject:anSingleUnifiedObject];
+        ANSingleUnifiedObject *unifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:adObjectHandler];
+        if (unifiedObject) {
+            [self setUnifiedObject:unifiedObject];
         }
 
         NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];

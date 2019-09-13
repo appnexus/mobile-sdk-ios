@@ -67,7 +67,7 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  anSingleUnifiedObject                  = __anSingleUnifiedObject;
+@synthesize  unifiedObject                          = __unifiedObject;
 
 #pragma mark - Initialization
 
@@ -189,14 +189,14 @@
 
 #pragma mark - ANAdProtocol: Setter methods
 
-- (void)setAnSingleUnifiedObject:(ANSingleUnifiedObject *)anSingleUnifiedObject {
-    if (!anSingleUnifiedObject) {
-        ANLogError(@"Could not set anSingleUnifiedObject");
+- (void)setUnifiedObject:(ANSingleUnifiedObject *)unifiedObject {
+    if (!unifiedObject) {
+        ANLogError(@"Could not set unifiedObject");
         return;
     }
-    if (anSingleUnifiedObject != __anSingleUnifiedObject) {
-        ANLogDebug(@"Setting anSingleUnifiedObject to %@", anSingleUnifiedObject);
-        __anSingleUnifiedObject = anSingleUnifiedObject;
+    if (unifiedObject != __unifiedObject) {
+        ANLogDebug(@"Setting unifiedObject to %@", unifiedObject);
+        __unifiedObject = unifiedObject;
     }
 }
 
@@ -300,9 +300,9 @@
 
 #pragma mark - ANAdProtocol: Getter methods
 
-- (nullable ANSingleUnifiedObject *)anSingleUnifiedObject {
-    ANLogDebug(@"ANSingleUnifiedObject returned %@", __anSingleUnifiedObject);
-    return __anSingleUnifiedObject;
+- (nullable ANSingleUnifiedObject *)unifiedObject {
+    ANLogDebug(@"ANSingleUnifiedObject returned %@", __unifiedObject);
+    return __unifiedObject;
 }
 
 - (nullable NSString *)placementId {

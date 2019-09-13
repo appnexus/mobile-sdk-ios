@@ -150,7 +150,7 @@
  An AppNexus Single Unified object that will contain all the common fields of all the ads types that are returned in the UTv3 response
  */
 // ANSingleUnifiedObject should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocolUnifiedObject.
-@property (nonatomic, readonly, strong, nullable) ANSingleUnifiedObject *anSingleUnifiedObject;
+@property (nonatomic, readonly, strong, nullable) ANSingleUnifiedObject *unifiedObject;
 
 @end
 

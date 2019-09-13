@@ -228,8 +228,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     continue;
                 }
                 
-                ANSingleUnifiedObject *anSingleUnifiedObject = [[ANSingleUnifiedObject alloc] init];
-                [anSingleUnifiedObject anParseResponse:firstTag];
+                ANSingleUnifiedObject *unifiedObject = [[ANSingleUnifiedObject alloc] init];
+                unifiedObject.creativeId = creativeId;
                 
                 // RTB
                 if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
@@ -256,7 +256,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
                             ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
                             if (nativeAd) {
-                                nativeAd.anSingleUnifiedObject = anSingleUnifiedObject;
+                                nativeAd.unifiedObject = unifiedObject;
                                 if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
                                 {
                                 NSString * nativeRenderingUrl  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl]];
@@ -336,7 +336,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
                     ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
                     baseAdObject.adType = [adType copy];
-                    baseAdObject.anSingleUnifiedObject = anSingleUnifiedObject;
+                    baseAdObject.unifiedObject = unifiedObject;
                 }
 
             } //endfor -- adObject

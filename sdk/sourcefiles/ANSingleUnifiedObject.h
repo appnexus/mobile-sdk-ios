@@ -14,8 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  An AppNexus creativeID for the current creative that is displayed
  */
-@property (nonatomic, readonly, strong, nullable) NSString *creativeId;
-- (void)anParseResponse:(NSDictionary *)jsonDic;
+@property (nonatomic, readwrite, strong, nullable) NSString *creativeId;
 
 @end
 

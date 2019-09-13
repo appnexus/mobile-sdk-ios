@@ -20,7 +20,7 @@
 @interface ANCSMVideoAd : NSObject
 
 @property (nonatomic, readwrite, strong) NSDictionary *adDictionary;
-@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *anSingleUnifiedObject;
+@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *unifiedObject;
 
 
 @end
