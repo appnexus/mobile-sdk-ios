@@ -15,11 +15,12 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "ANSingleUnifiedObject.h"
 
 @interface ANCSMVideoAd : NSObject
 
 @property (nonatomic, readwrite, strong) NSDictionary *adDictionary;
-
+@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *anSingleUnifiedObject;
 
 
 @end

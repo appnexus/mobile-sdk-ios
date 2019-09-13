@@ -14,7 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "ANSingleUnifiedObject.h"
 
 
 @interface ANBaseAdObject : NSObject
@@ -24,7 +24,7 @@
 @property (nonatomic, readwrite, strong)  NSString              *width;
 
 @property (nonatomic, readwrite, strong)  NSString              *adType;
-@property (nonatomic, readwrite, strong)  NSString              *creativeId;
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionUrls;
+@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *anSingleUnifiedObject;
 
 @end

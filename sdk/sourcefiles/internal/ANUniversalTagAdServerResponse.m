@@ -25,6 +25,7 @@
 #import "ANAdConstants.h"
 #import "ANNativeStandardAdResponse.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
+#import "ANSingleUnifiedObject.h"
 
 
 static NSString *const kANUniversalTagAdServerResponseKeyNoBid = @"nobid";
@@ -227,7 +228,8 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     continue;
                 }
                 
-                
+                ANSingleUnifiedObject *anSingleUnifiedObject = [[ANSingleUnifiedObject alloc] init];
+                [anSingleUnifiedObject anParseResponse:firstTag];
                 
                 // RTB
                 if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
@@ -239,7 +241,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]) {
                             ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
                             if (standardAd) {
-                                standardAd.creativeId = creativeId;
                                 [self.ads addObject:standardAd];
                             }
 
@@ -247,7 +248,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]){
                             ANRTBVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
                             if (videoAd) {
-                                videoAd.creativeId = creativeId;
                                 videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
 
                                 [self.ads addObject:videoAd];
@@ -256,7 +256,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
                             ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
                             if (nativeAd) {
-                                nativeAd.creativeId = creativeId;
+                                nativeAd.anSingleUnifiedObject = anSingleUnifiedObject;
                                 if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
                                 {
                                 NSString * nativeRenderingUrl  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl]];
@@ -296,7 +296,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                                         mediatedAd.verificationScriptResource = verificationScriptResource;
                                     }
                                 }
-                                mediatedAd.creativeId = creativeId;
                                 if (mediatedAd.className.length > 0) {
                                     [self.ads addObject:mediatedAd];
                                 }
@@ -319,7 +318,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         if (ssmObject) {
                             ANSSMStandardAd *ssmStandardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
                             if (ssmStandardAd) {
-                                ssmStandardAd.creativeId = creativeId;
                                 [self.ads addObject:ssmStandardAd];
                             }
                         }
@@ -338,6 +336,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                 if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
                     ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
                     baseAdObject.adType = [adType copy];
+                    baseAdObject.anSingleUnifiedObject = anSingleUnifiedObject;
                 }
 
             } //endfor -- adObject

@@ -314,12 +314,7 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
     if (!response.isSuccessful) {
         [self adRequestFailedWithError:response.error];
         return;
-    }
-    NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
-    if(creativeId){
-        [self setCreativeId:creativeId];
-    }
-    
+    }    
     NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                  response.adObject,        kANInterstitialAdViewKey,
                                                  response.adObjectHandler, kANInterstitialAdObjectHandlerKey,

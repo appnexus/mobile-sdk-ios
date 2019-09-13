@@ -125,12 +125,6 @@
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
 
     //
-    if (nativeResponse.creativeId == nil) {
-        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
-        [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:kANCreativeId];
-    }
-
-    //
     dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
 
     dispatch_async(backgroundQueue,
@@ -203,13 +197,6 @@
 // NB  Some duplication between ANNativeAd* and the other entry points is inevitable because ANNativeAd* does not inherit from ANAdView.
 //
 #pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
-
-- (void)setCreativeId:(NSString *)creativeId
-             onObject:(id)object forKeyPath:(NSString *)keyPath
-{
-    [object setValue:creativeId forKeyPath:keyPath];
-}
-
 
 // RETURN:  dispatch_semaphore_t    For first time image requests.
 //          nil                     When image is cached  -OR-  if imageURL is undefined.

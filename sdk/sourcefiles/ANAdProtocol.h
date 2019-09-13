@@ -19,9 +19,10 @@
 
 #import "ANAdConstants.h"
 #import "ANLocation.h"
-
+#import "ANSingleUnifiedObject.h"
 
 @class ANLocation;
+@class ANSingleUnifiedObject;
 
 
 
@@ -143,9 +144,17 @@
 
 @end   //ANAdProtocolFoundation
 
+@protocol ANAdProtocolUnifiedObject
 
+/**
+ An AppNexus Single Unified object that will contain all the common fields of all the ads types that are returned in the UTv3 response
+ */
+// ANSingleUnifiedObject should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocolUnifiedObject.
+@property (nonatomic, readonly, strong, nullable) ANSingleUnifiedObject *anSingleUnifiedObject;
 
-@protocol ANAdProtocolBrowser
+@end
+
+@protocol ANAdProtocolBrowser<ANAdProtocolUnifiedObject>
 
 /**
  Determines what action to take when the user clicks on an ad:
@@ -205,14 +214,7 @@
 
 #pragma mark - ANAdProtocol entrypoint combinations.
 
-@protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement>
-
-/**
- An AppNexus creativeID for the current creative that is displayed
- */
-// CreativeId should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid creativeID being accessed through ANNativeAdRequest.
-@property (nonatomic, readonly, strong, nullable) NSString *creativeId;
-
+@protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdProtocolUnifiedObject>
 
 @end
 

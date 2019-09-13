@@ -29,7 +29,6 @@
 @property (nonatomic, readwrite, strong) NSURL *iconImageURL;
 @property (nonatomic, readwrite, strong) NSDictionary *customElements;
 @property (nonatomic, readwrite, strong) NSString *adObjectMediaType;
-@property (nonatomic, readwrite, strong) NSString *creativeId;
 @property (nonatomic, readwrite, strong) NSString *additionalDescription;
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *clickTrackers;
 @property (nonatomic, readwrite, strong) NSArray<NSString *> *impTrackers;
@@ -40,6 +39,6 @@
 @property (nonatomic, readwrite, strong) NSString *privacyLink;
 @property (nonatomic, readwrite, strong) NSString *nativeRenderingUrl;
 @property (nonatomic, readwrite, strong) NSString *nativeRenderingObject;
-
+@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *anSingleUnifiedObject;
 
 @end

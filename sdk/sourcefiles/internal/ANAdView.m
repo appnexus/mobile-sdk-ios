@@ -61,13 +61,13 @@
 @synthesize  gender                                 = __gender;
 @synthesize  customKeywords                         = __customKeywords;
 
-@synthesize  creativeId                             = __creativeId;
 @synthesize  adType                                 = __adType;
 @synthesize  externalUid                            = __externalUid;
 
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
+@synthesize  anSingleUnifiedObject                  = __anSingleUnifiedObject;
 
 #pragma mark - Initialization
 
@@ -189,18 +189,16 @@
 
 #pragma mark - ANAdProtocol: Setter methods
 
-- (void)setCreativeId:(NSString *)creativeId {
-    creativeId = ANConvertToNSString(creativeId);
-    if ([creativeId length] < 1) {
-        ANLogError(@"Could not set creativeId to non-string value");
+- (void)setAnSingleUnifiedObject:(ANSingleUnifiedObject *)anSingleUnifiedObject {
+    if (!anSingleUnifiedObject) {
+        ANLogError(@"Could not set anSingleUnifiedObject");
         return;
     }
-    if (creativeId != __creativeId) {
-        ANLogDebug(@"Setting creativeId to %@", creativeId);
-        __creativeId = creativeId;
+    if (anSingleUnifiedObject != __anSingleUnifiedObject) {
+        ANLogDebug(@"Setting anSingleUnifiedObject to %@", anSingleUnifiedObject);
+        __anSingleUnifiedObject = anSingleUnifiedObject;
     }
 }
-
 
 - (void)setAdType:(ANAdType)adType
 {
@@ -302,6 +300,11 @@
 
 #pragma mark - ANAdProtocol: Getter methods
 
+- (nullable ANSingleUnifiedObject *)anSingleUnifiedObject {
+    ANLogDebug(@"ANSingleUnifiedObject returned %@", __anSingleUnifiedObject);
+    return __anSingleUnifiedObject;
+}
+
 - (nullable NSString *)placementId {
     ANLogDebug(@"placementId returned %@", __placementId);
     return __placementId;
@@ -350,11 +353,6 @@
 - (ANGender)gender {
     ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
     return __gender;
-}
-
-- (nullable NSString *)creativeId {
-    ANLogDebug(@"Creative Id returned %@", __creativeId);
-    return __creativeId;
 }
 
 -(nullable NSString *)externalUid {

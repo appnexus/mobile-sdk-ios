@@ -348,9 +348,9 @@ static NSString *const kANInline = @"inline";
         self.contentView = nil;
         self.impressionURLs = nil;
         
-        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
-        if (creativeId) {
-             [self setCreativeId:creativeId];
+        ANSingleUnifiedObject  *anSingleUnifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:adObjectHandler];
+        if (anSingleUnifiedObject) {
+            [self setAnSingleUnifiedObject:anSingleUnifiedObject];
         }
 
         NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];
@@ -403,7 +403,6 @@ static NSString *const kANInline = @"inline";
         } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
             ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
 
-            self.creativeId  = nativeAdResponse.creativeId;
             self.adType      = ANAdTypeNative;
 
             nativeAdResponse.clickThroughAction           = self.clickThroughAction;

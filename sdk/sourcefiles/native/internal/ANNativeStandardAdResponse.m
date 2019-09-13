@@ -59,12 +59,12 @@
 @synthesize networkCode = _networkCode;
 @synthesize expired = _expired;
 @synthesize sponsoredBy = _sponsoredBy;
-@synthesize creativeId = _creativeId;
 @synthesize additionalDescription = _additionalDescription;
 @synthesize vastXML = _vastXML;
 @synthesize privacyLink = _privacyLink;
 @synthesize nativeRenderingUrl = _nativeRenderingUrl;
 @synthesize nativeRenderingObject = _nativeRenderingObject;
+@synthesize anSingleUnifiedObject = _anSingleUnifiedObject;
 
 
 #pragma mark - Lifecycle.
