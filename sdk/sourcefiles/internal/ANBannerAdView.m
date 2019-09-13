@@ -36,7 +36,6 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANNativeRenderingViewController.h"
 
-static NSString *const kANAdType = @"adType";
 static NSString *const kANBannerWidth = @"width";
 static NSString *const kANBannerHeight = @"height";
 static NSString *const kANInline = @"inline";
@@ -71,6 +70,7 @@ static NSString *const kANInline = @"inline";
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
 @synthesize  enableNativeRendering           = _enableNativeRendering;
+@synthesize  unifiedObject           = _unifiedObject;
 
 #pragma mark - Lifecycle.
 
@@ -348,14 +348,9 @@ static NSString *const kANInline = @"inline";
         self.contentView = nil;
         self.impressionURLs = nil;
         
-        ANSingleUnifiedObject *unifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:adObjectHandler];
-        if (unifiedObject) {
-            [self setUnifiedObject:unifiedObject];
-        }
-
-        NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];
-        if (adTypeString) {
-            [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
+        _unifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:adObjectHandler];
+        if (_unifiedObject) {
+            [self setUnifiedObject:_unifiedObject];
         }
 
         if ([adObject isKindOfClass:[UIView class]])
@@ -381,7 +376,7 @@ static NSString *const kANInline = @"inline";
             }
             [self adDidReceiveAd:self];
 
-            if ([self adType] == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
+            if (_unifiedObject.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
                 
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
@@ -402,8 +397,6 @@ static NSString *const kANInline = @"inline";
 
         } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
             ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
-
-            self.adType      = ANAdTypeNative;
 
             nativeAdResponse.clickThroughAction           = self.clickThroughAction;
             nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;
@@ -524,7 +517,7 @@ static NSString *const kANInline = @"inline";
 
 - (void)didMoveToWindow
 {
-    if (self.contentView  && ( [self adType] == ANAdTypeBanner)) {
+    if (self.contentView  && ( _unifiedObject.adType == ANAdTypeBanner)) {
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
         self.impressionURLs = nil;
         

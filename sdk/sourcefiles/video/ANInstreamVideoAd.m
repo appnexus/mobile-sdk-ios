@@ -402,6 +402,11 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     if ([response.adObject isKindOfClass:[ANVideoAdPlayer class]]) {
         self.adPlayer = (ANVideoAdPlayer *) response.adObject;
         self.adPlayer.delegate = self;
+        
+        ANSingleUnifiedObject *unifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:response.adObjectHandler];
+        if (unifiedObject) {
+            [self setUnifiedObject:unifiedObject];
+        }
 
         [self videoAdReady];
 

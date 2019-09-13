@@ -61,7 +61,6 @@
 @synthesize  gender                                 = __gender;
 @synthesize  customKeywords                         = __customKeywords;
 
-@synthesize  adType                                 = __adType;
 @synthesize  externalUid                            = __externalUid;
 
 @synthesize  clickThroughAction                     = __clickThroughAction;
@@ -197,14 +196,6 @@
     if (unifiedObject != __unifiedObject) {
         ANLogDebug(@"Setting unifiedObject to %@", unifiedObject);
         __unifiedObject = unifiedObject;
-    }
-}
-
-- (void)setAdType:(ANAdType)adType
-{
-    if (adType != __adType) {
-        ANLogDebug(@"Setting adType to %@", @(adType));
-        __adType = adType;
     }
 }
 
@@ -484,7 +475,7 @@
 {
     ANLogDebug(@"");
 
-    if (ANAdTypeVideo != self.adType) {
+    if (ANAdTypeVideo != __unifiedObject.adType) {
         [self.universalAdFetcher restartAutoRefreshTimer];
         [self.universalAdFetcher startAutoRefreshTimer];
     }

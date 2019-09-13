@@ -90,13 +90,6 @@
 @property (nonatomic, readwrite, strong, nullable) NSString *externalUid;
 
 /**
- Report the Ad Type of the returned ad object.
- Not available until load is complete and successful.
- */
-@property (nonatomic, readwrite)  ANAdType  adType;
-
-
-/**
  Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */

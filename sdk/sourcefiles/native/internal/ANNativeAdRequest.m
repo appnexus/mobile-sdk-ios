@@ -51,7 +51,6 @@
 @synthesize  customKeywords  = __customKeywords;
 @synthesize  externalUid     = __externalUid;
 
-@synthesize  adType          = __adType;
 @synthesize  rendererId      = _rendererId;
 
 

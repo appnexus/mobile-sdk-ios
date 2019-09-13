@@ -26,6 +26,7 @@
 #import "ANNativeStandardAdResponse.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANSingleUnifiedObject.h"
+#import "ANGlobal.h"
 
 
 static NSString *const kANUniversalTagAdServerResponseKeyNoBid = @"nobid";
@@ -38,6 +39,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyAdsContentSource = @"co
 static NSString *const kANUniversalTagAdServerResponseKeyAdsAdType = @"ad_type";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCreativeId = @"creative_id";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsRendererUrl = @"renderer_url";
+static NSString *const kANUniversalTagAdServerResponseKeyAdsTagId = @"tag_id";
 
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCSMObject = @"csm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
@@ -227,9 +229,16 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     ANLogError(@"Response from ad server in an unexpected format content_source/ad_type UNDEFINED.  (adObject=%@)", adObject);
                     continue;
                 }
+                NSString *tagId  = @"";
+                if(firstTag[kANUniversalTagAdServerResponseKeyAdsTagId] != nil)
+                {
+                    tagId  = [NSString stringWithFormat:@"%@",firstTag[kANUniversalTagAdServerResponseKeyAdsTagId]];
+                }
                 
                 ANSingleUnifiedObject *unifiedObject = [[ANSingleUnifiedObject alloc] init];
                 unifiedObject.creativeId = creativeId;
+                unifiedObject.tagId = tagId;
+                unifiedObject.adType = [ANGlobal adTypeStringToEnum:adType];
                 
                 // RTB
                 if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
@@ -335,7 +344,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
                 if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
                     ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
-                    baseAdObject.adType = [adType copy];
                     baseAdObject.unifiedObject = unifiedObject;
                 }
 

@@ -12,6 +12,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyAdsCreativeId = @"creat
 
 @implementation ANSingleUnifiedObject
 
-@synthesize  creativeId                             = __creativeId;
+@synthesize  creativeId, adType, tagId;
 
 @end

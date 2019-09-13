@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ANAdConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
  An AppNexus creativeID for the current creative that is displayed
  */
 @property (nonatomic, readwrite, strong, nullable) NSString *creativeId;
+
+/**
+ Report the Ad Type of the returned ad object.
+ Not available until load is complete and successful.
+ */
+@property (nonatomic, readwrite)  ANAdType  adType;
+
+@property (nonatomic, readwrite)  NSString  *tagId;
 
 @end
 

@@ -23,7 +23,6 @@
 @property (nonatomic, readwrite, strong)  NSString              *height;
 @property (nonatomic, readwrite, strong)  NSString              *width;
 
-@property (nonatomic, readwrite, strong)  NSString              *adType;
 @property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionUrls;
 @property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *unifiedObject;
 
