@@ -22,7 +22,6 @@
 #import "ANSingleUnifiedObject.h"
 
 @class ANLocation;
-@class ANSingleUnifiedObject;
 
 
 

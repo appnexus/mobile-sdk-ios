@@ -122,6 +122,14 @@
     //
     __weak ANNativeAdRequest  *weakSelf        = self;
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
+    
+    // In case of Mediation
+    if (nativeResponse.unifiedObject == nil) {
+        ANSingleUnifiedObject *unifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:response.adObjectHandler];
+        if (unifiedObject) {
+            [self setUnifiedObject:unifiedObject onObject:nativeResponse forKeyPath:kANSingleUnifiedObject];
+        }
+    }
 
     //
     dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
@@ -196,6 +204,12 @@
 // NB  Some duplication between ANNativeAd* and the other entry points is inevitable because ANNativeAd* does not inherit from ANAdView.
 //
 #pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
+
+- (void)setUnifiedObject:(ANSingleUnifiedObject *)unifiedObject
+             onObject:(id)object forKeyPath:(NSString *)keyPath
+{
+    [object setValue:unifiedObject forKeyPath:keyPath];
+}
 
 // RETURN:  dispatch_semaphore_t    For first time image requests.
 //          nil                     When image is cached  -OR-  if imageURL is undefined.
