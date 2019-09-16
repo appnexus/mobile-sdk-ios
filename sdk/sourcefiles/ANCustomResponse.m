@@ -15,8 +15,6 @@
 
 #import "ANCustomResponse.h"
 
-static NSString *const kANUniversalTagAdServerResponseKeyAdsCreativeId = @"creative_id";
-
 @implementation ANCustomResponse
 
 @synthesize  creativeId, adType, tagId;

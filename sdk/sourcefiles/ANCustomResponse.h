@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readwrite)  ANAdType  adType;
 
+/**
+ An AppNexus tagId for the current ad object that is displayed
+ */
 @property (nonatomic, readwrite)  NSString  *tagId;
 
 @end
