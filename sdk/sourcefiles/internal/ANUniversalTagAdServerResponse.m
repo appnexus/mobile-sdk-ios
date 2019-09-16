@@ -313,6 +313,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]) {
                         ANCSMVideoAd *csmVideoAd = [[self class] videoCSMAdFromCSMObject:adObject withTagObject:firstTag];
                         if(csmVideoAd){
+                            csmVideoAd.unifiedObject = unifiedObject;
                             [self.ads addObject:csmVideoAd];
                         }
                     }else{
