@@ -16,8 +16,6 @@
 #import <Foundation/Foundation.h>
 #import "ANAdConstants.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface ANCustomResponse : NSObject
 /**
  An AppNexus creativeID for the current creative that is displayed
@@ -31,10 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite)  ANAdType  adType;
 
 /**
- An AppNexus tagId for the current ad object that is displayed
+ An AppNexus tagId for the current ad object which is placementID that is displayed
  */
-@property (nonatomic, readwrite)  NSString  *tagId;
+@property (nonatomic, readwrite, strong, nullable)  NSString  *tagId;
 
 @end
 
-NS_ASSUME_NONNULL_END
