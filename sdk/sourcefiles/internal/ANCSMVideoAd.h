@@ -15,12 +15,12 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANSingleUnifiedObject.h"
+#import "ANCustomResponse.h"
 
 @interface ANCSMVideoAd : NSObject
 
 @property (nonatomic, readwrite, strong) NSDictionary *adDictionary;
-@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *unifiedObject;
+@property (nonatomic, readwrite, strong)  ANCustomResponse *customResponse;
 
 
 @end

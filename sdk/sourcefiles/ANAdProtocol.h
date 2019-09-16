@@ -19,7 +19,7 @@
 
 #import "ANAdConstants.h"
 #import "ANLocation.h"
-#import "ANSingleUnifiedObject.h"
+#import "ANCustomResponse.h"
 
 @class ANLocation;
 
@@ -136,17 +136,17 @@
 
 @end   //ANAdProtocolFoundation
 
-@protocol ANAdProtocolUnifiedObject
+@protocol ANAdProtocolCustomResponse
 
 /**
  An AppNexus Single Unified object that will contain all the common fields of all the ads types that are returned in the UTv3 response
  */
-// ANSingleUnifiedObject should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocolUnifiedObject.
-@property (nonatomic, readonly, strong, nullable) ANSingleUnifiedObject *unifiedObject;
+// ANCustomResponse should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocolCustomResponse.
+@property (nonatomic, readonly, strong, nullable) ANCustomResponse *customResponse;
 
 @end
 
-@protocol ANAdProtocolBrowser<ANAdProtocolUnifiedObject>
+@protocol ANAdProtocolBrowser<ANAdProtocolCustomResponse>
 
 /**
  Determines what action to take when the user clicks on an ad:
@@ -206,7 +206,7 @@
 
 #pragma mark - ANAdProtocol entrypoint combinations.
 
-@protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdProtocolUnifiedObject>
+@protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdProtocolCustomResponse>
 
 @end
 

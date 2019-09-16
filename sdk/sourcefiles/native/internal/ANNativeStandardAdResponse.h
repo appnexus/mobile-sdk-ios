@@ -39,6 +39,6 @@
 @property (nonatomic, readwrite, strong) NSString *privacyLink;
 @property (nonatomic, readwrite, strong) NSString *nativeRenderingUrl;
 @property (nonatomic, readwrite, strong) NSString *nativeRenderingObject;
-@property (nonatomic, readwrite, strong)  ANSingleUnifiedObject *unifiedObject;
+@property (nonatomic, readwrite, strong)  ANCustomResponse *customResponse;
 
 @end

@@ -64,7 +64,7 @@
 @synthesize privacyLink = _privacyLink;
 @synthesize nativeRenderingUrl = _nativeRenderingUrl;
 @synthesize nativeRenderingObject = _nativeRenderingObject;
-@synthesize unifiedObject = _unifiedObject;
+@synthesize customResponse = _customResponse;
 
 
 #pragma mark - Lifecycle.

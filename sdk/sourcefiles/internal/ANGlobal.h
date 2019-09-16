@@ -128,7 +128,7 @@ BOOL ANCanPresentFromViewController(UIViewController * __nullable viewController
 
 static NSString * __nonnull const kANImpressionUrls = @"impressionUrls";
 static NSString * __nonnull const kANAspectRatio = @"aspectRatio";
-static NSString * __nonnull const kANSingleUnifiedObject= @"unifiedObject";
+static NSString * __nonnull const kANCustomResponse= @"customResponse";
 
 #pragma mark - Global class.
 

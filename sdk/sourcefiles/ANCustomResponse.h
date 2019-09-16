@@ -1,4 +1,4 @@
-/*   Copyright 2018 APPNEXUS INC
+/*   Copyright 2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,16 +14,24 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANCustomResponse.h"
+#import "ANAdConstants.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
-@interface ANBaseAdObject : NSObject
+@interface ANCustomResponse : NSObject
+/**
+ An AppNexus creativeID for the current creative that is displayed
+ */
+@property (nonatomic, readwrite, strong, nullable) NSString *creativeId;
 
-@property (nonatomic, readwrite, strong)  NSString              *content;
-@property (nonatomic, readwrite, strong)  NSString              *height;
-@property (nonatomic, readwrite, strong)  NSString              *width;
+/**
+ Report the Ad Type of the returned ad object.
+ Not available until load is complete and successful.
+ */
+@property (nonatomic, readwrite)  ANAdType  adType;
 
-@property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionUrls;
-@property (nonatomic, readwrite, strong)  ANCustomResponse *customResponse;
+@property (nonatomic, readwrite)  NSString  *tagId;
 
 @end
+
+NS_ASSUME_NONNULL_END

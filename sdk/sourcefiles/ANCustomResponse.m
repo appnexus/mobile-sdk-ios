@@ -1,4 +1,4 @@
-/*   Copyright 2018 APPNEXUS INC
+/*   Copyright 2019 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,17 +13,12 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
 #import "ANCustomResponse.h"
 
+static NSString *const kANUniversalTagAdServerResponseKeyAdsCreativeId = @"creative_id";
 
-@interface ANBaseAdObject : NSObject
+@implementation ANCustomResponse
 
-@property (nonatomic, readwrite, strong)  NSString              *content;
-@property (nonatomic, readwrite, strong)  NSString              *height;
-@property (nonatomic, readwrite, strong)  NSString              *width;
-
-@property (nonatomic, readwrite, strong)  NSArray<NSString *>   *impressionUrls;
-@property (nonatomic, readwrite, strong)  ANCustomResponse *customResponse;
+@synthesize  creativeId, adType, tagId;
 
 @end

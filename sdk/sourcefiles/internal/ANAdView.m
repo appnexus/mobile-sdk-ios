@@ -66,7 +66,7 @@
 @synthesize  clickThroughAction                     = __clickThroughAction;
 @synthesize  landingPageLoadsInBackground           = __landingPageLoadsInBackground;
 
-@synthesize  unifiedObject                          = __unifiedObject;
+@synthesize  customResponse                          = __customResponse;
 
 #pragma mark - Initialization
 
@@ -188,14 +188,14 @@
 
 #pragma mark - ANAdProtocol: Setter methods
 
-- (void)setUnifiedObject:(ANSingleUnifiedObject *)unifiedObject {
-    if (!unifiedObject) {
-        ANLogError(@"Could not set unifiedObject");
+- (void)setCustomResponse:(ANCustomResponse *)customResponse {
+    if (!customResponse) {
+        ANLogError(@"Could not set customResponse");
         return;
     }
-    if (unifiedObject != __unifiedObject) {
-        ANLogDebug(@"Setting unifiedObject to %@", unifiedObject);
-        __unifiedObject = unifiedObject;
+    if (customResponse != __customResponse) {
+        ANLogDebug(@"Setting customResponse to %@", customResponse);
+        __customResponse = customResponse;
     }
 }
 
@@ -291,9 +291,9 @@
 
 #pragma mark - ANAdProtocol: Getter methods
 
-- (nullable ANSingleUnifiedObject *)unifiedObject {
-    ANLogDebug(@"ANSingleUnifiedObject returned %@", __unifiedObject);
-    return __unifiedObject;
+- (nullable ANCustomResponse *)customResponse {
+    ANLogDebug(@"ANCustomResponse returned %@", __customResponse);
+    return __customResponse;
 }
 
 - (nullable NSString *)placementId {
@@ -475,7 +475,7 @@
 {
     ANLogDebug(@"");
 
-    if (ANAdTypeVideo != __unifiedObject.adType) {
+    if (ANAdTypeVideo != __customResponse.adType) {
         [self.universalAdFetcher restartAutoRefreshTimer];
         [self.universalAdFetcher startAutoRefreshTimer];
     }

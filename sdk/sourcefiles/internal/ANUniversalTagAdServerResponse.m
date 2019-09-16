@@ -25,7 +25,7 @@
 #import "ANAdConstants.h"
 #import "ANNativeStandardAdResponse.h"
 #import "ANNativeAdResponse+PrivateMethods.h"
-#import "ANSingleUnifiedObject.h"
+#import "ANCustomResponse.h"
 #import "ANGlobal.h"
 
 
@@ -235,10 +235,10 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     tagId  = [NSString stringWithFormat:@"%@",firstTag[kANUniversalTagAdServerResponseKeyAdsTagId]];
                 }
                 
-                ANSingleUnifiedObject *unifiedObject = [[ANSingleUnifiedObject alloc] init];
-                unifiedObject.creativeId = creativeId;
-                unifiedObject.tagId = tagId;
-                unifiedObject.adType = [ANGlobal adTypeStringToEnum:adType];
+                ANCustomResponse *customResponse = [[ANCustomResponse alloc] init];
+                customResponse.creativeId = creativeId;
+                customResponse.tagId = tagId;
+                customResponse.adType = [ANGlobal adTypeStringToEnum:adType];
                 
                 // RTB
                 if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
@@ -265,7 +265,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
                             ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
                             if (nativeAd) {
-                                nativeAd.unifiedObject = unifiedObject;
+                                nativeAd.customResponse = customResponse;
                                 if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
                                 {
                                 NSString * nativeRenderingUrl  = [NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl]];
@@ -313,7 +313,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]) {
                         ANCSMVideoAd *csmVideoAd = [[self class] videoCSMAdFromCSMObject:adObject withTagObject:firstTag];
                         if(csmVideoAd){
-                            csmVideoAd.unifiedObject = unifiedObject;
+                            csmVideoAd.customResponse = customResponse;
                             [self.ads addObject:csmVideoAd];
                         }
                     }else{
@@ -345,7 +345,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
                 if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
                     ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
-                    baseAdObject.unifiedObject = unifiedObject;
+                    baseAdObject.customResponse = customResponse;
                 }
 
             } //endfor -- adObject

@@ -124,10 +124,10 @@
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
     
     // In case of Mediation
-    if (nativeResponse.unifiedObject == nil) {
-        ANSingleUnifiedObject *unifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:response.adObjectHandler];
-        if (unifiedObject) {
-            [self setUnifiedObject:unifiedObject onObject:nativeResponse forKeyPath:kANSingleUnifiedObject];
+    if (nativeResponse.customResponse == nil) {
+        ANCustomResponse *customResponse  = (ANCustomResponse *) [ANGlobal valueOfGetterProperty:kANCustomResponse forObject:response.adObjectHandler];
+        if (customResponse) {
+            [self setCustomResponse:customResponse onObject:nativeResponse forKeyPath:kANCustomResponse];
         }
     }
 
@@ -205,10 +205,10 @@
 //
 #pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
 
-- (void)setUnifiedObject:(ANSingleUnifiedObject *)unifiedObject
+- (void)setCustomResponse:(ANCustomResponse *)customResponse
              onObject:(id)object forKeyPath:(NSString *)keyPath
 {
-    [object setValue:unifiedObject forKeyPath:keyPath];
+    [object setValue:customResponse forKeyPath:keyPath];
 }
 
 // RETURN:  dispatch_semaphore_t    For first time image requests.

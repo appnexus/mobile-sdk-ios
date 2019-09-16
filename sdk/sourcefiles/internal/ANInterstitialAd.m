@@ -315,9 +315,9 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self adRequestFailedWithError:response.error];
         return;
     }
-    ANSingleUnifiedObject *unifiedObject  = (ANSingleUnifiedObject *) [ANGlobal valueOfGetterProperty:kANSingleUnifiedObject forObject:response.adObjectHandler];
-    if (unifiedObject) {
-        [self setUnifiedObject:unifiedObject];
+    ANCustomResponse *customResponse  = (ANCustomResponse *) [ANGlobal valueOfGetterProperty:kANCustomResponse forObject:response.adObjectHandler];
+    if (customResponse) {
+        [self setCustomResponse:customResponse];
     }
     
     NSMutableDictionary *adViewWithDateLoaded = [NSMutableDictionary dictionaryWithObjectsAndKeys:
