@@ -33,6 +33,7 @@
 		0E4B79212282E9510085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E4B791E2282E9140085C612 /* NativeAsssemblyRendererOMID_Native_RTBResponse.json */; };
 		0E54379522DCB92B00301AEF /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E54378822DCB92B00301AEF /* GoogleMobileAds.framework */; };
 		0E54379922DCB92B00301AEF /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E54379022DCB92B00301AEF /* FBAudienceNetwork.framework */; };
+		0E54523223336BC300C7EC93 /* ANReachability+ANTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C972B21FF32EB005D1F0E /* ANReachability+ANTest.m */; };
 		0E56C6EF21F8AEF300ADE6E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6EE21F8AEF300ADE6E1 /* CoreGraphics.framework */; };
 		0E56C6F121F8AEF800ADE6E1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6F021F8AEF800ADE6E1 /* AdSupport.framework */; };
 		0E56C6F321F8AF0300ADE6E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E56C6F221F8AF0300ADE6E1 /* AudioToolbox.framework */; };
@@ -1774,6 +1775,7 @@
 				0E8C97A821FF32EC005D1F0E /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				0E8C983521FF41C4005D1F0E /* MediationTests.m in Sources */,
 				0E8C979F21FF32EC005D1F0E /* ANHTTPStubURLProtocol.m in Sources */,
+				0E54523223336BC300C7EC93 /* ANReachability+ANTest.m in Sources */,
 				0EEFE12E22005890002B5F5F /* ANAdAdapterBannerMultipleSuccessCallbacks.m in Sources */,
 				0E8C983821FF42B2005D1F0E /* XCTestCase+ANMediatedAd.m in Sources */,
 				0E8C97A221FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
