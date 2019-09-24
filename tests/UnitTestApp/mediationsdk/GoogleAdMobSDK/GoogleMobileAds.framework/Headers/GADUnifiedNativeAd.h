@@ -12,13 +12,12 @@
 #import <GoogleMobileAds/GADMediaView.h>
 #import <GoogleMobileAds/GADMuteThisAdReason.h>
 #import <GoogleMobileAds/GADNativeAdImage.h>
+#import <GoogleMobileAds/GADResponseInfo.h>
 #import <GoogleMobileAds/GADUnifiedNativeAdAssetIdentifiers.h>
 #import <GoogleMobileAds/GADUnifiedNativeAdDelegate.h>
 #import <GoogleMobileAds/GADVideoController.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
 
 /// Unified native ad. To request this ad type, pass kGADAdLoaderAdTypeUnifiedNative
 /// (see GADAdLoaderAdTypes.h) to the |adTypes| parameter in GADAdLoader's initializer method. If
@@ -61,10 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Dictionary of assets which aren't processed by the receiver.
 @property(nonatomic, readonly, copy, nullable) NSDictionary<NSString *, id> *extraAssets;
 
-/// The ad network class name that fetched the current ad. For both standard and mediated Google
-/// AdMob ads, this method returns @"GADMAdapterGoogleAdMobAds". For ads fetched via mediation
-/// custom events, this method returns @"GADMAdapterCustomEvents".
-@property(nonatomic, readonly, copy, nullable) NSString *adNetworkClassName;
+/// Information about the ad response that returned the ad.
+@property(nonatomic, readonly, nonnull) GADResponseInfo *responseInfo;
 
 /// Indicates whether custom Mute This Ad is available for the native ad.
 @property(nonatomic, readonly, getter=isCustomMuteThisAdAvailable) BOOL customMuteThisAdAvailable;
@@ -82,11 +79,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param clickableAssetViews Dictionary of asset views that are clickable, keyed by asset IDs.
 /// @param nonclickableAssetViews Dictionary of asset views that are not clickable, keyed by asset
 ///        IDs.
-- (void)registerAdView:(UIView *)adView
+- (void)registerAdView:(nonnull UIView *)adView
        clickableAssetViews:
-           (NSDictionary<GADUnifiedNativeAssetIdentifier, UIView *> *)clickableAssetViews
+           (nonnull NSDictionary<GADUnifiedNativeAssetIdentifier, UIView *> *)clickableAssetViews
     nonclickableAssetViews:
-        (NSDictionary<GADUnifiedNativeAssetIdentifier, UIView *> *)nonclickableAssetViews;
+        (nonnull NSDictionary<GADUnifiedNativeAssetIdentifier, UIView *> *)nonclickableAssetViews;
 
 /// Unregisters ad view from this native ad. The corresponding asset views will also be
 /// unregistered.
@@ -103,6 +100,13 @@ NS_ASSUME_NONNULL_BEGIN
     GADVideoController *videoController GAD_DEPRECATED_MSG_ATTRIBUTE(
         "Use the videoController property from the ad's mediaContent instead.");
 
+/// The ad network class name that fetched the current ad. For both standard and mediated Google
+/// AdMob ads, this method returns @"GADMAdapterGoogleAdMobAds". For ads fetched via mediation
+/// custom events, this method returns @"GADMAdapterCustomEvents".
+@property(nonatomic, readonly, copy, nullable)
+    NSString *adNetworkClassName GAD_DEPRECATED_MSG_ATTRIBUTE(
+        "Use responseInfo.adNetworkClassName.");
+
 @end
 
 #pragma mark - Protocol and constants
@@ -110,7 +114,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// The delegate of a GADAdLoader object implements this protocol to receive GADUnifiedNativeAd ads.
 @protocol GADUnifiedNativeAdLoaderDelegate <GADAdLoaderDelegate>
 /// Called when a unified native ad is received.
-- (void)adLoader:(GADAdLoader *)adLoader didReceiveUnifiedNativeAd:(GADUnifiedNativeAd *)nativeAd;
+- (void)adLoader:(nonnull GADAdLoader *)adLoader
+    didReceiveUnifiedNativeAd:(nonnull GADUnifiedNativeAd *)nativeAd;
 @end
 
 #pragma mark - Unified Native Ad View
@@ -148,5 +153,3 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, weak, nullable) IBOutlet GADAdChoicesView *adChoicesView;
 
 @end
-
-NS_ASSUME_NONNULL_END

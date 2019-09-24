@@ -9,6 +9,7 @@
 #import <GoogleMobileAds/GADAdReward.h>
 #import <GoogleMobileAds/GADRequest.h>
 #import <GoogleMobileAds/GADRequestError.h>
+#import <GoogleMobileAds/GADResponseInfo.h>
 #import <GoogleMobileAds/GADRewardedAdDelegate.h>
 #import <GoogleMobileAds/GADRewardedAdMetadataDelegate.h>
 #import <GoogleMobileAds/GADServerSideVerificationOptions.h>
@@ -38,10 +39,9 @@ typedef void (^GADRewardedAdLoadCompletionHandler)(GADRequestError *_Nullable er
 /// Indicates whether the rewarded ad is ready to be presented.
 @property(nonatomic, readonly, getter=isReady) BOOL ready;
 
-/// The ad network class name that fetched the current ad. Is nil while the ready property is NO.
-/// For both standard and mediated Google AdMob ads, this property is @"GADMAdapterGoogleAdMobAds".
-/// For ads fetched via mediation custom events, this property is the mediated custom event adapter.
-@property(nonatomic, readonly, copy, nullable) NSString *adNetworkClassName;
+/// Information about the ad response that returned the current ad. Nil while an ad
+/// request is in progress or if the latest ad request failed.
+@property(nonatomic, readonly, nullable) GADResponseInfo *responseInfo;
 
 /// The reward earned by the user for interacting with a rewarded ad. Is nil until the ad has
 /// successfully loaded.
@@ -65,5 +65,12 @@ typedef void (^GADRewardedAdLoadCompletionHandler)(GADRequestError *_Nullable er
 /// -rewardedAdDidClose: of GADRewardedAdDelegate.
 - (void)presentFromRootViewController:(nonnull UIViewController *)viewController
                              delegate:(nonnull id<GADRewardedAdDelegate>)delegate;
+
+#pragma mark Deprecated
+
+/// Deprecated. Use responseInfo.adNetworkClassName instead.
+@property(nonatomic, readonly, copy, nullable)
+    NSString *adNetworkClassName GAD_DEPRECATED_MSG_ATTRIBUTE(
+        "Use responseInfo.adNetworkClassName.");
 
 @end

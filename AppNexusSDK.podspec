@@ -29,7 +29,7 @@ DESC
 
   s.subspec 'GoogleAdapter' do |subspec|
     subspec.dependency  'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency  'Google-Mobile-Ads-SDK', '7.48.0'
+    subspec.dependency  'Google-Mobile-Ads-SDK', '7.50.0'
     subspec.source_files         = "mediation/mediatedviews/GoogleAdMob/*.{h,m}"
     subspec.public_header_files  = "mediation/mediatedviews/GoogleAdMob/ANAdAdapterNativeAdMob.h"
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Google-Mobile-Ads-SDK/**' }
@@ -92,7 +92,7 @@ DESC
 
   s.subspec 'AdMobCustomEventAdapter' do |subspec|
     subspec.dependency 'AppNexusSDK/AppNexusSDK', "#{s.version}"
-    subspec.dependency 'Google-Mobile-Ads-SDK', '7.48.0'
+    subspec.dependency 'Google-Mobile-Ads-SDK', '7.50.0'
     subspec.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS' => '${PODS_ROOT}/Google-Mobile-Ads-SDK/**' }
     subspec.source_files          = "mediation/mediating/GoogleAdMob/*.{h,m}"
     subspec.private_header_files  = "mediation/mediating/GoogleAdMob/*.h"
