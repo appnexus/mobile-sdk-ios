@@ -23,7 +23,7 @@ DESC
     subspec.source_files         = "sdk/sourcefiles/**/*.{h,m}"
     subspec.public_header_files  = "sdk/sourcefiles/*.h","sdk/sourcefiles/native/*.h"
     subspec.resources            = "sdk/sourcefiles/**/*.{png,bundle,xib,nib,js,html,strings}"
-    subspec.vendored_libraries   = "sdk/sourcefiles/Viewability/**/*.a"
+    subspec.vendored_frameworks   = "sdk/sourcefiles/Viewability/OMSDK_Appnexus.framework"
     subspec.frameworks           = 'WebKit'
   end
 

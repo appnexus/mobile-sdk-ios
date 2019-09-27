@@ -15,12 +15,11 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
-#import "OMIDImports.h"
+#import <OMSDK_Appnexus/OMIDImports.h>
 
 #pragma mark - Constants
 
 #define AN_OMIDSDK_PARTNER_NAME             @"appnexus.com-omios"
-#define AN_OMIDSDKAPIVersionString             @"{\"v\":\"1.2.5\",\"a\":\"1\"}"
 
 #pragma mark - Global class.
 

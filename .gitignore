@@ -4,6 +4,7 @@
 **/Products
 **/out_device
 **/out_simulator
+**/xcshareddata
 ########################################################################################
 # macOS.gitignore
 # https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
