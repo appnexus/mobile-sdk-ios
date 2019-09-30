@@ -362,6 +362,7 @@ WKNavigationDelegate, WKUIDelegate>
         [self.delegate willPresentBrowserViewController:self];
     }
     __weak ANBrowserViewController *weakSelf = self;
+    [controllerToPresent setModalPresentationStyle:UIModalPresentationFullScreen];
     [rvc presentViewController:controllerToPresent animated:YES completion:^{
         ANBrowserViewController *strongSelf = weakSelf;
         if ([strongSelf.delegate respondsToSelector:@selector(didPresentBrowserViewController:)]) {

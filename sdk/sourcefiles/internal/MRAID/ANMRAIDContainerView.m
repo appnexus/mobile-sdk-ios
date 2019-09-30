@@ -640,8 +640,8 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     if (self.orientationProperties) {
         [self adShouldSetOrientationProperties:self.orientationProperties];
     }
+    [self.expandController setModalPresentationStyle:UIModalPresentationFullScreen];
     self.expandController.delegate = self;
-
     [presentingController presentViewController: self.expandController
                                        animated: presentWithAnimation
                                      completion: ^{
@@ -927,6 +927,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                                                          ANLogError(@"COULD NOT ACQUIRE strongSelf.");
                                                          return;
                                                      }
+                                                    [strongSelf.expandController setModalPresentationStyle:UIModalPresentationFullScreen];
 
                                                      [presentingViewController presentViewController: strongSelf.expandController
                                                                                             animated: NO
@@ -975,10 +976,10 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     self.VASTVideofullScreenController           = [[ANInterstitialAdViewController alloc] init];
     self.VASTVideofullScreenController.needCloseButton = false;
     self.VASTVideofullScreenController.contentView = videoAd.contentView;
+    [self.VASTVideofullScreenController setModalPresentationStyle:UIModalPresentationFullScreen];
     if (self.backgroundColor) {
         self.VASTVideofullScreenController.backgroundColor = self.backgroundColor;
     }
-    
     [presentingController presentViewController: self.VASTVideofullScreenController
                                        animated: NO
                                      completion:nil
