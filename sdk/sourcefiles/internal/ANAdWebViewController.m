@@ -170,8 +170,9 @@ NSString * __nonnull const  kANLandscape     = @"landscape";
     self.configuration.scrollingEnabled = NO;
     self.configuration.isVASTVideoAd = YES;
     
-    //
-    _videoXML = videoXML;
+    //Encode videoXML to Base64String
+    _videoXML = [[videoXML dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+    
     [self handleMRAIDURL:[NSURL URLWithString:@"mraid://enable"]];
     
     _webView = [[ANWebView alloc] initWithSize:size URL:[[[ANSDKSettings sharedInstance] baseUrlConfig] videoWebViewUrl]];

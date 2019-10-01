@@ -142,8 +142,8 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 3.0;
 #pragma mark - Public methods.
 
 -(void) loadAdWithVastContent:(nonnull NSString *) vastContent{
-        
-    self.vastContent = vastContent;
+    //Encode videoXML to Base64String
+     self.vastContent = [[vastContent dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
     [self createVideoPlayer];
 }
 
