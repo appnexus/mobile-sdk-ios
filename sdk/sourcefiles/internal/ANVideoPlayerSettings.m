@@ -32,7 +32,6 @@ NSString * const  ANEnabled = @"enabled";
 NSString * const  ANText = @"text";
 NSString * const  ANLearnMore = @"learnMore";
 NSString * const  ANMute = @"showMute";
-NSString * const  ANVolume = @"showVolume";
 NSString * const  ANAllowFullScreen = @"allowFullscreen";
 NSString * const  ANShowFullScreen = @"showFullScreenButton";
 NSString * const  ANDisableTopBar = @"disableTopBar";
@@ -109,7 +108,6 @@ NSString * const  ANSkipOffset = @"videoOffset";
     
     if(!self.showVolumeControl){
         publisherOptions[ANMute] = [NSNumber numberWithBool:self.showVolumeControl];
-        publisherOptions[ANVolume] = [NSNumber numberWithBool:self.showVolumeControl];
     }
     
     if([self.optionsDictionary[ANEntry] isEqualToString:ANBanner]){
