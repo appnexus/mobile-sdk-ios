@@ -27,7 +27,6 @@
 #import "ANGADUnifiedNativeAdView.h"
 #import "ANAdAdapterNativeAdMob.h"
 #import "UIView+ANCategory.h"
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
 @class UITestViewController;
 
 @interface ViewController ()< CLLocationManagerDelegate , ANBannerAdViewDelegate, ANInterstitialAdDelegate, ANNativeAdRequestDelegate, ANNativeAdDelegate>
@@ -61,7 +60,7 @@
         [storyboard instantiateViewControllerWithIdentifier:@"BannerAdFunctionalViewController"];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uiTestVC];
         [self presentViewController:navController animated:YES completion:nil];
-    }else if([processList containsObject:@"FunctionalUITestClickThru"]){ 
+    }else if([processList containsObject:@"FunctionalUITestClickThru"]){
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"FunctionalUITest" bundle:nil];
         UIViewController *uiTestVC =
@@ -112,9 +111,6 @@
              @"AdColonyInterstitial",
              @"VungleInterstitial",
              @"ChartboostInterstitial",
-             @"FacebookBanner",
-             @"FacebookInterstitial",
-             @"FacebookNative",
              @"AdMobBanner",
              @"AdMobInterstitial",
              @"DFPBanner",
@@ -132,94 +128,6 @@
     self.nativeAdResponse = nil;
     [self.gadUnifiedNativeAdView removeFromSuperview];
     self.gadUnifiedNativeAdView = nil;
-}
-
-
-#pragma mark - Facebook
-
-- (ANBannerAdView *)loadFacebookBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate {
-    [self stubFacebookBanner];
-    
-    [FBAdSettings setLogLevel:FBAdLogLevelLog];
-    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-    
-    [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
-    return [self bannerWithDelegate:delegate];
-}
-
-- (ANBannerAdView *)loadFacebookBannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
-                                            adSize:(CGSize)adSize {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerFacebook";
-    mediatedAd.adId = @"210827375150_10154672420735151";
-    mediatedAd.width = [NSString stringWithFormat:@"%ld", (long)adSize.width];
-    mediatedAd.height = [NSString stringWithFormat:@"%ld", (long)adSize.height];
-    [FBAdSettings setLogLevel:FBAdLogLevelLog];
-    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-    [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
-    [self stubMediatedAd:mediatedAd];
-    return [self bannerWithDelegate:delegate
-                          frameSize:adSize
-                             adSize:adSize];
-}
-
-- (ANBannerAdView *)loadFacebook250BannerWithDelegate:(id<ANBannerAdViewDelegate>)delegate
-                                               adSize:(CGSize)adSize {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerFacebook";
-    mediatedAd.adId = @"2038077109846299_2043932985927378";
-    mediatedAd.width = [NSString stringWithFormat:@"%ld", (long)adSize.width];
-    mediatedAd.height = [NSString stringWithFormat:@"%ld", (long)adSize.height];
-    [FBAdSettings setLogLevel:FBAdLogLevelLog];
-    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-    [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
-    [self stubMediatedAd:mediatedAd];
-    return [self bannerWithDelegate:delegate
-                          frameSize:adSize
-                             adSize:adSize];
-}
-
-- (ANInterstitialAd *)loadFacebookInterstitialWithDelegate:(id<ANInterstitialAdDelegate>)delegate {
-    [self stubFacebookInterstitial];
-    [FBAdSettings setLogLevel:FBAdLogLevelLog];
-    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-    [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
-    return [self interstitialWithDelegate:delegate];
-}
-
-- (void)stubFacebookBanner {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterBannerFacebook";
-    mediatedAd.adId = @"210827375150_10154672420735151";
-    mediatedAd.width = @"320";
-    mediatedAd.height = @"50";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (void)stubFacebookInterstitial {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterInterstitialFacebook";
-    mediatedAd.adId = @"210827375150_10154672420735151";
-    [self stubMediatedAd:mediatedAd];
-}
-
-- (ANNativeAdRequest *)loadFacebookNativeWithDelegate:(id<ANNativeAdRequestDelegate>)delegate {
-    [self stubFacebookNative];
-    ANNativeAdRequest *nativeAdRequest = [self nativeAdRequestWithDelegate:delegate];
-    nativeAdRequest.shouldLoadIconImage = YES;
-    nativeAdRequest.shouldLoadMainImage = YES;
-    
-    [FBAdSettings setLogLevel:FBAdLogLevelLog];
-    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-    [FBAdSettings addTestDevice:@"277a4a8d628c973785eb36e68c319fef5527e6cb"]; // CST/Mobile 12, iPhone 6s Plus
-    return nativeAdRequest;
-}
-
-- (void)stubFacebookNative {
-    ANMediatedAd *mediatedAd = [[ANMediatedAd alloc] init];
-    mediatedAd.className = @"ANAdAdapterNativeFacebook";
-    mediatedAd.adId = @"210827375150_10154672420735151";
-    [self stubMediatedAd:mediatedAd];
 }
 
 #pragma mark - Ad Mob
