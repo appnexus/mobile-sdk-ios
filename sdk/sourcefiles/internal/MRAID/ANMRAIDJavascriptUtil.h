@@ -33,6 +33,9 @@
 
 + (NSString *)getState;
 + (NSString *)exposureChangeExposedPercentage:(CGFloat)exposedPercentage
-                                 visibleRectangle:(CGRect)visibleRect;
+                             visibleRectangle:(CGRect)visibleRect;
+
++ (NSString *)setCurrentAppOrientation:(NSString *)orientation
+                             lockedOrientation:(BOOL)locked;
 
 @end

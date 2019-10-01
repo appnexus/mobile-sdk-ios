@@ -37,6 +37,16 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 
 
 
+NSString * __nonnull const  kANUISupportedInterfaceOrientations   = @"UISupportedInterfaceOrientations";
+NSString * __nonnull const  kANUIInterfaceOrientationPortrait     = @"UIInterfaceOrientationPortrait";
+NSString * __nonnull const  kANUIInterfaceOrientationPortraitUpsideDown     = @"UIInterfaceOrientationPortraitUpsideDown";
+NSString * __nonnull const  kANUIInterfaceOrientationLandscapeLeft     = @"UIInterfaceOrientationLandscapeLeft";
+NSString * __nonnull const  kANUIInterfaceOrientationLandscapeRight     = @"UIInterfaceOrientationLandscapeRight";
+NSString * __nonnull const  kANPortrait     = @"portrait";
+NSString * __nonnull const  kANLandscape     = @"landscape";
+
+
+
 @interface ANAdWebViewController () <WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler>
 
 @property (nonatomic, readwrite, strong)    UIView      *contentView;
@@ -576,8 +586,11 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
                                             isSupported:[ANMRAIDUtil supportsInlineVideo]]];
     [self fireJavaScript:[ANMRAIDJavascriptUtil feature:@"storePicture"
                                             isSupported:[ANMRAIDUtil supportsStorePicture]]];
-    
+    [self updateCurrentAppOrientation];
+
     [self updateWebViewOnOrientation];
+    
+    
     [self updateWebViewOnPositionAndViewabilityStatus];
     
     if (self.configuration.initialMRAIDState == ANMRAIDStateExpanded || self.configuration.initialMRAIDState == ANMRAIDStateResized)
@@ -729,6 +742,25 @@ NSString *const kANWebViewControllerMraidJSFilename = @"mraid.js";
 - (void)updateWebViewOnOrientation {
     [self fireJavaScript:[ANMRAIDJavascriptUtil screenSize:[ANMRAIDUtil screenSize]]];
     [self fireJavaScript:[ANMRAIDJavascriptUtil maxSize:[ANMRAIDUtil maxSizeSafeArea]]];
+}
+
+
+
+- (void)updateCurrentAppOrientation {
+    
+    UIInterfaceOrientation currentAppOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    NSString *currentAppOrientationString = (UIInterfaceOrientationIsPortrait(currentAppOrientation)) ? kANPortrait : kANLandscape;
+    
+    NSArray *supportedOrientations = [[[NSBundle mainBundle] infoDictionary]
+                                      objectForKey:kANUISupportedInterfaceOrientations];
+    BOOL isPortraitOrientationSupported = ([supportedOrientations containsObject:kANUIInterfaceOrientationPortrait] || [supportedOrientations containsObject:kANUIInterfaceOrientationPortraitUpsideDown]);
+    BOOL isLandscapeOrientationSupported  = ([supportedOrientations containsObject:kANUIInterfaceOrientationLandscapeLeft] || [supportedOrientations containsObject:kANUIInterfaceOrientationLandscapeRight]);
+    
+    BOOL lockedOrientation = !(isPortraitOrientationSupported && isLandscapeOrientationSupported);
+    
+    
+    [self fireJavaScript:[ANMRAIDJavascriptUtil setCurrentAppOrientation:currentAppOrientationString lockedOrientation:lockedOrientation]];
+
 }
 
 - (void)fireJavaScript:(NSString *)javascript {
