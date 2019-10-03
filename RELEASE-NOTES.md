@@ -1,3 +1,24 @@
+## 6.1
+
+### New Features
++ MS-3983: Added new API to Pause/Resume(https://wiki.xandr.com/display/sdk/Show+an+Instream+Video+Ads+on+iOS) VideoAd
++ MS-4057: Official release for iOS 13 support 
+
+### Mediation partner upgrades
++ Smart Server SDK v7.2
++ FacebookAd SDK v5.5.1(has breaking changes, please look at Mediation Docs(https://wiki.xandr.com/display/sdk/Mediate+with+iOS) for updated integration instruction)
++ Google AdMob SDK v7.50
+
+### Improvements/Bug Fixes
++ MS-3915,MS-3916: Improved Banner Ad performance 
++ MS-3948: Removed AppNexusSDKResources.Bundle
++ MS-3951: Fixed open measurement geometry change events for VideoAd
++ MS-3976: Fixed escape character breaking VideoAd load
++ MS-3987: Upgraded to OMSDK v1.2.19
++ MS-4004: Fixed VideoAd's pause issue when application state changes
++ MS-4023: Removed usage of UIWebView
++ MS-4036: Fixed interstitial crash on orientation change if orientation not supported by host application (Github #47)
+
 ## 6.0
 
 At Xandr we listen to our users' feedback to help us develop the products that provide the best solutions for their needs. Based on that feedback, we are proud to announce the release of v6.0, a major upgrade to our iOS Mobile SDK.
