@@ -490,7 +490,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
 
         __weak ANMRAIDContainerView  *weakSelf  = self;
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.15 * NSEC_PER_SEC), dispatch_get_main_queue(),
+        dispatch_async(dispatch_get_main_queue(),
         ^{
             __strong ANMRAIDContainerView  *strongSelf  = weakSelf;
             if (!strongSelf)  {
@@ -640,8 +640,8 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     if (self.orientationProperties) {
         [self adShouldSetOrientationProperties:self.orientationProperties];
     }
+    [self.expandController setModalPresentationStyle:UIModalPresentationFullScreen];
     self.expandController.delegate = self;
-
     [presentingController presentViewController: self.expandController
                                        animated: presentWithAnimation
                                      completion: ^{
@@ -927,6 +927,7 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
                                                          ANLogError(@"COULD NOT ACQUIRE strongSelf.");
                                                          return;
                                                      }
+                                                    [strongSelf.expandController setModalPresentationStyle:UIModalPresentationFullScreen];
 
                                                      [presentingViewController presentViewController: strongSelf.expandController
                                                                                             animated: NO
@@ -975,10 +976,10 @@ typedef NS_OPTIONS(NSUInteger, ANMRAIDContainerViewAdInteraction)
     self.VASTVideofullScreenController           = [[ANInterstitialAdViewController alloc] init];
     self.VASTVideofullScreenController.needCloseButton = false;
     self.VASTVideofullScreenController.contentView = videoAd.contentView;
+    [self.VASTVideofullScreenController setModalPresentationStyle:UIModalPresentationFullScreen];
     if (self.backgroundColor) {
         self.VASTVideofullScreenController.backgroundColor = self.backgroundColor;
     }
-    
     [presentingController presentViewController: self.VASTVideofullScreenController
                                        animated: NO
                                      completion:nil

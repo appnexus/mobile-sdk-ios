@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E1C95F023263F65004D4F2E /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; };
+		0E1C95F123263F65004D4F2E /* AppNexusSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E5AF04B22F02522005B4721 /* AppNexusSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608122DE293F00EF2A91 /* AppNexusSDK.framework */; };
 		0E5AF04C22F0259C005B4721 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E70608322DE293F00EF2A91 /* AppNexusNativeSDK.framework */; };
 		0E70611022DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 0E70608622DE297700EF2A91 /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json */; };
@@ -144,6 +146,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0E1C95F223263F65004D4F2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A9AED8B1A1BE84F00C58BDA;
+			remoteInfo = AppNexusSDK;
+		};
 		0E70607E22DE293F00EF2A91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0E70607822DE293F00EF2A91 /* AppNexusSDK.xcodeproj */;
@@ -181,6 +190,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0E1C95F123263F65004D4F2E /* AppNexusSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,6 +428,7 @@
 				97FFF30421403679008599A4 /* libsqlite3.tbd in Frameworks */,
 				97FFF2F8214035F7008599A4 /* libc++.tbd in Frameworks */,
 				97FFF2E32140357A008599A4 /* JavaScriptCore.framework in Frameworks */,
+				0E1C95F023263F65004D4F2E /* AppNexusSDK.framework in Frameworks */,
 				97FFF2DD21403552008599A4 /* Foundation.framework in Frameworks */,
 				97FFF2D92140353E008599A4 /* EventKitUI.framework in Frameworks */,
 				97FFF2D721403539008599A4 /* EventKit.framework in Frameworks */,
@@ -876,6 +887,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0E1C95F323263F65004D4F2E /* PBXTargetDependency */,
 			);
 			name = SwiftCompatibilityTest;
 			productName = SwiftCompatibilityTest;
@@ -1104,6 +1116,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0E1C95F323263F65004D4F2E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AppNexusSDK;
+			targetProxy = 0E1C95F223263F65004D4F2E /* PBXContainerItemProxy */;
+		};
 		97B06BA52140309F00234B9A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 97B06B8E2140309E00234B9A /* SwiftCompatibilityTest */;
@@ -1328,7 +1345,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2VZ6F2R3Z8;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../UnitTestApp/UnitTestApp/SharedMockFiles\"",
@@ -1361,7 +1378,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2VZ6F2R3Z8;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../sdk/sourcefiles/Viewability\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../UnitTestApp/UnitTestApp/SharedMockFiles\"",

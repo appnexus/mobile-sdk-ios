@@ -161,6 +161,21 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
 
 
 //--------------------- -o-
+- (void) pauseAd
+{
+    if(self.adPlayer != nil){
+        [self.adPlayer pauseAdVideo];
+    }
+        
+}
+
+- (void) resumeAd
+{
+    if(self.adPlayer != nil){
+        [self.adPlayer resumeAdVideo];
+    }
+}
+
 - (void) removeAd
 {
     if(self.adPlayer != nil){

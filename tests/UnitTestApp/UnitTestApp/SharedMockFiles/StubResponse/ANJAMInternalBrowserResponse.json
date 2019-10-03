@@ -1,0 +1,43 @@
+{
+    "version": "0.0.1",
+
+    "tags": [
+        {
+            "tag_id": 0,
+            "auction_id": "1234567890",
+            "nobid": false,
+            "no_ad_url": "MOCK__no_ad_url",
+            "timeout_ms": 10000,
+            "ad_profile_id": 10000,
+
+            "ads": [
+                {
+                    "content_source": "rtb",
+                    "ad_type": "banner",
+                    "buyer_member_id": 444433322,
+                    "creative_id": 108,
+                    "media_type_id": 1,
+                    "media_subtype_id": 1,
+                    "client_initiated_ad_counting": true,
+
+                    "rtb": {
+                        "banner": {
+                            "content":"<script src=\"mraid.js\"></script><img src='http://placekitten.com/g/320/50' width='320' height='50' onclick='anjam.InternalBrowser(\"http://www.appnexus.com/pixel?id=123\");'></img>",
+                            "width": 320,
+                            "height": 50
+                        },
+
+                        "trackers": [
+                            {
+                                "impression_urls": [
+                                    "MOCK__impression_urls"
+                                ],
+                                "video_events": {}
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

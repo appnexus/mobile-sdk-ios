@@ -120,8 +120,7 @@ NSBundle *__nonnull ANResourcesBundle() {
     static ANGlobal *globalInstance;
     dispatch_once(&resBundleToken, ^{
         globalInstance = [[ANGlobal alloc] init];
-        NSString *resBundlePath = [[NSBundle bundleForClass:[globalInstance class]] pathForResource:kANSDKResourcesBundleName ofType:@"bundle"];
-        resBundle = resBundlePath ? [NSBundle bundleWithPath:resBundlePath] : [NSBundle bundleForClass:[globalInstance class]];
+        resBundle = [NSBundle bundleForClass:[globalInstance class]];
     });
     return resBundle;
 }
@@ -129,7 +128,7 @@ NSBundle *__nonnull ANResourcesBundle() {
 NSString *__nullable ANPathForANResource(NSString *__nullable name, NSString *__nullable type) {
     NSString *path = [ANResourcesBundle() pathForResource:name ofType:type];
     if (!path) {
-        ANLogError(@"Could not find resource %@.%@. Please make sure that %@.bundle or all the resources in sdk/resources are included in your app target's \"Copy Bundle Resources\".", name, type, kANSDKResourcesBundleName);
+        ANLogError(@"Could not find resource %@.%@. Please make sure that all the resources in sdk/resources are included in your app target's \"Copy Bundle Resources\".", name, type);
     }
     return path;
 }
@@ -181,7 +180,7 @@ CGRect ANAdjustAbsoluteRectInWindowCoordinatesForOrientationGivenRect(CGRect rec
 NSString *__nullable ANMRAIDBundlePath() {
     NSString *mraidPath = ANPathForANResource(@"ANMRAID", @"bundle");
     if (!mraidPath) {
-        ANLogError(@"Could not find ANMRAID.bundle. Please make sure that %@.bundle or the ANMRAID.bundle resource in sdk/resources is included in your app target's \"Copy Bundle Resources\".", kANSDKResourcesBundleName);
+        ANLogError(@"Could not find ANMRAID.bundle. Please make sure that ANMRAID.bundle resource in sdk/resources is included in your app target's \"Copy Bundle Resources\".");
         return nil;
     }
     return mraidPath;

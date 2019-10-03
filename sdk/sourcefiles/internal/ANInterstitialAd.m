@@ -269,22 +269,19 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         if (!self.opaque && [self.controller respondsToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
             self.controller.modalPresentationStyle = UIModalPresentationOverFullScreen;
         }
+
+        [ANTrackerManager fireTrackerURLArray:impressionURLs];
+        impressionURLs = nil;
         
-        
-        @synchronized (self) {
-            [ANTrackerManager fireTrackerURLArray:impressionURLs];
-            impressionURLs = nil;
-            
-            // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
-            if([adToShow isKindOfClass:[ANMRAIDContainerView class]])
-            {
-                ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)adToShow;
-                if(standardAdView.webViewController.omidAdSession){
-                    [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
-                }
+        // Fire OMID - Impression event only for AppNexus WKWebview TRUE for RTB and SSM
+        if([adToShow isKindOfClass:[ANMRAIDContainerView class]])
+        {
+            ANMRAIDContainerView *standardAdView = (ANMRAIDContainerView *)adToShow;
+            if(standardAdView.webViewController.omidAdSession){
+                [[ANOMIDImplementation sharedInstance] fireOMIDImpressionOccuredEvent:standardAdView.webViewController.omidAdSession];
             }
         }
-        
+
         [controller presentViewController:self.controller
                                  animated:YES
                                completion:nil];
@@ -293,10 +290,8 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         
     } else if ([adToShow conformsToProtocol:@protocol(ANCustomAdapterInterstitial)])
     {
-        @synchronized (self) {
-            [ANTrackerManager fireTrackerURLArray:impressionURLs];
-            impressionURLs = nil;
-        }
+        [ANTrackerManager fireTrackerURLArray:impressionURLs];
+        impressionURLs = nil;
         [adToShow presentFromViewController:controller];
         
     } else {

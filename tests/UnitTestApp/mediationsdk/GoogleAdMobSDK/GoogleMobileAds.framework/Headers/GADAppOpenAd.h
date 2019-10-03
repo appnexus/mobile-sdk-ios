@@ -6,6 +6,7 @@
 //
 
 #import <GoogleMobileAds/GADRequest.h>
+#import <GoogleMobileAds/GADResponseInfo.h>
 #import <UIKit/UIKit.h>
 
 #pragma mark - App Open Ad
@@ -31,6 +32,9 @@ typedef void (^GADAppOpenAdLoadCompletionHandler)(GADAppOpenAd *_Nullable appOpe
                  request:(nullable GADRequest *)request
              orientation:(UIInterfaceOrientation)orientation
        completionHandler:(nonnull GADAppOpenAdLoadCompletionHandler)completionHandler;
+
+/// Information about the ad response that returned the ad.
+@property(nonatomic, readonly, nonnull) GADResponseInfo *responseInfo;
 
 @end
 

@@ -98,9 +98,6 @@
         case kGADErrorMediationAdapterError:
             code = ANAdResponseInternalError;
             break;
-        case kGADErrorMediationNoFill:
-            code = ANAdResponseUnableToFill;
-            break;
         case kGADErrorMediationInvalidAdSize:
             code = ANAdResponseInvalidRequest;
             break;

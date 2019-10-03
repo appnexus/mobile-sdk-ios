@@ -15,7 +15,8 @@
 
 #import "ANAdViewInternalDelegate.h"
 #import "ANMRAIDUtil.h"
-#import "OMIDAdSession.h"
+#import <OMSDK_Appnexus/OMIDImports.h>
+
 
 @class ANAdWebViewControllerConfiguration;
 @class ANMRAIDExpandProperties;

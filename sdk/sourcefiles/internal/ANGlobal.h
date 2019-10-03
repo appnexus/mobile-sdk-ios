@@ -27,7 +27,7 @@
 #define AN_ERROR_TABLE @"errors"
 
 #define AN_DEFAULT_PLACEMENT_ID		@"default_placement_id"
-#define AN_SDK_VERSION                  @"6.0"
+#define AN_SDK_VERSION                  @"6.1"
 
 
 #define APPNEXUS_BANNER_SIZE		CGSizeMake(320, 50)
@@ -101,8 +101,6 @@ extern NSString * __nonnull const  kANUniversalAdFetcherAdResponseKey;
 // Interstitial Close Button Delay
 #define kANInterstitialDefaultCloseButtonDelay 10.0
 #define kANInterstitialMaximumCloseButtonDelay 10.0
-
-#define kANSDKResourcesBundleName @"AppNexusSDKResources"
 
 
 #pragma mark - Global functions.

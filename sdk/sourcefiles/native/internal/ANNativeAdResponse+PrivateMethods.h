@@ -14,7 +14,8 @@
  */
 
 #import "ANNativeAdResponse.h"
-#import "OMIDAdSession.h"
+#import <OMSDK_Appnexus/OMIDImports.h>
+
 #import "ANVerificationScriptResource.h"
 
 @interface ANNativeAdResponse (PrivateMethods)

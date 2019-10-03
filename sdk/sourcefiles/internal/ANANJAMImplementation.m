@@ -30,10 +30,10 @@ NSString *const kANCallSetMraidRefreshFrequency = @"SetMRAIDRefreshFrequency";
 
 NSString *const kANKeyCaller = @"caller";
 
-@interface ANRecordEventDelegate : NSObject <UIWebViewDelegate>
+@interface ANRecordEventDelegate : NSObject <WKNavigationDelegate>
 @end
 
-@interface UIWebView (RecordEvent)
+@interface WKWebView (RecordEvent)
 @property (nonatomic, readwrite, strong) ANRecordEventDelegate *recordEventDelegate;
 @end
 
@@ -76,7 +76,7 @@ NSString *const kANKeyCaller = @"caller";
         NSURL *url = [NSURL URLWithString:urlParam];
         mayDeepLink = [[UIApplication sharedApplication] canOpenURL:url];
     }
-
+    
     NSDictionary *paramsList = @{
                                  kANKeyCaller: kANCallMayDeepLink,
                                  @"mayDeepLink": mayDeepLink ? @"true" : @"false"
@@ -94,9 +94,7 @@ NSString *const kANKeyCaller = @"caller";
         // success, do nothing
         return;
     } else {
-        NSDictionary *paramsList = @{
-                                     kANKeyCaller: kANCallDeepLink,
-                                     };
+        NSDictionary *paramsList = @{kANKeyCaller: kANCallDeepLink};
         [ANANJAMImplementation loadResult:controller cb:cb paramsList:paramsList];
     }
 }
@@ -126,12 +124,12 @@ NSString *const kANKeyCaller = @"caller";
 
 + (void)callRecordEvent:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *urlParam = [query valueForKey:@"url"];
-
+    
     NSURL *url = [NSURL URLWithString:urlParam];
-    UIWebView *recordEventWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    WKWebView *recordEventWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     ANRecordEventDelegate *recordEventDelegate = [ANRecordEventDelegate new];
     recordEventWebView.recordEventDelegate = recordEventDelegate;
-    recordEventWebView.delegate = recordEventDelegate;
+    recordEventWebView.navigationDelegate = recordEventDelegate;
     [recordEventWebView setHidden:YES];
     [recordEventWebView loadRequest:[NSURLRequest requestWithURL:url]];
     [controller.contentView addSubview:recordEventWebView];
@@ -142,7 +140,7 @@ NSString *const kANKeyCaller = @"caller";
 + (void)callDispatchAppEvent:(ANAdWebViewController *)controller query:(NSDictionary *)query {
     NSString *event = [query valueForKey:@"event"];
     NSString *data = [query valueForKey:@"data"];
-
+    
     [controller.adViewANJAMDelegate adDidReceiveAppEvent:event withData:data];
 }
 
@@ -169,7 +167,7 @@ NSString *const kANKeyCaller = @"caller";
 
 + (void)loadResult:(ANAdWebViewController *)controller cb:(NSString *)cb paramsList:(NSDictionary *)paramsList {
     __block NSString *params = [NSString stringWithFormat:@"cb=%@", cb ? cb : @"-1"];
-
+    
     [paramsList enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         key = ANConvertToNSString(key);
         NSString *valueString = ANConvertToNSString(value);
@@ -187,13 +185,13 @@ NSString *const kANKeyCaller = @"caller";
 
 @implementation ANRecordEventDelegate
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+-(void) webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     ANLogDebug(@"RecordEvent completed succesfully");
 }
 
 @end
 
-@implementation UIWebView (RecordEvent)
+@implementation WKWebView (RecordEvent)
 
 ANRecordEventDelegate *_recordEventDelegate;
 

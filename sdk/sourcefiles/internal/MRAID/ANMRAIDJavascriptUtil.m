@@ -108,4 +108,13 @@
     }
 }
 
+
++ (NSString *)setCurrentAppOrientation:(NSString *)orientation
+                      lockedOrientation:(BOOL)locked{
+    
+        NSString *orientationVal = [NSString stringWithFormat:@"\"%@\",%@",orientation,(locked ? @"true" : @"false")];
+        return [NSString stringWithFormat:@"window.mraid.util.setCurrentAppOrientation(%@);",orientationVal];
+}
+
+
 @end

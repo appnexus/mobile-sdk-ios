@@ -17,7 +17,7 @@
 #import <UIKit/UIKit.h>
 #import "WKWebView+ANCategory.h"
 #import "ANAdConstants.h"
-#import "OMIDAdSession.h"
+#import <OMSDK_Appnexus/OMIDImports.h>
 
 
 
@@ -84,7 +84,8 @@ typedef NS_ENUM(NSUInteger, ANVideoAdPlayerEvent) {
 -(void) loadAdWithJSONContent:(nonnull NSString *) jsonContent;
 
 -(void)playAdWithContainer:(nonnull UIView *) containerView;
-
+-(void) pauseAdVideo;
+-(void) resumeAdVideo;
 -(void) removePlayer;
 
 - (NSUInteger) getAdDuration;

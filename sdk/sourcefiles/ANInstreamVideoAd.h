@@ -109,6 +109,10 @@ typedef NS_ENUM(NSInteger, ANInstreamVideoPlaybackStateType)
 
     - (void) playAdWithContainer: (nonnull UIView *)adContainer
                     withDelegate: (nullable id<ANInstreamVideoAdPlayDelegate>)playDelegate;
+    
+    - (void) pauseAd;
+    
+    - (void) resumeAd;
 
     - (void) removeAd;
 
