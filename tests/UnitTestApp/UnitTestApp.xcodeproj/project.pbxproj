@@ -150,6 +150,7 @@
 		0EC17C6021F72EC500F0F6AF /* FunctionalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC17C5F21F72EC500F0F6AF /* FunctionalTests.m */; };
 		0EC7961522D863FA009C8B47 /* AppNexusNativeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */; };
 		0ECF336D22D79AB4007DB185 /* AppNexusNativeSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0ED02EB8234B32460090A241 /* ANSDKSettingsTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED02EB7234B32460090A241 /* ANSDKSettingsTestCase.m */; };
 		0ED159DB2236B52800D56022 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED159DA2236B52800D56022 /* EventKit.framework */; };
 		0ED159DD2236B52C00D56022 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED159DC2236B52C00D56022 /* EventKitUI.framework */; };
 		0ED159DF2236B53000D56022 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED159DE2236B53000D56022 /* AssetsLibrary.framework */; };
@@ -533,6 +534,7 @@
 		0EC17C5F21F72EC500F0F6AF /* FunctionalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunctionalTests.m; sourceTree = "<group>"; };
 		0EC17C6121F72EC500F0F6AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ECF333522D798DB007DB185 /* AppNexusSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AppNexusSDK.xcodeproj; path = ../../sdk/AppNexusSDK.xcodeproj; sourceTree = "<group>"; };
+		0ED02EB7234B32460090A241 /* ANSDKSettingsTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANSDKSettingsTestCase.m; sourceTree = "<group>"; };
 		0ED159D42236B35A00D56022 /* ANAdAdapterBannerAdMob+ANTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ANAdAdapterBannerAdMob+ANTest.m"; sourceTree = "<group>"; };
 		0ED159D52236B35A00D56022 /* ANAdAdapterBannerAdMob+ANTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ANAdAdapterBannerAdMob+ANTest.h"; sourceTree = "<group>"; };
 		0ED159DA2236B52800D56022 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -1042,6 +1044,7 @@
 			isa = PBXGroup;
 			children = (
 				0E14222222F99BA8006C597A /* ANResourceValidationTestCase.m */,
+				0ED02EB7234B32460090A241 /* ANSDKSettingsTestCase.m */,
 				60D39E44226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m */,
 				97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */,
 				0E8C93E621FF2DEC005D1F0E /* ANLocationTestCase.m */,
@@ -1748,6 +1751,7 @@
 				0E8C97C021FF32EC005D1F0E /* UIApplication+ANTest.m in Sources */,
 				0E6612C322CA736300DDC5CD /* ANNativeAdView.m in Sources */,
 				0E8C97AE21FF32EC005D1F0E /* ANUniversalAdFetcher+ANTest.m in Sources */,
+				0ED02EB8234B32460090A241 /* ANSDKSettingsTestCase.m in Sources */,
 				0E8C97AB21FF32EC005D1F0E /* XCTestCase+ANBannerAdView.m in Sources */,
 				60D39E46226F69A80029F741 /* ANVideoPlayerSettingsTestCase.m in Sources */,
 				0EEFE14422005951002B5F5F /* ANAdAdapterBannerNoRequestMethod.m in Sources */,
