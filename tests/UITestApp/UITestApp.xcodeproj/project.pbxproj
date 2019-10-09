@@ -167,17 +167,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EE637D221DA722400E784F2 /* CoreGraphics.framework in Frameworks */,
 				0EE637CE21DA720600E784F2 /* AdSupport.framework in Frameworks */,
+				0EC7960D22D8637B009C8B47 /* AppNexusSDK.framework in Frameworks */,
 				0EE637CC21DA720100E784F2 /* AudioToolbox.framework in Frameworks */,
 				0EE637CA21DA71FC00E784F2 /* AVFoundation.framework in Frameworks */,
 				0EE637C821DA71F800E784F2 /* AVKit.framework in Frameworks */,
 				0EE637C621DA71F100E784F2 /* CFNetwork.framework in Frameworks */,
+				0EE637D221DA722400E784F2 /* CoreGraphics.framework in Frameworks */,
 				0EE637C421DA71ED00E784F2 /* CoreLocation.framework in Frameworks */,
 				0EE637C221DA71E900E784F2 /* CoreTelephony.framework in Frameworks */,
 				0EE637C021DA71E300E784F2 /* Foundation.framework in Frameworks */,
-				0EE637BE21DA71DA00E784F2 /* MediaPlayer.framework in Frameworks */,
 				0E6A4B3021ECD7A0006B11CA /* GameKit.framework in Frameworks */,
+				0EE637BE21DA71DA00E784F2 /* MediaPlayer.framework in Frameworks */,
 				0EE637BC21DA71D500E784F2 /* MessageUI.framework in Frameworks */,
 				0EE637BA21DA71CF00E784F2 /* MobileCoreServices.framework in Frameworks */,
 				0EE637B821DA71CB00E784F2 /* PassKit.framework in Frameworks */,
@@ -188,7 +189,6 @@
 				0EE637AE21DA71B800E784F2 /* SystemConfiguration.framework in Frameworks */,
 				0EE637AC21DA71B300E784F2 /* UIKit.framework in Frameworks */,
 				0EE637AA21DA71B000E784F2 /* WebKit.framework in Frameworks */,
-				0EC7960D22D8637B009C8B47 /* AppNexusSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,8 +206,8 @@
 		0EC216ED21E62C8C005DD647 /* GlobalClasses */ = {
 			isa = PBXGroup;
 			children = (
-				0EE6375C21DA716D00E784F2 /* AppDelegate.swift */,
 				0EC4BFD721EE6DE100A2E9C7 /* AdObjectModel.swift */,
+				0EE6375C21DA716D00E784F2 /* AppDelegate.swift */,
 				0EFEC7BE227B1E6400711498 /* TestCaseConstent.swift */,
 			);
 			path = GlobalClasses;
@@ -216,9 +216,9 @@
 		0ECF334722D799EF007DB185 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0ECF334D22D799EF007DB185 /* AppNexusSDKResources.bundle */,
-				0ECF334F22D799EF007DB185 /* AppNexusSDK.framework */,
 				0ECF335122D799EF007DB185 /* AppNexusNativeSDK.framework */,
+				0ECF334F22D799EF007DB185 /* AppNexusSDK.framework */,
+				0ECF334D22D799EF007DB185 /* AppNexusSDKResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,19 +226,19 @@
 		0EE6375021DA716D00E784F2 = {
 			isa = PBXGroup;
 			children = (
-				0ECF334622D799EF007DB185 /* AppNexusSDK.xcodeproj */,
+				0EE637A821DA71B000E784F2 /* Frameworks */,
+				0EE6375A21DA716D00E784F2 /* Products */,
 				0EE6375B21DA716D00E784F2 /* UITestApp */,
 				0EFB730E21DE3F7100C0C136 /* UITestAppTests */,
-				0EE6375A21DA716D00E784F2 /* Products */,
-				0EE637A821DA71B000E784F2 /* Frameworks */,
+				0ECF334622D799EF007DB185 /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
 		0EE6375A21DA716D00E784F2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0EE6375921DA716D00E784F2 /* UITestApp.app */,
 				0EE637D821DA752900E784F2 /* PlacementTests.xctest */,
+				0EE6375921DA716D00E784F2 /* UITestApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,8 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				0EC216ED21E62C8C005DD647 /* GlobalClasses */,
-				0EFB732A21DE42AB00C0C136 /* ViewControllers */,
 				0EFB732921DE41FB00C0C136 /* StoryBoards */,
+				0EFB732A21DE42AB00C0C136 /* ViewControllers */,
 				0EE6376321DA716E00E784F2 /* Assets.xcassets */,
 				0EE6376821DA716E00E784F2 /* Info.plist */,
 				0EE637E621DA791900E784F2 /* PlacementTests-Bridging-Header.h */,
@@ -260,16 +260,16 @@
 		0EE637A821DA71B000E784F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0E6A4B2F21ECD7A0006B11CA /* GameKit.framework */,
-				0EE637D121DA722400E784F2 /* CoreGraphics.framework */,
 				0EE637CD21DA720600E784F2 /* AdSupport.framework */,
 				0EE637CB21DA720100E784F2 /* AudioToolbox.framework */,
 				0EE637C921DA71FC00E784F2 /* AVFoundation.framework */,
 				0EE637C721DA71F800E784F2 /* AVKit.framework */,
 				0EE637C521DA71F100E784F2 /* CFNetwork.framework */,
+				0EE637D121DA722400E784F2 /* CoreGraphics.framework */,
 				0EE637C321DA71ED00E784F2 /* CoreLocation.framework */,
 				0EE637C121DA71E900E784F2 /* CoreTelephony.framework */,
 				0EE637BF21DA71E300E784F2 /* Foundation.framework */,
+				0E6A4B2F21ECD7A0006B11CA /* GameKit.framework */,
 				0EE637BD21DA71DA00E784F2 /* MediaPlayer.framework */,
 				0EE637BB21DA71D500E784F2 /* MessageUI.framework */,
 				0EE637B921DA71CF00E784F2 /* MobileCoreServices.framework */,
@@ -294,9 +294,9 @@
 				0EFB732121DE40E300C0C136 /* InterstitialAdTests */,
 				0EFB731D21DE40E300C0C136 /* NativeAdTests */,
 				0EFB732221DE40E300C0C136 /* VideoAdTests */,
+				0EE637DC21DA752900E784F2 /* Info.plist */,
 				0EE637DA21DA752900E784F2 /* PlacementTests.swift */,
 				0E56C8E021F9E8F900ADE6E1 /* XCGlobal.swift */,
-				0EE637DC21DA752900E784F2 /* Info.plist */,
 			);
 			path = PlacementTests;
 			sourceTree = "<group>";
@@ -391,8 +391,8 @@
 		0EFB732A21DE42AB00C0C136 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				0EE6375E21DA716D00E784F2 /* UITestViewController.swift */,
 				0EFB72E421DE20E700C0C136 /* AdsViewController */,
+				0EE6375E21DA716D00E784F2 /* UITestViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -521,10 +521,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EE6376721DA716E00E784F2 /* LaunchScreen.storyboard in Resources */,
 				0EE6376421DA716E00E784F2 /* Assets.xcassets in Resources */,
-				0EFB730821DE268100C0C136 /* PlacementTest.storyboard in Resources */,
+				0EE6376721DA716E00E784F2 /* LaunchScreen.storyboard in Resources */,
 				0EE6376221DA716D00E784F2 /* Main.storyboard in Resources */,
+				0EFB730821DE268100C0C136 /* PlacementTest.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,16 +542,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EE6375F21DA716D00E784F2 /* UITestViewController.swift in Sources */,
 				0EC4BFD821EE6DE100A2E9C7 /* AdObjectModel.swift in Sources */,
-				0EFB72EF21DE20E700C0C136 /* InterstitialAdViewController.swift in Sources */,
-				0EFB72F021DE20E700C0C136 /* NativeAdViewController.swift in Sources */,
+				0EE6375D21DA716D00E784F2 /* AppDelegate.swift in Sources */,
 				0EFB72EC21DE20E700C0C136 /* BannerAdViewController.swift in Sources */,
 				0EFB72EE21DE20E700C0C136 /* BannerNativeAdViewController.swift in Sources */,
-				0EFB72EB21DE20E700C0C136 /* VideoAdViewController.swift in Sources */,
-				0EE6375D21DA716D00E784F2 /* AppDelegate.swift in Sources */,
-				0EFEC7BF227B1E6400711498 /* TestCaseConstent.swift in Sources */,
 				0EFB72ED21DE20E700C0C136 /* BannerVideoAdViewController.swift in Sources */,
+				0EFB72EF21DE20E700C0C136 /* InterstitialAdViewController.swift in Sources */,
+				0EFB72F021DE20E700C0C136 /* NativeAdViewController.swift in Sources */,
+				0EFEC7BF227B1E6400711498 /* TestCaseConstent.swift in Sources */,
+				0EE6375F21DA716D00E784F2 /* UITestViewController.swift in Sources */,
+				0EFB72EB21DE20E700C0C136 /* VideoAdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,16 +559,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E87D4B621DF794B0096E866 /* ANInterstitialAdViewTests.swift in Sources */,
-				0EFB732621DE410B00C0C136 /* VideoAdTests.swift in Sources */,
 				0EC4BFD921EE6DE100A2E9C7 /* AdObjectModel.swift in Sources */,
-				0EFEC7C0227B1E6400711498 /* TestCaseConstent.swift in Sources */,
-				0E87D4B821DF82510096E866 /* ANBannerVideoAdViewTests.swift in Sources */,
+				0EFB732821DE415900C0C136 /* ANBannerAdViewTests.swift in Sources */,
 				0E87D3B521DF5C140096E866 /* ANBannerNativeAdViewTests.swift in Sources */,
-				0E56C8E121F9E8F900ADE6E1 /* XCGlobal.swift in Sources */,
+				0E87D4B821DF82510096E866 /* ANBannerVideoAdViewTests.swift in Sources */,
+				0E87D4B621DF794B0096E866 /* ANInterstitialAdViewTests.swift in Sources */,
 				0E87D4B421DF71400096E866 /* ANNativeAdViewTests.swift in Sources */,
 				0EE637DB21DA752900E784F2 /* PlacementTests.swift in Sources */,
-				0EFB732821DE415900C0C136 /* ANBannerAdViewTests.swift in Sources */,
+				0EFEC7C0227B1E6400711498 /* TestCaseConstent.swift in Sources */,
+				0EFB732621DE410B00C0C136 /* VideoAdTests.swift in Sources */,
+				0E56C8E121F9E8F900ADE6E1 /* XCGlobal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

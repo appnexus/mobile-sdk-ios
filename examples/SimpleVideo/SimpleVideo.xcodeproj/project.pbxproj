@@ -106,9 +106,9 @@
 		0E747C9E22DE131100CDD1BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E747CA422DE131100CDD1BC /* AppNexusSDKResources.bundle */,
-				0E747CA622DE131100CDD1BC /* AppNexusSDK.framework */,
 				0E747CA822DE131100CDD1BC /* AppNexusNativeSDK.framework */,
+				0E747CA622DE131100CDD1BC /* AppNexusSDK.framework */,
+				0E747CA422DE131100CDD1BC /* AppNexusSDKResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,9 +116,9 @@
 		60846A041E43C676005D46BC = {
 			isa = PBXGroup;
 			children = (
-				0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */,
 				60846A0E1E43C676005D46BC /* Products */,
 				60846A0F1E43C676005D46BC /* SimpleVideo */,
+				0E747C9D22DE131100CDD1BC /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
