@@ -18,6 +18,8 @@
 @interface ANAdAdapterNativeFacebook ()
 
 @property (nonatomic) FBNativeAd *fbNativeAd;
+@property (nonatomic) FBMediaView *fbMediaView;
+@property (nonatomic) FBMediaView *fbAdIcon;
 
 @end
 
@@ -37,16 +39,55 @@
     [self.fbNativeAd loadAd];
 }
 
+-(BOOL) getMediaViewsForRegisterView:(nonnull UIView *)view{
+    
+    for (UIView *subview in [view subviews]){
+        if([subview isKindOfClass:[FBMediaView class]]){
+            FBMediaView *fbAdView = (FBMediaView *)subview;
+            switch (fbAdView.nativeAdViewTag) {
+                case FBNativeAdViewTagIcon:
+                    self.fbAdIcon = fbAdView;
+                    break;
+                default:
+                    self.fbMediaView = fbAdView;
+                    break;
+            }
+        }else if([subview isKindOfClass:[UIView class]])
+        {
+            [self getMediaViewsForRegisterView:subview];
+        }
+        if(self.fbMediaView && self.fbAdIcon){
+            break;
+        }
+    }
+    if(self.fbMediaView) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 - (void)registerViewForImpressionTrackingAndClickHandling:(nonnull UIView *)view
                                    withRootViewController:(nonnull UIViewController *)rvc
                                            clickableViews:(nullable NSArray *)clickableViews {
-    if (clickableViews.count) {
-        [self.fbNativeAd registerViewForInteraction:view
-                                 withViewController:rvc
-                                 withClickableViews:clickableViews];
-    } else {
-        [self.fbNativeAd registerViewForInteraction:view
-                                 withViewController:rvc];
+
+    if([self getMediaViewsForRegisterView:view]){
+        if(clickableViews.count != 0) {
+            [self.fbNativeAd registerViewForInteraction:view
+                                              mediaView:self.fbMediaView
+                                               iconView:self.fbAdIcon
+                                         viewController:rvc
+                                         clickableViews:clickableViews];
+            
+        }else {
+            [self.fbNativeAd registerViewForInteraction:view
+                                              mediaView:self.fbMediaView
+                                               iconView:self.fbAdIcon
+                                         viewController:rvc];
+        }
+    }
+    else{
+        ANLogDebug(@"View does not contain mediaView for registerViewForImpressionTracking.");
     }
 }
 
@@ -76,11 +117,9 @@
 
 - (void)nativeAdDidLoad:(FBNativeAd *)nativeAd {
     ANNativeMediatedAdResponse *response = [[ANNativeMediatedAdResponse alloc] initWithCustomAdapter:self
-                                                                                         networkCode:ANNativeAdNetworkCodeFacebook];
-    response.title = nativeAd.title;
-    response.body = nativeAd.body;
-    response.iconImageURL = nativeAd.icon.url;
-    response.mainImageURL = nativeAd.coverImage.url;
+                                                                                        networkCode:ANNativeAdNetworkCodeFacebook];
+    response.title = nativeAd.headline;
+    response.body = nativeAd.bodyText;
     response.callToAction = nativeAd.callToAction;
     response.customElements = @{ kANNativeElementObject : nativeAd};
 

@@ -53,6 +53,12 @@
         allowOrientationChange: true,
         forceOrientation: "none"
     };
+ 
+    var currentAppOrientation = {
+        orientation: "none",
+        locked: false
+    };
+
     var resize_properties = {
         customClosePosition: 'top-right',
         allowOffscreen: true
@@ -81,6 +87,7 @@
     var MRAID_MAX_SIZE = "maxSize";
     var MRAID_DEFAULT_POSITION = "defaultPosition";
     var MRAID_CURRENT_POSITION = "currentPosition";
+    var MRAID_CURRENT_APP_ORIENTATION = "currentAppOrientation";
 
     // ----- MRAID AD API FUNCTIONS -----
 
@@ -274,24 +281,34 @@
         return orientation_properties;
     }
 
+    mraid.getCurrentAppOrientation = function() {
+        return currentAppOrientation;
+    }
+ 
     // Takes an object... {allowOrientationChange:true, forceOrientation:"none"};
     mraid.setOrientationProperties = function(properties) {
+        if (mraid.getState() == "loading") {
+            mraid.util.errorEvent("Method 'mraid.setOrientationProperties()' called during loading state.", "mraid.setOrientationProperties()");
+            return;
+        }
+
         if (typeof properties === "undefined") {
             mraid.util.errorEvent("Invalid orientationProperties.", "mraid.setOrientationProperties()");
             return;
-        } else {
-
+        }
+ 
+        if (!mraid.getCurrentAppOrientation().locked) {
             if (properties.forceOrientation === 'portrait' || properties.forceOrientation === 'landscape' || properties.forceOrientation === 'none') {
                 orientation_properties.forceOrientation = properties.forceOrientation;
             } else {
                 mraid.util.errorEvent("Invalid orientationProperties forceOrientation property", "mraid.setOrientationProperties()");
             }
+        }
 
-            if (typeof properties.allowOrientationChange === "boolean") {
-                orientation_properties.allowOrientationChange = properties.allowOrientationChange;
-            } else {
-                mraid.util.errorEvent("Invalid orientationProperties allowOrientationChange property", "mraid.setOrientationProperties()");
-            }
+        if (typeof properties.allowOrientationChange === "boolean") {
+            orientation_properties.allowOrientationChange = properties.allowOrientationChange;
+        } else {
+            mraid.util.errorEvent("Invalid orientationProperties allowOrientationChange property", "mraid.setOrientationProperties()");
         }
 
         if ((typeof window.sdkjs) !== "undefined") {
@@ -339,6 +356,7 @@
         return supports[feature];
     }
 
+ 
     // Gets the screen size of the device
     mraid.getScreenSize = function() {
         if (mraid.getState() == "loading") {
@@ -543,5 +561,12 @@
             window.sdkjs.mraidUpdateProperty(MRAID_CURRENT_POSITION, current_position);
         }
     }
-
+ 
+    mraid.util.setCurrentAppOrientation = function(orientation,locked) {
+        currentAppOrientation.orientation  = orientation;
+        currentAppOrientation.locked  = locked;
+        if ((typeof window.sdkjs) !== "undefined") {
+         window.sdkjs.mraidUpdateProperty(MRAID_CURRENT_APP_ORIENTATION, currentAppOrientation);
+        }
+    }
 }());

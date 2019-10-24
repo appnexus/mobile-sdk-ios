@@ -59,6 +59,7 @@ framework module GoogleMobileAds {
   header "GADRequest.h"
   header "GADRequestConfiguration.h"
   header "GADRequestError.h"
+  header "GADResponseInfo.h"
   header "GADVideoController.h"
   header "GADVideoControllerDelegate.h"
   header "GADVideoOptions.h"

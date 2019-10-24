@@ -142,8 +142,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF2FD7F219706AD2002CAD63 /* AdSupport.framework in Frameworks */,
-				FF2FD7F419706AD9002CAD63 /* AudioToolbox.framework in Frameworks */,
 				0E747C8622DE11A600CDD1BC /* AppNexusSDK.framework in Frameworks */,
+				FF2FD7F419706AD9002CAD63 /* AudioToolbox.framework in Frameworks */,
 				FF2FD7F619706ADE002CAD63 /* AVFoundation.framework in Frameworks */,
 				6083C4161FBCA3DA00DED744 /* AVKit.framework in Frameworks */,
 				FF2FD7F819706AE7002CAD63 /* CFNetwork.framework in Frameworks */,
@@ -181,9 +181,9 @@
 		0E747C7B22DE116100CDD1BC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E747C8122DE116100CDD1BC /* AppNexusSDKResources.bundle */,
-				0E747C8322DE116100CDD1BC /* AppNexusSDK.framework */,
 				0E747C8522DE116100CDD1BC /* AppNexusNativeSDK.framework */,
+				0E747C8322DE116100CDD1BC /* AppNexusSDK.framework */,
+				0E747C8122DE116100CDD1BC /* AppNexusSDKResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,11 +191,11 @@
 		FF2FD7A019706A5D002CAD63 = {
 			isa = PBXGroup;
 			children = (
-				0E747C7A22DE116100CDD1BC /* AppNexusSDK.xcodeproj */,
 				FF2FD7AB19706A5D002CAD63 /* Frameworks */,
 				FF2FD7AA19706A5D002CAD63 /* Products */,
 				FF2FD7B219706A5D002CAD63 /* SimpleBanner */,
 				FF2FD7D419706A5E002CAD63 /* SimpleBannerTests */,
+				0E747C7A22DE116100CDD1BC /* AppNexusSDK.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};

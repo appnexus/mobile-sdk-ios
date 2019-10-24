@@ -17,7 +17,7 @@
 #import <UIKit/UIKit.h>
 #import "WKWebView+ANCategory.h"
 #import "ANAdConstants.h"
-#import "OMIDAdSession.h"
+#import <OMSDK_Appnexus/OMIDImports.h>
 
 
 

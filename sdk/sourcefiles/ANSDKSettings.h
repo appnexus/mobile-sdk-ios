@@ -47,6 +47,11 @@
  */
 @property (nonatomic, readwrite, strong, nullable) NSString *customUserAgent;
 
+/**
+Get AppNexus SDK Version
+*/
+@property (nonatomic, readonly, strong, nonnull) NSString *sdkVersion;
+
 
 + (nonnull instancetype)sharedInstance;
 
