@@ -126,7 +126,7 @@
 		0E8C983E21FF42E0005D1F0E /* ANTestResponses.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983D21FF42E0005D1F0E /* ANTestResponses.m */; };
 		0E8C984121FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C983F21FF42F1005D1F0E /* ANMockMediationAdapterBannerNeverCalled.m */; };
 		0EB24C1322CBD242008E927F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1222CBD242008E927F /* AppDelegate.m */; };
-		0EB24C1622CBD242008E927F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1522CBD242008E927F /* ViewController.m */; };
+		0EB24C1622CBD242008E927F /* NativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB24C1522CBD242008E927F /* NativeViewController.m */; };
 		0EB24C1922CBD242008E927F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C1722CBD242008E927F /* Main.storyboard */; };
 		0EB24C1B22CBD243008E927F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C1A22CBD243008E927F /* Assets.xcassets */; };
 		0EB24C1E22CBD243008E927F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB24C1C22CBD243008E927F /* LaunchScreen.storyboard */; };
@@ -504,8 +504,8 @@
 		0EB24C0F22CBD242008E927F /* NativeSDKTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeSDKTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB24C1122CBD242008E927F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0EB24C1222CBD242008E927F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0EB24C1422CBD242008E927F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0EB24C1522CBD242008E927F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0EB24C1422CBD242008E927F /* NativeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeViewController.h; sourceTree = "<group>"; };
+		0EB24C1522CBD242008E927F /* NativeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeViewController.m; sourceTree = "<group>"; };
 		0EB24C1822CBD242008E927F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0EB24C1A22CBD243008E927F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0EB24C1D22CBD243008E927F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -973,8 +973,8 @@
 				0EB24C1C22CBD243008E927F /* LaunchScreen.storyboard */,
 				0EB24C2022CBD243008E927F /* main.m */,
 				0EB24C1722CBD242008E927F /* Main.storyboard */,
-				0EB24C1422CBD242008E927F /* ViewController.h */,
-				0EB24C1522CBD242008E927F /* ViewController.m */,
+				0EB24C1422CBD242008E927F /* NativeViewController.h */,
+				0EB24C1522CBD242008E927F /* NativeViewController.m */,
 			);
 			path = NativeSDKTestApp;
 			sourceTree = "<group>";
@@ -1099,8 +1099,8 @@
 		0ECF333622D798DB007DB185 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
 				0ECF333E22D798DB007DB185 /* AppNexusSDK.framework */,
+				0ECF334022D798DB007DB185 /* AppNexusNativeSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1639,7 +1639,7 @@
 			files = (
 				0EB24C1322CBD242008E927F /* AppDelegate.m in Sources */,
 				0EB24C2122CBD243008E927F /* main.m in Sources */,
-				0EB24C1622CBD242008E927F /* ViewController.m in Sources */,
+				0EB24C1622CBD242008E927F /* NativeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
