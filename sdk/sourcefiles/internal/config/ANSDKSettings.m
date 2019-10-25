@@ -141,7 +141,7 @@
 @interface ANSDKSettings()
 
 @property (nonatomic) id<ANBaseUrlConfig> baseUrlConfig;
-
+@property (nonatomic, readwrite, strong, nonnull) NSString *sdkVersion;
 @end
 
 
@@ -156,6 +156,10 @@
         sdkSettings.enableOpenMeasurement = YES;
     });
     return sdkSettings;
+}
+
+- (NSString *)sdkVersion{
+    return AN_SDK_VERSION;
 }
 
 - (id<ANBaseUrlConfig>)baseUrlConfig {

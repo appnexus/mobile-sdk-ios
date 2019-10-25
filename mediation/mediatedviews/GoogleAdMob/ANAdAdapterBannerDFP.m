@@ -20,7 +20,8 @@
 
 static NSString *const kANAdAdapterBannerDFPANHB = @"anhb";
 static NSString *const kANAdAdapterBannerDFPSecondPrice = @"second_price";
-
+static CGFloat const kANWaitIntervalMilles = 0.12f;
+static CGFloat const kANTotalRetries = 10;
 
 
 /**
@@ -46,8 +47,10 @@ static NSString *const kANAdAdapterBannerDFPSecondPrice = @"second_price";
 
 @property (nonatomic, readwrite, strong)  DFPBannerView  *dfpBanner;
 @property (nonatomic, readwrite, strong)  DFPRequest     *dfpRequest;
-
 @property (nonatomic, readwrite)          BOOL            secondPriceIsHigher;
+@property (nonatomic, readwrite)          BOOL            secondPriceAvailable;
+@property (nonatomic, retain) NSTimer *timer;
+@property (nonatomic) int retryCount;
 
 @end
 
@@ -87,13 +90,14 @@ static NSString *const kANAdAdapterBannerDFPSecondPrice = @"second_price";
 
     //
     self.dfpRequest  = [ANAdAdapterBaseDFP dfpRequestFromTargetingParameters:targetingParameters ];
-
+    self.secondPriceAvailable     = NO;
     if (ssparam.secondPrice) {
         //NB  round() is required because [@"0.01" floatValue] approximates 1 as 0.99... which, in turn, becomes an integer of 0.
         //
         CGFloat     secondPriceAsNumber    = round([ssparam.secondPrice floatValue] * 100.0);
 
         if (secondPriceAsNumber >= 0) {
+            self.secondPriceAvailable     = YES;
             NSString  *secondPriceAsToken  = [NSString stringWithFormat:@"%@_%@", kANAdAdapterBannerDFPANHB, @(secondPriceAsNumber)];
             self.dfpRequest.customTargeting = @{ kANAdAdapterBannerDFPANHB : secondPriceAsToken };
         }
@@ -105,11 +109,9 @@ static NSString *const kANAdAdapterBannerDFPSecondPrice = @"second_price";
     self.dfpBanner.adUnitID = idString;
     self.dfpBanner.rootViewController = rootViewController;
     self.dfpBanner.delegate = self;
-
-    self.secondPriceIsHigher = NO;
     self.dfpBanner.appEventDelegate = self;
-
-
+    self.secondPriceIsHigher = NO;
+    self.retryCount = 0;
     //
     [self.dfpBanner loadRequest:self.dfpRequest];
 }
@@ -136,21 +138,30 @@ static NSString *const kANAdAdapterBannerDFPSecondPrice = @"second_price";
     return p;
 }
 
-
-
+-(void)adReceiveAd{
+    @synchronized (self) {
+        self.retryCount ++;
+        if (self.retryCount<kANTotalRetries) {
+            if (self.secondPriceIsHigher) {
+                [self.timer invalidate];
+                [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
+            }
+        }else{
+            [self.timer invalidate];
+            [self.delegate didLoadBannerAd:self.dfpBanner];
+        }
+    }
+}
 
 #pragma mark - GADBannerViewDelegate
 
 - (void)adViewDidReceiveAd:(DFPBannerView *)view
 {
     ANLogDebug(@"DFP banner did load");
-
-    @synchronized (self) {
-        if (self.secondPriceIsHigher) {
-            [self.delegate didFailToLoadAd:ANAdResponseUnableToFill];
-        } else {
-            [self.delegate didLoadBannerAd:view];
-        }
+    if (!self.secondPriceAvailable) {
+        [self.delegate didLoadBannerAd:self.dfpBanner];
+    }else{
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:kANWaitIntervalMilles target:self selector:@selector(adReceiveAd) userInfo:nil repeats:YES];
     }
 }
 
@@ -200,8 +211,8 @@ static NSString *const kANAdAdapterBannerDFPSecondPrice = @"second_price";
             code = ANAdResponseInternalError;
             break;
     }
-    
- 	[self.delegate didFailToLoadAd:code];
+    [self.timer invalidate];
+    [self.delegate didFailToLoadAd:code];
 }
 
 - (void)adViewWillPresentScreen:(DFPBannerView *)adView {
