@@ -1,5 +1,8 @@
 ## 6.1.1
 
+### New Features
++ MS-3923: Added new API to get latest SDK version
+
 ### Improvements/Bug Fixes
 + MS-4091: Improved DFP second price option
 
