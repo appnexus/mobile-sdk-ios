@@ -14,7 +14,7 @@
  */
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface NativeViewController : UIViewController
 
 
 @end

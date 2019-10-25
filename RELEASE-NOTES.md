@@ -1,3 +1,9 @@
+## 6.1.1
+
+### Improvements/Bug Fixes
++ MS-4091: Improved DFP second price option
+
+
 ## 6.1
 
 ### New Features

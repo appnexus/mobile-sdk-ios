@@ -14,11 +14,11 @@
  */
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface NativeViewController ()
 
 @end
 
-@implementation ViewController
+@implementation NativeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
