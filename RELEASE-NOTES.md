@@ -1,3 +1,9 @@
+## 6.1.2
+
+### Improvements/Bug Fixes
++ MS-4092: StoreKit crash on iOS 13
+
+
 ## 6.1.1
 
 ### New Features
