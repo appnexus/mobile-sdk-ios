@@ -12,10 +12,18 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-#import <UIKit/UIKit.h>
+#import "NativeViewController.h"
 
-@interface ViewController : UIViewController
-
+@interface NativeViewController ()
 
 @end
 
+@implementation NativeViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+
+@end

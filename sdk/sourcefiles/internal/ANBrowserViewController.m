@@ -14,12 +14,12 @@
  */
 
 #import "ANBrowserViewController.h"
-#import "ANStoreProductViewController.h"
 #import "ANWebView.h"
 #import "ANGlobal.h"
 #import "ANLogging.h"
 #import "UIView+ANCategory.h"
 #import "ANOpenInExternalBrowserActivity.h"
+#import <StoreKit/StoreKit.h>
 
 #import "ANSDKSettings.h"
 
@@ -512,7 +512,7 @@ WKNavigationDelegate, WKUIDelegate>
 
 - (void)loadAndPresentStoreControllerWithiTunesId:(NSNumber *)iTunesId {
     if (iTunesId) {
-        self.iTunesStoreController = [[ANStoreProductViewController alloc] init];
+        self.iTunesStoreController = [[SKStoreProductViewController alloc] init];
         self.iTunesStoreController.delegate = self;
         [self.iTunesStoreController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier:iTunesId}
                                               completionBlock:nil];
