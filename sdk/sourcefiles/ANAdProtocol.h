@@ -89,6 +89,13 @@
 @property (nonatomic, readwrite, strong, nullable) NSString *externalUid;
 
 /**
+ Report the Ad Type of the returned ad object.
+ Not available until load is complete and successful.
+ */
+@property (nonatomic, readwrite)  ANAdType  adType DEPRECATED_MSG_ATTRIBUTE("Use ANCustomResponse instead.");
+
+
+/**
  Set the user's current location.  This allows ad buyers to do location
  targeting, which can increase spend.
  */
@@ -207,6 +214,13 @@
 #pragma mark - ANAdProtocol entrypoint combinations.
 
 @protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdProtocolCustomResponse>
+
+/**
+ An AppNexus creativeID for the current creative that is displayed
+ */
+// CreativeId should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid creativeID being accessed through ANNativeAdRequest.
+@property (nonatomic, readonly, strong, nullable) NSString *creativeId DEPRECATED_MSG_ATTRIBUTE("Use ANCustomResponse instead.");
+
 
 @end
 

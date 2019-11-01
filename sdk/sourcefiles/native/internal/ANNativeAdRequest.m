@@ -51,6 +51,7 @@
 @synthesize  customKeywords  = __customKeywords;
 @synthesize  externalUid     = __externalUid;
 
+@synthesize  adType          = __adType;
 @synthesize  rendererId      = _rendererId;
 
 
@@ -130,6 +131,11 @@
             [self setCustomResponse:customResponse onObject:nativeResponse forKeyPath:kANCustomResponse];
         }
     }
+    //
+     if (nativeResponse.creativeId == nil) {
+         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
+         [self setCreativeId:creativeId onObject:nativeResponse forKeyPath:kANCreativeId];
+     }
 
     //
     dispatch_queue_t  backgroundQueue  = dispatch_queue_create(__PRETTY_FUNCTION__, DISPATCH_QUEUE_SERIAL);
@@ -204,6 +210,12 @@
 // NB  Some duplication between ANNativeAd* and the other entry points is inevitable because ANNativeAd* does not inherit from ANAdView.
 //
 #pragma mark - ANUniversalAdFetcherFoundationDelegate helper methods.
+
+- (void)setCreativeId:(NSString *)creativeId
+             onObject:(id)object forKeyPath:(NSString *)keyPath
+{
+    [object setValue:creativeId forKeyPath:keyPath];
+}
 
 - (void)setCustomResponse:(ANCustomResponse *)customResponse
              onObject:(id)object forKeyPath:(NSString *)keyPath

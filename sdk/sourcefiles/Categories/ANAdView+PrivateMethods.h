@@ -36,6 +36,7 @@
 - (void)loadAdFromVast: (NSString *)xml width: (int)width
                 height: (int)height;
 
+- (void)setCreativeId:(NSString *)creativeId;
 - (void)setCustomResponse:(ANCustomResponse *)customResponse;
 
 @end

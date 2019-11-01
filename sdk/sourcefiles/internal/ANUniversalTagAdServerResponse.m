@@ -250,6 +250,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         if ([adType isEqualToString:kANUniversalTagAdServerResponseKeyBannerObject]) {
                             ANStandardAd *standardAd = [[self class] standardAdFromRTBObject:rtbObject];
                             if (standardAd) {
+                                standardAd.creativeId = creativeId;
                                 [self.ads addObject:standardAd];
                             }
 
@@ -257,6 +258,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]){
                             ANRTBVideoAd *videoAd = [[self class] videoAdFromRTBObject:rtbObject];
                             if (videoAd) {
+                                videoAd.creativeId = creativeId;
                                 videoAd.notifyUrlString = [adObject[kANUniversalTagAdServerResponseKeyAdsNotifyUrl] description];
 
                                 [self.ads addObject:videoAd];
@@ -265,6 +267,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyNativeObject]) {
                             ANNativeStandardAdResponse  *nativeAd  = [[self class] nativeAdFromRTBObject:rtbObject];
                             if (nativeAd) {
+                                nativeAd.creativeId = creativeId;
                                 nativeAd.customResponse = customResponse;
                                 if(adObject[kANUniversalTagAdServerResponseKeyAdsRendererUrl] != nil)
                                 {
@@ -305,6 +308,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                                         mediatedAd.verificationScriptResource = verificationScriptResource;
                                     }
                                 }
+                                mediatedAd.creativeId = creativeId;
                                 if (mediatedAd.className.length > 0) {
                                     [self.ads addObject:mediatedAd];
                                 }
@@ -328,6 +332,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                         if (ssmObject) {
                             ANSSMStandardAd *ssmStandardAd = [[self class] standardSSMAdFromSSMObject:ssmObject];
                             if (ssmStandardAd) {
+                                ssmStandardAd.creativeId = creativeId;
                                 [self.ads addObject:ssmStandardAd];
                             }
                         }
@@ -345,6 +350,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
 
                 if ([lastAdsObject isKindOfClass:[ANBaseAdObject class]]) {
                     ANBaseAdObject  *baseAdObject  = (ANBaseAdObject *)lastAdsObject;
+                    baseAdObject.adType = [adType copy];
                     baseAdObject.customResponse = customResponse;
                 }
 

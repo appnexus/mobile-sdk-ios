@@ -36,6 +36,7 @@
 #import "ANNativeAdResponse+PrivateMethods.h"
 #import "ANNativeRenderingViewController.h"
 
+static NSString *const kANAdType = @"adType";
 static NSString *const kANBannerWidth = @"width";
 static NSString *const kANBannerHeight = @"height";
 static NSString *const kANInline = @"inline";
@@ -352,6 +353,16 @@ static NSString *const kANInline = @"inline";
         if (_customResponse) {
             [self setCustomResponse:_customResponse];
         }
+        
+        NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
+        if (creativeId) {
+             [self setCreativeId:creativeId];
+        }
+
+        NSString  *adTypeString  = (NSString *) [ANGlobal valueOfGetterProperty:kANAdType forObject:adObjectHandler];
+        if (adTypeString) {
+            [self setAdType:[ANGlobal adTypeStringToEnum:adTypeString]];
+        }
 
         if ([adObject isKindOfClass:[UIView class]])
         {
@@ -397,6 +408,9 @@ static NSString *const kANInline = @"inline";
 
         } else if ([adObject isKindOfClass:[ANNativeAdResponse class]]) {
             ANNativeAdResponse  *nativeAdResponse  = (ANNativeAdResponse *)response.adObject;
+            
+            self.creativeId  = nativeAdResponse.creativeId;
+            self.adType      = ANAdTypeNative;
 
             nativeAdResponse.clickThroughAction           = self.clickThroughAction;
             nativeAdResponse.landingPageLoadsInBackground = self.landingPageLoadsInBackground;

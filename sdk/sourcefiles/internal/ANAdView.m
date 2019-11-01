@@ -61,6 +61,8 @@
 @synthesize  gender                                 = __gender;
 @synthesize  customKeywords                         = __customKeywords;
 
+@synthesize  creativeId                             = __creativeId;
+@synthesize  adType                                 = __adType;
 @synthesize  externalUid                            = __externalUid;
 
 @synthesize  clickThroughAction                     = __clickThroughAction;
@@ -187,6 +189,27 @@
 
 
 #pragma mark - ANAdProtocol: Setter methods
+
+- (void)setCreativeId:(NSString *)creativeId {
+    creativeId = ANConvertToNSString(creativeId);
+    if ([creativeId length] < 1) {
+        ANLogError(@"Could not set creativeId to non-string value");
+        return;
+    }
+    if (creativeId != __creativeId) {
+        ANLogDebug(@"Setting creativeId to %@", creativeId);
+        __creativeId = creativeId;
+    }
+}
+
+
+- (void)setAdType:(ANAdType)adType
+{
+    if (adType != __adType) {
+        ANLogDebug(@"Setting adType to %@", @(adType));
+        __adType = adType;
+    }
+}
 
 - (void)setCustomResponse:(ANCustomResponse *)customResponse {
     if (!customResponse) {
@@ -344,6 +367,11 @@
 - (ANGender)gender {
     ANLogDebug(@"gender returned %lu", (long unsigned)__gender);
     return __gender;
+}
+
+- (nullable NSString *)creativeId {
+    ANLogDebug(@"Creative Id returned %@", __creativeId);
+    return __creativeId;
 }
 
 -(nullable NSString *)externalUid {
