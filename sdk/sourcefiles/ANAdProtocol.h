@@ -19,7 +19,7 @@
 
 #import "ANAdConstants.h"
 #import "ANLocation.h"
-#import "ANCustomResponse.h"
+#import "ANAdResponse.h"
 
 @class ANLocation;
 
@@ -92,7 +92,7 @@
  Report the Ad Type of the returned ad object.
  Not available until load is complete and successful.
  */
-@property (nonatomic, readwrite)  ANAdType  adType DEPRECATED_MSG_ATTRIBUTE("Use ANCustomResponse instead.");
+@property (nonatomic, readwrite)  ANAdType  adType DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
 
 
 /**
@@ -143,17 +143,17 @@
 
 @end   //ANAdProtocolFoundation
 
-@protocol ANAdProtocolCustomResponse
+@protocol ANAdProtocolAdResponse
 
 /**
  An AppNexus Single Unified object that will contain all the common fields of all the ads types that are returned in the UTv3 response
  */
-// ANCustomResponse should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocolCustomResponse.
-@property (nonatomic, readonly, strong, nullable) ANCustomResponse *customResponse;
+// ANAdResponse should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocolAdResponse.
+@property (nonatomic, readonly, strong, nullable) ANAdResponse *adResponse;
 
 @end
 
-@protocol ANAdProtocolBrowser<ANAdProtocolCustomResponse>
+@protocol ANAdProtocolBrowser<ANAdProtocolAdResponse>
 
 /**
  Determines what action to take when the user clicks on an ad:
@@ -213,13 +213,13 @@
 
 #pragma mark - ANAdProtocol entrypoint combinations.
 
-@protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdProtocolCustomResponse>
+@protocol ANAdProtocol <ANAdProtocolFoundation, ANAdProtocolBrowser, ANAdProtocolPublicServiceAnnouncement, ANAdProtocolAdResponse>
 
 /**
  An AppNexus creativeID for the current creative that is displayed
  */
 // CreativeId should be accessible from response Object only(like. ANBannerAdView, ANInterstitialAd, ANInstreamVideoAd  and ANNativeAdResponse). It is placed into ANAdProtocol instead of ANAdProtocolFoundation to avoid creativeID being accessed through ANNativeAdRequest.
-@property (nonatomic, readonly, strong, nullable) NSString *creativeId DEPRECATED_MSG_ATTRIBUTE("Use ANCustomResponse instead.");
+@property (nonatomic, readonly, strong, nullable) NSString *creativeId DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
 
 
 @end

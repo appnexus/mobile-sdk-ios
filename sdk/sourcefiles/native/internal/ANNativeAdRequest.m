@@ -125,10 +125,10 @@
     ANNativeAdResponse        *nativeResponse  = (ANNativeAdResponse *)response.adObject;
     
     // In case of Mediation
-    if (nativeResponse.customResponse == nil) {
-        ANCustomResponse *customResponse  = (ANCustomResponse *) [ANGlobal valueOfGetterProperty:kANCustomResponse forObject:response.adObjectHandler];
-        if (customResponse) {
-            [self setCustomResponse:customResponse onObject:nativeResponse forKeyPath:kANCustomResponse];
+    if (nativeResponse.adResponse == nil) {
+        ANAdResponse *adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:response.adObjectHandler];
+        if (adResponse) {
+            [self setAdResponse:adResponse onObject:nativeResponse forKeyPath:kANAdResponse];
         }
     }
     //
@@ -217,10 +217,10 @@
     [object setValue:creativeId forKeyPath:keyPath];
 }
 
-- (void)setCustomResponse:(ANCustomResponse *)customResponse
+- (void)setAdResponse:(ANAdResponse *)adResponse
              onObject:(id)object forKeyPath:(NSString *)keyPath
 {
-    [object setValue:customResponse forKeyPath:keyPath];
+    [object setValue:adResponse forKeyPath:keyPath];
 }
 
 // RETURN:  dispatch_semaphore_t    For first time image requests.

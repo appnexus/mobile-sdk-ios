@@ -16,7 +16,7 @@
 #import <Foundation/Foundation.h>
 #import "ANAdConstants.h"
 
-@interface ANCustomResponse : NSObject
+@interface ANAdResponse : NSObject
 /**
  An AppNexus creativeID for the current creative that is displayed
  */

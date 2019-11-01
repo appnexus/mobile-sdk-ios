@@ -37,6 +37,6 @@
                 height: (int)height;
 
 - (void)setCreativeId:(NSString *)creativeId;
-- (void)setCustomResponse:(ANCustomResponse *)customResponse;
+- (void)setAdResponse:(ANAdResponse *)adResponse;
 
 @end

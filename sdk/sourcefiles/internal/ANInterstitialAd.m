@@ -315,9 +315,9 @@ NSString *const  kANInterstitialAdViewAuctionInfoKey  = @"kANInterstitialAdViewA
         [self adRequestFailedWithError:response.error];
         return;
     }
-    ANCustomResponse *customResponse  = (ANCustomResponse *) [ANGlobal valueOfGetterProperty:kANCustomResponse forObject:response.adObjectHandler];
-    if (customResponse) {
-        [self setCustomResponse:customResponse];
+    ANAdResponse *adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:response.adObjectHandler];
+    if (adResponse) {
+        [self setAdResponse:adResponse];
     }
     NSString *creativeId = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:response.adObjectHandler];
     if(creativeId){

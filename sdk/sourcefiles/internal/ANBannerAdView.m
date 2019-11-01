@@ -71,7 +71,7 @@ static NSString *const kANInline = @"inline";
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
 @synthesize  enableNativeRendering           = _enableNativeRendering;
-@synthesize  customResponse           = _customResponse;
+@synthesize  adResponse           = _adResponse;
 
 #pragma mark - Lifecycle.
 
@@ -349,9 +349,9 @@ static NSString *const kANInline = @"inline";
         self.contentView = nil;
         self.impressionURLs = nil;
         
-        _customResponse  = (ANCustomResponse *) [ANGlobal valueOfGetterProperty:kANCustomResponse forObject:adObjectHandler];
-        if (_customResponse) {
-            [self setCustomResponse:_customResponse];
+        _adResponse  = (ANAdResponse *) [ANGlobal valueOfGetterProperty:kANAdResponse forObject:adObjectHandler];
+        if (_adResponse) {
+            [self setAdResponse:_adResponse];
         }
         
         NSString  *creativeId  = (NSString *) [ANGlobal valueOfGetterProperty:kANCreativeId forObject:adObjectHandler];
@@ -387,7 +387,7 @@ static NSString *const kANInline = @"inline";
             }
             [self adDidReceiveAd:self];
 
-            if (_customResponse.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
+            if (_adResponse.adType == ANAdTypeBanner && !([adObjectHandler isKindOfClass:[ANNativeStandardAdResponse class]]))
             {
                 
                 self.impressionURLs = (NSArray<NSString *> *) [ANGlobal valueOfGetterProperty:kANImpressionUrls forObject:adObjectHandler];
@@ -531,7 +531,7 @@ static NSString *const kANInline = @"inline";
 
 - (void)didMoveToWindow
 {
-    if (self.contentView  && ( _customResponse.adType == ANAdTypeBanner)) {
+    if (self.contentView  && ( _adResponse.adType == ANAdTypeBanner)) {
         [ANTrackerManager fireTrackerURLArray:self.impressionURLs];
         self.impressionURLs = nil;
         

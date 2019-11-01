@@ -13,9 +13,9 @@
  limitations under the License.
  */
 
-#import "ANCustomResponse.h"
+#import "ANAdResponse.h"
 
-@implementation ANCustomResponse
+@implementation ANAdResponse
 
 @synthesize  creativeId, adType, tagId;
 

@@ -122,7 +122,7 @@ extern NSString * __nonnull const  kANNativeElementObject;
 /*!
  * An AppNexus creativeID for the current creative that is displayed
  */
-@property (nonatomic, readonly, strong, nullable) NSString *creativeId DEPRECATED_MSG_ATTRIBUTE("Use ANCustomResponse instead.");
+@property (nonatomic, readonly, strong, nullable) NSString *creativeId DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
 
 
 /*!
