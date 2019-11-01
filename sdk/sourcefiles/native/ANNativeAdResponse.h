@@ -125,6 +125,12 @@ extern NSString * __nonnull const  kANNativeElementObject;
 @property (nonatomic, readonly, strong, nullable) NSString *creativeId DEPRECATED_MSG_ATTRIBUTE("Use ANAdResponse instead.");
 
 
+/**
+ An AppNexus Single Unified object that will contain all the common fields of all the ads types
+ */
+@property (nonatomic, readonly, strong, nullable) ANAdResponse *adResponse;
+
+
 /*!
  * Additional description of the ad
  */
