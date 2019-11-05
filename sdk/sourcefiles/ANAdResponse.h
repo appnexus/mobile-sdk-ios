@@ -29,9 +29,28 @@
 @property (nonatomic, readwrite)  ANAdType  adType;
 
 /**
- An AppNexus tagId for the current ad object which is placementID that is displayed
+ An AppNexus placement ID.  A placement ID is a numeric ID that's
+ associated with a place where ads can be shown.  In our
+ implementations of banner and interstitial ad views, we associate
+ each ad view with a placement ID.
  */
-@property (nonatomic, readwrite, strong, nullable)  NSString  *tagId;
+@property (nonatomic, readwrite, strong, nullable) NSString *placementId;
+
+/**
+ An AppNexus member ID. A member ID is a numeric ID that's associated
+ with the member that this app belongs to.
+ */
+@property (nonatomic, readwrite, assign) NSInteger memberId;
+
+/**
+ An AppNexus contentSource. A contentSource can be RTB , CSM or SSM
+ */
+@property (nonatomic, readwrite, strong, nullable) NSString *contentSource;
+
+/**
+ An AppNexus networkName. A networkName belongs to mediation adaptor class based on UTv3 response
+ */
+@property (nonatomic, readwrite, strong, nullable) NSString *networkName;
 
 @end
 

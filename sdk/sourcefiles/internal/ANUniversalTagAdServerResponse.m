@@ -40,6 +40,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyAdsAdType = @"ad_type";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCreativeId = @"creative_id";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsRendererUrl = @"renderer_url";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsTagId = @"tag_id";
+static NSString *const kANUniversalTagAdServerResponseKeyAdsBuyerMemberId = @"buyer_member_id";
 
 static NSString *const kANUniversalTagAdServerResponseKeyAdsCSMObject = @"csm";
 static NSString *const kANUniversalTagAdServerResponseKeyAdsSSMObject = @"ssm";
@@ -229,16 +230,25 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     ANLogError(@"Response from ad server in an unexpected format content_source/ad_type UNDEFINED.  (adObject=%@)", adObject);
                     continue;
                 }
-                NSString *tagId  = @"";
+                NSString *placementId  = @"";
                 if(firstTag[kANUniversalTagAdServerResponseKeyAdsTagId] != nil)
                 {
-                    tagId  = [NSString stringWithFormat:@"%@",firstTag[kANUniversalTagAdServerResponseKeyAdsTagId]];
+                    placementId  = [NSString stringWithFormat:@"%@",firstTag[kANUniversalTagAdServerResponseKeyAdsTagId]];
                 }
+                NSInteger memberId  = 0;
+                if(adObject[kANUniversalTagAdServerResponseKeyAdsBuyerMemberId] != nil)
+                {
+                  memberId  = [[NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsBuyerMemberId]] integerValue];
+                }
+                
                 
                 ANAdResponse *adResponse = [[ANAdResponse alloc] init];
                 adResponse.creativeId = creativeId;
-                adResponse.tagId = tagId;
+                adResponse.placementId = placementId;
                 adResponse.adType = [ANGlobal adTypeStringToEnum:adType];
+                adResponse.contentSource = contentSource;
+                adResponse.memberId = memberId;
+                
                 
                 // RTB
                 if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
@@ -310,6 +320,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                                 }
                                 mediatedAd.creativeId = creativeId;
                                 if (mediatedAd.className.length > 0) {
+                                    adResponse.networkName = mediatedAd.className;
                                     [self.ads addObject:mediatedAd];
                                 }
                             }

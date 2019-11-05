@@ -17,6 +17,6 @@
 
 @implementation ANAdResponse
 
-@synthesize  creativeId, adType, tagId;
+@synthesize  creativeId, adType, memberId, placementId, contentSource, networkName;
 
 @end
