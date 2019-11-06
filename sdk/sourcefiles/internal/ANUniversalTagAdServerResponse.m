@@ -241,14 +241,13 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                   memberId  = [[NSString stringWithFormat:@"%@",adObject[kANUniversalTagAdServerResponseKeyAdsBuyerMemberId]] integerValue];
                 }
                 
-                
+                //Initialise AdResponse object to expose all the public facing APIs from the UTv3 response
                 ANAdResponse *adResponse = [[ANAdResponse alloc] init];
                 adResponse.creativeId = creativeId;
                 adResponse.placementId = placementId;
                 adResponse.adType = [ANGlobal adTypeStringToEnum:adType];
                 adResponse.contentSource = contentSource;
                 adResponse.memberId = memberId;
-                
                 
                 // RTB
                 if ([contentSource isEqualToString:kANUniversalTagAdServerResponseKeyAdsRTBObject])
@@ -328,7 +327,6 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     } else if([adType isEqualToString:kANUniversalTagAdServerResponseKeyVideoObject]) {
                         ANCSMVideoAd *csmVideoAd = [[self class] videoCSMAdFromCSMObject:adObject withTagObject:firstTag];
                         if(csmVideoAd){
-                            csmVideoAd.adResponse = adResponse;
                             [self.ads addObject:csmVideoAd];
                         }
                     }else{

@@ -15,12 +15,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ANAdResponse.h"
+#import "ANBaseAdObject.h"
 
-@interface ANCSMVideoAd : NSObject
+@interface ANCSMVideoAd : ANBaseAdObject
 
 @property (nonatomic, readwrite, strong) NSDictionary *adDictionary;
-@property (nonatomic, readwrite, strong)  ANAdResponse *adResponse;
 
 
 @end
