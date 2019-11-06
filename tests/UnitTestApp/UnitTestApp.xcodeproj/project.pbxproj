@@ -297,6 +297,11 @@
 		97B3C8EF223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8DD223FA311005B2DB8 /* NSURLSessionConfiguration+ANProtocols.m */; };
 		97B3C8F0223FA311005B2DB8 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */; };
 		97E3447B2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */; };
+		97FFD04A2372D49400412B20 /* ANAdResponseTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 97FFD0492372D49400412B20 /* ANAdResponseTestCase.m */; };
+		97FFD0522372DA7900412B20 /* ANAdResponseRTB_Banner.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD04D2372DA7700412B20 /* ANAdResponseRTB_Banner.json */; };
+		97FFD0532372DA7900412B20 /* ANAdResponseCSM_Banner.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */; };
+		97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */; };
+		97FFD0562372DA7900412B20 /* ANAdResponseRTB_Video.json in Resources */ = {isa = PBXBuildFile; fileRef = 97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -672,6 +677,11 @@
 		97B3C8ED223FA311005B2DB8 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
 		97B3C8EE223FA311005B2DB8 /* SDKValidationURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKValidationURLProtocol.h; sourceTree = "<group>"; };
 		97E3447A2281856A008C3C0F /* ANVideoPlayerSettingsDefaultTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANVideoPlayerSettingsDefaultTestCase.m; sourceTree = "<group>"; };
+		97FFD0492372D49400412B20 /* ANAdResponseTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ANAdResponseTestCase.m; sourceTree = "<group>"; };
+		97FFD04D2372DA7700412B20 /* ANAdResponseRTB_Banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_Banner.json; sourceTree = "<group>"; };
+		97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseCSM_Banner.json; sourceTree = "<group>"; };
+		97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_Native.json; sourceTree = "<group>"; };
+		97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ANAdResponseRTB_Video.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1092,6 +1102,7 @@
 				0EEFE1AE220089FB002B5F5F /* MediationCallbacksTests.m */,
 				0EEFE1B422008A1A002B5F5F /* MRAIDTests.m */,
 				0EEFE190220080DE002B5F5F /* OutstreamVideoAdClassObjectFromUTResponseTests.m */,
+				97FFD0492372D49400412B20 /* ANAdResponseTestCase.m */,
 			);
 			path = FunctionalTests;
 			sourceTree = "<group>";
@@ -1150,6 +1161,10 @@
 		0EEFE10822005532002B5F5F /* StubResponse */ = {
 			isa = PBXGroup;
 			children = (
+				97FFD04E2372DA7700412B20 /* ANAdResponseCSM_Banner.json */,
+				97FFD04D2372DA7700412B20 /* ANAdResponseRTB_Banner.json */,
+				97FFD0502372DA7900412B20 /* ANAdResponseRTB_Native.json */,
+				97FFD0512372DA7900412B20 /* ANAdResponseRTB_Video.json */,
 				60F8A80723280EC10030D53D /* ANJAMDeviceIdResponse.json */,
 				60F8A80523280EC10030D53D /* ANJAMDispatchAppEventResponse.json */,
 				60F8A80B23280EC10030D53D /* ANJAMExternalBrowserResponse.json */,
@@ -1596,6 +1611,7 @@
 				0E1D14B422784C9500343050 /* appnexus_bannerNative_rendering.json in Resources */,
 				0E1D14B522784C9500343050 /* appnexus_bannerNative_renderingInvalidURL.json in Resources */,
 				0EEFE19B2200813F002B5F5F /* appnexus_standard_response.json in Resources */,
+				97FFD0552372DA7900412B20 /* ANAdResponseRTB_Native.json in Resources */,
 				0EEFE1A72200821F002B5F5F /* BannerMediationFailRTBVideoSuccess.json in Resources */,
 				0EEFE1EC2200976D002B5F5F /* bannerNative_basic_banner.json in Resources */,
 				0EEFE1EA2200975A002B5F5F /* bannerNative_native_mediation.json in Resources */,
@@ -1607,16 +1623,19 @@
 				979EA16B223BB575009B79B7 /* OMID_Native_CSMResponse.json in Resources */,
 				979EA16D223BB575009B79B7 /* OMID_Native_RTBResponse.json in Resources */,
 				0EEFE1FD22009CDB002B5F5F /* OMID_TestResponse.json in Resources */,
+				97FFD0522372DA7900412B20 /* ANAdResponseRTB_Banner.json in Resources */,
 				0EEFE1F222009819002B5F5F /* SecondPriceForDFPParamIsUnset.json in Resources */,
 				0EEFE1F022009802002B5F5F /* SecondPriceForDFPSuccess.json in Resources */,
 				0EEFE1A3220081C0002B5F5F /* SuccessfulAllowMagicSizeBannerObjectResponse.json in Resources */,
 				0EEFE1A9220082F9002B5F5F /* SuccessfulANRTBVideoAdWithoutCreativeIdResponse.json in Resources */,
 				0EEFE17022007317002B5F5F /* SuccessfulInstreamVideoAdResponse.json in Resources */,
+				97FFD0562372DA7900412B20 /* ANAdResponseRTB_Video.json in Resources */,
 				0EEFE1A1220081B3002B5F5F /* SuccessfulLocationCreativeForBannerAdResponse.json in Resources */,
 				0EEFE1E8220096A9002B5F5F /* SuccessfulMRAIDListenerResponse.json in Resources */,
 				0EEFE1A52200820F002B5F5F /* SuccessfulOutstreamBannerVideoResponse.json in Resources */,
 				0EEFE1EE22009797002B5F5F /* SuccessfulOutstreamVideoResponse.json in Resources */,
 				0E4701622237A31C005CFFAC /* SuccessfulRTBShouldResizeAdToFitContainer.json in Resources */,
+				97FFD0532372DA7900412B20 /* ANAdResponseCSM_Banner.json in Resources */,
 				0E7BC1BC229E91E9002F41FF /* SuccessfulSquareInstreamVideoAdResponse.json in Resources */,
 				0EEFE18C220078B8002B5F5F /* SuccessfulStandardAdFromRTBObjectResponse.json in Resources */,
 				0E7BC1BA229E905F002F41FF /* SuccessfulVerticalVideoAdResponse.json in Resources */,
@@ -1800,6 +1819,7 @@
 				0E8C97D021FF32EC005D1F0E /* ANTestGlobal.m in Sources */,
 				0E8C97A621FF32EC005D1F0E /* ANTrackerManager+ANTest.m in Sources */,
 				0EEFE1602200715C002B5F5F /* ANTrackerManagerTestCase.m in Sources */,
+				97FFD04A2372D49400412B20 /* ANAdResponseTestCase.m in Sources */,
 				0EEFE1DD22008E6D002B5F5F /* ANUniversalAdFetcher+ANTest.m in Sources */,
 				0EEFE15E2200706A002B5F5F /* ANUniversalTagRequestBuilderFunctionalTests.m in Sources */,
 				0E8C97A321FF32EC005D1F0E /* ANURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
