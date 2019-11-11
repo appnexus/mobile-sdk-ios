@@ -19,7 +19,7 @@
 
 #pragma mark - Constants
 
-#define AN_OMIDSDK_PARTNER_NAME             @"appnexus.com-omios"
+#define AN_OMIDSDK_PARTNER_NAME             @"Appnexus"
 
 #pragma mark - Global class.
 
