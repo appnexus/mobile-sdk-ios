@@ -22,6 +22,7 @@
 #import "ANReachability.h"
 #import "TestANUniversalFetcher.h"
 #import "ANGDPRSettings.h"
+#import "ANUSPrivacySettings.h"
 
 
 static NSString *const   kTestUUID              = @"0000-000-000-00";
@@ -236,5 +237,101 @@ static NSString  *videoPlacementID  = @"9924001";
     [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
 }
 
+- (void)testUTRequestForSetUSPrivacyString
+{
+    [ANUSPrivacySettings setUSPrivacyString:@"1yn"];
+    
+    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                       NSString *privacyString = jsonDict[@"us_privacy"];
+                       XCTAssertNotNil(privacyString);
+                       XCTAssertTrue(privacyString, @"1yn");
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestForSetUSPrivacyDefaultString
+{
+    [ANUSPrivacySettings reset];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABUSPrivacy_String"];
+    
+    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                       XCTAssertNil(jsonDict[@"us_privacy"]);
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
+
+- (void)testUTRequestCheckForIAB_USPrivacyString
+{
+    [ANUSPrivacySettings reset];
+    [[NSUserDefaults standardUserDefaults] setObject:@"1yn" forKey:@"IABUSPrivacy_String"];
+  
+    NSString                *urlString      = [[[ANSDKSettings sharedInstance] baseUrlConfig] utAdRequestBaseUrl];
+    TestANUniversalFetcher  *adFetcher      = [[TestANUniversalFetcher alloc] initWithPlacementId:videoPlacementID];
+    NSURLRequest            *request        = [ANUniversalTagRequestBuilder buildRequestWithAdFetcherDelegate:adFetcher.delegate baseUrlString:urlString];
+    XCTestExpectation       *expectation    = [self expectationWithDescription:[NSString stringWithFormat:@"%s", __PRETTY_FUNCTION__]];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+                   ^{
+                       NSError *error;
+                       
+                       id jsonObject = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                                       options:kNilOptions
+                                                                         error:&error];
+                       TESTTRACEM(@"jsonObject=%@", jsonObject);
+                       
+                       XCTAssertNil(error);
+                       XCTAssertNotNil(jsonObject);
+                       XCTAssertTrue([jsonObject isKindOfClass:[NSDictionary class]]);
+                       NSDictionary *jsonDict = (NSDictionary *)jsonObject;
+                      
+                       NSString *privacyString = jsonDict[@"us_privacy"];
+                       XCTAssertNotNil(privacyString);
+                       XCTAssertTrue(privacyString, @"1yn");
+                       [expectation fulfill];
+                   });
+    
+    [self waitForExpectationsWithTimeout:UTMODULETESTS_TIMEOUT handler:nil];
+}
 
 @end
