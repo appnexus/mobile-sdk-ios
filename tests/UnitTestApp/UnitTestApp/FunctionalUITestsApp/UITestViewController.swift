@@ -31,8 +31,10 @@ class UITestViewController: UIViewController {
             let placementTestStoryboard =  UIStoryboard(name: FunctionalTestConstants.functionalTest, bundle: nil)
             if ProcessInfo.processInfo.arguments.contains(FunctionalTestConstants.BannerNativeAd.testBannerNativeRenderingClickThrough) || ProcessInfo.processInfo.arguments.contains(FunctionalTestConstants.BannerNativeAd.testBannerNativeRenderingSize)  {
                 let bannerAdViewController = placementTestStoryboard.instantiateViewController(withIdentifier: "BannerAdFunctionalViewController") as! BannerAdFunctionalViewController
-                self.navigationController?.pushViewController(bannerAdViewController, animated: true)
-                
+                if #available(iOS 13.0, *) {
+                    bannerAdViewController.modalPresentationStyle = .fullScreen;
+                }
+                self.present(bannerAdViewController, animated: true, completion: nil)
             }
         }
     }
