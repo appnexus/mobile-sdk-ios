@@ -496,7 +496,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
                     if ([secondPrice length] > 0)
                     {
                         NSMutableDictionary  *paramDict  = [[[self class]
-                                                                 jsonResponseFromData:[mediatedAd.param dataUsingEncoding:NSASCIIStringEncoding]
+                                                                 jsonResponseFromData:[mediatedAd.param dataUsingEncoding:NSUTF8StringEncoding]
                                                              ] mutableCopy ];
 
                         if (paramDict[kANUniversalTagAdServerResponseKeyOptimized])
@@ -586,7 +586,7 @@ static NSString *const kANUniversalTagAdServerResponseKeyVideoEventsCompleteUrls
     NSData  *utResponseJSONData  = [NSJSONSerialization dataWithJSONObject:nativeAd
                                                                    options: NSJSONWritingPrettyPrinted
                                                                      error: nil ];
-    NSString  *utResponseJSONString  = [[NSString alloc] initWithData:utResponseJSONData encoding:NSASCIIStringEncoding];
+    NSString  *utResponseJSONString  = [[NSString alloc] initWithData:utResponseJSONData encoding:NSUTF8StringEncoding];
     return utResponseJSONString;
 }
 
