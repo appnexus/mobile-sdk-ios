@@ -78,7 +78,7 @@
     XCTAssertTrue([self.requestData containsString:@"true"]);
     XCTAssertTrue([self.requestData containsString:@"sessionStart"]);
     XCTAssertTrue([self.requestData containsString:@"partnerName"]);
-    XCTAssertTrue([self.requestData containsString:@"appnexus.com-omios"]);
+    XCTAssertTrue([self.requestData containsString:@"Appnexus"]);
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);
@@ -92,7 +92,7 @@
     XCTAssertTrue([self.requestData containsString:@"true"]);
     XCTAssertTrue([self.requestData containsString:@"sessionStart"]);
     XCTAssertTrue([self.requestData containsString:@"partnerName"]);
-    XCTAssertTrue([self.requestData containsString:@"appnexus.com-omios"]);
+    XCTAssertTrue([self.requestData containsString:@"Appnexus"]);
     XCTAssertTrue([self.requestData containsString:@"partnerVersion"]);
     XCTAssertTrue([self.requestData containsString:AN_SDK_VERSION]);
     XCTAssertTrue([self.requestData containsString:@"impression"]);

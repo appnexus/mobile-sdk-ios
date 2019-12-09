@@ -59,6 +59,7 @@
         UIViewController *uiTestVC =
         [storyboard instantiateViewControllerWithIdentifier:@"BannerAdFunctionalViewController"];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uiTestVC];
+        navController.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:navController animated:YES completion:nil];
     }else if([processList containsObject:@"FunctionalUITestClickThru"]){
         
@@ -66,6 +67,7 @@
         UIViewController *uiTestVC =
         [storyboard instantiateViewControllerWithIdentifier:@"BannerAdClickThruViewController"];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:uiTestVC];
+        navController.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:navController animated:YES completion:nil];
     }else{
         [self locationSetup]; // If you want to pass location...

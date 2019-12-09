@@ -60,7 +60,7 @@ class BannerAdFunctionalViewController: UIViewController , ANBannerAdViewDelegat
             banner.adSize = size
             
             guard let enableNativeRendering = bannerAdObject.enableNativeRendering else {  print("enableNativeRendering not found");   return  }
-        
+            banner.shouldResizeAdToFitContainer = false
             banner.enableNativeRendering = enableNativeRendering
             banner.shouldAllowNativeDemand = bannerAdObject.isNative
             banner.accessibilityIdentifier = bannerAdObject.adObject.accessibilityIdentifier

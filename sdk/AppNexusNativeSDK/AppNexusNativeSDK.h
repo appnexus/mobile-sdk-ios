@@ -38,5 +38,6 @@ FOUNDATION_EXPORT const unsigned char AppNexusNativeSDKVersionString[];
 #import <AppNexusNativeSDK/ANNativeCustomAdapter.h>
 #import <AppNexusNativeSDK/ANNativeMediatedAdResponse.h>
 #import <AppNexusNativeSDK/ANGDPRSettings.h>
+#import <AppNexusNativeSDK/ANUSPrivacySettings.h>
 
 

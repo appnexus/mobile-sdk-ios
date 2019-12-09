@@ -21,6 +21,7 @@
 #import "ANAdViewInternalDelegate.h"
 #import "ANGDPRSettings.h"
 #import "ANCarrierObserver.h"
+#import "ANUSPrivacySettings.h"
 
 @interface ANUniversalTagRequestBuilder()
 
@@ -127,11 +128,17 @@
     
     requestDict[@"supply_type"] = @"mobile_app";
     
+    // add GDPR Consent
     NSDictionary *gdprConsent = [self getGDPRConsentObject];
     if (gdprConsent) {
         requestDict[@"gdpr_consent"] = gdprConsent;
     }
     
+    // add USPrivacy String
+    NSString *privacyString = [ANUSPrivacySettings getUSPrivacyString];
+    if (privacyString.length != 0) {
+        requestDict[@"us_privacy"] = privacyString;
+    }
     
     return [requestDict copy];
 }
