@@ -1,7 +1,7 @@
 ## 6.2
 
 ### New Features
-+ MS-4097 California Consumer Privacy Act (CCPA) Support (https://wiki.xandr.com/display/consoledrafts/SDK+Privacy+for+iOS)
++ MS-4097 California Consumer Privacy Act (CCPA) Support (https://wiki.xandr.com/display/sdk/SDK+Privacy+for+iOS)
 
 ### Bug Fixes
 + MS-4124: Special characters not rendering over native assembly 
