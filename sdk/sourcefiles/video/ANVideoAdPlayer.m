@@ -88,6 +88,9 @@ static NSTimeInterval const kANWebviewNilDelayInSeconds = 0.5;
 
 -(void) removePlayer{
     if(self.webView != nil){
+        WKUserContentController *controller = self.webView.configuration.userContentController;
+        [controller removeScriptMessageHandlerForName:@"observe"];
+        [controller removeScriptMessageHandlerForName:@"interOp"];
         [self.webView setNavigationDelegate:nil];
         [self.webView setUIDelegate:nil];
         [self.webView removeFromSuperview];

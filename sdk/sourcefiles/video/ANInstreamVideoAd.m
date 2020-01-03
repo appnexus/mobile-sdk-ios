@@ -181,6 +181,7 @@ NSString * const  exceptionCategoryAPIUsageErr  = @"API usage err.";
     if(self.adPlayer != nil){
         [self.adPlayer removePlayer];
         [self.adPlayer removeFromSuperview];
+        self.adPlayer.delegate = nil;
         self.adPlayer = nil;
     }
 }
