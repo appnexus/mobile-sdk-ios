@@ -28,7 +28,7 @@
 
 // Designated initializer
 + (instancetype)initMediatedAd:(ANMediatedAd *)mediatedAd
-                   withFetcher:(ANNativeAdFetcher *)adFetcher
+                   withFetcher:(ANAdFetcherBase *)adFetcher
              adRequestDelegate:(id<ANNativeAdRequestProtocol>)adRequestDelegate;
 @end
 

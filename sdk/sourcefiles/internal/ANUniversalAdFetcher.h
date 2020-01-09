@@ -64,7 +64,7 @@
 - (nonnull NSDictionary *) internalDelegateUniversalTagSizeParameters;
 
 
-
+@optional
 //   If rendererId is not set, the default is zero (0).
 //   A value of zero indicates that renderer_id will not be sent in the UT Request.
 //   nativeRendererId is sufficient for ANBannerAdView and ANNativeAdRequest entry point.

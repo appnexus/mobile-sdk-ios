@@ -371,7 +371,7 @@
     [self runInBlock:^(void) {
         ANUniversalAdFetcher *fetcher = self.adFetcher;
         
-        NSString *responseURL = [self.mediatedAd.responseURL an_responseTrackerReasonCode:errorCode
+        NSString *responseURL = [self.mediatedAd.responseURL an_responseTrackerReasonCode:(int)errorCode
                                                                                   latency: ([self getLatency] * 1000)
                                                                              totalLatency:([self getTotalLatency] * 1000)];
         

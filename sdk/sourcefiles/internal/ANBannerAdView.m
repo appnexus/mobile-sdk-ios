@@ -71,6 +71,8 @@ static NSString *const kANInline = @"inline";
 @synthesize  shouldAllowNativeDemand  = _shouldAllowNativeDemand;
 @synthesize  nativeAdRendererId           = _nativeAdRendererId;
 @synthesize  enableNativeRendering           = _enableNativeRendering;
+@synthesize  minDuration             = __minDuration;
+@synthesize  maxDuration             = __maxDuration;
 
 #pragma mark - Lifecycle.
 
@@ -539,6 +541,7 @@ static NSString *const kANInline = @"inline";
         }
     }
 }
+
 
 @end
 
