@@ -639,8 +639,8 @@
 				8ABC03D21C5AD3E100D7C789 /* ANProxyViewController.h */,
 				8A02D6EC1D6CE014006831A3 /* ANSDKSettings.h */,
 				ECE4EA94194B768A0069D934 /* ANTargetingParameters.h */,
-				60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */,
 				973B23A9238D1E4C00717D67 /* ANUSPrivacySettings.h */,
+				60D39E1322570FE20029F741 /* ANVideoPlayerSettings.h */,
 			);
 			path = sourcefiles;
 			sourceTree = "<group>";
@@ -959,7 +959,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				973B23AB238D1E4C00717D67 /* ANUSPrivacySettings.h in Headers */,
 				8A9AEDB11A1BE8C200C58BDA /* ANAdConstants.h in Headers */,
 				006F6B9E2295F72A003D2DF0 /* ANAdFetcherBase.h in Headers */,
 				607A21141F85557E00BD8353 /* ANAdFetcherResponse.h in Headers */,
@@ -1027,6 +1026,7 @@
 				609732CE1E42E9860061EC0A /* ANUniversalAdFetcher.h in Headers */,
 				609732D11E42E9860061EC0A /* ANUniversalTagAdServerResponse.h in Headers */,
 				609732D41E42E9860061EC0A /* ANUniversalTagRequestBuilder.h in Headers */,
+				973B23AB238D1E4C00717D67 /* ANUSPrivacySettings.h in Headers */,
 				972025CE222FD90E00C13454 /* ANVerificationScriptResource.h in Headers */,
 				609733071E42EAFF0061EC0A /* ANVideoAdPlayer.h in Headers */,
 				609732D71E42E9860061EC0A /* ANVideoAdProcessor.h in Headers */,
@@ -1048,7 +1048,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				973B23AC238D1E4C00717D67 /* ANUSPrivacySettings.h in Headers */,
 				F5731BB7228C99350012B134 /* ANAdConstants.h in Headers */,
 				006F6B9F2295F72A003D2DF0 /* ANAdFetcherBase.h in Headers */,
 				F5731B7A228C94720012B134 /* ANAdFetcherResponse.h in Headers */,
@@ -1090,6 +1089,7 @@
 				F5731B80228C94AE0012B134 /* ANTrackerInfo.h in Headers */,
 				F5731B59228C8DE20012B134 /* ANUniversalTagAdServerResponse.h in Headers */,
 				F5731B5B228C8DEC0012B134 /* ANUniversalTagRequestBuilder.h in Headers */,
+				973B23AC238D1E4C00717D67 /* ANUSPrivacySettings.h in Headers */,
 				F5731B4D228C8D0F0012B134 /* ANVerificationScriptResource.h in Headers */,
 				006F6BA02295FFCD003D2DF0 /* ANWebView.h in Headers */,
 				0ECF336322D79A62007DB185 /* AppNexusNativeSDK.h in Headers */,
@@ -1313,6 +1313,7 @@
 				609732D01E42E9860061EC0A /* ANUniversalAdFetcher.m in Sources */,
 				609732D31E42E9860061EC0A /* ANUniversalTagAdServerResponse.m in Sources */,
 				609732D61E42E9860061EC0A /* ANUniversalTagRequestBuilder.m in Sources */,
+				973B23AD238D1E4C00717D67 /* ANUSPrivacySettings.m in Sources */,
 				97EC51EF2229782B00B740DF /* ANVerificationScriptResource.m in Sources */,
 				609733091E42EAFF0061EC0A /* ANVideoAdPlayer.m in Sources */,
 				609732D91E42E9860061EC0A /* ANVideoAdProcessor.m in Sources */,
@@ -1324,7 +1325,6 @@
 				8A9AEDEA1A1BF99D00C58BDA /* NSTimer+ANCategory.m in Sources */,
 				8A9AEDEB1A1BF99D00C58BDA /* UIView+ANCategory.m in Sources */,
 				8A9AEE0F1A1BF99D00C58BDA /* UIView+ANNativeAdCategory.m in Sources */,
-				973B23AD238D1E4C00717D67 /* ANUSPrivacySettings.m in Sources */,
 				602E0E261FE467EE002C0F1C /* WKWebView+ANCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1361,13 +1361,13 @@
 				F5731B6E228C8E4A0012B134 /* ANSDKSettings.m in Sources */,
 				F5731B66228C8E200012B134 /* ANSSMStandardAd.m in Sources */,
 				F5731B68228C8E260012B134 /* ANSSMVideoAd.m in Sources */,
-				973B23AE238D1E4C00717D67 /* ANUSPrivacySettings.m in Sources */,
 				F5731B6A228C8E2D0012B134 /* ANStandardAd.m in Sources */,
 				F5731B70228C8F820012B134 /* ANTargetingParameters.m in Sources */,
 				F5731B7F228C94AB0012B134 /* ANTrackerInfo.m in Sources */,
 				F5731B7E228C94990012B134 /* ANTrackerManager.m in Sources */,
 				F5731B5A228C8DE90012B134 /* ANUniversalTagAdServerResponse.m in Sources */,
 				F5731B5C228C8DEF0012B134 /* ANUniversalTagRequestBuilder.m in Sources */,
+				973B23AE238D1E4C00717D67 /* ANUSPrivacySettings.m in Sources */,
 				F5731B4E228C8D170012B134 /* ANVerificationScriptResource.m in Sources */,
 				006F6BA12295FFD0003D2DF0 /* ANWebView.m in Sources */,
 				F52F82EC2293362900F4578C /* NSObject+ANCategory.m in Sources */,
