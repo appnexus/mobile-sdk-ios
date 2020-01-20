@@ -45,7 +45,7 @@
 @implementation ANNativeMediatedAdController
 
 + (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
-                   withFetcher: (ANAdFetcherBase *)adFetcher
+                   withFetcher: (ANNativeAdFetcher *)adFetcher
              adRequestDelegate: (id<ANNativeAdFetcherDelegate>)adRequestDelegate
 {
     ANNativeMediatedAdController *controller = [[ANNativeMediatedAdController alloc] initMediatedAd: mediatedAd
@@ -60,15 +60,12 @@
 }
 
 - (instancetype)initMediatedAd: (ANMediatedAd *)mediatedAd
-                   withFetcher: (ANAdFetcherBase *)adFetcher
+                   withFetcher: (ANNativeAdFetcher *)adFetcher
              adRequestDelegate: (id<ANNativeAdFetcherDelegate>)adRequestDelegate
 {
-    if (![adFetcher isKindOfClass:[ANNativeAdFetcher class]]) {
-        return nil;
-    }
     self = [super init];
     if (self) {
-        _adFetcher = (ANNativeAdFetcher *)adFetcher;
+        _adFetcher = adFetcher;
         _adRequestDelegate = adRequestDelegate;
         _mediatedAd = mediatedAd;
     }
